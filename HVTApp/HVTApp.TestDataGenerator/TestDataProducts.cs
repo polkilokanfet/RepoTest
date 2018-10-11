@@ -603,6 +603,8 @@ namespace HVTApp.TestDataGenerator
 
         #endregion
 
+        #region БВПТ
+
         #region Тип БВПТ
 
         public Parameter ParameterBvptVab;
@@ -648,6 +650,8 @@ namespace HVTApp.TestDataGenerator
         public Parameter ParameterBvptVoltage3000;
         public Parameter ParameterBvptVoltage3300;
 
+        #endregion       
+
         #endregion
 
         #endregion
@@ -687,10 +691,10 @@ namespace HVTApp.TestDataGenerator
 
             #region Тип основного оборудования
 
-            ParameterBreaker.Clone(new Parameter { ParameterGroup = ParameterGroupEqType, Value = "Выключатель" });
-            ParameterTransformer.Clone(new Parameter { ParameterGroup = ParameterGroupEqType, Value = "Трансформатор" });
-            ParameterDisconnector.Clone(new Parameter { ParameterGroup = ParameterGroupEqType, Value = "Разъединитель" });
-            ParameterEarthingSwitch.Clone(new Parameter { ParameterGroup = ParameterGroupEqType, Value = "Заземлитель" });
+            ParameterBreaker.Clone(new Parameter { ParameterGroup = ParameterGroupEqType, Value = "Выключатель", Rang = 10});
+            ParameterTransformer.Clone(new Parameter { ParameterGroup = ParameterGroupEqType, Value = "Трансформатор", Rang = 9});
+            ParameterDisconnector.Clone(new Parameter { ParameterGroup = ParameterGroupEqType, Value = "Разъединитель", Rang = 8});
+            ParameterEarthingSwitch.Clone(new Parameter { ParameterGroup = ParameterGroupEqType, Value = "Заземлитель", Rang = 7});
 
             ParameterBreaker
                 .AddRequiredPreviousParameters(ParameterMainEquipment);
@@ -923,10 +927,12 @@ namespace HVTApp.TestDataGenerator
                 .AddRequiredPreviousParameters(ParameterDisconnector, ParameterCurrent1250);
 
             ParameterIterm40kA
+                .AddRequiredPreviousParameters(ParameterEarthingSwitch)
                 .AddRequiredPreviousParameters(ParameterDisconnector, ParameterCurrent1600)
                 .AddRequiredPreviousParameters(ParameterDisconnector, ParameterCurrent2500);
 
             ParameterIterm50kA
+                .AddRequiredPreviousParameters(ParameterEarthingSwitch)
                 .AddRequiredPreviousParameters(ParameterDisconnector, ParameterCurrent1600)
                 .AddRequiredPreviousParameters(ParameterDisconnector, ParameterCurrent2500);
 
@@ -1717,122 +1723,6 @@ namespace HVTApp.TestDataGenerator
 
             #endregion
 
-
-        }
-
-        #endregion
-
-        #region ProductType
-
-        public ProductType ProductTypeDeadTankBreaker;
-        public ProductType ProductTypeLiveTankBreaker;
-        public ProductType ProductTypeCurrentTransformer;
-        public ProductType ProductTypeVoltageTransformer;
-        public ProductType ProductTypeDisconnector;
-
-        private void GenerateProductTypes()
-        {
-            ProductTypeDeadTankBreaker.Clone(new ProductType { Name = "Выключатель баковый" });
-            ProductTypeLiveTankBreaker.Clone(new ProductType { Name = "Выключатель колонковый" });
-            ProductTypeCurrentTransformer.Clone(new ProductType { Name = "Трансформатор тока" });
-            ProductTypeVoltageTransformer.Clone(new ProductType { Name = "Трансформатор напряжения" });
-            ProductTypeDisconnector.Clone(new ProductType { Name = "Разъединитель" });
-        }
-
-        public ProductTypeDesignation ProductTypeDesignationDeadTankBreaker;
-        public ProductTypeDesignation ProductTypeDesignationLiveTankBreaker;
-        public ProductTypeDesignation ProductTypeDesignationCurrentTransformer;
-        public ProductTypeDesignation ProductTypeDesignationVoltageTransformer;
-        public ProductTypeDesignation ProductTypeDesignationDisconnector;
-
-        private void GenerateProductTypeDesignations()
-        {
-            ProductTypeDesignationDeadTankBreaker.Clone(new ProductTypeDesignation { ProductType = ProductTypeDeadTankBreaker, Parameters = new List<Parameter> { ParameterBreaker, ParameterBreakerDeadTank } });
-            ProductTypeDesignationLiveTankBreaker.Clone(new ProductTypeDesignation { ProductType = ProductTypeLiveTankBreaker, Parameters = new List<Parameter> { ParameterBreaker, ParameterBreakerLiveTank } });
-            ProductTypeDesignationCurrentTransformer.Clone(new ProductTypeDesignation { ProductType = ProductTypeCurrentTransformer, Parameters = new List<Parameter> { ParameterTransformer, ParameterTransformerCurrent } });
-            ProductTypeDesignationVoltageTransformer.Clone(new ProductTypeDesignation { ProductType = ProductTypeVoltageTransformer, Parameters = new List<Parameter> { ParameterTransformer, ParameterTransformerVoltage } });
-            ProductTypeDesignationDisconnector.Clone(new ProductTypeDesignation { ProductType = ProductTypeDisconnector, Parameters = new List<Parameter> { ParameterDisconnector } });
-        }
-
-        #endregion
-
-        #region ProductDesignation
-
-        public ProductDesignation ProductDesignationVgb35;
-        public ProductDesignation ProductDesignationVgt35;
-        public ProductDesignation ProductDesignationVgt110;
-        public ProductDesignation ProductDesignationVgt2201A1;
-
-        public ProductDesignation ProductDesignationVeb110;
-        public ProductDesignation ProductDesignationVeb110II;
-        public ProductDesignation ProductDesignationVeb110III;
-        public ProductDesignation ProductDesignationVeb110IV;
-        public ProductDesignation ProductDesignationZng110;
-        public ProductDesignation ProductDesignationVeb220;
-        public ProductDesignation ProductDesignationZng220;
-        public ProductDesignation ProductDesignationTvg35;
-        public ProductDesignation ProductDesignationTvg110;
-        public ProductDesignation ProductDesignationTvg220;
-        public ProductDesignation ProductDesignationTrg110;
-        public ProductDesignation ProductDesignationTrg220;
-        public ProductDesignation ProductDesignationPem;
-        public ProductDesignation ProductDesignationPprK;
-        public ProductDesignation ProductDesignationPpv;
-        public ProductDesignation ProductDesignationTransfBlockVgb35;
-        public ProductDesignation ProductDesignationTransfBlockVeb110;
-        public ProductDesignation ProductDesignationTransfBlockVeb220;
-        public ProductDesignation ProductDesignationZip1;
-        public ProductDesignation ProductDesignationZip2;
-
-        public ProductDesignation ProductDesignationRpd110;
-        public ProductDesignation ProductDesignationRpd220;
-        public ProductDesignation ProductDesignationRpdo110;
-        public ProductDesignation ProductDesignationRpdo220;
-
-        public ProductDesignation ProductDesignationDriveDisconnector;
-
-        private void GenerateProductDesignations()
-        {
-            ProductDesignationVgb35.Clone(new ProductDesignation { Designation = "ВГБ-УЭТМ-35", Parameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage35kV } });
-            ProductDesignationVgt35.Clone(new ProductDesignation { Designation = "ВГТ-УЭТМ-35", Parameters = new List<Parameter> { ParameterBreakerLiveTank, ParameterVoltage35kV } });
-            ProductDesignationVgt110.Clone(new ProductDesignation { Designation = "ВГТ-УЭТМ-110", Parameters = new List<Parameter> { ParameterBreakerLiveTank, ParameterVoltage110kV } });
-
-            ProductDesignationVgt2201A1.Clone(new ProductDesignation { Designation = "ВГТ-УЭТМ-1А1-220", Parameters = new List<Parameter> { ParameterBreakerLiveTank, ParameterVoltage220kV, ParameterBreakerLiveTankBreaks1Razriv } });
-
-            ProductDesignationVeb110.Clone(new ProductDesignation { Designation = "ВЭБ-УЭТМ-110", Parameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage110kV } });
-            ProductDesignationVeb110II.Clone(new ProductDesignation { Designation = "ВЭБ-УЭТМ-110II*", Parameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage110kV, ParameterDpu2 } });
-            ProductDesignationVeb110III.Clone(new ProductDesignation { Designation = "ВЭБ-УЭТМ-110III", Parameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage110kV, ParameterDpu3 } });
-            ProductDesignationVeb110IV.Clone(new ProductDesignation { Designation = "ВЭБ-УЭТМ-110IV", Parameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage110kV, ParameterDpu4 } });
-
-            ProductDesignationVeb220.Clone(new ProductDesignation { Designation = "ВЭБ-УЭТМ-220", Parameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage220kV } });
-
-            ProductDesignationZng110.Clone(new ProductDesignation { Designation = "ЗНГ-УЭТМ-110", Parameters = new List<Parameter> { ParameterTransformerVoltage, ParameterVoltage110kV } });
-            ProductDesignationZng220.Clone(new ProductDesignation { Designation = "ЗНГ-УЭТМ-220", Parameters = new List<Parameter> { ParameterTransformerVoltage, ParameterVoltage220kV } });
-
-            ProductDesignationTvg35.Clone(new ProductDesignation { Designation = "ТВГ-УЭТМ-35", Parameters = new List<Parameter> { ParameterTransformerCurrent, ParameterTransformerBuiltIn, ParameterVoltage35kV } });
-            ProductDesignationTvg110.Clone(new ProductDesignation { Designation = "ТВГ-УЭТМ-110", Parameters = new List<Parameter> { ParameterTransformerCurrent, ParameterTransformerBuiltIn, ParameterVoltage110kV } });
-            ProductDesignationTvg220.Clone(new ProductDesignation { Designation = "ТВГ-УЭТМ-220", Parameters = new List<Parameter> { ParameterTransformerCurrent, ParameterTransformerBuiltIn, ParameterVoltage220kV } });
-
-            ProductDesignationTrg110.Clone(new ProductDesignation { Designation = "ТРГ-УЭТМ-110", Parameters = new List<Parameter> { ParameterTransformerCurrent, ParameterTransformerBuiltOut, ParameterVoltage110kV } });
-            ProductDesignationTrg220.Clone(new ProductDesignation { Designation = "ТРГ-УЭТМ-220", Parameters = new List<Parameter> { ParameterTransformerCurrent, ParameterTransformerBuiltOut, ParameterVoltage220kV } });
-
-            ProductDesignationPem.Clone(new ProductDesignation { Designation = "ПЭМ", Parameters = new List<Parameter> { ParameterDrivePem } });
-            ProductDesignationPprK.Clone(new ProductDesignation { Designation = "ППрК", Parameters = new List<Parameter> { ParameterDrivePPrK } });
-            ProductDesignationPpv.Clone(new ProductDesignation { Designation = "ППВ", Parameters = new List<Parameter> { ParameterDrivePPV } });
-
-            ProductDesignationTransfBlockVgb35.Clone(new ProductDesignation { Designation = "Комплект трансформаторов тока для ВГБ-35 (3 фазы)", Parameters = new List<Parameter> { ParameterTransformersBlockTargetVgb35 } });
-            ProductDesignationTransfBlockVeb110.Clone(new ProductDesignation { Designation = "Комплект трансформаторов тока для ВЭБ-110 (3 фазы)", Parameters = new List<Parameter> { ParameterTransformersBlockTargetVeb110 } });
-            ProductDesignationTransfBlockVeb220.Clone(new ProductDesignation { Designation = "Комплект трансформаторов тока для ВЭБ-220 (3 фазы)", Parameters = new List<Parameter> { ParameterTransformersBlockTargetVeb220 } });
-
-            ProductDesignationZip1.Clone(new ProductDesignation { Designation = "ЗИП №1", Parameters = new List<Parameter> { ParameterZip1 } });
-            ProductDesignationZip2.Clone(new ProductDesignation { Designation = "ЗИП №2", Parameters = new List<Parameter> { ParameterZip2 } });
-
-            ProductDesignationRpd110.Clone(new ProductDesignation { Designation = "РПД-УЭТМ-110", Parameters = new List<Parameter> { ParameterDisconnector, ParameterVoltage110kV } });
-            ProductDesignationRpd220.Clone(new ProductDesignation { Designation = "РПД-УЭТМ-220", Parameters = new List<Parameter> { ParameterDisconnector, ParameterVoltage220kV } });
-            ProductDesignationRpdo110.Clone(new ProductDesignation { Designation = "РПДО-УЭТМ-110", Parameters = new List<Parameter> { ParameterDisconnector, ParameterVoltage110kV, ParameterDisconnectorIspolnenie1Pol } });
-            ProductDesignationRpdo220.Clone(new ProductDesignation { Designation = "РПДО-УЭТМ-220", Parameters = new List<Parameter> { ParameterDisconnector, ParameterVoltage220kV, ParameterDisconnectorIspolnenie1Pol } });
-
-            ProductDesignationDriveDisconnector.Clone(new ProductDesignation { Designation = "Привод разъединителя/заземлителя", Parameters = new List<Parameter> { ParameterDriveDisconnector } });
         }
 
         #endregion
@@ -1851,6 +1741,8 @@ namespace HVTApp.TestDataGenerator
         public ProductRelation RequiredChildProductRelationDriveDisconnectorPal;
         public ProductRelation RequiredChildProductRelationDriveDisconnectorKul;
         public ProductRelation RequiredChildProductRelationDriveDisconnectorBoth;
+
+        public ProductRelation RequiredChildProductRelationDriveEarthingSwitch;
 
         public ProductRelation RequiredChildProductRelationDrivePpvVeb110;
         public ProductRelation RequiredChildProductRelationDrivePpv220;
@@ -2030,6 +1922,16 @@ namespace HVTApp.TestDataGenerator
             });
 
             #endregion
+
+            RequiredChildProductRelationDriveEarthingSwitch.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterEarthingSwitch},
+                ChildProductParameters = new List<Parameter> { ParameterDriveDisconnector, ParameterDriveDisconnectorTargetZazeml },
+                ChildProductsAmount = 1,
+                IsUnique = false
+            });
+
+
 
             #region Блоки трансформаторов тока
 
@@ -2523,6 +2425,150 @@ namespace HVTApp.TestDataGenerator
             
             #endregion
 
+        }
+
+        #endregion
+
+        #region ProductType
+
+        public ProductType ProductTypeDeadTankBreaker;
+        public ProductType ProductTypeLiveTankBreaker;
+        public ProductType ProductTypeCurrentTransformer;
+        public ProductType ProductTypeVoltageTransformer;
+        public ProductType ProductTypeDisconnector;
+        public ProductType ProductTypeEarthingSwitch;
+        public ProductType ProductTypeBvpt;
+
+        private void GenerateProductTypes()
+        {
+            ProductTypeDeadTankBreaker.Clone(new ProductType { Name = "Выключатель баковый" });
+            ProductTypeLiveTankBreaker.Clone(new ProductType { Name = "Выключатель колонковый" });
+            ProductTypeCurrentTransformer.Clone(new ProductType { Name = "Трансформатор тока" });
+            ProductTypeVoltageTransformer.Clone(new ProductType { Name = "Трансформатор напряжения" });
+            ProductTypeDisconnector.Clone(new ProductType { Name = "Разъединитель" });
+            ProductTypeEarthingSwitch.Clone(new ProductType { Name = "Заземлитель" });
+            ProductTypeBvpt.Clone(new ProductType { Name = "Выключатель постоянного тока" });
+        }
+
+        public ProductTypeDesignation ProductTypeDesignationDeadTankBreaker;
+        public ProductTypeDesignation ProductTypeDesignationLiveTankBreaker;
+        public ProductTypeDesignation ProductTypeDesignationCurrentTransformer;
+        public ProductTypeDesignation ProductTypeDesignationVoltageTransformer;
+        public ProductTypeDesignation ProductTypeDesignationDisconnector;
+        public ProductTypeDesignation ProductTypeDesignationEarthingSwitch;
+        public ProductTypeDesignation ProductTypeDesignationBvpt;
+
+        private void GenerateProductTypeDesignations()
+        {
+            ProductTypeDesignationDeadTankBreaker.Clone(new ProductTypeDesignation { ProductType = ProductTypeDeadTankBreaker, Parameters = new List<Parameter> { ParameterBreaker, ParameterBreakerDeadTank } });
+            ProductTypeDesignationLiveTankBreaker.Clone(new ProductTypeDesignation { ProductType = ProductTypeLiveTankBreaker, Parameters = new List<Parameter> { ParameterBreaker, ParameterBreakerLiveTank } });
+            ProductTypeDesignationCurrentTransformer.Clone(new ProductTypeDesignation { ProductType = ProductTypeCurrentTransformer, Parameters = new List<Parameter> { ParameterTransformer, ParameterTransformerCurrent } });
+            ProductTypeDesignationVoltageTransformer.Clone(new ProductTypeDesignation { ProductType = ProductTypeVoltageTransformer, Parameters = new List<Parameter> { ParameterTransformer, ParameterTransformerVoltage } });
+            ProductTypeDesignationDisconnector.Clone(new ProductTypeDesignation { ProductType = ProductTypeDisconnector, Parameters = new List<Parameter> { ParameterDisconnector } });
+            ProductTypeDesignationEarthingSwitch.Clone(new ProductTypeDesignation { ProductType = ProductTypeEarthingSwitch, Parameters = new List<Parameter> { ParameterEarthingSwitch } });
+            ProductTypeDesignationBvpt.Clone(new ProductTypeDesignation { ProductType = ProductTypeBvpt, Parameters = new List<Parameter> { ParameterBvpt } });
+        }
+
+        #endregion
+
+        #region ProductDesignation
+
+        public ProductDesignation ProductDesignationVgb35;
+
+        public ProductDesignation ProductDesignationVgt35;
+        public ProductDesignation ProductDesignationVgt110;
+        public ProductDesignation ProductDesignationVgt2201A1;
+
+        public ProductDesignation ProductDesignationVeb110;
+        public ProductDesignation ProductDesignationVeb110II;
+        public ProductDesignation ProductDesignationVeb110III;
+        public ProductDesignation ProductDesignationVeb110IV;
+
+        public ProductDesignation ProductDesignationVeb220;
+
+        public ProductDesignation ProductDesignationZng110;
+        public ProductDesignation ProductDesignationZng220;
+
+        public ProductDesignation ProductDesignationTvg35;
+        public ProductDesignation ProductDesignationTvg110;
+        public ProductDesignation ProductDesignationTvg220;
+
+        public ProductDesignation ProductDesignationTrg35;
+        public ProductDesignation ProductDesignationTrg110;
+        public ProductDesignation ProductDesignationTrg220;
+
+        public ProductDesignation ProductDesignationPem;
+        public ProductDesignation ProductDesignationPprK;
+        public ProductDesignation ProductDesignationPpv;
+        public ProductDesignation ProductDesignationDriveDisconnector;
+
+        public ProductDesignation ProductDesignationTransfBlockVgb35;
+        public ProductDesignation ProductDesignationTransfBlockVeb110;
+        public ProductDesignation ProductDesignationTransfBlockVeb220;
+
+        public ProductDesignation ProductDesignationZip1;
+        public ProductDesignation ProductDesignationZip2;
+
+        public ProductDesignation ProductDesignationRpd110;
+        public ProductDesignation ProductDesignationRpd220;
+        public ProductDesignation ProductDesignationRpdo110;
+        public ProductDesignation ProductDesignationRpdo220;
+
+        public ProductDesignation ProductDesignationZro110;
+        public ProductDesignation ProductDesignationZro220;
+
+        public ProductDesignation ProductDesignationVab;
+        public ProductDesignation ProductDesignationVat;
+
+
+        private void GenerateProductDesignations()
+        {
+            ProductDesignationVgb35.Clone(new ProductDesignation { Designation = "ВГБ-УЭТМ-35", Parameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage35kV } });
+            ProductDesignationVgt35.Clone(new ProductDesignation { Designation = "ВГТ-УЭТМ-35", Parameters = new List<Parameter> { ParameterBreakerLiveTank, ParameterVoltage35kV } });
+            ProductDesignationVgt110.Clone(new ProductDesignation { Designation = "ВГТ-УЭТМ-110", Parameters = new List<Parameter> { ParameterBreakerLiveTank, ParameterVoltage110kV } });
+
+            ProductDesignationVgt2201A1.Clone(new ProductDesignation { Designation = "ВГТ-УЭТМ-1А1-220", Parameters = new List<Parameter> { ParameterBreakerLiveTank, ParameterVoltage220kV, ParameterBreakerLiveTankBreaks1Razriv } });
+
+            ProductDesignationVeb110.Clone(new ProductDesignation { Designation = "ВЭБ-УЭТМ-110", Parameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage110kV } });
+            ProductDesignationVeb110II.Clone(new ProductDesignation { Designation = "ВЭБ-УЭТМ-110II*", Parameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage110kV, ParameterDpu2 } });
+            ProductDesignationVeb110III.Clone(new ProductDesignation { Designation = "ВЭБ-УЭТМ-110III", Parameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage110kV, ParameterDpu3 } });
+            ProductDesignationVeb110IV.Clone(new ProductDesignation { Designation = "ВЭБ-УЭТМ-110IV", Parameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage110kV, ParameterDpu4 } });
+
+            ProductDesignationVeb220.Clone(new ProductDesignation { Designation = "ВЭБ-УЭТМ-220", Parameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage220kV } });
+
+            ProductDesignationZng110.Clone(new ProductDesignation { Designation = "ЗНГ-УЭТМ-110", Parameters = new List<Parameter> { ParameterTransformerVoltage, ParameterVoltage110kV } });
+            ProductDesignationZng220.Clone(new ProductDesignation { Designation = "ЗНГ-УЭТМ-220", Parameters = new List<Parameter> { ParameterTransformerVoltage, ParameterVoltage220kV } });
+
+            ProductDesignationTvg35.Clone(new ProductDesignation { Designation = "ТВГ-УЭТМ-35", Parameters = new List<Parameter> { ParameterTransformerCurrent, ParameterTransformerBuiltIn, ParameterVoltage35kV } });
+            ProductDesignationTvg110.Clone(new ProductDesignation { Designation = "ТВГ-УЭТМ-110", Parameters = new List<Parameter> { ParameterTransformerCurrent, ParameterTransformerBuiltIn, ParameterVoltage110kV } });
+            ProductDesignationTvg220.Clone(new ProductDesignation { Designation = "ТВГ-УЭТМ-220", Parameters = new List<Parameter> { ParameterTransformerCurrent, ParameterTransformerBuiltIn, ParameterVoltage220kV } });
+
+            ProductDesignationTrg35.Clone(new ProductDesignation { Designation = "ТРГ-УЭТМ-35", Parameters = new List<Parameter> { ParameterTransformerCurrent, ParameterTransformerBuiltOut, ParameterVoltage35kV } });
+            ProductDesignationTrg110.Clone(new ProductDesignation { Designation = "ТРГ-УЭТМ-110", Parameters = new List<Parameter> { ParameterTransformerCurrent, ParameterTransformerBuiltOut, ParameterVoltage110kV } });
+            ProductDesignationTrg220.Clone(new ProductDesignation { Designation = "ТРГ-УЭТМ-220", Parameters = new List<Parameter> { ParameterTransformerCurrent, ParameterTransformerBuiltOut, ParameterVoltage220kV } });
+
+            ProductDesignationPem.Clone(new ProductDesignation { Designation = "ПЭМ", Parameters = new List<Parameter> { ParameterDrivePem } });
+            ProductDesignationPprK.Clone(new ProductDesignation { Designation = "ППрК", Parameters = new List<Parameter> { ParameterDrivePPrK } });
+            ProductDesignationPpv.Clone(new ProductDesignation { Designation = "ППВ", Parameters = new List<Parameter> { ParameterDrivePPV } });
+            ProductDesignationDriveDisconnector.Clone(new ProductDesignation { Designation = "Привод разъединителя/заземлителя", Parameters = new List<Parameter> { ParameterDriveDisconnector } });
+
+            ProductDesignationTransfBlockVgb35.Clone(new ProductDesignation { Designation = "Комплект трансформаторов тока для ВГБ-35 (3 фазы)", Parameters = new List<Parameter> { ParameterTransformersBlockTargetVgb35 } });
+            ProductDesignationTransfBlockVeb110.Clone(new ProductDesignation { Designation = "Комплект трансформаторов тока для ВЭБ-110 (3 фазы)", Parameters = new List<Parameter> { ParameterTransformersBlockTargetVeb110 } });
+            ProductDesignationTransfBlockVeb220.Clone(new ProductDesignation { Designation = "Комплект трансформаторов тока для ВЭБ-220 (3 фазы)", Parameters = new List<Parameter> { ParameterTransformersBlockTargetVeb220 } });
+
+            ProductDesignationZip1.Clone(new ProductDesignation { Designation = "ЗИП №1", Parameters = new List<Parameter> { ParameterZip1 } });
+            ProductDesignationZip2.Clone(new ProductDesignation { Designation = "ЗИП №2", Parameters = new List<Parameter> { ParameterZip2 } });
+
+            ProductDesignationRpd110.Clone(new ProductDesignation { Designation = "РПД-УЭТМ-110", Parameters = new List<Parameter> { ParameterDisconnector, ParameterVoltage110kV } });
+            ProductDesignationRpd220.Clone(new ProductDesignation { Designation = "РПД-УЭТМ-220", Parameters = new List<Parameter> { ParameterDisconnector, ParameterVoltage220kV } });
+            ProductDesignationRpdo110.Clone(new ProductDesignation { Designation = "РПДО-УЭТМ-110", Parameters = new List<Parameter> { ParameterDisconnector, ParameterVoltage110kV, ParameterDisconnectorIspolnenie1Pol } });
+            ProductDesignationRpdo220.Clone(new ProductDesignation { Designation = "РПДО-УЭТМ-220", Parameters = new List<Parameter> { ParameterDisconnector, ParameterVoltage220kV, ParameterDisconnectorIspolnenie1Pol } });
+
+            ProductDesignationZro110.Clone(new ProductDesignation { Designation = "ЗРО-УЭТМ-110", Parameters = new List<Parameter> { ParameterEarthingSwitch, ParameterVoltage110kV } });
+            ProductDesignationZro220.Clone(new ProductDesignation { Designation = "ЗРО-УЭТМ-220", Parameters = new List<Parameter> { ParameterEarthingSwitch, ParameterVoltage220kV } });
+
+            ProductDesignationVab.Clone(new ProductDesignation { Designation = "ВАБ", Parameters = new List<Parameter> { ParameterBvptVab } });
+            ProductDesignationVat.Clone(new ProductDesignation { Designation = "ВАТ", Parameters = new List<Parameter> { ParameterBvptVat } });
         }
 
         #endregion
