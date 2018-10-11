@@ -54,6 +54,7 @@
     <Compile Include="Events\AfterSelectEntityEvents.g.cs" />
     <Compile Include="Events\PubSubEventArgs.cs" />
     <Compile Include="GeneratorHelpers.cs" />
+    <Compile Include="POCOs\ActivityFieldEnum.cs" />
     <Compile Include="POCOs\CreateNewProductTask.cs" />
     <Compile Include="Comparers\ParameterComparer.cs" />
     <Compile Include="POCOs\DocumentNumber.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="POCOs\PaymentType.cs" />
     <Compile Include="POCOs\ProductBlockIsService.cs" />
     <Compile Include="Comparers\ProductDependentComparer.cs" />
+    <Compile Include="POCOs\ProductBlockServiceType.cs" />
     <Compile Include="POCOs\ProductIncluded.cs" />
     <Compile Include="POCOs\ProductDesignation.cs" />
     <Compile Include="POCOs\ProductType.cs" />

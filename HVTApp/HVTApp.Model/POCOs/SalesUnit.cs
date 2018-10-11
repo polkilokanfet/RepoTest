@@ -10,14 +10,12 @@ using HVTApp.Infrastructure.Extansions;
 namespace HVTApp.Model.POCOs
 {
     [Designation("Единица продаж")]
-    [DesignationPlural("Единицы продаж")]
     public partial class SalesUnit : BaseEntity, IUnitPoco, ICloneable
     {
         #region Model
 
         [Designation("Стоимость"), Required, OrderStatus(45)]
         public double Cost { get; set; }
-
 
         [Designation("Себестоимость"), OrderStatus(46)]
         public double? Price { get; set; }

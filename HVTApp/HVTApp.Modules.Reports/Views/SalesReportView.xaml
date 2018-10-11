@@ -28,16 +28,20 @@
         <infg:XamDataGrid x:Name="SalesUnitLookupListGrid" 
                           Grid.Row="1"
                           DataSource="{Binding Units}"
-                          Style="{StaticResource ListViewGrid}" 
                           Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <!--Style="{StaticResource ListViewGrid}"-->
 
+            <infg:XamDataGrid.FieldLayoutSettings>
+                <infg:FieldLayoutSettings AutoGenerateFields="True"/>
+            </infg:XamDataGrid.FieldLayoutSettings>
+            
             <infg:XamDataGrid.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
                 </ContextMenu>
             </infg:XamDataGrid.ContextMenu>
 
-            <infg:XamDataGrid.FieldLayouts>
+            <!--<infg:XamDataGrid.FieldLayouts>
                 <infg:FieldLayout>
                     <infg:FieldLayout.Fields>
                         <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.Project}" Label="Проект" Width="Auto" />
@@ -91,7 +95,8 @@
                     </infg:FieldLayout.Fields>
                 </infg:FieldLayout>
 
-            </infg:XamDataGrid.FieldLayouts>
+            </infg:XamDataGrid.FieldLayouts>-->
+            
         </infg:XamDataGrid>
 
     </Grid>

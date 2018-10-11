@@ -21,14 +21,4 @@ namespace HVTApp.Model.POCOs
             return Name;
         }
     }
-
-    public enum ActivityFieldEnum
-    {
-        ElectricityGeneration,
-        ElectricityTransmission,
-        IndustrialEnterprise,
-        ProducerOfHighVoltageEquipment,
-        Builder,
-        Supplier
-    }
 }

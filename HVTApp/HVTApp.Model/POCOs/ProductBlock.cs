@@ -39,6 +39,10 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Услуга"), NotMapped]
         public bool IsService { get; set; } = false;
+        [Designation("Шеф-монтаж"), NotMapped]
+        public bool IsSupervision { get; set; } = false;
+        [Designation("Доставка"), NotMapped]
+        public bool IsDelivery { get; set; } = false;
 
         [Designation("Вес")]
         public double Weight { get; set; }

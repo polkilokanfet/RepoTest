@@ -43,7 +43,10 @@ namespace HVTApp.Modules.Reports.ViewModels
                 ? UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.ForReport && x.Project.Manager.Id == CommonOptions.User.Id) 
                 : UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.ForReport);
 
-            Units.AddRange(salesUnits.OrderBy(x => x.OrderInTakeDate).Select(x => new SalesReportUnit(x)));
+            var tenders = UnitOfWork.Repository<Tender>().Find(x => true);
+
+            Units.AddRange(salesUnits.OrderBy(x => x.OrderInTakeDate)
+                                     .Select(x => new SalesReportUnit(x, tenders.Where(t => Equals(x.Project, t.Project)))));
             IsLoaded = true;
         }
     }

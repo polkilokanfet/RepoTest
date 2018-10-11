@@ -154,7 +154,7 @@ namespace HVTApp.TestDataGenerator
 
         #region Тип услуги
 
-        public Parameter ParameterSheffMontag;
+        public Parameter ParameterSupervision;
         public Parameter ParameterDelivery;
 
         #endregion
@@ -671,10 +671,10 @@ namespace HVTApp.TestDataGenerator
 
             #region Тип услуги
 
-            ParameterSheffMontag.Clone(new Parameter { ParameterGroup = ParameterGroupServiceType, Value = "Шеф-монтаж" });
+            ParameterSupervision.Clone(new Parameter { ParameterGroup = ParameterGroupServiceType, Value = "Шеф-монтаж" });
             ParameterDelivery.Clone(new Parameter { ParameterGroup = ParameterGroupServiceType, Value = "Доставка" });
 
-            ParameterSheffMontag.AddRequiredPreviousParameters(ParameterService);
+            ParameterSupervision.AddRequiredPreviousParameters(ParameterService);
             ParameterDelivery.AddRequiredPreviousParameters(ParameterService);
 
             #endregion
@@ -2634,7 +2634,7 @@ namespace HVTApp.TestDataGenerator
             ProductBlockSheffMontag.Clone(new ProductBlock
             {
                 DesignationSpecial = "Шеф-монтаж",
-                Parameters = new List<Parameter> { ParameterService, ParameterSheffMontag },
+                Parameters = new List<Parameter> { ParameterService, ParameterSupervision },
                 Prices = new List<SumOnDate> { new SumOnDate { Sum = 60000, Date = DateTime.Today } },
                 FixedCosts = new List<SumOnDate> { new SumOnDate { Sum = 120000, Date = DateTime.Today } },
                 StructureCostNumber = "---"
@@ -2686,12 +2686,16 @@ namespace HVTApp.TestDataGenerator
 
         #region IsService
 
-        public ProductBlockIsService ProductBlockIsService;
+        public ProductBlockIsService ProductBlockIsServiceOther;
+        public ProductBlockIsService ProductBlockIsServiceDelivery;
+        public ProductBlockIsService ProductBlockIsServiceSupervision;
 
         private void GenerateProductBlockIsService()
         {
-            ProductBlockIsService.Clone(new ProductBlockIsService { Parameters = new List<Parameter>() { ParameterService } });
-        }       
+            ProductBlockIsServiceOther.Clone(new ProductBlockIsService { Parameters = new List<Parameter> { ParameterService }, Type = ProductBlockServiceType.Other });
+            ProductBlockIsServiceDelivery.Clone(new ProductBlockIsService { Parameters = new List<Parameter> { ParameterDelivery }, Type = ProductBlockServiceType.Delivery });
+            ProductBlockIsServiceSupervision.Clone(new ProductBlockIsService { Parameters = new List<Parameter> { ParameterSupervision }, Type = ProductBlockServiceType.Supervision });
+        }
 
         #endregion
 

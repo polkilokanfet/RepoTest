@@ -56,6 +56,12 @@ namespace HVTApp.TestDataGenerator
         public ActivityField ActivityFieldBuilder;
         public ActivityField ActivityFieldElectricityTransmission;
         public ActivityField ActivityFieldElectricityGeneration;
+        public ActivityField ActivityFieldElectricityDistribution;
+        public ActivityField ActivityFieldIndustrialEnterprise;
+        public ActivityField ActivityFieldRailWay;
+        public ActivityField ActivityFieldFuel;
+        public ActivityField ActivityFieldSupplier;
+
 
         public LocalityType LocalityTypeCity;
         public LocalityType LocalityVillage;
@@ -171,13 +177,18 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateActivityFields()
         {
-            ActivityFieldProducerOfHvt.Clone(new ActivityField { ActivityFieldEnum = ActivityFieldEnum.ProducerOfHighVoltageEquipment, Name = "Производитель ВВА" });
-            ActivityFieldBuilder.Clone(new ActivityField { ActivityFieldEnum = ActivityFieldEnum.Builder, Name = "Подрядчик" });
-            ActivityFieldElectricityTransmission.Clone(new ActivityField { ActivityFieldEnum = ActivityFieldEnum.ElectricityTransmission, Name = "Передача электроэнергии" });
             ActivityFieldElectricityGeneration.Clone(new ActivityField { ActivityFieldEnum = ActivityFieldEnum.ElectricityGeneration, Name = "Генерация электроэнергии" });
-        }
+            ActivityFieldProducerOfHvt.Clone(new ActivityField { ActivityFieldEnum = ActivityFieldEnum.ProducerOfHighVoltageEquipment, Name = "Производитель ВВА" });
+            ActivityFieldElectricityTransmission.Clone(new ActivityField { ActivityFieldEnum = ActivityFieldEnum.ElectricityTransmission, Name = "Передача электроэнергии" });
+            ActivityFieldBuilder.Clone(new ActivityField { ActivityFieldEnum = ActivityFieldEnum.Builder, Name = "Подрядчик" });
+            ActivityFieldElectricityDistribution.Clone(new ActivityField { ActivityFieldEnum = ActivityFieldEnum.ElectricityDistribution, Name = "Распределение электроэнергии" });
+            ActivityFieldIndustrialEnterprise.Clone(new ActivityField { ActivityFieldEnum = ActivityFieldEnum.IndustrialEnterprise, Name = "Промышленное предприятие" });
+            ActivityFieldRailWay.Clone(new ActivityField { ActivityFieldEnum = ActivityFieldEnum.RailWay, Name = "Железная дорога" });
+            ActivityFieldFuel.Clone(new ActivityField { ActivityFieldEnum = ActivityFieldEnum.Fuel, Name = "Топливно-энергетический сектор" });
+            ActivityFieldSupplier.Clone(new ActivityField { ActivityFieldEnum = ActivityFieldEnum.Supplier, Name = "Подрядная организация" });
+    }
 
-        private void GenerateLocalityTypes()
+    private void GenerateLocalityTypes()
         {
             LocalityTypeCity.Clone(new LocalityType { FullName = "Город", ShortName = "г." });
             LocalityVillage.Clone(new LocalityType { FullName = "Деревня", ShortName = "д." });

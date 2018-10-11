@@ -11,5 +11,7 @@ namespace HVTApp.Model.Services
         ProductType GetProductType(Product product);
 
         bool IsService(ProductBlock block);
+        bool IsSupervision(ProductBlock block);
+        bool IsDelivery(ProductBlock block);
     }
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
-using HVTApp.Services.ProductDesignationService;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.DataAccess
@@ -15,6 +14,8 @@ namespace HVTApp.DataAccess
             var designator = _container.Resolve<IProductDesignationService>();
             block.Designation = block.DesignationSpecial ?? designator.GetDesignation(block);
             block.IsService = designator.IsService(block);
+            block.IsSupervision = designator.IsSupervision(block);
+            block.IsDelivery = designator.IsDelivery(block);
             return block;
         }
 
