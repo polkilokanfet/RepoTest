@@ -408,8 +408,14 @@ namespace HVTApp.TestDataGenerator
 
         #region Количество ТТ в комплекте
 
+        public Parameter ParameterTransformersInBlockAmount0;
+        public Parameter ParameterTransformersInBlockAmount1;
+        public Parameter ParameterTransformersInBlockAmount2;
+        public Parameter ParameterTransformersInBlockAmount3;
         public Parameter ParameterTransformersInBlockAmount4;
+        public Parameter ParameterTransformersInBlockAmount5;
         public Parameter ParameterTransformersInBlockAmount6;
+        public Parameter ParameterTransformersInBlockAmount7;
         public Parameter ParameterTransformersInBlockAmount8;
 
         #endregion
@@ -583,7 +589,7 @@ namespace HVTApp.TestDataGenerator
         #region Продукт для встраивания
 
         public Parameter ParameterTransformerCurrentTargetProductBreaker;
-        public Parameter ParameterTransformerCurrentTargetProductTtansformer;
+        public Parameter ParameterTransformerCurrentTargetProductTransformer;
 
         #endregion
 
@@ -1138,14 +1144,38 @@ namespace HVTApp.TestDataGenerator
 
             #region Количество ТТ в комплекте
 
-            ParameterTransformersInBlockAmount4.Clone(new Parameter { ParameterGroup = ParameterGroupTransformersInBlockAmount, Value = "4" }); 
-            ParameterTransformersInBlockAmount6.Clone(new Parameter { ParameterGroup = ParameterGroupTransformersInBlockAmount, Value = "6" }); 
+            ParameterTransformersInBlockAmount0.Clone(new Parameter { ParameterGroup = ParameterGroupTransformersInBlockAmount, Value = "0" });
+            ParameterTransformersInBlockAmount1.Clone(new Parameter { ParameterGroup = ParameterGroupTransformersInBlockAmount, Value = "1" });
+            ParameterTransformersInBlockAmount2.Clone(new Parameter { ParameterGroup = ParameterGroupTransformersInBlockAmount, Value = "2" });
+            ParameterTransformersInBlockAmount3.Clone(new Parameter { ParameterGroup = ParameterGroupTransformersInBlockAmount, Value = "3" });
+            ParameterTransformersInBlockAmount4.Clone(new Parameter { ParameterGroup = ParameterGroupTransformersInBlockAmount, Value = "4" });
+            ParameterTransformersInBlockAmount5.Clone(new Parameter { ParameterGroup = ParameterGroupTransformersInBlockAmount, Value = "5" });
+            ParameterTransformersInBlockAmount6.Clone(new Parameter { ParameterGroup = ParameterGroupTransformersInBlockAmount, Value = "6" });
+            ParameterTransformersInBlockAmount7.Clone(new Parameter { ParameterGroup = ParameterGroupTransformersInBlockAmount, Value = "7" });
             ParameterTransformersInBlockAmount8.Clone(new Parameter { ParameterGroup = ParameterGroupTransformersInBlockAmount, Value = "8" });
-            
+
+            ParameterTransformersInBlockAmount0
+                .AddRequiredPreviousParameters(ParameterTransformersCurrentBlockTypeCustom);
+
+            ParameterTransformersInBlockAmount1
+                .AddRequiredPreviousParameters(ParameterTransformersCurrentBlockTypeCustom);
+
+            ParameterTransformersInBlockAmount2
+                .AddRequiredPreviousParameters(ParameterTransformersCurrentBlockTypeCustom);
+
+            ParameterTransformersInBlockAmount3
+                .AddRequiredPreviousParameters(ParameterTransformersCurrentBlockTypeCustom);
+
             ParameterTransformersInBlockAmount4
                 .AddRequiredPreviousParameters(ParameterTransformersCurrentBlockTypeCustom);
 
+            ParameterTransformersInBlockAmount5
+                .AddRequiredPreviousParameters(ParameterTransformersCurrentBlockTypeCustom);
+
             ParameterTransformersInBlockAmount6
+                .AddRequiredPreviousParameters(ParameterTransformersCurrentBlockTypeCustom);
+
+            ParameterTransformersInBlockAmount7
                 .AddRequiredPreviousParameters(ParameterTransformersCurrentBlockTypeCustom);
 
             ParameterTransformersInBlockAmount8
@@ -1496,10 +1526,10 @@ namespace HVTApp.TestDataGenerator
             #region Продукт для встраивания
 
             ParameterTransformerCurrentTargetProductBreaker.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerCurrentTargetProduct, Value = "Выключатель" });
-            ParameterTransformerCurrentTargetProductTtansformer.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerCurrentTargetProduct, Value = "Трансформатор" });
+            ParameterTransformerCurrentTargetProductTransformer.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerCurrentTargetProduct, Value = "Трансформатор" });
 
             ParameterTransformerCurrentTargetProductBreaker.AddRequiredPreviousParameters(ParameterTransformerBuiltIn);
-            ParameterTransformerCurrentTargetProductTtansformer.AddRequiredPreviousParameters(ParameterTransformerBuiltIn);
+            ParameterTransformerCurrentTargetProductTransformer.AddRequiredPreviousParameters(ParameterTransformerBuiltIn);
 
             #endregion
 
@@ -1649,17 +1679,65 @@ namespace HVTApp.TestDataGenerator
         public ProductRelation RequiredChildProductRelationTransfBlockForTrg110;
         public ProductRelation RequiredChildProductRelationTransfBlockForTrg220;
 
+
+
+        public ProductRelation RequiredChildProductRelationTvg110ForBlock1;
+        public ProductRelation RequiredChildProductRelationTvg220ForBlock1;
+        public ProductRelation RequiredChildProductRelationTvg35ForBlock1;
+        public ProductRelation RequiredChildProductRelationTrg35ForBlock1;
+        public ProductRelation RequiredChildProductRelationTrg110ForBlock1;
+        public ProductRelation RequiredChildProductRelationTrg220ForBlock1;
+
+        public ProductRelation RequiredChildProductRelationTvg110ForBlock2;
+        public ProductRelation RequiredChildProductRelationTvg220ForBlock2;
+        public ProductRelation RequiredChildProductRelationTvg35ForBlock2;
+        public ProductRelation RequiredChildProductRelationTrg35ForBlock2;
+        public ProductRelation RequiredChildProductRelationTrg110ForBlock2;
+        public ProductRelation RequiredChildProductRelationTrg220ForBlock2;
+
+        public ProductRelation RequiredChildProductRelationTvg110ForBlock3;
+        public ProductRelation RequiredChildProductRelationTvg220ForBlock3;
+        public ProductRelation RequiredChildProductRelationTvg35ForBlock3;
+        public ProductRelation RequiredChildProductRelationTrg35ForBlock3;
+        public ProductRelation RequiredChildProductRelationTrg110ForBlock3;
+        public ProductRelation RequiredChildProductRelationTrg220ForBlock3;
+
         public ProductRelation RequiredChildProductRelationTvg110ForBlock4;
         public ProductRelation RequiredChildProductRelationTvg220ForBlock4;
         public ProductRelation RequiredChildProductRelationTvg35ForBlock4;
+        public ProductRelation RequiredChildProductRelationTrg35ForBlock4;
+        public ProductRelation RequiredChildProductRelationTrg110ForBlock4;
+        public ProductRelation RequiredChildProductRelationTrg220ForBlock4;
+
+        public ProductRelation RequiredChildProductRelationTvg110ForBlock5;
+        public ProductRelation RequiredChildProductRelationTvg220ForBlock5;
+        public ProductRelation RequiredChildProductRelationTvg35ForBlock5;
+        public ProductRelation RequiredChildProductRelationTrg35ForBlock5;
+        public ProductRelation RequiredChildProductRelationTrg110ForBlock5;
+        public ProductRelation RequiredChildProductRelationTrg220ForBlock5;
 
         public ProductRelation RequiredChildProductRelationTvg110ForBlock6;
         public ProductRelation RequiredChildProductRelationTvg220ForBlock6;
         public ProductRelation RequiredChildProductRelationTvg35ForBlock6;
+        public ProductRelation RequiredChildProductRelationTrg35ForBlock6;
+        public ProductRelation RequiredChildProductRelationTrg110ForBlock6;
+        public ProductRelation RequiredChildProductRelationTrg220ForBlock6;
+
+        public ProductRelation RequiredChildProductRelationTvg110ForBlock7;
+        public ProductRelation RequiredChildProductRelationTvg220ForBlock7;
+        public ProductRelation RequiredChildProductRelationTvg35ForBlock7;
+        public ProductRelation RequiredChildProductRelationTrg35ForBlock7;
+        public ProductRelation RequiredChildProductRelationTrg110ForBlock7;
+        public ProductRelation RequiredChildProductRelationTrg220ForBlock7;
 
         public ProductRelation RequiredChildProductRelationTvg110ForBlock8;
         public ProductRelation RequiredChildProductRelationTvg220ForBlock8;
         public ProductRelation RequiredChildProductRelationTvg35ForBlock8;
+        public ProductRelation RequiredChildProductRelationTrg35ForBlock8;
+        public ProductRelation RequiredChildProductRelationTrg110ForBlock8;
+        public ProductRelation RequiredChildProductRelationTrg220ForBlock8;
+
+
 
         public ProductRelation RequiredChildProductRelationZng110Block;
         public ProductRelation RequiredChildProductRelationZng220Block;
@@ -1840,6 +1918,164 @@ namespace HVTApp.TestDataGenerator
 
             #endregion
 
+            #region Трансформаторы в блоке
+
+            #region 1 трансформатора в блоке
+
+            RequiredChildProductRelationTvg110ForBlock1.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterTransformersCurrentBlockTypeCustom, ParameterTransformersBlockTargetVeb110, ParameterTransformersInBlockAmount1 },
+                ChildProductParameters = new List<Parameter> { ParameterTransformerBuiltIn, ParameterVoltage110kV, ParameterTransformerCurrentTargetProductBreaker },
+                ChildProductsAmount = 1,
+                IsUnique = false
+            });
+
+            RequiredChildProductRelationTvg220ForBlock1.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterTransformersCurrentBlockTypeCustom, ParameterTransformersBlockTargetVeb220, ParameterTransformersInBlockAmount1 },
+                ChildProductParameters = new List<Parameter> { ParameterTransformerBuiltIn, ParameterVoltage220kV, ParameterTransformerCurrentTargetProductBreaker },
+                ChildProductsAmount = 1,
+                IsUnique = false
+            });
+
+            RequiredChildProductRelationTvg35ForBlock1.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterTransformersCurrentBlockTypeCustom, ParameterTransformersBlockTargetVgb35, ParameterTransformersInBlockAmount1 },
+                ChildProductParameters = new List<Parameter> { ParameterTransformerBuiltIn, ParameterVoltage35kV, ParameterTransformerCurrentTargetProductBreaker },
+                ChildProductsAmount = 1,
+                IsUnique = false
+            });
+
+            RequiredChildProductRelationTrg35ForBlock1.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterTransformersCurrentBlockTypeCustom, ParameterTransformersBlockTargetTrg35, ParameterTransformersInBlockAmount1 },
+                ChildProductParameters = new List<Parameter> { ParameterTransformerBuiltIn, ParameterVoltage35kV, ParameterTransformerCurrentTargetProductTransformer },
+                ChildProductsAmount = 1,
+                IsUnique = false
+            });
+
+            RequiredChildProductRelationTrg110ForBlock1.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterTransformersCurrentBlockTypeCustom, ParameterTransformersBlockTargetTrg110, ParameterTransformersInBlockAmount1 },
+                ChildProductParameters = new List<Parameter> { ParameterTransformerBuiltIn, ParameterVoltage110kV, ParameterTransformerCurrentTargetProductTransformer },
+                ChildProductsAmount = 1,
+                IsUnique = false
+            });
+
+            RequiredChildProductRelationTrg220ForBlock1.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterTransformersCurrentBlockTypeCustom, ParameterTransformersBlockTargetTrg220, ParameterTransformersInBlockAmount1 },
+                ChildProductParameters = new List<Parameter> { ParameterTransformerBuiltIn, ParameterVoltage220kV, ParameterTransformerCurrentTargetProductTransformer },
+                ChildProductsAmount = 1,
+                IsUnique = false
+            });
+
+            #endregion
+
+            #region 2 трансформатора в блоке
+
+            RequiredChildProductRelationTvg110ForBlock2.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterTransformersCurrentBlockTypeCustom, ParameterTransformersBlockTargetVeb110, ParameterTransformersInBlockAmount2 },
+                ChildProductParameters = new List<Parameter> { ParameterTransformerBuiltIn, ParameterVoltage110kV, ParameterTransformerCurrentTargetProductBreaker },
+                ChildProductsAmount = 2,
+                IsUnique = false
+            });
+
+            RequiredChildProductRelationTvg220ForBlock2.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterTransformersCurrentBlockTypeCustom, ParameterTransformersBlockTargetVeb220, ParameterTransformersInBlockAmount2 },
+                ChildProductParameters = new List<Parameter> { ParameterTransformerBuiltIn, ParameterVoltage220kV, ParameterTransformerCurrentTargetProductBreaker },
+                ChildProductsAmount = 2,
+                IsUnique = false
+            });
+
+            RequiredChildProductRelationTvg35ForBlock2.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterTransformersCurrentBlockTypeCustom, ParameterTransformersBlockTargetVgb35, ParameterTransformersInBlockAmount2 },
+                ChildProductParameters = new List<Parameter> { ParameterTransformerBuiltIn, ParameterVoltage35kV, ParameterTransformerCurrentTargetProductBreaker },
+                ChildProductsAmount = 2,
+                IsUnique = false
+            });
+
+            RequiredChildProductRelationTrg35ForBlock2.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterTransformersCurrentBlockTypeCustom, ParameterTransformersBlockTargetTrg35, ParameterTransformersInBlockAmount2 },
+                ChildProductParameters = new List<Parameter> { ParameterTransformerBuiltIn, ParameterVoltage35kV, ParameterTransformerCurrentTargetProductTransformer },
+                ChildProductsAmount = 2,
+                IsUnique = false
+            });
+
+            RequiredChildProductRelationTrg110ForBlock2.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterTransformersCurrentBlockTypeCustom, ParameterTransformersBlockTargetTrg110, ParameterTransformersInBlockAmount2 },
+                ChildProductParameters = new List<Parameter> { ParameterTransformerBuiltIn, ParameterVoltage110kV, ParameterTransformerCurrentTargetProductTransformer },
+                ChildProductsAmount = 2,
+                IsUnique = false
+            });
+
+            RequiredChildProductRelationTrg220ForBlock2.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterTransformersCurrentBlockTypeCustom, ParameterTransformersBlockTargetTrg220, ParameterTransformersInBlockAmount2 },
+                ChildProductParameters = new List<Parameter> { ParameterTransformerBuiltIn, ParameterVoltage220kV, ParameterTransformerCurrentTargetProductTransformer },
+                ChildProductsAmount = 2,
+                IsUnique = false
+            });
+
+            #endregion
+
+            #region 3 трансформатора в блоке
+
+            RequiredChildProductRelationTvg110ForBlock3.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterTransformersCurrentBlockTypeCustom, ParameterTransformersBlockTargetVeb110, ParameterTransformersInBlockAmount3 },
+                ChildProductParameters = new List<Parameter> { ParameterTransformerBuiltIn, ParameterVoltage110kV, ParameterTransformerCurrentTargetProductBreaker },
+                ChildProductsAmount = 3,
+                IsUnique = false
+            });
+
+            RequiredChildProductRelationTvg220ForBlock3.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterTransformersCurrentBlockTypeCustom, ParameterTransformersBlockTargetVeb220, ParameterTransformersInBlockAmount3 },
+                ChildProductParameters = new List<Parameter> { ParameterTransformerBuiltIn, ParameterVoltage220kV, ParameterTransformerCurrentTargetProductBreaker },
+                ChildProductsAmount = 3,
+                IsUnique = false
+            });
+
+            RequiredChildProductRelationTvg35ForBlock3.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterTransformersCurrentBlockTypeCustom, ParameterTransformersBlockTargetVgb35, ParameterTransformersInBlockAmount3 },
+                ChildProductParameters = new List<Parameter> { ParameterTransformerBuiltIn, ParameterVoltage35kV, ParameterTransformerCurrentTargetProductBreaker },
+                ChildProductsAmount = 3,
+                IsUnique = false
+            });
+
+            RequiredChildProductRelationTrg35ForBlock3.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterTransformersCurrentBlockTypeCustom, ParameterTransformersBlockTargetTrg35, ParameterTransformersInBlockAmount3 },
+                ChildProductParameters = new List<Parameter> { ParameterTransformerBuiltIn, ParameterVoltage35kV, ParameterTransformerCurrentTargetProductTransformer },
+                ChildProductsAmount = 3,
+                IsUnique = false
+            });
+
+            RequiredChildProductRelationTrg110ForBlock3.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterTransformersCurrentBlockTypeCustom, ParameterTransformersBlockTargetTrg110, ParameterTransformersInBlockAmount3 },
+                ChildProductParameters = new List<Parameter> { ParameterTransformerBuiltIn, ParameterVoltage110kV, ParameterTransformerCurrentTargetProductTransformer },
+                ChildProductsAmount = 3,
+                IsUnique = false
+            });
+
+            RequiredChildProductRelationTrg220ForBlock3.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterTransformersCurrentBlockTypeCustom, ParameterTransformersBlockTargetTrg220, ParameterTransformersInBlockAmount3 },
+                ChildProductParameters = new List<Parameter> { ParameterTransformerBuiltIn, ParameterVoltage220kV, ParameterTransformerCurrentTargetProductTransformer },
+                ChildProductsAmount = 3,
+                IsUnique = false
+            });
+
+            #endregion
+
             #region 4 трансформатора в блоке
 
             RequiredChildProductRelationTvg110ForBlock4.Clone(new ProductRelation
@@ -1863,6 +2099,82 @@ namespace HVTApp.TestDataGenerator
                 ParentProductParameters = new List<Parameter> { ParameterTransformersCurrentBlockTypeCustom, ParameterTransformersBlockTargetVgb35, ParameterTransformersInBlockAmount4 },
                 ChildProductParameters = new List<Parameter> { ParameterTransformerBuiltIn, ParameterVoltage35kV, ParameterTransformerCurrentTargetProductBreaker },
                 ChildProductsAmount = 4,
+                IsUnique = false
+            });
+
+            RequiredChildProductRelationTrg35ForBlock4.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterTransformersCurrentBlockTypeCustom, ParameterTransformersBlockTargetTrg35, ParameterTransformersInBlockAmount4 },
+                ChildProductParameters = new List<Parameter> { ParameterTransformerBuiltIn, ParameterVoltage35kV, ParameterTransformerCurrentTargetProductTransformer },
+                ChildProductsAmount = 4,
+                IsUnique = false
+            });
+
+            RequiredChildProductRelationTrg110ForBlock4.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterTransformersCurrentBlockTypeCustom, ParameterTransformersBlockTargetTrg110, ParameterTransformersInBlockAmount4 },
+                ChildProductParameters = new List<Parameter> { ParameterTransformerBuiltIn, ParameterVoltage110kV, ParameterTransformerCurrentTargetProductTransformer },
+                ChildProductsAmount = 4,
+                IsUnique = false
+            });
+
+            RequiredChildProductRelationTrg220ForBlock4.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterTransformersCurrentBlockTypeCustom, ParameterTransformersBlockTargetTrg220, ParameterTransformersInBlockAmount4 },
+                ChildProductParameters = new List<Parameter> { ParameterTransformerBuiltIn, ParameterVoltage220kV, ParameterTransformerCurrentTargetProductTransformer },
+                ChildProductsAmount = 4,
+                IsUnique = false
+            });
+
+            #endregion
+
+            #region 5 трансформатора в блоке
+
+            RequiredChildProductRelationTvg110ForBlock5.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterTransformersCurrentBlockTypeCustom, ParameterTransformersBlockTargetVeb110, ParameterTransformersInBlockAmount5 },
+                ChildProductParameters = new List<Parameter> { ParameterTransformerBuiltIn, ParameterVoltage110kV, ParameterTransformerCurrentTargetProductBreaker },
+                ChildProductsAmount = 5,
+                IsUnique = false
+            });
+
+            RequiredChildProductRelationTvg220ForBlock5.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterTransformersCurrentBlockTypeCustom, ParameterTransformersBlockTargetVeb220, ParameterTransformersInBlockAmount5 },
+                ChildProductParameters = new List<Parameter> { ParameterTransformerBuiltIn, ParameterVoltage220kV, ParameterTransformerCurrentTargetProductBreaker },
+                ChildProductsAmount = 5,
+                IsUnique = false
+            });
+
+            RequiredChildProductRelationTvg35ForBlock5.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterTransformersCurrentBlockTypeCustom, ParameterTransformersBlockTargetVgb35, ParameterTransformersInBlockAmount5 },
+                ChildProductParameters = new List<Parameter> { ParameterTransformerBuiltIn, ParameterVoltage35kV, ParameterTransformerCurrentTargetProductBreaker },
+                ChildProductsAmount = 5,
+                IsUnique = false
+            });
+
+            RequiredChildProductRelationTrg35ForBlock5.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterTransformersCurrentBlockTypeCustom, ParameterTransformersBlockTargetTrg35, ParameterTransformersInBlockAmount5 },
+                ChildProductParameters = new List<Parameter> { ParameterTransformerBuiltIn, ParameterVoltage35kV, ParameterTransformerCurrentTargetProductTransformer },
+                ChildProductsAmount = 5,
+                IsUnique = false
+            });
+
+            RequiredChildProductRelationTrg110ForBlock5.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterTransformersCurrentBlockTypeCustom, ParameterTransformersBlockTargetTrg110, ParameterTransformersInBlockAmount5 },
+                ChildProductParameters = new List<Parameter> { ParameterTransformerBuiltIn, ParameterVoltage110kV, ParameterTransformerCurrentTargetProductTransformer },
+                ChildProductsAmount = 5,
+                IsUnique = false
+            });
+
+            RequiredChildProductRelationTrg220ForBlock5.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterTransformersCurrentBlockTypeCustom, ParameterTransformersBlockTargetTrg220, ParameterTransformersInBlockAmount5 },
+                ChildProductParameters = new List<Parameter> { ParameterTransformerBuiltIn, ParameterVoltage220kV, ParameterTransformerCurrentTargetProductTransformer },
+                ChildProductsAmount = 5,
                 IsUnique = false
             });
 
@@ -1894,6 +2206,82 @@ namespace HVTApp.TestDataGenerator
                 IsUnique = false
             });
 
+            RequiredChildProductRelationTrg35ForBlock6.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterTransformersCurrentBlockTypeCustom, ParameterTransformersBlockTargetTrg35, ParameterTransformersInBlockAmount6 },
+                ChildProductParameters = new List<Parameter> { ParameterTransformerBuiltIn, ParameterVoltage35kV, ParameterTransformerCurrentTargetProductTransformer },
+                ChildProductsAmount = 6,
+                IsUnique = false
+            });
+
+            RequiredChildProductRelationTrg110ForBlock6.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterTransformersCurrentBlockTypeCustom, ParameterTransformersBlockTargetTrg110, ParameterTransformersInBlockAmount6 },
+                ChildProductParameters = new List<Parameter> { ParameterTransformerBuiltIn, ParameterVoltage110kV, ParameterTransformerCurrentTargetProductTransformer },
+                ChildProductsAmount = 6,
+                IsUnique = false
+            });
+
+            RequiredChildProductRelationTrg220ForBlock6.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterTransformersCurrentBlockTypeCustom, ParameterTransformersBlockTargetTrg220, ParameterTransformersInBlockAmount6 },
+                ChildProductParameters = new List<Parameter> { ParameterTransformerBuiltIn, ParameterVoltage220kV, ParameterTransformerCurrentTargetProductTransformer },
+                ChildProductsAmount = 6,
+                IsUnique = false
+            });
+
+            #endregion
+
+            #region 7 трансформатора в блоке
+
+            RequiredChildProductRelationTvg110ForBlock7.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterTransformersCurrentBlockTypeCustom, ParameterTransformersBlockTargetVeb110, ParameterTransformersInBlockAmount7 },
+                ChildProductParameters = new List<Parameter> { ParameterTransformerBuiltIn, ParameterVoltage110kV, ParameterTransformerCurrentTargetProductBreaker },
+                ChildProductsAmount = 7,
+                IsUnique = false
+            });
+
+            RequiredChildProductRelationTvg220ForBlock7.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterTransformersCurrentBlockTypeCustom, ParameterTransformersBlockTargetVeb220, ParameterTransformersInBlockAmount7 },
+                ChildProductParameters = new List<Parameter> { ParameterTransformerBuiltIn, ParameterVoltage220kV, ParameterTransformerCurrentTargetProductBreaker },
+                ChildProductsAmount = 7,
+                IsUnique = false
+            });
+
+            RequiredChildProductRelationTvg35ForBlock7.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterTransformersCurrentBlockTypeCustom, ParameterTransformersBlockTargetVgb35, ParameterTransformersInBlockAmount7 },
+                ChildProductParameters = new List<Parameter> { ParameterTransformerBuiltIn, ParameterVoltage35kV, ParameterTransformerCurrentTargetProductBreaker },
+                ChildProductsAmount = 7,
+                IsUnique = false
+            });
+
+            RequiredChildProductRelationTrg35ForBlock7.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterTransformersCurrentBlockTypeCustom, ParameterTransformersBlockTargetTrg35, ParameterTransformersInBlockAmount7 },
+                ChildProductParameters = new List<Parameter> { ParameterTransformerBuiltIn, ParameterVoltage35kV, ParameterTransformerCurrentTargetProductTransformer },
+                ChildProductsAmount = 7,
+                IsUnique = false
+            });
+
+            RequiredChildProductRelationTrg110ForBlock7.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterTransformersCurrentBlockTypeCustom, ParameterTransformersBlockTargetTrg110, ParameterTransformersInBlockAmount7 },
+                ChildProductParameters = new List<Parameter> { ParameterTransformerBuiltIn, ParameterVoltage110kV, ParameterTransformerCurrentTargetProductTransformer },
+                ChildProductsAmount = 7,
+                IsUnique = false
+            });
+
+            RequiredChildProductRelationTrg220ForBlock7.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterTransformersCurrentBlockTypeCustom, ParameterTransformersBlockTargetTrg220, ParameterTransformersInBlockAmount7 },
+                ChildProductParameters = new List<Parameter> { ParameterTransformerBuiltIn, ParameterVoltage220kV, ParameterTransformerCurrentTargetProductTransformer },
+                ChildProductsAmount = 7,
+                IsUnique = false
+            });
+
             #endregion
 
             #region 8 трансформатора в блоке
@@ -1921,6 +2309,33 @@ namespace HVTApp.TestDataGenerator
                 ChildProductsAmount = 8,
                 IsUnique = false
             });
+
+            RequiredChildProductRelationTrg35ForBlock8.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterTransformersCurrentBlockTypeCustom, ParameterTransformersBlockTargetTrg35, ParameterTransformersInBlockAmount8 },
+                ChildProductParameters = new List<Parameter> { ParameterTransformerBuiltIn, ParameterVoltage35kV, ParameterTransformerCurrentTargetProductTransformer },
+                ChildProductsAmount = 8,
+                IsUnique = false
+            });
+
+            RequiredChildProductRelationTrg110ForBlock8.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterTransformersCurrentBlockTypeCustom, ParameterTransformersBlockTargetTrg110, ParameterTransformersInBlockAmount8 },
+                ChildProductParameters = new List<Parameter> { ParameterTransformerBuiltIn, ParameterVoltage110kV, ParameterTransformerCurrentTargetProductTransformer },
+                ChildProductsAmount = 8,
+                IsUnique = false
+            });
+
+            RequiredChildProductRelationTrg220ForBlock8.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterTransformersCurrentBlockTypeCustom, ParameterTransformersBlockTargetTrg220, ParameterTransformersInBlockAmount8 },
+                ChildProductParameters = new List<Parameter> { ParameterTransformerBuiltIn, ParameterVoltage220kV, ParameterTransformerCurrentTargetProductTransformer },
+                ChildProductsAmount = 8,
+                IsUnique = false
+            });
+
+            #endregion
+            
 
             #endregion
 
