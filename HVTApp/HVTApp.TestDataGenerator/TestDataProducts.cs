@@ -1624,6 +1624,8 @@ namespace HVTApp.TestDataGenerator
 
         #region ProductRelations
 
+        #region Fields
+
         public ProductRelation RequiredChildProductRelationDrivePem;
 
         public ProductRelation RequiredChildProductRelationDrivePprKVgt35;
@@ -1662,8 +1664,12 @@ namespace HVTApp.TestDataGenerator
         public ProductRelation RequiredChildProductRelationZng110Block;
         public ProductRelation RequiredChildProductRelationZng220Block;
 
+        #endregion
+
         private void GenerateProductRelations()
         {
+            #region Приводы
+            
             RequiredChildProductRelationDrivePem.Clone(new ProductRelation
             {
                 ParentProductParameters = new List<Parameter> { ParameterBreaker, ParameterVoltage35kV, ParameterBreakerDeadTank },
@@ -1760,6 +1766,10 @@ namespace HVTApp.TestDataGenerator
                 IsUnique = false
             });
 
+            #endregion
+
+            #region Блоки трансформаторов тока
+
             RequiredChildProductRelationTransfBlockForVeb110.Clone(new ProductRelation
             {
                 ParentProductParameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage110kV, ParameterBreakerPhases3 },
@@ -1807,6 +1817,28 @@ namespace HVTApp.TestDataGenerator
                 ChildProductsAmount = 1,
                 IsUnique = false
             });
+
+            #endregion
+
+            #region Блоки трансформаторов напряжения
+
+            RequiredChildProductRelationZng110Block.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterTransformerVoltage, ParameterVoltage110kV },
+                ChildProductParameters = new List<Parameter> { ParameterPartTransformersVoltageBlock, ParameterTransformersBlockTargetZng110 },
+                ChildProductsAmount = 1,
+                IsUnique = false
+            });
+
+            RequiredChildProductRelationZng220Block.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterTransformerVoltage, ParameterVoltage220kV },
+                ChildProductParameters = new List<Parameter> { ParameterPartTransformersVoltageBlock, ParameterTransformersBlockTargetZng220 },
+                ChildProductsAmount = 1,
+                IsUnique = false
+            });
+
+            #endregion
 
             #region 4 трансформатора в блоке
 
@@ -1892,21 +1924,6 @@ namespace HVTApp.TestDataGenerator
 
             #endregion
 
-            RequiredChildProductRelationZng110Block.Clone(new ProductRelation
-            {
-                ParentProductParameters = new List<Parameter> { ParameterTransformerVoltage, ParameterVoltage110kV },
-                ChildProductParameters = new List<Parameter> { ParameterPartTransformersVoltageBlock, ParameterTransformersBlockTargetZng110 },
-                ChildProductsAmount = 1,
-                IsUnique = false
-            });
-
-            RequiredChildProductRelationZng220Block.Clone(new ProductRelation
-            {
-                ParentProductParameters = new List<Parameter> { ParameterTransformerVoltage, ParameterVoltage220kV },
-                ChildProductParameters = new List<Parameter> { ParameterPartTransformersVoltageBlock, ParameterTransformersBlockTargetZng220 },
-                ChildProductsAmount = 1,
-                IsUnique = false
-            });
         }
 
         #endregion
