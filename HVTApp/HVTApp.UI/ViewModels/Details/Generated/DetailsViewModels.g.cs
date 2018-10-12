@@ -988,6 +988,22 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
+		private Func<Task<List<SumOnDate>>> _getEntitiesForAddInFixedCostsCommand;
+		public ICommand AddInFixedCostsCommand { get; }
+		public ICommand RemoveFromFixedCostsCommand { get; }
+		private SumOnDateWrapper _selectedFixedCostsItem;
+		public SumOnDateWrapper SelectedFixedCostsItem 
+		{ 
+			get { return _selectedFixedCostsItem; }
+			set 
+			{ 
+				if (Equals(_selectedFixedCostsItem, value)) return;
+				_selectedFixedCostsItem = value;
+				OnPropertyChanged();
+				((DelegateCommand)RemoveFromFixedCostsCommand).RaiseCanExecuteChanged();
+			}
+		}
+
 
         public ProductBlockDetailsViewModel(IUnityContainer container) : base(container) 
 		{
@@ -1000,6 +1016,11 @@ namespace HVTApp.UI.ViewModels
 			if (_getEntitiesForAddInPricesCommand == null) _getEntitiesForAddInPricesCommand = async () => { return await UnitOfWork.Repository<SumOnDate>().GetAllAsync(); };;
 			if (AddInPricesCommand == null) AddInPricesCommand = new DelegateCommand(AddInPricesCommand_Execute_Default);
 			if (RemoveFromPricesCommand == null) RemoveFromPricesCommand = new DelegateCommand(RemoveFromPricesCommand_Execute_Default, RemoveFromPricesCommand_CanExecute_Default);
+
+			
+			if (_getEntitiesForAddInFixedCostsCommand == null) _getEntitiesForAddInFixedCostsCommand = async () => { return await UnitOfWork.Repository<SumOnDate>().GetAllAsync(); };;
+			if (AddInFixedCostsCommand == null) AddInFixedCostsCommand = new DelegateCommand(AddInFixedCostsCommand_Execute_Default);
+			if (RemoveFromFixedCostsCommand == null) RemoveFromFixedCostsCommand = new DelegateCommand(RemoveFromFixedCostsCommand_Execute_Default, RemoveFromFixedCostsCommand_CanExecute_Default);
 
 		}
 
@@ -1031,6 +1052,21 @@ namespace HVTApp.UI.ViewModels
 			private bool RemoveFromPricesCommand_CanExecute_Default()
 			{
 				return SelectedPricesItem != null;
+			}
+
+			private async void AddInFixedCostsCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<SumOnDate, SumOnDateWrapper>(await _getEntitiesForAddInFixedCostsCommand(), Item.FixedCosts);
+			}
+
+			private void RemoveFromFixedCostsCommand_Execute_Default()
+			{
+				Item.FixedCosts.Remove(SelectedFixedCostsItem);
+			}
+
+			private bool RemoveFromFixedCostsCommand_CanExecute_Default()
+			{
+				return SelectedFixedCostsItem != null;
 			}
 
 

@@ -25,7 +25,9 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         protected override List<OfferUnitsGroup> Grouping(IEnumerable<OfferUnit> units)
         {
-            return units.GroupBy(x => x, new OfferUnitsGroupsComparer()).OrderByDescending(x => x.Key.Cost).Select(x => new OfferUnitsGroup(x)).ToList();
+            return units.GroupBy(x => x, new OfferUnitsGroupsComparer())
+                        .OrderByDescending(x => x.Key.Cost)
+                        .Select(x => new OfferUnitsGroup(x)).ToList();
         }
 
         public void Load(IEnumerable<OfferUnit> units, OfferWrapper offerWrapper, IUnitOfWork unitOfWork, bool isNew)

@@ -10,6 +10,8 @@ namespace HVTApp.UI.Groups
     {
         TModel Model { get; }
         double Cost { get; }
+        double? CostDelivery { get; set; }
+        bool CostDeliveryIncluded { get; set; }
         double Price { set; }
         double FixedCost { set; }
         int ProductionTerm { get; }

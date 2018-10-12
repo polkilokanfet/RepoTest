@@ -85,6 +85,8 @@
                     <infg:DateTimeField Name="DeliveryDateExpected" Label="Требуемая дата поставки" Width="Auto" />
                     <infg:DateTimeField Name="DeliveryDateCalculated" Label="Расчетная дата доставки" Width="Auto" />
                     <infg:DateTimeField Name="DeliveryDate" Label="Дата поставки" Width="Auto" />
+                    <infg:CheckBoxField Name="CostDeliveryIncluded" Label="Стоимость доставки включена в основную стоимость" Width="Auto" />
+                    <infg:NumericField Name="CostDelivery" Label="Стоимость доставки" Width="Auto" />
                     <infg:NumericField Name="AssembleTerm" Label="Срок сборки" Width="Auto" />
                     <infg:CheckBoxField Name="AllowEditProduct" Label="Разрешение на редактирование техники" Width="Auto" />
                     <infg:CheckBoxField Name="AllowEditCost" Label="Разрешение на редактирование стоимости" Width="Auto" />

@@ -52,12 +52,55 @@ namespace HVTApp.UI.Groups
             get { return Total / Amount; }
             set
             {
-                if (value < FixedCost) return;
+                if (value < CostMin) return;
                 SetValue(value);
                 OnPropertyChanged(nameof(MarginalIncome));
                 OnPropertyChanged(nameof(Total));
             }
         }
+
+        public double? CostDelivery
+        {
+            get { return GetValue<double?>(); }
+            set
+            {
+                if (value.HasValue && value.Value < 0)
+                    return;
+                SetValue(value);
+                CheckCost();
+                OnPropertyChanged(nameof(MarginalIncome));
+            }
+        }
+
+        public bool CostDeliveryIncluded
+        {
+            get { return GetValue<bool>(); }
+            set { SetValue(value); }
+        }
+
+        public double FixedCost
+        {
+            get { return _fixedCost; }
+            set
+            {
+                if (Math.Abs(_fixedCost - value) < 0.00001) return;
+                _fixedCost = value;
+                CheckCost();
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(MarginalIncome));
+            }
+        }
+
+        private void CheckCost()
+        {
+            if (Cost < CostMin)
+                Cost = CostMin;
+        }
+
+        /// <summary>
+        /// Минимально возможная цена (продукты с фиксированной ценой + стоимость доставки)
+        /// </summary>
+        private double CostMin => CostDelivery.HasValue ? CostDelivery.Value + FixedCost : FixedCost;
 
         public double Price
         {
@@ -71,28 +114,16 @@ namespace HVTApp.UI.Groups
             }
         }
 
-        public double FixedCost
-        {
-            get { return _fixedCost; }
-            set
-            {
-                if (Math.Abs(_fixedCost - value) < 0.00001) return;
-                _fixedCost = value;
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(MarginalIncome));
-            }
-        }
-
 
         public double? MarginalIncome
         {
-            get { return Cost - FixedCost <= 0 ? default(double?) : (1.0 - Price / (Cost - FixedCost)) * 100.0; }
+            get { return Cost - CostMin <= 0 ? default(double?) : (1.0 - Price / (Cost - CostMin)) * 100.0; }
             set
             {
                 if (!value.HasValue || value >= 100) return;
 
                 var marginalIncome = value.Value;
-                Cost = Price / (1.0 - marginalIncome / 100.0) + FixedCost;
+                Cost = Price / (1.0 - marginalIncome / 100.0) + CostMin;
                 OnPropertyChanged();
             }
         }

@@ -377,6 +377,11 @@ namespace HVTApp.UI.Views
             //    VisibilityParametersProductBlockIsService = Visibility.Collapsed;
 
 
+            //attr = typeof(HVTApp.Model.POCOs.ProductBlockIsService).GetProperty(nameof(HVTApp.Model.POCOs.ProductBlockIsService.Type)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityTypeProductBlockIsService = Visibility.Collapsed;
+
+
 
         }
 
@@ -387,6 +392,15 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityParametersProductBlockIsServiceProperty); }
             set { SetValue(VisibilityParametersProductBlockIsServiceProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityTypeProductBlockIsServiceProperty = DependencyProperty.Register("VisibilityTypeProductBlockIsService", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityTypeProductBlockIsService
+        {
+            get { return (Visibility) GetValue(VisibilityTypeProductBlockIsServiceProperty); }
+            set { SetValue(VisibilityTypeProductBlockIsServiceProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -422,6 +436,11 @@ namespace HVTApp.UI.Views
             //    VisibilityAmountProductIncluded = Visibility.Collapsed;
 
 
+            //attr = typeof(HVTApp.Model.POCOs.ProductIncluded).GetProperty(nameof(HVTApp.Model.POCOs.ProductIncluded.ParentsCount)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityParentsCountProductIncluded = Visibility.Collapsed;
+
+
 
         }
 
@@ -441,6 +460,15 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityAmountProductIncludedProperty); }
             set { SetValue(VisibilityAmountProductIncludedProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityParentsCountProductIncludedProperty = DependencyProperty.Register("VisibilityParentsCountProductIncluded", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityParentsCountProductIncluded
+        {
+            get { return (Visibility) GetValue(VisibilityParentsCountProductIncludedProperty); }
+            set { SetValue(VisibilityParentsCountProductIncludedProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1517,6 +1545,16 @@ namespace HVTApp.UI.Views
             //    VisibilityCostOfferUnit = Visibility.Collapsed;
 
 
+            //attr = typeof(HVTApp.Model.POCOs.OfferUnit).GetProperty(nameof(HVTApp.Model.POCOs.OfferUnit.CostDelivery)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityCostDeliveryOfferUnit = Visibility.Collapsed;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.OfferUnit).GetProperty(nameof(HVTApp.Model.POCOs.OfferUnit.CostDeliveryIncluded)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityCostDeliveryIncludedOfferUnit = Visibility.Collapsed;
+
+
             //attr = typeof(HVTApp.Model.POCOs.OfferUnit).GetProperty(nameof(HVTApp.Model.POCOs.OfferUnit.Offer)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityOfferOfferUnit = Visibility.Collapsed;
@@ -1557,6 +1595,24 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityCostOfferUnitProperty); }
             set { SetValue(VisibilityCostOfferUnitProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityCostDeliveryOfferUnitProperty = DependencyProperty.Register("VisibilityCostDeliveryOfferUnit", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityCostDeliveryOfferUnit
+        {
+            get { return (Visibility) GetValue(VisibilityCostDeliveryOfferUnitProperty); }
+            set { SetValue(VisibilityCostDeliveryOfferUnitProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityCostDeliveryIncludedOfferUnitProperty = DependencyProperty.Register("VisibilityCostDeliveryIncludedOfferUnit", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityCostDeliveryIncludedOfferUnit
+        {
+            get { return (Visibility) GetValue(VisibilityCostDeliveryIncludedOfferUnitProperty); }
+            set { SetValue(VisibilityCostDeliveryIncludedOfferUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1696,6 +1752,11 @@ namespace HVTApp.UI.Views
             //    VisibilityPricesProductBlock = Visibility.Collapsed;
 
 
+            //attr = typeof(HVTApp.Model.POCOs.ProductBlock).GetProperty(nameof(HVTApp.Model.POCOs.ProductBlock.FixedCosts)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityFixedCostsProductBlock = Visibility.Collapsed;
+
+
             //attr = typeof(HVTApp.Model.POCOs.ProductBlock).GetProperty(nameof(HVTApp.Model.POCOs.ProductBlock.StructureCostNumber)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityStructureCostNumberProductBlock = Visibility.Collapsed;
@@ -1709,6 +1770,16 @@ namespace HVTApp.UI.Views
             //attr = typeof(HVTApp.Model.POCOs.ProductBlock).GetProperty(nameof(HVTApp.Model.POCOs.ProductBlock.IsService)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityIsServiceProductBlock = Visibility.Collapsed;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.ProductBlock).GetProperty(nameof(HVTApp.Model.POCOs.ProductBlock.IsSupervision)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityIsSupervisionProductBlock = Visibility.Collapsed;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.ProductBlock).GetProperty(nameof(HVTApp.Model.POCOs.ProductBlock.IsDelivery)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityIsDeliveryProductBlock = Visibility.Collapsed;
 
 
             //attr = typeof(HVTApp.Model.POCOs.ProductBlock).GetProperty(nameof(HVTApp.Model.POCOs.ProductBlock.Weight)).GetCustomAttribute<NotUpdateAttribute>();
@@ -1762,6 +1833,15 @@ namespace HVTApp.UI.Views
 
 
 
+        public static readonly DependencyProperty VisibilityFixedCostsProductBlockProperty = DependencyProperty.Register("VisibilityFixedCostsProductBlock", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityFixedCostsProductBlock
+        {
+            get { return (Visibility) GetValue(VisibilityFixedCostsProductBlockProperty); }
+            set { SetValue(VisibilityFixedCostsProductBlockProperty, value); OnPropertyChanged(); }
+        }
+
+
+
         public static readonly DependencyProperty VisibilityStructureCostNumberProductBlockProperty = DependencyProperty.Register("VisibilityStructureCostNumberProductBlock", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
         public Visibility VisibilityStructureCostNumberProductBlock
         {
@@ -1785,6 +1865,24 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityIsServiceProductBlockProperty); }
             set { SetValue(VisibilityIsServiceProductBlockProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityIsSupervisionProductBlockProperty = DependencyProperty.Register("VisibilityIsSupervisionProductBlock", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityIsSupervisionProductBlock
+        {
+            get { return (Visibility) GetValue(VisibilityIsSupervisionProductBlockProperty); }
+            set { SetValue(VisibilityIsSupervisionProductBlockProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityIsDeliveryProductBlockProperty = DependencyProperty.Register("VisibilityIsDeliveryProductBlock", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityIsDeliveryProductBlock
+        {
+            get { return (Visibility) GetValue(VisibilityIsDeliveryProductBlockProperty); }
+            set { SetValue(VisibilityIsDeliveryProductBlockProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3043,6 +3141,16 @@ namespace HVTApp.UI.Views
             //    VisibilityPaymentsPlannedSalesUnit = Visibility.Collapsed;
 
 
+            //attr = typeof(HVTApp.Model.POCOs.SalesUnit).GetProperty(nameof(HVTApp.Model.POCOs.SalesUnit.CostDelivery)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityCostDeliverySalesUnit = Visibility.Collapsed;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.SalesUnit).GetProperty(nameof(HVTApp.Model.POCOs.SalesUnit.CostDeliveryIncluded)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityCostDeliveryIncludedSalesUnit = Visibility.Collapsed;
+
+
             //attr = typeof(HVTApp.Model.POCOs.SalesUnit).GetProperty(nameof(HVTApp.Model.POCOs.SalesUnit.ExpectedDeliveryPeriod)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityExpectedDeliveryPeriodSalesUnit = Visibility.Collapsed;
@@ -3414,6 +3522,24 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityPaymentsPlannedSalesUnitProperty); }
             set { SetValue(VisibilityPaymentsPlannedSalesUnitProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityCostDeliverySalesUnitProperty = DependencyProperty.Register("VisibilityCostDeliverySalesUnit", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityCostDeliverySalesUnit
+        {
+            get { return (Visibility) GetValue(VisibilityCostDeliverySalesUnitProperty); }
+            set { SetValue(VisibilityCostDeliverySalesUnitProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityCostDeliveryIncludedSalesUnitProperty = DependencyProperty.Register("VisibilityCostDeliveryIncludedSalesUnit", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityCostDeliveryIncludedSalesUnit
+        {
+            get { return (Visibility) GetValue(VisibilityCostDeliveryIncludedSalesUnitProperty); }
+            set { SetValue(VisibilityCostDeliveryIncludedSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 

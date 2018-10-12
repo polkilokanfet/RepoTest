@@ -146,16 +146,16 @@
     <Compile Include="Tabs\SalesCRUD.xaml.cs">
       <DependentUpon>SalesCRUD.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\BaseGroupsViewModel.cs" />
-    <Compile Include="ViewModels\IGroupsViewModel.cs" />
-    <Compile Include="ViewModels\OfferUnitsGroupsViewModel.cs" />
+    <Compile Include="ViewModels\Groups\BaseGroupsViewModel.cs" />
+    <Compile Include="ViewModels\Groups\IGroupsViewModel.cs" />
+    <Compile Include="ViewModels\Groups\OfferUnitsGroupsViewModel.cs" />
     <Compile Include="ViewModels\ProductsIncludedViewModel.cs" />
-    <Compile Include="ViewModels\SalesUnitsGroupsViewModel.cs" />
+    <Compile Include="ViewModels\Groups\SalesUnitsGroupsViewModel.cs" />
     <Compile Include="ViewModels\OffersViewModel.cs" />
     <Compile Include="ViewModels\Market2ViewModel.cs" />
     <Compile Include="ViewModels\ProjectViewModel.cs" />
-    <Compile Include="ViewModels\SalesUnitsViewModel.cs" />
-    <Compile Include="ViewModels\OfferUnitsViewModel.cs" />
+    <Compile Include="ViewModels\Groups\SalesUnitsViewModel.cs" />
+    <Compile Include="ViewModels\Groups\OfferUnitsViewModel.cs" />
     <Compile Include="ViewModels\OfferViewModel.cs" />
     <Compile Include="ViewModels\PaymentsViewModel.cs" />
     <Compile Include="ViewModels\ProductionViewModel.cs" />
@@ -165,7 +165,7 @@
     <Compile Include="ViewModels\SpecificationUnitsGroupsViewModel.cs" />
     <Compile Include="ViewModels\SpecificationViewModel.cs" />
     <Compile Include="ViewModels\TenderViewModel.cs" />
-    <Compile Include="ViewModels\UnitsContainer.cs" />
+    <Compile Include="ViewModels\Groups\UnitsContainer.cs" />
     <Compile Include="Views\MarketView.xaml.cs">
       <DependentUpon>MarketView.xaml</DependentUpon>
     </Compile>

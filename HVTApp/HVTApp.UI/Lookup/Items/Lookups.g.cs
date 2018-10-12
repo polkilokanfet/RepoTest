@@ -181,6 +181,15 @@ namespace HVTApp.UI.Lookup
 		{
 		}
 		
+
+        #region SimpleProperties
+
+		[OrderStatus(1)]
+        public HVTApp.Model.POCOs.ProductBlockServiceType Type => GetValue<HVTApp.Model.POCOs.ProductBlockServiceType>();
+
+
+        #endregion
+
 		[OrderStatus(1)]
 	    public List<ParameterLookup> Parameters { get { return GetLookupEnum<ParameterLookup>().ToList(); } }
 
@@ -200,6 +209,10 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(5)]
         public System.Int32 Amount => GetValue<System.Int32>();
+
+
+		[OrderStatus(1)]
+        public System.Int32 ParentsCount => GetValue<System.Int32>();
 
 
         #endregion
@@ -695,6 +708,14 @@ namespace HVTApp.UI.Lookup
 
 
 		[OrderStatus(1)]
+        public System.Nullable<System.Double> CostDelivery => GetValue<System.Nullable<System.Double>>();
+
+
+		[OrderStatus(1)]
+        public System.Boolean CostDeliveryIncluded => GetValue<System.Boolean>();
+
+
+		[OrderStatus(1)]
         public System.Int32 ProductionTerm => GetValue<System.Int32>();
 
 
@@ -773,6 +794,14 @@ namespace HVTApp.UI.Lookup
 
 
 		[OrderStatus(1)]
+        public System.Boolean IsSupervision => GetValue<System.Boolean>();
+
+
+		[OrderStatus(1)]
+        public System.Boolean IsDelivery => GetValue<System.Boolean>();
+
+
+		[OrderStatus(1)]
         public System.Double Weight => GetValue<System.Double>();
 
 
@@ -787,6 +816,9 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
 	    public List<SumOnDateLookup> Prices { get { return GetLookupEnum<SumOnDateLookup>().ToList(); } }
+
+		[OrderStatus(1)]
+	    public List<SumOnDateLookup> FixedCosts { get { return GetLookupEnum<SumOnDateLookup>().ToList(); } }
 
 	}
 
@@ -1324,6 +1356,14 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
         public System.Nullable<System.DateTime> EndProductionDate => GetValue<System.Nullable<System.DateTime>>();
+
+
+		[OrderStatus(1)]
+        public System.Nullable<System.Double> CostDelivery => GetValue<System.Nullable<System.Double>>();
+
+
+		[OrderStatus(1)]
+        public System.Boolean CostDeliveryIncluded => GetValue<System.Boolean>();
 
 
 		[OrderStatus(1)]

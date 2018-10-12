@@ -13,6 +13,12 @@ namespace HVTApp.Model.POCOs
         [Designation("Стоимость"), Required]
         public double Cost { get; set; }
 
+        [Designation("Стоимость доставки")]
+        public double? CostDelivery { get; set; }
+
+        [Designation("Стоимость доставки включена в основную стоимость")]
+        public bool CostDeliveryIncluded { get; set; } = true;
+
         [Designation("ТКП"), Required]
         public virtual Offer Offer { get; set; }
 
@@ -48,6 +54,8 @@ namespace HVTApp.Model.POCOs
         Facility Facility { get; set; }
         Product Product { get; set; }
         double Cost { get; set; }
+        double? CostDelivery { get; set; }
+        bool CostDeliveryIncluded { get; set; }
     }
 
 }

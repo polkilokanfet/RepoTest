@@ -14,10 +14,11 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="Parameters" Visibility="{Binding VisibilityParametersProductBlockIsService, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Параметры" Visibility="{Binding VisibilityParametersProductBlockIsService, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="0"
 										 Items="{Binding Path=Item.Parameters}"
 										 SelectedItem="{Binding SelectedParametersItem, Mode=TwoWay}"

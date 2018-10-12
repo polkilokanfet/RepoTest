@@ -94,6 +94,8 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converter\OfferUnitsGroupsComparer.cs" />
+    <Compile Include="Converter\SalesUnitsGroupsComparer.cs" />
     <Compile Include="Groups\BaseWrappersGroup.cs" />
     <Compile Include="Groups\IGroupValidatableChangeTrackingWithCollection.cs" />
     <Compile Include="Groups\IWrapperGroup.cs" />

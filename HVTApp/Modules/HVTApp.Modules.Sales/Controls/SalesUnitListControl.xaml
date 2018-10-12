@@ -99,6 +99,7 @@
                                 <dp:NumericField Name="Cost" Label="Стоимость" Width="Auto" AllowEdit="True" />
                                 <dp:NumericField Name="Total" Label="Сумма" Width="Auto" />
                                 <dp:DateTimeField Name="DeliveryDateExpected" Label="Поставка" Width="Auto" AllowEdit="True" />
+                                <dp:NumericField Name="CostDelivery" Label="Доставка" Width="Auto" AllowEdit="True" />
                                 <dp:NumericField Name="ProductionTerm" Label="Срок" Width="Auto" AllowEdit="True" />
                                 <dp:Field Name="PaymentConditionSet" Label="Условия оплаты" Width="Auto" Converter="{StaticResource WrapperToStringConverter}">
                                     <dp:Field.Settings>

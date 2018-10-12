@@ -40,6 +40,8 @@
                     <infg:TextField Name="Facility" Label="Объект" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="ProductsIncluded" Label="Включенные продукты" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:NumericField Name="ProductionTerm" Label="Срок производства" Width="Auto" />
+                    <infg:CheckBoxField Name="CostDeliveryIncluded" Label="Стоимость доставки включена в основную стоимость" Width="Auto" />
+                    <infg:NumericField Name="CostDelivery" Label="Стоимость доставки" Width="Auto" />
                     <infg:NumericField Name="Cost" Label="Стоимость" Width="Auto" />
 
 					</infg:FieldLayout.Fields>

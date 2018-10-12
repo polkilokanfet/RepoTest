@@ -299,6 +299,15 @@ namespace HVTApp.UI.Wrapper
 
         #region SimpleProperties
 
+        public HVTApp.Model.POCOs.ProductBlockServiceType Type
+        {
+          get { return GetValue<HVTApp.Model.POCOs.ProductBlockServiceType>(); }
+          set { SetValue(value); }
+        }
+        public HVTApp.Model.POCOs.ProductBlockServiceType TypeOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.ProductBlockServiceType>(nameof(Type));
+        public bool TypeIsChanged => GetIsChanged(nameof(Type));
+
+
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -1258,6 +1267,24 @@ namespace HVTApp.UI.Wrapper
         public bool CostIsChanged => GetIsChanged(nameof(Cost));
 
 
+        public System.Nullable<System.Double> CostDelivery
+        {
+          get { return GetValue<System.Nullable<System.Double>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Double> CostDeliveryOriginalValue => GetOriginalValue<System.Nullable<System.Double>>(nameof(CostDelivery));
+        public bool CostDeliveryIsChanged => GetIsChanged(nameof(CostDelivery));
+
+
+        public System.Boolean CostDeliveryIncluded
+        {
+          get { return GetValue<System.Boolean>(); }
+          set { SetValue(value); }
+        }
+        public System.Boolean CostDeliveryIncludedOriginalValue => GetOriginalValue<System.Boolean>(nameof(CostDeliveryIncluded));
+        public bool CostDeliveryIncludedIsChanged => GetIsChanged(nameof(CostDeliveryIncluded));
+
+
         public System.Int32 ProductionTerm
         {
           get { return GetValue<System.Int32>(); }
@@ -1442,6 +1469,24 @@ namespace HVTApp.UI.Wrapper
         public bool IsServiceIsChanged => GetIsChanged(nameof(IsService));
 
 
+        public System.Boolean IsSupervision
+        {
+          get { return GetValue<System.Boolean>(); }
+          set { SetValue(value); }
+        }
+        public System.Boolean IsSupervisionOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsSupervision));
+        public bool IsSupervisionIsChanged => GetIsChanged(nameof(IsSupervision));
+
+
+        public System.Boolean IsDelivery
+        {
+          get { return GetValue<System.Boolean>(); }
+          set { SetValue(value); }
+        }
+        public System.Boolean IsDeliveryOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsDelivery));
+        public bool IsDeliveryIsChanged => GetIsChanged(nameof(IsDelivery));
+
+
         public System.Double Weight
         {
           get { return GetValue<System.Double>(); }
@@ -1471,6 +1516,9 @@ namespace HVTApp.UI.Wrapper
         public IValidatableChangeTrackingCollection<SumOnDateWrapper> Prices { get; private set; }
 
 
+        public IValidatableChangeTrackingCollection<SumOnDateWrapper> FixedCosts { get; private set; }
+
+
         #endregion
 
 
@@ -1493,6 +1541,11 @@ namespace HVTApp.UI.Wrapper
           if (Model.Prices == null) throw new ArgumentException("Prices cannot be null");
           Prices = new ValidatableChangeTrackingCollection<SumOnDateWrapper>(Model.Prices.Select(e => new SumOnDateWrapper(e)));
           RegisterCollection(Prices, Model.Prices);
+
+
+          if (Model.FixedCosts == null) throw new ArgumentException("FixedCosts cannot be null");
+          FixedCosts = new ValidatableChangeTrackingCollection<SumOnDateWrapper>(Model.FixedCosts.Select(e => new SumOnDateWrapper(e)));
+          RegisterCollection(FixedCosts, Model.FixedCosts);
 
 
         }
@@ -2500,6 +2553,24 @@ namespace HVTApp.UI.Wrapper
         }
         public System.Nullable<System.DateTime> EndProductionDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(EndProductionDate));
         public bool EndProductionDateIsChanged => GetIsChanged(nameof(EndProductionDate));
+
+
+        public System.Nullable<System.Double> CostDelivery
+        {
+          get { return GetValue<System.Nullable<System.Double>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Double> CostDeliveryOriginalValue => GetOriginalValue<System.Nullable<System.Double>>(nameof(CostDelivery));
+        public bool CostDeliveryIsChanged => GetIsChanged(nameof(CostDelivery));
+
+
+        public System.Boolean CostDeliveryIncluded
+        {
+          get { return GetValue<System.Boolean>(); }
+          set { SetValue(value); }
+        }
+        public System.Boolean CostDeliveryIncludedOriginalValue => GetOriginalValue<System.Boolean>(nameof(CostDeliveryIncluded));
+        public bool CostDeliveryIncludedIsChanged => GetIsChanged(nameof(CostDeliveryIncluded));
 
 
         public System.Nullable<System.Int32> ExpectedDeliveryPeriod

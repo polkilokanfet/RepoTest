@@ -103,6 +103,14 @@ namespace HVTApp.Model.POCOs
         #endregion
 
         #region Отгрузочная информация
+
+
+        [Designation("Стоимость доставки")]
+        public double? CostDelivery { get; set; }
+
+        [Designation("Стоимость доставки включена в основную стоимость")]
+        public bool CostDeliveryIncluded { get; set; } = true;
+
         [Designation("Срок доставки")]
         public int? ExpectedDeliveryPeriod { get; set; }
 

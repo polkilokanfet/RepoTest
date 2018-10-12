@@ -39,7 +39,10 @@
                     <infg:TextField Name="Prices" Label="Себестоимости" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:TextField Name="Parameters" Label="Параметры" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:DateTimeField Name="LastPriceDate" Label="Дата последнего прайса" Width="Auto" />
+                    <infg:CheckBoxField Name="IsSupervision" Label="Шеф-монтаж" Width="Auto" />
                     <infg:CheckBoxField Name="IsService" Label="Услуга" Width="Auto" />
+                    <infg:CheckBoxField Name="IsDelivery" Label="Доставка" Width="Auto" />
+                    <infg:TextField Name="FixedCosts" Label="Фиксированные цены" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:TextField Name="DesignationSpecial" Label="Специальное обозначение" Width="Auto" />
                     <infg:TextField Name="Designation" Label="Обозначение" Width="Auto" />
                     <infg:TextField Name="Design" Label="Чертеж" Width="Auto" />
