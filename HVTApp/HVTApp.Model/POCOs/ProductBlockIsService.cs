@@ -10,8 +10,5 @@ namespace HVTApp.Model.POCOs
     {
         [Designation("Параметры"), Required]
         public virtual List<Parameter> Parameters { get; set; }
-
-        [Designation("Тип услуги"), Required]
-        public ProductBlockServiceType Type { get; set; }
     }
 }

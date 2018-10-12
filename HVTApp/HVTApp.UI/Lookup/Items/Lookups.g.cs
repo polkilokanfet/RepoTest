@@ -181,15 +181,6 @@ namespace HVTApp.UI.Lookup
 		{
 		}
 		
-
-        #region SimpleProperties
-
-		[OrderStatus(1)]
-        public HVTApp.Model.POCOs.ProductBlockServiceType Type => GetValue<HVTApp.Model.POCOs.ProductBlockServiceType>();
-
-
-        #endregion
-
 		[OrderStatus(1)]
 	    public List<ParameterLookup> Parameters { get { return GetLookupEnum<ParameterLookup>().ToList(); } }
 

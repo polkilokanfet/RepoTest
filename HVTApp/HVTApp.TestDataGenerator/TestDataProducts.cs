@@ -159,7 +159,6 @@ namespace HVTApp.TestDataGenerator
         #region Тип услуги
 
         public Parameter ParameterSupervision;
-        public Parameter ParameterDelivery;
 
         #endregion
 
@@ -693,10 +692,8 @@ namespace HVTApp.TestDataGenerator
             #region Тип услуги
 
             ParameterSupervision.Clone(new Parameter { ParameterGroup = ParameterGroupServiceType, Value = "Шеф-монтаж" });
-            ParameterDelivery.Clone(new Parameter { ParameterGroup = ParameterGroupServiceType, Value = "Доставка" });
 
             ParameterSupervision.AddRequiredPreviousParameters(ParameterService);
-            ParameterDelivery.AddRequiredPreviousParameters(ParameterService);
 
             #endregion
 
@@ -2773,14 +2770,10 @@ namespace HVTApp.TestDataGenerator
         #region IsService
 
         public ProductBlockIsService ProductBlockIsServiceOther;
-        public ProductBlockIsService ProductBlockIsServiceDelivery;
-        public ProductBlockIsService ProductBlockIsServiceSupervision;
 
         private void GenerateProductBlockIsService()
         {
-            ProductBlockIsServiceOther.Clone(new ProductBlockIsService { Parameters = new List<Parameter> { ParameterService }, Type = ProductBlockServiceType.Other });
-            ProductBlockIsServiceDelivery.Clone(new ProductBlockIsService { Parameters = new List<Parameter> { ParameterDelivery }, Type = ProductBlockServiceType.Delivery });
-            ProductBlockIsServiceSupervision.Clone(new ProductBlockIsService { Parameters = new List<Parameter> { ParameterSupervision }, Type = ProductBlockServiceType.Supervision });
+            ProductBlockIsServiceOther.Clone(new ProductBlockIsService { Parameters = new List<Parameter> { ParameterService } });
         }
 
         #endregion

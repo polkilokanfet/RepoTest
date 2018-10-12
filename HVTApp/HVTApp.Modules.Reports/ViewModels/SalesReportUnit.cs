@@ -52,10 +52,11 @@ namespace HVTApp.Modules.Reports.ViewModels
         public string Designation => _salesUnit.Product.Designation;
         public string Status
         {
-            get { return "123"; }
+            get { return "-"; }
         }
         public double? Vat => _salesUnit.Specification?.Vat;
         public double Cost => _salesUnit.Cost;
+        public double? CostDelivery => _salesUnit.CostDelivery;
 
 
 

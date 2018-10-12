@@ -377,11 +377,6 @@ namespace HVTApp.UI.Views
             //    VisibilityParametersProductBlockIsService = Visibility.Collapsed;
 
 
-            //attr = typeof(HVTApp.Model.POCOs.ProductBlockIsService).GetProperty(nameof(HVTApp.Model.POCOs.ProductBlockIsService.Type)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityTypeProductBlockIsService = Visibility.Collapsed;
-
-
 
         }
 
@@ -392,15 +387,6 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityParametersProductBlockIsServiceProperty); }
             set { SetValue(VisibilityParametersProductBlockIsServiceProperty, value); OnPropertyChanged(); }
-        }
-
-
-
-        public static readonly DependencyProperty VisibilityTypeProductBlockIsServiceProperty = DependencyProperty.Register("VisibilityTypeProductBlockIsService", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityTypeProductBlockIsService
-        {
-            get { return (Visibility) GetValue(VisibilityTypeProductBlockIsServiceProperty); }
-            set { SetValue(VisibilityTypeProductBlockIsServiceProperty, value); OnPropertyChanged(); }
         }
 
 

@@ -64,7 +64,6 @@
     <Compile Include="POCOs\PaymentType.cs" />
     <Compile Include="POCOs\ProductBlockIsService.cs" />
     <Compile Include="Comparers\ProductDependentComparer.cs" />
-    <Compile Include="POCOs\ProductBlockServiceType.cs" />
     <Compile Include="POCOs\ProductIncluded.cs" />
     <Compile Include="POCOs\ProductDesignation.cs" />
     <Compile Include="POCOs\ProductType.cs" />
@@ -75,6 +74,7 @@
     <Compile Include="Services\IGetProductService.cs" />
     <Compile Include="Services\INewProductService.cs" />
     <Compile Include="Structures\PriceStructure.cs" />
+    <Compile Include="Structures\PriceStructures.cs" />
     <Compile Include="Structures\ProductStructure.cs" />
     <Compile Include="RoleAccessAttribute.cs" />
     <Compile Include="POCOs\CommonOption.cs" />

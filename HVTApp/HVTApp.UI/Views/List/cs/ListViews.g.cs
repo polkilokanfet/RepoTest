@@ -2754,13 +2754,6 @@ namespace HVTApp.UI.Views
 		#region VisibilityProps
 
 
-        public System.Windows.Visibility TypeVisibility
-        {
-            get { return ProductBlockIsServiceLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockIsServiceLookup.Type)].Visibility; }
-            set { ProductBlockIsServiceLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockIsServiceLookup.Type)].Visibility = value; }
-        }
-
-
         public System.Windows.Visibility DisplayMemberVisibility
         {
             get { return ProductBlockIsServiceLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockIsServiceLookup.DisplayMember)].Visibility; }

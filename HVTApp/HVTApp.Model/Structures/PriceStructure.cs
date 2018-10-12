@@ -7,34 +7,6 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.Model.Structures
 {
-    public class PriceStructures : List<PriceStructure>
-    {
-        /// <summary>
-        /// Себестоимость без учета блоков с фиксированной ценой.
-        /// </summary>
-        public double TotalPriceFixedCostLess => this.Sum(x => x.TotalPriceFixedCostLess);
-
-        /// <summary>
-        /// Суммарная стоимость блоков с фиксированной ценой.
-        /// </summary>
-        public double TotalFixedCost => this.Sum(x => x.TotalFixedCost);
-
-        public PriceStructures(IUnitPoco unit, DateTime targetPriceDate, int priceTerm, IEnumerable<ProductBlock> analogs)
-        {
-            var productBlocks = analogs as ProductBlock[] ?? analogs.ToArray();
-
-            //структура себестоимости продукта
-            this.Add(new PriceStructure(unit.Product, 1, targetPriceDate, priceTerm, productBlocks));
-
-            //структура себестоимости включенных продуктов
-            foreach (var prodIncl in unit.ProductsIncluded)
-            {
-                double count = (double)prodIncl.Amount / prodIncl.ParentsCount;
-                this.Add(new PriceStructure(prodIncl.Product, count, targetPriceDate, priceTerm, productBlocks));
-            }
-        }
-    }
-
     public class PriceStructure
     {
         private readonly int _priceTerm;
@@ -62,6 +34,8 @@ namespace HVTApp.Model.Structures
         /// Прайс, близжайший к целевой дате
         /// </summary>
         public SumOnDate Price => GetClosedSumOnDate(IsAnalogPrice ? Analog.Prices : Product.ProductBlock.Prices, TargetPriceDate);
+
+        public double CostService { get; set; }
 
         /// <summary>
         /// У продукта нет прайса, взят прайс аналога
@@ -103,6 +77,34 @@ namespace HVTApp.Model.Structures
             {
                 double fixedCost = FixedCost?.Sum ?? 0;
                 return fixedCost * Amount + ChildPriceStructures.Sum(x => x.TotalFixedCost);
+            }
+        }
+
+        /// <summary>
+        /// Себестоимость услуг без учета блоков с фиксированной ценой (если цена фиксирована, себестоимость блока = 0).
+        /// </summary>
+        public double TotalPriceServiceFixedCostLess
+        {
+            get
+            {
+                var price = Product.ProductBlock.IsService && FixedCost == null ? Price.Sum * Amount : 0;
+                return price + ChildPriceStructures.Sum(x => x.TotalPriceServiceFixedCostLess);
+            }
+        }
+
+        /// <summary>
+        /// Суммарная стоимость блоков с фиксированной ценой.
+        /// </summary>
+        public double TotalServiceFixedCost
+        {
+            get
+            {
+                double fixedCost = 0;
+
+                if(Product.ProductBlock.IsService)
+                    fixedCost = FixedCost?.Sum ?? 0;
+
+                return fixedCost * Amount + ChildPriceStructures.Sum(x => x.TotalServiceFixedCost);
             }
         }
 
@@ -177,9 +179,6 @@ namespace HVTApp.Model.Structures
 
                 dic.Add(block, dif);
             }
-
-            //var dic2 = dic.OrderByDescending(x => x.Value).ToList();
-            //var result = dic.OrderByDescending(x => x.Value).First(x => x.Key.Prices.Any()).Key;
 
             return dic.OrderByDescending(x => x.Value).First(x => x.Key.Prices.Any()).Key;
         }

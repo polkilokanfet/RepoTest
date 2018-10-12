@@ -299,15 +299,6 @@ namespace HVTApp.UI.Wrapper
 
         #region SimpleProperties
 
-        public HVTApp.Model.POCOs.ProductBlockServiceType Type
-        {
-          get { return GetValue<HVTApp.Model.POCOs.ProductBlockServiceType>(); }
-          set { SetValue(value); }
-        }
-        public HVTApp.Model.POCOs.ProductBlockServiceType TypeOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.ProductBlockServiceType>(nameof(Type));
-        public bool TypeIsChanged => GetIsChanged(nameof(Type));
-
-
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }

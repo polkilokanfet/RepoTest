@@ -40,16 +40,6 @@ namespace HVTApp.Services.ProductDesignationService
             return _blockIsServices.Any(x => x.Parameters.AllContainsIn(block.Parameters, new ParameterComparer()));
         }
 
-        public bool IsSupervision(ProductBlock block)
-        {
-            return _blockIsServices.Where(x => x.Type == ProductBlockServiceType.Supervision).Any(x => x.Parameters.AllContainsIn(block.Parameters, new ParameterComparer()));
-        }
-
-        public bool IsDelivery(ProductBlock block)
-        {
-            return _blockIsServices.Where(x => x.Type == ProductBlockServiceType.Delivery).Any(x => x.Parameters.AllContainsIn(block.Parameters, new ParameterComparer()));
-        }
-
         public string GetDesignation(Product product)
         {
             return GetDesignation(product.ProductBlock);
