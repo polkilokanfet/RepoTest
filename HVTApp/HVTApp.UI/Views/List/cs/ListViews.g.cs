@@ -231,116 +231,6 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
-	[Designation("Общие настройки")]
-	[DesignationPlural("CommonOptionLookup")]
-	[AllowEditAttribute(Role.Admin)]
-
-    public partial class CommonOptionLookupListView : ViewBase
-    {
-        public CommonOptionLookupListView()
-        {
-            InitializeComponent();
-        }
-
-        public CommonOptionLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, CommonOptionLookupListViewModel CommonOptionLookupListViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = CommonOptionLookupListViewModel;
-			CommonOptionLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
-            Loaded += OnLoaded;
-        }
-		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-			await ((CommonOptionLookupListViewModel)DataContext).LoadAsync();;
-        }
-
-		#region VisibilityProps
-
-
-        public System.Windows.Visibility DateVisibility
-        {
-            get { return CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CommonOptionLookup.Date)].Visibility; }
-            set { CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CommonOptionLookup.Date)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility ActualPriceTermVisibility
-        {
-            get { return CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CommonOptionLookup.ActualPriceTerm)].Visibility; }
-            set { CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CommonOptionLookup.ActualPriceTerm)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility StandartTermFromStartToEndProductionVisibility
-        {
-            get { return CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CommonOptionLookup.StandartTermFromStartToEndProduction)].Visibility; }
-            set { CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CommonOptionLookup.StandartTermFromStartToEndProduction)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility StandartTermFromPickToEndProductionVisibility
-        {
-            get { return CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CommonOptionLookup.StandartTermFromPickToEndProduction)].Visibility; }
-            set { CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CommonOptionLookup.StandartTermFromPickToEndProduction)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility VatVisibility
-        {
-            get { return CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CommonOptionLookup.Vat)].Visibility; }
-            set { CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CommonOptionLookup.Vat)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility DisplayMemberVisibility
-        {
-            get { return CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CommonOptionLookup.DisplayMember)].Visibility; }
-            set { CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CommonOptionLookup.DisplayMember)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility OurCompanyVisibility
-        {
-            get { return CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CommonOptionLookup.OurCompany)].Visibility; }
-            set { CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CommonOptionLookup.OurCompany)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility StandartPaymentsConditionSetVisibility
-        {
-            get { return CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CommonOptionLookup.StandartPaymentsConditionSet)].Visibility; }
-            set { CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CommonOptionLookup.StandartPaymentsConditionSet)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility NewProductParameterVisibility
-        {
-            get { return CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CommonOptionLookup.NewProductParameter)].Visibility; }
-            set { CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CommonOptionLookup.NewProductParameter)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility NewProductParameterGroupVisibility
-        {
-            get { return CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CommonOptionLookup.NewProductParameterGroup)].Visibility; }
-            set { CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CommonOptionLookup.NewProductParameterGroup)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility EntityVisibility
-        {
-            get { return CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CommonOptionLookup.Entity)].Visibility; }
-            set { CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CommonOptionLookup.Entity)].Visibility = value; }
-        }
-
-
-
-		#endregion
-    }
-
-
-    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Организационная форма")]
 	[DesignationPlural("CompanyFormLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -1380,6 +1270,123 @@ namespace HVTApp.UI.Views
         {
             get { return FacilityTypeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.FacilityTypeLookup.Entity)].Visibility; }
             set { FacilityTypeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.FacilityTypeLookup.Entity)].Visibility = value; }
+        }
+
+
+
+		#endregion
+    }
+
+
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
+	[Designation("Общие настройки")]
+	[DesignationPlural("GlobalPropertiesLookup")]
+	[AllowEditAttribute(Role.Admin)]
+
+    public partial class GlobalPropertiesLookupListView : ViewBase
+    {
+        public GlobalPropertiesLookupListView()
+        {
+            InitializeComponent();
+        }
+
+        public GlobalPropertiesLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, GlobalPropertiesLookupListViewModel GlobalPropertiesLookupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = GlobalPropertiesLookupListViewModel;
+			GlobalPropertiesLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			await ((GlobalPropertiesLookupListViewModel)DataContext).LoadAsync();;
+        }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility DateVisibility
+        {
+            get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.Date)].Visibility; }
+            set { GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.Date)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ActualPriceTermVisibility
+        {
+            get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.ActualPriceTerm)].Visibility; }
+            set { GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.ActualPriceTerm)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility StandartTermFromStartToEndProductionVisibility
+        {
+            get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.StandartTermFromStartToEndProduction)].Visibility; }
+            set { GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.StandartTermFromStartToEndProduction)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility StandartTermFromPickToEndProductionVisibility
+        {
+            get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.StandartTermFromPickToEndProduction)].Visibility; }
+            set { GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.StandartTermFromPickToEndProduction)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility VatVisibility
+        {
+            get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.Vat)].Visibility; }
+            set { GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.Vat)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.DisplayMember)].Visibility; }
+            set { GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.DisplayMember)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility OurCompanyVisibility
+        {
+            get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.OurCompany)].Visibility; }
+            set { GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.OurCompany)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility StandartPaymentsConditionSetVisibility
+        {
+            get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.StandartPaymentsConditionSet)].Visibility; }
+            set { GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.StandartPaymentsConditionSet)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility NewProductParameterVisibility
+        {
+            get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.NewProductParameter)].Visibility; }
+            set { GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.NewProductParameter)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility NewProductParameterGroupVisibility
+        {
+            get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.NewProductParameterGroup)].Visibility; }
+            set { GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.NewProductParameterGroup)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility VoltageGroupVisibility
+        {
+            get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.VoltageGroup)].Visibility; }
+            set { GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.VoltageGroup)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.Entity)].Visibility; }
+            set { GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.Entity)].Visibility = value; }
         }
 
 

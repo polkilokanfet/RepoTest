@@ -30,7 +30,7 @@ namespace HVTApp.Model.Events
 	public partial class AfterSaveProjectTypeEvent : PubSubEvent<ProjectType> { }
 	public partial class AfterSaveStandartMarginalIncomeEvent : PubSubEvent<StandartMarginalIncome> { }
 	public partial class AfterSaveStandartProductionTermEvent : PubSubEvent<StandartProductionTerm> { }
-	public partial class AfterSaveCommonOptionEvent : PubSubEvent<CommonOption> { }
+	public partial class AfterSaveGlobalPropertiesEvent : PubSubEvent<GlobalProperties> { }
 	public partial class AfterSaveAddressEvent : PubSubEvent<Address> { }
 	public partial class AfterSaveCountryEvent : PubSubEvent<Country> { }
 	public partial class AfterSaveDistrictEvent : PubSubEvent<District> { }

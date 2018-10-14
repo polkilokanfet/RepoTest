@@ -478,7 +478,7 @@ namespace HVTApp.UI.ViewModels
     }
 
 
-    public partial class CommonOptionDetailsViewModel : BaseDetailsViewModel<CommonOptionWrapper, CommonOption, AfterSaveCommonOptionEvent>
+    public partial class GlobalPropertiesDetailsViewModel : BaseDetailsViewModel<GlobalPropertiesWrapper, GlobalProperties, AfterSaveGlobalPropertiesEvent>
     {
 		private Func<Task<List<Company>>> _getEntitiesForSelectOurCompanyCommand;
 		public ICommand SelectOurCompanyCommand { get; private set; }
@@ -496,8 +496,12 @@ namespace HVTApp.UI.ViewModels
 		public ICommand SelectNewProductParameterGroupCommand { get; private set; }
 		public ICommand ClearNewProductParameterGroupCommand { get; private set; }
 
+		private Func<Task<List<ParameterGroup>>> _getEntitiesForSelectVoltageGroupCommand;
+		public ICommand SelectVoltageGroupCommand { get; private set; }
+		public ICommand ClearVoltageGroupCommand { get; private set; }
 
-        public CommonOptionDetailsViewModel(IUnityContainer container) : base(container) 
+
+        public GlobalPropertiesDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
 			if (_getEntitiesForSelectOurCompanyCommand == null) _getEntitiesForSelectOurCompanyCommand = async () => { return await UnitOfWork.Repository<Company>().GetAllAsync(); };
@@ -518,6 +522,11 @@ namespace HVTApp.UI.ViewModels
 			if (_getEntitiesForSelectNewProductParameterGroupCommand == null) _getEntitiesForSelectNewProductParameterGroupCommand = async () => { return await UnitOfWork.Repository<ParameterGroup>().GetAllAsync(); };
 			if (SelectNewProductParameterGroupCommand == null) SelectNewProductParameterGroupCommand = new DelegateCommand(SelectNewProductParameterGroupCommand_Execute_Default);
 			if (ClearNewProductParameterGroupCommand == null) ClearNewProductParameterGroupCommand = new DelegateCommand(ClearNewProductParameterGroupCommand_Execute_Default);
+
+			
+			if (_getEntitiesForSelectVoltageGroupCommand == null) _getEntitiesForSelectVoltageGroupCommand = async () => { return await UnitOfWork.Repository<ParameterGroup>().GetAllAsync(); };
+			if (SelectVoltageGroupCommand == null) SelectVoltageGroupCommand = new DelegateCommand(SelectVoltageGroupCommand_Execute_Default);
+			if (ClearVoltageGroupCommand == null) ClearVoltageGroupCommand = new DelegateCommand(ClearVoltageGroupCommand_Execute_Default);
 
 		}
 
@@ -562,6 +571,17 @@ namespace HVTApp.UI.ViewModels
 		private void ClearNewProductParameterGroupCommand_Execute_Default() 
 		{
 						Item.NewProductParameterGroup = null;
+		    
+		}
+
+		private async void SelectVoltageGroupCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<ParameterGroup, ParameterGroupWrapper>(await _getEntitiesForSelectVoltageGroupCommand(), nameof(Item.VoltageGroup), Item.VoltageGroup?.Id);
+		}
+
+		private void ClearVoltageGroupCommand_Execute_Default() 
+		{
+						Item.VoltageGroup = null;
 		    
 		}
 

@@ -175,7 +175,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             UnitOfWork = Container.Resolve<IUnitOfWork>();
 
             //достаем все проектные юниты
-            var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Manager.Id == CommonOptions.User.Id);
+            var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Manager.Id == GlobalAppProperties.User.Id);
 
             //формируем список проектов
             var projects = salesUnits.Select(x => x.Project).Distinct().ToList();

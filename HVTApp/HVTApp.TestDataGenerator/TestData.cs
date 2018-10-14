@@ -37,7 +37,7 @@ namespace HVTApp.TestDataGenerator
     public partial class TestData
     {
 
-        public CommonOption CommonOption;
+        public GlobalProperties GlobalProperties;
 
         public BankDetails BankDetailsOfUetm;
 
@@ -379,7 +379,7 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateCommonOption()
         {
-            CommonOption.Clone(new CommonOption { OurCompany = CompanyUetm, StandartPaymentsConditionSet = PaymentConditionSet50Na50, NewProductParameter = ParameterNewProduct, NewProductParameterGroup = ParameterGroupNewProductDesignation });
+            GlobalProperties.Clone(new GlobalProperties { OurCompany = CompanyUetm, StandartPaymentsConditionSet = PaymentConditionSet50Na50, NewProductParameter = ParameterNewProduct, NewProductParameterGroup = ParameterGroupNewProductDesignation, VoltageGroup = ParameterGroupVoltage});
         }
 
         private void GenerateNotes()

@@ -77,8 +77,8 @@
     <Compile Include="Structures\PriceStructures.cs" />
     <Compile Include="Structures\ProductStructure.cs" />
     <Compile Include="RoleAccessAttribute.cs" />
-    <Compile Include="POCOs\CommonOption.cs" />
-    <Compile Include="CommonOptions.cs" />
+    <Compile Include="POCOs\GlobalProperties.cs" />
+    <Compile Include="GlobalAppProperties.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="POCOs\Address\Address.cs" />
     <Compile Include="POCOs\Address\Country.cs" />

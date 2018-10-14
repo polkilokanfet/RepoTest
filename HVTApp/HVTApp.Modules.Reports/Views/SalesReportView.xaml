@@ -32,8 +32,22 @@
             <!--Style="{StaticResource ListViewGrid}"-->
 
             <infg:XamDataGrid.FieldLayoutSettings>
-                <infg:FieldLayoutSettings AutoGenerateFields="True"/>
+                <infg:FieldLayoutSettings AutoGenerateFields="True"
+                                          AutoFitMode="Always"
+                                          AllowAddNew="False"
+                                          AllowDelete="False"
+                                          AllowFieldMoving="Yes"
+                                          AllowRecordFixing="Top"
+                                          HeaderPrefixAreaDisplayMode="FieldChooserButton"
+                                          HighlightAlternateRecords="True"/>
+                
             </infg:XamDataGrid.FieldLayoutSettings>
+            
+            <infg:XamDataGrid.FieldSettings>
+                <infg:FieldSettings AllowEdit="False" 
+                                    AllowRecordFiltering="True"
+                                    Width="Auto"/>
+            </infg:XamDataGrid.FieldSettings>
             
             <infg:XamDataGrid.ContextMenu>
                 <ContextMenu>

@@ -19,7 +19,7 @@ namespace HVTApp.Modules.Sales.Views
         {
             InitializeComponent();
 
-            var units = container.Resolve<IUnitOfWork>().Repository<OfferUnit>().Find(x => x.Offer.Project.Manager.Id == CommonOptions.User.Id);
+            var units = container.Resolve<IUnitOfWork>().Repository<OfferUnit>().Find(x => x.Offer.Project.Manager.Id == GlobalAppProperties.User.Id);
             var offers = units.Select(x => x.Offer).Distinct().ToList();
             var lookups = offers.Select(x => new OfferLookup(x, units.Where(u => u.Offer.Id == x.Id)));
             var offersViewModel = container.Resolve<OffersViewModel>();

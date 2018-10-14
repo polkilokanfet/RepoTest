@@ -28,10 +28,10 @@ namespace HVTApp.Services.NewProductService
 
             //параметры продукта
             _parameter = new ParameterWrapper(new Parameter());
-            var group = await UnitOfWork.Repository<ParameterGroup>().GetByIdAsync(CommonOptions.ActualOptions.NewProductParameterGroup.Id);
+            var group = await UnitOfWork.Repository<ParameterGroup>().GetByIdAsync(GlobalAppProperties.Actual.NewProductParameterGroup.Id);
             _parameter.ParameterGroup = new ParameterGroupWrapper(group);
 
-            var parameterBase = await UnitOfWork.Repository<Parameter>().GetByIdAsync(CommonOptions.ActualOptions.NewProductParameter.Id);
+            var parameterBase = await UnitOfWork.Repository<Parameter>().GetByIdAsync(GlobalAppProperties.Actual.NewProductParameter.Id);
             var relation = new ParameterRelation();
             relation.RequiredParameters.Add(parameterBase);
             _parameter.ParameterRelations.Add(new ParameterRelationWrapper(relation));

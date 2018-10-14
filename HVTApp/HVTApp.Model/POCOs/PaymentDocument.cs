@@ -23,7 +23,7 @@ namespace HVTApp.Model.POCOs
 
 
         [Designation("НДС"), Required]
-        public double Vat { get; set; } = CommonOptions.ActualOptions.Vat;
+        public double Vat { get; set; } = GlobalAppProperties.Actual.Vat;
 
         public override string ToString()
         {

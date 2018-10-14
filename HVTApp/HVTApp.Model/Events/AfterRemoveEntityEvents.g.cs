@@ -16,7 +16,7 @@ namespace HVTApp.Model.Events
 	public partial class AfterRemoveProjectTypeEvent : PubSubEvent<ProjectType> { }
 	public partial class AfterRemoveStandartMarginalIncomeEvent : PubSubEvent<StandartMarginalIncome> { }
 	public partial class AfterRemoveStandartProductionTermEvent : PubSubEvent<StandartProductionTerm> { }
-	public partial class AfterRemoveCommonOptionEvent : PubSubEvent<CommonOption> { }
+	public partial class AfterRemoveGlobalPropertiesEvent : PubSubEvent<GlobalProperties> { }
 	public partial class AfterRemoveAddressEvent : PubSubEvent<Address> { }
 	public partial class AfterRemoveCountryEvent : PubSubEvent<Country> { }
 	public partial class AfterRemoveDistrictEvent : PubSubEvent<District> { }

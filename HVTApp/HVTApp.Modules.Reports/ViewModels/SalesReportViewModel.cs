@@ -39,14 +39,15 @@ namespace HVTApp.Modules.Reports.ViewModels
             Units.Clear();
 
             UnitOfWork = Container.Resolve<IUnitOfWork>();
-            var salesUnits = CommonOptions.User.RoleCurrent == Role.SalesManager 
-                ? UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.ForReport && x.Project.Manager.Id == CommonOptions.User.Id) 
+            var salesUnits = GlobalAppProperties.User.RoleCurrent == Role.SalesManager 
+                ? UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.ForReport && x.Project.Manager.Id == GlobalAppProperties.User.Id) 
                 : UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.ForReport);
 
             var tenders = UnitOfWork.Repository<Tender>().Find(x => true);
+            var blocks = UnitOfWork.Repository<ProductBlock>().Find(x => true);
 
             Units.AddRange(salesUnits.OrderBy(x => x.OrderInTakeDate)
-                                     .Select(x => new SalesReportUnit(x, tenders.Where(t => Equals(x.Project, t.Project)))));
+                                     .Select(x => new SalesReportUnit(x, tenders.Where(t => Equals(x.Project, t.Project)), blocks)));
             IsLoaded = true;
         }
     }

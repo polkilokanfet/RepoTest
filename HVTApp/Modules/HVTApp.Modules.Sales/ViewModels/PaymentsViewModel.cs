@@ -56,7 +56,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             //загружаем все юниты и фиксируем их в коллекции для отслеживания изменений
             _salesUnitWrappers = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(
                                 (await UnitOfWork.Repository<SalesUnit>().GetAllAsync())
-                                .Where(x => x.Project.Manager.Id == CommonOptions.User.Id)
+                                .Where(x => x.Project.Manager.Id == GlobalAppProperties.User.Id)
                                 .Select(x => new SalesUnitWrapper(x)));
 
             //подписка на изменение

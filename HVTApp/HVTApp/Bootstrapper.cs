@@ -69,8 +69,8 @@ namespace HVTApp
         /// <returns></returns>
         private async Task SetCommonOptions()
         {
-            var commonOptions = await Container.Resolve<IUnitOfWork>().Repository<CommonOption>().GetAllAsync();
-            CommonOptions.ActualOptions = commonOptions.OrderBy(x => x.Date).Last();
+            var commonOptions = await Container.Resolve<IUnitOfWork>().Repository<GlobalProperties>().GetAllAsync();
+            GlobalAppProperties.Actual = commonOptions.OrderBy(x => x.Date).Last();
         }
 
         protected override void ConfigureContainer()
@@ -138,7 +138,7 @@ namespace HVTApp
             //catalog.AddModule(moduleType);
 
             var attr = (moduleType.GetCustomAttribute<ModuleAccessAttribute>());
-            if (attr != null && attr.Roles.Contains(CommonOptions.User.RoleCurrent))
+            if (attr != null && attr.Roles.Contains(GlobalAppProperties.User.RoleCurrent))
                 catalog.AddModule(moduleType);
         }
     }

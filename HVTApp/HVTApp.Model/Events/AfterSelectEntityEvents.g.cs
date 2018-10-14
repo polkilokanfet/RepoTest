@@ -16,7 +16,7 @@ namespace HVTApp.Model.Events
 	public partial class AfterSelectProjectTypeEvent : PubSubEvent<PubSubEventArgs<ProjectType>> { }
 	public partial class AfterSelectStandartMarginalIncomeEvent : PubSubEvent<PubSubEventArgs<StandartMarginalIncome>> { }
 	public partial class AfterSelectStandartProductionTermEvent : PubSubEvent<PubSubEventArgs<StandartProductionTerm>> { }
-	public partial class AfterSelectCommonOptionEvent : PubSubEvent<PubSubEventArgs<CommonOption>> { }
+	public partial class AfterSelectGlobalPropertiesEvent : PubSubEvent<PubSubEventArgs<GlobalProperties>> { }
 	public partial class AfterSelectAddressEvent : PubSubEvent<PubSubEventArgs<Address>> { }
 	public partial class AfterSelectCountryEvent : PubSubEvent<PubSubEventArgs<Country>> { }
 	public partial class AfterSelectDistrictEvent : PubSubEvent<PubSubEventArgs<District>> { }

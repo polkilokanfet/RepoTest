@@ -32,7 +32,7 @@ namespace HVTApp.UI.ViewModels
         protected readonly IMessageService MessageService;
         protected readonly IEventAggregator EventAggregator;
 
-        protected bool AllowEdit => typeof(TEntity).GetAllowEditRoles().Contains(CommonOptions.User.RoleCurrent);
+        protected bool AllowEdit => typeof(TEntity).GetAllowEditRoles().Contains(GlobalAppProperties.User.RoleCurrent);
 
         private TLookup _selectedLookup;
         private TEntity _selectedItem;

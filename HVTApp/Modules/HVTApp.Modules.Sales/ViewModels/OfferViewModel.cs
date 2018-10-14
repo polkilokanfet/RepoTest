@@ -43,7 +43,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         private async Task<IEnumerable<OfferUnit>> LoadByProject(Project project)
         {
             project = await UnitOfWork.Repository<Project>().GetByIdAsync(project.Id);
-            var author = await UnitOfWork.Repository<Employee>().GetByIdAsync(CommonOptions.User.Employee.Id);
+            var author = await UnitOfWork.Repository<Employee>().GetByIdAsync(GlobalAppProperties.User.Employee.Id);
 
             DetailsViewModel.Item.Project = new ProjectWrapper(project);
             DetailsViewModel.Item.ValidityDate = DateTime.Today.AddDays(90);

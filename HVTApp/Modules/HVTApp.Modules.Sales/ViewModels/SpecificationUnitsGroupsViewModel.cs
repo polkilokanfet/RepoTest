@@ -31,7 +31,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         protected override void AddCommand_Execute()
         {
-            var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Manager.Id == CommonOptions.User.Id && x.Specification == null);
+            var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Manager.Id == GlobalAppProperties.User.Id && x.Specification == null);
             var unit = Container.Resolve<ISelectService>().SelectItem(salesUnits);
             if (unit == null) return;
             var group = new SalesUnitsWrappersGroup(new List<SalesUnit>() {unit});

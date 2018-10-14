@@ -20,7 +20,7 @@ namespace HVTApp.DataAccess
             ProjectTypeRepository = new ProjectTypeRepositoryTest(testData);
             StandartMarginalIncomeRepository = new StandartMarginalIncomeRepositoryTest(testData);
             StandartProductionTermRepository = new StandartProductionTermRepositoryTest(testData);
-            CommonOptionRepository = new CommonOptionRepositoryTest(testData);
+            GlobalPropertiesRepository = new GlobalPropertiesRepositoryTest(testData);
             AddressRepository = new AddressRepositoryTest(testData);
             CountryRepository = new CountryRepositoryTest(testData);
             DistrictRepository = new DistrictRepositoryTest(testData);
@@ -82,7 +82,7 @@ namespace HVTApp.DataAccess
         public IProjectTypeRepository ProjectTypeRepository { get; }
         public IStandartMarginalIncomeRepository StandartMarginalIncomeRepository { get; }
         public IStandartProductionTermRepository StandartProductionTermRepository { get; }
-        public ICommonOptionRepository CommonOptionRepository { get; }
+        public IGlobalPropertiesRepository GlobalPropertiesRepository { get; }
         public IAddressRepository AddressRepository { get; }
         public ICountryRepository CountryRepository { get; }
         public IDistrictRepository DistrictRepository { get; }

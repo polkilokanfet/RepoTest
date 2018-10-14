@@ -657,9 +657,9 @@ namespace HVTApp.UI.Wrapper
 
 	}
 
-		public partial class CommonOptionWrapper : WrapperBase<CommonOption>
+		public partial class GlobalPropertiesWrapper : WrapperBase<GlobalProperties>
 	{
-	    public CommonOptionWrapper(CommonOption model) : base(model) { }
+	    public GlobalPropertiesWrapper(GlobalProperties model) : base(model) { }
 
 	
 
@@ -752,6 +752,13 @@ namespace HVTApp.UI.Wrapper
         }
 
 
+	    public ParameterGroupWrapper VoltageGroup 
+        {
+            get { return GetWrapper<ParameterGroupWrapper>(); }
+            set { SetComplexValue<ParameterGroup, ParameterGroupWrapper>(VoltageGroup, value); }
+        }
+
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -767,6 +774,9 @@ namespace HVTApp.UI.Wrapper
 
 
             InitializeComplexProperty<ParameterGroupWrapper>(nameof(NewProductParameterGroup), Model.NewProductParameterGroup == null ? null : new ParameterGroupWrapper(Model.NewProductParameterGroup));
+
+
+            InitializeComplexProperty<ParameterGroupWrapper>(nameof(VoltageGroup), Model.VoltageGroup == null ? null : new ParameterGroupWrapper(Model.VoltageGroup));
 
 
         }

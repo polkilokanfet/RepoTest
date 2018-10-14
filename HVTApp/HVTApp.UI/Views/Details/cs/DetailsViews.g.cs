@@ -757,18 +757,18 @@ namespace HVTApp.UI.Views
 	}
 
 
-    public partial class CommonOptionDetailsView : ViewBase
+    public partial class GlobalPropertiesDetailsView : ViewBase
     {
-        public CommonOptionDetailsView()
+        public GlobalPropertiesDetailsView()
         {
 			InitializeComponent();
         }
 
-        public CommonOptionDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, CommonOptionDetailsViewModel CommonOptionDetailsViewModel) : base(regionManager, eventAggregator)
+        public GlobalPropertiesDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, GlobalPropertiesDetailsViewModel GlobalPropertiesDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
 			InitializeComponent();
-            DataContext = CommonOptionDetailsViewModel;
+            DataContext = GlobalPropertiesDetailsViewModel;
         }
 
         private void SetVisibilityProps()
@@ -776,49 +776,54 @@ namespace HVTApp.UI.Views
             //NotUpdateAttribute attr;
 
 
-            //attr = typeof(HVTApp.Model.POCOs.CommonOption).GetProperty(nameof(HVTApp.Model.POCOs.CommonOption.Date)).GetCustomAttribute<NotUpdateAttribute>();
+            //attr = typeof(HVTApp.Model.POCOs.GlobalProperties).GetProperty(nameof(HVTApp.Model.POCOs.GlobalProperties.Date)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityDateCommonOption = Visibility.Collapsed;
+            //    VisibilityDateGlobalProperties = Visibility.Collapsed;
 
 
-            //attr = typeof(HVTApp.Model.POCOs.CommonOption).GetProperty(nameof(HVTApp.Model.POCOs.CommonOption.OurCompany)).GetCustomAttribute<NotUpdateAttribute>();
+            //attr = typeof(HVTApp.Model.POCOs.GlobalProperties).GetProperty(nameof(HVTApp.Model.POCOs.GlobalProperties.OurCompany)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityOurCompanyCommonOption = Visibility.Collapsed;
+            //    VisibilityOurCompanyGlobalProperties = Visibility.Collapsed;
 
 
-            //attr = typeof(HVTApp.Model.POCOs.CommonOption).GetProperty(nameof(HVTApp.Model.POCOs.CommonOption.ActualPriceTerm)).GetCustomAttribute<NotUpdateAttribute>();
+            //attr = typeof(HVTApp.Model.POCOs.GlobalProperties).GetProperty(nameof(HVTApp.Model.POCOs.GlobalProperties.ActualPriceTerm)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityActualPriceTermCommonOption = Visibility.Collapsed;
+            //    VisibilityActualPriceTermGlobalProperties = Visibility.Collapsed;
 
 
-            //attr = typeof(HVTApp.Model.POCOs.CommonOption).GetProperty(nameof(HVTApp.Model.POCOs.CommonOption.StandartTermFromStartToEndProduction)).GetCustomAttribute<NotUpdateAttribute>();
+            //attr = typeof(HVTApp.Model.POCOs.GlobalProperties).GetProperty(nameof(HVTApp.Model.POCOs.GlobalProperties.StandartTermFromStartToEndProduction)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityStandartTermFromStartToEndProductionCommonOption = Visibility.Collapsed;
+            //    VisibilityStandartTermFromStartToEndProductionGlobalProperties = Visibility.Collapsed;
 
 
-            //attr = typeof(HVTApp.Model.POCOs.CommonOption).GetProperty(nameof(HVTApp.Model.POCOs.CommonOption.StandartTermFromPickToEndProduction)).GetCustomAttribute<NotUpdateAttribute>();
+            //attr = typeof(HVTApp.Model.POCOs.GlobalProperties).GetProperty(nameof(HVTApp.Model.POCOs.GlobalProperties.StandartTermFromPickToEndProduction)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityStandartTermFromPickToEndProductionCommonOption = Visibility.Collapsed;
+            //    VisibilityStandartTermFromPickToEndProductionGlobalProperties = Visibility.Collapsed;
 
 
-            //attr = typeof(HVTApp.Model.POCOs.CommonOption).GetProperty(nameof(HVTApp.Model.POCOs.CommonOption.StandartPaymentsConditionSet)).GetCustomAttribute<NotUpdateAttribute>();
+            //attr = typeof(HVTApp.Model.POCOs.GlobalProperties).GetProperty(nameof(HVTApp.Model.POCOs.GlobalProperties.StandartPaymentsConditionSet)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityStandartPaymentsConditionSetCommonOption = Visibility.Collapsed;
+            //    VisibilityStandartPaymentsConditionSetGlobalProperties = Visibility.Collapsed;
 
 
-            //attr = typeof(HVTApp.Model.POCOs.CommonOption).GetProperty(nameof(HVTApp.Model.POCOs.CommonOption.Vat)).GetCustomAttribute<NotUpdateAttribute>();
+            //attr = typeof(HVTApp.Model.POCOs.GlobalProperties).GetProperty(nameof(HVTApp.Model.POCOs.GlobalProperties.Vat)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityVatCommonOption = Visibility.Collapsed;
+            //    VisibilityVatGlobalProperties = Visibility.Collapsed;
 
 
-            //attr = typeof(HVTApp.Model.POCOs.CommonOption).GetProperty(nameof(HVTApp.Model.POCOs.CommonOption.NewProductParameter)).GetCustomAttribute<NotUpdateAttribute>();
+            //attr = typeof(HVTApp.Model.POCOs.GlobalProperties).GetProperty(nameof(HVTApp.Model.POCOs.GlobalProperties.NewProductParameter)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityNewProductParameterCommonOption = Visibility.Collapsed;
+            //    VisibilityNewProductParameterGlobalProperties = Visibility.Collapsed;
 
 
-            //attr = typeof(HVTApp.Model.POCOs.CommonOption).GetProperty(nameof(HVTApp.Model.POCOs.CommonOption.NewProductParameterGroup)).GetCustomAttribute<NotUpdateAttribute>();
+            //attr = typeof(HVTApp.Model.POCOs.GlobalProperties).GetProperty(nameof(HVTApp.Model.POCOs.GlobalProperties.NewProductParameterGroup)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityNewProductParameterGroupCommonOption = Visibility.Collapsed;
+            //    VisibilityNewProductParameterGroupGlobalProperties = Visibility.Collapsed;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.GlobalProperties).GetProperty(nameof(HVTApp.Model.POCOs.GlobalProperties.VoltageGroup)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityVoltageGroupGlobalProperties = Visibility.Collapsed;
 
 
 
@@ -826,83 +831,92 @@ namespace HVTApp.UI.Views
 
 
 
-        public static readonly DependencyProperty VisibilityDateCommonOptionProperty = DependencyProperty.Register("VisibilityDateCommonOption", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityDateCommonOption
+        public static readonly DependencyProperty VisibilityDateGlobalPropertiesProperty = DependencyProperty.Register("VisibilityDateGlobalProperties", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityDateGlobalProperties
         {
-            get { return (Visibility) GetValue(VisibilityDateCommonOptionProperty); }
-            set { SetValue(VisibilityDateCommonOptionProperty, value); OnPropertyChanged(); }
+            get { return (Visibility) GetValue(VisibilityDateGlobalPropertiesProperty); }
+            set { SetValue(VisibilityDateGlobalPropertiesProperty, value); OnPropertyChanged(); }
         }
 
 
 
-        public static readonly DependencyProperty VisibilityOurCompanyCommonOptionProperty = DependencyProperty.Register("VisibilityOurCompanyCommonOption", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityOurCompanyCommonOption
+        public static readonly DependencyProperty VisibilityOurCompanyGlobalPropertiesProperty = DependencyProperty.Register("VisibilityOurCompanyGlobalProperties", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityOurCompanyGlobalProperties
         {
-            get { return (Visibility) GetValue(VisibilityOurCompanyCommonOptionProperty); }
-            set { SetValue(VisibilityOurCompanyCommonOptionProperty, value); OnPropertyChanged(); }
+            get { return (Visibility) GetValue(VisibilityOurCompanyGlobalPropertiesProperty); }
+            set { SetValue(VisibilityOurCompanyGlobalPropertiesProperty, value); OnPropertyChanged(); }
         }
 
 
 
-        public static readonly DependencyProperty VisibilityActualPriceTermCommonOptionProperty = DependencyProperty.Register("VisibilityActualPriceTermCommonOption", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityActualPriceTermCommonOption
+        public static readonly DependencyProperty VisibilityActualPriceTermGlobalPropertiesProperty = DependencyProperty.Register("VisibilityActualPriceTermGlobalProperties", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityActualPriceTermGlobalProperties
         {
-            get { return (Visibility) GetValue(VisibilityActualPriceTermCommonOptionProperty); }
-            set { SetValue(VisibilityActualPriceTermCommonOptionProperty, value); OnPropertyChanged(); }
+            get { return (Visibility) GetValue(VisibilityActualPriceTermGlobalPropertiesProperty); }
+            set { SetValue(VisibilityActualPriceTermGlobalPropertiesProperty, value); OnPropertyChanged(); }
         }
 
 
 
-        public static readonly DependencyProperty VisibilityStandartTermFromStartToEndProductionCommonOptionProperty = DependencyProperty.Register("VisibilityStandartTermFromStartToEndProductionCommonOption", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityStandartTermFromStartToEndProductionCommonOption
+        public static readonly DependencyProperty VisibilityStandartTermFromStartToEndProductionGlobalPropertiesProperty = DependencyProperty.Register("VisibilityStandartTermFromStartToEndProductionGlobalProperties", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityStandartTermFromStartToEndProductionGlobalProperties
         {
-            get { return (Visibility) GetValue(VisibilityStandartTermFromStartToEndProductionCommonOptionProperty); }
-            set { SetValue(VisibilityStandartTermFromStartToEndProductionCommonOptionProperty, value); OnPropertyChanged(); }
+            get { return (Visibility) GetValue(VisibilityStandartTermFromStartToEndProductionGlobalPropertiesProperty); }
+            set { SetValue(VisibilityStandartTermFromStartToEndProductionGlobalPropertiesProperty, value); OnPropertyChanged(); }
         }
 
 
 
-        public static readonly DependencyProperty VisibilityStandartTermFromPickToEndProductionCommonOptionProperty = DependencyProperty.Register("VisibilityStandartTermFromPickToEndProductionCommonOption", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityStandartTermFromPickToEndProductionCommonOption
+        public static readonly DependencyProperty VisibilityStandartTermFromPickToEndProductionGlobalPropertiesProperty = DependencyProperty.Register("VisibilityStandartTermFromPickToEndProductionGlobalProperties", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityStandartTermFromPickToEndProductionGlobalProperties
         {
-            get { return (Visibility) GetValue(VisibilityStandartTermFromPickToEndProductionCommonOptionProperty); }
-            set { SetValue(VisibilityStandartTermFromPickToEndProductionCommonOptionProperty, value); OnPropertyChanged(); }
+            get { return (Visibility) GetValue(VisibilityStandartTermFromPickToEndProductionGlobalPropertiesProperty); }
+            set { SetValue(VisibilityStandartTermFromPickToEndProductionGlobalPropertiesProperty, value); OnPropertyChanged(); }
         }
 
 
 
-        public static readonly DependencyProperty VisibilityStandartPaymentsConditionSetCommonOptionProperty = DependencyProperty.Register("VisibilityStandartPaymentsConditionSetCommonOption", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityStandartPaymentsConditionSetCommonOption
+        public static readonly DependencyProperty VisibilityStandartPaymentsConditionSetGlobalPropertiesProperty = DependencyProperty.Register("VisibilityStandartPaymentsConditionSetGlobalProperties", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityStandartPaymentsConditionSetGlobalProperties
         {
-            get { return (Visibility) GetValue(VisibilityStandartPaymentsConditionSetCommonOptionProperty); }
-            set { SetValue(VisibilityStandartPaymentsConditionSetCommonOptionProperty, value); OnPropertyChanged(); }
+            get { return (Visibility) GetValue(VisibilityStandartPaymentsConditionSetGlobalPropertiesProperty); }
+            set { SetValue(VisibilityStandartPaymentsConditionSetGlobalPropertiesProperty, value); OnPropertyChanged(); }
         }
 
 
 
-        public static readonly DependencyProperty VisibilityVatCommonOptionProperty = DependencyProperty.Register("VisibilityVatCommonOption", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityVatCommonOption
+        public static readonly DependencyProperty VisibilityVatGlobalPropertiesProperty = DependencyProperty.Register("VisibilityVatGlobalProperties", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityVatGlobalProperties
         {
-            get { return (Visibility) GetValue(VisibilityVatCommonOptionProperty); }
-            set { SetValue(VisibilityVatCommonOptionProperty, value); OnPropertyChanged(); }
+            get { return (Visibility) GetValue(VisibilityVatGlobalPropertiesProperty); }
+            set { SetValue(VisibilityVatGlobalPropertiesProperty, value); OnPropertyChanged(); }
         }
 
 
 
-        public static readonly DependencyProperty VisibilityNewProductParameterCommonOptionProperty = DependencyProperty.Register("VisibilityNewProductParameterCommonOption", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityNewProductParameterCommonOption
+        public static readonly DependencyProperty VisibilityNewProductParameterGlobalPropertiesProperty = DependencyProperty.Register("VisibilityNewProductParameterGlobalProperties", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityNewProductParameterGlobalProperties
         {
-            get { return (Visibility) GetValue(VisibilityNewProductParameterCommonOptionProperty); }
-            set { SetValue(VisibilityNewProductParameterCommonOptionProperty, value); OnPropertyChanged(); }
+            get { return (Visibility) GetValue(VisibilityNewProductParameterGlobalPropertiesProperty); }
+            set { SetValue(VisibilityNewProductParameterGlobalPropertiesProperty, value); OnPropertyChanged(); }
         }
 
 
 
-        public static readonly DependencyProperty VisibilityNewProductParameterGroupCommonOptionProperty = DependencyProperty.Register("VisibilityNewProductParameterGroupCommonOption", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityNewProductParameterGroupCommonOption
+        public static readonly DependencyProperty VisibilityNewProductParameterGroupGlobalPropertiesProperty = DependencyProperty.Register("VisibilityNewProductParameterGroupGlobalProperties", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityNewProductParameterGroupGlobalProperties
         {
-            get { return (Visibility) GetValue(VisibilityNewProductParameterGroupCommonOptionProperty); }
-            set { SetValue(VisibilityNewProductParameterGroupCommonOptionProperty, value); OnPropertyChanged(); }
+            get { return (Visibility) GetValue(VisibilityNewProductParameterGroupGlobalPropertiesProperty); }
+            set { SetValue(VisibilityNewProductParameterGroupGlobalPropertiesProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityVoltageGroupGlobalPropertiesProperty = DependencyProperty.Register("VisibilityVoltageGroupGlobalProperties", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityVoltageGroupGlobalProperties
+        {
+            get { return (Visibility) GetValue(VisibilityVoltageGroupGlobalPropertiesProperty); }
+            set { SetValue(VisibilityVoltageGroupGlobalPropertiesProperty, value); OnPropertyChanged(); }
         }
 
 

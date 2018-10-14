@@ -30,7 +30,7 @@ namespace HVTApp.Modules.Sales.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             var units = await _container.Resolve<IUnitOfWork>().Repository<SalesUnit>().GetAllAsync();
-            units = units.Where(x => x.Project.Manager.Id == CommonOptions.User.Id).ToList();
+            units = units.Where(x => x.Project.Manager.Id == GlobalAppProperties.User.Id).ToList();
             var projects = units.Select(x => x.Project).Distinct();
             var lookups = projects.Select(x => new ProjectLookup(x)).ToList();
             foreach (var projectLookup in lookups)

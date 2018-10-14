@@ -42,7 +42,7 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Требуемая дата поставки"), Required]
         public virtual DateTime DeliveryDateExpected { get; set; } = 
-            DateTime.Today.AddDays(CommonOptions.ActualOptions.StandartTermFromStartToEndProduction + 120).SkipWeekend();
+            DateTime.Today.AddDays(GlobalAppProperties.Actual.StandartTermFromStartToEndProduction + 120).SkipWeekend();
 
         [Designation("Производитель")]
         public virtual Company Producer { get; set; }
@@ -139,7 +139,7 @@ namespace HVTApp.Model.POCOs
         public bool AllowEditProduct => SignalToStartProduction == null;
 
         [NotMapped, Designation("Проиграно")]
-        public bool IsLoosen => Producer != null && Producer.Id != CommonOptions.ActualOptions.OurCompany.Id;
+        public bool IsLoosen => Producer != null && Producer.Id != GlobalAppProperties.Actual.OurCompany.Id;
 
         [NotMapped, Designation("Исполнен?")]
         public bool IsDone => RealizationDateCalculated < DateTime.Today && ShipmentDateCalculated < DateTime.Today;
@@ -293,7 +293,7 @@ namespace HVTApp.Model.POCOs
                 //по дате комплектации
                 if (PickingDate.HasValue)
                 {
-                    var assembleTerm = this.AssembleTerm ?? CommonOptions.ActualOptions.StandartTermFromPickToEndProduction;
+                    var assembleTerm = this.AssembleTerm ?? GlobalAppProperties.Actual.StandartTermFromPickToEndProduction;
                     return PickingDate.Value.AddDays(assembleTerm).SkipPastAndWeekend();
                 }
 

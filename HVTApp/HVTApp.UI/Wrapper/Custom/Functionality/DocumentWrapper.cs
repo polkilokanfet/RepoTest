@@ -11,7 +11,7 @@ namespace HVTApp.UI.Wrapper
             if (Model.Number == null)
             {
                 Model.Number = new DocumentNumber();
-                Model.Code = CommonOptions.User.PersonalNumber;
+                Model.Code = GlobalAppProperties.User.PersonalNumber;
             }
         }
     }

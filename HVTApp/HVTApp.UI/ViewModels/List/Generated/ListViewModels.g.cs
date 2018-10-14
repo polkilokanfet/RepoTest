@@ -102,9 +102,9 @@ namespace HVTApp.UI.ViewModels
     }
 
 
-	public partial class CommonOptionLookupListViewModel : BaseListViewModel<CommonOption, CommonOptionLookup, AfterSaveCommonOptionEvent, AfterSelectCommonOptionEvent, AfterRemoveCommonOptionEvent>
+	public partial class GlobalPropertiesLookupListViewModel : BaseListViewModel<GlobalProperties, GlobalPropertiesLookup, AfterSaveGlobalPropertiesEvent, AfterSelectGlobalPropertiesEvent, AfterRemoveGlobalPropertiesEvent>
     {
-        public CommonOptionLookupListViewModel(IUnityContainer container) : base(container) { }
+        public GlobalPropertiesLookupListViewModel(IUnityContainer container) : base(container) { }
     }
 
 

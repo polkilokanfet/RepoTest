@@ -22,7 +22,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             //назначаем менеджера
             if (DetailsViewModel.Item.Manager == null)
             {
-                var user = await UnitOfWork.Repository<User>().GetByIdAsync(CommonOptions.User.Id);
+                var user = await UnitOfWork.Repository<User>().GetByIdAsync(GlobalAppProperties.User.Id);
                 DetailsViewModel.Item.Manager = new UserWrapper(user);
             }
 

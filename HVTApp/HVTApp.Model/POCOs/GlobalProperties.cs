@@ -6,7 +6,7 @@ using HVTApp.Infrastructure.Attributes;
 namespace HVTApp.Model.POCOs
 {
     [Designation("Общие настройки")]
-    public class CommonOption : BaseEntity
+    public class GlobalProperties : BaseEntity
     {
         [Designation("Дата настроек"), Required]
         public DateTime Date { get; set; } = DateTime.Today;
@@ -34,5 +34,9 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Группа новых параметров"), Required]
         public virtual ParameterGroup NewProductParameterGroup { get; set; }
+
+
+        [Designation("Группа параметров номинального напряжения"), Required]
+        public virtual ParameterGroup VoltageGroup { get; set; }
     }
 }

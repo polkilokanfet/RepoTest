@@ -16,7 +16,7 @@ namespace HVTApp.DataAccess
     public partial class ProjectTypeConfiguration : EntityTypeConfiguration<ProjectType> { }
     public partial class StandartMarginalIncomeConfiguration : EntityTypeConfiguration<StandartMarginalIncome> { }
     public partial class StandartProductionTermConfiguration : EntityTypeConfiguration<StandartProductionTerm> { }
-    public partial class CommonOptionConfiguration : EntityTypeConfiguration<CommonOption> { }
+    public partial class GlobalPropertiesConfiguration : EntityTypeConfiguration<GlobalProperties> { }
     public partial class AddressConfiguration : EntityTypeConfiguration<Address> { }
     public partial class CountryConfiguration : EntityTypeConfiguration<Country> { }
     public partial class DistrictConfiguration : EntityTypeConfiguration<District> { }

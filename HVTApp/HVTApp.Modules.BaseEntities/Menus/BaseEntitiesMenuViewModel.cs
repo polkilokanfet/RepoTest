@@ -18,7 +18,7 @@ namespace HVTApp.Modules.BaseEntities.Menus
             foreach (var view in views)
             {
                 //добавление видов в соответствии с правами доступа
-                if (view.GetAllowEditRoles().Contains(CommonOptions.User.RoleCurrent))
+                if (view.GetAllowEditRoles().Contains(GlobalAppProperties.User.RoleCurrent))
                     Items.AddToNavigate(view);
                 //Items.Add(new NavigationItem(view.Name, view));
             }

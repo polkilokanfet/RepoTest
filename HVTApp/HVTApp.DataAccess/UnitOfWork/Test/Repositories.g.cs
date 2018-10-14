@@ -68,9 +68,9 @@ namespace HVTApp.DataAccess
         public StandartProductionTermRepositoryTest(TestData testData) : base(testData) {}
     }
 
-    public partial class CommonOptionRepositoryTest : TestBaseRepository<CommonOption>, ICommonOptionRepository
+    public partial class GlobalPropertiesRepositoryTest : TestBaseRepository<GlobalProperties>, IGlobalPropertiesRepository
     {
-        public CommonOptionRepositoryTest(TestData testData) : base(testData) {}
+        public GlobalPropertiesRepositoryTest(TestData testData) : base(testData) {}
     }
 
     public partial class AddressRepositoryTest : TestBaseRepository<Address>, IAddressRepository

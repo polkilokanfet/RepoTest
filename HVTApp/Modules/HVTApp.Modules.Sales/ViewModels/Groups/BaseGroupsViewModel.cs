@@ -125,7 +125,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             if (grp == null) return;
 
             //срок актуальности
-            var priceTerm = CommonOptions.ActualOptions.ActualPriceTerm;
+            var priceTerm = GlobalAppProperties.Actual.ActualPriceTerm;
 
             //если в словаре нет такой группы, добавляем ее
             if (!PriceDictionary.ContainsKey(grp)) PriceDictionary.Add(grp, null);

@@ -18,7 +18,7 @@ namespace HVTApp.Modules.Sales.Views
         {
             var viewModel = container.Resolve<SpecificationsViewModel>();
             InitializeComponent();
-            var units = container.Resolve<IUnitOfWork>().Repository<SalesUnit>().Find(x => x.Specification != null && x.Project.Manager.Id == CommonOptions.User.Id);
+            var units = container.Resolve<IUnitOfWork>().Repository<SalesUnit>().Find(x => x.Specification != null && x.Project.Manager.Id == GlobalAppProperties.User.Id);
             var specs = units.Select(x => x.Specification).Distinct().ToList();
             var lookups = specs.Select(x => new SpecificationLookup(x, units.Where(u => u.Specification.Id == x.Id)));
             viewModel.Load(lookups);

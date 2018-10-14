@@ -94,7 +94,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         protected override async Task LoadedAsyncMethod()
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
-            var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Manager.Id == CommonOptions.User.Id);
+            var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Manager.Id == GlobalAppProperties.User.Id);
 
             var production = salesUnits.Where(x => x.SignalToStartProduction != null && x.EndProductionDateCalculated >= DateTime.Today).ToList();
             var potential = salesUnits.Where(x => x.SignalToStartProduction == null && !x.IsLoosen && x.Project.InWork);

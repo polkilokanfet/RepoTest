@@ -90,10 +90,10 @@ namespace HVTApp.UI
             _updateDetailsService.Register<StandartProductionTerm, StandartProductionTermDetailsView>();
 
 
-            Container.RegisterViewForNavigation<CommonOptionLookupListView>();
-            //_dialogService.Register<CommonOptionDetailsViewModel, CommonOptionDetailsView>();
-			_selectService.Register<CommonOptionLookupListView, CommonOption>();
-            _updateDetailsService.Register<CommonOption, CommonOptionDetailsView>();
+            Container.RegisterViewForNavigation<GlobalPropertiesLookupListView>();
+            //_dialogService.Register<GlobalPropertiesDetailsViewModel, GlobalPropertiesDetailsView>();
+			_selectService.Register<GlobalPropertiesLookupListView, GlobalProperties>();
+            _updateDetailsService.Register<GlobalProperties, GlobalPropertiesDetailsView>();
 
 
             Container.RegisterViewForNavigation<AddressLookupListView>();

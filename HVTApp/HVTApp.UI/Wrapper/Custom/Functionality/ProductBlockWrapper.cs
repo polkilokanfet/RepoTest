@@ -9,14 +9,14 @@ namespace HVTApp.UI.Wrapper
     {
         public bool HasActualPriceOnDate(DateTime date)
         {
-            var actualTerm = CommonOptions.ActualOptions.ActualPriceTerm;
+            var actualTerm = GlobalAppProperties.Actual.ActualPriceTerm;
             return Prices.Any(x => x.Date >= date.AddDays(-actualTerm));
         }
 
         public double GetPrice(DateTime date)
         {
             //ближайшая актуальная цена
-            var actualTerm = CommonOptions.ActualOptions.ActualPriceTerm;
+            var actualTerm = GlobalAppProperties.Actual.ActualPriceTerm;
             var price = Prices.Where(x => x.Date >= date.AddDays(-actualTerm)).OrderBy(x => x.Date).LastOrDefault();
             //if (price != null) return price.Cost;
 

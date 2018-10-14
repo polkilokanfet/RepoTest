@@ -134,11 +134,11 @@ namespace HVTApp.DataAccess
 		}
     }
 
-    public partial class CommonOptionRepository : BaseRepository<CommonOption>, ICommonOptionRepository
+    public partial class GlobalPropertiesRepository : BaseRepository<GlobalProperties>, IGlobalPropertiesRepository
     {
         IUnityContainer _container;
 
-		public CommonOptionRepository(DbContext context, IUnityContainer container) : base(context) 
+		public GlobalPropertiesRepository(DbContext context, IUnityContainer container) : base(context) 
 		{
 			_container = container;
 		}

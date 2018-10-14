@@ -17,7 +17,7 @@ namespace HVTApp.DataAccess
             ProjectTypeRepository = new ProjectTypeRepository(_context, _container);
             StandartMarginalIncomeRepository = new StandartMarginalIncomeRepository(_context, _container);
             StandartProductionTermRepository = new StandartProductionTermRepository(_context, _container);
-            CommonOptionRepository = new CommonOptionRepository(_context, _container);
+            GlobalPropertiesRepository = new GlobalPropertiesRepository(_context, _container);
             AddressRepository = new AddressRepository(_context, _container);
             CountryRepository = new CountryRepository(_context, _container);
             DistrictRepository = new DistrictRepository(_context, _container);
@@ -78,7 +78,7 @@ namespace HVTApp.DataAccess
         protected IProjectTypeRepository ProjectTypeRepository;
         protected IStandartMarginalIncomeRepository StandartMarginalIncomeRepository;
         protected IStandartProductionTermRepository StandartProductionTermRepository;
-        protected ICommonOptionRepository CommonOptionRepository;
+        protected IGlobalPropertiesRepository GlobalPropertiesRepository;
         protected IAddressRepository AddressRepository;
         protected ICountryRepository CountryRepository;
         protected IDistrictRepository DistrictRepository;

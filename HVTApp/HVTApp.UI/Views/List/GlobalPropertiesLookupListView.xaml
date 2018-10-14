@@ -2,7 +2,7 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-              x:Class="HVTApp.UI.Views.CommonOptionLookupListView">
+              x:Class="HVTApp.UI.Views.GlobalPropertiesLookupListView">
 
     <Grid>
          <Grid.RowDefinitions>
@@ -14,7 +14,7 @@
             <Label.Style>
                 <Style>
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding ElementName=CommonOptionLookupListGrid, Path=Visibility}" Value="Visible">
+                    <DataTrigger Binding="{Binding ElementName=GlobalPropertiesLookupListGrid, Path=Visibility}" Value="Visible">
                         <Setter Property="Label.Visibility" Value="Collapsed"/>
                     </DataTrigger>
                 </Style.Triggers>
@@ -23,7 +23,7 @@
         </Label>
        
 
-		<infg:XamDataGrid x:Name="CommonOptionLookupListGrid" Grid.Row="1" Style="{StaticResource ListViewGrid}" Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+		<infg:XamDataGrid x:Name="GlobalPropertiesLookupListGrid" Grid.Row="1" Style="{StaticResource ListViewGrid}" Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
         
 			<infg:XamDataGrid.ContextMenu>
 				<ContextMenu>
@@ -38,6 +38,7 @@
                     <infg:TextField Name="NewProductParameter" Label="Родительский параметр новых параметров" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="OurCompany" Label="Наша компания" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="NewProductParameterGroup" Label="Группа новых параметров" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="VoltageGroup" Label="Группа параметров номинального напряжения" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:NumericField Name="Vat" Label="НДС" Width="Auto" />
                     <infg:NumericField Name="StandartTermFromStartToEndProduction" Label="Стандартный срок производства" Width="Auto" />
                     <infg:NumericField Name="StandartTermFromPickToEndProduction" Label="Стандартный срок сборки" Width="Auto" />

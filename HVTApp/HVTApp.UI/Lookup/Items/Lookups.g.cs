@@ -354,9 +354,9 @@ namespace HVTApp.UI.Lookup
 	[AllowEditAttribute(Role.Admin)]
 
 	[Designation("Общие настройки")]
-	public partial class CommonOptionLookup : LookupItem<CommonOption>
+	public partial class GlobalPropertiesLookup : LookupItem<GlobalProperties>
 	{
-		public CommonOptionLookup(CommonOption entity) : base(entity) 
+		public GlobalPropertiesLookup(GlobalProperties entity) : base(entity) 
 		{
 		}
 		
@@ -402,6 +402,10 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
 	    public ParameterGroupLookup NewProductParameterGroup { get { return GetLookup<ParameterGroupLookup>(); } }
+
+
+		[OrderStatus(1)]
+	    public ParameterGroupLookup VoltageGroup { get { return GetLookup<ParameterGroupLookup>(); } }
 
 
         #endregion
