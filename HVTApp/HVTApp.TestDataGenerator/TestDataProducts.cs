@@ -2668,7 +2668,7 @@ namespace HVTApp.TestDataGenerator
         public Product ProductVgb35;
         public Product ProductVeb110;
         public Product ProductZng110;
-        public Product ProductBreakersDrive;
+        public Product ProductBreakersDrivePprk;
         public Product ProductZip1;
         public Product ProductSheffMontag;
 
@@ -2726,18 +2726,11 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateProducts()
         {
-            ProductVgb35.Clone(new Product
-            {
-                //DesignationSpecial = "ВГБ-35",
-                ProductBlock = ProductBlockVgb35,
-                DependentProducts = new List<ProductDependent> { new ProductDependent { Product = ProductBreakersDrive } }
-            });
-
             ProductVeb110.Clone(new Product
             {
                 //DesignationSpecial = "ВЭБ-110",
                 ProductBlock = ProductBlockVeb110,
-                DependentProducts = new List<ProductDependent> { new ProductDependent { Product = ProductBreakersDrive } }
+                DependentProducts = new List<ProductDependent> { new ProductDependent { Product = ProductBreakersDrivePprk } }
             });
 
             ProductZng110.Clone(new Product
@@ -2746,7 +2739,7 @@ namespace HVTApp.TestDataGenerator
                 ProductBlock = ProductBlockZng110
             });
 
-            ProductBreakersDrive.Clone(new Product
+            ProductBreakersDrivePprk.Clone(new Product
             {
                 //DesignationSpecial = "Привод выключателя",
                 ProductBlock = ProductBlockDrivePprK

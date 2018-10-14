@@ -19,7 +19,6 @@ using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.Modules.BaseEntities;
 using HVTApp.Modules.PlanAndEconomy;
-using HVTApp.Modules.Price;
 using HVTApp.Modules.Products;
 using HVTApp.Modules.Reports;
 using HVTApp.Modules.Settings;
