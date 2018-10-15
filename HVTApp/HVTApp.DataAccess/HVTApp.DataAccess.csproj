@@ -101,7 +101,6 @@
     <Compile Include="EntityTypeConfigurations\Custom\TestHusbandConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Generated\Configurations.g.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ParameterRelationConfiguration.cs" />
-    <Compile Include="Extansions.cs" />
     <Compile Include="HvtAppContext.g.cs" />
     <Compile Include="HVTAppDataBaseInitializer.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\SpecificationConfiguration.cs" />

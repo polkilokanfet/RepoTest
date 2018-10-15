@@ -16,26 +16,33 @@ namespace HVTApp.Services.ShippingService
             _localities = unitOfWork.Repository<Locality>().Find(x => true);
         }
 
-        public void SetShippingTerm(SalesUnit salesUnit)
+        public int? DeliveryTerm(SalesUnit salesUnit)
         {
-            Locality locality = salesUnit.Facility.OwnerCompany.AddressLegal?.Locality;
+            //адрес владельца объекта
+            var locality = salesUnit.Facility.OwnerCompany.AddressLegal?.Locality;
+
+            //адрес объекта
             if(salesUnit.Facility.Address != null)
                 locality = salesUnit.Facility.Address.Locality;
+
+            //адрес доставки
             if (salesUnit.Address != null)
                 locality = salesUnit.Address.Locality;
 
-            if(locality == null) return;
-
-            do
-            {
-                if (locality.DistanceToEkb.HasValue)
+            if(locality != null)
+            { 
+                do
                 {
-                    var distance = locality.DistanceToEkb.Value;
-                    salesUnit.ExpectedDeliveryPeriodCalculated = (int) Math.Ceiling((distance / 8 / 80));
-                    return;
-                }
-                locality = GetCapital(locality);
-            } while (locality != null);            
+                    if (locality.DistanceToEkb.HasValue)
+                    {
+                        var distance = locality.DistanceToEkb.Value;
+                        return (int) Math.Ceiling((distance / 8 / 80));
+                    }
+                    locality = GetCapital(locality);
+                } while (locality != null);
+            }
+
+            return null;         
         }
 
         private Locality GetCapital(Locality locality)

@@ -11,18 +11,17 @@ using HVTApp.Model.Comparers;
 
 namespace HVTApp.Model.POCOs
 {
-
     [Designation("Продукт"), DesignationPlural("Продукты")]
     public partial class Product : BaseEntity
     {
         [Designation("Обозначение"), NotMapped, OrderStatus(8)]
-        public string Designation { get; set; }
+        public string Designation => GlobalAppProperties.ProductDesignationService.GetDesignation(this);
 
         [Designation("Специальное обозначение"), MaxLength(50), OrderStatus(6)]
         public string DesignationSpecial { get; set; }
 
         [Designation("Тип"), NotMapped, OrderStatus(10)]
-        public ProductType ProductType { get; set; }
+        public ProductType ProductType => GlobalAppProperties.ProductDesignationService.GetProductType(this);
 
         [Designation("Блок"), Required, OrderStatus(5)]
         public virtual ProductBlock ProductBlock { get; set; }

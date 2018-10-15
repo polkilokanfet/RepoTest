@@ -114,9 +114,8 @@ namespace HVTApp.Model.POCOs
         [Designation("Срок доставки")]
         public int? ExpectedDeliveryPeriod { get; set; }
 
-        //берется из сервиса (по местонахождению объекта)
         [Designation("Срок доставки расчетный"), NotMapped]
-        public int? ExpectedDeliveryPeriodCalculated { get; set; }
+        public int? ExpectedDeliveryPeriodCalculated => GlobalAppProperties.ShippingService.DeliveryTerm(this);
 
         [Designation("Адрес доставки")]
         public virtual Address Address { get; set; }

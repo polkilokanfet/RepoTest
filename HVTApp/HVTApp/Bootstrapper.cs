@@ -58,7 +58,7 @@ namespace HVTApp
 
         protected override async void InitializeShell()
         {
-            await SetCommonOptions();
+            await SetGlobalAppProperties();
             Application.Current.MainWindow.Show();
         }
 
@@ -66,10 +66,13 @@ namespace HVTApp
         /// Установка общих опций для всех (наша компания, стандартный срок изготовления и т.д.)
         /// </summary>
         /// <returns></returns>
-        private async Task SetCommonOptions()
+        private async Task SetGlobalAppProperties()
         {
-            var commonOptions = await Container.Resolve<IUnitOfWork>().Repository<GlobalProperties>().GetAllAsync();
-            GlobalAppProperties.Actual = commonOptions.OrderBy(x => x.Date).Last();
+            GlobalAppProperties.Actual = (await Container.Resolve<IUnitOfWork>().Repository<GlobalProperties>().GetAllAsync())
+                .OrderBy(x => x.Date).Last();
+
+            GlobalAppProperties.ProductDesignationService = Container.Resolve<IProductDesignationService>();
+            GlobalAppProperties.ShippingService = Container.Resolve<IShippingService>();
         }
 
         protected override void ConfigureContainer()

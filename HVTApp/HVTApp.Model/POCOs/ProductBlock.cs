@@ -15,11 +15,15 @@ namespace HVTApp.Model.POCOs
     public partial class ProductBlock : BaseEntity
     {
         [Designation("Обозначение"), NotMapped]
-        public string Designation { get; set; }
+        public string Designation => GlobalAppProperties.ProductDesignationService.GetDesignation(this);
 
 
         [Designation("Специальное обозначение"), MaxLength(50)]
         public string DesignationSpecial { get; set; }
+
+
+        [Designation("Тип"), NotMapped, OrderStatus(10)]
+        public ProductType ProductType => GlobalAppProperties.ProductDesignationService.GetProductType(this);
 
 
         [Designation("Параметры")]

@@ -4,6 +4,6 @@ namespace HVTApp.Model.Services
 {
     public interface IShippingService
     {
-        void SetShippingTerm(SalesUnit salesUnit);
+        int? DeliveryTerm(SalesUnit salesUnit);
     }
 }

@@ -2,8 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
-using HVTApp.Model.Services;
-using HVTApp.Services.ProductDesignationService;
 
 namespace HVTApp.Services.GetProductService
 {
@@ -16,19 +14,16 @@ namespace HVTApp.Services.GetProductService
         public List<ProductBlock> Blocks { get; }
         public List<Parameter> Parameters { get; }
         public List<ProductRelation> Relations { get; }
-        public IProductDesignationService Designator { get; }
 
         public Bank(List<Product> products, 
                     List<ProductBlock> blocks, 
                     List<Parameter> parameters, 
-                    List<ProductRelation> relations, 
-                    IProductDesignationService designator)
+                    List<ProductRelation> relations)
         {
             Products = products;
             Blocks = blocks;
             Parameters = parameters;
             Relations = relations;
-            Designator = designator;
         }
 
         /// <summary>
@@ -48,11 +43,6 @@ namespace HVTApp.Services.GetProductService
             var existsProduct = Products.SingleOrDefault(x => x.Equals(product));
             if (existsProduct != null) return existsProduct;
 
-            //если продукт еще не существовал
-            //обозначение и тип нового продукта
-            product.Designation = Designator.GetDesignation(product);
-            product.ProductType = Designator.GetProductType(product);
-
             Products.Add(product);
             return product;
         }
@@ -69,9 +59,6 @@ namespace HVTApp.Services.GetProductService
             {
                 return exist;
             }
-
-            block.Designation = Designator.GetDesignation(block);
-            block.StructureCostNumber = "blank";
 
             //добавление блока в банк
             Blocks.Add(block);

@@ -21,6 +21,9 @@ namespace HVTApp.Services.ProductDesignationService
 
         public string GetDesignation(ProductBlock block)
         {
+            if (!string.IsNullOrEmpty(block.DesignationSpecial))
+                return block.DesignationSpecial;
+
             var designations = _designations.Where(pd => pd.Parameters.AllContainsIn(block.Parameters, new ParameterComparer())).ToList();
 
             if (designations.Any())

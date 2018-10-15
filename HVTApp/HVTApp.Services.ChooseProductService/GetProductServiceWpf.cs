@@ -35,7 +35,7 @@ namespace HVTApp.Services.GetProductService
             var productRelations = await _unitOfWork.Repository<ProductRelation>().GetAllAsync();
             var productBlocks = await _unitOfWork.Repository<ProductBlock>().GetAllAsync();
 
-            _bank = new Bank(products, productBlocks, parameters, productRelations, _container.Resolve<IProductDesignationService>());
+            _bank = new Bank(products, productBlocks, parameters, productRelations);
         }
 
         public async Task<Product> GetProductAsync(Product originProduct = null)

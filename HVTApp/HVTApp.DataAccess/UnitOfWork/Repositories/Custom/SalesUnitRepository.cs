@@ -40,12 +40,9 @@ namespace HVTApp.DataAccess
         }
 
         private void Manipulate(SalesUnit unit)
-        {
-            //обозначение продукта
-            unit.DesignateProduct(_container.Resolve<IProductDesignationService>());
-            
+        {           
             //срок доставки
-            _container.Resolve<IShippingService>().SetShippingTerm(unit);
+            _container.Resolve<IShippingService>().DeliveryTerm(unit);
         }
 
         private List<SalesUnit> Manipulate(List<SalesUnit> units)
