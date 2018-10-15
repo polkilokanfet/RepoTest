@@ -6,561 +6,393 @@ namespace HVTApp.DataAccess
 {
     public partial class CreateNewProductTaskRepository : BaseRepository<CreateNewProductTask>, ICreateNewProductTaskRepository
     {
-        IUnityContainer _container;
-
-		public CreateNewProductTaskRepository(DbContext context, IUnityContainer container) : base(context) 
+		public CreateNewProductTaskRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class DocumentNumberRepository : BaseRepository<DocumentNumber>, IDocumentNumberRepository
     {
-        IUnityContainer _container;
-
-		public DocumentNumberRepository(DbContext context, IUnityContainer container) : base(context) 
+		public DocumentNumberRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class MarketFieldRepository : BaseRepository<MarketField>, IMarketFieldRepository
     {
-        IUnityContainer _container;
-
-		public MarketFieldRepository(DbContext context, IUnityContainer container) : base(context) 
+		public MarketFieldRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class PaymentActualRepository : BaseRepository<PaymentActual>, IPaymentActualRepository
     {
-        IUnityContainer _container;
-
-		public PaymentActualRepository(DbContext context, IUnityContainer container) : base(context) 
+		public PaymentActualRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class PaymentPlannedRepository : BaseRepository<PaymentPlanned>, IPaymentPlannedRepository
     {
-        IUnityContainer _container;
-
-		public PaymentPlannedRepository(DbContext context, IUnityContainer container) : base(context) 
+		public PaymentPlannedRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class ProductIncludedRepository : BaseRepository<ProductIncluded>, IProductIncludedRepository
     {
-        IUnityContainer _container;
-
-		public ProductIncludedRepository(DbContext context, IUnityContainer container) : base(context) 
+		public ProductIncludedRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class ProductDesignationRepository : BaseRepository<ProductDesignation>, IProductDesignationRepository
     {
-        IUnityContainer _container;
-
-		public ProductDesignationRepository(DbContext context, IUnityContainer container) : base(context) 
+		public ProductDesignationRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class ProductTypeRepository : BaseRepository<ProductType>, IProductTypeRepository
     {
-        IUnityContainer _container;
-
-		public ProductTypeRepository(DbContext context, IUnityContainer container) : base(context) 
+		public ProductTypeRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class ProductTypeDesignationRepository : BaseRepository<ProductTypeDesignation>, IProductTypeDesignationRepository
     {
-        IUnityContainer _container;
-
-		public ProductTypeDesignationRepository(DbContext context, IUnityContainer container) : base(context) 
+		public ProductTypeDesignationRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class ProjectTypeRepository : BaseRepository<ProjectType>, IProjectTypeRepository
     {
-        IUnityContainer _container;
-
-		public ProjectTypeRepository(DbContext context, IUnityContainer container) : base(context) 
+		public ProjectTypeRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class StandartMarginalIncomeRepository : BaseRepository<StandartMarginalIncome>, IStandartMarginalIncomeRepository
     {
-        IUnityContainer _container;
-
-		public StandartMarginalIncomeRepository(DbContext context, IUnityContainer container) : base(context) 
+		public StandartMarginalIncomeRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class StandartProductionTermRepository : BaseRepository<StandartProductionTerm>, IStandartProductionTermRepository
     {
-        IUnityContainer _container;
-
-		public StandartProductionTermRepository(DbContext context, IUnityContainer container) : base(context) 
+		public StandartProductionTermRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class GlobalPropertiesRepository : BaseRepository<GlobalProperties>, IGlobalPropertiesRepository
     {
-        IUnityContainer _container;
-
-		public GlobalPropertiesRepository(DbContext context, IUnityContainer container) : base(context) 
+		public GlobalPropertiesRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class AddressRepository : BaseRepository<Address>, IAddressRepository
     {
-        IUnityContainer _container;
-
-		public AddressRepository(DbContext context, IUnityContainer container) : base(context) 
+		public AddressRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class CountryRepository : BaseRepository<Country>, ICountryRepository
     {
-        IUnityContainer _container;
-
-		public CountryRepository(DbContext context, IUnityContainer container) : base(context) 
+		public CountryRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class DistrictRepository : BaseRepository<District>, IDistrictRepository
     {
-        IUnityContainer _container;
-
-		public DistrictRepository(DbContext context, IUnityContainer container) : base(context) 
+		public DistrictRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class LocalityRepository : BaseRepository<Locality>, ILocalityRepository
     {
-        IUnityContainer _container;
-
-		public LocalityRepository(DbContext context, IUnityContainer container) : base(context) 
+		public LocalityRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class LocalityTypeRepository : BaseRepository<LocalityType>, ILocalityTypeRepository
     {
-        IUnityContainer _container;
-
-		public LocalityTypeRepository(DbContext context, IUnityContainer container) : base(context) 
+		public LocalityTypeRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class RegionRepository : BaseRepository<Region>, IRegionRepository
     {
-        IUnityContainer _container;
-
-		public RegionRepository(DbContext context, IUnityContainer container) : base(context) 
+		public RegionRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class SumRepository : BaseRepository<Sum>, ISumRepository
     {
-        IUnityContainer _container;
-
-		public SumRepository(DbContext context, IUnityContainer container) : base(context) 
+		public SumRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class CurrencyExchangeRateRepository : BaseRepository<CurrencyExchangeRate>, ICurrencyExchangeRateRepository
     {
-        IUnityContainer _container;
-
-		public CurrencyExchangeRateRepository(DbContext context, IUnityContainer container) : base(context) 
+		public CurrencyExchangeRateRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class NoteRepository : BaseRepository<Note>, INoteRepository
     {
-        IUnityContainer _container;
-
-		public NoteRepository(DbContext context, IUnityContainer container) : base(context) 
+		public NoteRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class OfferUnitRepository : BaseRepository<OfferUnit>, IOfferUnitRepository
     {
-        IUnityContainer _container;
-
-		public OfferUnitRepository(DbContext context, IUnityContainer container) : base(context) 
+		public OfferUnitRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class PaymentConditionSetRepository : BaseRepository<PaymentConditionSet>, IPaymentConditionSetRepository
     {
-        IUnityContainer _container;
-
-		public PaymentConditionSetRepository(DbContext context, IUnityContainer container) : base(context) 
+		public PaymentConditionSetRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class ProductBlockRepository : BaseRepository<ProductBlock>, IProductBlockRepository
     {
-        IUnityContainer _container;
-
-		public ProductBlockRepository(DbContext context, IUnityContainer container) : base(context) 
+		public ProductBlockRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class ProductDependentRepository : BaseRepository<ProductDependent>, IProductDependentRepository
     {
-        IUnityContainer _container;
-
-		public ProductDependentRepository(DbContext context, IUnityContainer container) : base(context) 
+		public ProductDependentRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class BankDetailsRepository : BaseRepository<BankDetails>, IBankDetailsRepository
     {
-        IUnityContainer _container;
-
-		public BankDetailsRepository(DbContext context, IUnityContainer container) : base(context) 
+		public BankDetailsRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class CompanyRepository : BaseRepository<Company>, ICompanyRepository
     {
-        IUnityContainer _container;
-
-		public CompanyRepository(DbContext context, IUnityContainer container) : base(context) 
+		public CompanyRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class CompanyFormRepository : BaseRepository<CompanyForm>, ICompanyFormRepository
     {
-        IUnityContainer _container;
-
-		public CompanyFormRepository(DbContext context, IUnityContainer container) : base(context) 
+		public CompanyFormRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class DocumentsRegistrationDetailsRepository : BaseRepository<DocumentsRegistrationDetails>, IDocumentsRegistrationDetailsRepository
     {
-        IUnityContainer _container;
-
-		public DocumentsRegistrationDetailsRepository(DbContext context, IUnityContainer container) : base(context) 
+		public DocumentsRegistrationDetailsRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class EmployeesPositionRepository : BaseRepository<EmployeesPosition>, IEmployeesPositionRepository
     {
-        IUnityContainer _container;
-
-		public EmployeesPositionRepository(DbContext context, IUnityContainer container) : base(context) 
+		public EmployeesPositionRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class FacilityTypeRepository : BaseRepository<FacilityType>, IFacilityTypeRepository
     {
-        IUnityContainer _container;
-
-		public FacilityTypeRepository(DbContext context, IUnityContainer container) : base(context) 
+		public FacilityTypeRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class ActivityFieldRepository : BaseRepository<ActivityField>, IActivityFieldRepository
     {
-        IUnityContainer _container;
-
-		public ActivityFieldRepository(DbContext context, IUnityContainer container) : base(context) 
+		public ActivityFieldRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class ContractRepository : BaseRepository<Contract>, IContractRepository
     {
-        IUnityContainer _container;
-
-		public ContractRepository(DbContext context, IUnityContainer container) : base(context) 
+		public ContractRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class MeasureRepository : BaseRepository<Measure>, IMeasureRepository
     {
-        IUnityContainer _container;
-
-		public MeasureRepository(DbContext context, IUnityContainer container) : base(context) 
+		public MeasureRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class ParameterRepository : BaseRepository<Parameter>, IParameterRepository
     {
-        IUnityContainer _container;
-
-		public ParameterRepository(DbContext context, IUnityContainer container) : base(context) 
+		public ParameterRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class ParameterGroupRepository : BaseRepository<ParameterGroup>, IParameterGroupRepository
     {
-        IUnityContainer _container;
-
-		public ParameterGroupRepository(DbContext context, IUnityContainer container) : base(context) 
+		public ParameterGroupRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class ProductRelationRepository : BaseRepository<ProductRelation>, IProductRelationRepository
     {
-        IUnityContainer _container;
-
-		public ProductRelationRepository(DbContext context, IUnityContainer container) : base(context) 
+		public ProductRelationRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class PersonRepository : BaseRepository<Person>, IPersonRepository
     {
-        IUnityContainer _container;
-
-		public PersonRepository(DbContext context, IUnityContainer container) : base(context) 
+		public PersonRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class ParameterRelationRepository : BaseRepository<ParameterRelation>, IParameterRelationRepository
     {
-        IUnityContainer _container;
-
-		public ParameterRelationRepository(DbContext context, IUnityContainer container) : base(context) 
+		public ParameterRelationRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class SalesUnitRepository : BaseRepository<SalesUnit>, ISalesUnitRepository
     {
-        IUnityContainer _container;
-
-		public SalesUnitRepository(DbContext context, IUnityContainer container) : base(context) 
+		public SalesUnitRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class DocumentRepository : BaseRepository<Document>, IDocumentRepository
     {
-        IUnityContainer _container;
-
-		public DocumentRepository(DbContext context, IUnityContainer container) : base(context) 
+		public DocumentRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class SumOnDateRepository : BaseRepository<SumOnDate>, ISumOnDateRepository
     {
-        IUnityContainer _container;
-
-		public SumOnDateRepository(DbContext context, IUnityContainer container) : base(context) 
+		public SumOnDateRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class ProductRepository : BaseRepository<Product>, IProductRepository
     {
-        IUnityContainer _container;
-
-		public ProductRepository(DbContext context, IUnityContainer container) : base(context) 
+		public ProductRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class OfferRepository : BaseRepository<Offer>, IOfferRepository
     {
-        IUnityContainer _container;
-
-		public OfferRepository(DbContext context, IUnityContainer container) : base(context) 
+		public OfferRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class EmployeeRepository : BaseRepository<Employee>, IEmployeeRepository
     {
-        IUnityContainer _container;
-
-		public EmployeeRepository(DbContext context, IUnityContainer container) : base(context) 
+		public EmployeeRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class OrderRepository : BaseRepository<Order>, IOrderRepository
     {
-        IUnityContainer _container;
-
-		public OrderRepository(DbContext context, IUnityContainer container) : base(context) 
+		public OrderRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class PaymentConditionRepository : BaseRepository<PaymentCondition>, IPaymentConditionRepository
     {
-        IUnityContainer _container;
-
-		public PaymentConditionRepository(DbContext context, IUnityContainer container) : base(context) 
+		public PaymentConditionRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class PaymentDocumentRepository : BaseRepository<PaymentDocument>, IPaymentDocumentRepository
     {
-        IUnityContainer _container;
-
-		public PaymentDocumentRepository(DbContext context, IUnityContainer container) : base(context) 
+		public PaymentDocumentRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class FacilityRepository : BaseRepository<Facility>, IFacilityRepository
     {
-        IUnityContainer _container;
-
-		public FacilityRepository(DbContext context, IUnityContainer container) : base(context) 
+		public FacilityRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class ProjectRepository : BaseRepository<Project>, IProjectRepository
     {
-        IUnityContainer _container;
-
-		public ProjectRepository(DbContext context, IUnityContainer container) : base(context) 
+		public ProjectRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class UserRoleRepository : BaseRepository<UserRole>, IUserRoleRepository
     {
-        IUnityContainer _container;
-
-		public UserRoleRepository(DbContext context, IUnityContainer container) : base(context) 
+		public UserRoleRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class SpecificationRepository : BaseRepository<Specification>, ISpecificationRepository
     {
-        IUnityContainer _container;
-
-		public SpecificationRepository(DbContext context, IUnityContainer container) : base(context) 
+		public SpecificationRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class TenderRepository : BaseRepository<Tender>, ITenderRepository
     {
-        IUnityContainer _container;
-
-		public TenderRepository(DbContext context, IUnityContainer container) : base(context) 
+		public TenderRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class TenderTypeRepository : BaseRepository<TenderType>, ITenderTypeRepository
     {
-        IUnityContainer _container;
-
-		public TenderTypeRepository(DbContext context, IUnityContainer container) : base(context) 
+		public TenderTypeRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
     public partial class UserRepository : BaseRepository<User>, IUserRepository
     {
-        IUnityContainer _container;
-
-		public UserRepository(DbContext context, IUnityContainer container) : base(context) 
+		public UserRepository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 

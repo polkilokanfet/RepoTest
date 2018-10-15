@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 using HVTApp.Model.POCOs;
-using HVTApp.Model.Services;
-using Microsoft.Practices.Unity;
 
 namespace HVTApp.DataAccess
 {
@@ -22,33 +17,6 @@ namespace HVTApp.DataAccess
                 .Include(x => x.PaymentsActual)
                 .Include(x => x.PaymentsPlanned)
                 .Include(x => x.Order);
-        }
-
-        public override async Task<List<SalesUnit>> GetAllAsync()
-        {
-            return Manipulate(await base.GetAllAsync());
-        }
-
-        public override async Task<List<SalesUnit>> GetAllAsNoTrackingAsync()
-        {
-            return Manipulate(await base.GetAllAsNoTrackingAsync());
-        }
-
-        public override List<SalesUnit> Find(Func<SalesUnit, bool> predicate)
-        {
-            return Manipulate(base.Find(predicate));
-        }
-
-        private void Manipulate(SalesUnit unit)
-        {           
-            //срок доставки
-            _container.Resolve<IShippingService>().DeliveryTerm(unit);
-        }
-
-        private List<SalesUnit> Manipulate(List<SalesUnit> units)
-        {
-            units.ForEach(Manipulate);
-            return units;
         }
     }
 }

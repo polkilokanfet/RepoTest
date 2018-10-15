@@ -12,12 +12,10 @@ namespace HVTApp.DataAccess
     public partial class UnitOfWork : IUnitOfWork
     {
         private readonly DbContext _context;
-        private readonly IUnityContainer _container;
 
         public UnitOfWork(DbContext context, IUnityContainer container)
         {
             _context = context;
-            _container = container;
             InitializeRepositories();
         }
 

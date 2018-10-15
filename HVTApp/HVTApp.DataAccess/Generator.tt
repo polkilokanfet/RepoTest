@@ -95,11 +95,8 @@ namespace HVTApp.DataAccess
 #>
     public partial class <#=modelType.Name#>Repository : BaseRepository<<#=modelType.Name#>>, I<#=modelType.Name#>Repository
     {
-        IUnityContainer _container;
-
-		public <#=modelType.Name#>Repository(DbContext context, IUnityContainer container) : base(context) 
+		public <#=modelType.Name#>Repository(DbContext context) : base(context) 
 		{
-			_container = container;
 		}
     }
 
@@ -215,7 +212,7 @@ namespace HVTApp.DataAccess
 	foreach (var modelType in modelTypes)
     {
 #>
-            <#=modelType.Name#>Repository = new <#=modelType.Name#>Repository(_context, _container);
+            <#=modelType.Name#>Repository = new <#=modelType.Name#>Repository(_context);
 <#+
 	}
 #>
