@@ -1383,6 +1383,20 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility ServiceParameterVisibility
+        {
+            get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.ServiceParameter)].Visibility; }
+            set { GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.ServiceParameter)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility SupervisionParameterVisibility
+        {
+            get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.SupervisionParameter)].Visibility; }
+            set { GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.SupervisionParameter)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility EntityVisibility
         {
             get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.Entity)].Visibility; }
@@ -2725,60 +2739,6 @@ namespace HVTApp.UI.Views
         {
             get { return PersonLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PersonLookup.Entity)].Visibility; }
             set { PersonLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PersonLookup.Entity)].Visibility = value; }
-        }
-
-
-
-		#endregion
-    }
-
-
-    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
-	[Designation("Признаки услуги")]
-	[DesignationPlural("ProductBlockIsServiceLookup")]
-	[AllowEditAttribute(Role.Admin)]
-
-    public partial class ProductBlockIsServiceLookupListView : ViewBase
-    {
-        public ProductBlockIsServiceLookupListView()
-        {
-            InitializeComponent();
-        }
-
-        public ProductBlockIsServiceLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductBlockIsServiceLookupListViewModel ProductBlockIsServiceLookupListViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = ProductBlockIsServiceLookupListViewModel;
-			ProductBlockIsServiceLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
-            Loaded += OnLoaded;
-        }
-		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-			await ((ProductBlockIsServiceLookupListViewModel)DataContext).LoadAsync();;
-        }
-
-		#region VisibilityProps
-
-
-        public System.Windows.Visibility DisplayMemberVisibility
-        {
-            get { return ProductBlockIsServiceLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockIsServiceLookup.DisplayMember)].Visibility; }
-            set { ProductBlockIsServiceLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockIsServiceLookup.DisplayMember)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility EntityVisibility
-        {
-            get { return ProductBlockIsServiceLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockIsServiceLookup.Entity)].Visibility; }
-            set { ProductBlockIsServiceLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockIsServiceLookup.Entity)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility ParametersVisibility
-        {
-            get { return ProductBlockIsServiceLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockIsServiceLookup.Parameters)].Visibility; }
-            set { ProductBlockIsServiceLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockIsServiceLookup.Parameters)].Visibility = value; }
         }
 
 

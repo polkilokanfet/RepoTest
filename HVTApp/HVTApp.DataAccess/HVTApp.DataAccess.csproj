@@ -72,7 +72,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EntityTypeConfigurations\Custom\CommonOptionConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\GlobalPropertiesConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\CostOnDateConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\CreateNewProductTaskConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\EmployeesPositionConfiguration.cs" />
@@ -92,7 +92,6 @@
     <Compile Include="EntityTypeConfigurations\Custom\NoteConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\OfferUnitConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ProductBlockConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\Custom\ProductBlockIsServiceConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ProductDependentConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ProductDesignationConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ProductIncludedConfiguration.cs" />
@@ -133,7 +132,6 @@
     <Compile Include="UnitOfWork\Repositories\Custom\OfferRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\Custom\OfferUnitRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\Custom\ParameterRepository.cs" />
-    <Compile Include="UnitOfWork\Repositories\Custom\ProductBlockIsServiceRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\Custom\ProductBlockRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\Custom\ProductDesignationRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\Custom\ProductRepository.cs" />

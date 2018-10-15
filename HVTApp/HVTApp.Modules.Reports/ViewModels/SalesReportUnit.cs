@@ -37,7 +37,11 @@ namespace HVTApp.Modules.Reports.ViewModels
         {
             get
             {
-                var actEnums = new List<ActivityFieldEnum> {ActivityFieldEnum.Fuel, ActivityFieldEnum.RailWay, ActivityFieldEnum.ElectricityDistribution, ActivityFieldEnum.ElectricityTransmission, ActivityFieldEnum.ElectricityGeneration};
+                var actEnums = new List<ActivityFieldEnum> {ActivityFieldEnum.Fuel,
+                                                            ActivityFieldEnum.RailWay,
+                                                            ActivityFieldEnum.ElectricityDistribution,
+                                                            ActivityFieldEnum.ElectricityTransmission,
+                                                            ActivityFieldEnum.ElectricityGeneration};
                 foreach (var act in actEnums)
                 {
                     var af = Facility.OwnerCompany.ActivityFilds.FirstOrDefault(x => Equals(x.ActivityFieldEnum, act));

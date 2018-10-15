@@ -353,46 +353,6 @@ namespace HVTApp.UI.Views
 	}
 
 
-    public partial class ProductBlockIsServiceDetailsView : ViewBase
-    {
-        public ProductBlockIsServiceDetailsView()
-        {
-			InitializeComponent();
-        }
-
-        public ProductBlockIsServiceDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductBlockIsServiceDetailsViewModel ProductBlockIsServiceDetailsViewModel) : base(regionManager, eventAggregator)
-        {
-            SetVisibilityProps();
-			InitializeComponent();
-            DataContext = ProductBlockIsServiceDetailsViewModel;
-        }
-
-        private void SetVisibilityProps()
-        {
-            //NotUpdateAttribute attr;
-
-
-            //attr = typeof(HVTApp.Model.POCOs.ProductBlockIsService).GetProperty(nameof(HVTApp.Model.POCOs.ProductBlockIsService.Parameters)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityParametersProductBlockIsService = Visibility.Collapsed;
-
-
-
-        }
-
-
-
-        public static readonly DependencyProperty VisibilityParametersProductBlockIsServiceProperty = DependencyProperty.Register("VisibilityParametersProductBlockIsService", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityParametersProductBlockIsService
-        {
-            get { return (Visibility) GetValue(VisibilityParametersProductBlockIsServiceProperty); }
-            set { SetValue(VisibilityParametersProductBlockIsServiceProperty, value); OnPropertyChanged(); }
-        }
-
-
-	}
-
-
     public partial class ProductIncludedDetailsView : ViewBase
     {
         public ProductIncludedDetailsView()
@@ -826,6 +786,16 @@ namespace HVTApp.UI.Views
             //    VisibilityVoltageGroupGlobalProperties = Visibility.Collapsed;
 
 
+            //attr = typeof(HVTApp.Model.POCOs.GlobalProperties).GetProperty(nameof(HVTApp.Model.POCOs.GlobalProperties.ServiceParameter)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityServiceParameterGlobalProperties = Visibility.Collapsed;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.GlobalProperties).GetProperty(nameof(HVTApp.Model.POCOs.GlobalProperties.SupervisionParameter)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilitySupervisionParameterGlobalProperties = Visibility.Collapsed;
+
+
 
         }
 
@@ -917,6 +887,24 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityVoltageGroupGlobalPropertiesProperty); }
             set { SetValue(VisibilityVoltageGroupGlobalPropertiesProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityServiceParameterGlobalPropertiesProperty = DependencyProperty.Register("VisibilityServiceParameterGlobalProperties", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityServiceParameterGlobalProperties
+        {
+            get { return (Visibility) GetValue(VisibilityServiceParameterGlobalPropertiesProperty); }
+            set { SetValue(VisibilityServiceParameterGlobalPropertiesProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilitySupervisionParameterGlobalPropertiesProperty = DependencyProperty.Register("VisibilitySupervisionParameterGlobalProperties", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilitySupervisionParameterGlobalProperties
+        {
+            get { return (Visibility) GetValue(VisibilitySupervisionParameterGlobalPropertiesProperty); }
+            set { SetValue(VisibilitySupervisionParameterGlobalPropertiesProperty, value); OnPropertyChanged(); }
         }
 
 

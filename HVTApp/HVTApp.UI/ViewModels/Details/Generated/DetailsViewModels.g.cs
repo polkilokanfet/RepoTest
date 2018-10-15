@@ -162,54 +162,6 @@ namespace HVTApp.UI.ViewModels
     }
 
 
-    public partial class ProductBlockIsServiceDetailsViewModel : BaseDetailsViewModel<ProductBlockIsServiceWrapper, ProductBlockIsService, AfterSaveProductBlockIsServiceEvent>
-    {
-		private Func<Task<List<Parameter>>> _getEntitiesForAddInParametersCommand;
-		public ICommand AddInParametersCommand { get; }
-		public ICommand RemoveFromParametersCommand { get; }
-		private ParameterWrapper _selectedParametersItem;
-		public ParameterWrapper SelectedParametersItem 
-		{ 
-			get { return _selectedParametersItem; }
-			set 
-			{ 
-				if (Equals(_selectedParametersItem, value)) return;
-				_selectedParametersItem = value;
-				OnPropertyChanged();
-				((DelegateCommand)RemoveFromParametersCommand).RaiseCanExecuteChanged();
-			}
-		}
-
-
-        public ProductBlockIsServiceDetailsViewModel(IUnityContainer container) : base(container) 
-		{
-			
-			if (_getEntitiesForAddInParametersCommand == null) _getEntitiesForAddInParametersCommand = async () => { return await UnitOfWork.Repository<Parameter>().GetAllAsync(); };;
-			if (AddInParametersCommand == null) AddInParametersCommand = new DelegateCommand(AddInParametersCommand_Execute_Default);
-			if (RemoveFromParametersCommand == null) RemoveFromParametersCommand = new DelegateCommand(RemoveFromParametersCommand_Execute_Default, RemoveFromParametersCommand_CanExecute_Default);
-
-		}
-
-			private async void AddInParametersCommand_Execute_Default()
-			{
-				SelectAndAddInListWrapper<Parameter, ParameterWrapper>(await _getEntitiesForAddInParametersCommand(), Item.Parameters);
-			}
-
-			private void RemoveFromParametersCommand_Execute_Default()
-			{
-				Item.Parameters.Remove(SelectedParametersItem);
-			}
-
-			private bool RemoveFromParametersCommand_CanExecute_Default()
-			{
-				return SelectedParametersItem != null;
-			}
-
-
-
-    }
-
-
     public partial class ProductIncludedDetailsViewModel : BaseDetailsViewModel<ProductIncludedWrapper, ProductIncluded, AfterSaveProductIncludedEvent>
     {
 		private Func<Task<List<Product>>> _getEntitiesForSelectProductCommand;
@@ -500,6 +452,14 @@ namespace HVTApp.UI.ViewModels
 		public ICommand SelectVoltageGroupCommand { get; private set; }
 		public ICommand ClearVoltageGroupCommand { get; private set; }
 
+		private Func<Task<List<Parameter>>> _getEntitiesForSelectServiceParameterCommand;
+		public ICommand SelectServiceParameterCommand { get; private set; }
+		public ICommand ClearServiceParameterCommand { get; private set; }
+
+		private Func<Task<List<Parameter>>> _getEntitiesForSelectSupervisionParameterCommand;
+		public ICommand SelectSupervisionParameterCommand { get; private set; }
+		public ICommand ClearSupervisionParameterCommand { get; private set; }
+
 
         public GlobalPropertiesDetailsViewModel(IUnityContainer container) : base(container) 
 		{
@@ -527,6 +487,16 @@ namespace HVTApp.UI.ViewModels
 			if (_getEntitiesForSelectVoltageGroupCommand == null) _getEntitiesForSelectVoltageGroupCommand = async () => { return await UnitOfWork.Repository<ParameterGroup>().GetAllAsync(); };
 			if (SelectVoltageGroupCommand == null) SelectVoltageGroupCommand = new DelegateCommand(SelectVoltageGroupCommand_Execute_Default);
 			if (ClearVoltageGroupCommand == null) ClearVoltageGroupCommand = new DelegateCommand(ClearVoltageGroupCommand_Execute_Default);
+
+			
+			if (_getEntitiesForSelectServiceParameterCommand == null) _getEntitiesForSelectServiceParameterCommand = async () => { return await UnitOfWork.Repository<Parameter>().GetAllAsync(); };
+			if (SelectServiceParameterCommand == null) SelectServiceParameterCommand = new DelegateCommand(SelectServiceParameterCommand_Execute_Default);
+			if (ClearServiceParameterCommand == null) ClearServiceParameterCommand = new DelegateCommand(ClearServiceParameterCommand_Execute_Default);
+
+			
+			if (_getEntitiesForSelectSupervisionParameterCommand == null) _getEntitiesForSelectSupervisionParameterCommand = async () => { return await UnitOfWork.Repository<Parameter>().GetAllAsync(); };
+			if (SelectSupervisionParameterCommand == null) SelectSupervisionParameterCommand = new DelegateCommand(SelectSupervisionParameterCommand_Execute_Default);
+			if (ClearSupervisionParameterCommand == null) ClearSupervisionParameterCommand = new DelegateCommand(ClearSupervisionParameterCommand_Execute_Default);
 
 		}
 
@@ -582,6 +552,28 @@ namespace HVTApp.UI.ViewModels
 		private void ClearVoltageGroupCommand_Execute_Default() 
 		{
 						Item.VoltageGroup = null;
+		    
+		}
+
+		private async void SelectServiceParameterCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<Parameter, ParameterWrapper>(await _getEntitiesForSelectServiceParameterCommand(), nameof(Item.ServiceParameter), Item.ServiceParameter?.Id);
+		}
+
+		private void ClearServiceParameterCommand_Execute_Default() 
+		{
+						Item.ServiceParameter = null;
+		    
+		}
+
+		private async void SelectSupervisionParameterCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<Parameter, ParameterWrapper>(await _getEntitiesForSelectSupervisionParameterCommand(), nameof(Item.SupervisionParameter), Item.SupervisionParameter?.Id);
+		}
+
+		private void ClearSupervisionParameterCommand_Execute_Default() 
+		{
+						Item.SupervisionParameter = null;
 		    
 		}
 

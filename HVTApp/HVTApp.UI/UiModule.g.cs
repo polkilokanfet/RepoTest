@@ -42,12 +42,6 @@ namespace HVTApp.UI
             _updateDetailsService.Register<PaymentPlanned, PaymentPlannedDetailsView>();
 
 
-            Container.RegisterViewForNavigation<ProductBlockIsServiceLookupListView>();
-            //_dialogService.Register<ProductBlockIsServiceDetailsViewModel, ProductBlockIsServiceDetailsView>();
-			_selectService.Register<ProductBlockIsServiceLookupListView, ProductBlockIsService>();
-            _updateDetailsService.Register<ProductBlockIsService, ProductBlockIsServiceDetailsView>();
-
-
             Container.RegisterViewForNavigation<ProductIncludedLookupListView>();
             //_dialogService.Register<ProductIncludedDetailsViewModel, ProductIncludedDetailsView>();
 			_selectService.Register<ProductIncludedLookupListView, ProductIncluded>();

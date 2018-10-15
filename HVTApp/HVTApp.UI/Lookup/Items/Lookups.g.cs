@@ -174,20 +174,6 @@ namespace HVTApp.UI.Lookup
 
 	[AllowEditAttribute(Role.Admin)]
 
-	[Designation("Признаки услуги")]
-	public partial class ProductBlockIsServiceLookup : LookupItem<ProductBlockIsService>
-	{
-		public ProductBlockIsServiceLookup(ProductBlockIsService entity) : base(entity) 
-		{
-		}
-		
-		[OrderStatus(1)]
-	    public List<ParameterLookup> Parameters { get { return GetLookupEnum<ParameterLookup>().ToList(); } }
-
-	}
-
-	[AllowEditAttribute(Role.Admin)]
-
 	[Designation("Включенное в стоимость оборудование")]
 	public partial class ProductIncludedLookup : LookupItem<ProductIncluded>
 	{
@@ -363,7 +349,7 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(20)]
         public System.DateTime Date => GetValue<System.DateTime>();
 
 
@@ -388,7 +374,7 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(19)]
 	    public CompanyLookup OurCompany { get { return GetLookup<CompanyLookup>(); } }
 
 
@@ -406,6 +392,14 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
 	    public ParameterGroupLookup VoltageGroup { get { return GetLookup<ParameterGroupLookup>(); } }
+
+
+		[OrderStatus(1)]
+	    public ParameterLookup ServiceParameter { get { return GetLookup<ParameterLookup>(); } }
+
+
+		[OrderStatus(1)]
+	    public ParameterLookup SupervisionParameter { get { return GetLookup<ParameterLookup>(); } }
 
 
         #endregion

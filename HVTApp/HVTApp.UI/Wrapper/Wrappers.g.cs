@@ -291,46 +291,6 @@ namespace HVTApp.UI.Wrapper
 
 	}
 
-		public partial class ProductBlockIsServiceWrapper : WrapperBase<ProductBlockIsService>
-	{
-	    public ProductBlockIsServiceWrapper(ProductBlockIsService model) : base(model) { }
-
-	
-
-        #region SimpleProperties
-
-        public System.Guid Id
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
-        public bool IdIsChanged => GetIsChanged(nameof(Id));
-
-
-        #endregion
-
-
-        #region CollectionProperties
-
-        public IValidatableChangeTrackingCollection<ParameterWrapper> Parameters { get; private set; }
-
-
-        #endregion
-
-  
-        protected override void InitializeCollectionProperties()
-        {
-
-          if (Model.Parameters == null) throw new ArgumentException("Parameters cannot be null");
-          Parameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.Parameters.Select(e => new ParameterWrapper(e)));
-          RegisterCollection(Parameters, Model.Parameters);
-
-
-        }
-
-	}
-
 		public partial class ProductIncludedWrapper : WrapperBase<ProductIncluded>
 	{
 	    public ProductIncludedWrapper(ProductIncluded model) : base(model) { }
@@ -759,6 +719,20 @@ namespace HVTApp.UI.Wrapper
         }
 
 
+	    public ParameterWrapper ServiceParameter 
+        {
+            get { return GetWrapper<ParameterWrapper>(); }
+            set { SetComplexValue<Parameter, ParameterWrapper>(ServiceParameter, value); }
+        }
+
+
+	    public ParameterWrapper SupervisionParameter 
+        {
+            get { return GetWrapper<ParameterWrapper>(); }
+            set { SetComplexValue<Parameter, ParameterWrapper>(SupervisionParameter, value); }
+        }
+
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -777,6 +751,12 @@ namespace HVTApp.UI.Wrapper
 
 
             InitializeComplexProperty<ParameterGroupWrapper>(nameof(VoltageGroup), Model.VoltageGroup == null ? null : new ParameterGroupWrapper(Model.VoltageGroup));
+
+
+            InitializeComplexProperty<ParameterWrapper>(nameof(ServiceParameter), Model.ServiceParameter == null ? null : new ParameterWrapper(Model.ServiceParameter));
+
+
+            InitializeComplexProperty<ParameterWrapper>(nameof(SupervisionParameter), Model.SupervisionParameter == null ? null : new ParameterWrapper(Model.SupervisionParameter));
 
 
         }
@@ -1461,24 +1441,6 @@ namespace HVTApp.UI.Wrapper
         public bool DesignIsChanged => GetIsChanged(nameof(Design));
 
 
-        public System.Boolean IsService
-        {
-          get { return GetValue<System.Boolean>(); }
-          set { SetValue(value); }
-        }
-        public System.Boolean IsServiceOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsService));
-        public bool IsServiceIsChanged => GetIsChanged(nameof(IsService));
-
-
-        public System.Boolean IsSupervision
-        {
-          get { return GetValue<System.Boolean>(); }
-          set { SetValue(value); }
-        }
-        public System.Boolean IsSupervisionOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsSupervision));
-        public bool IsSupervisionIsChanged => GetIsChanged(nameof(IsSupervision));
-
-
         public System.Boolean IsDelivery
         {
           get { return GetValue<System.Boolean>(); }
@@ -1524,6 +1486,12 @@ namespace HVTApp.UI.Wrapper
 
 
         #region GetProperties
+
+        public System.Boolean IsService => GetValue<System.Boolean>(); 
+
+
+        public System.Boolean IsSupervision => GetValue<System.Boolean>(); 
+
 
         public System.Nullable<System.DateTime> LastPriceDate => GetValue<System.Nullable<System.DateTime>>(); 
 

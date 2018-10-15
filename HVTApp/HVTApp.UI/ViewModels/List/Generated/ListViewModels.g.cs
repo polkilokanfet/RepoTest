@@ -54,12 +54,6 @@ namespace HVTApp.UI.ViewModels
     }
 
 
-	public partial class ProductBlockIsServiceLookupListViewModel : BaseListViewModel<ProductBlockIsService, ProductBlockIsServiceLookup, AfterSaveProductBlockIsServiceEvent, AfterSelectProductBlockIsServiceEvent, AfterRemoveProductBlockIsServiceEvent>
-    {
-        public ProductBlockIsServiceLookupListViewModel(IUnityContainer container) : base(container) { }
-    }
-
-
 	public partial class ProductIncludedLookupListViewModel : BaseListViewModel<ProductIncluded, ProductIncludedLookup, AfterSaveProductIncludedEvent, AfterSelectProductIncludedEvent, AfterRemoveProductIncludedEvent>
     {
         public ProductIncludedLookupListViewModel(IUnityContainer container) : base(container) { }

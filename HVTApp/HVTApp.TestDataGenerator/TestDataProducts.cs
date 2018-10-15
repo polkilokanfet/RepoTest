@@ -2663,14 +2663,13 @@ namespace HVTApp.TestDataGenerator
         public ProductBlock ProductBlockZng110;
         public ProductBlock ProductBlockDrivePprK;
         public ProductBlock ProductBlockZip1;
-        public ProductBlock ProductBlockSheffMontag;
+        public ProductBlock ProductBlockSupervision;
 
-        public Product ProductVgb35;
         public Product ProductVeb110;
         public Product ProductZng110;
         public Product ProductBreakersDrivePprk;
         public Product ProductZip1;
-        public Product ProductSheffMontag;
+        public Product ProductSupervision;
 
         private void GenerateProductBlocs()
         {
@@ -2714,10 +2713,10 @@ namespace HVTApp.TestDataGenerator
                 StructureCostNumber = "789"
             });
 
-            ProductBlockSheffMontag.Clone(new ProductBlock
+            ProductBlockSupervision.Clone(new ProductBlock
             {
-                DesignationSpecial = "Шеф-монтаж",
-                Parameters = new List<Parameter> { ParameterService, ParameterSupervision },
+                DesignationSpecial = "Шеф-монтаж ВЭБ-110 (2 зона)",
+                Parameters = new List<Parameter> { ParameterService, ParameterSupervision, ParameterSupervisionZone2, ParameterSupervisionDeadTankBreaker, ParameterVoltage110kV },
                 Prices = new List<SumOnDate> { new SumOnDate { Sum = 60000, Date = DateTime.Today } },
                 FixedCosts = new List<SumOnDate> { new SumOnDate { Sum = 120000, Date = DateTime.Today } },
                 StructureCostNumber = "---"
@@ -2751,25 +2750,13 @@ namespace HVTApp.TestDataGenerator
                 ProductBlock = ProductBlockZip1
             });
 
-            ProductSheffMontag.Clone(new Product
+            ProductSupervision.Clone(new Product
             {
-                ProductBlock = ProductBlockSheffMontag
+                ProductBlock = ProductBlockSupervision
             });
         }
 
 
         #endregion
-
-        #region IsService
-
-        public ProductBlockIsService ProductBlockIsServiceOther;
-
-        private void GenerateProductBlockIsService()
-        {
-            ProductBlockIsServiceOther.Clone(new ProductBlockIsService { Parameters = new List<Parameter> { ParameterService } });
-        }
-
-        #endregion
-
     }
 }

@@ -9,7 +9,6 @@ namespace HVTApp.DataAccess
             MarketFieldRepository = new MarketFieldRepository(_context, _container);
             PaymentActualRepository = new PaymentActualRepository(_context, _container);
             PaymentPlannedRepository = new PaymentPlannedRepository(_context, _container);
-            ProductBlockIsServiceRepository = new ProductBlockIsServiceRepository(_context, _container);
             ProductIncludedRepository = new ProductIncludedRepository(_context, _container);
             ProductDesignationRepository = new ProductDesignationRepository(_context, _container);
             ProductTypeRepository = new ProductTypeRepository(_context, _container);
@@ -70,7 +69,6 @@ namespace HVTApp.DataAccess
         protected IMarketFieldRepository MarketFieldRepository;
         protected IPaymentActualRepository PaymentActualRepository;
         protected IPaymentPlannedRepository PaymentPlannedRepository;
-        protected IProductBlockIsServiceRepository ProductBlockIsServiceRepository;
         protected IProductIncludedRepository ProductIncludedRepository;
         protected IProductDesignationRepository ProductDesignationRepository;
         protected IProductTypeRepository ProductTypeRepository;

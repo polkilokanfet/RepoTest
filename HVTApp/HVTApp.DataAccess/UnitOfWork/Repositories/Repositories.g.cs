@@ -54,16 +54,6 @@ namespace HVTApp.DataAccess
 		}
     }
 
-    public partial class ProductBlockIsServiceRepository : BaseRepository<ProductBlockIsService>, IProductBlockIsServiceRepository
-    {
-        IUnityContainer _container;
-
-		public ProductBlockIsServiceRepository(DbContext context, IUnityContainer container) : base(context) 
-		{
-			_container = container;
-		}
-    }
-
     public partial class ProductIncludedRepository : BaseRepository<ProductIncluded>, IProductIncludedRepository
     {
         IUnityContainer _container;

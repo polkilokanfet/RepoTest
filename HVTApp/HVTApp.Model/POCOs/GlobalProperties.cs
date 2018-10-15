@@ -8,10 +8,10 @@ namespace HVTApp.Model.POCOs
     [Designation("Общие настройки")]
     public class GlobalProperties : BaseEntity
     {
-        [Designation("Дата настроек"), Required]
+        [Designation("Дата настроек"), Required, OrderStatus(20)]
         public DateTime Date { get; set; } = DateTime.Today;
 
-        [Designation("Наша компания"), Required]
+        [Designation("Наша компания"), Required, OrderStatus(19)]
         public virtual Company OurCompany { get; set; }
 
         [Designation("Срок актуальности себестоимости"), Required]
@@ -38,5 +38,11 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Группа параметров номинального напряжения"), Required]
         public virtual ParameterGroup VoltageGroup { get; set; }
+
+        [Designation("Признак услуги"), Required]
+        public virtual Parameter ServiceParameter { get; set; }
+
+        [Designation("Признак шеф-монтажа"), Required]
+        public virtual Parameter SupervisionParameter { get; set; }
     }
 }

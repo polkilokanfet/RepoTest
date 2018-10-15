@@ -13,7 +13,6 @@ namespace HVTApp.DataAccess
         {
             var designator = _container.Resolve<IProductDesignationService>();
             block.Designation = block.DesignationSpecial ?? designator.GetDesignation(block);
-            block.IsService = designator.IsService(block);
             return block;
         }
 
