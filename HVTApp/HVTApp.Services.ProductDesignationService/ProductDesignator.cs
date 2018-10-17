@@ -10,27 +10,49 @@ namespace HVTApp.Services.ProductDesignationService
 {
     public class ProductDesignator : IProductDesignationService
     {
-        private readonly IEnumerable<ProductDesignation> _designations;
         private readonly IEnumerable<ProductTypeDesignation> _typeDesignations;
+
+        private readonly Dictionary<List<Parameter>, string> _designationDictionary;
 
         public ProductDesignator(IUnitOfWork unitOfWork)
         {
-            _designations = unitOfWork.Repository<ProductDesignation>().Find(x => true);
             _typeDesignations = unitOfWork.Repository<ProductTypeDesignation>().Find(x => true);
+
+            var designations = unitOfWork.Repository<ProductDesignation>().Find(x => true);
+            _designationDictionary = new Dictionary<List<Parameter>, string>();
+            foreach (var designation in designations)
+            {
+                foreach (var kvp in designation.GetDesignationDictionary())
+                {
+                    _designationDictionary.Add(kvp.Key.ToList(), kvp.Value);
+                }
+            }
+            _designationDictionary = _designationDictionary.OrderByDescending(x => x.Key.Count).ToDictionary(x => x.Key, x => x.Value);
         }
+
+        #region Designation
 
         public string GetDesignation(ProductBlock block)
         {
             if (!string.IsNullOrEmpty(block.DesignationSpecial))
                 return block.DesignationSpecial;
 
-            var designations = _designations.Where(pd => pd.Parameters.AllContainsIn(block.Parameters, new ParameterComparer())).ToList();
+            var designation = _designationDictionary.FirstOrDefault(pd => pd.Key.AllContainsIn(block.Parameters, new ParameterComparer()));
 
-            if (designations.Any())
-                return designations.OrderBy(x => x.Parameters.Count).Last().Designation;
+            if (!Equals(designation, default(KeyValuePair<List<Parameter>, string>)))
+                return designation.Value;
 
             return block.ParametersToString();
         }
+
+        public string GetDesignation(Product product)
+        {
+            return GetDesignation(product.ProductBlock);
+        }
+
+        #endregion
+
+        #region Type
 
         public ProductType GetProductType(ProductBlock block)
         {
@@ -42,14 +64,12 @@ namespace HVTApp.Services.ProductDesignationService
             return null;
         }
 
-        public string GetDesignation(Product product)
-        {
-            return GetDesignation(product.ProductBlock);
-        }
-
         public ProductType GetProductType(Product product)
         {
             return GetProductType(product.ProductBlock);
         }
+
+        #endregion
+
     }
 }

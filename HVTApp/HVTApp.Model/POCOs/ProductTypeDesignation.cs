@@ -11,7 +11,7 @@ namespace HVTApp.Model.POCOs
         [Designation("Тип"), Required, OrderStatus(10)]
         public virtual ProductType ProductType { get; set; }
 
-        [Designation("Параметры")]
+        [Designation("Параметры"), Required]
         public virtual List<Parameter> Parameters { get; set; } = new List<Parameter>();
     }
 }

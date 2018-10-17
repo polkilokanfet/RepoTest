@@ -6,6 +6,7 @@ namespace HVTApp.DataAccess
         {
             Property(x => x.Designation).IsRequired();
             HasMany(x => x.Parameters).WithMany();
+            HasMany(x => x.Parents).WithMany();
         }
     }
 }
