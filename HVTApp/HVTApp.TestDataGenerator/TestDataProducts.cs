@@ -2759,7 +2759,7 @@ namespace HVTApp.TestDataGenerator
             ProductDesignationCurrentBreaking40.Clone(new ProductDesignation { Designation = "-40", Parameters = new List<Parameter> { ParameterCurrentBreaking40kA }, Parents = dpu2.ToList() });
             ProductDesignationCurrentBreaking50.Clone(new ProductDesignation { Designation = "-50", Parameters = new List<Parameter> { ParameterCurrentBreaking40kA }, Parents = dpu2.ToList() });
 
-            var current = new List<ProductDesignation>()
+            var current = new List<ProductDesignation>
             {
                 ProductDesignationCurrentBreaking12,
                 ProductDesignationCurrentBreaking40,
@@ -2769,13 +2769,13 @@ namespace HVTApp.TestDataGenerator
                 ProductDesignationCurrentTerm50
             };
 
-            ProductDesignationCurrent0630.Clone(new ProductDesignation { Designation = "/630", Parameters = new List<Parameter> { ParameterCurrentBreaking12kA }, Parents = current.ToList() });
-            ProductDesignationCurrent1000.Clone(new ProductDesignation { Designation = "/1000", Parameters = new List<Parameter> { ParameterCurrentBreaking12kA }, Parents = current.ToList() });
-            ProductDesignationCurrent1250.Clone(new ProductDesignation { Designation = "/1250", Parameters = new List<Parameter> { ParameterCurrentBreaking12kA }, Parents = current.ToList() });
-            ProductDesignationCurrent1600.Clone(new ProductDesignation { Designation = "/1600", Parameters = new List<Parameter> { ParameterCurrentBreaking12kA }, Parents = current.ToList() });
-            ProductDesignationCurrent2500.Clone(new ProductDesignation { Designation = "/2500", Parameters = new List<Parameter> { ParameterCurrentBreaking12kA }, Parents = current.ToList() });
-            ProductDesignationCurrent3150.Clone(new ProductDesignation { Designation = "/3150", Parameters = new List<Parameter> { ParameterCurrentBreaking12kA }, Parents = current.ToList() });
-            ProductDesignationCurrent4000.Clone(new ProductDesignation { Designation = "/4000", Parameters = new List<Parameter> { ParameterCurrentBreaking12kA }, Parents = current.ToList() });
+            ProductDesignationCurrent0630.Clone(new ProductDesignation { Designation = "/630", Parameters = new List<Parameter> { ParameterCurrent0630 }, Parents = current.ToList() });
+            ProductDesignationCurrent1000.Clone(new ProductDesignation { Designation = "/1000", Parameters = new List<Parameter> { ParameterCurrent1000 }, Parents = current.ToList() });
+            ProductDesignationCurrent1250.Clone(new ProductDesignation { Designation = "/1250", Parameters = new List<Parameter> { ParameterCurrent1250 }, Parents = current.ToList() });
+            ProductDesignationCurrent1600.Clone(new ProductDesignation { Designation = "/1600", Parameters = new List<Parameter> { ParameterCurrent1600 }, Parents = current.ToList() });
+            ProductDesignationCurrent2500.Clone(new ProductDesignation { Designation = "/2500", Parameters = new List<Parameter> { ParameterCurrent2500 }, Parents = current.ToList() });
+            ProductDesignationCurrent3150.Clone(new ProductDesignation { Designation = "/3150", Parameters = new List<Parameter> { ParameterCurrent3150 }, Parents = current.ToList() });
+            ProductDesignationCurrent4000.Clone(new ProductDesignation { Designation = "/4000", Parameters = new List<Parameter> { ParameterCurrent4000 }, Parents = current.ToList() });
 
         }
 
