@@ -2590,10 +2590,16 @@ namespace HVTApp.TestDataGenerator
         public ProductDesignation ProductDesignationZip1;
         public ProductDesignation ProductDesignationZip2;
 
-        public ProductDesignation ProductDesignationRpd110;
-        public ProductDesignation ProductDesignationRpd220;
-        public ProductDesignation ProductDesignationRpdo110;
-        public ProductDesignation ProductDesignationRpdo220;
+        public ProductDesignation ProductDesignationRpd;
+        public ProductDesignation ProductDesignationRpdo;
+
+
+        public ProductDesignation ProductDesignationRpd1P;
+        public ProductDesignation ProductDesignationRpd1K;
+        public ProductDesignation ProductDesignationRpd2;
+
+        public ProductDesignation ProductDesignationRpdVoltage110;
+        public ProductDesignation ProductDesignationRpdVoltage220;
 
         public ProductDesignation ProductDesignationZro110;
         public ProductDesignation ProductDesignationZro220;
@@ -2603,18 +2609,35 @@ namespace HVTApp.TestDataGenerator
 
         public ProductDesignation ProductDesignationSupervision;
 
-        public ProductDesignation ParameterDesignationClimatT1;
-        public ProductDesignation ParameterDesignationClimatU1Z;
-        public ProductDesignation ParameterDesignationClimatUhl1Z;
-        public ProductDesignation ParameterDesignationClimatUhl1;
-        public ProductDesignation ParameterDesignationClimatU1;
-        public ProductDesignation ParameterDesignationClimatHl1Z;
-        public ProductDesignation ParameterDesignationClimatHl1;
+        public ProductDesignation ProductDesignationClimatT1;
+        public ProductDesignation ProductDesignationClimatU1Z;
+        public ProductDesignation ProductDesignationClimatUhl1Z;
+        public ProductDesignation ProductDesignationClimatUhl1;
+        public ProductDesignation ProductDesignationClimatU1;
+        public ProductDesignation ProductDesignationClimatHl1Z;
+        public ProductDesignation ProductDesignationClimatHl1;
+
+        public ProductDesignation ProductDesignationCurrentBreaking12;
+        public ProductDesignation ProductDesignationCurrentBreaking40;
+        public ProductDesignation ProductDesignationCurrentBreaking50;
+
+        public ProductDesignation ProductDesignationCurrentTerm25;
+        public ProductDesignation ProductDesignationCurrentTerm40;
+        public ProductDesignation ProductDesignationCurrentTerm50;
+
+        public ProductDesignation ProductDesignationCurrent0630;
+        public ProductDesignation ProductDesignationCurrent1000;
+        public ProductDesignation ProductDesignationCurrent1250;
+        public ProductDesignation ProductDesignationCurrent1600;
+        public ProductDesignation ProductDesignationCurrent2500;
+        public ProductDesignation ProductDesignationCurrent3150;
+        public ProductDesignation ProductDesignationCurrent4000;
 
 
         private void GenerateProductDesignations()
         {
             ProductDesignationVgb35.Clone(new ProductDesignation { Designation = "ВГБ-УЭТМ-35", Parameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage35kV } });
+
             ProductDesignationVgt35.Clone(new ProductDesignation { Designation = "ВГТ-УЭТМ-35", Parameters = new List<Parameter> { ParameterBreakerLiveTank, ParameterVoltage35kV } });
             ProductDesignationVgt110.Clone(new ProductDesignation { Designation = "ВГТ-УЭТМ-110", Parameters = new List<Parameter> { ParameterBreakerLiveTank, ParameterVoltage110kV } });
 
@@ -2646,10 +2669,39 @@ namespace HVTApp.TestDataGenerator
             ProductDesignationZip1.Clone(new ProductDesignation { Designation = "ЗИП №1", Parameters = new List<Parameter> { ParameterZip1 } });
             ProductDesignationZip2.Clone(new ProductDesignation { Designation = "ЗИП №2", Parameters = new List<Parameter> { ParameterZip2 } });
 
-            ProductDesignationRpd110.Clone(new ProductDesignation { Designation = "РПД-УЭТМ-110", Parameters = new List<Parameter> { ParameterDisconnector, ParameterVoltage110kV } });
-            ProductDesignationRpd220.Clone(new ProductDesignation { Designation = "РПД-УЭТМ-220", Parameters = new List<Parameter> { ParameterDisconnector, ParameterVoltage220kV } });
-            ProductDesignationRpdo110.Clone(new ProductDesignation { Designation = "РПДО-УЭТМ-110", Parameters = new List<Parameter> { ParameterDisconnector, ParameterVoltage110kV, ParameterDisconnectorIspolnenie1Pol } });
-            ProductDesignationRpdo220.Clone(new ProductDesignation { Designation = "РПДО-УЭТМ-220", Parameters = new List<Parameter> { ParameterDisconnector, ParameterVoltage220kV, ParameterDisconnectorIspolnenie1Pol } });
+            ProductDesignationRpd.Clone(new ProductDesignation { Designation = "РПД-УЭТМ", Parameters = new List<Parameter> { ParameterDisconnector, ParameterDisconnectorIspolnenie3Pol } });
+            ProductDesignationRpdo.Clone(new ProductDesignation { Designation = "РПДО-УЭТМ", Parameters = new List<Parameter> { ParameterDisconnector, ParameterDisconnectorIspolnenie1Pol } });
+
+            var rpd1 = new List<ProductDesignation>
+            {
+                ProductDesignationRpd,
+                ProductDesignationRpdo
+            };
+
+            ProductDesignationRpd1P.Clone(new ProductDesignation { Designation = "-1п", Parameters = new List<Parameter> { ParameterDisconnectorZazemlPalPos, ParameterDisconnectorZazemlKulNeg }, Parents = rpd1.ToList() });
+            ProductDesignationRpd1K.Clone(new ProductDesignation { Designation = "-1к", Parameters = new List<Parameter> { ParameterDisconnectorZazemlPalNeg, ParameterDisconnectorZazemlKulPos }, Parents = rpd1.ToList() });
+            ProductDesignationRpd2.Clone(new ProductDesignation { Designation = "-2", Parameters = new List<Parameter> { ParameterDisconnectorZazemlPalPos, ParameterDisconnectorZazemlKulPos }, Parents = rpd1.ToList() });
+
+            var rpd = new List<ProductDesignation>
+            {
+                ProductDesignationRpd1P,
+                ProductDesignationRpd1K,
+                ProductDesignationRpd2
+            };
+
+            ProductDesignationRpdVoltage110.Clone(new ProductDesignation { Designation = "-110", Parameters = new List<Parameter> { ParameterVoltage110kV }, Parents = rpd.ToList() });
+            ProductDesignationRpdVoltage220.Clone(new ProductDesignation { Designation = "-220", Parameters = new List<Parameter> { ParameterVoltage220kV }, Parents = rpd.ToList() });
+
+            var rpdVol = new List<ProductDesignation>()
+            {
+                ProductDesignationRpdVoltage110,
+                ProductDesignationRpdVoltage220
+            };
+
+            ProductDesignationCurrentTerm25.Clone(new ProductDesignation { Designation = "-25", Parameters = new List<Parameter> { ParameterIterm25kA }, Parents = rpdVol.ToList() });
+            ProductDesignationCurrentTerm40.Clone(new ProductDesignation { Designation = "-40", Parameters = new List<Parameter> { ParameterIterm40kA }, Parents = rpdVol.ToList() });
+            ProductDesignationCurrentTerm50.Clone(new ProductDesignation { Designation = "-50", Parameters = new List<Parameter> { ParameterIterm50kA }, Parents = rpdVol.ToList() });
+
 
             ProductDesignationZro110.Clone(new ProductDesignation { Designation = "ЗРО-УЭТМ-110", Parameters = new List<Parameter> { ParameterEarthingSwitch, ParameterVoltage110kV } });
             ProductDesignationZro220.Clone(new ProductDesignation { Designation = "ЗРО-УЭТМ-220", Parameters = new List<Parameter> { ParameterEarthingSwitch, ParameterVoltage220kV } });
@@ -2677,20 +2729,54 @@ namespace HVTApp.TestDataGenerator
 
             var climat = new List<ProductDesignation>()
             {
+                ProductDesignationCurrent0630,
+                ProductDesignationCurrent1000,
+                ProductDesignationCurrent1250,
+                ProductDesignationCurrent1600,
+                ProductDesignationCurrent2500,
+                ProductDesignationCurrent3150,
+                ProductDesignationCurrent4000
+            };
+
+            ProductDesignationClimatT1.Clone(new ProductDesignation { Designation = " Т1", Parameters = new List<Parameter> { ParameterClimatT1 }, Parents = climat.ToList() });
+            ProductDesignationClimatU1Z.Clone(new ProductDesignation { Designation = " У1*", Parameters = new List<Parameter> { ParameterClimatU1Z }, Parents = climat.ToList() });
+            ProductDesignationClimatUhl1Z.Clone(new ProductDesignation { Designation = " УХЛ1*", Parameters = new List<Parameter> { ParameterClimatUhl1Z }, Parents = climat.ToList() });
+            ProductDesignationClimatUhl1.Clone(new ProductDesignation { Designation = " УХЛ1", Parameters = new List<Parameter> { ParameterClimatUhl1 }, Parents = climat.ToList() });
+            ProductDesignationClimatU1.Clone(new ProductDesignation { Designation = " У1", Parameters = new List<Parameter> { ParameterClimatU1 }, Parents = climat.ToList() });
+            ProductDesignationClimatHl1Z.Clone(new ProductDesignation { Designation = " ХЛ1*", Parameters = new List<Parameter> { ParameterClimatHl1Z }, Parents = climat.ToList() });
+            ProductDesignationClimatHl1.Clone(new ProductDesignation { Designation = " ХЛ1", Parameters = new List<Parameter> { ParameterClimatHl1 }, Parents = climat.ToList() });
+
+            ProductDesignationSupervision.Clone(new ProductDesignation { Designation = "Шеф-монтаж", Parameters = new List<Parameter> { ParameterSupervision } });
+
+            var dpu2 = new List<ProductDesignation>()
+            {
                 ProductDesignationDpu2,
                 ProductDesignationDpu3,
                 ProductDesignationDpu4
             };
 
-            ParameterDesignationClimatT1.Clone(new ProductDesignation { Designation = " Т1", Parameters = new List<Parameter> { ParameterClimatT1 }, Parents = climat.ToList() });
-            ParameterDesignationClimatU1Z.Clone(new ProductDesignation { Designation = " У1*", Parameters = new List<Parameter> { ParameterClimatU1Z }, Parents = climat.ToList() });
-            ParameterDesignationClimatUhl1Z.Clone(new ProductDesignation { Designation = " УХЛ1*", Parameters = new List<Parameter> { ParameterClimatUhl1Z }, Parents = climat.ToList() });
-            ParameterDesignationClimatUhl1.Clone(new ProductDesignation { Designation = " УХЛ1", Parameters = new List<Parameter> { ParameterClimatUhl1 }, Parents = climat.ToList() });
-            ParameterDesignationClimatU1.Clone(new ProductDesignation { Designation = " У1", Parameters = new List<Parameter> { ParameterClimatU1 }, Parents = climat.ToList() });
-            ParameterDesignationClimatHl1Z.Clone(new ProductDesignation { Designation = " ХЛ1*", Parameters = new List<Parameter> { ParameterClimatHl1Z }, Parents = climat.ToList() });
-            ParameterDesignationClimatHl1.Clone(new ProductDesignation { Designation = " ХЛ1", Parameters = new List<Parameter> { ParameterClimatHl1 }, Parents = climat.ToList() });
+            ProductDesignationCurrentBreaking12.Clone(new ProductDesignation { Designation = "-12,5", Parameters = new List<Parameter> { ParameterCurrentBreaking12kA }, Parents = new List<ProductDesignation> { ProductDesignationVgb35 } });
+            ProductDesignationCurrentBreaking40.Clone(new ProductDesignation { Designation = "-40", Parameters = new List<Parameter> { ParameterCurrentBreaking40kA }, Parents = dpu2.ToList() });
+            ProductDesignationCurrentBreaking50.Clone(new ProductDesignation { Designation = "-50", Parameters = new List<Parameter> { ParameterCurrentBreaking40kA }, Parents = dpu2.ToList() });
 
-            ProductDesignationSupervision.Clone(new ProductDesignation { Designation = "Шеф-монтаж", Parameters = new List<Parameter> { ParameterSupervision } });
+            var current = new List<ProductDesignation>()
+            {
+                ProductDesignationCurrentBreaking12,
+                ProductDesignationCurrentBreaking40,
+                ProductDesignationCurrentBreaking50,
+                ProductDesignationCurrentTerm25,
+                ProductDesignationCurrentTerm40,
+                ProductDesignationCurrentTerm50
+            };
+
+            ProductDesignationCurrent0630.Clone(new ProductDesignation { Designation = "/630", Parameters = new List<Parameter> { ParameterCurrentBreaking12kA }, Parents = current.ToList() });
+            ProductDesignationCurrent1000.Clone(new ProductDesignation { Designation = "/1000", Parameters = new List<Parameter> { ParameterCurrentBreaking12kA }, Parents = current.ToList() });
+            ProductDesignationCurrent1250.Clone(new ProductDesignation { Designation = "/1250", Parameters = new List<Parameter> { ParameterCurrentBreaking12kA }, Parents = current.ToList() });
+            ProductDesignationCurrent1600.Clone(new ProductDesignation { Designation = "/1600", Parameters = new List<Parameter> { ParameterCurrentBreaking12kA }, Parents = current.ToList() });
+            ProductDesignationCurrent2500.Clone(new ProductDesignation { Designation = "/2500", Parameters = new List<Parameter> { ParameterCurrentBreaking12kA }, Parents = current.ToList() });
+            ProductDesignationCurrent3150.Clone(new ProductDesignation { Designation = "/3150", Parameters = new List<Parameter> { ParameterCurrentBreaking12kA }, Parents = current.ToList() });
+            ProductDesignationCurrent4000.Clone(new ProductDesignation { Designation = "/4000", Parameters = new List<Parameter> { ParameterCurrentBreaking12kA }, Parents = current.ToList() });
+
         }
 
         #endregion
