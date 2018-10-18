@@ -1020,11 +1020,11 @@ namespace HVTApp.TestDataGenerator
 
             #region Климматическое исполнение
 
-            ParameterClimatT1.Clone(new Parameter { ParameterGroup = ParameterGroupClimat, Value = "T1 (от +50 до -40)" });
+            ParameterClimatT1.Clone(new Parameter { ParameterGroup = ParameterGroupClimat, Value = "T1 (от +50 до -40)", Rang = -10});
             ParameterClimatU1Z.Clone(new Parameter { ParameterGroup = ParameterGroupClimat, Value = "У1* (от +40 до -40)" });
-            ParameterClimatUhl1Z.Clone(new Parameter { ParameterGroup = ParameterGroupClimat, Value = "УХЛ1* (от +40 до -55)" });
+            ParameterClimatUhl1Z.Clone(new Parameter { ParameterGroup = ParameterGroupClimat, Value = "УХЛ1* (от +40 до -55)", Rang = 10});
             ParameterClimatUhl1.Clone(new Parameter { ParameterGroup = ParameterGroupClimat, Value = "УХЛ1 (от +40 до -60)" });
-            ParameterClimatU1.Clone(new Parameter { ParameterGroup = ParameterGroupClimat, Value = "У1 (от +40 до -45)" });
+            ParameterClimatU1.Clone(new Parameter { ParameterGroup = ParameterGroupClimat, Value = "У1 (от +40 до -45)", Rang = 8});
             ParameterClimatHl1Z.Clone(new Parameter { ParameterGroup = ParameterGroupClimat, Value = "ХЛ1* (от +40 до -55)" });
             ParameterClimatHl1.Clone(new Parameter { ParameterGroup = ParameterGroupClimat, Value = "ХЛ1 (от +40 до -60)" });
 
@@ -2557,6 +2557,8 @@ namespace HVTApp.TestDataGenerator
 
         public ProductDesignation ProductDesignationVgt35;
         public ProductDesignation ProductDesignationVgt110;
+        public ProductDesignation ProductDesignationVgt330;
+        public ProductDesignation ProductDesignationVgt500;
         public ProductDesignation ProductDesignationVgt2201A1;
 
         public ProductDesignation ProductDesignationVeb110;
@@ -2607,8 +2609,6 @@ namespace HVTApp.TestDataGenerator
         public ProductDesignation ProductDesignationVab;
         public ProductDesignation ProductDesignationVat;
 
-        public ProductDesignation ProductDesignationSupervision;
-
         public ProductDesignation ProductDesignationClimatT1;
         public ProductDesignation ProductDesignationClimatU1Z;
         public ProductDesignation ProductDesignationClimatUhl1Z;
@@ -2633,6 +2633,24 @@ namespace HVTApp.TestDataGenerator
         public ProductDesignation ProductDesignationCurrent3150;
         public ProductDesignation ProductDesignationCurrent4000;
 
+        public ProductDesignation ProductDesignationSupervision;
+
+        public ProductDesignation ParameterDesignationSupervisionDeadTankBreaker;
+        public ProductDesignation ParameterDesignationSupervisionLiveTankBreaker;
+        public ProductDesignation ParameterDesignationSupervisionTransformerCurrent;
+        public ProductDesignation ParameterDesignationSupervisionTransformerVoltage;
+
+        public ProductDesignation ProductDesignationSupervision035kV;
+        public ProductDesignation ProductDesignationSupervision110kV;
+        public ProductDesignation ProductDesignationSupervision220kV;
+        public ProductDesignation ProductDesignationSupervision330kV;
+        public ProductDesignation ProductDesignationSupervision500kV;
+
+        public ProductDesignation ProductDesignationSupervisionZone1;
+        public ProductDesignation ProductDesignationSupervisionZone2;
+        public ProductDesignation ProductDesignationSupervisionZone3;
+
+
 
         private void GenerateProductDesignations()
         {
@@ -2640,6 +2658,8 @@ namespace HVTApp.TestDataGenerator
 
             ProductDesignationVgt35.Clone(new ProductDesignation { Designation = "ВГТ-УЭТМ-35", Parameters = new List<Parameter> { ParameterBreakerLiveTank, ParameterVoltage35kV } });
             ProductDesignationVgt110.Clone(new ProductDesignation { Designation = "ВГТ-УЭТМ-110", Parameters = new List<Parameter> { ParameterBreakerLiveTank, ParameterVoltage110kV } });
+            ProductDesignationVgt330.Clone(new ProductDesignation { Designation = "ВГТ-УЭТМ-330", Parameters = new List<Parameter> { ParameterBreakerLiveTank, ParameterVoltage330kV } });
+            ProductDesignationVgt500.Clone(new ProductDesignation { Designation = "ВГТ-УЭТМ-500", Parameters = new List<Parameter> { ParameterBreakerLiveTank, ParameterVoltage500kV } });
 
             ProductDesignationVgt2201A1.Clone(new ProductDesignation { Designation = "ВГТ-УЭТМ-1А1-220", Parameters = new List<Parameter> { ParameterBreakerLiveTank, ParameterVoltage220kV, ParameterBreakerLiveTankBreaks1Razriv } });
 
@@ -2692,7 +2712,7 @@ namespace HVTApp.TestDataGenerator
             ProductDesignationRpdVoltage110.Clone(new ProductDesignation { Designation = "-110", Parameters = new List<Parameter> { ParameterVoltage110kV }, Parents = rpd.ToList() });
             ProductDesignationRpdVoltage220.Clone(new ProductDesignation { Designation = "-220", Parameters = new List<Parameter> { ParameterVoltage220kV }, Parents = rpd.ToList() });
 
-            var rpdVol = new List<ProductDesignation>()
+            var rpdVol = new List<ProductDesignation>
             {
                 ProductDesignationRpdVoltage110,
                 ProductDesignationRpdVoltage220
@@ -2713,6 +2733,8 @@ namespace HVTApp.TestDataGenerator
             {
                 ProductDesignationVgt35,
                 ProductDesignationVgt110,
+                ProductDesignationVgt330,
+                ProductDesignationVgt500,
                 ProductDesignationVgt2201A1,
                 ProductDesignationVeb110,
                 ProductDesignationVeb220,
@@ -2735,7 +2757,10 @@ namespace HVTApp.TestDataGenerator
                 ProductDesignationCurrent1600,
                 ProductDesignationCurrent2500,
                 ProductDesignationCurrent3150,
-                ProductDesignationCurrent4000
+                ProductDesignationCurrent4000,
+                ProductDesignationDpu2,
+                ProductDesignationDpu3,
+                ProductDesignationDpu4
             };
 
             ProductDesignationClimatT1.Clone(new ProductDesignation { Designation = " Т1", Parameters = new List<Parameter> { ParameterClimatT1 }, Parents = climat.ToList() });
@@ -2746,9 +2771,7 @@ namespace HVTApp.TestDataGenerator
             ProductDesignationClimatHl1Z.Clone(new ProductDesignation { Designation = " ХЛ1*", Parameters = new List<Parameter> { ParameterClimatHl1Z }, Parents = climat.ToList() });
             ProductDesignationClimatHl1.Clone(new ProductDesignation { Designation = " ХЛ1", Parameters = new List<Parameter> { ParameterClimatHl1 }, Parents = climat.ToList() });
 
-            ProductDesignationSupervision.Clone(new ProductDesignation { Designation = "Шеф-монтаж", Parameters = new List<Parameter> { ParameterSupervision } });
-
-            var dpu2 = new List<ProductDesignation>()
+            var dpu2 = new List<ProductDesignation>
             {
                 ProductDesignationDpu2,
                 ProductDesignationDpu3,
@@ -2777,6 +2800,39 @@ namespace HVTApp.TestDataGenerator
             ProductDesignationCurrent3150.Clone(new ProductDesignation { Designation = "/3150", Parameters = new List<Parameter> { ParameterCurrent3150 }, Parents = current.ToList() });
             ProductDesignationCurrent4000.Clone(new ProductDesignation { Designation = "/4000", Parameters = new List<Parameter> { ParameterCurrent4000 }, Parents = current.ToList() });
 
+            ProductDesignationSupervision.Clone(new ProductDesignation { Designation = "Шеф-монтаж", Parameters = new List<Parameter> { ParameterSupervision } });
+
+            ParameterDesignationSupervisionDeadTankBreaker.Clone(new ProductDesignation { Designation = " бакового выключателя", Parameters = new List<Parameter> { ParameterSupervisionDeadTankBreaker }, Parents = new List<ProductDesignation> {ProductDesignationSupervision} });
+            ParameterDesignationSupervisionLiveTankBreaker.Clone(new ProductDesignation { Designation = " колонкового выключателя", Parameters = new List<Parameter> { ParameterSupervisionLiveTankBreaker}, Parents = new List<ProductDesignation> { ProductDesignationSupervision } });
+            ParameterDesignationSupervisionTransformerCurrent.Clone(new ProductDesignation { Designation = " трансформатора тока", Parameters = new List<Parameter> { ParameterSupervisionTransformerCurrent}, Parents = new List<ProductDesignation> { ProductDesignationSupervision } });
+            ParameterDesignationSupervisionTransformerVoltage.Clone(new ProductDesignation { Designation = " трансформатора напряжения", Parameters = new List<Parameter> { ParameterSupervisionTransformerVoltage}, Parents = new List<ProductDesignation> { ProductDesignationSupervision } });
+
+            var supervisionVoltage = new List<ProductDesignation>
+            {
+                ParameterDesignationSupervisionDeadTankBreaker,
+                ParameterDesignationSupervisionLiveTankBreaker,
+                ParameterDesignationSupervisionTransformerCurrent,
+                ParameterDesignationSupervisionTransformerVoltage
+            };
+
+            ProductDesignationSupervision035kV.Clone(new ProductDesignation { Designation = " на 35 кВ", Parameters = new List<Parameter> { ParameterVoltage35kV }, Parents = supervisionVoltage.ToList() }); 
+            ProductDesignationSupervision110kV.Clone(new ProductDesignation { Designation = " на 110 кВ", Parameters = new List<Parameter> { ParameterVoltage110kV }, Parents = supervisionVoltage.ToList() }); 
+            ProductDesignationSupervision220kV.Clone(new ProductDesignation { Designation = " на 220 кВ", Parameters = new List<Parameter> { ParameterVoltage220kV }, Parents = supervisionVoltage.ToList() }); 
+            ProductDesignationSupervision330kV.Clone(new ProductDesignation { Designation = " на 330 кВ", Parameters = new List<Parameter> { ParameterVoltage330kV }, Parents = supervisionVoltage.ToList() }); 
+            ProductDesignationSupervision500kV.Clone(new ProductDesignation { Designation = " на 500 кВ", Parameters = new List<Parameter> { ParameterVoltage500kV }, Parents = supervisionVoltage.ToList() });
+
+            var supervisionZone = new List<ProductDesignation>
+            {
+                ProductDesignationSupervision035kV,
+                ProductDesignationSupervision110kV,
+                ProductDesignationSupervision220kV,
+                ProductDesignationSupervision330kV,
+                ProductDesignationSupervision500kV
+            };
+
+            ProductDesignationSupervisionZone1.Clone(new ProductDesignation { Designation = " (зона 1)", Parameters = new List<Parameter> { ParameterSupervisionZone1 }, Parents = supervisionZone.ToList() }); 
+            ProductDesignationSupervisionZone2.Clone(new ProductDesignation { Designation = " (зона 2)", Parameters = new List<Parameter> { ParameterSupervisionZone2 }, Parents = supervisionZone.ToList() }); 
+            ProductDesignationSupervisionZone3.Clone(new ProductDesignation { Designation = " (зона 3)", Parameters = new List<Parameter> { ParameterSupervisionZone3 }, Parents = supervisionZone.ToList() }); 
         }
 
         #endregion
@@ -2840,7 +2896,7 @@ namespace HVTApp.TestDataGenerator
 
             ProductBlockSupervision.Clone(new ProductBlock
             {
-                DesignationSpecial = "Шеф-монтаж ВЭБ-110 (2 зона)",
+                //DesignationSpecial = "Шеф-монтаж ВЭБ-110 (2 зона)",
                 Parameters = new List<Parameter> { ParameterService, ParameterSupervision, ParameterSupervisionZone2, ParameterSupervisionDeadTankBreaker, ParameterVoltage110kV },
                 Prices = new List<SumOnDate> { new SumOnDate { Sum = 60000, Date = DateTime.Today } },
                 FixedCosts = new List<SumOnDate> { new SumOnDate { Sum = 120000, Date = DateTime.Today } },

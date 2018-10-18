@@ -18,6 +18,9 @@ namespace HVTApp.Services.ShippingService
 
         public int? DeliveryTerm(SalesUnit salesUnit)
         {
+            if (salesUnit.Facility == null)
+                return null;
+
             //адрес владельца объекта
             var locality = salesUnit.Facility.OwnerCompany.AddressLegal?.Locality;
 
