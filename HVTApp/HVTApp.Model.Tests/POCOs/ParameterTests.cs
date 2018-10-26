@@ -15,8 +15,6 @@ namespace HVTApp.Model.Tests.POCOs
             var testData = new TestData();
             var parameters = testData.GetAll<Parameter>().ToList();
 
-            var rr = testData.ParameterClimatU1Z.Paths();
-
             var result = new List<PathToOrigin>();
             foreach (var parameter in parameters)
             {

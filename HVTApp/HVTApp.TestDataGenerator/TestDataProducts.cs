@@ -2839,21 +2839,37 @@ namespace HVTApp.TestDataGenerator
 
         #region Products
 
+        public ProductBlock ProductBlockZip1;
+        public Product ProductZip1;
+
+        #if DEBUG
+
         public ProductBlock ProductBlockVgb35;
         public ProductBlock ProductBlockVeb110;
         public ProductBlock ProductBlockZng110;
         public ProductBlock ProductBlockDrivePprK;
-        public ProductBlock ProductBlockZip1;
         public ProductBlock ProductBlockSupervision;
 
         public Product ProductVeb110;
         public Product ProductZng110;
         public Product ProductBreakersDrivePprk;
-        public Product ProductZip1;
         public Product ProductSupervision;
+
+        #endif
 
         private void GenerateProductBlocs()
         {
+
+            ProductBlockZip1.Clone(new ProductBlock
+            {
+                //DesignationSpecial = "Блок Групповой комплект ЗИП №1",
+                Parameters = new List<Parameter> { ParameterDependentEquipment, ParameterZip1 },
+                Prices = new List<SumOnDate> { new SumOnDate { Sum = 14050, Date = DateTime.Today } },
+                StructureCostNumber = "???"
+            });
+
+            #if DEBUG
+
             ProductBlockVgb35.Clone(new ProductBlock
             {
                 //DesignationSpecial = "Блок Выключатель баковый ВГБ-35",
@@ -2886,14 +2902,6 @@ namespace HVTApp.TestDataGenerator
                 StructureCostNumber = "654"
             });
 
-            ProductBlockZip1.Clone(new ProductBlock
-            {
-                DesignationSpecial = "Блок Групповой комплект ЗИП №1",
-                Parameters = new List<Parameter> { ParameterDependentEquipment, ParameterZip1 },
-                Prices = new List<SumOnDate> { new SumOnDate { Sum = 2500, Date = DateTime.Today } },
-                StructureCostNumber = "789"
-            });
-
             ProductBlockSupervision.Clone(new ProductBlock
             {
                 //DesignationSpecial = "Шеф-монтаж ВЭБ-110 (2 зона)",
@@ -2902,10 +2910,20 @@ namespace HVTApp.TestDataGenerator
                 FixedCosts = new List<SumOnDate> { new SumOnDate { Sum = 120000, Date = DateTime.Today } },
                 StructureCostNumber = "---"
             });
+            
+            #endif
         }
 
         private void GenerateProducts()
         {
+            ProductZip1.Clone(new Product
+            {
+                //DesignationSpecial = "ЗиП №1",
+                ProductBlock = ProductBlockZip1
+            });
+
+            #if DEBUG
+
             ProductVeb110.Clone(new Product
             {
                 //DesignationSpecial = "ВЭБ-110",
@@ -2925,18 +2943,13 @@ namespace HVTApp.TestDataGenerator
                 ProductBlock = ProductBlockDrivePprK
             });
 
-            ProductZip1.Clone(new Product
-            {
-                //DesignationSpecial = "ЗиП №1",
-                ProductBlock = ProductBlockZip1
-            });
-
             ProductSupervision.Clone(new Product
             {
                 ProductBlock = ProductBlockSupervision
             });
-        }
 
+            #endif
+        }
 
         #endregion
     }
