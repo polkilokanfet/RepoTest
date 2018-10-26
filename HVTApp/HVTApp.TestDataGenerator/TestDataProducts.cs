@@ -2596,6 +2596,7 @@ namespace HVTApp.TestDataGenerator
         public ProductDesignation ProductDesignationRpdo;
 
 
+        public ProductDesignation ProductDesignationRpd0;
         public ProductDesignation ProductDesignationRpd1P;
         public ProductDesignation ProductDesignationRpd1K;
         public ProductDesignation ProductDesignationRpd2;
@@ -2698,12 +2699,14 @@ namespace HVTApp.TestDataGenerator
                 ProductDesignationRpdo
             };
 
+            ProductDesignationRpd0.Clone(new ProductDesignation { Designation = "", Parameters = new List<Parameter> { ParameterDisconnectorZazemlPalNeg, ParameterDisconnectorZazemlKulNeg }, Parents = rpd1.ToList() });
             ProductDesignationRpd1P.Clone(new ProductDesignation { Designation = "-1п", Parameters = new List<Parameter> { ParameterDisconnectorZazemlPalPos, ParameterDisconnectorZazemlKulNeg }, Parents = rpd1.ToList() });
             ProductDesignationRpd1K.Clone(new ProductDesignation { Designation = "-1к", Parameters = new List<Parameter> { ParameterDisconnectorZazemlPalNeg, ParameterDisconnectorZazemlKulPos }, Parents = rpd1.ToList() });
             ProductDesignationRpd2.Clone(new ProductDesignation { Designation = "-2", Parameters = new List<Parameter> { ParameterDisconnectorZazemlPalPos, ParameterDisconnectorZazemlKulPos }, Parents = rpd1.ToList() });
 
             var rpd = new List<ProductDesignation>
             {
+                ProductDesignationRpd0,
                 ProductDesignationRpd1P,
                 ProductDesignationRpd1K,
                 ProductDesignationRpd2
