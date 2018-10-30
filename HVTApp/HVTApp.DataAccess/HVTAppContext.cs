@@ -8,9 +8,9 @@ namespace HVTApp.DataAccess
     {
         public HvtAppContext() : base("name=HvtAppContext")
         {
-            #if DEBUG
+            //#if DEBUG
             Database.SetInitializer(new HvtAppDataBaseInitializer());
-            #endif
+            //#endif
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

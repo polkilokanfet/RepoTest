@@ -460,6 +460,12 @@ namespace HVTApp.Modules.Sales.ViewModels
 
             //обновляем целевой проект
             project.Refresh();
+
+            //обновляем отображение оборудования
+            if (Equals(project, SelectedProjectLookup))
+            {
+                LoadGroups(SelectedProjectLookup);
+            }
         }
 
         private void AfterSaveOfferUnitEventExecute(OfferUnit offerUnit)

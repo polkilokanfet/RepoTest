@@ -8,7 +8,8 @@
         WindowStartupLocation="CenterScreen">
     
     <StackPanel>
-        <views:ProductIncludedDetailsView DataContext="{Binding ViewModel}"/>
+        <views:ProductIncludedDetailsView DataContext="{Binding ViewModel}"
+                                          VisibilityParentsCountProductIncluded="Collapsed"/>
         
         <Grid>
             <Grid.ColumnDefinitions>
