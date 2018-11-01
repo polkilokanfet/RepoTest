@@ -2876,7 +2876,7 @@ namespace HVTApp.TestDataGenerator
         public Product ProductBreakersDrivePprk;
         public Product ProductSupervision;
 
-#endif
+        #endif
 
         private void GenerateProductBlocs()
         {
@@ -2884,12 +2884,12 @@ namespace HVTApp.TestDataGenerator
             ProductBlockZip1.Clone(new ProductBlock
             {
                 //DesignationSpecial = "Блок Групповой комплект ЗИП №1",
-                Parameters = new List<Parameter> { ParameterDependentEquipment, ParameterZip1 },
+                Parameters = new List<Parameter> { ParameterDependentEquipment, ParameterDependentEquipmentTypeZip, ParameterZip1 },
                 Prices = new List<SumOnDate> { new SumOnDate { Sum = 14050, Date = DateTime.Today } },
                 StructureCostNumber = "???"
             });
 
-#if DEBUG
+            #if DEBUG
 
             ProductBlockVgb35.Clone(new ProductBlock
             {

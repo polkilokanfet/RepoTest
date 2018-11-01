@@ -6,8 +6,13 @@ namespace HVTApp.DataAccess
 
     public partial class HvtAppContext : DbContext
     {
+#if DEBUG
         public HvtAppContext() : base("name=HvtAppContext")
         {
+#else
+        public HvtAppContext() : base("name=HvtAppContextRelease")
+        {
+#endif
             //#if DEBUG
             Database.SetInitializer(new HvtAppDataBaseInitializer());
             //#endif
