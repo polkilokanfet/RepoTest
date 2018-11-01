@@ -73,6 +73,7 @@ namespace HVTApp.TestDataGenerator
         public ParameterGroup ParameterGroupBvptVoltage;
         public ParameterGroup ParameterGroupSupervisionTarget;
         public ParameterGroup ParameterGroupSupervisionZone;
+        public ParameterGroup ParameterGroupDependentEquipmentType;
 
         private void GenerateParameterGroups()
         {
@@ -139,6 +140,7 @@ namespace HVTApp.TestDataGenerator
             ParameterGroupBvptVoltage.Clone(new ParameterGroup { Name = "Номинальное напряжение, В" });
             ParameterGroupSupervisionTarget.Clone(new ParameterGroup { Name = "Монтируемое изделие" });
             ParameterGroupSupervisionZone.Clone(new ParameterGroup { Name = "Зона проведения монтажа" });
+            ParameterGroupDependentEquipmentType.Clone(new ParameterGroup { Name = "Тип дополнительного оборудования" });
         }
 
         #endregion
@@ -153,7 +155,7 @@ namespace HVTApp.TestDataGenerator
         public Parameter ParameterMainEquipment;
         public Parameter ParameterBvpt;
         public Parameter ParameterDependentEquipment;
-        public Parameter ParameterService;        
+        public Parameter ParameterService;
 
         #endregion
 
@@ -177,6 +179,13 @@ namespace HVTApp.TestDataGenerator
         public Parameter ParameterSupervisionZone1;
         public Parameter ParameterSupervisionZone2;
         public Parameter ParameterSupervisionZone3;
+
+        #endregion
+
+        #region Тип дополнительного оборудования
+
+        public Parameter ParameterDependentEquipmentTypeZip;
+        public Parameter ParameterDependentEquipmentTypeOpornMet;
 
         #endregion
 
@@ -327,7 +336,7 @@ namespace HVTApp.TestDataGenerator
         public Parameter ParameterPolimer;
 
         #endregion
-        
+
         #region Длина пути утечки
 
         public Parameter ParameterDpu2;
@@ -683,10 +692,10 @@ namespace HVTApp.TestDataGenerator
 
             ParameterMainEquipment.Clone(new Parameter { ParameterGroup = ParameterGroupProductType, Value = "Подстанционное оборудование", Rang = 10 });
             ParameterBvpt.Clone(new Parameter { ParameterGroup = ParameterGroupProductType, Value = "Быстродействующие выключатели постоянного тока", Rang = 9 });
-            ParameterDependentEquipment.Clone(new Parameter { ParameterGroup = ParameterGroupProductType, Value = "Оборудование дополнительное", Rang = 8});
-            ParameterService.Clone(new Parameter { ParameterGroup = ParameterGroupProductType, Value = "Услуга", Rang = 7});
-            ParameterProductParts.Clone(new Parameter { ParameterGroup = ParameterGroupProductType, Value = "Составные части оборудования", Rang = 6});
-            ParameterNewProduct.Clone(new Parameter { ParameterGroup = ParameterGroupProductType, Value = "Оборудование новое", Rang = 5});
+            ParameterDependentEquipment.Clone(new Parameter { ParameterGroup = ParameterGroupProductType, Value = "Оборудование дополнительное", Rang = 8 });
+            ParameterService.Clone(new Parameter { ParameterGroup = ParameterGroupProductType, Value = "Услуга", Rang = 7 });
+            ParameterProductParts.Clone(new Parameter { ParameterGroup = ParameterGroupProductType, Value = "Составные части оборудования", Rang = 6 });
+            ParameterNewProduct.Clone(new Parameter { ParameterGroup = ParameterGroupProductType, Value = "Оборудование новое", Rang = 5 });
 
             #endregion
 
@@ -701,8 +710,8 @@ namespace HVTApp.TestDataGenerator
             #region Цель шеф-монтажа
 
             ParameterSupervisionDeadTankBreaker.Clone(new Parameter { ParameterGroup = ParameterGroupSupervisionTarget, Value = "Выключатель баковый" });
-            ParameterSupervisionLiveTankBreaker.Clone(new Parameter { ParameterGroup = ParameterGroupSupervisionTarget, Value = "Выключатель колонковый" }); 
-            ParameterSupervisionTransformerCurrent.Clone(new Parameter { ParameterGroup = ParameterGroupSupervisionTarget, Value = "Трансформатор тока" }); 
+            ParameterSupervisionLiveTankBreaker.Clone(new Parameter { ParameterGroup = ParameterGroupSupervisionTarget, Value = "Выключатель колонковый" });
+            ParameterSupervisionTransformerCurrent.Clone(new Parameter { ParameterGroup = ParameterGroupSupervisionTarget, Value = "Трансформатор тока" });
             ParameterSupervisionTransformerVoltage.Clone(new Parameter { ParameterGroup = ParameterGroupSupervisionTarget, Value = "Трансформатор напряжения" });
 
             ParameterSupervisionDeadTankBreaker
@@ -722,7 +731,7 @@ namespace HVTApp.TestDataGenerator
             #region Зона шеф-монтажа
 
             ParameterSupervisionZone1.Clone(new Parameter { ParameterGroup = ParameterGroupSupervisionZone, Value = "1" });
-            ParameterSupervisionZone2.Clone(new Parameter { ParameterGroup = ParameterGroupSupervisionZone, Value = "2" }); 
+            ParameterSupervisionZone2.Clone(new Parameter { ParameterGroup = ParameterGroupSupervisionZone, Value = "2" });
             ParameterSupervisionZone3.Clone(new Parameter { ParameterGroup = ParameterGroupSupervisionZone, Value = "3" }); ;
 
             ParameterSupervisionZone1.AddRequiredPreviousParameters(ParameterSupervision);
@@ -731,22 +740,32 @@ namespace HVTApp.TestDataGenerator
 
             #endregion
 
+            #region Тип дополнительного оборудования
+
+            ParameterDependentEquipmentTypeZip.Clone(new Parameter { ParameterGroup = ParameterGroupDependentEquipmentType, Value = "Групповой комплект ЗИП", Rang = 50 });
+            ParameterDependentEquipmentTypeOpornMet.Clone(new Parameter { ParameterGroup = ParameterGroupDependentEquipmentType, Value = "Опорные металлоконструкции", Rang = 40 });
+
+            ParameterDependentEquipmentTypeZip.AddRequiredPreviousParameters(ParameterDependentEquipment);
+            ParameterDependentEquipmentTypeOpornMet.AddRequiredPreviousParameters(ParameterDependentEquipment);
+
+            #endregion
+
             #region ЗИПы
 
             ParameterZip1.Clone(new Parameter { ParameterGroup = ParameterGroupZip, Value = "Групповой комплект ЗИП №1 (газотехнология)" });
             ParameterZip2.Clone(new Parameter { ParameterGroup = ParameterGroupZip, Value = "Групповой комплект ЗИП №2 (элегаз)" });
 
-            ParameterZip1.AddRequiredPreviousParameters(ParameterDependentEquipment);
-            ParameterZip2.AddRequiredPreviousParameters(ParameterDependentEquipment);
+            ParameterZip1.AddRequiredPreviousParameters(ParameterDependentEquipmentTypeZip);
+            ParameterZip2.AddRequiredPreviousParameters(ParameterDependentEquipmentTypeZip);
 
             #endregion
 
             #region Тип основного оборудования
 
-            ParameterBreaker.Clone(new Parameter { ParameterGroup = ParameterGroupEqType, Value = "Выключатель", Rang = 10});
-            ParameterTransformer.Clone(new Parameter { ParameterGroup = ParameterGroupEqType, Value = "Трансформатор", Rang = 9});
-            ParameterDisconnector.Clone(new Parameter { ParameterGroup = ParameterGroupEqType, Value = "Разъединитель", Rang = 8});
-            ParameterEarthingSwitch.Clone(new Parameter { ParameterGroup = ParameterGroupEqType, Value = "Заземлитель", Rang = 7});
+            ParameterBreaker.Clone(new Parameter { ParameterGroup = ParameterGroupEqType, Value = "Выключатель", Rang = 10 });
+            ParameterTransformer.Clone(new Parameter { ParameterGroup = ParameterGroupEqType, Value = "Трансформатор", Rang = 9 });
+            ParameterDisconnector.Clone(new Parameter { ParameterGroup = ParameterGroupEqType, Value = "Разъединитель", Rang = 8 });
+            ParameterEarthingSwitch.Clone(new Parameter { ParameterGroup = ParameterGroupEqType, Value = "Заземлитель", Rang = 7 });
 
             ParameterBreaker
                 .AddRequiredPreviousParameters(ParameterMainEquipment);
@@ -802,7 +821,7 @@ namespace HVTApp.TestDataGenerator
             ParameterDrivesCurrentDiscNo.AddRequiredPreviousParameters(ParameterDrivePPrK);
             ParameterDrivesCurrentDisc3A.AddRequiredPreviousParameters(ParameterDrivePPrK);
             ParameterDrivesCurrentDisc5A.AddRequiredPreviousParameters(ParameterDrivePPrK);
-            
+
             #endregion
 
             #region Напряжение двигателя завода пружин
@@ -873,7 +892,7 @@ namespace HVTApp.TestDataGenerator
 
             ParameterTransformerBuiltOut.AddRequiredPreviousParameters(ParameterTransformerCurrent, ParameterMainEquipment);
             ParameterTransformerBuiltIn.AddRequiredPreviousParameters(ParameterTransformerCurrent, ParameterPartTransformer);
-            
+
             #endregion
 
             #region Номинальное напряжение
@@ -1020,11 +1039,11 @@ namespace HVTApp.TestDataGenerator
 
             #region Климматическое исполнение
 
-            ParameterClimatT1.Clone(new Parameter { ParameterGroup = ParameterGroupClimat, Value = "T1 (от +50 до -40)", Rang = -10});
+            ParameterClimatT1.Clone(new Parameter { ParameterGroup = ParameterGroupClimat, Value = "T1 (от +50 до -40)", Rang = -10 });
             ParameterClimatU1Z.Clone(new Parameter { ParameterGroup = ParameterGroupClimat, Value = "У1* (от +40 до -40)" });
-            ParameterClimatUhl1Z.Clone(new Parameter { ParameterGroup = ParameterGroupClimat, Value = "УХЛ1* (от +40 до -55)", Rang = 10});
+            ParameterClimatUhl1Z.Clone(new Parameter { ParameterGroup = ParameterGroupClimat, Value = "УХЛ1* (от +40 до -55)", Rang = 10 });
             ParameterClimatUhl1.Clone(new Parameter { ParameterGroup = ParameterGroupClimat, Value = "УХЛ1 (от +40 до -60)" });
-            ParameterClimatU1.Clone(new Parameter { ParameterGroup = ParameterGroupClimat, Value = "У1 (от +40 до -45)", Rang = 8});
+            ParameterClimatU1.Clone(new Parameter { ParameterGroup = ParameterGroupClimat, Value = "У1 (от +40 до -45)", Rang = 8 });
             ParameterClimatHl1Z.Clone(new Parameter { ParameterGroup = ParameterGroupClimat, Value = "ХЛ1* (от +40 до -55)" });
             ParameterClimatHl1.Clone(new Parameter { ParameterGroup = ParameterGroupClimat, Value = "ХЛ1 (от +40 до -60)" });
 
@@ -1080,8 +1099,8 @@ namespace HVTApp.TestDataGenerator
 
             #region Тип изоляции
 
-            ParameterFarfor.Clone(new Parameter { ParameterGroup = ParameterGroupIsolationMaterial, Value = "Фарфор", Rang = 10});
-            ParameterPolimer.Clone(new Parameter { ParameterGroup = ParameterGroupIsolationMaterial, Value = "Полимер", Rang = 9});
+            ParameterFarfor.Clone(new Parameter { ParameterGroup = ParameterGroupIsolationMaterial, Value = "Фарфор", Rang = 10 });
+            ParameterPolimer.Clone(new Parameter { ParameterGroup = ParameterGroupIsolationMaterial, Value = "Полимер", Rang = 9 });
 
             ParameterFarfor.AddRequiredPreviousParameters(ParameterBreaker)
                            .AddRequiredPreviousParameters(ParameterDisconnector)
@@ -1094,7 +1113,7 @@ namespace HVTApp.TestDataGenerator
                             .AddRequiredPreviousParameters(ParameterEarthingSwitch)
                             .AddRequiredPreviousParameters(ParameterTransformerVoltage)
                             .AddRequiredPreviousParameters(ParameterTransformerCurrent, ParameterTransformerBuiltOut);
-            
+
             #endregion
 
             #region Длина пути утечки
@@ -1112,8 +1131,8 @@ namespace HVTApp.TestDataGenerator
 
             #region Цвет изоляции
 
-            ParameterIsolationColorGrey.Clone(new Parameter { ParameterGroup = ParameterGroupIsolationColor, Value = "Светло-серый", Rang = 10});
-            ParameterIsolationColorBrown.Clone(new Parameter { ParameterGroup = ParameterGroupIsolationColor, Value = "Коричневый", Rang = 9});
+            ParameterIsolationColorGrey.Clone(new Parameter { ParameterGroup = ParameterGroupIsolationColor, Value = "Светло-серый", Rang = 10 });
+            ParameterIsolationColorBrown.Clone(new Parameter { ParameterGroup = ParameterGroupIsolationColor, Value = "Коричневый", Rang = 9 });
 
             ParameterIsolationColorGrey
                 .AddRequiredPreviousParameters(ParameterFarfor)
@@ -1132,12 +1151,12 @@ namespace HVTApp.TestDataGenerator
             #region Первичные токи отпаек ТТ
 
             ParameterTransformerPrimaryCurrentRow1.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerPrimaryCurrentRow, Value = "600-400-300-200 А" });
-                ParameterTransformerPrimaryCurrentRow2.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerPrimaryCurrentRow, Value = "2000-1500-1000-500 А" });
+            ParameterTransformerPrimaryCurrentRow2.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerPrimaryCurrentRow, Value = "2000-1500-1000-500 А" });
 
-                ParameterTransformerPrimaryCurrentRow1.AddRequiredPreviousParameters(ParameterTransformerBuiltIn);
-                ParameterTransformerPrimaryCurrentRow2.AddRequiredPreviousParameters(ParameterTransformerBuiltIn);
+            ParameterTransformerPrimaryCurrentRow1.AddRequiredPreviousParameters(ParameterTransformerBuiltIn);
+            ParameterTransformerPrimaryCurrentRow2.AddRequiredPreviousParameters(ParameterTransformerBuiltIn);
 
-                #endregion
+            #endregion
 
             #region Вторичный ток ТТ
 
@@ -1353,7 +1372,7 @@ namespace HVTApp.TestDataGenerator
 
             ParameterTransformersBlockStandartVeb220Num2
                 .AddRequiredPreviousParameters(ParameterTransformersBlockTargetVeb220, ParameterTransformersCurrentBlockTypeStandart);
-            
+
             #endregion
 
             #region Назначение KТТ
@@ -1399,12 +1418,12 @@ namespace HVTApp.TestDataGenerator
 
             #region Исполнение выключателя по полюсности
 
-            ParameterBreakerPhases3.Clone(new Parameter { ParameterGroup = ParameterGroupBreakerPhases, Value = "Трехфазное", Rang = 10});
+            ParameterBreakerPhases3.Clone(new Parameter { ParameterGroup = ParameterGroupBreakerPhases, Value = "Трехфазное", Rang = 10 });
             ParameterBreakerPhases1.Clone(new Parameter { ParameterGroup = ParameterGroupBreakerPhases, Value = "Однофазное" });
 
             ParameterBreakerPhases3.AddRequiredPreviousParameters(ParameterBreaker, ParameterVoltage110kV).AddRequiredPreviousParameters(ParameterBreaker, ParameterVoltage220kV);
             ParameterBreakerPhases1.AddRequiredPreviousParameters(ParameterBreaker, ParameterVoltage110kV).AddRequiredPreviousParameters(ParameterBreaker, ParameterVoltage220kV);
-            
+
             #endregion
 
             #region Исполнение выключателя по количеству разрывов
@@ -1418,8 +1437,8 @@ namespace HVTApp.TestDataGenerator
             #region Напряжение обогрева полюсов
 
             ParameterBreakerHeatingVoltage400Zvezda.Clone(new Parameter { ParameterGroup = ParameterGroupBreakerHeaterVoltage, Value = "230/400 (3ф. звезда)" });
-            ParameterBreakerHeatingVoltage230Treug.Clone(new Parameter { ParameterGroup = ParameterGroupBreakerHeaterVoltage, Value = "230 (3ф. треугольник)" }); 
-            ParameterBreakerHeatingVoltage230Ff.Clone(new Parameter { ParameterGroup = ParameterGroupBreakerHeaterVoltage, Value = "230 (1ф. фаза-фаза)" }); 
+            ParameterBreakerHeatingVoltage230Treug.Clone(new Parameter { ParameterGroup = ParameterGroupBreakerHeaterVoltage, Value = "230 (3ф. треугольник)" });
+            ParameterBreakerHeatingVoltage230Ff.Clone(new Parameter { ParameterGroup = ParameterGroupBreakerHeaterVoltage, Value = "230 (1ф. фаза-фаза)" });
             ParameterBreakerHeatingVoltage230Fn.Clone(new Parameter { ParameterGroup = ParameterGroupBreakerHeaterVoltage, Value = "230 (1ф. фаза-нейтраль)" });
 
             ParameterBreakerHeatingVoltage400Zvezda
@@ -1430,11 +1449,11 @@ namespace HVTApp.TestDataGenerator
             ParameterBreakerHeatingVoltage230Treug
                 .AddRequiredPreviousParameters(ParameterBreakerDeadTank, ParameterVoltage110kV, ParameterClimatUhl1)
                 .AddRequiredPreviousParameters(ParameterBreakerDeadTank, ParameterVoltage110kV, ParameterClimatUhl1Z)
-                .AddRequiredPreviousParameters(ParameterBreakerDeadTank, ParameterVoltage220kV); 
+                .AddRequiredPreviousParameters(ParameterBreakerDeadTank, ParameterVoltage220kV);
 
             ParameterBreakerHeatingVoltage230Ff
                 .AddRequiredPreviousParameters(ParameterBreakerDeadTank, ParameterVoltage110kV, ParameterClimatUhl1Z)
-                .AddRequiredPreviousParameters(ParameterBreakerDeadTank, ParameterVoltage220kV); 
+                .AddRequiredPreviousParameters(ParameterBreakerDeadTank, ParameterVoltage220kV);
 
             ParameterBreakerHeatingVoltage230Fn
                 .AddRequiredPreviousParameters(ParameterBreakerDeadTank, ParameterVoltage110kV, ParameterClimatUhl1Z)
@@ -1444,8 +1463,8 @@ namespace HVTApp.TestDataGenerator
 
             #region Исполнение по конструкции отключающего устройства ВГТ
 
-            ParameterVgtOtklUstrOtkr.Clone(new Parameter { ParameterGroup = ParameterGroupVgtOtklUstr, Value = "Стандартное", Rang = 10});
-            ParameterVgtOtklUstrZakr.Clone(new Parameter { ParameterGroup = ParameterGroupVgtOtklUstr, Value = "Закрытое", Rang = 9});
+            ParameterVgtOtklUstrOtkr.Clone(new Parameter { ParameterGroup = ParameterGroupVgtOtklUstr, Value = "Стандартное", Rang = 10 });
+            ParameterVgtOtklUstrZakr.Clone(new Parameter { ParameterGroup = ParameterGroupVgtOtklUstr, Value = "Закрытое", Rang = 9 });
 
             ParameterVgtOtklUstrOtkr.AddRequiredPreviousParameters(ParameterBreakerLiveTank);
             ParameterVgtOtklUstrZakr.AddRequiredPreviousParameters(ParameterBreakerLiveTank, ParameterVoltage110kV);
@@ -1522,10 +1541,10 @@ namespace HVTApp.TestDataGenerator
 
             #region Исполнение разъединителя
 
-            ParameterDisconnectorIspolnenie1Pol.Clone(new Parameter { ParameterGroup = ParameterGroupDisconnectorIspolnenie, Value = "Однополюсное", Rang = 9});
-            ParameterDisconnectorIspolnenie3Pol.Clone(new Parameter { ParameterGroup = ParameterGroupDisconnectorIspolnenie, Value = "Трехполюсное", Rang = 10}); 
-            ParameterDisconnectorIspolnenieKil.Clone(new Parameter { ParameterGroup = ParameterGroupDisconnectorIspolnenie, Value = "Килевое", Rang = 8}); 
-            ParameterDisconnectorIspolnenieStKil.Clone(new Parameter { ParameterGroup = ParameterGroupDisconnectorIspolnenie, Value = "Ступенчато-килевое", Rang = 7});
+            ParameterDisconnectorIspolnenie1Pol.Clone(new Parameter { ParameterGroup = ParameterGroupDisconnectorIspolnenie, Value = "Однополюсное", Rang = 9 });
+            ParameterDisconnectorIspolnenie3Pol.Clone(new Parameter { ParameterGroup = ParameterGroupDisconnectorIspolnenie, Value = "Трехполюсное", Rang = 10 });
+            ParameterDisconnectorIspolnenieKil.Clone(new Parameter { ParameterGroup = ParameterGroupDisconnectorIspolnenie, Value = "Килевое", Rang = 8 });
+            ParameterDisconnectorIspolnenieStKil.Clone(new Parameter { ParameterGroup = ParameterGroupDisconnectorIspolnenie, Value = "Ступенчато-килевое", Rang = 7 });
 
             ParameterDisconnectorIspolnenie1Pol
                 .AddRequiredPreviousParameters(ParameterDisconnector);
@@ -1559,7 +1578,7 @@ namespace HVTApp.TestDataGenerator
 
             #region Тип привода разъединителя
 
-            ParameterDriveDisconnectorTypeMotorn.Clone(new Parameter { ParameterGroup = ParameterGroupDriveDisconnectorType, Value = "Моторный" }); 
+            ParameterDriveDisconnectorTypeMotorn.Clone(new Parameter { ParameterGroup = ParameterGroupDriveDisconnectorType, Value = "Моторный" });
             ParameterDriveDisconnectorTypeRuchn.Clone(new Parameter { ParameterGroup = ParameterGroupDriveDisconnectorType, Value = "Ручной" });
 
             ParameterDriveDisconnectorTypeMotorn.AddRequiredPreviousParameters(ParameterDriveDisconnector);
@@ -1579,8 +1598,8 @@ namespace HVTApp.TestDataGenerator
 
             #region Напряжение двигателя разъединителя
 
-            ParameterDriveDisconnectorU230.Clone(new Parameter { ParameterGroup = ParameterGroupDriveDisconnectorU, Value = "~ 230 В" }); 
-            ParameterDriveDisconnectorU220.Clone(new Parameter { ParameterGroup = ParameterGroupDriveDisconnectorU, Value = "= 220 В" }); 
+            ParameterDriveDisconnectorU230.Clone(new Parameter { ParameterGroup = ParameterGroupDriveDisconnectorU, Value = "~ 230 В" });
+            ParameterDriveDisconnectorU220.Clone(new Parameter { ParameterGroup = ParameterGroupDriveDisconnectorU, Value = "= 220 В" });
             ParameterDriveDisconnectorU400.Clone(new Parameter { ParameterGroup = ParameterGroupDriveDisconnectorU, Value = "~ 400 В" }); ;
 
             ParameterDriveDisconnectorU230.AddRequiredPreviousParameters(ParameterDriveDisconnectorTypeMotorn);
@@ -1618,7 +1637,7 @@ namespace HVTApp.TestDataGenerator
 
             #region Уровни напряжений
 
-            ParameterTransformerVoltageUisp200.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerVoltageUisp, Value = "200/480/550" }); 
+            ParameterTransformerVoltageUisp200.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerVoltageUisp, Value = "200/480/550" });
             ParameterTransformerVoltageUisp230.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerVoltageUisp, Value = "230/550/550" });
 
             ParameterTransformerVoltageUisp200
@@ -1701,7 +1720,7 @@ namespace HVTApp.TestDataGenerator
 
             ParameterBvptSeries42.Clone(new Parameter { ParameterGroup = ParameterGroupBvptSeries, Value = "42" });
             ParameterBvptSeries43.Clone(new Parameter { ParameterGroup = ParameterGroupBvptSeries, Value = "43" });
-            ParameterBvptSeries48.Clone(new Parameter { ParameterGroup = ParameterGroupBvptSeries, Value = "48" }); 
+            ParameterBvptSeries48.Clone(new Parameter { ParameterGroup = ParameterGroupBvptSeries, Value = "48" });
             ParameterBvptSeries49.Clone(new Parameter { ParameterGroup = ParameterGroupBvptSeries, Value = "49" });
             ParameterBvptSeries52.Clone(new Parameter { ParameterGroup = ParameterGroupBvptSeries, Value = "52" });
             ParameterBvptSeries55.Clone(new Parameter { ParameterGroup = ParameterGroupBvptSeries, Value = "55" });
@@ -1711,7 +1730,7 @@ namespace HVTApp.TestDataGenerator
 
             ParameterBvptSeries43
                 .AddRequiredPreviousParameters(ParameterBvptVab)
-                .AddRequiredPreviousParameters(ParameterBvptVat); 
+                .AddRequiredPreviousParameters(ParameterBvptVat);
 
             ParameterBvptSeries48
                 .AddRequiredPreviousParameters(ParameterBvptVat);
@@ -1904,7 +1923,7 @@ namespace HVTApp.TestDataGenerator
         private void GenerateProductRelations()
         {
             #region Приводы
-            
+
             RequiredChildProductRelationDrivePem.Clone(new ProductRelation
             {
                 ParentProductParameters = new List<Parameter> { ParameterBreaker, ParameterVoltage35kV, ParameterBreakerDeadTank },
@@ -2005,7 +2024,7 @@ namespace HVTApp.TestDataGenerator
 
             RequiredChildProductRelationDriveEarthingSwitch.Clone(new ProductRelation
             {
-                ParentProductParameters = new List<Parameter> { ParameterEarthingSwitch},
+                ParentProductParameters = new List<Parameter> { ParameterEarthingSwitch },
                 ChildProductParameters = new List<Parameter> { ParameterDriveDisconnector, ParameterDriveDisconnectorTargetZazeml },
                 ChildProductsAmount = 1,
                 IsUnique = false
@@ -2502,7 +2521,7 @@ namespace HVTApp.TestDataGenerator
             });
 
             #endregion
-            
+
             #endregion
 
         }
@@ -2596,7 +2615,6 @@ namespace HVTApp.TestDataGenerator
         public ProductDesignation ProductDesignationRpdo;
 
 
-        public ProductDesignation ProductDesignationRpd0;
         public ProductDesignation ProductDesignationRpd1P;
         public ProductDesignation ProductDesignationRpd1K;
         public ProductDesignation ProductDesignationRpd2;
@@ -2687,8 +2705,8 @@ namespace HVTApp.TestDataGenerator
             ProductDesignationTransfBlockVeb110.Clone(new ProductDesignation { Designation = "Комплект трансформаторов тока для ВЭБ-110 (3 фазы)", Parameters = new List<Parameter> { ParameterTransformersBlockTargetVeb110 } });
             ProductDesignationTransfBlockVeb220.Clone(new ProductDesignation { Designation = "Комплект трансформаторов тока для ВЭБ-220 (3 фазы)", Parameters = new List<Parameter> { ParameterTransformersBlockTargetVeb220 } });
 
-            ProductDesignationZip1.Clone(new ProductDesignation { Designation = "ЗИП №1", Parameters = new List<Parameter> { ParameterZip1 } });
-            ProductDesignationZip2.Clone(new ProductDesignation { Designation = "ЗИП №2", Parameters = new List<Parameter> { ParameterZip2 } });
+            ProductDesignationZip1.Clone(new ProductDesignation { Designation = "Групповой комплект ЗИП №1", Parameters = new List<Parameter> { ParameterZip1 } });
+            ProductDesignationZip2.Clone(new ProductDesignation { Designation = "Групповой комплект ЗИП №2", Parameters = new List<Parameter> { ParameterZip2 } });
 
             ProductDesignationRpd.Clone(new ProductDesignation { Designation = "РПД-УЭТМ", Parameters = new List<Parameter> { ParameterDisconnector, ParameterDisconnectorIspolnenie3Pol } });
             ProductDesignationRpdo.Clone(new ProductDesignation { Designation = "РПДО-УЭТМ", Parameters = new List<Parameter> { ParameterDisconnector, ParameterDisconnectorIspolnenie1Pol } });
@@ -2699,14 +2717,14 @@ namespace HVTApp.TestDataGenerator
                 ProductDesignationRpdo
             };
 
-            ProductDesignationRpd0.Clone(new ProductDesignation { Designation = "", Parameters = new List<Parameter> { ParameterDisconnectorZazemlPalNeg, ParameterDisconnectorZazemlKulNeg }, Parents = rpd1.ToList() });
             ProductDesignationRpd1P.Clone(new ProductDesignation { Designation = "-1п", Parameters = new List<Parameter> { ParameterDisconnectorZazemlPalPos, ParameterDisconnectorZazemlKulNeg }, Parents = rpd1.ToList() });
             ProductDesignationRpd1K.Clone(new ProductDesignation { Designation = "-1к", Parameters = new List<Parameter> { ParameterDisconnectorZazemlPalNeg, ParameterDisconnectorZazemlKulPos }, Parents = rpd1.ToList() });
             ProductDesignationRpd2.Clone(new ProductDesignation { Designation = "-2", Parameters = new List<Parameter> { ParameterDisconnectorZazemlPalPos, ParameterDisconnectorZazemlKulPos }, Parents = rpd1.ToList() });
 
             var rpd = new List<ProductDesignation>
             {
-                ProductDesignationRpd0,
+                ProductDesignationRpd,
+                ProductDesignationRpdo,
                 ProductDesignationRpd1P,
                 ProductDesignationRpd1K,
                 ProductDesignationRpd2
@@ -2805,10 +2823,10 @@ namespace HVTApp.TestDataGenerator
 
             ProductDesignationSupervision.Clone(new ProductDesignation { Designation = "Шеф-монтаж", Parameters = new List<Parameter> { ParameterSupervision } });
 
-            ParameterDesignationSupervisionDeadTankBreaker.Clone(new ProductDesignation { Designation = " бакового выключателя", Parameters = new List<Parameter> { ParameterSupervisionDeadTankBreaker }, Parents = new List<ProductDesignation> {ProductDesignationSupervision} });
-            ParameterDesignationSupervisionLiveTankBreaker.Clone(new ProductDesignation { Designation = " колонкового выключателя", Parameters = new List<Parameter> { ParameterSupervisionLiveTankBreaker}, Parents = new List<ProductDesignation> { ProductDesignationSupervision } });
-            ParameterDesignationSupervisionTransformerCurrent.Clone(new ProductDesignation { Designation = " трансформатора тока", Parameters = new List<Parameter> { ParameterSupervisionTransformerCurrent}, Parents = new List<ProductDesignation> { ProductDesignationSupervision } });
-            ParameterDesignationSupervisionTransformerVoltage.Clone(new ProductDesignation { Designation = " трансформатора напряжения", Parameters = new List<Parameter> { ParameterSupervisionTransformerVoltage}, Parents = new List<ProductDesignation> { ProductDesignationSupervision } });
+            ParameterDesignationSupervisionDeadTankBreaker.Clone(new ProductDesignation { Designation = " бакового выключателя", Parameters = new List<Parameter> { ParameterSupervisionDeadTankBreaker }, Parents = new List<ProductDesignation> { ProductDesignationSupervision } });
+            ParameterDesignationSupervisionLiveTankBreaker.Clone(new ProductDesignation { Designation = " колонкового выключателя", Parameters = new List<Parameter> { ParameterSupervisionLiveTankBreaker }, Parents = new List<ProductDesignation> { ProductDesignationSupervision } });
+            ParameterDesignationSupervisionTransformerCurrent.Clone(new ProductDesignation { Designation = " трансформатора тока", Parameters = new List<Parameter> { ParameterSupervisionTransformerCurrent }, Parents = new List<ProductDesignation> { ProductDesignationSupervision } });
+            ParameterDesignationSupervisionTransformerVoltage.Clone(new ProductDesignation { Designation = " трансформатора напряжения", Parameters = new List<Parameter> { ParameterSupervisionTransformerVoltage }, Parents = new List<ProductDesignation> { ProductDesignationSupervision } });
 
             var supervisionVoltage = new List<ProductDesignation>
             {
@@ -2818,10 +2836,10 @@ namespace HVTApp.TestDataGenerator
                 ParameterDesignationSupervisionTransformerVoltage
             };
 
-            ProductDesignationSupervision035kV.Clone(new ProductDesignation { Designation = " на 35 кВ", Parameters = new List<Parameter> { ParameterVoltage35kV }, Parents = supervisionVoltage.ToList() }); 
-            ProductDesignationSupervision110kV.Clone(new ProductDesignation { Designation = " на 110 кВ", Parameters = new List<Parameter> { ParameterVoltage110kV }, Parents = supervisionVoltage.ToList() }); 
-            ProductDesignationSupervision220kV.Clone(new ProductDesignation { Designation = " на 220 кВ", Parameters = new List<Parameter> { ParameterVoltage220kV }, Parents = supervisionVoltage.ToList() }); 
-            ProductDesignationSupervision330kV.Clone(new ProductDesignation { Designation = " на 330 кВ", Parameters = new List<Parameter> { ParameterVoltage330kV }, Parents = supervisionVoltage.ToList() }); 
+            ProductDesignationSupervision035kV.Clone(new ProductDesignation { Designation = " на 35 кВ", Parameters = new List<Parameter> { ParameterVoltage35kV }, Parents = supervisionVoltage.ToList() });
+            ProductDesignationSupervision110kV.Clone(new ProductDesignation { Designation = " на 110 кВ", Parameters = new List<Parameter> { ParameterVoltage110kV }, Parents = supervisionVoltage.ToList() });
+            ProductDesignationSupervision220kV.Clone(new ProductDesignation { Designation = " на 220 кВ", Parameters = new List<Parameter> { ParameterVoltage220kV }, Parents = supervisionVoltage.ToList() });
+            ProductDesignationSupervision330kV.Clone(new ProductDesignation { Designation = " на 330 кВ", Parameters = new List<Parameter> { ParameterVoltage330kV }, Parents = supervisionVoltage.ToList() });
             ProductDesignationSupervision500kV.Clone(new ProductDesignation { Designation = " на 500 кВ", Parameters = new List<Parameter> { ParameterVoltage500kV }, Parents = supervisionVoltage.ToList() });
 
             var supervisionZone = new List<ProductDesignation>
@@ -2833,9 +2851,9 @@ namespace HVTApp.TestDataGenerator
                 ProductDesignationSupervision500kV
             };
 
-            ProductDesignationSupervisionZone1.Clone(new ProductDesignation { Designation = " (зона 1)", Parameters = new List<Parameter> { ParameterSupervisionZone1 }, Parents = supervisionZone.ToList() }); 
-            ProductDesignationSupervisionZone2.Clone(new ProductDesignation { Designation = " (зона 2)", Parameters = new List<Parameter> { ParameterSupervisionZone2 }, Parents = supervisionZone.ToList() }); 
-            ProductDesignationSupervisionZone3.Clone(new ProductDesignation { Designation = " (зона 3)", Parameters = new List<Parameter> { ParameterSupervisionZone3 }, Parents = supervisionZone.ToList() }); 
+            ProductDesignationSupervisionZone1.Clone(new ProductDesignation { Designation = " (зона 1)", Parameters = new List<Parameter> { ParameterSupervisionZone1 }, Parents = supervisionZone.ToList() });
+            ProductDesignationSupervisionZone2.Clone(new ProductDesignation { Designation = " (зона 2)", Parameters = new List<Parameter> { ParameterSupervisionZone2 }, Parents = supervisionZone.ToList() });
+            ProductDesignationSupervisionZone3.Clone(new ProductDesignation { Designation = " (зона 3)", Parameters = new List<Parameter> { ParameterSupervisionZone3 }, Parents = supervisionZone.ToList() });
         }
 
         #endregion
@@ -2858,7 +2876,7 @@ namespace HVTApp.TestDataGenerator
         public Product ProductBreakersDrivePprk;
         public Product ProductSupervision;
 
-        #endif
+#endif
 
         private void GenerateProductBlocs()
         {
@@ -2871,7 +2889,7 @@ namespace HVTApp.TestDataGenerator
                 StructureCostNumber = "???"
             });
 
-            #if DEBUG
+#if DEBUG
 
             ProductBlockVgb35.Clone(new ProductBlock
             {
@@ -2913,8 +2931,8 @@ namespace HVTApp.TestDataGenerator
                 FixedCosts = new List<SumOnDate> { new SumOnDate { Sum = 120000, Date = DateTime.Today } },
                 StructureCostNumber = "---"
             });
-            
-            #endif
+
+#endif
         }
 
         private void GenerateProducts()
@@ -2925,7 +2943,7 @@ namespace HVTApp.TestDataGenerator
                 ProductBlock = ProductBlockZip1
             });
 
-            #if DEBUG
+#if DEBUG
 
             ProductVeb110.Clone(new Product
             {
@@ -2951,7 +2969,7 @@ namespace HVTApp.TestDataGenerator
                 ProductBlock = ProductBlockSupervision
             });
 
-            #endif
+#endif
         }
 
         #endregion
