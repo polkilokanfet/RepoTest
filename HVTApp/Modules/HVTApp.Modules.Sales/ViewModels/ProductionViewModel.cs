@@ -17,7 +17,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 {
     public class ProductionViewModel : LoadableBindableBase
     {
-        private SalesUnitsWrappersGroup _selectedPotentialWrappersGroup;
+        private SalesUnitsWrappersGroup _selectedPotentialGroup;
         private SalesUnitsWrappersGroup _selectedProductionWrappersGroup;
 
         public ObservableCollection<SalesUnitsWrappersGroup> ProductionGroups { get; } = new ObservableCollection<SalesUnitsWrappersGroup>();
@@ -33,12 +33,12 @@ namespace HVTApp.Modules.Sales.ViewModels
             }
         }
 
-        public SalesUnitsWrappersGroup SelectedPotentialWrappersGroup
+        public SalesUnitsWrappersGroup SelectedPotentialGroup
         {
-            get { return _selectedPotentialWrappersGroup; }
+            get { return _selectedPotentialGroup; }
             set
             {
-                _selectedPotentialWrappersGroup = value;
+                _selectedPotentialGroup = value;
                 ((DelegateCommand)ProductUnitCommand).RaiseCanExecuteChanged();
             }
         }
@@ -56,27 +56,27 @@ namespace HVTApp.Modules.Sales.ViewModels
         {
             //подтверждение
             var ms = Container.Resolve<IMessageService>();
-            var q = "Подтвердить намерение разместить оборудование в производстве?";
+            var q = "Разместить оборудование в производстве?";
             if (ms.ShowYesNoMessageDialog("Размещение в производстве", q) != MessageDialogResult.Yes) return;
 
             //размещение в производстве
-            SelectedPotentialWrappersGroup.SignalToStartProduction = DateTime.Today;
+            SelectedPotentialGroup.SignalToStartProduction = DateTime.Today;
             await UnitOfWork.SaveChangesAsync();
 
             //работа с видами
-            ProductionGroups.Add(SelectedPotentialWrappersGroup);
-            SelectedProductionWrappersGroup = SelectedPotentialWrappersGroup;
-            if (PotentialGroups.Contains(SelectedPotentialWrappersGroup))
+            ProductionGroups.Add(SelectedPotentialGroup);
+            SelectedProductionWrappersGroup = SelectedPotentialGroup;
+            if (PotentialGroups.Contains(SelectedPotentialGroup))
             {
-                PotentialGroups.Remove(SelectedPotentialWrappersGroup);
+                PotentialGroups.Remove(SelectedPotentialGroup);
             }
             else
             {
                 foreach (var potentialGroup in PotentialGroups.ToList())
                 {
-                    if (potentialGroup.Groups.Contains(SelectedPotentialWrappersGroup))
+                    if (potentialGroup.Groups.Contains(SelectedPotentialGroup))
                     {
-                        potentialGroup.Groups.Remove(SelectedPotentialWrappersGroup);
+                        potentialGroup.Groups.Remove(SelectedPotentialGroup);
                         if (!potentialGroup.Groups.Any())
                         {
                             PotentialGroups.Remove(potentialGroup);
@@ -88,7 +88,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         private bool ProductUnitCommand_CanExecute()
         {
-            return !string.IsNullOrEmpty(SelectedPotentialWrappersGroup?.TceRequest);
+            return !string.IsNullOrEmpty(SelectedPotentialGroup?.TceRequest);
         }
 
         protected override async Task LoadedAsyncMethod()

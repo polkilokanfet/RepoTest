@@ -10,7 +10,7 @@ namespace HVTApp.DataAccess
         public HvtAppContext() : base("name=HvtAppContext")
         {
 #else
-        public HvtAppContext() : base("name=HvtAppContextRelease")
+        public HvtAppContext() : base("name=OPvva")
         {
 #endif
             //#if DEBUG

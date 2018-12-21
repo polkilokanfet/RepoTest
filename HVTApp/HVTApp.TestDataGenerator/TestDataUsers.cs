@@ -7,7 +7,6 @@ namespace HVTApp.TestDataGenerator
 {
     public partial class TestData
     {
-
         public EmployeesPosition EmployeesPositionDirector;
         public EmployeesPosition EmployeesPositionManager;
 
@@ -18,6 +17,8 @@ namespace HVTApp.TestDataGenerator
         public Person PersonKosolapov;
         public Person PersonEmelyanov;
         public Person PersonRybin;
+        public Person PersonGazizov;
+        public Person PersonTekin;
 
         public User UserIvanov;
         public User UserPetrov;
@@ -25,6 +26,8 @@ namespace HVTApp.TestDataGenerator
         public User UserKosolapov;
         public User UserEmelyanov;
         public User UserRybin;
+        public User UserGazizov;
+        public User UserTekin;
 
         public Employee EmployeeIvanov;
         public Employee EmployeePetrov;
@@ -33,6 +36,8 @@ namespace HVTApp.TestDataGenerator
         public Employee EmployeeKosolapov;
         public Employee EmployeeEmelyanov;
         public Employee EmployeeRybin;
+        public Employee EmployeeGazizov;
+        public Employee EmployeeTekin;
 
         public UserRole UserRoleDataBaseFiller;
         public UserRole UserRoleAdmin;
@@ -51,6 +56,8 @@ namespace HVTApp.TestDataGenerator
             PersonKosolapov.Clone(new Person { Surname = "Косолапов", Name = "Александр", Patronymic = "Геннадьевич", IsMan = true });
             PersonEmelyanov.Clone(new Person { Surname = "Емельянов", Name = "Тимофей", Patronymic = "Викторович", IsMan = true });
             PersonRybin.Clone(new Person { Surname = "Рыбин", Name = "Андрей", Patronymic = "Юрьевич", IsMan = true });
+            PersonGazizov.Clone(new Person { Surname = "Газизов", Name = "Евгений", Patronymic = "Рафаильевич", IsMan = true });
+            PersonTekin.Clone(new Person { Surname = "Текин", Name = "Вадим", Patronymic = "Владимирович", IsMan = true });
         }
 
         private void GenerateEmployeesPositions()
@@ -68,6 +75,8 @@ namespace HVTApp.TestDataGenerator
             EmployeeKosolapov.Clone(new Employee { Person = PersonKosolapov, Position = EmployeesPositionManager, Company = CompanyUetm, Email = "iii@mail.ru", PhoneNumber = "326-36-36" });
             EmployeeEmelyanov.Clone(new Employee { Person = PersonEmelyanov, Position = EmployeesPositionManager, Company = CompanyUetm, Email = "iii@mail.ru", PhoneNumber = "326-36-36" });
             EmployeeRybin.Clone(new Employee { Person = PersonRybin, Position = EmployeesPositionManager, Company = CompanyUetm, Email = "iii@mail.ru", PhoneNumber = "326-36-36" });
+            EmployeeGazizov.Clone(new Employee { Person = PersonGazizov, Position = EmployeesPositionManager, Company = CompanyUetm, Email = "iii@mail.ru", PhoneNumber = "326-36-36" });
+            EmployeeTekin.Clone(new Employee { Person = PersonTekin, Position = EmployeesPositionManager, Company = CompanyUetm, Email = "iii@mail.ru", PhoneNumber = "326-36-36" });
         }
 
         private void GenerateUserRoles()
@@ -89,6 +98,8 @@ namespace HVTApp.TestDataGenerator
             UserKosolapov.Clone(new User { Login = "kosolapov", Password = StringToGuid.GetHashString("1"), Employee = EmployeeKosolapov, PersonalNumber = "7412", Roles = new List<UserRole> { UserRoleAdmin, UserRoleDataBaseFiller, UserRoleSalesManager, UserRolePlanMaker, UserRoleDirector, UserRoleEconomist, UserRolePricer } });
             UserEmelyanov.Clone(new User { Login = "emelyanov", Password = StringToGuid.GetHashString("1"), Employee = EmployeeEmelyanov, PersonalNumber = "74??", Roles = new List<UserRole> { UserRoleSalesManager } });
             UserRybin.Clone(new User { Login = "rybin", Password = StringToGuid.GetHashString("1"), Employee = EmployeeRybin, PersonalNumber = "74??", Roles = new List<UserRole> { UserRoleSalesManager } });
+            UserGazizov.Clone(new User { Login = "gazizov", Password = StringToGuid.GetHashString("1"), Employee = EmployeeRybin, PersonalNumber = "74??", Roles = new List<UserRole> { UserRoleSalesManager } });
+            UserTekin.Clone(new User { Login = "tekin", Password = StringToGuid.GetHashString("1"), Employee = EmployeeRybin, PersonalNumber = "74??", Roles = new List<UserRole> { UserRoleSalesManager } });
         }
 
     }

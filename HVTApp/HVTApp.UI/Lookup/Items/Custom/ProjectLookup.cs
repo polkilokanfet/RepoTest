@@ -75,7 +75,7 @@ namespace HVTApp.UI.Lookup
             {
                 if (Tenders.Any())
                 {
-                    var tenders = Tenders.Where(x => x.Types.Select(t => t.Type).Contains(TenderTypeEnum.ToProject)).OrderBy(x => x.DateClose);
+                    var tenders = Tenders.Where(x => x.Types.Select(t => t.Type).Contains(TenderTypeEnum.ToSupply)).OrderBy(x => x.DateClose);
                     return tenders.LastOrDefault()?.Winner;
                 }
                 return null;

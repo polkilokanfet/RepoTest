@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using System.Text;
 using System.Windows;
 using HVTApp.Model;
 using HVTApp.Views;
@@ -38,9 +39,17 @@ namespace HVTApp
             }
             catch (Exception exception)
             {
-                MessageBox.Show(exception.Message);
+                var sb = new StringBuilder();
+                while (exception != null)
+                {
+                    sb.AppendLine(exception.Message);
+                    exception = exception.InnerException;
+                }
+
+                MessageBox.Show(sb.ToString());
                 Console.WriteLine(exception);
-                //throw;
+
+                Application.Current.Shutdown();
             }
 
             #endif

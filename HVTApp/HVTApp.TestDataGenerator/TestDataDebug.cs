@@ -6,7 +6,6 @@ namespace HVTApp.TestDataGenerator
 {
     public partial class TestData
     {
-
         #if DEBUG
 
         public Facility FacilityStation;
@@ -151,13 +150,6 @@ namespace HVTApp.TestDataGenerator
             OfferMrsk.Clone(new Offer { Number = new DocumentNumber(), Vat = 18, Project = ProjectSubstation, ValidityDate = DateTime.Today.AddDays(60), Author = EmployeeIvanov, SenderEmployee = EmployeeIvanov, RecipientEmployee = EmployeeSidorov, CopyToRecipients = new List<Employee> { EmployeePetrov }, RegistrationDetailsOfRecipient = new DocumentsRegistrationDetails { Number = "12f455", Date = DateTime.Today.AddDays(-3) } });
         }
 
-        private void GenerateTenderTypes()
-        {
-            TenderTypeProject.Clone(new TenderType { Name = "Проект", Type = TenderTypeEnum.ToProject });
-            TenderTypeWork.Clone(new TenderType { Name = "Работы", Type = TenderTypeEnum.ToWork });
-            TenderTypeSuply.Clone(new TenderType { Name = "Поставка", Type = TenderTypeEnum.ToSupply });
-        }
-
         private void GenerateTenders()
         {
             TenderMrsk.Clone(new Tender { Project = ProjectSubstation, Types = new List<TenderType> { TenderTypeProject }, Winner = CompanyUetm, Participants = new List<Company> { CompanyUetm, CompanyEnel }, DateOpen = DateTime.Today, DateClose = DateTime.Today.AddDays(7) });
@@ -190,8 +182,7 @@ namespace HVTApp.TestDataGenerator
             Note4.Clone(new Note { Date = DateTime.Today.AddDays(-40), Text = "Заметка 4" });
         }
 
-
-#endif
+        #endif
 
     }
 }

@@ -11,12 +11,14 @@ namespace HVTApp.TestDataGenerator
         public CompanyForm CompanyFormPao;
         public CompanyForm CompanyFormOao;
         public CompanyForm CompanyFormZao;
+        public CompanyForm CompanyFormOoo;
 
         public Company CompanyUetm;
         public Company CompanyRosseti;
         public Company CompanyFsk;
         public Company CompanyMrsk;
         public Company CompanyEnel;
+        public Company CompanyPmk;
 
         public GlobalProperties GlobalProperties;
 
@@ -52,6 +54,7 @@ namespace HVTApp.TestDataGenerator
         public Address AddressSubstation;
 
         public ProjectType ProjectTypeReconstruction;
+        public ProjectType ProjectNewBuilder;
 
         public FacilityType FacilityTypeStation;
         public FacilityType FacilityTypeSubStation;
@@ -65,6 +68,12 @@ namespace HVTApp.TestDataGenerator
         public PaymentConditionSet PaymentConditionSet50Na50;
         public PaymentConditionSet PaymentConditionSet30Na70;
 
+        private void GenerateTenderTypes()
+        {
+            TenderTypeProject.Clone(new TenderType { Name = "Проект", Type = TenderTypeEnum.ToProject });
+            TenderTypeWork.Clone(new TenderType { Name = "Работы", Type = TenderTypeEnum.ToWork });
+            TenderTypeSuply.Clone(new TenderType { Name = "Поставка", Type = TenderTypeEnum.ToSupply });
+        }
 
         private void GenerateCompanyForms()
         {
@@ -72,6 +81,7 @@ namespace HVTApp.TestDataGenerator
             CompanyFormPao.Clone(new CompanyForm { FullName = "Публичное акционерное общество", ShortName = "ПАО" });
             CompanyFormOao.Clone(new CompanyForm { FullName = "Открытое акционерное общество", ShortName = "ОАО" });
             CompanyFormZao.Clone(new CompanyForm { FullName = "Закрытое акционерное общество", ShortName = "ЗАО" });
+            CompanyFormOoo.Clone(new CompanyForm { FullName = "Общество с ограниченной ответственностью", ShortName = "ООО" });
         }
 
         private void GenerateActivityFields()
@@ -84,7 +94,7 @@ namespace HVTApp.TestDataGenerator
             ActivityFieldIndustrialEnterprise.Clone(new ActivityField { ActivityFieldEnum = ActivityFieldEnum.IndustrialEnterprise, Name = "Промышленное предприятие" });
             ActivityFieldRailWay.Clone(new ActivityField { ActivityFieldEnum = ActivityFieldEnum.RailWay, Name = "Железная дорога" });
             ActivityFieldFuel.Clone(new ActivityField { ActivityFieldEnum = ActivityFieldEnum.Fuel, Name = "Топливно-энергетический сектор" });
-            ActivityFieldSupplier.Clone(new ActivityField { ActivityFieldEnum = ActivityFieldEnum.Supplier, Name = "Подрядная организация" });
+            ActivityFieldSupplier.Clone(new ActivityField { ActivityFieldEnum = ActivityFieldEnum.Supplier, Name = "Снабжающая организация" });
         }
 
         private void GenerateLocalityTypes()
@@ -120,8 +130,8 @@ namespace HVTApp.TestDataGenerator
         private void GenerateAddresses()
         {
             AddressUetm.Clone(new Address { Description = "ул.Фронтовых бригад, д.22", Locality = LocalityEkaterinburg });
-            AddressStation.Clone(new Address { Description = "ул.Станционная, 5", Locality = LocalityEkaterinburg });
-            AddressSubstation.Clone(new Address { Description = "ул.ПодСтанционная, 25", Locality = LocalityMoscow });
+            AddressStation.Clone(new Address { Description = "ул.Станционная, д.5", Locality = LocalityEkaterinburg });
+            AddressSubstation.Clone(new Address { Description = "ул.ПодСтанционная, д.25", Locality = LocalityMoscow });
         }
 
         private void GenerateBankDetails()
@@ -136,17 +146,19 @@ namespace HVTApp.TestDataGenerator
             CompanyFsk.Clone(new Company { FullName = "Федеральная сетевая компания", ShortName = "ФСК", Inn = "26658", Form = CompanyFormPao, ActivityFilds = new List<ActivityField> { ActivityFieldElectricityTransmission }, ParentCompany = CompanyRosseti });
             CompanyMrsk.Clone(new Company { FullName = "Межрегиональные распределительные сети", Inn = "23358", ShortName = "МРСК", Form = CompanyFormPao, ActivityFilds = new List<ActivityField> { ActivityFieldElectricityTransmission }, ParentCompany = CompanyRosseti });
             CompanyEnel.Clone(new Company { FullName = "Энел", ShortName = "Энел", Inn = "25658", Form = CompanyFormPao, ActivityFilds = new List<ActivityField> { ActivityFieldElectricityGeneration } });
+            CompanyPmk.Clone(new Company { FullName = "ПМК Холдинг", ShortName = "ПМК Холдинг", Inn = "12348", Form = CompanyFormOoo, ActivityFilds = new List<ActivityField> { ActivityFieldSupplier } });
         }
 
         private void GenerateProjectTypess()
         {
             ProjectTypeReconstruction.Clone(new ProjectType { Name = "Реконструкция" });
+            ProjectNewBuilder.Clone(new ProjectType { Name = "Новое строительство" });
         }
 
         private void GenerateFacilityTypes()
         {
             FacilityTypeStation.Clone(new FacilityType { FullName = "Теплоэлектроцентраль", ShortName = "ТЭЦ" });
-            FacilityTypeSubStation.Clone(new FacilityType { FullName = "Понизительная станция", ShortName = "ПС" });
+            FacilityTypeSubStation.Clone(new FacilityType { FullName = "Подстанция", ShortName = "ПС" });
         }
 
         private void GenerateMeasures()
@@ -169,7 +181,16 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateGlobalProperties()
         {
-            GlobalProperties.Clone(new GlobalProperties { OurCompany = CompanyUetm, StandartPaymentsConditionSet = PaymentConditionSet50Na50, NewProductParameter = ParameterNewProduct, NewProductParameterGroup = ParameterGroupNewProductDesignation, VoltageGroup = ParameterGroupVoltage, ServiceParameter = ParameterService, SupervisionParameter = ParameterSupervision});
+            GlobalProperties.Clone(new GlobalProperties
+            {
+                OurCompany = CompanyUetm,
+                StandartPaymentsConditionSet = PaymentConditionSet50Na50,
+                NewProductParameter = ParameterNewProduct,
+                NewProductParameterGroup = ParameterGroupNewProductDesignation,
+                VoltageGroup = ParameterGroupVoltage,
+                ServiceParameter = ParameterService,
+                SupervisionParameter = ParameterSupervision
+            });
         }
 
     }
