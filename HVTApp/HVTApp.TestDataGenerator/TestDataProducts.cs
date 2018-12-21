@@ -462,6 +462,8 @@ namespace HVTApp.TestDataGenerator
 
         #region Стандартные комплекты ТТ
 
+        public Parameter ParameterTransformersBlockStandartVgb035Num1;
+        public Parameter ParameterTransformersBlockStandartVgb035Num2;
         public Parameter ParameterTransformersBlockStandartVeb110Num1;
         public Parameter ParameterTransformersBlockStandartVeb110Num2;
         public Parameter ParameterTransformersBlockStandartVeb220Num1;
@@ -1356,20 +1358,25 @@ namespace HVTApp.TestDataGenerator
 
             #region Стандартные комплекты ТТ
 
+            ParameterTransformersBlockStandartVgb035Num1.Clone(new Parameter { ParameterGroup = ParameterGroupTransformersBlockStandartNumber, Value = "776-49 (300-200-150-100/5) (фарф.)" });
+            ParameterTransformersBlockStandartVgb035Num2.Clone(new Parameter { ParameterGroup = ParameterGroupTransformersBlockStandartNumber, Value = "776-91 (600-400-300-200/5) (фарф.)" });
             ParameterTransformersBlockStandartVeb110Num1.Clone(new Parameter { ParameterGroup = ParameterGroupTransformersBlockStandartNumber, Value = "602-231 (300-200-150-100/5)" });
             ParameterTransformersBlockStandartVeb110Num2.Clone(new Parameter { ParameterGroup = ParameterGroupTransformersBlockStandartNumber, Value = "602-112 (600-400-300-200/5)" });
             ParameterTransformersBlockStandartVeb220Num1.Clone(new Parameter { ParameterGroup = ParameterGroupTransformersBlockStandartNumber, Value = "623-192 (2000-1500-1000-500/5)" });
             ParameterTransformersBlockStandartVeb220Num2.Clone(new Parameter { ParameterGroup = ParameterGroupTransformersBlockStandartNumber, Value = "623-194 (2000-1500-1000-500/1)" });
 
+            ParameterTransformersBlockStandartVgb035Num1
+                .AddRequiredPreviousParameters(ParameterTransformersBlockTargetVgb35, ParameterTransformersCurrentBlockTypeStandart);
+            ParameterTransformersBlockStandartVgb035Num2
+                .AddRequiredPreviousParameters(ParameterTransformersBlockTargetVgb35, ParameterTransformersCurrentBlockTypeStandart);
+
             ParameterTransformersBlockStandartVeb110Num1
                 .AddRequiredPreviousParameters(ParameterTransformersBlockTargetVeb110, ParameterTransformersCurrentBlockTypeStandart);
-
             ParameterTransformersBlockStandartVeb110Num2
                 .AddRequiredPreviousParameters(ParameterTransformersBlockTargetVeb110, ParameterTransformersCurrentBlockTypeStandart);
 
             ParameterTransformersBlockStandartVeb220Num1
                 .AddRequiredPreviousParameters(ParameterTransformersBlockTargetVeb220, ParameterTransformersCurrentBlockTypeStandart);
-
             ParameterTransformersBlockStandartVeb220Num2
                 .AddRequiredPreviousParameters(ParameterTransformersBlockTargetVeb220, ParameterTransformersCurrentBlockTypeStandart);
 
