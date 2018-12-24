@@ -15,7 +15,6 @@ using HVTApp.Modules.Sales.Views;
 using HVTApp.UI.Converter;
 using HVTApp.UI.Groups;
 using HVTApp.UI.Lookup;
-using HVTApp.UI.ViewModels;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Events;
@@ -29,6 +28,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         private ProjectLookup _selectedProjectLookup;
         private bool _shownAllProjects = false;
         private OfferLookup _selectedOffer;
+        private TenderLookup _selectedTender;
 
         public List<ProjectLookup> ProjectLookups { get; } = new List<ProjectLookup>();
         public ObservableCollection<ProjectLookup> ProjectLookupsInView { get; } = new ObservableCollection<ProjectLookup>();
@@ -36,6 +36,8 @@ namespace HVTApp.Modules.Sales.ViewModels
         public ObservableCollection<SalesUnitsGroup> Groups { get; } = new ObservableCollection<SalesUnitsGroup>();
 
         public ObservableCollection<OfferLookup> OfferLookups { get; } = new ObservableCollection<OfferLookup>();
+
+        public ObservableCollection<TenderLookup> TenderLookups { get; } = new ObservableCollection<TenderLookup>();
 
         public ProjectLookup SelectedProjectLookup
         {
@@ -46,17 +48,17 @@ namespace HVTApp.Modules.Sales.ViewModels
                 _selectedProjectLookup = value;
                 Groups.Clear();
                 OfferLookups.Clear();
+                TenderLookups.Clear();
 
                 if (value != null)
                 {
                     //обновляем данные всех таблиц
                     OfferLookups.AddRange(value.Offers);
-                    TenderListViewModel.Load(value.Tenders);
+                    TenderLookups.AddRange(value.Tenders);
                     LoadGroups(value);
                 }
                 else
                 {
-                    TenderListViewModel.Load(new List<Tender>());
                     Groups.Clear();
                 }
 
@@ -67,6 +69,8 @@ namespace HVTApp.Modules.Sales.ViewModels
                 ((DelegateCommand)NewOfferByProjectCommand).RaiseCanExecuteChanged();
                 ((DelegateCommand)NewOfferByOfferCommand).RaiseCanExecuteChanged();
                 ((DelegateCommand)NewTenderCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)EditTenderCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)RemoveTenderCommand).RaiseCanExecuteChanged();
 
                 OnPropertyChanged();
             }
@@ -86,6 +90,19 @@ namespace HVTApp.Modules.Sales.ViewModels
             }
         }
 
+        public TenderLookup SelectedTender
+        {
+            get { return _selectedTender; }
+            set
+            {
+                if (Equals(_selectedTender, value)) return;
+                _selectedTender = value;
+                ((DelegateCommand)EditTenderCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)RemoveTenderCommand).RaiseCanExecuteChanged();
+            }
+        }
+
+
         public bool ShownAllProjects
         {
             get { return _shownAllProjects; }
@@ -97,12 +114,6 @@ namespace HVTApp.Modules.Sales.ViewModels
                 else ShowWorkProjects();
             }
         }
-
-        #region ViewModels
-
-        public TenderLookupListViewModel TenderListViewModel { get; }
-
-        #endregion
 
         #region ICommand
 
@@ -128,9 +139,6 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         public Market2ViewModel(IUnityContainer container) : base(container)
         {
-            //контексты
-            TenderListViewModel = container.Resolve<TenderLookupListViewModel>();
-
             //команды
             NewProjectCommand = new DelegateCommand(NewProjectCommand_Execute);
             EditProjectCommand = new DelegateCommand(EditProjectCommand_Execute, () => SelectedProjectLookup != null);
@@ -145,14 +153,8 @@ namespace HVTApp.Modules.Sales.ViewModels
             NewOfferByOfferCommand = new DelegateCommand(NewOfferByOfferCommand_Execute, () => SelectedOffer != null);
 
             NewTenderCommand = new DelegateCommand(NewTenderCommand_Execute, () => SelectedProjectLookup != null);
-            EditTenderCommand = new DelegateCommand(EditTenderCommand_Execute, () => TenderListViewModel.EditItemCommand.CanExecute(null));
-            RemoveTenderCommand = TenderListViewModel.RemoveItemCommand;
-
-            //реакция на смену конкурса
-            TenderListViewModel.SelectedLookupChanged += tender =>
-            {
-                ((DelegateCommand)EditTenderCommand).RaiseCanExecuteChanged();
-            };
+            EditTenderCommand = new DelegateCommand(EditTenderCommand_Execute, () => SelectedTender != null);
+            RemoveTenderCommand = new DelegateCommand(RemoveTenderCommand_Execute, () => SelectedTender != null);
 
             //подписка на создание, изменение и удаление сущностей
             var eventAggregator = container.Resolve<IEventAggregator>();
@@ -309,7 +311,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         private void EditTenderCommand_Execute()
         {
-            var tenderViewModel = new TenderViewModel(Container, TenderListViewModel.SelectedItem);
+            var tenderViewModel = new TenderViewModel(Container, SelectedTender.Entity);
             Container.Resolve<IDialogService>().ShowDialog(tenderViewModel);            
         }
 
@@ -317,6 +319,38 @@ namespace HVTApp.Modules.Sales.ViewModels
         {
             var tenderViewModel = new TenderViewModel(Container, SelectedProjectLookup.Entity);
             Container.Resolve<IDialogService>().ShowDialog(tenderViewModel);
+        }
+
+
+        private async void RemoveTenderCommand_Execute()
+        {
+            var unitOfWork = Container.Resolve<IUnitOfWork>();
+            var messageService = Container.Resolve<IMessageService>();
+            var eventAggregator = Container.Resolve<IEventAggregator>();
+
+            var dr = messageService.ShowYesNoMessageDialog("Удаление", $"Вы действительно хотите удалить \"{SelectedTender.DisplayMember}\"?");
+            if (dr != MessageDialogResult.Yes) return;
+
+            var entity = await unitOfWork.Repository<Tender>().GetByIdAsync(SelectedTender.Id);
+            if (entity == null) return;
+
+            try
+            {
+                unitOfWork.Repository<Tender>().Delete(entity);
+                await unitOfWork.SaveChangesAsync();
+                TenderLookups.Remove(SelectedTender);
+                eventAggregator.GetEvent<AfterRemoveTenderEvent>().Publish(entity);
+            }
+            catch (DbUpdateException e)
+            {
+                Exception ex = e;
+                while (ex.InnerException != null)
+                {
+                    ex = ex.InnerException;
+                }
+                messageService.ShowOkMessageDialog("DbUpdateException", ex.Message);
+            }
+
         }
 
         private void NewSpecificationCommand_Execute()

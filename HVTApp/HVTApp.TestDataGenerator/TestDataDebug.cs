@@ -62,10 +62,6 @@ namespace HVTApp.TestDataGenerator
         public PaymentPlanned PaymentPlanned4;
         public PaymentPlanned PaymentPlanned5;
 
-        public TenderType TenderTypeProject;
-        public TenderType TenderTypeWork;
-        public TenderType TenderTypeSuply;
-
         public Tender TenderMrsk;
         public Tender Tender2;
 

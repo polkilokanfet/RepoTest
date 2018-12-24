@@ -21,11 +21,6 @@ namespace HVTApp.Modules.Sales.Views
             viewModel.Load();
             this.DataContext = viewModel;
 
-            #region ClearViews
-
-            TenderListView.ProjectVisibility = Visibility.Collapsed;
-
-            #endregion
             //this.Loaded += OnLoaded;
         }
 

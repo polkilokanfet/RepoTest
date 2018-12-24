@@ -68,6 +68,10 @@ namespace HVTApp.TestDataGenerator
         public PaymentConditionSet PaymentConditionSet50Na50;
         public PaymentConditionSet PaymentConditionSet30Na70;
 
+        public TenderType TenderTypeProject;
+        public TenderType TenderTypeWork;
+        public TenderType TenderTypeSuply;
+
         private void GenerateTenderTypes()
         {
             TenderTypeProject.Clone(new TenderType { Name = "Проект", Type = TenderTypeEnum.ToProject });

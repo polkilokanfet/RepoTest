@@ -25,34 +25,44 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
 
         public DatesViewModel(IUnityContainer container) : base(container)
         {
-            Action save = async () =>
-            {
-                await _unitOfWork.SaveChangesAsync();
-                _units.ForEach(x => x.AcceptChanges());
-                ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
-            };
-            SaveCommand = new DelegateCommand(save, () => _units != null && _units.All(x => x.IsValid) && _units.Any(x => x.IsChanged));
+            SaveCommand = new DelegateCommand(SaveCommand_Execute, SaveCommand_CanExecute);
             ReloadCommand = new DelegateCommand(async () => await LoadAsync());
         }
 
         public async Task LoadAsync()
         {
             _unitOfWork = Container.Resolve<IUnitOfWork>();
-            var units = await _unitOfWork.Repository<SalesUnit>().GetAllAsync();
-            units = units.Where(x => !x.DeliveryDate.HasValue || 
-                                     !x.EndProductionDate.HasValue ||
-                                     !x.PickingDate.HasValue ||
-                                     !x.RealizationDate.HasValue || 
-                                     !x.ShipmentDate.HasValue ||
-                                     string.IsNullOrEmpty(x.SerialNumber)).OrderBy(x => x.EndProductionDateCalculated).ToList();
-            _units = units.Select(x => new SalesUnitWrapper(x)).ToList();
-            _units.ForEach(x => x.PropertyChanged += XOnPropertyChanged);
+
+            _units = (await _unitOfWork.Repository<SalesUnit>().GetAllAsync())
+                                .Where(x => !x.DeliveryDate.HasValue || 
+                                            !x.EndProductionDate.HasValue ||
+                                            !x.PickingDate.HasValue ||
+                                            !x.RealizationDate.HasValue || 
+                                            !x.ShipmentDate.HasValue ||
+                                            string.IsNullOrEmpty(x.SerialNumber))
+                                .OrderBy(x => x.EndProductionDateCalculated)
+                                .Select(x => new SalesUnitWrapper(x))
+                                .ToList();
+
+            _units.ForEach(x => x.PropertyChanged += UnitOnPropertyChanged);
 
             Groups.Clear();
             Groups.AddRange(DatesGroup.GetGroups(_units));
         }
 
-        private void XOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        public async void SaveCommand_Execute()
+        {
+            await _unitOfWork.SaveChangesAsync();
+            _units.Where(x => x.IsChanged).ToList().ForEach(x => x.AcceptChanges());
+            ((DelegateCommand) SaveCommand).RaiseCanExecuteChanged();
+        }
+
+        public bool SaveCommand_CanExecute()
+        {
+            return _units != null && _units.All(x => x.IsValid) && _units.Any(x => x.IsChanged);
+        }
+
+        private void UnitOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
             ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
         }

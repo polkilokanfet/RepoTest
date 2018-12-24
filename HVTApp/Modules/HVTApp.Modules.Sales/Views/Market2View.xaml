@@ -75,10 +75,27 @@
                 </GroupBox>
                 
                 <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="3"/>
-                
+
                 <GroupBox Grid.Row="2" Header="Конкурсы">
-                    <views:TenderLookupListView Name="TenderListView" DataContext="{Binding TenderListViewModel}"/>
+                    <infgDp:XamDataGrid DataSource="{Binding TenderLookups}"
+                                        SelectedDataItem="{Binding SelectedTender}">
+
+                        <infgDp:XamDataGrid.FieldLayouts>
+                            <infgDp:FieldLayout>
+                                <infgDp:FieldLayout.Fields>
+                                    <infgDp:TextField Name="Types" Label="Типы" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
+                                    <infgDp:DateTimeField Name="DateOpen" Label="Открытие" Width="Auto" />
+                                    <infgDp:DateTimeField Name="DateClose" Label="Закрытие" Width="Auto" />
+                                    <infgDp:DateTimeField Name="DateNotice" Label="Итоги" Width="Auto" />
+                                    <infgDp:TextField Name="Participants" Label="Участники" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
+                                    <infgDp:TextField Name="Winner" Label="Победитель" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                                </infgDp:FieldLayout.Fields>
+                            </infgDp:FieldLayout>
+
+                        </infgDp:XamDataGrid.FieldLayouts>
+                    </infgDp:XamDataGrid>
                 </GroupBox>
+                
             </Grid>
             
         </Grid>
