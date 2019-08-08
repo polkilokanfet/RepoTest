@@ -9,10 +9,10 @@ namespace HVTApp.Infrastructure.Extansions
         /// <summary>
         /// Члены коллекций совпадают.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="first"></param>
-        /// <param name="second"></param>
-        /// <param name="comparer"></param>
+        /// <typeparam name="T">Тип данных в перечислениях</typeparam>
+        /// <param name="first">Первое перечисление</param>
+        /// <param name="second">Второе перечисление</param>
+        /// <param name="comparer">Спопсоб сравнения</param>
         /// <returns></returns>
         public static bool MembersAreSame<T>(this IEnumerable<T> first, IEnumerable<T> second, IEqualityComparer<T> comparer = null)
         {
@@ -38,6 +38,18 @@ namespace HVTApp.Infrastructure.Extansions
             if (!firstArray.Any()) throw new ArgumentException("Передано перечисление не содержащее членов.", nameof(first));
 
             return comparer == null ? firstArray.All(x => secondArray.Contains(x)) : firstArray.All(x => secondArray.Contains(x, comparer));
+        }
+
+        public static bool ContainsById<T>(this IEnumerable<T> enumerable, IContainsId objContainsId)
+            where T : IContainsId
+        {
+            return enumerable.Select(x => x.Id).Contains(objContainsId.Id);
+        }
+
+        public static T GetById<T>(this IEnumerable<T> enumerable, IContainsId objContainsId)
+            where T : IContainsId
+        {
+            return enumerable.SingleOrDefault(x => x.Id == objContainsId.Id);
         }
     }
 }

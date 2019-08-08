@@ -1,9 +1,19 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
+using HVTApp.Infrastructure;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.DataAccess
 {
+    public partial interface ISalesUnitRepository : IRepository<SalesUnit>
+    {
+        IEnumerable<SalesUnit> GetUsersSalesUnits();
+        Task<IEnumerable<SalesUnit>> GetUsersSalesUnitsAsync();
+    }
+
     public partial class SalesUnitRepository
     {
         protected override IQueryable<SalesUnit> GetQuary()
@@ -17,6 +27,17 @@ namespace HVTApp.DataAccess
                 .Include(x => x.PaymentsActual)
                 .Include(x => x.PaymentsPlanned)
                 .Include(x => x.Order);
+        }
+
+        public IEnumerable<SalesUnit> GetUsersSalesUnits()
+        {
+            return this.Find(x => x.Project.Manager.Id == GlobalAppProperties.User.Id);
+        }
+
+        public async Task<IEnumerable<SalesUnit>> GetUsersSalesUnitsAsync()
+        {
+            var su = await this.GetAllAsync();
+            return su.Where(x => x.Project.Manager.Id == GlobalAppProperties.User.Id);
         }
     }
 }

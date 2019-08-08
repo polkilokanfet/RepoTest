@@ -1,0 +1,186 @@
+﻿using System.Linq;
+using HVTApp.Infrastructure.Extansions;
+using HVTApp.Model.POCOs;
+using HVTApp.UI.Lookup;
+
+namespace HVTApp.Modules.Sales.ViewModels
+{
+    public partial class Market2ViewModel
+    {
+
+        #region AfterSaveEvents
+
+        private void AfterSaveProjectEventExecute(Project project)
+        {
+            //если необходимо обновить существующий проект
+            if (ProjectLookupsContainer.ContainsById(project))
+            {
+                var projectLookup = ProjectLookupsContainer.GetById(project);
+                projectLookup.Refresh(project);
+
+                if (_shownAllProjects || projectLookup.InWork)
+                {
+                    LoadGroups(projectLookup);
+                }
+                else
+                {
+                    //удяляем нерабочие проекты
+                    if (ProjectLookupsInView.Contains(projectLookup))
+                    {
+                        ProjectLookupsInView.Remove(projectLookup);
+                    }
+                }
+            }
+            else
+            {
+                var lookup = new ProjectLookup(project);
+                ProjectLookupsContainer.Add(lookup);
+
+                if (_shownAllProjects || lookup.InWork)
+                    ProjectLookupsInView.Add(lookup);
+            }
+        }
+
+        private void AfterSaveTenderEventExecute(Tender tender)
+        {
+            var tenders = ProjectLookupsContainer.SelectMany(x => x.Tenders).ToList();
+            //если необходимо обновить существующий тендер
+            if (tenders.ContainsById(tender))
+            {
+                tenders.GetById(tender)?.Refresh(tender);
+            }
+            //если необходимо добавть созданный тендер
+            else
+            {
+                ProjectLookupsContainer.GetById(tender.Project)?.Tenders.Add(new TenderLookup(tender));
+            }
+
+            //обновляем проект, содержащий тендер
+            ProjectLookupsContainer.SingleOrDefault(x => x.Tenders.ContainsById(tender))?.Refresh();
+        }
+
+        private void AfterSaveOfferEventExecute(Offer offer)
+        {
+            var offers = ProjectLookupsContainer.SelectMany(x => x.Offers).ToList();
+
+            //если необходимо обновить существующее ТКП
+            if (offers.ContainsById(offer))
+            {
+                offers.SingleOrDefault(x => x.Id == offer.Id)?.Refresh(offer);
+                return;
+            }
+
+            //если необходимо добавить созданное ТКП
+            var lookupNew = new OfferLookup(offer);
+            //добавляет ТКП в проект
+            ProjectLookupsContainer.GetById(offer.Project)?.Offers.Add(lookupNew);
+            //добавляет ТКП в список ТКП
+            if (offer.Project.Id == SelectedProjectLookup?.Id) OfferLookups.Add(lookupNew);
+            //обновление
+            lookupNew.Refresh();
+        }
+
+        private void AfterSaveSalesUnitEventExecute(SalesUnit salesUnit)
+        {
+            //целевой проект
+            var project = ProjectLookupsContainer.GetById(salesUnit.Project);
+
+            //костыль - нужно добавить предварительно проект
+            if (project == null) return;
+
+            //обновляем или добавляем
+            if (project.SalesUnits.ContainsById(salesUnit))
+            {
+                project.SalesUnits.GetById(salesUnit).Refresh(salesUnit);
+            }
+            else
+            {
+                project.SalesUnits.Add(new SalesUnitLookup(salesUnit));
+            }
+
+            //обновляем целевой проект
+            project.Refresh();
+
+            //обновляем отображение оборудования
+            if (Equals(project, SelectedProjectLookup))
+            {
+                LoadGroups(SelectedProjectLookup);
+            }
+        }
+
+        private void AfterSaveOfferUnitEventExecute(OfferUnit offerUnit)
+        {
+            //целевое ТКП
+            var offer = ProjectLookupsContainer.SelectMany(x => x.Offers).GetById(offerUnit.Offer);
+
+            //костыль - нужно добавить предварительно проект
+            if (offer == null) return;
+
+            //обновляем или добавляем
+            if (offer.OfferUnits.ContainsById(offerUnit))
+            {
+                offer.OfferUnits.GetById(offerUnit)?.Refresh(offerUnit);
+            }
+            else
+            {
+                offer.OfferUnits.Add(new OfferUnitLookup(offerUnit));
+            }
+
+            //обновляем целевое ТКП
+            offer.Refresh();
+        }
+
+
+
+        #endregion
+
+        #region AfterRemoveEvent
+
+        private void AfterRemoveOfferUnitEventExecute(OfferUnit offerUnit)
+        {
+            var offer = ProjectLookupsContainer.SelectMany(x => x.Offers).GetById(offerUnit.Offer);
+            if (offer == null) return;
+            var lookup = offer.OfferUnits.GetById(offerUnit);
+            offer.OfferUnits.Remove(lookup);
+            offer.Refresh();
+        }
+
+        private void AfterRemoveSalesUnitEventExecute(SalesUnit salesUnit)
+        {
+            var project = ProjectLookupsContainer.GetById(salesUnit.Project);
+            if (project == null) return;
+            var lookup = project.SalesUnits.GetById(salesUnit);
+            project.SalesUnits.Remove(lookup);
+            project.Refresh();
+        }
+
+        private void AfterRemoveProjectEventExecute(Project project)
+        {
+        }
+
+        private void AfterRemoveTenderEventExecute(Tender tender)
+        {
+            var project = ProjectLookupsContainer.SingleOrDefault(x => x.Tenders.ContainsById(tender));
+            if (project == null) return;
+            var lookup = project.Tenders.GetById(tender);
+            project.Tenders.Remove(lookup);
+            lookup.Refresh();
+        }
+
+        private void AfterRemoveOfferEventExecute(Offer offer)
+        {
+            //проект, содержащий удаленное ТКП
+            var project = ProjectLookupsContainer.SingleOrDefault(x => x.Offers.Select(t => t.Id).Contains(offer.Id));
+            if (project == null) return;
+
+            //удаляем ТКП из проекта
+            var lookup = project.Offers.Single(x => x.Id == offer.Id);
+            project.Offers.Remove(lookup);
+            //удаляем из списка ТКП
+            if (OfferLookups.Contains(lookup)) OfferLookups.Remove(lookup);
+        }
+
+        #endregion
+
+    }
+}

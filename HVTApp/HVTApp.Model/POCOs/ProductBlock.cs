@@ -42,10 +42,10 @@ namespace HVTApp.Model.POCOs
         public string Design { get; set; }
 
         [Designation("Услуга"), NotMapped]
-        public bool IsService => Parameters.Select(x => x.Id).Contains(GlobalAppProperties.Actual.ServiceParameter.Id);
+        public bool IsService => Parameters.ContainsById(GlobalAppProperties.Actual.ServiceParameter);
 
         [Designation("Шеф-монтаж"), NotMapped]
-        public bool IsSupervision => Parameters.Select(x => x.Id).Contains(GlobalAppProperties.Actual.SupervisionParameter.Id);
+        public bool IsSupervision => Parameters.ContainsById(GlobalAppProperties.Actual.SupervisionParameter);
 
         [Designation("Доставка"), NotMapped]
         public bool IsDelivery { get; set; } = false;

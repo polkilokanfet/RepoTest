@@ -64,7 +64,7 @@
                                 <infg:TextField AlternateBinding="{Binding Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
                                 <infg:TextField Name="Specification" Label="Сп.№" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
                                 <infg:TextField AlternateBinding="{Binding Specification.Contract}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
-                                <infg:TextField Name="TceRequest" Label="Запрс в ТСЕ" Width="Auto"/>
+                                <infg:TextField Name="TceRequest" Label="Запрос в ТСЕ" Width="Auto"/>
                                 <infg:DateTimeField Name="EndProductionDateCalculated" Label="Дата производства" Width="Auto"/>
                                 <infg:Field Name="Groups" IsExpandable="True"/>
 
@@ -102,7 +102,7 @@
                                 <infg:TextField AlternateBinding="{Binding Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
                                 <infg:TextField Name="Specification" Label="Сп.№" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
                                 <infg:TextField AlternateBinding="{Binding Specification.Contract}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
-                                <infg:TextField Name="TceRequest" Label="Запрс в ТСЕ" Width="Auto" AllowEdit="True"/>
+                                <infg:TextField Name="TceRequest" Label="Запрос в ТСЕ" Width="Auto" AllowEdit="True"/>
                                 <infg:DateTimeField Name="EndProductionDateCalculated" Label="Дата производства" Width="Auto"/>
                                 <infg:Field Name="Groups" IsExpandable="True"/>
 

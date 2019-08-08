@@ -1,9 +1,6 @@
-using System;
-
 namespace HVTApp.Infrastructure
 {
-    public interface IBaseEntity
+    public interface IBaseEntity : IContainsId
     {
-        Guid Id { get; set; }
     }
 }

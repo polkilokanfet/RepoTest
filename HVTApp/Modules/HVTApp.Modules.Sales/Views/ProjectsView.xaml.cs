@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Windows;
+using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
@@ -29,8 +30,7 @@ namespace HVTApp.Modules.Sales.Views
 
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-            var units = await _container.Resolve<IUnitOfWork>().Repository<SalesUnit>().GetAllAsync();
-            units = units.Where(x => x.Project.Manager.Id == GlobalAppProperties.User.Id).ToList();
+            var units = await ((ISalesUnitRepository)_container.Resolve<IUnitOfWork>().Repository<SalesUnit>()).GetUsersSalesUnitsAsync();
             var projects = units.Select(x => x.Project).Distinct();
             var lookups = projects.Select(x => new ProjectLookup(x)).ToList();
             foreach (var projectLookup in lookups)

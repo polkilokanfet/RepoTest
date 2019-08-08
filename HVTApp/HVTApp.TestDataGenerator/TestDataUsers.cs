@@ -50,8 +50,8 @@ namespace HVTApp.TestDataGenerator
         private void GeneratePersons()
         {
             PersonIvanov.Clone(new Person { Surname = "Иванов", Name = "Иван", Patronymic = "Иванович", IsMan = true });
-            PersonPetrov.Clone(new Person { Surname = "Петров", Name = "Иван", Patronymic = "Иванович", IsMan = true });
-            PersonSidorov.Clone(new Person { Surname = "Сидоров", Name = "Иван", Patronymic = "Иванович", IsMan = true });
+            PersonPetrov.Clone(new Person { Surname = "Петров", Name = "Петр", Patronymic = "Петрович", IsMan = true });
+            PersonSidorov.Clone(new Person { Surname = "Сидоров", Name = "Сидор", Patronymic = "Сидорович", IsMan = true });
 
             PersonKosolapov.Clone(new Person { Surname = "Косолапов", Name = "Александр", Patronymic = "Геннадьевич", IsMan = true });
             PersonEmelyanov.Clone(new Person { Surname = "Емельянов", Name = "Тимофей", Patronymic = "Викторович", IsMan = true });
@@ -95,11 +95,13 @@ namespace HVTApp.TestDataGenerator
             UserIvanov.Clone(new User { Login = "1", Password = StringToGuid.GetHashString("1"), Employee = EmployeeIvanov, PersonalNumber = "1", Roles = new List<UserRole> { UserRoleAdmin, UserRoleDataBaseFiller, UserRoleSalesManager, UserRolePlanMaker, UserRoleDirector, UserRoleEconomist, UserRolePricer } });
             UserPetrov.Clone(new User { Login = "2", Password = StringToGuid.GetHashString("2"), Employee = EmployeePetrov, PersonalNumber = "2", Roles = new List<UserRole> { UserRoleDataBaseFiller } });
 
-            UserKosolapov.Clone(new User { Login = "kosolapov", Password = StringToGuid.GetHashString("1"), Employee = EmployeeKosolapov, PersonalNumber = "7412", Roles = new List<UserRole> { UserRoleAdmin, UserRoleDataBaseFiller, UserRoleSalesManager, UserRolePlanMaker, UserRoleDirector, UserRoleEconomist, UserRolePricer } });
-            UserEmelyanov.Clone(new User { Login = "emelyanov", Password = StringToGuid.GetHashString("1"), Employee = EmployeeEmelyanov, PersonalNumber = "74??", Roles = new List<UserRole> { UserRoleSalesManager } });
-            UserRybin.Clone(new User { Login = "rybin", Password = StringToGuid.GetHashString("1"), Employee = EmployeeRybin, PersonalNumber = "74??", Roles = new List<UserRole> { UserRoleSalesManager } });
-            UserGazizov.Clone(new User { Login = "gazizov", Password = StringToGuid.GetHashString("1"), Employee = EmployeeRybin, PersonalNumber = "74??", Roles = new List<UserRole> { UserRoleSalesManager } });
-            UserTekin.Clone(new User { Login = "tekin", Password = StringToGuid.GetHashString("1"), Employee = EmployeeRybin, PersonalNumber = "74??", Roles = new List<UserRole> { UserRoleSalesManager } });
+            var pas1 = StringToGuid.GetHashString("1");
+
+            UserKosolapov.Clone(new User { Login = "kosolapov", Password = pas1, Employee = EmployeeKosolapov, PersonalNumber = "7412", Roles = new List<UserRole> { UserRoleAdmin, UserRoleDataBaseFiller, UserRoleSalesManager, UserRolePlanMaker, UserRoleDirector, UserRoleEconomist, UserRolePricer } });
+            UserEmelyanov.Clone(new User { Login = "emelyanov", Password = pas1, Employee = EmployeeEmelyanov, PersonalNumber = "74??", Roles = new List<UserRole> { UserRoleSalesManager } });
+            UserRybin.Clone(new User { Login = "rybin", Password = pas1, Employee = EmployeeRybin, PersonalNumber = "74??", Roles = new List<UserRole> { UserRoleSalesManager } });
+            UserGazizov.Clone(new User { Login = "gazizov", Password = pas1, Employee = EmployeeRybin, PersonalNumber = "74??", Roles = new List<UserRole> { UserRoleSalesManager } });
+            UserTekin.Clone(new User { Login = "tekin", Password = pas1, Employee = EmployeeRybin, PersonalNumber = "74??", Roles = new List<UserRole> { UserRoleSalesManager } });
         }
 
     }

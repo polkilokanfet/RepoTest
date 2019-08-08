@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using HVTApp.TestDataGenerator;
 using HVTApp.Model.POCOs;
 
@@ -206,6 +208,15 @@ namespace HVTApp.DataAccess
     public partial class SalesUnitRepositoryTest : TestBaseRepository<SalesUnit>, ISalesUnitRepository
     {
         public SalesUnitRepositoryTest(TestData testData) : base(testData) {}
+        public IEnumerable<SalesUnit> GetUsersSalesUnits()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<IEnumerable<SalesUnit>> GetUsersSalesUnitsAsync()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 
     public partial class DocumentRepositoryTest : TestBaseRepository<Document>, IDocumentRepository

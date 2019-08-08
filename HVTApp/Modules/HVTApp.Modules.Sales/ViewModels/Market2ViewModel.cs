@@ -1,76 +1,91 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Windows.Input;
+using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Extansions;
-using HVTApp.Infrastructure.Interfaces.Services.DialogService;
-using HVTApp.Infrastructure.Services;
-using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
-using HVTApp.Modules.Sales.Views;
 using HVTApp.UI.Converter;
 using HVTApp.UI.Groups;
 using HVTApp.UI.Lookup;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Events;
-using Prism.Regions;
-using OfferView = HVTApp.Modules.Sales.Views.OfferView;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
-    public class Market2ViewModel : ViewModelBase
+    public interface IShowable
+    {
+        void ShowByProject(ProjectLookup projectLookup);
+    }
+
+    public class Offers : ObservableCollection<OfferLookup>, IShowable
+    {
+        public void ShowByProject(ProjectLookup projectLookup)
+        {
+            this.Clear();
+            if (projectLookup != null)
+                this.AddRange(projectLookup.Offers);
+        }
+    }
+
+    public class Tenders : ObservableCollection<TenderLookup>, IShowable
+    {
+        public void ShowByProject(ProjectLookup projectLookup)
+        {
+            this.Clear();
+            if (projectLookup != null)
+                this.AddRange(projectLookup.Tenders);
+        }
+    }
+
+    public class ProjectLookupsContainer : List<ProjectLookup>
+    {
+        /// <summary>
+        /// Проекты в работе
+        /// </summary>
+        public List<ProjectLookup> WorkProjectLookups => 
+            this.Where(x => x.Entity.InWork && x.SalesUnits.Any(u => !u.IsDone && !u.IsLoosen)).ToList();
+    }
+
+    public partial class Market2ViewModel : ViewModelBase
     {
         private ProjectLookup _selectedProjectLookup;
         private bool _shownAllProjects = false;
         private OfferLookup _selectedOffer;
         private TenderLookup _selectedTender;
 
-        public List<ProjectLookup> ProjectLookups { get; } = new List<ProjectLookup>();
+        public ProjectLookupsContainer ProjectLookupsContainer { get; } = new ProjectLookupsContainer();
         public ObservableCollection<ProjectLookup> ProjectLookupsInView { get; } = new ObservableCollection<ProjectLookup>();
 
         public ObservableCollection<SalesUnitsGroup> Groups { get; } = new ObservableCollection<SalesUnitsGroup>();
 
-        public ObservableCollection<OfferLookup> OfferLookups { get; } = new ObservableCollection<OfferLookup>();
+        public Offers OfferLookups { get; } = new Offers();
 
-        public ObservableCollection<TenderLookup> TenderLookups { get; } = new ObservableCollection<TenderLookup>();
+        public Tenders TenderLookups { get; } = new Tenders();
 
         public ProjectLookup SelectedProjectLookup
         {
             get { return _selectedProjectLookup; }
             set
             {
-                if (Equals(_selectedProjectLookup, value)) return;
+                if (Equals(_selectedProjectLookup, value))
+                    return;
+
                 _selectedProjectLookup = value;
-                Groups.Clear();
-                OfferLookups.Clear();
-                TenderLookups.Clear();
 
-                if (value != null)
-                {
-                    //обновляем данные всех таблиц
-                    OfferLookups.AddRange(value.Offers);
-                    TenderLookups.AddRange(value.Tenders);
-                    LoadGroups(value);
-                }
-                else
-                {
-                    Groups.Clear();
-                }
+                LoadGroups(_selectedProjectLookup);
+                OfferLookups.ShowByProject(_selectedProjectLookup);
+                TenderLookups.ShowByProject(_selectedProjectLookup);
 
-                //проверяем актуальность команд
-                ((DelegateCommand)RemoveProjectCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)EditProjectCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)EditOfferCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)NewOfferByProjectCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)NewOfferByOfferCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)NewTenderCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)EditTenderCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)RemoveTenderCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand) RemoveProjectCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand) EditProjectCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand) EditOfferCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand) NewOfferByProjectCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand) NewOfferByOfferCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand) NewTenderCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand) EditTenderCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand) RemoveTenderCommand).RaiseCanExecuteChanged();
 
                 OnPropertyChanged();
             }
@@ -102,40 +117,22 @@ namespace HVTApp.Modules.Sales.ViewModels
             }
         }
 
-
         public bool ShownAllProjects
         {
             get { return _shownAllProjects; }
             set
             {
-                if (Equals(_shownAllProjects, value)) return;
+                if (Equals(_shownAllProjects, value))
+                    return;
+
                 _shownAllProjects = value;
-                if (value) ShowAllProjects();
-                else ShowWorkProjects();
+
+                if (value)
+                    ShowAllProjects();
+                else
+                    ShowWorkProjects();
             }
         }
-
-        #region ICommand
-
-        public ICommand NewProjectCommand { get; }
-        public ICommand EditProjectCommand { get; }
-        public ICommand RemoveProjectCommand { get; }
-
-        public ICommand NewSpecificationCommand { get; }
-
-
-        public ICommand NewOfferByProjectCommand { get; }
-        public ICommand NewOfferByOfferCommand { get; }
-        public ICommand EditOfferCommand { get; }
-        public ICommand RemoveOfferCommand { get; }
-        public ICommand PrintOfferCommand { get; }
-
-        public ICommand NewTenderCommand { get; }
-        public ICommand EditTenderCommand { get; }
-        public ICommand RemoveTenderCommand { get; }
-
-
-        #endregion
 
         public Market2ViewModel(IUnityContainer container) : base(container)
         {
@@ -177,7 +174,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             UnitOfWork = Container.Resolve<IUnitOfWork>();
 
             //достаем все проектные юниты
-            var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Manager.Id == GlobalAppProperties.User.Id);
+            var salesUnits = ((ISalesUnitRepository)UnitOfWork.Repository<SalesUnit>()).GetUsersSalesUnits();
 
             //формируем список проектов
             var projects = salesUnits.Select(x => x.Project).Distinct().ToList();
@@ -205,7 +202,7 @@ namespace HVTApp.Modules.Sales.ViewModels
                 }
                 projectsLookups.Add(projectLookup);
             }
-            ProjectLookups.AddRange(projectsLookups.OrderBy(x => x.RealizationDate));
+            ProjectLookupsContainer.AddRange(projectsLookups.OrderBy(x => x.RealizationDate));
 
             //показываем все рабочие проекты
             ShowWorkProjects();
@@ -213,20 +210,22 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         private void LoadGroups(ProjectLookup project)
         {
+            Groups.Clear();
+            if (project == null)
+                return;
+
             //все юниты проекта
             var units = project.SalesUnits.Select(x => x.Entity);
             //группируем их
             var groups = units.GroupBy(x => x, new SalesUnitsGroupsComparer()).Select(x => new SalesUnitsGroup(x));
             //обновляем вид
-            Groups.Clear();
             Groups.AddRange(groups.OrderByDescending(x => x.Total));
         }
 
         private void ShowWorkProjects()
         {
             ProjectLookupsInView.Clear();
-            var workProjects = ProjectLookups.Where(x => x.Entity.InWork && x.SalesUnits.Any(u => !u.IsDone && !u.IsLoosen)).ToList();
-            ProjectLookupsInView.AddRange(workProjects);
+            ProjectLookupsInView.AddRange(ProjectLookupsContainer.WorkProjectLookups);
 
             //выбор проекта
             if (SelectedProjectLookup == null && ProjectLookupsInView.Any())
@@ -236,345 +235,8 @@ namespace HVTApp.Modules.Sales.ViewModels
         private void ShowAllProjects()
         {
             ProjectLookupsInView.Clear();
-            ProjectLookupsInView.AddRange(ProjectLookups);
+            ProjectLookupsInView.AddRange(ProjectLookupsContainer);
         }
-
-        #region Commands
-
-        private async void RemoveProjectCommand_Execute()
-        {
-            var unitOfWork = Container.Resolve<IUnitOfWork>();
-            var messageService = Container.Resolve<IMessageService>();
-            var eventAggregator = Container.Resolve<IEventAggregator>();
-
-            var dr = messageService.ShowYesNoMessageDialog("Удаление", $"Вы действительно хотите удалить \"{SelectedProjectLookup.DisplayMember}\"?");
-            if (dr != MessageDialogResult.Yes) return;
-
-            var entity = await unitOfWork.Repository<Project>().GetByIdAsync(SelectedProjectLookup.Id);
-            if (entity == null) return;
-
-            try
-            {
-                unitOfWork.Repository<Project>().Delete(entity);
-                await unitOfWork.SaveChangesAsync();
-                ProjectLookups.Remove(SelectedProjectLookup);
-                ProjectLookupsInView.Remove(SelectedProjectLookup);
-                eventAggregator.GetEvent<AfterRemoveProjectEvent>().Publish(entity);
-            }
-            catch (DbUpdateException e)
-            {
-                Exception ex = e;
-                while (ex.InnerException != null)
-                {
-                    ex = ex.InnerException;
-                }
-                messageService.ShowOkMessageDialog("DbUpdateException", ex.Message);
-            }
-        }
-
-        private async void PrintOfferCommand_Execute()
-        {
-            await Container.Resolve<IPrintOfferService>().PrintOfferAsync(SelectedOffer.Id);
-        }
-
-        private async void RemoveOfferCommand_Execute()
-        {
-            var unitOfWork = Container.Resolve<IUnitOfWork>();
-            var messageService = Container.Resolve<IMessageService>();
-            var eventAggregator = Container.Resolve<IEventAggregator>();
-
-            var dr = messageService.ShowYesNoMessageDialog("Удаление", $"Вы действительно хотите удалить \"{SelectedOffer.DisplayMember}\"?");
-            if (dr != MessageDialogResult.Yes) return;
-
-            var entity = await unitOfWork.Repository<Offer>().GetByIdAsync(SelectedOffer.Id);
-            if (entity == null) return;
-
-            try
-            {
-                unitOfWork.Repository<Offer>().Delete(entity);
-                await unitOfWork.SaveChangesAsync();
-                ProjectLookups.Remove(SelectedProjectLookup);
-                ProjectLookupsInView.Remove(SelectedProjectLookup);
-                eventAggregator.GetEvent<AfterRemoveOfferEvent>().Publish(entity);
-            }
-            catch (DbUpdateException e)
-            {
-                Exception ex = e;
-                while (ex.InnerException != null)
-                {
-                    ex = ex.InnerException;
-                }
-                messageService.ShowOkMessageDialog("DbUpdateException", ex.Message);
-            }
-        }
-
-
-        private void EditTenderCommand_Execute()
-        {
-            var tenderViewModel = new TenderViewModel(Container, SelectedTender.Entity);
-            Container.Resolve<IDialogService>().ShowDialog(tenderViewModel);            
-        }
-
-        private void NewTenderCommand_Execute()
-        {
-            var tenderViewModel = new TenderViewModel(Container, SelectedProjectLookup.Entity);
-            Container.Resolve<IDialogService>().ShowDialog(tenderViewModel);
-        }
-
-
-        private async void RemoveTenderCommand_Execute()
-        {
-            var unitOfWork = Container.Resolve<IUnitOfWork>();
-            var messageService = Container.Resolve<IMessageService>();
-            var eventAggregator = Container.Resolve<IEventAggregator>();
-
-            var dr = messageService.ShowYesNoMessageDialog("Удаление", $"Вы действительно хотите удалить \"{SelectedTender.DisplayMember}\"?");
-            if (dr != MessageDialogResult.Yes) return;
-
-            var entity = await unitOfWork.Repository<Tender>().GetByIdAsync(SelectedTender.Id);
-            if (entity == null) return;
-
-            try
-            {
-                unitOfWork.Repository<Tender>().Delete(entity);
-                await unitOfWork.SaveChangesAsync();
-                TenderLookups.Remove(SelectedTender);
-                eventAggregator.GetEvent<AfterRemoveTenderEvent>().Publish(entity);
-            }
-            catch (DbUpdateException e)
-            {
-                Exception ex = e;
-                while (ex.InnerException != null)
-                {
-                    ex = ex.InnerException;
-                }
-                messageService.ShowOkMessageDialog("DbUpdateException", ex.Message);
-            }
-
-        }
-
-        private void NewSpecificationCommand_Execute()
-        {
-            RegionManager.RequestNavigateContentRegion<SpecificationView>(new NavigationParameters { { "project", SelectedProjectLookup.Entity } });
-        }
-
-        private void EditProjectCommand_Execute()
-        {
-            RegionManager.RequestNavigateContentRegion<ProjectView>(new NavigationParameters { { "prj", SelectedProjectLookup.Entity } });
-        }
-
-        private void NewProjectCommand_Execute()
-        {
-            RegionManager.RequestNavigateContentRegion<ProjectView>(new NavigationParameters());
-        }
-
-        #region OfferCommands
-
-        /// <summary>
-        /// ТКП по существующему ТКП
-        /// </summary>
-        private void NewOfferByOfferCommand_Execute()
-        {
-            var prms = new NavigationParameters {{"offer", SelectedOffer.Entity}};
-            RegionManager.RequestNavigateContentRegion<OfferView>(prms);
-        }
-
-        /// <summary>
-        /// ТКП по проекту
-        /// </summary>
-        private void NewOfferByProjectCommand_Execute()
-        {
-            var prms = new NavigationParameters {{"project", SelectedProjectLookup.Entity}};
-            RegionManager.RequestNavigateContentRegion<OfferView>(prms);
-        }
-
-        /// <summary>
-        /// Изменить ТКП
-        /// </summary>
-        private void EditOfferCommand_Execute()
-        {
-            var prms = new NavigationParameters {{"offer", SelectedOffer.Entity}, { "edit", true } };
-            RegionManager.RequestNavigateContentRegion<OfferView>(prms);
-        }
-
-
-        #endregion
-
-        #endregion
-
-        #region AfterSaveEvents
-
-        private void AfterSaveProjectEventExecute(Project project)
-        {
-            //если необходимо обновить существующий проект
-            if (ProjectLookups.Select(x => x.Id).Contains(project.Id))
-            {
-                var projectLookup = ProjectLookups.Single(x => x.Id == project.Id);
-                projectLookup.Refresh(project);
-
-                if (_shownAllProjects || projectLookup.InWork)
-                {
-                    LoadGroups(projectLookup);
-                }
-                else
-                {
-                    //удяляем нерабочие проекты
-                    if (ProjectLookupsInView.Contains(projectLookup))
-                    {
-                        ProjectLookupsInView.Remove(projectLookup);
-                    }
-                }
-            }
-            else
-            {
-                var lookup = new ProjectLookup(project);
-                ProjectLookups.Add(lookup);
-
-                if(_shownAllProjects || lookup.InWork)
-                    ProjectLookupsInView.Add(lookup);
-            }
-        }
-
-        private void AfterSaveTenderEventExecute(Tender tender)
-        {
-            var tenders = ProjectLookups.SelectMany(x => x.Tenders).ToList();
-            //если необходимо обновить существующий тендер
-            if (tenders.Select(x => x.Id).Contains(tender.Id))
-            {
-                tenders.SingleOrDefault(x => x.Id == tender.Id)?.Refresh(tender);
-            }
-            //если необходимо добавть созданный тендер
-            else
-            {
-                ProjectLookups.SingleOrDefault(x => x.Id == tender.Project.Id)?.Tenders.Add(new TenderLookup(tender));                
-            }
-
-            //обновляем проект, содержащий тендер
-            ProjectLookups.SingleOrDefault(x => x.Tenders.Select(t => t.Id).Contains(tender.Id))?.Refresh();
-        }
-
-        private void AfterSaveOfferEventExecute(Offer offer)
-        {
-            var offers = ProjectLookups.SelectMany(x => x.Offers).ToList();
-
-            //если необходимо обновить существующее ТКП
-            if (offers.Select(x => x.Id).Contains(offer.Id))
-            {
-                offers.SingleOrDefault(x => x.Id == offer.Id)?.Refresh(offer);
-                return;
-            }
-
-            //если необходимо добавить созданное ТКП
-            var lookupNew = new OfferLookup(offer);
-            //добавляет ТКП в проект
-            ProjectLookups.SingleOrDefault(x => x.Id == offer.Project.Id)?.Offers.Add(lookupNew);
-            //добавляет ТКП в список ТКП
-            if(offer.Project.Id == SelectedProjectLookup?.Id) OfferLookups.Add(lookupNew);
-            //обновление
-            lookupNew.Refresh();
-        }
-
-        private void AfterSaveSalesUnitEventExecute(SalesUnit salesUnit)
-        {
-            //целевой проект
-            var project = ProjectLookups.SingleOrDefault(x => x.Id == salesUnit.Project.Id);
-
-            //костыль - нужно добавить предварительно проект
-            if (project == null) return;
-
-            //обновляем или добавляем
-            if (project.SalesUnits.Select(x => x.Id).Contains(salesUnit.Id))
-            {
-                project.SalesUnits.Single(x => x.Id == salesUnit.Id).Refresh(salesUnit);
-            }
-            else
-            {
-                project.SalesUnits.Add(new SalesUnitLookup(salesUnit));
-            }
-
-            //обновляем целевой проект
-            project.Refresh();
-
-            //обновляем отображение оборудования
-            if (Equals(project, SelectedProjectLookup))
-            {
-                LoadGroups(SelectedProjectLookup);
-            }
-        }
-
-        private void AfterSaveOfferUnitEventExecute(OfferUnit offerUnit)
-        {
-            //целевое ТКП
-            var offer = ProjectLookups.SelectMany(x => x.Offers).SingleOrDefault(x => x.Id == offerUnit.Offer.Id);
-
-            //костыль - нужно добавить предварительно проект
-            if (offer == null) return;
-
-            //обновляем или добавляем
-            if (offer.OfferUnits.Select(x => x.Id).Contains(offerUnit.Id))
-            {
-                offer.OfferUnits.Single(x => x.Id == offerUnit.Id).Refresh(offerUnit);
-            }
-            else
-            {
-                offer.OfferUnits.Add(new OfferUnitLookup(offerUnit));
-            }
-
-            //обновляем целевое ТКП
-            offer.Refresh();
-        }
-
-
-
-        #endregion
-
-        #region AfterRemoveEvent
-
-        private void AfterRemoveOfferUnitEventExecute(OfferUnit offerUnit)
-        {
-            var offer = ProjectLookups.SelectMany(x => x.Offers).SingleOrDefault(x => x.Id == offerUnit.Offer.Id);
-            if (offer == null) return;
-            var lookup = offer.OfferUnits.Single(x => x.Id == offerUnit.Id);
-            offer.OfferUnits.Remove(lookup);
-            offer.Refresh();
-        }
-
-        private void AfterRemoveSalesUnitEventExecute(SalesUnit salesUnit)
-        {
-            var project = ProjectLookups.SingleOrDefault(x => x.Id == salesUnit.Project.Id);
-            if (project == null) return;
-            var lookup = project.SalesUnits.Single(x => x.Id == salesUnit.Id);
-            project.SalesUnits.Remove(lookup);
-            project.Refresh();
-        }
-
-        private void AfterRemoveProjectEventExecute(Project project)
-        {
-        }
-
-        private void AfterRemoveTenderEventExecute(Tender tender)
-        {
-            var project = ProjectLookups.SingleOrDefault(x => x.Tenders.Select(t => t.Id).Contains(tender.Id));
-            if(project == null) return;
-            var lookup = project.Tenders.Single(x => x.Id == tender.Id);
-            project.Tenders.Remove(lookup);
-            lookup.Refresh();
-        }
-
-        private void AfterRemoveOfferEventExecute(Offer offer)
-        {
-            //проект, содержащий удаленное ТКП
-            var project = ProjectLookups.SingleOrDefault(x => x.Offers.Select(t => t.Id).Contains(offer.Id));
-            if(project == null) return;
-
-            //удаляем ТКП из проекта
-            var lookup = project.Offers.Single(x => x.Id == offer.Id);
-            project.Offers.Remove(lookup);
-            //удаляем из списка ТКП
-            if (OfferLookups.Contains(lookup)) OfferLookups.Remove(lookup);
-        }
-
-        #endregion
 
     }
 }

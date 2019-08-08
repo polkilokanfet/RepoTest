@@ -8,7 +8,7 @@ using Prism.Mvvm;
 
 namespace HVTApp.UI.Lookup
 {
-    public abstract class LookupItem<TEntity> : BindableBase, ILookupItemNavigation<TEntity>, IComparable
+    public abstract class LookupItem<TEntity> : BindableBase, ILookupItemNavigation<TEntity>, IComparable, IContainsId
         where TEntity : class, IBaseEntity
     {
         protected LookupItem(TEntity entity)

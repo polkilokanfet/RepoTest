@@ -5,7 +5,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Groups;
 using HVTApp.UI.Wrapper;
@@ -40,7 +42,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
 
-            var salesUnits = await UnitOfWork.Repository<SalesUnit>().GetAllAsync();
+            var salesUnits = await ((ISalesUnitRepository)UnitOfWork.Repository<SalesUnit>()).GetUsersSalesUnitsAsync();
             _salesUnits?.ForEach(x => x.PropertyChanged -= OnSalesUnitPropertyChanged);
             _salesUnits = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(salesUnits.Select(x => new SalesUnitWrapper(x)));
             _salesUnits.ForEach(x => x.PropertyChanged += OnSalesUnitPropertyChanged);
