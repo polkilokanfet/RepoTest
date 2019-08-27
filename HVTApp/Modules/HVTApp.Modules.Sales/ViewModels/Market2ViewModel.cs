@@ -14,55 +14,19 @@ using Prism.Events;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
-    public interface IShowable
-    {
-        void ShowByProject(ProjectLookup projectLookup);
-    }
-
-    public class Offers : ObservableCollection<OfferLookup>, IShowable
-    {
-        public void ShowByProject(ProjectLookup projectLookup)
-        {
-            this.Clear();
-            if (projectLookup != null)
-                this.AddRange(projectLookup.Offers);
-        }
-    }
-
-    public class Tenders : ObservableCollection<TenderLookup>, IShowable
-    {
-        public void ShowByProject(ProjectLookup projectLookup)
-        {
-            this.Clear();
-            if (projectLookup != null)
-                this.AddRange(projectLookup.Tenders);
-        }
-    }
-
-    public class ProjectLookupsContainer : List<ProjectLookup>
-    {
-        /// <summary>
-        /// Проекты в работе
-        /// </summary>
-        public List<ProjectLookup> WorkProjectLookups => 
-            this.Where(x => x.Entity.InWork && x.SalesUnits.Any(u => !u.IsDone && !u.IsLoosen)).ToList();
-    }
-
     public partial class Market2ViewModel : ViewModelBase
     {
         private ProjectLookup _selectedProjectLookup;
-        private bool _shownAllProjects = false;
         private OfferLookup _selectedOffer;
         private TenderLookup _selectedTender;
 
-        public ProjectLookupsContainer ProjectLookupsContainer { get; } = new ProjectLookupsContainer();
-        public ObservableCollection<ProjectLookup> ProjectLookupsInView { get; } = new ObservableCollection<ProjectLookup>();
+        public Projects Projects { get; } = new Projects();
 
         public ObservableCollection<SalesUnitsGroup> Groups { get; } = new ObservableCollection<SalesUnitsGroup>();
 
-        public Offers OfferLookups { get; } = new Offers();
+        public Offers Offers { get; } = new Offers();
 
-        public Tenders TenderLookups { get; } = new Tenders();
+        public Tenders Tenders { get; } = new Tenders();
 
         public ProjectLookup SelectedProjectLookup
         {
@@ -75,8 +39,8 @@ namespace HVTApp.Modules.Sales.ViewModels
                 _selectedProjectLookup = value;
 
                 LoadGroups(_selectedProjectLookup);
-                OfferLookups.ShowByProject(_selectedProjectLookup);
-                TenderLookups.ShowByProject(_selectedProjectLookup);
+                Offers.ShowByProject(_selectedProjectLookup);
+                Tenders.ShowByProject(_selectedProjectLookup);
 
                 ((DelegateCommand) RemoveProjectCommand).RaiseCanExecuteChanged();
                 ((DelegateCommand) EditProjectCommand).RaiseCanExecuteChanged();
@@ -119,18 +83,16 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         public bool ShownAllProjects
         {
-            get { return _shownAllProjects; }
+            get { return Projects.ShownAllProjects; }
             set
             {
-                if (Equals(_shownAllProjects, value))
-                    return;
-
-                _shownAllProjects = value;
-
                 if (value)
-                    ShowAllProjects();
-                else
-                    ShowWorkProjects();
+                {
+                    Projects.ShowAll();
+                    return;
+                }
+
+                Projects.ShowWork();
             }
         }
 
@@ -153,6 +115,8 @@ namespace HVTApp.Modules.Sales.ViewModels
             EditTenderCommand = new DelegateCommand(EditTenderCommand_Execute, () => SelectedTender != null);
             RemoveTenderCommand = new DelegateCommand(RemoveTenderCommand_Execute, () => SelectedTender != null);
 
+            #region Subscribe to Events
+
             //подписка на создание, изменение и удаление сущностей
             var eventAggregator = container.Resolve<IEventAggregator>();
 
@@ -167,6 +131,8 @@ namespace HVTApp.Modules.Sales.ViewModels
             eventAggregator.GetEvent<AfterRemoveProjectEvent>().Subscribe(AfterRemoveProjectEventExecute);
             eventAggregator.GetEvent<AfterRemoveSalesUnitEvent>().Subscribe(AfterRemoveSalesUnitEventExecute);
             eventAggregator.GetEvent<AfterRemoveOfferUnitEvent>().Subscribe(AfterRemoveOfferUnitEventExecute);
+
+            #endregion
         }
 
         public void Load()
@@ -174,7 +140,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             UnitOfWork = Container.Resolve<IUnitOfWork>();
 
             //достаем все проектные юниты
-            var salesUnits = ((ISalesUnitRepository)UnitOfWork.Repository<SalesUnit>()).GetUsersSalesUnits();
+            var salesUnits = ((ISalesUnitRepository)UnitOfWork.Repository<SalesUnit>()).GetUsersSalesUnits().ToList();
 
             //формируем список проектов
             var projects = salesUnits.Select(x => x.Project).Distinct().ToList();
@@ -193,19 +159,18 @@ namespace HVTApp.Modules.Sales.ViewModels
             var projectsLookups = new List<ProjectLookup>();
             foreach (var project in projects)
             {
-                var projectLookup = new ProjectLookup(project, salesUnits.Where(x => Equals(x.Project.Id, project.Id)).ToList(),
-                                                               tenders.Where(x => Equals(x.Project.Id, project.Id)).ToList(),
-                                                               offers.Where(x => Equals(x.Project.Id, project.Id)).ToList());
+                var projectLookup = new ProjectLookup(project, salesUnits.Where(x => Equals(x.Project.Id, project.Id)),
+                                                               tenders.Where(x => Equals(x.Project.Id, project.Id)),
+                                                               offers.Where(x => Equals(x.Project.Id, project.Id)));
                 foreach (var offer in projectLookup.Offers)
                 {
                     offer.OfferUnits.AddRange(offerUnits.Where(x => x.Offer.Id == offer.Id).Select(x => new OfferUnitLookup(x)));
                 }
-                projectsLookups.Add(projectLookup);
+                Projects.Add(projectLookup);
             }
-            ProjectLookupsContainer.AddRange(projectsLookups.OrderBy(x => x.RealizationDate));
 
             //показываем все рабочие проекты
-            ShowWorkProjects();
+            Projects.ShowWork();
         }
 
         private void LoadGroups(ProjectLookup project)
@@ -224,19 +189,9 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         private void ShowWorkProjects()
         {
-            ProjectLookupsInView.Clear();
-            ProjectLookupsInView.AddRange(ProjectLookupsContainer.WorkProjectLookups);
-
             //выбор проекта
-            if (SelectedProjectLookup == null && ProjectLookupsInView.Any())
-                SelectedProjectLookup = ProjectLookupsInView.First();
+            //if (SelectedProjectLookup == null && ProjectLookupsInView.Any())
+            //    SelectedProjectLookup = ProjectLookupsInView.First();
         }
-
-        private void ShowAllProjects()
-        {
-            ProjectLookupsInView.Clear();
-            ProjectLookupsInView.AddRange(ProjectLookupsContainer);
-        }
-
     }
 }

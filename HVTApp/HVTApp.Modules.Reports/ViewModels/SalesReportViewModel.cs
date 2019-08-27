@@ -40,7 +40,7 @@ namespace HVTApp.Modules.Reports.ViewModels
 
             UnitOfWork = Container.Resolve<IUnitOfWork>();
             var salesUnits = GlobalAppProperties.User.RoleCurrent == Role.SalesManager 
-                ? UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.ForReport && x.Project.Manager.Id == GlobalAppProperties.User.Id) 
+                ? UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.ForReport && x.Project.Manager.IsAppCurrentUser()) 
                 : UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.ForReport);
 
             var tenders = UnitOfWork.Repository<Tender>().Find(x => true);

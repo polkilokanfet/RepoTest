@@ -60,7 +60,7 @@ namespace HVTApp.Modules.Settings.ViewModels
         {
             _container = container;
             _unitOfWork = container.Resolve<IUnitOfWork>();
-            _user = _unitOfWork.Repository<User>().Find(x => x.Id == GlobalAppProperties.User.Id).First();
+            _user = _unitOfWork.Repository<User>().Find(x => x.IsAppCurrentUser()).First();
 
             OkCommand = new DelegateCommand(OkCommandExecute, OkCommandCanExecute);
         }

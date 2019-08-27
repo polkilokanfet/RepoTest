@@ -42,5 +42,14 @@ namespace HVTApp.Model
             return result;
         }
 
+        /// <summary>
+        /// ѕользователь €вл€етс€ текущим пользователем приложени€
+        /// </summary>
+        /// <param name="user">ѕровер€емый пользователь</param>
+        /// <returns></returns>
+        public static bool IsAppCurrentUser(this User user)
+        {
+            return GlobalAppProperties.User.Id == user.Id;
+        }
     }
 }

@@ -10,7 +10,16 @@ namespace HVTApp.DataAccess
 {
     public partial interface ISalesUnitRepository : IRepository<SalesUnit>
     {
+        /// <summary>
+        /// Получить все юниты авторизованного пользователя
+        /// </summary>
+        /// <returns></returns>
         IEnumerable<SalesUnit> GetUsersSalesUnits();
+
+        /// <summary>
+        /// Получить все юниты авторизованного пользователя асинхронно
+        /// </summary>
+        /// <returns></returns>
         Task<IEnumerable<SalesUnit>> GetUsersSalesUnitsAsync();
     }
 
@@ -31,13 +40,13 @@ namespace HVTApp.DataAccess
 
         public IEnumerable<SalesUnit> GetUsersSalesUnits()
         {
-            return this.Find(x => x.Project.Manager.Id == GlobalAppProperties.User.Id);
+            return this.Find(x => x.Project.Manager.IsAppCurrentUser());
         }
 
         public async Task<IEnumerable<SalesUnit>> GetUsersSalesUnitsAsync()
         {
             var su = await this.GetAllAsync();
-            return su.Where(x => x.Project.Manager.Id == GlobalAppProperties.User.Id);
+            return su.Where(x => x.Project.Manager.IsAppCurrentUser());
         }
     }
 }

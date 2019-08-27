@@ -8,7 +8,9 @@ namespace HVTApp.UI.Lookup
 {
     public partial class ProjectLookup
     {
-        public ProjectLookup(Project project, IEnumerable<SalesUnit> salesUnits, IEnumerable<Tender> tenders, IEnumerable<Offer> offers) : this(project)
+        public ProjectLookup(Project project, IEnumerable<SalesUnit> salesUnits, 
+                                              IEnumerable<Tender> tenders, 
+                                              IEnumerable<Offer> offers) : this(project)
         {
             SalesUnits = new List<SalesUnitLookup>(salesUnits.Select(x => new SalesUnitLookup(x)));
             Tenders = new List<TenderLookup>(tenders.Select(x => new TenderLookup(x)));

@@ -68,9 +68,11 @@ namespace HVTApp
         /// <returns></returns>
         private async Task SetGlobalAppProperties()
         {
-            GlobalAppProperties.Actual = (await Container.Resolve<IUnitOfWork>().Repository<GlobalProperties>().GetAllAsync())
-                .OrderBy(x => x.Date).Last();
-
+            //репозиторий с опциями
+            var repository = Container.Resolve<IUnitOfWork>().Repository<GlobalProperties>();
+            //назначение актуальных опций (последние по дате)
+            GlobalAppProperties.Actual = (await repository.GetAllAsync()).OrderBy(x => x.Date).Last();
+            
             GlobalAppProperties.ProductDesignationService = Container.Resolve<IProductDesignationService>();
             GlobalAppProperties.ShippingService = Container.Resolve<IShippingService>();
         }
@@ -137,8 +139,6 @@ namespace HVTApp
         /// <param name="moduleType"></param>
         private void AddModuleIfInRole(ModuleCatalog catalog, Type moduleType)
         {
-            //catalog.AddModule(moduleType);
-
             var attr = (moduleType.GetCustomAttribute<ModuleAccessAttribute>());
             if (attr != null && attr.Roles.Contains(GlobalAppProperties.User.RoleCurrent))
                 catalog.AddModule(moduleType);

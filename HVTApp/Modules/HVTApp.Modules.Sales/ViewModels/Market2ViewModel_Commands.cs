@@ -83,12 +83,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         private async void RemoveProjectCommand_Execute()
         {
-            Action action = () =>
-            {
-                ProjectLookupsContainer.Remove(SelectedProjectLookup);
-                ProjectLookupsInView.Remove(SelectedProjectLookup);
-            };
-
+            Action action = () => { Projects.Remove(SelectedProjectLookup); };
             await RemoveCommandBase<Project, ProjectLookup, AfterRemoveProjectEvent>(SelectedProjectLookup, action);
         }
 
@@ -97,7 +92,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             Action action = () =>
             {
                 SelectedProjectLookup.Offers.Remove(SelectedOffer);
-                OfferLookups.Remove(SelectedOffer);
+                Offers.Remove(SelectedOffer);
             };
             await RemoveCommandBase<Offer, OfferLookup, AfterRemoveOfferEvent>(SelectedOffer, action);
         }
@@ -107,7 +102,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             Action action = () =>
             {
                 SelectedProjectLookup.Tenders.Remove(SelectedTender);
-                TenderLookups.Remove(SelectedTender);
+                Tenders.Remove(SelectedTender);
             };
 
             await RemoveCommandBase<Tender, TenderLookup, AfterRemoveTenderEvent>(SelectedTender, action);
