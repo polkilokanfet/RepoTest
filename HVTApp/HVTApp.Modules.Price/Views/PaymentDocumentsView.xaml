@@ -1,4 +1,5 @@
-﻿<inf:ViewBase xmlns:igWPF="http://schemas.infragistics.com/xaml/wpf"  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<inf:ViewBase xmlns:igWPF="http://schemas.infragistics.com/xaml/wpf"  
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"

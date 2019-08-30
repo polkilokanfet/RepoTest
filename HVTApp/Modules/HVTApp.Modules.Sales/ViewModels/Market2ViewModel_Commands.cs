@@ -91,21 +91,20 @@ namespace HVTApp.Modules.Sales.ViewModels
         {
             Action action = () =>
             {
-                SelectedProjectLookup.Offers.Remove(SelectedOffer);
-                Offers.Remove(SelectedOffer);
+                //SelectedProjectLookup.Offers.Remove(SelectedOffer);
+                //OffersContainer.Remove(SelectedOffer);
             };
-            await RemoveCommandBase<Offer, OfferLookup, AfterRemoveOfferEvent>(SelectedOffer, action);
+            await RemoveCommandBase<Offer, OfferLookup, AfterRemoveOfferEvent>(Offers.SelectedItem, action);
         }
 
         private async void RemoveTenderCommand_Execute()
         {
             Action action = () =>
             {
-                SelectedProjectLookup.Tenders.Remove(SelectedTender);
-                Tenders.Remove(SelectedTender);
+                //SelectedProjectLookup.Tenders.Remove(SelectedTender);
             };
 
-            await RemoveCommandBase<Tender, TenderLookup, AfterRemoveTenderEvent>(SelectedTender, action);
+            await RemoveCommandBase<Tender, TenderLookup, AfterRemoveTenderEvent>(Tenders.SelectedItem, action);
 
         }
         
@@ -113,12 +112,12 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         private async void PrintOfferCommand_Execute()
         {
-            await Container.Resolve<IPrintOfferService>().PrintOfferAsync(SelectedOffer.Id);
+            await Container.Resolve<IPrintOfferService>().PrintOfferAsync(Offers.SelectedItem.Id);
         }
 
         private void EditTenderCommand_Execute()
         {
-            var tenderViewModel = new TenderViewModel(Container, SelectedTender.Entity);
+            var tenderViewModel = new TenderViewModel(Container, Tenders.SelectedItem.Entity);
             Container.Resolve<IDialogService>().ShowDialog(tenderViewModel);
         }
 
@@ -151,7 +150,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         /// </summary>
         private void NewOfferByOfferCommand_Execute()
         {
-            var prms = new NavigationParameters { { "offer", SelectedOffer.Entity } };
+            var prms = new NavigationParameters { { "offer", Offers.SelectedItem.Entity } };
             RegionManager.RequestNavigateContentRegion<OfferView>(prms);
         }
 
@@ -169,7 +168,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         /// </summary>
         private void EditOfferCommand_Execute()
         {
-            var prms = new NavigationParameters { { "offer", SelectedOffer.Entity }, { "edit", true } };
+            var prms = new NavigationParameters { { "offer", Offers.SelectedItem.Entity }, { "edit", true } };
             RegionManager.RequestNavigateContentRegion<OfferView>(prms);
         }
 

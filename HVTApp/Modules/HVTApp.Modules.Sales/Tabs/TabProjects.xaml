@@ -8,7 +8,7 @@
     
     <infRib:RibbonGroup Caption="Проекты">
         <StackPanel Orientation="Horizontal">
-            <CheckBox IsChecked="{Binding ShownAllProjects}"/>
+            <CheckBox IsChecked="{Binding Projects.ShownAllProjects}"/>
             <Label Content=" Показать все"/>
         </StackPanel>
     </infRib:RibbonGroup>

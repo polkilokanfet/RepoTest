@@ -51,5 +51,12 @@ namespace HVTApp.Infrastructure.Extansions
         {
             return enumerable.SingleOrDefault(x => x.Id == objContainsId.Id);
         }
+
+        public static void RemoveById<T1>(this ICollection<T1> list, IContainsId objContainsId)
+            where T1 : IContainsId
+        {
+            var item = list.Single(x => x.Id == objContainsId.Id);
+            list.Remove(item);
+        }
     }
 }

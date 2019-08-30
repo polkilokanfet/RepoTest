@@ -22,8 +22,8 @@
 
             <GroupBox Header="Проекты" Grid.Column="0">
                 <infgDp:XamDataGrid x:Name="ProjectLookupListGrid"
-                                           DataSource="{Binding Projects.ProjectsToShow}"
-                                           SelectedDataItem="{Binding SelectedProjectLookup, Mode=TwoWay}"
+                                           DataSource="{Binding Projects}"
+                                           SelectedDataItem="{Binding Projects.SelectedItem, Mode=TwoWay}"
                                            Style="{StaticResource ListViewGrid}" 
                                            Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
 			        <infgDp:XamDataGrid.FieldLayouts>
@@ -57,7 +57,7 @@
                 <GroupBox Grid.Row="0" Header="Предложения">
                     <infgDp:XamDataGrid x:Name="OfferLookupListGrid"
                                         DataSource="{Binding Offers}"
-                                        SelectedDataItem="{Binding SelectedOffer}">
+                                        SelectedDataItem="{Binding Offers.SelectedItem}">
 
                         <infgDp:XamDataGrid.FieldLayouts>
                             <infgDp:FieldLayout>
@@ -78,7 +78,7 @@
 
                 <GroupBox Grid.Row="2" Header="Конкурсы">
                     <infgDp:XamDataGrid DataSource="{Binding Tenders}"
-                                        SelectedDataItem="{Binding SelectedTender}">
+                                        SelectedDataItem="{Binding Tenders.SelectedItem}">
 
                         <infgDp:XamDataGrid.FieldLayouts>
                             <infgDp:FieldLayout>

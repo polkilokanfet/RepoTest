@@ -146,18 +146,21 @@
     <Compile Include="Tabs\SalesCRUD.xaml.cs">
       <DependentUpon>SalesCRUD.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\Containers\BaseContainer.cs" />
+    <Compile Include="ViewModels\Containers\BaseContainerProjectReact.cs" />
+    <Compile Include="ViewModels\Containers\ItemsCollection.cs" />
+    <Compile Include="ViewModels\Containers\SelectedProjectChangedEvent.cs" />
     <Compile Include="ViewModels\Groups\BaseGroupsViewModel.cs" />
     <Compile Include="ViewModels\Groups\IGroupsViewModel.cs" />
     <Compile Include="ViewModels\Groups\OfferUnitsGroupsViewModel.cs" />
-    <Compile Include="ViewModels\Containers\IShowable.cs" />
     <Compile Include="ViewModels\Market2ViewModel_AfterEvents.cs" />
     <Compile Include="ViewModels\Market2ViewModel_Commands.cs" />
-    <Compile Include="ViewModels\Containers\Offers.cs" />
+    <Compile Include="ViewModels\Containers\OffersContainer.cs" />
     <Compile Include="ViewModels\ProductsIncludedViewModel.cs" />
     <Compile Include="ViewModels\Groups\SalesUnitsGroupsViewModel.cs" />
     <Compile Include="ViewModels\OffersViewModel.cs" />
     <Compile Include="ViewModels\Market2ViewModel.cs" />
-    <Compile Include="ViewModels\Containers\Projects.cs" />
+    <Compile Include="ViewModels\Containers\ProjectsContainer.cs" />
     <Compile Include="ViewModels\ProjectViewModel.cs" />
     <Compile Include="ViewModels\Groups\SalesUnitsViewModel.cs" />
     <Compile Include="ViewModels\Groups\OfferUnitsViewModel.cs" />
@@ -169,7 +172,7 @@
     <Compile Include="ViewModels\SpecificationsViewModel.cs" />
     <Compile Include="ViewModels\SpecificationUnitsGroupsViewModel.cs" />
     <Compile Include="ViewModels\SpecificationViewModel.cs" />
-    <Compile Include="ViewModels\Containers\Tenders.cs" />
+    <Compile Include="ViewModels\Containers\TendersContainer.cs" />
     <Compile Include="ViewModels\TenderViewModel.cs" />
     <Compile Include="ViewModels\Groups\UnitsContainer.cs" />
     <Compile Include="Views\MarketView.xaml.cs">
