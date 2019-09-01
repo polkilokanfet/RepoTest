@@ -72,5 +72,10 @@ namespace HVTApp.DataAccess
         {
             throw new NotImplementedException();
         }
+
+        public List<TEntity> FindAsNoTracking(Func<TEntity, bool> predicate)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

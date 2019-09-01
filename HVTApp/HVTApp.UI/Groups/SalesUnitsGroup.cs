@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Model.POCOs;
+using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.Groups
 {
@@ -20,6 +21,5 @@ namespace HVTApp.UI.Groups
         {
             _units = new List<SalesUnit>(salesUnits);
         }
-
     }
 }

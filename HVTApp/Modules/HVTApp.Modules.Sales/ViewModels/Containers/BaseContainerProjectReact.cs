@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using HVTApp.Infrastructure;
-using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Lookup;
 using Microsoft.Practices.Unity;
@@ -12,35 +11,27 @@ namespace HVTApp.Modules.Sales.ViewModels
     /// <summary>
     /// Контейнеры, отображение в которых зависит от выбранного проекта.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="TItem"></typeparam>
     /// <typeparam name="TLookup"></typeparam>
     /// <typeparam name="TSelectedItemChangedEvent"></typeparam>
     /// <typeparam name="TAfterSaveItemEvent"></typeparam>
     /// <typeparam name="TAfterRemoveItemEvent"></typeparam>
-    /// <typeparam name="TCollection"></typeparam>
-    public abstract class BaseContainerProjectReact<T, TLookup, TSelectedItemChangedEvent, TAfterSaveItemEvent, 
-        TAfterRemoveItemEvent, TCollection> : 
-        BaseContainer<T, TLookup, TSelectedItemChangedEvent, TAfterSaveItemEvent, TAfterRemoveItemEvent, TCollection>
-        where T : class, IBaseEntity
-        where TLookup : LookupItem<T>
-        where TSelectedItemChangedEvent : PubSubEvent<T>, new()
-        where TAfterSaveItemEvent : PubSubEvent<T>, new()
-        where TAfterRemoveItemEvent : PubSubEvent<T>, new()        
-        where TCollection : ItemsCollection<T, TLookup>
+    public abstract class BaseContainerProjectReact<TItem, TLookup, TSelectedItemChangedEvent, TAfterSaveItemEvent, TAfterRemoveItemEvent> : 
+        BaseContainer<TItem, TLookup, TSelectedItemChangedEvent, TAfterSaveItemEvent, TAfterRemoveItemEvent>
+        where TItem : class, IBaseEntity
+        where TLookup : LookupItem<TItem>
+        where TSelectedItemChangedEvent : PubSubEvent<TItem>, new()
+        where TAfterSaveItemEvent : PubSubEvent<TItem>, new()
+        where TAfterRemoveItemEvent : PubSubEvent<TItem>, new()        
     {
         protected BaseContainerProjectReact(IUnityContainer container) : base(container)
         {
-            container.Resolve<IEventAggregator>().GetEvent<SelectedProjectChangedEvent>().Subscribe(OnAfterSelectProjectEvent);
-        }
-
-        /// <summary>
-        /// Реакция на смену выбранного проекта
-        /// </summary>
-        /// <param name="project"></param>
-        protected virtual void OnAfterSelectProjectEvent(Project project)
-        {
-            Items.Clear();
-            Items.AddRange(GetActualForProjectItems(project));
+            // Реакция на смену выбранного проекта
+            container.Resolve<IEventAggregator>().GetEvent<SelectedProjectChangedEvent>().Subscribe(project =>
+            {
+                this.Clear();
+                this.AddRange(GetActualForProjectLookups(project));
+            });
         }
 
         /// <summary>
@@ -48,7 +39,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         /// </summary>
         /// <param name="project"> Проект </param>
         /// <returns></returns>
-        protected abstract IEnumerable<T> GetActualForProjectItems(Project project);
+        protected abstract IEnumerable<TLookup> GetActualForProjectLookups(Project project);
 
     }
 }

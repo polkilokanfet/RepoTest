@@ -18,7 +18,7 @@ namespace HVTApp.Modules.Sales.Views
 
             //назначаем контексты
             //_viewModel = viewModel;
-            viewModel.Load();
+            //viewModel.Load();
             this.DataContext = viewModel;
 
             //this.Loaded += OnLoaded;

@@ -40,23 +40,46 @@ namespace HVTApp.Infrastructure.Extansions
             return comparer == null ? firstArray.All(x => secondArray.Contains(x)) : firstArray.All(x => secondArray.Contains(x, comparer));
         }
 
-        public static bool ContainsById<T>(this IEnumerable<T> enumerable, IContainsId objContainsId)
-            where T : IContainsId
+        public static bool ContainsById<T>(this IEnumerable<T> enumerable, IId objId)
+            where T : IId
         {
-            return enumerable.Select(x => x.Id).Contains(objContainsId.Id);
+            return enumerable.Select(x => x.Id).Contains(objId.Id);
         }
 
-        public static T GetById<T>(this IEnumerable<T> enumerable, IContainsId objContainsId)
-            where T : IContainsId
+        public static T GetById<T>(this IEnumerable<T> enumerable, IId objId)
+            where T : IId
         {
-            return enumerable.SingleOrDefault(x => x.Id == objContainsId.Id);
+            return enumerable.SingleOrDefault(x => x.Id == objId.Id);
         }
 
-        public static void RemoveById<T1>(this ICollection<T1> list, IContainsId objContainsId)
-            where T1 : IContainsId
+        public static void RemoveById<T>(this ICollection<T> collection, IId objId)
+            where T : IId
         {
-            var item = list.Single(x => x.Id == objContainsId.Id);
-            list.Remove(item);
+            var item = collection.Single(x => x.Id == objId.Id);
+            collection.Remove(item);
         }
+
+
+        public static void RemoveIfContainsById<T>(this ICollection<T> collection, IId objId)
+            where T : IId
+        {
+            if(collection.ContainsById(objId))
+                collection.RemoveById(objId);
+        }
+
+        /// <summary>
+        /// Сначала удаляет элемент из коллекции по Id (если он есть),
+        /// потом добавляет элемент.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="collection"></param>
+        /// <param name="objId"></param>
+        public static void ReAddById<T>(this ICollection<T> collection, T objId)
+            where T : IId
+        {
+            collection.RemoveIfContainsById(objId);
+            collection.Add(objId);
+        }
+
     }
 }

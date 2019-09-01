@@ -1,6 +1,6 @@
 namespace HVTApp.Infrastructure
 {
-    public interface IBaseEntity : IContainsId
+    public interface IBaseEntity : IId
     {
     }
 }

@@ -2,20 +2,63 @@
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure.Attributes;
+using HVTApp.Infrastructure.Extansions;
+using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
+using Microsoft.Practices.Unity;
+using Prism.Events;
 
 namespace HVTApp.UI.Lookup
 {
     public partial class ProjectLookup
     {
-        //public ProjectLookup(Project project, IEnumerable<SalesUnit> salesUnits, 
-        //                                      IEnumerable<Tender> tenders, 
+        //public ProjectLookup(Project project, IEnumerable<SalesUnit> salesUnits,
+        //                                      IEnumerable<Tender> tenders,
         //                                      IEnumerable<Offer> offers) : this(project)
         //{
         //    SalesUnits = new List<SalesUnitLookup>(salesUnits.Select(x => new SalesUnitLookup(x)));
         //    Tenders = new List<TenderLookup>(tenders.Select(x => new TenderLookup(x)));
         //    Offers = new List<OfferLookup>(offers.Select(x => new OfferLookup(x)));
         //}
+
+        public ProjectLookup(Project project, 
+                             IEnumerable<SalesUnit> salesUnits, 
+                             IEnumerable<Tender> tenders,
+                             IUnityContainer container) : this(project)
+        {
+            SalesUnits = new List<SalesUnitLookup>(salesUnits.Select(x => new SalesUnitLookup(x)));
+            Tenders = new List<TenderLookup>(tenders.Select(x => new TenderLookup(x)));
+
+            var eventAggregator = container.Resolve<IEventAggregator>();
+
+            eventAggregator.GetEvent<AfterSaveSalesUnitEvent>().Subscribe(salesUnit =>
+            {
+                if (salesUnit.Project.Id != Id) return;
+                SalesUnits.ReAddById(new SalesUnitLookup(salesUnit));
+                Refresh();
+            });
+
+            eventAggregator.GetEvent<AfterSaveTenderEvent>().Subscribe(tender =>
+            {
+                if (tender.Project.Id != Id) return;
+                Tenders.ReAddById(new TenderLookup(tender));
+                Refresh();
+            });
+
+            eventAggregator.GetEvent<AfterRemoveSalesUnitEvent>().Subscribe(salesUnit =>
+            {
+                if (salesUnit.Project.Id != Id) return;
+                SalesUnits.RemoveIfContainsById(salesUnit);
+                Refresh();
+            });
+
+            eventAggregator.GetEvent<AfterRemoveTenderEvent>().Subscribe(tender =>
+            {
+                if (tender.Project.Id != Id) return;
+                Tenders.RemoveIfContainsById(tender);
+                Refresh();
+            });
+        }
 
         public List<SalesUnitLookup> SalesUnits { get; } = new List<SalesUnitLookup>();
         public List<TenderLookup> Tenders { get; } = new List<TenderLookup>();

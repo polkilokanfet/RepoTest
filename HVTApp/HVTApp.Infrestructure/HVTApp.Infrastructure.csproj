@@ -100,7 +100,7 @@
     <Compile Include="Extansions\IsTypeExtansions.cs" />
     <Compile Include="Extansions\RegionExt.cs" />
     <Compile Include="IBaseEntity.cs" />
-    <Compile Include="IContainsId.cs" />
+    <Compile Include="IId.cs" />
     <Compile Include="IDetailsViewModel.cs" />
     <Compile Include="IGetWrapper.cs" />
     <Compile Include="ILookupItem.cs" />

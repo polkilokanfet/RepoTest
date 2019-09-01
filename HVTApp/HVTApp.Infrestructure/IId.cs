@@ -2,7 +2,7 @@ using System;
 
 namespace HVTApp.Infrastructure
 {
-    public interface IContainsId
+    public interface IId
     {
         Guid Id { get; }
     }

@@ -8,23 +8,37 @@ using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Lookup;
 using Microsoft.Practices.Unity;
+using Prism.Events;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
     public class ProjectsContainer : BaseContainer<Project, ProjectLookup, SelectedProjectChangedEvent, AfterSaveProjectEvent, AfterRemoveProjectEvent>
     {
-        private bool _shownAllProjects;
+        private bool _shownAllProjects = true;
         private List<SalesUnit> _salesUnits;
+        private List<Tender> _tenders;
 
         public ProjectsContainer(IUnityContainer container) : base(container)
         {
-            ShowWorkProjects();
+            var eventAggregator = container.Resolve<IEventAggregator>();
+            eventAggregator.GetEvent<AfterSaveSalesUnitEvent>().Subscribe(salesUnit => _salesUnits.ReAddById(salesUnit));
+            eventAggregator.GetEvent<AfterSaveTenderEvent>().Subscribe(tender => _tenders.ReAddById(tender));
+
+            ShownAllProjects = false;
         }
 
-        protected override List<Project> GetItems(IUnitOfWork unitOfWork)
+        protected override IEnumerable<Project> GetItems(IUnitOfWork unitOfWork)
         {
+            _tenders = unitOfWork.Repository<Tender>().Find(x => x.Project.Manager.IsAppCurrentUser());
             _salesUnits = unitOfWork.Repository<SalesUnit>().Find(x => x.Project.Manager.IsAppCurrentUser());
-            return _salesUnits.Select(x => x.Project).Distinct().ToList();
+            return _salesUnits.Select(x => x.Project).Distinct();
+        }
+
+        private ProjectLookup GetLookup(Project project)
+        {
+            var units = _salesUnits.Where(su => su.Project.Id == project.Id);
+            var tenders = _tenders.Where(su => su.Project.Id == project.Id);
+            return new ProjectLookup(project, units, tenders, Container);
         }
 
         public bool ShownAllProjects
@@ -36,40 +50,10 @@ namespace HVTApp.Modules.Sales.ViewModels
                     return;
                 _shownAllProjects = value;
 
-                if (ShownAllProjects)
-                {
-                    ShowAllProjects();
-                }
-                else
-                {
-                    ShowWorkProjects();
-                }
+                this.Clear();
+                var projects = ShownAllProjects ? AllItems : AllItems.Where(IsWork);
+                this.AddRange(projects.Select(GetLookup).OrderBy(x => x.RealizationDate));
             }
-        }
-
-        /// <summary>
-        /// Показать все проекты
-        /// </summary>
-        private void ShowAllProjects()
-        {
-            Show(AllItems.Select(x => new ProjectLookup(x)));
-            ShownAllProjects = true;
-        }
-
-        /// <summary>
-        /// Показать рабочие проекты
-        /// </summary>
-        private void ShowWorkProjects()
-        {
-            //var projects = AllItems.Where(IsWork);
-            //Show(projects);
-            //ShownAllProjects = false;
-        }
-
-        private void Show(IEnumerable<ProjectLookup> projects)
-        {
-            this.Clear();
-            this.AddRange(projects.OrderBy(x => x.RealizationDate));
         }
 
         /// <summary>
@@ -77,9 +61,9 @@ namespace HVTApp.Modules.Sales.ViewModels
         /// </summary>
         /// <param name="project"></param>
         /// <returns></returns>
-        private static bool IsWork(ProjectLookup project)
+        private bool IsWork(Project project)
         {
-            return project.Entity.InWork && project.SalesUnits.Any(u => !u.IsDone && !u.IsLoosen);
+            return project.InWork && _salesUnits.Any(u => !u.IsDone && !u.IsLoosen);
         }
     }
 }

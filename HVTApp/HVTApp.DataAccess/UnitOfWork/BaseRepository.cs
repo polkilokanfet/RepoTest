@@ -35,6 +35,11 @@ namespace HVTApp.DataAccess
             return GetQuary().Where(predicate).ToList();
         }
 
+        public List<TEntity> FindAsNoTracking(Func<TEntity, bool> predicate)
+        {
+            Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
+            return GetQuary().AsNoTracking().Where(predicate).ToList();
+        }
 
         public void Add(TEntity entity)
         {

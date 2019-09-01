@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using HVTApp.DataAccess.Annotations;
+using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.UI.Lookup;
@@ -11,20 +10,17 @@ using Prism.Events;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
-    public abstract class BaseContainer<T, TLookup, TSelectedItemChangedEvent, TAfterSaveItemEvent, 
-        TAfterRemoveItemEvent, TCollection> : INotifyPropertyChanged
-        where T : class, IBaseEntity
-        where TLookup : LookupItem<T> 
-        where TSelectedItemChangedEvent : PubSubEvent<T>, new()
-        where TAfterSaveItemEvent : PubSubEvent<T>, new()
-        where TAfterRemoveItemEvent : PubSubEvent<T>, new()
-        where TCollection : ItemsCollection<T, TLookup>
+    public abstract class BaseContainer<TItem, TLookup, TSelectedItemChangedEvent, TAfterSaveItemEvent, TAfterRemoveItemEvent> : ObservableCollection<TLookup>
+        where TItem : class, IBaseEntity
+        where TLookup : LookupItem<TItem> 
+        where TSelectedItemChangedEvent : PubSubEvent<TItem>, new()
+        where TAfterSaveItemEvent : PubSubEvent<TItem>, new()
+        where TAfterRemoveItemEvent : PubSubEvent<TItem>, new()
     {
-        private readonly IUnityContainer _container;
+        protected readonly IUnityContainer Container;
+        protected List<TItem> AllItems;
+
         private TLookup _selectedItem;
-
-        public TCollection Items { get; }
-
         /// <summary>
         /// Выбранная в настоящий момент сущность 
         /// </summary>
@@ -36,71 +32,35 @@ namespace HVTApp.Modules.Sales.ViewModels
                 if (Equals(_selectedItem, value))
                     return;
                 _selectedItem = value;
-                _container.Resolve<IEventAggregator>().GetEvent<TSelectedItemChangedEvent>().Publish(SelectedItem.Entity);
-                OnPropertyChanged();
+                Container.Resolve<IEventAggregator>().GetEvent<TSelectedItemChangedEvent>().Publish(SelectedItem.Entity);
+                OnPropertyChanged(new PropertyChangedEventArgs(nameof(SelectedItem)));
             }
         }
 
         protected BaseContainer(IUnityContainer container)
         {
-            _container = container;
+            Container = container;
 
             var unitOfWork = container.Resolve<IUnitOfWork>();
-            Items = GetItemsCollection(unitOfWork);
+            AllItems = GetItems(unitOfWork).ToList();
 
             var eventAggregator = container.Resolve<IEventAggregator>();
-            eventAggregator.GetEvent<TAfterSaveItemEvent>().Subscribe(AfterSaveItemEventExecute);
-            eventAggregator.GetEvent<TAfterRemoveItemEvent>().Subscribe(AfterRemoveOfferEventExecute);
-        }
-
-        protected abstract TCollection GetItemsCollection(IUnitOfWork unitOfWork);
-
-
-        /// <summary>
-        /// Реакция на сохранение сущности
-        /// </summary>
-        /// <param name="item"> Сохраненная сущность </param>
-        private void AfterSaveItemEventExecute(T item)
-        {
-            if (AllItems.ContainsById(item))
+            // Реакция на сохранение сущности
+            eventAggregator.GetEvent<TAfterSaveItemEvent>().Subscribe(item => AllItems.ReAddById(item));
+            
+            // Реакция на удаление сущности
+            eventAggregator.GetEvent<TAfterRemoveItemEvent>().Subscribe(item =>
             {
-                RefreshItem(item);
-                return;
-            }
+                AllItems.RemoveIfContainsById(item);
 
-            AllItems.Add(item);
+                if (SelectedItem != null && SelectedItem.Id == item.Id)
+                    SelectedItem = null;
+
+                this.RemoveIfContainsById(item); //удаление сущности из отображаемой части
+            });
         }
 
-        private void RefreshItem(T item)
-        {
-            AllItems.RemoveById(item);
-            AllItems.Add(item);
+        protected abstract IEnumerable<TItem> GetItems(IUnitOfWork unitOfWork);
 
-            //если обновлена отображаемая сущность, обновляем её
-            if (this.ContainsById(item))
-            {
-                this.GetById(item).Refresh(item);
-            }
-        }
-
-        /// <summary>
-        /// Реакция на удаление ТКП
-        /// </summary>
-        /// <param name="item"></param>
-        private void AfterRemoveOfferEventExecute(T item)
-        {
-            AllItems.RemoveById(item);
-
-            if(this.ContainsById(item))
-                this.RemoveById(item);
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }

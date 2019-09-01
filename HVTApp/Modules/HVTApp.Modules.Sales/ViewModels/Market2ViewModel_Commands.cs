@@ -44,7 +44,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         #region RemoveCommands
 
-        private async Task RemoveCommandBase<TEntity, TLookup, TRemoveEvent>(TLookup lookup, Action action)
+        private async Task RemoveCommandBase<TEntity, TLookup, TRemoveEvent>(TLookup lookup)
             where TEntity : class, IBaseEntity
             where TLookup : LookupItem<TEntity>
             where TRemoveEvent : PubSubEvent<TEntity>, new()
@@ -64,7 +64,6 @@ namespace HVTApp.Modules.Sales.ViewModels
             {
                 unitOfWork.Repository<TEntity>().Delete(entity);
                 await unitOfWork.SaveChangesAsync();
-                action.Invoke();
                 eventAggregator.GetEvent<TRemoveEvent>().Publish(entity);
             }
             catch (DbUpdateException e)
@@ -83,29 +82,17 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         private async void RemoveProjectCommand_Execute()
         {
-            Action action = () => { Projects.Remove(SelectedProjectLookup); };
-            await RemoveCommandBase<Project, ProjectLookup, AfterRemoveProjectEvent>(SelectedProjectLookup, action);
+            await RemoveCommandBase<Project, ProjectLookup, AfterRemoveProjectEvent>(Projects.SelectedItem);
         }
 
         private async void RemoveOfferCommand_Execute()
         {
-            Action action = () =>
-            {
-                //SelectedProjectLookup.Offers.Remove(SelectedOffer);
-                //OffersContainer.Remove(SelectedOffer);
-            };
-            await RemoveCommandBase<Offer, OfferLookup, AfterRemoveOfferEvent>(Offers.SelectedItem, action);
+            await RemoveCommandBase<Offer, OfferLookup, AfterRemoveOfferEvent>(Offers.SelectedItem);
         }
 
         private async void RemoveTenderCommand_Execute()
         {
-            Action action = () =>
-            {
-                //SelectedProjectLookup.Tenders.Remove(SelectedTender);
-            };
-
-            await RemoveCommandBase<Tender, TenderLookup, AfterRemoveTenderEvent>(Tenders.SelectedItem, action);
-
+            await RemoveCommandBase<Tender, TenderLookup, AfterRemoveTenderEvent>(Tenders.SelectedItem);
         }
         
         #endregion
@@ -123,19 +110,19 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         private void NewTenderCommand_Execute()
         {
-            var tenderViewModel = new TenderViewModel(Container, SelectedProjectLookup.Entity);
+            var tenderViewModel = new TenderViewModel(Container, Projects.SelectedItem.Entity);
             Container.Resolve<IDialogService>().ShowDialog(tenderViewModel);
         }
 
 
         private void NewSpecificationCommand_Execute()
         {
-            RegionManager.RequestNavigateContentRegion<SpecificationView>(new NavigationParameters { { "project", SelectedProjectLookup.Entity } });
+            RegionManager.RequestNavigateContentRegion<SpecificationView>(new NavigationParameters { { "project", Projects.SelectedItem.Entity } });
         }
 
         private void EditProjectCommand_Execute()
         {
-            RegionManager.RequestNavigateContentRegion<ProjectView>(new NavigationParameters { { "prj", SelectedProjectLookup.Entity } });
+            RegionManager.RequestNavigateContentRegion<ProjectView>(new NavigationParameters { { "prj", Projects.SelectedItem.Entity } });
         }
 
         private void NewProjectCommand_Execute()
@@ -159,7 +146,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         /// </summary>
         private void NewOfferByProjectCommand_Execute()
         {
-            var prms = new NavigationParameters { { "project", SelectedProjectLookup.Entity } };
+            var prms = new NavigationParameters { { "project", Projects.SelectedItem.Entity } };
             RegionManager.RequestNavigateContentRegion<OfferView>(prms);
         }
 

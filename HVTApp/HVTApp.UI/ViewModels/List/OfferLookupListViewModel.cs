@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Windows.Input;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
@@ -35,7 +36,7 @@ namespace HVTApp.UI.ViewModels
             var offerLookup = Lookups.SingleOrDefault(x => x.Id == offerUnit.Offer.Id);
             if (offerLookup == null) return;
 
-            var offerUnitLookup = offerLookup.OfferUnits.SingleOrDefault(x => x.Id == offerUnit.Id);
+            var offerUnitLookup = offerLookup.OfferUnits.GetById(offerUnit);
             offerUnitLookup?.Refresh(offerUnit);
 
             if (offerUnitLookup == null)

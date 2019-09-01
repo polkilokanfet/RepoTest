@@ -11,6 +11,7 @@ namespace HVTApp.Infrastructure
         Task<List<TEntity>> GetAllAsNoTrackingAsync();
         Task<TEntity> GetByIdAsync(Guid id);
         List<TEntity> Find(Func<TEntity, bool> predicate);
+        List<TEntity> FindAsNoTracking(Func<TEntity, bool> predicate);
 
         void Add(TEntity entity);
         void AddRange(IEnumerable<TEntity> entities);

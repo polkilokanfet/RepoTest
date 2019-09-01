@@ -15,13 +15,13 @@ namespace HVTApp.Modules.Sales.ViewModels
         {
         }
 
-        protected override List<Tender> GetItems(IUnitOfWork unitOfWork)
+        protected override IEnumerable<Tender> GetItems(IUnitOfWork unitOfWork)
         {
             return unitOfWork.Repository<Tender>().Find(x => x.Project.Manager.IsAppCurrentUser());
         }
 
 
-        protected override IEnumerable<TenderLookup> GetActualForProjectItems(Project project)
+        protected override IEnumerable<TenderLookup> GetActualForProjectLookups(Project project)
         {
             return AllItems.Where(x => x.Project.Id == project.Id).Select(x => new TenderLookup(x));
         }
