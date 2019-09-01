@@ -147,9 +147,8 @@
       <DependentUpon>SalesCRUD.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\Containers\BaseContainer.cs" />
-    <Compile Include="ViewModels\Containers\BaseContainerProjectReact.cs" />
-    <Compile Include="ViewModels\Containers\ItemsCollection.cs" />
-    <Compile Include="ViewModels\Containers\SalesUnitsContainer.cs" />
+    <Compile Include="ViewModels\Containers\BaseContainerFilt.cs" />
+    <Compile Include="ViewModels\Containers\SalesUnitsContainerBase.cs" />
     <Compile Include="ViewModels\Containers\SelectedItemChangedEvent.cs" />
     <Compile Include="ViewModels\Groups\BaseGroupsViewModel.cs" />
     <Compile Include="ViewModels\Groups\IGroupsViewModel.cs" />

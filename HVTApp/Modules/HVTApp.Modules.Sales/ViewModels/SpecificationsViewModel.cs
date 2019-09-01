@@ -1,33 +1,27 @@
-using System.Collections.ObjectModel;
-using System.Linq;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Model.POCOs;
 using HVTApp.Modules.Sales.Views;
-using HVTApp.UI.Converter;
-using HVTApp.UI.Groups;
-using HVTApp.UI.Lookup;
 using HVTApp.UI.ViewModels;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Regions;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
     public class SpecificationsViewModel : SpecificationLookupListViewModel
     {
-        public ObservableCollection<SalesUnitsGroup> Groups { get; } = new ObservableCollection<SalesUnitsGroup>();
+        public SalesUnitsSpecificetionBase Groups { get; }
 
         public SpecificationsViewModel(IUnityContainer container) : base(container)
         {
-            this.SelectedLookupChanged += LoadGroups;
-        }
+            Groups = container.Resolve<SalesUnitsSpecificetionBase>();
 
-        private void LoadGroups(SpecificationLookup specification)
-        {
-            Groups.Clear();
-            if (specification == null) return;
-            var units = specification.Units.Select(x => x.Entity);
-            var groups = units.GroupBy(x => x, new SalesUnitsGroupsComparer()).Select(x => new SalesUnitsGroup(x));
-            Groups.AddRange(groups.OrderByDescending(x => x.Total));
+            var eventAggregator = container.Resolve<IEventAggregator>();
+            this.SelectedLookupChanged += specificationLookup =>
+            {
+                eventAggregator.GetEvent<SelectedSpecificationChangedEvent>().Publish(specificationLookup?.Entity);
+            };
         }
 
         protected override void InitSpecialCommands()
@@ -38,7 +32,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         private void EditItemCommandExecute()
         {
-            RegionManager.RequestNavigateContentRegion<SpecificationView>(new NavigationParameters { { "specification", SelectedItem } });
+            RegionManager.RequestNavigateContentRegion<SpecificationView>(new NavigationParameters { { nameof(Specification), SelectedItem } });
         }
     }
 }

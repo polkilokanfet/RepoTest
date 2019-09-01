@@ -11,7 +11,7 @@ using Prism.Events;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
-    public class OffersContainer : BaseContainerProjectReact<Offer, OfferLookup, SelectedOfferChangedEvent, AfterSaveOfferEvent, AfterRemoveOfferEvent>
+    public class OffersContainer : BaseContainerFilt<Offer, OfferLookup, SelectedOfferChangedEvent, AfterSaveOfferEvent, AfterRemoveOfferEvent, Project, SelectedProjectChangedEvent>
     {
         private List<OfferUnit> _offerUnits;
 
@@ -26,13 +26,13 @@ namespace HVTApp.Modules.Sales.ViewModels
             eventAggregator.GetEvent<AfterSaveOfferUnitEvent>().Subscribe(offerUnit => _offerUnits.ReAddById(offerUnit));
         }
 
-        protected override IEnumerable<Offer> GetItems(IUnitOfWork unitOfWork)
+        protected override IEnumerable<Offer> GetItems(IUnitOfWorkDisplay unitOfWork)
         {
             _offerUnits = unitOfWork.Repository<OfferUnit>().Find(x => x.Offer.Project.Manager.IsAppCurrentUser());
             return _offerUnits.Select(x => x.Offer).Distinct();
         }
 
-        protected override IEnumerable<OfferLookup> GetActualForProjectLookups(Project project)
+        protected override IEnumerable<OfferLookup> GetActualLookups(Project project)
         {
             var offers = AllItems.Where(offerUnit => offerUnit.Project.Id == project.Id);
             return offers.OrderBy(x => x.Date).Select(MakeLookup);

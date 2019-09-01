@@ -9,19 +9,19 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
-    public class TendersContainer : BaseContainerProjectReact<Tender, TenderLookup, SelectedTenderChangedEvent, AfterSaveTenderEvent, AfterRemoveTenderEvent>
+    public class TendersContainer : BaseContainerFilt<Tender, TenderLookup, SelectedTenderChangedEvent, AfterSaveTenderEvent, AfterRemoveTenderEvent, Project, SelectedProjectChangedEvent>
     {
         public TendersContainer(IUnityContainer container) : base(container)
         {
         }
 
-        protected override IEnumerable<Tender> GetItems(IUnitOfWork unitOfWork)
+        protected override IEnumerable<Tender> GetItems(IUnitOfWorkDisplay unitOfWork)
         {
             return unitOfWork.Repository<Tender>().Find(x => x.Project.Manager.IsAppCurrentUser());
         }
 
 
-        protected override IEnumerable<TenderLookup> GetActualForProjectLookups(Project project)
+        protected override IEnumerable<TenderLookup> GetActualLookups(Project project)
         {
             return AllItems.Where(x => x.Project.Id == project.Id).Select(x => new TenderLookup(x));
         }

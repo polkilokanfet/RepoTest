@@ -16,11 +16,11 @@
         <Label Grid.Row="0" Content="Ожидание данных..." VerticalAlignment="Center" HorizontalAlignment="Center">
             <Label.Style>
                 <Style>
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding ElementName=ContentGrid, Path=Visibility}" Value="Visible">
-                        <Setter Property="Label.Visibility" Value="Collapsed"/>
-                    </DataTrigger>
-                </Style.Triggers>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=ContentGrid, Path=Visibility}" Value="Visible">
+                            <Setter Property="Label.Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
                 </Style>
             </Label.Style>
         </Label>
@@ -41,7 +41,7 @@
             <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="5"/>
 
             <GroupBox Grid.Row="2" Header="Оборудование">
-                <controls:UnitListControl x:Name="UnitListView" DataContext="{Binding}" />
+                <controls:UnitListControl x:Name="UnitListView" DataContext="{Binding Groups}" />
             </GroupBox>
         </Grid>
 

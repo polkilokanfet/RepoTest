@@ -27,7 +27,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             ShownAllProjects = false;
         }
 
-        protected override IEnumerable<Project> GetItems(IUnitOfWork unitOfWork)
+        protected override IEnumerable<Project> GetItems(IUnitOfWorkDisplay unitOfWork)
         {
             _tenders = unitOfWork.Repository<Tender>().Find(x => x.Project.Manager.IsAppCurrentUser());
             _salesUnits = unitOfWork.Repository<SalesUnit>().Find(x => x.Project.Manager.IsAppCurrentUser());

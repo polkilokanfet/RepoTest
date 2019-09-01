@@ -1,4 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows;
 using HVTApp.Infrastructure;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
@@ -14,15 +17,20 @@ namespace HVTApp.Modules.Sales.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class SpecificationsView
     {
+        private readonly SpecificationsViewModel _viewModel;
+
         public SpecificationsView(IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
         {
-            var viewModel = container.Resolve<SpecificationsViewModel>();
             InitializeComponent();
-            var units = container.Resolve<IUnitOfWork>().Repository<SalesUnit>().Find(x => x.Specification != null && x.Project.Manager.IsAppCurrentUser());
-            var specs = units.Select(x => x.Specification).Distinct().ToList();
-            var lookups = specs.Select(x => new SpecificationLookup(x, units.Where(u => u.Specification.Id == x.Id)));
-            viewModel.Load(lookups);
-            this.DataContext = viewModel;
+            _viewModel = container.Resolve<SpecificationsViewModel>();
+            this.DataContext = _viewModel;
+            _viewModel.Loaded += () => this.Loaded -= OnLoaded;
+            this.Loaded += OnLoaded;
+        }
+
+        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+            await _viewModel.LoadAsync();
         }
     }
 }

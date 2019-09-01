@@ -10,7 +10,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         public ProjectsContainer Projects { get; }
         public OffersContainer Offers { get; }
         public TendersContainer Tenders { get; }
-        public SalesUnitsContainer SalesUnits { get; }
+        public SalesUnitsProjectBase SalesUnits { get; }
 
         public Market2ViewModel(IUnityContainer container) : base(container)
         {
@@ -18,7 +18,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             Projects = container.Resolve<ProjectsContainer>();
             Offers = container.Resolve<OffersContainer>();
             Tenders = container.Resolve<TendersContainer>();
-            SalesUnits = container.Resolve<SalesUnitsContainer>();
+            SalesUnits = container.Resolve<SalesUnitsProjectBase>();
 
             #region Commands definition
             

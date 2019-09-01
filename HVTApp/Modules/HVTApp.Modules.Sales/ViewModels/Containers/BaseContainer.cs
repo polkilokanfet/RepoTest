@@ -32,7 +32,7 @@ namespace HVTApp.Modules.Sales.ViewModels
                 if (Equals(_selectedItem, value))
                     return;
                 _selectedItem = value;
-                Container.Resolve<IEventAggregator>().GetEvent<TSelectedItemChangedEvent>().Publish(SelectedItem.Entity);
+                Container.Resolve<IEventAggregator>().GetEvent<TSelectedItemChangedEvent>().Publish(SelectedItem?.Entity);
                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(SelectedItem)));
             }
         }
@@ -41,7 +41,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         {
             Container = container;
 
-            var unitOfWork = container.Resolve<IUnitOfWork>();
+            var unitOfWork = container.Resolve<IUnitOfWorkDisplay>();
             AllItems = GetItems(unitOfWork).ToList();
 
             var eventAggregator = container.Resolve<IEventAggregator>();
@@ -60,7 +60,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             });
         }
 
-        protected abstract IEnumerable<TItem> GetItems(IUnitOfWork unitOfWork);
+        protected abstract IEnumerable<TItem> GetItems(IUnitOfWorkDisplay unitOfWork);
 
     }
 }
