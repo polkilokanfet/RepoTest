@@ -25,7 +25,6 @@ namespace HVTApp.Modules.Sales.ViewModels
                 var user = await UnitOfWork.Repository<User>().GetByIdAsync(GlobalAppProperties.User.Id);
                 DetailsViewModel.Item.Manager = new UserWrapper(user);
             }
-
         }
 
         protected override async Task<IEnumerable<SalesUnit>> GetUnits(Project project, object parameter = null)

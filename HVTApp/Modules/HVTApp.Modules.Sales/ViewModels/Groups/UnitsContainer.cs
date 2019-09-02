@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
@@ -80,15 +81,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             }
             catch (DbUpdateConcurrencyException e)
             {
-                var sb = new StringBuilder();
-                Exception exception = e;
-                do
-                {
-                    sb.AppendLine(e.Message);
-                    exception = exception.InnerException;
-                } while (exception != null);
-
-                Container.Resolve<IMessageService>().ShowOkMessageDialog("Ошибка при сохранении", sb.ToString());
+                Container.Resolve<IMessageService>().ShowOkMessageDialog("Ошибка при сохранении", e.GetAllExceptions());
             }
 
             //регистрация на события изменения строк с оборудованием

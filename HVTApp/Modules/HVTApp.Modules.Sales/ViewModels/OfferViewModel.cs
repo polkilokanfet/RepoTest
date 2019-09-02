@@ -27,7 +27,8 @@ namespace HVTApp.Modules.Sales.ViewModels
 
             //при создании ТКП по проекту
             var project = parameter as Project;
-            if (project != null) return await LoadByProject(project);
+            if (project != null)
+                return await LoadByProject(project);
 
             //при создании ТКП по другому ТКП
             var offerTemplate = parameter as Offer;

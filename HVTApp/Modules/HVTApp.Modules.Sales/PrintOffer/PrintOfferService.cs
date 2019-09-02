@@ -26,7 +26,7 @@ namespace HVTApp.Modules.Sales.PrintOffer
             var offer = await _container.Resolve<IUnitOfWork>().Repository<Offer>().GetByIdAsync(offerId);
             await offerViewModel.LoadAsync(offer, false);
 
-            string offerDocumentPath = AppDomain.CurrentDomain.BaseDirectory + "\\TestOfferDocument.docx";
+            var offerDocumentPath = AppDomain.CurrentDomain.BaseDirectory + "\\TestOfferDocument.docx";
             WordDocumentWriter docWriter = WordDocumentWriter.Create(offerDocumentPath);
             docWriter.StartDocument();
             docWriter.Paragraph("Получатель");
@@ -40,19 +40,19 @@ namespace HVTApp.Modules.Sales.PrintOffer
 
             //Table
             // Create border properties for Table
-            TableBorderProperties borderProps = GetTableBorderProperties(docWriter);
+            var tableBorderProperties = GetTableBorderProperties(docWriter);
             // Create table properties
-            TableProperties tableProps = GetTableProperties(docWriter, borderProps);
+            var tableProperties = GetTableProperties(docWriter, tableBorderProperties);
             // Create table row properties
-            TableRowProperties rowProps = docWriter.CreateTableRowProperties();
+            var tableRowProperties = docWriter.CreateTableRowProperties();
 
             // Create table cell properties
             TableCellProperties cellProps = docWriter.CreateTableCellProperties();
-            cellProps.BorderProperties = borderProps;
+            cellProps.BorderProperties = tableBorderProperties;
 
-            docWriter.StartTable(6, tableProps);
+            docWriter.StartTable(6, tableProperties);
 
-            rowProps.IsHeaderRow = true;
+            tableRowProperties.IsHeaderRow = true;
             cellProps.BackColor = Colors.AliceBlue;
             ParagraphProperties paragraphProps = docWriter.CreateParagraphProperties();
             paragraphProps.Alignment = ParagraphAlignment.Left;
@@ -60,13 +60,13 @@ namespace HVTApp.Modules.Sales.PrintOffer
             Font fontHeader = docWriter.CreateFont();
             fontHeader.Bold = true;
 
-            docWriter.TableRow(cellProps, rowProps, paragraphProps, fontHeader, "№", "Тип оборудования", "Обозначение", "Кол.", "Стоимость, руб.", "Сумма, руб.");
+            docWriter.TableRow(cellProps, tableRowProperties, paragraphProps, fontHeader, "№", "Тип оборудования", "Обозначение", "Кол.", "Стоимость, руб.", "Сумма, руб.");
 
             // Reset the cell properties, so that the cell properties are different from the header cells.
             cellProps.Reset();
             cellProps.VerticalAlignment = TableCellVerticalAlignment.Top;
             // Reset the row properties
-            rowProps.Reset();
+            tableRowProperties.Reset();
 
             ParagraphProperties parPropRight = docWriter.CreateParagraphProperties();
             parPropRight.Alignment = ParagraphAlignment.Right;

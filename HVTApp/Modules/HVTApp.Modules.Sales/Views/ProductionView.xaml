@@ -38,7 +38,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             
-            <GroupBox Grid.Row="0" Header="Оборудование размещенное в производстве">
+            <GroupBox Grid.Row="0" Header="Размещенное в производстве оборудование">
                 <infg:XamDataGrid x:Name="ProductionListGrid"
                                   
                                   DataSource="{Binding ProductionGroups}"
