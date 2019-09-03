@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
@@ -211,12 +212,7 @@ namespace HVTApp.UI.ViewModels
             }
             catch (DbUpdateException e)
             {
-                Exception ex = e;
-                while (ex.InnerException != null)
-                {
-                    ex = ex.InnerException;
-                }
-                MessageService.ShowOkMessageDialog("DbUpdateException", ex.Message);
+                MessageService.ShowOkMessageDialog("DbUpdateException", e.GetAllExceptions());
             }
         }
 

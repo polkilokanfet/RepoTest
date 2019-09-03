@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
@@ -151,20 +152,13 @@ namespace HVTApp.UI.ViewModels
             try
             {
                 await UnitOfWork.SaveChangesAsync();
-                EventAggregator.GetEvent<TAfterSaveEntityEvent>().Publish(Item.Model);
             }
             catch (DbUpdateConcurrencyException e)
             {
-                var sb = new StringBuilder();
-                Exception exception = e;
-                do
-                {
-                    sb.AppendLine(e.Message);
-                    exception = exception.InnerException;
-                } while (exception != null);
-
-                Container.Resolve<IMessageService>().ShowOkMessageDialog("Ошибка при сохранении", sb.ToString());
+                Container.Resolve<IMessageService>().ShowOkMessageDialog("Ошибка при сохранении", e.GetAllExceptions());
             }
+
+            EventAggregator.GetEvent<TAfterSaveEntityEvent>().Publish(Item.Model);
 
             //запрашиваем закрытие окна
             OnCloseRequested(new DialogRequestCloseEventArgs(true));

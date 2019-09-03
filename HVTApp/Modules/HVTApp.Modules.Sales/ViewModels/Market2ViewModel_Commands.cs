@@ -68,15 +68,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             }
             catch (DbUpdateException e)
             {
-                var sb = new StringBuilder();
-                Exception ex = e;
-                sb.AppendLine(ex.Message);
-                while (ex.InnerException != null)
-                {
-                    ex = ex.InnerException;
-                    sb.AppendLine(ex.Message + Environment.NewLine);
-                }
-                messageService.ShowOkMessageDialog("DbUpdateException", sb.ToString());
+                messageService.ShowOkMessageDialog("DbUpdateException", e.GetAllExceptions());
             }
         }
 

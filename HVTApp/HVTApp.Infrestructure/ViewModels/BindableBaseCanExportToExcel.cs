@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.Windows.Input;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
 using Infragistics.Documents.Excel;
 using Infragistics.Windows.DataPresenter;
@@ -32,7 +33,7 @@ namespace HVTApp.Infrastructure.ViewModels
             }
             catch (Exception ex)
             {
-                messageService.ShowOkMessageDialog("Ошибка экспорта в файл", ex.Message);
+                messageService.ShowOkMessageDialog("Ошибка экспорта в файл", ex.GetAllExceptions());
                 return;
             }
 
@@ -46,7 +47,7 @@ namespace HVTApp.Infrastructure.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    messageService.ShowOkMessageDialog("Ошибка", ex.Message);
+                    messageService.ShowOkMessageDialog("Ошибка", ex.GetAllExceptions());
                 }
             }
 

@@ -10,9 +10,13 @@ namespace HVTApp.Infrastructure.Extansions
             var stringBuilder = new StringBuilder();
             do
             {
-                stringBuilder.AppendLine(exception.Message);
-                stringBuilder.AppendLine();
+                stringBuilder.AppendLine($"    Source: {exception.Source}");
+                stringBuilder.AppendLine($"    Type: {exception.GetType()}");
+                //stringBuilder.AppendLine($"    StackTrace: {exception.StackTrace}");
+                stringBuilder.AppendLine($"    Message: {exception.Message}");
                 exception = exception.InnerException;
+                if(exception != null)
+                    stringBuilder.AppendLine(Environment.NewLine + "------" + Environment.NewLine);
             } while (exception != null);
 
             return stringBuilder.ToString();
