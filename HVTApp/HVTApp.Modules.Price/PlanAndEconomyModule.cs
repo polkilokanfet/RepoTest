@@ -5,10 +5,7 @@ using HVTApp.Modules.PlanAndEconomy.Menus;
 using HVTApp.Modules.PlanAndEconomy.Views;
 using Microsoft.Practices.Unity;
 using Prism.Regions;
-using DatesView = HVTApp.Modules.PlanAndEconomy.Views.DatesView;
-using PaymentDocumentsView = HVTApp.Modules.PlanAndEconomy.Views.PaymentDocumentsView;
-using PaymentsView = HVTApp.Modules.PlanAndEconomy.Views.PaymentsView;
-using PricesView = HVTApp.Modules.PlanAndEconomy.Views.PricesView;
+
 
 namespace HVTApp.Modules.PlanAndEconomy
 {

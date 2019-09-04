@@ -7,6 +7,7 @@ using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model.POCOs;
+using HVTApp.Modules.PlanAndEconomy.ViewModels.Groups;
 using HVTApp.UI.Lookup;
 using HVTApp.UI.ViewModels;
 using HVTApp.UI.Wrapper;
@@ -21,23 +22,9 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
         private IUnitOfWork _unitOfWork;
 
         private IValidatableChangeTrackingCollection<SalesUnitWrapper> _salesUnitsWrappers;
-        private ProductionGroup _selectedGroupPotential;
 
-        public ObservableCollection<ProductionGroup> GroupsInOrder { get; } = new ObservableCollection<ProductionGroup>();
-        public ObservableCollection<ProductionGroup> GroupsPotential { get; } = new ObservableCollection<ProductionGroup>();
-
-        public ProductionGroup SelectedGroupPotential
-        {
-            get { return _selectedGroupPotential; }
-            set
-            {
-                if (Equals(_selectedGroupPotential, value)) return;
-                _selectedGroupPotential = value;
-                ((DelegateCommand)AddInOrderCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)ShowProductStructureCommand).RaiseCanExecuteChanged();
-                OnPropertyChanged();
-            }
-        }
+        public GroupsContainer<ProductionGroup> GroupsInOrder { get; } = new GroupsContainer<ProductionGroup>();
+        public GroupsContainer<ProductionGroup> GroupsPotential { get; } = new GroupsContainer<ProductionGroup>();
 
         public ICommand ReloadCommand { get; }
         public ICommand SaveCommand { get; }
@@ -47,70 +34,57 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
 
         public ProductionPlanViewModel(IUnityContainer container) : base(container)
         {
-            Func<bool> canSave = () => _salesUnitsWrappers != null && _salesUnitsWrappers.IsChanged && _salesUnitsWrappers.IsValid;
-            SaveCommand = new DelegateCommand(SaveCommand_Execute, canSave);
+            SaveCommand = new DelegateCommand(async () =>
+                {
+                    _salesUnitsWrappers.AcceptChanges();
+                    await _unitOfWork.SaveChangesAsync();
+                }, 
+                () => _salesUnitsWrappers != null && _salesUnitsWrappers.IsChanged && _salesUnitsWrappers.IsValid);
             
-            AddInOrderCommand = new DelegateCommand(AddInOrderCommand_Execute, AddInOrderCommand_CanExecute);
+            AddInOrderCommand = new DelegateCommand(AddInOrderCommand_Execute, () => GroupsPotential.SelectedGroup != null && SelectedItem != null);
             ReloadCommand = new DelegateCommand(async () => await LoadAsync());
 
-            ShowProductStructureCommand = new DelegateCommand(ShowProductStructureCommand_Execute, ShowProductStructureCommand_CanExecute);
-        }
-
-        private bool ShowProductStructureCommand_CanExecute()
-        {
-            return SelectedGroupPotential != null;
-        }
-
-        private void ShowProductStructureCommand_Execute()
-        {
-            var productStructure = new ProductStructureViewModel(SelectedGroupPotential.Unit.Model);
-            Container.Resolve<IDialogService>().Show(productStructure);
-        }
-
-        private async void SaveCommand_Execute()
-        {
-            _salesUnitsWrappers.AcceptChanges();
-            await _unitOfWork.SaveChangesAsync();
-        }
-
-        private bool AddInOrderCommand_CanExecute()
-        {
-            return SelectedGroupPotential != null && SelectedItem != null;
+            ShowProductStructureCommand = new DelegateCommand(() =>
+                {
+                    var productStructure = new ProductStructureViewModel(GroupsPotential.SelectedGroup.Unit.Model);
+                    Container.Resolve<IDialogService>().Show(productStructure);
+                }, 
+                () => GroupsPotential.SelectedGroup != null);
         }
 
         private async void AddInOrderCommand_Execute()
         {
             //фиксируем дату действия и заказ
-            SelectedGroupPotential.SetSignalToStartProductionDone();
+            GroupsPotential.SelectedGroup.SetSignalToStartProductionDone();
             //подменяем заказ
-            SelectedGroupPotential.Order = new OrderWrapper(await _unitOfWork.Repository<Order>().GetByIdAsync(SelectedItem.Id));
+            GroupsPotential.SelectedGroup.Order = new OrderWrapper(await _unitOfWork.Repository<Order>().GetByIdAsync(SelectedItem.Id));
             //ставим предполагаемую дату производства
-            SelectedGroupPotential.Date = SelectedGroupPotential.Unit.DeliveryDateExpected;
+            GroupsPotential.SelectedGroup.EndProductionPlanDate = GroupsPotential.SelectedGroup.Unit.DeliveryDateExpected;
             //ставим позиции заказа
             int pos = 1;
-            if (SelectedGroupPotential.Groups.Any())
+            if (GroupsPotential.SelectedGroup.Groups.Any())
             {
-                foreach (var productionGroup in SelectedGroupPotential.Groups)
+                foreach (var productionGroup in GroupsPotential.SelectedGroup.Groups)
                 {
-                    productionGroup.Position = (pos++).ToString();
+                    productionGroup.OrderPosition = (pos++).ToString();
                 }
             }
             else
             {
-                SelectedGroupPotential.Position = (pos).ToString();
+                GroupsPotential.SelectedGroup.OrderPosition = (pos).ToString();
             }
 
             //переносим заказ в план производства
-            GroupsInOrder.Add(SelectedGroupPotential);
-            if (GroupsPotential.Contains(SelectedGroupPotential))
+            GroupsInOrder.Add(GroupsPotential.SelectedGroup);
+            if (GroupsPotential.Contains(GroupsPotential.SelectedGroup))
             {
-                GroupsPotential.Remove(SelectedGroupPotential);
+                GroupsPotential.Remove(GroupsPotential.SelectedGroup);
             }
             else
             {
                 //удаляем в подгруппах
-                var group = GroupsPotential.Single(x => x.Groups.Contains(SelectedGroupPotential));
-                group.Groups.Remove(SelectedGroupPotential);
+                var group = GroupsPotential.Single(x => x.Groups.Contains(GroupsPotential.SelectedGroup));
+                group.Groups.Remove(GroupsPotential.SelectedGroup);
                 if (!group.Groups.Any())
                     GroupsPotential.Remove(group);
             }
@@ -133,6 +107,11 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
 
             GroupsPotential.Clear();
             GroupsPotential.AddRange(ProductionGroup.Grouping(unitsToPlan));
+            GroupsPotential.SelectedGroupChanged += group =>
+            {
+                ((DelegateCommand)AddInOrderCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)ShowProductStructureCommand).RaiseCanExecuteChanged();
+            };
         }
 
         private void OnSelectedOrderChanged(OrderLookup orderLookup)

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
+using HVTApp.Modules.PlanAndEconomy.ViewModels.Groups;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
@@ -16,9 +17,9 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
     public class DatesViewModel : ViewModelBase
     {
         private IUnitOfWork _unitOfWork;
-        private List<SalesUnitWrapper> _units;
+        private List<SalesUnitWrapper> _salesUnitWrappers;
 
-        public ObservableCollection<DatesGroup> Groups { get; set; } = new ObservableCollection<DatesGroup>();
+        public ObservableCollection<DatesGroup> Groups { get; } = new ObservableCollection<DatesGroup>();
 
         public ICommand SaveCommand { get; }
         public ICommand ReloadCommand { get; }
@@ -33,38 +34,47 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
         {
             _unitOfWork = Container.Resolve<IUnitOfWork>();
 
-            _units = (await _unitOfWork.Repository<SalesUnit>().GetAllAsync())
-                                .Where(x => !x.DeliveryDate.HasValue || 
-                                            !x.EndProductionDate.HasValue ||
-                                            !x.PickingDate.HasValue ||
-                                            !x.RealizationDate.HasValue || 
-                                            !x.ShipmentDate.HasValue ||
-                                            string.IsNullOrEmpty(x.SerialNumber))
-                                .OrderBy(x => x.EndProductionDateCalculated)
-                                .Select(x => new SalesUnitWrapper(x))
-                                .ToList();
+            var salesUnits = await _unitOfWork.Repository<SalesUnit>().GetAllAsync();
+            _salesUnitWrappers = salesUnits.Where(EditingRequired)
+                                           .OrderBy(salesUnit => salesUnit.EndProductionDateCalculated)
+                                           .Select(salesUnit => new SalesUnitWrapper(salesUnit)).ToList();
 
-            _units.ForEach(x => x.PropertyChanged += UnitOnPropertyChanged);
+            //подписываемся на изменение каждой сущности
+            _salesUnitWrappers.ForEach(x => x.PropertyChanged += (sender, args) => ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged());
 
             Groups.Clear();
-            Groups.AddRange(DatesGroup.GetGroups(_units));
+            Groups.AddRange(_salesUnitWrappers.ConvertToGroups());
+        }
+
+        /// <summary>
+        /// Единица требует внесения информации в текущем модуле.
+        /// </summary>
+        /// <param name="salesUnit"></param>
+        /// <returns></returns>
+        private bool EditingRequired(SalesUnit salesUnit)
+        {
+            return !salesUnit.DeliveryDate.HasValue ||
+                   !salesUnit.EndProductionDate.HasValue ||
+                   !salesUnit.PickingDate.HasValue ||
+                   !salesUnit.RealizationDate.HasValue ||
+                   !salesUnit.ShipmentDate.HasValue ||
+                   string.IsNullOrEmpty(salesUnit.SerialNumber);
         }
 
         public async void SaveCommand_Execute()
         {
+            //сохраняем изменения
             await _unitOfWork.SaveChangesAsync();
-            _units.Where(x => x.IsChanged).ToList().ForEach(x => x.AcceptChanges());
-            ((DelegateCommand) SaveCommand).RaiseCanExecuteChanged();
+            //принимаем все изменения
+            _salesUnitWrappers.Where(x => x.IsChanged).ToList().ForEach(x => x.AcceptChanges());
+            //проверяем актуальность команды
+            ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
         }
 
         public bool SaveCommand_CanExecute()
         {
-            return _units != null && _units.All(x => x.IsValid) && _units.Any(x => x.IsChanged);
-        }
-
-        private void UnitOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
-        {
-            ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
+            //все сущности валидны и хотя бы в одной есть изменения
+            return _salesUnitWrappers != null && _salesUnitWrappers.All(x => x.IsValid) && _salesUnitWrappers.Any(x => x.IsChanged);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿#region using
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Reflection;
@@ -42,6 +43,8 @@ using Prism.Events;
 using Prism.Modularity;
 using Prism.Regions;
 using Prism.Unity;
+
+#endregion
 
 namespace HVTApp
 {
