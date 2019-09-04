@@ -5,8 +5,8 @@ using HVTApp.UI.Wrapper;
 
 namespace HVTApp.UI.Groups
 {
-    public interface IGroupValidatableChangeTracking<TModel> : IValidatableChangeTracking
-        where TModel : IUnitPoco
+    public interface IGroupValidatableChangeTracking<out TModel> : IValidatableChangeTracking
+        where TModel : IUnit
     {
         TModel Model { get; }
         double Cost { get; }
@@ -24,10 +24,10 @@ namespace HVTApp.UI.Groups
         void RemoveProductIncluded(ProductIncludedWrapper productIncluded);
     }
 
-    public interface IGroupValidatableChangeTrackingWithCollection<T, TModel> : IGroupValidatableChangeTracking<TModel>
-        where T : IGroupValidatableChangeTracking<TModel>
-        where TModel : IUnitPoco
+    public interface IGroupValidatableChangeTrackingWithCollection<TMember, out TModel> : IGroupValidatableChangeTracking<TModel>
+        where TMember : IGroupValidatableChangeTracking<TModel>
+        where TModel : IUnit
     {
-        IValidatableChangeTrackingCollection<T> Groups { get; }
+        IValidatableChangeTrackingCollection<TMember> Groups { get; }
     }
 }

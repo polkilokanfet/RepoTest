@@ -79,7 +79,7 @@
 
                 <dp:XamDataGrid x:Name="UnitListGrid"
                                 DataSource="{Binding Groups, UpdateSourceTrigger=PropertyChanged}"
-                                SelectedDataItem="{Binding SelectedGroup, Mode=TwoWay}">
+                                SelectedDataItem="{Binding Groups.SelectedGroup, Mode=TwoWay}">
 
                     <dp:XamDataGrid.FieldLayouts>
 

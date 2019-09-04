@@ -10,7 +10,7 @@ using HVTApp.Infrastructure.Extansions;
 namespace HVTApp.Model.POCOs
 {
     [Designation("Единица продаж")]
-    public partial class SalesUnit : BaseEntity, IUnitPoco, ICloneable
+    public partial class SalesUnit : BaseEntity, IUnit, ICloneable
     {
         #region Model
 

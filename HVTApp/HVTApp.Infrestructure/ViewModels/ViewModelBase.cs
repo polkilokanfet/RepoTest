@@ -8,12 +8,27 @@ namespace HVTApp.Infrastructure
 {
     public class ViewModelBase : BindableBase
     {
+        #region Fields
+
         protected readonly IUnityContainer Container;
         protected readonly IRegionManager RegionManager;
         protected IUnitOfWork UnitOfWork;
 
+        #endregion
+
+        #region Commands
+
+        /// <summary>
+        /// Команда перехода к следующему виду
+        /// </summary>
         public ICommand GoForwardCommand { get; }
+
+        /// <summary>
+        /// Команда перехода к предыдущему виду
+        /// </summary>
         public ICommand GoBackCommand { get; }
+
+        #endregion
 
         public ViewModelBase(IUnityContainer container)
         {

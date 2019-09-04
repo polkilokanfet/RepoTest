@@ -119,6 +119,7 @@
     <Compile Include="IRepository.cs" />
     <Compile Include="IRibbonTabItem.cs" />
     <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="IValidatableChangeTracking.cs" />
     <Compile Include="IViewBase.cs" />
     <Compile Include="IWrapper.cs" />
     <Compile Include="LoadableBindableBase.cs" />

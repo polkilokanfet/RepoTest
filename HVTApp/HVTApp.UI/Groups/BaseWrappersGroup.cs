@@ -11,18 +11,23 @@ using Prism.Mvvm;
 
 namespace HVTApp.UI.Groups
 {
-    public class BaseWrappersGroup<TSubGroup, TModel, TWrapper> : BindableBase, IGroupValidatableChangeTracking<TModel>
-        where TSubGroup : class, IGroupValidatableChangeTracking<TModel>
-        where TModel : class, IUnitPoco
+    public class BaseWrappersGroup<TMember, TModel, TWrapper> : BindableBase, IGroupValidatableChangeTracking<TModel>
+        where TMember : class, IGroupValidatableChangeTracking<TModel>
+        where TModel : class, IUnit
         where TWrapper : class, IWrapperGroup<TModel>
     {
+
+        #region Fields
         private readonly TWrapper _unit;
         private double _price;
         private double _fixedCost = 0;
+        #endregion
+
+        #region Public properties
+
+        public IValidatableChangeTrackingCollection<TMember> Groups { get; }
 
         public TModel Model => GetValue<TModel>();
-
-        public IValidatableChangeTrackingCollection<TSubGroup> Groups { get; }
 
         public int Amount => Groups?.Count ?? 1;
 
@@ -45,7 +50,6 @@ namespace HVTApp.UI.Groups
             get { return GetValue<PaymentConditionSetWrapper>(); }
             set { SetValue(value); }
         }
-
 
         public double Cost
         {
@@ -114,7 +118,6 @@ namespace HVTApp.UI.Groups
             }
         }
 
-
         public double? MarginalIncome
         {
             get { return Cost - CostMin <= 0 ? default(double?) : (1.0 - Price / (Cost - CostMin)) * 100.0; }
@@ -139,23 +142,36 @@ namespace HVTApp.UI.Groups
         }
 
 
+        public bool IsChanged => _unit?.IsChanged ?? Groups.IsChanged || Groups.Any(x => x.IsChanged);
+
+        public bool IsValid => _unit?.IsValid ?? Groups.All(x => x.IsValid);
+
+        #endregion
+
+        #region Ctor
+
         public BaseWrappersGroup(List<TModel> units)
         {
-            if (units.Count() == 1)
+            //если прилетел только один юнит
+            if (units.Count == 1)
             {
                 _unit = (TWrapper)Activator.CreateInstance(typeof(TWrapper), units.First());
                 _unit.PropertyChanged += UnitOnPropertyChanged;
                 return;
             }
 
+            //если прилетело более одного юнита
             //создаем подгруппы
-            var groups = units.Select(x => (TSubGroup)Activator.CreateInstance(typeof(TSubGroup), new List<TModel> {x})).ToList();
-            Groups = new ValidatableChangeTrackingCollection<TSubGroup>(groups);
-
-            //подписка на события
+            var groups = units.Select(x => (TMember)Activator.CreateInstance(typeof(TMember), new List<TModel> {x}));
+            Groups = new ValidatableChangeTrackingCollection<TMember>(groups);
+            //подписываемся на события на события
             Groups.PropertyChanged += UnitOnPropertyChanged;
             Groups.CollectionChanged += GroupsOnCollectionChanged;
         }
+
+        #endregion
+
+        #region On Changed
 
         /// <summary>
         /// изменение члена коллекции
@@ -181,6 +197,10 @@ namespace HVTApp.UI.Groups
             OnPropertyChanged(nameof(IsChanged));
             OnPropertyChanged(nameof(IsValid));
         }
+
+        #endregion
+
+        #region Included Products
 
         public IEnumerable<ProductIncludedWrapper> ProductsIncluded => GetValue<IEnumerable<ProductIncludedWrapper>>();
 
@@ -249,6 +269,9 @@ namespace HVTApp.UI.Groups
             OnPropertyChanged(nameof(ProductsIncluded));
         }
 
+        #endregion
+
+        #region Private Methods
 
         protected T GetValue<T>([CallerMemberName] string propertyName = null)
         {
@@ -275,6 +298,10 @@ namespace HVTApp.UI.Groups
             OnPropertyChanged(propertyName);
         }
 
+        #endregion
+
+        #region Public Methods
+
         public void AcceptChanges()
         {
             if (_unit != null)
@@ -292,10 +319,7 @@ namespace HVTApp.UI.Groups
             //подписка на события
             Groups.PropertyChanged += UnitOnPropertyChanged;
             Groups.CollectionChanged += GroupsOnCollectionChanged;
-
         }
-
-        public bool IsChanged => _unit?.IsChanged ?? Groups.IsChanged || Groups.Any(x => x.IsChanged);
 
         public void RejectChanges()
         {
@@ -303,6 +327,7 @@ namespace HVTApp.UI.Groups
             Groups?.ForEach(x => x.RejectChanges());
         }
 
-        public bool IsValid => _unit?.IsValid ?? Groups.All(x => x.IsValid);
+        #endregion
+
     }
 }

@@ -1,4 +1,3 @@
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace HVTApp.Infrastructure
@@ -8,10 +7,5 @@ namespace HVTApp.Infrastructure
     {
         TModel Model { get; }
         void Refresh();
-    }
-
-    public interface IValidatableChangeTracking : IRevertibleChangeTracking, INotifyPropertyChanged
-    {
-        bool IsValid { get; }
     }
 }

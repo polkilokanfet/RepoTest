@@ -27,7 +27,7 @@ namespace HVTApp.Model.Structures
         /// </summary>
         public double TotalServiceFixedCost => this.Sum(x => x.TotalServiceFixedCost);
 
-        public PriceStructures(IUnitPoco unit, DateTime targetPriceDate, int priceTerm, IEnumerable<ProductBlock> analogs)
+        public PriceStructures(IUnit unit, DateTime targetPriceDate, int priceTerm, IEnumerable<ProductBlock> analogs)
         {
             var productBlocks = analogs as ProductBlock[] ?? analogs.ToArray();
 

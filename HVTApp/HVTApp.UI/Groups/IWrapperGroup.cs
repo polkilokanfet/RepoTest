@@ -5,8 +5,8 @@ using HVTApp.UI.Wrapper;
 
 namespace HVTApp.UI.Groups
 {
-    public interface IWrapperGroup<TModel> : IWrapper<TModel>
-        where TModel : class, IUnitPoco
+    public interface IWrapperGroup<out TModel> : IWrapper<TModel>
+        where TModel : class, IUnit
     {
         double Cost { get; set; }
         FacilityWrapper Facility { get; set; }

@@ -1,17 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
-using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
-using HVTApp.Model.Structures;
 using HVTApp.UI.Groups;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
@@ -21,38 +17,17 @@ using Prism.Events;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
-    public abstract class BaseGroupsViewModel<TGroup, TSubGroup, TModel, TAfterSaveEvent, TAfterRemoveEvent> : ViewModelBase
-        where TModel : class, IUnitPoco
-        where TSubGroup : class, IGroupValidatableChangeTracking<TModel>
-        where TGroup : class, IGroupValidatableChangeTrackingWithCollection<TSubGroup, TModel>
+    public abstract partial class BaseGroupsViewModel<TGroup, TMember, TModel, TAfterSaveEvent, TAfterRemoveEvent> : ViewModelBase
+        where TModel : class, IUnit
+        where TMember : class, IGroupValidatableChangeTracking<TModel>
+        where TGroup : class, IGroupValidatableChangeTrackingWithCollection<TMember, TModel>
         where TAfterSaveEvent : PubSubEvent<TModel>, new()
         where TAfterRemoveEvent : PubSubEvent<TModel>, new()
     {
-        //блоки, необходимые для поиска аналогов
-        protected static List<ProductBlock> Blocks;
-        protected readonly Dictionary<TGroup, PriceStructures> PriceDictionary = new Dictionary<TGroup, PriceStructures>();
 
-        private TGroup _selectedGroup;
         private ProductIncludedWrapper _selectedProductIncluded;
 
-        public IValidatableChangeTrackingCollection<TGroup> Groups { get; protected set; }
-
-        /// <summary>
-        /// Выбранная группа.
-        /// </summary>
-        public TGroup SelectedGroup
-        {
-            get { return _selectedGroup; }
-            set
-            {
-                if (Equals(_selectedGroup, value)) return;
-                _selectedGroup = value;
-                ((DelegateCommand)RemoveCommand)?.RaiseCanExecuteChanged();
-                ((DelegateCommand)AddProductIncludedCommand)?.RaiseCanExecuteChanged();
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(PriceStructures));
-            }
-        }
+        public GroupsCollection<TModel, TGroup, TMember> Groups { get; protected set; } = new GroupsCollection<TModel, TGroup, TMember>();
 
         /// <summary>
         /// Выбранный зависимый продукт.
@@ -69,7 +44,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             }
         }
 
-        protected abstract List<TGroup> Grouping(IEnumerable<TModel> units);
+        protected abstract List<TGroup> GetGroups(IEnumerable<TModel> units);
 
         protected void Load(IEnumerable<TModel> units, IUnitOfWork unitOfWork, bool isNew)
         {
@@ -77,75 +52,60 @@ namespace HVTApp.Modules.Sales.ViewModels
             var unitsArray = units as TModel[] ?? units.ToArray();
 
             //актуализируем количество родительских групп включенных продуктов
-            var included = unitsArray.SelectMany(x => x.ProductsIncluded).ToList();
-            foreach (var productIncluded in included)
+            foreach (var includedProduct in unitsArray.SelectMany(x => x.ProductsIncluded))
             {
-                productIncluded.ParentsCount = unitsArray.Count(x => x.ProductsIncluded.Contains(productIncluded));
+                includedProduct.ParentsCount = unitsArray.Count(x => x.ProductsIncluded.Contains(includedProduct));
             }
 
             //группируем юниты
-            var groups = Grouping(unitsArray);
+            var groups = GetGroups(unitsArray);
 
             //если создана новая сущность, юниты добавляем в пустой список
             if (isNew)
             {
                 //новый контейнер групп
-                Groups = new ValidatableChangeTrackingCollection<TGroup>(new List<TGroup>());
+                Groups = new GroupsCollection<TModel, TGroup, TMember>();
                 //добавление групп в контейнер
                 groups.ForEach(x => Groups.Add(x));
             }
             //если сущность редактируется
             else
             {
-                Groups = new ValidatableChangeTrackingCollection<TGroup>(groups);
+                Groups = new GroupsCollection<TModel, TGroup, TMember>(groups);
             }
+
+            Groups.SelectedGroupChanged += group =>
+            {
+                ((DelegateCommand)RemoveCommand)?.RaiseCanExecuteChanged();
+                ((DelegateCommand)AddProductIncludedCommand)?.RaiseCanExecuteChanged();
+                OnPropertyChanged(nameof(PriceStructures));
+            };
 
             OnPropertyChanged(nameof(Groups));
 
-            Groups.PropertyChanged += GroupsOnPropertyChanged;
-            Groups.CollectionChanged += GroupsOnCollectionChanged;
+            ((IValidatableChangeTrackingCollection<TGroup>)Groups).PropertyChanged += (sender, args) => GroupChanged?.Invoke();
+            Groups.CollectionChanged += (sender, args) => GroupChanged?.Invoke();
 
             Groups.ForEach(RefreshPrice);
         }
 
-
-        /// <summary>
-        /// Дата для расчета себестоимости.
-        /// </summary>
-        /// <param name="grp"></param>
-        /// <returns></returns>
-        protected abstract DateTime GetPriceDate(TGroup grp);
-
-        /// <summary>
-        /// Обновление себестоимости группы.
-        /// </summary>
-        /// <param name="grp"></param>
-        protected void RefreshPrice(TGroup grp)
+        protected BaseGroupsViewModel(IUnityContainer container) : base(container)
         {
-            if (grp == null) return;
+            AddCommand = new DelegateCommand(AddCommand_Execute);
+            RemoveCommand = new DelegateCommand(RemoveCommand_Execute, () => Groups.SelectedGroup != null);
 
-            //срок актуальности
-            var priceTerm = GlobalAppProperties.Actual.ActualPriceTerm;
+            ChangeFacilityCommand = new DelegateCommand<TGroup>(ChangeFacilityCommand_Execute);
+            ChangeProductCommand = new DelegateCommand<TGroup>(ChangeProductCommand_Execute);
+            ChangePaymentsCommand = new DelegateCommand<TGroup>(ChangePaymentsCommand_Execute);
 
-            //если в словаре нет такой группы, добавляем ее
-            if (!PriceDictionary.ContainsKey(grp)) PriceDictionary.Add(grp, null);
+            AddProductIncludedCommand = new DelegateCommand(AddProductIncludedCommand_Execute, () => Groups.SelectedGroup != null);
+            RemoveProductIncludedCommand = new DelegateCommand(RemoveProductIncludedCommand_Execute, () => SelectedProductIncluded != null);
 
-            //обновляем структуру себестоимости этой группе
-            PriceDictionary[grp] = new PriceStructures(grp.Model, GetPriceDate(grp), priceTerm, Blocks);
-
-            //обновляем себестоимость группы
-            grp.Price = PriceDictionary[grp].TotalPriceFixedCostLess;
-            grp.FixedCost = PriceDictionary[grp].TotalFixedCost;
-            OnPropertyChanged(nameof(PriceStructures));
-
-            //если в группе есть зависимые группы - обновить и для них
-            grp.Groups?.ForEach(x => RefreshPrice(x as TGroup));
+            //загружаем блоки оборудования (если они еще не загружены)
+            if(Blocks == null) Blocks = UnitOfWork.Repository<ProductBlock>().Find(x => true);
         }
 
-        /// <summary>
-        /// Структура себестоимости выбранной группы
-        /// </summary>
-        public PriceStructures PriceStructures => SelectedGroup == null ? null : PriceDictionary[SelectedGroup];
+        #region Commands
 
         #region ICommand
 
@@ -161,24 +121,6 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         #endregion
 
-        protected BaseGroupsViewModel(IUnityContainer container) : base(container)
-        {
-            AddCommand = new DelegateCommand(AddCommand_Execute);
-            RemoveCommand = new DelegateCommand(RemoveCommand_Execute, () => SelectedGroup != null);
-
-            ChangeFacilityCommand = new DelegateCommand<TGroup>(ChangeFacilityCommand_Execute);
-            ChangeProductCommand = new DelegateCommand<TGroup>(ChangeProductCommand_Execute);
-            ChangePaymentsCommand = new DelegateCommand<TGroup>(ChangePaymentsCommand_Execute);
-
-            AddProductIncludedCommand = new DelegateCommand(AddProductIncludedCommand_Execute, () => SelectedGroup != null);
-            RemoveProductIncludedCommand = new DelegateCommand(RemoveProductIncludedCommand_Execute, () => SelectedProductIncluded != null);
-
-            if(Blocks == null)
-                Blocks = UnitOfWork.Repository<ProductBlock>().Find(x => true);
-        }
-
-        #region Commands
-
         protected abstract void AddCommand_Execute();
 
         private void AddProductIncludedCommand_Execute()
@@ -187,8 +129,8 @@ namespace HVTApp.Modules.Sales.ViewModels
             var productsIncludedViewModel = new ProductsIncludedViewModel(productIncludedWrapper, UnitOfWork, Container);
             var dr = Container.Resolve<IDialogService>().ShowDialog(productsIncludedViewModel);
             if(!dr.HasValue || !dr.Value) return;
-            SelectedGroup.AddProductIncluded(productsIncludedViewModel.ViewModel.Entity, productsIncludedViewModel.IsForEach);
-            RefreshPrice(SelectedGroup);
+            Groups.SelectedGroup.AddProductIncluded(productsIncludedViewModel.ViewModel.Entity, productsIncludedViewModel.IsForEach);
+            RefreshPrice(Groups.SelectedGroup);
         }
 
         private void RemoveProductIncludedCommand_Execute()
@@ -196,8 +138,8 @@ namespace HVTApp.Modules.Sales.ViewModels
             if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Удалить?") == MessageDialogResult.No)
                 return;
 
-            SelectedGroup.RemoveProductIncluded(SelectedProductIncluded);
-            RefreshPrice(SelectedGroup);
+            Groups.SelectedGroup.RemoveProductIncluded(SelectedProductIncluded);
+            RefreshPrice(Groups.SelectedGroup);
         }
 
         private void RemoveCommand_Execute()
@@ -206,15 +148,15 @@ namespace HVTApp.Modules.Sales.ViewModels
                 return;
 
             //удаление из группы
-            if (Groups.Contains(SelectedGroup))
+            if (Groups.Contains(Groups.SelectedGroup))
             {
-                Groups.Remove(SelectedGroup);
+                Groups.Remove(Groups.SelectedGroup);
             }
             //удаление из подгруппы
             else
             {
-                var group = Groups.Single(x => x.Groups != null && x.Groups.Contains(SelectedGroup as TSubGroup));
-                group.Groups.Remove(SelectedGroup as TSubGroup);
+                var group = Groups.Single(x => x.Groups != null && x.Groups.Contains(Groups.SelectedGroup as TMember));
+                group.Groups.Remove(Groups.SelectedGroup as TMember);
 
                 //если группа стала пустая - удалить
                 if (!group.Groups.Any())
@@ -223,7 +165,7 @@ namespace HVTApp.Modules.Sales.ViewModels
                 }
             }
 
-            SelectedGroup = default(TGroup);
+            Groups.SelectedGroup = default(TGroup);
         }
 
         private async void ChangeProductCommand_Execute(TGroup wrappersGroup)
@@ -255,23 +197,11 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         #endregion
 
-
         public bool IsValid => Groups != null && Groups.Any() && Groups.IsValid;
 
         public bool IsChanged => Groups != null && Groups.IsChanged;
 
-        protected void GroupsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
-        {
-            GroupChanged?.Invoke();
-        }
-
-        protected void GroupsOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
-        {
-            GroupChanged?.Invoke();
-        }
-
         public event Action GroupChanged;
-
 
         #region Accept
 
@@ -317,7 +247,6 @@ namespace HVTApp.Modules.Sales.ViewModels
         }
 
         #endregion
-
 
     }
 }

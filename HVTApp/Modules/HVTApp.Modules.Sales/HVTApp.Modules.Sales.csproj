@@ -151,6 +151,8 @@
     <Compile Include="ViewModels\Containers\SalesUnitsContainerBase.cs" />
     <Compile Include="ViewModels\Containers\SelectedItemChangedEvent.cs" />
     <Compile Include="ViewModels\Groups\BaseGroupsViewModel.cs" />
+    <Compile Include="ViewModels\Groups\BaseGroupsViewModel_Price.cs" />
+    <Compile Include="ViewModels\Groups\GroupsCollection.cs" />
     <Compile Include="ViewModels\Groups\IGroupsViewModel.cs" />
     <Compile Include="ViewModels\Groups\OfferUnitsGroupsViewModel.cs" />
     <Compile Include="ViewModels\Market2ViewModel_Commands.cs" />

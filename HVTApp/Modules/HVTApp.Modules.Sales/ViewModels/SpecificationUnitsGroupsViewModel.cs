@@ -41,7 +41,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             _groupsToReject.Add(group);
         }
 
-        protected override List<SalesUnitsWrappersGroup> Grouping(IEnumerable<SalesUnit> units)
+        protected override List<SalesUnitsWrappersGroup> GetGroups(IEnumerable<SalesUnit> units)
         {
             return units.GroupBy(x => x, new SalesUnitsGroupsComparer()).OrderByDescending(x => x.Key.Cost).Select(x => new SalesUnitsWrappersGroup(x.ToList())).ToList();
         }
@@ -55,9 +55,9 @@ namespace HVTApp.Modules.Sales.ViewModels
             _groupsToReject = new ValidatableChangeTrackingCollection<SalesUnitsWrappersGroup>(Groups);
         }
 
-        protected override DateTime GetPriceDate(SalesUnitsWrappersGroup grp)
+        protected override DateTime GetPriceDate(SalesUnitsWrappersGroup @group)
         {
-            var spec = grp.Specification;
+            var spec = @group.Specification;
             if (spec == null || spec.Date == default(DateTime)) return DateTime.Today;
             return spec.Date < DateTime.Today ? spec.Date : DateTime.Today;
         }

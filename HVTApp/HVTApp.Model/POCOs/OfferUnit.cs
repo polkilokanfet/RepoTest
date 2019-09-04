@@ -8,7 +8,7 @@ namespace HVTApp.Model.POCOs
 {
     [Designation("Единица ТКП")]
     [DesignationPlural("Единицы ТКП")]
-    public partial class OfferUnit : BaseEntity, IUnitPoco, ICloneable
+    public partial class OfferUnit : BaseEntity, IUnit, ICloneable
     {
         [Designation("Стоимость"), Required]
         public double Cost { get; set; }
@@ -43,7 +43,7 @@ namespace HVTApp.Model.POCOs
         }
     }
 
-    public interface IUnitPoco : IProductCost
+    public interface IUnit : IProductCost
     {
         List<ProductIncluded> ProductsIncluded { get; }
         PaymentConditionSet PaymentConditionSet { get; set; }

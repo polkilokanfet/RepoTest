@@ -17,11 +17,9 @@ namespace HVTApp.Modules.Sales.ViewModels
     {
         private ProjectWrapper _projectWrapper;
 
-        public SalesUnitsGroupsViewModel(IUnityContainer container) : base(container)
-        {
-        }
+        public SalesUnitsGroupsViewModel(IUnityContainer container) : base(container) { }
 
-        protected override List<SalesUnitsWrappersGroup> Grouping(IEnumerable<SalesUnit> units)
+        protected override List<SalesUnitsWrappersGroup> GetGroups(IEnumerable<SalesUnit> units)
         {
             return units.GroupBy(x => x, new SalesUnitsGroupsComparer())
                         .OrderByDescending(x => x.Key.Cost)
@@ -34,9 +32,9 @@ namespace HVTApp.Modules.Sales.ViewModels
             _projectWrapper = parentWrapper;
         }
 
-        protected override DateTime GetPriceDate(SalesUnitsWrappersGroup grp)
+        protected override DateTime GetPriceDate(SalesUnitsWrappersGroup @group)
         {
-            return grp.OrderInTakeDate < DateTime.Today ? grp.OrderInTakeDate : DateTime.Today;
+            return @group.OrderInTakeDate < DateTime.Today ? @group.OrderInTakeDate : DateTime.Today;
         }
 
 
@@ -64,7 +62,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             var group = new SalesUnitsWrappersGroup(units.ToList());
             Groups.Add(group);
             RefreshPrice(group);
-            SelectedGroup = group;
+            Groups.SelectedGroup = group;
         }
 
         /// <summary>
@@ -73,17 +71,17 @@ namespace HVTApp.Modules.Sales.ViewModels
         /// <param name="salesUnitWrapper"></param>
         private void FillingSalesUnit(SalesUnitWrapper salesUnitWrapper)
         {
-            if (SelectedGroup == null) return;
+            if (Groups.SelectedGroup == null) return;
 
-            salesUnitWrapper.Cost = SelectedGroup.Cost;
-            salesUnitWrapper.Facility = SelectedGroup.Facility;
-            salesUnitWrapper.PaymentConditionSet = SelectedGroup.PaymentConditionSet;
-            salesUnitWrapper.ProductionTerm = SelectedGroup.ProductionTerm;
-            salesUnitWrapper.Product = SelectedGroup.Product;
-            salesUnitWrapper.DeliveryDateExpected = SelectedGroup.DeliveryDateExpected;
+            salesUnitWrapper.Cost = Groups.SelectedGroup.Cost;
+            salesUnitWrapper.Facility = Groups.SelectedGroup.Facility;
+            salesUnitWrapper.PaymentConditionSet = Groups.SelectedGroup.PaymentConditionSet;
+            salesUnitWrapper.ProductionTerm = Groups.SelectedGroup.ProductionTerm;
+            salesUnitWrapper.Product = Groups.SelectedGroup.Product;
+            salesUnitWrapper.DeliveryDateExpected = Groups.SelectedGroup.DeliveryDateExpected;
                 
             //создаем зависимое оборудование
-            foreach (var prodIncl in SelectedGroup.ProductsIncluded)
+            foreach (var prodIncl in Groups.SelectedGroup.ProductsIncluded)
             {
                 var pi = new ProductIncluded { Product = prodIncl.Product.Model, Amount = prodIncl.Amount };
                 salesUnitWrapper.ProductsIncluded.Add(new ProductIncludedWrapper(pi));

@@ -104,7 +104,7 @@ namespace HVTApp.UI.Wrapper
     }
 
     public abstract class ProductCostDependentProductsWrapper<T> : ProductCostWrapper<T>, IProductCostDependentProductsWrapper
-        where T : class, IUnitPoco
+        where T : class, IUnit
     {
         private IValidatableChangeTrackingCollection<ProductDependentWrapper> _dependentProducts;
 

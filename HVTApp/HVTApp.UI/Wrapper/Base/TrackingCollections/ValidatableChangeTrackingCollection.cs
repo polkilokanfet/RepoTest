@@ -85,7 +85,10 @@ namespace HVTApp.UI.Wrapper
             OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsChanged)));
         }
 
-        //реакция на изменение коллекции (добавление или удаление элемента коллекции)
+        /// <summary>
+        /// реакция на изменение коллекции (добавление или удаление элемента коллекции)
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
         {
             //отписываем все члены коллекции от события изменения
@@ -108,7 +111,11 @@ namespace HVTApp.UI.Wrapper
             OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsValid)));
         }
 
-        // Обработчик изменения какого-либо свойства в члене коллекции.
+        /// <summary>
+        /// Обработчик изменения какого-либо свойства в члене коллекции.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnItemPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             //если изменился флаг валидности члена.
@@ -140,19 +147,29 @@ namespace HVTApp.UI.Wrapper
             }
         }
 
-        // прикрепление обработчика к событию изменения свойств члена коллекции.
+        /// <summary>
+        /// прикрепление обработчика к событию изменения свойств члена коллекции.
+        /// </summary>
+        /// <param name="items"></param>
         private void AttachedItemPropertyChangedHandler(IEnumerable<TCollectionItem> items)
         {
             items.ToList().ForEach(x => x.PropertyChanged += OnItemPropertyChanged);
         }
 
-        // открепление обработчика от события изменения свойств члена коллекции.
+        /// <summary>
+        /// открепление обработчика от события изменения свойств члена коллекции.
+        /// </summary>
+        /// <param name="items"></param>
         private void DettachedItemPropertyChangedHandler(IEnumerable<TCollectionItem> items)
         {
             items.ToList().ForEach(x => x.PropertyChanged -= OnItemPropertyChanged);
         }
 
-        // Синхронизация элементов коллекций.
+        /// <summary>
+        /// Синхронизация элементов коллекций.
+        /// </summary>
+        /// <param name="items"></param>
+        /// <param name="observableCollection"></param>
         private void UpdateObservableCollection(IEnumerable<TCollectionItem> items, ICollection<TCollectionItem> observableCollection)
         {
             observableCollection.Clear();

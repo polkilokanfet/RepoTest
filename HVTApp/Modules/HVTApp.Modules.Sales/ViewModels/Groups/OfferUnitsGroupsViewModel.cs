@@ -23,7 +23,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         {
         }
 
-        protected override List<OfferUnitsGroup> Grouping(IEnumerable<OfferUnit> units)
+        protected override List<OfferUnitsGroup> GetGroups(IEnumerable<OfferUnit> units)
         {
             return units.GroupBy(x => x, new OfferUnitsGroupsComparer())
                         .OrderByDescending(x => x.Key.Cost)
@@ -50,16 +50,16 @@ namespace HVTApp.Modules.Sales.ViewModels
             var viewModel = new OfferUnitsViewModel(salesUnit, Container, UnitOfWork);
 
             //заполняем юнит начальными данными
-            if (SelectedGroup != null)
+            if (Groups.SelectedGroup != null)
             {
-                viewModel.ViewModel.Item.Cost = SelectedGroup.Cost;
-                viewModel.ViewModel.Item.Facility = SelectedGroup.Facility;
-                viewModel.ViewModel.Item.PaymentConditionSet = SelectedGroup.PaymentConditionSet;
-                viewModel.ViewModel.Item.ProductionTerm = SelectedGroup.ProductionTerm;
-                viewModel.ViewModel.Item.Product = SelectedGroup.Product;
+                viewModel.ViewModel.Item.Cost = Groups.SelectedGroup.Cost;
+                viewModel.ViewModel.Item.Facility = Groups.SelectedGroup.Facility;
+                viewModel.ViewModel.Item.PaymentConditionSet = Groups.SelectedGroup.PaymentConditionSet;
+                viewModel.ViewModel.Item.ProductionTerm = Groups.SelectedGroup.ProductionTerm;
+                viewModel.ViewModel.Item.Product = Groups.SelectedGroup.Product;
 
                 //создаем зависимое оборудование
-                foreach (var prodIncl in SelectedGroup.ProductsIncluded)
+                foreach (var prodIncl in Groups.SelectedGroup.ProductsIncluded)
                 {
                     var pi = new ProductIncluded { Product = prodIncl.Product.Model, Amount = prodIncl.Amount };
                     viewModel.ViewModel.Item.ProductsIncluded.Add(new ProductIncludedWrapper(pi));
@@ -84,15 +84,15 @@ namespace HVTApp.Modules.Sales.ViewModels
             var group = new OfferUnitsGroup(units);
             Groups.Add(group);
             RefreshPrice(group);
-            SelectedGroup = group;
+            Groups.SelectedGroup = group;
         }
 
         #endregion
 
-        protected override DateTime GetPriceDate(OfferUnitsGroup grp)
+        protected override DateTime GetPriceDate(OfferUnitsGroup @group)
         {
-            if(grp.Offer == null) return DateTime.Today;
-            return grp.Offer.Date < DateTime.Today ? grp.Offer.Date : DateTime.Today;
+            if(@group.Offer == null) return DateTime.Today;
+            return @group.Offer.Date < DateTime.Today ? @group.Offer.Date : DateTime.Today;
         }
     }
 }

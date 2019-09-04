@@ -17,6 +17,9 @@ namespace HVTApp.Model.POCOs
         [Designation("Количество"), Required, OrderStatus(5)]
         public int Amount { get; set; } = 1;
 
+        /// <summary>
+        /// Количество родительских единиц.
+        /// </summary>
         [NotMapped]
         public int ParentsCount { get; set; } = 1;
 
