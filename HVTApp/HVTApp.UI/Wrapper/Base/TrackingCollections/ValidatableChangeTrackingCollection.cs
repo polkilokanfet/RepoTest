@@ -23,7 +23,7 @@ namespace HVTApp.UI.Wrapper
         private readonly ObservableCollection<TCollectionItem> _modifiedItems = new ObservableCollection<TCollectionItem>();
         private readonly ObservableCollection<TCollectionItem> _removedItems = new ObservableCollection<TCollectionItem>();
 
-        public ValidatableChangeTrackingCollection(IEnumerable<TCollectionItem> items) : base(items)
+        public ValidatableChangeTrackingCollection(IEnumerable<TCollectionItem> groups) : base(groups)
         {
             //фиксируем то, что мы имели изначально.
             _originalCollection = this.ToList();

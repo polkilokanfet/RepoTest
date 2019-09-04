@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Groups;
 using HVTApp.UI.Wrapper;
+using Microsoft.Practices.ObjectBuilder2;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
@@ -13,9 +15,15 @@ namespace HVTApp.Modules.Sales.ViewModels
         where TMember : class, IGroupValidatableChangeTracking<TModel>
     {
         private TGroup _selectedGroup;
+        private ProductIncludedWrapper _selectedProductIncluded;
 
         public event Action<TGroup> SelectedGroupChanged;
 
+        public event Action<ProductIncludedWrapper> SelectedProductIncludedChanged; 
+
+        /// <summary>
+        /// Выбранная группа
+        /// </summary>
         public TGroup SelectedGroup
         {
             get { return _selectedGroup; }
@@ -23,17 +31,45 @@ namespace HVTApp.Modules.Sales.ViewModels
             {
                 if (Equals(_selectedGroup, value)) return;
                 _selectedGroup = value;
+
+                //актуализируем количество родительских групп включенных продуктов
+                if (SelectedGroup != null)
+                {
+                    foreach (var includedProduct in SelectedGroup.ProductsIncluded)
+                    {
+                        //int parentsCount = this.SelectMany(x => x.Groups).SelectMany(x => x.ProductsIncluded).Count(x => x.ProductsIncluded.Any(pi => pi.Id == includedProduct.Id));
+                        //includedProduct.ParentsCount = 
+                    }
+                }
+
                 SelectedGroupChanged?.Invoke(SelectedGroup);
                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(SelectedGroup)));
             }
         }
 
-        public GroupsCollection() : base(new List<TGroup>())
+        /// <summary>
+        /// Выбранный зависимый продукт.
+        /// </summary>
+        public ProductIncludedWrapper SelectedProductIncluded
         {
+            get { return _selectedProductIncluded; }
+            set
+            {
+                if (Equals(_selectedProductIncluded, value)) return;
+                _selectedProductIncluded = value;
+                SelectedProductIncludedChanged?.Invoke(SelectedProductIncluded);
+                OnPropertyChanged(new PropertyChangedEventArgs(nameof(SelectedProductIncluded)));
+            }
         }
 
-        public GroupsCollection(IEnumerable<TGroup> items) : base(items)
+        public GroupsCollection(IEnumerable<TGroup> groups, bool isNew) : base(groups)
         {
+            if (isNew)
+            {
+                this.Clear();
+                this.AcceptChanges();
+                groups.ForEach(this.Add);
+            }
         }
     }
 }

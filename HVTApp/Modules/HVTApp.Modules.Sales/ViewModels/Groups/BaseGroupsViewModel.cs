@@ -24,25 +24,8 @@ namespace HVTApp.Modules.Sales.ViewModels
         where TAfterSaveEvent : PubSubEvent<TModel>, new()
         where TAfterRemoveEvent : PubSubEvent<TModel>, new()
     {
+        public GroupsCollection<TModel, TGroup, TMember> Groups { get; protected set; } = new GroupsCollection<TModel, TGroup, TMember>(new List<TGroup>(), false);
 
-        private ProductIncludedWrapper _selectedProductIncluded;
-
-        public GroupsCollection<TModel, TGroup, TMember> Groups { get; protected set; } = new GroupsCollection<TModel, TGroup, TMember>();
-
-        /// <summary>
-        /// Выбранный зависимый продукт.
-        /// </summary>
-        public ProductIncludedWrapper SelectedProductIncluded
-        {
-            get { return _selectedProductIncluded; }
-            set
-            {
-                if (Equals(_selectedProductIncluded, value)) return;
-                _selectedProductIncluded = value;
-                ((DelegateCommand)RemoveProductIncludedCommand)?.RaiseCanExecuteChanged();
-                OnPropertyChanged();
-            }
-        }
 
         protected abstract List<TGroup> GetGroups(IEnumerable<TModel> units);
 
@@ -51,29 +34,10 @@ namespace HVTApp.Modules.Sales.ViewModels
             UnitOfWork = unitOfWork;
             var unitsArray = units as TModel[] ?? units.ToArray();
 
-            //актуализируем количество родительских групп включенных продуктов
-            foreach (var includedProduct in unitsArray.SelectMany(x => x.ProductsIncluded))
-            {
-                includedProduct.ParentsCount = unitsArray.Count(x => x.ProductsIncluded.Contains(includedProduct));
-            }
+            //создаем контейнер
+            Groups = new GroupsCollection<TModel, TGroup, TMember>(GetGroups(unitsArray), isNew);
 
-            //группируем юниты
-            var groups = GetGroups(unitsArray);
-
-            //если создана новая сущность, юниты добавляем в пустой список
-            if (isNew)
-            {
-                //новый контейнер групп
-                Groups = new GroupsCollection<TModel, TGroup, TMember>();
-                //добавление групп в контейнер
-                groups.ForEach(x => Groups.Add(x));
-            }
-            //если сущность редактируется
-            else
-            {
-                Groups = new GroupsCollection<TModel, TGroup, TMember>(groups);
-            }
-
+            // реакция на выбор группы
             Groups.SelectedGroupChanged += group =>
             {
                 ((DelegateCommand)RemoveCommand)?.RaiseCanExecuteChanged();
@@ -81,11 +45,20 @@ namespace HVTApp.Modules.Sales.ViewModels
                 OnPropertyChanged(nameof(PriceStructures));
             };
 
+            // реакция на выбор включенного оборудования
+            Groups.SelectedProductIncludedChanged += productIncluded =>
+            {
+                ((DelegateCommand)RemoveProductIncludedCommand)?.RaiseCanExecuteChanged();
+            };
+
+            // событие для того, чтобы вид перепривязал группы
             OnPropertyChanged(nameof(Groups));
 
+            // подписка на события изменения каждой группы и их членов
             ((IValidatableChangeTrackingCollection<TGroup>)Groups).PropertyChanged += (sender, args) => GroupChanged?.Invoke();
             Groups.CollectionChanged += (sender, args) => GroupChanged?.Invoke();
 
+            // обновление прайса каждой группы
             Groups.ForEach(RefreshPrice);
         }
 
@@ -99,7 +72,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             ChangePaymentsCommand = new DelegateCommand<TGroup>(ChangePaymentsCommand_Execute);
 
             AddProductIncludedCommand = new DelegateCommand(AddProductIncludedCommand_Execute, () => Groups.SelectedGroup != null);
-            RemoveProductIncludedCommand = new DelegateCommand(RemoveProductIncludedCommand_Execute, () => SelectedProductIncluded != null);
+            RemoveProductIncludedCommand = new DelegateCommand(RemoveProductIncludedCommand_Execute, () => Groups.SelectedProductIncluded != null);
 
             //загружаем блоки оборудования (если они еще не загружены)
             if(Blocks == null) Blocks = UnitOfWork.Repository<ProductBlock>().Find(x => true);
@@ -138,7 +111,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Удалить?") == MessageDialogResult.No)
                 return;
 
-            Groups.SelectedGroup.RemoveProductIncluded(SelectedProductIncluded);
+            Groups.SelectedGroup.RemoveProductIncluded(Groups.SelectedProductIncluded);
             RefreshPrice(Groups.SelectedGroup);
         }
 
