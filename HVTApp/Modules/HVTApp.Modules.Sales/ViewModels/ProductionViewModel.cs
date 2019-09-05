@@ -8,6 +8,7 @@ using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Comparers;
 using HVTApp.UI.Converter;
 using HVTApp.UI.Groups;
 using Microsoft.Practices.ObjectBuilder2;

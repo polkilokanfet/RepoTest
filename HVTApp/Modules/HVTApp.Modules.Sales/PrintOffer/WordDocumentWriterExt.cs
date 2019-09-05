@@ -4,7 +4,7 @@ namespace HVTApp.Modules.Sales.PrintOffer
 {
     public static class WordDocumentWriterExt
     {
-        public static void Paragraph(this WordDocumentWriter docWriter, string text, ParagraphProperties paragraphProperties = null, Font font = null)
+        public static void PrintParagraph(this WordDocumentWriter docWriter, string text, ParagraphProperties paragraphProperties = null, Font font = null)
         {
             text = text ?? string.Empty;
             if (paragraphProperties == null)
@@ -24,9 +24,9 @@ namespace HVTApp.Modules.Sales.PrintOffer
         {
             docWriter.StartTableCell(cellProps);
             if(font == null)
-                docWriter.Paragraph(text, paragraphProperties);
+                docWriter.PrintParagraph(text, paragraphProperties);
             else
-                docWriter.Paragraph(text, paragraphProperties, font);
+                docWriter.PrintParagraph(text, paragraphProperties, font);
 
             docWriter.EndTableCell();
             return docWriter;

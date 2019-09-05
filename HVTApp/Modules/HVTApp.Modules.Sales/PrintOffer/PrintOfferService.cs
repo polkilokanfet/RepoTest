@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
-using HVTApp.Modules.Sales.ViewModels;
+using HVTApp.UI.Comparers;
+using HVTApp.UI.Groups;
 using Infragistics.Documents.Word;
 using Microsoft.Practices.Unity;
 
@@ -22,49 +24,44 @@ namespace HVTApp.Modules.Sales.PrintOffer
 
         public async Task PrintOfferAsync(Guid offerId)
         {
-            var offerViewModel = _container.Resolve<OfferViewModel>();
-            var offer = await _container.Resolve<IUnitOfWork>().Repository<Offer>().GetByIdAsync(offerId);
-            await offerViewModel.LoadAsync(offer, false);
+            var unitOfWork = _container.Resolve<IUnitOfWork>();
+            var offerUnits = (await unitOfWork.Repository<OfferUnit>().GetAllAsync()).Where(x => x.Offer.Id == offerId).ToList();
+            var offer = offerUnits.First().Offer;
+
+            //разбиваем на группы, а их делим по объектам
+            var offerUnitsGroupsByFacilities = offerUnits.GroupBy(x => x, new OfferUnitsGroupsComparer())
+                                                         .Select(x => new OfferUnitsGroup(x))
+                                                         .GroupBy(x => x.Facility.Model)
+                                                         .ToList();
 
             var offerDocumentPath = AppDomain.CurrentDomain.BaseDirectory + "\\TestOfferDocument.docx";
-            WordDocumentWriter docWriter = WordDocumentWriter.Create(offerDocumentPath);
+            var docWriter = WordDocumentWriter.Create(offerDocumentPath);
             docWriter.StartDocument();
-            docWriter.Paragraph("Получатель");
-            docWriter.Paragraph($"должность: {offer.RecipientEmployee.Position.Name}");
-            docWriter.Paragraph($"компания: {offer.RecipientEmployee.Company}");
-            docWriter.Paragraph($"Ф.И.О.: {offer.RecipientEmployee.Person.Surname} {offer.RecipientEmployee.Person.Name} {offer.RecipientEmployee.Person.Patronymic}");
 
-            docWriter.Paragraph($"Предложение на поставку оборудования по проекту: \"{offer.Project.Name}\"");
-            docWriter.Paragraph($"Срок действия ТКП: {offer.ValidityDate.ToShortDateString()}");
+            //печать заголовка
+            PrintHeader(docWriter, offer);
 
-
-            //Table
-            // Create border properties for Table
             var tableBorderProperties = GetTableBorderProperties(docWriter);
-            // Create table properties
-            var tableProperties = GetTableProperties(docWriter, tableBorderProperties);
-            // Create table row properties
             var tableRowProperties = docWriter.CreateTableRowProperties();
+            var tableCellProperties = docWriter.CreateTableCellProperties();
 
-            // Create table cell properties
-            TableCellProperties cellProps = docWriter.CreateTableCellProperties();
-            cellProps.BorderProperties = tableBorderProperties;
+            tableCellProperties.BorderProperties = tableBorderProperties;
 
-            docWriter.StartTable(6, tableProperties);
-
+            docWriter.StartTable(6, GetTableProperties(docWriter, tableBorderProperties));
+            
             tableRowProperties.IsHeaderRow = true;
-            cellProps.BackColor = Colors.AliceBlue;
-            ParagraphProperties paragraphProps = docWriter.CreateParagraphProperties();
+            tableCellProperties.BackColor = Colors.AliceBlue;
+            var paragraphProps = docWriter.CreateParagraphProperties();
             paragraphProps.Alignment = ParagraphAlignment.Left;
 
             Font fontHeader = docWriter.CreateFont();
             fontHeader.Bold = true;
 
-            docWriter.TableRow(cellProps, tableRowProperties, paragraphProps, fontHeader, "№", "Тип оборудования", "Обозначение", "Кол.", "Стоимость, руб.", "Сумма, руб.");
+            docWriter.TableRow(tableCellProperties, tableRowProperties, paragraphProps, fontHeader, "№", "Тип оборудования", "Обозначение", "Кол.", "Стоимость, руб.", "Сумма, руб.");
 
             // Reset the cell properties, so that the cell properties are different from the header cells.
-            cellProps.Reset();
-            cellProps.VerticalAlignment = TableCellVerticalAlignment.Top;
+            tableCellProperties.Reset();
+            tableCellProperties.VerticalAlignment = TableCellVerticalAlignment.Top;
             // Reset the row properties
             tableRowProperties.Reset();
 
@@ -73,97 +70,146 @@ namespace HVTApp.Modules.Sales.PrintOffer
 
             string productsDetails = string.Empty;
             var num = 0;
-            var offerUnitsGroupsOrdered = offerViewModel.GroupsViewModel.Groups.GroupBy(x => x.Facility.Model);
-            foreach (var offerUnitsGroups in offerUnitsGroupsOrdered)
+            foreach (var offerUnitsGroupsByFacility in offerUnitsGroupsByFacilities)
             {
                 docWriter.StartTableRow();
-                cellProps.ColumnSpan = 6;
-                docWriter.TableCell($"{offerUnitsGroups.Key}", cellProps); //объект
+                tableCellProperties.ColumnSpan = 6;
+                docWriter.TableCell($"{offerUnitsGroupsByFacility.Key}", tableCellProperties); //объект
                 docWriter.EndTableRow();
 
-                cellProps.ColumnSpan = 1;
-                foreach (var offerUnitsGroup in offerUnitsGroups)
+                tableCellProperties.ColumnSpan = 1;
+                foreach (var offerUnitsGroup in offerUnitsGroupsByFacility)
                 {
                     num++;
                     docWriter.StartTableRow();
-                    docWriter.TableCell(num.ToString(), cellProps);                                 //номер строки
-                    docWriter.TableCell(offerUnitsGroup.Product.ProductType?.Name, cellProps);      //тип оборудования
-                    docWriter.TableCell(offerUnitsGroup.Product.Designation, cellProps);            //обозначение
-                    docWriter.TableCell($"{offerUnitsGroup.Amount:D}", cellProps, parPropRight);    //колличество
-                    docWriter.TableCell($"{offerUnitsGroup.Cost:C}", cellProps, parPropRight);      //стоимость
-                    docWriter.TableCell($"{offerUnitsGroup.Total:C}", cellProps, parPropRight);     //сумма
+                    docWriter.TableCell(num.ToString(), tableCellProperties);                                 //номер строки
+                    docWriter.TableCell(offerUnitsGroup.Product.ProductType?.Name, tableCellProperties);      //тип оборудования
+                    docWriter.TableCell(offerUnitsGroup.Product.Designation, tableCellProperties);            //обозначение
+                    docWriter.TableCell($"{offerUnitsGroup.Amount:D}", tableCellProperties, parPropRight);    //колличество
+                    docWriter.TableCell($"{offerUnitsGroup.Cost:N}", tableCellProperties, parPropRight);      //стоимость
+                    docWriter.TableCell($"{offerUnitsGroup.Total:N}", tableCellProperties, parPropRight);     //сумма
                     docWriter.EndTableRow();
 
                     productsDetails += $"Позиция {num}. {offerUnitsGroup.Product}:" + Environment.NewLine;
                     productsDetails += $"Условия оплаты: {offerUnitsGroup.PaymentConditionSet}" + Environment.NewLine;
-                    productsDetails += $"Технические харрактеристики: {offerUnitsGroup.Product.Model.GetFullDescription()}" + Environment.NewLine + Environment.NewLine;
+                    //productsDetails += $"Технические харрактеристики: {offerUnitsGroup.Product.Model.GetFullDescription()}" + Environment.NewLine + Environment.NewLine;
 
-                    //дополнительное оборудование
-                    if (!offerUnitsGroup.ProductsIncluded.Any()) continue;
+                    ////дополнительное оборудование
+                    //if (!offerUnitsGroup.ProductsIncluded.Any()) continue;
 
-                    Font fontSmall = docWriter.CreateFont();
-                    fontSmall.Size = 10;
-                    docWriter.TableRow(cellProps, null, null, fontSmall, "-", "в составе:", "-", "-", "-", "-");
+                    //Font fontSmall = docWriter.CreateFont();
+                    //fontSmall.Size = 10;
+                    //docWriter.TableRow(cellProps, null, null, fontSmall, "-", "в составе:", "-", "-", "-", "-");
 
-                    var rn = 0;
-                    foreach (var dependentProduct in offerUnitsGroup.ProductsIncluded)
-                    {
-                        rn++;
-                        docWriter.StartTableRow();
-                        docWriter.TableCell($"{num}.{rn}.", cellProps, null, fontSmall);
-                        docWriter.TableCell(dependentProduct.Product.ProductType?.Name, cellProps, null, fontSmall);
-                        docWriter.TableCell(dependentProduct.Product.ToString(), cellProps, null, fontSmall);
-                        docWriter.TableCell(dependentProduct.Amount.ToString(), cellProps, parPropRight, fontSmall);
-                        docWriter.TableCell("-", cellProps, parPropRight, fontSmall);
-                        docWriter.TableCell("-", cellProps, parPropRight, fontSmall);
-                        docWriter.EndTableRow();
-                    }
+                    //var rn = 0;
+                    //foreach (var dependentProduct in offerUnitsGroup.ProductsIncluded)
+                    //{
+                    //    rn++;
+                    //    docWriter.StartTableRow();
+                    //    docWriter.TableCell($"{num}.{rn}.", cellProps, null, fontSmall);
+                    //    docWriter.TableCell(dependentProduct.Product.ProductType?.Name, cellProps, null, fontSmall);
+                    //    docWriter.TableCell(dependentProduct.Product.ToString(), cellProps, null, fontSmall);
+                    //    docWriter.TableCell(dependentProduct.Amount.ToString(), cellProps, parPropRight, fontSmall);
+                    //    docWriter.TableCell("-", cellProps, parPropRight, fontSmall);
+                    //    docWriter.TableCell("-", cellProps, parPropRight, fontSmall);
+                    //    docWriter.EndTableRow();
+                    //}
                 }
             }
 
-            var sum = offerViewModel.GroupsViewModel.Groups.Sum(x => x.Total);
+            var sum = offerUnits.Sum(x => x.Cost);
 
-            cellProps.BackColor = Colors.AliceBlue;
+            tableCellProperties.BackColor = Colors.AliceBlue;
             docWriter.StartTableRow();
-            cellProps.ColumnSpan = 5;
-            docWriter.TableCell("Итого без НДС:", cellProps, null, fontHeader);
-            cellProps.ColumnSpan = 1;
-            docWriter.TableCell($"{sum:C}", cellProps, parPropRight, fontHeader);
+            tableCellProperties.ColumnSpan = 5;
+            docWriter.TableCell("Итого без НДС:", tableCellProperties, null, fontHeader);
+            tableCellProperties.ColumnSpan = 1;
+            docWriter.TableCell($"{sum:N}", tableCellProperties, parPropRight, fontHeader);
             docWriter.EndTableRow();
 
             docWriter.StartTableRow();
-            cellProps.ColumnSpan = 5;
-            docWriter.TableCell($"НДС ({offer.Vat} %):", cellProps, null, fontHeader);
-            cellProps.ColumnSpan = 1;
-            docWriter.TableCell($"{sum * offer.Vat / 100:C}", cellProps, parPropRight, fontHeader);
+            tableCellProperties.ColumnSpan = 5;
+            docWriter.TableCell($"НДС ({offer.Vat} %):", tableCellProperties, null, fontHeader);
+            tableCellProperties.ColumnSpan = 1;
+            docWriter.TableCell($"{sum * offer.Vat / 100:N}", tableCellProperties, parPropRight, fontHeader);
             docWriter.EndTableRow();
 
 
             docWriter.StartTableRow();
-            cellProps.ColumnSpan = 5;
-            docWriter.TableCell($"Итого с НДС:", cellProps, null, fontHeader);
-            cellProps.ColumnSpan = 1;
-            docWriter.TableCell($"{sum * (1 + offer.Vat / 100):C}", cellProps, parPropRight, fontHeader);
+            tableCellProperties.ColumnSpan = 5;
+            docWriter.TableCell($"Итого с НДС:", tableCellProperties, null, fontHeader);
+            tableCellProperties.ColumnSpan = 1;
+            docWriter.TableCell($"{sum * (1 + offer.Vat / 100):N}", tableCellProperties, parPropRight, fontHeader);
             docWriter.EndTableRow();
 
             docWriter.EndTable();
 
-            ParagraphProperties paragraphProperties = docWriter.CreateParagraphProperties();
+            var paragraphProperties = docWriter.CreateParagraphProperties();
             paragraphProperties.PageBreakBefore = true;
-            docWriter.Paragraph("Деталировка условий поставки оборудования (в соответствии с позициями таблицы):", paragraphProperties, fontHeader);
-            docWriter.Paragraph(productsDetails);
+            docWriter.PrintParagraph("Деталировка условий поставки оборудования (в соответствии с позициями таблицы):", paragraphProperties, fontHeader);
+            docWriter.PrintParagraph(productsDetails);
 
-            var pp = new PrintProduct();
-            foreach (var product in offerUnitsGroupsOrdered.SelectMany(x => x.Select(s => s.Product.Model)).Distinct())
-            {
-                pp.Print(docWriter, product);
-                docWriter.Paragraph(Environment.NewLine);
-            }
+            // Печать технических деталей ТКП
+            PrintTechnicalDetails(docWriter, offerUnitsGroupsByFacilities);
 
             docWriter.EndDocument();
             docWriter.Close();
             System.Diagnostics.Process.Start(offerDocumentPath);
 
+        }
+
+        /// <summary>
+        /// Печать технических деталей ТКП
+        /// </summary>
+        /// <param name="docWriter"></param>
+        /// <param name="offerUnitsGroupsByFacilities"></param>
+        private static void PrintTechnicalDetails(WordDocumentWriter docWriter, List<IGrouping<Facility, OfferUnitsGroup>> offerUnitsGroupsByFacilities)
+        {
+            var paragraphProperties = docWriter.CreateParagraphProperties();
+            paragraphProperties.PageBreakBefore = true;
+
+            Font fontHeader = docWriter.CreateFont();
+            fontHeader.Bold = true;
+
+            docWriter.PrintParagraph("Технические характеристики оборудования(в соответствии с позициями таблицы):", paragraphProperties, fontHeader);
+            int positionNumber = 1;
+            foreach (var offerUnitsGroupsByFacility in offerUnitsGroupsByFacilities)
+            {
+                foreach (var offerUnitsGroup in offerUnitsGroupsByFacility)
+                {
+                    docWriter.PrintParagraph($"{positionNumber++}. {offerUnitsGroup.Product} = {offerUnitsGroupsByFacility.Count()} шт.:");
+                    new PrintProduct().Print(docWriter, offerUnitsGroup.Product.Model);
+
+                    // включенное в состав оборудование
+                    if (offerUnitsGroup.ProductsIncluded.Any())
+                    {
+                        docWriter.PrintParagraph("Дополнительное оборудование, включенное в состав:");
+                        foreach (var productIncluded in offerUnitsGroup.ProductsIncluded)
+                        {
+                            docWriter.PrintParagraph($"{productIncluded.Product} = {productIncluded.Amount} шт.:");
+                            new PrintProduct().Print(docWriter, productIncluded.Product.Model);
+                        }
+                    }
+
+                    docWriter.PrintParagraph(Environment.NewLine);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Печать заголовка ТКП
+        /// </summary>
+        /// <param name="docWriter"></param>
+        /// <param name="offer"></param>
+        private static void PrintHeader(WordDocumentWriter docWriter, Offer offer)
+        {
+            docWriter.PrintParagraph("Получатель");
+            docWriter.PrintParagraph($"должность: {offer.RecipientEmployee.Position.Name}");
+            docWriter.PrintParagraph($"компания: {offer.RecipientEmployee.Company}");
+            docWriter.PrintParagraph($"Ф.И.О.: {offer.RecipientEmployee.Person.Surname} {offer.RecipientEmployee.Person.Name} {offer.RecipientEmployee.Person.Patronymic}");
+
+            docWriter.PrintParagraph($"Проект: \"{offer.Project.Name}\"");
+            docWriter.PrintParagraph($"Срок действия ТКП: {offer.ValidityDate.ToShortDateString()}");
         }
 
         private TableBorderProperties GetTableBorderProperties(WordDocumentWriter docWriter)

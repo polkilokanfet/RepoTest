@@ -5,6 +5,7 @@ using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Comparers;
 using HVTApp.UI.Converter;
 using HVTApp.UI.Groups;
 using HVTApp.UI.Wrapper;

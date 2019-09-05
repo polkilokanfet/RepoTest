@@ -18,9 +18,11 @@ namespace HVTApp.UI.Groups
     {
 
         #region Fields
+
         private readonly TWrapper _unit;
         private double _price;
         private double _fixedCost = 0;
+
         #endregion
 
         #region Public properties
@@ -65,12 +67,16 @@ namespace HVTApp.UI.Groups
 
         public double? CostDelivery
         {
-            get { return GetValue<double?>(); }
+            get
+            {
+                if (Groups == null) return _unit.Model.CostDelivery;
+                return Groups.Sum(x => x.CostDelivery);
+            }
             set
             {
-                if (value.HasValue && value.Value < 0)
-                    return;
-                SetValue(value);
+                if (value.HasValue && value.Value < 0) return;
+
+                SetValue(value / Amount);
                 CheckCost();
                 OnPropertyChanged(nameof(MarginalIncome));
             }
@@ -97,8 +103,7 @@ namespace HVTApp.UI.Groups
 
         private void CheckCost()
         {
-            if (Cost < CostMin)
-                Cost = CostMin;
+            if (Cost < CostMin) Cost = CostMin;
         }
 
         /// <summary>

@@ -56,6 +56,7 @@ namespace HVTApp.Model.POCOs
         double Cost { get; set; }
         double? CostDelivery { get; set; }
         bool CostDeliveryIncluded { get; set; }
+        int ProductionTerm { get; set; }
     }
 
 }

@@ -1,4 +1,3 @@
-using System;
 using System.Windows.Media;
 using HVTApp.Model.POCOs;
 using Infragistics.Documents.Word;
@@ -7,7 +6,7 @@ namespace HVTApp.Modules.Sales.PrintOffer
 {
     public class PrintProduct
     {
-        public void Print(WordDocumentWriter docWriter, Product product, int? Amount = null)
+        public void Print(WordDocumentWriter docWriter, Product product, int? amount = null)
         {
             var tableProps = docWriter.CreateTableProperties();
             tableProps.Alignment = ParagraphAlignment.Both;
@@ -15,7 +14,7 @@ namespace HVTApp.Modules.Sales.PrintOffer
 
             //Заголовок
             docWriter.StartTableRow();
-            string header = Amount == null ? $"{product}" : $"{product} x {Amount} шт.";
+            string header = amount == null ? $"{product}" : $"{product} x {amount} шт.";
             Cell(docWriter, header, CellProps(docWriter, 2, null, Colors.AliceBlue));
             docWriter.EndTableRow();
 
@@ -43,7 +42,7 @@ namespace HVTApp.Modules.Sales.PrintOffer
         {
             cellProperties = cellProperties ?? docWriter.CreateTableCellProperties();
             docWriter.StartTableCell(cellProperties);
-            docWriter.Paragraph(text, paragraphProperties);
+            docWriter.PrintParagraph(text, paragraphProperties);
             docWriter.EndTableCell();
         }
 

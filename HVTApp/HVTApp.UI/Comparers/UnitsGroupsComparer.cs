@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Model.POCOs;
 
-namespace HVTApp.UI.Converter
+namespace HVTApp.UI.Comparers
 {
-    public class OfferUnitsGroupsComparer : IEqualityComparer<OfferUnit>
+    public abstract class UnitsGroupsComparer<T> : IEqualityComparer<T>
+        where T : IUnit
     {
-        public bool Equals(OfferUnit x, OfferUnit y)
+        public virtual bool Equals(T x, T y)
         {
+            if (x == null) throw new ArgumentNullException(nameof(x));
+            if (y == null) throw new ArgumentNullException(nameof(y));
+
             if (!Equals(x.Cost, y.Cost)) return false;
             if (!Equals(x.ProductionTerm, y.ProductionTerm)) return false;
             if (!Equals(x.Product.Id, y.Product.Id)) return false;
@@ -16,21 +20,21 @@ namespace HVTApp.UI.Converter
             if (!Equals(x.PaymentConditionSet.Id, y.PaymentConditionSet.Id)) return false;
             if (!Equals(x.CostDelivery, y.CostDelivery)) return false;
 
-            var first = x.ProductsIncluded.Select(p => new ProductAmount(p.Product.Id, p.Amount));
-            var second = y.ProductsIncluded.Select(p => new ProductAmount(p.Product.Id, p.Amount));
+            var productsInclX = x.ProductsIncluded.Select(p => new ProductAmount(p.Product.Id, p.Amount)).ToList();
+            var productsInclY = y.ProductsIncluded.Select(p => new ProductAmount(p.Product.Id, p.Amount)).ToList();
 
-            if (first.Except(second, new ProductAmountComparer()).Any()) return false;
-            if (second.Except(first, new ProductAmountComparer()).Any()) return false;
+            if (productsInclX.Except(productsInclY, new ProductAmountComparer()).Any()) return false;
+            if (productsInclY.Except(productsInclX, new ProductAmountComparer()).Any()) return false;
 
             return true;
         }
 
-        public int GetHashCode(OfferUnit obj)
+        public int GetHashCode(T obj)
         {
             return 0;
         }
 
-        class ProductAmount
+        private class ProductAmount
         {
             public Guid ProductId { get; }
             public int Amount { get; }
@@ -48,7 +52,7 @@ namespace HVTApp.UI.Converter
             }
         }
 
-        class ProductAmountComparer : IEqualityComparer<ProductAmount>
+        private class ProductAmountComparer : IEqualityComparer<ProductAmount>
         {
             public bool Equals(ProductAmount x, ProductAmount y)
             {
@@ -60,5 +64,6 @@ namespace HVTApp.UI.Converter
                 return 0;
             }
         }
+
     }
 }

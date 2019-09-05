@@ -27,7 +27,7 @@ namespace HVTApp.Model.POCOs
         public virtual PaymentConditionSet StandartPaymentsConditionSet { get; set; }
 
         [Designation("НДС"), Required]
-        public double Vat { get; set; } = 18;
+        public double Vat { get; set; } = 20;
 
         [Designation("Родительский параметр новых параметров"), Required]
         public virtual Parameter NewProductParameter { get; set; }

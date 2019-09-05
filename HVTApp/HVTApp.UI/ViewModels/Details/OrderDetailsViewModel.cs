@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Comparers;
 using HVTApp.UI.Converter;
 using HVTApp.UI.Groups;
 using HVTApp.UI.Wrapper;

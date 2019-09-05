@@ -143,7 +143,7 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateOffers()
         {
-            OfferMrsk.Clone(new Offer { Number = new DocumentNumber(), Vat = 18, Project = ProjectSubstation, ValidityDate = DateTime.Today.AddDays(60), Author = EmployeeIvanov, SenderEmployee = EmployeeIvanov, RecipientEmployee = EmployeeSidorov, CopyToRecipients = new List<Employee> { EmployeePetrov }, RegistrationDetailsOfRecipient = new DocumentsRegistrationDetails { Number = "12f455", Date = DateTime.Today.AddDays(-3) } });
+            OfferMrsk.Clone(new Offer { Number = new DocumentNumber(), Vat = 20, Project = ProjectSubstation, ValidityDate = DateTime.Today.AddDays(60), Author = EmployeeIvanov, SenderEmployee = EmployeeIvanov, RecipientEmployee = EmployeeSidorov, CopyToRecipients = new List<Employee> { EmployeePetrov }, RegistrationDetailsOfRecipient = new DocumentsRegistrationDetails { Number = "12f455", Date = DateTime.Today.AddDays(-3) } });
         }
 
         private void GenerateTenders()
@@ -166,8 +166,8 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateSpecifications()
         {
-            SpecificationMrsk1.Clone(new Specification { Contract = ContractMrsk, Date = ContractMrsk.Date, Number = "1", Vat = 18 });
-            SpecificationFsk.Clone(new Specification { Contract = ContractFsk, Date = ContractFsk.Date, Number = "1", Vat = 18 });
+            SpecificationMrsk1.Clone(new Specification { Contract = ContractMrsk, Date = ContractMrsk.Date, Number = "1", Vat = 20 });
+            SpecificationFsk.Clone(new Specification { Contract = ContractFsk, Date = ContractFsk.Date, Number = "1", Vat = 20 });
         }
 
         private void GenerateNotes()
