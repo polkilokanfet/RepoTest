@@ -111,9 +111,6 @@
       <DependentUpon>SalesMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="Menus\SalesMenuViewModel.cs" />
-    <Compile Include="PrintOffer\PrintOfferService.cs" />
-    <Compile Include="PrintOffer\PrintProduct.cs" />
-    <Compile Include="PrintOffer\WordDocumentWriterExt.cs" />
     <Compile Include="Tabs\TabCrudUnits.xaml.cs">
       <DependentUpon>TabCrudUnits.xaml</DependentUpon>
     </Compile>

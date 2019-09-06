@@ -1,6 +1,6 @@
 ﻿using Infragistics.Documents.Word;
 
-namespace HVTApp.Modules.Sales.PrintOffer
+namespace HVTApp.Services.PrintService.PrintOffer
 {
     public static class WordDocumentWriterExt
     {

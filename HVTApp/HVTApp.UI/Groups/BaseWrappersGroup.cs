@@ -167,8 +167,10 @@ namespace HVTApp.UI.Groups
 
             //если прилетело более одного юнита
             //создаем подгруппы
-            var groups = units.Select(x => (TMember)Activator.CreateInstance(typeof(TMember), new List<TModel> {x}));
+            var groups = units.Select(x => (TMember)Activator.CreateInstance(typeof(TMember), new List<TModel> {x}))
+                              .OrderBy(x => x.Cost);
             Groups = new ValidatableChangeTrackingCollection<TMember>(groups);
+
             //подписываемся на события на события
             Groups.PropertyChanged += UnitOnPropertyChanged;
             Groups.CollectionChanged += GroupsOnCollectionChanged;

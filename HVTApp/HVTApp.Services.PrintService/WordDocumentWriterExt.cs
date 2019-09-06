@@ -49,21 +49,21 @@ namespace HVTApp.Services.PrintService
         }
 
 
-        public static void Cell(this WordDocumentWriter docWriter, string text, TableCellProperties cellProperties = null, ParagraphProperties paragraphProperties = null)
+        public static void Cell(this WordDocumentWriter docWriter, string text, TableCellProperties cellProperties = null, ParagraphProperties paragraphProperties = null, Font font = null)
         {
             cellProperties = cellProperties ?? docWriter.CreateTableCellProperties();
             docWriter.StartTableCell(cellProperties);
-            docWriter.Paragraph(text, paragraphProperties);
+            docWriter.Paragraph(text, paragraphProperties, font);
             docWriter.EndTableCell();
         }
 
         public static TableCellProperties CellProps(this WordDocumentWriter docWriter, int? span = null, Padding? margin = null, Color? color = null)
         {
-            var cellProps = docWriter.CreateTableCellProperties();
-            if (span.HasValue) cellProps.ColumnSpan = span.Value;
-            if (margin.HasValue) cellProps.Margins = margin.Value;
-            if (color.HasValue) cellProps.BackColor = color.Value;
-            return cellProps;
+            var tableCellProperties = docWriter.CreateTableCellProperties();
+            if (span.HasValue) tableCellProperties.ColumnSpan = span.Value;
+            if (margin.HasValue) tableCellProperties.Margins = margin.Value;
+            if (color.HasValue) tableCellProperties.BackColor = color.Value;
+            return tableCellProperties;
         }
 
     }

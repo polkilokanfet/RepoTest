@@ -5,11 +5,18 @@ using HVTApp.UI.Wrapper;
 
 namespace HVTApp.UI.Groups
 {
-
     public class OfferUnitsGroup : 
         BaseWrappersGroup<OfferUnitsGroup, OfferUnit, OfferUnitWrapper>, 
         IGroupValidatableChangeTrackingWithCollection<OfferUnitsGroup, OfferUnit>
     {
+        /// <summary>
+        /// Позиция строки в ТКП
+        /// </summary>
+        public int Position { get; set; }
+
+        /// <summary>
+        /// ТКП
+        /// </summary>
         public OfferWrapper Offer
         {
             get { return GetValue<OfferWrapper>(); }
