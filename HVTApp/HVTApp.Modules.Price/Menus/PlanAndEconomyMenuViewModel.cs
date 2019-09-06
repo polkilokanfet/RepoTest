@@ -1,4 +1,5 @@
 ﻿using HVTApp.Infrastructure;
+using HVTApp.Model;
 using HVTApp.Modules.PlanAndEconomy.Views;
 
 namespace HVTApp.Modules.PlanAndEconomy.Menus
@@ -7,18 +8,23 @@ namespace HVTApp.Modules.PlanAndEconomy.Menus
     {
         protected override void GenerateMenu()
         {
-            var prices = new NavigationItem("Переменные затраты", typeof(PricesView));
-            var prodPlan = new NavigationItem("План производства", typeof(ProductionPlanView));
-            var dates = new NavigationItem("Фактические даты", typeof(DatesView));
-            var paymentsF = new NavigationItem("Поступления (факт)", typeof(PaymentDocumentsView));
-            var paymentsP = new NavigationItem("Поступления (план)", typeof(PaymentsView));
+            if (GlobalAppProperties.User.RoleCurrent == Role.Pricer || GlobalAppProperties.User.RoleCurrent == Role.Admin)
+            {
+                Items.Add(new NavigationItem("Переменные затраты", typeof(PricesView)));
+            }
 
+            if (GlobalAppProperties.User.RoleCurrent == Role.PlanMaker || GlobalAppProperties.User.RoleCurrent == Role.Admin)
+            {
+                Items.Add(new NavigationItem("План производства", typeof(ProductionPlanView)));
+            }
 
-            Items.Add(prices);
-            Items.Add(prodPlan);
-            Items.Add(dates);
-            Items.Add(paymentsF);
-            Items.Add(paymentsP);
+            if (GlobalAppProperties.User.RoleCurrent == Role.Economist || GlobalAppProperties.User.RoleCurrent == Role.Admin)
+            {
+                Items.Add(new NavigationItem("План производства", typeof(ProductionPlanView)));
+                Items.Add(new NavigationItem("Фактические даты", typeof(DatesView)));
+                Items.Add(new NavigationItem("Поступления (факт)", typeof(PaymentDocumentsView)));
+                Items.Add(new NavigationItem("Поступления (план)", typeof(PaymentsView)));
+            }
         }
     }
 }

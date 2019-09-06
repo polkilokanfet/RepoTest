@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -52,7 +51,7 @@ namespace HVTApp.Model.POCOs
 
         public override string ToString()
         {
-            var type = ProductType == null ? String.Empty : $"{ProductType} ";
+            var type = ProductType == null ? string.Empty : $"{ProductType} ";
             if (!string.IsNullOrEmpty(DesignationSpecial)) return $"{type}{DesignationSpecial}";
             if (!string.IsNullOrEmpty(Designation)) return $"{type}{Designation}";
             return ProductBlock.ToString();

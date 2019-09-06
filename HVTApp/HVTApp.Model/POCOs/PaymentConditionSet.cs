@@ -16,7 +16,7 @@ namespace HVTApp.Model.POCOs
         {
             var sb = new StringBuilder();
             PaymentConditions.OrderBy(x => x).ToList().ForEach(x => sb.Append($"{x}; "));
-            return sb.ToString();
+            return sb.Remove(sb.Length - 2, 2).ToString();
         }
     }
 }

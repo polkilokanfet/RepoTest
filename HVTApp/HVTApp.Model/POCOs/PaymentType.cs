@@ -3,11 +3,12 @@ namespace HVTApp.Model.POCOs
     public enum PaymentType
     {
         /// <summary>
-        /// кредиторская задолженность
+        /// Кредиторская задолженность
         /// </summary>
         AccountsPayable,
+
         /// <summary>
-        /// дебиторская задолженность
+        /// Дебиторская задолженность
         /// </summary>
         Receivables
     }

@@ -23,5 +23,10 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Связанное условие"), OrderStatus(-5), Required]
         public virtual PaymentCondition Condition { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Part * 100.0}% от суммы до {Date.ToShortDateString()}";
+        }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model;
 using HVTApp.UI.Views;
@@ -12,17 +11,17 @@ namespace HVTApp.Modules.BaseEntities.Menus
         protected override void GenerateMenu()
         {
             var views = typeof(CompanyLookupListView).Assembly.GetTypes()
-                .Where(x => String.Equals(x.Namespace, typeof(CompanyLookupListView).Namespace) && 
+                .Where(x => string.Equals(x.Namespace, typeof(CompanyLookupListView).Namespace) && 
                             x.Name.Contains("LookupListView")).OrderBy(x => x.DesignationSingle()).ToList();
 
             foreach (var view in views)
             {
                 //добавление видов в соответствии с правами доступа
                 if (view.GetAllowEditRoles().Contains(GlobalAppProperties.User.RoleCurrent))
+                {
                     Items.AddToNavigate(view);
-                //Items.Add(new NavigationItem(view.Name, view));
+                }
             }
-
         }
     }
 }

@@ -16,5 +16,10 @@ namespace HVTApp.Model.POCOs
 
         [Designation("НДС"), OrderStatus(1)]
         public double Vat { get; set; } = GlobalAppProperties.Actual.Vat;
+
+        public override string ToString()
+        {
+            return $"ТКП №{RegNumber} от {Date} по проекту \"{Project.Name}\" для {RecipientEmployee.Company}";
+        }
     }
 }

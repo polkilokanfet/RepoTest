@@ -6,7 +6,7 @@ using HVTApp.Infrastructure.Attributes;
 namespace HVTApp.Model.POCOs
 {
     /// <summary>
-    /// Добавленное оборудование к основному (например ЗИП к выключателю).
+    /// Добавленное оборудование к основному (например, ЗИП к выключателю).
     /// </summary>
     [Designation("Включенное в стоимость оборудование")]
     public partial class ProductIncluded : BaseEntity
@@ -16,6 +16,11 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Количество"), Required, OrderStatus(5)]
         public int Amount { get; set; } = 1;
+
+        public override string ToString()
+        {
+            return $"{Product} ({Amount} шт.)";
+        }
 
         /// <summary>
         /// Количество родительских единиц.
