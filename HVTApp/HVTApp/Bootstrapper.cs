@@ -1,5 +1,4 @@
-﻿#region using
-using System;
+﻿using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Reflection;
@@ -30,7 +29,6 @@ using HVTApp.Services.DialogService;
 using HVTApp.Services.MessageService;
 using HVTApp.Services.NewProductService;
 using HVTApp.Services.PrintService;
-using HVTApp.Services.PrintService.PrintOffer;
 using HVTApp.Services.ProductDesignationService;
 using HVTApp.Services.SelectService;
 using HVTApp.Services.ShippingService;
@@ -43,8 +41,6 @@ using Prism.Events;
 using Prism.Modularity;
 using Prism.Regions;
 using Prism.Unity;
-
-#endregion
 
 namespace HVTApp
 {

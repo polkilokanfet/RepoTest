@@ -14,7 +14,7 @@ using Infragistics.Documents.Word;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 
-namespace HVTApp.Services.PrintService.PrintOffer
+namespace HVTApp.Services.PrintService
 {
     public class PrintOfferService : IPrintOfferService
     {
@@ -61,8 +61,7 @@ namespace HVTApp.Services.PrintService.PrintOffer
             docWriter.PrintParagraph("Получатель");
             docWriter.PrintParagraph($"должность: {offer.RecipientEmployee.Position.Name}");
             docWriter.PrintParagraph($"компания: {offer.RecipientEmployee.Company}");
-            docWriter.PrintParagraph(
-                $"Ф.И.О.: {offer.RecipientEmployee.Person.Surname} {offer.RecipientEmployee.Person.Name} {offer.RecipientEmployee.Person.Patronymic}");
+            docWriter.PrintParagraph($"Ф.И.О.: {offer.RecipientEmployee.Person.Surname} {offer.RecipientEmployee.Person.Name} {offer.RecipientEmployee.Person.Patronymic}");
 
             docWriter.PrintParagraph($"Проект: \"{offer.Project.Name}\"");
             docWriter.PrintParagraph($"Срок действия ТКП: {offer.ValidityDate.ToShortDateString()}");
@@ -89,7 +88,7 @@ namespace HVTApp.Services.PrintService.PrintOffer
             Font fontBold = docWriter.CreateFont();
             fontBold.Bold = true;
 
-            WordDocumentWriterExt.TableRow(docWriter, tableCellProperties, tableRowProperties, paragraphProps, fontBold, "№",
+            docWriter.PrintTableRow(tableCellProperties, tableRowProperties, paragraphProps, fontBold, "№",
                 "Тип оборудования", "Обозначение", "Кол.", "Стоимость, руб.", "Сумма, руб.");
 
             // Reset the cell properties, so that the cell properties are different from the header cells.
@@ -107,7 +106,7 @@ namespace HVTApp.Services.PrintService.PrintOffer
                 docWriter.StartTableRow();
 
                 tableCellProperties.ColumnSpan = 6;
-                WordDocumentWriterExt.TableCell(docWriter, $"{offerUnitsGroupsByFacility.Key}", tableCellProperties); //объект
+                docWriter.PrintTableCell($"{offerUnitsGroupsByFacility.Key}", tableCellProperties); //объект
 
                 docWriter.EndTableRow();
 
@@ -116,13 +115,13 @@ namespace HVTApp.Services.PrintService.PrintOffer
                 {
                     docWriter.StartTableRow();
 
-                    WordDocumentWriterExt.TableCell(docWriter, offerUnitsGroup.Position.ToString(), tableCellProperties); //номер строки ТКП
-                    WordDocumentWriterExt.TableCell(docWriter, offerUnitsGroup.Product.ProductType?.Name, tableCellProperties);
+                    docWriter.PrintTableCell(offerUnitsGroup.Position.ToString(), tableCellProperties); //номер строки ТКП
+                    docWriter.PrintTableCell(offerUnitsGroup.Product.ProductType?.Name, tableCellProperties);
                     //тип оборудования
-                    WordDocumentWriterExt.TableCell(docWriter, offerUnitsGroup.Product.Designation, tableCellProperties); //обозначение
-                    WordDocumentWriterExt.TableCell(docWriter, $"{offerUnitsGroup.Amount:D}", tableCellProperties, parPropRight); //колличество
-                    WordDocumentWriterExt.TableCell(docWriter, $"{offerUnitsGroup.Cost:N}", tableCellProperties, parPropRight); //стоимость
-                    WordDocumentWriterExt.TableCell(docWriter, $"{offerUnitsGroup.Total:N}", tableCellProperties, parPropRight); //сумма
+                    docWriter.PrintTableCell(offerUnitsGroup.Product.Designation, tableCellProperties); //обозначение
+                    docWriter.PrintTableCell($"{offerUnitsGroup.Amount:D}", tableCellProperties, parPropRight); //колличество
+                    docWriter.PrintTableCell($"{offerUnitsGroup.Cost:N}", tableCellProperties, parPropRight); //стоимость
+                    docWriter.PrintTableCell($"{offerUnitsGroup.Total:N}", tableCellProperties, parPropRight); //сумма
 
                     docWriter.EndTableRow();
                 }
@@ -134,10 +133,8 @@ namespace HVTApp.Services.PrintService.PrintOffer
             tableCellProperties.BackColor = colorTableHeader;
 
             PrintSumTableString("Итого без НДС:", sum, docWriter, tableCellProperties, fontBold, parPropRight);
-            PrintSumTableString($"НДС ({offer.Vat} %):", sum * offer.Vat / 100, docWriter, tableCellProperties, fontBold,
-                parPropRight);
-            PrintSumTableString("Итого с НДС:", sum * (1 + offer.Vat / 100), docWriter, tableCellProperties, fontBold,
-                parPropRight);
+            PrintSumTableString($"НДС ({offer.Vat} %):", sum * offer.Vat / 100, docWriter, tableCellProperties, fontBold, parPropRight);
+            PrintSumTableString("Итого с НДС:", sum * (1 + offer.Vat / 100), docWriter, tableCellProperties, fontBold, parPropRight);
 
             docWriter.EndTable();
 
@@ -208,9 +205,9 @@ namespace HVTApp.Services.PrintService.PrintOffer
         {
             docWriter.StartTableRow();
             tableCellProperties.ColumnSpan = 5;
-            WordDocumentWriterExt.TableCell(docWriter, text, tableCellProperties, null, font);
+            docWriter.PrintTableCell(text, tableCellProperties, null, font);
             tableCellProperties.ColumnSpan = 1;
-            WordDocumentWriterExt.TableCell(docWriter, $"{sum:N}", tableCellProperties, parProp, font);
+            docWriter.PrintTableCell($"{sum:N}", tableCellProperties, parProp, font);
             docWriter.EndTableRow();
         }
 

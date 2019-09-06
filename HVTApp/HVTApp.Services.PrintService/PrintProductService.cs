@@ -14,7 +14,7 @@ namespace HVTApp.Services.PrintService
             string offerDocumentPath = AppDomain.CurrentDomain.BaseDirectory + "\\TestProductDocument.docx";
             WordDocumentWriter docWriter = WordDocumentWriter.Create(offerDocumentPath);
             docWriter.StartDocument();
-            docWriter.Paragraph($"{product}");
+            docWriter.PrintParagraph($"{product}");
 
             Print(docWriter, product);
 
@@ -31,12 +31,12 @@ namespace HVTApp.Services.PrintService
 
             foreach (var product in products)
             {
-                docWriter.Paragraph($"{product}");
+                docWriter.PrintParagraph($"{product}");
                 Print(docWriter, product, null, block);
 
                 var paragraphProperties = docWriter.CreateParagraphProperties();
                 paragraphProperties.PageBreakBefore = true;
-                docWriter.Paragraph(string.Empty, paragraphProperties);
+                docWriter.PrintParagraph(string.Empty, paragraphProperties);
             }
 
 
@@ -62,15 +62,15 @@ namespace HVTApp.Services.PrintService
             Font fontBold = docWriter.CreateFont();
             fontBold.Bold = true;
             var header = amount == null ? $"{product}" : $"{product} x {amount} шт.";
-            docWriter.Cell(header, docWriter.CellProps(2, null, Colors.AliceBlue), null, fontBold);
+            docWriter.PrintTableCell(header, docWriter.CellProps(2, null, Colors.AliceBlue), null, fontBold);
             docWriter.EndTableRow();
 
             //строки параметров
             foreach (var parameter in product.ProductBlock.GetOrderedParameters())
             {
                 docWriter.StartTableRow();
-                docWriter.Cell($"{parameter.ParameterGroup}");
-                docWriter.Cell($"{parameter}");
+                docWriter.PrintTableCell($"{parameter.ParameterGroup}");
+                docWriter.PrintTableCell($"{parameter}");
                 docWriter.EndTableRow();
             }
 
