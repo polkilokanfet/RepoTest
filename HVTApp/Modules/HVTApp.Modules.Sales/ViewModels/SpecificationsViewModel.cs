@@ -11,11 +11,11 @@ namespace HVTApp.Modules.Sales.ViewModels
 {
     public class SpecificationsViewModel : SpecificationLookupListViewModel
     {
-        public SalesUnitsSpecificetionBase Groups { get; }
+        public SalesUnitsSpecificationBase Groups { get; }
 
         public SpecificationsViewModel(IUnityContainer container) : base(container)
         {
-            Groups = container.Resolve<SalesUnitsSpecificetionBase>();
+            Groups = container.Resolve<SalesUnitsSpecificationBase>();
 
             var eventAggregator = container.Resolve<IEventAggregator>();
             this.SelectedLookupChanged += specificationLookup =>

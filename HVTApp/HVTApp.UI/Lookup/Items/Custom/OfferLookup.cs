@@ -32,10 +32,10 @@ namespace HVTApp.UI.Lookup
             var eventAggregator = container.Resolve<IEventAggregator>();
 
             //реакция на изменение в ТКП
-            eventAggregator.GetEvent<AfterSaveOfferEvent>().Subscribe(x =>
+            eventAggregator.GetEvent<AfterSaveOfferEvent>().Subscribe(entity =>
             {
-                if (x.Id == this.Id)
-                    this.Refresh(x);
+                if (entity.Id == this.Id)
+                    this.Refresh(entity);
             });
 
             //реакция на изменение в юните ТКП
@@ -48,7 +48,7 @@ namespace HVTApp.UI.Lookup
             });
 
 
-            //реакция на изменение в юните ТКП
+            //реакция на удаление юнита ТКП
             eventAggregator.GetEvent<AfterRemoveOfferUnitEvent>().Subscribe(offerUnit =>
             {
                 if (this.Id != offerUnit.Offer.Id) return;

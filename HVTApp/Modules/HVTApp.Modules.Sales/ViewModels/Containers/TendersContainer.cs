@@ -15,15 +15,15 @@ namespace HVTApp.Modules.Sales.ViewModels
         {
         }
 
-        protected override IEnumerable<Tender> GetItems(IUnitOfWorkDisplay unitOfWork)
+        protected override IEnumerable<TenderLookup> GetLookups(IUnitOfWorkDisplay unitOfWork)
         {
-            return unitOfWork.Repository<Tender>().Find(x => x.Project.Manager.IsAppCurrentUser());
+            return unitOfWork.Repository<Tender>().Find(x => x.Project.Manager.IsAppCurrentUser()).Select(x => new TenderLookup(x));
         }
 
 
         protected override IEnumerable<TenderLookup> GetActualLookups(Project project)
         {
-            return AllItems.Where(x => x.Project.Id == project.Id).Select(x => new TenderLookup(x));
+            return AllLookups.Where(x => x.Project.Id == project.Id);
         }
     }
 }

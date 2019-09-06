@@ -27,11 +27,11 @@ namespace HVTApp.Modules.Sales.ViewModels
             ShownAllProjects = false;
         }
 
-        protected override IEnumerable<Project> GetItems(IUnitOfWorkDisplay unitOfWork)
+        protected override IEnumerable<ProjectLookup> GetLookups(IUnitOfWorkDisplay unitOfWork)
         {
             _tenders = unitOfWork.Repository<Tender>().Find(x => x.Project.Manager.IsAppCurrentUser());
             _salesUnits = unitOfWork.Repository<SalesUnit>().Find(x => x.Project.Manager.IsAppCurrentUser());
-            return _salesUnits.Select(x => x.Project).Distinct();
+            return _salesUnits.Select(x => x.Project).Distinct().Select(GetLookup);
         }
 
         private ProjectLookup GetLookup(Project project)
@@ -51,8 +51,8 @@ namespace HVTApp.Modules.Sales.ViewModels
                 _shownAllProjects = value;
 
                 this.Clear();
-                var projects = ShownAllProjects ? AllItems : AllItems.Where(IsWork);
-                this.AddRange(projects.Select(GetLookup).OrderBy(x => x.RealizationDate));
+                var projects = ShownAllProjects ? AllLookups : AllLookups.Where(IsWork);
+                this.AddRange(projects.OrderBy(x => x.RealizationDate));
             }
         }
 
@@ -61,9 +61,9 @@ namespace HVTApp.Modules.Sales.ViewModels
         /// </summary>
         /// <param name="project"></param>
         /// <returns></returns>
-        private bool IsWork(Project project)
+        private bool IsWork(ProjectLookup project)
         {
-            return project.InWork && _salesUnits.Any(u => !u.IsDone && !u.IsLoosen);
+            return project.InWork && _salesUnits.Where(x => x.Project.Id == project.Id).Any(u => !u.IsDone && !u.IsLoosen);
         }
     }
 }

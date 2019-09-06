@@ -20,45 +20,28 @@ namespace HVTApp.Modules.Sales.ViewModels
         where TFilt : class, IBaseEntity 
         where TSelectedFiltChangedEvent : PubSubEvent<TFilt>, new()
     {
-        private TFilt _filt;
+        protected TFilt Filt;
 
         public ObservableCollection<SalesUnitsGroup> Groups { get; } = new ObservableCollection<SalesUnitsGroup>();
 
         protected SalesUnitsContainerBase(IUnityContainer container) : base(container)
         {
-            // реакция на смену
+            // реакция на смену фильтра
             container.Resolve<IEventAggregator>().GetEvent<TSelectedFiltChangedEvent>().Subscribe(x =>
             {
-                _filt = x;
-                RefreshGroups(_filt);
+                Filt = x;
+                RefreshGroups(Filt);
             });
-
-            // реакция на сохранение строки проекта
-            container.Resolve<IEventAggregator>().GetEvent<AfterSaveSalesUnitEvent>().Subscribe(x =>
-            {
-                if (_filt.Id != x.Project.Id) return;
-
-                AllItems.ReAddById(x);
-                RefreshGroups(_filt);
-            });
-
-            // реакция на удаление строки проекта
-            container.Resolve<IEventAggregator>().GetEvent<AfterRemoveSalesUnitEvent>().Subscribe(x =>
-            {
-                if (_filt.Id != x.Project.Id) return;
-
-                AllItems.RemoveById(x);
-                RefreshGroups(_filt);
-            });
-
         }
 
-        protected override IEnumerable<SalesUnit> GetItems(IUnitOfWorkDisplay unitOfWork)
+        protected override IEnumerable<SalesUnitLookup> GetLookups(IUnitOfWorkDisplay unitOfWork)
         {
-            return unitOfWork.Repository<SalesUnit>().Find(x => x.Project.Manager.IsAppCurrentUser());
+            return unitOfWork.Repository<SalesUnit>()
+                .Find(x => x.Project.Manager.IsAppCurrentUser())
+                .Select(x => new SalesUnitLookup(x));
         }
 
-        private void RefreshGroups(TFilt filt)
+        protected void RefreshGroups(TFilt filt)
         {
             Groups.Clear();
 
@@ -78,23 +61,37 @@ namespace HVTApp.Modules.Sales.ViewModels
     {
         public SalesUnitsProjectBase(IUnityContainer container) : base(container)
         {
+            // реакция на сохранение строки проекта
+            container.Resolve<IEventAggregator>().GetEvent<AfterSaveSalesUnitEvent>().Subscribe(x =>
+            {
+                if (Filt.Id != x.Project.Id) return;
+                RefreshGroups(Filt);
+            });
+
+            // реакция на удаление строки проекта
+            container.Resolve<IEventAggregator>().GetEvent<AfterRemoveSalesUnitEvent>().Subscribe(x =>
+            {
+                if (Filt.Id != x.Project.Id) return;
+                RefreshGroups(Filt);
+            });
+
         }
 
         protected override IEnumerable<SalesUnitLookup> GetActualLookups(Project project)
         {
-            return AllItems.Where(x => x.Project.Id == project.Id).Select(x => new SalesUnitLookup(x));
+            return AllLookups.Where(x => x.Project.Id == project.Id);
         }
     }
 
-    public class SalesUnitsSpecificetionBase : SalesUnitsContainerBase<Specification, SelectedSpecificationChangedEvent>
+    public class SalesUnitsSpecificationBase : SalesUnitsContainerBase<Specification, SelectedSpecificationChangedEvent>
     {
-        public SalesUnitsSpecificetionBase(IUnityContainer container) : base(container)
+        public SalesUnitsSpecificationBase(IUnityContainer container) : base(container)
         {
         }
 
         protected override IEnumerable<SalesUnitLookup> GetActualLookups(Specification specification)
         {
-            return AllItems.Where(x => x.Specification?.Id == specification.Id).Select(x => new SalesUnitLookup(x));
+            return AllLookups.Where(x => x.Specification?.Id == specification.Id);
         }
     }
 

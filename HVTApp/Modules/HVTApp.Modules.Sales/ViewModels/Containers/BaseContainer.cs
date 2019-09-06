@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using HVTApp.Infrastructure;
@@ -18,7 +20,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         where TAfterRemoveItemEvent : PubSubEvent<TItem>, new()
     {
         protected readonly IUnityContainer Container;
-        protected List<TItem> AllItems;
+        protected List<TLookup> AllLookups;
 
         private TLookup _selectedItem;
         /// <summary>
@@ -29,8 +31,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             get { return _selectedItem; }
             set
             {
-                if (Equals(_selectedItem, value))
-                    return;
+                if (Equals(_selectedItem, value)) return;
                 _selectedItem = value;
                 Container.Resolve<IEventAggregator>().GetEvent<TSelectedItemChangedEvent>().Publish(SelectedItem?.Entity);
                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(SelectedItem)));
@@ -42,25 +43,68 @@ namespace HVTApp.Modules.Sales.ViewModels
             Container = container;
 
             var unitOfWork = container.Resolve<IUnitOfWorkDisplay>();
-            AllItems = GetItems(unitOfWork).ToList();
+            AllLookups = GetLookups(unitOfWork).ToList();
 
             var eventAggregator = container.Resolve<IEventAggregator>();
-            // Реакция на сохранение сущности
-            eventAggregator.GetEvent<TAfterSaveItemEvent>().Subscribe(item => AllItems.ReAddById(item));
+
+            //реакция на сохранение сущности
+            eventAggregator.GetEvent<TAfterSaveItemEvent>().Subscribe(item =>
+            {
+                //если сущность была изменена
+                if (AllLookups.ContainsById(item))
+                {
+                    AllLookups.GetById(item).Refresh(item);
+                    return;
+                }
+
+                //если сущность была вновь создана
+                //добавляем в список всех сущностей
+                var newLookup = MakeLookup(item);
+                AllLookups.Add(newLookup);
+
+                //добавляем в список отображения
+                if (CanBeShown(newLookup))
+                {
+                    this.Add(newLookup);
+                }
+            });
             
-            // Реакция на удаление сущности
+            //реакция на удаление сущности
             eventAggregator.GetEvent<TAfterRemoveItemEvent>().Subscribe(item =>
             {
-                AllItems.RemoveIfContainsById(item);
+                //удаляем сущность из списка всех сущностей
+                AllLookups.RemoveIfContainsById(item);
 
+                //актуализируем выбранный юнит
                 if (SelectedItem != null && SelectedItem.Id == item.Id)
                     SelectedItem = null;
 
-                this.RemoveIfContainsById(item); //удаление сущности из отображаемой части
+                //удаление сущности из отображаемой части
+                this.RemoveIfContainsById(item);
             });
+
         }
 
-        protected abstract IEnumerable<TItem> GetItems(IUnitOfWorkDisplay unitOfWork);
+        /// <summary>
+        /// Создание отображения сущности.
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        protected  virtual TLookup MakeLookup(TItem item)
+        {
+            return (TLookup) Activator.CreateInstance(typeof(TLookup), item);
+        }
 
+        /// <summary>
+        /// Сущность должна быть показана при текущих фильтрах
+        /// </summary>
+        /// <param name="lookup"></param>
+        /// <returns></returns>
+        protected virtual bool CanBeShown(TLookup lookup)
+        {
+            return true;
+        }
+
+        protected abstract IEnumerable<TLookup> GetLookups(IUnitOfWorkDisplay unitOfWork);
     }
 }

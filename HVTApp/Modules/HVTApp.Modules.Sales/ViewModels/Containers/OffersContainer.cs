@@ -18,35 +18,29 @@ namespace HVTApp.Modules.Sales.ViewModels
         public OffersContainer(IUnityContainer container) : base(container)
         {
             var eventAggregator = container.Resolve<IEventAggregator>();
-
-            // Реакция на удаление строки ТКП
-            eventAggregator.GetEvent<AfterRemoveOfferUnitEvent>().Subscribe(offerUnit => _offerUnits.RemoveById(offerUnit));
-
-            // Реакция на сохранение строки ТКП
-            eventAggregator.GetEvent<AfterSaveOfferUnitEvent>().Subscribe(offerUnit => _offerUnits.ReAddById(offerUnit));
+            eventAggregator.GetEvent<AfterRemoveOfferUnitEvent>().Subscribe(offer => _offerUnits.RemoveIfContainsById(offer));
+            eventAggregator.GetEvent<AfterSaveOfferUnitEvent>().Subscribe(offer => _offerUnits.ReAddById(offer));
         }
 
-        protected override IEnumerable<Offer> GetItems(IUnitOfWorkDisplay unitOfWork)
+        protected override OfferLookup MakeLookup(Offer offer)
+        {
+            var offerUnits = _offerUnits.Where(x => x.Offer.Id == offer.Id);
+            return new OfferLookup(offer, offerUnits, Container);
+        }
+
+        protected override IEnumerable<OfferLookup> GetLookups(IUnitOfWorkDisplay unitOfWork)
         {
             _offerUnits = unitOfWork.Repository<OfferUnit>().Find(x => x.Offer.Project.Manager.IsAppCurrentUser());
-            return _offerUnits.Select(x => x.Offer).Distinct();
+            return _offerUnits
+                .Select(x => x.Offer)
+                .Distinct()
+                .OrderBy(x => x.Date)
+                .Select(MakeLookup);
         }
 
         protected override IEnumerable<OfferLookup> GetActualLookups(Project project)
         {
-            var offers = AllItems.Where(offerUnit => offerUnit.Project.Id == project.Id);
-            return offers.OrderBy(x => x.Date).Select(MakeLookup);
-        }
-
-        /// <summary>
-        /// Создание отображения ТКП, которое самостоятельно следит за изменениями в ТКП
-        /// </summary>
-        /// <param name="offer"> ТКП </param>
-        /// <returns> Отображение ТКП </returns>
-        private OfferLookup MakeLookup(Offer offer)
-        {
-            var units = _offerUnits.Where(offerUnit => offerUnit.Offer.Id == offer.Id);
-            return new OfferLookup(offer, units, Container);
+            return AllLookups.Where(offerLookup => offerLookup.Project.Id == project.Id);
         }
     }
 }
