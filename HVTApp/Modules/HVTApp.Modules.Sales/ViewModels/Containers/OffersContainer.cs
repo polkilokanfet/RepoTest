@@ -42,5 +42,10 @@ namespace HVTApp.Modules.Sales.ViewModels
         {
             return AllLookups.Where(offerLookup => offerLookup.Project.Id == project.Id);
         }
+
+        protected override bool CanBeShown(OfferLookup offerLookup)
+        {
+            return Filt != null && Filt.Id == offerLookup.Entity.Project.Id;
+        }
     }
 }

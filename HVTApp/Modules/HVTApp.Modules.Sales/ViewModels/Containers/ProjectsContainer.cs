@@ -21,8 +21,12 @@ namespace HVTApp.Modules.Sales.ViewModels
         public ProjectsContainer(IUnityContainer container) : base(container)
         {
             var eventAggregator = container.Resolve<IEventAggregator>();
-            eventAggregator.GetEvent<AfterSaveSalesUnitEvent>().Subscribe(salesUnit => _salesUnits.ReAddById(salesUnit));
-            eventAggregator.GetEvent<AfterSaveTenderEvent>().Subscribe(tender => _tenders.ReAddById(tender));
+
+            //реакция на сохранение строки пректа
+            eventAggregator.GetEvent<AfterSaveSalesUnitEvent>().Subscribe(salesUnit => { _salesUnits.ReAddById(salesUnit); });
+
+            //реакция на сохранение тендера
+            eventAggregator.GetEvent<AfterSaveTenderEvent>().Subscribe(tender => { _tenders.ReAddById(tender); });
 
             ShownAllProjects = false;
         }
@@ -31,10 +35,10 @@ namespace HVTApp.Modules.Sales.ViewModels
         {
             _tenders = unitOfWork.Repository<Tender>().Find(x => x.Project.Manager.IsAppCurrentUser());
             _salesUnits = unitOfWork.Repository<SalesUnit>().Find(x => x.Project.Manager.IsAppCurrentUser());
-            return _salesUnits.Select(x => x.Project).Distinct().Select(GetLookup);
+            return _salesUnits.Select(x => x.Project).Distinct().Select(MakeLookup);
         }
 
-        private ProjectLookup GetLookup(Project project)
+        protected override ProjectLookup MakeLookup(Project project)
         {
             var units = _salesUnits.Where(su => su.Project.Id == project.Id);
             var tenders = _tenders.Where(su => su.Project.Id == project.Id);
@@ -64,6 +68,11 @@ namespace HVTApp.Modules.Sales.ViewModels
         private bool IsWork(ProjectLookup project)
         {
             return project.InWork && _salesUnits.Where(x => x.Project.Id == project.Id).Any(u => !u.IsDone && !u.IsLoosen);
+        }
+
+        protected override bool CanBeShown(ProjectLookup projectLookup)
+        {
+            return ShownAllProjects || IsWork(projectLookup);
         }
     }
 }

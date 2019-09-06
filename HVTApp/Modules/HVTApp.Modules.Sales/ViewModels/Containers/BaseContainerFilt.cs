@@ -27,11 +27,17 @@ namespace HVTApp.Modules.Sales.ViewModels
         where TFilt : class, IBaseEntity
         where TSelectedFiltChangedEvent : PubSubEvent<TFilt>, new()
     {
+        /// <summary>
+        /// Фильтрующая сущность (например, проект)
+        /// </summary>
+        protected TFilt Filt;
+
         protected BaseContainerFilt(IUnityContainer container) : base(container)
         {
             // Реакция на смену выбранного проекта
             container.Resolve<IEventAggregator>().GetEvent<TSelectedFiltChangedEvent>().Subscribe(filt =>
             {
+                Filt = filt;
                 this.Clear();
                 SelectedItem = null;
                 this.AddRange(GetActualLookups(filt));

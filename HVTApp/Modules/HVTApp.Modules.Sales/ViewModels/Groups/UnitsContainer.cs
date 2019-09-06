@@ -63,14 +63,14 @@ namespace HVTApp.Modules.Sales.ViewModels
             //отписка от событий изменения строк с оборудованием
             this.GroupsViewModel.GroupChanged -= OnGroupChanged;
 
+            GroupsViewModel.AcceptChanges();
+
             //добавляем сущность, если ее не существовало
             if (await UnitOfWork.Repository<TModel>().GetByIdAsync(DetailsViewModel.Item.Model.Id) == null)
                 UnitOfWork.Repository<TModel>().Add(DetailsViewModel.Item.Model);
 
             DetailsViewModel.Item.AcceptChanges();
             Container.Resolve<IEventAggregator>().GetEvent<TAfterSaveModelEvent>().Publish(DetailsViewModel.Item.Model);
-
-            GroupsViewModel.AcceptChanges();
 
             //сохраняем
             try

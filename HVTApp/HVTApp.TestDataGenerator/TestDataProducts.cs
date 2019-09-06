@@ -97,7 +97,7 @@ namespace HVTApp.TestDataGenerator
             ParameterGroupPartType.Clone(new ParameterGroup { Name = "Тип составной части" });
             ParameterGroupTransformersCurrentBlockType.Clone(new ParameterGroup { Name = "Тип комплекта трансформаторов тока" });
             ParameterGroupTransformersVoltageBlockType.Clone(new ParameterGroup { Name = "Тип комплекта обмоток ТН" });
-            ParameterGroupTransformersBlockTarget.Clone(new ParameterGroup { Name = "Назначение комплекта ТТ" });
+            ParameterGroupTransformersBlockTarget.Clone(new ParameterGroup { Name = "Назначение комплекта трансформатора" });
             ParameterGroupTransformersBlockStandartNumber.Clone(new ParameterGroup { Name = "Номер стандартного комплекта ТТ" });
             ParameterGroupServiceType.Clone(new ParameterGroup { Name = "Тип услуги" });
             ParameterGroupTvgType.Clone(new ParameterGroup { Name = "Тип встроенного ТТ" });

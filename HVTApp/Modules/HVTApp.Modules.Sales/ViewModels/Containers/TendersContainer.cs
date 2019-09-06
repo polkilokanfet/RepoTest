@@ -20,10 +20,14 @@ namespace HVTApp.Modules.Sales.ViewModels
             return unitOfWork.Repository<Tender>().Find(x => x.Project.Manager.IsAppCurrentUser()).Select(x => new TenderLookup(x));
         }
 
-
         protected override IEnumerable<TenderLookup> GetActualLookups(Project project)
         {
             return AllLookups.Where(x => x.Project.Id == project.Id);
+        }
+
+        protected override bool CanBeShown(TenderLookup tenderLookup)
+        {
+            return Filt != null && Filt.Id == tenderLookup.Entity.Project.Id;
         }
     }
 }

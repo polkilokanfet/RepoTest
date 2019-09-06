@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
@@ -7,7 +8,6 @@ using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Comparers;
-using HVTApp.UI.Converter;
 using HVTApp.UI.Groups;
 using HVTApp.UI.Lookup;
 using Microsoft.Practices.Unity;
@@ -20,17 +20,31 @@ namespace HVTApp.Modules.Sales.ViewModels
         where TFilt : class, IBaseEntity 
         where TSelectedFiltChangedEvent : PubSubEvent<TFilt>, new()
     {
-        protected TFilt Filt;
-
         public ObservableCollection<SalesUnitsGroup> Groups { get; } = new ObservableCollection<SalesUnitsGroup>();
 
         protected SalesUnitsContainerBase(IUnityContainer container) : base(container)
         {
             // реакция на смену фильтра
-            container.Resolve<IEventAggregator>().GetEvent<TSelectedFiltChangedEvent>().Subscribe(x =>
+            container.Resolve<IEventAggregator>().GetEvent<TSelectedFiltChangedEvent>().Subscribe(filt =>
             {
-                Filt = x;
-                RefreshGroups(Filt);
+                RefreshGroups();
+            });
+
+            // реакция на сохранение/удаление строки проекта
+            this.CollectionChanged += (sender, args) =>
+            {
+                if (args.Action == NotifyCollectionChangedAction.Add || args.Action == NotifyCollectionChangedAction.Remove)
+                {
+                    RefreshGroups();
+                }
+            };
+
+            container.Resolve<IEventAggregator>().GetEvent<AfterSaveSalesUnitEvent>().Subscribe(salesUnit =>
+            {
+                if (this.ContainsById(salesUnit))
+                {
+                    RefreshGroups();
+                }
             });
         }
 
@@ -41,13 +55,13 @@ namespace HVTApp.Modules.Sales.ViewModels
                 .Select(x => new SalesUnitLookup(x));
         }
 
-        protected void RefreshGroups(TFilt filt)
+        protected void RefreshGroups()
         {
             Groups.Clear();
 
-            if (filt == null) return;
+            if (Filt == null) return;
 
-            var salesUnits = GetActualLookups(filt).Select(x => x.Entity);
+            var salesUnits = GetActualLookups(Filt).Select(x => x.Entity);
 
             //группируем их
             var groups = salesUnits.GroupBy(x => x, new SalesUnitsGroupsComparer()).Select(x => new SalesUnitsGroup(x));
@@ -56,43 +70,4 @@ namespace HVTApp.Modules.Sales.ViewModels
             Groups.AddRange(groups.OrderByDescending(x => x.Total));
         }
     }
-
-    public class SalesUnitsProjectBase : SalesUnitsContainerBase<Project, SelectedProjectChangedEvent>
-    {
-        public SalesUnitsProjectBase(IUnityContainer container) : base(container)
-        {
-            // реакция на сохранение строки проекта
-            container.Resolve<IEventAggregator>().GetEvent<AfterSaveSalesUnitEvent>().Subscribe(x =>
-            {
-                if (Filt.Id != x.Project.Id) return;
-                RefreshGroups(Filt);
-            });
-
-            // реакция на удаление строки проекта
-            container.Resolve<IEventAggregator>().GetEvent<AfterRemoveSalesUnitEvent>().Subscribe(x =>
-            {
-                if (Filt.Id != x.Project.Id) return;
-                RefreshGroups(Filt);
-            });
-
-        }
-
-        protected override IEnumerable<SalesUnitLookup> GetActualLookups(Project project)
-        {
-            return AllLookups.Where(x => x.Project.Id == project.Id);
-        }
-    }
-
-    public class SalesUnitsSpecificationBase : SalesUnitsContainerBase<Specification, SelectedSpecificationChangedEvent>
-    {
-        public SalesUnitsSpecificationBase(IUnityContainer container) : base(container)
-        {
-        }
-
-        protected override IEnumerable<SalesUnitLookup> GetActualLookups(Specification specification)
-        {
-            return AllLookups.Where(x => x.Specification?.Id == specification.Id);
-        }
-    }
-
 }
