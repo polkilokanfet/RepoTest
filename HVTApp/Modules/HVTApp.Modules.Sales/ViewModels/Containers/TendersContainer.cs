@@ -25,9 +25,9 @@ namespace HVTApp.Modules.Sales.ViewModels
             return AllLookups.Where(x => x.Project.Id == project.Id);
         }
 
-        protected override bool CanBeShown(TenderLookup tenderLookup)
+        protected override bool CanBeShown(Tender tender)
         {
-            return Filt != null && Filt.Id == tenderLookup.Entity.Project.Id;
+            return Filter != null && Filter.Id == tender.Project.Id;
         }
     }
 }

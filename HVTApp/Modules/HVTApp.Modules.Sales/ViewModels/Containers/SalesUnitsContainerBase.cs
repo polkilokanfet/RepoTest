@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.Linq;
+using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
-using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Comparers;
@@ -24,44 +23,56 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         protected SalesUnitsContainerBase(IUnityContainer container) : base(container)
         {
-            //реакция на смену фильтра
-            container.Resolve<IEventAggregator>().GetEvent<TSelectedFiltChangedEvent>().Subscribe(filt =>
+        }
+
+        /// <summary>
+        /// Реакция на сохранение строки проекта
+        /// </summary>
+        /// <param name="salesUnit"></param>
+        protected override void OnAfterSaveItemEvent(SalesUnit salesUnit)
+        {
+            base.OnAfterSaveItemEvent(salesUnit);
+            if (CanBeShown(salesUnit))
             {
                 RefreshGroups();
-            });
+            }
+        }
 
-            //реакция на сохранение/удаление строки проекта
-            this.CollectionChanged += (sender, args) =>
+        /// <summary>
+        /// Реакция на удаление строки проекта
+        /// </summary>
+        /// <param name="salesUnit"></param>
+        protected override void OnAfterRemoveItemEvent(SalesUnit salesUnit)
+        {
+            base.OnAfterRemoveItemEvent(salesUnit);
+            if (CanBeShown(salesUnit))
             {
-                if (args.Action == NotifyCollectionChangedAction.Add || args.Action == NotifyCollectionChangedAction.Remove)
-                {
-                    RefreshGroups();
-                }
-            };
+                RefreshGroups();
+            }
+        }
 
-            container.Resolve<IEventAggregator>().GetEvent<AfterSaveSalesUnitEvent>().Subscribe(salesUnit =>
-            {
-                if (this.ContainsById(salesUnit))
-                {
-                    RefreshGroups();
-                }
-            });
+        protected override void OnFilterChanged(TFilt filter)
+        {
+            base.OnFilterChanged(filter);
+            RefreshGroups();
         }
 
         protected override IEnumerable<SalesUnitLookup> GetLookups(IUnitOfWorkDisplay unitOfWork)
         {
-            return unitOfWork.Repository<SalesUnit>()
-                .Find(x => x.Project.Manager.IsAppCurrentUser())
+            return ((ISalesUnitRepository)unitOfWork.Repository<SalesUnit>())
+                .GetUsersSalesUnits()
                 .Select(x => new SalesUnitLookup(x));
         }
 
         protected void RefreshGroups()
         {
+            //очистка отображаемых групп
             Groups.Clear();
 
-            if (Filt == null) return;
+            //если нет фильтра - ничего не отображаем
+            if (Filter == null) return;
 
-            var salesUnits = GetActualLookups(Filt).Select(x => x.Entity);
+            var salesUnits = GetActualLookups(Filter).Select(x => x.Entity);
 
             //группируем их
             var groups = salesUnits.GroupBy(x => x, new SalesUnitsGroupsComparer()).Select(x => new SalesUnitsGroup(x));

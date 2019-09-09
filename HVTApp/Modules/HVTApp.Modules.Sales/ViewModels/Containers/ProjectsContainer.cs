@@ -8,7 +8,6 @@ using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Lookup;
-using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 
@@ -57,7 +56,7 @@ namespace HVTApp.Modules.Sales.ViewModels
                 _shownAllProjects = value;
 
                 this.Clear();
-                var projects = ShownAllProjects ? AllLookups : AllLookups.Where(IsWork);
+                var projects = ShownAllProjects ? AllLookups : AllLookups.Where(x => IsWork(x.Entity));
                 this.AddRange(projects.OrderBy(x => x.RealizationDate));
             }
         }
@@ -67,22 +66,20 @@ namespace HVTApp.Modules.Sales.ViewModels
         /// </summary>
         /// <param name="project"></param>
         /// <returns></returns>
-        private bool IsWork(ProjectLookup project)
+        private bool IsWork(Project project)
         {
             return project.InWork && _salesUnits.Where(x => x.Project.Id == project.Id).Any(u => !u.IsDone && !u.IsLoosen);
         }
 
-        protected override bool CanBeShown(ProjectLookup projectLookup)
+        protected override bool CanBeShown(Project project)
         {
-            return ShownAllProjects || IsWork(projectLookup);
+            return ShownAllProjects || IsWork(project);
         }
 
-        public override async Task RemoveSelectedItemTask()
+        protected override void TranslateRemovedUnits(Project project)
         {
-            var units = SelectedItem.SalesUnits;
-            await base.RemoveSelectedItemTask();
-            var afterRemoveEvent = Container.Resolve<IEventAggregator>().GetEvent<AfterRemoveSalesUnitEvent>();
-            units.ForEach(x => afterRemoveEvent.Publish(x.Entity));
+            var salesUnits = _salesUnits.Where(x => x.Project == null || x.Project.Id == project.Id).ToList();
+            salesUnits.ForEach(x => Container.Resolve<IEventAggregator>().GetEvent<AfterRemoveSalesUnitEvent>().Publish(x));
         }
     }
 }

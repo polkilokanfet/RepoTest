@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using HVTApp.Infrastructure;
@@ -15,33 +16,36 @@ namespace HVTApp.Modules.Sales.ViewModels
     /// <typeparam name="TSelectedItemChangedEvent"></typeparam>
     /// <typeparam name="TAfterSaveItemEvent"></typeparam>
     /// <typeparam name="TAfterRemoveItemEvent"></typeparam>
-    /// <typeparam name="TFilt"></typeparam>
+    /// <typeparam name="TFilter"></typeparam>
     /// <typeparam name="TSelectedFiltChangedEvent"></typeparam>
-    public abstract class BaseContainerFilt<TItem, TLookup, TSelectedItemChangedEvent, TAfterSaveItemEvent, TAfterRemoveItemEvent, TFilt, TSelectedFiltChangedEvent> : 
+    public abstract class BaseContainerFilt<TItem, TLookup, TSelectedItemChangedEvent, TAfterSaveItemEvent, TAfterRemoveItemEvent, TFilter, TSelectedFiltChangedEvent> : 
                                       BaseContainer<TItem, TLookup, TSelectedItemChangedEvent, TAfterSaveItemEvent, TAfterRemoveItemEvent>
         where TItem : class, IBaseEntity
         where TLookup : LookupItem<TItem>
         where TSelectedItemChangedEvent : PubSubEvent<TItem>, new()
         where TAfterSaveItemEvent : PubSubEvent<TItem>, new()
         where TAfterRemoveItemEvent : PubSubEvent<TItem>, new()
-        where TFilt : class, IBaseEntity
-        where TSelectedFiltChangedEvent : PubSubEvent<TFilt>, new()
+        where TFilter : class, IBaseEntity
+        where TSelectedFiltChangedEvent : PubSubEvent<TFilter>, new()
     {
         /// <summary>
         /// Фильтрующая сущность (например, проект)
         /// </summary>
-        protected TFilt Filt;
+        protected TFilter Filter;
 
         protected BaseContainerFilt(IUnityContainer container) : base(container)
         {
-            // Реакция на смену выбранного проекта
-            container.Resolve<IEventAggregator>().GetEvent<TSelectedFiltChangedEvent>().Subscribe(filt =>
-            {
-                Filt = filt;
-                this.Clear();
-                SelectedItem = null;
-                this.AddRange(GetActualLookups(filt));
-            });
+            // Реакция на смену фильтра
+            container.Resolve<IEventAggregator>().GetEvent<TSelectedFiltChangedEvent>().Subscribe(OnFilterChanged);
+        }
+
+        //реакция на событие изменения фильтра
+        protected virtual void OnFilterChanged(TFilter filter)
+        {
+            Filter = filter;
+            this.Clear();
+            SelectedItem = null;
+            this.AddRange(GetActualLookups(filter));
         }
 
         /// <summary>
@@ -49,6 +53,6 @@ namespace HVTApp.Modules.Sales.ViewModels
         /// </summary>
         /// <param name="filt"> Проект </param>
         /// <returns></returns>
-        protected abstract IEnumerable<TLookup> GetActualLookups(TFilt filt);
+        protected abstract IEnumerable<TLookup> GetActualLookups(TFilter filt);
     }
 }

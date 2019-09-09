@@ -17,9 +17,9 @@ namespace HVTApp.Modules.Sales.ViewModels
             return AllLookups.Where(x => x.Project.Id == project.Id);
         }
 
-        protected override bool CanBeShown(SalesUnitLookup salesUnitLookup)
+        protected override bool CanBeShown(SalesUnit salesUnit)
         {
-            return Filt != null && Filt.Id == salesUnitLookup.Entity.Project.Id;
+            return Filter != null && Filter.Id == salesUnit.Project.Id;
         }
     }
 }
