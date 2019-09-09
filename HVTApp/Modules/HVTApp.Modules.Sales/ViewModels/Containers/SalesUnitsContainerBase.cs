@@ -24,13 +24,13 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         protected SalesUnitsContainerBase(IUnityContainer container) : base(container)
         {
-            // реакция на смену фильтра
+            //реакция на смену фильтра
             container.Resolve<IEventAggregator>().GetEvent<TSelectedFiltChangedEvent>().Subscribe(filt =>
             {
                 RefreshGroups();
             });
 
-            // реакция на сохранение/удаление строки проекта
+            //реакция на сохранение/удаление строки проекта
             this.CollectionChanged += (sender, args) =>
             {
                 if (args.Action == NotifyCollectionChangedAction.Add || args.Action == NotifyCollectionChangedAction.Remove)

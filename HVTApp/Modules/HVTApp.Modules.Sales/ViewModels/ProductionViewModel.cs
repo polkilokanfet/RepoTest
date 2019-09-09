@@ -6,10 +6,8 @@ using System.Windows.Input;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
-using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Comparers;
-using HVTApp.UI.Converter;
 using HVTApp.UI.Groups;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
@@ -19,39 +17,25 @@ namespace HVTApp.Modules.Sales.ViewModels
 {
     public class ProductionViewModel : LoadableBindableBase
     {
-        private SalesUnitsWrappersGroup _selectedPotentialGroup;
-        private SalesUnitsWrappersGroup _selectedProductionWrappersGroup;
-
-        public ObservableCollection<SalesUnitsWrappersGroup> ProductionGroups { get; } = new ObservableCollection<SalesUnitsWrappersGroup>();
-        public ObservableCollection<SalesUnitsWrappersGroup> PotentialGroups { get; } = new ObservableCollection<SalesUnitsWrappersGroup>();
-
-        public SalesUnitsWrappersGroup SelectedProductionWrappersGroup
-        {
-            get { return _selectedProductionWrappersGroup; }
-            set
-            {
-                _selectedProductionWrappersGroup = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public SalesUnitsWrappersGroup SelectedPotentialGroup
-        {
-            get { return _selectedPotentialGroup; }
-            set
-            {
-                _selectedPotentialGroup = value;
-                ((DelegateCommand)ProductUnitCommand).RaiseCanExecuteChanged();
-            }
-        }
+        public SalesUnitsWrappersGroupsContainer ProductionGroups { get; } = new SalesUnitsWrappersGroupsContainer();
+        public SalesUnitsWrappersGroupsContainer PotentialGroups { get; } = new SalesUnitsWrappersGroupsContainer();
 
         public ICommand ProductUnitCommand { get; }
         public ICommand ReloadCommand { get; }
 
         public ProductionViewModel(IUnityContainer container) : base(container)
         {
+            PotentialGroups.SelectedGroupChanged += group =>
+            {
+                ((DelegateCommand)ProductUnitCommand).RaiseCanExecuteChanged();
+            };
+
             ProductUnitCommand = new DelegateCommand(ProductUnitCommand_Execute, ProductUnitCommand_CanExecute);
-            ReloadCommand = new DelegateCommand(async () => await LoadAsync());
+
+            ReloadCommand = new DelegateCommand(async () =>
+            {
+                await LoadAsync();
+            });
         }
 
         private async void ProductUnitCommand_Execute()
@@ -62,23 +46,25 @@ namespace HVTApp.Modules.Sales.ViewModels
             if (ms.ShowYesNoMessageDialog("Размещение в производстве", q) != MessageDialogResult.Yes) return;
 
             //размещение в производстве
-            SelectedPotentialGroup.SignalToStartProduction = DateTime.Today;
+            //фиксируем дату подачи сигнала на включение в план производства
+            PotentialGroups.SelectedGroup.SignalToStartProduction = DateTime.Today;
+            //сохранение изменений
             await UnitOfWork.SaveChangesAsync();
 
             //работа с видами
-            ProductionGroups.Add(SelectedPotentialGroup);
-            SelectedProductionWrappersGroup = SelectedPotentialGroup;
-            if (PotentialGroups.Contains(SelectedPotentialGroup))
+            ProductionGroups.Add(PotentialGroups.SelectedGroup);
+            ProductionGroups.SelectedGroup = PotentialGroups.SelectedGroup;
+            if (PotentialGroups.Contains(PotentialGroups.SelectedGroup))
             {
-                PotentialGroups.Remove(SelectedPotentialGroup);
+                PotentialGroups.Remove(PotentialGroups.SelectedGroup);
             }
             else
             {
                 foreach (var potentialGroup in PotentialGroups.ToList())
                 {
-                    if (potentialGroup.Groups.Contains(SelectedPotentialGroup))
+                    if (potentialGroup.Groups.Contains(PotentialGroups.SelectedGroup))
                     {
-                        potentialGroup.Groups.Remove(SelectedPotentialGroup);
+                        potentialGroup.Groups.Remove(PotentialGroups.SelectedGroup);
                         if (!potentialGroup.Groups.Any())
                         {
                             PotentialGroups.Remove(potentialGroup);
@@ -90,26 +76,37 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         private bool ProductUnitCommand_CanExecute()
         {
-            return !string.IsNullOrEmpty(SelectedPotentialGroup?.TceRequest);
+            return !string.IsNullOrEmpty(PotentialGroups.SelectedGroup?.TceRequest);
         }
 
         protected override async Task LoadedAsyncMethod()
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
-            var salesUnits = ((ISalesUnitRepository)UnitOfWork.Repository<SalesUnit>()).GetUsersSalesUnits();
 
-            var production = salesUnits.Where(x => x.SignalToStartProduction != null && x.EndProductionDateCalculated >= DateTime.Today).ToList();
-            var potential = salesUnits.Where(x => x.SignalToStartProduction == null && !x.IsLoosen && x.Project.InWork);
+            var salesUnits = (await ((ISalesUnitRepository)UnitOfWork.Repository<SalesUnit>()).GetUsersSalesUnitsAsync()).ToList();
 
-            var productionGroups = production.GroupBy(x => x, new SalesUnitsGroupsComparer()).Select(x => new SalesUnitsWrappersGroup(x.ToList())).OrderBy(x => x.EndProductionDateCalculated);
-            ProductionGroups.Clear();
-            ProductionGroups.AddRange(productionGroups);
+            //оборудование, размещенное в производстве
+            var productionGroups = salesUnits
+                .Where(x => x.SignalToStartProduction != null && x.EndProductionDateCalculated >= DateTime.Today)
+                .GroupBy(x => x, new SalesUnitsGroupsComparer())
+                .Select(x => new SalesUnitsWrappersGroup(x.ToList()))
+                .OrderBy(x => x.EndProductionDateCalculated);
 
-            var potentialGroups = potential.GroupBy(x => x, new SalesUnitsGroupsComparer()).Select(x => new SalesUnitsWrappersGroup(x.ToList())).OrderBy(x => x.EndProductionDateCalculated);
-            PotentialGroups.Clear();
-            PotentialGroups.AddRange(potentialGroups);
+            ProductionGroups.ClearAndAddRange(productionGroups);
 
-            PotentialGroups.ForEach(x => x.PropertyChanged += (sender, args) => ((DelegateCommand)ProductUnitCommand).RaiseCanExecuteChanged());
+            //оборудование, поторое может быть размещено в производстве
+            var potentialGroups = salesUnits
+                .Where(x => x.SignalToStartProduction == null && !x.IsLoosen && x.Project.InWork)
+                .GroupBy(x => x, new SalesUnitsGroupsComparer())
+                .Select(x => new SalesUnitsWrappersGroup(x.ToList()))
+                .OrderBy(x => x.EndProductionDateCalculated);
+
+            PotentialGroups.ClearAndAddRange(potentialGroups);
+
+            PotentialGroups.ForEach(x => x.PropertyChanged += (sender, args) =>
+            {
+                ((DelegateCommand) ProductUnitCommand).RaiseCanExecuteChanged();
+            });
         }
 
     }

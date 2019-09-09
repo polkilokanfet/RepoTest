@@ -25,19 +25,19 @@ namespace HVTApp.Modules.Sales.ViewModels
             //команды
             NewProjectCommand = new DelegateCommand(NewProjectCommand_Execute);
             EditProjectCommand = new DelegateCommand(EditProjectCommand_Execute, () => Projects.SelectedItem != null);
-            RemoveProjectCommand = new DelegateCommand(RemoveProjectCommand_Execute, () => Projects.SelectedItem != null);
+            RemoveProjectCommand = new DelegateCommand(async () => await Projects.RemoveSelectedItemTask(), () => Projects.SelectedItem != null);
 
             NewSpecificationCommand = new DelegateCommand(NewSpecificationCommand_Execute);
 
             EditOfferCommand = new DelegateCommand(EditOfferCommand_Execute, () => Offers.SelectedItem != null);
-            RemoveOfferCommand = new DelegateCommand(RemoveOfferCommand_Execute, () => Offers.SelectedItem != null);
+            RemoveOfferCommand = new DelegateCommand(async () => await Offers.RemoveSelectedItemTask(), () => Offers.SelectedItem != null);
             PrintOfferCommand = new DelegateCommand(PrintOfferCommand_Execute, () => Offers.SelectedItem != null);
             NewOfferByProjectCommand = new DelegateCommand(NewOfferByProjectCommand_Execute, () => Projects.SelectedItem != null);
             NewOfferByOfferCommand = new DelegateCommand(NewOfferByOfferCommand_Execute, () => Offers.SelectedItem != null);
 
             NewTenderCommand = new DelegateCommand(NewTenderCommand_Execute, () => Projects.SelectedItem != null);
             EditTenderCommand = new DelegateCommand(EditTenderCommand_Execute, () => Tenders.SelectedItem != null);
-            RemoveTenderCommand = new DelegateCommand(RemoveTenderCommand_Execute, () => Tenders.SelectedItem != null);
+            RemoveTenderCommand = new DelegateCommand(async () => await Tenders.RemoveSelectedItemTask(), () => Tenders.SelectedItem != null);
 
             #endregion
 

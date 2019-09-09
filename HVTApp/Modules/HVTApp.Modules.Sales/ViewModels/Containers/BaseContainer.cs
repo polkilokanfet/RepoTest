@@ -2,16 +2,20 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
+using System.Threading.Tasks;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Services;
 using HVTApp.UI.Lookup;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
-    public abstract class BaseContainer<TItem, TLookup, TSelectedItemChangedEvent, TAfterSaveItemEvent, TAfterRemoveItemEvent> : ObservableCollection<TLookup>
+    public abstract class BaseContainer<TItem, TLookup, TSelectedItemChangedEvent, TAfterSaveItemEvent, TAfterRemoveItemEvent> : 
+        ObservableCollection<TLookup>
         where TItem : class, IBaseEntity
         where TLookup : LookupItem<TItem> 
         where TSelectedItemChangedEvent : PubSubEvent<TItem>, new()
@@ -105,5 +109,35 @@ namespace HVTApp.Modules.Sales.ViewModels
         }
 
         protected abstract IEnumerable<TLookup> GetLookups(IUnitOfWorkDisplay unitOfWork);
+
+        public virtual async Task RemoveSelectedItemTask()
+        {
+            if(SelectedItem == null) throw new ArgumentNullException(nameof(SelectedItem));
+
+            var unitOfWork = Container.Resolve<IUnitOfWork>();
+            var messageService = Container.Resolve<IMessageService>();
+
+            var dr = messageService.ShowYesNoMessageDialog("Удаление", 
+                $"Вы действительно хотите удалить \"{SelectedItem.DisplayMember}\"?");
+            if (dr != MessageDialogResult.Yes) return;
+
+
+            var entity = await unitOfWork.Repository<TItem>().GetByIdAsync(SelectedItem.Id);
+            if (entity != null)
+            {
+                unitOfWork.Repository<TItem>().Delete(entity);
+                try
+                {
+                    await unitOfWork.SaveChangesAsync();
+                }
+                catch (DbUpdateException e)
+                {
+                    messageService.ShowOkMessageDialog(e.GetType().ToString(), e.GetAllExceptions());
+                }
+            }
+
+            Container.Resolve<IEventAggregator>().GetEvent<TAfterRemoveItemEvent>().Publish(entity);
+        }
+
     }
 }

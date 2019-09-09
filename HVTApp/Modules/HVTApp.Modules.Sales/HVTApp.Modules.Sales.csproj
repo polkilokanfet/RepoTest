@@ -168,6 +168,7 @@
     <Compile Include="ViewModels\PaymentsViewModel.cs" />
     <Compile Include="ViewModels\ProductionViewModel.cs" />
     <Compile Include="ViewModels\ProjectsViewModel.cs" />
+    <Compile Include="ViewModels\SalesUnitsWrappersGroupsContainer.cs" />
     <Compile Include="ViewModels\ShippingViewModel.cs" />
     <Compile Include="ViewModels\SpecificationsViewModel.cs" />
     <Compile Include="ViewModels\SpecificationUnitsGroupsViewModel.cs" />

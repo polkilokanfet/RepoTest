@@ -1,12 +1,14 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Lookup;
+using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 
@@ -73,6 +75,14 @@ namespace HVTApp.Modules.Sales.ViewModels
         protected override bool CanBeShown(ProjectLookup projectLookup)
         {
             return ShownAllProjects || IsWork(projectLookup);
+        }
+
+        public override async Task RemoveSelectedItemTask()
+        {
+            var units = SelectedItem.SalesUnits;
+            await base.RemoveSelectedItemTask();
+            var afterRemoveEvent = Container.Resolve<IEventAggregator>().GetEvent<AfterRemoveSalesUnitEvent>();
+            units.ForEach(x => afterRemoveEvent.Publish(x.Entity));
         }
     }
 }

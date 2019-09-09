@@ -4,7 +4,8 @@ namespace HVTApp.DataAccess
     {
         public DocumentConfiguration()
         {
-            HasRequired(x => x.Number).WithRequiredPrincipal();
+            HasRequired(x => x.Number);
+            //HasRequired(x => x.Number).WithRequiredPrincipal();
 
             HasRequired(x => x.SenderEmployee).WithMany().HasForeignKey(x => x.SenderId).WillCascadeOnDelete(false);
             HasRequired(x => x.RecipientEmployee).WithMany().HasForeignKey(x => x.RecipientId).WillCascadeOnDelete(false);

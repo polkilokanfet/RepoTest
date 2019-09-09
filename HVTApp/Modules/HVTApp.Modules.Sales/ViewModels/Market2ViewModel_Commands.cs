@@ -1,18 +1,9 @@
-﻿using System;
-using System.Data.Entity.Infrastructure;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using HVTApp.Infrastructure;
+﻿using System.Windows.Input;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Services;
-using HVTApp.Model.Events;
-using HVTApp.Model.POCOs;
 using HVTApp.Modules.Sales.Views;
-using HVTApp.UI.Lookup;
 using Microsoft.Practices.Unity;
-using Prism.Events;
 using Prism.Regions;
 
 namespace HVTApp.Modules.Sales.ViewModels
@@ -41,53 +32,6 @@ namespace HVTApp.Modules.Sales.ViewModels
         #endregion
 
         #region Commands
-
-        #region RemoveCommands
-
-        private async Task RemoveCommandBase<TEntity, TLookup, TRemoveEvent>(TLookup lookup)
-            where TEntity : class, IBaseEntity
-            where TLookup : LookupItem<TEntity>
-            where TRemoveEvent : PubSubEvent<TEntity>, new()
-        {
-            var unitOfWork = Container.Resolve<IUnitOfWork>();
-            var eventAggregator = Container.Resolve<IEventAggregator>();
-            var messageService = Container.Resolve<IMessageService>();
-
-            var dr = messageService.ShowYesNoMessageDialog("Удаление", 
-                $"Вы действительно хотите удалить \"{lookup.DisplayMember}\"?");
-            if (dr != MessageDialogResult.Yes) return;
-
-            var entity = await unitOfWork.Repository<TEntity>().GetByIdAsync(lookup.Id);
-            if (entity == null) return;
-
-            try
-            {
-                unitOfWork.Repository<TEntity>().Delete(entity);
-                await unitOfWork.SaveChangesAsync();
-                eventAggregator.GetEvent<TRemoveEvent>().Publish(entity);
-            }
-            catch (DbUpdateException e)
-            {
-                messageService.ShowOkMessageDialog("DbUpdateException", e.GetAllExceptions());
-            }
-        }
-
-        private async void RemoveProjectCommand_Execute()
-        {
-            await RemoveCommandBase<Project, ProjectLookup, AfterRemoveProjectEvent>(Projects.SelectedItem);
-        }
-
-        private async void RemoveOfferCommand_Execute()
-        {
-            await RemoveCommandBase<Offer, OfferLookup, AfterRemoveOfferEvent>(Offers.SelectedItem);
-        }
-
-        private async void RemoveTenderCommand_Execute()
-        {
-            await RemoveCommandBase<Tender, TenderLookup, AfterRemoveTenderEvent>(Tenders.SelectedItem);
-        }
-        
-        #endregion
 
         private async void PrintOfferCommand_Execute()
         {

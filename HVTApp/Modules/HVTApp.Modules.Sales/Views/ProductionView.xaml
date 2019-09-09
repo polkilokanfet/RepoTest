@@ -40,9 +40,8 @@
             
             <GroupBox Grid.Row="0" Header="Размещенное в производстве оборудование">
                 <infg:XamDataGrid x:Name="ProductionListGrid"
-                                  
                                   DataSource="{Binding ProductionGroups}"
-                                  SelectedDataItem="{Binding SelectedProductionGroup, Mode=TwoWay}">
+                                  SelectedDataItem="{Binding ProductionGroups.SelectedGroup, Mode=TwoWay}">
 
                     <infg:XamDataGrid.ContextMenu>
 				        <ContextMenu>
@@ -80,7 +79,7 @@
             <GroupBox Grid.Row="2" Header="Потенциальное">
                 <infg:XamDataGrid x:Name="PotentialListGrid"
                                   DataSource="{Binding PotentialGroups}"
-                                  SelectedDataItem="{Binding SelectedPotentialGroup, Mode=TwoWay}">
+                                  SelectedDataItem="{Binding PotentialGroups.SelectedGroup, Mode=TwoWay}">
 
                     <infg:XamDataGrid.ContextMenu>
                         <ContextMenu>

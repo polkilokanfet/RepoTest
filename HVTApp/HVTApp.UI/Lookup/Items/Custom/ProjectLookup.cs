@@ -54,7 +54,7 @@ namespace HVTApp.UI.Lookup
 
             eventAggregator.GetEvent<AfterRemoveTenderEvent>().Subscribe(tender =>
             {
-                if (tender.Project.Id != Id) return;
+                if (tender.Project?.Id != Id) return;
                 Tenders.RemoveIfContainsById(tender);
                 Refresh();
             });
