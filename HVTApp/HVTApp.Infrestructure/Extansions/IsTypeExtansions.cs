@@ -233,10 +233,10 @@ namespace HVTApp.Infrastructure.Extansions
 
         public static string GetAllowEdit(this Type type)
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             foreach (var attribute in type.GetAllowEditAttributes())
             {
-                sb.Append(attribute.ToString());
+                sb.Append(attribute);
             }
             return sb.ToString();
         }

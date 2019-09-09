@@ -60,6 +60,7 @@
       <DependentUpon>AuthenticationWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="AuthenticationWindowModel.cs" />
+    <Compile Include="FocusExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

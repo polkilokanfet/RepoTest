@@ -19,7 +19,7 @@ namespace HVTApp.Model.POCOs
 
         public override string ToString()
         {
-            return $"ТКП №{RegNumber} от {Date} по проекту \"{Project.Name}\" для {RecipientEmployee.Company}";
+            return $"ТКП №{RegNumber} от {Date.ToShortDateString()} по проекту \"{Project.Name}\" для {RecipientEmployee.Company}";
         }
     }
 }

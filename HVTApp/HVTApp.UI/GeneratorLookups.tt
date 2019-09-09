@@ -72,7 +72,7 @@ namespace HVTApp.UI.Lookup
       var propertyName = property.Name;
 #>
 		[OrderStatus(<#=property.OrderStatus().ToString()#>)]
-        public <#=propertyType#> <#=propertyName#> => GetValue<<#=propertyType#>>();
+        public <#=propertyType#> <#=propertyName#> => Entity.<#=propertyName#>;
 
 <#+ 
     }

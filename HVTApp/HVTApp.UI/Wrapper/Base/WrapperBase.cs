@@ -205,6 +205,12 @@ namespace HVTApp.UI.Wrapper
             }
         }
 
+        /// <summary>
+        /// Инициализация комплексного свойства.
+        /// </summary>
+        /// <typeparam name="TWrapper"></typeparam>
+        /// <param name="propertyName"> Имя свойства </param>
+        /// <param name="wrapper"></param>
         protected void InitializeComplexProperty<TWrapper>(string propertyName, TWrapper wrapper)
             where TWrapper : IWrapper<IBaseEntity>
         {

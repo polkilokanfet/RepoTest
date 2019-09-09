@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Runtime.CompilerServices;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
@@ -11,6 +12,16 @@ namespace HVTApp.UI.Lookup
     public abstract class LookupItem<TEntity> : BindableBase, ILookupItemNavigation<TEntity>, IComparable, IId
         where TEntity : class, IBaseEntity
     {
+        /// <summary>
+        /// Словарь сложных свойств
+        /// </summary>
+        private readonly Dictionary<string, object> _complexProperties = new Dictionary<string, object>();
+
+        /// <summary>
+        /// Словарь свойств-коллекций
+        /// </summary>
+        private readonly Dictionary<string, object> _collectionProperties = new Dictionary<string, object>();
+
         protected LookupItem(TEntity entity)
         {
             Entity = entity;
@@ -28,14 +39,11 @@ namespace HVTApp.UI.Lookup
         /// Обновить Lookup
         /// </summary>
         /// <param name="entity">Основание для обновления.</param>
-        public void Refresh(TEntity entity)
+        public void Refresh(TEntity entity = null)
         {
-            Entity = entity;
-            Refresh();
-        }
-        public void Refresh()
-        {
-            OnPropertyChanged(String.Empty);
+            if(entity != null)
+                Entity = entity;
+            OnPropertyChanged(string.Empty);
         }
 
         protected T GetValue<T>([CallerMemberName] string propertyName = null)
@@ -46,19 +54,38 @@ namespace HVTApp.UI.Lookup
         protected TLookup GetLookup<TLookup>([CallerMemberName] string propertyName = null)
             where TLookup : class 
         {
+            //если свойство уже добавлено в словарь
+            if (_complexProperties.ContainsKey(propertyName))
+            {
+                return (TLookup)_complexProperties[propertyName];
+            }
+
             var value = Entity.GetType().GetProperty(propertyName).GetValue(Entity);
             if (value == null) return null;
-            return (TLookup) Activator.CreateInstance(typeof(TLookup), value);
+            var lookup = (TLookup) Activator.CreateInstance(typeof(TLookup), value);
+            _complexProperties.Add(propertyName, lookup);
+            return lookup;
         }
 
         protected IEnumerable<TLookup> GetLookupEnum<TLookup>([CallerMemberName] string propertyName = null)
         {
+            if (_collectionProperties.ContainsKey(propertyName))
+            {
+                return (IEnumerable<TLookup>)_collectionProperties[propertyName];
+            }
+
+            var collection = new ObservableCollection<TLookup>();
+
             var members = (IEnumerable)Entity.GetType().GetProperty(propertyName).GetValue(Entity);
             foreach (var member in members)
             {
-                yield return (TLookup) Activator.CreateInstance(typeof(TLookup), member);
+                collection.Add((TLookup)Activator.CreateInstance(typeof(TLookup), member));
             }
+            _collectionProperties.Add(propertyName, collection);
+            return collection;
         }
+
+
 
         public override string ToString()
         {
@@ -66,6 +93,7 @@ namespace HVTApp.UI.Lookup
         }
 
         #region IComparable
+
         public virtual int CompareTo(object obj)
         {
             return ToString().CompareTo(obj.ToString());

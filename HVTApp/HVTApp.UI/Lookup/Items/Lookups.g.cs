@@ -36,15 +36,15 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(10)]
-        public System.String Designation => GetValue<System.String>();
+        public System.String Designation => Entity.Designation;
 
 
 		[OrderStatus(8)]
-        public System.String StructureCostNumber => GetValue<System.String>();
+        public System.String StructureCostNumber => Entity.StructureCostNumber;
 
 
 		[OrderStatus(6)]
-        public System.String Comment => GetValue<System.String>();
+        public System.String Comment => Entity.Comment;
 
 
         #endregion
@@ -73,7 +73,7 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(1)]
-        public System.Int32 Number => GetValue<System.Int32>();
+        public System.Int32 Number => Entity.Number;
 
 
         #endregion
@@ -93,7 +93,7 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(10)]
-        public System.String Name => GetValue<System.String>();
+        public System.String Name => Entity.Name;
 
 
         #endregion
@@ -116,15 +116,15 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(1)]
-        public System.DateTime Date => GetValue<System.DateTime>();
+        public System.DateTime Date => Entity.Date;
 
 
 		[OrderStatus(1)]
-        public System.Double Sum => GetValue<System.Double>();
+        public System.Double Sum => Entity.Sum;
 
 
 		[OrderStatus(1)]
-        public System.String Comment => GetValue<System.String>();
+        public System.String Comment => Entity.Comment;
 
 
         #endregion
@@ -144,19 +144,19 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(1)]
-        public System.DateTime Date => GetValue<System.DateTime>();
+        public System.DateTime Date => Entity.Date;
 
 
 		[OrderStatus(1)]
-        public System.DateTime DateCalculated => GetValue<System.DateTime>();
+        public System.DateTime DateCalculated => Entity.DateCalculated;
 
 
 		[OrderStatus(1)]
-        public System.Double Part => GetValue<System.Double>();
+        public System.Double Part => Entity.Part;
 
 
 		[OrderStatus(-10)]
-        public System.String Comment => GetValue<System.String>();
+        public System.String Comment => Entity.Comment;
 
 
         #endregion
@@ -185,11 +185,11 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(5)]
-        public System.Int32 Amount => GetValue<System.Int32>();
+        public System.Int32 Amount => Entity.Amount;
 
 
 		[OrderStatus(1)]
-        public System.Int32 ParentsCount => GetValue<System.Int32>();
+        public System.Int32 ParentsCount => Entity.ParentsCount;
 
 
         #endregion
@@ -218,13 +218,16 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(10)]
-        public System.String Designation => GetValue<System.String>();
+        public System.String Designation => Entity.Designation;
 
 
         #endregion
 
 		[OrderStatus(1)]
 	    public List<ParameterLookup> Parameters { get { return GetLookupEnum<ParameterLookup>().ToList(); } }
+
+		[OrderStatus(1)]
+	    public List<ProductDesignationLookup> Parents { get { return GetLookupEnum<ProductDesignationLookup>().ToList(); } }
 
 	}
 
@@ -241,7 +244,7 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(1)]
-        public System.String Name => GetValue<System.String>();
+        public System.String Name => Entity.Name;
 
 
         #endregion
@@ -284,7 +287,7 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(1)]
-        public System.String Name => GetValue<System.String>();
+        public System.String Name => Entity.Name;
 
 
         #endregion
@@ -304,7 +307,7 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(10)]
-        public System.Double MarginalIncome => GetValue<System.Double>();
+        public System.Double MarginalIncome => Entity.MarginalIncome;
 
 
         #endregion
@@ -327,7 +330,7 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(10)]
-        public System.Int32 ProductionTerm => GetValue<System.Int32>();
+        public System.Int32 ProductionTerm => Entity.ProductionTerm;
 
 
         #endregion
@@ -350,23 +353,23 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(20)]
-        public System.DateTime Date => GetValue<System.DateTime>();
+        public System.DateTime Date => Entity.Date;
 
 
 		[OrderStatus(1)]
-        public System.Int32 ActualPriceTerm => GetValue<System.Int32>();
+        public System.Int32 ActualPriceTerm => Entity.ActualPriceTerm;
 
 
 		[OrderStatus(1)]
-        public System.Int32 StandartTermFromStartToEndProduction => GetValue<System.Int32>();
+        public System.Int32 StandartTermFromStartToEndProduction => Entity.StandartTermFromStartToEndProduction;
 
 
 		[OrderStatus(1)]
-        public System.Int32 StandartTermFromPickToEndProduction => GetValue<System.Int32>();
+        public System.Int32 StandartTermFromPickToEndProduction => Entity.StandartTermFromPickToEndProduction;
 
 
 		[OrderStatus(1)]
-        public System.Double Vat => GetValue<System.Double>();
+        public System.Double Vat => Entity.Vat;
 
 
         #endregion
@@ -420,7 +423,7 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(1)]
-        public System.String Description => GetValue<System.String>();
+        public System.String Description => Entity.Description;
 
 
         #endregion
@@ -450,7 +453,7 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(1)]
-        public System.String Name => GetValue<System.String>();
+        public System.String Name => Entity.Name;
 
 
         #endregion
@@ -471,7 +474,7 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(10)]
-        public System.String Name => GetValue<System.String>();
+        public System.String Name => Entity.Name;
 
 
         #endregion
@@ -501,23 +504,23 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(10)]
-        public System.String Name => GetValue<System.String>();
+        public System.String Name => Entity.Name;
 
 
 		[OrderStatus(1)]
-        public System.Boolean IsCountryCapital => GetValue<System.Boolean>();
+        public System.Boolean IsCountryCapital => Entity.IsCountryCapital;
 
 
 		[OrderStatus(1)]
-        public System.Boolean IsDistrictCapital => GetValue<System.Boolean>();
+        public System.Boolean IsDistrictCapital => Entity.IsDistrictCapital;
 
 
 		[OrderStatus(1)]
-        public System.Boolean IsRegionCapital => GetValue<System.Boolean>();
+        public System.Boolean IsRegionCapital => Entity.IsRegionCapital;
 
 
 		[OrderStatus(1)]
-        public System.Nullable<System.Double> DistanceToEkb => GetValue<System.Nullable<System.Double>>();
+        public System.Nullable<System.Double> DistanceToEkb => Entity.DistanceToEkb;
 
 
         #endregion
@@ -551,11 +554,11 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(2)]
-        public System.String FullName => GetValue<System.String>();
+        public System.String FullName => Entity.FullName;
 
 
 		[OrderStatus(1)]
-        public System.String ShortName => GetValue<System.String>();
+        public System.String ShortName => Entity.ShortName;
 
 
         #endregion
@@ -576,7 +579,7 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(2)]
-        public System.String Name => GetValue<System.String>();
+        public System.String Name => Entity.Name;
 
 
         #endregion
@@ -605,15 +608,15 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(1)]
-        public HVTApp.Model.POCOs.SumType Type => GetValue<HVTApp.Model.POCOs.SumType>();
+        public HVTApp.Model.POCOs.SumType Type => Entity.Type;
 
 
 		[OrderStatus(1)]
-        public HVTApp.Model.POCOs.Currency Currency => GetValue<HVTApp.Model.POCOs.Currency>();
+        public HVTApp.Model.POCOs.Currency Currency => Entity.Currency;
 
 
 		[OrderStatus(1)]
-        public System.Decimal Value => GetValue<System.Decimal>();
+        public System.Decimal Value => Entity.Value;
 
 
         #endregion
@@ -633,19 +636,19 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(1)]
-        public System.DateTime Date => GetValue<System.DateTime>();
+        public System.DateTime Date => Entity.Date;
 
 
 		[OrderStatus(1)]
-        public HVTApp.Model.POCOs.Currency FirstCurrency => GetValue<HVTApp.Model.POCOs.Currency>();
+        public HVTApp.Model.POCOs.Currency FirstCurrency => Entity.FirstCurrency;
 
 
 		[OrderStatus(1)]
-        public HVTApp.Model.POCOs.Currency SecondCurrency => GetValue<HVTApp.Model.POCOs.Currency>();
+        public HVTApp.Model.POCOs.Currency SecondCurrency => Entity.SecondCurrency;
 
 
 		[OrderStatus(1)]
-        public System.Double ExchangeRate => GetValue<System.Double>();
+        public System.Double ExchangeRate => Entity.ExchangeRate;
 
 
         #endregion
@@ -665,15 +668,15 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(4)]
-        public System.DateTime Date => GetValue<System.DateTime>();
+        public System.DateTime Date => Entity.Date;
 
 
 		[OrderStatus(3)]
-        public System.String Text => GetValue<System.String>();
+        public System.String Text => Entity.Text;
 
 
 		[OrderStatus(2)]
-        public System.Boolean IsImportant => GetValue<System.Boolean>();
+        public System.Boolean IsImportant => Entity.IsImportant;
 
 
         #endregion
@@ -693,19 +696,19 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(1)]
-        public System.Double Cost => GetValue<System.Double>();
+        public System.Double Cost => Entity.Cost;
 
 
 		[OrderStatus(1)]
-        public System.Nullable<System.Double> CostDelivery => GetValue<System.Nullable<System.Double>>();
+        public System.Nullable<System.Double> CostDelivery => Entity.CostDelivery;
 
 
 		[OrderStatus(1)]
-        public System.Boolean CostDeliveryIncluded => GetValue<System.Boolean>();
+        public System.Boolean CostDeliveryIncluded => Entity.CostDeliveryIncluded;
 
 
 		[OrderStatus(1)]
-        public System.Int32 ProductionTerm => GetValue<System.Int32>();
+        public System.Int32 ProductionTerm => Entity.ProductionTerm;
 
 
         #endregion
@@ -763,39 +766,48 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(1)]
-        public System.String Designation => GetValue<System.String>();
+        public System.String Designation => Entity.Designation;
 
 
 		[OrderStatus(1)]
-        public System.String DesignationSpecial => GetValue<System.String>();
+        public System.String DesignationSpecial => Entity.DesignationSpecial;
 
 
 		[OrderStatus(1)]
-        public System.String StructureCostNumber => GetValue<System.String>();
+        public System.String StructureCostNumber => Entity.StructureCostNumber;
 
 
 		[OrderStatus(1)]
-        public System.String Design => GetValue<System.String>();
+        public System.String Design => Entity.Design;
 
 
 		[OrderStatus(1)]
-        public System.Boolean IsService => GetValue<System.Boolean>();
+        public System.Boolean IsService => Entity.IsService;
 
 
 		[OrderStatus(1)]
-        public System.Boolean IsSupervision => GetValue<System.Boolean>();
+        public System.Boolean IsSupervision => Entity.IsSupervision;
 
 
 		[OrderStatus(1)]
-        public System.Boolean IsDelivery => GetValue<System.Boolean>();
+        public System.Boolean IsDelivery => Entity.IsDelivery;
 
 
 		[OrderStatus(1)]
-        public System.Double Weight => GetValue<System.Double>();
+        public System.Double Weight => Entity.Weight;
 
 
 		[OrderStatus(1)]
-        public System.Nullable<System.DateTime> LastPriceDate => GetValue<System.Nullable<System.DateTime>>();
+        public System.Nullable<System.DateTime> LastPriceDate => Entity.LastPriceDate;
+
+
+        #endregion
+
+
+        #region ComplexProperties
+
+		[OrderStatus(10)]
+	    public ProductTypeLookup ProductType { get { return GetLookup<ProductTypeLookup>(); } }
 
 
         #endregion
@@ -824,11 +836,11 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(1)]
-        public System.Guid MainProductId => GetValue<System.Guid>();
+        public System.Guid MainProductId => Entity.MainProductId;
 
 
 		[OrderStatus(5)]
-        public System.Int32 Amount => GetValue<System.Int32>();
+        public System.Int32 Amount => Entity.Amount;
 
 
         #endregion
@@ -857,19 +869,19 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(5)]
-        public System.String BankName => GetValue<System.String>();
+        public System.String BankName => Entity.BankName;
 
 
 		[OrderStatus(4)]
-        public System.String BankIdentificationCode => GetValue<System.String>();
+        public System.String BankIdentificationCode => Entity.BankIdentificationCode;
 
 
 		[OrderStatus(3)]
-        public System.String CorrespondentAccount => GetValue<System.String>();
+        public System.String CorrespondentAccount => Entity.CorrespondentAccount;
 
 
 		[OrderStatus(2)]
-        public System.String CheckingAccount => GetValue<System.String>();
+        public System.String CheckingAccount => Entity.CheckingAccount;
 
 
         #endregion
@@ -891,19 +903,19 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(20)]
-        public System.String FullName => GetValue<System.String>();
+        public System.String FullName => Entity.FullName;
 
 
 		[OrderStatus(15)]
-        public System.String ShortName => GetValue<System.String>();
+        public System.String ShortName => Entity.ShortName;
 
 
 		[OrderStatus(1)]
-        public System.String Inn => GetValue<System.String>();
+        public System.String Inn => Entity.Inn;
 
 
 		[OrderStatus(1)]
-        public System.String Kpp => GetValue<System.String>();
+        public System.String Kpp => Entity.Kpp;
 
 
         #endregion
@@ -950,11 +962,11 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(1)]
-        public System.String FullName => GetValue<System.String>();
+        public System.String FullName => Entity.FullName;
 
 
 		[OrderStatus(1)]
-        public System.String ShortName => GetValue<System.String>();
+        public System.String ShortName => Entity.ShortName;
 
 
         #endregion
@@ -974,11 +986,11 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(1)]
-        public System.DateTime Date => GetValue<System.DateTime>();
+        public System.DateTime Date => Entity.Date;
 
 
 		[OrderStatus(1)]
-        public System.String Number => GetValue<System.String>();
+        public System.String Number => Entity.Number;
 
 
         #endregion
@@ -1001,7 +1013,7 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(1)]
-        public System.String Name => GetValue<System.String>();
+        public System.String Name => Entity.Name;
 
 
         #endregion
@@ -1022,11 +1034,11 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(1)]
-        public System.String FullName => GetValue<System.String>();
+        public System.String FullName => Entity.FullName;
 
 
 		[OrderStatus(1)]
-        public System.String ShortName => GetValue<System.String>();
+        public System.String ShortName => Entity.ShortName;
 
 
         #endregion
@@ -1046,11 +1058,11 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(10)]
-        public System.String Name => GetValue<System.String>();
+        public System.String Name => Entity.Name;
 
 
 		[OrderStatus(1)]
-        public HVTApp.Model.POCOs.ActivityFieldEnum ActivityFieldEnum => GetValue<HVTApp.Model.POCOs.ActivityFieldEnum>();
+        public HVTApp.Model.POCOs.ActivityFieldEnum ActivityFieldEnum => Entity.ActivityFieldEnum;
 
 
         #endregion
@@ -1071,11 +1083,11 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(1)]
-        public System.String Number => GetValue<System.String>();
+        public System.String Number => Entity.Number;
 
 
 		[OrderStatus(1)]
-        public System.DateTime Date => GetValue<System.DateTime>();
+        public System.DateTime Date => Entity.Date;
 
 
         #endregion
@@ -1104,11 +1116,11 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(1)]
-        public System.String FullName => GetValue<System.String>();
+        public System.String FullName => Entity.FullName;
 
 
 		[OrderStatus(1)]
-        public System.String ShortName => GetValue<System.String>();
+        public System.String ShortName => Entity.ShortName;
 
 
         #endregion
@@ -1128,19 +1140,19 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(4)]
-        public System.String Value => GetValue<System.String>();
+        public System.String Value => Entity.Value;
 
 
 		[OrderStatus(1)]
-        public System.Int32 Rang => GetValue<System.Int32>();
+        public System.Int32 Rang => Entity.Rang;
 
 
 		[OrderStatus(1)]
-        public System.String Comment => GetValue<System.String>();
+        public System.String Comment => Entity.Comment;
 
 
 		[OrderStatus(1)]
-        public System.Boolean IsOrigin => GetValue<System.Boolean>();
+        public System.Boolean IsOrigin => Entity.IsOrigin;
 
 
         #endregion
@@ -1172,11 +1184,11 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(10)]
-        public System.String Name => GetValue<System.String>();
+        public System.String Name => Entity.Name;
 
 
 		[OrderStatus(1)]
-        public System.String Comment => GetValue<System.String>();
+        public System.String Comment => Entity.Comment;
 
 
         #endregion
@@ -1205,15 +1217,15 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(10)]
-        public System.String Name => GetValue<System.String>();
+        public System.String Name => Entity.Name;
 
 
 		[OrderStatus(4)]
-        public System.Int32 ChildProductsAmount => GetValue<System.Int32>();
+        public System.Int32 ChildProductsAmount => Entity.ChildProductsAmount;
 
 
 		[OrderStatus(1)]
-        public System.Boolean IsUnique => GetValue<System.Boolean>();
+        public System.Boolean IsUnique => Entity.IsUnique;
 
 
         #endregion
@@ -1242,19 +1254,19 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(10)]
-        public System.String Surname => GetValue<System.String>();
+        public System.String Surname => Entity.Surname;
 
 
 		[OrderStatus(9)]
-        public System.String Name => GetValue<System.String>();
+        public System.String Name => Entity.Name;
 
 
 		[OrderStatus(8)]
-        public System.String Patronymic => GetValue<System.String>();
+        public System.String Patronymic => Entity.Patronymic;
 
 
 		[OrderStatus(1)]
-        public System.Boolean IsMan => GetValue<System.Boolean>();
+        public System.Boolean IsMan => Entity.IsMan;
 
 
         #endregion
@@ -1288,171 +1300,171 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(45)]
-        public System.Double Cost => GetValue<System.Double>();
+        public System.Double Cost => Entity.Cost;
 
 
 		[OrderStatus(46)]
-        public System.Nullable<System.Double> Price => GetValue<System.Nullable<System.Double>>();
+        public System.Nullable<System.Double> Price => Entity.Price;
 
 
 		[OrderStatus(1)]
-        public System.Int32 ProductionTerm => GetValue<System.Int32>();
+        public System.Int32 ProductionTerm => Entity.ProductionTerm;
 
 
 		[OrderStatus(1)]
-        public System.DateTime DeliveryDateExpected => GetValue<System.DateTime>();
+        public System.DateTime DeliveryDateExpected => Entity.DeliveryDateExpected;
 
 
 		[OrderStatus(1)]
-        public System.Nullable<System.DateTime> RealizationDate => GetValue<System.Nullable<System.DateTime>>();
+        public System.Nullable<System.DateTime> RealizationDate => Entity.RealizationDate;
 
 
 		[OrderStatus(1)]
-        public System.String TceRequest => GetValue<System.String>();
+        public System.String TceRequest => Entity.TceRequest;
 
 
 		[OrderStatus(1)]
-        public System.String OrderPosition => GetValue<System.String>();
+        public System.String OrderPosition => Entity.OrderPosition;
 
 
 		[OrderStatus(1)]
-        public System.String SerialNumber => GetValue<System.String>();
+        public System.String SerialNumber => Entity.SerialNumber;
 
 
 		[OrderStatus(1)]
-        public System.Nullable<System.Int32> AssembleTerm => GetValue<System.Nullable<System.Int32>>();
+        public System.Nullable<System.Int32> AssembleTerm => Entity.AssembleTerm;
 
 
 		[OrderStatus(1)]
-        public System.Nullable<System.DateTime> SignalToStartProduction => GetValue<System.Nullable<System.DateTime>>();
+        public System.Nullable<System.DateTime> SignalToStartProduction => Entity.SignalToStartProduction;
 
 
 		[OrderStatus(1)]
-        public System.Nullable<System.DateTime> SignalToStartProductionDone => GetValue<System.Nullable<System.DateTime>>();
+        public System.Nullable<System.DateTime> SignalToStartProductionDone => Entity.SignalToStartProductionDone;
 
 
 		[OrderStatus(1)]
-        public System.Nullable<System.DateTime> StartProductionDate => GetValue<System.Nullable<System.DateTime>>();
+        public System.Nullable<System.DateTime> StartProductionDate => Entity.StartProductionDate;
 
 
 		[OrderStatus(1)]
-        public System.Nullable<System.DateTime> PickingDate => GetValue<System.Nullable<System.DateTime>>();
+        public System.Nullable<System.DateTime> PickingDate => Entity.PickingDate;
 
 
 		[OrderStatus(1)]
-        public System.Nullable<System.DateTime> EndProductionPlanDate => GetValue<System.Nullable<System.DateTime>>();
+        public System.Nullable<System.DateTime> EndProductionPlanDate => Entity.EndProductionPlanDate;
 
 
 		[OrderStatus(1)]
-        public System.Nullable<System.DateTime> EndProductionDate => GetValue<System.Nullable<System.DateTime>>();
+        public System.Nullable<System.DateTime> EndProductionDate => Entity.EndProductionDate;
 
 
 		[OrderStatus(1)]
-        public System.Nullable<System.Double> CostDelivery => GetValue<System.Nullable<System.Double>>();
+        public System.Nullable<System.Double> CostDelivery => Entity.CostDelivery;
 
 
 		[OrderStatus(1)]
-        public System.Boolean CostDeliveryIncluded => GetValue<System.Boolean>();
+        public System.Boolean CostDeliveryIncluded => Entity.CostDeliveryIncluded;
 
 
 		[OrderStatus(1)]
-        public System.Nullable<System.Int32> ExpectedDeliveryPeriod => GetValue<System.Nullable<System.Int32>>();
+        public System.Nullable<System.Int32> ExpectedDeliveryPeriod => Entity.ExpectedDeliveryPeriod;
 
 
 		[OrderStatus(1)]
-        public System.Nullable<System.Int32> ExpectedDeliveryPeriodCalculated => GetValue<System.Nullable<System.Int32>>();
+        public System.Nullable<System.Int32> ExpectedDeliveryPeriodCalculated => Entity.ExpectedDeliveryPeriodCalculated;
 
 
 		[OrderStatus(1)]
-        public System.Nullable<System.DateTime> ShipmentDate => GetValue<System.Nullable<System.DateTime>>();
+        public System.Nullable<System.DateTime> ShipmentDate => Entity.ShipmentDate;
 
 
 		[OrderStatus(1)]
-        public System.Nullable<System.DateTime> ShipmentPlanDate => GetValue<System.Nullable<System.DateTime>>();
+        public System.Nullable<System.DateTime> ShipmentPlanDate => Entity.ShipmentPlanDate;
 
 
 		[OrderStatus(1)]
-        public System.Nullable<System.DateTime> DeliveryDate => GetValue<System.Nullable<System.DateTime>>();
+        public System.Nullable<System.DateTime> DeliveryDate => Entity.DeliveryDate;
 
 
 		[OrderStatus(1)]
-        public System.Boolean AllowEditCost => GetValue<System.Boolean>();
+        public System.Boolean AllowEditCost => Entity.AllowEditCost;
 
 
 		[OrderStatus(1)]
-        public System.Boolean AllowEditProduct => GetValue<System.Boolean>();
+        public System.Boolean AllowEditProduct => Entity.AllowEditProduct;
 
 
 		[OrderStatus(1)]
-        public System.Boolean IsLoosen => GetValue<System.Boolean>();
+        public System.Boolean IsLoosen => Entity.IsLoosen;
 
 
 		[OrderStatus(1)]
-        public System.Boolean IsDone => GetValue<System.Boolean>();
+        public System.Boolean IsDone => Entity.IsDone;
 
 
 		[OrderStatus(1)]
-        public System.Boolean IsPaid => GetValue<System.Boolean>();
+        public System.Boolean IsPaid => Entity.IsPaid;
 
 
 		[OrderStatus(1)]
-        public System.Double SumPaid => GetValue<System.Double>();
+        public System.Double SumPaid => Entity.SumPaid;
 
 
 		[OrderStatus(1)]
-        public System.Double SumNotPaid => GetValue<System.Double>();
+        public System.Double SumNotPaid => Entity.SumNotPaid;
 
 
 		[OrderStatus(1)]
-        public System.Double SumToStartProduction => GetValue<System.Double>();
+        public System.Double SumToStartProduction => Entity.SumToStartProduction;
 
 
 		[OrderStatus(1)]
-        public System.Double SumToShipping => GetValue<System.Double>();
+        public System.Double SumToShipping => Entity.SumToShipping;
 
 
 		[OrderStatus(1)]
-        public System.DateTime OrderInTakeDate => GetValue<System.DateTime>();
+        public System.DateTime OrderInTakeDate => Entity.OrderInTakeDate;
 
 
 		[OrderStatus(1)]
-        public System.Int32 OrderInTakeYear => GetValue<System.Int32>();
+        public System.Int32 OrderInTakeYear => Entity.OrderInTakeYear;
 
 
 		[OrderStatus(1)]
-        public System.Int32 OrderInTakeMonth => GetValue<System.Int32>();
+        public System.Int32 OrderInTakeMonth => Entity.OrderInTakeMonth;
 
 
 		[OrderStatus(1)]
-        public System.Nullable<System.DateTime> StartProductionConditionsDoneDate => GetValue<System.Nullable<System.DateTime>>();
+        public System.Nullable<System.DateTime> StartProductionConditionsDoneDate => Entity.StartProductionConditionsDoneDate;
 
 
 		[OrderStatus(1)]
-        public System.Nullable<System.DateTime> ShippingConditionsDoneDate => GetValue<System.Nullable<System.DateTime>>();
+        public System.Nullable<System.DateTime> ShippingConditionsDoneDate => Entity.ShippingConditionsDoneDate;
 
 
 		[OrderStatus(1)]
-        public System.DateTime StartProductionDateCalculated => GetValue<System.DateTime>();
+        public System.DateTime StartProductionDateCalculated => Entity.StartProductionDateCalculated;
 
 
 		[OrderStatus(1)]
-        public System.DateTime EndProductionDateCalculated => GetValue<System.DateTime>();
+        public System.DateTime EndProductionDateCalculated => Entity.EndProductionDateCalculated;
 
 
 		[OrderStatus(1)]
-        public System.DateTime RealizationDateCalculated => GetValue<System.DateTime>();
+        public System.DateTime RealizationDateCalculated => Entity.RealizationDateCalculated;
 
 
 		[OrderStatus(1)]
-        public System.DateTime ShipmentDateCalculated => GetValue<System.DateTime>();
+        public System.DateTime ShipmentDateCalculated => Entity.ShipmentDateCalculated;
 
 
 		[OrderStatus(1)]
-        public System.DateTime DeliveryDateCalculated => GetValue<System.DateTime>();
+        public System.DateTime DeliveryDateCalculated => Entity.DeliveryDateCalculated;
 
 
 		[OrderStatus(1)]
-        public System.Double DeliveryPeriodCalculated => GetValue<System.Double>();
+        public System.Double DeliveryPeriodCalculated => Entity.DeliveryPeriodCalculated;
 
 
         #endregion
@@ -1527,27 +1539,27 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(1)]
-        public System.String Code => GetValue<System.String>();
+        public System.String Code => Entity.Code;
 
 
 		[OrderStatus(45)]
-        public System.String RegNumber => GetValue<System.String>();
+        public System.String RegNumber => Entity.RegNumber;
 
 
 		[OrderStatus(40)]
-        public System.DateTime Date => GetValue<System.DateTime>();
+        public System.DateTime Date => Entity.Date;
 
 
 		[OrderStatus(1)]
-        public System.Guid SenderId => GetValue<System.Guid>();
+        public System.Guid SenderId => Entity.SenderId;
 
 
 		[OrderStatus(1)]
-        public System.Guid RecipientId => GetValue<System.Guid>();
+        public System.Guid RecipientId => Entity.RecipientId;
 
 
 		[OrderStatus(1)]
-        public System.String Comment => GetValue<System.String>();
+        public System.String Comment => Entity.Comment;
 
 
         #endregion
@@ -1599,11 +1611,11 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(1)]
-        public System.DateTime Date => GetValue<System.DateTime>();
+        public System.DateTime Date => Entity.Date;
 
 
 		[OrderStatus(1)]
-        public System.Double Sum => GetValue<System.Double>();
+        public System.Double Sum => Entity.Sum;
 
 
         #endregion
@@ -1623,11 +1635,11 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(8)]
-        public System.String Designation => GetValue<System.String>();
+        public System.String Designation => Entity.Designation;
 
 
 		[OrderStatus(6)]
-        public System.String DesignationSpecial => GetValue<System.String>();
+        public System.String DesignationSpecial => Entity.DesignationSpecial;
 
 
         #endregion
@@ -1663,35 +1675,35 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(4)]
-        public System.DateTime ValidityDate => GetValue<System.DateTime>();
+        public System.DateTime ValidityDate => Entity.ValidityDate;
 
 
 		[OrderStatus(1)]
-        public System.Double Vat => GetValue<System.Double>();
+        public System.Double Vat => Entity.Vat;
 
 
 		[OrderStatus(1)]
-        public System.String Code => GetValue<System.String>();
+        public System.String Code => Entity.Code;
 
 
 		[OrderStatus(45)]
-        public System.String RegNumber => GetValue<System.String>();
+        public System.String RegNumber => Entity.RegNumber;
 
 
 		[OrderStatus(40)]
-        public System.DateTime Date => GetValue<System.DateTime>();
+        public System.DateTime Date => Entity.Date;
 
 
 		[OrderStatus(1)]
-        public System.Guid SenderId => GetValue<System.Guid>();
+        public System.Guid SenderId => Entity.SenderId;
 
 
 		[OrderStatus(1)]
-        public System.Guid RecipientId => GetValue<System.Guid>();
+        public System.Guid RecipientId => Entity.RecipientId;
 
 
 		[OrderStatus(1)]
-        public System.String Comment => GetValue<System.String>();
+        public System.String Comment => Entity.Comment;
 
 
         #endregion
@@ -1749,11 +1761,11 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(20)]
-        public System.String PhoneNumber => GetValue<System.String>();
+        public System.String PhoneNumber => Entity.PhoneNumber;
 
 
 		[OrderStatus(10)]
-        public System.String Email => GetValue<System.String>();
+        public System.String Email => Entity.Email;
 
 
         #endregion
@@ -1791,11 +1803,11 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(1)]
-        public System.String Number => GetValue<System.String>();
+        public System.String Number => Entity.Number;
 
 
 		[OrderStatus(1)]
-        public System.DateTime DateOpen => GetValue<System.DateTime>();
+        public System.DateTime DateOpen => Entity.DateOpen;
 
 
         #endregion
@@ -1815,15 +1827,15 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(6)]
-        public System.Double Part => GetValue<System.Double>();
+        public System.Double Part => Entity.Part;
 
 
 		[OrderStatus(8)]
-        public System.Int32 DaysToPoint => GetValue<System.Int32>();
+        public System.Int32 DaysToPoint => Entity.DaysToPoint;
 
 
 		[OrderStatus(10)]
-        public HVTApp.Model.POCOs.PaymentConditionPoint PaymentConditionPoint => GetValue<HVTApp.Model.POCOs.PaymentConditionPoint>();
+        public HVTApp.Model.POCOs.PaymentConditionPoint PaymentConditionPoint => Entity.PaymentConditionPoint;
 
 
         #endregion
@@ -1844,15 +1856,15 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(10)]
-        public System.String Number => GetValue<System.String>();
+        public System.String Number => Entity.Number;
 
 
 		[OrderStatus(20)]
-        public System.DateTime Date => GetValue<System.DateTime>();
+        public System.DateTime Date => Entity.Date;
 
 
 		[OrderStatus(1)]
-        public System.Double Vat => GetValue<System.Double>();
+        public System.Double Vat => Entity.Vat;
 
 
         #endregion
@@ -1876,7 +1888,7 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(20)]
-        public System.String Name => GetValue<System.String>();
+        public System.String Name => Entity.Name;
 
 
         #endregion
@@ -1913,15 +1925,15 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(9)]
-        public System.String Name => GetValue<System.String>();
+        public System.String Name => Entity.Name;
 
 
 		[OrderStatus(2)]
-        public System.Boolean InWork => GetValue<System.Boolean>();
+        public System.Boolean InWork => Entity.InWork;
 
 
 		[OrderStatus(1)]
-        public System.Boolean ForReport => GetValue<System.Boolean>();
+        public System.Boolean ForReport => Entity.ForReport;
 
 
         #endregion
@@ -1957,11 +1969,11 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(1)]
-        public System.String Name => GetValue<System.String>();
+        public System.String Name => Entity.Name;
 
 
 		[OrderStatus(1)]
-        public HVTApp.Infrastructure.Role Role => GetValue<HVTApp.Infrastructure.Role>();
+        public HVTApp.Infrastructure.Role Role => Entity.Role;
 
 
         #endregion
@@ -1981,15 +1993,15 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(10)]
-        public System.String Number => GetValue<System.String>();
+        public System.String Number => Entity.Number;
 
 
 		[OrderStatus(9)]
-        public System.DateTime Date => GetValue<System.DateTime>();
+        public System.DateTime Date => Entity.Date;
 
 
 		[OrderStatus(7)]
-        public System.Double Vat => GetValue<System.Double>();
+        public System.Double Vat => Entity.Vat;
 
 
         #endregion
@@ -2018,15 +2030,15 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(9)]
-        public System.DateTime DateOpen => GetValue<System.DateTime>();
+        public System.DateTime DateOpen => Entity.DateOpen;
 
 
 		[OrderStatus(8)]
-        public System.DateTime DateClose => GetValue<System.DateTime>();
+        public System.DateTime DateClose => Entity.DateClose;
 
 
 		[OrderStatus(7)]
-        public System.Nullable<System.DateTime> DateNotice => GetValue<System.Nullable<System.DateTime>>();
+        public System.Nullable<System.DateTime> DateNotice => Entity.DateNotice;
 
 
         #endregion
@@ -2065,11 +2077,11 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(4)]
-        public System.String Name => GetValue<System.String>();
+        public System.String Name => Entity.Name;
 
 
 		[OrderStatus(1)]
-        public HVTApp.Model.POCOs.TenderTypeEnum Type => GetValue<HVTApp.Model.POCOs.TenderTypeEnum>();
+        public HVTApp.Model.POCOs.TenderTypeEnum Type => Entity.Type;
 
 
         #endregion
@@ -2089,19 +2101,19 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(20)]
-        public System.String Login => GetValue<System.String>();
+        public System.String Login => Entity.Login;
 
 
 		[OrderStatus(2)]
-        public System.Guid Password => GetValue<System.Guid>();
+        public System.Guid Password => Entity.Password;
 
 
 		[OrderStatus(15)]
-        public System.String PersonalNumber => GetValue<System.String>();
+        public System.String PersonalNumber => Entity.PersonalNumber;
 
 
 		[OrderStatus(1)]
-        public HVTApp.Infrastructure.Role RoleCurrent => GetValue<HVTApp.Infrastructure.Role>();
+        public HVTApp.Infrastructure.Role RoleCurrent => Entity.RoleCurrent;
 
 
         #endregion
