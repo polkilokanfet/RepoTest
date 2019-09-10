@@ -55,6 +55,7 @@
     <Compile Include="Events\PubSubEventArgs.cs" />
     <Compile Include="GeneratorHelpers.cs" />
     <Compile Include="POCOs\ActivityFieldEnum.cs" />
+    <Compile Include="POCOs\Address\CountryUnion.cs" />
     <Compile Include="POCOs\CreateNewProductTask.cs" />
     <Compile Include="Comparers\ParameterComparer.cs" />
     <Compile Include="POCOs\DocumentNumber.cs" />

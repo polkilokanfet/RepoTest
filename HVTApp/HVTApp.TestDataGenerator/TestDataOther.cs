@@ -49,6 +49,8 @@ namespace HVTApp.TestDataGenerator
         public Country CountryRussia;
         public Country CountryUsa;
 
+        public CountryUnion CountryUnionSng;
+
         public Address AddressUetm;
         public Address AddressStation;
         public Address AddressSubstation;
@@ -129,6 +131,11 @@ namespace HVTApp.TestDataGenerator
         {
             CountryRussia.Clone(new Country { Name = "Россия" });
             CountryUsa.Clone(new Country { Name = "США" });
+        }
+
+        private void GenerateCountryUnions()
+        {
+            CountryUnionSng.Clone(new CountryUnion {Name = "СНГ", Countries = new List<Country> {CountryRussia} });
         }
 
         private void GenerateAddresses()

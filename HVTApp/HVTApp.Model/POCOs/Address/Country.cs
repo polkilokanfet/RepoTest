@@ -8,6 +8,7 @@ namespace HVTApp.Model.POCOs
     /// Страна
     /// </summary>
     [Designation("Страна")]
+    [DesignationPlural("Страны")]
     [AllowEdit(Role.SalesManager)]
     public partial class Country : BaseEntity
     {
