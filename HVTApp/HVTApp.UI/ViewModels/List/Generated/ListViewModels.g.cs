@@ -24,6 +24,12 @@ using HVTApp.Infrastructure;
 namespace HVTApp.UI.ViewModels
 {
 
+	public partial class CountryUnionLookupListViewModel : BaseListViewModel<CountryUnion, CountryUnionLookup, AfterSaveCountryUnionEvent, AfterSelectCountryUnionEvent, AfterRemoveCountryUnionEvent>
+    {
+        public CountryUnionLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+
 	public partial class CreateNewProductTaskLookupListViewModel : BaseListViewModel<CreateNewProductTask, CreateNewProductTaskLookup, AfterSaveCreateNewProductTaskEvent, AfterSelectCreateNewProductTaskEvent, AfterRemoveCreateNewProductTaskEvent>
     {
         public CreateNewProductTaskLookupListViewModel(IUnityContainer container) : base(container) { }

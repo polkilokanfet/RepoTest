@@ -26,6 +26,54 @@ using System;
 namespace HVTApp.UI.ViewModels
 {
 
+    public partial class CountryUnionDetailsViewModel : BaseDetailsViewModel<CountryUnionWrapper, CountryUnion, AfterSaveCountryUnionEvent>
+    {
+		private Func<Task<List<Country>>> _getEntitiesForAddInCountriesCommand;
+		public ICommand AddInCountriesCommand { get; }
+		public ICommand RemoveFromCountriesCommand { get; }
+		private CountryWrapper _selectedCountriesItem;
+		public CountryWrapper SelectedCountriesItem 
+		{ 
+			get { return _selectedCountriesItem; }
+			set 
+			{ 
+				if (Equals(_selectedCountriesItem, value)) return;
+				_selectedCountriesItem = value;
+				OnPropertyChanged();
+				((DelegateCommand)RemoveFromCountriesCommand).RaiseCanExecuteChanged();
+			}
+		}
+
+
+        public CountryUnionDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+			
+			if (_getEntitiesForAddInCountriesCommand == null) _getEntitiesForAddInCountriesCommand = async () => { return await UnitOfWork.Repository<Country>().GetAllAsync(); };;
+			if (AddInCountriesCommand == null) AddInCountriesCommand = new DelegateCommand(AddInCountriesCommand_Execute_Default);
+			if (RemoveFromCountriesCommand == null) RemoveFromCountriesCommand = new DelegateCommand(RemoveFromCountriesCommand_Execute_Default, RemoveFromCountriesCommand_CanExecute_Default);
+
+		}
+
+			private async void AddInCountriesCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<Country, CountryWrapper>(await _getEntitiesForAddInCountriesCommand(), Item.Countries);
+			}
+
+			private void RemoveFromCountriesCommand_Execute_Default()
+			{
+				Item.Countries.Remove(SelectedCountriesItem);
+			}
+
+			private bool RemoveFromCountriesCommand_CanExecute_Default()
+			{
+				return SelectedCountriesItem != null;
+			}
+
+
+
+    }
+
+
     public partial class CreateNewProductTaskDetailsViewModel : BaseDetailsViewModel<CreateNewProductTaskWrapper, CreateNewProductTask, AfterSaveCreateNewProductTaskEvent>
     {
 		private Func<Task<List<Product>>> _getEntitiesForSelectProductCommand;
@@ -212,6 +260,22 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
+		private Func<Task<List<ProductDesignation>>> _getEntitiesForAddInParentsCommand;
+		public ICommand AddInParentsCommand { get; }
+		public ICommand RemoveFromParentsCommand { get; }
+		private ProductDesignationWrapper _selectedParentsItem;
+		public ProductDesignationWrapper SelectedParentsItem 
+		{ 
+			get { return _selectedParentsItem; }
+			set 
+			{ 
+				if (Equals(_selectedParentsItem, value)) return;
+				_selectedParentsItem = value;
+				OnPropertyChanged();
+				((DelegateCommand)RemoveFromParentsCommand).RaiseCanExecuteChanged();
+			}
+		}
+
 
         public ProductDesignationDetailsViewModel(IUnityContainer container) : base(container) 
 		{
@@ -219,6 +283,11 @@ namespace HVTApp.UI.ViewModels
 			if (_getEntitiesForAddInParametersCommand == null) _getEntitiesForAddInParametersCommand = async () => { return await UnitOfWork.Repository<Parameter>().GetAllAsync(); };;
 			if (AddInParametersCommand == null) AddInParametersCommand = new DelegateCommand(AddInParametersCommand_Execute_Default);
 			if (RemoveFromParametersCommand == null) RemoveFromParametersCommand = new DelegateCommand(RemoveFromParametersCommand_Execute_Default, RemoveFromParametersCommand_CanExecute_Default);
+
+			
+			if (_getEntitiesForAddInParentsCommand == null) _getEntitiesForAddInParentsCommand = async () => { return await UnitOfWork.Repository<ProductDesignation>().GetAllAsync(); };;
+			if (AddInParentsCommand == null) AddInParentsCommand = new DelegateCommand(AddInParentsCommand_Execute_Default);
+			if (RemoveFromParentsCommand == null) RemoveFromParentsCommand = new DelegateCommand(RemoveFromParentsCommand_Execute_Default, RemoveFromParentsCommand_CanExecute_Default);
 
 		}
 
@@ -235,6 +304,21 @@ namespace HVTApp.UI.ViewModels
 			private bool RemoveFromParametersCommand_CanExecute_Default()
 			{
 				return SelectedParametersItem != null;
+			}
+
+			private async void AddInParentsCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<ProductDesignation, ProductDesignationWrapper>(await _getEntitiesForAddInParentsCommand(), Item.Parents);
+			}
+
+			private void RemoveFromParentsCommand_Execute_Default()
+			{
+				Item.Parents.Remove(SelectedParentsItem);
+			}
+
+			private bool RemoveFromParentsCommand_CanExecute_Default()
+			{
+				return SelectedParentsItem != null;
 			}
 
 
@@ -968,6 +1052,10 @@ namespace HVTApp.UI.ViewModels
 
     public partial class ProductBlockDetailsViewModel : BaseDetailsViewModel<ProductBlockWrapper, ProductBlock, AfterSaveProductBlockEvent>
     {
+		private Func<Task<List<ProductType>>> _getEntitiesForSelectProductTypeCommand;
+		public ICommand SelectProductTypeCommand { get; private set; }
+		public ICommand ClearProductTypeCommand { get; private set; }
+
 		private Func<Task<List<Parameter>>> _getEntitiesForAddInParametersCommand;
 		public ICommand AddInParametersCommand { get; }
 		public ICommand RemoveFromParametersCommand { get; }
@@ -1020,6 +1108,11 @@ namespace HVTApp.UI.ViewModels
         public ProductBlockDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
+			if (_getEntitiesForSelectProductTypeCommand == null) _getEntitiesForSelectProductTypeCommand = async () => { return await UnitOfWork.Repository<ProductType>().GetAllAsync(); };
+			if (SelectProductTypeCommand == null) SelectProductTypeCommand = new DelegateCommand(SelectProductTypeCommand_Execute_Default);
+			if (ClearProductTypeCommand == null) ClearProductTypeCommand = new DelegateCommand(ClearProductTypeCommand_Execute_Default);
+
+			
 			if (_getEntitiesForAddInParametersCommand == null) _getEntitiesForAddInParametersCommand = async () => { return await UnitOfWork.Repository<Parameter>().GetAllAsync(); };;
 			if (AddInParametersCommand == null) AddInParametersCommand = new DelegateCommand(AddInParametersCommand_Execute_Default);
 			if (RemoveFromParametersCommand == null) RemoveFromParametersCommand = new DelegateCommand(RemoveFromParametersCommand_Execute_Default, RemoveFromParametersCommand_CanExecute_Default);
@@ -1034,6 +1127,17 @@ namespace HVTApp.UI.ViewModels
 			if (AddInFixedCostsCommand == null) AddInFixedCostsCommand = new DelegateCommand(AddInFixedCostsCommand_Execute_Default);
 			if (RemoveFromFixedCostsCommand == null) RemoveFromFixedCostsCommand = new DelegateCommand(RemoveFromFixedCostsCommand_Execute_Default, RemoveFromFixedCostsCommand_CanExecute_Default);
 
+		}
+
+		private async void SelectProductTypeCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<ProductType, ProductTypeWrapper>(await _getEntitiesForSelectProductTypeCommand(), nameof(Item.ProductType), Item.ProductType?.Id);
+		}
+
+		private void ClearProductTypeCommand_Execute_Default() 
+		{
+		
+		    
 		}
 
 			private async void AddInParametersCommand_Execute_Default()
@@ -2263,7 +2367,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearProductTypeCommand_Execute_Default() 
 		{
-						Item.ProductType = null;
+		
 		    
 		}
 

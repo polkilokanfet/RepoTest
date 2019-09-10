@@ -25,6 +25,29 @@ namespace HVTApp.UI.Lookup
 
 	[AllowEditAttribute(Role.Admin)]
 
+	[Designation("Объединение стран")]
+	public partial class CountryUnionLookup : LookupItem<CountryUnion>
+	{
+		public CountryUnionLookup(CountryUnion entity) : base(entity) 
+		{
+		}
+		
+
+        #region SimpleProperties
+
+		[OrderStatus(2)]
+        public System.String Name => Entity.Name;
+
+
+        #endregion
+
+		[OrderStatus(1)]
+	    public List<CountryLookup> Countries { get { return GetLookupEnum<CountryLookup>().ToList(); } }
+
+	}
+
+	[AllowEditAttribute(Role.Admin)]
+
 	[Designation("Задание на создание нового продукта")]
 	public partial class CreateNewProductTaskLookup : LookupItem<CreateNewProductTask>
 	{

@@ -4,6 +4,7 @@ namespace HVTApp.DataAccess
     {
         public void InitializeRepositories()
         {
+            CountryUnionRepository = new CountryUnionRepository(_context);
             CreateNewProductTaskRepository = new CreateNewProductTaskRepository(_context);
             DocumentNumberRepository = new DocumentNumberRepository(_context);
             MarketFieldRepository = new MarketFieldRepository(_context);
@@ -64,6 +65,7 @@ namespace HVTApp.DataAccess
 
 
         #region Repositories
+        protected ICountryUnionRepository CountryUnionRepository;
         protected ICreateNewProductTaskRepository CreateNewProductTaskRepository;
         protected IDocumentNumberRepository DocumentNumberRepository;
         protected IMarketFieldRepository MarketFieldRepository;

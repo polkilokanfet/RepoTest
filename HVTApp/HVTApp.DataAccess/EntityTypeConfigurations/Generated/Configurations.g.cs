@@ -3,6 +3,7 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.DataAccess
 {
+    public partial class CountryUnionConfiguration : EntityTypeConfiguration<CountryUnion> { }
     public partial class CreateNewProductTaskConfiguration : EntityTypeConfiguration<CreateNewProductTask> { }
     public partial class DocumentNumberConfiguration : EntityTypeConfiguration<DocumentNumber> { }
     public partial class MarketFieldConfiguration : EntityTypeConfiguration<MarketField> { }

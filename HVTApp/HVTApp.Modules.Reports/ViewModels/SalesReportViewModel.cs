@@ -45,9 +45,10 @@ namespace HVTApp.Modules.Reports.ViewModels
 
             var tenders = UnitOfWork.Repository<Tender>().Find(x => true);
             var blocks = UnitOfWork.Repository<ProductBlock>().Find(x => true);
+            var countryUnits = UnitOfWork.Repository<CountryUnion>().Find(x => true);
 
             Units.AddRange(salesUnits.OrderBy(x => x.OrderInTakeDate)
-                                     .Select(x => new SalesReportUnit(x, tenders.Where(t => Equals(x.Project, t.Project)), blocks)));
+                                     .Select(x => new SalesReportUnit(x, tenders.Where(t => Equals(x.Project, t.Project)), blocks, countryUnits)));
             IsLoaded = true;
         }
     }

@@ -9,6 +9,7 @@ namespace HVTApp.DataAccess
         protected void AddConfigurations(DbModelBuilder modelBuilder)
         {
 			#region Configurations
+            modelBuilder.Configurations.Add(new CountryUnionConfiguration());
             modelBuilder.Configurations.Add(new CreateNewProductTaskConfiguration());
             modelBuilder.Configurations.Add(new DocumentNumberConfiguration());
             modelBuilder.Configurations.Add(new MarketFieldConfiguration());
@@ -69,6 +70,7 @@ namespace HVTApp.DataAccess
         }
 
 		#region DbSets
+        public virtual DbSet<CountryUnion> CountryUnionDbSet { get; set; }
         public virtual DbSet<CreateNewProductTask> CreateNewProductTaskDbSet { get; set; }
         public virtual DbSet<DocumentNumber> DocumentNumberDbSet { get; set; }
         public virtual DbSet<MarketField> MarketFieldDbSet { get; set; }

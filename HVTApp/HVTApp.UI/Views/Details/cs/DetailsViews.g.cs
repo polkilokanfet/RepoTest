@@ -13,6 +13,60 @@ using System.Linq;
 namespace HVTApp.UI.Views
 {
 
+    public partial class CountryUnionDetailsView : ViewBase
+    {
+        public CountryUnionDetailsView()
+        {
+			InitializeComponent();
+        }
+
+        public CountryUnionDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, CountryUnionDetailsViewModel CountryUnionDetailsViewModel) : base(regionManager, eventAggregator)
+        {
+            SetVisibilityProps();
+			InitializeComponent();
+            DataContext = CountryUnionDetailsViewModel;
+        }
+
+        private void SetVisibilityProps()
+        {
+            //NotUpdateAttribute attr;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.CountryUnion).GetProperty(nameof(HVTApp.Model.POCOs.CountryUnion.Name)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityNameCountryUnion = Visibility.Collapsed;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.CountryUnion).GetProperty(nameof(HVTApp.Model.POCOs.CountryUnion.Countries)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityCountriesCountryUnion = Visibility.Collapsed;
+
+
+
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityNameCountryUnionProperty = DependencyProperty.Register("VisibilityNameCountryUnion", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityNameCountryUnion
+        {
+            get { return (Visibility) GetValue(VisibilityNameCountryUnionProperty); }
+            set { SetValue(VisibilityNameCountryUnionProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityCountriesCountryUnionProperty = DependencyProperty.Register("VisibilityCountriesCountryUnion", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityCountriesCountryUnion
+        {
+            get { return (Visibility) GetValue(VisibilityCountriesCountryUnionProperty); }
+            set { SetValue(VisibilityCountriesCountryUnionProperty, value); OnPropertyChanged(); }
+        }
+
+
+	}
+
+
     public partial class CreateNewProductTaskDetailsView : ViewBase
     {
         public CreateNewProductTaskDetailsView()
@@ -450,6 +504,11 @@ namespace HVTApp.UI.Views
             //    VisibilityParametersProductDesignation = Visibility.Collapsed;
 
 
+            //attr = typeof(HVTApp.Model.POCOs.ProductDesignation).GetProperty(nameof(HVTApp.Model.POCOs.ProductDesignation.Parents)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityParentsProductDesignation = Visibility.Collapsed;
+
+
 
         }
 
@@ -469,6 +528,15 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityParametersProductDesignationProperty); }
             set { SetValue(VisibilityParametersProductDesignationProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityParentsProductDesignationProperty = DependencyProperty.Register("VisibilityParentsProductDesignation", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityParentsProductDesignation
+        {
+            get { return (Visibility) GetValue(VisibilityParentsProductDesignationProperty); }
+            set { SetValue(VisibilityParentsProductDesignationProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1730,6 +1798,11 @@ namespace HVTApp.UI.Views
             //    VisibilityDesignationSpecialProductBlock = Visibility.Collapsed;
 
 
+            //attr = typeof(HVTApp.Model.POCOs.ProductBlock).GetProperty(nameof(HVTApp.Model.POCOs.ProductBlock.ProductType)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityProductTypeProductBlock = Visibility.Collapsed;
+
+
             //attr = typeof(HVTApp.Model.POCOs.ProductBlock).GetProperty(nameof(HVTApp.Model.POCOs.ProductBlock.Parameters)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityParametersProductBlock = Visibility.Collapsed;
@@ -1799,6 +1872,15 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityDesignationSpecialProductBlockProperty); }
             set { SetValue(VisibilityDesignationSpecialProductBlockProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityProductTypeProductBlockProperty = DependencyProperty.Register("VisibilityProductTypeProductBlock", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityProductTypeProductBlock
+        {
+            get { return (Visibility) GetValue(VisibilityProductTypeProductBlockProperty); }
+            set { SetValue(VisibilityProductTypeProductBlockProperty, value); OnPropertyChanged(); }
         }
 
 

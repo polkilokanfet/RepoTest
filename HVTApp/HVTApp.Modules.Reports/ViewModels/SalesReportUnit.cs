@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Structures;
@@ -8,10 +9,24 @@ namespace HVTApp.Modules.Reports.ViewModels
 {
     public class SalesReportUnit : SalesUnit
     {
+        private readonly List<CountryUnion> _countryUnions;
         private readonly PriceStructures _priceStructures;
         private readonly List<Tender> _tenders;
 
         public string OrderNumber => Order?.Number;
+
+        public Company FacilityOwnerHead
+        {
+            get
+            {
+                var head = FacilityOwner;
+                while (head.ParentCompany != null)
+                {
+                    head = head.ParentCompany;
+                }
+                return head;
+            }
+        }
         public Company FacilityOwner => Facility.OwnerCompany;
         public Company Contragent => Specification?.Contract.Contragent;
         public string ContragentType
@@ -31,7 +46,34 @@ namespace HVTApp.Modules.Reports.ViewModels
                 return "посредник";
             }
         }
-        public Country Country => Facility.Address?.Locality.Region.District.Country;
+
+        public Country Country
+        {
+            get
+            {
+                if (Facility.Address != null)
+                    return Facility.Address.Locality.Region.District.Country;
+
+                var company = FacilityOwner;
+                while (company.ParentCompany != null && company.AddressLegal == null)
+                {
+                    company = company.ParentCompany;
+                }
+
+                return company.AddressLegal?.Locality.Region.District.Country;
+            }
+        }
+
+        public List<CountryUnion> CountryUnions
+        {
+            get
+            {
+                return Country == null 
+                    ? new List<CountryUnion>() 
+                    : _countryUnions.Where(x => x.Countries.ContainsById(Country)).ToList();
+            }
+        }
+
         public District District => Facility.Address?.Locality.Region.District;
         public string Segment
         {
@@ -80,14 +122,19 @@ namespace HVTApp.Modules.Reports.ViewModels
 
         public string Voltage => Product.ProductBlock.Parameters.SingleOrDefault(x => Equals(x.ParameterGroup, GlobalAppProperties.Actual.VoltageGroup))?.Value;
 
-        public SalesReportUnit(SalesUnit salesUnit, IEnumerable<Tender> tenders, IEnumerable<ProductBlock> blocks)
+        public SalesReportUnit(
+            SalesUnit salesUnit, 
+            IEnumerable<Tender> tenders, 
+            IEnumerable<ProductBlock> blocks,
+            IEnumerable<CountryUnion> countryUnions)
         {
-            SetProps(salesUnit);
+            SetProperties(salesUnit);
             _priceStructures = new PriceStructures(this, this.OrderInTakeDate, GlobalAppProperties.Actual.ActualPriceTerm, blocks);
-            _tenders = new List<Tender>(tenders);
+            _tenders = tenders.ToList();
+            _countryUnions = countryUnions.ToList();
         }
 
-        private void SetProps(SalesUnit salesUnit)
+        private void SetProperties(SalesUnit salesUnit)
         {
             var properties = salesUnit.GetType().GetProperties().Where(x => x.CanWrite);
             foreach (var property in properties)

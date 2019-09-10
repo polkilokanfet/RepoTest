@@ -15,6 +15,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
 
@@ -24,8 +25,17 @@
 				 Visibility="{Binding VisibilityDesignationProductDesignation, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="Параметры" Visibility="{Binding VisibilityParametersProductDesignation, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Родители" Visibility="{Binding VisibilityParentsProductDesignation, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="1"
+										 Items="{Binding Path=Item.Parents}"
+										 SelectedItem="{Binding SelectedParentsItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInParentsCommand}"
+										 RemoveItemCommand="{Binding RemoveFromParentsCommand}"
+										 Visibility="{Binding VisibilityParentsProductDesignation, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="2" Content="Параметры" Visibility="{Binding VisibilityParametersProductDesignation, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
 										 Items="{Binding Path=Item.Parameters}"
 										 SelectedItem="{Binding SelectedParametersItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInParametersCommand}"

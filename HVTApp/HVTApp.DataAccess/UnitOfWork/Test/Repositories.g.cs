@@ -5,6 +5,11 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.DataAccess
 {
+    public partial class CountryUnionRepositoryTest : TestBaseRepository<CountryUnion>, ICountryUnionRepository
+    {
+        public CountryUnionRepositoryTest(TestData testData) : base(testData) {}
+    }
+
     public partial class CreateNewProductTaskRepositoryTest : TestBaseRepository<CreateNewProductTask>, ICreateNewProductTaskRepository
     {
         public CreateNewProductTaskRepositoryTest(TestData testData) : base(testData) {}

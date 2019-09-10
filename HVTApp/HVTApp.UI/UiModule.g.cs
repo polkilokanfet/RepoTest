@@ -12,6 +12,12 @@ namespace HVTApp.UI
 		private void RegisterViews()
         {
 
+            Container.RegisterViewForNavigation<CountryUnionLookupListView>();
+            //_dialogService.Register<CountryUnionDetailsViewModel, CountryUnionDetailsView>();
+			_selectService.Register<CountryUnionLookupListView, CountryUnion>();
+            _updateDetailsService.Register<CountryUnion, CountryUnionDetailsView>();
+
+
             Container.RegisterViewForNavigation<CreateNewProductTaskLookupListView>();
             //_dialogService.Register<CreateNewProductTaskDetailsViewModel, CreateNewProductTaskDetailsView>();
 			_selectService.Register<CreateNewProductTaskLookupListView, CreateNewProductTask>();

@@ -34,6 +34,7 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
+                    <infg:TextField Name="ProductType" Label="Тип" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:NumericField Name="Weight" Label="Вес" Width="Auto" />
                     <infg:TextField Name="StructureCostNumber" Label="Сралчахвост" Width="Auto" />
                     <infg:TextField Name="Prices" Label="Себестоимости" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>

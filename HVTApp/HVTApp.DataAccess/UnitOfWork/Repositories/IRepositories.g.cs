@@ -3,6 +3,7 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.DataAccess
 {
+    public partial interface ICountryUnionRepository : IRepository<CountryUnion> { }
     public partial interface ICreateNewProductTaskRepository : IRepository<CreateNewProductTask> { }
     public partial interface IDocumentNumberRepository : IRepository<DocumentNumber> { }
     public partial interface IMarketFieldRepository : IRepository<MarketField> { }

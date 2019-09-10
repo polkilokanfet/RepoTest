@@ -535,6 +535,67 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
+	[Designation("Объединение стран")]
+	[DesignationPlural("CountryUnionLookup")]
+	[AllowEditAttribute(Role.Admin)]
+
+    public partial class CountryUnionLookupListView : ViewBase
+    {
+        public CountryUnionLookupListView()
+        {
+            InitializeComponent();
+        }
+
+        public CountryUnionLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, CountryUnionLookupListViewModel CountryUnionLookupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = CountryUnionLookupListViewModel;
+			CountryUnionLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			await ((CountryUnionLookupListViewModel)DataContext).LoadAsync();;
+        }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility NameVisibility
+        {
+            get { return CountryUnionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CountryUnionLookup.Name)].Visibility; }
+            set { CountryUnionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CountryUnionLookup.Name)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return CountryUnionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CountryUnionLookup.DisplayMember)].Visibility; }
+            set { CountryUnionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CountryUnionLookup.DisplayMember)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return CountryUnionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CountryUnionLookup.Entity)].Visibility; }
+            set { CountryUnionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CountryUnionLookup.Entity)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility CountriesVisibility
+        {
+            get { return CountryUnionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CountryUnionLookup.Countries)].Visibility; }
+            set { CountryUnionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CountryUnionLookup.Countries)].Visibility = value; }
+        }
+
+
+
+		#endregion
+    }
+
+
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Задание на создание нового продукта")]
 	[DesignationPlural("CreateNewProductTaskLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -2845,6 +2906,13 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility ProductTypeVisibility
+        {
+            get { return ProductBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockLookup.ProductType)].Visibility; }
+            set { ProductBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockLookup.ProductType)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility EntityVisibility
         {
             get { return ProductBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockLookup.Entity)].Visibility; }
@@ -2999,6 +3067,13 @@ namespace HVTApp.UI.Views
         {
             get { return ProductDesignationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductDesignationLookup.Parameters)].Visibility; }
             set { ProductDesignationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductDesignationLookup.Parameters)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ParentsVisibility
+        {
+            get { return ProductDesignationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductDesignationLookup.Parents)].Visibility; }
+            set { ProductDesignationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductDesignationLookup.Parents)].Visibility = value; }
         }
 
 

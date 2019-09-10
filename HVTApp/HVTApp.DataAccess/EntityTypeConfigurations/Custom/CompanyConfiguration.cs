@@ -4,12 +4,12 @@ namespace HVTApp.DataAccess
     {
         public CompanyConfiguration()
         {
-            HasRequired(x => x.Form).WithMany();
-            HasOptional(x => x.AddressLegal).WithMany();
-            HasOptional(x => x.AddressPost).WithMany();
+            HasRequired(x => x.Form).WithMany().WillCascadeOnDelete(false);
+            HasOptional(x => x.AddressLegal).WithMany().WillCascadeOnDelete(false);
+            HasOptional(x => x.AddressPost).WithMany().WillCascadeOnDelete(false);
             HasMany(x => x.ActivityFilds).WithMany();
-            HasMany(x => x.BankDetailsList).WithOptional();
-            HasOptional(x => x.ParentCompany).WithMany();
+            HasMany(x => x.BankDetailsList).WithOptional().WillCascadeOnDelete(true);
+            HasOptional(x => x.ParentCompany).WithMany().WillCascadeOnDelete(false);
         }
     }
 }

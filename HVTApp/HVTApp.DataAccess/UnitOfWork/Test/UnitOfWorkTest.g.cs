@@ -7,6 +7,7 @@ namespace HVTApp.DataAccess
         public UnitOfWorkTest(TestData testData)
         {
 			#region RepositoriesInit
+            CountryUnionRepository = new CountryUnionRepositoryTest(testData);
             CreateNewProductTaskRepository = new CreateNewProductTaskRepositoryTest(testData);
             DocumentNumberRepository = new DocumentNumberRepositoryTest(testData);
             MarketFieldRepository = new MarketFieldRepositoryTest(testData);
@@ -68,6 +69,7 @@ namespace HVTApp.DataAccess
 
 
         #region Repositories
+        public ICountryUnionRepository CountryUnionRepository { get; }
         public ICreateNewProductTaskRepository CreateNewProductTaskRepository { get; }
         public IDocumentNumberRepository DocumentNumberRepository { get; }
         public IMarketFieldRepository MarketFieldRepository { get; }

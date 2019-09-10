@@ -4,6 +4,13 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.DataAccess
 {
+    public partial class CountryUnionRepository : BaseRepository<CountryUnion>, ICountryUnionRepository
+    {
+		public CountryUnionRepository(DbContext context) : base(context) 
+		{
+		}
+    }
+
     public partial class CreateNewProductTaskRepository : BaseRepository<CreateNewProductTask>, ICreateNewProductTaskRepository
     {
 		public CreateNewProductTaskRepository(DbContext context) : base(context) 

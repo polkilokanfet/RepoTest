@@ -25,6 +25,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
 
@@ -73,20 +74,14 @@
 										 Visibility="{Binding VisibilityParametersProductBlock, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="6" Content="Обозначение" Visibility="{Binding VisibilityDesignationProductBlock, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="6" MinWidth="200" 
-                 Text="{Binding Item.Designation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				 Visibility="{Binding VisibilityDesignationProductBlock, ElementName=Root}"/>
-
-
-        <Label Grid.Column="0" Grid.Row ="7" Content="Доставка" Visibility="{Binding VisibilityIsDeliveryProductBlock, ElementName=Root}"/>
-        <CheckBox Grid.Column="1" Grid.Row="7" MinWidth="200" 
+        <Label Grid.Column="0" Grid.Row ="6" Content="Доставка" Visibility="{Binding VisibilityIsDeliveryProductBlock, ElementName=Root}"/>
+        <CheckBox Grid.Column="1" Grid.Row="6" MinWidth="200" 
                   IsChecked="{Binding Item.IsDelivery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				  Visibility="{Binding VisibilityIsDeliveryProductBlock, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="8" Content="Вес" Visibility="{Binding VisibilityWeightProductBlock, ElementName=Root}"/>
-		<infE:XamNumericEditor Grid.Column="1" Grid.Row="8" 
+        <Label Grid.Column="0" Grid.Row ="7" Content="Вес" Visibility="{Binding VisibilityWeightProductBlock, ElementName=Root}"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="7" 
                                Value="{Binding Item.Weight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding VisibilityWeightProductBlock, ElementName=Root}"/>
 

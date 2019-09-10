@@ -12,6 +12,7 @@ namespace HVTApp.DataAccess
         {
             TestData testData = new TestData();
 
+            context.CountryUnionDbSet.AddRange(testData.GetAll<CountryUnion>());
             context.CreateNewProductTaskDbSet.AddRange(testData.GetAll<CreateNewProductTask>());
             context.DocumentNumberDbSet.AddRange(testData.GetAll<DocumentNumber>());
             context.MarketFieldDbSet.AddRange(testData.GetAll<MarketField>());

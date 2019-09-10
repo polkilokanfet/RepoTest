@@ -19,7 +19,56 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Wrapper
 {
-	public partial class CreateNewProductTaskWrapper : WrapperBase<CreateNewProductTask>
+	public partial class CountryUnionWrapper : WrapperBase<CountryUnion>
+	{
+	    public CountryUnionWrapper(CountryUnion model) : base(model) { }
+
+	
+
+        #region SimpleProperties
+
+        public System.String Name
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
+        public bool NameIsChanged => GetIsChanged(nameof(Name));
+
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+
+        #endregion
+
+
+        #region CollectionProperties
+
+        public IValidatableChangeTrackingCollection<CountryWrapper> Countries { get; private set; }
+
+
+        #endregion
+
+  
+        protected override void InitializeCollectionProperties()
+        {
+
+          if (Model.Countries == null) throw new ArgumentException("Countries cannot be null");
+          Countries = new ValidatableChangeTrackingCollection<CountryWrapper>(Model.Countries.Select(e => new CountryWrapper(e)));
+          RegisterCollection(Countries, Model.Countries);
+
+
+        }
+
+	}
+
+		public partial class CreateNewProductTaskWrapper : WrapperBase<CreateNewProductTask>
 	{
 	    public CreateNewProductTaskWrapper(CreateNewProductTask model) : base(model) { }
 
@@ -384,6 +433,9 @@ namespace HVTApp.UI.Wrapper
         public IValidatableChangeTrackingCollection<ParameterWrapper> Parameters { get; private set; }
 
 
+        public IValidatableChangeTrackingCollection<ProductDesignationWrapper> Parents { get; private set; }
+
+
         #endregion
 
   
@@ -393,6 +445,11 @@ namespace HVTApp.UI.Wrapper
           if (Model.Parameters == null) throw new ArgumentException("Parameters cannot be null");
           Parameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.Parameters.Select(e => new ParameterWrapper(e)));
           RegisterCollection(Parameters, Model.Parameters);
+
+
+          if (Model.Parents == null) throw new ArgumentException("Parents cannot be null");
+          Parents = new ValidatableChangeTrackingCollection<ProductDesignationWrapper>(Model.Parents.Select(e => new ProductDesignationWrapper(e)));
+          RegisterCollection(Parents, Model.Parents);
 
 
         }
@@ -1405,15 +1462,6 @@ namespace HVTApp.UI.Wrapper
 
         #region SimpleProperties
 
-        public System.String Designation
-        {
-          get { return GetValue<System.String>(); }
-          set { SetValue(value); }
-        }
-        public System.String DesignationOriginalValue => GetOriginalValue<System.String>(nameof(Designation));
-        public bool DesignationIsChanged => GetIsChanged(nameof(Designation));
-
-
         public System.String DesignationSpecial
         {
           get { return GetValue<System.String>(); }
@@ -1487,6 +1535,9 @@ namespace HVTApp.UI.Wrapper
 
         #region GetProperties
 
+        public System.String Designation => GetValue<System.String>(); 
+
+
         public System.Boolean IsService => GetValue<System.Boolean>(); 
 
 
@@ -1494,6 +1545,9 @@ namespace HVTApp.UI.Wrapper
 
 
         public System.Nullable<System.DateTime> LastPriceDate => GetValue<System.Nullable<System.DateTime>>(); 
+
+
+        public HVTApp.Model.POCOs.ProductType ProductType => GetValue<HVTApp.Model.POCOs.ProductType>(); 
 
 
         #endregion
@@ -2551,15 +2605,6 @@ namespace HVTApp.UI.Wrapper
         public bool ExpectedDeliveryPeriodIsChanged => GetIsChanged(nameof(ExpectedDeliveryPeriod));
 
 
-        public System.Nullable<System.Int32> ExpectedDeliveryPeriodCalculated
-        {
-          get { return GetValue<System.Nullable<System.Int32>>(); }
-          set { SetValue(value); }
-        }
-        public System.Nullable<System.Int32> ExpectedDeliveryPeriodCalculatedOriginalValue => GetOriginalValue<System.Nullable<System.Int32>>(nameof(ExpectedDeliveryPeriodCalculated));
-        public bool ExpectedDeliveryPeriodCalculatedIsChanged => GetIsChanged(nameof(ExpectedDeliveryPeriodCalculated));
-
-
         public System.Nullable<System.DateTime> ShipmentDate
         {
           get { return GetValue<System.Nullable<System.DateTime>>(); }
@@ -2684,6 +2729,9 @@ namespace HVTApp.UI.Wrapper
 
 
         #region GetProperties
+
+        public System.Nullable<System.Int32> ExpectedDeliveryPeriodCalculated => GetValue<System.Nullable<System.Int32>>(); 
+
 
         public System.Boolean AllowEditCost => GetValue<System.Boolean>(); 
 
@@ -3024,15 +3072,6 @@ namespace HVTApp.UI.Wrapper
 
         #region SimpleProperties
 
-        public System.String Designation
-        {
-          get { return GetValue<System.String>(); }
-          set { SetValue(value); }
-        }
-        public System.String DesignationOriginalValue => GetOriginalValue<System.String>(nameof(Designation));
-        public bool DesignationIsChanged => GetIsChanged(nameof(Designation));
-
-
         public System.String DesignationSpecial
         {
           get { return GetValue<System.String>(); }
@@ -3056,13 +3095,6 @@ namespace HVTApp.UI.Wrapper
 
         #region ComplexProperties
 
-	    public ProductTypeWrapper ProductType 
-        {
-            get { return GetWrapper<ProductTypeWrapper>(); }
-            set { SetComplexValue<ProductType, ProductTypeWrapper>(ProductType, value); }
-        }
-
-
 	    public ProductBlockWrapper ProductBlock 
         {
             get { return GetWrapper<ProductBlockWrapper>(); }
@@ -3080,11 +3112,19 @@ namespace HVTApp.UI.Wrapper
 
         #endregion
 
+
+        #region GetProperties
+
+        public System.String Designation => GetValue<System.String>(); 
+
+
+        public HVTApp.Model.POCOs.ProductType ProductType => GetValue<HVTApp.Model.POCOs.ProductType>(); 
+
+
+        #endregion
+
         public override void InitializeComplexProperties()
         {
-
-            InitializeComplexProperty<ProductTypeWrapper>(nameof(ProductType), Model.ProductType == null ? null : new ProductTypeWrapper(Model.ProductType));
-
 
             InitializeComplexProperty<ProductBlockWrapper>(nameof(ProductBlock), Model.ProductBlock == null ? null : new ProductBlockWrapper(Model.ProductBlock));
 
