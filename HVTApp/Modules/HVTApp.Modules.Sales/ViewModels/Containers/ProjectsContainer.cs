@@ -32,7 +32,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             ShownAllProjects = false;
         }
 
-        protected override IEnumerable<ProjectLookup> GetLookups(IUnitOfWorkDisplay unitOfWork)
+        protected override IEnumerable<ProjectLookup> GetLookups(IUnitOfWork unitOfWork)
         {
             _tenders = unitOfWork.Repository<Tender>().Find(x => x.Project.Manager.IsAppCurrentUser());
             _salesUnits = unitOfWork.Repository<SalesUnit>().Find(x => x.Project.Manager.IsAppCurrentUser());
@@ -76,8 +76,13 @@ namespace HVTApp.Modules.Sales.ViewModels
             return ShownAllProjects || IsWork(project);
         }
 
-        protected override void TranslateRemovedUnits(Project project)
+
+        public override async Task RemoveSelectedItemTask()
         {
+            var project = SelectedItem.Entity;
+
+            await base.RemoveSelectedItemTask();
+
             var salesUnits = _salesUnits.Where(x => x.Project == null || x.Project.Id == project.Id).ToList();
             salesUnits.ForEach(x => Container.Resolve<IEventAggregator>().GetEvent<AfterRemoveSalesUnitEvent>().Publish(x));
         }

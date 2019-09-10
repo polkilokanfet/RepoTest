@@ -57,7 +57,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             RefreshGroups();
         }
 
-        protected override IEnumerable<SalesUnitLookup> GetLookups(IUnitOfWorkDisplay unitOfWork)
+        protected override IEnumerable<SalesUnitLookup> GetLookups(IUnitOfWork unitOfWork)
         {
             return ((ISalesUnitRepository)unitOfWork.Repository<SalesUnit>())
                 .GetUsersSalesUnits()

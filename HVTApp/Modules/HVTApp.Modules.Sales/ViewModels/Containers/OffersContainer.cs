@@ -28,7 +28,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             return new OfferLookup(offer, offerUnits, Container);
         }
 
-        protected override IEnumerable<OfferLookup> GetLookups(IUnitOfWorkDisplay unitOfWork)
+        protected override IEnumerable<OfferLookup> GetLookups(IUnitOfWork unitOfWork)
         {
             _offerUnits = unitOfWork.Repository<OfferUnit>().Find(x => x.Offer.Project.Manager.IsAppCurrentUser());
             return _offerUnits

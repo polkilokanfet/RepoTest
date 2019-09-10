@@ -83,7 +83,7 @@ namespace HVTApp
             Container.RegisterType<IEventAggregator, EventAggregator>(new ContainerControlledLifetimeManager());
             Container.RegisterType<DbContext, HvtAppContext>();
             Container.RegisterType<IUnitOfWork, UnitOfWork>();
-            Container.RegisterType<IUnitOfWorkDisplay, UnitOfWork>(new ContainerControlledLifetimeManager()); //используется в отображении для создания синглтона
+            //Container.RegisterType<IUnitOfWorkDisplay, UnitOfWork>(new ContainerControlledLifetimeManager()); //используется в отображении для создания синглтона
             Container.RegisterType<IAuthenticationService, AuthenticationService>();
             Container.RegisterType<ISelectService, SelectServiceWpf>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IMessageService, MessageServiceWpf>();

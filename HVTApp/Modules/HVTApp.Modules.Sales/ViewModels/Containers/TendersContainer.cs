@@ -15,7 +15,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         {
         }
 
-        protected override IEnumerable<TenderLookup> GetLookups(IUnitOfWorkDisplay unitOfWork)
+        protected override IEnumerable<TenderLookup> GetLookups(IUnitOfWork unitOfWork)
         {
             return unitOfWork.Repository<Tender>().Find(x => x.Project.Manager.IsAppCurrentUser()).Select(x => new TenderLookup(x));
         }

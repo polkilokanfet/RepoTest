@@ -46,7 +46,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         {
             Container = container;
 
-            var unitOfWork = container.Resolve<IUnitOfWorkDisplay>();
+            var unitOfWork = container.Resolve<IUnitOfWork>();
             AllLookups = GetLookups(unitOfWork).ToList();
 
             var eventAggregator = container.Resolve<IEventAggregator>();
@@ -131,22 +131,19 @@ namespace HVTApp.Modules.Sales.ViewModels
             return true;
         }
 
-        protected abstract IEnumerable<TLookup> GetLookups(IUnitOfWorkDisplay unitOfWork);
+        protected abstract IEnumerable<TLookup> GetLookups(IUnitOfWork unitOfWork);
 
-        public async Task RemoveSelectedItemTask()
+        public virtual async Task RemoveSelectedItemTask()
         {
             if(SelectedItem == null) throw new ArgumentNullException(nameof(SelectedItem));
 
             var unitOfWork = Container.Resolve<IUnitOfWork>();
             var messageService = Container.Resolve<IMessageService>();
 
-            var dr = messageService.ShowYesNoMessageDialog("Удаление", 
-                $"Вы действительно хотите удалить \"{SelectedItem.DisplayMember}\"?");
+            var dr = messageService.ShowYesNoMessageDialog("Удаление", $"Вы действительно хотите удалить \"{SelectedItem.DisplayMember}\"?");
             if (dr != MessageDialogResult.Yes) return;
 
-
             var entity = await unitOfWork.Repository<TItem>().GetByIdAsync(SelectedItem.Id);
-            TranslateRemovedUnits(entity);
             if (entity != null)
             {
                 unitOfWork.Repository<TItem>().Delete(entity);
@@ -161,10 +158,6 @@ namespace HVTApp.Modules.Sales.ViewModels
             }
 
             Container.Resolve<IEventAggregator>().GetEvent<TAfterRemoveItemEvent>().Publish(entity);
-        }
-
-        protected virtual void TranslateRemovedUnits(TItem entity)
-        {
         }
     }
 }

@@ -43,9 +43,10 @@ namespace HVTApp.Modules.Sales.ViewModels
         protected virtual void OnFilterChanged(TFilter filter)
         {
             Filter = filter;
+
             this.Clear();
-            SelectedItem = null;
-            this.AddRange(GetActualLookups(filter));
+            if (filter != null)
+                this.AddRange(GetActualLookups(filter));
         }
 
         /// <summary>
