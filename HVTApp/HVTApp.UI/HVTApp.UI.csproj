@@ -110,6 +110,7 @@
       <DependentUpon>TabRefresh.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\Details\EmployeeDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Details\TenderDetailsViewModel.cs" />
     <Compile Include="ViewModels\ProductStructureViewModel.cs" />
     <Compile Include="ViewModels\Details\OrderDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\ProductIncludedDetailsViewModel.cs" />

@@ -33,14 +33,20 @@ namespace HVTApp.Modules.Sales.ViewModels
                 _selectedGroup = value;
 
                 //актуализируем количество родительских групп включенных продуктов
-                //if (SelectedGroup != null)
-                //{
-                //    foreach (var includedProduct in SelectedGroup.ProductsIncluded)
-                //    {
-                //        includedProduct.ParentsCount =
-                //            this.SelectMany(x => x.Groups).Count(x => x.ProductsIncluded.Any(pi => pi.Id == includedProduct.Id));
-                //    }
-                //}
+                if (SelectedGroup != null)
+                {
+                    foreach (var includedProduct in SelectedGroup.ProductsIncluded)
+                    {
+                        if (SelectedGroup.Groups == null)
+                        {
+                            //var grp = this.Single(x => x.Groups.Contains(SelectedGroup.Model.i));
+                            //includedProduct.ParentsCount = grp.Groups.Count;
+                            continue;
+                        }
+
+                        includedProduct.ParentsCount = 1;
+                    }
+                }
 
                 SelectedGroupChanged?.Invoke(SelectedGroup);
                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(SelectedGroup)));

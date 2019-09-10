@@ -152,13 +152,13 @@ namespace HVTApp.UI.ViewModels
             try
             {
                 await UnitOfWork.SaveChangesAsync();
+                EventAggregator.GetEvent<TAfterSaveEntityEvent>().Publish(Item.Model);
             }
             catch (DbUpdateConcurrencyException e)
             {
-                Container.Resolve<IMessageService>().ShowOkMessageDialog("Ошибка при сохранении", e.GetAllExceptions());
+                Container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().ToString(), e.GetAllExceptions());
             }
 
-            EventAggregator.GetEvent<TAfterSaveEntityEvent>().Publish(Item.Model);
 
             //запрашиваем закрытие окна
             OnCloseRequested(new DialogRequestCloseEventArgs(true));

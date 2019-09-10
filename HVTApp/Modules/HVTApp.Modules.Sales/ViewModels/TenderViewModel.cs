@@ -10,6 +10,11 @@ namespace HVTApp.Modules.Sales.ViewModels
 {
     public class TenderViewModel : TenderDetailsViewModel
     {
+        /// <summary>
+        ///  онструктор дл€ создани€ нового конкурса
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="project"></param>
         public TenderViewModel(IUnityContainer container, Project project) : base(container)
         {
             var unitOfWork = container.Resolve<IUnitOfWork>();
@@ -19,10 +24,17 @@ namespace HVTApp.Modules.Sales.ViewModels
             Item.DateOpen = DateTime.Today;
             Item.DateClose = DateTime.Today.AddDays(7);
         }
+
+        /// <summary>
+        ///  онструктор дл€ редактировани€ конкурса
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="tender"></param>
         public TenderViewModel(IUnityContainer container, Tender tender) : base(container)
         {
             var unitOfWork = container.Resolve<IUnitOfWork>();
-            Load(new TenderWrapper(tender), unitOfWork);
+            var tenderEdit = unitOfWork.Repository<Tender>().Find(x => x.Id == tender.Id).First();
+            Load(new TenderWrapper(tenderEdit), unitOfWork);
         }
     }
 }

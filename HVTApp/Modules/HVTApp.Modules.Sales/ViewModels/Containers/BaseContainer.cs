@@ -150,6 +150,7 @@ namespace HVTApp.Modules.Sales.ViewModels
                 try
                 {
                     await unitOfWork.SaveChangesAsync();
+                    Container.Resolve<IEventAggregator>().GetEvent<TAfterRemoveItemEvent>().Publish(entity);
                 }
                 catch (DbUpdateException e)
                 {
@@ -157,7 +158,6 @@ namespace HVTApp.Modules.Sales.ViewModels
                 }
             }
 
-            Container.Resolve<IEventAggregator>().GetEvent<TAfterRemoveItemEvent>().Publish(entity);
         }
     }
 }
