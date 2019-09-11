@@ -255,6 +255,10 @@
       <Project>{49629f07-4fb0-4448-b598-10361512f554}</Project>
       <Name>HVTApp.Modules.BaseEntities</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HVTApp.Modules.BookRegistration\HVTApp.Modules.BookRegistration.csproj">
+      <Project>{e904c6c5-39f0-4091-a42d-5efbcce219b6}</Project>
+      <Name>HVTApp.Modules.BookRegistration</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HVTApp.Modules.Price\HVTApp.Modules.PlanAndEconomy.csproj">
       <Project>{F3D1ADB0-2385-47F2-AF88-5C605E63EC79}</Project>
       <Name>HVTApp.Modules.PlanAndEconomy</Name>

@@ -884,6 +884,20 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility CompanySenderVisibility
+        {
+            get { return DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentLookup.CompanySender)].Visibility; }
+            set { DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentLookup.CompanySender)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility CompanyRecipientVisibility
+        {
+            get { return DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentLookup.CompanyRecipient)].Visibility; }
+            set { DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentLookup.CompanyRecipient)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility NumberVisibility
         {
             get { return DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentLookup.Number)].Visibility; }

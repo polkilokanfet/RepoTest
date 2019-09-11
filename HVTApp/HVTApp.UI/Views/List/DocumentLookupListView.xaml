@@ -34,6 +34,8 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
+                    <infg:TextField Name="CompanySender" Label="Компания-отправитель" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="CompanyRecipient" Label="Компания-получатель" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Number" Label="ИД" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="RegNumber" Label="Номер" Width="Auto" />
                     <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" />

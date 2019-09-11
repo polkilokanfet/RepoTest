@@ -105,6 +105,7 @@
     <Compile Include="Groups\PaymentWrapper.cs" />
     <Compile Include="Groups\SalesUnitsGroup.cs" />
     <Compile Include="Groups\ShipmentUnitsGroup.cs" />
+    <Compile Include="Lookup\Items\Custom\DocumentLookup.cs" />
     <Compile Include="Lookup\Items\Custom\SalesUnitLookup.cs" />
     <Compile Include="Tabs\TabRefresh.xaml.cs">
       <DependentUpon>TabRefresh.xaml</DependentUpon>
