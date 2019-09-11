@@ -209,7 +209,15 @@ namespace HVTApp.UI.Groups
 
         #region Included Products
 
-        public IEnumerable<ProductIncludedWrapper> ProductsIncluded => GetValue<IEnumerable<ProductIncludedWrapper>>();
+        public IEnumerable<ProductIncludedWrapper> ProductsIncluded
+        {
+            get
+            {
+                return _unit?.ProductsIncluded ?? 
+                    Groups.SelectMany(x => x.ProductsIncluded).Select(x => x.Model).Distinct().Select(x => new ProductIncludedWrapper(x));
+            }
+        }
+
 
         /// <summary>
         /// добавление зависимого оборудования

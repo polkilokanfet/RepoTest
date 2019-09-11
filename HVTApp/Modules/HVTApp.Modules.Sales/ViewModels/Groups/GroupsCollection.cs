@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Groups;
 using HVTApp.UI.Wrapper;
@@ -31,23 +30,6 @@ namespace HVTApp.Modules.Sales.ViewModels
             {
                 if (Equals(_selectedGroup, value)) return;
                 _selectedGroup = value;
-
-                //актуализируем количество родительских групп включенных продуктов
-                if (SelectedGroup != null)
-                {
-                    foreach (var includedProduct in SelectedGroup.ProductsIncluded)
-                    {
-                        if (SelectedGroup.Groups == null)
-                        {
-                            //var grp = this.Single(x => x.Groups.Contains(SelectedGroup.Model.i));
-                            //includedProduct.ParentsCount = grp.Groups.Count;
-                            continue;
-                        }
-
-                        includedProduct.ParentsCount = 1;
-                    }
-                }
-
                 SelectedGroupChanged?.Invoke(SelectedGroup);
                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(SelectedGroup)));
             }
