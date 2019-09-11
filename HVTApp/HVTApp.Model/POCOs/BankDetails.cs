@@ -1,10 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
 
 namespace HVTApp.Model.POCOs
 {
     [Designation("Банковские реквизиты")]
+    [AllowEdit(Role.Economist, Role.SalesManager)]
     public partial class BankDetails : BaseEntity
     {
         [Designation("Банк"), Required, MaxLength(50), OrderStatus(5)]

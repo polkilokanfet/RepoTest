@@ -11,6 +11,7 @@ namespace HVTApp.Infrastructure
         Economist,
         Pricer,
         DataBaseFiller,
-        PlanMaker
+        PlanMaker,
+        Constrictor
     }
 }

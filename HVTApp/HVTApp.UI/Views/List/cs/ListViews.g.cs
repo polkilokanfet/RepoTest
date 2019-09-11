@@ -158,7 +158,9 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Банковские реквизиты")]
 	[DesignationPlural("BankDetailsLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Role.Economist)]
+[AllowEditAttribute(Role.SalesManager)]
+[AllowEditAttribute(Role.Admin)]
 
     public partial class BankDetailsLookupListView : ViewBase
     {

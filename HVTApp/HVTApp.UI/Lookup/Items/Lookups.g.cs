@@ -879,7 +879,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Role.Economist)]
+[AllowEditAttribute(Role.SalesManager)]
+[AllowEditAttribute(Role.Admin)]
 
 	[Designation("Банковские реквизиты")]
 	public partial class BankDetailsLookup : LookupItem<BankDetails>

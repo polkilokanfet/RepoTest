@@ -62,7 +62,7 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
             GroupsPotential.SelectedGroup.EndProductionPlanDate = GroupsPotential.SelectedGroup.Unit.DeliveryDateExpected;
             //ставим позиции заказа
             int pos = 1;
-            if (GroupsPotential.SelectedGroup.Groups.Any())
+            if (GroupsPotential.SelectedGroup.Groups != null && GroupsPotential.SelectedGroup.Groups.Any())
             {
                 foreach (var productionGroup in GroupsPotential.SelectedGroup.Groups)
                 {
