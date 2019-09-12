@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
 
@@ -20,5 +19,10 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Расч.счет"), Required, MaxLength(50), OrderStatus(2)]
         public string CheckingAccount { get; set; }
+
+        public override string ToString()
+        {
+            return $"{BankName} р/с {CheckingAccount}";
+        }
     }
 }

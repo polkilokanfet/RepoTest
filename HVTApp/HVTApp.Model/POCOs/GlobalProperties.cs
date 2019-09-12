@@ -44,5 +44,11 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Признак шеф-монтажа"), Required]
         public virtual Parameter SupervisionParameter { get; set; }
+
+        [Designation("Отправитель ТКП"), Required]
+        public virtual Employee SenderOfferEmployee { get; set; }
+
+        [Designation("Производитель ВВА"), Required]
+        public virtual ActivityField HvtProducersActivityField { get; set; }
     }
 }

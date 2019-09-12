@@ -1474,6 +1474,20 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility SenderOfferEmployeeVisibility
+        {
+            get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.SenderOfferEmployee)].Visibility; }
+            set { GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.SenderOfferEmployee)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility HvtProducersActivityFieldVisibility
+        {
+            get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.HvtProducersActivityField)].Visibility; }
+            set { GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.HvtProducersActivityField)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility EntityVisibility
         {
             get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.Entity)].Visibility; }

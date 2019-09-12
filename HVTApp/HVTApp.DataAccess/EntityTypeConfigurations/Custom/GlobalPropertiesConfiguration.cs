@@ -9,6 +9,8 @@ namespace HVTApp.DataAccess
             HasRequired(x => x.VoltageGroup).WithMany().WillCascadeOnDelete(false);
             HasRequired(x => x.ServiceParameter).WithMany().WillCascadeOnDelete(false);
             HasRequired(x => x.SupervisionParameter).WithMany().WillCascadeOnDelete(false);
+            HasRequired(x => x.SenderOfferEmployee).WithMany().WillCascadeOnDelete(false);
+            HasRequired(x => x.HvtProducersActivityField).WithMany().WillCascadeOnDelete(false);
         }
     }
 }

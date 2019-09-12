@@ -200,7 +200,9 @@ namespace HVTApp.TestDataGenerator
                 NewProductParameterGroup = ParameterGroupNewProductDesignation,
                 VoltageGroup = ParameterGroupVoltage,
                 ServiceParameter = ParameterService,
-                SupervisionParameter = ParameterSupervision
+                SupervisionParameter = ParameterSupervision,
+                SenderOfferEmployee = EmployeeDeev,
+                HvtProducersActivityField = ActivityFieldProducerOfHvt
             });
         }
 

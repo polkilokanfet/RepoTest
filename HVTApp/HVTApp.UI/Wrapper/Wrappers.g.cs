@@ -790,6 +790,20 @@ namespace HVTApp.UI.Wrapper
         }
 
 
+	    public EmployeeWrapper SenderOfferEmployee 
+        {
+            get { return GetWrapper<EmployeeWrapper>(); }
+            set { SetComplexValue<Employee, EmployeeWrapper>(SenderOfferEmployee, value); }
+        }
+
+
+	    public ActivityFieldWrapper HvtProducersActivityField 
+        {
+            get { return GetWrapper<ActivityFieldWrapper>(); }
+            set { SetComplexValue<ActivityField, ActivityFieldWrapper>(HvtProducersActivityField, value); }
+        }
+
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -814,6 +828,12 @@ namespace HVTApp.UI.Wrapper
 
 
             InitializeComplexProperty<ParameterWrapper>(nameof(SupervisionParameter), Model.SupervisionParameter == null ? null : new ParameterWrapper(Model.SupervisionParameter));
+
+
+            InitializeComplexProperty<EmployeeWrapper>(nameof(SenderOfferEmployee), Model.SenderOfferEmployee == null ? null : new EmployeeWrapper(Model.SenderOfferEmployee));
+
+
+            InitializeComplexProperty<ActivityFieldWrapper>(nameof(HvtProducersActivityField), Model.HvtProducersActivityField == null ? null : new ActivityFieldWrapper(Model.HvtProducersActivityField));
 
 
         }

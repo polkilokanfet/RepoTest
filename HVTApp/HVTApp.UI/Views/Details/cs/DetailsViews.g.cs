@@ -864,6 +864,16 @@ namespace HVTApp.UI.Views
             //    VisibilitySupervisionParameterGlobalProperties = Visibility.Collapsed;
 
 
+            //attr = typeof(HVTApp.Model.POCOs.GlobalProperties).GetProperty(nameof(HVTApp.Model.POCOs.GlobalProperties.SenderOfferEmployee)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilitySenderOfferEmployeeGlobalProperties = Visibility.Collapsed;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.GlobalProperties).GetProperty(nameof(HVTApp.Model.POCOs.GlobalProperties.HvtProducersActivityField)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityHvtProducersActivityFieldGlobalProperties = Visibility.Collapsed;
+
+
 
         }
 
@@ -973,6 +983,24 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilitySupervisionParameterGlobalPropertiesProperty); }
             set { SetValue(VisibilitySupervisionParameterGlobalPropertiesProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilitySenderOfferEmployeeGlobalPropertiesProperty = DependencyProperty.Register("VisibilitySenderOfferEmployeeGlobalProperties", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilitySenderOfferEmployeeGlobalProperties
+        {
+            get { return (Visibility) GetValue(VisibilitySenderOfferEmployeeGlobalPropertiesProperty); }
+            set { SetValue(VisibilitySenderOfferEmployeeGlobalPropertiesProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityHvtProducersActivityFieldGlobalPropertiesProperty = DependencyProperty.Register("VisibilityHvtProducersActivityFieldGlobalProperties", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityHvtProducersActivityFieldGlobalProperties
+        {
+            get { return (Visibility) GetValue(VisibilityHvtProducersActivityFieldGlobalPropertiesProperty); }
+            set { SetValue(VisibilityHvtProducersActivityFieldGlobalPropertiesProperty, value); OnPropertyChanged(); }
         }
 
 

@@ -428,6 +428,14 @@ namespace HVTApp.UI.Lookup
 	    public ParameterLookup SupervisionParameter { get { return GetLookup<ParameterLookup>(); } }
 
 
+		[OrderStatus(1)]
+	    public EmployeeLookup SenderOfferEmployee { get { return GetLookup<EmployeeLookup>(); } }
+
+
+		[OrderStatus(1)]
+	    public ActivityFieldLookup HvtProducersActivityField { get { return GetLookup<ActivityFieldLookup>(); } }
+
+
         #endregion
 
 	}

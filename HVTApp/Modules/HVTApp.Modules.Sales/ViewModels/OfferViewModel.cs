@@ -45,10 +45,12 @@ namespace HVTApp.Modules.Sales.ViewModels
         {
             project = await UnitOfWork.Repository<Project>().GetByIdAsync(project.Id);
             var author = await UnitOfWork.Repository<Employee>().GetByIdAsync(GlobalAppProperties.User.Employee.Id);
+            var sender = await UnitOfWork.Repository<Employee>().GetByIdAsync(GlobalAppProperties.Actual.SenderOfferEmployee.Id);
 
             DetailsViewModel.Item.Project = new ProjectWrapper(project);
             DetailsViewModel.Item.ValidityDate = DateTime.Today.AddDays(90);
             DetailsViewModel.Item.Author = new EmployeeWrapper(author);
+            DetailsViewModel.Item.SenderEmployee = new EmployeeWrapper(sender);
 
             var salesUnits =  UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Id == project.Id);
             var offerUnits = new List<OfferUnit>();

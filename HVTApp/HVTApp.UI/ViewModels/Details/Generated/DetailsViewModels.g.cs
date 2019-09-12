@@ -544,6 +544,14 @@ namespace HVTApp.UI.ViewModels
 		public ICommand SelectSupervisionParameterCommand { get; private set; }
 		public ICommand ClearSupervisionParameterCommand { get; private set; }
 
+		private Func<Task<List<Employee>>> _getEntitiesForSelectSenderOfferEmployeeCommand;
+		public ICommand SelectSenderOfferEmployeeCommand { get; private set; }
+		public ICommand ClearSenderOfferEmployeeCommand { get; private set; }
+
+		private Func<Task<List<ActivityField>>> _getEntitiesForSelectHvtProducersActivityFieldCommand;
+		public ICommand SelectHvtProducersActivityFieldCommand { get; private set; }
+		public ICommand ClearHvtProducersActivityFieldCommand { get; private set; }
+
 
         public GlobalPropertiesDetailsViewModel(IUnityContainer container) : base(container) 
 		{
@@ -581,6 +589,16 @@ namespace HVTApp.UI.ViewModels
 			if (_getEntitiesForSelectSupervisionParameterCommand == null) _getEntitiesForSelectSupervisionParameterCommand = async () => { return await UnitOfWork.Repository<Parameter>().GetAllAsync(); };
 			if (SelectSupervisionParameterCommand == null) SelectSupervisionParameterCommand = new DelegateCommand(SelectSupervisionParameterCommand_Execute_Default);
 			if (ClearSupervisionParameterCommand == null) ClearSupervisionParameterCommand = new DelegateCommand(ClearSupervisionParameterCommand_Execute_Default);
+
+			
+			if (_getEntitiesForSelectSenderOfferEmployeeCommand == null) _getEntitiesForSelectSenderOfferEmployeeCommand = async () => { return await UnitOfWork.Repository<Employee>().GetAllAsync(); };
+			if (SelectSenderOfferEmployeeCommand == null) SelectSenderOfferEmployeeCommand = new DelegateCommand(SelectSenderOfferEmployeeCommand_Execute_Default);
+			if (ClearSenderOfferEmployeeCommand == null) ClearSenderOfferEmployeeCommand = new DelegateCommand(ClearSenderOfferEmployeeCommand_Execute_Default);
+
+			
+			if (_getEntitiesForSelectHvtProducersActivityFieldCommand == null) _getEntitiesForSelectHvtProducersActivityFieldCommand = async () => { return await UnitOfWork.Repository<ActivityField>().GetAllAsync(); };
+			if (SelectHvtProducersActivityFieldCommand == null) SelectHvtProducersActivityFieldCommand = new DelegateCommand(SelectHvtProducersActivityFieldCommand_Execute_Default);
+			if (ClearHvtProducersActivityFieldCommand == null) ClearHvtProducersActivityFieldCommand = new DelegateCommand(ClearHvtProducersActivityFieldCommand_Execute_Default);
 
 		}
 
@@ -658,6 +676,28 @@ namespace HVTApp.UI.ViewModels
 		private void ClearSupervisionParameterCommand_Execute_Default() 
 		{
 						Item.SupervisionParameter = null;
+		    
+		}
+
+		private async void SelectSenderOfferEmployeeCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<Employee, EmployeeWrapper>(await _getEntitiesForSelectSenderOfferEmployeeCommand(), nameof(Item.SenderOfferEmployee), Item.SenderOfferEmployee?.Id);
+		}
+
+		private void ClearSenderOfferEmployeeCommand_Execute_Default() 
+		{
+						Item.SenderOfferEmployee = null;
+		    
+		}
+
+		private async void SelectHvtProducersActivityFieldCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<ActivityField, ActivityFieldWrapper>(await _getEntitiesForSelectHvtProducersActivityFieldCommand(), nameof(Item.HvtProducersActivityField), Item.HvtProducersActivityField?.Id);
+		}
+
+		private void ClearHvtProducersActivityFieldCommand_Execute_Default() 
+		{
+						Item.HvtProducersActivityField = null;
 		    
 		}
 

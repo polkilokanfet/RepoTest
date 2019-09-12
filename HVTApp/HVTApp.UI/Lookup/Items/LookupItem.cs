@@ -41,8 +41,11 @@ namespace HVTApp.UI.Lookup
         /// <param name="entity">Основание для обновления.</param>
         public void Refresh(TEntity entity = null)
         {
-            if(entity != null)
+            if (entity != null)
+            {
                 Entity = entity;
+                _complexProperties.Clear();
+            }
             OnPropertyChanged(string.Empty);
         }
 
