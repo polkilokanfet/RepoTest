@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
+using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Comparers;
@@ -71,7 +72,16 @@ namespace HVTApp.Modules.Sales.ViewModels
         /// <param name="salesUnitWrapper"></param>
         private void FillingSalesUnit(SalesUnitWrapper salesUnitWrapper)
         {
-            if (Groups.SelectedGroup == null) return;
+            if (Groups.SelectedGroup == null)
+            {
+                var paymentConditionSet =
+                    UnitOfWork.Repository<PaymentConditionSet>()
+                        .Find(x => x.Id == GlobalAppProperties.Actual.PaymentConditionSet.Id).First();
+                salesUnitWrapper.PaymentConditionSet = new PaymentConditionSetWrapper(paymentConditionSet);
+                salesUnitWrapper.ProductionTerm = GlobalAppProperties.Actual.StandartTermFromStartToEndProduction;
+
+                return;
+            }
 
             salesUnitWrapper.Cost = Groups.SelectedGroup.Cost;
             salesUnitWrapper.Facility = Groups.SelectedGroup.Facility;

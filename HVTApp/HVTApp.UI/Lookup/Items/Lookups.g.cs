@@ -436,6 +436,10 @@ namespace HVTApp.UI.Lookup
 	    public ActivityFieldLookup HvtProducersActivityField { get { return GetLookup<ActivityFieldLookup>(); } }
 
 
+		[OrderStatus(1)]
+	    public PaymentConditionSetLookup PaymentConditionSet { get { return GetLookup<PaymentConditionSetLookup>(); } }
+
+
         #endregion
 
 	}

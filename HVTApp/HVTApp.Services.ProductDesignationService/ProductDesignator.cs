@@ -34,8 +34,12 @@ namespace HVTApp.Services.ProductDesignationService
 
         public string GetDesignation(ProductBlock block)
         {
+            if (block == null) return "block is null!";
+
             if (!string.IsNullOrEmpty(block.DesignationSpecial))
                 return block.DesignationSpecial;
+
+            if (!block.Parameters.Any()) return "В блоке нет параметров!";
 
             var designation = _designationDictionary.FirstOrDefault(pd => pd.Key.AllContainsIn(block.Parameters, new ParameterComparer()));
 

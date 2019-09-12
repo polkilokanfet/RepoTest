@@ -37,6 +37,7 @@
                     <infg:DateTimeField Name="Date" Label="Дата настроек" Width="Auto" />
                     <infg:TextField Name="OurCompany" Label="Наша компания" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="StandartPaymentsConditionSet" Label="Стандартные условия оплаты" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="PaymentConditionSet" Label="Стандартные условия оплаты" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="HvtProducersActivityField" Label="Производитель ВВА" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="SenderOfferEmployee" Label="Отправитель ТКП" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="NewProductParameter" Label="Родительский параметр новых параметров" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>

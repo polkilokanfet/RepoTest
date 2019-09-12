@@ -552,6 +552,10 @@ namespace HVTApp.UI.ViewModels
 		public ICommand SelectHvtProducersActivityFieldCommand { get; private set; }
 		public ICommand ClearHvtProducersActivityFieldCommand { get; private set; }
 
+		private Func<Task<List<PaymentConditionSet>>> _getEntitiesForSelectPaymentConditionSetCommand;
+		public ICommand SelectPaymentConditionSetCommand { get; private set; }
+		public ICommand ClearPaymentConditionSetCommand { get; private set; }
+
 
         public GlobalPropertiesDetailsViewModel(IUnityContainer container) : base(container) 
 		{
@@ -599,6 +603,11 @@ namespace HVTApp.UI.ViewModels
 			if (_getEntitiesForSelectHvtProducersActivityFieldCommand == null) _getEntitiesForSelectHvtProducersActivityFieldCommand = async () => { return await UnitOfWork.Repository<ActivityField>().GetAllAsync(); };
 			if (SelectHvtProducersActivityFieldCommand == null) SelectHvtProducersActivityFieldCommand = new DelegateCommand(SelectHvtProducersActivityFieldCommand_Execute_Default);
 			if (ClearHvtProducersActivityFieldCommand == null) ClearHvtProducersActivityFieldCommand = new DelegateCommand(ClearHvtProducersActivityFieldCommand_Execute_Default);
+
+			
+			if (_getEntitiesForSelectPaymentConditionSetCommand == null) _getEntitiesForSelectPaymentConditionSetCommand = async () => { return await UnitOfWork.Repository<PaymentConditionSet>().GetAllAsync(); };
+			if (SelectPaymentConditionSetCommand == null) SelectPaymentConditionSetCommand = new DelegateCommand(SelectPaymentConditionSetCommand_Execute_Default);
+			if (ClearPaymentConditionSetCommand == null) ClearPaymentConditionSetCommand = new DelegateCommand(ClearPaymentConditionSetCommand_Execute_Default);
 
 		}
 
@@ -698,6 +707,17 @@ namespace HVTApp.UI.ViewModels
 		private void ClearHvtProducersActivityFieldCommand_Execute_Default() 
 		{
 						Item.HvtProducersActivityField = null;
+		    
+		}
+
+		private async void SelectPaymentConditionSetCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<PaymentConditionSet, PaymentConditionSetWrapper>(await _getEntitiesForSelectPaymentConditionSetCommand(), nameof(Item.PaymentConditionSet), Item.PaymentConditionSet?.Id);
+		}
+
+		private void ClearPaymentConditionSetCommand_Execute_Default() 
+		{
+						Item.PaymentConditionSet = null;
 		    
 		}
 

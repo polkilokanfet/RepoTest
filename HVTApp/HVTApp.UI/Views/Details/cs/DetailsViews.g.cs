@@ -874,6 +874,11 @@ namespace HVTApp.UI.Views
             //    VisibilityHvtProducersActivityFieldGlobalProperties = Visibility.Collapsed;
 
 
+            //attr = typeof(HVTApp.Model.POCOs.GlobalProperties).GetProperty(nameof(HVTApp.Model.POCOs.GlobalProperties.PaymentConditionSet)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityPaymentConditionSetGlobalProperties = Visibility.Collapsed;
+
+
 
         }
 
@@ -1001,6 +1006,15 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityHvtProducersActivityFieldGlobalPropertiesProperty); }
             set { SetValue(VisibilityHvtProducersActivityFieldGlobalPropertiesProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityPaymentConditionSetGlobalPropertiesProperty = DependencyProperty.Register("VisibilityPaymentConditionSetGlobalProperties", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityPaymentConditionSetGlobalProperties
+        {
+            get { return (Visibility) GetValue(VisibilityPaymentConditionSetGlobalPropertiesProperty); }
+            set { SetValue(VisibilityPaymentConditionSetGlobalPropertiesProperty, value); OnPropertyChanged(); }
         }
 
 

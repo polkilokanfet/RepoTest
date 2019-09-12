@@ -50,5 +50,8 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Производитель ВВА"), Required]
         public virtual ActivityField HvtProducersActivityField { get; set; }
+
+        [Designation("Стандартные условия оплаты"), Required]
+        public virtual PaymentConditionSet PaymentConditionSet { get; set; }
     }
 }

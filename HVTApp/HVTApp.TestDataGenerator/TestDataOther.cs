@@ -202,7 +202,8 @@ namespace HVTApp.TestDataGenerator
                 ServiceParameter = ParameterService,
                 SupervisionParameter = ParameterSupervision,
                 SenderOfferEmployee = EmployeeDeev,
-                HvtProducersActivityField = ActivityFieldProducerOfHvt
+                HvtProducersActivityField = ActivityFieldProducerOfHvt,
+                PaymentConditionSet = PaymentConditionSet50Na50
             });
         }
 

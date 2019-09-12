@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Model.POCOs;
 
-namespace HVTApp.Services.GetProductService
+namespace HVTApp.Services.GetProductService.Comparers
 {
     /// <summary>
     /// Сравнение групп параметров по длинам путей к началу
