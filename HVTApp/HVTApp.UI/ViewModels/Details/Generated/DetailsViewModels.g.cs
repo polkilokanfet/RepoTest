@@ -178,6 +178,18 @@ namespace HVTApp.UI.ViewModels
     }
 
 
+    public partial class PaymentConditionPointDetailsViewModel : BaseDetailsViewModel<PaymentConditionPointWrapper, PaymentConditionPoint, AfterSavePaymentConditionPointEvent>
+    {
+
+        public PaymentConditionPointDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+		}
+
+
+
+    }
+
+
     public partial class PaymentPlannedDetailsViewModel : BaseDetailsViewModel<PaymentPlannedWrapper, PaymentPlanned, AfterSavePaymentPlannedEvent>
     {
 		private Func<Task<List<PaymentCondition>>> _getEntitiesForSelectConditionCommand;
@@ -2736,9 +2748,29 @@ namespace HVTApp.UI.ViewModels
 
     public partial class PaymentConditionDetailsViewModel : BaseDetailsViewModel<PaymentConditionWrapper, PaymentCondition, AfterSavePaymentConditionEvent>
     {
+		private Func<Task<List<PaymentConditionPoint>>> _getEntitiesForSelectPaymentConditionPointCommand;
+		public ICommand SelectPaymentConditionPointCommand { get; private set; }
+		public ICommand ClearPaymentConditionPointCommand { get; private set; }
+
 
         public PaymentConditionDetailsViewModel(IUnityContainer container) : base(container) 
 		{
+			
+			if (_getEntitiesForSelectPaymentConditionPointCommand == null) _getEntitiesForSelectPaymentConditionPointCommand = async () => { return await UnitOfWork.Repository<PaymentConditionPoint>().GetAllAsync(); };
+			if (SelectPaymentConditionPointCommand == null) SelectPaymentConditionPointCommand = new DelegateCommand(SelectPaymentConditionPointCommand_Execute_Default);
+			if (ClearPaymentConditionPointCommand == null) ClearPaymentConditionPointCommand = new DelegateCommand(ClearPaymentConditionPointCommand_Execute_Default);
+
+		}
+
+		private async void SelectPaymentConditionPointCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<PaymentConditionPoint, PaymentConditionPointWrapper>(await _getEntitiesForSelectPaymentConditionPointCommand(), nameof(Item.PaymentConditionPoint), Item.PaymentConditionPoint?.Id);
+		}
+
+		private void ClearPaymentConditionPointCommand_Execute_Default() 
+		{
+						Item.PaymentConditionPoint = null;
+		    
 		}
 
 

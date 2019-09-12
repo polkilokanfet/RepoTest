@@ -2529,13 +2529,6 @@ namespace HVTApp.UI.Views
         }
 
 
-        public System.Windows.Visibility PaymentConditionPointVisibility
-        {
-            get { return PaymentConditionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentConditionLookup.PaymentConditionPoint)].Visibility; }
-            set { PaymentConditionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentConditionLookup.PaymentConditionPoint)].Visibility = value; }
-        }
-
-
         public System.Windows.Visibility DisplayMemberVisibility
         {
             get { return PaymentConditionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentConditionLookup.DisplayMember)].Visibility; }
@@ -2543,10 +2536,78 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility PaymentConditionPointVisibility
+        {
+            get { return PaymentConditionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentConditionLookup.PaymentConditionPoint)].Visibility; }
+            set { PaymentConditionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentConditionLookup.PaymentConditionPoint)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility EntityVisibility
         {
             get { return PaymentConditionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentConditionLookup.Entity)].Visibility; }
             set { PaymentConditionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentConditionLookup.Entity)].Visibility = value; }
+        }
+
+
+
+		#endregion
+    }
+
+
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
+	[Designation("Условие платежа (точка отсчета)")]
+	[DesignationPlural("PaymentConditionPointLookup")]
+	[AllowEditAttribute(Role.Admin)]
+
+    public partial class PaymentConditionPointLookupListView : ViewBase
+    {
+        public PaymentConditionPointLookupListView()
+        {
+            InitializeComponent();
+        }
+
+        public PaymentConditionPointLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentConditionPointLookupListViewModel PaymentConditionPointLookupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = PaymentConditionPointLookupListViewModel;
+			PaymentConditionPointLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			await ((PaymentConditionPointLookupListViewModel)DataContext).LoadAsync();;
+        }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility NameVisibility
+        {
+            get { return PaymentConditionPointLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentConditionPointLookup.Name)].Visibility; }
+            set { PaymentConditionPointLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentConditionPointLookup.Name)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility PaymentConditionPointEnumVisibility
+        {
+            get { return PaymentConditionPointLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentConditionPointLookup.PaymentConditionPointEnum)].Visibility; }
+            set { PaymentConditionPointLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentConditionPointLookup.PaymentConditionPointEnum)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return PaymentConditionPointLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentConditionPointLookup.DisplayMember)].Visibility; }
+            set { PaymentConditionPointLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentConditionPointLookup.DisplayMember)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return PaymentConditionPointLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentConditionPointLookup.Entity)].Visibility; }
+            set { PaymentConditionPointLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentConditionPointLookup.Entity)].Visibility = value; }
         }
 
 

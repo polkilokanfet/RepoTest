@@ -54,6 +54,12 @@ namespace HVTApp.UI.ViewModels
     }
 
 
+	public partial class PaymentConditionPointLookupListViewModel : BaseListViewModel<PaymentConditionPoint, PaymentConditionPointLookup, AfterSavePaymentConditionPointEvent, AfterSelectPaymentConditionPointEvent, AfterRemovePaymentConditionPointEvent>
+    {
+        public PaymentConditionPointLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+
 	public partial class PaymentPlannedLookupListViewModel : BaseListViewModel<PaymentPlanned, PaymentPlannedLookup, AfterSavePaymentPlannedEvent, AfterSelectPaymentPlannedEvent, AfterRemovePaymentPlannedEvent>
     {
         public PaymentPlannedLookupListViewModel(IUnityContainer container) : base(container) { }

@@ -42,6 +42,12 @@ namespace HVTApp.UI
             _updateDetailsService.Register<PaymentActual, PaymentActualDetailsView>();
 
 
+            Container.RegisterViewForNavigation<PaymentConditionPointLookupListView>();
+            //_dialogService.Register<PaymentConditionPointDetailsViewModel, PaymentConditionPointDetailsView>();
+			_selectService.Register<PaymentConditionPointLookupListView, PaymentConditionPoint>();
+            _updateDetailsService.Register<PaymentConditionPoint, PaymentConditionPointDetailsView>();
+
+
             Container.RegisterViewForNavigation<PaymentPlannedLookupListView>();
             //_dialogService.Register<PaymentPlannedDetailsViewModel, PaymentPlannedDetailsView>();
 			_selectService.Register<PaymentPlannedLookupListView, PaymentPlanned>();

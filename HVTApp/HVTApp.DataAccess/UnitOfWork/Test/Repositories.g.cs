@@ -30,6 +30,11 @@ namespace HVTApp.DataAccess
         public PaymentActualRepositoryTest(TestData testData) : base(testData) {}
     }
 
+    public partial class PaymentConditionPointRepositoryTest : TestBaseRepository<PaymentConditionPoint>, IPaymentConditionPointRepository
+    {
+        public PaymentConditionPointRepositoryTest(TestData testData) : base(testData) {}
+    }
+
     public partial class PaymentPlannedRepositoryTest : TestBaseRepository<PaymentPlanned>, IPaymentPlannedRepository
     {
         public PaymentPlannedRepositoryTest(TestData testData) : base(testData) {}

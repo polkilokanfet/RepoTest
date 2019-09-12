@@ -311,6 +311,60 @@ namespace HVTApp.UI.Views
 	}
 
 
+    public partial class PaymentConditionPointDetailsView : ViewBase
+    {
+        public PaymentConditionPointDetailsView()
+        {
+			InitializeComponent();
+        }
+
+        public PaymentConditionPointDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentConditionPointDetailsViewModel PaymentConditionPointDetailsViewModel) : base(regionManager, eventAggregator)
+        {
+            SetVisibilityProps();
+			InitializeComponent();
+            DataContext = PaymentConditionPointDetailsViewModel;
+        }
+
+        private void SetVisibilityProps()
+        {
+            //NotUpdateAttribute attr;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.PaymentConditionPoint).GetProperty(nameof(HVTApp.Model.POCOs.PaymentConditionPoint.Name)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityNamePaymentConditionPoint = Visibility.Collapsed;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.PaymentConditionPoint).GetProperty(nameof(HVTApp.Model.POCOs.PaymentConditionPoint.PaymentConditionPointEnum)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityPaymentConditionPointEnumPaymentConditionPoint = Visibility.Collapsed;
+
+
+
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityNamePaymentConditionPointProperty = DependencyProperty.Register("VisibilityNamePaymentConditionPoint", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityNamePaymentConditionPoint
+        {
+            get { return (Visibility) GetValue(VisibilityNamePaymentConditionPointProperty); }
+            set { SetValue(VisibilityNamePaymentConditionPointProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityPaymentConditionPointEnumPaymentConditionPointProperty = DependencyProperty.Register("VisibilityPaymentConditionPointEnumPaymentConditionPoint", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityPaymentConditionPointEnumPaymentConditionPoint
+        {
+            get { return (Visibility) GetValue(VisibilityPaymentConditionPointEnumPaymentConditionPointProperty); }
+            set { SetValue(VisibilityPaymentConditionPointEnumPaymentConditionPointProperty, value); OnPropertyChanged(); }
+        }
+
+
+	}
+
+
     public partial class PaymentPlannedDetailsView : ViewBase
     {
         public PaymentPlannedDetailsView()

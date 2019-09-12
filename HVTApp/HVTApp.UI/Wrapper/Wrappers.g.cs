@@ -263,6 +263,45 @@ namespace HVTApp.UI.Wrapper
 
 	}
 
+		public partial class PaymentConditionPointWrapper : WrapperBase<PaymentConditionPoint>
+	{
+	    public PaymentConditionPointWrapper(PaymentConditionPoint model) : base(model) { }
+
+	
+
+        #region SimpleProperties
+
+        public System.String Name
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
+        public bool NameIsChanged => GetIsChanged(nameof(Name));
+
+
+        public HVTApp.Model.POCOs.PaymentConditionPointEnum PaymentConditionPointEnum
+        {
+          get { return GetValue<HVTApp.Model.POCOs.PaymentConditionPointEnum>(); }
+          set { SetValue(value); }
+        }
+        public HVTApp.Model.POCOs.PaymentConditionPointEnum PaymentConditionPointEnumOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.PaymentConditionPointEnum>(nameof(PaymentConditionPointEnum));
+        public bool PaymentConditionPointEnumIsChanged => GetIsChanged(nameof(PaymentConditionPointEnum));
+
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+
+        #endregion
+
+	}
+
 		public partial class PaymentPlannedWrapper : WrapperBase<PaymentPlanned>
 	{
 	    public PaymentPlannedWrapper(PaymentPlanned model) : base(model) { }
@@ -3509,15 +3548,6 @@ namespace HVTApp.UI.Wrapper
         public bool DaysToPointIsChanged => GetIsChanged(nameof(DaysToPoint));
 
 
-        public HVTApp.Model.POCOs.PaymentConditionPoint PaymentConditionPoint
-        {
-          get { return GetValue<HVTApp.Model.POCOs.PaymentConditionPoint>(); }
-          set { SetValue(value); }
-        }
-        public HVTApp.Model.POCOs.PaymentConditionPoint PaymentConditionPointOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.PaymentConditionPoint>(nameof(PaymentConditionPoint));
-        public bool PaymentConditionPointIsChanged => GetIsChanged(nameof(PaymentConditionPoint));
-
-
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -3528,6 +3558,26 @@ namespace HVTApp.UI.Wrapper
 
 
         #endregion
+
+
+        #region ComplexProperties
+
+	    public PaymentConditionPointWrapper PaymentConditionPoint 
+        {
+            get { return GetWrapper<PaymentConditionPointWrapper>(); }
+            set { SetComplexValue<PaymentConditionPoint, PaymentConditionPointWrapper>(PaymentConditionPoint, value); }
+        }
+
+
+        #endregion
+
+        public override void InitializeComplexProperties()
+        {
+
+            InitializeComplexProperty<PaymentConditionPointWrapper>(nameof(PaymentConditionPoint), Model.PaymentConditionPoint == null ? null : new PaymentConditionPointWrapper(Model.PaymentConditionPoint));
+
+
+        }
 
 	}
 

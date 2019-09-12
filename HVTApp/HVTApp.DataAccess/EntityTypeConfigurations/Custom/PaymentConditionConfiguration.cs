@@ -6,7 +6,7 @@ namespace HVTApp.DataAccess
         {
             Property(x => x.Part).IsRequired();
             Property(x => x.DaysToPoint).IsRequired();
-            Property(x => x.PaymentConditionPoint).IsRequired();
+            HasRequired(x => x.PaymentConditionPoint).WithMany().WillCascadeOnDelete(false);
         }
     }
 }

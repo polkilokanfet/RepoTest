@@ -12,6 +12,7 @@ namespace HVTApp.DataAccess
             DocumentNumberRepository = new DocumentNumberRepositoryTest(testData);
             MarketFieldRepository = new MarketFieldRepositoryTest(testData);
             PaymentActualRepository = new PaymentActualRepositoryTest(testData);
+            PaymentConditionPointRepository = new PaymentConditionPointRepositoryTest(testData);
             PaymentPlannedRepository = new PaymentPlannedRepositoryTest(testData);
             ProductIncludedRepository = new ProductIncludedRepositoryTest(testData);
             ProductDesignationRepository = new ProductDesignationRepositoryTest(testData);
@@ -74,6 +75,7 @@ namespace HVTApp.DataAccess
         public IDocumentNumberRepository DocumentNumberRepository { get; }
         public IMarketFieldRepository MarketFieldRepository { get; }
         public IPaymentActualRepository PaymentActualRepository { get; }
+        public IPaymentConditionPointRepository PaymentConditionPointRepository { get; }
         public IPaymentPlannedRepository PaymentPlannedRepository { get; }
         public IProductIncludedRepository ProductIncludedRepository { get; }
         public IProductDesignationRepository ProductDesignationRepository { get; }

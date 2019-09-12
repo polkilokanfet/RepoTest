@@ -26,18 +26,18 @@ namespace HVTApp.Model.POCOs
             string daysName = DaysToPoint < 0 ? $"за {-DaysToPoint} {dayName} до" : $"спустя {DaysToPoint} {dayName} после";
 
             string pointName = string.Empty;
-            switch (PaymentConditionPoint)
+            switch (PaymentConditionPoint.PaymentConditionPointEnum)
             {
-                case (PaymentConditionPoint.ProductionStart):
+                case (PaymentConditionPointEnum.ProductionStart):
                     pointName = "начала производства";
                     break;
-                case (PaymentConditionPoint.ProductionEnd):
+                case (PaymentConditionPointEnum.ProductionEnd):
                     pointName = "окончания производства";
                     break;
-                case (PaymentConditionPoint.Shipment):
+                case (PaymentConditionPointEnum.Shipment):
                     pointName = "отгрузки с предприятия";
                     break;
-                case (PaymentConditionPoint.Delivery):
+                case (PaymentConditionPointEnum.Delivery):
                     pointName = "доставки";
                     break;
             }
@@ -47,7 +47,8 @@ namespace HVTApp.Model.POCOs
 
         public int CompareTo(PaymentCondition other)
         {
-            var result = this.PaymentConditionPoint.CompareTo(other.PaymentConditionPoint);
+            var result = this.PaymentConditionPoint.PaymentConditionPointEnum.
+                CompareTo(other.PaymentConditionPoint.PaymentConditionPointEnum);
             return result != 0 ? result : this.DaysToPoint.CompareTo(other.DaysToPoint);
         }
 
@@ -60,28 +61,5 @@ namespace HVTApp.Model.POCOs
                    Equals(this.DaysToPoint, other.DaysToPoint) &&
                    Equals(this.Part, other.Part);
         }
-    }
-
-    /// <summary>
-    /// Точка отсчета условия платежа.
-    /// </summary>
-    public enum PaymentConditionPoint
-    {
-        /// <summary>
-        /// Начало производства.
-        /// </summary>
-        ProductionStart,
-        /// <summary>
-        /// Окончание производства.
-        /// </summary>
-        ProductionEnd,
-        /// <summary>
-        /// Отгрузка.
-        /// </summary>
-        Shipment,
-        /// <summary>
-        /// Доставка.
-        /// </summary>
-        Delivery
     }
 }

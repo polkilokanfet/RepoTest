@@ -156,6 +156,30 @@ namespace HVTApp.UI.Lookup
 
 	[AllowEditAttribute(Role.Admin)]
 
+	[Designation("Условие платежа (точка отсчета)")]
+	public partial class PaymentConditionPointLookup : LookupItem<PaymentConditionPoint>
+	{
+		public PaymentConditionPointLookup(PaymentConditionPoint entity) : base(entity) 
+		{
+		}
+		
+
+        #region SimpleProperties
+
+		[OrderStatus(6)]
+        public System.String Name => Entity.Name;
+
+
+		[OrderStatus(1)]
+        public HVTApp.Model.POCOs.PaymentConditionPointEnum PaymentConditionPointEnum => Entity.PaymentConditionPointEnum;
+
+
+        #endregion
+
+	}
+
+	[AllowEditAttribute(Role.Admin)]
+
 	[Designation("Платеж плановый")]
 	public partial class PaymentPlannedLookup : LookupItem<PaymentPlanned>
 	{
@@ -1871,8 +1895,13 @@ namespace HVTApp.UI.Lookup
         public System.Int32 DaysToPoint => Entity.DaysToPoint;
 
 
+        #endregion
+
+
+        #region ComplexProperties
+
 		[OrderStatus(10)]
-        public HVTApp.Model.POCOs.PaymentConditionPoint PaymentConditionPoint => Entity.PaymentConditionPoint;
+	    public PaymentConditionPointLookup PaymentConditionPoint { get { return GetLookup<PaymentConditionPointLookup>(); } }
 
 
         #endregion

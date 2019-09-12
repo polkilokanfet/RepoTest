@@ -181,7 +181,7 @@ namespace HVTApp.Model.POCOs
         /// </summary>
         [Designation("Сумма старта производства"), NotMapped]
         public double SumToStartProduction => PaymentConditionSet.PaymentConditions.Where(x =>
-                                              x.PaymentConditionPoint == PaymentConditionPoint.ProductionStart &&
+                                              x.PaymentConditionPoint.PaymentConditionPointEnum == PaymentConditionPointEnum.ProductionStart &&
                                               x.DaysToPoint <= 0).Sum(condition => Cost * condition.Part);
 
         /// <summary>
@@ -189,9 +189,9 @@ namespace HVTApp.Model.POCOs
         /// </summary>
         [Designation("Сумма отгрузки"), NotMapped]
         public double SumToShipping => PaymentConditionSet.PaymentConditions.Where(x => (
-                                        x.PaymentConditionPoint == PaymentConditionPoint.ProductionStart) ||
-                                       (x.PaymentConditionPoint == PaymentConditionPoint.ProductionEnd) ||
-                                       (x.PaymentConditionPoint == PaymentConditionPoint.Shipment && x.DaysToPoint <= 0)).
+                                        x.PaymentConditionPoint.PaymentConditionPointEnum == PaymentConditionPointEnum.ProductionStart) ||
+                                       (x.PaymentConditionPoint.PaymentConditionPointEnum == PaymentConditionPointEnum.ProductionEnd) ||
+                                       (x.PaymentConditionPoint.PaymentConditionPointEnum == PaymentConditionPointEnum.Shipment && x.DaysToPoint <= 0)).
                                        Sum(condition => Cost * condition.Part);
 
 
@@ -392,15 +392,15 @@ namespace HVTApp.Model.POCOs
         /// <returns></returns>
         private DateTime GetPaymentDate(PaymentCondition condition)
         {
-            switch (condition.PaymentConditionPoint)
+            switch (condition.PaymentConditionPoint.PaymentConditionPointEnum)
             {
-                case PaymentConditionPoint.ProductionStart:
+                case PaymentConditionPointEnum.ProductionStart:
                     return StartProductionDateCalculated.AddDays(condition.DaysToPoint);
-                case PaymentConditionPoint.ProductionEnd:
+                case PaymentConditionPointEnum.ProductionEnd:
                     return EndProductionDateCalculated.AddDays(condition.DaysToPoint);
-                case PaymentConditionPoint.Shipment:
+                case PaymentConditionPointEnum.Shipment:
                     return ShipmentDateCalculated.AddDays(condition.DaysToPoint);
-                case PaymentConditionPoint.Delivery:
+                case PaymentConditionPointEnum.Delivery:
                     return DeliveryDateCalculated.AddDays(condition.DaysToPoint);
                 default:
                     throw new ArgumentOutOfRangeException();

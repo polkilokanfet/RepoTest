@@ -39,6 +39,13 @@ namespace HVTApp.DataAccess
 		}
     }
 
+    public partial class PaymentConditionPointRepository : BaseRepository<PaymentConditionPoint>, IPaymentConditionPointRepository
+    {
+		public PaymentConditionPointRepository(DbContext context) : base(context) 
+		{
+		}
+    }
+
     public partial class PaymentPlannedRepository : BaseRepository<PaymentPlanned>, IPaymentPlannedRepository
     {
 		public PaymentPlannedRepository(DbContext context) : base(context) 

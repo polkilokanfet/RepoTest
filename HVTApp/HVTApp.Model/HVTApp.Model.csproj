@@ -61,6 +61,7 @@
     <Compile Include="POCOs\DocumentNumber.cs" />
     <Compile Include="POCOs\MarketField.cs" />
     <Compile Include="POCOs\PaymentActual.cs" />
+    <Compile Include="POCOs\PaymentConditionPoint.cs" />
     <Compile Include="POCOs\PaymentPlanned.cs" />
     <Compile Include="POCOs\PaymentType.cs" />
     <Compile Include="Comparers\ProductDependentComparer.cs" />

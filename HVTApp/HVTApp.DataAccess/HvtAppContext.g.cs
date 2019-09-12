@@ -14,6 +14,7 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new DocumentNumberConfiguration());
             modelBuilder.Configurations.Add(new MarketFieldConfiguration());
             modelBuilder.Configurations.Add(new PaymentActualConfiguration());
+            modelBuilder.Configurations.Add(new PaymentConditionPointConfiguration());
             modelBuilder.Configurations.Add(new PaymentPlannedConfiguration());
             modelBuilder.Configurations.Add(new ProductIncludedConfiguration());
             modelBuilder.Configurations.Add(new ProductDesignationConfiguration());
@@ -75,6 +76,7 @@ namespace HVTApp.DataAccess
         public virtual DbSet<DocumentNumber> DocumentNumberDbSet { get; set; }
         public virtual DbSet<MarketField> MarketFieldDbSet { get; set; }
         public virtual DbSet<PaymentActual> PaymentActualDbSet { get; set; }
+        public virtual DbSet<PaymentConditionPoint> PaymentConditionPointDbSet { get; set; }
         public virtual DbSet<PaymentPlanned> PaymentPlannedDbSet { get; set; }
         public virtual DbSet<ProductIncluded> ProductIncludedDbSet { get; set; }
         public virtual DbSet<ProductDesignation> ProductDesignationDbSet { get; set; }

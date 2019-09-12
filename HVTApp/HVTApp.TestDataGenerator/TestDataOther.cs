@@ -61,6 +61,11 @@ namespace HVTApp.TestDataGenerator
         public FacilityType FacilityTypeStation;
         public FacilityType FacilityTypeSubStation;
 
+        public PaymentConditionPoint PaymentConditionPointProductionStart;
+        public PaymentConditionPoint PaymentConditionPointProductionEnd;
+        public PaymentConditionPoint PaymentConditionPointShipment;
+        public PaymentConditionPoint PaymentConditionPointDelivery;
+
         public PaymentCondition PaymentConditionAvans50;
         public PaymentCondition PaymentConditionDoplata50;
 
@@ -177,15 +182,23 @@ namespace HVTApp.TestDataGenerator
             MeasureKv.Clone(new Measure { FullName = "Киловольт", ShortName = "кВ" });
         }
 
+        private void GeneratePaymentConditionsPoint()
+        {
+            PaymentConditionPointProductionStart.Clone(new PaymentConditionPoint {Name = "Начало производства", PaymentConditionPointEnum = PaymentConditionPointEnum.ProductionStart});
+            PaymentConditionPointProductionEnd.Clone(new PaymentConditionPoint { Name = "Окончание производства", PaymentConditionPointEnum = PaymentConditionPointEnum.ProductionEnd });
+            PaymentConditionPointShipment.Clone(new PaymentConditionPoint { Name = "Отгрузка с предприятия", PaymentConditionPointEnum = PaymentConditionPointEnum.Shipment });
+            PaymentConditionPointDelivery.Clone(new PaymentConditionPoint { Name = "Доставка на объект", PaymentConditionPointEnum = PaymentConditionPointEnum.Delivery });
+        }
+
         private void GeneratePaymentConditions()
         {
-            PaymentConditionAvans50.Clone(new PaymentCondition { Part = 0.5, DaysToPoint = -10, PaymentConditionPoint = PaymentConditionPoint.ProductionStart });
-            PaymentConditionDoplata50.Clone(new PaymentCondition { Part = 0.5, DaysToPoint = -14, PaymentConditionPoint = PaymentConditionPoint.ProductionEnd });
+            PaymentConditionAvans50.Clone(new PaymentCondition { Part = 0.5, DaysToPoint = -10, PaymentConditionPoint = PaymentConditionPointProductionStart });
+            PaymentConditionDoplata50.Clone(new PaymentCondition { Part = 0.5, DaysToPoint = -14, PaymentConditionPoint = PaymentConditionPointProductionEnd });
 
             PaymentConditionSet50Na50.Clone(new PaymentConditionSet { PaymentConditions = new List<PaymentCondition> { PaymentConditionAvans50, PaymentConditionDoplata50 } });
 
-            PaymentConditionAvans30.Clone(new PaymentCondition { Part = 0.3, DaysToPoint = 2, PaymentConditionPoint = PaymentConditionPoint.ProductionStart });
-            PaymentConditionPostoplata70.Clone(new PaymentCondition { Part = 0.7, DaysToPoint = 1, PaymentConditionPoint = PaymentConditionPoint.Delivery });
+            PaymentConditionAvans30.Clone(new PaymentCondition { Part = 0.3, DaysToPoint = 2, PaymentConditionPoint = PaymentConditionPointProductionStart });
+            PaymentConditionPostoplata70.Clone(new PaymentCondition { Part = 0.7, DaysToPoint = 1, PaymentConditionPoint = PaymentConditionPointDelivery });
 
             PaymentConditionSet30Na70.Clone(new PaymentConditionSet { PaymentConditions = new List<PaymentCondition> { PaymentConditionAvans30, PaymentConditionPostoplata70 } });
         }

@@ -8,6 +8,7 @@ namespace HVTApp.DataAccess
     public partial interface IDocumentNumberRepository : IRepository<DocumentNumber> { }
     public partial interface IMarketFieldRepository : IRepository<MarketField> { }
     public partial interface IPaymentActualRepository : IRepository<PaymentActual> { }
+    public partial interface IPaymentConditionPointRepository : IRepository<PaymentConditionPoint> { }
     public partial interface IPaymentPlannedRepository : IRepository<PaymentPlanned> { }
     public partial interface IProductIncludedRepository : IRepository<ProductIncluded> { }
     public partial interface IProductDesignationRepository : IRepository<ProductDesignation> { }

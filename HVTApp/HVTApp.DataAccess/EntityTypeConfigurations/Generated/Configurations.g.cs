@@ -8,6 +8,7 @@ namespace HVTApp.DataAccess
     public partial class DocumentNumberConfiguration : EntityTypeConfiguration<DocumentNumber> { }
     public partial class MarketFieldConfiguration : EntityTypeConfiguration<MarketField> { }
     public partial class PaymentActualConfiguration : EntityTypeConfiguration<PaymentActual> { }
+    public partial class PaymentConditionPointConfiguration : EntityTypeConfiguration<PaymentConditionPoint> { }
     public partial class PaymentPlannedConfiguration : EntityTypeConfiguration<PaymentPlanned> { }
     public partial class ProductIncludedConfiguration : EntityTypeConfiguration<ProductIncluded> { }
     public partial class ProductDesignationConfiguration : EntityTypeConfiguration<ProductDesignation> { }
