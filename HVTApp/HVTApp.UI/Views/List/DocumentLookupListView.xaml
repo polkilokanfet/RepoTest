@@ -46,7 +46,6 @@
                     <infg:TextField Name="RequestDocument" Label="Запрос" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="CopyToRecipients" Label="Копия" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" />
-                    <infg:TextField Name="Code" Label="Код" Width="Auto" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

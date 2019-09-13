@@ -294,12 +294,12 @@
 										 Visibility="{Binding VisibilityProductsIncludedSalesUnit, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="32" Content="Адрес доставки" Visibility="{Binding VisibilityAddressSalesUnit, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="32" Content="Адрес доставки" Visibility="{Binding VisibilityAddressDeliverySalesUnit, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="32" 
-                                    Item="{Binding Item.Address}" 
-                                    AddItemCommand="{Binding SelectAddressCommand}" 
-                                    RemoveItemCommand="{Binding ClearAddressCommand}"
-									Visibility="{Binding VisibilityAddressSalesUnit, ElementName=Root}"/>
+                                    Item="{Binding Item.AddressDelivery}" 
+                                    AddItemCommand="{Binding SelectAddressDeliveryCommand}" 
+                                    RemoveItemCommand="{Binding ClearAddressDeliveryCommand}"
+									Visibility="{Binding VisibilityAddressDeliverySalesUnit, ElementName=Root}"/>
 
 
 

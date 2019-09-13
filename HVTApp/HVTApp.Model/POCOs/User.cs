@@ -17,9 +17,6 @@ namespace HVTApp.Model.POCOs
         [Designation("Пароль"), Required, OrderStatus(2)]
         public Guid Password { get; set; }
 
-        [Designation("Шифр"), Required, MaxLength(10), OrderStatus(15)]
-        public string PersonalNumber { get; set; }
-
         [Designation("Текущая роль"), NotMapped]
         public Role RoleCurrent { get; set; }
 

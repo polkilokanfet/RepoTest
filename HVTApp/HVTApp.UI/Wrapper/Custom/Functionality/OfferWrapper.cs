@@ -1,5 +1,4 @@
-﻿using HVTApp.Model;
-using HVTApp.Model.POCOs;
+﻿using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Wrapper
 {
@@ -11,7 +10,6 @@ namespace HVTApp.UI.Wrapper
             if (Model.Number == null)
             {
                 Model.Number = new DocumentNumber();
-                Model.Code = GlobalAppProperties.User.PersonalNumber;
             }
         }
     }

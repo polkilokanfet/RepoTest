@@ -43,7 +43,7 @@
                     <infg:TextField Name="Specification" Label="Спецификация" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Producer" Label="Производитель" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Order" Label="Заказ" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Address" Label="Адрес доставки" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="AddressDelivery" Label="Адрес доставки" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="TceRequest" Label="Запрос в ТСЕ" Width="Auto" />
                     <infg:NumericField Name="SumToStartProduction" Label="Сумма старта производства" Width="Auto" />
                     <infg:NumericField Name="SumToShipping" Label="Сумма отгрузки" Width="Auto" />

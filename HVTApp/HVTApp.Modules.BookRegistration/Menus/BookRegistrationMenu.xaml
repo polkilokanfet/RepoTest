@@ -1,11 +1,13 @@
 ﻿<ig:OutlookBarGroup xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:ig="http://infragistics.com/OutlookBar" 
+                    xmlns:ig="http://infragistics.com/OutlookBar"
                     xmlns:igs="http://schemas.infragistics.com/xaml"
                     xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
                     xmlns:infPrism="clr-namespace:HVTApp.Infrastructure.Prism;assembly=HVTApp.Infrastructure"
                     x:Class="HVTApp.Modules.BookRegistration.Menus.BookRegistrationMenu"
-                    Header="Книга регистрации">
+                    Header="Книга регистрации"
+                    LargeImage="/HVTApp.Modules.BookRegistration;component/Images/Copy_32x32.png"
+                    SmallImage="/HVTApp.Modules.BookRegistration;component/Images/Copy_16x16.png">
 
     <igs:XamDataTree Name="_xamDataTree"
                      ItemsSource="{Binding Items}"

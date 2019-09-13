@@ -1860,9 +1860,9 @@ namespace HVTApp.UI.ViewModels
 		public ICommand SelectSpecificationCommand { get; private set; }
 		public ICommand ClearSpecificationCommand { get; private set; }
 
-		private Func<Task<List<Address>>> _getEntitiesForSelectAddressCommand;
-		public ICommand SelectAddressCommand { get; private set; }
-		public ICommand ClearAddressCommand { get; private set; }
+		private Func<Task<List<Address>>> _getEntitiesForSelectAddressDeliveryCommand;
+		public ICommand SelectAddressDeliveryCommand { get; private set; }
+		public ICommand ClearAddressDeliveryCommand { get; private set; }
 
 		private Func<Task<List<ProductIncluded>>> _getEntitiesForAddInProductsIncludedCommand;
 		public ICommand AddInProductsIncludedCommand { get; }
@@ -2015,9 +2015,9 @@ namespace HVTApp.UI.ViewModels
 			if (ClearSpecificationCommand == null) ClearSpecificationCommand = new DelegateCommand(ClearSpecificationCommand_Execute_Default);
 
 			
-			if (_getEntitiesForSelectAddressCommand == null) _getEntitiesForSelectAddressCommand = async () => { return await UnitOfWork.Repository<Address>().GetAllAsync(); };
-			if (SelectAddressCommand == null) SelectAddressCommand = new DelegateCommand(SelectAddressCommand_Execute_Default);
-			if (ClearAddressCommand == null) ClearAddressCommand = new DelegateCommand(ClearAddressCommand_Execute_Default);
+			if (_getEntitiesForSelectAddressDeliveryCommand == null) _getEntitiesForSelectAddressDeliveryCommand = async () => { return await UnitOfWork.Repository<Address>().GetAllAsync(); };
+			if (SelectAddressDeliveryCommand == null) SelectAddressDeliveryCommand = new DelegateCommand(SelectAddressDeliveryCommand_Execute_Default);
+			if (ClearAddressDeliveryCommand == null) ClearAddressDeliveryCommand = new DelegateCommand(ClearAddressDeliveryCommand_Execute_Default);
 
 			
 			if (_getEntitiesForAddInProductsIncludedCommand == null) _getEntitiesForAddInProductsIncludedCommand = async () => { return await UnitOfWork.Repository<ProductIncluded>().GetAllAsync(); };;
@@ -2133,14 +2133,14 @@ namespace HVTApp.UI.ViewModels
 		    
 		}
 
-		private async void SelectAddressCommand_Execute_Default() 
+		private async void SelectAddressDeliveryCommand_Execute_Default() 
 		{
-            SelectAndSetWrapper<Address, AddressWrapper>(await _getEntitiesForSelectAddressCommand(), nameof(Item.Address), Item.Address?.Id);
+            SelectAndSetWrapper<Address, AddressWrapper>(await _getEntitiesForSelectAddressDeliveryCommand(), nameof(Item.AddressDelivery), Item.AddressDelivery?.Id);
 		}
 
-		private void ClearAddressCommand_Execute_Default() 
+		private void ClearAddressDeliveryCommand_Execute_Default() 
 		{
-						Item.Address = null;
+						Item.AddressDelivery = null;
 		    
 		}
 

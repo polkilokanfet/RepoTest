@@ -6,7 +6,9 @@
               xmlns:dataPresenter="http://infragistics.com/DataPresenter"
               xmlns:views="clr-namespace:HVTApp.UI.Views;assembly=HVTApp.UI">
 
-    <views:OfferLookupListView DataContext="{Binding}" />
+    <views:OfferLookupListView DataContext="{Binding}" 
+                               NumberVisibility="Collapsed"
+                               OfferUnitsVisibility="Collapsed"/>
 
 </inf:ViewBase>
 

@@ -143,7 +143,7 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateOffers()
         {
-            OfferMrsk.Clone(new Offer { Number = new DocumentNumber(), Vat = 20, Project = ProjectSubstation, ValidityDate = DateTime.Today.AddDays(60), Author = EmployeeIvanov, SenderEmployee = EmployeeIvanov, RecipientEmployee = EmployeeSidorov, CopyToRecipients = new List<Employee> { EmployeePetrov }, RegistrationDetailsOfRecipient = new DocumentsRegistrationDetails { Number = "12f455", Date = DateTime.Today.AddDays(-3) } });
+            OfferMrsk.Clone(new Offer { Number = new DocumentNumber(), Vat = 20, Project = ProjectSubstation, ValidityDate = DateTime.Today.AddDays(60), Author = EmployeeIvanov, SenderEmployee = EmployeeIvanov, RecipientEmployee = EmployeeSidorov, CopyToRecipients = new List<Employee> { EmployeePetrov }, RegistrationDetailsOfRecipient = new DocumentsRegistrationDetails { Number = "258/2019", Date = DateTime.Today.AddDays(-3) } });
         }
 
         private void GenerateTenders()

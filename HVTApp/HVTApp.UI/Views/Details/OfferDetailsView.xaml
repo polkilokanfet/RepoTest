@@ -28,7 +28,6 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
 
@@ -105,22 +104,16 @@
 				 Visibility="{Binding VisibilityCommentOffer, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="10" Content="Код" Visibility="{Binding VisibilityCodeOffer, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="10" MinWidth="200" 
-                 Text="{Binding Item.Code, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				 Visibility="{Binding VisibilityCodeOffer, ElementName=Root}"/>
-
-
-        <Label Grid.Column="0" Grid.Row ="11" Content="Запрос" Visibility="{Binding VisibilityRequestDocumentOffer, ElementName=Root}"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="11" 
+        <Label Grid.Column="0" Grid.Row ="10" Content="Запрос" Visibility="{Binding VisibilityRequestDocumentOffer, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="10" 
                                     Item="{Binding Item.RequestDocument}" 
                                     AddItemCommand="{Binding SelectRequestDocumentCommand}" 
                                     RemoveItemCommand="{Binding ClearRequestDocumentCommand}"
 									Visibility="{Binding VisibilityRequestDocumentOffer, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="12" Content="Автор" Visibility="{Binding VisibilityAuthorOffer, ElementName=Root}"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="12" 
+        <Label Grid.Column="0" Grid.Row ="11" Content="Автор" Visibility="{Binding VisibilityAuthorOffer, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="11" 
                                     Item="{Binding Item.Author}" 
                                     AddItemCommand="{Binding SelectAuthorCommand}" 
                                     RemoveItemCommand="{Binding ClearAuthorCommand}"

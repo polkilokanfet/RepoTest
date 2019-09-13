@@ -39,7 +39,7 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
         public int CompareTo(object obj)
         {
             var other = obj as PriceTask;
-            if (other == null) throw new ArgumentException($"Передан не {nameof(PriceTask)}.");
+            if (other == null) throw new ArgumentException($"Передан не { nameof(PriceTask) }.");
 
             if (this.IsPriceless == other.IsPriceless)
                 return CompareByReasons(other);

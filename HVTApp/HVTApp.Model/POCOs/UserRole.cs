@@ -10,5 +10,10 @@ namespace HVTApp.Model.POCOs
         [Designation("Название"), Required, MaxLength(15)]
         public string Name { get; set; }
         public Role Role { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

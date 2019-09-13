@@ -213,6 +213,7 @@ namespace HVTApp.UI.ViewModels
                 catch (DbUpdateException e)
                 {
                     MessageService.ShowOkMessageDialog(e.GetType().ToString(), e.GetAllExceptions());
+                    return;
                 }
             }
 

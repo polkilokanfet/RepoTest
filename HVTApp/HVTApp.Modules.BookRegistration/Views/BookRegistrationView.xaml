@@ -5,6 +5,7 @@
               xmlns:views="clr-namespace:HVTApp.UI.Views;assembly=HVTApp.UI"
               xmlns:infgDp="http://infragistics.com/DataPresenter">
     <Grid>
-        <views:DocumentLookupListView/>
+        <views:DocumentLookupListView DataContext="{Binding}" 
+                                      NumberVisibility="Collapsed"/>
     </Grid>
 </inf:ViewBase>

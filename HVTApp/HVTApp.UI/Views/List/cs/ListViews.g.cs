@@ -837,13 +837,6 @@ namespace HVTApp.UI.Views
 		#region VisibilityProps
 
 
-        public System.Windows.Visibility CodeVisibility
-        {
-            get { return DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentLookup.Code)].Visibility; }
-            set { DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentLookup.Code)].Visibility = value; }
-        }
-
-
         public System.Windows.Visibility RegNumberVisibility
         {
             get { return DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentLookup.RegNumber)].Visibility; }
@@ -1104,6 +1097,13 @@ namespace HVTApp.UI.Views
         }
 
 		#region VisibilityProps
+
+
+        public System.Windows.Visibility PersonalNumberVisibility
+        {
+            get { return EmployeeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.EmployeeLookup.PersonalNumber)].Visibility; }
+            set { EmployeeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.EmployeeLookup.PersonalNumber)].Visibility = value; }
+        }
 
 
         public System.Windows.Visibility PhoneNumberVisibility
@@ -1949,13 +1949,6 @@ namespace HVTApp.UI.Views
         {
             get { return OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.OfferLookup.Vat)].Visibility; }
             set { OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.OfferLookup.Vat)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility CodeVisibility
-        {
-            get { return OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.OfferLookup.Code)].Visibility; }
-            set { OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.OfferLookup.Code)].Visibility = value; }
         }
 
 
@@ -4234,10 +4227,10 @@ namespace HVTApp.UI.Views
         }
 
 
-        public System.Windows.Visibility AddressVisibility
+        public System.Windows.Visibility AddressDeliveryVisibility
         {
-            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.Address)].Visibility; }
-            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.Address)].Visibility = value; }
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.AddressDelivery)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.AddressDelivery)].Visibility = value; }
         }
 
 
@@ -4838,13 +4831,6 @@ namespace HVTApp.UI.Views
         {
             get { return UserLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.UserLookup.Password)].Visibility; }
             set { UserLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.UserLookup.Password)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility PersonalNumberVisibility
-        {
-            get { return UserLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.UserLookup.PersonalNumber)].Visibility; }
-            set { UserLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.UserLookup.PersonalNumber)].Visibility = value; }
         }
 
 

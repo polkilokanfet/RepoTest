@@ -18,7 +18,6 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
 
@@ -36,14 +35,8 @@
 				 Visibility="{Binding VisibilityLoginUser, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="Шифр" Visibility="{Binding VisibilityPersonalNumberUser, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
-                 Text="{Binding Item.PersonalNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				 Visibility="{Binding VisibilityPersonalNumberUser, ElementName=Root}"/>
-
-
-        <Label Grid.Column="0" Grid.Row ="3" Content="Роли" Visibility="{Binding VisibilityRolesUser, ElementName=Root}"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="3"
+        <Label Grid.Column="0" Grid.Row ="2" Content="Роли" Visibility="{Binding VisibilityRolesUser, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
 										 Items="{Binding Path=Item.Roles}"
 										 SelectedItem="{Binding SelectedRolesItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInRolesCommand}"

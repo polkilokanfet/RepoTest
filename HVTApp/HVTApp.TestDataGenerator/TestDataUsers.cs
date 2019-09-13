@@ -85,16 +85,16 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateEmployees()
         {
-            EmployeeIvanov.Clone(new Employee { Person = PersonIvanov, Position = EmployeesPositionManager, Company = CompanyUetm, Email = "iii@uetm.ru", PhoneNumber = "326-36-36" });
-            EmployeePetrov.Clone(new Employee { Person = PersonPetrov, Position = EmployeesPositionDirector, Company = CompanyFsk, Email = "pii@uetm.ru", PhoneNumber = "326-36-37" });
+            EmployeeIvanov.Clone(new Employee { Person = PersonIvanov, Position = EmployeesPositionManager, Company = CompanyUetm, PersonalNumber = "7111", Email = "iii@uetm.ru", PhoneNumber = "326-36-36" });
+            EmployeePetrov.Clone(new Employee { Person = PersonPetrov, Position = EmployeesPositionDirector, Company = CompanyFsk, PersonalNumber = "7112", Email = "pii@uetm.ru", PhoneNumber = "326-36-37" });
             EmployeeSidorov.Clone(new Employee { Person = PersonSidorov, Position = EmployeesPositionDirector, Company = CompanyEnel, Email = "sii@uetm.ru", PhoneNumber = "326-36-38" });
 
-            EmployeeKosolapov.Clone(new Employee { Person = PersonKosolapov, Position = EmployeesPositionManager, Company = CompanyUetm, Email = "kos@uetm.ru", PhoneNumber = "326-36-36" });
-            EmployeeEmelyanov.Clone(new Employee { Person = PersonEmelyanov, Position = EmployeesPositionManager, Company = CompanyUetm, Email = "em@uetm.ru", PhoneNumber = "326-36-36" });
-            EmployeeRybin.Clone(new Employee { Person = PersonRybin, Position = EmployeesPositionManager, Company = CompanyUetm, Email = "rbn@uetm.ru", PhoneNumber = "326-36-36" });
-            EmployeeGazizov.Clone(new Employee { Person = PersonGazizov, Position = EmployeesPositionManager, Company = CompanyUetm, Email = "gaz@uetm.ru", PhoneNumber = "326-36-36" });
-            EmployeeTekin.Clone(new Employee { Person = PersonTekin, Position = EmployeesPositionManager, Company = CompanyUetm, Email = "tkn@uetm.ru", PhoneNumber = "326-36-36" });
-            EmployeeDeev.Clone(new Employee { Person = PersonDeev, Position = EmployeesPositionDirector, Company = CompanyUetm, Email = "deev@uetm.ru", PhoneNumber = "326-36-36" });
+            EmployeeKosolapov.Clone(new Employee { Person = PersonKosolapov, Position = EmployeesPositionManager, Company = CompanyUetm, PersonalNumber = "7412", Email = "kos@uetm.ru", PhoneNumber = "326-36-36" });
+            EmployeeEmelyanov.Clone(new Employee { Person = PersonEmelyanov, Position = EmployeesPositionManager, Company = CompanyUetm, PersonalNumber = "7406", Email = "em@uetm.ru", PhoneNumber = "326-36-36" });
+            EmployeeRybin.Clone(new Employee { Person = PersonRybin, Position = EmployeesPositionManager, Company = CompanyUetm, PersonalNumber = "7403", Email = "rbn@uetm.ru", PhoneNumber = "326-36-36" });
+            EmployeeGazizov.Clone(new Employee { Person = PersonGazizov, Position = EmployeesPositionManager, Company = CompanyUetm, PersonalNumber = "7410", Email = "gaz@uetm.ru", PhoneNumber = "326-36-36" });
+            EmployeeTekin.Clone(new Employee { Person = PersonTekin, Position = EmployeesPositionManager, Company = CompanyUetm, PersonalNumber = "7478", Email = "tkn@uetm.ru", PhoneNumber = "326-36-36" });
+            EmployeeDeev.Clone(new Employee { Person = PersonDeev, Position = EmployeesPositionDirector, Company = CompanyUetm, PersonalNumber = "7401", Email = "deev@uetm.ru", PhoneNumber = "326-36-36" });
         }
 
         private void GenerateUsers()
@@ -102,15 +102,15 @@ namespace HVTApp.TestDataGenerator
             var pas1 = StringToGuid.GetHashString("1");
             var pas2 = StringToGuid.GetHashString("2");
 
-            UserIvanov.Clone(new User { Login = "1", Password = pas1, Employee = EmployeeIvanov, PersonalNumber = "1", Roles = new List<UserRole> { UserRoleAdmin, UserRoleDataBaseFiller, UserRoleSalesManager, UserRolePlanMaker, UserRoleDirector, UserRoleEconomist, UserRolePricer } });
-            UserPetrov.Clone(new User { Login = "2", Password = pas2, Employee = EmployeePetrov, PersonalNumber = "2", Roles = new List<UserRole> { UserRoleDataBaseFiller } });
+            UserIvanov.Clone(new User { Login = "1", Password = pas1, Employee = EmployeeIvanov, Roles = new List<UserRole> { UserRoleAdmin, UserRoleDataBaseFiller, UserRoleSalesManager, UserRolePlanMaker, UserRoleDirector, UserRoleEconomist, UserRolePricer } });
+            UserPetrov.Clone(new User { Login = "2", Password = pas2, Employee = EmployeePetrov, Roles = new List<UserRole> { UserRoleDataBaseFiller } });
 
-            UserKosolapov.Clone(new User { Login = "kosolapov", Password = pas1, Employee = EmployeeKosolapov, PersonalNumber = "7412", Roles = new List<UserRole> { UserRoleAdmin, UserRoleDataBaseFiller, UserRoleSalesManager, UserRolePlanMaker, UserRoleDirector, UserRoleEconomist, UserRolePricer } });
-            UserEmelyanov.Clone(new User { Login = "emelyanov", Password = pas1, Employee = EmployeeEmelyanov, PersonalNumber = "7406", Roles = new List<UserRole> { UserRoleSalesManager } });
-            UserRybin.Clone(new User { Login = "rybin", Password = pas1, Employee = EmployeeRybin, PersonalNumber = "7403", Roles = new List<UserRole> { UserRoleSalesManager } });
-            UserGazizov.Clone(new User { Login = "gazizov", Password = pas1, Employee = EmployeeRybin, PersonalNumber = "7410", Roles = new List<UserRole> { UserRoleSalesManager } });
-            UserTekin.Clone(new User { Login = "tekin", Password = pas1, Employee = EmployeeRybin, PersonalNumber = "7478", Roles = new List<UserRole> { UserRoleSalesManager } });
-            UserDeev.Clone(new User { Login = "deev", Password = pas1, Employee = EmployeeDeev, PersonalNumber = "74??", Roles = new List<UserRole> { UserRoleDirector } });
+            UserKosolapov.Clone(new User { Login = "kosolapov", Password = pas1, Employee = EmployeeKosolapov, Roles = new List<UserRole> { UserRoleAdmin, UserRoleDataBaseFiller, UserRoleSalesManager, UserRolePlanMaker, UserRoleDirector, UserRoleEconomist, UserRolePricer } });
+            UserEmelyanov.Clone(new User { Login = "emelyanov", Password = pas1, Employee = EmployeeEmelyanov, Roles = new List<UserRole> { UserRoleSalesManager } });
+            UserRybin.Clone(new User { Login = "rybin", Password = pas1, Employee = EmployeeRybin, Roles = new List<UserRole> { UserRoleSalesManager } });
+            UserGazizov.Clone(new User { Login = "gazizov", Password = pas1, Employee = EmployeeRybin, Roles = new List<UserRole> { UserRoleSalesManager } });
+            UserTekin.Clone(new User { Login = "tekin", Password = pas1, Employee = EmployeeRybin, Roles = new List<UserRole> { UserRoleSalesManager } });
+            UserDeev.Clone(new User { Login = "deev", Password = pas1, Employee = EmployeeDeev, Roles = new List<UserRole> { UserRoleDirector } });
         }
 
     }

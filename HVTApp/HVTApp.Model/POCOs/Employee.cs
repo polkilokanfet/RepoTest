@@ -12,6 +12,9 @@ namespace HVTApp.Model.POCOs
         [Designation("Персона"), Required, OrderStatus(30)]
         public virtual Person Person { get; set; }
 
+        [Designation("Шифр"), MaxLength(10), OrderStatus(15)]
+        public string PersonalNumber { get; set; }
+
         [Designation("Телефон"), MaxLength(20), OrderStatus(20)]
         public string PhoneNumber { get; set; }
 

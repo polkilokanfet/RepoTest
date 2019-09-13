@@ -4,7 +4,7 @@ namespace HVTApp.DataAccess
     {
         public ParameterGroupConfiguration()
         {
-            HasOptional(x => x.Measure).WithMany();
+            HasOptional(x => x.Measure).WithMany().WillCascadeOnDelete(false);
         }
     }
 }

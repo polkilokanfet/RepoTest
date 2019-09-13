@@ -100,7 +100,10 @@
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\Copy_16x16.png" />
+    <Resource Include="Images\Copy_32x32.png" />
+  </ItemGroup>
   <ItemGroup>
     <Page Include="Menus\BookRegistrationMenu.xaml">
       <SubType>Designer</SubType>

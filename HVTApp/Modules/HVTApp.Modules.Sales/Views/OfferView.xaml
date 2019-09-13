@@ -20,8 +20,7 @@
                                         DataContext="{Binding DetailsViewModel}" 
                                         VisibilityAuthorOffer="Collapsed"
                                         VisibilityProjectOffer="Collapsed"
-                                        VisibilityNumberOffer="Collapsed"
-                                        VisibilityCodeOffer="Collapsed"/>
+                                        VisibilityNumberOffer="Collapsed"/>
             </ScrollViewer>
         </GroupBox>
         <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="3"/>

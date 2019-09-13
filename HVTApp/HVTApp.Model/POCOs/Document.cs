@@ -13,11 +13,21 @@ namespace HVTApp.Model.POCOs
         [Designation("ИД"), Required, OrderStatus(50)]
         public virtual DocumentNumber Number { get; set; }
 
-        [Designation("Код"), OrderStatus(1), MaxLength(15)]
-        public string Code { get; set; }
-
         [Designation("Номер"), NotMapped, OrderStatus(45)]
-        public string RegNumber => Number == null ? $"{Code}-{DateTime.Today.Year}-" : $"{Code}-{DateTime.Today.Year}-{Number}";
+        public string RegNumber
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(Author?.PersonalNumber))
+                {
+                    return Number == null
+                        ? $"{Author.PersonalNumber}-{DateTime.Today.Year}-"
+                        : $"{Author.PersonalNumber}-{DateTime.Today.Year}-{Number.Number:D4}";
+                }
+
+                return Number != null ? $"{Number.Number:D5}" : "no number";
+            }
+        }
 
         [Designation("Дата"), Required, OrderStatus(40)]
         public DateTime Date { get; set; } = DateTime.Today;

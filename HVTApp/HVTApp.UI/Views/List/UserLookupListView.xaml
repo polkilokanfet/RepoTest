@@ -36,7 +36,6 @@
 					<infg:FieldLayout.Fields>
                     <infg:TextField Name="Employee" Label="Сотрудник" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Login" Label="Логин" Width="Auto" />
-                    <infg:TextField Name="PersonalNumber" Label="Шифр" Width="Auto" />
                     <infg:TextField Name="Roles" Label="Роли" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
 
 					</infg:FieldLayout.Fields>

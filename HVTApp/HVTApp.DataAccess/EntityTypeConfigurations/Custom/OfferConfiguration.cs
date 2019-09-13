@@ -7,9 +7,6 @@ namespace HVTApp.DataAccess
             HasRequired(x => x.Project).WithMany().WillCascadeOnDelete(true);
             Property(x => x.ValidityDate).IsRequired();
             Property(x => x.Vat).IsRequired();
-
-            HasRequired(x => x.Number).WithRequiredPrincipal().WillCascadeOnDelete(true);
-
         }
     }
 }

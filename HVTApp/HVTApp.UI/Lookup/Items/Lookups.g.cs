@@ -1582,7 +1582,7 @@ namespace HVTApp.UI.Lookup
 
 
 		[OrderStatus(1)]
-	    public AddressLookup Address { get { return GetLookup<AddressLookup>(); } }
+	    public AddressLookup AddressDelivery { get { return GetLookup<AddressLookup>(); } }
 
 
         #endregion
@@ -1621,10 +1621,6 @@ namespace HVTApp.UI.Lookup
 		
 
         #region SimpleProperties
-
-		[OrderStatus(1)]
-        public System.String Code => Entity.Code;
-
 
 		[OrderStatus(45)]
         public System.String RegNumber => Entity.RegNumber;
@@ -1766,10 +1762,6 @@ namespace HVTApp.UI.Lookup
         public System.Double Vat => Entity.Vat;
 
 
-		[OrderStatus(1)]
-        public System.String Code => Entity.Code;
-
-
 		[OrderStatus(45)]
         public System.String RegNumber => Entity.RegNumber;
 
@@ -1843,6 +1835,10 @@ namespace HVTApp.UI.Lookup
 		
 
         #region SimpleProperties
+
+		[OrderStatus(15)]
+        public System.String PersonalNumber => Entity.PersonalNumber;
+
 
 		[OrderStatus(20)]
         public System.String PhoneNumber => Entity.PhoneNumber;
@@ -2195,10 +2191,6 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(2)]
         public System.Guid Password => Entity.Password;
-
-
-		[OrderStatus(15)]
-        public System.String PersonalNumber => Entity.PersonalNumber;
 
 
 		[OrderStatus(1)]

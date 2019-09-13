@@ -2794,10 +2794,10 @@ namespace HVTApp.UI.Wrapper
         }
 
 
-	    public AddressWrapper Address 
+	    public AddressWrapper AddressDelivery 
         {
             get { return GetWrapper<AddressWrapper>(); }
-            set { SetComplexValue<Address, AddressWrapper>(Address, value); }
+            set { SetComplexValue<Address, AddressWrapper>(AddressDelivery, value); }
         }
 
 
@@ -2921,7 +2921,7 @@ namespace HVTApp.UI.Wrapper
             InitializeComplexProperty<SpecificationWrapper>(nameof(Specification), Model.Specification == null ? null : new SpecificationWrapper(Model.Specification));
 
 
-            InitializeComplexProperty<AddressWrapper>(nameof(Address), Model.AddressDelivery == null ? null : new AddressWrapper(Model.AddressDelivery));
+            InitializeComplexProperty<AddressWrapper>(nameof(AddressDelivery), Model.AddressDelivery == null ? null : new AddressWrapper(Model.AddressDelivery));
 
 
         }
@@ -2976,15 +2976,6 @@ namespace HVTApp.UI.Wrapper
 	
 
         #region SimpleProperties
-
-        public System.String Code
-        {
-          get { return GetValue<System.String>(); }
-          set { SetValue(value); }
-        }
-        public System.String CodeOriginalValue => GetOriginalValue<System.String>(nameof(Code));
-        public bool CodeIsChanged => GetIsChanged(nameof(Code));
-
 
         public System.DateTime Date
         {
@@ -3277,15 +3268,6 @@ namespace HVTApp.UI.Wrapper
         public bool VatIsChanged => GetIsChanged(nameof(Vat));
 
 
-        public System.String Code
-        {
-          get { return GetValue<System.String>(); }
-          set { SetValue(value); }
-        }
-        public System.String CodeOriginalValue => GetOriginalValue<System.String>(nameof(Code));
-        public bool CodeIsChanged => GetIsChanged(nameof(Code));
-
-
         public System.DateTime Date
         {
           get { return GetValue<System.DateTime>(); }
@@ -3449,6 +3431,15 @@ namespace HVTApp.UI.Wrapper
 	
 
         #region SimpleProperties
+
+        public System.String PersonalNumber
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String PersonalNumberOriginalValue => GetOriginalValue<System.String>(nameof(PersonalNumber));
+        public bool PersonalNumberIsChanged => GetIsChanged(nameof(PersonalNumber));
+
 
         public System.String PhoneNumber
         {
@@ -4127,15 +4118,6 @@ namespace HVTApp.UI.Wrapper
         }
         public System.Guid PasswordOriginalValue => GetOriginalValue<System.Guid>(nameof(Password));
         public bool PasswordIsChanged => GetIsChanged(nameof(Password));
-
-
-        public System.String PersonalNumber
-        {
-          get { return GetValue<System.String>(); }
-          set { SetValue(value); }
-        }
-        public System.String PersonalNumberOriginalValue => GetOriginalValue<System.String>(nameof(PersonalNumber));
-        public bool PersonalNumberIsChanged => GetIsChanged(nameof(PersonalNumber));
 
 
         public HVTApp.Infrastructure.Role RoleCurrent
