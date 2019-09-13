@@ -6,7 +6,7 @@ namespace HVTApp.DataAccess
         {
             Property(x => x.Date).IsRequired();
             Property(x => x.Vat).IsRequired();
-            HasRequired(x => x.Contract).WithMany();
+            HasRequired(x => x.Contract).WithMany().WillCascadeOnDelete(false);
         }
     }
 }

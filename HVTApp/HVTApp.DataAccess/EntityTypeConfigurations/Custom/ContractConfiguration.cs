@@ -4,7 +4,7 @@ namespace HVTApp.DataAccess
     {
         public ContractConfiguration()
         {
-            HasRequired(x => x.Contragent).WithMany();
+            HasRequired(x => x.Contragent).WithMany().WillCascadeOnDelete(false);
         }
     }
 }

@@ -4358,6 +4358,13 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility CompanyVisibility
+        {
+            get { return SpecificationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SpecificationLookup.Company)].Visibility; }
+            set { SpecificationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SpecificationLookup.Company)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility ContractVisibility
         {
             get { return SpecificationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SpecificationLookup.Contract)].Visibility; }

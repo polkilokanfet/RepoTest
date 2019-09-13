@@ -57,6 +57,23 @@
             </Setter>
         </Style>
 
+        <Style x:Key="ProducerCellStyle"
+               TargetType="{x:Type dp:CellValuePresenter}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type dp:CellValuePresenter}">
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="..."
+                                    Command="{Binding DataContext.ChangeProducerCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
+                                    CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Record.DataItem}" />
+                            <TextBlock Text="{TemplateBinding Value}"
+                                       VerticalAlignment="Center" />
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
     </UserControl.Resources>
 
     <Grid>
@@ -104,6 +121,11 @@
                                 <dp:Field Name="PaymentConditionSet" Label="Условия оплаты" Width="Auto" Converter="{StaticResource WrapperToStringConverter}">
                                     <dp:Field.Settings>
                                         <dp:FieldSettings CellValuePresenterStyle="{StaticResource PaymentsCellStyle}" />
+                                    </dp:Field.Settings>
+                                </dp:Field>
+                                <dp:Field Name="Producer" Label="Производитель" Width="Auto" Converter="{StaticResource WrapperToStringConverter}">
+                                    <dp:Field.Settings>
+                                        <dp:FieldSettings CellValuePresenterStyle="{StaticResource ProducerCellStyle}" />
                                     </dp:Field.Settings>
                                 </dp:Field>
                                 <dp:Field Name="Groups" IsExpandable="True" />

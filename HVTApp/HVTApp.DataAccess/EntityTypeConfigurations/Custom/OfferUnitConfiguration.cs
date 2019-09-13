@@ -4,9 +4,9 @@ namespace HVTApp.DataAccess
     {
         public OfferUnitConfiguration()
         {
-            HasRequired(x => x.Facility).WithMany();
+            HasRequired(x => x.Facility).WithMany().WillCascadeOnDelete(false);
             HasRequired(x => x.Product).WithMany();
-            HasRequired(x => x.PaymentConditionSet).WithMany();
+            HasRequired(x => x.PaymentConditionSet).WithMany().WillCascadeOnDelete(false);
 
             HasRequired(x => x.Offer).WithMany().WillCascadeOnDelete(true);
 

@@ -2921,7 +2921,7 @@ namespace HVTApp.UI.Wrapper
             InitializeComplexProperty<SpecificationWrapper>(nameof(Specification), Model.Specification == null ? null : new SpecificationWrapper(Model.Specification));
 
 
-            InitializeComplexProperty<AddressWrapper>(nameof(Address), Model.Address == null ? null : new AddressWrapper(Model.Address));
+            InitializeComplexProperty<AddressWrapper>(nameof(Address), Model.AddressDelivery == null ? null : new AddressWrapper(Model.AddressDelivery));
 
 
         }

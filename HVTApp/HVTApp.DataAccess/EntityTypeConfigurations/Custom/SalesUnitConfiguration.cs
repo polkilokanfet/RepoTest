@@ -4,7 +4,7 @@ namespace HVTApp.DataAccess
     {
         public SalesUnitConfiguration()
         {
-            HasRequired(x => x.Facility).WithMany();
+            HasRequired(x => x.Facility).WithMany().WillCascadeOnDelete(false);
             HasRequired(x => x.Product).WithMany().WillCascadeOnDelete(false);
             HasRequired(x => x.PaymentConditionSet).WithMany().WillCascadeOnDelete(false);
 
@@ -12,12 +12,11 @@ namespace HVTApp.DataAccess
             Property(x => x.ProductionTerm).IsOptional();
             Property(x => x.Cost).IsRequired();
 
-            HasRequired(x => x.Facility).WithMany();
             HasOptional(x => x.Producer).WithMany();
 
             HasMany(x => x.LosingReasons).WithMany();
 
-            HasRequired(x => x.Product).WithMany();
+            HasRequired(x => x.Product).WithMany().WillCascadeOnDelete(false);
             HasOptional(x => x.Order).WithMany();
 
             Property(x => x.SerialNumber).IsOptional();
@@ -37,7 +36,7 @@ namespace HVTApp.DataAccess
             HasMany(x => x.PaymentsActual).WithRequired().WillCascadeOnDelete(true);
             Property(x => x.RealizationDate).IsOptional();
 
-            HasOptional(x => x.Address).WithMany();
+            HasOptional(x => x.AddressDelivery).WithMany();
             Property(x => x.ExpectedDeliveryPeriod).IsOptional();
             Property(x => x.ShipmentDate).IsOptional();
             Property(x => x.ShipmentPlanDate).IsOptional();

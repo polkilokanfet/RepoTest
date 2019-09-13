@@ -4,7 +4,7 @@ namespace HVTApp.DataAccess
     {
         public ProjectConfiguration()
         {
-            HasRequired(x => x.Manager).WithMany();
+            HasRequired(x => x.Manager).WithMany().WillCascadeOnDelete(false);
             HasMany(x => x.Notes).WithOptional().WillCascadeOnDelete();
             HasOptional(x => x.ProjectType).WithMany();
         }

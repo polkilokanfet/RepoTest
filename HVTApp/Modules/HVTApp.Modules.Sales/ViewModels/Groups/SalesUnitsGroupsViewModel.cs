@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
+using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
@@ -10,6 +12,7 @@ using HVTApp.UI.Comparers;
 using HVTApp.UI.Groups;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
+using Prism.Commands;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
@@ -18,7 +21,28 @@ namespace HVTApp.Modules.Sales.ViewModels
     {
         private ProjectWrapper _projectWrapper;
 
-        public SalesUnitsGroupsViewModel(IUnityContainer container) : base(container) { }
+        public ICommand ChangeProducerCommand { get; }
+
+
+        public SalesUnitsGroupsViewModel(IUnityContainer container) : base(container)
+        {
+            ChangeProducerCommand = new DelegateCommand<SalesUnitsWrappersGroup>(ChangeProducerCommand_Execute, ChangeProducerCommand_CanExecute);
+        }
+
+        private bool ChangeProducerCommand_CanExecute(SalesUnitsWrappersGroup wrappersGroup)
+        {
+            return wrappersGroup?.Specification == null;
+        }
+
+        private async void ChangeProducerCommand_Execute(SalesUnitsWrappersGroup wrappersGroup)
+        {
+            var producers = UnitOfWork.Repository<Company>().Find(x => x.ActivityFilds.Select(af => af.ActivityFieldEnum).Contains(ActivityFieldEnum.ProducerOfHighVoltageEquipment));
+            var producer = Container.Resolve<ISelectService>().SelectItem(producers, wrappersGroup.Producer?.Id);
+            if (producer == null) return;
+            producer = await UnitOfWork.Repository<Company>().GetByIdAsync(producer.Id);
+            wrappersGroup.Producer = new CompanyWrapper(producer);
+        }
+
 
         protected override List<SalesUnitsWrappersGroup> GetGroups(IEnumerable<SalesUnit> units)
         {

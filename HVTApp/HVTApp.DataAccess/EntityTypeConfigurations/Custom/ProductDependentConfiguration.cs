@@ -4,7 +4,7 @@ namespace HVTApp.DataAccess
     {
         public ProductDependentConfiguration()
         {
-            HasRequired(x => x.Product).WithMany();
+            HasRequired(x => x.Product).WithMany().WillCascadeOnDelete(false);
             Property(x => x.Amount).IsRequired();
         }
     }

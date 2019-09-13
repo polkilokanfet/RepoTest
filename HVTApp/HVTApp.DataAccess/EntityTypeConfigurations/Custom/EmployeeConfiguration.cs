@@ -4,8 +4,8 @@ namespace HVTApp.DataAccess
     {
         public EmployeeConfiguration()
         {
-            HasRequired(x => x.Company).WithMany();
-            HasRequired(x => x.Position).WithMany();
+            HasRequired(x => x.Company).WithMany().WillCascadeOnDelete(false);
+            HasRequired(x => x.Position).WithMany().WillCascadeOnDelete(false);
         }
     }
 }

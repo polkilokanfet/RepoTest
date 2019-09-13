@@ -7,7 +7,7 @@ namespace HVTApp.DataAccess
     {
         public DistrictConfiguration()
         {
-            HasRequired(x => x.Country).WithMany();
+            HasRequired(x => x.Country).WithMany().WillCascadeOnDelete(false);
         }
     }
 }

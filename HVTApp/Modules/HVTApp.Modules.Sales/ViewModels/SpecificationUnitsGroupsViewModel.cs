@@ -30,13 +30,15 @@ namespace HVTApp.Modules.Sales.ViewModels
         {
         }
 
-        protected override void AddCommand_Execute()
+        protected override async void AddCommand_Execute()
         {
             var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Manager.IsAppCurrentUser() && x.Specification == null);
             var unit = Container.Resolve<ISelectService>().SelectItem(salesUnits);
             if (unit == null) return;
-            var group = new SalesUnitsWrappersGroup(new List<SalesUnit>() {unit});
+            var group = new SalesUnitsWrappersGroup(new List<SalesUnit> {unit});
             group.Specification = _specificationWrapper;
+            var uetm = await UnitOfWork.Repository<Company>().GetByIdAsync(GlobalAppProperties.Actual.OurCompany.Id);
+            group.Producer = new CompanyWrapper(uetm);
             RefreshPrice(group);
             Groups.Add(group);
             _groupsToReject.Add(group);

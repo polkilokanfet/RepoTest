@@ -5,7 +5,7 @@ namespace HVTApp.DataAccess
         public FacilityConfiguration()
         {
             Property(x => x.Name).IsRequired();
-            HasRequired(x => x.Type).WithMany();
+            HasRequired(x => x.Type).WithMany().WillCascadeOnDelete(false);
             HasRequired(x => x.OwnerCompany).WithMany().WillCascadeOnDelete(false);
             HasOptional(x => x.Address).WithOptionalDependent();
         }

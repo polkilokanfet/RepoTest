@@ -29,8 +29,8 @@ namespace HVTApp.Services.ShippingService
                 locality = salesUnit.Facility.Address.Locality;
 
             //адрес доставки
-            if (salesUnit.Address != null)
-                locality = salesUnit.Address.Locality;
+            if (salesUnit.AddressDelivery != null)
+                locality = salesUnit.AddressDelivery.Locality;
 
             if(locality != null)
             { 

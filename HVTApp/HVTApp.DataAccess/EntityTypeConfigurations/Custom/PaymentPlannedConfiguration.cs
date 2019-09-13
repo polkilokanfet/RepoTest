@@ -4,7 +4,7 @@ namespace HVTApp.DataAccess
     {
         public PaymentPlannedConfiguration()
         {
-            HasRequired(x => x.Condition).WithMany();
+            HasRequired(x => x.Condition).WithMany().WillCascadeOnDelete(false);
         }
     }
 }

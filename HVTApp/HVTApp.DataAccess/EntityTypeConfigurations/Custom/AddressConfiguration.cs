@@ -4,7 +4,7 @@ namespace HVTApp.DataAccess
     {
         public AddressConfiguration()
         {
-            HasRequired(x => x.Locality).WithMany();
+            HasRequired(x => x.Locality).WithMany().WillCascadeOnDelete(false);
         }
     }
 }

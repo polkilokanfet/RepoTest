@@ -4,7 +4,7 @@ namespace HVTApp.DataAccess
     {
         public RegionConfiguration()
         {
-            HasRequired(x => x.District).WithMany();
+            HasRequired(x => x.District).WithMany().WillCascadeOnDelete(false);
         }
     }
 }

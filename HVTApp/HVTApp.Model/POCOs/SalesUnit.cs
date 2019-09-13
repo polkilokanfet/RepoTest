@@ -121,7 +121,7 @@ namespace HVTApp.Model.POCOs
         public int? ExpectedDeliveryPeriodCalculated => GlobalAppProperties.ShippingService.DeliveryTerm(this);
 
         [Designation("Адрес доставки")]
-        public virtual Address Address { get; set; }
+        public virtual Address AddressDelivery { get; set; }
 
         [Designation("Дата отгрузки")]
         public virtual DateTime? ShipmentDate { get; set; }

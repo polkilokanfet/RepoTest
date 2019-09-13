@@ -1,17 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using HVTApp.Infrastructure.Services;
+using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.ViewModels;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
-using Prism.Events;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
@@ -39,7 +35,10 @@ namespace HVTApp.Modules.Sales.ViewModels
             var project = parameter as Project;
             if (project != null)
             {
-                return UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Id == project.Id && x.Specification == null);
+                var uetm = await UnitOfWork.Repository<Company>().GetByIdAsync(GlobalAppProperties.Actual.OurCompany.Id);
+                var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Id == project.Id && x.Specification == null);
+                salesUnits.ForEach(x => x.Producer = uetm);
+                return salesUnits;
             }
 
             //редактирование спецификации

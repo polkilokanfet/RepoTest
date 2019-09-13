@@ -9,6 +9,12 @@ namespace HVTApp.UI.Groups
         BaseWrappersGroup<SalesUnitsWrappersGroup, SalesUnit, SalesUnitWrapper>, 
         IGroupValidatableChangeTrackingWithCollection<SalesUnitsWrappersGroup, SalesUnit>
     {
+        public CompanyWrapper Producer
+        {
+            get { return GetValue<CompanyWrapper>(); }
+            set { SetValue(value); }
+        }
+
         public SpecificationWrapper Specification
         {
             get { return GetValue<SpecificationWrapper>(); }

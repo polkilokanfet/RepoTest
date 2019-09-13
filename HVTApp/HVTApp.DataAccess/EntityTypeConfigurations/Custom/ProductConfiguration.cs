@@ -4,7 +4,7 @@ namespace HVTApp.DataAccess
     {
         public ProductConfiguration()
         {
-            HasRequired(x => x.ProductBlock).WithMany();
+            HasRequired(x => x.ProductBlock).WithMany().WillCascadeOnDelete(false);
             HasMany(x => x.DependentProducts).WithRequired().HasForeignKey(x => x.MainProductId).WillCascadeOnDelete(false);
             Property(x => x.DesignationSpecial).IsOptional();
         }

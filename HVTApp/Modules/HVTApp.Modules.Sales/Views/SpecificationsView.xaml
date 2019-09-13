@@ -36,7 +36,9 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <views:SpecificationLookupListView Grid.Row="0" DataContext="{Binding}"/>
+            <views:SpecificationLookupListView Grid.Row="0" 
+                                               DataContext="{Binding}"
+                                               UnitsVisibility="Collapsed"/>
             
             <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="5"/>
 
