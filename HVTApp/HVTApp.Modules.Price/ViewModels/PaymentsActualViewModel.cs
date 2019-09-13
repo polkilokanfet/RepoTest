@@ -5,22 +5,27 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
+using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Lookup;
 using HVTApp.UI.ViewModels;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 
 namespace HVTApp.Modules.PlanAndEconomy.ViewModels
 {
-    public class PaymentDocumentsViewModel : PaymentDocumentLookupListViewModel
+    public class PaymentsActualViewModel : PaymentDocumentLookupListViewModel
     {
         private IValidatableChangeTrackingCollection<SalesUnitWrapper> _salesUnitWrappers;
         private IValidatableChangeTrackingCollection<PaymentDocumentWrapper> _paymentDocuments;
         private IUnitOfWork _unitOfWork;
         private SalesUnitWrapper _selectedUnit;
+
+        public PaymentDocumentDetailsViewModel PaymentDocumentDetailsViewModel { get; }
 
         public ObservableCollection<Payment> Payments { get; } = new ObservableCollection<Payment>();
         public ObservableCollection<SalesUnitWrapper> Potential { get; } = new ObservableCollection<SalesUnitWrapper>();
@@ -68,18 +73,21 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
         public ICommand AddPaymentCommand { get; }
         public ICommand ReloadCommand { get; }
 
-        public PaymentDocumentsViewModel(IUnityContainer container) : base(container)
+        public PaymentsActualViewModel(IUnityContainer container) : base(container)
         {
+            PaymentDocumentDetailsViewModel = new PaymentDocumentDetailsViewModel(container);
+
             ReloadCommand = new DelegateCommand(async () => await LoadAsync());
             SaveCommand = new DelegateCommand(SaveCommand_Execute, SaveCommand_CanExecute);
             AddPaymentCommand = new DelegateCommand(AddPaymentCommand_Execute, AddPaymentCommand_CanExecute);
-            this.SelectedLookupChanged += lookup => Refresh();
+
+            this.SelectedLookupChanged += Refresh;
         }
 
         private async void AddPaymentCommand_Execute()
         {
-            double sum = DockSum;
-            DateTime date = DockDate;
+            var sum = DockSum;
+            var date = DockDate;
 
             var payment = new Payment(SelectedUnit);
             var doc = await _unitOfWork.Repository<PaymentDocument>().GetByIdAsync(SelectedItem.Id);
@@ -100,14 +108,26 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
 
         private async void SaveCommand_Execute()
         {
+            var flag = PaymentDocumentDetailsViewModel.Item.IsChanged;
+
+            PaymentDocumentDetailsViewModel.Item.AcceptChanges();
             _salesUnitWrappers.AcceptChanges();
+
             await _unitOfWork.SaveChangesAsync();
+
+            //публикация событий
+            if (flag)
+            {
+                Container.Resolve<IEventAggregator>().GetEvent<AfterSavePaymentDocumentEvent>().Publish(PaymentDocumentDetailsViewModel.Entity);
+            }
         }
 
         private bool SaveCommand_CanExecute()
         {
-            return _salesUnitWrappers != null && 
-                   _salesUnitWrappers.IsChanged && 
+            return PaymentDocumentDetailsViewModel.Item!= null &&
+                   PaymentDocumentDetailsViewModel.Item.IsValid &&
+                   _salesUnitWrappers != null && 
+                   (_salesUnitWrappers.IsChanged || PaymentDocumentDetailsViewModel.Item.IsChanged) && 
                    _salesUnitWrappers.IsValid &&
                    _unitOfWork != null;
         }
@@ -137,8 +157,12 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
             OnPropertyChanged(nameof(DockDate));
         }
 
-        private void Refresh()
+        private void Refresh(PaymentDocumentLookup paymentDocumentLookup)
         {
+            //загрузка деталей платежного документа
+            PaymentDocumentDetailsViewModel.Load(new PaymentDocumentWrapper(paymentDocumentLookup.Entity), _unitOfWork);
+            PaymentDocumentDetailsViewModel.Item.PropertyChanged += SalesUnitWrappersOnPropertyChanged;
+
             //очищаем платежи
             Payments.Clear();
             Potential.Clear();

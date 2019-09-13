@@ -148,7 +148,7 @@
     <Compile Include="ViewModels\DatesViewModel.cs" />
     <Compile Include="ViewModels\Groups\GroupBase.cs" />
     <Compile Include="ViewModels\Groups\GroupsContainer.cs" />
-    <Compile Include="ViewModels\PaymentDocumentsViewModel.cs" />
+    <Compile Include="ViewModels\PaymentsActualViewModel.cs" />
     <Compile Include="ViewModels\PaymentsViewModel.cs" />
     <Compile Include="ViewModels\PricesViewModel.cs" />
     <Compile Include="ViewModels\PriceTask.cs" />
@@ -163,8 +163,8 @@
     <Compile Include="Views\DatesView.xaml.cs">
       <DependentUpon>DatesView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\PaymentDocumentsView.xaml.cs">
-      <DependentUpon>PaymentDocumentsView.xaml</DependentUpon>
+    <Compile Include="Views\PaymentsActualView.xaml.cs">
+      <DependentUpon>PaymentsActualView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ProductionPlanView.xaml.cs">
       <DependentUpon>ProductionPlanView.xaml</DependentUpon>
@@ -232,7 +232,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\PaymentDocumentsView.xaml">
+    <Page Include="Views\PaymentsActualView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

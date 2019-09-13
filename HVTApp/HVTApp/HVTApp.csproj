@@ -200,6 +200,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="RegionAdapters\XamOutlookBarRegionAdapter.cs" />
+    <Compile Include="RegionAdapters\XamRibbonRegionAdapter.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

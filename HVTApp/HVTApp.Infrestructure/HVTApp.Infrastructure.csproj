@@ -130,8 +130,6 @@
     <Compile Include="Prism\ModuleBase.cs" />
     <Compile Include="Prism\XamDataTreeCommandBehavior.cs" />
     <Compile Include="Prism\XamDataTreeItemSelected.cs" />
-    <Compile Include="Prism\XamOutlookBarRegionAdapter.cs" />
-    <Compile Include="Prism\XamRibbonRegionAdapter.cs" />
     <Compile Include="Prism\XamRibbonRegionBehavior.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="RegionNames.cs" />

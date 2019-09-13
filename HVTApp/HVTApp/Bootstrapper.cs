@@ -24,6 +24,7 @@ using HVTApp.Modules.Products;
 using HVTApp.Modules.Reports;
 using HVTApp.Modules.Settings;
 using HVTApp.Modules.Sales;
+using HVTApp.RegionAdapters;
 using HVTApp.Services.GetProductService;
 using HVTApp.Services.WpfAuthenticationService;
 using HVTApp.Services.DialogService;

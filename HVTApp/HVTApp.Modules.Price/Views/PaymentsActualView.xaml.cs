@@ -1,18 +1,18 @@
 ﻿using System.Windows;
 using HVTApp.Infrastructure;
+using HVTApp.Modules.PlanAndEconomy.Tabs;
 using HVTApp.Modules.PlanAndEconomy.ViewModels;
 using Prism.Events;
 using Prism.Regions;
-using TabPaymentDocuments = HVTApp.Modules.PlanAndEconomy.Tabs.TabPaymentDocuments;
 
 namespace HVTApp.Modules.PlanAndEconomy.Views
 {
     [RibbonTab(typeof(TabPaymentDocuments))]
-    public partial class PaymentDocumentsView
+    public partial class PaymentsActualView
     {
-        private readonly PaymentDocumentsViewModel _viewModel;
+        private readonly PaymentsActualViewModel _viewModel;
 
-        public PaymentDocumentsView(PaymentDocumentsViewModel viewModel, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
+        public PaymentsActualView(PaymentsActualViewModel viewModel, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
         {
             _viewModel = viewModel;
             InitializeComponent();

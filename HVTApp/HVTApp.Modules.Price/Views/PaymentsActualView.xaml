@@ -4,7 +4,7 @@
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               xmlns:views="clr-namespace:HVTApp.UI.Views;assembly=HVTApp.UI"
-              x:Class="HVTApp.Modules.PlanAndEconomy.Views.PaymentDocumentsView">
+              x:Class="HVTApp.Modules.PlanAndEconomy.Views.PaymentsActualView">
 
     <Grid>
          <Grid.RowDefinitions>
@@ -34,31 +34,40 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             
+            
+            <!-- Список платежек -->
             <GroupBox Grid.Column="0" Header="Платежные документы">
-                <views:PaymentDocumentLookupListView DataContext="{Binding}" x:Name="DocumentListView"/>
+                <views:PaymentDocumentLookupListView DataContext="{Binding}" 
+                                                     x:Name="DocumentListView"
+                                                     VatVisibility="Collapsed"/>
             </GroupBox>
             
             <GridSplitter Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Center"  Width="3"/>
             
+            <!-- Таблица платежей -->
             <GroupBox Grid.Column="2" Header="Платежи">
                 <Grid>
             
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-            
-                    <GroupBox Grid.Row="0" Header="Внесенные">
+                    
+                    <!-- Детали платежного документа -->
+                    <views:PaymentDocumentDetailsView DataContext="{Binding PaymentDocumentDetailsViewModel}" 
+                                                      VisibilityPaymentsPaymentDocument="Collapsed"
+                                                      Grid.Row="0"/>
+                                
+                    <GroupBox Grid.Row="1" Header="Внесенные платежи">
                         <DockPanel LastChildFill="True">
                             <Grid DockPanel.Dock="Top">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
                                 <Label Grid.Column="0" Content="Дата: "/>
@@ -66,9 +75,6 @@
 
                                 <Label Grid.Column="2" Content=" Сумма без НДС, руб: "/>
                                 <igWPF:XamNumericEditor Grid.Column="3" Value="{Binding DockSum}"/>
-
-                                <Label Grid.Column="4" Content=" НДС, %: "/>
-                                <igWPF:XamNumericEditor Grid.Column="5" Value="{Binding SelectedItem.Vat, Mode=OneWay}" IsReadOnly="True" Width="50"/>
 
                             </Grid>
                             
@@ -104,9 +110,9 @@
                         </DockPanel>
                     </GroupBox>
             
-                    <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="3"/>
+                    <GridSplitter Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="3"/>
 
-                    <GroupBox Grid.Row="2" Header="Неоплаченное оборудование">
+                    <GroupBox Grid.Row="3" Header="Неоплаченное оборудование">
                         <infg:XamDataGrid DataSource="{Binding Potential}"
                                           SelectedDataItem="{Binding SelectedUnit, Mode=TwoWay}">
 

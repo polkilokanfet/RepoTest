@@ -21,7 +21,7 @@ namespace HVTApp.Modules.PlanAndEconomy.Menus
             if (GlobalAppProperties.User.RoleCurrent == Role.Economist || GlobalAppProperties.User.RoleCurrent == Role.Admin)
             {
                 Items.Add(new NavigationItem("Фактические даты", typeof(DatesView)));
-                Items.Add(new NavigationItem("Поступления (факт)", typeof(PaymentDocumentsView)));
+                Items.Add(new NavigationItem("Поступления (факт)", typeof(PaymentsActualView)));
                 Items.Add(new NavigationItem("Поступления (план)", typeof(PaymentsView)));
             }
         }

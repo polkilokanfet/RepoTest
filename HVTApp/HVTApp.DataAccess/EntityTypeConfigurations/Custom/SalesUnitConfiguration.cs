@@ -31,8 +31,8 @@ namespace HVTApp.DataAccess
 
             Property(x => x.Cost).IsRequired();
 
-            HasMany(x => x.PaymentsPlanned).WithRequired();
-            HasMany(x => x.PaymentsActual).WithRequired();
+            HasMany(x => x.PaymentsPlanned).WithRequired().WillCascadeOnDelete(true);
+            HasMany(x => x.PaymentsActual).WithRequired().WillCascadeOnDelete(true);
             Property(x => x.RealizationDate).IsOptional();
 
             HasOptional(x => x.Address).WithMany();
