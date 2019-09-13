@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -41,22 +43,26 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
             _container = container;
             SaveCommand = new DelegateCommand(async () =>
             {
-                PriceTasks.ForEach(x => x.SavePrice());
+                PriceTasks.ForEach(x =>
+                {
+                    x.AddPrice();
+                    x.AcceptChanges();
+                });
                 await _unitOfWork.SaveChangesAsync();
                 await LoadAsync();
-            });
+            }, 
+            () => { return PriceTasks.Any(x => x.IsChanged) && PriceTasks.All(x => x.IsValid); });
 
             ReloadCommand = new DelegateCommand(async () => await LoadAsync());
             PrintBlockInContext = new DelegateCommand(PrintBlockInContextExecute, () => SelectedPriceTask != null);
-
         }
 
         private async void PrintBlockInContextExecute()
         {
-            var block = SelectedPriceTask.Block;
+            var block = SelectedPriceTask;
             var products = await _unitOfWork.Repository<Product>().GetAllAsync();
-            products = products.Where(x => x.GetBlocks().Contains(block)).Distinct().ToList();
-            _container.Resolve<IPrintProductService>().PrintProducts(products, block);
+            products = products.Where(x => x.GetBlocks().Contains(block.Model)).Distinct().ToList();
+            _container.Resolve<IPrintProductService>().PrintProducts(products, block.Model);
         }
 
         public async Task LoadAsync()
@@ -67,7 +73,7 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
             var offerUnits = await _unitOfWork.Repository<OfferUnit>().GetAllAsync();
             var blocks = await _unitOfWork.Repository<ProductBlock>().GetAllAsync();
             
-            var blocksList = new List<PriceTask>();
+            var priceTasks = new List<PriceTask>();
 
             //блоки, где прайс отсутствует
             foreach (var block in blocks.Where(x => !x.Prices.Any()))
@@ -75,7 +81,7 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
                 var specifications = salesUnits.Where(x => ContainsBlock(x, block) && x.Specification != null).Select(x => x.Specification).Distinct();
                 var projects = salesUnits.Where(x => ContainsBlock(x, block)).Select(x => x.Project).Distinct();
                 var offers = offerUnits.Where(x => ContainsBlock(x, block)).Select(x => x.Offer).Distinct();
-                blocksList.Add(new PriceTask(block, specifications, offers, projects));
+                priceTasks.Add(new PriceTask(block, specifications, offers, projects));
             }
 
             //блоки, где прайс просрочен
@@ -96,12 +102,22 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
                                        .Where(x => x.Date > lastPriceDate.AddDays(GlobalAppProperties.Actual.ActualPriceTerm)).ToList();
 
                 if (specifications.Any() || offers.Any() || projects.Any())
-                    blocksList.Add(new PriceTask(block, specifications, offers, projects));
+                    priceTasks.Add(new PriceTask(block, specifications, offers, projects));
             }
 
-            blocksList = blocksList.OrderBy(x => x).ToList();
+            priceTasks.Sort();
+
+            PriceTasks.ForEach(x => x.PropertyChanged -= BlockOnPropertyChanged);
+
             PriceTasks.Clear();
-            PriceTasks.AddRange(blocksList);
+            PriceTasks.AddRange(priceTasks);
+
+            PriceTasks.ForEach(x => x.PropertyChanged += BlockOnPropertyChanged);
+        }
+
+        private void BlockOnPropertyChanged(object sender, PropertyChangedEventArgs args)
+        {
+            ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
         }
 
         private bool ContainsBlock(SalesUnit salesUnit, ProductBlock block)

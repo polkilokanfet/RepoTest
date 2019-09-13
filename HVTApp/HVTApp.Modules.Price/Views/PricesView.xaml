@@ -34,8 +34,10 @@
 				    <infg:FieldLayout>
 					    <infg:FieldLayout.Fields>
                         
-                        <infg:TextField Name="Block" Label="Блок" Width="Auto"/>
-                        <infg:TextField AlternateBinding="{Binding Block.StructureCostNumber}" AllowEdit="True" BindingType="UseAlternateBinding" Label="Сралчахвост" Width="Auto"/>
+                        <!--<infg:TextField Name="Block" Label="Блок" Width="Auto"/>-->
+                        <infg:TextField AlternateBinding="{Binding}" BindingType="UseAlternateBinding" Label="Блок" Width="Auto"/>
+                        <infg:TextField Name="StructureCostNumber" Label="Сралчахвост" Width="Auto" AllowEdit="True"/>
+                        <!--<infg:TextField AlternateBinding="{Binding Block.StructureCostNumber}" AllowEdit="True" BindingType="UseAlternateBinding" Label="Сралчахвост" Width="Auto"/>-->
                         <infg:NumericField Name="SpecificationsCount" Label="Спецификации" Width="Auto" />
                         <infg:NumericField Name="OffersCount" Label="ТКП" Width="Auto" />
                         <infg:NumericField Name="ProjectsCount" Label="Проекты" Width="Auto" />

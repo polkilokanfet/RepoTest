@@ -2,41 +2,76 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Wrapper;
 
 namespace HVTApp.Modules.PlanAndEconomy.ViewModels
 {
-    public class PriceTask : IComparable
+    public class PriceTask : ProductBlockWrapper
     {
         private readonly IEnumerable<Specification> _specifications;
         private readonly IEnumerable<Offer> _offers;
         private readonly IEnumerable<Project> _projects;
+        private double? _price;
+        private DateTime? _date = DateTime.Today;
 
         public int SpecificationsCount => _specifications.Count();
         public int OffersCount => _offers.Count();
         public int ProjectsCount => _projects.Count();
-        public bool IsPriceless => !Block.Prices.Any();
 
-        public ProductBlock Block { get; }
-        public double? Price { get; set; }
-        public DateTime? Date { get; set; } = DateTime.Today;
+        /// <summary>
+        /// Не содержит прайс
+        /// </summary>
+        public bool IsPriceless => !Prices.Any();
 
-        public PriceTask(ProductBlock block, IEnumerable<Specification> specifications, IEnumerable<Offer> offers, IEnumerable<Project> projects)
+        public double? Price
         {
-            Block = block;
+            get { return _price; }
+            set
+            {
+                _price = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public DateTime? Date
+        {
+            get { return _date; }
+            set
+            {
+                _date = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public PriceTask(ProductBlock block, IEnumerable<Specification> specifications, IEnumerable<Offer> offers, IEnumerable<Project> projects) : base(block)
+        {
             _specifications = specifications;
             _offers = offers;
             _projects = projects;
         }
 
-        public void SavePrice()
+        /// <summary>
+        /// Добавление прайса в блок
+        /// </summary>
+        public void AddPrice()
         {
             if(Price == null || Date == null) return;
-            Block.Prices.Add(new SumOnDate {Sum = Price.Value, Date = Date.Value});
+
+            var sumOnDate = new SumOnDateWrapper(new SumOnDate())
+            {
+                Sum = Price.Value,
+                Date = Date.Value
+            };
+
+            Prices.Add(sumOnDate);
         }
 
+        /// <summary>
+        /// Есть повод для обновления прайса
+        /// </summary>
         public bool HasReasons => _specifications.Any() || _offers.Any() || _projects.Any();
 
-        public int CompareTo(object obj)
+        public override int CompareTo(object obj)
         {
             var other = obj as PriceTask;
             if (other == null) throw new ArgumentException($"Передан не { nameof(PriceTask) }.");
