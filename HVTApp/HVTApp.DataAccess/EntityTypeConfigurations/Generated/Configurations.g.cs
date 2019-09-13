@@ -6,6 +6,7 @@ namespace HVTApp.DataAccess
     public partial class CountryUnionConfiguration : EntityTypeConfiguration<CountryUnion> { }
     public partial class CreateNewProductTaskConfiguration : EntityTypeConfiguration<CreateNewProductTask> { }
     public partial class DocumentNumberConfiguration : EntityTypeConfiguration<DocumentNumber> { }
+    public partial class LosingReasonConfiguration : EntityTypeConfiguration<LosingReason> { }
     public partial class MarketFieldConfiguration : EntityTypeConfiguration<MarketField> { }
     public partial class PaymentActualConfiguration : EntityTypeConfiguration<PaymentActual> { }
     public partial class PaymentConditionPointConfiguration : EntityTypeConfiguration<PaymentConditionPoint> { }

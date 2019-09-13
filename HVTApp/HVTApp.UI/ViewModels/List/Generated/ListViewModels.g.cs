@@ -42,6 +42,12 @@ namespace HVTApp.UI.ViewModels
     }
 
 
+	public partial class LosingReasonLookupListViewModel : BaseListViewModel<LosingReason, LosingReasonLookup, AfterSaveLosingReasonEvent, AfterSelectLosingReasonEvent, AfterRemoveLosingReasonEvent>
+    {
+        public LosingReasonLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+
 	public partial class MarketFieldLookupListViewModel : BaseListViewModel<MarketField, MarketFieldLookup, AfterSaveMarketFieldEvent, AfterSelectMarketFieldEvent, AfterRemoveMarketFieldEvent>
     {
         public MarketFieldLookupListViewModel(IUnityContainer container) : base(container) { }

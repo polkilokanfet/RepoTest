@@ -21,7 +21,6 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
     public class PaymentsActualViewModel : PaymentDocumentLookupListViewModel
     {
         private IValidatableChangeTrackingCollection<SalesUnitWrapper> _salesUnitWrappers;
-        private IValidatableChangeTrackingCollection<PaymentDocumentWrapper> _paymentDocuments;
         private IUnitOfWork _unitOfWork;
         private SalesUnitWrapper _selectedUnit;
 
@@ -109,6 +108,7 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
         private async void SaveCommand_Execute()
         {
             var flag = PaymentDocumentDetailsViewModel.Item.IsChanged;
+            var savedPaymentsActual = _salesUnitWrappers.ModifiedItems.SelectMany(x => x.PaymentsActual);
 
             PaymentDocumentDetailsViewModel.Item.AcceptChanges();
             _salesUnitWrappers.AcceptChanges();
@@ -119,6 +119,10 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
             if (flag)
             {
                 Container.Resolve<IEventAggregator>().GetEvent<AfterSavePaymentDocumentEvent>().Publish(PaymentDocumentDetailsViewModel.Entity);
+            }
+            foreach (var savedSalesUnit in savedPaymentsActual)
+            {
+                Container.Resolve<IEventAggregator>().GetEvent<AfterSavePaymentActualEvent>().Publish(savedSalesUnit.Model);
             }
         }
 
@@ -143,8 +147,6 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
             _unitOfWork = Container.Resolve<IUnitOfWork>();
             _salesUnitWrappers = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(
                 (await _unitOfWork.Repository<SalesUnit>().GetAllAsync()).Select(x => new SalesUnitWrapper(x)));
-            _paymentDocuments = new ValidatableChangeTrackingCollection<PaymentDocumentWrapper>(
-                (await _unitOfWork.Repository<PaymentDocument>().GetAllAsync()).Select(x => new PaymentDocumentWrapper(x)));
 
             //отслеживаем их изменения
             _salesUnitWrappers.PropertyChanged += SalesUnitWrappersOnPropertyChanged;
@@ -159,6 +161,9 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
 
         private void Refresh(PaymentDocumentLookup paymentDocumentLookup)
         {
+            //отмена изменений в предыдущем выборе
+            _salesUnitWrappers.ModifiedItems.ForEach(x => x.RejectChanges());
+
             //загрузка деталей платежного документа
             PaymentDocumentDetailsViewModel.Load(new PaymentDocumentWrapper(paymentDocumentLookup.Entity), _unitOfWork);
             PaymentDocumentDetailsViewModel.Item.PropertyChanged += SalesUnitWrappersOnPropertyChanged;

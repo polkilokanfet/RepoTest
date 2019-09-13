@@ -12,6 +12,7 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new CountryUnionConfiguration());
             modelBuilder.Configurations.Add(new CreateNewProductTaskConfiguration());
             modelBuilder.Configurations.Add(new DocumentNumberConfiguration());
+            modelBuilder.Configurations.Add(new LosingReasonConfiguration());
             modelBuilder.Configurations.Add(new MarketFieldConfiguration());
             modelBuilder.Configurations.Add(new PaymentActualConfiguration());
             modelBuilder.Configurations.Add(new PaymentConditionPointConfiguration());
@@ -74,6 +75,7 @@ namespace HVTApp.DataAccess
         public virtual DbSet<CountryUnion> CountryUnionDbSet { get; set; }
         public virtual DbSet<CreateNewProductTask> CreateNewProductTaskDbSet { get; set; }
         public virtual DbSet<DocumentNumber> DocumentNumberDbSet { get; set; }
+        public virtual DbSet<LosingReason> LosingReasonDbSet { get; set; }
         public virtual DbSet<MarketField> MarketFieldDbSet { get; set; }
         public virtual DbSet<PaymentActual> PaymentActualDbSet { get; set; }
         public virtual DbSet<PaymentConditionPoint> PaymentConditionPointDbSet { get; set; }

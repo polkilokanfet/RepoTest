@@ -47,6 +47,9 @@ namespace HVTApp.Model.POCOs
         [Designation("Производитель")]
         public virtual Company Producer { get; set; }
 
+        [Designation("Причины проигрыша")]
+        public virtual List<LosingReason> LosingReasons { get; set; } = new List<LosingReason>();
+
         [Designation("Дата реализации")]
         public virtual DateTime? RealizationDate { get; set; }
 

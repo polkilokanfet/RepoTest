@@ -105,6 +105,26 @@ namespace HVTApp.UI.Lookup
 
 	[AllowEditAttribute(Role.Admin)]
 
+	[Designation("Причина проигрыша")]
+	public partial class LosingReasonLookup : LookupItem<LosingReason>
+	{
+		public LosingReasonLookup(LosingReason entity) : base(entity) 
+		{
+		}
+		
+
+        #region SimpleProperties
+
+		[OrderStatus(1)]
+        public System.String Name => Entity.Name;
+
+
+        #endregion
+
+	}
+
+	[AllowEditAttribute(Role.Admin)]
+
 	[Designation("Область рынка")]
 	public partial class MarketFieldLookup : LookupItem<MarketField>
 	{
@@ -1569,6 +1589,9 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
 	    public List<ProductIncludedLookup> ProductsIncluded { get { return GetLookupEnum<ProductIncludedLookup>().ToList(); } }
+
+		[OrderStatus(1)]
+	    public List<LosingReasonLookup> LosingReasons { get { return GetLookupEnum<LosingReasonLookup>().ToList(); } }
 
 		[OrderStatus(1)]
 	    public List<PaymentActualLookup> PaymentsActual { get { return GetLookupEnum<PaymentActualLookup>().ToList(); } }

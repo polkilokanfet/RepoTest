@@ -20,6 +20,11 @@ namespace HVTApp.DataAccess
         public DocumentNumberRepositoryTest(TestData testData) : base(testData) {}
     }
 
+    public partial class LosingReasonRepositoryTest : TestBaseRepository<LosingReason>, ILosingReasonRepository
+    {
+        public LosingReasonRepositoryTest(TestData testData) : base(testData) {}
+    }
+
     public partial class MarketFieldRepositoryTest : TestBaseRepository<MarketField>, IMarketFieldRepository
     {
         public MarketFieldRepositoryTest(TestData testData) : base(testData) {}

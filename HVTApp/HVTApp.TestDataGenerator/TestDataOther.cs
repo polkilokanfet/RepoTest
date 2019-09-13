@@ -5,6 +5,9 @@ namespace HVTApp.TestDataGenerator
 {
     public partial class TestData
     {
+        public LosingReason LosingReasonCost;
+        public LosingReason LosingReasonProductionTerm;
+
         public Measure MeasureKv;
 
         public CompanyForm CompanyFormAo;
@@ -14,6 +17,7 @@ namespace HVTApp.TestDataGenerator
         public CompanyForm CompanyFormOoo;
 
         public Company CompanyUetm;
+        public Company CompanyZeto;
         public Company CompanyRosseti;
         public Company CompanyFsk;
         public Company CompanyMrsk;
@@ -78,6 +82,12 @@ namespace HVTApp.TestDataGenerator
         public TenderType TenderTypeProject;
         public TenderType TenderTypeWork;
         public TenderType TenderTypeSuply;
+
+        private void GenerateLosingReasons()
+        {
+            LosingReasonCost.Clone(new LosingReason { Name = "Неконкурентная цена" });
+            LosingReasonProductionTerm.Clone(new LosingReason { Name = "Неконкурентный срок поставки" });
+        }
 
         private void GenerateTenderTypes()
         {
@@ -158,6 +168,7 @@ namespace HVTApp.TestDataGenerator
         private void GenerateCompanies()
         {
             CompanyUetm.Clone(new Company { FullName = "Уралэлектротяжмаш", ShortName = "УЭТМ", Inn = "6673197337", Form = CompanyFormAo, AddressLegal = AddressUetm, BankDetailsList = new List<BankDetails> { BankDetailsOfUetm }, ActivityFilds = new List<ActivityField> { ActivityFieldProducerOfHvt } });
+            CompanyZeto.Clone(new Company { FullName = "ЗЭТО", ShortName = "ЗЭТО", Inn = "2134324", Form = CompanyFormAo, ActivityFilds = new List<ActivityField> { ActivityFieldProducerOfHvt } });
             CompanyRosseti.Clone(new Company { FullName = "Россети", ShortName = "Россети", Inn = "23659", Form = CompanyFormPao, ActivityFilds = new List<ActivityField> { ActivityFieldElectricityTransmission } });
             CompanyFsk.Clone(new Company { FullName = "Федеральная сетевая компания", ShortName = "ФСК", Inn = "26658", Form = CompanyFormPao, ActivityFilds = new List<ActivityField> { ActivityFieldElectricityTransmission }, ParentCompany = CompanyRosseti });
             CompanyMrsk.Clone(new Company { FullName = "Межрегиональные распределительные сети", Inn = "23358", ShortName = "МРСК", Form = CompanyFormPao, ActivityFilds = new List<ActivityField> { ActivityFieldElectricityTransmission }, ParentCompany = CompanyRosseti });

@@ -10,6 +10,7 @@ namespace HVTApp.DataAccess
             CountryUnionRepository = new CountryUnionRepositoryTest(testData);
             CreateNewProductTaskRepository = new CreateNewProductTaskRepositoryTest(testData);
             DocumentNumberRepository = new DocumentNumberRepositoryTest(testData);
+            LosingReasonRepository = new LosingReasonRepositoryTest(testData);
             MarketFieldRepository = new MarketFieldRepositoryTest(testData);
             PaymentActualRepository = new PaymentActualRepositoryTest(testData);
             PaymentConditionPointRepository = new PaymentConditionPointRepositoryTest(testData);
@@ -73,6 +74,7 @@ namespace HVTApp.DataAccess
         public ICountryUnionRepository CountryUnionRepository { get; }
         public ICreateNewProductTaskRepository CreateNewProductTaskRepository { get; }
         public IDocumentNumberRepository DocumentNumberRepository { get; }
+        public ILosingReasonRepository LosingReasonRepository { get; }
         public IMarketFieldRepository MarketFieldRepository { get; }
         public IPaymentActualRepository PaymentActualRepository { get; }
         public IPaymentConditionPointRepository PaymentConditionPointRepository { get; }

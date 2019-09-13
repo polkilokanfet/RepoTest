@@ -13,7 +13,7 @@ namespace HVTApp.Model.POCOs
     public partial class PaymentDocument : BaseEntity
     {
         [Designation("Номер"), Required, OrderStatus(10), MaxLength(25)]
-        public string Number { get; set; }
+        public string Number { get; set; } = "б/н";
 
         [Designation("Дата"), NotMapped, OrderStatus(20)]
         public DateTime Date => Payments.Any() ? Payments.First().Date : DateTime.Today;

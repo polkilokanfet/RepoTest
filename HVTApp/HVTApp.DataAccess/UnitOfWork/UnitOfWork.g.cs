@@ -7,6 +7,7 @@ namespace HVTApp.DataAccess
             CountryUnionRepository = new CountryUnionRepository(_context);
             CreateNewProductTaskRepository = new CreateNewProductTaskRepository(_context);
             DocumentNumberRepository = new DocumentNumberRepository(_context);
+            LosingReasonRepository = new LosingReasonRepository(_context);
             MarketFieldRepository = new MarketFieldRepository(_context);
             PaymentActualRepository = new PaymentActualRepository(_context);
             PaymentConditionPointRepository = new PaymentConditionPointRepository(_context);
@@ -69,6 +70,7 @@ namespace HVTApp.DataAccess
         protected ICountryUnionRepository CountryUnionRepository;
         protected ICreateNewProductTaskRepository CreateNewProductTaskRepository;
         protected IDocumentNumberRepository DocumentNumberRepository;
+        protected ILosingReasonRepository LosingReasonRepository;
         protected IMarketFieldRepository MarketFieldRepository;
         protected IPaymentActualRepository PaymentActualRepository;
         protected IPaymentConditionPointRepository PaymentConditionPointRepository;

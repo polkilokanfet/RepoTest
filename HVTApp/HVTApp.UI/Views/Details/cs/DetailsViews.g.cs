@@ -189,6 +189,46 @@ namespace HVTApp.UI.Views
 	}
 
 
+    public partial class LosingReasonDetailsView : ViewBase
+    {
+        public LosingReasonDetailsView()
+        {
+			InitializeComponent();
+        }
+
+        public LosingReasonDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, LosingReasonDetailsViewModel LosingReasonDetailsViewModel) : base(regionManager, eventAggregator)
+        {
+            SetVisibilityProps();
+			InitializeComponent();
+            DataContext = LosingReasonDetailsViewModel;
+        }
+
+        private void SetVisibilityProps()
+        {
+            //NotUpdateAttribute attr;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.LosingReason).GetProperty(nameof(HVTApp.Model.POCOs.LosingReason.Name)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityNameLosingReason = Visibility.Collapsed;
+
+
+
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityNameLosingReasonProperty = DependencyProperty.Register("VisibilityNameLosingReason", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityNameLosingReason
+        {
+            get { return (Visibility) GetValue(VisibilityNameLosingReasonProperty); }
+            set { SetValue(VisibilityNameLosingReasonProperty, value); OnPropertyChanged(); }
+        }
+
+
+	}
+
+
     public partial class MarketFieldDetailsView : ViewBase
     {
         public MarketFieldDetailsView()
@@ -3232,6 +3272,11 @@ namespace HVTApp.UI.Views
             //    VisibilityProducerSalesUnit = Visibility.Collapsed;
 
 
+            //attr = typeof(HVTApp.Model.POCOs.SalesUnit).GetProperty(nameof(HVTApp.Model.POCOs.SalesUnit.LosingReasons)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityLosingReasonsSalesUnit = Visibility.Collapsed;
+
+
             //attr = typeof(HVTApp.Model.POCOs.SalesUnit).GetProperty(nameof(HVTApp.Model.POCOs.SalesUnit.RealizationDate)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityRealizationDateSalesUnit = Visibility.Collapsed;
@@ -3553,6 +3598,15 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityProducerSalesUnitProperty); }
             set { SetValue(VisibilityProducerSalesUnitProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityLosingReasonsSalesUnitProperty = DependencyProperty.Register("VisibilityLosingReasonsSalesUnit", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityLosingReasonsSalesUnit
+        {
+            get { return (Visibility) GetValue(VisibilityLosingReasonsSalesUnitProperty); }
+            set { SetValue(VisibilityLosingReasonsSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 

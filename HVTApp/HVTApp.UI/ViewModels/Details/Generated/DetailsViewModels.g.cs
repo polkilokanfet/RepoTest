@@ -118,6 +118,18 @@ namespace HVTApp.UI.ViewModels
     }
 
 
+    public partial class LosingReasonDetailsViewModel : BaseDetailsViewModel<LosingReasonWrapper, LosingReason, AfterSaveLosingReasonEvent>
+    {
+
+        public LosingReasonDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+		}
+
+
+
+    }
+
+
     public partial class MarketFieldDetailsViewModel : BaseDetailsViewModel<MarketFieldWrapper, MarketField, AfterSaveMarketFieldEvent>
     {
 		private Func<Task<List<ActivityField>>> _getEntitiesForAddInActivityFieldsCommand;
@@ -1868,6 +1880,22 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
+		private Func<Task<List<LosingReason>>> _getEntitiesForAddInLosingReasonsCommand;
+		public ICommand AddInLosingReasonsCommand { get; }
+		public ICommand RemoveFromLosingReasonsCommand { get; }
+		private LosingReasonWrapper _selectedLosingReasonsItem;
+		public LosingReasonWrapper SelectedLosingReasonsItem 
+		{ 
+			get { return _selectedLosingReasonsItem; }
+			set 
+			{ 
+				if (Equals(_selectedLosingReasonsItem, value)) return;
+				_selectedLosingReasonsItem = value;
+				OnPropertyChanged();
+				((DelegateCommand)RemoveFromLosingReasonsCommand).RaiseCanExecuteChanged();
+			}
+		}
+
 		private Func<Task<List<PaymentActual>>> _getEntitiesForAddInPaymentsActualCommand;
 		public ICommand AddInPaymentsActualCommand { get; }
 		public ICommand RemoveFromPaymentsActualCommand { get; }
@@ -1997,6 +2025,11 @@ namespace HVTApp.UI.ViewModels
 			if (RemoveFromProductsIncludedCommand == null) RemoveFromProductsIncludedCommand = new DelegateCommand(RemoveFromProductsIncludedCommand_Execute_Default, RemoveFromProductsIncludedCommand_CanExecute_Default);
 
 			
+			if (_getEntitiesForAddInLosingReasonsCommand == null) _getEntitiesForAddInLosingReasonsCommand = async () => { return await UnitOfWork.Repository<LosingReason>().GetAllAsync(); };;
+			if (AddInLosingReasonsCommand == null) AddInLosingReasonsCommand = new DelegateCommand(AddInLosingReasonsCommand_Execute_Default);
+			if (RemoveFromLosingReasonsCommand == null) RemoveFromLosingReasonsCommand = new DelegateCommand(RemoveFromLosingReasonsCommand_Execute_Default, RemoveFromLosingReasonsCommand_CanExecute_Default);
+
+			
 			if (_getEntitiesForAddInPaymentsActualCommand == null) _getEntitiesForAddInPaymentsActualCommand = async () => { return await UnitOfWork.Repository<PaymentActual>().GetAllAsync(); };;
 			if (AddInPaymentsActualCommand == null) AddInPaymentsActualCommand = new DelegateCommand(AddInPaymentsActualCommand_Execute_Default);
 			if (RemoveFromPaymentsActualCommand == null) RemoveFromPaymentsActualCommand = new DelegateCommand(RemoveFromPaymentsActualCommand_Execute_Default, RemoveFromPaymentsActualCommand_CanExecute_Default);
@@ -2124,6 +2157,21 @@ namespace HVTApp.UI.ViewModels
 			private bool RemoveFromProductsIncludedCommand_CanExecute_Default()
 			{
 				return SelectedProductsIncludedItem != null;
+			}
+
+			private async void AddInLosingReasonsCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<LosingReason, LosingReasonWrapper>(await _getEntitiesForAddInLosingReasonsCommand(), Item.LosingReasons);
+			}
+
+			private void RemoveFromLosingReasonsCommand_Execute_Default()
+			{
+				Item.LosingReasons.Remove(SelectedLosingReasonsItem);
+			}
+
+			private bool RemoveFromLosingReasonsCommand_CanExecute_Default()
+			{
+				return SelectedLosingReasonsItem != null;
 			}
 
 			private async void AddInPaymentsActualCommand_Execute_Default()

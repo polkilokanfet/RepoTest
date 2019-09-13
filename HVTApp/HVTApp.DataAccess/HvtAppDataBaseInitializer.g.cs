@@ -15,6 +15,7 @@ namespace HVTApp.DataAccess
             context.CountryUnionDbSet.AddRange(testData.GetAll<CountryUnion>());
             context.CreateNewProductTaskDbSet.AddRange(testData.GetAll<CreateNewProductTask>());
             context.DocumentNumberDbSet.AddRange(testData.GetAll<DocumentNumber>());
+            context.LosingReasonDbSet.AddRange(testData.GetAll<LosingReason>());
             context.MarketFieldDbSet.AddRange(testData.GetAll<MarketField>());
             context.PaymentActualDbSet.AddRange(testData.GetAll<PaymentActual>());
             context.PaymentConditionPointDbSet.AddRange(testData.GetAll<PaymentConditionPoint>());

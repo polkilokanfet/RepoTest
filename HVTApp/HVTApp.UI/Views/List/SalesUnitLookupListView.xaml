@@ -73,6 +73,7 @@
                     <infg:NumericField Name="OrderInTakeYear" Label="Год" Width="Auto" />
                     <infg:NumericField Name="OrderInTakeMonth" Label="Месяц" Width="Auto" />
                     <infg:DateTimeField Name="OrderInTakeDate" Label="ОИТ" Width="Auto" />
+                    <infg:TextField Name="LosingReasons" Label="Причины проигрыша" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:CheckBoxField Name="IsPaid" Label="Оплачено?" Width="Auto" />
                     <infg:CheckBoxField Name="IsLoosen" Label="Проиграно" Width="Auto" />
                     <infg:CheckBoxField Name="IsDone" Label="Исполнен?" Width="Auto" />

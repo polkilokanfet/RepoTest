@@ -1667,6 +1667,60 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
+	[Designation("Причина проигрыша")]
+	[DesignationPlural("LosingReasonLookup")]
+	[AllowEditAttribute(Role.Admin)]
+
+    public partial class LosingReasonLookupListView : ViewBase
+    {
+        public LosingReasonLookupListView()
+        {
+            InitializeComponent();
+        }
+
+        public LosingReasonLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, LosingReasonLookupListViewModel LosingReasonLookupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = LosingReasonLookupListViewModel;
+			LosingReasonLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			await ((LosingReasonLookupListViewModel)DataContext).LoadAsync();;
+        }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility NameVisibility
+        {
+            get { return LosingReasonLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LosingReasonLookup.Name)].Visibility; }
+            set { LosingReasonLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LosingReasonLookup.Name)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return LosingReasonLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LosingReasonLookup.DisplayMember)].Visibility; }
+            set { LosingReasonLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LosingReasonLookup.DisplayMember)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return LosingReasonLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LosingReasonLookup.Entity)].Visibility; }
+            set { LosingReasonLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LosingReasonLookup.Entity)].Visibility = value; }
+        }
+
+
+
+		#endregion
+    }
+
+
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Область рынка")]
 	[DesignationPlural("MarketFieldLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -4198,6 +4252,13 @@ namespace HVTApp.UI.Views
         {
             get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.ProductsIncluded)].Visibility; }
             set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.ProductsIncluded)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility LosingReasonsVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.LosingReasons)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.LosingReasons)].Visibility = value; }
         }
 
 

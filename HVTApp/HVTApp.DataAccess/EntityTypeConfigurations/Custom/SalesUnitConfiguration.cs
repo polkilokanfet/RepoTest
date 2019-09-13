@@ -15,6 +15,8 @@ namespace HVTApp.DataAccess
             HasRequired(x => x.Facility).WithMany();
             HasOptional(x => x.Producer).WithMany();
 
+            HasMany(x => x.LosingReasons).WithMany();
+
             HasRequired(x => x.Product).WithMany();
             HasOptional(x => x.Order).WithMany();
 

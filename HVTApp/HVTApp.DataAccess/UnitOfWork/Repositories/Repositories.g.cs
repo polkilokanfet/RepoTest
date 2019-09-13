@@ -25,6 +25,13 @@ namespace HVTApp.DataAccess
 		}
     }
 
+    public partial class LosingReasonRepository : BaseRepository<LosingReason>, ILosingReasonRepository
+    {
+		public LosingReasonRepository(DbContext context) : base(context) 
+		{
+		}
+    }
+
     public partial class MarketFieldRepository : BaseRepository<MarketField>, IMarketFieldRepository
     {
 		public MarketFieldRepository(DbContext context) : base(context) 

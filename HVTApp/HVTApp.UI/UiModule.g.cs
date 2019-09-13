@@ -30,6 +30,12 @@ namespace HVTApp.UI
             _updateDetailsService.Register<DocumentNumber, DocumentNumberDetailsView>();
 
 
+            Container.RegisterViewForNavigation<LosingReasonLookupListView>();
+            //_dialogService.Register<LosingReasonDetailsViewModel, LosingReasonDetailsView>();
+			_selectService.Register<LosingReasonLookupListView, LosingReason>();
+            _updateDetailsService.Register<LosingReason, LosingReasonDetailsView>();
+
+
             Container.RegisterViewForNavigation<MarketFieldLookupListView>();
             //_dialogService.Register<MarketFieldDetailsViewModel, MarketFieldDetailsView>();
 			_selectService.Register<MarketFieldLookupListView, MarketField>();

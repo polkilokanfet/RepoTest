@@ -166,6 +166,36 @@ namespace HVTApp.UI.Wrapper
 
 	}
 
+		public partial class LosingReasonWrapper : WrapperBase<LosingReason>
+	{
+	    public LosingReasonWrapper(LosingReason model) : base(model) { }
+
+	
+
+        #region SimpleProperties
+
+        public System.String Name
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
+        public bool NameIsChanged => GetIsChanged(nameof(Name));
+
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+
+        #endregion
+
+	}
+
 		public partial class MarketFieldWrapper : WrapperBase<MarketField>
 	{
 	    public MarketFieldWrapper(MarketField model) : base(model) { }
@@ -2779,6 +2809,9 @@ namespace HVTApp.UI.Wrapper
         public IValidatableChangeTrackingCollection<ProductIncludedWrapper> ProductsIncluded { get; private set; }
 
 
+        public IValidatableChangeTrackingCollection<LosingReasonWrapper> LosingReasons { get; private set; }
+
+
         public IValidatableChangeTrackingCollection<PaymentActualWrapper> PaymentsActual { get; private set; }
 
 
@@ -2900,6 +2933,11 @@ namespace HVTApp.UI.Wrapper
           if (Model.ProductsIncluded == null) throw new ArgumentException("ProductsIncluded cannot be null");
           ProductsIncluded = new ValidatableChangeTrackingCollection<ProductIncludedWrapper>(Model.ProductsIncluded.Select(e => new ProductIncludedWrapper(e)));
           RegisterCollection(ProductsIncluded, Model.ProductsIncluded);
+
+
+          if (Model.LosingReasons == null) throw new ArgumentException("LosingReasons cannot be null");
+          LosingReasons = new ValidatableChangeTrackingCollection<LosingReasonWrapper>(Model.LosingReasons.Select(e => new LosingReasonWrapper(e)));
+          RegisterCollection(LosingReasons, Model.LosingReasons);
 
 
           if (Model.PaymentsActual == null) throw new ArgumentException("PaymentsActual cannot be null");
