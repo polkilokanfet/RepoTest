@@ -56,9 +56,11 @@
     <Compile Include="GeneratorHelpers.cs" />
     <Compile Include="POCOs\ActivityFieldEnum.cs" />
     <Compile Include="POCOs\Address\CountryUnion.cs" />
+    <Compile Include="POCOs\BankGuarantee.cs" />
     <Compile Include="POCOs\CreateNewProductTask.cs" />
     <Compile Include="Comparers\ParameterComparer.cs" />
     <Compile Include="POCOs\DocumentNumber.cs" />
+    <Compile Include="POCOs\FakeData.cs" />
     <Compile Include="POCOs\LosingReason.cs" />
     <Compile Include="POCOs\MarketField.cs" />
     <Compile Include="POCOs\PaymentActual.cs" />
@@ -66,6 +68,7 @@
     <Compile Include="POCOs\PaymentPlanned.cs" />
     <Compile Include="POCOs\PaymentType.cs" />
     <Compile Include="Comparers\ProductDependentComparer.cs" />
+    <Compile Include="POCOs\Penalty.cs" />
     <Compile Include="POCOs\ProductIncluded.cs" />
     <Compile Include="POCOs\ProductDesignation.cs" />
     <Compile Include="POCOs\ProductType.cs" />

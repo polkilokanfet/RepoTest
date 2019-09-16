@@ -50,8 +50,11 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
                 });
                 await _unitOfWork.SaveChangesAsync();
                 await LoadAsync();
-            }, 
-            () => { return PriceTasks.Any(x => x.IsChanged) && PriceTasks.All(x => x.IsValid); });
+            },
+                () =>
+                {
+                    return PriceTasks.Any(x => x.IsChanged) && PriceTasks.All(x => x.IsValid);
+                });
 
             ReloadCommand = new DelegateCommand(async () => await LoadAsync());
             PrintBlockInContext = new DelegateCommand(PrintBlockInContextExecute, () => SelectedPriceTask != null);

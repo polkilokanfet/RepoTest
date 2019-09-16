@@ -68,6 +68,95 @@ namespace HVTApp.UI.Wrapper
 
 	}
 
+		public partial class BankGuaranteeWrapper : WrapperBase<BankGuarantee>
+	{
+	    public BankGuaranteeWrapper(BankGuarantee model) : base(model) { }
+
+	
+
+        #region SimpleProperties
+
+        public System.Double Percent
+        {
+          get { return GetValue<System.Double>(); }
+          set { SetValue(value); }
+        }
+        public System.Double PercentOriginalValue => GetOriginalValue<System.Double>(nameof(Percent));
+        public bool PercentIsChanged => GetIsChanged(nameof(Percent));
+
+
+        public System.Int32 Days
+        {
+          get { return GetValue<System.Int32>(); }
+          set { SetValue(value); }
+        }
+        public System.Int32 DaysOriginalValue => GetOriginalValue<System.Int32>(nameof(Days));
+        public bool DaysIsChanged => GetIsChanged(nameof(Days));
+
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+
+        #endregion
+
+
+        #region ComplexProperties
+
+	    public BankGuaranteeTypeWrapper BankGuaranteeType 
+        {
+            get { return GetWrapper<BankGuaranteeTypeWrapper>(); }
+            set { SetComplexValue<BankGuaranteeType, BankGuaranteeTypeWrapper>(BankGuaranteeType, value); }
+        }
+
+
+        #endregion
+
+        public override void InitializeComplexProperties()
+        {
+
+            InitializeComplexProperty<BankGuaranteeTypeWrapper>(nameof(BankGuaranteeType), Model.BankGuaranteeType == null ? null : new BankGuaranteeTypeWrapper(Model.BankGuaranteeType));
+
+
+        }
+
+	}
+
+		public partial class BankGuaranteeTypeWrapper : WrapperBase<BankGuaranteeType>
+	{
+	    public BankGuaranteeTypeWrapper(BankGuaranteeType model) : base(model) { }
+
+	
+
+        #region SimpleProperties
+
+        public System.String Name
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
+        public bool NameIsChanged => GetIsChanged(nameof(Name));
+
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+
+        #endregion
+
+	}
+
 		public partial class CreateNewProductTaskWrapper : WrapperBase<CreateNewProductTask>
 	{
 	    public CreateNewProductTaskWrapper(CreateNewProductTask model) : base(model) { }
@@ -163,6 +252,74 @@ namespace HVTApp.UI.Wrapper
 
 
         #endregion
+
+	}
+
+		public partial class FakeDataWrapper : WrapperBase<FakeData>
+	{
+	    public FakeDataWrapper(FakeData model) : base(model) { }
+
+	
+
+        #region SimpleProperties
+
+        public System.Nullable<System.Double> Cost
+        {
+          get { return GetValue<System.Nullable<System.Double>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Double> CostOriginalValue => GetOriginalValue<System.Nullable<System.Double>>(nameof(Cost));
+        public bool CostIsChanged => GetIsChanged(nameof(Cost));
+
+
+        public System.Nullable<System.DateTime> RealizationDate
+        {
+          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.DateTime> RealizationDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(RealizationDate));
+        public bool RealizationDateIsChanged => GetIsChanged(nameof(RealizationDate));
+
+
+        public System.Nullable<System.DateTime> OrderInTakeDate
+        {
+          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.DateTime> OrderInTakeDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(OrderInTakeDate));
+        public bool OrderInTakeDateIsChanged => GetIsChanged(nameof(OrderInTakeDate));
+
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+
+        #endregion
+
+
+        #region ComplexProperties
+
+	    public PaymentConditionSetWrapper PaymentConditionSet 
+        {
+            get { return GetWrapper<PaymentConditionSetWrapper>(); }
+            set { SetComplexValue<PaymentConditionSet, PaymentConditionSetWrapper>(PaymentConditionSet, value); }
+        }
+
+
+        #endregion
+
+        public override void InitializeComplexProperties()
+        {
+
+            InitializeComplexProperty<PaymentConditionSetWrapper>(nameof(PaymentConditionSet), Model.PaymentConditionSet == null ? null : new PaymentConditionSetWrapper(Model.PaymentConditionSet));
+
+
+        }
 
 	}
 
@@ -406,6 +563,54 @@ namespace HVTApp.UI.Wrapper
 
 
         }
+
+	}
+
+		public partial class PenaltyWrapper : WrapperBase<Penalty>
+	{
+	    public PenaltyWrapper(Penalty model) : base(model) { }
+
+	
+
+        #region SimpleProperties
+
+        public System.Double PercentPerDay
+        {
+          get { return GetValue<System.Double>(); }
+          set { SetValue(value); }
+        }
+        public System.Double PercentPerDayOriginalValue => GetOriginalValue<System.Double>(nameof(PercentPerDay));
+        public bool PercentPerDayIsChanged => GetIsChanged(nameof(PercentPerDay));
+
+
+        public System.Double PercentLimit
+        {
+          get { return GetValue<System.Double>(); }
+          set { SetValue(value); }
+        }
+        public System.Double PercentLimitOriginalValue => GetOriginalValue<System.Double>(nameof(PercentLimit));
+        public bool PercentLimitIsChanged => GetIsChanged(nameof(PercentLimit));
+
+
+        public System.Double PenaltyPaid
+        {
+          get { return GetValue<System.Double>(); }
+          set { SetValue(value); }
+        }
+        public System.Double PenaltyPaidOriginalValue => GetOriginalValue<System.Double>(nameof(PenaltyPaid));
+        public bool PenaltyPaidIsChanged => GetIsChanged(nameof(PenaltyPaid));
+
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+
+        #endregion
 
 	}
 
@@ -2794,10 +2999,24 @@ namespace HVTApp.UI.Wrapper
         }
 
 
+	    public PenaltyWrapper Penalty 
+        {
+            get { return GetWrapper<PenaltyWrapper>(); }
+            set { SetComplexValue<Penalty, PenaltyWrapper>(Penalty, value); }
+        }
+
+
 	    public AddressWrapper AddressDelivery 
         {
             get { return GetWrapper<AddressWrapper>(); }
             set { SetComplexValue<Address, AddressWrapper>(AddressDelivery, value); }
+        }
+
+
+	    public FakeDataWrapper FakeData 
+        {
+            get { return GetWrapper<FakeDataWrapper>(); }
+            set { SetComplexValue<FakeData, FakeDataWrapper>(FakeData, value); }
         }
 
 
@@ -2816,6 +3035,9 @@ namespace HVTApp.UI.Wrapper
 
 
         public IValidatableChangeTrackingCollection<PaymentPlannedWrapper> PaymentsPlanned { get; private set; }
+
+
+        public IValidatableChangeTrackingCollection<BankGuaranteeWrapper> BankGuarantees { get; private set; }
 
 
         public IValidatableChangeTrackingCollection<PaymentPlannedWrapper> PaymentsPlannedActual { get; private set; }
@@ -2921,7 +3143,13 @@ namespace HVTApp.UI.Wrapper
             InitializeComplexProperty<SpecificationWrapper>(nameof(Specification), Model.Specification == null ? null : new SpecificationWrapper(Model.Specification));
 
 
+            InitializeComplexProperty<PenaltyWrapper>(nameof(Penalty), Model.Penalty == null ? null : new PenaltyWrapper(Model.Penalty));
+
+
             InitializeComplexProperty<AddressWrapper>(nameof(AddressDelivery), Model.AddressDelivery == null ? null : new AddressWrapper(Model.AddressDelivery));
+
+
+            InitializeComplexProperty<FakeDataWrapper>(nameof(FakeData), Model.FakeData == null ? null : new FakeDataWrapper(Model.FakeData));
 
 
         }
@@ -2948,6 +3176,11 @@ namespace HVTApp.UI.Wrapper
           if (Model.PaymentsPlanned == null) throw new ArgumentException("PaymentsPlanned cannot be null");
           PaymentsPlanned = new ValidatableChangeTrackingCollection<PaymentPlannedWrapper>(Model.PaymentsPlanned.Select(e => new PaymentPlannedWrapper(e)));
           RegisterCollection(PaymentsPlanned, Model.PaymentsPlanned);
+
+
+          if (Model.BankGuarantees == null) throw new ArgumentException("BankGuarantees cannot be null");
+          BankGuarantees = new ValidatableChangeTrackingCollection<BankGuaranteeWrapper>(Model.BankGuarantees.Select(e => new BankGuaranteeWrapper(e)));
+          RegisterCollection(BankGuarantees, Model.BankGuarantees);
 
 
           if (Model.PaymentsPlannedActual == null) throw new ArgumentException("PaymentsPlannedActual cannot be null");

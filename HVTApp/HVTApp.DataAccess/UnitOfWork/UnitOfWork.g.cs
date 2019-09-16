@@ -5,13 +5,17 @@ namespace HVTApp.DataAccess
         public void InitializeRepositories()
         {
             CountryUnionRepository = new CountryUnionRepository(_context);
+            BankGuaranteeRepository = new BankGuaranteeRepository(_context);
+            BankGuaranteeTypeRepository = new BankGuaranteeTypeRepository(_context);
             CreateNewProductTaskRepository = new CreateNewProductTaskRepository(_context);
             DocumentNumberRepository = new DocumentNumberRepository(_context);
+            FakeDataRepository = new FakeDataRepository(_context);
             LosingReasonRepository = new LosingReasonRepository(_context);
             MarketFieldRepository = new MarketFieldRepository(_context);
             PaymentActualRepository = new PaymentActualRepository(_context);
             PaymentConditionPointRepository = new PaymentConditionPointRepository(_context);
             PaymentPlannedRepository = new PaymentPlannedRepository(_context);
+            PenaltyRepository = new PenaltyRepository(_context);
             ProductIncludedRepository = new ProductIncludedRepository(_context);
             ProductDesignationRepository = new ProductDesignationRepository(_context);
             ProductTypeRepository = new ProductTypeRepository(_context);
@@ -68,13 +72,17 @@ namespace HVTApp.DataAccess
 
         #region Repositories
         protected ICountryUnionRepository CountryUnionRepository;
+        protected IBankGuaranteeRepository BankGuaranteeRepository;
+        protected IBankGuaranteeTypeRepository BankGuaranteeTypeRepository;
         protected ICreateNewProductTaskRepository CreateNewProductTaskRepository;
         protected IDocumentNumberRepository DocumentNumberRepository;
+        protected IFakeDataRepository FakeDataRepository;
         protected ILosingReasonRepository LosingReasonRepository;
         protected IMarketFieldRepository MarketFieldRepository;
         protected IPaymentActualRepository PaymentActualRepository;
         protected IPaymentConditionPointRepository PaymentConditionPointRepository;
         protected IPaymentPlannedRepository PaymentPlannedRepository;
+        protected IPenaltyRepository PenaltyRepository;
         protected IProductIncludedRepository ProductIncludedRepository;
         protected IProductDesignationRepository ProductDesignationRepository;
         protected IProductTypeRepository ProductTypeRepository;

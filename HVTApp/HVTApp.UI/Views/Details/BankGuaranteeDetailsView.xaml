@@ -1,0 +1,45 @@
+<inf:ViewBase x:Class="HVTApp.UI.Views.BankGuaranteeDetailsView"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			  xmlns:infDP="http://infragistics.com/DataPresenter"
+			  xmlns:infE="http://infragistics.com/Editors"
+			  xmlns:core="clr-namespace:System;assembly=mscorlib"
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+			  x:Name="Root">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" MinWidth="200"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+
+        <Label Grid.Column="0" Grid.Row ="0" Content="Тип гарантии" Visibility="{Binding VisibilityBankGuaranteeTypeBankGuarantee, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="0" 
+                                    Item="{Binding Item.BankGuaranteeType}" 
+                                    AddItemCommand="{Binding SelectBankGuaranteeTypeCommand}" 
+                                    RemoveItemCommand="{Binding ClearBankGuaranteeTypeCommand}"
+									Visibility="{Binding VisibilityBankGuaranteeTypeBankGuarantee, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="1" Content="Срок (дней)" Visibility="{Binding VisibilityDaysBankGuarantee, ElementName=Root}"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1"
+							   ValueType="core:Int32"
+                               Value="{Binding Item.Days, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+							   Visibility="{Binding VisibilityDaysBankGuarantee, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="2" Content="Процент" Visibility="{Binding VisibilityPercentBankGuarantee, ElementName=Root}"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="2" 
+                               Value="{Binding Item.Percent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+							   Visibility="{Binding VisibilityPercentBankGuarantee, ElementName=Root}"/>
+
+
+
+    </Grid>
+</inf:ViewBase>

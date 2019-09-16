@@ -39,8 +39,10 @@
                     <infg:TextField Name="Product" Label="Продукт" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:NumericField Name="Price" Label="Себестоимость" Width="Auto" />
                     <infg:NumericField Name="Cost" Label="Стоимость" Width="Auto" />
+                    <infg:TextField Name="Penalty" Label="Штрафные санкции" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="PaymentConditionSet" Label="Условия оплаты" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Specification" Label="Спецификация" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="FakeData" Label="Корректировочные данные" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Producer" Label="Производитель" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Order" Label="Заказ" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="AddressDelivery" Label="Адрес доставки" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
@@ -88,6 +90,7 @@
                     <infg:DateTimeField Name="DeliveryDate" Label="Дата поставки" Width="Auto" />
                     <infg:CheckBoxField Name="CostDeliveryIncluded" Label="Стоимость доставки включена в основную стоимость" Width="Auto" />
                     <infg:NumericField Name="CostDelivery" Label="Стоимость доставки" Width="Auto" />
+                    <infg:TextField Name="BankGuarantees" Label="Банковские гарантии" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:NumericField Name="AssembleTerm" Label="Срок сборки" Width="Auto" />
                     <infg:CheckBoxField Name="AllowEditProduct" Label="Разрешение на редактирование техники" Width="Auto" />
                     <infg:CheckBoxField Name="AllowEditCost" Label="Разрешение на редактирование стоимости" Width="Auto" />

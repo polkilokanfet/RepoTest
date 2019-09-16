@@ -233,6 +233,128 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
+	[Designation("Банковская гарантия")]
+	[DesignationPlural("BankGuaranteeLookup")]
+	[AllowEditAttribute(Role.Admin)]
+
+    public partial class BankGuaranteeLookupListView : ViewBase
+    {
+        public BankGuaranteeLookupListView()
+        {
+            InitializeComponent();
+        }
+
+        public BankGuaranteeLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, BankGuaranteeLookupListViewModel BankGuaranteeLookupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = BankGuaranteeLookupListViewModel;
+			BankGuaranteeLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			await ((BankGuaranteeLookupListViewModel)DataContext).LoadAsync();;
+        }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility PercentVisibility
+        {
+            get { return BankGuaranteeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BankGuaranteeLookup.Percent)].Visibility; }
+            set { BankGuaranteeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BankGuaranteeLookup.Percent)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DaysVisibility
+        {
+            get { return BankGuaranteeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BankGuaranteeLookup.Days)].Visibility; }
+            set { BankGuaranteeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BankGuaranteeLookup.Days)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return BankGuaranteeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BankGuaranteeLookup.DisplayMember)].Visibility; }
+            set { BankGuaranteeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BankGuaranteeLookup.DisplayMember)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility BankGuaranteeTypeVisibility
+        {
+            get { return BankGuaranteeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BankGuaranteeLookup.BankGuaranteeType)].Visibility; }
+            set { BankGuaranteeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BankGuaranteeLookup.BankGuaranteeType)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return BankGuaranteeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BankGuaranteeLookup.Entity)].Visibility; }
+            set { BankGuaranteeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BankGuaranteeLookup.Entity)].Visibility = value; }
+        }
+
+
+
+		#endregion
+    }
+
+
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
+	[Designation("Банковская гарантия (тип)")]
+	[DesignationPlural("BankGuaranteeTypeLookup")]
+	[AllowEditAttribute(Role.Admin)]
+
+    public partial class BankGuaranteeTypeLookupListView : ViewBase
+    {
+        public BankGuaranteeTypeLookupListView()
+        {
+            InitializeComponent();
+        }
+
+        public BankGuaranteeTypeLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, BankGuaranteeTypeLookupListViewModel BankGuaranteeTypeLookupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = BankGuaranteeTypeLookupListViewModel;
+			BankGuaranteeTypeLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			await ((BankGuaranteeTypeLookupListViewModel)DataContext).LoadAsync();;
+        }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility NameVisibility
+        {
+            get { return BankGuaranteeTypeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BankGuaranteeTypeLookup.Name)].Visibility; }
+            set { BankGuaranteeTypeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BankGuaranteeTypeLookup.Name)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return BankGuaranteeTypeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BankGuaranteeTypeLookup.DisplayMember)].Visibility; }
+            set { BankGuaranteeTypeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BankGuaranteeTypeLookup.DisplayMember)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return BankGuaranteeTypeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BankGuaranteeTypeLookup.Entity)].Visibility; }
+            set { BankGuaranteeTypeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BankGuaranteeTypeLookup.Entity)].Visibility = value; }
+        }
+
+
+
+		#endregion
+    }
+
+
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Организационная форма")]
 	[DesignationPlural("CompanyFormLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -1347,6 +1469,81 @@ namespace HVTApp.UI.Views
         {
             get { return FacilityTypeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.FacilityTypeLookup.Entity)].Visibility; }
             set { FacilityTypeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.FacilityTypeLookup.Entity)].Visibility = value; }
+        }
+
+
+
+		#endregion
+    }
+
+
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
+	[Designation("Корректировочные данные")]
+	[DesignationPlural("FakeDataLookup")]
+	[AllowEditAttribute(Role.Admin)]
+
+    public partial class FakeDataLookupListView : ViewBase
+    {
+        public FakeDataLookupListView()
+        {
+            InitializeComponent();
+        }
+
+        public FakeDataLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, FakeDataLookupListViewModel FakeDataLookupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = FakeDataLookupListViewModel;
+			FakeDataLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			await ((FakeDataLookupListViewModel)DataContext).LoadAsync();;
+        }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility CostVisibility
+        {
+            get { return FakeDataLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.FakeDataLookup.Cost)].Visibility; }
+            set { FakeDataLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.FakeDataLookup.Cost)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility RealizationDateVisibility
+        {
+            get { return FakeDataLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.FakeDataLookup.RealizationDate)].Visibility; }
+            set { FakeDataLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.FakeDataLookup.RealizationDate)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility OrderInTakeDateVisibility
+        {
+            get { return FakeDataLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.FakeDataLookup.OrderInTakeDate)].Visibility; }
+            set { FakeDataLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.FakeDataLookup.OrderInTakeDate)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return FakeDataLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.FakeDataLookup.DisplayMember)].Visibility; }
+            set { FakeDataLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.FakeDataLookup.DisplayMember)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility PaymentConditionSetVisibility
+        {
+            get { return FakeDataLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.FakeDataLookup.PaymentConditionSet)].Visibility; }
+            set { FakeDataLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.FakeDataLookup.PaymentConditionSet)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return FakeDataLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.FakeDataLookup.Entity)].Visibility; }
+            set { FakeDataLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.FakeDataLookup.Entity)].Visibility = value; }
         }
 
 
@@ -2876,6 +3073,74 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
+	[Designation("Штрафные санкции")]
+	[DesignationPlural("PenaltyLookup")]
+	[AllowEditAttribute(Role.Admin)]
+
+    public partial class PenaltyLookupListView : ViewBase
+    {
+        public PenaltyLookupListView()
+        {
+            InitializeComponent();
+        }
+
+        public PenaltyLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, PenaltyLookupListViewModel PenaltyLookupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = PenaltyLookupListViewModel;
+			PenaltyLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			await ((PenaltyLookupListViewModel)DataContext).LoadAsync();;
+        }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility PercentPerDayVisibility
+        {
+            get { return PenaltyLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PenaltyLookup.PercentPerDay)].Visibility; }
+            set { PenaltyLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PenaltyLookup.PercentPerDay)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility PercentLimitVisibility
+        {
+            get { return PenaltyLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PenaltyLookup.PercentLimit)].Visibility; }
+            set { PenaltyLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PenaltyLookup.PercentLimit)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility PenaltyPaidVisibility
+        {
+            get { return PenaltyLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PenaltyLookup.PenaltyPaid)].Visibility; }
+            set { PenaltyLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PenaltyLookup.PenaltyPaid)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return PenaltyLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PenaltyLookup.DisplayMember)].Visibility; }
+            set { PenaltyLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PenaltyLookup.DisplayMember)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return PenaltyLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PenaltyLookup.Entity)].Visibility; }
+            set { PenaltyLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PenaltyLookup.Entity)].Visibility = value; }
+        }
+
+
+
+		#endregion
+    }
+
+
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Персона")]
 	[DesignationPlural("PersonLookup")]
 	[AllowEditAttribute(Role.DataBaseFiller)]
@@ -4227,10 +4492,24 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility PenaltyVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.Penalty)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.Penalty)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility AddressDeliveryVisibility
         {
             get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.AddressDelivery)].Visibility; }
             set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.AddressDelivery)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility FakeDataVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.FakeData)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.FakeData)].Visibility = value; }
         }
 
 
@@ -4266,6 +4545,13 @@ namespace HVTApp.UI.Views
         {
             get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.PaymentsPlanned)].Visibility; }
             set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.PaymentsPlanned)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility BankGuaranteesVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.BankGuarantees)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.BankGuarantees)].Visibility = value; }
         }
 
 

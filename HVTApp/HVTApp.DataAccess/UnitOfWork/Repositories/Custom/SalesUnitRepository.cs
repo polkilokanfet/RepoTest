@@ -35,7 +35,8 @@ namespace HVTApp.DataAccess
                 .Include(x => x.ProductsIncluded.Select(dp => dp.Product.ProductBlock.Parameters))
                 .Include(x => x.PaymentsActual)
                 .Include(x => x.PaymentsPlanned)
-                .Include(x => x.Order);
+                .Include(x => x.Order)
+                .Include(x => x.Penalty);
         }
 
         public IEnumerable<SalesUnit> GetUsersSalesUnits()

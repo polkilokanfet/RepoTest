@@ -8,13 +8,17 @@ namespace HVTApp.DataAccess
         {
 			#region RepositoriesInit
             CountryUnionRepository = new CountryUnionRepositoryTest(testData);
+            BankGuaranteeRepository = new BankGuaranteeRepositoryTest(testData);
+            BankGuaranteeTypeRepository = new BankGuaranteeTypeRepositoryTest(testData);
             CreateNewProductTaskRepository = new CreateNewProductTaskRepositoryTest(testData);
             DocumentNumberRepository = new DocumentNumberRepositoryTest(testData);
+            FakeDataRepository = new FakeDataRepositoryTest(testData);
             LosingReasonRepository = new LosingReasonRepositoryTest(testData);
             MarketFieldRepository = new MarketFieldRepositoryTest(testData);
             PaymentActualRepository = new PaymentActualRepositoryTest(testData);
             PaymentConditionPointRepository = new PaymentConditionPointRepositoryTest(testData);
             PaymentPlannedRepository = new PaymentPlannedRepositoryTest(testData);
+            PenaltyRepository = new PenaltyRepositoryTest(testData);
             ProductIncludedRepository = new ProductIncludedRepositoryTest(testData);
             ProductDesignationRepository = new ProductDesignationRepositoryTest(testData);
             ProductTypeRepository = new ProductTypeRepositoryTest(testData);
@@ -72,13 +76,17 @@ namespace HVTApp.DataAccess
 
         #region Repositories
         public ICountryUnionRepository CountryUnionRepository { get; }
+        public IBankGuaranteeRepository BankGuaranteeRepository { get; }
+        public IBankGuaranteeTypeRepository BankGuaranteeTypeRepository { get; }
         public ICreateNewProductTaskRepository CreateNewProductTaskRepository { get; }
         public IDocumentNumberRepository DocumentNumberRepository { get; }
+        public IFakeDataRepository FakeDataRepository { get; }
         public ILosingReasonRepository LosingReasonRepository { get; }
         public IMarketFieldRepository MarketFieldRepository { get; }
         public IPaymentActualRepository PaymentActualRepository { get; }
         public IPaymentConditionPointRepository PaymentConditionPointRepository { get; }
         public IPaymentPlannedRepository PaymentPlannedRepository { get; }
+        public IPenaltyRepository PenaltyRepository { get; }
         public IProductIncludedRepository ProductIncludedRepository { get; }
         public IProductDesignationRepository ProductDesignationRepository { get; }
         public IProductTypeRepository ProductTypeRepository { get; }

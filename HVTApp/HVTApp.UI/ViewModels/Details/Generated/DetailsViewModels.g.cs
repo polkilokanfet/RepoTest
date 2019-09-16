@@ -74,6 +74,50 @@ namespace HVTApp.UI.ViewModels
     }
 
 
+    public partial class BankGuaranteeDetailsViewModel : BaseDetailsViewModel<BankGuaranteeWrapper, BankGuarantee, AfterSaveBankGuaranteeEvent>
+    {
+		private Func<Task<List<BankGuaranteeType>>> _getEntitiesForSelectBankGuaranteeTypeCommand;
+		public ICommand SelectBankGuaranteeTypeCommand { get; private set; }
+		public ICommand ClearBankGuaranteeTypeCommand { get; private set; }
+
+
+        public BankGuaranteeDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+			
+			if (_getEntitiesForSelectBankGuaranteeTypeCommand == null) _getEntitiesForSelectBankGuaranteeTypeCommand = async () => { return await UnitOfWork.Repository<BankGuaranteeType>().GetAllAsync(); };
+			if (SelectBankGuaranteeTypeCommand == null) SelectBankGuaranteeTypeCommand = new DelegateCommand(SelectBankGuaranteeTypeCommand_Execute_Default);
+			if (ClearBankGuaranteeTypeCommand == null) ClearBankGuaranteeTypeCommand = new DelegateCommand(ClearBankGuaranteeTypeCommand_Execute_Default);
+
+		}
+
+		private async void SelectBankGuaranteeTypeCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<BankGuaranteeType, BankGuaranteeTypeWrapper>(await _getEntitiesForSelectBankGuaranteeTypeCommand(), nameof(Item.BankGuaranteeType), Item.BankGuaranteeType?.Id);
+		}
+
+		private void ClearBankGuaranteeTypeCommand_Execute_Default() 
+		{
+						Item.BankGuaranteeType = null;
+		    
+		}
+
+
+
+    }
+
+
+    public partial class BankGuaranteeTypeDetailsViewModel : BaseDetailsViewModel<BankGuaranteeTypeWrapper, BankGuaranteeType, AfterSaveBankGuaranteeTypeEvent>
+    {
+
+        public BankGuaranteeTypeDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+		}
+
+
+
+    }
+
+
     public partial class CreateNewProductTaskDetailsViewModel : BaseDetailsViewModel<CreateNewProductTaskWrapper, CreateNewProductTask, AfterSaveCreateNewProductTaskEvent>
     {
 		private Func<Task<List<Product>>> _getEntitiesForSelectProductCommand;
@@ -111,6 +155,38 @@ namespace HVTApp.UI.ViewModels
 
         public DocumentNumberDetailsViewModel(IUnityContainer container) : base(container) 
 		{
+		}
+
+
+
+    }
+
+
+    public partial class FakeDataDetailsViewModel : BaseDetailsViewModel<FakeDataWrapper, FakeData, AfterSaveFakeDataEvent>
+    {
+		private Func<Task<List<PaymentConditionSet>>> _getEntitiesForSelectPaymentConditionSetCommand;
+		public ICommand SelectPaymentConditionSetCommand { get; private set; }
+		public ICommand ClearPaymentConditionSetCommand { get; private set; }
+
+
+        public FakeDataDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+			
+			if (_getEntitiesForSelectPaymentConditionSetCommand == null) _getEntitiesForSelectPaymentConditionSetCommand = async () => { return await UnitOfWork.Repository<PaymentConditionSet>().GetAllAsync(); };
+			if (SelectPaymentConditionSetCommand == null) SelectPaymentConditionSetCommand = new DelegateCommand(SelectPaymentConditionSetCommand_Execute_Default);
+			if (ClearPaymentConditionSetCommand == null) ClearPaymentConditionSetCommand = new DelegateCommand(ClearPaymentConditionSetCommand_Execute_Default);
+
+		}
+
+		private async void SelectPaymentConditionSetCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<PaymentConditionSet, PaymentConditionSetWrapper>(await _getEntitiesForSelectPaymentConditionSetCommand(), nameof(Item.PaymentConditionSet), Item.PaymentConditionSet?.Id);
+		}
+
+		private void ClearPaymentConditionSetCommand_Execute_Default() 
+		{
+						Item.PaymentConditionSet = null;
+		    
 		}
 
 
@@ -227,6 +303,18 @@ namespace HVTApp.UI.ViewModels
 		{
 						Item.Condition = null;
 		    
+		}
+
+
+
+    }
+
+
+    public partial class PenaltyDetailsViewModel : BaseDetailsViewModel<PenaltyWrapper, Penalty, AfterSavePenaltyEvent>
+    {
+
+        public PenaltyDetailsViewModel(IUnityContainer container) : base(container) 
+		{
 		}
 
 
@@ -1860,9 +1948,17 @@ namespace HVTApp.UI.ViewModels
 		public ICommand SelectSpecificationCommand { get; private set; }
 		public ICommand ClearSpecificationCommand { get; private set; }
 
+		private Func<Task<List<Penalty>>> _getEntitiesForSelectPenaltyCommand;
+		public ICommand SelectPenaltyCommand { get; private set; }
+		public ICommand ClearPenaltyCommand { get; private set; }
+
 		private Func<Task<List<Address>>> _getEntitiesForSelectAddressDeliveryCommand;
 		public ICommand SelectAddressDeliveryCommand { get; private set; }
 		public ICommand ClearAddressDeliveryCommand { get; private set; }
+
+		private Func<Task<List<FakeData>>> _getEntitiesForSelectFakeDataCommand;
+		public ICommand SelectFakeDataCommand { get; private set; }
+		public ICommand ClearFakeDataCommand { get; private set; }
 
 		private Func<Task<List<ProductIncluded>>> _getEntitiesForAddInProductsIncludedCommand;
 		public ICommand AddInProductsIncludedCommand { get; }
@@ -1925,6 +2021,22 @@ namespace HVTApp.UI.ViewModels
 				_selectedPaymentsPlannedItem = value;
 				OnPropertyChanged();
 				((DelegateCommand)RemoveFromPaymentsPlannedCommand).RaiseCanExecuteChanged();
+			}
+		}
+
+		private Func<Task<List<BankGuarantee>>> _getEntitiesForAddInBankGuaranteesCommand;
+		public ICommand AddInBankGuaranteesCommand { get; }
+		public ICommand RemoveFromBankGuaranteesCommand { get; }
+		private BankGuaranteeWrapper _selectedBankGuaranteesItem;
+		public BankGuaranteeWrapper SelectedBankGuaranteesItem 
+		{ 
+			get { return _selectedBankGuaranteesItem; }
+			set 
+			{ 
+				if (Equals(_selectedBankGuaranteesItem, value)) return;
+				_selectedBankGuaranteesItem = value;
+				OnPropertyChanged();
+				((DelegateCommand)RemoveFromBankGuaranteesCommand).RaiseCanExecuteChanged();
 			}
 		}
 
@@ -2015,9 +2127,19 @@ namespace HVTApp.UI.ViewModels
 			if (ClearSpecificationCommand == null) ClearSpecificationCommand = new DelegateCommand(ClearSpecificationCommand_Execute_Default);
 
 			
+			if (_getEntitiesForSelectPenaltyCommand == null) _getEntitiesForSelectPenaltyCommand = async () => { return await UnitOfWork.Repository<Penalty>().GetAllAsync(); };
+			if (SelectPenaltyCommand == null) SelectPenaltyCommand = new DelegateCommand(SelectPenaltyCommand_Execute_Default);
+			if (ClearPenaltyCommand == null) ClearPenaltyCommand = new DelegateCommand(ClearPenaltyCommand_Execute_Default);
+
+			
 			if (_getEntitiesForSelectAddressDeliveryCommand == null) _getEntitiesForSelectAddressDeliveryCommand = async () => { return await UnitOfWork.Repository<Address>().GetAllAsync(); };
 			if (SelectAddressDeliveryCommand == null) SelectAddressDeliveryCommand = new DelegateCommand(SelectAddressDeliveryCommand_Execute_Default);
 			if (ClearAddressDeliveryCommand == null) ClearAddressDeliveryCommand = new DelegateCommand(ClearAddressDeliveryCommand_Execute_Default);
+
+			
+			if (_getEntitiesForSelectFakeDataCommand == null) _getEntitiesForSelectFakeDataCommand = async () => { return await UnitOfWork.Repository<FakeData>().GetAllAsync(); };
+			if (SelectFakeDataCommand == null) SelectFakeDataCommand = new DelegateCommand(SelectFakeDataCommand_Execute_Default);
+			if (ClearFakeDataCommand == null) ClearFakeDataCommand = new DelegateCommand(ClearFakeDataCommand_Execute_Default);
 
 			
 			if (_getEntitiesForAddInProductsIncludedCommand == null) _getEntitiesForAddInProductsIncludedCommand = async () => { return await UnitOfWork.Repository<ProductIncluded>().GetAllAsync(); };;
@@ -2038,6 +2160,11 @@ namespace HVTApp.UI.ViewModels
 			if (_getEntitiesForAddInPaymentsPlannedCommand == null) _getEntitiesForAddInPaymentsPlannedCommand = async () => { return await UnitOfWork.Repository<PaymentPlanned>().GetAllAsync(); };;
 			if (AddInPaymentsPlannedCommand == null) AddInPaymentsPlannedCommand = new DelegateCommand(AddInPaymentsPlannedCommand_Execute_Default);
 			if (RemoveFromPaymentsPlannedCommand == null) RemoveFromPaymentsPlannedCommand = new DelegateCommand(RemoveFromPaymentsPlannedCommand_Execute_Default, RemoveFromPaymentsPlannedCommand_CanExecute_Default);
+
+			
+			if (_getEntitiesForAddInBankGuaranteesCommand == null) _getEntitiesForAddInBankGuaranteesCommand = async () => { return await UnitOfWork.Repository<BankGuarantee>().GetAllAsync(); };;
+			if (AddInBankGuaranteesCommand == null) AddInBankGuaranteesCommand = new DelegateCommand(AddInBankGuaranteesCommand_Execute_Default);
+			if (RemoveFromBankGuaranteesCommand == null) RemoveFromBankGuaranteesCommand = new DelegateCommand(RemoveFromBankGuaranteesCommand_Execute_Default, RemoveFromBankGuaranteesCommand_CanExecute_Default);
 
 			
 			if (_getEntitiesForAddInPaymentsPlannedActualCommand == null) _getEntitiesForAddInPaymentsPlannedActualCommand = async () => { return await UnitOfWork.Repository<PaymentPlanned>().GetAllAsync(); };;
@@ -2133,6 +2260,17 @@ namespace HVTApp.UI.ViewModels
 		    
 		}
 
+		private async void SelectPenaltyCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<Penalty, PenaltyWrapper>(await _getEntitiesForSelectPenaltyCommand(), nameof(Item.Penalty), Item.Penalty?.Id);
+		}
+
+		private void ClearPenaltyCommand_Execute_Default() 
+		{
+						Item.Penalty = null;
+		    
+		}
+
 		private async void SelectAddressDeliveryCommand_Execute_Default() 
 		{
             SelectAndSetWrapper<Address, AddressWrapper>(await _getEntitiesForSelectAddressDeliveryCommand(), nameof(Item.AddressDelivery), Item.AddressDelivery?.Id);
@@ -2141,6 +2279,17 @@ namespace HVTApp.UI.ViewModels
 		private void ClearAddressDeliveryCommand_Execute_Default() 
 		{
 						Item.AddressDelivery = null;
+		    
+		}
+
+		private async void SelectFakeDataCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<FakeData, FakeDataWrapper>(await _getEntitiesForSelectFakeDataCommand(), nameof(Item.FakeData), Item.FakeData?.Id);
+		}
+
+		private void ClearFakeDataCommand_Execute_Default() 
+		{
+						Item.FakeData = null;
 		    
 		}
 
@@ -2202,6 +2351,21 @@ namespace HVTApp.UI.ViewModels
 			private bool RemoveFromPaymentsPlannedCommand_CanExecute_Default()
 			{
 				return SelectedPaymentsPlannedItem != null;
+			}
+
+			private async void AddInBankGuaranteesCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<BankGuarantee, BankGuaranteeWrapper>(await _getEntitiesForAddInBankGuaranteesCommand(), Item.BankGuarantees);
+			}
+
+			private void RemoveFromBankGuaranteesCommand_Execute_Default()
+			{
+				Item.BankGuarantees.Remove(SelectedBankGuaranteesItem);
+			}
+
+			private bool RemoveFromBankGuaranteesCommand_CanExecute_Default()
+			{
+				return SelectedBankGuaranteesItem != null;
 			}
 
 			private async void AddInPaymentsPlannedActualCommand_Execute_Default()

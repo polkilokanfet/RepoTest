@@ -13,13 +13,17 @@ namespace HVTApp.DataAccess
             TestData testData = new TestData();
 
             context.CountryUnionDbSet.AddRange(testData.GetAll<CountryUnion>());
+            context.BankGuaranteeDbSet.AddRange(testData.GetAll<BankGuarantee>());
+            context.BankGuaranteeTypeDbSet.AddRange(testData.GetAll<BankGuaranteeType>());
             context.CreateNewProductTaskDbSet.AddRange(testData.GetAll<CreateNewProductTask>());
             context.DocumentNumberDbSet.AddRange(testData.GetAll<DocumentNumber>());
+            context.FakeDataDbSet.AddRange(testData.GetAll<FakeData>());
             context.LosingReasonDbSet.AddRange(testData.GetAll<LosingReason>());
             context.MarketFieldDbSet.AddRange(testData.GetAll<MarketField>());
             context.PaymentActualDbSet.AddRange(testData.GetAll<PaymentActual>());
             context.PaymentConditionPointDbSet.AddRange(testData.GetAll<PaymentConditionPoint>());
             context.PaymentPlannedDbSet.AddRange(testData.GetAll<PaymentPlanned>());
+            context.PenaltyDbSet.AddRange(testData.GetAll<Penalty>());
             context.ProductIncludedDbSet.AddRange(testData.GetAll<ProductIncluded>());
             context.ProductDesignationDbSet.AddRange(testData.GetAll<ProductDesignation>());
             context.ProductTypeDbSet.AddRange(testData.GetAll<ProductType>());

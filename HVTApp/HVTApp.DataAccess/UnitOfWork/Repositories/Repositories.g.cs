@@ -11,6 +11,20 @@ namespace HVTApp.DataAccess
 		}
     }
 
+    public partial class BankGuaranteeRepository : BaseRepository<BankGuarantee>, IBankGuaranteeRepository
+    {
+		public BankGuaranteeRepository(DbContext context) : base(context) 
+		{
+		}
+    }
+
+    public partial class BankGuaranteeTypeRepository : BaseRepository<BankGuaranteeType>, IBankGuaranteeTypeRepository
+    {
+		public BankGuaranteeTypeRepository(DbContext context) : base(context) 
+		{
+		}
+    }
+
     public partial class CreateNewProductTaskRepository : BaseRepository<CreateNewProductTask>, ICreateNewProductTaskRepository
     {
 		public CreateNewProductTaskRepository(DbContext context) : base(context) 
@@ -21,6 +35,13 @@ namespace HVTApp.DataAccess
     public partial class DocumentNumberRepository : BaseRepository<DocumentNumber>, IDocumentNumberRepository
     {
 		public DocumentNumberRepository(DbContext context) : base(context) 
+		{
+		}
+    }
+
+    public partial class FakeDataRepository : BaseRepository<FakeData>, IFakeDataRepository
+    {
+		public FakeDataRepository(DbContext context) : base(context) 
 		{
 		}
     }
@@ -56,6 +77,13 @@ namespace HVTApp.DataAccess
     public partial class PaymentPlannedRepository : BaseRepository<PaymentPlanned>, IPaymentPlannedRepository
     {
 		public PaymentPlannedRepository(DbContext context) : base(context) 
+		{
+		}
+    }
+
+    public partial class PenaltyRepository : BaseRepository<Penalty>, IPenaltyRepository
+    {
+		public PenaltyRepository(DbContext context) : base(context) 
 		{
 		}
     }

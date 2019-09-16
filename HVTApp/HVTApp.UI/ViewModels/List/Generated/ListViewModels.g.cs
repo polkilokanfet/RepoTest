@@ -30,6 +30,18 @@ namespace HVTApp.UI.ViewModels
     }
 
 
+	public partial class BankGuaranteeLookupListViewModel : BaseListViewModel<BankGuarantee, BankGuaranteeLookup, AfterSaveBankGuaranteeEvent, AfterSelectBankGuaranteeEvent, AfterRemoveBankGuaranteeEvent>
+    {
+        public BankGuaranteeLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+
+	public partial class BankGuaranteeTypeLookupListViewModel : BaseListViewModel<BankGuaranteeType, BankGuaranteeTypeLookup, AfterSaveBankGuaranteeTypeEvent, AfterSelectBankGuaranteeTypeEvent, AfterRemoveBankGuaranteeTypeEvent>
+    {
+        public BankGuaranteeTypeLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+
 	public partial class CreateNewProductTaskLookupListViewModel : BaseListViewModel<CreateNewProductTask, CreateNewProductTaskLookup, AfterSaveCreateNewProductTaskEvent, AfterSelectCreateNewProductTaskEvent, AfterRemoveCreateNewProductTaskEvent>
     {
         public CreateNewProductTaskLookupListViewModel(IUnityContainer container) : base(container) { }
@@ -39,6 +51,12 @@ namespace HVTApp.UI.ViewModels
 	public partial class DocumentNumberLookupListViewModel : BaseListViewModel<DocumentNumber, DocumentNumberLookup, AfterSaveDocumentNumberEvent, AfterSelectDocumentNumberEvent, AfterRemoveDocumentNumberEvent>
     {
         public DocumentNumberLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+
+	public partial class FakeDataLookupListViewModel : BaseListViewModel<FakeData, FakeDataLookup, AfterSaveFakeDataEvent, AfterSelectFakeDataEvent, AfterRemoveFakeDataEvent>
+    {
+        public FakeDataLookupListViewModel(IUnityContainer container) : base(container) { }
     }
 
 
@@ -69,6 +87,12 @@ namespace HVTApp.UI.ViewModels
 	public partial class PaymentPlannedLookupListViewModel : BaseListViewModel<PaymentPlanned, PaymentPlannedLookup, AfterSavePaymentPlannedEvent, AfterSelectPaymentPlannedEvent, AfterRemovePaymentPlannedEvent>
     {
         public PaymentPlannedLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+
+	public partial class PenaltyLookupListViewModel : BaseListViewModel<Penalty, PenaltyLookup, AfterSavePenaltyEvent, AfterSelectPenaltyEvent, AfterRemovePenaltyEvent>
+    {
+        public PenaltyLookupListViewModel(IUnityContainer container) : base(container) { }
     }
 
 

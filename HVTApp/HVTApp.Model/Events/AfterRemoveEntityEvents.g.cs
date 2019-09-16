@@ -4,13 +4,17 @@ using Prism.Events;
 namespace HVTApp.Model.Events
 {
 	public partial class AfterRemoveCountryUnionEvent : PubSubEvent<CountryUnion> { }
+	public partial class AfterRemoveBankGuaranteeEvent : PubSubEvent<BankGuarantee> { }
+	public partial class AfterRemoveBankGuaranteeTypeEvent : PubSubEvent<BankGuaranteeType> { }
 	public partial class AfterRemoveCreateNewProductTaskEvent : PubSubEvent<CreateNewProductTask> { }
 	public partial class AfterRemoveDocumentNumberEvent : PubSubEvent<DocumentNumber> { }
+	public partial class AfterRemoveFakeDataEvent : PubSubEvent<FakeData> { }
 	public partial class AfterRemoveLosingReasonEvent : PubSubEvent<LosingReason> { }
 	public partial class AfterRemoveMarketFieldEvent : PubSubEvent<MarketField> { }
 	public partial class AfterRemovePaymentActualEvent : PubSubEvent<PaymentActual> { }
 	public partial class AfterRemovePaymentConditionPointEvent : PubSubEvent<PaymentConditionPoint> { }
 	public partial class AfterRemovePaymentPlannedEvent : PubSubEvent<PaymentPlanned> { }
+	public partial class AfterRemovePenaltyEvent : PubSubEvent<Penalty> { }
 	public partial class AfterRemoveProductIncludedEvent : PubSubEvent<ProductIncluded> { }
 	public partial class AfterRemoveProductDesignationEvent : PubSubEvent<ProductDesignation> { }
 	public partial class AfterRemoveProductTypeEvent : PubSubEvent<ProductType> { }

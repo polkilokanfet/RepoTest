@@ -12,7 +12,7 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
         private readonly IEnumerable<Offer> _offers;
         private readonly IEnumerable<Project> _projects;
         private double? _price;
-        private DateTime? _date = DateTime.Today;
+        private DateTime _date = DateTime.Today;
 
         public int SpecificationsCount => _specifications.Count();
         public int OffersCount => _offers.Count();
@@ -33,7 +33,7 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
             }
         }
 
-        public DateTime? Date
+        public DateTime Date
         {
             get { return _date; }
             set
@@ -55,21 +55,23 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
         /// </summary>
         public void AddPrice()
         {
-            if(Price == null || Date == null) return;
-
+            if(Price == null) return;
+            
             var sumOnDate = new SumOnDateWrapper(new SumOnDate())
             {
                 Sum = Price.Value,
-                Date = Date.Value
+                Date = this.Date
             };
 
-            Prices.Add(sumOnDate);
+            this.Prices.Add(sumOnDate);
         }
 
         /// <summary>
         /// Есть повод для обновления прайса
         /// </summary>
         public bool HasReasons => _specifications.Any() || _offers.Any() || _projects.Any();
+
+        public new bool IsChanged => Price != null || base.IsChanged;
 
         public override int CompareTo(object obj)
         {

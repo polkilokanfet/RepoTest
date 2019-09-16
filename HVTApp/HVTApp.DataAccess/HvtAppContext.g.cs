@@ -10,13 +10,17 @@ namespace HVTApp.DataAccess
         {
 			#region Configurations
             modelBuilder.Configurations.Add(new CountryUnionConfiguration());
+            modelBuilder.Configurations.Add(new BankGuaranteeConfiguration());
+            modelBuilder.Configurations.Add(new BankGuaranteeTypeConfiguration());
             modelBuilder.Configurations.Add(new CreateNewProductTaskConfiguration());
             modelBuilder.Configurations.Add(new DocumentNumberConfiguration());
+            modelBuilder.Configurations.Add(new FakeDataConfiguration());
             modelBuilder.Configurations.Add(new LosingReasonConfiguration());
             modelBuilder.Configurations.Add(new MarketFieldConfiguration());
             modelBuilder.Configurations.Add(new PaymentActualConfiguration());
             modelBuilder.Configurations.Add(new PaymentConditionPointConfiguration());
             modelBuilder.Configurations.Add(new PaymentPlannedConfiguration());
+            modelBuilder.Configurations.Add(new PenaltyConfiguration());
             modelBuilder.Configurations.Add(new ProductIncludedConfiguration());
             modelBuilder.Configurations.Add(new ProductDesignationConfiguration());
             modelBuilder.Configurations.Add(new ProductTypeConfiguration());
@@ -73,13 +77,17 @@ namespace HVTApp.DataAccess
 
 		#region DbSets
         public virtual DbSet<CountryUnion> CountryUnionDbSet { get; set; }
+        public virtual DbSet<BankGuarantee> BankGuaranteeDbSet { get; set; }
+        public virtual DbSet<BankGuaranteeType> BankGuaranteeTypeDbSet { get; set; }
         public virtual DbSet<CreateNewProductTask> CreateNewProductTaskDbSet { get; set; }
         public virtual DbSet<DocumentNumber> DocumentNumberDbSet { get; set; }
+        public virtual DbSet<FakeData> FakeDataDbSet { get; set; }
         public virtual DbSet<LosingReason> LosingReasonDbSet { get; set; }
         public virtual DbSet<MarketField> MarketFieldDbSet { get; set; }
         public virtual DbSet<PaymentActual> PaymentActualDbSet { get; set; }
         public virtual DbSet<PaymentConditionPoint> PaymentConditionPointDbSet { get; set; }
         public virtual DbSet<PaymentPlanned> PaymentPlannedDbSet { get; set; }
+        public virtual DbSet<Penalty> PenaltyDbSet { get; set; }
         public virtual DbSet<ProductIncluded> ProductIncludedDbSet { get; set; }
         public virtual DbSet<ProductDesignation> ProductDesignationDbSet { get; set; }
         public virtual DbSet<ProductType> ProductTypeDbSet { get; set; }

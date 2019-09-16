@@ -18,6 +18,18 @@ namespace HVTApp.UI
             _updateDetailsService.Register<CountryUnion, CountryUnionDetailsView>();
 
 
+            Container.RegisterViewForNavigation<BankGuaranteeLookupListView>();
+            //_dialogService.Register<BankGuaranteeDetailsViewModel, BankGuaranteeDetailsView>();
+			_selectService.Register<BankGuaranteeLookupListView, BankGuarantee>();
+            _updateDetailsService.Register<BankGuarantee, BankGuaranteeDetailsView>();
+
+
+            Container.RegisterViewForNavigation<BankGuaranteeTypeLookupListView>();
+            //_dialogService.Register<BankGuaranteeTypeDetailsViewModel, BankGuaranteeTypeDetailsView>();
+			_selectService.Register<BankGuaranteeTypeLookupListView, BankGuaranteeType>();
+            _updateDetailsService.Register<BankGuaranteeType, BankGuaranteeTypeDetailsView>();
+
+
             Container.RegisterViewForNavigation<CreateNewProductTaskLookupListView>();
             //_dialogService.Register<CreateNewProductTaskDetailsViewModel, CreateNewProductTaskDetailsView>();
 			_selectService.Register<CreateNewProductTaskLookupListView, CreateNewProductTask>();
@@ -28,6 +40,12 @@ namespace HVTApp.UI
             //_dialogService.Register<DocumentNumberDetailsViewModel, DocumentNumberDetailsView>();
 			_selectService.Register<DocumentNumberLookupListView, DocumentNumber>();
             _updateDetailsService.Register<DocumentNumber, DocumentNumberDetailsView>();
+
+
+            Container.RegisterViewForNavigation<FakeDataLookupListView>();
+            //_dialogService.Register<FakeDataDetailsViewModel, FakeDataDetailsView>();
+			_selectService.Register<FakeDataLookupListView, FakeData>();
+            _updateDetailsService.Register<FakeData, FakeDataDetailsView>();
 
 
             Container.RegisterViewForNavigation<LosingReasonLookupListView>();
@@ -58,6 +76,12 @@ namespace HVTApp.UI
             //_dialogService.Register<PaymentPlannedDetailsViewModel, PaymentPlannedDetailsView>();
 			_selectService.Register<PaymentPlannedLookupListView, PaymentPlanned>();
             _updateDetailsService.Register<PaymentPlanned, PaymentPlannedDetailsView>();
+
+
+            Container.RegisterViewForNavigation<PenaltyLookupListView>();
+            //_dialogService.Register<PenaltyDetailsViewModel, PenaltyDetailsView>();
+			_selectService.Register<PenaltyLookupListView, Penalty>();
+            _updateDetailsService.Register<Penalty, PenaltyDetailsView>();
 
 
             Container.RegisterViewForNavigation<ProductIncludedLookupListView>();

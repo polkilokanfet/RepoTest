@@ -103,6 +103,9 @@ namespace HVTApp.Model.POCOs
         [Designation("Планируемые платежи")]
         public virtual List<PaymentPlanned> PaymentsPlanned { get; set; } = new List<PaymentPlanned>();
 
+        [Designation("Штрафные санкции")]
+        public virtual Penalty Penalty { get; set; }
+
         #endregion
 
         #region Отгрузочная информация
@@ -133,6 +136,15 @@ namespace HVTApp.Model.POCOs
         public virtual DateTime? DeliveryDate { get; set; }
 
         #endregion
+
+        [Designation("Корректировочные данные")]
+        public virtual FakeData FakeData { get; set; }
+
+        [Designation("Банковские гарантии")]
+        public virtual List<BankGuarantee> BankGuarantees { get; set; } = new List<BankGuarantee>();
+
+
+
 
         [NotMapped, Designation("Разрешение на редактирование стоимости")]
         public bool AllowEditCost => Specification == null;

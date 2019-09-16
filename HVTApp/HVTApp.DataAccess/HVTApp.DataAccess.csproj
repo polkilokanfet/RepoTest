@@ -72,6 +72,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EntityTypeConfigurations\Custom\BankGuaranteeConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\CountryUnionConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\GlobalPropertiesConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\CostOnDateConfiguration.cs" />

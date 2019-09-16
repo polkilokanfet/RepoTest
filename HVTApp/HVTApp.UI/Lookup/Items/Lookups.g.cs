@@ -48,6 +48,59 @@ namespace HVTApp.UI.Lookup
 
 	[AllowEditAttribute(Role.Admin)]
 
+	[Designation("Банковская гарантия")]
+	public partial class BankGuaranteeLookup : LookupItem<BankGuarantee>
+	{
+		public BankGuaranteeLookup(BankGuarantee entity) : base(entity) 
+		{
+		}
+		
+
+        #region SimpleProperties
+
+		[OrderStatus(1)]
+        public System.Double Percent => Entity.Percent;
+
+
+		[OrderStatus(1)]
+        public System.Int32 Days => Entity.Days;
+
+
+        #endregion
+
+
+        #region ComplexProperties
+
+		[OrderStatus(1)]
+	    public BankGuaranteeTypeLookup BankGuaranteeType { get { return GetLookup<BankGuaranteeTypeLookup>(); } }
+
+
+        #endregion
+
+	}
+
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Банковская гарантия (тип)")]
+	public partial class BankGuaranteeTypeLookup : LookupItem<BankGuaranteeType>
+	{
+		public BankGuaranteeTypeLookup(BankGuaranteeType entity) : base(entity) 
+		{
+		}
+		
+
+        #region SimpleProperties
+
+		[OrderStatus(1)]
+        public System.String Name => Entity.Name;
+
+
+        #endregion
+
+	}
+
+	[AllowEditAttribute(Role.Admin)]
+
 	[Designation("Задание на создание нового продукта")]
 	public partial class CreateNewProductTaskLookup : LookupItem<CreateNewProductTask>
 	{
@@ -97,6 +150,43 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
         public System.Int32 Number => Entity.Number;
+
+
+        #endregion
+
+	}
+
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Корректировочные данные")]
+	public partial class FakeDataLookup : LookupItem<FakeData>
+	{
+		public FakeDataLookup(FakeData entity) : base(entity) 
+		{
+		}
+		
+
+        #region SimpleProperties
+
+		[OrderStatus(1)]
+        public System.Nullable<System.Double> Cost => Entity.Cost;
+
+
+		[OrderStatus(1)]
+        public System.Nullable<System.DateTime> RealizationDate => Entity.RealizationDate;
+
+
+		[OrderStatus(1)]
+        public System.Nullable<System.DateTime> OrderInTakeDate => Entity.OrderInTakeDate;
+
+
+        #endregion
+
+
+        #region ComplexProperties
+
+		[OrderStatus(1)]
+	    public PaymentConditionSetLookup PaymentConditionSet { get { return GetLookup<PaymentConditionSetLookup>(); } }
 
 
         #endregion
@@ -233,6 +323,34 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(-5)]
 	    public PaymentConditionLookup Condition { get { return GetLookup<PaymentConditionLookup>(); } }
+
+
+        #endregion
+
+	}
+
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Штрафные санкции")]
+	public partial class PenaltyLookup : LookupItem<Penalty>
+	{
+		public PenaltyLookup(Penalty entity) : base(entity) 
+		{
+		}
+		
+
+        #region SimpleProperties
+
+		[OrderStatus(1)]
+        public System.Double PercentPerDay => Entity.PercentPerDay;
+
+
+		[OrderStatus(1)]
+        public System.Double PercentLimit => Entity.PercentLimit;
+
+
+		[OrderStatus(1)]
+        public System.Double PenaltyPaid => Entity.PenaltyPaid;
 
 
         #endregion
@@ -1582,7 +1700,15 @@ namespace HVTApp.UI.Lookup
 
 
 		[OrderStatus(1)]
+	    public PenaltyLookup Penalty { get { return GetLookup<PenaltyLookup>(); } }
+
+
+		[OrderStatus(1)]
 	    public AddressLookup AddressDelivery { get { return GetLookup<AddressLookup>(); } }
+
+
+		[OrderStatus(1)]
+	    public FakeDataLookup FakeData { get { return GetLookup<FakeDataLookup>(); } }
 
 
         #endregion
@@ -1598,6 +1724,9 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
 	    public List<PaymentPlannedLookup> PaymentsPlanned { get { return GetLookupEnum<PaymentPlannedLookup>().ToList(); } }
+
+		[OrderStatus(1)]
+	    public List<BankGuaranteeLookup> BankGuarantees { get { return GetLookupEnum<BankGuaranteeLookup>().ToList(); } }
 
 		[OrderStatus(1)]
 	    public List<PaymentPlannedLookup> PaymentsPlannedActual { get { return GetLookupEnum<PaymentPlannedLookup>().ToList(); } }

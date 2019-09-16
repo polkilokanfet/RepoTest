@@ -10,6 +10,16 @@ namespace HVTApp.DataAccess
         public CountryUnionRepositoryTest(TestData testData) : base(testData) {}
     }
 
+    public partial class BankGuaranteeRepositoryTest : TestBaseRepository<BankGuarantee>, IBankGuaranteeRepository
+    {
+        public BankGuaranteeRepositoryTest(TestData testData) : base(testData) {}
+    }
+
+    public partial class BankGuaranteeTypeRepositoryTest : TestBaseRepository<BankGuaranteeType>, IBankGuaranteeTypeRepository
+    {
+        public BankGuaranteeTypeRepositoryTest(TestData testData) : base(testData) {}
+    }
+
     public partial class CreateNewProductTaskRepositoryTest : TestBaseRepository<CreateNewProductTask>, ICreateNewProductTaskRepository
     {
         public CreateNewProductTaskRepositoryTest(TestData testData) : base(testData) {}
@@ -18,6 +28,11 @@ namespace HVTApp.DataAccess
     public partial class DocumentNumberRepositoryTest : TestBaseRepository<DocumentNumber>, IDocumentNumberRepository
     {
         public DocumentNumberRepositoryTest(TestData testData) : base(testData) {}
+    }
+
+    public partial class FakeDataRepositoryTest : TestBaseRepository<FakeData>, IFakeDataRepository
+    {
+        public FakeDataRepositoryTest(TestData testData) : base(testData) {}
     }
 
     public partial class LosingReasonRepositoryTest : TestBaseRepository<LosingReason>, ILosingReasonRepository
@@ -43,6 +58,11 @@ namespace HVTApp.DataAccess
     public partial class PaymentPlannedRepositoryTest : TestBaseRepository<PaymentPlanned>, IPaymentPlannedRepository
     {
         public PaymentPlannedRepositoryTest(TestData testData) : base(testData) {}
+    }
+
+    public partial class PenaltyRepositoryTest : TestBaseRepository<Penalty>, IPenaltyRepository
+    {
+        public PenaltyRepositoryTest(TestData testData) : base(testData) {}
     }
 
     public partial class ProductIncludedRepositoryTest : TestBaseRepository<ProductIncluded>, IProductIncludedRepository

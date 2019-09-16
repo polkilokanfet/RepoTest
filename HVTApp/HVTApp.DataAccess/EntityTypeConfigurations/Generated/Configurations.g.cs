@@ -4,13 +4,17 @@ using HVTApp.Model.POCOs;
 namespace HVTApp.DataAccess
 {
     public partial class CountryUnionConfiguration : EntityTypeConfiguration<CountryUnion> { }
+    public partial class BankGuaranteeConfiguration : EntityTypeConfiguration<BankGuarantee> { }
+    public partial class BankGuaranteeTypeConfiguration : EntityTypeConfiguration<BankGuaranteeType> { }
     public partial class CreateNewProductTaskConfiguration : EntityTypeConfiguration<CreateNewProductTask> { }
     public partial class DocumentNumberConfiguration : EntityTypeConfiguration<DocumentNumber> { }
+    public partial class FakeDataConfiguration : EntityTypeConfiguration<FakeData> { }
     public partial class LosingReasonConfiguration : EntityTypeConfiguration<LosingReason> { }
     public partial class MarketFieldConfiguration : EntityTypeConfiguration<MarketField> { }
     public partial class PaymentActualConfiguration : EntityTypeConfiguration<PaymentActual> { }
     public partial class PaymentConditionPointConfiguration : EntityTypeConfiguration<PaymentConditionPoint> { }
     public partial class PaymentPlannedConfiguration : EntityTypeConfiguration<PaymentPlanned> { }
+    public partial class PenaltyConfiguration : EntityTypeConfiguration<Penalty> { }
     public partial class ProductIncludedConfiguration : EntityTypeConfiguration<ProductIncluded> { }
     public partial class ProductDesignationConfiguration : EntityTypeConfiguration<ProductDesignation> { }
     public partial class ProductTypeConfiguration : EntityTypeConfiguration<ProductType> { }
