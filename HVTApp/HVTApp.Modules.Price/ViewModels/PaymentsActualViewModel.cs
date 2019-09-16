@@ -68,6 +68,7 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
             }
         }
 
+        public ICommand CreatePaymentDocumentCommand { get; }
         public ICommand SaveCommand { get; }
         public ICommand AddPaymentCommand { get; }
         public ICommand ReloadCommand { get; }
@@ -75,10 +76,15 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
         public PaymentsActualViewModel(IUnityContainer container) : base(container)
         {
             PaymentDocumentDetailsViewModel = new PaymentDocumentDetailsViewModel(container);
-
+            
             ReloadCommand = new DelegateCommand(async () => await LoadAsync());
             SaveCommand = new DelegateCommand(SaveCommand_Execute, SaveCommand_CanExecute);
             AddPaymentCommand = new DelegateCommand(AddPaymentCommand_Execute, AddPaymentCommand_CanExecute);
+
+            CreatePaymentDocumentCommand = new DelegateCommand(() =>
+            {
+                PaymentDocumentDetailsViewModel.Load(new PaymentDocumentWrapper(new PaymentDocument()), UnitOfWork);
+            });
 
             this.SelectedLookupChanged += Refresh;
         }

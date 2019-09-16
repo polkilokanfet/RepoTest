@@ -12,7 +12,7 @@
     </infRib:RibbonGroup>
     
     <infRib:RibbonGroup Caption="Документы">
-        <infRib:ButtonTool Caption="Создать" Command="{Binding NewItemCommand}" SmallImage="/HVTApp.Modules.PlanAndEconomy;component/Images/Add_16x16.png"/>
+        <infRib:ButtonTool Caption="Создать" Command="{Binding CreatePaymentDocumentCommand}" SmallImage="/HVTApp.Modules.PlanAndEconomy;component/Images/Add_16x16.png"/>
         <infRib:ButtonTool Caption="Изменить" Command="{Binding EditItemCommand}" SmallImage="/HVTApp.Modules.PlanAndEconomy;component/Images/Edit_16x16.png"/>
     </infRib:RibbonGroup>
         
