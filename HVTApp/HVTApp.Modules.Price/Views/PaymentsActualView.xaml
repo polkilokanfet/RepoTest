@@ -38,8 +38,10 @@
             <!-- Список платежек -->
             <GroupBox Grid.Column="0" Header="Платежные документы">
                 <views:PaymentDocumentLookupListView DataContext="{Binding}" 
+                                                     Width="200"
                                                      x:Name="DocumentListView"
-                                                     VatVisibility="Collapsed"/>
+                                                     VatVisibility="Collapsed"
+                                                     PaymentsVisibility="Collapsed"/>
             </GroupBox>
             
             <GridSplitter Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Center"  Width="3"/>
@@ -129,8 +131,8 @@
                                         <infg:TextField Name="Facility" Label="Объект" Width="Auto"/>
                                         <infg:TextField AlternateBinding="{Binding Product.ProductType}" BindingType="UseAlternateBinding" Label="Тип" Width="Auto"/>
                                         <infg:TextField AlternateBinding="{Binding Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="Auto"/>
-                                            <infg:TextField AlternateBinding="{Binding SalesUnit.Order}" BindingType="UseAlternateBinding" Label="З/з" Width="Auto"/>
-                                            <infg:TextField AlternateBinding="{Binding SalesUnit.OrderPosition}" BindingType="UseAlternateBinding" Label="Поз." Width="Auto"/>
+                                        <infg:TextField AlternateBinding="{Binding SalesUnit.Order}" BindingType="UseAlternateBinding" Label="З/з" Width="Auto"/>
+                                        <infg:TextField AlternateBinding="{Binding SalesUnit.OrderPosition}" BindingType="UseAlternateBinding" Label="Поз." Width="Auto"/>
                                         <infg:TextField AlternateBinding="{Binding Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto"/>
                                         <infg:TextField AlternateBinding="{Binding Specification.Number}" BindingType="UseAlternateBinding" Label="Сп.№" Width="Auto"/>
                                         <infg:TextField AlternateBinding="{Binding Specification.Contract.Number}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>

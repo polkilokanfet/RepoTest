@@ -27,7 +27,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             EditProjectCommand = new DelegateCommand(EditProjectCommand_Execute, () => Projects.SelectedItem != null);
             RemoveProjectCommand = new DelegateCommand(async () => await Projects.RemoveSelectedItemTask(), () => Projects.SelectedItem != null);
 
-            NewSpecificationCommand = new DelegateCommand(NewSpecificationCommand_Execute);
+            NewSpecificationCommand = new DelegateCommand(NewSpecificationCommand_Execute, () => Projects.SelectedItem != null);
 
             EditOfferCommand = new DelegateCommand(EditOfferCommand_Execute, () => Offers.SelectedItem != null);
             RemoveOfferCommand = new DelegateCommand(async () => await Offers.RemoveSelectedItemTask(), () => Offers.SelectedItem != null);
@@ -58,6 +58,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         {
             ((DelegateCommand)RemoveProjectCommand).RaiseCanExecuteChanged();
             ((DelegateCommand)EditProjectCommand).RaiseCanExecuteChanged();
+            ((DelegateCommand)NewSpecificationCommand).RaiseCanExecuteChanged();
             OfferRaiseCanExecuteChanged();
             TenderRaiseCanExecuteChanged();
         }

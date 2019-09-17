@@ -79,7 +79,28 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
             
             ReloadCommand = new DelegateCommand(async () => await LoadAsync());
             SaveCommand = new DelegateCommand(SaveCommand_Execute, SaveCommand_CanExecute);
-            AddPaymentCommand = new DelegateCommand(AddPaymentCommand_Execute, AddPaymentCommand_CanExecute);
+            AddPaymentCommand = new DelegateCommand(
+                async () =>
+                {
+                    var sum = DockSum;
+                    var date = DockDate;
+
+                    var payment = new Payment(SelectedUnit);
+                    var doc = await _unitOfWork.Repository<PaymentDocument>().GetByIdAsync(SelectedItem.Id);
+                    doc.Payments.Add(payment.PaymentActual.Model);
+                    SelectedItem.Payments.Add(payment.PaymentActual.Model);
+                    Payments.Add(payment);
+                    Potential.Remove(SelectedUnit);
+                    SelectedUnit = null;
+
+                    DockSum = sum;
+                    DockDate = date;
+                },
+
+                () =>
+                {
+                    return SelectedItem != null && SelectedUnit != null;
+                });
 
             CreatePaymentDocumentCommand = new DelegateCommand(() =>
             {
@@ -87,28 +108,6 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
             });
 
             this.SelectedLookupChanged += Refresh;
-        }
-
-        private async void AddPaymentCommand_Execute()
-        {
-            var sum = DockSum;
-            var date = DockDate;
-
-            var payment = new Payment(SelectedUnit);
-            var doc = await _unitOfWork.Repository<PaymentDocument>().GetByIdAsync(SelectedItem.Id);
-            doc.Payments.Add(payment.PaymentActual.Model);
-            SelectedItem.Payments.Add(payment.PaymentActual.Model);
-            Payments.Add(payment);
-            Potential.Remove(SelectedUnit);
-            SelectedUnit = null;
-
-            DockSum = sum;
-            DockDate = date;
-        }
-
-        private bool AddPaymentCommand_CanExecute()
-        {
-            return SelectedItem != null && SelectedUnit != null;
         }
 
         private async void SaveCommand_Execute()
@@ -134,7 +133,7 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
 
         private bool SaveCommand_CanExecute()
         {
-            return PaymentDocumentDetailsViewModel.Item!= null &&
+            return PaymentDocumentDetailsViewModel.Item != null &&
                    PaymentDocumentDetailsViewModel.Item.IsValid &&
                    _salesUnitWrappers != null && 
                    (_salesUnitWrappers.IsChanged || PaymentDocumentDetailsViewModel.Item.IsChanged) && 
@@ -189,7 +188,8 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
                 Payments.Add(new Payment(salesUnitWrapper, paymentActualWrapper));
             }
 
-            //формируем список потенциального оборудования (исключая то, что в выбранном платеже)
+            //формируем список потенциального оборудования 
+            //(исключая то, что в выбранном платеже)
             var units = _salesUnitWrappers.Where(x => !x.IsPaid && !Payments.Select(p => p.SalesUnit).Contains(x)).OrderBy(x => x.OrderInTakeDate);
             Potential.AddRange(units);
 
