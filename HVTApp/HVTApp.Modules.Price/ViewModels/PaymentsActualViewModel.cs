@@ -1,200 +1,37 @@
-using System;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using HVTApp.Infrastructure;
-using HVTApp.Model.Events;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Lookup;
+using HVTApp.Modules.PlanAndEconomy.Views;
 using HVTApp.UI.ViewModels;
 using HVTApp.UI.Wrapper;
-using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
-using Prism.Events;
 using Prism.Mvvm;
+using Prism.Regions;
 
 namespace HVTApp.Modules.PlanAndEconomy.ViewModels
 {
     public class PaymentsActualViewModel : PaymentDocumentLookupListViewModel
     {
-        private IValidatableChangeTrackingCollection<SalesUnitWrapper> _salesUnitWrappers;
-        private IUnitOfWork _unitOfWork;
-        private SalesUnitWrapper _selectedUnit;
-
-        public PaymentDocumentDetailsViewModel PaymentDocumentDetailsViewModel { get; }
-
-        public ObservableCollection<Payment> Payments { get; } = new ObservableCollection<Payment>();
-        public ObservableCollection<SalesUnitWrapper> Potential { get; } = new ObservableCollection<SalesUnitWrapper>();
-
-        public SalesUnitWrapper SelectedUnit
-        {
-            get { return _selectedUnit; }
-            set
-            {
-                if (Equals(_selectedUnit, value)) return;
-                _selectedUnit = value;
-                ((DelegateCommand)AddPaymentCommand).RaiseCanExecuteChanged();
-                OnPropertyChanged();
-            }
-        }
-
-        public DateTime DockDate
-        {
-            get { return Payments.Any() ? Payments.First().PaymentActual.Date : DateTime.Today; }
-            set
-            {
-                Payments.ForEach(x => x.PaymentActual.Date = value);
-                OnPropertyChanged();
-            }
-        }
-
-        public double DockSum
-        {
-            get { return Payments.Any() ? Payments.Sum(x => x.PaymentActual.Sum) : 0; }
-            set
-            {
-                if (value < 0) return;
-                if (!Payments.Any()) return;
-
-                //неоплаченное без учета текущего платежа
-                var notPaid = Payments.Sum(x => x.SalesUnit.SumNotPaid) + Payments.Sum(x => x.PaymentActual.Sum);
-
-                if (value > notPaid) return;
-
-                Payments.ForEach(x => x.PaymentActual.Sum = value * ((x.SalesUnit.SumNotPaid + x.PaymentActual.Sum) / notPaid));
-            }
-        }
-
         public ICommand CreatePaymentDocumentCommand { get; }
-        public ICommand SaveCommand { get; }
-        public ICommand AddPaymentCommand { get; }
-        public ICommand ReloadCommand { get; }
+        public ICommand EditPaymentDocumentCommand { get; }
 
         public PaymentsActualViewModel(IUnityContainer container) : base(container)
         {
-            PaymentDocumentDetailsViewModel = new PaymentDocumentDetailsViewModel(container);
-            
-            ReloadCommand = new DelegateCommand(async () => await LoadAsync());
-            SaveCommand = new DelegateCommand(SaveCommand_Execute, SaveCommand_CanExecute);
-            AddPaymentCommand = new DelegateCommand(
-                async () =>
-                {
-                    var sum = DockSum;
-                    var date = DockDate;
-
-                    var payment = new Payment(SelectedUnit);
-                    var doc = await _unitOfWork.Repository<PaymentDocument>().GetByIdAsync(SelectedItem.Id);
-                    doc.Payments.Add(payment.PaymentActual.Model);
-                    SelectedItem.Payments.Add(payment.PaymentActual.Model);
-                    Payments.Add(payment);
-                    Potential.Remove(SelectedUnit);
-                    SelectedUnit = null;
-
-                    DockSum = sum;
-                    DockDate = date;
-                },
-
-                () =>
-                {
-                    return SelectedItem != null && SelectedUnit != null;
-                });
+            var regionManager = container.Resolve<IRegionManager>();
 
             CreatePaymentDocumentCommand = new DelegateCommand(() =>
             {
-                PaymentDocumentDetailsViewModel.Load(new PaymentDocumentWrapper(new PaymentDocument()), UnitOfWork);
+                regionManager.RequestNavigateContentRegion<PaymentDocumentView>(new NavigationParameters { {"new", new PaymentDocument()} });
             });
 
-            this.SelectedLookupChanged += Refresh;
-        }
-
-        private async void SaveCommand_Execute()
-        {
-            var flag = PaymentDocumentDetailsViewModel.Item.IsChanged;
-            var savedPaymentsActual = _salesUnitWrappers.ModifiedItems.SelectMany(x => x.PaymentsActual);
-
-            PaymentDocumentDetailsViewModel.Item.AcceptChanges();
-            _salesUnitWrappers.AcceptChanges();
-
-            await _unitOfWork.SaveChangesAsync();
-
-            //публикация событий
-            if (flag)
+            EditPaymentDocumentCommand = new DelegateCommand(() =>
             {
-                Container.Resolve<IEventAggregator>().GetEvent<AfterSavePaymentDocumentEvent>().Publish(PaymentDocumentDetailsViewModel.Entity);
-            }
-            foreach (var savedSalesUnit in savedPaymentsActual)
-            {
-                Container.Resolve<IEventAggregator>().GetEvent<AfterSavePaymentActualEvent>().Publish(savedSalesUnit.Model);
-            }
-        }
+                regionManager.RequestNavigateContentRegion<PaymentDocumentView>(new NavigationParameters { { "edit", SelectedItem } });
+            }, () => SelectedItem != null);
 
-        private bool SaveCommand_CanExecute()
-        {
-            return PaymentDocumentDetailsViewModel.Item != null &&
-                   PaymentDocumentDetailsViewModel.Item.IsValid &&
-                   _salesUnitWrappers != null && 
-                   (_salesUnitWrappers.IsChanged || PaymentDocumentDetailsViewModel.Item.IsChanged) && 
-                   _salesUnitWrappers.IsValid &&
-                   _unitOfWork != null;
-        }
-
-        public override async Task LoadAsync()
-        {
-            await base.LoadAsync();
-
-            Payments.Clear();
-            Potential.Clear();
-
-            //загружаем необходимые данные
-            _unitOfWork = Container.Resolve<IUnitOfWork>();
-            _salesUnitWrappers = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(
-                (await _unitOfWork.Repository<SalesUnit>().GetAllAsync()).Select(x => new SalesUnitWrapper(x)));
-
-            //отслеживаем их изменения
-            _salesUnitWrappers.PropertyChanged += SalesUnitWrappersOnPropertyChanged;
-        }
-
-        private void SalesUnitWrappersOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
-        {
-            ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
-            OnPropertyChanged(nameof(DockSum));
-            OnPropertyChanged(nameof(DockDate));
-        }
-
-        private void Refresh(PaymentDocumentLookup paymentDocumentLookup)
-        {
-            //отмена изменений в предыдущем выборе
-            _salesUnitWrappers.ModifiedItems.ForEach(x => x.RejectChanges());
-
-            //загрузка деталей платежного документа
-            PaymentDocumentDetailsViewModel.Load(new PaymentDocumentWrapper(paymentDocumentLookup.Entity), _unitOfWork);
-            PaymentDocumentDetailsViewModel.Item.PropertyChanged += SalesUnitWrappersOnPropertyChanged;
-
-            //очищаем платежи
-            Payments.Clear();
-            Potential.Clear();
-
-            //если ничего не выбрано - выходим
-            if (SelectedItem == null) return;
-
-            //заполняем платежи
-            foreach (var paymentActual in SelectedItem.Payments)
-            {
-                var paymentActualWrapper = _salesUnitWrappers.SelectMany(x => x.PaymentsActual).Single(x => x.Id == paymentActual.Id);
-                var salesUnitWrapper = _salesUnitWrappers.Single(x => x.PaymentsActual.Contains(paymentActualWrapper));
-                Payments.Add(new Payment(salesUnitWrapper, paymentActualWrapper));
-            }
-
-            //формируем список потенциального оборудования 
-            //(исключая то, что в выбранном платеже)
-            var units = _salesUnitWrappers.Where(x => !x.IsPaid && !Payments.Select(p => p.SalesUnit).Contains(x)).OrderBy(x => x.OrderInTakeDate);
-            Potential.AddRange(units);
-
-            OnPropertyChanged(nameof(DockSum));
-            OnPropertyChanged(nameof(DockDate));
+            this.SelectedLookupChanged += lookup => ((DelegateCommand)EditPaymentDocumentCommand).RaiseCanExecuteChanged();
         }
     }
 

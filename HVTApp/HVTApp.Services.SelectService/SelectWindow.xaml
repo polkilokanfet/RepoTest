@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         SizeToContent="WidthAndHeight"
         Title="Select Window"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen" 
+        WindowState="Maximized">
     
     <Grid>
         <Grid.RowDefinitions>
@@ -14,7 +15,7 @@
         <ContentControl Name="ContentControl"/>
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Name="CreateNewButton" Content="Создать" Padding="20,5" Margin="4,4,2,4"/>
-            <Button Name="SelectButton" Content="Выбрать" Padding="20,5" Margin="2,4,4,4"/>
+            <Button Name="SelectButton" Content="Выбрать" Padding="20,5" Margin="2,4,4,4" IsDefault="True"/>
         </StackPanel>
         
     </Grid>

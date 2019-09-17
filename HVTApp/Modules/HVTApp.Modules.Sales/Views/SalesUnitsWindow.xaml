@@ -54,7 +54,11 @@
                                     VisibilitySumToShippingSalesUnit="Collapsed"
                                     VisibilitySumToStartProductionSalesUnit="Collapsed"
                                     VisibilityTceRequestSalesUnit="Collapsed"
-                                    VisibilityPriceSalesUnit="Collapsed" />
+                                    VisibilityPriceSalesUnit="Collapsed"
+                                    VisibilityPenaltySalesUnit="Collapsed"
+                                    VisibilityBankGuaranteesSalesUnit="Collapsed"
+                                    VisibilityFakeDataSalesUnit="Collapsed"
+                                    VisibilityLosingReasonsSalesUnit="Collapsed"/>
         
         <Grid>
             <Grid.ColumnDefinitions>

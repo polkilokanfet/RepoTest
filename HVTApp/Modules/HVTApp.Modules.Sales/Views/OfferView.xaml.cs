@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
 using HVTApp.Modules.Sales.Tabs;
 using HVTApp.Modules.Sales.ViewModels;

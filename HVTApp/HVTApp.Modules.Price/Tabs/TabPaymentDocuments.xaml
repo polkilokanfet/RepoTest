@@ -4,16 +4,10 @@
                                  xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
                                  x:Class="HVTApp.Modules.PlanAndEconomy.Tabs.TabPaymentDocuments"
                                  Header="План поступлений">
-    
-    <infRib:RibbonGroup Caption="Действия">
-        <infRib:ButtonTool Caption="Перезагрузить" Command="{Binding ReloadCommand}" SmallImage="/HVTApp.Modules.PlanAndEconomy;component/Images/Refresh_16x16.png"/>
-        <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveCommand}" SmallImage="/HVTApp.Modules.PlanAndEconomy;component/Images/Save_16x16.png"/>
-        <infRib:ButtonTool Caption="Добавить" Command="{Binding AddPaymentCommand}" SmallImage="/HVTApp.Modules.PlanAndEconomy;component/Images/Add_16x16.png"/>
-    </infRib:RibbonGroup>
-    
+       
     <infRib:RibbonGroup Caption="Документы">
         <infRib:ButtonTool Caption="Создать" Command="{Binding CreatePaymentDocumentCommand}" SmallImage="/HVTApp.Modules.PlanAndEconomy;component/Images/Add_16x16.png"/>
-        <infRib:ButtonTool Caption="Изменить" Command="{Binding EditItemCommand}" SmallImage="/HVTApp.Modules.PlanAndEconomy;component/Images/Edit_16x16.png"/>
+        <infRib:ButtonTool Caption="Изменить" Command="{Binding EditPaymentDocumentCommand}" SmallImage="/HVTApp.Modules.PlanAndEconomy;component/Images/Edit_16x16.png"/>
     </infRib:RibbonGroup>
         
 </inf:RibbonTabItemWithViewModel>
