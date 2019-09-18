@@ -14,24 +14,20 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
 {
     public class PaymentsActualViewModel : PaymentDocumentLookupListViewModel
     {
-        public ICommand CreatePaymentDocumentCommand { get; }
-        public ICommand EditPaymentDocumentCommand { get; }
 
         public PaymentsActualViewModel(IUnityContainer container) : base(container)
         {
             var regionManager = container.Resolve<IRegionManager>();
 
-            CreatePaymentDocumentCommand = new DelegateCommand(() =>
+            NewItemCommand = new DelegateCommand(() =>
             {
                 regionManager.RequestNavigateContentRegion<PaymentDocumentView>(new NavigationParameters { {"new", new PaymentDocument()} });
             });
 
-            EditPaymentDocumentCommand = new DelegateCommand(() =>
+            EditItemCommand = new DelegateCommand(() =>
             {
                 regionManager.RequestNavigateContentRegion<PaymentDocumentView>(new NavigationParameters { { "edit", SelectedItem } });
             }, () => SelectedItem != null);
-
-            this.SelectedLookupChanged += lookup => ((DelegateCommand)EditPaymentDocumentCommand).RaiseCanExecuteChanged();
         }
     }
 

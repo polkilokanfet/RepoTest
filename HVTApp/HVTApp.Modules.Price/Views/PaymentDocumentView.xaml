@@ -36,9 +36,10 @@
                     <igWpf:XamNumericEditor Grid.Column="3" Value="{Binding DockSum}"/>
 
                 </Grid>
-                            
+                
+                <!-- Части платежа -->
                 <igWpf:XamDataGrid DataSource="{Binding Payments}"
-                                   SelectedDataItem="{Binding SelectedPayment}">
+                                   SelectedDataItem="{Binding SelectedPayment, Mode=TwoWay}">
 
 			        <igWpf:XamDataGrid.FieldLayouts>
 				        <igWpf:FieldLayout>
@@ -69,13 +70,7 @@
         <!-- Неоплаченное оборудование -->
         <GroupBox Grid.Row="3" Header="Неоплаченное оборудование">
             <igWpf:XamDataGrid DataSource="{Binding Potential}"
-                                SelectedDataItem="{Binding SelectedUnit, Mode=TwoWay}">
-
-                <igWpf:XamDataGrid.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
-                    </ContextMenu>
-                </igWpf:XamDataGrid.ContextMenu>
+                               SelectedDataItem="{Binding SelectedUnit, Mode=TwoWay}">
 
                 <igWpf:XamDataGrid.FieldLayouts>
                     <igWpf:FieldLayout>

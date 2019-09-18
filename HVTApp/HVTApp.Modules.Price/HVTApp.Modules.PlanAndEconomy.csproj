@@ -128,11 +128,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Tabs\TabPaymentDocument.xaml.cs">
+      <DependentUpon>TabPaymentDocument.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Tabs\TabPayments.xaml.cs">
       <DependentUpon>TabPayments.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Tabs\TabPaymentDocuments.xaml.cs">
-      <DependentUpon>TabPaymentDocuments.xaml</DependentUpon>
     </Compile>
     <Compile Include="Tabs\TabSave.xaml.cs">
       <DependentUpon>TabSave.xaml</DependentUpon>
@@ -204,11 +204,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Tabs\TabPayments.xaml">
+    <Page Include="Tabs\TabPaymentDocument.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Tabs\TabPaymentDocuments.xaml">
+    <Page Include="Tabs\TabPayments.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

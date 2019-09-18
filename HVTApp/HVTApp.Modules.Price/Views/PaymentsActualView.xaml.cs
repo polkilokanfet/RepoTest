@@ -1,13 +1,13 @@
 ﻿using System.Windows;
 using HVTApp.Infrastructure;
-using HVTApp.Modules.PlanAndEconomy.Tabs;
 using HVTApp.Modules.PlanAndEconomy.ViewModels;
+using HVTApp.UI.Tabs;
 using Prism.Events;
 using Prism.Regions;
 
 namespace HVTApp.Modules.PlanAndEconomy.Views
 {
-    [RibbonTab(typeof(TabPaymentDocuments))]
+    [RibbonTab(typeof(TabCRUD))]
     public partial class PaymentsActualView
     {
         private readonly PaymentsActualViewModel _viewModel;

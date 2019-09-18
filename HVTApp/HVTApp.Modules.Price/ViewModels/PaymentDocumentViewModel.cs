@@ -1,14 +1,19 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.ViewModels;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
+using Prism.Regions;
 
 namespace HVTApp.Modules.PlanAndEconomy.ViewModels
 {
@@ -17,10 +22,14 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
         //коллекция для отслеживания элементов
         private IValidatableChangeTrackingCollection<SalesUnitWrapper> _salesUnitWrappers;
         private SalesUnitWrapper _selectedUnit;
+        private Payment _selectedPayment;
 
         public ObservableCollection<Payment> Payments { get; } = new ObservableCollection<Payment>();
         public ObservableCollection<SalesUnitWrapper> Potential { get; } = new ObservableCollection<SalesUnitWrapper>();
 
+        /// <summary>
+        /// Выбранный потенциальный юнит
+        /// </summary>
         public SalesUnitWrapper SelectedUnit
         {
             get { return _selectedUnit; }
@@ -33,6 +42,23 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
             }
         }
 
+        /// <summary>
+        /// Выбранный платеж
+        /// </summary>
+        public Payment SelectedPayment
+        {
+            get { return _selectedPayment; }
+            set
+            {
+                _selectedPayment = value;
+                ((DelegateCommand)RemovePaymentCommand).RaiseCanExecuteChanged();
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Дата платежей
+        /// </summary>
         public DateTime DockDate
         {
             get { return Payments.Any() ? Payments.First().PaymentActual.Date : DateTime.Today; }
@@ -43,6 +69,9 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
             }
         }
 
+        /// <summary>
+        /// Сумма платежного документа
+        /// </summary>
         public double DockSum
         {
             get { return Payments.Any() ? Payments.Sum(x => x.PaymentActual.Sum) : 0; }
@@ -61,9 +90,26 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
         }
 
         public ICommand AddPaymentCommand { get; }
+        public ICommand RemovePaymentCommand { get; }
+        public ICommand SaveDocumentCommand { get; }
 
         public PaymentDocumentViewModel(IUnityContainer container) : base(container)
         {
+            SaveDocumentCommand = new DelegateCommand(
+                () =>
+                {
+                    _salesUnitWrappers.AcceptChanges();
+                    this.SaveCommand_Execute();
+                },
+
+                () =>
+                {
+                    bool itemIsValid = Item != null && Item.IsValid;
+                    bool unitsIsValid = _salesUnitWrappers != null && _salesUnitWrappers.IsValid;
+                    return itemIsValid && unitsIsValid && (Item.IsChanged || _salesUnitWrappers.IsChanged);
+                });
+
+
             AddPaymentCommand = new DelegateCommand(
                 () =>
                 {
@@ -75,20 +121,46 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
                     Payments.Add(payment);
                     Potential.Remove(SelectedUnit);
                     SelectedUnit = null;
+                    SelectedPayment = payment;
 
                     DockSum = sum;
                     DockDate = date;
                 },
 
                 () => SelectedUnit != null);
+
+            RemovePaymentCommand = new DelegateCommand(
+                () =>
+                {
+                    UnitOfWork.Repository<PaymentActual>().Delete(SelectedPayment.PaymentActual.Model);
+
+                    //удаление платежа из документа
+                    var payment = Item.Payments.Single(x => x.Id == SelectedPayment.PaymentActual.Id);
+                    Item.Payments.Remove(payment);
+
+                    //добавление потенциального платежа в список
+                    var potential = _salesUnitWrappers.Single(x => x.PaymentsActual.Select(pa => pa.Id).Contains(payment.Id));
+                    Potential.Add(potential);
+
+                    //удаление платежа из юнита
+                    var paymentToRemove = potential.PaymentsActual.Single(x => x.Id == payment.Id);
+                    potential.PaymentsActual.Remove(paymentToRemove);
+
+                    Payments.Remove(SelectedPayment);
+
+                    OnPropertyChanged(nameof(DockSum));
+                },
+
+                () => SelectedPayment != null);
+
         }
 
         protected override async Task AfterLoading()
         {
             //получаем коллекцию единниц продаж
             var salesUnitWrappers = (await UnitOfWork.Repository<SalesUnit>().GetAllAsync())
-                .Where(x => !x.IsPaid)
-                .Select(x => new SalesUnitWrapper(x));
+                .Where(salesUnit => !salesUnit.IsPaid)
+                .Select(salesUnit => new SalesUnitWrapper(salesUnit));
             _salesUnitWrappers = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(salesUnitWrappers);
 
             //заполняем платежи
@@ -102,7 +174,7 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
             //формируем список потенциального оборудования 
             //(исключая то, что в выбранном платеже)
             var potentialSalesUnits = _salesUnitWrappers
-                .Where(salesUnitWrapper => !salesUnitWrapper.IsPaid)
+                .Where(x => !x.IsLoosen)
                 .Except(Payments.Select(payment => payment.SalesUnit))
                 .OrderBy(x => x.OrderInTakeDate);
             Potential.AddRange(potentialSalesUnits);
@@ -110,7 +182,33 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
             OnPropertyChanged(nameof(DockSum));
             OnPropertyChanged(nameof(DockDate));
 
+            this.Item.PropertyChanged += (sender, args) =>
+            {
+                ((DelegateCommand)SaveDocumentCommand).RaiseCanExecuteChanged();
+            };
+
+            this._salesUnitWrappers.PropertyChanged += (sender, args) =>
+            {
+                ((DelegateCommand)SaveDocumentCommand).RaiseCanExecuteChanged();
+                OnPropertyChanged(nameof(DockSum));
+            };
+
             await base.AfterLoading();
         }
+
+        //protected override void GoBackCommand_Execute()
+        //{
+        //    //если были какие-то изменения
+        //    if (((DelegateCommand)SaveDocumentCommand).CanExecute())
+        //    {
+        //        if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Сохранение", "Сохранить изменения?") == MessageDialogResult.Yes)
+        //        {
+        //            ((DelegateCommand)SaveDocumentCommand).Execute();
+        //        }
+        //    }
+
+        //    base.GoBackCommand_Execute();
+        //}
+
     }
 }

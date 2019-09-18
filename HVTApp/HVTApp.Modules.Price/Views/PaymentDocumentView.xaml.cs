@@ -1,12 +1,14 @@
 ﻿using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
+using HVTApp.Modules.PlanAndEconomy.Tabs;
 using HVTApp.Modules.PlanAndEconomy.ViewModels;
 using Prism.Events;
 using Prism.Regions;
 
 namespace HVTApp.Modules.PlanAndEconomy.Views
 {
+    [RibbonTab(typeof(TabPaymentDocument))]
     public partial class PaymentDocumentView : ViewBase
     {
         private readonly PaymentDocumentViewModel _viewModel;
