@@ -3,7 +3,6 @@
 
     <ControlTemplate x:Key="DefaultValidationErrorTemplate">
         <StackPanel Orientation="Horizontal">
-            <AdornedElementPlaceholder x:Name="Placeholder"/>
             <Border Background="Red" Margin="3" CornerRadius="7" Height="14" Width="14"
                     VerticalAlignment="Top"
                     ToolTip="{Binding ElementName=Placeholder, 
@@ -11,12 +10,12 @@
                     ToolTipService.InitialShowDelay="0">
                 <TextBlock Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center">!</TextBlock>
             </Border>
+            <AdornedElementPlaceholder x:Name="Placeholder"/>
         </StackPanel>
     </ControlTemplate>
 
     <ControlTemplate x:Key="InsideValidationErrorTemplate">
         <Grid>
-            <AdornedElementPlaceholder x:Name="Placeholder"/>
             <Border Background="Red" Margin="3" CornerRadius="7" Height="14" Width="14"
                     HorizontalAlignment="Right"
                     ToolTip="{Binding ElementName=Placeholder, 
@@ -24,6 +23,7 @@
                     ToolTipService.InitialShowDelay="0">
                 <TextBlock Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center">!</TextBlock>
             </Border>
+            <AdornedElementPlaceholder x:Name="Placeholder"/>
         </Grid>
     </ControlTemplate>
 

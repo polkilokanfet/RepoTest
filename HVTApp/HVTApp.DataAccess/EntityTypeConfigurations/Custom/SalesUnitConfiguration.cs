@@ -17,7 +17,7 @@ namespace HVTApp.DataAccess
             HasMany(x => x.LosingReasons).WithMany();
 
             HasRequired(x => x.Product).WithMany().WillCascadeOnDelete(false);
-            HasOptional(x => x.Order).WithMany();
+            HasOptional(x => x.Order).WithMany().WillCascadeOnDelete(false);
 
             Property(x => x.SerialNumber).IsOptional();
             Property(x => x.OrderPosition).IsOptional();

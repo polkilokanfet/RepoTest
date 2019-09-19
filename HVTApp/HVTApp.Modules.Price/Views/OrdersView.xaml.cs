@@ -1,18 +1,18 @@
 ﻿using System.Windows;
 using HVTApp.Infrastructure;
 using HVTApp.Modules.PlanAndEconomy.ViewModels;
+using HVTApp.UI.Tabs;
 using Prism.Events;
 using Prism.Regions;
-using TabProductionPlan = HVTApp.Modules.PlanAndEconomy.Tabs.TabProductionPlan;
 
 namespace HVTApp.Modules.PlanAndEconomy.Views
 {
-    [RibbonTab(typeof(TabProductionPlan))]
-    public partial class ProductionPlanView
+    [RibbonTab(typeof(TabCRUD))]
+    public partial class OrdersView
     {
-        private readonly ProductionPlanViewModel _viewModel;
+        private readonly OrdersViewModel _viewModel;
 
-        public ProductionPlanView(ProductionPlanViewModel viewModel, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
+        public OrdersView(OrdersViewModel viewModel, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
         {
             _viewModel = viewModel;
             InitializeComponent();

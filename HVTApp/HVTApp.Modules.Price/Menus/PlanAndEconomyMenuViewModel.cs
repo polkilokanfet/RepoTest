@@ -15,7 +15,7 @@ namespace HVTApp.Modules.PlanAndEconomy.Menus
 
             if (GlobalAppProperties.User.RoleCurrent == Role.PlanMaker || GlobalAppProperties.User.RoleCurrent == Role.Admin)
             {
-                Items.Add(new NavigationItem("План производства", typeof(ProductionPlanView)));
+                Items.Add(new NavigationItem("План производства", typeof(OrdersView)));
             }
 
             if (GlobalAppProperties.User.RoleCurrent == Role.Economist || GlobalAppProperties.User.RoleCurrent == Role.Admin)

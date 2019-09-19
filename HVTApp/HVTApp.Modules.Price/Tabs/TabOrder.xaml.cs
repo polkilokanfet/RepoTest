@@ -1,8 +1,8 @@
 ﻿namespace HVTApp.Modules.PlanAndEconomy.Tabs
 {
-    public partial class TabProductionPlan
+    public partial class TabOrder
     {
-        public TabProductionPlan()
+        public TabOrder()
         {
             InitializeComponent();
         }

@@ -32,6 +32,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="InfragisticsWPF4.Controls.Editors.XamCalendar.v15.1, Version=15.1.20151.2251, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\HVTApp.UI\bin\Debug\InfragisticsWPF4.Controls.Editors.XamCalendar.v15.1.dll</HintPath>
@@ -137,8 +141,8 @@
     <Compile Include="Tabs\TabSave.xaml.cs">
       <DependentUpon>TabSave.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Tabs\TabProductionPlan.xaml.cs">
-      <DependentUpon>TabProductionPlan.xaml</DependentUpon>
+    <Compile Include="Tabs\TabOrder.xaml.cs">
+      <DependentUpon>TabOrder.xaml</DependentUpon>
     </Compile>
     <Compile Include="Tabs\TabPriceTasks.xaml.cs">
       <DependentUpon>TabPriceTasks.xaml</DependentUpon>
@@ -148,13 +152,14 @@
     <Compile Include="ViewModels\DatesViewModel.cs" />
     <Compile Include="ViewModels\Groups\GroupBase.cs" />
     <Compile Include="ViewModels\Groups\GroupsContainer.cs" />
+    <Compile Include="ViewModels\OrderViewModel.cs" />
     <Compile Include="ViewModels\PaymentDocumentViewModel.cs" />
     <Compile Include="ViewModels\PaymentsActualViewModel.cs" />
     <Compile Include="ViewModels\PaymentsViewModel.cs" />
     <Compile Include="ViewModels\PricesViewModel.cs" />
     <Compile Include="ViewModels\PriceTask.cs" />
     <Compile Include="ViewModels\Groups\ProductionGroup.cs" />
-    <Compile Include="ViewModels\ProductionPlanViewModel.cs" />
+    <Compile Include="ViewModels\OrdersViewModel.cs" />
     <Compile Include="Views\PaymentDocumentView.xaml.cs">
       <DependentUpon>PaymentDocumentView.xaml</DependentUpon>
     </Compile>
@@ -170,8 +175,11 @@
     <Compile Include="Views\PaymentsActualView.xaml.cs">
       <DependentUpon>PaymentsActualView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ProductionPlanView.xaml.cs">
-      <DependentUpon>ProductionPlanView.xaml</DependentUpon>
+    <Compile Include="Views\OrderView.xaml.cs">
+      <DependentUpon>OrderView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OrdersView.xaml.cs">
+      <DependentUpon>OrdersView.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -216,7 +224,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Tabs\TabProductionPlan.xaml">
+    <Page Include="Tabs\TabOrder.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -244,7 +252,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\ProductionPlanView.xaml">
+    <Page Include="Views\OrderView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\OrdersView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

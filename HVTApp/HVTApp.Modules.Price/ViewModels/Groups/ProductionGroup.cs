@@ -20,6 +20,12 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels.Groups
             set { SetValue(value); }
         }
 
+        public DateTime? SignalToStartProductionDone
+        {
+            get { return Unit.SignalToStartProductionDone; }
+            set { SetValue(value); }
+        }
+
         public string OrderPosition
         {
             get { return Groups != null ? "..." : Unit.OrderPosition; }
@@ -32,6 +38,26 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels.Groups
 
         public ProductionGroup(IEnumerable<SalesUnitWrapper> salesUnitWrappers) : base(salesUnitWrappers)
         {
+        }
+
+        /// <summary>
+        /// Простановка позиций в заказе
+        /// </summary>
+        public void FillPositions()
+        {
+            //ставим позиции заказа
+            int pos = 1;
+            if (Groups != null && Groups.Any())
+            {
+                foreach (var @group in Groups)
+                {
+                    @group.OrderPosition = (pos++).ToString();
+                }
+            }
+            else
+            {
+                OrderPosition = pos.ToString();
+            }
         }
 
         public static IEnumerable<ProductionGroup> Grouping(IEnumerable<SalesUnitWrapper> units)
@@ -47,17 +73,6 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels.Groups
             }).OrderBy(x => x.Key.EndProductionPlanDate);
 
             return groups.Select(x => new ProductionGroup(x));
-        }
-
-        public void SetSignalToStartProductionDone()
-        {
-            if (Groups != null)
-            {
-                Groups.ForEach(x => x.SetSignalToStartProductionDone());
-                return;
-            }
-
-            Unit.SignalToStartProductionDone = DateTime.Today;
         }
 
         protected override IEnumerable<ProductionGroup> CreateGroups(IEnumerable<SalesUnitWrapper> salesUnitWrappers)

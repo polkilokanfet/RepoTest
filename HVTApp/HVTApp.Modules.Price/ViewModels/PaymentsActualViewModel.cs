@@ -1,5 +1,4 @@
 using System.ComponentModel;
-using System.Windows.Input;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
 using HVTApp.Modules.PlanAndEconomy.Views;
@@ -17,19 +16,16 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
 
         public PaymentsActualViewModel(IUnityContainer container) : base(container)
         {
-            var regionManager = container.Resolve<IRegionManager>();
+            NewItemCommand = new DelegateCommand(() => RequestNavigate(new PaymentDocument()));
+            EditItemCommand = new DelegateCommand(() => RequestNavigate(SelectedItem), () => SelectedItem != null);
+        }
 
-            NewItemCommand = new DelegateCommand(() =>
-            {
-                regionManager.RequestNavigateContentRegion<PaymentDocumentView>(new NavigationParameters { {"new", new PaymentDocument()} });
-            });
-
-            EditItemCommand = new DelegateCommand(() =>
-            {
-                regionManager.RequestNavigateContentRegion<PaymentDocumentView>(new NavigationParameters { { "edit", SelectedItem } });
-            }, () => SelectedItem != null);
+        private void RequestNavigate(PaymentDocument paymentDocument)
+        {
+            Container.Resolve<IRegionManager>().RequestNavigateContentRegion<PaymentDocumentView>(new NavigationParameters { { "", paymentDocument } });
         }
     }
+    
 
     public class Payment : BindableBase
     {

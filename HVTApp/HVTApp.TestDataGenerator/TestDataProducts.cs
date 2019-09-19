@@ -2808,7 +2808,7 @@ namespace HVTApp.TestDataGenerator
 
             ProductDesignationCurrentBreaking12.Clone(new ProductDesignation { Designation = "-12,5", Parameters = new List<Parameter> { ParameterCurrentBreaking12kA }, Parents = new List<ProductDesignation> { ProductDesignationVgb35 } });
             ProductDesignationCurrentBreaking40.Clone(new ProductDesignation { Designation = "-40", Parameters = new List<Parameter> { ParameterCurrentBreaking40kA }, Parents = dpu2.ToList() });
-            ProductDesignationCurrentBreaking50.Clone(new ProductDesignation { Designation = "-50", Parameters = new List<Parameter> { ParameterCurrentBreaking40kA }, Parents = dpu2.ToList() });
+            ProductDesignationCurrentBreaking50.Clone(new ProductDesignation { Designation = "-50", Parameters = new List<Parameter> { ParameterCurrentBreaking50kA }, Parents = dpu2.ToList() });
 
             var current = new List<ProductDesignation>
             {
