@@ -114,7 +114,14 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="ProductsModule.cs" />
+    <Compile Include="Tabs\TabCreateNewProductTasks.xaml.cs">
+      <DependentUpon>TabCreateNewProductTasks.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\CreateNewProductTasksViewModel.cs" />
     <Compile Include="ViewModels\ParametersViewModel.cs" />
+    <Compile Include="Views\CreateNewProductTasksView.xaml.cs">
+      <DependentUpon>CreateNewProductTasksView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ParametersView.xaml.cs">
       <DependentUpon>ParametersView.xaml</DependentUpon>
     </Compile>
@@ -146,6 +153,14 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Menus\ProductsMenu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Tabs\TabCreateNewProductTasks.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\CreateNewProductTasksView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

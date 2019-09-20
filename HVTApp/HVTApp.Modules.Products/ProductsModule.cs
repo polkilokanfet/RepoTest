@@ -18,6 +18,7 @@ namespace HVTApp.Modules.Products
         protected override void RegisterTypes()
         {
             Container.RegisterViewForNavigation<ParametersView>();
+            Container.RegisterViewForNavigation<CreateNewProductTasksView>();
         }
 
         protected override void ResolveOutlookGroup()

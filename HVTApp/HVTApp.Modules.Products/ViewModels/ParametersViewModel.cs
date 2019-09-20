@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Lookup;
 using HVTApp.UI.ViewModels;

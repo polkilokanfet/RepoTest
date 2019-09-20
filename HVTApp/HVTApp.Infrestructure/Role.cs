@@ -12,6 +12,7 @@ namespace HVTApp.Infrastructure
         Pricer,
         DataBaseFiller,
         PlanMaker,
-        Constrictor
+        Constrictor,
+        ReportMaker
     }
 }

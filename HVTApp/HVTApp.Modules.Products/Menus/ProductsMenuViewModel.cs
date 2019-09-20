@@ -7,8 +7,8 @@ namespace HVTApp.Modules.Products.Menus
     {
         protected override void GenerateMenu()
         {
-            var root = new NavigationItem("Параметры", typeof(ParametersView));
-            Items.Add(root);
+            Items.Add(new NavigationItem("Параметры", typeof(ParametersView)));
+            Items.Add(new NavigationItem("Задания", typeof(CreateNewProductTasksView)));
         }
     }
 }

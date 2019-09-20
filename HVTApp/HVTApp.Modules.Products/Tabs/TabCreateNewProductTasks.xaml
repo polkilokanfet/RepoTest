@@ -1,0 +1,12 @@
+﻿<inf:RibbonTabItemWithViewModel  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                                 xmlns:infRib="http://infragistics.com/Ribbon" 
+                                 xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+                                 x:Class="HVTApp.Modules.Products.Tabs.TabCreateNewProductTasks"
+                                 Header="Задание на создание нового оборудования">
+    
+    <infRib:RibbonGroup Caption="Задание">
+        <infRib:ButtonTool Caption="Заменить продукт" Command="{Binding ChangeProductCommand}"/>
+    </infRib:RibbonGroup>
+               
+</inf:RibbonTabItemWithViewModel>

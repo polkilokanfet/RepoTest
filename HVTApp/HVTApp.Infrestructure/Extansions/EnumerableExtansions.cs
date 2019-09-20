@@ -27,6 +27,14 @@ namespace HVTApp.Infrastructure.Extansions
             return !firstArray.Except(secondArray, comparer).Any() && !secondArray.Except(firstArray, comparer).Any();
         }
 
+        /// <summary>
+        /// Последовательность полностью содержит другую последовательность.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="first"> Последовательновсть, которая содержится в другой </param>
+        /// <param name="second"> Последовательность в которой содержится другая </param>
+        /// <param name="comparer"></param>
+        /// <returns></returns>
         public static bool AllContainsIn<T>(this IEnumerable<T> first, IEnumerable<T> second, IEqualityComparer<T> comparer = null)
         {
             if (second == null) throw new ArgumentNullException(nameof(second));
@@ -37,7 +45,9 @@ namespace HVTApp.Infrastructure.Extansions
             if (!secondArray.Any()) throw new ArgumentException("Передано перечисление не содержащее членов.", nameof(second));
             if (!firstArray.Any()) throw new ArgumentException("Передано перечисление не содержащее членов.", nameof(first));
 
-            return comparer == null ? firstArray.All(x => secondArray.Contains(x)) : firstArray.All(x => secondArray.Contains(x, comparer));
+            return comparer == null 
+                ? firstArray.All(x => secondArray.Contains(x)) 
+                : firstArray.All(x => secondArray.Contains(x, comparer));
         }
 
         public static bool ContainsById<T>(this IEnumerable<T> enumerable, IId objId)

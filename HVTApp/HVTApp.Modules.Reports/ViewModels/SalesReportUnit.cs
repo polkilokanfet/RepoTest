@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure.Extansions;
@@ -97,7 +98,33 @@ namespace HVTApp.Modules.Reports.ViewModels
         public string Designation => Product.Designation;
         public string Status
         {
-            get { return "-"; }
+            get
+            {
+                if (StartProductionConditionsDoneDate.HasValue &&
+                    StartProductionConditionsDoneDate.Value <= DateTime.Today)
+                {
+                    return "1 - Условие на запуск производства исполнено";
+                }
+
+                if (Specification != null)
+                {
+                    return Specification.Date <= DateTime.Today 
+                        ? "2 - Контракт подписан" 
+                        : "3 - Контракт на оформлении";
+                }
+
+                if (IsLoosen)
+                {
+                    return "15 - Проиграно другому производителю";
+                }
+                
+                if (Producer != null && Producer.Id == GlobalAppProperties.Actual.OurCompany.Id)
+                {
+                    return "4 - Большая вероятность реализации";
+                }
+
+                return "7 - В проработке";
+            }
         }
         public double? Vat => Specification?.Vat;
 

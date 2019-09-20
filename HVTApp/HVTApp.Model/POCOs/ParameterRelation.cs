@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text;
 using HVTApp.Infrastructure;
@@ -13,6 +14,8 @@ namespace HVTApp.Model.POCOs
     {
         [Designation("Обязательные параметры перед")]
         public virtual List<Parameter> RequiredParameters { get; set; } = new List<Parameter>();
+
+        public Guid ParameterId { get; set; }
 
         public override string ToString()
         {
