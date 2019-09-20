@@ -117,8 +117,15 @@
     <Compile Include="Tabs\TabCreateNewProductTasks.xaml.cs">
       <DependentUpon>TabCreateNewProductTasks.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Tabs\TabStructureCosts.xaml.cs">
+      <DependentUpon>TabStructureCosts.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\CreateNewProductTasksViewModel.cs" />
     <Compile Include="ViewModels\ParametersViewModel.cs" />
+    <Compile Include="ViewModels\StructureCostsViewModel.cs" />
+    <Compile Include="Views\StructureCostsView.xaml.cs">
+      <DependentUpon>StructureCostsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CreateNewProductTasksView.xaml.cs">
       <DependentUpon>CreateNewProductTasksView.xaml</DependentUpon>
     </Compile>
@@ -157,6 +164,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Tabs\TabCreateNewProductTasks.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Tabs\TabStructureCosts.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\StructureCostsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

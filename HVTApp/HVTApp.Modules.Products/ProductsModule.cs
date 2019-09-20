@@ -8,7 +8,7 @@ using Prism.Regions;
 
 namespace HVTApp.Modules.Products
 {
-    [ModuleAccess(Role.Admin)]
+    [ModuleAccess(Role.Admin, Role.Constructor)]
     public class ProductsModule : ModuleBase
     {
         public ProductsModule(IUnityContainer container, IRegionManager regionManager) : base(container, regionManager)
@@ -19,6 +19,7 @@ namespace HVTApp.Modules.Products
         {
             Container.RegisterViewForNavigation<ParametersView>();
             Container.RegisterViewForNavigation<CreateNewProductTasksView>();
+            Container.RegisterViewForNavigation<StructureCostsView>();
         }
 
         protected override void ResolveOutlookGroup()

@@ -196,19 +196,19 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
             await base.AfterLoading();
         }
 
-        //protected override void GoBackCommand_Execute()
-        //{
-        //    //если были какие-то изменения
-        //    if (((DelegateCommand)SaveDocumentCommand).CanExecute())
-        //    {
-        //        if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Сохранение", "Сохранить изменения?") == MessageDialogResult.Yes)
-        //        {
-        //            ((DelegateCommand)SaveDocumentCommand).Execute();
-        //        }
-        //    }
+        protected override void GoBackCommand_Execute()
+        {
+            //если были какие-то изменения
+            if (((DelegateCommand)SaveDocumentCommand).CanExecute())
+            {
+                if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Сохранение", "Сохранить изменения?") == MessageDialogResult.Yes)
+                {
+                    ((DelegateCommand)SaveDocumentCommand).Execute();
+                }
+            }
 
-        //    base.GoBackCommand_Execute();
-        //}
+            RegionManager.Regions[RegionNames.ContentRegion].NavigationService.Journal.GoBack();
+        }
 
     }
 }

@@ -2707,6 +2707,15 @@ namespace HVTApp.UI.Wrapper
 
         #region SimpleProperties
 
+        public System.Guid ParameterId
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid ParameterIdOriginalValue => GetOriginalValue<System.Guid>(nameof(ParameterId));
+        public bool ParameterIdIsChanged => GetIsChanged(nameof(ParameterId));
+
+
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }

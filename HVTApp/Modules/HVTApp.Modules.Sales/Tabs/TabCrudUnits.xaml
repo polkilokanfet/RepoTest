@@ -7,13 +7,18 @@
              Header="Редактирование оборудования">
 
     <infRib:RibbonGroup Caption="Основное">
-        <infRib:ButtonTool Caption="Добавить" Command="{Binding GroupsViewModel.AddCommand}"/>
-        <infRib:ButtonTool Caption="Удалить" Command="{Binding GroupsViewModel.RemoveCommand}"/>
+        <infRib:ButtonTool Caption="Добавить" Command="{Binding GroupsViewModel.AddCommand}" SmallImage="/HVTApp.Modules.Sales;component/Images/Add_16x16.png"/>
+        <infRib:ButtonTool Caption="Удалить" Command="{Binding GroupsViewModel.RemoveCommand}" SmallImage="/HVTApp.Infrastructure;component/Images/Delete_16x16.png"/>
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Включенное">
-        <infRib:ButtonTool Caption="Добавить" Command="{Binding GroupsViewModel.AddProductIncludedCommand}"/>
-        <infRib:ButtonTool Caption="Удалить" Command="{Binding GroupsViewModel.RemoveProductIncludedCommand}"/>
+        <infRib:ButtonTool Caption="Добавить" Command="{Binding GroupsViewModel.AddProductIncludedCommand}" SmallImage="/HVTApp.Modules.Sales;component/Images/Add_16x16.png"/>
+        <infRib:ButtonTool Caption="Удалить" Command="{Binding GroupsViewModel.RemoveProductIncludedCommand}" SmallImage="/HVTApp.Infrastructure;component/Images/Delete_16x16.png"/>
+    </infRib:RibbonGroup>
+
+    <infRib:RibbonGroup Caption="Действия">
+        <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveCommand}" SmallImage="/HVTApp.Infrastructure;component/Images/Save_16x16.png"/>
+        <infRib:ButtonTool Caption="Закрыть" Command="{Binding GoBackCommand}" SmallImage="/HVTApp.Infrastructure;component/Images/Delete_16x16.png"/>
     </infRib:RibbonGroup>
 
 </inf:RibbonTabItemWithViewModel>

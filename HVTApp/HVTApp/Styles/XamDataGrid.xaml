@@ -5,12 +5,14 @@
     
     
     <Style TargetType="infg:XamDataGrid">
-
+        
+        <!--Автоматическая ширина колонок таблицы-->
         <Setter Property="AutoFit" Value="True" />
         
+        <!--Фильтры и запрет на редактирование-->
         <Setter Property="FieldSettings">
             <Setter.Value>
-                <infg:FieldSettings AllowEdit="False"/>
+                <infg:FieldSettings AllowEdit="False" AllowRecordFiltering="True"/>
             </Setter.Value>
         </Setter>
 

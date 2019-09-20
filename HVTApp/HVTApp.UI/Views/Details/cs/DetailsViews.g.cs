@@ -3445,6 +3445,11 @@ namespace HVTApp.UI.Views
             //    VisibilityRequiredParametersParameterRelation = Visibility.Collapsed;
 
 
+            //attr = typeof(HVTApp.Model.POCOs.ParameterRelation).GetProperty(nameof(HVTApp.Model.POCOs.ParameterRelation.ParameterId)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityParameterIdParameterRelation = Visibility.Collapsed;
+
+
 
         }
 
@@ -3455,6 +3460,15 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityRequiredParametersParameterRelationProperty); }
             set { SetValue(VisibilityRequiredParametersParameterRelationProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityParameterIdParameterRelationProperty = DependencyProperty.Register("VisibilityParameterIdParameterRelation", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityParameterIdParameterRelation
+        {
+            get { return (Visibility) GetValue(VisibilityParameterIdParameterRelationProperty); }
+            set { SetValue(VisibilityParameterIdParameterRelationProperty, value); OnPropertyChanged(); }
         }
 
 

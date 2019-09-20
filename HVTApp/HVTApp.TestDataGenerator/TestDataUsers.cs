@@ -109,7 +109,7 @@ namespace HVTApp.TestDataGenerator
             UserRolePricer.Clone(new UserRole { Role = Role.Pricer, Name = "Расчетчик" });
             UserRoleDirector.Clone(new UserRole { Role = Role.Director, Name = "Директор" });
             UserRolePlanMaker.Clone(new UserRole { Role = Role.PlanMaker, Name = "Плановик" });
-            UserRoleConstructor.Clone(new UserRole { Role = Role.Constrictor, Name = "Конструктор" });
+            UserRoleConstructor.Clone(new UserRole { Role = Role.Constructor, Name = "Конструктор" });
             UserRoleReportMaker.Clone(new UserRole { Role = Role.ReportMaker, Name = "Отчетчик" });
         }
 

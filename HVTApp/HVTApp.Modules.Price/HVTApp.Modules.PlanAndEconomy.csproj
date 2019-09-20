@@ -153,6 +153,7 @@
     <Compile Include="ViewModels\Groups\GroupBase.cs" />
     <Compile Include="ViewModels\Groups\GroupsContainer.cs" />
     <Compile Include="ViewModels\OrderViewModel.cs" />
+    <Compile Include="ViewModels\Payment.cs" />
     <Compile Include="ViewModels\PaymentDocumentViewModel.cs" />
     <Compile Include="ViewModels\PaymentsActualViewModel.cs" />
     <Compile Include="ViewModels\PaymentsViewModel.cs" />

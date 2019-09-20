@@ -1,0 +1,29 @@
+﻿<inf:ViewBase xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:infg="http://infragistics.com/DataPresenter"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              x:Class="HVTApp.Modules.Products.Views.StructureCostsView">
+
+    <GroupBox Header="Стракчакосты блоков оборудования">
+        <infg:XamDataGrid DataSource="{Binding ProductBlocks}" 
+                          SelectedDataItem="{Binding SelectedProductBlock, Mode=TwoWay}">
+
+            <infg:XamDataGrid.FieldLayouts>
+                <infg:FieldLayout>
+                    <infg:FieldLayout.Fields>
+
+                        <infg:TextField Name="ProductType" Label="Тип" Width="Auto" AllowEdit="True"/>
+                        <infg:TextField AlternateBinding="{Binding}" BindingType="UseAlternateBinding" Label="Обозначение блока" Width="Auto"/>
+                        <!--<infg:TextField AlternateBinding="{Binding OrderPosition, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Поз." Width="Auto" AllowEdit="True"/>-->
+                        <infg:TextField Name="StructureCostNumber" Label="Сралчахвост" Width="Auto" AllowEdit="True"/>
+                        <infg:NumericField Name="Weight" Label="Вес, кг" Width="Auto" AllowEdit="True"/>
+
+                    </infg:FieldLayout.Fields>
+                </infg:FieldLayout>
+
+            </infg:XamDataGrid.FieldLayouts>
+        </infg:XamDataGrid>
+    </GroupBox>
+</inf:ViewBase>
+
+	

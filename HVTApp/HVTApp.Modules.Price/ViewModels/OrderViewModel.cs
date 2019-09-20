@@ -4,7 +4,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
+using HVTApp.Infrastructure.Services;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Modules.PlanAndEconomy.ViewModels.Groups;
@@ -144,6 +146,20 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
         {
             ((DelegateCommand)SaveOrderCommand).RaiseCanExecuteChanged();
             ((DelegateCommand)AddGroupCommand).RaiseCanExecuteChanged();
+        }
+
+        protected override void GoBackCommand_Execute()
+        {
+            //если были какие-то изменения
+            if (((DelegateCommand)SaveOrderCommand).CanExecute())
+            {
+                if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Сохранение", "Сохранить изменения?") == MessageDialogResult.Yes)
+                {
+                    ((DelegateCommand)SaveOrderCommand).Execute();
+                }
+            }
+
+            RegionManager.Regions[RegionNames.ContentRegion].NavigationService.Journal.GoBack();
         }
 
     }

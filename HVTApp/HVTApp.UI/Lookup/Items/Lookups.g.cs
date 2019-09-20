@@ -1481,6 +1481,15 @@ namespace HVTApp.UI.Lookup
 		{
 		}
 		
+
+        #region SimpleProperties
+
+		[OrderStatus(1)]
+        public System.Guid ParameterId => Entity.ParameterId;
+
+
+        #endregion
+
 		[OrderStatus(1)]
 	    public List<ParameterLookup> RequiredParameters { get { return GetLookupEnum<ParameterLookup>().ToList(); } }
 

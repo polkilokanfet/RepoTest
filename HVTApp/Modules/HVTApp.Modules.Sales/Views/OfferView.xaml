@@ -27,16 +27,5 @@
 
         <controls:OfferUnitListControl Grid.Row="2" DataContext="{Binding GroupsViewModel}"/>
 
-        <Grid Grid.Row="3">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-
-            <Button Grid.Column="0" Content="Назад" Command="{Binding GoBackCommand}"/>
-            <Button Grid.Column="1" Content="Сохранить" Command="{Binding SaveCommand}"/>
-        </Grid>
-
-
     </Grid>
 </inf:ViewBase>
