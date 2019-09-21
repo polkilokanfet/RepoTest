@@ -2544,6 +2544,9 @@ namespace HVTApp.TestDataGenerator
         public ProductType ProductTypeDisconnector;
         public ProductType ProductTypeEarthingSwitch;
         public ProductType ProductTypeBvpt;
+        public ProductType ProductTypeDrive;
+        public ProductType ProductTypeKtt;
+        public ProductType ProductTypeTvg;
 
         private void GenerateProductTypes()
         {
@@ -2554,6 +2557,9 @@ namespace HVTApp.TestDataGenerator
             ProductTypeDisconnector.Clone(new ProductType { Name = "Разъединитель" });
             ProductTypeEarthingSwitch.Clone(new ProductType { Name = "Заземлитель" });
             ProductTypeBvpt.Clone(new ProductType { Name = "Выключатель постоянного тока" });
+            ProductTypeDrive.Clone(new ProductType { Name = "Привод" });
+            ProductTypeKtt.Clone(new ProductType { Name = "Комплект трансформаторов тока" });
+            ProductTypeTvg.Clone(new ProductType { Name = "Трансформатор тока встроенный" });
         }
 
         public ProductTypeDesignation ProductTypeDesignationDeadTankBreaker;
@@ -2563,16 +2569,22 @@ namespace HVTApp.TestDataGenerator
         public ProductTypeDesignation ProductTypeDesignationDisconnector;
         public ProductTypeDesignation ProductTypeDesignationEarthingSwitch;
         public ProductTypeDesignation ProductTypeDesignationBvpt;
+        public ProductTypeDesignation ProductTypeDesignationDrive;
+        public ProductTypeDesignation ProductTypeDesignationKtt;
+        public ProductTypeDesignation ProductTypeDesignationTvg;
 
         private void GenerateProductTypeDesignations()
         {
             ProductTypeDesignationDeadTankBreaker.Clone(new ProductTypeDesignation { ProductType = ProductTypeDeadTankBreaker, Parameters = new List<Parameter> { ParameterBreaker, ParameterBreakerDeadTank } });
             ProductTypeDesignationLiveTankBreaker.Clone(new ProductTypeDesignation { ProductType = ProductTypeLiveTankBreaker, Parameters = new List<Parameter> { ParameterBreaker, ParameterBreakerLiveTank } });
-            ProductTypeDesignationCurrentTransformer.Clone(new ProductTypeDesignation { ProductType = ProductTypeCurrentTransformer, Parameters = new List<Parameter> { ParameterTransformer, ParameterTransformerCurrent } });
+            ProductTypeDesignationCurrentTransformer.Clone(new ProductTypeDesignation { ProductType = ProductTypeCurrentTransformer, Parameters = new List<Parameter> { ParameterTransformer, ParameterTransformerCurrent, ParameterTransformerBuiltOut } });
             ProductTypeDesignationVoltageTransformer.Clone(new ProductTypeDesignation { ProductType = ProductTypeVoltageTransformer, Parameters = new List<Parameter> { ParameterTransformer, ParameterTransformerVoltage } });
             ProductTypeDesignationDisconnector.Clone(new ProductTypeDesignation { ProductType = ProductTypeDisconnector, Parameters = new List<Parameter> { ParameterDisconnector } });
             ProductTypeDesignationEarthingSwitch.Clone(new ProductTypeDesignation { ProductType = ProductTypeEarthingSwitch, Parameters = new List<Parameter> { ParameterEarthingSwitch } });
             ProductTypeDesignationBvpt.Clone(new ProductTypeDesignation { ProductType = ProductTypeBvpt, Parameters = new List<Parameter> { ParameterBvpt } });
+            ProductTypeDesignationDrive.Clone(new ProductTypeDesignation { ProductType = ProductTypeDrive, Parameters = new List<Parameter> { ParameterPartDrive } });
+            ProductTypeDesignationKtt.Clone(new ProductTypeDesignation { ProductType = ProductTypeKtt, Parameters = new List<Parameter> { ParameterPartTransformersCurrentBlock } });
+            ProductTypeDesignationTvg.Clone(new ProductTypeDesignation { ProductType = ProductTypeTvg, Parameters = new List<Parameter> { ParameterTransformerCurrent, ParameterTransformerBuiltIn } });
         }
 
         #endregion

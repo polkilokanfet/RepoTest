@@ -62,10 +62,9 @@ namespace HVTApp.Services.ProductDesignationService
         {
             var designations = _typeDesignations.Where(pd => pd.Parameters.AllContainsIn(block.Parameters, new ParameterComparer())).ToList();
 
-            if (designations.Any())
-                return designations.OrderBy(x => x.Parameters.Count).Last().ProductType;
-
-            return null;
+            return designations.Any() 
+                ? designations.OrderBy(x => x.Parameters.Count).Last().ProductType 
+                : null;
         }
 
         public ProductType GetProductType(Product product)
