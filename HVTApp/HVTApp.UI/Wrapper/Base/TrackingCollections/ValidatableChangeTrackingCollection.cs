@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using HVTApp.Infrastructure;
+using Microsoft.Practices.ObjectBuilder2;
 
 namespace HVTApp.UI.Wrapper
 {
@@ -70,14 +71,24 @@ namespace HVTApp.UI.Wrapper
         /// </summary>
         public void RejectChanges()
         {
-            this.Clear();
-
-            foreach (TCollectionItem item in _originalCollection)
+            //отмена изменений в оригинальной коллекции
+            _originalCollection.ForEach(x =>
             {
-                if (item.IsChanged) item.RejectChanges();
-                this.Add(item);
-            }
+                if (x.IsChanged)
+                {
+                    x.RejectChanges();
+                }
+            });
 
+            //добавление удаленных членов коллекции
+            var removedItems = _removedItems.ToList();
+            this.AddRange(removedItems);
+
+            //удаление добавленных членов коллекции
+            var addedItems = _addedItems.ToList();
+            addedItems.ForEach(x => this.Remove(x));
+
+            //очистка коллекций
             _addedItems.Clear();
             _modifiedItems.Clear();
             _removedItems.Clear();
