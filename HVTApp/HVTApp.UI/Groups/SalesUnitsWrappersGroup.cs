@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Wrapper;
 
@@ -51,6 +52,8 @@ namespace HVTApp.UI.Groups
                 SetValue(value);
             }
         }
+
+        public ProductType ProductType => Product.ProductType;
 
         public SalesUnitsWrappersGroup(List<SalesUnit> units) : base(units)
         {

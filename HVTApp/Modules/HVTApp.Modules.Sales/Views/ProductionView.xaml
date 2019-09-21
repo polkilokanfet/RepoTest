@@ -54,7 +54,7 @@
 					        <infg:FieldLayout.Fields>
                                 
                                 <infg:TextField Name="Facility" Label="Объект" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
-                                <infg:TextField AlternateBinding="{Binding Product.ProductType}" BindingType="UseAlternateBinding" Label="Тип оборудования" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
+                                <infg:TextField Name="ProductType" Label="Тип оборудования" Width="Auto"/>
                                 <infg:TextField AlternateBinding="{Binding Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="Auto"/>
                                 <infg:NumericField Name="Amount" Label="Кол." Width="Auto" />
                                 <infg:NumericField Name="Cost" Label="Стоимость" Width="Auto"/>
@@ -92,7 +92,7 @@
                             <infg:FieldLayout.Fields>
                                 
                                 <infg:TextField Name="Facility" Label="Объект" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
-                                <infg:TextField AlternateBinding="{Binding Product.ProductType}" BindingType="UseAlternateBinding" Label="Тип оборудования" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
+                                <infg:TextField Name="ProductType" Label="Тип оборудования" Width="Auto"/>
                                 <infg:TextField AlternateBinding="{Binding Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="Auto"/>
                                 <infg:NumericField Name="Amount" Label="Кол." Width="Auto" />
                                 <infg:NumericField Name="Cost" Label="Стоимость" Width="Auto"/>
