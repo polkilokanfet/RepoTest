@@ -50,7 +50,8 @@
                             <infg:TextField AlternateBinding="{Binding Payment.SalesUnit.Specification.Contract.Number}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
                             <infg:NumericField AlternateBinding="{Binding Sum}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto"/>
                             <infg:DateTimeField AlternateBinding="{Binding Payment.PaymentPlanned.Date}" BindingType="UseAlternateBinding" Label="Дата" Width="Auto"/>
-                            <infg:NumericField AlternateBinding="{Binding Payment.PaymentPlanned.Condition}" BindingType="UseAlternateBinding" Label="Условие" Width="Auto"/>
+                            <infg:TextField AlternateBinding="{Binding Payment.PaymentType}" BindingType="UseAlternateBinding" Label="Тип" Width="Auto"/>
+                            <infg:TextField AlternateBinding="{Binding Payment.PaymentPlanned.Condition}" BindingType="UseAlternateBinding" Label="Условие" Width="Auto"/>
                             <infg:Field Name="Groups" IsExpandable="True"/>
 
                         </infg:FieldLayout.Fields>

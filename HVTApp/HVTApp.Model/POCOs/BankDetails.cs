@@ -5,7 +5,7 @@ using HVTApp.Infrastructure.Attributes;
 namespace HVTApp.Model.POCOs
 {
     [Designation("Банковские реквизиты")]
-    [AllowEdit(Role.Economist, Role.SalesManager)]
+    [AllowEdit(Role.SalesManager)]
     public partial class BankDetails : BaseEntity
     {
         [Designation("Банк"), Required, MaxLength(50), OrderStatus(5)]

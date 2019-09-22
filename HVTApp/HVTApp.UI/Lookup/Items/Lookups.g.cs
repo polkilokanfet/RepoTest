@@ -1053,8 +1053,7 @@ namespace HVTApp.UI.Lookup
 
 	}
 
-	[AllowEditAttribute(Role.Economist)]
-[AllowEditAttribute(Role.SalesManager)]
+	[AllowEditAttribute(Role.SalesManager)]
 [AllowEditAttribute(Role.Admin)]
 
 	[Designation("Банковские реквизиты")]
@@ -1198,7 +1197,6 @@ namespace HVTApp.UI.Lookup
 
 	[AllowEditAttribute(Role.DataBaseFiller)]
 [AllowEditAttribute(Role.SalesManager)]
-[AllowEditAttribute(Role.Economist)]
 [AllowEditAttribute(Role.Admin)]
 
 	[Designation("Должность")]
@@ -1439,7 +1437,6 @@ namespace HVTApp.UI.Lookup
 
 	[AllowEditAttribute(Role.DataBaseFiller)]
 [AllowEditAttribute(Role.SalesManager)]
-[AllowEditAttribute(Role.Economist)]
 [AllowEditAttribute(Role.Admin)]
 
 	[Designation("Персона")]

@@ -158,8 +158,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Банковские реквизиты")]
 	[DesignationPlural("BankDetailsLookup")]
-	[AllowEditAttribute(Role.Economist)]
-[AllowEditAttribute(Role.SalesManager)]
+	[AllowEditAttribute(Role.SalesManager)]
 [AllowEditAttribute(Role.Admin)]
 
     public partial class BankDetailsLookupListView : ViewBase
@@ -1287,7 +1286,6 @@ namespace HVTApp.UI.Views
 	[DesignationPlural("EmployeesPositionLookup")]
 	[AllowEditAttribute(Role.DataBaseFiller)]
 [AllowEditAttribute(Role.SalesManager)]
-[AllowEditAttribute(Role.Economist)]
 [AllowEditAttribute(Role.Admin)]
 
     public partial class EmployeesPositionLookupListView : ViewBase
@@ -3152,7 +3150,6 @@ namespace HVTApp.UI.Views
 	[DesignationPlural("PersonLookup")]
 	[AllowEditAttribute(Role.DataBaseFiller)]
 [AllowEditAttribute(Role.SalesManager)]
-[AllowEditAttribute(Role.Economist)]
 [AllowEditAttribute(Role.Admin)]
 
     public partial class PersonLookupListView : ViewBase

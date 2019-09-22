@@ -4,13 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 
 namespace HVTApp.Modules.PlanAndEconomy.ViewModels
 {
-    public class PaymentsViewModel : LoadableBindableBase
+    public class PaymentsViewModel : LoadableBindableBaseCanExportToExcel
     {
         private IUnitOfWork _unitOfWork;
 
@@ -83,6 +84,8 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
         public PaymentPlanned PaymentPlanned { get; }
 
         public double Sum => SalesUnit.Cost * PaymentPlanned.Part * PaymentPlanned.Condition.Part;
+
+        public string PaymentType => PaymentPlanned.Date < SalesUnit.RealizationDateCalculated ? "ÊÇ" : "ÄÇ";
 
         public PlanPayment(SalesUnit salesUnit, PaymentPlanned paymentPlanned)
         {

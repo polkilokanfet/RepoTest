@@ -7,7 +7,7 @@ namespace HVTApp.Model.POCOs
 {
     [Designation("Персона")]
     [DesignationPlural("Персоны")]
-    [AllowEdit(Role.DataBaseFiller, Role.SalesManager, Role.Economist)]
+    [AllowEdit(Role.DataBaseFiller, Role.SalesManager)]
     public partial class Person : BaseEntity
     {
         [Designation("Фамилия"), Required, MaxLength(30), OrderStatus(10)]

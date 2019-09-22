@@ -1,4 +1,7 @@
+using System.Data.Entity.Infrastructure;
+using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Modules.Sales.Views;
 using HVTApp.UI.ViewModels;
@@ -27,7 +30,35 @@ namespace HVTApp.Modules.Sales.ViewModels
         protected override void InitSpecialCommands()
         {
             EditItemCommand = new DelegateCommand(EditItemCommandExecute, () => SelectedItem != null);
-            RemoveItemCommand = new DelegateCommand(RemoveItemCommand_ExecuteAsync, () => SelectedItem != null);
+            RemoveItemCommand = new DelegateCommand(
+                async () =>
+                {
+                    var dr = MessageService.ShowYesNoMessageDialog("Удаление", $"Вы действительно хотите удалить \"{SelectedLookup.DisplayMember}\"?");
+                    if (dr != MessageDialogResult.Yes) return;
+
+                    var unitOfWork = Container.Resolve<IUnitOfWork>();
+
+                    var specification = await unitOfWork.Repository<Specification>().GetByIdAsync(SelectedLookup.Id);
+                    if (specification != null)
+                    {
+                        var salesUnits = unitOfWork.Repository<SalesUnit>().Find(x => x.Specification?.Id == specification.Id);
+                        salesUnits.ForEach(x => x.Specification = null);
+                        try
+                        {
+                            unitOfWork.Repository<Specification>().Delete(specification);
+                            await unitOfWork.SaveChangesAsync();
+                        }
+                        catch (DbUpdateException e)
+                        {
+                            MessageService.ShowOkMessageDialog(e.GetType().ToString(), e.GetAllExceptions());
+                            return;
+                        }
+                    }
+
+                    EventAggregator.GetEvent<AfterRemoveSpecificationEvent>().Publish(specification);
+
+                }, 
+                () => SelectedItem != null);
         }
 
         private void EditItemCommandExecute()
