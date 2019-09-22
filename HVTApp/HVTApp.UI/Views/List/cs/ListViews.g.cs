@@ -993,6 +993,13 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility DirectionVisibility
+        {
+            get { return DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentLookup.Direction)].Visibility; }
+            set { DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentLookup.Direction)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility DisplayMemberVisibility
         {
             get { return DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentLookup.DisplayMember)].Visibility; }
@@ -1132,7 +1139,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Регистрационные данные")]
 	[DesignationPlural("DocumentsRegistrationDetailsLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Role.SalesManager)]
+[AllowEditAttribute(Role.DataBaseFiller)]
+[AllowEditAttribute(Role.Economist)]
+[AllowEditAttribute(Role.Admin)]
 
     public partial class DocumentsRegistrationDetailsLookupListView : ViewBase
     {
@@ -2179,6 +2189,13 @@ namespace HVTApp.UI.Views
         {
             get { return OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.OfferLookup.Comment)].Visibility; }
             set { OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.OfferLookup.Comment)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DirectionVisibility
+        {
+            get { return OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.OfferLookup.Direction)].Visibility; }
+            set { OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.OfferLookup.Direction)].Visibility = value; }
         }
 
 

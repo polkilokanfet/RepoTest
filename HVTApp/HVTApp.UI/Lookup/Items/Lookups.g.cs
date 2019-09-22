@@ -1171,7 +1171,10 @@ namespace HVTApp.UI.Lookup
 
 	}
 
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Role.SalesManager)]
+[AllowEditAttribute(Role.DataBaseFiller)]
+[AllowEditAttribute(Role.Economist)]
+[AllowEditAttribute(Role.Admin)]
 
 	[Designation("Регистрационные данные")]
 	public partial class DocumentsRegistrationDetailsLookup : LookupItem<DocumentsRegistrationDetails>
@@ -1777,6 +1780,10 @@ namespace HVTApp.UI.Lookup
         public System.String Comment => Entity.Comment;
 
 
+		[OrderStatus(1)]
+        public HVTApp.Model.POCOs.DocumentDirection Direction => Entity.Direction;
+
+
         #endregion
 
 
@@ -1915,6 +1922,10 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
         public System.String Comment => Entity.Comment;
+
+
+		[OrderStatus(1)]
+        public HVTApp.Model.POCOs.DocumentDirection Direction => Entity.Direction;
 
 
         #endregion

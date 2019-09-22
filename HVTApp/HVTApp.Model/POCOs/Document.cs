@@ -18,14 +18,15 @@ namespace HVTApp.Model.POCOs
         {
             get
             {
-                if (!string.IsNullOrEmpty(Author?.PersonalNumber))
+                if (Direction == DocumentDirection.Outgoing &&
+                    !string.IsNullOrEmpty(Author?.PersonalNumber))
                 {
                     return Number == null
                         ? $"{Author.PersonalNumber}-{DateTime.Today.Year}-"
                         : $"{Author.PersonalNumber}-{DateTime.Today.Year}-{Number.Number:D4}";
                 }
 
-                return Number != null ? $"{Number.Number:D5}" : "no number";
+                return Number != null ? $"{Number.Number:D5}" : "n/n";
             }
         }
 
@@ -59,5 +60,14 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Комментарий"), MaxLength(100)]
         public string Comment { get; set; }
+
+        [Designation("Направление"), NotMapped]
+        public DocumentDirection Direction => GlobalAppProperties.Actual.OurCompany.Id == SenderEmployee?.Company.Id ? DocumentDirection.Outgoing : DocumentDirection.Incoming;
+    }
+
+    public enum DocumentDirection
+    {
+        Incoming,
+        Outgoing
     }
 }

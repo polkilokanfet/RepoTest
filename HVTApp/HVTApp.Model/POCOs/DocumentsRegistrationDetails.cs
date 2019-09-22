@@ -6,6 +6,7 @@ using HVTApp.Infrastructure.Attributes;
 namespace HVTApp.Model.POCOs
 {
     [Designation("Регистрационные данные")]
+    [AllowEdit(Role.SalesManager, Role.DataBaseFiller, Role.Economist)]
     public partial class DocumentsRegistrationDetails : BaseEntity
     {
         [Designation("Дата"), Required]

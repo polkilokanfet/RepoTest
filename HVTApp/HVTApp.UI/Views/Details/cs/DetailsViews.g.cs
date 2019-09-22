@@ -4420,6 +4420,11 @@ namespace HVTApp.UI.Views
             //    VisibilityCommentDocument = Visibility.Collapsed;
 
 
+            //attr = typeof(HVTApp.Model.POCOs.Document).GetProperty(nameof(HVTApp.Model.POCOs.Document.Direction)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityDirectionDocument = Visibility.Collapsed;
+
+
 
         }
 
@@ -4529,6 +4534,15 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityCommentDocumentProperty); }
             set { SetValue(VisibilityCommentDocumentProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityDirectionDocumentProperty = DependencyProperty.Register("VisibilityDirectionDocument", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityDirectionDocument
+        {
+            get { return (Visibility) GetValue(VisibilityDirectionDocumentProperty); }
+            set { SetValue(VisibilityDirectionDocumentProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4779,6 +4793,11 @@ namespace HVTApp.UI.Views
             //    VisibilityCommentOffer = Visibility.Collapsed;
 
 
+            //attr = typeof(HVTApp.Model.POCOs.Offer).GetProperty(nameof(HVTApp.Model.POCOs.Offer.Direction)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityDirectionOffer = Visibility.Collapsed;
+
+
 
         }
 
@@ -4915,6 +4934,15 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityCommentOfferProperty); }
             set { SetValue(VisibilityCommentOfferProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityDirectionOfferProperty = DependencyProperty.Register("VisibilityDirectionOffer", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityDirectionOffer
+        {
+            get { return (Visibility) GetValue(VisibilityDirectionOfferProperty); }
+            set { SetValue(VisibilityDirectionOfferProperty, value); OnPropertyChanged(); }
         }
 
 

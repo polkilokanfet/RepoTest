@@ -3327,6 +3327,9 @@ namespace HVTApp.UI.Wrapper
         public System.String RegNumber => GetValue<System.String>(); 
 
 
+        public HVTApp.Model.POCOs.DocumentDirection Direction => GetValue<HVTApp.Model.POCOs.DocumentDirection>(); 
+
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -3623,6 +3626,9 @@ namespace HVTApp.UI.Wrapper
         #region GetProperties
 
         public System.String RegNumber => GetValue<System.String>(); 
+
+
+        public HVTApp.Model.POCOs.DocumentDirection Direction => GetValue<HVTApp.Model.POCOs.DocumentDirection>(); 
 
 
         #endregion

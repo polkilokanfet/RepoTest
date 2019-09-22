@@ -1,5 +1,7 @@
 ﻿using System.Windows;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Interfaces.Services.DialogService;
+using HVTApp.Modules.BookRegistration.Tabs;
 using HVTApp.Modules.BookRegistration.ViewModels;
 using HVTApp.UI.Tabs;
 using Prism.Events;
@@ -7,8 +9,9 @@ using Prism.Regions;
 
 namespace HVTApp.Modules.BookRegistration.Views
 {
+    [RibbonTab(typeof(TabBookRegistration))]
     [RibbonTab(typeof(TabCRUD))]
-    public partial class BookRegistrationView : ViewBase
+    public partial class BookRegistrationView
     {
         private readonly BookRegistrationViewModel _viewModel;
         public BookRegistrationView(BookRegistrationViewModel viewModel, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
