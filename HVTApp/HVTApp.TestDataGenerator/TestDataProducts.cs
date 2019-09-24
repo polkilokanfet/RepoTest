@@ -2547,6 +2547,7 @@ namespace HVTApp.TestDataGenerator
         public ProductType ProductTypeDrive;
         public ProductType ProductTypeKtt;
         public ProductType ProductTypeTvg;
+        public ProductType ProductTypeService;
 
         private void GenerateProductTypes()
         {
@@ -2560,6 +2561,7 @@ namespace HVTApp.TestDataGenerator
             ProductTypeDrive.Clone(new ProductType { Name = "Привод" });
             ProductTypeKtt.Clone(new ProductType { Name = "Комплект трансформаторов тока" });
             ProductTypeTvg.Clone(new ProductType { Name = "Трансформатор тока встроенный" });
+            ProductTypeService.Clone(new ProductType { Name = "Услуга" });
         }
 
         public ProductTypeDesignation ProductTypeDesignationDeadTankBreaker;
@@ -2572,6 +2574,7 @@ namespace HVTApp.TestDataGenerator
         public ProductTypeDesignation ProductTypeDesignationDrive;
         public ProductTypeDesignation ProductTypeDesignationKtt;
         public ProductTypeDesignation ProductTypeDesignationTvg;
+        public ProductTypeDesignation ProductTypeDesignationService;
 
         private void GenerateProductTypeDesignations()
         {
@@ -2585,6 +2588,7 @@ namespace HVTApp.TestDataGenerator
             ProductTypeDesignationDrive.Clone(new ProductTypeDesignation { ProductType = ProductTypeDrive, Parameters = new List<Parameter> { ParameterPartDrive } });
             ProductTypeDesignationKtt.Clone(new ProductTypeDesignation { ProductType = ProductTypeKtt, Parameters = new List<Parameter> { ParameterPartTransformersCurrentBlock } });
             ProductTypeDesignationTvg.Clone(new ProductTypeDesignation { ProductType = ProductTypeTvg, Parameters = new List<Parameter> { ParameterTransformerCurrent, ParameterTransformerBuiltIn } });
+            ProductTypeDesignationService.Clone(new ProductTypeDesignation { ProductType = ProductTypeService, Parameters = new List<Parameter> { ParameterService } });
         }
 
         #endregion
@@ -2645,7 +2649,19 @@ namespace HVTApp.TestDataGenerator
         public ProductDesignation ProductDesignationZro220;
 
         public ProductDesignation ProductDesignationVab;
+        public ProductDesignation ProductDesignationVab43;
+        public ProductDesignation ProductDesignationVab49;
+        public ProductDesignation ProductDesignationVab52;
+        public ProductDesignation ProductDesignationVab55;
+
+
+
+
         public ProductDesignation ProductDesignationVat;
+        public ProductDesignation ProductDesignationVat42;
+        public ProductDesignation ProductDesignationVat43;
+        public ProductDesignation ProductDesignationVat48;
+        public ProductDesignation ProductDesignationVat49;
 
         public ProductDesignation ProductDesignationClimatT1;
         public ProductDesignation ProductDesignationClimatU1Z;
@@ -2766,10 +2782,19 @@ namespace HVTApp.TestDataGenerator
             ProductDesignationZro110.Clone(new ProductDesignation { Designation = "ЗРО-УЭТМ-110", Parameters = new List<Parameter> { ParameterEarthingSwitch, ParameterVoltage110kV } });
             ProductDesignationZro220.Clone(new ProductDesignation { Designation = "ЗРО-УЭТМ-220", Parameters = new List<Parameter> { ParameterEarthingSwitch, ParameterVoltage220kV } });
 
-            ProductDesignationVab.Clone(new ProductDesignation { Designation = "ВАБ", Parameters = new List<Parameter> { ParameterBvptVab } });
-            ProductDesignationVat.Clone(new ProductDesignation { Designation = "ВАТ", Parameters = new List<Parameter> { ParameterBvptVat } });
+            ProductDesignationVab.Clone(new ProductDesignation { Designation = "ВАБ-УЭТМ", Parameters = new List<Parameter> { ParameterBvptVab } });
+            ProductDesignationVab43.Clone(new ProductDesignation { Designation = "ВАБ-УЭТМ-43", Parameters = new List<Parameter> { ParameterBvptVab, ParameterBvptSeries43 } });
+            ProductDesignationVab49.Clone(new ProductDesignation { Designation = "ВАБ-УЭТМ-49", Parameters = new List<Parameter> { ParameterBvptVab, ParameterBvptSeries49 } });
+            ProductDesignationVab52.Clone(new ProductDesignation { Designation = "ВАБ-УЭТМ-52", Parameters = new List<Parameter> { ParameterBvptVab, ParameterBvptSeries52 } });
+            ProductDesignationVab55.Clone(new ProductDesignation { Designation = "ВАБ-УЭТМ-55", Parameters = new List<Parameter> { ParameterBvptVab, ParameterBvptSeries55 } });
 
-            var dpu = new List<ProductDesignation>()
+            ProductDesignationVat.Clone(new ProductDesignation { Designation = "ВАТ-УЭТМ", Parameters = new List<Parameter> { ParameterBvptVat } });
+            ProductDesignationVat42.Clone(new ProductDesignation { Designation = "ВАТ-УЭТМ-42", Parameters = new List<Parameter> { ParameterBvptVat, ParameterBvptSeries42 } });
+            ProductDesignationVat43.Clone(new ProductDesignation { Designation = "ВАТ-УЭТМ-43", Parameters = new List<Parameter> { ParameterBvptVat, ParameterBvptSeries43 } });
+            ProductDesignationVat48.Clone(new ProductDesignation { Designation = "ВАТ-УЭТМ-48", Parameters = new List<Parameter> { ParameterBvptVat, ParameterBvptSeries48 } });
+            ProductDesignationVat49.Clone(new ProductDesignation { Designation = "ВАТ-УЭТМ-49", Parameters = new List<Parameter> { ParameterBvptVat, ParameterBvptSeries49 } });
+
+            var dpu = new List<ProductDesignation>
             {
                 ProductDesignationVgt35,
                 ProductDesignationVgt110,

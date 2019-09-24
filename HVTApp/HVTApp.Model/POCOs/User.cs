@@ -15,7 +15,7 @@ namespace HVTApp.Model.POCOs
         public string Login { get; set; }
 
         [Designation("Пароль"), Required, OrderStatus(2)]
-        public Guid Password { get; set; }
+        public Guid Password { get; set; } = StringToGuid.GetHashString("1");
 
         [Designation("Текущая роль"), NotMapped]
         public Role RoleCurrent { get; set; }

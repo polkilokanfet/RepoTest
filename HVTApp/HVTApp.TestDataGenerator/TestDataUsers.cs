@@ -9,6 +9,7 @@ namespace HVTApp.TestDataGenerator
         public EmployeesPosition EmployeesPositionDirector;
         public EmployeesPosition EmployeesPositionManager;
         public EmployeesPosition EmployeesPositionEconomist;
+        public EmployeesPosition EmployeesPositionConstructor;
 
         public Person PersonBrehov;
         public Person PersonBuzikin;
@@ -29,7 +30,9 @@ namespace HVTApp.TestDataGenerator
         public Person PersonEgorova;
         public Person PersonSharapova;
         public Person PersonNikiforova;
+        public Person PersonRozhkova;
 
+        public Person PersonBaranova;
 
 
         public Employee EmployeeBrehov;
@@ -51,7 +54,9 @@ namespace HVTApp.TestDataGenerator
         public Employee EmployeeEgorova;
         public Employee EmployeeSharapova;
         public Employee EmployeeNikiforova;
+        public Employee EmployeeRozhkova;
 
+        public Employee EmployeeBaranova;
 
         public User UserBrehov;
         public User UserBuzikin;
@@ -72,7 +77,9 @@ namespace HVTApp.TestDataGenerator
         public User UserEgorova;
         public User UserSharapova;
         public User UserNikiforova;
+        public User UserRozhkova;
 
+        public User UserBaranova;
 
         public UserRole UserRoleDataBaseFiller;
         public UserRole UserRoleAdmin;
@@ -118,6 +125,7 @@ namespace HVTApp.TestDataGenerator
             EmployeesPositionDirector.Clone(new EmployeesPosition { Name = "Директор по продажам ВВА" });
             EmployeesPositionManager.Clone(new EmployeesPosition { Name = "Менеджер" });
             EmployeesPositionEconomist.Clone(new EmployeesPosition { Name = "Экономист" });
+            EmployeesPositionConstructor.Clone(new EmployeesPosition { Name = "Инженер-конструктор" });
         }
 
         private void GeneratePersons()
@@ -149,6 +157,9 @@ namespace HVTApp.TestDataGenerator
             PersonEgorova.Clone(new Person { Surname = "Егорова", Name = "Татьяна", Patronymic = "Евгеньевна", IsMan = false });
             PersonSharapova.Clone(new Person { Surname = "Шарапова", Name = "Екатерина", Patronymic = "Анатольевна", IsMan = false });
             PersonNikiforova.Clone(new Person { Surname = "Никифорова", Name = "Ольга", Patronymic = "Викторовна", IsMan = false });
+            PersonRozhkova.Clone(new Person { Surname = "Рожкова", Name = "Елена", Patronymic = "Николаевна", IsMan = false });
+
+            PersonBaranova.Clone(new Person { Surname = "Баранова", Name = "Татьяна", Patronymic = "Юрьевна", IsMan = false });
         }
 
         private void GenerateEmployees()
@@ -180,6 +191,9 @@ namespace HVTApp.TestDataGenerator
             EmployeeEgorova.Clone(new Employee { Person = PersonEgorova, Position = EmployeesPositionEconomist, Company = CompanyUetm, PersonalNumber = "74??", Email = "hz@uetm.ru", PhoneNumber = "326-36-36" });
             EmployeeSharapova.Clone(new Employee { Person = PersonSharapova, Position = EmployeesPositionEconomist, Company = CompanyUetm, PersonalNumber = "74??", Email = "hz@uetm.ru", PhoneNumber = "326-36-36" });
             EmployeeNikiforova.Clone(new Employee { Person = PersonNikiforova, Position = EmployeesPositionEconomist, Company = CompanyUetm, PersonalNumber = "74??", Email = "hz@uetm.ru", PhoneNumber = "326-36-36" });
+            EmployeeRozhkova.Clone(new Employee { Person = PersonRozhkova, Position = EmployeesPositionEconomist, Company = CompanyUetm, PersonalNumber = "74??", Email = "hz@uetm.ru", PhoneNumber = "326-36-36" });
+
+            EmployeeBaranova.Clone(new Employee { Person = PersonBaranova, Position = EmployeesPositionConstructor, Company = CompanyUetm, PersonalNumber = "74??", Email = "hz@uetm.ru", PhoneNumber = "326-36-36" });
         }
 
         private void GenerateUsers()
@@ -201,9 +215,9 @@ namespace HVTApp.TestDataGenerator
             UserKolesnik.Clone(new User { Login = "kolesnik", Password = pas1, Employee = EmployeeKolesnik, Roles = new List<UserRole> { UserRoleSalesManager } });
             UserKopitin.Clone(new User { Login = "kopitin", Password = pas1, Employee = EmployeeKopitin, Roles = new List<UserRole> { UserRoleSalesManager } });
             UserPostnikova.Clone(new User { Login = "postnikova", Password = pas1, Employee = EmployeePostnikova, Roles = new List<UserRole> { UserRoleSalesManager } });
-            UserKosolapov.Clone(new User { Login = "kosolapov", Password = pas1, Employee = EmployeeKosolapov, Roles = new List<UserRole> { UserRoleAdmin, UserRoleDataBaseFiller, UserRoleSalesManager, UserRolePlanMaker, UserRoleDirector, UserRoleEconomist, UserRolePricer, UserRoleConstructor, UserRoleReportMaker } });
+            UserKosolapov.Clone(new User { Login = "kos", Password = pas1, Employee = EmployeeKosolapov, Roles = new List<UserRole> { UserRoleAdmin, UserRoleDataBaseFiller, UserRoleSalesManager, UserRolePlanMaker, UserRoleDirector, UserRoleEconomist, UserRolePricer, UserRoleConstructor, UserRoleReportMaker } });
             UserKoreshkov.Clone(new User { Login = "koreshkov", Password = pas1, Employee = EmployeeKoreshkov, Roles = new List<UserRole> { UserRoleSalesManager } });
-            UserEmelyanov.Clone(new User { Login = "emelyanov", Password = pas1, Employee = EmployeeEmelyanov, Roles = new List<UserRole> { UserRoleSalesManager } });
+            UserEmelyanov.Clone(new User { Login = "emelianov", Password = pas1, Employee = EmployeeEmelyanov, Roles = new List<UserRole> { UserRoleSalesManager } });
             UserRybin.Clone(new User { Login = "rybin", Password = pas1, Employee = EmployeeRybin, Roles = new List<UserRole> { UserRoleSalesManager } });
             UserGazizov.Clone(new User { Login = "gazizov", Password = pas1, Employee = EmployeeGazizov, Roles = new List<UserRole> { UserRoleSalesManager } });
             UserTekin.Clone(new User { Login = "tekin", Password = pas1, Employee = EmployeeTekin, Roles = new List<UserRole> { UserRoleSalesManager } });
@@ -213,6 +227,9 @@ namespace HVTApp.TestDataGenerator
             UserEgorova.Clone(new User { Login = "egorova", Password = pas1, Employee = EmployeeEgorova, Roles = new List<UserRole> { UserRoleEconomist, UserRolePricer } });
             UserSharapova.Clone(new User { Login = "sharapova", Password = pas1, Employee = EmployeeSharapova, Roles = new List<UserRole> { UserRoleEconomist, UserRolePricer } });
             UserNikiforova.Clone(new User { Login = "nikiforova", Password = pas1, Employee = EmployeeNikiforova, Roles = new List<UserRole> { UserRoleEconomist, UserRolePlanMaker } });
+            UserRozhkova.Clone(new User { Login = "rozhkova", Password = pas1, Employee = EmployeeRozhkova, Roles = new List<UserRole> { UserRoleEconomist, UserRolePlanMaker } });
+
+            UserBaranova.Clone(new User { Login = "baranova", Password = pas1, Employee = EmployeeBaranova, Roles = new List<UserRole> { UserRoleConstructor } });
         }
     }
 }

@@ -1,6 +1,8 @@
 using System.Data.Entity.Infrastructure;
+using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Modules.Sales.Views;
@@ -25,6 +27,14 @@ namespace HVTApp.Modules.Sales.ViewModels
             {
                 eventAggregator.GetEvent<SelectedSpecificationChangedEvent>().Publish(specificationLookup?.Entity);
             };
+        }
+
+        public void LoadSpecifications()
+        {
+            var salesUnits =
+                UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Manager.Id == GlobalAppProperties.User.Id
+                                                             && x.Specification != null);
+            this.Load(salesUnits.Select(x => x.Specification).Distinct());
         }
 
         protected override void InitSpecialCommands()

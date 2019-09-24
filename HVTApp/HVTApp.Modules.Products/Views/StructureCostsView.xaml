@@ -15,7 +15,7 @@
                         <infg:TextField Name="ProductType" Label="Тип" Width="Auto" AllowEdit="True"/>
                         <infg:TextField AlternateBinding="{Binding}" BindingType="UseAlternateBinding" Label="Обозначение блока" Width="Auto"/>
                         <!--<infg:TextField AlternateBinding="{Binding OrderPosition, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Поз." Width="Auto" AllowEdit="True"/>-->
-                        <infg:TextField Name="StructureCostNumber" Label="Сралчахвост" Width="Auto" AllowEdit="True"/>
+                        <infg:TextField Name="StructureCostNumber" Label="StructureCost" Width="Auto" AllowEdit="True"/>
                         <infg:NumericField Name="Weight" Label="Вес, кг" Width="Auto" AllowEdit="True"/>
 
                     </infg:FieldLayout.Fields>

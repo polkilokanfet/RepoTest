@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
@@ -13,10 +12,6 @@ namespace HVTApp.Modules.Settings.ViewModels
 {
     public class PasswordViewModel : BindableBase
     {
-        private readonly IUnityContainer _container;
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly User _user;
-
         private string _passOld;
         private string _passNew;
         private string _passAgain;
@@ -58,30 +53,27 @@ namespace HVTApp.Modules.Settings.ViewModels
 
         public PasswordViewModel(IUnityContainer container)
         {
-            _container = container;
-            _unitOfWork = container.Resolve<IUnitOfWork>();
-            _user = _unitOfWork.Repository<User>().Find(x => x.IsAppCurrentUser()).First();
+            var unitOfWork = container.Resolve<IUnitOfWork>();
+            var user = unitOfWork.Repository<User>().Find(x => x.IsAppCurrentUser()).First();
 
-            OkCommand = new DelegateCommand(OkCommandExecute, OkCommandCanExecute);
+            OkCommand = new DelegateCommand(
+                async () =>
+                {
+                    user.Password = StringToGuid.GetHashString(PassNew);
+                    await unitOfWork.SaveChangesAsync();
+                    container.Resolve<IMessageService>().ShowOkMessageDialog("Пароль изменен", "Пароль успешно изменен.");
+
+                    PassOld = string.Empty;
+                    PassNew = string.Empty;
+                    PassAgain = string.Empty;
+                },
+
+                () => !string.IsNullOrEmpty(PassOld) &&
+                      !string.IsNullOrEmpty(PassNew) &&
+                      !string.IsNullOrEmpty(PassAgain) &&
+                      StringToGuid.GetHashString(PassOld) == user.Password 
+                      && PassNew == PassAgain);
         }
 
-        private async void OkCommandExecute()
-        {
-            _user.Password = StringToGuid.GetHashString(PassNew);
-            await _unitOfWork.SaveChangesAsync();
-            _container.Resolve<IMessageService>().ShowOkMessageDialog("Пароль изменен", "Пароль успешно изменен.");
-            PassOld = String.Empty;
-            PassNew = string.Empty;
-            PassAgain = string.Empty;
-        }
-
-        private bool OkCommandCanExecute()
-        {
-            return !string.IsNullOrEmpty(PassOld) &&
-                   !string.IsNullOrEmpty(PassNew) &&
-                   !string.IsNullOrEmpty(PassAgain) &&
-                   StringToGuid.GetHashString(PassOld) == _user.Password &&
-                   PassNew == PassAgain;
-        }
     }
 }

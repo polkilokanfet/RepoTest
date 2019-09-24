@@ -8,46 +8,24 @@
               x:Class="HVTApp.Modules.Sales.Views.SpecificationsView">
 
     <Grid>
-         <Grid.RowDefinitions>
-             <RowDefinition Height="Auto"/>
-             <RowDefinition Height="*"/>
-         </Grid.RowDefinitions>
-         
-        <Label Grid.Row="0" Content="Ожидание данных..." VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Label.Style>
-                <Style>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=ContentGrid, Path=Visibility}" Value="Visible">
-                            <Setter Property="Label.Visibility" Value="Collapsed"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Label.Style>
-        </Label>
-       
-
-        <Grid Grid.Row="1" 
-              Name="ContentGrid" 
-              Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
             
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-            <views:SpecificationLookupListView Grid.Row="0" 
-                                               DataContext="{Binding}"
-                                               UnitsVisibility="Collapsed"/>
+        <views:SpecificationLookupListView Grid.Row="0" 
+                                           DataContext="{Binding}"
+                                           UnitsVisibility="Collapsed"/>
             
-            <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="5"/>
+        <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="5"/>
 
-            <GroupBox Grid.Row="2" Header="Оборудование">
-                <controls:UnitListControl x:Name="UnitListView" DataContext="{Binding Groups}" />
-            </GroupBox>
-        </Grid>
-
+        <GroupBox Grid.Row="2" Header="Оборудование">
+            <controls:UnitListControl x:Name="UnitListView" DataContext="{Binding Groups}" />
+        </GroupBox>
     </Grid>
+
 </inf:ViewBase>
 
 	

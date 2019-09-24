@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
@@ -42,7 +43,11 @@ namespace HVTApp.Modules.Reports.ViewModels
 
                 var tender = _tenders.FirstOrDefault(x => Equals(x.Winner, Contragent));
                 if (tender != null)
-                    return tender.Types.ToString();
+                {
+                    var sb = new StringBuilder();
+                    tender.Types.ForEach(x => sb.Append(x.Name).Append("; "));
+                    return sb.ToString();
+                }
 
                 return "посредник";
             }
@@ -148,6 +153,18 @@ namespace HVTApp.Modules.Reports.ViewModels
         public double? MarginalIncome => Cost - CostMin <= 0 ? default(double?) : (1.0 - Price / (Cost - CostMin)) * 100.0;
 
         public string Voltage => Product.ProductBlock.Parameters.SingleOrDefault(x => Equals(x.ParameterGroup, GlobalAppProperties.Actual.VoltageGroup))?.Value;
+
+        #region Fake
+
+        public double CostResult => this.FakeData?.Cost ?? this.Cost;
+
+        public DateTime OrderInTakeDateResult => this.FakeData?.OrderInTakeDate ?? this.OrderInTakeDate;
+
+        public DateTime RealizationDateResult => this.FakeData?.RealizationDate ?? this.RealizationDateCalculated;
+
+        public PaymentConditionSet PaymentConditionSetResult => this.FakeData?.PaymentConditionSet ?? this.PaymentConditionSet;
+
+        #endregion
 
         public SalesReportUnit(
             SalesUnit salesUnit, 

@@ -33,7 +33,7 @@ namespace HVTApp.Model.POCOs
         public virtual PaymentConditionSet PaymentConditionSet { get; set; }
 
         [Designation("Срок производства"), Required]
-        public int ProductionTerm { get; set; }
+        public int ProductionTerm { get; set; } = GlobalAppProperties.Actual.StandartTermFromStartToEndProduction;
 
 
         #region Проект

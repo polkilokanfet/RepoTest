@@ -58,16 +58,17 @@ namespace HVTApp.Services.ShippingService
             //меняем столицу ФО на столицу страны
             if (locality.IsDistrictCapital)
             {
-                return _localities.SingleOrDefault(x => locality.Region.District.Country.Id == x.Region.District.Country.Id && x.IsCountryCapital);
+                return _localities.FirstOrDefault(x => locality.Region.District.Country.Id == x.Region.District.Country.Id && x.IsCountryCapital);
+                //return _localities.SingleOrDefault(x => locality.Region.District.Country.Id == x.Region.District.Country.Id && x.IsCountryCapital);
             }
 
             //меняем столицу региона на столицу ФО
             if (locality.IsRegionCapital)
             {
-                return _localities.SingleOrDefault(x => locality.Region.District.Id == x.Region.District.Id && x.IsDistrictCapital);
+                return _localities.FirstOrDefault(x => locality.Region.District.Id == x.Region.District.Id && x.IsDistrictCapital);
             }
 
-            return _localities.SingleOrDefault(x => locality.Region.Id == x.Region.Id && x.IsRegionCapital);
+            return _localities.FirstOrDefault(x => locality.Region.Id == x.Region.Id && x.IsRegionCapital);
 
         }
     }

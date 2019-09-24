@@ -1,4 +1,5 @@
 ﻿using HVTApp.Infrastructure;
+using HVTApp.Model;
 using HVTApp.Modules.Products.Views;
 
 namespace HVTApp.Modules.Products.Menus
@@ -7,8 +8,11 @@ namespace HVTApp.Modules.Products.Menus
     {
         protected override void GenerateMenu()
         {
-            Items.Add(new NavigationItem("Параметры", typeof(ParametersView)));
-            Items.Add(new NavigationItem("Задания", typeof(CreateNewProductTasksView)));
+            if (GlobalAppProperties.User.RoleCurrent == Role.Admin)
+            {
+                Items.Add(new NavigationItem("Параметры", typeof(ParametersView)));
+                Items.Add(new NavigationItem("Задания", typeof(CreateNewProductTasksView)));
+            }
             Items.Add(new NavigationItem("Стракчакосты", typeof(StructureCostsView)));
         }
     }
