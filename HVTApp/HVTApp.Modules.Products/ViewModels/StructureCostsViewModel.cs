@@ -36,7 +36,8 @@ namespace HVTApp.Modules.Products.ViewModels
 
             //загружаем блоки
             var blockWrappers = unitOfWork.Repository<ProductBlock>()
-                .Find(x => string.IsNullOrWhiteSpace(x.StructureCostNumber))
+                //.Find(x => string.IsNullOrWhiteSpace(x.StructureCostNumber))
+                .Find(x => true).OrderBy(x => x.Designation)
                 .Select(x => new ProductBlockWrapper(x));
             ProductBlocks = new ValidatableChangeTrackingCollection<ProductBlockWrapper>(blockWrappers);
 
