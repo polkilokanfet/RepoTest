@@ -6,9 +6,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
+using HVTApp.UI.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
@@ -21,6 +23,7 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
         private readonly IUnityContainer _container;
         private IUnitOfWork _unitOfWork;
         private PriceTask _selectedPriceTask;
+        private SumOnDateWrapper _selectedSumOnDate;
 
         public ObservableCollection<PriceTask> PriceTasks { get; } = new ObservableCollection<PriceTask>();
 
@@ -31,6 +34,20 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
             {
                 _selectedPriceTask = value;
                 ((DelegateCommand)PrintBlockInContext).RaiseCanExecuteChanged();
+                ((DelegateCommand)AddPriceCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)RemovePriceCommand).RaiseCanExecuteChanged();
+                SelectedSumOnDate = null;
+                OnPropertyChanged();
+            }
+        }
+
+        public SumOnDateWrapper SelectedSumOnDate
+        {
+            get { return _selectedSumOnDate; }
+            set
+            {
+                _selectedSumOnDate = value;
+                ((DelegateCommand)RemovePriceCommand).RaiseCanExecuteChanged();
             }
         }
 
@@ -38,16 +55,16 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
         public ICommand ReloadCommand { get; }
         public ICommand PrintBlockInContext { get; }
 
+        public ICommand AddPriceCommand { get; }
+        public ICommand RemovePriceCommand { get; }
+
         public PricesViewModel(IUnityContainer container)
         {
             _container = container;
             SaveCommand = new DelegateCommand(async () =>
             {
-                PriceTasks.ForEach(x =>
-                {
-                    x.AddPrice();
-                    x.AcceptChanges();
-                });
+                PriceTasks.SelectMany(x => x.Prices.RemovedItems).ForEach(x => _unitOfWork.Repository<SumOnDate>().Delete(x.Model));
+                PriceTasks.Where(x => x.IsChanged).ForEach(x => { x.AcceptChanges(); });
                 await _unitOfWork.SaveChangesAsync();
                 await LoadAsync();
             },
@@ -58,6 +75,27 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
 
             ReloadCommand = new DelegateCommand(async () => await LoadAsync());
             PrintBlockInContext = new DelegateCommand(PrintBlockInContextExecute, () => SelectedPriceTask != null);
+
+            AddPriceCommand = new DelegateCommand(() =>
+            {
+                var price = new SumOnDateWrapper(new SumOnDate())
+                {
+                    Date = DateTime.Today,
+                    Sum = 1
+                };
+                SelectedPriceTask.Prices.Add(price);
+                SelectedSumOnDate = price;
+            }, 
+            () => SelectedPriceTask != null);
+
+            RemovePriceCommand = new DelegateCommand(() =>
+            {
+                var dr = _container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Удалить выбранный прайс?");
+                if (dr != MessageDialogResult.Yes)
+                    return;
+                SelectedPriceTask.Prices.Remove(SelectedSumOnDate);
+            },
+            () => SelectedPriceTask != null && SelectedSumOnDate != null);
         }
 
         private async void PrintBlockInContextExecute()

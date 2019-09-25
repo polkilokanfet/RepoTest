@@ -10,6 +10,11 @@
         <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveCommand}" SmallImage="/HVTApp.Modules.PlanAndEconomy;component/Images/Save_16x16.png"/>
     </infRib:RibbonGroup>
     
+    <infRib:RibbonGroup Caption="Прайс">
+        <infRib:ButtonTool Caption="Добавить" Command="{Binding AddPriceCommand}" SmallImage="/HVTApp.UI;component/Images/Add_16x16.png"/>
+        <infRib:ButtonTool Caption="Удалить" Command="{Binding RemovePriceCommand}" SmallImage="/HVTApp.UI;component/Images/Delete_16x16.png"/>
+    </infRib:RibbonGroup>
+
     <infRib:RibbonGroup Caption="Продукт">
         <infRib:ButtonTool Caption="Блок в контексте" Command="{Binding PrintBlockInContext}"/>
     </infRib:RibbonGroup>

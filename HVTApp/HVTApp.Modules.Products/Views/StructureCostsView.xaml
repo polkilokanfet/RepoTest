@@ -5,24 +5,56 @@
               x:Class="HVTApp.Modules.Products.Views.StructureCostsView">
 
     <GroupBox Header="Стракчакосты блоков оборудования">
-        <infg:XamDataGrid DataSource="{Binding ProductBlocks}" 
-                          SelectedDataItem="{Binding SelectedProductBlock, Mode=TwoWay}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <infg:XamDataGrid DataSource="{Binding ProductBlocks}" 
+                              SelectedDataItem="{Binding SelectedProductBlock, Mode=TwoWay}">
 
-            <infg:XamDataGrid.FieldLayouts>
-                <infg:FieldLayout>
-                    <infg:FieldLayout.Fields>
+                <infg:XamDataGrid.FieldLayouts>
+                    <infg:FieldLayout>
+                        <infg:FieldLayout.Fields>
 
-                        <infg:TextField Name="ProductType" Label="Тип" Width="Auto" AllowEdit="True"/>
-                        <infg:TextField AlternateBinding="{Binding}" BindingType="UseAlternateBinding" Label="Обозначение блока" Width="Auto"/>
-                        <!--<infg:TextField AlternateBinding="{Binding OrderPosition, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Поз." Width="Auto" AllowEdit="True"/>-->
-                        <infg:TextField Name="StructureCostNumber" Label="StructureCost" Width="Auto" AllowEdit="True"/>
-                        <infg:NumericField Name="Weight" Label="Вес, кг" Width="Auto" AllowEdit="True"/>
+                            <infg:TextField Name="ProductType" Label="Тип" Width="Auto" AllowEdit="True"/>
+                            <infg:TextField AlternateBinding="{Binding}" BindingType="UseAlternateBinding" Label="Обозначение блока" Width="Auto"/>
+                            <!--<infg:TextField AlternateBinding="{Binding OrderPosition, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Поз." Width="Auto" AllowEdit="True"/>-->
+                            <infg:TextField Name="StructureCostNumber" Label="StructureCost" Width="Auto" AllowEdit="True"/>
+                            <infg:NumericField Name="Weight" Label="Вес, кг" Width="Auto" AllowEdit="True"/>
+                            <infg:TextField Name="Parameters" Label="Параметры" Width="Auto" Converter="{StaticResource ObjectsToStringConverter}"/>
 
-                    </infg:FieldLayout.Fields>
-                </infg:FieldLayout>
+                        </infg:FieldLayout.Fields>
+                    </infg:FieldLayout>
 
-            </infg:XamDataGrid.FieldLayouts>
-        </infg:XamDataGrid>
+                </infg:XamDataGrid.FieldLayouts>
+            </infg:XamDataGrid>
+            
+            <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="5"/>
+            
+            <GroupBox Grid.Row="2" Header="Параметры блока">
+		        <infg:XamDataGrid x:Name="ParameterLookupListGrid" 
+                                  Style="{StaticResource ListViewGrid}"
+                                  DataSource="{Binding SelectedProductBlock.Parameters}">
+        
+			        <infg:XamDataGrid.FieldLayouts>
+				        <infg:FieldLayout>
+					        <infg:FieldLayout.Fields>
+                            
+                            <infg:TextField Name="ParameterGroup" Label="Группа" Width="Auto"/>
+                            <infg:TextField Name="Value" Label="Значение" Width="Auto" />
+                            <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" />
+
+					        </infg:FieldLayout.Fields>
+				        </infg:FieldLayout>
+
+			        </infg:XamDataGrid.FieldLayouts>
+		        </infg:XamDataGrid>
+            </GroupBox>
+            
+        </Grid>
     </GroupBox>
 </inf:ViewBase>
 

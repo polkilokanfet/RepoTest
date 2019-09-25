@@ -97,6 +97,8 @@
     <Compile Include="Comparers\OfferUnitsGroupsComparer.cs" />
     <Compile Include="Comparers\SalesUnitsGroupsComparer.cs" />
     <Compile Include="Comparers\UnitsGroupsComparer.cs" />
+    <Compile Include="Converter\LookupsToStringConverter.cs" />
+    <Compile Include="Converter\ObjectsToStringConverter.cs" />
     <Compile Include="Groups\BaseWrappersGroup.cs" />
     <Compile Include="Groups\IGroupValidatableChangeTrackingWithCollection.cs" />
     <Compile Include="Groups\IWrapperGroup.cs" />

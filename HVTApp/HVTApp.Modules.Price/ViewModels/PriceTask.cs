@@ -11,8 +11,6 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
         private readonly IEnumerable<Specification> _specifications;
         private readonly IEnumerable<Offer> _offers;
         private readonly IEnumerable<Project> _projects;
-        private double? _price;
-        private DateTime _date = DateTime.Today;
 
         public int SpecificationsCount => _specifications.Count();
         public int OffersCount => _offers.Count();
@@ -23,25 +21,6 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
         /// </summary>
         public bool IsPriceless => !Prices.Any();
 
-        public double? Price
-        {
-            get { return _price; }
-            set
-            {
-                _price = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public DateTime Date
-        {
-            get { return _date; }
-            set
-            {
-                _date = value;
-                OnPropertyChanged();
-            }
-        }
 
         public PriceTask(ProductBlock block, IEnumerable<Specification> specifications, IEnumerable<Offer> offers, IEnumerable<Project> projects) : base(block)
         {
@@ -51,27 +30,9 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
         }
 
         /// <summary>
-        /// Добавление прайса в блок
-        /// </summary>
-        public void AddPrice()
-        {
-            if(Price == null) return;
-            
-            var sumOnDate = new SumOnDateWrapper(new SumOnDate())
-            {
-                Sum = Price.Value,
-                Date = this.Date
-            };
-
-            this.Prices.Add(sumOnDate);
-        }
-
-        /// <summary>
         /// Есть повод для обновления прайса
         /// </summary>
         public bool HasReasons => _specifications.Any() || _offers.Any() || _projects.Any();
-
-        public new bool IsChanged => Price != null || base.IsChanged;
 
         public override int CompareTo(object obj)
         {

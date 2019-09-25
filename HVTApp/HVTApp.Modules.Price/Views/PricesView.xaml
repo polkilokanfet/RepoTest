@@ -23,33 +23,65 @@
             </Label.Style>
         </Label>
        
-
-		<infg:XamDataGrid x:Name="PricesListGrid" 
-                          Grid.Row="1"
-                          DataSource="{Binding PriceTasks}"
-                          SelectedDataItem="{Binding SelectedPriceTask}"
-                          Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <GroupBox Grid.Row="1" Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                
+                <GroupBox Header="Блоки оборудования">
+                
+		            <infg:XamDataGrid x:Name="PricesListGrid" 
+                                      DataSource="{Binding PriceTasks}"
+                                      SelectedDataItem="{Binding SelectedPriceTask}">
         
-			    <infg:XamDataGrid.FieldLayouts>
-				    <infg:FieldLayout>
-					    <infg:FieldLayout.Fields>
+			                <infg:XamDataGrid.FieldLayouts>
+				                <infg:FieldLayout>
+					                <infg:FieldLayout.Fields>
                         
-                        <!--<infg:TextField Name="Block" Label="Блок" Width="Auto"/>-->
-                        <infg:TextField Name="ProductType" Label="Тип" Width="Auto"/>
-                        <infg:TextField AlternateBinding="{Binding}" BindingType="UseAlternateBinding" Label="Блок" Width="Auto"/>
-                        <infg:TextField Name="StructureCostNumber" Label="Сралчахвост" Width="Auto" AllowEdit="False"/>
-                        <!--<infg:TextField AlternateBinding="{Binding Block.StructureCostNumber}" AllowEdit="True" BindingType="UseAlternateBinding" Label="Сралчахвост" Width="Auto"/>-->
-                        <infg:NumericField Name="SpecificationsCount" Label="Спецификации" Width="Auto" />
-                        <infg:NumericField Name="OffersCount" Label="ТКП" Width="Auto" />
-                        <infg:NumericField Name="ProjectsCount" Label="Проекты" Width="Auto" />
-                        <infg:NumericField Name="Price" Label="Прайс" Width="Auto" AllowEdit="True"/>
-                        <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" AllowEdit="True"/>
-                        <infg:CheckBoxField Name="IsPriceless" Label="Без прайса" Width="Auto" />
+                                    <infg:TextField Name="StructureCostNumber" Label="Сралчахвост" Width="Auto" AllowEdit="False"/>
+                                    <!--<infg:TextField AlternateBinding="{Binding Block.StructureCostNumber}" AllowEdit="True" BindingType="UseAlternateBinding" Label="Сралчахвост" Width="Auto"/>-->
+                                    <!--<infg:TextField Name="Block" Label="Блок" Width="Auto"/>-->
+                                    <infg:TextField Name="ProductType" Label="Тип" Width="Auto"/>
+                                    <infg:TextField AlternateBinding="{Binding}" BindingType="UseAlternateBinding" Label="Блок" Width="Auto"/>
+                                    <!--<infg:NumericField Name="Price" Label="Прайс" Width="Auto" AllowEdit="True"/>
+                                    <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" AllowEdit="True"/>-->
+                                    <infg:CheckBoxField Name="IsPriceless" Label="Без прайса" Width="Auto" />
+                                    <infg:NumericField Name="SpecificationsCount" Label="Спецификации" Width="Auto" />
+                                    <infg:NumericField Name="OffersCount" Label="ТКП" Width="Auto" />
+                                    <infg:NumericField Name="ProjectsCount" Label="Проекты" Width="Auto" />
 
-					    </infg:FieldLayout.Fields>
-				    </infg:FieldLayout>
-			    </infg:XamDataGrid.FieldLayouts>
-		    </infg:XamDataGrid>
+					                </infg:FieldLayout.Fields>
+				                </infg:FieldLayout>
+			                </infg:XamDataGrid.FieldLayouts>
+		                </infg:XamDataGrid>
+                    
+                </GroupBox>
+                
+                <GridSplitter Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="5"/>
+                
+                <GroupBox Grid.Column="2" Header="Прайсы">
 
+                    <infg:XamDataGrid DataSource="{Binding SelectedPriceTask.Prices}"
+                                      SelectedDataItem="{Binding SelectedSumOnDate, Mode=TwoWay}"
+                                      Style="{StaticResource ListViewGrid}">
+
+                        <infg:XamDataGrid.FieldLayouts>
+                            <infg:FieldLayout>
+                                <infg:FieldLayout.Fields>
+                                    <infg:NumericField Name="Sum" Label="Сумма" Width="Auto" AllowEdit="True"/>
+                                    <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" AllowEdit="True"/>
+                                </infg:FieldLayout.Fields>
+                            </infg:FieldLayout>
+
+                        </infg:XamDataGrid.FieldLayouts>
+                    </infg:XamDataGrid>
+                </GroupBox>
+                
+            </Grid>
+            
+        </GroupBox>
     </Grid>
 </inf:ViewBase>

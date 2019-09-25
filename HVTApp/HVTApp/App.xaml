@@ -3,19 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:converters="clr-namespace:HVTApp.Infrastructure.Converters;assembly=HVTApp.Infrastructure"
-             xmlns:converters2="clr-namespace:HVTApp.UI.Converter;assembly=HVTApp.UI">
+             xmlns:convertersUi="clr-namespace:HVTApp.UI.Converter;assembly=HVTApp.UI">
     <Application.Resources>
         <ResourceDictionary>
             <system:Double x:Key="DefaultFontSize">18</system:Double>
             <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
             <converters:DatePickerOriginalValueConverter x:Key="DatePickerOriginalValueConverter"/>
-            <converters2:LookupToStringConverter x:Key="LookupToStringConverter" />
-            <converters2:LookupsToStringConverter x:Key="LookupsToStringConverter" />
-            <converters2:WrapperToStringConverter x:Key="WrapperToStringConverter"/>
-            <converters2:WrappersToStringConverter x:Key="WrappersToStringConverter"/>
-            <converters2:UnitsToGroupsConverter x:Key="ProductUnitsToProductGroupsConverter" />
+            <convertersUi:LookupToStringConverter x:Key="LookupToStringConverter" />
+            <convertersUi:LookupsToStringConverter x:Key="LookupsToStringConverter" />
+            <convertersUi:ObjectsToStringConverter x:Key="ObjectsToStringConverter" />
+            <convertersUi:WrapperToStringConverter x:Key="WrapperToStringConverter"/>
+            <convertersUi:WrappersToStringConverter x:Key="WrappersToStringConverter"/>
+            <convertersUi:UnitsToGroupsConverter x:Key="ProductUnitsToProductGroupsConverter" />
 
-            <converters2:ProductGroupToProductUnitsConverter x:Key="ProductGroupToProductUnitsConverter" />
+            <convertersUi:ProductGroupToProductUnitsConverter x:Key="ProductGroupToProductUnitsConverter" />
+            
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Styles/Brushes.xaml"/>
                 <ResourceDictionary Source="Styles/ValidationErrorTemplates.xaml"/>

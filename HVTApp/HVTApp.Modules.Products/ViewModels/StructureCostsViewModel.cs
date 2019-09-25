@@ -35,10 +35,10 @@ namespace HVTApp.Modules.Products.ViewModels
             var unitOfWork = container.Resolve<IUnitOfWork>();
 
             //загружаем блоки
-            var blocks = unitOfWork.Repository<ProductBlock>()
+            var blockWrappers = unitOfWork.Repository<ProductBlock>()
                 .Find(x => string.IsNullOrWhiteSpace(x.StructureCostNumber))
                 .Select(x => new ProductBlockWrapper(x));
-            ProductBlocks = new ValidatableChangeTrackingCollection<ProductBlockWrapper>(blocks);
+            ProductBlocks = new ValidatableChangeTrackingCollection<ProductBlockWrapper>(blockWrappers);
 
             //сохранение
             SaveCommand = new DelegateCommand(async () =>
