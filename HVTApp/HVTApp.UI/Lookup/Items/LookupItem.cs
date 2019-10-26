@@ -97,9 +97,9 @@ namespace HVTApp.UI.Lookup
 
         #region IComparable
 
-        public virtual int CompareTo(object obj)
+        public virtual int CompareTo(object other)
         {
-            return ToString().CompareTo(obj.ToString());
+            return string.Compare(ToString(), other.ToString(), StringComparison.Ordinal);
         }
 
         #endregion

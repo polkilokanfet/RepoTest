@@ -127,9 +127,9 @@ namespace HVTApp.UI.Lookup
             }
         }
 
-        public override int CompareTo(object obj)
+        public override int CompareTo(object other)
         {
-            return RealizationDate.CompareTo(((ProjectLookup)obj).RealizationDate);
+            return RealizationDate.CompareTo(((ProjectLookup)other).RealizationDate);
         }
 
         internal class FacilityComparer : IEqualityComparer<FacilityLookup>

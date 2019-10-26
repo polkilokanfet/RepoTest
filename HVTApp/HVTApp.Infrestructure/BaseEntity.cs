@@ -5,7 +5,7 @@ using HVTApp.Infrastructure.Extansions;
 
 namespace HVTApp.Infrastructure
 {
-    public abstract class BaseEntity : IBaseEntity
+    public abstract class BaseEntity : IBaseEntity, IComparable
     {
         public Guid Id { get; set; }
 
@@ -35,6 +35,11 @@ namespace HVTApp.Infrastructure
         protected bool Equals(BaseEntity other)
         {
             return Id.Equals(other.Id);
+        }
+
+        public virtual int CompareTo(object other)
+        {
+            return string.Compare(this.ToString(), other.ToString(), StringComparison.Ordinal);
         }
 
         //public override int GetHashCode()
