@@ -9,6 +9,7 @@
             <system:Double x:Key="DefaultFontSize">18</system:Double>
             <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
             <converters:DatePickerOriginalValueConverter x:Key="DatePickerOriginalValueConverter"/>
+            <converters:ListToStringConverter x:Key="ListToStringConverter"/>
             <convertersUi:LookupToStringConverter x:Key="LookupToStringConverter" />
             <convertersUi:LookupsToStringConverter x:Key="LookupsToStringConverter" />
             <convertersUi:ObjectsToStringConverter x:Key="ObjectsToStringConverter" />

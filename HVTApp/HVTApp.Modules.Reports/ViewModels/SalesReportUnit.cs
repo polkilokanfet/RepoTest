@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
@@ -14,25 +15,46 @@ namespace HVTApp.Modules.Reports.ViewModels
         private readonly List<CountryUnion> _countryUnions;
         private readonly List<Tender> _tenders;
 
-        public string OrderNumber { get; }
+        [Designation("Владелец объекта")]
         public Company FacilityOwner { get; }
+
+        [Designation("Владелец объекта (головная компания)")]
         public Company FacilityOwnerHead { get; }
+
+        [Designation("Контрагент")]
         public Company Contragent { get; }
+
+        [Designation("Тип контрагента")]
         public string ContragentType { get; }
+
+        [Designation("Страна поставки")]
         public Country Country { get; }
+
+        [Designation("Объединения стран")]
         public List<CountryUnion> CountryUnions { get; }
 
+        [Designation("Округ")]
         public District District { get; }
+
+        [Designation("Сегмент рынка")]
         public string Segment { get; }
 
+        [Designation("Тип продукта")]
         public ProductType ProductType { get; }
+
+        [Designation("Обозначение")]
         public string Designation { get; }
+
+        [Designation("Статус")]
         public string Status { get; }
 
+        [Designation("НДС, %")]
         public double? Vat { get; }
 
-        public double PriceCalc { get; }
+        [Designation("Себестоимость (результирующая)"), OrderStatus(984)]
+        public double PriceResult { get; }
 
+        [Designation("Стоимость блоков с фиксированной ценой"), OrderStatus(983)]
         public double FixedCost { get; }
 
         /// <summary>
@@ -40,18 +62,24 @@ namespace HVTApp.Modules.Reports.ViewModels
         /// </summary>
         private double FixedCostAndDelivery { get; }
 
+        [Designation("МД, %"), OrderStatus(977)]
         public double? MarginalIncome { get; }
 
+        [Designation("Напряжение")]
         public string Voltage { get; }
 
         #region Fake
 
+        [Designation("Цена (результирующая)"), OrderStatus(989)]
         public double CostResult { get; }
 
+        [Designation("Дата ОИТ (результирующая)")]
         public DateTime OrderInTakeDateResult { get; }
 
+        [Designation("Дата реализации (результирующая)")]
         public DateTime RealizationDateResult { get; }
 
+        [Designation("Условия оплаты (результирующие)")]
         public PaymentConditionSet PaymentConditionSetResult { get; }
 
         #endregion
@@ -68,7 +96,6 @@ namespace HVTApp.Modules.Reports.ViewModels
             _tenders = tenders.ToList();
             _countryUnions = countryUnions.ToList();
 
-            OrderNumber = Order?.Number;
             FacilityOwner = Facility.OwnerCompany;
             FacilityOwnerHead = GetFacilityOwnerHead();
             Contragent = Specification?.Contract.Contragent;
@@ -84,10 +111,10 @@ namespace HVTApp.Modules.Reports.ViewModels
 
             Voltage = Product.ProductBlock.Parameters.SingleOrDefault(x => Equals(x.ParameterGroup, GlobalAppProperties.Actual.VoltageGroup))?.Value;
 
-            PriceCalc = Price ?? priceStructures.TotalPriceFixedCostLess;
+            PriceResult = Price ?? priceStructures.TotalPriceFixedCostLess;
             FixedCost = priceStructures.TotalFixedCost;
             FixedCostAndDelivery = CostDelivery.HasValue ? CostDelivery.Value + FixedCost : FixedCost;
-            MarginalIncome = Cost - FixedCostAndDelivery <= 0 ? default(double?) : (1.0 - PriceCalc / (Cost - FixedCostAndDelivery)) * 100.0;
+            MarginalIncome = CostResult - FixedCostAndDelivery <= 0 ? default(double?) : (1.0 - PriceResult / (CostResult - FixedCostAndDelivery)) * 100.0;
 
             CostResult = FakeData?.Cost ?? Cost;
             OrderInTakeDateResult = this.FakeData?.OrderInTakeDate ?? this.OrderInTakeDate;

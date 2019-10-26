@@ -95,6 +95,7 @@
     <Compile Include="Commands.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\DatePickerOriginalValueConverter.cs" />
+    <Compile Include="Converters\ListToStringConverter.cs" />
     <Compile Include="Extansions\EnumerableExtansions.cs" />
     <Compile Include="Extansions\DateExtansions.cs" />
     <Compile Include="Extansions\ExceptionExt.cs" />

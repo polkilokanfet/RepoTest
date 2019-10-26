@@ -14,20 +14,20 @@ namespace HVTApp.Model.POCOs
     {
         #region Model
 
-        [Designation("Стоимость"), Required, OrderStatus(45)]
+        [Designation("Объект"), OrderStatus(1000), Required]
+        public virtual Facility Facility { get; set; }
+
+        [Designation("Продукт"), Required, OrderStatus(995)]
+        public virtual Product Product { get; set; }
+
+        [Designation("Стоимость"), Required, OrderStatus(990)]
         public double Cost { get; set; }
 
-        [Designation("Себестоимость"), OrderStatus(46)]
+        [Designation("Себестоимость"), OrderStatus(985)]
         public double? Price { get; set; }
-
-        [Designation("Продукт"), Required, OrderStatus(50)]
-        public virtual Product Product { get; set; }
 
         [Designation("Включенные продукты")]
         public virtual List<ProductIncluded> ProductsIncluded { get; set; } = new List<ProductIncluded>();
-
-        [Designation("Объект"), OrderStatus(51), Required]
-        public virtual Facility Facility { get; set; }
 
         [Designation("Условия оплаты"), Required]
         public virtual PaymentConditionSet PaymentConditionSet { get; set; }
@@ -37,7 +37,8 @@ namespace HVTApp.Model.POCOs
 
 
         #region Проект
-        [Designation("Проект"), OrderStatus(52), Required]
+
+        [Designation("Проект"), OrderStatus(1005), Required]
         public virtual Project Project { get; set; }
 
         [Designation("Требуемая дата поставки"), Required]
@@ -111,7 +112,7 @@ namespace HVTApp.Model.POCOs
         #region Отгрузочная информация
 
 
-        [Designation("Стоимость доставки")]
+        [Designation("Стоимость доставки"), OrderStatus(980)]
         public double? CostDelivery { get; set; }
 
         [Designation("Стоимость доставки включена в основную стоимость")]
@@ -129,7 +130,7 @@ namespace HVTApp.Model.POCOs
         [Designation("Дата отгрузки")]
         public virtual DateTime? ShipmentDate { get; set; }
 
-        [Designation("Дата плановой отгрузки")]
+        [Designation("Дата отгрузки (плановая)")]
         public virtual DateTime? ShipmentPlanDate { get; set; }
 
         [Designation("Дата поставки")]
@@ -214,13 +215,13 @@ namespace HVTApp.Model.POCOs
 
         #region Даты
 
-        [Designation("ОИТ"), NotMapped]
+        [Designation("ОИТ"), OrderStatus(990), NotMapped]
         public DateTime OrderInTakeDate => StartProductionDate ?? StartProductionDateCalculated;
 
-        [Designation("Год"), NotMapped]
+        [Designation("Год ОИТ"), OrderStatus(985), NotMapped]
         public int OrderInTakeYear => OrderInTakeDate.Year;
 
-        [Designation("Месяц"), NotMapped]
+        [Designation("Месяц ОИТ"), OrderStatus(980), NotMapped]
         public int OrderInTakeMonth => OrderInTakeDate.Month;
 
         /// <summary>
@@ -257,19 +258,19 @@ namespace HVTApp.Model.POCOs
         /// <summary>
         /// Дата исполнения условий для запуска производства
         /// </summary>
-        [Designation("Дата исполнения условий для начала производства"), NotMapped]
+        [Designation("Дата исполнения условий для начала производства"), OrderStatus(870), NotMapped]
         public DateTime? StartProductionConditionsDoneDate => AchiveSumDate(SumToStartProduction);
 
         /// <summary>
         /// Дата исполнения условий для осуществления отгрузки
         /// </summary>
-        [Designation("Дата исполнения условий для отгрузки"), NotMapped]
+        [Designation("Дата исполнения условий для отгрузки"), OrderStatus(865), NotMapped]
         public DateTime? ShippingConditionsDoneDate => AchiveSumDate(SumToShipping);
 
         /// <summary>
         /// Расчетная дата начала производства.
         /// </summary>
-        [Designation("Начало производства (расч.)"), NotMapped]
+        [Designation("Начало производства (расч.)"), OrderStatus(860), NotMapped]
         public DateTime StartProductionDateCalculated
         {
             get
@@ -296,7 +297,7 @@ namespace HVTApp.Model.POCOs
         /// <summary>
         /// Расчетная дата окончания производства.
         /// </summary>
-        [Designation("Окончание производства (расч.)"), NotMapped]
+        [Designation("Окончание производства (расч.)"), OrderStatus(855), NotMapped]
         public DateTime EndProductionDateCalculated
         {
             get
@@ -322,13 +323,13 @@ namespace HVTApp.Model.POCOs
         /// <summary>
         /// Расчетная дата реализации.
         /// </summary>
-        [Designation("Расчетная дата реализации"), NotMapped]
+        [Designation("Расчетная дата реализации"), OrderStatus(850), NotMapped]
         public DateTime RealizationDateCalculated => RealizationDate ?? DeliveryDateCalculated;
 
         /// <summary>
         /// Расчетная дата отгрузки.
         /// </summary>
-        [Designation("Расчетная дата отгрузки"), NotMapped]
+        [Designation("Расчетная дата отгрузки"), OrderStatus(845), NotMapped]
         public DateTime ShipmentDateCalculated
         {
             get
@@ -366,7 +367,7 @@ namespace HVTApp.Model.POCOs
         /// <summary>
         /// Расчетная дата доставки.
         /// </summary>
-        [Designation("Расчетная дата доставки"), NotMapped]
+        [Designation("Расчетная дата доставки"), OrderStatus(840), NotMapped]
         public DateTime DeliveryDateCalculated
         {
             get
