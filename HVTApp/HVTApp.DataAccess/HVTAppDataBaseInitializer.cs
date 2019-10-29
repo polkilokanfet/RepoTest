@@ -4,8 +4,13 @@ using System.Diagnostics;
 
 namespace HVTApp.DataAccess
 {
+#if DEBUG
     public partial class HvtAppDataBaseInitializer : DropCreateDatabaseIfModelChanges<HvtAppContext>
     {
+#else
+    public partial class HvtAppDataBaseInitializer : CreateDatabaseIfNotExists<HvtAppContext>
+    {
+#endif
         protected override void Seed(HvtAppContext context)
         {
             AddData(context);

@@ -127,6 +127,15 @@
     <Compile Include="EntityTypeConfigurations\Custom\SalesUnitConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ProductRelationConfiguration.cs" />
     <Compile Include="HvtAppDataBaseInitializer.g.cs" />
+    <Compile Include="Migrations\201909230827282_InitialCreate.cs" />
+    <Compile Include="Migrations\201909230827282_InitialCreate.Designer.cs">
+      <DependentUpon>201909230827282_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910290749535_StructureCostNumberChangeLengh.cs" />
+    <Compile Include="Migrations\201910290749535_StructureCostNumberChangeLengh.Designer.cs">
+      <DependentUpon>201910290749535_StructureCostNumberChangeLengh.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
     <Compile Include="HVTAppContext.cs" />
@@ -178,7 +187,14 @@
       <Name>HVTApp.TestDataGenerator</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201909230827282_InitialCreate.resx">
+      <DependentUpon>201909230827282_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910290749535_StructureCostNumberChangeLengh.resx">
+      <DependentUpon>201910290749535_StructureCostNumberChangeLengh.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Generator.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

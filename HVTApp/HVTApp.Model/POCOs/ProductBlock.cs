@@ -35,7 +35,7 @@ namespace HVTApp.Model.POCOs
         [Designation("Фиксированные цены")]
         public virtual List<SumOnDate> FixedCosts { get; set; } = new List<SumOnDate>();
 
-        [Designation("Сралчахвост"), MaxLength(10)]
+        [Designation("Сралчахвост"), MaxLength(50)]
         public string StructureCostNumber { get; set; }
 
         [Designation("Чертеж"), MaxLength(25)]
