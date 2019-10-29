@@ -65,8 +65,36 @@ namespace HVTApp.Modules.Reports.ViewModels
         [Designation("МД, %"), OrderStatus(977)]
         public double? MarginalIncome { get; }
 
+        [Designation("МД, руб."), OrderStatus(977)]
+        public double? MarginalIncomeNatural { get; }
+
         [Designation("Напряжение")]
         public string Voltage { get; }
+
+        [Designation("Спецификация дата")]
+        public DateTime? SpecificationDate { get; }
+
+
+        [Designation("Договор")]
+        public string ContractNumber { get; }
+
+        [Designation("Договор дата")]
+        public DateTime? ContractDate { get; }
+
+        [Designation("Договор год")]
+        public int ContractYear { get; }
+
+        [Designation("Договор месяц")]
+        public int ContractMonth { get; }
+
+        [Designation("Тип доставки")]
+        public string DeliveryType { get; }
+
+        [Designation("Менеджер")]
+        public Employee Manager { get; }
+
+        [Designation("Цена с НДС")]
+        public double CostWithVat { get; }
 
         #region Fake
 
@@ -78,6 +106,13 @@ namespace HVTApp.Modules.Reports.ViewModels
 
         [Designation("Дата реализации (результирующая)")]
         public DateTime RealizationDateResult { get; }
+
+        [Designation("Год реализации (результирующая)")]
+        public int RealizationDateResultYear { get; }
+
+        [Designation("Месяц реализации (результирующая)")]
+        public int RealizationDateResultMonth { get; }
+
 
         [Designation("Условия оплаты (результирующие)")]
         public PaymentConditionSet PaymentConditionSetResult { get; }
@@ -108,13 +143,34 @@ namespace HVTApp.Modules.Reports.ViewModels
             Designation = Product.Designation;
             Status = GetStatus();
             Vat = Specification?.Vat;
+            CostWithVat = (1.0 + Vat) * Cost ?? Cost;
+
 
             Voltage = Product.ProductBlock.Parameters.SingleOrDefault(x => Equals(x.ParameterGroup, GlobalAppProperties.Actual.VoltageGroup))?.Value;
 
             PriceResult = Price ?? priceStructures.TotalPriceFixedCostLess;
             FixedCost = priceStructures.TotalFixedCost;
             FixedCostAndDelivery = CostDelivery.HasValue ? CostDelivery.Value + FixedCost : FixedCost;
-            MarginalIncome = CostResult - FixedCostAndDelivery <= 0 ? default(double?) : (1.0 - PriceResult / (CostResult - FixedCostAndDelivery)) * 100.0;
+
+            MarginalIncomeNatural = CostResult - FixedCostAndDelivery;
+            MarginalIncome = CostResult - FixedCostAndDelivery == 0 ? default(double?) : (1.0 - PriceResult / (CostResult - FixedCostAndDelivery)) * 100.0;
+
+            if (Specification != null)
+            {
+                SpecificationDate = Specification.Date;
+
+                ContractNumber = Specification.Contract.Number;
+                ContractDate = Specification.Contract.Date;
+                ContractYear = ContractDate.Value.Year;
+                ContractMonth = ContractDate.Value.Month;
+            }
+
+            DeliveryType = CostDelivery.HasValue ? "Доставка" : "Самовывоз";
+
+            Manager = Project.Manager.Employee;
+
+            RealizationDateResultYear = RealizationDateResult.Year;
+            RealizationDateResultMonth = RealizationDateResult.Month;
 
             CostResult = FakeData?.Cost ?? Cost;
             OrderInTakeDateResult = this.FakeData?.OrderInTakeDate ?? this.OrderInTakeDate;

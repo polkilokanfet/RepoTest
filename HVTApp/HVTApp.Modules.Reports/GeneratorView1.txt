@@ -57,6 +57,7 @@
                     <infg:NumericField Name="FixedCost" Label="Стоимость блоков с фиксированной ценой" Width="Auto" />
                     <infg:NumericField Name="CostDelivery" Label="Стоимость доставки" Width="Auto" />
                     <infg:NumericField Name="OrderInTakeMonth" Label="Месяц ОИТ" Width="Auto" />
+                    <infg:NumericField Name="MarginalIncomeNatural" Label="МД, руб." Width="Auto" />
                     <infg:NumericField Name="MarginalIncome" Label="МД, %" Width="Auto" />
                     <infg:DateTimeField Name="StartProductionConditionsDoneDate" Label="Дата исполнения условий для начала производства" Width="Auto" />
                     <infg:DateTimeField Name="ShippingConditionsDoneDate" Label="Дата исполнения условий для отгрузки" Width="Auto" />
@@ -66,11 +67,13 @@
                     <infg:DateTimeField Name="ShipmentDateCalculated" Label="Расчетная дата отгрузки" Width="Auto" />
                     <infg:DateTimeField Name="DeliveryDateCalculated" Label="Расчетная дата доставки" Width="Auto" />
                     <infg:TextField Name="Penalty" Label="Штрафные санкции" Width="Auto" />
+                    <infg:NumericField Name="CostWithVat" Label="Цена с НДС" Width="Auto" />
                     <infg:TextField Name="PaymentConditionSetResult" Label="Условия оплаты (результирующие)" Width="Auto" />
                     <infg:TextField Name="PaymentConditionSet" Label="Условия оплаты" Width="Auto" />
                     <infg:DateTimeField Name="DeliveryDateExpected" Label="Требуемая дата поставки" Width="Auto" />
                     <infg:TextField Name="ProductType" Label="Тип продукта" Width="Auto" />
                     <infg:TextField Name="ContragentType" Label="Тип контрагента" Width="Auto" />
+                    <infg:TextField Name="DeliveryType" Label="Тип доставки" Width="Auto" />
                     <infg:NumericField Name="SumToStartProduction" Label="Сумма старта производства" Width="Auto" />
                     <infg:NumericField Name="SumToShipping" Label="Сумма отгрузки" Width="Auto" />
                     <infg:TextField Name="Country" Label="Страна поставки" Width="Auto" />
@@ -80,6 +83,7 @@
                     <infg:NumericField Name="ProductionTerm" Label="Срок производства" Width="Auto" />
                     <infg:NumericField Name="ExpectedDeliveryPeriodCalculated" Label="Срок доставки расчетный" Width="Auto" />
                     <infg:NumericField Name="ExpectedDeliveryPeriod" Label="Срок доставки" Width="Auto" />
+                    <infg:DateTimeField Name="SpecificationDate" Label="Спецификация дата" Width="Auto" />
                     <infg:TextField Name="Specification" Label="Спецификация" Width="Auto" />
                     <infg:TextField Name="PaymentsActual" Label="Совершённые платежи" Width="Auto" Converter="{StaticResource ListToStringConverter}"/>
                     <infg:DateTimeField Name="SignalToStartProduction" Label="Сигнал менеджера о производстве" Width="Auto" />
@@ -104,11 +108,17 @@
                     <infg:NumericField Name="SumNotPaid" Label="Неоплачено" Width="Auto" />
                     <infg:NumericField Name="Vat" Label="НДС, %" Width="Auto" />
                     <infg:TextField Name="Voltage" Label="Напряжение" Width="Auto" />
+                    <infg:NumericField Name="RealizationDateResultMonth" Label="Месяц реализации (результирующая)" Width="Auto" />
+                    <infg:TextField Name="Manager" Label="Менеджер" Width="Auto" />
                     <infg:TextField Name="FakeData" Label="Корректировочные данные" Width="Auto" />
                     <infg:TextField Name="Contragent" Label="Контрагент" Width="Auto" />
-                    <infg:CheckBoxField Name="IsDone" Label="Исполнен?" Width="Auto" />
+                    <infg:CheckBoxField Name="IsDone" Label="Исполнено" Width="Auto" />
                     <infg:TextField Name="TceRequest" Label="Запрос в ТСЕ" Width="Auto" />
                     <infg:TextField Name="Order" Label="Заказ" Width="Auto" />
+                    <infg:NumericField Name="ContractMonth" Label="Договор месяц" Width="Auto" />
+                    <infg:DateTimeField Name="ContractDate" Label="Договор дата" Width="Auto" />
+                    <infg:NumericField Name="ContractYear" Label="Договор год" Width="Auto" />
+                    <infg:TextField Name="ContractNumber" Label="Договор" Width="Auto" />
                     <infg:DateTimeField Name="RealizationDateResult" Label="Дата реализации (результирующая)" Width="Auto" />
                     <infg:DateTimeField Name="RealizationDate" Label="Дата реализации" Width="Auto" />
                     <infg:DateTimeField Name="SignalToStartProductionDone" Label="Дата размещения в производстве" Width="Auto" />
@@ -119,6 +129,7 @@
                     <infg:DateTimeField Name="OrderInTakeDateResult" Label="Дата ОИТ (результирующая)" Width="Auto" />
                     <infg:DateTimeField Name="StartProductionDate" Label="Дата начала производства" Width="Auto" />
                     <infg:DateTimeField Name="PickingDate" Label="Дата комплектации" Width="Auto" />
+                    <infg:NumericField Name="RealizationDateResultYear" Label="Год реализации (результирующая)" Width="Auto" />
                     <infg:TextField Name="FacilityOwnerHead" Label="Владелец объекта (головная компания)" Width="Auto" />
                     <infg:TextField Name="FacilityOwner" Label="Владелец объекта" Width="Auto" />
                     <infg:TextField Name="ProductsIncluded" Label="Включенные продукты" Width="Auto" Converter="{StaticResource ListToStringConverter}"/>

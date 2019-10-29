@@ -156,7 +156,7 @@ namespace HVTApp.Model.POCOs
         [NotMapped, Designation("Проиграно")]
         public bool IsLoosen => Producer != null && Producer.Id != GlobalAppProperties.Actual.OurCompany.Id;
 
-        [NotMapped, Designation("Исполнен?")]
+        [NotMapped, Designation("Исполнено")]
         public bool IsDone => RealizationDateCalculated < DateTime.Today && ShipmentDateCalculated < DateTime.Today;
 
 
