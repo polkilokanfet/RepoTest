@@ -22,10 +22,10 @@
 
             <GroupBox Header="Проекты" Grid.Column="0">
                 <infgDp:XamDataGrid x:Name="ProjectLookupListGrid"
-                                           DataSource="{Binding Projects}"
-                                           SelectedDataItem="{Binding Projects.SelectedItem, Mode=TwoWay}"
-                                           Style="{StaticResource ListViewGrid}" 
-                                           Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                    DataSource="{Binding Projects}"
+                                    SelectedDataItem="{Binding Projects.SelectedItem, Mode=TwoWay}"
+                                    Style="{StaticResource ListViewGrid}" 
+                                    Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
 			        <infgDp:XamDataGrid.FieldLayouts>
 				        <infgDp:FieldLayout>
 					        <infgDp:FieldLayout.Fields>

@@ -626,6 +626,66 @@ namespace HVTApp.UI.ViewModels
     }
 
 
+    public partial class StructureCostDetailsViewModel : BaseDetailsViewModel<StructureCostWrapper, StructureCost, AfterSaveStructureCostEvent>
+    {
+
+        public StructureCostDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+		}
+
+
+
+    }
+
+
+    public partial class StructureCostsDetailsViewModel : BaseDetailsViewModel<StructureCostsWrapper, StructureCosts, AfterSaveStructureCostsEvent>
+    {
+		private Func<Task<List<StructureCost>>> _getEntitiesForAddInStructureCostsListCommand;
+		public ICommand AddInStructureCostsListCommand { get; }
+		public ICommand RemoveFromStructureCostsListCommand { get; }
+		private StructureCostWrapper _selectedStructureCostsListItem;
+		public StructureCostWrapper SelectedStructureCostsListItem 
+		{ 
+			get { return _selectedStructureCostsListItem; }
+			set 
+			{ 
+				if (Equals(_selectedStructureCostsListItem, value)) return;
+				_selectedStructureCostsListItem = value;
+				OnPropertyChanged();
+				((DelegateCommand)RemoveFromStructureCostsListCommand).RaiseCanExecuteChanged();
+			}
+		}
+
+
+        public StructureCostsDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+			
+			if (_getEntitiesForAddInStructureCostsListCommand == null) _getEntitiesForAddInStructureCostsListCommand = async () => { return await UnitOfWork.Repository<StructureCost>().GetAllAsync(); };;
+			if (AddInStructureCostsListCommand == null) AddInStructureCostsListCommand = new DelegateCommand(AddInStructureCostsListCommand_Execute_Default);
+			if (RemoveFromStructureCostsListCommand == null) RemoveFromStructureCostsListCommand = new DelegateCommand(RemoveFromStructureCostsListCommand_Execute_Default, RemoveFromStructureCostsListCommand_CanExecute_Default);
+
+		}
+
+			private async void AddInStructureCostsListCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<StructureCost, StructureCostWrapper>(await _getEntitiesForAddInStructureCostsListCommand(), Item.StructureCostsList);
+			}
+
+			private void RemoveFromStructureCostsListCommand_Execute_Default()
+			{
+				Item.StructureCostsList.Remove(SelectedStructureCostsListItem);
+			}
+
+			private bool RemoveFromStructureCostsListCommand_CanExecute_Default()
+			{
+				return SelectedStructureCostsListItem != null;
+			}
+
+
+
+    }
+
+
     public partial class GlobalPropertiesDetailsViewModel : BaseDetailsViewModel<GlobalPropertiesWrapper, GlobalProperties, AfterSaveGlobalPropertiesEvent>
     {
 		private Func<Task<List<Company>>> _getEntitiesForSelectOurCompanyCommand;
@@ -1920,13 +1980,13 @@ namespace HVTApp.UI.ViewModels
 
     public partial class SalesUnitDetailsViewModel : BaseDetailsViewModel<SalesUnitWrapper, SalesUnit, AfterSaveSalesUnitEvent>
     {
-		private Func<Task<List<Product>>> _getEntitiesForSelectProductCommand;
-		public ICommand SelectProductCommand { get; private set; }
-		public ICommand ClearProductCommand { get; private set; }
-
 		private Func<Task<List<Facility>>> _getEntitiesForSelectFacilityCommand;
 		public ICommand SelectFacilityCommand { get; private set; }
 		public ICommand ClearFacilityCommand { get; private set; }
+
+		private Func<Task<List<Product>>> _getEntitiesForSelectProductCommand;
+		public ICommand SelectProductCommand { get; private set; }
+		public ICommand ClearProductCommand { get; private set; }
 
 		private Func<Task<List<PaymentConditionSet>>> _getEntitiesForSelectPaymentConditionSetCommand;
 		public ICommand SelectPaymentConditionSetCommand { get; private set; }
@@ -1959,6 +2019,10 @@ namespace HVTApp.UI.ViewModels
 		private Func<Task<List<FakeData>>> _getEntitiesForSelectFakeDataCommand;
 		public ICommand SelectFakeDataCommand { get; private set; }
 		public ICommand ClearFakeDataCommand { get; private set; }
+
+		private Func<Task<List<StructureCosts>>> _getEntitiesForSelectStructureCostsCommand;
+		public ICommand SelectStructureCostsCommand { get; private set; }
+		public ICommand ClearStructureCostsCommand { get; private set; }
 
 		private Func<Task<List<ProductIncluded>>> _getEntitiesForAddInProductsIncludedCommand;
 		public ICommand AddInProductsIncludedCommand { get; }
@@ -2092,14 +2156,14 @@ namespace HVTApp.UI.ViewModels
         public SalesUnitDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
-			if (_getEntitiesForSelectProductCommand == null) _getEntitiesForSelectProductCommand = async () => { return await UnitOfWork.Repository<Product>().GetAllAsync(); };
-			if (SelectProductCommand == null) SelectProductCommand = new DelegateCommand(SelectProductCommand_Execute_Default);
-			if (ClearProductCommand == null) ClearProductCommand = new DelegateCommand(ClearProductCommand_Execute_Default);
-
-			
 			if (_getEntitiesForSelectFacilityCommand == null) _getEntitiesForSelectFacilityCommand = async () => { return await UnitOfWork.Repository<Facility>().GetAllAsync(); };
 			if (SelectFacilityCommand == null) SelectFacilityCommand = new DelegateCommand(SelectFacilityCommand_Execute_Default);
 			if (ClearFacilityCommand == null) ClearFacilityCommand = new DelegateCommand(ClearFacilityCommand_Execute_Default);
+
+			
+			if (_getEntitiesForSelectProductCommand == null) _getEntitiesForSelectProductCommand = async () => { return await UnitOfWork.Repository<Product>().GetAllAsync(); };
+			if (SelectProductCommand == null) SelectProductCommand = new DelegateCommand(SelectProductCommand_Execute_Default);
+			if (ClearProductCommand == null) ClearProductCommand = new DelegateCommand(ClearProductCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectPaymentConditionSetCommand == null) _getEntitiesForSelectPaymentConditionSetCommand = async () => { return await UnitOfWork.Repository<PaymentConditionSet>().GetAllAsync(); };
@@ -2140,6 +2204,11 @@ namespace HVTApp.UI.ViewModels
 			if (_getEntitiesForSelectFakeDataCommand == null) _getEntitiesForSelectFakeDataCommand = async () => { return await UnitOfWork.Repository<FakeData>().GetAllAsync(); };
 			if (SelectFakeDataCommand == null) SelectFakeDataCommand = new DelegateCommand(SelectFakeDataCommand_Execute_Default);
 			if (ClearFakeDataCommand == null) ClearFakeDataCommand = new DelegateCommand(ClearFakeDataCommand_Execute_Default);
+
+			
+			if (_getEntitiesForSelectStructureCostsCommand == null) _getEntitiesForSelectStructureCostsCommand = async () => { return await UnitOfWork.Repository<StructureCosts>().GetAllAsync(); };
+			if (SelectStructureCostsCommand == null) SelectStructureCostsCommand = new DelegateCommand(SelectStructureCostsCommand_Execute_Default);
+			if (ClearStructureCostsCommand == null) ClearStructureCostsCommand = new DelegateCommand(ClearStructureCostsCommand_Execute_Default);
 
 			
 			if (_getEntitiesForAddInProductsIncludedCommand == null) _getEntitiesForAddInProductsIncludedCommand = async () => { return await UnitOfWork.Repository<ProductIncluded>().GetAllAsync(); };;
@@ -2183,17 +2252,6 @@ namespace HVTApp.UI.ViewModels
 
 		}
 
-		private async void SelectProductCommand_Execute_Default() 
-		{
-            SelectAndSetWrapper<Product, ProductWrapper>(await _getEntitiesForSelectProductCommand(), nameof(Item.Product), Item.Product?.Id);
-		}
-
-		private void ClearProductCommand_Execute_Default() 
-		{
-						Item.Product = null;
-		    
-		}
-
 		private async void SelectFacilityCommand_Execute_Default() 
 		{
             SelectAndSetWrapper<Facility, FacilityWrapper>(await _getEntitiesForSelectFacilityCommand(), nameof(Item.Facility), Item.Facility?.Id);
@@ -2202,6 +2260,17 @@ namespace HVTApp.UI.ViewModels
 		private void ClearFacilityCommand_Execute_Default() 
 		{
 						Item.Facility = null;
+		    
+		}
+
+		private async void SelectProductCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<Product, ProductWrapper>(await _getEntitiesForSelectProductCommand(), nameof(Item.Product), Item.Product?.Id);
+		}
+
+		private void ClearProductCommand_Execute_Default() 
+		{
+						Item.Product = null;
 		    
 		}
 
@@ -2290,6 +2359,17 @@ namespace HVTApp.UI.ViewModels
 		private void ClearFakeDataCommand_Execute_Default() 
 		{
 						Item.FakeData = null;
+		    
+		}
+
+		private async void SelectStructureCostsCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<StructureCosts, StructureCostsWrapper>(await _getEntitiesForSelectStructureCostsCommand(), nameof(Item.StructureCosts), Item.StructureCosts?.Id);
+		}
+
+		private void ClearStructureCostsCommand_Execute_Default() 
+		{
+						Item.StructureCosts = null;
 		    
 		}
 

@@ -100,6 +100,8 @@
     <Compile Include="EntityTypeConfigurations\Custom\ProductTypeConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ProductTypeDesignationConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ProjectTypeConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\StructureCostConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\StructureCostsConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\TenderTypeConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\TestHusbandConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Generated\Configurations.g.cs" />
@@ -134,6 +136,10 @@
     <Compile Include="Migrations\201910290749535_StructureCostNumberChangeLengh.cs" />
     <Compile Include="Migrations\201910290749535_StructureCostNumberChangeLengh.Designer.cs">
       <DependentUpon>201910290749535_StructureCostNumberChangeLengh.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910301011028_StructureCosts.cs" />
+    <Compile Include="Migrations\201910301011028_StructureCosts.Designer.cs">
+      <DependentUpon>201910301011028_StructureCosts.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
@@ -193,6 +199,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910290749535_StructureCostNumberChangeLengh.resx">
       <DependentUpon>201910290749535_StructureCostNumberChangeLengh.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910301011028_StructureCosts.resx">
+      <DependentUpon>201910301011028_StructureCosts.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

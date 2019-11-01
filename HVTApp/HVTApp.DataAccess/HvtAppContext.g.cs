@@ -28,6 +28,8 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new ProjectTypeConfiguration());
             modelBuilder.Configurations.Add(new StandartMarginalIncomeConfiguration());
             modelBuilder.Configurations.Add(new StandartProductionTermConfiguration());
+            modelBuilder.Configurations.Add(new StructureCostConfiguration());
+            modelBuilder.Configurations.Add(new StructureCostsConfiguration());
             modelBuilder.Configurations.Add(new GlobalPropertiesConfiguration());
             modelBuilder.Configurations.Add(new AddressConfiguration());
             modelBuilder.Configurations.Add(new CountryConfiguration());
@@ -95,6 +97,8 @@ namespace HVTApp.DataAccess
         public virtual DbSet<ProjectType> ProjectTypeDbSet { get; set; }
         public virtual DbSet<StandartMarginalIncome> StandartMarginalIncomeDbSet { get; set; }
         public virtual DbSet<StandartProductionTerm> StandartProductionTermDbSet { get; set; }
+        public virtual DbSet<StructureCost> StructureCostDbSet { get; set; }
+        public virtual DbSet<StructureCosts> StructureCostsDbSet { get; set; }
         public virtual DbSet<GlobalProperties> GlobalPropertiesDbSet { get; set; }
         public virtual DbSet<Address> AddressDbSet { get; set; }
         public virtual DbSet<Country> CountryDbSet { get; set; }

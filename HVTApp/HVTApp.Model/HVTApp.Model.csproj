@@ -76,6 +76,8 @@
     <Compile Include="POCOs\ProjectType.cs" />
     <Compile Include="POCOs\StandartMarginalIncome.cs" />
     <Compile Include="POCOs\StandartProductionTerm.cs" />
+    <Compile Include="POCOs\StructureCost.cs" />
+    <Compile Include="POCOs\StructureCosts.cs" />
     <Compile Include="Services\IGetProductService.cs" />
     <Compile Include="Services\INewProductService.cs" />
     <Compile Include="Structures\PriceStructure.cs" />

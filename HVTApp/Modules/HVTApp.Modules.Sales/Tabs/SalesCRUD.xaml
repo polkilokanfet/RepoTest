@@ -33,8 +33,9 @@
         <infRib:ButtonTool Caption="Печать" Command="{Binding PrintOfferCommand}" SmallImage="/HVTApp.Modules.Sales;component/Images/Print_16x16.png"/>
     </infRib:RibbonGroup>
 
-    <infRib:RibbonGroup Caption="Спецификации">
-        <infRib:ButtonTool Caption="Создать" Command="{Binding NewSpecificationCommand}" SmallImage="/HVTApp.Modules.Sales;component/Images/Add_16x16.png"/>
+    <infRib:RibbonGroup Caption="Действия">
+        <infRib:ButtonTool Caption="Специфкация" Command="{Binding NewSpecificationCommand}" SmallImage="/HVTApp.Modules.Sales;component/Images/Add_16x16.png"/>
+        <infRib:ButtonTool Caption="Расчет ПЗ" Command="{Binding StructureCostsCommand}" SmallImage="/HVTApp.Modules.Sales;component/Images/Add_16x16.png"/>
     </infRib:RibbonGroup>
     
     <!--<infRib:RibbonGroup Caption="Обновление">

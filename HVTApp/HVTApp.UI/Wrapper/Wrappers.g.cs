@@ -948,6 +948,94 @@ namespace HVTApp.UI.Wrapper
 
 	}
 
+		public partial class StructureCostWrapper : WrapperBase<StructureCost>
+	{
+	    public StructureCostWrapper(StructureCost model) : base(model) { }
+
+	
+
+        #region SimpleProperties
+
+        public System.String Number
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String NumberOriginalValue => GetOriginalValue<System.String>(nameof(Number));
+        public bool NumberIsChanged => GetIsChanged(nameof(Number));
+
+
+        public System.Double Amount
+        {
+          get { return GetValue<System.Double>(); }
+          set { SetValue(value); }
+        }
+        public System.Double AmountOriginalValue => GetOriginalValue<System.Double>(nameof(Amount));
+        public bool AmountIsChanged => GetIsChanged(nameof(Amount));
+
+
+        public System.String Comment
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
+        public bool CommentIsChanged => GetIsChanged(nameof(Comment));
+
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+
+        #endregion
+
+	}
+
+		public partial class StructureCostsWrapper : WrapperBase<StructureCosts>
+	{
+	    public StructureCostsWrapper(StructureCosts model) : base(model) { }
+
+	
+
+        #region SimpleProperties
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+
+        #endregion
+
+
+        #region CollectionProperties
+
+        public IValidatableChangeTrackingCollection<StructureCostWrapper> StructureCostsList { get; private set; }
+
+
+        #endregion
+
+  
+        protected override void InitializeCollectionProperties()
+        {
+
+          if (Model.StructureCostsList == null) throw new ArgumentException("StructureCostsList cannot be null");
+          StructureCostsList = new ValidatableChangeTrackingCollection<StructureCostWrapper>(Model.StructureCostsList.Select(e => new StructureCostWrapper(e)));
+          RegisterCollection(StructureCostsList, Model.StructureCostsList);
+
+
+        }
+
+	}
+
 		public partial class GlobalPropertiesWrapper : WrapperBase<GlobalProperties>
 	{
 	    public GlobalPropertiesWrapper(GlobalProperties model) : base(model) { }
@@ -2959,17 +3047,17 @@ namespace HVTApp.UI.Wrapper
 
         #region ComplexProperties
 
-	    public ProductWrapper Product 
-        {
-            get { return GetWrapper<ProductWrapper>(); }
-            set { SetComplexValue<Product, ProductWrapper>(Product, value); }
-        }
-
-
 	    public FacilityWrapper Facility 
         {
             get { return GetWrapper<FacilityWrapper>(); }
             set { SetComplexValue<Facility, FacilityWrapper>(Facility, value); }
+        }
+
+
+	    public ProductWrapper Product 
+        {
+            get { return GetWrapper<ProductWrapper>(); }
+            set { SetComplexValue<Product, ProductWrapper>(Product, value); }
         }
 
 
@@ -3026,6 +3114,13 @@ namespace HVTApp.UI.Wrapper
         {
             get { return GetWrapper<FakeDataWrapper>(); }
             set { SetComplexValue<FakeData, FakeDataWrapper>(FakeData, value); }
+        }
+
+
+	    public StructureCostsWrapper StructureCosts 
+        {
+            get { return GetWrapper<StructureCostsWrapper>(); }
+            set { SetComplexValue<StructureCosts, StructureCostsWrapper>(StructureCosts, value); }
         }
 
 
@@ -3131,10 +3226,10 @@ namespace HVTApp.UI.Wrapper
         public override void InitializeComplexProperties()
         {
 
-            InitializeComplexProperty<ProductWrapper>(nameof(Product), Model.Product == null ? null : new ProductWrapper(Model.Product));
-
-
             InitializeComplexProperty<FacilityWrapper>(nameof(Facility), Model.Facility == null ? null : new FacilityWrapper(Model.Facility));
+
+
+            InitializeComplexProperty<ProductWrapper>(nameof(Product), Model.Product == null ? null : new ProductWrapper(Model.Product));
 
 
             InitializeComplexProperty<PaymentConditionSetWrapper>(nameof(PaymentConditionSet), Model.PaymentConditionSet == null ? null : new PaymentConditionSetWrapper(Model.PaymentConditionSet));
@@ -3159,6 +3254,9 @@ namespace HVTApp.UI.Wrapper
 
 
             InitializeComplexProperty<FakeDataWrapper>(nameof(FakeData), Model.FakeData == null ? null : new FakeDataWrapper(Model.FakeData));
+
+
+            InitializeComplexProperty<StructureCostsWrapper>(nameof(StructureCosts), Model.StructureCosts == null ? null : new StructureCostsWrapper(Model.StructureCosts));
 
 
         }

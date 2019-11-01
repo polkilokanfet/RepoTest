@@ -29,6 +29,8 @@ namespace HVTApp.Modules.Sales.ViewModels
         public ICommand EditTenderCommand { get; }
         public ICommand RemoveTenderCommand { get; }
 
+        public ICommand StructureCostsCommand { get; }
+
         #endregion
 
         #region Commands
@@ -100,5 +102,9 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         #endregion
 
+        private void StructureCostsCommand_Execute()
+        {
+            RegionManager.RequestNavigateContentRegion<StructureCostsView>(new NavigationParameters { { "project", Projects.SelectedItem.Entity } });
+        }
     }
 }

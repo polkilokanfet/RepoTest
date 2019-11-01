@@ -126,6 +126,18 @@ namespace HVTApp.UI
             _updateDetailsService.Register<StandartProductionTerm, StandartProductionTermDetailsView>();
 
 
+            Container.RegisterViewForNavigation<StructureCostLookupListView>();
+            //_dialogService.Register<StructureCostDetailsViewModel, StructureCostDetailsView>();
+			_selectService.Register<StructureCostLookupListView, StructureCost>();
+            _updateDetailsService.Register<StructureCost, StructureCostDetailsView>();
+
+
+            Container.RegisterViewForNavigation<StructureCostsLookupListView>();
+            //_dialogService.Register<StructureCostsDetailsViewModel, StructureCostsDetailsView>();
+			_selectService.Register<StructureCostsLookupListView, StructureCosts>();
+            _updateDetailsService.Register<StructureCosts, StructureCostsDetailsView>();
+
+
             Container.RegisterViewForNavigation<GlobalPropertiesLookupListView>();
             //_dialogService.Register<GlobalPropertiesDetailsViewModel, GlobalPropertiesDetailsView>();
 			_selectService.Register<GlobalPropertiesLookupListView, GlobalProperties>();

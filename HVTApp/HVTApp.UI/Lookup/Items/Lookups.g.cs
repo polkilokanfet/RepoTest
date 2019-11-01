@@ -527,6 +527,48 @@ namespace HVTApp.UI.Lookup
 
 	[AllowEditAttribute(Role.Admin)]
 
+	[Designation("Стракчакост")]
+	public partial class StructureCostLookup : LookupItem<StructureCost>
+	{
+		public StructureCostLookup(StructureCost entity) : base(entity) 
+		{
+		}
+		
+
+        #region SimpleProperties
+
+		[OrderStatus(1)]
+        public System.String Number => Entity.Number;
+
+
+		[OrderStatus(1)]
+        public System.Double Amount => Entity.Amount;
+
+
+		[OrderStatus(1)]
+        public System.String Comment => Entity.Comment;
+
+
+        #endregion
+
+	}
+
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Стракчакосты")]
+	public partial class StructureCostsLookup : LookupItem<StructureCosts>
+	{
+		public StructureCostsLookup(StructureCosts entity) : base(entity) 
+		{
+		}
+		
+		[OrderStatus(1)]
+	    public List<StructureCostLookup> StructureCostsList { get { return GetLookupEnum<StructureCostLookup>().ToList(); } }
+
+	}
+
+	[AllowEditAttribute(Role.Admin)]
+
 	[Designation("Общие настройки")]
 	public partial class GlobalPropertiesLookup : LookupItem<GlobalProperties>
 	{
@@ -1507,11 +1549,11 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
-		[OrderStatus(45)]
+		[OrderStatus(990)]
         public System.Double Cost => Entity.Cost;
 
 
-		[OrderStatus(46)]
+		[OrderStatus(985)]
         public System.Nullable<System.Double> Price => Entity.Price;
 
 
@@ -1567,7 +1609,7 @@ namespace HVTApp.UI.Lookup
         public System.Nullable<System.DateTime> EndProductionDate => Entity.EndProductionDate;
 
 
-		[OrderStatus(1)]
+		[OrderStatus(980)]
         public System.Nullable<System.Double> CostDelivery => Entity.CostDelivery;
 
 
@@ -1631,43 +1673,43 @@ namespace HVTApp.UI.Lookup
         public System.Double SumToShipping => Entity.SumToShipping;
 
 
-		[OrderStatus(1)]
+		[OrderStatus(990)]
         public System.DateTime OrderInTakeDate => Entity.OrderInTakeDate;
 
 
-		[OrderStatus(1)]
+		[OrderStatus(985)]
         public System.Int32 OrderInTakeYear => Entity.OrderInTakeYear;
 
 
-		[OrderStatus(1)]
+		[OrderStatus(980)]
         public System.Int32 OrderInTakeMonth => Entity.OrderInTakeMonth;
 
 
-		[OrderStatus(1)]
+		[OrderStatus(870)]
         public System.Nullable<System.DateTime> StartProductionConditionsDoneDate => Entity.StartProductionConditionsDoneDate;
 
 
-		[OrderStatus(1)]
+		[OrderStatus(865)]
         public System.Nullable<System.DateTime> ShippingConditionsDoneDate => Entity.ShippingConditionsDoneDate;
 
 
-		[OrderStatus(1)]
+		[OrderStatus(860)]
         public System.DateTime StartProductionDateCalculated => Entity.StartProductionDateCalculated;
 
 
-		[OrderStatus(1)]
+		[OrderStatus(855)]
         public System.DateTime EndProductionDateCalculated => Entity.EndProductionDateCalculated;
 
 
-		[OrderStatus(1)]
+		[OrderStatus(850)]
         public System.DateTime RealizationDateCalculated => Entity.RealizationDateCalculated;
 
 
-		[OrderStatus(1)]
+		[OrderStatus(845)]
         public System.DateTime ShipmentDateCalculated => Entity.ShipmentDateCalculated;
 
 
-		[OrderStatus(1)]
+		[OrderStatus(840)]
         public System.DateTime DeliveryDateCalculated => Entity.DeliveryDateCalculated;
 
 
@@ -1680,19 +1722,19 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
-		[OrderStatus(50)]
-	    public ProductLookup Product { get { return GetLookup<ProductLookup>(); } }
-
-
-		[OrderStatus(51)]
+		[OrderStatus(1000)]
 	    public FacilityLookup Facility { get { return GetLookup<FacilityLookup>(); } }
+
+
+		[OrderStatus(995)]
+	    public ProductLookup Product { get { return GetLookup<ProductLookup>(); } }
 
 
 		[OrderStatus(1)]
 	    public PaymentConditionSetLookup PaymentConditionSet { get { return GetLookup<PaymentConditionSetLookup>(); } }
 
 
-		[OrderStatus(52)]
+		[OrderStatus(1005)]
 	    public ProjectLookup Project { get { return GetLookup<ProjectLookup>(); } }
 
 
@@ -1718,6 +1760,10 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
 	    public FakeDataLookup FakeData { get { return GetLookup<FakeDataLookup>(); } }
+
+
+		[OrderStatus(1)]
+	    public StructureCostsLookup StructureCosts { get { return GetLookup<StructureCostsLookup>(); } }
 
 
         #endregion

@@ -100,6 +100,16 @@ namespace HVTApp.DataAccess
         public StandartProductionTermRepositoryTest(TestData testData) : base(testData) {}
     }
 
+    public partial class StructureCostRepositoryTest : TestBaseRepository<StructureCost>, IStructureCostRepository
+    {
+        public StructureCostRepositoryTest(TestData testData) : base(testData) {}
+    }
+
+    public partial class StructureCostsRepositoryTest : TestBaseRepository<StructureCosts>, IStructureCostsRepository
+    {
+        public StructureCostsRepositoryTest(TestData testData) : base(testData) {}
+    }
+
     public partial class GlobalPropertiesRepositoryTest : TestBaseRepository<GlobalProperties>, IGlobalPropertiesRepository
     {
         public GlobalPropertiesRepositoryTest(TestData testData) : base(testData) {}

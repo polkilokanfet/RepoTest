@@ -39,6 +39,8 @@ namespace HVTApp.Modules.Sales.ViewModels
             EditTenderCommand = new DelegateCommand(EditTenderCommand_Execute, () => Tenders.SelectedItem != null);
             RemoveTenderCommand = new DelegateCommand(async () => await Tenders.RemoveSelectedItemTask(), () => Tenders.SelectedItem != null);
 
+            StructureCostsCommand = new DelegateCommand(StructureCostsCommand_Execute, () => Projects.SelectedItem != null);
+
             #endregion
 
             #region Subscribe to Events
@@ -59,6 +61,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             ((DelegateCommand)RemoveProjectCommand).RaiseCanExecuteChanged();
             ((DelegateCommand)EditProjectCommand).RaiseCanExecuteChanged();
             ((DelegateCommand)NewSpecificationCommand).RaiseCanExecuteChanged();
+            ((DelegateCommand)StructureCostsCommand).RaiseCanExecuteChanged();
             OfferRaiseCanExecuteChanged();
             TenderRaiseCanExecuteChanged();
         }
