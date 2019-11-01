@@ -1,14 +1,10 @@
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using HVTApp.Model.Comparers;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Comparers;
-using HVTApp.UI.Converter;
 using HVTApp.UI.Groups;
-using HVTApp.UI.Wrapper;
 using Prism.Commands;
 
 namespace HVTApp.UI.ViewModels

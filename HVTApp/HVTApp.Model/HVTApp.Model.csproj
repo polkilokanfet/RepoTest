@@ -49,6 +49,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Comparers\OfferUnitsGroupsComparer.cs" />
+    <Compile Include="Comparers\SalesUnitsGroupsComparer.cs" />
+    <Compile Include="Comparers\UnitsGroupsComparer.cs" />
     <Compile Include="Events\AfterRemoveEntityEvents.g.cs" />
     <Compile Include="Events\AfterSaveEntityEvents.g.cs" />
     <Compile Include="Events\AfterSelectEntityEvents.g.cs" />

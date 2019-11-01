@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Model.POCOs;
 
-namespace HVTApp.UI.Comparers
+namespace HVTApp.Model.Comparers
 {
     public abstract class UnitsGroupsComparer<T> : IEqualityComparer<T>
         where T : IUnit

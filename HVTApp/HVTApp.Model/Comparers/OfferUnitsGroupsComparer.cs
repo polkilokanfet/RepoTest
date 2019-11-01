@@ -1,6 +1,6 @@
 using HVTApp.Model.POCOs;
 
-namespace HVTApp.UI.Comparers
+namespace HVTApp.Model.Comparers
 {
     public class OfferUnitsGroupsComparer : UnitsGroupsComparer<OfferUnit>
     {
