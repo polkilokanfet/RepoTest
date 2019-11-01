@@ -45,6 +45,9 @@ namespace HVTApp.Modules.Reports.ViewModels
         [Designation("Обозначение")]
         public string Designation { get; }
 
+        [Designation("Количество")]
+        public int Amount { get; }
+
         [Designation("Статус")]
         public string Status { get; }
 
@@ -120,17 +123,19 @@ namespace HVTApp.Modules.Reports.ViewModels
         #endregion
 
         public SalesReportUnit(
-            SalesUnit salesUnit, 
+            IEnumerable<SalesUnit> salesUnits, 
             IEnumerable<Tender> tenders, 
             IEnumerable<ProductBlock> blocks,
             IEnumerable<CountryUnion> countryUnions)
         {
+            var salesUnit = salesUnits.First();
             SetProperties(salesUnit);
 
             var priceStructures = new PriceStructures(this, this.OrderInTakeDate, GlobalAppProperties.Actual.ActualPriceTerm, blocks);
             _tenders = tenders.ToList();
             _countryUnions = countryUnions.ToList();
 
+            Amount = salesUnits.Count();
             FacilityOwner = Facility.OwnerCompany;
             FacilityOwnerHead = GetFacilityOwnerHead();
             Contragent = Specification?.Contract.Contragent;
@@ -143,7 +148,8 @@ namespace HVTApp.Modules.Reports.ViewModels
             Designation = Product.Designation;
             Status = GetStatus();
             Vat = Specification?.Vat;
-            CostWithVat = (1.0 + Vat) * Cost ?? Cost;
+            CostResult = FakeData?.Cost ?? Cost;
+            CostWithVat = (1.0 + Vat) * CostResult ?? CostResult;
 
 
             Voltage = Product.ProductBlock.Parameters.SingleOrDefault(x => Equals(x.ParameterGroup, GlobalAppProperties.Actual.VoltageGroup))?.Value;
@@ -172,7 +178,6 @@ namespace HVTApp.Modules.Reports.ViewModels
             RealizationDateResultYear = RealizationDateResult.Year;
             RealizationDateResultMonth = RealizationDateResult.Month;
 
-            CostResult = FakeData?.Cost ?? Cost;
             OrderInTakeDateResult = this.FakeData?.OrderInTakeDate ?? this.OrderInTakeDate;
             RealizationDateResult = this.FakeData?.RealizationDate ?? this.RealizationDateCalculated;
             PaymentConditionSetResult = this.FakeData?.PaymentConditionSet ?? this.PaymentConditionSet;

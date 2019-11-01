@@ -46,12 +46,14 @@ namespace HVTApp.Modules.Reports.ViewModels
                 ? UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.ForReport && x.Project.Manager.IsAppCurrentUser()) 
                 : UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.ForReport);
 
+            var groups = salesUnits.OrderBy(x => x.OrderInTakeDate).GroupBy(x => x, new SalesUnitsReportComparer());
+
             var tenders = UnitOfWork.Repository<Tender>().Find(x => true);
             var blocks = UnitOfWork.Repository<ProductBlock>().Find(x => true);
             var countryUnions = UnitOfWork.Repository<CountryUnion>().Find(x => true);
 
-            Units.AddRange(salesUnits.OrderBy(x => x.OrderInTakeDate)
-                                     .Select(x => new SalesReportUnit(x, tenders.Where(t => Equals(x.Project, t.Project)), blocks, countryUnions)));
+            Units.AddRange(groups.Select(x => new SalesReportUnit(x, tenders.Where(t => Equals(x.Key.Project, t.Project)), blocks, countryUnions)));
+
             IsLoaded = true;
         }
     }

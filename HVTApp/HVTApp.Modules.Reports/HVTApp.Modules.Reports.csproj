@@ -108,6 +108,7 @@
     </Compile>
     <Compile Include="ViewModels\SalesReportUnit.cs" />
     <Compile Include="ViewModels\SalesReportViewModel.cs" />
+    <Compile Include="ViewModels\SalesUnitsReportComparer.cs" />
     <Compile Include="Views\SalesReportView.xaml.cs">
       <DependentUpon>SalesReportView.xaml</DependentUpon>
     </Compile>
