@@ -23,7 +23,10 @@ namespace HVTApp.Model.POCOs
             if (Math.Abs(DaysToPoint) == 1) dayName = "день";
             if (Math.Abs(DaysToPoint) == 2 || Math.Abs(DaysToPoint) == 3 || Math.Abs(DaysToPoint) == 4) dayName = "дня";
 
-            string daysName = DaysToPoint < 0 ? $"за {-DaysToPoint} {dayName} до" : $"спустя {DaysToPoint} {dayName} после";
+            string daysName = DaysToPoint < 0 
+                ? $"за {-DaysToPoint} {dayName} до" 
+                : $"спустя {DaysToPoint} {dayName} после";
+            if (DaysToPoint == 0) daysName = "в день";
 
             string pointName = string.Empty;
             switch (PaymentConditionPoint.PaymentConditionPointEnum)

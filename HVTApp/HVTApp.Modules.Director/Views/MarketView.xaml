@@ -1,0 +1,44 @@
+﻿<inf:ViewBase x:Class="HVTApp.Modules.Director.Views.MarketView"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:infg="http://infragistics.com/DataPresenter"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:prism="http://prismlibrary.com/"             
+              prism:ViewModelLocator.AutoWireViewModel="True">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <infg:XamDataGrid Grid.Row="1" DataSource="{Binding MarketUnits}">
+            
+            <infg:XamDataGrid.FieldLayouts>
+
+                <infg:FieldLayout Key="MarketUnit">
+                    <infg:TextField Name="Facilities" Label="Объект" Width="Auto"/>
+                    <infg:NumericField Name="Sum" Label="Сумма" Width="Auto"/>
+                    <infg:DateTimeField Name="OrderInTakeDate" Label="Дата ОИТ" Width="Auto"/>
+                    <infg:TextField Name="Project" Label="Проект" Width="Auto"/>
+                    <infg:Field Name="SalesGroups" IsExpandable="True"/>
+                    <infg:TextField Name="Manager" Label="Менеджер" Width="Auto"/>
+                </infg:FieldLayout>
+
+                <infg:FieldLayout ParentFieldLayoutKey="MarketUnit" ParentFieldName="SalesGroups">
+                    <infg:TextField Name="Facility" Label="Объект" Width="Auto"/>
+                    <infg:TextField Name="ProductType" Label="Тип оборудования" Width="Auto"/>
+                    <infg:TextField Name="ProductDesignation" Label="Обозначение" Width="Auto"/>
+                    <infg:NumericField Name="Cost" Label="Цена" Width="Auto"/>
+                    <infg:NumericField Name="Amount" Label="Кол." Width="Auto"/>
+                    <infg:NumericField Name="Sum" Label="Сумма" Width="Auto"/>
+                </infg:FieldLayout>
+
+            </infg:XamDataGrid.FieldLayouts>
+        </infg:XamDataGrid>
+
+    </Grid>
+</inf:ViewBase>
+
+
+

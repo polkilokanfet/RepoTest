@@ -29,7 +29,7 @@
     <ProductName>HVTApplication</ProductName>
     <PublisherName>Kosolapov</PublisherName>
     <MinimumRequiredVersion>1.0.0.3</MinimumRequiredVersion>
-    <ApplicationRevision>28</ApplicationRevision>
+    <ApplicationRevision>30</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -260,6 +260,10 @@
     <ProjectReference Include="..\HVTApp.Modules.BookRegistration\HVTApp.Modules.BookRegistration.csproj">
       <Project>{e904c6c5-39f0-4091-a42d-5efbcce219b6}</Project>
       <Name>HVTApp.Modules.BookRegistration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HVTApp.Modules.Director\HVTApp.Modules.Director.csproj">
+      <Project>{df40155b-72ca-425b-8ed6-84692051dddd}</Project>
+      <Name>HVTApp.Modules.Director</Name>
     </ProjectReference>
     <ProjectReference Include="..\HVTApp.Modules.Price\HVTApp.Modules.PlanAndEconomy.csproj">
       <Project>{F3D1ADB0-2385-47F2-AF88-5C605E63EC79}</Project>

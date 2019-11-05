@@ -65,6 +65,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.Modules.Products", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.Modules.BookRegistration", "HVTApp.Modules.BookRegistration\HVTApp.Modules.BookRegistration.csproj", "{E904C6C5-39F0-4091-A42D-5EFBCCE219B6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.Modules.Director", "HVTApp.Modules.Director\HVTApp.Modules.Director.csproj", "{DF40155B-72CA-425B-8ED6-84692051DDDD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -183,6 +185,10 @@ Global
 		{E904C6C5-39F0-4091-A42D-5EFBCCE219B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E904C6C5-39F0-4091-A42D-5EFBCCE219B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E904C6C5-39F0-4091-A42D-5EFBCCE219B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF40155B-72CA-425B-8ED6-84692051DDDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF40155B-72CA-425B-8ED6-84692051DDDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF40155B-72CA-425B-8ED6-84692051DDDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF40155B-72CA-425B-8ED6-84692051DDDD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -210,5 +216,6 @@ Global
 		{2A98E410-78F4-4CE5-8DE6-3ADB44087577} = {D89A3693-4C45-45D7-B52B-B3A58C52B3E2}
 		{7C45F2A2-C4E4-407A-BC82-B59AAA0AD5A2} = {D89A3693-4C45-45D7-B52B-B3A58C52B3E2}
 		{E904C6C5-39F0-4091-A42D-5EFBCCE219B6} = {D89A3693-4C45-45D7-B52B-B3A58C52B3E2}
+		{DF40155B-72CA-425B-8ED6-84692051DDDD} = {D89A3693-4C45-45D7-B52B-B3A58C52B3E2}
 	EndGlobalSection
 EndGlobal
