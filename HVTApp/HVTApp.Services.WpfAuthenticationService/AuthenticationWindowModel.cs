@@ -23,6 +23,7 @@ namespace HVTApp.Services.WpfAuthenticationService
         {
             _users = users;
             OkCommand = new DelegateCommand(OkCommand_Execute, OkCommand_CanExecute);
+            Login = Properties.Settings.Default.Login;
         }
 
         public string Login
@@ -70,6 +71,11 @@ namespace HVTApp.Services.WpfAuthenticationService
 
         private void OkCommand_Execute()
         {
+            //запоминаем логин
+            Properties.Settings.Default.Login = User.Login;
+            Properties.Settings.Default.Save();
+
+            //сигнализируем о необходимости закрыть окно
             CloseRequested?.Invoke(this, new DialogRequestCloseEventArgs(true));
         }
 
