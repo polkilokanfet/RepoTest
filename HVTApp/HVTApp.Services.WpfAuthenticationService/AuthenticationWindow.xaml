@@ -21,10 +21,10 @@
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row="0" Content="Логин"/>
-        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}" local:FocusExtension.IsFocused="True"/>
+        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}"/>
         
         <Label Grid.Column="0" Grid.Row="1" Content="Пароль"/>
-        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" local:FocusExtension.IsFocused="True"/>
 
         <Label Grid.Column="0" Grid.Row="2" Content="Роль"/>
         <ComboBox Grid.Column="1" Grid.Row="2" 

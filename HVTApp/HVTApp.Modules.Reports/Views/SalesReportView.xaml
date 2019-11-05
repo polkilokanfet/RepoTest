@@ -105,10 +105,10 @@
                         <infg:DateTimeField Name="SignalToStartProduction" Label="Сигнал менеджера о производстве" Width="Auto" />
                         <infg:TextField Name="Segment" Label="Сегмент рынка" Width="Auto" />
                         <infg:NumericField Name="DeliveryPeriodCalculated" Label="Расчетный срок доставки" Width="Auto" />
-                        <infg:TextField Name="PaymentsPlannedCalculated" Label="Расчетные плановые платежи + сохраненные" Width="Auto" Converter="{StaticResource ListToStringConverter}"/>
-                        <infg:TextField Name="PaymentsPlannedGenerated" Label="Расчетные плановые платежи" Width="Auto" Converter="{StaticResource ListToStringConverter}"/>
-                        <infg:CheckBoxField Name="AllowEditProduct" Label="Разрешение на редактирование техники" Width="Auto" />
-                        <infg:CheckBoxField Name="AllowEditCost" Label="Разрешение на редактирование стоимости" Width="Auto" />
+                        <!--<infg:TextField Name="PaymentsPlannedCalculated" Label="Расчетные плановые платежи + сохраненные" Width="Auto" Converter="{StaticResource ListToStringConverter}"/>-->
+                        <!--<infg:TextField Name="PaymentsPlannedGenerated" Label="Расчетные плановые платежи" Width="Auto" Converter="{StaticResource ListToStringConverter}"/>-->
+                        <!--<infg:CheckBoxField Name="AllowEditProduct" Label="Разрешение на редактирование техники" Width="Auto" />-->
+                        <!--<infg:CheckBoxField Name="AllowEditCost" Label="Разрешение на редактирование стоимости" Width="Auto" />-->
                         <infg:TextField Name="Producer" Label="Производитель" Width="Auto" />
                         <infg:CheckBoxField Name="IsLoosen" Label="Проиграно" Width="Auto" />
                         <infg:TextField Name="LosingReasons" Label="Причины проигрыша" Width="Auto" Converter="{StaticResource ListToStringConverter}"/>
@@ -125,7 +125,7 @@
                         <infg:TextField Name="Voltage" Label="Напряжение" Width="Auto" />
                         <infg:NumericField Name="RealizationDateResultMonth" Label="Месяц реализации (результирующая)" Width="Auto" />
                         <infg:TextField Name="Manager" Label="Менеджер" Width="Auto" />
-                        <infg:TextField Name="FakeData" Label="Корректировочные данные" Width="Auto" />
+                        <!--<infg:TextField Name="FakeData" Label="Корректировочные данные" Width="Auto" />-->
                         <infg:TextField Name="Contragent" Label="Контрагент" Width="Auto" />
                         <infg:CheckBoxField Name="IsDone" Label="Исполнено" Width="Auto" />
                         <infg:TextField Name="TceRequest" Label="Запрос в ТСЕ" Width="Auto" />

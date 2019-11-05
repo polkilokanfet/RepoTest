@@ -8,7 +8,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.Reports
 {
-    [ModuleAccess(Role.Admin, Role.SalesManager)]
+    [ModuleAccess(Role.Admin, Role.SalesManager, Role.Director, Role.ReportMaker)]
     public class ReportsModule : ModuleBase
     {
         public ReportsModule(IUnityContainer container, IRegionManager regionManager) : base(container, regionManager)
