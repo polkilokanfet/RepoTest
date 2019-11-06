@@ -1,31 +1,54 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
+using Prism.Commands;
 
 namespace HVTApp.Modules.Director.ViewModels
 {
     public class MarketViewModel : ViewModelBase
     {
-        public List<MarketUnit> MarketUnits { get; private set; }
+        private bool _isLoaded = false;
+        public ObservableCollection<MarketUnit> MarketUnits { get; } = new ObservableCollection<MarketUnit>();
+
+        public bool IsLoaded
+        {
+            get { return _isLoaded; }
+            private set
+            {
+                _isLoaded = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ICommand ReloadCommand { get; }
 
         public MarketViewModel(IUnityContainer container) : base(container)
         {
-            Load();
+            ReloadCommand = new DelegateCommand(async () => { await Load(); });
         }
 
-        private void Load()
+        public async Task Load()
         {
-            var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.ForReport);
-            MarketUnits = salesUnits
+            IsLoaded = false;
+
+            var salesUnits = (await UnitOfWork.Repository<SalesUnit>().GetAllAsync()).Where(x => x.Project.ForReport);
+
+            MarketUnits.Clear();
+            MarketUnits.AddRange(
+                salesUnits
                 .GroupBy(x => new {x.Project.Id, x.OrderInTakeDate})
                 .OrderBy(x => x.Key.OrderInTakeDate)
-                .Select(x => new MarketUnit(x))
-                .ToList();
+                .Select(x => new MarketUnit(x)));
+
+            IsLoaded = true;
         }
     }
 
@@ -41,7 +64,9 @@ namespace HVTApp.Modules.Director.ViewModels
 
         public MarketUnit(IEnumerable<SalesUnit> salesUnits)
         {
+            if (salesUnits == null) throw new NullReferenceException($"{nameof(salesUnits)} не должен быть null");
             var salesUnitsList = salesUnits.ToList();
+            if (!salesUnitsList.Any()) throw new ArgumentException($@"{nameof(salesUnits)} не имеет членов", nameof(salesUnits));
 
             Project = salesUnitsList.First().Project.ToString();
 
@@ -78,10 +103,12 @@ namespace HVTApp.Modules.Director.ViewModels
 
         public SalesGroup(IEnumerable<SalesUnit> salesUnits)
         {
+            if (salesUnits == null) throw new NullReferenceException($"{nameof(salesUnits)} не должен быть null");
             var salesUnitsList = salesUnits.ToList();
+            if(!salesUnitsList.Any()) throw new ArgumentException($@"{nameof(salesUnits)} не имеет членов", nameof(salesUnits));
 
             Facility = salesUnitsList.First().Facility.ToString();
-            ProductType = salesUnitsList.First().Product.ProductType.ToString();
+            ProductType = salesUnitsList.First().Product.ProductType?.ToString();
             ProductDesignation = salesUnitsList.First().Product.Designation;
             Cost = salesUnitsList.First().Cost;
             Amount = salesUnitsList.Count;

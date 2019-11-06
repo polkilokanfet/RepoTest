@@ -7,8 +7,8 @@ namespace HVTApp.Modules.Director.Menus
     {
         protected override void GenerateMenu()
         {
-            var salesReport = new NavigationItem("Рынок", typeof(MarketView));
-            Items.Add(salesReport);
+            var navigationItem = new NavigationItem("Рынок", typeof(MarketView));
+            Items.Add(navigationItem);
         }
     }
 }

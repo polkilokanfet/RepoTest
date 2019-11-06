@@ -110,6 +110,9 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="DirectorModule.cs" />
+    <Compile Include="Tabs\TabReload.xaml.cs">
+      <DependentUpon>TabReload.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\MarketViewModel.cs" />
     <Compile Include="Views\MarketView.xaml.cs">
       <DependentUpon>MarketView.xaml</DependentUpon>
@@ -126,7 +129,9 @@
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\Add_16x16.png" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HVTApp.Infrestructure\HVTApp.Infrastructure.csproj">
       <Project>{76518d16-6ea7-4b34-a308-e7ad991421bc}</Project>
@@ -142,10 +147,44 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Tabs\TabReload.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\MarketView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Delete_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Edit_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\New_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Presentation_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Presentation_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Print_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Refresh_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Save_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Text_Document_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Text_Document_32x32.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
