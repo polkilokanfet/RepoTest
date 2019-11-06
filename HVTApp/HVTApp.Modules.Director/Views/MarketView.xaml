@@ -4,7 +4,17 @@
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure">
 
+    <inf:ViewBase.Resources>
+
+        <Style x:Key="CustomRecordStyle" TargetType="{x:Type infg:DataRecordPresenter}">
+            <Setter Property="Background">
+                <Setter.Value>DarkGray</Setter.Value>
+            </Setter>
+        </Style>
+    </inf:ViewBase.Resources>
+    
     <Grid>
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -26,9 +36,8 @@
                           x:Name="DataGrid" 
                           DataSource="{Binding MarketUnits}" 
                           Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
-            
-            <infg:XamDataGrid.FieldLayouts>
 
+            <infg:XamDataGrid.FieldLayouts>
                 <infg:FieldLayout Key="MarketUnit">
                     <infg:TextField Name="Facilities" Label="Объект" Width="Auto"/>
                     <infg:NumericField Name="Sum" Label="Сумма" Width="Auto"/>
@@ -39,6 +48,11 @@
                 </infg:FieldLayout>
 
                 <infg:FieldLayout ParentFieldLayoutKey="MarketUnit" ParentFieldName="SalesGroups">
+                    
+                    <infg:FieldLayout.FieldSettings>
+                        <infg:FieldSettings AllowRecordFiltering="False"/>
+                    </infg:FieldLayout.FieldSettings>
+                    
                     <infg:TextField Name="Facility" Label="Объект" Width="Auto"/>
                     <infg:TextField Name="ProductType" Label="Тип оборудования" Width="Auto"/>
                     <infg:TextField Name="ProductDesignation" Label="Обозначение" Width="Auto"/>

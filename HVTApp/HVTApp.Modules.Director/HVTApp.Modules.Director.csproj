@@ -113,7 +113,9 @@
     <Compile Include="Tabs\TabReload.xaml.cs">
       <DependentUpon>TabReload.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\MarketUnit.cs" />
     <Compile Include="ViewModels\MarketViewModel.cs" />
+    <Compile Include="ViewModels\SalesGroup.cs" />
     <Compile Include="Views\MarketView.xaml.cs">
       <DependentUpon>MarketView.xaml</DependentUpon>
     </Compile>

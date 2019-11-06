@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.Comparers;
 using HVTApp.Model.POCOs;
@@ -52,19 +53,22 @@ namespace HVTApp.Services.PrintService
 
             #endregion
 
-            var offerDocumentPath = AppDomain.CurrentDomain.BaseDirectory + "\\TestOfferDocument.docx";
+            var offerDocumentPath = AppDomain.CurrentDomain.BaseDirectory + "\\OfferDocument.docx";
             var docWriter = WordDocumentWriter.Create(offerDocumentPath);
+            docWriter.DefaultParagraphProperties.Alignment = ParagraphAlignment.Both;
             docWriter.StartDocument();
 
             #region Print Header
 
-            docWriter.PrintParagraph("Получатель");
-            docWriter.PrintParagraph($"должность: {offer.RecipientEmployee.Position.Name}");
-            docWriter.PrintParagraph($"компания: {offer.RecipientEmployee.Company}");
-            docWriter.PrintParagraph($"Ф.И.О.: {offer.RecipientEmployee.Person.Surname} {offer.RecipientEmployee.Person.Name} {offer.RecipientEmployee.Person.Patronymic}");
+            docWriter.PrintParagraph($"Дата: {offer.Date.ToShortDateString()} исх.№ {offer.RegNumber}");
+            docWriter.PrintParagraph($"Получатель: {offer.RecipientEmployee.Position.Name} {offer.RecipientEmployee.Company.Form.ShortName} \"{offer.RecipientEmployee.Company.ShortName}\" { offer.RecipientEmployee.Person}");
 
-            docWriter.PrintParagraph($"Проект: \"{offer.Project.Name}\"");
-            docWriter.PrintParagraph($"Срок действия ТКП: {offer.ValidityDate.ToShortDateString()}");
+            docWriter.PrintParagraph(string.Empty);
+            docWriter.PrintParagraph(offer.RecipientEmployee.Person.IsMan
+                ? $"Уважаемый {offer.RecipientEmployee.Person.Name} {offer.RecipientEmployee.Person.Patronymic}!"
+                : $"Уважаемая {offer.RecipientEmployee.Person.Name} {offer.RecipientEmployee.Person.Patronymic}!");
+            docWriter.PrintParagraph($"В ответ на Ваш запрос, предоставляем технико-коммерческое предложение на поставку электротехнического оборудования для нужд {offerUnits.Select(x => x.Facility).ToStringEnum()} (по проекту \"{offer.Project.Name}\").");
+            docWriter.PrintParagraph("Стоимость оборудования приведена в таблице:");
 
             #endregion
 
@@ -88,8 +92,8 @@ namespace HVTApp.Services.PrintService
             Font fontBold = docWriter.CreateFont();
             fontBold.Bold = true;
 
-            docWriter.PrintTableRow(tableCellProperties, tableRowProperties, paragraphProps, fontBold, "№",
-                "Тип оборудования", "Обозначение", "Кол.", "Стоимость, руб.", "Сумма, руб.");
+            docWriter.PrintTableRow(tableCellProperties, tableRowProperties, paragraphProps, fontBold, 
+                "№", "Тип оборудования", "Обозначение", "Кол.", "Стоимость, руб.", "Сумма, руб.");
 
             // Reset the cell properties, so that the cell properties are different from the header cells.
             tableCellProperties.Reset();
@@ -106,7 +110,7 @@ namespace HVTApp.Services.PrintService
                 docWriter.StartTableRow();
 
                 tableCellProperties.ColumnSpan = 6;
-                docWriter.PrintTableCell($"{offerUnitsGroupsByFacility.Key}", tableCellProperties); //объект
+                docWriter.PrintTableCell($"{offerUnitsGroupsByFacility.Key}", tableCellProperties, font: fontBold); //объект
 
                 docWriter.EndTableRow();
 
@@ -143,12 +147,44 @@ namespace HVTApp.Services.PrintService
             #region Print Conditions
 
             var paragraphProperties = docWriter.CreateParagraphProperties();
+            docWriter.PrintParagraph(string.Empty);
             docWriter.PrintParagraph("Условия поставки оборудования:", paragraphProperties, fontBold);
+            PrintConditions("1. Условия оплаты:", offerUnitsGroups.GroupBy(x => x.PaymentConditionSet.Model), docWriter);
+            PrintConditions("2. Срок производства (календарных дней, с правом досрочной поставки): до", offerUnitsGroups.GroupBy(x => x.ProductionTerm), docWriter);
+            docWriter.PrintParagraph($"3. Точный срок поставки оборудования уточняется при заключении договора.");
+            docWriter.PrintParagraph($"4. Цена и сроки поставки могут быть пересмотрены после окончательного согласования опросных листов на оборудование.");
+            docWriter.PrintParagraph($"5. Настоящее предложение действительно до {offer.ValidityDate.ToShortDateString()} г.");
+            docWriter.PrintParagraph($"6. Заводская гарантия на оборудование - 5 лет.");
+
+            #endregion
+
+            #region Sender
+
             docWriter.PrintParagraph(string.Empty);
 
-            PrintConditions("Оплата", offerUnitsGroups.GroupBy(x => x.PaymentConditionSet.Model), docWriter);
+            var bordProps = docWriter.CreateTableBorderProperties();
+            bordProps.Style = TableBorderStyle.None;
+            bordProps.Sides = TableBorderSides.None;
+
+            docWriter.StartTable(3, GetTableProperties(docWriter, bordProps));
+
+            docWriter.PrintTableRow(
+                docWriter.CreateTableCellProperties(),
+                docWriter.CreateTableRowProperties(),
+                docWriter.CreateParagraphProperties(),
+                docWriter.CreateFont(),
+                $"С уважением, {offer.SenderEmployee.Position}",
+                $"                     ",
+                $"{offer.SenderEmployee.Person}");
+
+            docWriter.EndTable();
+
+            #endregion
+
+            #region Author
+
             docWriter.PrintParagraph(string.Empty);
-            PrintConditions("Срок производства (календарных дней)", offerUnitsGroups.GroupBy(x => x.ProductionTerm), docWriter);
+            docWriter.PrintParagraph($"Исполнитель: {offer.Author} тел.: {offer.Author.PhoneNumber}; e-mail: {offer.Author.Email}");
 
             #endregion
 
@@ -157,7 +193,8 @@ namespace HVTApp.Services.PrintService
             paragraphProperties = docWriter.CreateParagraphProperties();
             paragraphProperties.PageBreakBefore = true;
 
-            docWriter.PrintParagraph("Технические характеристики оборудования:", paragraphProperties, fontBold);
+            docWriter.PrintParagraph($"Техническое приложение к предложению исх.№ {offer.RegNumber} от {offer.Date.ToShortDateString()} г.", paragraphProperties, fontBold);
+            docWriter.PrintParagraph("Технические характеристики оборудования:");
             foreach (var offerUnitsGroupsByFacility in offerUnitsGroupsByFacilities)
             {
                 foreach (var offerUnitsGroup in offerUnitsGroupsByFacility)
@@ -190,13 +227,19 @@ namespace HVTApp.Services.PrintService
 
         private static void PrintConditions<T>(string text, IEnumerable<IGrouping<T, OfferUnitsGroup>> offerUnitsGroupsGrouped, WordDocumentWriter docWriter)
         {
-            docWriter.PrintParagraph(text);
-            foreach (var offerUnitsGroupsByPaymentCondition in offerUnitsGroupsGrouped)
+            if (offerUnitsGroupsGrouped.Count() == 1)
             {
-                var stringBuilder = new StringBuilder();
-                offerUnitsGroupsByPaymentCondition.ForEach(x => stringBuilder.Append($"{x.Position}, "));
-                var positions = stringBuilder.Remove(stringBuilder.Length - 2, 2);
-                docWriter.PrintParagraph($"Для позиций {positions}: {offerUnitsGroupsByPaymentCondition.Key}");
+                docWriter.PrintParagraph($"{text} {offerUnitsGroupsGrouped.First().Key}.");
+            }
+            else
+            {
+                foreach (var unitsGroups in offerUnitsGroupsGrouped)
+                {
+                    var sb = new StringBuilder();
+                    unitsGroups.ForEach(x => sb.Append($"{x.Position}, "));
+                    var positions = sb.Remove(sb.Length - 2, 2);
+                    docWriter.PrintParagraph($"{text} позиций {positions}: {unitsGroups.Key}.");
+                }
             }
         }
 

@@ -56,7 +56,9 @@ namespace HVTApp.Services.ProductDesignationService
 
         #endregion
 
-        #region Type
+        #region
+
+        private readonly ProductType _productTypeNotDef = new ProductType { Name = "Тип не определен" };
 
         public ProductType GetProductType(ProductBlock block)
         {
@@ -64,7 +66,7 @@ namespace HVTApp.Services.ProductDesignationService
 
             return designations.Any() 
                 ? designations.OrderBy(x => x.Parameters.Count).Last().ProductType 
-                : null;
+                : _productTypeNotDef;
         }
 
         public ProductType GetProductType(Product product)

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace HVTApp.Infrastructure.Extansions
 {
@@ -91,5 +92,12 @@ namespace HVTApp.Infrastructure.Extansions
             collection.Add(objId);
         }
 
+        public static string ToStringEnum<T>(this IEnumerable<T> enumerable)
+        {
+            var list = enumerable.Distinct().ToList();
+            var builder = new StringBuilder();
+            list.ForEach(x => builder.Append("; ").Append($"{x}"));
+            return builder.Remove(0, 2).ToString();
+        }
     }
 }

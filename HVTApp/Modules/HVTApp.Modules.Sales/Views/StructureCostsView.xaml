@@ -55,6 +55,11 @@
                 </igWPF:FieldLayout>
 
                 <igWPF:FieldLayout ParentFieldLayoutKey="Product" ParentFieldName="StructureCostWrappers">
+                    
+                    <igWPF:FieldLayout.FieldSettings>
+                        <igWPF:FieldSettings AllowRecordFiltering="False"/>
+                    </igWPF:FieldLayout.FieldSettings>
+
                     <igWPF:TextField Name="Comment" Label="Комментарий" AllowEdit="True" Width="Auto"/>
                     <igWPF:NumericField Name="Amount" Label="Кол. на объем" AllowEdit="True" Width="Auto"/>
                     <igWPF:TextField Name="Number" Label="Номер Сралчахвоста" AllowEdit="True" Width="Auto"/>
@@ -65,3 +70,4 @@
         
     </Grid>
 </inf:ViewBase>
+

@@ -100,11 +100,11 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         #endregion
 
-        #endregion
-
         private void StructureCostsCommand_Execute()
         {
             RegionManager.RequestNavigateContentRegion<StructureCostsView>(new NavigationParameters { { "project", Projects.SelectedItem.Entity } });
         }
+
+        #endregion
     }
 }
