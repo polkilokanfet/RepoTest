@@ -16,6 +16,8 @@ namespace HVTApp.Infrastructure
         /// </summary>
         /// <returns></returns>
         Task<int> SaveChangesAsync();
+
+        void SaveChanges();
     }
 
     ///// <summary>

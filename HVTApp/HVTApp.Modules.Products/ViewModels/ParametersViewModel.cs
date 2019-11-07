@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Lookup;
 using HVTApp.UI.ViewModels;
@@ -76,9 +77,9 @@ namespace HVTApp.Modules.Products.ViewModels
             ParameterLookups = new ObservableCollection<ParameterLookup>(parameters.Select(x => new ParameterLookup(x)));
         }
 
-        protected override void SaveCommand_Execute()
+        protected override async Task SaveItemTask()
         {
-            base.SaveCommand_Execute();
+            await base.SaveItemTask();
             SelectedParameterLookup.Refresh(Item.Model);
         }
     }

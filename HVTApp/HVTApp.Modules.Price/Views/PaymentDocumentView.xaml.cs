@@ -22,7 +22,7 @@ namespace HVTApp.Modules.PlanAndEconomy.Views
             InitializeComponent();
             _viewModel = viewModel;
             _messageService = messageService;
-            this.DataContext = viewModel;
+            this.DataContext = _viewModel;
         }
 
         public override bool IsNavigationTarget(NavigationContext navigationContext)

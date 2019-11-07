@@ -1,5 +1,6 @@
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -16,10 +17,16 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
 {
     public class PaymentDocumentViewModel : PaymentDocumentDetailsViewModel
     {
+        #region Fields
+
         //коллекция для отслеживания элементов
         private IValidatableChangeTrackingCollection<SalesUnitWrapper> _salesUnitWrappers;
         private SalesUnitWrapper _selectedUnit;
         private Payment _selectedPayment;
+
+        #endregion
+
+        #region Props
 
         public ObservableCollection<Payment> Payments { get; } = new ObservableCollection<Payment>();
         public ObservableCollection<SalesUnitWrapper> Potential { get; } = new ObservableCollection<SalesUnitWrapper>();
@@ -90,19 +97,29 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
         public ICommand RemovePaymentCommand { get; }
         public ICommand SaveDocumentCommand { get; }
 
+        #endregion
+
         public PaymentDocumentViewModel(IUnityContainer container) : base(container)
         {
             SaveDocumentCommand = new DelegateCommand(
-                () =>
+                async () =>
                 {
+                    this.Item.PropertyChanged -= PaymentDocumentOnPropertyChanged;
+                    this._salesUnitWrappers.PropertyChanged -= SalesUnitWrappersOnPropertyChanged;
+
                     _salesUnitWrappers.AcceptChanges();
-                    this.SaveCommand_Execute();
+                    await this.SaveItemTask();
+
+                    this.Item.PropertyChanged += PaymentDocumentOnPropertyChanged;
+                    this._salesUnitWrappers.PropertyChanged += SalesUnitWrappersOnPropertyChanged;
                 },
 
                 () =>
                 {
-                    if(!(Item != null && Item.IsValid)) return false;
-                    if(!(_salesUnitWrappers != null && _salesUnitWrappers.IsValid)) return false;
+                    if (Item == null) return false;
+                    if (!Item.IsValid) return false;
+                    if (_salesUnitWrappers == null) return false;
+                    if (!_salesUnitWrappers.IsValid) return false;
                     return Item.IsChanged || _salesUnitWrappers.IsChanged;
                 });
 
@@ -156,8 +173,8 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
         {
             //получаем коллекцию единниц продаж
             var salesUnitWrappers = (await UnitOfWork.Repository<SalesUnit>().GetAllAsync())
-                //.Where(salesUnit => !salesUnit.IsPaid)
-                .Select(salesUnit => new SalesUnitWrapper(salesUnit));
+                .Select(salesUnit => new SalesUnitWrapper(salesUnit))
+                .ToList();
             _salesUnitWrappers = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(salesUnitWrappers);
 
             //заполняем платежи
@@ -179,18 +196,24 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
             OnPropertyChanged(nameof(DockSum));
             OnPropertyChanged(nameof(DockDate));
 
-            this.Item.PropertyChanged += (sender, args) =>
-            {
-                ((DelegateCommand)SaveDocumentCommand).RaiseCanExecuteChanged();
-            };
+            //событие изменения в платежном документе
+            this.Item.PropertyChanged += PaymentDocumentOnPropertyChanged;
 
-            this._salesUnitWrappers.PropertyChanged += (sender, args) =>
-            {
-                ((DelegateCommand)SaveDocumentCommand).RaiseCanExecuteChanged();
-                OnPropertyChanged(nameof(DockSum));
-            };
+            //событие изменения в юните
+            this._salesUnitWrappers.PropertyChanged += SalesUnitWrappersOnPropertyChanged;
 
             await base.AfterLoading();
+        }
+
+        private void SalesUnitWrappersOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        {
+            ((DelegateCommand)SaveDocumentCommand).RaiseCanExecuteChanged();
+            OnPropertyChanged(nameof(DockSum));
+        }
+
+        private void PaymentDocumentOnPropertyChanged(object sender, PropertyChangedEventArgs args)
+        {
+            ((DelegateCommand) SaveDocumentCommand).RaiseCanExecuteChanged();
         }
 
         protected override void GoBackCommand_Execute()

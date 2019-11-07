@@ -41,7 +41,7 @@ namespace HVTApp.UI.ViewModels
             UnitOfWork = Container.Resolve<IUnitOfWork>();
             EventAggregator = Container.Resolve<IEventAggregator>();
 
-            SaveCommand = new DelegateCommand(SaveCommand_Execute, SaveCommand_CanExecute);
+            SaveCommand = new DelegateCommand(async () => { await SaveItemTask(); }, SaveCommand_CanExecute);
             OkCommand = new DelegateCommand(OkCommand_Execute, OkCommand_CanExecute);
 
             InitSpecialCommands();
@@ -140,21 +140,23 @@ namespace HVTApp.UI.ViewModels
             return Item != null && Item.IsValid;
         }
 
-        protected virtual async void SaveCommand_Execute()
+        protected virtual async Task SaveItemTask()
         {
             //добавляем сущность, если ее не существовало
             if (await UnitOfWork.Repository<TEntity>().GetByIdAsync(Item.Model.Id) == null)
                 UnitOfWork.Repository<TEntity>().Add(Item.Model);
 
             Item.AcceptChanges();
+            var saveTask = UnitOfWork.SaveChangesAsync();
             //сохраняем
             try
             {
-                await UnitOfWork.SaveChangesAsync();
+                await saveTask;
                 EventAggregator.GetEvent<TAfterSaveEntityEvent>().Publish(Item.Model);
             }
             catch (DbUpdateConcurrencyException e)
             {
+                Container.Resolve<IMessageService>().ShowOkMessageDialog(saveTask.Exception?.GetType().ToString(), saveTask.Exception.GetAllExceptions());
                 Container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().ToString(), e.GetAllExceptions());
             }
 
@@ -179,14 +181,14 @@ namespace HVTApp.UI.ViewModels
             ((DelegateCommand)OkCommand).RaiseCanExecuteChanged();
         }
 
-        protected override void GoBackCommand_Execute()
+        protected override async void GoBackCommand_Execute()
         {
             //если были какие-то изменения
             if (SaveCommand_CanExecute())
             {
                 if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Сохранение", "Сохранить изменения?") == MessageDialogResult.Yes)
                 {
-                    SaveCommand_Execute();
+                    await SaveItemTask();
                 }
             }
 
