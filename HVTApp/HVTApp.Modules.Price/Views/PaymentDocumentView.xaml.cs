@@ -1,5 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
 using HVTApp.Modules.PlanAndEconomy.Tabs;
 using HVTApp.Modules.PlanAndEconomy.ViewModels;
@@ -12,10 +15,13 @@ namespace HVTApp.Modules.PlanAndEconomy.Views
     public partial class PaymentDocumentView : ViewBase
     {
         private readonly PaymentDocumentViewModel _viewModel;
-        public PaymentDocumentView(PaymentDocumentViewModel viewModel, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
+        private readonly IMessageService _messageService;
+
+        public PaymentDocumentView(PaymentDocumentViewModel viewModel, IRegionManager regionManager, IEventAggregator eventAggregator, IMessageService messageService) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             _viewModel = viewModel;
+            _messageService = messageService;
             this.DataContext = viewModel;
         }
 
@@ -27,9 +33,17 @@ namespace HVTApp.Modules.PlanAndEconomy.Views
         public override async void OnNavigatedTo(NavigationContext navigationContext)
         {
             base.OnNavigatedTo(navigationContext);
-
             var paymentDocument = navigationContext.Parameters.First().Value as PaymentDocument;
-            await _viewModel.LoadAsync(paymentDocument);
+            var task = _viewModel.LoadAsync(paymentDocument);
+
+            //try
+            //{
+            await task;
+            //}
+            //catch (Exception)
+            //{
+            //    _messageService.ShowOkMessageDialog("Exception", task.Exception.GetAllExceptions());
+            //}
         }
     }
 }

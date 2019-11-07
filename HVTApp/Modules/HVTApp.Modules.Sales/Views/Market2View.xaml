@@ -32,7 +32,7 @@
                             <infgDp:TextField Name="Facilities" Label="Объекты" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
                             <infgDp:TextField Name="Name" Label="Название" Width="Auto" />
                             <infgDp:NumericField Name="Sum" Label="Сумма проекта" Width="Auto" />
-                            <infgDp:DateTimeField Name="RealizationDate" Label="Дата поставки" Width="Auto" />
+                            <infgDp:DateTimeField Name="RealizationDate" Label="Поставка" Width="Auto" />
                             <infgDp:TextField Name="ProjectType" Label="Тип проекта" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                             <infgDp:DateTimeField Name="TenderDate" Label="Тендер" Width="Auto" />
                             <infgDp:TextField Name="Builder" Label="Подрядчик" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>

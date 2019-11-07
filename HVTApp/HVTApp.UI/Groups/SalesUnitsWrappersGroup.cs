@@ -48,7 +48,7 @@ namespace HVTApp.UI.Groups
             get { return GetValue<DateTime>(); }
             set
             {
-                if(value < DateTime.Today) return;
+                //if(value < DateTime.Today) return;
                 SetValue(value);
             }
         }

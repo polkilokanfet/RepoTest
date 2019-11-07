@@ -150,7 +150,7 @@ namespace HVTApp.Services.PrintService
             docWriter.PrintParagraph(string.Empty);
             docWriter.PrintParagraph("Условия поставки оборудования:", paragraphProperties, fontBold);
             PrintConditions("1. Условия оплаты:", offerUnitsGroups.GroupBy(x => x.PaymentConditionSet.Model), docWriter);
-            PrintConditions("2. Срок производства (календарных дней, с правом досрочной поставки): до", offerUnitsGroups.GroupBy(x => x.ProductionTerm), docWriter);
+            PrintConditions("2. Срок производства (календарных дней, с правом досрочной поставки):", offerUnitsGroups.GroupBy(x => x.ProductionTerm), docWriter);
             docWriter.PrintParagraph($"3. Точный срок поставки оборудования уточняется при заключении договора.");
             docWriter.PrintParagraph($"4. Цена и сроки поставки могут быть пересмотрены после окончательного согласования опросных листов на оборудование.");
             docWriter.PrintParagraph($"5. Настоящее предложение действительно до {offer.ValidityDate.ToShortDateString()} г.");

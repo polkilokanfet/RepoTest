@@ -1,11 +1,9 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.ViewModels;
@@ -13,7 +11,6 @@ using HVTApp.UI.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
-using Prism.Regions;
 
 namespace HVTApp.Modules.PlanAndEconomy.ViewModels
 {
@@ -104,9 +101,9 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
 
                 () =>
                 {
-                    bool itemIsValid = Item != null && Item.IsValid;
-                    bool unitsIsValid = _salesUnitWrappers != null && _salesUnitWrappers.IsValid;
-                    return itemIsValid && unitsIsValid && (Item.IsChanged || _salesUnitWrappers.IsChanged);
+                    if(!(Item != null && Item.IsValid)) return false;
+                    if(!(_salesUnitWrappers != null && _salesUnitWrappers.IsValid)) return false;
+                    return Item.IsChanged || _salesUnitWrappers.IsChanged;
                 });
 
 
@@ -159,7 +156,7 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
         {
             //получаем коллекцию единниц продаж
             var salesUnitWrappers = (await UnitOfWork.Repository<SalesUnit>().GetAllAsync())
-                .Where(salesUnit => !salesUnit.IsPaid)
+                //.Where(salesUnit => !salesUnit.IsPaid)
                 .Select(salesUnit => new SalesUnitWrapper(salesUnit));
             _salesUnitWrappers = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(salesUnitWrappers);
 
@@ -172,9 +169,9 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
             }
 
             //формируем список потенциального оборудования 
-            //(исключая то, что в выбранном платеже)
+            //(исключая то, что в выбранном платеже и полностью оплачено)
             var potentialSalesUnits = _salesUnitWrappers
-                .Where(x => !x.IsLoosen)
+                .Where(x => !x.IsPaid && !x.IsLoosen)
                 .Except(Payments.Select(payment => payment.SalesUnit))
                 .OrderBy(x => x.OrderInTakeDate);
             Potential.AddRange(potentialSalesUnits);
