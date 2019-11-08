@@ -1,6 +1,6 @@
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System;
 using System.ComponentModel;
+using System.Linq;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Wrapper;
 using Prism.Mvvm;
@@ -10,8 +10,8 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
     public class Payment : BindableBase
     {
         public PaymentActualWrapper PaymentActual { get; }
-        public SalesUnitWrapper SalesUnit { get; }
-        public double SumNotPaid => SalesUnit.SumNotPaid;
+        public SalesUnitPaymentWrapper SalesUnit { get; }
+        public double SumNotPaid => SalesUnit.Model.SumNotPaid;
 
         public double Sum
         {
@@ -23,14 +23,14 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
                 //недопустимы отрицательные платежи
                 if (value < 0) return;
                 //недопустимы платежи более неоплаченной суммы
-                if (value > SalesUnit.SumNotPaid + Sum) return;
+                if (value > SumNotPaid + Sum) return;
 
                 PaymentActual.Sum = value;
                 OnPropertyChanged();
             }
         }
 
-        public Payment(SalesUnitWrapper salesUnit)
+        public Payment(SalesUnitPaymentWrapper salesUnit)
         {
             var paymentActual = new PaymentActualWrapper(new PaymentActual());
             salesUnit.PaymentsActual.Add(paymentActual);
@@ -39,7 +39,7 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
             PaymentActual.PropertyChanged += PaymentActualOnPropertyChanged;
         }
 
-        public Payment(SalesUnitWrapper salesUnit, PaymentActualWrapper paymentActual)
+        public Payment(SalesUnitPaymentWrapper salesUnit, PaymentActualWrapper paymentActual)
         {
             SalesUnit = salesUnit;
             PaymentActual = paymentActual;
@@ -52,4 +52,20 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
             OnPropertyChanged(nameof(Sum));
         }
     }
+
+    public class SalesUnitPaymentWrapper : WrapperBase<SalesUnit>
+    {
+        public SalesUnitPaymentWrapper(SalesUnit model) : base(model) { }
+
+        public IValidatableChangeTrackingCollection<PaymentActualWrapper> PaymentsActual { get; private set; }
+
+        protected override void InitializeCollectionProperties()
+        {
+
+            if (Model.PaymentsActual == null) throw new ArgumentException("PaymentsActual cannot be null");
+            PaymentsActual = new ValidatableChangeTrackingCollection<PaymentActualWrapper>(Model.PaymentsActual.Select(e => new PaymentActualWrapper(e)));
+            RegisterCollection(PaymentsActual, Model.PaymentsActual);
+        }
+    }
+
 }
