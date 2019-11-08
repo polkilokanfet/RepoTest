@@ -30,10 +30,9 @@
                           DataSource="{Binding Units}"
                           Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
             <!--Style="{StaticResource ListViewGrid}"-->
-                                        <!--AutoGenerateFields="True"-->
             <infg:XamDataGrid.FieldLayoutSettings>
                 <infg:FieldLayoutSettings 
-                    
+                                          AutoGenerateFields="False"
                                           AutoFitMode="Always"
                                           AllowAddNew="False"
                                           AllowDelete="False"

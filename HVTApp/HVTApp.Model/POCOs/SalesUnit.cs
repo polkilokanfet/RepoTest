@@ -280,11 +280,11 @@ namespace HVTApp.Model.POCOs
             {
                 if (StartProductionDate.HasValue) return StartProductionDate.Value;
 
-                //по сигналу менеджера
-                if (SignalToStartProduction.HasValue) return SignalToStartProduction.Value;
-
                 //по исполнению условий, необходимых для запуска производства
                 if (StartProductionConditionsDoneDate.HasValue) return StartProductionConditionsDoneDate.Value;
+
+                //по сигналу менеджера
+                if (SignalToStartProduction.HasValue) return SignalToStartProduction.Value;
 
                 //по дате первого платежа
                 if (PaymentsActual.Any()) return PaymentsActual.Select(x => x.Date).Min();
