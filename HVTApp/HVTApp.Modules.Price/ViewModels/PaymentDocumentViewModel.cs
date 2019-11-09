@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -21,8 +22,8 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
 
         //коллекция для отслеживания элементов
         private IValidatableChangeTrackingCollection<SalesUnitPaymentWrapper> _salesUnitWrappers;
-        private SalesUnitPaymentWrapper _selectedUnit;
         private Payment _selectedPayment;
+        private object[] _selectedPotentialUnits;
 
         #endregion
 
@@ -35,13 +36,12 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
         /// <summary>
         /// Выбранный потенциальный юнит
         /// </summary>
-        public SalesUnitPaymentWrapper SelectedUnit
+        public object[] SelectedPotentialUnits
         {
-            get { return _selectedUnit; }
+            get { return _selectedPotentialUnits; }
             set
             {
-                if (Equals(_selectedUnit, value)) return;
-                _selectedUnit = value;
+                _selectedPotentialUnits = value;
                 ((DelegateCommand)AddPaymentCommand).RaiseCanExecuteChanged();
                 OnPropertyChanged();
             }
@@ -110,6 +110,7 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
 
                     _salesUnitWrappers.AcceptChanges();
                     await SaveItemTask();
+                    ((DelegateCommand)SaveDocumentCommand).RaiseCanExecuteChanged();
 
                     PaymentDocument.PropertyChanged += PaymentDocumentOnPropertyChanged;
                     _salesUnitWrappers.PropertyChanged += SalesUnitWrappersOnPropertyChanged;
@@ -131,18 +132,22 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
                     var sum = DockSum;
                     var date = DockDate;
 
-                    var payment = new Payment(SelectedUnit);
-                    PaymentDocument.Payments.Add(payment.PaymentActual);
-                    Payments.Add(payment);
-                    Potential.Remove(SelectedUnit);
-                    SelectedUnit = null;
-                    SelectedPayment = payment;
+                    var selectedUnits = SelectedPotentialUnits.Cast<SalesUnitPaymentWrapper>().ToList();
+
+                    foreach (var selectedUnit in selectedUnits)
+                    {
+                        var payment = new Payment(selectedUnit);
+                        PaymentDocument.Payments.Add(payment.PaymentActual);
+                        Payments.Add(payment);
+                        Potential.Remove(selectedUnit);
+                    }
+                    SelectedPotentialUnits = null;
 
                     DockSum = sum;
                     DockDate = date;
                 },
 
-                () => SelectedUnit != null);
+                () => SelectedPotentialUnits != null);
 
             RemovePaymentCommand = new DelegateCommand(
                 () =>

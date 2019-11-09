@@ -70,7 +70,9 @@
         <!-- Неоплаченное оборудование -->
         <GroupBox Grid.Row="3" Header="Неоплаченное оборудование">
             <igWpf:XamDataGrid DataSource="{Binding Potential}"
-                               SelectedDataItem="{Binding SelectedUnit, Mode=TwoWay}">
+                               SelectedDataItemsScope="RecordsOrCells"
+                               SelectedDataItems="{Binding Path=SelectedPotentialUnits, Mode=TwoWay}">
+                <!--SelectedDataItem="{Binding SelectedUnit, Mode=TwoWay}">-->
 
                 <igWpf:XamDataGrid.FieldLayouts>
                     <igWpf:FieldLayout>
