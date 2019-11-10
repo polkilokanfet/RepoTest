@@ -63,6 +63,7 @@
       <HintPath>..\HVTApp.Infrestructure\bin\Debug\Prism.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Wpf.6.2.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
@@ -103,12 +104,20 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Tabs\TabFakeData.xaml.cs">
+      <DependentUpon>TabFakeData.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Tabs\TabReload.xaml.cs">
       <DependentUpon>TabReload.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\FakeDataViewModel.cs" />
     <Compile Include="ViewModels\SalesReportUnit.cs" />
     <Compile Include="ViewModels\SalesReportViewModel.cs" />
+    <Compile Include="ViewModels\SalesUnitFakeDataGroup.cs" />
     <Compile Include="ViewModels\SalesUnitsReportComparer.cs" />
+    <Compile Include="Views\FakeDataView.xaml.cs">
+      <DependentUpon>FakeDataView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SalesReportView.xaml.cs">
       <DependentUpon>SalesReportView.xaml</DependentUpon>
     </Compile>
@@ -135,13 +144,25 @@
       <Project>{350BDAB0-B331-426F-A024-004C8539AF17}</Project>
       <Name>HVTApp.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HVTApp.UI\HVTApp.UI.csproj">
+      <Project>{984DF0F0-471D-4E38-B701-9DFC536217A8}</Project>
+      <Name>HVTApp.UI</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Page Include="Menus\ReportsMenu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Tabs\TabFakeData.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Tabs\TabReload.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\FakeDataView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -2,20 +2,36 @@
 using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
+using HVTApp.Modules.Reports.Views;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
+using Prism.Regions;
 
 namespace HVTApp.Modules.Reports.ViewModels
 {
     public class SalesReportViewModel : BindableBaseCanExportToExcel
     {
         private bool _isLoaded;
+        private SalesReportUnit _selectedSalesReportUnit;
+
         public ObservableCollection<SalesReportUnit> Units { get; } = new ObservableCollection<SalesReportUnit>();
 
+        public SalesReportUnit SelectedSalesReportUnit
+        {
+            get { return _selectedSalesReportUnit; }
+            set
+            {
+                _selectedSalesReportUnit = value;
+                ((DelegateCommand)EditFakeDataCommand).RaiseCanExecuteChanged();
+            }
+        }
+
         public ICommand ReloadCommand { get; }
+        public ICommand EditFakeDataCommand { get; }
 
         public bool IsLoaded
         {
@@ -30,6 +46,14 @@ namespace HVTApp.Modules.Reports.ViewModels
         public SalesReportViewModel(IUnityContainer container) : base(container)
         {
             ReloadCommand = new DelegateCommand(Load);
+
+            EditFakeDataCommand = new DelegateCommand(
+                () =>
+                {
+                    RegionManager.RequestNavigateContentRegion<FakeDataView>(new NavigationParameters { { "units", SelectedSalesReportUnit.SalesUnits } });
+                }, 
+                () => SelectedSalesReportUnit != null);
+
             Load();
         }
 

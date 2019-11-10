@@ -28,6 +28,7 @@
         <infg:XamDataGrid x:Name="SalesUnitLookupListGrid" 
                           Grid.Row="1"
                           DataSource="{Binding Units}"
+                          SelectedDataItem="{Binding SelectedSalesReportUnit}"
                           Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
             <!--Style="{StaticResource ListViewGrid}"-->
             <infg:XamDataGrid.FieldLayoutSettings>

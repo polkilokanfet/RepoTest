@@ -1,0 +1,13 @@
+﻿<inf:RibbonTabItemWithViewModel  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                                 xmlns:infRib="http://infragistics.com/Ribbon" 
+                                 xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+                                 x:Class="HVTApp.Modules.Reports.Tabs.TabFakeData"
+                                 Header="FakeData">
+    
+    <infRib:RibbonGroup Caption="Действия">
+        <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveCommand}" />
+        <infRib:ButtonTool Caption="Закрыть" Command="{Binding GoBackCommand}" />
+    </infRib:RibbonGroup>
+               
+</inf:RibbonTabItemWithViewModel>

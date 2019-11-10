@@ -12,6 +12,7 @@ namespace HVTApp.Modules.Reports.ViewModels
 {
     public class SalesReportUnit : SalesUnit
     {
+        public List<SalesUnit> SalesUnits { get; }
         private readonly List<CountryUnion> _countryUnions;
         private readonly List<Tender> _tenders;
 
@@ -128,14 +129,15 @@ namespace HVTApp.Modules.Reports.ViewModels
             IEnumerable<ProductBlock> blocks,
             IEnumerable<CountryUnion> countryUnions)
         {
-            var salesUnit = salesUnits.First();
+            SalesUnits = salesUnits.ToList();
+            var salesUnit = SalesUnits.First();
             SetProperties(salesUnit);
 
             var priceStructures = new PriceStructures(this, this.OrderInTakeDate, GlobalAppProperties.Actual.ActualPriceTerm, blocks);
             _tenders = tenders.ToList();
             _countryUnions = countryUnions.ToList();
 
-            Amount = salesUnits.Count();
+            Amount = SalesUnits.Count();
             FacilityOwner = Facility.OwnerCompany;
             FacilityOwnerHead = GetFacilityOwnerHead();
             Contragent = Specification?.Contract.Contragent;
@@ -149,7 +151,7 @@ namespace HVTApp.Modules.Reports.ViewModels
             Status = GetStatus();
             Vat = Specification?.Vat;
             CostResult = FakeData?.Cost ?? Cost;
-            CostWithVat = (1.0 + Vat) * CostResult ?? CostResult;
+            CostWithVat = (1.0 + Vat)/100.0 * CostResult ?? CostResult;
 
 
             Voltage = Product.ProductBlock.Parameters.SingleOrDefault(x => Equals(x.ParameterGroup, GlobalAppProperties.Actual.VoltageGroup))?.Value;

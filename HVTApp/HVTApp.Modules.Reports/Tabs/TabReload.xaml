@@ -5,8 +5,13 @@
                                  x:Class="HVTApp.Modules.Reports.Tabs.TabReload"
                                  Header="Обновление">
     
+    <infRib:RibbonGroup Caption="FakeData">
+        <infRib:ButtonTool Caption="Редактировать" Command="{Binding EditFakeDataCommand}"/>
+    </infRib:RibbonGroup>
+    
     <infRib:RibbonGroup Caption="Действия">
         <infRib:ButtonTool Caption="Перезагрузить" Command="{Binding ReloadCommand}" SmallImage="/HVTApp.Modules.Reports;component/Images/Refresh_16x16.png"/>
     </infRib:RibbonGroup>
+
     
 </inf:RibbonTabItemWithViewModel>
