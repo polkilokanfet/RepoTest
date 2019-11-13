@@ -34,7 +34,7 @@ namespace HVTApp.Model.POCOs
 
         public override string ToString()
         {
-            return $"{LocalityType.ShortName} {Name}";
+            return $"{Name} ({LocalityType.ShortName})";
         }
     }
 }

@@ -97,7 +97,6 @@
                                 <infg:NumericField Name="Amount" Label="Кол." Width="Auto" />
                                 <infg:NumericField Name="Cost" Label="Стоимость" Width="Auto"/>
                                 <infg:NumericField Name="Total" Label="Сумма" Width="Auto"/>
-                                <infg:TextField Name="Order" Label="З/з" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
                                 <infg:TextField AlternateBinding="{Binding Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
                                 <infg:TextField Name="Specification" Label="Сп.№" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
                                 <infg:TextField AlternateBinding="{Binding Specification.Contract}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>

@@ -37,7 +37,6 @@
                                     <infg:TextField AlternateBinding="{Binding Unit.Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
                                     <infg:TextField AlternateBinding="{Binding Unit.Product.ProductType}" BindingType="UseAlternateBinding" Label="Тип" Width="Auto"/>
                                     <infg:TextField AlternateBinding="{Binding Unit.Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="*"/>
-                                    <infg:TextField AlternateBinding="{Binding Unit.Order}" BindingType="UseAlternateBinding" Label="З/з" Width="Auto"/>
                                     <!--<infg:TextField AlternateBinding="{Binding OrderPosition, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Поз." Width="Auto" AllowEdit="True"/>-->
                                     <infg:TextField Name="OrderPosition" Label="Поз." Width="Auto" AllowEdit="True"/>
                                     <infg:TextField AlternateBinding="{Binding Unit.Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto"/>
