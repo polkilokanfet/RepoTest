@@ -113,7 +113,6 @@
     <Compile Include="ViewModels\Details\TenderDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\UserDetailsViewModel.cs" />
     <Compile Include="ViewModels\ProductStructureViewModel.cs" />
-    <Compile Include="ViewModels\Details\OrderDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\ProductIncludedDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\SalesUnitDetailsViewModel.cs" />
     <Compile Include="ViewModels\List\CompanyLookupListViewModel.cs" />

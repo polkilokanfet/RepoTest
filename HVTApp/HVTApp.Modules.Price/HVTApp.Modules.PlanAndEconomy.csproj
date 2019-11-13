@@ -151,7 +151,9 @@
     <Compile Include="ViewModels\Groups\DatesGroup.cs" />
     <Compile Include="ViewModels\DatesViewModel.cs" />
     <Compile Include="ViewModels\Groups\GroupBase.cs" />
-    <Compile Include="ViewModels\Groups\GroupsContainer.cs" />
+    <Compile Include="ViewModels\Groups\ISalesUnitOrder.cs" />
+    <Compile Include="ViewModels\Groups\SalesUnitOrderGroup.cs" />
+    <Compile Include="ViewModels\Groups\SalesUnitOrderGroupsCollection.cs" />
     <Compile Include="ViewModels\OrderViewModel.cs" />
     <Compile Include="ViewModels\Payment.cs" />
     <Compile Include="ViewModels\PaymentDocumentViewModel.cs" />
@@ -159,7 +161,7 @@
     <Compile Include="ViewModels\PaymentsViewModel.cs" />
     <Compile Include="ViewModels\PricesViewModel.cs" />
     <Compile Include="ViewModels\PriceTask.cs" />
-    <Compile Include="ViewModels\Groups\ProductionGroup.cs" />
+    <Compile Include="ViewModels\Groups\SalesUnitOrder.cs" />
     <Compile Include="ViewModels\OrdersViewModel.cs" />
     <Compile Include="Views\PaymentDocumentView.xaml.cs">
       <DependentUpon>PaymentDocumentView.xaml</DependentUpon>

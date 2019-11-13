@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -21,10 +22,10 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
 {
     public class OrderViewModel : OrderDetailsViewModel
     {
-        private IValidatableChangeTrackingCollection<SalesUnitWrapper> _salesUnitsWrappers;
+        private IValidatableChangeTrackingCollection<SalesUnitOrder> _unitsWrappers;
 
-        public GroupsContainer<ProductionGroup> GroupsInOrder { get; } = new GroupsContainer<ProductionGroup>();
-        public GroupsContainer<ProductionGroup> GroupsPotential { get; } = new GroupsContainer<ProductionGroup>();
+        public SalesUnitOrderGroupsCollection GroupsInOrder { get; } = new SalesUnitOrderGroupsCollection();
+        public SalesUnitOrderGroupsCollection GroupsPotential { get; } = new SalesUnitOrderGroupsCollection();
 
         public ICommand SaveOrderCommand { get; }
         public ICommand AddGroupCommand { get; }
@@ -34,76 +35,38 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
 
         public OrderViewModel(IUnityContainer container) : base(container)
         {
-            SaveOrderCommand = new DelegateCommand(async () =>
+            SaveOrderCommand = new DelegateCommand(
+                async () =>
                 {
-                    _salesUnitsWrappers.AcceptChanges();
+                    _unitsWrappers.AcceptChanges();
                     await UnitOfWork.SaveChangesAsync();
                     Container.Resolve<IEventAggregator>().GetEvent<AfterSaveOrderEvent>().Publish(Item.Model);
                 },
 
                 () =>
                 {
-                    var unitsIsValid = _salesUnitsWrappers != null && _salesUnitsWrappers.IsValid;
+                    var unitsIsValid = _unitsWrappers != null && _unitsWrappers.IsValid;
+                    if (!unitsIsValid) return false;
+
                     var orderIsValid = Item != null && Item.IsValid && GroupsInOrder.Any();
-                    return unitsIsValid && orderIsValid && (_salesUnitsWrappers.IsChanged || Item.IsChanged);
+                    if (!orderIsValid) return false;
+
+                    return _unitsWrappers.IsChanged || Item.IsChanged;
                 });
 
-            AddGroupCommand = new DelegateCommand(AddGroupCommand_Execute, () => GroupsPotential.SelectedGroup != null);
+            AddGroupCommand = new DelegateCommand(AddGroupCommand_Execute, () => GroupsPotential.SelectedItem != null);
 
-            RemoveGroupCommand = new DelegateCommand(RemoveGroupCommand_Execute, () => GroupsInOrder.SelectedGroup != null);
+            RemoveGroupCommand = new DelegateCommand(RemoveGroupCommand_Execute, () => GroupsInOrder.SelectedItem != null);
 
-            ShowProductStructureCommand = new DelegateCommand(() =>
+            ShowProductStructureCommand = new DelegateCommand(
+                () =>
                 {
-                    var productStructure = new ProductStructureViewModel(GroupsPotential.SelectedGroup.Unit.Model);
-                    Container.Resolve<IDialogService>().Show(productStructure);
+                    var salesUnit = GroupsPotential.SelectedUnit?.Model ??
+                                    GroupsPotential.SelectedGroup.Unit;
+                    var productStructureViewModel = new ProductStructureViewModel(salesUnit);
+                    Container.Resolve<IDialogService>().Show(productStructureViewModel);
                 }, 
-
-                () => GroupsPotential.SelectedGroup != null);
-        }
-
-        private void AddGroupCommand_Execute()
-        {
-            var targetGroup = GroupsPotential.SelectedGroup;
-
-            //фиксируем заказ
-            targetGroup.Order = Item;
-
-            //фиксируем дату действия и заказ
-            targetGroup.SignalToStartProductionDone = DateTime.Today;
-
-            //ставим предполагаемую дату производства
-            targetGroup.EndProductionPlanDate = targetGroup.Unit.DeliveryDateExpected;
-
-            //заполняем позиции заказа
-            targetGroup.FillPositions();
-
-            //переносим группу в план производства
-            GroupsInOrder.Add(targetGroup);
-
-            //удаляем группу из потенциальных групп
-            if (GroupsPotential.Contains(targetGroup))
-            {
-                GroupsPotential.Remove(targetGroup);
-            }
-            else
-            {
-                //удаляем в подгруппах
-                var group = GroupsPotential.Single(x => x.Groups.Contains(targetGroup));
-                group.Groups.Remove(targetGroup);
-                if (!group.Groups.Any())
-                    GroupsPotential.Remove(group);
-            }
-        }
-
-        private void RemoveGroupCommand_Execute()
-        {
-            var selectedGroup = GroupsInOrder.SelectedGroup;
-            selectedGroup.Order = null;
-            selectedGroup.SignalToStartProductionDone = null;
-            selectedGroup.EndProductionPlanDate = null;
-            selectedGroup.OrderPosition = null;
-            GroupsPotential.Add(selectedGroup);
-            GroupsInOrder.Remove(selectedGroup);
+                () => GroupsPotential.SelectedItem != null);
         }
 
         protected override async Task AfterLoading()
@@ -113,14 +76,33 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
             var salesUnits = (await UnitOfWork.Repository<SalesUnit>().GetAllAsync())
                 .Where(x => x.SignalToStartProduction != null)
                 .Where(x => x.Order == null || x.Order.Id == Item.Id);
-            _salesUnitsWrappers = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(salesUnits.Select(x => new SalesUnitWrapper(x)));
+            _unitsWrappers = new ValidatableChangeTrackingCollection<SalesUnitOrder>(salesUnits.Select(x => new SalesUnitOrder(x)));
 
             //юниты в заказе
-            var unitsInOrder = _salesUnitsWrappers.Where(x => x.Order != null).ToList();
-            GroupsInOrder.AddRange(ProductionGroup.Grouping(unitsInOrder));
+            var unitsInOrder = _unitsWrappers.Where(x => x.Order != null).ToList();
+            var groupsInOrder = unitsInOrder.GroupBy(x => new
+            {
+                Facility = x.Model.Facility.Id,
+                Product = x.Model.Product.Id,
+                Order = x.Order?.Id,
+                Project = x.Model.Project.Id,
+                Specification = x.Model.Specification?.Id,
+                x.EndProductionPlanDate
+            }).OrderBy(x => x.Key.EndProductionPlanDate);
+            GroupsInOrder.AddRange(groupsInOrder.Select(x => new SalesUnitOrderGroup(x)));
 
             //юниты для размещения в производстве
-            GroupsPotential.AddRange(ProductionGroup.Grouping(_salesUnitsWrappers.Except(unitsInOrder)));
+            var unitsToProduct = _unitsWrappers.Except(unitsInOrder).ToList();
+            var groupsToProduct = unitsToProduct.GroupBy(x => new
+            {
+                Facility = x.Model.Facility.Id,
+                Product = x.Model.Product.Id,
+                Order = x.Order?.Id,
+                Project = x.Model.Project.Id,
+                Specification = x.Model.Specification?.Id,
+                x.Model.DeliveryDateExpected
+            }).OrderBy(x => x.Key.DeliveryDateExpected);
+            GroupsPotential.AddRange(groupsToProduct.Select(x => new SalesUnitOrderGroup(x)));
 
             //подписка на смену выбранной потенциальной группы в производстве
             GroupsPotential.SelectedGroupChanged += group =>
@@ -137,9 +119,84 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
 
             //подписка на изменение свойств заказа и юнитов
             Item.PropertyChanged += OnPropertyChanged;
-            _salesUnitsWrappers?.ForEach(x => x.PropertyChanged += OnPropertyChanged);
+            _unitsWrappers?.ForEach(x => x.PropertyChanged += OnPropertyChanged);
 
             await base.AfterLoading();
+        }
+
+        private void AddGroupCommand_Execute()
+        {
+            if (GroupsPotential.IsGroupSelected)
+                AddGroup(GroupsPotential.SelectedGroup);
+
+            if (GroupsPotential.IsUnitSelected)
+                AddUnit(GroupsPotential.SelectedUnit);
+        }
+
+        private void AddGroup(SalesUnitOrderGroup unitsGroup)
+        {
+            //фиксируем заказ
+            unitsGroup.Order = Item;
+            //фиксируем дату действия и заказ
+            unitsGroup.SignalToStartProductionDone = DateTime.Today;
+            //ставим предполагаемую дату производства
+            unitsGroup.Units.ForEach(x => x.EndProductionPlanDate = x.Model.DeliveryDateExpected);
+            //заполняем позиции заказа
+            int orderPosition = 0;
+            unitsGroup.Units.ForEach(x => x.OrderPosition = orderPosition++.ToString());
+            //переносим группу в план производства
+            GroupsInOrder.Add(unitsGroup);
+            GroupsPotential.Remove(unitsGroup);
+        }
+
+        private void AddUnit(SalesUnitOrder unit)
+        {
+            //фиксируем заказ
+            unit.Order = Item;
+            //фиксируем дату действия и заказ
+            unit.SignalToStartProductionDone = DateTime.Today;
+            //ставим предполагаемую дату производства
+            unit.EndProductionPlanDate = unit.Model.DeliveryDateExpected;
+            //заполняем позиции заказа
+            unit.OrderPosition = "1";
+            //добавляем группу в план производства
+            GroupsInOrder.Add(new SalesUnitOrderGroup(new List<SalesUnitOrder> {unit}));
+            //удаляем в подгруппах
+            RemoveUnitFromGroup(GroupsPotential, unit);
+        }
+
+        private void RemoveUnitFromGroup(SalesUnitOrderGroupsCollection collection, SalesUnitOrder unit)
+        {
+            //группа из которой необходимо удалить юнит
+            var group = collection.Single(x => x.Units.Contains(unit));
+            //удаление
+            group.Units.Remove(unit);
+            //если в группе не осталось юнитов, удаляем группу из коллекции
+            if (!group.Units.Any())
+                collection.Remove(group);
+        }
+
+        private void RemoveGroupCommand_Execute()
+        {
+            var salesUnitOrder = GroupsInOrder.SelectedUnit ?? (ISalesUnitOrder) GroupsInOrder.SelectedGroup;
+
+            salesUnitOrder.Order = null;
+            salesUnitOrder.SignalToStartProductionDone = null;
+            salesUnitOrder.EndProductionPlanDate = null;
+
+            if (GroupsInOrder.IsGroupSelected)
+            {
+                var salesUnitOrderGroup = GroupsInOrder.SelectedGroup;
+                GroupsPotential.Add(salesUnitOrderGroup);
+                GroupsInOrder.Remove(salesUnitOrderGroup);
+            }
+
+            if (GroupsInOrder.IsUnitSelected)
+            {
+                var unit = GroupsInOrder.SelectedUnit;
+                GroupsPotential.Add(new SalesUnitOrderGroup(new List<SalesUnitOrder> { unit }));
+                RemoveUnitFromGroup(GroupsInOrder, unit);
+            }
         }
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs args)
