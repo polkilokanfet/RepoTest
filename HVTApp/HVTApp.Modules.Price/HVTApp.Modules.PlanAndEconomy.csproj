@@ -141,6 +141,9 @@
     <Compile Include="Tabs\TabPayments.xaml.cs">
       <DependentUpon>TabPayments.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Tabs\TabPaymentsActual.xaml.cs">
+      <DependentUpon>TabPaymentsActual.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Tabs\TabSave.xaml.cs">
       <DependentUpon>TabSave.xaml</DependentUpon>
     </Compile>
@@ -150,9 +153,7 @@
     <Compile Include="Tabs\TabPriceTasks.xaml.cs">
       <DependentUpon>TabPriceTasks.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\Groups\DatesGroup.cs" />
     <Compile Include="ViewModels\DatesViewModel.cs" />
-    <Compile Include="ViewModels\Groups\GroupBase.cs" />
     <Compile Include="ViewModels\Groups\ISalesUnitOrder.cs" />
     <Compile Include="ViewModels\Groups\SalesUnitOrderGroup.cs" />
     <Compile Include="ViewModels\Groups\SalesUnitOrderGroupsCollection.cs" />
@@ -166,6 +167,7 @@
     <Compile Include="ViewModels\Groups\SalesUnitOrder.cs" />
     <Compile Include="ViewModels\ProductionPlanViewModel.cs" />
     <Compile Include="ViewModels\Groups\SalesUnitDates.cs" />
+    <Compile Include="ViewModels\Groups\SalesUnitDatesGroup.cs" />
     <Compile Include="Views\PaymentDocumentView.xaml.cs">
       <DependentUpon>PaymentDocumentView.xaml</DependentUpon>
     </Compile>
@@ -227,6 +229,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Tabs\TabPayments.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Tabs\TabPaymentsActual.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

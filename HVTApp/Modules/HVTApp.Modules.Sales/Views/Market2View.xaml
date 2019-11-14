@@ -29,7 +29,7 @@
 			        <infgDp:XamDataGrid.FieldLayouts>
 				        <infgDp:FieldLayout>
 					        <infgDp:FieldLayout.Fields>
-                            <infgDp:TextField Name="Facilities" Label="Объекты" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
+                            <infgDp:TextField Name="Facilities" Label="Объекты" Converter="{StaticResource LookupsToStringConverter}"/>
                             <infgDp:TextField Name="Name" Label="Название" Width="Auto" />
                             <infgDp:NumericField Name="Sum" Label="Сумма проекта" Width="Auto" />
                             <infgDp:DateTimeField Name="RealizationDate" Label="Поставка" Width="Auto" />

@@ -3,44 +3,28 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-              xmlns:views="clr-namespace:HVTApp.UI.Views;assembly=HVTApp.UI"
+              xmlns:prism="http://prismlibrary.com/"
+              prism:ViewModelLocator.AutoWireViewModel="True"
               x:Class="HVTApp.Modules.PlanAndEconomy.Views.PaymentsActualView">
-
+    
     <Grid>
-         <Grid.RowDefinitions>
-             <RowDefinition Height="Auto"/>
-             <RowDefinition Height="*"/>
-         </Grid.RowDefinitions>
-         
-        <Label Grid.Row="0" Content="Ожидание данных..." VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Label.Style>
-                <Style>
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding ElementName=ContentGrid, Path=Visibility}" Value="Visible">
-                        <Setter Property="Label.Visibility" Value="Collapsed"/>
-                    </DataTrigger>
-                </Style.Triggers>
-                </Style>
-            </Label.Style>
-        </Label>
-
-
-        <Grid x:Name="ContentGrid"
-              Grid.Row="1"
-              Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
-
-            <!-- Список платежек -->
-            <GroupBox Grid.Column="0" Header="Платежные документы">
-                <views:PaymentDocumentLookupListView DataContext="{Binding}" 
-                                                     x:Name="DocumentListView"
-                                                     VatVisibility="Collapsed"/>
-            </GroupBox>
+        <infg:XamDataGrid DataSource="{Binding Payments}"
+                          SelectedDataItem="{Binding SelectedPayment}">
             
+            <infg:XamDataGrid.FieldLayouts>
+                <infg:FieldLayout>
+                    <infg:TextField AlternateBinding="{Binding SalesUnit.Facility}" Label="Объект" BindingType="UseAlternateBinding"/>
+                    <infg:TextField AlternateBinding="{Binding SalesUnit.Product}" Label="Продукт" BindingType="UseAlternateBinding"/>
+                    <infg:TextField AlternateBinding="{Binding SalesUnit.Order}" Label="З/з" BindingType="UseAlternateBinding"/>
+                    <infg:DateTimeField AlternateBinding="{Binding Payment.Date}" Label="Дата" BindingType="UseAlternateBinding"/>
+                    <infg:NumericField AlternateBinding="{Binding Payment.Sum}" Label="Сумма без НДС" BindingType="UseAlternateBinding"/>
+                    <infg:TextField AlternateBinding="{Binding PaymentDocument.Number}" Label="Платежка" BindingType="UseAlternateBinding"/>
+                </infg:FieldLayout>
+            </infg:XamDataGrid.FieldLayouts>
             
-        </Grid>
-        
-
+        </infg:XamDataGrid>
     </Grid>
+
 </inf:ViewBase>
 
 	

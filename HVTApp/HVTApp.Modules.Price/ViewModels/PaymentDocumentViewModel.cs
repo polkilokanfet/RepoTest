@@ -61,15 +61,18 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
             }
         }
 
+        private DateTime _dockDate;
+
         /// <summary>
         /// Дата платежей
         /// </summary>
         public DateTime DockDate
         {
-            get { return Payments.Any() ? Payments.First().PaymentActual.Date : DateTime.Today; }
+            get { return _dockDate; }
             set
             {
                 Payments.ForEach(x => x.PaymentActual.Date = value);
+                _dockDate = value;
                 OnPropertyChanged();
             }
         }
@@ -198,6 +201,8 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
                 .Except(Payments.Select(payment => payment.SalesUnit))
                 .OrderBy(x => x.Model.OrderInTakeDate);
             Potential.AddRange(potentialSalesUnits);
+
+            _dockDate = Payments.Any() ? Payments.First().PaymentActual.Date : DateTime.Today;
 
             OnPropertyChanged(nameof(DockSum));
             OnPropertyChanged(nameof(DockDate));
