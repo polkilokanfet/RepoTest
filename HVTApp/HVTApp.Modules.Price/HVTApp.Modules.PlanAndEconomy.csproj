@@ -132,6 +132,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Tabs\TabOrder.xaml.cs">
+      <DependentUpon>TabOrder.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Tabs\TabPaymentDocument.xaml.cs">
       <DependentUpon>TabPaymentDocument.xaml</DependentUpon>
     </Compile>
@@ -141,8 +144,8 @@
     <Compile Include="Tabs\TabSave.xaml.cs">
       <DependentUpon>TabSave.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Tabs\TabOrder.xaml.cs">
-      <DependentUpon>TabOrder.xaml</DependentUpon>
+    <Compile Include="Tabs\TabProductionPlan.xaml.cs">
+      <DependentUpon>TabProductionPlan.xaml</DependentUpon>
     </Compile>
     <Compile Include="Tabs\TabPriceTasks.xaml.cs">
       <DependentUpon>TabPriceTasks.xaml</DependentUpon>
@@ -162,7 +165,7 @@
     <Compile Include="ViewModels\PricesViewModel.cs" />
     <Compile Include="ViewModels\PriceTask.cs" />
     <Compile Include="ViewModels\Groups\SalesUnitOrder.cs" />
-    <Compile Include="ViewModels\OrdersViewModel.cs" />
+    <Compile Include="ViewModels\ProductionPlanViewModel.cs" />
     <Compile Include="Views\PaymentDocumentView.xaml.cs">
       <DependentUpon>PaymentDocumentView.xaml</DependentUpon>
     </Compile>
@@ -181,8 +184,8 @@
     <Compile Include="Views\OrderView.xaml.cs">
       <DependentUpon>OrderView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\OrdersView.xaml.cs">
-      <DependentUpon>OrdersView.xaml</DependentUpon>
+    <Compile Include="Views\ProductionPlanView.xaml.cs">
+      <DependentUpon>ProductionPlanView.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -215,6 +218,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Tabs\TabOrder.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Tabs\TabPaymentDocument.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -227,7 +234,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Tabs\TabOrder.xaml">
+    <Page Include="Tabs\TabProductionPlan.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -259,7 +266,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\OrdersView.xaml">
+    <Page Include="Views\ProductionPlanView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

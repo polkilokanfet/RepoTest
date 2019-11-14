@@ -19,7 +19,7 @@ namespace HVTApp.Modules.PlanAndEconomy
         protected override void RegisterTypes()
         {
             Container.RegisterViewForNavigation<PricesView>();
-            Container.RegisterViewForNavigation<OrdersView>();
+            Container.RegisterViewForNavigation<ProductionPlanView>();
             Container.RegisterViewForNavigation<OrderView>();
             Container.RegisterViewForNavigation<DatesView>();
             Container.RegisterViewForNavigation<PaymentsActualView>();

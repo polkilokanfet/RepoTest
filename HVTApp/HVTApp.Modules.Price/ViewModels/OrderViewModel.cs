@@ -142,7 +142,7 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
             //ставим предполагаемую дату производства
             unitsGroup.Units.ForEach(x => x.EndProductionPlanDate = x.Model.DeliveryDateExpected);
             //заполняем позиции заказа
-            int orderPosition = 0;
+            int orderPosition = 1;
             unitsGroup.Units.ForEach(x => x.OrderPosition = orderPosition++.ToString());
             //переносим группу в план производства
             GroupsInOrder.Add(unitsGroup);
