@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -13,12 +14,82 @@ using Prism.Commands;
 
 namespace HVTApp.Modules.PlanAndEconomy.ViewModels
 {
+    public class SalesUnitDatesGroup
+    {
+        private DateTime? _pickingDate;
+        private DateTime? _endProductionDate;
+        private DateTime? _shipmentDate;
+        private DateTime? _deliveryDate;
+        private DateTime? _realizationDate;
+
+        public List<SalesUnitDates> Units { get; }
+        public SalesUnit Model => Units.First().Model;
+
+        public DateTime? PickingDate
+        {
+            get { return _pickingDate; }
+            set
+            {
+                Units.ForEach(x => x.PickingDate = value);
+                _pickingDate = Units.First().PickingDate;
+            }
+        }
+
+        public DateTime? EndProductionDate
+        {
+            get { return _endProductionDate; }
+            set
+            {
+                Units.ForEach(x => x.EndProductionDate = value);
+                _endProductionDate = Units.First().EndProductionDate;
+            }
+        }
+
+        public DateTime? ShipmentDate
+        {
+            get { return _shipmentDate; }
+            set
+            {
+                Units.ForEach(x => x.ShipmentDate = value);
+                _shipmentDate = Units.First().ShipmentDate;
+            }
+        }
+
+        public DateTime? DeliveryDate
+        {
+            get { return _deliveryDate; }
+            set
+            {
+                Units.ForEach(x => x.DeliveryDate = value);
+                _deliveryDate = Units.First().DeliveryDate;
+            }
+        }
+
+        public DateTime? RealizationDate
+        {
+            get { return _realizationDate; }
+            set
+            {
+                Units.ForEach(x => x.RealizationDate = value);
+                _realizationDate = Units.First().RealizationDate;
+            }
+        }
+
+        public string OrderPosition { get; } = "...";
+        public string SerialNumber { get; } = "...";
+
+        public SalesUnitDatesGroup(IEnumerable<SalesUnitDates> salesUnits)
+        {
+            Units = salesUnits.ToList();
+        }
+    }
+
     public class DatesViewModel : ViewModelBase
     {
         private IUnitOfWork _unitOfWork;
-        private IValidatableChangeTrackingCollection<SalesUnitWrapper> _salesUnitWrappers;
+        private IValidatableChangeTrackingCollection<SalesUnitDates> _salesUnits;
 
-        public ObservableCollection<DatesGroup> Groups { get; } = new ObservableCollection<DatesGroup>();
+        public ObservableCollection<SalesUnitDatesGroup> Groups { get; } = new ObservableCollection<SalesUnitDatesGroup>();
 
         public ICommand SaveCommand { get; }
         public ICommand ReloadCommand { get; }
@@ -28,20 +99,20 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
             SaveCommand = new DelegateCommand(
                 async () =>
                 {
-                    _salesUnitWrappers.PropertyChanged -= SalesUnitWrappersOnPropertyChanged;
+                    _salesUnits.PropertyChanged -= SalesUnitsOnPropertyChanged;
 
                     //сохраняем изменения
                     await _unitOfWork.SaveChangesAsync();
                     //принимаем все изменения
-                    _salesUnitWrappers.Where(x => x.IsChanged).ToList().ForEach(x => x.AcceptChanges());
+                    _salesUnits.Where(x => x.IsChanged).ToList().ForEach(x => x.AcceptChanges());
                     //проверяем актуальность команды
                     ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
 
-                    _salesUnitWrappers.PropertyChanged += SalesUnitWrappersOnPropertyChanged;
+                    _salesUnits.PropertyChanged += SalesUnitsOnPropertyChanged;
                 },
-                () => _salesUnitWrappers != null &&
-                      _salesUnitWrappers.IsValid &&
-                      _salesUnitWrappers.IsChanged);
+                () => _salesUnits != null &&
+                      _salesUnits.IsValid &&
+                      _salesUnits.IsChanged);
             ReloadCommand = new DelegateCommand(async () => await LoadAsync());
         }
 
@@ -53,18 +124,35 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
                 .Where(x => x.OrderInTakeDate <= DateTime.Today)
                 .Where(EditingRequired)
                 .OrderBy(salesUnit => salesUnit.EndProductionDateCalculated)
-                .Select(salesUnit => new SalesUnitWrapper(salesUnit))
+                .Select(salesUnit => new SalesUnitDates(salesUnit))
                 .ToList();
-            _salesUnitWrappers = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(salesUnits);
+            _salesUnits = new ValidatableChangeTrackingCollection<SalesUnitDates>(salesUnits);
 
             //подписываемся на изменение каждой сущности
-            _salesUnitWrappers.PropertyChanged += SalesUnitWrappersOnPropertyChanged;
+            _salesUnits.PropertyChanged += SalesUnitsOnPropertyChanged;
 
             Groups.Clear();
-            Groups.AddRange(_salesUnitWrappers.ConvertToGroups());
+            var groups = _salesUnits
+                .GroupBy(x => new
+                {
+                    Facility = x.Model.Facility.Id,
+                    Product = x.Model.Product.Id,
+                    Order = x.Model.Order?.Id,
+                    Project = x.Model.Project.Id,
+                    Specification = x.Model.Specification?.Id,
+                    x.DeliveryDate,
+                    x.EndProductionDate,
+                    x.PickingDate,
+                    x.RealizationDate,
+                    x.ShipmentDate
+                })
+                .Select(x => new SalesUnitDatesGroup(x))
+                .OrderBy(x => x.Units.First().Model.OrderInTakeDate);
+
+            Groups.AddRange(groups);
         }
 
-        private void SalesUnitWrappersOnPropertyChanged(object sender, PropertyChangedEventArgs args)
+        private void SalesUnitsOnPropertyChanged(object sender, PropertyChangedEventArgs args)
         {
             ((DelegateCommand) SaveCommand).RaiseCanExecuteChanged();
         }

@@ -34,29 +34,56 @@
 			</infg:XamDataGrid.ContextMenu>
 
 			<infg:XamDataGrid.FieldLayouts>
+                
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
 
-                        <infg:TextField AlternateBinding="{Binding Unit.Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
-                        <infg:TextField AlternateBinding="{Binding Unit.Product.ProductType}" BindingType="UseAlternateBinding" Label="Тип" Width="Auto"/>
-                        <infg:TextField AlternateBinding="{Binding Unit.Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="Auto"/>
-                        <infg:TextField AlternateBinding="{Binding Unit.Order}" BindingType="UseAlternateBinding" Label="З/з" Width="Auto"/>
+                        <infg:TextField AlternateBinding="{Binding Model.Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
+                        <infg:TextField AlternateBinding="{Binding Model.Product.ProductType}" BindingType="UseAlternateBinding" Label="Тип" Width="Auto"/>
+                        <infg:TextField AlternateBinding="{Binding Model.Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="Auto"/>
+                        <infg:TextField AlternateBinding="{Binding Model.Order}" BindingType="UseAlternateBinding" Label="З/з" Width="Auto"/>
                         <infg:TextField Name="OrderPosition" Label="Поз." Width="Auto"/>
                         <infg:TextField Name="SerialNumber" Label="Сер.№" Width="Auto" AllowEdit="True"/>
-                        <infg:TextField AlternateBinding="{Binding Unit.Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto"/>
-                        <infg:TextField AlternateBinding="{Binding Unit.Specification.Number}" BindingType="UseAlternateBinding" Label="Сп.№" Width="Auto"/>
-                        <infg:TextField AlternateBinding="{Binding Unit.Specification.Contract}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
+                        <infg:TextField AlternateBinding="{Binding Model.Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto"/>
+                        <infg:TextField AlternateBinding="{Binding Model.Specification.Number}" BindingType="UseAlternateBinding" Label="Сп.№" Width="Auto"/>
+                        <infg:TextField AlternateBinding="{Binding Model.Specification.Contract}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
                         <infg:DateTimeField Name="PickingDate" Label="Комплектация" Width="Auto" AllowEdit="True"/>
                         <infg:DateTimeField Name="EndProductionDate" Label="Производство" Width="Auto" AllowEdit="True"/>
                         <infg:DateTimeField Name="ShipmentDate" Label="Отгрузка" Width="Auto" AllowEdit="True"/>
                         <infg:DateTimeField Name="DeliveryDate" Label="Доставка" Width="Auto" AllowEdit="True"/>
                         <infg:DateTimeField Name="RealizationDate" Label="Реализация" Width="Auto" AllowEdit="True"/>
-                        <infg:Field Name="Groups" IsExpandable="True"/>
+                        <infg:Field Name="Units" IsExpandable="True"/>
 
                     </infg:FieldLayout.Fields>
 				</infg:FieldLayout>
 
-			</infg:XamDataGrid.FieldLayouts>
+                <infg:FieldLayout ParentFieldName="Units">
+                    
+                    <infg:FieldLayout.FieldSettings>
+                        <infg:FieldSettings AllowRecordFiltering="False"/>
+                    </infg:FieldLayout.FieldSettings>
+                    
+                    <infg:FieldLayout.Fields>
+
+                        <infg:TextField AlternateBinding="{Binding Model.Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
+                        <infg:TextField AlternateBinding="{Binding Model.Product.ProductType}" BindingType="UseAlternateBinding" Label="Тип" Width="Auto"/>
+                        <infg:TextField AlternateBinding="{Binding Model.Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="Auto"/>
+                        <infg:TextField AlternateBinding="{Binding Model.Order}" BindingType="UseAlternateBinding" Label="З/з" Width="Auto"/>
+                        <infg:TextField AlternateBinding="{Binding Model.OrderPosition}" BindingType="UseAlternateBinding" Label="Поз." Width="Auto"/>
+                        <infg:TextField Name="SerialNumber" Label="Сер.№" Width="Auto" AllowEdit="True"/>
+                        <infg:TextField AlternateBinding="{Binding Model.Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto"/>
+                        <infg:TextField AlternateBinding="{Binding Model.Specification.Number}" BindingType="UseAlternateBinding" Label="Сп.№" Width="Auto"/>
+                        <infg:TextField AlternateBinding="{Binding Model.Specification.Contract}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
+                        <infg:DateTimeField Name="PickingDate" Label="Комплектация" Width="Auto" AllowEdit="True"/>
+                        <infg:DateTimeField Name="EndProductionDate" Label="Производство" Width="Auto" AllowEdit="True"/>
+                        <infg:DateTimeField Name="ShipmentDate" Label="Отгрузка" Width="Auto" AllowEdit="True"/>
+                        <infg:DateTimeField Name="DeliveryDate" Label="Доставка" Width="Auto" AllowEdit="True"/>
+                        <infg:DateTimeField Name="RealizationDate" Label="Реализация" Width="Auto" AllowEdit="True"/>
+
+                    </infg:FieldLayout.Fields>
+                </infg:FieldLayout>
+
+            </infg:XamDataGrid.FieldLayouts>
 		</infg:XamDataGrid>
 
         

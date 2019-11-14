@@ -150,7 +150,6 @@
     <Compile Include="Tabs\TabPriceTasks.xaml.cs">
       <DependentUpon>TabPriceTasks.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\Groups\ConverterExt.cs" />
     <Compile Include="ViewModels\Groups\DatesGroup.cs" />
     <Compile Include="ViewModels\DatesViewModel.cs" />
     <Compile Include="ViewModels\Groups\GroupBase.cs" />
@@ -166,6 +165,7 @@
     <Compile Include="ViewModels\PriceTask.cs" />
     <Compile Include="ViewModels\Groups\SalesUnitOrder.cs" />
     <Compile Include="ViewModels\ProductionPlanViewModel.cs" />
+    <Compile Include="ViewModels\Groups\SalesUnitDates.cs" />
     <Compile Include="Views\PaymentDocumentView.xaml.cs">
       <DependentUpon>PaymentDocumentView.xaml</DependentUpon>
     </Compile>
