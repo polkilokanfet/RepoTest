@@ -12,7 +12,9 @@
         <!--Фильтры и запрет на редактирование-->
         <Setter Property="FieldSettings">
             <Setter.Value>
-                <infg:FieldSettings AllowEdit="False" AllowRecordFiltering="True"/>
+                <infg:FieldSettings AllowEdit="False"
+                                    AllowRecordFiltering="True" 
+                                    FilterLabelIconDropDownType="MultiSelectExcelStyle"/>
             </Setter.Value>
         </Setter>
 
@@ -25,7 +27,8 @@
                                           AllowFieldMoving="Yes"
                                           AllowRecordFixing="Top"
                                           HeaderPrefixAreaDisplayMode="FieldChooserButton"
-                                          HighlightAlternateRecords="True" />
+                                          HighlightAlternateRecords="True" 
+                                          FilterUIType="LabelIcons" />
             </Setter.Value>
         </Setter>
     </Style>
@@ -36,7 +39,9 @@
         
         <Setter Property="FieldSettings">
             <Setter.Value>
-                <infg:FieldSettings AllowEdit="False" AllowRecordFiltering="True"/>
+                <infg:FieldSettings AllowEdit="False" 
+                                    AllowRecordFiltering="True" 
+                                    FilterLabelIconDropDownType="MultiSelectExcelStyle" />
             </Setter.Value>
         </Setter>
 
@@ -57,7 +62,6 @@
         <Setter Property="SelectedDataItem" Value="{Binding SelectedLookup, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         <Setter Property="AutoFit" Value="True" />
     </Style>
-    
     
 
     <Style x:Key="Filtering">

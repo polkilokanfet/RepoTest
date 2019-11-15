@@ -4,7 +4,8 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:views="clr-namespace:HVTApp.UI.Views;assembly=HVTApp.UI"
               xmlns:controls="clr-namespace:HVTApp.Modules.Sales.Controls"
-              xmlns:infgDp="http://infragistics.com/DataPresenter">
+              xmlns:infgDp="http://infragistics.com/DataPresenter"
+              xmlns:igW="http://infragistics.com/Windows">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
@@ -24,13 +25,29 @@
                 <infgDp:XamDataGrid x:Name="ProjectLookupListGrid"
                                     DataSource="{Binding Projects}"
                                     SelectedDataItem="{Binding Projects.SelectedItem, Mode=TwoWay}"
-                                    Style="{StaticResource ListViewGrid}" 
                                     Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    
+                   
 			        <infgDp:XamDataGrid.FieldLayouts>
+                        
 				        <infgDp:FieldLayout>
+                            <infgDp:FieldLayout.RecordFilters>
+                                <infgDp:RecordFilter FieldName="ForReport">
+                                    <infgDp:RecordFilter.Conditions>
+                                        <igW:ComparisonCondition Operator="Equals" Value="True"/>
+                                    </infgDp:RecordFilter.Conditions>
+                                </infgDp:RecordFilter>
+                            </infgDp:FieldLayout.RecordFilters>
+                                                
 					        <infgDp:FieldLayout.Fields>
-                            <infgDp:TextField Name="Facilities" Label="Объекты" Converter="{StaticResource LookupsToStringConverter}"/>
-                            <infgDp:TextField Name="Name" Label="Название" Width="Auto" />
+                            <infgDp:TextField Name="Facilities" Label="Объекты" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                                
+                            <infgDp:TextField Name="Name" Label="Название" Width="Auto">
+                                <!--<infgDp:Field.Settings>
+                                    <infgDp:FieldSettings ExcelStyleFilterSearchOperator="Contains"/>
+                                </infgDp:Field.Settings>-->
+                            </infgDp:TextField>
+                                
                             <infgDp:NumericField Name="Sum" Label="Сумма проекта" Width="Auto" />
                             <infgDp:DateTimeField Name="RealizationDate" Label="Поставка" Width="Auto" />
                             <infgDp:TextField Name="ProjectType" Label="Тип проекта" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
@@ -38,7 +55,8 @@
                             <infgDp:TextField Name="Builder" Label="Подрядчик" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                             <infgDp:TextField Name="ProjectMaker" Label="Проектировщик" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                             <infgDp:TextField Name="Sypplier" Label="Поставщик" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                            <infgDp:CheckBoxField Name="ForReport" Label="Отчетный" Width="Auto" />
+                            <infgDp:CheckBoxField Name="ForReport" Label="Отчетный" Width="Auto">
+                            </infgDp:CheckBoxField>
 					        </infgDp:FieldLayout.Fields>
 				        </infgDp:FieldLayout>
 			        </infgDp:XamDataGrid.FieldLayouts>
