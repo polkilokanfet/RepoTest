@@ -127,6 +127,12 @@ namespace HVTApp.UI.Lookup
             }
         }
 
+        [Designation("Done"), OrderStatus(-8)]
+        public bool IsDone => SalesUnits.All(x => x.IsDone);
+
+        [Designation("Проигран"), OrderStatus(-10)]
+        public bool IsLoosen => SalesUnits.All(x => x.IsLoosen);
+
         public override int CompareTo(object other)
         {
             return RealizationDate.CompareTo(((ProjectLookup)other).RealizationDate);

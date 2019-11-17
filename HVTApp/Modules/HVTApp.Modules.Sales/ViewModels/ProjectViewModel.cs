@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using HVTApp.Model;
 using HVTApp.Model.Events;
@@ -29,7 +30,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         protected override async Task<IEnumerable<SalesUnit>> GetUnits(Project project, object parameter = null)
         {
-            return UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Id == project.Id);
+            return (await UnitOfWork.Repository<SalesUnit>().GetAllAsync()).Where(x => x.Project.Id == project.Id);
         }
     }
 }

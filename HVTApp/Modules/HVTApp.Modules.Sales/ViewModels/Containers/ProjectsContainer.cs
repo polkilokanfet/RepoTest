@@ -15,7 +15,6 @@ namespace HVTApp.Modules.Sales.ViewModels
 {
     public class ProjectsContainer : BaseContainer<Project, ProjectLookup, SelectedProjectChangedEvent, AfterSaveProjectEvent, AfterRemoveProjectEvent>
     {
-        private bool _shownAllProjects = true;
         private List<SalesUnit> _salesUnits;
         private List<Tender> _tenders;
 
@@ -29,7 +28,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             //реакция на сохранение тендера
             eventAggregator.GetEvent<AfterSaveTenderEvent>().Subscribe(tender => { _tenders.ReAddById(tender); });
 
-            ShownAllProjects = false;
+            this.AddRange(AllLookups);
         }
 
         protected override IEnumerable<ProjectLookup> GetLookups(IUnitOfWork unitOfWork)
@@ -46,21 +45,6 @@ namespace HVTApp.Modules.Sales.ViewModels
             return new ProjectLookup(project, units, tenders, Container);
         }
 
-        public bool ShownAllProjects
-        {
-            get { return _shownAllProjects; }
-            set
-            {
-                if(Equals(_shownAllProjects, value))
-                    return;
-                _shownAllProjects = value;
-
-                this.Clear();
-                var projects = ShownAllProjects ? AllLookups : AllLookups.Where(x => IsWork(x.Entity));
-                this.AddRange(projects.OrderBy(x => x.RealizationDate));
-            }
-        }
-
         /// <summary>
         /// Проект является рабочим
         /// </summary>
@@ -70,12 +54,6 @@ namespace HVTApp.Modules.Sales.ViewModels
         {
             return project.InWork && _salesUnits.Where(x => x.Project.Id == project.Id).Any(u => !u.IsDone && !u.IsLoosen);
         }
-
-        protected override bool CanBeShown(Project project)
-        {
-            return ShownAllProjects || IsWork(project);
-        }
-
 
         public override async Task RemoveSelectedItemTask()
         {

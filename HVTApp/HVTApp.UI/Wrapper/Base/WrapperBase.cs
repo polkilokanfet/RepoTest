@@ -69,6 +69,10 @@ namespace HVTApp.UI.Wrapper
         /// </summary>
         public void AcceptChanges()
         {
+            foreach (var originalValue in _originalValues)
+            {
+                PropertyChangeAccepted?.Invoke(this.Model, originalValue.Key);
+            }
             //очищаем список начальных значений
             _originalValues.Clear();
             //принимаем изменения в сложных свойствах.
@@ -77,6 +81,11 @@ namespace HVTApp.UI.Wrapper
             //обновляем в WPF весь объект целиком.
             OnPropertyChanged("");
         }
+
+        /// <summary>
+        /// Принято изменение свойства
+        /// </summary>
+        public event Action<TModel, string> PropertyChangeAccepted;
 
         /// <summary>
         /// Откатить изменения объекта.

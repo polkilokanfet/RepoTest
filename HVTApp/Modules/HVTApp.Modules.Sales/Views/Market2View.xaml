@@ -32,33 +32,59 @@
                         
 				        <infgDp:FieldLayout>
                             <infgDp:FieldLayout.RecordFilters>
+                                
                                 <infgDp:RecordFilter FieldName="ForReport">
                                     <infgDp:RecordFilter.Conditions>
                                         <igW:ComparisonCondition Operator="Equals" Value="True"/>
                                     </infgDp:RecordFilter.Conditions>
                                 </infgDp:RecordFilter>
+                                
+                                <infgDp:RecordFilter FieldName="IsDone">
+                                    <infgDp:RecordFilter.Conditions>
+                                        <igW:ComparisonCondition Operator="Equals" Value="False" />
+                                    </infgDp:RecordFilter.Conditions>
+                                </infgDp:RecordFilter>
+                                
+                                <infgDp:RecordFilter FieldName="IsLoosen">
+                                    <infgDp:RecordFilter.Conditions>
+                                        <igW:ComparisonCondition Operator="Equals" Value="False" />
+                                    </infgDp:RecordFilter.Conditions>
+                                </infgDp:RecordFilter>
+
                             </infgDp:FieldLayout.RecordFilters>
                                                 
 					        <infgDp:FieldLayout.Fields>
-                            <infgDp:TextField Name="Facilities" Label="Объекты" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                                <infgDp:TextField Name="Facilities" Label="Объекты" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                                <infgDp:TextField Name="Name" Label="Название" Width="Auto"/>
+                                <infgDp:NumericField Name="Sum" Label="Сумма проекта" Width="Auto" />
+                                <infgDp:DateTimeField Name="RealizationDate" Label="Поставка" Width="Auto" />
+                                <infgDp:TextField Name="ProjectType" Label="Тип проекта" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                                <infgDp:DateTimeField Name="TenderDate" Label="Тендер" Width="Auto" />
+                                <infgDp:TextField Name="Builder" Label="Подрядчик" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                                <infgDp:TextField Name="ProjectMaker" Label="Проектировщик" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                                <infgDp:TextField Name="Sypplier" Label="Поставщик" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                                <infgDp:CheckBoxField Name="IsDone" Label="Done" Width="Auto"/>
+                                <infgDp:CheckBoxField Name="IsLoosen" Label="Loose" Width="Auto"/>
+                                <infgDp:CheckBoxField Name="ForReport" Label="Отчетный" Width="Auto"/>
+                                <infgDp:Field Name="SalesUnits" IsExpandable="True"/>
                                 
-                            <infgDp:TextField Name="Name" Label="Название" Width="Auto">
-                                <!--<infgDp:Field.Settings>
-                                    <infgDp:FieldSettings ExcelStyleFilterSearchOperator="Contains"/>
-                                </infgDp:Field.Settings>-->
-                            </infgDp:TextField>
-                                
-                            <infgDp:NumericField Name="Sum" Label="Сумма проекта" Width="Auto" />
-                            <infgDp:DateTimeField Name="RealizationDate" Label="Поставка" Width="Auto" />
-                            <infgDp:TextField Name="ProjectType" Label="Тип проекта" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                            <infgDp:DateTimeField Name="TenderDate" Label="Тендер" Width="Auto" />
-                            <infgDp:TextField Name="Builder" Label="Подрядчик" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                            <infgDp:TextField Name="ProjectMaker" Label="Проектировщик" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                            <infgDp:TextField Name="Sypplier" Label="Поставщик" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                            <infgDp:CheckBoxField Name="ForReport" Label="Отчетный" Width="Auto">
-                            </infgDp:CheckBoxField>
 					        </infgDp:FieldLayout.Fields>
 				        </infgDp:FieldLayout>
+                        
+                        <infgDp:FieldLayout ParentFieldName="SalesUnits">
+                            <infgDp:FieldLayout.Fields>
+                                <infgDp:TextField AlternateBinding="{Binding Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto" />
+                                <infgDp:TextField AlternateBinding="{Binding Product.ProductType}" BindingType="UseAlternateBinding" Label="Тип оборудования" Width="Auto" />
+                                <infgDp:TextField AlternateBinding="{Binding Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="Auto"/>
+                                <infgDp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" />
+                                <infgDp:NumericField AlternateBinding="{Binding Cost}" BindingType="UseAlternateBinding" Label="Стоимость" Width="Auto"/>
+                                <infgDp:NumericField AlternateBinding="{Binding Total}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto"/>
+                                <infgDp:NumericField AlternateBinding="{Binding ProductionTerm}" BindingType="UseAlternateBinding" Label="Срок" Width="Auto"/>
+                                <infgDp:TextField AlternateBinding="{Binding PaymentConditionSet}" BindingType="UseAlternateBinding" Label="Условия оплаты" Width="Auto" />
+                            </infgDp:FieldLayout.Fields>
+
+                        </infgDp:FieldLayout>
+                        
 			        </infgDp:XamDataGrid.FieldLayouts>
 		        </infgDp:XamDataGrid>
             </GroupBox>
