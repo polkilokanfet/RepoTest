@@ -31,6 +31,7 @@ using HVTApp.Services.WpfAuthenticationService;
 using HVTApp.Services.DialogService;
 using HVTApp.Services.MessageService;
 using HVTApp.Services.NewProductService;
+using HVTApp.Services.PriceService;
 using HVTApp.Services.PrintService;
 using HVTApp.Services.ProductDesignationService;
 using HVTApp.Services.SelectService;
@@ -77,6 +78,7 @@ namespace HVTApp
             
             GlobalAppProperties.ProductDesignationService = Container.Resolve<IProductDesignationService>();
             GlobalAppProperties.ShippingService = Container.Resolve<IShippingService>();
+            GlobalAppProperties.PriceService = Container.Resolve<IPriceService>();
         }
 
         protected override void ConfigureContainer()
@@ -99,6 +101,7 @@ namespace HVTApp
             Container.RegisterType<IPrintOfferService, PrintOfferService>();
             Container.RegisterType<IPrintProductService, PrintProductService>();
             Container.RegisterType<IProductDesignationService, ProductDesignator>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IPriceService, PriceService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IShippingService, ShippService>(new ContainerControlledLifetimeManager());
         }
 

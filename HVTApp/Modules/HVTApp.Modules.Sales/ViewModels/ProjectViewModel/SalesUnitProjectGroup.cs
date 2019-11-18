@@ -21,7 +21,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 
             Units.PropertyChanged += (sender, args) =>
             {
-                PropertyChanged?.Invoke(sender, args);
+                PropertyChanged?.Invoke(this, args);
             };
 
             Units.CollectionChanged += (sender, args) =>

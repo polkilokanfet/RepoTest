@@ -5,6 +5,9 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.Model.Structures
 {
+    /// <summary>
+    /// Структуры себестоимости
+    /// </summary>
     public class PriceStructures : List<PriceStructure>
     {
         /// <summary>

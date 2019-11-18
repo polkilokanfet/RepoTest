@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using HVTApp.Model.POCOs;
 
-namespace HVTApp.Services.PriceService
+namespace HVTApp.Model.Services
 {
     public class PriceErrors
     {

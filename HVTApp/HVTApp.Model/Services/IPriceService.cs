@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Structures;
 
-namespace HVTApp.Services.PriceService
+namespace HVTApp.Model.Services
 {
     /// <summary>
     /// Получение прайса.
@@ -18,7 +18,9 @@ namespace HVTApp.Services.PriceService
         /// <param name="actualTerm">Срок актуальности прайса.</param>
         /// <param name="errors">Словарь возвращенных ошибок.</param>
         /// <returns></returns>
-        Task<double> GetPrice(Product product, DateTime date, int actualTerm, PriceErrors errors = null);
-        Task<double> GetPrice(ProductBlock block, DateTime date, int actualTerm, PriceErrors errors = null);
+        double GetPrice(Product product, DateTime date, int actualTerm, PriceErrors errors = null);
+        double GetPrice(ProductBlock block, DateTime date, int actualTerm, PriceErrors errors = null);
+        PriceStructure GetPriceStructure(Product product, double amount, DateTime targetPriceDate, int priceTerm, IEnumerable<ProductBlock> analogs);
+        PriceStructures GetPriceStructures(IUnit unit, DateTime targetPriceDate, int priceTerm);
     }
 }

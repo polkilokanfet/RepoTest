@@ -16,5 +16,6 @@ namespace HVTApp.Model
         public static User User { get; set; }
         public static IProductDesignationService ProductDesignationService { get; set; }
         public static IShippingService ShippingService { get; set; }
+        public static IPriceService PriceService { get; set; }
     }
 }

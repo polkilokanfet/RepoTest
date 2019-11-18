@@ -3,11 +3,19 @@ using System.Linq;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Wrapper;
 
+// ReSharper disable ExplicitCallerInfoArgument
+#pragma warning disable 618
+
 namespace HVTApp.Modules.Sales.ViewModels
 {
-    public class SalesUnitProjectItem : WrapperBase<SalesUnit>
+    public class SalesUnitProjectItem : WrapperBase<SalesUnit>, ICostStructureItem
     {
-        public SalesUnitProjectItem(SalesUnit model) : base(model) { }
+        public CostStructure CostStructure { get; }
+
+        public SalesUnitProjectItem(SalesUnit model) : base(model)
+        {
+            CostStructure = new CostStructure(this);
+        }
 
         #region SimpleProperties
 
@@ -22,19 +30,14 @@ namespace HVTApp.Modules.Sales.ViewModels
         public bool CostIsChanged => GetIsChanged(nameof(Cost));
 
 
-        public double? Price
-        {
-            get { return GetValue<double?>(); }
-            set { SetValue(value); }
-        }
-        public double? PriceOriginalValue => GetOriginalValue<double?>(nameof(Price));
-        public bool PriceIsChanged => GetIsChanged(nameof(Price));
-
-
         public int ProductionTerm
         {
             get { return GetValue<int>(); }
-            set { SetValue(value); }
+            set
+            {
+                if (value < 0) return;
+                SetValue(value);
+            }
         }
         public int ProductionTermOriginalValue => GetOriginalValue<int>(nameof(ProductionTerm));
         public bool ProductionTermIsChanged => GetIsChanged(nameof(ProductionTerm));
@@ -172,5 +175,14 @@ namespace HVTApp.Modules.Sales.ViewModels
             RegisterCollection(BankGuarantees, Model.BankGuarantees);
         }
 
+        public IUnit GetIUnit()
+        {
+            return Model;
+        }
+
+        public DateTime GetPriceDate()
+        {
+            return DateTime.Today;
+        }
     }
 }

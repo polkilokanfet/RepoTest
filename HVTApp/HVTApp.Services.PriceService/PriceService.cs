@@ -1,39 +1,42 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using HVTApp.Infrastructure;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Services;
+using HVTApp.Model.Structures;
 
 namespace HVTApp.Services.PriceService
 {
     public class PriceService : IPriceService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private List<ProductBlock> _blocks;
 
         public PriceService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
+            _blocks = _unitOfWork.Repository<ProductBlock>().Find(x => true);
         }
 
-        public async Task<double> GetPrice(Product product, DateTime date, int actualTerm, PriceErrors errors = null)
+        public double GetPrice(Product product, DateTime date, int actualTerm, PriceErrors errors = null)
         {
             double result = 0;
             foreach (var block in product.GetBlocks())
             {
-                result += await GetPrice(block, date, actualTerm, errors);
+                result += GetPrice(block, date, actualTerm, errors);
             }
             return result;
         }
 
-        public async Task<double> GetPrice(ProductBlock block, DateTime date, int actualTerm, PriceErrors errors = null)
+        public double GetPrice(ProductBlock block, DateTime date, int actualTerm, PriceErrors errors = null)
         {
             //если нет никакого прайса
             if (!block.Prices.Any())
             {
                 //ищем аналог
-                var analog = await GetAnalogWithPrice(block);
+                var analog = GetAnalogWithPrice(block);
                 if (analog == null)
                 {
                     errors?.AddError(block, PriceErrorType.NoPrice);
@@ -81,14 +84,13 @@ namespace HVTApp.Services.PriceService
         /// </summary>
         /// <param name="targetBlock">÷елевой блок.</param>
         /// <returns></returns>
-        private async Task<ProductBlock> GetAnalogWithPrice(ProductBlock targetBlock)
+        private ProductBlock GetAnalogWithPrice(ProductBlock targetBlock)
         {
-            var blocks = await _unitOfWork.Repository<ProductBlock>().GetAllAsync();
-            targetBlock = blocks.Single(x => x.Id == targetBlock.Id);
-            blocks.Remove(targetBlock);
+            targetBlock = _blocks.Single(x => x.Id == targetBlock.Id);
+            _blocks.Remove(targetBlock);
 
             var dic = new Dictionary<ProductBlock, double>();
-            foreach (var block in blocks)
+            foreach (var block in _blocks)
             {
                 var difParams1 = block.Parameters.Except(targetBlock.Parameters).ToList();
                 double dif = difParams1.Sum(param => param.GetWeight(block));
@@ -100,6 +102,16 @@ namespace HVTApp.Services.PriceService
             }
 
             return dic.OrderBy(x => x.Value).First(x => x.Key.Prices.Any()).Key;
+        }
+
+        public PriceStructure GetPriceStructure(Product product, double amount, DateTime targetPriceDate, int priceTerm, IEnumerable<ProductBlock> analogs)
+        {
+            return  new PriceStructure(product, amount, targetPriceDate, priceTerm, _blocks);
+        }
+
+        public PriceStructures GetPriceStructures(IUnit unit, DateTime targetPriceDate, int priceTerm)
+        {
+            return new PriceStructures(unit, targetPriceDate, priceTerm, _blocks);
         }
     }
 }

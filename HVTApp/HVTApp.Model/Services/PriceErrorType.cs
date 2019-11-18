@@ -1,4 +1,4 @@
-namespace HVTApp.Services.PriceService
+namespace HVTApp.Model.Services
 {
     public enum PriceErrorType
     {

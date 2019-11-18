@@ -150,10 +150,10 @@
                                 <dp:NumericField AlternateBinding="{Binding MarginalIncome}" BindingType="UseAlternateBinding" Label="МД" Width="Auto" AllowEdit="True" />
                                 <dp:NumericField AlternateBinding="{Binding Cost}" BindingType="UseAlternateBinding" Label="Стоимость" Width="Auto" AllowEdit="True" />
                                 <dp:NumericField AlternateBinding="{Binding Total}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto" />
-                                <dp:DateTimeField AlternateBinding="{Binding DeliveryDateExpected}" BindingType="UseAlternateBinding" Label="Поставка" Width="Auto" AllowEdit="True" />
-                                <dp:NumericField AlternateBinding="{Binding CostDelivery}" BindingType="UseAlternateBinding" Label="Доставка" Width="Auto" AllowEdit="True" />
+                                <dp:DateTimeField AlternateBinding="{Binding Unit.DeliveryDateExpected}" BindingType="UseAlternateBinding" Label="Поставка" Width="Auto" AllowEdit="True" />
+                                <dp:NumericField AlternateBinding="{Binding Unit.CostDelivery}" BindingType="UseAlternateBinding" Label="Доставка" Width="Auto" AllowEdit="True" />
                                 <dp:NumericField AlternateBinding="{Binding ProductionTerm}" BindingType="UseAlternateBinding" Label="Срок" Width="Auto" AllowEdit="True" />
-                                <dp:Field AlternateBinding="{Binding PaymentConditionSet}" BindingType="UseAlternateBinding" Label="Условия оплаты" Width="Auto" Converter="{StaticResource WrapperToStringConverter}">
+                                <dp:Field AlternateBinding="{Binding Unit.PaymentConditionSet}" BindingType="UseAlternateBinding" Label="Условия оплаты" Width="Auto" Converter="{StaticResource WrapperToStringConverter}">
                                     <dp:Field.Settings>
                                         <dp:FieldSettings CellValuePresenterStyle="{StaticResource PaymentsCellStyle}" />
                                     </dp:Field.Settings>
@@ -180,8 +180,8 @@
                                     </dp:Field.Settings>
                                 </dp:Field>
                                 <dp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" />
-                                <dp:NumericField AlternateBinding="{Binding MarginalIncome}" BindingType="UseAlternateBinding" Label="МД" Width="Auto" AllowEdit="True" />
-                                <dp:NumericField AlternateBinding="{Binding Cost}" BindingType="UseAlternateBinding" Label="Стоимость" Width="Auto" AllowEdit="True" />
+                                <dp:NumericField AlternateBinding="{Binding CostStructure.MarginalIncome, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="МД" Width="Auto" AllowEdit="True" />
+                                <dp:NumericField AlternateBinding="{Binding CostStructure.Cost, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Стоимость" Width="Auto" AllowEdit="True" />
                                 <dp:NumericField AlternateBinding="{Binding Total}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto" />
                                 <dp:DateTimeField AlternateBinding="{Binding DeliveryDateExpected}" BindingType="UseAlternateBinding" Label="Поставка" Width="Auto" AllowEdit="True" />
                                 <dp:NumericField AlternateBinding="{Binding CostDelivery}" BindingType="UseAlternateBinding" Label="Доставка" Width="Auto" AllowEdit="True" />
