@@ -9,6 +9,7 @@ namespace HVTApp.Infrastructure
     {
         Task<List<TEntity>> GetAllAsync();
         Task<List<TEntity>> GetAllAsNoTrackingAsync();
+        TEntity GetById(Guid id);
         Task<TEntity> GetByIdAsync(Guid id);
         List<TEntity> Find(Func<TEntity, bool> predicate);
         List<TEntity> FindAsNoTracking(Func<TEntity, bool> predicate);

@@ -12,7 +12,7 @@ namespace HVTApp.UI.Converter
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var wrapper = value as IWrapper<IBaseEntity>;
-            return wrapper?.ToString() ?? String.Empty;
+            return wrapper?.ToString() ?? string.Empty;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -26,7 +26,7 @@ namespace HVTApp.UI.Converter
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var wrappers = value as IEnumerable<IWrapper<IBaseEntity>>;
-            string result = String.Empty;
+            string result = string.Empty;
             foreach (var wrapper in wrappers)
             {
                 result += wrapper.ToString() + ", ";

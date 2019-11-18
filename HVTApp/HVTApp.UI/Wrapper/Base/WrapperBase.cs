@@ -57,12 +57,12 @@ namespace HVTApp.UI.Wrapper
         /// <summary>
         /// Произошли ли изменения каких-либо свойств объекта.
         /// </summary>
-        public bool IsChanged => _originalValues.Count > 0 || _trackingObjects.Any(x => x.IsChanged);
+        public virtual bool IsChanged => _originalValues.Count > 0 || _trackingObjects.Any(x => x.IsChanged);
 
         /// <summary>
         /// Все ли свойства валидны.
         /// </summary>
-        public bool IsValid => !HasErrors && _trackingObjects.All(x => x.IsValid);
+        public virtual bool IsValid => !HasErrors && _trackingObjects.All(x => x.IsValid);
 
         /// <summary>
         /// Принять изменения объекта.

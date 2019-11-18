@@ -66,6 +66,12 @@ namespace HVTApp.DataAccess
             Context.Set<TEntity>().RemoveRange(entities);
         }
 
+        public TEntity GetById(Guid id)
+        {
+            Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
+            return GetQuary().SingleOrDefault(x => x.Id == id);
+        }
+
         public virtual async Task<TEntity> GetByIdAsync(Guid id)
         {
             Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
