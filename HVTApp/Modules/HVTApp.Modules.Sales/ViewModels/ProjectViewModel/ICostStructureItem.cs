@@ -11,5 +11,9 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         DateTime PriceDate { get; }
         IUnit GetIUnit();
+
+        event Action ProductChanged;
+        event Action ProductsIncludedCollectionChanged;
+
     }
 }

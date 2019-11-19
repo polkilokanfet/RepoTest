@@ -164,9 +164,6 @@
     <Compile Include="ViewModels\OffersViewModel.cs" />
     <Compile Include="ViewModels\Market2ViewModel.cs" />
     <Compile Include="ViewModels\Containers\ProjectsContainer.cs" />
-    <Compile Include="ViewModels\ProjectViewModel\CostStructure.cs" />
-    <Compile Include="ViewModels\ProjectViewModel\ICostStructureItem.cs" />
-    <Compile Include="ViewModels\ProjectViewModel\ProjectWithGroupsWrapper.cs" />
     <Compile Include="ViewModels\ProjectViewModel\ProjectViewModel.cs" />
     <Compile Include="ViewModels\Groups\SalesUnitsViewModel.cs" />
     <Compile Include="ViewModels\Groups\OfferUnitsViewModel.cs" />
@@ -174,9 +171,6 @@
     <Compile Include="ViewModels\PaymentsViewModel.cs" />
     <Compile Include="ViewModels\ProductionViewModel.cs" />
     <Compile Include="ViewModels\ProjectsViewModel.cs" />
-    <Compile Include="ViewModels\ProjectViewModel\ProjectViewModel2.cs" />
-    <Compile Include="ViewModels\ProjectViewModel\SalesUnitProjectGroup.cs" />
-    <Compile Include="ViewModels\ProjectViewModel\SalesUnitProjectItem.cs" />
     <Compile Include="ViewModels\SalesUnitsWrappersGroupsContainer.cs" />
     <Compile Include="ViewModels\ShippingViewModel.cs" />
     <Compile Include="ViewModels\SpecificationsViewModel.cs" />
@@ -191,6 +185,9 @@
     </Compile>
     <Compile Include="Views\ProductsIncludedWindow.xaml.cs">
       <DependentUpon>ProductsIncludedWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProjectView.xaml.cs">
+      <DependentUpon>ProjectView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StructureCostsView.xaml.cs">
       <DependentUpon>StructureCostsView.xaml</DependentUpon>
@@ -212,9 +209,6 @@
     </Compile>
     <Compile Include="Views\OfferView.xaml.cs">
       <DependentUpon>OfferView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ProjectView.xaml.cs">
-      <DependentUpon>ProjectView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ShippingView.xaml.cs">
       <DependentUpon>ShippingView.xaml</DependentUpon>
@@ -322,6 +316,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\ProjectView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\StructureCostsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -347,10 +345,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\OfferView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\ProjectView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

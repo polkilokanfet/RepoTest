@@ -14,6 +14,28 @@ namespace HVTApp.Modules.Sales.ViewModels
 {
     public class SalesUnitProjectGroup : IValidatableChangeTracking
     {
+        public void AddProductIncluded(ProductIncluded productIncluded, bool isForEachUnit)
+        {
+            if (isForEachUnit)
+            {
+                Units.ForEach(x => x.ProductsIncluded.Add(new ProductIncludedWrapper(new ProductIncluded
+                {
+                    Product = productIncluded.Product,
+                    Amount = productIncluded.Amount
+                })));
+            }
+            else
+            {
+                var productIncludedWrapper = new ProductIncludedWrapper(new ProductIncluded
+                {
+                    Product = productIncluded.Product,
+                    Amount = productIncluded.Amount
+                });
+                Units.ForEach(x => x.ProductsIncluded.Add(productIncludedWrapper));               
+            }
+
+        }
+
         public IValidatableChangeTrackingCollection<SalesUnitProjectItem> Units { get; }
         public SalesUnitProjectItem Unit => Units.First();
         public int Amount => Units.Count;

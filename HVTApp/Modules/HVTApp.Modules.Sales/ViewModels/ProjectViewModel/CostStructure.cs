@@ -56,6 +56,8 @@ namespace HVTApp.Modules.Sales.ViewModels
         public CostStructure(ICostStructureItem costStructureItem)
         {
             _targetItem = costStructureItem;
+            _targetItem.ProductChanged += () => OnPropertyChanged(nameof(MarginalIncome));
+            _targetItem.ProductsIncludedCollectionChanged += () => OnPropertyChanged(nameof(MarginalIncome));
         }
     }
 }

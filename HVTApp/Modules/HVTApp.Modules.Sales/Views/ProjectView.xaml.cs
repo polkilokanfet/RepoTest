@@ -9,15 +9,15 @@ using Prism.Regions;
 
 namespace HVTApp.Modules.Sales.Views
 {
-    //[RibbonTab(typeof(TabCrudUnits))]
+    [RibbonTab(typeof(TabCrudUnits))]
     public partial class ProjectView
     {
-        private readonly ProjectViewModel2 _viewModel;
+        private readonly ProjectViewModel _viewModel;
 
         public ProjectView(IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
         {
-            _viewModel = container.Resolve<ProjectViewModel2>();
             InitializeComponent();
+            _viewModel = container.Resolve<ProjectViewModel>();
             this.DataContext = _viewModel;
         }
 
@@ -26,18 +26,18 @@ namespace HVTApp.Modules.Sales.Views
             return false;
         }
 
-        public override void OnNavigatedTo(NavigationContext navigationContext)
+        public override async void OnNavigatedTo(NavigationContext navigationContext)
         {
             base.OnNavigatedTo(navigationContext);
 
             if (navigationContext.Parameters != null && navigationContext.Parameters.Any())
             {
                 var project = (Project)navigationContext.Parameters.First().Value;
-                _viewModel.Load(project.Id);
+                await _viewModel.LoadAsync(project, false);
             }
             else
             {
-                //await _viewModel.LoadAsync(new Project(), true);
+                await _viewModel.LoadAsync(new Project(), true);
             }
         }
     }

@@ -18,7 +18,6 @@ namespace HVTApp.Modules.Sales.ViewModels
         where TAfterRemoveEvent : PubSubEvent<TModel>, new()
     {
         //блоки, необходимые для поиска аналогов
-        protected static List<ProductBlock> Blocks;
         protected readonly Dictionary<TGroup, PriceStructures> PriceDictionary = new Dictionary<TGroup, PriceStructures>();
 
         /// <summary>

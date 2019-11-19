@@ -16,7 +16,19 @@ namespace HVTApp.Modules.Sales.ViewModels
         public SalesUnitProjectItem(SalesUnit model) : base(model)
         {
             CostStructure = new CostStructure(this);
+
+            //проброс событий для обновления маржи
+            this.ProductsIncluded.CollectionChanged += (sender, args) => { ProductsIncludedCollectionChanged?.Invoke(); };
+            this.PropertyChanged += (sender, args) =>
+            {
+                if (Equals(args.PropertyName, nameof(Product)))
+                    ProductChanged?.Invoke();
+            };
         }
+
+        public event Action ProductsIncludedCollectionChanged;
+        public event Action ProductChanged;
+
 
         #region SimpleProperties
 

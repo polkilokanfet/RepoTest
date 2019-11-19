@@ -29,6 +29,89 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         protected abstract List<TGroup> GetGroups(IEnumerable<TModel> units);
 
+        #region ICommand
+
+        public ICommand AddCommand { get; private set; }
+        public ICommand RemoveCommand { get; }
+
+        public ICommand ChangeFacilityCommand { get; }
+        public ICommand ChangeProductCommand { get; }
+        public ICommand ChangePaymentsCommand { get; }
+
+        public ICommand AddProductIncludedCommand { get; }
+        public ICommand RemoveProductIncludedCommand { get; }
+
+        #endregion
+
+
+        protected BaseGroupsViewModel(IUnityContainer container) : base(container)
+        {
+            AddCommand = new DelegateCommand(AddCommand_Execute);
+            RemoveCommand = new DelegateCommand(
+                () =>
+                {
+                    if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Удалить?") == MessageDialogResult.No)
+                        return;
+
+                    //удаление из группы
+                    if (Groups.Contains(Groups.SelectedGroup))
+                    {
+                        Groups.Remove(Groups.SelectedGroup);
+                    }
+                    //удаление из подгруппы
+                    else
+                    {
+                        var group = Groups.Single(x => x.Groups != null && x.Groups.Contains(Groups.SelectedGroup as TMember));
+                        group.Groups.Remove(Groups.SelectedGroup as TMember);
+
+                        //если группа стала пустая - удалить
+                        if (!group.Groups.Any())
+                        {
+                            Groups.Remove(group);
+                        }
+                    }
+
+                    Groups.SelectedGroup = default(TGroup);
+
+                }, 
+                () => Groups.SelectedGroup != null);
+
+            ChangeFacilityCommand = new DelegateCommand<TGroup>(ChangeFacilityCommand_Execute);
+            ChangeProductCommand = new DelegateCommand<TGroup>(ChangeProductCommand_Execute);
+            ChangePaymentsCommand = new DelegateCommand<TGroup>(ChangePaymentsCommand_Execute);
+
+            #region ProductIncludedCommands
+
+            //добавление включенного оборудования
+            AddProductIncludedCommand = new DelegateCommand(
+                () =>
+                {
+                    var productIncludedWrapper = new ProductIncludedWrapper(new ProductIncluded());
+                    var productsIncludedViewModel = new ProductsIncludedViewModel(productIncludedWrapper, UnitOfWork, Container);
+                    var dr = Container.Resolve<IDialogService>().ShowDialog(productsIncludedViewModel);
+                    if (!dr.HasValue || !dr.Value) return;
+                    Groups.SelectedGroup.AddProductIncluded(productsIncludedViewModel.ViewModel.Entity, productsIncludedViewModel.IsForEach);
+                    RefreshPrice(Groups.SelectedGroup);
+
+                }, 
+                () => Groups.SelectedGroup != null);
+
+            //удаление включенного оборудования
+            RemoveProductIncludedCommand = new DelegateCommand(
+                () =>
+                {
+                    if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Удалить?") == MessageDialogResult.No)
+                        return;
+
+                    Groups.SelectedGroup.RemoveProductIncluded(Groups.SelectedProductIncluded);
+                    RefreshPrice(Groups.SelectedGroup);
+
+                }, 
+                () => Groups.SelectedProductIncluded != null);
+
+            #endregion
+        }
+
         protected void Load(IEnumerable<TModel> units, IUnitOfWork unitOfWork, bool isNew)
         {
             UnitOfWork = unitOfWork;
@@ -61,85 +144,10 @@ namespace HVTApp.Modules.Sales.ViewModels
             // обновление прайса каждой группы
             Groups.ForEach(RefreshPrice);
         }
-
-        protected BaseGroupsViewModel(IUnityContainer container) : base(container)
-        {
-            AddCommand = new DelegateCommand(AddCommand_Execute);
-            RemoveCommand = new DelegateCommand(RemoveCommand_Execute, () => Groups.SelectedGroup != null);
-
-            ChangeFacilityCommand = new DelegateCommand<TGroup>(ChangeFacilityCommand_Execute);
-            ChangeProductCommand = new DelegateCommand<TGroup>(ChangeProductCommand_Execute);
-            ChangePaymentsCommand = new DelegateCommand<TGroup>(ChangePaymentsCommand_Execute);
-
-            AddProductIncludedCommand = new DelegateCommand(AddProductIncludedCommand_Execute, () => Groups.SelectedGroup != null);
-            RemoveProductIncludedCommand = new DelegateCommand(RemoveProductIncludedCommand_Execute, () => Groups.SelectedProductIncluded != null);
-
-            //загружаем блоки оборудования (если они еще не загружены)
-            if(Blocks == null) Blocks = UnitOfWork.Repository<ProductBlock>().Find(x => true);
-        }
-
+        
         #region Commands
 
-        #region ICommand
-
-        public ICommand AddCommand { get; private set; }
-        public ICommand RemoveCommand { get; }
-
-        public ICommand ChangeFacilityCommand { get; }
-        public ICommand ChangeProductCommand { get; }
-        public ICommand ChangePaymentsCommand { get; }
-
-        public ICommand AddProductIncludedCommand { get; }
-        public ICommand RemoveProductIncludedCommand { get; }
-
-        #endregion
-
         protected abstract void AddCommand_Execute();
-
-        private void AddProductIncludedCommand_Execute()
-        {
-            var productIncludedWrapper = new ProductIncludedWrapper(new ProductIncluded());
-            var productsIncludedViewModel = new ProductsIncludedViewModel(productIncludedWrapper, UnitOfWork, Container);
-            var dr = Container.Resolve<IDialogService>().ShowDialog(productsIncludedViewModel);
-            if(!dr.HasValue || !dr.Value) return;
-            Groups.SelectedGroup.AddProductIncluded(productsIncludedViewModel.ViewModel.Entity, productsIncludedViewModel.IsForEach);
-            RefreshPrice(Groups.SelectedGroup);
-        }
-
-        private void RemoveProductIncludedCommand_Execute()
-        {
-            if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Удалить?") == MessageDialogResult.No)
-                return;
-
-            Groups.SelectedGroup.RemoveProductIncluded(Groups.SelectedProductIncluded);
-            RefreshPrice(Groups.SelectedGroup);
-        }
-
-        private void RemoveCommand_Execute()
-        {
-            if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Удалить?") == MessageDialogResult.No)
-                return;
-
-            //удаление из группы
-            if (Groups.Contains(Groups.SelectedGroup))
-            {
-                Groups.Remove(Groups.SelectedGroup);
-            }
-            //удаление из подгруппы
-            else
-            {
-                var group = Groups.Single(x => x.Groups != null && x.Groups.Contains(Groups.SelectedGroup as TMember));
-                group.Groups.Remove(Groups.SelectedGroup as TMember);
-
-                //если группа стала пустая - удалить
-                if (!group.Groups.Any())
-                {
-                    Groups.Remove(group);
-                }
-            }
-
-            Groups.SelectedGroup = default(TGroup);
-        }
 
         private async void ChangeProductCommand_Execute(TGroup wrappersGroup)
         {

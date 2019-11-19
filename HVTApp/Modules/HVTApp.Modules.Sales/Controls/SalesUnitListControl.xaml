@@ -169,13 +169,13 @@
                     <dp:FieldLayout>
                         <dp:FieldLayout.Fields>
                                 
-                            <dp:TextField Name="Product" Label="Продукт" Width="Auto" />
-                            <dp:NumericField Name="Amount" Label="Кол." Width="Auto" />                            
-                            <dp:NumericField AlternateBinding="{Binding Price.Sum}" BindingType="UseAlternateBinding" Label="Стоимость" Width="Auto" />
-                            <dp:NumericField Name="TotalPriceFixedCostLess" Label="Сумма" Width="Auto" />
-                            <dp:DateTimeField AlternateBinding="{Binding Price.Date}" BindingType="UseAlternateBinding" Label="Дата" Width="Auto" />                            
-                            <dp:TextField Name="Analog" Label="Аналог" Width="Auto" />
-                            <dp:Field Name="ChildPriceStructures" IsExpandable="True"/>
+                                    <dp:TextField AlternateBinding="{Binding Product}" BindingType="UseAlternateBinding" Label="Продукт" Width="Auto" />
+                                    <dp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" />
+                                    <dp:NumericField AlternateBinding="{Binding Price.Sum}" BindingType="UseAlternateBinding" Label="Стоимость" Width="Auto" />
+                                    <dp:NumericField AlternateBinding="{Binding TotalPriceFixedCostLess}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto" />
+                                    <dp:DateTimeField AlternateBinding="{Binding Price.Date}" BindingType="UseAlternateBinding" Label="Дата" Width="Auto" />
+                                    <dp:TextField AlternateBinding="{Binding Analog}" BindingType="UseAlternateBinding" Label="Аналог" Width="Auto" />
+                                    <dp:Field Name="DependentProductsPriceStructures" IsExpandable="True"/>
                                 
                         </dp:FieldLayout.Fields>
                     </dp:FieldLayout>
