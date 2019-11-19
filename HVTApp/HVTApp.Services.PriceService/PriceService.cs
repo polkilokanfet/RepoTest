@@ -2,7 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
-using HVTApp.Model;
+using HVTApp.Infrastructure.Extansions;
+using HVTApp.Model.Comparers;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.Model.Structures;
@@ -11,13 +12,13 @@ namespace HVTApp.Services.PriceService
 {
     public class PriceService : IPriceService
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private List<ProductBlock> _blocks;
+        private readonly List<ProductBlock> _blocks;
+
+        private readonly Dictionary<Guid, ProductBlock> _analogsWithPrice = new Dictionary<Guid, ProductBlock>();
 
         public PriceService(IUnitOfWork unitOfWork)
         {
-            _unitOfWork = unitOfWork;
-            _blocks = _unitOfWork.Repository<ProductBlock>().Find(x => true);
+            _blocks = unitOfWork.Repository<ProductBlock>().Find(x => true);
         }
 
         public double GetPrice(Product product, DateTime date, int actualTerm, PriceErrors errors = null)
@@ -36,7 +37,7 @@ namespace HVTApp.Services.PriceService
             if (!block.Prices.Any())
             {
                 //ищем аналог
-                var analog = GetAnalogWithPrice(block);
+                var analog = GetAnalogWithPrice(block.Id);
                 if (analog == null)
                 {
                     errors?.AddError(block, PriceErrorType.NoPrice);
@@ -82,36 +83,66 @@ namespace HVTApp.Services.PriceService
         /// <summary>
         /// Поиск аналога для блока.
         /// </summary>
-        /// <param name="targetBlock">Целевой блок.</param>
+        /// <param name="blockId">Id целевого блока.</param>
         /// <returns></returns>
-        private ProductBlock GetAnalogWithPrice(ProductBlock targetBlock)
+        public ProductBlock GetAnalogWithPrice(Guid blockId)
         {
-            targetBlock = _blocks.Single(x => x.Id == targetBlock.Id);
-            _blocks.Remove(targetBlock);
+            if (_analogsWithPrice.ContainsKey(blockId))
+                return _analogsWithPrice[blockId];
+
+            var targetBlock = _blocks.Single(x => x.Id == blockId);
+            var blocks = _blocks.Where(x => x.Prices.Any()).ToList();
+            blocks.Remove(targetBlock);
 
             var dic = new Dictionary<ProductBlock, double>();
-            foreach (var block in _blocks)
+            foreach (var block in blocks)
             {
-                var difParams1 = block.Parameters.Except(targetBlock.Parameters).ToList();
-                double dif = difParams1.Sum(param => param.GetWeight(block));
+                double dif = 0;
 
-                var difParams2 = targetBlock.Parameters.Except(block.Parameters).ToList();
-                dif += difParams2.Sum(param => param.GetWeight(targetBlock));
+                //общие параметры
+                var intParams = block.Parameters.Intersect(targetBlock.Parameters, new ParameterComparer()).ToList();
+                foreach (var parameter in intParams)
+                {
+                    //Single было бы правильнее, но надо искать ошибку в формировании путей
+                    var path = parameter.Paths().First(x => x.Parameters.AllContainsIn(block.Parameters, new ParameterComparer()));
+                    dif += 1.0 / path.Parameters.Count;
+                }
+
+                //различающиеся параметры
+                var difParams1 = block.Parameters.Except(targetBlock.Parameters, new ParameterComparer()).ToList();
+                foreach (var parameter in difParams1)
+                {
+                    //Single было бы правильнее, но надо искать ошибку в формировании путей
+                    var path = parameter.Paths().First(x => x.Parameters.AllContainsIn(block.Parameters, new ParameterComparer()));
+                    dif -= 1.0 / path.Parameters.Count;
+                }
+
+                var difParams2 = targetBlock.Parameters.Except(block.Parameters, new ParameterComparer()).ToList();
+                foreach (var parameter in difParams2)
+                {
+                    //Single было бы правильнее, но надо искать ошибку в формировании путей
+                    var path = parameter.Paths().First(x => x.Parameters.AllContainsIn(targetBlock.Parameters, new ParameterComparer()));
+                    dif -= 1.0 / path.Parameters.Count;
+                }
 
                 dic.Add(block, dif);
             }
 
-            return dic.OrderBy(x => x.Value).First(x => x.Key.Prices.Any()).Key;
+            var blockAnalog = dic.OrderByDescending(x => x.Value).First().Key;
+            _analogsWithPrice.Add(blockId, blockAnalog);
+            return blockAnalog;
         }
 
         public PriceStructure GetPriceStructure(Product product, double amount, DateTime targetPriceDate, int priceTerm, IEnumerable<ProductBlock> analogs)
         {
-            return  new PriceStructure(product, amount, targetPriceDate, priceTerm, _blocks);
+            return  new PriceStructure(product, amount, targetPriceDate, priceTerm, this.GetAnalogWithPrice);
         }
 
         public PriceStructures GetPriceStructures(IUnit unit, DateTime targetPriceDate, int priceTerm)
         {
-            return new PriceStructures(unit, targetPriceDate, priceTerm, _blocks);
+            return new PriceStructures(unit, targetPriceDate, priceTerm, this.GetAnalogWithPrice);
         }
+
+
     }
 }

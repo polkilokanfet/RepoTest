@@ -48,7 +48,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             if (!PriceDictionary.ContainsKey(grp)) PriceDictionary.Add(grp, null);
 
             //обновляем структуру себестоимости этой группе
-            PriceDictionary[grp] = new PriceStructures(grp.Model, GetPriceDate(grp), priceTerm, Blocks);
+            PriceDictionary[grp] = GlobalAppProperties.PriceService.GetPriceStructures(grp.Model, GetPriceDate(grp), priceTerm);
 
             //обновляем себестоимость группы
             grp.Price = PriceDictionary[grp].TotalPriceFixedCostLess;

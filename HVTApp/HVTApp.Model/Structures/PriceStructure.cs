@@ -10,7 +10,8 @@ namespace HVTApp.Model.Structures
     public class PriceStructure
     {
         private readonly int _priceTerm;
-        private readonly IEnumerable<ProductBlock> _analogs;
+
+        private readonly Func<Guid, ProductBlock> _getAnalog;
 
         public Product Product { get; }
         public double Amount { get; }
@@ -18,7 +19,7 @@ namespace HVTApp.Model.Structures
         /// <summary>
         /// Аналог целевого блока.
         /// </summary>
-        public ProductBlock Analog => IsAnalogPrice ? GetAnalogWithPrice() : null;
+        public ProductBlock Analog => IsAnalogPrice ? _getAnalog.Invoke(Product.ProductBlock.Id) : null;
 
         /// <summary>
         /// Целевая дата (на которую идет расчет прайса).
@@ -28,7 +29,7 @@ namespace HVTApp.Model.Structures
         /// <summary>
         /// Включенные структуры
         /// </summary>
-        public List<PriceStructure> ChildPriceStructures { get; } = new List<PriceStructure>();
+        public List<PriceStructure> DependentProductsPriceStructures { get; } = new List<PriceStructure>();
 
         /// <summary>
         /// Прайс, близжайший к целевой дате
@@ -50,9 +51,10 @@ namespace HVTApp.Model.Structures
         /// <summary>
         /// Фиксированная цена на блок (например, шеф-монтаж)
         /// </summary>
-        public SumOnDate FixedCost => Product.ProductBlock.FixedCosts.Any(x => x.Date <= TargetPriceDate)
-            ? Product.ProductBlock.FixedCosts.Where(x => x.Date <= TargetPriceDate).OrderBy(x => x.Date).Last()
-            : null;
+        public SumOnDate FixedCost => 
+            Product.ProductBlock.FixedCosts.Any(x => x.Date <= TargetPriceDate)
+                ? Product.ProductBlock.FixedCosts.Where(x => x.Date <= TargetPriceDate).OrderBy(x => x.Date).Last()
+                : null;
 
         public bool IsFixedCost => FixedCost != null;
 
@@ -64,7 +66,7 @@ namespace HVTApp.Model.Structures
             get
             {
                 var price = FixedCost == null ? Price.Sum * Amount : 0;
-                return price + ChildPriceStructures.Sum(x => x.TotalPriceFixedCostLess);
+                return price + DependentProductsPriceStructures.Sum(x => x.TotalPriceFixedCostLess);
             }
         }
 
@@ -76,7 +78,7 @@ namespace HVTApp.Model.Structures
             get
             {
                 double fixedCost = FixedCost?.Sum ?? 0;
-                return fixedCost * Amount + ChildPriceStructures.Sum(x => x.TotalFixedCost);
+                return fixedCost * Amount + DependentProductsPriceStructures.Sum(x => x.TotalFixedCost);
             }
         }
 
@@ -88,7 +90,7 @@ namespace HVTApp.Model.Structures
             get
             {
                 var price = Product.ProductBlock.IsService && FixedCost == null ? Price.Sum * Amount : 0;
-                return price + ChildPriceStructures.Sum(x => x.TotalPriceServiceFixedCostLess);
+                return price + DependentProductsPriceStructures.Sum(x => x.TotalPriceServiceFixedCostLess);
             }
         }
 
@@ -104,14 +106,15 @@ namespace HVTApp.Model.Structures
                 if(Product.ProductBlock.IsService)
                     fixedCost = FixedCost?.Sum ?? 0;
 
-                return fixedCost * Amount + ChildPriceStructures.Sum(x => x.TotalServiceFixedCost);
+                return fixedCost * Amount + DependentProductsPriceStructures.Sum(x => x.TotalServiceFixedCost);
             }
         }
 
-        public PriceStructure(Product product, double amount, DateTime targetPriceDate, int priceTerm, IEnumerable<ProductBlock> analogs)
+        public PriceStructure(Product product, double amount, DateTime targetPriceDate, int priceTerm, Func<Guid, ProductBlock> getAnalog)
         {
             _priceTerm = priceTerm;
-            _analogs = analogs;
+            _getAnalog = getAnalog;
+
             Product = product;
             Amount = amount;
             TargetPriceDate = targetPriceDate;
@@ -119,7 +122,7 @@ namespace HVTApp.Model.Structures
             //добавляем дочерние структуры
             foreach (var dependentProduct in Product.DependentProducts)
             {
-                ChildPriceStructures.Add(new PriceStructure(dependentProduct.Product, dependentProduct.Amount, TargetPriceDate, _priceTerm, _analogs));
+                DependentProductsPriceStructures.Add(new PriceStructure(dependentProduct.Product, dependentProduct.Amount, TargetPriceDate, _priceTerm, getAnalog));
             }
         }
 
@@ -136,51 +139,5 @@ namespace HVTApp.Model.Structures
             return sumOnDates.First(x => x.Date == date.AddDays(-dif) || x.Date == date.AddDays(dif));
         }
 
-        /// <summary>
-        /// Поиск аналога для блока.
-        /// </summary>
-        /// <returns></returns>
-        private ProductBlock GetAnalogWithPrice()
-        {
-            var blocks = _analogs.ToList();
-            var targetBlock = Product.ProductBlock;
-            blocks.Remove(targetBlock);
-
-            var dic = new Dictionary<ProductBlock, double>();
-            foreach (var block in blocks)
-            {
-                double dif = 0;
-
-                //общие параметры
-                var intParams = block.Parameters.Intersect(targetBlock.Parameters, new ParameterComparer()).ToList();
-                foreach (var parameter in intParams)
-                {
-                    //Single было бы правильнее, но надо искать ошибку в формировании путей
-                    var path = parameter.Paths().First(x => x.Parameters.AllContainsIn(block.Parameters, new ParameterComparer()));
-                    dif += 1.0 / path.Parameters.Count;
-                }
-
-                //различающиеся параметры
-                var difParams1 = block.Parameters.Except(targetBlock.Parameters, new ParameterComparer()).ToList();
-                foreach (var parameter in difParams1)
-                {
-                    //Single было бы правильнее, но надо искать ошибку в формировании путей
-                    var path = parameter.Paths().First(x => x.Parameters.AllContainsIn(block.Parameters, new ParameterComparer()));
-                    dif -= 1.0 / path.Parameters.Count;
-                }
-
-                var difParams2 = targetBlock.Parameters.Except(block.Parameters, new ParameterComparer()).ToList();
-                foreach (var parameter in difParams2)
-                {
-                    //Single было бы правильнее, но надо искать ошибку в формировании путей
-                    var path = parameter.Paths().First(x => x.Parameters.AllContainsIn(targetBlock.Parameters, new ParameterComparer()));
-                    dif -= 1.0 / path.Parameters.Count;
-                }
-
-                dic.Add(block, dif);
-            }
-
-            return dic.OrderByDescending(x => x.Value).First(x => x.Key.Prices.Any()).Key;
-        }
     }
 }

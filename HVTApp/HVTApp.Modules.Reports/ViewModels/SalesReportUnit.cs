@@ -133,7 +133,7 @@ namespace HVTApp.Modules.Reports.ViewModels
             var salesUnit = SalesUnits.First();
             SetProperties(salesUnit);
 
-            var priceStructures = new PriceStructures(this, this.OrderInTakeDate, GlobalAppProperties.Actual.ActualPriceTerm, blocks);
+            var priceStructures = GlobalAppProperties.PriceService.GetPriceStructures(this, this.OrderInTakeDate, GlobalAppProperties.Actual.ActualPriceTerm);
             _tenders = tenders.ToList();
             _countryUnions = countryUnions.ToList();
 

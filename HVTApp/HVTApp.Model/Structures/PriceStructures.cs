@@ -30,18 +30,16 @@ namespace HVTApp.Model.Structures
         /// </summary>
         public double TotalServiceFixedCost => this.Sum(x => x.TotalServiceFixedCost);
 
-        public PriceStructures(IUnit unit, DateTime targetPriceDate, int priceTerm, IEnumerable<ProductBlock> analogs)
+        public PriceStructures(IUnit unit, DateTime targetPriceDate, int priceTerm, Func<Guid, ProductBlock> getAnalog)
         {
-            var productBlocks = analogs as ProductBlock[] ?? analogs.ToArray();
-
             //структура себестоимости продукта
-            this.Add(new PriceStructure(unit.Product, 1, targetPriceDate, priceTerm, productBlocks));
+            this.Add(new PriceStructure(unit.Product, 1, targetPriceDate, priceTerm, getAnalog));
 
             //структура себестоимости включенных продуктов
             foreach (var prodIncl in unit.ProductsIncluded)
             {
                 double count = (double)prodIncl.Amount / prodIncl.ParentsCount;
-                this.Add(new PriceStructure(prodIncl.Product, count, targetPriceDate, priceTerm, productBlocks));
+                this.Add(new PriceStructure(prodIncl.Product, count, targetPriceDate, priceTerm, getAnalog));
             }
         }
     }
