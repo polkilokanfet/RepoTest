@@ -37,7 +37,7 @@ namespace HVTApp.Services.PriceService
             if (!block.Prices.Any())
             {
                 //ищем аналог
-                var analog = GetAnalogWithPrice(block.Id);
+                var analog = GetAnalogWithPrice(block);
                 if (analog == null)
                 {
                     errors?.AddError(block, PriceErrorType.NoPrice);
@@ -83,14 +83,14 @@ namespace HVTApp.Services.PriceService
         /// <summary>
         /// Поиск аналога для блока.
         /// </summary>
-        /// <param name="blockId">Id целевого блока.</param>
+        /// <param name="blockTarget">Целевой блок.</param>
         /// <returns></returns>
-        public ProductBlock GetAnalogWithPrice(Guid blockId)
+        public ProductBlock GetAnalogWithPrice(ProductBlock blockTarget)
         {
-            if (_analogsWithPrice.ContainsKey(blockId))
-                return _analogsWithPrice[blockId];
+            if (_analogsWithPrice.ContainsKey(blockTarget.Id))
+                return _analogsWithPrice[blockTarget.Id];
 
-            var targetBlock = _blocks.Single(x => x.Id == blockId);
+            var targetBlock = _blocks.Single(x => x.Id == blockTarget.Id);
             var blocks = _blocks.Where(x => x.Prices.Any()).ToList();
             blocks.Remove(targetBlock);
 
@@ -129,18 +129,42 @@ namespace HVTApp.Services.PriceService
             }
 
             var blockAnalog = dic.OrderByDescending(x => x.Value).First().Key;
-            _analogsWithPrice.Add(blockId, blockAnalog);
+            _analogsWithPrice.Add(blockTarget.Id, blockAnalog);
             return blockAnalog;
         }
 
-        public PriceStructure GetPriceStructure(Product product, double amount, DateTime targetPriceDate, int priceTerm, IEnumerable<ProductBlock> analogs)
+        public PriceStructure GetPriceStructure(Product product, double amount, DateTime targetPriceDate, int priceTerm)
         {
-            return  new PriceStructure(product, amount, targetPriceDate, priceTerm, this.GetAnalogWithPrice);
+            var priceStructure = new PriceStructure(product, amount, targetPriceDate, priceTerm);
+            if (priceStructure.IsAnalogPrice)
+                priceStructure.Analog = GetAnalogWithPrice(product.ProductBlock);
+
+            //добавляем дочерние структуры
+            foreach (var dependentProduct in product.DependentProducts)
+            {
+                var dePriceStructure = GetPriceStructure(dependentProduct.Product, dependentProduct.Amount, targetPriceDate, priceTerm);
+                priceStructure.DependentProductsPriceStructures.Add(dePriceStructure);
+            }
+
+            return priceStructure;
         }
 
         public PriceStructures GetPriceStructures(IUnit unit, DateTime targetPriceDate, int priceTerm)
         {
-            return new PriceStructures(unit, targetPriceDate, priceTerm, this.GetAnalogWithPrice);
+            //структура себестоимости продукта
+            var priceStructures = new PriceStructures
+            {
+                this.GetPriceStructure(unit.Product, 1, targetPriceDate, priceTerm)
+            };
+
+            //структура себестоимости включенных продуктов
+            foreach (var productIncluded in unit.ProductsIncluded)
+            {
+                double count = (double)productIncluded.Amount / productIncluded.ParentsCount;
+                priceStructures.Add(GetPriceStructure(productIncluded.Product, count, targetPriceDate, priceTerm));
+            }
+
+            return priceStructures;
         }
 
 

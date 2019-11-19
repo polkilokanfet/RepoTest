@@ -9,7 +9,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         double Cost { get; set; }
         ProductWrapper Product { get; set; }
 
+        DateTime PriceDate { get; }
         IUnit GetIUnit();
-        DateTime GetPriceDate();
     }
 }

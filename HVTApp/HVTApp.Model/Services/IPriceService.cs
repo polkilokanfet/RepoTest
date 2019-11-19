@@ -20,15 +20,15 @@ namespace HVTApp.Model.Services
         /// <returns></returns>
         double GetPrice(Product product, DateTime date, int actualTerm, PriceErrors errors = null);
         double GetPrice(ProductBlock block, DateTime date, int actualTerm, PriceErrors errors = null);
-        PriceStructure GetPriceStructure(Product product, double amount, DateTime targetPriceDate, int priceTerm, IEnumerable<ProductBlock> analogs);
+        PriceStructure GetPriceStructure(Product product, double amount, DateTime targetPriceDate, int priceTerm);
         PriceStructures GetPriceStructures(IUnit unit, DateTime targetPriceDate, int priceTerm);
 
         /// <summary>
         /// Поиск аналога для блока.
         /// </summary>
-        /// <param name="blockId">Id целевого блока.</param>
+        /// <param name="blockTarget">Id целевого блока.</param>
         /// <returns></returns>
-        ProductBlock GetAnalogWithPrice(Guid blockId);
+        ProductBlock GetAnalogWithPrice(ProductBlock blockTarget);
 
     }
 }

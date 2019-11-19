@@ -11,15 +11,13 @@ namespace HVTApp.Model.Structures
     {
         private readonly int _priceTerm;
 
-        private readonly Func<Guid, ProductBlock> _getAnalog;
-
         public Product Product { get; }
         public double Amount { get; }
 
         /// <summary>
         /// јналог целевого блока.
         /// </summary>
-        public ProductBlock Analog => IsAnalogPrice ? _getAnalog.Invoke(Product.ProductBlock.Id) : null;
+        public ProductBlock Analog { get; set; }
 
         /// <summary>
         /// ÷елева€ дата (на которую идет расчет прайса).
@@ -110,20 +108,13 @@ namespace HVTApp.Model.Structures
             }
         }
 
-        public PriceStructure(Product product, double amount, DateTime targetPriceDate, int priceTerm, Func<Guid, ProductBlock> getAnalog)
+        public PriceStructure(Product product, double amount, DateTime targetPriceDate, int priceTerm)
         {
             _priceTerm = priceTerm;
-            _getAnalog = getAnalog;
 
             Product = product;
             Amount = amount;
             TargetPriceDate = targetPriceDate;
-            
-            //добавл€ем дочерние структуры
-            foreach (var dependentProduct in Product.DependentProducts)
-            {
-                DependentProductsPriceStructures.Add(new PriceStructure(dependentProduct.Product, dependentProduct.Amount, TargetPriceDate, _priceTerm, getAnalog));
-            }
         }
 
         /// <summary>

@@ -11,6 +11,7 @@ namespace HVTApp.Modules.Sales.ViewModels
     public class SalesUnitProjectItem : WrapperBase<SalesUnit>, ICostStructureItem
     {
         public CostStructure CostStructure { get; }
+        public DateTime PriceDate => Model.OrderInTakeDate;
 
         public SalesUnitProjectItem(SalesUnit model) : base(model)
         {
@@ -23,16 +24,22 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         public double Cost
         {
-            get { return GetValue<double>(); }
-            set { SetValue(value); }
+            get { return Model.Cost; }
+            set
+            {
+                SetValue(value);
+                OnPropertyChanged(nameof(Total));
+            }
         }
         public double CostOriginalValue => GetOriginalValue<double>(nameof(Cost));
         public bool CostIsChanged => GetIsChanged(nameof(Cost));
 
+        public double Total => Cost;
+
 
         public int ProductionTerm
         {
-            get { return GetValue<int>(); }
+            get { return Model.ProductionTerm; }
             set
             {
                 if (value < 0) return;
@@ -45,7 +52,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         public DateTime DeliveryDateExpected
         {
-            get { return GetValue<DateTime>(); }
+            get { return Model.DeliveryDateExpected; }
             set { SetValue(value); }
         }
         public DateTime DeliveryDateExpectedOriginalValue => GetOriginalValue<DateTime>(nameof(DeliveryDateExpected));
@@ -53,7 +60,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         public double? CostDelivery
         {
-            get { return GetValue<double?>(); }
+            get { return Model.CostDelivery; }
             set { SetValue(value); }
         }
         public double? CostDeliveryOriginalValue => GetOriginalValue<double?>(nameof(CostDelivery));
@@ -62,7 +69,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         public bool CostDeliveryIncluded
         {
-            get { return GetValue<bool>(); }
+            get { return Model.CostDeliveryIncluded; }
             set { SetValue(value); }
         }
         public bool CostDeliveryIncludedOriginalValue => GetOriginalValue<bool>(nameof(CostDeliveryIncluded));
@@ -178,11 +185,6 @@ namespace HVTApp.Modules.Sales.ViewModels
         public IUnit GetIUnit()
         {
             return Model;
-        }
-
-        public DateTime GetPriceDate()
-        {
-            return DateTime.Today;
         }
     }
 }

@@ -14,8 +14,6 @@ namespace HVTApp.Modules.Sales.ViewModels
     {
         private int _amount = 1;
 
-        public OfferUnitDetailsViewModel ViewModel { get; } 
-
         public int Amount
         {
             get { return _amount; }
@@ -28,15 +26,17 @@ namespace HVTApp.Modules.Sales.ViewModels
             }
         }
 
+        public OfferUnitDetailsViewModel ViewModel { get; } 
+
         public ICommand OkCommand { get; }
 
         public OfferUnitsViewModel(OfferUnitWrapper item, IUnityContainer container, IUnitOfWork unitOfWork)
         {
             ViewModel = container.Resolve<OfferUnitDetailsViewModel>();
             ViewModel.Load(item, unitOfWork);
-            Action okCommandExecute = () => CloseRequested?.Invoke(this, new DialogRequestCloseEventArgs(true));
-            Func<bool> okCommandCanExecute = () => Amount > 0 && ViewModel.Item.IsValid;
-            OkCommand = new DelegateCommand(okCommandExecute, okCommandCanExecute);
+            OkCommand = new DelegateCommand(
+                () => CloseRequested?.Invoke(this, new DialogRequestCloseEventArgs(true)),
+                () => Amount > 0 && ViewModel.Item.IsValid);
             ViewModel.Item.PropertyChanged += (sender, args) => ((DelegateCommand)OkCommand).RaiseCanExecuteChanged();
         }
 

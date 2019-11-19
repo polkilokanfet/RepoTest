@@ -2,7 +2,6 @@
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-              xmlns:controls="clr-namespace:HVTApp.Modules.Sales.Controls"
               xmlns:controls1="clr-namespace:HVTApp.UI.Controls;assembly=HVTApp.UI"
               xmlns:dp="http://infragistics.com/DataPresenter">
 
@@ -136,24 +135,24 @@
 
                         <dp:FieldLayout Key="GroupsLayout">
                             <dp:FieldLayout.Fields>
-                                <dp:Field AlternateBinding="{Binding Unit.Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto" Converter="{StaticResource WrapperToStringConverter}">
+                                <dp:Field AlternateBinding="{Binding Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto" Converter="{StaticResource WrapperToStringConverter}">
                                     <dp:Field.Settings>
                                         <dp:FieldSettings CellValuePresenterStyle="{StaticResource FacilityCellStyle}" />
                                     </dp:Field.Settings>
                                 </dp:Field>
-                                <dp:Field AlternateBinding="{Binding Unit.Product}" BindingType="UseAlternateBinding" Label="Продукт" Width="Auto" Converter="{StaticResource WrapperToStringConverter}">
+                                <dp:Field AlternateBinding="{Binding Product}" BindingType="UseAlternateBinding" Label="Продукт" Width="Auto" Converter="{StaticResource WrapperToStringConverter}">
                                     <dp:Field.Settings>
                                         <dp:FieldSettings CellValuePresenterStyle="{StaticResource ProductCellStyle}" />
                                     </dp:Field.Settings>
                                 </dp:Field>
                                 <dp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" />
-                                <dp:NumericField AlternateBinding="{Binding MarginalIncome}" BindingType="UseAlternateBinding" Label="МД" Width="Auto" AllowEdit="True" />
-                                <dp:NumericField AlternateBinding="{Binding Cost}" BindingType="UseAlternateBinding" Label="Стоимость" Width="Auto" AllowEdit="True" />
+                                <dp:NumericField AlternateBinding="{Binding MarginalIncome, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="МД" Width="Auto" AllowEdit="True" />
+                                <dp:NumericField AlternateBinding="{Binding Cost, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Стоимость" Width="Auto" AllowEdit="True" />
                                 <dp:NumericField AlternateBinding="{Binding Total}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto" />
-                                <dp:DateTimeField AlternateBinding="{Binding Unit.DeliveryDateExpected}" BindingType="UseAlternateBinding" Label="Поставка" Width="Auto" AllowEdit="True" />
-                                <dp:NumericField AlternateBinding="{Binding Unit.CostDelivery}" BindingType="UseAlternateBinding" Label="Доставка" Width="Auto" AllowEdit="True" />
-                                <dp:NumericField AlternateBinding="{Binding ProductionTerm}" BindingType="UseAlternateBinding" Label="Срок" Width="Auto" AllowEdit="True" />
-                                <dp:Field AlternateBinding="{Binding Unit.PaymentConditionSet}" BindingType="UseAlternateBinding" Label="Условия оплаты" Width="Auto" Converter="{StaticResource WrapperToStringConverter}">
+                                <dp:DateTimeField AlternateBinding="{Binding DeliveryDateExpected, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Поставка" Width="Auto" AllowEdit="True" />
+                                <dp:NumericField AlternateBinding="{Binding CostDelivery, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Доставка" Width="Auto" AllowEdit="True" />
+                                <dp:NumericField AlternateBinding="{Binding ProductionTerm, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Срок" Width="Auto" AllowEdit="True" />
+                                <dp:Field AlternateBinding="{Binding PaymentConditionSet}" BindingType="UseAlternateBinding" Label="Условия оплаты" Width="Auto" Converter="{StaticResource WrapperToStringConverter}">
                                     <dp:Field.Settings>
                                         <dp:FieldSettings CellValuePresenterStyle="{StaticResource PaymentsCellStyle}" />
                                     </dp:Field.Settings>
@@ -183,9 +182,9 @@
                                 <dp:NumericField AlternateBinding="{Binding CostStructure.MarginalIncome, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="МД" Width="Auto" AllowEdit="True" />
                                 <dp:NumericField AlternateBinding="{Binding CostStructure.Cost, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Стоимость" Width="Auto" AllowEdit="True" />
                                 <dp:NumericField AlternateBinding="{Binding Total}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto" />
-                                <dp:DateTimeField AlternateBinding="{Binding DeliveryDateExpected}" BindingType="UseAlternateBinding" Label="Поставка" Width="Auto" AllowEdit="True" />
-                                <dp:NumericField AlternateBinding="{Binding CostDelivery}" BindingType="UseAlternateBinding" Label="Доставка" Width="Auto" AllowEdit="True" />
-                                <dp:NumericField AlternateBinding="{Binding ProductionTerm}" BindingType="UseAlternateBinding" Label="Срок" Width="Auto" AllowEdit="True" />
+                                <dp:DateTimeField AlternateBinding="{Binding DeliveryDateExpected, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Поставка" Width="Auto" AllowEdit="True" />
+                                <dp:NumericField AlternateBinding="{Binding CostDelivery, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Доставка" Width="Auto" AllowEdit="True" />
+                                <dp:NumericField AlternateBinding="{Binding ProductionTerm, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Срок" Width="Auto" AllowEdit="True" />
                                 <dp:Field AlternateBinding="{Binding PaymentConditionSet}" BindingType="UseAlternateBinding" Label="Условия оплаты" Width="Auto" Converter="{StaticResource WrapperToStringConverter}">
                                     <dp:Field.Settings>
                                         <dp:FieldSettings CellValuePresenterStyle="{StaticResource PaymentsCellStyle}" />
@@ -206,25 +205,25 @@
 
                 <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="3" />
 
-                <!--<GroupBox Grid.Row="2" Header="Структура себестоимости:">
+                <GroupBox Grid.Row="2" Header="Структура себестоимости на каждое изделие:">
                     <dp:XamDataGrid DataSource="{Binding PriceStructures}">
                         <dp:XamDataGrid.FieldLayouts>
                             <dp:FieldLayout>
                                 <dp:FieldLayout.Fields>
 
-                                    <dp:TextField Name="Product" Label="Продукт" Width="Auto" />
-                                    <dp:NumericField Name="Amount" Label="Кол." Width="Auto" />
+                                    <dp:TextField AlternateBinding="{Binding Product}" BindingType="UseAlternateBinding" Label="Продукт" Width="Auto" />
+                                    <dp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" />
                                     <dp:NumericField AlternateBinding="{Binding Price.Sum}" BindingType="UseAlternateBinding" Label="Стоимость" Width="Auto" />
-                                    <dp:NumericField Name="TotalPriceFixedCostLess" Label="Сумма" Width="Auto" />
+                                    <dp:NumericField AlternateBinding="{Binding TotalPriceFixedCostLess}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto" />
                                     <dp:DateTimeField AlternateBinding="{Binding Price.Date}" BindingType="UseAlternateBinding" Label="Дата" Width="Auto" />
-                                    <dp:TextField Name="Analog" Label="Аналог" Width="Auto" />
-                                    <dp:Field Name="ChildPriceStructures" IsExpandable="True"/>
+                                    <dp:TextField AlternateBinding="{Binding Analog}" BindingType="UseAlternateBinding" Label="Аналог" Width="Auto" />
+                                    <dp:Field Name="DependentProductsPriceStructures" IsExpandable="True"/>
 
                                 </dp:FieldLayout.Fields>
                             </dp:FieldLayout>
                         </dp:XamDataGrid.FieldLayouts>
                     </dp:XamDataGrid>
-                </GroupBox>-->
+                </GroupBox>
 
             </Grid>
             

@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using HVTApp.Model.POCOs;
 
 namespace HVTApp.Model.Structures
 {
@@ -29,18 +27,5 @@ namespace HVTApp.Model.Structures
         /// —уммарна€ стоимость услуг с фиксированной ценой.
         /// </summary>
         public double TotalServiceFixedCost => this.Sum(x => x.TotalServiceFixedCost);
-
-        public PriceStructures(IUnit unit, DateTime targetPriceDate, int priceTerm, Func<Guid, ProductBlock> getAnalog)
-        {
-            //структура себестоимости продукта
-            this.Add(new PriceStructure(unit.Product, 1, targetPriceDate, priceTerm, getAnalog));
-
-            //структура себестоимости включенных продуктов
-            foreach (var prodIncl in unit.ProductsIncluded)
-            {
-                double count = (double)prodIncl.Amount / prodIncl.ParentsCount;
-                this.Add(new PriceStructure(prodIncl.Product, count, targetPriceDate, priceTerm, getAnalog));
-            }
-        }
     }
 }

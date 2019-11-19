@@ -29,7 +29,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             {
                 //срок актуальности
                 var priceTerm = GlobalAppProperties.Actual.ActualPriceTerm;
-                return GlobalAppProperties.PriceService.GetPriceStructures(_targetItem.GetIUnit(), _targetItem.GetPriceDate(), priceTerm);
+                return GlobalAppProperties.PriceService.GetPriceStructures(_targetItem.GetIUnit(), _targetItem.PriceDate, priceTerm);
             }
         }
 
