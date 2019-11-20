@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -25,10 +26,16 @@ namespace HVTApp.Modules.Director.ViewModels
         }
 
         public ICommand ReloadCommand { get; }
+        public ICommand ExpandCommand { get; }
+        public ICommand CollapseCommand { get; }
+
+        public event Action<bool> ExpandCollapseEvent; 
 
         public MarketViewModel(IUnityContainer container) : base(container)
         {
             ReloadCommand = new DelegateCommand(async () => { await Load(); });
+            ExpandCommand = new DelegateCommand(() => { ExpandCollapseEvent?.Invoke(true); });
+            CollapseCommand = new DelegateCommand(() => { ExpandCollapseEvent?.Invoke(false); });
         }
 
         public async Task Load()

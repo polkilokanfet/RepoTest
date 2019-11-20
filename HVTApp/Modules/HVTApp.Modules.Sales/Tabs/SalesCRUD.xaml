@@ -38,9 +38,11 @@
         <infRib:ButtonTool Caption="Расчет ПЗ" Command="{Binding StructureCostsCommand}" SmallImage="/HVTApp.Modules.Sales;component/Images/Add_16x16.png"/>
     </infRib:RibbonGroup>
     
-    <!--<infRib:RibbonGroup Caption="Обновление">
-        <infRib:ButtonTool Caption="Обновить" Command="{Binding RefreshCommand}" SmallImage="/HVTApp.Infrastructure;component/Images/Refresh_16x16.png"/>
-    </infRib:RibbonGroup>-->
+    <infRib:RibbonGroup Caption="Отображение">
+        <!--<infRib:ButtonTool Caption="Обновить" Command="{Binding RefreshCommand}" SmallImage="/HVTApp.Infrastructure;component/Images/Refresh_16x16.png"/>-->
+         <infRib:ButtonTool Caption="Развернуть всё" Command="{Binding ExpandCommand}"/>
+        <infRib:ButtonTool Caption="Свернуть всё" Command="{Binding CollapseCommand}"/>
+    </infRib:RibbonGroup>
 
     
 </inf:RibbonTabItemWithViewModel>

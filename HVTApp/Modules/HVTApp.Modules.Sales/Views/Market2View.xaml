@@ -5,21 +5,6 @@
               xmlns:infgDp="http://infragistics.com/DataPresenter"
               xmlns:igW="http://infragistics.com/Windows">
 
-    <inf:ViewBase.Resources>
-        <Style x:Key="ProjectRowStyle" TargetType="{x:Type infgDp:CellValuePresenter}">
-            <Setter Property="ForegroundStyle">
-                <Setter.Value>
-                    <Style>
-                        <!--<Setter Property="TextBlock.Background" Value="Aqua" />-->
-                        <Setter Property="TextBlock.FontWeight" Value="Bold" />
-                        <!--<Setter Property="TextBlock.FontStyle" Value="Italic"/>-->
-                    </Style>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </inf:ViewBase.Resources>
-
-
     <Grid>
         
         <Grid.ColumnDefinitions>
@@ -31,8 +16,7 @@
         <GroupBox Header="Проекты" Grid.Column="0">
             <infgDp:XamDataGrid x:Name="ProjectsGrid"
                                 DataSource="{Binding ProjectItems}"
-                                SelectedDataItem="{Binding SelectedProjectItem, Mode=TwoWay}"
-                                Loaded="ProjectsGrid_OnLoaded">
+                                SelectedDataItem="{Binding SelectedProjectItem, Mode=TwoWay}">
                 
                 <!--<infgDp:XamDataGrid.FieldLayoutSettings>
                     <infgDp:FieldLayoutSettings />
@@ -44,11 +28,11 @@
                     <infgDp:FieldLayout>
                         <infgDp:FieldLayout.RecordFilters>
                                 
-                            <infgDp:RecordFilter FieldName="ForReport">
+                            <!--<infgDp:RecordFilter FieldName="ForReport">
                                 <infgDp:RecordFilter.Conditions>
                                     <igW:ComparisonCondition Operator="Equals" Value="True"/>
                                 </infgDp:RecordFilter.Conditions>
-                            </infgDp:RecordFilter>
+                            </infgDp:RecordFilter>-->
                                 
                             <infgDp:RecordFilter FieldName="IsDone">
                                 <infgDp:RecordFilter.Conditions>
@@ -71,7 +55,7 @@
                         </infgDp:FieldLayout.RecordFilters>
                         
                         <infgDp:FieldLayout.FieldSettings>
-                            <infgDp:FieldSettings CellValuePresenterStyle="{StaticResource ProjectRowStyle}"/>
+                            <infgDp:FieldSettings CellValuePresenterStyle="{StaticResource BoltFontCellsStyle}"/>
                         </infgDp:FieldLayout.FieldSettings>
                                                 
 					    <infgDp:FieldLayout.Fields>
@@ -86,10 +70,10 @@
                             <infgDp:TextField AlternateBinding="{Binding Builder}" BindingType="UseAlternateBinding" Label="Подрядчик" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                             <infgDp:TextField AlternateBinding="{Binding ProjectMaker}" BindingType="UseAlternateBinding" Label="Проектировщик" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                             <infgDp:TextField AlternateBinding="{Binding Sypplier}" BindingType="UseAlternateBinding" Label="Поставщик" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>-->
-                            <infgDp:CheckBoxField AlternateBinding="{Binding IsDone}" BindingType="UseAlternateBinding" Label="Done" Width="Auto" AllowResize="False"/>
-                            <infgDp:CheckBoxField AlternateBinding="{Binding IsLoosen}" BindingType="UseAlternateBinding" Label="Loose" Width="Auto" AllowResize="False"/>
-                            <infgDp:CheckBoxField AlternateBinding="{Binding InWork}" BindingType="UseAlternateBinding" Label="Work" Width="Auto" AllowResize="False"/>
-                            <infgDp:CheckBoxField AlternateBinding="{Binding ForReport}" BindingType="UseAlternateBinding" Label="Report" Width="Auto" AllowResize="False"/>
+                            <infgDp:CheckBoxField Name="IsDone" AlternateBinding="{Binding IsDone}" BindingType="UseAlternateBinding" Label="Done" Width="Auto" AllowResize="False"/>
+                            <infgDp:CheckBoxField Name="IsLoosen" AlternateBinding="{Binding IsLoosen}" BindingType="UseAlternateBinding" Label="Loose" Width="Auto" AllowResize="False"/>
+                            <infgDp:CheckBoxField Name="InWork" AlternateBinding="{Binding InWork}" BindingType="UseAlternateBinding" Label="Work" Width="Auto" AllowResize="False"/>
+                            <infgDp:CheckBoxField Name="ForReport" AlternateBinding="{Binding ForReport}" BindingType="UseAlternateBinding" Label="Report" Width="Auto" AllowResize="False"/>
                             <infgDp:Field Name="ProjectUnitsGroups" IsExpandable="True"/>
                                 
 					    </infgDp:FieldLayout.Fields>
@@ -97,12 +81,12 @@
 
                     <infgDp:FieldLayout ParentFieldName="ProjectUnitsGroups">
                         <infgDp:FieldLayout.Fields>
-                            <infgDp:TextField AlternateBinding="{Binding Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto" />
-                            <infgDp:TextField AlternateBinding="{Binding Product.ProductType}" BindingType="UseAlternateBinding" Label="Тип оборудования" Width="Auto" />
+                            <infgDp:TextField AlternateBinding="{Binding Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
+                            <infgDp:TextField AlternateBinding="{Binding Product.ProductType}" BindingType="UseAlternateBinding" Label="Тип оборудования" Width="Auto"/>
                             <infgDp:TextField AlternateBinding="{Binding Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="Auto"/>
-                            <infgDp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" />
-                            <infgDp:NumericField AlternateBinding="{Binding Cost}" BindingType="UseAlternateBinding" Label="Стоимость" Width="Auto"/>
-                            <infgDp:NumericField AlternateBinding="{Binding Total}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto"/>
+                            <infgDp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" AllowResize="False" />
+                            <infgDp:NumericField AlternateBinding="{Binding Cost}" BindingType="UseAlternateBinding" Label="Стоимость" Width="Auto" AllowResize="False"/>
+                            <infgDp:NumericField AlternateBinding="{Binding Total}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto" AllowResize="False"/>
                             <!--<infgDp:NumericField AlternateBinding="{Binding ProductionTerm}" BindingType="UseAlternateBinding" Label="Срок" Width="Auto"/>
                             <infgDp:TextField AlternateBinding="{Binding PaymentConditionSet}" BindingType="UseAlternateBinding" Label="Условия оплаты" Width="Auto" />-->
                         </infgDp:FieldLayout.Fields>

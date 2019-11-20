@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
@@ -34,11 +36,19 @@ namespace HVTApp.Modules.Sales.ViewModels
         public OffersContainer Offers { get; }
         public TendersContainer Tenders { get; }
 
+        public ICommand ExpandCommand { get; }
+        public ICommand CollapseCommand { get; }
+
+        public event Action<bool> ExpandCollapseEvent;
+
+
         public Market2ViewModel(IUnityContainer container) : base(container)
         {
             _eventAggregator = Container.Resolve<IEventAggregator>();
 
-            var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Manager.IsAppCurrentUser());
+            var salesUnits = GlobalAppProperties.User.RoleCurrent == Role.Admin 
+                ? UnitOfWork.Repository<SalesUnit>().Find(x => true) 
+                : UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Manager.IsAppCurrentUser());
             var salesUnitsGroups = salesUnits.GroupBy(x => x, new SalesUnitsComparer()).OrderBy(x => x.Key.OrderInTakeDate);
             ProjectItems = new ObservableCollection<ProjectItem>(salesUnitsGroups.Select(x => new ProjectItem(x)));
 
@@ -128,6 +138,9 @@ namespace HVTApp.Modules.Sales.ViewModels
                 //создаем новую группу для юнита
                 ProjectItems.Add(new ProjectItem(new List<SalesUnit>() { salesUnit }));
             });
+
+            ExpandCommand = new DelegateCommand(() => { ExpandCollapseEvent?.Invoke(true); });
+            CollapseCommand = new DelegateCommand(() => { ExpandCollapseEvent?.Invoke(false); });
         }
 
 

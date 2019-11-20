@@ -4,25 +4,7 @@
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure">
 
-    <inf:ViewBase.Resources>
-        <Style x:Key="MyCustomFieldCell" TargetType="{x:Type infg:CellValuePresenter}">
-            <Setter Property="ForegroundStyle">
-                <Setter.Value>
-                    <Style>
-                        <!--<Setter Property="TextBlock.Foreground" Value="Blue" />
-                        <Setter Property="TextBlock.FontWeight" Value="Bold" />-->
-                        <Setter Property="TextBlock.FontStyle" Value="Italic"/>
-                    </Style>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </inf:ViewBase.Resources>
-
     <Grid>
-
-
-        <Grid.Resources>
-        </Grid.Resources>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -49,6 +31,11 @@
             <infg:XamDataGrid.FieldLayouts>
 
                 <infg:FieldLayout Key="MarketUnit">
+
+                    <infg:FieldLayout.FieldSettings>
+                        <infg:FieldSettings CellValuePresenterStyle="{StaticResource BoltFontCellsStyle}" />
+                    </infg:FieldLayout.FieldSettings>
+
                     <infg:TextField Name="Facilities" Label="Объект" Width="Auto"/>
                     <infg:NumericField Name="Sum" Label="Сумма" Width="Auto" AllowResize="False"/>
                     <infg:DateTimeField Name="OrderInTakeDate" Label="Дата ОИТ" Width="Auto" AllowResize="False"/>
@@ -58,17 +45,7 @@
                 </infg:FieldLayout>
 
                 <infg:FieldLayout ParentFieldLayoutKey="MarketUnit" ParentFieldName="SalesGroups">
-
-                    <infg:FieldLayout.FieldSettings>
-                        <infg:FieldSettings AllowRecordFiltering="False" 
-                                            CellValuePresenterStyle="{StaticResource MyCustomFieldCell}"/>
-                    </infg:FieldLayout.FieldSettings>
-
-                    <infg:TextField Name="Facility" Label="Объект" Width="Auto">
-                        <infg:TextField.Settings>
-                            <infg:FieldSettings CellValuePresenterStyle="{StaticResource MyCustomFieldCell}"/>
-                        </infg:TextField.Settings>
-                    </infg:TextField>
+                    <infg:TextField Name="Facility" Label="Объект" Width="Auto"/>
                     <infg:TextField Name="ProductType" Label="Тип оборудования" Width="Auto"/>
                     <infg:TextField Name="ProductDesignation" Label="Обозначение" Width="Auto"/>
                     <infg:NumericField Name="Amount" Label="Кол." Width="Auto" AllowResize="False"/>

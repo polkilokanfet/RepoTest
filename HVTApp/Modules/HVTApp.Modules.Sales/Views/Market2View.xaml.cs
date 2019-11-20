@@ -9,7 +9,7 @@ using ViewBase = HVTApp.Infrastructure.ViewBase;
 
 namespace HVTApp.Modules.Sales.Views
 {
-    [RibbonTab(typeof(SalesCRUD)), RibbonTab(typeof(TabProjects))]
+    [RibbonTab(typeof(SalesCRUD))]
     public partial class Market2View : ViewBase
     {
         //private readonly Market2ViewModel _viewModel;
@@ -25,6 +25,15 @@ namespace HVTApp.Modules.Sales.Views
 
             //this.Loaded += OnLoaded;
 
+            viewModel.ExpandCollapseEvent += expend =>
+            {
+                var dg = this.ProjectsGrid; //(XamDataGrid)sender;
+                foreach (var o in dg.DataSource)
+                {
+                    dg.GetRecordFromDataItem(o, recursive: false).IsExpanded = expend;
+                }
+            };
+
         }
 
         //private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
@@ -32,13 +41,5 @@ namespace HVTApp.Modules.Sales.Views
         //    await _viewModel.Load();
         //    this.Loaded -= OnLoaded;
         //}
-        private void ProjectsGrid_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            var dg = (XamDataGrid) sender;
-            foreach (var o in dg.DataSource)
-            {
-                dg.GetRecordFromDataItem(o, recursive: false).IsExpanded = true;
-            }
-        }
     }
 }
