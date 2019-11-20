@@ -26,6 +26,8 @@ namespace HVTApp.Modules.Sales.ViewModels
         public bool IsLoosen => SalesUnits.All(x => x.IsLoosen);
         public bool ForReport => SalesUnits.First().Project.ForReport;
         public bool InWork => SalesUnits.First().Project.InWork;
+        public int OrderInTakeYear => OrderInTakeDate.Year;
+        public int OrderInTakeMonth => OrderInTakeDate.Month;
 
         //<infgDp:DateTimeField Name = "TenderDate" Label="Тендер" Width="Auto" />
         //<infgDp:TextField Name = "Builder" Label="Подрядчик" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>

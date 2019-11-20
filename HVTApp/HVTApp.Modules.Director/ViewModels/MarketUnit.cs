@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
-using Microsoft.Practices.ObjectBuilder2;
 
 namespace HVTApp.Modules.Director.ViewModels
 {
@@ -15,6 +13,9 @@ namespace HVTApp.Modules.Director.ViewModels
         public double Sum { get; }
         public DateTime OrderInTakeDate { get; }
         public string Manager { get; }
+        public int OrderInTakeYear => OrderInTakeDate.Year;
+        public int OrderInTakeMonth => OrderInTakeDate.Month;
+
 
         public List<SalesGroup> SalesGroups { get; }
 

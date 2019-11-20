@@ -74,6 +74,8 @@
                             <infgDp:CheckBoxField Name="IsLoosen" AlternateBinding="{Binding IsLoosen}" BindingType="UseAlternateBinding" Label="Loose" Width="Auto" AllowResize="False"/>
                             <infgDp:CheckBoxField Name="InWork" AlternateBinding="{Binding InWork}" BindingType="UseAlternateBinding" Label="Work" Width="Auto" AllowResize="False"/>
                             <infgDp:CheckBoxField Name="ForReport" AlternateBinding="{Binding ForReport}" BindingType="UseAlternateBinding" Label="Report" Width="Auto" AllowResize="False"/>
+                            <infgDp:NumericField Name="OrderInTakeYear" Label="Год ОИТ" Width="Auto" AllowResize="False"/>
+                            <infgDp:NumericField Name="OrderInTakeMonth" Label="Месяц" Width="Auto" AllowResize="False"/>
                             <infgDp:Field Name="ProjectUnitsGroups" IsExpandable="True"/>
                                 
 					    </infgDp:FieldLayout.Fields>

@@ -40,7 +40,9 @@
                     <infg:NumericField Name="Sum" Label="Сумма" Width="Auto" AllowResize="False"/>
                     <infg:DateTimeField Name="OrderInTakeDate" Label="Дата ОИТ" Width="Auto" AllowResize="False"/>
                     <infg:TextField Name="Project" Label="Проект" Width="Auto"/>
-                    <infg:TextField Name="Manager" Label="Менеджер" Width="Auto" AllowResize="True"/>
+                    <infg:TextField Name="Manager" Label="Менеджер" Width="Auto"/>
+                    <infg:NumericField Name="OrderInTakeYear" Label="Год ОИТ" Width="Auto" AllowResize="False"/>
+                    <infg:NumericField Name="OrderInTakeMonth" Label="Месяц" Width="Auto" AllowResize="False"/>
                     <infg:Field Name="SalesGroups" IsExpandable="True"/>
                 </infg:FieldLayout>
 
