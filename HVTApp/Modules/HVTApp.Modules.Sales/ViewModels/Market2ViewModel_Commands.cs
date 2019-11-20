@@ -2,6 +2,7 @@
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Services;
+using HVTApp.Model.POCOs;
 using HVTApp.Modules.Sales.Views;
 using Microsoft.Practices.Unity;
 using Prism.Regions;
@@ -48,19 +49,19 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         private void NewTenderCommand_Execute()
         {
-            var tenderViewModel = new TenderViewModel(Container, Projects.SelectedItem.Entity);
+            var tenderViewModel = new TenderViewModel(Container, SelectedProjectItem.Project);
             Container.Resolve<IDialogService>().ShowDialog(tenderViewModel);
         }
 
 
         private void NewSpecificationCommand_Execute()
         {
-            RegionManager.RequestNavigateContentRegion<SpecificationView>(new NavigationParameters { { "project", Projects.SelectedItem.Entity } });
+            RegionManager.RequestNavigateContentRegion<SpecificationView>(new NavigationParameters { { nameof(Project), SelectedProjectItem.Project } });
         }
 
         private void EditProjectCommand_Execute()
         {
-            RegionManager.RequestNavigateContentRegion<ProjectView>(new NavigationParameters { { "prj", Projects.SelectedItem.Entity } });
+            RegionManager.RequestNavigateContentRegion<ProjectView>(new NavigationParameters { { nameof(Project), SelectedProjectItem.Project} });
         }
 
         private void NewProjectCommand_Execute()
@@ -84,7 +85,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         /// </summary>
         private void NewOfferByProjectCommand_Execute()
         {
-            var prms = new NavigationParameters { { "project", Projects.SelectedItem.Entity } };
+            var prms = new NavigationParameters { { "project", SelectedProjectItem.Project } };
             RegionManager.RequestNavigateContentRegion<OfferView>(prms);
         }
 
@@ -102,7 +103,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         private void StructureCostsCommand_Execute()
         {
-            RegionManager.RequestNavigateContentRegion<StructureCostsView>(new NavigationParameters { { "project", Projects.SelectedItem.Entity } });
+            RegionManager.RequestNavigateContentRegion<StructureCostsView>(new NavigationParameters { { nameof(Project), SelectedProjectItem.Project } });
         }
 
         #endregion

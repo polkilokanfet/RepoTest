@@ -2,17 +2,16 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:infg="http://infragistics.com/DataPresenter">
 
-    
-    
     <Style TargetType="infg:XamDataGrid">
         
         <!--Автоматическая ширина колонок таблицы-->
-        <Setter Property="AutoFit" Value="True" />
+        <Setter Property="AutoFit" Value="False" />
         
         <!--Фильтры и запрет на редактирование-->
         <Setter Property="FieldSettings">
             <Setter.Value>
-                <infg:FieldSettings AllowEdit="False"
+                <infg:FieldSettings AllowEdit="False" 
+                                    AllowResize="True"
                                     AllowRecordFiltering="True" 
                                     FilterLabelIconDropDownType="MultiSelectExcelStyle"/>
             </Setter.Value>
@@ -21,14 +20,16 @@
         <Setter Property="FieldLayoutSettings">
             <Setter.Value>
                 <infg:FieldLayoutSettings AutoGenerateFields="False"
-                                          AutoFitMode="Always"
                                           AllowAddNew="False"
                                           AllowDelete="False"
                                           AllowFieldMoving="Yes"
                                           AllowRecordFixing="Top"
                                           HeaderPrefixAreaDisplayMode="FieldChooserButton"
-                                          HighlightAlternateRecords="True" 
-                                          FilterUIType="LabelIcons" />
+                                          FilterUIType="LabelIcons" 
+                                          HeaderPlacement="OnTopOnly"
+                                          HeaderPlacementInGroupBy="OnTopOnly"/>
+                                          <!--HighlightAlternateRecords="True"--> 
+                                          <!--AutoFitMode="Always"-->
             </Setter.Value>
         </Setter>
     </Style>

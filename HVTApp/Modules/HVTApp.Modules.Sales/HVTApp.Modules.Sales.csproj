@@ -164,6 +164,8 @@
     <Compile Include="ViewModels\OffersViewModel.cs" />
     <Compile Include="ViewModels\Market2ViewModel.cs" />
     <Compile Include="ViewModels\Containers\ProjectsContainer.cs" />
+    <Compile Include="ViewModels\ProjectItem.cs" />
+    <Compile Include="ViewModels\ProjectUnitsGroup.cs" />
     <Compile Include="ViewModels\ProjectViewModel\ProjectViewModel.cs" />
     <Compile Include="ViewModels\Groups\SalesUnitsViewModel.cs" />
     <Compile Include="ViewModels\Groups\OfferUnitsViewModel.cs" />

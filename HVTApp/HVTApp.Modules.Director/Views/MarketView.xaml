@@ -5,16 +5,25 @@
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure">
 
     <inf:ViewBase.Resources>
-
-        <Style x:Key="CustomRecordStyle" TargetType="{x:Type infg:DataRecordPresenter}">
-            <Setter Property="Background">
-                <Setter.Value>DarkGray</Setter.Value>
+        <Style x:Key="MyCustomFieldCell" TargetType="{x:Type infg:CellValuePresenter}">
+            <Setter Property="ForegroundStyle">
+                <Setter.Value>
+                    <Style>
+                        <!--<Setter Property="TextBlock.Foreground" Value="Blue" />
+                        <Setter Property="TextBlock.FontWeight" Value="Bold" />-->
+                        <Setter Property="TextBlock.FontStyle" Value="Italic"/>
+                    </Style>
+                </Setter.Value>
             </Setter>
         </Style>
     </inf:ViewBase.Resources>
-    
+
     <Grid>
-        
+
+
+        <Grid.Resources>
+        </Grid.Resources>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -38,27 +47,33 @@
                           Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
 
             <infg:XamDataGrid.FieldLayouts>
+
                 <infg:FieldLayout Key="MarketUnit">
                     <infg:TextField Name="Facilities" Label="Объект" Width="Auto"/>
-                    <infg:NumericField Name="Sum" Label="Сумма" Width="Auto"/>
-                    <infg:DateTimeField Name="OrderInTakeDate" Label="Дата ОИТ" Width="Auto"/>
+                    <infg:NumericField Name="Sum" Label="Сумма" Width="Auto" AllowResize="False"/>
+                    <infg:DateTimeField Name="OrderInTakeDate" Label="Дата ОИТ" Width="Auto" AllowResize="False"/>
                     <infg:TextField Name="Project" Label="Проект" Width="Auto"/>
+                    <infg:TextField Name="Manager" Label="Менеджер" Width="Auto" AllowResize="True"/>
                     <infg:Field Name="SalesGroups" IsExpandable="True"/>
-                    <infg:TextField Name="Manager" Label="Менеджер" Width="Auto"/>
                 </infg:FieldLayout>
 
                 <infg:FieldLayout ParentFieldLayoutKey="MarketUnit" ParentFieldName="SalesGroups">
-                    
+
                     <infg:FieldLayout.FieldSettings>
-                        <infg:FieldSettings AllowRecordFiltering="False"/>
+                        <infg:FieldSettings AllowRecordFiltering="False" 
+                                            CellValuePresenterStyle="{StaticResource MyCustomFieldCell}"/>
                     </infg:FieldLayout.FieldSettings>
-                    
-                    <infg:TextField Name="Facility" Label="Объект" Width="Auto"/>
+
+                    <infg:TextField Name="Facility" Label="Объект" Width="Auto">
+                        <infg:TextField.Settings>
+                            <infg:FieldSettings CellValuePresenterStyle="{StaticResource MyCustomFieldCell}"/>
+                        </infg:TextField.Settings>
+                    </infg:TextField>
                     <infg:TextField Name="ProductType" Label="Тип оборудования" Width="Auto"/>
                     <infg:TextField Name="ProductDesignation" Label="Обозначение" Width="Auto"/>
-                    <infg:NumericField Name="Amount" Label="Кол." Width="Auto"/>
-                    <infg:NumericField Name="Cost" Label="Цена" Width="Auto"/>
-                    <infg:NumericField Name="Sum" Label="Сумма" Width="Auto"/>
+                    <infg:NumericField Name="Amount" Label="Кол." Width="Auto" AllowResize="False"/>
+                    <infg:NumericField Name="Cost" Label="Цена" Width="Auto" AllowResize="False"/>
+                    <infg:NumericField Name="Sum" Label="Сумма" Width="Auto" AllowResize="False"/>
                 </infg:FieldLayout>
 
             </infg:XamDataGrid.FieldLayouts>
@@ -66,6 +81,3 @@
 
     </Grid>
 </inf:ViewBase>
-
-
-

@@ -1,234 +1,135 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Lookup;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Events;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
-    //public class SalesUnitViewItem
-    //{
-    //    private Facility _facility;
-    //    private Product _product;
-    //    private double _cost;
-    //    public Guid Id { get; }
-
-    //    public Facility Facility
-    //    {
-    //        get { return _facility; }
-    //        set { _facility = value; }
-    //    }
-
-    //    public Product Product
-    //    {
-    //        get { return _product; }
-    //        set { _product = value; }
-    //    }
-
-    //    public double Cost
-    //    {
-    //        get { return _cost; }
-    //        set { _cost = value; }
-    //    }
-
-    //    public SalesUnitViewItem(SalesUnit salesUnit)
-    //    {
-    //        Id = salesUnit.Id;
-    //        Facility = salesUnit.Facility;
-    //        Product = salesUnit.Product;
-    //        Cost = salesUnit.Cost;
-    //    }
-    //}
-
-    //public class ProjectViewItem
-    //{
-    //    public ProjectViewItem(Project project,
-    //                         IEnumerable<SalesUnit> salesUnits,
-    //                         IEnumerable<Tender> tenders,
-    //                         IUnityContainer container) : this(project)
-    //    {
-    //        SalesUnits = new List<SalesUnitLookup>(salesUnits.Select(x => new SalesUnitLookup(x)));
-    //        Tenders = new List<TenderLookup>(tenders.Select(x => new TenderLookup(x)));
-
-    //        var eventAggregator = container.Resolve<IEventAggregator>();
-
-    //        eventAggregator.GetEvent<AfterSaveSalesUnitEvent>().Subscribe(salesUnit =>
-    //        {
-    //            if (salesUnit.Project.Id != Id) return;
-    //            SalesUnits.ReAddById(new SalesUnitLookup(salesUnit));
-    //            Refresh();
-    //        });
-
-    //        eventAggregator.GetEvent<AfterSaveTenderEvent>().Subscribe(tender =>
-    //        {
-    //            if (tender.Project.Id != Id) return;
-    //            Tenders.ReAddById(new TenderLookup(tender));
-    //            Refresh();
-    //        });
-
-    //        eventAggregator.GetEvent<AfterRemoveSalesUnitEvent>().Subscribe(salesUnit =>
-    //        {
-    //            if (salesUnit.Project.Id != Id) return;
-    //            SalesUnits.RemoveIfContainsById(salesUnit);
-    //            Refresh();
-    //        });
-
-    //        eventAggregator.GetEvent<AfterRemoveTenderEvent>().Subscribe(tender =>
-    //        {
-    //            if (tender.Project?.Id != Id) return;
-    //            Tenders.RemoveIfContainsById(tender);
-    //            Refresh();
-    //        });
-    //    }
-
-    //    public List<SalesUnitLookup> SalesUnits { get; } = new List<SalesUnitLookup>();
-    //    public List<TenderLookup> Tenders { get; } = new List<TenderLookup>();
-    //    public List<OfferLookup> Offers { get; } = new List<OfferLookup>();
-
-    //    [Designation("Сумма проекта"), OrderStatus(7)]
-    //    public double Sum => SalesUnits.Sum(x => x.Cost);
-
-    //    [Designation("Дата поставки"), OrderStatus(6)]
-    //    public DateTime RealizationDate => SalesUnits.Any() ? SalesUnits.Select(x => x.DeliveryDateExpected).Min() : DateTime.Today.AddMonths(6);
-
-    //    [Designation("Тендер"), OrderStatus(5)]
-    //    public DateTime? TenderDate
-    //    {
-    //        get
-    //        {
-    //            if (!Tenders.Any()) return null;
-    //            var supply = Tenders.Where(x => x.Entity.Types.Select(t => t.Type).Contains(TenderTypeEnum.ToSupply)).ToList();
-    //            return !supply.Any() ? null : supply.OrderBy(x => x.DateClose).Last()?.DateClose;
-    //        }
-    //    }
-
-    //    [Designation("Объекты"), OrderStatus(10)]
-    //    public List<FacilityLookup> Facilities => SalesUnits?.Select(x => x.Facility).Distinct(new FacilityComparer()).ToList();
-
-
-    //    [Designation("Подрядчик"), OrderStatus(4)]
-    //    public CompanyLookup Builder
-    //    {
-    //        get
-    //        {
-    //            if (Tenders.Any())
-    //            {
-    //                var tenders = Tenders.Where(x => x.Types.Select(t => t.Type).Contains(TenderTypeEnum.ToWork)).OrderBy(x => x.DateClose);
-    //                return tenders.LastOrDefault()?.Winner;
-    //            }
-    //            return null;
-    //        }
-    //    }
-
-    //    [Designation("Проектировщик"), OrderStatus(3)]
-    //    public CompanyLookup ProjectMaker
-    //    {
-    //        get
-    //        {
-    //            if (Tenders.Any())
-    //            {
-    //                var tenders = Tenders.Where(x => x.Types.Select(t => t.Type).Contains(TenderTypeEnum.ToProject)).OrderBy(x => x.DateClose);
-    //                return tenders.LastOrDefault()?.Winner;
-    //            }
-    //            return null;
-    //        }
-    //    }
-
-    //    [Designation("Поставщик"), OrderStatus(2)]
-    //    public CompanyLookup Sypplier
-    //    {
-    //        get
-    //        {
-    //            if (Tenders.Any())
-    //            {
-    //                var tenders = Tenders.Where(x => x.Types.Select(t => t.Type).Contains(TenderTypeEnum.ToSupply)).OrderBy(x => x.DateClose);
-    //                return tenders.LastOrDefault()?.Winner;
-    //            }
-    //            return null;
-    //        }
-    //    }
-
-    //    [Designation("Done"), OrderStatus(-8)]
-    //    public bool IsDone => SalesUnits.All(x => x.IsDone);
-
-    //    [Designation("Проигран"), OrderStatus(-10)]
-    //    public bool IsLoosen => SalesUnits.All(x => x.IsLoosen);
-
-    //    public override int CompareTo(object other)
-    //    {
-    //        return RealizationDate.CompareTo(((ProjectLookup)other).RealizationDate);
-    //    }
-
-    //    internal class FacilityComparer : IEqualityComparer<FacilityLookup>
-    //    {
-    //        public bool Equals(FacilityLookup x, FacilityLookup y)
-    //        {
-    //            return y != null && (x != null && x.Id == y.Id);
-    //        }
-
-    //        public int GetHashCode(FacilityLookup obj)
-    //        {
-    //            return 0;
-    //        }
-    //    }
-    //}
-
-
     public partial class Market2ViewModel : ViewModelBase
     {
-        public ProjectsContainer Projects { get; }
+        private ProjectItem _selectedProjectItem;
+        private readonly IEventAggregator _eventAggregator;
+
+        public ObservableCollection<ProjectItem> ProjectItems { get; }
+
+        public ProjectItem SelectedProjectItem
+        {
+            get { return _selectedProjectItem; }
+            set
+            {
+                _selectedProjectItem = value;
+                ProjectRaiseCanExecuteChanged();
+                if(value != null)
+                    _eventAggregator.GetEvent<SelectedProjectChangedEvent>().Publish(value.Project);
+            }
+        }
+
         public OffersContainer Offers { get; }
         public TendersContainer Tenders { get; }
-        public SalesUnitsProjectBase SalesUnits { get; }
 
         public Market2ViewModel(IUnityContainer container) : base(container)
         {
+            _eventAggregator = Container.Resolve<IEventAggregator>();
 
-            Projects = container.Resolve<ProjectsContainer>();
+            var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Manager.IsAppCurrentUser());
+            var salesUnitsGroups = salesUnits.GroupBy(x => x, new SalesUnitsComparer()).OrderBy(x => x.Key.OrderInTakeDate);
+            ProjectItems = new ObservableCollection<ProjectItem>(salesUnitsGroups.Select(x => new ProjectItem(x)));
+
             Offers = container.Resolve<OffersContainer>();
             Tenders = container.Resolve<TendersContainer>();
-            SalesUnits = container.Resolve<SalesUnitsProjectBase>();
 
             #region Commands definition
             
             //команды
             NewProjectCommand = new DelegateCommand(NewProjectCommand_Execute);
-            EditProjectCommand = new DelegateCommand(EditProjectCommand_Execute, () => Projects.SelectedItem != null);
-            RemoveProjectCommand = new DelegateCommand(async () => await Projects.RemoveSelectedItemTask(), () => Projects.SelectedItem != null);
+            EditProjectCommand = new DelegateCommand(EditProjectCommand_Execute, () => SelectedProjectItem != null);
+            RemoveProjectCommand = new DelegateCommand(() => { }, () => SelectedProjectItem != null);
 
-            NewSpecificationCommand = new DelegateCommand(NewSpecificationCommand_Execute, () => Projects.SelectedItem != null);
+            NewSpecificationCommand = new DelegateCommand(NewSpecificationCommand_Execute, () => SelectedProjectItem != null);
 
             EditOfferCommand = new DelegateCommand(EditOfferCommand_Execute, () => Offers.SelectedItem != null);
             RemoveOfferCommand = new DelegateCommand(async () => await Offers.RemoveSelectedItemTask(), () => Offers.SelectedItem != null);
             PrintOfferCommand = new DelegateCommand(PrintOfferCommand_Execute, () => Offers.SelectedItem != null);
-            NewOfferByProjectCommand = new DelegateCommand(NewOfferByProjectCommand_Execute, () => Projects.SelectedItem != null);
+            NewOfferByProjectCommand = new DelegateCommand(NewOfferByProjectCommand_Execute, () => SelectedProjectItem != null);
             NewOfferByOfferCommand = new DelegateCommand(NewOfferByOfferCommand_Execute, () => Offers.SelectedItem != null);
 
-            NewTenderCommand = new DelegateCommand(NewTenderCommand_Execute, () => Projects.SelectedItem != null);
+            NewTenderCommand = new DelegateCommand(NewTenderCommand_Execute, () => SelectedProjectItem != null);
             EditTenderCommand = new DelegateCommand(EditTenderCommand_Execute, () => Tenders.SelectedItem != null);
             RemoveTenderCommand = new DelegateCommand(async () => await Tenders.RemoveSelectedItemTask(), () => Tenders.SelectedItem != null);
 
-            StructureCostsCommand = new DelegateCommand(StructureCostsCommand_Execute, () => Projects.SelectedItem != null);
+            StructureCostsCommand = new DelegateCommand(StructureCostsCommand_Execute, () => SelectedProjectItem != null);
 
             #endregion
 
             #region Subscribe to Events
 
             //подписка на выбор сущностей
-            var eventAggregator = container.Resolve<IEventAggregator>();
-            eventAggregator.GetEvent<SelectedProjectChangedEvent>().Subscribe(project => ProjectRaiseCanExecuteChanged());
-            eventAggregator.GetEvent<SelectedOfferChangedEvent>().Subscribe(offer => OfferRaiseCanExecuteChanged());
-            eventAggregator.GetEvent<SelectedTenderChangedEvent>().Subscribe(tender => TenderRaiseCanExecuteChanged());
+            _eventAggregator.GetEvent<SelectedOfferChangedEvent>().Subscribe(offer => OfferRaiseCanExecuteChanged());
+            _eventAggregator.GetEvent<SelectedTenderChangedEvent>().Subscribe(tender => TenderRaiseCanExecuteChanged());
 
             #endregion
+
+            //реакция на удаление юнита
+            _eventAggregator.GetEvent<AfterRemoveSalesUnitEvent>().Subscribe(salesUnit =>
+            {
+                foreach (var projectItem in ProjectItems)
+                {
+                    if (projectItem.SalesUnits.ContainsById(salesUnit))
+                    {
+                        if (projectItem.SalesUnits.Count == 1)
+                        {
+                            ProjectItems.Remove(projectItem);
+                        }
+                        else
+                        {
+                            projectItem.SalesUnits.RemoveById(salesUnit);
+                        }
+                        return;
+                    }
+                }
+
+            });
+
+            _eventAggregator.GetEvent<AfterSaveSalesUnitEvent>().Subscribe(salesUnit =>
+            {
+                //редактируем юнит в существующей группе
+                foreach (var projectItem in ProjectItems)
+                {
+                    if (projectItem.SalesUnits.ContainsById(salesUnit))
+                    {
+                        if (projectItem.SalesUnits.Count == 1 ||
+                            new SalesUnitsComparer().Equals(salesUnit, projectItem.SalesUnits.First()))
+                        {
+                            projectItem.SalesUnits.ReAddById(salesUnit);
+                            return;
+                        }
+
+                        projectItem.SalesUnits.RemoveById(salesUnit);
+                    }
+                }
+
+                //добавляем юнит в подходящий юнит
+                foreach (var projectItem in ProjectItems)
+                {
+                    if (new SalesUnitsComparer().Equals(salesUnit, projectItem.SalesUnits.First()))
+                    {
+                        projectItem.SalesUnits.Add(salesUnit);
+                        return;
+                    }
+                }
+
+                //создаем новую группу для юнита
+                ProjectItems.Add(new ProjectItem(new List<SalesUnit>() { salesUnit }));
+            });
         }
+
 
         #region RaiseCanExecuteChanged
 
@@ -259,5 +160,24 @@ namespace HVTApp.Modules.Sales.ViewModels
         }
 
         #endregion
+    }
+
+    public class SalesUnitsComparer : IEqualityComparer<SalesUnit>
+    {
+        public bool Equals(SalesUnit x, SalesUnit y)
+        {
+            if (!Equals(x.RealizationDateCalculated, y.RealizationDateCalculated)) return false;
+            if (!Equals(x.OrderInTakeDate, y.OrderInTakeDate)) return false;
+            if (!Equals(x.Project.Id, y.Project.Id)) return false;
+            if (!Equals(x.IsDone, y.IsDone)) return false;
+            if (!Equals(x.IsLoosen, y.IsLoosen)) return false;
+
+            return true;
+        }
+
+        public int GetHashCode(SalesUnit obj)
+        {
+            return 0;
+        }
     }
 }

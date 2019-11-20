@@ -2,8 +2,10 @@
 using HVTApp.Infrastructure;
 using HVTApp.Modules.Sales.Tabs;
 using HVTApp.Modules.Sales.ViewModels;
+using Infragistics.Windows.DataPresenter;
 using Prism.Events;
 using Prism.Regions;
+using ViewBase = HVTApp.Infrastructure.ViewBase;
 
 namespace HVTApp.Modules.Sales.Views
 {
@@ -22,6 +24,7 @@ namespace HVTApp.Modules.Sales.Views
             this.DataContext = viewModel;
 
             //this.Loaded += OnLoaded;
+
         }
 
         //private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
@@ -29,5 +32,13 @@ namespace HVTApp.Modules.Sales.Views
         //    await _viewModel.Load();
         //    this.Loaded -= OnLoaded;
         //}
+        private void ProjectsGrid_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            var dg = (XamDataGrid) sender;
+            foreach (var o in dg.DataSource)
+            {
+                dg.GetRecordFromDataItem(o, recursive: false).IsExpanded = true;
+            }
+        }
     }
 }
