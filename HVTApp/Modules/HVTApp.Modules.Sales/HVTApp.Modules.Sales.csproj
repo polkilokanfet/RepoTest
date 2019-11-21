@@ -182,7 +182,7 @@
     <Compile Include="ViewModels\StructureCostsViewModel.cs" />
     <Compile Include="ViewModels\TenderViewModel.cs" />
     <Compile Include="ViewModels\Groups\UnitsContainer.cs" />
-    <Compile Include="Views\MarketView.xaml.cs">
+    <Compile Include="Views\MarketView\MarketView.xaml.cs">
       <DependentUpon>MarketView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ProductsIncludedWindow.xaml.cs">
@@ -221,7 +221,7 @@
     <Compile Include="Views\OffersView.xaml.cs">
       <DependentUpon>OffersView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Market2View.xaml.cs">
+    <Compile Include="Views\MarketView\Market2View.xaml.cs">
       <DependentUpon>Market2View.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ProductionView.xaml.cs">
@@ -310,7 +310,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MarketView.xaml">
+    <Page Include="Views\MarketView\MarketView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -362,7 +362,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Market2View.xaml">
+    <Page Include="Views\MarketView\Market2View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

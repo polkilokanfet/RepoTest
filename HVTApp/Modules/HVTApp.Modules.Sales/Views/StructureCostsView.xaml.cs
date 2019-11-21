@@ -21,20 +21,21 @@ namespace HVTApp.Modules.Sales.Views
             this.DataContext = _viewModel;
         }
 
-        private bool _isNavigationTarget = false;
+        //private bool _isNavigationTarget = false;
 
         public override bool IsNavigationTarget(NavigationContext navigationContext)
         {
-            var project = navigationContext.Parameters.First().Value as Project;
-            _isNavigationTarget = _viewModel.SalesUnitWrappers.First().Project.Id == project.Id;
-            return _isNavigationTarget;
+            //var project = navigationContext.Parameters.First().Value as Project;
+            //_isNavigationTarget = _viewModel.SalesUnitWrappers.First().Project.Id == project.Id;
+            //return _isNavigationTarget;
+            return false;
         }
 
         public override void OnNavigatedTo(NavigationContext navigationContext)
         {
             base.OnNavigatedTo(navigationContext);
 
-            if (_isNavigationTarget) return;
+            //if (_isNavigationTarget) return;
 
             var project = navigationContext.Parameters.First().Value as Project;
             _viewModel.Load(project);

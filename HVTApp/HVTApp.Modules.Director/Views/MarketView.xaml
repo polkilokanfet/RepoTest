@@ -4,8 +4,21 @@
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure">
 
-    <Grid>
+    <inf:ViewBase.Resources>
+        <Style x:Key="BoltFontCellsStyle" TargetType="{x:Type infg:CellValuePresenter}">
+            <Setter Property="ForegroundStyle">
+                <Setter.Value>
+                    <Style>
+                        <!--<Setter Property="TextBlock.Background" Value="Aqua" />-->
+                        <Setter Property="TextBlock.FontWeight" Value="Bold" />
+                        <!--<Setter Property="TextBlock.FontStyle" Value="Italic"/>-->
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </inf:ViewBase.Resources>
 
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>

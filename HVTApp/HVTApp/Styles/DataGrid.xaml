@@ -1,17 +1,11 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:infgDp="http://infragistics.com/DataPresenter">
-
-    <Style x:Key="BoltFontCellsStyle" TargetType="{x:Type infgDp:CellValuePresenter}">
-        <Setter Property="ForegroundStyle">
-            <Setter.Value>
-                <Style>
-                    <!--<Setter Property="TextBlock.Background" Value="Aqua" />-->
-                    <Setter Property="TextBlock.FontWeight" Value="Bold" />
-                    <!--<Setter Property="TextBlock.FontStyle" Value="Italic"/>-->
-                </Style>
-            </Setter.Value>
-        </Setter>
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <Style TargetType="DataGrid">
+        <Setter Property="Validation.ErrorTemplate" Value="{StaticResource DefaultValidationErrorTemplate}"/>
+        <Setter Property="AutoGenerateColumns" Value="False"/>
+        <Setter Property="CanUserAddRows" Value="False"/>
+        <Setter Property="CanUserDeleteRows" Value="False"/>
     </Style>
-
+    
 </ResourceDictionary>

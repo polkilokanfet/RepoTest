@@ -4,6 +4,21 @@
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               x:Class="HVTApp.Modules.PlanAndEconomy.Views.DatesView">
 
+    <inf:ViewBase.Resources>
+        <Style x:Key="BoltFontCellsStyle" TargetType="{x:Type infg:CellValuePresenter}">
+            <Setter Property="ForegroundStyle">
+                <Setter.Value>
+                    <Style>
+                        <!--<Setter Property="TextBlock.Background" Value="Aqua" />-->
+                        <Setter Property="TextBlock.FontWeight" Value="Bold" />
+                        <!--<Setter Property="TextBlock.FontStyle" Value="Italic"/>-->
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </inf:ViewBase.Resources>
+
+
     <Grid>
          <Grid.RowDefinitions>
              <RowDefinition Height="Auto"/>
@@ -36,22 +51,26 @@
 			<infg:XamDataGrid.FieldLayouts>
                 
 				<infg:FieldLayout>
-					<infg:FieldLayout.Fields>
+                    <infg:FieldLayout.FieldSettings>
+                        <infg:FieldSettings CellValuePresenterStyle="{StaticResource BoltFontCellsStyle}"/>
+                    </infg:FieldLayout.FieldSettings>
+
+                    <infg:FieldLayout.Fields>
 
                         <infg:TextField AlternateBinding="{Binding Model.Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
                         <infg:TextField AlternateBinding="{Binding Model.Product.ProductType}" BindingType="UseAlternateBinding" Label="Тип" Width="Auto"/>
                         <infg:TextField AlternateBinding="{Binding Model.Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="Auto"/>
-                        <infg:TextField AlternateBinding="{Binding Model.Order}" BindingType="UseAlternateBinding" Label="З/з" Width="Auto"/>
-                        <infg:TextField Name="OrderPosition" Label="Поз." Width="Auto"/>
+                        <infg:TextField AlternateBinding="{Binding Model.Order}" BindingType="UseAlternateBinding" Label="З/з" Width="Auto" AllowResize="False"/>
+                        <infg:TextField Name="OrderPosition" Label="Поз." Width="Auto" AllowResize="False"/>
                         <infg:TextField Name="SerialNumber" Label="Сер.№" Width="Auto" AllowEdit="True"/>
                         <infg:TextField AlternateBinding="{Binding Model.Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto"/>
                         <infg:TextField AlternateBinding="{Binding Model.Specification.Number}" BindingType="UseAlternateBinding" Label="Сп.№" Width="Auto"/>
                         <infg:TextField AlternateBinding="{Binding Model.Specification.Contract}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
-                        <infg:DateTimeField Name="PickingDate" Label="Комплектация" Width="Auto" AllowEdit="True"/>
-                        <infg:DateTimeField Name="EndProductionDate" Label="Производство" Width="Auto" AllowEdit="True"/>
-                        <infg:DateTimeField Name="ShipmentDate" Label="Отгрузка" Width="Auto" AllowEdit="True"/>
-                        <infg:DateTimeField Name="DeliveryDate" Label="Доставка" Width="Auto" AllowEdit="True"/>
-                        <infg:DateTimeField Name="RealizationDate" Label="Реализация" Width="Auto" AllowEdit="True"/>
+                        <infg:DateTimeField Name="PickingDate" Label="Комплектация" Width="110" AllowEdit="True" AllowResize="False"/>
+                        <infg:DateTimeField Name="EndProductionDate" Label="Производство" Width="110" AllowEdit="True" AllowResize="False"/>
+                        <infg:DateTimeField Name="ShipmentDate" Label="Отгрузка" Width="110" AllowEdit="True" AllowResize="False"/>
+                        <infg:DateTimeField Name="DeliveryDate" Label="Доставка" Width="110" AllowEdit="True" AllowResize="False"/>
+                        <infg:DateTimeField Name="RealizationDate" Label="Реализация" Width="110" AllowEdit="True" AllowResize="False"/>
                         <infg:Field Name="Units" IsExpandable="True"/>
 
                     </infg:FieldLayout.Fields>
@@ -59,26 +78,26 @@
 
                 <infg:FieldLayout ParentFieldName="Units">
                     
-                    <infg:FieldLayout.FieldSettings>
+                    <!--<infg:FieldLayout.FieldSettings>
                         <infg:FieldSettings AllowRecordFiltering="False"/>
-                    </infg:FieldLayout.FieldSettings>
+                    </infg:FieldLayout.FieldSettings>-->
                     
                     <infg:FieldLayout.Fields>
 
                         <infg:TextField AlternateBinding="{Binding Model.Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
                         <infg:TextField AlternateBinding="{Binding Model.Product.ProductType}" BindingType="UseAlternateBinding" Label="Тип" Width="Auto"/>
                         <infg:TextField AlternateBinding="{Binding Model.Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="Auto"/>
-                        <infg:TextField AlternateBinding="{Binding Model.Order}" BindingType="UseAlternateBinding" Label="З/з" Width="Auto"/>
-                        <infg:TextField AlternateBinding="{Binding Model.OrderPosition}" BindingType="UseAlternateBinding" Label="Поз." Width="Auto"/>
+                        <infg:TextField AlternateBinding="{Binding Model.Order}" BindingType="UseAlternateBinding" Label="З/з" Width="Auto" AllowResize="False"/>
+                        <infg:TextField AlternateBinding="{Binding Model.OrderPosition}" BindingType="UseAlternateBinding" Label="Поз." Width="Auto" AllowResize="False"/>
                         <infg:TextField Name="SerialNumber" Label="Сер.№" Width="Auto" AllowEdit="True"/>
                         <infg:TextField AlternateBinding="{Binding Model.Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto"/>
                         <infg:TextField AlternateBinding="{Binding Model.Specification.Number}" BindingType="UseAlternateBinding" Label="Сп.№" Width="Auto"/>
                         <infg:TextField AlternateBinding="{Binding Model.Specification.Contract}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
-                        <infg:DateTimeField Name="PickingDate" Label="Комплектация" Width="Auto" AllowEdit="True"/>
-                        <infg:DateTimeField Name="EndProductionDate" Label="Производство" Width="Auto" AllowEdit="True"/>
-                        <infg:DateTimeField Name="ShipmentDate" Label="Отгрузка" Width="Auto" AllowEdit="True"/>
-                        <infg:DateTimeField Name="DeliveryDate" Label="Доставка" Width="Auto" AllowEdit="True"/>
-                        <infg:DateTimeField Name="RealizationDate" Label="Реализация" Width="Auto" AllowEdit="True"/>
+                        <infg:DateTimeField Name="PickingDate" Label="Комплектация" Width="110" AllowEdit="True" AllowResize="False"/>
+                        <infg:DateTimeField Name="EndProductionDate" Label="Производство" Width="110" AllowEdit="True" AllowResize="False"/>
+                        <infg:DateTimeField Name="ShipmentDate" Label="Отгрузка" Width="110" AllowEdit="True" AllowResize="False"/>
+                        <infg:DateTimeField Name="DeliveryDate" Label="Доставка" Width="110" AllowEdit="True" AllowResize="False"/>
+                        <infg:DateTimeField Name="RealizationDate" Label="Реализация" Width="110" AllowEdit="True" AllowResize="False"/>
 
                     </infg:FieldLayout.Fields>
                 </infg:FieldLayout>
@@ -90,5 +109,7 @@
 
     </Grid>
 </inf:ViewBase>
+
+	
 
 	

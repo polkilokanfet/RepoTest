@@ -1,0 +1,99 @@
+﻿<inf:ViewBase xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:views="clr-namespace:HVTApp.UI.Views;assembly=HVTApp.UI"
+              xmlns:infg="http://infragistics.com/DataPresenter"
+              x:Class="HVTApp.Modules.Sales.Views.MarketView">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <infg:XamDataGrid x:Name="ProjectListGrid" 
+                          DataSource="{Binding Projects}"
+                          SelectedDataItem="{Binding SelectedProject}"
+                          Grid.Row="0">
+
+            <infg:XamDataGrid.FieldLayouts>
+                <infg:FieldLayout Key="Project">
+                    <infg:FieldLayout.Fields>
+                        <infg:TextField Name="Name" Label="Название" />
+                        <!--<infg:NumericField Name="Sum" Label="Сумма" Width="Auto" />-->
+                        <!--<infg:DateTimeField Name="RealizationDate" Label="Дата" Width="Auto" />-->
+                        <infg:Field Name="UnitGroups" IsExpandable="True"/>
+                    </infg:FieldLayout.Fields>
+                </infg:FieldLayout>
+
+                <infg:FieldLayout ParentFieldLayoutKey="Project" ParentFieldName="UnitGroups">
+                    <infg:FieldLayout.Fields>
+                        <infg:TextField Name="Facility" Label="Объект" Width="Auto"/>
+                        <infg:TextField Name="Product" Label="Оборудование"/>
+                        <infg:DateTimeField Name="DeliveryDateExpected" Label="Дата поставки" Width="Auto"/>
+                        <infg:NumericField Name="Amount" Label="Количество" Width="Auto"/>
+                        <infg:NumericField Name="Cost" Label="Стоимость" Width="Auto"/>
+                        <infg:NumericField Name="Total" Label="Сумма" Width="Auto"/>
+                        <infg:TextField Name="Producer" Label="Производитель" Width="Auto" />
+                    </infg:FieldLayout.Fields>
+                </infg:FieldLayout>
+                
+            </infg:XamDataGrid.FieldLayouts>
+        </infg:XamDataGrid>
+        
+        <GridSplitter Grid.Row="1" Height="5" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+        
+        <infg:XamDataGrid Grid.Row="2" 
+                          DataSource="{Binding Offers}" 
+                          SelectedDataItem="{Binding SelectedOffer, Mode=TwoWay}">
+
+            <infg:XamDataGrid.FieldLayouts>
+                <infg:FieldLayout Key="Offer">
+                    <infg:FieldLayout.Fields>
+                        <infg:TextField AlternateBinding="{Binding RecipientEmployee.Company}" BindingType="UseAlternateBinding" Label="Компания" Width="Auto" />
+                        <infg:NumericField Name="Sum" Label="Сумма" Width="Auto" />
+                        <infg:DateTimeField AlternateBinding="{Binding RegistrationDetailsOfSender.RegistrationDate}" BindingType="UseAlternateBinding" Label="Дата" Width="Auto"/>
+                        <infg:Field Name="OfferUnitsGroups" IsExpandable="True"/>
+                    </infg:FieldLayout.Fields>
+                </infg:FieldLayout>
+
+                <infg:FieldLayout ParentFieldLayoutKey="Offer" ParentFieldName="OfferUnitsGroups">
+                    <infg:FieldLayout.Fields>
+                        <infg:TextField Name="Facility" Label="Объект" Width="Auto"/>
+                        <infg:TextField Name="Product" Label="Оборудование" Width="Auto"/>
+                        <infg:NumericField Name="Amount" Label="Количество" Width="Auto"/>
+                        <infg:NumericField Name="MarginalIncome" Label="МД, %" AllowEdit="True" Width="Auto"/>
+                        <infg:CurrencyField Name="Cost" Label="Стоимость" AllowEdit="True" Width="Auto"/>
+                        <infg:CurrencyField Name="Total" Label="Сумма" Width="Auto"/>
+                    </infg:FieldLayout.Fields>
+                </infg:FieldLayout>
+            </infg:XamDataGrid.FieldLayouts>
+            
+        </infg:XamDataGrid>
+        
+        <GridSplitter Grid.Row="3" Height="5" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+        
+        <infg:XamDataGrid Grid.Row="4" 
+                          DataSource="{Binding Tenders}" 
+                          SelectedDataItem="{Binding SelectedTender, Mode=TwoWay}">
+            
+            <infg:XamDataGrid.FieldLayouts>
+                <infg:FieldLayout>
+                    <infg:FieldLayout.Fields>
+                        <infg:TextField Name="Type" Label="Тип" Width="Auto" />
+                        <infg:DateTimeField Name="DateOpen" Label="DateOpen" Width="Auto" />
+                        <infg:DateTimeField Name="DateClose" Label="DateClose" Width="Auto" />
+                        <infg:DateTimeField Name="DateNotice" Label="DateNotice" Width="Auto" />
+                        <infg:TextField Name="Winner" Label="Winner" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    </infg:FieldLayout.Fields>
+                </infg:FieldLayout>
+            </infg:XamDataGrid.FieldLayouts>
+
+        </infg:XamDataGrid>
+
+    </Grid>
+
+</inf:ViewBase>
