@@ -11,13 +11,13 @@
     
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Name="CreateNewButton" Content="Создать" Padding="20,5" Margin="4,4,2,4"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
             <Button Name="SelectButton" Content="Выбрать" Padding="20,5" Margin="2,4,4,4" IsDefault="True"/>
+            <Button Name="CreateNewButton" Content="Создать" Padding="20,5" Margin="4,4,2,4"/>
         </StackPanel>
         
         <ScrollViewer Grid.Row="1">

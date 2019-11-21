@@ -18,19 +18,21 @@ namespace HVTApp.Services.ShippingService
 
         public int? DeliveryTerm(SalesUnit salesUnit)
         {
-            if (salesUnit.Facility == null)
-                return null;
+            var facility = salesUnit.Facility;
+            
+            if (facility == null) return null;
 
-            //адрес владельца объекта
-            var locality = salesUnit.Facility.OwnerCompany.AddressLegal?.Locality;
+            var locality = salesUnit.AddressDelivery?.Locality              //адрес доставки
+                           ?? facility.Address?.Locality                    //адрес объекта
+                           ?? facility.OwnerCompany.AddressLegal?.Locality; //адрес владельца объекта
 
-            //адрес объекта
-            if(salesUnit.Facility.Address != null)
-                locality = salesUnit.Facility.Address.Locality;
-
-            //адрес доставки
-            if (salesUnit.AddressDelivery != null)
-                locality = salesUnit.AddressDelivery.Locality;
+            //поиск адреса в голове владельца
+            var company = facility.OwnerCompany.ParentCompany;
+            while (company != null && locality == null)
+            {
+                locality = company.AddressLegal?.Locality;
+                company = company.ParentCompany;
+            }
 
             if(locality != null)
             { 

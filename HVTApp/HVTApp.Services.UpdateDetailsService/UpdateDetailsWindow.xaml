@@ -16,7 +16,7 @@
                             HorizontalAlignment="Stretch"
                             MinWidth="200"/>
         </ScrollViewer>
-        <Button Grid.Row="1" Content="Сохранить" Name="SaveButton"/>
+        <Button Grid.Row="1" Content="Сохранить" Name="SaveButton" IsDefault="True"/>
         
     </Grid>
     
