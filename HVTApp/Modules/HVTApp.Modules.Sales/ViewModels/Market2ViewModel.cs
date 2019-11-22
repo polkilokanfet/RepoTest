@@ -8,6 +8,7 @@ using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
+using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Events;
@@ -18,6 +19,7 @@ namespace HVTApp.Modules.Sales.ViewModels
     {
         private ProjectItem _selectedProjectItem;
         private readonly IEventAggregator _eventAggregator;
+        private List<Tender> _tenders;
 
         public ObservableCollection<ProjectItem> ProjectItems { get; }
 
@@ -50,7 +52,8 @@ namespace HVTApp.Modules.Sales.ViewModels
                 ? UnitOfWork.Repository<SalesUnit>().Find(x => true) 
                 : UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Manager.IsAppCurrentUser());
             var salesUnitsGroups = salesUnits.GroupBy(x => x, new SalesUnitsComparer()).OrderBy(x => x.Key.OrderInTakeDate);
-            ProjectItems = new ObservableCollection<ProjectItem>(salesUnitsGroups.Select(x => new ProjectItem(x)));
+            _tenders = UnitOfWork.Repository<Tender>().Find(x => true);
+            ProjectItems = new ObservableCollection<ProjectItem>(salesUnitsGroups.Select(x => new ProjectItem(x, _tenders.Where(t => x.Key.Project.Id == t.Project.Id))));
 
             Offers = container.Resolve<OffersContainer>();
             Tenders = container.Resolve<TendersContainer>();
@@ -136,7 +139,23 @@ namespace HVTApp.Modules.Sales.ViewModels
                 }
 
                 //создаем новую группу для юнита
-                ProjectItems.Add(new ProjectItem(new List<SalesUnit>() { salesUnit }));
+                ProjectItems.Add(new ProjectItem(new List<SalesUnit>() { salesUnit }, _tenders.Where(x => x.Project.Id == salesUnit.Project.Id)));
+            });
+
+            _eventAggregator.GetEvent<AfterRemoveTenderEvent>().Subscribe(tender =>
+            {
+                _tenders.RemoveById(tender);
+                ProjectItems.ForEach(x => x.Tenders.RemoveIfContainsById(tender));
+            });
+
+            _eventAggregator.GetEvent<AfterSaveTenderEvent>().Subscribe(tender =>
+            {
+                _tenders.ReAddById(tender);
+                foreach (var projectItem in ProjectItems)
+                {
+                    if(projectItem.Project.Id == tender.Project.Id)
+                        projectItem.Tenders.ReAddById(tender);
+                }
             });
 
             ExpandCommand = new DelegateCommand(() => { ExpandCollapseEvent?.Invoke(true); });

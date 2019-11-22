@@ -80,10 +80,10 @@
                             <infgDp:DateTimeField AlternateBinding="{Binding OrderInTakeDate}" BindingType="UseAlternateBinding" Label="ОИТ" Width="Auto" AllowResize="False" />
                             <infgDp:DateTimeField AlternateBinding="{Binding RealizationDate}" BindingType="UseAlternateBinding" Label="Поставка" Width="Auto" AllowResize="False" />
                             <infgDp:TextField AlternateBinding="{Binding ProjectType}" BindingType="UseAlternateBinding" Label="Тип проекта" Width="Auto" />
-                            <!--<infgDp:DateTimeField AlternateBinding="{Binding TenderDate}" BindingType="UseAlternateBinding" Label="Тендер" Width="Auto" />
-                            <infgDp:TextField AlternateBinding="{Binding Builder}" BindingType="UseAlternateBinding" Label="Подрядчик" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                            <infgDp:TextField AlternateBinding="{Binding ProjectMaker}" BindingType="UseAlternateBinding" Label="Проектировщик" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                            <infgDp:TextField AlternateBinding="{Binding Sypplier}" BindingType="UseAlternateBinding" Label="Поставщик" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>-->
+                            <infgDp:DateTimeField AlternateBinding="{Binding TenderDate}" BindingType="UseAlternateBinding" Label="Тендер" Width="Auto" />
+                            <infgDp:TextField AlternateBinding="{Binding Builder}" BindingType="UseAlternateBinding" Label="Подрядчик" Width="Auto"/>
+                            <infgDp:TextField AlternateBinding="{Binding ProjectMaker}" BindingType="UseAlternateBinding" Label="Проектировщик" Width="Auto"/>
+                            <infgDp:TextField AlternateBinding="{Binding Sypplier}" BindingType="UseAlternateBinding" Label="Поставщик" Width="Auto"/>
                             <infgDp:CheckBoxField Name="IsDone" AlternateBinding="{Binding IsDone}" BindingType="UseAlternateBinding" Label="Done" Width="Auto" AllowResize="False"/>
                             <infgDp:CheckBoxField Name="IsLoosen" AlternateBinding="{Binding IsLoosen}" BindingType="UseAlternateBinding" Label="Loose" Width="Auto" AllowResize="False"/>
                             <infgDp:CheckBoxField Name="InWork" AlternateBinding="{Binding InWork}" BindingType="UseAlternateBinding" Label="Work" Width="Auto" AllowResize="False"/>

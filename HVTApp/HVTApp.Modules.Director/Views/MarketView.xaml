@@ -49,7 +49,7 @@
                         <infg:FieldSettings CellValuePresenterStyle="{StaticResource BoltFontCellsStyle}" />
                     </infg:FieldLayout.FieldSettings>
 
-                    <infg:TextField Name="Facilities" Label="Объект" Width="Auto"/>
+                    <infg:TextField Name="Facilities" Label="Объект" Width="250"/>
                     <infg:NumericField Name="Sum" Label="Сумма" Width="Auto" AllowResize="False"/>
                     <infg:DateTimeField Name="OrderInTakeDate" Label="Дата ОИТ" Width="Auto" AllowResize="False"/>
                     <infg:TextField Name="Project" Label="Проект" Width="Auto"/>
