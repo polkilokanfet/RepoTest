@@ -72,6 +72,7 @@
     <Compile Include="POCOs\PaymentType.cs" />
     <Compile Include="Comparers\ProductDependentComparer.cs" />
     <Compile Include="POCOs\Penalty.cs" />
+    <Compile Include="POCOs\PriceCalculation.cs" />
     <Compile Include="POCOs\ProductIncluded.cs" />
     <Compile Include="POCOs\ProductDesignation.cs" />
     <Compile Include="POCOs\ProductType.cs" />

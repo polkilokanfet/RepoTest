@@ -159,6 +159,7 @@
     <Compile Include="ViewModels\Groups\OfferUnitsGroupsViewModel.cs" />
     <Compile Include="ViewModels\Market2ViewModel_Commands.cs" />
     <Compile Include="ViewModels\Containers\OffersContainer.cs" />
+    <Compile Include="ViewModels\PriceCalculationsViewModel.cs" />
     <Compile Include="ViewModels\ProductsIncludedViewModel.cs" />
     <Compile Include="ViewModels\Groups\SalesUnitsGroupsViewModel.cs" />
     <Compile Include="ViewModels\OffersViewModel.cs" />

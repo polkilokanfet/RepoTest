@@ -19,7 +19,7 @@ namespace HVTApp.Modules.Sales.ViewModels
     {
         private ProjectItem _selectedProjectItem;
         private readonly IEventAggregator _eventAggregator;
-        private List<Tender> _tenders;
+        private List<Tender> _tenders; //не заменять на локальную
 
         public ObservableCollection<ProjectItem> ProjectItems { get; }
 
