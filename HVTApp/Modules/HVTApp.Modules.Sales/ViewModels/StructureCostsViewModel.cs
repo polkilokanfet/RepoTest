@@ -60,7 +60,7 @@ namespace HVTApp.Modules.Sales.ViewModels
                 {
                     var structureCost = new StructureCost
                     {
-                        Comment = "StructureCostNew"
+                        Comment = "No title"
                     };
                     (SelectedItem as StructureCostsGroupWrapper).StructureCosts.StructureCostsList.Add(new StructureCostWrapper(structureCost));
                 },

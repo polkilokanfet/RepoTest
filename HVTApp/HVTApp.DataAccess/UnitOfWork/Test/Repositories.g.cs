@@ -65,6 +65,11 @@ namespace HVTApp.DataAccess
         public PenaltyRepositoryTest(TestData testData) : base(testData) {}
     }
 
+    public partial class PriceCalculationRepositoryTest : TestBaseRepository<PriceCalculation>, IPriceCalculationRepository
+    {
+        public PriceCalculationRepositoryTest(TestData testData) : base(testData) {}
+    }
+
     public partial class ProductIncludedRepositoryTest : TestBaseRepository<ProductIncluded>, IProductIncludedRepository
     {
         public ProductIncludedRepositoryTest(TestData testData) : base(testData) {}

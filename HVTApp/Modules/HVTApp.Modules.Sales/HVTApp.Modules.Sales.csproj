@@ -160,6 +160,7 @@
     <Compile Include="ViewModels\Market2ViewModel_Commands.cs" />
     <Compile Include="ViewModels\Containers\OffersContainer.cs" />
     <Compile Include="ViewModels\PriceCalculationsViewModel.cs" />
+    <Compile Include="ViewModels\PriceCalculationViewModel.cs" />
     <Compile Include="ViewModels\ProductsIncludedViewModel.cs" />
     <Compile Include="ViewModels\Groups\SalesUnitsGroupsViewModel.cs" />
     <Compile Include="ViewModels\OffersViewModel.cs" />
@@ -183,6 +184,9 @@
     <Compile Include="ViewModels\StructureCostsViewModel.cs" />
     <Compile Include="ViewModels\TenderViewModel.cs" />
     <Compile Include="ViewModels\Groups\UnitsContainer.cs" />
+    <Compile Include="Views\PriceCalculationView.xaml.cs">
+      <DependentUpon>PriceCalculationView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MarketView\MarketView.xaml.cs">
       <DependentUpon>MarketView.xaml</DependentUpon>
     </Compile>
@@ -310,6 +314,10 @@
     <Page Include="Tabs\SalesCRUD.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PriceCalculationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\MarketView\MarketView.xaml">
       <SubType>Designer</SubType>

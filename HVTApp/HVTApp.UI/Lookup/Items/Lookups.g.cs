@@ -359,6 +359,50 @@ namespace HVTApp.UI.Lookup
 
 	[AllowEditAttribute(Role.Admin)]
 
+	[Designation("PriceCalculation")]
+	public partial class PriceCalculationLookup : LookupItem<PriceCalculation>
+	{
+		public PriceCalculationLookup(PriceCalculation entity) : base(entity) 
+		{
+		}
+		
+
+        #region SimpleProperties
+
+		[OrderStatus(1)]
+        public System.Nullable<System.DateTime> TaskOpenMoment => Entity.TaskOpenMoment;
+
+
+		[OrderStatus(1)]
+        public System.Nullable<System.DateTime> TaskCloseMoment => Entity.TaskCloseMoment;
+
+
+		[OrderStatus(1)]
+        public System.String Comment => Entity.Comment;
+
+
+		[OrderStatus(1)]
+        public System.Boolean IsNeedExcelFile => Entity.IsNeedExcelFile;
+
+
+        #endregion
+
+
+        #region ComplexProperties
+
+		[OrderStatus(1)]
+	    public UserLookup Author { get { return GetLookup<UserLookup>(); } }
+
+
+        #endregion
+
+		[OrderStatus(1)]
+	    public List<SalesUnitLookup> SalesUnits { get { return GetLookupEnum<SalesUnitLookup>().ToList(); } }
+
+	}
+
+	[AllowEditAttribute(Role.Admin)]
+
 	[Designation("Включенное в стоимость оборудование")]
 	public partial class ProductIncludedLookup : LookupItem<ProductIncluded>
 	{
@@ -543,6 +587,18 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
         public System.Double Amount => Entity.Amount;
+
+
+		[OrderStatus(1)]
+        public System.Nullable<System.Double> UnitPrice => Entity.UnitPrice;
+
+
+		[OrderStatus(1)]
+        public System.Nullable<System.DateTime> UnitPriceDate => Entity.UnitPriceDate;
+
+
+		[OrderStatus(1)]
+        public System.Nullable<System.Double> Total => Entity.Total;
 
 
 		[OrderStatus(1)]

@@ -1,0 +1,68 @@
+<inf:ViewBase x:Class="HVTApp.UI.Views.PriceCalculationDetailsView"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			  xmlns:infDP="http://infragistics.com/DataPresenter"
+			  xmlns:infE="http://infragistics.com/Editors"
+			  xmlns:core="clr-namespace:System;assembly=mscorlib"
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+			  x:Name="Root">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" MinWidth="200"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+
+        <Label Grid.Column="0" Grid.Row ="0" Content="Финиш задачи" Visibility="{Binding VisibilityTaskCloseMomentPriceCalculation, ElementName=Root}"/>
+        <DatePicker Grid.Column="1" Grid.Row="0" 
+                    SelectedDate="{Binding Item.TaskCloseMoment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding VisibilityTaskCloseMomentPriceCalculation, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="1" Content="Требуется расчетный файл" Visibility="{Binding VisibilityIsNeedExcelFilePriceCalculation, ElementName=Root}"/>
+        <CheckBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
+                  IsChecked="{Binding Item.IsNeedExcelFile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				  Visibility="{Binding VisibilityIsNeedExcelFilePriceCalculation, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="2" Content="Старт задачи" Visibility="{Binding VisibilityTaskOpenMomentPriceCalculation, ElementName=Root}"/>
+        <DatePicker Grid.Column="1" Grid.Row="2" 
+                    SelectedDate="{Binding Item.TaskOpenMoment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding VisibilityTaskOpenMomentPriceCalculation, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="3" Content="Комментарий" Visibility="{Binding VisibilityCommentPriceCalculation, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="3" MinWidth="200" 
+                 Text="{Binding Item.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding VisibilityCommentPriceCalculation, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="4" Content="Единицы продаж" Visibility="{Binding VisibilitySalesUnitsPriceCalculation, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="4"
+										 Items="{Binding Path=Item.SalesUnits}"
+										 SelectedItem="{Binding SelectedSalesUnitsItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInSalesUnitsCommand}"
+										 RemoveItemCommand="{Binding RemoveFromSalesUnitsCommand}"
+										 Visibility="{Binding VisibilitySalesUnitsPriceCalculation, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="5" Content="Автор задачи" Visibility="{Binding VisibilityAuthorPriceCalculation, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="5" 
+                                    Item="{Binding Item.Author}" 
+                                    AddItemCommand="{Binding SelectAuthorCommand}" 
+                                    RemoveItemCommand="{Binding ClearAuthorCommand}"
+									Visibility="{Binding VisibilityAuthorPriceCalculation, ElementName=Root}"/>
+
+
+
+    </Grid>
+</inf:ViewBase>

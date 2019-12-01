@@ -15,6 +15,7 @@ namespace HVTApp.Model.Events
 	public partial class AfterSelectPaymentConditionPointEvent : PubSubEvent<PubSubEventArgs<PaymentConditionPoint>> { }
 	public partial class AfterSelectPaymentPlannedEvent : PubSubEvent<PubSubEventArgs<PaymentPlanned>> { }
 	public partial class AfterSelectPenaltyEvent : PubSubEvent<PubSubEventArgs<Penalty>> { }
+	public partial class AfterSelectPriceCalculationEvent : PubSubEvent<PubSubEventArgs<PriceCalculation>> { }
 	public partial class AfterSelectProductIncludedEvent : PubSubEvent<PubSubEventArgs<ProductIncluded>> { }
 	public partial class AfterSelectProductDesignationEvent : PubSubEvent<PubSubEventArgs<ProductDesignation>> { }
 	public partial class AfterSelectProductTypeEvent : PubSubEvent<PubSubEventArgs<ProductType>> { }

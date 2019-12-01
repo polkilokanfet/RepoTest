@@ -93,6 +93,7 @@
     <Compile Include="EntityTypeConfigurations\Custom\FacilityTypeConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\NoteConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\OfferUnitConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\PriceCalculationConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ProductBlockConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ProductDependentConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ProductDesignationConfiguration.cs" />
@@ -140,6 +141,14 @@
     <Compile Include="Migrations\201910301011028_StructureCosts.cs" />
     <Compile Include="Migrations\201910301011028_StructureCosts.Designer.cs">
       <DependentUpon>201910301011028_StructureCosts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912011136348_PriceCalculationMigration.cs" />
+    <Compile Include="Migrations\201912011136348_PriceCalculationMigration.Designer.cs">
+      <DependentUpon>201912011136348_PriceCalculationMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912011832437_PriceCalculation2Migration.cs" />
+    <Compile Include="Migrations\201912011832437_PriceCalculation2Migration.Designer.cs">
+      <DependentUpon>201912011832437_PriceCalculation2Migration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
@@ -202,6 +211,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910301011028_StructureCosts.resx">
       <DependentUpon>201910301011028_StructureCosts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912011136348_PriceCalculationMigration.resx">
+      <DependentUpon>201912011136348_PriceCalculationMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912011832437_PriceCalculation2Migration.resx">
+      <DependentUpon>201912011832437_PriceCalculation2Migration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

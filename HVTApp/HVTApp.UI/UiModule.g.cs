@@ -84,6 +84,12 @@ namespace HVTApp.UI
             _updateDetailsService.Register<Penalty, PenaltyDetailsView>();
 
 
+            Container.RegisterViewForNavigation<PriceCalculationLookupListView>();
+            //_dialogService.Register<PriceCalculationDetailsViewModel, PriceCalculationDetailsView>();
+			_selectService.Register<PriceCalculationLookupListView, PriceCalculation>();
+            _updateDetailsService.Register<PriceCalculation, PriceCalculationDetailsView>();
+
+
             Container.RegisterViewForNavigation<ProductIncludedLookupListView>();
             //_dialogService.Register<ProductIncludedDetailsViewModel, ProductIncludedDetailsView>();
 			_selectService.Register<ProductIncludedLookupListView, ProductIncluded>();

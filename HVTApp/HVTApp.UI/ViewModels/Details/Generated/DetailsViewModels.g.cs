@@ -322,6 +322,74 @@ namespace HVTApp.UI.ViewModels
     }
 
 
+    public partial class PriceCalculationDetailsViewModel : BaseDetailsViewModel<PriceCalculationWrapper, PriceCalculation, AfterSavePriceCalculationEvent>
+    {
+		private Func<Task<List<User>>> _getEntitiesForSelectAuthorCommand;
+		public ICommand SelectAuthorCommand { get; private set; }
+		public ICommand ClearAuthorCommand { get; private set; }
+
+		private Func<Task<List<SalesUnit>>> _getEntitiesForAddInSalesUnitsCommand;
+		public ICommand AddInSalesUnitsCommand { get; }
+		public ICommand RemoveFromSalesUnitsCommand { get; }
+		private SalesUnitWrapper _selectedSalesUnitsItem;
+		public SalesUnitWrapper SelectedSalesUnitsItem 
+		{ 
+			get { return _selectedSalesUnitsItem; }
+			set 
+			{ 
+				if (Equals(_selectedSalesUnitsItem, value)) return;
+				_selectedSalesUnitsItem = value;
+				OnPropertyChanged();
+				((DelegateCommand)RemoveFromSalesUnitsCommand).RaiseCanExecuteChanged();
+			}
+		}
+
+
+        public PriceCalculationDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+			
+			if (_getEntitiesForSelectAuthorCommand == null) _getEntitiesForSelectAuthorCommand = async () => { return await UnitOfWork.Repository<User>().GetAllAsync(); };
+			if (SelectAuthorCommand == null) SelectAuthorCommand = new DelegateCommand(SelectAuthorCommand_Execute_Default);
+			if (ClearAuthorCommand == null) ClearAuthorCommand = new DelegateCommand(ClearAuthorCommand_Execute_Default);
+
+			
+			if (_getEntitiesForAddInSalesUnitsCommand == null) _getEntitiesForAddInSalesUnitsCommand = async () => { return await UnitOfWork.Repository<SalesUnit>().GetAllAsync(); };;
+			if (AddInSalesUnitsCommand == null) AddInSalesUnitsCommand = new DelegateCommand(AddInSalesUnitsCommand_Execute_Default);
+			if (RemoveFromSalesUnitsCommand == null) RemoveFromSalesUnitsCommand = new DelegateCommand(RemoveFromSalesUnitsCommand_Execute_Default, RemoveFromSalesUnitsCommand_CanExecute_Default);
+
+		}
+
+		private async void SelectAuthorCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<User, UserWrapper>(await _getEntitiesForSelectAuthorCommand(), nameof(Item.Author), Item.Author?.Id);
+		}
+
+		private void ClearAuthorCommand_Execute_Default() 
+		{
+						Item.Author = null;
+		    
+		}
+
+			private async void AddInSalesUnitsCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<SalesUnit, SalesUnitWrapper>(await _getEntitiesForAddInSalesUnitsCommand(), Item.SalesUnits);
+			}
+
+			private void RemoveFromSalesUnitsCommand_Execute_Default()
+			{
+				Item.SalesUnits.Remove(SelectedSalesUnitsItem);
+			}
+
+			private bool RemoveFromSalesUnitsCommand_CanExecute_Default()
+			{
+				return SelectedSalesUnitsItem != null;
+			}
+
+
+
+    }
+
+
     public partial class ProductIncludedDetailsViewModel : BaseDetailsViewModel<ProductIncludedWrapper, ProductIncluded, AfterSaveProductIncludedEvent>
     {
 		private Func<Task<List<Product>>> _getEntitiesForSelectProductCommand;

@@ -15,6 +15,7 @@ namespace HVTApp.DataAccess
     public partial interface IPaymentConditionPointRepository : IRepository<PaymentConditionPoint> { }
     public partial interface IPaymentPlannedRepository : IRepository<PaymentPlanned> { }
     public partial interface IPenaltyRepository : IRepository<Penalty> { }
+    public partial interface IPriceCalculationRepository : IRepository<PriceCalculation> { }
     public partial interface IProductIncludedRepository : IRepository<ProductIncluded> { }
     public partial interface IProductDesignationRepository : IRepository<ProductDesignation> { }
     public partial interface IProductTypeRepository : IRepository<ProductType> { }

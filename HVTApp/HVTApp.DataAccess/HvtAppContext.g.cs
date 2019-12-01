@@ -21,6 +21,7 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new PaymentConditionPointConfiguration());
             modelBuilder.Configurations.Add(new PaymentPlannedConfiguration());
             modelBuilder.Configurations.Add(new PenaltyConfiguration());
+            modelBuilder.Configurations.Add(new PriceCalculationConfiguration());
             modelBuilder.Configurations.Add(new ProductIncludedConfiguration());
             modelBuilder.Configurations.Add(new ProductDesignationConfiguration());
             modelBuilder.Configurations.Add(new ProductTypeConfiguration());
@@ -90,6 +91,7 @@ namespace HVTApp.DataAccess
         public virtual DbSet<PaymentConditionPoint> PaymentConditionPointDbSet { get; set; }
         public virtual DbSet<PaymentPlanned> PaymentPlannedDbSet { get; set; }
         public virtual DbSet<Penalty> PenaltyDbSet { get; set; }
+        public virtual DbSet<PriceCalculation> PriceCalculationDbSet { get; set; }
         public virtual DbSet<ProductIncluded> ProductIncludedDbSet { get; set; }
         public virtual DbSet<ProductDesignation> ProductDesignationDbSet { get; set; }
         public virtual DbSet<ProductType> ProductTypeDbSet { get; set; }

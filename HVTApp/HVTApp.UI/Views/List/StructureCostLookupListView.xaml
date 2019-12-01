@@ -34,6 +34,9 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
+                    <infg:DateTimeField Name="UnitPriceDate" Label="Дата себестоимости" Width="Auto" />
+                    <infg:NumericField Name="UnitPrice" Label="Себестоимость единицы" Width="Auto" />
+                    <infg:NumericField Name="Total" Label="Total" Width="Auto" />
                     <infg:TextField Name="Number" Label="Номер" Width="Auto" />
                     <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" />
                     <infg:NumericField Name="Amount" Label="Количество" Width="Auto" />

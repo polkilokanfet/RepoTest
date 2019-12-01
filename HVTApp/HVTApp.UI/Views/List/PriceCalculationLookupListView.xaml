@@ -2,7 +2,7 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-              x:Class="HVTApp.UI.Views.PaymentDocumentLookupListView">
+              x:Class="HVTApp.UI.Views.PriceCalculationLookupListView">
 
     <Grid>
          <Grid.RowDefinitions>
@@ -14,7 +14,7 @@
             <Label.Style>
                 <Style>
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding ElementName=PaymentDocumentLookupListGrid, Path=Visibility}" Value="Visible">
+                    <DataTrigger Binding="{Binding ElementName=PriceCalculationLookupListGrid, Path=Visibility}" Value="Visible">
                         <Setter Property="Label.Visibility" Value="Collapsed"/>
                     </DataTrigger>
                 </Style.Triggers>
@@ -23,7 +23,7 @@
         </Label>
        
 
-		<infg:XamDataGrid x:Name="PaymentDocumentLookupListGrid" Grid.Row="1" Style="{StaticResource ListViewGrid}" Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+		<infg:XamDataGrid x:Name="PriceCalculationLookupListGrid" Grid.Row="1" Style="{StaticResource ListViewGrid}" Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
         
 			<infg:XamDataGrid.ContextMenu>
 				<ContextMenu>
@@ -34,10 +34,11 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" />
-                    <infg:TextField Name="Number" Label="Номер" Width="Auto" />
-                    <infg:NumericField Name="Vat" Label="НДС" Width="Auto" />
-                    <infg:TextField Name="Payments" Label="Платежи" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
+                    <infg:TextField Name="Author" Label="Автор задачи" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:DateTimeField Name="TaskOpenMoment" Label="Старт задачи" Width="Auto" />
+                    <infg:DateTimeField Name="TaskCloseMoment" Label="Финиш задачи" Width="Auto" />
+                    <infg:TextField Name="SalesUnits" Label="Единицы продаж" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
+                    <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

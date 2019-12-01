@@ -1,0 +1,90 @@
+﻿<inf:ViewBase x:Class="HVTApp.Modules.Sales.Views.PriceCalculationView"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:infgDp="http://infragistics.com/DataPresenter"
+              xmlns:igW="http://infragistics.com/Windows">
+    
+    <inf:ViewBase.Resources>
+        <Style x:Key="BoltFontCellsStyle" TargetType="{x:Type infgDp:CellValuePresenter}">
+            <Setter Property="ForegroundStyle">
+                <Setter.Value>
+                    <Style>
+                        <!--<Setter Property="TextBlock.Background" Value="Aqua" />-->
+                        <Setter Property="TextBlock.FontWeight" Value="Bold" />
+                        <!--<Setter Property="TextBlock.FontStyle" Value="Italic"/>-->
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </inf:ViewBase.Resources>
+
+    <Grid>
+        
+        <GroupBox Header="Задание на расчет переменных затрат" Grid.Column="0">
+            <infgDp:XamDataGrid x:Name="Groups"
+                                DataSource="{Binding Groups}"
+                                SelectedDataItem="{Binding SelectedGroup, Mode=TwoWay}">
+                
+                <infgDp:XamDataGrid.FieldLayouts>
+
+                    <infgDp:FieldLayout>
+                        <!--<infgDp:FieldLayout.RecordFilters>
+                                                               
+                            <infgDp:RecordFilter FieldName="IsDone">
+                                <infgDp:RecordFilter.Conditions>
+                                    <igW:ComparisonCondition Operator="Equals" Value="False" />
+                                </infgDp:RecordFilter.Conditions>
+                            </infgDp:RecordFilter>
+
+                            <infgDp:RecordFilter FieldName="IsLoosen">
+                                <infgDp:RecordFilter.Conditions>
+                                    <igW:ComparisonCondition Operator="Equals" Value="False" />
+                                </infgDp:RecordFilter.Conditions>
+                            </infgDp:RecordFilter>
+
+                            <infgDp:RecordFilter FieldName="InWork">
+                                <infgDp:RecordFilter.Conditions>
+                                    <igW:ComparisonCondition Operator="Equals" Value="True" />
+                                </infgDp:RecordFilter.Conditions>
+                            </infgDp:RecordFilter>
+
+                        </infgDp:FieldLayout.RecordFilters>-->
+                        
+                        <infgDp:FieldLayout.FieldSettings>
+                            <infgDp:FieldSettings CellValuePresenterStyle="{StaticResource BoltFontCellsStyle}"/>
+                        </infgDp:FieldLayout.FieldSettings>
+                                                
+					    <infgDp:FieldLayout.Fields>
+
+                            <infgDp:TextField AlternateBinding="{Binding Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
+                            <infgDp:TextField AlternateBinding="{Binding Product}" BindingType="UseAlternateBinding" Label="Оборудование" Width="Auto"/>
+                            <infgDp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" AllowResize="False"/>
+                            <infgDp:DateTimeField AlternateBinding="{Binding OrderInTakeDate}" BindingType="UseAlternateBinding" Label="ОИТ" Width="Auto" AllowResize="False" />
+                            <infgDp:DateTimeField AlternateBinding="{Binding RealizationDate}" BindingType="UseAlternateBinding" Label="Реализация" Width="Auto" AllowResize="False" />
+                            <infgDp:TextField AlternateBinding="{Binding PaymentConditionSet}" BindingType="UseAlternateBinding" Label="Условия оплаты" Width="Auto" />
+                            <infgDp:Field Name="StructureCostWrappers" IsExpandable="True"/>
+                                
+					    </infgDp:FieldLayout.Fields>
+				    </infgDp:FieldLayout>
+
+                    <infgDp:FieldLayout ParentFieldName="StructureCostWrappers">
+                        <infgDp:FieldLayout.Fields>
+                            <infgDp:TextField AlternateBinding="{Binding Comment}" BindingType="UseAlternateBinding" Label="Название" Width="Auto" AllowEdit="True"/>
+                            <infgDp:TextField AlternateBinding="{Binding Number}" BindingType="UseAlternateBinding" Label="Номер" Width="Auto" AllowEdit="True"/>
+                            <infgDp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол. на ед." Width="Auto" AllowResize="False" AllowEdit="True"/>
+                            <!--<infgDp:NumericField AlternateBinding="{Binding Cost}" BindingType="UseAlternateBinding" Label="Стоимость" Width="Auto" AllowResize="False"/>
+                            <infgDp:NumericField AlternateBinding="{Binding Total}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto" AllowResize="False"/>-->
+                            <!--<infgDp:NumericField AlternateBinding="{Binding ProductionTerm}" BindingType="UseAlternateBinding" Label="Срок" Width="Auto"/>
+                            <infgDp:TextField AlternateBinding="{Binding PaymentConditionSet}" BindingType="UseAlternateBinding" Label="Условия оплаты" Width="Auto" />-->
+                        </infgDp:FieldLayout.Fields>
+
+                    </infgDp:FieldLayout>
+                        
+			    </infgDp:XamDataGrid.FieldLayouts>
+		    </infgDp:XamDataGrid>
+        </GroupBox>
+                       
+    </Grid>
+        
+</inf:ViewBase>

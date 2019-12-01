@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
@@ -20,6 +19,8 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Дата себестоимости")]
         public DateTime? UnitPriceDate { get; set; }
+
+        public double? Total => UnitPrice.HasValue ? UnitPrice * Amount : null;
 
         [Designation("Комментарий"), MaxLength(200)]
         public string Comment { get; set; }

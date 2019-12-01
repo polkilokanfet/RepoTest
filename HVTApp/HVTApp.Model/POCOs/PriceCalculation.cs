@@ -11,8 +11,8 @@ namespace HVTApp.Model.POCOs
         [Designation("Автор задачи"), Required]
         public User Author { get; set; }
 
-        [Designation("Старт задачи"), Required]
-        public DateTime TaskOpenMoment { get; set; }
+        [Designation("Старт задачи")]
+        public DateTime? TaskOpenMoment { get; set; }
 
         [Designation("Финиш задачи")]
         public DateTime? TaskCloseMoment { get; set; }
@@ -22,5 +22,8 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Единицы продаж"), Required]
         public virtual List<SalesUnit> SalesUnits { get; set; } = new List<SalesUnit>();
+
+        [Designation("Требуется расчетный файл")]
+        public bool IsNeedExcelFile { get; set; } = true;
     }
 }

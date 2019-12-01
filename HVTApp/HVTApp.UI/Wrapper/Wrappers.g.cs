@@ -614,6 +614,102 @@ namespace HVTApp.UI.Wrapper
 
 	}
 
+		public partial class PriceCalculationWrapper : WrapperBase<PriceCalculation>
+	{
+	    public PriceCalculationWrapper(PriceCalculation model) : base(model) { }
+
+	
+
+        #region SimpleProperties
+
+        public System.Nullable<System.DateTime> TaskOpenMoment
+        {
+          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.DateTime> TaskOpenMomentOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(TaskOpenMoment));
+        public bool TaskOpenMomentIsChanged => GetIsChanged(nameof(TaskOpenMoment));
+
+
+        public System.Nullable<System.DateTime> TaskCloseMoment
+        {
+          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.DateTime> TaskCloseMomentOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(TaskCloseMoment));
+        public bool TaskCloseMomentIsChanged => GetIsChanged(nameof(TaskCloseMoment));
+
+
+        public System.String Comment
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
+        public bool CommentIsChanged => GetIsChanged(nameof(Comment));
+
+
+        public System.Boolean IsNeedExcelFile
+        {
+          get { return GetValue<System.Boolean>(); }
+          set { SetValue(value); }
+        }
+        public System.Boolean IsNeedExcelFileOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsNeedExcelFile));
+        public bool IsNeedExcelFileIsChanged => GetIsChanged(nameof(IsNeedExcelFile));
+
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+
+        #endregion
+
+
+        #region ComplexProperties
+
+	    public UserWrapper Author 
+        {
+            get { return GetWrapper<UserWrapper>(); }
+            set { SetComplexValue<User, UserWrapper>(Author, value); }
+        }
+
+
+        #endregion
+
+
+        #region CollectionProperties
+
+        public IValidatableChangeTrackingCollection<SalesUnitWrapper> SalesUnits { get; private set; }
+
+
+        #endregion
+
+        public override void InitializeComplexProperties()
+        {
+
+            InitializeComplexProperty<UserWrapper>(nameof(Author), Model.Author == null ? null : new UserWrapper(Model.Author));
+
+
+        }
+
+  
+        protected override void InitializeCollectionProperties()
+        {
+
+          if (Model.SalesUnits == null) throw new ArgumentException("SalesUnits cannot be null");
+          SalesUnits = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(Model.SalesUnits.Select(e => new SalesUnitWrapper(e)));
+          RegisterCollection(SalesUnits, Model.SalesUnits);
+
+
+        }
+
+	}
+
 		public partial class ProductIncludedWrapper : WrapperBase<ProductIncluded>
 	{
 	    public ProductIncludedWrapper(ProductIncluded model) : base(model) { }
@@ -974,6 +1070,24 @@ namespace HVTApp.UI.Wrapper
         public bool AmountIsChanged => GetIsChanged(nameof(Amount));
 
 
+        public System.Nullable<System.Double> UnitPrice
+        {
+          get { return GetValue<System.Nullable<System.Double>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Double> UnitPriceOriginalValue => GetOriginalValue<System.Nullable<System.Double>>(nameof(UnitPrice));
+        public bool UnitPriceIsChanged => GetIsChanged(nameof(UnitPrice));
+
+
+        public System.Nullable<System.DateTime> UnitPriceDate
+        {
+          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.DateTime> UnitPriceDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(UnitPriceDate));
+        public bool UnitPriceDateIsChanged => GetIsChanged(nameof(UnitPriceDate));
+
+
         public System.String Comment
         {
           get { return GetValue<System.String>(); }
@@ -990,6 +1104,14 @@ namespace HVTApp.UI.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+
+        #endregion
+
+
+        #region GetProperties
+
+        public System.Nullable<System.Double> Total => GetValue<System.Nullable<System.Double>>(); 
 
 
         #endregion
