@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
 
@@ -25,5 +27,18 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Требуется расчетный файл")]
         public bool IsNeedExcelFile { get; set; } = true;
+
+        [Designation("Название")]
+        public string Name
+        {
+            get
+            {
+                var facilities = SalesUnits.Select(x => x.Facility).Distinct().ToList();
+                var sb = new StringBuilder();
+                sb.Append("Расчет стоимости оборудования для ");
+                facilities.ForEach(x => sb.Append(x).Append("; "));
+                return sb.ToString();
+            }
+        }
     }
 }

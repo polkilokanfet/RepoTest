@@ -3288,6 +3288,20 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility IsNeedExcelFileVisibility
+        {
+            get { return PriceCalculationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationLookup.IsNeedExcelFile)].Visibility; }
+            set { PriceCalculationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationLookup.IsNeedExcelFile)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility NameVisibility
+        {
+            get { return PriceCalculationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationLookup.Name)].Visibility; }
+            set { PriceCalculationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationLookup.Name)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility DisplayMemberVisibility
         {
             get { return PriceCalculationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationLookup.DisplayMember)].Visibility; }

@@ -1,8 +1,8 @@
 ﻿namespace HVTApp.Modules.Sales.Tabs
 {
-    public partial class TabStructureCosts
+    public partial class TabPriceCalculation
     {
-        public TabStructureCosts()
+        public TabPriceCalculation()
         {
             InitializeComponent();
         }

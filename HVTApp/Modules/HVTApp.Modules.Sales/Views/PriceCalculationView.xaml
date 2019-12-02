@@ -21,11 +21,20 @@
 
     <Grid>
         
+        
+        
         <GroupBox Header="Задание на расчет переменных затрат" Grid.Column="0">
             <infgDp:XamDataGrid x:Name="Groups"
                                 DataSource="{Binding Groups}"
-                                SelectedDataItem="{Binding SelectedGroup, Mode=TwoWay}">
-                
+                                SelectedDataItem="{Binding SelectedItem, Mode=TwoWay}">
+
+                <infgDp:XamDataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
+                    </ContextMenu>
+                </infgDp:XamDataGrid.ContextMenu>
+
+
                 <infgDp:XamDataGrid.FieldLayouts>
 
                     <infgDp:FieldLayout>
@@ -70,13 +79,12 @@
 
                     <infgDp:FieldLayout ParentFieldName="StructureCostWrappers">
                         <infgDp:FieldLayout.Fields>
-                            <infgDp:TextField AlternateBinding="{Binding Comment}" BindingType="UseAlternateBinding" Label="Название" Width="Auto" AllowEdit="True"/>
-                            <infgDp:TextField AlternateBinding="{Binding Number}" BindingType="UseAlternateBinding" Label="Номер" Width="Auto" AllowEdit="True"/>
-                            <infgDp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол. на ед." Width="Auto" AllowResize="False" AllowEdit="True"/>
-                            <!--<infgDp:NumericField AlternateBinding="{Binding Cost}" BindingType="UseAlternateBinding" Label="Стоимость" Width="Auto" AllowResize="False"/>
-                            <infgDp:NumericField AlternateBinding="{Binding Total}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto" AllowResize="False"/>-->
-                            <!--<infgDp:NumericField AlternateBinding="{Binding ProductionTerm}" BindingType="UseAlternateBinding" Label="Срок" Width="Auto"/>
-                            <infgDp:TextField AlternateBinding="{Binding PaymentConditionSet}" BindingType="UseAlternateBinding" Label="Условия оплаты" Width="Auto" />-->
+                            <infgDp:TextField AlternateBinding="{Binding Comment, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Название" Width="Auto" AllowEdit="True"/>
+                            <infgDp:TextField AlternateBinding="{Binding Number, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Номер" Width="Auto" AllowEdit="True"/>
+                            <infgDp:NumericField AlternateBinding="{Binding Amount, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Кол. на ед." Width="Auto" AllowResize="False" AllowEdit="True"/>
+                            <infgDp:DateTimeField AlternateBinding="{Binding UnitPriceDate, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Дата" Width="Auto" AllowResize="True"/>
+                            <infgDp:NumericField AlternateBinding="{Binding UnitPrice, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Цена за ед." Width="Auto"/>
+                            <infgDp:NumericField AlternateBinding="{Binding Total}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto" AllowResize="False"/>
                         </infgDp:FieldLayout.Fields>
 
                     </infgDp:FieldLayout>

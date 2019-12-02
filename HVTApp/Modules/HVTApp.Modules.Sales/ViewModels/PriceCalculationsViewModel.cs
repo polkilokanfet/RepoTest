@@ -1,3 +1,4 @@
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using HVTApp.Infrastructure;
@@ -10,9 +11,12 @@ namespace HVTApp.Modules.Sales.ViewModels
 {
     public class PriceCalculationsViewModel : ViewModelBase
     {
+        public PriceCalculationItem SelectedCalculation { get; set; }
+
         public ObservableCollection<PriceCalculationItem> PriceCalculationItems { get; } = new ObservableCollection<PriceCalculationItem>();
         public PriceCalculationsViewModel(IUnityContainer container) : base(container)
         {
+            Load();
         }
 
         public void Load()
@@ -27,8 +31,15 @@ namespace HVTApp.Modules.Sales.ViewModels
 
     public class PriceCalculationItem : BindableBase
     {
+        private readonly PriceCalculation _priceCalculation;
+
+        public DateTime? TaskOpenMoment => _priceCalculation.TaskOpenMoment;
+        public DateTime? TaskCloseMoment => _priceCalculation.TaskCloseMoment;
+        public string Name => _priceCalculation.Name;
+
         public PriceCalculationItem(PriceCalculation priceCalculation)
         {
+            _priceCalculation = priceCalculation;
         }
     }
 }

@@ -2,6 +2,7 @@
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
+using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Prism;
 using HVTApp.Modules.Sales.Menus;
 using HVTApp.Modules.Sales.ViewModels;
@@ -30,13 +31,15 @@ namespace HVTApp.Modules.Sales
             Container.RegisterViewForNavigation<ProjectView>();
             Container.RegisterViewForNavigation<SpecificationView>();
             Container.RegisterViewForNavigation<SpecificationsView>();
-            Container.RegisterViewForNavigation<StructureCostsView>();
             Container.RegisterViewForNavigation<PriceCalculationView>();
+            Container.RegisterViewForNavigation<PriceCalculationsView>();
 
             Container.Resolve<IDialogService>().Register<OfferUnitsViewModel, OfferUnitsWindow>();
             Container.Resolve<IDialogService>().Register<SalesUnitsViewModel, SalesUnitsWindow>();
             Container.Resolve<IDialogService>().Register<TenderViewModel, TenderWindow>();
             Container.Resolve<IDialogService>().Register<ProductsIncludedViewModel, ProductsIncludedWindow>();
+
+            Container.Resolve<ISelectService>().Register<SalesUnitsPriceCalculationGroupsView, SalesUnitsPriceCalculationGroup>();
         }
 
         protected override void ResolveOutlookGroup()

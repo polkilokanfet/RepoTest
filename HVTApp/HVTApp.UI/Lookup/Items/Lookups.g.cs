@@ -385,6 +385,10 @@ namespace HVTApp.UI.Lookup
         public System.Boolean IsNeedExcelFile => Entity.IsNeedExcelFile;
 
 
+		[OrderStatus(1)]
+        public System.String Name => Entity.Name;
+
+
         #endregion
 
 

@@ -1,18 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Windows;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.Modules.Sales.Tabs;
 using HVTApp.Modules.Sales.ViewModels;
-using Infragistics.Windows.DataPresenter;
 using Prism.Events;
 using Prism.Regions;
 using ViewBase = HVTApp.Infrastructure.ViewBase;
 
 namespace HVTApp.Modules.Sales.Views
 {
-    ////[RibbonTab(typeof(SalesCRUD))]
+    [RibbonTab(typeof(TabPriceCalculation))]
     public partial class PriceCalculationView : ViewBase
     {
         private readonly PriceCalculationViewModel _viewModel;
