@@ -38,8 +38,7 @@ namespace HVTApp.Modules.Sales
             Container.Resolve<IDialogService>().Register<SalesUnitsViewModel, SalesUnitsWindow>();
             Container.Resolve<IDialogService>().Register<TenderViewModel, TenderWindow>();
             Container.Resolve<IDialogService>().Register<ProductsIncludedViewModel, ProductsIncludedWindow>();
-
-            Container.Resolve<ISelectService>().Register<SalesUnitsPriceCalculationGroupsView, SalesUnitsPriceCalculationGroup>();
+            Container.Resolve<IDialogService>().Register<SalesUnitsPriceCalculationGroupsViewModel, SalesUnitsPriceCalculationGroupsWindow>();
         }
 
         protected override void ResolveOutlookGroup()

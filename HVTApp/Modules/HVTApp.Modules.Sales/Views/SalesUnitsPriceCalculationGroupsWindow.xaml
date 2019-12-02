@@ -1,0 +1,40 @@
+﻿<Window x:Class="HVTApp.Modules.Sales.Views.SalesUnitsPriceCalculationGroupsWindow"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:infgDp="http://infragistics.com/DataPresenter"
+              Title="Выбор оборудования в расчет">
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <Button Content="Выбрать" Command="{Binding SelectCommand}"/>
+                
+        <GroupBox Header="Оборудование" Grid.Row="1">
+            <infgDp:XamDataGrid x:Name="GroupsGrid"
+                                DataSource="{Binding Groups}"
+                                SelectedDataItemsScope="RecordsOrCells"
+                                SelectedDataItems="{Binding Path=SelectedItems, Mode=TwoWay}">
+
+                <infgDp:XamDataGrid.FieldLayouts>
+
+                    <infgDp:FieldLayout>
+
+                        <infgDp:FieldLayout.Fields>
+                            <infgDp:TextField AlternateBinding="{Binding Project}" BindingType="UseAlternateBinding" Label="Проект" Width="Auto"/>
+                            <infgDp:TextField AlternateBinding="{Binding Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
+                            <infgDp:TextField AlternateBinding="{Binding Product}" BindingType="UseAlternateBinding" Label="Оборудование" Width="Auto"/>
+                            <infgDp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" AllowResize="False"/>
+					    </infgDp:FieldLayout.Fields>
+				    </infgDp:FieldLayout>
+                        
+			    </infgDp:XamDataGrid.FieldLayouts>
+		    </infgDp:XamDataGrid>
+        </GroupBox>
+                       
+    </Grid>
+        
+</Window>

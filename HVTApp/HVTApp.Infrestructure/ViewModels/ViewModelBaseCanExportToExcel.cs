@@ -12,11 +12,11 @@ using Prism.Commands;
 
 namespace HVTApp.Infrastructure.ViewModels
 {
-    public abstract class BindableBaseCanExportToExcel : ViewModelBase
+    public abstract class ViewModelBaseCanExportToExcel : ViewModelBase
     {
         public ICommand ExportToExcel { get; }
 
-        protected BindableBaseCanExportToExcel(IUnityContainer container) : base(container)
+        protected ViewModelBaseCanExportToExcel(IUnityContainer container) : base(container)
         {
             ExportToExcel = new DelegateCommand<XamDataGrid>(grid =>
             {
@@ -55,7 +55,7 @@ namespace HVTApp.Infrastructure.ViewModels
         public ExportOptions ExportOptions => _exportOptions ?? (_exportOptions = new ExportOptions());        
     }
 
-    public abstract class LoadableBindableBaseCanExportToExcel : BindableBaseCanExportToExcel
+    public abstract class LoadableBindableBaseCanExportToExcel : ViewModelBaseCanExportToExcel
     {
 
         private bool _isLoaded;

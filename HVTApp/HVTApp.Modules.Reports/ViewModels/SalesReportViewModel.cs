@@ -13,7 +13,7 @@ using Prism.Regions;
 
 namespace HVTApp.Modules.Reports.ViewModels
 {
-    public class SalesReportViewModel : BindableBaseCanExportToExcel
+    public class SalesReportViewModel : ViewModelBaseCanExportToExcel
     {
         private bool _isLoaded;
         private SalesReportUnit _selectedSalesReportUnit;

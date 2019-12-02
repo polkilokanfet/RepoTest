@@ -175,6 +175,7 @@
     <Compile Include="ViewModels\PaymentsViewModel.cs" />
     <Compile Include="ViewModels\ProductionViewModel.cs" />
     <Compile Include="ViewModels\ProjectsViewModel.cs" />
+    <Compile Include="ViewModels\SalesUnitsPriceCalculationGroupsViewModel.cs" />
     <Compile Include="ViewModels\SalesUnitsWrappersGroupsContainer.cs" />
     <Compile Include="ViewModels\ShippingViewModel.cs" />
     <Compile Include="ViewModels\SpecificationsViewModel.cs" />
@@ -183,8 +184,8 @@
     <Compile Include="ViewModels\Containers\TendersContainer.cs" />
     <Compile Include="ViewModels\TenderViewModel.cs" />
     <Compile Include="ViewModels\Groups\UnitsContainer.cs" />
-    <Compile Include="Views\SalesUnitsPriceCalculationGroupsView.xaml.cs">
-      <DependentUpon>SalesUnitsPriceCalculationGroupsView.xaml</DependentUpon>
+    <Compile Include="Views\SalesUnitsPriceCalculationGroupsWindow.xaml.cs">
+      <DependentUpon>SalesUnitsPriceCalculationGroupsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PriceCalculationsView.xaml.cs">
       <DependentUpon>PriceCalculationsView.xaml</DependentUpon>
@@ -317,7 +318,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SalesUnitsPriceCalculationGroupsView.xaml">
+    <Page Include="Views\SalesUnitsPriceCalculationGroupsWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
