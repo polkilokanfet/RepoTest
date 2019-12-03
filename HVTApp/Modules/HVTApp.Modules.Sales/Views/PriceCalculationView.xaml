@@ -19,12 +19,38 @@
         </Style>
     </inf:ViewBase.Resources>
 
-    <Grid>
-        
-        
-        
-        <GroupBox Header="Задание на расчет переменных затрат" Grid.Column="0">
+       
+    <GroupBox Header="Задание на расчет переменных затрат">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Content="Старт задачи: "/>
+                <Label Grid.Row="0" Grid.Column="1" Content="{Binding PriceCalculationWrapper.TaskOpenMoment, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Label Grid.Row="1" Grid.Column="0" Content="Финиш задачи: "/>
+                <Label Grid.Row="1" Grid.Column="1" Content="{Binding PriceCalculationWrapper.TaskCloseMoment, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Label Grid.Row="2" Grid.Column="0" Content="Комментарий: "/>
+                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding PriceCalculationWrapper.Comment, Mode=TwoWay}" IsReadOnly="{Binding IsStarted, UpdateSourceTrigger=PropertyChanged}"/>
+                
+            </Grid>
+            
             <infgDp:XamDataGrid x:Name="Groups"
+                                Grid.Row="1"
                                 DataSource="{Binding PriceCalculationWrapper.PriceCalculationItems}"
                                 SelectedDataItem="{Binding SelectedItem, Mode=TwoWay}">
 
@@ -56,19 +82,18 @@
 
                     <infgDp:FieldLayout ParentFieldName="StructureCosts">
                         <infgDp:FieldLayout.Fields>
-                            <infgDp:TextField AlternateBinding="{Binding Comment, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Название" Width="Auto" AllowEdit="True"/>
-                            <infgDp:TextField AlternateBinding="{Binding Number, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Номер" Width="Auto" AllowEdit="True"/>
-                            <infgDp:NumericField AlternateBinding="{Binding Amount, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Кол. на ед." Width="Auto" AllowResize="False" AllowEdit="True"/>
+                            <infgDp:TextField AlternateBinding="{Binding Comment, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Название" Width="Auto" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}"/>
+                            <infgDp:NumericField AlternateBinding="{Binding Amount, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Кол. на ед." Width="Auto" AllowResize="False" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}"/>
+                            <infgDp:TextField AlternateBinding="{Binding Number, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Номер" Width="Auto" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}"/>
                             <infgDp:NumericField AlternateBinding="{Binding UnitPrice, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Цена за ед." Width="Auto"/>
                             <infgDp:NumericField AlternateBinding="{Binding Total}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto" AllowResize="False"/>
                         </infgDp:FieldLayout.Fields>
-
                     </infgDp:FieldLayout>
                         
 			    </infgDp:XamDataGrid.FieldLayouts>
 		    </infgDp:XamDataGrid>
-        </GroupBox>
+        </Grid>
+    </GroupBox>
                        
-    </Grid>
         
 </inf:ViewBase>

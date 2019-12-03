@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
@@ -9,17 +8,20 @@ using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
+using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
+using Prism.Events;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
     public class PriceCalculationViewModel : ViewModelBaseCanExportToExcel
     {
         private object _selectedItem;
+        private PriceCalculation2Wrapper _priceCalculationWrapper;
 
         public object SelectedItem
         {
@@ -33,6 +35,9 @@ namespace HVTApp.Modules.Sales.ViewModels
             }
         }
 
+        public bool IsStarted => PriceCalculationWrapper?.TaskOpenMoment != null;
+        public bool IsFinished => PriceCalculationWrapper?.TaskCloseMoment != null;
+
         public ICommand SaveCommand { get; }
         public ICommand AddStructureCostCommand { get; }
         public ICommand RemoveStructureCostCommand { get; }
@@ -40,20 +45,50 @@ namespace HVTApp.Modules.Sales.ViewModels
         public ICommand AddGroupCommand { get; }
         public ICommand RemoveGroupCommand { get; }
 
-        public PriceCalculation2Wrapper PriceCalculationWrapper { get; private set; }
+        public ICommand StartCommand { get; }
+
+        public ICommand CancelCommand { get; }
+
+        public PriceCalculation2Wrapper PriceCalculationWrapper
+        {
+            get { return _priceCalculationWrapper; }
+            private set
+            {
+                _priceCalculationWrapper = value;
+                //реакция на изменения в задаче
+                PriceCalculationWrapper.PropertyChanged += (sender, args) =>
+                {
+                    ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
+                    ((DelegateCommand)StartCommand).RaiseCanExecuteChanged();
+                };
+            }
+        }
 
         public PriceCalculationViewModel(IUnityContainer container) : base(container)
         {
+            #region SaveCommand
+          
             //сохранение изменений
             SaveCommand = new DelegateCommand(
-                async () =>
+                () =>
                 {
-                    PriceCalculationWrapper.TaskOpenMoment = DateTime.Now;
                     PriceCalculationWrapper.AcceptChanges();
-                    await UnitOfWork.SaveChangesAsync();
+
+                    var pc = UnitOfWork.Repository<PriceCalculation>().GetById(PriceCalculationWrapper.Model.Id);
+                    if (pc == null)
+                    {
+                        UnitOfWork.Repository<PriceCalculation>().Add(PriceCalculationWrapper.Model);
+                    }
+
+                    UnitOfWork.SaveChanges();
+
                     ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
                 },
                 () => PriceCalculationWrapper.IsValid && PriceCalculationWrapper.IsChanged);
+
+            #endregion
+
+            #region AddStructureCostCommand
 
             //добавление стракчакоста
             AddStructureCostCommand = new DelegateCommand(
@@ -64,6 +99,10 @@ namespace HVTApp.Modules.Sales.ViewModels
                     (SelectedItem as PriceCalculationItem2Wrapper).StructureCosts.Add(structureCostWrapper);
                 },
                 () => SelectedItem is PriceCalculationItem2Wrapper);
+
+            #endregion
+
+            #region RemoveStructureCostCommand
 
             //удаление стракчакоста
             RemoveStructureCostCommand = new DelegateCommand(
@@ -78,25 +117,21 @@ namespace HVTApp.Modules.Sales.ViewModels
                 },
                 () => SelectedItem is StructureCostWrapper);
 
+            #endregion
+
+            #region AddGroupCommand
+
             //добавление группы оборудования
             AddGroupCommand = new DelegateCommand(
                 () =>
                 {
                     //потенциальные группы
-                    var groups = UnitOfWork.Repository<SalesUnit>()
+                    var items = UnitOfWork.Repository<SalesUnit>()
                             .Find(x => x.Project.Manager.IsAppCurrentUser())
                             .Except(PriceCalculationWrapper.PriceCalculationItems.SelectMany(x => x.SalesUnits).Select(x => x.Model))
                             .Select(x => new SalesUnit2Wrapper(x))
-                            .GroupBy(x => x, new SalesUnit2Comparer());
-
-                    var items = new List<PriceCalculationItem2Wrapper>();
-                    foreach (var @group in groups)
-                    {
-                        var priceCalculationItem = new Model.POCOs.PriceCalculationItem();
-                        var priceCalculationItemWrapper = new PriceCalculationItem2Wrapper(priceCalculationItem);
-                        group.ForEach(x => priceCalculationItemWrapper.SalesUnits.Add(x));
-                        items.Add(priceCalculationItemWrapper);
-                    }
+                            .GroupBy(x => x, new SalesUnit2Comparer())
+                            .Select(x => GetPriceCalculationItem2Wrapper(x));
 
                     //выбор группы
                     var viewModel = new PriceCalculationItemsViewModel(items);
@@ -108,6 +143,10 @@ namespace HVTApp.Modules.Sales.ViewModels
                         viewModel.SelectedItemWrappers.ForEach(x => PriceCalculationWrapper.PriceCalculationItems.Add(x));
                     }
                 });
+
+            #endregion
+
+            #region RemoveGroupCommand
 
             //удаление группы
             RemoveGroupCommand = new DelegateCommand(
@@ -121,11 +160,54 @@ namespace HVTApp.Modules.Sales.ViewModels
                 },
                 () => SelectedItem is PriceCalculationItem2Wrapper);
 
+            #endregion
 
+            #region StartCommand
+
+            StartCommand = new DelegateCommand(
+                () =>
+                {
+                    var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Подтверждение", "Вы уверены, что хотите стартовать задачу?");
+                    if (dr != MessageDialogResult.Yes) return;
+
+                    PriceCalculationWrapper.TaskOpenMoment = DateTime.Now;
+                    SaveCommand.Execute(null);
+
+                    Container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceCalculationEvent>().Publish(PriceCalculationWrapper.Model);
+
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsStarted)));
+                    ((DelegateCommand) StartCommand).RaiseCanExecuteChanged();
+                    ((DelegateCommand) CancelCommand).RaiseCanExecuteChanged();
+                },
+                () => !IsStarted && PriceCalculationWrapper.IsValid);
+
+            #endregion
+
+            #region CancelCommand
+
+            CancelCommand = new DelegateCommand(() =>
+            {
+                var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Подтверждение", "Вы уверены, что хотите остановить задачу?");
+                if (dr != MessageDialogResult.Yes) return;
+
+                PriceCalculationWrapper.TaskOpenMoment = null;
+                SaveCommand.Execute(null);
+
+                Container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceCalculationEvent>().Publish(PriceCalculationWrapper.Model);
+
+                OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsStarted)));
+                ((DelegateCommand)StartCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)CancelCommand).RaiseCanExecuteChanged();
+            },
+            () => IsStarted);
+
+            #endregion
+
+            PriceCalculationWrapper = new PriceCalculation2Wrapper(new PriceCalculation());
         }
 
         /// <summary>
-        /// Загрузка при создании нового расчета
+        /// Загрузка при создании нового расчета по единицам продаж
         /// </summary>
         /// <param name="salesUnits"></param>
         public void Load(IEnumerable<SalesUnit> salesUnits)
@@ -134,44 +216,36 @@ namespace HVTApp.Modules.Sales.ViewModels
                 .Select(x => UnitOfWork.Repository<SalesUnit>().GetById(x.Id))
                 .Select(x => new SalesUnit2Wrapper(x))
                 .ToList();
-
-            //создаем задачу
-            PriceCalculationWrapper = new PriceCalculation2Wrapper(new PriceCalculation());
             
-            //реакция на изменения в задаче
-            PriceCalculationWrapper.PropertyChanged += (sender, args) =>
+            salesUnitWrappers.GroupBy(x => x, new SalesUnit2Comparer())
+                             .ForEach(x => { PriceCalculationWrapper.PriceCalculationItems.Add(GetPriceCalculationItem2Wrapper(x)); });
+        }
+
+        private PriceCalculationItem2Wrapper GetPriceCalculationItem2Wrapper(IEnumerable<SalesUnit2Wrapper> salesUnits)
+        {
+            var priceCalculationItem2Wrapper = new PriceCalculationItem2Wrapper(new Model.POCOs.PriceCalculationItem());
+            salesUnits.ForEach(x => priceCalculationItem2Wrapper.SalesUnits.Add(x));
+
+            //создание основного стракчакоста
+            var structureCost = new StructureCost
             {
-                ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
+                Comment = $"{priceCalculationItem2Wrapper.Product}",
+                Amount = 1
             };
+            priceCalculationItem2Wrapper.StructureCosts.Add(new StructureCostWrapper(structureCost));
 
-            var groups = salesUnitWrappers.GroupBy(x => x, new SalesUnit2Comparer());
-
-            foreach (var @group in groups)
+            //создание стракчакостов доп.оборудования
+            foreach (var productIncluded in priceCalculationItem2Wrapper.SalesUnits.First().Model.ProductsIncluded)
             {
-                var priceCalculationItem2Wrapper = new PriceCalculationItem2Wrapper(new Model.POCOs.PriceCalculationItem());
-                group.ForEach(x => priceCalculationItem2Wrapper.SalesUnits.Add(x));
-                
-                //создание основного стракчакоста
-                var structureCost = new StructureCost
+                var structureCostPrIncl = new StructureCost
                 {
-                    Comment = $"{priceCalculationItem2Wrapper.Product}",
-                    Amount = 1
+                    Comment = $"{productIncluded.Product}",
+                    Amount = (double)productIncluded.Amount / priceCalculationItem2Wrapper.SalesUnits.Count
                 };
-                priceCalculationItem2Wrapper.StructureCosts.Add(new StructureCostWrapper(structureCost));
-
-                //создание стракчакостов доп.оборудования
-                foreach (var productIncluded in priceCalculationItem2Wrapper.SalesUnits.First().Model.ProductsIncluded)
-                {
-                    var structureCostPrIncl = new StructureCost
-                    {
-                        Comment = $"{productIncluded.Product}",
-                        Amount = (double) productIncluded.Amount / priceCalculationItem2Wrapper.SalesUnits.Count
-                    };
-                    priceCalculationItem2Wrapper.StructureCosts.Add(new StructureCostWrapper(structureCostPrIncl));
-                }
-
-                PriceCalculationWrapper.PriceCalculationItems.Add(priceCalculationItem2Wrapper);
+                priceCalculationItem2Wrapper.StructureCosts.Add(new StructureCostWrapper(structureCostPrIncl));
             }
+
+            return priceCalculationItem2Wrapper;
         }
     }
 

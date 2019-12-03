@@ -7,6 +7,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <system:Double x:Key="DefaultFontSize">18</system:Double>
+            <converters:ReverseBoolConverter x:Key="ReverseBoolConverter"/>
             <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
             <converters:DatePickerOriginalValueConverter x:Key="DatePickerOriginalValueConverter"/>
             <converters:ListToStringConverter x:Key="ListToStringConverter"/>

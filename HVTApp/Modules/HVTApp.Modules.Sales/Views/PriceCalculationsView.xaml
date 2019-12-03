@@ -8,7 +8,7 @@
                 
         <GroupBox Header="Задания на расчет переменных затрат" Grid.Column="0">
             <infgDp:XamDataGrid x:Name="PriceCalculations"
-                                DataSource="{Binding PriceCalculationItems}"
+                                DataSource="{Binding PriceCalculations}"
                                 SelectedDataItem="{Binding SelectedCalculation, Mode=TwoWay}">
 
                 <infgDp:XamDataGrid.FieldLayouts>

@@ -1,11 +1,12 @@
-using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using HVTApp.Infrastructure;
-using HVTApp.Model;
+using HVTApp.Infrastructure.Extansions;
+using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Lookup;
 using Microsoft.Practices.Unity;
-using Prism.Mvvm;
+using Prism.Events;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
@@ -13,10 +14,23 @@ namespace HVTApp.Modules.Sales.ViewModels
     {
         public PriceCalculationItem SelectedCalculation { get; set; }
 
-        public ObservableCollection<PriceCalculationItem> PriceCalculationItems { get; } = new ObservableCollection<PriceCalculationItem>();
+        public ObservableCollection<PriceCalculationLookup> PriceCalculations { get; } = new ObservableCollection<PriceCalculationLookup>();
         public PriceCalculationsViewModel(IUnityContainer container) : base(container)
         {
             Load();
+            Container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceCalculationEvent>().Subscribe(
+                priceCalculation =>
+                {
+                    if (PriceCalculations.ContainsById(priceCalculation))
+                    {
+                        PriceCalculations.GetById(priceCalculation).Refresh(priceCalculation);
+                    }
+                    else
+                    {
+                        var lookup = new PriceCalculationLookup(priceCalculation);
+                        PriceCalculations.Add(lookup);
+                    }
+                });
         }
 
         public void Load()
@@ -24,22 +38,8 @@ namespace HVTApp.Modules.Sales.ViewModels
             var priceCalculations = UnitOfWork.Repository<PriceCalculation>()
                 .Find(x => true)
                 .OrderBy(x => x.TaskOpenMoment);
-            PriceCalculationItems.Clear();
-            PriceCalculationItems.AddRange(priceCalculations.Select(x => new PriceCalculationItem(x)));
-        }
-    }
-
-    public class PriceCalculationItem : BindableBase
-    {
-        private readonly PriceCalculation _priceCalculation;
-
-        public DateTime? TaskOpenMoment => _priceCalculation.TaskOpenMoment;
-        public DateTime? TaskCloseMoment => _priceCalculation.TaskCloseMoment;
-        public string Name => _priceCalculation.Name;
-
-        public PriceCalculationItem(PriceCalculation priceCalculation)
-        {
-            _priceCalculation = priceCalculation;
+            PriceCalculations.Clear();
+            PriceCalculations.AddRange(priceCalculations.Select(x => new PriceCalculationLookup(x)));
         }
     }
 }

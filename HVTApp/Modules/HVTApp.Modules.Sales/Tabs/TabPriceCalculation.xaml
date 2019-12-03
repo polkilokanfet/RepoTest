@@ -16,6 +16,11 @@
         <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveGroupCommand}" SmallImage="/HVTApp.Infrastructure;component/Images/Delete_16x16.png"/>
     </infRib:RibbonGroup>
 
+    <infRib:RibbonGroup Caption="Задача">
+        <infRib:ButtonTool Caption="Стартовать" Command="{Binding StartCommand}" SmallImage="/HVTApp.Infrastructure;component/Images/Save_16x16.png"/>
+        <infRib:ButtonTool Caption="Остановить" Command="{Binding CancelCommand}" SmallImage="/HVTApp.Infrastructure;component/Images/Delete_16x16.png"/>
+    </infRib:RibbonGroup>
+
     <infRib:RibbonGroup Caption="Действия">
         <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveCommand}" SmallImage="/HVTApp.Infrastructure;component/Images/Save_16x16.png"/>
         <infRib:ButtonTool Caption="Закрыть" Command="{Binding GoBackCommand}" SmallImage="/HVTApp.Infrastructure;component/Images/Delete_16x16.png"/>
