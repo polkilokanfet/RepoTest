@@ -33,8 +33,17 @@ namespace HVTApp.Modules.Sales.Views
         {
             base.OnNavigatedTo(navigationContext);
 
-            var salesUnits = navigationContext.Parameters.First().Value as IEnumerable<SalesUnit>;
-            _viewModel.Load(salesUnits);
+            if (navigationContext.Parameters.First().Value is PriceCalculation)
+            {
+                var priceCalculation = navigationContext.Parameters.First().Value as PriceCalculation;
+                _viewModel.Load(priceCalculation);
+            }
+
+            if (navigationContext.Parameters.First().Value is IEnumerable<SalesUnit>)
+            {
+                var salesUnits = navigationContext.Parameters.First().Value as IEnumerable<SalesUnit>;
+                _viewModel.Load(salesUnits);
+            }
 
             //var dg = this.Groups; //(XamDataGrid)sender;
             //foreach (var o in dg.DataSource)

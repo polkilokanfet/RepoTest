@@ -104,7 +104,6 @@ namespace HVTApp.Modules.Sales.ViewModels
         private void StructureCostsCommand_Execute()
         {
             RegionManager.RequestNavigateContentRegion<PriceCalculationView>(new NavigationParameters { { nameof(SalesUnit), SelectedProjectItem.SalesUnits } });
-            //RegionManager.RequestNavigateContentRegion<StructureCostsView>(new NavigationParameters { { nameof(Project), SelectedProjectItem.Project } });
         }
 
         #endregion

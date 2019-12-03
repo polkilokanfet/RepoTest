@@ -111,6 +111,9 @@
       <DependentUpon>SalesMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="Menus\SalesMenuViewModel.cs" />
+    <Compile Include="Tabs\TabPriceCalculations.xaml.cs">
+      <DependentUpon>TabPriceCalculations.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Tabs\TabPriceCalculation.xaml.cs">
       <DependentUpon>TabPriceCalculation.xaml</DependentUpon>
     </Compile>
@@ -143,8 +146,8 @@
     <Compile Include="Tabs\PaymentsTab.xaml.cs">
       <DependentUpon>PaymentsTab.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Tabs\SalesCRUD.xaml.cs">
-      <DependentUpon>SalesCRUD.xaml</DependentUpon>
+    <Compile Include="Tabs\MarketTab.xaml.cs">
+      <DependentUpon>MarketTab.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\Containers\BaseContainer.cs" />
     <Compile Include="ViewModels\Containers\BaseContainerFilt.cs" />
@@ -290,6 +293,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Tabs\TabPriceCalculations.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Tabs\TabPriceCalculation.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -314,7 +321,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Tabs\SalesCRUD.xaml">
+    <Page Include="Tabs\MarketTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

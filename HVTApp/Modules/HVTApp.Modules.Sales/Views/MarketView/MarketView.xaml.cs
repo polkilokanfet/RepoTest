@@ -5,7 +5,7 @@ using Prism.Regions;
 
 namespace HVTApp.Modules.Sales.Views
 {
-    [RibbonTab(typeof(SalesCRUD))]
+    [RibbonTab(typeof(MarketTab))]
     public partial class MarketView
     {
         public MarketView(IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)

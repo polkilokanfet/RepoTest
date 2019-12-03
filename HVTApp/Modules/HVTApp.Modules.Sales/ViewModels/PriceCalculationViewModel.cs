@@ -98,7 +98,7 @@ namespace HVTApp.Modules.Sales.ViewModels
                     var structureCostWrapper = new StructureCostWrapper(structureCost);
                     (SelectedItem as PriceCalculationItem2Wrapper).StructureCosts.Add(structureCostWrapper);
                 },
-                () => SelectedItem is PriceCalculationItem2Wrapper);
+                () => SelectedItem is PriceCalculationItem2Wrapper && !IsStarted);
 
             #endregion
 
@@ -115,7 +115,7 @@ namespace HVTApp.Modules.Sales.ViewModels
                     var calculationItem2Wrapper = PriceCalculationWrapper.PriceCalculationItems.Single(x => x.StructureCosts.Contains(structureCost));
                     calculationItem2Wrapper.StructureCosts.Remove(structureCost);
                 },
-                () => SelectedItem is StructureCostWrapper);
+                () => SelectedItem is StructureCostWrapper && !IsStarted);
 
             #endregion
 
@@ -142,7 +142,8 @@ namespace HVTApp.Modules.Sales.ViewModels
                     {
                         viewModel.SelectedItemWrappers.ForEach(x => PriceCalculationWrapper.PriceCalculationItems.Add(x));
                     }
-                });
+                },
+                () =>  !IsStarted);
 
             #endregion
 
@@ -158,7 +159,7 @@ namespace HVTApp.Modules.Sales.ViewModels
                     var selectedGroup = SelectedItem as PriceCalculationItem2Wrapper;
                     PriceCalculationWrapper.PriceCalculationItems.Remove(selectedGroup);
                 },
-                () => SelectedItem is PriceCalculationItem2Wrapper);
+                () => SelectedItem is PriceCalculationItem2Wrapper && !IsStarted);
 
             #endregion
 
@@ -176,8 +177,12 @@ namespace HVTApp.Modules.Sales.ViewModels
                     Container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceCalculationEvent>().Publish(PriceCalculationWrapper.Model);
 
                     OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsStarted)));
-                    ((DelegateCommand) StartCommand).RaiseCanExecuteChanged();
-                    ((DelegateCommand) CancelCommand).RaiseCanExecuteChanged();
+                    ((DelegateCommand)StartCommand).RaiseCanExecuteChanged();
+                    ((DelegateCommand)CancelCommand).RaiseCanExecuteChanged();
+                    ((DelegateCommand)AddStructureCostCommand).RaiseCanExecuteChanged();
+                    ((DelegateCommand)AddGroupCommand).RaiseCanExecuteChanged();
+                    ((DelegateCommand)RemoveStructureCostCommand).RaiseCanExecuteChanged();
+                    ((DelegateCommand)RemoveGroupCommand).RaiseCanExecuteChanged();
                 },
                 () => !IsStarted && PriceCalculationWrapper.IsValid);
 
@@ -198,12 +203,26 @@ namespace HVTApp.Modules.Sales.ViewModels
                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsStarted)));
                 ((DelegateCommand)StartCommand).RaiseCanExecuteChanged();
                 ((DelegateCommand)CancelCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)AddStructureCostCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)AddGroupCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)RemoveStructureCostCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)RemoveGroupCommand).RaiseCanExecuteChanged();
+
             },
             () => IsStarted);
 
             #endregion
 
             PriceCalculationWrapper = new PriceCalculation2Wrapper(new PriceCalculation());
+        }
+
+        public void Load(PriceCalculation priceCalculation)
+        {
+            var priceCalculationLoaded = UnitOfWork.Repository<PriceCalculation>().GetById(priceCalculation.Id);
+
+            PriceCalculationWrapper = priceCalculationLoaded != null 
+                ? new PriceCalculation2Wrapper(priceCalculationLoaded) 
+                : new PriceCalculation2Wrapper(priceCalculation);
         }
 
         /// <summary>
@@ -223,7 +242,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         private PriceCalculationItem2Wrapper GetPriceCalculationItem2Wrapper(IEnumerable<SalesUnit2Wrapper> salesUnits)
         {
-            var priceCalculationItem2Wrapper = new PriceCalculationItem2Wrapper(new Model.POCOs.PriceCalculationItem());
+            var priceCalculationItem2Wrapper = new PriceCalculationItem2Wrapper(new PriceCalculationItem());
             salesUnits.ForEach(x => priceCalculationItem2Wrapper.SalesUnits.Add(x));
 
             //создание основного стракчакоста

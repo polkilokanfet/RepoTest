@@ -45,7 +45,7 @@
                 <Label Grid.Row="1" Grid.Column="1" Content="{Binding PriceCalculationWrapper.TaskCloseMoment, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <Label Grid.Row="2" Grid.Column="0" Content="Комментарий: "/>
-                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding PriceCalculationWrapper.Comment, Mode=TwoWay}" IsReadOnly="{Binding IsStarted, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding PriceCalculationWrapper.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding IsStarted, UpdateSourceTrigger=PropertyChanged}"/>
                 
             </Grid>
             

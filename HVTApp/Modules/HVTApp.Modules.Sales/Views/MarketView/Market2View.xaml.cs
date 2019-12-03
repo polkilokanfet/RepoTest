@@ -9,7 +9,7 @@ using ViewBase = HVTApp.Infrastructure.ViewBase;
 
 namespace HVTApp.Modules.Sales.Views
 {
-    [RibbonTab(typeof(SalesCRUD))]
+    [RibbonTab(typeof(MarketTab))]
     public partial class Market2View : ViewBase
     {
         //private readonly Market2ViewModel _viewModel;

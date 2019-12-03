@@ -1,45 +1,51 @@
-using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
-using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Lookup;
+using HVTApp.Modules.Sales.Views;
+using HVTApp.UI.ViewModels;
 using Microsoft.Practices.Unity;
-using Prism.Events;
+using Prism.Commands;
+using Prism.Regions;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
-    public class PriceCalculationsViewModel : ViewModelBase
+    public class PriceCalculationsViewModel : PriceCalculationLookupListViewModel
     {
-        public PriceCalculationItem SelectedCalculation { get; set; }
+        public ICommand NewCalculationCommand { get; }
+        public ICommand EditCalculationCommand { get; }
 
-        public ObservableCollection<PriceCalculationLookup> PriceCalculations { get; } = new ObservableCollection<PriceCalculationLookup>();
+        public ICommand ReloadCommand { get; }
+
         public PriceCalculationsViewModel(IUnityContainer container) : base(container)
         {
             Load();
-            Container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceCalculationEvent>().Subscribe(
-                priceCalculation =>
+
+            this.SelectedLookupChanged += lookup => { ((DelegateCommand)EditCalculationCommand).RaiseCanExecuteChanged(); };
+
+            NewCalculationCommand = new DelegateCommand(
+                () =>
                 {
-                    if (PriceCalculations.ContainsById(priceCalculation))
-                    {
-                        PriceCalculations.GetById(priceCalculation).Refresh(priceCalculation);
-                    }
-                    else
-                    {
-                        var lookup = new PriceCalculationLookup(priceCalculation);
-                        PriceCalculations.Add(lookup);
-                    }
+                    RegionManager.RequestNavigateContentRegion<PriceCalculationView>(new NavigationParameters { { nameof(PriceCalculation), new PriceCalculation() } });
                 });
+
+
+            EditCalculationCommand = new DelegateCommand(
+                () =>
+                {
+                    RegionManager.RequestNavigateContentRegion<PriceCalculationView>(new NavigationParameters { { nameof(PriceCalculation), SelectedItem } });
+                },
+                () => SelectedItem != null);
+
+            ReloadCommand = new DelegateCommand(Load);
         }
 
-        public void Load()
+        private void Load()
         {
-            var priceCalculations = UnitOfWork.Repository<PriceCalculation>()
-                .Find(x => true)
-                .OrderBy(x => x.TaskOpenMoment);
-            PriceCalculations.Clear();
-            PriceCalculations.AddRange(priceCalculations.Select(x => new PriceCalculationLookup(x)));
+            UnitOfWork = Container.Resolve<IUnitOfWork>();
+            var calculations = UnitOfWork.Repository<PriceCalculation>().Find(x => true).OrderByDescending(x => x.TaskOpenMoment);
+            this.Load(calculations);
         }
     }
 }
