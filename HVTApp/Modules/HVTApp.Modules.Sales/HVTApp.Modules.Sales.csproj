@@ -111,12 +111,6 @@
       <DependentUpon>SalesMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="Menus\SalesMenuViewModel.cs" />
-    <Compile Include="Tabs\TabPriceCalculations.xaml.cs">
-      <DependentUpon>TabPriceCalculations.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Tabs\TabPriceCalculation.xaml.cs">
-      <DependentUpon>TabPriceCalculation.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Tabs\TabCrudUnits.xaml.cs">
       <DependentUpon>TabCrudUnits.xaml</DependentUpon>
     </Compile>
@@ -162,8 +156,6 @@
     <Compile Include="ViewModels\Groups\OfferUnitsGroupsViewModel.cs" />
     <Compile Include="ViewModels\Market2ViewModel_Commands.cs" />
     <Compile Include="ViewModels\Containers\OffersContainer.cs" />
-    <Compile Include="ViewModels\PriceCalculationsViewModel.cs" />
-    <Compile Include="ViewModels\PriceCalculationViewModel.cs" />
     <Compile Include="ViewModels\ProductsIncludedViewModel.cs" />
     <Compile Include="ViewModels\Groups\SalesUnitsGroupsViewModel.cs" />
     <Compile Include="ViewModels\OffersViewModel.cs" />
@@ -178,7 +170,6 @@
     <Compile Include="ViewModels\PaymentsViewModel.cs" />
     <Compile Include="ViewModels\ProductionViewModel.cs" />
     <Compile Include="ViewModels\ProjectsViewModel.cs" />
-    <Compile Include="ViewModels\PriceCalculationItemsViewModel.cs" />
     <Compile Include="ViewModels\SalesUnitsWrappersGroupsContainer.cs" />
     <Compile Include="ViewModels\ShippingViewModel.cs" />
     <Compile Include="ViewModels\SpecificationsViewModel.cs" />
@@ -187,15 +178,6 @@
     <Compile Include="ViewModels\Containers\TendersContainer.cs" />
     <Compile Include="ViewModels\TenderViewModel.cs" />
     <Compile Include="ViewModels\Groups\UnitsContainer.cs" />
-    <Compile Include="Views\PriceCalculationItemsWindow.xaml.cs">
-      <DependentUpon>PriceCalculationItemsWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\PriceCalculationsView.xaml.cs">
-      <DependentUpon>PriceCalculationsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\PriceCalculationView.xaml.cs">
-      <DependentUpon>PriceCalculationView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\MarketView\MarketView.xaml.cs">
       <DependentUpon>MarketView.xaml</DependentUpon>
     </Compile>
@@ -293,14 +275,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Tabs\TabPriceCalculations.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Tabs\TabPriceCalculation.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Tabs\TabCrudUnits.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -324,18 +298,6 @@
     <Page Include="Tabs\MarketTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\PriceCalculationItemsWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\PriceCalculationsView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\PriceCalculationView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\MarketView\MarketView.xaml">
       <SubType>Designer</SubType>

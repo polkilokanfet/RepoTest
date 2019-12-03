@@ -16,7 +16,7 @@ using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Events;
 
-namespace HVTApp.Modules.Sales.ViewModels
+namespace HVTApp.UI.PriceCalculations
 {
     public class PriceCalculationViewModel : ViewModelBaseCanExportToExcel
     {
@@ -29,14 +29,20 @@ namespace HVTApp.Modules.Sales.ViewModels
             set
             {
                 _selectedItem = value;
+
                 ((DelegateCommand)AddStructureCostCommand).RaiseCanExecuteChanged();
                 ((DelegateCommand)RemoveStructureCostCommand).RaiseCanExecuteChanged();
                 ((DelegateCommand)RemoveGroupCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)FinishCommand).RaiseCanExecuteChanged();
             }
         }
+        public bool CurrentUserIsManager => GlobalAppProperties.User.RoleCurrent == Role.SalesManager;
+        public bool CurrentUserIsPricer=> GlobalAppProperties.User.RoleCurrent == Role.Pricer;
 
         public bool IsStarted => PriceCalculationWrapper?.TaskOpenMoment != null;
         public bool IsFinished => PriceCalculationWrapper?.TaskCloseMoment != null;
+
+        public bool CanChangePrice => CurrentUserIsPricer && !IsFinished;
 
         public ICommand SaveCommand { get; }
         public ICommand AddStructureCostCommand { get; }
@@ -46,6 +52,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         public ICommand RemoveGroupCommand { get; }
 
         public ICommand StartCommand { get; }
+        public ICommand FinishCommand { get; }
 
         public ICommand CancelCommand { get; }
 
@@ -61,6 +68,8 @@ namespace HVTApp.Modules.Sales.ViewModels
                     ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
                     ((DelegateCommand)StartCommand).RaiseCanExecuteChanged();
                 };
+                OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsStarted)));
+                OnPropertyChanged(new PropertyChangedEventArgs(nameof(CanChangePrice)));
             }
         }
 
@@ -188,6 +197,27 @@ namespace HVTApp.Modules.Sales.ViewModels
 
             #endregion
 
+            #region FinishCommand
+
+            FinishCommand = new DelegateCommand(
+                () =>
+                {
+                    var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Подтверждение", "Вы уверены, что хотите завершить задачу?");
+                    if (dr != MessageDialogResult.Yes) return;
+
+                    PriceCalculationWrapper.TaskCloseMoment = DateTime.Now;
+                    SaveCommand.Execute(null);
+
+                    Container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceCalculationEvent>().Publish(PriceCalculationWrapper.Model);
+
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(CanChangePrice)));
+
+                    ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
+                },
+                () => !IsFinished && PriceCalculationWrapper.IsValid && PriceCalculationWrapper.PriceCalculationItems.SelectMany(x => x.StructureCosts).All(x => x.UnitPrice.HasValue));
+
+            #endregion
+
             #region CancelCommand
 
             CancelCommand = new DelegateCommand(() =>
@@ -196,6 +226,7 @@ namespace HVTApp.Modules.Sales.ViewModels
                 if (dr != MessageDialogResult.Yes) return;
 
                 PriceCalculationWrapper.TaskOpenMoment = null;
+                PriceCalculationWrapper.TaskCloseMoment = null;
                 SaveCommand.Execute(null);
 
                 Container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceCalculationEvent>().Publish(PriceCalculationWrapper.Model);

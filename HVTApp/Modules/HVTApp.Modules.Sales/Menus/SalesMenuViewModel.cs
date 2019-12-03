@@ -1,5 +1,6 @@
 ﻿using HVTApp.Infrastructure;
 using HVTApp.Modules.Sales.Views;
+using HVTApp.UI.PriceCalculations;
 
 namespace HVTApp.Modules.Sales.Menus
 {

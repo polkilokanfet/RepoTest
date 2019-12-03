@@ -1,15 +1,16 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
-using HVTApp.Modules.Sales.Views;
 using HVTApp.UI.ViewModels;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Regions;
 
-namespace HVTApp.Modules.Sales.ViewModels
+namespace HVTApp.UI.PriceCalculations
 {
     public class PriceCalculationsViewModel : PriceCalculationLookupListViewModel
     {
@@ -17,6 +18,8 @@ namespace HVTApp.Modules.Sales.ViewModels
         public ICommand EditCalculationCommand { get; }
 
         public ICommand ReloadCommand { get; }
+
+        public bool CurrentUserIsManager => GlobalAppProperties.User.RoleCurrent == Role.SalesManager;
 
         public PriceCalculationsViewModel(IUnityContainer container) : base(container)
         {
@@ -44,8 +47,13 @@ namespace HVTApp.Modules.Sales.ViewModels
         private void Load()
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
-            var calculations = UnitOfWork.Repository<PriceCalculation>().Find(x => true).OrderByDescending(x => x.TaskOpenMoment);
-            this.Load(calculations);
+
+            IEnumerable<PriceCalculation> calculations = CurrentUserIsManager 
+                ? UnitOfWork.Repository<PriceCalculation>().Find(x => true) 
+                : UnitOfWork.Repository<PriceCalculation>().Find(x => x.TaskOpenMoment.HasValue);
+
+
+            this.Load(calculations.OrderByDescending(x => x.TaskOpenMoment));
         }
     }
 }

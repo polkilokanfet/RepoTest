@@ -1,4 +1,4 @@
-﻿namespace HVTApp.Modules.Sales.Tabs
+﻿namespace HVTApp.UI.PriceCalculations
 {
     public partial class TabPriceCalculation
     {

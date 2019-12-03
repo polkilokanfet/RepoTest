@@ -1,7 +1,9 @@
-﻿using HVTApp.Infrastructure.Interfaces.Services;
+﻿using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Prism;
+using HVTApp.UI.PriceCalculations;
 using HVTApp.UI.ViewModels;
 using HVTApp.UI.Views;
 using Microsoft.Practices.Unity;
@@ -25,6 +27,10 @@ namespace HVTApp.UI
 
         protected override void RegisterTypes()
         {
+            Container.Resolve<IDialogService>().Register<PriceCalculationItemsViewModel, PriceCalculationItemsWindow>();
+            Container.RegisterViewForNavigation<PriceCalculationView>();
+            Container.RegisterViewForNavigation<PriceCalculationsView>();
+
             _dialogService.RegisterShow<ProductStructureViewModel, ProductStructureView>();
             RegisterViews();
         }

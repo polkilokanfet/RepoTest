@@ -1,4 +1,4 @@
-﻿<inf:ViewBase x:Class="HVTApp.Modules.Sales.Views.PriceCalculationView"
+﻿<inf:ViewBase x:Class="HVTApp.UI.PriceCalculations.PriceCalculationView"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -85,7 +85,7 @@
                             <infgDp:TextField AlternateBinding="{Binding Comment, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Название" Width="Auto" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}"/>
                             <infgDp:NumericField AlternateBinding="{Binding Amount, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Кол. на ед." Width="Auto" AllowResize="False" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}"/>
                             <infgDp:TextField AlternateBinding="{Binding Number, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Номер" Width="Auto" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}"/>
-                            <infgDp:NumericField AlternateBinding="{Binding UnitPrice, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Цена за ед." Width="Auto"/>
+                            <infgDp:NumericField AlternateBinding="{Binding UnitPrice, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Цена за ед." Width="Auto" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.CanChangePrice}"/>
                             <infgDp:NumericField AlternateBinding="{Binding Total}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto" AllowResize="False"/>
                         </infgDp:FieldLayout.Fields>
                     </infgDp:FieldLayout>

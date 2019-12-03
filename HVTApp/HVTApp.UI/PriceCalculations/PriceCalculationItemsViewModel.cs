@@ -5,7 +5,7 @@ using System.Windows.Input;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using Prism.Commands;
 
-namespace HVTApp.Modules.Sales.ViewModels
+namespace HVTApp.UI.PriceCalculations
 {
     public class PriceCalculationItemsViewModel : IDialogRequestClose
     {

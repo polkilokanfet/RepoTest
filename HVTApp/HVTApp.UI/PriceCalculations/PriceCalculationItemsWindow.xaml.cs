@@ -1,6 +1,6 @@
 ﻿using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 
-namespace HVTApp.Modules.Sales.Views
+namespace HVTApp.UI.PriceCalculations
 {
     public partial class PriceCalculationItemsWindow : IDialog
     {

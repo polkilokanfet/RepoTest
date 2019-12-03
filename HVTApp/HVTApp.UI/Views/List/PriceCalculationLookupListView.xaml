@@ -40,6 +40,7 @@
                     <infg:TextField Name="Name" Label="Название" Width="Auto" />
                     <infg:CheckBoxField Name="IsNeedExcelFile" Label="Требуется расчетный файл" Width="Auto" />
                     <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" />
+                    <infg:TextField Name="Manager" Label="Менеджер" Width="Auto" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

@@ -3,16 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:infRib="http://infragistics.com/Ribbon" 
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-             x:Class="HVTApp.Modules.Sales.Tabs.TabPriceCalculations"
+             x:Class="HVTApp.UI.PriceCalculations.TabPriceCalculations"
              Header="Задания на расчет себестоимости">
 
     <infRib:RibbonGroup Caption="Задание">
-        <infRib:ButtonTool Caption="Создать" Command="{Binding NewCalculationCommand}" SmallImage="/HVTApp.Modules.Sales;component/Images/Add_16x16.png"/>
+        <infRib:ButtonTool Caption="Создать" Command="{Binding NewCalculationCommand}" Visibility="{Binding CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityConverter}}"/> <!--SmallImage="/HVTApp.Infrastructure;component/Images/Add_16x16.png"/>-->
         <infRib:ButtonTool Caption="Изменить" Command="{Binding EditCalculationCommand}" SmallImage="/HVTApp.Infrastructure;component/Images/Edit_16x16.png"/>
-        <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveItemCommand}" SmallImage="/HVTApp.Infrastructure;component/Images/Delete_16x16.png"/>
+        <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveItemCommand}" Visibility="{Binding CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityConverter}}" SmallImage="/HVTApp.Infrastructure;component/Images/Delete_16x16.png"/>
     </infRib:RibbonGroup>
 
-    <infRib:RibbonGroup Caption="Список задач">
+    <infRib:RibbonGroup Caption="Список заданий">
         <infRib:ButtonTool Caption="Перезагрузить" Command="{Binding ReloadCommand}" SmallImage="/HVTApp.Infrastructure;component/Images/Refresh_16x16.png"/>
     </infRib:RibbonGroup>
 

@@ -1,6 +1,7 @@
 ﻿using HVTApp.Infrastructure;
 using HVTApp.Model;
 using HVTApp.Modules.PlanAndEconomy.Views;
+using HVTApp.UI.PriceCalculations;
 
 namespace HVTApp.Modules.PlanAndEconomy.Menus
 {
@@ -11,6 +12,7 @@ namespace HVTApp.Modules.PlanAndEconomy.Menus
             if (GlobalAppProperties.User.RoleCurrent == Role.Pricer || GlobalAppProperties.User.RoleCurrent == Role.Admin)
             {
                 Items.Add(new NavigationItem("Переменные затраты", typeof(PricesView)));
+                Items.Add(new NavigationItem("Расчет себестоимости", typeof(PriceCalculationsView)));
             }
 
             if (GlobalAppProperties.User.RoleCurrent == Role.PlanMaker || GlobalAppProperties.User.RoleCurrent == Role.Admin)

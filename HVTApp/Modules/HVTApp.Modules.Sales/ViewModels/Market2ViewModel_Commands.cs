@@ -6,6 +6,7 @@ using HVTApp.Model.POCOs;
 using HVTApp.Modules.Sales.Views;
 using Microsoft.Practices.Unity;
 using Prism.Regions;
+using HVTApp.UI.PriceCalculations;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {

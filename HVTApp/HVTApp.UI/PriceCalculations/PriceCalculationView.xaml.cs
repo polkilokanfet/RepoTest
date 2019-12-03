@@ -2,13 +2,11 @@
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
-using HVTApp.Modules.Sales.Tabs;
-using HVTApp.Modules.Sales.ViewModels;
 using Prism.Events;
 using Prism.Regions;
 using ViewBase = HVTApp.Infrastructure.ViewBase;
 
-namespace HVTApp.Modules.Sales.Views
+namespace HVTApp.UI.PriceCalculations
 {
     [RibbonTab(typeof(TabPriceCalculation))]
     public partial class PriceCalculationView : ViewBase

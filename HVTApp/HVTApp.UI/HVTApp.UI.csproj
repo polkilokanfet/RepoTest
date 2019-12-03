@@ -105,7 +105,26 @@
     <Compile Include="Groups\SalesUnitsGroup.cs" />
     <Compile Include="Groups\ShipmentUnitsGroup.cs" />
     <Compile Include="Lookup\Items\Custom\DocumentLookup.cs" />
+    <Compile Include="Lookup\Items\Custom\PriceCalculationLookup.cs" />
     <Compile Include="Lookup\Items\Custom\SalesUnitLookup.cs" />
+    <Compile Include="PriceCalculations\PriceCalculationItemsViewModel.cs" />
+    <Compile Include="PriceCalculations\PriceCalculationItemsWindow.xaml.cs">
+      <DependentUpon>PriceCalculationItemsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceCalculations\PriceCalculationsView.xaml.cs">
+      <DependentUpon>PriceCalculationsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceCalculations\PriceCalculationsViewModel.cs" />
+    <Compile Include="PriceCalculations\PriceCalculationView.xaml.cs">
+      <DependentUpon>PriceCalculationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceCalculations\PriceCalculationViewModel.cs" />
+    <Compile Include="PriceCalculations\TabPriceCalculation.xaml.cs">
+      <DependentUpon>TabPriceCalculation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceCalculations\TabPriceCalculations.xaml.cs">
+      <DependentUpon>TabPriceCalculations.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Tabs\TabRefresh.xaml.cs">
       <DependentUpon>TabRefresh.xaml</DependentUpon>
     </Compile>
@@ -368,6 +387,26 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\ChooseItemsListControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceCalculations\PriceCalculationItemsWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceCalculations\PriceCalculationsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceCalculations\PriceCalculationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceCalculations\TabPriceCalculation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceCalculations\TabPriceCalculations.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
