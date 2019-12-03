@@ -670,13 +670,58 @@ namespace HVTApp.UI.Wrapper
         #endregion
 
 
-        #region ComplexProperties
+        #region CollectionProperties
 
-	    public UserWrapper Author 
+        public IValidatableChangeTrackingCollection<PriceCalculationItemWrapper> PriceCalculationItems { get; private set; }
+
+
+        #endregion
+
+
+        #region GetProperties
+
+        public System.String Name => GetValue<System.String>(); 
+
+
+        #endregion
+
+  
+        protected override void InitializeCollectionProperties()
         {
-            get { return GetWrapper<UserWrapper>(); }
-            set { SetComplexValue<User, UserWrapper>(Author, value); }
+
+          if (Model.PriceCalculationItems == null) throw new ArgumentException("PriceCalculationItems cannot be null");
+          PriceCalculationItems = new ValidatableChangeTrackingCollection<PriceCalculationItemWrapper>(Model.PriceCalculationItems.Select(e => new PriceCalculationItemWrapper(e)));
+          RegisterCollection(PriceCalculationItems, Model.PriceCalculationItems);
+
+
         }
+
+	}
+
+		public partial class PriceCalculationItemWrapper : WrapperBase<PriceCalculationItem>
+	{
+	    public PriceCalculationItemWrapper(PriceCalculationItem model) : base(model) { }
+
+	
+
+        #region SimpleProperties
+
+        public System.Guid PriceCalculationId
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid PriceCalculationIdOriginalValue => GetOriginalValue<System.Guid>(nameof(PriceCalculationId));
+        public bool PriceCalculationIdIsChanged => GetIsChanged(nameof(PriceCalculationId));
+
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
 
 
         #endregion
@@ -687,15 +732,10 @@ namespace HVTApp.UI.Wrapper
         public IValidatableChangeTrackingCollection<SalesUnitWrapper> SalesUnits { get; private set; }
 
 
+        public IValidatableChangeTrackingCollection<StructureCostWrapper> StructureCosts { get; private set; }
+
+
         #endregion
-
-        public override void InitializeComplexProperties()
-        {
-
-            InitializeComplexProperty<UserWrapper>(nameof(Author), Model.Author == null ? null : new UserWrapper(Model.Author));
-
-
-        }
 
   
         protected override void InitializeCollectionProperties()
@@ -704,6 +744,11 @@ namespace HVTApp.UI.Wrapper
           if (Model.SalesUnits == null) throw new ArgumentException("SalesUnits cannot be null");
           SalesUnits = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(Model.SalesUnits.Select(e => new SalesUnitWrapper(e)));
           RegisterCollection(SalesUnits, Model.SalesUnits);
+
+
+          if (Model.StructureCosts == null) throw new ArgumentException("StructureCosts cannot be null");
+          StructureCosts = new ValidatableChangeTrackingCollection<StructureCostWrapper>(Model.StructureCosts.Select(e => new StructureCostWrapper(e)));
+          RegisterCollection(StructureCosts, Model.StructureCosts);
 
 
         }
@@ -1052,6 +1097,15 @@ namespace HVTApp.UI.Wrapper
 
         #region SimpleProperties
 
+        public System.Guid PriceCalculationItemId
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid PriceCalculationItemIdOriginalValue => GetOriginalValue<System.Guid>(nameof(PriceCalculationItemId));
+        public bool PriceCalculationItemIdIsChanged => GetIsChanged(nameof(PriceCalculationItemId));
+
+
         public System.String Number
         {
           get { return GetValue<System.String>(); }
@@ -1077,15 +1131,6 @@ namespace HVTApp.UI.Wrapper
         }
         public System.Nullable<System.Double> UnitPriceOriginalValue => GetOriginalValue<System.Nullable<System.Double>>(nameof(UnitPrice));
         public bool UnitPriceIsChanged => GetIsChanged(nameof(UnitPrice));
-
-
-        public System.Nullable<System.DateTime> UnitPriceDate
-        {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
-          set { SetValue(value); }
-        }
-        public System.Nullable<System.DateTime> UnitPriceDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(UnitPriceDate));
-        public bool UnitPriceDateIsChanged => GetIsChanged(nameof(UnitPriceDate));
 
 
         public System.String Comment
@@ -1115,46 +1160,6 @@ namespace HVTApp.UI.Wrapper
 
 
         #endregion
-
-	}
-
-		public partial class StructureCostsWrapper : WrapperBase<StructureCosts>
-	{
-	    public StructureCostsWrapper(StructureCosts model) : base(model) { }
-
-	
-
-        #region SimpleProperties
-
-        public System.Guid Id
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
-        public bool IdIsChanged => GetIsChanged(nameof(Id));
-
-
-        #endregion
-
-
-        #region CollectionProperties
-
-        public IValidatableChangeTrackingCollection<StructureCostWrapper> StructureCostsList { get; private set; }
-
-
-        #endregion
-
-  
-        protected override void InitializeCollectionProperties()
-        {
-
-          if (Model.StructureCostsList == null) throw new ArgumentException("StructureCostsList cannot be null");
-          StructureCostsList = new ValidatableChangeTrackingCollection<StructureCostWrapper>(Model.StructureCostsList.Select(e => new StructureCostWrapper(e)));
-          RegisterCollection(StructureCostsList, Model.StructureCostsList);
-
-
-        }
 
 	}
 
@@ -3239,13 +3244,6 @@ namespace HVTApp.UI.Wrapper
         }
 
 
-	    public StructureCostsWrapper StructureCosts 
-        {
-            get { return GetWrapper<StructureCostsWrapper>(); }
-            set { SetComplexValue<StructureCosts, StructureCostsWrapper>(StructureCosts, value); }
-        }
-
-
         #endregion
 
 
@@ -3376,9 +3374,6 @@ namespace HVTApp.UI.Wrapper
 
 
             InitializeComplexProperty<FakeDataWrapper>(nameof(FakeData), Model.FakeData == null ? null : new FakeDataWrapper(Model.FakeData));
-
-
-            InitializeComplexProperty<StructureCostsWrapper>(nameof(StructureCosts), Model.StructureCosts == null ? null : new StructureCostsWrapper(Model.StructureCosts));
 
 
         }

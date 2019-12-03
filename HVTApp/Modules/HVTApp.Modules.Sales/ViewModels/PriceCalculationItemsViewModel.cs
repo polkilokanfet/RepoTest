@@ -7,10 +7,10 @@ using Prism.Commands;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
-    public class SalesUnitsPriceCalculationGroupsViewModel : IDialogRequestClose
+    public class PriceCalculationItemsViewModel : IDialogRequestClose
     {
         private object[] _selectedItems;
-        public IEnumerable<SalesUnitsPriceCalculationGroupSimple> Groups { get; }
+        public IEnumerable<PriceCalculationItem2Wrapper> Items { get; }
 
         public object[] SelectedItems
         {
@@ -22,18 +22,15 @@ namespace HVTApp.Modules.Sales.ViewModels
             }
         }
 
-        public List<SalesUnitsPriceCalculationGroupSimple> SelectedGroups => SelectedItems?.Cast<SalesUnitsPriceCalculationGroupSimple>().ToList();
+        public List<PriceCalculationItem2Wrapper> SelectedItemWrappers => SelectedItems?.Cast<PriceCalculationItem2Wrapper>().ToList();
 
         public ICommand SelectCommand { get; }
 
-        public SalesUnitsPriceCalculationGroupsViewModel(IEnumerable<SalesUnitsPriceCalculationGroupSimple> groups)
+        public PriceCalculationItemsViewModel(IEnumerable<PriceCalculationItem2Wrapper> items)
         {
-            Groups = groups;
+            Items = items;
             SelectCommand = new DelegateCommand(
-                () =>
-                {
-                    CloseRequested?.Invoke(this, new DialogRequestCloseEventArgs(true));
-                }, 
+                () => { CloseRequested?.Invoke(this, new DialogRequestCloseEventArgs(true)); }, 
                 () => SelectedItems != null && SelectedItems.Any());
         }
 

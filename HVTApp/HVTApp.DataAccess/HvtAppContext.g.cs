@@ -22,6 +22,7 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new PaymentPlannedConfiguration());
             modelBuilder.Configurations.Add(new PenaltyConfiguration());
             modelBuilder.Configurations.Add(new PriceCalculationConfiguration());
+            modelBuilder.Configurations.Add(new PriceCalculationItemConfiguration());
             modelBuilder.Configurations.Add(new ProductIncludedConfiguration());
             modelBuilder.Configurations.Add(new ProductDesignationConfiguration());
             modelBuilder.Configurations.Add(new ProductTypeConfiguration());
@@ -30,7 +31,6 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new StandartMarginalIncomeConfiguration());
             modelBuilder.Configurations.Add(new StandartProductionTermConfiguration());
             modelBuilder.Configurations.Add(new StructureCostConfiguration());
-            modelBuilder.Configurations.Add(new StructureCostsConfiguration());
             modelBuilder.Configurations.Add(new GlobalPropertiesConfiguration());
             modelBuilder.Configurations.Add(new AddressConfiguration());
             modelBuilder.Configurations.Add(new CountryConfiguration());
@@ -92,6 +92,7 @@ namespace HVTApp.DataAccess
         public virtual DbSet<PaymentPlanned> PaymentPlannedDbSet { get; set; }
         public virtual DbSet<Penalty> PenaltyDbSet { get; set; }
         public virtual DbSet<PriceCalculation> PriceCalculationDbSet { get; set; }
+        public virtual DbSet<PriceCalculationItem> PriceCalculationItemDbSet { get; set; }
         public virtual DbSet<ProductIncluded> ProductIncludedDbSet { get; set; }
         public virtual DbSet<ProductDesignation> ProductDesignationDbSet { get; set; }
         public virtual DbSet<ProductType> ProductTypeDbSet { get; set; }
@@ -100,7 +101,6 @@ namespace HVTApp.DataAccess
         public virtual DbSet<StandartMarginalIncome> StandartMarginalIncomeDbSet { get; set; }
         public virtual DbSet<StandartProductionTerm> StandartProductionTermDbSet { get; set; }
         public virtual DbSet<StructureCost> StructureCostDbSet { get; set; }
-        public virtual DbSet<StructureCosts> StructureCostsDbSet { get; set; }
         public virtual DbSet<GlobalProperties> GlobalPropertiesDbSet { get; set; }
         public virtual DbSet<Address> AddressDbSet { get; set; }
         public virtual DbSet<Country> CountryDbSet { get; set; }

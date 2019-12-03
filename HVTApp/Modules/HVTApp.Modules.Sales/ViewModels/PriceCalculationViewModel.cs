@@ -42,8 +42,6 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         public PriceCalculation2Wrapper PriceCalculationWrapper { get; private set; }
 
-        public ObservableCollection<SalesUnitsPriceCalculationGroup> Groups { get; } = new ObservableCollection<SalesUnitsPriceCalculationGroup>();
-
         public PriceCalculationViewModel(IUnityContainer container) : base(container)
         {
             //сохранение изменений
@@ -63,9 +61,9 @@ namespace HVTApp.Modules.Sales.ViewModels
                 {
                     var structureCost = new StructureCost { Comment = "No title" };
                     var structureCostWrapper = new StructureCostWrapper(structureCost);
-                    (SelectedItem as SalesUnitsPriceCalculationGroup).StructureCostsWrapper.StructureCostsList.Add(structureCostWrapper);
+                    (SelectedItem as PriceCalculationItem2Wrapper).StructureCosts.Add(structureCostWrapper);
                 },
-                () => SelectedItem is SalesUnitsPriceCalculationGroup);
+                () => SelectedItem is PriceCalculationItem2Wrapper);
 
             //удаление стракчакоста
             RemoveStructureCostCommand = new DelegateCommand(
@@ -75,8 +73,8 @@ namespace HVTApp.Modules.Sales.ViewModels
                     if (result != MessageDialogResult.Yes) return;
 
                     var structureCost = SelectedItem as StructureCostWrapper;
-                    var structureCostsGroupWrapper = Groups.Single(x => x.StructureCostsWrapper.StructureCostsList.Contains(structureCost));
-                    structureCostsGroupWrapper.StructureCostsWrapper.StructureCostsList.Remove(structureCost);
+                    var calculationItem2Wrapper = PriceCalculationWrapper.PriceCalculationItems.Single(x => x.StructureCosts.Contains(structureCost));
+                    calculationItem2Wrapper.StructureCosts.Remove(structureCost);
                 },
                 () => SelectedItem is StructureCostWrapper);
 
@@ -87,19 +85,27 @@ namespace HVTApp.Modules.Sales.ViewModels
                     //потенциальные группы
                     var groups = UnitOfWork.Repository<SalesUnit>()
                             .Find(x => x.Project.Manager.IsAppCurrentUser())
-                            .Except(PriceCalculationWrapper.SalesUnits.Select(x => x.Model))
-                            .Select(x => new SalesUnitPriceCalculationWrapper(x))
-                            .GroupBy(x => x, new SalesUnitPriceCalculationComparer())
-                            .Select(x => new SalesUnitsPriceCalculationGroupSimple(x));
+                            .Except(PriceCalculationWrapper.PriceCalculationItems.SelectMany(x => x.SalesUnits).Select(x => x.Model))
+                            .Select(x => new SalesUnit2Wrapper(x))
+                            .GroupBy(x => x, new SalesUnit2Comparer());
+
+                    var items = new List<PriceCalculationItem2Wrapper>();
+                    foreach (var @group in groups)
+                    {
+                        var priceCalculationItem = new Model.POCOs.PriceCalculationItem();
+                        var priceCalculationItemWrapper = new PriceCalculationItem2Wrapper(priceCalculationItem);
+                        group.ForEach(x => priceCalculationItemWrapper.SalesUnits.Add(x));
+                        items.Add(priceCalculationItemWrapper);
+                    }
 
                     //выбор группы
-                    var viewModel = new SalesUnitsPriceCalculationGroupsViewModel(groups);
+                    var viewModel = new PriceCalculationItemsViewModel(items);
                     var dialogResult = Container.Resolve<IDialogService>().ShowDialog(viewModel);
 
                     //добавление группы
                     if (dialogResult.HasValue && dialogResult.Value)
                     {
-                        Groups.AddRange(viewModel.SelectedGroups.Select(x => new SalesUnitsPriceCalculationGroup(x.SalesUnitPriceCalculationWrappers)));
+                        viewModel.SelectedItemWrappers.ForEach(x => PriceCalculationWrapper.PriceCalculationItems.Add(x));
                     }
                 });
 
@@ -110,11 +116,10 @@ namespace HVTApp.Modules.Sales.ViewModels
                     var result = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Действительно хотите удалить из расчета группу оборудования?");
                     if (result != MessageDialogResult.Yes) return;
 
-                    var selectedGroup = SelectedItem as SalesUnitsPriceCalculationGroup;
-                    selectedGroup.SalesUnitPriceCalculationWrappers.ForEach(x => x.RejectChanges());
-                    Groups.Remove(selectedGroup);
+                    var selectedGroup = SelectedItem as PriceCalculationItem2Wrapper;
+                    PriceCalculationWrapper.PriceCalculationItems.Remove(selectedGroup);
                 },
-                () => SelectedItem is SalesUnitsPriceCalculationGroup);
+                () => SelectedItem is PriceCalculationItem2Wrapper);
 
 
         }
@@ -127,11 +132,11 @@ namespace HVTApp.Modules.Sales.ViewModels
         {
             var salesUnitWrappers = salesUnits
                 .Select(x => UnitOfWork.Repository<SalesUnit>().GetById(x.Id))
-                .Select(x => new SalesUnitPriceCalculationWrapper(x))
+                .Select(x => new SalesUnit2Wrapper(x))
                 .ToList();
 
             //создаем задачу
-            PriceCalculationWrapper = new PriceCalculation2Wrapper(new PriceCalculation {Author = GlobalAppProperties.User});
+            PriceCalculationWrapper = new PriceCalculation2Wrapper(new PriceCalculation());
             
             //реакция на изменения в задаче
             PriceCalculationWrapper.PropertyChanged += (sender, args) =>
@@ -139,109 +144,40 @@ namespace HVTApp.Modules.Sales.ViewModels
                 ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
             };
 
-            //реакция на изменения в коллекции групп
-            Groups.CollectionChanged += (sender, args) =>
+            var groups = salesUnitWrappers.GroupBy(x => x, new SalesUnit2Comparer());
+
+            foreach (var @group in groups)
             {
-                if (args.Action == NotifyCollectionChangedAction.Add)
-                {
-                    args.NewItems.Cast<SalesUnitsPriceCalculationGroup>()
-                        .SelectMany(x => x.SalesUnitPriceCalculationWrappers)
-                        .ForEach(x => PriceCalculationWrapper.SalesUnits.Add(x));
-                }
-
-                if (args.Action == NotifyCollectionChangedAction.Remove)
-                {
-                    args.OldItems.Cast<SalesUnitsPriceCalculationGroup>()
-                        .SelectMany(x => x.SalesUnitPriceCalculationWrappers)
-                        .ForEach(x => PriceCalculationWrapper.SalesUnits.Remove(x));
-                }
-            };
-
-            //группируем юниты
-            var groups = salesUnitWrappers.GroupBy(x => x, new SalesUnitPriceCalculationComparer());
-            Groups.AddRange(groups.Select(x => new SalesUnitsPriceCalculationGroup(x)).ToList());
-        }
-    }
-
-    public class SalesUnitsPriceCalculationGroupSimple
-    {
-        public List<SalesUnitPriceCalculationWrapper> SalesUnitPriceCalculationWrappers { get; }
-
-        public Project Project { get; }
-        public Facility Facility { get; }
-        public Product Product { get; }
-        public int Amount { get; }
-        public DateTime OrderInTakeDate { get; }
-        public DateTime RealizationDate { get; }
-        public PaymentConditionSet PaymentConditionSet { get; }
-
-        public SalesUnitsPriceCalculationGroupSimple(IEnumerable<SalesUnitPriceCalculationWrapper> salesUnitWrappers)
-        {
-            SalesUnitPriceCalculationWrappers = salesUnitWrappers.ToList();
-            var salesUnit = SalesUnitPriceCalculationWrappers.First().Model;
-
-            Project = salesUnit.Project;
-            Facility = salesUnit.Facility;
-            Product = salesUnit.Product;
-            Amount = SalesUnitPriceCalculationWrappers.Count;
-            OrderInTakeDate = salesUnit.OrderInTakeDate;
-            RealizationDate = salesUnit.RealizationDateCalculated;
-            PaymentConditionSet = salesUnit.PaymentConditionSet;
-        }
-    }
-
-    public class SalesUnitsPriceCalculationGroup : SalesUnitsPriceCalculationGroupSimple
-    {
-        public StructureCostsWrapper StructureCostsWrapper { get; }
-        public IValidatableChangeTrackingCollection<StructureCostWrapper> StructureCostWrappers => StructureCostsWrapper.StructureCostsList;
-
-        public SalesUnitsPriceCalculationGroup(IEnumerable<SalesUnitPriceCalculationWrapper> salesUnitWrappers) : base(salesUnitWrappers)
-        {
-            var salesUnit = SalesUnitPriceCalculationWrappers.First().Model;
-
-            StructureCostsWrapper = salesUnit.StructureCosts == null 
-                ? new StructureCostsWrapper(new StructureCosts()) 
-                : new StructureCostsWrapper(salesUnit.StructureCosts);
-
-            if (salesUnit.StructureCosts == null)
-            {
-                SalesUnitPriceCalculationWrappers.ForEach(x => x.StructureCosts = StructureCostsWrapper);
-
+                var priceCalculationItem2Wrapper = new PriceCalculationItem2Wrapper(new Model.POCOs.PriceCalculationItem());
+                group.ForEach(x => priceCalculationItem2Wrapper.SalesUnits.Add(x));
+                
                 //создание основного стракчакоста
                 var structureCost = new StructureCost
                 {
-                    Comment = $"{Product}"
+                    Comment = $"{priceCalculationItem2Wrapper.Product}",
+                    Amount = 1
                 };
-                StructureCostsWrapper.StructureCostsList.Add(new StructureCostWrapper(structureCost));
+                priceCalculationItem2Wrapper.StructureCosts.Add(new StructureCostWrapper(structureCost));
 
                 //создание стракчакостов доп.оборудования
-                foreach (var productIncluded in salesUnit.ProductsIncluded)
+                foreach (var productIncluded in priceCalculationItem2Wrapper.SalesUnits.First().Model.ProductsIncluded)
                 {
                     var structureCostPrIncl = new StructureCost
                     {
                         Comment = $"{productIncluded.Product}",
-                        Amount = (double)productIncluded.Amount/Amount
+                        Amount = (double) productIncluded.Amount / priceCalculationItem2Wrapper.SalesUnits.Count
                     };
-                    StructureCostsWrapper.StructureCostsList.Add(new StructureCostWrapper(structureCostPrIncl));
+                    priceCalculationItem2Wrapper.StructureCosts.Add(new StructureCostWrapper(structureCostPrIncl));
                 }
+
+                PriceCalculationWrapper.PriceCalculationItems.Add(priceCalculationItem2Wrapper);
             }
         }
     }
 
-    public class SalesUnitPriceCalculationWrapper : WrapperBase<SalesUnit>
+    public class SalesUnit2Wrapper : WrapperBase<SalesUnit>
     {
-        public SalesUnitPriceCalculationWrapper(SalesUnit model) : base(model) { }
-
-        public StructureCostsWrapper StructureCosts
-        {
-            get { return GetWrapper<StructureCostsWrapper>(); }
-            set { SetComplexValue<StructureCosts, StructureCostsWrapper>(StructureCosts, value); }
-        }
-
-        public override void InitializeComplexProperties()
-        {
-            InitializeComplexProperty(nameof(StructureCosts), Model.StructureCosts == null ? null : new StructureCostsWrapper(Model.StructureCosts));
-        }
+        public SalesUnit2Wrapper(SalesUnit model) : base(model) { }
     }
 
     public class PriceCalculation2Wrapper : WrapperBase<PriceCalculation>
@@ -287,39 +223,78 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         #endregion
 
-        #region ComplexProperties
+        #region CollectionProperties
 
-        public UserWrapper Author
+        public IValidatableChangeTrackingCollection<PriceCalculationItem2Wrapper> PriceCalculationItems { get; private set; }
+
+        #endregion
+
+        #region GetProperties
+
+        public string Name => GetValue<string>();
+
+        #endregion
+
+        protected override void InitializeCollectionProperties()
         {
-            get { return GetWrapper<UserWrapper>(); }
-            set { SetComplexValue<User, UserWrapper>(Author, value); }
+            if (Model.PriceCalculationItems == null) throw new ArgumentException("PriceCalculationItems cannot be null");
+            PriceCalculationItems = new ValidatableChangeTrackingCollection<PriceCalculationItem2Wrapper>(Model.PriceCalculationItems.Select(e => new PriceCalculationItem2Wrapper(e)));
+            RegisterCollection(PriceCalculationItems, Model.PriceCalculationItems);
         }
+    }
+
+    public class PriceCalculationItem2Wrapper : WrapperBase<Model.POCOs.PriceCalculationItem>
+    {
+        public Project Project => Model.SalesUnits.FirstOrDefault()?.Project;
+        public Facility Facility => Model.SalesUnits.FirstOrDefault()?.Facility;
+        public Product Product => Model.SalesUnits.FirstOrDefault()?.Product;
+        public int Amount => Model.SalesUnits.Count;
+        public DateTime? OrderInTakeDate => Model.SalesUnits.FirstOrDefault()?.OrderInTakeDate;
+        public DateTime? RealizationDate => Model.SalesUnits.FirstOrDefault()?.RealizationDateCalculated;
+        public PaymentConditionSet PaymentConditionSet => Model.SalesUnits.FirstOrDefault()?.PaymentConditionSet;
+
+        public PriceCalculationItem2Wrapper(Model.POCOs.PriceCalculationItem model) : base(model)
+        {
+            this.SalesUnits.CollectionChanged += (sender, args) => { OnPropertyChanged(string.Empty); };
+        }
+
+        #region SimpleProperties
+
+        public System.Guid PriceCalculationId
+        {
+            get { return GetValue<System.Guid>(); }
+            set { SetValue(value); }
+        }
+        public System.Guid PriceCalculationIdOriginalValue => GetOriginalValue<System.Guid>(nameof(PriceCalculationId));
+        public bool PriceCalculationIdIsChanged => GetIsChanged(nameof(PriceCalculationId));
 
         #endregion
 
         #region CollectionProperties
 
-        public IValidatableChangeTrackingCollection<SalesUnitPriceCalculationWrapper> SalesUnits { get; private set; }
+        public IValidatableChangeTrackingCollection<SalesUnit2Wrapper> SalesUnits { get; private set; }
+
+        public IValidatableChangeTrackingCollection<StructureCostWrapper> StructureCosts { get; private set; }
 
         #endregion
-
-        public override void InitializeComplexProperties()
-        {
-            InitializeComplexProperty(nameof(Author), Model.Author == null ? null : new UserWrapper(Model.Author));
-        }
 
         protected override void InitializeCollectionProperties()
         {
             if (Model.SalesUnits == null) throw new ArgumentException("SalesUnits cannot be null");
-            SalesUnits = new ValidatableChangeTrackingCollection<SalesUnitPriceCalculationWrapper>(Model.SalesUnits.Select(e => new SalesUnitPriceCalculationWrapper(e)));
+            SalesUnits = new ValidatableChangeTrackingCollection<SalesUnit2Wrapper>(Model.SalesUnits.Select(e => new SalesUnit2Wrapper(e)));
             RegisterCollection(SalesUnits, Model.SalesUnits);
+
+            if (Model.StructureCosts == null) throw new ArgumentException("StructureCosts cannot be null");
+            StructureCosts = new ValidatableChangeTrackingCollection<StructureCostWrapper>(Model.StructureCosts.Select(e => new StructureCostWrapper(e)));
+            RegisterCollection(StructureCosts, Model.StructureCosts);
         }
 
     }
 
-    public class SalesUnitPriceCalculationComparer : IEqualityComparer<SalesUnitPriceCalculationWrapper>
+
+    public class SalesUnit2Comparer : IEqualityComparer<SalesUnit2Wrapper>
     {
-        public bool Equals(SalesUnitPriceCalculationWrapper x, SalesUnitPriceCalculationWrapper y)
+        public bool Equals(SalesUnit2Wrapper x, SalesUnit2Wrapper y)
         {
             if (x == null) throw new ArgumentNullException(nameof(x));
             if (y == null) throw new ArgumentNullException(nameof(y));
@@ -330,7 +305,6 @@ namespace HVTApp.Modules.Sales.ViewModels
             if (!Equals(x.Model.PaymentConditionSet.Id, y.Model.PaymentConditionSet.Id)) return false;
             if (!Equals(x.Model.OrderInTakeDate, y.Model.OrderInTakeDate)) return false;
             if (!Equals(x.Model.RealizationDateCalculated, y.Model.RealizationDateCalculated)) return false;
-            if (!Equals(x.StructureCosts?.Id, y.StructureCosts?.Id)) return false;
 
             var productsInclX = x.Model.ProductsIncluded.Select(p => new ProductAmount(p.Product.Id, p.Amount)).ToList();
             var productsInclY = y.Model.ProductsIncluded.Select(p => new ProductAmount(p.Product.Id, p.Amount)).ToList();
@@ -342,7 +316,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             return true;
         }
 
-        public int GetHashCode(SalesUnitPriceCalculationWrapper salesUnit)
+        public int GetHashCode(SalesUnit2Wrapper salesUnit)
         {
             return 0;
         }

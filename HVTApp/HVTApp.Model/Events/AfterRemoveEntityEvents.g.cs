@@ -16,6 +16,7 @@ namespace HVTApp.Model.Events
 	public partial class AfterRemovePaymentPlannedEvent : PubSubEvent<PaymentPlanned> { }
 	public partial class AfterRemovePenaltyEvent : PubSubEvent<Penalty> { }
 	public partial class AfterRemovePriceCalculationEvent : PubSubEvent<PriceCalculation> { }
+	public partial class AfterRemovePriceCalculationItemEvent : PubSubEvent<PriceCalculationItem> { }
 	public partial class AfterRemoveProductIncludedEvent : PubSubEvent<ProductIncluded> { }
 	public partial class AfterRemoveProductDesignationEvent : PubSubEvent<ProductDesignation> { }
 	public partial class AfterRemoveProductTypeEvent : PubSubEvent<ProductType> { }
@@ -24,7 +25,6 @@ namespace HVTApp.Model.Events
 	public partial class AfterRemoveStandartMarginalIncomeEvent : PubSubEvent<StandartMarginalIncome> { }
 	public partial class AfterRemoveStandartProductionTermEvent : PubSubEvent<StandartProductionTerm> { }
 	public partial class AfterRemoveStructureCostEvent : PubSubEvent<StructureCost> { }
-	public partial class AfterRemoveStructureCostsEvent : PubSubEvent<StructureCosts> { }
 	public partial class AfterRemoveGlobalPropertiesEvent : PubSubEvent<GlobalProperties> { }
 	public partial class AfterRemoveAddressEvent : PubSubEvent<Address> { }
 	public partial class AfterRemoveCountryEvent : PubSubEvent<Country> { }

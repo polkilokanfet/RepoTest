@@ -10,7 +10,6 @@
     
     <StackPanel>
         <views:SalesUnitDetailsView DataContext="{Binding ViewModel}" 
-                                    VisibilityStructureCostsSalesUnit="Collapsed"
                                     VisibilityAddressDeliverySalesUnit="Collapsed"
                                     VisibilityAllowEditCostSalesUnit="Collapsed"
                                     VisibilityAllowEditProductSalesUnit="Collapsed"

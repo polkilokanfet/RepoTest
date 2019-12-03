@@ -168,9 +168,6 @@ namespace HVTApp.Model.POCOs
 
         #endregion
 
-        [Designation("Стракчакосты")]
-        public virtual StructureCosts StructureCosts { get; set; }
-
         #region Func
 
         /// <summary>

@@ -2,7 +2,7 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-              x:Class="HVTApp.UI.Views.StructureCostsLookupListView">
+              x:Class="HVTApp.UI.Views.PriceCalculationItemLookupListView">
 
     <Grid>
          <Grid.RowDefinitions>
@@ -14,7 +14,7 @@
             <Label.Style>
                 <Style>
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding ElementName=StructureCostsLookupListGrid, Path=Visibility}" Value="Visible">
+                    <DataTrigger Binding="{Binding ElementName=PriceCalculationItemLookupListGrid, Path=Visibility}" Value="Visible">
                         <Setter Property="Label.Visibility" Value="Collapsed"/>
                     </DataTrigger>
                 </Style.Triggers>
@@ -23,7 +23,7 @@
         </Label>
        
 
-		<infg:XamDataGrid x:Name="StructureCostsLookupListGrid" Grid.Row="1" Style="{StaticResource ListViewGrid}" Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+		<infg:XamDataGrid x:Name="PriceCalculationItemLookupListGrid" Grid.Row="1" Style="{StaticResource ListViewGrid}" Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
         
 			<infg:XamDataGrid.ContextMenu>
 				<ContextMenu>
@@ -34,7 +34,8 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:TextField Name="StructureCostsList" Label="Стракчакосты" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
+                    <infg:TextField Name="StructureCosts" Label="Сралчахвосты" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
+                    <infg:TextField Name="SalesUnits" Label="Единицы продаж" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

@@ -17,6 +17,7 @@ namespace HVTApp.DataAccess
             PaymentPlannedRepository = new PaymentPlannedRepository(_context);
             PenaltyRepository = new PenaltyRepository(_context);
             PriceCalculationRepository = new PriceCalculationRepository(_context);
+            PriceCalculationItemRepository = new PriceCalculationItemRepository(_context);
             ProductIncludedRepository = new ProductIncludedRepository(_context);
             ProductDesignationRepository = new ProductDesignationRepository(_context);
             ProductTypeRepository = new ProductTypeRepository(_context);
@@ -25,7 +26,6 @@ namespace HVTApp.DataAccess
             StandartMarginalIncomeRepository = new StandartMarginalIncomeRepository(_context);
             StandartProductionTermRepository = new StandartProductionTermRepository(_context);
             StructureCostRepository = new StructureCostRepository(_context);
-            StructureCostsRepository = new StructureCostsRepository(_context);
             GlobalPropertiesRepository = new GlobalPropertiesRepository(_context);
             AddressRepository = new AddressRepository(_context);
             CountryRepository = new CountryRepository(_context);
@@ -87,6 +87,7 @@ namespace HVTApp.DataAccess
         protected IPaymentPlannedRepository PaymentPlannedRepository;
         protected IPenaltyRepository PenaltyRepository;
         protected IPriceCalculationRepository PriceCalculationRepository;
+        protected IPriceCalculationItemRepository PriceCalculationItemRepository;
         protected IProductIncludedRepository ProductIncludedRepository;
         protected IProductDesignationRepository ProductDesignationRepository;
         protected IProductTypeRepository ProductTypeRepository;
@@ -95,7 +96,6 @@ namespace HVTApp.DataAccess
         protected IStandartMarginalIncomeRepository StandartMarginalIncomeRepository;
         protected IStandartProductionTermRepository StandartProductionTermRepository;
         protected IStructureCostRepository StructureCostRepository;
-        protected IStructureCostsRepository StructureCostsRepository;
         protected IGlobalPropertiesRepository GlobalPropertiesRepository;
         protected IAddressRepository AddressRepository;
         protected ICountryRepository CountryRepository;

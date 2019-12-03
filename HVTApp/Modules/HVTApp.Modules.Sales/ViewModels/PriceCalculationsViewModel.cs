@@ -22,7 +22,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         public void Load()
         {
             var priceCalculations = UnitOfWork.Repository<PriceCalculation>()
-                .Find(x => x.Author.IsAppCurrentUser())
+                .Find(x => true)
                 .OrderBy(x => x.TaskOpenMoment);
             PriceCalculationItems.Clear();
             PriceCalculationItems.AddRange(priceCalculations.Select(x => new PriceCalculationItem(x)));

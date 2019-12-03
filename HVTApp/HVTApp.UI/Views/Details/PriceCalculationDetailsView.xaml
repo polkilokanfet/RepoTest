@@ -46,21 +46,13 @@
 				 Visibility="{Binding VisibilityCommentPriceCalculation, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="4" Content="Единицы продаж" Visibility="{Binding VisibilitySalesUnitsPriceCalculation, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="4" Content="Единицы расчета" Visibility="{Binding VisibilityPriceCalculationItemsPriceCalculation, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="4"
-										 Items="{Binding Path=Item.SalesUnits}"
-										 SelectedItem="{Binding SelectedSalesUnitsItem, Mode=TwoWay}"
-										 AddItemCommand="{Binding AddInSalesUnitsCommand}"
-										 RemoveItemCommand="{Binding RemoveFromSalesUnitsCommand}"
-										 Visibility="{Binding VisibilitySalesUnitsPriceCalculation, ElementName=Root}"/>
-
-
-        <Label Grid.Column="0" Grid.Row ="5" Content="Автор задачи" Visibility="{Binding VisibilityAuthorPriceCalculation, ElementName=Root}"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="5" 
-                                    Item="{Binding Item.Author}" 
-                                    AddItemCommand="{Binding SelectAuthorCommand}" 
-                                    RemoveItemCommand="{Binding ClearAuthorCommand}"
-									Visibility="{Binding VisibilityAuthorPriceCalculation, ElementName=Root}"/>
+										 Items="{Binding Path=Item.PriceCalculationItems}"
+										 SelectedItem="{Binding SelectedPriceCalculationItemsItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInPriceCalculationItemsCommand}"
+										 RemoveItemCommand="{Binding RemoveFromPriceCalculationItemsCommand}"
+										 Visibility="{Binding VisibilityPriceCalculationItemsPriceCalculation, ElementName=Root}"/>
 
 
 

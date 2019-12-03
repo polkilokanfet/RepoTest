@@ -8,6 +8,8 @@ namespace HVTApp.Model.POCOs
     [Designation("Стракчакост")]
     public class StructureCost : BaseEntity
     {
+        public Guid PriceCalculationItemId { get; set; }
+
         [Designation("Номер"), Required, MaxLength(50)]
         public string Number { get; set; }
 
@@ -17,8 +19,8 @@ namespace HVTApp.Model.POCOs
         [Designation("Себестоимость единицы")]
         public double? UnitPrice { get; set; }
 
-        [Designation("Дата себестоимости")]
-        public DateTime? UnitPriceDate { get; set; }
+        //[Designation("Дата себестоимости")]
+        //public DateTime? UnitPriceDate { get; set; }
 
         public double? Total => UnitPrice.HasValue ? UnitPrice * Amount : null;
 

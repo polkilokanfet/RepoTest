@@ -95,6 +95,13 @@ namespace HVTApp.DataAccess
 		}
     }
 
+    public partial class PriceCalculationItemRepository : BaseRepository<PriceCalculationItem>, IPriceCalculationItemRepository
+    {
+		public PriceCalculationItemRepository(DbContext context) : base(context) 
+		{
+		}
+    }
+
     public partial class ProductIncludedRepository : BaseRepository<ProductIncluded>, IProductIncludedRepository
     {
 		public ProductIncludedRepository(DbContext context) : base(context) 
@@ -147,13 +154,6 @@ namespace HVTApp.DataAccess
     public partial class StructureCostRepository : BaseRepository<StructureCost>, IStructureCostRepository
     {
 		public StructureCostRepository(DbContext context) : base(context) 
-		{
-		}
-    }
-
-    public partial class StructureCostsRepository : BaseRepository<StructureCosts>, IStructureCostsRepository
-    {
-		public StructureCostsRepository(DbContext context) : base(context) 
 		{
 		}
     }

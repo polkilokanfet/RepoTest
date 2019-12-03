@@ -52,7 +52,6 @@
                     <infg:DateTimeField Name="DeliveryDateCalculated" Label="Расчетная дата доставки" Width="Auto" />
                     <infg:TextField Name="Penalty" Label="Штрафные санкции" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="PaymentConditionSet" Label="Условия оплаты" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="StructureCosts" Label="Стракчакосты" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Specification" Label="Спецификация" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="FakeData" Label="Корректировочные данные" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Producer" Label="Производитель" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>

@@ -90,6 +90,12 @@ namespace HVTApp.UI
             _updateDetailsService.Register<PriceCalculation, PriceCalculationDetailsView>();
 
 
+            Container.RegisterViewForNavigation<PriceCalculationItemLookupListView>();
+            //_dialogService.Register<PriceCalculationItemDetailsViewModel, PriceCalculationItemDetailsView>();
+			_selectService.Register<PriceCalculationItemLookupListView, PriceCalculationItem>();
+            _updateDetailsService.Register<PriceCalculationItem, PriceCalculationItemDetailsView>();
+
+
             Container.RegisterViewForNavigation<ProductIncludedLookupListView>();
             //_dialogService.Register<ProductIncludedDetailsViewModel, ProductIncludedDetailsView>();
 			_selectService.Register<ProductIncludedLookupListView, ProductIncluded>();
@@ -136,12 +142,6 @@ namespace HVTApp.UI
             //_dialogService.Register<StructureCostDetailsViewModel, StructureCostDetailsView>();
 			_selectService.Register<StructureCostLookupListView, StructureCost>();
             _updateDetailsService.Register<StructureCost, StructureCostDetailsView>();
-
-
-            Container.RegisterViewForNavigation<StructureCostsLookupListView>();
-            //_dialogService.Register<StructureCostsDetailsViewModel, StructureCostsDetailsView>();
-			_selectService.Register<StructureCostsLookupListView, StructureCosts>();
-            _updateDetailsService.Register<StructureCosts, StructureCostsDetailsView>();
 
 
             Container.RegisterViewForNavigation<GlobalPropertiesLookupListView>();

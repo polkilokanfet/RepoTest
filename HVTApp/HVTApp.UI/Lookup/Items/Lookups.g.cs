@@ -359,7 +359,7 @@ namespace HVTApp.UI.Lookup
 
 	[AllowEditAttribute(Role.Admin)]
 
-	[Designation("PriceCalculation")]
+	[Designation("Расчет себестоимости оборудования")]
 	public partial class PriceCalculationLookup : LookupItem<PriceCalculation>
 	{
 		public PriceCalculationLookup(PriceCalculation entity) : base(entity) 
@@ -391,17 +391,34 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 
+		[OrderStatus(1)]
+	    public List<PriceCalculationItemLookup> PriceCalculationItems { get { return GetLookupEnum<PriceCalculationItemLookup>().ToList(); } }
 
-        #region ComplexProperties
+	}
+
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Единица расчета себестоимости оборудования")]
+	public partial class PriceCalculationItemLookup : LookupItem<PriceCalculationItem>
+	{
+		public PriceCalculationItemLookup(PriceCalculationItem entity) : base(entity) 
+		{
+		}
+		
+
+        #region SimpleProperties
 
 		[OrderStatus(1)]
-	    public UserLookup Author { get { return GetLookup<UserLookup>(); } }
+        public System.Guid PriceCalculationId => Entity.PriceCalculationId;
 
 
         #endregion
 
 		[OrderStatus(1)]
 	    public List<SalesUnitLookup> SalesUnits { get { return GetLookupEnum<SalesUnitLookup>().ToList(); } }
+
+		[OrderStatus(1)]
+	    public List<StructureCostLookup> StructureCosts { get { return GetLookupEnum<StructureCostLookup>().ToList(); } }
 
 	}
 
@@ -586,6 +603,10 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(1)]
+        public System.Guid PriceCalculationItemId => Entity.PriceCalculationItemId;
+
+
+		[OrderStatus(1)]
         public System.String Number => Entity.Number;
 
 
@@ -598,10 +619,6 @@ namespace HVTApp.UI.Lookup
 
 
 		[OrderStatus(1)]
-        public System.Nullable<System.DateTime> UnitPriceDate => Entity.UnitPriceDate;
-
-
-		[OrderStatus(1)]
         public System.Nullable<System.Double> Total => Entity.Total;
 
 
@@ -610,20 +627,6 @@ namespace HVTApp.UI.Lookup
 
 
         #endregion
-
-	}
-
-	[AllowEditAttribute(Role.Admin)]
-
-	[Designation("Стракчакосты")]
-	public partial class StructureCostsLookup : LookupItem<StructureCosts>
-	{
-		public StructureCostsLookup(StructureCosts entity) : base(entity) 
-		{
-		}
-		
-		[OrderStatus(1)]
-	    public List<StructureCostLookup> StructureCostsList { get { return GetLookupEnum<StructureCostLookup>().ToList(); } }
 
 	}
 
@@ -1820,10 +1823,6 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
 	    public FakeDataLookup FakeData { get { return GetLookup<FakeDataLookup>(); } }
-
-
-		[OrderStatus(1)]
-	    public StructureCostsLookup StructureCosts { get { return GetLookup<StructureCostsLookup>(); } }
 
 
         #endregion

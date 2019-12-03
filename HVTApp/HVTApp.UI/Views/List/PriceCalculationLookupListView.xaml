@@ -34,10 +34,9 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:TextField Name="Author" Label="Автор задачи" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:DateTimeField Name="TaskOpenMoment" Label="Старт задачи" Width="Auto" />
                     <infg:DateTimeField Name="TaskCloseMoment" Label="Финиш задачи" Width="Auto" />
-                    <infg:TextField Name="SalesUnits" Label="Единицы продаж" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
+                    <infg:TextField Name="PriceCalculationItems" Label="Единицы расчета" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:TextField Name="Name" Label="Название" Width="Auto" />
                     <infg:CheckBoxField Name="IsNeedExcelFile" Label="Требуется расчетный файл" Width="Auto" />
                     <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" />

@@ -2,9 +2,9 @@
 
 namespace HVTApp.Modules.Sales.Views
 {
-    public partial class SalesUnitsPriceCalculationGroupsWindow : IDialog
+    public partial class PriceCalculationItemsWindow : IDialog
     {
-        public SalesUnitsPriceCalculationGroupsWindow()
+        public PriceCalculationItemsWindow()
         {
             InitializeComponent();
         }

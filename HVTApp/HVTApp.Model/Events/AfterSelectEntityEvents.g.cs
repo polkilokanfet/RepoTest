@@ -16,6 +16,7 @@ namespace HVTApp.Model.Events
 	public partial class AfterSelectPaymentPlannedEvent : PubSubEvent<PubSubEventArgs<PaymentPlanned>> { }
 	public partial class AfterSelectPenaltyEvent : PubSubEvent<PubSubEventArgs<Penalty>> { }
 	public partial class AfterSelectPriceCalculationEvent : PubSubEvent<PubSubEventArgs<PriceCalculation>> { }
+	public partial class AfterSelectPriceCalculationItemEvent : PubSubEvent<PubSubEventArgs<PriceCalculationItem>> { }
 	public partial class AfterSelectProductIncludedEvent : PubSubEvent<PubSubEventArgs<ProductIncluded>> { }
 	public partial class AfterSelectProductDesignationEvent : PubSubEvent<PubSubEventArgs<ProductDesignation>> { }
 	public partial class AfterSelectProductTypeEvent : PubSubEvent<PubSubEventArgs<ProductType>> { }
@@ -24,7 +25,6 @@ namespace HVTApp.Model.Events
 	public partial class AfterSelectStandartMarginalIncomeEvent : PubSubEvent<PubSubEventArgs<StandartMarginalIncome>> { }
 	public partial class AfterSelectStandartProductionTermEvent : PubSubEvent<PubSubEventArgs<StandartProductionTerm>> { }
 	public partial class AfterSelectStructureCostEvent : PubSubEvent<PubSubEventArgs<StructureCost>> { }
-	public partial class AfterSelectStructureCostsEvent : PubSubEvent<PubSubEventArgs<StructureCosts>> { }
 	public partial class AfterSelectGlobalPropertiesEvent : PubSubEvent<PubSubEventArgs<GlobalProperties>> { }
 	public partial class AfterSelectAddressEvent : PubSubEvent<PubSubEventArgs<Address>> { }
 	public partial class AfterSelectCountryEvent : PubSubEvent<PubSubEventArgs<Country>> { }

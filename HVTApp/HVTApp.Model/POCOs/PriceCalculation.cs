@@ -8,10 +8,11 @@ using HVTApp.Infrastructure.Attributes;
 
 namespace HVTApp.Model.POCOs
 {
+    [Designation("Расчет себестоимости оборудования")]
     public class PriceCalculation : BaseEntity
     {
-        [Designation("Автор задачи"), Required]
-        public User Author { get; set; }
+        [Designation("Единицы расчета"), Required]
+        public virtual List<PriceCalculationItem> PriceCalculationItems { get; set; } = new List<PriceCalculationItem>();
 
         [Designation("Старт задачи")]
         public DateTime? TaskOpenMoment { get; set; }
@@ -22,9 +23,6 @@ namespace HVTApp.Model.POCOs
         [Designation("Комментарий"), MaxLength(200)]
         public string Comment { get; set; }
 
-        [Designation("Единицы продаж"), Required]
-        public virtual List<SalesUnit> SalesUnits { get; set; } = new List<SalesUnit>();
-
         [Designation("Требуется расчетный файл")]
         public bool IsNeedExcelFile { get; set; } = true;
 
@@ -33,7 +31,7 @@ namespace HVTApp.Model.POCOs
         {
             get
             {
-                var facilities = SalesUnits.Select(x => x.Facility).Distinct().ToList();
+                var facilities = PriceCalculationItems.SelectMany(x => x.SalesUnits).Select(x => x.Facility).Distinct().ToList();
                 var sb = new StringBuilder();
                 sb.Append("Расчет стоимости оборудования для ");
                 facilities.ForEach(x => sb.Append(x).Append("; "));

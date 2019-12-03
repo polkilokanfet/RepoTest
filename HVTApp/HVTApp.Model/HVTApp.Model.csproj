@@ -73,6 +73,7 @@
     <Compile Include="Comparers\ProductDependentComparer.cs" />
     <Compile Include="POCOs\Penalty.cs" />
     <Compile Include="POCOs\PriceCalculation.cs" />
+    <Compile Include="POCOs\PriceCalculationItem.cs" />
     <Compile Include="POCOs\ProductIncluded.cs" />
     <Compile Include="POCOs\ProductDesignation.cs" />
     <Compile Include="POCOs\ProductType.cs" />
@@ -81,7 +82,6 @@
     <Compile Include="POCOs\StandartMarginalIncome.cs" />
     <Compile Include="POCOs\StandartProductionTerm.cs" />
     <Compile Include="POCOs\StructureCost.cs" />
-    <Compile Include="POCOs\StructureCosts.cs" />
     <Compile Include="Services\IGetProductService.cs" />
     <Compile Include="Services\INewProductService.cs" />
     <Compile Include="Services\IPriceService.cs" />

@@ -70,6 +70,11 @@ namespace HVTApp.DataAccess
         public PriceCalculationRepositoryTest(TestData testData) : base(testData) {}
     }
 
+    public partial class PriceCalculationItemRepositoryTest : TestBaseRepository<PriceCalculationItem>, IPriceCalculationItemRepository
+    {
+        public PriceCalculationItemRepositoryTest(TestData testData) : base(testData) {}
+    }
+
     public partial class ProductIncludedRepositoryTest : TestBaseRepository<ProductIncluded>, IProductIncludedRepository
     {
         public ProductIncludedRepositoryTest(TestData testData) : base(testData) {}
@@ -108,11 +113,6 @@ namespace HVTApp.DataAccess
     public partial class StructureCostRepositoryTest : TestBaseRepository<StructureCost>, IStructureCostRepository
     {
         public StructureCostRepositoryTest(TestData testData) : base(testData) {}
-    }
-
-    public partial class StructureCostsRepositoryTest : TestBaseRepository<StructureCosts>, IStructureCostsRepository
-    {
-        public StructureCostsRepositoryTest(TestData testData) : base(testData) {}
     }
 
     public partial class GlobalPropertiesRepositoryTest : TestBaseRepository<GlobalProperties>, IGlobalPropertiesRepository

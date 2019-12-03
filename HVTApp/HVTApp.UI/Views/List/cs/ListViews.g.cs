@@ -3240,7 +3240,75 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
-	[Designation("PriceCalculation")]
+	[Designation("Единица расчета себестоимости оборудования")]
+	[DesignationPlural("PriceCalculationItemLookup")]
+	[AllowEditAttribute(Role.Admin)]
+
+    public partial class PriceCalculationItemLookupListView : ViewBase
+    {
+        public PriceCalculationItemLookupListView()
+        {
+            InitializeComponent();
+        }
+
+        public PriceCalculationItemLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, PriceCalculationItemLookupListViewModel PriceCalculationItemLookupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = PriceCalculationItemLookupListViewModel;
+			PriceCalculationItemLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			await ((PriceCalculationItemLookupListViewModel)DataContext).LoadAsync();;
+        }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility PriceCalculationIdVisibility
+        {
+            get { return PriceCalculationItemLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationItemLookup.PriceCalculationId)].Visibility; }
+            set { PriceCalculationItemLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationItemLookup.PriceCalculationId)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return PriceCalculationItemLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationItemLookup.DisplayMember)].Visibility; }
+            set { PriceCalculationItemLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationItemLookup.DisplayMember)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return PriceCalculationItemLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationItemLookup.Entity)].Visibility; }
+            set { PriceCalculationItemLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationItemLookup.Entity)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility SalesUnitsVisibility
+        {
+            get { return PriceCalculationItemLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationItemLookup.SalesUnits)].Visibility; }
+            set { PriceCalculationItemLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationItemLookup.SalesUnits)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility StructureCostsVisibility
+        {
+            get { return PriceCalculationItemLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationItemLookup.StructureCosts)].Visibility; }
+            set { PriceCalculationItemLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationItemLookup.StructureCosts)].Visibility = value; }
+        }
+
+
+
+		#endregion
+    }
+
+
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
+	[Designation("Расчет себестоимости оборудования")]
 	[DesignationPlural("PriceCalculationLookup")]
 	[AllowEditAttribute(Role.Admin)]
 
@@ -3309,13 +3377,6 @@ namespace HVTApp.UI.Views
         }
 
 
-        public System.Windows.Visibility AuthorVisibility
-        {
-            get { return PriceCalculationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationLookup.Author)].Visibility; }
-            set { PriceCalculationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationLookup.Author)].Visibility = value; }
-        }
-
-
         public System.Windows.Visibility EntityVisibility
         {
             get { return PriceCalculationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationLookup.Entity)].Visibility; }
@@ -3323,10 +3384,10 @@ namespace HVTApp.UI.Views
         }
 
 
-        public System.Windows.Visibility SalesUnitsVisibility
+        public System.Windows.Visibility PriceCalculationItemsVisibility
         {
-            get { return PriceCalculationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationLookup.SalesUnits)].Visibility; }
-            set { PriceCalculationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationLookup.SalesUnits)].Visibility = value; }
+            get { return PriceCalculationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationLookup.PriceCalculationItems)].Visibility; }
+            set { PriceCalculationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationLookup.PriceCalculationItems)].Visibility = value; }
         }
 
 
@@ -4644,13 +4705,6 @@ namespace HVTApp.UI.Views
         }
 
 
-        public System.Windows.Visibility StructureCostsVisibility
-        {
-            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.StructureCosts)].Visibility; }
-            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.StructureCosts)].Visibility = value; }
-        }
-
-
         public System.Windows.Visibility EntityVisibility
         {
             get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.Entity)].Visibility; }
@@ -4958,6 +5012,13 @@ namespace HVTApp.UI.Views
 		#region VisibilityProps
 
 
+        public System.Windows.Visibility PriceCalculationItemIdVisibility
+        {
+            get { return StructureCostLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.StructureCostLookup.PriceCalculationItemId)].Visibility; }
+            set { StructureCostLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.StructureCostLookup.PriceCalculationItemId)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility NumberVisibility
         {
             get { return StructureCostLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.StructureCostLookup.Number)].Visibility; }
@@ -4976,13 +5037,6 @@ namespace HVTApp.UI.Views
         {
             get { return StructureCostLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.StructureCostLookup.UnitPrice)].Visibility; }
             set { StructureCostLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.StructureCostLookup.UnitPrice)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility UnitPriceDateVisibility
-        {
-            get { return StructureCostLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.StructureCostLookup.UnitPriceDate)].Visibility; }
-            set { StructureCostLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.StructureCostLookup.UnitPriceDate)].Visibility = value; }
         }
 
 
@@ -5011,60 +5065,6 @@ namespace HVTApp.UI.Views
         {
             get { return StructureCostLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.StructureCostLookup.Entity)].Visibility; }
             set { StructureCostLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.StructureCostLookup.Entity)].Visibility = value; }
-        }
-
-
-
-		#endregion
-    }
-
-
-    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
-	[Designation("Стракчакосты")]
-	[DesignationPlural("StructureCostsLookup")]
-	[AllowEditAttribute(Role.Admin)]
-
-    public partial class StructureCostsLookupListView : ViewBase
-    {
-        public StructureCostsLookupListView()
-        {
-            InitializeComponent();
-        }
-
-        public StructureCostsLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, StructureCostsLookupListViewModel StructureCostsLookupListViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = StructureCostsLookupListViewModel;
-			StructureCostsLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
-            Loaded += OnLoaded;
-        }
-		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-			await ((StructureCostsLookupListViewModel)DataContext).LoadAsync();;
-        }
-
-		#region VisibilityProps
-
-
-        public System.Windows.Visibility DisplayMemberVisibility
-        {
-            get { return StructureCostsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.StructureCostsLookup.DisplayMember)].Visibility; }
-            set { StructureCostsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.StructureCostsLookup.DisplayMember)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility EntityVisibility
-        {
-            get { return StructureCostsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.StructureCostsLookup.Entity)].Visibility; }
-            set { StructureCostsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.StructureCostsLookup.Entity)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility StructureCostsListVisibility
-        {
-            get { return StructureCostsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.StructureCostsLookup.StructureCostsList)].Visibility; }
-            set { StructureCostsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.StructureCostsLookup.StructureCostsList)].Visibility = value; }
         }
 
 

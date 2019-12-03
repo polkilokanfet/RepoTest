@@ -20,6 +20,7 @@ namespace HVTApp.DataAccess
             PaymentPlannedRepository = new PaymentPlannedRepositoryTest(testData);
             PenaltyRepository = new PenaltyRepositoryTest(testData);
             PriceCalculationRepository = new PriceCalculationRepositoryTest(testData);
+            PriceCalculationItemRepository = new PriceCalculationItemRepositoryTest(testData);
             ProductIncludedRepository = new ProductIncludedRepositoryTest(testData);
             ProductDesignationRepository = new ProductDesignationRepositoryTest(testData);
             ProductTypeRepository = new ProductTypeRepositoryTest(testData);
@@ -28,7 +29,6 @@ namespace HVTApp.DataAccess
             StandartMarginalIncomeRepository = new StandartMarginalIncomeRepositoryTest(testData);
             StandartProductionTermRepository = new StandartProductionTermRepositoryTest(testData);
             StructureCostRepository = new StructureCostRepositoryTest(testData);
-            StructureCostsRepository = new StructureCostsRepositoryTest(testData);
             GlobalPropertiesRepository = new GlobalPropertiesRepositoryTest(testData);
             AddressRepository = new AddressRepositoryTest(testData);
             CountryRepository = new CountryRepositoryTest(testData);
@@ -91,6 +91,7 @@ namespace HVTApp.DataAccess
         public IPaymentPlannedRepository PaymentPlannedRepository { get; }
         public IPenaltyRepository PenaltyRepository { get; }
         public IPriceCalculationRepository PriceCalculationRepository { get; }
+        public IPriceCalculationItemRepository PriceCalculationItemRepository { get; }
         public IProductIncludedRepository ProductIncludedRepository { get; }
         public IProductDesignationRepository ProductDesignationRepository { get; }
         public IProductTypeRepository ProductTypeRepository { get; }
@@ -99,7 +100,6 @@ namespace HVTApp.DataAccess
         public IStandartMarginalIncomeRepository StandartMarginalIncomeRepository { get; }
         public IStandartProductionTermRepository StandartProductionTermRepository { get; }
         public IStructureCostRepository StructureCostRepository { get; }
-        public IStructureCostsRepository StructureCostsRepository { get; }
         public IGlobalPropertiesRepository GlobalPropertiesRepository { get; }
         public IAddressRepository AddressRepository { get; }
         public ICountryRepository CountryRepository { get; }

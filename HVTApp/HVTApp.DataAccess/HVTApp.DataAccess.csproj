@@ -94,6 +94,7 @@
     <Compile Include="EntityTypeConfigurations\Custom\NoteConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\OfferUnitConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\PriceCalculationConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\PriceCalculationItemConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ProductBlockConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ProductDependentConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ProductDesignationConfiguration.cs" />
@@ -102,7 +103,6 @@
     <Compile Include="EntityTypeConfigurations\Custom\ProductTypeDesignationConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ProjectTypeConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\StructureCostConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\Custom\StructureCostsConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\TenderTypeConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\TestHusbandConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Generated\Configurations.g.cs" />
@@ -149,6 +149,10 @@
     <Compile Include="Migrations\201912011832437_PriceCalculation2Migration.cs" />
     <Compile Include="Migrations\201912011832437_PriceCalculation2Migration.Designer.cs">
       <DependentUpon>201912011832437_PriceCalculation2Migration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912030554078_RemoveStructureCosts.cs" />
+    <Compile Include="Migrations\201912030554078_RemoveStructureCosts.Designer.cs">
+      <DependentUpon>201912030554078_RemoveStructureCosts.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
@@ -217,6 +221,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201912011832437_PriceCalculation2Migration.resx">
       <DependentUpon>201912011832437_PriceCalculation2Migration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912030554078_RemoveStructureCosts.resx">
+      <DependentUpon>201912030554078_RemoveStructureCosts.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

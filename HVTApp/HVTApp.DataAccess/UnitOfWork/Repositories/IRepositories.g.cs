@@ -16,6 +16,7 @@ namespace HVTApp.DataAccess
     public partial interface IPaymentPlannedRepository : IRepository<PaymentPlanned> { }
     public partial interface IPenaltyRepository : IRepository<Penalty> { }
     public partial interface IPriceCalculationRepository : IRepository<PriceCalculation> { }
+    public partial interface IPriceCalculationItemRepository : IRepository<PriceCalculationItem> { }
     public partial interface IProductIncludedRepository : IRepository<ProductIncluded> { }
     public partial interface IProductDesignationRepository : IRepository<ProductDesignation> { }
     public partial interface IProductTypeRepository : IRepository<ProductType> { }
@@ -24,7 +25,6 @@ namespace HVTApp.DataAccess
     public partial interface IStandartMarginalIncomeRepository : IRepository<StandartMarginalIncome> { }
     public partial interface IStandartProductionTermRepository : IRepository<StandartProductionTerm> { }
     public partial interface IStructureCostRepository : IRepository<StructureCost> { }
-    public partial interface IStructureCostsRepository : IRepository<StructureCosts> { }
     public partial interface IGlobalPropertiesRepository : IRepository<GlobalProperties> { }
     public partial interface IAddressRepository : IRepository<Address> { }
     public partial interface ICountryRepository : IRepository<Country> { }

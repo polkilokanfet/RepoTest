@@ -102,6 +102,12 @@ namespace HVTApp.UI.ViewModels
     }
 
 
+	public partial class PriceCalculationItemLookupListViewModel : BaseListViewModel<PriceCalculationItem, PriceCalculationItemLookup, AfterSavePriceCalculationItemEvent, AfterSelectPriceCalculationItemEvent, AfterRemovePriceCalculationItemEvent>
+    {
+        public PriceCalculationItemLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+
 	public partial class ProductIncludedLookupListViewModel : BaseListViewModel<ProductIncluded, ProductIncludedLookup, AfterSaveProductIncludedEvent, AfterSelectProductIncludedEvent, AfterRemoveProductIncludedEvent>
     {
         public ProductIncludedLookupListViewModel(IUnityContainer container) : base(container) { }
@@ -147,12 +153,6 @@ namespace HVTApp.UI.ViewModels
 	public partial class StructureCostLookupListViewModel : BaseListViewModel<StructureCost, StructureCostLookup, AfterSaveStructureCostEvent, AfterSelectStructureCostEvent, AfterRemoveStructureCostEvent>
     {
         public StructureCostLookupListViewModel(IUnityContainer container) : base(container) { }
-    }
-
-
-	public partial class StructureCostsLookupListViewModel : BaseListViewModel<StructureCosts, StructureCostsLookup, AfterSaveStructureCostsEvent, AfterSelectStructureCostsEvent, AfterRemoveStructureCostsEvent>
-    {
-        public StructureCostsLookupListViewModel(IUnityContainer container) : base(container) { }
     }
 
 

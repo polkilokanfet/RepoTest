@@ -46,12 +46,6 @@
 							   Visibility="{Binding VisibilityAmountStructureCost, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="4" Content="Дата себестоимости" Visibility="{Binding VisibilityUnitPriceDateStructureCost, ElementName=Root}"/>
-        <DatePicker Grid.Column="1" Grid.Row="4" 
-                    SelectedDate="{Binding Item.UnitPriceDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-					Visibility="{Binding VisibilityUnitPriceDateStructureCost, ElementName=Root}"/>
-
-
 
     </Grid>
 </inf:ViewBase>
