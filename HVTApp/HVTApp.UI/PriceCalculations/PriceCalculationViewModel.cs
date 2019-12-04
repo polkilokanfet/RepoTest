@@ -318,7 +318,6 @@ namespace HVTApp.UI.PriceCalculations
         public DateTime? TaskOpenMomentOriginalValue => GetOriginalValue<DateTime?>(nameof(TaskOpenMoment));
         public bool TaskOpenMomentIsChanged => GetIsChanged(nameof(TaskOpenMoment));
 
-
         public DateTime? TaskCloseMoment
         {
             get { return GetValue<DateTime?>(); }
@@ -327,7 +326,6 @@ namespace HVTApp.UI.PriceCalculations
         public DateTime? TaskCloseMomentOriginalValue => GetOriginalValue<DateTime?>(nameof(TaskCloseMoment));
         public bool TaskCloseMomentIsChanged => GetIsChanged(nameof(TaskCloseMoment));
 
-
         public string Comment
         {
             get { return GetValue<string>(); }
@@ -335,7 +333,6 @@ namespace HVTApp.UI.PriceCalculations
         }
         public string CommentOriginalValue => GetOriginalValue<string>(nameof(Comment));
         public bool CommentIsChanged => GetIsChanged(nameof(Comment));
-
 
         public bool IsNeedExcelFile
         {

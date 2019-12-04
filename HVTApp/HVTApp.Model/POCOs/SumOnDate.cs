@@ -16,5 +16,10 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Сумма"), Required]
         public double Sum { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Sum} на {Date.ToShortDateString()}";
+        }
     }
 }
