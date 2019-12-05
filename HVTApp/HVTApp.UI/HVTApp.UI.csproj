@@ -107,6 +107,8 @@
     <Compile Include="Lookup\Items\Custom\DocumentLookup.cs" />
     <Compile Include="Lookup\Items\Custom\PriceCalculationLookup.cs" />
     <Compile Include="Lookup\Items\Custom\SalesUnitLookup.cs" />
+    <Compile Include="PriceCalculations\PriceCalculation2Wrapper.cs" />
+    <Compile Include="PriceCalculations\PriceCalculationItem2Wrapper.cs" />
     <Compile Include="PriceCalculations\PriceCalculationItemsViewModel.cs" />
     <Compile Include="PriceCalculations\PriceCalculationItemsWindow.xaml.cs">
       <DependentUpon>PriceCalculationItemsWindow.xaml</DependentUpon>
@@ -119,6 +121,8 @@
       <DependentUpon>PriceCalculationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="PriceCalculations\PriceCalculationViewModel.cs" />
+    <Compile Include="PriceCalculations\SalesUnit2Comparer.cs" />
+    <Compile Include="PriceCalculations\SalesUnit2Wrapper.cs" />
     <Compile Include="PriceCalculations\TabPriceCalculation.xaml.cs">
       <DependentUpon>TabPriceCalculation.xaml</DependentUpon>
     </Compile>
@@ -145,6 +149,7 @@
     <Compile Include="Wrapper\Custom\Functionality\OfferUnitWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\OrderWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\ProductIncludedWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Functionality\StructureCostWrapper.cs" />
     <Compile Include="Wrapper\Custom\Validate\SalesUnitWrapper.cs" />
     <Compile Include="Wrapper\IUnitsGroup.cs" />
     <Compile Include="Converter\ToUnitGroupsConverters.cs" />

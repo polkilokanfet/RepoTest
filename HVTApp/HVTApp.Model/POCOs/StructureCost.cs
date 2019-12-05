@@ -19,9 +19,6 @@ namespace HVTApp.Model.POCOs
         [Designation("Себестоимость единицы")]
         public double? UnitPrice { get; set; }
 
-        //[Designation("Дата себестоимости")]
-        //public DateTime? UnitPriceDate { get; set; }
-
         public double? Total => UnitPrice.HasValue ? UnitPrice * Amount : null;
 
         [Designation("Комментарий"), MaxLength(200)]
