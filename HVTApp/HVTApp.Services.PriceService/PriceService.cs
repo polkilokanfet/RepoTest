@@ -13,12 +13,14 @@ namespace HVTApp.Services.PriceService
     public class PriceService : IPriceService
     {
         private readonly List<ProductBlock> _blocks;
+        private readonly List<PriceCalculation> _priceCalculations;
 
         private readonly Dictionary<Guid, ProductBlock> _analogsWithPrice = new Dictionary<Guid, ProductBlock>();
 
         public PriceService(IUnitOfWork unitOfWork)
         {
             _blocks = unitOfWork.Repository<ProductBlock>().Find(x => true);
+            _priceCalculations = unitOfWork.Repository<PriceCalculation>().Find(x => x.TaskCloseMoment.HasValue);
         }
 
         public double GetPrice(Product product, DateTime date, int actualTerm, PriceErrors errors = null)
@@ -167,6 +169,22 @@ namespace HVTApp.Services.PriceService
             return priceStructures;
         }
 
+        public double? GetPrice(SalesUnit salesUnit)
+        {
+            if(salesUnit == null)
+                throw new ArgumentNullException(nameof(salesUnit));
 
+            //по проставленному прайсу
+            if (salesUnit.Price.HasValue) return salesUnit.Price.Value;
+
+            //по расчетам себестоимости
+            var priceCalculationItem =
+                _priceCalculations
+                    .OrderByDescending(x => x.TaskCloseMoment)
+                    .SelectMany(x => x.PriceCalculationItems)
+                    .FirstOrDefault(x => x.SalesUnits.ContainsById(salesUnit));
+
+            return priceCalculationItem?.StructureCosts.Sum(x => x.Total);
+        }
     }
 }

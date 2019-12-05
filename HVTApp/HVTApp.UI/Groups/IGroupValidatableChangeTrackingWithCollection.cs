@@ -22,6 +22,8 @@ namespace HVTApp.UI.Groups
         IEnumerable<ProductIncludedWrapper> ProductsIncluded { get; }
         void AddProductIncluded(ProductIncluded productIncluded, bool isForEach);
         void RemoveProductIncluded(ProductIncludedWrapper productIncluded);
+
+        SalesUnit SalesUnit { get; }
     }
 
     public interface IGroupValidatableChangeTrackingWithCollection<TMember, out TModel> : IGroupValidatableChangeTracking<TModel>

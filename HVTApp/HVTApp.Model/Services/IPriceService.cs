@@ -10,6 +10,7 @@ namespace HVTApp.Model.Services
     /// </summary>
     public interface IPriceService
     {
+        double? GetPrice(SalesUnit salesUnit);
         /// <summary>
         /// Возвращает прайс на оборудование.
         /// </summary>

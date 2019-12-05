@@ -58,5 +58,10 @@ namespace HVTApp.UI.Groups
         public SalesUnitsWrappersGroup(List<SalesUnit> units) : base(units)
         {
         }
+
+        protected override SalesUnit GetSalesUnit()
+        {
+            return Model;
+        }
     }
 }

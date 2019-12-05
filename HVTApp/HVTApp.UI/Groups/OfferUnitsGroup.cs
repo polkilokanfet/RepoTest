@@ -26,5 +26,10 @@ namespace HVTApp.UI.Groups
         public OfferUnitsGroup(IEnumerable<OfferUnit> units) : base(units.ToList())
         {
         }
+
+        protected override SalesUnit GetSalesUnit()
+        {
+            return null;
+        }
     }
 }

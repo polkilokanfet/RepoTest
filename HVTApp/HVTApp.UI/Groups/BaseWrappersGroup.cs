@@ -11,7 +11,7 @@ using Prism.Mvvm;
 
 namespace HVTApp.UI.Groups
 {
-    public class BaseWrappersGroup<TMember, TModel, TWrapper> : BindableBase, IGroupValidatableChangeTracking<TModel>
+    public abstract class BaseWrappersGroup<TMember, TModel, TWrapper> : BindableBase, IGroupValidatableChangeTracking<TModel>
         where TMember : class, IGroupValidatableChangeTracking<TModel>
         where TModel : class, IUnit
         where TWrapper : class, IWrapperGroup<TModel>
@@ -344,5 +344,8 @@ namespace HVTApp.UI.Groups
 
         #endregion
 
+        public SalesUnit SalesUnit => GetSalesUnit();
+
+        protected abstract SalesUnit GetSalesUnit();
     }
 }

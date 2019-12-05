@@ -49,8 +49,13 @@ namespace HVTApp.Modules.Sales.ViewModels
             //обновляем структуру себестоимости этой группе
             PriceDictionary[grp] = GlobalAppProperties.PriceService.GetPriceStructures(grp.Model, GetPriceDate(grp), priceTerm);
 
+            var price =
+                grp.SalesUnit == null
+                    ? null
+                    : GlobalAppProperties.PriceService.GetPrice(grp.SalesUnit);
+
             //обновляем себестоимость группы
-            grp.Price = PriceDictionary[grp].TotalPriceFixedCostLess;
+            grp.Price = price ?? PriceDictionary[grp].TotalPriceFixedCostLess;
             grp.FixedCost = PriceDictionary[grp].TotalFixedCost;
             OnPropertyChanged(nameof(PriceStructures));
 
