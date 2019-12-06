@@ -3,6 +3,7 @@
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               xmlns:converters="clr-namespace:HVTApp.Infrastructure.Converters;assembly=HVTApp.Infrastructure"
+              xmlns:controls="http://infragistics.com/Windows"
               x:Class="HVTApp.Modules.PlanAndEconomy.Views.PricesView">
 
     <Grid>
@@ -36,27 +37,35 @@
 		            <infg:XamDataGrid x:Name="PricesListGrid" 
                                       DataSource="{Binding PriceTasks}"
                                       SelectedDataItem="{Binding SelectedPriceTask}">
-        
-			                <infg:XamDataGrid.FieldLayouts>
-				                <infg:FieldLayout>
-					                <infg:FieldLayout.Fields>
                         
-                                    <infg:TextField Name="StructureCostNumber" Label="Сралчахвост" Width="Auto" AllowEdit="False"/>
-                                    <!--<infg:TextField AlternateBinding="{Binding Block.StructureCostNumber}" AllowEdit="True" BindingType="UseAlternateBinding" Label="Сралчахвост" Width="Auto"/>-->
-                                    <!--<infg:TextField Name="Block" Label="Блок" Width="Auto"/>-->
-                                    <infg:TextField Name="ProductType" Label="Тип" Width="Auto"/>
-                                    <infg:TextField AlternateBinding="{Binding}" BindingType="UseAlternateBinding" Label="Блок" Width="Auto"/>
-                                    <!--<infg:NumericField Name="Price" Label="Прайс" Width="Auto" AllowEdit="True"/>
-                                    <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" AllowEdit="True"/>-->
-                                    <infg:CheckBoxField Name="IsPriceless" Label="Без прайса" Width="Auto" />
-                                    <infg:NumericField Name="SpecificationsCount" Label="Спецификации" Width="Auto" />
-                                    <infg:NumericField Name="OffersCount" Label="ТКП" Width="Auto" />
-                                    <infg:NumericField Name="ProjectsCount" Label="Проекты" Width="Auto" />
+        
+			            <infg:XamDataGrid.FieldLayouts>
+                            
+				            <infg:FieldLayout>
+                                <infg:FieldLayout.RecordFilters>
+                                    <infg:RecordFilter FieldName="HasReasons">
+                                        <infg:RecordFilter.Conditions>
+                                            <controls:ComparisonCondition Operator="Equals" Value="True" />
+                                        </infg:RecordFilter.Conditions>
+                                    </infg:RecordFilter>
+                                </infg:FieldLayout.RecordFilters>
 
-					                </infg:FieldLayout.Fields>
-				                </infg:FieldLayout>
-			                </infg:XamDataGrid.FieldLayouts>
-		                </infg:XamDataGrid>
+                                <infg:FieldLayout.Fields>
+                        
+                                <infg:TextField AlternateBinding="{Binding Model.StructureCostNumber}" BindingType="UseAlternateBinding" Label="Сралчахвост" Width="Auto" AllowEdit="False"/>
+                                <infg:TextField AlternateBinding="{Binding Model.ProductType}" BindingType="UseAlternateBinding" Label="Тип" Width="Auto"/>
+                                <infg:TextField AlternateBinding="{Binding Model}" BindingType="UseAlternateBinding" Label="Блок" Width="Auto"/>
+                                <infg:CheckBoxField Name="HasReasons" Label="На расчет" Width="Auto"/>
+                                <!--<infg:CheckBoxField Name="IsPriceless" Label="Без прайса" Width="Auto" />-->
+                                <infg:NumericField Name="SpecificationsCount" Label="Спецификации" Width="Auto" />
+                                <infg:NumericField Name="OffersCount" Label="ТКП" Width="Auto" />
+                                <infg:NumericField Name="ProjectsCount" Label="Проекты" Width="Auto" />
+
+					            </infg:FieldLayout.Fields>
+				            </infg:FieldLayout>
+                            
+			            </infg:XamDataGrid.FieldLayouts>
+		            </infg:XamDataGrid>
                     
                 </GroupBox>
                 

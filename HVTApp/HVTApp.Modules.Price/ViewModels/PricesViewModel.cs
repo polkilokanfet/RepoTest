@@ -112,38 +112,40 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
 
             var salesUnits = await _unitOfWork.Repository<SalesUnit>().GetAllAsync();
             var offerUnits = await _unitOfWork.Repository<OfferUnit>().GetAllAsync();
-            var blocks = await _unitOfWork.Repository<ProductBlock>().GetAllAsync();
+            var blocks = _unitOfWork.Repository<ProductBlock>().Find(x => !x.IsService);
             
             var priceTasks = new List<PriceTask>();
 
-            //блоки, где прайс отсутствует
-            foreach (var block in blocks.Where(x => !x.Prices.Any()))
+            foreach (var block in blocks)
             {
-                var specifications = salesUnits.Where(x => ContainsBlock(x, block) && x.Specification != null).Select(x => x.Specification).Distinct();
-                var projects = salesUnits.Where(x => ContainsBlock(x, block)).Select(x => x.Project).Distinct();
-                var offers = offerUnits.Where(x => ContainsBlock(x, block)).Select(x => x.Offer).Distinct();
-                priceTasks.Add(new PriceTask(block, specifications, offers, projects));
-            }
-
-            //блоки, где прайс просрочен
-            var rrr = blocks.Where(x => x.Prices.Any()).ToList();
-            foreach (var block in rrr)
-            {
-                var lastPriceDate = block.Prices.Max(x => x.Date);
-
-                var specifications = salesUnits.Where(x => ContainsBlock(x, block) && x.Specification != null)
-                                               .Select(x => x.Specification).Distinct()
-                                               .Where(x => x.Date > lastPriceDate.AddDays(GlobalAppProperties.Actual.ActualPriceTerm)).ToList();
-
-                var projects = salesUnits.Where(x => ContainsBlock(x, block) && 
-                                                     x.OrderInTakeDate > lastPriceDate.AddDays(GlobalAppProperties.Actual.ActualPriceTerm)).Select(x => x.Project).Distinct().ToList();
-
-                var offers = offerUnits.Where(x => ContainsBlock(x, block))
-                                       .Select(x => x.Offer).Distinct()
-                                       .Where(x => x.Date > lastPriceDate.AddDays(GlobalAppProperties.Actual.ActualPriceTerm)).ToList();
-
-                if (specifications.Any() || offers.Any() || projects.Any())
+                //блоки, где прайс отсутствует
+                if (!block.Prices.Any())
+                {
+                    var specifications = salesUnits.Where(x => ContainsBlock(x, block) && x.Specification != null).Select(x => x.Specification).Distinct().Count();
+                    var projects = salesUnits.Where(x => ContainsBlock(x, block)).Select(x => x.Project).Distinct().Count();
+                    var offers = offerUnits.Where(x => ContainsBlock(x, block)).Select(x => x.Offer).Distinct().Count();
                     priceTasks.Add(new PriceTask(block, specifications, offers, projects));
+                }
+                //отсальные блоки
+                else
+                {
+                    var lastPriceDate = block.Prices.Max(x => x.Date);
+
+                    var specifications = salesUnits.Where(x => ContainsBlock(x, block) && x.Specification != null).Select(x => x.Specification)
+                                                   .Distinct()
+                                                   .Count(x => x.Date > lastPriceDate.AddDays(GlobalAppProperties.Actual.ActualPriceTerm));
+
+                    var projects = salesUnits.Where(x => ContainsBlock(x, block) && x.OrderInTakeDate > lastPriceDate.AddDays(GlobalAppProperties.Actual.ActualPriceTerm)).Select(x => x.Project)
+                                             .Distinct()
+                                             .Count();
+
+                    var offers = offerUnits.Where(x => ContainsBlock(x, block)).Select(x => x.Offer)
+                                           .Distinct()
+                                           .Count(x => x.Date > lastPriceDate.AddDays(GlobalAppProperties.Actual.ActualPriceTerm));
+
+                    priceTasks.Add(new PriceTask(block, specifications, offers, projects));
+                }
+
             }
 
             priceTasks.Sort();

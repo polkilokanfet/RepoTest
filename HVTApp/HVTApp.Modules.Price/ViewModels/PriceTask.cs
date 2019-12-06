@@ -1,38 +1,68 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Wrapper;
 
 namespace HVTApp.Modules.PlanAndEconomy.ViewModels
 {
-    public class PriceTask : ProductBlockWrapper
+    public class PriceTask : WrapperBase<ProductBlock>
     {
-        private readonly IEnumerable<Specification> _specifications;
-        private readonly IEnumerable<Offer> _offers;
-        private readonly IEnumerable<Project> _projects;
+        private readonly List<Specification> _specifications;
+        private readonly List<Offer> _offers;
+        private List<Project> _projects;
 
-        public int SpecificationsCount => _specifications.Count();
-        public int OffersCount => _offers.Count();
-        public int ProjectsCount => _projects.Count();
+        private DateTime LastPriceDate => Prices.Max(x => x.Date);
+
+        public int SpecificationsCount
+        {
+            get
+            {
+                return Prices.Any()
+                    ? _specifications.Count(x => x.Date > LastPriceDate.AddDays(GlobalAppProperties.Actual.ActualPriceTerm))
+                    : _specifications.Count;
+            }
+        }
+
+        public int OffersCount
+        {
+            get
+            {
+                return Prices.Any()
+                    ? _offers.Count(x => x.Date > LastPriceDate.AddDays(GlobalAppProperties.Actual.ActualPriceTerm))
+                    : _offers.Count;
+            }
+        }
+
+        public int ProjectsCount { get; }
 
         /// <summary>
         /// Не содержит прайс
         /// </summary>
         public bool IsPriceless => !Prices.Any();
 
+        /// <summary>
+        /// Есть повод для обновления прайса
+        /// </summary>
+        public bool HasReasons => !string.IsNullOrEmpty(Model.StructureCostNumber) && (SpecificationsCount > 0 || OffersCount > 0 || ProjectsCount > 0);
 
-        public PriceTask(ProductBlock block, IEnumerable<Specification> specifications, IEnumerable<Offer> offers, IEnumerable<Project> projects) : base(block)
+        public IValidatableChangeTrackingCollection<SumOnDateWrapper> Prices { get; private set; }
+
+        public PriceTask(ProductBlock block, List<Specification> specifications, List<Offer> offers, List<Project> projects) : base(block)
         {
             _specifications = specifications;
             _offers = offers;
             _projects = projects;
         }
 
-        /// <summary>
-        /// Есть повод для обновления прайса
-        /// </summary>
-        public bool HasReasons => _specifications.Any() || _offers.Any() || _projects.Any();
+        protected override void InitializeCollectionProperties()
+        {
+            if (Model.Prices == null) throw new ArgumentException("Prices cannot be null");
+            Prices = new ValidatableChangeTrackingCollection<SumOnDateWrapper>(Model.Prices.Select(e => new SumOnDateWrapper(e)));
+            RegisterCollection(Prices, Model.Prices);
+        }
+
 
         public override int CompareTo(object obj)
         {
