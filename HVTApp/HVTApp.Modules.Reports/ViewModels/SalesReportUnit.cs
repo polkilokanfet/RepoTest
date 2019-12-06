@@ -133,11 +133,10 @@ namespace HVTApp.Modules.Reports.ViewModels
             var salesUnit = SalesUnits.First();
             SetProperties(salesUnit);
 
-            var priceStructures = GlobalAppProperties.PriceService.GetPriceStructures(this, this.OrderInTakeDate, GlobalAppProperties.Actual.ActualPriceTerm);
             _tenders = tenders.ToList();
             _countryUnions = countryUnions.ToList();
 
-            Amount = SalesUnits.Count();
+            Amount = SalesUnits.Count;
             FacilityOwner = Facility.OwnerCompany;
             FacilityOwnerHead = GetFacilityOwnerHead();
             Contragent = Specification?.Contract.Contragent;
@@ -156,7 +155,8 @@ namespace HVTApp.Modules.Reports.ViewModels
 
             Voltage = Product.ProductBlock.Parameters.SingleOrDefault(x => Equals(x.ParameterGroup, GlobalAppProperties.Actual.VoltageGroup))?.Value;
 
-            PriceResult = Price ?? priceStructures.TotalPriceFixedCostLess;
+            var priceStructures = GlobalAppProperties.PriceService.GetPriceStructures(this, this.OrderInTakeDate, GlobalAppProperties.Actual.ActualPriceTerm);
+            PriceResult = Price ?? GlobalAppProperties.PriceService.GetPrice(salesUnit) ?? priceStructures.TotalPriceFixedCostLess;
             FixedCost = priceStructures.TotalFixedCost;
             FixedCostAndDelivery = CostDelivery.HasValue ? CostDelivery.Value + FixedCost : FixedCost;
 

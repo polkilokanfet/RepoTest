@@ -49,11 +49,16 @@ namespace HVTApp.UI.PriceCalculations
             UnitOfWork = Container.Resolve<IUnitOfWork>();
 
             IEnumerable<PriceCalculation> calculations = CurrentUserIsManager 
-                ? UnitOfWork.Repository<PriceCalculation>().Find(x => true) 
+                ? UnitOfWork.Repository<PriceCalculation>().Find(IsCalculationOfManager) 
                 : UnitOfWork.Repository<PriceCalculation>().Find(x => x.TaskOpenMoment.HasValue);
 
 
             this.Load(calculations.OrderByDescending(x => x.TaskOpenMoment));
+        }
+
+        private bool IsCalculationOfManager(PriceCalculation calculation)
+        {
+            return calculation.PriceCalculationItems.First().SalesUnits.First().Project.Manager.IsAppCurrentUser();
         }
     }
 }

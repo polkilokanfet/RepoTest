@@ -22,8 +22,7 @@ namespace HVTApp.UI.PriceCalculations
 
             this.StructureCosts.PropertyChanged += (sender, args) =>
             {
-                if (args.PropertyName == nameof(StructureCost.Total))
-                    this.OnPropertyChanged(nameof(PriceCalculationItem2Wrapper.UnitPrice));
+                this.OnPropertyChanged(nameof(PriceCalculationItem2Wrapper.UnitPrice));
             };
 
             this.StructureCosts.CollectionChanged += (sender, args) =>

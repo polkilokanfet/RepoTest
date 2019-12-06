@@ -25,25 +25,19 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         public ProductionViewModel(IUnityContainer container) : base(container)
         {
-            PotentialGroups.SelectedGroupChanged += group =>
-            {
-                ((DelegateCommand)ProductUnitCommand).RaiseCanExecuteChanged();
-            };
+            //реакция на смену выбранной потенциальной группы производства
+            PotentialGroups.SelectedGroupChanged += group => { ((DelegateCommand)ProductUnitCommand).RaiseCanExecuteChanged(); };
 
-            ProductUnitCommand = new DelegateCommand(ProductUnitCommand_Execute, ProductUnitCommand_CanExecute);
+            ReloadCommand = new DelegateCommand(async () => { await LoadAsync(); });
 
-            ReloadCommand = new DelegateCommand(async () =>
-            {
-                await LoadAsync();
-            });
+            ProductUnitCommand = new DelegateCommand(ProductUnitCommand_Execute, () => PotentialGroups.SelectedGroup != null);
         }
 
         private async void ProductUnitCommand_Execute()
         {
             //подтверждение
-            var ms = Container.Resolve<IMessageService>();
-            var q = "Разместить оборудование в производстве?";
-            if (ms.ShowYesNoMessageDialog("Размещение в производстве", q) != MessageDialogResult.Yes) return;
+            var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Размещение в производстве", "Разместить оборудование в производстве?");
+            if (dr != MessageDialogResult.Yes) return;
 
             //размещение в производстве
             //фиксируем дату подачи сигнала на включение в план производства
@@ -72,11 +66,6 @@ namespace HVTApp.Modules.Sales.ViewModels
                     }
                 }
             }
-        }
-
-        private bool ProductUnitCommand_CanExecute()
-        {
-            return !string.IsNullOrEmpty(PotentialGroups.SelectedGroup?.TceRequest);
         }
 
         protected override async Task LoadedAsyncMethod()

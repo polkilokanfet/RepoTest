@@ -28,8 +28,8 @@
     <InstallUrl>\\ekb1237\Upload\HVTApp\</InstallUrl>
     <ProductName>HVTApplication</ProductName>
     <PublisherName>Kosolapov</PublisherName>
-    <MinimumRequiredVersion>1.0.0.48</MinimumRequiredVersion>
-    <ApplicationRevision>49</ApplicationRevision>
+    <MinimumRequiredVersion>1.0.0.49</MinimumRequiredVersion>
+    <ApplicationRevision>50</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
