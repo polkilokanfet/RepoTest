@@ -168,6 +168,7 @@
     <Compile Include="ViewModels\ProductionPlanViewModel.cs" />
     <Compile Include="ViewModels\Groups\SalesUnitDates.cs" />
     <Compile Include="ViewModels\Groups\SalesUnitDatesGroup.cs" />
+    <Compile Include="ViewModels\ProjectItem.cs" />
     <Compile Include="Views\PaymentDocumentView.xaml.cs">
       <DependentUpon>PaymentDocumentView.xaml</DependentUpon>
     </Compile>

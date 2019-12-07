@@ -11,7 +11,7 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
     {
         private readonly List<Specification> _specifications;
         private readonly List<Offer> _offers;
-        private List<Project> _projects;
+        private readonly List<ProjectItem> _projects;
 
         private DateTime LastPriceDate => Prices.Max(x => x.Date);
 
@@ -35,7 +35,15 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
             }
         }
 
-        public int ProjectsCount { get; }
+        public int ProjectsCount
+        {
+            get
+            {
+                return Prices.Any()
+                    ? _projects.Count(x => x.OrderInTakeDate <= DateTime.Today && x.OrderInTakeDate > LastPriceDate.AddDays(GlobalAppProperties.Actual.ActualPriceTerm))
+                    : _projects.Count;
+            }
+        }
 
         /// <summary>
         /// Не содержит прайс
@@ -49,11 +57,22 @@ namespace HVTApp.Modules.PlanAndEconomy.ViewModels
 
         public IValidatableChangeTrackingCollection<SumOnDateWrapper> Prices { get; private set; }
 
-        public PriceTask(ProductBlock block, List<Specification> specifications, List<Offer> offers, List<Project> projects) : base(block)
+        public PriceTask(ProductBlock block, IEnumerable<Specification> specifications, IEnumerable<Offer> offers, IEnumerable<ProjectItem> projects) : base(block)
         {
-            _specifications = specifications;
-            _offers = offers;
-            _projects = projects;
+            _specifications = specifications.ToList();
+            _offers = offers.ToList();
+            _projects = projects.ToList();
+
+            this.Prices.CollectionChanged += (sender, args) => { RefreshProperties(); };
+            this.Prices.PropertyChanged += (sender, args) => { RefreshProperties(); };
+        }
+
+        private void RefreshProperties()
+        {
+            OnPropertyChanged(nameof(HasReasons));
+            OnPropertyChanged(nameof(SpecificationsCount));
+            OnPropertyChanged(nameof(OffersCount));
+            OnPropertyChanged(nameof(ProjectsCount));
         }
 
         protected override void InitializeCollectionProperties()

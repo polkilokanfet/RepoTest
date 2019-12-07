@@ -122,6 +122,7 @@
     </Compile>
     <Compile Include="ViewModels\CreateNewProductTasksViewModel.cs" />
     <Compile Include="ViewModels\ParametersViewModel.cs" />
+    <Compile Include="ViewModels\ProductBlockStructureCostWrapper.cs" />
     <Compile Include="ViewModels\StructureCostsViewModel.cs" />
     <Compile Include="Views\StructureCostsView.xaml.cs">
       <DependentUpon>StructureCostsView.xaml</DependentUpon>

@@ -21,10 +21,9 @@
 
                             <infg:TextField Name="StructureCostNumber" Label="StructureCost" Width="Auto" AllowEdit="True"/>
                             <infg:NumericField Name="Weight" Label="Вес, кг" Width="Auto" AllowEdit="True"/>
-                            <infg:TextField Name="ProductType" Label="Тип" Width="Auto" AllowEdit="True"/>
+                            <infg:TextField AlternateBinding="{Binding Model.ProductType}" BindingType="UseAlternateBinding" Label="Тип" Width="Auto"/>
                             <infg:TextField AlternateBinding="{Binding}" BindingType="UseAlternateBinding" Label="Обозначение блока" Width="Auto"/>
-                            <!--<infg:TextField AlternateBinding="{Binding OrderPosition, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Поз." Width="Auto" AllowEdit="True"/>-->
-                            <infg:TextField Name="Parameters" Label="Параметры" Width="Auto" Converter="{StaticResource ObjectsToStringConverter}"/>
+                            <infg:TextField AlternateBinding="{Binding Model.Parameters}" BindingType="UseAlternateBinding" Label="Параметры" Width="Auto" Converter="{StaticResource ObjectsToStringConverter}"/>
 
                         </infg:FieldLayout.Fields>
                     </infg:FieldLayout>
@@ -37,7 +36,7 @@
             <GroupBox Grid.Row="2" Header="Параметры блока">
 		        <infg:XamDataGrid x:Name="ParameterLookupListGrid" 
                                   Style="{StaticResource ListViewGrid}"
-                                  DataSource="{Binding SelectedProductBlock.Parameters}">
+                                  DataSource="{Binding SelectedProductBlock.Model.Parameters}">
         
 			        <infg:XamDataGrid.FieldLayouts>
 				        <infg:FieldLayout>

@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
@@ -12,10 +13,10 @@ namespace HVTApp.Modules.Products.ViewModels
 {
     public class StructureCostsViewModel : BindableBase
     {
-        private ProductBlockWrapper _selectedProductBlock;
-        public IValidatableChangeTrackingCollection<ProductBlockWrapper> ProductBlocks { get; }
+        private ProductBlockStructureCostWrapper _selectedProductBlock;
+        public IValidatableChangeTrackingCollection<ProductBlockStructureCostWrapper> ProductBlocks { get; }
 
-        public ProductBlockWrapper SelectedProductBlock
+        public ProductBlockStructureCostWrapper SelectedProductBlock
         {
             get { return _selectedProductBlock; }
             set
@@ -37,9 +38,9 @@ namespace HVTApp.Modules.Products.ViewModels
             //загружаем блоки
             var blockWrappers = unitOfWork.Repository<ProductBlock>()
                 //.Find(x => string.IsNullOrWhiteSpace(x.StructureCostNumber))
-                .Find(x => true).OrderBy(x => x.Designation)
-                .Select(x => new ProductBlockWrapper(x));
-            ProductBlocks = new ValidatableChangeTrackingCollection<ProductBlockWrapper>(blockWrappers);
+                .Find(x => !x.IsService).OrderBy(x => x.Designation)
+                .Select(x => new ProductBlockStructureCostWrapper(x));
+            ProductBlocks = new ValidatableChangeTrackingCollection<ProductBlockStructureCostWrapper>(blockWrappers);
 
             //сохранение
             SaveCommand = new DelegateCommand(async () =>
