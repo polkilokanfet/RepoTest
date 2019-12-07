@@ -132,64 +132,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Tabs\TabOrder.xaml.cs">
-      <DependentUpon>TabOrder.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Tabs\TabPaymentDocument.xaml.cs">
-      <DependentUpon>TabPaymentDocument.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Tabs\TabPayments.xaml.cs">
-      <DependentUpon>TabPayments.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Tabs\TabPaymentsActual.xaml.cs">
-      <DependentUpon>TabPaymentsActual.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Tabs\TabSave.xaml.cs">
-      <DependentUpon>TabSave.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Tabs\TabProductionPlan.xaml.cs">
-      <DependentUpon>TabProductionPlan.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Tabs\TabPriceTasks.xaml.cs">
-      <DependentUpon>TabPriceTasks.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewModels\DatesViewModel.cs" />
-    <Compile Include="ViewModels\Groups\ISalesUnitOrder.cs" />
-    <Compile Include="ViewModels\Groups\SalesUnitOrderGroup.cs" />
-    <Compile Include="ViewModels\Groups\SalesUnitOrderGroupsCollection.cs" />
-    <Compile Include="ViewModels\OrderViewModel.cs" />
-    <Compile Include="ViewModels\Payment.cs" />
-    <Compile Include="ViewModels\PaymentDocumentViewModel.cs" />
-    <Compile Include="ViewModels\PaymentsActualViewModel.cs" />
-    <Compile Include="ViewModels\PaymentsViewModel.cs" />
-    <Compile Include="ViewModels\PricesViewModel.cs" />
-    <Compile Include="ViewModels\PriceTask.cs" />
-    <Compile Include="ViewModels\Groups\SalesUnitOrder.cs" />
-    <Compile Include="ViewModels\ProductionPlanViewModel.cs" />
-    <Compile Include="ViewModels\Groups\SalesUnitDates.cs" />
-    <Compile Include="ViewModels\Groups\SalesUnitDatesGroup.cs" />
-    <Compile Include="ViewModels\ProjectItem.cs" />
-    <Compile Include="Views\PaymentDocumentView.xaml.cs">
-      <DependentUpon>PaymentDocumentView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\PaymentsView.xaml.cs">
-      <DependentUpon>PaymentsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\PricesView.xaml.cs">
-      <DependentUpon>PricesView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\DatesView.xaml.cs">
-      <DependentUpon>DatesView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\PaymentsActualView.xaml.cs">
-      <DependentUpon>PaymentsActualView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\OrderView.xaml.cs">
-      <DependentUpon>OrderView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ProductionPlanView.xaml.cs">
-      <DependentUpon>ProductionPlanView.xaml</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -221,78 +163,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Tabs\TabOrder.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Tabs\TabPaymentDocument.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Tabs\TabPayments.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Tabs\TabPaymentsActual.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Tabs\TabSave.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Tabs\TabProductionPlan.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Tabs\TabPriceTasks.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\PaymentDocumentView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\PaymentsView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\PricesView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\DatesView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\PaymentsActualView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\OrderView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\ProductionPlanView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Calendar_16x16.png" />
-    <Resource Include="Images\Calendar_32x32.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Add_16x16.png" />
-    <Resource Include="Images\Print_16x16.png" />
-    <Resource Include="Images\Save_16x16.png" />
-    <Resource Include="Images\Refresh_16x16.png" />
-    <Resource Include="Images\New_16x16.png" />
-    <Resource Include="Images\Edit_16x16.png" />
-    <Resource Include="Images\Delete_16x16.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Preview_16x16.png" />
+    <Resource Include="Images\plan_16.png" />
+    <Resource Include="Images\plan_32.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

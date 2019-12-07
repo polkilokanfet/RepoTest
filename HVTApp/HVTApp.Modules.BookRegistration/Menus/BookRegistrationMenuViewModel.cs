@@ -1,5 +1,5 @@
 ﻿using HVTApp.Infrastructure;
-using HVTApp.Modules.BookRegistration.Views;
+using HVTApp.UI.Modules.BookRegistration.Views;
 
 namespace HVTApp.Modules.BookRegistration.Menus
 {

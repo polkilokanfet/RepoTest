@@ -21,6 +21,7 @@ using HVTApp.Modules.BaseEntities;
 using HVTApp.Modules.BookRegistration;
 using HVTApp.Modules.Director;
 using HVTApp.Modules.PlanAndEconomy;
+using HVTApp.Modules.PriceMaking;
 using HVTApp.Modules.Products;
 using HVTApp.Modules.Reports;
 using HVTApp.Modules.Settings;
@@ -114,6 +115,7 @@ namespace HVTApp
             AddModuleIfInRole(catalog, typeof(SalesModule));
             AddModuleIfInRole(catalog, typeof(DirectorModule));
             AddModuleIfInRole(catalog, typeof(PlanAndEconomyModule));
+            AddModuleIfInRole(catalog, typeof(PriceMakingModule));
             AddModuleIfInRole(catalog, typeof(BookRegistrationModule));
             AddModuleIfInRole(catalog, typeof(ReportsModule));
             AddModuleIfInRole(catalog, typeof(ProductsModule));

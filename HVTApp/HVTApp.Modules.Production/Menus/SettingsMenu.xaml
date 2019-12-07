@@ -7,8 +7,8 @@
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
              x:Class="HVTApp.Modules.Settings.Menus.SettingsMenu"
              Header="Настройки" 
-             LargeImage="/HVTApp.Modules.Settings;component/Images/Settings_32x32.png" 
-             SmallImage="/HVTApp.Modules.Settings;component/Images/Settings_16x16.png">
+             LargeImage="/HVTApp.Modules.Settings;component/Images/settings_32.png" 
+             SmallImage="/HVTApp.Modules.Settings;component/Images/settings_16.png">
     <igs:XamDataTree 
         Name="_xamDataTree"
         ItemsSource="{Binding Items}"

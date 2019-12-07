@@ -5,6 +5,8 @@
                     xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
                     xmlns:infPrism="clr-namespace:HVTApp.Infrastructure.Prism;assembly=HVTApp.Infrastructure"
                     x:Class="HVTApp.Modules.Director.Menus.DirectorMenu"
+                    LargeImage="/HVTApp.Modules.Director;component/Images/cntrl_32.png"
+                    SmallImage="/HVTApp.Modules.Director;component/Images/cntrl_16.png"
                     Header="Контроль">
 
     <igs:XamDataTree Name="XamDataTree" ItemsSource="{Binding Items}"

@@ -147,7 +147,10 @@
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\production_16.png" />
+    <Resource Include="Images\production_32.png" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HVTApp.Infrestructure\HVTApp.Infrastructure.csproj">
       <Project>{76518D16-6EA7-4B34-A308-E7AD991421BC}</Project>

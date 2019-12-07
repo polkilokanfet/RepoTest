@@ -6,8 +6,8 @@
              xmlns:igs="http://schemas.infragistics.com/xaml"
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
              x:Class="HVTApp.Modules.BaseEntities.Menus.BaseEntitiesMenu"
-             LargeImage="/HVTApp.Modules.BaseEntities;component/Images/Text Document_32x32.png"
-             SmallImage="/HVTApp.Modules.BaseEntities;component/Images/Text Document_16x16.png"
+             LargeImage="/HVTApp.Modules.BaseEntities;component/Images/spr_32.png"
+             SmallImage="/HVTApp.Modules.BaseEntities;component/Images/spr_16.png"
              Header="Справочники">
     <igs:XamDataTree Name="_xamDataTree"
                      ItemsSource="{Binding Items}"

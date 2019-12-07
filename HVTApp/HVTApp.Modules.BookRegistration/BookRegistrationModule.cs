@@ -3,7 +3,7 @@ using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Prism;
 using HVTApp.Modules.BookRegistration.Menus;
-using HVTApp.Modules.BookRegistration.Views;
+using HVTApp.UI.Modules.BookRegistration.Views;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.BookRegistration

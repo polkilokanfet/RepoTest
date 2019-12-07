@@ -1,0 +1,75 @@
+﻿<inf:ViewBase x:Class="HVTApp.UI.Modules.Director.Views.MarketView"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:infg="http://infragistics.com/DataPresenter"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure">
+
+    <inf:ViewBase.Resources>
+        <Style x:Key="BoltFontCellsStyle" TargetType="{x:Type infg:CellValuePresenter}">
+            <Setter Property="ForegroundStyle">
+                <Setter.Value>
+                    <Style>
+                        <!--<Setter Property="TextBlock.Background" Value="Aqua" />-->
+                        <Setter Property="TextBlock.FontWeight" Value="Bold" />
+                        <!--<Setter Property="TextBlock.FontStyle" Value="Italic"/>-->
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </inf:ViewBase.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Content="Ожидание данных..." VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label.Style>
+                <Style>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=DataGrid, Path=Visibility}" Value="Visible">
+                            <Setter Property="Label.Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
+
+        <infg:XamDataGrid Grid.Row="1" 
+                          x:Name="DataGrid" 
+                          DataSource="{Binding MarketUnits}" 
+                          Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+
+            <infg:XamDataGrid.FieldLayouts>
+
+                <infg:FieldLayout Key="MarketUnit">
+
+                    <infg:FieldLayout.FieldSettings>
+                        <infg:FieldSettings CellValuePresenterStyle="{StaticResource BoltFontCellsStyle}" />
+                    </infg:FieldLayout.FieldSettings>
+
+                    <infg:TextField Name="Facilities" Label="Объект" Width="250"/>
+                    <infg:NumericField Name="Sum" Label="Сумма" Width="Auto" AllowResize="False"/>
+                    <infg:DateTimeField Name="OrderInTakeDate" Label="Дата ОИТ" Width="Auto" AllowResize="False"/>
+                    <infg:TextField Name="Project" Label="Проект" Width="Auto"/>
+                    <infg:TextField Name="Manager" Label="Менеджер" Width="Auto"/>
+                    <infg:NumericField Name="OrderInTakeYear" Label="Год ОИТ" Width="Auto" AllowResize="False"/>
+                    <infg:NumericField Name="OrderInTakeMonth" Label="Месяц" Width="Auto" AllowResize="False"/>
+                    <infg:Field Name="SalesGroups" IsExpandable="True"/>
+                </infg:FieldLayout>
+
+                <infg:FieldLayout ParentFieldLayoutKey="MarketUnit" ParentFieldName="SalesGroups">
+                    <infg:TextField Name="Facility" Label="Объект" Width="Auto"/>
+                    <infg:TextField Name="ProductType" Label="Тип оборудования" Width="Auto"/>
+                    <infg:TextField Name="ProductDesignation" Label="Обозначение" Width="Auto"/>
+                    <infg:NumericField Name="Amount" Label="Кол." Width="Auto" AllowResize="False"/>
+                    <infg:NumericField Name="Cost" Label="Цена" Width="Auto" AllowResize="False"/>
+                    <infg:NumericField Name="Sum" Label="Сумма" Width="Auto" AllowResize="False"/>
+                </infg:FieldLayout>
+
+            </infg:XamDataGrid.FieldLayouts>
+        </infg:XamDataGrid>
+
+    </Grid>
+</inf:ViewBase>

@@ -205,6 +205,8 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>GeneratorView1.txt</LastGenOutput>
     </Content>
+    <Resource Include="Images\report_16.png" />
+    <Resource Include="Images\report_32.png" />
     <Resource Include="GeneratorView1.txt">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

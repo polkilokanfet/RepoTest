@@ -2,14 +2,14 @@
 using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Prism;
 using HVTApp.Modules.PlanAndEconomy.Menus;
-using HVTApp.Modules.PlanAndEconomy.Views;
+using HVTApp.UI.Modules.PlanAndEconomy.Views;
 using Microsoft.Practices.Unity;
 using Prism.Regions;
 
 
 namespace HVTApp.Modules.PlanAndEconomy
 {
-    [ModuleAccess(Role.Admin, Role.Economist, Role.PlanMaker, Role.Pricer)]
+    [ModuleAccess(Role.Admin, Role.Economist, Role.PlanMaker)]
     public class PlanAndEconomyModule : ModuleBase
     {
         public PlanAndEconomyModule(IUnityContainer container, IRegionManager regionManager) : base(container, regionManager)
@@ -18,7 +18,6 @@ namespace HVTApp.Modules.PlanAndEconomy
 
         protected override void RegisterTypes()
         {
-            Container.RegisterViewForNavigation<PricesView>();
             Container.RegisterViewForNavigation<ProductionPlanView>();
             Container.RegisterViewForNavigation<OrderView>();
             Container.RegisterViewForNavigation<DatesView>();

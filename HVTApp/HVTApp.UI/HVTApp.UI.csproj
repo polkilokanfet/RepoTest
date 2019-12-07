@@ -107,6 +107,87 @@
     <Compile Include="Lookup\Items\Custom\DocumentLookup.cs" />
     <Compile Include="Lookup\Items\Custom\PriceCalculationLookup.cs" />
     <Compile Include="Lookup\Items\Custom\SalesUnitLookup.cs" />
+    <Compile Include="Modules\BookRegistration\Tabs\TabBookRegistration.xaml.cs">
+      <DependentUpon>TabBookRegistration.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\BookRegistration\Tabs\TabDocument.xaml.cs">
+      <DependentUpon>TabDocument.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\BookRegistration\ViewModels\BookRegistrationViewModel.cs" />
+    <Compile Include="Modules\BookRegistration\ViewModels\DocumentViewModel.cs" />
+    <Compile Include="Modules\BookRegistration\Views\BookRegistrationView.xaml.cs">
+      <DependentUpon>BookRegistrationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\BookRegistration\Views\DocumentView.xaml.cs">
+      <DependentUpon>DocumentView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Director\Tabs\TabReload.xaml.cs">
+      <DependentUpon>TabReload.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Director\ViewModels\MarketUnit.cs" />
+    <Compile Include="Modules\Director\ViewModels\MarketViewModel.cs" />
+    <Compile Include="Modules\Director\ViewModels\SalesGroup.cs" />
+    <Compile Include="Modules\Director\Views\MarketView.xaml.cs">
+      <DependentUpon>MarketView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PlanAndEconomy\Tabs\TabOrder.xaml.cs">
+      <DependentUpon>TabOrder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PlanAndEconomy\Tabs\TabPaymentDocument.xaml.cs">
+      <DependentUpon>TabPaymentDocument.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PlanAndEconomy\Tabs\TabPayments.xaml.cs">
+      <DependentUpon>TabPayments.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PlanAndEconomy\Tabs\TabPaymentsActual.xaml.cs">
+      <DependentUpon>TabPaymentsActual.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PlanAndEconomy\Tabs\TabProductionPlan.xaml.cs">
+      <DependentUpon>TabProductionPlan.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PlanAndEconomy\Tabs\TabSave.xaml.cs">
+      <DependentUpon>TabSave.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PlanAndEconomy\ViewModels\DatesViewModel.cs" />
+    <Compile Include="Modules\PlanAndEconomy\ViewModels\Groups\ISalesUnitOrder.cs" />
+    <Compile Include="Modules\PlanAndEconomy\ViewModels\Groups\SalesUnitDates.cs" />
+    <Compile Include="Modules\PlanAndEconomy\ViewModels\Groups\SalesUnitDatesGroup.cs" />
+    <Compile Include="Modules\PlanAndEconomy\ViewModels\Groups\SalesUnitOrder.cs" />
+    <Compile Include="Modules\PlanAndEconomy\ViewModels\Groups\SalesUnitOrderGroup.cs" />
+    <Compile Include="Modules\PlanAndEconomy\ViewModels\Groups\SalesUnitOrderGroupsCollection.cs" />
+    <Compile Include="Modules\PlanAndEconomy\ViewModels\OrderViewModel.cs" />
+    <Compile Include="Modules\PlanAndEconomy\ViewModels\Payment.cs" />
+    <Compile Include="Modules\PlanAndEconomy\ViewModels\PaymentDocumentViewModel.cs" />
+    <Compile Include="Modules\PlanAndEconomy\ViewModels\PaymentsActualViewModel.cs" />
+    <Compile Include="Modules\PlanAndEconomy\ViewModels\PaymentsViewModel.cs" />
+    <Compile Include="Modules\PlanAndEconomy\ViewModels\ProductionPlanViewModel.cs" />
+    <Compile Include="Modules\PlanAndEconomy\ViewModels\ProjectItem.cs" />
+    <Compile Include="Modules\PlanAndEconomy\Views\DatesView.xaml.cs">
+      <DependentUpon>DatesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PlanAndEconomy\Views\OrderView.xaml.cs">
+      <DependentUpon>OrderView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PlanAndEconomy\Views\PaymentDocumentView.xaml.cs">
+      <DependentUpon>PaymentDocumentView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PlanAndEconomy\Views\PaymentsActualView.xaml.cs">
+      <DependentUpon>PaymentsActualView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PlanAndEconomy\Views\PaymentsView.xaml.cs">
+      <DependentUpon>PaymentsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PlanAndEconomy\Views\ProductionPlanView.xaml.cs">
+      <DependentUpon>ProductionPlanView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PriceMaking\Tabs\TabPriceTasks.xaml.cs">
+      <DependentUpon>TabPriceTasks.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PriceMaking\ViewModels\PricesViewModel.cs" />
+    <Compile Include="Modules\PriceMaking\ViewModels\PriceTask.cs" />
+    <Compile Include="Modules\PriceMaking\Views\PricesView.xaml.cs">
+      <DependentUpon>PricesView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PriceCalculations\PriceCalculation2Wrapper.cs" />
     <Compile Include="PriceCalculations\PriceCalculationItem2Wrapper.cs" />
     <Compile Include="PriceCalculations\PriceCalculationItemsViewModel.cs" />
@@ -329,6 +410,17 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Generator.cs</LastGenOutput>
     </Content>
+    <Resource Include="Modules\Director\Images\Text_Document_32x32.png" />
+    <Resource Include="Modules\Director\Images\Text_Document_16x16.png" />
+    <Resource Include="Modules\Director\Images\Save_16x16.png" />
+    <Resource Include="Modules\Director\Images\Refresh_16x16.png" />
+    <Resource Include="Modules\Director\Images\Print_16x16.png" />
+    <Resource Include="Modules\Director\Images\Presentation_32x32.png" />
+    <Resource Include="Modules\Director\Images\Presentation_16x16.png" />
+    <Resource Include="Modules\Director\Images\New_16x16.png" />
+    <Resource Include="Modules\Director\Images\Edit_16x16.png" />
+    <Resource Include="Modules\Director\Images\Delete_16x16.png" />
+    <Resource Include="Modules\Director\Images\Add_16x16.png" />
     <Resource Include="Images\Add_16x16.png" />
     <Resource Include="Images\Print_16x16.png" />
     <Resource Include="Images\Save_16x16.png" />
@@ -392,6 +484,86 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\ChooseItemsListControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\BookRegistration\Tabs\TabBookRegistration.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\BookRegistration\Tabs\TabDocument.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\BookRegistration\Views\BookRegistrationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\BookRegistration\Views\DocumentView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Director\Tabs\TabReload.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Director\Views\MarketView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\PlanAndEconomy\Tabs\TabOrder.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\PlanAndEconomy\Tabs\TabPaymentDocument.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\PlanAndEconomy\Tabs\TabPayments.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\PlanAndEconomy\Tabs\TabPaymentsActual.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\PlanAndEconomy\Tabs\TabProductionPlan.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\PlanAndEconomy\Tabs\TabSave.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\PlanAndEconomy\Views\DatesView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\PlanAndEconomy\Views\OrderView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\PlanAndEconomy\Views\PaymentDocumentView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\PlanAndEconomy\Views\PaymentsActualView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\PlanAndEconomy\Views\PaymentsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\PlanAndEconomy\Views\ProductionPlanView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\PriceMaking\Tabs\TabPriceTasks.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\PriceMaking\Views\PricesView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

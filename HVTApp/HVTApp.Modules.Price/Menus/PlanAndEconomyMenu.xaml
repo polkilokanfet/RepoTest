@@ -5,8 +5,8 @@
                     xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
                     xmlns:infPrism="clr-namespace:HVTApp.Infrastructure.Prism;assembly=HVTApp.Infrastructure"
                     x:Class="HVTApp.Modules.PlanAndEconomy.Menus.PlanAndEconomyMenu"
-                    LargeImage="/HVTApp.Modules.PlanAndEconomy;component/Images/Calendar_32x32.png"
-                    SmallImage="/HVTApp.Modules.PlanAndEconomy;component/Images/Calendar_16x16.png"
+                    LargeImage="/HVTApp.Modules.PlanAndEconomy;component/Images/plan_32.png"
+                    SmallImage="/HVTApp.Modules.PlanAndEconomy;component/Images/plan_16.png"
                     Header="План и учет">
 
     <igs:XamDataTree Name="_xamDataTree"

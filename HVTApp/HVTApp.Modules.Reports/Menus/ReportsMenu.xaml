@@ -5,8 +5,8 @@
                     xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
                     xmlns:infPrism="clr-namespace:HVTApp.Infrastructure.Prism;assembly=HVTApp.Infrastructure"
                     x:Class="HVTApp.Modules.Reports.Menus.ReportsMenu"
-                    LargeImage="/HVTApp.Modules.Reports;component/Images/Presentation_32x32.png"
-                    SmallImage="/HVTApp.Modules.Reports;component/Images/Presentation_16x16.png"
+                    LargeImage="/HVTApp.Modules.Reports;component/Images/report_32.png"
+                    SmallImage="/HVTApp.Modules.Reports;component/Images/report_16.png"
                     Header="Отчеты">
 
     <igs:XamDataTree Name="XamDataTree" ItemsSource="{Binding Items}"

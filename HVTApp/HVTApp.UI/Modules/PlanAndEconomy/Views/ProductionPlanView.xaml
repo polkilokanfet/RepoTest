@@ -1,0 +1,29 @@
+﻿<inf:ViewBase xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:infg="http://infragistics.com/DataPresenter"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:views="clr-namespace:HVTApp.UI.Views;assembly=HVTApp.UI"
+              xmlns:prism="http://prismlibrary.com/"
+              prism:ViewModelLocator.AutoWireViewModel="True"
+              x:Class="HVTApp.UI.Modules.PlanAndEconomy.Views.ProductionPlanView">
+
+    <Grid>
+        <infg:XamDataGrid DataSource="{Binding OrderItems}"
+                          SelectedDataItem="{Binding SelectedOrderItem}">
+            
+            <infg:XamDataGrid.FieldLayouts>
+                <infg:FieldLayout>
+                    <infg:TextField Name="Product" Label="Продукт"/>
+                    <infg:NumericField Name="Amount" Label="Кол."/>
+                    <infg:TextField Name="Order" Label="З/з"/>
+                    <infg:DateTimeField Name="EndProductionPlanDate" Label="План выпуска"/>
+                    <infg:NumericField Name="EndProductionPlanDateYear" Label="Год"/>
+                    <infg:NumericField Name="EndProductionPlanDateMonth" Label="Месяц"/>
+                </infg:FieldLayout>
+            </infg:XamDataGrid.FieldLayouts>
+            
+        </infg:XamDataGrid>
+    </Grid>
+</inf:ViewBase>
+
+	
