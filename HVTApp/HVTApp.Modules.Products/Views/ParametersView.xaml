@@ -22,9 +22,9 @@
                 <infg:XamDataGrid.FieldLayouts>
                     <infg:FieldLayout>
                         <infg:FieldLayout.Fields>
-                            <infg:TextField Name="ParameterGroup" Label="Группа" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                            <infg:TextField Name="Value" Label="Значение" Width="Auto" />
-                            <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" />
+                            <infg:TextField Name="Value" Label="Значение" Width="Auto" AllowResize="True"/>
+                            <infg:TextField Name="ParameterGroup" Label="Группа" Width="Auto" Converter="{StaticResource LookupToStringConverter}" AllowResize="True"/>
+                            <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" AllowResize="True"/>
                         </infg:FieldLayout.Fields>
                     </infg:FieldLayout>
 

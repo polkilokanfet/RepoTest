@@ -2,11 +2,14 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Lookup;
 using HVTApp.UI.ViewModels;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
+using Prism.Commands;
 
 namespace HVTApp.Modules.Products.ViewModels
 {
@@ -14,6 +17,7 @@ namespace HVTApp.Modules.Products.ViewModels
     {
         private ParameterLookup _selectedParameterLookup;
         private ParameterRelationWrapper _selectedRelation;
+
         public ObservableCollection<ParameterLookup> ParameterLookups { get; }
 
         public ParameterLookup SelectedParameterLookup
@@ -36,6 +40,8 @@ namespace HVTApp.Modules.Products.ViewModels
                 //обновление возможных путей параметра
                 Paths.Clear();
                 Paths.AddRange(Item.Model.Paths());
+
+                ((DelegateCommand) AddSimilarParameterCommand).RaiseCanExecuteChanged();
             }
         }
 
@@ -71,10 +77,44 @@ namespace HVTApp.Modules.Products.ViewModels
 
         public ObservableCollection<PathToOrigin> Paths { get; } = new ObservableCollection<PathToOrigin>();
 
+        public ICommand AddSimilarParameterCommand { get; }
+
         public ParametersViewModel(IUnityContainer container) : base(container)
         {
             var parameters = UnitOfWork.Repository<Parameter>().Find(x => true);
             ParameterLookups = new ObservableCollection<ParameterLookup>(parameters.Select(x => new ParameterLookup(x)));
+
+            AddSimilarParameterCommand = new DelegateCommand(
+                () =>
+                {
+                    //создаем подобный парметр
+                    var similarParameter = new Parameter
+                    {
+                        Value = $"{SelectedParameterLookup.Entity.Value} (подобный праметр)",
+                        ParameterGroup = SelectedParameterLookup.Entity.ParameterGroup,
+                        Rang = SelectedParameterLookup.Entity.Rang,
+                        Comment = SelectedParameterLookup.Entity.Comment
+                    };
+
+                    foreach (var parameterRelation in SelectedParameterLookup.Entity.ParameterRelations)
+                    {
+                        var similarParameterRelation = new ParameterRelation
+                        {
+                            ParameterId = similarParameter.Id,
+                            RequiredParameters = parameterRelation.RequiredParameters.ToList()
+                        };
+                        similarParameter.ParameterRelations.Add(similarParameterRelation);
+                    }
+
+                    UnitOfWork.Repository<Parameter>().Add(similarParameter);
+                    UnitOfWork.SaveChanges();
+
+                    var lookup = new ParameterLookup(similarParameter);
+                    ParameterLookups.Add(lookup);
+
+                    SelectedParameterLookup = lookup;
+                },
+                () => SelectedParameterLookup != null);
         }
 
         protected override async Task SaveItemTask()
