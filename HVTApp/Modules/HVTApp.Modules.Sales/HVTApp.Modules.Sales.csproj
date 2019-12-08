@@ -98,31 +98,10 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\UnitListControl.xaml.cs">
-      <DependentUpon>UnitListControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\OfferUnitListControl.xaml.cs">
-      <DependentUpon>OfferUnitListControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\SalesUnitListControl.xaml.cs">
-      <DependentUpon>SalesUnitListControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Menus\SalesMenu.xaml.cs">
       <DependentUpon>SalesMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="Menus\SalesMenuViewModel.cs" />
-    <Compile Include="Tabs\TabCrudUnits.xaml.cs">
-      <DependentUpon>TabCrudUnits.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Tabs\ShippingTab.xaml.cs">
-      <DependentUpon>ShippingTab.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Tabs\ProductionTab.xaml.cs">
-      <DependentUpon>ProductionTab.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Tabs\TabProjects.xaml.cs">
-      <DependentUpon>TabProjects.xaml</DependentUpon>
-    </Compile>
     <Compile Include="SalesModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -136,92 +115,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Tabs\PaymentsTab.xaml.cs">
-      <DependentUpon>PaymentsTab.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Tabs\MarketTab.xaml.cs">
-      <DependentUpon>MarketTab.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewModels\Containers\BaseContainer.cs" />
-    <Compile Include="ViewModels\Containers\BaseContainerFilt.cs" />
-    <Compile Include="ViewModels\Containers\SalesUnitsContainerBase.cs" />
-    <Compile Include="ViewModels\Containers\SalesUnitsProjectBase.cs" />
-    <Compile Include="ViewModels\Containers\SalesUnitsSpecificationBase.cs" />
-    <Compile Include="ViewModels\Containers\SelectedItemChangedEvent.cs" />
-    <Compile Include="ViewModels\Groups\BaseGroupsViewModel.cs" />
-    <Compile Include="ViewModels\Groups\BaseGroupsViewModel_Price.cs" />
-    <Compile Include="ViewModels\Groups\GroupsCollection.cs" />
-    <Compile Include="ViewModels\Groups\IGroupsViewModel.cs" />
-    <Compile Include="ViewModels\Groups\OfferUnitsGroupsViewModel.cs" />
-    <Compile Include="ViewModels\Market2ViewModel_Commands.cs" />
-    <Compile Include="ViewModels\Containers\OffersContainer.cs" />
-    <Compile Include="ViewModels\ProductsIncludedViewModel.cs" />
-    <Compile Include="ViewModels\Groups\SalesUnitsGroupsViewModel.cs" />
-    <Compile Include="ViewModels\OffersViewModel.cs" />
-    <Compile Include="ViewModels\Market2ViewModel.cs" />
-    <Compile Include="ViewModels\Containers\ProjectsContainer.cs" />
-    <Compile Include="ViewModels\ProjectItem.cs" />
-    <Compile Include="ViewModels\ProjectUnitsGroup.cs" />
-    <Compile Include="ViewModels\ProjectViewModel\ProjectViewModel.cs" />
-    <Compile Include="ViewModels\Groups\SalesUnitsViewModel.cs" />
-    <Compile Include="ViewModels\Groups\OfferUnitsViewModel.cs" />
-    <Compile Include="ViewModels\OfferViewModel.cs" />
-    <Compile Include="ViewModels\PaymentsViewModel.cs" />
-    <Compile Include="ViewModels\ProductionViewModel.cs" />
-    <Compile Include="ViewModels\ProjectsViewModel.cs" />
-    <Compile Include="ViewModels\SalesUnitsWrappersGroupsContainer.cs" />
-    <Compile Include="ViewModels\ShippingViewModel.cs" />
-    <Compile Include="ViewModels\SpecificationsViewModel.cs" />
-    <Compile Include="ViewModels\SpecificationUnitsGroupsViewModel.cs" />
-    <Compile Include="ViewModels\SpecificationViewModel.cs" />
-    <Compile Include="ViewModels\Containers\TendersContainer.cs" />
-    <Compile Include="ViewModels\TenderViewModel.cs" />
-    <Compile Include="ViewModels\Groups\UnitsContainer.cs" />
-    <Compile Include="Views\MarketView\MarketView.xaml.cs">
-      <DependentUpon>MarketView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ProductsIncludedWindow.xaml.cs">
-      <DependentUpon>ProductsIncludedWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ProjectView.xaml.cs">
-      <DependentUpon>ProjectView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\TenderWindow.xaml.cs">
-      <DependentUpon>TenderWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\SpecificationView.xaml.cs">
-      <DependentUpon>SpecificationView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\SpecificationsView.xaml.cs">
-      <DependentUpon>SpecificationsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\SalesUnitsWindow.xaml.cs">
-      <DependentUpon>SalesUnitsWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\OfferUnitsWindow.xaml.cs">
-      <DependentUpon>OfferUnitsWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\OfferView.xaml.cs">
-      <DependentUpon>OfferView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ShippingView.xaml.cs">
-      <DependentUpon>ShippingView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ProjectsView.xaml.cs">
-      <DependentUpon>ProjectsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\OffersView.xaml.cs">
-      <DependentUpon>OffersView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\MarketView\Market2View.xaml.cs">
-      <DependentUpon>Market2View.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ProductionView.xaml.cs">
-      <DependentUpon>ProductionView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\PaymentsView.xaml.cs">
-      <DependentUpon>PaymentsView.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -259,103 +152,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Controls\UnitListControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\OfferUnitListControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\SalesUnitListControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Menus\SalesMenu.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Tabs\TabCrudUnits.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Tabs\ShippingTab.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Tabs\ProductionTab.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Tabs\TabProjects.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Tabs\PaymentsTab.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Tabs\MarketTab.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\MarketView\MarketView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ProductsIncludedWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\ProjectView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\TenderWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\SpecificationView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\SpecificationsView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\SalesUnitsWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\OfferUnitsWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\OfferView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\ShippingView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\ProjectsView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\OffersView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\MarketView\Market2View.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ProductionView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\PaymentsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

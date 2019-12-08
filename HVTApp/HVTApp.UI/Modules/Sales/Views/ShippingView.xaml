@@ -1,0 +1,66 @@
+﻿<inf:ViewBase xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:infg="http://infragistics.com/DataPresenter"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:converters="clr-namespace:HVTApp.Infrastructure.Converters;assembly=HVTApp.Infrastructure"
+              x:Class="HVTApp.UI.Modules.Sales.Views.ShippingView">
+
+    <inf:ViewBase.Resources>
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></converters:BooleanToVisibilityConverter>
+    </inf:ViewBase.Resources>
+
+    <Grid>
+         <Grid.RowDefinitions>
+             <RowDefinition Height="Auto"/>
+             <RowDefinition Height="*"/>
+         </Grid.RowDefinitions>
+         
+        <Label Grid.Row="0" Content="Ожидание данных..." VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label.Style>
+                <Style>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding ElementName=ShippingListGrid, Path=Visibility}" Value="Visible">
+                        <Setter Property="Label.Visibility" Value="Collapsed"/>
+                    </DataTrigger>
+                </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
+        
+        <infg:XamDataGrid Grid.Row="1" 
+                          x:Name="ShippingListGrid"
+                          Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}"
+                          DataSource="{Binding Groups}">
+
+            <infg:XamDataGrid.ContextMenu>
+				<ContextMenu>
+					<MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
+				</ContextMenu>
+			</infg:XamDataGrid.ContextMenu>
+
+			<infg:XamDataGrid.FieldLayouts>
+				<infg:FieldLayout>
+					<infg:FieldLayout.Fields>
+                        
+                        <infg:TextField Name="Facility" Label="Объект" Width="Auto"/>
+                        <infg:TextField Name="ProductType" Label="Тип" Width="Auto"/>
+                        <infg:TextField Name="ProductDesignation" Label="Обозначение" Width="Auto"/>
+                        <infg:NumericField Name="Amount" Label="Количество" Width="Auto"/>
+                        <infg:TextField Name="Order" Label="З/з" Width="Auto"/>
+                        <infg:TextField Name="Company" Label="Контрагент" Width="Auto"/>
+                        <infg:TextField Name="Specification" Label="Сп.№" Width="Auto"/>
+                        <infg:TextField Name="Contract" Label="Договор" Width="Auto"/>
+                        <infg:DateTimeField Name="Date" Label="Отгрузка" Width="Auto" AllowEdit="True"/>
+                        <infg:DateTimeField Name="ShippingDate" Label="Расчетная" Width="Auto"/>
+                        <infg:Field Name="Groups" IsExpandable="True"/>
+
+                    </infg:FieldLayout.Fields>
+				</infg:FieldLayout>
+
+			</infg:XamDataGrid.FieldLayouts>
+		</infg:XamDataGrid>
+       
+    </Grid>
+</inf:ViewBase>
+
+	

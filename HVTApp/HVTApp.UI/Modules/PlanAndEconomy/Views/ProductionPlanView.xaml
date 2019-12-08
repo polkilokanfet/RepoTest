@@ -2,7 +2,7 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-              xmlns:views="clr-namespace:HVTApp.UI.Views;assembly=HVTApp.UI"
+              xmlns:views="clr-namespace:HVTApp.UI.Views"
               xmlns:prism="http://prismlibrary.com/"
               prism:ViewModelLocator.AutoWireViewModel="True"
               x:Class="HVTApp.UI.Modules.PlanAndEconomy.Views.ProductionPlanView">

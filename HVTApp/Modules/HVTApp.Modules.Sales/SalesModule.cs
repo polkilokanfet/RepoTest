@@ -4,8 +4,10 @@ using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Prism;
 using HVTApp.Modules.Sales.Menus;
-using HVTApp.Modules.Sales.ViewModels;
-using HVTApp.Modules.Sales.Views;
+using HVTApp.UI.Modules.Sales.ViewModels;
+using HVTApp.UI.Modules.Sales.ViewModels.Groups;
+using HVTApp.UI.Modules.Sales.Views;
+using HVTApp.UI.Modules.Sales.Views.MarketView;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.Sales
