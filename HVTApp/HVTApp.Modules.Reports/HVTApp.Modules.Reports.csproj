@@ -104,23 +104,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Tabs\TabFakeData.xaml.cs">
-      <DependentUpon>TabFakeData.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Tabs\TabReload.xaml.cs">
-      <DependentUpon>TabReload.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewModels\FakeDataViewModel.cs" />
-    <Compile Include="ViewModels\SalesReportUnit.cs" />
-    <Compile Include="ViewModels\SalesReportViewModel.cs" />
-    <Compile Include="ViewModels\SalesUnitFakeDataGroup.cs" />
-    <Compile Include="ViewModels\SalesUnitsReportComparer.cs" />
-    <Compile Include="Views\FakeDataView.xaml.cs">
-      <DependentUpon>FakeDataView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\SalesReportView.xaml.cs">
-      <DependentUpon>SalesReportView.xaml</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -153,22 +136,6 @@
     <Page Include="Menus\ReportsMenu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Tabs\TabFakeData.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Tabs\TabReload.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\FakeDataView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\SalesReportView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

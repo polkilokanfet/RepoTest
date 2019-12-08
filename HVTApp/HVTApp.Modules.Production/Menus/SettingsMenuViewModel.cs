@@ -1,5 +1,5 @@
 ﻿using HVTApp.Infrastructure;
-using HVTApp.Modules.Settings.Views;
+using HVTApp.UI.Modules.Settings.Views;
 
 namespace HVTApp.Modules.Settings.Menus
 {

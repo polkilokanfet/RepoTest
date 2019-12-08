@@ -188,6 +188,45 @@
     <Compile Include="Modules\PriceMaking\Views\PricesView.xaml.cs">
       <DependentUpon>PricesView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Products\Tabs\TabCreateNewProductTasks.xaml.cs">
+      <DependentUpon>TabCreateNewProductTasks.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Products\Tabs\TabParameters.xaml.cs">
+      <DependentUpon>TabParameters.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Products\Tabs\TabStructureCosts.xaml.cs">
+      <DependentUpon>TabStructureCosts.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Products\ViewModels\CreateNewProductTasksViewModel.cs" />
+    <Compile Include="Modules\Products\ViewModels\ParametersViewModel.cs" />
+    <Compile Include="Modules\Products\ViewModels\ProductBlockStructureCostWrapper.cs" />
+    <Compile Include="Modules\Products\ViewModels\StructureCostsViewModel.cs" />
+    <Compile Include="Modules\Products\Views\CreateNewProductTasksView.xaml.cs">
+      <DependentUpon>CreateNewProductTasksView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Products\Views\ParametersView.xaml.cs">
+      <DependentUpon>ParametersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Products\Views\StructureCostsView.xaml.cs">
+      <DependentUpon>StructureCostsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\Tabs\TabFakeData.xaml.cs">
+      <DependentUpon>TabFakeData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\Tabs\TabReload.xaml.cs">
+      <DependentUpon>TabReload.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\ViewModels\FakeDataViewModel.cs" />
+    <Compile Include="Modules\Reports\ViewModels\SalesReportUnit.cs" />
+    <Compile Include="Modules\Reports\ViewModels\SalesReportViewModel.cs" />
+    <Compile Include="Modules\Reports\ViewModels\SalesUnitFakeDataGroup.cs" />
+    <Compile Include="Modules\Reports\ViewModels\SalesUnitsReportComparer.cs" />
+    <Compile Include="Modules\Reports\Views\FakeDataView.xaml.cs">
+      <DependentUpon>FakeDataView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\Views\SalesReportView.xaml.cs">
+      <DependentUpon>SalesReportView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Sales\Controls\OfferUnitListControl.xaml.cs">
       <DependentUpon>OfferUnitListControl.xaml</DependentUpon>
     </Compile>
@@ -294,6 +333,10 @@
     </Compile>
     <Compile Include="Modules\Sales\Views\TenderWindow.xaml.cs">
       <DependentUpon>TenderWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Settings\ViewModels\PasswordViewModel.cs" />
+    <Compile Include="Modules\Settings\Views\PasswordView.xaml.cs">
+      <DependentUpon>PasswordView.xaml</DependentUpon>
     </Compile>
     <Compile Include="PriceCalculations\PriceCalculation2Wrapper.cs" />
     <Compile Include="PriceCalculations\PriceCalculationItem2Wrapper.cs" />
@@ -674,6 +717,46 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Modules\Products\Tabs\TabCreateNewProductTasks.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Products\Tabs\TabParameters.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Products\Tabs\TabStructureCosts.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Products\Views\CreateNewProductTasksView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Products\Views\ParametersView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Products\Views\StructureCostsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Reports\Tabs\TabFakeData.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Reports\Tabs\TabReload.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Reports\Views\FakeDataView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Reports\Views\SalesReportView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Modules\Sales\Controls\OfferUnitListControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -767,6 +850,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\Sales\Views\TenderWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Settings\Views\PasswordView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

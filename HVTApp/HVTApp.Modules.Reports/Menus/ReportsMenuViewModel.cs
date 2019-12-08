@@ -1,5 +1,5 @@
 ﻿using HVTApp.Infrastructure;
-using HVTApp.Modules.Reports.Views;
+using HVTApp.UI.Modules.Reports.Views;
 
 namespace HVTApp.Modules.Reports.Menus
 {

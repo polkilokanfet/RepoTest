@@ -1,6 +1,6 @@
 ﻿using HVTApp.Infrastructure;
 using HVTApp.Model;
-using HVTApp.Modules.Products.Views;
+using HVTApp.UI.Modules.Products.Views;
 
 namespace HVTApp.Modules.Products.Menus
 {

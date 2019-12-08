@@ -1,0 +1,162 @@
+﻿<inf:ViewBase x:Class="HVTApp.UI.Modules.Reports.Views.SalesReportView"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:infg="http://infragistics.com/DataPresenter"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:prism="http://prismlibrary.com/"             
+              prism:ViewModelLocator.AutoWireViewModel="True">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Content="Ожидание данных..." VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label.Style>
+                <Style>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=SalesUnitLookupListGrid, Path=Visibility}" Value="Visible">
+                            <Setter Property="Label.Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
+
+
+        <infg:XamDataGrid x:Name="SalesUnitLookupListGrid" 
+                          Grid.Row="1"
+                          DataSource="{Binding Units}"
+                          SelectedDataItem="{Binding SelectedSalesReportUnit}"
+                          Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <!--Style="{StaticResource ListViewGrid}"-->
+            <infg:XamDataGrid.FieldLayoutSettings>
+                <infg:FieldLayoutSettings 
+                                          AutoGenerateFields="False"
+                                          AutoFitMode="Always"
+                                          AllowAddNew="False"
+                                          AllowDelete="False"
+                                          AllowFieldMoving="Yes"
+                                          AllowRecordFixing="Top"
+                                          HeaderPrefixAreaDisplayMode="FieldChooserButton"
+                                          HighlightAlternateRecords="True"/>
+                
+            </infg:XamDataGrid.FieldLayoutSettings>
+            
+            <infg:XamDataGrid.FieldSettings>
+                <infg:FieldSettings AllowEdit="False" 
+                                    AllowRecordFiltering="True"
+                                    Width="Auto"/>
+            </infg:XamDataGrid.FieldSettings>
+            
+            <infg:XamDataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
+                </ContextMenu>
+            </infg:XamDataGrid.ContextMenu>
+
+            <infg:XamDataGrid.FieldLayouts>
+                <infg:FieldLayout>
+                    <infg:FieldLayout.Fields>
+                        <infg:TextField Name="Project" Label="Проект" Width="Auto" />
+                        <infg:TextField Name="Facility" Label="Объект" Width="Auto" />
+                        <infg:TextField Name="ProductType" Label="Тип продукта" Width="Auto" />
+                        <infg:TextField Name="Product" Label="Продукт" Width="Auto" />
+                        <infg:NumericField Name="Amount" Label="Количество" Width="Auto" />
+                        <infg:NumericField Name="Cost" Label="Стоимость" Width="Auto" />
+                        <infg:NumericField Name="CostResult" Label="Цена (результирующая)" Width="Auto" />
+                        <infg:NumericField Name="Vat" Label="НДС, %" Width="Auto" />
+                        <infg:NumericField Name="CostWithVat" Label="Цена с НДС" Width="Auto" />
+                        <infg:NumericField Name="Price" Label="Себестоимость" Width="Auto" />
+                        <infg:NumericField Name="PriceResult" Label="Себестоимость (результирующая)" Width="Auto" />
+                        <infg:NumericField Name="FixedCost" Label="Стоимость блоков с фиксированной ценой" Width="Auto" />
+                        <infg:NumericField Name="CostDelivery" Label="Стоимость доставки" Width="Auto" />
+                        <infg:NumericField Name="MarginalIncomeNatural" Label="МД, руб." Width="Auto" />
+                        <infg:NumericField Name="MarginalIncome" Label="МД, %" Width="Auto" />
+                        <infg:DateTimeField Name="OrderInTakeDate" Label="ОИТ" Width="Auto" />
+                        <infg:NumericField Name="OrderInTakeYear" Label="Год ОИТ" Width="Auto" />
+                        <infg:NumericField Name="OrderInTakeMonth" Label="Месяц ОИТ" Width="Auto" />
+                        <infg:DateTimeField Name="StartProductionConditionsDoneDate" Label="Дата исполнения условий для начала производства" Width="Auto" />
+                        <infg:DateTimeField Name="ShippingConditionsDoneDate" Label="Дата исполнения условий для отгрузки" Width="Auto" />
+                        <infg:DateTimeField Name="StartProductionDateCalculated" Label="Начало производства (расч.)" Width="Auto" />
+                        <infg:DateTimeField Name="EndProductionDateCalculated" Label="Окончание производства (расч.)" Width="Auto" />
+                        <infg:DateTimeField Name="RealizationDateCalculated" Label="Расчетная дата реализации" Width="Auto" />
+                        <infg:DateTimeField Name="ShipmentDateCalculated" Label="Расчетная дата отгрузки" Width="Auto" />
+                        <infg:DateTimeField Name="DeliveryDateCalculated" Label="Расчетная дата доставки" Width="Auto" />
+                        <infg:TextField Name="Penalty" Label="Штрафные санкции" Width="Auto" />
+                        <infg:TextField Name="PaymentConditionSetResult" Label="Условия оплаты (результирующие)" Width="Auto" />
+                        <infg:TextField Name="PaymentConditionSet" Label="Условия оплаты" Width="Auto" />
+                        <infg:DateTimeField Name="DeliveryDateExpected" Label="Требуемая дата поставки" Width="Auto" />
+                        <infg:TextField Name="ContragentType" Label="Тип контрагента" Width="Auto" />
+                        <infg:TextField Name="DeliveryType" Label="Тип доставки" Width="Auto" />
+                        <infg:NumericField Name="SumToStartProduction" Label="Сумма старта производства" Width="Auto" />
+                        <infg:NumericField Name="SumToShipping" Label="Сумма отгрузки" Width="Auto" />
+                        <infg:TextField Name="Country" Label="Страна поставки" Width="Auto" />
+                        <infg:CheckBoxField Name="CostDeliveryIncluded" Label="Стоимость доставки включена в основную стоимость" Width="Auto" />
+                        <infg:TextField Name="Status" Label="Статус" Width="Auto" />
+                        <infg:NumericField Name="AssembleTerm" Label="Срок сборки" Width="Auto" />
+                        <infg:NumericField Name="ProductionTerm" Label="Срок производства" Width="Auto" />
+                        <infg:NumericField Name="ExpectedDeliveryPeriodCalculated" Label="Срок доставки расчетный" Width="Auto" />
+                        <infg:NumericField Name="ExpectedDeliveryPeriod" Label="Срок доставки" Width="Auto" />
+                        <infg:DateTimeField Name="SpecificationDate" Label="Спецификация дата" Width="Auto" />
+                        <infg:TextField Name="Specification" Label="Спецификация" Width="Auto" />
+                        <infg:TextField Name="PaymentsActual" Label="Совершённые платежи" Width="Auto" Converter="{StaticResource ListToStringConverter}"/>
+                        <infg:DateTimeField Name="SignalToStartProduction" Label="Сигнал менеджера о производстве" Width="Auto" />
+                        <infg:TextField Name="Segment" Label="Сегмент рынка" Width="Auto" />
+                        <infg:NumericField Name="DeliveryPeriodCalculated" Label="Расчетный срок доставки" Width="Auto" />
+                        <!--<infg:TextField Name="PaymentsPlannedCalculated" Label="Расчетные плановые платежи + сохраненные" Width="Auto" Converter="{StaticResource ListToStringConverter}"/>-->
+                        <!--<infg:TextField Name="PaymentsPlannedGenerated" Label="Расчетные плановые платежи" Width="Auto" Converter="{StaticResource ListToStringConverter}"/>-->
+                        <!--<infg:CheckBoxField Name="AllowEditProduct" Label="Разрешение на редактирование техники" Width="Auto" />-->
+                        <!--<infg:CheckBoxField Name="AllowEditCost" Label="Разрешение на редактирование стоимости" Width="Auto" />-->
+                        <infg:TextField Name="Producer" Label="Производитель" Width="Auto" />
+                        <infg:CheckBoxField Name="IsLoosen" Label="Проиграно" Width="Auto" />
+                        <infg:TextField Name="LosingReasons" Label="Причины проигрыша" Width="Auto" Converter="{StaticResource ListToStringConverter}"/>
+                        <infg:TextField Name="OrderPosition" Label="Позиция" Width="Auto" />
+                        <infg:DateTimeField Name="EndProductionPlanDate" Label="Плановая дата окончания производства" Width="Auto" />
+                        <infg:TextField Name="PaymentsPlanned" Label="Планируемые платежи" Width="Auto" Converter="{StaticResource ListToStringConverter}"/>
+                        <infg:CheckBoxField Name="IsPaid" Label="Оплачено?" Width="Auto" />
+                        <infg:NumericField Name="SumPaid" Label="Оплачено" Width="Auto" />
+                        <infg:TextField Name="District" Label="Округ" Width="Auto" />
+                        <infg:TextField Name="CountryUnions" Label="Объединения стран" Width="Auto" Converter="{StaticResource ListToStringConverter}"/>
+                        <infg:TextField Name="Designation" Label="Обозначение" Width="Auto" />
+                        <infg:TextField Name="SerialNumber" Label="Номер" Width="Auto" />
+                        <infg:NumericField Name="SumNotPaid" Label="Неоплачено" Width="Auto" />
+                        <infg:TextField Name="Voltage" Label="Напряжение" Width="Auto" />
+                        <infg:NumericField Name="RealizationDateResultMonth" Label="Месяц реализации (результирующая)" Width="Auto" />
+                        <infg:TextField Name="Manager" Label="Менеджер" Width="Auto" />
+                        <!--<infg:TextField Name="FakeData" Label="Корректировочные данные" Width="Auto" />-->
+                        <infg:TextField Name="Contragent" Label="Контрагент" Width="Auto" />
+                        <infg:CheckBoxField Name="IsDone" Label="Исполнено" Width="Auto" />
+                        <infg:TextField Name="TceRequest" Label="Запрос в ТСЕ" Width="Auto" />
+                        <infg:TextField Name="Order" Label="Заказ" Width="Auto" />
+                        <infg:TextField Name="ContractNumber" Label="Договор" Width="Auto" />
+                        <infg:NumericField Name="ContractMonth" Label="Договор месяц" Width="Auto" />
+                        <infg:DateTimeField Name="ContractDate" Label="Договор дата" Width="Auto" />
+                        <infg:NumericField Name="ContractYear" Label="Договор год" Width="Auto" />
+                        <infg:DateTimeField Name="RealizationDateResult" Label="Дата реализации (результирующая)" Width="Auto" />
+                        <infg:DateTimeField Name="RealizationDate" Label="Дата реализации" Width="Auto" />
+                        <infg:DateTimeField Name="SignalToStartProductionDone" Label="Дата размещения в производстве" Width="Auto" />
+                        <infg:DateTimeField Name="DeliveryDate" Label="Дата поставки" Width="Auto" />
+                        <infg:DateTimeField Name="ShipmentPlanDate" Label="Дата отгрузки (плановая)" Width="Auto" />
+                        <infg:DateTimeField Name="ShipmentDate" Label="Дата отгрузки" Width="Auto" />
+                        <infg:DateTimeField Name="EndProductionDate" Label="Дата окончания производства" Width="Auto" />
+                        <infg:DateTimeField Name="OrderInTakeDateResult" Label="Дата ОИТ (результирующая)" Width="Auto" />
+                        <infg:DateTimeField Name="StartProductionDate" Label="Дата начала производства" Width="Auto" />
+                        <infg:DateTimeField Name="PickingDate" Label="Дата комплектации" Width="Auto" />
+                        <infg:NumericField Name="RealizationDateResultYear" Label="Год реализации (результирующая)" Width="Auto" />
+                        <infg:TextField Name="FacilityOwnerHead" Label="Владелец объекта (головная компания)" Width="Auto" />
+                        <infg:TextField Name="FacilityOwner" Label="Владелец объекта" Width="Auto" />
+                        <infg:TextField Name="ProductsIncluded" Label="Включенные продукты" Width="Auto" Converter="{StaticResource ListToStringConverter}"/>
+                        <infg:TextField Name="BankGuarantees" Label="Банковские гарантии" Width="Auto" Converter="{StaticResource ListToStringConverter}"/>
+                        <infg:TextField Name="AddressDelivery" Label="Адрес доставки" Width="Auto" />
+                        <infg:TextField Name="PaymentsPlannedActual" Label="PaymentsPlannedActual" Width="Auto" Converter="{StaticResource ListToStringConverter}"/>
+                    </infg:FieldLayout.Fields>
+                </infg:FieldLayout>
+
+            </infg:XamDataGrid.FieldLayouts>
+
+        </infg:XamDataGrid>
+
+    </Grid>
+</inf:ViewBase>

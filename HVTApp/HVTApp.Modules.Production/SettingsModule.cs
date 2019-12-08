@@ -1,7 +1,7 @@
 ﻿using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Prism;
 using HVTApp.Modules.Settings.Menus;
-using HVTApp.Modules.Settings.Views;
+using HVTApp.UI.Modules.Settings.Views;
 using Microsoft.Practices.Unity;
 using Prism.Regions;
 

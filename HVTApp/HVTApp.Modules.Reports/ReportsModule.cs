@@ -3,8 +3,9 @@ using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Prism;
 using HVTApp.Modules.Reports.Menus;
-using HVTApp.Modules.Reports.Views;
+using HVTApp.UI.Modules.Reports.Views;
 using Microsoft.Practices.Unity;
+using FakeDataView = HVTApp.UI.Modules.Reports.Views.FakeDataView;
 
 namespace HVTApp.Modules.Reports
 {
