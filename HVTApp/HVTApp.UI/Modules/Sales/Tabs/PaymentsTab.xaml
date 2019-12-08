@@ -7,9 +7,9 @@
              Header="Поступления">
 
     <infRib:RibbonGroup Caption="Редактирование">
-        <infRib:ButtonTool Caption="Сбросить" Command="{Binding RemoveCommand}"/>
-        <infRib:ButtonTool Caption="Перезагрузить" Command="{Binding ReloadCommand}"/>
-        <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveCommand}"/>
+        <infRib:ButtonTool Caption="Сбросить" Command="{Binding RemoveCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>
+        <infRib:ButtonTool Caption="Перезагрузить" Command="{Binding ReloadCommand}" SmallImage="/HVTApp.UI;component/Images/refresh.png"/>
+        <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveCommand}" SmallImage="/HVTApp.UI;component/Images/save.png"/>
     </infRib:RibbonGroup>
 
 </inf:RibbonTabItemWithViewModel>

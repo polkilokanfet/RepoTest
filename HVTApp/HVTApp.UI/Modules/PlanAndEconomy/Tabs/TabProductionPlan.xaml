@@ -6,8 +6,8 @@
                                  Header="Заказ">
     
     <infRib:RibbonGroup Caption="Заводской заказ">
-        <infRib:ButtonTool Caption="Создать" Command="{Binding NewOrderCommand}" SmallImage="/HVTApp.Modules.PlanAndEconomy;component/Images/Add_16x16.png"/>
-        <infRib:ButtonTool Caption="Редактировать" Command="{Binding EditOrderCommand}" SmallImage="/HVTApp.Modules.PlanAndEconomy;component/Images/Edit_16x16.png"/>
+        <infRib:ButtonTool Caption="Создать" Command="{Binding NewOrderCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
+        <infRib:ButtonTool Caption="Редактировать" Command="{Binding EditOrderCommand}" SmallImage="/HVTApp.UI;component/Images/edit.png"/>
     </infRib:RibbonGroup>
                
 </inf:RibbonTabItemWithViewModel>

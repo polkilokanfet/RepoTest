@@ -6,7 +6,7 @@
                                  Header="Параметры">
     
     <infRib:RibbonGroup Caption="Действия">
-        <infRib:ButtonTool Caption="Создать подобный параметр" Command="{Binding AddSimilarParameterCommand}" />
+        <infRib:ButtonTool Caption="Создать подобный параметр" Command="{Binding AddSimilarParameterCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
         <!--<infRib:ButtonTool Caption="Отменить" Command="{Binding CancelCommand}" SmallImage="/HVTApp.Infrastructure;component/Images/Delete_16x16.png"/>
         <infRib:ButtonTool Caption="Блок в контексте" Command="{Binding PrintProductBlockCommand}"/>-->
     </infRib:RibbonGroup>

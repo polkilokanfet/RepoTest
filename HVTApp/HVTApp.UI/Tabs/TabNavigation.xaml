@@ -7,8 +7,8 @@
                                 Header="Навигация">
     
     <infRib:RibbonGroup Caption="">
-        <infRib:ButtonTool Caption="Назад" Command="{Binding GoForwardCommand, ElementName=Root}"/>
-        <infRib:ButtonTool Caption="Вперед" Command="{Binding GoBackCommand, ElementName=Root}"/>
+        <infRib:ButtonTool Caption="Назад" Command="{Binding GoForwardCommand, ElementName=Root}" SmallImage="/HVTApp.UI;component/Images/arrow_back.png"/>
+        <infRib:ButtonTool Caption="Вперед" Command="{Binding GoBackCommand, ElementName=Root}" SmallImage="/HVTApp.UI;component/Images/arrow_forward.png"/>
     </infRib:RibbonGroup>
     
 </inf:RibbonTabItemWithViewModel>

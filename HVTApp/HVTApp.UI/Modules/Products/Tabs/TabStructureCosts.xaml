@@ -6,9 +6,9 @@
                                  Header="План производства">
     
     <infRib:RibbonGroup Caption="Действия">
-        <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveCommand}" SmallImage="/HVTApp.Infrastructure;component/Images/Save_16x16.png"/>
-        <infRib:ButtonTool Caption="Отменить" Command="{Binding CancelCommand}" SmallImage="/HVTApp.Infrastructure;component/Images/Delete_16x16.png"/>
-        <infRib:ButtonTool Caption="Блок в контексте" Command="{Binding PrintProductBlockCommand}"/>
+        <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveCommand}" SmallImage="/HVTApp.UI;component/Images/save.png"/>
+        <infRib:ButtonTool Caption="Отменить" Command="{Binding CancelCommand}" SmallImage="/HVTApp.UI;component/Images/cancel.png"/>
+        <infRib:ButtonTool Caption="Блок в контексте" Command="{Binding PrintProductBlockCommand}" SmallImage="/HVTApp.UI;component/Images/structure.png"/>
     </infRib:RibbonGroup>
         
 </inf:RibbonTabItemWithViewModel>

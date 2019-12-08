@@ -6,14 +6,14 @@
                                  Header="Заказ">
     
     <infRib:RibbonGroup Caption="Оборудование">
-        <infRib:ButtonTool Caption="Разместить" Command="{Binding AddGroupCommand}" SmallImage="/HVTApp.Modules.PlanAndEconomy;component/Images/Add_16x16.png"/>
-        <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveGroupCommand}" SmallImage="/HVTApp.Modules.PlanAndEconomy;component/Images/Delete_16x16.png"/>
-        <infRib:ButtonTool Caption="Структура" Command="{Binding ShowProductStructureCommand}" SmallImage="/HVTApp.Modules.PlanAndEconomy;component/Images/Preview_16x16.png"/>
+        <infRib:ButtonTool Caption="Разместить" Command="{Binding AddGroupCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
+        <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveGroupCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>
+        <infRib:ButtonTool Caption="Структура" Command="{Binding ShowProductStructureCommand}" SmallImage="/HVTApp.UI;component/Images/structure.png"/>
     </infRib:RibbonGroup>
     
     <infRib:RibbonGroup Caption="Заказ">
-        <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveOrderCommand}" SmallImage="/HVTApp.Modules.PlanAndEconomy;component/Images/Save_16x16.png"/>
-        <infRib:ButtonTool Caption="Закрыть" Command="{Binding GoBackCommand}" SmallImage="/HVTApp.Modules.PlanAndEconomy;component/Images/Delete_16x16.png"/>
+        <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveOrderCommand}" SmallImage="/HVTApp.UI;component/Images/save.png"/>
+        <infRib:ButtonTool Caption="Закрыть" Command="{Binding GoBackCommand}" SmallImage="/HVTApp.UI;component/Images/close.png"/>
     </infRib:RibbonGroup>
                
 </inf:RibbonTabItemWithViewModel>

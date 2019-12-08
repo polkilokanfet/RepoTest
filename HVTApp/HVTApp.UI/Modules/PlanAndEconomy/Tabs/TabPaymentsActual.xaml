@@ -6,8 +6,8 @@
                                  Header="Платежка">
     
     <infRib:RibbonGroup Caption="Платежка">
-        <infRib:ButtonTool Caption="Создать" Command="{Binding NewCommand}" SmallImage="/HVTApp.Modules.PlanAndEconomy;component/Images/Add_16x16.png"/>
-        <infRib:ButtonTool Caption="Редактировать" Command="{Binding EditCommand}" SmallImage="/HVTApp.Modules.PlanAndEconomy;component/Images/Edit_16x16.png"/>
+        <infRib:ButtonTool Caption="Создать" Command="{Binding NewCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
+        <infRib:ButtonTool Caption="Редактировать" Command="{Binding EditCommand}" SmallImage="/HVTApp.UI;component/Images/edit.png"/>
     </infRib:RibbonGroup>
                
 </inf:RibbonTabItemWithViewModel>

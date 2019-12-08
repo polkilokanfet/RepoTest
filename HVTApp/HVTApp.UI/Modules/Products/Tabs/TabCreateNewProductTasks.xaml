@@ -6,7 +6,7 @@
                                  Header="Задание на создание нового оборудования">
     
     <infRib:RibbonGroup Caption="Задание">
-        <infRib:ButtonTool Caption="Заменить продукт" Command="{Binding ChangeProductCommand}"/>
+        <infRib:ButtonTool Caption="Заменить продукт" Command="{Binding ChangeProductCommand}" SmallImage="/HVTApp.UI;component/Images/replace.png"/>
     </infRib:RibbonGroup>
                
 </inf:RibbonTabItemWithViewModel>

@@ -6,13 +6,13 @@
                                  Header="Платежный документ">
        
     <infRib:RibbonGroup Caption="Части платежа">
-        <infRib:ButtonTool Caption="Добавить" Command="{Binding AddPaymentCommand}" SmallImage="/HVTApp.Modules.PlanAndEconomy;component/Images/Add_16x16.png"/>
-        <infRib:ButtonTool Caption="Удалить" Command="{Binding RemovePaymentCommand}" SmallImage="/HVTApp.Modules.PlanAndEconomy;component/Images/Delete_16x16.png"/>
+        <infRib:ButtonTool Caption="Добавить" Command="{Binding AddPaymentCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
+        <infRib:ButtonTool Caption="Удалить" Command="{Binding RemovePaymentCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>
     </infRib:RibbonGroup>
     
     <infRib:RibbonGroup Caption="Документ">
-        <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveDocumentCommand}" SmallImage="/HVTApp.Modules.PlanAndEconomy;component/Images/Save_16x16.png"/>
-        <infRib:ButtonTool Caption="Закрыть" Command="{Binding GoBackCommand}" SmallImage="/HVTApp.Modules.PlanAndEconomy;component/Images/Delete_16x16.png"/>
+        <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveDocumentCommand}" SmallImage="/HVTApp.UI;component/Images/save.png"/>
+        <infRib:ButtonTool Caption="Закрыть" Command="{Binding GoBackCommand}" SmallImage="/HVTApp.UI;component/Images/close.png"/>
     </infRib:RibbonGroup>
         
 </inf:RibbonTabItemWithViewModel>

@@ -560,24 +560,25 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Generator.cs</LastGenOutput>
     </Content>
-    <Resource Include="Modules\Director\Images\Text_Document_32x32.png" />
-    <Resource Include="Modules\Director\Images\Text_Document_16x16.png" />
-    <Resource Include="Modules\Director\Images\Save_16x16.png" />
-    <Resource Include="Modules\Director\Images\Refresh_16x16.png" />
-    <Resource Include="Modules\Director\Images\Print_16x16.png" />
-    <Resource Include="Modules\Director\Images\Presentation_32x32.png" />
-    <Resource Include="Modules\Director\Images\Presentation_16x16.png" />
-    <Resource Include="Modules\Director\Images\New_16x16.png" />
-    <Resource Include="Modules\Director\Images\Edit_16x16.png" />
-    <Resource Include="Modules\Director\Images\Delete_16x16.png" />
-    <Resource Include="Modules\Director\Images\Add_16x16.png" />
-    <Resource Include="Images\Add_16x16.png" />
-    <Resource Include="Images\Print_16x16.png" />
-    <Resource Include="Images\Save_16x16.png" />
-    <Resource Include="Images\Refresh_16x16.png" />
-    <Resource Include="Images\New_16x16.png" />
-    <Resource Include="Images\Edit_16x16.png" />
-    <Resource Include="Images\Delete_16x16.png" />
+    <Resource Include="Images\done.png" />
+    <Resource Include="Images\start.png" />
+    <Resource Include="Images\stop.png" />
+    <Resource Include="Images\cancel.png" />
+    <Resource Include="Images\replace.png" />
+    <Resource Include="Images\structure.png" />
+    <Resource Include="Images\close.png" />
+    <Resource Include="Images\in.png" />
+    <Resource Include="Images\out.png" />
+    <Resource Include="Images\arrow_back.png" />
+    <Resource Include="Images\arrow_forward.png" />
+    <Resource Include="Images\add.png" />
+    <Resource Include="Images\collapse.png" />
+    <Resource Include="Images\edit.png" />
+    <Resource Include="Images\expand.png" />
+    <Resource Include="Images\print.png" />
+    <Resource Include="Images\refresh.png" />
+    <Resource Include="Images\remove.png" />
+    <Resource Include="Images\save.png" />
     <Resource Include="GeneratorDetailsViews.txt">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -6,9 +6,9 @@
                                  Header="Обновление">
     
     <infRib:RibbonGroup Caption="Действия">
-        <infRib:ButtonTool Caption="Перезагрузить" Command="{Binding ReloadCommand}" SmallImage="/HVTApp.UI;component/Images/Refresh_16x16.png"/>
-        <infRib:ButtonTool Caption="Развернуть всё" Command="{Binding ExpandCommand}"/>
-        <infRib:ButtonTool Caption="Свернуть всё" Command="{Binding CollapseCommand}"/>
+        <infRib:ButtonTool Caption="Перезагрузить" Command="{Binding ReloadCommand}" SmallImage="/HVTApp.UI;component/Images/refresh.png"/>
+        <infRib:ButtonTool Caption="Развернуть всё" Command="{Binding ExpandCommand}" SmallImage="/HVTApp.UI;component/Images/expand.png"/>
+        <infRib:ButtonTool Caption="Свернуть всё" Command="{Binding CollapseCommand}" SmallImage="/HVTApp.UI;component/Images/collapse.png"/>
     </infRib:RibbonGroup>
     
 </inf:RibbonTabItemWithViewModel>

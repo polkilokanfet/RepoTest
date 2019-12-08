@@ -6,7 +6,7 @@
                                 Header="ТКП">
     
     <infRib:RibbonGroup Caption="Печать">
-        <infRib:ButtonTool Caption="Печать" Command="{Binding PrintOfferCommand}"/>
+        <infRib:ButtonTool Caption="Печать" Command="{Binding PrintOfferCommand}" SmallImage="/HVTApp.UI;component/Images/print.png"/>
     </infRib:RibbonGroup>
     
 </inf:RibbonTabItemWithViewModel>

@@ -7,24 +7,33 @@
              Header="Задание на расчет себестоимости">
 
     <infRib:RibbonGroup Caption="Сралчахвост" Visibility="{Binding CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityConverter}}">
-        <infRib:ButtonTool Caption="Добавить" Command="{Binding AddStructureCostCommand}"/>
-        <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveStructureCostCommand}" SmallImage="/HVTApp.Infrastructure;component/Images/Delete_16x16.png"/>
+        <infRib:ButtonTool Caption="Добавить" Command="{Binding AddStructureCostCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
+        <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveStructureCostCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Оборудование" Visibility="{Binding CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityConverter}}">
-        <infRib:ButtonTool Caption="Добавить" Command="{Binding AddGroupCommand}"/>
-        <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveGroupCommand}" SmallImage="/HVTApp.Infrastructure;component/Images/Delete_16x16.png"/>
+        <infRib:ButtonTool Caption="Добавить" Command="{Binding AddGroupCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
+        <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveGroupCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Задача">
-        <infRib:ButtonTool Caption="Стартовать" Command="{Binding StartCommand}" Visibility="{Binding CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityConverter}}" SmallImage="/HVTApp.Infrastructure;component/Images/Save_16x16.png"/>
-        <infRib:ButtonTool Caption="Остановить" Command="{Binding CancelCommand}" Visibility="{Binding CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityConverter}}" SmallImage="/HVTApp.Infrastructure;component/Images/Delete_16x16.png"/>
-        <infRib:ButtonTool Caption="Завершить" Command="{Binding FinishCommand}" Visibility="{Binding CurrentUserIsPricer, Converter={StaticResource BooleanToVisibilityConverter}}" SmallImage="/HVTApp.Infrastructure;component/Images/Delete_16x16.png"/>
+        <infRib:ButtonTool Caption="Стартовать"
+                           Command="{Binding StartCommand}"
+                           Visibility="{Binding CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityConverter}}"
+                           SmallImage="/HVTApp.UI;component/Images/start.png" />
+        <infRib:ButtonTool Caption="Остановить"
+                           Command="{Binding CancelCommand}"
+                           Visibility="{Binding CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityConverter}}"
+                           SmallImage="/HVTApp.UI;component/Images/stop.png" />
+        <infRib:ButtonTool Caption="Завершить"
+                           Command="{Binding FinishCommand}"
+                           Visibility="{Binding CurrentUserIsPricer, Converter={StaticResource BooleanToVisibilityConverter}}"
+                           SmallImage="/HVTApp.UI;component/Images/done.png" />
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Действия">
-        <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveCommand}" SmallImage="/HVTApp.Infrastructure;component/Images/Save_16x16.png"/>
-        <infRib:ButtonTool Caption="Закрыть" Command="{Binding GoBackCommand}" SmallImage="/HVTApp.Infrastructure;component/Images/Delete_16x16.png"/>
+        <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveCommand}" SmallImage="/HVTApp.UI;component/Images/save.png"/>
+        <infRib:ButtonTool Caption="Закрыть" Command="{Binding GoBackCommand}" SmallImage="/HVTApp.UI;component/Images/close.png"/>
     </infRib:RibbonGroup>
 
 </inf:RibbonTabItemWithViewModel>

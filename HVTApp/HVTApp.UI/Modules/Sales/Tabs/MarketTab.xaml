@@ -7,15 +7,15 @@
              Header="Рынок">
 
     <infRib:RibbonGroup Caption="Проекты">
-        <infRib:ButtonTool Caption="Создать" Command="{Binding NewProjectCommand}" SmallImage="/HVTApp.Modules.Sales;component/Images/Add_16x16.png"/>
-        <infRib:ButtonTool Caption="Изменить" Command="{Binding EditProjectCommand}" SmallImage="/HVTApp.Infrastructure;component/Images/Edit_16x16.png"/>
-        <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveProjectCommand}" SmallImage="/HVTApp.Infrastructure;component/Images/Delete_16x16.png"/>
+        <infRib:ButtonTool Caption="Создать" Command="{Binding NewProjectCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
+        <infRib:ButtonTool Caption="Изменить" Command="{Binding EditProjectCommand}" SmallImage="/HVTApp.UI;component/Images/edit.png"/>
+        <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveProjectCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Конкурсы">
-        <infRib:ButtonTool Caption="Создать" Command="{Binding NewTenderCommand}" SmallImage="/HVTApp.Modules.Sales;component/Images/Add_16x16.png"/>
-        <infRib:ButtonTool Caption="Изменить" Command="{Binding EditTenderCommand}" SmallImage="/HVTApp.Infrastructure;component/Images/Edit_16x16.png"/>
-        <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveTenderCommand}" SmallImage="/HVTApp.Infrastructure;component/Images/Delete_16x16.png"/>
+        <infRib:ButtonTool Caption="Создать" Command="{Binding NewTenderCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
+        <infRib:ButtonTool Caption="Изменить" Command="{Binding EditTenderCommand}" SmallImage="/HVTApp.UI;component/Images/edit.png"/>
+        <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveTenderCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>
     </infRib:RibbonGroup>
 
     <!--<infRib:RibbonGroup Caption="Заметки">
@@ -25,22 +25,22 @@
     </infRib:RibbonGroup>-->
     
     <infRib:RibbonGroup Caption="Предложения">
-        <infRib:ButtonTool Caption="По проекту" Command="{Binding NewOfferByProjectCommand}" SmallImage="/HVTApp.Modules.Sales;component/Images/Add_16x16.png"/>
-        <infRib:ButtonTool Caption="По ТКП" Command="{Binding NewOfferByOfferCommand}" SmallImage="/HVTApp.Modules.Sales;component/Images/Add_16x16.png"/>
-        <infRib:ButtonTool Caption="Изменить" Command="{Binding EditOfferCommand}" SmallImage="/HVTApp.Infrastructure;component/Images/Edit_16x16.png"/>
-        <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveOfferCommand}" SmallImage="/HVTApp.Infrastructure;component/Images/Delete_16x16.png"/>
-        <infRib:ButtonTool Caption="Печать" Command="{Binding PrintOfferCommand}" SmallImage="/HVTApp.Modules.Sales;component/Images/Print_16x16.png"/>
+        <infRib:ButtonTool Caption="Создать ТКП по проекту" Command="{Binding NewOfferByProjectCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
+        <infRib:ButtonTool Caption="Создать ТКП по ТКП" Command="{Binding NewOfferByOfferCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
+        <infRib:ButtonTool Caption="Изменить" Command="{Binding EditOfferCommand}" SmallImage="/HVTApp.UI;component/Images/edit.png"/>
+        <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveOfferCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>
+        <infRib:ButtonTool Caption="Печать" Command="{Binding PrintOfferCommand}" SmallImage="/HVTApp.UI;component/Images/print.png"/>
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Действия">
-        <infRib:ButtonTool Caption="Специфкация" Command="{Binding NewSpecificationCommand}" SmallImage="/HVTApp.Modules.Sales;component/Images/Add_16x16.png"/>
-        <infRib:ButtonTool Caption="Расчет ПЗ" Command="{Binding StructureCostsCommand}" SmallImage="/HVTApp.Modules.Sales;component/Images/Add_16x16.png"/>
+        <infRib:ButtonTool Caption="Создать специфкацию" Command="{Binding NewSpecificationCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
+        <infRib:ButtonTool Caption="Создать задание на расчет ПЗ" Command="{Binding StructureCostsCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
     </infRib:RibbonGroup>
     
     <infRib:RibbonGroup Caption="Отображение">
         <!--<infRib:ButtonTool Caption="Обновить" Command="{Binding RefreshCommand}" SmallImage="/HVTApp.Infrastructure;component/Images/Refresh_16x16.png"/>-->
-         <infRib:ButtonTool Caption="Развернуть всё" Command="{Binding ExpandCommand}"/>
-        <infRib:ButtonTool Caption="Свернуть всё" Command="{Binding CollapseCommand}"/>
+         <infRib:ButtonTool Caption="Развернуть всё" Command="{Binding ExpandCommand}" SmallImage="/HVTApp.UI;component/Images/expand.png"/>
+        <infRib:ButtonTool Caption="Свернуть всё" Command="{Binding CollapseCommand}" SmallImage="/HVTApp.UI;component/Images/collapse.png"/>
     </infRib:RibbonGroup>
 
     
