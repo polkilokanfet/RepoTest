@@ -54,7 +54,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
                 : UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Manager.IsAppCurrentUser());
             var salesUnitsGroups = salesUnits.GroupBy(x => x, new SalesUnitsComparer()).OrderBy(x => x.Key.OrderInTakeDate);
             _tenders = UnitOfWork.Repository<Tender>().Find(x => true);
-            ProjectItems = new ObservableCollection<ProjectItem>(salesUnitsGroups.Select(x => new ProjectItem(x, _tenders.Where(t => x.Key.Project.Id == t.Project.Id))));
+            ProjectItems = new ObservableCollection<ProjectItem>(salesUnitsGroups.Select(x => new ProjectItem(x, _tenders.Where(t => x.Key.Project.Id == t.Project.Id), _eventAggregator)));
 
             Offers = container.Resolve<OffersContainer>();
             Tenders = container.Resolve<TendersContainer>();
@@ -89,6 +89,11 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             _eventAggregator.GetEvent<SelectedTenderChangedEvent>().Subscribe(tender => TenderRaiseCanExecuteChanged());
 
             #endregion
+
+            _eventAggregator.GetEvent<AfterSaveProjectEvent>().Subscribe(project =>
+            {
+                
+            });
 
             //реакция на удаление юнита
             _eventAggregator.GetEvent<AfterRemoveSalesUnitEvent>().Subscribe(salesUnit =>
@@ -140,7 +145,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
                 }
 
                 //создаем новую группу для юнита
-                ProjectItems.Add(new ProjectItem(new List<SalesUnit>() { salesUnit }, _tenders.Where(x => x.Project.Id == salesUnit.Project.Id)));
+                ProjectItems.Add(new ProjectItem(new List<SalesUnit>() { salesUnit }, _tenders.Where(x => x.Project.Id == salesUnit.Project.Id), _eventAggregator));
             });
 
             _eventAggregator.GetEvent<AfterRemoveTenderEvent>().Subscribe(tender =>
@@ -159,10 +164,11 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
                 }
             });
 
+            //развернуть
             ExpandCommand = new DelegateCommand(() => { ExpandCollapseEvent?.Invoke(true); });
+            //свернуть
             CollapseCommand = new DelegateCommand(() => { ExpandCollapseEvent?.Invoke(false); });
         }
-
 
         #region RaiseCanExecuteChanged
 

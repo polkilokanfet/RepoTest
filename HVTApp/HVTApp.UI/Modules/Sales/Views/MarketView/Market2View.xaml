@@ -75,11 +75,10 @@
 					    <infgDp:FieldLayout.Fields>
 
                             <infgDp:TextField AlternateBinding="{Binding Facilities}" BindingType="UseAlternateBinding" Label="Объекты" Width="Auto" Converter="{StaticResource ObjectsToStringConverter}"/>
-                            <infgDp:TextField AlternateBinding="{Binding Name}" BindingType="UseAlternateBinding" Label="Название" Width="Auto"/>
+                            <infgDp:TextField AlternateBinding="{Binding Project.Name}" BindingType="UseAlternateBinding" Label="Название" Width="Auto"/>
                             <infgDp:NumericField AlternateBinding="{Binding Sum}" BindingType="UseAlternateBinding" Label="Сумма проекта" Width="Auto" AllowResize="False"/>
                             <infgDp:DateTimeField AlternateBinding="{Binding OrderInTakeDate}" BindingType="UseAlternateBinding" Label="ОИТ" Width="Auto" AllowResize="False" />
                             <infgDp:DateTimeField AlternateBinding="{Binding RealizationDate}" BindingType="UseAlternateBinding" Label="Поставка" Width="Auto" AllowResize="False" />
-                            <infgDp:TextField AlternateBinding="{Binding ProjectType}" BindingType="UseAlternateBinding" Label="Тип проекта" Width="Auto" />
                             <infgDp:DateTimeField AlternateBinding="{Binding TenderDate}" BindingType="UseAlternateBinding" Label="Тендер" Width="Auto" />
                             <infgDp:TextField AlternateBinding="{Binding Builder}" BindingType="UseAlternateBinding" Label="Подрядчик" Width="Auto"/>
                             <infgDp:TextField AlternateBinding="{Binding ProjectMaker}" BindingType="UseAlternateBinding" Label="Проектировщик" Width="Auto"/>
@@ -88,6 +87,7 @@
                             <infgDp:CheckBoxField Name="IsLoosen" AlternateBinding="{Binding IsLoosen}" BindingType="UseAlternateBinding" Label="Loose" Width="Auto" AllowResize="False"/>
                             <infgDp:CheckBoxField Name="InWork" AlternateBinding="{Binding InWork}" BindingType="UseAlternateBinding" Label="Work" Width="Auto" AllowResize="False"/>
                             <infgDp:CheckBoxField Name="ForReport" AlternateBinding="{Binding ForReport}" BindingType="UseAlternateBinding" Label="Report" Width="Auto" AllowResize="False"/>
+                            <infgDp:TextField AlternateBinding="{Binding ProjectType}" BindingType="UseAlternateBinding" Label="Тип проекта" Width="Auto" />
                             <infgDp:NumericField Name="OrderInTakeYear" Label="Год ОИТ" Width="Auto" AllowResize="False"/>
                             <infgDp:NumericField Name="OrderInTakeMonth" Label="Месяц" Width="Auto" AllowResize="False"/>
                             <infgDp:Field Name="ProjectUnitsGroups" IsExpandable="True"/>
