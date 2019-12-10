@@ -18,7 +18,7 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="2*" MinWidth="200"/>
                     <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*" MinWidth="200"/>
+                    <ColumnDefinition Width="*" MinWidth="150"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>

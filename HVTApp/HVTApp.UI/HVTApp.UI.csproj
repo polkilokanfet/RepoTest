@@ -272,8 +272,9 @@
     <Compile Include="Modules\Sales\ViewModels\Groups\SalesUnitsGroupsViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\Groups\SalesUnitsViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\Groups\UnitsContainer.cs" />
-    <Compile Include="Modules\Sales\ViewModels\Market2ViewModel.cs" />
-    <Compile Include="Modules\Sales\ViewModels\Market2ViewModel_Commands.cs" />
+    <Compile Include="Modules\Sales\ViewModels\Market2ViewModel\Market2ViewModel_Notes.cs" />
+    <Compile Include="Modules\Sales\ViewModels\Market2ViewModel\Market2ViewModel.cs" />
+    <Compile Include="Modules\Sales\ViewModels\Market2ViewModel\Market2ViewModel_Commands.cs" />
     <Compile Include="Modules\Sales\ViewModels\OffersViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\OfferViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\PaymentsViewModel.cs" />

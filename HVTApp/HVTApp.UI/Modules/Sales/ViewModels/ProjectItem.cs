@@ -87,7 +87,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
         public event Action<ProjectItem> RemovedLastSalesUnit;
 
-        public event Action<SalesUnit> RemovedSalesUnitToAddAnotherProjectItem;
+        public event Action<SalesUnit> RemovedSalesUnitToAddToAnotherProjectItem;
 
         public ProjectItem(IEnumerable<SalesUnit> salesUnits, IEnumerable<Tender> tenders, IEventAggregator eventAggregator)
         {
@@ -156,7 +156,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
                 //если юнит не подходит этой группе
                 SalesUnits.RemoveById(salesUnit);
-                RemovedSalesUnitToAddAnotherProjectItem?.Invoke(salesUnit);
+                RemovedSalesUnitToAddToAnotherProjectItem?.Invoke(salesUnit);
             });
 
             eventAggregator.GetEvent<AfterRemoveTenderEvent>().Subscribe(tender =>

@@ -180,9 +180,12 @@
         <GridSplitter Grid.Row="1" Height="5" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
         
         <GroupBox Grid.Row="2" Header="Заметки по проекту">
-            <infgDp:XamDataGrid DataSource="{Binding Notes}">
+            
+            <infgDp:XamDataGrid DataSource="{Binding Notes}"
+                                SelectedDataItem="{Binding SelectedNote, Mode=TwoWay}">
                 
                 <infgDp:XamDataGrid.FieldLayoutSettings>
+                    
                     <infgDp:FieldLayoutSettings AutoGenerateFields="False"
                                                 AutoFitMode="OnlyWithVisibleStarFields"
                                                 AllowAddNew="False"
@@ -193,12 +196,13 @@
                 <infgDp:XamDataGrid.FieldLayouts>
                     <infgDp:FieldLayout>
                         <infgDp:FieldLayout.Fields>
-                            <infgDp:DateTimeField AlternateBinding="{Binding Date, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Дата" Width="Auto" AllowEdit="True" AllowResize="False"/>
-                            <infgDp:TextField AlternateBinding="{Binding Text, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Заметка" Width="*" AllowEdit="True"/>
+                            <infgDp:DateTimeField AlternateBinding="{Binding Date, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Дата" Width="Auto" AllowEdit="False" AllowResize="False"/>
+                            <infgDp:TextField AlternateBinding="{Binding Text, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Заметка (до 150 символов)" Width="*" AllowEdit="True"/>
                         </infgDp:FieldLayout.Fields>
                     </infgDp:FieldLayout>
                 </infgDp:XamDataGrid.FieldLayouts>
             </infgDp:XamDataGrid>
+            
         </GroupBox>
 
 

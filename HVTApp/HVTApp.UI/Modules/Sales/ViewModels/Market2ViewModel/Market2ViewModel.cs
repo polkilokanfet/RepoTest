@@ -9,7 +9,6 @@ using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Modules.Sales.ViewModels.Containers;
-using HVTApp.UI.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
@@ -23,34 +22,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
         private readonly IEventAggregator _eventAggregator;
         private List<Tender> _tenders; //не заменять на локальную
 
-        private IUnitOfWork _notesUnitOfWork;
-        private readonly IValidatableChangeTrackingCollection<ProjectNotesWrapper> _projectNotes;
-        private NoteWrapper _selectedNote;
-
         public ObservableCollection<ProjectItem> ProjectItems { get; }
-
-        public ObservableCollection<NoteWrapper> Notes
-        {
-            get
-            {
-                return ProjectNotes != null 
-                    ? new ObservableCollection<NoteWrapper>(ProjectNotes?.Notes.OrderByDescending(x => x.Date)) 
-                    : null;
-            }
-        }
-
-        public NoteWrapper SelectedNote
-        {
-            get { return _selectedNote; }
-            set
-            {
-                _selectedNote = value;
-                ((DelegateCommand)RemoveNoteCommand).RaiseCanExecuteChanged();
-            }
-        }
-
-        public ProjectNotesWrapper ProjectNotes
-            => _projectNotes.SingleOrDefault(x => x.Model.Id == SelectedProjectItem?.Project.Id);
 
         public ProjectItem SelectedProjectItem
         {
@@ -67,7 +39,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
                 OnPropertyChanged(nameof(Notes));
                 ((DelegateCommand)AddNoteCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)RemoveNoteCommand).RaiseCanExecuteChanged();
+                SelectedNote = null;
             }
         }
 
@@ -92,7 +64,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             foreach (var projectItem in ProjectItems)
             {
                 projectItem.RemovedLastSalesUnit += ProjectItemOnRemovedLastSalesUnit;
-                projectItem.RemovedSalesUnitToAddAnotherProjectItem += ProjectItemOnRemovedSalesUnitToAddAnotherProjectItem;
+                projectItem.RemovedSalesUnitToAddToAnotherProjectItem += ProjectItemOnRemovedSalesUnitToAddToAnotherProjectItem;
                 projectItem.AddedOldSalesUnit += ProjectItemOnAddedOldSalesUnit;
             }
 
@@ -131,10 +103,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
             #endregion
 
-            _eventAggregator.GetEvent<AfterSaveSalesUnitEvent>().Subscribe(salesUnit =>
-            {
-                ProjectItemOnRemovedSalesUnitToAddAnotherProjectItem(salesUnit);
-            });
+            _eventAggregator.GetEvent<AfterSaveSalesUnitEvent>().Subscribe(ProjectItemOnRemovedSalesUnitToAddToAnotherProjectItem);
 
             _eventAggregator.GetEvent<AfterRemoveTenderEvent>().Subscribe(tender => { _tenders.RemoveById(tender); });
             _eventAggregator.GetEvent<AfterSaveTenderEvent>().Subscribe(tender => { _tenders.ReAddById(tender); });
@@ -144,29 +113,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             //свернуть
             CollapseCommand = new DelegateCommand(() => { ExpandCollapseEvent?.Invoke(false); });
 
-            #region Notes
-
-            _notesUnitOfWork = Container.Resolve<IUnitOfWork>();
-            var projectNotes = _notesUnitOfWork.Repository<Project>().Find(x => true).Select(x => new ProjectNotesWrapper(x));
-            _projectNotes = new ValidatableChangeTrackingCollection<ProjectNotesWrapper>(projectNotes);
-
-            AddNoteCommand = new DelegateCommand(
-                () => { ProjectNotes.Notes.Add(new NoteWrapper(new Note {Date = DateTime.Now})); },
-                () => ProjectNotes != null);
-
-            RemoveNoteCommand = new DelegateCommand(
-                () => { ProjectNotes.Notes.Remove(SelectedNote); },
-                () => SelectedNote != null);
-
-            SaveNotesCommand = new DelegateCommand(
-                () =>
-                {
-                    ProjectNotes.AcceptChanges();
-                    _notesUnitOfWork.SaveChanges();
-                },
-                () => _projectNotes.All(x => x.Notes.IsValid && x.Notes.IsChanged));
-
-            #endregion
+            InitNotes();
         }
 
         private void ProjectItemOnAddedOldSalesUnit(ProjectItem projectItem, SalesUnit salesUnit)
@@ -176,14 +123,24 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
                 .Where(x => x.SalesUnits.ContainsById(salesUnit))
                 .ToList();
 
-            items.ForEach(ProjectItemOnRemovedLastSalesUnit);
+            foreach (var item in items)
+            {
+                if (item.SalesUnits.Count == 1)
+                {
+                    ProjectItems.Remove(item);
+                }
+                else
+                {
+                    item.SalesUnits.Remove(salesUnit);
+                }
+            }
         }
 
         /// <summary>
         /// Реакция на удаление юнита из группы
         /// </summary>
         /// <param name="salesUnit"></param>
-        private void ProjectItemOnRemovedSalesUnitToAddAnotherProjectItem(SalesUnit salesUnit)
+        private void ProjectItemOnRemovedSalesUnitToAddToAnotherProjectItem(SalesUnit salesUnit)
         {
             //добавляем юнит в подходящий юнит
             foreach (var projectItem in ProjectItems)
@@ -200,7 +157,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             var projectItemNew = new ProjectItem(new List<SalesUnit> {salesUnit}, _tenders.Where(x => x.Project.Id == salesUnit.Project.Id), _eventAggregator);
             ProjectItems.Add(projectItemNew);
             projectItemNew.RemovedLastSalesUnit += ProjectItemOnRemovedLastSalesUnit;
-            projectItemNew.RemovedSalesUnitToAddAnotherProjectItem += ProjectItemOnRemovedSalesUnitToAddAnotherProjectItem;
+            projectItemNew.RemovedSalesUnitToAddToAnotherProjectItem += ProjectItemOnRemovedSalesUnitToAddToAnotherProjectItem;
         }
 
         /// <summary>
@@ -214,7 +171,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
             //отписываем удаленный айтем от событий
             projectItem.RemovedLastSalesUnit -= ProjectItemOnRemovedLastSalesUnit;
-            projectItem.RemovedSalesUnitToAddAnotherProjectItem -= ProjectItemOnRemovedSalesUnitToAddAnotherProjectItem;
+            projectItem.RemovedSalesUnitToAddToAnotherProjectItem -= ProjectItemOnRemovedSalesUnitToAddToAnotherProjectItem;
             projectItem.AddedOldSalesUnit -= ProjectItemOnAddedOldSalesUnit;
         }
 

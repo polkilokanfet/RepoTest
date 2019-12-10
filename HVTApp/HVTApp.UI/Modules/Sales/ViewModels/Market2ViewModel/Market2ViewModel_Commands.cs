@@ -33,12 +33,6 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
         public ICommand StructureCostsCommand { get; }
 
-
-        public ICommand AddNoteCommand { get; }
-        public ICommand RemoveNoteCommand { get; }
-        public ICommand SaveNotesCommand { get; }
-
-
         #endregion
 
         #region Commands
