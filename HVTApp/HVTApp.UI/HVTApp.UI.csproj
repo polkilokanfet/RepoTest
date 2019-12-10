@@ -280,6 +280,7 @@
     <Compile Include="Modules\Sales\ViewModels\ProductionViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\ProductsIncludedViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\ProjectItem.cs" />
+    <Compile Include="Modules\Sales\ViewModels\ProjectNotesWrapper.cs" />
     <Compile Include="Modules\Sales\ViewModels\ProjectsViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\ProjectUnitsGroup.cs" />
     <Compile Include="Modules\Sales\ViewModels\ProjectViewModel\ProjectViewModel.cs" />

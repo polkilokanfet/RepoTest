@@ -9,6 +9,7 @@ using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Modules.Sales.ViewModels.Containers;
+using HVTApp.UI.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
@@ -22,7 +23,34 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
         private readonly IEventAggregator _eventAggregator;
         private List<Tender> _tenders; //не заменять на локальную
 
+        private IUnitOfWork _notesUnitOfWork;
+        private readonly IValidatableChangeTrackingCollection<ProjectNotesWrapper> _projectNotes;
+        private NoteWrapper _selectedNote;
+
         public ObservableCollection<ProjectItem> ProjectItems { get; }
+
+        public ObservableCollection<NoteWrapper> Notes
+        {
+            get
+            {
+                return ProjectNotes != null 
+                    ? new ObservableCollection<NoteWrapper>(ProjectNotes?.Notes.OrderByDescending(x => x.Date)) 
+                    : null;
+            }
+        }
+
+        public NoteWrapper SelectedNote
+        {
+            get { return _selectedNote; }
+            set
+            {
+                _selectedNote = value;
+                ((DelegateCommand)RemoveNoteCommand).RaiseCanExecuteChanged();
+            }
+        }
+
+        public ProjectNotesWrapper ProjectNotes
+            => _projectNotes.SingleOrDefault(x => x.Model.Id == SelectedProjectItem?.Project.Id);
 
         public ProjectItem SelectedProjectItem
         {
@@ -31,8 +59,15 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             {
                 _selectedProjectItem = value;
                 ProjectRaiseCanExecuteChanged();
-                if(value != null)
+
+                if (value != null)
+                {
                     _eventAggregator.GetEvent<SelectedProjectChangedEvent>().Publish(value.Project);
+                }
+
+                OnPropertyChanged(nameof(Notes));
+                ((DelegateCommand)AddNoteCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)RemoveNoteCommand).RaiseCanExecuteChanged();
             }
         }
 
@@ -44,7 +79,6 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
         public event Action<bool> ExpandCollapseEvent;
 
-
         public Market2ViewModel(IUnityContainer container) : base(container)
         {
             _eventAggregator = Container.Resolve<IEventAggregator>();
@@ -55,7 +89,14 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             var salesUnitsGroups = salesUnits.GroupBy(x => x, new SalesUnitsComparer()).OrderBy(x => x.Key.OrderInTakeDate);
             _tenders = UnitOfWork.Repository<Tender>().Find(x => true);
             ProjectItems = new ObservableCollection<ProjectItem>(salesUnitsGroups.Select(x => new ProjectItem(x, _tenders.Where(t => x.Key.Project.Id == t.Project.Id), _eventAggregator)));
+            foreach (var projectItem in ProjectItems)
+            {
+                projectItem.RemovedLastSalesUnit += ProjectItemOnRemovedLastSalesUnit;
+                projectItem.RemovedSalesUnitToAddAnotherProjectItem += ProjectItemOnRemovedSalesUnitToAddAnotherProjectItem;
+                projectItem.AddedOldSalesUnit += ProjectItemOnAddedOldSalesUnit;
+            }
 
+            ProjectItems.ForEach(x => x.RemovedLastSalesUnit += ProjectItemOnRemovedLastSalesUnit);
             Offers = container.Resolve<OffersContainer>();
             Tenders = container.Resolve<TendersContainer>();
 
@@ -90,84 +131,91 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
             #endregion
 
-            _eventAggregator.GetEvent<AfterSaveProjectEvent>().Subscribe(project =>
-            {
-                
-            });
-
-            //реакция на удаление юнита
-            _eventAggregator.GetEvent<AfterRemoveSalesUnitEvent>().Subscribe(salesUnit =>
-            {
-                foreach (var projectItem in ProjectItems)
-                {
-                    if (projectItem.SalesUnits.ContainsById(salesUnit))
-                    {
-                        if (projectItem.SalesUnits.Count == 1)
-                        {
-                            ProjectItems.Remove(projectItem);
-                        }
-                        else
-                        {
-                            projectItem.SalesUnits.RemoveById(salesUnit);
-                        }
-                        return;
-                    }
-                }
-
-            });
-
             _eventAggregator.GetEvent<AfterSaveSalesUnitEvent>().Subscribe(salesUnit =>
             {
-                //редактируем юнит в существующей группе
-                foreach (var projectItem in ProjectItems)
-                {
-                    if (projectItem.SalesUnits.ContainsById(salesUnit))
-                    {
-                        if (projectItem.SalesUnits.Count == 1 ||
-                            new SalesUnitsComparer().Equals(salesUnit, projectItem.SalesUnits.First()))
-                        {
-                            projectItem.SalesUnits.ReAddById(salesUnit);
-                            return;
-                        }
-
-                        projectItem.SalesUnits.RemoveById(salesUnit);
-                    }
-                }
-
-                //добавляем юнит в подходящий юнит
-                foreach (var projectItem in ProjectItems)
-                {
-                    if (new SalesUnitsComparer().Equals(salesUnit, projectItem.SalesUnits.First()))
-                    {
-                        projectItem.SalesUnits.Add(salesUnit);
-                        return;
-                    }
-                }
-
-                //создаем новую группу для юнита
-                ProjectItems.Add(new ProjectItem(new List<SalesUnit>() { salesUnit }, _tenders.Where(x => x.Project.Id == salesUnit.Project.Id), _eventAggregator));
+                ProjectItemOnRemovedSalesUnitToAddAnotherProjectItem(salesUnit);
             });
 
-            _eventAggregator.GetEvent<AfterRemoveTenderEvent>().Subscribe(tender =>
-            {
-                _tenders.RemoveById(tender);
-                ProjectItems.ForEach(x => x.Tenders.RemoveIfContainsById(tender));
-            });
-
-            _eventAggregator.GetEvent<AfterSaveTenderEvent>().Subscribe(tender =>
-            {
-                _tenders.ReAddById(tender);
-                foreach (var projectItem in ProjectItems)
-                {
-                    if(projectItem.Project.Id == tender.Project.Id)
-                        projectItem.Tenders.ReAddById(tender);
-                }
-            });
+            _eventAggregator.GetEvent<AfterRemoveTenderEvent>().Subscribe(tender => { _tenders.RemoveById(tender); });
+            _eventAggregator.GetEvent<AfterSaveTenderEvent>().Subscribe(tender => { _tenders.ReAddById(tender); });
 
             //развернуть
             ExpandCommand = new DelegateCommand(() => { ExpandCollapseEvent?.Invoke(true); });
             //свернуть
             CollapseCommand = new DelegateCommand(() => { ExpandCollapseEvent?.Invoke(false); });
+
+            #region Notes
+
+            _notesUnitOfWork = Container.Resolve<IUnitOfWork>();
+            var projectNotes = _notesUnitOfWork.Repository<Project>().Find(x => true).Select(x => new ProjectNotesWrapper(x));
+            _projectNotes = new ValidatableChangeTrackingCollection<ProjectNotesWrapper>(projectNotes);
+
+            AddNoteCommand = new DelegateCommand(
+                () => { ProjectNotes.Notes.Add(new NoteWrapper(new Note {Date = DateTime.Now})); },
+                () => ProjectNotes != null);
+
+            RemoveNoteCommand = new DelegateCommand(
+                () => { ProjectNotes.Notes.Remove(SelectedNote); },
+                () => SelectedNote != null);
+
+            SaveNotesCommand = new DelegateCommand(
+                () =>
+                {
+                    ProjectNotes.AcceptChanges();
+                    _notesUnitOfWork.SaveChanges();
+                },
+                () => _projectNotes.All(x => x.Notes.IsValid && x.Notes.IsChanged));
+
+            #endregion
+        }
+
+        private void ProjectItemOnAddedOldSalesUnit(ProjectItem projectItem, SalesUnit salesUnit)
+        {
+            var items = ProjectItems
+                .Except(new List<ProjectItem> {projectItem})
+                .Where(x => x.SalesUnits.ContainsById(salesUnit))
+                .ToList();
+
+            items.ForEach(ProjectItemOnRemovedLastSalesUnit);
+        }
+
+        /// <summary>
+        /// Реакция на удаление юнита из группы
+        /// </summary>
+        /// <param name="salesUnit"></param>
+        private void ProjectItemOnRemovedSalesUnitToAddAnotherProjectItem(SalesUnit salesUnit)
+        {
+            //добавляем юнит в подходящий юнит
+            foreach (var projectItem in ProjectItems)
+            {
+                if (new SalesUnitsComparer().Equals(salesUnit, projectItem.SalesUnits.First()))
+                {
+                    if(!projectItem.SalesUnits.ContainsById(salesUnit))
+                        projectItem.SalesUnits.Add(salesUnit);
+                    return;
+                }
+            }
+
+            //создаем новую группу для юнита
+            var projectItemNew = new ProjectItem(new List<SalesUnit> {salesUnit}, _tenders.Where(x => x.Project.Id == salesUnit.Project.Id), _eventAggregator);
+            ProjectItems.Add(projectItemNew);
+            projectItemNew.RemovedLastSalesUnit += ProjectItemOnRemovedLastSalesUnit;
+            projectItemNew.RemovedSalesUnitToAddAnotherProjectItem += ProjectItemOnRemovedSalesUnitToAddAnotherProjectItem;
+        }
+
+        /// <summary>
+        /// Реакция на удаление последнего юнита из группы
+        /// </summary>
+        /// <param name="projectItem"></param>
+        private void ProjectItemOnRemovedLastSalesUnit(ProjectItem projectItem)
+        {
+            //удаляем этот айтем
+            ProjectItems.Remove(projectItem);
+
+            //отписываем удаленный айтем от событий
+            projectItem.RemovedLastSalesUnit -= ProjectItemOnRemovedLastSalesUnit;
+            projectItem.RemovedSalesUnitToAddAnotherProjectItem -= ProjectItemOnRemovedSalesUnitToAddAnotherProjectItem;
+            projectItem.AddedOldSalesUnit -= ProjectItemOnAddedOldSalesUnit;
         }
 
         #region RaiseCanExecuteChanged

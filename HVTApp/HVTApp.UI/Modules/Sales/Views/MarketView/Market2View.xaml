@@ -7,6 +7,8 @@
     
     <inf:ViewBase.Resources>
         <Style x:Key="BoltFontCellsStyle" TargetType="{x:Type infgDp:CellValuePresenter}">
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="DarkGray"/>
             <Setter Property="ForegroundStyle">
                 <Setter.Value>
                     <Style>
@@ -18,154 +20,188 @@
             </Setter>
         </Style>
     </inf:ViewBase.Resources>
-
+    
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
         
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-        <GroupBox Header="Проекты" Grid.Column="0">
-            <infgDp:XamDataGrid x:Name="ProjectsGrid"
-                                DataSource="{Binding ProjectItems}"
-                                SelectedDataItem="{Binding SelectedProjectItem, Mode=TwoWay}">
+            <GroupBox Header="Проекты" Grid.Column="0">
+                <infgDp:XamDataGrid x:Name="ProjectsGrid"
+                                    DataSource="{Binding ProjectItems}"
+                                    SelectedDataItem="{Binding SelectedProjectItem, Mode=TwoWay}">
                 
-                <!--<infgDp:XamDataGrid.FieldLayoutSettings>
-                    <infgDp:FieldLayoutSettings />
-                </infgDp:XamDataGrid.FieldLayoutSettings>-->
+                    <!--<infgDp:XamDataGrid.FieldLayoutSettings>
+                        <infgDp:FieldLayoutSettings />
+                    </infgDp:XamDataGrid.FieldLayoutSettings>-->
 
 
-                <infgDp:XamDataGrid.FieldLayouts>
+                    <infgDp:XamDataGrid.FieldLayouts>
 
-                    <infgDp:FieldLayout>
-                        <infgDp:FieldLayout.RecordFilters>
+                        <infgDp:FieldLayout>
+                            <infgDp:FieldLayout.RecordFilters>
                                 
-                            <!--<infgDp:RecordFilter FieldName="ForReport">
-                                <infgDp:RecordFilter.Conditions>
-                                    <igW:ComparisonCondition Operator="Equals" Value="True"/>
-                                </infgDp:RecordFilter.Conditions>
-                            </infgDp:RecordFilter>-->
+                                <!--<infgDp:RecordFilter FieldName="ForReport">
+                                    <infgDp:RecordFilter.Conditions>
+                                        <igW:ComparisonCondition Operator="Equals" Value="True"/>
+                                    </infgDp:RecordFilter.Conditions>
+                                </infgDp:RecordFilter>-->
                                 
-                            <infgDp:RecordFilter FieldName="IsDone">
-                                <infgDp:RecordFilter.Conditions>
-                                    <igW:ComparisonCondition Operator="Equals" Value="False" />
-                                </infgDp:RecordFilter.Conditions>
-                            </infgDp:RecordFilter>
+                                <infgDp:RecordFilter FieldName="IsDone">
+                                    <infgDp:RecordFilter.Conditions>
+                                        <igW:ComparisonCondition Operator="Equals" Value="False" />
+                                    </infgDp:RecordFilter.Conditions>
+                                </infgDp:RecordFilter>
 
-                            <infgDp:RecordFilter FieldName="IsLoosen">
-                                <infgDp:RecordFilter.Conditions>
-                                    <igW:ComparisonCondition Operator="Equals" Value="False" />
-                                </infgDp:RecordFilter.Conditions>
-                            </infgDp:RecordFilter>
+                                <infgDp:RecordFilter FieldName="IsLoosen">
+                                    <infgDp:RecordFilter.Conditions>
+                                        <igW:ComparisonCondition Operator="Equals" Value="False" />
+                                    </infgDp:RecordFilter.Conditions>
+                                </infgDp:RecordFilter>
 
-                            <infgDp:RecordFilter FieldName="InWork">
-                                <infgDp:RecordFilter.Conditions>
-                                    <igW:ComparisonCondition Operator="Equals" Value="True" />
-                                </infgDp:RecordFilter.Conditions>
-                            </infgDp:RecordFilter>
+                                <infgDp:RecordFilter FieldName="InWork">
+                                    <infgDp:RecordFilter.Conditions>
+                                        <igW:ComparisonCondition Operator="Equals" Value="True" />
+                                    </infgDp:RecordFilter.Conditions>
+                                </infgDp:RecordFilter>
 
-                        </infgDp:FieldLayout.RecordFilters>
+                            </infgDp:FieldLayout.RecordFilters>
                         
-                        <infgDp:FieldLayout.FieldSettings>
-                            <infgDp:FieldSettings CellValuePresenterStyle="{StaticResource BoltFontCellsStyle}"/>
-                        </infgDp:FieldLayout.FieldSettings>
+                            <infgDp:FieldLayout.FieldSettings>
+                                <infgDp:FieldSettings CellValuePresenterStyle="{StaticResource BoltFontCellsStyle}"/>
+                            </infgDp:FieldLayout.FieldSettings>
                                                 
-					    <infgDp:FieldLayout.Fields>
+					        <infgDp:FieldLayout.Fields>
 
-                            <infgDp:TextField AlternateBinding="{Binding Facilities}" BindingType="UseAlternateBinding" Label="Объекты" Width="Auto" Converter="{StaticResource ObjectsToStringConverter}"/>
-                            <infgDp:TextField AlternateBinding="{Binding Project.Name}" BindingType="UseAlternateBinding" Label="Название" Width="Auto"/>
-                            <infgDp:NumericField AlternateBinding="{Binding Sum}" BindingType="UseAlternateBinding" Label="Сумма проекта" Width="Auto" AllowResize="False"/>
-                            <infgDp:DateTimeField AlternateBinding="{Binding OrderInTakeDate}" BindingType="UseAlternateBinding" Label="ОИТ" Width="Auto" AllowResize="False" />
-                            <infgDp:DateTimeField AlternateBinding="{Binding RealizationDate}" BindingType="UseAlternateBinding" Label="Поставка" Width="Auto" AllowResize="False" />
-                            <infgDp:DateTimeField AlternateBinding="{Binding TenderDate}" BindingType="UseAlternateBinding" Label="Тендер" Width="Auto" />
-                            <infgDp:TextField AlternateBinding="{Binding Builder}" BindingType="UseAlternateBinding" Label="Подрядчик" Width="Auto"/>
-                            <infgDp:TextField AlternateBinding="{Binding ProjectMaker}" BindingType="UseAlternateBinding" Label="Проектировщик" Width="Auto"/>
-                            <infgDp:TextField AlternateBinding="{Binding Sypplier}" BindingType="UseAlternateBinding" Label="Поставщик" Width="Auto"/>
-                            <infgDp:CheckBoxField Name="IsDone" AlternateBinding="{Binding IsDone}" BindingType="UseAlternateBinding" Label="Done" Width="Auto" AllowResize="False"/>
-                            <infgDp:CheckBoxField Name="IsLoosen" AlternateBinding="{Binding IsLoosen}" BindingType="UseAlternateBinding" Label="Loose" Width="Auto" AllowResize="False"/>
-                            <infgDp:CheckBoxField Name="InWork" AlternateBinding="{Binding InWork}" BindingType="UseAlternateBinding" Label="Work" Width="Auto" AllowResize="False"/>
-                            <infgDp:CheckBoxField Name="ForReport" AlternateBinding="{Binding ForReport}" BindingType="UseAlternateBinding" Label="Report" Width="Auto" AllowResize="False"/>
-                            <infgDp:TextField AlternateBinding="{Binding ProjectType}" BindingType="UseAlternateBinding" Label="Тип проекта" Width="Auto" />
-                            <infgDp:NumericField Name="OrderInTakeYear" Label="Год ОИТ" Width="Auto" AllowResize="False"/>
-                            <infgDp:NumericField Name="OrderInTakeMonth" Label="Месяц" Width="Auto" AllowResize="False"/>
-                            <infgDp:Field Name="ProjectUnitsGroups" IsExpandable="True"/>
+                                <infgDp:TextField AlternateBinding="{Binding Facilities}" BindingType="UseAlternateBinding" Label="Объекты" Width="Auto" Converter="{StaticResource ObjectsToStringConverter}"/>
+                                <infgDp:TextField AlternateBinding="{Binding Project.Name}" BindingType="UseAlternateBinding" Label="Название" Width="Auto"/>
+                                <infgDp:NumericField AlternateBinding="{Binding Sum}" BindingType="UseAlternateBinding" Label="Сумма проекта" Width="Auto" AllowResize="False"/>
+                                <infgDp:DateTimeField AlternateBinding="{Binding OrderInTakeDate}" BindingType="UseAlternateBinding" Label="ОИТ" Width="Auto" AllowResize="False" />
+                                <infgDp:DateTimeField AlternateBinding="{Binding RealizationDate}" BindingType="UseAlternateBinding" Label="Поставка" Width="Auto" AllowResize="False" />
+                                <infgDp:DateTimeField AlternateBinding="{Binding TenderDate}" BindingType="UseAlternateBinding" Label="Тендер" Width="Auto" />
+                                <infgDp:TextField AlternateBinding="{Binding Builder}" BindingType="UseAlternateBinding" Label="Подрядчик" Width="Auto"/>
+                                <infgDp:TextField AlternateBinding="{Binding ProjectMaker}" BindingType="UseAlternateBinding" Label="Проектировщик" Width="Auto"/>
+                                <infgDp:TextField AlternateBinding="{Binding Sypplier}" BindingType="UseAlternateBinding" Label="Поставщик" Width="Auto"/>
+                                <infgDp:CheckBoxField Name="IsDone" AlternateBinding="{Binding IsDone}" BindingType="UseAlternateBinding" Label="Done" Width="Auto" AllowResize="False"/>
+                                <infgDp:CheckBoxField Name="IsLoosen" AlternateBinding="{Binding IsLoosen}" BindingType="UseAlternateBinding" Label="Loose" Width="Auto" AllowResize="False"/>
+                                <infgDp:CheckBoxField Name="InWork" AlternateBinding="{Binding InWork}" BindingType="UseAlternateBinding" Label="Work" Width="Auto" AllowResize="False"/>
+                                <infgDp:CheckBoxField Name="ForReport" AlternateBinding="{Binding ForReport}" BindingType="UseAlternateBinding" Label="Report" Width="Auto" AllowResize="False"/>
+                                <infgDp:TextField AlternateBinding="{Binding ProjectType}" BindingType="UseAlternateBinding" Label="Тип проекта" Width="Auto" />
+                                <infgDp:NumericField Name="OrderInTakeYear" Label="Год ОИТ" Width="Auto" AllowResize="False"/>
+                                <infgDp:NumericField Name="OrderInTakeMonth" Label="Месяц" Width="Auto" AllowResize="False"/>
+                                <infgDp:Field Name="ProjectUnitsGroups" IsExpandable="True"/>
                                 
-					    </infgDp:FieldLayout.Fields>
-				    </infgDp:FieldLayout>
+					        </infgDp:FieldLayout.Fields>
+				        </infgDp:FieldLayout>
 
-                    <infgDp:FieldLayout ParentFieldName="ProjectUnitsGroups">
-                        <infgDp:FieldLayout.Fields>
-                            <infgDp:TextField AlternateBinding="{Binding Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
-                            <infgDp:TextField AlternateBinding="{Binding Product.ProductType}" BindingType="UseAlternateBinding" Label="Тип оборудования" Width="Auto"/>
-                            <infgDp:TextField AlternateBinding="{Binding Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="Auto"/>
-                            <infgDp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" AllowResize="False" />
-                            <infgDp:NumericField AlternateBinding="{Binding Cost}" BindingType="UseAlternateBinding" Label="Стоимость" Width="Auto" AllowResize="False"/>
-                            <infgDp:NumericField AlternateBinding="{Binding Total}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto" AllowResize="False"/>
-                            <!--<infgDp:NumericField AlternateBinding="{Binding ProductionTerm}" BindingType="UseAlternateBinding" Label="Срок" Width="Auto"/>
-                            <infgDp:TextField AlternateBinding="{Binding PaymentConditionSet}" BindingType="UseAlternateBinding" Label="Условия оплаты" Width="Auto" />-->
-                        </infgDp:FieldLayout.Fields>
+                        <infgDp:FieldLayout ParentFieldName="ProjectUnitsGroups">
+                            <infgDp:FieldLayout.Fields>
+                                <infgDp:TextField AlternateBinding="{Binding Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
+                                <infgDp:TextField AlternateBinding="{Binding Product.ProductType}" BindingType="UseAlternateBinding" Label="Тип оборудования" Width="Auto"/>
+                                <infgDp:TextField AlternateBinding="{Binding Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="Auto"/>
+                                <infgDp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" AllowResize="False" />
+                                <infgDp:NumericField AlternateBinding="{Binding Cost}" BindingType="UseAlternateBinding" Label="Стоимость" Width="Auto" AllowResize="False"/>
+                                <infgDp:NumericField AlternateBinding="{Binding Total}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto" AllowResize="False"/>
+                                <!--<infgDp:NumericField AlternateBinding="{Binding ProductionTerm}" BindingType="UseAlternateBinding" Label="Срок" Width="Auto"/>
+                                <infgDp:TextField AlternateBinding="{Binding PaymentConditionSet}" BindingType="UseAlternateBinding" Label="Условия оплаты" Width="Auto" />-->
+                            </infgDp:FieldLayout.Fields>
 
-                    </infgDp:FieldLayout>
+                        </infgDp:FieldLayout>
                         
-			    </infgDp:XamDataGrid.FieldLayouts>
-		    </infgDp:XamDataGrid>
-        </GroupBox>
-            
-        <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
-            
-        <Grid Grid.Column="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
-            <GroupBox Grid.Row="0" Header="Предложения">
-                <infgDp:XamDataGrid x:Name="OfferLookupListGrid"
-                                    DataSource="{Binding Offers}"
-                                    SelectedDataItem="{Binding Offers.SelectedItem}">
-
-                    <infgDp:XamDataGrid.FieldLayouts>
-                        <infgDp:FieldLayout>
-                            <infgDp:FieldLayout.Fields>
-                                <infgDp:TextField Name="Company" Label="Компания" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                                <infgDp:NumericField Name="Sum" Label="Сумма" Width="Auto" />
-                                <infgDp:DateTimeField Name="Date" Label="Дата" Width="Auto" />
-                                <infgDp:DateTimeField Name="ValidityDate" Label="Срок действия" Width="Auto" />
-                                <infgDp:TextField Name="Comment" Label="Комментарий" Width="Auto" />
-                            </infgDp:FieldLayout.Fields>
-                        </infgDp:FieldLayout>
-
-                    </infgDp:XamDataGrid.FieldLayouts>
-                </infgDp:XamDataGrid>
+			        </infgDp:XamDataGrid.FieldLayouts>
+		        </infgDp:XamDataGrid>
             </GroupBox>
+            
+            <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
+            
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <GroupBox Grid.Row="0" Header="Предложения">
+                    <infgDp:XamDataGrid x:Name="OfferLookupListGrid"
+                                        DataSource="{Binding Offers}"
+                                        SelectedDataItem="{Binding Offers.SelectedItem}">
+
+                        <infgDp:XamDataGrid.FieldLayouts>
+                            <infgDp:FieldLayout>
+                                <infgDp:FieldLayout.Fields>
+                                    <infgDp:TextField Name="Company" Label="Компания" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                                    <infgDp:NumericField Name="Sum" Label="Сумма" Width="Auto" />
+                                    <infgDp:DateTimeField Name="Date" Label="Дата" Width="Auto" />
+                                    <infgDp:DateTimeField Name="ValidityDate" Label="Срок действия" Width="Auto" />
+                                    <infgDp:TextField Name="Comment" Label="Комментарий" Width="Auto" />
+                                </infgDp:FieldLayout.Fields>
+                            </infgDp:FieldLayout>
+
+                        </infgDp:XamDataGrid.FieldLayouts>
+                    </infgDp:XamDataGrid>
+                </GroupBox>
                 
-            <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="3"/>
+                <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="3"/>
 
-            <GroupBox Grid.Row="2" Header="Конкурсы">
-                <infgDp:XamDataGrid DataSource="{Binding Tenders}"
-                                    SelectedDataItem="{Binding Tenders.SelectedItem}">
+                <GroupBox Grid.Row="2" Header="Конкурсы">
+                    <infgDp:XamDataGrid DataSource="{Binding Tenders}"
+                                        SelectedDataItem="{Binding Tenders.SelectedItem}">
 
-                    <infgDp:XamDataGrid.FieldLayouts>
-                        <infgDp:FieldLayout>
-                            <infgDp:FieldLayout.Fields>
-                                <infgDp:TextField Name="Types" Label="Типы" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
-                                <infgDp:DateTimeField Name="DateOpen" Label="Открытие" Width="Auto" />
-                                <infgDp:DateTimeField Name="DateClose" Label="Закрытие" Width="Auto" />
-                                <infgDp:DateTimeField Name="DateNotice" Label="Итоги" Width="Auto" />
-                                <infgDp:TextField Name="Participants" Label="Участники" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
-                                <infgDp:TextField Name="Winner" Label="Победитель" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                            </infgDp:FieldLayout.Fields>
-                        </infgDp:FieldLayout>
+                        <infgDp:XamDataGrid.FieldLayouts>
+                            <infgDp:FieldLayout>
+                                <infgDp:FieldLayout.Fields>
+                                    <infgDp:TextField Name="Types" Label="Типы" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
+                                    <infgDp:DateTimeField Name="DateOpen" Label="Открытие" Width="Auto" />
+                                    <infgDp:DateTimeField Name="DateClose" Label="Закрытие" Width="Auto" />
+                                    <infgDp:DateTimeField Name="DateNotice" Label="Итоги" Width="Auto" />
+                                    <infgDp:TextField Name="Participants" Label="Участники" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
+                                    <infgDp:TextField Name="Winner" Label="Победитель" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                                </infgDp:FieldLayout.Fields>
+                            </infgDp:FieldLayout>
 
-                    </infgDp:XamDataGrid.FieldLayouts>
-                </infgDp:XamDataGrid>
-            </GroupBox>
+                        </infgDp:XamDataGrid.FieldLayouts>
+                    </infgDp:XamDataGrid>
+                </GroupBox>
                 
+            </Grid>
+            
         </Grid>
-            
+
+        <GridSplitter Grid.Row="1" Height="5" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+        
+        <GroupBox Grid.Row="2" Header="Заметки по проекту">
+            <infgDp:XamDataGrid DataSource="{Binding Notes}">
+                
+                <infgDp:XamDataGrid.FieldLayoutSettings>
+                    <infgDp:FieldLayoutSettings AutoGenerateFields="False"
+                                                AutoFitMode="OnlyWithVisibleStarFields"
+                                                AllowAddNew="False"
+                                                AllowDelete="False"
+                                                FilterUIType="LabelIcons"/>
+                </infgDp:XamDataGrid.FieldLayoutSettings>
+                
+                <infgDp:XamDataGrid.FieldLayouts>
+                    <infgDp:FieldLayout>
+                        <infgDp:FieldLayout.Fields>
+                            <infgDp:DateTimeField AlternateBinding="{Binding Date, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Дата" Width="Auto" AllowEdit="True" AllowResize="False"/>
+                            <infgDp:TextField AlternateBinding="{Binding Text, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Заметка" Width="*" AllowEdit="True"/>
+                        </infgDp:FieldLayout.Fields>
+                    </infgDp:FieldLayout>
+                </infgDp:XamDataGrid.FieldLayouts>
+            </infgDp:XamDataGrid>
+        </GroupBox>
+
+
     </Grid>
         
 </inf:ViewBase>

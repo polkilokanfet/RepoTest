@@ -12,14 +12,14 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 {
     public class ProjectItem : BindableBase
     {
+        private bool _reAddInProcess = false;
+
         public readonly ObservableCollection<Tender> Tenders;
         public readonly ObservableCollection<SalesUnit> SalesUnits;
         public ObservableCollection<ProjectUnitsGroup> ProjectUnitsGroups { get; } = new ObservableCollection<ProjectUnitsGroup>();
 
         public Project Project { get; private set; }
-        //public string ProjectName => Project?.Name;
-        public IEnumerable<Facility> Facilities => SalesUnits.Select(x => x.Facility).Distinct();
-        public string Name => SalesUnits.First().Project.Name;
+        public IEnumerable<string> Facilities => SalesUnits.Select(x => x.Facility.ToString()).Distinct();
         public double Sum => SalesUnits.Sum(x => x.Cost);
         public DateTime OrderInTakeDate => SalesUnits.First().OrderInTakeDate;
         public DateTime RealizationDate => SalesUnits.First().RealizationDateCalculated;
@@ -80,10 +80,24 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             }
         }
 
+        /// <summary>
+        /// Добавлен уже существующий юнит (не новый) в этот айтем
+        /// </summary>
+        public event Action<ProjectItem, SalesUnit> AddedOldSalesUnit;
+
+        public event Action<ProjectItem> RemovedLastSalesUnit;
+
+        public event Action<SalesUnit> RemovedSalesUnitToAddAnotherProjectItem;
+
         public ProjectItem(IEnumerable<SalesUnit> salesUnits, IEnumerable<Tender> tenders, IEventAggregator eventAggregator)
         {
-
             SalesUnits = new ObservableCollection<SalesUnit>(salesUnits);
+            SalesUnits.CollectionChanged += (sender, args) =>
+            {
+                if(!SalesUnits.Any() && !_reAddInProcess)
+                    RemovedLastSalesUnit?.Invoke(this);
+            };
+
             Tenders = new ObservableCollection<Tender>(tenders);
             Project = SalesUnits.First().Project;
             RefreshGroups();
@@ -105,12 +119,57 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
             eventAggregator.GetEvent<AfterSaveProjectEvent>().Subscribe(project =>
             {
-                if (Project.Id == project.Id)
-                {
-                    Project = project;
-                    OnPropertyChanged(string.Empty);
-                }
+                if (Project.Id != project.Id) return;
+                Project = project;
+                OnPropertyChanged(string.Empty);
             });
+
+            eventAggregator.GetEvent<AfterRemoveSalesUnitEvent>().Subscribe(salesUnit =>
+            {
+                SalesUnits.RemoveIfContainsById(salesUnit);
+            });
+
+            eventAggregator.GetEvent<AfterSaveSalesUnitEvent>().Subscribe(salesUnit =>
+            {
+                if (!SalesUnits.ContainsById(salesUnit)) return;
+
+                //если юнит подходит этой группе
+                if (SalesUnits.Count == 1 || new SalesUnitsComparer().Equals(salesUnit, SalesUnits.First()))
+                {                    
+                    if (SalesUnits.ContainsById(salesUnit))
+                    {
+                        _reAddInProcess = true;
+
+                        SalesUnits.RemoveById(salesUnit);
+                        SalesUnits.Add(salesUnit);
+                        AddedOldSalesUnit?.Invoke(this, salesUnit);
+
+                        _reAddInProcess = false;
+                    }
+                    else
+                    {
+                        SalesUnits.Add(salesUnit);
+                    }
+
+                    return;
+                }
+
+                //если юнит не подходит этой группе
+                SalesUnits.RemoveById(salesUnit);
+                RemovedSalesUnitToAddAnotherProjectItem?.Invoke(salesUnit);
+            });
+
+            eventAggregator.GetEvent<AfterRemoveTenderEvent>().Subscribe(tender =>
+            {
+                Tenders.RemoveIfContainsById(tender);
+            });
+
+            eventAggregator.GetEvent<AfterSaveTenderEvent>().Subscribe(tender =>
+            {
+                if (Project.Id == tender.Project.Id)
+                    Tenders.ReAddById(tender);
+            });
+
         }
 
         private void RefreshGroups()
@@ -118,9 +177,9 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             ProjectUnitsGroups.Clear();
             var salesUnitsGroups = SalesUnits.GroupBy(x => new
             {
-                x.Product.Id,
+                ProductId = x.Product.Id,
                 x.Cost,
-                x.Facility
+                FacilityId = x.Facility.Id
             }).OrderByDescending(x => x.Key.Cost);
             ProjectUnitsGroups.AddRange(salesUnitsGroups.Select(x => new ProjectUnitsGroup(x)));
         }
