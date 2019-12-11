@@ -58,17 +58,59 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             var salesUnits = GlobalAppProperties.User.RoleCurrent == Role.Admin 
                 ? UnitOfWork.Repository<SalesUnit>().Find(x => true) 
                 : UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Manager.IsAppCurrentUser());
-            var salesUnitsGroups = salesUnits.GroupBy(x => x, new SalesUnitsComparer()).OrderBy(x => x.Key.OrderInTakeDate);
             _tenders = UnitOfWork.Repository<Tender>().Find(x => true);
-            ProjectItems = new ObservableCollection<ProjectItem>(salesUnitsGroups.Select(x => new ProjectItem(x, _tenders.Where(t => x.Key.Project.Id == t.Project.Id), _eventAggregator)));
-            foreach (var projectItem in ProjectItems)
-            {
-                projectItem.RemovedLastSalesUnit += ProjectItemOnRemovedLastSalesUnit;
-                projectItem.RemovedSalesUnitToAddToAnotherProjectItem += ProjectItemOnRemovedSalesUnitToAddToAnotherProjectItem;
-                projectItem.AddedOldSalesUnit += ProjectItemOnAddedOldSalesUnit;
-            }
 
-            ProjectItems.ForEach(x => x.RemovedLastSalesUnit += ProjectItemOnRemovedLastSalesUnit);
+            ProjectItems = new ObservableCollection<ProjectItem>(GetProjectItems(salesUnits));
+
+            _eventAggregator.GetEvent<AfterRemoveSalesUnitEvent>().Subscribe(salesUnit =>
+            {
+                var projectItem = ProjectItems.SingleOrDefault(x => x.SalesUnits.ContainsById(salesUnit));
+
+                if (projectItem != null)
+                {
+                    if (projectItem.SalesUnits.Count == 1)
+                        ProjectItems.Remove(projectItem);
+                    else
+                        projectItem.SalesUnits.RemoveById(salesUnit);
+                }
+            });
+
+
+            _eventAggregator.GetEvent<AfterSaveSalesUnitEvent>().Subscribe(salesUnit =>
+            {
+                //все айтемы проекта
+                var itemsOfProject = ProjectItems.Where(x => x.Project.Id == salesUnit.Project.Id).ToList();
+
+                //если в списке только один айтем
+                if (itemsOfProject.Count == 1)
+                {
+                    var item = itemsOfProject.First();
+                    var units = item.SalesUnits.Where(x => x.Id != salesUnit.Id).Concat(new[] {salesUnit});
+                    //новый юнит подходит этому айтему
+                    if (units.GroupBy(x => x, new SalesUnitsComparer()).Count() == 1)
+                    {
+                        item.SalesUnits.ReAddById(salesUnit);
+                        return;
+                    }
+
+                    item.SalesUnits.RemoveIfContainsById(salesUnit);
+                }
+
+                //если в списке много айтемов
+                if (itemsOfProject.Count > 1)
+                {
+                    var salesUnitsOfProject = itemsOfProject.SelectMany(x => x.SalesUnits).ToList();
+                    salesUnitsOfProject.ReAddById(salesUnit);
+
+                    var index = itemsOfProject.Min(x => ProjectItems.IndexOf(x));
+                    itemsOfProject.ForEach(x => ProjectItems.Remove(x));
+                    GetProjectItems(salesUnitsOfProject).ForEach(x => ProjectItems.Insert(index, x));
+                    return;
+                }
+
+                ProjectItems.Add(new ProjectItem(new []{salesUnit}, _tenders, _eventAggregator));
+            });
+
             Offers = container.Resolve<OffersContainer>();
             Tenders = container.Resolve<TendersContainer>();
 
@@ -103,10 +145,21 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
             #endregion
 
-            _eventAggregator.GetEvent<AfterSaveSalesUnitEvent>().Subscribe(ProjectItemOnRemovedSalesUnitToAddToAnotherProjectItem);
+            _eventAggregator.GetEvent<AfterRemoveTenderEvent>().Subscribe(tender =>
+            {
+                _tenders.RemoveById(tender);
+                ProjectItems.ForEach(x => x.Tenders.RemoveIfContainsById(tender));
+            });
 
-            _eventAggregator.GetEvent<AfterRemoveTenderEvent>().Subscribe(tender => { _tenders.RemoveById(tender); });
-            _eventAggregator.GetEvent<AfterSaveTenderEvent>().Subscribe(tender => { _tenders.ReAddById(tender); });
+            _eventAggregator.GetEvent<AfterSaveTenderEvent>().Subscribe(tender =>
+            {
+                _tenders.ReAddById(tender);
+                foreach (var projectItem in ProjectItems)
+                {
+                    if (projectItem.Project.Id == tender.Project.Id)
+                        projectItem.Tenders.ReAddById(tender);                    
+                }
+            });
 
             //развернуть
             ExpandCommand = new DelegateCommand(() => { ExpandCollapseEvent?.Invoke(true); });
@@ -116,63 +169,12 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             InitNotes();
         }
 
-        private void ProjectItemOnAddedOldSalesUnit(ProjectItem projectItem, SalesUnit salesUnit)
+        private IEnumerable<ProjectItem> GetProjectItems(IEnumerable<SalesUnit> salesUnits)
         {
-            var items = ProjectItems
-                .Except(new List<ProjectItem> {projectItem})
-                .Where(x => x.SalesUnits.ContainsById(salesUnit))
-                .ToList();
-
-            foreach (var item in items)
-            {
-                if (item.SalesUnits.Count == 1)
-                {
-                    ProjectItems.Remove(item);
-                }
-                else
-                {
-                    item.SalesUnits.Remove(salesUnit);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Реакция на удаление юнита из группы
-        /// </summary>
-        /// <param name="salesUnit"></param>
-        private void ProjectItemOnRemovedSalesUnitToAddToAnotherProjectItem(SalesUnit salesUnit)
-        {
-            //добавляем юнит в подходящий юнит
-            foreach (var projectItem in ProjectItems)
-            {
-                if (new SalesUnitsComparer().Equals(salesUnit, projectItem.SalesUnits.First()))
-                {
-                    if(!projectItem.SalesUnits.ContainsById(salesUnit))
-                        projectItem.SalesUnits.Add(salesUnit);
-                    return;
-                }
-            }
-
-            //создаем новую группу для юнита
-            var projectItemNew = new ProjectItem(new List<SalesUnit> {salesUnit}, _tenders.Where(x => x.Project.Id == salesUnit.Project.Id), _eventAggregator);
-            ProjectItems.Add(projectItemNew);
-            projectItemNew.RemovedLastSalesUnit += ProjectItemOnRemovedLastSalesUnit;
-            projectItemNew.RemovedSalesUnitToAddToAnotherProjectItem += ProjectItemOnRemovedSalesUnitToAddToAnotherProjectItem;
-        }
-
-        /// <summary>
-        /// Реакция на удаление последнего юнита из группы
-        /// </summary>
-        /// <param name="projectItem"></param>
-        private void ProjectItemOnRemovedLastSalesUnit(ProjectItem projectItem)
-        {
-            //удаляем этот айтем
-            ProjectItems.Remove(projectItem);
-
-            //отписываем удаленный айтем от событий
-            projectItem.RemovedLastSalesUnit -= ProjectItemOnRemovedLastSalesUnit;
-            projectItem.RemovedSalesUnitToAddToAnotherProjectItem -= ProjectItemOnRemovedSalesUnitToAddToAnotherProjectItem;
-            projectItem.AddedOldSalesUnit -= ProjectItemOnAddedOldSalesUnit;
+            return salesUnits
+                .GroupBy(x => x, new SalesUnitsComparer())
+                .OrderBy(x => x.Key.OrderInTakeDate)
+                .Select(x => new ProjectItem(x, _tenders.Where(t => x.Key.Project.Id == t.Project.Id), _eventAggregator));
         }
 
         #region RaiseCanExecuteChanged

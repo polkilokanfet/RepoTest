@@ -12,8 +12,6 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 {
     public class ProjectItem : BindableBase
     {
-        private bool _reAddInProcess = false;
-
         public readonly ObservableCollection<Tender> Tenders;
         public readonly ObservableCollection<SalesUnit> SalesUnits;
         public ObservableCollection<ProjectUnitsGroup> ProjectUnitsGroups { get; } = new ObservableCollection<ProjectUnitsGroup>();
@@ -80,24 +78,9 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             }
         }
 
-        /// <summary>
-        /// Добавлен уже существующий юнит (не новый) в этот айтем
-        /// </summary>
-        public event Action<ProjectItem, SalesUnit> AddedOldSalesUnit;
-
-        public event Action<ProjectItem> RemovedLastSalesUnit;
-
-        public event Action<SalesUnit> RemovedSalesUnitToAddToAnotherProjectItem;
-
         public ProjectItem(IEnumerable<SalesUnit> salesUnits, IEnumerable<Tender> tenders, IEventAggregator eventAggregator)
         {
             SalesUnits = new ObservableCollection<SalesUnit>(salesUnits);
-            SalesUnits.CollectionChanged += (sender, args) =>
-            {
-                if(!SalesUnits.Any() && !_reAddInProcess)
-                    RemovedLastSalesUnit?.Invoke(this);
-            };
-
             Tenders = new ObservableCollection<Tender>(tenders);
             Project = SalesUnits.First().Project;
             RefreshGroups();
@@ -122,46 +105,6 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
                 if (Project.Id != project.Id) return;
                 Project = project;
                 OnPropertyChanged(string.Empty);
-            });
-
-            eventAggregator.GetEvent<AfterRemoveSalesUnitEvent>().Subscribe(salesUnit =>
-            {
-                SalesUnits.RemoveIfContainsById(salesUnit);
-            });
-
-            eventAggregator.GetEvent<AfterSaveSalesUnitEvent>().Subscribe(salesUnit =>
-            {
-                if (!SalesUnits.ContainsById(salesUnit)) return;
-
-                //если юнит подходит этой группе
-                if (SalesUnits.Count == 1 || new SalesUnitsComparer().Equals(salesUnit, SalesUnits.First()))
-                {                    
-                    if (SalesUnits.ContainsById(salesUnit))
-                    {
-                        _reAddInProcess = true;
-
-                        SalesUnits.RemoveById(salesUnit);
-                        SalesUnits.Add(salesUnit);
-                        AddedOldSalesUnit?.Invoke(this, salesUnit);
-
-                        _reAddInProcess = false;
-                    }
-                    else
-                    {
-                        SalesUnits.Add(salesUnit);
-                    }
-
-                    return;
-                }
-
-                //если юнит не подходит этой группе
-                SalesUnits.RemoveById(salesUnit);
-                RemovedSalesUnitToAddToAnotherProjectItem?.Invoke(salesUnit);
-            });
-
-            eventAggregator.GetEvent<AfterRemoveTenderEvent>().Subscribe(tender =>
-            {
-                Tenders.RemoveIfContainsById(tender);
             });
 
             eventAggregator.GetEvent<AfterSaveTenderEvent>().Subscribe(tender =>
