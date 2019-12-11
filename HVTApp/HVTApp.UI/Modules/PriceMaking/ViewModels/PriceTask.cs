@@ -14,6 +14,8 @@ namespace HVTApp.UI.Modules.PriceMaking.ViewModels
         private readonly List<Offer> _offers;
         private readonly List<ProjectItem> _projects;
 
+        public string BlockName { get; }
+
         private DateTime LastPriceDate => Prices.Max(x => x.Date);
 
         public int SpecificationsCount
@@ -66,6 +68,8 @@ namespace HVTApp.UI.Modules.PriceMaking.ViewModels
 
             this.Prices.CollectionChanged += (sender, args) => { RefreshProperties(); };
             this.Prices.PropertyChanged += (sender, args) => { RefreshProperties(); };
+
+            BlockName = Model.ToString();
         }
 
         private void RefreshProperties()
