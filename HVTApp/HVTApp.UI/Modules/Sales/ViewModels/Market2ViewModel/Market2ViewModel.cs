@@ -62,17 +62,13 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
             ProjectItems = new ObservableCollection<ProjectItem>(GetProjectItems(salesUnits));
 
+            //событие удаления юнита
             _eventAggregator.GetEvent<AfterRemoveSalesUnitEvent>().Subscribe(salesUnit =>
             {
-                var projectItem = ProjectItems.SingleOrDefault(x => x.SalesUnits.ContainsById(salesUnit));
+                var projectItem = ProjectItems.SingleOrDefault(x => x.ContainsById(salesUnit));
 
-                if (projectItem != null)
-                {
-                    if (projectItem.SalesUnits.Count == 1)
-                        ProjectItems.Remove(projectItem);
-                    else
-                        projectItem.SalesUnits.RemoveById(salesUnit);
-                }
+                if(projectItem?.RemoveSalesUnit(salesUnit) == ProjectItemState.HasNoSalesUnit)
+                    ProjectItems.Remove(projectItem);
             });
 
 
@@ -80,35 +76,36 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             {
                 //все айтемы проекта
                 var itemsOfProject = ProjectItems.Where(x => x.Project.Id == salesUnit.Project.Id).ToList();
+                
+                //айтем, в котором содержится юнит
+                var itemContainsSalesUnit = itemsOfProject.SingleOrDefault(x => x.ContainsById(salesUnit));
+                
+                //айтемы, в которые подойдет юнит
+                var targetItems = itemsOfProject.Where(x => x.Fits(salesUnit)).ToList();
 
-                //если в списке только один айтем
-                if (itemsOfProject.Count == 1)
+                if (targetItems.Any())
                 {
-                    var item = itemsOfProject.First();
-                    var units = item.SalesUnits.Where(x => x.Id != salesUnit.Id).Concat(new[] {salesUnit});
-                    //новый юнит подходит этому айтему
-                    if (units.GroupBy(x => x, new SalesUnitsComparer()).Count() == 1)
+                    //если подходит более, чем в 2 айтема, то это дичь какая-то
+                    if(targetItems.Count > 2) throw new NotImplementedException();
+
+                    //если подходит сразу в 2 айтема
+                    if (targetItems.Count == 2)
                     {
-                        item.SalesUnits.ReAddById(salesUnit);
-                        return;
+                        targetItems.Remove(itemContainsSalesUnit);
+                        //то тот айтем, что содержал юнит ранее - лишний
+                        ProjectItems.Remove(itemContainsSalesUnit);
                     }
-
-                    item.SalesUnits.RemoveIfContainsById(salesUnit);
+                    targetItems.First().AddSalesUnit(salesUnit);
                 }
-
-                //если в списке много айтемов
-                if (itemsOfProject.Count > 1)
+                else
                 {
-                    var salesUnitsOfProject = itemsOfProject.SelectMany(x => x.SalesUnits).ToList();
-                    salesUnitsOfProject.ReAddById(salesUnit);
+                    GetProjectItems(new []{salesUnit}).ForEach(x => ProjectItems.Add(x));
 
-                    var index = itemsOfProject.Min(x => ProjectItems.IndexOf(x));
-                    itemsOfProject.ForEach(x => ProjectItems.Remove(x));
-                    GetProjectItems(salesUnitsOfProject).ForEach(x => ProjectItems.Insert(index, x));
-                    return;
+                    if (itemContainsSalesUnit != null && itemContainsSalesUnit.RemoveSalesUnit(salesUnit) == ProjectItemState.HasNoSalesUnit)
+                    {
+                        ProjectItems.Remove(itemContainsSalesUnit);
+                    }
                 }
-
-                ProjectItems.Add(new ProjectItem(new []{salesUnit}, _tenders, _eventAggregator));
             });
 
             Offers = container.Resolve<OffersContainer>();

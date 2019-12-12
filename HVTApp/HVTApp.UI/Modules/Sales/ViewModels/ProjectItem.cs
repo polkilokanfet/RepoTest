@@ -13,17 +13,17 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
     public class ProjectItem : BindableBase
     {
         public readonly ObservableCollection<Tender> Tenders;
-        public readonly ObservableCollection<SalesUnit> SalesUnits;
+        readonly List<SalesUnit> _salesUnits;
         public ObservableCollection<ProjectUnitsGroup> ProjectUnitsGroups { get; } = new ObservableCollection<ProjectUnitsGroup>();
 
         public Project Project { get; private set; }
-        public IEnumerable<string> Facilities => SalesUnits.Select(x => x.Facility.ToString()).Distinct();
-        public double Sum => SalesUnits.Sum(x => x.Cost);
-        public DateTime OrderInTakeDate => SalesUnits.First().OrderInTakeDate;
-        public DateTime RealizationDate => SalesUnits.First().RealizationDateCalculated;
-        public ProjectType ProjectType => SalesUnits.First().Project.ProjectType;
-        public bool IsDone => SalesUnits.All(x => x.IsDone);
-        public bool IsLoosen => SalesUnits.All(x => x.IsLoosen);
+        public IEnumerable<string> Facilities => _salesUnits.Select(x => x.Facility.ToString()).Distinct();
+        public double Sum => _salesUnits.Sum(x => x.Cost);
+        public DateTime OrderInTakeDate => _salesUnits.First().OrderInTakeDate;
+        public DateTime RealizationDate => _salesUnits.First().RealizationDateCalculated;
+        public ProjectType ProjectType => _salesUnits.First().Project.ProjectType;
+        public bool IsDone => _salesUnits.All(x => x.IsDone);
+        public bool IsLoosen => _salesUnits.All(x => x.IsLoosen);
         public bool ForReport => Project.ForReport;
         public bool InWork => Project.InWork;
         public int OrderInTakeYear => OrderInTakeDate.Year;
@@ -80,17 +80,10 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
         public ProjectItem(IEnumerable<SalesUnit> salesUnits, IEnumerable<Tender> tenders, IEventAggregator eventAggregator)
         {
-            SalesUnits = new ObservableCollection<SalesUnit>(salesUnits);
+            _salesUnits = new List<SalesUnit>(salesUnits);
             Tenders = new ObservableCollection<Tender>(tenders);
-            Project = SalesUnits.First().Project;
+            Project = _salesUnits.First().Project;
             RefreshGroups();
-
-            SalesUnits.CollectionChanged += (sender, args) =>
-            {
-                RefreshGroups();
-                if(SalesUnits.Any())
-                    OnPropertyChanged(string.Empty);
-            };
 
             Tenders.CollectionChanged += (sender, args) =>
             {
@@ -115,10 +108,60 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
         }
 
+        /// <summary>
+        /// Юнит подходит в этот айтем
+        /// </summary>
+        /// <param name="salesUnit"></param>
+        /// <returns></returns>
+        public bool Fits(SalesUnit salesUnit)
+        {
+            var units = _salesUnits.Where(x => x.Id != salesUnit.Id).Concat(new[] { salesUnit });
+            return units.GroupBy(x => x, new SalesUnitsComparer()).Count() == 1;
+        }
+
+        public bool ContainsById(SalesUnit salesUnit)
+        {
+            return _salesUnits.ContainsById(salesUnit);
+        }
+
+        public void AddSalesUnit(SalesUnit salesUnit)
+        {
+            //заменяемый юнит
+            var oldSalesUnit = _salesUnits.SingleOrDefault(x => x.Id == salesUnit.Id);
+
+            _salesUnits.Add(salesUnit);
+
+            //удаляем замененный юнит
+            if (oldSalesUnit != null)
+                _salesUnits.Remove(oldSalesUnit);
+
+            //обновляем айтем
+            RefreshItem();
+        }
+
+        public ProjectItemState RemoveSalesUnit(SalesUnit salesUnit)
+        {
+            _salesUnits.RemoveById(salesUnit);
+
+            if (_salesUnits.Any())
+            {
+                RefreshItem();
+                return ProjectItemState.HasAnySalesUnit;
+            }
+
+            return ProjectItemState.HasNoSalesUnit;
+        }
+
+        private void RefreshItem()
+        {
+            RefreshGroups();
+            OnPropertyChanged(string.Empty);
+        }
+
         private void RefreshGroups()
         {
             ProjectUnitsGroups.Clear();
-            var salesUnitsGroups = SalesUnits.GroupBy(x => new
+            var salesUnitsGroups = _salesUnits.GroupBy(x => new
             {
                 ProductId = x.Product.Id,
                 x.Cost,
@@ -126,5 +169,11 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             }).OrderByDescending(x => x.Key.Cost);
             ProjectUnitsGroups.AddRange(salesUnitsGroups.Select(x => new ProjectUnitsGroup(x)));
         }
+    }
+
+    public enum ProjectItemState
+    {
+        HasAnySalesUnit,
+        HasNoSalesUnit
     }
 }

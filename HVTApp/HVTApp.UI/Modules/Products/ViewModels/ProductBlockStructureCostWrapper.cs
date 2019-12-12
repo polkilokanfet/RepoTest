@@ -5,6 +5,8 @@ namespace HVTApp.UI.Modules.Products.ViewModels
 {
     public class ProductBlockStructureCostWrapper : WrapperBase<ProductBlock>
     {
+        public string BlockName { get; }
+        public string ProductType { get; }
 
         #region SimpleProperties
 
@@ -26,6 +28,10 @@ namespace HVTApp.UI.Modules.Products.ViewModels
 
         #endregion
 
-        public ProductBlockStructureCostWrapper(ProductBlock model) : base(model) { }
+        public ProductBlockStructureCostWrapper(ProductBlock model) : base(model)
+        {
+            BlockName = model.ToString();
+            ProductType = model.ProductType.ToString();
+        }
     }
 }

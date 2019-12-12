@@ -21,8 +21,8 @@
 
                             <infg:TextField Name="StructureCostNumber" Label="StructureCost" Width="Auto" AllowEdit="True"/>
                             <infg:NumericField Name="Weight" Label="Вес, кг" Width="Auto" AllowEdit="True"/>
-                            <infg:TextField AlternateBinding="{Binding Model.ProductType}" BindingType="UseAlternateBinding" Label="Тип" Width="Auto"/>
-                            <infg:TextField AlternateBinding="{Binding}" BindingType="UseAlternateBinding" Label="Обозначение блока" Width="Auto"/>
+                            <infg:TextField AlternateBinding="{Binding ProductType}" BindingType="UseAlternateBinding" Label="Тип" Width="Auto"/>
+                            <infg:TextField AlternateBinding="{Binding BlockName}" BindingType="UseAlternateBinding" Label="Обозначение блока" Width="Auto"/>
                             <infg:TextField AlternateBinding="{Binding Model.Parameters}" BindingType="UseAlternateBinding" Label="Параметры" Width="Auto" Converter="{StaticResource ObjectsToStringConverter}"/>
 
                         </infg:FieldLayout.Fields>
