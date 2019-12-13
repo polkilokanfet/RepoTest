@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Modules.Sales.ViewModels;
-using HVTApp.UI.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
 using Prism.Mvvm;
 
@@ -27,12 +26,17 @@ namespace HVTApp.UI.Groups
         public DateTime ShippingDate => _unit.Model.ShipmentDateCalculated;
         public DateTime ProductionDate => _unit.Model.EndProductionDateCalculated;
 
+        public bool IsShipped => _unit.Model.ShipmentDate.HasValue;
+
         public DateTime? Date
         {
             get { return _unit.Model.ShipmentDate ?? _date; }
             set
             {
                 if (Equals(_date, value)) return;
+
+                if (value.HasValue && value.Value < _unit.Model.EndProductionDateCalculated) return;
+
                 _date = value;
                 if (Groups.Any())
                     Groups.ForEach(x => x.Date = value);
