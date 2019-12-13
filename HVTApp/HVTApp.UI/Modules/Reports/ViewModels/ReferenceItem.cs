@@ -24,7 +24,7 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
         {
             var salesUnit = salesUnits.First();
             Facility = salesUnit.Facility.ToString();
-            FacilityOwner = salesUnit.Facility.OwnerCompany.ToString();
+            FacilityOwner = $"{salesUnit.Facility.OwnerCompany.FullName} ({salesUnit.Facility.OwnerCompany.Form.ShortName})";
             ProductType = salesUnit.Product.ProductType.ToString();
             Product = salesUnit.Product.ToString();
             Amount = salesUnits.Count();

@@ -291,6 +291,7 @@
     <Compile Include="Modules\Sales\ViewModels\ProjectUnitsGroup.cs" />
     <Compile Include="Modules\Sales\ViewModels\ProjectViewModel\ProjectViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\SalesUnitsWrappersGroupsContainer.cs" />
+    <Compile Include="Modules\Sales\ViewModels\ShippingItemWrapper.cs" />
     <Compile Include="Modules\Sales\ViewModels\ShippingViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\SpecificationsViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\SpecificationUnitsGroupsViewModel.cs" />

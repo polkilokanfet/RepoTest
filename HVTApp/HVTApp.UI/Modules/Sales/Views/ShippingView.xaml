@@ -52,6 +52,7 @@
                         <infg:TextField Name="Contract" Label="Договор" Width="Auto"/>
                         <infg:DateTimeField Name="Date" Label="Отгрузка" Width="Auto" AllowEdit="True"/>
                         <infg:DateTimeField Name="ShippingDate" Label="Расчетная" Width="Auto"/>
+                        <infg:DateTimeField Name="ProductionDate" Label="Производство" Width="Auto"/>
                         <infg:Field Name="Groups" IsExpandable="True"/>
 
                     </infg:FieldLayout.Fields>

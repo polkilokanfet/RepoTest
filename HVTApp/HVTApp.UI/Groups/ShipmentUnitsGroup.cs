@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Modules.Sales.ViewModels;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
 using Prism.Mvvm;
@@ -11,23 +12,24 @@ namespace HVTApp.UI.Groups
 {
     public class ShipmentUnitsGroup : BindableBase
     {
-        private readonly List<SalesUnitWrapper> _units;
-        private readonly SalesUnitWrapper _unit;
+        private readonly List<ShippingItemWrapper> _units;
+        private readonly ShippingItemWrapper _unit;
         private DateTime? _date;
 
         public Facility Facility => _unit.Model.Facility;
         public ProductType ProductType => _unit.Model.Product.ProductType;
         public string ProductDesignation => _unit.Model.Product.Designation;
         public int Amount => _units.Count;
-        public string Order => _unit.Order?.Number;
+        public string Order => _unit.Model.Order?.Number;
         public Company Company => _unit.Model.Specification?.Contract.Contragent;
-        public string Specification => _unit.Specification?.Number;
-        public string Contract => _unit.Specification?.Contract.Number;
-        public DateTime ShippingDate => _unit.ShipmentDateCalculated;
+        public string Specification => _unit.Model.Specification?.Number;
+        public string Contract => _unit.Model.Specification?.Contract.Number;
+        public DateTime ShippingDate => _unit.Model.ShipmentDateCalculated;
+        public DateTime ProductionDate => _unit.Model.EndProductionDateCalculated;
 
         public DateTime? Date
         {
-            get { return _date; }
+            get { return _unit.Model.ShipmentDate ?? _date; }
             set
             {
                 if (Equals(_date, value)) return;
@@ -42,7 +44,7 @@ namespace HVTApp.UI.Groups
 
         public ObservableCollection<ShipmentUnitsGroup> Groups { get; } = new ObservableCollection<ShipmentUnitsGroup>();
 
-        public ShipmentUnitsGroup(IEnumerable<SalesUnitWrapper> units)
+        public ShipmentUnitsGroup(IEnumerable<ShippingItemWrapper> units)
         {
             _units = units.ToList();
             _unit = _units.First();
@@ -54,16 +56,16 @@ namespace HVTApp.UI.Groups
             }
         }
 
-        public static IEnumerable<ShipmentUnitsGroup> Grouping(IEnumerable<SalesUnitWrapper> units)
+        public static IEnumerable<ShipmentUnitsGroup> Grouping(IEnumerable<ShippingItemWrapper> units)
         {
             var groups = units.GroupBy(x => new
             {
-                Facility = x.Facility.Id,
-                Product = x.Product.Id,
-                Order = x.Order?.Id,
-                Project = x.Project.Id,
-                Specification = x.Specification?.Id,
-                ShipmentDateCalculated = x.ShipmentDateCalculated
+                Facility = x.Model.Facility.Id,
+                Product = x.Model.Product.Id,
+                Order = x.Model.Order?.Id,
+                Project = x.Model.Project.Id,
+                Specification = x.Model.Specification?.Id,
+                ShipmentDateCalculated = x.Model.ShipmentDateCalculated
             }).OrderBy(x => x.Key.ShipmentDateCalculated);
 
             return groups.Select(x => new ShipmentUnitsGroup(x));

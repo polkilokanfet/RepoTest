@@ -16,7 +16,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 {
     public class ShippingViewModel : LoadableBindableBase
     {
-        private IValidatableChangeTrackingCollection<SalesUnitWrapper> _salesUnits;
+        private IValidatableChangeTrackingCollection<ShippingItemWrapper> _salesUnits;
 
         public ObservableCollection<ShipmentUnitsGroup> Groups { get; } = new ObservableCollection<ShipmentUnitsGroup>();
 
@@ -41,7 +41,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
             var salesUnits = await ((ISalesUnitRepository)UnitOfWork.Repository<SalesUnit>()).GetUsersSalesUnitsAsync();
             _salesUnits?.ForEach(x => x.PropertyChanged -= OnSalesUnitPropertyChanged);
-            _salesUnits = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(salesUnits.Select(x => new SalesUnitWrapper(x)));
+            _salesUnits = new ValidatableChangeTrackingCollection<ShippingItemWrapper>(salesUnits.Select(x => new ShippingItemWrapper(x)));
             _salesUnits.ForEach(x => x.PropertyChanged += OnSalesUnitPropertyChanged);
 
             Groups.Clear();
