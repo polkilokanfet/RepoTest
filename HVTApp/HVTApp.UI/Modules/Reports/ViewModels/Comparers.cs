@@ -4,6 +4,27 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Modules.Reports.ViewModels
 {
+    public class SalesUnitsReferenceComparer : IEqualityComparer<SalesUnit>
+    {
+        public bool Equals(SalesUnit x, SalesUnit y)
+        {
+            if (x == null) throw new ArgumentNullException(nameof(x));
+            if (y == null) throw new ArgumentNullException(nameof(y));
+
+            if (!Equals(x.Facility.Id, y.Facility.Id)) return false;
+            if (!Equals(x.Product.Id, y.Product.Id)) return false;
+            if (!Equals(x.Order?.Id, y.Order?.Id)) return false;
+            if (!Equals(x.RealizationDateCalculated, y.RealizationDateCalculated)) return false;
+
+            return true;
+        }
+
+        public int GetHashCode(SalesUnit obj)
+        {
+            return 0;
+        }
+    }
+
     public class SalesUnitsReportComparer : IEqualityComparer<SalesUnit>
     {
         public bool Equals(SalesUnit x, SalesUnit y)

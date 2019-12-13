@@ -6,10 +6,10 @@ using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Modules.Reports.Views;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Regions;
-using FakeDataView = HVTApp.UI.Modules.Reports.Views.FakeDataView;
 
 namespace HVTApp.UI.Modules.Reports.ViewModels
 {
@@ -29,6 +29,9 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
                 ((DelegateCommand)EditFakeDataCommand).RaiseCanExecuteChanged();
             }
         }
+
+        public bool TabEditVisibility => GlobalAppProperties.User.RoleCurrent == Role.Admin ||
+                                         GlobalAppProperties.User.RoleCurrent == Role.ReportMaker;
 
         public ICommand ReloadCommand { get; }
         public ICommand EditFakeDataCommand { get; }

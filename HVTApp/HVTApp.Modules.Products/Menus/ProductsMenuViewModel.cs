@@ -1,6 +1,7 @@
 ﻿using HVTApp.Infrastructure;
 using HVTApp.Model;
 using HVTApp.UI.Modules.Products.Views;
+using HVTApp.UI.Modules.Reports.Views;
 
 namespace HVTApp.Modules.Products.Menus
 {
@@ -14,6 +15,7 @@ namespace HVTApp.Modules.Products.Menus
                 Items.Add(new NavigationItem("Задания", typeof(CreateNewProductTasksView)));
             }
             Items.Add(new NavigationItem("Стракчакосты", typeof(StructureCostsView)));
+            Items.Add(new NavigationItem("Референс", typeof(ReferenceView)));
         }
     }
 }

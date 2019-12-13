@@ -217,12 +217,17 @@
       <DependentUpon>TabReload.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Reports\ViewModels\FakeDataViewModel.cs" />
+    <Compile Include="Modules\Reports\ViewModels\ReferenceItem.cs" />
+    <Compile Include="Modules\Reports\ViewModels\ReferenceViewModel.cs" />
     <Compile Include="Modules\Reports\ViewModels\SalesReportUnit.cs" />
     <Compile Include="Modules\Reports\ViewModels\SalesReportViewModel.cs" />
     <Compile Include="Modules\Reports\ViewModels\SalesUnitFakeDataGroup.cs" />
-    <Compile Include="Modules\Reports\ViewModels\SalesUnitsReportComparer.cs" />
+    <Compile Include="Modules\Reports\ViewModels\Comparers.cs" />
     <Compile Include="Modules\Reports\Views\FakeDataView.xaml.cs">
       <DependentUpon>FakeDataView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\Views\ReferenceView.xaml.cs">
+      <DependentUpon>ReferenceView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Reports\Views\SalesReportView.xaml.cs">
       <DependentUpon>SalesReportView.xaml</DependentUpon>
@@ -753,6 +758,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\Reports\Views\FakeDataView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Reports\Views\ReferenceView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
