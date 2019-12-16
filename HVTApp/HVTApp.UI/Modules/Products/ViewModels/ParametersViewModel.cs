@@ -17,8 +17,14 @@ namespace HVTApp.UI.Modules.Products.ViewModels
         private ParameterLookup _selectedParameterLookup;
         private ParameterRelationWrapper _selectedRelation;
 
+        /// <summary>
+        /// Список всех параметров
+        /// </summary>
         public ObservableCollection<ParameterLookup> ParameterLookups { get; }
 
+        /// <summary>
+        /// Выбранный параметр
+        /// </summary>
         public ParameterLookup SelectedParameterLookup
         {
             get { return _selectedParameterLookup; }
@@ -44,6 +50,9 @@ namespace HVTApp.UI.Modules.Products.ViewModels
             }
         }
 
+        /// <summary>
+        /// Выбранная связь
+        /// </summary>
         public ParameterRelationWrapper SelectedRelation
         {
             get { return _selectedRelation; }
@@ -53,6 +62,7 @@ namespace HVTApp.UI.Modules.Products.ViewModels
                 _selectedRelation = value;
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(PotentialRelationParameters));
+                ((DelegateCommand)RemoveRelationCommand).RaiseCanExecuteChanged();
             }
         }
 
@@ -76,12 +86,23 @@ namespace HVTApp.UI.Modules.Products.ViewModels
 
         public ObservableCollection<PathToOrigin> Paths { get; } = new ObservableCollection<PathToOrigin>();
 
+        public ICommand AddParameterCommand { get; }
         public ICommand AddSimilarParameterCommand { get; }
+
+        public ICommand AddRelationCommand { get; }
+        public ICommand RemoveRelationCommand { get; }
 
         public ParametersViewModel(IUnityContainer container) : base(container)
         {
             var parameters = UnitOfWork.Repository<Parameter>().Find(x => true);
             ParameterLookups = new ObservableCollection<ParameterLookup>(parameters.Select(x => new ParameterLookup(x)));
+
+            AddParameterCommand = new DelegateCommand(
+                () =>
+                {
+                    this.Item = new ParameterWrapper(new Parameter());
+                }
+            );
 
             AddSimilarParameterCommand = new DelegateCommand(
                 () =>
@@ -114,6 +135,18 @@ namespace HVTApp.UI.Modules.Products.ViewModels
                     SelectedParameterLookup = lookup;
                 },
                 () => SelectedParameterLookup != null);
+
+            AddRelationCommand = new DelegateCommand(
+                () =>
+                {
+                    var relation = new ParameterRelationWrapper(new ParameterRelation());
+                    Item.ParameterRelations.Add(relation);
+                    SelectedRelation = relation;
+                });
+
+            RemoveRelationCommand = new DelegateCommand(
+                () => { Item.ParameterRelations.Remove(SelectedRelation); },
+                () => SelectedRelation != null);
         }
 
         protected override async Task SaveItemTask()

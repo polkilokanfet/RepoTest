@@ -11,13 +11,12 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="4*"/>
         </Grid.ColumnDefinitions>
 
         <GroupBox Header="Параметры" Grid.Column="0">
             <infg:XamDataGrid DataSource="{Binding ParameterLookups}"
-                              SelectedDataItem="{Binding SelectedParameterLookup, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                              Style="{StaticResource ListViewGrid}" >
+                              SelectedDataItem="{Binding SelectedParameterLookup, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
                 <infg:XamDataGrid.FieldLayouts>
                     <infg:FieldLayout>
@@ -38,9 +37,9 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="2*"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 
                 <views:ParameterDetailsView DataContext="{Binding}" VisibilityParameterRelationsParameter="Collapsed"/>
@@ -82,7 +81,7 @@
                             </infg:XamDataGrid>
                         </GroupBox>
 
-                        <Button Grid.Column="2" Content="Доб."></Button>
+                        <Button Grid.Column="2" Content="+"/>
 
                         <GroupBox Header="Потенциальные параметры ограничения" Grid.Column="3">
                             <infg:XamDataGrid DataSource="{Binding PotentialRelationParameters, UpdateSourceTrigger=PropertyChanged}" 
@@ -102,7 +101,9 @@
                     </Grid>
                 </GroupBox>
                 
-                <GroupBox Grid.Row="2" Header="Пути выбора">
+                <GridSplitter Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Width="3"/>
+                
+                <GroupBox Grid.Row="3" Header="Пути выбора">
                     <infg:XamDataGrid DataSource="{Binding Paths}" Style="{StaticResource ListViewGrid}" >
                         <infg:XamDataGrid.FieldLayouts>
                             <infg:FieldLayout>
@@ -114,7 +115,6 @@
                     </infg:XamDataGrid>
                 </GroupBox>
                 
-                <Button Grid.Row="3" Content="Сохранить" Command="{Binding SaveCommand}"/>
             </Grid>
         </GroupBox>
         
