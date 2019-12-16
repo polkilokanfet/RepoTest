@@ -14,6 +14,7 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
         public string Product { get; }
         public int Amount { get; }
         public DateTime RealizationDate { get; }
+        public string Order { get; }
         public string Numbers { get; }
         public string Manager { get; }
         public string Region { get; }
@@ -29,6 +30,7 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
             Product = salesUnit.Product.ToString();
             Amount = salesUnits.Count();
             RealizationDate = salesUnit.RealizationDateCalculated;
+            Order = salesUnit.Order?.ToString();
             Manager = salesUnit.Project.Manager.ToString();
 
             var region = salesUnit.Facility.Address?.Locality.Region;

@@ -50,8 +50,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
             _unitOfWork = Container.Resolve<IUnitOfWork>();
 
             var salesUnits = (await _unitOfWork.Repository<SalesUnit>().GetAllAsync())
-                .Where(x => x.OrderInTakeDate <= DateTime.Today)
-                .Where(EditingRequired)
+                .Where(x => !x.IsLoosen && x.OrderInTakeDate <= DateTime.Today)
                 .OrderBy(salesUnit => salesUnit.EndProductionDateCalculated)
                 .Select(salesUnit => new SalesUnitDates(salesUnit))
                 .ToList();
@@ -85,21 +84,5 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
         {
             ((DelegateCommand) SaveCommand).RaiseCanExecuteChanged();
         }
-
-        /// <summary>
-        /// Единица требует внесения информации в текущем модуле.
-        /// </summary>
-        /// <param name="salesUnit"></param>
-        /// <returns></returns>
-        private bool EditingRequired(SalesUnit salesUnit)
-        {
-            return !salesUnit.DeliveryDate.HasValue ||
-                   !salesUnit.EndProductionDate.HasValue ||
-                   !salesUnit.PickingDate.HasValue ||
-                   !salesUnit.RealizationDate.HasValue ||
-                   !salesUnit.ShipmentDate.HasValue ||
-                   string.IsNullOrEmpty(salesUnit.SerialNumber);
-        }
-
     }
 }

@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using HVTApp.DataAccess.Annotations;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels.Groups
 {
-    public class SalesUnitDatesGroup
+    public class SalesUnitDatesGroup : INotifyPropertyChanged
     {
         private DateTime? _pickingDate;
         private DateTime? _endProductionDate;
@@ -69,9 +72,27 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels.Groups
         public string OrderPosition { get; } = "...";
         public string SerialNumber { get; } = "...";
 
+        public bool HasFullInformation => Units.All(x => x.HasFullInformation);
+
         public SalesUnitDatesGroup(IEnumerable<SalesUnitDates> salesUnits)
         {
             Units = salesUnits.ToList();
+            Units.ForEach(x => x.SettedValueToProperty += () => {OnPropertyChanged(nameof(HasFullInformation));});
+
+            var salesUnit = Units.First();
+            _pickingDate = salesUnit.PickingDate;
+            _endProductionDate = salesUnit.EndProductionDate;
+            _shipmentDate = salesUnit.ShipmentDate;
+            _deliveryDate = salesUnit.DeliveryDate;
+            _realizationDate = salesUnit.RealizationDate;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

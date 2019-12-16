@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.CompilerServices;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Wrapper;
 
@@ -9,7 +10,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels.Groups
         public string SerialNumber
         {
             get { return GetValue<string>(); }
-            set { SetValue(value); }
+            set { SetValueNew(value); }
         }
 
         public DateTime? PickingDate
@@ -20,7 +21,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels.Groups
                 var date = EndProductionDate ?? ShipmentDate ?? DeliveryDate ?? RealizationDate;
                 if (date.HasValue && value.HasValue && date < value)
                     return;
-                SetValue(value);
+                SetValueNew(value);
             }
         }
 
@@ -38,7 +39,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels.Groups
                     if (date.HasValue && date < value)
                         return;
                 }
-                SetValue(value);
+                SetValueNew(value);
             }
         }
 
@@ -57,7 +58,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels.Groups
                         return;
                 }
 
-                SetValue(value);
+                SetValueNew(value);
             }
         }
 
@@ -69,7 +70,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels.Groups
                 var date = ShipmentDate ?? EndProductionDate ?? PickingDate;
                 if (date.HasValue && value.HasValue && date > value)
                     return;
-                SetValue(value);
+                SetValueNew(value);
             }
         }
 
@@ -84,13 +85,27 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels.Groups
                     if(date.HasValue && date > value)
                         return;
                 }
-                SetValue(value);
+                SetValueNew(value);
             }
         }
 
+        public bool HasFullInformation => !string.IsNullOrEmpty(SerialNumber) &&
+                                          PickingDate.HasValue && 
+                                          EndProductionDate.HasValue && 
+                                          ShipmentDate.HasValue &&
+                                          DeliveryDate.HasValue && RealizationDate.HasValue;
 
         public SalesUnitDates(SalesUnit model) : base(model)
         {
+        }
+
+        public event Action SettedValueToProperty;
+
+        private void SetValueNew<TValue>(TValue newValue, [CallerMemberName] string propertyName = null)
+        {
+            this.SetValue(newValue, propertyName);
+            OnPropertyChanged(nameof(HasFullInformation));
+            SettedValueToProperty?.Invoke();
         }
     }
 }

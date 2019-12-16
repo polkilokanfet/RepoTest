@@ -3,10 +3,11 @@
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               xmlns:converters="clr-namespace:HVTApp.Infrastructure.Converters;assembly=HVTApp.Infrastructure"
+              xmlns:controls="http://infragistics.com/Windows"
               x:Class="HVTApp.UI.Modules.Sales.Views.ShippingView">
 
     <inf:ViewBase.Resources>
-        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></converters:BooleanToVisibilityConverter>
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </inf:ViewBase.Resources>
 
     <Grid>
@@ -39,8 +40,18 @@
 			</infg:XamDataGrid.ContextMenu>
 
 			<infg:XamDataGrid.FieldLayouts>
-				<infg:FieldLayout>
-					<infg:FieldLayout.Fields>
+
+                <infg:FieldLayout>
+
+                    <infg:FieldLayout.RecordFilters>
+                        <infg:RecordFilter FieldName="IsShipped">
+                            <infg:RecordFilter.Conditions>
+                                <controls:ComparisonCondition Operator="Equals" Value="False" />
+                            </infg:RecordFilter.Conditions>
+                        </infg:RecordFilter>
+                    </infg:FieldLayout.RecordFilters>
+
+                    <infg:FieldLayout.Fields>
                         
                         <infg:TextField Name="Facility" Label="Объект" Width="Auto"/>
                         <infg:TextField Name="ProductType" Label="Тип" Width="Auto"/>
@@ -50,9 +61,10 @@
                         <infg:TextField Name="Company" Label="Контрагент" Width="Auto"/>
                         <infg:TextField Name="Specification" Label="Сп.№" Width="Auto"/>
                         <infg:TextField Name="Contract" Label="Договор" Width="Auto"/>
-                        <infg:DateTimeField Name="Date" Label="Отгрузка" Width="Auto" AllowEdit="True"/>
-                        <infg:DateTimeField Name="ShippingDate" Label="Расчетная" Width="Auto"/>
+                        <!--<infg:DateTimeField AlternateBinding="{Binding Date, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Отгрузка" Width="Auto" AllowEdit="{Binding IsShipped, Converter={StaticResource ReverseBoolConverter}, UpdateSourceTrigger=PropertyChanged}"/>-->
+                        <infg:DateTimeField AlternateBinding="{Binding Date, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Отгрузка" Width="Auto" AllowEdit="True"/>
                         <infg:DateTimeField Name="ProductionDate" Label="Производство" Width="Auto"/>
+                        <infg:CheckBoxField Name="IsShipped" Label="Отгружено" Width="Auto"/>
                         <infg:Field Name="Groups" IsExpandable="True"/>
 
                     </infg:FieldLayout.Fields>
@@ -63,5 +75,19 @@
        
     </Grid>
 </inf:ViewBase>
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
 
 	

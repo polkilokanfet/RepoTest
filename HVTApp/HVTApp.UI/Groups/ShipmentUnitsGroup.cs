@@ -35,6 +35,7 @@ namespace HVTApp.UI.Groups
             {
                 if (Equals(_date, value)) return;
 
+                //если прилетело значение позже расчетного
                 if (value.HasValue && value.Value < _unit.Model.EndProductionDateCalculated) return;
 
                 _date = value;

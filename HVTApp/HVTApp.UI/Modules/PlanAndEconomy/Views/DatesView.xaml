@@ -2,6 +2,7 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:controls="http://infragistics.com/Windows"
               x:Class="HVTApp.UI.Modules.PlanAndEconomy.Views.DatesView">
 
     <inf:ViewBase.Resources>
@@ -51,6 +52,16 @@
 			<infg:XamDataGrid.FieldLayouts>
                 
 				<infg:FieldLayout>
+                    
+                    <infg:FieldLayout.RecordFilters>
+                        <infg:RecordFilter FieldName="HasFullInformation">
+                            <infg:RecordFilter.Conditions>
+                                <controls:ComparisonCondition Operator="Equals" Value="False" />
+                            </infg:RecordFilter.Conditions>
+                        </infg:RecordFilter>
+                    </infg:FieldLayout.RecordFilters>
+
+
                     <infg:FieldLayout.FieldSettings>
                         <infg:FieldSettings CellValuePresenterStyle="{StaticResource BoltFontCellsStyle}"/>
                     </infg:FieldLayout.FieldSettings>
@@ -71,6 +82,7 @@
                         <infg:DateTimeField Name="ShipmentDate" Label="Отгрузка" Width="110" AllowEdit="True" AllowResize="False"/>
                         <infg:DateTimeField Name="DeliveryDate" Label="Доставка" Width="110" AllowEdit="True" AllowResize="False"/>
                         <infg:DateTimeField Name="RealizationDate" Label="Реализация" Width="110" AllowEdit="True" AllowResize="False"/>
+                        <infg:CheckBoxField AlternateBinding="{Binding HasFullInformation}" BindingType="UseAlternateBinding" Name="HasFullInformation" Label="Full" AllowResize="False"/>
                         <infg:Field Name="Units" IsExpandable="True"/>
 
                     </infg:FieldLayout.Fields>
@@ -98,6 +110,7 @@
                         <infg:DateTimeField Name="ShipmentDate" Label="Отгрузка" Width="110" AllowEdit="True" AllowResize="False"/>
                         <infg:DateTimeField Name="DeliveryDate" Label="Доставка" Width="110" AllowEdit="True" AllowResize="False"/>
                         <infg:DateTimeField Name="RealizationDate" Label="Реализация" Width="110" AllowEdit="True" AllowResize="False"/>
+                        <infg:CheckBoxField AlternateBinding="{Binding HasFullInformation}" BindingType="UseAlternateBinding" Label="Full" AllowResize="False"/>
 
                     </infg:FieldLayout.Fields>
                 </infg:FieldLayout>
