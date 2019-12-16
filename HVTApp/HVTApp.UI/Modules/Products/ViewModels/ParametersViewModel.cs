@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Lookup;
 using HVTApp.UI.ViewModels;
@@ -16,6 +17,7 @@ namespace HVTApp.UI.Modules.Products.ViewModels
     {
         private ParameterLookup _selectedParameterLookup;
         private ParameterRelationWrapper _selectedRelation;
+        private ParameterWrapper _selectedPotentialParameter;
 
         /// <summary>
         /// Список всех параметров
@@ -46,7 +48,8 @@ namespace HVTApp.UI.Modules.Products.ViewModels
                 Paths.Clear();
                 Paths.AddRange(Item.Model.Paths());
 
-                ((DelegateCommand) AddSimilarParameterCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)AddSimilarParameterCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)AddRelationCommand).RaiseCanExecuteChanged();
             }
         }
 
@@ -60,9 +63,11 @@ namespace HVTApp.UI.Modules.Products.ViewModels
             {
                 if (Equals(_selectedRelation, value)) return;
                 _selectedRelation = value;
+                SelectedPotentialParameter = null;
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(PotentialRelationParameters));
                 ((DelegateCommand)RemoveRelationCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)AddParameterToRelationCommand).RaiseCanExecuteChanged();
             }
         }
 
@@ -84,6 +89,16 @@ namespace HVTApp.UI.Modules.Products.ViewModels
             }
         }
 
+        public ParameterWrapper SelectedPotentialParameter
+        {
+            get { return _selectedPotentialParameter; }
+            set
+            {
+                _selectedPotentialParameter = value;
+                ((DelegateCommand)AddParameterToRelationCommand).RaiseCanExecuteChanged();
+            }
+        }
+
         public ObservableCollection<PathToOrigin> Paths { get; } = new ObservableCollection<PathToOrigin>();
 
         public ICommand AddParameterCommand { get; }
@@ -91,6 +106,8 @@ namespace HVTApp.UI.Modules.Products.ViewModels
 
         public ICommand AddRelationCommand { get; }
         public ICommand RemoveRelationCommand { get; }
+
+        public ICommand AddParameterToRelationCommand { get; }
 
         public ParametersViewModel(IUnityContainer container) : base(container)
         {
@@ -101,6 +118,7 @@ namespace HVTApp.UI.Modules.Products.ViewModels
                 () =>
                 {
                     this.Item = new ParameterWrapper(new Parameter());
+                    ((DelegateCommand)AddRelationCommand).RaiseCanExecuteChanged();
                 }
             );
 
@@ -139,20 +157,39 @@ namespace HVTApp.UI.Modules.Products.ViewModels
             AddRelationCommand = new DelegateCommand(
                 () =>
                 {
-                    var relation = new ParameterRelationWrapper(new ParameterRelation());
+                    var relation = new ParameterRelationWrapper(new ParameterRelation())
+                    {
+                        ParameterId = Item.Id
+                    };
                     Item.ParameterRelations.Add(relation);
                     SelectedRelation = relation;
-                });
+                },
+                () => Item != null);
 
             RemoveRelationCommand = new DelegateCommand(
                 () => { Item.ParameterRelations.Remove(SelectedRelation); },
                 () => SelectedRelation != null);
+
+            AddParameterToRelationCommand = new DelegateCommand(
+                () => { SelectedRelation.RequiredParameters.Add(SelectedPotentialParameter); },
+                () => SelectedRelation != null && SelectedPotentialParameter != null);
         }
 
         protected override async Task SaveItemTask()
         {
             await base.SaveItemTask();
-            SelectedParameterLookup.Refresh(Item.Model);
+
+            if (ParameterLookups.ContainsById(Item.Model))
+            {
+                var lookup = ParameterLookups.Single(x => x.Entity.Id == Item.Id);
+                lookup.Refresh(Item.Model);
+            }
+            else
+            {
+                var lookup = new ParameterLookup(Item.Model);
+                ParameterLookups.Add(lookup);
+                SelectedParameterLookup = lookup;
+            }
         }
     }
 }

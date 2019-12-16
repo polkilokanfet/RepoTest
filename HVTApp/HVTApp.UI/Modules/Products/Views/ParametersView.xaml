@@ -48,9 +48,8 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*"/>
                         </Grid.ColumnDefinitions>
                         
                         <GroupBox Header="Ограничения">
@@ -81,16 +80,14 @@
                             </infg:XamDataGrid>
                         </GroupBox>
 
-                        <Button Grid.Column="2" Content="+"/>
-
-                        <GroupBox Header="Потенциальные параметры ограничения" Grid.Column="3">
-                            <infg:XamDataGrid DataSource="{Binding PotentialRelationParameters, UpdateSourceTrigger=PropertyChanged}" 
-                                              Style="{StaticResource ListViewGrid}" >
+                        <GroupBox Header="Потенциальные параметры ограничения" Grid.Column="2">
+                            <infg:XamDataGrid DataSource="{Binding PotentialRelationParameters, UpdateSourceTrigger=PropertyChanged}"
+                                              SelectedDataItem="{Binding SelectedPotentialParameter, Mode=TwoWay}">
                                 <infg:XamDataGrid.FieldLayouts>
                                     <infg:FieldLayout>
                                         <infg:FieldLayout.Fields>
-                                            <infg:TextField Name="ParameterGroup" Label="Группа" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
                                             <infg:TextField Name="Value" Label="Значение" Width="Auto" />
+                                            <infg:TextField Name="ParameterGroup" Label="Группа" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
                                         </infg:FieldLayout.Fields>
                                     </infg:FieldLayout>
                                 </infg:XamDataGrid.FieldLayouts>
