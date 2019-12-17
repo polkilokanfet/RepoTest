@@ -88,8 +88,8 @@
                             <infgDp:TextField AlternateBinding="{Binding Product}" BindingType="UseAlternateBinding" Label="Оборудование" Width="Auto"/>
                             <infgDp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" AllowResize="False"/>
                             <infgDp:NumericField AlternateBinding="{Binding UnitPrice, UpdateSourceTrigger=PropertyChanged}" BindingType="UseAlternateBinding" Label="Цена за ед." Width="Auto" AllowResize="False"/>
-                            <infgDp:DateTimeField AlternateBinding="{Binding OrderInTakeDate, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="ОИТ" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}" Width="Auto" AllowResize="False" />
-                            <infgDp:DateTimeField AlternateBinding="{Binding RealizationDate, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Реализация" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}" Width="Auto" AllowResize="False" />
+                            <infgDp:DateTimeField Name="OrderInTakeDate" Label="ОИТ" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}" Width="Auto" AllowResize="False" />
+                            <infgDp:DateTimeField Name="RealizationDate" Label="Реализация" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}" Width="Auto" AllowResize="False" />
                             <infgDp:TextField AlternateBinding="{Binding PaymentConditionSet}" BindingType="UseAlternateBinding" Label="Условия оплаты" Width="Auto" />
                             <infgDp:Field Name="StructureCosts" IsExpandable="True"/>
 					    </infgDp:FieldLayout.Fields>
