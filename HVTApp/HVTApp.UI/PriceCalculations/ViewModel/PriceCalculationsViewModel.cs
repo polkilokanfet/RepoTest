@@ -3,11 +3,9 @@ using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
-using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.ViewModels;
-using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Regions;
@@ -25,7 +23,6 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
 
         public PriceCalculationsViewModel(IUnityContainer container) : base(container)
         {
-            PreLoad();
             Load();
 
             this.SelectedLookupChanged += lookup =>
@@ -48,32 +45,6 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                 () => SelectedItem != null);
 
             ReloadCommand = new DelegateCommand(Load);
-        }
-
-        private void PreLoad()
-        {
-            if(GlobalAppProperties.User.RoleCurrent != Role.Admin) return;
-
-            var unitOfWork = Container.Resolve<IUnitOfWork>();
-            var calculations = unitOfWork.Repository<PriceCalculation>().Find(x => true).Select(x => new PriceCalculationWrapper(x));
-            var list = new ValidatableChangeTrackingCollection<PriceCalculationWrapper>(calculations);
-
-            foreach (var calculation in list)
-            {
-                foreach (var item in calculation.PriceCalculationItems)
-                {
-                    if (item.OrderInTakeDate == null) item.OrderInTakeDate = item.SalesUnits.First().OrderInTakeDate;
-                    if (item.RealizationDate == null) item.RealizationDate = item.SalesUnits.First().RealizationDateCalculated;
-                    if (item.PaymentConditionSet == null) item.PaymentConditionSet = item.SalesUnits.First().PaymentConditionSet;
-                }
-            }
-
-            if (list.IsValid && list.IsChanged)
-            {
-                list.AcceptChanges();
-                unitOfWork.SaveChanges();
-                Container.Resolve<IMessageService>().ShowOkMessageDialog("", "Даты добавлены");
-            }
         }
 
         private void Load()

@@ -17,7 +17,7 @@
     <infRib:RibbonGroup Caption="Ограничения">
         <infRib:ButtonTool Caption="Создать ограничение" Command="{Binding AddRelationCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
         <infRib:ButtonTool Caption="Удалить ограничение" Command="{Binding RemoveRelationCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>
-        <infRib:ButtonTool Caption="Добавить параметр" Command="{Binding AddParameterToRelationCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>
+        <infRib:ButtonTool Caption="Добавить параметр" Command="{Binding AddParameterToRelationCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
         
     </infRib:RibbonGroup>
 
