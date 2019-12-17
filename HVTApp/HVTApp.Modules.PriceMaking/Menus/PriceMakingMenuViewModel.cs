@@ -1,6 +1,7 @@
 ﻿using HVTApp.Infrastructure;
 using HVTApp.UI.Modules.PriceMaking.Views;
 using HVTApp.UI.PriceCalculations;
+using PriceCalculationsView = HVTApp.UI.PriceCalculations.View.PriceCalculationsView;
 
 namespace HVTApp.Modules.PriceMaking.Menus
 {

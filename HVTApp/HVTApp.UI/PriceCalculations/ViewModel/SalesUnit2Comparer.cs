@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace HVTApp.UI.PriceCalculations
+namespace HVTApp.UI.PriceCalculations.ViewModel
 {
     public class SalesUnit2Comparer : IEqualityComparer<SalesUnit2Wrapper>
     {

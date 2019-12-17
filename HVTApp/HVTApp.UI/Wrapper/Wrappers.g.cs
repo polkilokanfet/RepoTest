@@ -715,6 +715,24 @@ namespace HVTApp.UI.Wrapper
         public bool PriceCalculationIdIsChanged => GetIsChanged(nameof(PriceCalculationId));
 
 
+        public System.Nullable<System.DateTime> OrderInTakeDate
+        {
+          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.DateTime> OrderInTakeDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(OrderInTakeDate));
+        public bool OrderInTakeDateIsChanged => GetIsChanged(nameof(OrderInTakeDate));
+
+
+        public System.Nullable<System.DateTime> RealizationDate
+        {
+          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.DateTime> RealizationDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(RealizationDate));
+        public bool RealizationDateIsChanged => GetIsChanged(nameof(RealizationDate));
+
+
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -722,6 +740,18 @@ namespace HVTApp.UI.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+
+        #endregion
+
+
+        #region ComplexProperties
+
+	    public PaymentConditionSetWrapper PaymentConditionSet 
+        {
+            get { return GetWrapper<PaymentConditionSetWrapper>(); }
+            set { SetComplexValue<PaymentConditionSet, PaymentConditionSetWrapper>(PaymentConditionSet, value); }
+        }
 
 
         #endregion
@@ -736,6 +766,14 @@ namespace HVTApp.UI.Wrapper
 
 
         #endregion
+
+        public override void InitializeComplexProperties()
+        {
+
+            InitializeComplexProperty<PaymentConditionSetWrapper>(nameof(PaymentConditionSet), Model.PaymentConditionSet == null ? null : new PaymentConditionSetWrapper(Model.PaymentConditionSet));
+
+
+        }
 
   
         protected override void InitializeCollectionProperties()
@@ -3016,15 +3054,6 @@ namespace HVTApp.UI.Wrapper
         public bool RealizationDateIsChanged => GetIsChanged(nameof(RealizationDate));
 
 
-        public System.String TceRequest
-        {
-          get { return GetValue<System.String>(); }
-          set { SetValue(value); }
-        }
-        public System.String TceRequestOriginalValue => GetOriginalValue<System.String>(nameof(TceRequest));
-        public bool TceRequestIsChanged => GetIsChanged(nameof(TceRequest));
-
-
         public System.String OrderPosition
         {
           get { return GetValue<System.String>(); }
@@ -3288,6 +3317,9 @@ namespace HVTApp.UI.Wrapper
 
 
         public System.Boolean IsLoosen => GetValue<System.Boolean>(); 
+
+
+        public System.Boolean IsWon => GetValue<System.Boolean>(); 
 
 
         public System.Boolean IsDone => GetValue<System.Boolean>(); 

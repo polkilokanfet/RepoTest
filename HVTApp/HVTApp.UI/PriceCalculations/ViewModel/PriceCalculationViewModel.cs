@@ -16,7 +16,7 @@ using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Events;
 
-namespace HVTApp.UI.PriceCalculations
+namespace HVTApp.UI.PriceCalculations.ViewModel
 {
     public class PriceCalculationViewModel : ViewModelBaseCanExportToExcel
     {
@@ -37,7 +37,7 @@ namespace HVTApp.UI.PriceCalculations
             }
         }
         public bool CurrentUserIsManager => GlobalAppProperties.User.RoleCurrent == Role.SalesManager;
-        public bool CurrentUserIsPricer=> GlobalAppProperties.User.RoleCurrent == Role.Pricer;
+        public bool CurrentUserIsPricer => GlobalAppProperties.User.RoleCurrent == Role.Pricer;
 
         public bool IsStarted => PriceCalculationWrapper?.TaskOpenMoment != null;
         public bool IsFinished => PriceCalculationWrapper?.TaskCloseMoment != null;

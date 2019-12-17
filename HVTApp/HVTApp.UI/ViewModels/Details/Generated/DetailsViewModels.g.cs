@@ -372,6 +372,10 @@ namespace HVTApp.UI.ViewModels
 
     public partial class PriceCalculationItemDetailsViewModel : BaseDetailsViewModel<PriceCalculationItemWrapper, PriceCalculationItem, AfterSavePriceCalculationItemEvent>
     {
+		private Func<Task<List<PaymentConditionSet>>> _getEntitiesForSelectPaymentConditionSetCommand;
+		public ICommand SelectPaymentConditionSetCommand { get; private set; }
+		public ICommand ClearPaymentConditionSetCommand { get; private set; }
+
 		private Func<Task<List<SalesUnit>>> _getEntitiesForAddInSalesUnitsCommand;
 		public ICommand AddInSalesUnitsCommand { get; }
 		public ICommand RemoveFromSalesUnitsCommand { get; }
@@ -408,6 +412,11 @@ namespace HVTApp.UI.ViewModels
         public PriceCalculationItemDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
+			if (_getEntitiesForSelectPaymentConditionSetCommand == null) _getEntitiesForSelectPaymentConditionSetCommand = async () => { return await UnitOfWork.Repository<PaymentConditionSet>().GetAllAsync(); };
+			if (SelectPaymentConditionSetCommand == null) SelectPaymentConditionSetCommand = new DelegateCommand(SelectPaymentConditionSetCommand_Execute_Default);
+			if (ClearPaymentConditionSetCommand == null) ClearPaymentConditionSetCommand = new DelegateCommand(ClearPaymentConditionSetCommand_Execute_Default);
+
+			
 			if (_getEntitiesForAddInSalesUnitsCommand == null) _getEntitiesForAddInSalesUnitsCommand = async () => { return await UnitOfWork.Repository<SalesUnit>().GetAllAsync(); };;
 			if (AddInSalesUnitsCommand == null) AddInSalesUnitsCommand = new DelegateCommand(AddInSalesUnitsCommand_Execute_Default);
 			if (RemoveFromSalesUnitsCommand == null) RemoveFromSalesUnitsCommand = new DelegateCommand(RemoveFromSalesUnitsCommand_Execute_Default, RemoveFromSalesUnitsCommand_CanExecute_Default);
@@ -417,6 +426,17 @@ namespace HVTApp.UI.ViewModels
 			if (AddInStructureCostsCommand == null) AddInStructureCostsCommand = new DelegateCommand(AddInStructureCostsCommand_Execute_Default);
 			if (RemoveFromStructureCostsCommand == null) RemoveFromStructureCostsCommand = new DelegateCommand(RemoveFromStructureCostsCommand_Execute_Default, RemoveFromStructureCostsCommand_CanExecute_Default);
 
+		}
+
+		private async void SelectPaymentConditionSetCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<PaymentConditionSet, PaymentConditionSetWrapper>(await _getEntitiesForSelectPaymentConditionSetCommand(), nameof(Item.PaymentConditionSet), Item.PaymentConditionSet?.Id);
+		}
+
+		private void ClearPaymentConditionSetCommand_Execute_Default() 
+		{
+						Item.PaymentConditionSet = null;
+		    
 		}
 
 			private async void AddInSalesUnitsCommand_Execute_Default()

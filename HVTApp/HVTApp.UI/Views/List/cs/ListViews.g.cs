@@ -3274,6 +3274,20 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility OrderInTakeDateVisibility
+        {
+            get { return PriceCalculationItemLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationItemLookup.OrderInTakeDate)].Visibility; }
+            set { PriceCalculationItemLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationItemLookup.OrderInTakeDate)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility RealizationDateVisibility
+        {
+            get { return PriceCalculationItemLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationItemLookup.RealizationDate)].Visibility; }
+            set { PriceCalculationItemLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationItemLookup.RealizationDate)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility DisplayMemberVisibility
         {
             get { return PriceCalculationItemLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationItemLookup.DisplayMember)].Visibility; }
@@ -4376,13 +4390,6 @@ namespace HVTApp.UI.Views
         }
 
 
-        public System.Windows.Visibility TceRequestVisibility
-        {
-            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.TceRequest)].Visibility; }
-            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.TceRequest)].Visibility = value; }
-        }
-
-
         public System.Windows.Visibility OrderPositionVisibility
         {
             get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.OrderPosition)].Visibility; }
@@ -4513,6 +4520,13 @@ namespace HVTApp.UI.Views
         {
             get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.IsLoosen)].Visibility; }
             set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.IsLoosen)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility IsWonVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.IsWon)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.IsWon)].Visibility = value; }
         }
 
 

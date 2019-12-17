@@ -36,6 +36,8 @@
 					<infg:FieldLayout.Fields>
                     <infg:TextField Name="StructureCosts" Label="Сралчахвосты" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:TextField Name="SalesUnits" Label="Единицы продаж" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
+                    <infg:DateTimeField Name="RealizationDate" Label="Дата реализации" Width="Auto" />
+                    <infg:DateTimeField Name="OrderInTakeDate" Label="Дата ОИТ" Width="Auto" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

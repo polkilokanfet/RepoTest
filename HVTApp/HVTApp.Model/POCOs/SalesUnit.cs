@@ -58,9 +58,6 @@ namespace HVTApp.Model.POCOs
 
         #region Информация о производстве
 
-        [Designation("Запрос в ТСЕ"), MaxLength(20)]
-        public string TceRequest { get; set; }
-
         [Designation("Заказ")]
         public virtual Order Order { get; set; }
 

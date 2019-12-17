@@ -346,26 +346,26 @@
     <Compile Include="Modules\Settings\Views\PasswordView.xaml.cs">
       <DependentUpon>PasswordView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PriceCalculations\PriceCalculation2Wrapper.cs" />
-    <Compile Include="PriceCalculations\PriceCalculationItem2Wrapper.cs" />
-    <Compile Include="PriceCalculations\PriceCalculationItemsViewModel.cs" />
-    <Compile Include="PriceCalculations\PriceCalculationItemsWindow.xaml.cs">
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculation2Wrapper.cs" />
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculationItem2Wrapper.cs" />
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculationItemsViewModel.cs" />
+    <Compile Include="PriceCalculations\View\PriceCalculationItemsWindow.xaml.cs">
       <DependentUpon>PriceCalculationItemsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PriceCalculations\PriceCalculationsView.xaml.cs">
+    <Compile Include="PriceCalculations\View\PriceCalculationsView.xaml.cs">
       <DependentUpon>PriceCalculationsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PriceCalculations\PriceCalculationsViewModel.cs" />
-    <Compile Include="PriceCalculations\PriceCalculationView.xaml.cs">
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculationsViewModel.cs" />
+    <Compile Include="PriceCalculations\View\PriceCalculationView.xaml.cs">
       <DependentUpon>PriceCalculationView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PriceCalculations\PriceCalculationViewModel.cs" />
-    <Compile Include="PriceCalculations\SalesUnit2Comparer.cs" />
-    <Compile Include="PriceCalculations\SalesUnit2Wrapper.cs" />
-    <Compile Include="PriceCalculations\TabPriceCalculation.xaml.cs">
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculationViewModel.cs" />
+    <Compile Include="PriceCalculations\ViewModel\SalesUnit2Comparer.cs" />
+    <Compile Include="PriceCalculations\ViewModel\SalesUnit2Wrapper.cs" />
+    <Compile Include="PriceCalculations\Tabs\TabPriceCalculation.xaml.cs">
       <DependentUpon>TabPriceCalculation.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PriceCalculations\TabPriceCalculations.xaml.cs">
+    <Compile Include="PriceCalculations\Tabs\TabPriceCalculations.xaml.cs">
       <DependentUpon>TabPriceCalculations.xaml</DependentUpon>
     </Compile>
     <Compile Include="Tabs\TabRefresh.xaml.cs">
@@ -870,23 +870,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="PriceCalculations\PriceCalculationItemsWindow.xaml">
+    <Page Include="PriceCalculations\View\PriceCalculationItemsWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="PriceCalculations\PriceCalculationsView.xaml">
+    <Page Include="PriceCalculations\View\PriceCalculationsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="PriceCalculations\PriceCalculationView.xaml">
+    <Page Include="PriceCalculations\View\PriceCalculationView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="PriceCalculations\TabPriceCalculation.xaml">
+    <Page Include="PriceCalculations\Tabs\TabPriceCalculation.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="PriceCalculations\TabPriceCalculations.xaml">
+    <Page Include="PriceCalculations\Tabs\TabPriceCalculations.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

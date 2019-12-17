@@ -10,7 +10,7 @@ using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Regions;
 
-namespace HVTApp.UI.PriceCalculations
+namespace HVTApp.UI.PriceCalculations.ViewModel
 {
     public class PriceCalculationsViewModel : PriceCalculationLookupListViewModel
     {
@@ -25,19 +25,22 @@ namespace HVTApp.UI.PriceCalculations
         {
             Load();
 
-            this.SelectedLookupChanged += lookup => { ((DelegateCommand)EditCalculationCommand).RaiseCanExecuteChanged(); };
+            this.SelectedLookupChanged += lookup =>
+            {
+                ((DelegateCommand)EditCalculationCommand).RaiseCanExecuteChanged();
+            };
 
             NewCalculationCommand = new DelegateCommand(
                 () =>
                 {
-                    RegionManager.RequestNavigateContentRegion<PriceCalculationView>(new NavigationParameters { { nameof(PriceCalculation), new PriceCalculation() } });
+                    RegionManager.RequestNavigateContentRegion<View.PriceCalculationView>(new NavigationParameters { { nameof(PriceCalculation), new PriceCalculation() } });
                 });
 
 
             EditCalculationCommand = new DelegateCommand(
                 () =>
                 {
-                    RegionManager.RequestNavigateContentRegion<PriceCalculationView>(new NavigationParameters { { nameof(PriceCalculation), SelectedItem } });
+                    RegionManager.RequestNavigateContentRegion<View.PriceCalculationView>(new NavigationParameters { { nameof(PriceCalculation), SelectedItem } });
                 },
                 () => SelectedItem != null);
 
@@ -51,7 +54,6 @@ namespace HVTApp.UI.PriceCalculations
             IEnumerable<PriceCalculation> calculations = CurrentUserIsManager 
                 ? UnitOfWork.Repository<PriceCalculation>().Find(IsCalculationOfManager) 
                 : UnitOfWork.Repository<PriceCalculation>().Find(x => x.TaskOpenMoment.HasValue);
-
 
             this.Load(calculations.OrderByDescending(x => x.TaskOpenMoment));
         }

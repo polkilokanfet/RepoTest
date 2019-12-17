@@ -3,7 +3,7 @@ using System.Linq;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Wrapper;
 
-namespace HVTApp.UI.PriceCalculations
+namespace HVTApp.UI.PriceCalculations.ViewModel
 {
     public class PriceCalculationItem2Wrapper : WrapperBase<PriceCalculationItem>
     {
@@ -12,34 +12,66 @@ namespace HVTApp.UI.PriceCalculations
         public Product Product => Model.SalesUnits.FirstOrDefault()?.Product;
         public int Amount => Model.SalesUnits.Count;
         public double? UnitPrice => StructureCosts.Sum(x => x.Total);
-        public DateTime? OrderInTakeDate => Model.SalesUnits.FirstOrDefault()?.OrderInTakeDate;
-        public DateTime? RealizationDate => Model.SalesUnits.FirstOrDefault()?.RealizationDateCalculated;
-        public PaymentConditionSet PaymentConditionSet => Model.SalesUnits.FirstOrDefault()?.PaymentConditionSet;
 
         public PriceCalculationItem2Wrapper(PriceCalculationItem model) : base(model)
         {
-            this.SalesUnits.CollectionChanged += (sender, args) => { OnPropertyChanged(string.Empty); };
+
+            this.SalesUnits.CollectionChanged += (sender, args) =>
+            {
+                if (!Model.OrderInTakeDate.HasValue)
+                    OrderInTakeDate = Model.SalesUnits.FirstOrDefault()?.OrderInTakeDate;
+
+                if (!Model.RealizationDate.HasValue)
+                    RealizationDate = Model.SalesUnits.FirstOrDefault()?.RealizationDateCalculated;
+
+                if (Model.PaymentConditionSet == null)
+                    PaymentConditionSet = Model.SalesUnits.FirstOrDefault()?.PaymentConditionSet;
+
+                OnPropertyChanged(string.Empty);
+            };
 
             this.StructureCosts.PropertyChanged += (sender, args) =>
             {
-                this.OnPropertyChanged(nameof(PriceCalculationItem2Wrapper.UnitPrice));
+                this.OnPropertyChanged(nameof(UnitPrice));
             };
 
             this.StructureCosts.CollectionChanged += (sender, args) =>
             {
-                this.OnPropertyChanged(nameof(PriceCalculationItem2Wrapper.UnitPrice));
+                this.OnPropertyChanged(nameof(UnitPrice));
             };
         }
 
         #region SimpleProperties
 
-        public System.Guid PriceCalculationId
+        public Guid PriceCalculationId
         {
-            get { return GetValue<System.Guid>(); }
+            get { return GetValue<Guid>(); }
             set { SetValue(value); }
         }
-        public System.Guid PriceCalculationIdOriginalValue => GetOriginalValue<System.Guid>(nameof(PriceCalculationId));
+        public Guid PriceCalculationIdOriginalValue => GetOriginalValue<Guid>(nameof(PriceCalculationId));
         public bool PriceCalculationIdIsChanged => GetIsChanged(nameof(PriceCalculationId));
+
+        #endregion
+
+        #region ComplexProperties
+
+        public DateTime? OrderInTakeDate
+        {
+            get { return GetValue<DateTime?>(); }
+            set { SetValue(value); }
+        }
+
+        public DateTime? RealizationDate
+        {
+            get { return GetValue<DateTime?>(); }
+            set { SetValue(value); }
+        }
+
+        public PaymentConditionSet PaymentConditionSet
+        {
+            get { return GetValue<PaymentConditionSet>(); }
+            set { SetValue(value); }
+        }
 
         #endregion
 

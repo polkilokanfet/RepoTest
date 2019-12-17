@@ -412,6 +412,23 @@ namespace HVTApp.UI.Lookup
         public System.Guid PriceCalculationId => Entity.PriceCalculationId;
 
 
+		[OrderStatus(1)]
+        public System.Nullable<System.DateTime> OrderInTakeDate => Entity.OrderInTakeDate;
+
+
+		[OrderStatus(1)]
+        public System.Nullable<System.DateTime> RealizationDate => Entity.RealizationDate;
+
+
+        #endregion
+
+
+        #region ComplexProperties
+
+		[OrderStatus(1)]
+	    public PaymentConditionSetLookup PaymentConditionSet { get { return GetLookup<PaymentConditionSetLookup>(); } }
+
+
         #endregion
 
 		[OrderStatus(1)]
@@ -1633,10 +1650,6 @@ namespace HVTApp.UI.Lookup
 
 
 		[OrderStatus(1)]
-        public System.String TceRequest => Entity.TceRequest;
-
-
-		[OrderStatus(1)]
         public System.String OrderPosition => Entity.OrderPosition;
 
 
@@ -1710,6 +1723,10 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
         public System.Boolean IsLoosen => Entity.IsLoosen;
+
+
+		[OrderStatus(1)]
+        public System.Boolean IsWon => Entity.IsWon;
 
 
 		[OrderStatus(1)]

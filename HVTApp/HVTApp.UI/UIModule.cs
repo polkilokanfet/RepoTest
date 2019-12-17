@@ -5,10 +5,14 @@ using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Prism;
 using HVTApp.UI.Modules.Reports.Views;
 using HVTApp.UI.PriceCalculations;
+using HVTApp.UI.PriceCalculations.ViewModel;
 using HVTApp.UI.ViewModels;
 using HVTApp.UI.Views;
 using Microsoft.Practices.Unity;
 using Prism.Regions;
+using PriceCalculationItemsWindow = HVTApp.UI.PriceCalculations.View.PriceCalculationItemsWindow;
+using PriceCalculationsView = HVTApp.UI.PriceCalculations.View.PriceCalculationsView;
+using PriceCalculationView = HVTApp.UI.PriceCalculations.View.PriceCalculationView;
 
 namespace HVTApp.UI
 {

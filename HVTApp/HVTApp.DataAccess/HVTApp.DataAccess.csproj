@@ -154,6 +154,10 @@
     <Compile Include="Migrations\201912030554078_RemoveStructureCosts.Designer.cs">
       <DependentUpon>201912030554078_RemoveStructureCosts.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201912170610221_17122019.cs" />
+    <Compile Include="Migrations\201912170610221_17122019.Designer.cs">
+      <DependentUpon>201912170610221_17122019.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -224,6 +228,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201912030554078_RemoveStructureCosts.resx">
       <DependentUpon>201912030554078_RemoveStructureCosts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912170610221_17122019.resx">
+      <DependentUpon>201912170610221_17122019.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

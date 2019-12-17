@@ -57,7 +57,6 @@
                     <infg:TextField Name="Producer" Label="Производитель" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Order" Label="Заказ" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="AddressDelivery" Label="Адрес доставки" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="TceRequest" Label="Запрос в ТСЕ" Width="Auto" />
                     <infg:NumericField Name="SumToStartProduction" Label="Сумма старта производства" Width="Auto" />
                     <infg:NumericField Name="SumToShipping" Label="Сумма отгрузки" Width="Auto" />
                     <infg:NumericField Name="SumPaid" Label="Оплачено" Width="Auto" />
@@ -79,6 +78,7 @@
                     <infg:TextField Name="PaymentsActual" Label="Совершённые платежи" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:TextField Name="OrderPosition" Label="Позиция" Width="Auto" />
                     <infg:TextField Name="LosingReasons" Label="Причины проигрыша" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
+                    <infg:CheckBoxField Name="IsWon" Label="Выиграно" Width="Auto" />
                     <infg:CheckBoxField Name="IsPaid" Label="Оплачено?" Width="Auto" />
                     <infg:CheckBoxField Name="IsLoosen" Label="Проиграно" Width="Auto" />
                     <infg:CheckBoxField Name="IsDone" Label="Исполнено" Width="Auto" />

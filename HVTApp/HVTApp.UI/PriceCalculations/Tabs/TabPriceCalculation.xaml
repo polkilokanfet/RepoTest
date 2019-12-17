@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:infRib="http://infragistics.com/Ribbon" 
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-             x:Class="HVTApp.UI.PriceCalculations.TabPriceCalculation"
+             x:Class="HVTApp.UI.PriceCalculations.Tabs.TabPriceCalculation"
              Header="Задание на расчет себестоимости">
 
     <infRib:RibbonGroup Caption="Сралчахвост" Visibility="{Binding CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityConverter}}">

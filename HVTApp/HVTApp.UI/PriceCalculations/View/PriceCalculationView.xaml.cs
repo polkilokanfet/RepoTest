@@ -2,13 +2,13 @@
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.PriceCalculations.ViewModel;
 using Prism.Events;
 using Prism.Regions;
-using ViewBase = HVTApp.Infrastructure.ViewBase;
 
-namespace HVTApp.UI.PriceCalculations
+namespace HVTApp.UI.PriceCalculations.View
 {
-    [RibbonTab(typeof(TabPriceCalculation))]
+    [RibbonTab(typeof(Tabs.TabPriceCalculation))]
     public partial class PriceCalculationView : ViewBase
     {
         private readonly PriceCalculationViewModel _viewModel;

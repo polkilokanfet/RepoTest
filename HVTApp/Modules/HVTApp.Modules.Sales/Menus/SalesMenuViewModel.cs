@@ -3,6 +3,7 @@ using HVTApp.UI.Modules.Sales.Views;
 using HVTApp.UI.PriceCalculations;
 using Market2View = HVTApp.UI.Modules.Sales.Views.MarketView.Market2View;
 using PaymentsView = HVTApp.UI.Modules.Sales.Views.PaymentsView;
+using PriceCalculationsView = HVTApp.UI.PriceCalculations.View.PriceCalculationsView;
 using ProductionView = HVTApp.UI.Modules.Sales.Views.ProductionView;
 using ShippingView = HVTApp.UI.Modules.Sales.Views.ShippingView;
 

@@ -16,5 +16,14 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Сралчахвосты"), Required]
         public virtual List<StructureCost> StructureCosts { get; set; } = new List<StructureCost>();
+
+        [Designation("Дата ОИТ")]
+        public DateTime? OrderInTakeDate { get; set; }
+
+        [Designation("Дата реализации")]
+        public DateTime? RealizationDate { get; set; }
+
+        [Designation("Условия оплаты")]
+        public virtual PaymentConditionSet PaymentConditionSet { get; set; }
     }
 }

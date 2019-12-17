@@ -7,6 +7,7 @@ using HVTApp.UI.PriceCalculations;
 using Microsoft.Practices.Unity;
 using Prism.Regions;
 using HVTApp.Infrastructure.Extansions;
+using PriceCalculationView = HVTApp.UI.PriceCalculations.View.PriceCalculationView;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels
 {
