@@ -10,20 +10,6 @@ using HVTApp.UI.Lookup;
 
 namespace HVTApp.UI
 {
-    class PropOrderComparer : IComparer<PropertyInfo>
-    {
-        public int Compare(PropertyInfo x, PropertyInfo y)
-        {
-            if (x == null) throw new ArgumentNullException();
-            if (y == null) throw new ArgumentNullException();
-
-            int result = (int)x.OrderStatus() - (int)y.OrderStatus();
-            if (result != 0) return result;
-
-            return x.Designation().CompareTo(y.Designation());
-        }
-    }
-
     public static class GeneratorHelpers
     {
 
@@ -108,6 +94,14 @@ namespace HVTApp.UI
                                                          x.Name != nameof(ILookupItemNavigation<IBaseEntity>.Id)).
                                                          OrderByDescending(x => x, new PropOrderComparer());
         }
+
+        public static IEnumerable<PropertyInfo> GetPropertiesForSalesUnitReport(this Type type)
+        {
+            return type.GetProperties()
+                .Where(x => x.Name != nameof(ILookupItemNavigation<IBaseEntity>.Id))
+                .OrderByDescending(x => x, new PropOrderComparer());
+        }
+
 
         public static IEnumerable<PropertyInfo> GetPropertiesForDetailView(this Type type)
         {
@@ -296,4 +290,19 @@ namespace HVTApp.UI
         }
 
     }
+
+    class PropOrderComparer : IComparer<PropertyInfo>
+    {
+        public int Compare(PropertyInfo x, PropertyInfo y)
+        {
+            if (x == null) throw new ArgumentNullException();
+            if (y == null) throw new ArgumentNullException();
+
+            int result = (int)x.OrderStatus() - (int)y.OrderStatus();
+            if (result != 0) return result;
+
+            return x.Designation().CompareTo(y.Designation());
+        }
+    }
+
 }

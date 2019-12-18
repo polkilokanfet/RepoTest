@@ -83,13 +83,10 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DesignationExt.cs" />
-    <Compile Include="GeneratorHelpers.cs" />
     <Compile Include="Menus\ReportsMenu.xaml.cs">
       <DependentUpon>ReportsMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="Menus\ReportsMenuViewModel.cs" />
-    <Compile Include="PropOrderComparer.cs" />
     <Compile Include="ReportsModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -116,9 +113,6 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Add_16x16.png" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\HVTApp.Infrestructure\HVTApp.Infrastructure.csproj">
       <Project>{76518D16-6EA7-4B34-A308-E7AD991421BC}</Project>
       <Name>HVTApp.Infrastructure</Name>
@@ -139,47 +133,13 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Delete_16x16.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Edit_16x16.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\New_16x16.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Print_16x16.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Refresh_16x16.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Save_16x16.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Text_Document_16x16.png" />
-    <Resource Include="Images\Text_Document_32x32.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Presentation_16x16.png" />
-    <Resource Include="Images\Presentation_32x32.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="GeneratorView.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>GeneratorView1.txt</LastGenOutput>
-    </Content>
     <Resource Include="Images\report_16.png" />
     <Resource Include="Images\report_32.png" />
-    <Resource Include="GeneratorView1.txt">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>GeneratorView.tt</DependentUpon>
-    </Resource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -35,14 +35,15 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
 
         public OrderViewModel(IUnityContainer container) : base(container)
         {
+            //сохранить заказ
             SaveOrderCommand = new DelegateCommand(
-                async () =>
+                () =>
                 {
                     _unitsWrappers.AcceptChanges();
-                    await UnitOfWork.SaveChangesAsync();
+                    UnitOfWork.SaveChanges();
                     Container.Resolve<IEventAggregator>().GetEvent<AfterSaveOrderEvent>().Publish(Item.Model);
+                    ((DelegateCommand) SaveOrderCommand).RaiseCanExecuteChanged();
                 },
-
                 () =>
                 {
                     var unitsIsValid = _unitsWrappers != null && _unitsWrappers.IsValid;
@@ -74,7 +75,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
             //оставляем юниты без заказов либо с редактируемым заказом
             //исключаем юниты без сигнала к производству
             var salesUnits = (await UnitOfWork.Repository<SalesUnit>().GetAllAsync())
-                .Where(x => x.SignalToStartProduction != null)
+                .Where(x => x.SignalToStartProduction.HasValue)
                 .Where(x => x.Order == null || x.Order.Id == Item.Id);
             _unitsWrappers = new ValidatableChangeTrackingCollection<SalesUnitOrder>(salesUnits.Select(x => new SalesUnitOrder(x)));
 
@@ -82,12 +83,12 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
             var unitsInOrder = _unitsWrappers.Where(x => x.Order != null).ToList();
             var groupsInOrder = unitsInOrder.GroupBy(x => new
             {
-                Facility = x.Model.Facility.Id,
-                Product = x.Model.Product.Id,
-                Order = x.Order?.Id,
-                Project = x.Model.Project.Id,
-                Specification = x.Model.Specification?.Id,
-                x.EndProductionPlanDate
+                FacilityId = x.Model.Facility.Id,
+                ProductId = x.Model.Product.Id,
+                OrderId = x.Order?.Id,
+                ProjectId = x.Model.Project.Id,
+                SpecificationId = x.Model.Specification?.Id,
+                x.Model.EndProductionPlanDate
             }).OrderBy(x => x.Key.EndProductionPlanDate);
             GroupsInOrder.AddRange(groupsInOrder.Select(x => new SalesUnitOrderGroup(x)));
 
@@ -95,13 +96,13 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
             var unitsToProduct = _unitsWrappers.Except(unitsInOrder).ToList();
             var groupsToProduct = unitsToProduct.GroupBy(x => new
             {
-                Facility = x.Model.Facility.Id,
-                Product = x.Model.Product.Id,
-                Order = x.Order?.Id,
-                Project = x.Model.Project.Id,
-                Specification = x.Model.Specification?.Id,
-                x.Model.DeliveryDateExpected
-            }).OrderBy(x => x.Key.DeliveryDateExpected);
+                FacilityId = x.Model.Facility.Id,
+                ProductId = x.Model.Product.Id,
+                OrderId = x.Order?.Id,
+                ProjectId = x.Model.Project.Id,
+                SpecificationId = x.Model.Specification?.Id,
+                x.Model.EndProductionDateCalculated
+            }).OrderBy(x => x.Key.EndProductionDateCalculated);
             GroupsPotential.AddRange(groupsToProduct.Select(x => new SalesUnitOrderGroup(x)));
 
             //подписка на смену выбранной потенциальной группы в производстве

@@ -1,64 +1,51 @@
-﻿<inf:ViewBase x:Class="HVTApp.UI.Modules.Reports.Views.SalesReportView"
-              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿
+
+
+
+
+
+
+
+
+
+
+
+<inf:ViewBase xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-              xmlns:prism="http://prismlibrary.com/"             
-              prism:ViewModelLocator.AutoWireViewModel="True">
+              x:Class="HVTApp.UI.Views.SalesReportUnitListView">
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
+         <Grid.RowDefinitions>
+             <RowDefinition Height="Auto"/>
+             <RowDefinition Height="*"/>
+         </Grid.RowDefinitions>
+         
         <Label Grid.Row="0" Content="Ожидание данных..." VerticalAlignment="Center" HorizontalAlignment="Center">
             <Label.Style>
                 <Style>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=SalesUnitLookupListGrid, Path=Visibility}" Value="Visible">
-                            <Setter Property="Label.Visibility" Value="Collapsed"/>
-                        </DataTrigger>
-                    </Style.Triggers>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding ElementName=SalesReportUnitListGrid, Path=Visibility}" Value="Visible">
+                        <Setter Property="Label.Visibility" Value="Collapsed"/>
+                    </DataTrigger>
+                </Style.Triggers>
                 </Style>
             </Label.Style>
         </Label>
+       
 
+		<infg:XamDataGrid x:Name="SalesReportUnitListGrid" Grid.Row="1" Style="{StaticResource ListViewGrid}" Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+        
+			<infg:XamDataGrid.ContextMenu>
+				<ContextMenu>
+					<MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
+				</ContextMenu>
+			</infg:XamDataGrid.ContextMenu>
 
-        <infg:XamDataGrid x:Name="SalesUnitLookupListGrid" 
-                          Grid.Row="1"
-                          DataSource="{Binding Units}"
-                          SelectedDataItem="{Binding SelectedSalesReportUnit}"
-                          Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <!--Style="{StaticResource ListViewGrid}"-->
-            <infg:XamDataGrid.FieldLayoutSettings>
-                <infg:FieldLayoutSettings 
-                                          AutoGenerateFields="False"
-                                          AutoFitMode="Always"
-                                          AllowAddNew="False"
-                                          AllowDelete="False"
-                                          AllowFieldMoving="Yes"
-                                          AllowRecordFixing="Top"
-                                          HeaderPrefixAreaDisplayMode="FieldChooserButton"
-                                          HighlightAlternateRecords="True"/>
-                
-            </infg:XamDataGrid.FieldLayoutSettings>
-            
-            <infg:XamDataGrid.FieldSettings>
-                <infg:FieldSettings AllowEdit="False" 
-                                    AllowRecordFiltering="True"
-                                    Width="Auto"/>
-            </infg:XamDataGrid.FieldSettings>
-            
-            <infg:XamDataGrid.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
-                </ContextMenu>
-            </infg:XamDataGrid.ContextMenu>
-
-            <infg:XamDataGrid.FieldLayouts>
-                <infg:FieldLayout>
-                    <infg:FieldLayout.Fields>
+			<infg:XamDataGrid.FieldLayouts>
+				<infg:FieldLayout>
+					<infg:FieldLayout.Fields>
                         <infg:TextField AlternateBinding="{Binding Project}" BindingType="UseAlternateBinding" Label="Проект" Width="Auto" />
                         <infg:TextField AlternateBinding="{Binding Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto" />
                         <infg:TextField AlternateBinding="{Binding Product}" BindingType="UseAlternateBinding" Label="Продукт" Width="Auto" />
@@ -152,12 +139,14 @@
                         <infg:TextField AlternateBinding="{Binding AddressDelivery}" BindingType="UseAlternateBinding" Label="Адрес доставки" Width="Auto" />
                         <infg:TextField AlternateBinding="{Binding SalesUnits}" BindingType="UseAlternateBinding" Label="SalesUnits" Width="Auto" />
                         <infg:TextField AlternateBinding="{Binding PaymentsPlannedActual}" BindingType="UseAlternateBinding" Label="PaymentsPlannedActual" Width="Auto" />
-                    </infg:FieldLayout.Fields>
-                </infg:FieldLayout>
 
-            </infg:XamDataGrid.FieldLayouts>
+					</infg:FieldLayout.Fields>
+				</infg:FieldLayout>
 
-        </infg:XamDataGrid>
+			</infg:XamDataGrid.FieldLayouts>
+		</infg:XamDataGrid>
 
     </Grid>
 </inf:ViewBase>
+
+	

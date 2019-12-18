@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
@@ -13,28 +11,6 @@ using Prism.Regions;
 
 namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
 {
-    public class OrderItem
-    {
-        private readonly List<SalesUnit> _salesUnits;
-
-        public Product Product { get; }
-        public int Amount => _salesUnits.Count;
-        public DateTime EndProductionPlanDate { get; }
-        public int EndProductionPlanDateYear { get; }
-        public int EndProductionPlanDateMonth { get; }
-        public Order Order { get; }
-
-        public OrderItem(IEnumerable<SalesUnit> salesUnits)
-        {
-            _salesUnits = salesUnits.ToList();
-            Product = _salesUnits.First().Product;
-            EndProductionPlanDate = _salesUnits.First().EndProductionPlanDate.Value;
-            EndProductionPlanDateYear = EndProductionPlanDate.Year;
-            EndProductionPlanDateMonth = EndProductionPlanDate.Month;
-            Order = _salesUnits.First().Order;
-        }
-    }
-
     public class ProductionPlanViewModel : ViewModelBase
     {
         private OrderItem _selectedOrderItem;
@@ -55,12 +31,12 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
 
         public ProductionPlanViewModel(IUnityContainer container) : base(container)
         {
-            var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => x.EndProductionPlanDate != null);
+            var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => x.Order != null);
             var groups = salesUnits.GroupBy(x => new
             {
-                Product = x.Product.Id,
+                ProductId = x.Product.Id,
                 EndProductionPlanDate = x.EndProductionPlanDate,
-                Order = x.Order.Id
+                OrderId = x.Order.Id
             }).OrderBy(x => x.Key.EndProductionPlanDate);
 
             OrderItems = new ObservableCollection<OrderItem>(groups.Select(x => new OrderItem(x)));
@@ -70,6 +46,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
                 {
                     RequestNavigate(new Order());
                 });
+
             EditOrderCommand = new DelegateCommand(
                 () => { RequestNavigate(SelectedOrderItem.Order); }, 
                 () => SelectedOrderItem != null);
@@ -77,7 +54,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
 
         private void RequestNavigate(Order order)
         {
-            Container.Resolve<IRegionManager>().RequestNavigateContentRegion<OrderView>(new NavigationParameters { { "", order } });
+            Container.Resolve<IRegionManager>().RequestNavigateContentRegion<OrderView>(new NavigationParameters { { nameof(Order), order } });
         }
 
     }
