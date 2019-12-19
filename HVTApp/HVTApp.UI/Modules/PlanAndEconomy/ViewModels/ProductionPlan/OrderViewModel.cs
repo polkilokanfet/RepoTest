@@ -22,7 +22,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
 {
     public class OrderViewModel : OrderDetailsViewModel
     {
-        private IValidatableChangeTrackingCollection<SalesUnitOrder> _unitsWrappers;
+        private IValidatableChangeTrackingCollection<SalesUnitOrderItem> _unitsWrappers;
 
         public SalesUnitOrderGroupsCollection GroupsInOrder { get; } = new SalesUnitOrderGroupsCollection();
         public SalesUnitOrderGroupsCollection GroupsPotential { get; } = new SalesUnitOrderGroupsCollection();
@@ -46,12 +46,23 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
                 },
                 () =>
                 {
+                    //юниты валидны
                     var unitsIsValid = _unitsWrappers != null && _unitsWrappers.IsValid;
                     if (!unitsIsValid) return false;
 
+                    //заказ валиден
                     var orderIsValid = Item != null && Item.IsValid && GroupsInOrder.Any();
                     if (!orderIsValid) return false;
 
+                    //если нет плановых дат производства
+                    if (GroupsInOrder.SelectMany(x => x.Units).Any(x => x.EndProductionPlanDate == null))
+                        return false;
+
+                    //если нет позиций заказа
+                    if (GroupsInOrder.SelectMany(x => x.Units).Any(x => string.IsNullOrEmpty(x.OrderPosition)))
+                        return false;
+
+                    //что-то изменилось
                     return _unitsWrappers.IsChanged || Item.IsChanged;
                 });
 
@@ -77,7 +88,15 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
             var salesUnits = (await UnitOfWork.Repository<SalesUnit>().GetAllAsync())
                 .Where(x => x.SignalToStartProduction.HasValue)
                 .Where(x => x.Order == null || x.Order.Id == Item.Id);
-            _unitsWrappers = new ValidatableChangeTrackingCollection<SalesUnitOrder>(salesUnits.Select(x => new SalesUnitOrder(x)));
+            //все задачи на расчет с номерами стракчакостов
+            var priceCalculationItems = UnitOfWork.Repository<PriceCalculationItem>().Find(x => x.StructureCosts.All(sc => !string.IsNullOrEmpty(sc.Number)));
+
+            _unitsWrappers = new ValidatableChangeTrackingCollection<SalesUnitOrderItem>(salesUnits
+                .Select(x => new SalesUnitOrderItem(x,
+                    priceCalculationItems
+                        .Where(p => p.SalesUnits.Contains(x))
+                        .OrderBy(p => p.OrderInTakeDate)
+                        .LastOrDefault())));
 
             //юниты в заказе
             var unitsInOrder = _unitsWrappers.Where(x => x.Order != null).ToList();
@@ -141,7 +160,8 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
             //фиксируем дату действия и заказ
             unitsGroup.SignalToStartProductionDone = DateTime.Today;
             //ставим предполагаемую дату производства
-            unitsGroup.Units.ForEach(x => x.EndProductionPlanDate = x.Model.DeliveryDateExpected);
+            unitsGroup.EndProductionPlanDate = unitsGroup.Units.First().EndProductionDateExpected;
+            unitsGroup.Units.ForEach(x => x.EndProductionPlanDate = x.EndProductionDateExpected);
             //заполняем позиции заказа
             int orderPosition = 1;
             unitsGroup.Units.ForEach(x => x.OrderPosition = orderPosition++.ToString());
@@ -150,23 +170,23 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
             GroupsPotential.Remove(unitsGroup);
         }
 
-        private void AddUnit(SalesUnitOrder unit)
+        private void AddUnit(SalesUnitOrderItem unit)
         {
             //фиксируем заказ
             unit.Order = Item;
             //фиксируем дату действия и заказ
             unit.SignalToStartProductionDone = DateTime.Today;
             //ставим предполагаемую дату производства
-            unit.EndProductionPlanDate = unit.Model.DeliveryDateExpected;
+            unit.EndProductionPlanDate = unit.EndProductionDateExpected;
             //заполняем позиции заказа
             unit.OrderPosition = "1";
             //добавляем группу в план производства
-            GroupsInOrder.Add(new SalesUnitOrderGroup(new List<SalesUnitOrder> {unit}));
+            GroupsInOrder.Add(new SalesUnitOrderGroup(new List<SalesUnitOrderItem> {unit}));
             //удаляем в подгруппах
             RemoveUnitFromGroup(GroupsPotential, unit);
         }
 
-        private void RemoveUnitFromGroup(SalesUnitOrderGroupsCollection collection, SalesUnitOrder unit)
+        private void RemoveUnitFromGroup(SalesUnitOrderGroupsCollection collection, SalesUnitOrderItem unit)
         {
             //группа из которой необходимо удалить юнит
             var group = collection.Single(x => x.Units.Contains(unit));
@@ -195,7 +215,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
             if (GroupsInOrder.IsUnitSelected)
             {
                 var unit = GroupsInOrder.SelectedUnit;
-                GroupsPotential.Add(new SalesUnitOrderGroup(new List<SalesUnitOrder> { unit }));
+                GroupsPotential.Add(new SalesUnitOrderGroup(new List<SalesUnitOrderItem> { unit }));
                 RemoveUnitFromGroup(GroupsInOrder, unit);
             }
         }

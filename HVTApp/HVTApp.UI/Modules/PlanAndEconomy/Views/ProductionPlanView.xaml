@@ -2,7 +2,6 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-              xmlns:views="clr-namespace:HVTApp.UI.Views"
               xmlns:prism="http://prismlibrary.com/"
               prism:ViewModelLocator.AutoWireViewModel="True"
               x:Class="HVTApp.UI.Modules.PlanAndEconomy.Views.ProductionPlanView">
@@ -13,12 +12,14 @@
             
             <infg:XamDataGrid.FieldLayouts>
                 <infg:FieldLayout>
-                    <infg:TextField Name="Product" Label="Продукт"/>
-                    <infg:NumericField Name="Amount" Label="Кол."/>
-                    <infg:TextField Name="Order" Label="З/з"/>
-                    <infg:DateTimeField Name="EndProductionPlanDate" Label="План выпуска"/>
-                    <infg:NumericField Name="EndProductionPlanDateYear" Label="Год"/>
-                    <infg:NumericField Name="EndProductionPlanDateMonth" Label="Месяц"/>
+                    <infg:TextField Name="Facility" Label="Объект" Width="Auto"/>
+                    <infg:TextField Name="Product" Label="Продукт" Width="Auto"/>
+                    <infg:NumericField Name="Amount" Label="Кол." Width="Auto" AllowResize="False"/>
+                    <infg:TextField Name="Order" Label="З/з" Width="Auto" AllowResize="False"/>
+                    <infg:DateTimeField Name="EndProductionDate" Label="Расчетная дата" Width="Auto" AllowResize="False"/>
+                    <infg:DateTimeField Name="EndProductionPlanDate" Label="Плановая дата" Width="Auto" AllowResize="False"/>
+                    <infg:NumericField Name="EndProductionPlanDateYear" Label="Год" Width="Auto" AllowResize="False"/>
+                    <infg:NumericField Name="EndProductionPlanDateMonth" Label="Месяц" Width="Auto" AllowResize="False"/>
                 </infg:FieldLayout>
             </infg:XamDataGrid.FieldLayouts>
             

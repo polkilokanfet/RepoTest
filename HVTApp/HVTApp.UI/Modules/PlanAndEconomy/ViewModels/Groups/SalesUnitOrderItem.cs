@@ -1,13 +1,14 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+using System.Text;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Wrapper;
 
 namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels.Groups
 {
-    public class SalesUnitOrder : WrapperBase<SalesUnit>, ISalesUnitOrder
+    public class SalesUnitOrderItem : WrapperBase<SalesUnit>, ISalesUnitOrder
     {
+        private readonly PriceCalculationItem _priceCalculationItem;
+
         public DateTime? SignalToStartProductionDone
         {
             get { return GetValue<DateTime?>(); }
@@ -38,22 +39,33 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels.Groups
             set { SetComplexValue<Order, OrderWrapper>(Order, value); }
         }
 
-        public SalesUnitOrder(SalesUnit model) : base(model)
+        public DateTime EndProductionDateExpected => Model.DeliveryDateExpected.AddDays(-Model.DeliveryPeriodCalculated);
+
+
+        public string TceInfo
         {
+            get
+            {
+                if (_priceCalculationItem == null) return string.Empty;
+
+                var sb = new StringBuilder();
+                foreach (var structureCost in _priceCalculationItem.StructureCosts)
+                {
+                    sb.Append($"{structureCost.Comment} = {structureCost.Amount} רע. = {structureCost.Number}; ");
+                }
+                return sb.ToString();
+            }
+        }
+
+
+        public SalesUnitOrderItem(SalesUnit model, PriceCalculationItem priceCalculationItem) : base(model)
+        {
+            _priceCalculationItem = priceCalculationItem;
         }
 
         public override void InitializeComplexProperties()
         {
             InitializeComplexProperty(nameof(Order), Model.Order == null ? null : new OrderWrapper(Model.Order));
         }
-
-        protected override IEnumerable<ValidationResult> ValidateOther()
-        {
-            if (EndProductionPlanDate == null)
-            {
-                yield return new ValidationResult("EndProductionPlanDate is required", new[] { nameof(EndProductionPlanDate) });
-            }
-        }
-
     }
 }

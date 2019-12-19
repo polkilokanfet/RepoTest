@@ -24,12 +24,6 @@
                                       DataSource="{Binding GroupsInOrder}"
                                       SelectedDataItem="{Binding GroupsInOrder.SelectedItem, Mode=TwoWay}">
 
-                        <infg:XamDataGrid.ContextMenu>
-				            <ContextMenu>
-					            <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
-				            </ContextMenu>
-			            </infg:XamDataGrid.ContextMenu>
-
 			            <infg:XamDataGrid.FieldLayouts>
 				            <infg:FieldLayout Key="UnitsInOrder">
                                 <infg:FieldLayout.Fields>
@@ -39,10 +33,9 @@
                                     <infg:TextField AlternateBinding="{Binding Unit.Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto"/>
                                     <infg:TextField AlternateBinding="{Binding Unit.Specification}" BindingType="UseAlternateBinding" Label="Сп.№" Width="Auto"/>
                                     <infg:TextField AlternateBinding="{Binding Unit.Specification.Contract}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
-                                    <infg:TextField AlternateBinding="{Binding Unit.TceRequest}" BindingType="UseAlternateBinding" Label="Запрос в ТСЕ" Width="Auto"/>
-                                    <infg:DateTimeField AlternateBinding="{Binding Unit.DeliveryDateExpected}" BindingType="UseAlternateBinding" Label="Требуемая" Width="Auto"/>
-                                    <infg:DateTimeField AlternateBinding="{Binding EndProductionPlanDate, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Плановая" Width="Auto" AllowEdit="True"/>
-                                    <infg:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Количество" Width="Auto"/>
+                                    <infg:DateTimeField AlternateBinding="{Binding EndProductionDateExpected}" BindingType="UseAlternateBinding" Label="Требуемая" Width="Auto"/>
+                                    <infg:DateTimeField Name="EndProductionPlanDate" Label="Плановая" Width="Auto" AllowResize="False" AllowEdit="True"/>
+                                    <infg:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Количество" Width="Auto" AllowResize="False"/>
                                     <infg:Field Name="Units" IsExpandable="True"/>
                                 </infg:FieldLayout.Fields>
 				            </infg:FieldLayout>
@@ -55,8 +48,9 @@
 
                                 <infg:FieldLayout.Fields>
                                     <infg:TextField AlternateBinding="{Binding OrderPosition, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Позиция заказа" Width="Auto" AllowEdit="True"/>
-                                    <infg:DateTimeField AlternateBinding="{Binding Model.DeliveryDateExpected}" BindingType="UseAlternateBinding" Label="Требуемая дата" Width="Auto"/>
-                                    <infg:DateTimeField AlternateBinding="{Binding EndProductionPlanDate, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Плановая дата производства" Width="Auto" AllowEdit="True"/>
+                                    <infg:DateTimeField AlternateBinding="{Binding EndProductionDateExpected}" BindingType="UseAlternateBinding" Label="Требуемая" Width="Auto" AllowResize="False"/>
+                                    <infg:DateTimeField Name="EndProductionPlanDate" Label="Плановая" Width="Auto" AllowResize="False" AllowEdit="True"/>
+                                    <infg:TextField AlternateBinding="{Binding TceInfo}" BindingType="UseAlternateBinding" Label="ТСЕ" Width="Auto"/>
                                 </infg:FieldLayout.Fields>
                                 
                             </infg:FieldLayout>
@@ -72,12 +66,6 @@
                                       DataSource="{Binding GroupsPotential}"
                                       SelectedDataItem="{Binding GroupsPotential.SelectedItem, Mode=TwoWay}">
 
-                        <infg:XamDataGrid.ContextMenu>
-                            <ContextMenu>
-                                <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
-                            </ContextMenu>
-                        </infg:XamDataGrid.ContextMenu>
-
                         <infg:XamDataGrid.FieldLayouts>
                             <infg:FieldLayout Key="UnitsPotential">
                                 <infg:FieldLayout.Fields>
@@ -87,22 +75,17 @@
                                     <infg:TextField AlternateBinding="{Binding Unit.Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto"/>
                                     <infg:TextField AlternateBinding="{Binding Unit.Specification}" BindingType="UseAlternateBinding" Label="Сп.№" Width="Auto"/>
                                     <infg:TextField AlternateBinding="{Binding Unit.Specification.Contract}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
-                                    <infg:TextField AlternateBinding="{Binding Unit.TceRequest}" BindingType="UseAlternateBinding" Label="Запрос в ТСЕ" Width="Auto"/>
-                                    <infg:DateTimeField AlternateBinding="{Binding Unit.DeliveryDateExpected}" BindingType="UseAlternateBinding" Label="Требуемая" Width="Auto"/>
+                                    <infg:DateTimeField AlternateBinding="{Binding EndProductionDateExpected}" BindingType="UseAlternateBinding" Label="Требуемая" Width="Auto"/>
                                     <infg:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Количество" Width="Auto"/>
                                     <infg:Field Name="Units" IsExpandable="True"/>
                                 </infg:FieldLayout.Fields>
                             </infg:FieldLayout>
 
                             <infg:FieldLayout ParentFieldLayoutKey="UnitsPotential" ParentFieldName="Units">
-                                
-                                <infg:FieldLayout.FieldSettings>
-                                    <infg:FieldSettings AllowRecordFiltering="False"/>
-                                </infg:FieldLayout.FieldSettings>
-                                
+                                                               
                                 <infg:FieldLayout.Fields>
-                                    <infg:TextField AlternateBinding="{Binding OrderPosition}" BindingType="UseAlternateBinding" Label="Позиция заказа" Width="Auto"/>
-                                    <infg:DateTimeField AlternateBinding="{Binding Model.DeliveryDateExpected}" BindingType="UseAlternateBinding" Label="Требуемая дата" Width="Auto"/>
+                                    <infg:DateTimeField AlternateBinding="{Binding EndProductionDateExpected}" BindingType="UseAlternateBinding" Label="Требуемая" Width="Auto" AllowResize="False"/>
+                                    <infg:TextField AlternateBinding="{Binding TceInfo}" BindingType="UseAlternateBinding" Label="ТСЕ" Width="Auto"/>
                                 </infg:FieldLayout.Fields>
                                 
                             </infg:FieldLayout>

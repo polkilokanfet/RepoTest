@@ -97,7 +97,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
                 priceCalculationItems
                     .Where(p => p.SalesUnits.Contains(x))
                     .OrderBy(p => p.OrderInTakeDate)
-                    .Last())).ToList();
+                    .LastOrDefault())).ToList();
 
             var groupsToProduction = productionItems
                 .Where(x => !x.SignalToStartProduction.HasValue)

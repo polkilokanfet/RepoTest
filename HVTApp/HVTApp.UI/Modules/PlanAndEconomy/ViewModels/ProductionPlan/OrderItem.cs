@@ -9,8 +9,10 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
     {
         private readonly List<SalesUnit> _salesUnits;
 
+        public Facility Facility { get; }
         public Product Product { get; }
         public int Amount => _salesUnits.Count;
+        public DateTime EndProductionDate { get; }
         public DateTime EndProductionPlanDate { get; }
         public int EndProductionPlanDateYear { get; }
         public int EndProductionPlanDateMonth { get; }
@@ -19,7 +21,9 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
         public OrderItem(IEnumerable<SalesUnit> salesUnits)
         {
             _salesUnits = salesUnits.ToList();
+            Facility = _salesUnits.First().Facility;
             Product = _salesUnits.First().Product;
+            EndProductionDate = _salesUnits.First().EndProductionDateCalculated;
             EndProductionPlanDate = _salesUnits.First().EndProductionPlanDate.Value;
             EndProductionPlanDateYear = EndProductionPlanDate.Year;
             EndProductionPlanDateMonth = EndProductionPlanDate.Month;

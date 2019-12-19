@@ -24,12 +24,13 @@
                                 <infg:TextField AlternateBinding="{Binding SalesUnit.Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
                                 <infg:TextField AlternateBinding="{Binding SalesUnit.Product.ProductType}" BindingType="UseAlternateBinding" Label="Тип оборудования" Width="Auto"/>
                                 <infg:TextField AlternateBinding="{Binding SalesUnit.Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="Auto"/>
-                                <infg:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" />
+                                <infg:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" AllowResize="False"/>
                                 <infg:TextField AlternateBinding="{Binding SalesUnit.Order}" BindingType="UseAlternateBinding" Label="З/з" Width="Auto"/>
                                 <infg:TextField AlternateBinding="{Binding SalesUnit.Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto"/>
                                 <infg:TextField AlternateBinding="{Binding SalesUnit.Specification}" BindingType="UseAlternateBinding" Label="Сп.№" Width="Auto"/>
                                 <infg:TextField AlternateBinding="{Binding SalesUnit.Specification.Contract}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
-                                <infg:DateTimeField AlternateBinding="{Binding SalesUnit.EndProductionDateCalculated}" BindingType="UseAlternateBinding" Label="Дата производства" Width="Auto"/>
+                                <infg:DateTimeField AlternateBinding="{Binding SalesUnit.EndProductionDateCalculated}" BindingType="UseAlternateBinding" Label="Фактическая" Width="Auto" AllowResize="False"/>
+                                <infg:DateTimeField AlternateBinding="{Binding EndProductionDateExpected}" BindingType="UseAlternateBinding" Label="Требуемая" Width="Auto" AllowResize="False"/>
                             </infg:FieldLayout.Fields>
 				        </infg:FieldLayout>
 
@@ -56,7 +57,7 @@
                                 <infg:TextField AlternateBinding="{Binding SalesUnit.Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto"/>
                                 <infg:TextField AlternateBinding="{Binding SalesUnit.Specification}" BindingType="UseAlternateBinding" Label="Сп.№" Width="Auto"/>
                                 <infg:TextField AlternateBinding="{Binding SalesUnit.Specification.Contract}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
-                                <infg:DateTimeField AlternateBinding="{Binding SalesUnit.EndProductionDateCalculated}" BindingType="UseAlternateBinding" Label="Дата производства" Width="Auto"/>
+                                <infg:DateTimeField Name="EndProductionDateExpected" Label="Требуемая" AllowEdit="True" Width="Auto" AllowResize="False"/>
                                 <infg:Field Name="ProductionItems" IsExpandable="True"/>
                             </infg:FieldLayout.Fields>
 				        </infg:FieldLayout>
@@ -69,7 +70,7 @@
                                 <infg:TextField AlternateBinding="{Binding Model.Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto"/>
                                 <infg:TextField AlternateBinding="{Binding Model.Specification}" BindingType="UseAlternateBinding" Label="Сп.№" Width="Auto"/>
                                 <infg:TextField AlternateBinding="{Binding Model.Specification.Contract}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
-                                <infg:DateTimeField AlternateBinding="{Binding Model.EndProductionDateCalculated}" BindingType="UseAlternateBinding" Label="Дата производства" Width="Auto"/>
+                                <infg:DateTimeField Name="EndProductionDateExpected" Label="Требуемая" AllowEdit="True" Width="Auto" AllowResize="False"/>
                                 <infg:DateTimeField AlternateBinding="{Binding TceInfo}" BindingType="UseAlternateBinding" Label="TCE" Width="Auto"/>
                             </infg:FieldLayout.Fields>
 				        </infg:FieldLayout>

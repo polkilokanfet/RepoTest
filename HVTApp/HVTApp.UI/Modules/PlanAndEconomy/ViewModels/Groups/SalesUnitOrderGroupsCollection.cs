@@ -22,7 +22,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels.Groups
 
         public SalesUnitOrderGroup SelectedGroup => SelectedItem as SalesUnitOrderGroup;
 
-        public SalesUnitOrder SelectedUnit => SelectedItem as SalesUnitOrder;
+        public SalesUnitOrderItem SelectedUnit => SelectedItem as SalesUnitOrderItem;
 
         public bool IsGroupSelected => SelectedGroup != null;
 

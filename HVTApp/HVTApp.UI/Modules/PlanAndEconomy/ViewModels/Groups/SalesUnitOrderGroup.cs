@@ -17,7 +17,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels.Groups
         private DateTime? _endProductionPlanDate;
         private OrderWrapper _order;
 
-        public ObservableCollection<SalesUnitOrder> Units { get; }
+        public ObservableCollection<SalesUnitOrderItem> Units { get; }
 
         public SalesUnit Unit => Units.First().Model;
 
@@ -55,9 +55,12 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels.Groups
             }
         }
 
-        public SalesUnitOrderGroup(IEnumerable<SalesUnitOrder> salesUnits)
+        public DateTime EndProductionDateExpected => Units.First().EndProductionDateExpected;
+
+
+        public SalesUnitOrderGroup(IEnumerable<SalesUnitOrderItem> salesUnits)
         {
-            Units = new ObservableCollection<SalesUnitOrder>(salesUnits);
+            Units = new ObservableCollection<SalesUnitOrderItem>(salesUnits);
             _endProductionPlanDate = Units.First().EndProductionPlanDate;
         }
 

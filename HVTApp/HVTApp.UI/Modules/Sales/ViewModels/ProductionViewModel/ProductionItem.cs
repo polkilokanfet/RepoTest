@@ -22,10 +22,30 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             set { SetValue(value); }
         }
 
+        public DateTime DeliveryDateExpected
+        {
+            get { return GetValue<DateTime>(); }
+            set { SetValue(value); }
+        }
+
+
+        public DateTime EndProductionDateExpected
+        {
+            get { return Model.DeliveryDateExpected.AddDays(-Model.DeliveryPeriodCalculated); }
+            set
+            {
+                this.DeliveryDateExpected = value.AddDays(Model.DeliveryPeriodCalculated);
+                OnPropertyChanged();
+            }
+        }
+
+
         public string TceInfo
         {
             get
             {
+                if (_priceCalculationItem == null) return "no information";
+
                 var sb = new StringBuilder();
                 foreach (var structureCost in _priceCalculationItem.StructureCosts)
                 {

@@ -25,6 +25,12 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             }
         }
 
+        public DateTime EndProductionDateExpected
+        {
+            get { return ProductionItems.First().EndProductionDateExpected; }
+            set { ProductionItems.ForEach(x => x.EndProductionDateExpected = value);}
+        }
+
         public ProductionGroup(IEnumerable<ProductionItem> productionItems)
         {
             ProductionItems = new ValidatableChangeTrackingCollection<ProductionItem>(productionItems);
