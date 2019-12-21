@@ -40,10 +40,25 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
         public PaymentsViewModel(IUnityContainer container) : base(container)
         {
-            SaveCommand = new DelegateCommand(SaveCommand_Execute, () => _salesUnitWrappers != null && _salesUnitWrappers.IsChanged && _salesUnitWrappers.IsValid);
-            ReloadCommand = new DelegateCommand(ReloadCommand_Execute);
+            SaveCommand = new DelegateCommand(
+                () =>
+                {
+                    _salesUnitWrappers.AcceptChanges();
+                    UnitOfWork.SaveChanges();
+                }, 
+                () => _salesUnitWrappers != null && _salesUnitWrappers.IsChanged && _salesUnitWrappers.IsValid);
+
+            ReloadCommand = new DelegateCommand(async () => { await LoadAsync(); });
+
             RefreshCommand = new DelegateCommand(RefreshPayments);
-            RemoveCommand = new DelegateCommand(RemoveCommand_Execute, () => SelectedGroup?.WillSave != null);
+
+            RemoveCommand = new DelegateCommand(
+                () =>
+                {
+                    SelectedGroup.RemovePayments(UnitOfWork);
+                    RefreshPayments();
+                }, 
+                () => SelectedGroup?.WillSave != null);
         }
 
         protected override async Task LoadedAsyncMethod()
@@ -141,27 +156,5 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
                 yield return new PaymentWrapper(salesUnitWrapper, paymentPlanned);
             }
         }
-
-
-        #region Commands
-
-        private void RemoveCommand_Execute()
-        {
-            SelectedGroup.RemovePayments(UnitOfWork);
-            RefreshPayments();
-        }
-
-        private async void ReloadCommand_Execute()
-        {
-            await LoadAsync();
-        }
-
-        private async void SaveCommand_Execute()
-        {
-            _salesUnitWrappers.AcceptChanges();
-            await UnitOfWork.SaveChangesAsync();
-        }
-
-        #endregion
     }
 }

@@ -291,7 +291,8 @@
     <Compile Include="Modules\Sales\ViewModels\Market2ViewModel\Market2ViewModel_Commands.cs" />
     <Compile Include="Modules\Sales\ViewModels\OffersViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\OfferViewModel.cs" />
-    <Compile Include="Modules\Sales\ViewModels\PaymentsViewModel.cs" />
+    <Compile Include="Modules\Sales\ViewModels\Payments\Payments2ViewModel.cs" />
+    <Compile Include="Modules\Sales\ViewModels\Payments\PaymentsViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\ProductionViewModel\ProductionGroup.cs" />
     <Compile Include="Modules\Sales\ViewModels\ProductionViewModel\ProductionItem.cs" />
     <Compile Include="Modules\Sales\ViewModels\ProductionViewModel\ProductionViewModel.cs" />
