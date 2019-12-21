@@ -31,13 +31,17 @@
 				</ContextMenu>
 			</infg:XamDataGrid.ContextMenu>
 
+            <infg:XamDataGrid.InputBindings>
+                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=SelectItemCommand, Mode=OneWay}"/>
+            </infg:XamDataGrid.InputBindings>
+
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:TextField Name="PaymentConditionSet" Label="Условия оплаты" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:DateTimeField Name="RealizationDate" Label="RealizationDate" Width="Auto" />
-                    <infg:DateTimeField Name="OrderInTakeDate" Label="OrderInTakeDate" Width="Auto" />
-                    <infg:NumericField Name="Cost" Label="Cost" Width="Auto" />
+                    <infg:TextField Name="PaymentConditionSet" Label="Условия оплаты" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:DateTimeField Name="RealizationDate" Label="RealizationDate" Width="Auto" AllowResize="True" />
+                    <infg:DateTimeField Name="OrderInTakeDate" Label="OrderInTakeDate" Width="Auto" AllowResize="True" />
+                    <infg:NumericField Name="Cost" Label="Cost" Width="Auto" AllowResize="True" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

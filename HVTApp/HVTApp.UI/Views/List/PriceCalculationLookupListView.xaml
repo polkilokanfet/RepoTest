@@ -31,16 +31,20 @@
 				</ContextMenu>
 			</infg:XamDataGrid.ContextMenu>
 
+            <infg:XamDataGrid.InputBindings>
+                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=SelectItemCommand, Mode=OneWay}"/>
+            </infg:XamDataGrid.InputBindings>
+
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:DateTimeField Name="TaskOpenMoment" Label="Старт задачи" Width="Auto" />
-                    <infg:DateTimeField Name="TaskCloseMoment" Label="Финиш задачи" Width="Auto" />
-                    <infg:TextField Name="PriceCalculationItems" Label="Единицы расчета" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <infg:TextField Name="Name" Label="Название" Width="Auto" />
-                    <infg:CheckBoxField Name="IsNeedExcelFile" Label="Требуется расчетный файл" Width="Auto" />
-                    <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" />
-                    <infg:TextField Name="Manager" Label="Менеджер" Width="Auto" />
+                    <infg:DateTimeField Name="TaskOpenMoment" Label="Старт задачи" Width="Auto" AllowResize="True" />
+                    <infg:DateTimeField Name="TaskCloseMoment" Label="Финиш задачи" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="PriceCalculationItems" Label="Единицы расчета" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                    <infg:TextField Name="Name" Label="Название" Width="Auto" AllowResize="True" />
+                    <infg:CheckBoxField Name="IsNeedExcelFile" Label="Требуется расчетный файл" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="Manager" Label="Менеджер" Width="Auto" AllowResize="True" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

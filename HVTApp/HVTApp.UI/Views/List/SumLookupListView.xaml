@@ -31,6 +31,10 @@
 				</ContextMenu>
 			</infg:XamDataGrid.ContextMenu>
 
+            <infg:XamDataGrid.InputBindings>
+                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=SelectItemCommand, Mode=OneWay}"/>
+            </infg:XamDataGrid.InputBindings>
+
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>

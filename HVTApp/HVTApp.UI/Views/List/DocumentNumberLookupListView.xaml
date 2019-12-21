@@ -31,10 +31,14 @@
 				</ContextMenu>
 			</infg:XamDataGrid.ContextMenu>
 
+            <infg:XamDataGrid.InputBindings>
+                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=SelectItemCommand, Mode=OneWay}"/>
+            </infg:XamDataGrid.InputBindings>
+
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:NumericField Name="Number" Label="Number" Width="Auto" />
+                    <infg:NumericField Name="Number" Label="Number" Width="Auto" AllowResize="True" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

@@ -167,6 +167,10 @@ namespace HVTApp.UI.Views
 				</ContextMenu>
 			</infg:XamDataGrid.ContextMenu>
 
+            <infg:XamDataGrid.InputBindings>
+                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=SelectItemCommand, Mode=OneWay}"/>
+            </infg:XamDataGrid.InputBindings>
+
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
@@ -232,7 +236,7 @@ namespace HVTApp.UI.Views
 
 	if(fieldName == string.Empty) return;
 
-#>                    <infg:<#=fieldName#> Name="<#=property.Name#>" Label="<#=property.DesignationLookup()#>" Width="Auto" <#=end#>/>
+#>                    <infg:<#=fieldName#> Name="<#=property.Name#>" Label="<#=property.DesignationLookup()#>" Width="Auto" AllowResize="True" <#=end#>/>
 <#+ 
   }
 

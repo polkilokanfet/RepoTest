@@ -31,13 +31,17 @@
 				</ContextMenu>
 			</infg:XamDataGrid.ContextMenu>
 
+            <infg:XamDataGrid.InputBindings>
+                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=SelectItemCommand, Mode=OneWay}"/>
+            </infg:XamDataGrid.InputBindings>
+
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:TextField Name="Name" Label="Название" Width="Auto" />
-                    <infg:TextField Name="Type" Label="Тип" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="OwnerCompany" Label="Владелец" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Address" Label="Местоположение" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Name" Label="Название" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="Type" Label="Тип" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="OwnerCompany" Label="Владелец" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Address" Label="Местоположение" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

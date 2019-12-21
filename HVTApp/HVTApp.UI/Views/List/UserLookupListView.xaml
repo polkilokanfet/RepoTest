@@ -31,12 +31,16 @@
 				</ContextMenu>
 			</infg:XamDataGrid.ContextMenu>
 
+            <infg:XamDataGrid.InputBindings>
+                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=SelectItemCommand, Mode=OneWay}"/>
+            </infg:XamDataGrid.InputBindings>
+
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:TextField Name="Employee" Label="Сотрудник" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Login" Label="Логин" Width="Auto" />
-                    <infg:TextField Name="Roles" Label="Роли" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
+                    <infg:TextField Name="Employee" Label="Сотрудник" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Login" Label="Логин" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="Roles" Label="Роли" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

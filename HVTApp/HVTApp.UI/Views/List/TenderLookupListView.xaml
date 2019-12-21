@@ -31,16 +31,20 @@
 				</ContextMenu>
 			</infg:XamDataGrid.ContextMenu>
 
+            <infg:XamDataGrid.InputBindings>
+                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=SelectItemCommand, Mode=OneWay}"/>
+            </infg:XamDataGrid.InputBindings>
+
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:TextField Name="Types" Label="Типы" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <infg:DateTimeField Name="DateOpen" Label="Открытие" Width="Auto" />
-                    <infg:DateTimeField Name="DateClose" Label="Закрытие" Width="Auto" />
-                    <infg:DateTimeField Name="DateNotice" Label="Итоги" Width="Auto" />
-                    <infg:TextField Name="Participants" Label="Участники" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <infg:TextField Name="Winner" Label="Победитель" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Project" Label="Проект" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Types" Label="Типы" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                    <infg:DateTimeField Name="DateOpen" Label="Открытие" Width="Auto" AllowResize="True" />
+                    <infg:DateTimeField Name="DateClose" Label="Закрытие" Width="Auto" AllowResize="True" />
+                    <infg:DateTimeField Name="DateNotice" Label="Итоги" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="Participants" Label="Участники" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                    <infg:TextField Name="Winner" Label="Победитель" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Project" Label="Проект" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

@@ -31,13 +31,17 @@
 				</ContextMenu>
 			</infg:XamDataGrid.ContextMenu>
 
+            <infg:XamDataGrid.InputBindings>
+                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=SelectItemCommand, Mode=OneWay}"/>
+            </infg:XamDataGrid.InputBindings>
+
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" />
-                    <infg:TextField Name="Number" Label="Номер" Width="Auto" />
-                    <infg:NumericField Name="Vat" Label="НДС" Width="Auto" />
-                    <infg:TextField Name="Payments" Label="Платежи" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
+                    <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="Number" Label="Номер" Width="Auto" AllowResize="True" />
+                    <infg:NumericField Name="Vat" Label="НДС" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="Payments" Label="Платежи" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

@@ -31,12 +31,16 @@
 				</ContextMenu>
 			</infg:XamDataGrid.ContextMenu>
 
+            <infg:XamDataGrid.InputBindings>
+                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=SelectItemCommand, Mode=OneWay}"/>
+            </infg:XamDataGrid.InputBindings>
+
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:NumericField Name="PercentPerDay" Label="% за день просрочки" Width="Auto" />
-                    <infg:NumericField Name="PercentLimit" Label="Ограничение штрафа" Width="Auto" />
-                    <infg:NumericField Name="PenaltyPaid" Label="Фактически уплаченные штрафы" Width="Auto" />
+                    <infg:NumericField Name="PercentPerDay" Label="% за день просрочки" Width="Auto" AllowResize="True" />
+                    <infg:NumericField Name="PercentLimit" Label="Ограничение штрафа" Width="Auto" AllowResize="True" />
+                    <infg:NumericField Name="PenaltyPaid" Label="Фактически уплаченные штрафы" Width="Auto" AllowResize="True" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

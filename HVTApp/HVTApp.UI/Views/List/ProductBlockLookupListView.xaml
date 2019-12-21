@@ -31,22 +31,26 @@
 				</ContextMenu>
 			</infg:XamDataGrid.ContextMenu>
 
+            <infg:XamDataGrid.InputBindings>
+                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=SelectItemCommand, Mode=OneWay}"/>
+            </infg:XamDataGrid.InputBindings>
+
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:TextField Name="ProductType" Label="Тип" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:NumericField Name="Weight" Label="Вес" Width="Auto" />
-                    <infg:TextField Name="StructureCostNumber" Label="Сралчахвост" Width="Auto" />
-                    <infg:TextField Name="Prices" Label="Себестоимости" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <infg:TextField Name="Parameters" Label="Параметры" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <infg:DateTimeField Name="LastPriceDate" Label="Дата последнего прайса" Width="Auto" />
-                    <infg:CheckBoxField Name="IsSupervision" Label="Шеф-монтаж" Width="Auto" />
-                    <infg:CheckBoxField Name="IsService" Label="Услуга" Width="Auto" />
-                    <infg:CheckBoxField Name="IsDelivery" Label="Доставка" Width="Auto" />
-                    <infg:TextField Name="FixedCosts" Label="Фиксированные цены" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <infg:TextField Name="DesignationSpecial" Label="Специальное обозначение" Width="Auto" />
-                    <infg:TextField Name="Designation" Label="Обозначение" Width="Auto" />
-                    <infg:TextField Name="Design" Label="Чертеж" Width="Auto" />
+                    <infg:TextField Name="ProductType" Label="Тип" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:NumericField Name="Weight" Label="Вес" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="StructureCostNumber" Label="Сралчахвост" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="Prices" Label="Себестоимости" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                    <infg:TextField Name="Parameters" Label="Параметры" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                    <infg:DateTimeField Name="LastPriceDate" Label="Дата последнего прайса" Width="Auto" AllowResize="True" />
+                    <infg:CheckBoxField Name="IsSupervision" Label="Шеф-монтаж" Width="Auto" AllowResize="True" />
+                    <infg:CheckBoxField Name="IsService" Label="Услуга" Width="Auto" AllowResize="True" />
+                    <infg:CheckBoxField Name="IsDelivery" Label="Доставка" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="FixedCosts" Label="Фиксированные цены" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                    <infg:TextField Name="DesignationSpecial" Label="Специальное обозначение" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="Designation" Label="Обозначение" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="Design" Label="Чертеж" Width="Auto" AllowResize="True" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

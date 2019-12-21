@@ -31,12 +31,16 @@
 				</ContextMenu>
 			</infg:XamDataGrid.ContextMenu>
 
+            <infg:XamDataGrid.InputBindings>
+                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=SelectItemCommand, Mode=OneWay}"/>
+            </infg:XamDataGrid.InputBindings>
+
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" />
-                    <infg:TextField Name="Text" Label="Текст" Width="Auto" />
-                    <infg:CheckBoxField Name="IsImportant" Label="Важно?" Width="Auto" />
+                    <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="Text" Label="Текст" Width="Auto" AllowResize="True" />
+                    <infg:CheckBoxField Name="IsImportant" Label="Важно?" Width="Auto" AllowResize="True" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

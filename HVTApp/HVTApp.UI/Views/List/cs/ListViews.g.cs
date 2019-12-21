@@ -3295,6 +3295,13 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility PaymentConditionSetVisibility
+        {
+            get { return PriceCalculationItemLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationItemLookup.PaymentConditionSet)].Visibility; }
+            set { PriceCalculationItemLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationItemLookup.PaymentConditionSet)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility EntityVisibility
         {
             get { return PriceCalculationItemLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationItemLookup.Entity)].Visibility; }

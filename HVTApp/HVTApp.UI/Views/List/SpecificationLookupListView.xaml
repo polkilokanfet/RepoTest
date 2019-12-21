@@ -31,15 +31,19 @@
 				</ContextMenu>
 			</infg:XamDataGrid.ContextMenu>
 
+            <infg:XamDataGrid.InputBindings>
+                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=SelectItemCommand, Mode=OneWay}"/>
+            </infg:XamDataGrid.InputBindings>
+
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:TextField Name="Company" Label="Контрагент" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Number" Label="№" Width="Auto" />
-                    <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" />
-                    <infg:TextField Name="Contract" Label="Договор" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:NumericField Name="Vat" Label="НДС" Width="Auto" />
-                    <infg:TextField Name="Units" Label="Units" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
+                    <infg:TextField Name="Company" Label="Контрагент" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Number" Label="№" Width="Auto" AllowResize="True" />
+                    <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="Contract" Label="Договор" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:NumericField Name="Vat" Label="НДС" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="Units" Label="Units" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

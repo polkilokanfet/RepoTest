@@ -31,13 +31,17 @@
 				</ContextMenu>
 			</infg:XamDataGrid.ContextMenu>
 
+            <infg:XamDataGrid.InputBindings>
+                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=SelectItemCommand, Mode=OneWay}"/>
+            </infg:XamDataGrid.InputBindings>
+
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:TextField Name="Surname" Label="Фамилия" Width="Auto" />
-                    <infg:TextField Name="Name" Label="Имя" Width="Auto" />
-                    <infg:TextField Name="Patronymic" Label="Отчество" Width="Auto" />
-                    <infg:CheckBoxField Name="IsMan" Label="Мужского пола" Width="Auto" />
+                    <infg:TextField Name="Surname" Label="Фамилия" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="Name" Label="Имя" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="Patronymic" Label="Отчество" Width="Auto" AllowResize="True" />
+                    <infg:CheckBoxField Name="IsMan" Label="Мужского пола" Width="Auto" AllowResize="True" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

@@ -31,14 +31,18 @@
 				</ContextMenu>
 			</infg:XamDataGrid.ContextMenu>
 
+            <infg:XamDataGrid.InputBindings>
+                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=SelectItemCommand, Mode=OneWay}"/>
+            </infg:XamDataGrid.InputBindings>
+
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:NumericField Name="UnitPrice" Label="Себестоимость единицы" Width="Auto" />
-                    <infg:NumericField Name="Total" Label="Total" Width="Auto" />
-                    <infg:TextField Name="Number" Label="Номер" Width="Auto" />
-                    <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" />
-                    <infg:NumericField Name="Amount" Label="Количество" Width="Auto" />
+                    <infg:NumericField Name="UnitPrice" Label="Себестоимость единицы" Width="Auto" AllowResize="True" />
+                    <infg:NumericField Name="Total" Label="Total" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="Number" Label="Номер" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" AllowResize="True" />
+                    <infg:NumericField Name="Amount" Label="Количество" Width="Auto" AllowResize="True" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

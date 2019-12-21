@@ -31,16 +31,20 @@
 				</ContextMenu>
 			</infg:XamDataGrid.ContextMenu>
 
+            <infg:XamDataGrid.InputBindings>
+                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=SelectItemCommand, Mode=OneWay}"/>
+            </infg:XamDataGrid.InputBindings>
+
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:TextField Name="Name" Label="Название" Width="Auto" />
-                    <infg:TextField Name="LocalityType" Label="Тип" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Region" Label="Регион" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:CheckBoxField Name="IsRegionCapital" Label="Столица региона" Width="Auto" />
-                    <infg:CheckBoxField Name="IsDistrictCapital" Label="Столица округа" Width="Auto" />
-                    <infg:CheckBoxField Name="IsCountryCapital" Label="Столица страны" Width="Auto" />
-                    <infg:NumericField Name="DistanceToEkb" Label="Расстояние до Екатеринбурга, км" Width="Auto" />
+                    <infg:TextField Name="Name" Label="Название" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="LocalityType" Label="Тип" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Region" Label="Регион" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:CheckBoxField Name="IsRegionCapital" Label="Столица региона" Width="Auto" AllowResize="True" />
+                    <infg:CheckBoxField Name="IsDistrictCapital" Label="Столица округа" Width="Auto" AllowResize="True" />
+                    <infg:CheckBoxField Name="IsCountryCapital" Label="Столица страны" Width="Auto" AllowResize="True" />
+                    <infg:NumericField Name="DistanceToEkb" Label="Расстояние до Екатеринбурга, км" Width="Auto" AllowResize="True" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

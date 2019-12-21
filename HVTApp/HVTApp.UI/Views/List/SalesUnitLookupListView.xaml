@@ -31,69 +31,73 @@
 				</ContextMenu>
 			</infg:XamDataGrid.ContextMenu>
 
+            <infg:XamDataGrid.InputBindings>
+                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=SelectItemCommand, Mode=OneWay}"/>
+            </infg:XamDataGrid.InputBindings>
+
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:TextField Name="Project" Label="Проект" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Facility" Label="Объект" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Product" Label="Продукт" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:DateTimeField Name="OrderInTakeDate" Label="ОИТ" Width="Auto" />
-                    <infg:NumericField Name="Cost" Label="Стоимость" Width="Auto" />
-                    <infg:NumericField Name="Price" Label="Себестоимость" Width="Auto" />
-                    <infg:NumericField Name="OrderInTakeYear" Label="Год ОИТ" Width="Auto" />
-                    <infg:NumericField Name="OrderInTakeMonth" Label="Месяц ОИТ" Width="Auto" />
-                    <infg:NumericField Name="CostDelivery" Label="Стоимость доставки" Width="Auto" />
-                    <infg:DateTimeField Name="StartProductionConditionsDoneDate" Label="Дата исполнения условий для начала производства" Width="Auto" />
-                    <infg:DateTimeField Name="ShippingConditionsDoneDate" Label="Дата исполнения условий для отгрузки" Width="Auto" />
-                    <infg:DateTimeField Name="StartProductionDateCalculated" Label="Начало производства (расч.)" Width="Auto" />
-                    <infg:DateTimeField Name="EndProductionDateCalculated" Label="Окончание производства (расч.)" Width="Auto" />
-                    <infg:DateTimeField Name="RealizationDateCalculated" Label="Расчетная дата реализации" Width="Auto" />
-                    <infg:DateTimeField Name="ShipmentDateCalculated" Label="Расчетная дата отгрузки" Width="Auto" />
-                    <infg:DateTimeField Name="DeliveryDateCalculated" Label="Расчетная дата доставки" Width="Auto" />
-                    <infg:TextField Name="Penalty" Label="Штрафные санкции" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="PaymentConditionSet" Label="Условия оплаты" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Specification" Label="Спецификация" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="FakeData" Label="Корректировочные данные" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Producer" Label="Производитель" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Order" Label="Заказ" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="AddressDelivery" Label="Адрес доставки" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:NumericField Name="SumToStartProduction" Label="Сумма старта производства" Width="Auto" />
-                    <infg:NumericField Name="SumToShipping" Label="Сумма отгрузки" Width="Auto" />
-                    <infg:NumericField Name="SumPaid" Label="Оплачено" Width="Auto" />
-                    <infg:NumericField Name="SumNotPaid" Label="Неоплачено" Width="Auto" />
-                    <infg:DateTimeField Name="StartProductionDate" Label="Дата начала производства" Width="Auto" />
-                    <infg:DateTimeField Name="SignalToStartProductionDone" Label="Дата размещения в производстве" Width="Auto" />
-                    <infg:DateTimeField Name="SignalToStartProduction" Label="Сигнал менеджера о производстве" Width="Auto" />
-                    <infg:DateTimeField Name="ShipmentPlanDate" Label="Дата отгрузки (плановая)" Width="Auto" />
-                    <infg:DateTimeField Name="ShipmentDate" Label="Дата отгрузки" Width="Auto" />
-                    <infg:TextField Name="SerialNumber" Label="Номер" Width="Auto" />
-                    <infg:DateTimeField Name="RealizationDate" Label="Дата реализации" Width="Auto" />
-                    <infg:TextField Name="ProductsIncluded" Label="Включенные продукты" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <infg:NumericField Name="ProductionTerm" Label="Срок производства" Width="Auto" />
-                    <infg:DateTimeField Name="PickingDate" Label="Дата комплектации" Width="Auto" />
-                    <infg:TextField Name="PaymentsPlannedGenerated" Label="Расчетные плановые платежи" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <infg:TextField Name="PaymentsPlannedCalculated" Label="Расчетные плановые платежи + сохраненные" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <infg:TextField Name="PaymentsPlannedActual" Label="PaymentsPlannedActual" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <infg:TextField Name="PaymentsPlanned" Label="Планируемые платежи" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <infg:TextField Name="PaymentsActual" Label="Совершённые платежи" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <infg:TextField Name="OrderPosition" Label="Позиция" Width="Auto" />
-                    <infg:TextField Name="LosingReasons" Label="Причины проигрыша" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <infg:CheckBoxField Name="IsWon" Label="Выиграно" Width="Auto" />
-                    <infg:CheckBoxField Name="IsPaid" Label="Оплачено?" Width="Auto" />
-                    <infg:CheckBoxField Name="IsLoosen" Label="Проиграно" Width="Auto" />
-                    <infg:CheckBoxField Name="IsDone" Label="Исполнено" Width="Auto" />
-                    <infg:NumericField Name="ExpectedDeliveryPeriodCalculated" Label="Срок доставки расчетный" Width="Auto" />
-                    <infg:NumericField Name="ExpectedDeliveryPeriod" Label="Срок доставки" Width="Auto" />
-                    <infg:DateTimeField Name="EndProductionPlanDate" Label="Плановая дата окончания производства" Width="Auto" />
-                    <infg:DateTimeField Name="EndProductionDate" Label="Дата окончания производства" Width="Auto" />
-                    <infg:NumericField Name="DeliveryPeriodCalculated" Label="Расчетный срок доставки" Width="Auto" />
-                    <infg:DateTimeField Name="DeliveryDateExpected" Label="Требуемая дата поставки" Width="Auto" />
-                    <infg:DateTimeField Name="DeliveryDate" Label="Дата поставки" Width="Auto" />
-                    <infg:CheckBoxField Name="CostDeliveryIncluded" Label="Стоимость доставки включена в основную стоимость" Width="Auto" />
-                    <infg:TextField Name="BankGuarantees" Label="Банковские гарантии" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <infg:NumericField Name="AssembleTerm" Label="Срок сборки" Width="Auto" />
-                    <infg:CheckBoxField Name="AllowEditProduct" Label="Разрешение на редактирование техники" Width="Auto" />
-                    <infg:CheckBoxField Name="AllowEditCost" Label="Разрешение на редактирование стоимости" Width="Auto" />
+                    <infg:TextField Name="Project" Label="Проект" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Facility" Label="Объект" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Product" Label="Продукт" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:DateTimeField Name="OrderInTakeDate" Label="ОИТ" Width="Auto" AllowResize="True" />
+                    <infg:NumericField Name="Cost" Label="Стоимость" Width="Auto" AllowResize="True" />
+                    <infg:NumericField Name="Price" Label="Себестоимость" Width="Auto" AllowResize="True" />
+                    <infg:NumericField Name="OrderInTakeYear" Label="Год ОИТ" Width="Auto" AllowResize="True" />
+                    <infg:NumericField Name="OrderInTakeMonth" Label="Месяц ОИТ" Width="Auto" AllowResize="True" />
+                    <infg:NumericField Name="CostDelivery" Label="Стоимость доставки" Width="Auto" AllowResize="True" />
+                    <infg:DateTimeField Name="StartProductionConditionsDoneDate" Label="Дата исполнения условий для начала производства" Width="Auto" AllowResize="True" />
+                    <infg:DateTimeField Name="ShippingConditionsDoneDate" Label="Дата исполнения условий для отгрузки" Width="Auto" AllowResize="True" />
+                    <infg:DateTimeField Name="StartProductionDateCalculated" Label="Начало производства (расч.)" Width="Auto" AllowResize="True" />
+                    <infg:DateTimeField Name="EndProductionDateCalculated" Label="Окончание производства (расч.)" Width="Auto" AllowResize="True" />
+                    <infg:DateTimeField Name="RealizationDateCalculated" Label="Расчетная дата реализации" Width="Auto" AllowResize="True" />
+                    <infg:DateTimeField Name="ShipmentDateCalculated" Label="Расчетная дата отгрузки" Width="Auto" AllowResize="True" />
+                    <infg:DateTimeField Name="DeliveryDateCalculated" Label="Расчетная дата доставки" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="Penalty" Label="Штрафные санкции" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="PaymentConditionSet" Label="Условия оплаты" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Specification" Label="Спецификация" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="FakeData" Label="Корректировочные данные" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Producer" Label="Производитель" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Order" Label="Заказ" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="AddressDelivery" Label="Адрес доставки" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:NumericField Name="SumToStartProduction" Label="Сумма старта производства" Width="Auto" AllowResize="True" />
+                    <infg:NumericField Name="SumToShipping" Label="Сумма отгрузки" Width="Auto" AllowResize="True" />
+                    <infg:NumericField Name="SumPaid" Label="Оплачено" Width="Auto" AllowResize="True" />
+                    <infg:NumericField Name="SumNotPaid" Label="Неоплачено" Width="Auto" AllowResize="True" />
+                    <infg:DateTimeField Name="StartProductionDate" Label="Дата начала производства" Width="Auto" AllowResize="True" />
+                    <infg:DateTimeField Name="SignalToStartProductionDone" Label="Дата размещения в производстве" Width="Auto" AllowResize="True" />
+                    <infg:DateTimeField Name="SignalToStartProduction" Label="Сигнал менеджера о производстве" Width="Auto" AllowResize="True" />
+                    <infg:DateTimeField Name="ShipmentPlanDate" Label="Дата отгрузки (плановая)" Width="Auto" AllowResize="True" />
+                    <infg:DateTimeField Name="ShipmentDate" Label="Дата отгрузки" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="SerialNumber" Label="Номер" Width="Auto" AllowResize="True" />
+                    <infg:DateTimeField Name="RealizationDate" Label="Дата реализации" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="ProductsIncluded" Label="Включенные продукты" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                    <infg:NumericField Name="ProductionTerm" Label="Срок производства" Width="Auto" AllowResize="True" />
+                    <infg:DateTimeField Name="PickingDate" Label="Дата комплектации" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="PaymentsPlannedGenerated" Label="Расчетные плановые платежи" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                    <infg:TextField Name="PaymentsPlannedCalculated" Label="Расчетные плановые платежи + сохраненные" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                    <infg:TextField Name="PaymentsPlannedActual" Label="PaymentsPlannedActual" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                    <infg:TextField Name="PaymentsPlanned" Label="Планируемые платежи" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                    <infg:TextField Name="PaymentsActual" Label="Совершённые платежи" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                    <infg:TextField Name="OrderPosition" Label="Позиция" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="LosingReasons" Label="Причины проигрыша" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                    <infg:CheckBoxField Name="IsWon" Label="Выиграно" Width="Auto" AllowResize="True" />
+                    <infg:CheckBoxField Name="IsPaid" Label="Оплачено?" Width="Auto" AllowResize="True" />
+                    <infg:CheckBoxField Name="IsLoosen" Label="Проиграно" Width="Auto" AllowResize="True" />
+                    <infg:CheckBoxField Name="IsDone" Label="Исполнено" Width="Auto" AllowResize="True" />
+                    <infg:NumericField Name="ExpectedDeliveryPeriodCalculated" Label="Срок доставки расчетный" Width="Auto" AllowResize="True" />
+                    <infg:NumericField Name="ExpectedDeliveryPeriod" Label="Срок доставки" Width="Auto" AllowResize="True" />
+                    <infg:DateTimeField Name="EndProductionPlanDate" Label="Плановая дата окончания производства" Width="Auto" AllowResize="True" />
+                    <infg:DateTimeField Name="EndProductionDate" Label="Дата окончания производства" Width="Auto" AllowResize="True" />
+                    <infg:NumericField Name="DeliveryPeriodCalculated" Label="Расчетный срок доставки" Width="Auto" AllowResize="True" />
+                    <infg:DateTimeField Name="DeliveryDateExpected" Label="Требуемая дата поставки" Width="Auto" AllowResize="True" />
+                    <infg:DateTimeField Name="DeliveryDate" Label="Дата поставки" Width="Auto" AllowResize="True" />
+                    <infg:CheckBoxField Name="CostDeliveryIncluded" Label="Стоимость доставки включена в основную стоимость" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="BankGuarantees" Label="Банковские гарантии" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                    <infg:NumericField Name="AssembleTerm" Label="Срок сборки" Width="Auto" AllowResize="True" />
+                    <infg:CheckBoxField Name="AllowEditProduct" Label="Разрешение на редактирование техники" Width="Auto" AllowResize="True" />
+                    <infg:CheckBoxField Name="AllowEditCost" Label="Разрешение на редактирование стоимости" Width="Auto" AllowResize="True" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

@@ -31,21 +31,25 @@
 				</ContextMenu>
 			</infg:XamDataGrid.ContextMenu>
 
+            <infg:XamDataGrid.InputBindings>
+                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=SelectItemCommand, Mode=OneWay}"/>
+            </infg:XamDataGrid.InputBindings>
+
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:TextField Name="CompanySender" Label="Компания-отправитель" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="CompanyRecipient" Label="Компания-получатель" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Number" Label="ИД" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="RegNumber" Label="Номер" Width="Auto" />
-                    <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" />
-                    <infg:TextField Name="Author" Label="Автор" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="SenderEmployee" Label="Отправитель" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="RecipientEmployee" Label="Получатель" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="RegistrationDetailsOfRecipient" Label="Рег.данные получателя" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="RequestDocument" Label="Запрос" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="CopyToRecipients" Label="Копия" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" />
+                    <infg:TextField Name="CompanySender" Label="Компания-отправитель" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="CompanyRecipient" Label="Компания-получатель" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Number" Label="ИД" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="RegNumber" Label="Номер" Width="Auto" AllowResize="True" />
+                    <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="Author" Label="Автор" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="SenderEmployee" Label="Отправитель" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="RecipientEmployee" Label="Получатель" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="RegistrationDetailsOfRecipient" Label="Рег.данные получателя" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="RequestDocument" Label="Запрос" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="CopyToRecipients" Label="Копия" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                    <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" AllowResize="True" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>
