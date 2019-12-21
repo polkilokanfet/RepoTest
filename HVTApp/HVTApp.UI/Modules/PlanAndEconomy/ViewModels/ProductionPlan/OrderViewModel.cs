@@ -39,9 +39,13 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
             SaveOrderCommand = new DelegateCommand(
                 () =>
                 {
+                    var changed = _unitsWrappers.ModifiedItems.ToList();
+
                     _unitsWrappers.AcceptChanges();
                     UnitOfWork.SaveChanges();
-                    Container.Resolve<IEventAggregator>().GetEvent<AfterSaveOrderEvent>().Publish(Item.Model);
+
+                    Container.Resolve<IEventAggregator>().GetEvent<AfterSaveOrderItemsEvent>().Publish(changed.Select(x => x.Model));
+
                     ((DelegateCommand) SaveOrderCommand).RaiseCanExecuteChanged();
                 },
                 () =>

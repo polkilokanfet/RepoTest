@@ -3,11 +3,13 @@ using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Modules.PlanAndEconomy.Views;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Regions;
 
 namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
@@ -46,6 +48,14 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
                 () => SelectedOrderItem != null);
 
             ReloadCommand = new DelegateCommand(Load);
+
+            Container.Resolve<IEventAggregator>().GetEvent<AfterSaveOrderItemsEvent>().Subscribe(salesUnits =>
+            {
+                var units = salesUnits.ToList();
+                if (OrderItems.Select(x => x.Order).ContainsById(units.First().Order)) return;
+
+                OrderItems.Add(new OrderItem(units));
+            });
         }
 
         private void Load()
