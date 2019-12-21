@@ -195,18 +195,25 @@
     <Compile Include="Modules\Products\Tabs\TabParameters.xaml.cs">
       <DependentUpon>TabParameters.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Products\Tabs\TabProductTypeDesignation.xaml.cs">
+      <DependentUpon>TabProductTypeDesignation.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Products\Tabs\TabStructureCosts.xaml.cs">
       <DependentUpon>TabStructureCosts.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Products\ViewModels\CreateNewProductTasksViewModel.cs" />
     <Compile Include="Modules\Products\ViewModels\ParametersViewModel.cs" />
     <Compile Include="Modules\Products\ViewModels\ProductBlockStructureCostWrapper.cs" />
+    <Compile Include="Modules\Products\ViewModels\ProductTypeDesignationViewModel.cs" />
     <Compile Include="Modules\Products\ViewModels\StructureCostsViewModel.cs" />
     <Compile Include="Modules\Products\Views\CreateNewProductTasksView.xaml.cs">
       <DependentUpon>CreateNewProductTasksView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Products\Views\ParametersView.xaml.cs">
       <DependentUpon>ParametersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Products\Views\ProductTypeDesignationView.xaml.cs">
+      <DependentUpon>ProductTypeDesignationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Products\Views\StructureCostsView.xaml.cs">
       <DependentUpon>StructureCostsView.xaml</DependentUpon>
@@ -377,6 +384,7 @@
     <Compile Include="ViewModels\Details\EmployeeDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\TenderDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\UserDetailsViewModel.cs" />
+    <Compile Include="ViewModels\List\ProductTypeDesignationLookupListViewModel.cs" />
     <Compile Include="ViewModels\ProductStructureViewModel.cs" />
     <Compile Include="ViewModels\Details\ProductIncludedDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\SalesUnitDetailsViewModel.cs" />
@@ -746,6 +754,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Modules\Products\Tabs\TabProductTypeDesignation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Modules\Products\Tabs\TabStructureCosts.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -755,6 +767,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\Products\Views\ParametersView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Products\Views\ProductTypeDesignationView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

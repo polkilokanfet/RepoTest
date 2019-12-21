@@ -12,14 +12,16 @@ namespace HVTApp.Services.ProductDesignationService
     {
         private readonly IEnumerable<ProductTypeDesignation> _typeDesignations;
 
-        private readonly Dictionary<List<Parameter>, string> _designationDictionary;
+        private readonly Dictionary<List<Parameter>, string> _designationDictionary = new Dictionary<List<Parameter>, string>();
 
         public ProductDesignator(IUnitOfWork unitOfWork)
         {
+            //загрузка всех типов оборудования
             _typeDesignations = unitOfWork.Repository<ProductTypeDesignation>().Find(x => true);
 
+            //загрузка всех обозначений оборудования
             var designations = unitOfWork.Repository<ProductDesignation>().Find(x => true);
-            _designationDictionary = new Dictionary<List<Parameter>, string>();
+
             foreach (var designation in designations)
             {
                 foreach (var kvp in designation.GetDesignationDictionary())
@@ -39,14 +41,13 @@ namespace HVTApp.Services.ProductDesignationService
             if (!string.IsNullOrEmpty(block.DesignationSpecial))
                 return block.DesignationSpecial;
 
-            if (!block.Parameters.Any()) return "В блоке нет параметров!";
+            if (!block.Parameters.Any()) return "Block has no parameters!";
 
             var designation = _designationDictionary.FirstOrDefault(pd => pd.Key.AllContainsIn(block.Parameters, new ParameterComparer()));
 
-            if (!Equals(designation, default(KeyValuePair<List<Parameter>, string>)))
-                return designation.Value;
-
-            return block.ParametersToString();
+            return !Equals(designation, default(KeyValuePair<List<Parameter>, string>)) 
+                ? designation.Value 
+                : block.ParametersToString();
         }
 
         public string GetDesignation(Product product)
@@ -56,7 +57,7 @@ namespace HVTApp.Services.ProductDesignationService
 
         #endregion
 
-        #region
+        #region Type
 
         private readonly ProductType _productTypeNotDef = new ProductType { Name = "Тип не определен" };
 

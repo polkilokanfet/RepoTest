@@ -41,5 +41,10 @@ namespace HVTApp.Model.POCOs
 
             return result;
         }
+
+        public override string ToString()
+        {
+            return Designation;
+        }
     }
 }

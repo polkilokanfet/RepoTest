@@ -1,13 +1,9 @@
 using System;
 using System.Linq;
-using System.Windows.Input;
 using HVTApp.Infrastructure.Extansions;
-using HVTApp.Infrastructure.Services;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Lookup;
-using Microsoft.Practices.Unity;
-using Prism.Commands;
 
 namespace HVTApp.UI.ViewModels
 {

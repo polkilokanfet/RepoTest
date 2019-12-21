@@ -1,0 +1,36 @@
+﻿<inf:ViewBase xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:infg="http://infragistics.com/DataPresenter"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              x:Class="HVTApp.UI.Modules.Products.Views.ProductTypeDesignationView">
+
+    <GroupBox Header="Стракчакосты блоков оборудования">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBox Text="{Binding ProductTypeDesignationWrapper.ProductType.Name, UpdateSourceTrigger=PropertyChanged}"/>
+            
+            <GroupBox Grid.Row="1" Header="Параметры">
+                <infg:XamDataGrid DataSource="{Binding ProductTypeDesignationWrapper.Parameters}"
+                                  SelectedDataItem="{Binding SelectedParameter}">
+        
+			        <infg:XamDataGrid.FieldLayouts>
+				        <infg:FieldLayout>
+                            <infg:FieldLayout.Fields>
+                                <infg:TextField Name="Value" Label="Значение" Width="Auto"/>
+                                <infg:TextField Name="ParameterGroup" Label="Группа" Width="Auto"/>
+                            </infg:FieldLayout.Fields>
+				        </infg:FieldLayout>
+
+			        </infg:XamDataGrid.FieldLayouts>
+		        </infg:XamDataGrid>
+            </GroupBox>
+            
+        </Grid>
+    </GroupBox>
+</inf:ViewBase>
+
+	
