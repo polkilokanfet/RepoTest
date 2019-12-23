@@ -8,6 +8,7 @@ using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Modules.PlanAndEconomy.ViewModels.Groups;
 using HVTApp.UI.Wrapper;
+using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 
@@ -22,6 +23,8 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
 
         public ICommand SaveCommand { get; }
         public ICommand ReloadCommand { get; }
+
+        public bool AutoFillingDates { get; set; } = true;
 
         public DatesViewModel(IUnityContainer container) : base(container)
         {
@@ -42,6 +45,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
                 () => _salesUnits != null &&
                       _salesUnits.IsValid &&
                       _salesUnits.IsChanged);
+
             ReloadCommand = new DelegateCommand(async () => await LoadAsync());
         }
 
@@ -59,6 +63,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
             //подписываемся на изменение каждой сущности
             _salesUnits.PropertyChanged += SalesUnitsOnPropertyChanged;
 
+            Groups.SelectMany(x => x.Units).ForEach(x => x.PropertyChanged -= UnitOnPropertyChanged);
             Groups.Clear();
             var groups = _salesUnits
                 .GroupBy(x => new
@@ -78,6 +83,13 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
                 .OrderBy(x => x.Units.First().Model.OrderInTakeDate);
 
             Groups.AddRange(groups);
+            Groups.SelectMany(x => x.Units).ForEach(x => x.PropertyChanged += UnitOnPropertyChanged);
+        }
+
+        private void UnitOnPropertyChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (AutoFillingDates && args.PropertyName == nameof(SalesUnitDates.ShipmentDate))
+                ((SalesUnitDates)sender).SetCalculatedDates();
         }
 
         private void SalesUnitsOnPropertyChanged(object sender, PropertyChangedEventArgs args)

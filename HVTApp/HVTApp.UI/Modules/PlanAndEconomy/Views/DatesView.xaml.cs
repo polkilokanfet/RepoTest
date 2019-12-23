@@ -7,7 +7,7 @@ using Prism.Regions;
 
 namespace HVTApp.UI.Modules.PlanAndEconomy.Views
 {
-    [RibbonTab(typeof(TabSave))]
+    [RibbonTab(typeof(TabDates))]
     public partial class DatesView
     {
         private readonly DatesViewModel _viewModel;

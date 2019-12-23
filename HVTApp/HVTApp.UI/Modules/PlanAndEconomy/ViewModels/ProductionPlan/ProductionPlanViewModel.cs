@@ -67,7 +67,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
                 ProductId = x.Product.Id,
                 EndProductionPlanDate = x.EndProductionPlanDate,
                 OrderId = x.Order.Id
-            }).OrderBy(x => x.Key.EndProductionPlanDate);
+            }).OrderByDescending(x => x.Key.EndProductionPlanDate);
 
             OrderItems.Clear();
             OrderItems.AddRange(groups.Select(x => new OrderItem(x)));

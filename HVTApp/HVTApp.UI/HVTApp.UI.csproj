@@ -145,8 +145,8 @@
     <Compile Include="Modules\PlanAndEconomy\Tabs\TabProductionPlan.xaml.cs">
       <DependentUpon>TabProductionPlan.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\PlanAndEconomy\Tabs\TabSave.xaml.cs">
-      <DependentUpon>TabSave.xaml</DependentUpon>
+    <Compile Include="Modules\PlanAndEconomy\Tabs\TabDates.xaml.cs">
+      <DependentUpon>TabDates.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\PlanAndEconomy\ViewModels\DatesViewModel.cs" />
     <Compile Include="Modules\PlanAndEconomy\ViewModels\Groups\ISalesUnitOrder.cs" />
@@ -712,7 +712,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Modules\PlanAndEconomy\Tabs\TabSave.xaml">
+    <Page Include="Modules\PlanAndEconomy\Tabs\TabDates.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

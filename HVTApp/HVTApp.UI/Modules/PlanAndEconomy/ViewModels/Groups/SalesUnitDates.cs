@@ -99,7 +99,30 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels.Groups
         {
         }
 
+        /// <summary>
+        /// Простановка даты реализации и даты доставки по дате отгрузки.
+        /// </summary>
+        public void SetCalculatedDates()
+        {
+            if (ShipmentDate == null)
+                return;
+
+            if (RealizationDate == null)
+            {
+                RealizationDate = Model.ShipmentDate;
+                SettedCalculatedRealizationDate?.Invoke(RealizationDate.Value);
+            }
+
+            if (DeliveryDate == null)
+            {
+                DeliveryDate = Model.DeliveryDateCalculated;
+                SettedCalculatedDeliveryDate?.Invoke(DeliveryDate.Value);
+            }
+        }
+
         public event Action SettedValueToProperty;
+        public event Action<DateTime> SettedCalculatedRealizationDate;
+        public event Action<DateTime> SettedCalculatedDeliveryDate;
 
         private void SetValueNew<TValue>(TValue newValue, [CallerMemberName] string propertyName = null)
         {

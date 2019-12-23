@@ -77,7 +77,26 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels.Groups
         public SalesUnitDatesGroup(IEnumerable<SalesUnitDates> salesUnits)
         {
             Units = salesUnits.ToList();
-            Units.ForEach(x => x.SettedValueToProperty += () => {OnPropertyChanged(nameof(HasFullInformation));});
+            Units.ForEach(x =>
+            {
+                x.SettedValueToProperty += () =>
+                {
+                    OnPropertyChanged(nameof(HasFullInformation));
+                };
+
+                x.SettedCalculatedDeliveryDate += date =>
+                {
+                    _deliveryDate = date;
+                    OnPropertyChanged(nameof(DeliveryDate));
+                };
+
+                x.SettedCalculatedRealizationDate += date =>
+                {
+                    _realizationDate = date;
+                    OnPropertyChanged(nameof(RealizationDate));
+                };
+            });
+
 
             var salesUnit = Units.First();
             _pickingDate = salesUnit.PickingDate;
@@ -85,6 +104,14 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels.Groups
             _shipmentDate = salesUnit.ShipmentDate;
             _deliveryDate = salesUnit.DeliveryDate;
             _realizationDate = salesUnit.RealizationDate;
+        }
+
+        /// <summary>
+        /// Простановка даты реализации и даты доставки по дате отгрузки.
+        /// </summary>
+        public void SetCalculatedDates()
+        {
+            Units.ForEach(x => x.SetCalculatedDates());
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
