@@ -17,6 +17,8 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
         public int EndProductionPlanDateYear { get; }
         public int EndProductionPlanDateMonth { get; }
         public Order Order { get; }
+        public DateTime OrderOpenDate { get; }
+        public User Manager { get; }
 
         public OrderItem(IEnumerable<SalesUnit> salesUnits)
         {
@@ -28,6 +30,8 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
             EndProductionPlanDateYear = EndProductionPlanDate.Year;
             EndProductionPlanDateMonth = EndProductionPlanDate.Month;
             Order = _salesUnits.First().Order;
+            OrderOpenDate = Order.DateOpen;
+            Manager = _salesUnits.First().Project.Manager;
         }
     }
 }

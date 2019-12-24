@@ -49,96 +49,97 @@
                         <infg:TextField AlternateBinding="{Binding Project}" BindingType="UseAlternateBinding" Label="Проект" Width="Auto" />
                         <infg:TextField AlternateBinding="{Binding Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto" />
                         <infg:TextField AlternateBinding="{Binding Product}" BindingType="UseAlternateBinding" Label="Продукт" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding Cost}" BindingType="UseAlternateBinding" Label="Стоимость" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding OrderInTakeDate}" BindingType="UseAlternateBinding" Label="ОИТ" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding CostResult}" BindingType="UseAlternateBinding" Label="Цена (результирующая)" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding Price}" BindingType="UseAlternateBinding" Label="Себестоимость" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding OrderInTakeYear}" BindingType="UseAlternateBinding" Label="Год ОИТ" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding PriceResult}" BindingType="UseAlternateBinding" Label="Себестоимость (результирующая)" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding FixedCost}" BindingType="UseAlternateBinding" Label="Стоимость блоков с фиксированной ценой" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding CostDelivery}" BindingType="UseAlternateBinding" Label="Стоимость доставки" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding OrderInTakeMonth}" BindingType="UseAlternateBinding" Label="Месяц ОИТ" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding MarginalIncomeNatural}" BindingType="UseAlternateBinding" Label="МД, руб." Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding MarginalIncome}" BindingType="UseAlternateBinding" Label="МД, %" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding StartProductionConditionsDoneDate}" BindingType="UseAlternateBinding" Label="Дата исполнения условий для начала производства" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding ShippingConditionsDoneDate}" BindingType="UseAlternateBinding" Label="Дата исполнения условий для отгрузки" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding StartProductionDateCalculated}" BindingType="UseAlternateBinding" Label="Начало производства (расч.)" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding EndProductionDateCalculated}" BindingType="UseAlternateBinding" Label="Окончание производства (расч.)" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding RealizationDateCalculated}" BindingType="UseAlternateBinding" Label="Расчетная дата реализации" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding ShipmentDateCalculated}" BindingType="UseAlternateBinding" Label="Расчетная дата отгрузки" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding DeliveryDateCalculated}" BindingType="UseAlternateBinding" Label="Расчетная дата доставки" Width="Auto" />
+                        <infg:NumericField AlternateBinding="{Binding Cost}" BindingType="UseAlternateBinding" Label="Стоимость" Width="Auto" />
+                        <infg:DateTimeField AlternateBinding="{Binding OrderInTakeDate}" BindingType="UseAlternateBinding" Label="ОИТ" Width="Auto" />
+                        <infg:NumericField AlternateBinding="{Binding CostResult}" BindingType="UseAlternateBinding" Label="Цена (результирующая)" Width="Auto" />
+                        <infg:NumericField AlternateBinding="{Binding Price}" BindingType="UseAlternateBinding" Label="Себестоимость" Width="Auto" />
+                        <infg:NumericField AlternateBinding="{Binding OrderInTakeYear}" BindingType="UseAlternateBinding" Label="Год ОИТ" Width="Auto" />
+                        <infg:NumericField AlternateBinding="{Binding PriceResult}" BindingType="UseAlternateBinding" Label="Себестоимость (результирующая)" Width="Auto" />
+                        <infg:NumericField AlternateBinding="{Binding FixedCost}" BindingType="UseAlternateBinding" Label="Стоимость блоков с фиксированной ценой" Width="Auto" />
+                        <infg:NumericField AlternateBinding="{Binding CostDelivery}" BindingType="UseAlternateBinding" Label="Стоимость доставки" Width="Auto" />
+                        <infg:NumericField AlternateBinding="{Binding OrderInTakeMonth}" BindingType="UseAlternateBinding" Label="Месяц ОИТ" Width="Auto" />
+                        <infg:NumericField AlternateBinding="{Binding MarginalIncomeNatural}" BindingType="UseAlternateBinding" Label="МД, руб." Width="Auto" />
+                        <infg:NumericField AlternateBinding="{Binding MarginalIncome}" BindingType="UseAlternateBinding" Label="МД, %" Width="Auto" />
+                        <infg:DateTimeField AlternateBinding="{Binding StartProductionConditionsDoneDate}" BindingType="UseAlternateBinding" Label="Дата исполнения условий для начала производства" Width="Auto" />
+                        <infg:DateTimeField AlternateBinding="{Binding ShippingConditionsDoneDate}" BindingType="UseAlternateBinding" Label="Дата исполнения условий для отгрузки" Width="Auto" />
+                        <infg:DateTimeField AlternateBinding="{Binding StartProductionDateCalculated}" BindingType="UseAlternateBinding" Label="Начало производства (расч.)" Width="Auto" />
+                        <infg:DateTimeField AlternateBinding="{Binding EndProductionDateCalculated}" BindingType="UseAlternateBinding" Label="Окончание производства (расч.)" Width="Auto" />
+                        <infg:DateTimeField AlternateBinding="{Binding RealizationDateCalculated}" BindingType="UseAlternateBinding" Label="Расчетная дата реализации" Width="Auto" />
+                        <infg:DateTimeField AlternateBinding="{Binding ShipmentDateCalculated}" BindingType="UseAlternateBinding" Label="Расчетная дата отгрузки" Width="Auto" />
+                        <infg:DateTimeField AlternateBinding="{Binding DeliveryDateCalculated}" BindingType="UseAlternateBinding" Label="Расчетная дата доставки" Width="Auto" />
                         <infg:TextField AlternateBinding="{Binding Penalty}" BindingType="UseAlternateBinding" Label="Штрафные санкции" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding CostWithVat}" BindingType="UseAlternateBinding" Label="Цена с НДС" Width="Auto" />
+                        <infg:NumericField AlternateBinding="{Binding CostWithVat}" BindingType="UseAlternateBinding" Label="Цена с НДС" Width="Auto" />
                         <infg:TextField AlternateBinding="{Binding PaymentConditionSetResult}" BindingType="UseAlternateBinding" Label="Условия оплаты (результирующие)" Width="Auto" />
                         <infg:TextField AlternateBinding="{Binding PaymentConditionSet}" BindingType="UseAlternateBinding" Label="Условия оплаты" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding DeliveryDateExpected}" BindingType="UseAlternateBinding" Label="Требуемая дата поставки" Width="Auto" />
+                        <infg:DateTimeField AlternateBinding="{Binding DeliveryDateExpected}" BindingType="UseAlternateBinding" Label="Требуемая дата поставки" Width="Auto" />
                         <infg:TextField AlternateBinding="{Binding ProductType}" BindingType="UseAlternateBinding" Label="Тип продукта" Width="Auto" />
                         <infg:TextField AlternateBinding="{Binding ContragentType}" BindingType="UseAlternateBinding" Label="Тип контрагента" Width="Auto" />
                         <infg:TextField AlternateBinding="{Binding DeliveryType}" BindingType="UseAlternateBinding" Label="Тип доставки" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding SumToStartProduction}" BindingType="UseAlternateBinding" Label="Сумма старта производства" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding SumToShipping}" BindingType="UseAlternateBinding" Label="Сумма отгрузки" Width="Auto" />
+                        <infg:NumericField AlternateBinding="{Binding SumToStartProduction}" BindingType="UseAlternateBinding" Label="Сумма старта производства" Width="Auto" />
+                        <infg:NumericField AlternateBinding="{Binding SumToShipping}" BindingType="UseAlternateBinding" Label="Сумма отгрузки" Width="Auto" />
                         <infg:TextField AlternateBinding="{Binding Country}" BindingType="UseAlternateBinding" Label="Страна поставки" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding CostDeliveryIncluded}" BindingType="UseAlternateBinding" Label="Стоимость доставки включена в основную стоимость" Width="Auto" />
+                        <infg:CheckBoxField AlternateBinding="{Binding CostDeliveryIncluded}" BindingType="UseAlternateBinding" Label="Стоимость доставки включена в основную стоимость" Width="Auto" />
                         <infg:TextField AlternateBinding="{Binding Status}" BindingType="UseAlternateBinding" Label="Статус" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding AssembleTerm}" BindingType="UseAlternateBinding" Label="Срок сборки" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding ProductionTerm}" BindingType="UseAlternateBinding" Label="Срок производства" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding ExpectedDeliveryPeriodCalculated}" BindingType="UseAlternateBinding" Label="Срок доставки расчетный" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding ExpectedDeliveryPeriod}" BindingType="UseAlternateBinding" Label="Срок доставки" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding SpecificationDate}" BindingType="UseAlternateBinding" Label="Спецификация дата" Width="Auto" />
+                        <infg:NumericField AlternateBinding="{Binding AssembleTerm}" BindingType="UseAlternateBinding" Label="Срок сборки" Width="Auto" />
+                        <infg:NumericField AlternateBinding="{Binding ProductionTerm}" BindingType="UseAlternateBinding" Label="Срок производства" Width="Auto" />
+                        <infg:NumericField AlternateBinding="{Binding ExpectedDeliveryPeriodCalculated}" BindingType="UseAlternateBinding" Label="Срок доставки расчетный" Width="Auto" />
+                        <infg:NumericField AlternateBinding="{Binding ExpectedDeliveryPeriod}" BindingType="UseAlternateBinding" Label="Срок доставки" Width="Auto" />
+                        <infg:DateTimeField AlternateBinding="{Binding SpecificationDate}" BindingType="UseAlternateBinding" Label="Спецификация дата" Width="Auto" />
                         <infg:TextField AlternateBinding="{Binding Specification}" BindingType="UseAlternateBinding" Label="Спецификация" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding PaymentsActual}" BindingType="UseAlternateBinding" Label="Совершённые платежи" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding SignalToStartProduction}" BindingType="UseAlternateBinding" Label="Сигнал менеджера о производстве" Width="Auto" />
+                        <infg:TextField AlternateBinding="{Binding PaymentsActual}" BindingType="UseAlternateBinding" Label="Совершённые платежи" Width="Auto" Converter="{StaticResource ObjectsToStringConverter}"/>
+                        <infg:DateTimeField AlternateBinding="{Binding SignalToStartProduction}" BindingType="UseAlternateBinding" Label="Сигнал менеджера о производстве" Width="Auto" />
                         <infg:TextField AlternateBinding="{Binding Segment}" BindingType="UseAlternateBinding" Label="Сегмент рынка" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding DeliveryPeriodCalculated}" BindingType="UseAlternateBinding" Label="Расчетный срок доставки" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding PaymentsPlannedCalculated}" BindingType="UseAlternateBinding" Label="Расчетные плановые платежи + сохраненные" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding PaymentsPlannedGenerated}" BindingType="UseAlternateBinding" Label="Расчетные плановые платежи" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding AllowEditProduct}" BindingType="UseAlternateBinding" Label="Разрешение на редактирование техники" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding AllowEditCost}" BindingType="UseAlternateBinding" Label="Разрешение на редактирование стоимости" Width="Auto" />
+                        <infg:TextField AlternateBinding="{Binding Region}" BindingType="UseAlternateBinding" Label="Регион" Width="Auto" />
+                        <infg:NumericField AlternateBinding="{Binding DeliveryPeriodCalculated}" BindingType="UseAlternateBinding" Label="Расчетный срок доставки" Width="Auto" />
+                        <infg:TextField AlternateBinding="{Binding PaymentsPlannedCalculated}" BindingType="UseAlternateBinding" Label="Расчетные плановые платежи + сохраненные" Width="Auto" Converter="{StaticResource ObjectsToStringConverter}"/>
+                        <infg:TextField AlternateBinding="{Binding PaymentsPlannedGenerated}" BindingType="UseAlternateBinding" Label="Расчетные плановые платежи" Width="Auto" Converter="{StaticResource ObjectsToStringConverter}"/>
+                        <infg:CheckBoxField AlternateBinding="{Binding AllowEditProduct}" BindingType="UseAlternateBinding" Label="Разрешение на редактирование техники" Width="Auto" />
+                        <infg:CheckBoxField AlternateBinding="{Binding AllowEditCost}" BindingType="UseAlternateBinding" Label="Разрешение на редактирование стоимости" Width="Auto" />
                         <infg:TextField AlternateBinding="{Binding Producer}" BindingType="UseAlternateBinding" Label="Производитель" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding IsLoosen}" BindingType="UseAlternateBinding" Label="Проиграно" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding LosingReasons}" BindingType="UseAlternateBinding" Label="Причины проигрыша" Width="Auto" />
+                        <infg:CheckBoxField AlternateBinding="{Binding IsLoosen}" BindingType="UseAlternateBinding" Label="Проиграно" Width="Auto" />
+                        <infg:TextField AlternateBinding="{Binding LosingReasons}" BindingType="UseAlternateBinding" Label="Причины проигрыша" Width="Auto" Converter="{StaticResource ObjectsToStringConverter}"/>
                         <infg:TextField AlternateBinding="{Binding OrderPosition}" BindingType="UseAlternateBinding" Label="Позиция" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding EndProductionPlanDate}" BindingType="UseAlternateBinding" Label="Плановая дата окончания производства" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding PaymentsPlanned}" BindingType="UseAlternateBinding" Label="Планируемые платежи" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding IsPaid}" BindingType="UseAlternateBinding" Label="Оплачено?" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding SumPaid}" BindingType="UseAlternateBinding" Label="Оплачено" Width="Auto" />
+                        <infg:DateTimeField AlternateBinding="{Binding EndProductionPlanDate}" BindingType="UseAlternateBinding" Label="Плановая дата окончания производства" Width="Auto" />
+                        <infg:TextField AlternateBinding="{Binding PaymentsPlanned}" BindingType="UseAlternateBinding" Label="Планируемые платежи" Width="Auto" Converter="{StaticResource ObjectsToStringConverter}"/>
+                        <infg:CheckBoxField AlternateBinding="{Binding IsPaid}" BindingType="UseAlternateBinding" Label="Оплачено?" Width="Auto" />
+                        <infg:NumericField AlternateBinding="{Binding SumPaid}" BindingType="UseAlternateBinding" Label="Оплачено" Width="Auto" />
                         <infg:TextField AlternateBinding="{Binding District}" BindingType="UseAlternateBinding" Label="Округ" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding CountryUnions}" BindingType="UseAlternateBinding" Label="Объединения стран" Width="Auto" />
+                        <infg:TextField AlternateBinding="{Binding CountryUnions}" BindingType="UseAlternateBinding" Label="Объединения стран" Width="Auto" Converter="{StaticResource ObjectsToStringConverter}"/>
                         <infg:TextField AlternateBinding="{Binding Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="Auto" />
                         <infg:TextField AlternateBinding="{Binding SerialNumber}" BindingType="UseAlternateBinding" Label="Номер" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding SumNotPaid}" BindingType="UseAlternateBinding" Label="Неоплачено" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding Vat}" BindingType="UseAlternateBinding" Label="НДС, %" Width="Auto" />
+                        <infg:NumericField AlternateBinding="{Binding SumNotPaid}" BindingType="UseAlternateBinding" Label="Неоплачено" Width="Auto" />
+                        <infg:NumericField AlternateBinding="{Binding Vat}" BindingType="UseAlternateBinding" Label="НДС, %" Width="Auto" />
                         <infg:TextField AlternateBinding="{Binding Voltage}" BindingType="UseAlternateBinding" Label="Напряжение" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding RealizationDateResultMonth}" BindingType="UseAlternateBinding" Label="Месяц реализации (результирующая)" Width="Auto" />
+                        <infg:NumericField AlternateBinding="{Binding RealizationDateResultMonth}" BindingType="UseAlternateBinding" Label="Месяц реализации (результирующая)" Width="Auto" />
                         <infg:TextField AlternateBinding="{Binding Manager}" BindingType="UseAlternateBinding" Label="Менеджер" Width="Auto" />
                         <infg:TextField AlternateBinding="{Binding FakeData}" BindingType="UseAlternateBinding" Label="Корректировочные данные" Width="Auto" />
                         <infg:TextField AlternateBinding="{Binding Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Количество" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding IsDone}" BindingType="UseAlternateBinding" Label="Исполнено" Width="Auto" />
+                        <infg:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Количество" Width="Auto" />
+                        <infg:CheckBoxField AlternateBinding="{Binding IsDone}" BindingType="UseAlternateBinding" Label="Исполнено" Width="Auto" />
                         <infg:TextField AlternateBinding="{Binding Order}" BindingType="UseAlternateBinding" Label="Заказ" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding ContractMonth}" BindingType="UseAlternateBinding" Label="Договор месяц" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding ContractDate}" BindingType="UseAlternateBinding" Label="Договор дата" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding ContractYear}" BindingType="UseAlternateBinding" Label="Договор год" Width="Auto" />
+                        <infg:NumericField AlternateBinding="{Binding ContractMonth}" BindingType="UseAlternateBinding" Label="Договор месяц" Width="Auto" />
+                        <infg:DateTimeField AlternateBinding="{Binding ContractDate}" BindingType="UseAlternateBinding" Label="Договор дата" Width="Auto" />
+                        <infg:NumericField AlternateBinding="{Binding ContractYear}" BindingType="UseAlternateBinding" Label="Договор год" Width="Auto" />
                         <infg:TextField AlternateBinding="{Binding ContractNumber}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding RealizationDateResult}" BindingType="UseAlternateBinding" Label="Дата реализации (результирующая)" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding RealizationDate}" BindingType="UseAlternateBinding" Label="Дата реализации" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding SignalToStartProductionDone}" BindingType="UseAlternateBinding" Label="Дата размещения в производстве" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding DeliveryDate}" BindingType="UseAlternateBinding" Label="Дата поставки" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding ShipmentPlanDate}" BindingType="UseAlternateBinding" Label="Дата отгрузки (плановая)" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding ShipmentDate}" BindingType="UseAlternateBinding" Label="Дата отгрузки" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding EndProductionDate}" BindingType="UseAlternateBinding" Label="Дата окончания производства" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding OrderInTakeDateResult}" BindingType="UseAlternateBinding" Label="Дата ОИТ (результирующая)" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding StartProductionDate}" BindingType="UseAlternateBinding" Label="Дата начала производства" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding PickingDate}" BindingType="UseAlternateBinding" Label="Дата комплектации" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding RealizationDateResultYear}" BindingType="UseAlternateBinding" Label="Год реализации (результирующая)" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding IsWon}" BindingType="UseAlternateBinding" Label="Выиграно" Width="Auto" />
+                        <infg:DateTimeField AlternateBinding="{Binding RealizationDateResult}" BindingType="UseAlternateBinding" Label="Дата реализации (результирующая)" Width="Auto" />
+                        <infg:DateTimeField AlternateBinding="{Binding RealizationDate}" BindingType="UseAlternateBinding" Label="Дата реализации" Width="Auto" />
+                        <infg:DateTimeField AlternateBinding="{Binding SignalToStartProductionDone}" BindingType="UseAlternateBinding" Label="Дата размещения в производстве" Width="Auto" />
+                        <infg:DateTimeField AlternateBinding="{Binding DeliveryDate}" BindingType="UseAlternateBinding" Label="Дата поставки" Width="Auto" />
+                        <infg:DateTimeField AlternateBinding="{Binding ShipmentPlanDate}" BindingType="UseAlternateBinding" Label="Дата отгрузки (плановая)" Width="Auto" />
+                        <infg:DateTimeField AlternateBinding="{Binding ShipmentDate}" BindingType="UseAlternateBinding" Label="Дата отгрузки" Width="Auto" />
+                        <infg:DateTimeField AlternateBinding="{Binding EndProductionDate}" BindingType="UseAlternateBinding" Label="Дата окончания производства" Width="Auto" />
+                        <infg:DateTimeField AlternateBinding="{Binding OrderInTakeDateResult}" BindingType="UseAlternateBinding" Label="Дата ОИТ (результирующая)" Width="Auto" />
+                        <infg:DateTimeField AlternateBinding="{Binding StartProductionDate}" BindingType="UseAlternateBinding" Label="Дата начала производства" Width="Auto" />
+                        <infg:DateTimeField AlternateBinding="{Binding PickingDate}" BindingType="UseAlternateBinding" Label="Дата комплектации" Width="Auto" />
+                        <infg:NumericField AlternateBinding="{Binding RealizationDateResultYear}" BindingType="UseAlternateBinding" Label="Год реализации (результирующая)" Width="Auto" />
+                        <infg:CheckBoxField AlternateBinding="{Binding IsWon}" BindingType="UseAlternateBinding" Label="Выиграно" Width="Auto" />
                         <infg:TextField AlternateBinding="{Binding FacilityOwnerHead}" BindingType="UseAlternateBinding" Label="Владелец объекта (головная компания)" Width="Auto" />
                         <infg:TextField AlternateBinding="{Binding FacilityOwner}" BindingType="UseAlternateBinding" Label="Владелец объекта" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding ProductsIncluded}" BindingType="UseAlternateBinding" Label="Включенные продукты" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding BankGuarantees}" BindingType="UseAlternateBinding" Label="Банковские гарантии" Width="Auto" />
+                        <infg:TextField AlternateBinding="{Binding ProductsIncluded}" BindingType="UseAlternateBinding" Label="Включенные продукты" Width="Auto" Converter="{StaticResource ObjectsToStringConverter}"/>
+                        <infg:TextField AlternateBinding="{Binding BankGuarantees}" BindingType="UseAlternateBinding" Label="Банковские гарантии" Width="Auto" Converter="{StaticResource ObjectsToStringConverter}"/>
                         <infg:TextField AlternateBinding="{Binding AddressDelivery}" BindingType="UseAlternateBinding" Label="Адрес доставки" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding SalesUnits}" BindingType="UseAlternateBinding" Label="SalesUnits" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding PaymentsPlannedActual}" BindingType="UseAlternateBinding" Label="PaymentsPlannedActual" Width="Auto" />
+                        <infg:TextField AlternateBinding="{Binding SalesUnits}" BindingType="UseAlternateBinding" Label="SalesUnits" Width="Auto" Converter="{StaticResource ObjectsToStringConverter}"/>
+                        <infg:TextField AlternateBinding="{Binding PaymentsPlannedActual}" BindingType="UseAlternateBinding" Label="PaymentsPlannedActual" Width="Auto" Converter="{StaticResource ObjectsToStringConverter}"/>
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

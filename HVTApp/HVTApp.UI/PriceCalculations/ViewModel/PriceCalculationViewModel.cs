@@ -124,7 +124,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                     var calculationItem2Wrapper = PriceCalculationWrapper.PriceCalculationItems.Single(x => x.StructureCosts.Contains(structureCost));
                     calculationItem2Wrapper.StructureCosts.Remove(structureCost);
                 },
-                () => SelectedItem is StructureCostWrapper && !IsStarted);
+                () => SelectedItem is StructureCostWrapper && !IsStarted && ((StructureCostWrapper)SelectedItem).Model.UnitPrice == null);
 
             #endregion
 
@@ -140,7 +140,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                             .Except(PriceCalculationWrapper.PriceCalculationItems.SelectMany(x => x.SalesUnits).Select(x => x.Model))
                             .Select(x => new SalesUnit2Wrapper(x))
                             .GroupBy(x => x, new SalesUnit2Comparer())
-                            .Select(x => GetPriceCalculationItem2Wrapper(x));
+                            .Select(GetPriceCalculationItem2Wrapper);
 
                     //выбор группы
                     var viewModel = new PriceCalculationItemsViewModel(items);

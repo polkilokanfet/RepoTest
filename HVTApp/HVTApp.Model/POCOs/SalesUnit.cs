@@ -373,7 +373,7 @@ namespace HVTApp.Model.POCOs
             get
             {
                 if (DeliveryDate.HasValue) return DeliveryDate.Value;
-                return ShipmentDateCalculated.AddDays(DeliveryPeriodCalculated).SkipPastAndWeekend();
+                return ShipmentDateCalculated.AddDays(DeliveryPeriodCalculated).SkipWeekend();
             }
         }
 

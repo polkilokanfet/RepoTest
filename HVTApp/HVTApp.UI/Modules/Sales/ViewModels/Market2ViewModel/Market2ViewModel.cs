@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
@@ -116,7 +117,20 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             //команды
             NewProjectCommand = new DelegateCommand(NewProjectCommand_Execute);
             EditProjectCommand = new DelegateCommand(EditProjectCommand_Execute, () => SelectedProjectItem != null);
-            RemoveProjectCommand = new DelegateCommand(() => { }, () => SelectedProjectItem != null);
+            RemoveProjectCommand = new DelegateCommand(
+                () =>
+                {
+                    var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удалить проект.", "Вы уверены, что хотите удалить проект?");
+                    if (dr != MessageDialogResult.Yes) return;
+
+                    var unitOfWork = Container.Resolve<IUnitOfWork>();
+                    var units = unitOfWork.Repository<SalesUnit>().Find(x => x.Project.Id == SelectedProjectItem.Project.Id);
+                    unitOfWork.Repository<SalesUnit>().DeleteRange(units);
+                    unitOfWork.SaveChanges();
+                    var remove = ProjectItems.Where(x => x.Project.Id == SelectedProjectItem.Project.Id).ToList();
+                    remove.ForEach(x => ProjectItems.Remove(x));
+                }, 
+                () => SelectedProjectItem != null);
 
             NewSpecificationCommand = new DelegateCommand(NewSpecificationCommand_Execute, () => SelectedProjectItem != null);
 

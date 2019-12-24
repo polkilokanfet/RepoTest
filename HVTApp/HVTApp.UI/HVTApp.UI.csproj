@@ -148,10 +148,10 @@
     <Compile Include="Modules\PlanAndEconomy\Tabs\TabDates.xaml.cs">
       <DependentUpon>TabDates.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\PlanAndEconomy\ViewModels\DatesViewModel.cs" />
+    <Compile Include="Modules\PlanAndEconomy\ViewModels\Dates\DatesViewModel.cs" />
     <Compile Include="Modules\PlanAndEconomy\ViewModels\Groups\ISalesUnitOrder.cs" />
-    <Compile Include="Modules\PlanAndEconomy\ViewModels\Groups\SalesUnitDates.cs" />
-    <Compile Include="Modules\PlanAndEconomy\ViewModels\Groups\SalesUnitDatesGroup.cs" />
+    <Compile Include="Modules\PlanAndEconomy\ViewModels\Dates\SalesUnitDates.cs" />
+    <Compile Include="Modules\PlanAndEconomy\ViewModels\Dates\SalesUnitDatesGroup.cs" />
     <Compile Include="Modules\PlanAndEconomy\ViewModels\Groups\SalesUnitOrderItem.cs" />
     <Compile Include="Modules\PlanAndEconomy\ViewModels\Groups\SalesUnitOrderGroup.cs" />
     <Compile Include="Modules\PlanAndEconomy\ViewModels\Groups\SalesUnitOrderGroupsCollection.cs" />

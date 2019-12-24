@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using HVTApp.DataAccess.Annotations;
 using HVTApp.Model.POCOs;
 
-namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels.Groups
+namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
 {
     public class SalesUnitDatesGroup : INotifyPropertyChanged
     {

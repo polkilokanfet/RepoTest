@@ -16,10 +16,12 @@
                     <infg:TextField Name="Product" Label="Продукт" Width="Auto"/>
                     <infg:NumericField Name="Amount" Label="Кол." Width="Auto" AllowResize="False"/>
                     <infg:TextField Name="Order" Label="З/з" Width="Auto" AllowResize="False"/>
+                    <infg:DateTimeField Name="OrderOpenDate" Label="Открытие з/з" Width="Auto" AllowResize="False"/>
                     <infg:DateTimeField Name="EndProductionDate" Label="Расчетная дата" Width="Auto" AllowResize="False"/>
                     <infg:DateTimeField Name="EndProductionPlanDate" Label="Плановая дата" Width="Auto" AllowResize="False"/>
                     <infg:NumericField Name="EndProductionPlanDateYear" Label="Год" Width="Auto" AllowResize="False"/>
                     <infg:NumericField Name="EndProductionPlanDateMonth" Label="Месяц" Width="Auto" AllowResize="False"/>
+                    <infg:TextField Name="Manager" Label="Менеджер" Width="Auto"/>
                 </infg:FieldLayout>
             </infg:XamDataGrid.FieldLayouts>
             

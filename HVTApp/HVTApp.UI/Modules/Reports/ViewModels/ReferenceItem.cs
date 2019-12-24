@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Modules.Reports.ViewModels
@@ -33,14 +34,7 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
             Order = salesUnit.Order?.ToString();
             Manager = salesUnit.Project.Manager.ToString();
 
-            var region = salesUnit.Facility.Address?.Locality.Region;
-            var company = salesUnit.Facility.OwnerCompany;
-            while (company != null && region == null)
-            {
-                region = company.AddressLegal?.Locality.Region;
-                company = company.ParentCompany;
-            }
-
+            var region = salesUnit.Facility.GetRegion();
             if (region != null)
             {
                 Region = region.Name;

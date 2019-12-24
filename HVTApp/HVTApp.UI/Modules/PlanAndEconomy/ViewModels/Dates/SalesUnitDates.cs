@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Wrapper;
 
-namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels.Groups
+namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
 {
     public class SalesUnitDates : WrapperBase<SalesUnit>
     {

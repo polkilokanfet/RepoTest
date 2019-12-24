@@ -27,14 +27,18 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
         [Designation("Тип контрагента")]
         public string ContragentType { get; }
 
+        [Designation("Регион")]
+        public Region Region { get; }
+
+        [Designation("Округ")]
+        public District District { get; }
+
         [Designation("Страна поставки")]
         public Country Country { get; }
 
         [Designation("Объединения стран")]
         public List<CountryUnion> CountryUnions { get; }
 
-        [Designation("Округ")]
-        public District District { get; }
 
         [Designation("Сегмент рынка")]
         public string Segment { get; }
@@ -140,9 +144,10 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
             FacilityOwnerHead = GetFacilityOwnerHead();
             Contragent = Specification?.Contract.Contragent;
             ContragentType = GetContragentType();
-            Country = GetCountry();
+            Region = Facility.GetRegion();
+            District = Region?.District;
+            Country = District?.Country;
             CountryUnions = GetCountryUnions();
-            District = Facility.Address?.Locality.Region.District;
             Segment = GetSegment();
             ProductType = Product.ProductType;
             Designation = Product.Designation;
@@ -150,7 +155,6 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
             Vat = Specification?.Vat;
             CostResult = FakeData?.Cost ?? Cost;
             CostWithVat = (1.0 + Vat)/100.0 * CostResult ?? CostResult;
-
 
             Voltage = Product.ProductBlock.Parameters.SingleOrDefault(x => Equals(x.ParameterGroup, GlobalAppProperties.Actual.VoltageGroup))?.Value;
 
@@ -176,12 +180,12 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
 
             Manager = Project.Manager.Employee;
 
-            RealizationDateResultYear = RealizationDateResult.Year;
-            RealizationDateResultMonth = RealizationDateResult.Month;
-
             OrderInTakeDateResult = this.FakeData?.OrderInTakeDate ?? this.OrderInTakeDate;
             RealizationDateResult = this.FakeData?.RealizationDate ?? this.RealizationDateCalculated;
             PaymentConditionSetResult = this.FakeData?.PaymentConditionSet ?? this.PaymentConditionSet;
+
+            RealizationDateResultYear = RealizationDateResult.Year;
+            RealizationDateResultMonth = RealizationDateResult.Month;
         }
 
         private void SetProperties(SalesUnit salesUnit)
@@ -211,22 +215,6 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
             }
 
             return "посредник";
-        }
-
-        private Country GetCountry()
-        {
-            //страна по адресу объекта
-            if (Facility.Address != null)
-                return Facility.Address.Locality.Region.District.Country;
-
-            //страна по адресу владельца объекта
-            var company = FacilityOwner;
-            while (company.ParentCompany != null && company.AddressLegal == null)
-            {
-                company = company.ParentCompany;
-            }
-
-            return company.AddressLegal?.Locality.Region.District.Country;
         }
 
         private List<CountryUnion> GetCountryUnions()

@@ -111,12 +111,12 @@
 	if (property.IsCollection())
     {
 		fieldName = "TextField";
-		end = "Converter=\"{StaticResource ListToStringConverter}\"";
+		end = "Converter=\"{StaticResource ObjectsToStringConverter}\"";
 	}
 
 	if(fieldName == string.Empty) return;
 
-#>                        <infg:TextField AlternateBinding="{Binding <#=property.Name#>}" BindingType="UseAlternateBinding" Label="<#=property.Designation()#>" Width="Auto" />
+#>                        <infg:<#= fieldName #> AlternateBinding="{Binding <#=property.Name#>}" BindingType="UseAlternateBinding" Label="<#=property.Designation()#>" Width="Auto" <#= end #>/>
 <#+ 
   }
 #>

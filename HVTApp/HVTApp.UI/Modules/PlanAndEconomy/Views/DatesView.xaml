@@ -82,7 +82,8 @@
                         <infg:DateTimeField Name="ShipmentDate" Label="Отгрузка" Width="110" AllowEdit="True" AllowResize="False"/>
                         <infg:DateTimeField Name="DeliveryDate" Label="Доставка" Width="110" AllowEdit="True" AllowResize="False"/>
                         <infg:DateTimeField Name="RealizationDate" Label="Реализация" Width="110" AllowEdit="True" AllowResize="False"/>
-                        <infg:CheckBoxField AlternateBinding="{Binding HasFullInformation}" BindingType="UseAlternateBinding" Name="HasFullInformation" Label="Full" AllowResize="False"/>
+                        <infg:CheckBoxField AlternateBinding="{Binding HasFullInformation}" BindingType="UseAlternateBinding" Name="HasFullInformation" Label="Full" Width="Auto" AllowResize="False"/>
+                        <infg:TextField AlternateBinding="{Binding Model.Project.Manager}" BindingType="UseAlternateBinding" Label="Менеджер" Width="Auto"/>
                         <infg:Field Name="Units" IsExpandable="True"/>
 
                     </infg:FieldLayout.Fields>

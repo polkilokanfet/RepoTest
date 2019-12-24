@@ -44,7 +44,8 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
                     _unitsWrappers.AcceptChanges();
                     UnitOfWork.SaveChanges();
 
-                    Container.Resolve<IEventAggregator>().GetEvent<AfterSaveOrderItemsEvent>().Publish(changed.Select(x => x.Model));
+                    if(changed.Any())
+                        Container.Resolve<IEventAggregator>().GetEvent<AfterSaveOrderItemsEvent>().Publish(changed.Select(x => x.Model));
 
                     ((DelegateCommand) SaveOrderCommand).RaiseCanExecuteChanged();
                 },

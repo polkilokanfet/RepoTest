@@ -51,5 +51,21 @@ namespace HVTApp.Model
         {
             return GlobalAppProperties.User.Id == user.Id;
         }
+
+        public static Region GetRegion(this Facility facility)
+        {
+            //по адресу объекта
+            var region = facility.Address?.Locality.Region;
+
+            //по владельцу объекта
+            var company = facility.OwnerCompany;
+            while (company != null && region == null)
+            {
+                region = company.AddressLegal?.Locality.Region;
+                company = company.ParentCompany;
+            }
+
+            return region;
+        }
     }
 }
