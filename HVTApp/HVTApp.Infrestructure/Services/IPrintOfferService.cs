@@ -5,6 +5,6 @@ namespace HVTApp.Infrastructure.Services
 {
     public interface IPrintOfferService
     {
-        Task PrintOfferAsync(Guid offerId);
+        void PrintOffer(Guid offerId);
     }
 }

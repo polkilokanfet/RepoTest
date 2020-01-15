@@ -55,11 +55,11 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
             return project.InWork && _salesUnits.Where(x => x.Project.Id == project.Id).Any(u => !u.IsDone && !u.IsLoosen);
         }
 
-        public override async Task RemoveSelectedItemTask()
+        public override void RemoveSelectedItem()
         {
             var project = SelectedItem.Entity;
 
-            await base.RemoveSelectedItemTask();
+            base.RemoveSelectedItem();
 
             var salesUnits = _salesUnits.Where(x => x.Project == null || x.Project.Id == project.Id).ToList();
             salesUnits.ForEach(x => Container.Resolve<IEventAggregator>().GetEvent<AfterRemoveSalesUnitEvent>().Publish(x));

@@ -33,16 +33,15 @@ namespace HVTApp.UI.Modules.Director.Views
             };
         }
 
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-            var task = _viewModel.Load(); ;
             try
             {
-                await task;
+                _viewModel.Load();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                _container.Resolve<IMessageService>().ShowOkMessageDialog("Exception", task.Exception.GetAllExceptions());
+                _container.Resolve<IMessageService>().ShowOkMessageDialog("Exception", e.GetAllExceptions());
             }
             this.Loaded -= OnLoaded;
         }

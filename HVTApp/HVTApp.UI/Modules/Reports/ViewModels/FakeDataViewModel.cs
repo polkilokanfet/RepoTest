@@ -18,21 +18,21 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
         public FakeDataViewModel(IUnityContainer container) : base(container)
         {
             SaveCommand = new DelegateCommand(
-                async () =>
+                () =>
                 {
                     SalesUnitFakeDataGroups.First().SalesUnits.AcceptChanges();
-                    await UnitOfWork.SaveChangesAsync();
+                    UnitOfWork.SaveChanges();
                     ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
                 }, 
                 () => SalesUnitFakeDataGroups.Any() && SalesUnitFakeDataGroups.First().SalesUnits.IsValid && SalesUnitFakeDataGroups.First().SalesUnits.IsChanged);
         }
 
-        public async Task Load(IEnumerable<SalesUnit> salesUnits)
+        public void Load(IEnumerable<SalesUnit> salesUnits)
         {
             var salesUnitsList = new List<SalesUnit>();
             foreach (var salesUnit in salesUnits)
             {
-                var unit = await UnitOfWork.Repository<SalesUnit>().GetByIdAsync(salesUnit.Id);
+                var unit = UnitOfWork.Repository<SalesUnit>().GetById(salesUnit.Id);
                 salesUnitsList.Add(unit);
             }
             var fakeDataGroup = new SalesUnitFakeDataGroup(salesUnitsList);

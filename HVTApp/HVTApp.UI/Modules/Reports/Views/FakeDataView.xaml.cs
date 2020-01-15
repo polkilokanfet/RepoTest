@@ -26,10 +26,10 @@ namespace HVTApp.UI.Modules.Reports.Views
             return false;
         }
 
-        public override async void OnNavigatedTo(NavigationContext navigationContext)
+        public override void OnNavigatedTo(NavigationContext navigationContext)
         {
             var salesUnits = navigationContext.Parameters.First().Value as IEnumerable<SalesUnit>;
-            await _viewModel.Load(salesUnits);
+            _viewModel.Load(salesUnits);
 
             base.OnNavigatedTo(navigationContext);
         }

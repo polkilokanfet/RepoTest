@@ -18,20 +18,20 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel
         {
         }
 
-        public override async Task LoadAsync(Project model, bool isNew, object parameter = null)
+        public override void Load(Project model, bool isNew, object parameter = null)
         {
-            await base.LoadAsync(model, isNew, parameter);
+            base.Load(model, isNew, parameter);
             //назначаем менеджера
             if (DetailsViewModel.Item.Manager == null)
             {
-                var user = await UnitOfWork.Repository<User>().GetByIdAsync(GlobalAppProperties.User.Id);
+                var user = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id);
                 DetailsViewModel.Item.Manager = new UserWrapper(user);
             }
         }
 
-        protected override async Task<IEnumerable<SalesUnit>> GetUnits(Project project, object parameter = null)
+        protected override IEnumerable<SalesUnit> GetUnits(Project project, object parameter = null)
         {
-            return (await UnitOfWork.Repository<SalesUnit>().GetAllAsync()).Where(x => x.Project.Id == project.Id);
+            return UnitOfWork.Repository<SalesUnit>().GetAll().Where(x => x.Project.Id == project.Id);
         }
     }
 }

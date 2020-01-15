@@ -28,11 +28,6 @@ namespace HVTApp.DataAccess
             return await task;
         }
 
-        public Task<List<TEntity>> GetAllAsNoTrackingAsync()
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<TEntity> GetByIdAsync(Guid id)
         {
             return (await GetAllAsync()).Single(x => x.Id == id);
@@ -74,6 +69,11 @@ namespace HVTApp.DataAccess
         }
 
         public List<TEntity> FindAsNoTracking(Func<TEntity, bool> predicate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<TEntity> GetAllAsNoTracking()
         {
             throw new NotImplementedException();
         }

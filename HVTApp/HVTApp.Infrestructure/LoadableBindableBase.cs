@@ -29,13 +29,13 @@ namespace HVTApp.Infrastructure
         }
 
 
-        public async Task LoadAsync()
+        public void Load()
         {
             IsLoaded = false;
-            await LoadedAsyncMethod();
+            LoadedMethod();
             IsLoaded = true;
         }
 
-        protected abstract Task LoadedAsyncMethod();
+        protected abstract void LoadedMethod();
     }
 }

@@ -29,12 +29,12 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
         public DatesViewModel(IUnityContainer container) : base(container)
         {
             SaveCommand = new DelegateCommand(
-                async () =>
+                () =>
                 {
                     _salesUnits.PropertyChanged -= SalesUnitsOnPropertyChanged;
 
                     //сохраняем изменения
-                    await _unitOfWork.SaveChangesAsync();
+                    _unitOfWork.SaveChanges();
                     //принимаем все изменения
                     _salesUnits.Where(x => x.IsChanged).ToList().ForEach(x => x.AcceptChanges());
                     //проверяем актуальность команды
@@ -46,14 +46,14 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
                       _salesUnits.IsValid &&
                       _salesUnits.IsChanged);
 
-            ReloadCommand = new DelegateCommand(async () => await LoadAsync());
+            ReloadCommand = new DelegateCommand(Load);
         }
 
-        public async Task LoadAsync()
+        public void Load()
         {
             _unitOfWork = Container.Resolve<IUnitOfWork>();
 
-            var salesUnits = (await _unitOfWork.Repository<SalesUnit>().GetAllAsync())
+            var salesUnits = _unitOfWork.Repository<SalesUnit>().GetAll()
                 .Where(x => !x.IsLoosen && x.OrderInTakeDate <= DateTime.Today)
                 .OrderBy(salesUnit => salesUnit.EndProductionDateCalculated)
                 .Select(salesUnit => new SalesUnitDates(salesUnit))

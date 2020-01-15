@@ -105,13 +105,13 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
         public PaymentDocumentViewModel(IUnityContainer container) : base(container)
         {
             SaveDocumentCommand = new DelegateCommand(
-                async () =>
+                () =>
                 {
                     PaymentDocument.PropertyChanged -= PaymentDocumentOnPropertyChanged;
                     _salesUnitWrappers.PropertyChanged -= SalesUnitWrappersOnPropertyChanged;
 
                     _salesUnitWrappers.AcceptChanges();
-                    await SaveItemTask();
+                    SaveItem();
                     ((DelegateCommand)SaveDocumentCommand).RaiseCanExecuteChanged();
 
                     PaymentDocument.PropertyChanged += PaymentDocumentOnPropertyChanged;
@@ -177,10 +177,10 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
 
         }
 
-        protected override async Task AfterLoading()
+        protected override void AfterLoading()
         {
             //получаем коллекцию единниц продаж
-            var salesUnitWrappers = (await UnitOfWork.Repository<SalesUnit>().GetAllAsync())
+            var salesUnitWrappers = UnitOfWork.Repository<SalesUnit>().GetAll()
                 .Select(salesUnit => new SalesUnitPaymentWrapper(salesUnit))
                 .ToList();
             _salesUnitWrappers = new ValidatableChangeTrackingCollection<SalesUnitPaymentWrapper>(salesUnitWrappers);
@@ -212,7 +212,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
             //событие изменения в юните
             _salesUnitWrappers.PropertyChanged += SalesUnitWrappersOnPropertyChanged;
 
-            await base.AfterLoading();
+            base.AfterLoading();
         }
 
         private void SalesUnitWrappersOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)

@@ -25,10 +25,10 @@ namespace HVTApp.DataAccess
             return (IRepository<T>) repositoryFieldInfo.GetValue(this);
         }
 
-        public async Task<int> SaveChangesAsync()
-        {
-            return await _context.SaveChangesAsync();
-        }
+        //public async Task<int> SaveChangesAsync()
+        //{
+        //    return await _context.SaveChangesAsync();
+        //}
 
         public void SaveChanges()
         {

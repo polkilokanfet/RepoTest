@@ -28,8 +28,11 @@ namespace HVTApp.Infrastructure
     public interface ILoadable<TEntity>
         where TEntity : class, IBaseEntity
     {
-        Task LoadAsync(Guid id);
-        Task LoadAsync(TEntity entity);
-        Task LoadAsync(TEntity entity, IUnitOfWork unitOfWork);
+        void Load(Guid id);
+        void Load(TEntity entity);
+        void Load(TEntity entity, IUnitOfWork unitOfWork);
+        //Task LoadAsync(Guid id);
+        //Task LoadAsync(TEntity entity);
+        //Task LoadAsync(TEntity entity, IUnitOfWork unitOfWork);
     }
 }

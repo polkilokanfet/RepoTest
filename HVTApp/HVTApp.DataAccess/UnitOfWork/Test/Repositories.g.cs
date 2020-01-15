@@ -262,11 +262,6 @@ namespace HVTApp.DataAccess
         {
             throw new System.NotImplementedException();
         }
-
-        public Task<IEnumerable<SalesUnit>> GetUsersSalesUnitsAsync()
-        {
-            throw new System.NotImplementedException();
-        }
     }
 
     public partial class DocumentRepositoryTest : TestBaseRepository<Document>, IDocumentRepository

@@ -26,18 +26,18 @@ namespace HVTApp.UI.Modules.Sales.Views
             return false;
         }
 
-        public override async void OnNavigatedTo(NavigationContext navigationContext)
+        public override void OnNavigatedTo(NavigationContext navigationContext)
         {
             base.OnNavigatedTo(navigationContext);
 
             if (navigationContext.Parameters != null && navigationContext.Parameters.Any())
             {
                 var project = (Project)navigationContext.Parameters.First().Value;
-                await _viewModel.LoadAsync(project, false);
+                _viewModel.Load(project, false);
             }
             else
             {
-                await _viewModel.LoadAsync(new Project(), true);
+                _viewModel.Load(new Project(), true);
             }
         }
     }

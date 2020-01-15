@@ -41,7 +41,7 @@ namespace HVTApp.UI.ViewModels
             UnitOfWork = Container.Resolve<IUnitOfWork>();
             EventAggregator = Container.Resolve<IEventAggregator>();
 
-            SaveCommand = new DelegateCommand(async () => { await SaveItemTask(); }, SaveCommand_CanExecute);
+            SaveCommand = new DelegateCommand(() => { SaveItem(); }, SaveCommand_CanExecute);
             OkCommand = new DelegateCommand(OkCommand_Execute, OkCommand_CanExecute);
 
             InitSpecialCommands();
@@ -57,39 +57,39 @@ namespace HVTApp.UI.ViewModels
         /// </summary>
         protected virtual void InitSpecialGetMethods() { }
 
-        public async Task LoadAsync(TEntity entity, IUnitOfWork unitOfWork)
+        public void Load(TEntity entity, IUnitOfWork unitOfWork)
         {
             IsLoaded = false;
             UnitOfWork = unitOfWork;
-            var item = await UnitOfWork.Repository<TEntity>().GetByIdAsync(entity.Id);
+            var item = UnitOfWork.Repository<TEntity>().GetById(entity.Id);
             //создаем или редактируем
             Item = item == null ? (TWrapper)Activator.CreateInstance(typeof(TWrapper), entity)
                                 : (TWrapper)Activator.CreateInstance(typeof(TWrapper), item);
-            await AfterLoading();
+            AfterLoading();
         }
 
 
-        public async Task LoadAsync(TEntity entity)
+        public void Load(TEntity entity)
         {
             IsLoaded = false;
             UnitOfWork = Container.Resolve<IUnitOfWork>();
-            var item = await UnitOfWork.Repository<TEntity>().GetByIdAsync(entity.Id);
+            var item = UnitOfWork.Repository<TEntity>().GetById(entity.Id);
             //создаем или редактируем
             Item = item == null ? (TWrapper)Activator.CreateInstance(typeof(TWrapper), entity)
                                 : (TWrapper)Activator.CreateInstance(typeof(TWrapper), item);
-            await AfterLoading();
+            AfterLoading();
         }
 
-        public async Task LoadAsync(Guid id)
+        public void Load(Guid id)
         {
             IsLoaded = false;
             UnitOfWork = Container.Resolve<IUnitOfWork>();
-            var item = await UnitOfWork.Repository<TEntity>().GetByIdAsync(id);
+            var item = UnitOfWork.Repository<TEntity>().GetById(id);
             Item = (TWrapper)Activator.CreateInstance(typeof(TWrapper), item);
-            await AfterLoading();
+            AfterLoading();
         }
 
-        protected virtual async Task AfterLoading()
+        protected virtual void AfterLoading()
         {
             IsLoaded = true;
         }
@@ -140,23 +140,22 @@ namespace HVTApp.UI.ViewModels
             return Item != null && Item.IsValid;
         }
 
-        protected virtual async Task SaveItemTask()
+        protected virtual void SaveItem()
         {
             //добавляем сущность, если ее не существовало
-            if (await UnitOfWork.Repository<TEntity>().GetByIdAsync(Item.Model.Id) == null)
+            if (UnitOfWork.Repository<TEntity>().GetById(Item.Model.Id) == null)
                 UnitOfWork.Repository<TEntity>().Add(Item.Model);
 
             Item.AcceptChanges();
-            var saveTask = UnitOfWork.SaveChangesAsync();
             //сохраняем
             try
             {
-                await saveTask;
+                UnitOfWork.SaveChanges();
                 EventAggregator.GetEvent<TAfterSaveEntityEvent>().Publish(Item.Model);
             }
             catch (DbUpdateConcurrencyException e)
             {
-                Container.Resolve<IMessageService>().ShowOkMessageDialog(saveTask.Exception?.GetType().ToString(), saveTask.Exception.GetAllExceptions());
+                //Container.Resolve<IMessageService>().ShowOkMessageDialog(saveTask.Exception?.GetType().ToString(), saveTask.Exception.GetAllExceptions());
                 Container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().ToString(), e.GetAllExceptions());
             }
 
@@ -181,22 +180,21 @@ namespace HVTApp.UI.ViewModels
             ((DelegateCommand)OkCommand).RaiseCanExecuteChanged();
         }
 
-        protected override async void GoBackCommand_Execute()
+        protected override void GoBackCommand_Execute()
         {
             //если были какие-то изменения
             if (SaveCommand_CanExecute())
             {
                 if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Сохранение", "Сохранить изменения?") == MessageDialogResult.Yes)
                 {
-                    await SaveItemTask();
+                    SaveItem();
                 }
             }
-
 
             base.GoBackCommand_Execute();
         }
 
-        protected async void SelectAndSetWrapper<TModel, TWrap>(IEnumerable<TModel> entities, string propertyName, Guid? selectedItemId = null)
+        protected void SelectAndSetWrapper<TModel, TWrap>(IEnumerable<TModel> entities, string propertyName, Guid? selectedItemId = null)
             where TModel : class, IBaseEntity
             where TWrap : class, IWrapper<TModel>
         {
@@ -209,20 +207,20 @@ namespace HVTApp.UI.ViewModels
             //замена текущего значения новым
             if (entity != null && !Equals(entity.Id, propertyValue?.Model.Id))
             {
-                var item = await UnitOfWork.Repository<TModel>().GetByIdAsync(entity.Id);
+                var item = UnitOfWork.Repository<TModel>().GetById(entity.Id);
                 var wrapper = (TWrap)Activator.CreateInstance(typeof(TWrap), item);
                 Item.GetType().GetProperty(propertyName).SetValue(Item, wrapper);
             }
         }
 
-        protected async void SelectAndAddInListWrapper<TModel, TWrap>(IEnumerable<TModel> entities, IList<TWrap> list, Guid? selectedItemId = null)
+        protected void SelectAndAddInListWrapper<TModel, TWrap>(IEnumerable<TModel> entities, IList<TWrap> list, Guid? selectedItemId = null)
             where TModel : class, IBaseEntity
             where TWrap : WrapperBase<TModel>
         {
             var entity = Container.Resolve<ISelectService>().SelectItem(entities, selectedItemId);
             if (entity != null)
             {
-                var item = await UnitOfWork.Repository<TModel>().GetByIdAsync(entity.Id);
+                var item = UnitOfWork.Repository<TModel>().GetById(entity.Id);
                 var wrapper = (TWrap)Activator.CreateInstance(typeof(TWrap), item);
                 list.Add(wrapper);
             }

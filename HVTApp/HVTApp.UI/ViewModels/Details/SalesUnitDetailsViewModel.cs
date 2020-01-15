@@ -13,12 +13,12 @@ namespace HVTApp.UI.ViewModels
             SelectProductCommand = new DelegateCommand(SelectProductCommand_Execute);
         }
 
-        private async void SelectProductCommand_Execute()
+        private void SelectProductCommand_Execute()
         {
-            var product = await Container.Resolve<IGetProductService>().GetProductAsync(Item.Model.Product);
+            var product = Container.Resolve<IGetProductService>().GetProduct(Item.Model.Product);
             if (product != null)
             {
-                product = await UnitOfWork.Repository<Product>().GetByIdAsync(product.Id);
+                product = UnitOfWork.Repository<Product>().GetById(product.Id);
                 Item.Product = new ProductWrapper(product);
             }
         }

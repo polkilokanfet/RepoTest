@@ -60,9 +60,9 @@ namespace HVTApp
             return mainWindow;
         }
 
-        protected override async void InitializeShell()
+        protected override void InitializeShell()
         {
-            await SetGlobalAppProperties();
+            SetGlobalAppProperties();
             Application.Current.MainWindow.Show();
         }
 
@@ -70,12 +70,12 @@ namespace HVTApp
         /// Установка общих опций для всех (наша компания, стандартный срок изготовления и т.д.)
         /// </summary>
         /// <returns></returns>
-        private async Task SetGlobalAppProperties()
+        private void SetGlobalAppProperties()
         {
             //репозиторий с опциями
             var repository = Container.Resolve<IUnitOfWork>().Repository<GlobalProperties>();
             //назначение актуальных опций (последние по дате)
-            GlobalAppProperties.Actual = (await repository.GetAllAsync()).OrderBy(x => x.Date).Last();
+            GlobalAppProperties.Actual = repository.GetAll().OrderBy(x => x.Date).Last();
             
             GlobalAppProperties.ProductDesignationService = Container.Resolve<IProductDesignationService>();
             GlobalAppProperties.ShippingService = Container.Resolve<IShippingService>();

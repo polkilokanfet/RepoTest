@@ -48,7 +48,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
                 }, 
                 () => _salesUnitWrappers != null && _salesUnitWrappers.IsChanged && _salesUnitWrappers.IsValid);
 
-            ReloadCommand = new DelegateCommand(async () => { await LoadAsync(); });
+            ReloadCommand = new DelegateCommand(Load);
 
             RefreshCommand = new DelegateCommand(RefreshPayments);
 
@@ -61,13 +61,13 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
                 () => SelectedGroup?.WillSave != null);
         }
 
-        protected override async Task LoadedAsyncMethod()
+        protected override void LoadedMethod()
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
 
             //загружаем все юниты и фиксируем их в коллекции для отслеживания изменений
             _salesUnitWrappers = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(
-                                (await UnitOfWork.Repository<SalesUnit>().GetAllAsync())
+                                (UnitOfWork.Repository<SalesUnit>().GetAll())
                                 .Where(x => x.Project.Manager.IsAppCurrentUser())
                                 .Select(x => new SalesUnitWrapper(x)));
 

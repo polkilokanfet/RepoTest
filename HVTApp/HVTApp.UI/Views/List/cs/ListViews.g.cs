@@ -31,9 +31,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((ActivityFieldLookupListViewModel)DataContext).LoadAsync();;
+			((ActivityFieldLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -93,9 +93,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((AddressLookupListViewModel)DataContext).LoadAsync();;
+			((AddressLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -176,9 +176,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((BankDetailsLookupListViewModel)DataContext).LoadAsync();;
+			((BankDetailsLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -251,9 +251,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((BankGuaranteeLookupListViewModel)DataContext).LoadAsync();;
+			((BankGuaranteeLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -319,9 +319,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((BankGuaranteeTypeLookupListViewModel)DataContext).LoadAsync();;
+			((BankGuaranteeTypeLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -373,9 +373,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((CompanyFormLookupListViewModel)DataContext).LoadAsync();;
+			((CompanyFormLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -436,9 +436,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((CompanyLookupListViewModel)DataContext).LoadAsync();;
+			((CompanyLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -554,9 +554,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((ContractLookupListViewModel)DataContext).LoadAsync();;
+			((ContractLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -623,9 +623,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((CountryLookupListViewModel)DataContext).LoadAsync();;
+			((CountryLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -677,9 +677,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((CountryUnionLookupListViewModel)DataContext).LoadAsync();;
+			((CountryUnionLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -738,9 +738,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((CreateNewProductTaskLookupListViewModel)DataContext).LoadAsync();;
+			((CreateNewProductTaskLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -813,9 +813,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((CurrencyExchangeRateLookupListViewModel)DataContext).LoadAsync();;
+			((CurrencyExchangeRateLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -889,9 +889,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((DistrictLookupListViewModel)DataContext).LoadAsync();;
+			((DistrictLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -950,9 +950,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((DocumentLookupListViewModel)DataContext).LoadAsync();;
+			((DocumentLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -1102,9 +1102,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((DocumentNumberLookupListViewModel)DataContext).LoadAsync();;
+			((DocumentNumberLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -1159,9 +1159,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((DocumentsRegistrationDetailsLookupListViewModel)DataContext).LoadAsync();;
+			((DocumentsRegistrationDetailsLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -1222,9 +1222,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((EmployeeLookupListViewModel)DataContext).LoadAsync();;
+			((EmployeeLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -1313,9 +1313,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((EmployeesPositionLookupListViewModel)DataContext).LoadAsync();;
+			((EmployeesPositionLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -1368,9 +1368,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((FacilityLookupListViewModel)DataContext).LoadAsync();;
+			((FacilityLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -1444,9 +1444,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((FacilityTypeLookupListViewModel)DataContext).LoadAsync();;
+			((FacilityTypeLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -1505,9 +1505,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((FakeDataLookupListViewModel)DataContext).LoadAsync();;
+			((FakeDataLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -1580,9 +1580,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((GlobalPropertiesLookupListViewModel)DataContext).LoadAsync();;
+			((GlobalPropertiesLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -1733,9 +1733,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((LocalityLookupListViewModel)DataContext).LoadAsync();;
+			((LocalityLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -1830,9 +1830,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((LocalityTypeLookupListViewModel)DataContext).LoadAsync();;
+			((LocalityTypeLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -1891,9 +1891,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((LosingReasonLookupListViewModel)DataContext).LoadAsync();;
+			((LosingReasonLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -1945,9 +1945,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((MarketFieldLookupListViewModel)DataContext).LoadAsync();;
+			((MarketFieldLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -2006,9 +2006,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((MeasureLookupListViewModel)DataContext).LoadAsync();;
+			((MeasureLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -2067,9 +2067,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((NoteLookupListViewModel)DataContext).LoadAsync();;
+			((NoteLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -2135,9 +2135,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((OfferLookupListViewModel)DataContext).LoadAsync();;
+			((OfferLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -2315,9 +2315,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((OfferUnitLookupListViewModel)DataContext).LoadAsync();;
+			((OfferUnitLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -2426,9 +2426,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((OrderLookupListViewModel)DataContext).LoadAsync();;
+			((OrderLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -2487,9 +2487,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((ParameterGroupLookupListViewModel)DataContext).LoadAsync();;
+			((ParameterGroupLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -2555,9 +2555,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((ParameterLookupListViewModel)DataContext).LoadAsync();;
+			((ParameterLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -2644,9 +2644,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((ParameterRelationLookupListViewModel)DataContext).LoadAsync();;
+			((ParameterRelationLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -2705,9 +2705,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((PaymentActualLookupListViewModel)DataContext).LoadAsync();;
+			((PaymentActualLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -2773,9 +2773,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((PaymentConditionLookupListViewModel)DataContext).LoadAsync();;
+			((PaymentConditionLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -2841,9 +2841,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((PaymentConditionPointLookupListViewModel)DataContext).LoadAsync();;
+			((PaymentConditionPointLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -2902,9 +2902,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((PaymentConditionSetLookupListViewModel)DataContext).LoadAsync();;
+			((PaymentConditionSetLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -2957,9 +2957,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((PaymentDocumentLookupListViewModel)DataContext).LoadAsync();;
+			((PaymentDocumentLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -3032,9 +3032,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((PaymentPlannedLookupListViewModel)DataContext).LoadAsync();;
+			((PaymentPlannedLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -3114,9 +3114,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((PenaltyLookupListViewModel)DataContext).LoadAsync();;
+			((PenaltyLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -3184,9 +3184,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((PersonLookupListViewModel)DataContext).LoadAsync();;
+			((PersonLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -3259,9 +3259,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((PriceCalculationItemLookupListViewModel)DataContext).LoadAsync();;
+			((PriceCalculationItemLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -3348,9 +3348,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((PriceCalculationLookupListViewModel)DataContext).LoadAsync();;
+			((PriceCalculationLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -3444,9 +3444,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((ProductBlockLookupListViewModel)DataContext).LoadAsync();;
+			((ProductBlockLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -3582,9 +3582,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((ProductDependentLookupListViewModel)DataContext).LoadAsync();;
+			((ProductDependentLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -3650,9 +3650,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((ProductDesignationLookupListViewModel)DataContext).LoadAsync();;
+			((ProductDesignationLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -3718,9 +3718,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((ProductIncludedLookupListViewModel)DataContext).LoadAsync();;
+			((ProductIncludedLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -3786,9 +3786,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((ProductLookupListViewModel)DataContext).LoadAsync();;
+			((ProductLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -3868,9 +3868,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((ProductRelationLookupListViewModel)DataContext).LoadAsync();;
+			((ProductRelationLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -3950,9 +3950,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((ProductTypeDesignationLookupListViewModel)DataContext).LoadAsync();;
+			((ProductTypeDesignationLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -4011,9 +4011,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((ProductTypeLookupListViewModel)DataContext).LoadAsync();;
+			((ProductTypeLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -4065,9 +4065,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((ProjectLookupListViewModel)DataContext).LoadAsync();;
+			((ProjectLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -4238,9 +4238,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((ProjectTypeLookupListViewModel)DataContext).LoadAsync();;
+			((ProjectTypeLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -4293,9 +4293,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((RegionLookupListViewModel)DataContext).LoadAsync();;
+			((RegionLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -4354,9 +4354,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((SalesUnitLookupListViewModel)DataContext).LoadAsync();;
+			((SalesUnitLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -4821,9 +4821,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((SpecificationLookupListViewModel)DataContext).LoadAsync();;
+			((SpecificationLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -4910,9 +4910,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((StandartMarginalIncomeLookupListViewModel)DataContext).LoadAsync();;
+			((StandartMarginalIncomeLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -4971,9 +4971,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((StandartProductionTermLookupListViewModel)DataContext).LoadAsync();;
+			((StandartProductionTermLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -5032,9 +5032,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((StructureCostLookupListViewModel)DataContext).LoadAsync();;
+			((StructureCostLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -5121,9 +5121,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((SumLookupListViewModel)DataContext).LoadAsync();;
+			((SumLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -5189,9 +5189,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((SumOnDateLookupListViewModel)DataContext).LoadAsync();;
+			((SumOnDateLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -5250,9 +5250,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((TenderLookupListViewModel)DataContext).LoadAsync();;
+			((TenderLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -5346,9 +5346,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((TenderTypeLookupListViewModel)DataContext).LoadAsync();;
+			((TenderTypeLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -5407,9 +5407,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((UserLookupListViewModel)DataContext).LoadAsync();;
+			((UserLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps
@@ -5489,9 +5489,9 @@ namespace HVTApp.UI.Views
             Loaded += OnLoaded;
         }
 		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((UserRoleLookupListViewModel)DataContext).LoadAsync();;
+			((UserRoleLookupListViewModel)DataContext).Load();
         }
 
 		#region VisibilityProps

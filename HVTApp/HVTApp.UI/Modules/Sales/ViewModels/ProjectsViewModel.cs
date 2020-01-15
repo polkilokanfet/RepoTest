@@ -17,7 +17,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
         {
             NewItemCommand = new DelegateCommand(NewItemCommandExecute, NewItemCommandCanExecute);
             EditItemCommand = new DelegateCommand(EditItemCommandExecute, EditItemCommandCanExecute);
-            RemoveItemCommand = new DelegateCommand(RemoveItemCommand_ExecuteAsync, () => SelectedItem != null);
+            RemoveItemCommand = new DelegateCommand(RemoveItemCommand_Execute, () => SelectedItem != null);
         }
 
         private void EditItemCommandExecute()

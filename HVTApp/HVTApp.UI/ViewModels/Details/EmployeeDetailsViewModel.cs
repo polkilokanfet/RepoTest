@@ -8,10 +8,10 @@ namespace HVTApp.UI.ViewModels
         protected override void InitSpecialGetMethods()
         {
             //потенциальные персоны
-            _getEntitiesForSelectPersonCommand = async () =>
+            _getEntitiesForSelectPersonCommand = () =>
             {
-                var persons = await UnitOfWork.Repository<Person>().GetAllAsync();
-                var except = (await UnitOfWork.Repository<Employee>().GetAllAsync()).Select(x => x.Person).Distinct();
+                var persons = UnitOfWork.Repository<Person>().GetAll();
+                var except = UnitOfWork.Repository<Employee>().GetAll().Select(x => x.Person).Distinct();
                 return persons.Except(except).ToList();
             };
         }

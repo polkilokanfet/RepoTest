@@ -28,13 +28,13 @@ namespace HVTApp.Services.PrintService
             _printProductService = container.Resolve<IPrintProductService>() as PrintProductService;
         }
 
-        public async Task PrintOfferAsync(Guid offerId)
+        public void PrintOffer(Guid offerId)
         {
 
             #region Get OfferUnits
 
             var unitOfWork = _container.Resolve<IUnitOfWork>();
-            var offerUnits = (await unitOfWork.Repository<OfferUnit>().GetAllAsync()).Where(x => x.Offer.Id == offerId).ToList();
+            var offerUnits = unitOfWork.Repository<OfferUnit>().GetAll().Where(x => x.Offer.Id == offerId).ToList();
             var offer = offerUnits.First().Offer;
 
             //разбиваем на группы, а их делим по объектам

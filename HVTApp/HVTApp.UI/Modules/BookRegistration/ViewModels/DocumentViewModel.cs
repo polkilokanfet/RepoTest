@@ -12,24 +12,19 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
         {
         }
         
-        public async Task LoadAsync2(Document document)
+        public void Load2(Document document)
         {
-            await this.LoadAsync(new Document());
+            this.Load(new Document());
 
             if (document.Author != null)
-                Item.Author = new EmployeeWrapper(await UnitOfWork.Repository<Employee>().GetByIdAsync(document.Author.Id));
+                Item.Author = new EmployeeWrapper(UnitOfWork.Repository<Employee>().GetById(document.Author.Id));
 
             if (document.SenderEmployee != null)
-                Item.SenderEmployee = new EmployeeWrapper(await UnitOfWork.Repository<Employee>().GetByIdAsync(document.SenderEmployee.Id));
+                Item.SenderEmployee = new EmployeeWrapper(UnitOfWork.Repository<Employee>().GetById(document.SenderEmployee.Id));
 
             if (document.RecipientEmployee != null)
-                Item.RecipientEmployee = new EmployeeWrapper(await UnitOfWork.Repository<Employee>().GetByIdAsync(document.RecipientEmployee.Id));
+                Item.RecipientEmployee = new EmployeeWrapper(UnitOfWork.Repository<Employee>().GetById(document.RecipientEmployee.Id));
         }
 
-        protected override async Task AfterLoading()
-        {
-
-            await base.AfterLoading();
-        }
-    }
+   }
 }

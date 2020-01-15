@@ -20,9 +20,9 @@ namespace HVTApp.Services.WpfAuthenticationService
             _dialogService.Register<AuthenticationWindowModel, AuthenticationWindow>();
         }
 
-        public async Task<bool> AuthenticationAsync()
+        public bool Authentication()
         {
-            var users = await _unitOfWork.Repository<User>().GetAllAsync();
+            var users = _unitOfWork.Repository<User>().GetAll();
             var authenticationWindowModel = new AuthenticationWindowModel(users);
             bool? result = _dialogService.ShowDialog(authenticationWindowModel);
             if (result.HasValue && result.Value)

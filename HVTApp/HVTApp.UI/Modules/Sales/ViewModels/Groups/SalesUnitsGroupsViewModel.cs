@@ -33,12 +33,12 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             return wrappersGroup?.Specification == null;
         }
 
-        private async void ChangeProducerCommand_Execute(SalesUnitsWrappersGroup wrappersGroup)
+        private void ChangeProducerCommand_Execute(SalesUnitsWrappersGroup wrappersGroup)
         {
             var producers = UnitOfWork.Repository<Company>().Find(x => x.ActivityFilds.Select(af => af.ActivityFieldEnum).Contains(ActivityFieldEnum.ProducerOfHighVoltageEquipment));
             var producer = Container.Resolve<ISelectService>().SelectItem(producers, wrappersGroup.Producer?.Id);
             if (producer == null) return;
-            producer = await UnitOfWork.Repository<Company>().GetByIdAsync(producer.Id);
+            producer = UnitOfWork.Repository<Company>().GetById(producer.Id);
             wrappersGroup.Producer = new CompanyWrapper(producer);
         }
 

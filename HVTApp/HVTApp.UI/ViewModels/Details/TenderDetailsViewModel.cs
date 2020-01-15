@@ -10,18 +10,14 @@ namespace HVTApp.UI.ViewModels
     {
         protected override void InitSpecialGetMethods()
         {
-            _getEntitiesForSelectWinnerCommand = async () =>
+            _getEntitiesForSelectWinnerCommand = () =>
             {
-                Func<List<Company>> func = () =>
-                {
-                    return Item.Participants.Select(x => x.Model).ToList();
-                };
-                return await Task.Run(func);
+                return Item.Participants.Select(x => x.Model).ToList();
             };
 
-            _getEntitiesForAddInTypesCommand = async () =>
+            _getEntitiesForAddInTypesCommand = () =>
             {
-                var types = await UnitOfWork.Repository<TenderType>().GetAllAsync();
+                var types = UnitOfWork.Repository<TenderType>().GetAll();
                 return types.Except(Item.Model.Types).ToList();
             };
         }

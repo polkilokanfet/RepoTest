@@ -7,16 +7,16 @@ namespace HVTApp.UI.ViewModels
     {
         protected override void InitSpecialGetMethods()
         {
-            _getEntitiesForSelectEmployeeCommand = async () =>
+            _getEntitiesForSelectEmployeeCommand = () =>
             {
-                var employes = await UnitOfWork.Repository<Employee>().GetAllAsync();
-                var users = await UnitOfWork.Repository<User>().GetAllAsync();
+                var employes = UnitOfWork.Repository<Employee>().GetAll();
+                var users = UnitOfWork.Repository<User>().GetAll();
                 return employes.Except(users.Select(x => x.Employee)).ToList();
             };
 
-            _getEntitiesForAddInRolesCommand = async () =>
+            _getEntitiesForAddInRolesCommand = () =>
             {
-                var roles = await UnitOfWork.Repository<UserRole>().GetAllAsync();
+                var roles = UnitOfWork.Repository<UserRole>().GetAll();
                 return roles.Except(Item.Model.Roles).ToList();
             };
         }

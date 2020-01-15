@@ -18,18 +18,18 @@ namespace HVTApp.UI.Modules.Products.ViewModels
 
         public CreateNewProductTasksViewModel(IUnityContainer container) : base(container)
         {
-            ChangeProductCommand = new DelegateCommand(async () =>
+            ChangeProductCommand = new DelegateCommand(() =>
                 {
                     var unitOfWork = Container.Resolve<IUnitOfWork>();
 
                     //продукт на замену
-                    var targetProduct = await Container.Resolve<IGetProductService>().GetProductAsync();
+                    var targetProduct = Container.Resolve<IGetProductService>().GetProduct();
 
-                    var task = await unitOfWork.Repository<CreateNewProductTask>().GetByIdAsync(SelectedItem.Id);
+                    var task = unitOfWork.Repository<CreateNewProductTask>().GetById(SelectedItem.Id);
 
                     if (targetProduct == null || targetProduct.Id == task.Product.Id) return;
 
-                    targetProduct = await unitOfWork.Repository<Product>().GetByIdAsync(targetProduct.Id);
+                    targetProduct = unitOfWork.Repository<Product>().GetById(targetProduct.Id);
 
                     //юниты с новым продуктом
                     var salesUnits = unitOfWork.Repository<SalesUnit>().Find(x => x.Product.Id == task.Product.Id);
@@ -45,7 +45,7 @@ namespace HVTApp.UI.Modules.Products.ViewModels
                     unitOfWork.Repository<Parameter>().DeleteRange(parameters);
 
                     //удаление связей параметров
-                    var relations = (await unitOfWork.Repository<ParameterRelation>().GetAllAsync())
+                    var relations = unitOfWork.Repository<ParameterRelation>().GetAll()
                         .Where(x => parameters.Select(p => p.Id).Contains(x.ParameterId)).ToList();
                     unitOfWork.Repository<ParameterRelation>().DeleteRange(relations);
 
@@ -58,7 +58,7 @@ namespace HVTApp.UI.Modules.Products.ViewModels
                     //удаление задания
                     unitOfWork.Repository<CreateNewProductTask>().Delete(task);
 
-                    await unitOfWork.SaveChangesAsync();
+                    unitOfWork.SaveChanges();
 
                     Container.Resolve<IEventAggregator>().GetEvent<AfterRemoveCreateNewProductTaskEvent>().Publish(task);
                 },

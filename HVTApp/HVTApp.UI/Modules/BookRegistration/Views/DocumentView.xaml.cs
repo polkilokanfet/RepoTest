@@ -26,7 +26,7 @@ namespace HVTApp.UI.Modules.BookRegistration.Views
             return false;
         }
 
-        public override async void OnNavigatedTo(NavigationContext navigationContext)
+        public override void OnNavigatedTo(NavigationContext navigationContext)
         {
             var parameter = navigationContext.Parameters.First();
 
@@ -35,7 +35,7 @@ namespace HVTApp.UI.Modules.BookRegistration.Views
                 this.DocumentDetailsView.VisibilityAuthorDocument = Visibility.Collapsed;
             }
 
-            await _viewModel.LoadAsync2(parameter.Value as Document);
+            _viewModel.Load2(parameter.Value as Document);
             base.OnNavigatedTo(navigationContext);
         }
     }

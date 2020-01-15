@@ -21,13 +21,13 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
 
         public PaymentsViewModel(IUnityContainer container) : base(container)
         {
-            ReloadCommand = new DelegateCommand(async () => await LoadAsync());
+            ReloadCommand = new DelegateCommand(Load);
         }
 
-        protected override async Task LoadedAsyncMethod()
+        protected override void LoadedMethod()
         {
             _unitOfWork = Container.Resolve<IUnitOfWork>();
-            var units = await _unitOfWork.Repository<SalesUnit>().GetAllAsNoTrackingAsync();
+            var units = _unitOfWork.Repository<SalesUnit>().GetAllAsNoTracking();
             var payments = new List<PlanPayment>();
             foreach (var unit in units)
             {

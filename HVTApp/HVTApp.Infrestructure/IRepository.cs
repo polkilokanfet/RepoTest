@@ -7,10 +7,15 @@ namespace HVTApp.Infrastructure
     public interface IRepository<TEntity>
         where TEntity : class, IBaseEntity
     {
-        Task<List<TEntity>> GetAllAsync();
-        Task<List<TEntity>> GetAllAsNoTrackingAsync();
+        //Task<List<TEntity>> GetAllAsync();
+        List<TEntity> GetAll();
+
+        List<TEntity> GetAllAsNoTracking();
+        //Task<List<TEntity>> GetAllAsNoTrackingAsync();
+
         TEntity GetById(Guid id);
-        Task<TEntity> GetByIdAsync(Guid id);
+        //Task<TEntity> GetByIdAsync(Guid id);
+
         List<TEntity> Find(Func<TEntity, bool> predicate);
         List<TEntity> FindAsNoTracking(Func<TEntity, bool> predicate);
 

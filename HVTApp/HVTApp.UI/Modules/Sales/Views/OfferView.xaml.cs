@@ -26,7 +26,7 @@ namespace HVTApp.UI.Modules.Sales.Views
             return false;
         }
 
-        public override async void OnNavigatedTo(NavigationContext navigationContext)
+        public override void OnNavigatedTo(NavigationContext navigationContext)
         {
             base.OnNavigatedTo(navigationContext);
 
@@ -34,16 +34,16 @@ namespace HVTApp.UI.Modules.Sales.Views
 
             //по шаблону-проекту
             var project = navigationContext.Parameters.First().Value as Project;
-            if (project != null) await _viewModel.LoadAsync(new Offer(), true, project);
+            if (project != null) _viewModel.Load(new Offer(), true, project);
 
             
             var offer = navigationContext.Parameters.First().Value as Offer;
             if (offer != null)
             {
                 //по шаблону-предложению
-                if (navigationContext.Parameters.Count() == 1) await _viewModel.LoadAsync(new Offer(), true, offer);
+                if (navigationContext.Parameters.Count() == 1) _viewModel.Load(new Offer(), true, offer);
                 //для изменения
-                else await _viewModel.LoadAsync(offer, false);
+                else _viewModel.Load(offer, false);
             }
         }
     }

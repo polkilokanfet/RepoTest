@@ -149,30 +149,30 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
 
         protected abstract void AddCommand_Execute();
 
-        private async void ChangeProductCommand_Execute(TGroup wrappersGroup)
+        private void ChangeProductCommand_Execute(TGroup wrappersGroup)
         {
-            var product = await Container.Resolve<IGetProductService>().GetProductAsync(wrappersGroup.Product?.Model);
+            var product = Container.Resolve<IGetProductService>().GetProduct(wrappersGroup.Product?.Model);
             if (product == null || product.Id == wrappersGroup.Product.Id) return;
-            product = await UnitOfWork.Repository<Product>().GetByIdAsync(product.Id);
+            product = UnitOfWork.Repository<Product>().GetById(product.Id);
             wrappersGroup.Product = new ProductWrapper(product);
             RefreshPrice(wrappersGroup);
         }
 
-        private async void ChangeFacilityCommand_Execute(TGroup wrappersGroup)
+        private void ChangeFacilityCommand_Execute(TGroup wrappersGroup)
         {
-            var facilities = await UnitOfWork.Repository<Facility>().GetAllAsNoTrackingAsync();
+            var facilities = UnitOfWork.Repository<Facility>().GetAllAsNoTracking();
             var facility = Container.Resolve<ISelectService>().SelectItem(facilities, wrappersGroup.Facility?.Id);
             if (facility == null) return;
-            facility = await UnitOfWork.Repository<Facility>().GetByIdAsync(facility.Id);
+            facility = UnitOfWork.Repository<Facility>().GetById(facility.Id);
             wrappersGroup.Facility = new FacilityWrapper(facility);
         }
 
-        private async void ChangePaymentsCommand_Execute(TGroup wrappersGroup)
+        private void ChangePaymentsCommand_Execute(TGroup wrappersGroup)
         {
-            var sets = await UnitOfWork.Repository<PaymentConditionSet>().GetAllAsNoTrackingAsync();
+            var sets = UnitOfWork.Repository<PaymentConditionSet>().GetAllAsNoTracking();
             var set = Container.Resolve<ISelectService>().SelectItem(sets, wrappersGroup.PaymentConditionSet?.Id);
             if (set == null) return;
-            set = await UnitOfWork.Repository<PaymentConditionSet>().GetByIdAsync(set.Id);
+            set = UnitOfWork.Repository<PaymentConditionSet>().GetById(set.Id);
             wrappersGroup.PaymentConditionSet = new PaymentConditionSetWrapper(set);
         }
 

@@ -17,7 +17,7 @@ namespace HVTApp.Services.NewProductService
         {
         }
 
-        protected override async Task AfterLoading()
+        protected override void AfterLoading()
         {
             //новый продукт
             var block = new ProductBlockWrapper(new ProductBlock());
@@ -28,10 +28,10 @@ namespace HVTApp.Services.NewProductService
 
             //параметры продукта
             _parameter = new ParameterWrapper(new Parameter());
-            var group = await UnitOfWork.Repository<ParameterGroup>().GetByIdAsync(GlobalAppProperties.Actual.NewProductParameterGroup.Id);
+            var group = UnitOfWork.Repository<ParameterGroup>().GetById(GlobalAppProperties.Actual.NewProductParameterGroup.Id);
             _parameter.ParameterGroup = new ParameterGroupWrapper(group);
 
-            var parameterBase = await UnitOfWork.Repository<Parameter>().GetByIdAsync(GlobalAppProperties.Actual.NewProductParameter.Id);
+            var parameterBase = UnitOfWork.Repository<Parameter>().GetById(GlobalAppProperties.Actual.NewProductParameter.Id);
             var relation = new ParameterRelation();
             relation.RequiredParameters.Add(parameterBase);
             _parameter.ParameterRelations.Add(new ParameterRelationWrapper(relation));
@@ -42,7 +42,7 @@ namespace HVTApp.Services.NewProductService
 
             Item.PropertyChanged += ItemOnPropertyChanged;
 
-            await base.AfterLoading();
+            base.AfterLoading();
         }
 
         //значение параметра = обозначение

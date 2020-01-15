@@ -86,11 +86,11 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
                 () => GroupsPotential.SelectedItem != null);
         }
 
-        protected override async Task AfterLoading()
+        protected override void AfterLoading()
         {
             //оставляем юниты без заказов либо с редактируемым заказом
             //исключаем юниты без сигнала к производству
-            var salesUnits = (await UnitOfWork.Repository<SalesUnit>().GetAllAsync())
+            var salesUnits = (UnitOfWork.Repository<SalesUnit>().GetAll())
                 .Where(x => x.SignalToStartProduction.HasValue)
                 .Where(x => x.Order == null || x.Order.Id == Item.Id);
             //все задачи на расчет с номерами стракчакостов
@@ -146,7 +146,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
             Item.PropertyChanged += OnPropertyChanged;
             _unitsWrappers?.ForEach(x => x.PropertyChanged += OnPropertyChanged);
 
-            await base.AfterLoading();
+            base.AfterLoading();
         }
 
         private void AddGroupCommand_Execute()

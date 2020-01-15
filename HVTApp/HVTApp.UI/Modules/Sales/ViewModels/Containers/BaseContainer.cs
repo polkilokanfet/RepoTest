@@ -133,7 +133,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
 
         protected abstract IEnumerable<TLookup> GetLookups(IUnitOfWork unitOfWork);
 
-        public virtual async Task RemoveSelectedItemTask()
+        public virtual void RemoveSelectedItem()
         {
             if(SelectedItem == null) throw new ArgumentNullException(nameof(SelectedItem));
 
@@ -143,13 +143,13 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
             var dr = messageService.ShowYesNoMessageDialog("Удаление", $"Вы действительно хотите удалить \"{SelectedItem.DisplayMember}\"?");
             if (dr != MessageDialogResult.Yes) return;
 
-            var entity = await unitOfWork.Repository<TItem>().GetByIdAsync(SelectedItem.Id);
+            var entity = unitOfWork.Repository<TItem>().GetById(SelectedItem.Id);
             if (entity != null)
             {
                 unitOfWork.Repository<TItem>().Delete(entity);
                 try
                 {
-                    await unitOfWork.SaveChangesAsync();
+                    unitOfWork.SaveChanges();
                     Container.Resolve<IEventAggregator>().GetEvent<TAfterRemoveItemEvent>().Publish(entity);
                 }
                 catch (DbUpdateException e)

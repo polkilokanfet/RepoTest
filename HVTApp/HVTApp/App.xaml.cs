@@ -10,7 +10,7 @@ namespace HVTApp
 {
     public partial class App : Application
     {
-        protected override async void OnStartup(StartupEventArgs e)
+        protected override void OnStartup(StartupEventArgs e)
         {
             #if DEBUG
 
@@ -19,7 +19,7 @@ namespace HVTApp
                 //Disable shutdown when the dialog closes
                 Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
 
-                GlobalAppProperties.User = await (new Auth()).GetCurrentUser();
+                GlobalAppProperties.User = new Auth().GetCurrentUser();
 
                 var bootstrapper = new Bootstrapper();
                 bootstrapper.Run();
@@ -33,7 +33,7 @@ namespace HVTApp
                 //Disable shutdown when the dialog closes
                 Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
 
-                GlobalAppProperties.User = await (new Auth()).GetCurrentUser();
+                GlobalAppProperties.User = new Auth().GetCurrentUser();
 
                 var bootstrapper = new Bootstrapper();
                 bootstrapper.Run();

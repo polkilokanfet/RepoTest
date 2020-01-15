@@ -33,16 +33,16 @@ namespace HVTApp.UI.Modules.Director.ViewModels
 
         public MarketViewModel(IUnityContainer container) : base(container)
         {
-            ReloadCommand = new DelegateCommand(async () => { await Load(); });
+            ReloadCommand = new DelegateCommand(Load);
             ExpandCommand = new DelegateCommand(() => { ExpandCollapseEvent?.Invoke(true); });
             CollapseCommand = new DelegateCommand(() => { ExpandCollapseEvent?.Invoke(false); });
         }
 
-        public async Task Load()
+        public void Load()
         {
             IsLoaded = false;
 
-            var salesUnits = (await UnitOfWork.Repository<SalesUnit>().GetAllAsync()).Where(x => x.Project.ForReport);
+            var salesUnits = UnitOfWork.Repository<SalesUnit>().GetAll().Where(x => x.Project.ForReport);
 
             MarketUnits.Clear();
             MarketUnits.AddRange(

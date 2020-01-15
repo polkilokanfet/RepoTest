@@ -16,11 +16,11 @@ namespace HVTApp.DataAccess
         /// <returns></returns>
         IEnumerable<SalesUnit> GetUsersSalesUnits();
 
-        /// <summary>
-        /// Получить все юниты авторизованного пользователя асинхронно
-        /// </summary>
-        /// <returns></returns>
-        Task<IEnumerable<SalesUnit>> GetUsersSalesUnitsAsync();
+        ///// <summary>
+        ///// Получить все юниты авторизованного пользователя асинхронно
+        ///// </summary>
+        ///// <returns></returns>
+        //Task<IEnumerable<SalesUnit>> GetUsersSalesUnitsAsync();
     }
 
     public partial class SalesUnitRepository
@@ -45,10 +45,10 @@ namespace HVTApp.DataAccess
             return this.Find(x => x.Project.Manager.IsAppCurrentUser());
         }
 
-        public async Task<IEnumerable<SalesUnit>> GetUsersSalesUnitsAsync()
-        {
-            var su = await this.GetAllAsync();
-            return su.Where(x => x.Project.Manager.IsAppCurrentUser());
-        }
+        //public async Task<IEnumerable<SalesUnit>> GetUsersSalesUnitsAsync()
+        //{
+        //    var su = await this.GetAllAsync();
+        //    return su.Where(x => x.Project.Manager.IsAppCurrentUser());
+        //}
     }
 }

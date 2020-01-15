@@ -10,19 +10,19 @@ namespace HVTApp.UI.Modules.Sales.Views
     [RibbonTab(typeof(ShippingTab))]
     public partial class ShippingView
     {
-        private readonly ShippingViewModel _shippingViewModel;
+        private readonly ShippingViewModel _viewModel;
 
-        public ShippingView(ShippingViewModel shippingViewModel, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
+        public ShippingView(ShippingViewModel _viewModel, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
         {
-            _shippingViewModel = shippingViewModel;
+            this._viewModel = _viewModel;
             InitializeComponent();
-            this.DataContext = _shippingViewModel;
+            this.DataContext = this._viewModel;
             this.Loaded += OnLoaded;
         }
 
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-            await _shippingViewModel.LoadAsync();
+            _viewModel.Load();
             this.Loaded -= OnLoaded;
         }
     }

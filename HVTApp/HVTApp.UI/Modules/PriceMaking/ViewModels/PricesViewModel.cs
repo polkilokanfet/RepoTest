@@ -61,19 +61,21 @@ namespace HVTApp.UI.Modules.PriceMaking.ViewModels
         public PricesViewModel(IUnityContainer container)
         {
             _container = container;
-            SaveCommand = new DelegateCommand(async () =>
-            {
-                PriceTasks.SelectMany(x => x.Prices.RemovedItems).ForEach(x => _unitOfWork.Repository<SumOnDate>().Delete(x.Model));
-                PriceTasks.Where(x => x.IsChanged).ForEach(x => { x.AcceptChanges(); });
-                await _unitOfWork.SaveChangesAsync();
-                await LoadAsync();
-            },
+            SaveCommand = new DelegateCommand(
+                () =>
+                {
+                    PriceTasks.SelectMany(x => x.Prices.RemovedItems).ForEach(x => _unitOfWork.Repository<SumOnDate>().Delete(x.Model));
+                    PriceTasks.Where(x => x.IsChanged).ForEach(x => { x.AcceptChanges(); });
+                    _unitOfWork.SaveChanges();
+                    Load();
+                },
                 () =>
                 {
                     return PriceTasks.Any(x => x.IsChanged) && PriceTasks.All(x => x.IsValid);
                 });
 
-            ReloadCommand = new DelegateCommand(async () => await LoadAsync());
+            ReloadCommand = new DelegateCommand(Load);
+
             PrintBlockInContext = new DelegateCommand(PrintBlockInContextExecute, () => SelectedPriceTask != null);
 
             AddPriceCommand = new DelegateCommand(() =>
@@ -98,20 +100,20 @@ namespace HVTApp.UI.Modules.PriceMaking.ViewModels
             () => SelectedPriceTask != null && SelectedSumOnDate != null);
         }
 
-        private async void PrintBlockInContextExecute()
+        private void PrintBlockInContextExecute()
         {
             var block = SelectedPriceTask;
-            var products = await _unitOfWork.Repository<Product>().GetAllAsync();
+            var products = _unitOfWork.Repository<Product>().GetAll();
             products = products.Where(x => x.GetBlocks().Contains(block.Model)).Distinct().ToList();
             _container.Resolve<IPrintProductService>().PrintProducts(products, block.Model);
         }
 
-        public async Task LoadAsync()
+        public void Load()
         {
             _unitOfWork = _container.Resolve<IUnitOfWork>();
 
-            var salesUnits = await _unitOfWork.Repository<SalesUnit>().GetAllAsync();
-            var offerUnits = await _unitOfWork.Repository<OfferUnit>().GetAllAsync();
+            var salesUnits = _unitOfWork.Repository<SalesUnit>().GetAll();
+            var offerUnits = _unitOfWork.Repository<OfferUnit>().GetAll();
             var blocks = _unitOfWork.Repository<ProductBlock>().Find(x => !x.IsService);
             
             var priceTasks = new List<PriceTask>();

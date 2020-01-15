@@ -25,21 +25,22 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
         public ShippingViewModel(IUnityContainer container) : base(container)
         {
-            SaveCommand = new DelegateCommand(SaveCommand_Execute, () => _salesUnits != null && _salesUnits.IsChanged && _salesUnits.IsValid);
-            ReloadCommand = new DelegateCommand(async () => await LoadAsync());
+            SaveCommand = new DelegateCommand(
+                () =>
+                {
+                    _salesUnits.AcceptChanges();
+                    UnitOfWork.SaveChanges();
+                },
+                () => _salesUnits != null && _salesUnits.IsChanged && _salesUnits.IsValid);
+
+            ReloadCommand = new DelegateCommand(Load);
         }
 
-        private async void SaveCommand_Execute()
-        {
-            _salesUnits.AcceptChanges();
-            await UnitOfWork.SaveChangesAsync();
-        }
-
-        protected override async Task LoadedAsyncMethod()
+        protected override void LoadedMethod()
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
 
-            var salesUnits = await ((ISalesUnitRepository)UnitOfWork.Repository<SalesUnit>()).GetUsersSalesUnitsAsync();
+            var salesUnits = ((ISalesUnitRepository)UnitOfWork.Repository<SalesUnit>()).GetUsersSalesUnits();
             _salesUnits?.ForEach(x => x.PropertyChanged -= OnSalesUnitPropertyChanged);
             _salesUnits = new ValidatableChangeTrackingCollection<ShippingItemWrapper>(salesUnits.Select(x => new ShippingItemWrapper(x)));
             _salesUnits.ForEach(x => x.PropertyChanged += OnSalesUnitPropertyChanged);

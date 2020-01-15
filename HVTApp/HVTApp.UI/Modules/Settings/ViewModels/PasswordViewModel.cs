@@ -57,10 +57,10 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
             var user = unitOfWork.Repository<User>().Find(x => x.IsAppCurrentUser()).First();
 
             OkCommand = new DelegateCommand(
-                async () =>
+                () =>
                 {
                     user.Password = StringToGuid.GetHashString(PassNew);
-                    await unitOfWork.SaveChangesAsync();
+                    unitOfWork.SaveChanges();
                     container.Resolve<IMessageService>().ShowOkMessageDialog("Пароль изменен", "Пароль успешно изменен.");
 
                     PassOld = string.Empty;

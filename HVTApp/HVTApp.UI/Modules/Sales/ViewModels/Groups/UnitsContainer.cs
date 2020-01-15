@@ -34,14 +34,14 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             SaveCommand = new DelegateCommand(SaveCommandExecute, SaveCommandCanExecute);
         }
 
-        public virtual async Task LoadAsync(TModel model, bool isNew, object parameter = null)
+        public virtual void Load(TModel model, bool isNew, object parameter = null)
         {
             //детали
-            await DetailsViewModel.LoadAsync(model, UnitOfWork);
+            DetailsViewModel.Load(model, UnitOfWork);
             DetailsViewModel.Item.PropertyChanged += ItemOnPropertyChanged;
 
             //группы юнитов
-            var units = await GetUnits(model, parameter);
+            var units = GetUnits(model, parameter);
             GroupsViewModel.Load(units, DetailsViewModel.Item, UnitOfWork, isNew);
             GroupsViewModel.GroupChanged += OnGroupChanged;
 
@@ -54,11 +54,11 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
         /// <param name="model"></param>
         /// <param name="parameter"></param>
         /// <returns></returns>
-        protected abstract Task<IEnumerable<TUnit>> GetUnits(TModel model, object parameter = null);
+        protected abstract IEnumerable<TUnit> GetUnits(TModel model, object parameter = null);
 
         #region SaveCommand
 
-        protected async void SaveCommandExecute()
+        protected void SaveCommandExecute()
         {
             //отписка от событий изменения строк с оборудованием
             this.GroupsViewModel.GroupChanged -= OnGroupChanged;
@@ -66,7 +66,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             GroupsViewModel.AcceptChanges();
 
             //добавляем сущность, если ее не существовало
-            if (await UnitOfWork.Repository<TModel>().GetByIdAsync(DetailsViewModel.Item.Model.Id) == null)
+            if (UnitOfWork.Repository<TModel>().GetById(DetailsViewModel.Item.Model.Id) == null)
                 UnitOfWork.Repository<TModel>().Add(DetailsViewModel.Item.Model);
 
             DetailsViewModel.Item.AcceptChanges();
@@ -75,7 +75,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             //сохраняем
             try
             {
-                await UnitOfWork.SaveChangesAsync();
+                UnitOfWork.SaveChanges();
             }
             catch (DbUpdateConcurrencyException e)
             {

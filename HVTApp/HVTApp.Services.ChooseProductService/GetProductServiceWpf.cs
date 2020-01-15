@@ -28,19 +28,19 @@ namespace HVTApp.Services.GetProductService
             _eventAggregator = container.Resolve<IEventAggregator>();
         }
 
-        public async Task LoadAsync()
+        public void Load()
         {
             var parameters = _unitOfWork.Repository<Parameter>().Find(x => true);
             var products = _unitOfWork.Repository<Product>().Find(x => true);
-            var productRelations = await _unitOfWork.Repository<ProductRelation>().GetAllAsync();
-            var productBlocks = await _unitOfWork.Repository<ProductBlock>().GetAllAsync();
+            var productRelations = _unitOfWork.Repository<ProductRelation>().GetAll();
+            var productBlocks = _unitOfWork.Repository<ProductBlock>().GetAll();
 
             _bank = new Bank(products, productBlocks, parameters, productRelations);
         }
 
-        public async Task<Product> GetProductAsync(Product originProduct = null)
+        public Product GetProduct(Product originProduct = null)
         {
-            await LoadAsync();
+            Load();
 
             var selectedProduct = originProduct == null ? null : _bank.Products.Single(x => x.Id == originProduct.Id);
 
@@ -51,7 +51,7 @@ namespace HVTApp.Services.GetProductService
             //если необходимо создать новый продукт
             if (window.ShoodCreateNew)
             {
-                var productNew = await _container.Resolve<INewProductService>().GetNewProductAsync();
+                var productNew = _container.Resolve<INewProductService>().GetNewProduct();
                 return productNew ?? originProduct;
             }
 
@@ -65,13 +65,13 @@ namespace HVTApp.Services.GetProductService
             //SubstitutionBlocks(result, blocks);
 
             //загрузка актуальных продуктов
-            var products = await _unitOfWork.Repository<Product>().GetAllAsync();
+            var products = _unitOfWork.Repository<Product>().GetAll();
             //если выбранного продукта нет в базе
             if (!products.Contains(result))
             {
                 SubstitutionProducts(result, products);
                 _unitOfWork.Repository<Product>().Add(result);
-                await _unitOfWork.SaveChangesAsync();
+                _unitOfWork.SaveChanges();
                 _eventAggregator.GetEvent<AfterSaveProductEvent>().Publish(result);
             }
 

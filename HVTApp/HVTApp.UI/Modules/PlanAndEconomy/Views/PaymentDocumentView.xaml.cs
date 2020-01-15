@@ -28,20 +28,11 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Views
             return false;
         }
 
-        public override async void OnNavigatedTo(NavigationContext navigationContext)
+        public override void OnNavigatedTo(NavigationContext navigationContext)
         {
             base.OnNavigatedTo(navigationContext);
             var paymentDocument = navigationContext.Parameters.First().Value as PaymentDocument;
-            var task = _viewModel.LoadAsync(paymentDocument);
-
-            //try
-            //{
-            await task;
-            //}
-            //catch (Exception)
-            //{
-            //    _messageService.ShowOkMessageDialog("Exception", task.Exception.GetAllExceptions());
-            //}
+            _viewModel.Load(paymentDocument);
         }
     }
 }

@@ -175,9 +175,9 @@ namespace HVTApp.UI.Modules.Products.ViewModels
                 () => SelectedRelation != null && SelectedPotentialParameter != null);
         }
 
-        protected override async Task SaveItemTask()
+        protected override void SaveItem()
         {
-            await base.SaveItemTask();
+            base.SaveItem();
 
             if (ParameterLookups.ContainsById(Item.Model))
             {

@@ -17,10 +17,10 @@ namespace HVTApp.Services.NewProductService
             container.Resolve<IDialogService>().Register<ProductNewViewModel, ProductNewWindow>();
         }
 
-        public async Task<Product> GetNewProductAsync()
+        public Product GetNewProduct()
         {
             var productNewViewModel = _container.Resolve<ProductNewViewModel>();
-            await productNewViewModel.LoadAsync(new CreateNewProductTask());
+            productNewViewModel.Load(new CreateNewProductTask());
             var dr = _container.Resolve<IDialogService>().ShowDialog(productNewViewModel);
             if (dr.HasValue && dr == true) return productNewViewModel.Item.Product.Model;
             return null;

@@ -19,7 +19,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
         }
 
 
-        protected override async Task<IEnumerable<OfferUnit>> GetUnits(Offer offer, object parameter = null)
+        protected override IEnumerable<OfferUnit> GetUnits(Offer offer, object parameter = null)
         {
             //при редактировании существующего ТКП
             if (parameter == null)
@@ -28,11 +28,11 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             //при создании ТКП по проекту
             var project = parameter as Project;
             if (project != null)
-                return await LoadByProject(project);
+                return LoadByProject(project);
 
             //при создании ТКП по другому ТКП
             var offerTemplate = parameter as Offer;
-            return await LoadByOffer(offerTemplate);
+            return LoadByOffer(offerTemplate);
         }
 
 
@@ -41,11 +41,11 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
         /// </summary>
         /// <param name="project"></param>
         /// <returns></returns>
-        private async Task<IEnumerable<OfferUnit>> LoadByProject(Project project)
+        private IEnumerable<OfferUnit> LoadByProject(Project project)
         {
-            project = await UnitOfWork.Repository<Project>().GetByIdAsync(project.Id);
-            var author = await UnitOfWork.Repository<Employee>().GetByIdAsync(GlobalAppProperties.User.Employee.Id);
-            var sender = await UnitOfWork.Repository<Employee>().GetByIdAsync(GlobalAppProperties.Actual.SenderOfferEmployee.Id);
+            project = UnitOfWork.Repository<Project>().GetById(project.Id);
+            var author = UnitOfWork.Repository<Employee>().GetById(GlobalAppProperties.User.Employee.Id);
+            var sender = UnitOfWork.Repository<Employee>().GetById(GlobalAppProperties.Actual.SenderOfferEmployee.Id);
 
             DetailsViewModel.Item.Project = new ProjectWrapper(project);
             DetailsViewModel.Item.ValidityDate = DateTime.Today.AddDays(90);
@@ -68,7 +68,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
                 offerUnits.Add(offerUnit);
             }
 
-            return await CloneOfferUnitsAsync(offerUnits);
+            return CloneOfferUnits(offerUnits);
         }
 
         /// <summary>
@@ -76,20 +76,20 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
         /// </summary>
         /// <param name="offer"></param>
         /// <returns></returns>
-        private async Task<IEnumerable<OfferUnit>> LoadByOffer(Offer offer)
+        private IEnumerable<OfferUnit> LoadByOffer(Offer offer)
         {
             //копия ТКП
-            if (offer.Author != null) DetailsViewModel.Item.Author = new EmployeeWrapper(await UnitOfWork.Repository<Employee>().GetByIdAsync(offer.Author.Id));
-            if (offer.Project != null) DetailsViewModel.Item.Project = new ProjectWrapper(await UnitOfWork.Repository<Project>().GetByIdAsync(offer.Project.Id));
-            if (offer.RecipientEmployee != null) DetailsViewModel.Item.RecipientEmployee = new EmployeeWrapper(await UnitOfWork.Repository<Employee>().GetByIdAsync(offer.RecipientEmployee.Id));
-            if (offer.SenderEmployee != null) DetailsViewModel.Item.SenderEmployee = new EmployeeWrapper(await UnitOfWork.Repository<Employee>().GetByIdAsync(offer.SenderEmployee.Id));
-            if (offer.RequestDocument != null) DetailsViewModel.Item.RequestDocument = new DocumentWrapper(await UnitOfWork.Repository<Document>().GetByIdAsync(offer.RequestDocument.Id));
+            if (offer.Author != null) DetailsViewModel.Item.Author = new EmployeeWrapper(UnitOfWork.Repository<Employee>().GetById(offer.Author.Id));
+            if (offer.Project != null) DetailsViewModel.Item.Project = new ProjectWrapper(UnitOfWork.Repository<Project>().GetById(offer.Project.Id));
+            if (offer.RecipientEmployee != null) DetailsViewModel.Item.RecipientEmployee = new EmployeeWrapper(UnitOfWork.Repository<Employee>().GetById(offer.RecipientEmployee.Id));
+            if (offer.SenderEmployee != null) DetailsViewModel.Item.SenderEmployee = new EmployeeWrapper(UnitOfWork.Repository<Employee>().GetById(offer.SenderEmployee.Id));
+            if (offer.RequestDocument != null) DetailsViewModel.Item.RequestDocument = new DocumentWrapper(UnitOfWork.Repository<Document>().GetById(offer.RequestDocument.Id));
             DetailsViewModel.Item.Comment = offer.Comment;
             DetailsViewModel.Item.Vat = offer.Vat;
             DetailsViewModel.Item.ValidityDate = offer.ValidityDate;
 
             var offerUnits = UnitOfWork.Repository<OfferUnit>().Find(x => x.Offer.Id == offer.Id);
-            return await CloneOfferUnitsAsync(offerUnits);
+            return CloneOfferUnits(offerUnits);
         }
 
         ///// <summary>
@@ -140,7 +140,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
         //    await base.AfterLoading();
         //}
 
-        private async Task<IEnumerable<OfferUnit>> CloneOfferUnitsAsync(IEnumerable<OfferUnit> offerUnits)
+        private IEnumerable<OfferUnit> CloneOfferUnits(IEnumerable<OfferUnit> offerUnits)
         {
             //копия единиц с оборудованием
             var units = new List<OfferUnit>();
@@ -151,9 +151,9 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
                 //меняем ссылочные свойства на объекты текущего контекста
                 offerUnitNew.Cost = offerUnit.Cost;
                 offerUnitNew.ProductionTerm = offerUnit.ProductionTerm;
-                offerUnitNew.Product = await UnitOfWork.Repository<Product>().GetByIdAsync(offerUnit.Product.Id);
-                offerUnitNew.PaymentConditionSet = await UnitOfWork.Repository<PaymentConditionSet>().GetByIdAsync(offerUnit.PaymentConditionSet.Id);
-                offerUnitNew.Facility = await UnitOfWork.Repository<Facility>().GetByIdAsync(offerUnit.Facility.Id);
+                offerUnitNew.Product = UnitOfWork.Repository<Product>().GetById(offerUnit.Product.Id);
+                offerUnitNew.PaymentConditionSet = UnitOfWork.Repository<PaymentConditionSet>().GetById(offerUnit.PaymentConditionSet.Id);
+                offerUnitNew.Facility = UnitOfWork.Repository<Facility>().GetById(offerUnit.Facility.Id);
 
                 //копия включенного оборудования
                 offerUnitNew.ProductsIncluded = new List<ProductIncluded>();
@@ -161,7 +161,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
                 {
                     var productIncludedNew = new ProductIncluded
                     {
-                        Product = await UnitOfWork.Repository<Product>().GetByIdAsync(productIncluded.Product.Id),
+                        Product = UnitOfWork.Repository<Product>().GetById(productIncluded.Product.Id),
                         Amount = productIncluded.Amount
                     };
                     offerUnitNew.ProductsIncluded.Add(productIncludedNew);

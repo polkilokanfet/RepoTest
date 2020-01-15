@@ -27,9 +27,9 @@ namespace HVTApp.UI.Modules.Sales.Views
             Loaded += OnLoaded;
         }
 
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-            var units = await ((ISalesUnitRepository)_container.Resolve<IUnitOfWork>().Repository<SalesUnit>()).GetUsersSalesUnitsAsync();
+            var units = ((ISalesUnitRepository)_container.Resolve<IUnitOfWork>().Repository<SalesUnit>()).GetUsersSalesUnits();
             var projects = units.Select(x => x.Project).Distinct();
             var lookups = projects.Select(x => new ProjectLookup(x)).ToList();
             foreach (var projectLookup in lookups)

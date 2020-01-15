@@ -33,9 +33,9 @@ namespace HVTApp.UI.Modules.Sales.Views.MarketView
 
         }
 
-        //private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        //private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         //{
-        //    await _viewModel.Load();
+        //    _viewModel.Load();
         //    this.Loaded -= OnLoaded;
         //}
     }

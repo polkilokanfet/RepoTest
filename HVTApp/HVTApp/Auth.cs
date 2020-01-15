@@ -26,10 +26,10 @@ namespace HVTApp
             _container.RegisterType<DbContext, HvtAppContext>();
         }
 
-        public async Task<User> GetCurrentUser()
+        public User GetCurrentUser()
         {
             var aus = (AuthenticationService)_container.Resolve<IAuthenticationService>();
-            if (await aus.AuthenticationAsync())
+            if (aus.Authentication())
                 return aus.User;
 
             Application.Current.Shutdown();

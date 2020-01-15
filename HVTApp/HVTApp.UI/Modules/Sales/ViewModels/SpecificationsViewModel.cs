@@ -42,14 +42,14 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
         {
             EditItemCommand = new DelegateCommand(EditItemCommandExecute, () => SelectedItem != null);
             RemoveItemCommand = new DelegateCommand(
-                async () =>
+                () =>
                 {
                     var dr = MessageService.ShowYesNoMessageDialog("Удаление", $"Вы действительно хотите удалить \"{SelectedLookup.DisplayMember}\"?");
                     if (dr != MessageDialogResult.Yes) return;
 
                     var unitOfWork = Container.Resolve<IUnitOfWork>();
 
-                    var specification = await unitOfWork.Repository<Specification>().GetByIdAsync(SelectedLookup.Id);
+                    var specification = unitOfWork.Repository<Specification>().GetById(SelectedLookup.Id);
                     if (specification != null)
                     {
                         var salesUnits = unitOfWork.Repository<SalesUnit>().Find(x => x.Specification?.Id == specification.Id);
@@ -57,7 +57,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
                         try
                         {
                             unitOfWork.Repository<Specification>().Delete(specification);
-                            await unitOfWork.SaveChangesAsync();
+                            unitOfWork.SaveChanges();
                         }
                         catch (DbUpdateException e)
                         {

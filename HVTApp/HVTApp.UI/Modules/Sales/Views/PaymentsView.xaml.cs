@@ -20,9 +20,9 @@ namespace HVTApp.UI.Modules.Sales.Views
             this.Loaded += OnLoaded;
         }
 
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-            await _paymentsViewModel.LoadAsync();
+            _paymentsViewModel.Load();
             this.Loaded -= OnLoaded;
         }
     }

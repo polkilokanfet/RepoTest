@@ -21,9 +21,9 @@ namespace HVTApp.UI.Modules.PriceMaking.Views
             this.Loaded += OnLoaded;
         }
 
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-            await _pricesViewModel.LoadAsync();
+            _pricesViewModel.Load();
             this.Loaded -= OnLoaded;
         }
     }

@@ -16,9 +16,9 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
         public OffersViewModel(IUnityContainer container) : base(container)
         {
             PrintOfferCommand = new DelegateCommand(
-                async () =>
+                () =>
                 {
-                    await Container.Resolve<IPrintOfferService>().PrintOfferAsync(SelectedItem.Id);
+                    Container.Resolve<IPrintOfferService>().PrintOffer(SelectedItem.Id);
                 },
                 () => SelectedItem != null);
 
@@ -28,7 +28,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
         protected override void InitSpecialCommands()
         {
             EditItemCommand = new DelegateCommand(EditItemCommandExecute, () => SelectedItem != null);
-            RemoveItemCommand = new DelegateCommand(RemoveItemCommand_ExecuteAsync, () => SelectedItem != null);
+            RemoveItemCommand = new DelegateCommand(RemoveItemCommand_Execute, () => SelectedItem != null);
         }
 
         private void EditItemCommandExecute()

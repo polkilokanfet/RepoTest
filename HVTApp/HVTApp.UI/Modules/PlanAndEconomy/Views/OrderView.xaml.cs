@@ -24,12 +24,12 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Views
             return false;
         }
 
-        public override async void OnNavigatedTo(NavigationContext navigationContext)
+        public override void OnNavigatedTo(NavigationContext navigationContext)
         {
             base.OnNavigatedTo(navigationContext);
 
             var order = navigationContext.Parameters.First().Value as Order;
-            await _viewModel.LoadAsync(order);
+            _viewModel.Load(order);
         }
     }
 }

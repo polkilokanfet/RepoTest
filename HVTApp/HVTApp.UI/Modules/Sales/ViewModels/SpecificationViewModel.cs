@@ -18,9 +18,9 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
         {
         }
 
-        public override async Task LoadAsync(Specification model, bool isNew, object parameter = null)
+        public override void Load(Specification model, bool isNew, object parameter = null)
         {
-            await base.LoadAsync(model, isNew, parameter);
+            base.Load(model, isNew, parameter);
 
             //при создании новой спецификации
             if (isNew)
@@ -30,13 +30,13 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             }
         }
 
-        protected override async Task<IEnumerable<SalesUnit>> GetUnits(Specification specification, object parameter = null)
+        protected override IEnumerable<SalesUnit> GetUnits(Specification specification, object parameter = null)
         {
             //новая спецификация по проекту
             var project = parameter as Project;
             if (project != null)
             {
-                var uetm = await UnitOfWork.Repository<Company>().GetByIdAsync(GlobalAppProperties.Actual.OurCompany.Id);
+                var uetm = UnitOfWork.Repository<Company>().GetById(GlobalAppProperties.Actual.OurCompany.Id);
                 var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Id == project.Id && x.Specification == null);
                 salesUnits.ForEach(x => x.Producer = uetm);
                 return salesUnits;

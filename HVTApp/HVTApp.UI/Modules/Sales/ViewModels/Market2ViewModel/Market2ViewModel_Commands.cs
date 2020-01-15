@@ -38,9 +38,9 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
         #region Commands
 
-        private async void PrintOfferCommand_Execute()
+        private void PrintOfferCommand_Execute()
         {
-            await Container.Resolve<IPrintOfferService>().PrintOfferAsync(Offers.SelectedItem.Id);
+            Container.Resolve<IPrintOfferService>().PrintOffer(Offers.SelectedItem.Id);
         }
 
         private void EditTenderCommand_Execute()

@@ -49,7 +49,7 @@ namespace HVTApp.UI.ViewModels
 
             NewItemCommand = new DelegateCommand(NewItemCommand_Execute, NewItemCommand_CanExecute);
             EditItemCommand = new DelegateCommand(EditItemCommand_Execute, EditItemCommand_CanExecute);
-            RemoveItemCommand = new DelegateCommand(RemoveItemCommand_ExecuteAsync, RemoveItemCommand_CanExecute);
+            RemoveItemCommand = new DelegateCommand(RemoveItemCommand_Execute, RemoveItemCommand_CanExecute);
 
             SelectItemCommand = new DelegateCommand(SelectItemCommand_Execute, SelectItemCommand_CanExecute);
 
@@ -122,12 +122,12 @@ namespace HVTApp.UI.ViewModels
         /// Загрузка всех Lookup'ов.
         /// </summary>
         /// <returns></returns>
-        public virtual async Task LoadAsync()
+        public virtual void Load()
         {
             LoadBegin?.Invoke();
             LookupsCollection.Clear();
             SelectedLookup = null;
-            var entities = await UnitOfWork.Repository<TEntity>().GetAllAsNoTrackingAsync();
+            var entities = UnitOfWork.Repository<TEntity>().GetAllAsNoTracking();
             var lookups =  entities.Select(x => (TLookup)Activator.CreateInstance(typeof(TLookup), x));
             lookups.ForEach(LookupsCollection.Add);
             Loaded?.Invoke();
@@ -174,9 +174,9 @@ namespace HVTApp.UI.ViewModels
         {
             return Activator.CreateInstance<TEntity>();
         }
-        protected async void NewItemCommand_Execute()
+        protected void NewItemCommand_Execute()
         {
-            await Container.Resolve<IUpdateDetailsService>().UpdateDetails(GetNewItem());
+            Container.Resolve<IUpdateDetailsService>().UpdateDetails(GetNewItem());
         }
 
         protected virtual bool NewItemCommand_CanExecute()
@@ -185,9 +185,9 @@ namespace HVTApp.UI.ViewModels
         }
 
 
-        protected async void EditItemCommand_Execute()
+        protected void EditItemCommand_Execute()
         {
-            await Container.Resolve<IUpdateDetailsService>().UpdateDetails<TEntity>(SelectedLookup.Id);
+            Container.Resolve<IUpdateDetailsService>().UpdateDetails<TEntity>(SelectedLookup.Id);
         }
 
         protected virtual bool EditItemCommand_CanExecute()
@@ -195,20 +195,20 @@ namespace HVTApp.UI.ViewModels
             return AllowEdit && !Equals(SelectedLookup, default(TLookup));
         }
 
-        protected async void RemoveItemCommand_ExecuteAsync()
+        protected void RemoveItemCommand_Execute()
         {
             var dr = MessageService.ShowYesNoMessageDialog("Удаление", $"Вы действительно хотите удалить \"{SelectedLookup.DisplayMember}\"?");
             if (dr != MessageDialogResult.Yes) return;
 
             var unitOfWork = Container.Resolve<IUnitOfWork>();
 
-            var entity = await unitOfWork.Repository<TEntity>().GetByIdAsync(SelectedLookup.Id);
+            var entity = unitOfWork.Repository<TEntity>().GetById(SelectedLookup.Id);
             if (entity != null)
             {
                 try
                 {
                     unitOfWork.Repository<TEntity>().Delete(entity);
-                    await unitOfWork.SaveChangesAsync();
+                    unitOfWork.SaveChanges();
                 }
                 catch (DbUpdateException e)
                 {
@@ -236,9 +236,9 @@ namespace HVTApp.UI.ViewModels
             return !Equals(SelectedLookup, default(TLookup));
         }
 
-        private async void RefreshCommand_Execute()
+        private void RefreshCommand_Execute()
         {
-            await this.LoadAsync();
+            this.Load();
         }
 
         protected virtual void InvalidateCommands()

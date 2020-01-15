@@ -42,12 +42,13 @@ namespace HVTApp.UI.Modules.Products.ViewModels
             ProductBlocks = new ValidatableChangeTrackingCollection<ProductBlockStructureCostWrapper>(blockWrappers);
 
             //сохранение
-            SaveCommand = new DelegateCommand(async () =>
-            {
-                ProductBlocks.AcceptChanges();
-                await unitOfWork.SaveChangesAsync();
-            },
-            () => ProductBlocks != null && ProductBlocks.IsValid && ProductBlocks.IsChanged);
+            SaveCommand = new DelegateCommand(
+                () =>
+                {
+                    ProductBlocks.AcceptChanges();
+                    unitOfWork.SaveChanges();
+                },
+                () => ProductBlocks != null && ProductBlocks.IsValid && ProductBlocks.IsChanged);
 
             //отмена изменений
             CancelCommand = new DelegateCommand(() =>
@@ -57,14 +58,15 @@ namespace HVTApp.UI.Modules.Products.ViewModels
             () => ProductBlocks != null && ProductBlocks.IsChanged);
 
             //печать блока в контексте оборудования
-            PrintProductBlockCommand = new DelegateCommand(async () =>
-            {
-                var block = SelectedProductBlock;
-                var products = await unitOfWork.Repository<Product>().GetAllAsync();
-                products = products.Where(x => x.GetBlocks().Contains(block.Model)).Distinct().ToList();
-                container.Resolve<IPrintProductService>().PrintProducts(products, block.Model);
-            },
-            () => SelectedProductBlock != null);
+            PrintProductBlockCommand = new DelegateCommand(
+                () =>
+                {
+                    var block = SelectedProductBlock;
+                    var products = unitOfWork.Repository<Product>().GetAll();
+                    products = products.Where(x => x.GetBlocks().Contains(block.Model)).Distinct().ToList();
+                    container.Resolve<IPrintProductService>().PrintProducts(products, block.Model);
+                },
+                () => SelectedProductBlock != null);
 
             //подписка на изменение параметров
             ProductBlocks.PropertyChanged += (sender, args) =>

@@ -1,5 +1,4 @@
-﻿using HVTApp.Infrastructure;
-using HVTApp.Model.POCOs;
+﻿using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
@@ -9,23 +8,17 @@ namespace HVTApp.UI.ViewModels
 {
     public partial class OfferUnitDetailsViewModel
     {
-        public void Load(OfferUnitWrapper unit, IUnitOfWork unitOfWork)
-        {
-            this.UnitOfWork = unitOfWork;
-            Item = unit;
-        }
-
         protected override void InitSpecialCommands()
         {
             SelectProductCommand = new DelegateCommand(SelectProductCommand_Execute);
         }
 
-        private async void SelectProductCommand_Execute()
+        private void SelectProductCommand_Execute()
         {
-            var product = await Container.Resolve<IGetProductService>().GetProductAsync(Item.Model.Product);
+            var product = Container.Resolve<IGetProductService>().GetProduct(Item.Model.Product);
             if (product != null)
             {
-                product = await UnitOfWork.Repository<Product>().GetByIdAsync(product.Id);
+                product = UnitOfWork.Repository<Product>().GetById(product.Id);
                 Item.Product = new ProductWrapper(product);
             }
         }

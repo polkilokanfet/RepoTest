@@ -48,10 +48,10 @@ namespace HVTApp.Services.UpdateDetailsService
         /// <typeparam name="TEntity">Тип сущности</typeparam>
         /// <param name="id">ИД сущности</param>
         /// <returns></returns>
-        public async Task<bool> UpdateDetails<TEntity>(Guid id)
+        public bool UpdateDetails<TEntity>(Guid id)
             where TEntity : class, IBaseEntity
         {
-            return await UpdateDetails<TEntity>(detaisViewModel => detaisViewModel.LoadAsync(id));
+            return UpdateDetails<TEntity>(detaisViewModel => detaisViewModel.Load(id));
         }
 
         /// <summary>
@@ -60,13 +60,13 @@ namespace HVTApp.Services.UpdateDetailsService
         /// <typeparam name="TEntity">Тип сущности</typeparam>
         /// <param name="entity">Сущность</param>
         /// <returns></returns>
-        public async Task<bool> UpdateDetails<TEntity>(TEntity entity)
+        public bool UpdateDetails<TEntity>(TEntity entity)
             where TEntity : class, IBaseEntity
         {
-            return await UpdateDetails<TEntity>(detaisViewModel => detaisViewModel.LoadAsync(entity));
+            return UpdateDetails<TEntity>(detaisViewModel => detaisViewModel.Load(entity));
         }
 
-        private async Task<bool> UpdateDetails<TEntity>(Func<ILoadable<TEntity>, Task> loadAsyncFunc)
+        private bool UpdateDetails<TEntity>(Action<ILoadable<TEntity>> loadAsyncFunc)
             where TEntity : class, IBaseEntity
         {
             bool result = false;
@@ -76,7 +76,7 @@ namespace HVTApp.Services.UpdateDetailsService
             //ViewModel подтягивается из контекста View
             var detailsViewModel = detailsView.DataContext;
             //загрузка данных в ViewModel
-            await loadAsyncFunc.Invoke((ILoadable<TEntity>)detailsViewModel);
+            loadAsyncFunc.Invoke((ILoadable<TEntity>)detailsViewModel);
 
             var updateDetailsWindow = new UpdateDetailsWindow
             {
@@ -107,7 +107,7 @@ namespace HVTApp.Services.UpdateDetailsService
         /// <typeparam name="TEntity"></typeparam>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public async Task<TEntity> UpdateDetailsWithoutSaving<TEntity>(TEntity entity)
+        public TEntity UpdateDetailsWithoutSaving<TEntity>(TEntity entity)
             where TEntity : class, IBaseEntity
         {
             var result = false;
@@ -117,7 +117,7 @@ namespace HVTApp.Services.UpdateDetailsService
             //ViewModel подтягивается из контекста View
             var detailsViewModel = detailsView.DataContext;
             //загрузка данных в ViewModel
-            await ((ILoadable<TEntity>)detailsViewModel).LoadAsync(entity);
+            ((ILoadable<TEntity>)detailsViewModel).Load(entity);
 
             var updateDetailsWindow = new UpdateDetailsWindow
             {
