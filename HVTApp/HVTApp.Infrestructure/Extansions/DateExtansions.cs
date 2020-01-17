@@ -38,5 +38,26 @@ namespace HVTApp.Infrastructure.Extansions
         {
             return SkipPast(SkipWeekend(date));
         }
+
+        public static string MonthName(this DateTime date)
+        {
+            switch (date.Month)
+            {
+                case 1: return "01 - Январь";
+                case 2: return "02 - Февраль";
+                case 3: return "03 - Март";
+                case 4: return "04 - Апрель";
+                case 5: return "05 - Май";
+                case 6: return "06 - Июнь";
+                case 7: return "07 - Июль";
+                case 8: return "08 - Август";
+                case 9: return "09 - Сентябрь";
+                case 10: return "10 - Октябрь";
+                case 11: return "11 - Ноябрь";
+                case 12: return "12 - Декабрь";
+            }
+
+            return "-";
+        }
     }
 }

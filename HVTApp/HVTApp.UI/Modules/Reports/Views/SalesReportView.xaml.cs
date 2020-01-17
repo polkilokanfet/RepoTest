@@ -1,5 +1,8 @@
-﻿using HVTApp.Infrastructure;
+﻿using System.IO;
+using System.Windows;
+using HVTApp.Infrastructure;
 using HVTApp.UI.Modules.Reports.Tabs;
+using HVTApp.UI.Modules.Reports.ViewModels;
 using Prism.Events;
 using Prism.Regions;
 
@@ -8,11 +11,37 @@ namespace HVTApp.UI.Modules.Reports.Views
     [RibbonTab(typeof(TabReload))]
     public partial class SalesReportView
     {
-        public SalesReportView(IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
+        public SalesReportView(SalesReportViewModel viewModel, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            //SalesUnitLookupListGrid.SaveCustomizations();
-            //SalesUnitLookupListGrid.LoadCustomizations();
+            this.DataContext = viewModel;
+            viewModel.SaveGridCustomisationEvent += SaveGridCustomisations;
+            LoadGridCustomisations();
+        }
+
+        string fileName = "salesReportCustomisation.xml";
+        private void SaveGridCustomisations()
+        {
+            if (File.Exists(fileName))
+            {
+                File.Delete(fileName);
+            }
+
+            using (FileStream fs = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+            {
+                ReportGrid.SaveCustomizations(fs);
+            }
+        }
+
+        private void LoadGridCustomisations()
+        {
+            if (File.Exists(fileName))
+            {
+                using (FileStream fs = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+                {
+                    ReportGrid.LoadCustomizations(fs);
+                }
+            }
         }
     }
 }

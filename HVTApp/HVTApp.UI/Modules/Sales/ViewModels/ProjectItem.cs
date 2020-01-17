@@ -27,7 +27,10 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
         public bool ForReport => Project.ForReport;
         public bool InWork => Project.InWork;
         public int OrderInTakeYear => OrderInTakeDate.Year;
-        public int OrderInTakeMonth => OrderInTakeDate.Month;
+        public string OrderInTakeMonth => OrderInTakeDate.MonthName();
+        public int RealizationYear => RealizationDate.Year;
+        public string RealizationMonth => RealizationDate.MonthName();
+
 
         public DateTime? TenderDate
         {

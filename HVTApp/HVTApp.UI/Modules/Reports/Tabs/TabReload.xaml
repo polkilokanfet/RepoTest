@@ -13,5 +13,8 @@
         <infRib:ButtonTool Caption="Перезагрузить" Command="{Binding ReloadCommand}" SmallImage="/HVTApp.UI;component/Images/refresh.png"/>
     </infRib:RibbonGroup>
 
+    <infRib:RibbonGroup Caption="Вид">
+        <infRib:ButtonTool Caption="Сохранить вид таблицы" Command="{Binding SaveGridCustomisationsCommand}" SmallImage="/HVTApp.UI;component/Images/save.png"/>
+    </infRib:RibbonGroup>
     
 </inf:RibbonTabItemWithViewModel>

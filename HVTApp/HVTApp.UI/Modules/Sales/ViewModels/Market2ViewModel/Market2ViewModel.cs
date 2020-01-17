@@ -146,6 +146,8 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
             StructureCostsCommand = new DelegateCommand(StructureCostsCommand_Execute, () => SelectedProjectItem != null);
 
+            SaveGridCustomisationsCommand = new DelegateCommand(() => { SaveGridCustomisationsEvent?.Invoke(); });
+
             #endregion
 
             #region Subscribe to Events

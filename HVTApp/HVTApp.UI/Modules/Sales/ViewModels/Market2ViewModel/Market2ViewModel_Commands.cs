@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
@@ -33,6 +34,9 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
         public ICommand RemoveTenderCommand { get; }
 
         public ICommand StructureCostsCommand { get; }
+
+        public ICommand SaveGridCustomisationsCommand { get; }
+        public event Action SaveGridCustomisationsEvent;
 
         #endregion
 

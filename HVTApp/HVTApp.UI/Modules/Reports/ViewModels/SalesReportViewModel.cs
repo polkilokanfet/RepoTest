@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
@@ -35,6 +36,9 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
 
         public ICommand ReloadCommand { get; }
         public ICommand EditFakeDataCommand { get; }
+        public ICommand SaveGridCustomisationsCommand { get; }
+
+        public event Action SaveGridCustomisationEvent;
 
         public bool IsLoaded
         {
@@ -56,6 +60,12 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
                     RegionManager.RequestNavigateContentRegion<FakeDataView>(new NavigationParameters { { "units", SelectedSalesReportUnit.SalesUnits } });
                 }, 
                 () => SelectedSalesReportUnit != null);
+
+            SaveGridCustomisationsCommand = new DelegateCommand(
+                () =>
+                {
+                    SaveGridCustomisationEvent?.Invoke();
+                });
 
             Load();
         }
