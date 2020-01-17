@@ -6,25 +6,26 @@
               xmlns:prism="http://prismlibrary.com/"
               prism:ViewModelLocator.AutoWireViewModel="True"
               x:Class="HVTApp.UI.Modules.PlanAndEconomy.Views.PaymentsActualView">
-    
     <Grid>
-        <infg:XamDataGrid DataSource="{Binding Payments}"
-                          SelectedDataItem="{Binding SelectedPayment}">
+        <ScrollViewer>
+            <infg:XamDataGrid DataSource="{Binding Payments}"
+                              SelectedDataItem="{Binding SelectedPayment}">
             
-            <infg:XamDataGrid.FieldLayouts>
-                <infg:FieldLayout>
-                    <infg:TextField AlternateBinding="{Binding SalesUnit.Facility}" Label="Объект" BindingType="UseAlternateBinding"/>
-                    <infg:TextField AlternateBinding="{Binding SalesUnit.Product}" Label="Продукт" BindingType="UseAlternateBinding"/>
-                    <infg:TextField AlternateBinding="{Binding SalesUnit.Order}" Label="З/з" BindingType="UseAlternateBinding"/>
-                    <infg:DateTimeField AlternateBinding="{Binding Payment.Date}" Label="Дата" BindingType="UseAlternateBinding"/>
-                    <infg:NumericField AlternateBinding="{Binding Payment.Sum}" Label="Сумма без НДС" BindingType="UseAlternateBinding"/>
-                    <infg:TextField AlternateBinding="{Binding PaymentDocument.Number}" Label="Платежка" BindingType="UseAlternateBinding"/>
-                </infg:FieldLayout>
-            </infg:XamDataGrid.FieldLayouts>
+                <infg:XamDataGrid.FieldLayouts>
+                    <infg:FieldLayout>
+                        <infg:TextField AlternateBinding="{Binding SalesUnit.Facility}" Label="Объект" BindingType="UseAlternateBinding"/>
+                        <infg:TextField AlternateBinding="{Binding SalesUnit.Product}" Label="Продукт" BindingType="UseAlternateBinding"/>
+                        <infg:TextField AlternateBinding="{Binding SalesUnit.Order}" Label="З/з" BindingType="UseAlternateBinding"/>
+                        <infg:DateTimeField AlternateBinding="{Binding Payment.Date}" Label="Дата" BindingType="UseAlternateBinding"/>
+                        <infg:NumericField AlternateBinding="{Binding Payment.Sum}" Label="Сумма без НДС" BindingType="UseAlternateBinding"/>
+                        <infg:TextField AlternateBinding="{Binding PaymentDocument.Number}" Label="Платежка" BindingType="UseAlternateBinding"/>
+                    </infg:FieldLayout>
+                </infg:XamDataGrid.FieldLayouts>
             
-        </infg:XamDataGrid>
+            </infg:XamDataGrid>
+        </ScrollViewer>
     </Grid>
-
+    
 </inf:ViewBase>
 
 	

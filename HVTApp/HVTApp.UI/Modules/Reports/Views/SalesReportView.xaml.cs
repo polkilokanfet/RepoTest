@@ -11,6 +11,8 @@ namespace HVTApp.UI.Modules.Reports.Views
         public SalesReportView(IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
+            //SalesUnitLookupListGrid.SaveCustomizations();
+            //SalesUnitLookupListGrid.LoadCustomizations();
         }
     }
 }

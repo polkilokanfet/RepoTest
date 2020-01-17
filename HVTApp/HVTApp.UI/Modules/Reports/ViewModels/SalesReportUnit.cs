@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
@@ -98,7 +97,7 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
         public string DeliveryType { get; }
 
         [Designation("Менеджер")]
-        public Employee Manager { get; }
+        public string Manager { get; }
 
         [Designation("Цена с НДС")]
         public double CostWithVat { get; }
@@ -142,8 +141,10 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
             Amount = SalesUnits.Count;
             FacilityOwner = Facility.OwnerCompany;
             FacilityOwnerHead = GetFacilityOwnerHead();
-            Contragent = Specification?.Contract.Contragent;
-            ContragentType = GetContragentType();
+
+            Contragent = GetContragent();
+            ContragentType = GetContragentType(Contragent);
+
             Region = Facility.GetRegion();
             District = Region?.District;
             Country = District?.Country;
@@ -178,7 +179,8 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
 
             DeliveryType = CostDelivery.HasValue ? "Доставка" : "Самовывоз";
 
-            Manager = Project.Manager.Employee;
+            var manager = Project.Manager.Employee;
+            Manager = $"{manager.Person.Surname} {manager.Person.Name} {manager.Person.Patronymic}";
 
             OrderInTakeDateResult = this.FakeData?.OrderInTakeDate ?? this.OrderInTakeDate;
             RealizationDateResult = this.FakeData?.RealizationDate ?? this.RealizationDateCalculated;
@@ -198,23 +200,17 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
             }
         }
 
-        private string GetContragentType()
+        private string GetContragentType(Company contragent)
         {
             if (Contragent == null)
-                return "нет данных";
+                return "Нет данных";
 
             if (Equals(FacilityOwner, Contragent) || FacilityOwner.ParentCompanies().Contains(Contragent))
-                return "конечный заказчик";
+                return "Конечный заказчик";
 
-            var tender = _tenders.FirstOrDefault(x => Equals(x.Winner, Contragent));
-            if (tender != null)
-            {
-                var sb = new StringBuilder();
-                tender.Types.ForEach(x => sb.Append(x.Name).Append("; "));
-                return sb.ToString();
-            }
+            if (_tenders.FirstOrDefault(x => Equals(x.Winner, contragent)) != null) return "Подрядчик";
 
-            return "посредник";
+            return "Посредник";
         }
 
         private List<CountryUnion> GetCountryUnions()
@@ -289,6 +285,32 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
                 head = head.ParentCompany;
             }
             return head;
+        }
+
+        private Company GetTenderWinner()
+        {
+            var tenders = _tenders.Where(x => Equals(SalesUnits.First().Project.Id, x.Project.Id)).ToList();
+            if (!tenders.Any()) return null;
+
+            //поставщик
+            var supplier = tenders
+                .Where(x => x.Types.Select(t => t.Type).Contains(TenderTypeEnum.ToSupply))
+                .OrderBy(x => x.DateClose)
+                .LastOrDefault()?.Winner;
+            if (supplier != null) return supplier;
+
+            //подрядчик
+            var worker = tenders
+                .Where(x => x.Types.Select(t => t.Type).Contains(TenderTypeEnum.ToWork))
+                .OrderBy(x => x.DateClose)
+                .LastOrDefault()?.Winner;
+
+            return worker;
+        }
+
+        private Company GetContragent()
+        {
+            return Specification?.Contract.Contragent ?? GetTenderWinner() ?? Facility.OwnerCompany;
         }
     }
 }

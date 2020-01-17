@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure.ViewModels;
@@ -10,7 +10,7 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
 {
     public class ReferenceViewModel : ViewModelBaseCanExportToExcel
     {
-        public List<ReferenceItem> Items { get; } = new List<ReferenceItem>();
+        public ObservableCollection<ReferenceItem> Items { get; } = new ObservableCollection<ReferenceItem>();
 
         public ICommand ReloadCommand { get; }
 

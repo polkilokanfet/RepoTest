@@ -4,25 +4,8 @@
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               x:Class="HVTApp.UI.Modules.PlanAndEconomy.Views.PaymentsView">
 
-    <Grid>
-         <Grid.RowDefinitions>
-             <RowDefinition Height="Auto"/>
-             <RowDefinition Height="*"/>
-         </Grid.RowDefinitions>
-         
-        <Label Grid.Row="0" Content="Ожидание данных..." VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Label.Style>
-                <Style>
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding ElementName=Cont, Path=Visibility}" Value="Visible">
-                        <Setter Property="Label.Visibility" Value="Collapsed"/>
-                    </DataTrigger>
-                </Style.Triggers>
-                </Style>
-            </Label.Style>
-        </Label>
-
-        <GroupBox Grid.Row="0" Header="Планируемые поступления" x:Name="Cont" Visibility="{Binding IsLoaded}">
+    <ScrollViewer>
+        <GroupBox Header="Планируемые поступления">
             <infg:XamDataGrid DataSource="{Binding Payments}"
                               VerticalAlignment="Stretch"
                               SelectedDataItem="{Binding SelectedPayment}">
@@ -58,8 +41,7 @@
                 </infg:XamDataGrid.FieldLayouts>
             </infg:XamDataGrid>
         </GroupBox>
-
-    </Grid>
+    </ScrollViewer>
 </inf:ViewBase>
 
 	

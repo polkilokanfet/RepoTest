@@ -7,7 +7,8 @@
               x:Class="HVTApp.UI.Modules.PlanAndEconomy.Views.ProductionPlanView">
 
     <Grid>
-        <infg:XamDataGrid DataSource="{Binding OrderItems}"
+        <ScrollViewer>
+            <infg:XamDataGrid DataSource="{Binding OrderItems}"
                           SelectedDataItem="{Binding SelectedOrderItem}">
             
             <infg:XamDataGrid.FieldLayouts>
@@ -26,6 +27,7 @@
             </infg:XamDataGrid.FieldLayouts>
             
         </infg:XamDataGrid>
+        </ScrollViewer>
     </Grid>
 </inf:ViewBase>
 
