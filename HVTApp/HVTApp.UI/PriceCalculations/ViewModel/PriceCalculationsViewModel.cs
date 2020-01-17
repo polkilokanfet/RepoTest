@@ -47,7 +47,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
             ReloadCommand = new DelegateCommand(Load);
         }
 
-        private void Load()
+        public override void Load()
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
 
