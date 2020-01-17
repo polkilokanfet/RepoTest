@@ -98,6 +98,8 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
             eventAggregator.GetEvent<AfterSaveProjectEvent>().Subscribe(project =>
             {
+                if (!_salesUnits.Any()) return;
+
                 if (Project.Id != project.Id) return;
                 Project = project;
                 OnPropertyChanged(string.Empty);
@@ -105,6 +107,8 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
             eventAggregator.GetEvent<AfterSaveTenderEvent>().Subscribe(tender =>
             {
+                if (!_salesUnits.Any()) return;
+
                 if (Project.Id == tender.Project.Id)
                     Tenders.ReAddById(tender);
             });
