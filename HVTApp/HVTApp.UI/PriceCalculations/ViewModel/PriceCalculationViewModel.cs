@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Infrastructure.ViewModels;
@@ -162,11 +163,21 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
             RemoveGroupCommand = new DelegateCommand(
                 () =>
                 {
-                    var result = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Действительно хотите удалить из расчета группу оборудования?");
+                    IMessageService messageService = Container.Resolve<IMessageService>();
+
+                    var result = messageService.ShowYesNoMessageDialog("Удаление", "Действительно хотите удалить из расчета группу оборудования?");
                     if (result != MessageDialogResult.Yes) return;
 
                     var selectedGroup = SelectedItem as PriceCalculationItem2Wrapper;
-                    PriceCalculationWrapper.PriceCalculationItems.Remove(selectedGroup);
+
+                    if (CanRemovePriceCalculationItem(selectedGroup.Model))
+                    {
+                        PriceCalculationWrapper.PriceCalculationItems.Remove(selectedGroup);
+                    }
+                    else
+                    {
+                        messageService.ShowOkMessageDialog("Удаление", "Вы не можете удалить эти строки, т.к. они размещены в производстве.");
+                    }
                 },
                 () => SelectedItem is PriceCalculationItem2Wrapper && !IsStarted);
 
@@ -245,6 +256,21 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
             #endregion
 
             PriceCalculationWrapper = new PriceCalculation2Wrapper(new PriceCalculation());
+        }
+
+        private bool CanRemovePriceCalculationItem(PriceCalculationItem item)
+        {
+            //для удаления необходимо, чтобы все единицы, запущенные в производство были посчитаны где-то еще
+            var unitsInProduction = item.SalesUnits.Where(x => x.SignalToStartProduction.HasValue).ToList();
+
+            if (!unitsInProduction.Any()) return true;
+
+            var units = UnitOfWork.Repository<PriceCalculationItem>()
+                .Find(x => x.Id != item.Id)
+                .SelectMany(x => x.SalesUnits)
+                .ToList();
+
+            return unitsInProduction.Select(x => x.Id).AllContainsIn(units.Select(x => x.Id));
         }
 
         public void Load(PriceCalculation priceCalculation)

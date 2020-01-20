@@ -17,6 +17,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
     {
         public ICommand NewCalculationCommand { get; }
         public ICommand EditCalculationCommand { get; }
+        public ICommand RemoveCalculationCommand { get; }
 
         public ICommand ReloadCommand { get; }
 
@@ -29,6 +30,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
             this.SelectedLookupChanged += lookup =>
             {
                 ((DelegateCommand)EditCalculationCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)RemoveCalculationCommand).RaiseCanExecuteChanged();
             };
 
             NewCalculationCommand = new DelegateCommand(
@@ -43,6 +45,13 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                 {
                     RegionManager.RequestNavigateContentRegion<View.PriceCalculationView>(new NavigationParameters { { nameof(PriceCalculation), SelectedItem } });
                 },
+                () => SelectedItem != null);
+
+            RemoveCalculationCommand = new DelegateCommand(
+                () =>
+                {
+
+                }, 
                 () => SelectedItem != null);
 
             ReloadCommand = new DelegateCommand(Load);
