@@ -96,6 +96,7 @@
   <ItemGroup>
     <Compile Include="Converter\LookupsToStringConverter.cs" />
     <Compile Include="Converter\ObjectsToStringConverter.cs" />
+    <Compile Include="Extantions\Ext.cs" />
     <Compile Include="Groups\BaseWrappersGroup.cs" />
     <Compile Include="Groups\IGroupValidatableChangeTrackingWithCollection.cs" />
     <Compile Include="Groups\IWrapperGroup.cs" />
@@ -357,7 +358,11 @@
     <Compile Include="Modules\Sales\Views\TenderWindow.xaml.cs">
       <DependentUpon>TenderWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Settings\ViewModels\AdminViewModel.cs" />
     <Compile Include="Modules\Settings\ViewModels\PasswordViewModel.cs" />
+    <Compile Include="Modules\Settings\Views\AdminView.xaml.cs">
+      <DependentUpon>AdminView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Settings\Views\PasswordView.xaml.cs">
       <DependentUpon>PasswordView.xaml</DependentUpon>
     </Compile>
@@ -900,6 +905,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\Sales\Views\TenderWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Settings\Views\AdminView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

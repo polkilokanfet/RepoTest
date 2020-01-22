@@ -1,4 +1,5 @@
 ﻿using HVTApp.Infrastructure;
+using HVTApp.Model;
 using HVTApp.UI.Modules.Settings.Views;
 
 namespace HVTApp.Modules.Settings.Menus
@@ -9,6 +10,11 @@ namespace HVTApp.Modules.Settings.Menus
         {
             var root = new NavigationItem("Смена пароля", typeof(PasswordView));
             Items.Add(root);
+
+            if (GlobalAppProperties.User.RoleCurrent == Role.Admin)
+            {
+                Items.Add(new NavigationItem("Admin", typeof(AdminView)));
+            }
         }
     }
 }

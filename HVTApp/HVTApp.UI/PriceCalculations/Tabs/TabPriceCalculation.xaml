@@ -36,4 +36,16 @@
         <infRib:ButtonTool Caption="Закрыть" Command="{Binding GoBackCommand}" SmallImage="/HVTApp.UI;component/Images/close.png"/>
     </infRib:RibbonGroup>
 
+    <infRib:RibbonGroup Caption="Строки ПЗ">
+        <infRib:ButtonTool Caption="Слить" 
+                           Command="{Binding MeregeCommand}" 
+                           Visibility="{Binding CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityConverter}}"
+                           SmallImage="/HVTApp.UI;component/Images/collapse.png"/>
+        <infRib:ButtonTool Caption="Разбить" 
+                           Command="{Binding DivideCommand}" 
+                           Visibility="{Binding CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityConverter}}"
+                           SmallImage="/HVTApp.UI;component/Images/expand.png"/>
+    </infRib:RibbonGroup>
+
+
 </inf:RibbonTabItemWithViewModel>

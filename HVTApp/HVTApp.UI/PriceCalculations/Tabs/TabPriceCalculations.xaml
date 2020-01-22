@@ -15,7 +15,7 @@
                            Command="{Binding EditCalculationCommand}"
                            SmallImage="/HVTApp.UI;component/Images/edit.png"/>
         <infRib:ButtonTool Caption="Удалить"
-                           Command="{Binding RemoveItemCommand}"
+                           Command="{Binding RemoveCalculationCommand}"
                            Visibility="{Binding CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityConverter}}"
                            SmallImage="/HVTApp.UI;component/Images/remove.png"/>
     </infRib:RibbonGroup>

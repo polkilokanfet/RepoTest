@@ -16,6 +16,7 @@ namespace HVTApp.Modules.Settings
         protected override void RegisterTypes()
         {
             Container.RegisterViewForNavigation<PasswordView>();
+            Container.RegisterViewForNavigation<AdminView>();
         }
 
         protected override void ResolveOutlookGroup()

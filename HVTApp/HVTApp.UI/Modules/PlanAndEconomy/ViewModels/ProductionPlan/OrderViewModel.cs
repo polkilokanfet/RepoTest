@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Services;
-using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Modules.PlanAndEconomy.ViewModels.Groups;
 using HVTApp.UI.ViewModels;
@@ -90,18 +88,10 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
         {
             //оставляем юниты без заказов либо с редактируемым заказом
             //исключаем юниты без сигнала к производству
-            var salesUnits = (UnitOfWork.Repository<SalesUnit>().GetAll())
-                .Where(x => x.SignalToStartProduction.HasValue)
-                .Where(x => x.Order == null || x.Order.Id == Item.Id);
-            //все задачи на расчет с номерами стракчакостов
-            var priceCalculationItems = UnitOfWork.Repository<PriceCalculationItem>().Find(x => x.StructureCosts.All(sc => !string.IsNullOrEmpty(sc.Number)));
+            var salesUnits = UnitOfWork.Repository<SalesUnit>()
+                .Find(x => x.SignalToStartProduction.HasValue && (x.Order == null || x.Order.Id == Item.Id));
 
-            _unitsWrappers = new ValidatableChangeTrackingCollection<SalesUnitOrderItem>(salesUnits
-                .Select(x => new SalesUnitOrderItem(x,
-                    priceCalculationItems
-                        .Where(p => p.SalesUnits.Contains(x))
-                        .OrderBy(p => p.OrderInTakeDate)
-                        .LastOrDefault())));
+            _unitsWrappers = new ValidatableChangeTrackingCollection<SalesUnitOrderItem>(salesUnits.Select(x => new SalesUnitOrderItem(x, x.ActualPriceCalculationItem(UnitOfWork))));
 
             //юниты в заказе
             var unitsInOrder = _unitsWrappers.Where(x => x.Order != null).ToList();

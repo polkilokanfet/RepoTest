@@ -3,10 +3,11 @@ using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Lookup;
 using HVTApp.UI.ViewModels;
-using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Regions;
@@ -50,7 +51,51 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
             RemoveCalculationCommand = new DelegateCommand(
                 () =>
                 {
+                    var messageService = Container.Resolve<IMessageService>();
+                    var result = messageService.ShowYesNoMessageDialog("Удаление", "Действительно хотите удалить из расчет ПЗ?");
+                    if (result != MessageDialogResult.Yes) return;
 
+                    var unitOfWork = Container.Resolve<IUnitOfWork>();
+
+                    var calculation = unitOfWork.Repository<PriceCalculation>().GetById(SelectedItem.Id);
+                    foreach (var item in calculation.PriceCalculationItems.ToList())
+                    {
+                        var salesUnits = item.SalesUnits.ToList();
+
+                        //единицы, которы нельзя удалить из расчета, т.к. они размещены в производстве
+                        var salesUnitsNotForRemove = salesUnits
+                            .Where(x => x.SignalToStartProduction.HasValue)
+                            .Where(x => x.ActualPriceCalculationItem(unitOfWork).Id == item.Id)
+                            .ToList();
+
+                        if (salesUnitsNotForRemove.Any())
+                        {
+                            var salesUnitsToRemove = salesUnits.Except(salesUnitsNotForRemove).ToList();
+                            salesUnitsToRemove.ForEach(x => item.SalesUnits.Remove(x));
+                            if (!item.SalesUnits.Any())
+                            {
+                                calculation.PriceCalculationItems.Remove(item);
+                                unitOfWork.Repository<PriceCalculationItem>().Delete(item);
+                            }
+                        }
+                        else
+                        {
+                            calculation.PriceCalculationItems.Remove(item);
+                            unitOfWork.Repository<PriceCalculationItem>().Delete(item);
+                        }
+                    }
+
+                    if (calculation.PriceCalculationItems.Any())
+                    {
+                        messageService.ShowOkMessageDialog("Удаление", "Вы не можете удалить некоторые строки в расчете, т.к. они размещены в производстве.");
+                    }
+                    else
+                    {
+                        unitOfWork.Repository<PriceCalculation>().Delete(calculation);
+                        ((ICollection<PriceCalculationLookup>)Lookups).Remove(SelectedLookup);
+                    }
+
+                    unitOfWork.SaveChanges();                   
                 }, 
                 () => SelectedItem != null);
 

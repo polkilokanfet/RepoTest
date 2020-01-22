@@ -21,6 +21,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
 {
     public class PriceCalculationViewModel : ViewModelBaseCanExportToExcel
     {
+        private IMessageService _messageService;
         private object _selectedItem;
         private PriceCalculation2Wrapper _priceCalculationWrapper;
 
@@ -35,6 +36,8 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                 ((DelegateCommand)RemoveStructureCostCommand).RaiseCanExecuteChanged();
                 ((DelegateCommand)RemoveGroupCommand).RaiseCanExecuteChanged();
                 ((DelegateCommand)FinishCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)MeregeCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)DivideCommand).RaiseCanExecuteChanged();
             }
         }
         public bool CurrentUserIsManager => GlobalAppProperties.User.RoleCurrent == Role.SalesManager;
@@ -57,6 +60,10 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
 
         public ICommand CancelCommand { get; }
 
+
+        public ICommand MeregeCommand { get; }
+        public ICommand DivideCommand { get; }
+
         public PriceCalculation2Wrapper PriceCalculationWrapper
         {
             get { return _priceCalculationWrapper; }
@@ -76,6 +83,8 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
 
         public PriceCalculationViewModel(IUnityContainer container) : base(container)
         {
+            _messageService = container.Resolve<IMessageService>();
+
             #region SaveCommand
           
             //сохранение изменений
@@ -163,20 +172,31 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
             RemoveGroupCommand = new DelegateCommand(
                 () =>
                 {
-                    IMessageService messageService = Container.Resolve<IMessageService>();
-
-                    var result = messageService.ShowYesNoMessageDialog("”даление", "ƒействительно хотите удалить из расчета группу оборудовани€?");
+                    var result = _messageService.ShowYesNoMessageDialog("”даление", "ƒействительно хотите удалить из расчета группу оборудовани€?");
                     if (result != MessageDialogResult.Yes) return;
 
                     var selectedGroup = SelectedItem as PriceCalculationItem2Wrapper;
 
-                    if (CanRemovePriceCalculationItem(selectedGroup.Model))
+                    var salesUnits = selectedGroup.SalesUnits.ToList();
+                    
+                    //единицы, которы нельз€ удалить из расчета, т.к. они размещены в производстве
+                    var salesUnitsNotForRemove = salesUnits
+                        .Where(x => x.Model.SignalToStartProduction.HasValue)
+                        .Where(x => x.Model.ActualPriceCalculationItem(UnitOfWork).Id == selectedGroup.Model.Id)
+                        .ToList();
+
+                    if (salesUnitsNotForRemove.Any())
                     {
-                        PriceCalculationWrapper.PriceCalculationItems.Remove(selectedGroup);
+                        _messageService.ShowOkMessageDialog("”даление", "¬ы не можете удалить некоторые строки, т.к. они размещены в производстве.");
+
+                        var salesUnitsToRemove = salesUnits.Except(salesUnitsNotForRemove).ToList();
+                        salesUnitsToRemove.ForEach(x => selectedGroup.SalesUnits.Remove(x));
+                        if(!selectedGroup.SalesUnits.Any())
+                            PriceCalculationWrapper.PriceCalculationItems.Remove(selectedGroup);
                     }
                     else
                     {
-                        messageService.ShowOkMessageDialog("”даление", "¬ы не можете удалить эти строки, т.к. они размещены в производстве.");
+                        PriceCalculationWrapper.PriceCalculationItems.Remove(selectedGroup);
                     }
                 },
                 () => SelectedItem is PriceCalculationItem2Wrapper && !IsStarted);
@@ -255,22 +275,36 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
 
             #endregion
 
+            #region MergeCommand
+
+            MeregeCommand = new DelegateCommand(
+                () =>
+                {
+                    var result = _messageService.ShowYesNoMessageDialog("—ли€ние", "ƒействительно хотите слить строки, выделенные галкой?");
+                    if (result != MessageDialogResult.Yes) return;
+
+                    var items = PriceCalculationWrapper.PriceCalculationItems.Where(x => x.IsChecked).ToList();
+                },
+                () =>
+                {
+                    return !IsStarted && PriceCalculationWrapper.PriceCalculationItems.Count(x => x.IsChecked) > 1;
+                });
+
+            #endregion
+
+            #region DivideCommand
+
+            DivideCommand = new DelegateCommand(
+                () =>
+                {
+                    var result = _messageService.ShowYesNoMessageDialog("–азбиение", "ƒействительно хотите разбить выбранную строку?");
+                    if (result != MessageDialogResult.Yes) return;
+                },
+                () => !IsStarted && SelectedItem is PriceCalculationItem2Wrapper && ((PriceCalculationItem2Wrapper)SelectedItem).Amount > 1);
+
+            #endregion
+
             PriceCalculationWrapper = new PriceCalculation2Wrapper(new PriceCalculation());
-        }
-
-        private bool CanRemovePriceCalculationItem(PriceCalculationItem item)
-        {
-            //дл€ удалени€ необходимо, чтобы все единицы, запущенные в производство были посчитаны где-то еще
-            var unitsInProduction = item.SalesUnits.Where(x => x.SignalToStartProduction.HasValue).ToList();
-
-            if (!unitsInProduction.Any()) return true;
-
-            var units = UnitOfWork.Repository<PriceCalculationItem>()
-                .Find(x => x.Id != item.Id)
-                .SelectMany(x => x.SalesUnits)
-                .ToList();
-
-            return unitsInProduction.Select(x => x.Id).AllContainsIn(units.Select(x => x.Id));
         }
 
         public void Load(PriceCalculation priceCalculation)
