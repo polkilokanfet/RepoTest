@@ -96,6 +96,7 @@
   <ItemGroup>
     <Compile Include="Converter\LookupsToStringConverter.cs" />
     <Compile Include="Converter\ObjectsToStringConverter.cs" />
+    <Compile Include="Converter\ObjectToStringConverter.cs" />
     <Compile Include="Extantions\Ext.cs" />
     <Compile Include="Groups\BaseWrappersGroup.cs" />
     <Compile Include="Groups\IGroupValidatableChangeTrackingWithCollection.cs" />
@@ -156,11 +157,12 @@
     <Compile Include="Modules\PlanAndEconomy\ViewModels\Groups\SalesUnitOrderItem.cs" />
     <Compile Include="Modules\PlanAndEconomy\ViewModels\Groups\SalesUnitOrderGroup.cs" />
     <Compile Include="Modules\PlanAndEconomy\ViewModels\Groups\SalesUnitOrderGroupsCollection.cs" />
+    <Compile Include="Modules\PlanAndEconomy\ViewModels\PaymentsActual\SalesUnitPayment.cs" />
     <Compile Include="Modules\PlanAndEconomy\ViewModels\ProductionPlan\AfterSaveOrderItemsEvent.cs" />
     <Compile Include="Modules\PlanAndEconomy\ViewModels\ProductionPlan\OrderViewModel.cs" />
     <Compile Include="Modules\PlanAndEconomy\ViewModels\Payment.cs" />
     <Compile Include="Modules\PlanAndEconomy\ViewModels\PaymentDocumentViewModel.cs" />
-    <Compile Include="Modules\PlanAndEconomy\ViewModels\PaymentsActualViewModel.cs" />
+    <Compile Include="Modules\PlanAndEconomy\ViewModels\PaymentsActual\PaymentsActualViewModel.cs" />
     <Compile Include="Modules\PlanAndEconomy\ViewModels\PaymentsViewModel.cs" />
     <Compile Include="Modules\PlanAndEconomy\ViewModels\ProductionPlan\OrderItem.cs" />
     <Compile Include="Modules\PlanAndEconomy\ViewModels\ProductionPlan\ProductionPlanViewModel.cs" />

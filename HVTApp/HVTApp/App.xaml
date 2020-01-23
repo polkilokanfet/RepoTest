@@ -13,6 +13,7 @@
             <converters:ListToStringConverter x:Key="ListToStringConverter"/>
             <convertersUi:LookupToStringConverter x:Key="LookupToStringConverter" />
             <convertersUi:LookupsToStringConverter x:Key="LookupsToStringConverter" />
+            <convertersUi:ObjectToStringConverter x:Key="ObjectToStringConverter" />
             <convertersUi:ObjectsToStringConverter x:Key="ObjectsToStringConverter" />
             <convertersUi:WrapperToStringConverter x:Key="WrapperToStringConverter"/>
             <convertersUi:WrappersToStringConverter x:Key="WrappersToStringConverter"/>

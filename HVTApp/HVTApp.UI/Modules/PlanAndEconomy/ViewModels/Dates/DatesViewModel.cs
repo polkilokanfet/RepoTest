@@ -2,11 +2,9 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Modules.PlanAndEconomy.ViewModels.Groups;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
@@ -68,6 +66,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
             var groups = _salesUnits
                 .GroupBy(x => new
                 {
+                    Cost = x.Model.Cost,
                     Facility = x.Model.Facility.Id,
                     Product = x.Model.Product.Id,
                     Order = x.Model.Order?.Id,

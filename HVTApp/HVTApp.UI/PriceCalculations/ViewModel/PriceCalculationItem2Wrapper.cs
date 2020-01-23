@@ -7,20 +7,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
 {
     public class PriceCalculationItem2Wrapper : WrapperBase<PriceCalculationItem>
     {
-        private bool _isChecked = false;
-
-        public bool IsChecked
-        {
-            get { return _isChecked; }
-            set
-            {
-                if (Equals(_isChecked, value)) return;
-                _isChecked = value;
-                IsChackedChanged?.Invoke(this);
-            }
-        }
-
-        public event Action<PriceCalculationItem2Wrapper> IsChackedChanged;
+        public bool IsChecked { get; set; } = false;
 
         public Project Project => Model.SalesUnits.FirstOrDefault()?.Project;
         public Facility Facility => Model.SalesUnits.FirstOrDefault()?.Facility;

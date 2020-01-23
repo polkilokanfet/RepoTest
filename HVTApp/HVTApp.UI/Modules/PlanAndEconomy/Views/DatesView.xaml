@@ -71,8 +71,9 @@
                         <infg:TextField AlternateBinding="{Binding Model.Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
                         <infg:TextField AlternateBinding="{Binding Model.Product.ProductType}" BindingType="UseAlternateBinding" Label="Тип" Width="Auto"/>
                         <infg:TextField AlternateBinding="{Binding Model.Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="Auto"/>
-                        <infg:TextField AlternateBinding="{Binding Model.Order}" BindingType="UseAlternateBinding" Label="З/з" Width="Auto" AllowResize="False"/>
-                        <infg:TextField Name="OrderPosition" Label="Поз." Width="Auto" AllowResize="False"/>
+                        <infg:NumericField AlternateBinding="{Binding Model.Cost}" BindingType="UseAlternateBinding" Label="Цена за ед." Width="Auto" AllowResize="False"/>
+                        <infg:TextField AlternateBinding="{Binding Model.Order}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="З/з" Width="Auto" AllowResize="False"/>
+                        <!--<infg:TextField Name="OrderPosition" Label="Поз." Width="Auto" AllowResize="False"/>-->
                         <infg:TextField Name="SerialNumber" Label="Сер.№" Width="Auto" AllowEdit="True"/>
                         <infg:TextField AlternateBinding="{Binding Model.Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto"/>
                         <infg:TextField AlternateBinding="{Binding Model.Specification.Number}" BindingType="UseAlternateBinding" Label="Сп.№" Width="Auto"/>
@@ -97,15 +98,15 @@
                     
                     <infg:FieldLayout.Fields>
 
-                        <infg:TextField AlternateBinding="{Binding Model.Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
+                        <!--<infg:TextField AlternateBinding="{Binding Model.Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
                         <infg:TextField AlternateBinding="{Binding Model.Product.ProductType}" BindingType="UseAlternateBinding" Label="Тип" Width="Auto"/>
                         <infg:TextField AlternateBinding="{Binding Model.Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="Auto"/>
-                        <infg:TextField AlternateBinding="{Binding Model.Order}" BindingType="UseAlternateBinding" Label="З/з" Width="Auto" AllowResize="False"/>
+                        <infg:TextField AlternateBinding="{Binding Model.Order}" BindingType="UseAlternateBinding" Label="З/з" Width="Auto" AllowResize="False"/>-->
                         <infg:TextField AlternateBinding="{Binding Model.OrderPosition}" BindingType="UseAlternateBinding" Label="Поз." Width="Auto" AllowResize="False"/>
                         <infg:TextField Name="SerialNumber" Label="Сер.№" Width="Auto" AllowEdit="True"/>
-                        <infg:TextField AlternateBinding="{Binding Model.Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto"/>
+                        <!--<infg:TextField AlternateBinding="{Binding Model.Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto"/>
                         <infg:TextField AlternateBinding="{Binding Model.Specification.Number}" BindingType="UseAlternateBinding" Label="Сп.№" Width="Auto"/>
-                        <infg:TextField AlternateBinding="{Binding Model.Specification.Contract}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
+                        <infg:TextField AlternateBinding="{Binding Model.Specification.Contract}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>-->
                         <infg:DateTimeField Name="PickingDate" Label="Комплектация" Width="110" AllowEdit="True" AllowResize="False"/>
                         <infg:DateTimeField Name="EndProductionDate" Label="Производство" Width="110" AllowEdit="True" AllowResize="False"/>
                         <infg:DateTimeField Name="ShipmentDate" Label="Отгрузка" Width="110" AllowEdit="True" AllowResize="False"/>

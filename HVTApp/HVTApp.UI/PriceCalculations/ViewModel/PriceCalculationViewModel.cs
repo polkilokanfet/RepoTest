@@ -36,7 +36,6 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                 ((DelegateCommand)RemoveStructureCostCommand).RaiseCanExecuteChanged();
                 ((DelegateCommand)RemoveGroupCommand).RaiseCanExecuteChanged();
                 ((DelegateCommand)FinishCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)MeregeCommand).RaiseCanExecuteChanged();
                 ((DelegateCommand)DivideCommand).RaiseCanExecuteChanged();
             }
         }
@@ -283,7 +282,31 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                     var result = _messageService.ShowYesNoMessageDialog("Слияние", "Действительно хотите слить строки, выделенные галкой?");
                     if (result != MessageDialogResult.Yes) return;
 
+                    //айтемы для слияния
                     var items = PriceCalculationWrapper.PriceCalculationItems.Where(x => x.IsChecked).ToList();
+
+                    if (items.Select(x => x.Facility.Id).Distinct().Count() > 1)
+                    {
+                        _messageService.ShowOkMessageDialog("Слияние", "Вы не можете объединить строки с разными Объектами поставки.");
+                        return;
+                    }
+
+                    if (items.Select(x => x.Product.Id).Distinct().Count() > 1)
+                    {
+                        _messageService.ShowOkMessageDialog("Слияние", "Вы не можете объединить строки с разными Продуктами поставки.");
+                        return;
+                    }
+
+                    var itemToSave = items.First();
+                    items.Remove(itemToSave);
+
+                    foreach (var item in items)
+                    {
+                        item.SalesUnits.ForEach(x => itemToSave.SalesUnits.Add(x));
+                        PriceCalculationWrapper.PriceCalculationItems.Remove(item);
+                        if (UnitOfWork.Repository<PriceCalculationItem>().GetById(item.Model.Id) != null)
+                            UnitOfWork.Repository<PriceCalculationItem>().Delete(item.Model);
+                    }
                 },
                 () =>
                 {
@@ -299,6 +322,39 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                 {
                     var result = _messageService.ShowYesNoMessageDialog("Разбиение", "Действительно хотите разбить выбранную строку?");
                     if (result != MessageDialogResult.Yes) return;
+
+                    var selectedItem = (PriceCalculationItem2Wrapper) SelectedItem;
+                    var salesUnit = selectedItem.SalesUnits.First();
+
+                    var salesUnitsToDivide = selectedItem.SalesUnits.ToList();
+                    salesUnitsToDivide.Remove(salesUnit);
+
+                    foreach (var unit in salesUnitsToDivide)
+                    {
+                        selectedItem.SalesUnits.Remove(unit);
+
+                        var priceCalculationItem = new PriceCalculationItem
+                        {
+                            OrderInTakeDate = selectedItem.OrderInTakeDate,
+                            RealizationDate = selectedItem.RealizationDate,
+                            PaymentConditionSet = selectedItem.PaymentConditionSet
+                        };
+                        var priceCalculationItemWrapper = new PriceCalculationItem2Wrapper(priceCalculationItem);
+                        priceCalculationItemWrapper.SalesUnits.Add(unit);
+                        foreach (var structureCost in selectedItem.StructureCosts)
+                        {
+                            var sc = new StructureCost()
+                            {
+                                Comment = structureCost.Comment,
+                                Amount = structureCost.Amount,
+                                Number = structureCost.Number
+                            };
+                            priceCalculationItemWrapper.StructureCosts.Add(new StructureCostWrapper(sc));
+                        }
+
+                        PriceCalculationWrapper.PriceCalculationItems.Add(priceCalculationItemWrapper);
+                    }
+
                 },
                 () => !IsStarted && SelectedItem is PriceCalculationItem2Wrapper && ((PriceCalculationItem2Wrapper)SelectedItem).Amount > 1);
 

@@ -14,7 +14,7 @@
                 <infg:XamDataGrid.FieldLayouts>
                     <infg:FieldLayout>
                         <infg:TextField AlternateBinding="{Binding SalesUnit.Facility}" Label="Объект" BindingType="UseAlternateBinding"/>
-                        <infg:TextField AlternateBinding="{Binding SalesUnit.Product}" Label="Продукт" BindingType="UseAlternateBinding"/>
+                        <infg:TextField AlternateBinding="{Binding SalesUnit.Product}" Label="Продукт" BindingType="UseAlternateBinding" Converter="{StaticResource ObjectToStringConverter}"/>
                         <infg:TextField AlternateBinding="{Binding SalesUnit.Order}" Label="З/з" BindingType="UseAlternateBinding"/>
                         <infg:DateTimeField AlternateBinding="{Binding Payment.Date}" Label="Дата" BindingType="UseAlternateBinding"/>
                         <infg:NumericField AlternateBinding="{Binding Payment.Sum}" Label="Сумма без НДС" BindingType="UseAlternateBinding"/>
