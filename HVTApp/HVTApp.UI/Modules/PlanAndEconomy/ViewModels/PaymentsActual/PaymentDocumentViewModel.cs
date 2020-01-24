@@ -2,7 +2,6 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
@@ -23,17 +22,27 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
         private IValidatableChangeTrackingCollection<SalesUnitPaymentWrapper> _salesUnitWrappers;
         private Payment _selectedPayment;
         private object[] _selectedPotentialUnits;
+        private DateTime _dockDate;
+        private IMessageService _messageService;
 
         #endregion
 
         #region Props
 
         private PaymentDocumentWrapper PaymentDocument => this.Item;
+
+        /// <summary>
+        /// Платежи в этой платежке
+        /// </summary>
         public ObservableCollection<Payment> Payments { get; } = new ObservableCollection<Payment>();
+
+        /// <summary>
+        /// Потенциальные платежи
+        /// </summary>
         public ObservableCollection<SalesUnitPaymentWrapper> Potential { get; } = new ObservableCollection<SalesUnitPaymentWrapper>();
 
         /// <summary>
-        /// Выбранный потенциальный юнит
+        /// Выбранные потенциальные юниты
         /// </summary>
         public object[] SelectedPotentialUnits
         {
@@ -60,8 +69,6 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
             }
         }
 
-        private DateTime _dockDate;
-
         /// <summary>
         /// Дата платежей
         /// </summary>
@@ -77,24 +84,60 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
         }
 
         /// <summary>
-        /// Сумма платежного документа
+        /// Сумма платежного документа без НДС
         /// </summary>
-        public double DockSum
+        //public double DockSum
+        //{
+        //    get { return Payments.Any() ? Payments.Sum(x => x.PaymentActual.Sum) : 0; }
+        //    set
+        //    {
+        //        if (value < 0) return;
+        //        if (!Payments.Any()) return;
+
+        //        //неоплаченное без учета текущего платежа
+        //        var notPaid = Payments.Sum(x => x.SalesUnit.Model.SumNotPaid) + Payments.Sum(x => x.PaymentActual.Sum);
+
+        //        //если предложена сумма, превышающая, не пропускаем
+        //        if (value > notPaid) return;
+
+        //        Payments.ForEach(x => x.PaymentActual.Sum = value * ((x.SalesUnit.Model.SumNotPaid + x.PaymentActual.Sum) / notPaid));
+        //    }
+        //}
+
+        /// <summary>
+        /// Сумма платежного документа с НДС
+        /// </summary>
+        public double DockSumWithVat
         {
-            get { return Payments.Any() ? Payments.Sum(x => x.PaymentActual.Sum) : 0; }
+            get { return Payments.Any() ? Payments.Sum(x => x.SumWithVat) : 0; }
             set
             {
-                if (value < 0) return;
-                if (!Payments.Any()) return;
+                if (value < 0)
+                {
+                    _messageService.ShowOkMessageDialog("Предупреждение", "Отрицательные платежи недопустимы!");
+                    return;
+                }
 
-                //неоплаченное без учета текущего платежа
-                var notPaid = Payments.Sum(x => x.SalesUnit.Model.SumNotPaid) + Payments.Sum(x => x.PaymentActual.Sum);
+                if (!Payments.Any())
+                {
+                    _messageService.ShowOkMessageDialog("Предупреждение", "Добавте в платежку оборудование.");
+                    return;
+                }
 
-                if (value > notPaid) return;
+                //неоплаченное без учета текущего платежа (c НДС)
+                var notPaidWithVat = Payments.Sum(x => x.SalesUnit.Model.SumNotPaidWithVat) + Payments.Sum(x => x.SumWithVat);
 
-                Payments.ForEach(x => x.PaymentActual.Sum = value * ((x.SalesUnit.Model.SumNotPaid + x.PaymentActual.Sum) / notPaid));
+                //если предложена сумма, превышающая, не пропускаем
+                if (value - notPaidWithVat > 0.000001)
+                {
+                    _messageService.ShowOkMessageDialog("Предупреждение", $"Сумма платежки слишком велика. Возможный максимум: {notPaidWithVat:C}");
+                    return;
+                }
+
+                Payments.ForEach(x => x.SumWithVat = value * ((x.SalesUnit.Model.SumNotPaidWithVat + x.SumWithVat) / notPaidWithVat));
             }
         }
+
 
         public ICommand AddPaymentCommand { get; }
         public ICommand RemovePaymentCommand { get; }
@@ -104,6 +147,8 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
 
         public PaymentDocumentViewModel(IUnityContainer container) : base(container)
         {
+            _messageService = container.Resolve<IMessageService>();
+
             SaveDocumentCommand = new DelegateCommand(
                 () =>
                 {
@@ -117,7 +162,6 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
                     PaymentDocument.PropertyChanged += PaymentDocumentOnPropertyChanged;
                     _salesUnitWrappers.PropertyChanged += SalesUnitWrappersOnPropertyChanged;
                 },
-
                 () =>
                 {
                     if (PaymentDocument == null) return false;
@@ -131,7 +175,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
             AddPaymentCommand = new DelegateCommand(
                 () =>
                 {
-                    var sum = DockSum;
+                    var sum = DockSumWithVat;
                     var date = DockDate;
 
                     var selectedUnits = SelectedPotentialUnits.Cast<SalesUnitPaymentWrapper>().ToList();
@@ -145,7 +189,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
                     }
                     SelectedPotentialUnits = null;
 
-                    DockSum = sum;
+                    DockSumWithVat = sum;
                     DockDate = date;
                 },
 
@@ -170,7 +214,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
 
                     Payments.Remove(SelectedPayment);
 
-                    OnPropertyChanged(nameof(DockSum));
+                    OnPropertyChanged(nameof(DockSumWithVat));
                 },
 
                 () => SelectedPayment != null);
@@ -203,7 +247,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
 
             _dockDate = Payments.Any() ? Payments.First().PaymentActual.Date : DateTime.Today;
 
-            OnPropertyChanged(nameof(DockSum));
+            OnPropertyChanged(nameof(DockSumWithVat));
             OnPropertyChanged(nameof(DockDate));
 
             //событие изменения в платежном документе
@@ -218,7 +262,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
         private void SalesUnitWrappersOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
             ((DelegateCommand)SaveDocumentCommand).RaiseCanExecuteChanged();
-            OnPropertyChanged(nameof(DockSum));
+            OnPropertyChanged(nameof(DockSumWithVat));
         }
 
         private void PaymentDocumentOnPropertyChanged(object sender, PropertyChangedEventArgs args)

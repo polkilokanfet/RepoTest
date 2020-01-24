@@ -158,10 +158,11 @@
     <Compile Include="Modules\PlanAndEconomy\ViewModels\Groups\SalesUnitOrderGroup.cs" />
     <Compile Include="Modules\PlanAndEconomy\ViewModels\Groups\SalesUnitOrderGroupsCollection.cs" />
     <Compile Include="Modules\PlanAndEconomy\ViewModels\PaymentsActual\SalesUnitPayment.cs" />
+    <Compile Include="Modules\PlanAndEconomy\ViewModels\PaymentsActual\SalesUnitPaymentWrapper.cs" />
     <Compile Include="Modules\PlanAndEconomy\ViewModels\ProductionPlan\AfterSaveOrderItemsEvent.cs" />
     <Compile Include="Modules\PlanAndEconomy\ViewModels\ProductionPlan\OrderViewModel.cs" />
-    <Compile Include="Modules\PlanAndEconomy\ViewModels\Payment.cs" />
-    <Compile Include="Modules\PlanAndEconomy\ViewModels\PaymentDocumentViewModel.cs" />
+    <Compile Include="Modules\PlanAndEconomy\ViewModels\PaymentsActual\Payment.cs" />
+    <Compile Include="Modules\PlanAndEconomy\ViewModels\PaymentsActual\PaymentDocumentViewModel.cs" />
     <Compile Include="Modules\PlanAndEconomy\ViewModels\PaymentsActual\PaymentsActualViewModel.cs" />
     <Compile Include="Modules\PlanAndEconomy\ViewModels\PaymentsViewModel.cs" />
     <Compile Include="Modules\PlanAndEconomy\ViewModels\ProductionPlan\OrderItem.cs" />

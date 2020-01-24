@@ -186,10 +186,22 @@ namespace HVTApp.Model.POCOs
         public double SumPaid => PaymentsActual.Sum(x => x.Sum);
 
         /// <summary>
-        /// Неоплаченная сумма
+        /// Неоплаченная сумма без НДС
         /// </summary>
-        [Designation("Неоплачено"), NotMapped]
+        [Designation("Неоплачено без НДС"), NotMapped]
         public double SumNotPaid => Cost - SumPaid;
+
+        /// <summary>
+        /// НДС
+        /// </summary>
+        [Designation("НДС"), NotMapped]
+        public double Vat => Specification?.Vat ?? GlobalAppProperties.Actual.Vat;
+
+        /// <summary>
+        /// Неоплаченная сумма с НДС
+        /// </summary>
+        [Designation("Неоплачено с НДС"), NotMapped]
+        public double SumNotPaidWithVat => SumNotPaid * (100.0 + Vat) / 100;
 
 
         /// <summary>

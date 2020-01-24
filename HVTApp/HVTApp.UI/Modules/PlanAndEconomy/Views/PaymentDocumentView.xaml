@@ -16,6 +16,7 @@
         <!-- Детали платежного документа -->
         <views:PaymentDocumentDetailsView DataContext="{Binding}" 
                                           VisibilityPaymentsPaymentDocument="Collapsed"
+                                          VisibilityVatPaymentDocument="Collapsed"
                                           Grid.Row="0"/>
 
         <!-- Внесенные платежи -->
@@ -33,7 +34,7 @@
                     <igWpf:XamDateTimeEditor Grid.Column="1" Value="{Binding DockDate}"/>
 
                     <Label Grid.Column="2" Content=" Сумма без НДС, руб: "/>
-                    <igWpf:XamNumericEditor Grid.Column="3" Value="{Binding DockSum}"/>
+                    <igWpf:XamNumericEditor Grid.Column="3" Value="{Binding DockSumWithVat}"/>
 
                 </Grid>
 
@@ -44,18 +45,18 @@
                     <igWpf:XamDataGrid.FieldLayouts>
                         <igWpf:FieldLayout>
                             <igWpf:FieldLayout.Fields>
-
-                                <igWpf:TextField AlternateBinding="{Binding SalesUnit.Model.Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
-                                <igWpf:TextField AlternateBinding="{Binding SalesUnit.Model.Product.ProductType}" BindingType="UseAlternateBinding" Label="Тип" Width="Auto"/>
+                                <igWpf:TextField AlternateBinding="{Binding SalesUnit.Model.Facility}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
+                                <igWpf:TextField AlternateBinding="{Binding SalesUnit.Model.Product.ProductType}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Тип" Width="Auto"/>
                                 <igWpf:TextField AlternateBinding="{Binding SalesUnit.Model.Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="Auto"/>
                                 <igWpf:TextField AlternateBinding="{Binding SalesUnit.Model.Order}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="З/з" Width="Auto"/>
                                 <igWpf:TextField AlternateBinding="{Binding SalesUnit.Model.OrderPosition}" BindingType="UseAlternateBinding" Label="Поз." Width="Auto"/>
                                 <igWpf:TextField AlternateBinding="{Binding SalesUnit.Model.Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto"/>
                                 <igWpf:TextField AlternateBinding="{Binding SalesUnit.Model.Specification.Number}" BindingType="UseAlternateBinding" Label="Сп.№" Width="Auto"/>
                                 <igWpf:TextField AlternateBinding="{Binding SalesUnit.Model.Specification.Contract.Number}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
-                                <igWpf:NumericField AlternateBinding="{Binding Sum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto" AllowEdit="True"/>
-                                <igWpf:NumericField AlternateBinding="{Binding SumNotPaid}" BindingType="UseAlternateBinding" Label="Остаток" Width="Auto"/>
-
+                                <igWpf:NumericField AlternateBinding="{Binding SumWithVat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto" AllowEdit="True"/>
+                                <igWpf:NumericField AlternateBinding="{Binding SumNotPaidWithVat}" BindingType="UseAlternateBinding" Label="Остаток" Width="Auto"/>
+                                <igWpf:NumericField AlternateBinding="{Binding SalesUnit.Model.Vat}" BindingType="UseAlternateBinding" Label="НДС" Width="Auto"/>
+                                <igWpf:TextField AlternateBinding="{Binding SalesUnit.Project.Manager}" BindingType="UseAlternateBinding" Label="Менеджер" Width="Auto"/>
                             </igWpf:FieldLayout.Fields>
                         </igWpf:FieldLayout>
 
@@ -72,12 +73,10 @@
             <igWpf:XamDataGrid DataSource="{Binding Potential}"
                                SelectedDataItemsScope="RecordsOrCells"
                                SelectedDataItems="{Binding Path=SelectedPotentialUnits, Mode=TwoWay}">
-                <!--SelectedDataItem="{Binding SelectedUnit, Mode=TwoWay}">-->
 
                 <igWpf:XamDataGrid.FieldLayouts>
                     <igWpf:FieldLayout>
                         <igWpf:FieldLayout.Fields>
-
                             <igWpf:TextField AlternateBinding="{Binding Model.Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
                             <igWpf:TextField AlternateBinding="{Binding Model.Product.ProductType}" BindingType="UseAlternateBinding" Label="Тип" Width="Auto"/>
                             <igWpf:TextField AlternateBinding="{Binding Model.Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="Auto"/>
@@ -86,8 +85,9 @@
                             <igWpf:TextField AlternateBinding="{Binding Model.Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto"/>
                             <igWpf:TextField AlternateBinding="{Binding Model.Specification.Number}" BindingType="UseAlternateBinding" Label="Сп.№" Width="Auto"/>
                             <igWpf:TextField AlternateBinding="{Binding Model.Specification.Contract.Number}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
-                            <igWpf:NumericField AlternateBinding="{Binding Model.SumNotPaid}" BindingType="UseAlternateBinding" Label="Остаток" Width="Auto"/>
-
+                            <igWpf:NumericField AlternateBinding="{Binding Model.SumNotPaidWithVat}" BindingType="UseAlternateBinding" Label="Остаток" Width="Auto"/>
+                            <igWpf:NumericField AlternateBinding="{Binding Model.Vat}" BindingType="UseAlternateBinding" Label="НДС" Width="Auto"/>
+                            <igWpf:NumericField AlternateBinding="{Binding Model.Project.Manager}" BindingType="UseAlternateBinding" Label="Менеджер" Width="Auto"/>
                         </igWpf:FieldLayout.Fields>
                     </igWpf:FieldLayout>
 

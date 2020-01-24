@@ -22,7 +22,8 @@
                 <infg:TextField AlternateBinding="{Binding SalesUnit.Order}" Converter="{StaticResource ObjectToStringConverter}" Label="З/з" BindingType="UseAlternateBinding" Width="Auto"/>
                 <infg:TextField AlternateBinding="{Binding SalesUnit.OrderPosition}" Label="Поз." BindingType="UseAlternateBinding" Width="Auto"/>
                 <infg:DateTimeField AlternateBinding="{Binding Payment.Date}" Label="Дата" BindingType="UseAlternateBinding" Width="Auto" AllowResize="False"/>
-                <infg:NumericField AlternateBinding="{Binding Payment.Sum}" Label="Сумма без НДС" BindingType="UseAlternateBinding" Width="Auto" AllowResize="False"/>
+                <infg:NumericField AlternateBinding="{Binding SumWithVat}" Label="Сумма с НДС" BindingType="UseAlternateBinding" Width="Auto" AllowResize="False"/>
+                <infg:NumericField AlternateBinding="{Binding SalesUnit.Vat}" Label="НДС" BindingType="UseAlternateBinding" Width="Auto" AllowResize="False"/>
                 <infg:NumericField AlternateBinding="{Binding Percent}" Label="%" BindingType="UseAlternateBinding" Width="Auto" AllowResize="False"/>
                 <infg:CheckBoxField AlternateBinding="{Binding SalesUnit.IsPaid}" Label="Оплачен" BindingType="UseAlternateBinding" Width="Auto"/>
                 <infg:TextField AlternateBinding="{Binding SalesUnit.Project.Manager}" Label="Менеджер" BindingType="UseAlternateBinding" Width="Auto" AllowResize="False"/>

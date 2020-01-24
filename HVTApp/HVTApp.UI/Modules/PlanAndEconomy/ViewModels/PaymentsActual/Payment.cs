@@ -1,6 +1,4 @@
-using System;
 using System.ComponentModel;
-using System.Linq;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Wrapper;
 using Prism.Mvvm;
@@ -11,9 +9,11 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
     {
         public PaymentActualWrapper PaymentActual { get; }
         public SalesUnitPaymentWrapper SalesUnit { get; }
+        
         public double SumNotPaid => SalesUnit.Model.SumNotPaid;
+        public double SumNotPaidWithVat => SalesUnit.Model.SumNotPaidWithVat;
 
-        public double Sum
+        private double Sum
         {
             get { return PaymentActual.Sum; }
             set
@@ -22,10 +22,21 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
 
                 //недопустимы отрицательные платежи
                 if (value < 0) return;
+
                 //недопустимы платежи более неоплаченной суммы
-                if (value > SumNotPaid + Sum) return;
+                if (value - (SumNotPaid + Sum) > 0.000001) return;
 
                 PaymentActual.Sum = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public double SumWithVat
+        {
+            get { return Sum * (100.0 + SalesUnit.Model.Vat) / 100.0; }
+            set
+            {
+                Sum = value / ((100.0 + SalesUnit.Model.Vat) / 100.0);
                 OnPropertyChanged();
             }
         }
@@ -49,23 +60,8 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
         private void PaymentActualOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
             OnPropertyChanged(nameof(SumNotPaid));
+            OnPropertyChanged(nameof(SumNotPaidWithVat));
             OnPropertyChanged(nameof(Sum));
         }
     }
-
-    public class SalesUnitPaymentWrapper : WrapperBase<SalesUnit>
-    {
-        public SalesUnitPaymentWrapper(SalesUnit model) : base(model) { }
-
-        public IValidatableChangeTrackingCollection<PaymentActualWrapper> PaymentsActual { get; private set; }
-
-        protected override void InitializeCollectionProperties()
-        {
-
-            if (Model.PaymentsActual == null) throw new ArgumentException("PaymentsActual cannot be null");
-            PaymentsActual = new ValidatableChangeTrackingCollection<PaymentActualWrapper>(Model.PaymentsActual.Select(e => new PaymentActualWrapper(e)));
-            RegisterCollection(PaymentsActual, Model.PaymentsActual);
-        }
-    }
-
 }

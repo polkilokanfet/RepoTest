@@ -8,6 +8,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
         public PaymentActual Payment { get; }
         public PaymentDocument PaymentDocument { get; }
 
+        public double SumWithVat => Payment.Sum * (100.0 + SalesUnit.Vat) / 100.0;
         public Contract Contract => SalesUnit.Specification?.Contract;
         public Company Contragent => Contract?.Contragent;
         public double Percent => Payment.Sum / SalesUnit.Cost * 100.0;
