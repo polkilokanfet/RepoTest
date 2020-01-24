@@ -13,8 +13,18 @@ namespace HVTApp.Model.POCOs
     [Designation("Продукт"), DesignationPlural("Продукты")]
     public partial class Product : BaseEntity
     {
+        private string _designation = null;
+
         [Designation("Обозначение"), NotMapped, OrderStatus(8)]
-        public string Designation => GlobalAppProperties.ProductDesignationService.GetDesignation(this);
+        public string Designation
+        {
+            get
+            {
+                if(_designation == null)
+                    _designation = DesignationSpecial ?? GlobalAppProperties.ProductDesignationService.GetDesignation(this);
+                return _designation;
+            }
+        }
 
         [Designation("Специальное обозначение"), MaxLength(50), OrderStatus(6)]
         public string DesignationSpecial { get; set; }

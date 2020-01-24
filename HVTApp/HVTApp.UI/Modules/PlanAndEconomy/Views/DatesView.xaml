@@ -69,7 +69,7 @@
                     <infg:FieldLayout.Fields>
 
                         <infg:TextField AlternateBinding="{Binding Model.Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
-                        <infg:TextField AlternateBinding="{Binding Model.Product.ProductType}" BindingType="UseAlternateBinding" Label="Тип" Width="Auto"/>
+                        <infg:TextField AlternateBinding="{Binding Model.Product.ProductType}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Тип" Width="Auto"/>
                         <infg:TextField AlternateBinding="{Binding Model.Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="Auto"/>
                         <infg:NumericField AlternateBinding="{Binding Model.Cost}" BindingType="UseAlternateBinding" Label="Цена за ед." Width="Auto" AllowResize="False"/>
                         <infg:TextField AlternateBinding="{Binding Model.Order}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="З/з" Width="Auto" AllowResize="False"/>

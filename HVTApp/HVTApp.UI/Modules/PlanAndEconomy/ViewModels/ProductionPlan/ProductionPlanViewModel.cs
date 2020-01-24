@@ -50,6 +50,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
             Container.Resolve<IEventAggregator>().GetEvent<AfterSaveOrderItemsEvent>().Subscribe(salesUnits =>
             {
                 var units = salesUnits.ToList();
+                if (units.First().Order == null) return;
                 if (OrderItems.Select(x => x.Order).ContainsById(units.First().Order)) return;
 
                 OrderItems.Add(new OrderItem(units));

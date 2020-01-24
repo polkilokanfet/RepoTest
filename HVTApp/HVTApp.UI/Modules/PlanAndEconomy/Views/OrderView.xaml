@@ -27,15 +27,16 @@
 			            <infg:XamDataGrid.FieldLayouts>
 				            <infg:FieldLayout Key="UnitsInOrder">
                                 <infg:FieldLayout.Fields>
-                                    <infg:TextField AlternateBinding="{Binding Unit.Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
-                                    <infg:TextField AlternateBinding="{Binding Unit.Product.ProductType}" BindingType="UseAlternateBinding" Label="Тип" Width="Auto"/>
+                                    <infg:TextField AlternateBinding="{Binding Unit.Facility}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
+                                    <infg:TextField AlternateBinding="{Binding Unit.Product.ProductType}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Тип" Width="Auto"/>
                                     <infg:TextField AlternateBinding="{Binding Unit.Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="*"/>
-                                    <infg:TextField AlternateBinding="{Binding Unit.Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto"/>
+                                    <infg:TextField AlternateBinding="{Binding Unit.Specification.Contract.Contragent}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto"/>
                                     <infg:TextField AlternateBinding="{Binding Unit.Specification}" BindingType="UseAlternateBinding" Label="Сп.№" Width="Auto"/>
-                                    <infg:TextField AlternateBinding="{Binding Unit.Specification.Contract}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
+                                    <infg:TextField AlternateBinding="{Binding Unit.Specification.Contract}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
                                     <infg:DateTimeField AlternateBinding="{Binding EndProductionDateExpected}" BindingType="UseAlternateBinding" Label="Требуемая" Width="Auto"/>
                                     <infg:DateTimeField Name="EndProductionPlanDate" Label="Плановая" Width="Auto" AllowResize="False" AllowEdit="True"/>
                                     <infg:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Количество" Width="Auto" AllowResize="False"/>
+                                    <infg:TextField AlternateBinding="{Binding Unit.Project.Manager}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
                                     <infg:Field Name="Units" IsExpandable="True"/>
                                 </infg:FieldLayout.Fields>
 				            </infg:FieldLayout>
@@ -77,6 +78,7 @@
                                     <infg:TextField AlternateBinding="{Binding Unit.Specification.Contract}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
                                     <infg:DateTimeField AlternateBinding="{Binding EndProductionDateExpected}" BindingType="UseAlternateBinding" Label="Требуемая" Width="Auto"/>
                                     <infg:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Количество" Width="Auto"/>
+                                    <infg:TextField AlternateBinding="{Binding Unit.Project.Manager}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
                                     <infg:Field Name="Units" IsExpandable="True"/>
                                 </infg:FieldLayout.Fields>
                             </infg:FieldLayout>

@@ -54,6 +54,9 @@ namespace HVTApp.Infrastructure.Extansions
         public static bool ContainsById<T>(this IEnumerable<T> enumerable, IId objId)
             where T : IId
         {
+            if(objId == null)
+                throw new ArgumentNullException(nameof(objId));
+
             return enumerable.Select(x => x.Id).Contains(objId.Id);
         }
 
