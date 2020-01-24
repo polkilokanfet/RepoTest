@@ -8,16 +8,18 @@ using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Groups;
+using HVTApp.UI.Modules.PlanAndEconomy.ViewModels;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
+using PaymentsGroup = HVTApp.UI.Groups.PaymentsGroup;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels
 {
-    public class PaymentsViewModel : LoadableBindableBase
+    public class PaymentsViewModel : ViewModelBase
     {
-        private IValidatableChangeTrackingCollection<SalesUnitWrapper> _salesUnitWrappers;
+        private IValidatableChangeTrackingCollection<SalesUnitPaymentsPlannedWrapper> _salesUnitWrappers;
         private PaymentsGroup _selectedGroup;
 
         public PaymentsGroup SelectedGroup
@@ -59,17 +61,18 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
                     RefreshPayments();
                 }, 
                 () => SelectedGroup?.WillSave != null);
+
+            Load();
         }
 
-        protected override void LoadedMethod()
+        protected void Load()
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
 
             //загружаем все юниты и фиксируем их в коллекции для отслеживания изменений
-            _salesUnitWrappers = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(
-                                (UnitOfWork.Repository<SalesUnit>().GetAll())
-                                .Where(x => x.Project.Manager.IsAppCurrentUser())
-                                .Select(x => new SalesUnitWrapper(x)));
+            _salesUnitWrappers = new ValidatableChangeTrackingCollection<SalesUnitPaymentsPlannedWrapper>(
+                                UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Manager.IsAppCurrentUser())
+                                .Select(x => new SalesUnitPaymentsPlannedWrapper(x)));
 
             //подписка на изменение
             _salesUnitWrappers.PropertyChanged += (sender, args) => ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
@@ -84,7 +87,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
         /// Актуализация плановых поступлений
         /// </summary>
         /// <param name="salesUnitWrapper"></param>
-        private void Actualization(SalesUnitWrapper salesUnitWrapper)
+        private void Actualization(SalesUnitPaymentsPlannedWrapper salesUnitWrapper)
         {
             //коллекция актуальных плановых платежей (может отличаться от сохраненных)
             var paymentPlannedActual = salesUnitWrapper.Model.PaymentsPlannedActual;
@@ -118,10 +121,10 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             payments = payments.OrderBy(x => x.PaymentPlanned.Date).ToList();
             var groups = payments.GroupBy(x => new
             {
-                ProjectId = x.SalesUnit.Project.Id,
-                ProductId = x.SalesUnit.Product.Id,
-                FacilityId = x.SalesUnit.Facility.Id,
-                Cost = x.SalesUnit.Cost,
+                ProjectId = x.SalesUnit.Model.Project.Id,
+                ProductId = x.SalesUnit.Model.Product.Id,
+                FacilityId = x.SalesUnit.Model.Facility.Id,
+                Cost = x.SalesUnit.Model.Cost,
                 Part = x.PaymentPlanned.Part,
                 Date = x.PaymentPlanned.Date,
                 ConditionId = x.PaymentPlanned.Condition.Id,
@@ -141,7 +144,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             SelectedGroup = PaymentsGroups.SingleOrDefault(x => x.Ids.MembersAreSame(paymentsGroup.Ids));
         }
 
-        private IEnumerable<PaymentWrapper> GetPayments(SalesUnitWrapper salesUnitWrapper)
+        private IEnumerable<PaymentWrapper> GetPayments(SalesUnitPaymentsPlannedWrapper salesUnitWrapper)
         {
             //платежи, находящиеся в юните
             foreach (var paymentPlannedWrapper in salesUnitWrapper.PaymentsPlanned)

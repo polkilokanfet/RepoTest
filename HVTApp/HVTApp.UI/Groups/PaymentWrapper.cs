@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Modules.Sales.ViewModels;
 using HVTApp.UI.Wrapper;
 using Prism.Mvvm;
 
@@ -11,22 +12,22 @@ namespace HVTApp.UI.Groups
     public class PaymentWrapper : BindableBase
     {
         public PaymentPlannedWrapper PaymentPlanned { get; private set; }
-        public SalesUnitWrapper SalesUnit { get; }
+        public SalesUnitPaymentsPlannedWrapper SalesUnit { get; }
 
         /// <summary>
         /// Находится ли платеж в списке сохраненных плановых платежей
         /// </summary>
         public bool IsInPlanPayments => SalesUnit.PaymentsPlanned.Contains(PaymentPlanned);
 
-        public double Sum => SalesUnit.Cost * PaymentPlanned.Part * PaymentPlanned.Condition.Part;
+        public double Sum => SalesUnit.Model.Cost * PaymentPlanned.Part * PaymentPlanned.Condition.Part;
 
-        public PaymentWrapper(SalesUnitWrapper salesUnit, Guid paymentId)
+        public PaymentWrapper(SalesUnitPaymentsPlannedWrapper salesUnit, Guid paymentId)
         {
             SalesUnit = salesUnit;
             SetPaymentPlanned(SalesUnit.PaymentsPlanned.Single(x => x.Id == paymentId));
         }
 
-        public PaymentWrapper(SalesUnitWrapper salesUnit, PaymentPlanned paymentPlanned)
+        public PaymentWrapper(SalesUnitPaymentsPlannedWrapper salesUnit, PaymentPlanned paymentPlanned)
         {
             SalesUnit = salesUnit;
             SetPaymentPlanned(new PaymentPlannedWrapper(paymentPlanned));

@@ -2,65 +2,37 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-              xmlns:converters="clr-namespace:HVTApp.Infrastructure.Converters;assembly=HVTApp.Infrastructure"
               x:Class="HVTApp.UI.Modules.Sales.Views.PaymentsView">
 
-    <inf:ViewBase.Resources>
-        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></converters:BooleanToVisibilityConverter>
-    </inf:ViewBase.Resources>
+    <infg:XamDataGrid x:Name="PaymentsListGrid"
+                      DataSource="{Binding PaymentsGroups}"
+                      SelectedDataItem="{Binding SelectedGroup, Mode=TwoWay}">
 
-    <Grid>
-         <Grid.RowDefinitions>
-             <RowDefinition Height="Auto"/>
-             <RowDefinition Height="*"/>
-         </Grid.RowDefinitions>
-         
-        <Label Grid.Row="0" Content="Ожидание данных..." VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Label.Style>
-                <Style>
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding ElementName=PaymentsListGrid, Path=Visibility}" Value="Visible">
-                        <Setter Property="Label.Visibility" Value="Collapsed"/>
-                    </DataTrigger>
-                </Style.Triggers>
-                </Style>
-            </Label.Style>
-        </Label>
-       
+        <infg:XamDataGrid.ContextMenu>
+			<ContextMenu>
+				<MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
+			</ContextMenu>
+		</infg:XamDataGrid.ContextMenu>
 
-        <infg:XamDataGrid x:Name="PaymentsListGrid"
-                          Grid.Row="1"
-                          Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}"
-                          DataSource="{Binding PaymentsGroups}"
-                          SelectedDataItem="{Binding SelectedGroup, Mode=TwoWay}">
+		<infg:XamDataGrid.FieldLayouts>
+			<infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField AlternateBinding="{Binding SalesUnit.Model.Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto" Converter="{StaticResource ObjectToStringConverter}"/>
+                    <infg:TextField AlternateBinding="{Binding SalesUnit.Model.Product}" BindingType="UseAlternateBinding" Label="Продукт" Width="Auto" Converter="{StaticResource ObjectToStringConverter}"/>
+                    <infg:TextField AlternateBinding="{Binding SalesUnit.Model.Order}" BindingType="UseAlternateBinding" Label="Заказ" Width="Auto" Converter="{StaticResource ObjectToStringConverter}"/>
+                    <infg:TextField AlternateBinding="{Binding Position}" BindingType="UseAlternateBinding" Label="Поз." Width="Auto"/>
+                    <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" AllowEdit="True"/>
+                    <infg:NumericField Name="Amount" Label="Количество" Width="Auto"/>
+                    <infg:NumericField Name="Sum" Label="Сумма" Width="Auto"/>
+                    <infg:TextField Name="Condition" Label="Условие" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
+                    <infg:CheckBoxField Name="WillSave" Label="Custom" Width="Auto"/>
+                    <infg:Field Name="Groups" IsExpandable="True"/>
+				</infg:FieldLayout.Fields>
+			</infg:FieldLayout>
 
-            <infg:XamDataGrid.ContextMenu>
-				<ContextMenu>
-					<MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
-				</ContextMenu>
-			</infg:XamDataGrid.ContextMenu>
+		</infg:XamDataGrid.FieldLayouts>
+	</infg:XamDataGrid>
 
-			<infg:XamDataGrid.FieldLayouts>
-				<infg:FieldLayout>
-					<infg:FieldLayout.Fields>
-                        
-                        <infg:TextField AlternateBinding="{Binding SalesUnit.Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
-                        <infg:TextField AlternateBinding="{Binding SalesUnit.Product}" BindingType="UseAlternateBinding" Label="Продукт" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
-                        <infg:TextField AlternateBinding="{Binding SalesUnit.Order}" BindingType="UseAlternateBinding" Label="Заказ" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
-                        <infg:TextField AlternateBinding="{Binding Position}" BindingType="UseAlternateBinding" Label="Поз." Width="Auto"/>
-                        <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" AllowEdit="True"/>
-                        <infg:NumericField Name="Amount" Label="Количество" Width="Auto"/>
-                        <infg:NumericField Name="Sum" Label="Сумма" Width="Auto"/>
-                        <infg:TextField Name="Condition" Label="Условие" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
-                        <infg:Field Name="Groups" IsExpandable="True"/>
-                        <infg:CheckBoxField Name="WillSave" Label="Custom"/>
-					</infg:FieldLayout.Fields>
-				</infg:FieldLayout>
-
-			</infg:XamDataGrid.FieldLayouts>
-		</infg:XamDataGrid>
-
-    </Grid>
 </inf:ViewBase>
 
 	

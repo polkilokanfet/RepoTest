@@ -35,28 +35,24 @@ namespace HVTApp.Infrastructure
             Container = container;
             UnitOfWork = Container.Resolve<IUnitOfWork>();
             RegionManager = Container.Resolve<IRegionManager>();
-            GoForwardCommand = new DelegateCommand(GoForwardCommand_Execute, GoForwardCommand_CanExecute);
-            GoBackCommand = new DelegateCommand(GoBackCommand_Execute, GoBackCommand_CanExecute);
-        }
 
-        private void GoForwardCommand_Execute()
-        {
-            RegionManager.Regions[RegionNames.ContentRegion].NavigationService.Journal.GoForward();
-        }
+            GoForwardCommand = new DelegateCommand
+            (
+                () => { RegionManager.Regions[RegionNames.ContentRegion].NavigationService.Journal.GoForward(); },
+                () => RegionManager.Regions[RegionNames.ContentRegion].NavigationService.Journal.CanGoForward
+            );
 
-        private bool GoForwardCommand_CanExecute()
-        {
-            return RegionManager.Regions[RegionNames.ContentRegion].NavigationService.Journal.CanGoForward;
+            GoBackCommand = new DelegateCommand
+            (
+                GoBackCommand_Execute,
+                () => RegionManager.Regions[RegionNames.ContentRegion].NavigationService.Journal.CanGoBack
+            );
+
         }
 
         protected virtual void GoBackCommand_Execute()
         {
             RegionManager.Regions[RegionNames.ContentRegion].NavigationService.Journal.GoBack();
-        }
-
-        private bool GoBackCommand_CanExecute()
-        {
-            return RegionManager.Regions[RegionNames.ContentRegion].NavigationService.Journal.CanGoBack;
         }
     }
 }

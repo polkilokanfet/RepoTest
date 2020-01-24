@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using HVTApp.Infrastructure;
+using HVTApp.UI.Modules.Sales.ViewModels;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
 using Prism.Mvvm;
@@ -22,9 +23,9 @@ namespace HVTApp.UI.Groups
 
         public double Sum => Groups?.Sum(x => x.Sum) ?? _payment.Sum;
 
-        public string Position => Groups == null ? SalesUnit.OrderPosition : "...";
+        public string Position => Groups == null ? SalesUnit.Model.OrderPosition : "...";
 
-        public SalesUnitWrapper SalesUnit { get; set; }
+        public SalesUnitPaymentsPlannedWrapper SalesUnit { get; set; }
         public PaymentConditionWrapper Condition => _payment.PaymentPlanned.Condition;
 
         public bool? WillSave
