@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Groups;
@@ -17,7 +18,7 @@ using PaymentsGroup = HVTApp.UI.Groups.PaymentsGroup;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels
 {
-    public class PaymentsViewModel : ViewModelBase
+    public class PaymentsViewModel : ViewModelBaseCanExportToExcelSaveCustomization
     {
         private IValidatableChangeTrackingCollection<SalesUnitPaymentsPlannedWrapper> _salesUnitWrappers;
         private PaymentsGroup _selectedGroup;
@@ -70,9 +71,9 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             UnitOfWork = Container.Resolve<IUnitOfWork>();
 
             //загружаем все юниты и фиксируем их в коллекции для отслеживания изменений
-            _salesUnitWrappers = new ValidatableChangeTrackingCollection<SalesUnitPaymentsPlannedWrapper>(
-                                UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Manager.IsAppCurrentUser())
-                                .Select(x => new SalesUnitPaymentsPlannedWrapper(x)));
+            _salesUnitWrappers = new ValidatableChangeTrackingCollection<SalesUnitPaymentsPlannedWrapper>(UnitOfWork.Repository<SalesUnit>()
+                .Find(x => x.Project.ForReport && x.Project.Manager.IsAppCurrentUser())
+                .Select(x => new SalesUnitPaymentsPlannedWrapper(x)));
 
             //подписка на изменение
             _salesUnitWrappers.PropertyChanged += (sender, args) => ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();

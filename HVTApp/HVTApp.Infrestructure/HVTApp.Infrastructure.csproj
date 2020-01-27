@@ -144,8 +144,10 @@
     <Compile Include="StringToGuid.cs" />
     <Compile Include="UnityExtensions.cs" />
     <Compile Include="ViewBase.cs" />
+    <Compile Include="ViewModels\LoadableBindableBaseCanExportToExcel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\ViewModelBaseCanExportToExcel.cs" />
+    <Compile Include="ViewModels\ViewModelBaseCanExportToExcelSaveCustomization.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

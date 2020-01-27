@@ -177,7 +177,7 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
                 ContractMonth = ContractDate.Value.Month;
             }
 
-            DeliveryType = CostDelivery.HasValue ? "Доставка" : "Самовывоз";
+            DeliveryType = CostDelivery.HasValue && CostDelivery.Value > 0  ? "Доставка" : "Самовывоз";
 
             var manager = Project.Manager.Employee;
             Manager = $"{manager.Person.Surname} {manager.Person.Name} {manager.Person.Patronymic}";

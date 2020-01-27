@@ -1,6 +1,5 @@
 using System;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
@@ -54,37 +53,4 @@ namespace HVTApp.Infrastructure.ViewModels
         private ExportOptions _exportOptions;
         public ExportOptions ExportOptions => _exportOptions ?? (_exportOptions = new ExportOptions());        
     }
-
-    public abstract class LoadableBindableBaseCanExportToExcel : ViewModelBaseCanExportToExcel
-    {
-
-        private bool _isLoaded;
-
-        protected LoadableBindableBaseCanExportToExcel(IUnityContainer container) : base(container)
-        {
-        }
-
-        public bool IsLoaded
-        {
-            get { return _isLoaded; }
-            set
-            {
-                if (Equals(_isLoaded, value))
-                    return;
-                _isLoaded = value;
-                OnPropertyChanged();
-            }
-        }
-
-
-        public void Load()
-        {
-            IsLoaded = false;
-            LoadedMethod();
-            IsLoaded = true;
-        }
-
-        protected abstract void LoadedMethod();
-    }
-
 }

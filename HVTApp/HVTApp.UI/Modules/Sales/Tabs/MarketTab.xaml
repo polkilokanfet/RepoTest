@@ -37,10 +37,4 @@
         <infRib:ButtonTool Caption="Создать задание на расчет ПЗ" Command="{Binding StructureCostsCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
     </infRib:RibbonGroup>
     
-    <infRib:RibbonGroup Caption="Отображение">
-         <infRib:ButtonTool Caption="Развернуть всё" Command="{Binding ExpandCommand}" SmallImage="/HVTApp.UI;component/Images/expand.png"/>
-        <infRib:ButtonTool Caption="Свернуть всё" Command="{Binding CollapseCommand}" SmallImage="/HVTApp.UI;component/Images/collapse.png"/>
-    </infRib:RibbonGroup>
-
-    
 </inf:RibbonTabItemWithViewModel>

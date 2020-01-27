@@ -14,9 +14,8 @@ using Prism.Regions;
 
 namespace HVTApp.UI.Modules.Reports.ViewModels
 {
-    public class SalesReportViewModel : ViewModelBaseCanExportToExcel
+    public class SalesReportViewModel : ViewModelBaseCanExportToExcelSaveCustomization
     {
-        private bool _isLoaded;
         private SalesReportUnit _selectedSalesReportUnit;
 
         public ObservableCollection<SalesReportUnit> Units { get; } = new ObservableCollection<SalesReportUnit>();
@@ -36,19 +35,6 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
 
         public ICommand ReloadCommand { get; }
         public ICommand EditFakeDataCommand { get; }
-        public ICommand SaveGridCustomisationsCommand { get; }
-
-        public event Action SaveGridCustomisationEvent;
-
-        public bool IsLoaded
-        {
-            get { return _isLoaded; }
-            set
-            {
-                _isLoaded = value;
-                OnPropertyChanged();
-            }
-        }
 
         public SalesReportViewModel(IUnityContainer container) : base(container)
         {
@@ -61,12 +47,6 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
                 }, 
                 () => SelectedSalesReportUnit != null);
 
-            SaveGridCustomisationsCommand = new DelegateCommand(
-                () =>
-                {
-                    SaveGridCustomisationEvent?.Invoke();
-                });
-
             Load();
         }
 
@@ -75,7 +55,6 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
         /// </summary>
         public void Load()
         {
-            IsLoaded = false;
             Units.Clear();
 
             UnitOfWork = Container.Resolve<IUnitOfWork>();
@@ -90,8 +69,6 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
             var countryUnions = UnitOfWork.Repository<CountryUnion>().Find(x => true);
 
             Units.AddRange(groups.Select(x => new SalesReportUnit(x, tenders.Where(t => Equals(x.Key.Project, t.Project)), blocks, countryUnions)));
-
-            IsLoaded = true;
         }
     }
 }

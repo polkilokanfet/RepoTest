@@ -4,7 +4,7 @@
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               x:Class="HVTApp.UI.Modules.Sales.Views.PaymentsView">
 
-    <infg:XamDataGrid x:Name="PaymentsListGrid"
+    <infg:XamDataGrid x:Name="PaymentsGrid"
                       DataSource="{Binding PaymentsGroups}"
                       SelectedDataItem="{Binding SelectedGroup, Mode=TwoWay}">
 
@@ -26,6 +26,9 @@
                     <infg:NumericField Name="Sum" Label="Сумма" Width="Auto"/>
                     <infg:TextField Name="Condition" Label="Условие" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
                     <infg:CheckBoxField Name="WillSave" Label="Custom" Width="Auto"/>
+                    <infg:NumericField Name="Year" Label="Год" Width="Auto" AllowResize="False"/>
+                    <infg:TextField Name="Month" Label="Месяц" Width="Auto" AllowResize="False"/>
+                    <infg:NumericField Name="Week" Label="Неделя" Width="Auto" AllowResize="False"/>
                     <infg:Field Name="Groups" IsExpandable="True"/>
 				</infg:FieldLayout.Fields>
 			</infg:FieldLayout>

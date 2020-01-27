@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.UI.Modules.Sales.ViewModels;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
@@ -38,6 +39,10 @@ namespace HVTApp.UI.Groups
                 return null;
             }
         }
+
+        public int Year => Date.Year;
+        public string Month => Date.MonthName();
+        public int Week => Date.WeekNumber();
 
         public DateTime Date
         {

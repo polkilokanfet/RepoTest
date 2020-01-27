@@ -59,5 +59,20 @@ namespace HVTApp.Infrastructure.Extansions
 
             return "-";
         }
+
+        public static int WeekNumber(this DateTime date)
+        {
+            var firstDayOfTheYear = new DateTime(date.Year, 1, 1);
+            var firstMondayOfTheYear = firstDayOfTheYear;
+            while (firstMondayOfTheYear.DayOfWeek != DayOfWeek.Monday)
+            {
+                firstMondayOfTheYear = firstMondayOfTheYear.AddDays(1);
+            }
+            var daysDif = (date - firstMondayOfTheYear).Days + 1;
+            var week = (int)Math.Ceiling(daysDif / 7.0);
+            if (Equals(firstDayOfTheYear, firstMondayOfTheYear))
+                return week;
+            return week + 1;
+        }
     }
 }
