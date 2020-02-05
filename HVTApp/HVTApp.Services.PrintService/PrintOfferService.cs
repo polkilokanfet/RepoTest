@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
@@ -53,12 +54,19 @@ namespace HVTApp.Services.PrintService
 
             #endregion
 
+
             var offerDocumentPath = AppDomain.CurrentDomain.BaseDirectory + "\\OfferDocument.docx";
             var docWriter = WordDocumentWriter.Create(offerDocumentPath);
             docWriter.DefaultParagraphProperties.Alignment = ParagraphAlignment.Both;
             docWriter.StartDocument();
 
             #region Print Header
+
+            //BitmapSource headerBitmapSource = GetImage("header.jpg");
+            //AnchoredPicture headerPicture = docWriter.CreateAnchoredPicture(headerBitmapSource);
+            //docWriter.StartParagraph();
+            //docWriter.AddAnchoredPicture(headerPicture);
+            //docWriter.EndParagraph();
 
             docWriter.PrintParagraph($"Дата: {offer.Date.ToShortDateString()} исх.№ {offer.RegNumber}");
             docWriter.PrintParagraph($"Получатель: {offer.RecipientEmployee.Position.Name} {offer.RecipientEmployee.Company.Form.ShortName} \"{offer.RecipientEmployee.Company.ShortName}\" { offer.RecipientEmployee.Person}");
@@ -309,5 +317,12 @@ namespace HVTApp.Services.PrintService
             tableProps.BorderProperties.Style = borderProps.Style;
             return tableProps;
         }
+
+        #region GetImage
+        private BitmapSource GetImage(string resourceName)
+        {
+            return new BitmapImage(new Uri(@"pack://application:,,,/HVTApp.Services.PrintService;component/Images/" + resourceName));
+        }
+        #endregion GetImage
     }
 }

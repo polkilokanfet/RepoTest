@@ -65,10 +65,9 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
             var groups = salesUnits.OrderBy(x => x.OrderInTakeDate).GroupBy(x => x, new SalesUnitsReportComparer());
 
             var tenders = UnitOfWork.Repository<Tender>().Find(x => true);
-            var blocks = UnitOfWork.Repository<ProductBlock>().Find(x => true);
             var countryUnions = UnitOfWork.Repository<CountryUnion>().Find(x => true);
 
-            Units.AddRange(groups.Select(x => new SalesReportUnit(x, tenders.Where(t => Equals(x.Key.Project, t.Project)), blocks, countryUnions)));
+            Units.AddRange(groups.Select(x => new SalesReportUnit(x, tenders.Where(t => Equals(x.Key.Project, t.Project)), countryUnions)));
         }
     }
 }

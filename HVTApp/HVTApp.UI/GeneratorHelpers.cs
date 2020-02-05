@@ -299,9 +299,9 @@ namespace HVTApp.UI
             if (y == null) throw new ArgumentNullException();
 
             int result = (int)x.OrderStatus() - (int)y.OrderStatus();
-            if (result != 0) return result;
-
-            return x.Designation().CompareTo(y.Designation());
+            return result != 0 
+                ? result 
+                : x.Designation().CompareTo(y.Designation());
         }
     }
 

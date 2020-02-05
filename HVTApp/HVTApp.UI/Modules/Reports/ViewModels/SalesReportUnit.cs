@@ -5,207 +5,295 @@ using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Converter;
 
 namespace HVTApp.UI.Modules.Reports.ViewModels
 {
-    public class SalesReportUnit : SalesUnit
+    public class SalesReportUnit
     {
         public List<SalesUnit> SalesUnits { get; }
         private readonly List<CountryUnion> _countryUnions;
         private readonly List<Tender> _tenders;
 
-        [Designation("Владелец объекта")]
-        public Company FacilityOwner { get; }
+        [Designation("Заказ"), OrderStatus(-1)]
+        public string Order { get; }
 
-        [Designation("Владелец объекта (головная компания)")]
-        public Company FacilityOwnerHead { get; }
+        [Designation("Позиции"), OrderStatus(-2)]
+        public string OrderPositions { get; }
 
-        [Designation("Контрагент")]
-        public Company Contragent { get; }
+        [Designation("Владелец объекта"), OrderStatus(-3)]
+        public string FacilityOwners { get; }
 
-        [Designation("Тип контрагента")]
+        [Designation("Контрагент"), OrderStatus(-4)]
+        public string Contragent { get; }
+
+        [Designation("Тип контрагента"), OrderStatus(-5)]
         public string ContragentType { get; }
 
-        [Designation("Регион")]
-        public Region Region { get; }
+        [Designation("Объект"), OrderStatus(-6)]
+        public string Facility { get; }
 
-        [Designation("Округ")]
-        public District District { get; }
-
-        [Designation("Страна поставки")]
+        [Designation("Страна поставки"), OrderStatus(-1000)]
         public Country Country { get; }
 
-        [Designation("Объединения стран")]
-        public List<CountryUnion> CountryUnions { get; }
+        [Designation("РФ/экспорт"), OrderStatus(-7)]
+        public string IsExport { get; }
 
+        [Designation("РФ/СНГ"), OrderStatus(-8)]
+        public string RfSng { get; }
 
-        [Designation("Сегмент рынка")]
+        [Designation("Регион"), OrderStatus(-9)]
+        public string Region { get; }
+
+        [Designation("Сегмент"), OrderStatus(-10)]
         public string Segment { get; }
 
-        [Designation("Тип продукта")]
-        public ProductType ProductType { get; }
+        [Designation("Категория производства"), OrderStatus(-11)]
+        public string Kat { get; } = "ВВА";
 
-        [Designation("Обозначение")]
+        [Designation("Тип продукта"), OrderStatus(-12)]
+        public string ProductType { get; }
+
+        [Designation("Тип трансформатора"), OrderStatus(-13)]
+        public string TransformerType { get; } = "-";
+
+        [Designation("Суммарная мощность"), OrderStatus(-14)]
+        public string Power { get; } = "-";
+
+        [Designation("Обозначение"), OrderStatus(-15)]
         public string Designation { get; }
 
-        [Designation("Количество")]
-        public int Amount { get; }
+        [Designation("Категория оборудования"), OrderStatus(-16)]
+        public string ProductCategory { get; }
 
-        [Designation("Статус")]
+        [Designation("Кол."), OrderStatus(-17)]
+        public int Amount { get; }
+        
+        [Designation("Статус"), OrderStatus(-18)]
         public string Status { get; }
 
-        [Designation("НДС, %")]
-        public double? Vat { get; }
+        [Designation("Категория статуса"), OrderStatus(-19)]
+        public string StatusCategory { get; private set; }
 
-        [Designation("Себестоимость (результирующая)"), OrderStatus(984)]
-        public double PriceResult { get; }
+        [Designation("НДС, %"), OrderStatus(-20)]
+        public double Vat { get; } = 1.2;
 
-        [Designation("Стоимость блоков с фиксированной ценой"), OrderStatus(983)]
+        [Designation("Цена"), OrderStatus(-21)]
+        public double Cost { get; }
+
+        [Designation("Цена с НДС"), OrderStatus(-22)]
+        public double CostWithVat => Vat * Cost;
+
+        [Designation("Стоимость"), OrderStatus(-23)]
+        public double Sum => Cost * Amount;
+
+        [Designation("Стоимость с НДС"), OrderStatus(-24)]
+        public double SumWithVat => Vat * Sum;
+
+        [Designation("Логистика"), OrderStatus(-25)]
+        public double CostDelivery { get; }
+        
+        [Designation("Стоимость блоков с фиксированной ценой"), OrderStatus(-26)]
         public double FixedCost { get; }
 
-        /// <summary>
-        /// Минимально возможная цена (продукты с фиксированной ценой + стоимость доставки)
-        /// </summary>
-        private double FixedCostAndDelivery { get; }
+        [Designation("КЗ"), OrderStatus(-27)]
+        public double Kz { get; } = 0.0;
 
-        [Designation("МД, %"), OrderStatus(977)]
-        public double? MarginalIncome { get; }
+        [Designation("Выручка"), OrderStatus(-28)]
+        public double Proceeds => Sum + CostDelivery + FixedCost;
 
-        [Designation("МД, руб."), OrderStatus(977)]
-        public double? MarginalIncomeNatural { get; }
+        [Designation("ПЗ"), OrderStatus(-29)]
+        public double Price { get; }
 
-        [Designation("Напряжение")]
-        public string Voltage { get; }
+        [Designation("ПЗ на кол."), OrderStatus(-30)]
+        public double PriceOnAmount => Price * Amount;
 
-        [Designation("Спецификация дата")]
-        public DateTime? SpecificationDate { get; }
+        [Designation("МД, руб."), OrderStatus(-31)]
+        public double MarginalIncomeNatural => Proceeds + PriceOnAmount;
+
+        [Designation("МД, %"), OrderStatus(-32)]
+        public double MarginalIncome => Math.Abs(Proceeds) < 0.000001 ? 0.0 : 100.0 * MarginalIncomeNatural / Proceeds;
 
 
-        [Designation("Договор")]
-        public string ContractNumber { get; }
-
-        [Designation("Договор дата")]
-        public DateTime? ContractDate { get; }
-
-        [Designation("Договор год")]
-        public int ContractYear { get; }
-
-        [Designation("Договор месяц")]
-        public int ContractMonth { get; }
-
-        [Designation("Тип доставки")]
-        public string DeliveryType { get; }
-
-        [Designation("Менеджер")]
+        [Designation("Менеджер"), OrderStatus(-33)]
         public string Manager { get; }
 
-        [Designation("Цена с НДС")]
-        public double CostWithVat { get; }
+
+        [Designation("Договор"), OrderStatus(-34)]
+        public string ContractNumber { get; }
+
+        [Designation("Спецификация"), OrderStatus(-35)]
+        public string SpecificationNumber { get; }
+
+        [Designation("Дата договора"), OrderStatus(-36)]
+        public DateTime? ContractDate { get; }
+
+        [Designation("Дата спецификации"), OrderStatus(-37)]
+        public DateTime? SpecificationDate { get; }
+
+        [Designation("Месяц спецификации"), OrderStatus(-38)]
+        public int? SpecificationMonth => SpecificationDate?.Month;
+
+        [Designation("Квартал спецификации"), OrderStatus(-39)]
+        public int? SpecificationQuarter => SpecificationMonth / 3;
+
+        [Designation("Год контракта"), OrderStatus(-40)]
+        public int ContractYear { get; }
+
+        [Designation("Месяц ОИТ"), OrderStatus(-41)]
+        public int OrderInTakeMonth => OrderInTakeDate.Month;
+
+        [Designation("Год ОИТ"), OrderStatus(-42)]
+        public int OrderInTakeYear => OrderInTakeDate.Year;
+
+        [Designation("ОИТ"), OrderStatus(-43)]
+        public DateTime OrderInTakeDate { get; }
+
+        [Designation("Дата запуска"), OrderStatus(-44)]
+        public DateTime StartProductionDate { get; }
+
+        [Designation("Месяц запуска"), OrderStatus(-45)]
+        public int StartProductionMonth => StartProductionDate.Month;
+
+        [Designation("Год запуска"), OrderStatus(-46)]
+        public int StartProductionYear => StartProductionDate.Year;
+
+        [Designation("Дата отгрузки"), OrderStatus(-47)]
+        public DateTime ShipmentDate { get; }
+
+        [Designation("Дата реализации"), OrderStatus(-48)]
+        public DateTime RealizationDate { get; }
+
+        [Designation("Месяц реализации"), OrderStatus(-49)]
+        public int RealizationDatetMonth => RealizationDate.Month;
+
+        [Designation("Год реализации"), OrderStatus(-50)]
+        public int RealizationDateYear => RealizationDate.Year;
+
+        [Designation("Дата реализации требуемая"), OrderStatus(-51)]
+        public DateTime RealizationDateRequared { get; }
+
+        [Designation("Дата реализации по контракту"), OrderStatus(-52)]
+        public DateTime? RealizationDateContract { get; }
+
+        [Designation("Условия оплаты"), OrderStatus(-59)]
+        public PaymentConditionSet PaymentConditionSet { get; }
+
+        [Designation("Тип доставки"), OrderStatus(-137)]
+        public string DeliveryType { get; }
+
+        [Designation("Адрес доставки"), OrderStatus(-138)]
+        public string DeliveryAddress { get; }
+
+        //[Designation("Напряжение")]
+        //public string Voltage { get; }
 
         #region Fake
-
-        [Designation("Цена (результирующая)"), OrderStatus(989)]
-        public double CostResult { get; }
-
-        [Designation("Дата ОИТ (результирующая)")]
-        public DateTime OrderInTakeDateResult { get; }
-
-        [Designation("Дата реализации (результирующая)")]
-        public DateTime RealizationDateResult { get; }
-
-        [Designation("Год реализации (результирующая)")]
-        public int RealizationDateResultYear { get; }
-
-        [Designation("Месяц реализации (результирующая)")]
-        public int RealizationDateResultMonth { get; }
-
-
-        [Designation("Условия оплаты (результирующие)")]
-        public PaymentConditionSet PaymentConditionSetResult { get; }
 
         #endregion
 
         public SalesReportUnit(
             IEnumerable<SalesUnit> salesUnits, 
             IEnumerable<Tender> tenders, 
-            IEnumerable<ProductBlock> blocks,
             IEnumerable<CountryUnion> countryUnions)
         {
             SalesUnits = salesUnits.ToList();
             var salesUnit = SalesUnits.First();
-            SetProperties(salesUnit);
+            //SetProperties(salesUnit);
 
             _tenders = tenders.ToList();
             _countryUnions = countryUnions.ToList();
 
-            Amount = SalesUnits.Count;
-            FacilityOwner = Facility.OwnerCompany;
-            FacilityOwnerHead = GetFacilityOwnerHead();
+            Order = salesUnit.Order?.ToString();
+            OrderPositions = SalesUnits.Select(x => x.OrderPosition).ConvertToString();
 
-            Contragent = GetContragent();
-            ContragentType = GetContragentType(Contragent);
-
-            Region = Facility.GetRegion();
-            District = Region?.District;
-            Country = District?.Country;
-            CountryUnions = GetCountryUnions();
-            Segment = GetSegment();
-            ProductType = Product.ProductType;
-            Designation = Product.Designation;
-            Status = GetStatus();
-            Vat = Specification?.Vat;
-            CostResult = FakeData?.Cost ?? Cost;
-            CostWithVat = (1.0 + Vat)/100.0 * CostResult ?? CostResult;
-
-            Voltage = Product.ProductBlock.Parameters.SingleOrDefault(x => Equals(x.ParameterGroup, GlobalAppProperties.Actual.VoltageGroup))?.Value;
-
-            var priceStructures = GlobalAppProperties.PriceService.GetPriceStructures(this, this.OrderInTakeDate, GlobalAppProperties.Actual.ActualPriceTerm);
-            PriceResult = Price ?? GlobalAppProperties.PriceService.GetPrice(salesUnit) ?? priceStructures.TotalPriceFixedCostLess;
-            FixedCost = priceStructures.TotalFixedCost;
-            FixedCostAndDelivery = CostDelivery.HasValue ? CostDelivery.Value + FixedCost : FixedCost;
-
-            MarginalIncomeNatural = CostResult - FixedCostAndDelivery;
-            MarginalIncome = CostResult - FixedCostAndDelivery == 0 ? default(double?) : (1.0 - PriceResult / (CostResult - FixedCostAndDelivery)) * 100.0;
-
-            if (Specification != null)
+            var owners = new List<Company> {salesUnit.Facility.OwnerCompany};
+            owners.AddRange(salesUnit.Facility.OwnerCompany.ParentCompanies().ToList());
+            FacilityOwners = owners.ConvertToString();
+            var contragent = salesUnit.Specification?.Contract.Contragent ?? GetTenderWinner() ?? salesUnit.Facility.OwnerCompany;
+            Contragent = contragent.ToString();
+            ContragentType = GetContragentType(contragent);
+            Facility = salesUnit.Facility.ToString();
+            Country = salesUnit.Facility.GetRegion()?.District.Country;
+            if (Country != null)
             {
-                SpecificationDate = Specification.Date;
-
-                ContractNumber = Specification.Contract.Number;
-                ContractDate = Specification.Contract.Date;
-                ContractYear = ContractDate.Value.Year;
-                ContractMonth = ContractDate.Value.Month;
+                IsExport = Country.Name == "Россия" ? "РФ" : Country.Name;
+                if (Country.Name == "Россия")
+                {
+                    RfSng = "РФ";
+                }
+                else if (GetCountryUnions().Any(x => x.Name == "СНГ"))
+                {
+                    RfSng = "СНГ";
+                }
             }
+            Region = salesUnit.Facility.GetRegion()?.Name;
+            Segment = GetSegment();
+            ProductType = salesUnit.Product.ProductType.Name;
+            Designation = salesUnit.Product.Designation;
+            ProductCategory = string.Empty;
+            Amount = SalesUnits.Count;
+            Status = GetStatus();
+            if(salesUnit.Specification != null)
+                Vat = salesUnit.Specification.Vat + 1.0;
+            Cost = salesUnit.FakeData?.Cost ?? salesUnit.Cost;
+            CostDelivery = -1.0 * salesUnit.CostDelivery ?? 0.0;
 
-            DeliveryType = CostDelivery.HasValue && CostDelivery.Value > 0  ? "Доставка" : "Самовывоз";
+            var priceStructures = GlobalAppProperties.PriceService.GetPriceStructures(salesUnit, salesUnit.OrderInTakeDate, GlobalAppProperties.Actual.ActualPriceTerm);
+            Price = salesUnit.Price ?? GlobalAppProperties.PriceService.GetPrice(salesUnit) ?? priceStructures.TotalPriceFixedCostLess;
+            Price = -1.0 * Price;
+            FixedCost = -1.0 * priceStructures.TotalFixedCost;
+            //FixedCostAndDelivery = CostDelivery.HasValue ? CostDelivery.Value + FixedCost : FixedCost;
 
-            var manager = Project.Manager.Employee;
+            var manager = salesUnit.Project.Manager.Employee;
             Manager = $"{manager.Person.Surname} {manager.Person.Name} {manager.Person.Patronymic}";
 
-            OrderInTakeDateResult = this.FakeData?.OrderInTakeDate ?? this.OrderInTakeDate;
-            RealizationDateResult = this.FakeData?.RealizationDate ?? this.RealizationDateCalculated;
-            PaymentConditionSetResult = this.FakeData?.PaymentConditionSet ?? this.PaymentConditionSet;
-
-            RealizationDateResultYear = RealizationDateResult.Year;
-            RealizationDateResultMonth = RealizationDateResult.Month;
-        }
-
-        private void SetProperties(SalesUnit salesUnit)
-        {
-            var properties = salesUnit.GetType().GetProperties().Where(x => x.CanWrite);
-            foreach (var property in properties)
+            if (salesUnit.Specification != null)
             {
-                var value = property.GetValue(salesUnit);
-                this.GetType().GetProperty(property.Name).SetValue(this, value);
+                var specification = salesUnit.Specification;
+                SpecificationNumber = specification.Number;
+                SpecificationDate = specification.Date;
+
+                ContractNumber = specification.Contract.Number;
+                ContractDate = specification.Contract.Date;
+                ContractYear = ContractDate.Value.Year;
+
+                RealizationDateContract = salesUnit.StartProductionDate?.AddDays(salesUnit.ProductionTerm);
             }
+
+            OrderInTakeDate = salesUnit.FakeData?.OrderInTakeDate ?? salesUnit.OrderInTakeDate;
+            StartProductionDate = salesUnit.StartProductionDateCalculated;
+            ShipmentDate = salesUnit.ShipmentDateCalculated;
+            RealizationDate = salesUnit.FakeData?.RealizationDate ?? salesUnit.RealizationDateCalculated;
+            RealizationDateRequared = salesUnit.DeliveryDateExpected;
+
+            PaymentConditionSet = salesUnit.FakeData?.PaymentConditionSet ?? salesUnit.PaymentConditionSet;
+
+            DeliveryType = CostDelivery > 0  ? "Доставка" : "Самовывоз";
+
+            DeliveryAddress = salesUnit.AddressDelivery?.ToString() ?? salesUnit.Facility.Address?.ToString() ?? string.Empty;
+
+            //Voltage = Product.ProductBlock.Parameters.SingleOrDefault(x => Equals(x.ParameterGroup, GlobalAppProperties.Actual.VoltageGroup))?.Value;
         }
+
+        //private void SetProperties(SalesUnit salesUnit)
+        //{
+        //    var properties = salesUnit.GetType().GetProperties().Where(x => x.CanWrite);
+        //    foreach (var property in properties)
+        //    {
+        //        var value = property.GetValue(salesUnit);
+        //        this.GetType().GetProperty(property.Name).SetValue(this, value);
+        //    }
+        //}
 
         private string GetContragentType(Company contragent)
         {
             if (Contragent == null)
                 return "Нет данных";
 
-            if (Equals(FacilityOwner, Contragent) || FacilityOwner.ParentCompanies().Contains(Contragent))
+            var salesUnit = SalesUnits.First();
+            if (Equals(salesUnit.Facility.OwnerCompany, contragent) ||
+                salesUnit.Facility.OwnerCompany.ParentCompanies().Contains(contragent))
                 return "Конечный заказчик";
 
             if (_tenders.FirstOrDefault(x => Equals(x.Winner, contragent)) != null) return "Подрядчик";
@@ -233,7 +321,7 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
             };
 
             //сегмент по владельцам объекта
-            var owner = Facility.OwnerCompany;
+            var owner = SalesUnits.First().Facility.OwnerCompany;
             do
             {
                 var activityField = owner.ActivityFilds.FirstOrDefault(x => actEnums.Contains(x.ActivityFieldEnum));
@@ -246,46 +334,53 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
 
         private string GetStatus()
         {
-            if (RealizationDateCalculated < DateTime.Today)
+            var salesUnit = SalesUnits.First();
+            if (salesUnit.RealizationDateCalculated < DateTime.Today)
             {
+                StatusCategory = "1-3";
                 return "0 - Продукт реализован";
             }
 
-            if (StartProductionConditionsDoneDate.HasValue &&
-                StartProductionConditionsDoneDate.Value <= DateTime.Today)
+            if (salesUnit.StartProductionConditionsDoneDate.HasValue &&
+                salesUnit.StartProductionConditionsDoneDate.Value <= DateTime.Today)
             {
+                StatusCategory = "1-3";
                 return "1 - Условие на запуск производства исполнено";
             }
 
-            if (Specification != null)
+            if (salesUnit.Specification != null)
             {
-                return Specification.Date <= DateTime.Today
+                StatusCategory = "1-3";
+                return salesUnit.Specification.Date <= DateTime.Today
                     ? "2 - Контракт подписан"
                     : "3 - Контракт на оформлении";
             }
 
-            if (IsLoosen)
+            if (salesUnit.IsLoosen)
             {
+                StatusCategory = "15";
                 return "15 - Проиграно другому производителю";
             }
 
-            if (Producer != null && Producer.Id == GlobalAppProperties.Actual.OurCompany.Id)
+            if (salesUnit.Producer != null && salesUnit.Producer.Id == GlobalAppProperties.Actual.OurCompany.Id)
             {
+                StatusCategory = "4-7";
                 return "4 - Большая вероятность реализации";
             }
 
+            StatusCategory = "4-7";
             return "7 - В проработке";
         }
 
-        private Company GetFacilityOwnerHead()
-        {
-            var head = FacilityOwner;
-            while (head.ParentCompany != null)
-            {
-                head = head.ParentCompany;
-            }
-            return head;
-        }
+        //private Company GetFacilityOwnerHead()
+        //{
+        //    var head = FacilityOwners;
+        //    while (head.ParentCompany != null)
+        //    {
+        //        head = head.ParentCompany;
+        //    }
+        //    return head;
+        //}
 
         private Company GetTenderWinner()
         {
@@ -306,11 +401,6 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
                 .LastOrDefault()?.Winner;
 
             return worker;
-        }
-
-        private Company GetContragent()
-        {
-            return Specification?.Contract.Contragent ?? GetTenderWinner() ?? Facility.OwnerCompany;
         }
     }
 }

@@ -116,7 +116,7 @@
 
 	if(fieldName == string.Empty) return;
 
-#>                        <infg:<#= fieldName #> AlternateBinding="{Binding <#=property.Name#>}" BindingType="UseAlternateBinding" Label="<#=property.Designation()#>" Width="Auto" <#= end #>/>
+#>                        <infg:<#= fieldName #> AlternateBinding="{Binding <#=property.Name#>}" BindingType="UseAlternateBinding" Label="<#=property.Designation()#>" Width="Auto" AllowResize="True" <#= end #>/>
 <#+ 
   }
 #>
