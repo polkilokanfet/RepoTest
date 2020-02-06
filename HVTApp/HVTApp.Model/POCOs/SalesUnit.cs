@@ -418,7 +418,7 @@ namespace HVTApp.Model.POCOs
         /// </summary>
         /// <param name="condition"></param>
         /// <returns></returns>
-        private DateTime GetPaymentDate(PaymentCondition condition)
+        public DateTime GetPaymentDate(PaymentCondition condition)
         {
             switch (condition.PaymentConditionPoint.PaymentConditionPointEnum)
             {
@@ -507,7 +507,7 @@ namespace HVTApp.Model.POCOs
                         //добавл€ем актуальный плановый платеж
                         result.Add(new PaymentPlanned
                         {
-                            Date = payment.Date < DateTime.Today ? DateTime.Today : payment.Date,
+                            Date = payment.Date.SkipPast(),
                             Part = part,
 
                             Id = payment.Id,
@@ -544,7 +544,7 @@ namespace HVTApp.Model.POCOs
                     result.Add(new PaymentPlanned
                     {
                         Condition = conditions.Key,
-                        Date = GetPaymentDate(conditions.Key),
+                        Date = GetPaymentDate(conditions.Key).SkipPast(),
                         Part = 1 - conditions.Value,
                         //Comment = "—генерированный платеж"
                     });

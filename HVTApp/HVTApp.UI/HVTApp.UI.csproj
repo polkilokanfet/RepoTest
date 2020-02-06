@@ -159,6 +159,9 @@
     <Compile Include="Modules\PlanAndEconomy\ViewModels\Groups\SalesUnitOrderGroupsCollection.cs" />
     <Compile Include="Modules\PlanAndEconomy\ViewModels\PaymentsActual\SalesUnitPayment.cs" />
     <Compile Include="Modules\PlanAndEconomy\ViewModels\PaymentsActual\SalesUnitPaymentWrapper.cs" />
+    <Compile Include="Modules\PlanAndEconomy\ViewModels\PaymentsPlan\Payment1.cs" />
+    <Compile Include="Modules\PlanAndEconomy\ViewModels\PaymentsPlan\PaymentsPlanGroup.cs" />
+    <Compile Include="Modules\PlanAndEconomy\ViewModels\PaymentsPlan\PaymentsPlanViewModel.cs" />
     <Compile Include="Modules\PlanAndEconomy\ViewModels\ProductionPlan\AfterSaveOrderItemsEvent.cs" />
     <Compile Include="Modules\PlanAndEconomy\ViewModels\ProductionPlan\OrderViewModel.cs" />
     <Compile Include="Modules\PlanAndEconomy\ViewModels\PaymentsActual\Payment.cs" />
@@ -179,6 +182,9 @@
     </Compile>
     <Compile Include="Modules\PlanAndEconomy\Views\PaymentsActualView.xaml.cs">
       <DependentUpon>PaymentsActualView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PlanAndEconomy\Views\PaymentsPlanView.xaml.cs">
+      <DependentUpon>PaymentsPlanView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\PlanAndEconomy\Views\PaymentsView.xaml.cs">
       <DependentUpon>PaymentsView.xaml</DependentUpon>
@@ -744,6 +750,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\PlanAndEconomy\Views\PaymentsActualView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\PlanAndEconomy\Views\PaymentsPlanView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

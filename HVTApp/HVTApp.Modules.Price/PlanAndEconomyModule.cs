@@ -24,6 +24,7 @@ namespace HVTApp.Modules.PlanAndEconomy
             Container.RegisterViewForNavigation<PaymentsActualView>();
             Container.RegisterViewForNavigation<PaymentDocumentView>();
             Container.RegisterViewForNavigation<PaymentsView>();
+            Container.RegisterViewForNavigation<PaymentsPlanView>();
         }
 
         protected override void ResolveOutlookGroup()
