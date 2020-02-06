@@ -22,8 +22,8 @@ namespace HVTApp.Model.POCOs
                     !string.IsNullOrEmpty(Author?.PersonalNumber))
                 {
                     return Number == null
-                        ? $"{Author.PersonalNumber}-{DateTime.Today.Year}-"
-                        : $"{Author.PersonalNumber}-{DateTime.Today.Year}-{Number.Number:D4}";
+                        ? $"{Author.PersonalNumber}-{Date.Year.ToString().Remove(0, 2)}-"
+                        : $"{Author.PersonalNumber}-{Date.Year.ToString().Remove(0, 2)}-{Number.Number:D4}";
                 }
 
                 return Number != null ? $"{Number.Number:D5}" : "n/n";

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using HVTApp.Infrastructure;
@@ -54,10 +53,9 @@ namespace HVTApp.Services.PrintService
 
             #endregion
 
-
             var offerDocumentPath = AppDomain.CurrentDomain.BaseDirectory + "\\OfferDocument.docx";
             var docWriter = WordDocumentWriter.Create(offerDocumentPath);
-            docWriter.DefaultParagraphProperties.Alignment = ParagraphAlignment.Both;
+            docWriter.DefaultParagraphProperties.Alignment = ParagraphAlignment.Left;
             docWriter.StartDocument();
 
             #region Print Header
@@ -189,10 +187,21 @@ namespace HVTApp.Services.PrintService
 
             #endregion
 
-            #region Author
+            #region Author Footer
 
-            docWriter.PrintParagraph(string.Empty);
-            docWriter.PrintParagraph($"Исполнитель: {offer.Author} тел.: {offer.Author.PhoneNumber}; e-mail: {offer.Author.Email}");
+            var parts = SectionHeaderFooterParts.FooterFirstPageOnly;
+            var writerSet = docWriter.AddSectionHeaderFooter(parts);
+            writerSet.FooterWriterFirstPageOnly.Open();
+            writerSet.FooterWriterFirstPageOnly.StartParagraph();
+            writerSet.FooterWriterFirstPageOnly.AddTextRun("Исполнитель:");
+            writerSet.FooterWriterFirstPageOnly.EndParagraph();
+            writerSet.FooterWriterFirstPageOnly.StartParagraph();
+            writerSet.FooterWriterFirstPageOnly.AddTextRun($"{offer.Author.Person.Surname} {offer.Author.Person.Name} {offer.Author.Person.Patronymic}");
+            writerSet.FooterWriterFirstPageOnly.EndParagraph();
+            writerSet.FooterWriterFirstPageOnly.StartParagraph();
+            writerSet.FooterWriterFirstPageOnly.AddTextRun($"тел.: {offer.Author.PhoneNumber}; e-mail: {offer.Author.Email}");
+            writerSet.FooterWriterFirstPageOnly.EndParagraph();
+            writerSet.FooterWriterFirstPageOnly.Close();
 
             #endregion
 

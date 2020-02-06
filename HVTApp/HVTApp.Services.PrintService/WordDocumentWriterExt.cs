@@ -13,8 +13,10 @@ namespace HVTApp.Services.PrintService
             if (paragraphProperties == null) docWriter.StartParagraph();
             else docWriter.StartParagraph(paragraphProperties);
 
-            if(font == null) docWriter.AddTextRun(text);
-            else docWriter.AddTextRun(text, font);
+            if(font == null)
+                docWriter.AddTextRun(text);
+            else
+                docWriter.AddTextRun(text, font);
 
             docWriter.EndParagraph();
         }
