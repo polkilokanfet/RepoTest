@@ -60,7 +60,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
             get
             {
                 var realization = SalesUnit.RealizationDateCalculated;
-                if (Date.Year == realization.Year && Date.Month == realization.Month)
+                if (Date <= realization && Date.Year == realization.Year && Date.Month == realization.Month)
                     return "ро";
                 return Date < realization ? "юб" : "дг";
             }

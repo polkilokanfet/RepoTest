@@ -22,7 +22,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
 
         public void Load()
         {
-            var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => !x.IsPaid && x.Project.ForReport);
+            var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => !x.IsLoosen && !x.IsPaid && x.Project.ForReport);
             var payments = new List<Payment1>();
             foreach (var salesUnit in salesUnits)
             {
