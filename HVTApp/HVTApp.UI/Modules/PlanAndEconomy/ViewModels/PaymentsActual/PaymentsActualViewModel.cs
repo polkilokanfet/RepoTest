@@ -2,8 +2,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.ViewModels;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Modules.PlanAndEconomy.Views;
 using Microsoft.Practices.Unity;
@@ -28,6 +30,8 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
             }
         }
 
+        public bool CanEdit => GlobalAppProperties.User.RoleCurrent != Role.SalesManager;
+
         public ICommand NewCommand { get; }
         public ICommand EditCommand { get; }
         public ICommand ReloadCommand { get; }
@@ -45,7 +49,9 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
 
         private void Load()
         {
-            var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => x.PaymentsActual.Any());
+            var salesUnits = GlobalAppProperties.User.RoleCurrent == Role.SalesManager 
+                ? UnitOfWork.Repository<SalesUnit>().Find(x => Equals(x.Project.Manager.Id, GlobalAppProperties.User.Id) && x.PaymentsActual.Any())
+                : UnitOfWork.Repository<SalesUnit>().Find(x => x.PaymentsActual.Any());
             var documents = UnitOfWork.Repository<PaymentDocument>().GetAll();
 
             var payments = new List<SalesUnitPayment>();
@@ -56,7 +62,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
             }
 
             Payments.Clear();
-            Payments.AddRange(payments.OrderBy(x => x.Payment.Date));
+            Payments.AddRange(payments.OrderByDescending(x => x.Payment.Date));
         }
 
         private void RequestNavigate(PaymentDocument paymentDocument)

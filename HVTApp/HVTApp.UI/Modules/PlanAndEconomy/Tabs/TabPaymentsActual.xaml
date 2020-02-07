@@ -5,9 +5,9 @@
                                  x:Class="HVTApp.UI.Modules.PlanAndEconomy.Tabs.TabPaymentsActual"
                                  Header="Платежка">
     
-    <infRib:RibbonGroup Caption="Платежка">
-        <infRib:ButtonTool Caption="Создать" Command="{Binding NewCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
-        <infRib:ButtonTool Caption="Редактировать" Command="{Binding EditCommand}" SmallImage="/HVTApp.UI;component/Images/edit.png"/>
+    <infRib:RibbonGroup Caption="Действия">
+        <infRib:ButtonTool Caption="Создать" Command="{Binding NewCommand}" SmallImage="/HVTApp.UI;component/Images/add.png" Visibility="{Binding CanEdit, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        <infRib:ButtonTool Caption="Редактировать" Command="{Binding EditCommand}" SmallImage="/HVTApp.UI;component/Images/edit.png" Visibility="{Binding CanEdit, Converter={StaticResource BooleanToVisibilityConverter}}"/>
         <infRib:ButtonTool Caption="Перезагрузить" Command="{Binding ReloadCommand}" SmallImage="/HVTApp.UI;component/Images/refresh.png"/>
     </infRib:RibbonGroup>
                

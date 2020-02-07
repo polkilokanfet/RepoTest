@@ -76,7 +76,7 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
         public string StatusCategory { get; private set; }
 
         [Designation("Õƒ—, %"), OrderStatus(-20)]
-        public double Vat { get; } = 1.2;
+        public double Vat { get; }
 
         [Designation("÷ÂÌ‡"), OrderStatus(-21)]
         public double Cost { get; }
@@ -234,8 +234,7 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
             ProductCategory = string.Empty;
             Amount = SalesUnits.Count;
             Status = GetStatus();
-            if(salesUnit.Specification != null)
-                Vat = salesUnit.Specification.Vat + 1.0;
+            Vat = salesUnit.Vat / 100.0 + 1.0;
             Cost = salesUnit.FakeData?.Cost ?? salesUnit.Cost;
             CostDelivery = -1.0 * salesUnit.CostDelivery ?? 0.0;
 

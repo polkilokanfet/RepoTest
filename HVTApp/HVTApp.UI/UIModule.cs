@@ -3,6 +3,7 @@ using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Prism;
+using HVTApp.UI.Modules.PlanAndEconomy.Views;
 using HVTApp.UI.Modules.Products.Views;
 using HVTApp.UI.Modules.Reports.Views;
 using HVTApp.UI.PriceCalculations.View;
@@ -35,6 +36,7 @@ namespace HVTApp.UI
             Container.RegisterViewForNavigation<PriceCalculationsView>();
             Container.RegisterViewForNavigation<ReferenceView>();
             Container.RegisterViewForNavigation<ProductTypeDesignationView>();
+            Container.RegisterViewForNavigation<PaymentsActualView>();
 
             _dialogService.RegisterShow<ProductStructureViewModel, ProductStructureView>();
             RegisterViews();

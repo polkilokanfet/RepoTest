@@ -21,7 +21,6 @@ namespace HVTApp.Modules.PlanAndEconomy
             Container.RegisterViewForNavigation<ProductionPlanView>();
             Container.RegisterViewForNavigation<OrderView>();
             Container.RegisterViewForNavigation<DatesView>();
-            Container.RegisterViewForNavigation<PaymentsActualView>();
             Container.RegisterViewForNavigation<PaymentDocumentView>();
             Container.RegisterViewForNavigation<PaymentsView>();
             Container.RegisterViewForNavigation<PaymentsPlanView>();
