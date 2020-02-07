@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Media;
@@ -20,11 +21,13 @@ namespace HVTApp.Services.PrintService
     public class PrintOfferService : IPrintOfferService
     {
         private readonly IUnityContainer _container;
+        private readonly IMessageService _messageService;
         private readonly PrintProductService _printProductService;
 
-        public PrintOfferService(IUnityContainer container)
+        public PrintOfferService(IUnityContainer container, IMessageService messageService)
         {
             _container = container;
+            _messageService = messageService;
             _printProductService = container.Resolve<IPrintProductService>() as PrintProductService;
         }
 
@@ -53,8 +56,17 @@ namespace HVTApp.Services.PrintService
 
             #endregion
 
-            var offerDocumentPath = AppDomain.CurrentDomain.BaseDirectory + "\\OfferDocument.docx";
-            var docWriter = WordDocumentWriter.Create(offerDocumentPath);
+            var offerDocumentPath = AppDomain.CurrentDomain.BaseDirectory + $"\\offer_{offer.RegNumber}.docx";
+            WordDocumentWriter docWriter;
+            try
+            {
+                docWriter = WordDocumentWriter.Create(offerDocumentPath);
+            }
+            catch (IOException e)
+            {
+                _messageService.ShowOkMessageDialog(e.GetType().Name, e.Message);
+                return;
+            }
             docWriter.DefaultParagraphProperties.Alignment = ParagraphAlignment.Left;
             docWriter.StartDocument();
 
@@ -189,19 +201,19 @@ namespace HVTApp.Services.PrintService
 
             #region Author Footer
 
-            var parts = SectionHeaderFooterParts.FooterFirstPageOnly;
+            var parts = SectionHeaderFooterParts.FooterAllPages;
             var writerSet = docWriter.AddSectionHeaderFooter(parts);
-            writerSet.FooterWriterFirstPageOnly.Open();
-            writerSet.FooterWriterFirstPageOnly.StartParagraph();
-            writerSet.FooterWriterFirstPageOnly.AddTextRun("Исполнитель:");
-            writerSet.FooterWriterFirstPageOnly.EndParagraph();
-            writerSet.FooterWriterFirstPageOnly.StartParagraph();
-            writerSet.FooterWriterFirstPageOnly.AddTextRun($"{offer.Author.Person.Surname} {offer.Author.Person.Name} {offer.Author.Person.Patronymic}");
-            writerSet.FooterWriterFirstPageOnly.EndParagraph();
-            writerSet.FooterWriterFirstPageOnly.StartParagraph();
-            writerSet.FooterWriterFirstPageOnly.AddTextRun($"тел.: {offer.Author.PhoneNumber}; e-mail: {offer.Author.Email}");
-            writerSet.FooterWriterFirstPageOnly.EndParagraph();
-            writerSet.FooterWriterFirstPageOnly.Close();
+            writerSet.FooterWriterAllPages.Open();
+            writerSet.FooterWriterAllPages.StartParagraph();
+            writerSet.FooterWriterAllPages.AddTextRun("Исполнитель:");
+            writerSet.FooterWriterAllPages.EndParagraph();
+            writerSet.FooterWriterAllPages.StartParagraph();
+            writerSet.FooterWriterAllPages.AddTextRun($"{offer.Author.Person.Surname} {offer.Author.Person.Name} {offer.Author.Person.Patronymic}");
+            writerSet.FooterWriterAllPages.EndParagraph();
+            writerSet.FooterWriterAllPages.StartParagraph();
+            writerSet.FooterWriterAllPages.AddTextRun($"тел.: {offer.Author.PhoneNumber}; e-mail: {offer.Author.Email}");
+            writerSet.FooterWriterAllPages.EndParagraph();
+            writerSet.FooterWriterAllPages.Close();
 
             #endregion
 
@@ -216,21 +228,22 @@ namespace HVTApp.Services.PrintService
             {
                 foreach (var offerUnitsGroup in offerUnitsGroupsByFacility)
                 {
-                    docWriter.PrintParagraph($"{offerUnitsGroup.Position}. {offerUnitsGroup.Product} {offerUnitsGroupsByFacility.Count()} шт.:");
+                    docWriter.PrintParagraph(Environment.NewLine + $"{offerUnitsGroup.Position}. {offerUnitsGroup.Product} - {offerUnitsGroup.Amount} шт.:");
                     _printProductService.Print(docWriter, offerUnitsGroup.Product.Model);
 
                     // включенное в состав оборудование
                     if (offerUnitsGroup.ProductsIncluded.Any())
                     {
-                        docWriter.PrintParagraph("Дополнительное оборудование, включенное в состав:");
-                        foreach (var productIncluded in offerUnitsGroup.ProductsIncluded)
+                        docWriter.PrintParagraph(Environment.NewLine + "Дополнительное оборудование и услуги, включенные в состав:");
+
+                        int n = 1;
+                        var productsIncluded = offerUnitsGroup.ProductsIncluded.GroupBy(x => new { x.Product.Model });
+                        foreach (var productIncluded in productsIncluded)
                         {
-                            docWriter.PrintParagraph($"{productIncluded.Product} = {productIncluded.Amount} шт.:");
-                            _printProductService.Print(docWriter, productIncluded.Product.Model);
+                            docWriter.PrintParagraph(Environment.NewLine + $"{offerUnitsGroup.Position}.{n++} {productIncluded.Key.Model} - {productIncluded.Count()} шт.:");
+                            _printProductService.Print(docWriter, productIncluded.Key.Model);
                         }
                     }
-
-                    docWriter.PrintParagraph(Environment.NewLine);
                 }
             }
 
