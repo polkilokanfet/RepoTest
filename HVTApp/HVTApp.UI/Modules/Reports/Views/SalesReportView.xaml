@@ -89,9 +89,11 @@
                     <infg:NumericField AlternateBinding="{Binding RealizationDateYear}" BindingType="UseAlternateBinding" Label="Год реализации" Width="Auto" AllowResize="True" />
                     <infg:DateTimeField AlternateBinding="{Binding RealizationDateRequared}" BindingType="UseAlternateBinding" Label="Дата реализации требуемая" Width="Auto" AllowResize="True" />
                     <infg:DateTimeField AlternateBinding="{Binding RealizationDateContract}" BindingType="UseAlternateBinding" Label="Дата реализации по контракту" Width="Auto" AllowResize="True" />
+                    <infg:DateTimeField AlternateBinding="{Binding PickingDate}" BindingType="UseAlternateBinding" Label="Дата комплектации" Width="Auto" AllowResize="True" />
                     <infg:TextField AlternateBinding="{Binding PaymentConditionSet}" BindingType="UseAlternateBinding" Label="Условия оплаты" Width="Auto" AllowResize="True" />
                     <infg:TextField AlternateBinding="{Binding DeliveryType}" BindingType="UseAlternateBinding" Label="Тип доставки" Width="Auto" AllowResize="True" />
                     <infg:TextField AlternateBinding="{Binding DeliveryAddress}" BindingType="UseAlternateBinding" Label="Адрес доставки" Width="Auto" AllowResize="True" />
+                    <infg:TextField AlternateBinding="{Binding PaymentsActual}" BindingType="UseAlternateBinding" Label="Платежи совершённые" Width="Auto" AllowResize="True" />
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
