@@ -13,6 +13,7 @@ namespace HVTApp.Infrastructure
         DataBaseFiller,
         PlanMaker,
         Constructor,
-        ReportMaker
+        ReportMaker,
+        Supplier
     }
 }

@@ -1,0 +1,90 @@
+﻿<inf:ViewBase xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:infg="http://infragistics.com/DataPresenter"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:controls="http://infragistics.com/Windows"
+              x:Class="HVTApp.UI.Modules.SupplyModule.Views.PickingDatesView">
+
+    <inf:ViewBase.Resources>
+        <Style x:Key="BoltFontCellsStyle" TargetType="{x:Type infg:CellValuePresenter}">
+            <Setter Property="ForegroundStyle">
+                <Setter.Value>
+                    <Style>
+                        <!--<Setter Property="TextBlock.Background" Value="Aqua" />-->
+                        <Setter Property="TextBlock.FontWeight" Value="Bold" />
+                        <!--<Setter Property="TextBlock.FontStyle" Value="Italic"/>-->
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </inf:ViewBase.Resources>
+
+        
+    <infg:XamDataGrid Grid.Row="1" 
+                        x:Name="ContentGrid"
+                        Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        DataSource="{Binding Groups}">
+
+        <infg:XamDataGrid.ContextMenu>
+			<ContextMenu>
+				<MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
+			</ContextMenu>
+		</infg:XamDataGrid.ContextMenu>
+
+		<infg:XamDataGrid.FieldLayouts>
+                
+			<infg:FieldLayout>
+                    
+                <infg:FieldLayout.RecordFilters>
+                    <infg:RecordFilter FieldName="IsCompleted">
+                        <infg:RecordFilter.Conditions>
+                            <controls:ComparisonCondition Operator="Equals" Value="False" />
+                        </infg:RecordFilter.Conditions>
+                    </infg:RecordFilter>
+                </infg:FieldLayout.RecordFilters>
+
+
+                <infg:FieldLayout.FieldSettings>
+                    <infg:FieldSettings CellValuePresenterStyle="{StaticResource BoltFontCellsStyle}"/>
+                </infg:FieldLayout.FieldSettings>
+
+                <infg:FieldLayout.Fields>
+
+                    <infg:TextField AlternateBinding="{Binding Model.Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
+                    <infg:TextField AlternateBinding="{Binding Model.Product.ProductType}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Тип" Width="Auto"/>
+                    <infg:TextField AlternateBinding="{Binding Model.Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="Auto"/>
+                    <infg:NumericField AlternateBinding="{Binding Model.Cost}" BindingType="UseAlternateBinding" Label="Цена за ед." Width="Auto" AllowResize="False"/>
+                    <infg:TextField AlternateBinding="{Binding Model.Order}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="З/з" Width="Auto" AllowResize="False"/>
+                    <infg:TextField Name="SerialNumber" Label="Сер.№" Width="Auto" AllowEdit="True"/>
+                    <infg:TextField AlternateBinding="{Binding Model.Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto"/>
+                    <infg:TextField AlternateBinding="{Binding Model.Specification.Number}" BindingType="UseAlternateBinding" Label="Сп.№" Width="Auto"/>
+                    <infg:TextField AlternateBinding="{Binding Model.Specification.Contract}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
+                    <infg:DateTimeField Name="PickingDate" Label="Комплектация" Width="110" AllowEdit="True" AllowResize="False"/>
+                    <infg:CheckBoxField AlternateBinding="{Binding IsCompleted}" Name="IsCompleted" BindingType="UseAlternateBinding" Label="Укомплектован" Width="Auto" AllowResize="False"/>
+                    <infg:TextField AlternateBinding="{Binding Model.Project.Manager}" BindingType="UseAlternateBinding" Label="Менеджер" Width="Auto"/>
+                    <infg:Field Name="Units" IsExpandable="True"/>
+
+                </infg:FieldLayout.Fields>
+			</infg:FieldLayout>
+
+            <infg:FieldLayout ParentFieldName="Units">
+                                       
+                <infg:FieldLayout.Fields>
+
+                    <infg:TextField AlternateBinding="{Binding Model.OrderPosition}" BindingType="UseAlternateBinding" Label="Поз." Width="Auto" AllowResize="False"/>
+                    <infg:TextField Name="SerialNumber" Label="Сер.№" Width="Auto" AllowEdit="True"/>
+                    <infg:DateTimeField Name="PickingDate" Label="Комплектация" Width="110" AllowEdit="True" AllowResize="False"/>
+                    <infg:CheckBoxField AlternateBinding="{Binding IsCompleted}" BindingType="UseAlternateBinding" Label="Укомплектован" AllowResize="False"/>
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+	</infg:XamDataGrid>
+
+        
+</inf:ViewBase>
+
+	
+
+	

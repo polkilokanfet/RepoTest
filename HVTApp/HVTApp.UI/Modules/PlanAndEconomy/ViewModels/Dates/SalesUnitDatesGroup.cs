@@ -74,6 +74,12 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
 
         public bool HasFullInformation => Units.All(x => x.HasFullInformation);
 
+        /// <summary>
+        /// Заказ укомплектован?
+        /// </summary>
+        public bool IsCompleted => Units.All(x => x.IsCompleted);
+
+
         public SalesUnitDatesGroup(IEnumerable<SalesUnitDates> salesUnits)
         {
             Units = salesUnits.ToList();

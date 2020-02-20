@@ -2,14 +2,13 @@
                                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                  xmlns:infRib="http://infragistics.com/Ribbon" 
                                  xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-                                 x:Class="HVTApp.UI.Modules.PlanAndEconomy.Tabs.TabDates"
-                                 Header="Даты">
+                                 x:Class="HVTApp.UI.Modules.SupplyModule.Tabs.TabDates"
+                                 Header="План комплектации">
 
     <infRib:RibbonGroup Caption="Действия">
         <StackPanel>
-            <infRib:ButtonTool Caption="Перезагрузить" Command="{Binding ReloadCommand}" SmallImage="/HVTApp.UI;component/Images/refresh.png"/>
             <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveCommand}" SmallImage="/HVTApp.UI;component/Images/save.png"/>
-            <CheckBox IsChecked="{Binding AutoFillingDates, Mode=TwoWay}" Content="Автозаполнение"/>
+            <infRib:ButtonTool Caption="Перезагрузить" Command="{Binding ReloadCommand}" SmallImage="/HVTApp.UI;component/Images/refresh.png"/>
         </StackPanel>
     </infRib:RibbonGroup>
 

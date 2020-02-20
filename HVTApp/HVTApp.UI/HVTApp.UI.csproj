@@ -379,6 +379,13 @@
     <Compile Include="Modules\Settings\Views\PasswordView.xaml.cs">
       <DependentUpon>PasswordView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modules\SupplyModule\Tabs\TabDates.xaml.cs">
+      <DependentUpon>TabDates.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\SupplyModule\ViewModels\PickingDatesViewModel.cs" />
+    <Compile Include="Modules\SupplyModule\Views\PickingDatesView.xaml.cs">
+      <DependentUpon>PickingDatesView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PriceCalculations\ViewModel\PriceCalculation2Wrapper.cs" />
     <Compile Include="PriceCalculations\ViewModel\PriceCalculationItem2Wrapper.cs" />
     <Compile Include="PriceCalculations\ViewModel\PriceCalculationItemsViewModel.cs" />
@@ -934,6 +941,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\Settings\Views\PasswordView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\SupplyModule\Tabs\TabDates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\SupplyModule\Views\PickingDatesView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
