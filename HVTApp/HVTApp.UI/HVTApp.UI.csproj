@@ -383,6 +383,11 @@
       <DependentUpon>TabDates.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\SupplyModule\ViewModels\PickingDatesViewModel.cs" />
+    <Compile Include="Modules\SupplyModule\ViewModels\SupplyPlanUnit.cs" />
+    <Compile Include="Modules\SupplyModule\ViewModels\SupplyPlanViewModel.cs" />
+    <Compile Include="Modules\SupplyModule\Views\SupplyPlanView.xaml.cs">
+      <DependentUpon>SupplyPlanView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modules\SupplyModule\Views\PickingDatesView.xaml.cs">
       <DependentUpon>PickingDatesView.xaml</DependentUpon>
     </Compile>
@@ -945,6 +950,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\SupplyModule\Tabs\TabDates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\SupplyModule\Views\SupplyPlanView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

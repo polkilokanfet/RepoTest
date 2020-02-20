@@ -88,6 +88,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
                 x.SettedValueToProperty += () =>
                 {
                     OnPropertyChanged(nameof(HasFullInformation));
+                    OnPropertyChanged(nameof(IsCompleted));
                 };
 
                 x.SettedCalculatedDeliveryDate += date =>

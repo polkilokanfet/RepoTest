@@ -133,6 +133,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
         {
             this.SetValue(newValue, propertyName);
             OnPropertyChanged(nameof(HasFullInformation));
+            OnPropertyChanged(nameof(IsCompleted));
             SettedValueToProperty?.Invoke();
         }
     }

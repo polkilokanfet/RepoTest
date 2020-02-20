@@ -33,7 +33,7 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
             FacilityOwner = owners.ConvertToString();
             ProductType = salesUnit.Product.ProductType.ToString();
             Product = salesUnit.Product.Designation;
-            Voltage = salesUnit.Product.ProductBlock.Parameters.FirstOrDefault(x => Equals(x.ParameterGroup, GlobalAppProperties.Actual.VoltageGroup))?.Value;
+            Voltage = salesUnit.Product.Voltage();
             Amount = salesUnits.Count();
             RealizationDate = salesUnit.RealizationDateCalculated;
             Order = salesUnit.Order?.ToString();

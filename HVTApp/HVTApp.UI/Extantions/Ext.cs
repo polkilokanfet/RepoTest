@@ -2,6 +2,7 @@
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI
@@ -33,6 +34,11 @@ namespace HVTApp.UI
         public static bool ContainsSalesUnit(this IEnumerable<PriceCalculationItem> items, SalesUnit salesUnit)
         {
             return items.SelectMany(x => x.SalesUnits).ContainsById(salesUnit);
+        }
+
+        public static string Voltage(this Product product)
+        {
+            return product.ProductBlock.Parameters.FirstOrDefault(x => Equals(x.ParameterGroup, GlobalAppProperties.Actual.VoltageGroup))?.Value;
         }
     }
 }
