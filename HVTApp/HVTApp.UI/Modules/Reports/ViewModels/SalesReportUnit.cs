@@ -283,8 +283,6 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
             PickingDate = salesUnit.PickingDate;
 
             PaymentsActual = salesUnits.SelectMany(x => x.PaymentsActual).ConvertToString();
-
-            //Voltage = Product.ProductBlock.Parameters.SingleOrDefault(x => Equals(x.ParameterGroup, GlobalAppProperties.Actual.VoltageGroup))?.Value;
         }
 
         private string GetProductCategory(Product product)

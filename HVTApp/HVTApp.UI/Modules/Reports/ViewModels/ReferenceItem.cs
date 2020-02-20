@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Converter;
 
 namespace HVTApp.UI.Modules.Reports.ViewModels
 {
@@ -12,6 +13,7 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
         public string Facility { get; }
         public string FacilityOwner { get; }
         public string ProductType { get; }
+        public string Voltage { get; }
         public string Product { get; }
         public int Amount { get; }
         public DateTime RealizationDate { get; }
@@ -26,9 +28,12 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
         {
             var salesUnit = salesUnits.First();
             Facility = salesUnit.Facility.ToString();
-            FacilityOwner = $"{salesUnit.Facility.OwnerCompany.FullName} ({salesUnit.Facility.OwnerCompany.Form.ShortName})";
+            var owners = new List<Company> { salesUnit.Facility.OwnerCompany };
+            owners.AddRange(salesUnit.Facility.OwnerCompany.ParentCompanies().ToList());
+            FacilityOwner = owners.ConvertToString();
             ProductType = salesUnit.Product.ProductType.ToString();
-            Product = salesUnit.Product.ToString();
+            Product = salesUnit.Product.Designation;
+            Voltage = salesUnit.Product.ProductBlock.Parameters.FirstOrDefault(x => Equals(x.ParameterGroup, GlobalAppProperties.Actual.VoltageGroup))?.Value;
             Amount = salesUnits.Count();
             RealizationDate = salesUnit.RealizationDateCalculated;
             Order = salesUnit.Order?.ToString();
@@ -42,12 +47,7 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
                 Country = region.District.Country.ToString();
             }
 
-            var sb = new StringBuilder();
-            foreach (var unit in salesUnits)
-            {
-                sb.Append(unit.SerialNumber).Append("; ");
-            }
-            Numbers = sb.ToString();
+            Numbers = salesUnits.Select(x => x.SerialNumber).ConvertToString();
         }
     }
 }
