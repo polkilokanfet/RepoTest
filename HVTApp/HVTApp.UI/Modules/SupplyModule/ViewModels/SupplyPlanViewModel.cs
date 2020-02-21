@@ -19,7 +19,7 @@ namespace HVTApp.UI.Modules.SupplyModule.ViewModels
         public void Load()
         {
             var salesUnits = UnitOfWork.Repository<SalesUnit>()
-                .Find(x => !x.IsLoosen && !x.IsDone && x.EndProductionDateCalculated >= DateTime.Today && x.Project.ForReport);
+                .Find(x => !x.IsLoosen && !x.Product.ProductBlock.IsService && !x.IsDone && x.EndProductionDateCalculated >= DateTime.Today && x.Project.ForReport);
             var units = salesUnits
                 .GroupBy(x => new
                 {

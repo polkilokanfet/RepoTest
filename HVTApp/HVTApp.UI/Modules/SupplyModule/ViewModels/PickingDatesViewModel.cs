@@ -52,7 +52,7 @@ namespace HVTApp.UI.Modules.SupplyModule.ViewModels
             UnitOfWork = Container.Resolve<IUnitOfWork>();
 
             var salesUnits = UnitOfWork.Repository<SalesUnit>()
-                .Find(x => !x.IsLoosen && x.OrderInTakeDate <= DateTime.Today)
+                .Find(x => !x.IsLoosen && !x.Product.ProductBlock.IsService && x.OrderInTakeDate <= DateTime.Today)
                 .OrderBy(salesUnit => salesUnit.EndProductionDateCalculated)
                 .Select(salesUnit => new SalesUnitDates(salesUnit))
                 .ToList();
@@ -74,7 +74,7 @@ namespace HVTApp.UI.Modules.SupplyModule.ViewModels
                     x.PickingDate
                 })
                 .Select(x => new SalesUnitDatesGroup(x))
-                .OrderBy(x => x.Units.First().Model.OrderInTakeDate);
+                .OrderBy(x => x.Units.First().Model.EndProductionDateCalculated);
 
             Groups.AddRange(groups);
         }
