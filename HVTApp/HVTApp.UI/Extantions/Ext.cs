@@ -40,5 +40,17 @@ namespace HVTApp.UI
         {
             return product.ProductBlock.Parameters.FirstOrDefault(x => Equals(x.ParameterGroup, GlobalAppProperties.Actual.VoltageGroup))?.Value;
         }
+
+        public static Company GetWinner(this IEnumerable<Tender> tenders, TenderTypeEnum tenderType)
+        {
+            if (tenders == null || !tenders.Any())
+                return null;
+
+            return tenders
+                .Where(x => x.Types.Select(t => t.Type).Contains(tenderType))
+                .OrderBy(x => x.DateClose)
+                .LastOrDefault()?.Winner;
+
+        }
     }
 }

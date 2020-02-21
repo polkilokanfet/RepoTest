@@ -4166,8 +4166,8 @@ namespace HVTApp.UI.Views
 
         public System.Windows.Visibility SypplierVisibility
         {
-            get { return ProjectLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProjectLookup.Sypplier)].Visibility; }
-            set { ProjectLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProjectLookup.Sypplier)].Visibility = value; }
+            get { return ProjectLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProjectLookup.Supplier)].Visibility; }
+            set { ProjectLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProjectLookup.Supplier)].Visibility = value; }
         }
 
 

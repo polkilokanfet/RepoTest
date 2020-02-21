@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -10,129 +11,30 @@ using Prism.Mvvm;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels
 {
-    public class ProjectItem : BindableBase
+    public class SalesUnitsCollection : IList<SalesUnit>
     {
-        public readonly ObservableCollection<Tender> Tenders;
-        readonly List<SalesUnit> _salesUnits;
-        public ObservableCollection<ProjectUnitsGroup> ProjectUnitsGroups { get; } = new ObservableCollection<ProjectUnitsGroup>();
+        private readonly List<SalesUnit> _salesUnits;
 
-        public Project Project { get; private set; }
-        public IEnumerable<string> Facilities => _salesUnits.Select(x => x.Facility.ToString()).Distinct();
-        public double Sum => _salesUnits.Sum(x => x.Cost);
-        public DateTime OrderInTakeDate => _salesUnits.First().OrderInTakeDate;
-        public DateTime RealizationDate => _salesUnits.First().RealizationDateCalculated;
-        public ProjectType ProjectType => _salesUnits.First().Project.ProjectType;
-        public bool IsDone => _salesUnits.All(x => x.IsDone);
-        public bool IsLoosen => _salesUnits.All(x => x.IsLoosen);
-        public bool ForReport => Project.ForReport;
-        public bool InWork => Project.InWork;
-        public int OrderInTakeYear => OrderInTakeDate.Year;
-        public string OrderInTakeMonth => OrderInTakeDate.MonthName();
-        public int RealizationYear => RealizationDate.Year;
-        public string RealizationMonth => RealizationDate.MonthName();
-
-
-        public DateTime? TenderDate
-        {
-            get
-            {
-                if (!Tenders.Any()) return null;
-                var supply = Tenders.Where(x => x.Types.Select(t => t.Type).Contains(TenderTypeEnum.ToSupply)).ToList();
-                return !supply.Any() ? null : supply.OrderBy(x => x.DateClose).Last()?.DateClose;
-            }
-        }
-
-        public Company Builder
-        {
-            get
-            {
-                if (Tenders.Any())
-                {
-                    var tenders = Tenders.Where(x => x.Types.Select(t => t.Type).Contains(TenderTypeEnum.ToWork)).OrderBy(x => x.DateClose);
-                    return tenders.LastOrDefault()?.Winner;
-                }
-                return null;
-            }
-        }
-
-        public Company ProjectMaker
-        {
-            get
-            {
-                if (Tenders.Any())
-                {
-                    var tenders = Tenders.Where(x => x.Types.Select(t => t.Type).Contains(TenderTypeEnum.ToProject)).OrderBy(x => x.DateClose);
-                    return tenders.LastOrDefault()?.Winner;
-                }
-                return null;
-            }
-        }
-
-        public Company Sypplier
-        {
-            get
-            {
-                if (Tenders.Any())
-                {
-                    var tenders = Tenders.Where(x => x.Types.Select(t => t.Type).Contains(TenderTypeEnum.ToSupply)).OrderBy(x => x.DateClose);
-                    return tenders.LastOrDefault()?.Winner;
-                }
-                return null;
-            }
-        }
-
-        public ProjectItem(IEnumerable<SalesUnit> salesUnits, IEnumerable<Tender> tenders, IEventAggregator eventAggregator)
+        public SalesUnitsCollection(IEnumerable<SalesUnit> salesUnits)
         {
             _salesUnits = new List<SalesUnit>(salesUnits);
-            Tenders = new ObservableCollection<Tender>(tenders);
-            Project = _salesUnits.First().Project;
-            RefreshGroups();
-
-            Tenders.CollectionChanged += (sender, args) =>
-            {
-                OnPropertyChanged(nameof(this.TenderDate));
-                OnPropertyChanged(nameof(this.Builder));
-                OnPropertyChanged(nameof(this.ProjectMaker));
-                OnPropertyChanged(nameof(this.Sypplier));
-            };
-
-            eventAggregator.GetEvent<AfterSaveProjectEvent>().Subscribe(project =>
-            {
-                if (!_salesUnits.Any()) return;
-
-                if (Project.Id != project.Id) return;
-                Project = project;
-                OnPropertyChanged(string.Empty);
-            });
-
-            eventAggregator.GetEvent<AfterSaveTenderEvent>().Subscribe(tender =>
-            {
-                if (!_salesUnits.Any()) return;
-
-                if (Project.Id == tender.Project.Id)
-                    Tenders.ReAddById(tender);
-            });
-
         }
 
-        /// <summary>
-        /// Юнит подходит в этот айтем
-        /// </summary>
-        /// <param name="salesUnit"></param>
-        /// <returns></returns>
-        public bool Fits(SalesUnit salesUnit)
+        public IEnumerator<SalesUnit> GetEnumerator()
         {
-            var units = _salesUnits.Where(x => x.Id != salesUnit.Id).Concat(new[] { salesUnit });
-            return units.GroupBy(x => x, new SalesUnitsComparer()).Count() == 1;
+            return _salesUnits.GetEnumerator();
         }
 
-        public bool ContainsById(SalesUnit salesUnit)
+        IEnumerator IEnumerable.GetEnumerator()
         {
-            return _salesUnits.ContainsById(salesUnit);
+            return GetEnumerator();
         }
 
-        public void AddSalesUnit(SalesUnit salesUnit)
+        public void Add(SalesUnit salesUnit)
         {
+            if (_salesUnits.Contains(salesUnit))
+                return;
+
             //заменяемый юнит
             var oldSalesUnit = _salesUnits.SingleOrDefault(x => x.Id == salesUnit.Id);
 
@@ -142,45 +44,181 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             if (oldSalesUnit != null)
                 _salesUnits.Remove(oldSalesUnit);
 
-            //обновляем айтем
-            RefreshItem();
+            CollectionChanged?.Invoke();
         }
 
-        public ProjectItemState RemoveSalesUnit(SalesUnit salesUnit)
+        public void Clear()
         {
-            _salesUnits.RemoveById(salesUnit);
+            _salesUnits.Clear();
+        }
 
-            if (_salesUnits.Any())
+        public bool Contains(SalesUnit item)
+        {
+            return _salesUnits.Contains(item);
+        }
+
+        public void CopyTo(SalesUnit[] array, int arrayIndex)
+        {
+            _salesUnits.CopyTo(array, arrayIndex);
+        }
+
+        public bool Remove(SalesUnit salesUnit)
+        {
+            var result = _salesUnits.Remove(salesUnit);
+            CollectionChanged?.Invoke();
+            return result;
+        }
+
+        public int Count => _salesUnits.Count;
+        public bool IsReadOnly => false;
+        public int IndexOf(SalesUnit salesUnit)
+        {
+            return _salesUnits.IndexOf(salesUnit);
+        }
+
+        public void Insert(int index, SalesUnit salesUnit)
+        {
+            _salesUnits.Insert(index, salesUnit);
+        }
+
+        public void RemoveAt(int index)
+        {
+            _salesUnits.RemoveAt(index);
+        }
+
+        public SalesUnit this[int index]
+        {
+            get { return _salesUnits[index]; }
+            set { _salesUnits[index] = value; }
+        }
+
+        public event Action CollectionChanged;
+    }
+
+    public class ProjectItem : BindableBase
+    {
+        public readonly ObservableCollection<Tender> Tenders;
+        public readonly SalesUnitsCollection SalesUnits;
+        public ObservableCollection<ProjectUnitsGroup> ProjectUnitsGroups { get; } = new ObservableCollection<ProjectUnitsGroup>();
+
+        public Project Project { get; private set; }
+        public IEnumerable<string> Facilities => SalesUnits.Select(x => x.Facility.ToString()).Distinct();
+        public double Sum => SalesUnits.Sum(x => x.Cost);
+
+        public DateTime OrderInTakeDate => SalesUnits.First().OrderInTakeDate;
+        public int OrderInTakeYear => OrderInTakeDate.Year;
+        public string OrderInTakeMonth => OrderInTakeDate.MonthName();
+
+        public bool IsDone => SalesUnits.All(x => x.IsDone);
+        public bool IsLoosen => SalesUnits.All(x => x.IsLoosen);
+        public bool ForReport => Project != null && Project.ForReport;
+        public bool InWork => Project != null && Project.InWork;
+
+        /// <summary>
+        /// Дата ближайшего тендера на поставку
+        /// </summary>
+        public DateTime? TenderDate
+        {
+            get
             {
-                RefreshItem();
-                return ProjectItemState.HasAnySalesUnit;
+                if (!Tenders.Any()) return null;
+                var supply = Tenders.Where(x => x.Types.Select(t => t.Type).Contains(TenderTypeEnum.ToSupply)).ToList();
+                return !supply.Any() ? null : supply.OrderBy(x => x.DateClose).Last()?.DateClose;
             }
+        }
+        /// <summary>
+        /// Подрядчик
+        /// </summary>
+        public Company Builder => Tenders.GetWinner(TenderTypeEnum.ToWork);
+        /// <summary>
+        /// Проектировщик
+        /// </summary>
+        public Company ProjectMaker => Tenders.GetWinner(TenderTypeEnum.ToProject);
+        /// <summary>
+        /// Поставщик
+        /// </summary>
+        public Company Supplier => Tenders.GetWinner(TenderTypeEnum.ToSupply);
 
-            return ProjectItemState.HasNoSalesUnit;
+        public ProjectItem(IEnumerable<SalesUnit> salesUnits, IEnumerable<Tender> tenders, IEventAggregator eventAggregator)
+        {
+            SalesUnits = new SalesUnitsCollection(salesUnits);
+            Tenders = new ObservableCollection<Tender>(tenders);
+            Project = SalesUnits.First().Project;
+            RefreshGroups();
+
+            //реакция на изменение проекта
+            eventAggregator.GetEvent<AfterSaveProjectEvent>().Subscribe(project =>
+            {
+                if (!SalesUnits.Any()) return;
+
+                if (Project.Id != project.Id) return;
+                Project = project;
+                OnPropertyChanged(string.Empty);
+            });
+
+            //реакция на изменение тендера
+            eventAggregator.GetEvent<AfterSaveTenderEvent>().Subscribe(tender =>
+            {
+                if (!SalesUnits.Any()) return;
+
+                if (Project.Id == tender.Project.Id)
+                    Tenders.ReAddById(tender);
+            });
+
+            //реакция на изменение коллекции тендеров
+            Tenders.CollectionChanged += (sender, args) =>
+            {
+                OnPropertyChanged(nameof(this.TenderDate));
+                OnPropertyChanged(nameof(this.Builder));
+                OnPropertyChanged(nameof(this.ProjectMaker));
+                OnPropertyChanged(nameof(this.Supplier));
+            };
+
+            SalesUnits.CollectionChanged += () =>
+            {
+                if (!SalesUnits.Any()) return;
+
+                OnPropertyChanged(nameof(this.Sum));
+                OnPropertyChanged(nameof(this.OrderInTakeDate));
+                OnPropertyChanged(nameof(this.OrderInTakeYear));
+                OnPropertyChanged(nameof(this.OrderInTakeMonth));
+                OnPropertyChanged(nameof(this.IsLoosen));
+                OnPropertyChanged(nameof(this.IsDone));
+                OnPropertyChanged(nameof(this.InWork));
+                OnPropertyChanged(nameof(this.ForReport));
+
+                RefreshGroups();
+            };
         }
 
-        private void RefreshItem()
+        /// <summary>
+        /// Юнит подходит в этот айтем
+        /// </summary>
+        /// <param name="salesUnit">Юнит</param>
+        /// <returns></returns>
+        public bool Fits(SalesUnit salesUnit)
         {
-            RefreshGroups();
-            OnPropertyChanged(string.Empty);
+            var units = SalesUnits.Where(x => x.Id != salesUnit.Id).Concat(new[] { salesUnit });
+            return units.GroupBy(x => x, new SalesUnitsComparer()).Count() == 1;
+        }
+
+        public bool ContainsById(SalesUnit salesUnit)
+        {
+            return SalesUnits.ContainsById(salesUnit);
         }
 
         private void RefreshGroups()
         {
             ProjectUnitsGroups.Clear();
-            var salesUnitsGroups = _salesUnits.GroupBy(x => new
+            var salesUnitsGroups = SalesUnits.GroupBy(x => new
             {
                 ProductId = x.Product.Id,
                 x.Cost,
-                FacilityId = x.Facility.Id
+                FacilityId = x.Facility.Id,
+                x.OrderInTakeDate,
+                x.RealizationDateCalculated
             }).OrderByDescending(x => x.Key.Cost);
             ProjectUnitsGroups.AddRange(salesUnitsGroups.Select(x => new ProjectUnitsGroup(x)));
         }
-    }
-
-    public enum ProjectItemState
-    {
-        HasAnySalesUnit,
-        HasNoSalesUnit
     }
 }

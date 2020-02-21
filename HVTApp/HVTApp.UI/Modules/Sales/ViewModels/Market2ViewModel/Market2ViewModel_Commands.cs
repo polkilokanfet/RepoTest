@@ -4,7 +4,6 @@ using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Modules.Sales.Views;
-using HVTApp.UI.PriceCalculations;
 using Microsoft.Practices.Unity;
 using Prism.Regions;
 using HVTApp.Infrastructure.Extansions;
@@ -15,6 +14,12 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
     public partial class Market2ViewModel
     {
         #region ICommand
+
+        public ICommand ExpandCommand { get; } 
+        public ICommand CollapseCommand { get; }
+
+        public event Action<bool> ExpandCollapseEvent;
+
 
         public ICommand NewProjectCommand { get; }
         public ICommand EditProjectCommand { get; }
