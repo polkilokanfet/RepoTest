@@ -106,7 +106,7 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
         public double Price { get; }
 
         [Designation("ПЗ на кол."), OrderStatus(-30)]
-        public double PriceOnAmount => Price * Amount;
+        public double PriceOnAmount => -1.0 * Price * Amount;
 
         [Designation("МД, руб."), OrderStatus(-31)]
         public double MarginalIncomeNatural => Proceeds + PriceOnAmount;
@@ -185,6 +185,12 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
         [Designation("Адрес доставки"), OrderStatus(-138)]
         public string DeliveryAddress { get; }
 
+        [Designation("Комплектация"), OrderStatus(-139)]
+        public DateTime? PickingDate { get; }
+
+        [Designation("Оплаты"), OrderStatus(-140)]
+        public string PaymentsActual { get; }
+
         //[Designation("Напряжение")]
         //public string Voltage { get; }
 
@@ -205,7 +211,10 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
             _countryUnions = countryUnions.ToList();
 
             Order = salesUnit.Order?.ToString();
-            OrderPositions = SalesUnits.Select(x => x.OrderPosition).ConvertToString();
+            var positions = SalesUnits.Select(x => x.OrderPosition).ToList();
+            OrderPositions = positions.All(x => x != null) 
+                ? positions.OrderBy(x => x).ConvertToString() 
+                : positions.ConvertToString();
 
             var owners = new List<Company> {salesUnit.Facility.OwnerCompany};
             owners.AddRange(salesUnit.Facility.OwnerCompany.ParentCompanies().ToList());
@@ -231,7 +240,7 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
             Segment = GetSegment();
             ProductType = salesUnit.Product.ProductType.Name;
             Designation = salesUnit.Product.Designation;
-            ProductCategory = string.Empty;
+            ProductCategory = GetProductCategory(salesUnit.Product);
             Amount = SalesUnits.Count;
             Status = GetStatus();
             Vat = salesUnit.Vat / 100.0 + 1.0;
@@ -240,7 +249,6 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
 
             var priceStructures = GlobalAppProperties.PriceService.GetPriceStructures(salesUnit, salesUnit.OrderInTakeDate, GlobalAppProperties.Actual.ActualPriceTerm);
             Price = salesUnit.Price ?? GlobalAppProperties.PriceService.GetPrice(salesUnit) ?? priceStructures.TotalPriceFixedCostLess;
-            Price = -1.0 * Price;
             FixedCost = -1.0 * priceStructures.TotalFixedCost;
             //FixedCostAndDelivery = CostDelivery.HasValue ? CostDelivery.Value + FixedCost : FixedCost;
 
@@ -256,9 +264,9 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
                 ContractNumber = specification.Contract.Number;
                 ContractDate = specification.Contract.Date;
                 ContractYear = ContractDate.Value.Year;
-
-                RealizationDateContract = salesUnit.StartProductionDate?.AddDays(salesUnit.ProductionTerm);
             }
+
+            RealizationDateContract = salesUnit.StartProductionDateCalculated.AddDays(salesUnit.ProductionTerm);
 
             OrderInTakeDate = salesUnit.FakeData?.OrderInTakeDate ?? salesUnit.OrderInTakeDate;
             StartProductionDate = salesUnit.StartProductionDateCalculated;
@@ -268,11 +276,77 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
 
             PaymentConditionSet = salesUnit.FakeData?.PaymentConditionSet ?? salesUnit.PaymentConditionSet;
 
-            DeliveryType = CostDelivery > 0  ? "Доставка" : "Самовывоз";
+            DeliveryType = -1 * CostDelivery > 0  ? "Доставка" : "Самовывоз";
 
             DeliveryAddress = salesUnit.AddressDelivery?.ToString() ?? salesUnit.Facility.Address?.ToString() ?? string.Empty;
 
-            //Voltage = Product.ProductBlock.Parameters.SingleOrDefault(x => Equals(x.ParameterGroup, GlobalAppProperties.Actual.VoltageGroup))?.Value;
+            PickingDate = salesUnit.PickingDate;
+
+            PaymentsActual = salesUnits.SelectMany(x => x.PaymentsActual).ConvertToString();
+        }
+
+        private string GetProductCategory(Product product)
+        {
+            var designation = product.Designation.Replace("УЭТМ-", string.Empty);
+
+            var categories = new List<string>
+            {
+                "ВГБ-35",
+
+                "ВЭБ-110",
+                "ВЭБ-220",
+
+                "ВГТ-35",
+                "ВГТ-110",
+                "ВГТ-220",
+                "ВГТ-1А1-220",
+                "ВГТ-330",
+                "ВГТ-500",
+                "ВГТ-750",
+
+                "ЗНГ-35",
+                "ЗНГ-110",
+                "ЗНГ-220",
+                "ЗНГ-330",
+
+                "ТРГ-35",
+                "ТРГ-110",
+                "ТРГ-220",
+                "ТРГ-330",
+                "ТРГ-500",
+
+                "ЗРО-110",
+                "ЗРО-220",
+
+                "РПД-110",
+                "РПД-1п-110",
+                "РПД-1к-110",
+                "РПД-2-110",
+                "РПД-220",
+                "РПД-1п-220",
+                "РПД-1к-220",
+                "РПД-2-220",
+
+                "РПДО-110",
+                "РПДО-1п-110",
+                "РПДО-1к-110",
+                "РПДО-2-110",
+                "РПДО-220",
+                "РПДО-1п-220",
+                "РПДО-1к-220",
+                "РПДО-2-220",
+            };
+
+            foreach (var category in categories)
+            {
+                if (designation.StartsWith(category))
+                    return category;
+            }
+
+            if (designation.StartsWith("ВАБ") || designation.StartsWith("ВАТ"))
+                return "БВПТ";
+
+            return "другое";
         }
 
         //private void SetProperties(SalesUnit salesUnit)

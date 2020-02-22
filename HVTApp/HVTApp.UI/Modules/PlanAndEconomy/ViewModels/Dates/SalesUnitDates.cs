@@ -95,6 +95,11 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
                                           ShipmentDate.HasValue &&
                                           DeliveryDate.HasValue && RealizationDate.HasValue;
 
+        /// <summary>
+        /// Заказ укомплектован?
+        /// </summary>
+        public bool IsCompleted => PickingDate.HasValue && PickingDate < DateTime.Today;
+
         public SalesUnitDates(SalesUnit model) : base(model)
         {
         }
@@ -128,6 +133,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
         {
             this.SetValue(newValue, propertyName);
             OnPropertyChanged(nameof(HasFullInformation));
+            OnPropertyChanged(nameof(IsCompleted));
             SettedValueToProperty?.Invoke();
         }
     }

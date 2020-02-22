@@ -2,10 +2,9 @@
 using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Prism;
 using HVTApp.Modules.PriceMaking.Menus;
-using HVTApp.UI.Modules.PlanAndEconomy.Views;
+using HVTApp.UI.Modules.PriceMaking.Views;
 using Microsoft.Practices.Unity;
 using Prism.Regions;
-using PricesView = HVTApp.UI.Modules.PriceMaking.Views.PricesView;
 
 namespace HVTApp.Modules.PriceMaking
 {

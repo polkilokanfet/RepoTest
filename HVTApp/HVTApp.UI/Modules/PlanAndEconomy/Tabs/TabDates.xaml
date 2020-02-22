@@ -3,7 +3,7 @@
                                  xmlns:infRib="http://infragistics.com/Ribbon" 
                                  xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
                                  x:Class="HVTApp.UI.Modules.PlanAndEconomy.Tabs.TabDates"
-                                 Header="План производства">
+                                 Header="Даты">
 
     <infRib:RibbonGroup Caption="Действия">
         <StackPanel>

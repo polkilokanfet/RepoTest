@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
@@ -12,7 +13,7 @@ using Prism.Commands;
 
 namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
 {
-    public class DatesViewModel : ViewModelBase
+    public class DatesViewModel : ViewModelBaseCanExportToExcel
     {
         private IUnitOfWork _unitOfWork;
         private IValidatableChangeTrackingCollection<SalesUnitDates> _salesUnits;

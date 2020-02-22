@@ -12,14 +12,23 @@ namespace HVTApp.Services.PriceService
 {
     public class PriceService : IPriceService
     {
+        /// <summary>
+        /// Коэффициент упаковки
+        /// "гениальное изобретение фин.отдела"
+        /// </summary>
+        const double _kUp = 1.03;
+
         private readonly List<ProductBlock> _blocks;
         private readonly List<PriceCalculation> _priceCalculations;
 
+        /// <summary>
+        /// Словарь блоков с прайсами
+        /// </summary>
         private readonly Dictionary<Guid, ProductBlock> _analogsWithPrice = new Dictionary<Guid, ProductBlock>();
 
         public PriceService(IUnitOfWork unitOfWork)
         {
-            _blocks = unitOfWork.Repository<ProductBlock>().Find(x => true);
+            _blocks = unitOfWork.Repository<ProductBlock>().GetAll();
             _priceCalculations = unitOfWork.Repository<PriceCalculation>().Find(x => x.TaskCloseMoment.HasValue);
         }
 
@@ -55,7 +64,7 @@ namespace HVTApp.Services.PriceService
             if (price.Date < date.AddDays(-actualTerm) || price.Date > date.AddDays(actualTerm))
                 errors?.AddError(block, PriceErrorType.NoActualPrice);
 
-            return price.Sum;
+            return price.Sum * _kUp;
         }
 
         /// <summary>
@@ -175,7 +184,8 @@ namespace HVTApp.Services.PriceService
                 throw new ArgumentNullException(nameof(salesUnit));
 
             //по проставленному прайсу
-            if (salesUnit.Price.HasValue) return salesUnit.Price.Value;
+            if (salesUnit.Price.HasValue) 
+                return salesUnit.Price.Value * _kUp;
 
             //по расчетам себестоимости
             var priceCalculationItem =
@@ -184,7 +194,8 @@ namespace HVTApp.Services.PriceService
                     .SelectMany(x => x.PriceCalculationItems)
                     .FirstOrDefault(x => x.SalesUnits.ContainsById(salesUnit));
 
-            return priceCalculationItem?.StructureCosts.Sum(x => x.Total);
+            return priceCalculationItem?.StructureCosts.Sum(x => x.Total) * _kUp;
         }
+
     }
 }

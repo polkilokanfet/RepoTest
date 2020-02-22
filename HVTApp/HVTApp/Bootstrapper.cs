@@ -26,6 +26,7 @@ using HVTApp.Modules.Products;
 using HVTApp.Modules.Reports;
 using HVTApp.Modules.Settings;
 using HVTApp.Modules.Sales;
+using HVTApp.Modules.SupplyModule;
 using HVTApp.RegionAdapters;
 using HVTApp.Services.GetProductService;
 using HVTApp.Services.WpfAuthenticationService;
@@ -119,6 +120,7 @@ namespace HVTApp
             AddModuleIfInRole(catalog, typeof(BookRegistrationModule));
             AddModuleIfInRole(catalog, typeof(ReportsModule));
             AddModuleIfInRole(catalog, typeof(ProductsModule));
+            AddModuleIfInRole(catalog, typeof(SupplyModule));
 
             catalog.AddModule(typeof(BaseEntitiesModule));
             catalog.AddModule(typeof(SettingsModule));

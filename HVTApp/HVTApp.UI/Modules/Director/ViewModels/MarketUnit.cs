@@ -14,7 +14,7 @@ namespace HVTApp.UI.Modules.Director.ViewModels
         public DateTime OrderInTakeDate { get; }
         public string Manager { get; }
         public int OrderInTakeYear => OrderInTakeDate.Year;
-        public int OrderInTakeMonth => OrderInTakeDate.Month;
+        public string OrderInTakeMonth => OrderInTakeDate.MonthName();
 
 
         public List<SalesGroup> SalesGroups { get; }

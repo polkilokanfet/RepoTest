@@ -2,6 +2,7 @@
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI
@@ -33,6 +34,23 @@ namespace HVTApp.UI
         public static bool ContainsSalesUnit(this IEnumerable<PriceCalculationItem> items, SalesUnit salesUnit)
         {
             return items.SelectMany(x => x.SalesUnits).ContainsById(salesUnit);
+        }
+
+        public static string Voltage(this Product product)
+        {
+            return product.ProductBlock.Parameters.FirstOrDefault(x => Equals(x.ParameterGroup, GlobalAppProperties.Actual.VoltageGroup))?.Value;
+        }
+
+        public static Company GetWinner(this IEnumerable<Tender> tenders, TenderTypeEnum tenderType)
+        {
+            if (tenders == null || !tenders.Any())
+                return null;
+
+            return tenders
+                .Where(x => x.Types.Select(t => t.Type).Contains(tenderType))
+                .OrderBy(x => x.DateClose)
+                .LastOrDefault()?.Winner;
+
         }
     }
 }

@@ -114,7 +114,7 @@ namespace HVTApp.UI.Lookup
         }
 
         [Designation("Поставщик"), OrderStatus(2)]
-        public CompanyLookup Sypplier
+        public CompanyLookup Supplier
         {
             get
             {

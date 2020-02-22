@@ -29,7 +29,7 @@
     <ProductName>HVTApplication</ProductName>
     <PublisherName>Kosolapov</PublisherName>
     <MinimumRequiredVersion>1.0.0.70</MinimumRequiredVersion>
-    <ApplicationRevision>73</ApplicationRevision>
+    <ApplicationRevision>78</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -288,6 +288,10 @@
     <ProjectReference Include="..\HVTApp.Modules.Reports\HVTApp.Modules.Reports.csproj">
       <Project>{2A98E410-78F4-4CE5-8DE6-3ADB44087577}</Project>
       <Name>HVTApp.Modules.Reports</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HVTApp.Modules.SupplyModule\HVTApp.Modules.SupplyModule.csproj">
+      <Project>{C411737D-33AD-4249-8BFB-3478BCB984A1}</Project>
+      <Name>HVTApp.Modules.SupplyModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\HVTApp.Services.ChooseProductService\HVTApp.Services.GetProductService.csproj">
       <Project>{6BAD8F07-90FB-4CE8-8966-10604E1BF4DA}</Project>

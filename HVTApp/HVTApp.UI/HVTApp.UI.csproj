@@ -305,6 +305,7 @@
     <Compile Include="Modules\Sales\ViewModels\Market2ViewModel\Market2ViewModel_Notes.cs" />
     <Compile Include="Modules\Sales\ViewModels\Market2ViewModel\Market2ViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\Market2ViewModel\Market2ViewModel_Commands.cs" />
+    <Compile Include="Modules\Sales\ViewModels\Market2ViewModel\SalesUnitsComparer.cs" />
     <Compile Include="Modules\Sales\ViewModels\OffersViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\OfferViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\Payments\PaymentsPlannedGroup.cs" />
@@ -378,6 +379,18 @@
     </Compile>
     <Compile Include="Modules\Settings\Views\PasswordView.xaml.cs">
       <DependentUpon>PasswordView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\SupplyModule\Tabs\TabDates.xaml.cs">
+      <DependentUpon>TabDates.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\SupplyModule\ViewModels\PickingDatesViewModel.cs" />
+    <Compile Include="Modules\SupplyModule\ViewModels\SupplyPlanUnit.cs" />
+    <Compile Include="Modules\SupplyModule\ViewModels\SupplyPlanViewModel.cs" />
+    <Compile Include="Modules\SupplyModule\Views\SupplyPlanView.xaml.cs">
+      <DependentUpon>SupplyPlanView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\SupplyModule\Views\PickingDatesView.xaml.cs">
+      <DependentUpon>PickingDatesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="PriceCalculations\ViewModel\PriceCalculation2Wrapper.cs" />
     <Compile Include="PriceCalculations\ViewModel\PriceCalculationItem2Wrapper.cs" />
@@ -934,6 +947,18 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\Settings\Views\PasswordView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\SupplyModule\Tabs\TabDates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\SupplyModule\Views\SupplyPlanView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\SupplyModule\Views\PickingDatesView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

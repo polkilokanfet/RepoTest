@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
@@ -47,19 +46,14 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
         public OffersContainer Offers { get; }
         public TendersContainer Tenders { get; }
 
-        public ICommand ExpandCommand { get; }
-        public ICommand CollapseCommand { get; }
-
-        public event Action<bool> ExpandCollapseEvent;
-
         public Market2ViewModel(IUnityContainer container) : base(container)
         {
             _eventAggregator = Container.Resolve<IEventAggregator>();
 
             var salesUnits = GlobalAppProperties.User.RoleCurrent == Role.Admin 
-                ? UnitOfWork.Repository<SalesUnit>().Find(x => true) 
+                ? UnitOfWork.Repository<SalesUnit>().GetAll() 
                 : UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Manager.IsAppCurrentUser());
-            _tenders = UnitOfWork.Repository<Tender>().Find(x => true);
+            _tenders = UnitOfWork.Repository<Tender>().GetAll();
 
             ProjectItems = new ObservableCollection<ProjectItem>(GetProjectItems(salesUnits));
 
@@ -68,8 +62,13 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             {
                 var projectItem = ProjectItems.SingleOrDefault(x => x.ContainsById(salesUnit));
 
-                if(projectItem?.RemoveSalesUnit(salesUnit) == ProjectItemState.HasNoSalesUnit)
+                if (projectItem?.SalesUnits.Count == 1)
+                {
                     ProjectItems.Remove(projectItem);
+                    return;
+                }
+
+                projectItem?.SalesUnits.RemoveById(salesUnit);
             });
 
 
@@ -87,7 +86,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
                 if (targetItems.Any())
                 {
                     //если подходит более, чем в 2 айтема, то это дичь какая-то
-                    if(targetItems.Count > 2) throw new NotImplementedException();
+                    if(targetItems.Count > 2) throw new NotImplementedException("Подходит более, чем в 2 айтема");
 
                     //если подходит сразу в 2 айтема
                     if (targetItems.Count == 2)
@@ -96,16 +95,23 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
                         //то тот айтем, что содержал юнит ранее - лишний
                         ProjectItems.Remove(itemContainsSalesUnit);
                     }
-                    targetItems.First().AddSalesUnit(salesUnit);
+                    else
+                    {
+                        itemContainsSalesUnit?.SalesUnits.RemoveById(salesUnit);
+                    }
+                    targetItems.First().SalesUnits.Add(salesUnit);
                 }
                 else
                 {
                     GetProjectItems(new []{salesUnit}).ForEach(x => ProjectItems.Add(x));
 
-                    if (itemContainsSalesUnit != null && itemContainsSalesUnit.RemoveSalesUnit(salesUnit) == ProjectItemState.HasNoSalesUnit)
+                    if (itemContainsSalesUnit?.SalesUnits.Count == 1)
                     {
                         ProjectItems.Remove(itemContainsSalesUnit);
+                        return;
                     }
+
+                    itemContainsSalesUnit?.SalesUnits.RemoveById(salesUnit);
                 }
             });
 
@@ -219,24 +225,5 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
         }
 
         #endregion
-    }
-
-    public class SalesUnitsComparer : IEqualityComparer<SalesUnit>
-    {
-        public bool Equals(SalesUnit x, SalesUnit y)
-        {
-            if (!Equals(x.RealizationDateCalculated, y.RealizationDateCalculated)) return false;
-            if (!Equals(x.OrderInTakeDate, y.OrderInTakeDate)) return false;
-            if (!Equals(x.Project.Id, y.Project.Id)) return false;
-            if (!Equals(x.IsDone, y.IsDone)) return false;
-            if (!Equals(x.IsLoosen, y.IsLoosen)) return false;
-
-            return true;
-        }
-
-        public int GetHashCode(SalesUnit obj)
-        {
-            return 0;
-        }
     }
 }

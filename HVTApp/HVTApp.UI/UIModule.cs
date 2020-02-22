@@ -6,6 +6,7 @@ using HVTApp.Infrastructure.Prism;
 using HVTApp.UI.Modules.PlanAndEconomy.Views;
 using HVTApp.UI.Modules.Products.Views;
 using HVTApp.UI.Modules.Reports.Views;
+using HVTApp.UI.Modules.SupplyModule.Views;
 using HVTApp.UI.PriceCalculations.View;
 using HVTApp.UI.PriceCalculations.ViewModel;
 using HVTApp.UI.ViewModels;
@@ -37,6 +38,8 @@ namespace HVTApp.UI
             Container.RegisterViewForNavigation<ReferenceView>();
             Container.RegisterViewForNavigation<ProductTypeDesignationView>();
             Container.RegisterViewForNavigation<PaymentsActualView>();
+            Container.RegisterViewForNavigation<PickingDatesView>();
+            Container.RegisterViewForNavigation<SupplyPlanView>();
 
             _dialogService.RegisterShow<ProductStructureViewModel, ProductStructureView>();
             RegisterViews();

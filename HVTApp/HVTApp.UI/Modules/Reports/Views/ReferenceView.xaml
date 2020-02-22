@@ -22,6 +22,7 @@
                         <infg:TextField AlternateBinding="{Binding FacilityOwner}" BindingType="UseAlternateBinding" Label="Владелец Объекта" Width="Auto" />
                         <infg:TextField AlternateBinding="{Binding Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto" />
                         <infg:TextField AlternateBinding="{Binding ProductType}" BindingType="UseAlternateBinding" Label="Тип продукта" Width="Auto" />
+                        <infg:TextField AlternateBinding="{Binding Voltage}" BindingType="UseAlternateBinding" Label="Uн" Width="Auto" />
                         <infg:TextField AlternateBinding="{Binding Product}" BindingType="UseAlternateBinding" Label="Продукт" Width="Auto" />
                         <infg:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Количество" Width="Auto" />
                         <infg:DateTimeField AlternateBinding="{Binding RealizationDate}" BindingType="UseAlternateBinding" Label="Дата реализации" Width="Auto" />
