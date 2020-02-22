@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
-using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Modules.Sales.ViewModels.Containers;
-using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Events;
@@ -22,7 +18,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
         private readonly IEventAggregator _eventAggregator;
         private List<Tender> _tenders; //не заменять на локальную
 
-        public ObservableCollection<ProjectItem> ProjectItems { get; }
+        public ObservableCollection<ProjectItem> ProjectItems { get; } = new ObservableCollection<ProjectItem>();
 
         public ProjectItem SelectedProjectItem
         {
@@ -50,70 +46,8 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
         {
             _eventAggregator = Container.Resolve<IEventAggregator>();
 
-            var salesUnits = GlobalAppProperties.User.RoleCurrent == Role.Admin 
-                ? UnitOfWork.Repository<SalesUnit>().GetAll() 
-                : UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Manager.IsAppCurrentUser());
-            _tenders = UnitOfWork.Repository<Tender>().GetAll();
-
-            ProjectItems = new ObservableCollection<ProjectItem>(GetProjectItems(salesUnits));
-
-            //событие удаления юнита
-            _eventAggregator.GetEvent<AfterRemoveSalesUnitEvent>().Subscribe(salesUnit =>
-            {
-                var projectItem = ProjectItems.SingleOrDefault(x => x.ContainsById(salesUnit));
-
-                if (projectItem?.SalesUnits.Count == 1)
-                {
-                    ProjectItems.Remove(projectItem);
-                    return;
-                }
-
-                projectItem?.SalesUnits.RemoveById(salesUnit);
-            });
-
-
-            _eventAggregator.GetEvent<AfterSaveSalesUnitEvent>().Subscribe(salesUnit =>
-            {
-                //все айтемы проекта
-                var itemsOfProject = ProjectItems.Where(x => x.Project.Id == salesUnit.Project.Id).ToList();
-                
-                //айтем, в котором содержится юнит
-                var itemContainsSalesUnit = itemsOfProject.SingleOrDefault(x => x.ContainsById(salesUnit));
-                
-                //айтемы, в которые подойдет юнит
-                var targetItems = itemsOfProject.Where(x => x.Fits(salesUnit)).ToList();
-
-                if (targetItems.Any())
-                {
-                    //если подходит более, чем в 2 айтема, то это дичь какая-то
-                    if(targetItems.Count > 2) throw new NotImplementedException("Подходит более, чем в 2 айтема");
-
-                    //если подходит сразу в 2 айтема
-                    if (targetItems.Count == 2)
-                    {
-                        targetItems.Remove(itemContainsSalesUnit);
-                        //то тот айтем, что содержал юнит ранее - лишний
-                        ProjectItems.Remove(itemContainsSalesUnit);
-                    }
-                    else
-                    {
-                        itemContainsSalesUnit?.SalesUnits.RemoveById(salesUnit);
-                    }
-                    targetItems.First().SalesUnits.Add(salesUnit);
-                }
-                else
-                {
-                    GetProjectItems(new []{salesUnit}).ForEach(x => ProjectItems.Add(x));
-
-                    if (itemContainsSalesUnit?.SalesUnits.Count == 1)
-                    {
-                        ProjectItems.Remove(itemContainsSalesUnit);
-                        return;
-                    }
-
-                    itemContainsSalesUnit?.SalesUnits.RemoveById(salesUnit);
-                }
-            });
+            Load();
+            InitItemsRefrefresher(_eventAggregator);
 
             Offers = container.Resolve<OffersContainer>();
             Tenders = container.Resolve<TendersContainer>();
@@ -121,6 +55,8 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             #region Commands definition
             
             //команды
+            ReloadCommand = new DelegateCommand(Load);
+
             NewProjectCommand = new DelegateCommand(NewProjectCommand_Execute);
             EditProjectCommand = new DelegateCommand(EditProjectCommand_Execute, () => SelectedProjectItem != null);
             RemoveProjectCommand = new DelegateCommand(
@@ -164,22 +100,6 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
             #endregion
 
-            _eventAggregator.GetEvent<AfterRemoveTenderEvent>().Subscribe(tender =>
-            {
-                _tenders.RemoveById(tender);
-                ProjectItems.ForEach(x => x.Tenders.RemoveIfContainsById(tender));
-            });
-
-            _eventAggregator.GetEvent<AfterSaveTenderEvent>().Subscribe(tender =>
-            {
-                _tenders.ReAddById(tender);
-                foreach (var projectItem in ProjectItems)
-                {
-                    if (projectItem.Project.Id == tender.Project.Id)
-                        projectItem.Tenders.ReAddById(tender);                    
-                }
-            });
-
             //развернуть
             ExpandCommand = new DelegateCommand(() => { ExpandCollapseEvent?.Invoke(true); });
             //свернуть
@@ -188,12 +108,27 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             InitNotes();
         }
 
-        private IEnumerable<ProjectItem> GetProjectItems(IEnumerable<SalesUnit> salesUnits)
+        private void Load()
         {
-            return salesUnits
+            var salesUnits = GlobalAppProperties.User.RoleCurrent == Role.Admin
+                ? UnitOfWork.Repository<SalesUnit>().GetAll()
+                : UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Manager.IsAppCurrentUser());
+
+            var items = salesUnits
                 .GroupBy(x => x, new SalesUnitsComparer())
                 .OrderBy(x => x.Key.OrderInTakeDate)
-                .Select(x => new ProjectItem(x, _tenders.Where(t => x.Key.Project.Id == t.Project.Id), _eventAggregator));
+                .Select(x => new ProjectItem(x))
+                .ToList();
+
+            _tenders = UnitOfWork.Repository<Tender>().GetAll();
+            foreach (var projectItem in items)
+            {
+                var targetTenders = _tenders.Where(x => x.Project.Id == projectItem.Project.Id);
+                projectItem.RefreshTenderInformation(targetTenders);
+            }
+
+            ProjectItems.Clear();
+            ProjectItems.AddRange(items);
         }
 
         #region RaiseCanExecuteChanged

@@ -302,6 +302,7 @@
     <Compile Include="Modules\Sales\ViewModels\Groups\SalesUnitsGroupsViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\Groups\SalesUnitsViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\Groups\UnitsContainer.cs" />
+    <Compile Include="Modules\Sales\ViewModels\Market2ViewModel\Market2ViewModel_Items.cs" />
     <Compile Include="Modules\Sales\ViewModels\Market2ViewModel\Market2ViewModel_Notes.cs" />
     <Compile Include="Modules\Sales\ViewModels\Market2ViewModel\Market2ViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\Market2ViewModel\Market2ViewModel_Commands.cs" />
@@ -320,6 +321,7 @@
     <Compile Include="Modules\Sales\ViewModels\ProjectsViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\ProjectUnitsGroup.cs" />
     <Compile Include="Modules\Sales\ViewModels\ProjectViewModel\ProjectViewModel.cs" />
+    <Compile Include="Modules\Sales\ViewModels\SalesUnitsCollection.cs" />
     <Compile Include="Modules\Sales\ViewModels\SalesUnitsWrappersGroupsContainer.cs" />
     <Compile Include="Modules\Sales\ViewModels\ShippingItemWrapper.cs" />
     <Compile Include="Modules\Sales\ViewModels\ShippingViewModel.cs" />

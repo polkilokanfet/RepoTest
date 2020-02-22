@@ -7,13 +7,15 @@ using HVTApp.UI.Modules.Sales.Views;
 using Microsoft.Practices.Unity;
 using Prism.Regions;
 using HVTApp.Infrastructure.Extansions;
-using PriceCalculationView = HVTApp.UI.PriceCalculations.View.PriceCalculationView;
+using HVTApp.UI.PriceCalculations.View;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels
 {
     public partial class Market2ViewModel
     {
         #region ICommand
+
+        public ICommand ReloadCommand { get; }
 
         public ICommand ExpandCommand { get; } 
         public ICommand CollapseCommand { get; }

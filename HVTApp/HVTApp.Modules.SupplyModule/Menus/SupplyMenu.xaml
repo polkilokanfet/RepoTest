@@ -5,7 +5,10 @@
                     xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
                     xmlns:infPrism="clr-namespace:HVTApp.Infrastructure.Prism;assembly=HVTApp.Infrastructure"
                     x:Class="HVTApp.Modules.SupplyModule.Menus.SupplyMenu"
-                    Header="Снабжение">
+                    Header="Снабжение"
+                    LargeImage="/HVTApp.Modules.SupplyModule;component/Images/supply_32.png"
+                    SmallImage="/HVTApp.Modules.SupplyModule;component/Images/supply_16.png">
+
 
     <igs:XamDataTree Name="_xamDataTree"
                      ItemsSource="{Binding Items}"
