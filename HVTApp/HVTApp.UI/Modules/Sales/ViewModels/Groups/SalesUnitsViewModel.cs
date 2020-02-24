@@ -2,6 +2,8 @@ using System;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
+using HVTApp.Model.POCOs;
+using HVTApp.Model.Services;
 using HVTApp.UI.ViewModels;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
@@ -12,8 +14,8 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
 {
     public class SalesUnitsViewModel : BindableBase, IDialogRequestClose
     {
+        private IPriceService _priceService;
         private int _amount = 1;
-
         public int Amount
         {
             get { return _amount; }
@@ -26,6 +28,8 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
                 OnPropertyChanged();
             }
         }
+
+        public bool AutoCost { get; set; } = false;
 
         public SalesUnitDetailsViewModel ViewModel { get; }
 
@@ -40,6 +44,17 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
                 () => { CloseRequested?.Invoke(this, new DialogRequestCloseEventArgs(true)); }, 
                 () => ViewModel.Item.IsValid);
             ViewModel.Item.PropertyChanged += (sender, args) => ((DelegateCommand)OkCommand).RaiseCanExecuteChanged();
+
+            //автоматическа простановка цены
+            _priceService = container.Resolve<IPriceService>();
+            ViewModel.Item.PropertyChanged += (sender, args) =>
+            {
+                if (AutoCost && args.PropertyName == nameof(SalesUnitWrapper.Product))
+                {
+                    var price = _priceService.GetPrice(ViewModel.Item.Model.Product, DateTime.Today, 60);
+                    ViewModel.Item.Cost = Math.Round(price / 0.6 / 100.0) * 100.0;
+                }
+            };
         }
 
         public event EventHandler<DialogRequestCloseEventArgs> CloseRequested;

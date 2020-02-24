@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using HVTApp.Model;
 using HVTApp.Model.Events;
@@ -143,32 +144,42 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
         private IEnumerable<OfferUnit> CloneOfferUnits(IEnumerable<OfferUnit> offerUnits)
         {
             //копия единиц с оборудованием
-            var units = new List<OfferUnit>();
+            var offerUnitsDictionary = new Dictionary<OfferUnit, OfferUnit>();
             foreach (var offerUnit in offerUnits)
             {
                 //клонируем входящий
-                var offerUnitNew = new OfferUnit();
                 //меняем ссылочные свойства на объекты текущего контекста
-                offerUnitNew.Cost = offerUnit.Cost;
-                offerUnitNew.ProductionTerm = offerUnit.ProductionTerm;
-                offerUnitNew.Product = UnitOfWork.Repository<Product>().GetById(offerUnit.Product.Id);
-                offerUnitNew.PaymentConditionSet = UnitOfWork.Repository<PaymentConditionSet>().GetById(offerUnit.PaymentConditionSet.Id);
-                offerUnitNew.Facility = UnitOfWork.Repository<Facility>().GetById(offerUnit.Facility.Id);
-
-                //копия включенного оборудования
-                offerUnitNew.ProductsIncluded = new List<ProductIncluded>();
-                foreach (var productIncluded in offerUnit.ProductsIncluded)
+                var offerUnitNew = new OfferUnit
                 {
-                    var productIncludedNew = new ProductIncluded
-                    {
-                        Product = UnitOfWork.Repository<Product>().GetById(productIncluded.Product.Id),
-                        Amount = productIncluded.Amount
-                    };
-                    offerUnitNew.ProductsIncluded.Add(productIncludedNew);
-                }
-                units.Add(offerUnitNew);
+                    Cost = offerUnit.Cost,
+                    ProductionTerm = offerUnit.ProductionTerm,
+                    Product = UnitOfWork.Repository<Product>().GetById(offerUnit.Product.Id),
+                    PaymentConditionSet = UnitOfWork.Repository<PaymentConditionSet>().GetById(offerUnit.PaymentConditionSet.Id),
+                    Facility = UnitOfWork.Repository<Facility>().GetById(offerUnit.Facility.Id)
+                };
+
+                offerUnitsDictionary.Add(offerUnit, offerUnitNew);
             }
-            return units;
+            
+            //копия включенного оборудования
+            var productsIncluded = offerUnits.SelectMany(x => x.ProductsIncluded).Distinct().ToList();
+            foreach (var productIncluded in productsIncluded)
+            {
+                var productIncludedNew = new ProductIncluded
+                {
+                    Product = UnitOfWork.Repository<Product>().GetById(productIncluded.Product.Id),
+                    Amount = productIncluded.Amount
+                };
+
+                var targetNewOfferUnits = offerUnitsDictionary
+                    .Where(x => x.Key.ProductsIncluded.Contains(productIncluded))
+                    .Select(x => x.Value)
+                    .ToList();
+
+                targetNewOfferUnits.ForEach(x => x.ProductsIncluded.Add(productIncludedNew));
+            }
+
+            return offerUnitsDictionary.Select(x => x.Value);
         }
     }
 }

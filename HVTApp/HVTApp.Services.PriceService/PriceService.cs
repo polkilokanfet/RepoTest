@@ -188,11 +188,10 @@ namespace HVTApp.Services.PriceService
                 return salesUnit.Price.Value * _kUp;
 
             //по расчетам себестоимости
-            var priceCalculationItem =
-                _priceCalculations
-                    .OrderByDescending(x => x.TaskCloseMoment)
-                    .SelectMany(x => x.PriceCalculationItems)
-                    .FirstOrDefault(x => x.SalesUnits.ContainsById(salesUnit));
+            var priceCalculationItem = _priceCalculations
+                .OrderByDescending(x => x.TaskCloseMoment)
+                .SelectMany(x => x.PriceCalculationItems)
+                .FirstOrDefault(x => x.SalesUnits.ContainsById(salesUnit));
 
             return priceCalculationItem?.StructureCosts.Sum(x => x.Total) * _kUp;
         }
