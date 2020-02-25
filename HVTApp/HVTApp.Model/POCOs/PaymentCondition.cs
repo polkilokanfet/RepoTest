@@ -41,7 +41,7 @@ namespace HVTApp.Model.POCOs
                     pointName = "отгрузки с предприятия";
                     break;
                 case (PaymentConditionPointEnum.Delivery):
-                    pointName = "доставки";
+                    pointName = "поставки";
                     break;
             }
 

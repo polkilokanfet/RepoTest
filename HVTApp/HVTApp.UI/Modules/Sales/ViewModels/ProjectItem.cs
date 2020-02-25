@@ -44,6 +44,8 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             set
             {
                 _project = value;
+                OnPropertyChanged(nameof(this.InWork));
+                OnPropertyChanged(nameof(this.ForReport));
                 OnPropertyChanged();
             }
         }

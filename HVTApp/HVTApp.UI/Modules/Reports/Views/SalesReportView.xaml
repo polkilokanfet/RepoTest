@@ -5,11 +5,11 @@
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure">
 
     <infg:XamDataGrid x:Name="ReportGrid" 
-                        DataSource="{Binding Units}"
-                        SelectedDataItem="{Binding SelectedSalesReportUnit}">
+                      DataSource="{Binding Units}"
+                      SelectedDataItem="{Binding SelectedSalesReportUnit}">
             
         <!--Style="{StaticResource ListViewGrid}"-->
-        <infg:XamDataGrid.FieldLayoutSettings>
+        <!--<infg:XamDataGrid.FieldLayoutSettings>
             <infg:FieldLayoutSettings 
                                         AutoGenerateFields="False"
                                         AutoFitMode="Always"
@@ -26,7 +26,7 @@
             <infg:FieldSettings AllowEdit="False" 
                                 AllowRecordFiltering="True"
                                 Width="Auto"/>
-        </infg:XamDataGrid.FieldSettings>
+        </infg:XamDataGrid.FieldSettings>-->
             
         <infg:XamDataGrid.ContextMenu>
             <ContextMenu>
@@ -89,11 +89,33 @@
                     <infg:NumericField AlternateBinding="{Binding RealizationDateYear}" BindingType="UseAlternateBinding" Label="Год реализации" Width="Auto" AllowResize="True" />
                     <infg:DateTimeField AlternateBinding="{Binding RealizationDateRequared}" BindingType="UseAlternateBinding" Label="Дата реализации требуемая" Width="Auto" AllowResize="True" />
                     <infg:DateTimeField AlternateBinding="{Binding RealizationDateContract}" BindingType="UseAlternateBinding" Label="Дата реализации по контракту" Width="Auto" AllowResize="True" />
-                    <infg:DateTimeField AlternateBinding="{Binding PickingDate}" BindingType="UseAlternateBinding" Label="Дата комплектации" Width="Auto" AllowResize="True" />
                     <infg:TextField AlternateBinding="{Binding PaymentConditionSet}" BindingType="UseAlternateBinding" Label="Условия оплаты" Width="Auto" AllowResize="True" />
+                    <infg:NumericField AlternateBinding="{Binding DaysToStartProduction}" BindingType="UseAlternateBinding" Label="Срок до (начало производства)" Width="Auto" AllowResize="True" />
+                    <infg:NumericField AlternateBinding="{Binding PaymentStartProduction}" BindingType="UseAlternateBinding" Label="Платеж (начало производства)" Width="Auto" AllowResize="True" />
+                    <infg:DateTimeField AlternateBinding="{Binding DatePaymentStartProduction}" BindingType="UseAlternateBinding" Label="Дата (начало производства)" Width="Auto" AllowResize="True" />
+                    <infg:TextField AlternateBinding="{Binding PaymentTypeStartProduction}" BindingType="UseAlternateBinding" Label="Тип (начало производства)" Width="Auto" AllowResize="True" />
+                    <infg:NumericField AlternateBinding="{Binding DaysToEndProduction}" BindingType="UseAlternateBinding" Label="Срок до (окончание производства)" Width="Auto" AllowResize="True" />
+                    <infg:NumericField AlternateBinding="{Binding PaymentEndProduction}" BindingType="UseAlternateBinding" Label="Платеж (окончание производства)" Width="Auto" AllowResize="True" />
+                    <infg:DateTimeField AlternateBinding="{Binding DatePaymentEndProduction}" BindingType="UseAlternateBinding" Label="Дата (окончание производства)" Width="Auto" AllowResize="True" />
+                    <infg:TextField AlternateBinding="{Binding PaymentTypeEndProduction}" BindingType="UseAlternateBinding" Label="Тип (окончание производства)" Width="Auto" AllowResize="True" />
+                    <infg:NumericField AlternateBinding="{Binding DaysToShipping}" BindingType="UseAlternateBinding" Label="Срок до (отгрузка)" Width="Auto" AllowResize="True" />
+                    <infg:NumericField AlternateBinding="{Binding PaymentShipping}" BindingType="UseAlternateBinding" Label="Платежи (отгрузка)" Width="Auto" AllowResize="True" />
+                    <infg:DateTimeField AlternateBinding="{Binding DatePaymentShipping}" BindingType="UseAlternateBinding" Label="Дата (отгрузка)" Width="Auto" AllowResize="True" />
+                    <infg:TextField AlternateBinding="{Binding PaymentTypeShipping}" BindingType="UseAlternateBinding" Label="Тип (отгрузка)" Width="Auto" AllowResize="True" />
+                    <infg:NumericField AlternateBinding="{Binding DaysToDelivery}" BindingType="UseAlternateBinding" Label="Срок до (поставка)" Width="Auto" AllowResize="True" />
+                    <infg:NumericField AlternateBinding="{Binding PaymentDelivery}" BindingType="UseAlternateBinding" Label="Платеж (поставка)" Width="Auto" AllowResize="True" />
+                    <infg:DateTimeField AlternateBinding="{Binding DatePaymentDelivery}" BindingType="UseAlternateBinding" Label="Дата (поставка)" Width="Auto" AllowResize="True" />
+                    <infg:TextField AlternateBinding="{Binding PaymentTypeDelivery}" BindingType="UseAlternateBinding" Label="Тип (поставка)" Width="Auto" AllowResize="True" />
                     <infg:TextField AlternateBinding="{Binding DeliveryType}" BindingType="UseAlternateBinding" Label="Тип доставки" Width="Auto" AllowResize="True" />
                     <infg:TextField AlternateBinding="{Binding DeliveryAddress}" BindingType="UseAlternateBinding" Label="Адрес доставки" Width="Auto" AllowResize="True" />
-                    <infg:TextField AlternateBinding="{Binding PaymentsActual}" BindingType="UseAlternateBinding" Label="Платежи совершённые" Width="Auto" AllowResize="True" />
+                    <infg:DateTimeField AlternateBinding="{Binding PickingDate}" BindingType="UseAlternateBinding" Label="Комплектация" Width="Auto" AllowResize="True" />
+                    <infg:TextField AlternateBinding="{Binding ProductsIncluded}" BindingType="UseAlternateBinding" Label="Включенное оборудование" Width="Auto" AllowResize="True" />
+                    <infg:TextField AlternateBinding="{Binding PaymentsActual}" BindingType="UseAlternateBinding" Label="Оплаты" Width="Auto" AllowResize="True" />
+                    <infg:CheckBoxField AlternateBinding="{Binding RealizationDateIsFake}" BindingType="UseAlternateBinding" Label="RealizationDateIsFake" Width="Auto" AllowResize="True" />
+                    <infg:CheckBoxField AlternateBinding="{Binding PaymentConditionSetIsFake}" BindingType="UseAlternateBinding" Label="PaymentConditionSetIsFake" Width="Auto" AllowResize="True" />
+                    <infg:CheckBoxField AlternateBinding="{Binding OrderInTakeDateIsFake}" BindingType="UseAlternateBinding" Label="OrderInTakeDateIsFake" Width="Auto" AllowResize="True" />
+                    <infg:CheckBoxField AlternateBinding="{Binding CostIsFake}" BindingType="UseAlternateBinding" Label="CostIsFake" Width="Auto" AllowResize="True" />
+
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 

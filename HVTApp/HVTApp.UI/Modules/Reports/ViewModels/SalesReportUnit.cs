@@ -14,6 +14,22 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
         public List<SalesUnit> SalesUnits { get; }
         private readonly List<CountryUnion> _countryUnions;
         private readonly List<Tender> _tenders;
+        private int? _daysToStartProduction;
+        private double? _paymentStartProduction;
+        private DateTime? _datePaymentStartProduction;
+        private string _paymentTypeStartProduction;
+        private int? _daysToEndProduction;
+        private double? _paymentEndProduction;
+        private DateTime? _datePaymentEndProduction;
+        private string _paymentTypeEndProduction;
+        private int? _daysToShipping;
+        private double? _paymentShipping;
+        private DateTime? _datePaymentShipping;
+        private string _paymentTypeShipping;
+        private int? _daysToDelivery;
+        private double? _paymentDelivery;
+        private DateTime? _datePaymentDelivery;
+        private string _paymentTypeDelivery;
 
         [Designation("Заказ"), OrderStatus(-1)]
         public string Order { get; }
@@ -179,6 +195,123 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
         [Designation("Условия оплаты"), OrderStatus(-59)]
         public PaymentConditionSet PaymentConditionSet { get; }
 
+
+        [Designation("Срок до (начало производства)"), OrderStatus(-69)]
+        public int? DaysToStartProduction
+        {
+            get { return _daysToStartProduction; }
+            set { _daysToStartProduction = value; }
+        }
+
+        [Designation("Платеж (начало производства)"), OrderStatus(-70)]
+        public double? PaymentStartProduction
+        {
+            get { return _paymentStartProduction; }
+            set { _paymentStartProduction = value; }
+        }
+
+        [Designation("Дата (начало производства)"), OrderStatus(-71)]
+        public DateTime? DatePaymentStartProduction
+        {
+            get { return _datePaymentStartProduction; }
+            set { _datePaymentStartProduction = value; }
+        }
+
+        [Designation("Тип (начало производства)"), OrderStatus(-72)]
+        public string PaymentTypeStartProduction
+        {
+            get { return _paymentTypeStartProduction; }
+            set { _paymentTypeStartProduction = value; }
+        }
+
+
+        [Designation("Срок до (окончание производства)"), OrderStatus(-75)]
+        public int? DaysToEndProduction
+        {
+            get { return _daysToEndProduction; }
+            set { _daysToEndProduction = value; }
+        }
+
+        [Designation("Платеж (окончание производства)"), OrderStatus(-76)]
+        public double? PaymentEndProduction
+        {
+            get { return _paymentEndProduction; }
+            set { _paymentEndProduction = value; }
+        }
+
+        [Designation("Дата (окончание производства)"), OrderStatus(-77)]
+        public DateTime? DatePaymentEndProduction
+        {
+            get { return _datePaymentEndProduction; }
+            set { _datePaymentEndProduction = value; }
+        }
+
+        [Designation("Тип (окончание производства)"), OrderStatus(-78)]
+        public string PaymentTypeEndProduction
+        {
+            get { return _paymentTypeEndProduction; }
+            set { _paymentTypeEndProduction = value; }
+        }
+
+
+        [Designation("Срок до (отгрузка)"), OrderStatus(-81)]
+        public int? DaysToShipping
+        {
+            get { return _daysToShipping; }
+            set { _daysToShipping = value; }
+        }
+
+        [Designation("Платежи (отгрузка)"), OrderStatus(-82)]
+        public double? PaymentShipping
+        {
+            get { return _paymentShipping; }
+            set { _paymentShipping = value; }
+        }
+
+        [Designation("Дата (отгрузка)"), OrderStatus(-83)]
+        public DateTime? DatePaymentShipping
+        {
+            get { return _datePaymentShipping; }
+            set { _datePaymentShipping = value; }
+        }
+
+        [Designation("Тип (отгрузка)"), OrderStatus(-84)]
+        public string PaymentTypeShipping
+        {
+            get { return _paymentTypeShipping; }
+            set { _paymentTypeShipping = value; }
+        }
+
+
+        [Designation("Срок до (поставка)"), OrderStatus(-88)]
+        public int? DaysToDelivery
+        {
+            get { return _daysToDelivery; }
+            set { _daysToDelivery = value; }
+        }
+
+        [Designation("Платеж (поставка)"), OrderStatus(-89)]
+        public double? PaymentDelivery
+        {
+            get { return _paymentDelivery; }
+            set { _paymentDelivery = value; }
+        }
+
+        [Designation("Дата (поставка)"), OrderStatus(-90)]
+        public DateTime? DatePaymentDelivery
+        {
+            get { return _datePaymentDelivery; }
+            set { _datePaymentDelivery = value; }
+        }
+
+        [Designation("Тип (поставка)"), OrderStatus(-91)]
+        public string PaymentTypeDelivery
+        {
+            get { return _paymentTypeDelivery; }
+            set { _paymentTypeDelivery = value; }
+        }
+
+
         [Designation("Тип доставки"), OrderStatus(-137)]
         public string DeliveryType { get; }
 
@@ -188,13 +321,22 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
         [Designation("Комплектация"), OrderStatus(-139)]
         public DateTime? PickingDate { get; }
 
-        [Designation("Оплаты"), OrderStatus(-140)]
+        [Designation("Включенное оборудование"), OrderStatus(-140)]
+        public string ProductsIncluded { get; }
+
+        [Designation("Оплаты"), OrderStatus(-141)]
         public string PaymentsActual { get; }
 
-        //[Designation("Напряжение")]
-        //public string Voltage { get; }
-
         #region Fake
+
+        [OrderStatus(-500)]
+        public bool CostIsFake { get; }
+        [OrderStatus(-500)]
+        public bool RealizationDateIsFake { get; }
+        [OrderStatus(-500)]
+        public bool OrderInTakeDateIsFake { get; }
+        [OrderStatus(-500)]
+        public bool PaymentConditionSetIsFake { get; }
 
         #endregion
 
@@ -211,10 +353,7 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
             _countryUnions = countryUnions.ToList();
 
             Order = salesUnit.Order?.ToString();
-            var positions = SalesUnits.Select(x => x.OrderPosition).ToList();
-            OrderPositions = positions.All(x => x != null) 
-                ? positions.OrderBy(x => x).ConvertToString() 
-                : positions.ConvertToString();
+            OrderPositions = GetOrderPositions(SalesUnits.Select(x => x.OrderPosition));
 
             var owners = new List<Company> {salesUnit.Facility.OwnerCompany};
             owners.AddRange(salesUnit.Facility.OwnerCompany.ParentCompanies().ToList());
@@ -275,14 +414,81 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
             RealizationDateRequared = salesUnit.DeliveryDateExpected;
 
             PaymentConditionSet = salesUnit.FakeData?.PaymentConditionSet ?? salesUnit.PaymentConditionSet;
+            SetPaymentsConditions(salesUnit, PaymentConditionPointEnum.ProductionStart, ref _daysToStartProduction, ref _paymentStartProduction, ref _datePaymentStartProduction, ref _paymentTypeStartProduction);
+            SetPaymentsConditions(salesUnit, PaymentConditionPointEnum.ProductionEnd, ref _daysToEndProduction, ref _paymentEndProduction, ref _datePaymentEndProduction, ref _paymentTypeEndProduction);
+            SetPaymentsConditions(salesUnit, PaymentConditionPointEnum.Shipment, ref _daysToShipping, ref _paymentShipping, ref _datePaymentShipping, ref _paymentTypeShipping);
+            SetPaymentsConditions(salesUnit, PaymentConditionPointEnum.Delivery, ref _daysToDelivery, ref _paymentDelivery, ref _datePaymentDelivery, ref _paymentTypeDelivery);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
 
             DeliveryType = -1 * CostDelivery > 0  ? "Доставка" : "Самовывоз";
 
-            DeliveryAddress = salesUnit.AddressDelivery?.ToString() ?? salesUnit.Facility.Address?.ToString() ?? string.Empty;
+            DeliveryAddress = salesUnit.AddressDelivery?.ToString() ?? salesUnit.Facility.Address?.ToString() ?? $"{Country}, {Region}, {Facility}";
 
             PickingDate = salesUnit.PickingDate;
 
+            ProductsIncluded = salesUnit.ProductsIncluded.ConvertToString();
+
             PaymentsActual = salesUnits.SelectMany(x => x.PaymentsActual).ConvertToString();
+
+            if (salesUnit.FakeData != null)
+            {
+                CostIsFake = salesUnit.FakeData.Cost.HasValue;
+                RealizationDateIsFake = salesUnit.FakeData.RealizationDate.HasValue;
+                OrderInTakeDateIsFake = salesUnit.FakeData.OrderInTakeDate.HasValue;
+                PaymentConditionSetIsFake = salesUnit.FakeData.PaymentConditionSet != null;
+            }
+        }
+
+        private void SetPaymentsConditions(
+            SalesUnit salesUnit,
+            PaymentConditionPointEnum point, 
+            ref int? daysTo, 
+            ref double? payment,
+            ref DateTime? date,
+            ref string paymentType)
+        {
+            var conditions = salesUnit.PaymentConditionSet.PaymentConditions
+                .Where(x => x.PaymentConditionPoint.PaymentConditionPointEnum == point)
+                .OrderBy(x => x.DaysToPoint)
+                .ToList();
+
+            if (conditions.Any())
+            {
+                daysTo = conditions.First().DaysToPoint;
+                payment = SumWithVat * conditions.Sum(x => x.Part);
+                date = salesUnit.GetPaymentDate(conditions.First());
+
+                var realization = salesUnit.RealizationDateCalculated;
+                if (date <= realization
+                    && date.Value.Year == realization.Year
+                    && date.Value.Month == realization.Month)
+                {
+                    paymentType = "ТП";
+                }
+                else
+                {
+                    paymentType = date < realization ? "АВ" : "ДЗ";
+                }
+            }            
+        }
+
+        private string GetOrderPositions(IEnumerable<string> positionsEnumerable)
+        {
+            var positions = new List<int>();
+            foreach (var position in positionsEnumerable)
+            {
+                int i;
+                var result = int.TryParse(position, out i);
+                if(result)
+                    positions.Add(i);
+            }
+
+            positions.Sort();
+
+            if (positions.Count > 1 && positions.Count == (positions.Last() - positions.First() + 1))
+                return $"{positions.First()}-{positions.Last()}";
+
+            return positions.Select(x => x.ToString()).ConvertToString();
         }
 
         private string GetProductCategory(Product product)
@@ -411,38 +617,46 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
             if (salesUnit.RealizationDateCalculated < DateTime.Today)
             {
                 StatusCategory = "1-3";
-                return "0 - Продукт реализован";
+                return "0";
+                //return "0 - Продукт реализован";
             }
 
             if (salesUnit.StartProductionConditionsDoneDate.HasValue &&
                 salesUnit.StartProductionConditionsDoneDate.Value <= DateTime.Today)
             {
                 StatusCategory = "1-3";
-                return "1 - Условие на запуск производства исполнено";
+                return "1";
+                //return "1 - Условие на запуск производства исполнено";
             }
 
             if (salesUnit.Specification != null)
             {
                 StatusCategory = "1-3";
                 return salesUnit.Specification.Date <= DateTime.Today
-                    ? "2 - Контракт подписан"
-                    : "3 - Контракт на оформлении";
+                    ? "2"
+                    : "3";
+                //return salesUnit.Specification.Date <= DateTime.Today
+                //    ? "2 - Контракт подписан"
+                //    : "3 - Контракт на оформлении";
             }
 
             if (salesUnit.IsLoosen)
             {
                 StatusCategory = "15";
-                return "15 - Проиграно другому производителю";
+                return "15";
+                //return "15 - Проиграно другому производителю";
             }
 
             if (salesUnit.Producer != null && salesUnit.Producer.Id == GlobalAppProperties.Actual.OurCompany.Id)
             {
                 StatusCategory = "4-7";
-                return "4 - Большая вероятность реализации";
+                return "4";
+                //return "4 - Большая вероятность реализации";
             }
 
             StatusCategory = "4-7";
-            return "7 - В проработке";
+            return "7";
+            //return "7 - В проработке";
         }
 
         //private Company GetFacilityOwnerHead()
