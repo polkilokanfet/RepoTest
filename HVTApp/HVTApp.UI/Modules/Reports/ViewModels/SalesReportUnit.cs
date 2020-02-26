@@ -12,6 +12,7 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
     public class SalesReportUnit
     {
         public List<SalesUnit> SalesUnits { get; }
+
         private readonly List<CountryUnion> _countryUnions;
         private readonly List<Tender> _tenders;
         private int? _daysToStartProduction;
@@ -384,11 +385,13 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
             Status = GetStatus();
             Vat = salesUnit.Vat / 100.0 + 1.0;
             Cost = salesUnit.FakeData?.Cost ?? salesUnit.Cost;
-            CostDelivery = -1.0 * salesUnit.CostDelivery ?? 0.0;
+            var costDelivery = SalesUnits.Select(x => x.CostDelivery).Where(x => x.HasValue).Sum(x => x.Value);
+            CostDelivery = -1.0 * costDelivery;
 
             var priceStructures = GlobalAppProperties.PriceService.GetPriceStructures(salesUnit, salesUnit.OrderInTakeDate, GlobalAppProperties.Actual.ActualPriceTerm);
             Price = salesUnit.Price ?? GlobalAppProperties.PriceService.GetPrice(salesUnit) ?? priceStructures.TotalPriceFixedCostLess;
-            FixedCost = -1.0 * priceStructures.TotalFixedCost;
+            var totalFixedCost = SalesUnits.Sum(unit => GlobalAppProperties.PriceService.GetPriceStructures(unit, unit.OrderInTakeDate, GlobalAppProperties.Actual.ActualPriceTerm).TotalFixedCost);
+            FixedCost = -1.0 * totalFixedCost;
             //FixedCostAndDelivery = CostDelivery.HasValue ? CostDelivery.Value + FixedCost : FixedCost;
 
             var manager = salesUnit.Project.Manager.Employee;
@@ -426,7 +429,11 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
 
             PickingDate = salesUnit.PickingDate;
 
-            ProductsIncluded = salesUnit.ProductsIncluded.ConvertToString();
+            ProductsIncluded = SalesUnits
+                .SelectMany(x => x.ProductsIncluded)
+                .Distinct()
+                .OrderBy(x => x.Product.Designation)
+                .ConvertToString();
 
             PaymentsActual = salesUnits.SelectMany(x => x.PaymentsActual).ConvertToString();
 
@@ -590,25 +597,26 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
         private string GetSegment()
         {
             //актуальный список сфер деятельности
-            var actEnums = new List<ActivityFieldEnum>
+            var actualActivities = new List<ActivityFieldEnum>
             {
                 ActivityFieldEnum.ElectricityDistribution,
                 ActivityFieldEnum.ElectricityTransmission,
                 ActivityFieldEnum.ElectricityGeneration,
                 ActivityFieldEnum.Fuel,
-                ActivityFieldEnum.RailWay
+                ActivityFieldEnum.RailWay,
+                ActivityFieldEnum.IndustrialEnterprise
             };
 
             //сегмент по владельцам объекта
             var owner = SalesUnits.First().Facility.OwnerCompany;
             do
             {
-                var activityField = owner.ActivityFilds.FirstOrDefault(x => actEnums.Contains(x.ActivityFieldEnum));
+                var activityField = owner.ActivityFilds.FirstOrDefault(x => actualActivities.Contains(x.ActivityFieldEnum));
                 if (activityField != null) return activityField.Name;
                 owner = owner.ParentCompany;
             } while (owner != null);
 
-            return string.Empty;
+            return "Промышленное предприятие";
         }
 
         private string GetStatus()
@@ -616,7 +624,7 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
             var salesUnit = SalesUnits.First();
             if (salesUnit.RealizationDateCalculated < DateTime.Today)
             {
-                StatusCategory = "1-3";
+                StatusCategory = "0";
                 return "0";
                 //return "0 - Продукт реализован";
             }

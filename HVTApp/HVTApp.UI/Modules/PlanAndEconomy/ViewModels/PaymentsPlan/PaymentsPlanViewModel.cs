@@ -43,6 +43,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
             })
             .OrderBy(x => x.Key.Date)
             .Select(x => new PaymentsPlanGroup(x))
+            .Where(x => x.Sum > 0.00001)
             .ToList();
 
             Payments.Clear();

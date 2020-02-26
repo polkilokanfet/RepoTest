@@ -10,6 +10,7 @@
         Fuel,
         ProducerOfHighVoltageEquipment,
         Builder,
-        Supplier
+        Supplier,
+        ProjectMaker
     }
 }

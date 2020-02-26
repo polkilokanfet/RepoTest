@@ -102,7 +102,8 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
                 OrderId = x.Order?.Id,
                 ProjectId = x.Model.Project.Id,
                 SpecificationId = x.Model.Specification?.Id,
-                x.Model.EndProductionPlanDate
+                x.Model.EndProductionPlanDate,
+                x.Model.Cost
             }).OrderBy(x => x.Key.EndProductionPlanDate);
             GroupsInOrder.AddRange(groupsInOrder.Select(x => new SalesUnitOrderGroup(x)));
 
@@ -115,7 +116,8 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
                 OrderId = x.Order?.Id,
                 ProjectId = x.Model.Project.Id,
                 SpecificationId = x.Model.Specification?.Id,
-                x.Model.EndProductionDateCalculated
+                x.Model.EndProductionDateCalculated,
+                x.Model.Cost
             }).OrderBy(x => x.Key.EndProductionDateCalculated);
             GroupsPotential.AddRange(groupsToProduct.Select(x => new SalesUnitOrderGroup(x)));
 

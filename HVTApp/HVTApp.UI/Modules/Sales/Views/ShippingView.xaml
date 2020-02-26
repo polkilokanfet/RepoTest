@@ -62,7 +62,7 @@
                         <infg:TextField Name="Specification" Label="Сп.№" Width="Auto"/>
                         <infg:TextField Name="Contract" Label="Договор" Width="Auto"/>
                         <!--<infg:DateTimeField AlternateBinding="{Binding Date, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Отгрузка" Width="Auto" AllowEdit="{Binding IsShipped, Converter={StaticResource ReverseBoolConverter}, UpdateSourceTrigger=PropertyChanged}"/>-->
-                        <infg:DateTimeField AlternateBinding="{Binding Date, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Отгрузка" Width="Auto" AllowEdit="True"/>
+                        <infg:DateTimeField Name="Date" Label="Отгрузка" Width="Auto" AllowEdit="True"/>
                         <infg:DateTimeField Name="ProductionDate" Label="Производство" Width="Auto"/>
                         <infg:CheckBoxField Name="IsShipped" Label="Отгружено" Width="Auto"/>
                         <infg:Field Name="Groups" IsExpandable="True"/>

@@ -46,6 +46,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
                       _salesUnits.IsChanged);
 
             ReloadCommand = new DelegateCommand(Load);
+            Load();
         }
 
         public void Load()
@@ -53,7 +54,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
             _unitOfWork = Container.Resolve<IUnitOfWork>();
 
             var salesUnits = _unitOfWork.Repository<SalesUnit>().GetAll()
-                .Where(x => !x.IsLoosen && x.OrderInTakeDate <= DateTime.Today)
+                .Where(x => !x.IsLoosen && (x.Order != null || x.OrderInTakeDate <= DateTime.Today))
                 .OrderBy(salesUnit => salesUnit.EndProductionDateCalculated)
                 .Select(salesUnit => new SalesUnitDates(salesUnit))
                 .ToList();

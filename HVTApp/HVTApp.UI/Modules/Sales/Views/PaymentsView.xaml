@@ -26,6 +26,9 @@
                     <infg:NumericField Name="Sum" Label="Сумма" Width="Auto"/>
                     <infg:TextField Name="Condition" Label="Условие" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
                     <infg:CheckBoxField Name="WillSave" Label="Custom" Width="Auto"/>
+                    <infg:TextField AlternateBinding="{Binding SalesUnit.Model.Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto" Converter="{StaticResource ObjectToStringConverter}"/>
+                    <infg:TextField AlternateBinding="{Binding SalesUnit.Model.Specification.Contract}" BindingType="UseAlternateBinding" Label="Контракт" Width="Auto" Converter="{StaticResource ObjectToStringConverter}"/>
+                    <infg:TextField AlternateBinding="{Binding SalesUnit.Model.Specification}" BindingType="UseAlternateBinding" Label="Сп." Width="Auto" Converter="{StaticResource ObjectToStringConverter}"/>
                     <infg:NumericField Name="Year" Label="Год" Width="Auto" AllowResize="False"/>
                     <infg:TextField Name="Month" Label="Месяц" Width="Auto" AllowResize="False"/>
                     <infg:NumericField Name="Week" Label="Неделя" Width="Auto" AllowResize="False"/>

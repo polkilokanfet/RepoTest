@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
@@ -9,12 +8,10 @@ using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Groups;
-using HVTApp.UI.Modules.PlanAndEconomy.ViewModels;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
-using PaymentsGroup = HVTApp.UI.Groups.PaymentsGroup;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels
 {
@@ -130,7 +127,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
                 Date = x.PaymentPlanned.Date,
                 ConditionId = x.PaymentPlanned.Condition.Id,
                 WillSave = x.IsInPlanPayments
-            });
+            }).Where(x => x.Sum(xx => xx.Sum) > 0.00001);
 
             PaymentsGroups.ForEach(x => x.DateChanged -= OnGroupDateChanged);
             PaymentsGroups.ForEach(x => x.RemoveSubscribes());

@@ -154,7 +154,7 @@ namespace HVTApp.Model.POCOs
         public bool IsLoosen => Producer != null && Producer.Id != GlobalAppProperties.Actual.OurCompany.Id;
 
         [NotMapped, Designation("Выиграно")]
-        public bool IsWon => Producer != null && Producer.Id == GlobalAppProperties.Actual.OurCompany.Id && OrderInTakeDate < DateTime.Today;
+        public bool IsWon => Producer != null && Producer.Id == GlobalAppProperties.Actual.OurCompany.Id && OrderInTakeDate <= DateTime.Today;
 
         [NotMapped, Designation("Исполнено")]
         public bool IsDone => RealizationDateCalculated < DateTime.Today && ShipmentDateCalculated < DateTime.Today;
@@ -177,7 +177,7 @@ namespace HVTApp.Model.POCOs
 
         #region Суммы
         [Designation("Оплачено?"), NotMapped]
-        public bool IsPaid => Math.Abs(SumNotPaid) < 0.0000001;
+        public bool IsPaid => Math.Abs(SumNotPaid) < 0.00001;
 
         /// <summary>
         /// Оплаченная сумма
@@ -228,7 +228,22 @@ namespace HVTApp.Model.POCOs
         #region Даты
 
         [Designation("ОИТ"), OrderStatus(990), NotMapped]
-        public DateTime OrderInTakeDate => StartProductionDate ?? StartProductionDateCalculated;
+        public DateTime OrderInTakeDate
+        {
+            get
+            {
+                //первый платеж по заказу
+                DateTime? dateByPayments = null;
+                if (PaymentsActual.Any(x => x.Sum > 0))
+                    dateByPayments = PaymentsActual.Select(x => x.Date).Min();
+
+                var startProductionDateCalculated = StartProductionDateCalculated;
+
+                return dateByPayments.HasValue && dateByPayments.Value < startProductionDateCalculated
+                    ? dateByPayments.Value
+                    : startProductionDateCalculated;
+            }
+        }
 
         [Designation("Год ОИТ"), OrderStatus(985), NotMapped]
         public int OrderInTakeYear => OrderInTakeDate.Year;
@@ -243,11 +258,12 @@ namespace HVTApp.Model.POCOs
         /// <returns></returns>
         private DateTime? AchiveSumDate(double sumToAchive)
         {
+            var accuracy = 0.001;
             double sum = 0;
             foreach (var payment in PaymentsActual.OrderBy(x => x.Date))
             {
                 sum += payment.Sum;
-                if (sumToAchive <= sum) return payment.Date;
+                if (sumToAchive - sum <= accuracy) return payment.Date;
             }
 
             var dic = PaymentConditionsDictionary;
@@ -260,7 +276,7 @@ namespace HVTApp.Model.POCOs
                 }
 
                 sum += payment.Part * payment.Condition.Part * Cost;
-                if (sumToAchive <= sum) return payment.Date;
+                if (sumToAchive - sum <= accuracy) return payment.Date;
 
                 dic[payment.Condition] += payment.Part;
             }
