@@ -59,8 +59,8 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
         [Designation("РФ/СНГ"), OrderStatus(-8)]
         public string RfSng { get; }
 
-        [Designation("Регион"), OrderStatus(-9)]
-        public string Region { get; }
+        [Designation("Федеральный округ"), OrderStatus(-9)]
+        public string District { get; }
 
         [Designation("Сегмент"), OrderStatus(-10)]
         public string Segment { get; }
@@ -376,7 +376,7 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
                     RfSng = "СНГ";
                 }
             }
-            Region = salesUnit.Facility.GetRegion()?.Name;
+            District = salesUnit.Facility.GetRegion()?.District.Name;
             Segment = GetSegment();
             ProductType = salesUnit.Product.ProductType.Name;
             Designation = salesUnit.Product.Designation;
@@ -425,7 +425,7 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
 
             DeliveryType = -1 * CostDelivery > 0  ? "Доставка" : "Самовывоз";
 
-            DeliveryAddress = salesUnit.AddressDelivery?.ToString() ?? salesUnit.Facility.Address?.ToString() ?? $"{Country}, {Region}, {Facility}";
+            DeliveryAddress = salesUnit.AddressDelivery?.ToString() ?? salesUnit.Facility.Address?.ToString() ?? $"{Country}, {District}, {Facility}";
 
             PickingDate = salesUnit.PickingDate;
 

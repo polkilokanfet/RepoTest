@@ -42,7 +42,7 @@ namespace HVTApp.UI.Groups
 
         public int Year => Date.Year;
         public string Month => Date.MonthName();
-        public int Week => Date.WeekNumber();
+        public string Week => Date.WeekNumberString();
 
         public DateTime Date
         {

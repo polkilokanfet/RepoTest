@@ -17,7 +17,7 @@ namespace HVTApp.UI.Modules.SupplyModule.ViewModels
         public DateTime SupplyDate { get; }
         public int SupplyYear => SupplyDate.Year;
         public string SupplyMonth => SupplyDate.MonthName();
-        public int SupplyWeek => SupplyDate.WeekNumber();
+        public string SupplyWeek => SupplyDate.WeekNumberString();
 
         public SupplyPlanUnit(IEnumerable<SalesUnit> salesUnits)
         {

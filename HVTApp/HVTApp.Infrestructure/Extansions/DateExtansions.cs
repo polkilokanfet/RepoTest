@@ -74,5 +74,22 @@ namespace HVTApp.Infrastructure.Extansions
                 return week;
             return week + 1;
         }
+
+        public static string WeekNumberString(this DateTime date)
+        {
+            var firstDayOfWeek = date;
+            while (firstDayOfWeek.DayOfWeek != DayOfWeek.Monday && firstDayOfWeek.AddDays(-1).Year == date.Year)
+            {
+                firstDayOfWeek = firstDayOfWeek.AddDays(-1);
+            }
+
+            var lastDayOfWeek = date;
+            while (lastDayOfWeek.DayOfWeek != DayOfWeek.Sunday && lastDayOfWeek.AddDays(1).Year == date.Year)
+            {
+                lastDayOfWeek = lastDayOfWeek.AddDays(1);
+            }
+
+            return $"{date.WeekNumber():D2} нед. (с {firstDayOfWeek.ToShortDateString()} по {lastDayOfWeek.ToShortDateString()})";
+        }
     }
 }

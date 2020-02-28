@@ -41,6 +41,9 @@ namespace HVTApp.Model.POCOs
         [Designation("Чертеж"), MaxLength(25)]
         public string Design { get; set; }
 
+        [Designation("Новый"), NotMapped]
+        public bool IsNew => Parameters.ContainsById(GlobalAppProperties.Actual.NewProductParameter);
+
         [Designation("Услуга"), NotMapped]
         public bool IsService => Parameters.ContainsById(GlobalAppProperties.Actual.ServiceParameter);
 

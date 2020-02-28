@@ -44,7 +44,7 @@ namespace HVTApp.Services.PrintService
             var offerUnitsGroupsByFacilities = offerUnits
                 .GroupBy(x => x, new OfferUnitsGroupsComparer())
                 .Select(x => new OfferUnitsGroup(x))
-                .OrderByDescending(x => x.Total)
+                .OrderByDescending(x => x.Cost)
                 .GroupBy(x => x.Facility.Model)
                 .ToList();
 

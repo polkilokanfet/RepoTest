@@ -17,6 +17,16 @@ namespace HVTApp.UI.Modules.Sales.Views
             this.DataContext = viewModel;
             viewModel.SaveGridCustomisationEvent += SaveGridCustomisations;
             LoadGridCustomisations();
+
+            viewModel.ExpandCollapseEvent += expend =>
+            {
+                var dg = this.PaymentsGrid; //(XamDataGrid)sender;
+                foreach (var o in dg.DataSource)
+                {
+                    dg.GetRecordFromDataItem(o, recursive: false).IsExpanded = expend;
+                }
+            };
+
         }
 
         string fileName = "paymentsPlannedSalesCustomisation.xml";

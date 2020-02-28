@@ -45,7 +45,7 @@
                     <infg:TextField AlternateBinding="{Binding Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto" AllowResize="True" />
                     <infg:TextField AlternateBinding="{Binding IsExport}" BindingType="UseAlternateBinding" Label="РФ/экспорт" Width="Auto" AllowResize="True" />
                     <infg:TextField AlternateBinding="{Binding RfSng}" BindingType="UseAlternateBinding" Label="РФ/СНГ" Width="Auto" AllowResize="True" />
-                    <infg:TextField AlternateBinding="{Binding Region}" BindingType="UseAlternateBinding" Label="Регион" Width="Auto" AllowResize="True" />
+                    <infg:TextField AlternateBinding="{Binding District}" BindingType="UseAlternateBinding" Label="Федеральный округ" Width="Auto" AllowResize="True" />
                     <infg:TextField AlternateBinding="{Binding Segment}" BindingType="UseAlternateBinding" Label="Сегмент" Width="Auto" AllowResize="True" />
                     <infg:TextField AlternateBinding="{Binding Kat}" BindingType="UseAlternateBinding" Label="Категория производства" Width="Auto" AllowResize="True" />
                     <infg:TextField AlternateBinding="{Binding ProductType}" BindingType="UseAlternateBinding" Label="Тип продукта" Width="Auto" AllowResize="True" />

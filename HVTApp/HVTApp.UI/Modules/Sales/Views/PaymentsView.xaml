@@ -31,7 +31,7 @@
                     <infg:TextField AlternateBinding="{Binding SalesUnit.Model.Specification}" BindingType="UseAlternateBinding" Label="Сп." Width="Auto" Converter="{StaticResource ObjectToStringConverter}"/>
                     <infg:NumericField Name="Year" Label="Год" Width="Auto" AllowResize="False"/>
                     <infg:TextField Name="Month" Label="Месяц" Width="Auto" AllowResize="False"/>
-                    <infg:NumericField Name="Week" Label="Неделя" Width="Auto" AllowResize="False"/>
+                    <infg:TextField Name="Week" Label="Неделя" Width="Auto" AllowResize="False"/>
                     <infg:Field Name="Groups" IsExpandable="True"/>
 				</infg:FieldLayout.Fields>
 			</infg:FieldLayout>

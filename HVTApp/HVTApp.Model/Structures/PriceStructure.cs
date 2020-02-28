@@ -49,10 +49,18 @@ namespace HVTApp.Model.Structures
         /// <summary>
         /// Фиксированная цена на блок (например, шеф-монтаж)
         /// </summary>
-        public SumOnDate FixedCost => 
-            Product.ProductBlock.FixedCosts.Any(x => x.Date <= TargetPriceDate)
-                ? Product.ProductBlock.FixedCosts.Where(x => x.Date <= TargetPriceDate).OrderBy(x => x.Date).Last()
-                : null;
+        public SumOnDate FixedCost
+        {
+            get
+            {
+                if (!Product.ProductBlock.FixedCosts.Any()) return null;
+
+                var costsBefore = Product.ProductBlock.FixedCosts.Where(x => x.Date <= TargetPriceDate).ToList();
+                return costsBefore.Any() 
+                    ? costsBefore.OrderBy(x => x.Date).Last() 
+                    : Product.ProductBlock.FixedCosts.OrderBy(x => x.Date).First();
+            }
+        }
 
         public bool IsFixedCost => FixedCost != null;
 

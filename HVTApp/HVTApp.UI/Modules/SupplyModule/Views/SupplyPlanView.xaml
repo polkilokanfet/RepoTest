@@ -27,7 +27,7 @@
                     <infg:DateTimeField AlternateBinding="{Binding SupplyDate}" BindingType="UseAlternateBinding" Label="Комплектация" Width="Auto" AllowResize="False"/>
                     <infg:NumericField Name="SupplyYear" Label="Год" Width="Auto" AllowResize="False"/>
                     <infg:TemplateField AlternateBinding="{Binding SupplyMonth}" BindingType="UseAlternateBinding" Label="Месяц" Width="Auto" AllowResize="False"/>
-                    <infg:NumericField Name="SupplyWeek" Label="Неделя" Width="Auto" AllowResize="False"/>
+                    <infg:TextField Name="SupplyWeek" Label="Неделя" Width="Auto" AllowResize="False"/>
 
                 </infg:FieldLayout.Fields>
 			</infg:FieldLayout>

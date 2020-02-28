@@ -38,9 +38,8 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:TextField Name="PaymentConditions" Label="Список условий" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
-
-					</infg:FieldLayout.Fields>
+                        <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding}" Label="Список условий" Width="Auto" AllowResize="True"/>
+                    </infg:FieldLayout.Fields>
 				</infg:FieldLayout>
 
 			</infg:XamDataGrid.FieldLayouts>
