@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
@@ -88,6 +89,9 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
             StructureCostsCommand = new DelegateCommand(StructureCostsCommand_Execute, () => SelectedProjectItem != null);
 
+            SelectProjectsFolderCommand = new DelegateCommand(SelectProjectsFolderCommand_Execute);
+            OpenFolderCommand = new DelegateCommand(OpenFolderCommand_Execute, () => SelectedProjectItem != null);
+
             SaveGridCustomisationsCommand = new DelegateCommand(() => { SaveGridCustomisationsEvent?.Invoke(); });
 
             #endregion
@@ -139,6 +143,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             ((DelegateCommand)EditProjectCommand).RaiseCanExecuteChanged();
             ((DelegateCommand)NewSpecificationCommand).RaiseCanExecuteChanged();
             ((DelegateCommand)StructureCostsCommand).RaiseCanExecuteChanged();
+            ((DelegateCommand)OpenFolderCommand).RaiseCanExecuteChanged();
             OfferRaiseCanExecuteChanged();
             TenderRaiseCanExecuteChanged();
         }

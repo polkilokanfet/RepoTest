@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
+using System.IO;
+using System.Windows.Forms;
 using System.Windows.Input;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Services;
@@ -14,6 +17,9 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
     public partial class Market2ViewModel
     {
         #region ICommand
+
+        public ICommand SelectProjectsFolderCommand { get; }
+        public ICommand OpenFolderCommand { get; }
 
         public ICommand ReloadCommand { get; }
 
@@ -121,5 +127,31 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
         }
 
         #endregion
+
+        private void OpenFolderCommand_Execute()
+        {
+            //путь к папке проекта
+            var projectsFolder = string.IsNullOrEmpty(Properties.Settings.Default.ProjectsFolderPath)
+                ? Environment.SpecialFolder.Personal + "HVTApp"
+                : Properties.Settings.Default.ProjectsFolderPath;
+            var path = projectsFolder + $"\\{SelectedProjectItem.Project.Id.ToString().Replace("-", string.Empty)}";
+
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+
+            Process.Start("explorer", path);
+        }
+
+        private void SelectProjectsFolderCommand_Execute()
+        {
+            using (var dialog = new FolderBrowserDialog())
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    Properties.Settings.Default.ProjectsFolderPath = dialog.SelectedPath;
+                    Properties.Settings.Default.Save();
+                }
+            }
+        }
     }
 }

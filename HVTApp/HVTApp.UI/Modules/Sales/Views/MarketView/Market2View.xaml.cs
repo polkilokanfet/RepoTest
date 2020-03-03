@@ -9,6 +9,7 @@ namespace HVTApp.UI.Modules.Sales.Views.MarketView
 {
     [RibbonTab(typeof(MarketTab))]
     [RibbonTab(typeof(MarketViewTab))]
+    [RibbonTab(typeof(MarketSettingsTab))]
     public partial class Market2View : ViewBase
     {
         //private readonly Market2ViewModel _viewModel;

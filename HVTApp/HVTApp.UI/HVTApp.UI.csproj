@@ -260,6 +260,9 @@
     <Compile Include="Modules\Sales\Controls\UnitListControl.xaml.cs">
       <DependentUpon>UnitListControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Sales\Tabs\MarketSettingsTab.xaml.cs">
+      <DependentUpon>MarketSettingsTab.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Sales\Tabs\PaymentsViewTab.xaml.cs">
       <DependentUpon>PaymentsViewTab.xaml</DependentUpon>
     </Compile>
@@ -849,6 +852,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\Sales\Controls\UnitListControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Sales\Tabs\MarketSettingsTab.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
