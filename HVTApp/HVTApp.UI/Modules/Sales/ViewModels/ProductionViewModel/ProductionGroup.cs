@@ -47,6 +47,9 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
         public bool IsChanged => ProductionItems.IsChanged;
 
+        public bool IsProduced => ProductionItems.All(x => x.IsProduced);
+
+
         public void RejectChanges()
         {
             ProductionItems.RejectChanges();

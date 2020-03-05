@@ -14,7 +14,7 @@
             <infg:XamDataGrid.FieldLayouts>
                 <infg:FieldLayout>
                     <infg:TextField Name="Facility" Label="Объект" Width="Auto"/>
-                    <infg:TextField Name="Product" Label="Продукт" Width="Auto"/>
+                    <infg:TextField Name="Product" Label="Продукт" Width="500"/>
                     <infg:NumericField Name="Amount" Label="Кол." Width="Auto" AllowResize="False"/>
                     <infg:TextField Name="Order" Label="З/з" Width="Auto" AllowResize="False"/>
                     <infg:DateTimeField Name="OrderOpenDate" Label="Открытие з/з" Width="Auto" AllowResize="False"/>

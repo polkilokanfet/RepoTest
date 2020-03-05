@@ -66,7 +66,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
                         else
                         {
                             group.ProductionItems.Remove(productionItem);
-                            GroupsInProduction.Add(new ProductionGroup(new List<ProductionItem>() {productionItem}));
+                            GroupsInProduction.Add(new ProductionGroup(new List<ProductionItem> {productionItem}));
                         }
                     }
 
@@ -87,7 +87,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             UnitOfWork = Container.Resolve<IUnitOfWork>();
 
             //все единицы текущего пользователя
-            var salesUnitsAll = UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Manager.IsAppCurrentUser());
+            var salesUnitsAll = UnitOfWork.Repository<SalesUnit>().Find(x => !x.IsLoosen && x.Project.Manager.IsAppCurrentUser());
             //все задачи на расчет с номерами стракчакостов
             var priceCalculationItems = UnitOfWork.Repository<PriceCalculationItem>().Find(x => x.StructureCosts.All(sc => !string.IsNullOrEmpty(sc.Number)));
 

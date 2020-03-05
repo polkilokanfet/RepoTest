@@ -55,6 +55,8 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             }
         }
 
+        public bool IsProduced => Model.EndProductionDateCalculated < DateTime.Today;
+
         public ProductionItem(SalesUnit model, PriceCalculationItem priceCalculationItem) : base(model)
         {
             _priceCalculationItem = priceCalculationItem;

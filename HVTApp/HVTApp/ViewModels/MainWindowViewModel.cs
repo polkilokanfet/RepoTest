@@ -9,7 +9,7 @@ namespace HVTApp.ViewModels
     public class MainWindowViewModel : BindableBase
     {
         private readonly IRegionManager _regionManager;
-        private string _title = "Управление продажами ВВА";
+        private string _title = "Управление продажами ВВА / \"Make UETM great again! (c)\"";
         public string Title
         {
             get { return _title; }

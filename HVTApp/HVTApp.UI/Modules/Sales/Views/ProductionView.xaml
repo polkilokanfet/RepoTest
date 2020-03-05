@@ -2,6 +2,7 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:controls="http://infragistics.com/Windows"
               x:Class="HVTApp.UI.Modules.Sales.Views.ProductionView">
 
     <Grid>
@@ -20,17 +21,27 @@
 
 			        <infg:XamDataGrid.FieldLayouts>
 				        <infg:FieldLayout>
+
+                            <infg:FieldLayout.RecordFilters>
+                                <infg:RecordFilter FieldName="IsProduced">
+                                    <infg:RecordFilter.Conditions>
+                                        <controls:ComparisonCondition Operator="Equals" Value="False" />
+                                    </infg:RecordFilter.Conditions>
+                                </infg:RecordFilter>
+                            </infg:FieldLayout.RecordFilters>
+
                             <infg:FieldLayout.Fields>
                                 <infg:TextField AlternateBinding="{Binding SalesUnit.Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
                                 <infg:TextField AlternateBinding="{Binding SalesUnit.Product.ProductType}" BindingType="UseAlternateBinding" Label="Тип оборудования" Width="Auto"/>
-                                <infg:TextField AlternateBinding="{Binding SalesUnit.Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="Auto"/>
+                                <infg:TextField AlternateBinding="{Binding SalesUnit.Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="400"/>
                                 <infg:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" AllowResize="False"/>
                                 <infg:TextField AlternateBinding="{Binding SalesUnit.Order}" BindingType="UseAlternateBinding" Label="З/з" Width="Auto"/>
-                                <infg:TextField AlternateBinding="{Binding SalesUnit.Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto"/>
+                                <infg:TextField AlternateBinding="{Binding SalesUnit.Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="200"/>
                                 <infg:TextField AlternateBinding="{Binding SalesUnit.Specification}" BindingType="UseAlternateBinding" Label="Сп.№" Width="Auto"/>
                                 <infg:TextField AlternateBinding="{Binding SalesUnit.Specification.Contract}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
                                 <infg:DateTimeField AlternateBinding="{Binding SalesUnit.EndProductionDateCalculated}" BindingType="UseAlternateBinding" Label="Фактическая" Width="Auto" AllowResize="False"/>
                                 <infg:DateTimeField AlternateBinding="{Binding EndProductionDateExpected}" BindingType="UseAlternateBinding" Label="Требуемая" Width="Auto" AllowResize="False"/>
+                                <infg:CheckBoxField Name="IsProduced" AlternateBinding="{Binding IsProduced}" BindingType="UseAlternateBinding" Label="Произведено" Width="Auto" AllowResize="False"/>
                             </infg:FieldLayout.Fields>
 				        </infg:FieldLayout>
 
@@ -52,7 +63,7 @@
                             <infg:FieldLayout.Fields>
                                 <infg:TextField AlternateBinding="{Binding SalesUnit.Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
                                 <infg:TextField AlternateBinding="{Binding SalesUnit.Product.ProductType}" BindingType="UseAlternateBinding" Label="Тип оборудования" Width="Auto"/>
-                                <infg:TextField AlternateBinding="{Binding SalesUnit.Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="Auto"/>
+                                <infg:TextField AlternateBinding="{Binding SalesUnit.Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="400"/>
                                 <infg:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" />
                                 <infg:TextField AlternateBinding="{Binding SalesUnit.Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto"/>
                                 <infg:TextField AlternateBinding="{Binding SalesUnit.Specification}" BindingType="UseAlternateBinding" Label="Сп.№" Width="Auto"/>
@@ -83,5 +94,19 @@
 
     </Grid>
 </inf:ViewBase>
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
 
 	

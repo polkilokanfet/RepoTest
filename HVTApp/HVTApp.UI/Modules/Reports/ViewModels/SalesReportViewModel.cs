@@ -67,7 +67,7 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
             var tenders = UnitOfWork.Repository<Tender>().Find(x => true);
             var countryUnions = UnitOfWork.Repository<CountryUnion>().Find(x => true);
 
-            Units.AddRange(groups.Select(x => new SalesReportUnit(x, tenders.Where(t => Equals(x.Key.Project, t.Project)), countryUnions)));
+            Units.AddRange(groups.Select(x => new SalesReportUnit(x, tenders.Where(t => Equals(x.Key.Project, t.Project)), countryUnions, x.First().ActualPriceCalculationItem(UnitOfWork))));
         }
     }
 }

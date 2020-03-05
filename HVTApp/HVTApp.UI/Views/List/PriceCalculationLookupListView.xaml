@@ -41,7 +41,7 @@
                     <infg:DateTimeField Name="TaskOpenMoment" Label="Старт задачи" Width="Auto" AllowResize="True" />
                     <infg:DateTimeField Name="TaskCloseMoment" Label="Финиш задачи" Width="Auto" AllowResize="True" />
                     <infg:TextField Name="PriceCalculationItems" Label="Единицы расчета" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <infg:TextField Name="Name" Label="Название" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="Name" Label="Название" Width="600" AllowResize="True" />
                     <infg:CheckBoxField Name="IsNeedExcelFile" Label="Требуется расчетный файл" Width="Auto" AllowResize="True" />
                     <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" AllowResize="True" />
                     <infg:TextField Name="Manager" Label="Менеджер" Width="Auto" AllowResize="True" />

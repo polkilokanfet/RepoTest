@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
@@ -328,6 +329,22 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
         [Designation("Оплаты"), OrderStatus(-141)]
         public string PaymentsActual { get; }
 
+
+        [Designation("Информация из ТСЕ"), OrderStatus(-150)]
+        public string TceInfo { get; }
+
+        private string GetTceInfo(PriceCalculationItem priceCalculationItem)
+        {
+            if (priceCalculationItem == null) return string.Empty;
+
+            var sb = new StringBuilder();
+            foreach (var structureCost in priceCalculationItem.StructureCosts)
+            {
+                sb.Append($"{structureCost.Comment} = {structureCost.Amount} шт. = {structureCost.Number}; ");
+            }
+            return sb.ToString();
+        }
+
         #region Fake
 
         [OrderStatus(-500)]
@@ -344,7 +361,8 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
         public SalesReportUnit(
             IEnumerable<SalesUnit> salesUnits, 
             IEnumerable<Tender> tenders, 
-            IEnumerable<CountryUnion> countryUnions)
+            IEnumerable<CountryUnion> countryUnions, 
+            PriceCalculationItem priceCalculationItem)
         {
             SalesUnits = salesUnits.ToList();
             var salesUnit = SalesUnits.First();
@@ -436,6 +454,8 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
                 .ConvertToString();
 
             PaymentsActual = salesUnits.SelectMany(x => x.PaymentsActual).ConvertToString();
+
+            TceInfo = GetTceInfo(priceCalculationItem);
 
             if (salesUnit.FakeData != null)
             {

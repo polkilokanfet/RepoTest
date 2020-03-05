@@ -317,6 +317,9 @@ namespace HVTApp.Model.POCOs
                 //по дате доставки оборудования на объект
                 if (DeliveryDate.HasValue) return DeliveryDate.Value.AddDays(-ProductionTerm).AddDays(-DeliveryPeriodCalculated).SkipPastAndWeekend();
 
+                //если проиграно
+                if (IsLoosen) return DeliveryDateExpected.AddDays(-ProductionTerm);
+
                 //по необходимой дате реализации проекта
                 return DeliveryDateExpected.AddDays(-ProductionTerm).AddDays(-DeliveryPeriodCalculated).SkipPastAndWeekend();
             }
