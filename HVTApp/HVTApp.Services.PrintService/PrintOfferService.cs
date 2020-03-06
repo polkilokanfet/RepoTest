@@ -35,21 +35,14 @@ namespace HVTApp.Services.PrintService
             var offerUnitsGroupsByFacilities = offerUnitsGroups.GroupBy(x => x.Model.Facility).ToList();
             var offer = offerUnitsGroups.First().Offer.Model;
 
-            var fileName = $"\\{offer.RegNumber} от {offer.Date.ToShortDateString()} ({offer.RecipientEmployee.Company.ShortName.ReplaceUncorrectSimbols()}) {DateTime.Today.ToShortDateString()} {DateTime.Now.ToShortTimeString().ReplaceUncorrectSimbols("-")}";
-            fileName = fileName.ReplaceUncorrectSimbols("-").Replace('.', '-').Replace(' ', '_') + ".docx";
-            var offerDocumentPath = path == "" ? AppDomain.CurrentDomain.BaseDirectory + $"\\{fileName}" : path + $"\\{fileName}";
-            WordDocumentWriter docWriter;
-            try
-            {
-                docWriter = WordDocumentWriter.Create(offerDocumentPath);
-            }
-            catch (IOException e)
-            {
-                _messageService.ShowOkMessageDialog(e.GetType().Name, e.Message);
-                return;
-            }
-            docWriter.DefaultParagraphProperties.Alignment = ParagraphAlignment.Left;
+            var docWriter = GetWordDocumentWriter(offer, path);
+            if (docWriter == null) return;
             docWriter.StartDocument();
+            //docWriter.Unit = UnitOfMeasurement.Centimeter;
+            //var sp = docWriter.CreateSectionProperties();
+            //sp.PageMargins = new Padding(40, 20, 40, 10);
+            //docWriter.DefineSection(sp);
+
 
             #region Print Header
 
@@ -62,39 +55,58 @@ namespace HVTApp.Services.PrintService
             Font fontBold = docWriter.CreateFont();
             fontBold.Bold = true;
 
-            var noneTableBorderProperties = docWriter.CreateTableBorderProperties();
-            noneTableBorderProperties.Style = TableBorderStyle.None;
-            noneTableBorderProperties.Sides = TableBorderSides.None;
+            var noBordersTableBorderProperties = docWriter.CreateTableBorderProperties();
+            noBordersTableBorderProperties.Style = TableBorderStyle.None;
+            noBordersTableBorderProperties.Sides = TableBorderSides.None;
 
-            var headTableProperties = GetTableProperties(docWriter, noneTableBorderProperties);
+            var headTableProperties = GetTableProperties(docWriter, noBordersTableBorderProperties);
             headTableProperties.Alignment = ParagraphAlignment.Left;
+            headTableProperties.PreferredWidthAsPercentage = 100;
             docWriter.StartTable(2, headTableProperties);
 
-            docWriter.PrintTableRow(docWriter.CreateTableCellProperties(), docWriter.CreateTableRowProperties(), docWriter.CreateParagraphProperties(), docWriter.CreateFont(),
-                "Тема: ", $"ТКП на поставку оборудования для нужд объектов: {offerUnitsGroups.Select(x => x.Model.Facility).ToStringEnum(", ")}");
+            //таблица с номером ТКП
+            docWriter.StartTableRow();
+            TableCellProperties tableCellProperties1 = docWriter.CreateTableCellProperties();
+            tableCellProperties1.PreferredWidthAsPercentage = 50;
+            docWriter.StartTableCell(tableCellProperties1);
+            docWriter.StartTable(4, headTableProperties);
 
             docWriter.PrintTableRow(docWriter.CreateTableCellProperties(), docWriter.CreateTableRowProperties(), docWriter.CreateParagraphProperties(), docWriter.CreateFont(),
-                "исх.№ ", $"{offer.RegNumber} от {offer.Date.ToShortDateString()} г.");
+                "исх.№ ", 
+                $"{offer.RegNumber}", 
+                "от", 
+                $"{offer.Date.ToShortDateString()} г.");
 
             docWriter.PrintTableRow(docWriter.CreateTableCellProperties(), docWriter.CreateTableRowProperties(), docWriter.CreateParagraphProperties(), docWriter.CreateFont(),
-                "на № ", offer.RequestDocument == null ? string.Empty : $"{offer.RequestDocument.RegNumber} от {offer.RequestDocument.Date.ToShortDateString()} г.");
+                "на № ", 
+                offer.RequestDocument == null ? string.Empty : $"{offer.RequestDocument.RegNumber}", 
+                "от", 
+                offer.RequestDocument == null ? string.Empty : $"{offer.RequestDocument.Date.ToShortDateString()} г.");
 
-            docWriter.PrintTableRow(docWriter.CreateTableCellProperties(), docWriter.CreateTableRowProperties(), docWriter.CreateParagraphProperties(), docWriter.CreateFont(),
-                string.Empty, string.Empty);
+            docWriter.EndTable();
+            docWriter.EndTableCell();
 
             var recipient = offer.RecipientEmployee;
+            docWriter.PrintTableCell("Получатель: " + Environment.NewLine + $"{recipient.Position} {recipient.Company.Form.ShortName} \"{recipient.Company.ShortName}\"" + Environment.NewLine + $"{recipient.Person}");
+
+            docWriter.EndTableRow();
+
             docWriter.PrintTableRow(docWriter.CreateTableCellProperties(), docWriter.CreateTableRowProperties(), docWriter.CreateParagraphProperties(), docWriter.CreateFont(),
-                "Получатель: ", $"{recipient.Position} {recipient.Company.Form.ShortName} \"{recipient.Company.ShortName}\" {recipient.Person}");
+                $"О предложении поставки оборудования для нужд объектов: {offerUnitsGroups.Select(x => x.Model.Facility).ToStringEnum(", ")}", string.Empty);
 
             docWriter.EndTable();
 
+            #endregion
+
+            #region Print Text Before Table
 
             docWriter.PrintParagraph(string.Empty);
+            var paraFormat = docWriter.CreateParagraphProperties();
+            paraFormat.Alignment = ParagraphAlignment.Center;
             var prefix = offer.RecipientEmployee.Person.IsMan ? "Уважаемый" : "Уважаемая";
-            docWriter.PrintParagraph($"{prefix} {offer.RecipientEmployee.Person.Name} {offer.RecipientEmployee.Person.Patronymic}!", font: fontBold);
+            docWriter.PrintParagraph($"{prefix} {offer.RecipientEmployee.Person.Name} {offer.RecipientEmployee.Person.Patronymic}!", paraFormat, fontBold);
             docWriter.PrintParagraph($"В ответ на Ваш запрос, предоставляем технико-коммерческое предложение на поставку оборудования по проекту \"{offer.Project.Name}\".");
-
-            docWriter.PrintParagraph("Стоимость оборудования/услуг (в рублях) приведена в таблице:", font: fontBold);
+            docWriter.PrintParagraph("Стоимость оборудования/услуг (в рублях) приведена в таблице:", font: fontBold);         
 
             #endregion
 
@@ -177,6 +189,7 @@ namespace HVTApp.Services.PrintService
             var conditions = new List<string>
             {
                 "Комплектация и технические характеристики оборудования в соответствии с приложением к настоящему предложению.",
+                GetShipmentConditions(offerUnitsGroups),
                 PrintConditions("Условия оплаты:", offerUnitsGroups.GroupBy(x => x.PaymentConditionSet.Model)),
                 PrintConditions("Срок производства (календарных дней, с правом досрочной поставки): ", offerUnitsGroups.GroupBy(x => x.ProductionTerm)),
                 "Точный срок поставки оборудования уточняется при заключении договора.",
@@ -185,7 +198,7 @@ namespace HVTApp.Services.PrintService
                 "Заводская гарантия на оборудование: 5 лет."
             };
 
-            docWriter.StartTable(2, GetTableProperties(docWriter, noneTableBorderProperties));
+            docWriter.StartTable(2, GetTableProperties(docWriter, noBordersTableBorderProperties));
 
             var nn = 1;
             foreach (var condition in conditions)
@@ -206,10 +219,14 @@ namespace HVTApp.Services.PrintService
             bordProps.Style = TableBorderStyle.None;
             bordProps.Sides = TableBorderSides.None;
 
-            docWriter.StartTable(3, GetTableProperties(docWriter, bordProps));
+            TableProperties tableProperties2 = GetTableProperties(docWriter, bordProps);
+            tableProperties2.PreferredWidthAsPercentage = 100;
+            docWriter.StartTable(3, tableProperties2);
 
+            TableCellProperties tableCellProperties2 = docWriter.CreateTableCellProperties();
+            tableCellProperties2.PreferredWidthAsPercentage = 25;
             docWriter.PrintTableRow(
-                docWriter.CreateTableCellProperties(),
+                tableCellProperties2,
                 docWriter.CreateTableRowProperties(),
                 docWriter.CreateParagraphProperties(),
                 docWriter.CreateFont(),
@@ -218,24 +235,6 @@ namespace HVTApp.Services.PrintService
                 $"{offer.SenderEmployee.Person}");
 
             docWriter.EndTable();
-
-            #endregion
-
-            #region Author Footer
-
-            var parts = SectionHeaderFooterParts.FooterAllPages;
-            var writerSet = docWriter.AddSectionHeaderFooter(parts);
-            writerSet.FooterWriterAllPages.Open();
-            writerSet.FooterWriterAllPages.StartParagraph();
-            writerSet.FooterWriterAllPages.AddTextRun($"Исполнитель: {offer.Author}");
-            writerSet.FooterWriterAllPages.EndParagraph();
-            //writerSet.FooterWriterAllPages.StartParagraph();
-            //writerSet.FooterWriterAllPages.AddTextRun($"{offer.Author.Person.Surname} {offer.Author.Person.Name} {offer.Author.Person.Patronymic}");
-            //writerSet.FooterWriterAllPages.EndParagraph();
-            writerSet.FooterWriterAllPages.StartParagraph();
-            writerSet.FooterWriterAllPages.AddTextRun($"тел.: {offer.Author.PhoneNumber}; e-mail: {offer.Author.Email}; uetm.ru");
-            writerSet.FooterWriterAllPages.EndParagraph();
-            writerSet.FooterWriterAllPages.Close();
 
             #endregion
 
@@ -271,13 +270,80 @@ namespace HVTApp.Services.PrintService
 
             #endregion
 
+            //docWriter.Unit = UnitOfMeasurement.Centimeter;
+            //var sp = docWriter.CreateSectionProperties();
+            ////sp.FooterMargin = 2f;
+            //sp.PageMargins = new Padding(2.5f, 1.5f, 2f, 1.5f);
+
+            #region Author Footer
+
+            var parts = SectionHeaderFooterParts.FooterAllPages;
+            var writerSet = docWriter.AddSectionHeaderFooter(parts);
+            writerSet.FooterWriterAllPages.Open();
+            writerSet.FooterWriterAllPages.StartParagraph();
+            writerSet.FooterWriterAllPages.AddTextRun("Исполнитель:" + Environment.NewLine + $"{offer.Author}" + Environment.NewLine + $"тел.: {offer.Author.PhoneNumber}; e-mail: {offer.Author.Email}; uetm.ru");
+            writerSet.FooterWriterAllPages.AddTextRun(Environment.NewLine + $"{offer.RegNumber} от {offer.Date.ToShortDateString()} г. - стр. ");
+            writerSet.FooterWriterAllPages.AddPageNumberField(PageNumberFieldFormat.Decimal);
+            writerSet.FooterWriterAllPages.EndParagraph();
+            //writerSet.FooterWriterAllPages.StartParagraph();
+            //writerSet.FooterWriterAllPages.AddTextRun($"{offer.Author.Person.Surname} {offer.Author.Person.Name} {offer.Author.Person.Patronymic}");
+            //writerSet.FooterWriterAllPages.EndParagraph();
+            //writerSet.FooterWriterAllPages.StartParagraph();
+            //writerSet.FooterWriterAllPages.AddTextRun($"тел.: {offer.Author.PhoneNumber}; e-mail: {offer.Author.Email}; uetm.ru");
+            //writerSet.FooterWriterAllPages.EndParagraph();
+            writerSet.FooterWriterAllPages.Close();
+
+            #endregion
+
+            //docWriter.DefineSection(sp);
+
             docWriter.EndDocument();
             docWriter.Close();
 
             var dr = _messageService.ShowYesNoMessageDialog("Процесс завершен", "Формирование ТКП завершено. Открыть результат?");
             if (dr == MessageDialogResult.Yes)
-                System.Diagnostics.Process.Start(offerDocumentPath);
+                System.Diagnostics.Process.Start(GetOfferPath(offer, path));
+        }
 
+        private string GetShipmentConditions(List<OfferUnitsGroup> offerUnitsGroups)
+        {
+            if (offerUnitsGroups.Any(x => x.CostDelivery.HasValue && x.CostDelivery > 0))
+            {
+                if (offerUnitsGroups.All(x => x.CostDelivery.HasValue && x.CostDelivery > 0))
+                    return "В стоимости оборудования учтены расходы связанные с его доставкой на объект.";
+
+                var positions = offerUnitsGroups
+                    .Where(x => x.CostDelivery.HasValue && x.CostDelivery > 0)
+                    .Select(x => x.Position).ToList();
+                var end = positions.Count == 1 ? "и" : "й";
+                    
+                return $"В стоимости позици{end} {positions.ToStringEnum(", ")} учтены расходы связанные с его доставкой на объект.";
+            }
+            return "В стоимости оборудования не учтены расходы связанные с его доставкой на объект.";
+        }
+
+        private string GetOfferPath(Offer offer, string path)
+        {
+            var fileName = $"\\{offer.RegNumber} от {offer.Date.ToShortDateString()} ({offer.RecipientEmployee.Company.ShortName.ReplaceUncorrectSimbols()}) {DateTime.Today.ToShortDateString()} {DateTime.Now.ToShortTimeString().ReplaceUncorrectSimbols("-")}";
+            fileName = fileName.ReplaceUncorrectSimbols("-").Replace('.', '-').Replace(' ', '_') + ".docx";
+            return path == "" ? AppDomain.CurrentDomain.BaseDirectory + $"\\{fileName}" : path + $"\\{fileName}";            
+        }
+
+        private WordDocumentWriter GetWordDocumentWriter(Offer offer, string path)
+        {
+            WordDocumentWriter docWriter;
+            try
+            {
+                docWriter = WordDocumentWriter.Create(GetOfferPath(offer, path));
+            }
+            catch (IOException e)
+            {
+                _messageService.ShowOkMessageDialog(e.GetType().Name, e.Message);
+                return null;
+            }
+            docWriter.DefaultParagraphProperties.Alignment = ParagraphAlignment.Left;
+
+            return docWriter;
         }
 
         private List<OfferUnitsGroup> GetOfferUnitsGroups(Guid offerId)
@@ -309,14 +375,13 @@ namespace HVTApp.Services.PrintService
                 return $"{text} {offerUnitsGroupsGrouped.First().Key}.";
             }
 
-            var result = string.Empty;
+            var result = text;
             foreach (var unitsGroups in offerUnitsGroupsGrouped)
             {
-                if (!string.IsNullOrEmpty(result))
-                    result += Environment.NewLine;
+                result += Environment.NewLine + "- ";
                 var positions = unitsGroups.Select(x => x.Position).ToStringEnum(", ");
                 var prefix = unitsGroups.Count() == 1 ? "позиции" : "позиций";
-                result += $"{text} {prefix} {positions}: {unitsGroups.Key}.";
+                result += $"{prefix} {positions}: {unitsGroups.Key}.";
             }
             return result;
         }
