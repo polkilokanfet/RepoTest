@@ -95,12 +95,12 @@ namespace HVTApp.Infrastructure.Extansions
             collection.Add(objId);
         }
 
-        public static string ToStringEnum<T>(this IEnumerable<T> enumerable)
+        public static string ToStringEnum<T>(this IEnumerable<T> enumerable, string separator = "; ")
         {
             var list = enumerable.Distinct().ToList();
             var builder = new StringBuilder();
-            list.ForEach(x => builder.Append("; ").Append($"{x}"));
-            return builder.Remove(0, 2).ToString();
+            list.ForEach(x => builder.Append(separator).Append($"{x}"));
+            return builder.Remove(0, separator.Count()).ToString();
         }
     }
 }

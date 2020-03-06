@@ -57,7 +57,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
         private void PrintOfferCommand_Execute()
         {
-            Container.Resolve<IPrintOfferService>().PrintOffer(Offers.SelectedItem.Id);
+            Container.Resolve<IPrintOfferService>().PrintOffer(Offers.SelectedItem.Id, GetProjectPath(SelectedProjectItem.Project));
         }
 
         private void EditTenderCommand_Execute()
@@ -130,16 +130,22 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
         private void OpenFolderCommand_Execute()
         {
+            var path = GetProjectPath(SelectedProjectItem.Project);
+            Process.Start("explorer", path);
+        }
+
+        private string GetProjectPath(Project project)
+        {
             //путь к папке проекта
             var projectsFolder = string.IsNullOrEmpty(Properties.Settings.Default.ProjectsFolderPath)
                 ? Environment.SpecialFolder.Personal + "HVTApp"
                 : Properties.Settings.Default.ProjectsFolderPath;
-            var path = projectsFolder + $"\\{SelectedProjectItem.Project.Id.ToString().Replace("-", string.Empty)}";
+            var path = projectsFolder + $"\\{project.Id.ToString().Replace("-", string.Empty)}";
 
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
 
-            Process.Start("explorer", path);
+            return path;
         }
 
         private void SelectProjectsFolderCommand_Execute()

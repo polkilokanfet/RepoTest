@@ -102,6 +102,7 @@
     <Compile Include="Extansions\ExceptionExt.cs" />
     <Compile Include="Extansions\IsTypeExtansions.cs" />
     <Compile Include="Extansions\RegionExt.cs" />
+    <Compile Include="Extansions\StringExt.cs" />
     <Compile Include="IBaseEntity.cs" />
     <Compile Include="IId.cs" />
     <Compile Include="IDetailsViewModel.cs" />

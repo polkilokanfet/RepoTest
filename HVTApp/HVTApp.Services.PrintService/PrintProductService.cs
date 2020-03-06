@@ -48,7 +48,7 @@ namespace HVTApp.Services.PrintService
         public void Print(WordDocumentWriter docWriter, Product product, int? amount = null, ProductBlock block = null)
         {
             var tableProperties = docWriter.CreateTableProperties();
-            tableProperties.Alignment = ParagraphAlignment.Both;            
+            tableProperties.Alignment = ParagraphAlignment.Left;            
             //выделяем необходимый блок
             if (block != null && product.ProductBlock.Id == block.Id)
             {

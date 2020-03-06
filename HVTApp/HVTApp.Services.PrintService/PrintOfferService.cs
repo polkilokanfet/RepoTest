@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using HVTApp.Infrastructure;
@@ -13,7 +12,6 @@ using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.UI.Groups;
 using Infragistics.Documents.Word;
-using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.Services.PrintService
@@ -31,32 +29,15 @@ namespace HVTApp.Services.PrintService
             _printProductService = container.Resolve<IPrintProductService>() as PrintProductService;
         }
 
-        public void PrintOffer(Guid offerId)
+        public void PrintOffer(Guid offerId, string path = "")
         {
+            var offerUnitsGroups = GetOfferUnitsGroups(offerId);
+            var offerUnitsGroupsByFacilities = offerUnitsGroups.GroupBy(x => x.Model.Facility).ToList();
+            var offer = offerUnitsGroups.First().Offer.Model;
 
-            #region Get OfferUnits
-
-            var unitOfWork = _container.Resolve<IUnitOfWork>();
-            var offerUnits = unitOfWork.Repository<OfferUnit>().GetAll().Where(x => x.Offer.Id == offerId).ToList();
-            var offer = offerUnits.First().Offer;
-
-            //разбиваем на группы, а их делим по объектам
-            var offerUnitsGroupsByFacilities = offerUnits
-                .GroupBy(x => x, new OfferUnitsGroupsComparer())
-                .Select(x => new OfferUnitsGroup(x))
-                .OrderByDescending(x => x.Cost)
-                .GroupBy(x => x.Facility.Model)
-                .ToList();
-
-            var offerUnitsGroups = offerUnitsGroupsByFacilities.SelectMany(x => x.ToList()).ToList();
-
-            //назначаем позиции ТКП
-            var i = 1;
-            offerUnitsGroups.ForEach(x => x.Position = i++);
-
-            #endregion
-
-            var offerDocumentPath = AppDomain.CurrentDomain.BaseDirectory + $"\\offer_{offer.RegNumber}.docx";
+            var fileName = $"\\{offer.RegNumber} от {offer.Date.ToShortDateString()} ({offer.RecipientEmployee.Company.ShortName.ReplaceUncorrectSimbols()}) {DateTime.Today.ToShortDateString()} {DateTime.Now.ToShortTimeString().ReplaceUncorrectSimbols("-")}";
+            fileName = fileName.ReplaceUncorrectSimbols("-").Replace('.', '-').Replace(' ', '_') + ".docx";
+            var offerDocumentPath = path == "" ? AppDomain.CurrentDomain.BaseDirectory + $"\\{fileName}" : path + $"\\{fileName}";
             WordDocumentWriter docWriter;
             try
             {
@@ -72,21 +53,48 @@ namespace HVTApp.Services.PrintService
 
             #region Print Header
 
-            //BitmapSource headerBitmapSource = GetImage("header.jpg");
-            //AnchoredPicture headerPicture = docWriter.CreateAnchoredPicture(headerBitmapSource);
-            //docWriter.StartParagraph();
-            //docWriter.AddAnchoredPicture(headerPicture);
-            //docWriter.EndParagraph();
+            BitmapSource headerBitmapSource = GetImage("header.jpg");
+            AnchoredPicture headerPicture = docWriter.CreateAnchoredPicture(headerBitmapSource);
+            docWriter.StartParagraph();
+            docWriter.AddAnchoredPicture(headerPicture);
+            docWriter.EndParagraph();
 
-            docWriter.PrintParagraph($"Дата: {offer.Date.ToShortDateString()} исх.№ {offer.RegNumber}");
-            docWriter.PrintParagraph($"Получатель: {offer.RecipientEmployee.Position.Name} {offer.RecipientEmployee.Company.Form.ShortName} \"{offer.RecipientEmployee.Company.ShortName}\" { offer.RecipientEmployee.Person}");
+            Font fontBold = docWriter.CreateFont();
+            fontBold.Bold = true;
+
+            var noneTableBorderProperties = docWriter.CreateTableBorderProperties();
+            noneTableBorderProperties.Style = TableBorderStyle.None;
+            noneTableBorderProperties.Sides = TableBorderSides.None;
+
+            var headTableProperties = GetTableProperties(docWriter, noneTableBorderProperties);
+            headTableProperties.Alignment = ParagraphAlignment.Left;
+            docWriter.StartTable(2, headTableProperties);
+
+            docWriter.PrintTableRow(docWriter.CreateTableCellProperties(), docWriter.CreateTableRowProperties(), docWriter.CreateParagraphProperties(), docWriter.CreateFont(),
+                "Тема: ", $"ТКП на поставку оборудования для нужд объектов: {offerUnitsGroups.Select(x => x.Model.Facility).ToStringEnum(", ")}");
+
+            docWriter.PrintTableRow(docWriter.CreateTableCellProperties(), docWriter.CreateTableRowProperties(), docWriter.CreateParagraphProperties(), docWriter.CreateFont(),
+                "исх.№ ", $"{offer.RegNumber} от {offer.Date.ToShortDateString()} г.");
+
+            docWriter.PrintTableRow(docWriter.CreateTableCellProperties(), docWriter.CreateTableRowProperties(), docWriter.CreateParagraphProperties(), docWriter.CreateFont(),
+                "на № ", offer.RequestDocument == null ? string.Empty : $"{offer.RequestDocument.RegNumber} от {offer.RequestDocument.Date.ToShortDateString()} г.");
+
+            docWriter.PrintTableRow(docWriter.CreateTableCellProperties(), docWriter.CreateTableRowProperties(), docWriter.CreateParagraphProperties(), docWriter.CreateFont(),
+                string.Empty, string.Empty);
+
+            var recipient = offer.RecipientEmployee;
+            docWriter.PrintTableRow(docWriter.CreateTableCellProperties(), docWriter.CreateTableRowProperties(), docWriter.CreateParagraphProperties(), docWriter.CreateFont(),
+                "Получатель: ", $"{recipient.Position} {recipient.Company.Form.ShortName} \"{recipient.Company.ShortName}\" {recipient.Person}");
+
+            docWriter.EndTable();
+
 
             docWriter.PrintParagraph(string.Empty);
-            docWriter.PrintParagraph(offer.RecipientEmployee.Person.IsMan
-                ? $"Уважаемый {offer.RecipientEmployee.Person.Name} {offer.RecipientEmployee.Person.Patronymic}!"
-                : $"Уважаемая {offer.RecipientEmployee.Person.Name} {offer.RecipientEmployee.Person.Patronymic}!");
-            docWriter.PrintParagraph($"В ответ на Ваш запрос, предоставляем технико-коммерческое предложение на поставку электротехнического оборудования для нужд {offerUnits.Select(x => x.Facility).ToStringEnum()} (по проекту \"{offer.Project.Name}\").");
-            docWriter.PrintParagraph("Стоимость оборудования приведена в таблице:");
+            var prefix = offer.RecipientEmployee.Person.IsMan ? "Уважаемый" : "Уважаемая";
+            docWriter.PrintParagraph($"{prefix} {offer.RecipientEmployee.Person.Name} {offer.RecipientEmployee.Person.Patronymic}!", font: fontBold);
+            docWriter.PrintParagraph($"В ответ на Ваш запрос, предоставляем технико-коммерческое предложение на поставку оборудования по проекту \"{offer.Project.Name}\".");
+
+            docWriter.PrintParagraph("Стоимость оборудования/услуг (в рублях) приведена в таблице:", font: fontBold);
 
             #endregion
 
@@ -100,18 +108,17 @@ namespace HVTApp.Services.PrintService
 
             tableCellProperties.BorderProperties = tableBorderProperties;
 
-            docWriter.StartTable(6, GetTableProperties(docWriter, tableBorderProperties));
+            var tableProperties = GetTableProperties(docWriter, tableBorderProperties);
+            tableProperties.Alignment = ParagraphAlignment.Left;
+            docWriter.StartTable(6, tableProperties);
 
             tableRowProperties.IsHeaderRow = true;
             tableCellProperties.BackColor = colorTableHeader;
             var paragraphProps = docWriter.CreateParagraphProperties();
             paragraphProps.Alignment = ParagraphAlignment.Left;
 
-            Font fontBold = docWriter.CreateFont();
-            fontBold.Bold = true;
-
             docWriter.PrintTableRow(tableCellProperties, tableRowProperties, paragraphProps, fontBold, 
-                "№", "Тип оборудования", "Обозначение", "Кол.", "Стоимость, руб.", "Сумма, руб.");
+                "№", "Тип оборудования", "Обозначение оборудования", "Кол.", "Стоимость", "Сумма");
 
             // Reset the cell properties, so that the cell properties are different from the header cells.
             tableCellProperties.Reset();
@@ -150,7 +157,7 @@ namespace HVTApp.Services.PrintService
             }
 
             //сумма ТКП
-            var sum = offerUnits.Sum(x => x.Cost);
+            var sum = offerUnitsGroups.Sum(x => x.Amount * x.Cost);
 
             tableCellProperties.BackColor = colorTableHeader;
 
@@ -165,14 +172,29 @@ namespace HVTApp.Services.PrintService
             #region Print Conditions
 
             var paragraphProperties = docWriter.CreateParagraphProperties();
-            docWriter.PrintParagraph(string.Empty);
-            docWriter.PrintParagraph("Условия поставки оборудования:", paragraphProperties, fontBold);
-            PrintConditions("1. Условия оплаты:", offerUnitsGroups.GroupBy(x => x.PaymentConditionSet.Model), docWriter);
-            PrintConditions("2. Срок производства (календарных дней, с правом досрочной поставки):", offerUnitsGroups.GroupBy(x => x.ProductionTerm), docWriter);
-            docWriter.PrintParagraph($"3. Точный срок поставки оборудования уточняется при заключении договора.");
-            docWriter.PrintParagraph($"4. Цена и сроки поставки могут быть пересмотрены после окончательного согласования опросных листов на оборудование.");
-            docWriter.PrintParagraph($"5. Настоящее предложение действительно до {offer.ValidityDate.ToShortDateString()} г.");
-            docWriter.PrintParagraph($"6. Заводская гарантия на оборудование - 5 лет.");
+            docWriter.PrintParagraph("Условия поставки и оплаты оборудования:", paragraphProperties, fontBold);
+
+            var conditions = new List<string>
+            {
+                "Комплектация и технические характеристики оборудования в соответствии с приложением к настоящему предложению.",
+                PrintConditions("Условия оплаты:", offerUnitsGroups.GroupBy(x => x.PaymentConditionSet.Model)),
+                PrintConditions("Срок производства (календарных дней, с правом досрочной поставки): ", offerUnitsGroups.GroupBy(x => x.ProductionTerm)),
+                "Точный срок поставки оборудования уточняется при заключении договора.",
+                "Цена и сроки поставки могут быть пересмотрены после окончательного согласования опросных листов на оборудование.",
+                $"Настоящее предложение действительно до {offer.ValidityDate.ToShortDateString()} г.",
+                "Заводская гарантия на оборудование: 5 лет."
+            };
+
+            docWriter.StartTable(2, GetTableProperties(docWriter, noneTableBorderProperties));
+
+            var nn = 1;
+            foreach (var condition in conditions)
+            {
+                docWriter.PrintTableRow(docWriter.CreateTableCellProperties(), docWriter.CreateTableRowProperties(), docWriter.CreateParagraphProperties(), docWriter.CreateFont(),
+                    $"{nn++}.", condition);
+            }
+
+            docWriter.EndTable();
 
             #endregion
 
@@ -192,7 +214,7 @@ namespace HVTApp.Services.PrintService
                 docWriter.CreateParagraphProperties(),
                 docWriter.CreateFont(),
                 $"С уважением, {offer.SenderEmployee.Position}",
-                $"                     ",
+                string.Empty,
                 $"{offer.SenderEmployee.Person}");
 
             docWriter.EndTable();
@@ -205,13 +227,13 @@ namespace HVTApp.Services.PrintService
             var writerSet = docWriter.AddSectionHeaderFooter(parts);
             writerSet.FooterWriterAllPages.Open();
             writerSet.FooterWriterAllPages.StartParagraph();
-            writerSet.FooterWriterAllPages.AddTextRun("Исполнитель:");
+            writerSet.FooterWriterAllPages.AddTextRun($"Исполнитель: {offer.Author}");
             writerSet.FooterWriterAllPages.EndParagraph();
+            //writerSet.FooterWriterAllPages.StartParagraph();
+            //writerSet.FooterWriterAllPages.AddTextRun($"{offer.Author.Person.Surname} {offer.Author.Person.Name} {offer.Author.Person.Patronymic}");
+            //writerSet.FooterWriterAllPages.EndParagraph();
             writerSet.FooterWriterAllPages.StartParagraph();
-            writerSet.FooterWriterAllPages.AddTextRun($"{offer.Author.Person.Surname} {offer.Author.Person.Name} {offer.Author.Person.Patronymic}");
-            writerSet.FooterWriterAllPages.EndParagraph();
-            writerSet.FooterWriterAllPages.StartParagraph();
-            writerSet.FooterWriterAllPages.AddTextRun($"тел.: {offer.Author.PhoneNumber}; e-mail: {offer.Author.Email}");
+            writerSet.FooterWriterAllPages.AddTextRun($"тел.: {offer.Author.PhoneNumber}; e-mail: {offer.Author.Email}; uetm.ru");
             writerSet.FooterWriterAllPages.EndParagraph();
             writerSet.FooterWriterAllPages.Close();
 
@@ -251,26 +273,52 @@ namespace HVTApp.Services.PrintService
 
             docWriter.EndDocument();
             docWriter.Close();
-            System.Diagnostics.Process.Start(offerDocumentPath);
+
+            var dr = _messageService.ShowYesNoMessageDialog("Процесс завершен", "Формирование ТКП завершено. Открыть результат?");
+            if (dr == MessageDialogResult.Yes)
+                System.Diagnostics.Process.Start(offerDocumentPath);
 
         }
 
-        private static void PrintConditions<T>(string text, IEnumerable<IGrouping<T, OfferUnitsGroup>> offerUnitsGroupsGrouped, WordDocumentWriter docWriter)
+        private List<OfferUnitsGroup> GetOfferUnitsGroups(Guid offerId)
+        {
+            var unitOfWork = _container.Resolve<IUnitOfWork>();
+            var offerUnits = unitOfWork.Repository<OfferUnit>().GetAll().Where(x => x.Offer.Id == offerId).ToList();
+
+            //разбиваем на группы, а их делим по объектам
+            var offerUnitsGroupsByFacilities = offerUnits
+                .GroupBy(x => x, new OfferUnitsGroupsComparer())
+                .Select(x => new OfferUnitsGroup(x))
+                .OrderByDescending(x => x.Cost)
+                .GroupBy(x => x.Facility.Model)
+                .ToList();
+
+            var offerUnitsGroups = offerUnitsGroupsByFacilities.SelectMany(x => x.ToList()).ToList();
+
+            //назначаем позиции ТКП
+            var i = 1;
+            offerUnitsGroups.ForEach(x => x.Position = i++);
+
+            return offerUnitsGroups;
+        }
+
+        private static string PrintConditions<T>(string text, IEnumerable<IGrouping<T, OfferUnitsGroup>> offerUnitsGroupsGrouped)
         {
             if (offerUnitsGroupsGrouped.Count() == 1)
             {
-                docWriter.PrintParagraph($"{text} {offerUnitsGroupsGrouped.First().Key}.");
+                return $"{text} {offerUnitsGroupsGrouped.First().Key}.";
             }
-            else
+
+            var result = string.Empty;
+            foreach (var unitsGroups in offerUnitsGroupsGrouped)
             {
-                foreach (var unitsGroups in offerUnitsGroupsGrouped)
-                {
-                    var sb = new StringBuilder();
-                    unitsGroups.ForEach(x => sb.Append($"{x.Position}, "));
-                    var positions = sb.Remove(sb.Length - 2, 2);
-                    docWriter.PrintParagraph($"{text} позиций {positions}: {unitsGroups.Key}.");
-                }
+                if (!string.IsNullOrEmpty(result))
+                    result += Environment.NewLine;
+                var positions = unitsGroups.Select(x => x.Position).ToStringEnum(", ");
+                var prefix = unitsGroups.Count() == 1 ? "позиции" : "позиций";
+                result += $"{text} {prefix} {positions}: {unitsGroups.Key}.";
             }
+            return result;
         }
 
         private static void PrintSumTableString(string text, double sum, WordDocumentWriter docWriter, TableCellProperties tableCellProperties,
@@ -334,7 +382,7 @@ namespace HVTApp.Services.PrintService
         private TableProperties GetTableProperties(WordDocumentWriter docWriter, TableBorderProperties borderProps)
         {
             var tableProps = docWriter.CreateTableProperties();
-            tableProps.Alignment = ParagraphAlignment.Both;
+            tableProps.Alignment = ParagraphAlignment.Left;
             tableProps.BorderProperties.Color = borderProps.Color;
             tableProps.BorderProperties.Style = borderProps.Style;
             return tableProps;
@@ -343,8 +391,10 @@ namespace HVTApp.Services.PrintService
         #region GetImage
         private BitmapSource GetImage(string resourceName)
         {
-            return new BitmapImage(new Uri(@"pack://application:,,,/HVTApp.Services.PrintService;component/Images/" + resourceName));
+            return new BitmapImage(new Uri(@"..\..\Images\" + resourceName, UriKind.RelativeOrAbsolute));
+            //return new BitmapImage(new Uri(@"pack://application:,,,/HVTApp.Services.PrintService;component/Images/" + resourceName));
         }
         #endregion GetImage
     }
+
 }
