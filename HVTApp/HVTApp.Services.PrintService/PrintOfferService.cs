@@ -188,7 +188,7 @@ namespace HVTApp.Services.PrintService
 
             var conditions = new List<string>
             {
-                "Комплектация и технические характеристики оборудования в соответствии с приложением к настоящему предложению.",
+                "Комплектация и характеристики оборудования в соответствии с техническим приложением к настоящему предложению.",
                 GetShipmentConditions(offerUnitsGroups),
                 PrintConditions("Условия оплаты:", offerUnitsGroups.GroupBy(x => x.PaymentConditionSet.Model)),
                 PrintConditions("Срок производства (календарных дней, с правом досрочной поставки): ", offerUnitsGroups.GroupBy(x => x.ProductionTerm)),
@@ -324,7 +324,7 @@ namespace HVTApp.Services.PrintService
 
         private string GetOfferPath(Offer offer, string path)
         {
-            var fileName = $"\\{offer.RegNumber} от {offer.Date.ToShortDateString()} ({offer.RecipientEmployee.Company.ShortName.ReplaceUncorrectSimbols()}) {DateTime.Today.ToShortDateString()} {DateTime.Now.ToShortTimeString().ReplaceUncorrectSimbols("-")}";
+            var fileName = $"{offer.RegNumber} {offer.Date.ToShortDateString()} ({offer.RecipientEmployee.Company.ShortName.ReplaceUncorrectSimbols()}) {DateTime.Today.ToShortDateString()} {DateTime.Now.ToShortTimeString().ReplaceUncorrectSimbols("-")}";
             fileName = fileName.ReplaceUncorrectSimbols("-").Replace('.', '-').Replace(' ', '_') + ".docx";
             return path == "" ? AppDomain.CurrentDomain.BaseDirectory + $"\\{fileName}" : path + $"\\{fileName}";            
         }

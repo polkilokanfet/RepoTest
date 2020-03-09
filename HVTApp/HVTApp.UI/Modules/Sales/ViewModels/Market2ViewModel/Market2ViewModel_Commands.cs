@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Input;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
@@ -137,10 +138,22 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
         private string GetProjectPath(Project project)
         {
             //путь к папке проекта
-            var projectsFolder = string.IsNullOrEmpty(Properties.Settings.Default.ProjectsFolderPath)
+            var projectsFolderPath = string.IsNullOrEmpty(Properties.Settings.Default.ProjectsFolderPath)
                 ? Environment.SpecialFolder.Personal + "HVTApp"
                 : Properties.Settings.Default.ProjectsFolderPath;
-            var path = projectsFolder + $"\\{project.Id.ToString().Replace("-", string.Empty)}";
+
+            var id = project.Id.ToString().Replace("-", string.Empty);
+            if (Directory.Exists(projectsFolderPath))
+            {
+                var directoryInfo = new DirectoryInfo(projectsFolderPath);
+                var targetDirectoryInfo = directoryInfo.GetDirectories().FirstOrDefault(x => x.Name.Contains(id));
+                if (targetDirectoryInfo != null)
+                {
+                    return targetDirectoryInfo.FullName;
+                }
+            }
+
+            var path = projectsFolderPath + $"\\{project.Name.ReplaceUncorrectSimbols("-").Replace("  ", " ")} {id}";
 
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);

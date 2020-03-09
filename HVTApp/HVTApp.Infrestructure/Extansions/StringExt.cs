@@ -8,10 +8,7 @@ namespace HVTApp.Infrastructure.Extansions
         {
             var simbols = new List<string> {"/", "\\", ":", "*", "?", "\"", "<", ">", "|"};
             var result = text;
-            foreach (var simbol in simbols)
-            {
-                result = result.Replace(simbol, stringToReplace);
-            }
+            simbols.ForEach(x => result = result.Replace(x, stringToReplace));
             return result;
         }
     }

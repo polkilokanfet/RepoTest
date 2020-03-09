@@ -620,6 +620,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Generator.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\folder.png" />
     <Content Include="SalesReportViewGenerator.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>SalesReportViewGenerator.txt</LastGenOutput>

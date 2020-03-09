@@ -41,6 +41,7 @@
         <Setter Property="FieldSettings">
             <Setter.Value>
                 <infg:FieldSettings AllowEdit="False" 
+                                    AllowResize="True"
                                     AllowRecordFiltering="True" 
                                     FilterLabelIconDropDownType="MultiSelectExcelStyle" />
             </Setter.Value>
@@ -54,6 +55,7 @@
                                           AllowFieldMoving="Yes"
                                           AllowRecordFixing="Top"
                                           HeaderPrefixAreaDisplayMode="FieldChooserButton"
+                                          FilterUIType="LabelIcons"
                                           HighlightAlternateRecords="True" />
                                           <!--AutoFitMode="Always"-->
             </Setter.Value>

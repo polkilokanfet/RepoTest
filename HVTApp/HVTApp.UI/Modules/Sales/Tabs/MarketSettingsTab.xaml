@@ -7,7 +7,7 @@
              Header="Настройки">
 
     <infRib:RibbonGroup Caption="Папка проекта">
-        <infRib:ButtonTool Caption="Выбрать главную папку" Command="{Binding SelectProjectsFolderCommand}" SmallImage="/HVTApp.UI;component/Images/done.png"/>
+        <infRib:ButtonTool Caption="Выбрать главную папку" Command="{Binding SelectProjectsFolderCommand}" SmallImage="/HVTApp.UI;component/Images/folder.png"/>
     </infRib:RibbonGroup>
 
 </inf:RibbonTabItemWithViewModel>
