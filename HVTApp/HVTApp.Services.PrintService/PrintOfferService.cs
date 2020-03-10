@@ -46,11 +46,21 @@ namespace HVTApp.Services.PrintService
 
             #region Print Header
 
-            BitmapSource headerBitmapSource = GetImage("header.jpg");
-            AnchoredPicture headerPicture = docWriter.CreateAnchoredPicture(headerBitmapSource);
-            docWriter.StartParagraph();
-            docWriter.AddAnchoredPicture(headerPicture);
-            docWriter.EndParagraph();
+            try
+            {
+                BitmapSource headerBitmapSource = GetImage("header.jpg");
+                if (headerBitmapSource != null)
+                {
+                    AnchoredPicture headerPicture = docWriter.CreateAnchoredPicture(headerBitmapSource);
+                    docWriter.StartParagraph();
+                    docWriter.AddAnchoredPicture(headerPicture);
+                    docWriter.EndParagraph();
+                }
+            }
+            catch (Exception e)
+            {
+                _messageService.ShowOkMessageDialog("Error", e.GetAllExceptions());
+            }
 
             Font fontBold = docWriter.CreateFont();
             fontBold.Bold = true;
@@ -302,7 +312,14 @@ namespace HVTApp.Services.PrintService
 
             var dr = _messageService.ShowYesNoMessageDialog("Процесс завершен", "Формирование ТКП завершено. Открыть результат?");
             if (dr == MessageDialogResult.Yes)
-                System.Diagnostics.Process.Start(GetOfferPath(offer, path));
+                try
+                {
+                    System.Diagnostics.Process.Start(GetOfferPath(offer, path));
+                }
+                catch (Exception e)
+                {
+                    _messageService.ShowOkMessageDialog("Error", e.GetAllExceptions());
+                }
         }
 
         private string GetShipmentConditions(List<OfferUnitsGroup> offerUnitsGroups)
@@ -319,7 +336,7 @@ namespace HVTApp.Services.PrintService
                     
                 return $"В стоимости позици{end} {positions.ToStringEnum(", ")} учтены расходы связанные с его доставкой на объект.";
             }
-            return "В стоимости оборудования не учтены расходы связанные с его доставкой на объект.";
+            return "В стоимости оборудования не учтены расходы, связанные с его доставкой на объект.";
         }
 
         private string GetOfferPath(Offer offer, string path)
@@ -456,8 +473,12 @@ namespace HVTApp.Services.PrintService
         #region GetImage
         private BitmapSource GetImage(string resourceName)
         {
-            return new BitmapImage(new Uri(@"..\..\Images\" + resourceName, UriKind.RelativeOrAbsolute));
-            //return new BitmapImage(new Uri(@"pack://application:,,,/HVTApp.Services.PrintService;component/Images/" + resourceName));
+            var uri = new Uri("pack://application:,,,/HVTApp.Services.PrintService;component/Images/" + resourceName);
+            return new BitmapImage(uri);
+            //var uri = new Uri(@"..\..\Images\" + resourceName, UriKind.Relative);
+            //return new BitmapImage(uri);
+            //return File.Exists(uri.AbsolutePath) ? new BitmapImage(uri) : null;
+            //return new BitmapImage(new Uri(@"HVTApp.Services.PrintService;component/Images/" + resourceName));
         }
         #endregion GetImage
     }
