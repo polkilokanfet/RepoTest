@@ -132,7 +132,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
         private void OpenFolderCommand_Execute()
         {
             var path = GetProjectPath(SelectedProjectItem.Project);
-            Process.Start("explorer", path);
+            Process.Start("explorer", $"\"{path}\"");
         }
 
         private string GetProjectPath(Project project)

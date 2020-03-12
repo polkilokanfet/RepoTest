@@ -352,6 +352,13 @@ namespace HVTApp.Model.POCOs
         }
 
         /// <summary>
+        /// Расчетная дата окончания производства.
+        /// </summary>
+        [Designation("Окончание производства по договору"), OrderStatus(854), NotMapped]
+        public DateTime EndProductionDateByContractCalculated => StartProductionDateCalculated.AddDays(ProductionTerm);
+
+
+        /// <summary>
         /// Расчетная дата реализации.
         /// </summary>
         [Designation("Расчетная дата реализации"), OrderStatus(850), NotMapped]

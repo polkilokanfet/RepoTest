@@ -133,7 +133,7 @@
 
                         <dp:FieldLayout>
                             <dp:FieldLayout.Fields>
-                                <dp:Field Name="Product" Label="Продукт" Width="Auto" Converter="{StaticResource WrapperToStringConverter}" />
+                                <dp:Field Name="Product" Label="Продукт" Width="250" AllowResize="True" Converter="{StaticResource WrapperToStringConverter}" />
                                 <dp:NumericField Name="Count" Label="Кол." Width="Auto" />
                             </dp:FieldLayout.Fields>
                         </dp:FieldLayout>

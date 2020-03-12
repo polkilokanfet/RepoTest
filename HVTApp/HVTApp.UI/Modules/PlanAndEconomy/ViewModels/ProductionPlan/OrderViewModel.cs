@@ -108,7 +108,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
             GroupsInOrder.AddRange(groupsInOrder.Select(x => new SalesUnitOrderGroup(x)));
 
             //юниты для размещения в производстве
-            var unitsToProduct = _unitsWrappers.Except(unitsInOrder).ToList();
+            var unitsToProduct = _unitsWrappers.Where(x => !x.Model.IsLoosen).Except(unitsInOrder).ToList();
             var groupsToProduct = unitsToProduct.GroupBy(x => new
             {
                 FacilityId = x.Model.Facility.Id,

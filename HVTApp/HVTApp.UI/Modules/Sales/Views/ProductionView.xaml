@@ -41,6 +41,7 @@
                                 <infg:TextField AlternateBinding="{Binding SalesUnit.Specification.Contract}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
                                 <infg:DateTimeField AlternateBinding="{Binding SalesUnit.EndProductionDateCalculated}" BindingType="UseAlternateBinding" Label="Фактическая" Width="Auto" AllowResize="False"/>
                                 <infg:DateTimeField AlternateBinding="{Binding EndProductionDateExpected}" BindingType="UseAlternateBinding" Label="Требуемая" Width="Auto" AllowResize="False"/>
+                                <infg:DateTimeField AlternateBinding="{Binding SalesUnit.EndProductionDateByContractCalculated}" BindingType="UseAlternateBinding" Label="По договору" Width="Auto" AllowResize="False"/>
                                 <infg:CheckBoxField Name="IsProduced" AlternateBinding="{Binding IsProduced}" BindingType="UseAlternateBinding" Label="Произведено" Width="Auto" AllowResize="False"/>
                             </infg:FieldLayout.Fields>
 				        </infg:FieldLayout>
