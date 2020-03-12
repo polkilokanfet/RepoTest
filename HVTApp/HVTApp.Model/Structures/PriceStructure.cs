@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using HVTApp.Infrastructure.Extansions;
-using HVTApp.Model.Comparers;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.Model.Structures
@@ -32,14 +30,26 @@ namespace HVTApp.Model.Structures
         /// <summary>
         /// Прайс, близжайший к целевой дате
         /// </summary>
-        public SumOnDate Price => GetClosedSumOnDate(IsAnalogPrice ? Analog.Prices : Product.ProductBlock.Prices, TargetPriceDate);
+        public SumOnDate Price
+        {
+            get
+            {
+                if (Product.ProductBlock.Prices.Any())
+                    return Product.ProductBlock.Prices.GetClosedSumOnDate(TargetPriceDate);
+
+                if (Product.ProductBlock.FixedCosts.Any())
+                    return Product.ProductBlock.FixedCosts.GetClosedSumOnDate(TargetPriceDate);
+
+                return Analog.Prices.GetClosedSumOnDate(TargetPriceDate);
+            }
+        }
 
         public double CostService { get; set; }
 
         /// <summary>
         /// У продукта нет прайса, взят прайс аналога
         /// </summary>
-        public bool IsAnalogPrice => !Product.ProductBlock.Prices.Any();
+        public bool IsAnalogPrice => !Product.ProductBlock.Prices.Any() && !Product.ProductBlock.FixedCosts.Any();
 
         /// <summary>
         /// Прайс устарел
@@ -123,19 +133,6 @@ namespace HVTApp.Model.Structures
             Product = product;
             Amount = amount;
             TargetPriceDate = targetPriceDate;
-        }
-
-        /// <summary>
-        /// Возвращает ближайшую к дате сумму.
-        /// </summary>
-        /// <param name="sumsOnDates"></param>
-        /// <param name="date"></param>
-        /// <returns></returns>
-        private SumOnDate GetClosedSumOnDate(IEnumerable<SumOnDate> sumsOnDates, DateTime date)
-        {
-            var sumOnDates = sumsOnDates as SumOnDate[] ?? sumsOnDates.ToArray();
-            var dif = sumOnDates.Select(x => Math.Abs((x.Date - date).Days)).Min();
-            return sumOnDates.First(x => x.Date == date.AddDays(-dif) || x.Date == date.AddDays(dif));
         }
 
     }

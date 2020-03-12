@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Model;
 using HVTApp.Model.Comparers;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
@@ -44,8 +45,9 @@ namespace HVTApp.Services.PriceService
 
         public double GetPrice(ProductBlock block, DateTime date, int actualTerm, PriceErrors errors = null)
         {
+            bool haveNoPrice = !block.Prices.Any() && !block.FixedCosts.Any();
             //если нет никакого прайса
-            if (!block.Prices.Any())
+            if (haveNoPrice)
             {
                 //ищем аналог
                 var analog = GetAnalogWithPrice(block);
@@ -59,36 +61,14 @@ namespace HVTApp.Services.PriceService
             }
 
             //поиск ближайшей к дате суммы
-            var price = GetClosedSumOnDate(block.Prices, date);
+            var price = block.Prices.Any() 
+                ? block.Prices.GetClosedSumOnDate(date) 
+                : block.FixedCosts.GetClosedSumOnDate(date);
 
             if (price.Date < date.AddDays(-actualTerm) || price.Date > date.AddDays(actualTerm))
                 errors?.AddError(block, PriceErrorType.NoActualPrice);
 
             return price.Sum * _kUp;
-        }
-
-        /// <summary>
-        /// Возвращает ближайшую к дате сумму.
-        /// </summary>
-        /// <param name="sumsOnDates"></param>
-        /// <param name="date"></param>
-        /// <returns></returns>
-        private SumOnDate GetClosedSumOnDate(IEnumerable<SumOnDate> sumsOnDates, DateTime date)
-        {
-            var dif = sumsOnDates.Select(x => Math.Abs((x.Date - date).Days)).Min();
-            return sumsOnDates.First(x => x.Date == date.AddDays(-dif) || x.Date == date.AddDays(dif));
-            //SumOnDate result = null;
-            //double? currentDif = null;
-            //foreach (var sumOnDate in sumsOnDates)
-            //{
-            //    var dif = Math.Abs((sumOnDate.Date - date).TotalDays);
-            //    if (currentDif == null || dif < currentDif)
-            //    {
-            //        currentDif = dif;
-            //        result = sumOnDate;
-            //    }
-            //}
-            //return result;
         }
 
         /// <summary>

@@ -67,5 +67,31 @@ namespace HVTApp.Model
 
             return region;
         }
+
+        /// <summary>
+        /// Возвращает ближайшую к дате сумму.
+        /// </summary>
+        /// <param name="sumsOnDates">Суммы</param>
+        /// <param name="date">Дата</param>
+        /// <returns></returns>
+        public static SumOnDate GetClosedSumOnDate(this IEnumerable<SumOnDate> sumsOnDates, DateTime date)
+        {
+            var sumOnDates = sumsOnDates as SumOnDate[] ?? sumsOnDates.ToArray();
+            var dif = sumOnDates.Select(x => Math.Abs((x.Date - date).Days)).Min();
+            return sumOnDates.First(x => x.Date == date.AddDays(-dif) || x.Date == date.AddDays(dif));
+            //SumOnDate result = null;
+            //double? currentDif = null;
+            //foreach (var sumOnDate in sumsOnDates)
+            //{
+            //    var dif = Math.Abs((sumOnDate.Date - date).TotalDays);
+            //    if (currentDif == null || dif < currentDif)
+            //    {
+            //        currentDif = dif;
+            //        result = sumOnDate;
+            //    }
+            //}
+            //return result;
+        }
+
     }
 }
