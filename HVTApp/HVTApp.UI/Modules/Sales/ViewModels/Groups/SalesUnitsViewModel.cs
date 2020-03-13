@@ -51,7 +51,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             {
                 if (AutoCost && args.PropertyName == nameof(SalesUnitWrapper.Product))
                 {
-                    var price = _priceService.GetPrice(ViewModel.Item.Model.Product, DateTime.Today, 60);
+                    var price = _priceService.GetPrice(ViewModel.Item.Model, DateTime.Today).SumTotal;
                     ViewModel.Item.Cost = Math.Round(price / 0.6 / 100.0) * 100.0;
                 }
             };

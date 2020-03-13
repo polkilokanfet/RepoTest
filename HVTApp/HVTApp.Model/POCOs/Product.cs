@@ -38,8 +38,16 @@ namespace HVTApp.Model.POCOs
         [Designation("Продукты в составе")]
         public virtual List<ProductDependent> DependentProducts { get; set; } = new List<ProductDependent>();
 
-
-
+        [Designation("В продукте есть блоки с фиксированной ценой"), NotMapped]
+        public bool HasBlockWithFixedCost
+        {
+            get
+            {
+                if (ProductBlock.HasFixedPrice) return true;
+                if (DependentProducts.Any(x => x.Product.HasBlockWithFixedCost)) return true;
+                return false;
+            }
+        }
 
 
 

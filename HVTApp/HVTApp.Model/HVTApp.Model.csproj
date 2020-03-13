@@ -82,6 +82,7 @@
     <Compile Include="POCOs\StandartMarginalIncome.cs" />
     <Compile Include="POCOs\StandartProductionTerm.cs" />
     <Compile Include="POCOs\StructureCost.cs" />
+    <Compile Include="Price.cs" />
     <Compile Include="Services\IGetProductService.cs" />
     <Compile Include="Services\INewProductService.cs" />
     <Compile Include="Services\IPriceService.cs" />

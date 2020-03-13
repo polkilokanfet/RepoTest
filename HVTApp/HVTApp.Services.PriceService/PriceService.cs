@@ -13,12 +13,6 @@ namespace HVTApp.Services.PriceService
 {
     public class PriceService : IPriceService
     {
-        /// <summary>
-        ///  оэффициент упаковки
-        /// "гениальное изобретение фин.отдела"
-        /// </summary>
-        const double _kUp = 1.03;
-
         private readonly List<ProductBlock> _blocks;
         private readonly List<PriceCalculation> _priceCalculations;
 
@@ -27,48 +21,33 @@ namespace HVTApp.Services.PriceService
         /// </summary>
         private readonly Dictionary<Guid, ProductBlock> _analogsWithPrice = new Dictionary<Guid, ProductBlock>();
 
+        public double? GetPriceByCalculations(IUnit unit)
+        {
+            if(unit == null)
+                throw new ArgumentNullException(nameof(unit));
+
+            //по проставленному прайсу
+            //if (unit.Price.HasValue) 
+            //    return unit.Price.Value * _kUp;
+
+            //по расчетам себестоимости
+            var priceCalculationItem = _priceCalculations
+                .OrderByDescending(x => x.TaskCloseMoment)
+                .SelectMany(x => x.PriceCalculationItems)
+                .FirstOrDefault(x => x.SalesUnits.ContainsById(unit));
+
+            return priceCalculationItem?.StructureCosts.Sum(x => x.Total);
+        }
+
+        public Price GetPrice(IUnit unit, DateTime targetDate)
+        {
+            return new Price(unit, targetDate, this);
+        }
+
         public PriceService(IUnitOfWork unitOfWork)
         {
             _blocks = unitOfWork.Repository<ProductBlock>().GetAll();
             _priceCalculations = unitOfWork.Repository<PriceCalculation>().Find(x => x.TaskCloseMoment.HasValue);
-        }
-
-        public double GetPrice(Product product, DateTime date, int actualTerm, PriceErrors errors = null)
-        {
-            double result = 0;
-            foreach (var block in product.GetBlocks())
-            {
-                result += GetPrice(block, date, actualTerm, errors);
-            }
-            return result;
-        }
-
-        public double GetPrice(ProductBlock block, DateTime date, int actualTerm, PriceErrors errors = null)
-        {
-            bool haveNoPrice = !block.Prices.Any() && !block.FixedCosts.Any();
-            //если нет никакого прайса
-            if (haveNoPrice)
-            {
-                //ищем аналог
-                var analog = GetAnalogWithPrice(block);
-                if (analog == null)
-                {
-                    errors?.AddError(block, PriceErrorType.NoPrice);
-                    return 0;
-                }
-                errors?.AddError(block, PriceErrorType.PriceOfAnalog, analog);
-                block = analog;
-            }
-
-            //поиск ближайшей к дате суммы
-            var price = block.Prices.Any() 
-                ? block.Prices.GetClosedSumOnDate(date) 
-                : block.FixedCosts.GetClosedSumOnDate(date);
-
-            if (price.Date < date.AddDays(-actualTerm) || price.Date > date.AddDays(actualTerm))
-                errors?.AddError(block, PriceErrorType.NoActualPrice);
-
-            return price.Sum * _kUp;
         }
 
         /// <summary>
@@ -123,58 +102,5 @@ namespace HVTApp.Services.PriceService
             _analogsWithPrice.Add(blockTarget.Id, blockAnalog);
             return blockAnalog;
         }
-
-        public PriceStructure GetPriceStructure(Product product, double amount, DateTime targetPriceDate, int priceTerm)
-        {
-            var priceStructure = new PriceStructure(product, amount, targetPriceDate, priceTerm);
-            if (priceStructure.IsAnalogPrice)
-                priceStructure.Analog = GetAnalogWithPrice(product.ProductBlock);
-
-            //добавл€ем дочерние структуры
-            foreach (var dependentProduct in product.DependentProducts)
-            {
-                var dePriceStructure = GetPriceStructure(dependentProduct.Product, dependentProduct.Amount, targetPriceDate, priceTerm);
-                priceStructure.DependentProductsPriceStructures.Add(dePriceStructure);
-            }
-
-            return priceStructure;
-        }
-
-        public PriceStructures GetPriceStructures(IUnit unit, DateTime targetPriceDate, int priceTerm)
-        {
-            //структура себестоимости продукта
-            var priceStructures = new PriceStructures
-            {
-                this.GetPriceStructure(unit.Product, 1, targetPriceDate, priceTerm)
-            };
-
-            //структура себестоимости включенных продуктов
-            foreach (var productIncluded in unit.ProductsIncluded)
-            {
-                double count = (double)productIncluded.Amount / productIncluded.ParentsCount;
-                priceStructures.Add(GetPriceStructure(productIncluded.Product, count, targetPriceDate, priceTerm));
-            }
-
-            return priceStructures;
-        }
-
-        public double? GetPrice(SalesUnit salesUnit)
-        {
-            if(salesUnit == null)
-                throw new ArgumentNullException(nameof(salesUnit));
-
-            //по проставленному прайсу
-            if (salesUnit.Price.HasValue) 
-                return salesUnit.Price.Value * _kUp;
-
-            //по расчетам себестоимости
-            var priceCalculationItem = _priceCalculations
-                .OrderByDescending(x => x.TaskCloseMoment)
-                .SelectMany(x => x.PriceCalculationItems)
-                .FirstOrDefault(x => x.SalesUnits.ContainsById(salesUnit));
-
-            return priceCalculationItem?.StructureCosts.Sum(x => x.Total) * _kUp;
-        }
-
     }
 }

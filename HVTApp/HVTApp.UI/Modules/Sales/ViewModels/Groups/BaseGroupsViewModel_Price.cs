@@ -18,12 +18,12 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
         where TAfterRemoveEvent : PubSubEvent<TModel>, new()
     {
         //блоки, необходимые для поиска аналогов
-        protected readonly Dictionary<TGroup, PriceStructures> PriceDictionary = new Dictionary<TGroup, PriceStructures>();
+        protected readonly Dictionary<TGroup, Price> PriceDictionary = new Dictionary<TGroup, Price>();
 
         /// <summary>
         /// Структура себестоимости выбранной группы
         /// </summary>
-        public PriceStructures PriceStructures => Groups.SelectedGroup == null ? null : PriceDictionary[Groups.SelectedGroup];
+        public List<Price> PriceStructures => Groups.SelectedGroup == null ? null : new List<Price> { PriceDictionary[Groups.SelectedGroup] };
 
         /// <summary>
         /// Дата для расчета себестоимости.
@@ -47,16 +47,11 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             if (!PriceDictionary.ContainsKey(grp)) PriceDictionary.Add(grp, null);
 
             //обновляем структуру себестоимости этой группе
-            PriceDictionary[grp] = GlobalAppProperties.PriceService.GetPriceStructures(grp.Model, GetPriceDate(grp), priceTerm);
-
-            var price =
-                grp.SalesUnit == null
-                    ? null
-                    : GlobalAppProperties.PriceService.GetPrice(grp.SalesUnit);
+            PriceDictionary[grp] = GlobalAppProperties.PriceService.GetPrice(grp.Model, GetPriceDate(grp));
 
             //обновляем себестоимость группы
-            grp.Price = price ?? PriceDictionary[grp].TotalPriceFixedCostLess;
-            grp.FixedCost = PriceDictionary[grp].TotalFixedCost;
+            grp.Price = PriceDictionary[grp].SumPriceTotal;
+            grp.FixedCost = PriceDictionary[grp].SumFixedTotal;
             OnPropertyChanged(nameof(PriceStructures));
 
             //если в группе есть зависимые группы - обновить и для них

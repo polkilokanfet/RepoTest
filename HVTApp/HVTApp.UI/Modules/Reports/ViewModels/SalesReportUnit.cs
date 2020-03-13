@@ -406,10 +406,9 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
             var costDelivery = SalesUnits.Select(x => x.CostDelivery).Where(x => x.HasValue).Sum(x => x.Value);
             CostDelivery = -1.0 * costDelivery;
 
-            var priceStructures = GlobalAppProperties.PriceService.GetPriceStructures(salesUnit, salesUnit.OrderInTakeDate, GlobalAppProperties.Actual.ActualPriceTerm);
-            Price = salesUnit.Price ?? GlobalAppProperties.PriceService.GetPrice(salesUnit) ?? priceStructures.TotalPriceFixedCostLess;
-            var totalFixedCost = SalesUnits.Sum(unit => GlobalAppProperties.PriceService.GetPriceStructures(unit, unit.OrderInTakeDate, GlobalAppProperties.Actual.ActualPriceTerm).TotalFixedCost);
-            FixedCost = -1.0 * totalFixedCost;
+            var price = GlobalAppProperties.PriceService.GetPrice(salesUnit, salesUnit.OrderInTakeDate);
+            Price = price.SumPriceTotal;
+            FixedCost = -1.0 * price.SumFixedTotal;
             //FixedCostAndDelivery = CostDelivery.HasValue ? CostDelivery.Value + FixedCost : FixedCost;
 
             var manager = salesUnit.Project.Manager.Employee;
