@@ -140,7 +140,7 @@
 
             <GridSplitter Grid.Row="0" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Center" Width="3" />
 
-            <GroupBox Grid.Column="2" Header="Включено в стоимость" Name="ProductsIncludedGroupBox">
+            <GroupBox Grid.Column="2" Header="Включено в стоимость (на единицу)" Name="ProductsIncludedGroupBox">
                 <dp:XamDataGrid x:Name="ProductsIncludedListGrid"
                                 DataSource="{Binding Path=SelectedDataItem.ProductsIncluded, ElementName=UnitListGrid, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                 SelectedDataItem="{Binding Groups.SelectedProductIncluded}">

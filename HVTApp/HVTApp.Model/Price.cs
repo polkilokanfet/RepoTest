@@ -28,7 +28,7 @@ namespace HVTApp.Model
             get
             {
                 if (_analog != null) return _analog;
-                if (Prices.Any(x => x.Analog != null)) return "Есть аналоги";
+                if (Prices.Any(x => x.Analog != null)) return "Присутствуют аналоги";
                 return null;
             }
         }
@@ -37,7 +37,7 @@ namespace HVTApp.Model
 
         public double Amount { get; private set; } = 1;
 
-        public double SumTotal => Amount * (SumPriceTotal + SumFixedTotal);
+        public double SumTotal => SumPriceTotal + SumFixedTotal;
 
         private double? _sumPrice;
 
@@ -48,7 +48,9 @@ namespace HVTApp.Model
         {
             get
             {
-                return KUp * (_sumPrice * Amount ?? 0 + (PricesOfBlocks.Sum(x => x.SumPriceTotal * x.Amount) + PricesProductsIncluded.Sum(x => x.SumPriceTotal * x.Amount)));
+                if (_sumPrice != null)
+                    return KUp * _sumPrice.Value * Amount;
+                return PricesOfBlocks.Sum(x => x.SumPriceTotal) + PricesProductsIncluded.Sum(x => x.SumPriceTotal);
             }
         }
 

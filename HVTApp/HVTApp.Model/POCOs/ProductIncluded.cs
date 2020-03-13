@@ -28,6 +28,12 @@ namespace HVTApp.Model.POCOs
         [NotMapped]
         public int ParentsCount { get; set; } = 1;
 
+        /// <summary>
+        /// Количество на единицу родителя
+        /// </summary>
+        [NotMapped]
+        public double AmountOnUnit => (double) Amount / ParentsCount;
+
         //public override bool Equals(object obj)
         //{
         //    if (base.Equals(obj)) return true;
