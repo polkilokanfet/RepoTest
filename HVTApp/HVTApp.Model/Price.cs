@@ -12,7 +12,7 @@ namespace HVTApp.Model
         /// Коэффициент упаковки
         /// "гениальное изобретение фин.отдела"
         /// </summary>
-        private const double KUp = 1.03;
+        private const double KUp = 10;
 
         /// <summary>
         /// Имеется калькуляция
@@ -50,12 +50,16 @@ namespace HVTApp.Model
             {
                 if (_sumPrice != null)
                     return KUp * _sumPrice.Value * Amount;
-                return PricesOfBlocks.Sum(x => x.SumPriceTotal) + PricesProductsIncluded.Sum(x => x.SumPriceTotal);
+
+                var sumPriceMainBlock = PriceMainBlock?.SumPriceTotal ?? 0;
+
+                return sumPriceMainBlock 
+                    + PricesOfDependentBlocks.Sum(x => x.SumPriceTotal) 
+                    + PricesProductsIncluded.Sum(x => x.SumPriceTotal);
             }
         }
 
         private double? _sumFixed;
-
         /// <summary>
         /// Стоимость блоков с фиксированной ценой
         /// </summary>
@@ -63,15 +67,44 @@ namespace HVTApp.Model
         {
             get
             {
-                return _sumFixed * Amount ?? 0 + (PricesOfBlocks.Sum(x => x.SumFixedTotal * x.Amount) + PricesProductsIncluded.Sum(x => x.SumFixedTotal * x.Amount));
+                if (_sumFixed.HasValue)
+                    return _sumFixed.Value * Amount;
+
+                var sumPriceMainBlock = PriceMainBlock?.SumFixedTotal ?? 0;
+
+                return sumPriceMainBlock 
+                    + PricesOfDependentBlocks.Sum(x => x.SumFixedTotal) 
+                    + PricesProductsIncluded.Sum(x => x.SumFixedTotal);
             }
         }
 
-        public List<Price> PricesOfBlocks { get; } = new List<Price>();
+        /// <summary>
+        /// Прайс главного блока
+        /// </summary>
+        public Price PriceMainBlock { get; private set; }
 
+        /// <summary>
+        /// Прайсы зависимых блоков
+        /// </summary>
+        public List<Price> PricesOfDependentBlocks { get; } = new List<Price>();
+
+        /// <summary>
+        /// Прайсы включенного оборудования
+        /// </summary>
         public List<Price> PricesProductsIncluded { get; } = new List<Price>();
 
-        public List<Price> Prices => PricesOfBlocks.Union(PricesProductsIncluded).OrderByDescending(x => x.SumTotal).ToList();
+        public List<Price> Prices
+        {
+            get
+            {
+
+                var prices = PricesProductsIncluded.ToList();
+                if (PriceMainBlock != null) 
+                    prices.Add(new Price(PriceMainBlock.Name, PricesOfDependentBlocks.Union(new List<Price> { PriceMainBlock })));
+
+                return prices.OrderByDescending(x => x.SumTotal).ToList();
+            }
+        }
 
         public Price(IUnit unit, DateTime targetDate, IPriceService priceService)
         {
@@ -93,11 +126,9 @@ namespace HVTApp.Model
             }
 
             //включенное оборудование
-            foreach (var productIncluded in productsIncluded)
-            {
-                double amount = (double)productIncluded.Amount / (double)productIncluded.ParentsCount;
-                PricesProductsIncluded.Add(new Price(productIncluded.Product, targetDate, priceService, amount));
-            }            
+            PricesProductsIncluded = productsIncluded
+                .Select(x => new Price(x.Product, targetDate, priceService, x.AmountOnUnit))
+                .ToList();
         }
 
         public Price(Product product, DateTime targetDate, IPriceService priceService, double amount = 1)
@@ -109,10 +140,10 @@ namespace HVTApp.Model
         private void InitByProduct(Product product, DateTime targetDate, IPriceService priceService, double amount = 1)
         {
             Amount = amount;
-            PricesOfBlocks.Add(new Price(product.ProductBlock, targetDate, priceService, amount));
+            PriceMainBlock = new Price(product.ProductBlock, targetDate, priceService, amount);
             foreach (var dependentProduct in product.DependentProducts)
             {
-                PricesOfBlocks.Add(new Price(dependentProduct.Product, targetDate, priceService, dependentProduct.Amount));
+                PricesOfDependentBlocks.Add(new Price(dependentProduct.Product, targetDate, priceService, dependentProduct.Amount));
             }
         }
 
@@ -121,15 +152,11 @@ namespace HVTApp.Model
             Amount = amount;
 
             if (productBlock.HasPrice || productBlock.HasFixedPrice)
-            {
                 //инициализация по прайсу/фиксированной цене
                 InitByBlock(productBlock, targetDate);
-            }
             else
-            {
                 //инициализация по аналогу
                 InitByBlock(priceService.GetAnalogWithPrice(productBlock), targetDate, productBlock);
-            }
         }
 
         private void InitByBlock(ProductBlock productBlock, DateTime targetDate, ProductBlock originalBlock = null)
@@ -156,6 +183,12 @@ namespace HVTApp.Model
             {
                 _sumPrice = productBlock.Prices.GetClosedSumOnDate(targetDate).Sum;
             }
+        }
+
+        public Price(string name, IEnumerable<Price> pricesProductsIncluded)
+        {
+            Name = name;
+            PricesProductsIncluded = pricesProductsIncluded.ToList();
         }
     }
 }
