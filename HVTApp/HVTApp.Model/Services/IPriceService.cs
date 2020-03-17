@@ -18,6 +18,8 @@ namespace HVTApp.Model.Services
         /// <returns></returns>
         double? GetPriceByCalculations(IUnit unit);
 
+        PriceCalculationItem GetPriceCalculationItem(IUnit unit);
+
         /// <summary>
         /// Поиск аналога для блока.
         /// </summary>

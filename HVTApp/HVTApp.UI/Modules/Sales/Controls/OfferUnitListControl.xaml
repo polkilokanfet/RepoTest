@@ -123,7 +123,7 @@
                           Width="3" />
 
             <GroupBox Grid.Column="2"
-                      Header="Включено в стоимость"
+                      Header="Включено в стоимость (на единицу)"
                       Name="ProductsIncludedGroupBox">
                 <dp:XamDataGrid x:Name="ProductsIncludedListGrid"
                                 DataSource="{Binding Path=SelectedDataItem.ProductsIncluded, ElementName=UnitListGrid, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
@@ -149,20 +149,20 @@
                       VerticalAlignment="Center"
                       Height="3" />
 
-        <GroupBox Grid.Row="2" Header="Структура себестоимости:">
-            <dp:XamDataGrid DataSource="{Binding PriceStructures}">
+        <GroupBox Grid.Row="2" Header="Структура себестоимости (на единицу):">
+            <dp:XamDataGrid DataSource="{Binding Prices}">
                 <dp:XamDataGrid.FieldLayouts>
                     <dp:FieldLayout>
                         <dp:FieldLayout.Fields>
-                                
-                                    <dp:TextField AlternateBinding="{Binding Product}" BindingType="UseAlternateBinding" Label="Продукт" Width="Auto" />
-                                    <dp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" />
-                                    <dp:NumericField AlternateBinding="{Binding Price.Sum}" BindingType="UseAlternateBinding" Label="Стоимость" Width="Auto" />
-                                    <dp:NumericField AlternateBinding="{Binding TotalPriceFixedCostLess}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto" />
-                                    <dp:DateTimeField AlternateBinding="{Binding Price.Date}" BindingType="UseAlternateBinding" Label="Дата" Width="Auto" />
-                                    <dp:TextField AlternateBinding="{Binding Analog}" BindingType="UseAlternateBinding" Label="Аналог" Width="Auto" />
-                                    <dp:Field Name="DependentProductsPriceStructures" IsExpandable="True"/>
-                                
+
+                            <dp:TextField AlternateBinding="{Binding Name}" BindingType="UseAlternateBinding" Label="Продукт" Width="Auto" />
+                            <dp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" />
+                            <dp:NumericField AlternateBinding="{Binding SumPriceTotal}" BindingType="UseAlternateBinding" Label="ПЗ" Width="Auto" />
+                            <dp:NumericField AlternateBinding="{Binding SumFixedTotal}" BindingType="UseAlternateBinding" Label="ФЗ" Width="Auto" />
+                            <dp:NumericField AlternateBinding="{Binding SumTotal}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto" />
+                            <dp:TextField AlternateBinding="{Binding Analog}" BindingType="UseAlternateBinding" Label="Аналог" Width="Auto" />
+                            <dp:Field Name="Prices" IsExpandable="True"/>
+
                         </dp:FieldLayout.Fields>
                     </dp:FieldLayout>
                 </dp:XamDataGrid.FieldLayouts>

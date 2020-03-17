@@ -323,7 +323,7 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
         [Designation("Комплектация"), OrderStatus(-139)]
         public DateTime? PickingDate { get; }
 
-        [Designation("Включенное оборудование"), OrderStatus(-140)]
+        [Designation("Включенное оборудование (на единицу)"), OrderStatus(-140)]
         public string ProductsIncluded { get; }
 
         [Designation("Оплаты"), OrderStatus(-141)]
@@ -408,7 +408,7 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
 
             var price = GlobalAppProperties.PriceService.GetPrice(salesUnit, salesUnit.OrderInTakeDate);
             Price = price.SumPriceTotal;
-            FixedCost = -1.0 * price.SumFixedTotal;
+            FixedCost = -1.0 * price.SumFixedTotal * Amount;
             //FixedCostAndDelivery = CostDelivery.HasValue ? CostDelivery.Value + FixedCost : FixedCost;
 
             var manager = salesUnit.Project.Manager.Employee;

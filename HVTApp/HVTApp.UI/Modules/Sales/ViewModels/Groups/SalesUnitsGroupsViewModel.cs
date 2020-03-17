@@ -45,13 +45,6 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
 
         protected override List<SalesUnitsWrappersGroup> GetGroups(IEnumerable<SalesUnit> units)
         {
-            //проставляем количество родительских юнитов включенного оборудования
-            var productsIncluded = units.SelectMany(x => x.ProductsIncluded).ToList();
-            foreach (var productIncluded in productsIncluded)
-            {
-                productIncluded.ParentsCount = units.Count(x => x.ProductsIncluded.Contains(productIncluded));
-            }
-
             return units.GroupBy(x => x, new SalesUnitsGroupsComparer())
                         .OrderByDescending(x => x.Key.Cost)
                         .Select(x => new SalesUnitsWrappersGroup(x.ToList())).ToList();

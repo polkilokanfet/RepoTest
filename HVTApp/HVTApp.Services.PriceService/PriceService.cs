@@ -7,7 +7,6 @@ using HVTApp.Model;
 using HVTApp.Model.Comparers;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
-using HVTApp.Model.Structures;
 
 namespace HVTApp.Services.PriceService
 {
@@ -21,22 +20,24 @@ namespace HVTApp.Services.PriceService
         /// </summary>
         private readonly Dictionary<Guid, ProductBlock> _analogsWithPrice = new Dictionary<Guid, ProductBlock>();
 
+        public PriceCalculationItem GetPriceCalculationItem(IUnit unit)
+        {
+            if (unit == null) throw new ArgumentNullException(nameof(unit));
+
+            //по расчетам себестоимости
+            return _priceCalculations
+                .OrderByDescending(x => x.TaskCloseMoment)
+                .SelectMany(x => x.PriceCalculationItems)
+                .FirstOrDefault(x => x.SalesUnits.ContainsById(unit));
+        }
+
         public double? GetPriceByCalculations(IUnit unit)
         {
-            if(unit == null)
-                throw new ArgumentNullException(nameof(unit));
-
             //по проставленному прайсу
             //if (unit.Price.HasValue) 
             //    return unit.Price.Value * _kUp;
 
-            //по расчетам себестоимости
-            var priceCalculationItem = _priceCalculations
-                .OrderByDescending(x => x.TaskCloseMoment)
-                .SelectMany(x => x.PriceCalculationItems)
-                .FirstOrDefault(x => x.SalesUnits.ContainsById(unit));
-
-            return priceCalculationItem?.StructureCosts.Sum(x => x.Total);
+            return GetPriceCalculationItem(unit)?.StructureCosts.Sum(x => x.Total);
         }
 
         public Price GetPrice(IUnit unit, DateTime targetDate)

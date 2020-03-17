@@ -19,7 +19,7 @@ namespace HVTApp.Model.POCOs
 
         public override string ToString()
         {
-            return $"{Product} ({Amount} רע.)";
+            return $"{Product} ({AmountOnUnit} רע.)";
         }
 
         /// <summary>

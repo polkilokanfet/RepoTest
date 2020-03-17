@@ -12,7 +12,7 @@ namespace HVTApp.Model
         /// Коэффициент упаковки
         /// "гениальное изобретение фин.отдела"
         /// </summary>
-        private const double KUp = 10;
+        private const double KUp = 1.03;
 
         /// <summary>
         /// Имеется калькуляция
@@ -27,6 +27,7 @@ namespace HVTApp.Model
         {
             get
             {
+                if (HasCalculation) return "Прайс по калькуляции";
                 if (_analog != null) return _analog;
                 if (Prices.Any(x => x.Analog != null)) return "Присутствуют аналоги";
                 return null;
@@ -97,10 +98,16 @@ namespace HVTApp.Model
         {
             get
             {
-
                 var prices = PricesProductsIncluded.ToList();
-                if (PriceMainBlock != null) 
-                    prices.Add(new Price(PriceMainBlock.Name, PricesOfDependentBlocks.Union(new List<Price> { PriceMainBlock })));
+                if (HasCalculation)
+                {
+                    prices.Add(new Price(PriceMainBlock.Name, PricesOfDependentBlocks));
+                }
+                else
+                {
+                    if (PriceMainBlock != null) 
+                        prices.Add(new Price(PriceMainBlock.Name, PricesOfDependentBlocks.Union(new List<Price> { PriceMainBlock })));
+                }
 
                 return prices.OrderByDescending(x => x.SumTotal).ToList();
             }
@@ -112,11 +119,15 @@ namespace HVTApp.Model
             var productsIncluded = unit.ProductsIncluded;
 
             //если есть калькуляция
-            var priceByCalculations = priceService.GetPriceByCalculations(unit);
-            if (priceByCalculations != null)
+            var priceCalculationItem = priceService.GetPriceCalculationItem(unit);
+            if (priceCalculationItem != null)
             {
                 HasCalculation = true;
-                _sumPrice = priceByCalculations.Value;
+                PriceMainBlock = new Price(unit.Product.ToString(), 1);
+                PricesOfDependentBlocks = priceCalculationItem.StructureCosts
+                    .Where(x => x.UnitPrice.HasValue)
+                    .Select(x => new Price(x.Comment, x.Amount, x.UnitPrice.Value))
+                    .ToList();
 
                 productsIncluded = unit.ProductsIncluded.Where(x => x.Product.HasBlockWithFixedCost).ToList();
             }
@@ -189,6 +200,13 @@ namespace HVTApp.Model
         {
             Name = name;
             PricesProductsIncluded = pricesProductsIncluded.ToList();
+        }
+
+        public Price(string name, double amount, double? price = null)
+        {
+            Name = name;
+            Amount = amount;
+            _sumPrice = price;
         }
     }
 }

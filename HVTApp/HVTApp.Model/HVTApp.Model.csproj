@@ -88,8 +88,6 @@
     <Compile Include="Services\IPriceService.cs" />
     <Compile Include="Services\PriceErrors.cs" />
     <Compile Include="Services\PriceErrorType.cs" />
-    <Compile Include="Structures\PriceStructure.cs" />
-    <Compile Include="Structures\PriceStructures.cs" />
     <Compile Include="Structures\ProductStructure.cs" />
     <Compile Include="RoleAccessAttribute.cs" />
     <Compile Include="POCOs\GlobalProperties.cs" />

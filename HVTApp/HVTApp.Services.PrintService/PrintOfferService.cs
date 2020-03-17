@@ -240,9 +240,9 @@ namespace HVTApp.Services.PrintService
                 docWriter.CreateTableRowProperties(),
                 docWriter.CreateParagraphProperties(),
                 docWriter.CreateFont(),
-                $"С уважением, {offer.SenderEmployee.Position}",
+                "С уважением," + Environment.NewLine + $"{offer.SenderEmployee.Position}",
                 string.Empty,
-                $"{offer.SenderEmployee.Person}");
+                Environment.NewLine + $"{offer.SenderEmployee.Person}");
 
             docWriter.EndTable();
 

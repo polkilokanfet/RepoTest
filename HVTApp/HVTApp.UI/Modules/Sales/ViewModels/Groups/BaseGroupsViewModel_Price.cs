@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using HVTApp.Infrastructure;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
-using HVTApp.Model.Structures;
 using HVTApp.UI.Groups;
 using Microsoft.Practices.ObjectBuilder2;
 using Prism.Events;
@@ -23,7 +22,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
         /// <summary>
         /// Структура себестоимости выбранной группы
         /// </summary>
-        public List<Price> PriceStructures => Groups.SelectedGroup == null ? null : new List<Price> { PriceDictionary[Groups.SelectedGroup] };
+        public List<Price> Prices => Groups.SelectedGroup == null ? null : new List<Price> { PriceDictionary[Groups.SelectedGroup] };
 
         /// <summary>
         /// Дата для расчета себестоимости.
@@ -52,7 +51,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             //обновляем себестоимость группы
             grp.Price = PriceDictionary[grp].SumPriceTotal;
             grp.FixedCost = PriceDictionary[grp].SumFixedTotal;
-            OnPropertyChanged(nameof(PriceStructures));
+            OnPropertyChanged(nameof(Prices));
 
             //если в группе есть зависимые группы - обновить и для них
             grp.Groups?.ForEach(x => RefreshPrice(x as TGroup));

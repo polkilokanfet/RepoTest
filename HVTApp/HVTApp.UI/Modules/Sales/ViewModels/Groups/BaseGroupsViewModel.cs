@@ -117,6 +117,13 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             UnitOfWork = unitOfWork;
             var unitsArray = units as TModel[] ?? units.ToArray();
 
+            //проставляем количество родительских юнитов включенного оборудования
+            var productsIncluded = unitsArray.SelectMany(x => x.ProductsIncluded).ToList();
+            foreach (var productIncluded in productsIncluded)
+            {
+                productIncluded.ParentsCount = unitsArray.Count(x => x.ProductsIncluded.Contains(productIncluded));
+            }
+
             //создаем контейнер
             Groups = new GroupsCollection<TModel, TGroup, TMember>(GetGroups(unitsArray), isNew);
 
@@ -125,7 +132,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             {
                 ((DelegateCommand)RemoveCommand)?.RaiseCanExecuteChanged();
                 ((DelegateCommand)AddProductIncludedCommand)?.RaiseCanExecuteChanged();
-                OnPropertyChanged(nameof(PriceStructures));
+                OnPropertyChanged(nameof(Prices));
             };
 
             // реакция на выбор включенного оборудования

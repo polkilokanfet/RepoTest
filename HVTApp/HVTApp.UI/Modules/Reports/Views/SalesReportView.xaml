@@ -109,7 +109,7 @@
                     <infg:TextField AlternateBinding="{Binding DeliveryType}" BindingType="UseAlternateBinding" Label="Тип доставки" Width="Auto" AllowResize="True" />
                     <infg:TextField AlternateBinding="{Binding DeliveryAddress}" BindingType="UseAlternateBinding" Label="Адрес доставки" Width="Auto" AllowResize="True" />
                     <infg:DateTimeField AlternateBinding="{Binding PickingDate}" BindingType="UseAlternateBinding" Label="Комплектация" Width="Auto" AllowResize="True" />
-                    <infg:TextField AlternateBinding="{Binding ProductsIncluded}" BindingType="UseAlternateBinding" Label="Включенное оборудование" Width="Auto" AllowResize="True" />
+                    <infg:TextField AlternateBinding="{Binding ProductsIncluded}" BindingType="UseAlternateBinding" Label="Включенное оборудование (на единицу)" Width="Auto" AllowResize="True" />
                     <infg:TextField AlternateBinding="{Binding PaymentsActual}" BindingType="UseAlternateBinding" Label="Оплаты" Width="Auto" AllowResize="True" />
                     <infg:TextField AlternateBinding="{Binding TceInfo}" BindingType="UseAlternateBinding" Label="Информация из ТСЕ (на единицу)" Width="Auto" AllowResize="True" />
                     <infg:CheckBoxField AlternateBinding="{Binding RealizationDateIsFake}" BindingType="UseAlternateBinding" Label="RealizationDateIsFake" Width="Auto" AllowResize="True" />

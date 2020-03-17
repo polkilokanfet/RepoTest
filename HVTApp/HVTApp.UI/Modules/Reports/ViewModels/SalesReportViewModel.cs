@@ -62,6 +62,14 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
                 ? UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.ForReport && x.Project.Manager.IsAppCurrentUser()) 
                 : UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.ForReport);
 
+            //проставляем количество родительских юнитов включенного оборудования
+            var productsIncluded = salesUnits.SelectMany(x => x.ProductsIncluded).ToList();
+            foreach (var productIncluded in productsIncluded)
+            {
+                productIncluded.ParentsCount = salesUnits.Count(x => x.ProductsIncluded.Contains(productIncluded));
+            }
+
+
             var groups = salesUnits.OrderBy(x => x.OrderInTakeDate).GroupBy(x => x, new SalesUnitsReportComparer());
 
             var tenders = UnitOfWork.Repository<Tender>().Find(x => true);
