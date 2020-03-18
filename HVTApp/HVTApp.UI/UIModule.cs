@@ -40,6 +40,7 @@ namespace HVTApp.UI
             Container.RegisterViewForNavigation<PaymentsActualView>();
             Container.RegisterViewForNavigation<PickingDatesView>();
             Container.RegisterViewForNavigation<SupplyPlanView>();
+            Container.RegisterViewForNavigation<PaymentsPlanView>();
 
             _dialogService.RegisterShow<ProductStructureViewModel, ProductStructureView>();
             RegisterViews();

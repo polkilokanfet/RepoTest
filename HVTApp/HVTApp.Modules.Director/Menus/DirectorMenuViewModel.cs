@@ -10,6 +10,7 @@ namespace HVTApp.Modules.Director.Menus
         {
             Items.Add(new NavigationItem("Рынок", typeof(MarketView)));
             Items.Add(new NavigationItem("Поступления (факт)", typeof(PaymentsActualView)));
+            Items.Add(new NavigationItem("Поступления (план)", typeof(PaymentsPlanView)));
         }
     }
 }
