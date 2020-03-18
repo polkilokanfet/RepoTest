@@ -98,9 +98,9 @@ namespace HVTApp.Infrastructure.Extansions
         public static string ToStringEnum<T>(this IEnumerable<T> enumerable, string separator = "; ")
         {
             var list = enumerable.Distinct().ToList();
-            var builder = new StringBuilder();
-            list.ForEach(x => builder.Append(separator).Append($"{x}"));
-            return builder.Remove(0, separator.Length).ToString();
+            var sb = new StringBuilder();
+            list.ForEach(x => sb.Append(separator).Append($"{x}"));
+            return sb.Length > separator.Length ? sb.Remove(0, separator.Length).ToString() : sb.ToString();
         }
     }
 }

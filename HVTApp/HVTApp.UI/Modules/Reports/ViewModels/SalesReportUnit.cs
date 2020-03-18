@@ -333,18 +333,6 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
         [Designation("Информация из ТСЕ"), OrderStatus(-150)]
         public string TceInfo { get; }
 
-        private string GetTceInfo(PriceCalculationItem priceCalculationItem)
-        {
-            if (priceCalculationItem == null) return string.Empty;
-
-            var sb = new StringBuilder();
-            foreach (var structureCost in priceCalculationItem.StructureCosts)
-            {
-                sb.Append($"{structureCost.Comment} = {structureCost.Amount} шт. = {structureCost.Number}; ");
-            }
-            return sb.ToString();
-        }
-
         #region Fake
 
         [OrderStatus(-500)]
@@ -425,7 +413,7 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
                 ContractYear = ContractDate.Value.Year;
             }
 
-            RealizationDateContract = salesUnit.StartProductionDateCalculated.AddDays(salesUnit.ProductionTerm);
+            RealizationDateContract = salesUnit.EndProductionDateByContractCalculated;
 
             OrderInTakeDate = salesUnit.FakeData?.OrderInTakeDate ?? salesUnit.OrderInTakeDate;
             StartProductionDate = salesUnit.StartProductionDateCalculated;
