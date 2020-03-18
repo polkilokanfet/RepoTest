@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Converter;
@@ -30,7 +31,7 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
             Facility = salesUnit.Facility.ToString();
             var owners = new List<Company> { salesUnit.Facility.OwnerCompany };
             owners.AddRange(salesUnit.Facility.OwnerCompany.ParentCompanies().ToList());
-            FacilityOwner = owners.ConvertToString();
+            FacilityOwner = owners.ToStringEnum();
             ProductType = salesUnit.Product.ProductType.ToString();
             Product = salesUnit.Product.Designation;
             Voltage = salesUnit.Product.Voltage();
@@ -47,7 +48,7 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
                 Country = region.District.Country.ToString();
             }
 
-            Numbers = salesUnits.Select(x => x.SerialNumber).ConvertToString();
+            Numbers = salesUnits.Select(x => x.SerialNumber).ToStringEnum();
         }
     }
 }

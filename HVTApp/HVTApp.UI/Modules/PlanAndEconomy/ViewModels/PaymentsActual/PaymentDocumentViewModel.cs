@@ -142,6 +142,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
         public ICommand AddPaymentCommand { get; }
         public ICommand RemovePaymentCommand { get; }
         public ICommand SaveDocumentCommand { get; }
+        public ICommand RemoveDocumentCommand { get; }
 
         #endregion
 
@@ -192,7 +193,6 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
                     DockSumWithVat = sum;
                     DockDate = date;
                 },
-
                 () => SelectedPotentialUnits != null);
 
             RemovePaymentCommand = new DelegateCommand(
@@ -216,8 +216,22 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
 
                     OnPropertyChanged(nameof(DockSumWithVat));
                 },
-
                 () => SelectedPayment != null);
+
+            RemoveDocumentCommand = new DelegateCommand(
+                () =>
+                {
+                    var dr = _messageService.ShowYesNoMessageDialog("Удаление", "Вы уверены, что хотите удалить весь платежный документ?");
+                    if (dr != MessageDialogResult.Yes) return;
+
+                    UnitOfWork.Repository<PaymentActual>().DeleteRange(Payments.Select(x => x.PaymentActual.Model));
+                    UnitOfWork.Repository<PaymentDocument>().Delete(this.PaymentDocument.Model);
+                    UnitOfWork.SaveChanges();
+
+                    GoBackCommand.Execute(null);
+                },
+                () => UnitOfWork.Repository<PaymentDocument>().GetById(PaymentDocument.Id) != null
+            );
 
         }
 

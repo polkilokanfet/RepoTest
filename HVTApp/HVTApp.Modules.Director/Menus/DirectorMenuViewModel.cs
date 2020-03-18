@@ -1,5 +1,6 @@
 ﻿using HVTApp.Infrastructure;
 using HVTApp.UI.Modules.Director.Views;
+using HVTApp.UI.Modules.PlanAndEconomy.Views;
 
 namespace HVTApp.Modules.Director.Menus
 {
@@ -7,8 +8,8 @@ namespace HVTApp.Modules.Director.Menus
     {
         protected override void GenerateMenu()
         {
-            var navigationItem = new NavigationItem("Рынок", typeof(MarketView));
-            Items.Add(navigationItem);
+            Items.Add(new NavigationItem("Рынок", typeof(MarketView)));
+            Items.Add(new NavigationItem("Поступления (факт)", typeof(PaymentsActualView)));
         }
     }
 }

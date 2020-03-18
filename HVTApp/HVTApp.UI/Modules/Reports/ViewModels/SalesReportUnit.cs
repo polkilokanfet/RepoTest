@@ -376,7 +376,7 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
 
             var owners = new List<Company> {salesUnit.Facility.OwnerCompany};
             owners.AddRange(salesUnit.Facility.OwnerCompany.ParentCompanies().ToList());
-            FacilityOwners = owners.ConvertToString();
+            FacilityOwners = owners.ToStringEnum();
             var contragent = salesUnit.Specification?.Contract.Contragent ?? GetTenderWinner() ?? salesUnit.Facility.OwnerCompany;
             Contragent = contragent.ToString();
             ContragentType = GetContragentType(contragent);
@@ -450,11 +450,11 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
                 .SelectMany(x => x.ProductsIncluded)
                 .Distinct()
                 .OrderBy(x => x.Product.Designation)
-                .ConvertToString();
+                .ToStringEnum();
 
-            PaymentsActual = salesUnits.SelectMany(x => x.PaymentsActual).ConvertToString();
+            PaymentsActual = salesUnits.SelectMany(x => x.PaymentsActual).ToStringEnum();
 
-            TceInfo = GetTceInfo(priceCalculationItem);
+            TceInfo = priceCalculationItem?.ToString();
 
             if (salesUnit.FakeData != null)
             {
@@ -514,7 +514,7 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
             if (positions.Count > 1 && positions.Count == (positions.Last() - positions.First() + 1))
                 return $"{positions.First()}-{positions.Last()}";
 
-            return positions.Select(x => x.ToString()).ConvertToString();
+            return positions.Select(x => x.ToString()).ToStringEnum();
         }
 
         private string GetProductCategory(Product product)

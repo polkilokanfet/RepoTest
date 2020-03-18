@@ -26,7 +26,7 @@ namespace HVTApp.Model.POCOs
 
         public override string ToString()
         {
-            return Number;
+            return $"{Comment} = {Amount} шт. = {Number}";
         }
     }
 }

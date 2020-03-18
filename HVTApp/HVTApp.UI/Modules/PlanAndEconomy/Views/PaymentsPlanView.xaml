@@ -23,7 +23,7 @@
                         <infg:TextField AlternateBinding="{Binding Contract.Number}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
                         <infg:TextField AlternateBinding="{Binding Region}" BindingType="UseAlternateBinding" Label="Регион" Width="Auto"/>
                         <infg:TextField AlternateBinding="{Binding SalesUnit.Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
-                        <infg:TextField AlternateBinding="{Binding SalesUnit.Order}" BindingType="UseAlternateBinding" Label="З/з" Width="Auto"/>
+                        <infg:TextField AlternateBinding="{Binding OrderNumber}" BindingType="UseAlternateBinding" Label="З/з" Width="Auto"/>
                         <infg:TextField AlternateBinding="{Binding SalesUnit.Product.Designation}" BindingType="UseAlternateBinding" Label="Продукт" Width="Auto"/>
                         <infg:TextField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto"/>
                         <infg:TextField AlternateBinding="{Binding Rf}" BindingType="UseAlternateBinding" Label="Эксп./РФ" Width="Auto"/>

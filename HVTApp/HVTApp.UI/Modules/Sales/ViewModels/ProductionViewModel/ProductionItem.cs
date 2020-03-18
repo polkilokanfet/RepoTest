@@ -39,21 +39,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             }
         }
 
-
-        public string TceInfo
-        {
-            get
-            {
-                if (_priceCalculationItem == null) return "no information";
-
-                var sb = new StringBuilder();
-                foreach (var structureCost in _priceCalculationItem.StructureCosts)
-                {
-                    sb.Append($"{structureCost.Comment} = {structureCost.Amount} רע. = {structureCost.Number}; ");
-                }
-                return sb.ToString();
-            }
-        }
+        public string TceInfo => _priceCalculationItem?.ToString() ?? "no information";
 
         public bool IsProduced => Model.EndProductionDateCalculated < DateTime.Today;
 

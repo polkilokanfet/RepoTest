@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
+using HVTApp.Infrastructure.Extansions;
 
 namespace HVTApp.Model.POCOs
 {
@@ -25,5 +28,10 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Условия оплаты")]
         public virtual PaymentConditionSet PaymentConditionSet { get; set; }
+
+        public override string ToString()
+        {
+            return StructureCosts.OrderByDescending(x => x.UnitPrice).ToStringEnum();
+        }
     }
 }

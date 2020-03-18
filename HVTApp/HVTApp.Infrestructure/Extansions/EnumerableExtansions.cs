@@ -100,7 +100,7 @@ namespace HVTApp.Infrastructure.Extansions
             var list = enumerable.Distinct().ToList();
             var builder = new StringBuilder();
             list.ForEach(x => builder.Append(separator).Append($"{x}"));
-            return builder.Remove(0, separator.Count()).ToString();
+            return builder.Remove(0, separator.Length).ToString();
         }
     }
 }

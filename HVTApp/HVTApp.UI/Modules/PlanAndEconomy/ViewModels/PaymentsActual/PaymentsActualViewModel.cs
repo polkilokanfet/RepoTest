@@ -16,21 +16,22 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
 {
     public class PaymentsActualViewModel : ViewModelBaseCanExportToExcel
     {
-        private SalesUnitPayment _selectedPayment;
+        private object _selectedItem;
 
-        public ObservableCollection<SalesUnitPayment> Payments { get; } = new ObservableCollection<SalesUnitPayment>();
+        public ObservableCollection<SalesUnitPaymentGroup> PaymentGroups { get; } = new ObservableCollection<SalesUnitPaymentGroup>();
 
-        public SalesUnitPayment SelectedPayment
+        public object SelectedItem
         {
-            get { return _selectedPayment; }
+            get { return _selectedItem; }
             set
             {
-                _selectedPayment = value;
+                _selectedItem = value;
                 ((DelegateCommand)EditCommand).RaiseCanExecuteChanged();
             }
         }
 
-        public bool CanEdit => GlobalAppProperties.User.RoleCurrent != Role.SalesManager;
+        public bool CanEdit => GlobalAppProperties.User.RoleCurrent != Role.SalesManager && 
+                               GlobalAppProperties.User.RoleCurrent != Role.Director;
 
         public ICommand NewCommand { get; }
         public ICommand EditCommand { get; }
@@ -42,13 +43,15 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
 
             NewCommand = new DelegateCommand(() => RequestNavigate(new PaymentDocument()));
             EditCommand = new DelegateCommand(
-                () => RequestNavigate(SelectedPayment.PaymentDocument), 
-                () => SelectedPayment != null);
+                () => RequestNavigate((SelectedItem as SalesUnitPayment).PaymentDocument), 
+                () => (SelectedItem as SalesUnitPayment) != null);
             ReloadCommand = new DelegateCommand(Load);
         }
 
         private void Load()
         {
+            UnitOfWork = Container.Resolve<IUnitOfWork>();
+
             var salesUnits = GlobalAppProperties.User.RoleCurrent == Role.SalesManager 
                 ? UnitOfWork.Repository<SalesUnit>().Find(x => Equals(x.Project.Manager.Id, GlobalAppProperties.User.Id) && x.PaymentsActual.Any())
                 : UnitOfWork.Repository<SalesUnit>().Find(x => x.PaymentsActual.Any());
@@ -57,12 +60,21 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
             var payments = new List<SalesUnitPayment>();
             foreach (var salesUnit in salesUnits)
             {
-                salesUnit.PaymentsActual.ForEach(payment => 
-                    payments.Add(new SalesUnitPayment(salesUnit, payment, documents.Single(x => x.Payments.Contains(payment)))));
+                payments.AddRange(salesUnit.PaymentsActual.Select(payment => 
+                    new SalesUnitPayment(salesUnit, payment, documents.Single(x => x.Payments.Contains(payment)))));
             }
+            var groups = payments.GroupBy(x => new
+                {
+                    x.SalesUnit.Order,
+                    x.SalesUnit.Facility,
+                    x.SalesUnit.Product,
+                    x.SalesUnit.Specification
+                })
+                .Select(x => new SalesUnitPaymentGroup(x))
+                .OrderByDescending(x => x.LastDate);
 
-            Payments.Clear();
-            Payments.AddRange(payments.OrderByDescending(x => x.Payment.Date));
+            PaymentGroups.Clear();
+            PaymentGroups.AddRange(groups);
         }
 
         private void RequestNavigate(PaymentDocument paymentDocument)

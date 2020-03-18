@@ -42,20 +42,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels.Groups
         public DateTime EndProductionDateExpected => Model.DeliveryDateExpected.AddDays(-Model.DeliveryPeriodCalculated);
 
 
-        public string TceInfo
-        {
-            get
-            {
-                if (_priceCalculationItem == null) return string.Empty;
-
-                var sb = new StringBuilder();
-                foreach (var structureCost in _priceCalculationItem.StructureCosts)
-                {
-                    sb.Append($"{structureCost.Comment} = {structureCost.Amount} רע. = {structureCost.Number}; ");
-                }
-                return sb.ToString();
-            }
-        }
+        public string TceInfo => _priceCalculationItem?.ToString() ?? string.Empty;
 
 
         public SalesUnitOrderItem(SalesUnit model, PriceCalculationItem priceCalculationItem) : base(model)

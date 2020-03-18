@@ -68,6 +68,8 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
 
         public string Currency => "rub";
 
+        public string OrderNumber { get; }
+
         public PaymentsPlanGroup(IEnumerable<Payment1> payments1)
         {
             var payments = payments1.ToList();
@@ -77,6 +79,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
             var vat = SalesUnit.Specification?.Vat ?? 20;
             Sum = SalesUnit.Cost * PaymentPlanned.Condition.Part * PaymentPlanned.Part * (1.0 + vat / 100.0) * Amount;
             _date = PaymentPlanned.Date;
+            OrderNumber = SalesUnit.Order?.Number;
         }
     }
 }

@@ -6,7 +6,7 @@
               prism:ViewModelLocator.AutoWireViewModel="True"
               x:Class="HVTApp.UI.Modules.PlanAndEconomy.Views.PaymentsActualView">
     
-    <infg:XamDataGrid DataSource="{Binding Payments}" SelectedDataItem="{Binding SelectedPayment}">
+    <infg:XamDataGrid DataSource="{Binding PaymentGroups}" SelectedDataItem="{Binding SelectedItem}">
 
         <infg:XamDataGrid.ContextMenu>
             <ContextMenu>
@@ -15,10 +15,27 @@
         </infg:XamDataGrid.ContextMenu>
 
         <infg:XamDataGrid.FieldLayouts>
+            
             <infg:FieldLayout>
-                <infg:TextField AlternateBinding="{Binding SalesUnit.Facility}" Label="Объект" BindingType="UseAlternateBinding" Width="Auto"/>
-                <infg:TextField AlternateBinding="{Binding SalesUnit.Product}" Converter="{StaticResource ObjectToStringConverter}" Label="Продукт" BindingType="UseAlternateBinding"/>
-                <infg:TextField AlternateBinding="{Binding SalesUnit.Order}" Converter="{StaticResource ObjectToStringConverter}" Label="З/з" BindingType="UseAlternateBinding" Width="Auto"/>
+                <infg:TextField AlternateBinding="{Binding SalesUnitPayment.SalesUnit.Facility}" Label="Объект" BindingType="UseAlternateBinding" Width="Auto"/>
+                <infg:TextField AlternateBinding="{Binding SalesUnitPayment.SalesUnit.Product}" Converter="{StaticResource ObjectToStringConverter}" Label="Продукт" BindingType="UseAlternateBinding" Width="300"/>
+                <infg:TextField AlternateBinding="{Binding SalesUnitPayment.SalesUnit.Order}" Converter="{StaticResource ObjectToStringConverter}" Label="З/з" BindingType="UseAlternateBinding" Width="Auto"/>
+                <infg:TextField AlternateBinding="{Binding Amount}" Label="Кол." BindingType="UseAlternateBinding" Width="Auto"/>
+                <infg:DateTimeField AlternateBinding="{Binding LastDate}" Label="Дата" BindingType="UseAlternateBinding" Width="Auto" AllowResize="False"/>
+                <infg:NumericField AlternateBinding="{Binding SumWithVat}" Label="Оплачено (с НДС)" BindingType="UseAlternateBinding" Width="Auto" AllowResize="False"/>
+                <infg:NumericField AlternateBinding="{Binding PercentPaid}" Label="%" BindingType="UseAlternateBinding" Width="Auto" AllowResize="False"/>
+                <infg:CheckBoxField AlternateBinding="{Binding IsPaid}" Label="Оплачен" BindingType="UseAlternateBinding" Width="Auto"/>
+                <infg:NumericField AlternateBinding="{Binding SumNotPaidWithVat}" Label="Не оплачено" BindingType="UseAlternateBinding" Width="Auto" AllowResize="False"/>
+                <infg:NumericField AlternateBinding="{Binding PercentNotPaid}" Label="%" BindingType="UseAlternateBinding" Width="Auto" AllowResize="False"/>
+                <infg:TextField AlternateBinding="{Binding SalesUnitPayment.Contract}" Label="Договор" BindingType="UseAlternateBinding" Width="Auto"/>
+                <infg:TextField AlternateBinding="{Binding SalesUnitPayment.SalesUnit.Specification}" Label="Сп." BindingType="UseAlternateBinding" Width="Auto"/>
+                <infg:NumericField AlternateBinding="{Binding SalesUnitPayment.SalesUnit.Vat}" Label="НДС" BindingType="UseAlternateBinding" Width="Auto" AllowResize="False"/>
+                <infg:TextField AlternateBinding="{Binding SalesUnitPayment.Contragent}" Label="Контрагент" BindingType="UseAlternateBinding" Width="Auto"/>
+                <infg:TextField AlternateBinding="{Binding SalesUnitPayment.SalesUnit.Project.Manager}" Label="Менеджер" BindingType="UseAlternateBinding" Width="Auto" AllowResize="False"/>
+                <infg:Field Name="SalesUnitPayments" IsExpandable="True"/>
+            </infg:FieldLayout>
+
+            <infg:FieldLayout ParentFieldName="SalesUnitPayments">
                 <infg:TextField AlternateBinding="{Binding SalesUnit.OrderPosition}" Label="Поз." BindingType="UseAlternateBinding" Width="Auto"/>
                 <infg:DateTimeField AlternateBinding="{Binding Payment.Date}" Label="Дата" BindingType="UseAlternateBinding" Width="Auto" AllowResize="False"/>
                 <infg:NumericField AlternateBinding="{Binding SumWithVat}" Label="Платеж (с НДС)" BindingType="UseAlternateBinding" Width="Auto" AllowResize="False"/>
@@ -26,13 +43,9 @@
                 <infg:CheckBoxField AlternateBinding="{Binding SalesUnit.IsPaid}" Label="Оплачен" BindingType="UseAlternateBinding" Width="Auto"/>
                 <infg:NumericField AlternateBinding="{Binding SalesUnit.SumNotPaidWithVat}" Label="Не оплачено" BindingType="UseAlternateBinding" Width="Auto" AllowResize="False"/>
                 <infg:NumericField AlternateBinding="{Binding PercentNotPaid}" Label="%" BindingType="UseAlternateBinding" Width="Auto" AllowResize="False"/>
-                <infg:TextField AlternateBinding="{Binding Contract}" Label="Договор" BindingType="UseAlternateBinding" Width="Auto"/>
-                <infg:TextField AlternateBinding="{Binding SalesUnit.Specification}" Label="Сп." BindingType="UseAlternateBinding"/>
-                <infg:NumericField AlternateBinding="{Binding SalesUnit.Vat}" Label="НДС" BindingType="UseAlternateBinding" Width="Auto" AllowResize="False"/>
-                <infg:TextField AlternateBinding="{Binding Contragent}" Label="Контрагент" BindingType="UseAlternateBinding" Width="Auto"/>
-                <infg:TextField AlternateBinding="{Binding PaymentDocument.Number}" Label="Платежка" BindingType="UseAlternateBinding"/>
-                <infg:TextField AlternateBinding="{Binding SalesUnit.Project.Manager}" Label="Менеджер" BindingType="UseAlternateBinding" Width="Auto" AllowResize="False"/>
+                <infg:TextField AlternateBinding="{Binding PaymentDocument.Number}" Label="Платежка" BindingType="UseAlternateBinding" Width="Auto"/>
             </infg:FieldLayout>
+
         </infg:XamDataGrid.FieldLayouts>
             
     </infg:XamDataGrid>
