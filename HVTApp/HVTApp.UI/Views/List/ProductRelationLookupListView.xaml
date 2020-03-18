@@ -43,6 +43,7 @@
                     <infg:TextField Name="ChildProductParameters" Label="Дочерние параметры" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:NumericField Name="ChildProductsAmount" Label="Количество дочерних продуктов" Width="Auto" AllowResize="True" />
                     <infg:CheckBoxField Name="IsUnique" Label="Уникальность" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

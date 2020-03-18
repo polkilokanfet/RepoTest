@@ -88,10 +88,11 @@ namespace HVTApp.UI
                     .Where(x => x.GetCustomAttribute<NotForListViewAttribute>() != null)
                     .Select(x => x.Name);
 
-            return typeLookup.GetProperties().Where(x => !dontShowPropNames.Contains(x.Name) &&
-                                                         x.Name != nameof(ILookupItemNavigation<IBaseEntity>.Entity) &&
-                                                         x.Name != nameof(ILookupItemNavigation<IBaseEntity>.DisplayMember) &&
-                                                         x.Name != nameof(ILookupItemNavigation<IBaseEntity>.Id)).
+            return typeLookup.GetProperties().Where(x => !dontShowPropNames.Contains(x.Name) 
+                                                        && x.Name != nameof(ILookupItemNavigation<IBaseEntity>.Entity) 
+                                                        && x.Name != nameof(ILookupItemNavigation<IBaseEntity>.DisplayMember) 
+                                                        //&& x.Name != nameof(ILookupItemNavigation<IBaseEntity>.Id)
+                                                         ).
                                                          OrderByDescending(x => x, new PropOrderComparer());
         }
 

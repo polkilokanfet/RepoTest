@@ -2910,6 +2910,13 @@ namespace HVTApp.UI.Views
 		#region VisibilityProps
 
 
+        public System.Windows.Visibility NameVisibility
+        {
+            get { return PaymentConditionSetLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentConditionSetLookup.Name)].Visibility; }
+            set { PaymentConditionSetLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentConditionSetLookup.Name)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility DisplayMemberVisibility
         {
             get { return PaymentConditionSetLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentConditionSetLookup.DisplayMember)].Visibility; }
@@ -4164,7 +4171,7 @@ namespace HVTApp.UI.Views
         }
 
 
-        public System.Windows.Visibility SypplierVisibility
+        public System.Windows.Visibility SupplierVisibility
         {
             get { return ProjectLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProjectLookup.Supplier)].Visibility; }
             set { ProjectLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProjectLookup.Supplier)].Visibility = value; }

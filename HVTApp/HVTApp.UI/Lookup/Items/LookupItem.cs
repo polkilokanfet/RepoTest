@@ -28,6 +28,7 @@ namespace HVTApp.UI.Lookup
             DisplayMember = Entity.ToString();
         }
 
+        [OrderStatus(-9999)]
         public Guid Id => GetValue<Guid>();
 
         public TEntity Entity { get; private set; }

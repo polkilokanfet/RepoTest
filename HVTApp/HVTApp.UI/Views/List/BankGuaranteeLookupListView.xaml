@@ -41,6 +41,7 @@
                     <infg:TextField Name="BankGuaranteeType" Label="Тип гарантии" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:NumericField Name="Percent" Label="Процент" Width="Auto" AllowResize="True" />
                     <infg:NumericField Name="Days" Label="Срок (дней)" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

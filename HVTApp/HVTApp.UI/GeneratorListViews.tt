@@ -204,6 +204,12 @@ namespace HVTApp.UI.Views
 		end = "";
 	}
 
+	if (property.IsType<Guid>())
+    {
+		fieldName = "TextField";
+		end = "";
+	}
+
 	if (property.IsType<int>() || property.IsType<int?>() || property.IsType<double>() || property.IsType<double?>())
     {
 		fieldName = "NumericField";

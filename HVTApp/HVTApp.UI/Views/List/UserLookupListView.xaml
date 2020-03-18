@@ -40,7 +40,9 @@
 					<infg:FieldLayout.Fields>
                     <infg:TextField Name="Employee" Label="Сотрудник" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Login" Label="Логин" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="Password" Label="Пароль" Width="Auto" AllowResize="True" />
                     <infg:TextField Name="Roles" Label="Роли" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                    <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

@@ -42,6 +42,7 @@
                     <infg:DateTimeField Name="RealizationDate" Label="RealizationDate" Width="Auto" AllowResize="True" />
                     <infg:DateTimeField Name="OrderInTakeDate" Label="OrderInTakeDate" Width="Auto" AllowResize="True" />
                     <infg:NumericField Name="Cost" Label="Cost" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

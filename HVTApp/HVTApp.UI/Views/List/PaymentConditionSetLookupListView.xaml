@@ -38,8 +38,10 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                        <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding}" Label="Список условий" Width="Auto" AllowResize="True"/>
-                    </infg:FieldLayout.Fields>
+                    <infg:TextField Name="Name" Label="Условия оплаты" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
+
+					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>
 
 			</infg:XamDataGrid.FieldLayouts>

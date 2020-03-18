@@ -51,9 +51,12 @@
                     <infg:TextField Name="RegistrationDetailsOfRecipient" Label="Рег.данные получателя" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="RequestDocument" Label="Запрос" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:NumericField Name="Vat" Label="НДС" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="SenderId" Label="SenderId" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="RecipientId" Label="RecipientId" Width="Auto" AllowResize="True" />
                     <infg:TextField Name="OfferUnits" Label="OfferUnits" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:TextField Name="CopyToRecipients" Label="Копия" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

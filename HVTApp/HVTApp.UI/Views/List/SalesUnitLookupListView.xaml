@@ -64,7 +64,7 @@
                     <infg:NumericField Name="SumToStartProduction" Label="Сумма старта производства" Width="Auto" AllowResize="True" />
                     <infg:NumericField Name="SumToShipping" Label="Сумма отгрузки" Width="Auto" AllowResize="True" />
                     <infg:NumericField Name="SumPaid" Label="Оплачено" Width="Auto" AllowResize="True" />
-                    <infg:NumericField Name="SumNotPaid" Label="Неоплачено" Width="Auto" AllowResize="True" />
+                    <infg:NumericField Name="SumNotPaid" Label="Неоплачено без НДС" Width="Auto" AllowResize="True" />
                     <infg:DateTimeField Name="StartProductionDate" Label="Дата начала производства" Width="Auto" AllowResize="True" />
                     <infg:DateTimeField Name="SignalToStartProductionDone" Label="Дата размещения в производстве" Width="Auto" AllowResize="True" />
                     <infg:DateTimeField Name="SignalToStartProduction" Label="Сигнал менеджера о производстве" Width="Auto" AllowResize="True" />
@@ -98,6 +98,7 @@
                     <infg:NumericField Name="AssembleTerm" Label="Срок сборки" Width="Auto" AllowResize="True" />
                     <infg:CheckBoxField Name="AllowEditProduct" Label="Разрешение на редактирование техники" Width="Auto" AllowResize="True" />
                     <infg:CheckBoxField Name="AllowEditCost" Label="Разрешение на редактирование стоимости" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

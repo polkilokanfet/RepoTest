@@ -40,9 +40,11 @@
 					<infg:FieldLayout.Fields>
                     <infg:NumericField Name="UnitPrice" Label="Себестоимость единицы" Width="Auto" AllowResize="True" />
                     <infg:NumericField Name="Total" Label="Total" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="PriceCalculationItemId" Label="PriceCalculationItemId" Width="Auto" AllowResize="True" />
                     <infg:TextField Name="Number" Label="Номер" Width="Auto" AllowResize="True" />
                     <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" AllowResize="True" />
                     <infg:NumericField Name="Amount" Label="Количество" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

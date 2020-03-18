@@ -40,6 +40,7 @@
 					<infg:FieldLayout.Fields>
                     <infg:TextField Name="Name" Label="Название" Width="Auto" AllowResize="True" />
                     <infg:TextField Name="Country" Label="Страна" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>
