@@ -13,6 +13,8 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
     {
         public SalesUnit SalesUnit => ProductionItems.First().Model;
 
+        public string Order => SalesUnit.Order?.Number ?? string.Empty;
+
         public IValidatableChangeTrackingCollection<ProductionItem> ProductionItems { get; }
 
         public int Amount => ProductionItems.Count;

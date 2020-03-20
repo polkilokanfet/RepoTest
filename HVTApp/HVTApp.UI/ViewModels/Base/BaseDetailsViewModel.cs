@@ -185,7 +185,7 @@ namespace HVTApp.UI.ViewModels
             //если были какие-то изменения
             if (SaveCommand_CanExecute())
             {
-                if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Сохранение", "Сохранить изменения?") == MessageDialogResult.Yes)
+                if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Сохранение", "Сохранить изменения?", defaultNo:true) == MessageDialogResult.Yes)
                 {
                     SaveItem();
                 }

@@ -40,7 +40,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
                 () =>
                 {
                     //подтверждение
-                    var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Размещение в производстве", "Разместить оборудование в производстве?");
+                    var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Размещение в производстве", "Разместить оборудование в производстве?", defaultYes:true);
                     if (dr != MessageDialogResult.Yes) return;
 
                     //размещение в производстве
@@ -107,7 +107,8 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
                     FacilityId = x.Model.Facility.Id,
                     x.Model.EndProductionDateCalculated
                 })
-                .OrderBy(x => x.Key.EndProductionDateCalculated);
+                .OrderBy(x => x.Key.EndProductionDateCalculated)
+                .ThenBy(x => x.Key.FacilityId);
 
             GroupsToProduction.Clear();
             GroupsToProduction.AddRange(groupsToProduction.Select(x => new ProductionGroup(x)));
@@ -121,7 +122,8 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
                     OrderId = x.Model.Order?.Id,
                     x.Model.EndProductionDateCalculated
                 })
-                .OrderBy(x => x.Key.EndProductionDateCalculated);
+                .OrderBy(x => x.Key.EndProductionDateCalculated)
+                .ThenBy(x => x.Key.FacilityId);
 
             GroupsInProduction.Clear();
             GroupsInProduction.AddRange(groupsInProduction.Select(x => new ProductionGroup(x)));

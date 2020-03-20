@@ -35,7 +35,7 @@ namespace HVTApp.Infrastructure.ViewModels
                 }
 
                 // Execute Excel to display the exported workbook.
-                if (messageService.ShowYesNoMessageDialog("Экспорт успешно завершен", "Показать результаты экспорта?") == MessageDialogResult.Yes)
+                if (messageService.ShowYesNoMessageDialog("Экспорт успешно завершен", "Показать результаты экспорта?", defaultYes:true) == MessageDialogResult.Yes)
                 {
                     try
                     {

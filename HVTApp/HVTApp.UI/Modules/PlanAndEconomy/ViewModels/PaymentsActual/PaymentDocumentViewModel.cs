@@ -221,7 +221,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
             RemoveDocumentCommand = new DelegateCommand(
                 () =>
                 {
-                    var dr = _messageService.ShowYesNoMessageDialog("Удаление", "Вы уверены, что хотите удалить весь платежный документ?");
+                    var dr = _messageService.ShowYesNoMessageDialog("Удаление", "Вы уверены, что хотите удалить весь платежный документ?", defaultYes:true);
                     if (dr != MessageDialogResult.Yes) return;
 
                     UnitOfWork.Repository<PaymentActual>().DeleteRange(Payments.Select(x => x.PaymentActual.Model));
@@ -289,7 +289,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
             //если были какие-то изменения
             if (((DelegateCommand)SaveDocumentCommand).CanExecute())
             {
-                if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Сохранение", "Сохранить изменения?") == MessageDialogResult.Yes)
+                if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Сохранение", "Сохранить изменения?", defaultNo:true) == MessageDialogResult.Yes)
                 {
                     ((DelegateCommand)SaveDocumentCommand).Execute();
                 }

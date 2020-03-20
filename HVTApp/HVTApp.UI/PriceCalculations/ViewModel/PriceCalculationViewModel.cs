@@ -126,7 +126,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
             RemoveStructureCostCommand = new DelegateCommand(
                 () =>
                 {
-                    var result = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Действительно хотите удалить StructureCost?");
+                    var result = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Действительно хотите удалить StructureCost?", defaultNo:true);
                     if (result != MessageDialogResult.Yes) return;
 
                     var structureCost = SelectedItem as StructureCostWrapper;
@@ -171,7 +171,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
             RemoveGroupCommand = new DelegateCommand(
                 () =>
                 {
-                    var result = _messageService.ShowYesNoMessageDialog("Удаление", "Действительно хотите удалить из расчета группу оборудования?");
+                    var result = _messageService.ShowYesNoMessageDialog("Удаление", "Действительно хотите удалить из расчета группу оборудования?", defaultNo:true);
                     if (result != MessageDialogResult.Yes) return;
 
                     var selectedGroup = SelectedItem as PriceCalculationItem2Wrapper;
@@ -207,7 +207,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
             StartCommand = new DelegateCommand(
                 () =>
                 {
-                    var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Подтверждение", "Вы уверены, что хотите стартовать задачу?");
+                    var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Подтверждение", "Вы уверены, что хотите стартовать задачу?", defaultYes:true);
                     if (dr != MessageDialogResult.Yes) return;
 
                     PriceCalculationWrapper.TaskOpenMoment = DateTime.Now;
@@ -232,7 +232,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
             FinishCommand = new DelegateCommand(
                 () =>
                 {
-                    var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Подтверждение", "Вы уверены, что хотите завершить задачу?");
+                    var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Подтверждение", "Вы уверены, что хотите завершить задачу?", defaultYes:true);
                     if (dr != MessageDialogResult.Yes) return;
 
                     PriceCalculationWrapper.TaskCloseMoment = DateTime.Now;
@@ -252,7 +252,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
 
             CancelCommand = new DelegateCommand(() =>
             {
-                var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Подтверждение", "Вы уверены, что хотите остановить задачу?");
+                var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Подтверждение", "Вы уверены, что хотите остановить задачу?", defaultNo:true);
                 if (dr != MessageDialogResult.Yes) return;
 
                 PriceCalculationWrapper.TaskOpenMoment = null;
@@ -279,7 +279,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
             MeregeCommand = new DelegateCommand(
                 () =>
                 {
-                    var result = _messageService.ShowYesNoMessageDialog("Слияние", "Действительно хотите слить строки, выделенные галкой?");
+                    var result = _messageService.ShowYesNoMessageDialog("Слияние", "Действительно хотите слить строки, выделенные галкой?", defaultYes:true);
                     if (result != MessageDialogResult.Yes) return;
 
                     //айтемы для слияния
@@ -320,7 +320,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
             DivideCommand = new DelegateCommand(
                 () =>
                 {
-                    var result = _messageService.ShowYesNoMessageDialog("Разбиение", "Действительно хотите разбить выбранную строку?");
+                    var result = _messageService.ShowYesNoMessageDialog("Разбиение", "Действительно хотите разбить выбранную строку?", defaultNo:true);
                     if (result != MessageDialogResult.Yes) return;
 
                     var selectedItem = (PriceCalculationItem2Wrapper) SelectedItem;

@@ -6,9 +6,9 @@ namespace HVTApp.Services.MessageService
 {
     public class MessageServiceWpf : IMessageService
     {
-        public MessageDialogResult ShowYesNoMessageDialog(string title, string message)
+        public MessageDialogResult ShowYesNoMessageDialog(string title, string message, bool defaultYes = false, bool defaultNo = false)
         {
-            var window = new YesNoWindow(title, message);
+            var window = new YesNoWindow(title, message, defaultYes, defaultNo);
             window.Owner = Application.Current.MainWindow;
             window.ShowDialog();
             if (window.DialogResult.HasValue && window.DialogResult.Value)

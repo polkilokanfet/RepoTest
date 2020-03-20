@@ -335,6 +335,10 @@ namespace HVTApp.Model.POCOs
             {
                 //по дате производства
                 if (EndProductionDate.HasValue) return EndProductionDate.Value;
+                
+                //если проиграно
+                if (IsLoosen)
+                    return DeliveryDateExpected.AddDays(-DeliveryPeriodCalculated);
 
                 //по дате комплектации
                 if (PickingDate.HasValue)
@@ -373,7 +377,12 @@ namespace HVTApp.Model.POCOs
             get
             {
                 //по реальной дате отгрузки
-                if (ShipmentDate.HasValue) return ShipmentDate.Value;
+                if (ShipmentDate.HasValue)
+                    return ShipmentDate.Value;
+
+                //если проиграно
+                if (IsLoosen)
+                    return EndProductionDateCalculated;
 
                 //по плановой дате отгрузки
                 if (ShipmentPlanDate.HasValue)

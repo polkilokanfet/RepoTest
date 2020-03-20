@@ -92,7 +92,7 @@ namespace HVTApp.UI.Modules.PriceMaking.ViewModels
 
             RemovePriceCommand = new DelegateCommand(() =>
             {
-                var dr = _container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Удалить выбранный прайс?");
+                var dr = _container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Удалить выбранный прайс?", defaultNo:true);
                 if (dr != MessageDialogResult.Yes)
                     return;
                 SelectedPriceTask.Prices.Remove(SelectedSumOnDate);

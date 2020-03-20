@@ -20,7 +20,7 @@ namespace HVTApp.Views
             #else
             this.Closing += (sender, args) =>
             {
-                var dr = messageService.ShowYesNoMessageDialog("Выход", "Вы уверены, что хотите выйти?");
+                var dr = messageService.ShowYesNoMessageDialog("Выход", "Вы уверены, что хотите выйти?", defaultNo:true);
                 if (dr == MessageDialogResult.No)
                     args.Cancel = true;
             };

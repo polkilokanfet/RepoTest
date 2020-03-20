@@ -44,7 +44,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             RemoveItemCommand = new DelegateCommand(
                 () =>
                 {
-                    var dr = MessageService.ShowYesNoMessageDialog("Удаление", $"Вы действительно хотите удалить \"{SelectedLookup.DisplayMember}\"?");
+                    var dr = MessageService.ShowYesNoMessageDialog("Удаление", $"Вы действительно хотите удалить \"{SelectedLookup.DisplayMember}\"?", defaultNo:true);
                     if (dr != MessageDialogResult.Yes) return;
 
                     var unitOfWork = Container.Resolve<IUnitOfWork>();

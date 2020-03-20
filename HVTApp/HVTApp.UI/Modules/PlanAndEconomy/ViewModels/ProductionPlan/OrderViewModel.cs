@@ -228,7 +228,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
             //если были какие-то изменения
             if (((DelegateCommand)SaveOrderCommand).CanExecute())
             {
-                if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Сохранение", "Сохранить изменения?") == MessageDialogResult.Yes)
+                if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Сохранение", "Сохранить изменения?", defaultNo:true) == MessageDialogResult.Yes)
                 {
                     ((DelegateCommand)SaveOrderCommand).Execute();
                 }

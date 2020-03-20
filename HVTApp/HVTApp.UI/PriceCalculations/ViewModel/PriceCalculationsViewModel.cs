@@ -52,7 +52,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                 () =>
                 {
                     var messageService = Container.Resolve<IMessageService>();
-                    var result = messageService.ShowYesNoMessageDialog("Удаление", "Действительно хотите удалить из расчет ПЗ?");
+                    var result = messageService.ShowYesNoMessageDialog("Удаление", "Действительно хотите удалить из расчет ПЗ?", defaultNo:true);
                     if (result != MessageDialogResult.Yes) return;
 
                     var unitOfWork = Container.Resolve<IUnitOfWork>();

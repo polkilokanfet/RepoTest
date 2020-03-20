@@ -140,7 +140,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
             var unitOfWork = Container.Resolve<IUnitOfWork>();
             var messageService = Container.Resolve<IMessageService>();
 
-            var dr = messageService.ShowYesNoMessageDialog("Удаление", $"Вы действительно хотите удалить \"{SelectedItem.DisplayMember}\"?");
+            var dr = messageService.ShowYesNoMessageDialog("Удаление", $"Вы действительно хотите удалить \"{SelectedItem.DisplayMember}\"?", defaultNo:true);
             if (dr != MessageDialogResult.Yes) return;
 
             var entity = unitOfWork.Repository<TItem>().GetById(SelectedItem.Id);

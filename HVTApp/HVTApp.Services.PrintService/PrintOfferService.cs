@@ -310,7 +310,7 @@ namespace HVTApp.Services.PrintService
             docWriter.EndDocument();
             docWriter.Close();
 
-            var dr = _messageService.ShowYesNoMessageDialog("Процесс завершен", "Формирование ТКП завершено. Открыть результат?");
+            var dr = _messageService.ShowYesNoMessageDialog("Процесс завершен", "Формирование ТКП завершено. Открыть результат?", defaultYes:true);
             if (dr == MessageDialogResult.Yes)
                 try
                 {

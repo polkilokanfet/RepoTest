@@ -115,7 +115,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             //если придет запрос при несохраненных изменениях
             if (SaveCommandCanExecute())
             {
-                var ms = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Сохранение", "Сохранить сделанные изменения?");
+                var ms = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Сохранение", "Сохранить сделанные изменения?", defaultNo:true);
                 if(ms == MessageDialogResult.Yes)
                     SaveCommandExecute();
             }

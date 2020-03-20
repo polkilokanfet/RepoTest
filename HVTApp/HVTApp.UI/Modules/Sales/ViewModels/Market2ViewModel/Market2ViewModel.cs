@@ -63,7 +63,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             RemoveProjectCommand = new DelegateCommand(
                 () =>
                 {
-                    var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удалить проект.", "Вы уверены, что хотите удалить проект?");
+                    var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удалить проект.", "Вы уверены, что хотите удалить проект?", defaultNo:true);
                     if (dr != MessageDialogResult.Yes) return;
 
                     var unitOfWork = Container.Resolve<IUnitOfWork>();

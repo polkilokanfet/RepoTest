@@ -50,7 +50,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             RemoveCommand = new DelegateCommand(
                 () =>
                 {
-                    if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Удалить?") == MessageDialogResult.No)
+                    if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Удалить?", defaultNo:true) == MessageDialogResult.No)
                         return;
 
                     //удаление из группы
@@ -100,7 +100,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             RemoveProductIncludedCommand = new DelegateCommand(
                 () =>
                 {
-                    if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Удалить?") == MessageDialogResult.No)
+                    if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Удалить?", defaultNo:true) == MessageDialogResult.No)
                         return;
 
                     Groups.SelectedGroup.RemoveProductIncluded(Groups.SelectedProductIncluded);
