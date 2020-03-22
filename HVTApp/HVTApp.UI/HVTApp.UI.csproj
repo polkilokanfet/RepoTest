@@ -33,11 +33,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+    <Reference Include="InfragisticsWPF4.Controls.Charts.XamDataChart.v15.1, Version=15.1.20151.2251, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
     <Reference Include="InfragisticsWPF4.Controls.Menus.XamDataTree.v15.1, Version=15.1.20151.2251, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
     <Reference Include="InfragisticsWPF4.Controls.Menus.XamMenu.v15.1, Version=15.1.20151.2251, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
     <Reference Include="InfragisticsWPF4.Controls.Schedules.v15.1, Version=15.1.20151.2251, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
     <Reference Include="InfragisticsWPF4.DataPresenter.ExcelExporter.v15.1, Version=15.1.20151.2251, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
     <Reference Include="InfragisticsWPF4.DataPresenter.v15.1, Version=15.1.20151.2251, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="InfragisticsWPF4.DataVisualization.v15.1, Version=15.1.20151.2251, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
     <Reference Include="InfragisticsWPF4.Documents.Excel.v15.1, Version=15.1.20151.2251, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
     <Reference Include="InfragisticsWPF4.Editors.v15.1, Version=15.1.20151.2251, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
     <Reference Include="InfragisticsWPF4.OutlookBar.v15.1, Version=15.1.20151.2251, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
@@ -239,12 +241,16 @@
     <Compile Include="Modules\Reports\ViewModels\FakeDataViewModel.cs" />
     <Compile Include="Modules\Reports\ViewModels\ReferenceItem.cs" />
     <Compile Include="Modules\Reports\ViewModels\ReferenceViewModel.cs" />
+    <Compile Include="Modules\Reports\ViewModels\SalesChartViewModel.cs" />
     <Compile Include="Modules\Reports\ViewModels\SalesReportUnit.cs" />
     <Compile Include="Modules\Reports\ViewModels\SalesReportViewModel.cs" />
     <Compile Include="Modules\Reports\ViewModels\SalesUnitFakeDataGroup.cs" />
     <Compile Include="Modules\Reports\ViewModels\Comparers.cs" />
     <Compile Include="Modules\Reports\Views\FakeDataView.xaml.cs">
       <DependentUpon>FakeDataView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\Views\SalesChartView.xaml.cs">
+      <DependentUpon>SalesChartView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Reports\Views\ReferenceView.xaml.cs">
       <DependentUpon>ReferenceView.xaml</DependentUpon>
@@ -834,6 +840,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\Reports\Views\FakeDataView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Reports\Views\SalesChartView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

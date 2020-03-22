@@ -36,6 +36,7 @@ namespace HVTApp.UI
             Container.RegisterViewForNavigation<PriceCalculationView>();
             Container.RegisterViewForNavigation<PriceCalculationsView>();
             Container.RegisterViewForNavigation<ReferenceView>();
+            Container.RegisterViewForNavigation<SalesChartView>();
             Container.RegisterViewForNavigation<ProductTypeDesignationView>();
             Container.RegisterViewForNavigation<PaymentsActualView>();
             Container.RegisterViewForNavigation<PickingDatesView>();

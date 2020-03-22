@@ -9,6 +9,7 @@ namespace HVTApp.Modules.Reports.Menus
         {
             Items.Add(new NavigationItem("Референс", typeof(ReferenceView)));
             Items.Add(new NavigationItem("Продажи", typeof(SalesReportView)));
+            Items.Add(new NavigationItem("График продаж", typeof(SalesChartView)));
         }
     }
 }
