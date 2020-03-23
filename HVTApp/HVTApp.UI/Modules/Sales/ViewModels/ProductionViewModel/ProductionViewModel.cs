@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
+using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
@@ -12,7 +13,7 @@ using Prism.Commands;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels
 {
-    public class ProductionViewModel : ViewModelBase
+    public class ProductionViewModel : ViewModelBaseCanExportToExcel
     {
         private object _selectedToProduction;
 
