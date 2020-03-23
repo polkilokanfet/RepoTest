@@ -7,10 +7,15 @@
               xmlns:prism="http://prismlibrary.com/"             
               prism:ViewModelLocator.AutoWireViewModel="True">
 
-
     <GroupBox Header="График продаж">
         <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
             <ig:XamDataChart x:Name="DataChart"
+                             Grid.Column="0"
                              IsDragCrosshairEnabled="True"
                              CrosshairVisibility="Visible"
                              OverviewPlusDetailPaneVisibility="Visible"
@@ -47,7 +52,15 @@
 
                         <ig:SplineAreaSeries.ToolTip>
                             <StackPanel Orientation="Vertical">
-                                <TextBlock Text="{Binding Item.Sum, StringFormat=0.0}" />
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="Дата: " />
+                                    <TextBlock Text="{Binding Item.Date, StringFormat=dd-MM-yyy}" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="Сумма: " />
+                                    <TextBlock Text="{Binding Item.Sum, StringFormat=0.0}" />
+                                    <Label Content=" млн.руб."></Label>
+                                </StackPanel>
                             </StackPanel>
                         </ig:SplineAreaSeries.ToolTip>
 
@@ -56,6 +69,38 @@
 
 
             </ig:XamDataChart>
+
+            <GroupBox Grid.Column="1" Header="Исходные данные">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                
+                    <StackPanel Grid.Row="0" Orientation="Horizontal">
+                        <Label Content="От даты: "/>
+                        <DatePicker SelectedDate="{Binding StartDate}"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <Label Content="До даты: "/>
+                        <DatePicker SelectedDate="{Binding FinishDate}"/>
+                    </StackPanel>
+
+                    <infg:XamDataGrid DataSource="{Binding SumsOnMonths}" Grid.Row="2">
+                        <infg:XamDataGrid.FieldLayouts>
+                            <infg:FieldLayout>
+                                <infg:FieldLayout.Fields>
+                                    <infg:DateTimeField AlternateBinding="{Binding Date}" BindingType="UseAlternateBinding" Label="Дата" Width="Auto" />
+                                    <infg:NumericField AlternateBinding="{Binding Sum}" BindingType="UseAlternateBinding" Label="Сумма, млн.руб" Width="Auto" />
+                                </infg:FieldLayout.Fields>
+                            </infg:FieldLayout>
+                        </infg:XamDataGrid.FieldLayouts>
+                    </infg:XamDataGrid>
+                </Grid>
+            </GroupBox>
+
         </Grid>
         
     </GroupBox>
