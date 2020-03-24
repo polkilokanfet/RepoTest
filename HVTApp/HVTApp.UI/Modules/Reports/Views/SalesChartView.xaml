@@ -30,7 +30,7 @@
                     <ig:CategoryDateTimeXAxis x:Name="XmXAxis"
                                               DateTimeMemberPath="Date"
                                               ItemsSource="{Binding SumsOnMonths}"
-                                              Label="{}{Date:MM/yyyy}">
+                                              Label="{}{Date:dd/MM/yyyy}">
                     </ig:CategoryDateTimeXAxis>
 
                     <ig:NumericYAxis x:Name="XmYAxisPrice"
