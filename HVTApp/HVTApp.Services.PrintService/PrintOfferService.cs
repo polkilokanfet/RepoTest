@@ -327,14 +327,14 @@ namespace HVTApp.Services.PrintService
             if (offerUnitsGroups.Any(x => x.CostDelivery.HasValue && x.CostDelivery > 0))
             {
                 if (offerUnitsGroups.All(x => x.CostDelivery.HasValue && x.CostDelivery > 0))
-                    return "В стоимости оборудования учтены расходы связанные с его доставкой на объект.";
+                    return "В стоимости оборудования учтены расходы, связанные с его доставкой на объект.";
 
                 var positions = offerUnitsGroups
                     .Where(x => x.CostDelivery.HasValue && x.CostDelivery > 0)
                     .Select(x => x.Position).ToList();
                 var end = positions.Count == 1 ? "и" : "й";
                     
-                return $"В стоимости позици{end} {positions.ToStringEnum(", ")} учтены расходы связанные с его доставкой на объект.";
+                return $"В стоимости позици{end} {positions.ToStringEnum(", ")} учтены расходы, связанные с его доставкой на объект.";
             }
             return "В стоимости оборудования не учтены расходы, связанные с его доставкой на объект.";
         }

@@ -555,6 +555,16 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
                 "подн-1О-220",
                 "подн-1Й-220",
                 "подн-2-220",
+
+                "абц-35",
+                "абц-110",
+                "абц-220",
+
+                "псщм-110",
+                "псщм-220",
+
+                "йпсщ-110",
+                "йпсщ-220"
             };
 
             foreach (var category in categories)

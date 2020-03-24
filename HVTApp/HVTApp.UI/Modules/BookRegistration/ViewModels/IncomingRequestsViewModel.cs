@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Lookup;
@@ -10,7 +11,7 @@ using Prism.Commands;
 
 namespace HVTApp.UI.Modules.BookRegistration.ViewModels
 {
-    public class IncomingRequestsViewModel : ViewModelBase
+    public class IncomingRequestsViewModel : ViewModelBaseCanExportToExcel
     {
         public ObservableCollection<IncomingRequestLookup> IncomingRequests { get; } = new ObservableCollection<IncomingRequestLookup>();
 

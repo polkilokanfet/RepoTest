@@ -159,6 +159,10 @@
     <Compile Include="Migrations\201912170610221_17122019.Designer.cs">
       <DependentUpon>201912170610221_17122019.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003241704048_IncomingRequests.cs" />
+    <Compile Include="Migrations\202003241704048_IncomingRequests.Designer.cs">
+      <DependentUpon>202003241704048_IncomingRequests.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -232,6 +236,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201912170610221_17122019.resx">
       <DependentUpon>201912170610221_17122019.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003241704048_IncomingRequests.resx">
+      <DependentUpon>202003241704048_IncomingRequests.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
