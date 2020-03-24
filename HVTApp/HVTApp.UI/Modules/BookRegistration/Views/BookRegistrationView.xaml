@@ -5,6 +5,8 @@
               xmlns:views="clr-namespace:HVTApp.UI.Views">
     <Grid>
         <views:DocumentLookupListView DataContext="{Binding}" 
-                                      NumberVisibility="Collapsed"/>
+                                      NumberVisibility="Collapsed"
+                                      SenderIdVisibility="Collapsed"
+                                      RecipientIdVisibility="Collapsed"/>
     </Grid>
 </inf:ViewBase>

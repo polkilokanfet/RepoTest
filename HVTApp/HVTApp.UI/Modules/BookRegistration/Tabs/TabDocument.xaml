@@ -3,9 +3,9 @@
                                  xmlns:infRib="http://infragistics.com/Ribbon" 
                                  xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
                                  x:Class="HVTApp.UI.Modules.BookRegistration.Tabs.TabDocument"
-                                 Header="Заказ">
+                                 Header="Документ">
     
-    <infRib:RibbonGroup Caption="Заказ">
+    <infRib:RibbonGroup Caption="Действия">
         <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveCommand}" SmallImage="/HVTApp.UI;component/Images/save.png"/>
         <infRib:ButtonTool Caption="Закрыть" Command="{Binding GoBackCommand}" SmallImage="/HVTApp.UI;component/Images/close.png"/>
     </infRib:RibbonGroup>

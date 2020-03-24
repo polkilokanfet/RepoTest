@@ -35,7 +35,7 @@ namespace HVTApp.UI.Modules.BookRegistration.Views
                 this.DocumentDetailsView.VisibilityAuthorDocument = Visibility.Collapsed;
             }
 
-            _viewModel.Load2(parameter.Value as Document);
+            _viewModel.Load2(parameter.Value as Document, parameter.Key);
             base.OnNavigatedTo(navigationContext);
         }
     }

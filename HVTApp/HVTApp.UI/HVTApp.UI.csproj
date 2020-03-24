@@ -120,6 +120,7 @@
     </Compile>
     <Compile Include="Modules\BookRegistration\ViewModels\BookRegistrationViewModel.cs" />
     <Compile Include="Modules\BookRegistration\ViewModels\DocumentViewModel.cs" />
+    <Compile Include="Modules\BookRegistration\ViewModels\IncomingRequestsViewModel.cs" />
     <Compile Include="Modules\BookRegistration\Views\BookRegistrationView.xaml.cs">
       <DependentUpon>BookRegistrationView.xaml</DependentUpon>
     </Compile>

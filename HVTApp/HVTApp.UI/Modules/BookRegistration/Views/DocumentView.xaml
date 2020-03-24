@@ -4,7 +4,7 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:views="clr-namespace:HVTApp.UI.Views">
     
-    <GroupBox Header="Документ">
+    <GroupBox Header="{Binding DocType}">
         <views:DocumentDetailsView x:Name="DocumentDetailsView"
                                    VisibilityNumberDocument="Collapsed"/>
     </GroupBox>

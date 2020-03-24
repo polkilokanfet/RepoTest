@@ -8,13 +8,22 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
 {
     public class DocumentViewModel : DocumentDetailsViewModel
     {
+        public DocumentDirection Direction { get; private set; } = DocumentDirection.Outgoing;
+
+        public string DocType => Direction == DocumentDirection.Outgoing
+            ? "Исходящий документ"
+            : "Входящий документ";
+
         public DocumentViewModel(IUnityContainer container) : base(container)
         {
         }
         
-        public void Load2(Document document)
+        public void Load2(Document document, string direction)
         {
             this.Load(new Document());
+
+            if(Equals(direction, DocumentDirection.Incoming.ToString()))
+                Direction = DocumentDirection.Incoming;
 
             if (document.Author != null)
                 Item.Author = new EmployeeWrapper(UnitOfWork.Repository<Employee>().GetById(document.Author.Id));
