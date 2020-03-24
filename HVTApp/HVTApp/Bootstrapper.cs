@@ -31,6 +31,7 @@ using HVTApp.RegionAdapters;
 using HVTApp.Services.GetProductService;
 using HVTApp.Services.WpfAuthenticationService;
 using HVTApp.Services.DialogService;
+using HVTApp.Services.EmailService;
 using HVTApp.Services.MessageService;
 using HVTApp.Services.NewProductService;
 using HVTApp.Services.PriceService;
@@ -94,6 +95,7 @@ namespace HVTApp
             Container.RegisterType<IAuthenticationService, AuthenticationService>();
             Container.RegisterType<ISelectService, SelectServiceWpf>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IMessageService, MessageServiceWpf>();
+            Container.RegisterType<IEmailService, EmailService>();
 
             Container.RegisterType<IUpdateDetailsService, UpdateDetailsServiceWpf>(new ContainerControlledLifetimeManager());
 

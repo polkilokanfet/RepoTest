@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Infrastructure.ViewModels;
@@ -214,6 +215,9 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                     SaveCommand.Execute(null);
 
                     Container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceCalculationEvent>().Publish(PriceCalculationWrapper.Model);
+
+                    //уведомление по почте
+                    Container.Resolve<IEmailService>().SendMail("kos@uetm.ru", $"{GlobalAppProperties.User.Employee.Person} отправил новое задание на расчет", "test");
 
                     OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsStarted)));
                     ((DelegateCommand)StartCommand).RaiseCanExecuteChanged();
