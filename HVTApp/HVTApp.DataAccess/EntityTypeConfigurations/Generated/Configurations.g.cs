@@ -9,6 +9,7 @@ namespace HVTApp.DataAccess
     public partial class CreateNewProductTaskConfiguration : EntityTypeConfiguration<CreateNewProductTask> { }
     public partial class DocumentNumberConfiguration : EntityTypeConfiguration<DocumentNumber> { }
     public partial class FakeDataConfiguration : EntityTypeConfiguration<FakeData> { }
+    public partial class IncomingRequestConfiguration : EntityTypeConfiguration<IncomingRequest> { }
     public partial class LosingReasonConfiguration : EntityTypeConfiguration<LosingReason> { }
     public partial class MarketFieldConfiguration : EntityTypeConfiguration<MarketField> { }
     public partial class PaymentActualConfiguration : EntityTypeConfiguration<PaymentActual> { }

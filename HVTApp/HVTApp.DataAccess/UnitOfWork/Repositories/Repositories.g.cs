@@ -46,6 +46,13 @@ namespace HVTApp.DataAccess
 		}
     }
 
+    public partial class IncomingRequestRepository : BaseRepository<IncomingRequest>, IIncomingRequestRepository
+    {
+		public IncomingRequestRepository(DbContext context) : base(context) 
+		{
+		}
+    }
+
     public partial class LosingReasonRepository : BaseRepository<LosingReason>, ILosingReasonRepository
     {
 		public LosingReasonRepository(DbContext context) : base(context) 

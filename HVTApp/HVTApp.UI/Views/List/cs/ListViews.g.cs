@@ -1623,6 +1623,13 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility IncomingRequestsPathVisibility
+        {
+            get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.IncomingRequestsPath)].Visibility; }
+            set { GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.IncomingRequestsPath)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility DisplayMemberVisibility
         {
             get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.DisplayMember)].Visibility; }
@@ -1704,6 +1711,81 @@ namespace HVTApp.UI.Views
         {
             get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.Entity)].Visibility; }
             set { GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.Entity)].Visibility = value; }
+        }
+
+
+
+		#endregion
+    }
+
+
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
+	[Designation("Входящий запрос")]
+	[DesignationPlural("IncomingRequestLookup")]
+	[AllowEditAttribute(Role.Admin)]
+
+    public partial class IncomingRequestLookupListView : ViewBase
+    {
+        public IncomingRequestLookupListView()
+        {
+            InitializeComponent();
+        }
+
+        public IncomingRequestLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, IncomingRequestLookupListViewModel IncomingRequestLookupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = IncomingRequestLookupListViewModel;
+			IncomingRequestLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			((IncomingRequestLookupListViewModel)DataContext).Load();
+        }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility HasAnyPerformerVisibility
+        {
+            get { return IncomingRequestLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.IncomingRequestLookup.HasAnyPerformer)].Visibility; }
+            set { IncomingRequestLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.IncomingRequestLookup.HasAnyPerformer)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility IsDoneVisibility
+        {
+            get { return IncomingRequestLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.IncomingRequestLookup.IsDone)].Visibility; }
+            set { IncomingRequestLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.IncomingRequestLookup.IsDone)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return IncomingRequestLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.IncomingRequestLookup.DisplayMember)].Visibility; }
+            set { IncomingRequestLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.IncomingRequestLookup.DisplayMember)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DocumentVisibility
+        {
+            get { return IncomingRequestLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.IncomingRequestLookup.Document)].Visibility; }
+            set { IncomingRequestLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.IncomingRequestLookup.Document)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return IncomingRequestLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.IncomingRequestLookup.Entity)].Visibility; }
+            set { IncomingRequestLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.IncomingRequestLookup.Entity)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility PerformersVisibility
+        {
+            get { return IncomingRequestLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.IncomingRequestLookup.Performers)].Visibility; }
+            set { IncomingRequestLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.IncomingRequestLookup.Performers)].Visibility = value; }
         }
 
 
@@ -3487,6 +3569,27 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility HasPriceVisibility
+        {
+            get { return ProductBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockLookup.HasPrice)].Visibility; }
+            set { ProductBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockLookup.HasPrice)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility HasFixedPriceVisibility
+        {
+            get { return ProductBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockLookup.HasFixedPrice)].Visibility; }
+            set { ProductBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockLookup.HasFixedPrice)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility IsNewVisibility
+        {
+            get { return ProductBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockLookup.IsNew)].Visibility; }
+            set { ProductBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockLookup.IsNew)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility IsServiceVisibility
         {
             get { return ProductBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockLookup.IsService)].Visibility; }
@@ -3747,6 +3850,13 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility AmountOnUnitVisibility
+        {
+            get { return ProductIncludedLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductIncludedLookup.AmountOnUnit)].Visibility; }
+            set { ProductIncludedLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductIncludedLookup.AmountOnUnit)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility DisplayMemberVisibility
         {
             get { return ProductIncludedLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductIncludedLookup.DisplayMember)].Visibility; }
@@ -3812,6 +3922,13 @@ namespace HVTApp.UI.Views
         {
             get { return ProductLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductLookup.DesignationSpecial)].Visibility; }
             set { ProductLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductLookup.DesignationSpecial)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility HasBlockWithFixedCostVisibility
+        {
+            get { return ProductLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductLookup.HasBlockWithFixedCost)].Visibility; }
+            set { ProductLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductLookup.HasBlockWithFixedCost)].Visibility = value; }
         }
 
 
@@ -4572,6 +4689,20 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility VatVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.Vat)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.Vat)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility SumNotPaidWithVatVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.SumNotPaidWithVat)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.SumNotPaidWithVat)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility SumToStartProductionVisibility
         {
             get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.SumToStartProduction)].Visibility; }
@@ -4632,6 +4763,13 @@ namespace HVTApp.UI.Views
         {
             get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.EndProductionDateCalculated)].Visibility; }
             set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.EndProductionDateCalculated)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility EndProductionDateByContractCalculatedVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.EndProductionDateByContractCalculated)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.EndProductionDateByContractCalculated)].Visibility = value; }
         }
 
 

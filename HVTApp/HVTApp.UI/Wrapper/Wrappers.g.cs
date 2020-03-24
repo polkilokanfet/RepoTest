@@ -323,6 +323,75 @@ namespace HVTApp.UI.Wrapper
 
 	}
 
+		public partial class IncomingRequestWrapper : WrapperBase<IncomingRequest>
+	{
+	    public IncomingRequestWrapper(IncomingRequest model) : base(model) { }
+
+	
+
+        #region SimpleProperties
+
+        public System.Boolean IsDone
+        {
+          get { return GetValue<System.Boolean>(); }
+          set { SetValue(value); }
+        }
+        public System.Boolean IsDoneOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsDone));
+        public bool IsDoneIsChanged => GetIsChanged(nameof(IsDone));
+
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+
+        #endregion
+
+
+        #region ComplexProperties
+
+	    public DocumentWrapper Document 
+        {
+            get { return GetWrapper<DocumentWrapper>(); }
+            set { SetComplexValue<Document, DocumentWrapper>(Document, value); }
+        }
+
+
+        #endregion
+
+
+        #region CollectionProperties
+
+        public IValidatableChangeTrackingCollection<EmployeeWrapper> Performers { get; private set; }
+
+
+        #endregion
+
+        public override void InitializeComplexProperties()
+        {
+
+            InitializeComplexProperty<DocumentWrapper>(nameof(Document), Model.Document == null ? null : new DocumentWrapper(Model.Document));
+
+
+        }
+
+  
+        protected override void InitializeCollectionProperties()
+        {
+
+          if (Model.Performers == null) throw new ArgumentException("Performers cannot be null");
+          Performers = new ValidatableChangeTrackingCollection<EmployeeWrapper>(Model.Performers.Select(e => new EmployeeWrapper(e)));
+          RegisterCollection(Performers, Model.Performers);
+
+
+        }
+
+	}
+
 		public partial class LosingReasonWrapper : WrapperBase<LosingReason>
 	{
 	    public LosingReasonWrapper(LosingReason model) : base(model) { }
@@ -842,6 +911,14 @@ namespace HVTApp.UI.Wrapper
 
         #endregion
 
+
+        #region GetProperties
+
+        public System.Double AmountOnUnit => GetValue<System.Double>(); 
+
+
+        #endregion
+
         public override void InitializeComplexProperties()
         {
 
@@ -1252,6 +1329,15 @@ namespace HVTApp.UI.Wrapper
         }
         public System.Double VatOriginalValue => GetOriginalValue<System.Double>(nameof(Vat));
         public bool VatIsChanged => GetIsChanged(nameof(Vat));
+
+
+        public System.String IncomingRequestsPath
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String IncomingRequestsPathOriginalValue => GetOriginalValue<System.String>(nameof(IncomingRequestsPath));
+        public bool IncomingRequestsPathIsChanged => GetIsChanged(nameof(IncomingRequestsPath));
 
 
         public System.Guid Id
@@ -2093,6 +2179,15 @@ namespace HVTApp.UI.Wrapper
         #region GetProperties
 
         public System.String Designation => GetValue<System.String>(); 
+
+
+        public System.Boolean HasPrice => GetValue<System.Boolean>(); 
+
+
+        public System.Boolean HasFixedPrice => GetValue<System.Boolean>(); 
+
+
+        public System.Boolean IsNew => GetValue<System.Boolean>(); 
 
 
         public System.Boolean IsService => GetValue<System.Boolean>(); 
@@ -3334,6 +3429,12 @@ namespace HVTApp.UI.Wrapper
         public System.Double SumNotPaid => GetValue<System.Double>(); 
 
 
+        public System.Double Vat => GetValue<System.Double>(); 
+
+
+        public System.Double SumNotPaidWithVat => GetValue<System.Double>(); 
+
+
         public System.Double SumToStartProduction => GetValue<System.Double>(); 
 
 
@@ -3359,6 +3460,9 @@ namespace HVTApp.UI.Wrapper
 
 
         public System.DateTime EndProductionDateCalculated => GetValue<System.DateTime>(); 
+
+
+        public System.DateTime EndProductionDateByContractCalculated => GetValue<System.DateTime>(); 
 
 
         public System.DateTime RealizationDateCalculated => GetValue<System.DateTime>(); 
@@ -3706,6 +3810,9 @@ namespace HVTApp.UI.Wrapper
         #region GetProperties
 
         public System.String Designation => GetValue<System.String>(); 
+
+
+        public System.Boolean HasBlockWithFixedCost => GetValue<System.Boolean>(); 
 
 
         public HVTApp.Model.POCOs.ProductType ProductType => GetValue<HVTApp.Model.POCOs.ProductType>(); 

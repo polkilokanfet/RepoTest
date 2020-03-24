@@ -7,7 +7,7 @@ namespace HVTApp.Model.POCOs
     [Designation("Тип продукта")]
     public partial class ProductType : BaseEntity
     {
-        [Designation("Название"), Required, MaxLength(75)]
+        [Designation("Название"), Required, MaxLength(150)]
         public string Name { get; set; }
 
         public override string ToString()

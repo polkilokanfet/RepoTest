@@ -3,6 +3,7 @@ using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Prism;
+using HVTApp.UI.Modules.BookRegistration.Views;
 using HVTApp.UI.Modules.PlanAndEconomy.Views;
 using HVTApp.UI.Modules.Products.Views;
 using HVTApp.UI.Modules.Reports.Views;
@@ -42,6 +43,7 @@ namespace HVTApp.UI
             Container.RegisterViewForNavigation<PickingDatesView>();
             Container.RegisterViewForNavigation<SupplyPlanView>();
             Container.RegisterViewForNavigation<PaymentsPlanView>();
+            Container.RegisterViewForNavigation<IncomingRequestsView>();
 
             _dialogService.RegisterShow<ProductStructureViewModel, ProductStructureView>();
             RegisterViews();

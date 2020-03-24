@@ -197,6 +197,75 @@ namespace HVTApp.UI.ViewModels
     }
 
 
+    public partial class IncomingRequestDetailsViewModel : BaseDetailsViewModel<IncomingRequestWrapper, IncomingRequest, AfterSaveIncomingRequestEvent>
+    {
+		//private Func<Task<List<Document>>> _getEntitiesForSelectDocumentCommand;
+		private Func<List<Document>> _getEntitiesForSelectDocumentCommand;
+		public ICommand SelectDocumentCommand { get; private set; }
+		public ICommand ClearDocumentCommand { get; private set; }
+
+		private Func<List<Employee>> _getEntitiesForAddInPerformersCommand;
+		public ICommand AddInPerformersCommand { get; }
+		public ICommand RemoveFromPerformersCommand { get; }
+		private EmployeeWrapper _selectedPerformersItem;
+		public EmployeeWrapper SelectedPerformersItem 
+		{ 
+			get { return _selectedPerformersItem; }
+			set 
+			{ 
+				if (Equals(_selectedPerformersItem, value)) return;
+				_selectedPerformersItem = value;
+				OnPropertyChanged();
+				((DelegateCommand)RemoveFromPerformersCommand).RaiseCanExecuteChanged();
+			}
+		}
+
+
+        public IncomingRequestDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+			
+			if (_getEntitiesForSelectDocumentCommand == null) _getEntitiesForSelectDocumentCommand = () => { return UnitOfWork.Repository<Document>().GetAll(); };
+			if (SelectDocumentCommand == null) SelectDocumentCommand = new DelegateCommand(SelectDocumentCommand_Execute_Default);
+			if (ClearDocumentCommand == null) ClearDocumentCommand = new DelegateCommand(ClearDocumentCommand_Execute_Default);
+
+			
+			if (_getEntitiesForAddInPerformersCommand == null) _getEntitiesForAddInPerformersCommand = () => { return UnitOfWork.Repository<Employee>().GetAll(); };;
+			if (AddInPerformersCommand == null) AddInPerformersCommand = new DelegateCommand(AddInPerformersCommand_Execute_Default);
+			if (RemoveFromPerformersCommand == null) RemoveFromPerformersCommand = new DelegateCommand(RemoveFromPerformersCommand_Execute_Default, RemoveFromPerformersCommand_CanExecute_Default);
+
+		}
+
+		private void SelectDocumentCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<Document, DocumentWrapper>(_getEntitiesForSelectDocumentCommand(), nameof(Item.Document), Item.Document?.Id);
+		}
+
+		private void ClearDocumentCommand_Execute_Default() 
+		{
+						Item.Document = null;
+		    
+		}
+
+			private void AddInPerformersCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<Employee, EmployeeWrapper>(_getEntitiesForAddInPerformersCommand(), Item.Performers);
+			}
+
+			private void RemoveFromPerformersCommand_Execute_Default()
+			{
+				Item.Performers.Remove(SelectedPerformersItem);
+			}
+
+			private bool RemoveFromPerformersCommand_CanExecute_Default()
+			{
+				return SelectedPerformersItem != null;
+			}
+
+
+
+    }
+
+
     public partial class LosingReasonDetailsViewModel : BaseDetailsViewModel<LosingReasonWrapper, LosingReason, AfterSaveLosingReasonEvent>
     {
 

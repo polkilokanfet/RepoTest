@@ -51,6 +51,7 @@
                     <infg:DateTimeField Name="ShippingConditionsDoneDate" Label="Дата исполнения условий для отгрузки" Width="Auto" AllowResize="True" />
                     <infg:DateTimeField Name="StartProductionDateCalculated" Label="Начало производства (расч.)" Width="Auto" AllowResize="True" />
                     <infg:DateTimeField Name="EndProductionDateCalculated" Label="Окончание производства (расч.)" Width="Auto" AllowResize="True" />
+                    <infg:DateTimeField Name="EndProductionDateByContractCalculated" Label="Окончание производства по договору" Width="Auto" AllowResize="True" />
                     <infg:DateTimeField Name="RealizationDateCalculated" Label="Расчетная дата реализации" Width="Auto" AllowResize="True" />
                     <infg:DateTimeField Name="ShipmentDateCalculated" Label="Расчетная дата отгрузки" Width="Auto" AllowResize="True" />
                     <infg:DateTimeField Name="DeliveryDateCalculated" Label="Расчетная дата доставки" Width="Auto" AllowResize="True" />
@@ -61,9 +62,11 @@
                     <infg:TextField Name="Producer" Label="Производитель" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Order" Label="Заказ" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="AddressDelivery" Label="Адрес доставки" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:NumericField Name="Vat" Label="НДС" Width="Auto" AllowResize="True" />
                     <infg:NumericField Name="SumToStartProduction" Label="Сумма старта производства" Width="Auto" AllowResize="True" />
                     <infg:NumericField Name="SumToShipping" Label="Сумма отгрузки" Width="Auto" AllowResize="True" />
                     <infg:NumericField Name="SumPaid" Label="Оплачено" Width="Auto" AllowResize="True" />
+                    <infg:NumericField Name="SumNotPaidWithVat" Label="Неоплачено с НДС" Width="Auto" AllowResize="True" />
                     <infg:NumericField Name="SumNotPaid" Label="Неоплачено без НДС" Width="Auto" AllowResize="True" />
                     <infg:DateTimeField Name="StartProductionDate" Label="Дата начала производства" Width="Auto" AllowResize="True" />
                     <infg:DateTimeField Name="SignalToStartProductionDone" Label="Дата размещения в производстве" Width="Auto" AllowResize="True" />

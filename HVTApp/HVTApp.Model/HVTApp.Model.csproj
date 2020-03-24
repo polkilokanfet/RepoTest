@@ -64,6 +64,7 @@
     <Compile Include="Comparers\ParameterComparer.cs" />
     <Compile Include="POCOs\DocumentNumber.cs" />
     <Compile Include="POCOs\FakeData.cs" />
+    <Compile Include="POCOs\IncomingRequest.cs" />
     <Compile Include="POCOs\LosingReason.cs" />
     <Compile Include="POCOs\MarketField.cs" />
     <Compile Include="POCOs\PaymentActual.cs" />

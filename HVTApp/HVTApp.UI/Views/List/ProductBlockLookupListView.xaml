@@ -46,7 +46,10 @@
                     <infg:DateTimeField Name="LastPriceDate" Label="Дата последнего прайса" Width="Auto" AllowResize="True" />
                     <infg:CheckBoxField Name="IsSupervision" Label="Шеф-монтаж" Width="Auto" AllowResize="True" />
                     <infg:CheckBoxField Name="IsService" Label="Услуга" Width="Auto" AllowResize="True" />
+                    <infg:CheckBoxField Name="IsNew" Label="Новый" Width="Auto" AllowResize="True" />
                     <infg:CheckBoxField Name="IsDelivery" Label="Доставка" Width="Auto" AllowResize="True" />
+                    <infg:CheckBoxField Name="HasPrice" Label="Есть прайс" Width="Auto" AllowResize="True" />
+                    <infg:CheckBoxField Name="HasFixedPrice" Label="Есть фиксированный прайс" Width="Auto" AllowResize="True" />
                     <infg:TextField Name="FixedCosts" Label="Фиксированные цены" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:TextField Name="DesignationSpecial" Label="Специальное обозначение" Width="Auto" AllowResize="True" />
                     <infg:TextField Name="Designation" Label="Обозначение" Width="Auto" AllowResize="True" />

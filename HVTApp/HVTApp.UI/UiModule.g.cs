@@ -48,6 +48,12 @@ namespace HVTApp.UI
             _updateDetailsService.Register<FakeData, FakeDataDetailsView>();
 
 
+            Container.RegisterViewForNavigation<IncomingRequestLookupListView>();
+            //_dialogService.Register<IncomingRequestDetailsViewModel, IncomingRequestDetailsView>();
+			_selectService.Register<IncomingRequestLookupListView, IncomingRequest>();
+            _updateDetailsService.Register<IncomingRequest, IncomingRequestDetailsView>();
+
+
             Container.RegisterViewForNavigation<LosingReasonLookupListView>();
             //_dialogService.Register<LosingReasonDetailsViewModel, LosingReasonDetailsView>();
 			_selectService.Register<LosingReasonLookupListView, LosingReason>();

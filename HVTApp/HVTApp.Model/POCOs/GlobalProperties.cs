@@ -53,5 +53,8 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Стандартные условия оплаты"), Required]
         public virtual PaymentConditionSet PaymentConditionSet { get; set; }
+
+        [Designation("Путь к папке с запросами")]
+        public string IncomingRequestsPath { get; set; }
     }
 }

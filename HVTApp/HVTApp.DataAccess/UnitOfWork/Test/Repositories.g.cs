@@ -1,5 +1,5 @@
+
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using HVTApp.TestDataGenerator;
 using HVTApp.Model.POCOs;
 
@@ -33,6 +33,11 @@ namespace HVTApp.DataAccess
     public partial class FakeDataRepositoryTest : TestBaseRepository<FakeData>, IFakeDataRepository
     {
         public FakeDataRepositoryTest(TestData testData) : base(testData) {}
+    }
+
+    public partial class IncomingRequestRepositoryTest : TestBaseRepository<IncomingRequest>, IIncomingRequestRepository
+    {
+        public IncomingRequestRepositoryTest(TestData testData) : base(testData) {}
     }
 
     public partial class LosingReasonRepositoryTest : TestBaseRepository<LosingReason>, ILosingReasonRepository
@@ -262,6 +267,7 @@ namespace HVTApp.DataAccess
         {
             throw new System.NotImplementedException();
         }
+
     }
 
     public partial class DocumentRepositoryTest : TestBaseRepository<Document>, IDocumentRepository

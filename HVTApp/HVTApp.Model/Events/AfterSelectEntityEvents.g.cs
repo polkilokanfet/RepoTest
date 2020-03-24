@@ -9,6 +9,7 @@ namespace HVTApp.Model.Events
 	public partial class AfterSelectCreateNewProductTaskEvent : PubSubEvent<PubSubEventArgs<CreateNewProductTask>> { }
 	public partial class AfterSelectDocumentNumberEvent : PubSubEvent<PubSubEventArgs<DocumentNumber>> { }
 	public partial class AfterSelectFakeDataEvent : PubSubEvent<PubSubEventArgs<FakeData>> { }
+	public partial class AfterSelectIncomingRequestEvent : PubSubEvent<PubSubEventArgs<IncomingRequest>> { }
 	public partial class AfterSelectLosingReasonEvent : PubSubEvent<PubSubEventArgs<LosingReason>> { }
 	public partial class AfterSelectMarketFieldEvent : PubSubEvent<PubSubEventArgs<MarketField>> { }
 	public partial class AfterSelectPaymentActualEvent : PubSubEvent<PubSubEventArgs<PaymentActual>> { }

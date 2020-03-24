@@ -91,6 +91,7 @@
     <Compile Include="EntityTypeConfigurations\Custom\ContractConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\FacilityConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\FacilityTypeConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\IncomingRequestConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\NoteConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\OfferUnitConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\PriceCalculationConfiguration.cs" />

@@ -10,6 +10,7 @@ namespace HVTApp.DataAccess
             CreateNewProductTaskRepository = new CreateNewProductTaskRepository(_context);
             DocumentNumberRepository = new DocumentNumberRepository(_context);
             FakeDataRepository = new FakeDataRepository(_context);
+            IncomingRequestRepository = new IncomingRequestRepository(_context);
             LosingReasonRepository = new LosingReasonRepository(_context);
             MarketFieldRepository = new MarketFieldRepository(_context);
             PaymentActualRepository = new PaymentActualRepository(_context);
@@ -80,6 +81,7 @@ namespace HVTApp.DataAccess
         protected ICreateNewProductTaskRepository CreateNewProductTaskRepository;
         protected IDocumentNumberRepository DocumentNumberRepository;
         protected IFakeDataRepository FakeDataRepository;
+        protected IIncomingRequestRepository IncomingRequestRepository;
         protected ILosingReasonRepository LosingReasonRepository;
         protected IMarketFieldRepository MarketFieldRepository;
         protected IPaymentActualRepository PaymentActualRepository;

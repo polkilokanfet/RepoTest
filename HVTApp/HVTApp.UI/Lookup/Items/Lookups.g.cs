@@ -195,6 +195,38 @@ namespace HVTApp.UI.Lookup
 
 	[AllowEditAttribute(Role.Admin)]
 
+	[Designation("Входящий запрос")]
+	public partial class IncomingRequestLookup : LookupItem<IncomingRequest>
+	{
+		public IncomingRequestLookup(IncomingRequest entity) : base(entity) 
+		{
+		}
+		
+
+        #region SimpleProperties
+
+		[OrderStatus(30)]
+        public System.Boolean IsDone => Entity.IsDone;
+
+
+        #endregion
+
+
+        #region ComplexProperties
+
+		[OrderStatus(50)]
+	    public DocumentLookup Document { get { return GetLookup<DocumentLookup>(); } }
+
+
+        #endregion
+
+		[OrderStatus(40)]
+	    public List<EmployeeLookup> Performers { get { return GetLookupEnum<EmployeeLookup>().ToList(); } }
+
+	}
+
+	[AllowEditAttribute(Role.Admin)]
+
 	[Designation("Причина проигрыша")]
 	public partial class LosingReasonLookup : LookupItem<LosingReason>
 	{
@@ -459,6 +491,10 @@ namespace HVTApp.UI.Lookup
         public System.Int32 ParentsCount => Entity.ParentsCount;
 
 
+		[OrderStatus(1)]
+        public System.Double AmountOnUnit => Entity.AmountOnUnit;
+
+
         #endregion
 
 
@@ -677,6 +713,10 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
         public System.Double Vat => Entity.Vat;
+
+
+		[OrderStatus(1)]
+        public System.String IncomingRequestsPath => Entity.IncomingRequestsPath;
 
 
         #endregion
@@ -1098,6 +1138,18 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
         public System.String Design => Entity.Design;
+
+
+		[OrderStatus(1)]
+        public System.Boolean HasPrice => Entity.HasPrice;
+
+
+		[OrderStatus(1)]
+        public System.Boolean HasFixedPrice => Entity.HasFixedPrice;
+
+
+		[OrderStatus(1)]
+        public System.Boolean IsNew => Entity.IsNew;
 
 
 		[OrderStatus(1)]
@@ -1746,6 +1798,14 @@ namespace HVTApp.UI.Lookup
 
 
 		[OrderStatus(1)]
+        public System.Double Vat => Entity.Vat;
+
+
+		[OrderStatus(1)]
+        public System.Double SumNotPaidWithVat => Entity.SumNotPaidWithVat;
+
+
+		[OrderStatus(1)]
         public System.Double SumToStartProduction => Entity.SumToStartProduction;
 
 
@@ -1779,6 +1839,10 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(855)]
         public System.DateTime EndProductionDateCalculated => Entity.EndProductionDateCalculated;
+
+
+		[OrderStatus(854)]
+        public System.DateTime EndProductionDateByContractCalculated => Entity.EndProductionDateByContractCalculated;
 
 
 		[OrderStatus(850)]
@@ -1984,6 +2048,10 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(6)]
         public System.String DesignationSpecial => Entity.DesignationSpecial;
+
+
+		[OrderStatus(1)]
+        public System.Boolean HasBlockWithFixedCost => Entity.HasBlockWithFixedCost;
 
 
         #endregion

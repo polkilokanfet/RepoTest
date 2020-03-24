@@ -60,6 +60,12 @@ namespace HVTApp.UI.ViewModels
     }
 
 
+	public partial class IncomingRequestLookupListViewModel : BaseListViewModel<IncomingRequest, IncomingRequestLookup, AfterSaveIncomingRequestEvent, AfterSelectIncomingRequestEvent, AfterRemoveIncomingRequestEvent>
+    {
+        public IncomingRequestLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+
 	public partial class LosingReasonLookupListViewModel : BaseListViewModel<LosingReason, LosingReasonLookup, AfterSaveLosingReasonEvent, AfterSelectLosingReasonEvent, AfterRemoveLosingReasonEvent>
     {
         public LosingReasonLookupListViewModel(IUnityContainer container) : base(container) { }

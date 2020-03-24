@@ -109,6 +109,7 @@
     <Compile Include="Groups\SalesUnitsGroup.cs" />
     <Compile Include="Groups\ShipmentUnitsGroup.cs" />
     <Compile Include="Lookup\Items\Custom\DocumentLookup.cs" />
+    <Compile Include="Lookup\Items\Custom\IncomingRequestLookup.cs" />
     <Compile Include="Lookup\Items\Custom\PaymentConditionSetLookup.cs" />
     <Compile Include="Lookup\Items\Custom\PriceCalculationLookup.cs" />
     <Compile Include="Lookup\Items\Custom\SalesUnitLookup.cs" />
@@ -121,6 +122,9 @@
     <Compile Include="Modules\BookRegistration\ViewModels\BookRegistrationViewModel.cs" />
     <Compile Include="Modules\BookRegistration\ViewModels\DocumentViewModel.cs" />
     <Compile Include="Modules\BookRegistration\ViewModels\IncomingRequestsViewModel.cs" />
+    <Compile Include="Modules\BookRegistration\Views\IncomingRequestsView.xaml.cs">
+      <DependentUpon>IncomingRequestsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modules\BookRegistration\Views\BookRegistrationView.xaml.cs">
       <DependentUpon>BookRegistrationView.xaml</DependentUpon>
     </Compile>
@@ -724,6 +728,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Modules\BookRegistration\Views\IncomingRequestsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Modules\BookRegistration\Views\BookRegistrationView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1112,6 +1120,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\Details\IncomingRequestDetailsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Details\LocalityDetailsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1385,6 +1397,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\List\GlobalPropertiesLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\IncomingRequestLookupListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

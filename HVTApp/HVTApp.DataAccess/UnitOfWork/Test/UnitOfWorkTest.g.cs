@@ -13,6 +13,7 @@ namespace HVTApp.DataAccess
             CreateNewProductTaskRepository = new CreateNewProductTaskRepositoryTest(testData);
             DocumentNumberRepository = new DocumentNumberRepositoryTest(testData);
             FakeDataRepository = new FakeDataRepositoryTest(testData);
+            IncomingRequestRepository = new IncomingRequestRepositoryTest(testData);
             LosingReasonRepository = new LosingReasonRepositoryTest(testData);
             MarketFieldRepository = new MarketFieldRepositoryTest(testData);
             PaymentActualRepository = new PaymentActualRepositoryTest(testData);
@@ -84,6 +85,7 @@ namespace HVTApp.DataAccess
         public ICreateNewProductTaskRepository CreateNewProductTaskRepository { get; }
         public IDocumentNumberRepository DocumentNumberRepository { get; }
         public IFakeDataRepository FakeDataRepository { get; }
+        public IIncomingRequestRepository IncomingRequestRepository { get; }
         public ILosingReasonRepository LosingReasonRepository { get; }
         public IMarketFieldRepository MarketFieldRepository { get; }
         public IPaymentActualRepository PaymentActualRepository { get; }

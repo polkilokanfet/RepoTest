@@ -41,6 +41,7 @@
                     <infg:TextField Name="Product" Label="Продукт" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:NumericField Name="Amount" Label="Количество" Width="Auto" AllowResize="True" />
                     <infg:NumericField Name="ParentsCount" Label="ParentsCount" Width="Auto" AllowResize="True" />
+                    <infg:NumericField Name="AmountOnUnit" Label="AmountOnUnit" Width="Auto" AllowResize="True" />
                     <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 
 					</infg:FieldLayout.Fields>

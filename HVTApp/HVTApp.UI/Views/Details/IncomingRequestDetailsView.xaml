@@ -1,0 +1,47 @@
+<inf:ViewBase x:Class="HVTApp.UI.Views.IncomingRequestDetailsView"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			  xmlns:infDP="http://infragistics.com/DataPresenter"
+			  xmlns:infE="http://infragistics.com/Editors"
+			  xmlns:core="clr-namespace:System;assembly=mscorlib"
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+			  x:Name="Root">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" MinWidth="200"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+
+        <Label Grid.Column="0" Grid.Row ="0" Content="Запрос" Visibility="{Binding VisibilityDocumentIncomingRequest, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="0" 
+                                    Item="{Binding Item.Document}" 
+                                    AddItemCommand="{Binding SelectDocumentCommand}" 
+                                    RemoveItemCommand="{Binding ClearDocumentCommand}"
+									Visibility="{Binding VisibilityDocumentIncomingRequest, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="1" Content="Исполнители" Visibility="{Binding VisibilityPerformersIncomingRequest, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="1"
+										 Items="{Binding Path=Item.Performers}"
+										 SelectedItem="{Binding SelectedPerformersItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInPerformersCommand}"
+										 RemoveItemCommand="{Binding RemoveFromPerformersCommand}"
+										 Visibility="{Binding VisibilityPerformersIncomingRequest, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="2" Content="Исполнен" Visibility="{Binding VisibilityIsDoneIncomingRequest, ElementName=Root}"/>
+        <CheckBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
+                  IsChecked="{Binding Item.IsDone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				  Visibility="{Binding VisibilityIsDoneIncomingRequest, ElementName=Root}"/>
+
+
+
+    </Grid>
+</inf:ViewBase>
