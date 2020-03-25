@@ -8,7 +8,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.BookRegistration
 {
-    [ModuleAccess(Role.Admin, Role.SalesManager, Role.Economist)]
+    [ModuleAccess(Role.Admin, Role.SalesManager, Role.Economist, Role.Director)]
     public class BookRegistrationModule : ModuleBase
     {
         public BookRegistrationModule(IUnityContainer container, IRegionManager regionManager) : base(container, regionManager)

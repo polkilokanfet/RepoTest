@@ -7,7 +7,7 @@ namespace HVTApp.Model.POCOs
 {
     [Designation("Адрес")]
     [DesignationPlural("Адреса")]
-    [AllowEdit(Role.SalesManager)]
+    [AllowEdit(Role.SalesManager, Role.Economist)]
     public partial class Address : BaseEntity
     {
         [Designation("Описание"), Required, MaxLength(100)]
