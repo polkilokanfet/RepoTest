@@ -5,7 +5,7 @@
                     xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
                     xmlns:infPrism="clr-namespace:HVTApp.Infrastructure.Prism;assembly=HVTApp.Infrastructure"
                     x:Class="HVTApp.Modules.BookRegistration.Menus.BookRegistrationMenu"
-                    Header="Книга регистрации"
+                    Header="Переписка"
                     LargeImage="/HVTApp.Modules.BookRegistration;component/Images/book_32.png"
                     SmallImage="/HVTApp.Modules.BookRegistration;component/Images/book_16.png">
 

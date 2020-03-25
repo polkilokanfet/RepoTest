@@ -11,11 +11,9 @@
         <!--<infRib:ButtonTool Caption="Изменить" Command="{Binding EditOutgoingDocumentCommand}" SmallImage="/HVTApp.UI;component/Images/Edit_16x16.png"/>-->
     </infRib:RibbonGroup>
     
-    <!--<infRib:RibbonGroup Caption="Действия">
-        <infRib:ButtonTool Caption="Создать" Command="{Binding NewItemCommand}" SmallImage="/HVTApp.UI;component/Images/Add_16x16.png"/>
-        <infRib:ButtonTool Caption="Изменить" Command="{Binding EditItemCommand}" SmallImage="/HVTApp.UI;component/Images/Edit_16x16.png"/>
-        <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveItemCommand}" SmallImage="/HVTApp.UI;component/Images/Delete_16x16.png"/>
-    </infRib:RibbonGroup>-->
+    <infRib:RibbonGroup Caption="Действия">
+        <infRib:ButtonTool Caption="Приложения" Command="{Binding OpenFolderCommand}" SmallImage="/HVTApp.UI;component/Images/folder.png"/>
+    </infRib:RibbonGroup>
 
     
 </inf:RibbonTabItemWithViewModel>

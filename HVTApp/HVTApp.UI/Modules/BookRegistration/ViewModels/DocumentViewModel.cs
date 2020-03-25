@@ -1,8 +1,13 @@
+using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using HVTApp.Infrastructure.Services;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.ViewModels;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
+using Prism.Commands;
 
 namespace HVTApp.UI.Modules.BookRegistration.ViewModels
 {
@@ -14,10 +19,24 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
             ? "Исходящий документ"
             : "Входящий документ";
 
+        public ICommand OpenFolderCommand { get; set; }
+
         public DocumentViewModel(IUnityContainer container) : base(container)
         {
+            OpenFolderCommand = new DelegateCommand(
+                () =>
+                {
+                    if (string.IsNullOrEmpty(GlobalAppProperties.Actual.IncomingRequestsPath))
+                    {
+                        Container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", "Путь к хранилищу приложений не пазначен");
+                        return;
+                    }
+
+                    var path = PathGetter.GetPath(Item.Model);
+                    Process.Start("explorer", $"\"{path}\"");
+                });
         }
-        
+
         public void Load2(Document document, string direction)
         {
             this.Load(new Document());

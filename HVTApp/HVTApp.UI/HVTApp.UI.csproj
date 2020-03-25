@@ -113,6 +113,12 @@
     <Compile Include="Lookup\Items\Custom\PaymentConditionSetLookup.cs" />
     <Compile Include="Lookup\Items\Custom\PriceCalculationLookup.cs" />
     <Compile Include="Lookup\Items\Custom\SalesUnitLookup.cs" />
+    <Compile Include="Modules\BookRegistration\Tabs\TabIncomingRequest.xaml.cs">
+      <DependentUpon>TabIncomingRequest.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\BookRegistration\Tabs\TabIncomingRequests.xaml.cs">
+      <DependentUpon>TabIncomingRequests.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modules\BookRegistration\Tabs\TabBookRegistration.xaml.cs">
       <DependentUpon>TabBookRegistration.xaml</DependentUpon>
     </Compile>
@@ -122,6 +128,11 @@
     <Compile Include="Modules\BookRegistration\ViewModels\BookRegistrationViewModel.cs" />
     <Compile Include="Modules\BookRegistration\ViewModels\DocumentViewModel.cs" />
     <Compile Include="Modules\BookRegistration\ViewModels\IncomingRequestsViewModel.cs" />
+    <Compile Include="Modules\BookRegistration\ViewModels\IncomingRequestViewModel.cs" />
+    <Compile Include="Modules\BookRegistration\ViewModels\PathGetter.cs" />
+    <Compile Include="Modules\BookRegistration\Views\IncomingRequestView.xaml.cs">
+      <DependentUpon>IncomingRequestView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modules\BookRegistration\Views\IncomingRequestsView.xaml.cs">
       <DependentUpon>IncomingRequestsView.xaml</DependentUpon>
     </Compile>
@@ -435,6 +446,7 @@
       <DependentUpon>TabRefresh.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\Details\EmployeeDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Details\IncomingRequestDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\TenderDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\UserDetailsViewModel.cs" />
     <Compile Include="ViewModels\List\ProductTypeDesignationLookupListViewModel.cs" />
@@ -720,11 +732,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Modules\BookRegistration\Tabs\TabIncomingRequest.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\BookRegistration\Tabs\TabIncomingRequests.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Modules\BookRegistration\Tabs\TabBookRegistration.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\BookRegistration\Tabs\TabDocument.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\BookRegistration\Views\IncomingRequestView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

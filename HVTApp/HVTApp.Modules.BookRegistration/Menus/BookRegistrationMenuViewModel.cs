@@ -8,10 +8,14 @@ namespace HVTApp.Modules.BookRegistration.Menus
     {
         protected override void GenerateMenu()
         {
-            Items.Add(new NavigationItem("Журнал регистрации", typeof(BookRegistrationView)));
+            Items.Add(new NavigationItem("Журнал переписки", typeof(BookRegistrationView)));
 
-            if(GlobalAppProperties.User.RoleCurrent == Role.Admin || GlobalAppProperties.User.RoleCurrent == Role.Director)
-                Items.Add(new NavigationItem("Поручение запросов", typeof(IncomingRequestsView)));
+            if (GlobalAppProperties.User.RoleCurrent == Role.Admin
+                || GlobalAppProperties.User.RoleCurrent == Role.Director
+                || GlobalAppProperties.User.RoleCurrent == Role.SalesManager)
+            {
+                Items.Add(new NavigationItem("Входящие запросы", typeof(IncomingRequestsView)));
+            }
         }
     }
 }

@@ -19,6 +19,7 @@ namespace HVTApp.Modules.BookRegistration
         {
             Container.RegisterViewForNavigation<BookRegistrationView>();
             Container.RegisterViewForNavigation<DocumentView>();
+            Container.RegisterViewForNavigation<IncomingRequestView>();
         }
 
         protected override void ResolveOutlookGroup()

@@ -1,5 +1,7 @@
-﻿using System.Windows.Input;
+﻿using System.Diagnostics;
+using System.Windows.Input;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Modules.BookRegistration.Views;
@@ -14,6 +16,7 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
     {
         public ICommand CreateOutgoingDocumentCommand { get; }
         public ICommand CreateIncomingDocumentCommand { get; }
+        public ICommand OpenFolderCommand { get; }
 
         public BookRegistrationViewModel(IUnityContainer container) : base(container)
         {
@@ -36,6 +39,22 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
                 };
                 container.Resolve<IRegionManager>().RequestNavigateContentRegion<DocumentView>(new NavigationParameters { { DocumentDirection.Incoming.ToString(), document } });
             });
+
+            OpenFolderCommand = new DelegateCommand(
+                () =>
+                {
+                    if (string.IsNullOrEmpty(GlobalAppProperties.Actual.IncomingRequestsPath))
+                    {
+                        Container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", "Путь к хранилищу приложений не пазначен");
+                        return;
+                    }
+
+                    var path = PathGetter.GetPath(SelectedItem);
+                    Process.Start("explorer", $"\"{path}\"");
+                },
+                () => SelectedItem != null);
+
+            this.SelectedLookupChanged += lookup => { ((DelegateCommand) OpenFolderCommand).RaiseCanExecuteChanged(); };
         }
     }
 }
