@@ -28,6 +28,9 @@
                         <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding RecipientEmployee}" Label="Получатель" Width="250" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding RegistrationDetailsOfRecipient}" Label="Рег.данные получателя" Width="200" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding RequestDocument}" Label="Запрос" Width="200" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding TceNumber}" Label="ТСЕ" Width="Auto" AllowResize="True"/>
+                        <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Performers}" Label="Исполнители" Width="400" AllowResize="True" Converter="{StaticResource ObjectsToStringConverter}"/>
+                        <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Direction}" Label="Направление" Width="Auto" AllowResize="True"/>
                     </infg:FieldLayout.Fields>
 
                 </infg:FieldLayout>

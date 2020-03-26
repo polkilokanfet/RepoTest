@@ -16,6 +16,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
 
@@ -40,6 +41,12 @@
         <CheckBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
                   IsChecked="{Binding Item.IsDone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				  Visibility="{Binding VisibilityIsDoneIncomingRequest, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="3" Content="Актуален" Visibility="{Binding VisibilityIsActualIncomingRequest, ElementName=Root}"/>
+        <CheckBox Grid.Column="1" Grid.Row="3" MinWidth="200" 
+                  IsChecked="{Binding Item.IsActual, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				  Visibility="{Binding VisibilityIsActualIncomingRequest, ElementName=Root}"/>
 
 
 

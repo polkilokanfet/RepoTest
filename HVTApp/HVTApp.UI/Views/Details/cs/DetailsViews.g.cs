@@ -413,6 +413,11 @@ namespace HVTApp.UI.Views
             //    VisibilityIsDoneIncomingRequest = Visibility.Collapsed;
 
 
+            //attr = typeof(HVTApp.Model.POCOs.IncomingRequest).GetProperty(nameof(HVTApp.Model.POCOs.IncomingRequest.IsActual)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityIsActualIncomingRequest = Visibility.Collapsed;
+
+
 
         }
 
@@ -441,6 +446,15 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityIsDoneIncomingRequestProperty); }
             set { SetValue(VisibilityIsDoneIncomingRequestProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityIsActualIncomingRequestProperty = DependencyProperty.Register("VisibilityIsActualIncomingRequest", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityIsActualIncomingRequest
+        {
+            get { return (Visibility) GetValue(VisibilityIsActualIncomingRequestProperty); }
+            set { SetValue(VisibilityIsActualIncomingRequestProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4930,6 +4944,11 @@ namespace HVTApp.UI.Views
             //    VisibilityCommentDocument = Visibility.Collapsed;
 
 
+            //attr = typeof(HVTApp.Model.POCOs.Document).GetProperty(nameof(HVTApp.Model.POCOs.Document.TceNumber)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityTceNumberDocument = Visibility.Collapsed;
+
+
             //attr = typeof(HVTApp.Model.POCOs.Document).GetProperty(nameof(HVTApp.Model.POCOs.Document.Direction)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityDirectionDocument = Visibility.Collapsed;
@@ -5044,6 +5063,15 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityCommentDocumentProperty); }
             set { SetValue(VisibilityCommentDocumentProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityTceNumberDocumentProperty = DependencyProperty.Register("VisibilityTceNumberDocument", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityTceNumberDocument
+        {
+            get { return (Visibility) GetValue(VisibilityTceNumberDocumentProperty); }
+            set { SetValue(VisibilityTceNumberDocumentProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -5317,6 +5345,11 @@ namespace HVTApp.UI.Views
             //    VisibilityCommentOffer = Visibility.Collapsed;
 
 
+            //attr = typeof(HVTApp.Model.POCOs.Offer).GetProperty(nameof(HVTApp.Model.POCOs.Offer.TceNumber)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityTceNumberOffer = Visibility.Collapsed;
+
+
             //attr = typeof(HVTApp.Model.POCOs.Offer).GetProperty(nameof(HVTApp.Model.POCOs.Offer.Direction)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityDirectionOffer = Visibility.Collapsed;
@@ -5458,6 +5491,15 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityCommentOfferProperty); }
             set { SetValue(VisibilityCommentOfferProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityTceNumberOfferProperty = DependencyProperty.Register("VisibilityTceNumberOffer", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityTceNumberOffer
+        {
+            get { return (Visibility) GetValue(VisibilityTceNumberOfferProperty); }
+            set { SetValue(VisibilityTceNumberOfferProperty, value); OnPropertyChanged(); }
         }
 
 

@@ -340,6 +340,15 @@ namespace HVTApp.UI.Wrapper
         public bool IsDoneIsChanged => GetIsChanged(nameof(IsDone));
 
 
+        public System.Boolean IsActual
+        {
+          get { return GetValue<System.Boolean>(); }
+          set { SetValue(value); }
+        }
+        public System.Boolean IsActualOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsActual));
+        public bool IsActualIsChanged => GetIsChanged(nameof(IsActual));
+
+
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -3606,6 +3615,15 @@ namespace HVTApp.UI.Wrapper
         public bool CommentIsChanged => GetIsChanged(nameof(Comment));
 
 
+        public System.String TceNumber
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String TceNumberOriginalValue => GetOriginalValue<System.String>(nameof(TceNumber));
+        public bool TceNumberIsChanged => GetIsChanged(nameof(TceNumber));
+
+
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -3901,6 +3919,15 @@ namespace HVTApp.UI.Wrapper
         }
         public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
         public bool CommentIsChanged => GetIsChanged(nameof(Comment));
+
+
+        public System.String TceNumber
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String TceNumberOriginalValue => GetOriginalValue<System.String>(nameof(TceNumber));
+        public bool TceNumberIsChanged => GetIsChanged(nameof(TceNumber));
 
 
         public System.Guid Id

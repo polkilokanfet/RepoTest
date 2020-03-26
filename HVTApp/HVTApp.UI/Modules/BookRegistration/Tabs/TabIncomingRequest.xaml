@@ -9,5 +9,10 @@
         <infRib:ButtonTool Caption="Приложения" Command="{Binding OpenFolderCommand}" SmallImage="/HVTApp.UI;component/Images/folder.png"/>
         <infRib:ButtonTool Caption="Закрыть" Command="{Binding GoBackCommand}" SmallImage="/HVTApp.UI;component/Images/close.png"/>
     </infRib:RibbonGroup>
-               
+
+    <infRib:RibbonGroup Caption="Запрос">
+        <infRib:ButtonTool Caption="Не актуален" Command="{Binding RequestIsNotActualCommand}" SmallImage="/HVTApp.UI;component/Images/cancel.png"/>
+        <infRib:ButtonTool Caption="Поручить" Command="{Binding InstructRequestCommand}" SmallImage="/HVTApp.UI;component/Images/arrow_forward.png"/>
+    </infRib:RibbonGroup>
+
 </inf:RibbonTabItemWithViewModel>

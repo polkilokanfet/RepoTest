@@ -33,6 +33,7 @@ namespace HVTApp.UI.Modules.BookRegistration.Views
             if (Equals(parameter.Key, DocumentDirection.Outgoing.ToString()))
             {
                 this.DocumentDetailsView.VisibilityAuthorDocument = Visibility.Collapsed;
+                this.DocumentDetailsView.VisibilityTceNumberDocument = Visibility.Collapsed;
             }
 
             _viewModel.Load2(parameter.Value as Document, parameter.Key);

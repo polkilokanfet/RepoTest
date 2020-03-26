@@ -76,6 +76,7 @@ namespace HVTApp.UI.Views
 	[Designation("Адрес")]
 	[DesignationPlural("AddressLookup")]
 	[AllowEditAttribute(Role.SalesManager)]
+[AllowEditAttribute(Role.Economist)]
 [AllowEditAttribute(Role.Admin)]
 
     public partial class AddressLookupListView : ViewBase
@@ -419,6 +420,7 @@ namespace HVTApp.UI.Views
 	[DesignationPlural("CompanyLookup")]
 	[AllowEditAttribute(Role.SalesManager)]
 [AllowEditAttribute(Role.DataBaseFiller)]
+[AllowEditAttribute(Role.Economist)]
 [AllowEditAttribute(Role.Admin)]
 
     public partial class CompanyLookupListView : ViewBase
@@ -993,6 +995,13 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility TceNumberVisibility
+        {
+            get { return DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentLookup.TceNumber)].Visibility; }
+            set { DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentLookup.TceNumber)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility DirectionVisibility
         {
             get { return DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentLookup.Direction)].Visibility; }
@@ -1205,6 +1214,7 @@ namespace HVTApp.UI.Views
 	[DesignationPlural("EmployeeLookup")]
 	[AllowEditAttribute(Role.DataBaseFiller)]
 [AllowEditAttribute(Role.SalesManager)]
+[AllowEditAttribute(Role.Economist)]
 [AllowEditAttribute(Role.Admin)]
 
     public partial class EmployeeLookupListView : ViewBase
@@ -1761,6 +1771,13 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility IsActualVisibility
+        {
+            get { return IncomingRequestLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.IncomingRequestLookup.IsActual)].Visibility; }
+            set { IncomingRequestLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.IncomingRequestLookup.IsActual)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility DisplayMemberVisibility
         {
             get { return IncomingRequestLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.IncomingRequestLookup.DisplayMember)].Visibility; }
@@ -2271,6 +2288,13 @@ namespace HVTApp.UI.Views
         {
             get { return OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.OfferLookup.Comment)].Visibility; }
             set { OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.OfferLookup.Comment)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility TceNumberVisibility
+        {
+            get { return OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.OfferLookup.TceNumber)].Visibility; }
+            set { OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.OfferLookup.TceNumber)].Visibility = value; }
         }
 
 
@@ -3256,6 +3280,7 @@ namespace HVTApp.UI.Views
 	[DesignationPlural("PersonLookup")]
 	[AllowEditAttribute(Role.DataBaseFiller)]
 [AllowEditAttribute(Role.SalesManager)]
+[AllowEditAttribute(Role.Economist)]
 [AllowEditAttribute(Role.Admin)]
 
     public partial class PersonLookupListView : ViewBase

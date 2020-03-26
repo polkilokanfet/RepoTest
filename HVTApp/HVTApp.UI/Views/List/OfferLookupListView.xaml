@@ -38,11 +38,11 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
+                    <infg:TextField Name="RegNumber" Label="Номер" Width="Auto" AllowResize="True" />
+                    <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" AllowResize="True" />
                     <infg:TextField Name="Company" Label="Компания" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:NumericField Name="Sum" Label="Сумма" Width="Auto" AllowResize="True" />
                     <infg:TextField Name="Number" Label="ИД" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="RegNumber" Label="Номер" Width="Auto" AllowResize="True" />
-                    <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" AllowResize="True" />
                     <infg:TextField Name="Project" Label="Проект" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:DateTimeField Name="ValidityDate" Label="Срок действия" Width="Auto" AllowResize="True" />
                     <infg:TextField Name="Author" Label="Автор" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
@@ -51,6 +51,7 @@
                     <infg:TextField Name="RegistrationDetailsOfRecipient" Label="Рег.данные получателя" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="RequestDocument" Label="Запрос" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:NumericField Name="Vat" Label="НДС" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="TceNumber" Label="Номер в ТСЕ" Width="Auto" AllowResize="True" />
                     <infg:TextField Name="SenderId" Label="SenderId" Width="Auto" AllowResize="True" />
                     <infg:TextField Name="RecipientId" Label="RecipientId" Width="Auto" AllowResize="True" />
                     <infg:TextField Name="OfferUnits" Label="OfferUnits" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>

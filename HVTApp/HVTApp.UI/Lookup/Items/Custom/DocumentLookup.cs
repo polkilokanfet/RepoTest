@@ -1,4 +1,7 @@
+using System.Collections.Generic;
+using System.Linq;
 using HVTApp.Infrastructure.Attributes;
+using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Lookup
 {
@@ -9,5 +12,13 @@ namespace HVTApp.UI.Lookup
 
         [Designation("Компания-получатель"), OrderStatus(99)]
         public CompanyLookup CompanyRecipient => this.RecipientEmployee.Company;
+
+        public List<Employee> Performers { get; } = new List<Employee>();
+
+        public DocumentLookup(Document document, List<Employee> performers) : base(document)
+        {
+            if (performers != null)
+                Performers = performers.ToList();
+        }
     }
 }

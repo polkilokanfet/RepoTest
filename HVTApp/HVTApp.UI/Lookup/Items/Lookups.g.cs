@@ -144,6 +144,9 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(30)]
         public System.Boolean IsDone => Entity.IsDone;
 
+		[OrderStatus(20)]
+        public System.Boolean IsActual => Entity.IsActual;
+
         #endregion
 
         #region ComplexProperties
@@ -1435,10 +1438,10 @@ namespace HVTApp.UI.Lookup
 		}
 		
         #region SimpleProperties
-		[OrderStatus(45)]
+		[OrderStatus(150)]
         public System.String RegNumber => Entity.RegNumber;
 
-		[OrderStatus(40)]
+		[OrderStatus(140)]
         public System.DateTime Date => Entity.Date;
 
 		[OrderStatus(1)]
@@ -1449,6 +1452,9 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
         public System.String Comment => Entity.Comment;
+
+		[OrderStatus(1)]
+        public System.String TceNumber => Entity.TceNumber;
 
 		[OrderStatus(1)]
         public HVTApp.Model.POCOs.DocumentDirection Direction => Entity.Direction;
@@ -1544,10 +1550,10 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(1)]
         public System.Double Vat => Entity.Vat;
 
-		[OrderStatus(45)]
+		[OrderStatus(150)]
         public System.String RegNumber => Entity.RegNumber;
 
-		[OrderStatus(40)]
+		[OrderStatus(140)]
         public System.DateTime Date => Entity.Date;
 
 		[OrderStatus(1)]
@@ -1558,6 +1564,9 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
         public System.String Comment => Entity.Comment;
+
+		[OrderStatus(1)]
+        public System.String TceNumber => Entity.TceNumber;
 
 		[OrderStatus(1)]
         public HVTApp.Model.POCOs.DocumentDirection Direction => Entity.Direction;

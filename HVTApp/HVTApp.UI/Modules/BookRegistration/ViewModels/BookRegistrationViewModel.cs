@@ -6,7 +6,6 @@ using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
-using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Lookup;
@@ -79,21 +78,22 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
 
+            var requests = UnitOfWork.Repository<IncomingRequest>().GetAll();
             List<Document> documents;
-
             if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager)
             {
                 documents = UnitOfWork.Repository<Document>().Find(x => x.Author.Id == GlobalAppProperties.User.Employee.Id);
-                var requests = UnitOfWork.Repository<IncomingRequest>().Find(x => x.Performers.ContainsById(GlobalAppProperties.User.Employee));
-                documents = documents.Union(requests.Select(x => x.Document)).ToList();
+                var requests2 = requests.Where(x => x.Performers.ContainsById(GlobalAppProperties.User.Employee));
+                documents = documents.Union(requests2.Select(x => x.Document)).ToList();
             }
             else
             {
                 documents = UnitOfWork.Repository<Document>().GetAll();
             }
 
+
             (Lookups as ObservableCollection<DocumentLookup>).Clear();
-            (Lookups as ObservableCollection<DocumentLookup>).AddRange(documents.OrderByDescending(x => x.Date).ThenBy(x => x.Number).Select(x => new DocumentLookup(x)));
+            (Lookups as ObservableCollection<DocumentLookup>).AddRange(documents.OrderByDescending(x => x.Date).ThenBy(x => x.Number).Select(x => new DocumentLookup(x, requests.SingleOrDefault(r => r.Document.Id == x.Id)?.Performers)));
         }
     }
 }

@@ -13,7 +13,7 @@ namespace HVTApp.Model.POCOs
         [Designation("ИД"), Required, OrderStatus(50)]
         public virtual DocumentNumber Number { get; set; }
 
-        [Designation("Номер"), NotMapped, OrderStatus(45)]
+        [Designation("Номер"), NotMapped, OrderStatus(150)]
         public string RegNumber
         {
             get
@@ -30,7 +30,7 @@ namespace HVTApp.Model.POCOs
             }
         }
 
-        [Designation("Дата"), Required, OrderStatus(40)]
+        [Designation("Дата"), Required, OrderStatus(140)]
         public DateTime Date { get; set; } = DateTime.Today;
 
         /// <summary>
@@ -58,11 +58,17 @@ namespace HVTApp.Model.POCOs
         [Designation("Рег.данные получателя")]
         public virtual DocumentsRegistrationDetails RegistrationDetailsOfRecipient { get; set; }
 
-        [Designation("Комментарий"), MaxLength(100)]
+        [Designation("Комментарий"), MaxLength(150), OrderStatus(130)]
         public string Comment { get; set; }
 
+        [Designation("Номер в ТСЕ"), MaxLength(20), OrderStatus(-10)]
+        public string TceNumber { get; set; }
+
+
         [Designation("Направление"), NotMapped]
-        public DocumentDirection Direction => GlobalAppProperties.Actual.OurCompany.Id == SenderEmployee?.Company.Id ? DocumentDirection.Outgoing : DocumentDirection.Incoming;
+        public DocumentDirection Direction => GlobalAppProperties.Actual.OurCompany.Id == SenderEmployee?.Company.Id 
+            ? DocumentDirection.Outgoing 
+            : DocumentDirection.Incoming;
     }
 
     public enum DocumentDirection
