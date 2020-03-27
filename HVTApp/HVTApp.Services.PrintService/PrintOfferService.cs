@@ -268,10 +268,14 @@ namespace HVTApp.Services.PrintService
                         docWriter.PrintParagraph(Environment.NewLine + "Дополнительное оборудование и услуги, включенные в состав:");
 
                         int n = 1;
-                        var productsIncluded = offerUnitsGroup.ProductsIncluded.GroupBy(x => new { x.Product.Model });
+                        var productsIncluded = offerUnitsGroup.ProductsIncluded.GroupBy(x => new
+                        {
+                            x.Product.Model,
+                            x.Amount
+                        });
                         foreach (var productIncluded in productsIncluded)
                         {
-                            docWriter.PrintParagraph(Environment.NewLine + $"{offerUnitsGroup.Position}.{n++} {productIncluded.Key.Model} - {productIncluded.Count()} шт.:");
+                            docWriter.PrintParagraph(Environment.NewLine + $"{offerUnitsGroup.Position}.{n++} {productIncluded.Key.Model} - {productIncluded.Count() * productIncluded.Key.Amount} шт.:");
                             _printProductService.Print(docWriter, productIncluded.Key.Model);
                         }
                     }

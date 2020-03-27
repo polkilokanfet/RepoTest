@@ -331,15 +331,6 @@ namespace HVTApp.UI.Wrapper
 
         #region SimpleProperties
 
-        public System.Boolean IsDone
-        {
-          get { return GetValue<System.Boolean>(); }
-          set { SetValue(value); }
-        }
-        public System.Boolean IsDoneOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsDone));
-        public bool IsDoneIsChanged => GetIsChanged(nameof(IsDone));
-
-
         public System.Boolean IsActual
         {
           get { return GetValue<System.Boolean>(); }
@@ -347,6 +338,24 @@ namespace HVTApp.UI.Wrapper
         }
         public System.Boolean IsActualOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsActual));
         public bool IsActualIsChanged => GetIsChanged(nameof(IsActual));
+
+
+        public System.Nullable<System.DateTime> InstructionDate
+        {
+          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.DateTime> InstructionDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(InstructionDate));
+        public bool InstructionDateIsChanged => GetIsChanged(nameof(InstructionDate));
+
+
+        public System.Nullable<System.DateTime> DoneDate
+        {
+          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.DateTime> DoneDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(DoneDate));
+        public bool DoneDateIsChanged => GetIsChanged(nameof(DoneDate));
 
 
         public System.Guid Id
@@ -376,6 +385,14 @@ namespace HVTApp.UI.Wrapper
         #region CollectionProperties
 
         public IValidatableChangeTrackingCollection<EmployeeWrapper> Performers { get; private set; }
+
+
+        #endregion
+
+
+        #region GetProperties
+
+        public System.Boolean IsDone => GetValue<System.Boolean>(); 
 
 
         #endregion

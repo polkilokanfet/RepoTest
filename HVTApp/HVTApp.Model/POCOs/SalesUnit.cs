@@ -233,15 +233,9 @@ namespace HVTApp.Model.POCOs
             get
             {
                 //первый платеж по заказу
-                DateTime? dateByPayments = null;
-                if (PaymentsActual.Any(x => x.Sum > 0))
-                    dateByPayments = PaymentsActual.Where(x => x.Sum > 0).Select(x => x.Date).Min();
-
-                var startProductionDateCalculated = StartProductionDateCalculated;
-
-                return dateByPayments.HasValue && dateByPayments.Value < startProductionDateCalculated
-                    ? dateByPayments.Value
-                    : startProductionDateCalculated;
+                return PaymentsActual.Any(x => x.Sum > 0) 
+                    ? PaymentsActual.Where(x => x.Sum > 0).Select(x => x.Date).Min() 
+                    : StartProductionDateCalculated;
             }
         }
 

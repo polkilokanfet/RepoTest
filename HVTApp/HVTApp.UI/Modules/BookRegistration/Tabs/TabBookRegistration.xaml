@@ -5,6 +5,19 @@
                                  x:Class="HVTApp.UI.Modules.BookRegistration.Tabs.TabBookRegistration"
                                  Header="Журнал">
     
+    <infRib:RibbonGroup Caption="Отображение">
+        <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Horizontal">
+                <CheckBox IsChecked="{Binding ShowOutgoing, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <Label Content="Исходящие"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <CheckBox IsChecked="{Binding ShowIncoming, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <Label Content="Входящие"/>
+            </StackPanel>
+        </StackPanel>
+    </infRib:RibbonGroup>
+    
     <infRib:RibbonGroup Caption="Регистрация">
         <infRib:ButtonTool Caption="Входящий" Command="{Binding CreateIncomingDocumentCommand}" SmallImage="/HVTApp.UI;component/Images/in.png"/>
         <infRib:ButtonTool Caption="Исходящий" Command="{Binding CreateOutgoingDocumentCommand}" SmallImage="/HVTApp.UI;component/Images/out.png"/>

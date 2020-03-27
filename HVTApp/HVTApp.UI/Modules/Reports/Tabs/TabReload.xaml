@@ -5,6 +5,19 @@
                                  x:Class="HVTApp.UI.Modules.Reports.Tabs.TabReload"
                                  Header="Обновление">
 
+    <infRib:RibbonGroup Caption="Даты">
+        <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="От: "/>
+                <DatePicker SelectedDate="{Binding StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="До: "/>
+                <DatePicker SelectedDate="{Binding FinishDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+        </StackPanel>
+    </infRib:RibbonGroup>
+
     <infRib:RibbonGroup Caption="FakeData" Visibility="{Binding TabEditVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
         <infRib:ButtonTool Caption="Редактировать" Command="{Binding EditFakeDataCommand}" SmallImage="/HVTApp.UI;component/Images/edit.png"/>
     </infRib:RibbonGroup>
@@ -16,5 +29,5 @@
     <infRib:RibbonGroup Caption="Вид">
         <infRib:ButtonTool Caption="Сохранить вид таблицы" Command="{Binding SaveGridCustomisationsCommand}" SmallImage="/HVTApp.UI;component/Images/save.png"/>
     </infRib:RibbonGroup>
-    
+
 </inf:RibbonTabItemWithViewModel>

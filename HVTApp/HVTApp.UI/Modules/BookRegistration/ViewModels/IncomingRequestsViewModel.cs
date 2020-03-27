@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Input;
@@ -84,7 +85,7 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
                 {
                     var unitOfWork = Container.Resolve<IUnitOfWork>();
                     var request = unitOfWork.Repository<IncomingRequest>().GetById(SelectedIncomingRequest.Id);
-                    request.IsDone = true;
+                    request.DoneDate = DateTime.Now;
                     unitOfWork.SaveChanges();
 
                     SelectedIncomingRequest.Refresh(request);
@@ -93,6 +94,11 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
                 },
                 () => SelectedIncomingRequest != null && !SelectedIncomingRequest.Entity.IsDone);
 
+            Container.Resolve<IEventAggregator>().GetEvent<AfterSaveIncomingRequestEvent>().Subscribe(request =>
+            {
+                var targetRequest = IncomingRequests.SingleOrDefault(x => x.Id == request.Id);
+                targetRequest?.Refresh(request);
+            });
 
             Load();
         }

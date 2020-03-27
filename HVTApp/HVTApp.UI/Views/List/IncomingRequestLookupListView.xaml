@@ -40,7 +40,9 @@
 					<infg:FieldLayout.Fields>
                     <infg:TextField Name="Document" Label="Запрос" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Performers" Label="Исполнители" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                    <infg:DateTimeField Name="InstructionDate" Label="Дата поручения" Width="Auto" AllowResize="True" />
                     <infg:CheckBoxField Name="IsDone" Label="Исполнен" Width="Auto" AllowResize="True" />
+                    <infg:DateTimeField Name="DoneDate" Label="Дата исполнения поручения" Width="Auto" AllowResize="True" />
                     <infg:CheckBoxField Name="IsActual" Label="Актуален" Width="Auto" AllowResize="True" />
                     <infg:CheckBoxField Name="HasAnyPerformer" Label="Поручено" Width="Auto" AllowResize="True" />
                     <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />

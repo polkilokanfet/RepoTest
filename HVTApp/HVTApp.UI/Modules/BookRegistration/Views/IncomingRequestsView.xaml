@@ -31,8 +31,10 @@
                         <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Document.RequestDocument}" Label="Запрос" Width="200" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:CheckBoxField Name="IsDone" Label="Исполнен" Width="Auto" AllowResize="False" />
                         <infg:CheckBoxField Name="HasAnyPerformer" Label="Поручено" Width="Auto" AllowResize="False"/>
+                        <infg:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding InstructionDate}" Name="InstructionDate" Label="Дата поручения" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="IsActual" Label="Актуально" Width="Auto" AllowResize="False"/>
-                        <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Performers}" Label="Исполнители" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                        <infg:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding DoneDate}" Name="DoneDate" Label="Дата исполнения поручения" Width="Auto" AllowResize="True" />
+                        <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Performers}" Label="Исполнители" Width="Auto" AllowResize="True" Converter="{StaticResource ObjectsToStringConverter}"/>
                     </infg:FieldLayout.Fields>
                     
 				</infg:FieldLayout>

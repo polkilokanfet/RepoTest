@@ -7,19 +7,25 @@ using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
+using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Lookup;
 using HVTApp.UI.Modules.BookRegistration.Views;
 using HVTApp.UI.ViewModels;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Regions;
 
 namespace HVTApp.UI.Modules.BookRegistration.ViewModels
 {
     public class BookRegistrationViewModel : DocumentLookupListViewModel
     {
+        private List<DocumentLookup> _documentLookups;
         private DocumentLookup _selectedDocumentLookup;
+        private bool _showIncoming = true;
+        private bool _showOutgoing = true;
+
         public DocumentLookup SelectedDocumentLookup
         {
             get { return _selectedDocumentLookup; }
@@ -72,6 +78,12 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
                     Process.Start("explorer", $"\"{path}\"");
                 },
                 () => SelectedDocumentLookup != null);
+
+            Container.Resolve<IEventAggregator>().GetEvent<AfterSaveDocumentEvent>().Subscribe(document =>
+            {
+                if(!_documentLookups.ContainsById(document))
+                    _documentLookups.Add(new DocumentLookup(document));
+            });
         }
 
         public void Load2()
@@ -91,9 +103,55 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
                 documents = UnitOfWork.Repository<Document>().GetAll();
             }
 
+            _documentLookups = documents.OrderByDescending(x => x.Date).ThenBy(x => x.Number).Select(x => new DocumentLookup(x, requests.SingleOrDefault(r => r.Document.Id == x.Id)?.Performers)).ToList();
+            UpdateLookups();
+        }
 
-            (Lookups as ObservableCollection<DocumentLookup>).Clear();
-            (Lookups as ObservableCollection<DocumentLookup>).AddRange(documents.OrderByDescending(x => x.Date).ThenBy(x => x.Number).Select(x => new DocumentLookup(x, requests.SingleOrDefault(r => r.Document.Id == x.Id)?.Performers)));
+        public bool ShowIncoming
+        {
+            get { return _showIncoming; }
+            set
+            {
+                if (Equals(_showIncoming, value)) return;
+                _showIncoming = value;
+                UpdateLookups();
+            }
+        }
+
+        public bool ShowOutgoing
+        {
+            get { return _showOutgoing; }
+            set
+            {
+                if(_showOutgoing == value) return;
+                _showOutgoing = value;
+                UpdateLookups();
+            }
+        }
+
+        private void UpdateLookups()
+        {
+            var lookups = Lookups as ObservableCollection<DocumentLookup>;
+            lookups.Clear();
+
+            if (ShowIncoming && ShowOutgoing)
+            {
+                lookups.AddRange(_documentLookups);
+                return;
+            }
+
+
+            if (ShowIncoming)
+            {
+                lookups.AddRange(_documentLookups.Where(x => x.Direction == DocumentDirection.Incoming));
+                return;
+            }
+
+
+            if (ShowOutgoing)
+            {
+                lookups.AddRange(_documentLookups.Where(x => x.Direction == DocumentDirection.Outgoing));
+            }
         }
     }
 }

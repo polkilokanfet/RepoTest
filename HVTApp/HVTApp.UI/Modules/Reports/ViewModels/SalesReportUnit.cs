@@ -518,6 +518,7 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
 
                 "ВГТ-35",
                 "ВГТ-110",
+                "ВГТЗ-110",
                 "ВГТ-220",
                 "ВГТ-1А1-220",
                 "ВГТ-330",
@@ -639,6 +640,14 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
         private string GetStatus()
         {
             var salesUnit = SalesUnits.First();
+
+            if (salesUnit.IsLoosen)
+            {
+                StatusCategory = "14";
+                return "14";
+                //return "14 - Проиграно другому производителю";
+            }
+
             if (salesUnit.RealizationDateCalculated < DateTime.Today)
             {
                 StatusCategory = "0";
@@ -663,13 +672,6 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
                 //return salesUnit.Specification.Date <= DateTime.Today
                 //    ? "2 - Контракт подписан"
                 //    : "3 - Контракт на оформлении";
-            }
-
-            if (salesUnit.IsLoosen)
-            {
-                StatusCategory = "15";
-                return "15";
-                //return "15 - Проиграно другому производителю";
             }
 
             if (salesUnit.Producer != null && salesUnit.Producer.Id == GlobalAppProperties.Actual.OurCompany.Id)

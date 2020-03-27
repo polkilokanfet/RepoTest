@@ -1079,6 +1079,13 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility PerformersVisibility
+        {
+            get { return DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentLookup.Performers)].Visibility; }
+            set { DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentLookup.Performers)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility CopyToRecipientsVisibility
         {
             get { return DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentLookup.CopyToRecipients)].Visibility; }
@@ -1306,6 +1313,7 @@ namespace HVTApp.UI.Views
 	[DesignationPlural("EmployeesPositionLookup")]
 	[AllowEditAttribute(Role.DataBaseFiller)]
 [AllowEditAttribute(Role.SalesManager)]
+[AllowEditAttribute(Role.Economist)]
 [AllowEditAttribute(Role.Admin)]
 
     public partial class EmployeesPositionLookupListView : ViewBase
@@ -1775,6 +1783,20 @@ namespace HVTApp.UI.Views
         {
             get { return IncomingRequestLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.IncomingRequestLookup.IsActual)].Visibility; }
             set { IncomingRequestLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.IncomingRequestLookup.IsActual)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility InstructionDateVisibility
+        {
+            get { return IncomingRequestLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.IncomingRequestLookup.InstructionDate)].Visibility; }
+            set { IncomingRequestLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.IncomingRequestLookup.InstructionDate)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DoneDateVisibility
+        {
+            get { return IncomingRequestLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.IncomingRequestLookup.DoneDate)].Visibility; }
+            set { IncomingRequestLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.IncomingRequestLookup.DoneDate)].Visibility = value; }
         }
 
 

@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Input;
@@ -26,6 +27,8 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
             InstructRequestCommand = new DelegateCommand(
                 () =>
                 {
+                    Item.IsActual = true;
+                    Item.InstructionDate = DateTime.Now;
                     //сохраняем запрос
                     SaveCommand.Execute(null);
                     //закрываем запрос

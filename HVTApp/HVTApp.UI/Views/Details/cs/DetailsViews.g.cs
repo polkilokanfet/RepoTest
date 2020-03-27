@@ -418,6 +418,16 @@ namespace HVTApp.UI.Views
             //    VisibilityIsActualIncomingRequest = Visibility.Collapsed;
 
 
+            //attr = typeof(HVTApp.Model.POCOs.IncomingRequest).GetProperty(nameof(HVTApp.Model.POCOs.IncomingRequest.InstructionDate)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityInstructionDateIncomingRequest = Visibility.Collapsed;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.IncomingRequest).GetProperty(nameof(HVTApp.Model.POCOs.IncomingRequest.DoneDate)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityDoneDateIncomingRequest = Visibility.Collapsed;
+
+
 
         }
 
@@ -455,6 +465,24 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityIsActualIncomingRequestProperty); }
             set { SetValue(VisibilityIsActualIncomingRequestProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityInstructionDateIncomingRequestProperty = DependencyProperty.Register("VisibilityInstructionDateIncomingRequest", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityInstructionDateIncomingRequest
+        {
+            get { return (Visibility) GetValue(VisibilityInstructionDateIncomingRequestProperty); }
+            set { SetValue(VisibilityInstructionDateIncomingRequestProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityDoneDateIncomingRequestProperty = DependencyProperty.Register("VisibilityDoneDateIncomingRequest", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityDoneDateIncomingRequest
+        {
+            get { return (Visibility) GetValue(VisibilityDoneDateIncomingRequestProperty); }
+            set { SetValue(VisibilityDoneDateIncomingRequestProperty, value); OnPropertyChanged(); }
         }
 
 

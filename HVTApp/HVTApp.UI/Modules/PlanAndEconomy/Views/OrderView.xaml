@@ -37,7 +37,7 @@
                                     <infg:DateTimeField Name="EndProductionPlanDate" Label="Плановая" Width="Auto" AllowResize="False" AllowEdit="True"/>
                                     <infg:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Количество" Width="Auto" AllowResize="False"/>
                                     <infg:NumericField AlternateBinding="{Binding Unit.Cost}" BindingType="UseAlternateBinding" Label="Цена за ед. без НДС" Width="Auto"/>
-                                    <infg:TextField AlternateBinding="{Binding Unit.Project.Manager}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
+                                    <infg:TextField AlternateBinding="{Binding Unit.Project.Manager}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Менеджер" Width="Auto"/>
                                     <infg:Field Name="Units" IsExpandable="True"/>
                                 </infg:FieldLayout.Fields>
 				            </infg:FieldLayout>

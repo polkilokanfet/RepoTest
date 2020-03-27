@@ -147,6 +147,12 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(20)]
         public System.Boolean IsActual => Entity.IsActual;
 
+		[OrderStatus(35)]
+        public System.Nullable<System.DateTime> InstructionDate => Entity.InstructionDate;
+
+		[OrderStatus(25)]
+        public System.Nullable<System.DateTime> DoneDate => Entity.DoneDate;
+
         #endregion
 
         #region ComplexProperties
@@ -1012,6 +1018,7 @@ namespace HVTApp.UI.Lookup
 	}
 	[AllowEditAttribute(Role.DataBaseFiller)]
 [AllowEditAttribute(Role.SalesManager)]
+[AllowEditAttribute(Role.Economist)]
 [AllowEditAttribute(Role.Admin)]
 
 	[Designation("Должность")]
@@ -1450,10 +1457,10 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(1)]
         public System.Guid RecipientId => Entity.RecipientId;
 
-		[OrderStatus(1)]
+		[OrderStatus(130)]
         public System.String Comment => Entity.Comment;
 
-		[OrderStatus(1)]
+		[OrderStatus(-10)]
         public System.String TceNumber => Entity.TceNumber;
 
 		[OrderStatus(1)]
@@ -1562,10 +1569,10 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(1)]
         public System.Guid RecipientId => Entity.RecipientId;
 
-		[OrderStatus(1)]
+		[OrderStatus(130)]
         public System.String Comment => Entity.Comment;
 
-		[OrderStatus(1)]
+		[OrderStatus(-10)]
         public System.String TceNumber => Entity.TceNumber;
 
 		[OrderStatus(1)]

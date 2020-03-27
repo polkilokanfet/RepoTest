@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
@@ -16,7 +17,10 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
 {
     public class SalesReportViewModel : ViewModelBaseCanExportToExcelSaveCustomization
     {
+        private List<SalesReportUnit> _salesReportUnits;
         private SalesReportUnit _selectedSalesReportUnit;
+        private DateTime _startDate;
+        private DateTime _finishDate;
 
         public ObservableCollection<SalesReportUnit> Units { get; } = new ObservableCollection<SalesReportUnit>();
 
@@ -27,6 +31,28 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
             {
                 _selectedSalesReportUnit = value;
                 ((DelegateCommand)EditFakeDataCommand).RaiseCanExecuteChanged();
+            }
+        }
+
+        public DateTime StartDate
+        {
+            get { return _startDate; }
+            set
+            {
+                if (Equals(_startDate, value)) return;
+                _startDate = value;
+                RefreshUnits();
+            }
+        }
+
+        public DateTime FinishDate
+        {
+            get { return _finishDate; }
+            set
+            {
+                if (Equals(_finishDate, value)) return;
+                _finishDate = value;
+                RefreshUnits();
             }
         }
 
@@ -43,8 +69,11 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
             EditFakeDataCommand = new DelegateCommand(
                 () =>
                 {
-                    RegionManager.RequestNavigateContentRegion<FakeDataView>(new NavigationParameters { { "units", SelectedSalesReportUnit.SalesUnits } });
-                }, 
+                    RegionManager.RequestNavigateContentRegion<FakeDataView>(new NavigationParameters
+                    {
+                        {"units", SelectedSalesReportUnit.SalesUnits}
+                    });
+                },
                 () => SelectedSalesReportUnit != null);
 
             Load();
@@ -75,7 +104,19 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
             var tenders = UnitOfWork.Repository<Tender>().Find(x => true);
             var countryUnions = UnitOfWork.Repository<CountryUnion>().Find(x => true);
 
-            Units.AddRange(groups.Select(x => new SalesReportUnit(x, tenders.Where(t => Equals(x.Key.Project, t.Project)), countryUnions, x.First().ActualPriceCalculationItem(UnitOfWork))));
+            _salesReportUnits = groups
+                .Select(x => new SalesReportUnit(x, tenders.Where(t => Equals(x.Key.Project, t.Project)), countryUnions, x.First().ActualPriceCalculationItem(UnitOfWork)))
+                .ToList();
+            Units.AddRange(_salesReportUnits);
+
+            _startDate = _salesReportUnits.Min(x => x.OrderInTakeDate);
+            _finishDate = _salesReportUnits.Max(x => x.OrderInTakeDate);
+        }
+
+        private void RefreshUnits()
+        {
+            Units.Clear();
+            Units.AddRange(_salesReportUnits.Where(x => x.OrderInTakeDate >= StartDate && x.OrderInTakeDate <= FinishDate));
         }
     }
 }

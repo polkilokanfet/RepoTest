@@ -6,6 +6,6 @@ namespace HVTApp.UI.Lookup
     public partial class IncomingRequestLookup
     {
         [Designation("Поручено")]
-        public bool HasAnyPerformer => this.Performers.Any();
+        public bool HasAnyPerformer => this.Entity.Performers.Any();
     }
 }
