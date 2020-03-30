@@ -4,9 +4,40 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:views="clr-namespace:HVTApp.UI.Views">
     
+    <inf:ViewBase.Resources>
+        <Image x:Key="GoBackImage" Height="16" Width="16" Source="/HVTApp.UI;component/Images/arrow_back.png"/>        
+        <Image x:Key="GoForwardImage" Height="16" Width="16" Source="/HVTApp.UI;component/Images/arrow_forward.png"/>
+        <Image x:Key="FolderImage" Height="16" Width="16" Source="/HVTApp.UI;component/Images/folder.png"/>
+    </inf:ViewBase.Resources>
+    
     <GroupBox Header="{Binding DocType}">
-        <views:DocumentDetailsView x:Name="DocumentDetailsView"
-                                   VisibilityNumberDocument="Collapsed"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            
+            <views:DocumentDetailsView x:Name="DocumentDetailsView"
+                                       VisibilityNumberDocument="Collapsed"/>
+            
+            <GroupBox Grid.Row="1" Header="Приложения">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                        
+                    <StackPanel Orientation="Horizontal">
+                        <Button Name="GoBackButton" Content="{StaticResource GoBackImage}" Margin="1" Click="GoBackButton_OnClick"/>
+                        <Button Name="GoForwardButton" Content="{StaticResource GoForwardImage}" Margin="1" Click="GoForwardButton_OnClick"/>
+                        <Button Name="OpenFolderButton" Content="{StaticResource FolderImage}" Margin="1" Command="{Binding OpenFolderCommand}"/>
+                    </StackPanel>
+                        
+                    <WebBrowser Grid.Row="1" Name="Browser"/>
+                        
+                </Grid>
+            </GroupBox>
+        </Grid>
     </GroupBox>
     
 </inf:ViewBase>

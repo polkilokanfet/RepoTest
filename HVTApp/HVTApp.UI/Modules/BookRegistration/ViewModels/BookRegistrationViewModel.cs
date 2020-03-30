@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
@@ -31,10 +32,16 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
             get { return _selectedDocumentLookup; }
             set
             {
+                if (Equals(_selectedDocumentLookup, value))
+                    return;
+
                 _selectedDocumentLookup = value;
                 ((DelegateCommand) OpenFolderCommand).RaiseCanExecuteChanged();
+                SelectedDocumentChanged?.Invoke(value?.Entity);
             }
         }
+
+        public event Action<Document> SelectedDocumentChanged;
 
         public ICommand CreateOutgoingDocumentCommand { get; }
         public ICommand CreateIncomingDocumentCommand { get; }

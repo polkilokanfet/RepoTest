@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Windows;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
@@ -37,7 +38,24 @@ namespace HVTApp.UI.Modules.BookRegistration.Views
             }
 
             _viewModel.Load2(parameter.Value as Document, parameter.Key);
+
+            this.Browser.Source = new Uri(PathGetter.GetPath(_viewModel.Item.Model));
+
             base.OnNavigatedTo(navigationContext);
         }
+
+
+        private void GoBackButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (this.Browser.CanGoBack)
+                Browser.GoBack();
+        }
+
+        private void GoForwardButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (this.Browser.CanGoForward)
+                Browser.GoForward();
+        }
+
     }
 }

@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;

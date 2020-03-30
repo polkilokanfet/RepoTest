@@ -20,7 +20,7 @@ namespace HVTApp.UI
         {
             //путь к папке проекта
             var projectsFolderPath = string.IsNullOrEmpty(Properties.Settings.Default.ProjectsFolderPath)
-                ? Environment.SpecialFolder.Personal + "HVTApp"
+                ? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "HVTAppProjects")
                 : Properties.Settings.Default.ProjectsFolderPath;
 
             return GetPath(project.Id, projectsFolderPath, project.Name);

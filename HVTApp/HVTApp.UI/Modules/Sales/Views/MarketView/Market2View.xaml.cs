@@ -14,6 +14,8 @@ namespace HVTApp.UI.Modules.Sales.Views.MarketView
     [RibbonTab(typeof(MarketSettingsTab))]
     public partial class Market2View : ViewBase
     {
+        private Uri _currentUri;
+
         public Market2View(Market2ViewModel viewModel, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
@@ -36,8 +38,11 @@ namespace HVTApp.UI.Modules.Sales.Views.MarketView
             //приложения проекта
             viewModel.SelectedProjectItemChanged += projectItem =>
             {
-                if(projectItem != null)
-                    this.Browser.Source = new Uri(PathGetter.GetPath(projectItem.Project));
+                if (projectItem != null)
+                {
+                    _currentUri = new Uri(PathGetter.GetPath(projectItem.Project));
+                    this.Browser.Source = _currentUri;
+                }
             };
         }
 
@@ -68,7 +73,7 @@ namespace HVTApp.UI.Modules.Sales.Views.MarketView
 
         private void GoBackButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if(this.Browser.CanGoBack)
+            if(this.Browser.CanGoBack && this.Browser.Source != _currentUri)
                 Browser.GoBack();
         }
 

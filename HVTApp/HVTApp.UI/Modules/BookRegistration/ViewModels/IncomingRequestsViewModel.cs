@@ -71,7 +71,7 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
                                 {"UnitOfWork", UnitOfWork}
                             });
                 },
-                () => SelectedIncomingRequest != null);
+                () => SelectedIncomingRequest != null && IsDirectorView);
 
             OpenFolderCommand = new DelegateCommand(
                 () =>

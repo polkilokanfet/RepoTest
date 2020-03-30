@@ -17,6 +17,8 @@ namespace HVTApp.UI.Modules.BookRegistration.Views
     [RibbonTab(typeof(TabIncomingRequests))]
     public partial class IncomingRequestsView
     {
+        private Uri _currentUri;
+
         public IncomingRequestsView(IncomingRequestsViewModel viewModel, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
@@ -49,8 +51,25 @@ namespace HVTApp.UI.Modules.BookRegistration.Views
             viewModel.SelectedIncomingRequestChanged += request =>
             {
                 if (request != null)
-                    this.Browser.Source = new Uri(PathGetter.GetPath(request.Document));
+                {
+                    _currentUri = new Uri(PathGetter.GetPath(request.Document));
+                    this.Browser.Source = _currentUri;
+                }
             };
         }
+
+
+        private void GoBackButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (this.Browser.CanGoBack && this.Browser.Source != _currentUri)
+                Browser.GoBack();
+        }
+
+        private void GoForwardButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (this.Browser.CanGoForward)
+                Browser.GoForward();
+        }
+
     }
 }

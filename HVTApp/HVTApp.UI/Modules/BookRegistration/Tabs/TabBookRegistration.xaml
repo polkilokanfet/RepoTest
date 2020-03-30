@@ -26,7 +26,6 @@
     
     <infRib:RibbonGroup Caption="Действия">
         <infRib:ButtonTool Caption="Перезагрузить" Command="{Binding ReloadCommand}" SmallImage="/HVTApp.UI;component/Images/refresh.png"/>
-        <infRib:ButtonTool Caption="Приложения" Command="{Binding OpenFolderCommand}" SmallImage="/HVTApp.UI;component/Images/folder.png"/>
     </infRib:RibbonGroup>
 
     

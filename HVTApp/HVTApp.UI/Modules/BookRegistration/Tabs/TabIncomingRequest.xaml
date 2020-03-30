@@ -6,7 +6,6 @@
                                  Header="Входящий запрос">
     
     <infRib:RibbonGroup Caption="Действия">
-        <infRib:ButtonTool Caption="Приложения" Command="{Binding OpenFolderCommand}" SmallImage="/HVTApp.UI;component/Images/folder.png"/>
         <infRib:ButtonTool Caption="Закрыть" Command="{Binding GoBackCommand}" SmallImage="/HVTApp.UI;component/Images/close.png"/>
     </infRib:RibbonGroup>
 
