@@ -5,17 +5,18 @@ using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Modules.BookRegistration.Tabs;
 using HVTApp.UI.Modules.BookRegistration.ViewModels;
+using Microsoft.Practices.Unity;
 using Prism.Events;
 using Prism.Regions;
 
 namespace HVTApp.UI.Modules.BookRegistration.Views
 {
     [RibbonTab(typeof(TabDocument))]
-    public partial class DocumentView
+    public partial class DocumentView : ViewBaseConfirmNavigationRequest
     {
         private readonly DocumentViewModel _viewModel;
 
-        public DocumentView(DocumentViewModel viewModel, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
+        public DocumentView(DocumentViewModel viewModel, IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator) : base(container, regionManager, eventAggregator)
         {
             _viewModel = viewModel;
             InitializeComponent();
@@ -57,5 +58,9 @@ namespace HVTApp.UI.Modules.BookRegistration.Views
                 Browser.GoForward();
         }
 
+        protected override bool IsSomethingChanged()
+        {
+            return _viewModel.Item.IsChanged;
+        }
     }
 }

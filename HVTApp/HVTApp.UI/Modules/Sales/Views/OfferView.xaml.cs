@@ -10,11 +10,11 @@ using Prism.Regions;
 namespace HVTApp.UI.Modules.Sales.Views
 {
     [RibbonTab(typeof(TabCrudUnits))]
-    public partial class OfferView
+    public partial class OfferView : ViewBaseConfirmNavigationRequest
     {
         private readonly OfferViewModel _viewModel;
 
-        public OfferView(IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
+        public OfferView(IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator) : base(container, regionManager, eventAggregator)
         {
             _viewModel = container.Resolve<OfferViewModel>();
             InitializeComponent();
@@ -45,6 +45,11 @@ namespace HVTApp.UI.Modules.Sales.Views
                 //для изменения
                 else _viewModel.Load(offer, false);
             }
+        }
+
+        protected override bool IsSomethingChanged()
+        {
+            return _viewModel.DetailsViewModel.Item.IsChanged || _viewModel.GroupsViewModel.IsChanged;
         }
     }
 }

@@ -10,10 +10,10 @@ using Prism.Regions;
 namespace HVTApp.UI.Modules.Sales.Views
 {
     [RibbonTab(typeof(TabCrudUnits))]
-    public partial class SpecificationView
+    public partial class SpecificationView : ViewBaseConfirmNavigationRequest
     {
         private readonly SpecificationViewModel _viewModel;
-        public SpecificationView(IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
+        public SpecificationView(IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator) : base(container, regionManager, eventAggregator)
         {
             InitializeComponent();
             _viewModel = container.Resolve<SpecificationViewModel>();
@@ -34,6 +34,11 @@ namespace HVTApp.UI.Modules.Sales.Views
 
             if (project != null) _viewModel.Load(new Specification(), true, project);
             if (specification != null) _viewModel.Load(specification, false);
+        }
+
+        protected override bool IsSomethingChanged()
+        {
+            return _viewModel.DetailsViewModel.Item.IsChanged || _viewModel.GroupsViewModel.IsChanged;
         }
     }
 }
