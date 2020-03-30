@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Windows;
 using HVTApp.Infrastructure;
 using HVTApp.Model;
@@ -20,7 +21,6 @@ namespace HVTApp.UI.Modules.BookRegistration.Views
         {
             InitializeComponent();
             DataContext = viewModel;
-
             if (GlobalAppProperties.User.RoleCurrent == Role.Admin || GlobalAppProperties.User.RoleCurrent == Role.Director)
             {
                 var recordFilter = new RecordFilter { FieldName = nameof(IncomingRequestLookup.HasAnyPerformer) };
@@ -45,6 +45,12 @@ namespace HVTApp.UI.Modules.BookRegistration.Views
                 IncomingRequestsGrid.FieldLayouts.First().Fields
                     .Single(x => x.Name == nameof(IncomingRequestLookup.HasAnyPerformer)).Visibility = Visibility.Collapsed;
             }
+
+            viewModel.SelectedIncomingRequestChanged += request =>
+            {
+                if (request != null)
+                    this.Browser.Source = new Uri(PathGetter.GetPath(request.Document));
+            };
         }
     }
 }

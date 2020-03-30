@@ -129,7 +129,7 @@
     <Compile Include="Modules\BookRegistration\ViewModels\DocumentViewModel.cs" />
     <Compile Include="Modules\BookRegistration\ViewModels\IncomingRequestsViewModel.cs" />
     <Compile Include="Modules\BookRegistration\ViewModels\IncomingRequestViewModel.cs" />
-    <Compile Include="Modules\BookRegistration\ViewModels\PathGetter.cs" />
+    <Compile Include="PathGetter.cs" />
     <Compile Include="Modules\BookRegistration\Views\IncomingRequestView.xaml.cs">
       <DependentUpon>IncomingRequestView.xaml</DependentUpon>
     </Compile>

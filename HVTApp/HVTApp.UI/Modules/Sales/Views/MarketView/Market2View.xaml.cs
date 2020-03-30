@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Windows;
 using HVTApp.Infrastructure;
 using HVTApp.UI.Modules.Sales.Tabs;
 using HVTApp.UI.Modules.Sales.ViewModels;
@@ -12,18 +14,12 @@ namespace HVTApp.UI.Modules.Sales.Views.MarketView
     [RibbonTab(typeof(MarketSettingsTab))]
     public partial class Market2View : ViewBase
     {
-        //private readonly Market2ViewModel _viewModel;
-
         public Market2View(Market2ViewModel viewModel, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
 
             //назначаем контексты
-            //_viewModel = viewModel;
-            //viewModel.Load();
             this.DataContext = viewModel;
-
-            //this.Loaded += OnLoaded;
 
             viewModel.ExpandCollapseEvent += expend =>
             {
@@ -33,9 +29,16 @@ namespace HVTApp.UI.Modules.Sales.Views.MarketView
                     dg.GetRecordFromDataItem(o, recursive: false).IsExpanded = expend;
                 }
             };
-
+            
             viewModel.SaveGridCustomisationsEvent += SaveGridCustomisations;
             LoadGridCustomisations();
+
+            //приложения проекта
+            viewModel.SelectedProjectItemChanged += projectItem =>
+            {
+                if(projectItem != null)
+                    this.Browser.Source = new Uri(PathGetter.GetPath(projectItem.Project));
+            };
         }
 
         string fileName = "projectsGridCustomisation.xml";
@@ -63,11 +66,16 @@ namespace HVTApp.UI.Modules.Sales.Views.MarketView
             }
         }
 
+        private void GoBackButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if(this.Browser.CanGoBack)
+                Browser.GoBack();
+        }
 
-        //private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        //{
-        //    _viewModel.Load();
-        //    this.Loaded -= OnLoaded;
-        //}
+        private void GoForwardButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if(this.Browser.CanGoForward)
+                Browser.GoForward();
+        }
     }
 }

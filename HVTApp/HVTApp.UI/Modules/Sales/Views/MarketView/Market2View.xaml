@@ -31,7 +31,7 @@
         <Grid Grid.Row="0">
         
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
@@ -127,12 +127,33 @@
             
             <Grid Grid.Column="2">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="3*"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
+                
+                <GroupBox Grid.Row="0" Header="Приложения проекта">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        
+                        <StackPanel Orientation="Horizontal">
+                            <Button Name="GoBackButton" Content="Назад" Click="GoBackButton_OnClick"/>
+                            <Button Name="GoForwardButton" Content="Вперед" Click="GoForwardButton_OnClick"/>
+                        </StackPanel>
+                        
+                        <WebBrowser Grid.Row="1" Name="Browser"/>
+                        
+                    </Grid>
+                </GroupBox>
+                
+                <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="3"/>
 
-                <GroupBox Grid.Row="0" Header="Предложения">
+                <GroupBox Grid.Row="2" Header="Предложения">
                     <infgDp:XamDataGrid x:Name="OfferLookupListGrid"
                                         DataSource="{Binding Offers}"
                                         SelectedDataItem="{Binding Offers.SelectedItem}">
@@ -152,9 +173,9 @@
                     </infgDp:XamDataGrid>
                 </GroupBox>
                 
-                <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="3"/>
+                <GridSplitter Grid.Row="3" HorizontalAlignment="Stretch" Height="3"/>
 
-                <GroupBox Grid.Row="2" Header="Конкурсы">
+                <GroupBox Grid.Row="4" Header="Конкурсы">
                     <infgDp:XamDataGrid DataSource="{Binding Tenders}"
                                         SelectedDataItem="{Binding Tenders.SelectedItem}">
 

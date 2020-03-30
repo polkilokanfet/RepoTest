@@ -227,7 +227,8 @@ namespace HVTApp.TestDataGenerator
                 SupervisionParameter = ParameterSupervision,
                 SenderOfferEmployee = EmployeeDeev,
                 HvtProducersActivityField = ActivityFieldProducerOfHvt,
-                PaymentConditionSet = PaymentConditionSet50Na50
+                PaymentConditionSet = PaymentConditionSet50Na50,
+                IncomingRequestsPath = @"G:\HVTAppTest"
             });
         }
 

@@ -33,12 +33,19 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
             get { return _selectedIncomingRequest; }
             set
             {
+                if (Equals(_selectedIncomingRequest, value))
+                    return;
+                
                 _selectedIncomingRequest = value;
                 ((DelegateCommand)InstructRequestCommand).RaiseCanExecuteChanged();
                 ((DelegateCommand)OpenFolderCommand).RaiseCanExecuteChanged();
                 ((DelegateCommand)RequestIsDoneCommand).RaiseCanExecuteChanged();
+
+                SelectedIncomingRequestChanged?.Invoke(value?.Entity);
             }
         }
+
+        public event Action<IncomingRequest> SelectedIncomingRequestChanged;
 
         //перезагрузить
         public ICommand ReloadCommand { get; }       

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Input;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
@@ -58,7 +56,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
         private void PrintOfferCommand_Execute()
         {
-            Container.Resolve<IPrintOfferService>().PrintOffer(Offers.SelectedItem.Id, GetProjectPath(SelectedProjectItem.Project));
+            Container.Resolve<IPrintOfferService>().PrintOffer(Offers.SelectedItem.Id, PathGetter.GetPath(SelectedProjectItem.Project));
         }
 
         private void EditTenderCommand_Execute()
@@ -131,34 +129,8 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
         private void OpenFolderCommand_Execute()
         {
-            var path = GetProjectPath(SelectedProjectItem.Project);
+            var path = PathGetter.GetPath(SelectedProjectItem.Project);
             Process.Start("explorer", $"\"{path}\"");
-        }
-
-        private string GetProjectPath(Project project)
-        {
-            //путь к папке проекта
-            var projectsFolderPath = string.IsNullOrEmpty(Properties.Settings.Default.ProjectsFolderPath)
-                ? Environment.SpecialFolder.Personal + "HVTApp"
-                : Properties.Settings.Default.ProjectsFolderPath;
-
-            var id = project.Id.ToString().Replace("-", string.Empty);
-            if (Directory.Exists(projectsFolderPath))
-            {
-                var directoryInfo = new DirectoryInfo(projectsFolderPath);
-                var targetDirectoryInfo = directoryInfo.GetDirectories().FirstOrDefault(x => x.Name.Contains(id));
-                if (targetDirectoryInfo != null)
-                {
-                    return targetDirectoryInfo.FullName;
-                }
-            }
-
-            var path = projectsFolderPath + $"\\{project.Name.ReplaceUncorrectSimbols("-").Replace("  ", " ")} {id}";
-
-            if (!Directory.Exists(path))
-                Directory.CreateDirectory(path);
-
-            return path;
         }
 
         private void SelectProjectsFolderCommand_Execute()

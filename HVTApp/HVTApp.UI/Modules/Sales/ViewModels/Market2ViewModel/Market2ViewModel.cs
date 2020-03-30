@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
@@ -37,8 +38,12 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
                 OnPropertyChanged(nameof(Notes));
                 ((DelegateCommand)AddNoteCommand).RaiseCanExecuteChanged();
                 SelectedNote = null;
+
+                SelectedProjectItemChanged?.Invoke(SelectedProjectItem);
             }
         }
+
+        public event Action<ProjectItem> SelectedProjectItemChanged;
 
         public OffersContainer Offers { get; }
         public TendersContainer Tenders { get; }
