@@ -8,7 +8,7 @@ namespace HVTApp.Infrastructure
 {
     public abstract class ViewBaseConfirmNavigationRequest : ViewBase, IConfirmNavigationRequest
     {
-        private readonly IUnityContainer _container;
+        protected readonly IUnityContainer Container;
 
         //костыль
         public ViewBaseConfirmNavigationRequest()
@@ -18,17 +18,17 @@ namespace HVTApp.Infrastructure
 
         protected ViewBaseConfirmNavigationRequest(IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
         {
-            _container = container;
+            Container = container;
         }
 
         protected abstract bool IsSomethingChanged();
 
-        public void ConfirmNavigationRequest(NavigationContext navigationContext, Action<bool> continuationCallback)
+        public virtual void ConfirmNavigationRequest(NavigationContext navigationContext, Action<bool> continuationCallback)
         {
             var confirmNavigate = true;
             if (IsSomethingChanged())
             {
-                var dr = _container.Resolve<IMessageService>().ShowYesNoMessageDialog("Внимание!", "При переходе все несохраненные изменения будут потеряны. \nПерейти без сохранения изменений?", defaultYes: true);
+                var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Внимание!", "При переходе все несохраненные изменения будут потеряны. \nПерейти без сохранения изменений?", defaultYes: true);
                 if (dr == MessageDialogResult.No)
                     confirmNavigate = false;
             }

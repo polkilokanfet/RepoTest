@@ -1,5 +1,9 @@
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 using System.Windows.Input;
+using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
@@ -18,7 +22,8 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
             ? "Исходящий документ"
             : "Входящий документ";
 
-        public ICommand OpenFolderCommand { get; set; }
+        public ICommand OpenFolderCommand { get; }
+        public ICommand AddFilesCommand { get; }
 
         public DocumentViewModel(IUnityContainer container) : base(container)
         {
@@ -33,6 +38,25 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
 
                     var path = PathGetter.GetPath(Item.Model);
                     Process.Start("explorer", $"\"{path}\"");
+                });
+
+            AddFilesCommand = new DelegateCommand(
+                () =>
+                {
+                    var openFileDialog = new OpenFileDialog
+                    {
+                        Multiselect = true,
+                        RestoreDirectory = true
+                    };
+
+                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        var rootDirectoryPath = PathGetter.GetPath(Item.Model);
+                        foreach (var fileName in openFileDialog.FileNames)
+                        {
+                            File.Copy(fileName, $"{rootDirectoryPath}\\{Path.GetFileName(fileName)}");
+                        }
+                    }
                 });
         }
 
@@ -52,6 +76,5 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
             if (document.RecipientEmployee != null)
                 Item.RecipientEmployee = new EmployeeWrapper(UnitOfWork.Repository<Employee>().GetById(document.RecipientEmployee.Id));
         }
-
-   }
+    }
 }

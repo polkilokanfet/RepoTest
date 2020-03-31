@@ -1,7 +1,9 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Modules.BookRegistration.Tabs;
 using HVTApp.UI.Modules.BookRegistration.ViewModels;
@@ -61,6 +63,22 @@ namespace HVTApp.UI.Modules.BookRegistration.Views
         protected override bool IsSomethingChanged()
         {
             return _viewModel.Item.IsChanged;
+        }
+
+        public override void ConfirmNavigationRequest(NavigationContext navigationContext, Action<bool> continuationCallback)
+        {
+            //если не добавлено вложений
+            if (!Directory.EnumerateFileSystemEntries(PathGetter.GetPath(_viewModel.Item.Model)).Any())
+            {
+                var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Внимание!", "Вы не добавили вложения. \nПродолжить не добавляя вложения?", defaultNo: true);
+                if (dr != MessageDialogResult.Yes)
+                {
+                    continuationCallback(false);
+                    return;
+                }
+            }
+
+            base.ConfirmNavigationRequest(navigationContext, continuationCallback);
         }
     }
 }

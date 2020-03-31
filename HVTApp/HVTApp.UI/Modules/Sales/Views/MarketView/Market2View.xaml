@@ -50,7 +50,10 @@
                     <!--<infgDp:XamDataGrid.FieldLayoutSettings>
                         <infgDp:FieldLayoutSettings />
                     </infgDp:XamDataGrid.FieldLayoutSettings>-->
-
+                    
+                    <infgDp:XamDataGrid.InputBindings>
+                        <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=EditProjectCommand, Mode=OneWay}" />
+                    </infgDp:XamDataGrid.InputBindings>
 
                     <infgDp:XamDataGrid.FieldLayouts>
 
@@ -165,6 +168,11 @@
                                         DataSource="{Binding Offers}"
                                         SelectedDataItem="{Binding Offers.SelectedItem}">
 
+                        <infgDp:XamDataGrid.InputBindings>
+                            <MouseBinding MouseAction="LeftDoubleClick"
+                                          Command="{Binding Path=EditOfferCommand, Mode=OneWay}" />
+                        </infgDp:XamDataGrid.InputBindings>
+
                         <infgDp:XamDataGrid.FieldLayouts>
                             <infgDp:FieldLayout>
                                 <infgDp:FieldLayout.Fields>
@@ -185,6 +193,11 @@
                 <GroupBox Grid.Row="4" Header="Конкурсы">
                     <infgDp:XamDataGrid DataSource="{Binding Tenders}"
                                         SelectedDataItem="{Binding Tenders.SelectedItem}">
+
+                        <infgDp:XamDataGrid.InputBindings>
+                            <MouseBinding MouseAction="LeftDoubleClick"
+                                          Command="{Binding Path=EditTenderCommand, Mode=OneWay}" />
+                        </infgDp:XamDataGrid.InputBindings>
 
                         <infgDp:XamDataGrid.FieldLayouts>
                             <infgDp:FieldLayout>

@@ -63,7 +63,7 @@
                 <StackPanel Orientation="Horizontal">
                     <Button Name="GoBackButton" Content="{StaticResource GoBackImage}" Margin="1" Click="GoBackButton_OnClick"/>
                     <Button Name="GoForwardButton" Content="{StaticResource GoForwardImage}" Margin="1" Click="GoForwardButton_OnClick"/>
-                    <Button Name="OpenFolderButton" Content="{StaticResource FolderImage}" Margin="1" Command="{Binding OpenFolderCommand}"/>
+                    <!--<Button Name="OpenFolderButton" Content="{StaticResource FolderImage}" Margin="1" Command="{Binding OpenFolderCommand}"/>-->
                 </StackPanel>
                         
                 <WebBrowser Grid.Row="1" Name="Browser"/>

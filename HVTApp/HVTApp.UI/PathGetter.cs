@@ -12,8 +12,8 @@ namespace HVTApp.UI
         public static string GetPath(Document document)
         {
             //путь к папке проекта
-            var motherFolder = GlobalAppProperties.Actual.IncomingRequestsPath;
-            return GetPath(document.Id, motherFolder, document.RegNumber);
+            var rootDirectory = GlobalAppProperties.Actual.IncomingRequestsPath;
+            return GetPath(document.Id, rootDirectory, document.RegNumber);
         }
 
         public static string GetPath(Project project)
@@ -26,21 +26,22 @@ namespace HVTApp.UI
             return GetPath(project.Id, projectsFolderPath, project.Name);
         }
 
-        private static string GetPath(Guid guid, string motherFolder, string addToFolderName)
+        private static string GetPath(Guid guid, string rootDirectory, string addToFolderName)
         {
             var id = guid.ToString().Replace("-", string.Empty);
-            if (Directory.Exists(motherFolder))
+
+            //поиск существующей директории
+            if (Directory.Exists(rootDirectory))
             {
-                var directoryInfo = new DirectoryInfo(motherFolder);
-                var targetDirectoryInfo = directoryInfo.GetDirectories().FirstOrDefault(x => x.Name.Contains(id));
-                if (targetDirectoryInfo != null)
+                var targetDirectory = Directory.GetDirectories(rootDirectory, $"*{id}*", SearchOption.TopDirectoryOnly).FirstOrDefault();
+                if (targetDirectory != null)
                 {
-                    return targetDirectoryInfo.FullName;
+                    return targetDirectory;
                 }
             }
 
-            var path = Path.Combine(motherFolder, $"{addToFolderName.ReplaceUncorrectSimbols("_")} {id}");
-
+            //создаём, если директории не существует
+            var path = Path.Combine(rootDirectory, $"{addToFolderName.ReplaceUncorrectSimbols("_")} {id}");
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
 
