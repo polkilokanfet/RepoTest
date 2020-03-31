@@ -14,6 +14,7 @@ namespace HVTApp.Modules.Settings.Menus
             if (GlobalAppProperties.User.RoleCurrent == Role.Admin)
             {
                 Items.Add(new NavigationItem("Admin", typeof(AdminView)));
+                Items.Add(new NavigationItem("DB Backup", typeof(DataBaseBackupView)));
             }
         }
     }

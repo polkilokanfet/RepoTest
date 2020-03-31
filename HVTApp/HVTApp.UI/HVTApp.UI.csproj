@@ -61,6 +61,10 @@
       <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=14.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.SqlServer.ConnectionInfoExtended, Version=14.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.SqlServer.Smo, Version=14.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.SqlServer.SmoExtended, Version=14.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="Prism, Version=7.0.0.396, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Core.7.0.0.396\lib\net45\Prism.dll</HintPath>
       <Private>True</Private>
@@ -129,6 +133,10 @@
     <Compile Include="Modules\BookRegistration\ViewModels\DocumentViewModel.cs" />
     <Compile Include="Modules\BookRegistration\ViewModels\IncomingRequestsViewModel.cs" />
     <Compile Include="Modules\BookRegistration\ViewModels\IncomingRequestViewModel.cs" />
+    <Compile Include="Modules\Settings\ViewModels\DataBaseBackupViewModel.cs" />
+    <Compile Include="Modules\Settings\Views\DataBaseBackupView.xaml.cs">
+      <DependentUpon>DataBaseBackupView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PathGetter.cs" />
     <Compile Include="Modules\BookRegistration\Views\IncomingRequestView.xaml.cs">
       <DependentUpon>IncomingRequestView.xaml</DependentUpon>
@@ -993,6 +1001,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\Sales\Views\TenderWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Settings\Views\DataBaseBackupView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

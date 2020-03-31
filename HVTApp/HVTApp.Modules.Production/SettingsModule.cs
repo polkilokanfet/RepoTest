@@ -17,6 +17,7 @@ namespace HVTApp.Modules.Settings
         {
             Container.RegisterViewForNavigation<PasswordView>();
             Container.RegisterViewForNavigation<AdminView>();
+            Container.RegisterViewForNavigation<DataBaseBackupView>();
         }
 
         protected override void ResolveOutlookGroup()
