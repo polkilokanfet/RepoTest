@@ -14,15 +14,22 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
         public ObservableCollection<PaymentsPlanGroup> Payments { get; } = new ObservableCollection<PaymentsPlanGroup>();
         public ICommand ReloadCommand { get; }
 
-        public PaymentsPlanViewModel(IUnityContainer container) : base(container)
+        public PaymentsPlanViewModel(IUnityContainer container, bool load = true) : base(container)
         {
             ReloadCommand = new DelegateCommand(Load);
-            Load();
+            if (load)
+                Load();
         }
 
         public void Load()
         {
             var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => !x.IsLoosen && !x.IsPaid && x.Project.ForReport);
+            Load(salesUnits);
+        }
+
+        public void Load(IEnumerable<SalesUnit> salesUnitsIn)
+        {
+            var salesUnits = salesUnitsIn.Where(x => !x.IsLoosen && !x.IsPaid && x.Project.ForReport).ToList();
             var payments = new List<Payment1>();
             foreach (var salesUnit in salesUnits)
             {

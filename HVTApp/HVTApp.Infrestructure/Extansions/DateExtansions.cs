@@ -91,5 +91,16 @@ namespace HVTApp.Infrastructure.Extansions
 
             return $"{date.WeekNumber():D2} нед. (с {firstDayOfWeek.ToShortDateString()} по {lastDayOfWeek.ToShortDateString()})";
         }
+
+        /// <summary>
+        /// Количество месяцов между датами (может быть отрицательным)
+        /// </summary>
+        /// <param name="date1"></param>
+        /// <param name="date2"></param>
+        /// <returns></returns>
+        public static int MonthsBetween(this DateTime date1, DateTime date2)
+        {
+            return ((date1.Year - date2.Year) * 12) + date1.Month - date2.Month;
+        }
     }
 }

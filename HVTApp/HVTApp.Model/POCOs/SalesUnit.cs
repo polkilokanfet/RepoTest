@@ -171,6 +171,12 @@ namespace HVTApp.Model.POCOs
         #region Func
 
         /// <summary>
+        /// Заказ взят
+        /// </summary>
+        [Designation("Заказ взят")]
+        public bool OrderIsTaken => !IsLoosen && StartProductionDateCalculated < DateTime.Today;
+
+        /// <summary>
         /// Все платежи (совершенные + плановые).
         /// </summary>
         //public IEnumerable<IPayment> Payments => PaymentsActual.Cast<IPayment>().Union(PaymentsPlannedByConditions);
@@ -227,11 +233,20 @@ namespace HVTApp.Model.POCOs
 
         #region Даты
 
+        /// <summary>
+        /// Дата ОИТ, внедренная извне (из отчета)
+        /// </summary>
+        [NotMapped]
+        public DateTime? OrderInTakeDateInjected { get; set; }
+
         [Designation("ОИТ"), OrderStatus(990), NotMapped]
         public DateTime OrderInTakeDate
         {
             get
             {
+                if (OrderInTakeDateInjected.HasValue)
+                    return OrderInTakeDateInjected.Value;
+
                 //первый платеж по заказу
                 return PaymentsActual.Any(x => x.Sum > 0) 
                     ? PaymentsActual.Where(x => x.Sum > 0).Select(x => x.Date).Min() 

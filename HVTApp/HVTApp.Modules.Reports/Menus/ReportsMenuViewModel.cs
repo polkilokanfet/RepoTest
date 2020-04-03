@@ -1,4 +1,5 @@
 ﻿using HVTApp.Infrastructure;
+using HVTApp.UI.Modules.Reports.FlatReport;
 using HVTApp.UI.Modules.Reports.Views;
 
 namespace HVTApp.Modules.Reports.Menus
@@ -8,6 +9,7 @@ namespace HVTApp.Modules.Reports.Menus
         protected override void GenerateMenu()
         {
             Items.Add(new NavigationItem("Референс", typeof(ReferenceView)));
+            Items.Add(new NavigationItem("Report maker", typeof(FlatReportView)));
             Items.Add(new NavigationItem("Продажи", typeof(SalesReportView)));
             Items.Add(new NavigationItem("График продаж", typeof(SalesChartView)));
         }

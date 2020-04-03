@@ -133,6 +133,18 @@
     <Compile Include="Modules\BookRegistration\ViewModels\DocumentViewModel.cs" />
     <Compile Include="Modules\BookRegistration\ViewModels\IncomingRequestsViewModel.cs" />
     <Compile Include="Modules\BookRegistration\ViewModels\IncomingRequestViewModel.cs" />
+    <Compile Include="Modules\Reports\FlatReport\FlatReportComparator.cs" />
+    <Compile Include="Modules\Reports\FlatReport\FlatReportItem.cs" />
+    <Compile Include="Modules\Reports\FlatReport\FlatReportItemMonthContainersPair.cs" />
+    <Compile Include="Modules\Reports\FlatReport\FlatReportViewModel - Report.cs" />
+    <Compile Include="Modules\Reports\FlatReport\FlatReportViewModel.cs" />
+    <Compile Include="Modules\Reports\FlatReport\FlatReportItemMonthContainer.cs" />
+    <Compile Include="Modules\Reports\FlatReport\FlatReportView.xaml.cs">
+      <DependentUpon>FlatReportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\FlatReport\TabFlatReport.xaml.cs">
+      <DependentUpon>TabFlatReport.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Settings\ViewModels\DataBaseBackupViewModel.cs" />
     <Compile Include="Modules\Settings\Views\DataBaseBackupView.xaml.cs">
       <DependentUpon>DataBaseBackupView.xaml</DependentUpon>
@@ -872,7 +884,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Modules\Reports\FlatReport\FlatReportView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Modules\Reports\Tabs\TabFakeData.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Reports\FlatReport\TabFlatReport.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
