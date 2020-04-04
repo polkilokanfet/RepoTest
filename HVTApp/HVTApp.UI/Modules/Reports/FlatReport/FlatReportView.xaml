@@ -106,9 +106,8 @@
                                     <TextBlock Text="{Binding Item.Date, StringFormat=MM.yyyy}" />
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
-                                    <Label Content="Сумма: " />
+                                    <Label Content="Сумма (руб.): " />
                                     <TextBlock Text="{Binding Item.CurrentSum, StringFormat={}{0:#,#}}" />
-                                    <Label Content=" руб."></Label>
                                 </StackPanel>
                             </StackPanel>
                         </ig:ColumnSeries.ToolTip>

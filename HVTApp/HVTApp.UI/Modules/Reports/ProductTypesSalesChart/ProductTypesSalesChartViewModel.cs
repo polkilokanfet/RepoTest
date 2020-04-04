@@ -4,13 +4,14 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 
-namespace HVTApp.UI.Modules.Reports.ManagersSalesChart
+namespace HVTApp.UI.Modules.Reports.ProductTypesSalesChart
 {
-    public class ManagersSalesChartViewModel : ViewModelBase
+    public class ProductTypesSalesChartViewModel : ViewModelBase
     {
         private List<SalesUnit> _salesUnits;
         private DateTime _startDate;
@@ -38,11 +39,11 @@ namespace HVTApp.UI.Modules.Reports.ManagersSalesChart
             }
         }
 
-        public ObservableCollection<ManagersSalesChartItem> Items { get; } = new ObservableCollection<ManagersSalesChartItem>();
+        public ObservableCollection<ProductTypesSalesChartItem> Items { get; } = new ObservableCollection<ProductTypesSalesChartItem>();
 
         public ICommand ReloadCommand { get; }
 
-        public ManagersSalesChartViewModel(IUnityContainer container) : base(container)
+        public ProductTypesSalesChartViewModel(IUnityContainer container) : base(container)
         {
             ReloadCommand = new DelegateCommand(Load);
             Load();
@@ -51,7 +52,9 @@ namespace HVTApp.UI.Modules.Reports.ManagersSalesChart
         private void Load()
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
-            _salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => x.IsWon);
+            _salesUnits = GlobalAppProperties.User.RoleCurrent == Role.SalesManager 
+                ? UnitOfWork.Repository<SalesUnit>().Find(x => x.IsWon && x.Project.Manager.IsAppCurrentUser())
+                : UnitOfWork.Repository<SalesUnit>().Find(x => x.IsWon);
             _startDate = _salesUnits.Min(x => x.OrderInTakeDate);
             _finishDate = _salesUnits.Max(x => x.OrderInTakeDate);
             OnPropertyChanged(nameof(StartDate));
@@ -63,8 +66,8 @@ namespace HVTApp.UI.Modules.Reports.ManagersSalesChart
         {
             var items = _salesUnits
                 .Where(x => x.OrderInTakeDate >= StartDate && x.OrderInTakeDate <= FinishDate)
-                .GroupBy(x => x.Project.Manager)
-                .Select(x => new ManagersSalesChartItem(x))
+                .GroupBy(x => x.Product.ProductType)
+                .Select(x => new ProductTypesSalesChartItem(x))
                 .OrderByDescending(x => x.Sum)
                 .ToList();
 

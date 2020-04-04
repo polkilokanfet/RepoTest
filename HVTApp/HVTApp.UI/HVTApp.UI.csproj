@@ -150,6 +150,17 @@
       <DependentUpon>ManagersSalesChartView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Reports\ManagersSalesChart\ManagersSalesChartViewModel.cs" />
+    <Compile Include="Modules\Reports\ManagersSalesChart\TabManagersSalesChart.xaml.cs">
+      <DependentUpon>TabManagersSalesChart.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\ProductTypesSalesChart\ProductTypesSalesChartItem.cs" />
+    <Compile Include="Modules\Reports\ProductTypesSalesChart\ProductTypesSalesChartViewModel.cs" />
+    <Compile Include="Modules\Reports\ProductTypesSalesChart\ProductTypesSalesChartView.xaml.cs">
+      <DependentUpon>ProductTypesSalesChartView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\ProductTypesSalesChart\TabProductTypesSalesChart.xaml.cs">
+      <DependentUpon>TabProductTypesSalesChart.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Settings\ViewModels\DataBaseBackupViewModel.cs" />
     <Compile Include="Modules\Settings\Views\DataBaseBackupView.xaml.cs">
       <DependentUpon>DataBaseBackupView.xaml</DependentUpon>
@@ -894,6 +905,18 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\Reports\ManagersSalesChart\ManagersSalesChartView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Reports\ManagersSalesChart\TabManagersSalesChart.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Reports\ProductTypesSalesChart\ProductTypesSalesChartView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Reports\ProductTypesSalesChart\TabProductTypesSalesChart.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
