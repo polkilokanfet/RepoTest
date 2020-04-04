@@ -145,6 +145,11 @@
     <Compile Include="Modules\Reports\FlatReport\TabFlatReport.xaml.cs">
       <DependentUpon>TabFlatReport.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Reports\ManagersSalesChart\ManagersSalesChartItem.cs" />
+    <Compile Include="Modules\Reports\ManagersSalesChart\ManagersSalesChartView.xaml.cs">
+      <DependentUpon>ManagersSalesChartView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\ManagersSalesChart\ManagersSalesChartViewModel.cs" />
     <Compile Include="Modules\Settings\ViewModels\DataBaseBackupViewModel.cs" />
     <Compile Include="Modules\Settings\Views\DataBaseBackupView.xaml.cs">
       <DependentUpon>DataBaseBackupView.xaml</DependentUpon>
@@ -885,6 +890,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\Reports\FlatReport\FlatReportView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Reports\ManagersSalesChart\ManagersSalesChartView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

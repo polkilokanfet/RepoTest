@@ -1,5 +1,6 @@
 ﻿using HVTApp.Infrastructure;
 using HVTApp.UI.Modules.Reports.FlatReport;
+using HVTApp.UI.Modules.Reports.ManagersSalesChart;
 using HVTApp.UI.Modules.Reports.Views;
 
 namespace HVTApp.Modules.Reports.Menus
@@ -12,6 +13,7 @@ namespace HVTApp.Modules.Reports.Menus
             Items.Add(new NavigationItem("Report maker", typeof(FlatReportView)));
             Items.Add(new NavigationItem("Продажи", typeof(SalesReportView)));
             Items.Add(new NavigationItem("График продаж", typeof(SalesChartView)));
+            Items.Add(new NavigationItem("Продажи по менеджерам", typeof(ManagersSalesChartView)));
         }
     }
 }

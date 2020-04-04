@@ -11,6 +11,8 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
 
         public DateTime Date => new DateTime(Year, Month, DateTime.DaysInMonth(Year, Month));
 
+        public string Title => $"{Year}.{Month}";
+
         /// <summary>
         /// Текущая сумма
         /// </summary>

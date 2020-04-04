@@ -76,7 +76,49 @@
         
         <GroupBox Grid.Row="2" Header="Динамика продаж (ОИТ по месяцам)">
 
-            <ig:XamDataChart x:Name="DataChart"
+            <ig:XamDataChart x:Name="StackedBarChart"
+                             Padding="10"
+                             Visibility="Visible"
+                             DataContext="{Binding}"
+                             HorizontalZoomable="True"
+                             HorizontalZoombarVisibility="Collapsed"
+                             VerticalZoomable="True"
+                             VerticalZoombarVisibility="Collapsed">
+
+                <ig:XamDataChart.Axes>
+                    <ig:NumericYAxis x:Name="YAxis" MinimumValue="0" Interval="400" Label="{}{:#,#} руб." />
+                    <ig:CategoryXAxis x:Name="XAxis" ItemsSource="{Binding Containers}" Label="{}{Title}" />
+                </ig:XamDataChart.Axes>
+
+                <ig:XamDataChart.Series>
+                    <ig:ColumnSeries ItemsSource="{Binding Containers}"
+                                     ValueMemberPath="CurrentSum"
+                                     Title="Title"
+                                     XAxis="{Binding ElementName=XAxis}"
+                                     YAxis="{Binding ElementName=YAxis}"
+                                     IsHighlightingEnabled="True"
+                                     IsTransitionInEnabled="True">
+
+                        <ig:ColumnSeries.ToolTip>
+                            <StackPanel Orientation="Vertical">
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="Дата: " />
+                                    <TextBlock Text="{Binding Item.Date, StringFormat=MM.yyyy}" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="Сумма: " />
+                                    <TextBlock Text="{Binding Item.CurrentSum, StringFormat={}{0:#,#}}" />
+                                    <Label Content=" руб."></Label>
+                                </StackPanel>
+                            </StackPanel>
+                        </ig:ColumnSeries.ToolTip>
+
+                    </ig:ColumnSeries>
+                </ig:XamDataChart.Series>
+
+            </ig:XamDataChart>
+
+            <!--<ig:XamDataChart x:Name="DataChart"
                              IsDragCrosshairEnabled="True"
                              CrosshairVisibility="Visible"
                              OverviewPlusDetailPaneVisibility="Visible"
@@ -94,7 +136,7 @@
 
                     <ig:NumericYAxis x:Name="XmYAxisPrice"
                                      Title="Сумма оборудования в ОИТ(руб)">
-                        <!--Label="{}{} млн.руб">-->
+                        --><!--Label="{}{} млн.руб">--><!--
                     </ig:NumericYAxis>
 
                 </ig:XamDataChart.Axes>
@@ -127,7 +169,7 @@
                 </ig:XamDataChart.Series>
 
 
-            </ig:XamDataChart>
+            </ig:XamDataChart>-->
 
         </GroupBox>
 

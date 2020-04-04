@@ -51,10 +51,12 @@ namespace HVTApp.TestDataGenerator
             var products = new List<Product> {ProductBreakersDrivePprk, ProductVeb110, ProductZng110, ProductZip1};
             var facilityOwners = new List<Company> {CompanyFsk, CompanyMrsk};
             var contracts = new List<Contract> {ContractFsk, ContractMrsk, ContractPmk};
+            var managers = new List<User> {UserIvanov, UserKosolapov, UserGazizov};
 
-            for (int p = 1; p < 101; p++)
+            for (int p = 0; p < 120; p++)
             {
-                var project = new Project {Name = $"Реконструкция ПС №{p}", ProjectType = ProjectTypeReconstruction, Manager = UserIvanov};
+                var manager = managers[random.Next(0, managers.Count)];
+                var project = new Project {Name = $"Реконструкция ПС №{p}", ProjectType = ProjectTypeReconstruction, Manager = manager};
                 Projects.Add(project);
 
                 for (int pr = 0; pr < random.Next(1, 5); pr++)

@@ -7,6 +7,7 @@ using HVTApp.UI.Modules.BookRegistration.Views;
 using HVTApp.UI.Modules.PlanAndEconomy.Views;
 using HVTApp.UI.Modules.Products.Views;
 using HVTApp.UI.Modules.Reports.FlatReport;
+using HVTApp.UI.Modules.Reports.ManagersSalesChart;
 using HVTApp.UI.Modules.Reports.Views;
 using HVTApp.UI.Modules.SupplyModule.Views;
 using HVTApp.UI.PriceCalculations.View;
@@ -46,6 +47,7 @@ namespace HVTApp.UI
             Container.RegisterViewForNavigation<PaymentsPlanView>();
             Container.RegisterViewForNavigation<IncomingRequestsView>();
             Container.RegisterViewForNavigation<FlatReportView>();
+            Container.RegisterViewForNavigation<ManagersSalesChartView>();
 
             _dialogService.RegisterShow<ProductStructureViewModel, ProductStructureView>();
             RegisterViews();

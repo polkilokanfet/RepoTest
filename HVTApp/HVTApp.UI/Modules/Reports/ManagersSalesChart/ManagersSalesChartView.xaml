@@ -1,0 +1,61 @@
+﻿<inf:ViewBase x:Class="HVTApp.UI.Modules.Reports.ManagersSalesChart.ManagersSalesChartView"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:infg="http://infragistics.com/DataPresenter"
+              xmlns:ig="http://schemas.infragistics.com/xaml"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:prism="http://prismlibrary.com/"             
+              prism:ViewModelLocator.AutoWireViewModel="True">
+
+    <GroupBox Header="График продаж">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
+            <ig:XamDataChart x:Name="StackedBarChart" Padding="10" Visibility="Visible"
+                             Legend="{Binding ElementName=XmLegend}"
+                             DataContext="{Binding}"
+                             HorizontalZoomable="True" HorizontalZoombarVisibility="Collapsed"
+                             VerticalZoomable="True" VerticalZoombarVisibility="Collapsed">
+                
+                <ig:XamDataChart.Axes>
+                    <ig:NumericYAxis x:Name="YAxis" MinimumValue="0" Interval="400" Label="{}{} руб"/>
+                    <ig:CategoryXAxis x:Name="XAxis" ItemsSource="{Binding Items}" Label="{}{Manager}" />
+                </ig:XamDataChart.Axes>
+
+                <ig:XamDataChart.Series>
+                    <ig:ColumnSeries ItemsSource="{Binding Items}"
+                                     ValueMemberPath="Sum"
+                                     Title="Manager"
+                                     XAxis="{Binding ElementName=XAxis}"
+                                     YAxis="{Binding ElementName=YAxis}"
+                                     IsHighlightingEnabled="True"
+                                     IsTransitionInEnabled="True">
+                    </ig:ColumnSeries>
+
+                </ig:XamDataChart.Series>
+
+
+                <!--<ig:XamDataChart.Series>
+                    <ig:StackedBarSeries XAxis="{Binding ElementName=StackedBarXAxis}"
+                                         YAxis="{Binding ElementName=StackedBarYAxis}"
+                                         ItemsSource="{Binding EnergySampleData}">
+                        <ig:StackedBarSeries.Series>
+                            <ig:StackedFragmentSeries ValueMemberPath="Coal" Title="{Binding StringEnergyCoal, Source={StaticResource DataViewModel}}" />
+                            <ig:StackedFragmentSeries ValueMemberPath="Hydro" Title="{Binding StringEnergyHydro, Source={StaticResource DataViewModel}}" />
+                            <ig:StackedFragmentSeries ValueMemberPath="Nuclear" Title="{Binding StringEnergyNuclear, Source={StaticResource DataViewModel}}" />
+                            <ig:StackedFragmentSeries ValueMemberPath="Gas" Title="{Binding StringEnergyGas, Source={StaticResource DataViewModel}}" />
+                            <ig:StackedFragmentSeries ValueMemberPath="Oil" Title="{Binding StringEnergyOil, Source={StaticResource DataViewModel}}" />
+                        </ig:StackedBarSeries.Series>
+                    </ig:StackedBarSeries>
+                </ig:XamDataChart.Series>-->
+                
+            </ig:XamDataChart>
+            <ig:Legend Grid.Column="1" x:Name="XmLegend" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20,20,5,20" Visibility="Visible"/>
+
+        </Grid>
+        
+    </GroupBox>
+</inf:ViewBase>
