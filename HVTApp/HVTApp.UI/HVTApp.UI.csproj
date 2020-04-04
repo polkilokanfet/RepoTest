@@ -145,21 +145,35 @@
     <Compile Include="Modules\Reports\FlatReport\TabFlatReport.xaml.cs">
       <DependentUpon>TabFlatReport.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Reports\ManagersSalesChart\ManagersSalesChartItem.cs" />
-    <Compile Include="Modules\Reports\ManagersSalesChart\ManagersSalesChartView.xaml.cs">
+    <Compile Include="Modules\Reports\SalesCharts\ContragentsSalesChart\ContragentsSalesChartItem.cs" />
+    <Compile Include="Modules\Reports\SalesCharts\ContragentsSalesChart\ContragentsSalesChartView.xaml.cs">
+      <DependentUpon>ContragentsSalesChartView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\SalesCharts\ContragentsSalesChart\ContragentsSalesChartViewModel.cs" />
+    <Compile Include="Modules\Reports\SalesCharts\ConsumersSalesChart\ConsumersSalesChartItem.cs" />
+    <Compile Include="Modules\Reports\SalesCharts\ConsumersSalesChart\ConsumersSalesChartView.xaml.cs">
+      <DependentUpon>ConsumersSalesChartView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\SalesCharts\ConsumersSalesChart\ConsumersSalesChartViewModel.cs" />
+    <Compile Include="Modules\Reports\SalesCharts\SalesChartViewModel.cs" />
+    <Compile Include="Modules\Reports\SalesCharts\SalesChartItem.cs" />
+    <Compile Include="Modules\Reports\SalesCharts\RegionsSalesChart\RegionsSalesChartItem.cs" />
+    <Compile Include="Modules\Reports\SalesCharts\RegionsSalesChart\RegionsSalesChartView.xaml.cs">
+      <DependentUpon>RegionsSalesChartView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\SalesCharts\RegionsSalesChart\RegionsSalesChartViewModel.cs" />
+    <Compile Include="Modules\Reports\SalesCharts\TabSalesChart.xaml.cs">
+      <DependentUpon>TabSalesChart.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\SalesCharts\ManagersSalesChart\ManagersSalesChartItem.cs" />
+    <Compile Include="Modules\Reports\SalesCharts\ManagersSalesChart\ManagersSalesChartView.xaml.cs">
       <DependentUpon>ManagersSalesChartView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Reports\ManagersSalesChart\ManagersSalesChartViewModel.cs" />
-    <Compile Include="Modules\Reports\ManagersSalesChart\TabManagersSalesChart.xaml.cs">
-      <DependentUpon>TabManagersSalesChart.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\Reports\ProductTypesSalesChart\ProductTypesSalesChartItem.cs" />
-    <Compile Include="Modules\Reports\ProductTypesSalesChart\ProductTypesSalesChartViewModel.cs" />
-    <Compile Include="Modules\Reports\ProductTypesSalesChart\ProductTypesSalesChartView.xaml.cs">
+    <Compile Include="Modules\Reports\SalesCharts\ManagersSalesChart\ManagersSalesChartViewModel.cs" />
+    <Compile Include="Modules\Reports\SalesCharts\ProductTypesSalesChart\ProductTypesSalesChartItem.cs" />
+    <Compile Include="Modules\Reports\SalesCharts\ProductTypesSalesChart\ProductTypesSalesChartViewModel.cs" />
+    <Compile Include="Modules\Reports\SalesCharts\ProductTypesSalesChart\ProductTypesSalesChartView.xaml.cs">
       <DependentUpon>ProductTypesSalesChartView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\Reports\ProductTypesSalesChart\TabProductTypesSalesChart.xaml.cs">
-      <DependentUpon>TabProductTypesSalesChart.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Settings\ViewModels\DataBaseBackupViewModel.cs" />
     <Compile Include="Modules\Settings\Views\DataBaseBackupView.xaml.cs">
@@ -904,19 +918,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Modules\Reports\ManagersSalesChart\ManagersSalesChartView.xaml">
+    <Page Include="Modules\Reports\SalesCharts\ContragentsSalesChart\ContragentsSalesChartView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Modules\Reports\ManagersSalesChart\TabManagersSalesChart.xaml">
+    <Page Include="Modules\Reports\SalesCharts\ConsumersSalesChart\ConsumersSalesChartView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Modules\Reports\ProductTypesSalesChart\ProductTypesSalesChartView.xaml">
+    <Page Include="Modules\Reports\SalesCharts\RegionsSalesChart\RegionsSalesChartView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Modules\Reports\ProductTypesSalesChart\TabProductTypesSalesChart.xaml">
+    <Page Include="Modules\Reports\SalesCharts\TabSalesChart.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Reports\SalesCharts\ManagersSalesChart\ManagersSalesChartView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Reports\SalesCharts\ProductTypesSalesChart\ProductTypesSalesChartView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

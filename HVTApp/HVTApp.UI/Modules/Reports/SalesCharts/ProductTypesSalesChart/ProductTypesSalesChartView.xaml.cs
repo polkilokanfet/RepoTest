@@ -3,9 +3,9 @@ using Infragistics.Controls.Charts;
 using Prism.Events;
 using Prism.Regions;
 
-namespace HVTApp.UI.Modules.Reports.ProductTypesSalesChart
+namespace HVTApp.UI.Modules.Reports.SalesCharts.ProductTypesSalesChart
 {
-    [RibbonTab(typeof(TabProductTypesSalesChart))]
+    [RibbonTab(typeof(TabSalesChart))]
     public partial class ProductTypesSalesChartView
     {
         public ProductTypesSalesChartView(IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)

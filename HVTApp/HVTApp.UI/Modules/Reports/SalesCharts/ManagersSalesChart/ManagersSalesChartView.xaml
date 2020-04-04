@@ -1,4 +1,4 @@
-﻿<inf:ViewBase x:Class="HVTApp.UI.Modules.Reports.ProductTypesSalesChart.ProductTypesSalesChartView"
+﻿<inf:ViewBase x:Class="HVTApp.UI.Modules.Reports.SalesCharts.ManagersSalesChart.ManagersSalesChartView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:infg="http://infragistics.com/DataPresenter"
@@ -7,7 +7,7 @@
               xmlns:prism="http://prismlibrary.com/"             
               prism:ViewModelLocator.AutoWireViewModel="True">
 
-    <GroupBox Header="Продажи по типам оборудования">
+    <GroupBox Header="Продажи по менеджерам">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -22,13 +22,13 @@
                 
                 <ig:XamDataChart.Axes>
                     <ig:NumericYAxis x:Name="YAxis" MinimumValue="0" Interval="400" Label="{}{:#,#} руб"/>
-                    <ig:CategoryXAxis x:Name="XAxis" ItemsSource="{Binding Items}" Label="{}{ProductType}" />
+                    <ig:CategoryXAxis x:Name="XAxis" ItemsSource="{Binding Items}" Label="{}{Manager}" />
                 </ig:XamDataChart.Axes>
 
                 <ig:XamDataChart.Series>
                     <ig:ColumnSeries ItemsSource="{Binding Items}"
                                      ValueMemberPath="Sum"
-                                     Title="ProductType"
+                                     Title="Manager"
                                      XAxis="{Binding ElementName=XAxis}"
                                      YAxis="{Binding ElementName=YAxis}"
                                      IsHighlightingEnabled="True"
@@ -53,5 +53,5 @@
         </Grid>
         
     </GroupBox>
-    
+
 </inf:ViewBase>

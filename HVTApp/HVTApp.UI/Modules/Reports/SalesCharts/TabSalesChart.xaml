@@ -3,8 +3,8 @@
                                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                  xmlns:infRib="http://infragistics.com/Ribbon" 
                                  xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-                                x:Class="HVTApp.UI.Modules.Reports.ManagersSalesChart.TabManagersSalesChart"
-                                 Header="Обновление">
+                                x:Class="HVTApp.UI.Modules.Reports.SalesCharts.TabSalesChart"
+                                 Header="График">
 
     <infRib:RibbonGroup Caption="Данные">
         <infRib:ButtonTool Caption="Перезагрузить" Command="{Binding ReloadCommand}" SmallImage="/HVTApp.UI;component/Images/refresh.png"/>

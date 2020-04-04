@@ -9,11 +9,12 @@ using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 
-namespace HVTApp.UI.Modules.Reports.ProductTypesSalesChart
+namespace HVTApp.UI.Modules.Reports.SalesCharts
 {
-    public class ProductTypesSalesChartViewModel : ViewModelBase
+    public abstract class SalesChartViewModel<T> : ViewModelBase 
+        where T: SalesChartItem 
     {
-        private List<SalesUnit> _salesUnits;
+        protected List<SalesUnit> SalesUnits;
         private DateTime _startDate;
         private DateTime _finishDate;
 
@@ -39,38 +40,39 @@ namespace HVTApp.UI.Modules.Reports.ProductTypesSalesChart
             }
         }
 
-        public ObservableCollection<ProductTypesSalesChartItem> Items { get; } = new ObservableCollection<ProductTypesSalesChartItem>();
+        public ObservableCollection<T> Items { get; } = new ObservableCollection<T>();
 
         public ICommand ReloadCommand { get; }
 
-        public ProductTypesSalesChartViewModel(IUnityContainer container) : base(container)
+        protected SalesChartViewModel(IUnityContainer container) : base(container)
         {
             ReloadCommand = new DelegateCommand(Load);
             Load();
         }
 
+        protected virtual List<SalesUnit> GetSalesUnits()
+        {
+            return GlobalAppProperties.User.RoleCurrent == Role.SalesManager
+                ? UnitOfWork.Repository<SalesUnit>().Find(x => x.IsWon && x.Project.Manager.IsAppCurrentUser())
+                : UnitOfWork.Repository<SalesUnit>().Find(x => x.IsWon);
+        }
+
         private void Load()
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
-            _salesUnits = GlobalAppProperties.User.RoleCurrent == Role.SalesManager 
-                ? UnitOfWork.Repository<SalesUnit>().Find(x => x.IsWon && x.Project.Manager.IsAppCurrentUser())
-                : UnitOfWork.Repository<SalesUnit>().Find(x => x.IsWon);
-            _startDate = _salesUnits.Min(x => x.OrderInTakeDate);
-            _finishDate = _salesUnits.Max(x => x.OrderInTakeDate);
+            SalesUnits = GetSalesUnits();
+            _startDate = SalesUnits.Min(x => x.OrderInTakeDate);
+            _finishDate = SalesUnits.Max(x => x.OrderInTakeDate);
             OnPropertyChanged(nameof(StartDate));
             OnPropertyChanged(nameof(FinishDate));
             RefreshItems();
         }
 
+        protected abstract List<T> GetItems();
+
         private void RefreshItems()
         {
-            var items = _salesUnits
-                .Where(x => x.OrderInTakeDate >= StartDate && x.OrderInTakeDate <= FinishDate)
-                .GroupBy(x => x.Product.ProductType)
-                .Select(x => new ProductTypesSalesChartItem(x))
-                .OrderByDescending(x => x.Sum)
-                .ToList();
-
+            var items = GetItems();
             Items.Clear();
             Items.AddRange(items);
         }
