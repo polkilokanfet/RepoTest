@@ -32,7 +32,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
             }
         }
 
-        public bool AllowEdit => OriginalOrderInTakeDate >= DateTime.Today;
+        public bool AllowEdit => !SalesUnit.OrderIsTaken;
 
         /// <summary>
         /// Стоимость всех юнитов
@@ -52,6 +52,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
             get { return _estimatedOrderInTakeDate; }
             set
             {
+                if (!AllowEdit) return;
                 if (Equals(_estimatedOrderInTakeDate, value)) return;
                 _estimatedOrderInTakeDate = value;
                 OnPropertyChanged();
@@ -68,7 +69,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
 
             SalesUnits = salesUnits.ToList();
             OriginalOrderInTakeDate = SalesUnits.First().OrderInTakeDate;
-            EstimatedOrderInTakeDate = OriginalOrderInTakeDate;
+            _estimatedOrderInTakeDate = OriginalOrderInTakeDate;
             Sum = SalesUnits.Sum(x => x.Cost);
         }
 

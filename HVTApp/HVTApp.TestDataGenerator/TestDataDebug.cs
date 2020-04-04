@@ -44,6 +44,7 @@ namespace HVTApp.TestDataGenerator
 
         public Contract ContractMrsk;
         public Contract ContractFsk;
+        public Contract ContractPmk;
 
         public Specification SpecificationMrsk1;
         public Specification SpecificationFsk;
@@ -162,6 +163,7 @@ namespace HVTApp.TestDataGenerator
         {
             ContractMrsk.Clone(new Contract { Contragent = CompanyMrsk, Date = DateTime.Today, Number = "0401-17-0001" });
             ContractFsk.Clone(new Contract { Contragent = CompanyFsk, Date = DateTime.Today, Number = "0401-17-0002" });
+            ContractPmk.Clone(new Contract { Contragent = CompanyPmk, Date = new DateTime(2015, 12, 14), Number = "0401-15-0314" });
         }
 
         private void GenerateSpecifications()

@@ -18,6 +18,7 @@ namespace HVTApp.TestDataGenerator
 
         public Company CompanyUetm;
         public Company CompanyZeto;
+        public Company CompanyApparat;
         public Company CompanyRosseti;
         public Company CompanyFsk;
         public Company CompanyMrsk;
@@ -56,6 +57,8 @@ namespace HVTApp.TestDataGenerator
         public CountryUnion CountryUnionSng;
 
         public Address AddressUetm;
+        public Address AddressFsk;
+        public Address AddressMrsk;
         public Address AddressStation;
         public Address AddressSubstation;
 
@@ -158,6 +161,8 @@ namespace HVTApp.TestDataGenerator
             AddressUetm.Clone(new Address { Description = "ул.Фронтовых бригад, д.22", Locality = LocalityEkaterinburg });
             AddressStation.Clone(new Address { Description = "ул.Станционная, д.5", Locality = LocalityEkaterinburg });
             AddressSubstation.Clone(new Address { Description = "ул.ПодСтанционная, д.25", Locality = LocalityMoscow });
+            AddressFsk.Clone(new Address { Description = "ул.Фскшная, д.25", Locality = LocalityMoscow });
+            AddressMrsk.Clone(new Address { Description = "ул.Мрскшная, д.25", Locality = LocalityEkaterinburg });
         }
 
         private void GenerateBankDetails()
@@ -169,9 +174,10 @@ namespace HVTApp.TestDataGenerator
         {
             CompanyUetm.Clone(new Company { FullName = "Уралэлектротяжмаш", ShortName = "УЭТМ", Inn = "6673197337", Form = CompanyFormAo, AddressLegal = AddressUetm, BankDetailsList = new List<BankDetails> { BankDetailsOfUetm }, ActivityFilds = new List<ActivityField> { ActivityFieldProducerOfHvt } });
             CompanyZeto.Clone(new Company { FullName = "ЗЭТО", ShortName = "ЗЭТО", Inn = "2134324", Form = CompanyFormAo, ActivityFilds = new List<ActivityField> { ActivityFieldProducerOfHvt } });
+            CompanyApparat.Clone(new Company { FullName = "Электроаппарат", ShortName = "ЭА", Inn = "213444", Form = CompanyFormAo, ActivityFilds = new List<ActivityField> { ActivityFieldProducerOfHvt } });
             CompanyRosseti.Clone(new Company { FullName = "Россети", ShortName = "Россети", Inn = "23659", Form = CompanyFormPao, ActivityFilds = new List<ActivityField> { ActivityFieldElectricityTransmission } });
-            CompanyFsk.Clone(new Company { FullName = "Федеральная сетевая компания", ShortName = "ФСК", Inn = "26658", Form = CompanyFormPao, ActivityFilds = new List<ActivityField> { ActivityFieldElectricityTransmission }, ParentCompany = CompanyRosseti });
-            CompanyMrsk.Clone(new Company { FullName = "Межрегиональные распределительные сети", Inn = "23358", ShortName = "МРСК", Form = CompanyFormPao, ActivityFilds = new List<ActivityField> { ActivityFieldElectricityTransmission }, ParentCompany = CompanyRosseti });
+            CompanyFsk.Clone(new Company { FullName = "Федеральная сетевая компания", ShortName = "ФСК", Inn = "26658", Form = CompanyFormPao, ActivityFilds = new List<ActivityField> { ActivityFieldElectricityTransmission }, ParentCompany = CompanyRosseti, AddressLegal = AddressFsk});
+            CompanyMrsk.Clone(new Company { FullName = "Межрегиональные распределительные сети", Inn = "23358", ShortName = "МРСК", Form = CompanyFormPao, ActivityFilds = new List<ActivityField> { ActivityFieldElectricityTransmission }, ParentCompany = CompanyRosseti, AddressLegal = AddressMrsk});
             CompanyEnel.Clone(new Company { FullName = "Энел", ShortName = "Энел", Inn = "25658", Form = CompanyFormPao, ActivityFilds = new List<ActivityField> { ActivityFieldElectricityGeneration } });
             CompanyPmk.Clone(new Company { FullName = "ПМК Холдинг", ShortName = "ПМК Холдинг", Inn = "12348", Form = CompanyFormOoo, ActivityFilds = new List<ActivityField> { ActivityFieldSupplier } });
         }

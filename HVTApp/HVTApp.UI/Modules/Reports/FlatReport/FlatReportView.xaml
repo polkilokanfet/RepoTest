@@ -89,7 +89,7 @@
                     <ig:CategoryDateTimeXAxis x:Name="XmXAxis"
                                               DateTimeMemberPath="Date"
                                               ItemsSource="{Binding Containers}"
-                                              Label="{}{Date:dd/MM/yyyy}">
+                                              Label="{}{Date:MM/yy}">
                     </ig:CategoryDateTimeXAxis>
 
                     <ig:NumericYAxis x:Name="XmYAxisPrice"
@@ -113,7 +113,7 @@
                             <StackPanel Orientation="Vertical">
                                 <StackPanel Orientation="Horizontal">
                                     <Label Content="Дата: " />
-                                    <TextBlock Text="{Binding Item.Date, StringFormat=dd-MM-yyy}" />
+                                    <TextBlock Text="{Binding Item.Date, StringFormat=MM.yyyy}" />
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <Label Content="Сумма: " />

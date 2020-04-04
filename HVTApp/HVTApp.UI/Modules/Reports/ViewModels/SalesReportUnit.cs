@@ -153,7 +153,7 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
         public int? SpecificationMonth => SpecificationDate?.Month;
 
         [Designation("Квартал спецификации"), OrderStatus(-39)]
-        public int? SpecificationQuarter => SpecificationMonth / 3;
+        public int? SpecificationQuarter => (SpecificationMonth + 2) / 3;
 
         [Designation("Год контракта"), OrderStatus(-40)]
         public int ContractYear { get; }

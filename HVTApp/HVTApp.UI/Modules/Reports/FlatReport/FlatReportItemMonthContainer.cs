@@ -9,9 +9,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
     {
         public List<FlatReportItem> FlatReportItems { get; }
 
-        public DateTime Date => FlatReportItems.Any() 
-            ? FlatReportItems.Max(x => x.EstimatedOrderInTakeDate)
-            : new DateTime(Year, Month, DateTime.DaysInMonth(Year, Month));
+        public DateTime Date => new DateTime(Year, Month, DateTime.DaysInMonth(Year, Month));
 
         /// <summary>
         /// Текущая сумма

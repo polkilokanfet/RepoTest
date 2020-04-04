@@ -1,14 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows.Media;
+using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using Infragistics.Documents.Word;
+using Microsoft.Practices.Unity;
+using SautinSoft.Document;
+using Padding = Infragistics.Documents.Word.Padding;
 
 namespace HVTApp.Services.PrintService
 {
     public class PrintProductService : IPrintProductService
     {
+        private readonly IUnityContainer _container;
+
+        public PrintProductService(IUnityContainer container)
+        {
+            _container = container;
+        }
+
         public void PrintProduct(Product product)
         {
             string offerDocumentPath = AppDomain.CurrentDomain.BaseDirectory + "\\TestProductDocument.docx";
@@ -25,30 +38,43 @@ namespace HVTApp.Services.PrintService
 
         public void PrintProducts(IEnumerable<Product> products, ProductBlock block = null)
         {
-            string offerDocumentPath = AppDomain.CurrentDomain.BaseDirectory + "\\TestProductsDocument.docx";
-            WordDocumentWriter docWriter = WordDocumentWriter.Create(offerDocumentPath);
-            docWriter.StartDocument();
-
-            foreach (var product in products)
+            try
             {
-                docWriter.PrintParagraph($"{product}");
-                Print(docWriter, product, null, block);
+                var pathDocx = AppDomain.CurrentDomain.BaseDirectory + @"\ProductsDocument.docx";
+                WordDocumentWriter docWriter = WordDocumentWriter.Create(pathDocx);
+                docWriter.StartDocument();
 
-                var paragraphProperties = docWriter.CreateParagraphProperties();
-                paragraphProperties.PageBreakBefore = true;
-                docWriter.PrintParagraph(string.Empty, paragraphProperties);
+                foreach (var product in products)
+                {
+                    docWriter.PrintParagraph($"{product}");
+                    Print(docWriter, product, null, block);
+
+                    var paragraphProperties = docWriter.CreateParagraphProperties();
+                    paragraphProperties.PageBreakBefore = true;
+                    docWriter.PrintParagraph(string.Empty, paragraphProperties);
+                }
+
+
+                docWriter.EndDocument();
+                docWriter.Close();
+
+                var pathPdf = AppDomain.CurrentDomain.BaseDirectory + @"\ProductsDocument.pdf";
+                var documentCore = DocumentCore.Load(pathDocx);
+                documentCore.Save(pathPdf, SaveOptions.PdfDefault);
+
+                //System.Diagnostics.Process.Start(pathDocx);
+                System.Diagnostics.Process.Start(pathPdf);
             }
-
-
-            docWriter.EndDocument();
-            docWriter.Close();
-            System.Diagnostics.Process.Start(offerDocumentPath);
+            catch (IOException ioException)
+            {
+                _container.Resolve<IMessageService>().ShowOkMessageDialog("Ошибка", ioException.GetAllExceptions());
+            }
         }
 
         public void Print(WordDocumentWriter docWriter, Product product, int? amount = null, ProductBlock block = null)
         {
             var tableProperties = docWriter.CreateTableProperties();
-            tableProperties.Alignment = ParagraphAlignment.Left;
+            tableProperties.Alignment = ParagraphAlignment.Both;
             tableProperties.PreferredWidthAsPercentage = 100;            
             //выделяем необходимый блок
             if (block != null && product.ProductBlock.Id == block.Id)

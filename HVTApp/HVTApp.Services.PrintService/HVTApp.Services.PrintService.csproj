@@ -40,6 +40,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\HVTApp.Infrestructure\bin\Debug\Prism.dll</HintPath>
     </Reference>
+    <Reference Include="SautinSoft.Document, Version=4.3.3.5, Culture=neutral, PublicKeyToken=e759c76c7515592a, processorArchitecture=MSIL">
+      <HintPath>..\packages\sautinsoft.document.4.3.3.5\lib\net45\SautinSoft.Document.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -73,6 +77,13 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\header.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\sign_deev.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
