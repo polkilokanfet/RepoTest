@@ -12,6 +12,8 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new CountryUnionConfiguration());
             modelBuilder.Configurations.Add(new BankGuaranteeConfiguration());
             modelBuilder.Configurations.Add(new BankGuaranteeTypeConfiguration());
+            modelBuilder.Configurations.Add(new ConstructorsParametersConfiguration());
+            modelBuilder.Configurations.Add(new ConstructorParametersListConfiguration());
             modelBuilder.Configurations.Add(new CreateNewProductTaskConfiguration());
             modelBuilder.Configurations.Add(new DocumentNumberConfiguration());
             modelBuilder.Configurations.Add(new FakeDataConfiguration());
@@ -83,6 +85,8 @@ namespace HVTApp.DataAccess
         public virtual DbSet<CountryUnion> CountryUnionDbSet { get; set; }
         public virtual DbSet<BankGuarantee> BankGuaranteeDbSet { get; set; }
         public virtual DbSet<BankGuaranteeType> BankGuaranteeTypeDbSet { get; set; }
+        public virtual DbSet<ConstructorsParameters> ConstructorsParametersDbSet { get; set; }
+        public virtual DbSet<ConstructorParametersList> ConstructorParametersListDbSet { get; set; }
         public virtual DbSet<CreateNewProductTask> CreateNewProductTaskDbSet { get; set; }
         public virtual DbSet<DocumentNumber> DocumentNumberDbSet { get; set; }
         public virtual DbSet<FakeData> FakeDataDbSet { get; set; }

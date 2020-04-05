@@ -84,6 +84,8 @@
                     <infg:TextField Name="PaymentsPlanned" Label="Планируемые платежи" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:TextField Name="PaymentsActual" Label="Совершённые платежи" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:TextField Name="OrderPosition" Label="Позиция" Width="Auto" AllowResize="True" />
+                    <infg:CheckBoxField Name="OrderIsTaken" Label="Заказ взят" Width="Auto" AllowResize="True" />
+                    <infg:DateTimeField Name="OrderInTakeDateInjected" Label="OrderInTakeDateInjected" Width="Auto" AllowResize="True" />
                     <infg:TextField Name="LosingReasons" Label="Причины проигрыша" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:CheckBoxField Name="IsWon" Label="Выиграно" Width="Auto" AllowResize="True" />
                     <infg:CheckBoxField Name="IsPaid" Label="Оплачено?" Width="Auto" AllowResize="True" />

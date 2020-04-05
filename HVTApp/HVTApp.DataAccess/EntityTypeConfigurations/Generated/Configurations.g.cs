@@ -6,6 +6,8 @@ namespace HVTApp.DataAccess
     public partial class CountryUnionConfiguration : EntityTypeConfiguration<CountryUnion> { }
     public partial class BankGuaranteeConfiguration : EntityTypeConfiguration<BankGuarantee> { }
     public partial class BankGuaranteeTypeConfiguration : EntityTypeConfiguration<BankGuaranteeType> { }
+    public partial class ConstructorsParametersConfiguration : EntityTypeConfiguration<ConstructorsParameters> { }
+    public partial class ConstructorParametersListConfiguration : EntityTypeConfiguration<ConstructorParametersList> { }
     public partial class CreateNewProductTaskConfiguration : EntityTypeConfiguration<CreateNewProductTask> { }
     public partial class DocumentNumberConfiguration : EntityTypeConfiguration<DocumentNumber> { }
     public partial class FakeDataConfiguration : EntityTypeConfiguration<FakeData> { }

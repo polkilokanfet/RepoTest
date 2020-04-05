@@ -15,6 +15,8 @@ namespace HVTApp.DataAccess
             context.CountryUnionDbSet.AddRange(testData.GetAll<CountryUnion>());
             context.BankGuaranteeDbSet.AddRange(testData.GetAll<BankGuarantee>());
             context.BankGuaranteeTypeDbSet.AddRange(testData.GetAll<BankGuaranteeType>());
+            context.ConstructorsParametersDbSet.AddRange(testData.GetAll<ConstructorsParameters>());
+            context.ConstructorParametersListDbSet.AddRange(testData.GetAll<ConstructorParametersList>());
             context.CreateNewProductTaskDbSet.AddRange(testData.GetAll<CreateNewProductTask>());
             context.DocumentNumberDbSet.AddRange(testData.GetAll<DocumentNumber>());
             context.FakeDataDbSet.AddRange(testData.GetAll<FakeData>());

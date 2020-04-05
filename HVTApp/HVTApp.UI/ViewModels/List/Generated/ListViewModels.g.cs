@@ -42,6 +42,18 @@ namespace HVTApp.UI.ViewModels
     }
 
 
+	public partial class ConstructorParametersListLookupListViewModel : BaseListViewModel<ConstructorParametersList, ConstructorParametersListLookup, AfterSaveConstructorParametersListEvent, AfterSelectConstructorParametersListEvent, AfterRemoveConstructorParametersListEvent>
+    {
+        public ConstructorParametersListLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+
+	public partial class ConstructorsParametersLookupListViewModel : BaseListViewModel<ConstructorsParameters, ConstructorsParametersLookup, AfterSaveConstructorsParametersEvent, AfterSelectConstructorsParametersEvent, AfterRemoveConstructorsParametersEvent>
+    {
+        public ConstructorsParametersLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+
 	public partial class CreateNewProductTaskLookupListViewModel : BaseListViewModel<CreateNewProductTask, CreateNewProductTaskLookup, AfterSaveCreateNewProductTaskEvent, AfterSelectCreateNewProductTaskEvent, AfterRemoveCreateNewProductTaskEvent>
     {
         public CreateNewProductTaskLookupListViewModel(IUnityContainer container) : base(container) { }

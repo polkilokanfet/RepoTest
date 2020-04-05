@@ -1,3 +1,17 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 using HVTApp.Model.POCOs;
 using Prism.Events;
 
@@ -6,6 +20,8 @@ namespace HVTApp.Model.Events
 	public partial class AfterSaveCountryUnionEvent : PubSubEvent<CountryUnion> { }
 	public partial class AfterSaveBankGuaranteeEvent : PubSubEvent<BankGuarantee> { }
 	public partial class AfterSaveBankGuaranteeTypeEvent : PubSubEvent<BankGuaranteeType> { }
+	public partial class AfterSaveConstructorsParametersEvent : PubSubEvent<ConstructorsParameters> { }
+	public partial class AfterSaveConstructorParametersListEvent : PubSubEvent<ConstructorParametersList> { }
 	public partial class AfterSaveCreateNewProductTaskEvent : PubSubEvent<CreateNewProductTask> { }
 	public partial class AfterSaveDocumentNumberEvent : PubSubEvent<DocumentNumber> { }
 	public partial class AfterSaveFakeDataEvent : PubSubEvent<FakeData> { }

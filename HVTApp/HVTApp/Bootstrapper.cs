@@ -65,6 +65,7 @@ namespace HVTApp
         protected override void InitializeShell()
         {
             SetGlobalAppProperties();
+            CheckLastDeveloperVizit();
             Application.Current.MainWindow.Show();
         }
 
@@ -82,6 +83,26 @@ namespace HVTApp
             GlobalAppProperties.ProductDesignationService = Container.Resolve<IProductDesignationService>();
             GlobalAppProperties.ShippingService = Container.Resolve<IShippingService>();
             GlobalAppProperties.PriceService = Container.Resolve<IPriceService>();
+        }
+
+        private void CheckLastDeveloperVizit()
+        {
+            if (GlobalAppProperties.Actual.Developer != null)
+            {
+                var unitOfWork = Container.Resolve<IUnitOfWork>();
+                var globalProperties = unitOfWork.Repository<GlobalProperties>().GetAll().OrderBy(x => x.Date).LastOrDefault();
+                if (globalProperties != null && GlobalAppProperties.Actual.Developer.Id == GlobalAppProperties.User.Id)
+                {
+                    globalProperties.LastDeveloperVizit = DateTime.Today;
+                    unitOfWork.SaveChanges();
+                    GlobalAppProperties.Actual.LastDeveloperVizit = DateTime.Today;
+                }
+
+                if (GlobalAppProperties.Actual.LastDeveloperVizit.HasValue && (DateTime.Today - GlobalAppProperties.Actual.LastDeveloperVizit.Value).Days > 90)
+                {
+                    Application.Current.Shutdown();
+                }
+            }
         }
 
         protected override void ConfigureContainer()

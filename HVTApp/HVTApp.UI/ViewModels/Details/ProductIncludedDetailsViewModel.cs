@@ -1,3 +1,4 @@
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.UI.Wrapper;
@@ -16,7 +17,8 @@ namespace HVTApp.UI.ViewModels
 
         private void SelectProductCommand_Execute()
         {
-            var product = Container.Resolve<IGetProductService>().GetProduct(Item.Model.Product);
+            var preselectedProduct = Item.Model.Product ?? GlobalAppProperties.Actual.ProductIncludedDefault;
+            var product = Container.Resolve<IGetProductService>().GetProduct(preselectedProduct);
             if (product != null)
             {
                 product = UnitOfWork.Repository<Product>().GetById(product.Id);

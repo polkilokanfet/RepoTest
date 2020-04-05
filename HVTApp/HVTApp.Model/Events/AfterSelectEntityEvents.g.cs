@@ -6,6 +6,8 @@ namespace HVTApp.Model.Events
 	public partial class AfterSelectCountryUnionEvent : PubSubEvent<PubSubEventArgs<CountryUnion>> { }
 	public partial class AfterSelectBankGuaranteeEvent : PubSubEvent<PubSubEventArgs<BankGuarantee>> { }
 	public partial class AfterSelectBankGuaranteeTypeEvent : PubSubEvent<PubSubEventArgs<BankGuaranteeType>> { }
+	public partial class AfterSelectConstructorsParametersEvent : PubSubEvent<PubSubEventArgs<ConstructorsParameters>> { }
+	public partial class AfterSelectConstructorParametersListEvent : PubSubEvent<PubSubEventArgs<ConstructorParametersList>> { }
 	public partial class AfterSelectCreateNewProductTaskEvent : PubSubEvent<PubSubEventArgs<CreateNewProductTask>> { }
 	public partial class AfterSelectDocumentNumberEvent : PubSubEvent<PubSubEventArgs<DocumentNumber>> { }
 	public partial class AfterSelectFakeDataEvent : PubSubEvent<PubSubEventArgs<FakeData>> { }

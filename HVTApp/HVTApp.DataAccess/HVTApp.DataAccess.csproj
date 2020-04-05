@@ -73,6 +73,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EntityTypeConfigurations\Custom\BankGuaranteeConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\ConstructorParametersListConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\ConstructorsParametersConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\CountryUnionConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\GlobalPropertiesConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\CostOnDateConfiguration.cs" />
@@ -171,6 +173,10 @@
     <Compile Include="Migrations\202003270706249_27032020.Designer.cs">
       <DependentUpon>202003270706249_27032020.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202004051449389_ConstructorParameters.cs" />
+    <Compile Include="Migrations\202004051449389_ConstructorParameters.Designer.cs">
+      <DependentUpon>202004051449389_ConstructorParameters.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -253,6 +259,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003270706249_27032020.resx">
       <DependentUpon>202003270706249_27032020.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004051449389_ConstructorParameters.resx">
+      <DependentUpon>202004051449389_ConstructorParameters.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

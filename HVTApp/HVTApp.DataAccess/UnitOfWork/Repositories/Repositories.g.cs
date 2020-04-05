@@ -25,6 +25,20 @@ namespace HVTApp.DataAccess
 		}
     }
 
+    public partial class ConstructorsParametersRepository : BaseRepository<ConstructorsParameters>, IConstructorsParametersRepository
+    {
+		public ConstructorsParametersRepository(DbContext context) : base(context) 
+		{
+		}
+    }
+
+    public partial class ConstructorParametersListRepository : BaseRepository<ConstructorParametersList>, IConstructorParametersListRepository
+    {
+		public ConstructorParametersListRepository(DbContext context) : base(context) 
+		{
+		}
+    }
+
     public partial class CreateNewProductTaskRepository : BaseRepository<CreateNewProductTask>, ICreateNewProductTaskRepository
     {
 		public CreateNewProductTaskRepository(DbContext context) : base(context) 

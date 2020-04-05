@@ -56,5 +56,15 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Путь к папке с запросами")]
         public string IncomingRequestsPath { get; set; }
+
+        [Designation("Разработчик")]
+        public virtual User Developer { get; set; }
+
+        [Designation("Дата последнего визита разработчика")]
+        public virtual DateTime? LastDeveloperVizit { get; set; }
+
+        [Designation("Дополнительное оборудование")]
+        public virtual Product ProductIncludedDefault { get; set; }
+
     }
 }

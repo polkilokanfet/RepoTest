@@ -60,6 +60,8 @@
     <Compile Include="POCOs\ActivityFieldEnum.cs" />
     <Compile Include="POCOs\Address\CountryUnion.cs" />
     <Compile Include="POCOs\BankGuarantee.cs" />
+    <Compile Include="POCOs\ConstructorParametersList.cs" />
+    <Compile Include="POCOs\ConstructorsParameters.cs" />
     <Compile Include="POCOs\CreateNewProductTask.cs" />
     <Compile Include="Comparers\ParameterComparer.cs" />
     <Compile Include="POCOs\DocumentNumber.cs" />

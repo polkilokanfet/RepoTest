@@ -119,6 +119,138 @@ namespace HVTApp.UI.ViewModels
     }
 
 
+    public partial class ConstructorParametersListDetailsViewModel : BaseDetailsViewModel<ConstructorParametersListWrapper, ConstructorParametersList, AfterSaveConstructorParametersListEvent>
+    {
+		private Func<List<Parameter>> _getEntitiesForAddInParametersCommand;
+		public ICommand AddInParametersCommand { get; }
+		public ICommand RemoveFromParametersCommand { get; }
+		private ParameterWrapper _selectedParametersItem;
+		public ParameterWrapper SelectedParametersItem 
+		{ 
+			get { return _selectedParametersItem; }
+			set 
+			{ 
+				if (Equals(_selectedParametersItem, value)) return;
+				_selectedParametersItem = value;
+				OnPropertyChanged();
+				((DelegateCommand)RemoveFromParametersCommand).RaiseCanExecuteChanged();
+			}
+		}
+
+
+        public ConstructorParametersListDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+			
+			if (_getEntitiesForAddInParametersCommand == null) _getEntitiesForAddInParametersCommand = () => { return UnitOfWork.Repository<Parameter>().GetAll(); };;
+			if (AddInParametersCommand == null) AddInParametersCommand = new DelegateCommand(AddInParametersCommand_Execute_Default);
+			if (RemoveFromParametersCommand == null) RemoveFromParametersCommand = new DelegateCommand(RemoveFromParametersCommand_Execute_Default, RemoveFromParametersCommand_CanExecute_Default);
+
+		}
+
+			private void AddInParametersCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<Parameter, ParameterWrapper>(_getEntitiesForAddInParametersCommand(), Item.Parameters);
+			}
+
+			private void RemoveFromParametersCommand_Execute_Default()
+			{
+				Item.Parameters.Remove(SelectedParametersItem);
+			}
+
+			private bool RemoveFromParametersCommand_CanExecute_Default()
+			{
+				return SelectedParametersItem != null;
+			}
+
+
+
+    }
+
+
+    public partial class ConstructorsParametersDetailsViewModel : BaseDetailsViewModel<ConstructorsParametersWrapper, ConstructorsParameters, AfterSaveConstructorsParametersEvent>
+    {
+		private Func<List<User>> _getEntitiesForAddInConstructorsCommand;
+		public ICommand AddInConstructorsCommand { get; }
+		public ICommand RemoveFromConstructorsCommand { get; }
+		private UserWrapper _selectedConstructorsItem;
+		public UserWrapper SelectedConstructorsItem 
+		{ 
+			get { return _selectedConstructorsItem; }
+			set 
+			{ 
+				if (Equals(_selectedConstructorsItem, value)) return;
+				_selectedConstructorsItem = value;
+				OnPropertyChanged();
+				((DelegateCommand)RemoveFromConstructorsCommand).RaiseCanExecuteChanged();
+			}
+		}
+
+		private Func<List<ConstructorParametersList>> _getEntitiesForAddInPatametersListsCommand;
+		public ICommand AddInPatametersListsCommand { get; }
+		public ICommand RemoveFromPatametersListsCommand { get; }
+		private ConstructorParametersListWrapper _selectedPatametersListsItem;
+		public ConstructorParametersListWrapper SelectedPatametersListsItem 
+		{ 
+			get { return _selectedPatametersListsItem; }
+			set 
+			{ 
+				if (Equals(_selectedPatametersListsItem, value)) return;
+				_selectedPatametersListsItem = value;
+				OnPropertyChanged();
+				((DelegateCommand)RemoveFromPatametersListsCommand).RaiseCanExecuteChanged();
+			}
+		}
+
+
+        public ConstructorsParametersDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+			
+			if (_getEntitiesForAddInConstructorsCommand == null) _getEntitiesForAddInConstructorsCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };;
+			if (AddInConstructorsCommand == null) AddInConstructorsCommand = new DelegateCommand(AddInConstructorsCommand_Execute_Default);
+			if (RemoveFromConstructorsCommand == null) RemoveFromConstructorsCommand = new DelegateCommand(RemoveFromConstructorsCommand_Execute_Default, RemoveFromConstructorsCommand_CanExecute_Default);
+
+			
+			if (_getEntitiesForAddInPatametersListsCommand == null) _getEntitiesForAddInPatametersListsCommand = () => { return UnitOfWork.Repository<ConstructorParametersList>().GetAll(); };;
+			if (AddInPatametersListsCommand == null) AddInPatametersListsCommand = new DelegateCommand(AddInPatametersListsCommand_Execute_Default);
+			if (RemoveFromPatametersListsCommand == null) RemoveFromPatametersListsCommand = new DelegateCommand(RemoveFromPatametersListsCommand_Execute_Default, RemoveFromPatametersListsCommand_CanExecute_Default);
+
+		}
+
+			private void AddInConstructorsCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<User, UserWrapper>(_getEntitiesForAddInConstructorsCommand(), Item.Constructors);
+			}
+
+			private void RemoveFromConstructorsCommand_Execute_Default()
+			{
+				Item.Constructors.Remove(SelectedConstructorsItem);
+			}
+
+			private bool RemoveFromConstructorsCommand_CanExecute_Default()
+			{
+				return SelectedConstructorsItem != null;
+			}
+
+			private void AddInPatametersListsCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<ConstructorParametersList, ConstructorParametersListWrapper>(_getEntitiesForAddInPatametersListsCommand(), Item.PatametersLists);
+			}
+
+			private void RemoveFromPatametersListsCommand_Execute_Default()
+			{
+				Item.PatametersLists.Remove(SelectedPatametersListsItem);
+			}
+
+			private bool RemoveFromPatametersListsCommand_CanExecute_Default()
+			{
+				return SelectedPatametersListsItem != null;
+			}
+
+
+
+    }
+
+
     public partial class CreateNewProductTaskDetailsViewModel : BaseDetailsViewModel<CreateNewProductTaskWrapper, CreateNewProductTask, AfterSaveCreateNewProductTaskEvent>
     {
 		//private Func<Task<List<Product>>> _getEntitiesForSelectProductCommand;
@@ -918,6 +1050,16 @@ namespace HVTApp.UI.ViewModels
 		public ICommand SelectPaymentConditionSetCommand { get; private set; }
 		public ICommand ClearPaymentConditionSetCommand { get; private set; }
 
+		//private Func<Task<List<User>>> _getEntitiesForSelectDeveloperCommand;
+		private Func<List<User>> _getEntitiesForSelectDeveloperCommand;
+		public ICommand SelectDeveloperCommand { get; private set; }
+		public ICommand ClearDeveloperCommand { get; private set; }
+
+		//private Func<Task<List<Product>>> _getEntitiesForSelectProductIncludedDefaultCommand;
+		private Func<List<Product>> _getEntitiesForSelectProductIncludedDefaultCommand;
+		public ICommand SelectProductIncludedDefaultCommand { get; private set; }
+		public ICommand ClearProductIncludedDefaultCommand { get; private set; }
+
 
         public GlobalPropertiesDetailsViewModel(IUnityContainer container) : base(container) 
 		{
@@ -970,6 +1112,16 @@ namespace HVTApp.UI.ViewModels
 			if (_getEntitiesForSelectPaymentConditionSetCommand == null) _getEntitiesForSelectPaymentConditionSetCommand = () => { return UnitOfWork.Repository<PaymentConditionSet>().GetAll(); };
 			if (SelectPaymentConditionSetCommand == null) SelectPaymentConditionSetCommand = new DelegateCommand(SelectPaymentConditionSetCommand_Execute_Default);
 			if (ClearPaymentConditionSetCommand == null) ClearPaymentConditionSetCommand = new DelegateCommand(ClearPaymentConditionSetCommand_Execute_Default);
+
+			
+			if (_getEntitiesForSelectDeveloperCommand == null) _getEntitiesForSelectDeveloperCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };
+			if (SelectDeveloperCommand == null) SelectDeveloperCommand = new DelegateCommand(SelectDeveloperCommand_Execute_Default);
+			if (ClearDeveloperCommand == null) ClearDeveloperCommand = new DelegateCommand(ClearDeveloperCommand_Execute_Default);
+
+			
+			if (_getEntitiesForSelectProductIncludedDefaultCommand == null) _getEntitiesForSelectProductIncludedDefaultCommand = () => { return UnitOfWork.Repository<Product>().GetAll(); };
+			if (SelectProductIncludedDefaultCommand == null) SelectProductIncludedDefaultCommand = new DelegateCommand(SelectProductIncludedDefaultCommand_Execute_Default);
+			if (ClearProductIncludedDefaultCommand == null) ClearProductIncludedDefaultCommand = new DelegateCommand(ClearProductIncludedDefaultCommand_Execute_Default);
 
 		}
 
@@ -1080,6 +1232,28 @@ namespace HVTApp.UI.ViewModels
 		private void ClearPaymentConditionSetCommand_Execute_Default() 
 		{
 						Item.PaymentConditionSet = null;
+		    
+		}
+
+		private void SelectDeveloperCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<User, UserWrapper>(_getEntitiesForSelectDeveloperCommand(), nameof(Item.Developer), Item.Developer?.Id);
+		}
+
+		private void ClearDeveloperCommand_Execute_Default() 
+		{
+						Item.Developer = null;
+		    
+		}
+
+		private void SelectProductIncludedDefaultCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<Product, ProductWrapper>(_getEntitiesForSelectProductIncludedDefaultCommand(), nameof(Item.ProductIncludedDefault), Item.ProductIncludedDefault?.Id);
+		}
+
+		private void ClearProductIncludedDefaultCommand_Execute_Default() 
+		{
+						Item.ProductIncludedDefault = null;
 		    
 		}
 

@@ -6,6 +6,8 @@ namespace HVTApp.DataAccess
     public partial interface ICountryUnionRepository : IRepository<CountryUnion> { }
     public partial interface IBankGuaranteeRepository : IRepository<BankGuarantee> { }
     public partial interface IBankGuaranteeTypeRepository : IRepository<BankGuaranteeType> { }
+    public partial interface IConstructorsParametersRepository : IRepository<ConstructorsParameters> { }
+    public partial interface IConstructorParametersListRepository : IRepository<ConstructorParametersList> { }
     public partial interface ICreateNewProductTaskRepository : IRepository<CreateNewProductTask> { }
     public partial interface IDocumentNumberRepository : IRepository<DocumentNumber> { }
     public partial interface IFakeDataRepository : IRepository<FakeData> { }

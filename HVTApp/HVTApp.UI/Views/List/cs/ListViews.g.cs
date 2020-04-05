@@ -536,6 +536,135 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
+	[Designation("Конструктора - параметры (список)")]
+	[DesignationPlural("ConstructorParametersListLookup")]
+	[AllowEditAttribute(Role.Admin)]
+
+    public partial class ConstructorParametersListLookupListView : ViewBase
+    {
+        public ConstructorParametersListLookupListView()
+        {
+            InitializeComponent();
+        }
+
+        public ConstructorParametersListLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, ConstructorParametersListLookupListViewModel ConstructorParametersListLookupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = ConstructorParametersListLookupListViewModel;
+			ConstructorParametersListLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			((ConstructorParametersListLookupListViewModel)DataContext).Load();
+        }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility NameVisibility
+        {
+            get { return ConstructorParametersListLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ConstructorParametersListLookup.Name)].Visibility; }
+            set { ConstructorParametersListLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ConstructorParametersListLookup.Name)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return ConstructorParametersListLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ConstructorParametersListLookup.DisplayMember)].Visibility; }
+            set { ConstructorParametersListLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ConstructorParametersListLookup.DisplayMember)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return ConstructorParametersListLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ConstructorParametersListLookup.Entity)].Visibility; }
+            set { ConstructorParametersListLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ConstructorParametersListLookup.Entity)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ParametersVisibility
+        {
+            get { return ConstructorParametersListLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ConstructorParametersListLookup.Parameters)].Visibility; }
+            set { ConstructorParametersListLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ConstructorParametersListLookup.Parameters)].Visibility = value; }
+        }
+
+
+
+		#endregion
+    }
+
+
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
+	[Designation("Конструктора - параметры")]
+	[DesignationPlural("ConstructorsParametersLookup")]
+	[AllowEditAttribute(Role.Admin)]
+
+    public partial class ConstructorsParametersLookupListView : ViewBase
+    {
+        public ConstructorsParametersLookupListView()
+        {
+            InitializeComponent();
+        }
+
+        public ConstructorsParametersLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, ConstructorsParametersLookupListViewModel ConstructorsParametersLookupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = ConstructorsParametersLookupListViewModel;
+			ConstructorsParametersLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			((ConstructorsParametersLookupListViewModel)DataContext).Load();
+        }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility NameVisibility
+        {
+            get { return ConstructorsParametersLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ConstructorsParametersLookup.Name)].Visibility; }
+            set { ConstructorsParametersLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ConstructorsParametersLookup.Name)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return ConstructorsParametersLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ConstructorsParametersLookup.DisplayMember)].Visibility; }
+            set { ConstructorsParametersLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ConstructorsParametersLookup.DisplayMember)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return ConstructorsParametersLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ConstructorsParametersLookup.Entity)].Visibility; }
+            set { ConstructorsParametersLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ConstructorsParametersLookup.Entity)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ConstructorsVisibility
+        {
+            get { return ConstructorsParametersLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ConstructorsParametersLookup.Constructors)].Visibility; }
+            set { ConstructorsParametersLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ConstructorsParametersLookup.Constructors)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility PatametersListsVisibility
+        {
+            get { return ConstructorsParametersLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ConstructorsParametersLookup.PatametersLists)].Visibility; }
+            set { ConstructorsParametersLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ConstructorsParametersLookup.PatametersLists)].Visibility = value; }
+        }
+
+
+
+		#endregion
+    }
+
+
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Контракт")]
 	[DesignationPlural("ContractLookup")]
 	[AllowEditAttribute(Role.SalesManager)]
@@ -1648,6 +1777,13 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility LastDeveloperVizitVisibility
+        {
+            get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.LastDeveloperVizit)].Visibility; }
+            set { GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.LastDeveloperVizit)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility DisplayMemberVisibility
         {
             get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.DisplayMember)].Visibility; }
@@ -1722,6 +1858,20 @@ namespace HVTApp.UI.Views
         {
             get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.PaymentConditionSet)].Visibility; }
             set { GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.PaymentConditionSet)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DeveloperVisibility
+        {
+            get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.Developer)].Visibility; }
+            set { GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.Developer)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ProductIncludedDefaultVisibility
+        {
+            get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.ProductIncludedDefault)].Visibility; }
+            set { GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.ProductIncludedDefault)].Visibility = value; }
         }
 
 
@@ -4715,6 +4865,13 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility OrderIsTakenVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.OrderIsTaken)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.OrderIsTaken)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility IsPaidVisibility
         {
             get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.IsPaid)].Visibility; }
@@ -4761,6 +4918,13 @@ namespace HVTApp.UI.Views
         {
             get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.SumToShipping)].Visibility; }
             set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.SumToShipping)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility OrderInTakeDateInjectedVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.OrderInTakeDateInjected)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.OrderInTakeDateInjected)].Visibility = value; }
         }
 
 

@@ -10,6 +10,8 @@ namespace HVTApp.DataAccess
             CountryUnionRepository = new CountryUnionRepositoryTest(testData);
             BankGuaranteeRepository = new BankGuaranteeRepositoryTest(testData);
             BankGuaranteeTypeRepository = new BankGuaranteeTypeRepositoryTest(testData);
+            ConstructorsParametersRepository = new ConstructorsParametersRepositoryTest(testData);
+            ConstructorParametersListRepository = new ConstructorParametersListRepositoryTest(testData);
             CreateNewProductTaskRepository = new CreateNewProductTaskRepositoryTest(testData);
             DocumentNumberRepository = new DocumentNumberRepositoryTest(testData);
             FakeDataRepository = new FakeDataRepositoryTest(testData);
@@ -82,6 +84,8 @@ namespace HVTApp.DataAccess
         public ICountryUnionRepository CountryUnionRepository { get; }
         public IBankGuaranteeRepository BankGuaranteeRepository { get; }
         public IBankGuaranteeTypeRepository BankGuaranteeTypeRepository { get; }
+        public IConstructorsParametersRepository ConstructorsParametersRepository { get; }
+        public IConstructorParametersListRepository ConstructorParametersListRepository { get; }
         public ICreateNewProductTaskRepository CreateNewProductTaskRepository { get; }
         public IDocumentNumberRepository DocumentNumberRepository { get; }
         public IFakeDataRepository FakeDataRepository { get; }

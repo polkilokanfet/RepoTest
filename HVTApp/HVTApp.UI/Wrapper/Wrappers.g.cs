@@ -157,6 +157,112 @@ namespace HVTApp.UI.Wrapper
 
 	}
 
+		public partial class ConstructorParametersListWrapper : WrapperBase<ConstructorParametersList>
+	{
+	    public ConstructorParametersListWrapper(ConstructorParametersList model) : base(model) { }
+
+	
+
+        #region SimpleProperties
+
+        public System.String Name
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
+        public bool NameIsChanged => GetIsChanged(nameof(Name));
+
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+
+        #endregion
+
+
+        #region CollectionProperties
+
+        public IValidatableChangeTrackingCollection<ParameterWrapper> Parameters { get; private set; }
+
+
+        #endregion
+
+  
+        protected override void InitializeCollectionProperties()
+        {
+
+          if (Model.Parameters == null) throw new ArgumentException("Parameters cannot be null");
+          Parameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.Parameters.Select(e => new ParameterWrapper(e)));
+          RegisterCollection(Parameters, Model.Parameters);
+
+
+        }
+
+	}
+
+		public partial class ConstructorsParametersWrapper : WrapperBase<ConstructorsParameters>
+	{
+	    public ConstructorsParametersWrapper(ConstructorsParameters model) : base(model) { }
+
+	
+
+        #region SimpleProperties
+
+        public System.String Name
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
+        public bool NameIsChanged => GetIsChanged(nameof(Name));
+
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+
+        #endregion
+
+
+        #region CollectionProperties
+
+        public IValidatableChangeTrackingCollection<UserWrapper> Constructors { get; private set; }
+
+
+        public IValidatableChangeTrackingCollection<ConstructorParametersListWrapper> PatametersLists { get; private set; }
+
+
+        #endregion
+
+  
+        protected override void InitializeCollectionProperties()
+        {
+
+          if (Model.Constructors == null) throw new ArgumentException("Constructors cannot be null");
+          Constructors = new ValidatableChangeTrackingCollection<UserWrapper>(Model.Constructors.Select(e => new UserWrapper(e)));
+          RegisterCollection(Constructors, Model.Constructors);
+
+
+          if (Model.PatametersLists == null) throw new ArgumentException("PatametersLists cannot be null");
+          PatametersLists = new ValidatableChangeTrackingCollection<ConstructorParametersListWrapper>(Model.PatametersLists.Select(e => new ConstructorParametersListWrapper(e)));
+          RegisterCollection(PatametersLists, Model.PatametersLists);
+
+
+        }
+
+	}
+
 		public partial class CreateNewProductTaskWrapper : WrapperBase<CreateNewProductTask>
 	{
 	    public CreateNewProductTaskWrapper(CreateNewProductTask model) : base(model) { }
@@ -1366,6 +1472,15 @@ namespace HVTApp.UI.Wrapper
         public bool IncomingRequestsPathIsChanged => GetIsChanged(nameof(IncomingRequestsPath));
 
 
+        public System.Nullable<System.DateTime> LastDeveloperVizit
+        {
+          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.DateTime> LastDeveloperVizitOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(LastDeveloperVizit));
+        public bool LastDeveloperVizitIsChanged => GetIsChanged(nameof(LastDeveloperVizit));
+
+
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -1450,6 +1565,20 @@ namespace HVTApp.UI.Wrapper
         }
 
 
+	    public UserWrapper Developer 
+        {
+            get { return GetWrapper<UserWrapper>(); }
+            set { SetComplexValue<User, UserWrapper>(Developer, value); }
+        }
+
+
+	    public ProductWrapper ProductIncludedDefault 
+        {
+            get { return GetWrapper<ProductWrapper>(); }
+            set { SetComplexValue<Product, ProductWrapper>(ProductIncludedDefault, value); }
+        }
+
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -1483,6 +1612,12 @@ namespace HVTApp.UI.Wrapper
 
 
             InitializeComplexProperty<PaymentConditionSetWrapper>(nameof(PaymentConditionSet), Model.PaymentConditionSet == null ? null : new PaymentConditionSetWrapper(Model.PaymentConditionSet));
+
+
+            InitializeComplexProperty<UserWrapper>(nameof(Developer), Model.Developer == null ? null : new UserWrapper(Model.Developer));
+
+
+            InitializeComplexProperty<ProductWrapper>(nameof(ProductIncludedDefault), Model.ProductIncludedDefault == null ? null : new ProductWrapper(Model.ProductIncludedDefault));
 
 
         }
@@ -3310,6 +3445,15 @@ namespace HVTApp.UI.Wrapper
         public bool DeliveryDateIsChanged => GetIsChanged(nameof(DeliveryDate));
 
 
+        public System.Nullable<System.DateTime> OrderInTakeDateInjected
+        {
+          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.DateTime> OrderInTakeDateInjectedOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(OrderInTakeDateInjected));
+        public bool OrderInTakeDateInjectedIsChanged => GetIsChanged(nameof(OrderInTakeDateInjected));
+
+
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -3444,6 +3588,9 @@ namespace HVTApp.UI.Wrapper
 
 
         public System.Boolean IsDone => GetValue<System.Boolean>(); 
+
+
+        public System.Boolean OrderIsTaken => GetValue<System.Boolean>(); 
 
 
         public System.Boolean IsPaid => GetValue<System.Boolean>(); 

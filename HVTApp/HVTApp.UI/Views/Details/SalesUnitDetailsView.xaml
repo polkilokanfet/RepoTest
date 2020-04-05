@@ -76,6 +76,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
 
@@ -325,6 +327,12 @@
                                     AddItemCommand="{Binding SelectAddressDeliveryCommand}" 
                                     RemoveItemCommand="{Binding ClearAddressDeliveryCommand}"
 									Visibility="{Binding VisibilityAddressDeliverySalesUnit, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="35" Content="OrderInTakeDateInjected" Visibility="{Binding VisibilityOrderInTakeDateInjectedSalesUnit, ElementName=Root}"/>
+        <DatePicker Grid.Column="1" Grid.Row="35" 
+                    SelectedDate="{Binding Item.OrderInTakeDateInjected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding VisibilityOrderInTakeDateInjectedSalesUnit, ElementName=Root}"/>
 
 
 

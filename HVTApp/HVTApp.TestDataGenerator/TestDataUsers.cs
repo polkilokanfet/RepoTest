@@ -203,7 +203,7 @@ namespace HVTApp.TestDataGenerator
 
             #if DEBUG
 
-            UserIvanov.Clone(new User { Login = "1", Password = pas1, Employee = EmployeeIvanov, Roles = new List<UserRole> { UserRoleAdmin, UserRoleDataBaseFiller, UserRoleSalesManager, UserRolePlanMaker, UserRoleDirector, UserRoleEconomist, UserRolePricer } });
+            UserIvanov.Clone(new User { Login = "1", Password = pas1, Employee = EmployeeIvanov, Roles = new List<UserRole> { UserRoleAdmin, UserRoleDataBaseFiller, UserRoleSalesManager, UserRolePlanMaker, UserRoleDirector, UserRoleEconomist, UserRolePricer, UserRoleConstructor } });
             UserPetrov.Clone(new User { Login = "2", Password = pas2, Employee = EmployeePetrov, Roles = new List<UserRole> { UserRoleDataBaseFiller } });
 
             #endif

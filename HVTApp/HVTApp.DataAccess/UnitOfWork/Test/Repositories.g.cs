@@ -1,4 +1,3 @@
-
 using System.Collections.Generic;
 using HVTApp.TestDataGenerator;
 using HVTApp.Model.POCOs;
@@ -18,6 +17,16 @@ namespace HVTApp.DataAccess
     public partial class BankGuaranteeTypeRepositoryTest : TestBaseRepository<BankGuaranteeType>, IBankGuaranteeTypeRepository
     {
         public BankGuaranteeTypeRepositoryTest(TestData testData) : base(testData) {}
+    }
+
+    public partial class ConstructorsParametersRepositoryTest : TestBaseRepository<ConstructorsParameters>, IConstructorsParametersRepository
+    {
+        public ConstructorsParametersRepositoryTest(TestData testData) : base(testData) {}
+    }
+
+    public partial class ConstructorParametersListRepositoryTest : TestBaseRepository<ConstructorParametersList>, IConstructorParametersListRepository
+    {
+        public ConstructorParametersListRepositoryTest(TestData testData) : base(testData) {}
     }
 
     public partial class CreateNewProductTaskRepositoryTest : TestBaseRepository<CreateNewProductTask>, ICreateNewProductTaskRepository
@@ -267,7 +276,6 @@ namespace HVTApp.DataAccess
         {
             throw new System.NotImplementedException();
         }
-
     }
 
     public partial class DocumentRepositoryTest : TestBaseRepository<Document>, IDocumentRepository
