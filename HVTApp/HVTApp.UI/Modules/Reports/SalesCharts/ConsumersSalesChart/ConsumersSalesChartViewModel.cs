@@ -6,16 +6,17 @@ namespace HVTApp.UI.Modules.Reports.SalesCharts.ConsumersSalesChart
 {
     public class ConsumersSalesChartViewModel : SalesChartViewModel<ConsumersSalesChartItem>
     {
+        public override string Title => "Продажи по потребителям";
+
         public ConsumersSalesChartViewModel(IUnityContainer container) : base(container)
         {
         }
 
         protected override List<ConsumersSalesChartItem> GetItems()
         {
-            return SalesUnits
-                .Where(x => x.OrderInTakeDate >= StartDate && x.OrderInTakeDate <= FinishDate)
+            return SalesUnitsFiltered
                 .GroupBy(x => x.Facility.OwnerCompany)
-                .Select(x => new ConsumersSalesChartItem(x))
+                .Select(x => new ConsumersSalesChartItem(x, SumOfSalesUnits))
                 .OrderByDescending(x => x.Sum)
                 .ToList();
         }

@@ -1,13 +1,14 @@
-п»їusing System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Modules.Reports.SalesCharts.ConsumersSalesChart;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.Modules.Reports.SalesCharts.ContragentsSalesChart
 {
     public class ContragentsSalesChartViewModel : SalesChartViewModel<ContragentsSalesChartItem>
     {
+        public override string Title => "Продажи по контрагентам";
+
         public ContragentsSalesChartViewModel(IUnityContainer container) : base(container)
         {
         }
@@ -19,10 +20,9 @@ namespace HVTApp.UI.Modules.Reports.SalesCharts.ContragentsSalesChart
 
         protected override List<ContragentsSalesChartItem> GetItems()
         {
-            return SalesUnits
-                .Where(x => x.OrderInTakeDate >= StartDate && x.OrderInTakeDate <= FinishDate)
+            return SalesUnitsFiltered
                 .GroupBy(x => x.Facility.OwnerCompany)
-                .Select(x => new ContragentsSalesChartItem(x))
+                .Select(x => new ContragentsSalesChartItem(x, SumOfSalesUnits))
                 .OrderByDescending(x => x.Sum)
                 .ToList();
         }

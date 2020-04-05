@@ -7,6 +7,8 @@ namespace HVTApp.UI.Modules.Reports.SalesCharts.ManagersSalesChart
 {
     public class ManagersSalesChartViewModel : SalesChartViewModel<ManagersSalesChartItem>
     {
+        public override string Title => "Продажи по менеджерам";
+
         public ManagersSalesChartViewModel(IUnityContainer container) : base(container)
         {
         }
@@ -18,10 +20,9 @@ namespace HVTApp.UI.Modules.Reports.SalesCharts.ManagersSalesChart
 
         protected override List<ManagersSalesChartItem> GetItems()
         {
-            return SalesUnits
-                .Where(x => x.OrderInTakeDate >= StartDate && x.OrderInTakeDate <= FinishDate)
+            return SalesUnitsFiltered
                 .GroupBy(x => x.Project.Manager)
-                .Select(x => new ManagersSalesChartItem(x))
+                .Select(x => new ManagersSalesChartItem(x, SumOfSalesUnits))
                 .OrderByDescending(x => x.Sum)
                 .ToList();            
         }

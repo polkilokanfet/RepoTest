@@ -6,10 +6,12 @@ namespace HVTApp.UI.Modules.Reports.SalesCharts.ContragentsSalesChart
 {
     public class ContragentsSalesChartItem : SalesChartItem
     {
-        public string Contragent => SalesUnits.First().Specification.Contract.Contragent.ToString();
-
-        public ContragentsSalesChartItem(IEnumerable<SalesUnit> salesUnits) : base(salesUnits)
+        public ContragentsSalesChartItem(IEnumerable<SalesUnit> salesUnits, double sumOfAll) : base(salesUnits, sumOfAll)
         {
         }
+
+        public override string ItemName => SalesUnits.First().Specification.Contract.Contragent.ToString();
+
+        public override string Title => "Контрагент";
     }
 }

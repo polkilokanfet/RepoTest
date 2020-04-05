@@ -6,10 +6,12 @@ namespace HVTApp.UI.Modules.Reports.SalesCharts.ManagersSalesChart
 {
     public class ManagersSalesChartItem : SalesChartItem
     {
-        public string Manager => SalesUnits.First().Project.Manager.Employee.Person.Surname;
-
-        public ManagersSalesChartItem(IEnumerable<SalesUnit> salesUnits) : base(salesUnits)
+        public ManagersSalesChartItem(IEnumerable<SalesUnit> salesUnits, double sumOfAll) : base(salesUnits, sumOfAll)
         {
         }
+
+        public override string ItemName => SalesUnits.First().Project.Manager.Employee.Person.Surname;
+
+        public override string Title => "Менеджер";
     }
 }

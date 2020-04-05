@@ -9,6 +9,11 @@ using HVTApp.UI.Modules.Products.Views;
 using HVTApp.UI.Modules.Reports.FlatReport;
 using HVTApp.UI.Modules.Reports.SalesCharts.ConsumersSalesChart;
 using HVTApp.UI.Modules.Reports.SalesCharts.ContragentsSalesChart;
+using HVTApp.UI.Modules.Reports.SalesCharts.ManagersSalesChart;
+using HVTApp.UI.Modules.Reports.SalesCharts.MarketCapacityChart;
+using HVTApp.UI.Modules.Reports.SalesCharts.ProducersSalesChart;
+using HVTApp.UI.Modules.Reports.SalesCharts.ProductTypesSalesChart;
+using HVTApp.UI.Modules.Reports.SalesCharts.RegionsSalesChart;
 using HVTApp.UI.Modules.Reports.Views;
 using HVTApp.UI.Modules.SupplyModule.Views;
 using HVTApp.UI.PriceCalculations.View;
@@ -17,9 +22,6 @@ using HVTApp.UI.ViewModels;
 using HVTApp.UI.Views;
 using Microsoft.Practices.Unity;
 using Prism.Regions;
-using ManagersSalesChartView = HVTApp.UI.Modules.Reports.SalesCharts.ManagersSalesChart.ManagersSalesChartView;
-using ProductTypesSalesChartView = HVTApp.UI.Modules.Reports.SalesCharts.ProductTypesSalesChart.ProductTypesSalesChartView;
-using RegionsSalesChartView = HVTApp.UI.Modules.Reports.SalesCharts.RegionsSalesChart.RegionsSalesChartView;
 
 namespace HVTApp.UI
 {
@@ -56,6 +58,8 @@ namespace HVTApp.UI
             Container.RegisterViewForNavigation<RegionsSalesChartView>();
             Container.RegisterViewForNavigation<ConsumersSalesChartView>();
             Container.RegisterViewForNavigation<ContragentsSalesChartView>();
+            Container.RegisterViewForNavigation<ProducersSalesChartView>();
+            Container.RegisterViewForNavigation<MarketCapacityChartView>();
 
             _dialogService.RegisterShow<ProductStructureViewModel, ProductStructureView>();
             RegisterViews();

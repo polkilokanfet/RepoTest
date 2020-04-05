@@ -155,6 +155,19 @@
       <DependentUpon>ConsumersSalesChartView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Reports\SalesCharts\ConsumersSalesChart\ConsumersSalesChartViewModel.cs" />
+    <Compile Include="Modules\Reports\SalesCharts\MarketCapacityChart\MarketCapacityChartItem.cs" />
+    <Compile Include="Modules\Reports\SalesCharts\MarketCapacityChart\MarketCapacityChartView.xaml.cs">
+      <DependentUpon>MarketCapacityChartView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\SalesCharts\MarketCapacityChart\MarketCapacityChartViewModel.cs" />
+    <Compile Include="Modules\Reports\SalesCharts\ProducersSalesChart\ProducersSalesChartItem.cs" />
+    <Compile Include="Modules\Reports\SalesCharts\ProducersSalesChart\ProducersSalesChartView.xaml.cs">
+      <DependentUpon>ProducersSalesChartView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\SalesCharts\ProducersSalesChart\ProducersSalesChartViewModel.cs" />
+    <Compile Include="Modules\Reports\SalesCharts\SalesChartUserControl.xaml.cs">
+      <DependentUpon>SalesChartUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Reports\SalesCharts\SalesChartViewModel.cs" />
     <Compile Include="Modules\Reports\SalesCharts\SalesChartItem.cs" />
     <Compile Include="Modules\Reports\SalesCharts\RegionsSalesChart\RegionsSalesChartItem.cs" />
@@ -926,9 +939,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Modules\Reports\SalesCharts\MarketCapacityChart\MarketCapacityChartView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Reports\SalesCharts\ProducersSalesChart\ProducersSalesChartView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Modules\Reports\SalesCharts\RegionsSalesChart\RegionsSalesChartView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Reports\SalesCharts\SalesChartUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Modules\Reports\SalesCharts\TabSalesChart.xaml">
       <Generator>MSBuild:Compile</Generator>

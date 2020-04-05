@@ -1,4 +1,5 @@
 ﻿using HVTApp.Infrastructure;
+using Infragistics.Controls.Charts;
 using Prism.Events;
 using Prism.Regions;
 
@@ -11,5 +12,11 @@ namespace HVTApp.UI.Modules.Reports.SalesCharts.ManagersSalesChart
         {
             InitializeComponent();
         }
+
+        private void pieChart_SliceClick(object sender, SliceClickEventArgs e)
+        {
+            e.IsExploded = !e.IsExploded;
+        }
+
     }
 }

@@ -3,6 +3,8 @@ using HVTApp.UI.Modules.Reports.FlatReport;
 using HVTApp.UI.Modules.Reports.SalesCharts.ConsumersSalesChart;
 using HVTApp.UI.Modules.Reports.SalesCharts.ContragentsSalesChart;
 using HVTApp.UI.Modules.Reports.SalesCharts.ManagersSalesChart;
+using HVTApp.UI.Modules.Reports.SalesCharts.MarketCapacityChart;
+using HVTApp.UI.Modules.Reports.SalesCharts.ProducersSalesChart;
 using HVTApp.UI.Modules.Reports.SalesCharts.ProductTypesSalesChart;
 using HVTApp.UI.Modules.Reports.SalesCharts.RegionsSalesChart;
 using HVTApp.UI.Modules.Reports.Views;
@@ -22,6 +24,8 @@ namespace HVTApp.Modules.Reports.Menus
             Items.Add(new NavigationItem("Продажи по регионам", typeof(RegionsSalesChartView)));
             Items.Add(new NavigationItem("Продажи по потребителям", typeof(ConsumersSalesChartView)));
             Items.Add(new NavigationItem("Продажи по контрагентам", typeof(ContragentsSalesChartView)));
+            Items.Add(new NavigationItem("Продажи по производителям", typeof(ProducersSalesChartView)));
+            Items.Add(new NavigationItem("Ёмкость рынка", typeof(MarketCapacityChartView)));
         }
     }
 }

@@ -4,7 +4,8 @@
                                  xmlns:infRib="http://infragistics.com/Ribbon" 
                                  xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
                                 x:Class="HVTApp.UI.Modules.Reports.SalesCharts.TabSalesChart"
-                                 Header="График">
+                                xmlns:core="clr-namespace:System;assembly=mscorlib"
+                                Header="{Binding Title}">
 
     <infRib:RibbonGroup Caption="Данные">
         <infRib:ButtonTool Caption="Перезагрузить" Command="{Binding ReloadCommand}" SmallImage="/HVTApp.UI;component/Images/refresh.png"/>
@@ -22,5 +23,16 @@
             </StackPanel>
         </StackPanel>
     </infRib:RibbonGroup>
+
+    <infRib:RibbonGroup Caption="Данные за год">
+        <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Год: " />
+                <igWPF:XamNumericEditor Value="{Binding Year, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ValueType="core:Int32"/>
+            </StackPanel>
+            <Button Content="Применить" Command="{Binding GetDataByYearCommand}"/>
+        </StackPanel>
+    </infRib:RibbonGroup>
+
 
 </inf:RibbonTabItemWithViewModel>

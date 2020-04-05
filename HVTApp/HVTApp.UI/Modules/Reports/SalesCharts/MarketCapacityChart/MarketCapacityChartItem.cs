@@ -2,11 +2,11 @@
 using System.Linq;
 using HVTApp.Model.POCOs;
 
-namespace HVTApp.UI.Modules.Reports.SalesCharts.ProductTypesSalesChart
+namespace HVTApp.UI.Modules.Reports.SalesCharts.MarketCapacityChart
 {
-    public class ProductTypesSalesChartItem : SalesChartItem
+    public class MarketCapacityChartItem : SalesChartItem
     {
-        public ProductTypesSalesChartItem(IEnumerable<SalesUnit> salesUnits, double sumOfAll) : base(salesUnits, sumOfAll)
+        public MarketCapacityChartItem(IEnumerable<SalesUnit> salesUnits, double sumOfAll) : base(salesUnits, sumOfAll)
         {
         }
 

@@ -7,10 +7,12 @@ namespace HVTApp.UI.Modules.Reports.SalesCharts.RegionsSalesChart
 {
     public class RegionsSalesChartItem : SalesChartItem
     {
-        public string Region => SalesUnits.First().Facility.GetRegion()?.Name ?? "Не определен";
-
-        public RegionsSalesChartItem(IEnumerable<SalesUnit> salesUnits) : base(salesUnits)
+        public RegionsSalesChartItem(IEnumerable<SalesUnit> salesUnits, double sumOfAll) : base(salesUnits, sumOfAll)
         {
         }
+
+        public override string ItemName => SalesUnits.First().Facility.GetRegion()?.Name ?? "Не определен";
+
+        public override string Title => "Регион";
     }
 }
