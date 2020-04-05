@@ -16,7 +16,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
 
         private void MakeReportExecuteMethod()
         {
-            Items.ForEach(x => x.InjectOrderInTakeDates());
+            Items.ForEach(x => x.InjectDates());
             var salesUnits = Items.Where(x => x.InReport).SelectMany(x => x.SalesUnits).ToList();
 
             //проставляем количество родительских юнитов включенного оборудования

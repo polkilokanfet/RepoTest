@@ -305,6 +305,12 @@ namespace HVTApp.Model.POCOs
         public DateTime? ShippingConditionsDoneDate => AchiveSumDate(SumToShipping);
 
         /// <summary>
+        /// Внедренная дата начала производства (для отчета)
+        /// </summary>
+        [NotMapped]
+        public DateTime? StartProductionDateInjected { get; set; }
+
+        /// <summary>
         /// Расчетная дата начала производства.
         /// </summary>
         [Designation("Начало производства (расч.)"), OrderStatus(860), NotMapped]
@@ -312,6 +318,8 @@ namespace HVTApp.Model.POCOs
         {
             get
             {
+                if (StartProductionDateInjected.HasValue) return StartProductionDateInjected.Value;
+
                 if (StartProductionDate.HasValue) return StartProductionDate.Value;
 
                 //по исполнению условий, необходимых для запуска производства

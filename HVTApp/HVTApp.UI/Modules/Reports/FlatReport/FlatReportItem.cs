@@ -76,12 +76,15 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
         /// <summary>
         /// Внедрить в айтемы предположительную дату в качестве даты ОИТ
         /// </summary>
-        public void InjectOrderInTakeDates()
+        public void InjectDates()
         {
             SalesUnits.ForEach(x =>
             {
                 if (!Equals(OriginalOrderInTakeDate, EstimatedOrderInTakeDate))
+                {
                     x.OrderInTakeDateInjected = EstimatedOrderInTakeDate;
+                    x.StartProductionDateInjected = EstimatedOrderInTakeDate;
+                }
             });
         }
 
