@@ -45,6 +45,7 @@ namespace HVTApp.TestDataGenerator
 
         public List<Project> Projects = new List<Project>();
         public List<SalesUnit> SalesUnits = new List<SalesUnit>();
+        public List<PriceCalculation> PriceCalculations = new List<PriceCalculation>();
         private void GenSalesUnits()
         {
             var random = new Random();
@@ -52,23 +53,25 @@ namespace HVTApp.TestDataGenerator
             var facilityOwners = new List<Company> {CompanyFsk, CompanyMrsk};
             var contracts = new List<Contract> {ContractFsk, ContractMrsk, ContractPmk};
             var managers = new List<User> {UserIvanov, UserKosolapov, UserGazizov, UserBrehov, UserKolesnik, UserRybin};
+            var paymentConditionSets = new List<PaymentConditionSet> { PaymentConditionSet50Na50, PaymentConditionSet30Na70};
 
-            for (int p = 0; p < 200; p++)
+            for (int projectNum = 0; projectNum < 200; projectNum++)
             {
                 var manager = managers[random.Next(0, managers.Count)];
-                var project = new Project {Name = $"Реконструкция ПС №{p}", ProjectType = ProjectTypeReconstruction, Manager = manager};
+                var project = new Project {Name = $"Реконструкция ПС №{projectNum}", ProjectType = ProjectTypeReconstruction, Manager = manager};
                 Projects.Add(project);
 
                 for (int pr = 0; pr < random.Next(1, 5); pr++)
                 {
                     var product = products[random.Next(0, products.Count)];
                     var facilityOwner = facilityOwners[random.Next(0, facilityOwners.Count)];
-                    var facility = new Facility {Name = $"Подстанция №{p}", Type = FacilityTypeSubStation, OwnerCompany = facilityOwner};
+                    var facility = new Facility {Name = $"Подстанция №{projectNum}", Type = FacilityTypeSubStation, OwnerCompany = facilityOwner};
                     int year = random.Next(DateTime.Today.Year - 1, DateTime.Today.Year + 2);
                     int month = random.Next(1, 13);
                     int day = random.Next(1, DateTime.DaysInMonth(year, month) + 1);
                     var deliveryDateExpected = new DateTime(year, month, day);
                     var cost = random.Next(1000, 5000001);
+                    var paymentConditionSet = paymentConditionSets[random.Next(0, paymentConditionSets.Count)];
 
                     DateTime? signalToStartProduction = null;
                     DateTime? signalToStartProductionDone = null;
@@ -76,6 +79,7 @@ namespace HVTApp.TestDataGenerator
                     Company producer = null;
                     string sn = null;
                     Specification specification = null;
+                    PriceCalculation priceCalculation = null;
 
                     if (deliveryDateExpected < DateTime.Today)
                     {
@@ -84,31 +88,37 @@ namespace HVTApp.TestDataGenerator
                             producer = CompanyUetm;
                             signalToStartProduction = deliveryDateExpected.AddDays(-120);
                             signalToStartProductionDone = deliveryDateExpected.AddDays(-118);
-                            order = new Order {DateOpen = signalToStartProductionDone.Value, Number = $"{p}-{pr}"};
-                            specification = new Specification {Number = $"{p+10}", Vat = 20, Contract = contracts[random.Next(0, contracts.Count)], Date = signalToStartProduction.Value};
-                            sn = $"sn{pr}{p}";
+                            order = new Order {DateOpen = signalToStartProductionDone.Value, Number = $"{projectNum}-{pr}"};
+                            specification = new Specification {Number = $"{projectNum+10}", Vat = 20, Contract = contracts[random.Next(0, contracts.Count)], Date = signalToStartProduction.Value};
+                            sn = $"sn-{pr}-{projectNum}";
                         }
                         else if(random.Next(100) < 60)
                         {
                             producer = random.Next(100) < 70 ? CompanyZeto : CompanyApparat;
                         }
+
+                        priceCalculation = new PriceCalculation
+                        {
+                            TaskOpenMoment = deliveryDateExpected.AddDays(-140),
+                            TaskCloseMoment = deliveryDateExpected.AddDays(-130)
+                        };
                     }
 
-
-                    for (int i = 0; i < random.Next(1, 10); i++)
+                    var salesUnits = new List<SalesUnit>();
+                    for (int salesUnitNum = 0; salesUnitNum < random.Next(1, 10); salesUnitNum++)
                     {
-                        SalesUnits.Add(new SalesUnit
+                        var salesUnit = new SalesUnit
                         {
                             Project = project,
                             Product = product,
                             Cost = cost,
                             DeliveryDateExpected = deliveryDateExpected,
                             Facility = facility,
-                            PaymentConditionSet = PaymentConditionSet50Na50,
+                            PaymentConditionSet = paymentConditionSet,
                             SignalToStartProduction = signalToStartProduction,
                             SignalToStartProductionDone = signalToStartProductionDone,
                             Order = order,
-                            OrderPosition = order == null ? null : $"{i+1}",
+                            OrderPosition = order == null ? null : $"{salesUnitNum + 1}",
                             Producer = producer,
                             PickingDate = signalToStartProductionDone?.Date.AddDays(110),
                             EndProductionDate = signalToStartProductionDone?.Date.AddDays(120),
@@ -117,9 +127,33 @@ namespace HVTApp.TestDataGenerator
                             DeliveryDate = signalToStartProductionDone?.Date.AddDays(123),
                             StartProductionDate = signalToStartProduction?.Date,
                             EndProductionPlanDate = signalToStartProductionDone?.Date.AddDays(100),
-                            SerialNumber = sn == null ? null : $"{sn}-{i}",
+                            SerialNumber = sn == null ? null : $"{sn}-{salesUnitNum}",
                             Specification = specification
+                        };
+                        SalesUnits.Add(salesUnit);
+                        salesUnits.Add(salesUnit);
+                    }
+
+                    if (priceCalculation != null)
+                    {
+                        var salesUnit = salesUnits.First();
+                        var priceCalculationItem = new PriceCalculationItem
+                        {
+                            RealizationDate = deliveryDateExpected.AddDays(-2),
+                            PaymentConditionSet = salesUnit.PaymentConditionSet,
+                            OrderInTakeDate = deliveryDateExpected.AddDays(-130)
+                        };
+                        priceCalculationItem.SalesUnits.AddRange(salesUnits);
+                        priceCalculationItem.StructureCosts.Add(new StructureCost
+                        {
+                            Amount = 1,
+                            Comment = $"structureCostName-{projectNum}",
+                            Number = $"structureCostNumber-{projectNum}",
+                            UnitPrice = salesUnit.Cost * random.Next(4, 7) / 10
                         });
+
+                        priceCalculation.PriceCalculationItems.Add(priceCalculationItem);
+                        PriceCalculations.Add(priceCalculation);
                     }
                 }
             }

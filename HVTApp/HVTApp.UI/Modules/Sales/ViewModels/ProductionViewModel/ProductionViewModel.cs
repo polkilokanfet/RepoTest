@@ -16,9 +16,20 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
     public class ProductionViewModel : ViewModelBaseCanExportToExcel
     {
         private object _selectedToProduction;
+        private object _selectedInProduction;
 
         public ObservableCollection<ProductionGroup> GroupsInProduction { get; } = new ObservableCollection<ProductionGroup>();
         public ObservableCollection<ProductionGroup> GroupsToProduction { get; } = new ObservableCollection<ProductionGroup>();
+
+        public object SelectedInProduction
+        {
+            get { return _selectedInProduction; }
+            set
+            {
+                _selectedInProduction = value;
+                ((DelegateCommand)RemoveFromProductionCommand).RaiseCanExecuteChanged();
+            }
+        }
 
         public object SelectedToProduction
         {
@@ -31,6 +42,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
         }
 
         public ICommand ProductUnitCommand { get; }
+        public ICommand RemoveFromProductionCommand { get; }
         public ICommand ReloadCommand { get; }
 
         public ProductionViewModel(IUnityContainer container) : base(container)
@@ -79,6 +91,60 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
                 }, 
             () => SelectedToProduction != null);
+
+            RemoveFromProductionCommand = new DelegateCommand(
+                () =>
+                {
+                    //подтверждение
+                    var messageService = Container.Resolve<IMessageService>();
+                    var dr = messageService.ShowYesNoMessageDialog("Отзыв из производства", "Отозвать оборудование из производства?", defaultNo: true);
+                    if (dr != MessageDialogResult.Yes) return;
+
+                    var productionGroup = SelectedInProduction as ProductionGroup;
+                    if (productionGroup != null)
+                    {
+                        if (productionGroup.SalesUnit.Order != null)
+                        {
+                            messageService.ShowOkMessageDialog("Отзыв из производства", "Отзыв из производства невозможен. \nСначала удалите заводской заказ.");
+                            return;
+                        }
+
+                        productionGroup.SignalToStartProduction = null;
+                        GroupsInProduction.Remove(productionGroup);
+                        GroupsToProduction.Add(productionGroup);
+                    }
+
+                    var productionItem = SelectedInProduction as ProductionItem;
+                    if (productionItem != null)
+                    {
+                        if (productionItem.Model.Order != null)
+                        {
+                            messageService.ShowOkMessageDialog("Отзыв из производства", "Отзыв из производства невозможен. \nСначала удалите заводской заказ.");
+                            return;
+                        }
+                        productionItem.SignalToStartProduction = null;
+                        var group = GroupsInProduction.Single(x => x.ProductionItems.Contains(productionItem));
+                        if (group.Amount == 1)
+                        {
+                            GroupsInProduction.Remove(group);
+                            GroupsToProduction.Add(group);
+                        }
+                        else
+                        {
+                            group.ProductionItems.Remove(productionItem);
+                            GroupsToProduction.Add(new ProductionGroup(new List<ProductionItem> {productionItem}));
+                        }
+                    }
+
+                    //сохранение изменений
+                    ((IValidatableChangeTracking) SelectedInProduction).AcceptChanges();
+                    UnitOfWork.SaveChanges();
+
+                    SelectedInProduction = null;
+
+                },
+                () => SelectedInProduction != null);
+
 
             Load();
         }

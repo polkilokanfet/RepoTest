@@ -21,7 +21,7 @@ namespace HVTApp.UI.Modules.Reports.SalesCharts.ContragentsSalesChart
         protected override List<ContragentsSalesChartItem> GetItems()
         {
             return SalesUnitsFiltered
-                .GroupBy(x => x.Facility.OwnerCompany)
+                .GroupBy(x => x.Specification.Contract.Contragent)
                 .Select(x => new ContragentsSalesChartItem(x, SumOfSalesUnits))
                 .OrderByDescending(x => x.Sum)
                 .ToList();

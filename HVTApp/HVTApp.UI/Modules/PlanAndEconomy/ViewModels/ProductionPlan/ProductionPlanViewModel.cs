@@ -3,8 +3,10 @@ using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Modules.PlanAndEconomy.Views;
+using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Events;
@@ -54,6 +56,12 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
                 if (OrderItems.Select(x => x.Order).ContainsById(units.First().Order)) return;
 
                 OrderItems.Add(new OrderItem(units));
+            });
+
+            container.Resolve<IEventAggregator>().GetEvent<AfterRemoveOrderEvent>().Subscribe(order =>
+            {
+                var items = OrderItems.Where(x => x.Order.Id == order.Id).ToList();
+                items.ForEach(x => this.OrderItems.Remove(x));
             });
         }
 

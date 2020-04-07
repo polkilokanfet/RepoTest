@@ -7,6 +7,7 @@ using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Services;
+using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Modules.PlanAndEconomy.ViewModels.Groups;
 using HVTApp.UI.ViewModels;
@@ -26,6 +27,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
         public SalesUnitOrderGroupsCollection GroupsPotential { get; } = new SalesUnitOrderGroupsCollection();
 
         public ICommand SaveOrderCommand { get; }
+        public ICommand RemoveOrderCommand { get; }
         public ICommand AddGroupCommand { get; }
         public ICommand RemoveGroupCommand { get; }
 
@@ -67,6 +69,34 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
 
                     //что-то изменилось
                     return _unitsWrappers.IsChanged || Item.IsChanged;
+                });
+
+            RemoveOrderCommand = new DelegateCommand(
+                () =>
+                {
+                    var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Вы уверены, что хотите удалить этот заказ?");
+                    if (dr != MessageDialogResult.Yes) return;
+
+                    var order = Item.Model;
+
+                    _unitsWrappers.ForEach(x => x.RejectChanges());
+
+                    foreach (var groupInOrder in GroupsInOrder)
+                    {
+                        groupInOrder.EndProductionPlanDate = null;
+                        groupInOrder.SignalToStartProductionDone = null;
+                        groupInOrder.Order = null;
+                        groupInOrder.Units.ForEach(x => x.OrderPosition = string.Empty);
+                    }
+
+                    _unitsWrappers.ForEach(x => x.AcceptChanges());
+
+                    UnitOfWork.Repository<Order>().Delete(order);
+                    UnitOfWork.SaveChanges();
+
+                    Container.Resolve<IEventAggregator>().GetEvent<AfterRemoveOrderEvent>().Publish(order);
+
+                    GoBackCommand.Execute(null);
                 });
 
             AddGroupCommand = new DelegateCommand(AddGroupCommand_Execute, () => GroupsPotential.SelectedItem != null);

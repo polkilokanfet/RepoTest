@@ -1,5 +1,4 @@
 using System;
-using System.Text;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Wrapper;
 
