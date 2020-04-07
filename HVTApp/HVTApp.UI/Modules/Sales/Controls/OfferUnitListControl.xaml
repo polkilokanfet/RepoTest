@@ -1,7 +1,8 @@
 ﻿<UserControl x:Class="HVTApp.UI.Modules.Sales.Controls.OfferUnitListControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:dp="http://infragistics.com/DataPresenter"
+             xmlns:dp="http://infragistics.com/DataPresenter" 
+             xmlns:editors="http://infragistics.com/Editors"
              x:Name="Root">
 
     <UserControl.Resources>
@@ -74,53 +75,59 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <GroupBox Grid.Column="0"
-                      Header="Оборудование">
+            <GroupBox Grid.Column="0" Header="Оборудование">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
 
-                <dp:XamDataGrid x:Name="UnitListGrid"
-                                DataSource="{Binding Groups, UpdateSourceTrigger=PropertyChanged}"
-                                SelectedDataItem="{Binding Groups.SelectedGroup, Mode=TwoWay}">
+                    <dp:XamDataGrid x:Name="UnitListGrid"
+                                    DataSource="{Binding Groups, UpdateSourceTrigger=PropertyChanged}"
+                                    SelectedDataItem="{Binding Groups.SelectedGroup, Mode=TwoWay}">
 
-                    <dp:XamDataGrid.FieldLayouts>
+                        <dp:XamDataGrid.FieldLayouts>
 
-                        <dp:FieldLayout>
-                            <dp:FieldLayout.Fields>
-                                <dp:Field Name="Facility" Label="Объект" Width="Auto" Converter="{StaticResource WrapperToStringConverter}">
-                                    <dp:Field.Settings>
-                                        <dp:FieldSettings CellValuePresenterStyle="{StaticResource FacilityCellStyle}" />
-                                    </dp:Field.Settings>
-                                </dp:Field>
-                                <dp:Field Name="Product" Label="Продукт" Width="Auto" Converter="{StaticResource WrapperToStringConverter}">
-                                    <dp:Field.Settings>
-                                        <dp:FieldSettings CellValuePresenterStyle="{StaticResource ProductCellStyle}" />
-                                    </dp:Field.Settings>
-                                </dp:Field>
-                                <dp:NumericField Name="Amount" Label="Кол." Width="Auto" />
-                                <dp:NumericField Name="MarginalIncome" Label="МД" Width="Auto" AllowEdit="True" />
-                                <dp:NumericField Name="Cost" Label="Стоимость" Width="Auto" AllowEdit="True" />
-                                <dp:NumericField Name="Total" Label="Сумма" Width="Auto" />
-                                <dp:NumericField Name="ProductionTerm" Label="Срок" Width="Auto" AllowEdit="True" />
-                                <dp:NumericField Name="CostDelivery" Label="Доставка" Width="Auto" AllowEdit="True" />
-                                <dp:Field Name="PaymentConditionSet" Label="Условия оплаты" Width="Auto" Converter="{StaticResource WrapperToStringConverter}">
-                                    <dp:Field.Settings>
-                                        <dp:FieldSettings CellValuePresenterStyle="{StaticResource PaymentsCellStyle}" />
-                                    </dp:Field.Settings>
-                                </dp:Field>
-                                <dp:Field Name="Groups" IsExpandable="True" />
+                            <dp:FieldLayout>
+                                <dp:FieldLayout.Fields>
+                                    <dp:Field Name="Facility" Label="Объект" Width="Auto" Converter="{StaticResource WrapperToStringConverter}">
+                                        <dp:Field.Settings>
+                                            <dp:FieldSettings CellValuePresenterStyle="{StaticResource FacilityCellStyle}" />
+                                        </dp:Field.Settings>
+                                    </dp:Field>
+                                    <dp:Field Name="Product" Label="Продукт" Width="Auto" Converter="{StaticResource WrapperToStringConverter}">
+                                        <dp:Field.Settings>
+                                            <dp:FieldSettings CellValuePresenterStyle="{StaticResource ProductCellStyle}" />
+                                        </dp:Field.Settings>
+                                    </dp:Field>
+                                    <dp:NumericField Name="Amount" Label="Кол." Width="Auto" />
+                                    <dp:NumericField Name="MarginalIncome" Label="МД" Width="Auto" AllowEdit="True" />
+                                    <dp:NumericField Name="Cost" Label="Стоимость" Width="Auto" AllowEdit="True" />
+                                    <dp:NumericField Name="Total" Label="Сумма" Width="Auto" />
+                                    <dp:NumericField Name="ProductionTerm" Label="Срок" Width="Auto" AllowEdit="True" />
+                                    <dp:NumericField Name="CostDelivery" Label="Доставка" Width="Auto" AllowEdit="True" />
+                                    <dp:Field Name="PaymentConditionSet" Label="Условия оплаты" Width="Auto" Converter="{StaticResource WrapperToStringConverter}">
+                                        <dp:Field.Settings>
+                                            <dp:FieldSettings CellValuePresenterStyle="{StaticResource PaymentsCellStyle}" />
+                                        </dp:Field.Settings>
+                                    </dp:Field>
+                                    <dp:Field Name="Groups" IsExpandable="True" />
 
-                            </dp:FieldLayout.Fields>
-                        </dp:FieldLayout>
+                                </dp:FieldLayout.Fields>
+                            </dp:FieldLayout>
 
-                    </dp:XamDataGrid.FieldLayouts>
+                        </dp:XamDataGrid.FieldLayouts>
 
-                </dp:XamDataGrid>
+                    </dp:XamDataGrid>
+            
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <Label Content="Общая стоимость без НДС: "/>
+                        <editors:XamNumericEditor Value="{Binding Sum, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
+                    </StackPanel>
+                </Grid>
             </GroupBox>
 
-            <GridSplitter Grid.Row="0"
-                          Grid.Column="1"
-                          VerticalAlignment="Stretch"
-                          HorizontalAlignment="Center"
-                          Width="3" />
+            <GridSplitter Grid.Row="0" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Center" Width="3" />
 
             <GroupBox Grid.Column="2"
                       Header="Включено в стоимость (на единицу)"
@@ -144,10 +151,7 @@
 
         </Grid>
 
-        <GridSplitter Grid.Row="1"
-                      HorizontalAlignment="Stretch"
-                      VerticalAlignment="Center"
-                      Height="3" />
+        <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="3" />
 
         <GroupBox Grid.Row="2" Header="Структура себестоимости (на единицу):">
             <dp:XamDataGrid DataSource="{Binding Prices}">

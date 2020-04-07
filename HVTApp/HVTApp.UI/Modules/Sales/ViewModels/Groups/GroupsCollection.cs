@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Groups;
 using HVTApp.UI.Wrapper;
@@ -15,6 +16,8 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
     {
         private TGroup _selectedGroup;
         private ProductIncludedWrapper _selectedProductIncluded;
+
+        public event Action SumChanged;
 
         public event Action<TGroup> SelectedGroupChanged;
 
@@ -58,6 +61,25 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
                 this.AcceptChanges();
                 groups.ForEach(this.Add);
             }
+
+            //для отслеживания общей суммы
+            this.CollectionChanged += (sender, args) =>
+            {
+                SumChanged?.Invoke();
+
+                if (args.NewItems == null) return;
+                foreach (var grp in args.NewItems.Cast<TGroup>())
+                {
+                    grp.PropertyChanged += GrpOnPropertyChanged;
+                }
+            };
+            this.ForEach(x => x.PropertyChanged += GrpOnPropertyChanged);
+        }
+
+        private void GrpOnPropertyChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if(args.PropertyName == nameof(IGroupValidatableChangeTracking<TModel>.Total))
+                SumChanged?.Invoke();
         }
     }
 }

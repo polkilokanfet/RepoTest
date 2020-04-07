@@ -26,6 +26,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
     {
         public GroupsCollection<TModel, TGroup, TMember> Groups { get; protected set; } = new GroupsCollection<TModel, TGroup, TMember>(new List<TGroup>(), false);
 
+        public double Sum => Groups.Sum(x => x.Total);
 
         protected abstract List<TGroup> GetGroups(IEnumerable<TModel> units);
 
@@ -113,6 +114,8 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
                 () => Groups.SelectedProductIncluded != null);
 
             #endregion
+
+            Groups.SumChanged += () => { OnPropertyChanged(nameof(Sum)); };
         }
 
         /// <summary>
@@ -139,6 +142,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
 
             //создаем контейнер
             Groups = new GroupsCollection<TModel, TGroup, TMember>(GetGroups(unitsArray), isNew);
+            Groups.SumChanged += () => { OnPropertyChanged(nameof(Sum)); };
 
             // реакция на выбор группы
             Groups.SelectedGroupChanged += group =>
