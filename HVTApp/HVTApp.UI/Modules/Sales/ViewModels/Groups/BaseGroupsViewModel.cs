@@ -118,9 +118,9 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
         /// <summary>
         /// Можно ли удалять группу?
         /// </summary>
-        /// <param name="group"></param>
+        /// <param name="grp"></param>
         /// <returns></returns>
-        protected virtual bool CanRemoveGroup(TGroup group)
+        protected virtual bool CanRemoveGroup(TGroup grp)
         {
             return true;
         }

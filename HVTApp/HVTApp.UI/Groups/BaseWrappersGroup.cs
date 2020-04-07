@@ -155,7 +155,7 @@ namespace HVTApp.UI.Groups
 
         #region Ctor
 
-        public BaseWrappersGroup(List<TModel> units)
+        protected BaseWrappersGroup(List<TModel> units)
         {
             //если прилетел только один юнит
             if (units.Count == 1)

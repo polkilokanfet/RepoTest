@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Wrapper;
@@ -10,6 +11,10 @@ namespace HVTApp.UI.Groups
         BaseWrappersGroup<SalesUnitsWrappersGroup, SalesUnit, SalesUnitWrapper>, 
         IGroupValidatableChangeTrackingWithCollection<SalesUnitsWrappersGroup, SalesUnit>
     {
+        private readonly List<SalesUnit> _units;
+
+        public bool CanRemove => _units.All(x => x.Order == null);
+
         public CompanyWrapper Producer
         {
             get { return GetValue<CompanyWrapper>(); }
@@ -57,6 +62,7 @@ namespace HVTApp.UI.Groups
 
         public SalesUnitsWrappersGroup(List<SalesUnit> units) : base(units)
         {
+            _units = units;
         }
 
         protected override SalesUnit GetSalesUnit()

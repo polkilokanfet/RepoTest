@@ -19,12 +19,11 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
 {
     public class SalesUnitsGroupsViewModel : BaseGroupsViewModel<SalesUnitsWrappersGroup, SalesUnitsWrappersGroup, SalesUnit, AfterSaveSalesUnitEvent, AfterRemoveSalesUnitEvent>, IGroupsViewModel<SalesUnit, ProjectWrapper>
     {
-        protected override bool CanRemoveGroup(SalesUnitsWrappersGroup @group)
+        protected override bool CanRemoveGroup(SalesUnitsWrappersGroup grp)
         {
-            var result = @group.Model.Order == null;
-            if(result == false)
+            if(!grp.CanRemove)
                 Container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", "Удаление невозможно, т.к. это оборудование размещено в производстве.");
-            return result;
+            return grp.CanRemove;
         }
 
         private ProjectWrapper _projectWrapper;
