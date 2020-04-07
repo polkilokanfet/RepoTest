@@ -5,6 +5,7 @@ using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
+using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.Comparers;
 using HVTApp.Model.Events;
@@ -18,6 +19,14 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
 {
     public class SalesUnitsGroupsViewModel : BaseGroupsViewModel<SalesUnitsWrappersGroup, SalesUnitsWrappersGroup, SalesUnit, AfterSaveSalesUnitEvent, AfterRemoveSalesUnitEvent>, IGroupsViewModel<SalesUnit, ProjectWrapper>
     {
+        protected override bool CanRemoveGroup(SalesUnitsWrappersGroup @group)
+        {
+            var result = @group.Model.Order == null;
+            if(result == false)
+                Container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", "Удаление невозможно, т.к. это оборудование размещено в производстве.");
+            return result;
+        }
+
         private ProjectWrapper _projectWrapper;
 
         public ICommand ChangeProducerCommand { get; }

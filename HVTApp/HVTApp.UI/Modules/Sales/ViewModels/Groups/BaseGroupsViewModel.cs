@@ -50,6 +50,9 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             RemoveCommand = new DelegateCommand(
                 () =>
                 {
+                    if (!CanRemoveGroup(Groups.SelectedGroup))
+                        return;
+
                     if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Удалить?", defaultNo:true) == MessageDialogResult.No)
                         return;
 
@@ -110,6 +113,16 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
                 () => Groups.SelectedProductIncluded != null);
 
             #endregion
+        }
+
+        /// <summary>
+        /// Можно ли удалять группу?
+        /// </summary>
+        /// <param name="group"></param>
+        /// <returns></returns>
+        protected virtual bool CanRemoveGroup(TGroup group)
+        {
+            return true;
         }
 
         protected void Load(IEnumerable<TModel> units, IUnitOfWork unitOfWork, bool isNew)
