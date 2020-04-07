@@ -10,15 +10,15 @@
     
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="120" />
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <Border BorderThickness="5">
-            <Image Stretch="Uniform" Source="/HVTApp.Services.WpfAuthenticationService;component/Images/lock.png"/>
+            <Image Stretch="Uniform" Source="/HVTApp.Services.WpfAuthenticationService;component/Images/user.png"/>
         </Border>
         
-        <Grid Grid.Column="1" Margin="10">
+        <Grid Grid.Column="1" Margin="5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width ="Auto"/>
                 <ColumnDefinition Width="*" MinWidth="100"/>
