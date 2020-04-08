@@ -22,7 +22,11 @@ namespace HVTApp.TestDataGenerator
                 methodInfo.Invoke(this, null);
             }
 
+#if DEBUG
+
             GenSalesUnits();
+
+#endif
         }
 
         public IEnumerable<TData> GetAll<TData>()
@@ -42,6 +46,8 @@ namespace HVTApp.TestDataGenerator
                 }
             }
         }
+
+#if DEBUG
 
         public List<Project> Projects = new List<Project>();
         public List<SalesUnit> SalesUnits = new List<SalesUnit>();
@@ -158,6 +164,7 @@ namespace HVTApp.TestDataGenerator
                 }
             }
         }
-        
+
+#endif
     }
 }
