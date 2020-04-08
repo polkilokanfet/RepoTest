@@ -52,6 +52,7 @@ namespace HVTApp.TestDataGenerator
         public List<Project> Projects = new List<Project>();
         public List<SalesUnit> SalesUnits = new List<SalesUnit>();
         public List<PriceCalculation> PriceCalculations = new List<PriceCalculation>();
+        public List<PaymentDocument> PaymentDocuments = new List<PaymentDocument>();
         private void GenSalesUnits()
         {
             var random = new Random();
@@ -86,8 +87,9 @@ namespace HVTApp.TestDataGenerator
                     string sn = null;
                     Specification specification = null;
                     PriceCalculation priceCalculation = null;
+                    PaymentDocument paymentDocument = null;
 
-                    if (deliveryDateExpected < DateTime.Today)
+                    if (deliveryDateExpected < DateTime.Today.AddDays(100))
                     {
                         if (random.Next(100) < 60)
                         {
@@ -97,6 +99,7 @@ namespace HVTApp.TestDataGenerator
                             order = new Order {DateOpen = signalToStartProductionDone.Value, Number = $"{projectNum}-{pr}"};
                             specification = new Specification {Number = $"{projectNum+10}", Vat = 20, Contract = contracts[random.Next(0, contracts.Count)], Date = signalToStartProduction.Value};
                             sn = $"sn-{pr}-{projectNum}";
+                            paymentDocument = new PaymentDocument {Number = $"pd-{pr}-{projectNum}", Vat = 20};
                         }
                         else if(random.Next(100) < 60)
                         {
@@ -138,6 +141,19 @@ namespace HVTApp.TestDataGenerator
                         };
                         SalesUnits.Add(salesUnit);
                         salesUnits.Add(salesUnit);
+                    }
+
+                    if (paymentDocument != null)
+                    {
+                        PaymentDocuments.Add(paymentDocument);
+                        var date = signalToStartProduction.Value.AddDays(7);
+                        var sum = cost * random.Next(0, 75) / 100;
+                        foreach (var salesUnit in salesUnits)
+                        {
+                            salesUnit.PaymentsActual.Add(new PaymentActual {Date = date, Sum = sum});
+                        }
+                        var payments = salesUnits.SelectMany(x => x.PaymentsActual);
+                        paymentDocument.Payments.AddRange(payments);
                     }
 
                     if (priceCalculation != null)

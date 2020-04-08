@@ -37,7 +37,7 @@ namespace HVTApp.UI.Modules.Reports.SalesCharts
         public abstract string Title { get; }
         public string TitleItem => Items.FirstOrDefault()?.Title ?? "no data";
 
-        protected double SumOfSalesUnits => SalesUnitsFiltered.Sum(x => x.Cost);
+        public double SumOfSalesUnits => SalesUnitsFiltered.Sum(x => x.Cost);
 
         public DateTime StartDate
         {
@@ -154,6 +154,7 @@ namespace HVTApp.UI.Modules.Reports.SalesCharts
             var items = GetItems();
             Items.Clear();
             Items.AddRange(items);
+            OnPropertyChanged(nameof(SumOfSalesUnits));
         }
     }
 }

@@ -58,6 +58,8 @@
                                     VisibilityPenaltySalesUnit="Collapsed"
                                     VisibilityBankGuaranteesSalesUnit="Collapsed"
                                     VisibilityFakeDataSalesUnit="Collapsed"
+                                    VisibilityOrderInTakeDateInjectedSalesUnit="Collapsed"
+                                    VisibilityCostDeliveryIncludedSalesUnit="Collapsed"
                                     VisibilityLosingReasonsSalesUnit="Collapsed"/>
         
         <Grid>

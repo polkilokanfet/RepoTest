@@ -11,6 +11,7 @@ using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Modules.PlanAndEconomy.ViewModels;
 using HVTApp.UI.Modules.Reports.ViewModels;
+using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 
@@ -72,6 +73,8 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
             }
         }
 
+        public object[] SelectedItems { get; set; }
+
         public ObservableCollection<FlatReportItemMonthContainer> Containers { get; } = new ObservableCollection<FlatReportItemMonthContainer>();
 
         /// <summary>
@@ -97,7 +100,8 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                 {
                     int monthsAmount;
                     int.TryParse(parameter, out monthsAmount);
-                    SelectedItem.EstimatedOrderInTakeDate = SelectedItem.EstimatedOrderInTakeDate.AddMonths(monthsAmount);
+                    var selectedItems = SelectedItems.Cast<FlatReportItem>();
+                    selectedItems.ForEach(x => x.EstimatedOrderInTakeDate = x.EstimatedOrderInTakeDate.AddMonths(monthsAmount));
                 },
                 parameter => SelectedItem != null);
 
@@ -122,6 +126,11 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
             _salesUnits = GlobalAppProperties.User.RoleCurrent == Role.SalesManager
                 ? UnitOfWork.Repository<SalesUnit>().Find(x => !x.IsLoosen && x.Project.ForReport && x.Project.Manager.IsAppCurrentUser())
                 : UnitOfWork.Repository<SalesUnit>().Find(x => !x.IsLoosen && x.Project.ForReport);
+
+            _salesUnits.Where(x => Math.Abs(x.Cost) < 0.00001).ForEach(x =>
+            {
+                x.Cost = GlobalAppProperties.PriceService.GetPrice(x, x.OrderInTakeDate).SumTotal * 1.4;
+            });
 
             _startDate = _salesUnits.Min(x => x.OrderInTakeDate);
             _finishDate = _salesUnits.Max(x => x.OrderInTakeDate);

@@ -24,7 +24,7 @@
                 </Grid.ColumnDefinitions>
     
                 <GroupBox Grid.Row="0" Grid.Column="0" Header="Оборудование">
-                    <infg:XamDataGrid DataSource="{Binding Items}" SelectedDataItem="{Binding SelectedItem}">
+                    <infg:XamDataGrid DataSource="{Binding Items}" SelectedDataItem="{Binding SelectedItem}" SelectedDataItems="{Binding SelectedItems, Mode=TwoWay}" SelectedDataItemsScope="RecordsOrCells">
                         <infg:XamDataGrid.FieldLayouts>
                             <infg:FieldLayout>
                                 <infg:FieldLayout.Fields>
