@@ -23,7 +23,7 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
     
-                <GroupBox Grid.Row="0" Grid.Column="0" Header="Оборудование">
+                <GroupBox Grid.Column="0" Header="Оборудование">
                     <infg:XamDataGrid DataSource="{Binding Items}" SelectedDataItem="{Binding SelectedItem}" SelectedDataItems="{Binding SelectedItems, Mode=TwoWay}" SelectedDataItemsScope="RecordsOrCells">
                         <infg:XamDataGrid.FieldLayouts>
                             <infg:FieldLayout>
@@ -46,21 +46,71 @@
                                     <infg:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding OriginalOrderInTakeDate}" Label="Реальная" Width="Auto"/>
                                     <infg:DateTimeField Name="EstimatedOrderInTakeDate" Label="Предлагаемая" Width="Auto" AllowEdit="True"/>
                                     <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding DifDays}" Label="Сдвиг (дн.)" Width="Auto"/>
+                                    <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Manager}" Label="Менеджер" Width="Auto"/>
                                 </infg:FieldLayout.Fields>
                             </infg:FieldLayout>
                         </infg:XamDataGrid.FieldLayouts>
                     </infg:XamDataGrid>
                 </GroupBox>
         
-                <GridSplitter Grid.Row="0" Grid.Column="1" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+                <GridSplitter Grid.Column="1" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
 
-                <GroupBox Grid.Row="0" Grid.Column="2" Header="Наполнение бюджета по месяцам">
-                    <infg:XamDataGrid DataSource="{Binding Containers}">
+                <GroupBox Grid.Column="2" Header="Наполнение бюджета по менеджерам">
+                    <infg:XamDataGrid DataSource="{Binding ManagerContainers}">
+                        <infg:XamDataGrid.FieldLayouts>
+                            <infg:FieldLayout>
+                                <infg:FieldLayout.Fields>
+                                    <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Manager}" Label="Месяц" Width="Auto"/>
+                                    <infg:NumericField Name="Year" Label="Год" Width="Auto"/>
+                                    <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding Sum}" Label="Сумма" Width="Auto"/>
+                                </infg:FieldLayout.Fields>
+                            </infg:FieldLayout>
+                        </infg:XamDataGrid.FieldLayouts>
+                    </infg:XamDataGrid>
+                </GroupBox>
+                
+            </Grid>
+        </GroupBox>
+        
+        <GridSplitter Grid.Row="1" Height="3" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+        
+        <Grid Grid.Row="2">
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <GroupBox Grid.Column="0" Header="Наполнение бюджета по годам">
+                    <infg:XamDataGrid DataSource="{Binding YearContainers}">
                         <infg:XamDataGrid.FieldLayouts>
                             <infg:FieldLayout>
                                 <infg:FieldLayout.Fields>
                                     <infg:NumericField Name="Year" Label="Год" Width="Auto"/>
-                                    <infg:NumericField Name="Month" Label="Месяц" Width="Auto"/>
+                                    <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding Sum}" Label="Сумма" Width="Auto"/>
+                                </infg:FieldLayout.Fields>
+                            </infg:FieldLayout>
+                        </infg:XamDataGrid.FieldLayouts>
+                    </infg:XamDataGrid>
+                </GroupBox>
+                
+                <GridSplitter Grid.Column="1" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+                
+                <GroupBox Grid.Column="2" Header="Наполнение бюджета по месяцам">
+                    <infg:XamDataGrid DataSource="{Binding MonthContainers}">
+                        <infg:XamDataGrid.FieldLayouts>
+                            <infg:FieldLayout>
+                                <infg:FieldLayout.Fields>
+                                    <infg:NumericField Name="Year" Label="Год" Width="Auto"/>
+                                    <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding MonthName}" Label="Месяц" Width="Auto"/>
                                     <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding CurrentSum}" Label="Сумма" Width="Auto"/>
                                     <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding TargetSum}" Label="Цель" Width="Auto"/>
                                     <infg:CheckBoxField BindingType="UseAlternateBinding" AlternateBinding="{Binding IsOk}" Label="V" Width="Auto"/>
@@ -69,109 +119,111 @@
                         </infg:XamDataGrid.FieldLayouts>
                     </infg:XamDataGrid>
                 </GroupBox>
+            
             </Grid>
-        </GroupBox>
+            
+            <GridSplitter Grid.Column="1" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
         
-        <GridSplitter Grid.Row="1" Height="3" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
-        
-        <GroupBox Grid.Row="2" Header="Динамика продаж (ОИТ по месяцам)">
+            <GroupBox Grid.Column="2" Header="Динамика продаж (ОИТ по месяцам)">
 
-            <ig:XamDataChart x:Name="StackedBarChart"
-                             Padding="10"
-                             Visibility="Visible"
-                             DataContext="{Binding}"
-                             HorizontalZoomable="True"
-                             HorizontalZoombarVisibility="Collapsed"
-                             VerticalZoomable="True"
-                             VerticalZoombarVisibility="Collapsed">
+                <ig:XamDataChart x:Name="StackedBarChart"
+                                 Padding="10"
+                                 Visibility="Visible"
+                                 DataContext="{Binding}"
+                                 HorizontalZoomable="True"
+                                 HorizontalZoombarVisibility="Collapsed"
+                                 VerticalZoomable="True"
+                                 VerticalZoombarVisibility="Collapsed">
 
-                <ig:XamDataChart.Axes>
-                    <ig:NumericYAxis x:Name="YAxis" MinimumValue="0" Interval="400" Label="{}{:#,#} руб." />
-                    <ig:CategoryXAxis x:Name="XAxis" ItemsSource="{Binding Containers}" Label="{}{Title}" />
-                </ig:XamDataChart.Axes>
+                    <ig:XamDataChart.Axes>
+                        <ig:NumericYAxis x:Name="YAxis" MinimumValue="0" Interval="400" Label="{}{:#,#} руб." />
+                        <ig:CategoryXAxis x:Name="XAxis" ItemsSource="{Binding MonthContainers}" Label="{}{Title}" />
+                    </ig:XamDataChart.Axes>
 
-                <ig:XamDataChart.Series>
-                    <ig:ColumnSeries ItemsSource="{Binding Containers}"
-                                     ValueMemberPath="CurrentSum"
-                                     Title="Title"
-                                     XAxis="{Binding ElementName=XAxis}"
-                                     YAxis="{Binding ElementName=YAxis}"
-                                     IsHighlightingEnabled="True"
-                                     IsTransitionInEnabled="True">
-
-                        <ig:ColumnSeries.ToolTip>
-                            <StackPanel Orientation="Vertical">
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Content="Дата: " />
-                                    <TextBlock Text="{Binding Item.Date, StringFormat=MM.yyyy}" />
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Content="Сумма (руб.): " />
-                                    <TextBlock Text="{Binding Item.CurrentSum, StringFormat={}{0:#,#}}" />
-                                </StackPanel>
-                            </StackPanel>
-                        </ig:ColumnSeries.ToolTip>
-
-                    </ig:ColumnSeries>
-                </ig:XamDataChart.Series>
-
-            </ig:XamDataChart>
-
-            <!--<ig:XamDataChart x:Name="DataChart"
-                             IsDragCrosshairEnabled="True"
-                             CrosshairVisibility="Visible"
-                             OverviewPlusDetailPaneVisibility="Visible"
-                             HorizontalZoomable="True"
-                             VerticalZoomable="True"
-                             HorizontalZoombarVisibility="Visible"
-                             VerticalZoombarVisibility="Visible">
-
-                <ig:XamDataChart.Axes>
-                    <ig:CategoryDateTimeXAxis x:Name="XmXAxis"
-                                              DateTimeMemberPath="Date"
-                                              ItemsSource="{Binding Containers}"
-                                              Label="{}{Date:MM/yy}">
-                    </ig:CategoryDateTimeXAxis>
-
-                    <ig:NumericYAxis x:Name="XmYAxisPrice"
-                                     Title="Сумма оборудования в ОИТ(руб)">
-                        --><!--Label="{}{} млн.руб">--><!--
-                    </ig:NumericYAxis>
-
-                </ig:XamDataChart.Axes>
-
-                <ig:XamDataChart.Series>
-                    <ig:SplineAreaSeries Thickness="3"
-                                         MarkerType="None"
-                                         ItemsSource="{Binding Containers}"
+                    <ig:XamDataChart.Series>
+                        <ig:ColumnSeries ItemsSource="{Binding MonthContainers}"
                                          ValueMemberPath="CurrentSum"
-                                         XAxis="{Binding ElementName=XmXAxis}"
-                                         YAxis="{Binding ElementName=XmYAxisPrice}"
+                                         Title="Title"
+                                         XAxis="{Binding ElementName=XAxis}"
+                                         YAxis="{Binding ElementName=YAxis}"
                                          IsHighlightingEnabled="True"
                                          IsTransitionInEnabled="True">
 
-                        <ig:SplineAreaSeries.ToolTip>
-                            <StackPanel Orientation="Vertical">
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Content="Дата: " />
-                                    <TextBlock Text="{Binding Item.Date, StringFormat=MM.yyyy}" />
+                            <ig:ColumnSeries.ToolTip>
+                                <StackPanel Orientation="Vertical">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Content="Дата: " />
+                                        <TextBlock Text="{Binding Item.Date, StringFormat=MM.yyyy}" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Content="Сумма (руб.): " />
+                                        <TextBlock Text="{Binding Item.CurrentSum, StringFormat={}{0:#,#}}" />
+                                    </StackPanel>
                                 </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Content="Сумма: " />
-                                    <TextBlock Text="{Binding Item.CurrentSum, StringFormat=0.0}" />
-                                    <Label Content=" руб."></Label>
+                            </ig:ColumnSeries.ToolTip>
+
+                        </ig:ColumnSeries>
+                    </ig:XamDataChart.Series>
+
+                </ig:XamDataChart>
+
+                <!--<ig:XamDataChart x:Name="DataChart"
+                                 IsDragCrosshairEnabled="True"
+                                 CrosshairVisibility="Visible"
+                                 OverviewPlusDetailPaneVisibility="Visible"
+                                 HorizontalZoomable="True"
+                                 VerticalZoomable="True"
+                                 HorizontalZoombarVisibility="Visible"
+                                 VerticalZoombarVisibility="Visible">
+
+                    <ig:XamDataChart.Axes>
+                        <ig:CategoryDateTimeXAxis x:Name="XmXAxis"
+                                                  DateTimeMemberPath="Date"
+                                                  ItemsSource="{Binding MonthContainers}"
+                                                  Label="{}{Date:MM/yy}">
+                        </ig:CategoryDateTimeXAxis>
+
+                        <ig:NumericYAxis x:Name="XmYAxisPrice"
+                                         Title="Сумма оборудования в ОИТ(руб)">
+                            --><!--Label="{}{} млн.руб">--><!--
+                        </ig:NumericYAxis>
+
+                    </ig:XamDataChart.Axes>
+
+                    <ig:XamDataChart.Series>
+                        <ig:SplineAreaSeries Thickness="3"
+                                             MarkerType="None"
+                                             ItemsSource="{Binding MonthContainers}"
+                                             ValueMemberPath="CurrentSum"
+                                             XAxis="{Binding ElementName=XmXAxis}"
+                                             YAxis="{Binding ElementName=XmYAxisPrice}"
+                                             IsHighlightingEnabled="True"
+                                             IsTransitionInEnabled="True">
+
+                            <ig:SplineAreaSeries.ToolTip>
+                                <StackPanel Orientation="Vertical">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Content="Дата: " />
+                                        <TextBlock Text="{Binding Item.Date, StringFormat=MM.yyyy}" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Content="Сумма: " />
+                                        <TextBlock Text="{Binding Item.CurrentSum, StringFormat=0.0}" />
+                                        <Label Content=" руб."></Label>
+                                    </StackPanel>
                                 </StackPanel>
-                            </StackPanel>
-                        </ig:SplineAreaSeries.ToolTip>
+                            </ig:SplineAreaSeries.ToolTip>
 
-                    </ig:SplineAreaSeries>
-                </ig:XamDataChart.Series>
+                        </ig:SplineAreaSeries>
+                    </ig:XamDataChart.Series>
 
 
-            </ig:XamDataChart>-->
+                </ig:XamDataChart>-->
 
-        </GroupBox>
+            </GroupBox>
 
+        </Grid>
+        
         <GridSplitter Grid.Row="3" Height="3" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
         
         <GroupBox Grid.Row="4" Header="Отчеты">

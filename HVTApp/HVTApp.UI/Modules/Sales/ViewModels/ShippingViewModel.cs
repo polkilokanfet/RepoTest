@@ -40,7 +40,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
 
-            var salesUnits = ((ISalesUnitRepository)UnitOfWork.Repository<SalesUnit>()).GetUsersSalesUnits();
+            var salesUnits = ((ISalesUnitRepository)UnitOfWork.Repository<SalesUnit>()).GetUsersSalesUnits().Where(x => !x.IsLoosen);
             _salesUnits?.ForEach(x => x.PropertyChanged -= OnSalesUnitPropertyChanged);
             _salesUnits = new ValidatableChangeTrackingCollection<ShippingItemWrapper>(salesUnits.Select(x => new ShippingItemWrapper(x)));
             _salesUnits.ForEach(x => x.PropertyChanged += OnSalesUnitPropertyChanged);

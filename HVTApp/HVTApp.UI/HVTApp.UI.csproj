@@ -135,7 +135,9 @@
     <Compile Include="Modules\BookRegistration\ViewModels\IncomingRequestViewModel.cs" />
     <Compile Include="Modules\Reports\FlatReport\FlatReportComparator.cs" />
     <Compile Include="Modules\Reports\FlatReport\FlatReportItem.cs" />
+    <Compile Include="Modules\Reports\FlatReport\FlatReportItemManagerContainer.cs" />
     <Compile Include="Modules\Reports\FlatReport\FlatReportItemMonthContainersPair.cs" />
+    <Compile Include="Modules\Reports\FlatReport\FlatReportItemYearContainer.cs" />
     <Compile Include="Modules\Reports\FlatReport\FlatReportViewModel - Report.cs" />
     <Compile Include="Modules\Reports\FlatReport\FlatReportViewModel.cs" />
     <Compile Include="Modules\Reports\FlatReport\FlatReportItemMonthContainer.cs" />

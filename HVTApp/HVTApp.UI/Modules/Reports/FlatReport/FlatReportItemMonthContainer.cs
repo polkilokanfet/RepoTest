@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using HVTApp.Infrastructure.Extansions;
 
 namespace HVTApp.UI.Modules.Reports.FlatReport
 {
@@ -46,6 +47,8 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
         public int Year { get; }
 
         public int Month { get; }
+
+        public string MonthName => new DateTime(Year, Month, 1).MonthName();
 
         public FlatReportItemMonthContainer(IEnumerable<FlatReportItem> flatReportItems, double targetSum, double accuracy = 0.05, DateTime? date = null)
         {

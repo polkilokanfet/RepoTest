@@ -75,7 +75,9 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
 
         public object[] SelectedItems { get; set; }
 
-        public ObservableCollection<FlatReportItemMonthContainer> Containers { get; } = new ObservableCollection<FlatReportItemMonthContainer>();
+        public ObservableCollection<FlatReportItemMonthContainer> MonthContainers { get; } = new ObservableCollection<FlatReportItemMonthContainer>();
+        public ObservableCollection<FlatReportItemYearContainer> YearContainers { get; } = new ObservableCollection<FlatReportItemYearContainer>();
+        public ObservableCollection<FlatReportItemManagerContainer> ManagerContainers { get; } = new ObservableCollection<FlatReportItemManagerContainer>();
 
         /// <summary>
         /// Суммарная цена на все отмеченные айтемы
@@ -108,12 +110,12 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
             AlignCommand = new DelegateCommand(
                 () =>
                 {
-                    var containers = FlatReportComparator.Align(GenerateContainers()).ToList();
+                    var containers = FlatReportComparator.Align(GenerateMonthContainers()).ToList();
                     containers.ForEach(x => x.FillEstimatedOrderInTakeDates());
-                    Containers.Clear();
-                    Containers.AddRange(containers);
+                    MonthContainers.Clear();
+                    MonthContainers.AddRange(containers);
 
-                    if(Containers.Any(x => !x.IsOk))
+                    if(MonthContainers.Any(x => !x.IsOk))
                         Container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", "Не во всех месяцах удалось выровнять суммы с заданной точностью.");
                 });
 
@@ -170,11 +172,17 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
 
         private void RefreshContainers()
         {
-            Containers.Clear();
-            Containers.AddRange(GenerateContainers());
+            MonthContainers.Clear();
+            MonthContainers.AddRange(GenerateMonthContainers());
+
+            YearContainers.Clear();
+            YearContainers.AddRange(GenerateYearContainers());
+
+            ManagerContainers.Clear();
+            ManagerContainers.AddRange(GenerateManagerContainers());
         }
 
-        private IEnumerable<FlatReportItemMonthContainer> GenerateContainers()
+        private IEnumerable<FlatReportItemMonthContainer> GenerateMonthContainers()
         {
             if(!Items.Any())
                 return new List<FlatReportItemMonthContainer>();
@@ -210,6 +218,24 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
         {
             var itemsInOit = flatReportItems.Where(x => x.SalesUnit.OrderIsTaken).ToList();
             return flatReportItems.Count() == itemsInOit.Count ? flatReportItems.Sum(x => x.Sum) : sum;
+        }
+
+        private IEnumerable<FlatReportItemYearContainer> GenerateYearContainers()
+        {
+            return MonthContainers
+                .GroupBy(x => x.Year)
+                .Select(x => new FlatReportItemYearContainer(x))
+                .OrderBy(x => x.Year);
+        }
+
+        private IEnumerable<FlatReportItemManagerContainer> GenerateManagerContainers()
+        {
+            return Items
+                .Where(x => x.InReport)
+                .GroupBy(x => new {x.Manager, x.EstimatedOrderInTakeDate.Year})
+                .Select(x => new FlatReportItemManagerContainer(x))
+                .OrderBy(x => x.Manager)
+                .ThenBy(x => x.Year);
         }
     }
 }

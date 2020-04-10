@@ -16,6 +16,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
         public List<SalesUnit> SalesUnits { get; }
         public SalesUnit SalesUnit => SalesUnits.First();
         public int Amount => SalesUnits.Count;
+        public string Manager => SalesUnit.Project.Manager.Employee.Person.Surname;
 
         /// <summary>
         /// ¬ключать в отчет
