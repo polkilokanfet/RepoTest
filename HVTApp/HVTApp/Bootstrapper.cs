@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using HVTApp.Views;
 using System.Windows;
+using EventServiceClient2;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
@@ -66,6 +67,7 @@ namespace HVTApp
         {
             SetGlobalAppProperties();
             CheckLastDeveloperVizit();
+            Container.Resolve<EventServiceClient>().Start();
             Application.Current.MainWindow.Show();
         }
 
@@ -128,6 +130,9 @@ namespace HVTApp
             Container.RegisterType<IProductDesignationService, ProductDesignator>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IPriceService, PriceService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IShippingService, ShippService>(new ContainerControlledLifetimeManager());
+
+            Container.RegisterType<EventServiceClient>(new ContainerControlledLifetimeManager());
+
         }
 
         protected override IModuleCatalog CreateModuleCatalog()

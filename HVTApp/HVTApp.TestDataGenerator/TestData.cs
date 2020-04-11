@@ -25,7 +25,7 @@ namespace HVTApp.TestDataGenerator
 #if DEBUG
 
             GenSalesUnits();
-
+            GenDocuments();
 #endif
         }
 
@@ -53,6 +53,7 @@ namespace HVTApp.TestDataGenerator
         public List<SalesUnit> SalesUnits = new List<SalesUnit>();
         public List<PriceCalculation> PriceCalculations = new List<PriceCalculation>();
         public List<PaymentDocument> PaymentDocuments = new List<PaymentDocument>();
+        public List<Document> Documents = new List<Document>();
         private void GenSalesUnits()
         {
             var random = new Random();
@@ -178,6 +179,17 @@ namespace HVTApp.TestDataGenerator
                         PriceCalculations.Add(priceCalculation);
                     }
                 }
+            }
+        }
+
+        private void GenDocuments()
+        {
+            var employees = new List<Employee>() {EmployeeDeev};
+            Employee sender;
+            Employee recipient;
+            for (int i = 0; i < 50; i++)
+            {
+                Documents.Add(new Document {Number = new DocumentNumber {Number = i}, Author = EmployeeSidorov, SenderEmployee = EmployeeSidorov, RecipientEmployee = EmployeeDeev, Comment = $"{i}"});
             }
         }
 

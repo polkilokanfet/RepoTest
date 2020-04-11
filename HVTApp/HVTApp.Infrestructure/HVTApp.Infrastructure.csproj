@@ -66,6 +66,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Wpf.6.3.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
@@ -141,6 +142,7 @@
     <Compile Include="RibbonTabItemWithViewModel.cs" />
     <Compile Include="RibbonTabAttribute.cs" />
     <Compile Include="Role.cs" />
+    <Compile Include="Services\IEventService.cs" />
     <Compile Include="Services\IMessageService.cs" />
     <Compile Include="Services\IPrintOfferService.cs" />
     <Compile Include="StringToGuid.cs" />

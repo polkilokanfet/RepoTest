@@ -101,10 +101,17 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
                 },
                 () => SelectedIncomingRequest != null && !SelectedIncomingRequest.Entity.IsDone);
 
-            Container.Resolve<IEventAggregator>().GetEvent<AfterSaveIncomingRequestEvent>().Subscribe(request =>
+            var eventAggregator = Container.Resolve<IEventAggregator>();
+            eventAggregator.GetEvent<AfterSaveIncomingRequestEvent>().Subscribe(request =>
             {
                 var targetRequest = IncomingRequests.SingleOrDefault(x => x.Id == request.Id);
-                targetRequest?.Refresh(request);
+                if (targetRequest != null)
+                {
+                    targetRequest.Refresh(request);
+                    return;
+                }
+
+                IncomingRequests.Add(new IncomingRequestLookup(request));
             });
 
             Load();

@@ -1,30 +1,36 @@
-﻿using Infragistics.Windows.Ribbon;
-using System.Windows;
+﻿using EventServiceClient2;
 using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Services;
 using Infragistics.Windows.OutlookBar.Events;
+using Microsoft.Practices.Unity;
 
 namespace HVTApp.Views
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow
     {
-        public MainWindow(IMessageService messageService)
+        private readonly IUnityContainer _container;
+
+        public MainWindow(IUnityContainer container)
         {
+            _container = container;
+
             InitializeComponent();
 
-            #if DEBUG
-            #else
             this.Closing += (sender, args) =>
             {
-                var dr = messageService.ShowYesNoMessageDialog("Выход", "Вы уверены, что хотите выйти?", defaultNo:true);
+#if DEBUG
+#else
+                var dr = _container.Resolve<IMessageService>().ShowYesNoMessageDialog("Выход", "Вы уверены, что хотите выйти?", defaultNo:true);
                 if (dr == MessageDialogResult.No)
+                {
                     args.Cancel = true;
+                    return;
+                }
+#endif
+
+                //остановка синхронизатора
+                _container.Resolve<EventServiceClient>().Stop();
             };
-            #endif
         }
 
         private void XamOutlookBar_OnSelectedGroupChanging(object sender, SelectedGroupChangingEventArgs e)

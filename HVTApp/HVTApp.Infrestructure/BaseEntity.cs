@@ -5,6 +5,7 @@ using HVTApp.Infrastructure.Extansions;
 
 namespace HVTApp.Infrastructure
 {
+    [Serializable]
     public abstract class BaseEntity : IBaseEntity, IComparable
     {
         public Guid Id { get; set; }

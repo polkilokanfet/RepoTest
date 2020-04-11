@@ -245,6 +245,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\EventServiceClient2\EventServiceClient2.csproj">
+      <Project>{76B069EF-195B-4120-ADEC-F9A46D421B25}</Project>
+      <Name>EventServiceClient2</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EventService\EventService.csproj">
+      <Project>{c0f86fe0-a010-4350-bde8-1689881ebb02}</Project>
+      <Name>EventService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HVTApp.DataAccess\HVTApp.DataAccess.csproj">
       <Project>{9cf80c25-c04b-46b3-8eb7-f45bc42d4ba2}</Project>
       <Name>HVTApp.DataAccess</Name>
