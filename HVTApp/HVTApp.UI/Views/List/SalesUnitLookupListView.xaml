@@ -68,6 +68,7 @@
                     <infg:NumericField Name="SumPaid" Label="Оплачено" Width="Auto" AllowResize="True" />
                     <infg:NumericField Name="SumNotPaidWithVat" Label="Неоплачено с НДС" Width="Auto" AllowResize="True" />
                     <infg:NumericField Name="SumNotPaid" Label="Неоплачено без НДС" Width="Auto" AllowResize="True" />
+                    <infg:DateTimeField Name="StartProductionDateInjected" Label="StartProductionDateInjected" Width="Auto" AllowResize="True" />
                     <infg:DateTimeField Name="StartProductionDate" Label="Дата начала производства" Width="Auto" AllowResize="True" />
                     <infg:DateTimeField Name="SignalToStartProductionDone" Label="Дата размещения в производстве" Width="Auto" AllowResize="True" />
                     <infg:DateTimeField Name="SignalToStartProduction" Label="Сигнал менеджера о производстве" Width="Auto" AllowResize="True" />

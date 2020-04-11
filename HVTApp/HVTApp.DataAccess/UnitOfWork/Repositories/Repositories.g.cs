@@ -25,13 +25,6 @@ namespace HVTApp.DataAccess
 		}
     }
 
-    public partial class ConstructorsParametersRepository : BaseRepository<ConstructorsParameters>, IConstructorsParametersRepository
-    {
-		public ConstructorsParametersRepository(DbContext context) : base(context) 
-		{
-		}
-    }
-
     public partial class ConstructorParametersListRepository : BaseRepository<ConstructorParametersList>, IConstructorParametersListRepository
     {
 		public ConstructorParametersListRepository(DbContext context) : base(context) 
@@ -39,9 +32,44 @@ namespace HVTApp.DataAccess
 		}
     }
 
+    public partial class ConstructorsParametersRepository : BaseRepository<ConstructorsParameters>, IConstructorsParametersRepository
+    {
+		public ConstructorsParametersRepository(DbContext context) : base(context) 
+		{
+		}
+    }
+
     public partial class CreateNewProductTaskRepository : BaseRepository<CreateNewProductTask>, ICreateNewProductTaskRepository
     {
 		public CreateNewProductTaskRepository(DbContext context) : base(context) 
+		{
+		}
+    }
+
+    public partial class DirectumTaskRepository : BaseRepository<DirectumTask>, IDirectumTaskRepository
+    {
+		public DirectumTaskRepository(DbContext context) : base(context) 
+		{
+		}
+    }
+
+    public partial class DirectumTaskRouteRepository : BaseRepository<DirectumTaskRoute>, IDirectumTaskRouteRepository
+    {
+		public DirectumTaskRouteRepository(DbContext context) : base(context) 
+		{
+		}
+    }
+
+    public partial class DirectumTaskRouteItemRepository : BaseRepository<DirectumTaskRouteItem>, IDirectumTaskRouteItemRepository
+    {
+		public DirectumTaskRouteItemRepository(DbContext context) : base(context) 
+		{
+		}
+    }
+
+    public partial class DirectumTaskRouteItemMessageRepository : BaseRepository<DirectumTaskRouteItemMessage>, IDirectumTaskRouteItemMessageRepository
+    {
+		public DirectumTaskRouteItemMessageRepository(DbContext context) : base(context) 
 		{
 		}
     }

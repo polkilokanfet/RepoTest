@@ -10,9 +10,13 @@ namespace HVTApp.DataAccess
             CountryUnionRepository = new CountryUnionRepositoryTest(testData);
             BankGuaranteeRepository = new BankGuaranteeRepositoryTest(testData);
             BankGuaranteeTypeRepository = new BankGuaranteeTypeRepositoryTest(testData);
-            ConstructorsParametersRepository = new ConstructorsParametersRepositoryTest(testData);
             ConstructorParametersListRepository = new ConstructorParametersListRepositoryTest(testData);
+            ConstructorsParametersRepository = new ConstructorsParametersRepositoryTest(testData);
             CreateNewProductTaskRepository = new CreateNewProductTaskRepositoryTest(testData);
+            DirectumTaskRepository = new DirectumTaskRepositoryTest(testData);
+            DirectumTaskRouteRepository = new DirectumTaskRouteRepositoryTest(testData);
+            DirectumTaskRouteItemRepository = new DirectumTaskRouteItemRepositoryTest(testData);
+            DirectumTaskRouteItemMessageRepository = new DirectumTaskRouteItemMessageRepositoryTest(testData);
             DocumentNumberRepository = new DocumentNumberRepositoryTest(testData);
             FakeDataRepository = new FakeDataRepositoryTest(testData);
             IncomingRequestRepository = new IncomingRequestRepositoryTest(testData);
@@ -84,9 +88,13 @@ namespace HVTApp.DataAccess
         public ICountryUnionRepository CountryUnionRepository { get; }
         public IBankGuaranteeRepository BankGuaranteeRepository { get; }
         public IBankGuaranteeTypeRepository BankGuaranteeTypeRepository { get; }
-        public IConstructorsParametersRepository ConstructorsParametersRepository { get; }
         public IConstructorParametersListRepository ConstructorParametersListRepository { get; }
+        public IConstructorsParametersRepository ConstructorsParametersRepository { get; }
         public ICreateNewProductTaskRepository CreateNewProductTaskRepository { get; }
+        public IDirectumTaskRepository DirectumTaskRepository { get; }
+        public IDirectumTaskRouteRepository DirectumTaskRouteRepository { get; }
+        public IDirectumTaskRouteItemRepository DirectumTaskRouteItemRepository { get; }
+        public IDirectumTaskRouteItemMessageRepository DirectumTaskRouteItemMessageRepository { get; }
         public IDocumentNumberRepository DocumentNumberRepository { get; }
         public IFakeDataRepository FakeDataRepository { get; }
         public IIncomingRequestRepository IncomingRequestRepository { get; }

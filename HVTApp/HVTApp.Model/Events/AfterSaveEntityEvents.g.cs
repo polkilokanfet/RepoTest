@@ -20,9 +20,13 @@ namespace HVTApp.Model.Events
 	public partial class AfterSaveCountryUnionEvent : PubSubEvent<CountryUnion> { }
 	public partial class AfterSaveBankGuaranteeEvent : PubSubEvent<BankGuarantee> { }
 	public partial class AfterSaveBankGuaranteeTypeEvent : PubSubEvent<BankGuaranteeType> { }
-	public partial class AfterSaveConstructorsParametersEvent : PubSubEvent<ConstructorsParameters> { }
 	public partial class AfterSaveConstructorParametersListEvent : PubSubEvent<ConstructorParametersList> { }
+	public partial class AfterSaveConstructorsParametersEvent : PubSubEvent<ConstructorsParameters> { }
 	public partial class AfterSaveCreateNewProductTaskEvent : PubSubEvent<CreateNewProductTask> { }
+	public partial class AfterSaveDirectumTaskEvent : PubSubEvent<DirectumTask> { }
+	public partial class AfterSaveDirectumTaskRouteEvent : PubSubEvent<DirectumTaskRoute> { }
+	public partial class AfterSaveDirectumTaskRouteItemEvent : PubSubEvent<DirectumTaskRouteItem> { }
+	public partial class AfterSaveDirectumTaskRouteItemMessageEvent : PubSubEvent<DirectumTaskRouteItemMessage> { }
 	public partial class AfterSaveDocumentNumberEvent : PubSubEvent<DocumentNumber> { }
 	public partial class AfterSaveFakeDataEvent : PubSubEvent<FakeData> { }
 	public partial class AfterSaveIncomingRequestEvent : PubSubEvent<IncomingRequest> { }

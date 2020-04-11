@@ -1,0 +1,73 @@
+<inf:ViewBase x:Class="HVTApp.UI.Views.DirectumTaskDetailsView"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			  xmlns:infDP="http://infragistics.com/DataPresenter"
+			  xmlns:infE="http://infragistics.com/Editors"
+			  xmlns:core="clr-namespace:System;assembly=mscorlib"
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+			  x:Name="Root">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" MinWidth="200"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+
+        <Label Grid.Column="0" Grid.Row ="0" Content="Инициатор" Visibility="{Binding VisibilityAuthorDirectumTask, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="0" 
+                                    Item="{Binding Item.Author}" 
+                                    AddItemCommand="{Binding SelectAuthorCommand}" 
+                                    RemoveItemCommand="{Binding ClearAuthorCommand}"
+									Visibility="{Binding VisibilityAuthorDirectumTask, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="1" Content="Название" Visibility="{Binding VisibilityNameDirectumTask, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
+                 Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding VisibilityNameDirectumTask, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="2" Content="Маршрут" Visibility="{Binding VisibilityRouteDirectumTask, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
+                                    Item="{Binding Item.Route}" 
+                                    AddItemCommand="{Binding SelectRouteCommand}" 
+                                    RemoveItemCommand="{Binding ClearRouteCommand}"
+									Visibility="{Binding VisibilityRouteDirectumTask, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="3" Content="Наблюдатели" Visibility="{Binding VisibilityObserversDirectumTask, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="3"
+										 Items="{Binding Path=Item.Observers}"
+										 SelectedItem="{Binding SelectedObserversItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInObserversCommand}"
+										 RemoveItemCommand="{Binding RemoveFromObserversCommand}"
+										 Visibility="{Binding VisibilityObserversDirectumTask, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="4" Content="Родительская задача" Visibility="{Binding VisibilityParentTaskDirectumTask, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 
+                                    Item="{Binding Item.ParentTask}" 
+                                    AddItemCommand="{Binding SelectParentTaskCommand}" 
+                                    RemoveItemCommand="{Binding ClearParentTaskCommand}"
+									Visibility="{Binding VisibilityParentTaskDirectumTask, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="5" Content="Путь к приложениям" Visibility="{Binding VisibilityAttachmentsPathDirectumTask, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="5" MinWidth="200" 
+                 Text="{Binding Item.AttachmentsPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding VisibilityAttachmentsPathDirectumTask, ElementName=Root}"/>
+
+
+
+    </Grid>
+</inf:ViewBase>

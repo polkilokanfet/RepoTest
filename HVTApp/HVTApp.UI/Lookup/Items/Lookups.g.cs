@@ -1,3 +1,19 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 using HVTApp.Model.POCOs;
 using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure;
@@ -163,6 +179,162 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
 	    public ProductLookup Product { get { return GetLookup<ProductLookup>(); } }
+
+
+        #endregion
+
+	}
+
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Задача")]
+	public partial class DirectumTaskLookup : LookupItem<DirectumTask>
+	{
+		public DirectumTaskLookup(DirectumTask entity) : base(entity) 
+		{
+		}
+		
+
+        #region SimpleProperties
+
+		[OrderStatus(9)]
+        public System.String Name => Entity.Name;
+
+
+		[OrderStatus(5)]
+        public HVTApp.Model.POCOs.DirectumTaskPriority Priority => Entity.Priority;
+
+
+		[OrderStatus(4)]
+        public System.String AttachmentsPath => Entity.AttachmentsPath;
+
+
+        #endregion
+
+
+        #region ComplexProperties
+
+		[OrderStatus(10)]
+	    public UserLookup Author { get { return GetLookup<UserLookup>(); } }
+
+
+		[OrderStatus(8)]
+	    public DirectumTaskRouteLookup Route { get { return GetLookup<DirectumTaskRouteLookup>(); } }
+
+
+		[OrderStatus(6)]
+	    public DirectumTaskLookup ParentTask { get { return GetLookup<DirectumTaskLookup>(); } }
+
+
+        #endregion
+
+		[OrderStatus(7)]
+	    public List<UserLookup> Observers { get { return GetLookupEnum<UserLookup>().ToList(); } }
+
+	}
+
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Маршрут")]
+	public partial class DirectumTaskRouteLookup : LookupItem<DirectumTaskRoute>
+	{
+		public DirectumTaskRouteLookup(DirectumTaskRoute entity) : base(entity) 
+		{
+		}
+		
+
+        #region SimpleProperties
+
+		[OrderStatus(5)]
+        public System.Boolean IsParallel => Entity.IsParallel;
+
+
+        #endregion
+
+		[OrderStatus(10)]
+	    public List<DirectumTaskRouteItemLookup> Items { get { return GetLookupEnum<DirectumTaskRouteItemLookup>().ToList(); } }
+
+	}
+
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Этап маршрута")]
+	public partial class DirectumTaskRouteItemLookup : LookupItem<DirectumTaskRouteItem>
+	{
+		public DirectumTaskRouteItemLookup(DirectumTaskRouteItem entity) : base(entity) 
+		{
+		}
+		
+
+        #region SimpleProperties
+
+		[OrderStatus(10)]
+        public System.Int32 Index => Entity.Index;
+
+
+		[OrderStatus(8)]
+        public System.DateTime StartAuthor => Entity.StartAuthor;
+
+
+		[OrderStatus(7)]
+        public System.Nullable<System.DateTime> StartPerformer => Entity.StartPerformer;
+
+
+		[OrderStatus(6)]
+        public System.DateTime FinishPlan => Entity.FinishPlan;
+
+
+		[OrderStatus(5)]
+        public System.Nullable<System.DateTime> FinishPerformer => Entity.FinishPerformer;
+
+
+		[OrderStatus(4)]
+        public System.Nullable<System.DateTime> FinishAuthor => Entity.FinishAuthor;
+
+
+        #endregion
+
+
+        #region ComplexProperties
+
+		[OrderStatus(9)]
+	    public UserLookup Performer { get { return GetLookup<UserLookup>(); } }
+
+
+        #endregion
+
+		[OrderStatus(3)]
+	    public List<DirectumTaskRouteItemMessageLookup> Messages { get { return GetLookupEnum<DirectumTaskRouteItemMessageLookup>().ToList(); } }
+
+	}
+
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Сообщение в задаче")]
+	public partial class DirectumTaskRouteItemMessageLookup : LookupItem<DirectumTaskRouteItemMessage>
+	{
+		public DirectumTaskRouteItemMessageLookup(DirectumTaskRouteItemMessage entity) : base(entity) 
+		{
+		}
+		
+
+        #region SimpleProperties
+
+		[OrderStatus(10)]
+        public System.DateTime Moment => Entity.Moment;
+
+
+		[OrderStatus(1)]
+        public System.String Message => Entity.Message;
+
+
+        #endregion
+
+
+        #region ComplexProperties
+
+		[OrderStatus(5)]
+	    public UserLookup Author { get { return GetLookup<UserLookup>(); } }
 
 
         #endregion
@@ -1900,6 +2072,10 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(865)]
         public System.Nullable<System.DateTime> ShippingConditionsDoneDate => Entity.ShippingConditionsDoneDate;
+
+
+		[OrderStatus(1)]
+        public System.Nullable<System.DateTime> StartProductionDateInjected => Entity.StartProductionDateInjected;
 
 
 		[OrderStatus(860)]

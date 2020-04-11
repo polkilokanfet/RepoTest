@@ -6,9 +6,13 @@ namespace HVTApp.DataAccess
     public partial class CountryUnionConfiguration : EntityTypeConfiguration<CountryUnion> { }
     public partial class BankGuaranteeConfiguration : EntityTypeConfiguration<BankGuarantee> { }
     public partial class BankGuaranteeTypeConfiguration : EntityTypeConfiguration<BankGuaranteeType> { }
-    public partial class ConstructorsParametersConfiguration : EntityTypeConfiguration<ConstructorsParameters> { }
     public partial class ConstructorParametersListConfiguration : EntityTypeConfiguration<ConstructorParametersList> { }
+    public partial class ConstructorsParametersConfiguration : EntityTypeConfiguration<ConstructorsParameters> { }
     public partial class CreateNewProductTaskConfiguration : EntityTypeConfiguration<CreateNewProductTask> { }
+    public partial class DirectumTaskConfiguration : EntityTypeConfiguration<DirectumTask> { }
+    public partial class DirectumTaskRouteConfiguration : EntityTypeConfiguration<DirectumTaskRoute> { }
+    public partial class DirectumTaskRouteItemConfiguration : EntityTypeConfiguration<DirectumTaskRouteItem> { }
+    public partial class DirectumTaskRouteItemMessageConfiguration : EntityTypeConfiguration<DirectumTaskRouteItemMessage> { }
     public partial class DocumentNumberConfiguration : EntityTypeConfiguration<DocumentNumber> { }
     public partial class FakeDataConfiguration : EntityTypeConfiguration<FakeData> { }
     public partial class IncomingRequestConfiguration : EntityTypeConfiguration<IncomingRequest> { }

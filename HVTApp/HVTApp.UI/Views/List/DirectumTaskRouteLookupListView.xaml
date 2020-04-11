@@ -2,7 +2,7 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-              x:Class="HVTApp.UI.Views.PriceCalculationLookupListView">
+              x:Class="HVTApp.UI.Views.DirectumTaskRouteLookupListView">
 
     <Grid>
          <Grid.RowDefinitions>
@@ -14,7 +14,7 @@
             <Label.Style>
                 <Style>
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding ElementName=PriceCalculationLookupListGrid, Path=Visibility}" Value="Visible">
+                    <DataTrigger Binding="{Binding ElementName=DirectumTaskRouteLookupListGrid, Path=Visibility}" Value="Visible">
                         <Setter Property="Label.Visibility" Value="Collapsed"/>
                     </DataTrigger>
                 </Style.Triggers>
@@ -23,7 +23,7 @@
         </Label>
        
 
-		<infg:XamDataGrid x:Name="PriceCalculationLookupListGrid" Grid.Row="1" Style="{StaticResource ListViewGrid}" Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+		<infg:XamDataGrid x:Name="DirectumTaskRouteLookupListGrid" Grid.Row="1" Style="{StaticResource ListViewGrid}" Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
         
 			<infg:XamDataGrid.ContextMenu>
 				<ContextMenu>
@@ -38,13 +38,8 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:DateTimeField Name="TaskOpenMoment" Label="Старт задачи" Width="Auto" AllowResize="True" />
-                    <infg:DateTimeField Name="TaskCloseMoment" Label="Финиш задачи" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="PriceCalculationItems" Label="Единицы расчета" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <infg:TextField Name="Name" Label="Название" Width="Auto" AllowResize="True" />
-                    <infg:CheckBoxField Name="IsNeedExcelFile" Label="Требуется расчетный файл" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="Manager" Label="Менеджер" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="Items" Label="Этапы" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                    <infg:CheckBoxField Name="IsParallel" Label="Параллельность" Width="Auto" AllowResize="True" />
                     <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 
 					</infg:FieldLayout.Fields>

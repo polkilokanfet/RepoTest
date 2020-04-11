@@ -78,6 +78,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
 
@@ -329,8 +330,14 @@
 									Visibility="{Binding VisibilityAddressDeliverySalesUnit, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="35" Content="OrderInTakeDateInjected" Visibility="{Binding VisibilityOrderInTakeDateInjectedSalesUnit, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="35" Content="StartProductionDateInjected" Visibility="{Binding VisibilityStartProductionDateInjectedSalesUnit, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="35" 
+                    SelectedDate="{Binding Item.StartProductionDateInjected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding VisibilityStartProductionDateInjectedSalesUnit, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="36" Content="OrderInTakeDateInjected" Visibility="{Binding VisibilityOrderInTakeDateInjectedSalesUnit, ElementName=Root}"/>
+        <DatePicker Grid.Column="1" Grid.Row="36" 
                     SelectedDate="{Binding Item.OrderInTakeDateInjected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityOrderInTakeDateInjectedSalesUnit, ElementName=Root}"/>
 

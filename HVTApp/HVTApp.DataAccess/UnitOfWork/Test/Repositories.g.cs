@@ -19,19 +19,39 @@ namespace HVTApp.DataAccess
         public BankGuaranteeTypeRepositoryTest(TestData testData) : base(testData) {}
     }
 
-    public partial class ConstructorsParametersRepositoryTest : TestBaseRepository<ConstructorsParameters>, IConstructorsParametersRepository
-    {
-        public ConstructorsParametersRepositoryTest(TestData testData) : base(testData) {}
-    }
-
     public partial class ConstructorParametersListRepositoryTest : TestBaseRepository<ConstructorParametersList>, IConstructorParametersListRepository
     {
         public ConstructorParametersListRepositoryTest(TestData testData) : base(testData) {}
     }
 
+    public partial class ConstructorsParametersRepositoryTest : TestBaseRepository<ConstructorsParameters>, IConstructorsParametersRepository
+    {
+        public ConstructorsParametersRepositoryTest(TestData testData) : base(testData) {}
+    }
+
     public partial class CreateNewProductTaskRepositoryTest : TestBaseRepository<CreateNewProductTask>, ICreateNewProductTaskRepository
     {
         public CreateNewProductTaskRepositoryTest(TestData testData) : base(testData) {}
+    }
+
+    public partial class DirectumTaskRepositoryTest : TestBaseRepository<DirectumTask>, IDirectumTaskRepository
+    {
+        public DirectumTaskRepositoryTest(TestData testData) : base(testData) {}
+    }
+
+    public partial class DirectumTaskRouteRepositoryTest : TestBaseRepository<DirectumTaskRoute>, IDirectumTaskRouteRepository
+    {
+        public DirectumTaskRouteRepositoryTest(TestData testData) : base(testData) {}
+    }
+
+    public partial class DirectumTaskRouteItemRepositoryTest : TestBaseRepository<DirectumTaskRouteItem>, IDirectumTaskRouteItemRepository
+    {
+        public DirectumTaskRouteItemRepositoryTest(TestData testData) : base(testData) {}
+    }
+
+    public partial class DirectumTaskRouteItemMessageRepositoryTest : TestBaseRepository<DirectumTaskRouteItemMessage>, IDirectumTaskRouteItemMessageRepository
+    {
+        public DirectumTaskRouteItemMessageRepositoryTest(TestData testData) : base(testData) {}
     }
 
     public partial class DocumentNumberRepositoryTest : TestBaseRepository<DocumentNumber>, IDocumentNumberRepository

@@ -331,6 +331,335 @@ namespace HVTApp.UI.Wrapper
 
 	}
 
+		public partial class DirectumTaskWrapper : WrapperBase<DirectumTask>
+	{
+	    public DirectumTaskWrapper(DirectumTask model) : base(model) { }
+
+	
+
+        #region SimpleProperties
+
+        public System.String Name
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
+        public bool NameIsChanged => GetIsChanged(nameof(Name));
+
+
+        public HVTApp.Model.POCOs.DirectumTaskPriority Priority
+        {
+          get { return GetValue<HVTApp.Model.POCOs.DirectumTaskPriority>(); }
+          set { SetValue(value); }
+        }
+        public HVTApp.Model.POCOs.DirectumTaskPriority PriorityOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.DirectumTaskPriority>(nameof(Priority));
+        public bool PriorityIsChanged => GetIsChanged(nameof(Priority));
+
+
+        public System.String AttachmentsPath
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String AttachmentsPathOriginalValue => GetOriginalValue<System.String>(nameof(AttachmentsPath));
+        public bool AttachmentsPathIsChanged => GetIsChanged(nameof(AttachmentsPath));
+
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+
+        #endregion
+
+
+        #region ComplexProperties
+
+	    public UserWrapper Author 
+        {
+            get { return GetWrapper<UserWrapper>(); }
+            set { SetComplexValue<User, UserWrapper>(Author, value); }
+        }
+
+
+	    public DirectumTaskRouteWrapper Route 
+        {
+            get { return GetWrapper<DirectumTaskRouteWrapper>(); }
+            set { SetComplexValue<DirectumTaskRoute, DirectumTaskRouteWrapper>(Route, value); }
+        }
+
+
+	    public DirectumTaskWrapper ParentTask 
+        {
+            get { return GetWrapper<DirectumTaskWrapper>(); }
+            set { SetComplexValue<DirectumTask, DirectumTaskWrapper>(ParentTask, value); }
+        }
+
+
+        #endregion
+
+
+        #region CollectionProperties
+
+        public IValidatableChangeTrackingCollection<UserWrapper> Observers { get; private set; }
+
+
+        #endregion
+
+        public override void InitializeComplexProperties()
+        {
+
+            InitializeComplexProperty<UserWrapper>(nameof(Author), Model.Author == null ? null : new UserWrapper(Model.Author));
+
+
+            InitializeComplexProperty<DirectumTaskRouteWrapper>(nameof(Route), Model.Route == null ? null : new DirectumTaskRouteWrapper(Model.Route));
+
+
+            InitializeComplexProperty<DirectumTaskWrapper>(nameof(ParentTask), Model.ParentTask == null ? null : new DirectumTaskWrapper(Model.ParentTask));
+
+
+        }
+
+  
+        protected override void InitializeCollectionProperties()
+        {
+
+          if (Model.Observers == null) throw new ArgumentException("Observers cannot be null");
+          Observers = new ValidatableChangeTrackingCollection<UserWrapper>(Model.Observers.Select(e => new UserWrapper(e)));
+          RegisterCollection(Observers, Model.Observers);
+
+
+        }
+
+	}
+
+		public partial class DirectumTaskRouteWrapper : WrapperBase<DirectumTaskRoute>
+	{
+	    public DirectumTaskRouteWrapper(DirectumTaskRoute model) : base(model) { }
+
+	
+
+        #region SimpleProperties
+
+        public System.Boolean IsParallel
+        {
+          get { return GetValue<System.Boolean>(); }
+          set { SetValue(value); }
+        }
+        public System.Boolean IsParallelOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsParallel));
+        public bool IsParallelIsChanged => GetIsChanged(nameof(IsParallel));
+
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+
+        #endregion
+
+
+        #region CollectionProperties
+
+        public IValidatableChangeTrackingCollection<DirectumTaskRouteItemWrapper> Items { get; private set; }
+
+
+        #endregion
+
+  
+        protected override void InitializeCollectionProperties()
+        {
+
+          if (Model.Items == null) throw new ArgumentException("Items cannot be null");
+          Items = new ValidatableChangeTrackingCollection<DirectumTaskRouteItemWrapper>(Model.Items.Select(e => new DirectumTaskRouteItemWrapper(e)));
+          RegisterCollection(Items, Model.Items);
+
+
+        }
+
+	}
+
+		public partial class DirectumTaskRouteItemWrapper : WrapperBase<DirectumTaskRouteItem>
+	{
+	    public DirectumTaskRouteItemWrapper(DirectumTaskRouteItem model) : base(model) { }
+
+	
+
+        #region SimpleProperties
+
+        public System.Int32 Index
+        {
+          get { return GetValue<System.Int32>(); }
+          set { SetValue(value); }
+        }
+        public System.Int32 IndexOriginalValue => GetOriginalValue<System.Int32>(nameof(Index));
+        public bool IndexIsChanged => GetIsChanged(nameof(Index));
+
+
+        public System.DateTime StartAuthor
+        {
+          get { return GetValue<System.DateTime>(); }
+          set { SetValue(value); }
+        }
+        public System.DateTime StartAuthorOriginalValue => GetOriginalValue<System.DateTime>(nameof(StartAuthor));
+        public bool StartAuthorIsChanged => GetIsChanged(nameof(StartAuthor));
+
+
+        public System.Nullable<System.DateTime> StartPerformer
+        {
+          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.DateTime> StartPerformerOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(StartPerformer));
+        public bool StartPerformerIsChanged => GetIsChanged(nameof(StartPerformer));
+
+
+        public System.DateTime FinishPlan
+        {
+          get { return GetValue<System.DateTime>(); }
+          set { SetValue(value); }
+        }
+        public System.DateTime FinishPlanOriginalValue => GetOriginalValue<System.DateTime>(nameof(FinishPlan));
+        public bool FinishPlanIsChanged => GetIsChanged(nameof(FinishPlan));
+
+
+        public System.Nullable<System.DateTime> FinishPerformer
+        {
+          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.DateTime> FinishPerformerOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(FinishPerformer));
+        public bool FinishPerformerIsChanged => GetIsChanged(nameof(FinishPerformer));
+
+
+        public System.Nullable<System.DateTime> FinishAuthor
+        {
+          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.DateTime> FinishAuthorOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(FinishAuthor));
+        public bool FinishAuthorIsChanged => GetIsChanged(nameof(FinishAuthor));
+
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+
+        #endregion
+
+
+        #region ComplexProperties
+
+	    public UserWrapper Performer 
+        {
+            get { return GetWrapper<UserWrapper>(); }
+            set { SetComplexValue<User, UserWrapper>(Performer, value); }
+        }
+
+
+        #endregion
+
+
+        #region CollectionProperties
+
+        public IValidatableChangeTrackingCollection<DirectumTaskRouteItemMessageWrapper> Messages { get; private set; }
+
+
+        #endregion
+
+        public override void InitializeComplexProperties()
+        {
+
+            InitializeComplexProperty<UserWrapper>(nameof(Performer), Model.Performer == null ? null : new UserWrapper(Model.Performer));
+
+
+        }
+
+  
+        protected override void InitializeCollectionProperties()
+        {
+
+          if (Model.Messages == null) throw new ArgumentException("Messages cannot be null");
+          Messages = new ValidatableChangeTrackingCollection<DirectumTaskRouteItemMessageWrapper>(Model.Messages.Select(e => new DirectumTaskRouteItemMessageWrapper(e)));
+          RegisterCollection(Messages, Model.Messages);
+
+
+        }
+
+	}
+
+		public partial class DirectumTaskRouteItemMessageWrapper : WrapperBase<DirectumTaskRouteItemMessage>
+	{
+	    public DirectumTaskRouteItemMessageWrapper(DirectumTaskRouteItemMessage model) : base(model) { }
+
+	
+
+        #region SimpleProperties
+
+        public System.DateTime Moment
+        {
+          get { return GetValue<System.DateTime>(); }
+          set { SetValue(value); }
+        }
+        public System.DateTime MomentOriginalValue => GetOriginalValue<System.DateTime>(nameof(Moment));
+        public bool MomentIsChanged => GetIsChanged(nameof(Moment));
+
+
+        public System.String Message
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String MessageOriginalValue => GetOriginalValue<System.String>(nameof(Message));
+        public bool MessageIsChanged => GetIsChanged(nameof(Message));
+
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+
+        #endregion
+
+
+        #region ComplexProperties
+
+	    public UserWrapper Author 
+        {
+            get { return GetWrapper<UserWrapper>(); }
+            set { SetComplexValue<User, UserWrapper>(Author, value); }
+        }
+
+
+        #endregion
+
+        public override void InitializeComplexProperties()
+        {
+
+            InitializeComplexProperty<UserWrapper>(nameof(Author), Model.Author == null ? null : new UserWrapper(Model.Author));
+
+
+        }
+
+	}
+
 		public partial class DocumentNumberWrapper : WrapperBase<DocumentNumber>
 	{
 	    public DocumentNumberWrapper(DocumentNumber model) : base(model) { }
@@ -3452,6 +3781,15 @@ namespace HVTApp.UI.Wrapper
         }
         public System.Nullable<System.DateTime> OrderInTakeDateInjectedOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(OrderInTakeDateInjected));
         public bool OrderInTakeDateInjectedIsChanged => GetIsChanged(nameof(OrderInTakeDateInjected));
+
+
+        public System.Nullable<System.DateTime> StartProductionDateInjected
+        {
+          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.DateTime> StartProductionDateInjectedOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(StartProductionDateInjected));
+        public bool StartProductionDateInjectedIsChanged => GetIsChanged(nameof(StartProductionDateInjected));
 
 
         public System.Guid Id

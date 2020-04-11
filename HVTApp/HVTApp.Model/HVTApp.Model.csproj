@@ -65,6 +65,11 @@
     <Compile Include="POCOs\ConstructorsParameters.cs" />
     <Compile Include="POCOs\CreateNewProductTask.cs" />
     <Compile Include="Comparers\ParameterComparer.cs" />
+    <Compile Include="POCOs\Directum\DirectumTask.cs" />
+    <Compile Include="POCOs\Directum\DirectumTaskPriority.cs" />
+    <Compile Include="POCOs\Directum\DirectumTaskRoute.cs" />
+    <Compile Include="POCOs\Directum\DirectumTaskRouteItem.cs" />
+    <Compile Include="POCOs\Directum\DirectumTaskRouteItemMessage.cs" />
     <Compile Include="POCOs\DocumentNumber.cs" />
     <Compile Include="POCOs\FakeData.cs" />
     <Compile Include="POCOs\IncomingRequest.cs" />

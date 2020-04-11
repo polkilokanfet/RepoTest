@@ -76,6 +76,10 @@
     <Compile Include="EntityTypeConfigurations\Custom\ConstructorParametersListConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ConstructorsParametersConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\CountryUnionConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\DirectumTaskConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\DirectumTaskRouteConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\DirectumTaskRouteItemConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\DirectumTaskRouteItemMessageConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\GlobalPropertiesConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\CostOnDateConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\CreateNewProductTaskConfiguration.cs" />
