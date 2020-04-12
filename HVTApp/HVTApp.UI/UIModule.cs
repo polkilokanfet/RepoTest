@@ -4,6 +4,7 @@ using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Prism;
 using HVTApp.UI.Modules.BookRegistration.Views;
+using HVTApp.UI.Modules.Directum;
 using HVTApp.UI.Modules.PlanAndEconomy.Views;
 using HVTApp.UI.Modules.Products.Views;
 using HVTApp.UI.Modules.Reports.FlatReport;
@@ -60,6 +61,9 @@ namespace HVTApp.UI
             Container.RegisterViewForNavigation<ContragentsSalesChartView>();
             Container.RegisterViewForNavigation<ProducersSalesChartView>();
             Container.RegisterViewForNavigation<MarketCapacityChartView>();
+            Container.RegisterViewForNavigation<DirectumTaskView>();
+            Container.RegisterViewForNavigation<DirectumTaskRouteView>();
+            Container.RegisterViewForNavigation<DirectumTasksOutgoingView>();
 
             _dialogService.RegisterShow<ProductStructureViewModel, ProductStructureView>();
             RegisterViews();

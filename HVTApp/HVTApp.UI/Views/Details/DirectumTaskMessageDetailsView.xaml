@@ -1,4 +1,4 @@
-<inf:ViewBase x:Class="HVTApp.UI.Views.DirectumTaskRouteItemMessageDetailsView"
+<inf:ViewBase x:Class="HVTApp.UI.Views.DirectumTaskMessageDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -19,24 +19,24 @@
         </Grid.RowDefinitions>
 
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="Момент" Visibility="{Binding VisibilityMomentDirectumTaskRouteItemMessage, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Момент" Visibility="{Binding VisibilityMomentDirectumTaskMessage, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="0" 
                     SelectedDate="{Binding Item.Moment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-					Visibility="{Binding VisibilityMomentDirectumTaskRouteItemMessage, ElementName=Root}"/>
+					Visibility="{Binding VisibilityMomentDirectumTaskMessage, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="Автор" Visibility="{Binding VisibilityAuthorDirectumTaskRouteItemMessage, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Автор" Visibility="{Binding VisibilityAuthorDirectumTaskMessage, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
                                     Item="{Binding Item.Author}" 
                                     AddItemCommand="{Binding SelectAuthorCommand}" 
                                     RemoveItemCommand="{Binding ClearAuthorCommand}"
-									Visibility="{Binding VisibilityAuthorDirectumTaskRouteItemMessage, ElementName=Root}"/>
+									Visibility="{Binding VisibilityAuthorDirectumTaskMessage, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="Сообщение" Visibility="{Binding VisibilityMessageDirectumTaskRouteItemMessage, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="2" Content="Сообщение" Visibility="{Binding VisibilityMessageDirectumTaskMessage, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
                  Text="{Binding Item.Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				 Visibility="{Binding VisibilityMessageDirectumTaskRouteItemMessage, ElementName=Root}"/>
+				 Visibility="{Binding VisibilityMessageDirectumTaskMessage, ElementName=Root}"/>
 
 
 

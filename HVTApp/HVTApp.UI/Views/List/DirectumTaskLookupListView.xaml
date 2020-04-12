@@ -38,11 +38,19 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
+                    <infg:TextField Name="Title" Label="Тема" Width="Auto" AllowResize="True" />
                     <infg:TextField Name="Author" Label="Инициатор" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Name" Label="Название" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="Route" Label="Маршрут" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Performer" Label="Исполнитель" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:DateTimeField Name="StartAuthor" Label="Старт" Width="Auto" AllowResize="True" />
+                    <infg:DateTimeField Name="StartPerformer" Label="Приём" Width="Auto" AllowResize="True" />
+                    <infg:DateTimeField Name="FinishPlan" Label="Срок" Width="Auto" AllowResize="True" />
+                    <infg:DateTimeField Name="FinishPerformer" Label="Финиш исполнителем" Width="Auto" AllowResize="True" />
+                    <infg:DateTimeField Name="FinishAuthor" Label="Финиш" Width="Auto" AllowResize="True" />
+                    <infg:CheckBoxField Name="IsStoped" Label="Прекращена инициатором" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="Messages" Label="Переписка" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:TextField Name="Observers" Label="Наблюдатели" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:TextField Name="ParentTask" Label="Родительская задача" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="PreviousTask" Label="Предыдущая задача" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="AttachmentsPath" Label="Путь к приложениям" Width="Auto" AllowResize="True" />
                     <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 

@@ -133,6 +133,25 @@
     <Compile Include="Modules\BookRegistration\ViewModels\DocumentViewModel.cs" />
     <Compile Include="Modules\BookRegistration\ViewModels\IncomingRequestsViewModel.cs" />
     <Compile Include="Modules\BookRegistration\ViewModels\IncomingRequestViewModel.cs" />
+    <Compile Include="Modules\Directum\DirectumTask\DirectumTaskRoute.cs" />
+    <Compile Include="Modules\Directum\DirectumTask\DirectumTaskRouteView.xaml.cs">
+      <DependentUpon>DirectumTaskRouteView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Directum\DirectumTask\DirectumTaskRouteViewModel.cs" />
+    <Compile Include="Modules\Directum\DirectumTask\DirectumTaskRouteWindow.xaml.cs">
+      <DependentUpon>DirectumTaskRouteWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Directum\Outgoing\DirectumTasksOutgoingViewModel.cs" />
+    <Compile Include="Modules\Directum\DirectumTask\DirectumTaskView.xaml.cs">
+      <DependentUpon>DirectumTaskView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Directum\DirectumTask\DirectumTaskViewModel.cs" />
+    <Compile Include="Modules\Directum\Outgoing\DirectumTasksOutgoingView.xaml.cs">
+      <DependentUpon>DirectumTasksOutgoingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Directum\Outgoing\TabCRUD.xaml.cs">
+      <DependentUpon>TabCRUD.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Reports\FlatReport\FlatReportComparator.cs" />
     <Compile Include="Modules\Reports\FlatReport\FlatReportItem.cs" />
     <Compile Include="Modules\Reports\FlatReport\FlatReportItemManagerContainer.cs" />
@@ -837,6 +856,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Modules\Directum\DirectumTask\DirectumTaskRouteView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Directum\DirectumTask\DirectumTaskView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Directum\DirectumTask\DirectumTaskRouteWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Directum\Outgoing\DirectumTasksOutgoingView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Directum\Outgoing\TabCRUD.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Modules\PlanAndEconomy\Tabs\TabOrder.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1229,15 +1268,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Details\DirectumTaskRouteDetailsView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Details\DirectumTaskRouteItemDetailsView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Details\DirectumTaskRouteItemMessageDetailsView.xaml">
+    <Page Include="Views\Details\DirectumTaskMessageDetailsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1533,15 +1564,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\List\DirectumTaskRouteItemLookupListView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\List\DirectumTaskRouteItemMessageLookupListView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\List\DirectumTaskRouteLookupListView.xaml">
+    <Page Include="Views\List\DirectumTaskMessageLookupListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1775,6 +1798,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Lookup\Service\Custom\" />
+    <Folder Include="Modules\Directum\Incoming\" />
     <Folder Include="Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

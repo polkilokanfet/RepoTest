@@ -1,8 +1,8 @@
 namespace HVTApp.DataAccess
 {
-    public partial class DirectumTaskRouteItemMessageConfiguration
+    public partial class DirectumTaskMessageConfiguration
     {
-        public DirectumTaskRouteItemMessageConfiguration()
+        public DirectumTaskMessageConfiguration()
         {
             HasRequired(x => x.Author).WithMany().WillCascadeOnDelete(false);
             Property(x => x.Message).IsRequired().HasMaxLength(1000);

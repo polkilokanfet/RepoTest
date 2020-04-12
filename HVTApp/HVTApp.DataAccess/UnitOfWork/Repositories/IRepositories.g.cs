@@ -10,9 +10,7 @@ namespace HVTApp.DataAccess
     public partial interface IConstructorsParametersRepository : IRepository<ConstructorsParameters> { }
     public partial interface ICreateNewProductTaskRepository : IRepository<CreateNewProductTask> { }
     public partial interface IDirectumTaskRepository : IRepository<DirectumTask> { }
-    public partial interface IDirectumTaskRouteRepository : IRepository<DirectumTaskRoute> { }
-    public partial interface IDirectumTaskRouteItemRepository : IRepository<DirectumTaskRouteItem> { }
-    public partial interface IDirectumTaskRouteItemMessageRepository : IRepository<DirectumTaskRouteItemMessage> { }
+    public partial interface IDirectumTaskMessageRepository : IRepository<DirectumTaskMessage> { }
     public partial interface IDocumentNumberRepository : IRepository<DocumentNumber> { }
     public partial interface IFakeDataRepository : IRepository<FakeData> { }
     public partial interface IIncomingRequestRepository : IRepository<IncomingRequest> { }

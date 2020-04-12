@@ -14,9 +14,7 @@ namespace HVTApp.DataAccess
             ConstructorsParametersRepository = new ConstructorsParametersRepositoryTest(testData);
             CreateNewProductTaskRepository = new CreateNewProductTaskRepositoryTest(testData);
             DirectumTaskRepository = new DirectumTaskRepositoryTest(testData);
-            DirectumTaskRouteRepository = new DirectumTaskRouteRepositoryTest(testData);
-            DirectumTaskRouteItemRepository = new DirectumTaskRouteItemRepositoryTest(testData);
-            DirectumTaskRouteItemMessageRepository = new DirectumTaskRouteItemMessageRepositoryTest(testData);
+            DirectumTaskMessageRepository = new DirectumTaskMessageRepositoryTest(testData);
             DocumentNumberRepository = new DocumentNumberRepositoryTest(testData);
             FakeDataRepository = new FakeDataRepositoryTest(testData);
             IncomingRequestRepository = new IncomingRequestRepositoryTest(testData);
@@ -92,9 +90,7 @@ namespace HVTApp.DataAccess
         public IConstructorsParametersRepository ConstructorsParametersRepository { get; }
         public ICreateNewProductTaskRepository CreateNewProductTaskRepository { get; }
         public IDirectumTaskRepository DirectumTaskRepository { get; }
-        public IDirectumTaskRouteRepository DirectumTaskRouteRepository { get; }
-        public IDirectumTaskRouteItemRepository DirectumTaskRouteItemRepository { get; }
-        public IDirectumTaskRouteItemMessageRepository DirectumTaskRouteItemMessageRepository { get; }
+        public IDirectumTaskMessageRepository DirectumTaskMessageRepository { get; }
         public IDocumentNumberRepository DocumentNumberRepository { get; }
         public IFakeDataRepository FakeDataRepository { get; }
         public IIncomingRequestRepository IncomingRequestRepository { get; }

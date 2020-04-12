@@ -339,169 +339,13 @@ namespace HVTApp.UI.Wrapper
 
         #region SimpleProperties
 
-        public System.String Name
+        public System.String Title
         {
           get { return GetValue<System.String>(); }
           set { SetValue(value); }
         }
-        public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
-        public bool NameIsChanged => GetIsChanged(nameof(Name));
-
-
-        public HVTApp.Model.POCOs.DirectumTaskPriority Priority
-        {
-          get { return GetValue<HVTApp.Model.POCOs.DirectumTaskPriority>(); }
-          set { SetValue(value); }
-        }
-        public HVTApp.Model.POCOs.DirectumTaskPriority PriorityOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.DirectumTaskPriority>(nameof(Priority));
-        public bool PriorityIsChanged => GetIsChanged(nameof(Priority));
-
-
-        public System.String AttachmentsPath
-        {
-          get { return GetValue<System.String>(); }
-          set { SetValue(value); }
-        }
-        public System.String AttachmentsPathOriginalValue => GetOriginalValue<System.String>(nameof(AttachmentsPath));
-        public bool AttachmentsPathIsChanged => GetIsChanged(nameof(AttachmentsPath));
-
-
-        public System.Guid Id
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
-        public bool IdIsChanged => GetIsChanged(nameof(Id));
-
-
-        #endregion
-
-
-        #region ComplexProperties
-
-	    public UserWrapper Author 
-        {
-            get { return GetWrapper<UserWrapper>(); }
-            set { SetComplexValue<User, UserWrapper>(Author, value); }
-        }
-
-
-	    public DirectumTaskRouteWrapper Route 
-        {
-            get { return GetWrapper<DirectumTaskRouteWrapper>(); }
-            set { SetComplexValue<DirectumTaskRoute, DirectumTaskRouteWrapper>(Route, value); }
-        }
-
-
-	    public DirectumTaskWrapper ParentTask 
-        {
-            get { return GetWrapper<DirectumTaskWrapper>(); }
-            set { SetComplexValue<DirectumTask, DirectumTaskWrapper>(ParentTask, value); }
-        }
-
-
-        #endregion
-
-
-        #region CollectionProperties
-
-        public IValidatableChangeTrackingCollection<UserWrapper> Observers { get; private set; }
-
-
-        #endregion
-
-        public override void InitializeComplexProperties()
-        {
-
-            InitializeComplexProperty<UserWrapper>(nameof(Author), Model.Author == null ? null : new UserWrapper(Model.Author));
-
-
-            InitializeComplexProperty<DirectumTaskRouteWrapper>(nameof(Route), Model.Route == null ? null : new DirectumTaskRouteWrapper(Model.Route));
-
-
-            InitializeComplexProperty<DirectumTaskWrapper>(nameof(ParentTask), Model.ParentTask == null ? null : new DirectumTaskWrapper(Model.ParentTask));
-
-
-        }
-
-  
-        protected override void InitializeCollectionProperties()
-        {
-
-          if (Model.Observers == null) throw new ArgumentException("Observers cannot be null");
-          Observers = new ValidatableChangeTrackingCollection<UserWrapper>(Model.Observers.Select(e => new UserWrapper(e)));
-          RegisterCollection(Observers, Model.Observers);
-
-
-        }
-
-	}
-
-		public partial class DirectumTaskRouteWrapper : WrapperBase<DirectumTaskRoute>
-	{
-	    public DirectumTaskRouteWrapper(DirectumTaskRoute model) : base(model) { }
-
-	
-
-        #region SimpleProperties
-
-        public System.Boolean IsParallel
-        {
-          get { return GetValue<System.Boolean>(); }
-          set { SetValue(value); }
-        }
-        public System.Boolean IsParallelOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsParallel));
-        public bool IsParallelIsChanged => GetIsChanged(nameof(IsParallel));
-
-
-        public System.Guid Id
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
-        public bool IdIsChanged => GetIsChanged(nameof(Id));
-
-
-        #endregion
-
-
-        #region CollectionProperties
-
-        public IValidatableChangeTrackingCollection<DirectumTaskRouteItemWrapper> Items { get; private set; }
-
-
-        #endregion
-
-  
-        protected override void InitializeCollectionProperties()
-        {
-
-          if (Model.Items == null) throw new ArgumentException("Items cannot be null");
-          Items = new ValidatableChangeTrackingCollection<DirectumTaskRouteItemWrapper>(Model.Items.Select(e => new DirectumTaskRouteItemWrapper(e)));
-          RegisterCollection(Items, Model.Items);
-
-
-        }
-
-	}
-
-		public partial class DirectumTaskRouteItemWrapper : WrapperBase<DirectumTaskRouteItem>
-	{
-	    public DirectumTaskRouteItemWrapper(DirectumTaskRouteItem model) : base(model) { }
-
-	
-
-        #region SimpleProperties
-
-        public System.Int32 Index
-        {
-          get { return GetValue<System.Int32>(); }
-          set { SetValue(value); }
-        }
-        public System.Int32 IndexOriginalValue => GetOriginalValue<System.Int32>(nameof(Index));
-        public bool IndexIsChanged => GetIsChanged(nameof(Index));
+        public System.String TitleOriginalValue => GetOriginalValue<System.String>(nameof(Title));
+        public bool TitleIsChanged => GetIsChanged(nameof(Title));
 
 
         public System.DateTime StartAuthor
@@ -549,6 +393,33 @@ namespace HVTApp.UI.Wrapper
         public bool FinishAuthorIsChanged => GetIsChanged(nameof(FinishAuthor));
 
 
+        public System.Boolean IsStoped
+        {
+          get { return GetValue<System.Boolean>(); }
+          set { SetValue(value); }
+        }
+        public System.Boolean IsStopedOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsStoped));
+        public bool IsStopedIsChanged => GetIsChanged(nameof(IsStoped));
+
+
+        public HVTApp.Model.POCOs.DirectumTaskPriority Priority
+        {
+          get { return GetValue<HVTApp.Model.POCOs.DirectumTaskPriority>(); }
+          set { SetValue(value); }
+        }
+        public HVTApp.Model.POCOs.DirectumTaskPriority PriorityOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.DirectumTaskPriority>(nameof(Priority));
+        public bool PriorityIsChanged => GetIsChanged(nameof(Priority));
+
+
+        public System.String AttachmentsPath
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String AttachmentsPathOriginalValue => GetOriginalValue<System.String>(nameof(AttachmentsPath));
+        public bool AttachmentsPathIsChanged => GetIsChanged(nameof(AttachmentsPath));
+
+
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -563,10 +434,31 @@ namespace HVTApp.UI.Wrapper
 
         #region ComplexProperties
 
+	    public UserWrapper Author 
+        {
+            get { return GetWrapper<UserWrapper>(); }
+            set { SetComplexValue<User, UserWrapper>(Author, value); }
+        }
+
+
 	    public UserWrapper Performer 
         {
             get { return GetWrapper<UserWrapper>(); }
             set { SetComplexValue<User, UserWrapper>(Performer, value); }
+        }
+
+
+	    public DirectumTaskWrapper ParentTask 
+        {
+            get { return GetWrapper<DirectumTaskWrapper>(); }
+            set { SetComplexValue<DirectumTask, DirectumTaskWrapper>(ParentTask, value); }
+        }
+
+
+	    public DirectumTaskWrapper PreviousTask 
+        {
+            get { return GetWrapper<DirectumTaskWrapper>(); }
+            set { SetComplexValue<DirectumTask, DirectumTaskWrapper>(PreviousTask, value); }
         }
 
 
@@ -575,7 +467,10 @@ namespace HVTApp.UI.Wrapper
 
         #region CollectionProperties
 
-        public IValidatableChangeTrackingCollection<DirectumTaskRouteItemMessageWrapper> Messages { get; private set; }
+        public IValidatableChangeTrackingCollection<DirectumTaskMessageWrapper> Messages { get; private set; }
+
+
+        public IValidatableChangeTrackingCollection<UserWrapper> Observers { get; private set; }
 
 
         #endregion
@@ -583,7 +478,16 @@ namespace HVTApp.UI.Wrapper
         public override void InitializeComplexProperties()
         {
 
+            InitializeComplexProperty<UserWrapper>(nameof(Author), Model.Author == null ? null : new UserWrapper(Model.Author));
+
+
             InitializeComplexProperty<UserWrapper>(nameof(Performer), Model.Performer == null ? null : new UserWrapper(Model.Performer));
+
+
+            InitializeComplexProperty<DirectumTaskWrapper>(nameof(ParentTask), Model.ParentTask == null ? null : new DirectumTaskWrapper(Model.ParentTask));
+
+
+            InitializeComplexProperty<DirectumTaskWrapper>(nameof(PreviousTask), Model.PreviousTask == null ? null : new DirectumTaskWrapper(Model.PreviousTask));
 
 
         }
@@ -593,17 +497,22 @@ namespace HVTApp.UI.Wrapper
         {
 
           if (Model.Messages == null) throw new ArgumentException("Messages cannot be null");
-          Messages = new ValidatableChangeTrackingCollection<DirectumTaskRouteItemMessageWrapper>(Model.Messages.Select(e => new DirectumTaskRouteItemMessageWrapper(e)));
+          Messages = new ValidatableChangeTrackingCollection<DirectumTaskMessageWrapper>(Model.Messages.Select(e => new DirectumTaskMessageWrapper(e)));
           RegisterCollection(Messages, Model.Messages);
+
+
+          if (Model.Observers == null) throw new ArgumentException("Observers cannot be null");
+          Observers = new ValidatableChangeTrackingCollection<UserWrapper>(Model.Observers.Select(e => new UserWrapper(e)));
+          RegisterCollection(Observers, Model.Observers);
 
 
         }
 
 	}
 
-		public partial class DirectumTaskRouteItemMessageWrapper : WrapperBase<DirectumTaskRouteItemMessage>
+		public partial class DirectumTaskMessageWrapper : WrapperBase<DirectumTaskMessage>
 	{
-	    public DirectumTaskRouteItemMessageWrapper(DirectumTaskRouteItemMessage model) : base(model) { }
+	    public DirectumTaskMessageWrapper(DirectumTaskMessage model) : base(model) { }
 
 	
 

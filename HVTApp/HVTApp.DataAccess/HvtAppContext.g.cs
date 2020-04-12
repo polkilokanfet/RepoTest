@@ -16,9 +16,7 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new ConstructorsParametersConfiguration());
             modelBuilder.Configurations.Add(new CreateNewProductTaskConfiguration());
             modelBuilder.Configurations.Add(new DirectumTaskConfiguration());
-            modelBuilder.Configurations.Add(new DirectumTaskRouteConfiguration());
-            modelBuilder.Configurations.Add(new DirectumTaskRouteItemConfiguration());
-            modelBuilder.Configurations.Add(new DirectumTaskRouteItemMessageConfiguration());
+            modelBuilder.Configurations.Add(new DirectumTaskMessageConfiguration());
             modelBuilder.Configurations.Add(new DocumentNumberConfiguration());
             modelBuilder.Configurations.Add(new FakeDataConfiguration());
             modelBuilder.Configurations.Add(new IncomingRequestConfiguration());
@@ -93,9 +91,7 @@ namespace HVTApp.DataAccess
         public virtual DbSet<ConstructorsParameters> ConstructorsParametersDbSet { get; set; }
         public virtual DbSet<CreateNewProductTask> CreateNewProductTaskDbSet { get; set; }
         public virtual DbSet<DirectumTask> DirectumTaskDbSet { get; set; }
-        public virtual DbSet<DirectumTaskRoute> DirectumTaskRouteDbSet { get; set; }
-        public virtual DbSet<DirectumTaskRouteItem> DirectumTaskRouteItemDbSet { get; set; }
-        public virtual DbSet<DirectumTaskRouteItemMessage> DirectumTaskRouteItemMessageDbSet { get; set; }
+        public virtual DbSet<DirectumTaskMessage> DirectumTaskMessageDbSet { get; set; }
         public virtual DbSet<DocumentNumber> DocumentNumberDbSet { get; set; }
         public virtual DbSet<FakeData> FakeDataDbSet { get; set; }
         public virtual DbSet<IncomingRequest> IncomingRequestDbSet { get; set; }

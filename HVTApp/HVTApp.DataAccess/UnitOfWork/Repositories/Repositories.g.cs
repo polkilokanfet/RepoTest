@@ -53,23 +53,9 @@ namespace HVTApp.DataAccess
 		}
     }
 
-    public partial class DirectumTaskRouteRepository : BaseRepository<DirectumTaskRoute>, IDirectumTaskRouteRepository
+    public partial class DirectumTaskMessageRepository : BaseRepository<DirectumTaskMessage>, IDirectumTaskMessageRepository
     {
-		public DirectumTaskRouteRepository(DbContext context) : base(context) 
-		{
-		}
-    }
-
-    public partial class DirectumTaskRouteItemRepository : BaseRepository<DirectumTaskRouteItem>, IDirectumTaskRouteItemRepository
-    {
-		public DirectumTaskRouteItemRepository(DbContext context) : base(context) 
-		{
-		}
-    }
-
-    public partial class DirectumTaskRouteItemMessageRepository : BaseRepository<DirectumTaskRouteItemMessage>, IDirectumTaskRouteItemMessageRepository
-    {
-		public DirectumTaskRouteItemMessageRepository(DbContext context) : base(context) 
+		public DirectumTaskMessageRepository(DbContext context) : base(context) 
 		{
 		}
     }

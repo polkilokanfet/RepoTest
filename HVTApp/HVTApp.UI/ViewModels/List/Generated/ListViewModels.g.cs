@@ -66,21 +66,9 @@ namespace HVTApp.UI.ViewModels
     }
 
 
-	public partial class DirectumTaskRouteLookupListViewModel : BaseListViewModel<DirectumTaskRoute, DirectumTaskRouteLookup, AfterSaveDirectumTaskRouteEvent, AfterSelectDirectumTaskRouteEvent, AfterRemoveDirectumTaskRouteEvent>
+	public partial class DirectumTaskMessageLookupListViewModel : BaseListViewModel<DirectumTaskMessage, DirectumTaskMessageLookup, AfterSaveDirectumTaskMessageEvent, AfterSelectDirectumTaskMessageEvent, AfterRemoveDirectumTaskMessageEvent>
     {
-        public DirectumTaskRouteLookupListViewModel(IUnityContainer container) : base(container) { }
-    }
-
-
-	public partial class DirectumTaskRouteItemLookupListViewModel : BaseListViewModel<DirectumTaskRouteItem, DirectumTaskRouteItemLookup, AfterSaveDirectumTaskRouteItemEvent, AfterSelectDirectumTaskRouteItemEvent, AfterRemoveDirectumTaskRouteItemEvent>
-    {
-        public DirectumTaskRouteItemLookupListViewModel(IUnityContainer container) : base(container) { }
-    }
-
-
-	public partial class DirectumTaskRouteItemMessageLookupListViewModel : BaseListViewModel<DirectumTaskRouteItemMessage, DirectumTaskRouteItemMessageLookup, AfterSaveDirectumTaskRouteItemMessageEvent, AfterSelectDirectumTaskRouteItemMessageEvent, AfterRemoveDirectumTaskRouteItemMessageEvent>
-    {
-        public DirectumTaskRouteItemMessageLookupListViewModel(IUnityContainer container) : base(container) { }
+        public DirectumTaskMessageLookupListViewModel(IUnityContainer container) : base(container) { }
     }
 
 

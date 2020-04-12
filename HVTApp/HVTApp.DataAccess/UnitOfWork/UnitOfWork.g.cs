@@ -11,9 +11,7 @@ namespace HVTApp.DataAccess
             ConstructorsParametersRepository = new ConstructorsParametersRepository(_context);
             CreateNewProductTaskRepository = new CreateNewProductTaskRepository(_context);
             DirectumTaskRepository = new DirectumTaskRepository(_context);
-            DirectumTaskRouteRepository = new DirectumTaskRouteRepository(_context);
-            DirectumTaskRouteItemRepository = new DirectumTaskRouteItemRepository(_context);
-            DirectumTaskRouteItemMessageRepository = new DirectumTaskRouteItemMessageRepository(_context);
+            DirectumTaskMessageRepository = new DirectumTaskMessageRepository(_context);
             DocumentNumberRepository = new DocumentNumberRepository(_context);
             FakeDataRepository = new FakeDataRepository(_context);
             IncomingRequestRepository = new IncomingRequestRepository(_context);
@@ -88,9 +86,7 @@ namespace HVTApp.DataAccess
         protected IConstructorsParametersRepository ConstructorsParametersRepository;
         protected ICreateNewProductTaskRepository CreateNewProductTaskRepository;
         protected IDirectumTaskRepository DirectumTaskRepository;
-        protected IDirectumTaskRouteRepository DirectumTaskRouteRepository;
-        protected IDirectumTaskRouteItemRepository DirectumTaskRouteItemRepository;
-        protected IDirectumTaskRouteItemMessageRepository DirectumTaskRouteItemMessageRepository;
+        protected IDirectumTaskMessageRepository DirectumTaskMessageRepository;
         protected IDocumentNumberRepository DocumentNumberRepository;
         protected IFakeDataRepository FakeDataRepository;
         protected IIncomingRequestRepository IncomingRequestRepository;

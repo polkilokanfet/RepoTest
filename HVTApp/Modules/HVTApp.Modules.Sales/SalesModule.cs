@@ -4,6 +4,7 @@ using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Prism;
 using HVTApp.Modules.Sales.Menus;
+using HVTApp.UI.Modules.Directum;
 using HVTApp.UI.Modules.Sales.ViewModels;
 using HVTApp.UI.Modules.Sales.ViewModels.Groups;
 using HVTApp.UI.Modules.Sales.Views;
@@ -37,6 +38,7 @@ namespace HVTApp.Modules.Sales
             Container.Resolve<IDialogService>().Register<SalesUnitsViewModel, SalesUnitsWindow>();
             Container.Resolve<IDialogService>().Register<TenderViewModel, TenderWindow>();
             Container.Resolve<IDialogService>().Register<ProductsIncludedViewModel, ProductsIncludedWindow>();
+            Container.Resolve<IDialogService>().Register<DirectumTaskRouteViewModel, DirectumTaskRouteWindow>();
         }
 
         protected override void ResolveOutlookGroup()

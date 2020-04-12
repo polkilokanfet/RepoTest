@@ -291,15 +291,36 @@ namespace HVTApp.UI.ViewModels
 		public ICommand SelectAuthorCommand { get; private set; }
 		public ICommand ClearAuthorCommand { get; private set; }
 
-		//private Func<Task<List<DirectumTaskRoute>>> _getEntitiesForSelectRouteCommand;
-		private Func<List<DirectumTaskRoute>> _getEntitiesForSelectRouteCommand;
-		public ICommand SelectRouteCommand { get; private set; }
-		public ICommand ClearRouteCommand { get; private set; }
+		//private Func<Task<List<User>>> _getEntitiesForSelectPerformerCommand;
+		private Func<List<User>> _getEntitiesForSelectPerformerCommand;
+		public ICommand SelectPerformerCommand { get; private set; }
+		public ICommand ClearPerformerCommand { get; private set; }
 
 		//private Func<Task<List<DirectumTask>>> _getEntitiesForSelectParentTaskCommand;
 		private Func<List<DirectumTask>> _getEntitiesForSelectParentTaskCommand;
 		public ICommand SelectParentTaskCommand { get; private set; }
 		public ICommand ClearParentTaskCommand { get; private set; }
+
+		//private Func<Task<List<DirectumTask>>> _getEntitiesForSelectPreviousTaskCommand;
+		private Func<List<DirectumTask>> _getEntitiesForSelectPreviousTaskCommand;
+		public ICommand SelectPreviousTaskCommand { get; private set; }
+		public ICommand ClearPreviousTaskCommand { get; private set; }
+
+		private Func<List<DirectumTaskMessage>> _getEntitiesForAddInMessagesCommand;
+		public ICommand AddInMessagesCommand { get; }
+		public ICommand RemoveFromMessagesCommand { get; }
+		private DirectumTaskMessageWrapper _selectedMessagesItem;
+		public DirectumTaskMessageWrapper SelectedMessagesItem 
+		{ 
+			get { return _selectedMessagesItem; }
+			set 
+			{ 
+				if (Equals(_selectedMessagesItem, value)) return;
+				_selectedMessagesItem = value;
+				OnPropertyChanged();
+				((DelegateCommand)RemoveFromMessagesCommand).RaiseCanExecuteChanged();
+			}
+		}
 
 		private Func<List<User>> _getEntitiesForAddInObserversCommand;
 		public ICommand AddInObserversCommand { get; }
@@ -326,14 +347,24 @@ namespace HVTApp.UI.ViewModels
 			if (ClearAuthorCommand == null) ClearAuthorCommand = new DelegateCommand(ClearAuthorCommand_Execute_Default);
 
 			
-			if (_getEntitiesForSelectRouteCommand == null) _getEntitiesForSelectRouteCommand = () => { return UnitOfWork.Repository<DirectumTaskRoute>().GetAll(); };
-			if (SelectRouteCommand == null) SelectRouteCommand = new DelegateCommand(SelectRouteCommand_Execute_Default);
-			if (ClearRouteCommand == null) ClearRouteCommand = new DelegateCommand(ClearRouteCommand_Execute_Default);
+			if (_getEntitiesForSelectPerformerCommand == null) _getEntitiesForSelectPerformerCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };
+			if (SelectPerformerCommand == null) SelectPerformerCommand = new DelegateCommand(SelectPerformerCommand_Execute_Default);
+			if (ClearPerformerCommand == null) ClearPerformerCommand = new DelegateCommand(ClearPerformerCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectParentTaskCommand == null) _getEntitiesForSelectParentTaskCommand = () => { return UnitOfWork.Repository<DirectumTask>().GetAll(); };
 			if (SelectParentTaskCommand == null) SelectParentTaskCommand = new DelegateCommand(SelectParentTaskCommand_Execute_Default);
 			if (ClearParentTaskCommand == null) ClearParentTaskCommand = new DelegateCommand(ClearParentTaskCommand_Execute_Default);
+
+			
+			if (_getEntitiesForSelectPreviousTaskCommand == null) _getEntitiesForSelectPreviousTaskCommand = () => { return UnitOfWork.Repository<DirectumTask>().GetAll(); };
+			if (SelectPreviousTaskCommand == null) SelectPreviousTaskCommand = new DelegateCommand(SelectPreviousTaskCommand_Execute_Default);
+			if (ClearPreviousTaskCommand == null) ClearPreviousTaskCommand = new DelegateCommand(ClearPreviousTaskCommand_Execute_Default);
+
+			
+			if (_getEntitiesForAddInMessagesCommand == null) _getEntitiesForAddInMessagesCommand = () => { return UnitOfWork.Repository<DirectumTaskMessage>().GetAll(); };;
+			if (AddInMessagesCommand == null) AddInMessagesCommand = new DelegateCommand(AddInMessagesCommand_Execute_Default);
+			if (RemoveFromMessagesCommand == null) RemoveFromMessagesCommand = new DelegateCommand(RemoveFromMessagesCommand_Execute_Default, RemoveFromMessagesCommand_CanExecute_Default);
 
 			
 			if (_getEntitiesForAddInObserversCommand == null) _getEntitiesForAddInObserversCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };;
@@ -353,14 +384,14 @@ namespace HVTApp.UI.ViewModels
 		    
 		}
 
-		private void SelectRouteCommand_Execute_Default() 
+		private void SelectPerformerCommand_Execute_Default() 
 		{
-            SelectAndSetWrapper<DirectumTaskRoute, DirectumTaskRouteWrapper>(_getEntitiesForSelectRouteCommand(), nameof(Item.Route), Item.Route?.Id);
+            SelectAndSetWrapper<User, UserWrapper>(_getEntitiesForSelectPerformerCommand(), nameof(Item.Performer), Item.Performer?.Id);
 		}
 
-		private void ClearRouteCommand_Execute_Default() 
+		private void ClearPerformerCommand_Execute_Default() 
 		{
-						Item.Route = null;
+						Item.Performer = null;
 		    
 		}
 
@@ -374,6 +405,32 @@ namespace HVTApp.UI.ViewModels
 						Item.ParentTask = null;
 		    
 		}
+
+		private void SelectPreviousTaskCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<DirectumTask, DirectumTaskWrapper>(_getEntitiesForSelectPreviousTaskCommand(), nameof(Item.PreviousTask), Item.PreviousTask?.Id);
+		}
+
+		private void ClearPreviousTaskCommand_Execute_Default() 
+		{
+						Item.PreviousTask = null;
+		    
+		}
+
+			private void AddInMessagesCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<DirectumTaskMessage, DirectumTaskMessageWrapper>(_getEntitiesForAddInMessagesCommand(), Item.Messages);
+			}
+
+			private void RemoveFromMessagesCommand_Execute_Default()
+			{
+				Item.Messages.Remove(SelectedMessagesItem);
+			}
+
+			private bool RemoveFromMessagesCommand_CanExecute_Default()
+			{
+				return SelectedMessagesItem != null;
+			}
 
 			private void AddInObserversCommand_Execute_Default()
 			{
@@ -395,124 +452,7 @@ namespace HVTApp.UI.ViewModels
     }
 
 
-    public partial class DirectumTaskRouteDetailsViewModel : BaseDetailsViewModel<DirectumTaskRouteWrapper, DirectumTaskRoute, AfterSaveDirectumTaskRouteEvent>
-    {
-		private Func<List<DirectumTaskRouteItem>> _getEntitiesForAddInItemsCommand;
-		public ICommand AddInItemsCommand { get; }
-		public ICommand RemoveFromItemsCommand { get; }
-		private DirectumTaskRouteItemWrapper _selectedItemsItem;
-		public DirectumTaskRouteItemWrapper SelectedItemsItem 
-		{ 
-			get { return _selectedItemsItem; }
-			set 
-			{ 
-				if (Equals(_selectedItemsItem, value)) return;
-				_selectedItemsItem = value;
-				OnPropertyChanged();
-				((DelegateCommand)RemoveFromItemsCommand).RaiseCanExecuteChanged();
-			}
-		}
-
-
-        public DirectumTaskRouteDetailsViewModel(IUnityContainer container) : base(container) 
-		{
-			
-			if (_getEntitiesForAddInItemsCommand == null) _getEntitiesForAddInItemsCommand = () => { return UnitOfWork.Repository<DirectumTaskRouteItem>().GetAll(); };;
-			if (AddInItemsCommand == null) AddInItemsCommand = new DelegateCommand(AddInItemsCommand_Execute_Default);
-			if (RemoveFromItemsCommand == null) RemoveFromItemsCommand = new DelegateCommand(RemoveFromItemsCommand_Execute_Default, RemoveFromItemsCommand_CanExecute_Default);
-
-		}
-
-			private void AddInItemsCommand_Execute_Default()
-			{
-				SelectAndAddInListWrapper<DirectumTaskRouteItem, DirectumTaskRouteItemWrapper>(_getEntitiesForAddInItemsCommand(), Item.Items);
-			}
-
-			private void RemoveFromItemsCommand_Execute_Default()
-			{
-				Item.Items.Remove(SelectedItemsItem);
-			}
-
-			private bool RemoveFromItemsCommand_CanExecute_Default()
-			{
-				return SelectedItemsItem != null;
-			}
-
-
-
-    }
-
-
-    public partial class DirectumTaskRouteItemDetailsViewModel : BaseDetailsViewModel<DirectumTaskRouteItemWrapper, DirectumTaskRouteItem, AfterSaveDirectumTaskRouteItemEvent>
-    {
-		//private Func<Task<List<User>>> _getEntitiesForSelectPerformerCommand;
-		private Func<List<User>> _getEntitiesForSelectPerformerCommand;
-		public ICommand SelectPerformerCommand { get; private set; }
-		public ICommand ClearPerformerCommand { get; private set; }
-
-		private Func<List<DirectumTaskRouteItemMessage>> _getEntitiesForAddInMessagesCommand;
-		public ICommand AddInMessagesCommand { get; }
-		public ICommand RemoveFromMessagesCommand { get; }
-		private DirectumTaskRouteItemMessageWrapper _selectedMessagesItem;
-		public DirectumTaskRouteItemMessageWrapper SelectedMessagesItem 
-		{ 
-			get { return _selectedMessagesItem; }
-			set 
-			{ 
-				if (Equals(_selectedMessagesItem, value)) return;
-				_selectedMessagesItem = value;
-				OnPropertyChanged();
-				((DelegateCommand)RemoveFromMessagesCommand).RaiseCanExecuteChanged();
-			}
-		}
-
-
-        public DirectumTaskRouteItemDetailsViewModel(IUnityContainer container) : base(container) 
-		{
-			
-			if (_getEntitiesForSelectPerformerCommand == null) _getEntitiesForSelectPerformerCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };
-			if (SelectPerformerCommand == null) SelectPerformerCommand = new DelegateCommand(SelectPerformerCommand_Execute_Default);
-			if (ClearPerformerCommand == null) ClearPerformerCommand = new DelegateCommand(ClearPerformerCommand_Execute_Default);
-
-			
-			if (_getEntitiesForAddInMessagesCommand == null) _getEntitiesForAddInMessagesCommand = () => { return UnitOfWork.Repository<DirectumTaskRouteItemMessage>().GetAll(); };;
-			if (AddInMessagesCommand == null) AddInMessagesCommand = new DelegateCommand(AddInMessagesCommand_Execute_Default);
-			if (RemoveFromMessagesCommand == null) RemoveFromMessagesCommand = new DelegateCommand(RemoveFromMessagesCommand_Execute_Default, RemoveFromMessagesCommand_CanExecute_Default);
-
-		}
-
-		private void SelectPerformerCommand_Execute_Default() 
-		{
-            SelectAndSetWrapper<User, UserWrapper>(_getEntitiesForSelectPerformerCommand(), nameof(Item.Performer), Item.Performer?.Id);
-		}
-
-		private void ClearPerformerCommand_Execute_Default() 
-		{
-						Item.Performer = null;
-		    
-		}
-
-			private void AddInMessagesCommand_Execute_Default()
-			{
-				SelectAndAddInListWrapper<DirectumTaskRouteItemMessage, DirectumTaskRouteItemMessageWrapper>(_getEntitiesForAddInMessagesCommand(), Item.Messages);
-			}
-
-			private void RemoveFromMessagesCommand_Execute_Default()
-			{
-				Item.Messages.Remove(SelectedMessagesItem);
-			}
-
-			private bool RemoveFromMessagesCommand_CanExecute_Default()
-			{
-				return SelectedMessagesItem != null;
-			}
-
-
-
-    }
-
-
-    public partial class DirectumTaskRouteItemMessageDetailsViewModel : BaseDetailsViewModel<DirectumTaskRouteItemMessageWrapper, DirectumTaskRouteItemMessage, AfterSaveDirectumTaskRouteItemMessageEvent>
+    public partial class DirectumTaskMessageDetailsViewModel : BaseDetailsViewModel<DirectumTaskMessageWrapper, DirectumTaskMessage, AfterSaveDirectumTaskMessageEvent>
     {
 		//private Func<Task<List<User>>> _getEntitiesForSelectAuthorCommand;
 		private Func<List<User>> _getEntitiesForSelectAuthorCommand;
@@ -520,7 +460,7 @@ namespace HVTApp.UI.ViewModels
 		public ICommand ClearAuthorCommand { get; private set; }
 
 
-        public DirectumTaskRouteItemMessageDetailsViewModel(IUnityContainer container) : base(container) 
+        public DirectumTaskMessageDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
 			if (_getEntitiesForSelectAuthorCommand == null) _getEntitiesForSelectAuthorCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };

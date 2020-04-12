@@ -197,15 +197,39 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
-		[OrderStatus(9)]
-        public System.String Name => Entity.Name;
+		[OrderStatus(100)]
+        public System.String Title => Entity.Title;
 
 
-		[OrderStatus(5)]
+		[OrderStatus(85)]
+        public System.DateTime StartAuthor => Entity.StartAuthor;
+
+
+		[OrderStatus(80)]
+        public System.Nullable<System.DateTime> StartPerformer => Entity.StartPerformer;
+
+
+		[OrderStatus(75)]
+        public System.DateTime FinishPlan => Entity.FinishPlan;
+
+
+		[OrderStatus(70)]
+        public System.Nullable<System.DateTime> FinishPerformer => Entity.FinishPerformer;
+
+
+		[OrderStatus(65)]
+        public System.Nullable<System.DateTime> FinishAuthor => Entity.FinishAuthor;
+
+
+		[OrderStatus(60)]
+        public System.Boolean IsStoped => Entity.IsStoped;
+
+
+		[OrderStatus(35)]
         public HVTApp.Model.POCOs.DirectumTaskPriority Priority => Entity.Priority;
 
 
-		[OrderStatus(4)]
+		[OrderStatus(30)]
         public System.String AttachmentsPath => Entity.AttachmentsPath;
 
 
@@ -214,106 +238,38 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
-		[OrderStatus(10)]
+		[OrderStatus(95)]
 	    public UserLookup Author { get { return GetLookup<UserLookup>(); } }
 
 
-		[OrderStatus(8)]
-	    public DirectumTaskRouteLookup Route { get { return GetLookup<DirectumTaskRouteLookup>(); } }
+		[OrderStatus(90)]
+	    public UserLookup Performer { get { return GetLookup<UserLookup>(); } }
 
 
-		[OrderStatus(6)]
+		[OrderStatus(45)]
 	    public DirectumTaskLookup ParentTask { get { return GetLookup<DirectumTaskLookup>(); } }
+
+
+		[OrderStatus(40)]
+	    public DirectumTaskLookup PreviousTask { get { return GetLookup<DirectumTaskLookup>(); } }
 
 
         #endregion
 
-		[OrderStatus(7)]
+		[OrderStatus(55)]
+	    public List<DirectumTaskMessageLookup> Messages { get { return GetLookupEnum<DirectumTaskMessageLookup>().ToList(); } }
+
+		[OrderStatus(50)]
 	    public List<UserLookup> Observers { get { return GetLookupEnum<UserLookup>().ToList(); } }
 
 	}
 
 	[AllowEditAttribute(Role.Admin)]
 
-	[Designation("Маршрут")]
-	public partial class DirectumTaskRouteLookup : LookupItem<DirectumTaskRoute>
-	{
-		public DirectumTaskRouteLookup(DirectumTaskRoute entity) : base(entity) 
-		{
-		}
-		
-
-        #region SimpleProperties
-
-		[OrderStatus(5)]
-        public System.Boolean IsParallel => Entity.IsParallel;
-
-
-        #endregion
-
-		[OrderStatus(10)]
-	    public List<DirectumTaskRouteItemLookup> Items { get { return GetLookupEnum<DirectumTaskRouteItemLookup>().ToList(); } }
-
-	}
-
-	[AllowEditAttribute(Role.Admin)]
-
-	[Designation("Этап маршрута")]
-	public partial class DirectumTaskRouteItemLookup : LookupItem<DirectumTaskRouteItem>
-	{
-		public DirectumTaskRouteItemLookup(DirectumTaskRouteItem entity) : base(entity) 
-		{
-		}
-		
-
-        #region SimpleProperties
-
-		[OrderStatus(10)]
-        public System.Int32 Index => Entity.Index;
-
-
-		[OrderStatus(8)]
-        public System.DateTime StartAuthor => Entity.StartAuthor;
-
-
-		[OrderStatus(7)]
-        public System.Nullable<System.DateTime> StartPerformer => Entity.StartPerformer;
-
-
-		[OrderStatus(6)]
-        public System.DateTime FinishPlan => Entity.FinishPlan;
-
-
-		[OrderStatus(5)]
-        public System.Nullable<System.DateTime> FinishPerformer => Entity.FinishPerformer;
-
-
-		[OrderStatus(4)]
-        public System.Nullable<System.DateTime> FinishAuthor => Entity.FinishAuthor;
-
-
-        #endregion
-
-
-        #region ComplexProperties
-
-		[OrderStatus(9)]
-	    public UserLookup Performer { get { return GetLookup<UserLookup>(); } }
-
-
-        #endregion
-
-		[OrderStatus(3)]
-	    public List<DirectumTaskRouteItemMessageLookup> Messages { get { return GetLookupEnum<DirectumTaskRouteItemMessageLookup>().ToList(); } }
-
-	}
-
-	[AllowEditAttribute(Role.Admin)]
-
 	[Designation("Сообщение в задаче")]
-	public partial class DirectumTaskRouteItemMessageLookup : LookupItem<DirectumTaskRouteItemMessage>
+	public partial class DirectumTaskMessageLookup : LookupItem<DirectumTaskMessage>
 	{
-		public DirectumTaskRouteItemMessageLookup(DirectumTaskRouteItemMessage entity) : base(entity) 
+		public DirectumTaskMessageLookup(DirectumTaskMessage entity) : base(entity) 
 		{
 		}
 		

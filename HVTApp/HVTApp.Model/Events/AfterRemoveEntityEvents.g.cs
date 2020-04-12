@@ -10,9 +10,7 @@ namespace HVTApp.Model.Events
 	public partial class AfterRemoveConstructorsParametersEvent : PubSubEvent<ConstructorsParameters> { }
 	public partial class AfterRemoveCreateNewProductTaskEvent : PubSubEvent<CreateNewProductTask> { }
 	public partial class AfterRemoveDirectumTaskEvent : PubSubEvent<DirectumTask> { }
-	public partial class AfterRemoveDirectumTaskRouteEvent : PubSubEvent<DirectumTaskRoute> { }
-	public partial class AfterRemoveDirectumTaskRouteItemEvent : PubSubEvent<DirectumTaskRouteItem> { }
-	public partial class AfterRemoveDirectumTaskRouteItemMessageEvent : PubSubEvent<DirectumTaskRouteItemMessage> { }
+	public partial class AfterRemoveDirectumTaskMessageEvent : PubSubEvent<DirectumTaskMessage> { }
 	public partial class AfterRemoveDocumentNumberEvent : PubSubEvent<DocumentNumber> { }
 	public partial class AfterRemoveFakeDataEvent : PubSubEvent<FakeData> { }
 	public partial class AfterRemoveIncomingRequestEvent : PubSubEvent<IncomingRequest> { }

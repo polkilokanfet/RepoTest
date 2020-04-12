@@ -77,9 +77,7 @@
     <Compile Include="EntityTypeConfigurations\Custom\ConstructorsParametersConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\CountryUnionConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\DirectumTaskConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\Custom\DirectumTaskRouteConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\Custom\DirectumTaskRouteItemConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\Custom\DirectumTaskRouteItemMessageConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\DirectumTaskMessageConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\GlobalPropertiesConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\CostOnDateConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\CreateNewProductTaskConfiguration.cs" />
@@ -181,6 +179,10 @@
     <Compile Include="Migrations\202004051449389_ConstructorParameters.Designer.cs">
       <DependentUpon>202004051449389_ConstructorParameters.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202004121109373_DirectumLite.cs" />
+    <Compile Include="Migrations\202004121109373_DirectumLite.Designer.cs">
+      <DependentUpon>202004121109373_DirectumLite.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -266,6 +268,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202004051449389_ConstructorParameters.resx">
       <DependentUpon>202004051449389_ConstructorParameters.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004121109373_DirectumLite.resx">
+      <DependentUpon>202004121109373_DirectumLite.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

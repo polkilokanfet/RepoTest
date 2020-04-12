@@ -9,7 +9,7 @@ namespace HVTApp.Model.POCOs
     /// Сообщение в задаче
     /// </summary>
     [Designation("Сообщение в задаче")]
-    public class DirectumTaskRouteItemMessage : BaseEntity
+    public class DirectumTaskMessage : BaseEntity
     {
         [Designation("Момент"), OrderStatus(10)]
         public DateTime Moment { get; set; }

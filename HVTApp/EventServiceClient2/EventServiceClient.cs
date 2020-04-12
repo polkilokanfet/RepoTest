@@ -49,7 +49,11 @@ namespace EventServiceClient2
 
         public void Stop()
         {
-            _service?.Disconnect(_appSessionId);
+            if (_service != null && _service.State != CommunicationState.Faulted)
+            {
+                _service.Disconnect(_appSessionId);
+            }
+            
         }
 
         public void OnSaveIncomingRequestPublishEvent(Guid requestId)
