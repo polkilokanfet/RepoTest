@@ -2,13 +2,12 @@
                                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                  xmlns:infRib="http://infragistics.com/Ribbon" 
                                  xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-                                 x:Class="HVTApp.UI.Modules.Directum.TabCRUD1"
-                                 Header="Редактирование">
+                                 x:Class="HVTApp.UI.Modules.Directum.TabDirectumTasks"
+                                 Header="DirectumLite">
     
     <infRib:RibbonGroup Caption="Действия">
         <infRib:ButtonTool Caption="Создать" Command="{Binding CreateDirectumTaskCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
-        <infRib:ButtonTool Caption="Изменить" Command="{Binding EditItemCommand}" SmallImage="/HVTApp.UI;component/Images/edit.png"/>
-        <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveItemCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>
+        <infRib:ButtonTool Caption="Открыть" Command="{Binding OpenDirectumTaskCommand}" SmallImage="/HVTApp.UI;component/Images/edit.png"/>
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Данные">

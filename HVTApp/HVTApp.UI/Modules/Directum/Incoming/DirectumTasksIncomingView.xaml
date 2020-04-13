@@ -1,4 +1,4 @@
-﻿<inf:ViewBase x:Class="HVTApp.UI.Modules.Directum.DirectumTasksOutgoingView"
+﻿<inf:ViewBase x:Class="HVTApp.UI.Modules.Directum.DirectumTasksIncomingView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
@@ -18,23 +18,23 @@
 					<MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
 				</ContextMenu>
 			</dataPresenter:XamDataGrid.ContextMenu>
+            
 
             <dataPresenter:XamDataGrid.InputBindings>
                 <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=OpenDirectumTaskCommand, Mode=OneWay}" />
             </dataPresenter:XamDataGrid.InputBindings>
 
-
-            <dataPresenter:XamDataGrid.FieldLayouts>
+			<dataPresenter:XamDataGrid.FieldLayouts>
 				<dataPresenter:FieldLayout>
 					<dataPresenter:FieldLayout.Fields>
                         
-                    <dataPresenter:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Title}" Label="Тема" Width="400" AllowResize="True"/>
-                    <dataPresenter:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding StartAuthor}" Label="Старт" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
+                    <dataPresenter:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Group.Title}" Label="Тема" Width="400" AllowResize="True"/>
+                    <dataPresenter:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Group.Author}" Label="Инициатор" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <dataPresenter:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding Group.StartAuthor}" Label="Старт" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
                     <dataPresenter:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding FinishPlan}" Label="Срок" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
-                    <dataPresenter:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding FinishPerformers}" Label="Исполнено" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
-                    <dataPresenter:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding Finish}" Label="Принято" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
+                    <dataPresenter:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding FinishPerformer}" Label="Исполнено" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
+                    <dataPresenter:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding FinishAuthor}" Label="Принято" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
                     <dataPresenter:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Status}" Label="Статус" Width="Auto" AllowResize="True" />
-                    <dataPresenter:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Performers}" Label="Исполнители" Width="300" AllowResize="True" Converter="{StaticResource ObjectsToStringConverter}"/>
                     <dataPresenter:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Id}" Label="Id" Width="Auto" AllowResize="True" />
 
 					</dataPresenter:FieldLayout.Fields>
@@ -46,70 +46,6 @@
     </Grid>
 
 </inf:ViewBase>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

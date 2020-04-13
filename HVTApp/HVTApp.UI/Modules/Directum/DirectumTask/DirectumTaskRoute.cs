@@ -12,13 +12,13 @@ namespace HVTApp.UI.Modules.Directum
     public class DirectumTaskRoute : BaseEntity
     {
         [Required]
-        public List<DirectimTaskRouteItem> Items { get; } = new List<DirectimTaskRouteItem>();
+        public List<DirectumTaskRouteItem> Items { get; } = new List<DirectumTaskRouteItem>();
     }
 
     public class DirectumTaskRouteWrapper : WrapperBase<DirectumTaskRoute>
     {
         [Required]
-        public IValidatableChangeTrackingCollection<DirectimTaskRouteItemWrapper> Items { get; private set; }
+        public IValidatableChangeTrackingCollection<DirectumTaskRouteItemWrapper> Items { get; private set; }
 
         public DirectumTaskRouteWrapper(DirectumTaskRoute model) : base(model)
         {
@@ -28,7 +28,7 @@ namespace HVTApp.UI.Modules.Directum
         {
 
             if (Model.Items == null) throw new ArgumentException("Items cannot be null");
-            Items = new ValidatableChangeTrackingCollection<DirectimTaskRouteItemWrapper>(Model.Items.Select(e => new DirectimTaskRouteItemWrapper(e)));
+            Items = new ValidatableChangeTrackingCollection<DirectumTaskRouteItemWrapper>(Model.Items.Select(e => new DirectumTaskRouteItemWrapper(e)));
             RegisterCollection(Items, Model.Items);
         }
 
@@ -47,7 +47,7 @@ namespace HVTApp.UI.Modules.Directum
     }
 
 
-    public class DirectimTaskRouteItem : BaseEntity
+    public class DirectumTaskRouteItem : BaseEntity
     {
         [Required]
         public int Index { get; set; }
@@ -57,7 +57,7 @@ namespace HVTApp.UI.Modules.Directum
         public DateTime FinishPlan { get; set; }
     }
 
-    public class DirectimTaskRouteItemWrapper : WrapperBase<DirectimTaskRouteItem>
+    public class DirectumTaskRouteItemWrapper : WrapperBase<DirectumTaskRouteItem>
     {
 
         [Required]
@@ -86,7 +86,7 @@ namespace HVTApp.UI.Modules.Directum
             set { SetComplexValue<User, UserWrapper>(Performer, value); }
         }
 
-        public DirectimTaskRouteItemWrapper(DirectimTaskRouteItem model) : base(model)
+        public DirectumTaskRouteItemWrapper(DirectumTaskRouteItem model) : base(model)
         {
         }
 

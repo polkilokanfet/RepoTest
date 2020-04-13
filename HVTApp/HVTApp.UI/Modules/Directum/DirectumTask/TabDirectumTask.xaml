@@ -3,12 +3,13 @@
                                  xmlns:infRib="http://infragistics.com/Ribbon" 
                                  xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
                                  x:Class="HVTApp.UI.Modules.Directum.TabDirectumTask"
-                                 Header="Редактирование">
+                                 Header="DirectumLite">
     
-    <infRib:RibbonGroup Caption="Действия">
-        <infRib:ButtonTool Caption="Старт" Command="{Binding StartCommand}" SmallImage="/HVTApp.UI;component/Images/start.png"/>
-        <!--<infRib:ButtonTool Caption="Изменить" Command="{Binding EditItemCommand}" SmallImage="/HVTApp.UI;component/Images/edit.png"/>
-        <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveItemCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>-->
+    <infRib:RibbonGroup Caption="Задача">
+        <infRib:ButtonTool Caption="Стартовать" Command="{Binding StartCommand}" SmallImage="/HVTApp.UI;component/Images/start.png" Visibility="{Binding TaskIsNew, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        <infRib:ButtonTool Caption="Выполнить" Command="{Binding PerformCommand}" SmallImage="/HVTApp.UI;component/Images/edit.png" Visibility="{Binding AllowPerform, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        <infRib:ButtonTool Caption="Принять выполнение" Command="{Binding AcceptCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png" Visibility="{Binding AllowAccept, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        <infRib:ButtonTool Caption="Вернуть на доработку" Command="{Binding RejectCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png" Visibility="{Binding AllowAccept, Converter={StaticResource BooleanToVisibilityConverter}}"/>
     </infRib:RibbonGroup>
     
 </inf:RibbonTabItemWithViewModel>

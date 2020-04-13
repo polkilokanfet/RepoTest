@@ -29,8 +29,13 @@ namespace HVTApp.UI.Modules.Directum
         {
             if (navigationContext.Parameters.Any())
             {
-                var directumTaskId = (Guid)navigationContext.Parameters.First().Value;
-                _viewModel.Load(directumTaskId);
+                var directumTask = navigationContext.Parameters.First().Value as Model.POCOs.DirectumTask;
+                if (directumTask != null)
+                    _viewModel.Load(directumTask);
+
+                var directumTaskGroup = navigationContext.Parameters.First().Value as Model.POCOs.DirectumTaskGroup;
+                if (directumTaskGroup != null)
+                    _viewModel.Load(directumTaskGroup);
             }
             else
             {
@@ -43,7 +48,7 @@ namespace HVTApp.UI.Modules.Directum
 
         protected override bool IsSomethingChanged()
         {
-            return false;
+            return _viewModel.DirectumTask?.IsChanged ?? false;
         }
     }
 }

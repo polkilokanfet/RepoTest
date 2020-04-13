@@ -3,6 +3,7 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               xmlns:prism="http://prismlibrary.com/"
+              xmlns:directumTask="clr-namespace:HVTApp.UI.Modules.Directum.DirectumTask"
               prism:ViewModelLocator.AutoWireViewModel="True">
 
     <Grid>
@@ -16,13 +17,15 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="4*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -33,24 +36,47 @@
                     </Grid.RowDefinitions>
                     
                     <Label Grid.Row="0" Grid.Column="0" Content="Тема: "/>
-                    <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Title}"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding DirectumTask.Group.Title}" IsReadOnly="{Binding TaskIsNew, Converter={StaticResource ReverseBoolConverter}}"/>
                     
                     <Button Grid.Row="1" Grid.Column="0" Content="Маршрут" Command="{Binding RouteCommand}"/>
                     <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Route, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
                     
                     <Label Grid.Row="2" Grid.Column="0" Content="Инициатор: "/>
-                    <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Author, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding DirectumTask.Group.Author, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
                     
                 </Grid>
                 
-                <ListBox Grid.Row="1"></ListBox>
+                <GroupBox Grid.Row="1" Header="История выполнения">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <directumTask:ContentTaskControl DataContext="{Binding DirectumTask, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    </ScrollViewer>
+                </GroupBox>
                 
+                <GridSplitter Grid.Row="2" Height="3" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+                
+                <GroupBox Grid.Row="3" Header="Сообщение" Visibility="{Binding TaskIsNew, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <TextBox Text="{Binding DirectumTask.Group.Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             TextWrapping="Wrap"
+                             VerticalScrollBarVisibility="Auto"
+                             AcceptsReturn="True"
+                             VerticalAlignment="Stretch" />
+                </GroupBox>
+
+                <GroupBox Grid.Row="3" Header="Сообщение" Visibility="{Binding AllowPerformOrAccept, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <TextBox Text="{Binding Message.Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             TextWrapping="Wrap"
+                             VerticalScrollBarVisibility="Auto"
+                             AcceptsReturn="True"
+                             VerticalAlignment="Stretch" />
+                </GroupBox>
+
             </Grid>
         </GroupBox>
         
         <GridSplitter Grid.Column="1" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
-        
-        <GroupBox Grid.Column="2" Header="Приложения"></GroupBox>
+               
+        <GroupBox Grid.Column="2" Header="Приложения">
+        </GroupBox>
         
     </Grid>
 

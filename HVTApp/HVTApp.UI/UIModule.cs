@@ -64,6 +64,7 @@ namespace HVTApp.UI
             Container.RegisterViewForNavigation<DirectumTaskView>();
             Container.RegisterViewForNavigation<DirectumTaskRouteView>();
             Container.RegisterViewForNavigation<DirectumTasksOutgoingView>();
+            Container.RegisterViewForNavigation<DirectumTasksIncomingView>();
 
             _dialogService.RegisterShow<ProductStructureViewModel, ProductStructureView>();
             RegisterViews();

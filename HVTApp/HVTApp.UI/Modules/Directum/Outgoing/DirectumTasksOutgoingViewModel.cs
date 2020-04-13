@@ -14,49 +14,71 @@ using Prism.Regions;
 
 namespace HVTApp.UI.Modules.Directum
 {
-    public class DirectumTasksOutgoingViewModel : ViewModelBase
+    public class DirectumTasksOutgoingViewModel : DirectumTasksViewModelBase
     {
-        public ObservableCollection<DirectumTaskLookup> Items { get; } = new ObservableCollection<DirectumTaskLookup>();
+        private DirectumTaskGroupLookup _selectedItem;
+        public ObservableCollection<DirectumTaskGroupLookup> Items { get; } = new ObservableCollection<DirectumTaskGroupLookup>();
 
-        public ICommand ReloadCommand { get; }
-        public ICommand CreateDirectumTaskCommand { get; }
+        public DirectumTaskGroupLookup SelectedItem
+        {
+            get { return _selectedItem; }
+            set
+            {
+                _selectedItem = value;
+                ((DelegateCommand)OpenDirectumTaskCommand).RaiseCanExecuteChanged();
+            }
+        }
 
         public DirectumTasksOutgoingViewModel(IUnityContainer container) : base(container)
         {
-            ReloadCommand = new DelegateCommand(Load);
 
-            CreateDirectumTaskCommand = new DelegateCommand(
+            OpenDirectumTaskCommand = new DelegateCommand(
                 () =>
                 {
-                    RegionManager.RequestNavigateContentRegion<DirectumTaskView>(new NavigationParameters());
-                });
+                    RegionManager.RequestNavigateContentRegion<DirectumTaskView>(new NavigationParameters { {nameof(DirectumTaskGroup), SelectedItem.Entity} });
+                },
+                () => SelectedItem != null);
+
 
             Container.Resolve<IEventAggregator>().GetEvent<AfterSaveDirectumTaskEvent>().Subscribe(
                 task =>
                 {
-                    if (Items.ContainsById(task))
+                    if (Items.SelectMany(x => x.DirectumTasks).ContainsById(task))
                     {
-                        var lookup = Items.Single(x => x.Id == task.Id);
-                        lookup.Refresh(task);
+                        var lookup = Items.Single(x => x.DirectumTasks.ContainsById(task));
+                        RefreshLookup(lookup, task.Group);
                         return;
                     }
 
                     if (task.Group.Author.Id == GlobalAppProperties.User.Id)
                     {
-                        Items.Add(new DirectumTaskLookup(task));
+                        Items.Add(RefreshLookup(new DirectumTaskGroupLookup(task.Group), task.Group));
                     }
                 });
 
             Load();
         }
 
-        private void Load()
+        private DirectumTaskGroupLookup RefreshLookup(DirectumTaskGroupLookup taskGroupLookup, DirectumTaskGroup taskGroup)
+        {
+            taskGroupLookup.DirectumTasks.Clear();
+            taskGroupLookup.DirectumTasks.AddRange(Container.Resolve<IUnitOfWork>().Repository<Model.POCOs.DirectumTask>().Find(x => x.Group.Id == taskGroup.Id));
+            taskGroupLookup.Refresh(taskGroup);
+            return taskGroupLookup;
+        }
+
+        protected override void Load()
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
-            var tasks = UnitOfWork.Repository<DirectumTask>().Find(x => x.Group.Author.Id == GlobalAppProperties.User.Id);
+            var tasks = UnitOfWork.Repository<Model.POCOs.DirectumTask>().Find(x => x.Group.Author.Id == GlobalAppProperties.User.Id);
+            var groups = tasks.Select(x => x.Group).Distinct().Select(x => new DirectumTaskGroupLookup(x)).ToList();
+            foreach (var taskGroup in groups)
+            {
+                taskGroup.DirectumTasks.AddRange(tasks.Where(x => x.Group.Id == taskGroup.Id));
+            }
 
             Items.Clear();
-            Items.AddRange(tasks.Select(x => new DirectumTaskLookup(x)));
+            Items.AddRange(groups);
         }
     }
 }

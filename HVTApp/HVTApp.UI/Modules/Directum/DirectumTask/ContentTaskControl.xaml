@@ -1,0 +1,128 @@
+﻿<UserControl x:Class="HVTApp.UI.Modules.Directum.DirectumTask.ContentTaskControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:directumTask="clr-namespace:HVTApp.UI.Modules.Directum.DirectumTask"
+             xmlns:editors="http://infragistics.com/Editors">
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+    
+        <GroupBox Header="Задача" Margin="5">
+        
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+        
+                <Grid Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    
+                    <Border Background="AliceBlue"  BorderThickness="1" BorderBrush="Black">
+                        <Grid Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <Label Grid.Row="0" Grid.Column="0" Content="Инициатор: "/>
+                            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Group.Author, Mode=OneWay}" IsReadOnly="True"/>
+
+                            <Label Grid.Row="0" Grid.Column="2" Content="Старт: "/>
+                            <editors:XamDateTimeEditor Grid.Row="0" Grid.Column="3" Value="{Binding Group.StartAuthor, Mode=OneWay}" Format="dd/MM/yy HH:mm" IsReadOnly="True"/>
+
+                            <Label Grid.Row="1" Grid.Column="0" Content="Исполнитель: "/>
+                            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Performer, Mode=OneWay}" IsReadOnly="True"/>
+
+                            <Label Grid.Row="1" Grid.Column="2" Content="Финиш: "/>
+                            <editors:XamDateTimeEditor Grid.Row="1" Grid.Column="3" Value="{Binding FinishAuthor, Mode=OneWay}" Format="dd/MM/yy HH:mm" IsReadOnly="True"/>
+                        
+                        </Grid>
+                    </Border>
+                    
+                    <Border Grid.Row="1" Background="White"  BorderThickness="1" BorderBrush="Black">
+                        <TextBox Margin="5" Text="{Binding Group.Message, Mode=OneWay}" IsReadOnly="True"/>
+                    </Border>
+                </Grid>
+                
+                <GroupBox Grid.Row="1" Header="Переписка" Margin="5 0 0 0">
+                    <ItemsControl ItemsSource="{Binding MessagesByMoment}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    
+                                    <Border Grid.Row="0" Background="LightGray" BorderBrush="Black" BorderThickness="1">
+                                        <Grid Margin="5">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                    
+                                            <Label Grid.Row="0" Grid.Column="0" Content="Автор: "/>
+                                            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Author, Mode=OneWay}" IsReadOnly="True"/>
+
+                                            <Label Grid.Row="0" Grid.Column="2" Content="Момент: "/>
+                                            <editors:XamDateTimeEditor Grid.Row="0" Grid.Column="3" Value="{Binding Moment, Mode=OneWay}" Format="dd/MM/yy HH:mm" IsReadOnly="True"/>
+                                        </Grid>
+                                    </Border>
+                                    
+                                    <Border Grid.Row="1" BorderThickness="1" BorderBrush="Black">
+                                        <TextBox Text="{Binding Message, Mode=OneWay}" Margin="5"/>
+                                    </Border>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </GroupBox>
+
+                <!--Дочерние задачи-->
+                <ItemsControl Grid.Row="2" ItemsSource="{Binding Model.ChildTasks}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <directumTask:ContentTaskControl DataContext="{Binding}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            
+            </Grid>
+
+        </GroupBox>
+        
+        <!--Параллельные задачи-->
+        <ItemsControl Grid.Row="1" ItemsSource="{Binding Model.ParallelTasks}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Label Content="1"></Label>
+                        <directumTask:ContentTaskControl DataContext="{Binding}" />
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+    </Grid>
+    
+</UserControl>

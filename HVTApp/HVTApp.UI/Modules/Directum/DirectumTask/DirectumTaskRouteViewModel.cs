@@ -17,9 +17,10 @@ namespace HVTApp.UI.Modules.Directum
     public class DirectumTaskRouteViewModel : ViewModelBase, IDialogRequestClose
     {
         private DateTime _finishPlan = DateTime.Now.AddDays(1).SkipWeekend();
-        private DirectimTaskRouteItemWrapper _selectedDirectumTaskRouteItem;
+        private DirectumTaskRouteItemWrapper _selectedDirectumTaskRouteItem;
 
         public DirectumTaskRouteWrapper DirectumTaskRoute { get; }
+        public bool AllowEdit { get; }
 
         public DateTime FinishPlan
         {
@@ -33,7 +34,7 @@ namespace HVTApp.UI.Modules.Directum
             }
         }
 
-        public DirectimTaskRouteItemWrapper SelectedDirectumTaskRouteItem
+        public DirectumTaskRouteItemWrapper SelectedDirectumTaskRouteItem
         {
             get { return _selectedDirectumTaskRouteItem; }
             set
@@ -48,9 +49,10 @@ namespace HVTApp.UI.Modules.Directum
         public ICommand RemovePerformerCommand { get; }
         public ICommand OkCommand { get; }
 
-        public DirectumTaskRouteViewModel(IUnityContainer container, DirectumTaskRouteWrapper route) : base(container)
+        public DirectumTaskRouteViewModel(IUnityContainer container, DirectumTaskRouteWrapper route, bool allowEdit) : base(container)
         {
             DirectumTaskRoute = route;
+            AllowEdit = allowEdit;
 
             AddPerformerCommand = new DelegateCommand(
                 () =>
@@ -61,7 +63,7 @@ namespace HVTApp.UI.Modules.Directum
                     if (performer != null)
                     {
                         var index = DirectumTaskRoute.Items.Count + 1;
-                        var item = new DirectimTaskRouteItemWrapper(new DirectimTaskRouteItem())
+                        var item = new DirectumTaskRouteItemWrapper(new DirectumTaskRouteItem())
                         {
                             Index = index,
                             Performer = new UserWrapper(performer),

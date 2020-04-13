@@ -2,9 +2,9 @@
 
 namespace HVTApp.UI.Modules.Directum
 {
-    public partial class TabCRUD1 : RibbonTabItemWithViewModel
+    public partial class TabDirectumTasks : RibbonTabItemWithViewModel
     {
-        public TabCRUD1()
+        public TabDirectumTasks()
         {
             InitializeComponent();
         }

@@ -9,6 +9,7 @@ namespace HVTApp.Modules.BookRegistration.Menus
     {
         protected override void GenerateMenu()
         {
+            Items.Add(new NavigationItem("Входящие", typeof(DirectumTasksIncomingView)));
             Items.Add(new NavigationItem("Исходящие", typeof(DirectumTasksOutgoingView)));
             Items.Add(new NavigationItem("Журнал переписки", typeof(BookRegistrationView)));
 

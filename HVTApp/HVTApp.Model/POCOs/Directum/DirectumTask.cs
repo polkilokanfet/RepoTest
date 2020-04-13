@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
 
@@ -65,5 +66,11 @@ namespace HVTApp.Model.POCOs
         /// </summary>
         [Designation("Предыдущая задача"), OrderStatus(40)]
         public virtual DirectumTask PreviousTask { get; set; }
+
+        [NotMapped]
+        public List<DirectumTask> ChildTasks { get; } = new List<DirectumTask>();
+
+        [NotMapped]
+        public List<DirectumTask> ParallelTasks { get; } = new List<DirectumTask>();
     }
 }
