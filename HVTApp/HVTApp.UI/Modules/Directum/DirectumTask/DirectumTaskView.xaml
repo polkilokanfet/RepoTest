@@ -33,13 +33,13 @@
                     </Grid.RowDefinitions>
                     
                     <Label Grid.Row="0" Grid.Column="0" Content="Тема: "/>
-                    <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding DirectumTask.Title}"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Title}"/>
                     
                     <Button Grid.Row="1" Grid.Column="0" Content="Маршрут" Command="{Binding RouteCommand}"/>
                     <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Route, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
                     
                     <Label Grid.Row="2" Grid.Column="0" Content="Инициатор: "/>
-                    <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding DirectumTask.Author, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Author, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
                     
                 </Grid>
                 

@@ -2,7 +2,7 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-              x:Class="HVTApp.UI.Views.DirectumTaskLookupListView">
+              x:Class="HVTApp.UI.Views.DirectumTaskGroupLookupListView">
 
     <Grid>
          <Grid.RowDefinitions>
@@ -14,7 +14,7 @@
             <Label.Style>
                 <Style>
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding ElementName=DirectumTaskLookupListGrid, Path=Visibility}" Value="Visible">
+                    <DataTrigger Binding="{Binding ElementName=DirectumTaskGroupLookupListGrid, Path=Visibility}" Value="Visible">
                         <Setter Property="Label.Visibility" Value="Collapsed"/>
                     </DataTrigger>
                 </Style.Triggers>
@@ -23,7 +23,7 @@
         </Label>
        
 
-		<infg:XamDataGrid x:Name="DirectumTaskLookupListGrid" Grid.Row="1" Style="{StaticResource ListViewGrid}" Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+		<infg:XamDataGrid x:Name="DirectumTaskGroupLookupListGrid" Grid.Row="1" Style="{StaticResource ListViewGrid}" Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
         
 			<infg:XamDataGrid.ContextMenu>
 				<ContextMenu>
@@ -38,15 +38,13 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:TextField Name="Group" Label="Группа задач" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Performer" Label="Исполнитель" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:DateTimeField Name="StartPerformer" Label="Приём" Width="Auto" AllowResize="True" />
-                    <infg:DateTimeField Name="FinishPlan" Label="Срок" Width="Auto" AllowResize="True" />
-                    <infg:DateTimeField Name="FinishPerformer" Label="Финиш исполнителем" Width="Auto" AllowResize="True" />
-                    <infg:DateTimeField Name="FinishAuthor" Label="Финиш" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="Messages" Label="Переписка" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <infg:TextField Name="ParentTask" Label="Родительская задача" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="PreviousTask" Label="Предыдущая задача" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Title" Label="Тема" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="Author" Label="Инициатор" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:DateTimeField Name="StartAuthor" Label="Старт" Width="Auto" AllowResize="True" />
+                    <infg:CheckBoxField Name="IsStoped" Label="Прекращена инициатором" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="Observers" Label="Наблюдатели" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                    <infg:TextField Name="Message" Label="Сообщение автора" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="AttachmentsPath" Label="Путь к приложениям" Width="Auto" AllowResize="True" />
                     <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 
 					</infg:FieldLayout.Fields>

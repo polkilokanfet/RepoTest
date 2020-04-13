@@ -54,6 +54,17 @@ namespace HVTApp.UI
             _updateDetailsService.Register<DirectumTask, DirectumTaskDetailsView>();
 
 
+            Container.RegisterViewForNavigation<DirectumTaskGroupLookupListView>();
+            //_dialogService.Register<DirectumTaskGroupDetailsViewModel, DirectumTaskGroupDetailsView>();
+			_selectService.Register<DirectumTaskGroupLookupListView, DirectumTaskGroup>();
+            _updateDetailsService.Register<DirectumTaskGroup, DirectumTaskGroupDetailsView>();
+
+
+            Container.RegisterViewForNavigation<DirectumTaskMessageLookupListView>();
+            //_dialogService.Register<DirectumTaskMessageDetailsViewModel, DirectumTaskMessageDetailsView>();
+			_selectService.Register<DirectumTaskMessageLookupListView, DirectumTaskMessage>();
+            _updateDetailsService.Register<DirectumTaskMessage, DirectumTaskMessageDetailsView>();
+
 
             Container.RegisterViewForNavigation<DocumentNumberLookupListView>();
             //_dialogService.Register<DocumentNumberDetailsViewModel, DocumentNumberDetailsView>();

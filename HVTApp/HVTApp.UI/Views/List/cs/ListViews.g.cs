@@ -1000,6 +1000,109 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
+	[Designation("Группа задач")]
+	[DesignationPlural("DirectumTaskGroupLookup")]
+	[AllowEditAttribute(Role.Admin)]
+
+    public partial class DirectumTaskGroupLookupListView : ViewBase
+    {
+        public DirectumTaskGroupLookupListView()
+        {
+            InitializeComponent();
+        }
+
+        public DirectumTaskGroupLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, DirectumTaskGroupLookupListViewModel DirectumTaskGroupLookupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = DirectumTaskGroupLookupListViewModel;
+			DirectumTaskGroupLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			((DirectumTaskGroupLookupListViewModel)DataContext).Load();
+        }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility TitleVisibility
+        {
+            get { return DirectumTaskGroupLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskGroupLookup.Title)].Visibility; }
+            set { DirectumTaskGroupLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskGroupLookup.Title)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility StartAuthorVisibility
+        {
+            get { return DirectumTaskGroupLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskGroupLookup.StartAuthor)].Visibility; }
+            set { DirectumTaskGroupLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskGroupLookup.StartAuthor)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility IsStopedVisibility
+        {
+            get { return DirectumTaskGroupLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskGroupLookup.IsStoped)].Visibility; }
+            set { DirectumTaskGroupLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskGroupLookup.IsStoped)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility PriorityVisibility
+        {
+            get { return DirectumTaskGroupLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskGroupLookup.Priority)].Visibility; }
+            set { DirectumTaskGroupLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskGroupLookup.Priority)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility AttachmentsPathVisibility
+        {
+            get { return DirectumTaskGroupLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskGroupLookup.AttachmentsPath)].Visibility; }
+            set { DirectumTaskGroupLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskGroupLookup.AttachmentsPath)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility MessageVisibility
+        {
+            get { return DirectumTaskGroupLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskGroupLookup.Message)].Visibility; }
+            set { DirectumTaskGroupLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskGroupLookup.Message)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return DirectumTaskGroupLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskGroupLookup.DisplayMember)].Visibility; }
+            set { DirectumTaskGroupLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskGroupLookup.DisplayMember)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility AuthorVisibility
+        {
+            get { return DirectumTaskGroupLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskGroupLookup.Author)].Visibility; }
+            set { DirectumTaskGroupLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskGroupLookup.Author)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return DirectumTaskGroupLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskGroupLookup.Entity)].Visibility; }
+            set { DirectumTaskGroupLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskGroupLookup.Entity)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ObserversVisibility
+        {
+            get { return DirectumTaskGroupLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskGroupLookup.Observers)].Visibility; }
+            set { DirectumTaskGroupLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskGroupLookup.Observers)].Visibility = value; }
+        }
+
+
+
+		#endregion
+    }
+
+
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Задача")]
 	[DesignationPlural("DirectumTaskLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -1025,20 +1128,6 @@ namespace HVTApp.UI.Views
         }
 
 		#region VisibilityProps
-
-
-        public System.Windows.Visibility TitleVisibility
-        {
-            get { return DirectumTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskLookup.Title)].Visibility; }
-            set { DirectumTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskLookup.Title)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility StartAuthorVisibility
-        {
-            get { return DirectumTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskLookup.StartAuthor)].Visibility; }
-            set { DirectumTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskLookup.StartAuthor)].Visibility = value; }
-        }
 
 
         public System.Windows.Visibility StartPerformerVisibility
@@ -1069,27 +1158,6 @@ namespace HVTApp.UI.Views
         }
 
 
-        public System.Windows.Visibility IsStopedVisibility
-        {
-            get { return DirectumTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskLookup.IsStoped)].Visibility; }
-            set { DirectumTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskLookup.IsStoped)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility PriorityVisibility
-        {
-            get { return DirectumTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskLookup.Priority)].Visibility; }
-            set { DirectumTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskLookup.Priority)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility AttachmentsPathVisibility
-        {
-            get { return DirectumTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskLookup.AttachmentsPath)].Visibility; }
-            set { DirectumTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskLookup.AttachmentsPath)].Visibility = value; }
-        }
-
-
         public System.Windows.Visibility DisplayMemberVisibility
         {
             get { return DirectumTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskLookup.DisplayMember)].Visibility; }
@@ -1097,10 +1165,10 @@ namespace HVTApp.UI.Views
         }
 
 
-        public System.Windows.Visibility AuthorVisibility
+        public System.Windows.Visibility GroupVisibility
         {
-            get { return DirectumTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskLookup.Author)].Visibility; }
-            set { DirectumTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskLookup.Author)].Visibility = value; }
+            get { return DirectumTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskLookup.Group)].Visibility; }
+            set { DirectumTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskLookup.Group)].Visibility = value; }
         }
 
 
@@ -1136,13 +1204,6 @@ namespace HVTApp.UI.Views
         {
             get { return DirectumTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskLookup.Messages)].Visibility; }
             set { DirectumTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskLookup.Messages)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility ObserversVisibility
-        {
-            get { return DirectumTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskLookup.Observers)].Visibility; }
-            set { DirectumTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskLookup.Observers)].Visibility = value; }
         }
 
 

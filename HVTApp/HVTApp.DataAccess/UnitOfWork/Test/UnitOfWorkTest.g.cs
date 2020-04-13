@@ -14,6 +14,7 @@ namespace HVTApp.DataAccess
             ConstructorsParametersRepository = new ConstructorsParametersRepositoryTest(testData);
             CreateNewProductTaskRepository = new CreateNewProductTaskRepositoryTest(testData);
             DirectumTaskRepository = new DirectumTaskRepositoryTest(testData);
+            DirectumTaskGroupRepository = new DirectumTaskGroupRepositoryTest(testData);
             DirectumTaskMessageRepository = new DirectumTaskMessageRepositoryTest(testData);
             DocumentNumberRepository = new DocumentNumberRepositoryTest(testData);
             FakeDataRepository = new FakeDataRepositoryTest(testData);
@@ -90,6 +91,7 @@ namespace HVTApp.DataAccess
         public IConstructorsParametersRepository ConstructorsParametersRepository { get; }
         public ICreateNewProductTaskRepository CreateNewProductTaskRepository { get; }
         public IDirectumTaskRepository DirectumTaskRepository { get; }
+        public IDirectumTaskGroupRepository DirectumTaskGroupRepository { get; }
         public IDirectumTaskMessageRepository DirectumTaskMessageRepository { get; }
         public IDocumentNumberRepository DocumentNumberRepository { get; }
         public IFakeDataRepository FakeDataRepository { get; }

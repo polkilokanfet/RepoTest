@@ -16,6 +16,7 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new ConstructorsParametersConfiguration());
             modelBuilder.Configurations.Add(new CreateNewProductTaskConfiguration());
             modelBuilder.Configurations.Add(new DirectumTaskConfiguration());
+            modelBuilder.Configurations.Add(new DirectumTaskGroupConfiguration());
             modelBuilder.Configurations.Add(new DirectumTaskMessageConfiguration());
             modelBuilder.Configurations.Add(new DocumentNumberConfiguration());
             modelBuilder.Configurations.Add(new FakeDataConfiguration());
@@ -91,6 +92,7 @@ namespace HVTApp.DataAccess
         public virtual DbSet<ConstructorsParameters> ConstructorsParametersDbSet { get; set; }
         public virtual DbSet<CreateNewProductTask> CreateNewProductTaskDbSet { get; set; }
         public virtual DbSet<DirectumTask> DirectumTaskDbSet { get; set; }
+        public virtual DbSet<DirectumTaskGroup> DirectumTaskGroupDbSet { get; set; }
         public virtual DbSet<DirectumTaskMessage> DirectumTaskMessageDbSet { get; set; }
         public virtual DbSet<DocumentNumber> DocumentNumberDbSet { get; set; }
         public virtual DbSet<FakeData> FakeDataDbSet { get; set; }

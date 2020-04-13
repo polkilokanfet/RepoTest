@@ -339,24 +339,6 @@ namespace HVTApp.UI.Wrapper
 
         #region SimpleProperties
 
-        public System.String Title
-        {
-          get { return GetValue<System.String>(); }
-          set { SetValue(value); }
-        }
-        public System.String TitleOriginalValue => GetOriginalValue<System.String>(nameof(Title));
-        public bool TitleIsChanged => GetIsChanged(nameof(Title));
-
-
-        public System.DateTime StartAuthor
-        {
-          get { return GetValue<System.DateTime>(); }
-          set { SetValue(value); }
-        }
-        public System.DateTime StartAuthorOriginalValue => GetOriginalValue<System.DateTime>(nameof(StartAuthor));
-        public bool StartAuthorIsChanged => GetIsChanged(nameof(StartAuthor));
-
-
         public System.Nullable<System.DateTime> StartPerformer
         {
           get { return GetValue<System.Nullable<System.DateTime>>(); }
@@ -393,33 +375,6 @@ namespace HVTApp.UI.Wrapper
         public bool FinishAuthorIsChanged => GetIsChanged(nameof(FinishAuthor));
 
 
-        public System.Boolean IsStoped
-        {
-          get { return GetValue<System.Boolean>(); }
-          set { SetValue(value); }
-        }
-        public System.Boolean IsStopedOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsStoped));
-        public bool IsStopedIsChanged => GetIsChanged(nameof(IsStoped));
-
-
-        public HVTApp.Model.POCOs.DirectumTaskPriority Priority
-        {
-          get { return GetValue<HVTApp.Model.POCOs.DirectumTaskPriority>(); }
-          set { SetValue(value); }
-        }
-        public HVTApp.Model.POCOs.DirectumTaskPriority PriorityOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.DirectumTaskPriority>(nameof(Priority));
-        public bool PriorityIsChanged => GetIsChanged(nameof(Priority));
-
-
-        public System.String AttachmentsPath
-        {
-          get { return GetValue<System.String>(); }
-          set { SetValue(value); }
-        }
-        public System.String AttachmentsPathOriginalValue => GetOriginalValue<System.String>(nameof(AttachmentsPath));
-        public bool AttachmentsPathIsChanged => GetIsChanged(nameof(AttachmentsPath));
-
-
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -434,10 +389,10 @@ namespace HVTApp.UI.Wrapper
 
         #region ComplexProperties
 
-	    public UserWrapper Author 
+	    public DirectumTaskGroupWrapper Group 
         {
-            get { return GetWrapper<UserWrapper>(); }
-            set { SetComplexValue<User, UserWrapper>(Author, value); }
+            get { return GetWrapper<DirectumTaskGroupWrapper>(); }
+            set { SetComplexValue<DirectumTaskGroup, DirectumTaskGroupWrapper>(Group, value); }
         }
 
 
@@ -470,15 +425,12 @@ namespace HVTApp.UI.Wrapper
         public IValidatableChangeTrackingCollection<DirectumTaskMessageWrapper> Messages { get; private set; }
 
 
-        public IValidatableChangeTrackingCollection<UserWrapper> Observers { get; private set; }
-
-
         #endregion
 
         public override void InitializeComplexProperties()
         {
 
-            InitializeComplexProperty<UserWrapper>(nameof(Author), Model.Author == null ? null : new UserWrapper(Model.Author));
+            InitializeComplexProperty<DirectumTaskGroupWrapper>(nameof(Group), Model.Group == null ? null : new DirectumTaskGroupWrapper(Model.Group));
 
 
             InitializeComplexProperty<UserWrapper>(nameof(Performer), Model.Performer == null ? null : new UserWrapper(Model.Performer));
@@ -500,6 +452,115 @@ namespace HVTApp.UI.Wrapper
           Messages = new ValidatableChangeTrackingCollection<DirectumTaskMessageWrapper>(Model.Messages.Select(e => new DirectumTaskMessageWrapper(e)));
           RegisterCollection(Messages, Model.Messages);
 
+
+        }
+
+	}
+
+		public partial class DirectumTaskGroupWrapper : WrapperBase<DirectumTaskGroup>
+	{
+	    public DirectumTaskGroupWrapper(DirectumTaskGroup model) : base(model) { }
+
+	
+
+        #region SimpleProperties
+
+        public System.String Title
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String TitleOriginalValue => GetOriginalValue<System.String>(nameof(Title));
+        public bool TitleIsChanged => GetIsChanged(nameof(Title));
+
+
+        public System.DateTime StartAuthor
+        {
+          get { return GetValue<System.DateTime>(); }
+          set { SetValue(value); }
+        }
+        public System.DateTime StartAuthorOriginalValue => GetOriginalValue<System.DateTime>(nameof(StartAuthor));
+        public bool StartAuthorIsChanged => GetIsChanged(nameof(StartAuthor));
+
+
+        public System.Boolean IsStoped
+        {
+          get { return GetValue<System.Boolean>(); }
+          set { SetValue(value); }
+        }
+        public System.Boolean IsStopedOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsStoped));
+        public bool IsStopedIsChanged => GetIsChanged(nameof(IsStoped));
+
+
+        public HVTApp.Model.POCOs.DirectumTaskPriority Priority
+        {
+          get { return GetValue<HVTApp.Model.POCOs.DirectumTaskPriority>(); }
+          set { SetValue(value); }
+        }
+        public HVTApp.Model.POCOs.DirectumTaskPriority PriorityOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.DirectumTaskPriority>(nameof(Priority));
+        public bool PriorityIsChanged => GetIsChanged(nameof(Priority));
+
+
+        public System.String AttachmentsPath
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String AttachmentsPathOriginalValue => GetOriginalValue<System.String>(nameof(AttachmentsPath));
+        public bool AttachmentsPathIsChanged => GetIsChanged(nameof(AttachmentsPath));
+
+
+        public System.String Message
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String MessageOriginalValue => GetOriginalValue<System.String>(nameof(Message));
+        public bool MessageIsChanged => GetIsChanged(nameof(Message));
+
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+
+        #endregion
+
+
+        #region ComplexProperties
+
+	    public UserWrapper Author 
+        {
+            get { return GetWrapper<UserWrapper>(); }
+            set { SetComplexValue<User, UserWrapper>(Author, value); }
+        }
+
+
+        #endregion
+
+
+        #region CollectionProperties
+
+        public IValidatableChangeTrackingCollection<UserWrapper> Observers { get; private set; }
+
+
+        #endregion
+
+        public override void InitializeComplexProperties()
+        {
+
+            InitializeComplexProperty<UserWrapper>(nameof(Author), Model.Author == null ? null : new UserWrapper(Model.Author));
+
+
+        }
+
+  
+        protected override void InitializeCollectionProperties()
+        {
 
           if (Model.Observers == null) throw new ArgumentException("Observers cannot be null");
           Observers = new ValidatableChangeTrackingCollection<UserWrapper>(Model.Observers.Select(e => new UserWrapper(e)));

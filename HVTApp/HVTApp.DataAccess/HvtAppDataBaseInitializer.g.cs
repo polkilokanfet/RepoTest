@@ -19,6 +19,7 @@ namespace HVTApp.DataAccess
             context.ConstructorsParametersDbSet.AddRange(testData.GetAll<ConstructorsParameters>());
             context.CreateNewProductTaskDbSet.AddRange(testData.GetAll<CreateNewProductTask>());
             context.DirectumTaskDbSet.AddRange(testData.GetAll<DirectumTask>());
+            context.DirectumTaskGroupDbSet.AddRange(testData.GetAll<DirectumTaskGroup>());
             context.DirectumTaskMessageDbSet.AddRange(testData.GetAll<DirectumTaskMessage>());
             context.DocumentNumberDbSet.AddRange(testData.GetAll<DocumentNumber>());
             context.FakeDataDbSet.AddRange(testData.GetAll<FakeData>());

@@ -53,6 +53,13 @@ namespace HVTApp.DataAccess
 		}
     }
 
+    public partial class DirectumTaskGroupRepository : BaseRepository<DirectumTaskGroup>, IDirectumTaskGroupRepository
+    {
+		public DirectumTaskGroupRepository(DbContext context) : base(context) 
+		{
+		}
+    }
+
     public partial class DirectumTaskMessageRepository : BaseRepository<DirectumTaskMessage>, IDirectumTaskMessageRepository
     {
 		public DirectumTaskMessageRepository(DbContext context) : base(context) 

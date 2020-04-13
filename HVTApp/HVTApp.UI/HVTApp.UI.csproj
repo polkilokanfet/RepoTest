@@ -141,6 +141,9 @@
     <Compile Include="Modules\Directum\DirectumTask\DirectumTaskRouteWindow.xaml.cs">
       <DependentUpon>DirectumTaskRouteWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Directum\DirectumTask\TabDirectumTask.xaml.cs">
+      <DependentUpon>TabDirectumTask.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Directum\Outgoing\DirectumTasksOutgoingViewModel.cs" />
     <Compile Include="Modules\Directum\DirectumTask\DirectumTaskView.xaml.cs">
       <DependentUpon>DirectumTaskView.xaml</DependentUpon>
@@ -868,6 +871,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Modules\Directum\DirectumTask\TabDirectumTask.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Modules\Directum\Outgoing\DirectumTasksOutgoingView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1268,6 +1275,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\Details\DirectumTaskGroupDetailsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Details\DirectumTaskMessageDetailsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1559,6 +1570,10 @@
     <Page Include="Views\List\Custom\UnitListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\List\DirectumTaskGroupLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\List\DirectumTaskLookupListView.xaml">
       <Generator>MSBuild:Compile</Generator>

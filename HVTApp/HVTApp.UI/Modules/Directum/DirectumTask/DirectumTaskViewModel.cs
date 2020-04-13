@@ -1,18 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Events;
-using Prism.Regions;
 
 namespace HVTApp.UI.Modules.Directum
 {
@@ -85,32 +81,31 @@ namespace HVTApp.UI.Modules.Directum
             StartCommand = new DelegateCommand(
                 () =>
                 {
-                    var startMoment = DateTime.Now;
-                    var parentTask = CreateDirectumTask(new DirectimTaskRouteItem {FinishPlan = Route.Items.Max(x => x.FinishPlan)}, startMoment);
-                    var directumTasks = Route.Items.Count == 1
-                        ? new List<DirectumTask> {CreateDirectumTask(Route.Items.First().Model, startMoment)}
-                        : Route.Items.Select(x => CreateDirectumTask(x.Model, startMoment, parentTask)).ToList();
+                    var unitOfWork = Container.Resolve<IUnitOfWork>();
+                    var directumTaskGroup = new DirectumTaskGroup()
+                    {
+                        Author = unitOfWork.Repository<User>().GetById(Author.Id),
+                        StartAuthor = DateTime.Now,
+                        Title = Title
+                    };
 
-                    UnitOfWork.Repository<DirectumTask>().AddRange(directumTasks);
-                    UnitOfWork.SaveChanges();
+                    var directumTasks = Route.Items.Select(
+                        routeItem => new DirectumTask
+                        {
+                            Group = directumTaskGroup,
+                            Performer = unitOfWork.Repository<User>().GetById(routeItem.Performer.Id),
+                            FinishPlan = routeItem.FinishPlan,
+                        }).ToList();
+
+                    unitOfWork.Repository<DirectumTask>().AddRange(directumTasks);
+                    unitOfWork.SaveChanges();
 
                     var afterSaveDirectumTaskEvent = Container.Resolve<IEventAggregator>().GetEvent<AfterSaveDirectumTaskEvent>();
                     directumTasks.ForEach(x => afterSaveDirectumTaskEvent.Publish(x));
+
+                    GoBackCommand.Execute(null);
                 },
                 () => !string.IsNullOrEmpty(Title) && Route.IsValid);
-        }
-
-        public DirectumTask CreateDirectumTask(DirectimTaskRouteItem routeItem, DateTime startMoment, DirectumTask parentDirectumTask = null)
-        {
-            return new DirectumTask
-            {
-                Author = Author,
-                Performer = routeItem.Performer,
-                StartAuthor = startMoment,
-                Title = Title,
-                FinishPlan = routeItem.FinishPlan,
-                ParentTask = parentDirectumTask
-            };
         }
 
         public void Load()

@@ -66,6 +66,7 @@
     <Compile Include="POCOs\CreateNewProductTask.cs" />
     <Compile Include="Comparers\ParameterComparer.cs" />
     <Compile Include="POCOs\Directum\DirectumTask.cs" />
+    <Compile Include="POCOs\Directum\DirectumTaskGroup.cs" />
     <Compile Include="POCOs\Directum\DirectumTaskPriority.cs" />
     <Compile Include="POCOs\Directum\DirectumTaskMessage.cs" />
     <Compile Include="POCOs\DocumentNumber.cs" />

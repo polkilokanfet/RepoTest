@@ -1,0 +1,76 @@
+<inf:ViewBase x:Class="HVTApp.UI.Views.DirectumTaskGroupDetailsView"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			  xmlns:infDP="http://infragistics.com/DataPresenter"
+			  xmlns:infE="http://infragistics.com/Editors"
+			  xmlns:core="clr-namespace:System;assembly=mscorlib"
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+			  x:Name="Root">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" MinWidth="200"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+
+        <Label Grid.Column="0" Grid.Row ="0" Content="Тема" Visibility="{Binding VisibilityTitleDirectumTaskGroup, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
+                 Text="{Binding Item.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding VisibilityTitleDirectumTaskGroup, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="1" Content="Инициатор" Visibility="{Binding VisibilityAuthorDirectumTaskGroup, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
+                                    Item="{Binding Item.Author}" 
+                                    AddItemCommand="{Binding SelectAuthorCommand}" 
+                                    RemoveItemCommand="{Binding ClearAuthorCommand}"
+									Visibility="{Binding VisibilityAuthorDirectumTaskGroup, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="2" Content="Старт" Visibility="{Binding VisibilityStartAuthorDirectumTaskGroup, ElementName=Root}"/>
+        <DatePicker Grid.Column="1" Grid.Row="2" 
+                    SelectedDate="{Binding Item.StartAuthor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding VisibilityStartAuthorDirectumTaskGroup, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="3" Content="Прекращена инициатором" Visibility="{Binding VisibilityIsStopedDirectumTaskGroup, ElementName=Root}"/>
+        <CheckBox Grid.Column="1" Grid.Row="3" MinWidth="200" 
+                  IsChecked="{Binding Item.IsStoped, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				  Visibility="{Binding VisibilityIsStopedDirectumTaskGroup, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="4" Content="Наблюдатели" Visibility="{Binding VisibilityObserversDirectumTaskGroup, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="4"
+										 Items="{Binding Path=Item.Observers}"
+										 SelectedItem="{Binding SelectedObserversItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInObserversCommand}"
+										 RemoveItemCommand="{Binding RemoveFromObserversCommand}"
+										 Visibility="{Binding VisibilityObserversDirectumTaskGroup, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="5" Content="Сообщение автора" Visibility="{Binding VisibilityMessageDirectumTaskGroup, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="5" MinWidth="200" 
+                 Text="{Binding Item.Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding VisibilityMessageDirectumTaskGroup, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="6" Content="Путь к приложениям" Visibility="{Binding VisibilityAttachmentsPathDirectumTaskGroup, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="6" MinWidth="200" 
+                 Text="{Binding Item.AttachmentsPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding VisibilityAttachmentsPathDirectumTaskGroup, ElementName=Root}"/>
+
+
+
+    </Grid>
+</inf:ViewBase>

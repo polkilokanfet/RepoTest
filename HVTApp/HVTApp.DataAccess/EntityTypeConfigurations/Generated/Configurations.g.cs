@@ -10,6 +10,7 @@ namespace HVTApp.DataAccess
     public partial class ConstructorsParametersConfiguration : EntityTypeConfiguration<ConstructorsParameters> { }
     public partial class CreateNewProductTaskConfiguration : EntityTypeConfiguration<CreateNewProductTask> { }
     public partial class DirectumTaskConfiguration : EntityTypeConfiguration<DirectumTask> { }
+    public partial class DirectumTaskGroupConfiguration : EntityTypeConfiguration<DirectumTaskGroup> { }
     public partial class DirectumTaskMessageConfiguration : EntityTypeConfiguration<DirectumTaskMessage> { }
     public partial class DocumentNumberConfiguration : EntityTypeConfiguration<DocumentNumber> { }
     public partial class FakeDataConfiguration : EntityTypeConfiguration<FakeData> { }

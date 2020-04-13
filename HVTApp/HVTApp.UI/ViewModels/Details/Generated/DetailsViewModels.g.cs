@@ -286,10 +286,10 @@ namespace HVTApp.UI.ViewModels
 
     public partial class DirectumTaskDetailsViewModel : BaseDetailsViewModel<DirectumTaskWrapper, DirectumTask, AfterSaveDirectumTaskEvent>
     {
-		//private Func<Task<List<User>>> _getEntitiesForSelectAuthorCommand;
-		private Func<List<User>> _getEntitiesForSelectAuthorCommand;
-		public ICommand SelectAuthorCommand { get; private set; }
-		public ICommand ClearAuthorCommand { get; private set; }
+		//private Func<Task<List<DirectumTaskGroup>>> _getEntitiesForSelectGroupCommand;
+		private Func<List<DirectumTaskGroup>> _getEntitiesForSelectGroupCommand;
+		public ICommand SelectGroupCommand { get; private set; }
+		public ICommand ClearGroupCommand { get; private set; }
 
 		//private Func<Task<List<User>>> _getEntitiesForSelectPerformerCommand;
 		private Func<List<User>> _getEntitiesForSelectPerformerCommand;
@@ -322,29 +322,13 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
-		private Func<List<User>> _getEntitiesForAddInObserversCommand;
-		public ICommand AddInObserversCommand { get; }
-		public ICommand RemoveFromObserversCommand { get; }
-		private UserWrapper _selectedObserversItem;
-		public UserWrapper SelectedObserversItem 
-		{ 
-			get { return _selectedObserversItem; }
-			set 
-			{ 
-				if (Equals(_selectedObserversItem, value)) return;
-				_selectedObserversItem = value;
-				OnPropertyChanged();
-				((DelegateCommand)RemoveFromObserversCommand).RaiseCanExecuteChanged();
-			}
-		}
-
 
         public DirectumTaskDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
-			if (_getEntitiesForSelectAuthorCommand == null) _getEntitiesForSelectAuthorCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };
-			if (SelectAuthorCommand == null) SelectAuthorCommand = new DelegateCommand(SelectAuthorCommand_Execute_Default);
-			if (ClearAuthorCommand == null) ClearAuthorCommand = new DelegateCommand(ClearAuthorCommand_Execute_Default);
+			if (_getEntitiesForSelectGroupCommand == null) _getEntitiesForSelectGroupCommand = () => { return UnitOfWork.Repository<DirectumTaskGroup>().GetAll(); };
+			if (SelectGroupCommand == null) SelectGroupCommand = new DelegateCommand(SelectGroupCommand_Execute_Default);
+			if (ClearGroupCommand == null) ClearGroupCommand = new DelegateCommand(ClearGroupCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectPerformerCommand == null) _getEntitiesForSelectPerformerCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };
@@ -366,21 +350,16 @@ namespace HVTApp.UI.ViewModels
 			if (AddInMessagesCommand == null) AddInMessagesCommand = new DelegateCommand(AddInMessagesCommand_Execute_Default);
 			if (RemoveFromMessagesCommand == null) RemoveFromMessagesCommand = new DelegateCommand(RemoveFromMessagesCommand_Execute_Default, RemoveFromMessagesCommand_CanExecute_Default);
 
-			
-			if (_getEntitiesForAddInObserversCommand == null) _getEntitiesForAddInObserversCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };;
-			if (AddInObserversCommand == null) AddInObserversCommand = new DelegateCommand(AddInObserversCommand_Execute_Default);
-			if (RemoveFromObserversCommand == null) RemoveFromObserversCommand = new DelegateCommand(RemoveFromObserversCommand_Execute_Default, RemoveFromObserversCommand_CanExecute_Default);
-
 		}
 
-		private void SelectAuthorCommand_Execute_Default() 
+		private void SelectGroupCommand_Execute_Default() 
 		{
-            SelectAndSetWrapper<User, UserWrapper>(_getEntitiesForSelectAuthorCommand(), nameof(Item.Author), Item.Author?.Id);
+            SelectAndSetWrapper<DirectumTaskGroup, DirectumTaskGroupWrapper>(_getEntitiesForSelectGroupCommand(), nameof(Item.Group), Item.Group?.Id);
 		}
 
-		private void ClearAuthorCommand_Execute_Default() 
+		private void ClearGroupCommand_Execute_Default() 
 		{
-						Item.Author = null;
+						Item.Group = null;
 		    
 		}
 
@@ -431,6 +410,60 @@ namespace HVTApp.UI.ViewModels
 			{
 				return SelectedMessagesItem != null;
 			}
+
+
+
+    }
+
+
+    public partial class DirectumTaskGroupDetailsViewModel : BaseDetailsViewModel<DirectumTaskGroupWrapper, DirectumTaskGroup, AfterSaveDirectumTaskGroupEvent>
+    {
+		//private Func<Task<List<User>>> _getEntitiesForSelectAuthorCommand;
+		private Func<List<User>> _getEntitiesForSelectAuthorCommand;
+		public ICommand SelectAuthorCommand { get; private set; }
+		public ICommand ClearAuthorCommand { get; private set; }
+
+		private Func<List<User>> _getEntitiesForAddInObserversCommand;
+		public ICommand AddInObserversCommand { get; }
+		public ICommand RemoveFromObserversCommand { get; }
+		private UserWrapper _selectedObserversItem;
+		public UserWrapper SelectedObserversItem 
+		{ 
+			get { return _selectedObserversItem; }
+			set 
+			{ 
+				if (Equals(_selectedObserversItem, value)) return;
+				_selectedObserversItem = value;
+				OnPropertyChanged();
+				((DelegateCommand)RemoveFromObserversCommand).RaiseCanExecuteChanged();
+			}
+		}
+
+
+        public DirectumTaskGroupDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+			
+			if (_getEntitiesForSelectAuthorCommand == null) _getEntitiesForSelectAuthorCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };
+			if (SelectAuthorCommand == null) SelectAuthorCommand = new DelegateCommand(SelectAuthorCommand_Execute_Default);
+			if (ClearAuthorCommand == null) ClearAuthorCommand = new DelegateCommand(ClearAuthorCommand_Execute_Default);
+
+			
+			if (_getEntitiesForAddInObserversCommand == null) _getEntitiesForAddInObserversCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };;
+			if (AddInObserversCommand == null) AddInObserversCommand = new DelegateCommand(AddInObserversCommand_Execute_Default);
+			if (RemoveFromObserversCommand == null) RemoveFromObserversCommand = new DelegateCommand(RemoveFromObserversCommand_Execute_Default, RemoveFromObserversCommand_CanExecute_Default);
+
+		}
+
+		private void SelectAuthorCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<User, UserWrapper>(_getEntitiesForSelectAuthorCommand(), nameof(Item.Author), Item.Author?.Id);
+		}
+
+		private void ClearAuthorCommand_Execute_Default() 
+		{
+						Item.Author = null;
+		    
+		}
 
 			private void AddInObserversCommand_Execute_Default()
 			{

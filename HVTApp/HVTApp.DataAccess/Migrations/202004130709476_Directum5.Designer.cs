@@ -7,13 +7,13 @@ namespace HVTApp.DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class DirectumLite : IMigrationMetadata
+    public sealed partial class Directum5 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(DirectumLite));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Directum5));
         
         string IMigrationMetadata.Id
         {
-            get { return "202004121109373_DirectumLite"; }
+            get { return "202004130709476_Directum5"; }
         }
         
         string IMigrationMetadata.Source

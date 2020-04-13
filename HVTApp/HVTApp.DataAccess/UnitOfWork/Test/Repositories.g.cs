@@ -39,6 +39,11 @@ namespace HVTApp.DataAccess
         public DirectumTaskRepositoryTest(TestData testData) : base(testData) {}
     }
 
+    public partial class DirectumTaskGroupRepositoryTest : TestBaseRepository<DirectumTaskGroup>, IDirectumTaskGroupRepository
+    {
+        public DirectumTaskGroupRepositoryTest(TestData testData) : base(testData) {}
+    }
+
     public partial class DirectumTaskMessageRepositoryTest : TestBaseRepository<DirectumTaskMessage>, IDirectumTaskMessageRepository
     {
         public DirectumTaskMessageRepositoryTest(TestData testData) : base(testData) {}

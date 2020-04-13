@@ -2,10 +2,103 @@
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-              xmlns:prism="http://prismlibrary.com/"
+              xmlns:prism="http://prismlibrary.com/" 
+              xmlns:dataPresenter="http://infragistics.com/DataPresenter"
               prism:ViewModelLocator.AutoWireViewModel="True">
 
     <Grid>
+        
+		<dataPresenter:XamDataGrid x:Name="DirectumTaskLookupListGrid" Grid.Row="0" DataSource="{Binding Items}">
+        
+			<dataPresenter:XamDataGrid.ContextMenu>
+				<ContextMenu>
+					<MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
+				</ContextMenu>
+			</dataPresenter:XamDataGrid.ContextMenu>
+
+			<dataPresenter:XamDataGrid.FieldLayouts>
+				<dataPresenter:FieldLayout>
+					<dataPresenter:FieldLayout.Fields>
+                    <dataPresenter:TextField Name="Group" Label="Группа задач" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <dataPresenter:TextField Name="Performer" Label="Исполнитель" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <dataPresenter:DateTimeField Name="StartPerformer" Label="Приём" Width="Auto" AllowResize="True" />
+                    <dataPresenter:DateTimeField Name="FinishPlan" Label="Срок" Width="Auto" AllowResize="True" />
+                    <dataPresenter:DateTimeField Name="FinishPerformer" Label="Финиш исполнителем" Width="Auto" AllowResize="True" />
+                    <dataPresenter:DateTimeField Name="FinishAuthor" Label="Финиш" Width="Auto" AllowResize="True" />
+                    <dataPresenter:TextField Name="Messages" Label="Переписка" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                    <dataPresenter:TextField Name="ParentTask" Label="Родительская задача" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <dataPresenter:TextField Name="PreviousTask" Label="Предыдущая задача" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <dataPresenter:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
+
+					</dataPresenter:FieldLayout.Fields>
+				</dataPresenter:FieldLayout>
+
+			</dataPresenter:XamDataGrid.FieldLayouts>
+		</dataPresenter:XamDataGrid>
+        
     </Grid>
 
 </inf:ViewBase>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

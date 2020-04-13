@@ -197,14 +197,6 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
-		[OrderStatus(100)]
-        public System.String Title => Entity.Title;
-
-
-		[OrderStatus(85)]
-        public System.DateTime StartAuthor => Entity.StartAuthor;
-
-
 		[OrderStatus(80)]
         public System.Nullable<System.DateTime> StartPerformer => Entity.StartPerformer;
 
@@ -221,25 +213,13 @@ namespace HVTApp.UI.Lookup
         public System.Nullable<System.DateTime> FinishAuthor => Entity.FinishAuthor;
 
 
-		[OrderStatus(60)]
-        public System.Boolean IsStoped => Entity.IsStoped;
-
-
-		[OrderStatus(35)]
-        public HVTApp.Model.POCOs.DirectumTaskPriority Priority => Entity.Priority;
-
-
-		[OrderStatus(30)]
-        public System.String AttachmentsPath => Entity.AttachmentsPath;
-
-
         #endregion
 
 
         #region ComplexProperties
 
-		[OrderStatus(95)]
-	    public UserLookup Author { get { return GetLookup<UserLookup>(); } }
+		[OrderStatus(100)]
+	    public DirectumTaskGroupLookup Group { get { return GetLookup<DirectumTaskGroupLookup>(); } }
 
 
 		[OrderStatus(90)]
@@ -258,6 +238,55 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(55)]
 	    public List<DirectumTaskMessageLookup> Messages { get { return GetLookupEnum<DirectumTaskMessageLookup>().ToList(); } }
+
+	}
+
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Группа задач")]
+	public partial class DirectumTaskGroupLookup : LookupItem<DirectumTaskGroup>
+	{
+		public DirectumTaskGroupLookup(DirectumTaskGroup entity) : base(entity) 
+		{
+		}
+		
+
+        #region SimpleProperties
+
+		[OrderStatus(100)]
+        public System.String Title => Entity.Title;
+
+
+		[OrderStatus(85)]
+        public System.DateTime StartAuthor => Entity.StartAuthor;
+
+
+		[OrderStatus(60)]
+        public System.Boolean IsStoped => Entity.IsStoped;
+
+
+		[OrderStatus(35)]
+        public HVTApp.Model.POCOs.DirectumTaskPriority Priority => Entity.Priority;
+
+
+		[OrderStatus(30)]
+        public System.String AttachmentsPath => Entity.AttachmentsPath;
+
+
+		[OrderStatus(30)]
+        public System.String Message => Entity.Message;
+
+
+        #endregion
+
+
+        #region ComplexProperties
+
+		[OrderStatus(95)]
+	    public UserLookup Author { get { return GetLookup<UserLookup>(); } }
+
+
+        #endregion
 
 		[OrderStatus(50)]
 	    public List<UserLookup> Observers { get { return GetLookupEnum<UserLookup>().ToList(); } }

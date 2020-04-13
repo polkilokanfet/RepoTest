@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Linq;
-using System.Windows;
 using HVTApp.Infrastructure;
-using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 using Prism.Regions;
 
 namespace HVTApp.UI.Modules.Directum
 {
-    //[RibbonTab(typeof(TabSalesChart))]
+    [RibbonTab(typeof(TabDirectumTask))]
     public partial class DirectumTaskView : ViewBaseConfirmNavigationRequest
     {
         private readonly DirectumTaskViewModel _viewModel;
@@ -45,7 +43,7 @@ namespace HVTApp.UI.Modules.Directum
 
         protected override bool IsSomethingChanged()
         {
-            return _viewModel.DirectumTask.IsChanged;
+            return false;
         }
     }
 }
