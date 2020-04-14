@@ -29,13 +29,23 @@ namespace HVTApp.UI.Modules.Directum
         {
             if (navigationContext.Parameters.Any())
             {
-                var directumTask = navigationContext.Parameters.First().Value as Model.POCOs.DirectumTask;
-                if (directumTask != null)
-                    _viewModel.Load(directumTask);
+                if (navigationContext.Parameters.Count() == 1)
+                {
+                    var directumTask = navigationContext.Parameters.First().Value as Model.POCOs.DirectumTask;
+                    if (directumTask != null)
+                        _viewModel.Load(directumTask);
 
-                var directumTaskGroup = navigationContext.Parameters.First().Value as Model.POCOs.DirectumTaskGroup;
-                if (directumTaskGroup != null)
-                    _viewModel.Load(directumTaskGroup);
+                    var directumTaskGroup = navigationContext.Parameters.First().Value as Model.POCOs.DirectumTaskGroup;
+                    if (directumTaskGroup != null)
+                        _viewModel.Load(directumTaskGroup);
+                }
+
+                if (navigationContext.Parameters.Count() == 2)
+                {
+                    var parentTask = (Model.POCOs.DirectumTask)navigationContext.Parameters[nameof(Model.POCOs.DirectumTask)];
+                    var isSubTask = (bool) navigationContext.Parameters[nameof(bool.GetType)];
+                    _viewModel.Load(parentTask, isSubTask);
+                }
             }
             else
             {

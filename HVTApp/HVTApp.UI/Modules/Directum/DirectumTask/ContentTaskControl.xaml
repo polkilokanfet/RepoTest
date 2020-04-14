@@ -10,7 +10,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
     
-        <GroupBox Header="Задача" Margin="5">
+        <GroupBox Header="Задача" Margin="5" BorderBrush="Black">
         
             <Grid>
                 <Grid.RowDefinitions>
@@ -60,7 +60,7 @@
                     </Border>
                 </Grid>
                 
-                <GroupBox Grid.Row="1" Header="Переписка" Margin="5 0 0 0">
+                <GroupBox Grid.Row="1" Header="Переписка" Margin="10 0 0 0">
                     <ItemsControl ItemsSource="{Binding MessagesByMoment}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
@@ -97,22 +97,24 @@
                 </GroupBox>
 
                 <!--Дочерние задачи-->
-                <ItemsControl Grid.Row="2" ItemsSource="{Binding Model.ChildTasks}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <directumTask:ContentTaskControl DataContext="{Binding}"/>
-                            </Grid>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            
+                <GroupBox Grid.Row="2" Header="Подзадачи" Margin="15 0 0 0">
+                    <ItemsControl ItemsSource="{Binding ChildTasks}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <directumTask:ContentTaskControl DataContext="{Binding}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </GroupBox>
+
             </Grid>
 
         </GroupBox>
         
         <!--Параллельные задачи-->
-        <ItemsControl Grid.Row="1" ItemsSource="{Binding Model.ParallelTasks}">
+        <ItemsControl Grid.Row="1" ItemsSource="{Binding ParallelTasks}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid>

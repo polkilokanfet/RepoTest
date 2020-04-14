@@ -36,7 +36,7 @@
                     </Grid.RowDefinitions>
                     
                     <Label Grid.Row="0" Grid.Column="0" Content="Тема: "/>
-                    <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding DirectumTask.Group.Title}" IsReadOnly="{Binding TaskIsNew, Converter={StaticResource ReverseBoolConverter}}"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding DirectumTask.Group.Title}" IsReadOnly="{Binding AllowEditTitle, Converter={StaticResource ReverseBoolConverter}}"/>
                     
                     <Button Grid.Row="1" Grid.Column="0" Content="Маршрут" Command="{Binding RouteCommand}"/>
                     <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Route, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>

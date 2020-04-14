@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
@@ -13,12 +14,14 @@ using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Events;
+using Prism.Regions;
 
 namespace HVTApp.UI.Modules.Directum
 {
     public class DirectumTaskViewModel : ViewModelBase
     {
         private bool _taskIsNew = false;
+        private bool _taskIsSubTask = false;
         private DirectumTaskRouteWrapper _route = new DirectumTaskRouteWrapper(new DirectumTaskRoute());
         private DirectumTaskWrapper _directumTask = new DirectumTaskWrapper(new Model.POCOs.DirectumTask {Group = new DirectumTaskGroup {StartAuthor = DateTime.Now} });
         private DirectumTaskMessageWrapper _message;
@@ -53,8 +56,25 @@ namespace HVTApp.UI.Modules.Directum
             {
                 _taskIsNew = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(AllowEditTitle));
+                OnPropertyChanged(nameof(AllowSubTask));
             }
         }
+
+        public bool TaskIsSubTask
+        {
+            get { return _taskIsSubTask; }
+            private set
+            {
+                _taskIsSubTask = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(AllowEditTitle));
+            }
+        }
+
+        public bool AllowEditTitle => TaskIsNew && !TaskIsSubTask;
+
+        public bool AllowSubTask => !TaskIsNew;
 
         public bool AllowPerform => DirectumTask?.Performer != null && DirectumTask.Performer.Id == GlobalAppProperties.User.Id && !DirectumTask.FinishPerformer.HasValue;
 
@@ -82,11 +102,15 @@ namespace HVTApp.UI.Modules.Directum
         /// </summary>
         public ICommand AcceptCommand { get; }
 
-
         /// <summary>
         /// Отклонение выполнененной задачи
         /// </summary>
         public ICommand RejectCommand { get; }
+
+        /// <summary>
+        /// Создать подзадачу
+        /// </summary>
+        public ICommand SubTaskCommand { get; }
 
         public DirectumTaskViewModel(IUnityContainer container) : base(container)
         {
@@ -128,6 +152,7 @@ namespace HVTApp.UI.Modules.Directum
                             Group = directumTaskGroup,
                             Performer = unitOfWork.Repository<User>().GetById(routeItem.Performer.Id),
                             FinishPlan = routeItem.FinishPlan,
+                            ParentTask = _parentTask == null ? null : unitOfWork.Repository<Model.POCOs.DirectumTask>().GetById(_parentTask.Id)
                         }).ToList();
 
                     unitOfWork.Repository<Model.POCOs.DirectumTask>().AddRange(directumTasks);
@@ -190,6 +215,17 @@ namespace HVTApp.UI.Modules.Directum
                     GoBackCommand.Execute(null);
                 },
                 () => AllowAccept && DirectumTask.IsValid);
+
+            SubTaskCommand = new DelegateCommand(
+                () =>
+                {
+                    RegionManager.RequestNavigateContentRegion<DirectumTaskView>(new NavigationParameters()
+                    {
+                        { nameof(Model.POCOs.DirectumTask), DirectumTask.Model },
+                        { nameof(bool.GetType), true }
+                    });
+                },
+                () => !TaskIsNew);
         }
 
         /// <summary>
@@ -225,6 +261,16 @@ namespace HVTApp.UI.Modules.Directum
                 Load(tasks.First());
         }
 
+        private Model.POCOs.DirectumTask _parentTask;
+
+        public void Load(Model.POCOs.DirectumTask parentTask, bool isSubTask)
+        {
+            _parentTask = parentTask;
+            Load();
+            DirectumTask.Group.Title = $"{_parentTask.Group.Title} [подзадача]";
+            TaskIsSubTask = true;
+        }
+
 
         /// <summary>
         /// Загрузка существующей задачи
@@ -235,7 +281,7 @@ namespace HVTApp.UI.Modules.Directum
             TaskIsNew = false;
 
             DirectumTask = new DirectumTaskWrapper(UnitOfWork.Repository<Model.POCOs.DirectumTask>().GetById(directumTask.Id));
-            InjectTasks(DirectumTask.Model);
+            InjectTasks(DirectumTask);
 
             //если есть возможность выполнить задачу
             if (!DirectumTask.FinishPerformer.HasValue && DirectumTask.Performer.Id == GlobalAppProperties.User.Id)
@@ -296,23 +342,25 @@ namespace HVTApp.UI.Modules.Directum
         /// </summary>
         /// <param name="directumTask"></param>
         /// <returns></returns>
-        private Model.POCOs.DirectumTask InjectTasks(Model.POCOs.DirectumTask directumTask)
+        private DirectumTaskWrapper InjectTasks(DirectumTaskWrapper directumTask)
         {
             directumTask.ChildTasks.AddRange(UnitOfWork
                 .Repository<Model.POCOs.DirectumTask>()
-                .Find(x => Equals(x.ParentTask, directumTask))
-                .Select(InjectTasks));
+                .Find(x => Equals(x.ParentTask, directumTask.Model))
+                .Select(x => InjectTasks(new DirectumTaskWrapper(x))));
 
             var parallelTasks = UnitOfWork
                 .Repository<Model.POCOs.DirectumTask>()
-                .Find(x => Equals(x.Group, directumTask.Group))
-                .Where(x => !Equals(x, directumTask))
+                .Find(x => Equals(x.Group, directumTask.Model.Group))
+                .Where(x => !Equals(x.Id, directumTask.Id))
+                .Select(x => new DirectumTaskWrapper(x))
                 .ToList();
 
-            if (parallelTasks.Any(x => x.ParallelTasks.Any()))
+            if (parallelTasks.Any(x => x.Model.ParallelTasks.Any()))
                 return directumTask;
 
             directumTask.ParallelTasks.AddRange(parallelTasks);
+            directumTask.Model.ParallelTasks.AddRange(parallelTasks.Select(x => x.Model));
             parallelTasks.ForEach(x => InjectTasks(x));
 
             return directumTask;
