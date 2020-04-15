@@ -13,10 +13,18 @@ namespace HVTApp.UI.Modules.Directum
     {
         [Required]
         public List<DirectumTaskRouteItem> Items { get; } = new List<DirectumTaskRouteItem>();
+
+        public bool IsParallel { get; set; } = true;
     }
 
     public class DirectumTaskRouteWrapper : WrapperBase<DirectumTaskRoute>
     {
+        public bool IsParallel
+        {
+            get { return GetValue<bool>(); }
+            set { SetValue(value); }
+        }
+
         [Required]
         public IValidatableChangeTrackingCollection<DirectumTaskRouteItemWrapper> Items { get; private set; }
 
@@ -50,8 +58,6 @@ namespace HVTApp.UI.Modules.Directum
     public class DirectumTaskRouteItem : BaseEntity
     {
         [Required]
-        public int Index { get; set; }
-        [Required]
         public User Performer { get; set; }
         [Required]
         public DateTime FinishPlan { get; set; }
@@ -59,16 +65,17 @@ namespace HVTApp.UI.Modules.Directum
 
     public class DirectumTaskRouteItemWrapper : WrapperBase<DirectumTaskRouteItem>
     {
+        private bool _isParallel = true;
 
-        [Required]
-        public int Index
+        public bool IsParallel
         {
-            get { return GetValue<int>(); }
-            set { SetValue(value); }
+            get { return _isParallel; }
+            set
+            {
+                _isParallel = value;
+                OnPropertyChanged();
+            }
         }
-        public int IndexOriginalValue => GetOriginalValue<int>(nameof(Index));
-        public bool IndexIsChanged => GetIsChanged(nameof(Index));
-
 
         [Required]
         public DateTime FinishPlan

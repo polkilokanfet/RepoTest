@@ -60,10 +60,15 @@ namespace HVTApp.UI.Modules.Directum
         protected override void Load()
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
-            var tasks = UnitOfWork.Repository<Model.POCOs.DirectumTask>().Find(x => x.Performer.Id == GlobalAppProperties.User.Id);
+
+            //задачи на выполнение
+            var tasks = UnitOfWork.Repository<Model.POCOs.DirectumTask>().Find(x => x.Performer.Id == GlobalAppProperties.User.Id && x.StartResult.HasValue);
+
+            //задачи на проверку
+            tasks.AddRange(UnitOfWork.Repository<Model.POCOs.DirectumTask>().Find(x => x.FinishPerformer.HasValue && x.Group.Author.Id == GlobalAppProperties.User.Id));
 
             Items.Clear();
-            Items.AddRange(tasks.Select(x => new DirectumTaskLookup(x)));
+            Items.AddRange(tasks.OrderByDescending(x => x.StartResult).Select(x => new DirectumTaskLookup(x)));
         }
     }
 }

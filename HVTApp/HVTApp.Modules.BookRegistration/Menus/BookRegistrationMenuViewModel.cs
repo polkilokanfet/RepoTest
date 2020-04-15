@@ -1,7 +1,6 @@
 ﻿using HVTApp.Infrastructure;
 using HVTApp.Model;
 using HVTApp.UI.Modules.BookRegistration.Views;
-using HVTApp.UI.Modules.Directum;
 
 namespace HVTApp.Modules.BookRegistration.Menus
 {
@@ -9,8 +8,6 @@ namespace HVTApp.Modules.BookRegistration.Menus
     {
         protected override void GenerateMenu()
         {
-            Items.Add(new NavigationItem("Входящие", typeof(DirectumTasksIncomingView)));
-            Items.Add(new NavigationItem("Исходящие", typeof(DirectumTasksOutgoingView)));
             Items.Add(new NavigationItem("Журнал переписки", typeof(BookRegistrationView)));
 
             if (GlobalAppProperties.User.RoleCurrent == Role.Admin

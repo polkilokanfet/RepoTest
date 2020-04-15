@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
+using System.Windows;
 using HVTApp.Infrastructure;
+using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 using Prism.Regions;
@@ -52,7 +54,18 @@ namespace HVTApp.UI.Modules.Directum
                 _viewModel.Load();
             }
 
+            this.Browser.Source = new Uri(PathGetter.GetPath(GetUpGroup(_viewModel.DirectumTask.Model)));
+
             base.OnNavigatedTo(navigationContext);
+        }
+
+        private DirectumTaskGroup GetUpGroup(Model.POCOs.DirectumTask directumTask)
+        {
+            while (directumTask.ParentTask != null)
+            {
+                directumTask = directumTask.ParentTask;
+            }
+            return directumTask.Group;
         }
 
 
@@ -60,5 +73,18 @@ namespace HVTApp.UI.Modules.Directum
         {
             return _viewModel.DirectumTask?.IsChanged ?? false;
         }
+
+        private void GoBackButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (this.Browser.CanGoBack)
+                Browser.GoBack();
+        }
+
+        private void GoForwardButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (this.Browser.CanGoForward)
+                Browser.GoForward();
+        }
+
     }
 }

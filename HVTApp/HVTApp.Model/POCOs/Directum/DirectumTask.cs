@@ -72,5 +72,7 @@ namespace HVTApp.Model.POCOs
 
         [NotMapped]
         public List<DirectumTask> ParallelTasks { get; } = new List<DirectumTask>();
+
+        public DateTime? StartResult => PreviousTask == null ? Group.StartAuthor : PreviousTask.FinishPerformer;
     }
 }

@@ -30,7 +30,7 @@
                         
                     <dataPresenter:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Group.Title}" Label="Тема" Width="400" AllowResize="True"/>
                     <dataPresenter:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Group.Author}" Label="Инициатор" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <dataPresenter:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding Group.StartAuthor}" Label="Старт" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
+                    <dataPresenter:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding Entity.StartResult}" Label="Старт" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
                     <dataPresenter:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding FinishPlan}" Label="Срок" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
                     <dataPresenter:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding FinishPerformer}" Label="Исполнено" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
                     <dataPresenter:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding FinishAuthor}" Label="Принято" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>

@@ -71,7 +71,7 @@ namespace HVTApp.UI.Modules.Directum
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
             var tasks = UnitOfWork.Repository<Model.POCOs.DirectumTask>().Find(x => x.Group.Author.Id == GlobalAppProperties.User.Id);
-            var groups = tasks.Select(x => x.Group).Distinct().Select(x => new DirectumTaskGroupLookup(x)).ToList();
+            var groups = tasks.Select(x => x.Group).Distinct().Select(x => new DirectumTaskGroupLookup(x)).OrderByDescending(x => x.StartAuthor).ToList();
             foreach (var taskGroup in groups)
             {
                 taskGroup.DirectumTasks.AddRange(tasks.Where(x => x.Group.Id == taskGroup.Id));

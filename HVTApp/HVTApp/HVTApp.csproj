@@ -277,6 +277,10 @@
       <Project>{df40155b-72ca-425b-8ed6-84692051dddd}</Project>
       <Name>HVTApp.Modules.Director</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HVTApp.Modules.DirectumLite\HVTApp.Modules.DirectumLite.csproj">
+      <Project>{c3e58c6c-27d2-44db-a80d-417c2bed376b}</Project>
+      <Name>HVTApp.Modules.DirectumLite</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HVTApp.Modules.PriceMaking\HVTApp.Modules.PriceMaking.csproj">
       <Project>{7A7FA317-D6D9-4784-B757-BECA501314D4}</Project>
       <Name>HVTApp.Modules.PriceMaking</Name>

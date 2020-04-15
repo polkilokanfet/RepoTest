@@ -62,7 +62,6 @@ namespace HVTApp.UI
             Container.RegisterViewForNavigation<ProducersSalesChartView>();
             Container.RegisterViewForNavigation<MarketCapacityChartView>();
             Container.RegisterViewForNavigation<DirectumTaskView>();
-            Container.RegisterViewForNavigation<DirectumTaskRouteView>();
             Container.RegisterViewForNavigation<DirectumTasksOutgoingView>();
             Container.RegisterViewForNavigation<DirectumTasksIncomingView>();
 

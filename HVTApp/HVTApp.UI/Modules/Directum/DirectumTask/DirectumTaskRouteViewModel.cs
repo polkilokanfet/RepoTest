@@ -22,15 +22,35 @@ namespace HVTApp.UI.Modules.Directum
         public DirectumTaskRouteWrapper DirectumTaskRoute { get; }
         public bool AllowEdit { get; }
 
+        public bool IsParallel
+        {
+            get { return DirectumTaskRoute.IsParallel; }
+            set
+            {
+                DirectumTaskRoute.IsParallel = value;
+                DirectumTaskRoute.Items.ForEach(x =>
+                {
+                    x.IsParallel = IsParallel;
+                    if (IsParallel)
+                        x.FinishPlan = FinishPlan;
+                });
+
+                OnPropertyChanged();
+            }
+        }
+
         public DateTime FinishPlan
         {
             get { return _finishPlan; }
             set
             {
                 if (Equals(_finishPlan, value)) return;
+                if (value < DateTime.Now) return;
                 _finishPlan = value;
-                DirectumTaskRoute.Items.ForEach(x => x.FinishPlan = value);
+                if(IsParallel)
+                    DirectumTaskRoute.Items.ForEach(x => x.FinishPlan = value);
                 ((DelegateCommand)OkCommand).RaiseCanExecuteChanged();
+                OnPropertyChanged();
             }
         }
 
@@ -62,10 +82,11 @@ namespace HVTApp.UI.Modules.Directum
                     var performer = Container.Resolve<ISelectService>().SelectItem(users);
                     if (performer != null)
                     {
-                        var index = DirectumTaskRoute.Items.Count + 1;
+                        if (!IsParallel && DirectumTaskRoute.Items.Any())
+                            FinishPlan = DirectumTaskRoute.Items.Max(x => x.FinishPlan).AddDays(1).SkipWeekend();
+
                         var item = new DirectumTaskRouteItemWrapper(new DirectumTaskRouteItem())
                         {
-                            Index = index,
                             Performer = new UserWrapper(performer),
                             FinishPlan = FinishPlan
                         };

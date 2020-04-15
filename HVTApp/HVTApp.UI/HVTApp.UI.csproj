@@ -139,9 +139,6 @@
       <DependentUpon>ContentTaskControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Directum\DirectumTask\DirectumTaskRoute.cs" />
-    <Compile Include="Modules\Directum\DirectumTask\DirectumTaskRouteView.xaml.cs">
-      <DependentUpon>DirectumTaskRouteView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Modules\Directum\DirectumTask\DirectumTaskRouteViewModel.cs" />
     <Compile Include="Modules\Directum\DirectumTask\DirectumTaskRouteWindow.xaml.cs">
       <DependentUpon>DirectumTaskRouteWindow.xaml</DependentUpon>
@@ -743,6 +740,8 @@
       <LastGenOutput>Generator.cs</LastGenOutput>
     </Content>
     <Resource Include="Images\folder.png" />
+    <Resource Include="Images\ar_back.png" />
+    <Resource Include="Images\ar_forward.png" />
     <Content Include="SalesReportViewGenerator.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>SalesReportViewGenerator.txt</LastGenOutput>
@@ -873,10 +872,6 @@
     <Page Include="Modules\Directum\DirectumTask\ContentTaskControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Modules\Directum\DirectumTask\DirectumTaskRouteView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\Directum\DirectumTask\DirectumTaskView.xaml">
       <Generator>MSBuild:Compile</Generator>

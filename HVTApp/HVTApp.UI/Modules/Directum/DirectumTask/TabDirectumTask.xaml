@@ -8,13 +8,16 @@
     <infRib:RibbonGroup Caption="Задача">
         <infRib:ButtonTool Caption="Стартовать" Command="{Binding StartCommand}" SmallImage="/HVTApp.UI;component/Images/start.png" Visibility="{Binding TaskIsNew, Converter={StaticResource BooleanToVisibilityConverter}}"/>
         <infRib:ButtonTool Caption="Выполнить" Command="{Binding PerformCommand}" SmallImage="/HVTApp.UI;component/Images/edit.png" Visibility="{Binding AllowPerform, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-        <infRib:ButtonTool Caption="Принять выполнение" Command="{Binding AcceptCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png" Visibility="{Binding AllowAccept, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        <infRib:ButtonTool Caption="Принять выполнение" Command="{Binding AcceptCommand}" SmallImage="/HVTApp.UI;component/Images/done.png" Visibility="{Binding AllowAccept, Converter={StaticResource BooleanToVisibilityConverter}}"/>
         <infRib:ButtonTool Caption="Вернуть на доработку" Command="{Binding RejectCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png" Visibility="{Binding AllowAccept, Converter={StaticResource BooleanToVisibilityConverter}}"/>
     </infRib:RibbonGroup>
 
-    <infRib:RibbonGroup Caption="Подзадача">
-        <infRib:ButtonTool Caption="Создать" Command="{Binding SubTaskCommand}" SmallImage="/HVTApp.UI;component/Images/start.png" Visibility="{Binding AllowSubTask, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+    <infRib:RibbonGroup Caption="Подзадача" Visibility="{Binding AllowSubTask, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <infRib:ButtonTool Caption="Создать" Command="{Binding SubTaskCommand}" SmallImage="/HVTApp.UI;component/Images/edit.png"/>
     </infRib:RibbonGroup>
-
+    
+    <infRib:RibbonGroup Caption="Действия">
+        <infRib:ButtonTool Caption="Закрыть" Command="{Binding GoBackCommand}" SmallImage="/HVTApp.UI;component/Images/close.png"/>
+    </infRib:RibbonGroup>
     
 </inf:RibbonTabItemWithViewModel>
