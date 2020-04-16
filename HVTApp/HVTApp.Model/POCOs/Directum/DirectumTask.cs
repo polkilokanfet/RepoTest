@@ -67,11 +67,11 @@ namespace HVTApp.Model.POCOs
         [Designation("Предыдущая задача"), OrderStatus(40)]
         public virtual DirectumTask PreviousTask { get; set; }
 
-        [NotMapped]
-        public List<DirectumTask> ChildTasks { get; } = new List<DirectumTask>();
+        [NotMapped, NotForDetailsView, NotForListView]
+        public List<DirectumTask> Childs { get; } = new List<DirectumTask>();
 
-        [NotMapped]
-        public List<DirectumTask> ParallelTasks { get; } = new List<DirectumTask>();
+        [NotMapped, NotForDetailsView, NotForListView]
+        public List<DirectumTask> Parallel { get; } = new List<DirectumTask>();
 
         public DateTime? StartResult => PreviousTask == null ? Group.StartAuthor : PreviousTask.FinishPerformer;
     }

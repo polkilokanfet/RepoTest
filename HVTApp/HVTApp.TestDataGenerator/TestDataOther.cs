@@ -234,8 +234,12 @@ namespace HVTApp.TestDataGenerator
                 SenderOfferEmployee = EmployeeDeev,
                 HvtProducersActivityField = ActivityFieldProducerOfHvt,
                 PaymentConditionSet = PaymentConditionSet50Na50,
-                IncomingRequestsPath = @"G:\HVTAppTest"
             });
+
+#if DEBUG
+            GlobalProperties.IncomingRequestsPath = @"G:\HVTAppTest\Requests";
+            GlobalProperties.DirectumAttachmentsPath = @"G:\HVTAppTest\Directum";
+#endif
         }
 
     }

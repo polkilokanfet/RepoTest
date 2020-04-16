@@ -3,7 +3,7 @@ namespace HVTApp.DataAccess.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Directum5 : DbMigration
+    public partial class Directum : DbMigration
     {
         public override void Up()
         {
@@ -40,8 +40,7 @@ namespace HVTApp.DataAccess.Migrations
                         StartAuthor = c.DateTime(nullable: false),
                         IsStoped = c.Boolean(nullable: false),
                         Priority = c.Int(nullable: false),
-                        AttachmentsPath = c.String(maxLength: 1000),
-                        Message = c.String(),
+                        Message = c.String(nullable: false, maxLength: 1000),
                         Author_Id = c.Guid(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
@@ -77,6 +76,7 @@ namespace HVTApp.DataAccess.Migrations
                 .Index(t => t.DirectumTaskGroup_Id)
                 .Index(t => t.User_Id);
             
+            AddColumn("dbo.GlobalProperties", "DirectumAttachmentsPath", c => c.String());
         }
         
         public override void Down()
@@ -99,6 +99,7 @@ namespace HVTApp.DataAccess.Migrations
             DropIndex("dbo.DirectumTask", new[] { "Performer_Id" });
             DropIndex("dbo.DirectumTask", new[] { "ParentTask_Id" });
             DropIndex("dbo.DirectumTask", new[] { "Group_Id" });
+            DropColumn("dbo.GlobalProperties", "DirectumAttachmentsPath");
             DropTable("dbo.DirectumTaskGroupUser");
             DropTable("dbo.DirectumTaskMessage");
             DropTable("dbo.DirectumTaskGroup");

@@ -425,6 +425,20 @@ namespace HVTApp.UI.Wrapper
         public IValidatableChangeTrackingCollection<DirectumTaskMessageWrapper> Messages { get; private set; }
 
 
+        public IValidatableChangeTrackingCollection<DirectumTaskWrapper> Childs { get; private set; }
+
+
+        public IValidatableChangeTrackingCollection<DirectumTaskWrapper> Parallel { get; private set; }
+
+
+        #endregion
+
+
+        #region GetProperties
+
+        public System.Nullable<System.DateTime> StartResult => GetValue<System.Nullable<System.DateTime>>(); 
+
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -451,6 +465,16 @@ namespace HVTApp.UI.Wrapper
           if (Model.Messages == null) throw new ArgumentException("Messages cannot be null");
           Messages = new ValidatableChangeTrackingCollection<DirectumTaskMessageWrapper>(Model.Messages.Select(e => new DirectumTaskMessageWrapper(e)));
           RegisterCollection(Messages, Model.Messages);
+
+
+          if (Model.Childs == null) throw new ArgumentException("Childs cannot be null");
+          Childs = new ValidatableChangeTrackingCollection<DirectumTaskWrapper>(Model.Childs.Select(e => new DirectumTaskWrapper(e)));
+          RegisterCollection(Childs, Model.Childs);
+
+
+          if (Model.Parallel == null) throw new ArgumentException("Parallel cannot be null");
+          Parallel = new ValidatableChangeTrackingCollection<DirectumTaskWrapper>(Model.Parallel.Select(e => new DirectumTaskWrapper(e)));
+          RegisterCollection(Parallel, Model.Parallel);
 
 
         }
@@ -499,15 +523,6 @@ namespace HVTApp.UI.Wrapper
         }
         public HVTApp.Model.POCOs.DirectumTaskPriority PriorityOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.DirectumTaskPriority>(nameof(Priority));
         public bool PriorityIsChanged => GetIsChanged(nameof(Priority));
-
-
-        public System.String AttachmentsPath
-        {
-          get { return GetValue<System.String>(); }
-          set { SetValue(value); }
-        }
-        public System.String AttachmentsPathOriginalValue => GetOriginalValue<System.String>(nameof(AttachmentsPath));
-        public bool AttachmentsPathIsChanged => GetIsChanged(nameof(AttachmentsPath));
 
 
         public System.String Message
@@ -1769,6 +1784,15 @@ namespace HVTApp.UI.Wrapper
         }
         public System.String IncomingRequestsPathOriginalValue => GetOriginalValue<System.String>(nameof(IncomingRequestsPath));
         public bool IncomingRequestsPathIsChanged => GetIsChanged(nameof(IncomingRequestsPath));
+
+
+        public System.String DirectumAttachmentsPath
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String DirectumAttachmentsPathOriginalValue => GetOriginalValue<System.String>(nameof(DirectumAttachmentsPath));
+        public bool DirectumAttachmentsPathIsChanged => GetIsChanged(nameof(DirectumAttachmentsPath));
 
 
         public System.Nullable<System.DateTime> LastDeveloperVizit

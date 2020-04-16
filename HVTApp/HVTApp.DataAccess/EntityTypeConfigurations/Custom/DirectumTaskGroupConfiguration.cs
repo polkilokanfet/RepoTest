@@ -7,8 +7,8 @@ namespace HVTApp.DataAccess
             HasRequired(x => x.Author).WithMany().WillCascadeOnDelete(false);
             HasMany(x => x.Observers).WithMany();
             Property(x => x.Priority).IsRequired();
-            Property(x => x.AttachmentsPath).IsOptional().HasMaxLength(300);
-            Property(x => x.AttachmentsPath).IsOptional().HasMaxLength(1000);
+            Property(x => x.Title).IsRequired().HasMaxLength(250);
+            Property(x => x.Message).IsRequired().HasMaxLength(1000);
         }
     }
 }

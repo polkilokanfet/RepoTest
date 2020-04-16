@@ -57,6 +57,9 @@ namespace HVTApp.Model.POCOs
         [Designation("Путь к папке с запросами")]
         public string IncomingRequestsPath { get; set; }
 
+        [Designation("Путь к папке с приложениями Directum")]
+        public string DirectumAttachmentsPath { get; set; }
+
         [Designation("Разработчик")]
         public virtual User Developer { get; set; }
 

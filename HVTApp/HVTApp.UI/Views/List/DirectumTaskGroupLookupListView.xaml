@@ -44,7 +44,12 @@
                     <infg:CheckBoxField Name="IsStoped" Label="Прекращена инициатором" Width="Auto" AllowResize="True" />
                     <infg:TextField Name="Observers" Label="Наблюдатели" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:TextField Name="Message" Label="Сообщение автора" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="AttachmentsPath" Label="Путь к приложениям" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="Status" Label="Status" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="Performers" Label="Performers" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:DateTimeField Name="FinishPlan" Label="FinishPlan" Width="Auto" AllowResize="True" />
+                    <infg:DateTimeField Name="FinishPerformers" Label="FinishPerformers" Width="Auto" AllowResize="True" />
+                    <infg:DateTimeField Name="Finish" Label="Finish" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="DirectumTasks" Label="DirectumTasks" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 
 					</infg:FieldLayout.Fields>

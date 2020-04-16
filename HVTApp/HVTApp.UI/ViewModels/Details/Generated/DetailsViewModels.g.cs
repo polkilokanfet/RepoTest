@@ -322,6 +322,38 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
+		private Func<List<DirectumTask>> _getEntitiesForAddInChildsCommand;
+		public ICommand AddInChildsCommand { get; }
+		public ICommand RemoveFromChildsCommand { get; }
+		private DirectumTaskWrapper _selectedChildsItem;
+		public DirectumTaskWrapper SelectedChildsItem 
+		{ 
+			get { return _selectedChildsItem; }
+			set 
+			{ 
+				if (Equals(_selectedChildsItem, value)) return;
+				_selectedChildsItem = value;
+				OnPropertyChanged();
+				((DelegateCommand)RemoveFromChildsCommand).RaiseCanExecuteChanged();
+			}
+		}
+
+		private Func<List<DirectumTask>> _getEntitiesForAddInParallelCommand;
+		public ICommand AddInParallelCommand { get; }
+		public ICommand RemoveFromParallelCommand { get; }
+		private DirectumTaskWrapper _selectedParallelItem;
+		public DirectumTaskWrapper SelectedParallelItem 
+		{ 
+			get { return _selectedParallelItem; }
+			set 
+			{ 
+				if (Equals(_selectedParallelItem, value)) return;
+				_selectedParallelItem = value;
+				OnPropertyChanged();
+				((DelegateCommand)RemoveFromParallelCommand).RaiseCanExecuteChanged();
+			}
+		}
+
 
         public DirectumTaskDetailsViewModel(IUnityContainer container) : base(container) 
 		{
@@ -349,6 +381,16 @@ namespace HVTApp.UI.ViewModels
 			if (_getEntitiesForAddInMessagesCommand == null) _getEntitiesForAddInMessagesCommand = () => { return UnitOfWork.Repository<DirectumTaskMessage>().GetAll(); };;
 			if (AddInMessagesCommand == null) AddInMessagesCommand = new DelegateCommand(AddInMessagesCommand_Execute_Default);
 			if (RemoveFromMessagesCommand == null) RemoveFromMessagesCommand = new DelegateCommand(RemoveFromMessagesCommand_Execute_Default, RemoveFromMessagesCommand_CanExecute_Default);
+
+			
+			if (_getEntitiesForAddInChildsCommand == null) _getEntitiesForAddInChildsCommand = () => { return UnitOfWork.Repository<DirectumTask>().GetAll(); };;
+			if (AddInChildsCommand == null) AddInChildsCommand = new DelegateCommand(AddInChildsCommand_Execute_Default);
+			if (RemoveFromChildsCommand == null) RemoveFromChildsCommand = new DelegateCommand(RemoveFromChildsCommand_Execute_Default, RemoveFromChildsCommand_CanExecute_Default);
+
+			
+			if (_getEntitiesForAddInParallelCommand == null) _getEntitiesForAddInParallelCommand = () => { return UnitOfWork.Repository<DirectumTask>().GetAll(); };;
+			if (AddInParallelCommand == null) AddInParallelCommand = new DelegateCommand(AddInParallelCommand_Execute_Default);
+			if (RemoveFromParallelCommand == null) RemoveFromParallelCommand = new DelegateCommand(RemoveFromParallelCommand_Execute_Default, RemoveFromParallelCommand_CanExecute_Default);
 
 		}
 
@@ -409,6 +451,36 @@ namespace HVTApp.UI.ViewModels
 			private bool RemoveFromMessagesCommand_CanExecute_Default()
 			{
 				return SelectedMessagesItem != null;
+			}
+
+			private void AddInChildsCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<DirectumTask, DirectumTaskWrapper>(_getEntitiesForAddInChildsCommand(), Item.Childs);
+			}
+
+			private void RemoveFromChildsCommand_Execute_Default()
+			{
+				Item.Childs.Remove(SelectedChildsItem);
+			}
+
+			private bool RemoveFromChildsCommand_CanExecute_Default()
+			{
+				return SelectedChildsItem != null;
+			}
+
+			private void AddInParallelCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<DirectumTask, DirectumTaskWrapper>(_getEntitiesForAddInParallelCommand(), Item.Parallel);
+			}
+
+			private void RemoveFromParallelCommand_Execute_Default()
+			{
+				Item.Parallel.Remove(SelectedParallelItem);
+			}
+
+			private bool RemoveFromParallelCommand_CanExecute_Default()
+			{
+				return SelectedParallelItem != null;
 			}
 
 

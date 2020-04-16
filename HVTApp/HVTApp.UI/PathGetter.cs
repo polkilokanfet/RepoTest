@@ -12,8 +12,8 @@ namespace HVTApp.UI
         public static string GetPath(DirectumTaskGroup directumTaskGroup)
         {
             //путь к папке проекта
-            var rootDirectory = GlobalAppProperties.Actual.IncomingRequestsPath;
-            return GetPath(directumTaskGroup.Id, rootDirectory, string.Empty);
+            var rootDirectory = GlobalAppProperties.Actual.DirectumAttachmentsPath;
+            return GetPath(directumTaskGroup.Id, rootDirectory);
         }
 
         public static string GetPath(Document document)
@@ -33,7 +33,7 @@ namespace HVTApp.UI
             return GetPath(project.Id, projectsFolderPath, project.Name);
         }
 
-        private static string GetPath(Guid guid, string rootDirectory, string addToFolderName)
+        private static string GetPath(Guid guid, string rootDirectory, string addToFolderName = null)
         {
             var id = guid.ToString().Replace("-", string.Empty);
 
@@ -48,7 +48,9 @@ namespace HVTApp.UI
             }
 
             //создаём, если директории не существует
-            var path = Path.Combine(rootDirectory, $"{addToFolderName.ReplaceUncorrectSimbols("_")} {id}");
+            if (!string.IsNullOrEmpty(addToFolderName))
+                addToFolderName = addToFolderName.ReplaceUncorrectSimbols("_") + " ";
+            var path = Path.Combine(rootDirectory, $"{addToFolderName}{id}");
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
 

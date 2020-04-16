@@ -18,5 +18,7 @@ namespace HVTApp.UI.Lookup
                 return "В работе";
             }
         }
+
+        public string Direction { get; set; }
     }
 }

@@ -443,6 +443,21 @@ namespace HVTApp.UI.Views
             //    VisibilityPreviousTaskDirectumTask = Visibility.Collapsed;
 
 
+            //attr = typeof(HVTApp.Model.POCOs.DirectumTask).GetProperty(nameof(HVTApp.Model.POCOs.DirectumTask.Childs)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityChildsDirectumTask = Visibility.Collapsed;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.DirectumTask).GetProperty(nameof(HVTApp.Model.POCOs.DirectumTask.Parallel)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityParallelDirectumTask = Visibility.Collapsed;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.DirectumTask).GetProperty(nameof(HVTApp.Model.POCOs.DirectumTask.StartResult)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityStartResultDirectumTask = Visibility.Collapsed;
+
+
 
         }
 
@@ -528,6 +543,33 @@ namespace HVTApp.UI.Views
         }
 
 
+
+        public static readonly DependencyProperty VisibilityChildsDirectumTaskProperty = DependencyProperty.Register("VisibilityChildsDirectumTask", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityChildsDirectumTask
+        {
+            get { return (Visibility) GetValue(VisibilityChildsDirectumTaskProperty); }
+            set { SetValue(VisibilityChildsDirectumTaskProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityParallelDirectumTaskProperty = DependencyProperty.Register("VisibilityParallelDirectumTask", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityParallelDirectumTask
+        {
+            get { return (Visibility) GetValue(VisibilityParallelDirectumTaskProperty); }
+            set { SetValue(VisibilityParallelDirectumTaskProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityStartResultDirectumTaskProperty = DependencyProperty.Register("VisibilityStartResultDirectumTask", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityStartResultDirectumTask
+        {
+            get { return (Visibility) GetValue(VisibilityStartResultDirectumTaskProperty); }
+            set { SetValue(VisibilityStartResultDirectumTaskProperty, value); OnPropertyChanged(); }
+        }
+
+
 	}
 
 
@@ -578,11 +620,6 @@ namespace HVTApp.UI.Views
             //attr = typeof(HVTApp.Model.POCOs.DirectumTaskGroup).GetProperty(nameof(HVTApp.Model.POCOs.DirectumTaskGroup.Priority)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityPriorityDirectumTaskGroup = Visibility.Collapsed;
-
-
-            //attr = typeof(HVTApp.Model.POCOs.DirectumTaskGroup).GetProperty(nameof(HVTApp.Model.POCOs.DirectumTaskGroup.AttachmentsPath)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityAttachmentsPathDirectumTaskGroup = Visibility.Collapsed;
 
 
             //attr = typeof(HVTApp.Model.POCOs.DirectumTaskGroup).GetProperty(nameof(HVTApp.Model.POCOs.DirectumTaskGroup.Message)).GetCustomAttribute<NotUpdateAttribute>();
@@ -645,15 +682,6 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityPriorityDirectumTaskGroupProperty); }
             set { SetValue(VisibilityPriorityDirectumTaskGroupProperty, value); OnPropertyChanged(); }
-        }
-
-
-
-        public static readonly DependencyProperty VisibilityAttachmentsPathDirectumTaskGroupProperty = DependencyProperty.Register("VisibilityAttachmentsPathDirectumTaskGroup", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityAttachmentsPathDirectumTaskGroup
-        {
-            get { return (Visibility) GetValue(VisibilityAttachmentsPathDirectumTaskGroupProperty); }
-            set { SetValue(VisibilityAttachmentsPathDirectumTaskGroupProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2170,6 +2198,11 @@ namespace HVTApp.UI.Views
             //    VisibilityIncomingRequestsPathGlobalProperties = Visibility.Collapsed;
 
 
+            //attr = typeof(HVTApp.Model.POCOs.GlobalProperties).GetProperty(nameof(HVTApp.Model.POCOs.GlobalProperties.DirectumAttachmentsPath)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityDirectumAttachmentsPathGlobalProperties = Visibility.Collapsed;
+
+
             //attr = typeof(HVTApp.Model.POCOs.GlobalProperties).GetProperty(nameof(HVTApp.Model.POCOs.GlobalProperties.Developer)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityDeveloperGlobalProperties = Visibility.Collapsed;
@@ -2330,6 +2363,15 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityIncomingRequestsPathGlobalPropertiesProperty); }
             set { SetValue(VisibilityIncomingRequestsPathGlobalPropertiesProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityDirectumAttachmentsPathGlobalPropertiesProperty = DependencyProperty.Register("VisibilityDirectumAttachmentsPathGlobalProperties", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityDirectumAttachmentsPathGlobalProperties
+        {
+            get { return (Visibility) GetValue(VisibilityDirectumAttachmentsPathGlobalPropertiesProperty); }
+            set { SetValue(VisibilityDirectumAttachmentsPathGlobalPropertiesProperty, value); OnPropertyChanged(); }
         }
 
 

@@ -49,15 +49,9 @@ namespace HVTApp.Model.POCOs
         public DirectumTaskPriority Priority { get; set; } = DirectumTaskPriority.Normal;
 
         /// <summary>
-        /// Путь к приложениям
-        /// </summary>
-        [Designation("Путь к приложениям"), OrderStatus(30)]
-        public string AttachmentsPath { get; set; }
-
-        /// <summary>
         /// Сообщение автора
         /// </summary>
-        [Designation("Сообщение автора"), OrderStatus(30)]
+        [Designation("Сообщение автора"), Required, OrderStatus(30)]
         public string Message { get; set; }
     }
 }

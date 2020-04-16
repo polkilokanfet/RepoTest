@@ -423,7 +423,7 @@ namespace HVTApp.UI.Modules.Directum
         private void GetRoute()
         {
             //параллельные
-            var parallelTasks = DirectumTask.Model.ParallelTasks.ToList();
+            var parallelTasks = DirectumTask.Model.Parallel.ToList();
             parallelTasks.Add(DirectumTask.Model);
 
             var route = new DirectumTaskRoute();
@@ -508,11 +508,11 @@ namespace HVTApp.UI.Modules.Directum
             if (parallelTasks.Any(x => x.PreviousTask != null))
                 return directumTask;
 
-            if (parallelTasks.Any(x => x.Model.ParallelTasks.Any()))
+            if (parallelTasks.Any(x => x.Model.Parallel.Any()))
                 return directumTask;
 
             directumTask.ParallelTasks.AddRange(parallelTasks);
-            directumTask.Model.ParallelTasks.AddRange(parallelTasks.Select(x => x.Model));
+            directumTask.Model.Parallel.AddRange(parallelTasks.Select(x => x.Model));
             parallelTasks.ForEach(x => InjectTasks(x));
 
             return directumTask;

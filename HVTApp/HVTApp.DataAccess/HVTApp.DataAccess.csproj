@@ -180,9 +180,9 @@
     <Compile Include="Migrations\202004051449389_ConstructorParameters.Designer.cs">
       <DependentUpon>202004051449389_ConstructorParameters.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202004130709476_Directum5.cs" />
-    <Compile Include="Migrations\202004130709476_Directum5.Designer.cs">
-      <DependentUpon>202004130709476_Directum5.cs</DependentUpon>
+    <Compile Include="Migrations\202004160504594_Directum.cs" />
+    <Compile Include="Migrations\202004160504594_Directum.Designer.cs">
+      <DependentUpon>202004160504594_Directum.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
@@ -270,8 +270,8 @@
     <EmbeddedResource Include="Migrations\202004051449389_ConstructorParameters.resx">
       <DependentUpon>202004051449389_ConstructorParameters.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004130709476_Directum5.resx">
-      <DependentUpon>202004130709476_Directum5.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202004160504594_Directum.resx">
+      <DependentUpon>202004160504594_Directum.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
@@ -41,6 +42,10 @@ namespace HVTApp.UI.Modules.Directum
             Container.Resolve<IEventAggregator>().GetEvent<AfterSaveDirectumTaskEvent>().Subscribe(
                 task =>
                 {
+                    //добавляем задачу, если она новая
+                    _directumTasks.ReAddById(task);
+
+                    //если задача уже в отображаемом списке
                     if (Items.ContainsById(task))
                     {
                         var lookup = Items.Single(x => x.Id == task.Id);
@@ -48,27 +53,55 @@ namespace HVTApp.UI.Modules.Directum
                         return;
                     }
 
+                    //если задачу нужно выполнить
                     if (task.Performer.Id == GlobalAppProperties.User.Id)
                     {
-                        Items.Add(new DirectumTaskLookup(task));
+                        Items.Add(new DirectumTaskLookup(task) {Direction = "Исполнение"});
+                    }
+
+                    //если задачу нужно принять
+                    if (task.FinishPerformer.HasValue &&
+                        task.Group.Author.Id == GlobalAppProperties.User.Id && 
+                        !HaveTale(task) &&
+                        !Items.ContainsById(task))
+                    {
+                        Items.Add(new DirectumTaskLookup(task) {Direction = "Контроль"});
                     }
                 });
 
             Load();
         }
 
+        private List<Model.POCOs.DirectumTask> _directumTasks = new List<Model.POCOs.DirectumTask>();
+
         protected override void Load()
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
 
+            _directumTasks = UnitOfWork.Repository<Model.POCOs.DirectumTask>().GetAll();
+
             //задачи на выполнение
-            var tasks = UnitOfWork.Repository<Model.POCOs.DirectumTask>().Find(x => x.Performer.Id == GlobalAppProperties.User.Id && x.StartResult.HasValue);
+            var tasksToPerform = _directumTasks
+                .Where(x => x.Performer.Id == GlobalAppProperties.User.Id && x.StartResult.HasValue)
+                .Select(x => new DirectumTaskLookup(x) {Direction = "Исполнение"});
 
             //задачи на проверку
-            tasks.AddRange(UnitOfWork.Repository<Model.POCOs.DirectumTask>().Find(x => x.FinishPerformer.HasValue && x.Group.Author.Id == GlobalAppProperties.User.Id));
+            var tasksToAccept = _directumTasks
+                .Where(x => x.FinishPerformer.HasValue && x.Group.Author.Id == GlobalAppProperties.User.Id && !HaveTale(x))
+                .Select(x => new DirectumTaskLookup(x) {Direction = "Контроль"});
 
             Items.Clear();
-            Items.AddRange(tasks.OrderByDescending(x => x.StartResult).Select(x => new DirectumTaskLookup(x)));
+            Items.AddRange(tasksToPerform.Union(tasksToAccept).OrderByDescending(x => x.StartResult));
+        }
+
+        /// <summary>
+        /// Задача не является последней в цепочке последовательных задач
+        /// </summary>
+        /// <param name="directumTask"></param>
+        /// <returns></returns>
+        private bool HaveTale(Model.POCOs.DirectumTask directumTask)
+        {
+            return _directumTasks.Any(x => x.PreviousTask?.Id == directumTask.Id);
         }
     }
 }

@@ -213,6 +213,10 @@ namespace HVTApp.UI.Lookup
         public System.Nullable<System.DateTime> FinishAuthor => Entity.FinishAuthor;
 
 
+		[OrderStatus(1)]
+        public System.Nullable<System.DateTime> StartResult => Entity.StartResult;
+
+
         #endregion
 
 
@@ -238,6 +242,12 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(55)]
 	    public List<DirectumTaskMessageLookup> Messages { get { return GetLookupEnum<DirectumTaskMessageLookup>().ToList(); } }
+
+		[OrderStatus(1)]
+	    public List<DirectumTaskLookup> Childs { get { return GetLookupEnum<DirectumTaskLookup>().ToList(); } }
+
+		[OrderStatus(1)]
+	    public List<DirectumTaskLookup> Parallel { get { return GetLookupEnum<DirectumTaskLookup>().ToList(); } }
 
 	}
 
@@ -267,10 +277,6 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(35)]
         public HVTApp.Model.POCOs.DirectumTaskPriority Priority => Entity.Priority;
-
-
-		[OrderStatus(30)]
-        public System.String AttachmentsPath => Entity.AttachmentsPath;
 
 
 		[OrderStatus(30)]
@@ -919,6 +925,10 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
         public System.String IncomingRequestsPath => Entity.IncomingRequestsPath;
+
+
+		[OrderStatus(1)]
+        public System.String DirectumAttachmentsPath => Entity.DirectumAttachmentsPath;
 
 
 		[OrderStatus(1)]
