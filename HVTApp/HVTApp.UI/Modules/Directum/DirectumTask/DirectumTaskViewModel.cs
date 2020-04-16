@@ -297,6 +297,7 @@ namespace HVTApp.UI.Modules.Directum
             DirectumTask.Group.Title = "Новая задача";
             DirectumTask.Group.Message = "Сделай всё красиво.";
             DirectumTask.Group.Author = new UserWrapper(UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id));
+            DirectumTask.IsMain = true;
         }
 
         public DirectumTaskMessageWrapper Message
@@ -345,6 +346,7 @@ namespace HVTApp.UI.Modules.Directum
             TaskIsNew = false;
 
             DirectumTask = new DirectumTaskWrapper(UnitOfWork.Repository<Model.POCOs.DirectumTask>().GetById(directumTask.Id));
+            DirectumTask.IsMain = true;
             InjectTasks(DirectumTask);
             InjectParallelTasks(DirectumTask);
 
@@ -474,11 +476,19 @@ namespace HVTApp.UI.Modules.Directum
         /// </summary>
         /// <param name="directumTask"></param>
         /// <returns></returns>
-        private DirectumTaskWrapper InjectTasks(DirectumTaskWrapper directumTask)
+        private DirectumTaskWrapper InjectTasks(DirectumTaskWrapper directumTask, bool injectPreviousTask = true)
         {
             //внедряем предыдущие задачи
-            if (directumTask.PreviousTask != null)
+            if (injectPreviousTask && directumTask.PreviousTask != null)
+            {
                 InjectTasks(directumTask.PreviousTask);
+            }
+
+            //внедряем последующие задачи
+            foreach (var nextTask in UnitOfWork.Repository<Model.POCOs.DirectumTask>().Find(x => x.PreviousTask?.Id == directumTask.Id))
+            {
+                directumTask.NextTasks.Add(InjectTasks(new DirectumTaskWrapper(nextTask), false));
+            }
 
             //внедряем дочерние задачи
             directumTask.ChildTasks.AddRange(UnitOfWork
@@ -487,6 +497,7 @@ namespace HVTApp.UI.Modules.Directum
                 .OrderBy(x => x.FinishPlan)
                 .Select(x => InjectTasks(new DirectumTaskWrapper(x))));
             directumTask.ChildTasks.ForEach(x => x.ShowPreviousTask = false);
+            directumTask.ChildTasks.ForEach(x => x.ShowNextTask = false);
 
             return directumTask;
         }

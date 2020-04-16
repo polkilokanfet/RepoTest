@@ -8,6 +8,7 @@ using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Lookup;
+using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Events;
@@ -48,8 +49,7 @@ namespace HVTApp.UI.Modules.Directum
                     //если задача уже в отображаемом списке
                     if (Items.ContainsById(task))
                     {
-                        var lookup = Items.Single(x => x.Id == task.Id);
-                        lookup.Refresh(task);
+                        Items.Where(x => x.Id == task.Id).ForEach(x => { x.Refresh(task); });
                         return;
                     }
 
@@ -61,6 +61,7 @@ namespace HVTApp.UI.Modules.Directum
 
                     //если задачу нужно принять
                     if (task.FinishPerformer.HasValue &&
+                        task.StartResult.HasValue &&
                         task.Group.Author.Id == GlobalAppProperties.User.Id && 
                         !HaveTale(task) &&
                         !Items.ContainsById(task))
@@ -87,7 +88,7 @@ namespace HVTApp.UI.Modules.Directum
 
             //задачи на проверку
             var tasksToAccept = _directumTasks
-                .Where(x => x.FinishPerformer.HasValue && x.Group.Author.Id == GlobalAppProperties.User.Id && !HaveTale(x))
+                .Where(x => x.FinishPerformer.HasValue && x.StartResult.HasValue && x.Group.Author.Id == GlobalAppProperties.User.Id && !HaveTale(x))
                 .Select(x => new DirectumTaskLookup(x) {Direction = "Контроль"});
 
             Items.Clear();

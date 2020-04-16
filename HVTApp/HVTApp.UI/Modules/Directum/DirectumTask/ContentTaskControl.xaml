@@ -9,18 +9,23 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <!--Предыдущие задачи-->
-        <ItemsControl Grid.Row="0" ItemsSource="{Binding PreviousTasks}" Visibility="{Binding ShowPreviousTask, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <ItemsControl Grid.Row="0" ItemsSource="{Binding PreviousTasks}" Visibility="{Binding IsMain, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <directumTask:ContentTaskControl DataContext="{Binding}" />
+                    <StackPanel>
+                        <directumTask:ContentTaskControl DataContext="{Binding}" />
+                        <Label Content="Следущая" HorizontalAlignment="Left"/>
+                    </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
 
 
+        <!--Задача-->
         <GroupBox Grid.Row="1" Header="Задача" Margin="5" BorderBrush="Black">
         
             <Grid>
@@ -128,11 +133,26 @@
 
         </GroupBox>
         
-        <!--Параллельные задачи-->
-        <ItemsControl Grid.Row="2" ItemsSource="{Binding ParallelTasks}">
+        <!--Следующие задачи-->
+        <ItemsControl Grid.Row="2" ItemsSource="{Binding NextTasks}" Visibility="{Binding IsMain, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <directumTask:ContentTaskControl DataContext="{Binding}" />
+                    <StackPanel>
+                        <Label Content="Следущая" HorizontalAlignment="Left" />
+                        <directumTask:ContentTaskControl DataContext="{Binding}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        
+        <!--Параллельные задачи-->
+        <ItemsControl Grid.Row="3" ItemsSource="{Binding ParallelTasks}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <Label Content="Параллельная" HorizontalAlignment="Left" />
+                        <directumTask:ContentTaskControl DataContext="{Binding}" />
+                    </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

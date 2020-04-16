@@ -73,6 +73,9 @@ namespace HVTApp.Model.POCOs
         [NotMapped, NotForDetailsView, NotForListView]
         public List<DirectumTask> Parallel { get; } = new List<DirectumTask>();
 
+        [NotMapped, NotForDetailsView, NotForListView]
+        public List<DirectumTask> Next { get; } = new List<DirectumTask>();
+
         public DateTime? StartResult => PreviousTask == null ? Group.StartAuthor : PreviousTask.FinishPerformer;
     }
 }
