@@ -354,6 +354,22 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
+		private Func<List<DirectumTask>> _getEntitiesForAddInNextCommand;
+		public ICommand AddInNextCommand { get; }
+		public ICommand RemoveFromNextCommand { get; }
+		private DirectumTaskWrapper _selectedNextItem;
+		public DirectumTaskWrapper SelectedNextItem 
+		{ 
+			get { return _selectedNextItem; }
+			set 
+			{ 
+				if (Equals(_selectedNextItem, value)) return;
+				_selectedNextItem = value;
+				OnPropertyChanged();
+				((DelegateCommand)RemoveFromNextCommand).RaiseCanExecuteChanged();
+			}
+		}
+
 
         public DirectumTaskDetailsViewModel(IUnityContainer container) : base(container) 
 		{
@@ -391,6 +407,11 @@ namespace HVTApp.UI.ViewModels
 			if (_getEntitiesForAddInParallelCommand == null) _getEntitiesForAddInParallelCommand = () => { return UnitOfWork.Repository<DirectumTask>().GetAll(); };;
 			if (AddInParallelCommand == null) AddInParallelCommand = new DelegateCommand(AddInParallelCommand_Execute_Default);
 			if (RemoveFromParallelCommand == null) RemoveFromParallelCommand = new DelegateCommand(RemoveFromParallelCommand_Execute_Default, RemoveFromParallelCommand_CanExecute_Default);
+
+			
+			if (_getEntitiesForAddInNextCommand == null) _getEntitiesForAddInNextCommand = () => { return UnitOfWork.Repository<DirectumTask>().GetAll(); };;
+			if (AddInNextCommand == null) AddInNextCommand = new DelegateCommand(AddInNextCommand_Execute_Default);
+			if (RemoveFromNextCommand == null) RemoveFromNextCommand = new DelegateCommand(RemoveFromNextCommand_Execute_Default, RemoveFromNextCommand_CanExecute_Default);
 
 		}
 
@@ -481,6 +502,21 @@ namespace HVTApp.UI.ViewModels
 			private bool RemoveFromParallelCommand_CanExecute_Default()
 			{
 				return SelectedParallelItem != null;
+			}
+
+			private void AddInNextCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<DirectumTask, DirectumTaskWrapper>(_getEntitiesForAddInNextCommand(), Item.Next);
+			}
+
+			private void RemoveFromNextCommand_Execute_Default()
+			{
+				Item.Next.Remove(SelectedNextItem);
+			}
+
+			private bool RemoveFromNextCommand_CanExecute_Default()
+			{
+				return SelectedNextItem != null;
 			}
 
 

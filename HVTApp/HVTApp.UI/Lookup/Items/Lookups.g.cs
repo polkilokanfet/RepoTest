@@ -217,6 +217,10 @@ namespace HVTApp.UI.Lookup
         public System.Nullable<System.DateTime> StartResult => Entity.StartResult;
 
 
+		[OrderStatus(1)]
+        public System.String Status => Entity.Status;
+
+
         #endregion
 
 
@@ -248,6 +252,9 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
 	    public List<DirectumTaskLookup> Parallel { get { return GetLookupEnum<DirectumTaskLookup>().ToList(); } }
+
+		[OrderStatus(1)]
+	    public List<DirectumTaskLookup> Next { get { return GetLookupEnum<DirectumTaskLookup>().ToList(); } }
 
 	}
 

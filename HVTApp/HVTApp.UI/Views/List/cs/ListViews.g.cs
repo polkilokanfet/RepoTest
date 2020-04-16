@@ -1165,10 +1165,10 @@ namespace HVTApp.UI.Views
 		#region VisibilityProps
 
 
-        public System.Windows.Visibility StatusVisibility
+        public System.Windows.Visibility DirectionVisibility
         {
-            get { return DirectumTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskLookup.Status)].Visibility; }
-            set { DirectumTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskLookup.Status)].Visibility = value; }
+            get { return DirectumTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskLookup.Direction)].Visibility; }
+            set { DirectumTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskLookup.Direction)].Visibility = value; }
         }
 
 
@@ -1204,6 +1204,13 @@ namespace HVTApp.UI.Views
         {
             get { return DirectumTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskLookup.StartResult)].Visibility; }
             set { DirectumTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskLookup.StartResult)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility StatusVisibility
+        {
+            get { return DirectumTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskLookup.Status)].Visibility; }
+            set { DirectumTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskLookup.Status)].Visibility = value; }
         }
 
 
@@ -1267,6 +1274,13 @@ namespace HVTApp.UI.Views
         {
             get { return DirectumTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskLookup.Parallel)].Visibility; }
             set { DirectumTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskLookup.Parallel)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility NextVisibility
+        {
+            get { return DirectumTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskLookup.Next)].Visibility; }
+            set { DirectumTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskLookup.Next)].Visibility = value; }
         }
 
 

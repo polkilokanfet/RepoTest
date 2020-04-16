@@ -19,9 +19,6 @@ namespace HVTApp.UI.Wrapper
             }
         }
 
-        /// <summary>
-        /// не собирает все задачи! костыль!
-        /// </summary>
         public List<DirectumTaskWrapper> PreviousTasks
         {
             get
@@ -62,5 +59,7 @@ namespace HVTApp.UI.Wrapper
                 OnPropertyChanged();
             }
         }
+
+        public string Header => $"«адача \"{Group.Title}\"";
     }
 }

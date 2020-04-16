@@ -453,9 +453,19 @@ namespace HVTApp.UI.Views
             //    VisibilityParallelDirectumTask = Visibility.Collapsed;
 
 
+            //attr = typeof(HVTApp.Model.POCOs.DirectumTask).GetProperty(nameof(HVTApp.Model.POCOs.DirectumTask.Next)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityNextDirectumTask = Visibility.Collapsed;
+
+
             //attr = typeof(HVTApp.Model.POCOs.DirectumTask).GetProperty(nameof(HVTApp.Model.POCOs.DirectumTask.StartResult)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityStartResultDirectumTask = Visibility.Collapsed;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.DirectumTask).GetProperty(nameof(HVTApp.Model.POCOs.DirectumTask.Status)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityStatusDirectumTask = Visibility.Collapsed;
 
 
 
@@ -562,11 +572,29 @@ namespace HVTApp.UI.Views
 
 
 
+        public static readonly DependencyProperty VisibilityNextDirectumTaskProperty = DependencyProperty.Register("VisibilityNextDirectumTask", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityNextDirectumTask
+        {
+            get { return (Visibility) GetValue(VisibilityNextDirectumTaskProperty); }
+            set { SetValue(VisibilityNextDirectumTaskProperty, value); OnPropertyChanged(); }
+        }
+
+
+
         public static readonly DependencyProperty VisibilityStartResultDirectumTaskProperty = DependencyProperty.Register("VisibilityStartResultDirectumTask", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
         public Visibility VisibilityStartResultDirectumTask
         {
             get { return (Visibility) GetValue(VisibilityStartResultDirectumTaskProperty); }
             set { SetValue(VisibilityStartResultDirectumTaskProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityStatusDirectumTaskProperty = DependencyProperty.Register("VisibilityStatusDirectumTask", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityStatusDirectumTask
+        {
+            get { return (Visibility) GetValue(VisibilityStatusDirectumTaskProperty); }
+            set { SetValue(VisibilityStatusDirectumTaskProperty, value); OnPropertyChanged(); }
         }
 
 

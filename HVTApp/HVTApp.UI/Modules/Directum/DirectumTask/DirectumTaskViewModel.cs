@@ -58,6 +58,7 @@ namespace HVTApp.UI.Modules.Directum
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(AllowEditTitle));
                 OnPropertyChanged(nameof(AllowSubTask));
+                OnPropertyChanged(nameof(AllowStop));
             }
         }
 
@@ -86,9 +87,15 @@ namespace HVTApp.UI.Modules.Directum
             DirectumTask.Group.Author.Id == GlobalAppProperties.User.Id && 
             DirectumTask.FinishPerformer.HasValue && 
             !DirectumTask.FinishAuthor.HasValue &&
-            !UnitOfWork.Repository<Model.POCOs.DirectumTask>().Find(x => x.PreviousTask?.Id == DirectumTask.Id).Any();
+            !DirectumTask.NextTasks.Any();
 
         public bool AllowPerformOrAccept => AllowPerform || AllowAccept;
+
+        public bool AllowStop => 
+            !TaskIsNew && 
+            !DirectumTask.Group.IsStoped &&
+            !DirectumTask.FinishAuthor.HasValue &&
+            DirectumTask.Group.Author.Id == GlobalAppProperties.User.Id;
 
         /// <summary>
         /// Выбор маршрута
@@ -99,6 +106,11 @@ namespace HVTApp.UI.Modules.Directum
         /// Старт задачи
         /// </summary>
         public ICommand StartCommand { get; }
+
+        /// <summary>
+        /// Остановка задачи
+        /// </summary>
+        public ICommand StopCommand { get; }
 
         /// <summary>
         /// Выполнение задачи
@@ -148,6 +160,7 @@ namespace HVTApp.UI.Modules.Directum
                     var unitOfWork = Container.Resolve<IUnitOfWork>();
                     var directumTaskGroup = new DirectumTaskGroup
                     {
+                        Id = DirectumTask.Group.Id,
                         Author = unitOfWork.Repository<User>().GetById(DirectumTask.Group.Author.Id),
                         StartAuthor = DateTime.Now,
                         Title = DirectumTask.Group.Title,
@@ -198,6 +211,41 @@ namespace HVTApp.UI.Modules.Directum
                     GoBackCommand.Execute(null);
                 },
                 () => !string.IsNullOrEmpty(DirectumTask?.Group.Title) && !string.IsNullOrEmpty(DirectumTask.Group.Message) && Route.IsValid);
+
+            StopCommand = new DelegateCommand(
+                () =>
+                {
+                    var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Информация", "Вы уверены, что хотите прекратить задачу?\nБудут прекращены все параллельные предыдущие и последующие задачи в цепочке", defaultNo: true);
+                    if (dr != MessageDialogResult.Yes) return;
+
+                    var moment = DateTime.Now;
+                    var message = "Остановлено.";
+
+                    var tasks = new List<DirectumTaskWrapper> {DirectumTask};
+                    tasks = tasks
+                        .Union(DirectumTask.NextTasks)
+                        .Union(DirectumTask.PreviousTasks)
+                        .Union(DirectumTask.ParallelTasks)
+                        .ToList();
+
+                    foreach (var task in tasks)
+                    {
+                        task.Group.IsStoped = true;
+                        if (!task.FinishAuthor.HasValue)
+                            task.FinishAuthor = moment;
+                        task.Messages.Add(new DirectumTaskMessageWrapper(new DirectumTaskMessage())
+                        {
+                            Author = DirectumTask.Group.Author,
+                            Moment = moment,
+                            Message = message
+                        });
+                    }
+
+                    DirectumTask.AcceptChanges();
+                    UnitOfWork.SaveChanges();
+
+                    GoBackCommand.Execute(null);
+                });
 
             PerformCommand = new DelegateCommand(
                 () =>

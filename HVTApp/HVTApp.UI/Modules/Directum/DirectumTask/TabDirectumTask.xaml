@@ -7,6 +7,7 @@
     
     <infRib:RibbonGroup Caption="Задача">
         <infRib:ButtonTool Caption="Стартовать" Command="{Binding StartCommand}" SmallImage="/HVTApp.UI;component/Images/start.png" Visibility="{Binding TaskIsNew, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        <infRib:ButtonTool Caption="Остановить" Command="{Binding StopCommand}" SmallImage="/HVTApp.UI;component/Images/stop.png" Visibility="{Binding AllowStop, Converter={StaticResource BooleanToVisibilityConverter}}"/>
         <infRib:ButtonTool Caption="Выполнить" Command="{Binding PerformCommand}" SmallImage="/HVTApp.UI;component/Images/done.png" Visibility="{Binding AllowPerform, Converter={StaticResource BooleanToVisibilityConverter}}"/>
         <infRib:ButtonTool Caption="Принять выполнение" Command="{Binding AcceptCommand}" SmallImage="/HVTApp.UI;component/Images/done.png" Visibility="{Binding AllowAccept, Converter={StaticResource BooleanToVisibilityConverter}}"/>
         <infRib:ButtonTool Caption="Вернуть на доработку" Command="{Binding RejectCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png" Visibility="{Binding AllowAccept, Converter={StaticResource BooleanToVisibilityConverter}}"/>

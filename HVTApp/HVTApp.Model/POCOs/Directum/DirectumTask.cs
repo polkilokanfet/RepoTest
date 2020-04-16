@@ -77,5 +77,27 @@ namespace HVTApp.Model.POCOs
         public List<DirectumTask> Next { get; } = new List<DirectumTask>();
 
         public DateTime? StartResult => PreviousTask == null ? Group.StartAuthor : PreviousTask.FinishPerformer;
+
+        [Designation("Статус"), NotMapped]
+        public string Status
+        {
+            get
+            {
+                if (Group.IsStoped)
+                    return "Остановлено";
+
+                if (!StartResult.HasValue)
+                    return "Ожидание";
+
+                if (FinishAuthor.HasValue)
+                    return "Принято";
+
+                if (FinishPerformer.HasValue)
+                    return "Исполнено";
+
+                return "В работе";
+            }
+        }
+
     }
 }

@@ -18,7 +18,7 @@
                 <DataTemplate>
                     <StackPanel>
                         <directumTask:ContentTaskControl DataContext="{Binding}" />
-                        <Label Content="Следущая" HorizontalAlignment="Left"/>
+                        <Label Content="Следущая задача:" HorizontalAlignment="Left"/>
                     </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
@@ -26,7 +26,54 @@
 
 
         <!--Задача-->
-        <GroupBox Grid.Row="1" Header="Задача" Margin="5" BorderBrush="Black">
+        <Expander Grid.Row="1" Header="{Binding}" IsExpanded="True" Margin="5" BorderBrush="Black">
+            <Expander.HeaderTemplate>
+                <DataTemplate>
+                    <Grid HorizontalAlignment="{Binding Path=HorizontalAlignment, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentPresenter}}, Mode=OneWayToSource}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                    
+                        <Border Background="AliceBlue" BorderThickness="1" BorderBrush="Black">
+                            <Grid Margin="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <Label Grid.Row="0" Grid.Column="0" Content="Инициатор: "/>
+                                <TextBox Grid.Row="0" Grid.Column="1" FontWeight="DemiBold" Text="{Binding Group.Author, Mode=OneWay}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0"/>
+
+                                <Label Grid.Row="1" Grid.Column="0" Content="Исполнитель: "/>
+                                <TextBox Grid.Row="1" Grid.Column="1" FontWeight="DemiBold" Text="{Binding Performer, Mode=OneWay}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0"/>
+
+                                <Label Grid.Row="0" Grid.Column="2" Content="Старт: "/>
+                                <editors:XamDateTimeEditor Grid.Row="0" Grid.Column="3" Value="{Binding Model.StartResult, Mode=OneWay}" Background="AliceBlue" Format="dd/MM/yy HH:mm" IsReadOnly="True"/>
+
+                                <Label Grid.Row="1" Grid.Column="2" Content="Финиш: "/>
+                                <editors:XamDateTimeEditor Grid.Row="1" Grid.Column="3" Value="{Binding FinishAuthor, Mode=OneWay}" Format="dd/MM/yy HH:mm" IsReadOnly="True" Background="AliceBlue"/>
+
+                                <Label Grid.Row="1" Grid.Column="4" Content="Статус: "/>
+                                <TextBox Grid.Row="1" Grid.Column="5" FontWeight="DemiBold" Text="{Binding Status, Mode=OneWay}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0"/>
+                        
+                            </Grid>
+                        </Border>
+                    
+                        <Border Grid.Row="1" Background="White"  BorderThickness="1" BorderBrush="Black">
+                            <TextBox Margin="2" Text="{Binding Group.Message, Mode=OneWay}" IsReadOnly="True" BorderThickness="0"/>
+                        </Border>
+                    </Grid>
+                </DataTemplate>
+            </Expander.HeaderTemplate>
         
             <Grid>
                 <Grid.RowDefinitions>
@@ -35,46 +82,6 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
         
-                <Grid Margin="5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    
-                    <Border Background="AliceBlue"  BorderThickness="1" BorderBrush="Black">
-                        <Grid Margin="2">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-
-                            <Label Grid.Row="0" Grid.Column="0" Content="Инициатор: "/>
-                            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Group.Author, Mode=OneWay}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0"/>
-
-                            <Label Grid.Row="0" Grid.Column="2" Content="Старт: "/>
-                            <editors:XamDateTimeEditor Grid.Row="0" Grid.Column="3" Value="{Binding Model.StartResult, Mode=OneWay}" Background="AliceBlue" Format="dd/MM/yy HH:mm" IsReadOnly="True"/>
-
-                            <Label Grid.Row="1" Grid.Column="0" Content="Исполнитель: "/>
-                            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Performer, Mode=OneWay}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0"/>
-
-                            <Label Grid.Row="1" Grid.Column="2" Content="Финиш: "/>
-                            <editors:XamDateTimeEditor Grid.Row="1" Grid.Column="3" Value="{Binding FinishAuthor, Mode=OneWay}" Format="dd/MM/yy HH:mm" IsReadOnly="True" Background="AliceBlue"/>
-                        
-                        </Grid>
-                    </Border>
-                    
-                    <Border Grid.Row="1" Background="White"  BorderThickness="1" BorderBrush="Black">
-                        <TextBox Margin="2" Text="{Binding Group.Message, Mode=OneWay}" IsReadOnly="True" BorderThickness="0"/>
-                    </Border>
-                </Grid>
 
                 <!--Переписка-->
                 <ItemsControl Grid.Row="1" ItemsSource="{Binding MessagesByMoment}">
@@ -102,7 +109,7 @@
                                         </Grid.ColumnDefinitions>
                                     
                                         <Label Grid.Row="0" Grid.Column="0" Content="Автор: "/>
-                                        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Author, Mode=OneWay}" IsReadOnly="True" Background="LightGray" BorderThickness="0"/>
+                                        <TextBox Grid.Row="0" Grid.Column="1" FontWeight="DemiBold" Text="{Binding Author, Mode=OneWay}" IsReadOnly="True" Background="LightGray" BorderThickness="0"/>
 
                                         <Label Grid.Row="0" Grid.Column="2" Content="Момент: "/>
                                         <editors:XamDateTimeEditor Grid.Row="0" Grid.Column="3" Value="{Binding Moment, Mode=OneWay}" Format="dd/MM/yy HH:mm" IsReadOnly="True" Background="LightGray"/>
@@ -122,8 +129,11 @@
                 <ItemsControl Grid.Row="2" ItemsSource="{Binding ChildTasks}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border Background="LightGray" Margin="20 0 10 0" Padding="5 2">
-                                <directumTask:ContentTaskControl DataContext="{Binding}" />
+                            <Border Background="White" Margin="20 0 10 0" Padding="5 2">
+                                <StackPanel>
+                                    <Label Content="Дочерняя задача:" HorizontalAlignment="Left" />
+                                    <directumTask:ContentTaskControl DataContext="{Binding}" />
+                                </StackPanel>
                             </Border>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
@@ -131,14 +141,14 @@
 
             </Grid>
 
-        </GroupBox>
+        </Expander>
         
         <!--Следующие задачи-->
         <ItemsControl Grid.Row="2" ItemsSource="{Binding NextTasks}" Visibility="{Binding IsMain, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
-                        <Label Content="Следущая" HorizontalAlignment="Left" />
+                        <Label Content="Следущая задача:" HorizontalAlignment="Left" />
                         <directumTask:ContentTaskControl DataContext="{Binding}" />
                     </StackPanel>
                 </DataTemplate>
@@ -150,7 +160,7 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
-                        <Label Content="Параллельная" HorizontalAlignment="Left" />
+                        <Label Content="Параллельная задача:" HorizontalAlignment="Left" />
                         <directumTask:ContentTaskControl DataContext="{Binding}" />
                     </StackPanel>
                 </DataTemplate>

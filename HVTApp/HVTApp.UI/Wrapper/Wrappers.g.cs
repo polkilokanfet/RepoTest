@@ -431,12 +431,18 @@ namespace HVTApp.UI.Wrapper
         public IValidatableChangeTrackingCollection<DirectumTaskWrapper> Parallel { get; private set; }
 
 
+        public IValidatableChangeTrackingCollection<DirectumTaskWrapper> Next { get; private set; }
+
+
         #endregion
 
 
         #region GetProperties
 
         public System.Nullable<System.DateTime> StartResult => GetValue<System.Nullable<System.DateTime>>(); 
+
+
+        public System.String Status => GetValue<System.String>(); 
 
 
         #endregion
@@ -475,6 +481,11 @@ namespace HVTApp.UI.Wrapper
           if (Model.Parallel == null) throw new ArgumentException("Parallel cannot be null");
           Parallel = new ValidatableChangeTrackingCollection<DirectumTaskWrapper>(Model.Parallel.Select(e => new DirectumTaskWrapper(e)));
           RegisterCollection(Parallel, Model.Parallel);
+
+
+          if (Model.Next == null) throw new ArgumentException("Next cannot be null");
+          Next = new ValidatableChangeTrackingCollection<DirectumTaskWrapper>(Model.Next.Select(e => new DirectumTaskWrapper(e)));
+          RegisterCollection(Next, Model.Next);
 
 
         }
