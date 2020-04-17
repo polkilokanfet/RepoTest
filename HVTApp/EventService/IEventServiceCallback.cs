@@ -8,5 +8,8 @@ namespace EventService
     {
         [OperationContract(IsOneWay = true)]
         void OnSaveIncomingRequestPublishEvent(Guid requestId);
+
+        [OperationContract(IsOneWay = true)]
+        void OnSaveDirectumTaskPublishEvent(Guid taskId);
     }
 }

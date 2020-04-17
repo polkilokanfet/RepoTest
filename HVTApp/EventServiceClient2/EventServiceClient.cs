@@ -34,10 +34,18 @@ namespace EventServiceClient2
                 _service = new ServiceReference1.EventServiceClient(new InstanceContext(this));
                 if (_service.Connect(_appSessionId))
                 {
+                    //Запросы
                     _eventAggregator.GetEvent<AfterSaveIncomingRequestEvent>().Subscribe(
                         request =>
                         {
                             _service.SaveIncomingRequestPublishEvent(_appSessionId, request.Id);
+                        }, true);
+
+                    //Задачи
+                    _eventAggregator.GetEvent<AfterSaveDirectumTaskEvent>().Subscribe(
+                        task =>
+                        {
+                            _service.SaveDirectumTaskPublishEvent(_appSessionId, task.Id);
                         }, true);
                 }
             }
@@ -63,6 +71,12 @@ namespace EventServiceClient2
             //если в исполнителях есть текущий пользователь
             if (request.Performers.Select(x => x.Id).Contains(_userId))
                 _eventAggregator.GetEvent<AfterSaveIncomingRequestEvent>().Publish(request);
+        }
+
+        public void OnSaveDirectumTaskPublishEvent(Guid taskId)
+        {
+            var task = _container.Resolve<IUnitOfWork>().Repository<DirectumTask>().GetById(taskId);
+            _eventAggregator.GetEvent<AfterSaveDirectumTaskEvent>().Publish(task);
         }
     }
 }

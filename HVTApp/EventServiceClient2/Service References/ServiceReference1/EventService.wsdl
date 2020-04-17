@@ -47,8 +47,14 @@
   <wsdl:message name="IEventService_SaveIncomingRequestPublishEvent_InputMessage">
     <wsdl:part name="parameters" element="tns:SaveIncomingRequestPublishEvent" />
   </wsdl:message>
+  <wsdl:message name="IEventService_SaveDirectumTaskPublishEvent_InputMessage">
+    <wsdl:part name="parameters" element="tns:SaveDirectumTaskPublishEvent" />
+  </wsdl:message>
   <wsdl:message name="IEventService_OnSaveIncomingRequestPublishEvent_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnSaveIncomingRequestPublishEvent" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_OnSaveDirectumTaskPublishEvent_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnSaveDirectumTaskPublishEvent" />
   </wsdl:message>
   <wsdl:portType name="IEventService">
     <wsdl:operation name="Connect">
@@ -61,8 +67,14 @@
     <wsdl:operation name="SaveIncomingRequestPublishEvent">
       <wsdl:input wsaw:Action="http://tempuri.org/IEventService/SaveIncomingRequestPublishEvent" message="tns:IEventService_SaveIncomingRequestPublishEvent_InputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="SaveDirectumTaskPublishEvent">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/SaveDirectumTaskPublishEvent" message="tns:IEventService_SaveDirectumTaskPublishEvent_InputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="OnSaveIncomingRequestPublishEvent">
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnSaveIncomingRequestPublishEvent" message="tns:IEventService_OnSaveIncomingRequestPublishEvent_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OnSaveDirectumTaskPublishEvent">
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnSaveDirectumTaskPublishEvent" message="tns:IEventService_OnSaveDirectumTaskPublishEvent_OutputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_IEventService" type="tns:IEventService">
@@ -89,8 +101,20 @@
         <soap12:body use="literal" />
       </wsdl:input>
     </wsdl:operation>
+    <wsdl:operation name="SaveDirectumTaskPublishEvent">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/SaveDirectumTaskPublishEvent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
     <wsdl:operation name="OnSaveIncomingRequestPublishEvent">
       <soap12:operation soapAction="http://tempuri.org/IEventService/OnSaveIncomingRequestPublishEvent" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnSaveDirectumTaskPublishEvent">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/OnSaveDirectumTaskPublishEvent" style="document" />
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>

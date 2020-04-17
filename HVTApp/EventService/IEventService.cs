@@ -14,5 +14,8 @@ namespace EventService
 
         [OperationContract(IsOneWay = true)]
         void SaveIncomingRequestPublishEvent(Guid appSassionId, Guid requestId);
+
+        [OperationContract(IsOneWay = true)]
+        void SaveDirectumTaskPublishEvent(Guid appSassionId, Guid taskId);
     }
 }

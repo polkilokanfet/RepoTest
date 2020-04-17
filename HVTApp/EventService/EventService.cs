@@ -31,5 +31,11 @@ namespace EventService
             _appSessions.Where(x => x.AppSessionId != appSassionId).ToList()
                 .ForEach(x => x.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveIncomingRequestPublishEvent(requestId));
         }
+
+        public void SaveDirectumTaskPublishEvent(Guid appSassionId, Guid taskId)
+        {
+            _appSessions.Where(x => x.AppSessionId != appSassionId).ToList()
+                .ForEach(x => x.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveDirectumTaskPublishEvent(taskId));
+        }
     }
 }
