@@ -3,8 +3,8 @@ using System.Windows.Input;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
 using Microsoft.Practices.Unity;
-using Microsoft.SqlServer.Management.Common;
-using Microsoft.SqlServer.Management.Smo;
+//using Microsoft.SqlServer.Management.Common;
+//using Microsoft.SqlServer.Management.Smo;
 using Prism.Commands;
 
 namespace HVTApp.UI.Modules.Settings.ViewModels
@@ -31,16 +31,16 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
                 {
                     try
                     {
-                        var connection = new ServerConnection { ConnectionString = ConnectionString };
-                        var server = new Server(connection);
-                        var backup = new Backup
-                        {
-                            Action = BackupActionType.Database,
-                            Database = DataBaseName
-                        };
-                        backup.Devices.AddDevice($"{Directory}hvt.bak", DeviceType.File);
-                        backup.SqlBackup(server);
-                        _container.Resolve<IMessageService>().ShowOkMessageDialog("Info", "Success");
+                        //var connection = new ServerConnection { ConnectionString = ConnectionString };
+                        //var server = new Server(connection);
+                        //var backup = new Backup
+                        //{
+                        //    Action = BackupActionType.Database,
+                        //    Database = DataBaseName
+                        //};
+                        //backup.Devices.AddDevice($"{Directory}hvt.bak", DeviceType.File);
+                        //backup.SqlBackup(server);
+                        //_container.Resolve<IMessageService>().ShowOkMessageDialog("Info", "Success");
                     }
                     catch (Exception e)
                     {
