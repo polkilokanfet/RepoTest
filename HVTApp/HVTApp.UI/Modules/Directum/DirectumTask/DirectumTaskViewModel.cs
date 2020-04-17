@@ -208,7 +208,12 @@ namespace HVTApp.UI.Modules.Directum
                     unitOfWork.SaveChanges();
 
                     var afterSaveDirectumTaskEvent = Container.Resolve<IEventAggregator>().GetEvent<AfterSaveDirectumTaskEvent>();
-                    directumTasks.ForEach(x => afterSaveDirectumTaskEvent.Publish(x));
+                    var afterSaveDirectumTaskSyncEvent = Container.Resolve<IEventAggregator>().GetEvent<AfterSaveDirectumTaskSyncEvent>();
+                    directumTasks.ForEach(x =>
+                    {
+                        afterSaveDirectumTaskEvent.Publish(x);
+                        afterSaveDirectumTaskSyncEvent.Publish(x);
+                    });
 
                     DirectumTask = null; //костыль, чтобы не возмущался при выходе
                     GoBackCommand.Execute(null);
@@ -263,6 +268,7 @@ namespace HVTApp.UI.Modules.Directum
                     UnitOfWork.SaveChanges();
 
                     Container.Resolve<IEventAggregator>().GetEvent<AfterSaveDirectumTaskEvent>().Publish(DirectumTask.Model);
+                    Container.Resolve<IEventAggregator>().GetEvent<AfterSaveDirectumTaskSyncEvent>().Publish(DirectumTask.Model);
 
                     GoBackCommand.Execute(null);
                 },
@@ -293,6 +299,7 @@ namespace HVTApp.UI.Modules.Directum
                     DirectumTask.AcceptChanges();
                     UnitOfWork.SaveChanges();
                     Container.Resolve<IEventAggregator>().GetEvent<AfterSaveDirectumTaskEvent>().Publish(DirectumTask.Model);
+                    Container.Resolve<IEventAggregator>().GetEvent<AfterSaveDirectumTaskSyncEvent>().Publish(DirectumTask.Model);
                     GoBackCommand.Execute(null);
                 },
                 () => AllowAccept && DirectumTask.IsValid);
@@ -323,6 +330,7 @@ namespace HVTApp.UI.Modules.Directum
                     DirectumTask.AcceptChanges();
                     UnitOfWork.SaveChanges();
                     Container.Resolve<IEventAggregator>().GetEvent<AfterSaveDirectumTaskEvent>().Publish(DirectumTask.Model);
+                    Container.Resolve<IEventAggregator>().GetEvent<AfterSaveDirectumTaskSyncEvent>().Publish(DirectumTask.Model);
                     GoBackCommand.Execute(null);
                 },
                 () => AllowAccept && DirectumTask.IsValid);

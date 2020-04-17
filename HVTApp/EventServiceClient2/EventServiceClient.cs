@@ -10,6 +10,8 @@ using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
 using Prism.Events;
+using Prism.Regions;
+using HVTApp.UI.Modules.Directum;
 
 namespace EventServiceClient2
 {
@@ -34,15 +36,15 @@ namespace EventServiceClient2
                 _service = new ServiceReference1.EventServiceClient(new InstanceContext(this));
                 if (_service.Connect(_appSessionId))
                 {
-                    //Запросы
-                    _eventAggregator.GetEvent<AfterSaveIncomingRequestEvent>().Subscribe(
-                        request =>
-                        {
-                            _service.SaveIncomingRequestPublishEvent(_appSessionId, request.Id);
-                        }, true);
+                    ////Запросы
+                    //_eventAggregator.GetEvent<AfterSaveIncomingRequestEvent>().Subscribe(
+                    //    request =>
+                    //    {
+                    //        _service.SaveIncomingRequestPublishEvent(_appSessionId, request.Id);
+                    //    }, true);
 
                     //Задачи
-                    _eventAggregator.GetEvent<AfterSaveDirectumTaskEvent>().Subscribe(
+                    _eventAggregator.GetEvent<AfterSaveDirectumTaskSyncEvent>().Subscribe(
                         task =>
                         {
                             _service.SaveDirectumTaskPublishEvent(_appSessionId, task.Id);
@@ -77,6 +79,26 @@ namespace EventServiceClient2
         {
             var task = _container.Resolve<IUnitOfWork>().Repository<DirectumTask>().GetById(taskId);
             _eventAggregator.GetEvent<AfterSaveDirectumTaskEvent>().Publish(task);
+
+            //уведомление
+            var allowAccept =
+                task.Group.Author.Id == GlobalAppProperties.User.Id &&
+                task.FinishPerformer.HasValue &&
+                !task.FinishAuthor.HasValue;
+
+            var allowPerform = 
+                task.StartResult.HasValue && 
+                task.Performer.Id == GlobalAppProperties.User.Id;
+
+            if (allowPerform || allowAccept)
+            {
+                string message = $"Задача от: {task.Group.Author}\nТема: \"{task.Group.Title}\"";
+                var action = new Action(() =>
+                {
+                    _container.Resolve<IRegionManager>().RequestNavigateContentRegion<DirectumTaskView>(new NavigationParameters { { "task", task } });
+                });
+                Popup.Popup.ShowPopup(message, action);
+            }
         }
     }
 }
