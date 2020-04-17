@@ -157,6 +157,9 @@ namespace HVTApp.UI.Modules.Directum
             StartCommand = new DelegateCommand(
                 () =>
                 {
+                    var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Информация", "Вы уверены, что хотите стартовать задачу?", defaultYes: true);
+                    if (dr != MessageDialogResult.Yes) return;
+
                     var unitOfWork = Container.Resolve<IUnitOfWork>();
                     var directumTaskGroup = new DirectumTaskGroup
                     {
