@@ -221,6 +221,10 @@ namespace HVTApp.UI.Lookup
         public System.String Status => Entity.Status;
 
 
+		[OrderStatus(1)]
+        public System.Boolean IsActual => Entity.IsActual;
+
+
         #endregion
 
 

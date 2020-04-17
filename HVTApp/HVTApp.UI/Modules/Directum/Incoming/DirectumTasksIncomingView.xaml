@@ -4,6 +4,7 @@
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               xmlns:prism="http://prismlibrary.com/" 
               xmlns:dataPresenter="http://infragistics.com/DataPresenter"
+              xmlns:controls="http://infragistics.com/Windows"
               prism:ViewModelLocator.AutoWireViewModel="True">
 
     <Grid>
@@ -26,7 +27,16 @@
 
 			<dataPresenter:XamDataGrid.FieldLayouts>
 				<dataPresenter:FieldLayout>
-					<dataPresenter:FieldLayout.Fields>
+
+                    <dataPresenter:FieldLayout.RecordFilters>
+                        <dataPresenter:RecordFilter FieldName="IsActual">
+                            <dataPresenter:RecordFilter.Conditions>
+                                <controls:ComparisonCondition Operator="Equals" Value="True" />
+                            </dataPresenter:RecordFilter.Conditions>
+                        </dataPresenter:RecordFilter>
+                    </dataPresenter:FieldLayout.RecordFilters>
+
+                    <dataPresenter:FieldLayout.Fields>
                         
                     <dataPresenter:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Group.Title}" Label="Тема" Width="400" AllowResize="True"/>
                     <dataPresenter:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Group.Author}" Label="Инициатор" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
@@ -36,6 +46,7 @@
                     <dataPresenter:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding FinishAuthor}" Label="Принято" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
                     <dataPresenter:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Direction}" Label="Цель" Width="Auto" AllowResize="False" />
                     <dataPresenter:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Status}" Label="Статус" Width="Auto" AllowResize="False" />
+                    <dataPresenter:CheckBoxField Name="IsActual" BindingType="UseAlternateBinding" AlternateBinding="{Binding IsActual}" Label="A" Width="Auto" AllowResize="False"/>
                     <dataPresenter:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Id}" Label="Id" Width="Auto" AllowResize="True" />
 
 					</dataPresenter:FieldLayout.Fields>

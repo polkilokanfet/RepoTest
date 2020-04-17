@@ -1027,6 +1027,13 @@ namespace HVTApp.UI.Views
 		#region VisibilityProps
 
 
+        public System.Windows.Visibility IsActualVisibility
+        {
+            get { return DirectumTaskGroupLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskGroupLookup.IsActual)].Visibility; }
+            set { DirectumTaskGroupLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskGroupLookup.IsActual)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility FinishPlanVisibility
         {
             get { return DirectumTaskGroupLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskGroupLookup.FinishPlan)].Visibility; }
@@ -1211,6 +1218,13 @@ namespace HVTApp.UI.Views
         {
             get { return DirectumTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskLookup.Status)].Visibility; }
             set { DirectumTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskLookup.Status)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility IsActualVisibility
+        {
+            get { return DirectumTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskLookup.IsActual)].Visibility; }
+            set { DirectumTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskLookup.IsActual)].Visibility = value; }
         }
 
 

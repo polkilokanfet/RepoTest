@@ -9,9 +9,12 @@ namespace HVTApp.UI.Lookup
     {
         public List<DirectumTask> DirectumTasks { get; } = new List<DirectumTask>();
 
+        public bool IsActual => DirectumTasks.Any(x => x.IsActual);
+
         public IEnumerable<User> Performers => DirectumTasks.Select(x => x.Performer).Distinct();
 
         public DateTime FinishPlan => DirectumTasks.Max(x => x.FinishPlan);
+
         public DateTime? FinishPerformers
         {
             get

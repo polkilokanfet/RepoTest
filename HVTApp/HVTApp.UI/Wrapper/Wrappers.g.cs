@@ -445,6 +445,9 @@ namespace HVTApp.UI.Wrapper
         public System.String Status => GetValue<System.String>(); 
 
 
+        public System.Boolean IsActual => GetValue<System.Boolean>(); 
+
+
         #endregion
 
         public override void InitializeComplexProperties()

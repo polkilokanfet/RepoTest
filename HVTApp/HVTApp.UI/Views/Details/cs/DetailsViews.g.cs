@@ -468,6 +468,11 @@ namespace HVTApp.UI.Views
             //    VisibilityStatusDirectumTask = Visibility.Collapsed;
 
 
+            //attr = typeof(HVTApp.Model.POCOs.DirectumTask).GetProperty(nameof(HVTApp.Model.POCOs.DirectumTask.IsActual)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityIsActualDirectumTask = Visibility.Collapsed;
+
+
 
         }
 
@@ -595,6 +600,15 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityStatusDirectumTaskProperty); }
             set { SetValue(VisibilityStatusDirectumTaskProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityIsActualDirectumTaskProperty = DependencyProperty.Register("VisibilityIsActualDirectumTask", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityIsActualDirectumTask
+        {
+            get { return (Visibility) GetValue(VisibilityIsActualDirectumTaskProperty); }
+            set { SetValue(VisibilityIsActualDirectumTaskProperty, value); OnPropertyChanged(); }
         }
 
 

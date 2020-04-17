@@ -7,7 +7,7 @@ using Prism.Regions;
 
 namespace HVTApp.Modules.DirectumLite
 {
-    //[ModuleAccess(Role.Admin, Role.Supplier)]
+    [ModuleAccess(Role.Admin, Role.SalesManager, Role.Economist, Role.Director, Role.Pricer, Role.PlanMaker, Role.ReportMaker)]
     public class DirectumLiteModule : ModuleBase
     {
         public DirectumLiteModule(IRegionManager regionManager, IUnityContainer container) : base(container, regionManager)

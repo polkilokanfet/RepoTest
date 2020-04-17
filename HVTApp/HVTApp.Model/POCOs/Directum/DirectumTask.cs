@@ -99,5 +99,7 @@ namespace HVTApp.Model.POCOs
             }
         }
 
+        [Designation("Актуальность"), NotMapped]
+        public bool IsActual => !Group.IsStoped && !FinishAuthor.HasValue;
     }
 }

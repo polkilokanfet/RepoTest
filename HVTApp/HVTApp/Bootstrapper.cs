@@ -148,9 +148,7 @@ namespace HVTApp
             AddModuleIfInRole(catalog, typeof(PriceMakingModule));
             AddModuleIfInRole(catalog, typeof(SupplyModule));
             AddModuleIfInRole(catalog, typeof(ProductsModule));
-
-            catalog.AddModule(typeof(DirectumLiteModule));
-
+            AddModuleIfInRole(catalog, typeof(DirectumLiteModule));
             AddModuleIfInRole(catalog, typeof(BookRegistrationModule));
             AddModuleIfInRole(catalog, typeof(ReportsModule));
 
