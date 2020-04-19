@@ -37,5 +37,17 @@ namespace EventService
             _appSessions.Where(x => x.AppSessionId != appSassionId).ToList()
                 .ForEach(x => x.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveDirectumTaskPublishEvent(taskId));
         }
+
+        public void SavePriceCalculationPublishEvent(Guid appSassionId, Guid priceCalculationId)
+        {
+            _appSessions.Where(x => x.AppSessionId != appSassionId).ToList()
+                .ForEach(x => x.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSavePriceCalculationPublishEvent(priceCalculationId));
+        }
+
+        public void SaveIncomingDocumentPublishEvent(Guid appSassionId, Guid documentId)
+        {
+            _appSessions.Where(x => x.AppSessionId != appSassionId).ToList()
+                .ForEach(x => x.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveIncomingDocumentPublishEvent(documentId));
+        }
     }
 }

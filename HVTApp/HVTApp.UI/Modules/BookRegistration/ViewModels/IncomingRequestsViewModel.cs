@@ -63,8 +63,7 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
             InstructRequestCommand = new DelegateCommand(
                 () =>
                 {
-                    container.Resolve<IRegionManager>()
-                        .RequestNavigateContentRegion<IncomingRequestView>(
+                    container.Resolve<IRegionManager>().RequestNavigateContentRegion<IncomingRequestView>(
                             new NavigationParameters
                             {
                                 {"Model", SelectedIncomingRequest.Entity},
@@ -104,14 +103,26 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
             var eventAggregator = Container.Resolve<IEventAggregator>();
             eventAggregator.GetEvent<AfterSaveIncomingRequestEvent>().Subscribe(request =>
             {
-                var targetRequest = IncomingRequests.SingleOrDefault(x => x.Id == request.Id);
+                var targetRequest = IncomingRequests.SingleOrDefault(x => x.Document.Id == request.Document.Id);
                 if (targetRequest != null)
                 {
                     targetRequest.Refresh(request);
                     return;
                 }
 
-                IncomingRequests.Add(new IncomingRequestLookup(request));
+                if (GlobalAppProperties.User.RoleCurrent == Role.Admin ||
+                    GlobalAppProperties.User.RoleCurrent == Role.Director)
+                {
+                    IncomingRequests.Add(new IncomingRequestLookup(request));
+                    return;
+                }
+
+                if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager &&
+                    request.Performers.Any(x => x.Id == GlobalAppProperties.User.Employee.Id))
+                {
+                    IncomingRequests.Add(new IncomingRequestLookup(request));
+                    return;
+                }
             });
 
             Load();

@@ -4,8 +4,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Extansions;
-using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Infrastructure.ViewModels;
@@ -22,7 +20,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
 {
     public class PriceCalculationViewModel : ViewModelBaseCanExportToExcel
     {
-        private IMessageService _messageService;
+        private readonly IMessageService _messageService;
         private object _selectedItem;
         private PriceCalculation2Wrapper _priceCalculationWrapper;
 
@@ -100,6 +98,8 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                     }
 
                     UnitOfWork.SaveChanges();
+
+                    Container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceCalculationSyncEvent>().Publish(PriceCalculationWrapper.Model);
 
                     ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
                 },

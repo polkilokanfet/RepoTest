@@ -5,9 +5,11 @@ using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
+using HVTApp.Model.Events;
 using HVTApp.UI.ViewModels;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
+using Prism.Events;
 
 namespace HVTApp.UI.Modules.BookRegistration.ViewModels
 {
@@ -32,7 +34,7 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
                     //сохраняем запрос
                     SaveCommand.Execute(null);
                     //закрываем запрос
-                    GoBackCommand.Execute(null);
+                    GoBackCommand.Execute(null);                    
                 },
                 () => Item.IsValid && Item.IsChanged && Item.Performers.Any());
 
@@ -74,6 +76,12 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
             {
                 ((DelegateCommand) InstructRequestCommand).RaiseCanExecuteChanged();
             };
+        }
+
+        protected override void SaveItem()
+        {
+            base.SaveItem();
+            Container.Resolve<IEventAggregator>().GetEvent<AfterSaveIncomingRequestSyncEvent>().Publish(Item.Model);
         }
     }
 }

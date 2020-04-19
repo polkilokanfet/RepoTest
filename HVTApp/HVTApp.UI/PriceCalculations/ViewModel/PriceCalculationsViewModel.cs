@@ -5,11 +5,13 @@ using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
+using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Lookup;
 using HVTApp.UI.ViewModels;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Regions;
 
 namespace HVTApp.UI.PriceCalculations.ViewModel
@@ -100,6 +102,28 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                 () => SelectedItem != null);
 
             ReloadCommand = new DelegateCommand(Load);
+        }
+
+        protected override void OnAfterSaveEntity(PriceCalculation calculation)
+        {
+                var targetCalculationLookup = Lookups.SingleOrDefault(x => x.Id == calculation.Id);
+                if (targetCalculationLookup != null)
+                {
+                    targetCalculationLookup.Refresh(calculation);
+                    return;
+                }
+
+            var author = calculation.PriceCalculationItems.FirstOrDefault()?.SalesUnits.FirstOrDefault()?.Project.Manager;
+            var canWath = author?.Id == GlobalAppProperties.User.Id && calculation.TaskCloseMoment.HasValue;
+            var canCalc = calculation.TaskOpenMoment.HasValue &&
+                          (GlobalAppProperties.User.RoleCurrent == Role.Admin ||
+                           GlobalAppProperties.User.RoleCurrent == Role.Pricer);
+
+            if (canWath || canCalc)
+            {
+                ((ICollection<PriceCalculationLookup>) Lookups).Add(new PriceCalculationLookup(calculation));
+                return;
+            }
         }
 
         public override void Load()

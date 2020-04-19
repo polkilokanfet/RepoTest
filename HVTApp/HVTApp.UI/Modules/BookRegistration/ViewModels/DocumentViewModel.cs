@@ -6,11 +6,13 @@ using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
+using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.ViewModels;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
+using Prism.Events;
 
 namespace HVTApp.UI.Modules.BookRegistration.ViewModels
 {
@@ -76,5 +78,14 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
             if (document.RecipientEmployee != null)
                 Item.RecipientEmployee = new EmployeeWrapper(UnitOfWork.Repository<Employee>().GetById(document.RecipientEmployee.Id));
         }
+
+
+        protected override void SaveItem()
+        {
+            base.SaveItem();
+            if (Item.Model.RecipientEmployee.Company.Id == GlobalAppProperties.Actual.OurCompany?.Id)
+                Container.Resolve<IEventAggregator>().GetEvent<AfterSaveIncomingDocumentSyncEvent>().Publish(Item.Model);
+        }
+
     }
 }

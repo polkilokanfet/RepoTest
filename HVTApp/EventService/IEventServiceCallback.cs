@@ -7,9 +7,15 @@ namespace EventService
     public interface IEventServiceCallback
     {
         [OperationContract(IsOneWay = true)]
+        void OnSaveDirectumTaskPublishEvent(Guid taskId);
+
+        [OperationContract(IsOneWay = true)]
+        void OnSavePriceCalculationPublishEvent(Guid calculationId);
+
+        [OperationContract(IsOneWay = true)]
         void OnSaveIncomingRequestPublishEvent(Guid requestId);
 
         [OperationContract(IsOneWay = true)]
-        void OnSaveDirectumTaskPublishEvent(Guid taskId);
+        void OnSaveIncomingDocumentPublishEvent(Guid documentId);
     }
 }
