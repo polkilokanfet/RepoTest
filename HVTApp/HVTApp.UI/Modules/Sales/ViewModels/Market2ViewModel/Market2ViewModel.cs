@@ -125,6 +125,8 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
         private void Load()
         {
+            UnitOfWork = Container.Resolve<IUnitOfWork>();
+
             var salesUnits = GlobalAppProperties.User.RoleCurrent == Role.Admin
                 ? UnitOfWork.Repository<SalesUnit>().GetAll()
                 : UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Manager.IsAppCurrentUser());
