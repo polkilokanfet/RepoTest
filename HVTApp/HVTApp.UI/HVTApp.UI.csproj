@@ -162,6 +162,10 @@
     <Compile Include="Modules\Directum\TabDirectumTasks.xaml.cs">
       <DependentUpon>TabDirectumTasks.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Products\ViewModels\ProductReplacementViewModel.cs" />
+    <Compile Include="Modules\Products\Views\ProductReplacementView.xaml.cs">
+      <DependentUpon>ProductReplacementView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Reports\FlatReport\FlatReportComparator.cs" />
     <Compile Include="Modules\Reports\FlatReport\FlatReportItem.cs" />
     <Compile Include="Modules\Reports\FlatReport\FlatReportItemManagerContainer.cs" />
@@ -982,6 +986,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\Products\Views\ProductTypeDesignationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Products\Views\ProductReplacementView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
