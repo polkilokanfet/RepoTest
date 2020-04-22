@@ -1377,6 +1377,21 @@ namespace HVTApp.UI.ViewModels
 		public ICommand SelectSupervisionParameterCommand { get; private set; }
 		public ICommand ClearSupervisionParameterCommand { get; private set; }
 
+		//private Func<Task<List<ParameterGroup>>> _getEntitiesForSelectComplectDesignationGroupCommand;
+		private Func<List<ParameterGroup>> _getEntitiesForSelectComplectDesignationGroupCommand;
+		public ICommand SelectComplectDesignationGroupCommand { get; private set; }
+		public ICommand ClearComplectDesignationGroupCommand { get; private set; }
+
+		//private Func<Task<List<Parameter>>> _getEntitiesForSelectComplectsParameterCommand;
+		private Func<List<Parameter>> _getEntitiesForSelectComplectsParameterCommand;
+		public ICommand SelectComplectsParameterCommand { get; private set; }
+		public ICommand ClearComplectsParameterCommand { get; private set; }
+
+		//private Func<Task<List<ParameterGroup>>> _getEntitiesForSelectComplectsGroupCommand;
+		private Func<List<ParameterGroup>> _getEntitiesForSelectComplectsGroupCommand;
+		public ICommand SelectComplectsGroupCommand { get; private set; }
+		public ICommand ClearComplectsGroupCommand { get; private set; }
+
 		//private Func<Task<List<Employee>>> _getEntitiesForSelectSenderOfferEmployeeCommand;
 		private Func<List<Employee>> _getEntitiesForSelectSenderOfferEmployeeCommand;
 		public ICommand SelectSenderOfferEmployeeCommand { get; private set; }
@@ -1439,6 +1454,21 @@ namespace HVTApp.UI.ViewModels
 			if (_getEntitiesForSelectSupervisionParameterCommand == null) _getEntitiesForSelectSupervisionParameterCommand = () => { return UnitOfWork.Repository<Parameter>().GetAll(); };
 			if (SelectSupervisionParameterCommand == null) SelectSupervisionParameterCommand = new DelegateCommand(SelectSupervisionParameterCommand_Execute_Default);
 			if (ClearSupervisionParameterCommand == null) ClearSupervisionParameterCommand = new DelegateCommand(ClearSupervisionParameterCommand_Execute_Default);
+
+			
+			if (_getEntitiesForSelectComplectDesignationGroupCommand == null) _getEntitiesForSelectComplectDesignationGroupCommand = () => { return UnitOfWork.Repository<ParameterGroup>().GetAll(); };
+			if (SelectComplectDesignationGroupCommand == null) SelectComplectDesignationGroupCommand = new DelegateCommand(SelectComplectDesignationGroupCommand_Execute_Default);
+			if (ClearComplectDesignationGroupCommand == null) ClearComplectDesignationGroupCommand = new DelegateCommand(ClearComplectDesignationGroupCommand_Execute_Default);
+
+			
+			if (_getEntitiesForSelectComplectsParameterCommand == null) _getEntitiesForSelectComplectsParameterCommand = () => { return UnitOfWork.Repository<Parameter>().GetAll(); };
+			if (SelectComplectsParameterCommand == null) SelectComplectsParameterCommand = new DelegateCommand(SelectComplectsParameterCommand_Execute_Default);
+			if (ClearComplectsParameterCommand == null) ClearComplectsParameterCommand = new DelegateCommand(ClearComplectsParameterCommand_Execute_Default);
+
+			
+			if (_getEntitiesForSelectComplectsGroupCommand == null) _getEntitiesForSelectComplectsGroupCommand = () => { return UnitOfWork.Repository<ParameterGroup>().GetAll(); };
+			if (SelectComplectsGroupCommand == null) SelectComplectsGroupCommand = new DelegateCommand(SelectComplectsGroupCommand_Execute_Default);
+			if (ClearComplectsGroupCommand == null) ClearComplectsGroupCommand = new DelegateCommand(ClearComplectsGroupCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectSenderOfferEmployeeCommand == null) _getEntitiesForSelectSenderOfferEmployeeCommand = () => { return UnitOfWork.Repository<Employee>().GetAll(); };
@@ -1541,6 +1571,39 @@ namespace HVTApp.UI.ViewModels
 		private void ClearSupervisionParameterCommand_Execute_Default() 
 		{
 						Item.SupervisionParameter = null;
+		    
+		}
+
+		private void SelectComplectDesignationGroupCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<ParameterGroup, ParameterGroupWrapper>(_getEntitiesForSelectComplectDesignationGroupCommand(), nameof(Item.ComplectDesignationGroup), Item.ComplectDesignationGroup?.Id);
+		}
+
+		private void ClearComplectDesignationGroupCommand_Execute_Default() 
+		{
+						Item.ComplectDesignationGroup = null;
+		    
+		}
+
+		private void SelectComplectsParameterCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<Parameter, ParameterWrapper>(_getEntitiesForSelectComplectsParameterCommand(), nameof(Item.ComplectsParameter), Item.ComplectsParameter?.Id);
+		}
+
+		private void ClearComplectsParameterCommand_Execute_Default() 
+		{
+						Item.ComplectsParameter = null;
+		    
+		}
+
+		private void SelectComplectsGroupCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<ParameterGroup, ParameterGroupWrapper>(_getEntitiesForSelectComplectsGroupCommand(), nameof(Item.ComplectsGroup), Item.ComplectsGroup?.Id);
+		}
+
+		private void ClearComplectsGroupCommand_Execute_Default() 
+		{
+						Item.ComplectsGroup = null;
 		    
 		}
 

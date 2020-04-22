@@ -980,6 +980,18 @@ namespace HVTApp.UI.Lookup
 
 
 		[OrderStatus(1)]
+	    public ParameterGroupLookup ComplectDesignationGroup { get { return GetLookup<ParameterGroupLookup>(); } }
+
+
+		[OrderStatus(1)]
+	    public ParameterLookup ComplectsParameter { get { return GetLookup<ParameterLookup>(); } }
+
+
+		[OrderStatus(1)]
+	    public ParameterGroupLookup ComplectsGroup { get { return GetLookup<ParameterGroupLookup>(); } }
+
+
+		[OrderStatus(1)]
 	    public EmployeeLookup SenderOfferEmployee { get { return GetLookup<EmployeeLookup>(); } }
 
 
@@ -2303,6 +2315,10 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(6)]
         public System.String DesignationSpecial => Entity.DesignationSpecial;
+
+
+		[OrderStatus(1)]
+        public System.String Comment => Entity.Comment;
 
 
 		[OrderStatus(1)]

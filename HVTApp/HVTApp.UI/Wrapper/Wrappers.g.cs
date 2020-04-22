@@ -1881,6 +1881,27 @@ namespace HVTApp.UI.Wrapper
         }
 
 
+	    public ParameterGroupWrapper ComplectDesignationGroup 
+        {
+            get { return GetWrapper<ParameterGroupWrapper>(); }
+            set { SetComplexValue<ParameterGroup, ParameterGroupWrapper>(ComplectDesignationGroup, value); }
+        }
+
+
+	    public ParameterWrapper ComplectsParameter 
+        {
+            get { return GetWrapper<ParameterWrapper>(); }
+            set { SetComplexValue<Parameter, ParameterWrapper>(ComplectsParameter, value); }
+        }
+
+
+	    public ParameterGroupWrapper ComplectsGroup 
+        {
+            get { return GetWrapper<ParameterGroupWrapper>(); }
+            set { SetComplexValue<ParameterGroup, ParameterGroupWrapper>(ComplectsGroup, value); }
+        }
+
+
 	    public EmployeeWrapper SenderOfferEmployee 
         {
             get { return GetWrapper<EmployeeWrapper>(); }
@@ -1940,6 +1961,15 @@ namespace HVTApp.UI.Wrapper
 
 
             InitializeComplexProperty<ParameterWrapper>(nameof(SupervisionParameter), Model.SupervisionParameter == null ? null : new ParameterWrapper(Model.SupervisionParameter));
+
+
+            InitializeComplexProperty<ParameterGroupWrapper>(nameof(ComplectDesignationGroup), Model.ComplectDesignationGroup == null ? null : new ParameterGroupWrapper(Model.ComplectDesignationGroup));
+
+
+            InitializeComplexProperty<ParameterWrapper>(nameof(ComplectsParameter), Model.ComplectsParameter == null ? null : new ParameterWrapper(Model.ComplectsParameter));
+
+
+            InitializeComplexProperty<ParameterGroupWrapper>(nameof(ComplectsGroup), Model.ComplectsGroup == null ? null : new ParameterGroupWrapper(Model.ComplectsGroup));
 
 
             InitializeComplexProperty<EmployeeWrapper>(nameof(SenderOfferEmployee), Model.SenderOfferEmployee == null ? null : new EmployeeWrapper(Model.SenderOfferEmployee));
@@ -4301,6 +4331,15 @@ namespace HVTApp.UI.Wrapper
         }
         public System.String DesignationSpecialOriginalValue => GetOriginalValue<System.String>(nameof(DesignationSpecial));
         public bool DesignationSpecialIsChanged => GetIsChanged(nameof(DesignationSpecial));
+
+
+        public System.String Comment
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
+        public bool CommentIsChanged => GetIsChanged(nameof(Comment));
 
 
         public System.Guid Id

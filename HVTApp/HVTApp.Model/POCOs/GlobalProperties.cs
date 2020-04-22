@@ -45,6 +45,20 @@ namespace HVTApp.Model.POCOs
         [Designation("Признак шеф-монтажа"), Required]
         public virtual Parameter SupervisionParameter { get; set; }
 
+
+
+        [Designation("Группа параметров обозначения комплекта или детали")]
+        public virtual ParameterGroup ComplectDesignationGroup{ get; set; }
+
+        [Designation("Параметр комплекты и детали")]
+        public virtual Parameter ComplectsParameter { get; set; }
+
+        [Designation("Группа типа комплекта или детали")]
+        public virtual ParameterGroup ComplectsGroup { get; set; }
+
+
+
+
         [Designation("Отправитель ТКП"), Required]
         public virtual Employee SenderOfferEmployee { get; set; }
 

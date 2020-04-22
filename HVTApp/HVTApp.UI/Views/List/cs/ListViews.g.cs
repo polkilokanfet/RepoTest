@@ -2219,6 +2219,27 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility ComplectDesignationGroupVisibility
+        {
+            get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.ComplectDesignationGroup)].Visibility; }
+            set { GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.ComplectDesignationGroup)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ComplectsParameterVisibility
+        {
+            get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.ComplectsParameter)].Visibility; }
+            set { GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.ComplectsParameter)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ComplectsGroupVisibility
+        {
+            get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.ComplectsGroup)].Visibility; }
+            set { GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.ComplectsGroup)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility SenderOfferEmployeeVisibility
         {
             get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.SenderOfferEmployee)].Visibility; }
@@ -4498,6 +4519,13 @@ namespace HVTApp.UI.Views
         {
             get { return ProductLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductLookup.DesignationSpecial)].Visibility; }
             set { ProductLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductLookup.DesignationSpecial)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility CommentVisibility
+        {
+            get { return ProductLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductLookup.Comment)].Visibility; }
+            set { ProductLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductLookup.Comment)].Visibility = value; }
         }
 
 

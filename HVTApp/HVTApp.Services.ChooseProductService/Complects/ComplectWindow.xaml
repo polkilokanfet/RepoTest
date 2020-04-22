@@ -1,0 +1,98 @@
+﻿<Window x:Class="HVTApp.Services.GetProductService.Complects.ComplectWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Создание комплекта или детали" 
+        Width="400"
+        MinWidth="200" 
+        SizeToContent="Height"
+        WindowStartupLocation="CenterScreen">
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
+        <Button Grid.Row="0" Grid.Column="0" Content="Тип" Command="{Binding SelectTypeCommand}"/>
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding ComplectType, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
+        
+        <Label Grid.Row="1" Grid.Column="0" Content="Обозначение"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Designation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        
+        <Label Grid.Row="2" Grid.Column="0" Content="Назначение"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        
+        <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="Сохранить" Command="{Binding SaveCommand}"/>
+                
+    </Grid>
+
+</Window>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

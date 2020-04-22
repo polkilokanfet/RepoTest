@@ -44,6 +44,7 @@
                     <infg:TextField Name="ProductBlock" Label="Блок" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:CheckBoxField Name="HasBlockWithFixedCost" Label="В продукте есть блоки с фиксированной ценой" Width="Auto" AllowResize="True" />
                     <infg:TextField Name="DependentProducts" Label="Продукты в составе" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                    <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" AllowResize="True" />
                     <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 
 					</infg:FieldLayout.Fields>

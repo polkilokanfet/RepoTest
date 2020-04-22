@@ -1,0 +1,100 @@
+﻿<Window x:Class="HVTApp.Services.GetProductService.Complects.ComplectsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:dataPresenter="http://infragistics.com/DataPresenter"
+        Title="Комплекты и детали" 
+        WindowState="Maximized"
+        WindowStartupLocation="CenterScreen">
+
+    <DockPanel LastChildFill="True">
+        
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="Выбрать" Command="{Binding SelectCommand}" Margin="5,10" Padding="5"/>
+            <Button Content="Создать" Command="{Binding NewComplectCommand}" Margin="5,10" Padding="5"/>
+        </StackPanel>
+        
+		<dataPresenter:XamDataGrid x:Name="ProductListGrid"
+                                   DataSource="{Binding Items}"
+                                   SelectedDataItem="{Binding SelectedItem}">
+        
+            <dataPresenter:XamDataGrid.InputBindings>
+                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=SelectCommand, Mode=OneWay}"/>
+            </dataPresenter:XamDataGrid.InputBindings>
+
+			<dataPresenter:XamDataGrid.FieldLayouts>
+				<dataPresenter:FieldLayout>
+					<dataPresenter:FieldLayout.Fields>
+                        <dataPresenter:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding ProductType}" Label="Тип" Width="Auto" AllowResize="True" Converter="{StaticResource ObjectToStringConverter}"/>
+                        <dataPresenter:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding DesignationSpecial}" Label="Обозначение" Width="Auto" AllowResize="True" />
+                        <dataPresenter:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Comment}" Label="Назначение" Width="Auto" AllowResize="True" Converter="{StaticResource ObjectToStringConverter}"/>
+                        <dataPresenter:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Id}" Label="Id" Width="Auto" AllowResize="True" />
+					</dataPresenter:FieldLayout.Fields>
+				</dataPresenter:FieldLayout>
+			</dataPresenter:XamDataGrid.FieldLayouts>
+		</dataPresenter:XamDataGrid>
+        
+    </DockPanel>
+</Window>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
