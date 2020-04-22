@@ -184,6 +184,10 @@
     <Compile Include="Migrations\202004160504594_Directum.Designer.cs">
       <DependentUpon>202004160504594_Directum.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202004221539419_Complects.cs" />
+    <Compile Include="Migrations\202004221539419_Complects.Designer.cs">
+      <DependentUpon>202004221539419_Complects.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -272,6 +276,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202004160504594_Directum.resx">
       <DependentUpon>202004160504594_Directum.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004221539419_Complects.resx">
+      <DependentUpon>202004221539419_Complects.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

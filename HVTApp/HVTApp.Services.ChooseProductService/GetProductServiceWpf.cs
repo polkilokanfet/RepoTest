@@ -7,6 +7,7 @@ using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
+using HVTApp.Services.GetProductService.Complects;
 using HVTApp.Services.ProductDesignationService;
 using Microsoft.Practices.Unity;
 using Prism.Events;
@@ -53,6 +54,14 @@ namespace HVTApp.Services.GetProductService
             {
                 var productNew = _container.Resolve<INewProductService>().GetNewProduct();
                 return productNew ?? originProduct;
+            }
+
+            //если необходимо выбрать комплект
+            if (window.ShoodSelectComplect)
+            {
+                var complectViewModel = _container.Resolve<ComplectsViewModel>();
+                complectViewModel.ShowDialog();
+                return complectViewModel.IsSelected ? complectViewModel.SelectedItem : originProduct;
             }
 
             //выходим, если пользователь отменил выбор продукта.

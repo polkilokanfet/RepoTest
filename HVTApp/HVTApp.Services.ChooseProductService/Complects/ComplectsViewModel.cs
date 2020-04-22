@@ -57,6 +57,12 @@ namespace HVTApp.Services.GetProductService.Complects
                 });
         }
 
+        public void ShowDialog()
+        {
+            var complectsWindow = new ComplectsWindow(this);
+            complectsWindow.ShowDialog();
+        }
+
         public event Action SelectEvent;
     }
 }

@@ -82,6 +82,9 @@
     <Compile Include="Complects\ComplectTypesWindow.xaml.cs">
       <DependentUpon>ComplectTypesWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Complects\ComplectTypeWindow.xaml.cs">
+      <DependentUpon>ComplectTypeWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Complects\ComplectWindow.xaml.cs">
       <DependentUpon>ComplectWindow.xaml</DependentUpon>
     </Compile>
@@ -151,6 +154,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Complects\ComplectTypesWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Complects\ComplectTypeWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

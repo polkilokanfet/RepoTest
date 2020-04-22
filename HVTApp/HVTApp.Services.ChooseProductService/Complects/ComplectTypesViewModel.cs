@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using HVTApp.Infrastructure;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using Prism.Commands;
 
@@ -9,6 +11,7 @@ namespace HVTApp.Services.GetProductService.Complects
 {
     public class ComplectTypesViewModel
     {
+        private readonly IUnitOfWork _unitOfWork;
         private Parameter _selectedItem;
         public ObservableCollection<Parameter> Items { get; }
 
@@ -27,8 +30,9 @@ namespace HVTApp.Services.GetProductService.Complects
         public ICommand SelectCommand { get; }
         public ICommand NewTypeCommand { get; }
 
-        public ComplectTypesViewModel(IEnumerable<Parameter> items)
+        public ComplectTypesViewModel(IEnumerable<Parameter> items, IUnitOfWork unitOfWork)
         {
+            _unitOfWork = unitOfWork;
             Items = new ObservableCollection<Parameter>(items);
 
             SelectCommand = new DelegateCommand(
@@ -42,7 +46,23 @@ namespace HVTApp.Services.GetProductService.Complects
             NewTypeCommand = new DelegateCommand(
                 () =>
                 {
-                    
+                    var complectTypeWindow = new ComplectTypeWindow();
+                    complectTypeWindow.ShowDialog();
+                    if (complectTypeWindow.IsOk)
+                    {
+                        var relation = new ParameterRelation();
+                        relation.RequiredParameters.Add(_unitOfWork.Repository<Parameter>().GetById(GlobalAppProperties.Actual.ComplectsParameter.Id));
+                        var parameter = new Parameter
+                        {
+                            Value = complectTypeWindow.ComplectType,
+                            ParameterGroup = unitOfWork.Repository<ParameterGroup>().GetById(GlobalAppProperties.Actual.ComplectsGroup.Id)
+                        };
+                        parameter.ParameterRelations.Add(relation);
+                        relation.ParameterId = parameter.Id;
+
+                        Items.Add(parameter);
+                        SelectedItem = parameter;
+                    }
                 });
         }
 

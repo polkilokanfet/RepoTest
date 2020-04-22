@@ -51,14 +51,13 @@ namespace HVTApp.Services.GetProductService.Complects
             }
         }
 
+        public string StructureCost { get; set; }
+
         public ICommand SaveCommand { get; }
         public ICommand SelectTypeCommand { get; }
 
         public ComplectViewModel(IUnityContainer container) : base(container)
         {
-            _complectTypes = UnitOfWork.Repository<Parameter>().Find(x => x.ParameterGroup.Id == GlobalAppProperties.Actual.ComplectsGroup.Id);
-            ComplectType = _complectTypes.FirstOrDefault();
-
             SaveCommand = new DelegateCommand(
                 () =>
                 {
@@ -68,7 +67,7 @@ namespace HVTApp.Services.GetProductService.Complects
 
                     var parameter = new Parameter
                     {
-                        ParameterGroup = UnitOfWork.Repository<ParameterGroup>() .GetById(GlobalAppProperties.Actual.ComplectDesignationGroup.Id),
+                        ParameterGroup = UnitOfWork.Repository<ParameterGroup>().GetById(GlobalAppProperties.Actual.ComplectDesignationGroup.Id),
                         Value = Designation
                     };
                     parameter.ParameterRelations.Add(relation);
@@ -77,14 +76,25 @@ namespace HVTApp.Services.GetProductService.Complects
                     var block = new ProductBlock
                     {
                         DesignationSpecial = Designation,
+                        StructureCostNumber = StructureCost,
                         Parameters = relation.RequiredParameters.Union(new List<Parameter> {parameter}).ToList()
                     };
 
                     Product = new Product
                     {
                         DesignationSpecial = Designation,
-                        ProductBlock = block
+                        ProductBlock = block,
+                        Comment = this.Comment
                     };
+
+                    var complectTypeParameter = UnitOfWork.Repository<Parameter>().GetById(ComplectType.Id);
+                    if (complectTypeParameter == null)
+                    {
+                        var productTypeDesignation = new ProductTypeDesignation();
+                        productTypeDesignation.Parameters.Add(ComplectType);
+                        productTypeDesignation.ProductType = new ProductType {Name = ComplectType.Value};
+                        UnitOfWork.Repository<ProductTypeDesignation>().Add(productTypeDesignation);
+                    }
 
                     UnitOfWork.Repository<Product>().Add(Product);
                     UnitOfWork.SaveChanges();
@@ -96,7 +106,7 @@ namespace HVTApp.Services.GetProductService.Complects
             SelectTypeCommand = new DelegateCommand(
                 () =>
                 {
-                    var complectTypesViewModel = new ComplectTypesViewModel(_complectTypes);
+                    var complectTypesViewModel = new ComplectTypesViewModel(_complectTypes, UnitOfWork);
                     complectTypesViewModel.ShowDialog();
                     if (complectTypesViewModel.IsSelected)
                     {
@@ -104,6 +114,9 @@ namespace HVTApp.Services.GetProductService.Complects
                         _complectTypes.ReAddById(ComplectType);
                     }
                 });
+
+            _complectTypes = UnitOfWork.Repository<Parameter>().Find(x => x.ParameterGroup.Id == GlobalAppProperties.Actual.ComplectsGroup.Id);
+            ComplectType = _complectTypes.FirstOrDefault();
         }
 
         public void ShowDialog()

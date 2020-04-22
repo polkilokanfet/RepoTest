@@ -17,6 +17,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         
         <Button Grid.Row="0" Grid.Column="0" Content="Тип" Command="{Binding SelectTypeCommand}"/>
@@ -25,10 +26,13 @@
         <Label Grid.Row="1" Grid.Column="0" Content="Обозначение"/>
         <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Designation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         
-        <Label Grid.Row="2" Grid.Column="0" Content="Назначение"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label Grid.Row="2" Grid.Column="0" Content="StructureCost"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding StructureCost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         
-        <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="Сохранить" Command="{Binding SaveCommand}"/>
+        <Label Grid.Row="3" Grid.Column="0" Content="Назначение"/>
+        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        
+        <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Content="Сохранить" Command="{Binding SaveCommand}"/>
                 
     </Grid>
 
