@@ -9,11 +9,12 @@ using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Wrapper;
+using HVTApp.Model.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Regions;
+using DirectumTaskWrapper = HVTApp.Model.Wrapper.DirectumTaskWrapper;
 
 namespace HVTApp.UI.Modules.Directum
 {

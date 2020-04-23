@@ -104,14 +104,6 @@
     <Compile Include="Converter\ObjectsToStringConverter.cs" />
     <Compile Include="Converter\ObjectToStringConverter.cs" />
     <Compile Include="Extantions\Ext.cs" />
-    <Compile Include="Groups\BaseWrappersGroup.cs" />
-    <Compile Include="Groups\IGroupValidatableChangeTrackingWithCollection.cs" />
-    <Compile Include="Groups\IWrapperGroup.cs" />
-    <Compile Include="Groups\OfferUnitsGroup.cs" />
-    <Compile Include="Groups\PaymentsGroup.cs" />
-    <Compile Include="Groups\PaymentWrapper.cs" />
-    <Compile Include="Groups\SalesUnitsGroup.cs" />
-    <Compile Include="Groups\ShipmentUnitsGroup.cs" />
     <Compile Include="Lookup\Items\Custom\DirectumTaskGroupLookup.cs" />
     <Compile Include="Lookup\Items\Custom\DirectumTaskLookup.cs" />
     <Compile Include="Lookup\Items\Custom\DocumentLookup.cs" />
@@ -433,9 +425,7 @@
     <Compile Include="Modules\Sales\ViewModels\Market2ViewModel\SalesUnitsComparer.cs" />
     <Compile Include="Modules\Sales\ViewModels\OffersViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\OfferViewModel.cs" />
-    <Compile Include="Modules\Sales\ViewModels\Payments\PaymentsPlannedGroup.cs" />
     <Compile Include="Modules\Sales\ViewModels\Payments\PaymentsViewModel.cs" />
-    <Compile Include="Modules\Sales\ViewModels\Payments\SalesUnitPaymentsPlannedWrapper.cs" />
     <Compile Include="Modules\Sales\ViewModels\ProductionViewModel\ProductionGroup.cs" />
     <Compile Include="Modules\Sales\ViewModels\ProductionViewModel\ProductionItem.cs" />
     <Compile Include="Modules\Sales\ViewModels\ProductionViewModel\ProductionViewModel.cs" />
@@ -447,7 +437,6 @@
     <Compile Include="Modules\Sales\ViewModels\ProjectViewModel\ProjectViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\SalesUnitsCollection.cs" />
     <Compile Include="Modules\Sales\ViewModels\SalesUnitsWrappersGroupsContainer.cs" />
-    <Compile Include="Modules\Sales\ViewModels\ShippingItemWrapper.cs" />
     <Compile Include="Modules\Sales\ViewModels\ShippingViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\SpecificationsViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\SpecificationUnitsGroupsViewModel.cs" />
@@ -558,14 +547,6 @@
     <Compile Include="Views\ProductStructureView.xaml.cs">
       <DependentUpon>ProductStructureView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wrapper\Custom\Functionality\DirectumTaskWrapper.cs" />
-    <Compile Include="Wrapper\Custom\Functionality\DocumentWrapper.cs" />
-    <Compile Include="Wrapper\Custom\Functionality\OfferUnitWrapper.cs" />
-    <Compile Include="Wrapper\Custom\Functionality\OrderWrapper.cs" />
-    <Compile Include="Wrapper\Custom\Functionality\ProductIncludedWrapper.cs" />
-    <Compile Include="Wrapper\Custom\Functionality\StructureCostWrapper.cs" />
-    <Compile Include="Wrapper\Custom\Validate\SalesUnitWrapper.cs" />
-    <Compile Include="Wrapper\IUnitsGroup.cs" />
     <Compile Include="Converter\ToUnitGroupsConverters.cs" />
     <Compile Include="Extantions\DesignationExt.cs" />
     <Compile Include="GeneratorHelpers.cs" />
@@ -584,7 +565,6 @@
     <Compile Include="ViewModels\Base\BaseListViewModel.cs" />
     <Compile Include="ViewModels\Details\ContractDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\Generated\DetailsViewModels.g.cs" />
-    <Compile Include="ViewModels\Details\IProductCostDependentProductsWrapper.cs" />
     <Compile Include="ViewModels\Details\OfferUnitDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\ProjectUnitDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\SpecificationDetailsViewModel.cs" />
@@ -601,12 +581,6 @@
     <Compile Include="Lookup\Items\Custom\OfferLookup.cs" />
     <Compile Include="Lookup\Items\Custom\ProjectLookup.cs" />
     <Compile Include="UiModule.cs" />
-    <Compile Include="Wrapper\Test\TestEntityWrapper.cs" />
-    <Compile Include="Wrapper\Test\TestFriendAddressWrapper.cs" />
-    <Compile Include="Wrapper\Test\TestFriendEmailWrapper.cs" />
-    <Compile Include="Wrapper\Test\TestFriendGroupWrapper.cs" />
-    <Compile Include="Wrapper\Test\TestFriendWrapper.cs" />
-    <Compile Include="Wrapper\UnitsGroup.cs" />
     <Compile Include="Converter\ProductUnitsToFacilitiesNamesConverter.cs" />
     <Compile Include="Converter\UnitsToGroupsConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -642,38 +616,11 @@
     </Compile>
     <Compile Include="Views\List\cs\ListViews.g.cs" />
     <Compile Include="ViewModels\Details\CompanyDetailsViewModel.cs" />
-    <Compile Include="Wrapper\Base\NotifyDataErrorInfoBase.cs" />
-    <Compile Include="Wrapper\Base\ObservableWrapper.cs" />
-    <Compile Include="Wrapper\Base\TrackingCollections\IValidatableChangeTrackingCollection.cs" />
-    <Compile Include="Wrapper\Base\TrackingCollections\ValidatableChangeTrackingCollection.cs" />
-    <Compile Include="Wrapper\Base\WrapperBase.cs" />
-    <Compile Include="Groups\SalesUnitsWrappersGroup.cs" />
-    <Compile Include="Wrapper\Custom\Functionality\OfferWrapper.cs" />
-    <Compile Include="Wrapper\Custom\Functionality\ParameterWrapper.cs" />
-    <Compile Include="Wrapper\Custom\Functionality\PaymentActualWrapper.cs" />
-    <Compile Include="Wrapper\Custom\Functionality\ProductBlockWrapper.cs" />
-    <Compile Include="Wrapper\Custom\Functionality\ProductCostDependentProductsWrapper.cs" />
-    <Compile Include="Wrapper\Custom\Functionality\ProductWrapper.cs" />
-    <Compile Include="Wrapper\Custom\Functionality\ProjectWrapper.cs" />
-    <Compile Include="Wrapper\Custom\Functionality\SpecificationWrapper.cs" />
-    <Compile Include="Wrapper\Custom\IProductWithCost.cs" />
-    <Compile Include="Wrapper\Custom\Test\TestFriendAddressWrapper.cs" />
-    <Compile Include="Wrapper\Custom\Test\TestFriendEmailWrapper.cs" />
-    <Compile Include="Wrapper\Custom\Test\TestFriendWrapper.cs" />
-    <Compile Include="Wrapper\Custom\Validate\CompanyFormWrapper.cs" />
-    <Compile Include="Wrapper\Custom\Validate\ContractWrapper.cs" />
-    <Compile Include="Wrapper\Custom\Validate\OfferUnitWrapper.cs" />
-    <Compile Include="Wrapper\Custom\Functionality\SalesUnitWrapper.cs" />
-    <Compile Include="Wrapper\Custom\Validate\SpecificationWrapper.cs" />
-    <Compile Include="Wrapper\Custom\Validate\PaymentConditionSetWrapper.cs" />
-    <Compile Include="Wrapper\IUnitWrapper.cs" />
-    <Compile Include="Generator.cs">
-      <DependentUpon>Generator.tt</DependentUpon>
+    <Compile Include="GeneratorUI.cs">
+      <DependentUpon>GeneratorUI.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Wrapper\IWrapperWithUnits.cs" />
-    <Compile Include="Wrapper\Wrappers.g.cs" />
     <EmbeddedResource Include="Properties\Licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -739,9 +686,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Generator.tt">
+    <Content Include="GeneratorUI.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Generator.cs</LastGenOutput>
+      <LastGenOutput>GeneratorUI.cs</LastGenOutput>
     </Content>
     <Resource Include="Images\folder.png" />
     <Resource Include="Images\ar_back.png" />

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Wrapper;
+using HVTApp.Model.Wrapper;
 
 namespace HVTApp.UI.ViewModels
 {

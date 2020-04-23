@@ -1,0 +1,251 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="$(SolutionDir)\HVTApp.Model\bin\Debug\HVTApp.Model.dll" #>
+<#@ import namespace="HVTApp.Model" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="HVTApp.Model.POCOs" #>
+<#@ output extension=".cs" #>
+<#
+	var modelTypes = GeneratorHelpers.GetModelTypesPocos();
+    GenerateWrappers(modelTypes);
+	SaveGeneratedCodeAsFile("Wrappers.g.cs", "Wrapper");
+#>
+<#+
+
+    private void GenerateWrappers(IEnumerable<Type> modelTypes)
+    {
+#>using System;
+using System.Linq;
+using HVTApp.Model.POCOs;
+using HVTApp.Model.Wrapper.Base;
+using HVTApp.Model.Wrapper.Base.TrackingCollections;
+
+namespace HVTApp.Model.Wrapper
+{
+<#+
+        foreach(var modelType in modelTypes)
+        {
+            GenerateWrapper(modelType);
+        }
+#>}
+<#+
+    }
+
+	private void GenerateWrapper(Type modelType)
+	{
+		var allProperties = modelType.GetProperties();
+
+
+		//Простые свойства
+		var allSimpleProperties = allProperties.Where(p => GeneratorHelpers.IsSimple(p.PropertyType));
+
+		var simpleSetProperties = allSimpleProperties.Where(p => p.CanWrite).ToList();
+		var simpleGetProperties = allSimpleProperties.Where(p => !p.CanWrite).ToList();
+
+		//Перечисления
+		var allCollectionProperties = allProperties.Except(allSimpleProperties)
+				.Where(p => p.PropertyType.GetInterfaces()
+				.Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICollection<>)));
+
+		var collectionComplexProperties = allCollectionProperties.Where(x => !GeneratorHelpers.CollectionMemberTypeIsSimple(x.PropertyType)).ToList();
+
+		//Сложные свойства
+		//var allComplexProperties = allProperties.Except(simpleProperties).Where(p => p.PropertyType.IsClass && !typeof(IEnumerable).IsAssignableFrom(p.PropertyType));
+		var allComplexProperties = allProperties.Except(allSimpleProperties).Except(allCollectionProperties);
+
+		var complexSetProperties = allComplexProperties.Where(p => p.CanWrite).ToList();
+		var complexGetProperties = allComplexProperties.Where(p => !p.CanWrite).ToList();
+
+#>	public partial class <#=modelType.Name#>Wrapper : WrapperBase<<#=modelType.Name#>>
+	{
+	    public <#=modelType.Name#>Wrapper(<#=modelType.Name#> model) : base(model) { }
+
+	<#+
+		GenerateSimpleProperties(simpleSetProperties);
+		GenerateComplexProperties(complexSetProperties);
+		GenerateCollectionComplexProperties(collectionComplexProperties);
+
+		GenerateGetProperties(simpleGetProperties.Union(complexGetProperties));
+
+		GenerateInitializeComplexProperties(modelType.Name, complexSetProperties);
+		GenerateInitializeCollectionComplexProperties(modelType.Name, collectionComplexProperties);
+	#>
+	}
+
+	<#+
+	}
+	      
+    //сохранение сгенерированного кода в отдельный файл.
+    private void SaveGeneratedCodeAsFile(string fileName, string filePath)
+    {
+		string directoryName = Path.GetDirectoryName(Host.TemplateFile);
+        string dir = Path.Combine(directoryName, filePath);
+  
+        string outputFilePath = Path.Combine(dir, fileName);
+        File.WriteAllText(outputFilePath, GenerationEnvironment.ToString()); 
+ 
+        GenerationEnvironment.Clear();
+    }
+
+  //генерация свойств простых типов.
+  private void GenerateSimpleProperties(IEnumerable<PropertyInfo> properties)
+  {
+  	if (!properties.Any())
+		return;
+#>
+
+        #region SimpleProperties
+<#+ 
+    foreach (var property in properties)
+    {
+      var propertyType = property.PropertyType.GetTypeName();
+      var propertyName = property.Name;
+#>
+        public <#=propertyType#> <#=propertyName#>
+        {
+          get { return GetValue<<#=propertyType#>>(); }
+          set { SetValue(value); }
+        }
+        public <#=propertyType#> <#=propertyName#>OriginalValue => GetOriginalValue<<#=propertyType#>>(nameof(<#=propertyName#>));
+        public bool <#=propertyName#>IsChanged => GetIsChanged(nameof(<#=propertyName#>));
+
+<#+ 
+    }
+#>
+        #endregion
+<#+
+  }
+
+  //генерация свойств доступных только для чтения.
+  private void GenerateGetProperties(IEnumerable<PropertyInfo> properties)
+  {
+  	if (!properties.Any())
+		return;
+#>
+
+        #region GetProperties
+<#+ 
+    foreach (var property in properties)
+    {
+      var propertyType = property.PropertyType.GetTypeName();
+      var propertyName = property.Name;
+#>
+        public <#=propertyType#> <#=propertyName#> => GetValue<<#=propertyType#>>(); 
+
+<#+
+    }
+#>
+        #endregion
+<#+
+  }
+
+  //генрация свойств сложных типов
+  private void GenerateComplexProperties(IEnumerable<PropertyInfo> properties)
+  {
+  	if (!properties.Any())
+		return;
+#>
+
+        #region ComplexProperties
+<#+ 
+
+    foreach (var property in properties)
+    {
+      var propertyType = property.PropertyType.Name;
+      var propertyName = property.Name;
+#>
+	    public <#= propertyType #>Wrapper <#= propertyName #> 
+        {
+            get { return GetWrapper<<#= propertyType #>Wrapper>(); }
+            set { SetComplexValue<<#= propertyType #>, <#= propertyType #>Wrapper>(<#= propertyName #>, value); }
+        }
+
+<#+   
+    }
+#>
+        #endregion
+<#+
+  }
+
+  //генерация свойств-коллекций.
+  private void GenerateCollectionComplexProperties(IEnumerable<PropertyInfo> properties)
+  {
+  	if (!properties.Any())
+		return;
+#>
+
+        #region CollectionProperties
+<#+ 
+
+    foreach (var property in properties)
+    {
+      var itemType = property.PropertyType.GetInterfaces().First(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICollection<>)).GenericTypeArguments[0].Name;
+      var propertyName = property.Name;
+#>
+        public IValidatableChangeTrackingCollection<<#= itemType #>Wrapper> <#= propertyName #> { get; private set; }
+
+<#+  
+    }
+#>
+        #endregion
+<#+
+  }
+
+  //инициализация сложных свойств
+  private void GenerateInitializeComplexProperties(string modelTypeName, IEnumerable<PropertyInfo> properties)
+  {
+    if(properties.Any())
+    {
+#>
+        public override void InitializeComplexProperties()
+        {
+<#+
+	  foreach (var complexProperty in properties)
+      {
+		var propertyName = complexProperty.Name;
+		var propertyType = complexProperty.PropertyType.Name;
+#>
+            InitializeComplexProperty<<#= propertyType #>Wrapper>(nameof(<#= propertyName #>), Model.<#= propertyName #> == null ? null : new <#= propertyType #>Wrapper(Model.<#= propertyName #>));
+
+<#+
+      }
+#>
+        }
+<#+
+    }
+  }
+
+  //инициализация коллекций
+  private void GenerateInitializeCollectionComplexProperties(string modelTypeName, IEnumerable<System.Reflection.PropertyInfo> properties)
+  {
+    if(properties.Any())
+    {
+#>
+  
+        protected override void InitializeCollectionProperties()
+        {
+<#+
+      foreach(var property in properties)
+      {
+		var itemType = property.PropertyType.GetInterfaces().First(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICollection<>)).GenericTypeArguments[0].Name;
+		var propertyName = property.Name;
+		   
+#>
+          if (Model.<#= propertyName #> == null) throw new ArgumentException("<#= propertyName #> cannot be null");
+          <#= propertyName #> = new ValidatableChangeTrackingCollection<<#= itemType #>Wrapper>(Model.<#= propertyName #>.Select(e => new <#= itemType #>Wrapper(e)));
+          RegisterCollection(<#= propertyName #>, Model.<#= propertyName #>);
+
+<#+
+     }
+#>
+        }
+<#+
+    }
+  }
+
+#>

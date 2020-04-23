@@ -6,7 +6,7 @@ using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Modules.Sales.ViewModels.Groups;
 using HVTApp.UI.ViewModels;
-using HVTApp.UI.Wrapper;
+using HVTApp.Model.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 

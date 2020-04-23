@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using HVTApp.DataAccess;
 using HVTApp.TestDataGenerator;
-using HVTApp.UI.Wrapper;
+using HVTApp.Model.Wrapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HVTApp.Services.OfferToDocServiceTests

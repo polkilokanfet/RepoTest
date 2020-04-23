@@ -6,7 +6,7 @@ using HVTApp.Infrastructure;
 using HVTApp.Model.Comparers;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Groups;
+using HVTApp.Model.Wrapper.Groups;
 using HVTApp.UI.Lookup;
 using Microsoft.Practices.Unity;
 using Prism.Events;

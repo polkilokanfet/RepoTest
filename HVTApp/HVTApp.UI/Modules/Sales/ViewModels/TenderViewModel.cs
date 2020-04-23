@@ -3,7 +3,7 @@ using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.ViewModels;
-using HVTApp.UI.Wrapper;
+using HVTApp.Model.Wrapper;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels

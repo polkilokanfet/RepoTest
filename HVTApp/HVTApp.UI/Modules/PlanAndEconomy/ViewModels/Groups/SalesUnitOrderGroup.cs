@@ -6,7 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using HVTApp.Infrastructure.Annotations;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Wrapper;
+using HVTApp.Model.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
 
 namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels.Groups

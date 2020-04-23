@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using HVTApp.UI.Groups;
-using HVTApp.UI.Wrapper;
+using HVTApp.Model.Wrapper;
 
 namespace HVTApp.UI.Converter
 {

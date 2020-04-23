@@ -6,14 +6,14 @@ using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model.Comparers;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Groups;
-using HVTApp.UI.Wrapper;
+using HVTApp.Model.Wrapper;
+using HVTApp.Model.Wrapper.Groups;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
 {
-    public class OfferUnitsGroupsViewModel : UI.Modules.Sales.ViewModels.Groups.BaseGroupsViewModel<OfferUnitsGroup, OfferUnitsGroup, OfferUnit, AfterSaveOfferUnitEvent, AfterRemoveOfferUnitEvent>, 
+    public class OfferUnitsGroupsViewModel : Groups.BaseGroupsViewModel<OfferUnitsGroup, OfferUnitsGroup, OfferUnit, AfterSaveOfferUnitEvent, AfterRemoveOfferUnitEvent>, 
         IGroupsViewModel<OfferUnit, OfferWrapper>
     {
         private OfferWrapper _offerWrapper;

@@ -3,7 +3,7 @@ using System.Windows.Input;
 using HVTApp.Model.POCOs;
 using HVTApp.Services.GetProductService;
 using HVTApp.UI.Lookup;
-using HVTApp.UI.Wrapper;
+using HVTApp.Model.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 

@@ -7,6 +7,14 @@ namespace HVTApp.Infrastructure.Extansions
 {
     public static class EnumerableExtansions
     {
+        public static void AddRange<T>(this ICollection<T> collection, IEnumerable<T> items)
+        {
+            foreach (var item in items)
+            {
+                collection.Add(item);
+            }
+        }
+
         /// <summary>
         /// Члены коллекций совпадают.
         /// </summary>

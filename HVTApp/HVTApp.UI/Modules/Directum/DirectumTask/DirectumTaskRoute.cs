@@ -5,7 +5,9 @@ using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Wrapper;
+using HVTApp.Model.Wrapper.Base;
+using HVTApp.Model.Wrapper.Base.TrackingCollections;
+using HVTApp.Model.Wrapper;
 
 namespace HVTApp.UI.Modules.Directum
 {

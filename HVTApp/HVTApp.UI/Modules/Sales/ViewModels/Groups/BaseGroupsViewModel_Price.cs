@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using HVTApp.Infrastructure;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Groups;
+using HVTApp.Model.Wrapper.Groups;
 using Microsoft.Practices.ObjectBuilder2;
 using Prism.Events;
 

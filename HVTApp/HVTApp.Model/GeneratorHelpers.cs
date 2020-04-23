@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
 using HVTApp.Model.POCOs;
@@ -10,6 +11,56 @@ namespace HVTApp.Model
 {
     public static class GeneratorHelpers
     {
+
+        #region IsType
+
+        public static bool IsType<T>(this PropertyInfo property)
+        {
+            return typeof(T) == property.PropertyType;
+        }
+
+        /// <summary>
+        /// Простой ли тип
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static bool IsSimple(this Type type)
+        {
+            return type.IsValueType || type == typeof(string);
+        }
+
+        public static bool IsCollection(this Type type)
+        {
+            return type.GetInterfaces().Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICollection<>));
+        }
+
+        public static bool IsCollection(this PropertyInfo property)
+        {
+            return property.PropertyType.IsCollection();
+        }
+
+        public static bool IsComplex(this PropertyInfo property)
+        {
+            return property.PropertyType.IsComplex();
+        }
+
+        public static bool IsComplex(this Type type)
+        {
+            return !type.IsSimple() && !type.IsCollection();
+        }
+
+        //коллекция простых типов?
+        public static bool CollectionMemberTypeIsSimple(Type genericCollectionType)
+        {
+            var t = genericCollectionType.GetInterfaces()
+                .First(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICollection<>))
+                .GetGenericArguments()[0];
+
+            return IsSimple(t);
+        }
+
+        #endregion
+
         /// <summary>
         /// Все типы для генерации окон с деталями.
         /// </summary>
@@ -19,20 +70,6 @@ namespace HVTApp.Model
             var ns = typeof(Address).Namespace;
             //return typeof(Address).Assembly.GetTypes().Where(x => !x.IsAbstract && !x.IsEnum && x.Namespace == ns && !x.Name.Contains("<"));
             return typeof(Address).Assembly.GetTypes().Where(x => x.Namespace == ns && x.GetBaseTypes().Contains(typeof(BaseEntity)));
-        }
-
-        public static IEnumerable<PropertyInfo> GetPropertiesForListViews(this Type typeLookup)
-        {
-            //свойства со спец.атрибутом
-            Type entityType = typeLookup.GetProperty(nameof(ILookupItemNavigation<IBaseEntity>.Entity)).PropertyType;
-            var names = entityType.GetProperties()
-                    .Where(x => x.GetCustomAttribute<NotForListViewAttribute>() != null)
-                    .Select(x => x.Name);
-
-            return typeLookup.GetProperties().Where(x => !names.Contains(x.Name) &&
-                                                         x.Name != nameof(ILookupItemNavigation<IBaseEntity>.Entity) &&
-                                                         x.Name != nameof(ILookupItemNavigation<IBaseEntity>.DisplayMember) &&
-                                                         x.Name != nameof(ILookupItemNavigation<IBaseEntity>.Id));
         }
 
         /// <summary>
@@ -179,28 +216,41 @@ namespace HVTApp.Model
                 .Except(propertyInfos.SimpleProperties<DateTime>());
         }
 
-        /// <summary>
-        /// Простой ли тип
-        /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
-        public static bool IsSimple(this Type type)
-        {
-            return type.IsValueType || type == typeof(string);
-        }
-
-        //коллекция простых типов?
-        private static bool CollectionMemberTypeIsSimple(Type genericCollectionType)
-        {
-            var t = genericCollectionType.GetInterfaces()
-                .First(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICollection<>))
-                .GetGenericArguments()[0];
-
-            return IsSimple(t);
-        }
-
-
         #endregion
 
+        public static int OrderStatus(this PropertyInfo property)
+        {
+            var attr = property.GetCustomAttribute<OrderStatusAttribute>();
+            return attr?.OrderStatus ?? 1;
+        }
+
+
+        private static IEnumerable<AllowEditAttribute> GetAllowEditAttributes(this Type type)
+        {
+            var atrs = type.GetCustomAttributes<AllowEditAttribute>().ToList();
+            foreach (var atr in atrs)
+            {
+                yield return atr;
+            }
+
+            if(!atrs.SelectMany(x => x.Roles).Contains(Role.Admin))
+                yield return new AllowEditAttribute(Role.Admin);
+        }
+
+        //public static IEnumerable<Role> GetAllowEditRoles(this Type type)
+        //{
+        //    return type.GetAllowEditAttributes().SelectMany(x => x.Roles);
+        //}
+
+
+        public static string GetAllowEdit(this Type type)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (var attribute in type.GetAllowEditAttributes())
+            {
+                sb.Append(attribute.ToString());
+            }
+            return sb.ToString();
+        }
     }
 }

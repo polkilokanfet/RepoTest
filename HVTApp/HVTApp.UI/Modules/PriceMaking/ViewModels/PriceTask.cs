@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Wrapper.Base;
+using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using HVTApp.UI.Modules.PlanAndEconomy.ViewModels;
-using HVTApp.UI.Wrapper;
+using HVTApp.Model.Wrapper;
 
 namespace HVTApp.UI.Modules.PriceMaking.ViewModels
 {

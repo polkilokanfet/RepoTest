@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using HVTApp.Model.POCOs.Test;
-using HVTApp.UI.Wrapper.Test;
+using HVTApp.Model.Wrapper.Test;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HVTApp.Model.Tests.WrapperTests

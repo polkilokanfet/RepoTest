@@ -10,8 +10,8 @@ using HVTApp.Model;
 using HVTApp.Model.Comparers;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Groups;
-using HVTApp.UI.Wrapper;
+using HVTApp.Model.Wrapper;
+using HVTApp.Model.Wrapper.Groups;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 

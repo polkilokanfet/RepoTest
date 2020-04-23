@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Groups;
-using HVTApp.UI.Wrapper;
+using HVTApp.Model.Wrapper.Base.TrackingCollections;
+using HVTApp.Model.Wrapper;
+using HVTApp.Model.Wrapper.Groups;
 using Microsoft.Practices.ObjectBuilder2;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels.Groups

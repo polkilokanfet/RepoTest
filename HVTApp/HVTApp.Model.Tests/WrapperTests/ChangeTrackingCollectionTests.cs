@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Model.POCOs.Test;
-using HVTApp.UI.Wrapper;
-using HVTApp.UI.Wrapper.Test;
+using HVTApp.Model.Wrapper.Base.TrackingCollections;
+using HVTApp.Model.Wrapper;
+using HVTApp.Model.Wrapper.Test;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HVTApp.Model.Tests.WrapperTests

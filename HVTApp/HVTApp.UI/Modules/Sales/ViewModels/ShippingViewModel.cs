@@ -1,13 +1,12 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Groups;
-using HVTApp.UI.Wrapper;
+using HVTApp.Model.Wrapper.Base.TrackingCollections;
+using HVTApp.Model.Wrapper.Groups;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;

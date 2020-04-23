@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.ViewModels;
-using HVTApp.UI.Wrapper;
+using HVTApp.Model.Wrapper;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.Services.NewProductService

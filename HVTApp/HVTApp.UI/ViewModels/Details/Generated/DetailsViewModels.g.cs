@@ -1,20 +1,5 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Wrapper;
+using HVTApp.Model.Wrapper;
 using HVTApp.Model.Events;
 using Microsoft.Practices.Unity;
 using System.Windows.Input;

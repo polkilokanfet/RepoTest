@@ -1,0 +1,60 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="$(SolutionDir)\HVTApp.UI\bin\Debug\HVTApp.UI.dll" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="HVTApp.UI" #>
+<#@ output extension=".cs" #>
+<#
+	var modelTypes = GeneratorHelpers.GetModelTypesPocos();;
+	GenerateRegistrations(modelTypes);
+	SaveGeneratedCodeAsFile("UiModule.g.cs", "");
+#>
+<#+
+	private void GenerateRegistrations(IEnumerable<Type> modelTypes)
+	{
+#>using HVTApp.Infrastructure.Prism;
+using HVTApp.UI.Views;
+using HVTApp.Infrastructure;
+using HVTApp.Model.POCOs;
+using HVTApp.UI.Lookup;
+using HVTApp.UI.ViewModels;
+
+namespace HVTApp.UI
+{
+    public partial class UiModule : ModuleBase
+    {
+		private void RegisterViews()
+        {
+<#+
+        foreach(var modelType in modelTypes)
+        {#>
+            Container.RegisterViewForNavigation<<#=modelType.Name#>LookupListView>();
+            //_dialogService.Register<<#=modelType.Name#>DetailsViewModel, <#=modelType.Name#>DetailsView>();
+			_selectService.Register<<#=modelType.Name#>LookupListView, <#=modelType.Name#>>();
+            _updateDetailsService.Register<<#=modelType.Name#>, <#=modelType.Name#>DetailsView>();
+<#+
+        }
+ #>
+		}
+	}
+}
+<#+
+	}
+
+    //сохранение сгенерированного кода в отдельный файл.
+    private void SaveGeneratedCodeAsFile(string fileName, string filePath)
+    {
+		string directoryName = Path.GetDirectoryName(Host.TemplateFile);
+        string dir = Path.Combine(directoryName, filePath);
+  
+        string outputFilePath = Path.Combine(dir, fileName);
+        File.WriteAllText(outputFilePath, GenerationEnvironment.ToString()); 
+ 
+        GenerationEnvironment.Clear();
+    }
+#>

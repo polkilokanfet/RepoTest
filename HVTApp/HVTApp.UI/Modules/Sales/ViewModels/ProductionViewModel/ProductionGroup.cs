@@ -4,7 +4,8 @@ using System.ComponentModel;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Wrapper;
+using HVTApp.Model.Wrapper.Base.TrackingCollections;
+using HVTApp.Model.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels

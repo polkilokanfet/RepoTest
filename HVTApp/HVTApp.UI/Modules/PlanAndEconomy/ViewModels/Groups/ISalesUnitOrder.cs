@@ -1,5 +1,5 @@
 using System;
-using HVTApp.UI.Wrapper;
+using HVTApp.Model.Wrapper;
 
 namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels.Groups
 {

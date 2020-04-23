@@ -1,6 +1,6 @@
 using System.ComponentModel;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Wrapper;
+using HVTApp.Model.Wrapper;
 using Prism.Mvvm;
 
 namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels

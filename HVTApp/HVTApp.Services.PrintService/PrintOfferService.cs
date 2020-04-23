@@ -10,7 +10,7 @@ using HVTApp.Infrastructure.Services;
 using HVTApp.Model.Comparers;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
-using HVTApp.UI.Groups;
+using HVTApp.Model.Wrapper.Groups;
 using Infragistics.Documents.Word;
 using Microsoft.Practices.Unity;
 
