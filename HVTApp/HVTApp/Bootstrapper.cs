@@ -68,7 +68,7 @@ namespace HVTApp
         {
             SetGlobalAppProperties();
             CheckLastDeveloperVizit();
-            Container.Resolve<EventServiceClient>().Start();
+            //Container.Resolve<EventServiceClient>().Start();
             Application.Current.MainWindow.Show();
         }
 

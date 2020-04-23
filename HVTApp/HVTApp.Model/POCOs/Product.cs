@@ -38,7 +38,7 @@ namespace HVTApp.Model.POCOs
         [Designation("Продукты в составе")]
         public virtual List<ProductDependent> DependentProducts { get; set; } = new List<ProductDependent>();
 
-        [Designation("Комментарий")]
+        [Designation("Комментарий"), MaxLength(256)]
         public string Comment { get; set; }
 
         [Designation("В продукте есть блоки с фиксированной ценой"), NotMapped]

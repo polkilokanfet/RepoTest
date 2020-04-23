@@ -6,6 +6,7 @@ using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 
@@ -13,43 +14,25 @@ namespace HVTApp.Services.GetProductService.Complects
 {
     public class ComplectViewModel : ViewModelBase
     {
-        private List<Parameter> _complectTypes;
-        private Parameter _complectType;
-        private string _designation = "0¡œ.000.000";
-        private string _comment;
+        private readonly List<Parameter> _complectTypes;
+        private readonly ParameterRelationWrapper _relation;
+        private ParameterWrapper _parameterComplectType;
 
-        public Product Product { get; private set; }
+        public bool IsSaved { get; private set; } = false;
 
-        public Parameter ComplectType
+        public ProductWrapper Product { get; }
+
+        public ParameterWrapper ParameterComplectType
         {
-            get { return _complectType; }
-            set
+            get { return _parameterComplectType; }
+            private set
             {
-                _complectType = value;
+                _parameterComplectType = value;
                 OnPropertyChanged();
-                ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
             }
         }
 
-        public string Designation
-        {
-            get { return _designation; }
-            set
-            {
-                _designation = value;
-                ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
-            }
-        }
-
-        public string Comment
-        {
-            get { return _comment; }
-            set
-            {
-                _comment = value;
-                ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
-            }
-        }
+        public ParameterWrapper ParameterComplectDesignation { get; }
 
         public string StructureCost { get; set; }
 
@@ -58,65 +41,75 @@ namespace HVTApp.Services.GetProductService.Complects
 
         public ComplectViewModel(IUnityContainer container) : base(container)
         {
+
             SaveCommand = new DelegateCommand(
                 () =>
                 {
-                    var relation = new ParameterRelation();
-                    relation.RequiredParameters.Add(UnitOfWork.Repository<Parameter>().GetById(GlobalAppProperties.Actual.ComplectsParameter.Id));
-                    relation.RequiredParameters.Add(ComplectType);
+                    Product.DesignationSpecial = Product.ProductBlock.DesignationSpecial = ParameterComplectDesignation.Value;
+                    Product.AcceptChanges();
 
-                    var parameter = new Parameter
-                    {
-                        ParameterGroup = UnitOfWork.Repository<ParameterGroup>().GetById(GlobalAppProperties.Actual.ComplectDesignationGroup.Id),
-                        Value = Designation
-                    };
-                    parameter.ParameterRelations.Add(relation);
-                    relation.ParameterId = parameter.Id;
-
-                    var block = new ProductBlock
-                    {
-                        DesignationSpecial = Designation,
-                        StructureCostNumber = StructureCost,
-                        Parameters = relation.RequiredParameters.Union(new List<Parameter> {parameter}).ToList()
-                    };
-
-                    Product = new Product
-                    {
-                        DesignationSpecial = Designation,
-                        ProductBlock = block,
-                        Comment = this.Comment
-                    };
-
-                    var complectTypeParameter = UnitOfWork.Repository<Parameter>().GetById(ComplectType.Id);
+                    var complectTypeParameter = UnitOfWork.Repository<Parameter>().GetById(ParameterComplectType.Id);
                     if (complectTypeParameter == null)
                     {
                         var productTypeDesignation = new ProductTypeDesignation();
-                        productTypeDesignation.Parameters.Add(ComplectType);
-                        productTypeDesignation.ProductType = new ProductType {Name = ComplectType.Value};
+                        productTypeDesignation.Parameters.Add(ParameterComplectType.Model);
+                        productTypeDesignation.ProductType = new ProductType {Name = ParameterComplectType.Value};
                         UnitOfWork.Repository<ProductTypeDesignation>().Add(productTypeDesignation);
                     }
 
-                    UnitOfWork.Repository<Product>().Add(Product);
+                    UnitOfWork.Repository<Product>().Add(Product.Model);
                     UnitOfWork.SaveChanges();
+
+                    IsSaved = true;
 
                     SaveEvent?.Invoke();
                 }, 
-                () => ComplectType != null && !string.IsNullOrEmpty(Designation));
+                () => ParameterComplectType != null && Product != null && Product.IsValid && !string.IsNullOrWhiteSpace(ParameterComplectDesignation.Value));
 
             SelectTypeCommand = new DelegateCommand(
                 () =>
                 {
                     var complectTypesViewModel = new ComplectTypesViewModel(_complectTypes, UnitOfWork);
                     complectTypesViewModel.ShowDialog();
-                    if (complectTypesViewModel.IsSelected)
+                    if (complectTypesViewModel.IsSelected && complectTypesViewModel.SelectedItem.Id != ParameterComplectType?.Id)
                     {
-                        this.ComplectType = complectTypesViewModel.SelectedItem;
-                        _complectTypes.ReAddById(ComplectType);
+                        if (ParameterComplectType != null)
+                        {
+                            _relation.RequiredParameters.Remove(ParameterComplectType);
+                            Product.ProductBlock.Parameters.Remove(ParameterComplectType);
+                        }
+
+                        ParameterComplectType = new ParameterWrapper(complectTypesViewModel.SelectedItem);
+                        _relation.RequiredParameters.Add(ParameterComplectType);
+                        Product.ProductBlock.Parameters.Add(ParameterComplectType);
+
+                        _complectTypes.ReAddById(ParameterComplectType.Model);
                     }
                 });
 
+            var parameterComplects = UnitOfWork.Repository<Parameter>().GetById(GlobalAppProperties.Actual.ComplectsParameter.Id);
+
+            Product = new ProductWrapper(new Product {ProductBlock = new ProductBlock()});
+            Product.ProductBlock.Parameters.Add(new ParameterWrapper(parameterComplects));
+            Product.PropertyChanged += (sender, args) => ((DelegateCommand) SaveCommand).RaiseCanExecuteChanged();
+
+            ParameterComplectDesignation = new ParameterWrapper(new Parameter {ParameterGroup = UnitOfWork.Repository<ParameterGroup>().GetById(GlobalAppProperties.Actual.ComplectDesignationGroup.Id) });
+            ParameterComplectDesignation.Value = "0¡œ.000.000";
+            _relation = new ParameterRelationWrapper(new ParameterRelation());
+            _relation.ParameterId = ParameterComplectDesignation.Id;
+            _relation.RequiredParameters.Add(new ParameterWrapper(parameterComplects));
+            ParameterComplectDesignation.ParameterRelations.Add(_relation);
+            Product.ProductBlock.Parameters.Add(ParameterComplectDesignation);
+
             _complectTypes = UnitOfWork.Repository<Parameter>().Find(x => x.ParameterGroup.Id == GlobalAppProperties.Actual.ComplectsGroup.Id);
-            ComplectType = _complectTypes.FirstOrDefault();
+            var parameterComplectType = _complectTypes.FirstOrDefault();
+            if (parameterComplectType != null)
+            {
+                ParameterComplectType = new ParameterWrapper(parameterComplectType);
+                Product.ProductBlock.Parameters.Add(ParameterComplectType);
+                _relation.RequiredParameters.Add(ParameterComplectType);
+            }
+
         }
 
         public void ShowDialog()

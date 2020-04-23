@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using HVTApp.DataAccess.Annotations;
 using HVTApp.Infrastructure;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
@@ -9,7 +12,7 @@ using Prism.Commands;
 
 namespace HVTApp.Services.GetProductService.Complects
 {
-    public class ComplectTypesViewModel
+    public class ComplectTypesViewModel : INotifyPropertyChanged
     {
         private readonly IUnitOfWork _unitOfWork;
         private Parameter _selectedItem;
@@ -21,6 +24,7 @@ namespace HVTApp.Services.GetProductService.Complects
             set
             {
                 _selectedItem = value;
+                OnPropertyChanged();
                 ((DelegateCommand)SelectCommand).RaiseCanExecuteChanged();
             }
         }
@@ -46,17 +50,14 @@ namespace HVTApp.Services.GetProductService.Complects
             NewTypeCommand = new DelegateCommand(
                 () =>
                 {
-                    var complectTypeWindow = new ComplectTypeWindow();
+                    var complectTypeWindow = new ComplectTypeWindow(_unitOfWork.Repository<ParameterGroup>().GetById(GlobalAppProperties.Actual.ComplectsGroup.Id));
                     complectTypeWindow.ShowDialog();
                     if (complectTypeWindow.IsOk)
                     {
+                        complectTypeWindow.ParameterComplectType.AcceptChanges();
+                        var parameter = complectTypeWindow.ParameterComplectType.Model;
                         var relation = new ParameterRelation();
                         relation.RequiredParameters.Add(_unitOfWork.Repository<Parameter>().GetById(GlobalAppProperties.Actual.ComplectsParameter.Id));
-                        var parameter = new Parameter
-                        {
-                            Value = complectTypeWindow.ComplectType,
-                            ParameterGroup = unitOfWork.Repository<ParameterGroup>().GetById(GlobalAppProperties.Actual.ComplectsGroup.Id)
-                        };
                         parameter.ParameterRelations.Add(relation);
                         relation.ParameterId = parameter.Id;
 
@@ -73,5 +74,12 @@ namespace HVTApp.Services.GetProductService.Complects
         }
 
         public event Action SelectEvent;
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

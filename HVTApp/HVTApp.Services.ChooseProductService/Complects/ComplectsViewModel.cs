@@ -21,6 +21,7 @@ namespace HVTApp.Services.GetProductService.Complects
             set
             {
                 _selectedItem = value;
+                OnPropertyChanged();
                 ((DelegateCommand)SelectCommand).RaiseCanExecuteChanged();
             }
         }
@@ -49,10 +50,10 @@ namespace HVTApp.Services.GetProductService.Complects
                 {
                     var complectViewModel = Container.Resolve<ComplectViewModel>();
                     complectViewModel.ShowDialog();
-                    if (complectViewModel.Product != null)
+                    if (complectViewModel.IsSaved)
                     {
-                        Items.Add(complectViewModel.Product);
-                        SelectedItem = complectViewModel.Product;
+                        Items.Add(complectViewModel.Product.Model);
+                        SelectedItem = complectViewModel.Product.Model;
                     }
                 });
         }

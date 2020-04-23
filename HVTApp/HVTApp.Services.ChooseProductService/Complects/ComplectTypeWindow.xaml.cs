@@ -3,32 +3,23 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
 using HVTApp.DataAccess.Annotations;
+using HVTApp.Model.POCOs;
+using HVTApp.Model.Wrapper;
 using Prism.Commands;
 
 namespace HVTApp.Services.GetProductService.Complects
 {
     public partial class ComplectTypeWindow : INotifyPropertyChanged
     {
-        private string _complectType;
-
-        public string ComplectType
-        {
-            get { return _complectType; }
-            set
-            {
-                _complectType = value;
-                OnPropertyChanged();
-                ((DelegateCommand)OkCommand).RaiseCanExecuteChanged();
-            }
-        }
+        public ParameterWrapper ParameterComplectType { get; }
 
         public bool IsOk { get; private set; } = false;
 
         public ICommand OkCommand { get; }
 
-        public ComplectTypeWindow()
+        public ComplectTypeWindow(ParameterGroup parameterGroup)
         {
-            InitializeComponent();
+            ParameterComplectType = new ParameterWrapper(new Parameter {ParameterGroup = parameterGroup});
 
             OkCommand = new DelegateCommand(
                 () =>
@@ -36,8 +27,11 @@ namespace HVTApp.Services.GetProductService.Complects
                     IsOk = true;
                     this.Close();
                 }, 
-                () => !string.IsNullOrEmpty(ComplectType));
+                () => ParameterComplectType.IsValid);
 
+            ParameterComplectType.PropertyChanged += (sender, args) => ((DelegateCommand)OkCommand).RaiseCanExecuteChanged();
+
+            InitializeComponent();
             this.DataContext = this;
         }
 
