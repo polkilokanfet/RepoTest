@@ -13,7 +13,6 @@ namespace EventServiceHost
                 Console.WriteLine("Host started...");
                 Console.ReadLine();
             }
-
         }
     }
 }

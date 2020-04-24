@@ -45,17 +45,17 @@ namespace HVTApp.Services.GetProductService.Complects
             SaveCommand = new DelegateCommand(
                 () =>
                 {
-                    Product.DesignationSpecial = Product.ProductBlock.DesignationSpecial = ParameterComplectDesignation.Value;
+                    Product.DesignationSpecial = Product.ProductBlock.DesignationSpecial = $"{ParameterComplectType.Value} {ParameterComplectDesignation.Value}";
                     Product.AcceptChanges();
 
-                    var complectTypeParameter = UnitOfWork.Repository<Parameter>().GetById(ParameterComplectType.Id);
-                    if (complectTypeParameter == null)
-                    {
-                        var productTypeDesignation = new ProductTypeDesignation();
-                        productTypeDesignation.Parameters.Add(ParameterComplectType.Model);
-                        productTypeDesignation.ProductType = new ProductType {Name = ParameterComplectType.Value};
-                        UnitOfWork.Repository<ProductTypeDesignation>().Add(productTypeDesignation);
-                    }
+                    //var complectTypeParameter = UnitOfWork.Repository<Parameter>().GetById(ParameterComplectType.Id);
+                    //if (complectTypeParameter == null)
+                    //{
+                    //    var productTypeDesignation = new ProductTypeDesignation();
+                    //    productTypeDesignation.Parameters.Add(ParameterComplectType.Model);
+                    //    productTypeDesignation.ProductType = new ProductType {Name = ParameterComplectType.Value};
+                    //    UnitOfWork.Repository<ProductTypeDesignation>().Add(productTypeDesignation);
+                    //}
 
                     UnitOfWork.Repository<Product>().Add(Product.Model);
                     UnitOfWork.SaveChanges();

@@ -106,12 +106,12 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
 
         protected override void OnAfterSaveEntity(PriceCalculation calculation)
         {
-                var targetCalculationLookup = Lookups.SingleOrDefault(x => x.Id == calculation.Id);
-                if (targetCalculationLookup != null)
-                {
-                    targetCalculationLookup.Refresh(calculation);
-                    return;
-                }
+            var targetCalculationLookup = Lookups.SingleOrDefault(x => x.Id == calculation.Id);
+            if (targetCalculationLookup != null)
+            {
+                targetCalculationLookup.Refresh(calculation);
+                return;
+            }
 
             var author = calculation.PriceCalculationItems.FirstOrDefault()?.SalesUnits.FirstOrDefault()?.Project.Manager;
             var canWath = author?.Id == GlobalAppProperties.User.Id && calculation.TaskCloseMoment.HasValue;
