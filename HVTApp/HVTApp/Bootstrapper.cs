@@ -68,7 +68,10 @@ namespace HVTApp
         {
             SetGlobalAppProperties();
             CheckLastDeveloperVizit();
-            Container.Resolve<EventServiceClient>().Start();
+            if (GlobalAppProperties.User.RoleCurrent != Role.Constructor)
+            {
+                Container.Resolve<EventServiceClient>().Start();
+            }
             Application.Current.MainWindow.Show();
         }
 

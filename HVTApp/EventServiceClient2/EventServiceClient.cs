@@ -53,7 +53,8 @@ namespace EventServiceClient2
             }
             catch (Exception e)
             {
-                _container.Resolve<IMessageService>().ShowOkMessageDialog("Exception", e.GetAllExceptions());
+                var message = $"Не удалось подключиться к сервису синхронизации. Вы можете продолжать работу без синхронизации.\nПопросите разработчика запустить сервис синхронизации.\n\n{e.GetAllExceptions()}";
+                _container.Resolve<IMessageService>().ShowOkMessageDialog("Exception", message);
             }
         }
 

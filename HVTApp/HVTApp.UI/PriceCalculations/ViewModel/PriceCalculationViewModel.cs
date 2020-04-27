@@ -133,6 +133,8 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                     var structureCost = SelectedItem as StructureCostWrapper;
                     var calculationItem2Wrapper = PriceCalculationWrapper.PriceCalculationItems.Single(x => x.StructureCosts.Contains(structureCost));
                     calculationItem2Wrapper.StructureCosts.Remove(structureCost);
+                    if (UnitOfWork.Repository<StructureCost>().GetById(structureCost.Id) != null)
+                        UnitOfWork.Repository<StructureCost>().Delete(structureCost.Model);
                 },
                 () => SelectedItem is StructureCostWrapper && !IsStarted && ((StructureCostWrapper)SelectedItem).Model.UnitPrice == null);
 
