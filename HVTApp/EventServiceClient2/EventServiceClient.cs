@@ -39,22 +39,38 @@ namespace EventServiceClient2
                 if (_service.Connect(_appSessionId))
                 {
                     //Задачи
-                    _eventAggregator.GetEvent<AfterSaveDirectumTaskSyncEvent>().Subscribe(task => { _service.SaveDirectumTaskPublishEvent(_appSessionId, task.Id); }, true);
+                    _eventAggregator.GetEvent<AfterSaveDirectumTaskSyncEvent>().Subscribe(task => { SavePublishEvent(
+                        () => _service.SaveDirectumTaskPublishEvent(_appSessionId, task.Id)); }, true);
 
                     //Калькуляции себестоимости
-                    _eventAggregator.GetEvent<AfterSavePriceCalculationSyncEvent>().Subscribe(priceCalculation => { _service.SavePriceCalculationPublishEvent(_appSessionId, priceCalculation.Id); }, true);
+                    _eventAggregator.GetEvent<AfterSavePriceCalculationSyncEvent>().Subscribe(priceCalculation => { SavePublishEvent(
+                        () => _service.SavePriceCalculationPublishEvent(_appSessionId, priceCalculation.Id)); }, true);
 
                     //Запросы
-                    _eventAggregator.GetEvent<AfterSaveIncomingRequestSyncEvent>().Subscribe(request => { _service.SaveIncomingRequestPublishEvent(_appSessionId, request.Id); }, true);
+                    _eventAggregator.GetEvent<AfterSaveIncomingRequestSyncEvent>().Subscribe(request => { SavePublishEvent(
+                        () => _service.SaveIncomingRequestPublishEvent(_appSessionId, request.Id)); }, true);
 
                     //Входящие документы
-                    _eventAggregator.GetEvent<AfterSaveIncomingDocumentSyncEvent>().Subscribe(document => { _service.SaveIncomingDocumentPublishEvent(_appSessionId, document.Id); }, true);
+                    _eventAggregator.GetEvent<AfterSaveIncomingDocumentSyncEvent>().Subscribe(document => { SavePublishEvent(
+                        () => _service.SaveIncomingDocumentPublishEvent(_appSessionId, document.Id)); }, true);
                 }
             }
             catch (Exception e)
             {
                 var message = $"Не удалось подключиться к сервису синхронизации. Вы можете продолжать работу без синхронизации.\nПопросите разработчика запустить сервис синхронизации.\n\n{e.GetAllExceptions()}";
                 _container.Resolve<IMessageService>().ShowOkMessageDialog("Exception", message);
+            }
+        }
+
+        private void SavePublishEvent(Action publishEvent)
+        {
+            try
+            {
+                publishEvent.Invoke();
+            }
+            catch (Exception e)
+            {
+                _container.Resolve<IMessageService>().ShowOkMessageDialog("Exception", e.GetAllExceptions());
             }
         }
 

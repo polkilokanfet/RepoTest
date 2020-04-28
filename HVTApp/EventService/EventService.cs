@@ -28,26 +28,37 @@ namespace EventService
 
         public void SaveIncomingRequestPublishEvent(Guid appSassionId, Guid requestId)
         {
-            _appSessions.Where(x => x.AppSessionId != appSassionId).ToList()
-                .ForEach(x => x.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveIncomingRequestPublishEvent(requestId));
+            SavePublishEvent(appSassionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveIncomingRequestPublishEvent(requestId));
         }
 
         public void SaveDirectumTaskPublishEvent(Guid appSassionId, Guid taskId)
         {
-            _appSessions.Where(x => x.AppSessionId != appSassionId).ToList()
-                .ForEach(x => x.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveDirectumTaskPublishEvent(taskId));
+            SavePublishEvent(appSassionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveDirectumTaskPublishEvent(taskId));
         }
 
         public void SavePriceCalculationPublishEvent(Guid appSassionId, Guid priceCalculationId)
         {
-            _appSessions.Where(x => x.AppSessionId != appSassionId).ToList()
-                .ForEach(x => x.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSavePriceCalculationPublishEvent(priceCalculationId));
+            SavePublishEvent(appSassionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSavePriceCalculationPublishEvent(priceCalculationId));
         }
 
         public void SaveIncomingDocumentPublishEvent(Guid appSassionId, Guid documentId)
         {
-            _appSessions.Where(x => x.AppSessionId != appSassionId).ToList()
-                .ForEach(x => x.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveIncomingDocumentPublishEvent(documentId));
+            SavePublishEvent(appSassionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveIncomingDocumentPublishEvent(documentId));
+        }
+
+
+        private void SavePublishEvent(Guid appSessionId, Action<AppSession> publishEvent)
+        {
+            foreach (var appSession in _appSessions.Where(x => x.AppSessionId != appSessionId).ToList())
+            {
+                try
+                {
+                    publishEvent.Invoke(appSession);
+                }
+                catch (Exception e)
+                {
+                }
+            }
         }
     }
 }
