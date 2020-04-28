@@ -1,0 +1,113 @@
+﻿<UserControl x:Class="HVTApp.UI.Modules.Directum.DirectumTasksIncomingToLateView"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:dataPresenter="http://infragistics.com/DataPresenter"
+              xmlns:controls="http://infragistics.com/Windows">
+
+    <Grid>
+        
+		<dataPresenter:XamDataGrid x:Name="DirectumTaskLookupListGrid" 
+                                   Grid.Row="0" 
+                                   DataSource="{Binding Items}"
+                                   SelectedDataItem="{Binding SelectedItem}">
+
+            <dataPresenter:XamDataGrid.InputBindings>
+                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=OpenDirectumTaskCommand, Mode=OneWay}" />
+            </dataPresenter:XamDataGrid.InputBindings>
+
+			<dataPresenter:XamDataGrid.FieldLayouts>
+				<dataPresenter:FieldLayout>
+
+                    <dataPresenter:FieldLayout.RecordFilters>
+                        <dataPresenter:RecordFilter FieldName="IsActual">
+                            <dataPresenter:RecordFilter.Conditions>
+                                <controls:ComparisonCondition Operator="Equals" Value="True" />
+                            </dataPresenter:RecordFilter.Conditions>
+                        </dataPresenter:RecordFilter>
+                    </dataPresenter:FieldLayout.RecordFilters>
+
+                    <dataPresenter:FieldLayout.Fields>
+                        
+                    <dataPresenter:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Group.Title}" Label="Тема" Width="400" AllowResize="True"/>
+                    <dataPresenter:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Group.Author}" Label="Инициатор" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <dataPresenter:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding Entity.StartResult}" Label="Старт" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
+                    <dataPresenter:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding FinishPlan}" Label="Срок" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
+                    <dataPresenter:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding FinishPerformer}" Label="Исполнено" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
+                    <dataPresenter:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding FinishAuthor}" Label="Принято" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
+                    <dataPresenter:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Direction}" Label="Цель" Width="Auto" AllowResize="False" />
+                    <dataPresenter:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Status}" Label="Статус" Width="Auto" AllowResize="False" />
+                    <dataPresenter:CheckBoxField Name="IsActual" BindingType="UseAlternateBinding" AlternateBinding="{Binding IsActual}" Label="A" Width="Auto" AllowResize="False"/>
+                    <dataPresenter:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Id}" Label="Id" Width="Auto" AllowResize="True" />
+
+					</dataPresenter:FieldLayout.Fields>
+				</dataPresenter:FieldLayout>
+
+			</dataPresenter:XamDataGrid.FieldLayouts>
+		</dataPresenter:XamDataGrid>
+        
+    </Grid>
+
+</UserControl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

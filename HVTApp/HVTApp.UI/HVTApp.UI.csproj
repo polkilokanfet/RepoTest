@@ -138,6 +138,9 @@
     <Compile Include="Modules\Directum\DirectumTask\TabDirectumTask.xaml.cs">
       <DependentUpon>TabDirectumTask.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Directum\Incoming\DirectumTasksIncomingToLateView.xaml.cs">
+      <DependentUpon>DirectumTasksIncomingToLateView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Directum\Incoming\DirectumTasksIncomingView.xaml.cs">
       <DependentUpon>DirectumTasksIncomingView.xaml</DependentUpon>
     </Compile>
@@ -833,6 +836,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\Directum\DirectumTask\TabDirectumTask.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Directum\Incoming\DirectumTasksIncomingToLateView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

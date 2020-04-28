@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
 using HVTApp.Model.Events;
-using HVTApp.Model.POCOs;
 using HVTApp.UI.Lookup;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;

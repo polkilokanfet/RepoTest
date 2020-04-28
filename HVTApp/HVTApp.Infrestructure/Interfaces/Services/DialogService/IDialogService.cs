@@ -11,9 +11,8 @@ namespace HVTApp.Infrastructure.Interfaces.Services.DialogService
             where TView : IDialog;
         bool? ShowDialog<TViewModel>(TViewModel viewModel) where TViewModel : IDialogRequestClose;
 
-        void RegisterShow<TViewModel, TView>()
-            where TView : UserControl;
-        void Show<TViewModel>(TViewModel viewModel);
+        void RegisterShow<TViewModel, TView>() where TView : UserControl;
+        void Show<TViewModel>(TViewModel viewModel, string title = null);
     }
 
     public interface IDialog

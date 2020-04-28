@@ -73,11 +73,15 @@ namespace HVTApp.Services.DialogService
         }
 
 
-        public void Show<TViewModel>(TViewModel viewModel)
+        public void Show<TViewModel>(TViewModel viewModel, string title = null)
         {
             var content = (UserControl)Activator.CreateInstance(ShowMappings[typeof(TViewModel)]);
             content.DataContext = viewModel;
-            var window = new Window {Content = content};
+            var window = new Window
+            {
+                Content = content,
+                Title = title ?? string.Empty
+            };
             window.Show();
         }
 
