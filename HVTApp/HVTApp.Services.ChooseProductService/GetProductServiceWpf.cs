@@ -61,7 +61,7 @@ namespace HVTApp.Services.GetProductService
             {
                 var complectViewModel = _container.Resolve<ComplectsViewModel>();
                 complectViewModel.ShowDialog();
-                return complectViewModel.IsSelected ? complectViewModel.SelectedItem : originProduct;
+                return complectViewModel.IsSelected ? complectViewModel.SelectedItem.Product : originProduct;
             }
 
             //выходим, если пользователь отменил выбор продукта.

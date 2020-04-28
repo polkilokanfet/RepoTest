@@ -66,7 +66,8 @@ namespace EventServiceClient2
         {
             try
             {
-                publishEvent.Invoke();
+                if (_service != null && _service.State != CommunicationState.Faulted)
+                    publishEvent.Invoke();
             }
             catch (Exception e)
             {

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
@@ -12,10 +13,10 @@ namespace HVTApp.Services.GetProductService.Complects
 {
     public class ComplectsViewModel : ViewModelBase
     {
-        private Product _selectedItem;
-        public ObservableCollection<Product> Items { get; }
+        private Complect _selectedItem;
+        public ObservableCollection<Complect> Items { get; }
 
-        public Product SelectedItem
+        public Complect SelectedItem
         {
             get { return _selectedItem; }
             set
@@ -34,8 +35,8 @@ namespace HVTApp.Services.GetProductService.Complects
         public ComplectsViewModel(IUnityContainer container) : base(container)
         {
             var complectsParameter = GlobalAppProperties.Actual.ComplectsParameter;
-            var complects = UnitOfWork.Repository<Product>().Find(x => x.ProductBlock.Parameters.ContainsById(complectsParameter));
-            Items = new ObservableCollection<Product>(complects);
+            var complects = UnitOfWork.Repository<Product>().Find(x => x.ProductBlock.Parameters.ContainsById(complectsParameter)).Select(x => new Complect(x));
+            Items = new ObservableCollection<Complect>(complects);
 
             SelectCommand = new DelegateCommand(
                 () =>
@@ -52,8 +53,9 @@ namespace HVTApp.Services.GetProductService.Complects
                     complectViewModel.ShowDialog();
                     if (complectViewModel.IsSaved)
                     {
-                        Items.Add(complectViewModel.Product.Model);
-                        SelectedItem = complectViewModel.Product.Model;
+                        var complect = new Complect(complectViewModel.Product.Model);
+                        Items.Add(complect);
+                        SelectedItem = complect;
                     }
                 });
         }
