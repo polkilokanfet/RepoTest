@@ -110,7 +110,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
                     var salesUnit = GroupsPotential.SelectedUnit?.Model ??
                                     GroupsPotential.SelectedGroup.Unit;
                     var productStructureViewModel = new ProductStructureViewModel(salesUnit);
-                    Container.Resolve<IDialogService>().Show(productStructureViewModel);
+                    Container.Resolve<IDialogService>().Show(productStructureViewModel, "Структура продукта");
                 }, 
                 () => GroupsPotential.SelectedItem != null);
         }

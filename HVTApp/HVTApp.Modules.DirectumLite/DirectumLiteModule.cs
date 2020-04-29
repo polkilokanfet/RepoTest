@@ -28,7 +28,7 @@ namespace HVTApp.Modules.DirectumLite
             var viewModel = new DirectumTasksIncomingViewModel(Container);
             var items = viewModel.Items.ToList();
             viewModel.Items.Clear();
-            viewModel.Items.AddRange(items.Where(x => x.FinishPlan < DateTime.Now || (x.Performer.Id == GlobalAppProperties.User.Id && !x.StartPerformer.HasValue)));
+            viewModel.Items.AddRange(items.Where(x => x.IsActual && (x.FinishPlan < DateTime.Now || (x.Performer.Id == GlobalAppProperties.User.Id && !x.StartPerformer.HasValue))));
             if (viewModel.Items.Any())
             {
                 Container.Resolve<IDialogService>().Show(viewModel, "Новые задачи и задачи с истекшим сроком исполнения/проверки");
