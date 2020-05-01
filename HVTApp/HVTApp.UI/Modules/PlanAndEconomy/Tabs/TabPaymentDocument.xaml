@@ -13,7 +13,7 @@
     <infRib:RibbonGroup Caption="Документ">
         <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveDocumentCommand}" SmallImage="/HVTApp.UI;component/Images/save.png"/>
         <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveDocumentCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>
-        <infRib:ButtonTool Caption="Закрыть" Command="{Binding GoBackCommand}" SmallImage="/HVTApp.UI;component/Images/close.png"/>
+        <infRib:ButtonTool Caption="Назад" Command="{Binding GoBackCommand}" SmallImage="/HVTApp.UI;component/Images/ar_back.png"/>
     </infRib:RibbonGroup>
         
 </inf:RibbonTabItemWithViewModel>

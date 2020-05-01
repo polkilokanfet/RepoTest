@@ -7,22 +7,22 @@ namespace EventService
     public interface IEventService
     {
         [OperationContract]
-        bool Connect(Guid appSassionId);
+        bool Connect(Guid appSessionId, Guid userId);
+
+        [OperationContract]
+        void Disconnect(Guid appSessionId);
+
 
         [OperationContract(IsOneWay = true)]
-        void Disconnect(Guid appSassionId);
-
-
-        [OperationContract(IsOneWay = true)]
-        void SaveDirectumTaskPublishEvent(Guid appSassionId, Guid taskId);
+        void SaveDirectumTaskPublishEvent(Guid appSessionId, Guid taskId);
 
         [OperationContract(IsOneWay = true)]
-        void SavePriceCalculationPublishEvent(Guid appSassionId, Guid priceCalculationId);
+        void SavePriceCalculationPublishEvent(Guid appSessionId, Guid priceCalculationId);
 
         [OperationContract(IsOneWay = true)]
-        void SaveIncomingRequestPublishEvent(Guid appSassionId, Guid requestId);
+        void SaveIncomingRequestPublishEvent(Guid appSessionId, Guid requestId);
 
         [OperationContract(IsOneWay = true)]
-        void SaveIncomingDocumentPublishEvent(Guid appSassionId, Guid documentId);
+        void SaveIncomingDocumentPublishEvent(Guid appSessionId, Guid documentId);
     }
 }

@@ -10,42 +10,43 @@ namespace EventService
     {
         private readonly List<AppSession> _appSessions = new List<AppSession>();
 
-        public bool Connect(Guid appSassionId)
+        public bool Connect(Guid appSessionId, Guid userId)
         {
-            if (_appSessions.Select(x => x.AppSessionId).Contains(appSassionId))
+            if (_appSessions.Select(x => x.AppSessionId).Contains(appSessionId))
                 return false;
 
-            _appSessions.Add(new AppSession(appSassionId, OperationContext.Current));
+            _appSessions.Add(new AppSession(appSessionId, userId, OperationContext.Current));
             return true;
         }
 
-        public void Disconnect(Guid appSassionId)
+        public void Disconnect(Guid appSessionId)
         {
-            var user = _appSessions.SingleOrDefault(x => x.AppSessionId == appSassionId);
-            if (user != null)
-                _appSessions.Remove(user);
+            var appSession = _appSessions.SingleOrDefault(x => x.AppSessionId == appSessionId);
+            if (appSession != null)
+                _appSessions.Remove(appSession);
         }
 
-        public void SaveIncomingRequestPublishEvent(Guid appSassionId, Guid requestId)
+        #region SavePublishEvent
+
+        public void SaveIncomingRequestPublishEvent(Guid appSessionId, Guid requestId)
         {
-            SavePublishEvent(appSassionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveIncomingRequestPublishEvent(requestId));
+            SavePublishEvent(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveIncomingRequestPublishEvent(requestId));
         }
 
-        public void SaveDirectumTaskPublishEvent(Guid appSassionId, Guid taskId)
+        public void SaveDirectumTaskPublishEvent(Guid appSessionId, Guid taskId)
         {
-            SavePublishEvent(appSassionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveDirectumTaskPublishEvent(taskId));
+            SavePublishEvent(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveDirectumTaskPublishEvent(taskId));
         }
 
-        public void SavePriceCalculationPublishEvent(Guid appSassionId, Guid priceCalculationId)
+        public void SavePriceCalculationPublishEvent(Guid appSessionId, Guid priceCalculationId)
         {
-            SavePublishEvent(appSassionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSavePriceCalculationPublishEvent(priceCalculationId));
+            SavePublishEvent(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSavePriceCalculationPublishEvent(priceCalculationId));
         }
 
-        public void SaveIncomingDocumentPublishEvent(Guid appSassionId, Guid documentId)
+        public void SaveIncomingDocumentPublishEvent(Guid appSessionId, Guid documentId)
         {
-            SavePublishEvent(appSassionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveIncomingDocumentPublishEvent(documentId));
+            SavePublishEvent(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveIncomingDocumentPublishEvent(documentId));
         }
-
 
         private void SavePublishEvent(Guid appSessionId, Action<AppSession> publishEvent)
         {
@@ -60,5 +61,8 @@ namespace EventService
                 }
             }
         }
+
+        #endregion
+
     }
 }

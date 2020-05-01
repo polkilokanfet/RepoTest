@@ -38,7 +38,11 @@ namespace HVTApp.Infrastructure
 
             GoForwardCommand = new DelegateCommand
             (
-                () => { RegionManager.Regions[RegionNames.ContentRegion].NavigationService.Journal.GoForward(); },
+                () =>
+                {
+                    if (RegionManager.Regions[RegionNames.ContentRegion].NavigationService.Journal.CanGoForward)
+                        RegionManager.Regions[RegionNames.ContentRegion].NavigationService.Journal.GoForward();
+                },
                 () => RegionManager.Regions[RegionNames.ContentRegion].NavigationService.Journal.CanGoForward
             );
 
@@ -52,7 +56,8 @@ namespace HVTApp.Infrastructure
 
         protected virtual void GoBackCommand_Execute()
         {
-            RegionManager.Regions[RegionNames.ContentRegion].NavigationService.Journal.GoBack();
+            if (RegionManager.Regions[RegionNames.ContentRegion].NavigationService.Journal.CanGoBack)
+                RegionManager.Regions[RegionNames.ContentRegion].NavigationService.Journal.GoBack();
         }
     }
 }

@@ -17,7 +17,7 @@ using HVTApp.UI.PriceCalculations.View;
 
 namespace EventServiceClient2
 {
-    public class EventServiceClient : ServiceReference1.IEventServiceCallback
+    public class EventServiceClient : IEventServiceCallback
     {
         private readonly Guid _appSessionId = Guid.NewGuid();
         private readonly IUnityContainer _container;
@@ -35,8 +35,14 @@ namespace EventServiceClient2
         {
             try
             {
-                _service = new ServiceReference1.EventServiceClient(new InstanceContext(this));
-                if (_service.Connect(_appSessionId))
+                var binding = new NetTcpBinding(SecurityMode.None, true);
+#if DEBUG
+                var tcpBaseAddress = new Uri("net.tcp://localhost:8302/EventService.EventService");
+#else
+                var tcpBaseAddress = new Uri("net.tcp://EKB1461:8302/EventService.EventService");
+#endif
+                _service = new ServiceReference1.EventServiceClient(new InstanceContext(this), binding, new EndpointAddress(tcpBaseAddress));
+                if (_service.Connect(_appSessionId, _userId))
                 {
                     //Задачи
                     _eventAggregator.GetEvent<AfterSaveDirectumTaskSyncEvent>().Subscribe(task => { SavePublishEvent(
@@ -81,7 +87,6 @@ namespace EventServiceClient2
             {
                 _service.Disconnect(_appSessionId);
             }
-            
         }
 
         public void OnSaveDirectumTaskPublishEvent(Guid taskId)

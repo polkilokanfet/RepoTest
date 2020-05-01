@@ -16,40 +16,40 @@ namespace EventServiceClient2.ServiceReference1 {
     public interface IEventService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/Connect", ReplyAction="http://tempuri.org/IEventService/ConnectResponse")]
-        bool Connect(System.Guid appSassionId);
+        bool Connect(System.Guid appSessionId, System.Guid userId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/Connect", ReplyAction="http://tempuri.org/IEventService/ConnectResponse")]
-        System.Threading.Tasks.Task<bool> ConnectAsync(System.Guid appSassionId);
+        System.Threading.Tasks.Task<bool> ConnectAsync(System.Guid appSessionId, System.Guid userId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/Disconnect")]
-        void Disconnect(System.Guid appSassionId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/Disconnect", ReplyAction="http://tempuri.org/IEventService/DisconnectResponse")]
+        void Disconnect(System.Guid appSessionId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/Disconnect")]
-        System.Threading.Tasks.Task DisconnectAsync(System.Guid appSassionId);
-        
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/SaveDirectumTaskPublishEvent")]
-        void SaveDirectumTaskPublishEvent(System.Guid appSassionId, System.Guid taskId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/Disconnect", ReplyAction="http://tempuri.org/IEventService/DisconnectResponse")]
+        System.Threading.Tasks.Task DisconnectAsync(System.Guid appSessionId);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/SaveDirectumTaskPublishEvent")]
-        System.Threading.Tasks.Task SaveDirectumTaskPublishEventAsync(System.Guid appSassionId, System.Guid taskId);
+        void SaveDirectumTaskPublishEvent(System.Guid appSessionId, System.Guid taskId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/SaveDirectumTaskPublishEvent")]
+        System.Threading.Tasks.Task SaveDirectumTaskPublishEventAsync(System.Guid appSessionId, System.Guid taskId);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/SavePriceCalculationPublishEvent")]
-        void SavePriceCalculationPublishEvent(System.Guid appSassionId, System.Guid priceCalculationId);
+        void SavePriceCalculationPublishEvent(System.Guid appSessionId, System.Guid priceCalculationId);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/SavePriceCalculationPublishEvent")]
-        System.Threading.Tasks.Task SavePriceCalculationPublishEventAsync(System.Guid appSassionId, System.Guid priceCalculationId);
+        System.Threading.Tasks.Task SavePriceCalculationPublishEventAsync(System.Guid appSessionId, System.Guid priceCalculationId);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/SaveIncomingRequestPublishEvent")]
-        void SaveIncomingRequestPublishEvent(System.Guid appSassionId, System.Guid requestId);
+        void SaveIncomingRequestPublishEvent(System.Guid appSessionId, System.Guid requestId);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/SaveIncomingRequestPublishEvent")]
-        System.Threading.Tasks.Task SaveIncomingRequestPublishEventAsync(System.Guid appSassionId, System.Guid requestId);
+        System.Threading.Tasks.Task SaveIncomingRequestPublishEventAsync(System.Guid appSessionId, System.Guid requestId);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/SaveIncomingDocumentPublishEvent")]
-        void SaveIncomingDocumentPublishEvent(System.Guid appSassionId, System.Guid documentId);
+        void SaveIncomingDocumentPublishEvent(System.Guid appSessionId, System.Guid documentId);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/SaveIncomingDocumentPublishEvent")]
-        System.Threading.Tasks.Task SaveIncomingDocumentPublishEventAsync(System.Guid appSassionId, System.Guid documentId);
+        System.Threading.Tasks.Task SaveIncomingDocumentPublishEventAsync(System.Guid appSessionId, System.Guid documentId);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -96,52 +96,52 @@ namespace EventServiceClient2.ServiceReference1 {
                 base(callbackInstance, binding, remoteAddress) {
         }
         
-        public bool Connect(System.Guid appSassionId) {
-            return base.Channel.Connect(appSassionId);
+        public bool Connect(System.Guid appSessionId, System.Guid userId) {
+            return base.Channel.Connect(appSessionId, userId);
         }
         
-        public System.Threading.Tasks.Task<bool> ConnectAsync(System.Guid appSassionId) {
-            return base.Channel.ConnectAsync(appSassionId);
+        public System.Threading.Tasks.Task<bool> ConnectAsync(System.Guid appSessionId, System.Guid userId) {
+            return base.Channel.ConnectAsync(appSessionId, userId);
         }
         
-        public void Disconnect(System.Guid appSassionId) {
-            base.Channel.Disconnect(appSassionId);
+        public void Disconnect(System.Guid appSessionId) {
+            base.Channel.Disconnect(appSessionId);
         }
         
-        public System.Threading.Tasks.Task DisconnectAsync(System.Guid appSassionId) {
-            return base.Channel.DisconnectAsync(appSassionId);
+        public System.Threading.Tasks.Task DisconnectAsync(System.Guid appSessionId) {
+            return base.Channel.DisconnectAsync(appSessionId);
         }
         
-        public void SaveDirectumTaskPublishEvent(System.Guid appSassionId, System.Guid taskId) {
-            base.Channel.SaveDirectumTaskPublishEvent(appSassionId, taskId);
+        public void SaveDirectumTaskPublishEvent(System.Guid appSessionId, System.Guid taskId) {
+            base.Channel.SaveDirectumTaskPublishEvent(appSessionId, taskId);
         }
         
-        public System.Threading.Tasks.Task SaveDirectumTaskPublishEventAsync(System.Guid appSassionId, System.Guid taskId) {
-            return base.Channel.SaveDirectumTaskPublishEventAsync(appSassionId, taskId);
+        public System.Threading.Tasks.Task SaveDirectumTaskPublishEventAsync(System.Guid appSessionId, System.Guid taskId) {
+            return base.Channel.SaveDirectumTaskPublishEventAsync(appSessionId, taskId);
         }
         
-        public void SavePriceCalculationPublishEvent(System.Guid appSassionId, System.Guid priceCalculationId) {
-            base.Channel.SavePriceCalculationPublishEvent(appSassionId, priceCalculationId);
+        public void SavePriceCalculationPublishEvent(System.Guid appSessionId, System.Guid priceCalculationId) {
+            base.Channel.SavePriceCalculationPublishEvent(appSessionId, priceCalculationId);
         }
         
-        public System.Threading.Tasks.Task SavePriceCalculationPublishEventAsync(System.Guid appSassionId, System.Guid priceCalculationId) {
-            return base.Channel.SavePriceCalculationPublishEventAsync(appSassionId, priceCalculationId);
+        public System.Threading.Tasks.Task SavePriceCalculationPublishEventAsync(System.Guid appSessionId, System.Guid priceCalculationId) {
+            return base.Channel.SavePriceCalculationPublishEventAsync(appSessionId, priceCalculationId);
         }
         
-        public void SaveIncomingRequestPublishEvent(System.Guid appSassionId, System.Guid requestId) {
-            base.Channel.SaveIncomingRequestPublishEvent(appSassionId, requestId);
+        public void SaveIncomingRequestPublishEvent(System.Guid appSessionId, System.Guid requestId) {
+            base.Channel.SaveIncomingRequestPublishEvent(appSessionId, requestId);
         }
         
-        public System.Threading.Tasks.Task SaveIncomingRequestPublishEventAsync(System.Guid appSassionId, System.Guid requestId) {
-            return base.Channel.SaveIncomingRequestPublishEventAsync(appSassionId, requestId);
+        public System.Threading.Tasks.Task SaveIncomingRequestPublishEventAsync(System.Guid appSessionId, System.Guid requestId) {
+            return base.Channel.SaveIncomingRequestPublishEventAsync(appSessionId, requestId);
         }
         
-        public void SaveIncomingDocumentPublishEvent(System.Guid appSassionId, System.Guid documentId) {
-            base.Channel.SaveIncomingDocumentPublishEvent(appSassionId, documentId);
+        public void SaveIncomingDocumentPublishEvent(System.Guid appSessionId, System.Guid documentId) {
+            base.Channel.SaveIncomingDocumentPublishEvent(appSessionId, documentId);
         }
         
-        public System.Threading.Tasks.Task SaveIncomingDocumentPublishEventAsync(System.Guid appSassionId, System.Guid documentId) {
-            return base.Channel.SaveIncomingDocumentPublishEventAsync(appSassionId, documentId);
+        public System.Threading.Tasks.Task SaveIncomingDocumentPublishEventAsync(System.Guid appSessionId, System.Guid documentId) {
+            return base.Channel.SaveIncomingDocumentPublishEventAsync(appSessionId, documentId);
         }
     }
 }

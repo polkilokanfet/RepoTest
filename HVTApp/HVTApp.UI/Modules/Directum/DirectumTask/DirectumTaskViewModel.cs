@@ -253,6 +253,7 @@ namespace HVTApp.UI.Modules.Directum
                     DirectumTask.AcceptChanges();
                     UnitOfWork.SaveChanges();
 
+                    ((DelegateCommand)PerformCommand).RaiseCanExecuteChanged();
                     GoBackCommand.Execute(null);
                 });
 
