@@ -56,6 +56,10 @@ namespace EventService
                 {
                     publishEvent.Invoke(appSession);
                 }
+                catch (TimeoutException timeoutException)
+                {
+                    _appSessions.Remove(appSession);
+                }
                 catch (Exception e)
                 {
                 }
@@ -64,5 +68,18 @@ namespace EventService
 
         #endregion
 
+        public void Close()
+        {
+            foreach (var appSession in _appSessions)
+            {
+                try
+                {
+                    appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnServiceDisposeEvent();
+                }
+                catch (Exception e)
+                {
+                }
+            }
+        }
     }
 }

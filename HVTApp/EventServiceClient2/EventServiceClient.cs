@@ -46,19 +46,19 @@ namespace EventServiceClient2
                 {
                     //Задачи
                     _eventAggregator.GetEvent<AfterSaveDirectumTaskSyncEvent>().Subscribe(task => { SavePublishEvent(
-                        () => _service.SaveDirectumTaskPublishEvent(_appSessionId, task.Id)); }, true);
+                        () => _service?.SaveDirectumTaskPublishEvent(_appSessionId, task.Id)); }, true);
 
                     //Калькуляции себестоимости
                     _eventAggregator.GetEvent<AfterSavePriceCalculationSyncEvent>().Subscribe(priceCalculation => { SavePublishEvent(
-                        () => _service.SavePriceCalculationPublishEvent(_appSessionId, priceCalculation.Id)); }, true);
+                        () => _service?.SavePriceCalculationPublishEvent(_appSessionId, priceCalculation.Id)); }, true);
 
                     //Запросы
                     _eventAggregator.GetEvent<AfterSaveIncomingRequestSyncEvent>().Subscribe(request => { SavePublishEvent(
-                        () => _service.SaveIncomingRequestPublishEvent(_appSessionId, request.Id)); }, true);
+                        () => _service?.SaveIncomingRequestPublishEvent(_appSessionId, request.Id)); }, true);
 
                     //Входящие документы
                     _eventAggregator.GetEvent<AfterSaveIncomingDocumentSyncEvent>().Subscribe(document => { SavePublishEvent(
-                        () => _service.SaveIncomingDocumentPublishEvent(_appSessionId, document.Id)); }, true);
+                        () => _service?.SaveIncomingDocumentPublishEvent(_appSessionId, document.Id)); }, true);
                 }
             }
             catch (Exception e)
@@ -85,12 +85,22 @@ namespace EventServiceClient2
         {
             if (_service != null && _service.State != CommunicationState.Faulted)
             {
-                _service.Disconnect(_appSessionId);
+                try
+                {
+                    _service.Disconnect(_appSessionId);
+                }
+                catch (TimeoutException timeoutException)
+                {
+                }
             }
         }
 
+        #region SavePublishEvent
+
         public void OnSaveDirectumTaskPublishEvent(Guid taskId)
         {
+            if (_service == null) return;
+
             var task = _container.Resolve<IUnitOfWork>().Repository<DirectumTask>().GetById(taskId);
 
             var allowAccept =
@@ -117,6 +127,8 @@ namespace EventServiceClient2
 
         public void OnSavePriceCalculationPublishEvent(Guid calculationId)
         {
+            if (_service == null) return;
+
             var calculation = _container.Resolve<IUnitOfWork>().Repository<PriceCalculation>().GetById(calculationId);
 
             var author = calculation.PriceCalculationItems.FirstOrDefault()?.SalesUnits.FirstOrDefault()?.Project.Manager;
@@ -140,6 +152,8 @@ namespace EventServiceClient2
 
         public void OnSaveIncomingRequestPublishEvent(Guid requestId)
         {
+            if (_service == null) return;
+
             var request = _container.Resolve<IUnitOfWork>().Repository<IncomingRequest>().GetById(requestId);
 
             var canInstruct = GlobalAppProperties.User.RoleCurrent == Role.Admin ||
@@ -163,6 +177,8 @@ namespace EventServiceClient2
 
         public void OnSaveIncomingDocumentPublishEvent(Guid documentId)
         {
+            if (_service == null) return;
+
             var unitOfWork = _container.Resolve<IUnitOfWork>();
             var document = unitOfWork.Repository<Document>().GetById(documentId);
 
@@ -188,6 +204,13 @@ namespace EventServiceClient2
                 });
                 Popup.Popup.ShowPopup(message, action);
             }
+        }
+
+        #endregion
+
+        public void OnServiceDisposeEvent()
+        {
+            _service = null;
         }
     }
 }

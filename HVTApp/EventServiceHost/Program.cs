@@ -3,22 +3,28 @@ using System.ServiceModel;
 using System.ServiceModel.Description;
 using System.ServiceModel.Discovery;
 using EventService;
+using EventService1 = EventService.EventService;
 
 namespace EventServiceHost
 {
     class Program
     {
+        private static readonly EventService1 EventService = new EventService1();
+        #if DEBUG
+        private static string Address = "localhost";
+        #else
+        private static string Address = "EKB1461";
+        #endif
+
         static void Main(string[] args)
         {
-#if DEBUG
-            var tcpBaseAddress = new Uri("net.tcp://localhost:8302/EventService.EventService");
-            var httpBaseAddress = new Uri("http://localhost:8301/EventService.EventService");
-#else
-            var tcpBaseAddress = new Uri("net.tcp://EKB1461:8302/EventService.EventService");
-            var httpBaseAddress = new Uri("http://EKB1461:8301/EventService.EventService");
-#endif
+
+            var tcpBaseAddress = new Uri($"net.tcp://{Address}:8302/EventService.EventService");
+            var httpBaseAddress = new Uri($"http://{Address}:8301/EventService.EventService");
+
             var binding = new NetTcpBinding(SecurityMode.None, true);
-            using (var host = new ServiceHost(typeof(EventService.EventService), tcpBaseAddress, httpBaseAddress))
+
+            using (var host = new ServiceHost(EventService, tcpBaseAddress, httpBaseAddress))
             {
                 host.AddServiceEndpoint(typeof(IEventService), binding, "");
                 host.Description.Behaviors.Add(new ServiceMetadataBehavior { HttpGetEnabled = true });
@@ -27,22 +33,13 @@ namespace EventServiceHost
                 host.Description.Behaviors.Add(new ServiceDiscoveryBehavior());
                 host.AddServiceEndpoint(new UdpDiscoveryEndpoint());
 
-                host.Opening += host_Opening;
-                host.Opened += host_Opened;
+                host.Closing += (sender, eventArgs) => { EventService.Close(); };
+                host.Opening += (sender, eventArgs) => { Console.WriteLine($"Opening service on {Address}..."); };
+                host.Opened += (sender, eventArgs) => { Console.WriteLine("Service is ready...\nPress <enter> to terminate service."); };
                 host.Open();
+
                 Console.ReadLine();
             }
-        }
-
-        private static void host_Opened(object sender, EventArgs e)
-        {
-            Console.WriteLine("Service is ready...");
-            Console.WriteLine("Press <enter> to terminate service.");
-        }
-
-        private static void host_Opening(object sender, EventArgs e)
-        {
-            Console.WriteLine("Opening service...");
         }
     }
 }

@@ -42,6 +42,9 @@
   <wsdl:message name="IEventService_SaveIncomingDocumentPublishEvent_InputMessage">
     <wsdl:part name="parameters" element="tns:SaveIncomingDocumentPublishEvent" />
   </wsdl:message>
+  <wsdl:message name="IEventService_OnServiceDisposeEvent_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnServiceDisposeEvent" />
+  </wsdl:message>
   <wsdl:message name="IEventService_OnSaveDirectumTaskPublishEvent_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnSaveDirectumTaskPublishEvent" />
   </wsdl:message>
@@ -74,6 +77,9 @@
     </wsdl:operation>
     <wsdl:operation name="SaveIncomingDocumentPublishEvent">
       <wsdl:input wsaw:Action="http://tempuri.org/IEventService/SaveIncomingDocumentPublishEvent" message="tns:IEventService_SaveIncomingDocumentPublishEvent_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OnServiceDisposeEvent">
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnServiceDisposeEvent" message="tns:IEventService_OnServiceDisposeEvent_OutputCallbackMessage" />
     </wsdl:operation>
     <wsdl:operation name="OnSaveDirectumTaskPublishEvent">
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnSaveDirectumTaskPublishEvent" message="tns:IEventService_OnSaveDirectumTaskPublishEvent_OutputCallbackMessage" />
@@ -132,6 +138,12 @@
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="OnServiceDisposeEvent">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/OnServiceDisposeEvent" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="OnSaveDirectumTaskPublishEvent">
       <soap12:operation soapAction="http://tempuri.org/IEventService/OnSaveDirectumTaskPublishEvent" style="document" />

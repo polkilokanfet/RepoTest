@@ -7,6 +7,9 @@ namespace EventService
     public interface IEventServiceCallback
     {
         [OperationContract(IsOneWay = true)]
+        void OnServiceDisposeEvent();
+
+        [OperationContract(IsOneWay = true)]
         void OnSaveDirectumTaskPublishEvent(Guid taskId);
 
         [OperationContract(IsOneWay = true)]
