@@ -4,6 +4,8 @@ using System.ServiceModel;
 using EventServiceClient2.ServiceReference1;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Interfaces.Services;
+using HVTApp.Infrastructure.Interfaces.Services.EventService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.Events;
@@ -17,7 +19,7 @@ using HVTApp.UI.PriceCalculations.View;
 
 namespace EventServiceClient2
 {
-    public class EventServiceClient : IEventServiceCallback
+    public class EventServiceClient : IEventServiceClient, EventServiceClient2.ServiceReference1.IEventServiceCallback
     {
         private readonly Guid _appSessionId = Guid.NewGuid();
         private readonly IUnityContainer _container;
@@ -211,6 +213,30 @@ namespace EventServiceClient2
         public void OnServiceDisposeEvent()
         {
             _service = null;
+        }
+
+
+
+        public void SendMessageToChat(string message)
+        {
+            _service?.SendMessageToChat(_userId, message);
+        }
+
+        public void SendMessageToUser(Guid recipientId, string message)
+        {
+            _service?.SendMessageToUser(_userId, recipientId, message);
+        }
+
+
+
+        public void OnSendMessageToChat(Guid authorId, string message)
+        {
+            _container.Resolve<IMessenger>().ReceiveChatMessage(authorId, message);
+        }
+
+        public void OnSendMessageToUser(Guid authorId, string message)
+        {
+            _container.Resolve<IMessenger>().ReceivePersonalMessage(authorId, message);
         }
     }
 }

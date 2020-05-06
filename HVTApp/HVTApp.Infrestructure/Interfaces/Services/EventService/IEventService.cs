@@ -1,7 +1,7 @@
 using System;
 using System.ServiceModel;
 
-namespace EventService
+namespace HVTApp.Infrastructure.Interfaces.Services.EventService
 {
     [ServiceContract(CallbackContract = typeof(IEventServiceCallback))]
     public interface IEventService
@@ -11,6 +11,13 @@ namespace EventService
 
         [OperationContract]
         void Disconnect(Guid appSessionId);
+
+
+        [OperationContract]
+        void SendMessageToChat(Guid authorId, string message);
+
+        [OperationContract]
+        void SendMessageToUser(Guid authorId, Guid recipientId, string message);
 
 
         [OperationContract(IsOneWay = true)]

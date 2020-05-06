@@ -12,6 +12,7 @@ using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.AuthenticationService;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
+using HVTApp.Infrastructure.Interfaces.Services.EventService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Prism;
 using HVTApp.Infrastructure.Services;
@@ -22,6 +23,7 @@ using HVTApp.Modules.BaseEntities;
 using HVTApp.Modules.BookRegistration;
 using HVTApp.Modules.Director;
 using HVTApp.Modules.DirectumLite;
+using HVTApp.Modules.Messenger;
 using HVTApp.Modules.PlanAndEconomy;
 using HVTApp.Modules.PriceMaking;
 using HVTApp.Modules.Products;
@@ -68,10 +70,7 @@ namespace HVTApp
         {
             SetGlobalAppProperties();
             CheckLastDeveloperVizit();
-            if (GlobalAppProperties.User.RoleCurrent != Role.Constructor)
-            {
-                Container.Resolve<EventServiceClient>().Start();
-            }
+            Container.Resolve<IEventServiceClient>().Start();
             Application.Current.MainWindow.Show();
         }
 
@@ -135,7 +134,8 @@ namespace HVTApp
             Container.RegisterType<IPriceService, PriceService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IShippingService, ShippService>(new ContainerControlledLifetimeManager());
 
-            Container.RegisterType<EventServiceClient>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IEventServiceClient, EventServiceClient>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IMessenger, Messenger>(new ContainerControlledLifetimeManager());
 
         }
 
@@ -155,6 +155,7 @@ namespace HVTApp
             AddModuleIfInRole(catalog, typeof(BookRegistrationModule));
             AddModuleIfInRole(catalog, typeof(ReportsModule));
 
+            //catalog.AddModule(typeof(MessengerModule));
             catalog.AddModule(typeof(BaseEntitiesModule));
             catalog.AddModule(typeof(SettingsModule));
 

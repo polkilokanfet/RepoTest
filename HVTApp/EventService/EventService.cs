@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
+using HVTApp.Infrastructure.Interfaces.Services.EventService;
 
 namespace EventService
 {
@@ -75,6 +76,44 @@ namespace EventService
                 try
                 {
                     appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnServiceDisposeEvent();
+                }
+                catch (Exception e)
+                {
+                }
+            }
+        }
+
+
+
+        public void SendMessageToChat(Guid authorId, string message)
+        {
+            foreach (var appSession in _appSessions.Where(x => x.UserId != authorId).ToList())
+            {
+                try
+                {
+                    appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSendMessageToChat(authorId, message);
+                }
+                catch (TimeoutException timeoutException)
+                {
+                    _appSessions.Remove(appSession);
+                }
+                catch (Exception e)
+                {
+                }
+            }
+        }
+
+        public void SendMessageToUser(Guid authorId, Guid recipientId, string message)
+        {
+            foreach (var appSession in _appSessions.Where(x => x.UserId == recipientId).ToList())
+            {
+                try
+                {
+                    appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSendMessageToUser(authorId, message);
+                }
+                catch (TimeoutException timeoutException)
+                {
+                    _appSessions.Remove(appSession);
                 }
                 catch (Exception e)
                 {

@@ -1,0 +1,96 @@
+﻿<inf:ViewBaseConfirmNavigationRequest x:Class="HVTApp.Modules.Messenger.View.GeneralChatView"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:prism="http://prismlibrary.com/"
+              prism:ViewModelLocator.AutoWireViewModel="True">
+
+    <!--<Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        
+        <GroupBox Grid.Column="0" Header="Задача">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="4*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    
+                    <Label Grid.Row="0" Grid.Column="0" Content="Тема: "/>
+                    <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding DirectumTask.Group.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding AllowEditTitle, Converter={StaticResource ReverseBoolConverter}}"/>
+                    
+                    <Button Grid.Row="1" Grid.Column="0" Content="Маршрут" Command="{Binding RouteCommand}"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Route, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
+                    
+                    <Label Grid.Row="2" Grid.Column="0" Content="Инициатор: "/>
+                    <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding DirectumTask.Group.Author, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
+                    
+                </Grid>
+                
+                <GroupBox Grid.Row="1" Header="История выполнения">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <directumTask:ContentTaskControl DataContext="{Binding DirectumTask, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    </ScrollViewer>
+                </GroupBox>
+                
+                <GridSplitter Grid.Row="2" Height="3" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+                
+                <GroupBox Grid.Row="3" Header="Сообщение" MinHeight="100" Visibility="{Binding TaskIsNew, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <TextBox Text="{Binding DirectumTask.Group.Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             TextWrapping="Wrap"
+                             VerticalScrollBarVisibility="Auto"
+                             AcceptsReturn="True"
+                             VerticalAlignment="Stretch" />
+                </GroupBox>
+
+                <GroupBox Grid.Row="3" Header="Сообщение" MinHeight="100" Visibility="{Binding AllowPerformOrAccept, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <TextBox Text="{Binding Message.Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             TextWrapping="Wrap"
+                             VerticalScrollBarVisibility="Auto"
+                             AcceptsReturn="True"
+                             VerticalAlignment="Stretch" />
+                </GroupBox>
+
+            </Grid>
+        </GroupBox>
+        
+        <GridSplitter Grid.Column="1" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+               
+        <GroupBox Grid.Column="2" Header="Приложения">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                        
+                    <StackPanel Orientation="Horizontal">
+                        <Button Name="GoBackButton" Content="{StaticResource GoBackImage}" Margin="1" Click="GoBackButton_OnClick"/>
+                        <Button Name="GoForwardButton" Content="{StaticResource GoForwardImage}" Margin="1" Click="GoForwardButton_OnClick"/>
+                    </StackPanel>
+                        
+                    <WebBrowser Grid.Row="1" Name="Browser"/>
+                        
+                </Grid>
+        </GroupBox>
+        
+    </Grid>-->
+
+</inf:ViewBaseConfirmNavigationRequest>

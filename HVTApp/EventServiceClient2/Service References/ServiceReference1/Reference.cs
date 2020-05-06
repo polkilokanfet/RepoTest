@@ -27,6 +27,18 @@ namespace EventServiceClient2.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/Disconnect", ReplyAction="http://tempuri.org/IEventService/DisconnectResponse")]
         System.Threading.Tasks.Task DisconnectAsync(System.Guid appSessionId);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/SendMessageToChat", ReplyAction="http://tempuri.org/IEventService/SendMessageToChatResponse")]
+        void SendMessageToChat(System.Guid authorId, string message);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/SendMessageToChat", ReplyAction="http://tempuri.org/IEventService/SendMessageToChatResponse")]
+        System.Threading.Tasks.Task SendMessageToChatAsync(System.Guid authorId, string message);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/SendMessageToUser", ReplyAction="http://tempuri.org/IEventService/SendMessageToUserResponse")]
+        void SendMessageToUser(System.Guid authorId, System.Guid recipientId, string message);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/SendMessageToUser", ReplyAction="http://tempuri.org/IEventService/SendMessageToUserResponse")]
+        System.Threading.Tasks.Task SendMessageToUserAsync(System.Guid authorId, System.Guid recipientId, string message);
+        
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/SaveDirectumTaskPublishEvent")]
         void SaveDirectumTaskPublishEvent(System.Guid appSessionId, System.Guid taskId);
         
@@ -57,6 +69,12 @@ namespace EventServiceClient2.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnServiceDisposeEvent")]
         void OnServiceDisposeEvent();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnSendMessageToChat")]
+        void OnSendMessageToChat(System.Guid authorId, string message);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnSendMessageToUser")]
+        void OnSendMessageToUser(System.Guid authorId, string message);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnSaveDirectumTaskPublishEvent")]
         void OnSaveDirectumTaskPublishEvent(System.Guid taskId);
@@ -113,6 +131,22 @@ namespace EventServiceClient2.ServiceReference1 {
         
         public System.Threading.Tasks.Task DisconnectAsync(System.Guid appSessionId) {
             return base.Channel.DisconnectAsync(appSessionId);
+        }
+        
+        public void SendMessageToChat(System.Guid authorId, string message) {
+            base.Channel.SendMessageToChat(authorId, message);
+        }
+        
+        public System.Threading.Tasks.Task SendMessageToChatAsync(System.Guid authorId, string message) {
+            return base.Channel.SendMessageToChatAsync(authorId, message);
+        }
+        
+        public void SendMessageToUser(System.Guid authorId, System.Guid recipientId, string message) {
+            base.Channel.SendMessageToUser(authorId, recipientId, message);
+        }
+        
+        public System.Threading.Tasks.Task SendMessageToUserAsync(System.Guid authorId, System.Guid recipientId, string message) {
+            return base.Channel.SendMessageToUserAsync(authorId, recipientId, message);
         }
         
         public void SaveDirectumTaskPublishEvent(System.Guid appSessionId, System.Guid taskId) {

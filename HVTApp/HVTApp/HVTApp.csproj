@@ -28,8 +28,8 @@
     <InstallUrl>\\ekb1237\Upload\HVTApp\</InstallUrl>
     <ProductName>HVTApplication</ProductName>
     <PublisherName>Kosolapov</PublisherName>
-    <MinimumRequiredVersion>1.0.0.125</MinimumRequiredVersion>
-    <ApplicationRevision>126</ApplicationRevision>
+    <MinimumRequiredVersion>1.0.0.126</MinimumRequiredVersion>
+    <ApplicationRevision>127</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -272,6 +272,10 @@
     <ProjectReference Include="..\HVTApp.Modules.BookRegistration\HVTApp.Modules.BookRegistration.csproj">
       <Project>{e904c6c5-39f0-4091-a42d-5efbcce219b6}</Project>
       <Name>HVTApp.Modules.BookRegistration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HVTApp.Modules.Chat\HVTApp.Modules.Messenger.csproj">
+      <Project>{FAAF5BF4-4CB5-4F92-A1DB-573C071DBB42}</Project>
+      <Name>HVTApp.Modules.Messenger</Name>
     </ProjectReference>
     <ProjectReference Include="..\HVTApp.Modules.Director\HVTApp.Modules.Director.csproj">
       <Project>{df40155b-72ca-425b-8ed6-84692051dddd}</Project>

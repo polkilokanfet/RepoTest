@@ -2,7 +2,7 @@
 using System.ServiceModel;
 using System.ServiceModel.Description;
 using System.ServiceModel.Discovery;
-using EventService;
+using HVTApp.Infrastructure.Interfaces.Services.EventService;
 using EventService1 = EventService.EventService;
 
 namespace EventServiceHost

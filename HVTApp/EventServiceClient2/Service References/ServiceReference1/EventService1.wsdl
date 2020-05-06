@@ -30,6 +30,18 @@
   <wsdl:message name="IEventService_Disconnect_OutputMessage">
     <wsdl:part name="parameters" element="tns:DisconnectResponse" />
   </wsdl:message>
+  <wsdl:message name="IEventService_SendMessageToChat_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendMessageToChat" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_SendMessageToChat_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendMessageToChatResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_SendMessageToUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendMessageToUser" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_SendMessageToUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendMessageToUserResponse" />
+  </wsdl:message>
   <wsdl:message name="IEventService_SaveDirectumTaskPublishEvent_InputMessage">
     <wsdl:part name="parameters" element="tns:SaveDirectumTaskPublishEvent" />
   </wsdl:message>
@@ -44,6 +56,12 @@
   </wsdl:message>
   <wsdl:message name="IEventService_OnServiceDisposeEvent_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnServiceDisposeEvent" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_OnSendMessageToChat_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnSendMessageToChat" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_OnSendMessageToUser_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnSendMessageToUser" />
   </wsdl:message>
   <wsdl:message name="IEventService_OnSaveDirectumTaskPublishEvent_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnSaveDirectumTaskPublishEvent" />
@@ -66,6 +84,14 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IEventService/Disconnect" message="tns:IEventService_Disconnect_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/DisconnectResponse" message="tns:IEventService_Disconnect_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="SendMessageToChat">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/SendMessageToChat" message="tns:IEventService_SendMessageToChat_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/SendMessageToChatResponse" message="tns:IEventService_SendMessageToChat_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SendMessageToUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/SendMessageToUser" message="tns:IEventService_SendMessageToUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/SendMessageToUserResponse" message="tns:IEventService_SendMessageToUser_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="SaveDirectumTaskPublishEvent">
       <wsdl:input wsaw:Action="http://tempuri.org/IEventService/SaveDirectumTaskPublishEvent" message="tns:IEventService_SaveDirectumTaskPublishEvent_InputMessage" />
     </wsdl:operation>
@@ -80,6 +106,12 @@
     </wsdl:operation>
     <wsdl:operation name="OnServiceDisposeEvent">
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnServiceDisposeEvent" message="tns:IEventService_OnServiceDisposeEvent_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OnSendMessageToChat">
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnSendMessageToChat" message="tns:IEventService_OnSendMessageToChat_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OnSendMessageToUser">
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnSendMessageToUser" message="tns:IEventService_OnSendMessageToUser_OutputCallbackMessage" />
     </wsdl:operation>
     <wsdl:operation name="OnSaveDirectumTaskPublishEvent">
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnSaveDirectumTaskPublishEvent" message="tns:IEventService_OnSaveDirectumTaskPublishEvent_OutputCallbackMessage" />
@@ -115,6 +147,24 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="SendMessageToChat">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/SendMessageToChat" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendMessageToUser">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/SendMessageToUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="SaveDirectumTaskPublishEvent">
       <soap12:operation soapAction="http://tempuri.org/IEventService/SaveDirectumTaskPublishEvent" style="document" />
       <wsdl:input>
@@ -141,6 +191,18 @@
     </wsdl:operation>
     <wsdl:operation name="OnServiceDisposeEvent">
       <soap12:operation soapAction="http://tempuri.org/IEventService/OnServiceDisposeEvent" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnSendMessageToChat">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/OnSendMessageToChat" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnSendMessageToUser">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/OnSendMessageToUser" style="document" />
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>

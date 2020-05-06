@@ -1,13 +1,21 @@
 ﻿using System;
 using System.ServiceModel;
 
-namespace EventService
+namespace HVTApp.Infrastructure.Interfaces.Services.EventService
 {
     [ServiceContract]
     public interface IEventServiceCallback
     {
         [OperationContract(IsOneWay = true)]
         void OnServiceDisposeEvent();
+
+
+        [OperationContract(IsOneWay = true)]
+        void OnSendMessageToChat(Guid authorId, string message);
+
+        [OperationContract(IsOneWay = true)]
+        void OnSendMessageToUser(Guid authorId, string message);
+
 
         [OperationContract(IsOneWay = true)]
         void OnSaveDirectumTaskPublishEvent(Guid taskId);

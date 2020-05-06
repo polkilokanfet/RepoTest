@@ -28,35 +28,62 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
+  <xs:element name="SendMessageToChat">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="authorId" type="q4:guid" />
+        <xs:element minOccurs="0" name="message" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendMessageToChatResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendMessageToUser">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="authorId" type="q5:guid" />
+        <xs:element xmlns:q6="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="recipientId" type="q6:guid" />
+        <xs:element minOccurs="0" name="message" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendMessageToUserResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="SaveDirectumTaskPublishEvent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="appSessionId" type="q4:guid" />
-        <xs:element xmlns:q5="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="taskId" type="q5:guid" />
+        <xs:element xmlns:q7="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="appSessionId" type="q7:guid" />
+        <xs:element xmlns:q8="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="taskId" type="q8:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="SavePriceCalculationPublishEvent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q6="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="appSessionId" type="q6:guid" />
-        <xs:element xmlns:q7="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceCalculationId" type="q7:guid" />
+        <xs:element xmlns:q9="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="appSessionId" type="q9:guid" />
+        <xs:element xmlns:q10="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceCalculationId" type="q10:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="SaveIncomingRequestPublishEvent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q8="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="appSessionId" type="q8:guid" />
-        <xs:element xmlns:q9="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="requestId" type="q9:guid" />
+        <xs:element xmlns:q11="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="appSessionId" type="q11:guid" />
+        <xs:element xmlns:q12="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="requestId" type="q12:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="SaveIncomingDocumentPublishEvent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q10="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="appSessionId" type="q10:guid" />
-        <xs:element xmlns:q11="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="documentId" type="q11:guid" />
+        <xs:element xmlns:q13="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="appSessionId" type="q13:guid" />
+        <xs:element xmlns:q14="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="documentId" type="q14:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -65,31 +92,47 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
+  <xs:element name="OnSendMessageToChat">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q15="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="authorId" type="q15:guid" />
+        <xs:element minOccurs="0" name="message" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OnSendMessageToUser">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q16="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="authorId" type="q16:guid" />
+        <xs:element minOccurs="0" name="message" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="OnSaveDirectumTaskPublishEvent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q12="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="taskId" type="q12:guid" />
+        <xs:element xmlns:q17="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="taskId" type="q17:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="OnSavePriceCalculationPublishEvent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q13="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="calculationId" type="q13:guid" />
+        <xs:element xmlns:q18="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="calculationId" type="q18:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="OnSaveIncomingRequestPublishEvent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q14="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="requestId" type="q14:guid" />
+        <xs:element xmlns:q19="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="requestId" type="q19:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="OnSaveIncomingDocumentPublishEvent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q15="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="documentId" type="q15:guid" />
+        <xs:element xmlns:q20="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="documentId" type="q20:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
