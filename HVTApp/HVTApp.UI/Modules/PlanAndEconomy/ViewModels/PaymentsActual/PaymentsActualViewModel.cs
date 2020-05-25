@@ -43,8 +43,8 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
 
             NewCommand = new DelegateCommand(() => RequestNavigate(new PaymentDocument()));
             EditCommand = new DelegateCommand(
-                () => RequestNavigate((SelectedItem as SalesUnitPayment).PaymentDocument), 
-                () => (SelectedItem as SalesUnitPayment) != null);
+                () => RequestNavigate((SelectedItem as SalesUnitPayment).PaymentDocument),
+                () => SelectedItem is SalesUnitPayment);
             ReloadCommand = new DelegateCommand(Load);
         }
 

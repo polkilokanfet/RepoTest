@@ -234,6 +234,10 @@ namespace HVTApp.TestDataGenerator
                 SenderOfferEmployee = EmployeeDeev,
                 HvtProducersActivityField = ActivityFieldProducerOfHvt,
                 PaymentConditionSet = PaymentConditionSet50Na50,
+                ComplectDesignationGroup = ParameterGroupComplectDesignationGroup,
+                ComplectsGroup = ParameterGroupComplectsGroup,
+                ComplectsParameter = ParameterComplects,
+                ProductIncludedDefault = ProductZip1,
             });
 
 #if DEBUG

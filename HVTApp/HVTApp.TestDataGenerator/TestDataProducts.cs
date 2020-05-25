@@ -27,6 +27,8 @@ namespace HVTApp.TestDataGenerator
         public ParameterGroup ParameterGroupCurrent;
         public ParameterGroup ParameterGroupCurrentBreaking;
         public ParameterGroup ParameterGroupNewProductDesignation;
+        public ParameterGroup ParameterGroupComplectDesignationGroup;
+        public ParameterGroup ParameterGroupComplectsGroup;
         public ParameterGroup ParameterGroupDrives;
         public ParameterGroup ParameterGroupClimat;
         public ParameterGroup ParameterGroupPartType;
@@ -92,6 +94,8 @@ namespace HVTApp.TestDataGenerator
             ParameterGroupCurrent.Clone(new ParameterGroup { Name = "Номинальный ток" });
             ParameterGroupCurrentBreaking.Clone(new ParameterGroup { Name = "Номинальный ток отключения" });
             ParameterGroupNewProductDesignation.Clone(new ParameterGroup { Name = "Обозначение" });
+            ParameterGroupComplectDesignationGroup.Clone(new ParameterGroup { Name = "Обозначение комплекта или детали" });
+            ParameterGroupComplectsGroup.Clone(new ParameterGroup { Name = "Тип комплекта или детали" });
             ParameterGroupDrives.Clone(new ParameterGroup { Name = "Приводы" });
             ParameterGroupClimat.Clone(new ParameterGroup { Name = "Климатическое исполнение" });
             ParameterGroupPartType.Clone(new ParameterGroup { Name = "Тип составной части" });
@@ -156,6 +160,7 @@ namespace HVTApp.TestDataGenerator
         public Parameter ParameterBvpt;
         public Parameter ParameterDependentEquipment;
         public Parameter ParameterService;
+        public Parameter ParameterComplects;
 
         #endregion
 
@@ -698,6 +703,7 @@ namespace HVTApp.TestDataGenerator
             ParameterService.Clone(new Parameter { ParameterGroup = ParameterGroupProductType, Value = "Услуга", Rang = 7 });
             ParameterProductParts.Clone(new Parameter { ParameterGroup = ParameterGroupProductType, Value = "Составные части оборудования", Rang = 6 });
             ParameterNewProduct.Clone(new Parameter { ParameterGroup = ParameterGroupProductType, Value = "Оборудование новое", Rang = 5 });
+            ParameterComplects.Clone(new Parameter { ParameterGroup = ParameterGroupProductType, Value = "Комплекты и детали", Rang = 10 });
 
             #endregion
 

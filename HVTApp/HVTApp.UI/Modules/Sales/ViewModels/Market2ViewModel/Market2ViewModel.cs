@@ -65,26 +65,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
             NewProjectCommand = new DelegateCommand(NewProjectCommand_Execute);
             EditProjectCommand = new DelegateCommand(EditProjectCommand_Execute, () => SelectedProjectItem != null);
-            RemoveProjectCommand = new DelegateCommand(
-                () =>
-                {
-                    if (SelectedProjectItem.SalesUnits.Any(x => x.Order != null))
-                    {
-                        Container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", "Нельзя удалить проект, т.к. в нем есть оборудование, размещенное в производстве.");
-                        return;
-                    }
-
-                    var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удалить проект.", "Вы уверены, что хотите удалить проект?", defaultNo:true);
-                    if (dr != MessageDialogResult.Yes) return;
-
-                    var unitOfWork = Container.Resolve<IUnitOfWork>();
-                    var units = unitOfWork.Repository<SalesUnit>().Find(x => x.Project.Id == SelectedProjectItem.Project.Id);
-                    unitOfWork.Repository<SalesUnit>().DeleteRange(units);
-                    unitOfWork.SaveChanges();
-                    var remove = ProjectItems.Where(x => x.Project.Id == SelectedProjectItem.Project.Id).ToList();
-                    remove.ForEach(x => ProjectItems.Remove(x));
-                }, 
-                () => SelectedProjectItem != null);
+            RemoveProjectCommand = new DelegateCommand(RemoveProjectCommand_Execute, () => SelectedProjectItem != null);
 
             NewSpecificationCommand = new DelegateCommand(NewSpecificationCommand_Execute, () => SelectedProjectItem != null);
 

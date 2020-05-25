@@ -56,7 +56,7 @@
                                 <igWpf:NumericField AlternateBinding="{Binding SumWithVat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto" AllowEdit="True"/>
                                 <igWpf:NumericField AlternateBinding="{Binding SumNotPaidWithVat}" BindingType="UseAlternateBinding" Label="Остаток" Width="Auto"/>
                                 <igWpf:NumericField AlternateBinding="{Binding SalesUnit.Model.Vat}" BindingType="UseAlternateBinding" Label="НДС" Width="Auto"/>
-                                <igWpf:TextField AlternateBinding="{Binding SalesUnit.Project.Manager}" BindingType="UseAlternateBinding" Label="Менеджер" Width="Auto"/>
+                                <igWpf:TextField AlternateBinding="{Binding SalesUnit.Model.Project.Manager}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Менеджер" Width="Auto"/>
                             </igWpf:FieldLayout.Fields>
                         </igWpf:FieldLayout>
 
@@ -87,7 +87,7 @@
                             <igWpf:TextField AlternateBinding="{Binding Model.Specification.Contract.Number}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
                             <igWpf:NumericField AlternateBinding="{Binding Model.SumNotPaidWithVat}" BindingType="UseAlternateBinding" Label="Остаток" Width="Auto"/>
                             <igWpf:NumericField AlternateBinding="{Binding Model.Vat}" BindingType="UseAlternateBinding" Label="НДС" Width="Auto"/>
-                            <igWpf:NumericField AlternateBinding="{Binding Model.Project.Manager}" BindingType="UseAlternateBinding" Label="Менеджер" Width="Auto"/>
+                            <igWpf:TextField AlternateBinding="{Binding Model.Project.Manager}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Менеджер" Width="Auto"/>
                         </igWpf:FieldLayout.Fields>
                     </igWpf:FieldLayout>
 

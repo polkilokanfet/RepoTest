@@ -35,7 +35,7 @@ namespace HVTApp.Services.GetProductService.Complects
         public ComplectsViewModel(IUnityContainer container) : base(container)
         {
             var complectsParameter = GlobalAppProperties.Actual.ComplectsParameter;
-            var complects = UnitOfWork.Repository<Product>().Find(x => x.ProductBlock.Parameters.ContainsById(complectsParameter)).Select(x => new Complect(x));
+        var complects = UnitOfWork.Repository<Product>().Find(x => x.ProductBlock.Parameters.ContainsById(complectsParameter)).Select(x => new Complect(x));
             Items = new ObservableCollection<Complect>(complects);
 
             SelectCommand = new DelegateCommand(

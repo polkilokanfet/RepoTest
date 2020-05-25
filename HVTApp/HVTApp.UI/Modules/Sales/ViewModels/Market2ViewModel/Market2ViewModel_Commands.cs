@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Input;
+using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
@@ -86,6 +88,27 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
         {
             RegionManager.RequestNavigateContentRegion<ProjectView>(new NavigationParameters());
         }
+
+        private void RemoveProjectCommand_Execute()
+        {
+            var unitOfWork = Container.Resolve<IUnitOfWork>();
+            var units = unitOfWork.Repository<SalesUnit>().Find(x => x.Project.Id == SelectedProjectItem.Project.Id);
+
+            if (units.Any(x => x.Order != null))
+            {
+                Container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", "Нельзя удалить проект, т.к. в нем есть оборудование, размещенное в производстве.");
+                return;
+            }
+
+            var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удалить проект.", "Вы уверены, что хотите удалить проект?", defaultNo: true);
+            if (dr != MessageDialogResult.Yes) return;
+
+            unitOfWork.Repository<SalesUnit>().DeleteRange(units);
+            unitOfWork.SaveChanges();
+            var remove = ProjectItems.Where(x => x.Project.Id == SelectedProjectItem.Project.Id).ToList();
+            remove.ForEach(x => ProjectItems.Remove(x));
+        }
+
 
         #region OfferCommands
 

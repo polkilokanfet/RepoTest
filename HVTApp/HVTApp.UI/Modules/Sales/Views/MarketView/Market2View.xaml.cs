@@ -23,14 +23,7 @@ namespace HVTApp.UI.Modules.Sales.Views.MarketView
             //назначаем контексты
             this.DataContext = viewModel;
 
-            viewModel.ExpandCollapseEvent += expend =>
-            {
-                var dg = this.ProjectsGrid; //(XamDataGrid)sender;
-                foreach (var o in dg.DataSource)
-                {
-                    dg.GetRecordFromDataItem(o, recursive: false).IsExpanded = expend;
-                }
-            };
+            viewModel.ExpandCollapseEvent += ViewModelOnExpandCollapseEvent;
             
             viewModel.SaveGridCustomisationsEvent += SaveGridCustomisations;
             LoadGridCustomisations();
@@ -44,6 +37,24 @@ namespace HVTApp.UI.Modules.Sales.Views.MarketView
                     this.Browser.Source = _currentUri;
                 }
             };
+
+            this.Loaded += OnLoaded;
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+            ViewModelOnExpandCollapseEvent(true);
+            ViewModelOnExpandCollapseEvent(false);
+            this.Loaded -= OnLoaded;
+        }
+
+        private void ViewModelOnExpandCollapseEvent(bool expand)
+        {
+            var dg = this.ProjectsGrid; //(XamDataGrid)sender;
+            foreach (var o in dg.DataSource)
+            {
+                dg.GetRecordFromDataItem(o, recursive: false).IsExpanded = expand;
+            }
         }
 
         string fileName = "projectsGridCustomisation.xml";

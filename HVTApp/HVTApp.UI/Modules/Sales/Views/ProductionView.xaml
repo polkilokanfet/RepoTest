@@ -64,7 +64,7 @@
                                 <infg:DateTimeField AlternateBinding="{Binding Model.EndProductionDateCalculated}" BindingType="UseAlternateBinding" Label="Фактическая" Width="Auto" AllowResize="False"/>
                                 <infg:DateTimeField Name="EndProductionDateExpected" Label="Требуемая" Width="Auto" AllowResize="False"/>
                                 <infg:DateTimeField AlternateBinding="{Binding Model.EndProductionDateByContractCalculated}" BindingType="UseAlternateBinding" Label="По договору" Width="Auto" AllowResize="False"/>
-                                <infg:DateTimeField AlternateBinding="{Binding TceInfo}" BindingType="UseAlternateBinding" Label="TCE" Width="Auto"/>
+                                <infg:TextField AlternateBinding="{Binding TceInfo}" BindingType="UseAlternateBinding" Label="TCE" Width="Auto"/>
                             </infg:FieldLayout.Fields>
 				        </infg:FieldLayout>
 
@@ -106,7 +106,7 @@
                                 <infg:TextField AlternateBinding="{Binding Model.Specification}" BindingType="UseAlternateBinding" Label="Сп.№" Width="Auto"/>
                                 <infg:TextField AlternateBinding="{Binding Model.Specification.Contract}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
                                 <infg:DateTimeField Name="EndProductionDateExpected" Label="Требуемая" AllowEdit="True" Width="Auto" AllowResize="False"/>
-                                <infg:DateTimeField AlternateBinding="{Binding TceInfo}" BindingType="UseAlternateBinding" Label="TCE" Width="Auto"/>
+                                <infg:TextField AlternateBinding="{Binding TceInfo}" BindingType="UseAlternateBinding" Label="TCE" Width="Auto"/>
                             </infg:FieldLayout.Fields>
 				        </infg:FieldLayout>
 
