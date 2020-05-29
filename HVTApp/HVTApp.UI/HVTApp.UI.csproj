@@ -175,6 +175,15 @@
     <Compile Include="Modules\Reports\FlatReport\TabFlatReport.xaml.cs">
       <DependentUpon>TabFlatReport.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Reports\PriorityReport\PriorityReportGroup.cs" />
+    <Compile Include="Modules\Reports\PriorityReport\PriorityReportItem.cs" />
+    <Compile Include="Modules\Reports\PriorityReport\PriorityReportViewModel.cs" />
+    <Compile Include="Modules\Reports\PriorityReport\PriorityReportView.xaml.cs">
+      <DependentUpon>PriorityReportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\PriorityReport\TabReload.xaml.cs">
+      <DependentUpon>TabReload.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Reports\SalesCharts\ContragentsSalesChart\ContragentsSalesChartItem.cs" />
     <Compile Include="Modules\Reports\SalesCharts\ContragentsSalesChart\ContragentsSalesChartView.xaml.cs">
       <DependentUpon>ContragentsSalesChartView.xaml</DependentUpon>
@@ -952,6 +961,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\Reports\FlatReport\FlatReportView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Reports\PriorityReport\PriorityReportView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Reports\PriorityReport\TabReload.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -1,7 +1,6 @@
 ﻿using System.IO;
-using System.Windows;
 using HVTApp.Infrastructure;
-using HVTApp.UI.Modules.Reports.Tabs;
+using HVTApp.UI.Modules.Director.Tabs;
 using HVTApp.UI.Modules.Reports.ViewModels;
 using Prism.Events;
 using Prism.Regions;

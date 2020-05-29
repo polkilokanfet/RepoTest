@@ -47,7 +47,7 @@
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
                         <infg:TextField AlternateBinding="{Binding SalesUnits}" BindingType="UseAlternateBinding" Label="SalesUnits" Width="Auto" AllowResize="True" Converter="{StaticResource ObjectsToStringConverter}"/>
-                        <infg:TextField AlternateBinding="{Binding Order}" BindingType="UseAlternateBinding" Label="Заказ" Width="Auto" AllowResize="True" />
+                        <infg:TextField AlternateBinding="{Binding Order.Number}" BindingType="UseAlternateBinding" Label="Заказ" Width="Auto" AllowResize="True" />
                         <infg:TextField AlternateBinding="{Binding OrderPositions}" BindingType="UseAlternateBinding" Label="Позиции" Width="Auto" AllowResize="True" />
                         <infg:TextField AlternateBinding="{Binding FacilityOwners}" BindingType="UseAlternateBinding" Label="Владелец объекта" Width="Auto" AllowResize="True" />
                         <infg:TextField AlternateBinding="{Binding Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto" AllowResize="True" />

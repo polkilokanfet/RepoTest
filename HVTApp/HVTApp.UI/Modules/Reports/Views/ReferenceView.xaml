@@ -30,7 +30,7 @@
                         <infg:TextField AlternateBinding="{Binding Region}" BindingType="UseAlternateBinding" Label="Регоин" Width="Auto" />
                         <infg:TextField AlternateBinding="{Binding District}" BindingType="UseAlternateBinding" Label="Округ" Width="Auto" />
                         <infg:TextField AlternateBinding="{Binding Country}" BindingType="UseAlternateBinding" Label="Страна" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding Order}" BindingType="UseAlternateBinding" Label="Зав.зак." Width="Auto" />
+                        <infg:TextField AlternateBinding="{Binding Order.Number}" BindingType="UseAlternateBinding" Label="Зав.зак." Width="Auto" />
                         <infg:TextField AlternateBinding="{Binding Numbers}" BindingType="UseAlternateBinding" Label="Номера" Width="Auto" />
                     </infg:FieldLayout.Fields>
                 </infg:FieldLayout>

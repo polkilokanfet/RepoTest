@@ -1,8 +1,6 @@
 using System;
-using System.Text;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base;
-using HVTApp.Model.Wrapper;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels
 {
@@ -43,6 +41,10 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
         public string TceInfo => _priceCalculationItem?.ToString() ?? "no information";
 
         public bool IsProduced => Model.EndProductionDateCalculated < DateTime.Today;
+
+        public int DifExpected => (Model.EndProductionDateCalculated - EndProductionDateExpected).Days;
+
+        public int DifContract=> (Model.EndProductionDateCalculated - Model.EndProductionDateByContractCalculated).Days;
 
         public ProductionItem(SalesUnit model, PriceCalculationItem priceCalculationItem) : base(model)
         {

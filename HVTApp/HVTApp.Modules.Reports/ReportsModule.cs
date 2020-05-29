@@ -3,6 +3,7 @@ using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Prism;
 using HVTApp.Modules.Reports.Menus;
+using HVTApp.UI.Modules.Reports.PriorityReport;
 using HVTApp.UI.Modules.Reports.Views;
 using Microsoft.Practices.Unity;
 
@@ -19,6 +20,7 @@ namespace HVTApp.Modules.Reports
         {
             Container.RegisterViewForNavigation<SalesReportView>();
             Container.RegisterViewForNavigation<FakeDataView>();
+            Container.RegisterViewForNavigation<PriorityReportView>();
         }
 
         protected override void ResolveOutlookGroup()

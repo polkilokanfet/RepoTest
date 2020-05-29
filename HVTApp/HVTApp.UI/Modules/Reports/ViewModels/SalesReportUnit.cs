@@ -360,7 +360,7 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
             _countryUnions = countryUnions.ToList();
 
             Order = salesUnit.Order?.ToString();
-            OrderPositions = GetOrderPositions(SalesUnits.Select(x => x.OrderPosition));
+            OrderPositions = SalesUnits.Select(x => x.OrderPosition).GetOrderPositions();
 
             var owners = new List<Company> {salesUnit.Facility.OwnerCompany};
             owners.AddRange(salesUnit.Facility.OwnerCompany.ParentCompanies().ToList());
@@ -380,6 +380,10 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
                 else if (GetCountryUnions().Any(x => x.Name == "ÑÍÃ"))
                 {
                     RfSng = "ÑÍÃ";
+                }
+                else
+                {
+                    RfSng = "ÄÇ";
                 }
             }
             District = salesUnit.Facility.GetRegion()?.District.Name;
@@ -484,25 +488,6 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
                     paymentType = date < realization ? "ÀÂ" : "ÄÇ";
                 }
             }            
-        }
-
-        private string GetOrderPositions(IEnumerable<string> positionsEnumerable)
-        {
-            var positions = new List<int>();
-            foreach (var position in positionsEnumerable)
-            {
-                int i;
-                var result = int.TryParse(position, out i);
-                if(result)
-                    positions.Add(i);
-            }
-
-            positions.Sort();
-
-            if (positions.Count > 1 && positions.Count == (positions.Last() - positions.First() + 1))
-                return $"{positions.First()}-{positions.Last()}";
-
-            return positions.Select(x => x.ToString()).ToStringEnum();
         }
 
         private string GetProductCategory(Product product)

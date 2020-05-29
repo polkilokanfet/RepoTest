@@ -12,9 +12,9 @@ namespace HVTApp.UI.Modules.Sales.Views
     {
         private readonly ShippingViewModel _viewModel;
 
-        public ShippingView(ShippingViewModel _viewModel, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
+        public ShippingView(ShippingViewModel viewModel, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
         {
-            this._viewModel = _viewModel;
+            this._viewModel = viewModel;
             InitializeComponent();
             this.DataContext = this._viewModel;
             this.Loaded += OnLoaded;

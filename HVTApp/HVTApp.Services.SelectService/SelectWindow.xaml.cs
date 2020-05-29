@@ -4,20 +4,15 @@ namespace HVTApp.Services.SelectService
 {
     public partial class SelectWindow : Window
     {
+        private static readonly double WindowWidth = System.Windows.SystemParameters.PrimaryScreenWidth - 10;
+        private static readonly double WindowHeigh = System.Windows.SystemParameters.PrimaryScreenHeight - 200;
+
         public SelectWindow()
         {
-            double width = System.Windows.SystemParameters.PrimaryScreenWidth;
-            double heigh = System.Windows.SystemParameters.PrimaryScreenHeight - 100;
-
-            this.MinWidth = width;
-            this.MinHeight = heigh;
-
-            this.Width = width;
-            this.Height = heigh;
-
-            this.MaxWidth = width;
-            this.MaxHeight= heigh;
             InitializeComponent();
+
+            ContentControl.Width = WindowWidth;
+            ContentControl.Height = WindowHeigh;
         }
     }
 }

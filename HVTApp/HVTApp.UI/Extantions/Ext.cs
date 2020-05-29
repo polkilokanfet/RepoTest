@@ -52,5 +52,30 @@ namespace HVTApp.UI
                 .LastOrDefault()?.Winner;
 
         }
+
+        /// <summary>
+        /// Сворачивает позиции с "1,2,3" к "1-3"
+        /// </summary>
+        /// <param name="positionsEnumerable"></param>
+        /// <returns></returns>
+        public static string GetOrderPositions(this IEnumerable<string> positionsEnumerable)
+        {
+            var positions = new List<int>();
+            foreach (var position in positionsEnumerable)
+            {
+                int i;
+                var result = int.TryParse(position, out i);
+                if (result)
+                    positions.Add(i);
+            }
+
+            positions.Sort();
+
+            if (positions.Count > 1 && positions.Count == (positions.Last() - positions.First() + 1))
+                return $"{positions.First()}-{positions.Last()}";
+
+            return positions.Select(x => x.ToString()).ToStringEnum();
+        }
+
     }
 }

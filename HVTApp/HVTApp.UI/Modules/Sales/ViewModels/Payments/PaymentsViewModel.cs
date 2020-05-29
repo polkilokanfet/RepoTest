@@ -128,7 +128,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
                 payments.AddRange(GetPayments(salesUnitWrapper));
             }
 
-            payments = payments.OrderBy(x => x.PaymentPlanned.Date).ToList();
+            payments = payments.OrderBy(x => x.PaymentPlanned.Date).ThenBy(x => x.SalesUnit.Model.Facility.Id).ToList();
             var groups = payments.GroupBy(x => new
             {
                 ProjectId = x.SalesUnit.Model.Project.Id,

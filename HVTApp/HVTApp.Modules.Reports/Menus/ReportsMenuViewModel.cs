@@ -1,5 +1,7 @@
 ﻿using HVTApp.Infrastructure;
+using HVTApp.Model;
 using HVTApp.UI.Modules.Reports.FlatReport;
+using HVTApp.UI.Modules.Reports.PriorityReport;
 using HVTApp.UI.Modules.Reports.SalesCharts.ConsumersSalesChart;
 using HVTApp.UI.Modules.Reports.SalesCharts.ContragentsSalesChart;
 using HVTApp.UI.Modules.Reports.SalesCharts.ManagersSalesChart;
@@ -18,6 +20,12 @@ namespace HVTApp.Modules.Reports.Menus
             Items.Add(new NavigationItem("Референс", typeof(ReferenceView)));
             Items.Add(new NavigationItem("Report maker", typeof(FlatReportView)));
             Items.Add(new NavigationItem("Продажи", typeof(SalesReportView)));
+
+            if (GlobalAppProperties.User.RoleCurrent == Role.Admin ||
+                GlobalAppProperties.User.RoleCurrent == Role.Economist ||
+                GlobalAppProperties.User.RoleCurrent == Role.Director)
+                Items.Add(new NavigationItem("Очередность", typeof(PriorityReportView)));
+
             Items.Add(new NavigationItem("График продаж", typeof(SalesChartView)));
             Items.Add(new NavigationItem("Продажи по менеджерам", typeof(ManagersSalesChartView)));
             Items.Add(new NavigationItem("Продажи по типам оборудования", typeof(ProductTypesSalesChartView)));

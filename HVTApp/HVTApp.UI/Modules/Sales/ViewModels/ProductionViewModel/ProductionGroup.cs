@@ -5,7 +5,6 @@ using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
-using HVTApp.Model.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels
@@ -13,8 +12,6 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
     public class ProductionGroup : IValidatableChangeTracking
     {
         public SalesUnit SalesUnit => ProductionItems.First().Model;
-
-        public string Order => SalesUnit.Order?.Number ?? string.Empty;
 
         public IValidatableChangeTrackingCollection<ProductionItem> ProductionItems { get; }
 
@@ -51,6 +48,11 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
         public bool IsChanged => ProductionItems.IsChanged;
 
         public bool IsProduced => ProductionItems.All(x => x.IsProduced);
+
+
+        public int DifExpected => ProductionItems.First().DifExpected;
+
+        public int DifContract => ProductionItems.First().DifContract;
 
 
         public void RejectChanges()

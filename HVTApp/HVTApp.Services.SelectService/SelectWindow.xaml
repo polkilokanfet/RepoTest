@@ -19,10 +19,8 @@
             <Button Name="SelectButton" Content="Выбрать" Padding="20,5" Margin="2,4,4,4" IsDefault="True"/>
             <Button Name="CreateNewButton" Content="Создать" Padding="20,5" Margin="4,4,2,4"/>
         </StackPanel>
-        
-        <ScrollViewer Grid.Row="1">
-            <ContentControl Name="ContentControl"/>
-        </ScrollViewer>
+
+        <ContentControl Grid.Row="1" Name="ContentControl"/>
         
     </Grid>
     
