@@ -1,6 +1,7 @@
 ﻿using HVTApp.Infrastructure;
 using HVTApp.Model;
 using HVTApp.UI.Modules.Reports.FlatReport;
+using HVTApp.UI.Modules.Reports.MarketReport;
 using HVTApp.UI.Modules.Reports.PriorityReport;
 using HVTApp.UI.Modules.Reports.SalesCharts.ConsumersSalesChart;
 using HVTApp.UI.Modules.Reports.SalesCharts.ContragentsSalesChart;
@@ -17,11 +18,17 @@ namespace HVTApp.Modules.Reports.Menus
     {
         protected override void GenerateMenu()
         {
+            if (GlobalAppProperties.User.RoleCurrent == Role.Admin ||
+                GlobalAppProperties.User.RoleCurrent == Role.SalesManager ||
+                GlobalAppProperties.User.RoleCurrent == Role.Director)
+                Items.Add(new NavigationItem("Рынок", typeof(MarketReportView)));
+
             Items.Add(new NavigationItem("Референс", typeof(ReferenceView)));
             Items.Add(new NavigationItem("Report maker", typeof(FlatReportView)));
             Items.Add(new NavigationItem("Продажи", typeof(SalesReportView)));
 
             if (GlobalAppProperties.User.RoleCurrent == Role.Admin ||
+                GlobalAppProperties.User.RoleCurrent == Role.ReportMaker ||
                 GlobalAppProperties.User.RoleCurrent == Role.Economist ||
                 GlobalAppProperties.User.RoleCurrent == Role.Director)
                 Items.Add(new NavigationItem("Очередность", typeof(PriorityReportView)));

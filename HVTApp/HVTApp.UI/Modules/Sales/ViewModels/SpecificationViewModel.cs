@@ -32,18 +32,20 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
         protected override IEnumerable<SalesUnit> GetUnits(Specification specification, object parameter = null)
         {
-            //новая спецификация по проекту
             var project = parameter as Project;
-            if (project != null)
-            {
-                var uetm = UnitOfWork.Repository<Company>().GetById(GlobalAppProperties.Actual.OurCompany.Id);
-                var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Id == project.Id && x.Specification == null);
-                salesUnits.ForEach(x => x.Producer = uetm);
-                return salesUnits;
-            }
+            return project != null 
+                //новая спецификация по проекту
+                ? UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Id == project.Id && x.Specification == null) 
+                //редактирование существующей спецификации
+                : UnitOfWork.Repository<SalesUnit>().Find(x => x.Specification != null && x.Specification.Id == specification.Id);
 
-            //редактирование спецификации
-            return UnitOfWork.Repository<SalesUnit>().Find(x => x.Specification != null && x.Specification.Id == specification.Id);
+        }
+
+        public override void AfterUnitsLoading()
+        {
+            var uetm = UnitOfWork.Repository<Company>().GetById(GlobalAppProperties.Actual.OurCompany.Id);
+            var uetmWrapper = new CompanyWrapper(uetm);
+            GroupsViewModel.Groups.ForEach(x => x.Producer = uetmWrapper);
         }
     }
 }

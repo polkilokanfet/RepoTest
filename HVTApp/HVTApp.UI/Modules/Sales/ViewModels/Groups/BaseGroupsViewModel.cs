@@ -45,7 +45,6 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
 
         #endregion
 
-
         protected BaseGroupsViewModel(IUnityContainer container) : base(container)
         {
             AddCommand = new DelegateCommand(AddCommand_Execute);

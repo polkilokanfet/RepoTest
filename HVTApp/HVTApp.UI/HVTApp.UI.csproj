@@ -175,6 +175,11 @@
     <Compile Include="Modules\Reports\FlatReport\TabFlatReport.xaml.cs">
       <DependentUpon>TabFlatReport.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Reports\MarketReport\MarketReportUnit.cs" />
+    <Compile Include="Modules\Reports\MarketReport\MarketReportView.xaml.cs">
+      <DependentUpon>MarketReportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\MarketReport\MarketReportViewModel.cs" />
     <Compile Include="Modules\Reports\PriorityReport\PriorityReportGroup.cs" />
     <Compile Include="Modules\Reports\PriorityReport\PriorityReportItem.cs" />
     <Compile Include="Modules\Reports\PriorityReport\PriorityReportViewModel.cs" />
@@ -961,6 +966,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\Reports\FlatReport\FlatReportView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Reports\MarketReport\MarketReportView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

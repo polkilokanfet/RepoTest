@@ -8,6 +8,7 @@ using HVTApp.UI.Modules.Directum;
 using HVTApp.UI.Modules.PlanAndEconomy.Views;
 using HVTApp.UI.Modules.Products.Views;
 using HVTApp.UI.Modules.Reports.FlatReport;
+using HVTApp.UI.Modules.Reports.MarketReport;
 using HVTApp.UI.Modules.Reports.SalesCharts.ConsumersSalesChart;
 using HVTApp.UI.Modules.Reports.SalesCharts.ContragentsSalesChart;
 using HVTApp.UI.Modules.Reports.SalesCharts.ManagersSalesChart;
@@ -53,6 +54,7 @@ namespace HVTApp.UI
             Container.RegisterViewForNavigation<SupplyPlanView>();
             Container.RegisterViewForNavigation<PaymentsPlanView>();
             Container.RegisterViewForNavigation<IncomingRequestsView>();
+            Container.RegisterViewForNavigation<MarketReportView>();
             Container.RegisterViewForNavigation<FlatReportView>();
             Container.RegisterViewForNavigation<ManagersSalesChartView>();
             Container.RegisterViewForNavigation<ProductTypesSalesChartView>();

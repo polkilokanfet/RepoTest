@@ -31,7 +31,46 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
         {
             DetailsViewModel = container.Resolve<TDetailsViewModel>();
             GroupsViewModel = container.Resolve<TGroupsViewModel>();
-            SaveCommand = new DelegateCommand(SaveCommandExecute, SaveCommandCanExecute);
+            SaveCommand = new DelegateCommand(
+                () =>
+                {
+                    //отписка от событий изменения строк с оборудованием
+                    this.GroupsViewModel.GroupChanged -= OnGroupChanged;
+
+                    GroupsViewModel.AcceptChanges();
+
+                    //добавляем сущность, если ее не существовало
+                    if (UnitOfWork.Repository<TModel>().GetById(DetailsViewModel.Item.Model.Id) == null)
+                        UnitOfWork.Repository<TModel>().Add(DetailsViewModel.Item.Model);
+
+                    DetailsViewModel.Item.AcceptChanges();
+                    Container.Resolve<IEventAggregator>().GetEvent<TAfterSaveModelEvent>().Publish(DetailsViewModel.Item.Model);
+
+                    //сохраняем
+                    try
+                    {
+                        UnitOfWork.SaveChanges();
+                    }
+                    catch (DbUpdateConcurrencyException e)
+                    {
+                        Container.Resolve<IMessageService>().ShowOkMessageDialog("Ошибка при сохранении", e.GetAllExceptions());
+                    }
+
+                    //регистрация на события изменения строк с оборудованием
+                    this.GroupsViewModel.GroupChanged += OnGroupChanged;
+
+                    ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
+
+                },
+                () =>
+                {
+                    //все сущности должны быть валидны
+                    if (!GroupsViewModel.IsValid || !DetailsViewModel.Item.IsValid)
+                        return false;
+
+                    //какая-то сущность должна быть изменена
+                    return DetailsViewModel.Item.IsChanged || GroupsViewModel.IsChanged;
+                });
         }
 
         public virtual void Load(TModel model, bool isNew, object parameter = null)
@@ -45,7 +84,13 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             GroupsViewModel.Load(units, DetailsViewModel.Item, UnitOfWork, isNew);
             GroupsViewModel.GroupChanged += OnGroupChanged;
 
+            AfterUnitsLoading();
+
             ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
+        }
+
+        public virtual void AfterUnitsLoading()
+        {
         }
 
         /// <summary>
@@ -55,50 +100,6 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
         /// <param name="parameter"></param>
         /// <returns></returns>
         protected abstract IEnumerable<TUnit> GetUnits(TModel model, object parameter = null);
-
-        #region SaveCommand
-
-        protected void SaveCommandExecute()
-        {
-            //отписка от событий изменения строк с оборудованием
-            this.GroupsViewModel.GroupChanged -= OnGroupChanged;
-
-            GroupsViewModel.AcceptChanges();
-
-            //добавляем сущность, если ее не существовало
-            if (UnitOfWork.Repository<TModel>().GetById(DetailsViewModel.Item.Model.Id) == null)
-                UnitOfWork.Repository<TModel>().Add(DetailsViewModel.Item.Model);
-
-            DetailsViewModel.Item.AcceptChanges();
-            Container.Resolve<IEventAggregator>().GetEvent<TAfterSaveModelEvent>().Publish(DetailsViewModel.Item.Model);
-
-            //сохраняем
-            try
-            {
-                UnitOfWork.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException e)
-            {
-                Container.Resolve<IMessageService>().ShowOkMessageDialog("Ошибка при сохранении", e.GetAllExceptions());
-            }
-
-            //регистрация на события изменения строк с оборудованием
-            this.GroupsViewModel.GroupChanged += OnGroupChanged;
-
-            ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
-        }
-
-        private bool SaveCommandCanExecute()
-        {
-            //все сущности должны быть валидны
-            if (!GroupsViewModel.IsValid || !DetailsViewModel.Item.IsValid)
-                return false;
-
-            //какая-то сущность должна быть изменена
-            return DetailsViewModel.Item.IsChanged || GroupsViewModel.IsChanged;
-        }
-
-        #endregion
 
         private void ItemOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
@@ -113,11 +114,11 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
         protected override void GoBackCommand_Execute()
         {
             //если придет запрос при несохраненных изменениях
-            if (SaveCommandCanExecute())
+            if (SaveCommand.CanExecute(null))
             {
                 var ms = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Сохранение", "Сохранить сделанные изменения?", defaultNo:true);
                 if(ms == MessageDialogResult.Yes)
-                    SaveCommandExecute();
+                    SaveCommand.Execute(null);
             }
 
             base.GoBackCommand_Execute();

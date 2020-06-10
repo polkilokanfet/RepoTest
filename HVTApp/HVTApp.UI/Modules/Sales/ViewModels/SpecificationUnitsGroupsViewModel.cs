@@ -49,10 +49,10 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             return units.GroupBy(x => x, new SalesUnitsGroupsComparer()).OrderByDescending(x => x.Key.Cost).Select(x => new SalesUnitsWrappersGroup(x.ToList())).ToList();
         }
 
-        public void Load(IEnumerable<SalesUnit> units, SpecificationWrapper parentWrapper, IUnitOfWork unitOfWork, bool isNew)
+        public void Load(IEnumerable<SalesUnit> units, SpecificationWrapper specificationWrapper, IUnitOfWork unitOfWork, bool isNew)
         {
             Load(units, unitOfWork, isNew);
-            _specificationWrapper = parentWrapper;
+            _specificationWrapper = specificationWrapper;
             //назначаем спецификацию всем юнитам
             Groups.ForEach(x => x.Specification = _specificationWrapper);
             _groupsToReject = new ValidatableChangeTrackingCollection<SalesUnitsWrappersGroup>(Groups);
@@ -72,10 +72,9 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             //удаленные из спецификации группы
             var removed = Groups.Where(x => x.Groups != null).SelectMany(x => x.Groups.RemovedItems).ToList();
             removed = Groups.RemovedItems.Concat(removed).ToList();
-            removed.ForEach(x => { x.RejectChanges(); });
             removed.ForEach(x => { x.Specification = null; });
+            removed.ForEach(x => { x.RejectChanges(); });
             removed.ForEach(x => { x.AcceptChanges(); });
-
 
             var added = GetAddedUnits().ToList();
             var modified = Groups.Where(x => x.Groups != null).SelectMany(x => x.Groups.ModifiedItems).ToList();
