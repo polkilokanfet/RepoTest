@@ -140,11 +140,21 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
         }
 
 
+
+        #endregion
+
+        #region ICommand
+
         public ICommand AddPaymentCommand { get; }
         public ICommand RemovePaymentCommand { get; }
         public ICommand SaveDocumentCommand { get; }
         public ICommand RemoveDocumentCommand { get; }
 
+        /// <summary>
+        /// Оплата остатка
+        /// </summary>
+        public ICommand RestPaymentCommand { get; }
+        
         #endregion
 
         public PaymentDocumentViewModel(IUnityContainer container) : base(container)
@@ -234,6 +244,14 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
                 () => UnitOfWork.Repository<PaymentDocument>().GetById(PaymentDocument.Id) != null
             );
 
+            RestPaymentCommand = new DelegateCommand(
+                () =>
+                {
+                    Payments.ForEach(x => x.SumWithVat += x.SumNotPaidWithVat);
+                }, 
+                () => Payments.Any());
+
+            Payments.CollectionChanged += (sender, args) => ((DelegateCommand)RestPaymentCommand).RaiseCanExecuteChanged();
         }
 
         protected override void AfterLoading()

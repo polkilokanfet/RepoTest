@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Model.POCOs;
-using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using HVTApp.Model.Wrapper;
+using HVTApp.Model.Wrapper.Base.TrackingCollections;
 
-namespace HVTApp.UI.Modules.Reports.ViewModels
+namespace HVTApp.UI.Modules.Reports.SalesReport
 {
     public class SalesUnitFakeDataGroup
     {

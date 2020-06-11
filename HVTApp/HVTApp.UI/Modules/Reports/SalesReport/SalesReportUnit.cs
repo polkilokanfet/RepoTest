@@ -1,14 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Converter;
 
-namespace HVTApp.UI.Modules.Reports.ViewModels
+namespace HVTApp.UI.Modules.Reports.SalesReport
 {
     public class SalesReportUnit
     {
@@ -369,7 +367,8 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
             Contragent = contragent.ToString();
             ContragentType = GetContragentType(contragent);
             Facility = salesUnit.Facility.ToString();
-            Country = salesUnit.Facility.GetRegion()?.District.Country;
+            var region = salesUnit.Facility.GetRegion();
+            Country = region?.District.Country;
             if (Country != null)
             {
                 IsExport = Country.Name == "Россия" ? "РФ" : Country.Name;
@@ -386,7 +385,7 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
                     RfSng = "ДЗ";
                 }
             }
-            District = salesUnit.Facility.GetRegion()?.District.Name;
+            District = region?.District.Name;
             Segment = GetSegment();
             ProductType = salesUnit.Product.ProductType.Name;
             Designation = salesUnit.Product.Designation;
@@ -434,7 +433,7 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
 
             DeliveryType = -1 * CostDelivery > 0  ? "Доставка" : "Самовывоз";
 
-            DeliveryAddress = salesUnit.AddressDelivery?.ToString() ?? salesUnit.Facility.Address?.ToString() ?? $"{Country}, {District}, {Facility}";
+            DeliveryAddress = salesUnit.AddressDelivery?.ToString() ?? salesUnit.Facility.Address?.ToString() ?? $"{Country}, {region}, {Facility}";
 
             PickingDate = salesUnit.PickingDate;
 

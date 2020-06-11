@@ -3,10 +3,11 @@ using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Modules.Reports.ViewModels;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 
-namespace HVTApp.UI.Modules.Reports.ViewModels
+namespace HVTApp.UI.Modules.Reports.Reference
 {
     public class ReferenceViewModel : ViewModelBaseCanExportToExcel
     {

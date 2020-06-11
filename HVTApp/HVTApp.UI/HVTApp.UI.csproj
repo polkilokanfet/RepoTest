@@ -362,12 +362,12 @@
       <DependentUpon>TabReload.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Reports\ViewModels\FakeDataViewModel.cs" />
-    <Compile Include="Modules\Reports\ViewModels\ReferenceItem.cs" />
-    <Compile Include="Modules\Reports\ViewModels\ReferenceViewModel.cs" />
+    <Compile Include="Modules\Reports\Reference\ReferenceItem.cs" />
+    <Compile Include="Modules\Reports\Reference\ReferenceViewModel.cs" />
     <Compile Include="Modules\Reports\ViewModels\SalesChartViewModel.cs" />
-    <Compile Include="Modules\Reports\ViewModels\SalesReportUnit.cs" />
-    <Compile Include="Modules\Reports\ViewModels\SalesReportViewModel.cs" />
-    <Compile Include="Modules\Reports\ViewModels\SalesUnitFakeDataGroup.cs" />
+    <Compile Include="Modules\Reports\SalesReport\SalesReportUnit.cs" />
+    <Compile Include="Modules\Reports\SalesReport\SalesReportViewModel.cs" />
+    <Compile Include="Modules\Reports\SalesReport\SalesUnitFakeDataGroup.cs" />
     <Compile Include="Modules\Reports\ViewModels\Comparers.cs" />
     <Compile Include="Modules\Reports\Views\FakeDataView.xaml.cs">
       <DependentUpon>FakeDataView.xaml</DependentUpon>
@@ -375,10 +375,10 @@
     <Compile Include="Modules\Reports\Views\SalesChartView.xaml.cs">
       <DependentUpon>SalesChartView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Reports\Views\ReferenceView.xaml.cs">
+    <Compile Include="Modules\Reports\Reference\ReferenceView.xaml.cs">
       <DependentUpon>ReferenceView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Reports\Views\SalesReportView.xaml.cs">
+    <Compile Include="Modules\Reports\SalesReport\SalesReportView.xaml.cs">
       <DependentUpon>SalesReportView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Sales\Controls\OfferUnitListControl.xaml.cs">
@@ -1037,11 +1037,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Modules\Reports\Views\ReferenceView.xaml">
+    <Page Include="Modules\Reports\Reference\ReferenceView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Modules\Reports\Views\SalesReportView.xaml">
+    <Page Include="Modules\Reports\SalesReport\SalesReportView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

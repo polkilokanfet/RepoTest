@@ -11,6 +11,8 @@ using HVTApp.UI.Modules.Reports.SalesCharts.ProducersSalesChart;
 using HVTApp.UI.Modules.Reports.SalesCharts.ProductTypesSalesChart;
 using HVTApp.UI.Modules.Reports.SalesCharts.RegionsSalesChart;
 using HVTApp.UI.Modules.Reports.Views;
+using ReferenceView = HVTApp.UI.Modules.Reports.Reference.ReferenceView;
+using SalesReportView = HVTApp.UI.Modules.Reports.SalesReport.SalesReportView;
 
 namespace HVTApp.Modules.Reports.Menus
 {

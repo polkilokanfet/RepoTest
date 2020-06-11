@@ -2,6 +2,7 @@
 using HVTApp.Model;
 using HVTApp.UI.Modules.Products.Views;
 using HVTApp.UI.Modules.Reports.Views;
+using ReferenceView = HVTApp.UI.Modules.Reports.Reference.ReferenceView;
 
 namespace HVTApp.Modules.Products.Menus
 {

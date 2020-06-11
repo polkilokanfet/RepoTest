@@ -17,7 +17,7 @@
         <infg:XamDataGrid.FieldLayouts>
             
             <infg:FieldLayout>
-                <infg:TextField AlternateBinding="{Binding SalesUnitPayment.SalesUnit.Facility}" Label="Объект" BindingType="UseAlternateBinding" Width="Auto"/>
+                <infg:TextField AlternateBinding="{Binding SalesUnitPayment.SalesUnit.Facility}" Converter="{StaticResource ObjectToStringConverter}" Label="Объект" BindingType="UseAlternateBinding" Width="150"/>
                 <infg:TextField AlternateBinding="{Binding SalesUnitPayment.SalesUnit.Product}" Converter="{StaticResource ObjectToStringConverter}" Label="Продукт" BindingType="UseAlternateBinding" Width="300"/>
                 <infg:TextField AlternateBinding="{Binding SalesUnitPayment.SalesUnit.Order}" Converter="{StaticResource ObjectToStringConverter}" Label="З/з" BindingType="UseAlternateBinding" Width="Auto"/>
                 <infg:TextField AlternateBinding="{Binding Amount}" Label="Кол." BindingType="UseAlternateBinding" Width="Auto"/>
@@ -27,11 +27,11 @@
                 <infg:CheckBoxField AlternateBinding="{Binding IsPaid}" Label="Оплачен" BindingType="UseAlternateBinding" Width="Auto"/>
                 <infg:NumericField AlternateBinding="{Binding SumNotPaidWithVat}" Label="Не оплачено" BindingType="UseAlternateBinding" Width="Auto" AllowResize="False"/>
                 <infg:NumericField AlternateBinding="{Binding PercentNotPaid}" Label="%" BindingType="UseAlternateBinding" Width="Auto" AllowResize="False"/>
-                <infg:TextField AlternateBinding="{Binding SalesUnitPayment.Contract}" Label="Договор" BindingType="UseAlternateBinding" Width="Auto"/>
-                <infg:TextField AlternateBinding="{Binding SalesUnitPayment.SalesUnit.Specification}" Label="Сп." BindingType="UseAlternateBinding" Width="Auto"/>
+                <infg:TextField AlternateBinding="{Binding SalesUnitPayment.Contract}" Converter="{StaticResource ObjectToStringConverter}" Label="Договор" BindingType="UseAlternateBinding" Width="Auto"/>
+                <infg:TextField AlternateBinding="{Binding SalesUnitPayment.SalesUnit.Specification}" Converter="{StaticResource ObjectToStringConverter}" Label="Сп." BindingType="UseAlternateBinding" Width="Auto"/>
                 <infg:NumericField AlternateBinding="{Binding SalesUnitPayment.SalesUnit.Vat}" Label="НДС" BindingType="UseAlternateBinding" Width="Auto" AllowResize="False"/>
-                <infg:TextField AlternateBinding="{Binding SalesUnitPayment.Contragent}" Label="Контрагент" BindingType="UseAlternateBinding" Width="Auto"/>
-                <infg:TextField AlternateBinding="{Binding SalesUnitPayment.SalesUnit.Project.Manager}" Label="Менеджер" BindingType="UseAlternateBinding" Width="Auto" AllowResize="False"/>
+                <infg:TextField AlternateBinding="{Binding SalesUnitPayment.Contragent}" Converter="{StaticResource ObjectToStringConverter}" Label="Контрагент" BindingType="UseAlternateBinding" Width="150"/>
+                <infg:TextField AlternateBinding="{Binding SalesUnitPayment.SalesUnit.Project.Manager}" Converter="{StaticResource ObjectToStringConverter}" Label="Менеджер" BindingType="UseAlternateBinding" Width="Auto" AllowResize="False"/>
                 <infg:Field Name="SalesUnitPayments" IsExpandable="True"/>
             </infg:FieldLayout>
 

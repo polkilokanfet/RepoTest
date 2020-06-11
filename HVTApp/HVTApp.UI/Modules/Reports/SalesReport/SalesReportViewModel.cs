@@ -8,12 +8,13 @@ using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Modules.Reports.ViewModels;
 using HVTApp.UI.Modules.Reports.Views;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Regions;
 
-namespace HVTApp.UI.Modules.Reports.ViewModels
+namespace HVTApp.UI.Modules.Reports.SalesReport
 {
     public class SalesReportViewModel : ViewModelBaseCanExportToExcelSaveCustomization
     {

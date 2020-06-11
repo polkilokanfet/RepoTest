@@ -107,7 +107,7 @@
 
                             <dp:FieldLayout>
                                 <dp:FieldLayout.Fields>
-                                    <dp:Field Name="Facility" Label="Объект" Width="Auto" Converter="{StaticResource WrapperToStringConverter}">
+                                    <dp:Field AlternateBinding="{Binding Facility.Model}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto" Converter="{StaticResource ObjectToStringConverter}">
                                         <dp:Field.Settings>
                                             <dp:FieldSettings CellValuePresenterStyle="{StaticResource FacilityCellStyle}" />
                                         </dp:Field.Settings>
@@ -124,12 +124,12 @@
                                     <dp:DateTimeField Name="DeliveryDateExpected" Label="Поставка" Width="Auto" AllowEdit="True" />
                                     <dp:NumericField Name="CostDelivery" Label="Доставка" Width="Auto" AllowEdit="True" />
                                     <dp:NumericField Name="ProductionTerm" Label="Срок" Width="Auto" AllowEdit="True" />
-                                    <dp:Field Name="PaymentConditionSet" Label="Условия оплаты" Width="Auto" Converter="{StaticResource WrapperToStringConverter}">
+                                    <dp:Field AlternateBinding="{Binding PaymentConditionSet}" BindingType="UseAlternateBinding" Label="Условия оплаты" Width="Auto" Converter="{StaticResource ObjectToStringConverter}">
                                         <dp:Field.Settings>
                                             <dp:FieldSettings CellValuePresenterStyle="{StaticResource PaymentsCellStyle}" />
                                         </dp:Field.Settings>
                                     </dp:Field>
-                                    <dp:Field Name="Producer" Label="Производитель" Width="Auto" Converter="{StaticResource WrapperToStringConverter}">
+                                    <dp:Field AlternateBinding="{Binding Producer}" BindingType="UseAlternateBinding" Label="Производитель" Width="Auto" Converter="{StaticResource ObjectToStringConverter}">
                                         <dp:Field.Settings>
                                             <dp:FieldSettings CellValuePresenterStyle="{StaticResource ProducerCellStyle}" />
                                         </dp:Field.Settings>

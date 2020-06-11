@@ -3,6 +3,7 @@ using System.Linq;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Modules.PlanAndEconomy.ViewModels;
+using HVTApp.UI.Modules.Reports.SalesReport;
 using HVTApp.UI.Modules.Reports.ViewModels;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;

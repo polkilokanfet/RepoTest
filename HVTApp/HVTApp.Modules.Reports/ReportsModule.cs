@@ -6,6 +6,7 @@ using HVTApp.Modules.Reports.Menus;
 using HVTApp.UI.Modules.Reports.PriorityReport;
 using HVTApp.UI.Modules.Reports.Views;
 using Microsoft.Practices.Unity;
+using SalesReportView = HVTApp.UI.Modules.Reports.SalesReport.SalesReportView;
 
 namespace HVTApp.Modules.Reports
 {

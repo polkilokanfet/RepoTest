@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Modules.Reports.SalesReport;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 

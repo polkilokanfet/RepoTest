@@ -1,13 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Converter;
 
-namespace HVTApp.UI.Modules.Reports.ViewModels
+namespace HVTApp.UI.Modules.Reports.Reference
 {
     public class ReferenceItem
     {

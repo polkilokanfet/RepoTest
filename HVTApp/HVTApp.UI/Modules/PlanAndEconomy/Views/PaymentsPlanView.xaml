@@ -19,13 +19,14 @@
                 <infg:FieldLayout>
                     <infg:FieldLayout.Fields>
 
-                        <infg:TextField AlternateBinding="{Binding Contragent}" BindingType="UseAlternateBinding" Label="Плательщик" Width="Auto" AllowResize="True"/>
+                        <infg:TextField AlternateBinding="{Binding Contragent}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Плательщик" Width="Auto" AllowResize="True"/>
                         <infg:TextField AlternateBinding="{Binding Contract.Number}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
-                        <infg:TextField AlternateBinding="{Binding Region}" BindingType="UseAlternateBinding" Label="Регион" Width="Auto"/>
-                        <infg:TextField AlternateBinding="{Binding SalesUnit.Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
+                        <infg:TextField AlternateBinding="{Binding SalesUnit.Specification}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Сп." Width="Auto"/>
+                        <infg:TextField AlternateBinding="{Binding Region}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Регион" Width="Auto"/>
+                        <infg:TextField AlternateBinding="{Binding SalesUnit.Facility}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
                         <infg:TextField AlternateBinding="{Binding OrderNumber}" BindingType="UseAlternateBinding" Label="З/з" Width="Auto"/>
                         <infg:TextField AlternateBinding="{Binding SalesUnit.Product.Designation}" BindingType="UseAlternateBinding" Label="Продукт" Width="Auto"/>
-                        <infg:TextField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto"/>
+                        <infg:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto"/>
                         <infg:TextField AlternateBinding="{Binding Rf}" BindingType="UseAlternateBinding" Label="Эксп./РФ" Width="Auto"/>
                         <infg:TextField AlternateBinding="{Binding Currency}" BindingType="UseAlternateBinding" Label="Валюта" Width="Auto"/>
                         <infg:DateTimeField AlternateBinding="{Binding SalesUnit.RealizationDateCalculated}" BindingType="UseAlternateBinding" Label="Реализация" Width="Auto"/>
@@ -35,8 +36,8 @@
                         <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" AllowEdit="True"/>
                         <infg:NumericField AlternateBinding="{Binding Week}" BindingType="UseAlternateBinding" Label="Неделя" Width="Auto"/>
                         <infg:NumericField AlternateBinding="{Binding Sum}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto"/>
-                        <infg:TextField AlternateBinding="{Binding SalesUnit.Project.Manager.Employee.Person}" BindingType="UseAlternateBinding" Label="Менеджер" Width="Auto"/>
-                        <infg:TextField AlternateBinding="{Binding PaymentPlanned.Condition}" BindingType="UseAlternateBinding" Label="Условие" Width="Auto"/>
+                        <infg:TextField AlternateBinding="{Binding SalesUnit.Project.Manager.Employee.Person}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Менеджер" Width="Auto"/>
+                        <infg:TextField AlternateBinding="{Binding PaymentPlanned.Condition}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Условие" Width="Auto"/>
                         <infg:TextField AlternateBinding="{Binding Month}" BindingType="UseAlternateBinding" Label="Месяц" Width="Auto"/>
                         <infg:TextField AlternateBinding="{Binding Year}" BindingType="UseAlternateBinding" Label="Год" Width="Auto"/>
 

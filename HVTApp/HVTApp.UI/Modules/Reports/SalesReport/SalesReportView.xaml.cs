@@ -1,11 +1,10 @@
 ﻿using System.IO;
 using HVTApp.Infrastructure;
 using HVTApp.UI.Modules.Director.Tabs;
-using HVTApp.UI.Modules.Reports.ViewModels;
 using Prism.Events;
 using Prism.Regions;
 
-namespace HVTApp.UI.Modules.Reports.Views
+namespace HVTApp.UI.Modules.Reports.SalesReport
 {
     [RibbonTab(typeof(TabReload))]
     public partial class SalesReportView

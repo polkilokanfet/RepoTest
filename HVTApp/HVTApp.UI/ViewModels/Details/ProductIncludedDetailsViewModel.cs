@@ -12,19 +12,16 @@ namespace HVTApp.UI.ViewModels
 
         protected override void InitSpecialCommands()
         {
-            SelectProductCommand = new DelegateCommand(SelectProductCommand_Execute);
+            SelectProductCommand = new DelegateCommand(
+                () =>
+                {
+                    var product = Container.Resolve<IGetProductService>().GetProduct(Item.Model.Product);
+                    if (product != null)
+                    {
+                        product = UnitOfWork.Repository<Product>().GetById(product.Id);
+                        Item.Product = new ProductWrapper(product);
+                    }
+                });
         }
-
-        private void SelectProductCommand_Execute()
-        {
-            var preselectedProduct = Item.Model.Product ?? GlobalAppProperties.Actual.ProductIncludedDefault;
-            var product = Container.Resolve<IGetProductService>().GetProduct(preselectedProduct);
-            if (product != null)
-            {
-                product = UnitOfWork.Repository<Product>().GetById(product.Id);
-                Item.Product = new ProductWrapper(product);
-            }
-        }
-
     }
 }

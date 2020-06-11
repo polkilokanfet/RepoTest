@@ -10,6 +10,10 @@
         <infRib:ButtonTool Caption="Удалить" Command="{Binding RemovePaymentCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>
     </infRib:RibbonGroup>
     
+    <infRib:RibbonGroup Caption="Сумма платежа">
+        <infRib:ButtonTool Caption="Все остатки" Command="{Binding RestPaymentCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
+    </infRib:RibbonGroup>
+
     <infRib:RibbonGroup Caption="Документ">
         <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveDocumentCommand}" SmallImage="/HVTApp.UI;component/Images/save.png"/>
         <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveDocumentCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>
