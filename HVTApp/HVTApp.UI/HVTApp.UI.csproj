@@ -339,14 +339,14 @@
       <DependentUpon>TabStructureCosts.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Products\ViewModels\CreateNewProductTasksViewModel.cs" />
-    <Compile Include="Modules\Products\ViewModels\ParametersViewModel.cs" />
+    <Compile Include="Modules\Products\Parameters\ParametersViewModel.cs" />
     <Compile Include="Modules\Products\ViewModels\ProductBlockStructureCostWrapper.cs" />
     <Compile Include="Modules\Products\ViewModels\ProductTypeDesignationViewModel.cs" />
     <Compile Include="Modules\Products\ViewModels\StructureCostsViewModel.cs" />
     <Compile Include="Modules\Products\Views\CreateNewProductTasksView.xaml.cs">
       <DependentUpon>CreateNewProductTasksView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Products\Views\ParametersView.xaml.cs">
+    <Compile Include="Modules\Products\Parameters\ParametersView.xaml.cs">
       <DependentUpon>ParametersView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Products\Views\ProductTypeDesignationView.xaml.cs">
@@ -949,7 +949,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Modules\Products\Views\ParametersView.xaml">
+    <Page Include="Modules\Products\Parameters\ParametersView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1815,6 +1815,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Lookup\Service\Custom\" />
+    <Folder Include="Modules\Products\ProductRelations\" />
     <Folder Include="Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

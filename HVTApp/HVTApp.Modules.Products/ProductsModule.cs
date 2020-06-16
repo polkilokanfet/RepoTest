@@ -2,6 +2,7 @@
 using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Prism;
 using HVTApp.Modules.Products.Menus;
+using HVTApp.UI.Modules.Products.Parameters;
 using HVTApp.UI.Modules.Products.Views;
 using Microsoft.Practices.Unity;
 using Prism.Regions;

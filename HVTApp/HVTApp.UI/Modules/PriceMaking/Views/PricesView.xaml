@@ -52,7 +52,7 @@
                                 <infg:FieldLayout.Fields>
                         
                                 <infg:TextField AlternateBinding="{Binding Model.StructureCostNumber}" BindingType="UseAlternateBinding" Label="Сралчахвост" Width="Auto" AllowEdit="False"/>
-                                <infg:TextField AlternateBinding="{Binding Model.ProductType}" BindingType="UseAlternateBinding" Label="Тип" Width="Auto"/>
+                                <infg:TextField AlternateBinding="{Binding Model.ProductType}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Тип" Width="Auto"/>
                                 <infg:TextField AlternateBinding="{Binding BlockName}" BindingType="UseAlternateBinding" Label="Блок" Width="500"/>
                                 <infg:CheckBoxField Name="HasReasons" Label="На расчет" Width="Auto"/>
                                 <!--<infg:CheckBoxField Name="IsPriceless" Label="Без прайса" Width="Auto" />-->

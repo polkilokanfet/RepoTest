@@ -35,13 +35,14 @@ namespace HVTApp.UI.Modules.Products.ViewModels
             {
                 ProductType = new ProductTypeWrapper(new ProductType())
                 {
-                    Name = "New product type"
+                    Name = "Новый тип продукта"
                 }
             };
 
             SaveCommand = new DelegateCommand(
                 () =>
                 {
+                    ProductTypeDesignationWrapper.AcceptChanges();
                     UnitOfWork.Repository<ProductTypeDesignation>().Add(ProductTypeDesignationWrapper.Model);
                     UnitOfWork.SaveChanges();
                     Container.Resolve<IEventAggregator>().GetEvent<AfterSaveProductTypeDesignationEvent>().Publish(ProductTypeDesignationWrapper.Model);

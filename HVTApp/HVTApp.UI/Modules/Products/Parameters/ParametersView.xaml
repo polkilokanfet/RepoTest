@@ -5,13 +5,13 @@
               xmlns:prism="http://prismlibrary.com/" 
               xmlns:views="clr-namespace:HVTApp.UI.Views"
               prism:ViewModelLocator.AutoWireViewModel="True"
-              x:Class="HVTApp.UI.Modules.Products.Views.ParametersView">
+              x:Class="HVTApp.UI.Modules.Products.Parameters.ParametersView">
 
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
 
         <GroupBox Header="Параметры" Grid.Column="0">
@@ -21,18 +21,18 @@
                 <infg:XamDataGrid.FieldLayouts>
                     <infg:FieldLayout>
                         <infg:FieldLayout.Fields>
-                            <infg:TextField Name="Value" Label="Значение" Width="Auto" AllowResize="True"/>
-                            <infg:TextField Name="ParameterGroup" Label="Группа" Width="Auto" Converter="{StaticResource LookupToStringConverter}" AllowResize="True"/>
-                            <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" AllowResize="True"/>
+                            <infg:TextField Name="Value" Label="Значение" Width="150" AllowResize="True"/>
+                            <infg:TextField Name="ParameterGroup" Label="Группа" Width="150" Converter="{StaticResource LookupToStringConverter}" AllowResize="True"/>
+                            <infg:TextField Name="Comment" Label="Комментарий" Width="50" AllowResize="True"/>
                         </infg:FieldLayout.Fields>
                     </infg:FieldLayout>
 
                 </infg:XamDataGrid.FieldLayouts>
             </infg:XamDataGrid>
         </GroupBox>
-        
+
         <GridSplitter Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Center" Width="3"/>
-        
+
         <GroupBox Grid.Column="2" Header="Детали">
             <Grid>
                 <Grid.RowDefinitions>
@@ -41,18 +41,20 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                
+
                 <views:ParameterDetailsView DataContext="{Binding}" VisibilityParameterRelationsParameter="Collapsed"/>
-                
+
                 <GroupBox Grid.Row="1" Header="Обязательные параметры, выбранные перед этим">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="2*"/>
-                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        
-                        <GroupBox Header="Ограничения">
+
+                        <GroupBox Header="Ограничения" Grid.Column="0">
                             <infg:XamDataGrid DataSource="{Binding Item.ParameterRelations}" 
                                               SelectedDataItem="{Binding SelectedRelation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                               Style="{StaticResource ListViewGrid}" >
@@ -66,28 +68,32 @@
                             </infg:XamDataGrid>
                         </GroupBox>
 
-                        <GroupBox Header="Параметры ограничения" Grid.Column="1">
+                        <GridSplitter Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Center" Width="3"/>
+
+                        <GroupBox Header="Параметры ограничения" Grid.Column="2">
                             <infg:XamDataGrid DataSource="{Binding SelectedRelation.RequiredParameters, UpdateSourceTrigger=PropertyChanged}" 
                                               Style="{StaticResource ListViewGrid}" >
                                 <infg:XamDataGrid.FieldLayouts>
                                     <infg:FieldLayout>
                                         <infg:FieldLayout.Fields>
-                                            <infg:TextField Name="ParameterGroup" Label="Группа" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
-                                            <infg:TextField Name="Value" Label="Значение" Width="Auto" />
+                                            <infg:TextField Name="Value" Label="Значение" Width="150" />
+                                            <infg:TextField Name="ParameterGroup" Label="Группа" Width="150" Converter="{StaticResource WrapperToStringConverter}"/>
                                         </infg:FieldLayout.Fields>
                                     </infg:FieldLayout>
                                 </infg:XamDataGrid.FieldLayouts>
                             </infg:XamDataGrid>
                         </GroupBox>
 
-                        <GroupBox Header="Потенциальные параметры ограничения" Grid.Column="2">
+                        <GridSplitter Grid.Column="3" VerticalAlignment="Stretch" HorizontalAlignment="Center" Width="3"/>
+
+                        <GroupBox Header="Потенциальные параметры ограничения" Grid.Column="4">
                             <infg:XamDataGrid DataSource="{Binding PotentialRelationParameters, UpdateSourceTrigger=PropertyChanged}"
                                               SelectedDataItem="{Binding SelectedPotentialParameter, Mode=TwoWay}">
                                 <infg:XamDataGrid.FieldLayouts>
                                     <infg:FieldLayout>
                                         <infg:FieldLayout.Fields>
-                                            <infg:TextField Name="Value" Label="Значение" Width="Auto" />
-                                            <infg:TextField Name="ParameterGroup" Label="Группа" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
+                                            <infg:TextField Name="Value" Label="Значение" Width="150" />
+                                            <infg:TextField Name="ParameterGroup" Label="Группа" Width="150" Converter="{StaticResource WrapperToStringConverter}"/>
                                         </infg:FieldLayout.Fields>
                                     </infg:FieldLayout>
                                 </infg:XamDataGrid.FieldLayouts>
@@ -97,9 +103,9 @@
 
                     </Grid>
                 </GroupBox>
-                
+
                 <GridSplitter Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Width="3"/>
-                
+
                 <GroupBox Grid.Row="3" Header="Пути выбора">
                     <infg:XamDataGrid DataSource="{Binding Paths}" Style="{StaticResource ListViewGrid}" >
                         <infg:XamDataGrid.FieldLayouts>
@@ -111,13 +117,11 @@
                         </infg:XamDataGrid.FieldLayouts>
                     </infg:XamDataGrid>
                 </GroupBox>
-                
+
             </Grid>
         </GroupBox>
-        
+
     </Grid>
-    
+
 
 </inf:ViewBase>
-
-	    

@@ -1,8 +1,9 @@
 ﻿using HVTApp.Infrastructure;
 using HVTApp.Model;
+using HVTApp.UI.Modules.Products.Parameters;
 using HVTApp.UI.Modules.Products.Views;
-using HVTApp.UI.Modules.Reports.Views;
-using ReferenceView = HVTApp.UI.Modules.Reports.Reference.ReferenceView;
+using HVTApp.UI.Modules.Reports.Reference;
+using HVTApp.UI.Views;
 
 namespace HVTApp.Modules.Products.Menus
 {
@@ -13,6 +14,9 @@ namespace HVTApp.Modules.Products.Menus
             if (GlobalAppProperties.User.RoleCurrent == Role.Admin)
             {
                 Items.Add(new NavigationItem("Параметры", typeof(ParametersView)));
+                Items.Add(new NavigationItem("Обозначение продукта", typeof(ProductDesignationLookupListView)));
+                Items.Add(new NavigationItem("Обозначение типа продукта", typeof(ProductTypeDesignationLookupListView)));
+                Items.Add(new NavigationItem("Связи продуктов", typeof(ProductRelationLookupListView)));
                 Items.Add(new NavigationItem("Задания", typeof(CreateNewProductTasksView)));
                 Items.Add(new NavigationItem("Замена", typeof(ProductReplacementView)));
             }

@@ -1,17 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Wrapper;
 using HVTApp.UI.Lookup;
 using HVTApp.UI.ViewModels;
-using HVTApp.Model.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 
-namespace HVTApp.UI.Modules.Products.ViewModels
+namespace HVTApp.UI.Modules.Products.Parameters
 {
     public class ParametersViewModel : ParameterDetailsViewModel
     {
@@ -128,7 +127,7 @@ namespace HVTApp.UI.Modules.Products.ViewModels
                     //создаем подобный парметр
                     var similarParameter = new Parameter
                     {
-                        Value = $"{SelectedParameterLookup.Entity.Value} (подобный праметр)",
+                        Value = $"{SelectedParameterLookup.Entity.Value} - подобный параметр",
                         ParameterGroup = SelectedParameterLookup.Entity.ParameterGroup,
                         Rang = SelectedParameterLookup.Entity.Rang,
                         Comment = SelectedParameterLookup.Entity.Comment
