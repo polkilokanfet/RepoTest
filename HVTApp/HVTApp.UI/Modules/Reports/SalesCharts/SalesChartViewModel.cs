@@ -16,23 +16,23 @@ namespace HVTApp.UI.Modules.Reports.SalesCharts
     public abstract class SalesChartViewModel<T> : ViewModelBase 
         where T: SalesChartItem 
     {
-        protected List<SalesUnit> SalesUnits;
+        private DateTime _startDate;
+        private DateTime _finishDate;
+        private int _year = DateTime.Today.Year;
+        private Parameter _selectedParameter;
+
+        private List<SalesUnit> _salesUnits;
 
         protected List<SalesUnit> SalesUnitsFiltered
         {
             get
             {
-                var salesUnits = SalesUnits.Where(x => x.OrderInTakeDate >= StartDate && x.OrderInTakeDate <= FinishDate);
+                var salesUnits = _salesUnits.Where(x => x.OrderInTakeDate >= StartDate && x.OrderInTakeDate <= FinishDate);
                 if (Parameters.Any())
                     salesUnits = salesUnits.Where(x => Parameters.AllContainsIn(x.Product.ProductBlock.Parameters));
                 return salesUnits.ToList();
             }
         }
-
-        private DateTime _startDate;
-        private DateTime _finishDate;
-        private int _year = DateTime.Today.Year;
-        private Parameter _selectedParameter;
 
         public abstract string Title { get; }
         public string TitleItem => Items.FirstOrDefault()?.Title ?? "no data";
@@ -125,23 +125,32 @@ namespace HVTApp.UI.Modules.Reports.SalesCharts
                     FinishDate = new DateTime(Year, 12, 31);
                 },
                 () => Year > 1899 && Year < 2201);
-            ReloadCommand = new DelegateCommand(Load);
+            ReloadCommand = new DelegateCommand(() => Load(true));
             Load();
         }
 
         protected virtual List<SalesUnit> GetSalesUnits()
         {
             return GlobalAppProperties.User.RoleCurrent == Role.SalesManager
-                ? UnitOfWork.Repository<SalesUnit>().Find(x => x.IsWon && x.Project.Manager.IsAppCurrentUser())
-                : UnitOfWork.Repository<SalesUnit>().Find(x => x.IsWon);
+                ? SalesUnitsContainer.SalesUnits.Where(x => x.IsWon && x.Project.Manager.IsAppCurrentUser()).ToList()
+                : SalesUnitsContainer.SalesUnits.Where(x => x.IsWon).ToList();
         }
 
-        private void Load()
+        private void Load(bool isReload = false)
         {
-            UnitOfWork = Container.Resolve<IUnitOfWork>();
-            SalesUnits = GetSalesUnits();
-            _startDate = SalesUnits.Min(x => x.OrderInTakeDate);
-            _finishDate = SalesUnits.Max(x => x.OrderInTakeDate);
+            if (isReload)
+            {
+                UnitOfWork = Container.Resolve<IUnitOfWork>();
+            }
+
+            if (isReload || SalesUnitsContainer.SalesUnits == null)
+            {
+                SalesUnitsContainer.SalesUnits = UnitOfWork.Repository<SalesUnit>().GetAll();
+            }
+            _salesUnits = GetSalesUnits();
+
+            _startDate = _salesUnits.Min(x => x.OrderInTakeDate);
+            _finishDate = _salesUnits.Max(x => x.OrderInTakeDate);
             OnPropertyChanged(nameof(StartDate));
             OnPropertyChanged(nameof(FinishDate));
             RefreshItems();

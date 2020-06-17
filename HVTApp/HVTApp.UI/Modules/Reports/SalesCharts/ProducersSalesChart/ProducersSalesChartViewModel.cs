@@ -18,18 +18,12 @@ namespace HVTApp.UI.Modules.Reports.SalesCharts.ProducersSalesChart
 
         protected override List<SalesUnit> GetSalesUnits()
         {
-            return GlobalAppProperties.User.RoleCurrent == Role.SalesManager
-                ? UnitOfWork.Repository<SalesUnit>().Find(x => x.Producer != null && x.Project.Manager.IsAppCurrentUser())
-                : UnitOfWork.Repository<SalesUnit>().Find(x => x.Producer != null);
+            return base.GetSalesUnits().Where(x => x.Producer != null).ToList();
         }
 
         protected override List<ProducersSalesChartItem> GetItems()
         {
-            var salesUnits = SalesUnits.Where(x => x.OrderInTakeDate >= StartDate && x.OrderInTakeDate <= FinishDate);
-            if (Parameters.Any())
-                salesUnits = salesUnits.Where(x => Parameters.AllContainsIn(x.Product.ProductBlock.Parameters));
-
-            return salesUnits
+            return SalesUnitsFiltered
                 .GroupBy(x => x.Producer)
                 .Select(x => new ProducersSalesChartItem(x, SumOfSalesUnits))
                 .OrderByDescending(x => x.Sum)

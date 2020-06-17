@@ -46,7 +46,8 @@ namespace HVTApp.Services.GetProductService
             var selectedProduct = originProduct == null ? null : _bank.Products.Single(x => x.Id == originProduct.Id);
 
             var productSelector = new ProductSelector(_bank, _bank.Parameters, selectedProduct);
-            var window = new SelectProductWindow { DataContext = productSelector, Owner = Application.Current.MainWindow };
+            //var window = new SelectProductWindow { DataContext = productSelector, Owner = Application.Current.MainWindow };
+            var window = new SelectProductWindow { DataContext = productSelector };
             window.ShowDialog();
 
             //если необходимо создать новый продукт

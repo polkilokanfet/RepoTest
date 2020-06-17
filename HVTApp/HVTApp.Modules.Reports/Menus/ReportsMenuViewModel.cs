@@ -36,13 +36,16 @@ namespace HVTApp.Modules.Reports.Menus
                 Items.Add(new NavigationItem("Очередность", typeof(PriorityReportView)));
 
             Items.Add(new NavigationItem("График продаж", typeof(SalesChartView)));
-            Items.Add(new NavigationItem("Продажи по менеджерам", typeof(ManagersSalesChartView)));
-            Items.Add(new NavigationItem("Продажи по типам оборудования", typeof(ProductTypesSalesChartView)));
-            Items.Add(new NavigationItem("Продажи по регионам", typeof(RegionsSalesChartView)));
-            Items.Add(new NavigationItem("Продажи по потребителям", typeof(ConsumersSalesChartView)));
-            Items.Add(new NavigationItem("Продажи по контрагентам", typeof(ContragentsSalesChartView)));
-            Items.Add(new NavigationItem("Продажи по производителям", typeof(ProducersSalesChartView)));
-            Items.Add(new NavigationItem("Ёмкость рынка", typeof(MarketCapacityChartView)));
+
+            var item = new NavigationItem("Аналитика", typeof(ManagersSalesChartView));
+            item.Items.Add(new NavigationItem("Ёмкость рынка", typeof(MarketCapacityChartView)));
+            item.Items.Add(new NavigationItem("Продажи по менеджерам", typeof(ManagersSalesChartView)));
+            item.Items.Add(new NavigationItem("Продажи по типам оборудования", typeof(ProductTypesSalesChartView)));
+            item.Items.Add(new NavigationItem("Продажи по регионам", typeof(RegionsSalesChartView)));
+            item.Items.Add(new NavigationItem("Продажи по потребителям", typeof(ConsumersSalesChartView)));
+            item.Items.Add(new NavigationItem("Продажи по контрагентам", typeof(ContragentsSalesChartView)));
+            item.Items.Add(new NavigationItem("Продажи по производителям", typeof(ProducersSalesChartView)));
+            Items.Add(item);
         }
     }
 }

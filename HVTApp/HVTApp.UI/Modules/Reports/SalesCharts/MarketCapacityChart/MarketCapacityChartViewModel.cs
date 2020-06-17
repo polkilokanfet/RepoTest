@@ -17,9 +17,7 @@ namespace HVTApp.UI.Modules.Reports.SalesCharts.MarketCapacityChart
 
         protected override List<SalesUnit> GetSalesUnits()
         {
-            return GlobalAppProperties.User.RoleCurrent == Role.SalesManager
-                ? UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.ForReport && x.Project.Manager.IsAppCurrentUser())
-                : UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.ForReport);
+            return base.GetSalesUnits().Where(x => x.Project.ForReport).ToList();
         }
 
         protected override List<MarketCapacityChartItem> GetItems()

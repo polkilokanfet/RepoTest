@@ -407,7 +407,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
             priceCalculationItem2Wrapper.StructureCosts.Add(new StructureCostWrapper(structureCost));
 
             //создание стракчакостов доп.оборудования
-            foreach (var productIncluded in priceCalculationItem2Wrapper.SalesUnits.First().Model.ProductsIncluded)
+            foreach (var productIncluded in priceCalculationItem2Wrapper.SalesUnits.First().Model.ProductsIncluded.Where(x => !x.Product.ProductBlock.IsService))
             {
                 var structureCostPrIncl = new StructureCost
                 {

@@ -219,6 +219,7 @@
       <DependentUpon>RegionsSalesChartView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Reports\SalesCharts\RegionsSalesChart\RegionsSalesChartViewModel.cs" />
+    <Compile Include="Modules\Reports\SalesCharts\SalesUnitsContainer.cs" />
     <Compile Include="Modules\Reports\SalesCharts\TabSalesChart.xaml.cs">
       <DependentUpon>TabSalesChart.xaml</DependentUpon>
     </Compile>

@@ -15,7 +15,7 @@ namespace HVTApp.UI.Modules.Reports.SalesCharts.ManagersSalesChart
 
         protected override List<SalesUnit> GetSalesUnits()
         {
-            return UnitOfWork.Repository<SalesUnit>().Find(x => x.IsWon);
+            return SalesUnitsContainer.SalesUnits.Where(x => x.IsWon).ToList();
         }
 
         protected override List<ManagersSalesChartItem> GetItems()
