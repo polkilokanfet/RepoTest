@@ -7,6 +7,7 @@ using System.Windows.Media.Imaging;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
+using HVTApp.Model;
 using HVTApp.Model.Comparers;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
@@ -46,21 +47,9 @@ namespace HVTApp.Services.PrintService
 
             #region Print Header
 
-            try
-            {
-                BitmapSource headerBitmapSource = GetImage("header.jpg");
-                if (headerBitmapSource != null)
-                {
-                    AnchoredPicture headerPicture = docWriter.CreateAnchoredPicture(headerBitmapSource);
-                    docWriter.StartParagraph();
-                    docWriter.AddAnchoredPicture(headerPicture);
-                    docWriter.EndParagraph();
-                }
-            }
-            catch (Exception e)
-            {
-                _messageService.ShowOkMessageDialog("Error", e.GetAllExceptions());
-            }
+            docWriter.StartParagraph();
+            docWriter.AddInlinePicture(GetImage("header.jpg"));
+            docWriter.EndParagraph();
 
             Font fontBold = docWriter.CreateFont();
             fontBold.Bold = true;
@@ -111,12 +100,18 @@ namespace HVTApp.Services.PrintService
             #region Print Text Before Table
 
             docWriter.PrintParagraph(string.Empty);
+
             var paraFormat = docWriter.CreateParagraphProperties();
             paraFormat.Alignment = ParagraphAlignment.Center;
             var prefix = offer.RecipientEmployee.Person.IsMan ? "Уважаемый" : "Уважаемая";
             docWriter.PrintParagraph($"{prefix} {offer.RecipientEmployee.Person.Name} {offer.RecipientEmployee.Person.Patronymic}!", paraFormat, fontBold);
-            docWriter.PrintParagraph($"В ответ на Ваш запрос, предоставляем технико-коммерческое предложение на поставку оборудования по проекту \"{offer.Project.Name}\".");
-            docWriter.PrintParagraph("Стоимость оборудования/услуг (в рублях) приведена в таблице:", font: fontBold);         
+
+            var paraFormat1 = docWriter.CreateParagraphProperties();
+            //paraFormat1.LeftIndent = 12;
+            paraFormat1.Alignment = ParagraphAlignment.Both;
+            docWriter.PrintParagraph($"В ответ на Ваш запрос, предоставляем технико-коммерческое предложение на поставку оборудования по проекту \"{offer.Project.Name}\".", paraFormat1);
+
+            docWriter.PrintParagraph("Стоимость оборудования/услуг (в рублях) приведена в таблице:", paraFormat1, font: fontBold);         
 
             #endregion
 
@@ -194,6 +189,7 @@ namespace HVTApp.Services.PrintService
             #region Print Conditions
 
             var paragraphProperties = docWriter.CreateParagraphProperties();
+            paragraphProperties.Alignment = ParagraphAlignment.Both;
             docWriter.PrintParagraph("Условия поставки и оплаты оборудования:", paragraphProperties, fontBold);
 
             var conditions = new List<string>
@@ -234,15 +230,47 @@ namespace HVTApp.Services.PrintService
             docWriter.StartTable(3, tableProperties2);
 
             TableCellProperties tableCellProperties2 = docWriter.CreateTableCellProperties();
-            tableCellProperties2.PreferredWidthAsPercentage = 25;
-            docWriter.PrintTableRow(
-                tableCellProperties2,
-                docWriter.CreateTableRowProperties(),
-                docWriter.CreateParagraphProperties(),
-                docWriter.CreateFont(),
-                "С уважением," + Environment.NewLine + $"{offer.SenderEmployee.Position}",
-                string.Empty,
-                Environment.NewLine + $"{offer.SenderEmployee.Person}");
+            tableCellProperties2.PreferredWidthAsPercentage = 33;
+
+            docWriter.StartTableRow();
+
+            var part1 = "С уважением," + Environment.NewLine + $"{offer.SenderEmployee.Position}";
+            docWriter.PrintTableCell(part1, tableCellProperties2);
+
+            //подпись
+            if (GlobalAppProperties.User.Id == GlobalAppProperties.Actual.Developer.Id)
+            {
+                docWriter.StartTableCell(tableCellProperties2);
+
+                var prpr = docWriter.CreateParagraphProperties();
+                prpr.Alignment = ParagraphAlignment.Center;
+                docWriter.StartParagraph(prpr);
+                docWriter.AddInlinePicture(GetImage("sign_deev.png"));
+                docWriter.EndParagraph();
+
+                docWriter.EndTableCell();
+            }
+            else
+            {
+                docWriter.PrintTableCell(string.Empty);                
+            }
+
+            //ФИО подписывающего лица
+            var part3 = Environment.NewLine + $"{offer.SenderEmployee.Person.Name[0]}.{offer.SenderEmployee.Person.Patronymic?[0]}.{offer.SenderEmployee.Person.Surname}";
+            var pp = docWriter.CreateParagraphProperties();
+            pp.Alignment = ParagraphAlignment.Right;
+            docWriter.PrintTableCell(part3, tableCellProperties2, pp);
+
+            docWriter.EndTableRow();
+
+            //docWriter.PrintTableRow(
+            //    tableCellProperties2,
+            //    docWriter.CreateTableRowProperties(),
+            //    docWriter.CreateParagraphProperties(),
+            //    docWriter.CreateFont(),
+            //    "С уважением," + Environment.NewLine + $"{offer.SenderEmployee.Position}",
+            //    string.Empty,
+            //    Environment.NewLine + $"{offer.SenderEmployee.Person.Name[0]}.{offer.SenderEmployee.Person.Patronymic?[0]}.{offer.SenderEmployee.Person.Surname}");
 
             docWriter.EndTable();
 

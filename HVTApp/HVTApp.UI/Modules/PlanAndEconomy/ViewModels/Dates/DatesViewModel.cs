@@ -33,10 +33,10 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
                 {
                     _salesUnits.PropertyChanged -= SalesUnitsOnPropertyChanged;
 
+                    //принимаем все изменения
+                    _salesUnits.AcceptChanges();
                     //сохраняем изменения
                     _unitOfWork.SaveChanges();
-                    //принимаем все изменения
-                    _salesUnits.Where(x => x.IsChanged).ToList().ForEach(x => x.AcceptChanges());
                     //проверяем актуальность команды
                     ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
 
