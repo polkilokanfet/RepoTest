@@ -24,6 +24,7 @@ using HVTApp.UI.ViewModels;
 using HVTApp.UI.Views;
 using Microsoft.Practices.Unity;
 using Prism.Regions;
+using PaymentsActualView = HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual.PaymentsActualView;
 using ReferenceView = HVTApp.UI.Modules.Reports.Reference.ReferenceView;
 
 namespace HVTApp.UI

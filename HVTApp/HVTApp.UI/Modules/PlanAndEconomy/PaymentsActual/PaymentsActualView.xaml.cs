@@ -3,7 +3,7 @@ using HVTApp.UI.Modules.PlanAndEconomy.Tabs;
 using Prism.Events;
 using Prism.Regions;
 
-namespace HVTApp.UI.Modules.PlanAndEconomy.Views
+namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
 {
     [RibbonTab(typeof(TabPaymentsActual))]
     public partial class PaymentsActualView

@@ -3,14 +3,26 @@ using System.ComponentModel;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Wrapper;
 using Prism.Mvvm;
 
-namespace HVTApp.Model.Wrapper.Groups
+namespace HVTApp.UI.Modules.Sales.Payments
 {
     public class PaymentWrapper : BindableBase
     {
         public PaymentPlannedWrapper PaymentPlanned { get; private set; }
-        public SalesUnitPaymentsPlannedWrapper SalesUnit { get; }
+        public SalesUnitWrapper1 SalesUnit { get; }
+
+        public DateTime Date
+        {
+            get { return PaymentPlanned.Date; }
+            set
+            {
+                PaymentPlanned.Date = value;
+                OnPropertyChanged(nameof(IsInPlanPayments));
+                OnPropertyChanged();
+            }
+        }
 
         /// <summary>
         /// Находится ли платеж в списке сохраненных плановых платежей
@@ -19,13 +31,13 @@ namespace HVTApp.Model.Wrapper.Groups
 
         public double Sum => SalesUnit.Model.Cost * PaymentPlanned.Part * PaymentPlanned.Condition.Part;
 
-        public PaymentWrapper(SalesUnitPaymentsPlannedWrapper salesUnit, Guid paymentId)
+        public PaymentWrapper(SalesUnitWrapper1 salesUnit, Guid paymentId)
         {
             SalesUnit = salesUnit;
             SetPaymentPlanned(SalesUnit.PaymentsPlanned.Single(x => x.Id == paymentId));
         }
 
-        public PaymentWrapper(SalesUnitPaymentsPlannedWrapper salesUnit, PaymentPlanned paymentPlanned)
+        public PaymentWrapper(SalesUnitWrapper1 salesUnit, PaymentPlanned paymentPlanned)
         {
             SalesUnit = salesUnit;
             SetPaymentPlanned(new PaymentPlannedWrapper(paymentPlanned));
@@ -57,11 +69,9 @@ namespace HVTApp.Model.Wrapper.Groups
 
             if(unitOfWork.Repository<PaymentPlanned>().Find(x => Equals(x, PaymentPlanned.Model)).Any())
                 unitOfWork.Repository<PaymentPlanned>().Delete(PaymentPlanned.Model);
-        }
 
-        public void UnSubsсribe()
-        {
-            PaymentPlanned.PropertyChanged -= PaymentPlannedOnPropertyChanged;
+            OnPropertyChanged(nameof(Date));
+            OnPropertyChanged(nameof(IsInPlanPayments));
         }
     }
 }

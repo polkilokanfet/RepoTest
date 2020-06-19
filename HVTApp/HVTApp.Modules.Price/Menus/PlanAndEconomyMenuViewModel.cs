@@ -1,6 +1,7 @@
 ﻿using HVTApp.Infrastructure;
 using HVTApp.Model;
 using HVTApp.UI.Modules.PlanAndEconomy.Views;
+using PaymentsActualView = HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual.PaymentsActualView;
 
 namespace HVTApp.Modules.PlanAndEconomy.Menus
 {
@@ -17,7 +18,6 @@ namespace HVTApp.Modules.PlanAndEconomy.Menus
             {
                 Items.Add(new NavigationItem("Фактические даты", typeof(DatesView)));
                 Items.Add(new NavigationItem("Поступления (факт)", typeof(PaymentsActualView)));
-                //Items.Add(new NavigationItem("Поступления (план)", typeof(PaymentsView)));
                 Items.Add(new NavigationItem("Поступления (план)", typeof(PaymentsPlanView)));
             }
         }

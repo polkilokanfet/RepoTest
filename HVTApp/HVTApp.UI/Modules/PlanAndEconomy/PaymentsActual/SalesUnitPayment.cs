@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Model.POCOs;
 
-namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
+namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
 {
     public class SalesUnitPaymentGroup
     {

@@ -2,9 +2,11 @@
 using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Prism;
 using HVTApp.Modules.PlanAndEconomy.Menus;
+using HVTApp.UI.Modules.PlanAndEconomy;
 using HVTApp.UI.Modules.PlanAndEconomy.Views;
 using Microsoft.Practices.Unity;
 using Prism.Regions;
+using PaymentDocumentView = HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual.PaymentDocumentView;
 
 
 namespace HVTApp.Modules.PlanAndEconomy

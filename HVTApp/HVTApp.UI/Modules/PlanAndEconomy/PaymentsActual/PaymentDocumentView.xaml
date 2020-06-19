@@ -1,4 +1,4 @@
-﻿<inf:ViewBase x:Class="HVTApp.UI.Modules.PlanAndEconomy.Views.PaymentDocumentView"
+﻿<inf:ViewBase x:Class="HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual.PaymentDocumentView"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               xmlns:igWpf="http://schemas.infragistics.com/xaml/wpf"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"

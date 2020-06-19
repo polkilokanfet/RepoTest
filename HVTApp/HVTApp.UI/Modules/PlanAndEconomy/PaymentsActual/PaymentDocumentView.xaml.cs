@@ -3,11 +3,10 @@ using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Modules.PlanAndEconomy.Tabs;
-using HVTApp.UI.Modules.PlanAndEconomy.ViewModels;
 using Prism.Events;
 using Prism.Regions;
 
-namespace HVTApp.UI.Modules.PlanAndEconomy.Views
+namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
 {
     [RibbonTab(typeof(TabPaymentDocument))]
     public partial class PaymentDocumentView : ViewBase

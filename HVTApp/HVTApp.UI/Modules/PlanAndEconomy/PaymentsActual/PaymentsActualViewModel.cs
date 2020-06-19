@@ -7,12 +7,11 @@ using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Modules.PlanAndEconomy.Views;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Regions;
 
-namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
+namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
 {
     public class PaymentsActualViewModel : ViewModelBaseCanExportToExcel
     {
@@ -65,10 +64,10 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
             }
             var groups = payments.GroupBy(x => new
                 {
-                    x.SalesUnit.Order,
-                    x.SalesUnit.Facility,
-                    x.SalesUnit.Product,
-                    x.SalesUnit.Specification
+                    OrderId = x.SalesUnit.Order?.Id,
+                    FacilityId = x.SalesUnit.Facility.Id,
+                    ProductId = x.SalesUnit.Product.Id,
+                SpecificationId = x.SalesUnit.Specification?.Id
                 })
                 .Select(x => new SalesUnitPaymentGroup(x))
                 .OrderByDescending(x => x.LastDate);
@@ -79,7 +78,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
 
         private void RequestNavigate(PaymentDocument paymentDocument)
         {
-            Container.Resolve<IRegionManager>().RequestNavigateContentRegion<PaymentDocumentView>(new NavigationParameters { { "", paymentDocument } });
+            Container.Resolve<IRegionManager>().RequestNavigateContentRegion<PaymentsActual.PaymentDocumentView>(new NavigationParameters { { "", paymentDocument } });
         }
     }
 }

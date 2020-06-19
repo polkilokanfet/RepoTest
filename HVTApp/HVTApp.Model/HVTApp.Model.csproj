@@ -198,8 +198,6 @@
     <Compile Include="Wrapper\Custom\Functionality\SpecificationWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\StructureCostWrapper.cs" />
     <Compile Include="Wrapper\Custom\IProductWithCost.cs" />
-    <Compile Include="Wrapper\Custom\PaymentsPlannedGroup.cs" />
-    <Compile Include="Wrapper\Custom\SalesUnitPaymentsPlannedWrapper.cs" />
     <Compile Include="Wrapper\Custom\Test\TestFriendAddressWrapper.cs" />
     <Compile Include="Wrapper\Custom\Test\TestFriendEmailWrapper.cs" />
     <Compile Include="Wrapper\Custom\Test\TestFriendWrapper.cs" />
@@ -213,8 +211,6 @@
     <Compile Include="Wrapper\Groups\IGroupValidatableChangeTrackingWithCollection.cs" />
     <Compile Include="Wrapper\Groups\IWrapperGroup.cs" />
     <Compile Include="Wrapper\Groups\OfferUnitsGroup.cs" />
-    <Compile Include="Wrapper\Groups\PaymentsGroup.cs" />
-    <Compile Include="Wrapper\Groups\PaymentWrapper.cs" />
     <Compile Include="Wrapper\Groups\SalesUnitsGroup.cs" />
     <Compile Include="Wrapper\Groups\SalesUnitsWrappersGroup.cs" />
     <Compile Include="Wrapper\Groups\ShipmentUnitsGroup.cs" />

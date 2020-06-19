@@ -4,30 +4,26 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
-using HVTApp.Model.Wrapper;
-using HVTApp.Model.Wrapper.Groups;
-using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 
-namespace HVTApp.UI.Modules.Sales.ViewModels
+namespace HVTApp.UI.Modules.Sales.Payments
 {
     public class PaymentsViewModel : ViewModelBaseCanExportToExcelSaveCustomization
     {
-        private IValidatableChangeTrackingCollection<SalesUnitPaymentsPlannedWrapper> _salesUnitWrappers;
-        private PaymentsGroup _selectedGroup;
+        private IValidatableChangeTrackingCollection<SalesUnitWrapper1> _salesUnitWrappers;
+        private object _selectedItem;
 
-        public PaymentsGroup SelectedGroup
+        public object SelectedItem
         {
-            get { return _selectedGroup; }
+            get { return _selectedItem; }
             set
             {
-                _selectedGroup = value;
+                _selectedItem = value;
                 ((DelegateCommand)RemoveCommand).RaiseCanExecuteChanged();
                 OnPropertyChanged();
             }
@@ -35,10 +31,10 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
         public ObservableCollection<PaymentsGroup> PaymentsGroups { get; } = new ObservableCollection<PaymentsGroup>();
 
-        public ICommand SaveCommand { get; set; }
-        public ICommand RefreshCommand { get; set; }
-        public ICommand RemoveCommand { get; set; }
-        public ICommand ReloadCommand { get; set; }
+        public ICommand SaveCommand { get; }
+        public ICommand RefreshCommand { get; }
+        public ICommand RemoveCommand { get; }
+        public ICommand ReloadCommand { get; }
 
         public ICommand ExpandCommand { get; }
         public ICommand CollapseCommand { get; }
@@ -62,10 +58,27 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             RemoveCommand = new DelegateCommand(
                 () =>
                 {
-                    SelectedGroup.RemovePayments(UnitOfWork);
-                    RefreshPayments();
-                }, 
-                () => SelectedGroup?.WillSave != null);
+                    (SelectedItem as PaymentsGroup)?.RemovePayments(UnitOfWork);
+                    (SelectedItem as PaymentWrapper)?.Remove(UnitOfWork);
+                },
+                () =>
+                {
+                    var paymentsGroup = SelectedItem as PaymentsGroup;
+                    if (paymentsGroup != null)
+                    {
+                        if (paymentsGroup.IsCustom != null)
+                            return paymentsGroup.IsCustom.Value;
+                        return false;
+                    }
+
+                    var item = SelectedItem as PaymentWrapper;
+                    if (item != null)
+                    {
+                        return item.IsInPlanPayments;
+                    }
+
+                    return false;
+                });
 
             //развернуть
             ExpandCommand = new DelegateCommand(() => { ExpandCollapseEvent?.Invoke(true); });
@@ -75,49 +88,24 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             Load();
         }
 
+        /// <summary>
+        /// Загрузка плановых платежей
+        /// </summary>
         protected void Load()
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
 
             //загружаем все юниты и фиксируем их в коллекции для отслеживания изменений
-            _salesUnitWrappers = new ValidatableChangeTrackingCollection<SalesUnitPaymentsPlannedWrapper>(UnitOfWork.Repository<SalesUnit>()
-                .Find(x => !x.IsLoosen && !x.IsPaid && x.Project.ForReport && x.Project.Manager.IsAppCurrentUser())
-                .Select(x => new SalesUnitPaymentsPlannedWrapper(x)));
+            _salesUnitWrappers = new ValidatableChangeTrackingCollection<SalesUnitWrapper1>(
+                UnitOfWork.Repository<SalesUnit>()
+                .Find(x => !x.IsPaid && !x.IsLoosen && x.Project.ForReport && x.Project.Manager.IsAppCurrentUser())
+                .Select(x => new SalesUnitWrapper1(x)));
 
             //подписка на изменение
             _salesUnitWrappers.PropertyChanged += (sender, args) => ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
             _salesUnitWrappers.CollectionChanged += (sender, args) => ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
 
-            _salesUnitWrappers.ForEach(Actualization);
-
             RefreshPayments();
-        }
-
-        /// <summary>
-        /// Актуализация плановых поступлений
-        /// </summary>
-        /// <param name="salesUnitWrapper"></param>
-        private void Actualization(SalesUnitPaymentsPlannedWrapper salesUnitWrapper)
-        {
-            //коллекция актуальных плановых платежей (может отличаться от сохраненных)
-            var paymentPlannedActual = salesUnitWrapper.Model.PaymentsPlannedActual;
-
-            foreach (var paymentPlannedWrapper in salesUnitWrapper.PaymentsPlanned.ToList())
-            {
-                //сопоставляем актуальный плановый платеж с сохраненным
-                var paymentActual = paymentPlannedActual.SingleOrDefault(x => x.Id == paymentPlannedWrapper.Id);
-                //удаляем неактуальный платеж
-                if (paymentActual == null)
-                {
-                    salesUnitWrapper.PaymentsPlanned.Remove(paymentPlannedWrapper);
-                    UnitOfWork.Repository<PaymentPlanned>().Delete(paymentPlannedWrapper.Model);
-                    continue;
-                }
-
-                //актуализируем параметры платежа
-                paymentPlannedWrapper.Date = paymentActual.Date;
-                paymentPlannedWrapper.Part = paymentActual.Part;
-            }
         }
 
         private void RefreshPayments()
@@ -141,20 +129,12 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
                 WillSave = x.IsInPlanPayments
             }).Where(x => x.Sum(xx => xx.Sum) > 0.00001);
 
-            PaymentsGroups.ForEach(x => x.DateChanged -= OnGroupDateChanged);
-            PaymentsGroups.ForEach(x => x.RemoveSubscribes());
             PaymentsGroups.Clear();
             PaymentsGroups.AddRange(groups.Select(x => new PaymentsGroup(x)));
-            PaymentsGroups.ForEach(x => x.DateChanged += OnGroupDateChanged);
         }
 
-        private void OnGroupDateChanged(PaymentsGroup paymentsGroup)
-        {
-            RefreshPayments();
-            SelectedGroup = PaymentsGroups.SingleOrDefault(x => x.Ids.MembersAreSame(paymentsGroup.Ids));
-        }
 
-        private IEnumerable<PaymentWrapper> GetPayments(SalesUnitPaymentsPlannedWrapper salesUnitWrapper)
+        private IEnumerable<PaymentWrapper> GetPayments(SalesUnitWrapper1 salesUnitWrapper)
         {
             //платежи, находящиеся в юните
             foreach (var paymentPlannedWrapper in salesUnitWrapper.PaymentsPlanned)

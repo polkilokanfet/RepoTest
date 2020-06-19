@@ -3,7 +3,7 @@ using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using Prism.Mvvm;
 
-namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
+namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
 {
     public class Payment : BindableBase
     {

@@ -1,12 +1,8 @@
 ﻿using HVTApp.Infrastructure;
-using HVTApp.UI.Modules.PlanAndEconomy.Views;
+using HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual;
 using HVTApp.UI.Modules.Sales.Views;
-using HVTApp.UI.PriceCalculations;
-using Market2View = HVTApp.UI.Modules.Sales.Views.MarketView.Market2View;
-using PaymentsView = HVTApp.UI.Modules.Sales.Views.PaymentsView;
-using PriceCalculationsView = HVTApp.UI.PriceCalculations.View.PriceCalculationsView;
-using ProductionView = HVTApp.UI.Modules.Sales.Views.ProductionView;
-using ShippingView = HVTApp.UI.Modules.Sales.Views.ShippingView;
+using HVTApp.UI.Modules.Sales.Views.MarketView;
+using HVTApp.UI.PriceCalculations.View;
 
 namespace HVTApp.Modules.Sales.Menus
 {
@@ -18,11 +14,11 @@ namespace HVTApp.Modules.Sales.Menus
             //market.Items.Add(new NavigationItem("Проекты", typeof(ProjectsView)));
             market.Items.Add(new NavigationItem("Предложения", typeof(OffersView)));
             market.Items.Add(new NavigationItem("Спецификации", typeof(SpecificationsView)));
-            market.IsExpended = false;
+            market.IsExpended = true;
 
             var priceCalculations = new NavigationItem("Расчеты стоимости", typeof(PriceCalculationsView));
             var paymentsActual = new NavigationItem("Поступления (факт)", typeof(PaymentsActualView));
-            var paymentsPlan = new NavigationItem("Поступления (план)", typeof(PaymentsView));
+            var paymentsPlan = new NavigationItem("Поступления (план)", typeof(UI.Modules.Sales.Payments.PaymentsView));
             var production = new NavigationItem("Производство", typeof(ProductionView));
             var shipping = new NavigationItem("Отгрузка", typeof(ShippingView));
 

@@ -29,7 +29,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
 
         public void Load(IEnumerable<SalesUnit> salesUnitsIn)
         {
-            var salesUnits = salesUnitsIn.Where(x => !x.IsLoosen && !x.IsPaid && x.Project.ForReport).ToList();
+            var salesUnits = salesUnitsIn.Where(x => !x.IsPaid && !x.IsLoosen && x.Project.ForReport).ToList();
             var payments = new List<Payment1>();
             foreach (var salesUnit in salesUnits)
             {
