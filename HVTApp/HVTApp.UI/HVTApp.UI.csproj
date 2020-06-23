@@ -236,6 +236,8 @@
       <DependentUpon>ProductTypesSalesChartView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Sales\Payments\SalesUnitWrapper1.cs" />
+    <Compile Include="Modules\Sales\Shippings\ShippingGroup.cs" />
+    <Compile Include="Modules\Sales\Shippings\ShippingUnitWrapper.cs" />
     <Compile Include="Modules\Settings\ViewModels\DataBaseBackupViewModel.cs" />
     <Compile Include="Modules\Settings\Views\DataBaseBackupView.xaml.cs">
       <DependentUpon>DataBaseBackupView.xaml</DependentUpon>
@@ -409,7 +411,7 @@
     <Compile Include="Modules\Sales\Tabs\ProductionTab.xaml.cs">
       <DependentUpon>ProductionTab.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Sales\Tabs\ShippingTab.xaml.cs">
+    <Compile Include="Modules\Sales\Shippings\ShippingTab.xaml.cs">
       <DependentUpon>ShippingTab.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Sales\Tabs\TabCrudUnits.xaml.cs">
@@ -455,7 +457,7 @@
     <Compile Include="Modules\Sales\ViewModels\ProjectViewModel\ProjectViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\SalesUnitsCollection.cs" />
     <Compile Include="Modules\Sales\ViewModels\SalesUnitsWrappersGroupsContainer.cs" />
-    <Compile Include="Modules\Sales\ViewModels\ShippingViewModel.cs" />
+    <Compile Include="Modules\Sales\Shippings\ShippingViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\SpecificationsViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\SpecificationUnitsGroupsViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\SpecificationViewModel.cs" />
@@ -493,7 +495,7 @@
     <Compile Include="Modules\Sales\Views\SalesUnitsWindow.xaml.cs">
       <DependentUpon>SalesUnitsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Sales\Views\ShippingView.xaml.cs">
+    <Compile Include="Modules\Sales\Shippings\ShippingView.xaml.cs">
       <DependentUpon>ShippingView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Sales\Views\SpecificationsView.xaml.cs">
@@ -1078,7 +1080,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Modules\Sales\Tabs\ShippingTab.xaml">
+    <Page Include="Modules\Sales\Shippings\ShippingTab.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1134,7 +1136,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Modules\Sales\Views\ShippingView.xaml">
+    <Page Include="Modules\Sales\Shippings\ShippingView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

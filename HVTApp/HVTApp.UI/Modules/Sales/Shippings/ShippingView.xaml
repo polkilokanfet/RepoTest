@@ -4,7 +4,7 @@
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               xmlns:converters="clr-namespace:HVTApp.Infrastructure.Converters;assembly=HVTApp.Infrastructure"
               xmlns:controls="http://infragistics.com/Windows"
-              x:Class="HVTApp.UI.Modules.Sales.Views.ShippingView">
+              x:Class="HVTApp.UI.Modules.Sales.Shippings.ShippingView">
 
     <inf:ViewBase.Resources>
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>

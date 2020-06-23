@@ -67,7 +67,6 @@ namespace HVTApp.UI.Modules.PriceMaking.ViewModels
                     PriceTasks.SelectMany(x => x.Prices.RemovedItems).ForEach(x => _unitOfWork.Repository<SumOnDate>().Delete(x.Model));
                     PriceTasks.Where(x => x.IsChanged).ForEach(x => { x.AcceptChanges(); });
                     _unitOfWork.SaveChanges();
-                    Load();
                 },
                 () =>
                 {

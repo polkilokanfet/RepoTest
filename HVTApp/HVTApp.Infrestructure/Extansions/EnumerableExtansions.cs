@@ -105,10 +105,9 @@ namespace HVTApp.Infrastructure.Extansions
 
         public static string ToStringEnum<T>(this IEnumerable<T> enumerable, string separator = "; ")
         {
-            var list = enumerable.Distinct().ToList();
-            var sb = new StringBuilder();
-            list.ForEach(x => sb.Append(separator).Append($"{x}"));
-            return sb.Length > separator.Length ? sb.Remove(0, separator.Length).ToString() : sb.ToString();
+            return enumerable == null 
+                ? string.Empty 
+                : string.Join(separator, enumerable.Select(x => x.ToString()).Distinct());
         }
     }
 }

@@ -5,6 +5,7 @@ using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Prism;
 using HVTApp.Modules.Sales.Menus;
 using HVTApp.UI.Modules.Sales.Payments;
+using HVTApp.UI.Modules.Sales.Shippings;
 using HVTApp.UI.Modules.Sales.ViewModels;
 using HVTApp.UI.Modules.Sales.ViewModels.Groups;
 using HVTApp.UI.Modules.Sales.Views;

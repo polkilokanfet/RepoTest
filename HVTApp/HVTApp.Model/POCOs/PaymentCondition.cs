@@ -20,8 +20,15 @@ namespace HVTApp.Model.POCOs
         public override string ToString()
         {
             string dayName = "дней";
-            if (Math.Abs(DaysToPoint) == 1) dayName = "день";
-            if (Math.Abs(DaysToPoint) == 2 || Math.Abs(DaysToPoint) == 3 || Math.Abs(DaysToPoint) == 4) dayName = "дня";
+
+            if (Math.Abs(DaysToPoint % 100) != 11 && Math.Abs(DaysToPoint % 100) != 12 && Math.Abs(DaysToPoint % 100) != 13 && Math.Abs(DaysToPoint % 100) != 14)
+            {
+                if (Math.Abs(DaysToPoint % 10) == 1)
+                    dayName = "день";
+
+                if (Math.Abs(DaysToPoint % 10) == 2 || Math.Abs(DaysToPoint % 10) == 3 || Math.Abs(DaysToPoint % 10) == 4)
+                    dayName = "дня";
+            }
 
             string daysName = DaysToPoint < 0 
                 ? $"за {-DaysToPoint} {dayName} до" 

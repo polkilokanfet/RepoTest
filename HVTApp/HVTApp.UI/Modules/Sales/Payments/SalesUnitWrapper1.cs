@@ -32,7 +32,6 @@ namespace HVTApp.UI.Modules.Sales.Payments
                     paymentPlannedWrapper.Part = paymentActual.Part;
                 }
             }
-            
         }
 
         public IValidatableChangeTrackingCollection<PaymentPlannedWrapper> PaymentsPlanned { get; private set; }

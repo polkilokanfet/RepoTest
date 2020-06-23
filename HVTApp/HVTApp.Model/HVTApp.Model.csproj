@@ -213,9 +213,7 @@
     <Compile Include="Wrapper\Groups\OfferUnitsGroup.cs" />
     <Compile Include="Wrapper\Groups\SalesUnitsGroup.cs" />
     <Compile Include="Wrapper\Groups\SalesUnitsWrappersGroup.cs" />
-    <Compile Include="Wrapper\Groups\ShipmentUnitsGroup.cs" />
     <Compile Include="Wrapper\Custom\IProductCostDependentProductsWrapper.cs" />
-    <Compile Include="Wrapper\Groups\ShippingItemWrapper.cs" />
     <Compile Include="Wrapper\IUnitsGroup.cs" />
     <Compile Include="Wrapper\IUnitWrapper.cs" />
     <Compile Include="Wrapper\IWrapperWithUnits.cs" />

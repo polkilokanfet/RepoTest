@@ -126,6 +126,7 @@ namespace HVTApp.UI.Modules.Sales.Payments
                 Part = x.PaymentPlanned.Part,
                 Date = x.PaymentPlanned.Date,
                 ConditionId = x.PaymentPlanned.Condition.Id,
+                SpecificationId = x.SalesUnit.Model.Specification?.Id,
                 WillSave = x.IsInPlanPayments
             }).Where(x => x.Sum(xx => xx.Sum) > 0.00001);
 

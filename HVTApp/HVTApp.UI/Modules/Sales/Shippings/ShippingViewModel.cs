@@ -4,20 +4,19 @@ using System.Linq;
 using System.Windows.Input;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
-using HVTApp.Model.Wrapper.Groups;
-using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 
-namespace HVTApp.UI.Modules.Sales.ViewModels
+namespace HVTApp.UI.Modules.Sales.Shippings
 {
-    public class ShippingViewModel : LoadableBindableBase
+    public class ShippingViewModel : ViewModelBaseCanExportToExcelSaveCustomization
     {
-        private IValidatableChangeTrackingCollection<ShippingItemWrapper> _salesUnits;
+        private IValidatableChangeTrackingCollection<ShippingUnitWrapper> _salesUnits;
 
-        public ObservableCollection<ShipmentUnitsGroup> Groups { get; } = new ObservableCollection<ShipmentUnitsGroup>();
+        public ObservableCollection<ShippingGroup> Groups { get; } = new ObservableCollection<ShippingGroup>();
 
         public ICommand SaveCommand { get; }
         public ICommand ReloadCommand { get; }
@@ -33,19 +32,31 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
                 () => _salesUnits != null && _salesUnits.IsChanged && _salesUnits.IsValid);
 
             ReloadCommand = new DelegateCommand(Load);
+
+            Load();
         }
 
-        protected override void LoadedMethod()
+        public void Load()
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
 
             var salesUnits = ((ISalesUnitRepository)UnitOfWork.Repository<SalesUnit>()).GetUsersSalesUnits().Where(x => !x.IsLoosen);
-            _salesUnits?.ForEach(x => x.PropertyChanged -= OnSalesUnitPropertyChanged);
-            _salesUnits = new ValidatableChangeTrackingCollection<ShippingItemWrapper>(salesUnits.Select(x => new ShippingItemWrapper(x)));
-            _salesUnits.ForEach(x => x.PropertyChanged += OnSalesUnitPropertyChanged);
+            if(_salesUnits != null) _salesUnits.PropertyChanged -= OnSalesUnitPropertyChanged;
+            _salesUnits = new ValidatableChangeTrackingCollection<ShippingUnitWrapper>(salesUnits.Select(x => new ShippingUnitWrapper(x)));
+            _salesUnits.PropertyChanged += OnSalesUnitPropertyChanged;
 
             Groups.Clear();
-            Groups.AddRange(ShipmentUnitsGroup.Grouping(_salesUnits));
+            var groups = _salesUnits.GroupBy(x => new
+            {
+                FacilityId = x.Model.Facility.Id,
+                ProductId = x.Model.Product.Id,
+                OrderId = x.Model.Order?.Id,
+                ProjectId = x.Model.Project.Id,
+                SpecificationId = x.Model.Specification?.Id,
+                ShipmentDateCalculated = x.Model.ShipmentDateCalculated
+            }).OrderBy(x => x.Key.ShipmentDateCalculated);
+
+            Groups.AddRange(groups.Select(x => new ShippingGroup(x)));
         }
 
         private void OnSalesUnitPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)

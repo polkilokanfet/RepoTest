@@ -2,11 +2,11 @@ using System;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base;
 
-namespace HVTApp.Model.Wrapper.Groups
+namespace HVTApp.UI.Modules.Sales.Shippings
 {
-    public class ShippingItemWrapper : WrapperBase<SalesUnit>
+    public class ShippingUnitWrapper : WrapperBase<SalesUnit>
     {
-        public ShippingItemWrapper(SalesUnit model) : base(model) { }
+        public ShippingUnitWrapper(SalesUnit model) : base(model) { }
 
         public DateTime? ShipmentPlanDate
         {

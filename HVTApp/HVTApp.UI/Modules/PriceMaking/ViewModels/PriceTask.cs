@@ -84,7 +84,7 @@ namespace HVTApp.UI.Modules.PriceMaking.ViewModels
 
         protected override void InitializeCollectionProperties()
         {
-            if (Model.Prices == null) throw new ArgumentException("Prices cannot be null");
+            if (Model.Prices == null) throw new ArgumentException("Prices can not be null");
             Prices = new ValidatableChangeTrackingCollection<SumOnDateWrapper>(Model.Prices.Select(e => new SumOnDateWrapper(e)));
             RegisterCollection(Prices, Model.Prices);
         }

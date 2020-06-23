@@ -1,8 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Extansions;
-using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
 
@@ -18,7 +15,7 @@ namespace HVTApp.UI.Modules.Reports.SalesCharts.ProducersSalesChart
 
         protected override List<SalesUnit> GetSalesUnits()
         {
-            return base.GetSalesUnits().Where(x => x.Producer != null).ToList();
+            return UnitOfWork.Repository<SalesUnit>().Find(x => x.Producer != null).ToList();
         }
 
         protected override List<ProducersSalesChartItem> GetItems()

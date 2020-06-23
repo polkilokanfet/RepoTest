@@ -238,17 +238,25 @@ namespace HVTApp.Services.PrintService
             docWriter.PrintTableCell(part1, tableCellProperties2);
 
             //подпись
-            if (GlobalAppProperties.User.Id == GlobalAppProperties.Actual.Developer.Id)
+            if (GlobalAppProperties.User.Id == GlobalAppProperties.Actual.Developer?.Id)
             {
-                docWriter.StartTableCell(tableCellProperties2);
+                var drt = _container.Resolve<IMessageService>().ShowYesNoMessageDialog("Подпись", "Печать с подписью?", defaultNo:true);
+                if (drt == MessageDialogResult.Yes)
+                {
+                    docWriter.StartTableCell(tableCellProperties2);
 
-                var prpr = docWriter.CreateParagraphProperties();
-                prpr.Alignment = ParagraphAlignment.Center;
-                docWriter.StartParagraph(prpr);
-                docWriter.AddInlinePicture(GetImage("sign_deev.png"));
-                docWriter.EndParagraph();
+                    var prpr = docWriter.CreateParagraphProperties();
+                    prpr.Alignment = ParagraphAlignment.Center;
+                    docWriter.StartParagraph(prpr);
+                    docWriter.AddInlinePicture(GetImage("sign_deev.png"));
+                    docWriter.EndParagraph();
 
-                docWriter.EndTableCell();
+                    docWriter.EndTableCell();
+                }
+                else
+                {
+                    docWriter.PrintTableCell(string.Empty);
+                }
             }
             else
             {
