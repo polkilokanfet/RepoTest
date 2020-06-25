@@ -403,7 +403,7 @@ namespace HVTApp.UI.Modules.Reports.SalesReport
             //FixedCostAndDelivery = CostDelivery.HasValue ? CostDelivery.Value + FixedCost : FixedCost;
 
             var manager = salesUnit.Project.Manager.Employee;
-            Manager = $"{manager.Person.Surname} {manager.Person.Name} {manager.Person.Patronymic}";
+            Manager = $"{manager.Person.Surname}";
 
             if (salesUnit.Specification != null)
             {

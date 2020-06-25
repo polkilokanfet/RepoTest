@@ -99,7 +99,7 @@ namespace HVTApp.UI.Modules.Sales.Payments
             _salesUnitWrappers = new ValidatableChangeTrackingCollection<SalesUnitWrapper1>(
                 UnitOfWork.Repository<SalesUnit>()
                 .Find(x => !x.IsPaid && !x.IsLoosen && x.Project.ForReport && x.Project.Manager.IsAppCurrentUser())
-                .Select(x => new SalesUnitWrapper1(x)));
+                .Select(x => new SalesUnitWrapper1(x, UnitOfWork)));
 
             //подписка на изменение
             _salesUnitWrappers.PropertyChanged += (sender, args) => ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();

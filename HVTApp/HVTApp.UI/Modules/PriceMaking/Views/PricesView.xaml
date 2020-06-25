@@ -79,8 +79,8 @@
                         <infg:XamDataGrid.FieldLayouts>
                             <infg:FieldLayout>
                                 <infg:FieldLayout.Fields>
-                                    <infg:NumericField Name="Sum" Label="Сумма" Width="Auto" AllowEdit="True"/>
-                                    <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" AllowEdit="True"/>
+                                    <infg:NumericField Name="Sum" Label="Сумма" Width="Auto" AllowEdit="False"/>
+                                    <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" AllowEdit="False"/>
                                 </infg:FieldLayout.Fields>
                             </infg:FieldLayout>
 

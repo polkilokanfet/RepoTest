@@ -8,6 +8,17 @@ namespace HVTApp.UI.Modules.Sales.Shippings
     {
         public ShippingUnitWrapper(SalesUnit model) : base(model) { }
 
+        public DateTime? Date
+        {
+            get { return Model.ShipmentDate?.Date ?? Model.ShipmentPlanDate; }
+            set
+            {
+                if (Model.ShipmentDate.HasValue) return;
+                ShipmentPlanDate = value;
+                OnPropertyChanged();
+            }
+        }
+
         public DateTime? ShipmentPlanDate
         {
             get { return GetValue<DateTime?>(); }

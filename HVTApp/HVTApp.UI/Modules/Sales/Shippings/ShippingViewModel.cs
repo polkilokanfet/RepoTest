@@ -16,7 +16,7 @@ namespace HVTApp.UI.Modules.Sales.Shippings
     {
         private IValidatableChangeTrackingCollection<ShippingUnitWrapper> _salesUnits;
 
-        public ObservableCollection<ShippingGroup> Groups { get; } = new ObservableCollection<ShippingGroup>();
+        public ObservableCollection<ShippingGroup> ShippingGroups { get; } = new ObservableCollection<ShippingGroup>();
 
         public ICommand SaveCommand { get; }
         public ICommand ReloadCommand { get; }
@@ -36,7 +36,7 @@ namespace HVTApp.UI.Modules.Sales.Shippings
             Load();
         }
 
-        public void Load()
+        private void Load()
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
 
@@ -45,7 +45,7 @@ namespace HVTApp.UI.Modules.Sales.Shippings
             _salesUnits = new ValidatableChangeTrackingCollection<ShippingUnitWrapper>(salesUnits.Select(x => new ShippingUnitWrapper(x)));
             _salesUnits.PropertyChanged += OnSalesUnitPropertyChanged;
 
-            Groups.Clear();
+            ShippingGroups.Clear();
             var groups = _salesUnits.GroupBy(x => new
             {
                 FacilityId = x.Model.Facility.Id,
@@ -56,7 +56,7 @@ namespace HVTApp.UI.Modules.Sales.Shippings
                 ShipmentDateCalculated = x.Model.ShipmentDateCalculated
             }).OrderBy(x => x.Key.ShipmentDateCalculated);
 
-            Groups.AddRange(groups.Select(x => new ShippingGroup(x)));
+            ShippingGroups.AddRange(groups.Select(x => new ShippingGroup(x)));
         }
 
         private void OnSalesUnitPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)

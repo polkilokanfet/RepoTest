@@ -5,9 +5,8 @@
                                  x:Class="HVTApp.UI.Modules.PriceMaking.Tabs.TabPriceTasks"
                                  Header="Себестоимость">
     
-    <infRib:RibbonGroup Caption="Действия">
+    <infRib:RibbonGroup Caption="Вид">
         <infRib:ButtonTool Caption="Обновить" Command="{Binding ReloadCommand}" SmallImage="/HVTApp.UI;component/Images/refresh.png"/>
-        <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveCommand}" SmallImage="/HVTApp.UI;component/Images/save.png"/>
     </infRib:RibbonGroup>
     
     <infRib:RibbonGroup Caption="Прайс">

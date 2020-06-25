@@ -2,93 +2,57 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-              xmlns:converters="clr-namespace:HVTApp.Infrastructure.Converters;assembly=HVTApp.Infrastructure"
               xmlns:controls="http://infragistics.com/Windows"
               x:Class="HVTApp.UI.Modules.Sales.Shippings.ShippingView">
 
-    <inf:ViewBase.Resources>
-        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-    </inf:ViewBase.Resources>
+    <infg:XamDataGrid x:Name="ShippingListGrid" 
+                      DataSource="{Binding ShippingGroups}">
 
-    <Grid>
-         <Grid.RowDefinitions>
-             <RowDefinition Height="Auto"/>
-             <RowDefinition Height="*"/>
-         </Grid.RowDefinitions>
-         
-        <Label Grid.Row="0" Content="Ожидание данных..." VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Label.Style>
-                <Style>
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding ElementName=ShippingListGrid, Path=Visibility}" Value="Visible">
-                        <Setter Property="Label.Visibility" Value="Collapsed"/>
-                    </DataTrigger>
-                </Style.Triggers>
-                </Style>
-            </Label.Style>
-        </Label>
-        
-        <infg:XamDataGrid Grid.Row="1" 
-                          x:Name="ShippingListGrid"
-                          Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}"
-                          DataSource="{Binding Groups}">
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
 
-            <infg:XamDataGrid.ContextMenu>
-				<ContextMenu>
-					<MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
-				</ContextMenu>
-			</infg:XamDataGrid.ContextMenu>
+        <infg:XamDataGrid.FieldLayouts>
 
-			<infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout Key="GroupsLayout">
 
-                <infg:FieldLayout>
+                <infg:FieldLayout.RecordFilters>
+                    <infg:RecordFilter FieldName="IsShipped">
+                        <infg:RecordFilter.Conditions>
+                            <controls:ComparisonCondition Operator="Equals" Value="False" />
+                        </infg:RecordFilter.Conditions>
+                    </infg:RecordFilter>
+                </infg:FieldLayout.RecordFilters>
 
-                    <infg:FieldLayout.RecordFilters>
-                        <infg:RecordFilter FieldName="IsShipped">
-                            <infg:RecordFilter.Conditions>
-                                <controls:ComparisonCondition Operator="Equals" Value="False" />
-                            </infg:RecordFilter.Conditions>
-                        </infg:RecordFilter>
-                    </infg:FieldLayout.RecordFilters>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Facility}" Label="Объект" Width="150" Converter="{StaticResource ObjectToStringConverter}"/>
+                    <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding ProductType}" Label="Тип" Width="200" Converter="{StaticResource ObjectToStringConverter}"/>
+                    <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding ProductDesignation}" Label="Обозначение" Width="250"/>
+                    <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding Amount}" Label="Кол." Width="Auto" AllowResize="False"/>
+                    <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Order}" Label="З/з" Width="Auto" AllowResize="False" Converter="{StaticResource ObjectToStringConverter}"/>
+                    <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Facility.OwnerCompany}" Label="Владелец объекта" Width="200" AllowResize="True" Converter="{StaticResource ObjectToStringConverter}"/>
+                    <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Company}" Label="Контрагент" Width="150" Converter="{StaticResource ObjectToStringConverter}"/>
+                    <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Specification}" Label="Сп.№" Width="Auto" Converter="{StaticResource ObjectToStringConverter}"/>
+                    <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Contract}" Label="Договор" Width="Auto" Converter="{StaticResource ObjectToStringConverter}"/>
+                    <infg:DateTimeField Name="Date" Label="Отгрузка" Width="Auto" AllowEdit="True"/>
+                    <infg:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding ProductionDate}" Label="Производство" Width="Auto"/>
+                    <infg:CheckBoxField BindingType="UseAlternateBinding" AlternateBinding="{Binding IsShipped}" Name="IsShipped" Label="Отгружено" Width="Auto"/>
+                    <infg:Field Name="Units" IsExpandable="True"/>
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
 
-                    <infg:FieldLayout.Fields>
-                        
-                        <infg:TextField Name="Facility" Label="Объект" Width="Auto"/>
-                        <infg:TextField Name="ProductType" Label="Тип" Width="Auto"/>
-                        <infg:TextField Name="ProductDesignation" Label="Обозначение" Width="Auto"/>
-                        <infg:NumericField Name="Amount" Label="Количество" Width="Auto"/>
-                        <infg:TextField Name="Order" Label="З/з" Width="Auto"/>
-                        <infg:TextField AlternateBinding="{Binding Facility.OwnerCompany}" BindingType="UseAlternateBinding" Label="Владелец объекта" Width="200" AllowResize="True"/>
-                        <infg:TextField Name="Company" Label="Контрагент" Width="Auto"/>
-                        <infg:TextField Name="Specification" Label="Сп.№" Width="Auto"/>
-                        <infg:TextField Name="Contract" Label="Договор" Width="Auto"/>
-                        <!--<infg:DateTimeField AlternateBinding="{Binding Date, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Отгрузка" Width="Auto" AllowEdit="{Binding IsShipped, Converter={StaticResource ReverseBoolConverter}, UpdateSourceTrigger=PropertyChanged}"/>-->
-                        <infg:DateTimeField Name="Date" Label="Отгрузка" Width="Auto" AllowEdit="True"/>
-                        <infg:DateTimeField Name="ProductionDate" Label="Производство" Width="Auto"/>
-                        <infg:CheckBoxField Name="IsShipped" Label="Отгружено" Width="Auto"/>
-                        <infg:Field Name="Groups" IsExpandable="True"/>
+            <infg:FieldLayout ParentFieldLayoutKey="GroupsLayout" ParentFieldName="Units">
+                <infg:FieldLayout.Fields>
+                    <infg:TextField AlternateBinding="{Binding Model.OrderPosition}" BindingType="UseAlternateBinding" Label="Поз." Width="Auto"/>
+                    <infg:TextField AlternateBinding="{Binding Model.SerialNumber}" BindingType="UseAlternateBinding" Label="С/н" Width="Auto"/>
+                    <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" AllowEdit="True"/>
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
 
-                    </infg:FieldLayout.Fields>
-				</infg:FieldLayout>
 
-			</infg:XamDataGrid.FieldLayouts>
-		</infg:XamDataGrid>
-       
-    </Grid>
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+    
 </inf:ViewBase>
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	

@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base;
@@ -9,7 +10,7 @@ namespace HVTApp.UI.Modules.Sales.Payments
 {
     public class SalesUnitWrapper1 : WrapperBase<SalesUnit>
     {
-        public SalesUnitWrapper1(SalesUnit model) : base(model)
+        public SalesUnitWrapper1(SalesUnit model, IUnitOfWork unitOfWork) : base(model)
         {
             // Актуализация плановых поступлений (удаление оплаченных, и актуализация дат/сумм)
             
@@ -24,6 +25,7 @@ namespace HVTApp.UI.Modules.Sales.Payments
                 {
                     //удаляем неактуальный платеж
                     this.PaymentsPlanned.Remove(paymentPlannedWrapper);
+                    unitOfWork.Repository<PaymentPlanned>().Delete(paymentPlannedWrapper.Model);
                 }
                 else
                 {

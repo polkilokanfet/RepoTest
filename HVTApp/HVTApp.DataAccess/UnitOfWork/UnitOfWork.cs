@@ -1,8 +1,11 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Services;
 using Microsoft.Practices.Unity;
 
 
@@ -11,10 +14,12 @@ namespace HVTApp.DataAccess
     public partial class UnitOfWork : IUnitOfWork
     {
         private readonly DbContext _context;
+        private readonly IUnityContainer _container;
 
         public UnitOfWork(DbContext context, IUnityContainer container)
         {
             _context = context;
+            _container = container;
             InitializeRepositories();
         }
 
@@ -32,7 +37,15 @@ namespace HVTApp.DataAccess
 
         public void SaveChanges()
         {
-            _context.SaveChanges();
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                _container.Resolve<IMessageService>().ShowOkMessageDialog("Обратитесь к разработчику", e.GetAllExceptions());
+                throw;
+            }
         }
 
         public void Dispose()

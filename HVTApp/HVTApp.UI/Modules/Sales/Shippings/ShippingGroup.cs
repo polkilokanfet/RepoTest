@@ -31,7 +31,13 @@ namespace HVTApp.UI.Modules.Sales.Shippings
 
         public DateTime? Date
         {
-            get { return _date; }
+            get
+            {
+                if (_unit.Model.ShipmentDate.HasValue)
+                    return _unit.Model.ShipmentDate.Value;
+
+                return _date;
+            }
             set
             {
                 if (Equals(_date, value)) return;
