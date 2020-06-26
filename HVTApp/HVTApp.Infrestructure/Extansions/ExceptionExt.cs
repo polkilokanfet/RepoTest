@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace HVTApp.Infrastructure.Extansions
@@ -7,6 +8,7 @@ namespace HVTApp.Infrastructure.Extansions
     {
         public static string GetAllExceptions(this Exception exception)
         {
+            var messages = new List<string>();
             var stringBuilder = new StringBuilder();
             do
             {
@@ -15,13 +17,14 @@ namespace HVTApp.Infrastructure.Extansions
                 stringBuilder.AppendLine($"    Source:     {exception.Source}");
                 stringBuilder.AppendLine($"    StackTrace: {exception.StackTrace}");
                 exception = exception.InnerException;
-                if (exception != null)
-                {
-                    stringBuilder.AppendLine(Environment.NewLine + "--------------" + Environment.NewLine);
-                }
+
+                messages.Add(stringBuilder.ToString());
+                stringBuilder.Clear();
             } while (exception != null);
 
-            return stringBuilder.ToString();
+            var sep = Environment.NewLine + "--------------" + Environment.NewLine;
+            messages.Reverse();
+            return string.Join(sep, messages);
         }
     }
 }

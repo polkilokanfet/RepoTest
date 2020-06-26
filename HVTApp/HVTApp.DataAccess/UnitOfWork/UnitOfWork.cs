@@ -37,6 +37,9 @@ namespace HVTApp.DataAccess
 
         public void SaveChanges()
         {
+#if DEBUG
+            _context.SaveChanges();
+#else
             try
             {
                 _context.SaveChanges();
@@ -46,6 +49,7 @@ namespace HVTApp.DataAccess
                 _container.Resolve<IMessageService>().ShowOkMessageDialog("Обратитесь к разработчику", e.GetAllExceptions());
                 throw;
             }
+#endif
         }
 
         public void Dispose()

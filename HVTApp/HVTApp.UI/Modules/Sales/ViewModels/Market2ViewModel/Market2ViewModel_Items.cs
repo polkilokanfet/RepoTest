@@ -2,9 +2,11 @@
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Services;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.ObjectBuilder2;
+using Microsoft.Practices.Unity;
 using Prism.Events;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels
@@ -17,7 +19,15 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             //реакция на изменение проекта
             eventAggregator.GetEvent<AfterSaveProjectEvent>().Subscribe(project =>
             {
-                ProjectItems.Where(x => x.Project.Id == project.Id).ForEach(x => x.Project = project);
+                try
+                {
+                    ProjectItems.Where(x => x.Project.Id == project.Id).ForEach(x => x.Project = project);
+                }
+                catch (Exception e)
+                {
+                    Container.Resolve<IMessageService>().ShowOkMessageDialog("Обратитесь к разработчику", e.GetAllExceptions());
+                    throw;
+                }
             });
 
             //реакция на удаление тендера
@@ -42,60 +52,87 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             //реакция на удаления юнита
             eventAggregator.GetEvent<AfterRemoveSalesUnitEvent>().Subscribe(salesUnit =>
             {
-                var projectItem = ProjectItems.SingleOrDefault(x => x.SalesUnits.ContainsById(salesUnit));
-                RemoveSalesUnitFromProjectItem(projectItem, salesUnit);
+                try
+                {
+                    var projectItem = ProjectItems.SingleOrDefault(x => x.SalesUnits.ContainsById(salesUnit));
+                    RemoveSalesUnitFromProjectItem(projectItem, salesUnit);
+                }
+                catch (Exception e)
+                {
+                    Container.Resolve<IMessageService>().ShowOkMessageDialog("Обратитесь к разработчику", e.GetAllExceptions());
+                    throw;
+                }
             });
 
             //реакция на сохранения юнита
             eventAggregator.GetEvent<AfterSaveSalesUnitEvent>().Subscribe(salesUnit =>
             {
-                //все айтемы проекта
-                var itemsOfProject = ProjectItems.Where(x => x.Project.Id == salesUnit.Project.Id).ToList();
-                
-                //айтем, в котором содержится юнит
-                var itemContainsSalesUnit = itemsOfProject.SingleOrDefault(x => x.SalesUnits.ContainsById(salesUnit));
-                
-                //айтемы, в которые подойдет юнит
-                var targetItems = itemsOfProject.Where(x => x.Fits(salesUnit)).ToList();
-
-                if (targetItems.Any())
+                try
                 {
-                    //если подходит более, чем в 2 айтема, то это дичь какая-то
-                    if(targetItems.Count > 2) throw new NotImplementedException("Подходит более, чем в 2 айтема");
+                    //все айтемы проекта
+                    var itemsOfProject = ProjectItems.Where(x => x.Project.Id == salesUnit.Project.Id).ToList();
+                
+                    //айтем, в котором содержится юнит
+                    var itemContainsSalesUnit = itemsOfProject.SingleOrDefault(x => x.SalesUnits.ContainsById(salesUnit));
+                
+                    //айтемы, в которые подойдет юнит
+                    var targetItems = itemsOfProject.Where(x => x.Fits(salesUnit)).ToList();
 
-                    //если подходит сразу в 2 айтема
-                    if (targetItems.Count == 2)
+                    if (targetItems.Any())
                     {
-                        targetItems.Remove(itemContainsSalesUnit);
-                        //то тот айтем, что содержал юнит ранее - лишний
-                        ProjectItems.Remove(itemContainsSalesUnit);
+                        //если подходит более, чем в 2 айтема, то это дичь какая-то
+                        if(targetItems.Count > 2) throw new NotImplementedException("Подходит более, чем в 2 айтема");
+
+                        //если подходит сразу в 2 айтема
+                        if (targetItems.Count == 2)
+                        {
+                            targetItems.Remove(itemContainsSalesUnit);
+                            //то тот айтем, что содержал юнит ранее - лишний
+                            ProjectItems.Remove(itemContainsSalesUnit);
+                        }
+                        else
+                        {
+                            itemContainsSalesUnit?.SalesUnits.RemoveById(salesUnit);
+                        }
+                        targetItems.First().SalesUnits.Add(salesUnit);
                     }
                     else
                     {
-                        itemContainsSalesUnit?.SalesUnits.RemoveById(salesUnit);
+                        ProjectItems.Add(new ProjectItem(new[] { salesUnit }));
+                        RemoveSalesUnitFromProjectItem(itemContainsSalesUnit, salesUnit);
                     }
-                    targetItems.First().SalesUnits.Add(salesUnit);
+
                 }
-                else
+                catch (Exception e)
                 {
-                    ProjectItems.Add(new ProjectItem(new[] { salesUnit }));
-                    RemoveSalesUnitFromProjectItem(itemContainsSalesUnit, salesUnit);
+                    Container.Resolve<IMessageService>().ShowOkMessageDialog("Обратитесь к разработчику", e.GetAllExceptions());
+                    throw;
                 }
+
             });
         }
 
         private void RemoveSalesUnitFromProjectItem(ProjectItem item, SalesUnit salesUnit)
         {
-            if (item == null) return;
+            try
+            {
+                if (item == null) return;
 
-            if (item.SalesUnits.Count == 1)
-            {
-                ProjectItems.Remove(item);
+                if (item.SalesUnits.Count == 1)
+                {
+                    ProjectItems.Remove(item);
+                }
+                else
+                {
+                    item.SalesUnits.RemoveById(salesUnit);
+                }
             }
-            else
+            catch (Exception e)
             {
-                item.SalesUnits.RemoveById(salesUnit);
+                Container.Resolve<IMessageService>().ShowOkMessageDialog("Обратитесь к разработчику", e.GetAllExceptions());
+                throw;
             }
+
         }
 
     }
