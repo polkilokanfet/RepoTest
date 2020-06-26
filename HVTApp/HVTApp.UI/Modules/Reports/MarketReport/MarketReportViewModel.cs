@@ -13,13 +13,30 @@ using Prism.Commands;
 
 namespace HVTApp.UI.Modules.Reports.MarketReport
 {
+    public class ProducersMarket
+    {
+        public string Producer { get; }
+
+        public ProducersMarket(IEnumerable<MarketReportUnit> units)
+        {
+            Producer = units.First().Producer;
+        }
+    }
+
     public class MarketReportViewModel : ViewModelBaseCanExportToExcelSaveCustomization
     {
         private List<MarketReportUnit> _marketReportUnits;
         private DateTime _startDate;
         private DateTime _finishDate;
+        private IEnumerable<MarketReportUnit> _filteredUnits;
 
         public ObservableCollection<MarketReportUnit> Units { get; } = new ObservableCollection<MarketReportUnit>();
+
+        public IEnumerable<MarketReportUnit> FilteredUnits
+        {
+            get { return _filteredUnits; }
+            set { _filteredUnits = value; }
+        }
 
         public DateTime StartDate
         {

@@ -1,6 +1,8 @@
 ﻿using System.IO;
+using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.UI.Modules.Director.Tabs;
+using Infragistics.Windows.DataPresenter;
 using Prism.Events;
 using Prism.Regions;
 
@@ -15,6 +17,10 @@ namespace HVTApp.UI.Modules.Reports.MarketReport
             this.DataContext = viewModel;
             viewModel.SaveGridCustomisationEvent += SaveGridCustomisations;
             LoadGridCustomisations();
+            ReportGrid.ViewableRecords.CollectionChanged += (sender, args) =>
+            {
+                viewModel.FilteredUnits = ReportGrid.ViewableRecords.Cast<DataRecord>().Select(x => x.DataItem).Cast<MarketReportUnit>();
+            };
         }
 
         string fileName = "MarketReportCustomisation.xml";
