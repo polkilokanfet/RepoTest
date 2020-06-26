@@ -184,7 +184,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                     //единицы, которы нельзя удалить из расчета, т.к. они размещены в производстве
                     var salesUnitsNotForRemove = salesUnits
                         .Where(x => x.Model.SignalToStartProduction.HasValue)
-                        .Where(x => x.Model.ActualPriceCalculationItem(UnitOfWork).Id == selectedGroup.Model.Id)
+                        .Where(x => x.Model.ActualPriceCalculationItem(UnitOfWork)?.Id == selectedGroup.Model.Id)
                         .ToList();
 
                     if (salesUnitsNotForRemove.Any())

@@ -11,5 +11,16 @@ namespace HVTApp.Infrastructure.Extansions
             simbols.ForEach(x => result = result.Replace(x, stringToReplace));
             return result;
         }
+
+        public static string TrimAndReplaceDoubleSpaces(this string text)
+        {
+            if (text == null) return null;
+            var result = text.Trim().ToLower();
+            while (result.Contains("  "))
+            {
+                result = result.Replace("  ", " ");
+            }
+            return result;
+        }
     }
 }

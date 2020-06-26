@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -44,11 +45,19 @@ namespace HVTApp.DataAccess
             {
                 _context.SaveChanges();
             }
-            catch (Exception e)
+            catch (DbEntityValidationException e)
             {
-                _container.Resolve<IMessageService>().ShowOkMessageDialog("Обратитесь к разработчику", e.GetAllExceptions());
+                var text = e.GetAllExceptions() + string.Join(Environment.NewLine, e.EntityValidationErrors.Select(x => x.ToString()));
+                _container.Resolve<IMessageService>().ShowOkMessageDialog("Обратитесь к разработчику", text);
                 throw;
             }
+            catch (Exception e)
+            {
+                var text = e.GetAllExceptions();
+                _container.Resolve<IMessageService>().ShowOkMessageDialog("Обратитесь к разработчику", text);
+                throw;
+            }
+
 #endif
         }
 

@@ -17,5 +17,10 @@
     <infRib:RibbonGroup Caption="Продукт">
         <infRib:ButtonTool Caption="Блок в контексте" Command="{Binding PrintBlockInContext}" SmallImage="/HVTApp.UI;component/Images/structure.png"/>
     </infRib:RibbonGroup>
-        
+
+    <infRib:RibbonGroup Caption="Прайсы">
+        <infRib:ButtonTool Caption="Из калькуляций" Command="{Binding SetPricesFromCalculationsCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
+    </infRib:RibbonGroup>
+
+
 </inf:RibbonTabItemWithViewModel>

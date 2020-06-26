@@ -1,14 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.UI.Modules.PlanAndEconomy.ViewModels;
 using HVTApp.Model.Wrapper;
+using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -51,8 +54,20 @@ namespace HVTApp.UI.Modules.PriceMaking.ViewModels
         public ICommand ReloadCommand { get; }
         public ICommand PrintBlockInContext { get; }
 
+        /// <summary>
+        /// Добавить прайс
+        /// </summary>
         public ICommand AddPriceCommand { get; }
+
+        /// <summary>
+        /// Удалить прайс
+        /// </summary>
         public ICommand RemovePriceCommand { get; }
+
+        /// <summary>
+        /// Подтянуть прайсы из калькуляций
+        /// </summary>
+        public ICommand SetPricesFromCalculationsCommand { get; }
 
         public PricesViewModel(IUnityContainer container)
         {
@@ -62,31 +77,81 @@ namespace HVTApp.UI.Modules.PriceMaking.ViewModels
 
             PrintBlockInContext = new DelegateCommand(PrintBlockInContextExecute, () => SelectedPriceTask != null);
 
-            AddPriceCommand = new DelegateCommand(() =>
-            {
-                var price = new SumOnDate();
-                if (_container.Resolve<IUpdateDetailsService>().UpdateDetails(price))
+            AddPriceCommand = new DelegateCommand(
+                () =>
                 {
-                    var wrapper = new SumOnDateWrapper(_unitOfWork.Repository<SumOnDate>().GetById(price.Id));
-                    SelectedPriceTask.Prices.Add(wrapper);
+                    var price = new SumOnDate();
+                    if (_container.Resolve<IUpdateDetailsService>().UpdateDetails(price))
+                    {
+                        var wrapper = new SumOnDateWrapper(_unitOfWork.Repository<SumOnDate>().GetById(price.Id));
+                        SelectedPriceTask.Prices.Add(wrapper);
+                        SelectedPriceTask.AcceptChanges();
+                        _unitOfWork.SaveChanges();
+                        SelectedSumOnDate = wrapper;
+                    }
+                },
+                () => SelectedPriceTask != null);
+
+            RemovePriceCommand = new DelegateCommand(
+                () =>
+                {
+                    var dr = _container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Удалить выбранный прайс?", defaultNo: true);
+                    if (dr != MessageDialogResult.Yes)
+                        return;
+                    SelectedPriceTask.Prices.Remove(SelectedSumOnDate);
                     SelectedPriceTask.AcceptChanges();
                     _unitOfWork.SaveChanges();
-                    SelectedSumOnDate = wrapper;
-                }
-            }, 
-            () => SelectedPriceTask != null);
+                    SelectedSumOnDate = null;
+                },
+                () => SelectedPriceTask != null && SelectedSumOnDate != null);
 
-            RemovePriceCommand = new DelegateCommand(() =>
-            {
-                var dr = _container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Удалить выбранный прайс?", defaultNo:true);
-                if (dr != MessageDialogResult.Yes)
-                    return;
-                SelectedPriceTask.Prices.Remove(SelectedSumOnDate);
-                SelectedPriceTask.AcceptChanges();
-                _unitOfWork.SaveChanges();
-                SelectedSumOnDate = null;
-            },
-            () => SelectedPriceTask != null && SelectedSumOnDate != null);
+            SetPricesFromCalculationsCommand = new DelegateCommand(
+                () =>
+                {
+                    var dr = _container.Resolve<IMessageService>().ShowYesNoMessageDialog("Прайсы", "Подтянуть прайсы из калькуляций?", defaultYes:true);
+                    if (dr != MessageDialogResult.Yes)
+                        return;
+
+                    //все стракчакосты с заполненной ценой
+                    var structureCosts = _unitOfWork.Repository<PriceCalculation>()
+                        .Find(x => x.TaskCloseMoment.HasValue)
+                        .SelectMany(x => x.PriceCalculationItems)
+                        .SelectMany(x => x.StructureCosts)
+                        .Distinct()
+                        .Where(x => x.UnitPrice.HasValue && x.UnitPrice.Value > 0 && x.Number != null);
+
+                    //для каждой задачи со стракчакостом
+                    foreach (var priceTask in PriceTasks.Where(x => !string.IsNullOrEmpty(x.Model.StructureCostNumber)))
+                    {
+                        //все стракчакосты с тем же номером, что и блок
+                        foreach (var structureCost in structureCosts.Where(x => x.Number.TrimAndReplaceDoubleSpaces() == priceTask.Model.StructureCostNumber.TrimAndReplaceDoubleSpaces()))
+                        {
+                            var priceCalculationItem = _unitOfWork.Repository<PriceCalculationItem>().GetById(structureCost.PriceCalculationItemId);
+                            var date = priceCalculationItem.OrderInTakeDate;
+
+                            //если нет даты ОИТ - не актуально
+                            if (!date.HasValue)
+                                continue;
+
+                            //если такой прайс уже есть - не актуально
+                            var prices = priceTask.Prices.Where(price => price.Date == date);
+                            if (prices.Any(x => Math.Abs(x.Sum - structureCost.UnitPrice.Value) < 0.00001))
+                            {
+                                continue;
+                            }
+
+                            //добавление прайса, сформированного из стракчакоста
+                            priceTask.Prices.Add(new SumOnDateWrapper(new SumOnDate())
+                            {
+                                Date = date.Value,
+                                Sum = structureCost.UnitPrice.Value
+                            });
+                        }
+                    }
+
+                    PriceTasks.Where(x => x.IsValid && x.IsChanged).ForEach(x => x.AcceptChanges());
+                    _unitOfWork.SaveChanges();
+                });
         }
 
         private void PrintBlockInContextExecute()
