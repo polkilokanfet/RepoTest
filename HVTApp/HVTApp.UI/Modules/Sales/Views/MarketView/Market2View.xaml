@@ -116,14 +116,14 @@
                         <infgDp:FieldLayout ParentFieldName="ProjectUnitsGroups">
                             
                             <infgDp:FieldLayout.Fields>
-                                <infgDp:TextField AlternateBinding="{Binding Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="200"/>
-                                <infgDp:TextField AlternateBinding="{Binding Product.ProductType}" BindingType="UseAlternateBinding" Label="Тип оборудования" Width="300"/>
+                                <infgDp:TextField AlternateBinding="{Binding Facility}" BindingType="UseAlternateBinding" Converter="{StaticResource ObjectToStringConverter}" Label="Объект" Width="200"/>
+                                <infgDp:TextField AlternateBinding="{Binding Product.ProductType}" BindingType="UseAlternateBinding" Converter="{StaticResource ObjectToStringConverter}" Label="Тип оборудования" Width="300"/>
                                 <infgDp:TextField AlternateBinding="{Binding Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="200"/>
                                 <infgDp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" AllowResize="False" />
-                                <infgDp:NumericField AlternateBinding="{Binding Cost}" BindingType="UseAlternateBinding" Label="Стоимость" Width="Auto" AllowResize="False"/>
+                                <infgDp:NumericField AlternateBinding="{Binding Cost}" BindingType="UseAlternateBinding" Label="Цена" Width="Auto" AllowResize="False"/>
                                 <infgDp:NumericField AlternateBinding="{Binding Total}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto" AllowResize="False"/>
                                 <infgDp:DateTimeField AlternateBinding="{Binding OrderInTakeDate}" BindingType="UseAlternateBinding" Label="ОИТ" Width="Auto" AllowResize="False"/>
-                                <infgDp:DateTimeField AlternateBinding="{Binding RealizationDate}" BindingType="UseAlternateBinding" Label="Реал." Width="Auto" AllowResize="False"/>
+                                <infgDp:DateTimeField AlternateBinding="{Binding ShipmentDate}" BindingType="UseAlternateBinding" Label="Отгрузка" Width="Auto" AllowResize="False"/>
                             </infgDp:FieldLayout.Fields>
 
                         </infgDp:FieldLayout>

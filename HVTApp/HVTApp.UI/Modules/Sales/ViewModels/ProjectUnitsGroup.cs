@@ -13,7 +13,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
         public double Cost { get; }
         public double Total { get; }
         public DateTime OrderInTakeDate { get; }
-        public DateTime RealizationDate { get; }
+        public DateTime ShipmentDate { get; }
 
         public ProjectUnitsGroup(IEnumerable<SalesUnit> salesUnits)
         {
@@ -28,7 +28,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             Cost = salesUnit.Cost;
             Total = Amount * Cost;
             OrderInTakeDate = salesUnit.OrderInTakeDate;
-            RealizationDate = salesUnit.RealizationDateCalculated;
+            ShipmentDate = salesUnit.ShipmentDateCalculated;
         }
     }
 }

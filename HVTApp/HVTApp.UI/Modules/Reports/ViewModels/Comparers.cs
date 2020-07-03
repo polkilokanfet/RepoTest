@@ -14,7 +14,7 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
             if (!Equals(x.Facility.Id, y.Facility.Id)) return false;
             if (!Equals(x.Product.Id, y.Product.Id)) return false;
             if (!Equals(x.Order?.Id, y.Order?.Id)) return false;
-            if (!Equals(x.RealizationDateCalculated, y.RealizationDateCalculated)) return false;
+            if (!Equals(x.ShipmentDateCalculated, y.ShipmentDateCalculated)) return false;
 
             return true;
         }

@@ -243,15 +243,24 @@ namespace HVTApp.Services.PrintService
                 var drt = _container.Resolve<IMessageService>().ShowYesNoMessageDialog("Подпись", "Печать с подписью?", defaultNo:true);
                 if (drt == MessageDialogResult.Yes)
                 {
-                    docWriter.StartTableCell(tableCellProperties2);
+                    try
+                    {
+                        docWriter.StartTableCell(tableCellProperties2);
 
-                    var prpr = docWriter.CreateParagraphProperties();
-                    prpr.Alignment = ParagraphAlignment.Center;
-                    docWriter.StartParagraph(prpr);
-                    docWriter.AddInlinePicture(GetImage("sign_deev.png"));
-                    docWriter.EndParagraph();
+                        var prpr = docWriter.CreateParagraphProperties();
+                        prpr.Alignment = ParagraphAlignment.Center;
+                        docWriter.StartParagraph(prpr);
+                        docWriter.AddInlinePicture(GetImage("sign_deev.png"));
+                        docWriter.EndParagraph();
 
-                    docWriter.EndTableCell();
+                        docWriter.EndTableCell();
+
+                    }
+                    catch (Exception e)
+                    {
+                        _container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().ToString(), e.GetAllExceptions());
+                        docWriter.PrintTableCell(string.Empty);
+                    }
                 }
                 else
                 {

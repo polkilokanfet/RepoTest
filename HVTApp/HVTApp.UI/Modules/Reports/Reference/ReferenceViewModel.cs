@@ -25,7 +25,7 @@ namespace HVTApp.UI.Modules.Reports.Reference
         {
             var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => x.IsWon);
             var groups = salesUnits.GroupBy(x => x, new SalesUnitsReferenceComparer());
-            var items = groups.Select(x => new ReferenceItem(x)).OrderBy(x => x.RealizationDate);
+            var items = groups.Select(x => new ReferenceItem(x)).OrderBy(x => x.ShipmentDate);
             Items.Clear();
             Items.AddRange(items);
         }

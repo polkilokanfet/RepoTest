@@ -415,7 +415,6 @@ namespace HVTApp.Model.POCOs
                         if (ShipmentPlanDate.Value >= EndProductionDateCalculated)
                             return ShipmentPlanDate.Value;
                     }
-
                 }
 
                 //по дате исполнения условий для отгрузки

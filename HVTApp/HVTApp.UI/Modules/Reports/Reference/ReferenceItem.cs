@@ -15,7 +15,7 @@ namespace HVTApp.UI.Modules.Reports.Reference
         public string Voltage { get; }
         public string Product { get; }
         public int Amount { get; }
-        public DateTime RealizationDate { get; }
+        public DateTime ShipmentDate { get; }
         public string Order { get; }
         public string Numbers { get; }
         public string Manager { get; }
@@ -34,7 +34,7 @@ namespace HVTApp.UI.Modules.Reports.Reference
             Product = salesUnit.Product.Designation;
             Voltage = salesUnit.Product.Voltage();
             Amount = salesUnits.Count();
-            RealizationDate = salesUnit.RealizationDateCalculated;
+            ShipmentDate = salesUnit.ShipmentDateCalculated;
             Order = salesUnit.Order?.ToString();
             Manager = salesUnit.Project.Manager.ToString();
 

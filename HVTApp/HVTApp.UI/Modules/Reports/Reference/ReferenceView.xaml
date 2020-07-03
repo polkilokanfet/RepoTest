@@ -24,8 +24,8 @@
                         <infg:TextField AlternateBinding="{Binding ProductType}" BindingType="UseAlternateBinding" Label="Тип продукта" Width="Auto" />
                         <infg:TextField AlternateBinding="{Binding Voltage}" BindingType="UseAlternateBinding" Label="Uн" Width="Auto" />
                         <infg:TextField AlternateBinding="{Binding Product}" BindingType="UseAlternateBinding" Label="Продукт" Width="Auto" />
-                        <infg:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Количество" Width="Auto" />
-                        <infg:DateTimeField AlternateBinding="{Binding RealizationDate}" BindingType="UseAlternateBinding" Label="Дата реализации" Width="Auto" />
+                        <infg:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" />
+                        <infg:DateTimeField AlternateBinding="{Binding ShipmentDate}" BindingType="UseAlternateBinding" Label="Отгрузка" Width="Auto" />
                         <infg:TextField AlternateBinding="{Binding Manager}" BindingType="UseAlternateBinding" Label="Менеджер" Width="Auto" />
                         <infg:TextField AlternateBinding="{Binding Region}" BindingType="UseAlternateBinding" Label="Регоин" Width="Auto" />
                         <infg:TextField AlternateBinding="{Binding District}" BindingType="UseAlternateBinding" Label="Округ" Width="Auto" />
