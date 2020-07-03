@@ -47,8 +47,18 @@ namespace HVTApp.DataAccess
             }
             catch (DbEntityValidationException e)
             {
-                var text = e.GetAllExceptions() + string.Join(Environment.NewLine, e.EntityValidationErrors.Select(x => x.ToString()));
-                _container.Resolve<IMessageService>().ShowOkMessageDialog("Обратитесь к разработчику", text);
+                string result = string.Empty;
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    result += $"Entity of type \"{eve.Entry.Entity.GetType().Name}\" in state \"{eve.Entry.State}\" has the following validation errors:";
+                    result += Environment.NewLine;
+
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        result += $"- Property: \"{ve.PropertyName}\", Error: \"{ve.ErrorMessage}\"";
+                    }
+                }
+                _container.Resolve<IMessageService>().ShowOkMessageDialog("отправьте это разработчику!!!", result);
                 throw;
             }
             catch (Exception e)

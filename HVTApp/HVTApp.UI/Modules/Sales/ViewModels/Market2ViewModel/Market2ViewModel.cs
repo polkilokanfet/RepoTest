@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
-using System.Windows.Input;
 using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
+using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Modules.Sales.ViewModels.Containers;
 using Microsoft.Practices.Unity;
@@ -18,7 +17,6 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
     {
         private ProjectItem _selectedProjectItem;
         private readonly IEventAggregator _eventAggregator;
-        private List<Tender> _tenders; //не заменять на локальную
 
         public ObservableCollection<ProjectItem> ProjectItems { get; } = new ObservableCollection<ProjectItem>();
 
@@ -39,6 +37,9 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
                 ((DelegateCommand)AddNoteCommand).RaiseCanExecuteChanged();
                 SelectedNote = null;
 
+                Offers.SelectedItem = null;
+                Tenders.SelectedItem = null;
+
                 SelectedProjectItemChanged?.Invoke(SelectedProjectItem);
             }
         }
@@ -52,8 +53,27 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
         {
             _eventAggregator = Container.Resolve<IEventAggregator>();
 
+            //при добавлении или удалении айтема, подписываем/отписываем на событие удаления
+            ProjectItems.CollectionChanged += (sender, args) =>
+            {
+                if (args.Action == NotifyCollectionChangedAction.Add)
+                {
+                    foreach (var projectItem in args.NewItems.Cast<ProjectItem>())
+                    {
+                        projectItem.LastSalesUnitRemoveEvent += ProjectItemOnLastSalesUnitRemoveEvent;
+                    }
+                }
+
+                if (args.Action == NotifyCollectionChangedAction.Remove)
+                {
+                    foreach (var projectItem in args.OldItems.Cast<ProjectItem>())
+                    {
+                        projectItem.LastSalesUnitRemoveEvent -= ProjectItemOnLastSalesUnitRemoveEvent;
+                    }
+                }
+            };
+
             Load();
-            InitItemsRefrefresher(_eventAggregator);
 
             Offers = container.Resolve<OffersContainer>();
             Tenders = container.Resolve<TendersContainer>();
@@ -90,6 +110,19 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
             #region Subscribe to Events
 
+            //реакция на сохранение юнита
+            _eventAggregator.GetEvent<AfterSaveSalesUnitEvent>().Subscribe(salesUnit =>
+            {
+                //проверяем, можно ли юнит поместить в существующую группу
+                ProjectItems.ToList().ForEach(x => x.Check(salesUnit));
+
+                //если не смогли пристроить в существующую группу, создаем новую
+                if (!ProjectItems.SelectMany(x => x.SalesUnits).Contains(salesUnit))
+                {
+                    ProjectItems.Add(new ProjectItem(new[] { salesUnit }, _eventAggregator));
+                }
+            });
+
             //подписка на выбор сущностей
             _eventAggregator.GetEvent<SelectedOfferChangedEvent>().Subscribe(offer => OfferRaiseCanExecuteChanged());
             _eventAggregator.GetEvent<SelectedTenderChangedEvent>().Subscribe(tender => TenderRaiseCanExecuteChanged());
@@ -108,6 +141,9 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
 
+            ProjectItem.AllTenders.Clear();
+            ProjectItem.AllTenders.AddRange(UnitOfWork.Repository<Tender>().GetAll());
+
             var salesUnits = GlobalAppProperties.User.RoleCurrent == Role.Admin
                 ? UnitOfWork.Repository<SalesUnit>().GetAll()
                 : UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Manager.IsAppCurrentUser());
@@ -115,18 +151,18 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             var items = salesUnits
                 .GroupBy(x => x, new SalesUnitsComparer())
                 .OrderBy(x => x.Key.OrderInTakeDate)
-                .Select(x => new ProjectItem(x))
+                .Select(x => new ProjectItem(x, _eventAggregator))
                 .ToList();
-
-            _tenders = UnitOfWork.Repository<Tender>().GetAll();
-            foreach (var projectItem in items)
-            {
-                var targetTenders = _tenders.Where(x => x.Project.Id == projectItem.Project.Id);
-                projectItem.RefreshTenderInformation(targetTenders);
-            }
 
             ProjectItems.Clear();
             ProjectItems.AddRange(items);
+        }
+        
+        //удалить айтем, если он уже опустел
+        private void ProjectItemOnLastSalesUnitRemoveEvent(ProjectItem item)
+        {
+            if (ProjectItems.Contains(item))
+                ProjectItems.Remove(item);
         }
 
         #region RaiseCanExecuteChanged

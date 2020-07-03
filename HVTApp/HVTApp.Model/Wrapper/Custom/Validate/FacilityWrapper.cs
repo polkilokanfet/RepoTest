@@ -10,9 +10,12 @@ namespace HVTApp.Model.Wrapper
         {
             if (this.Address == null)
             {
-                if (OwnerCompany?.AddressLegal == null && OwnerCompany.Model.ParentCompanies().All(x => x.AddressLegal == null))
+                if (OwnerCompany?.AddressLegal == null)
                 {
-                    yield return new ValidationResult("Не определено местоположение объекта.", new []{nameof(Address)});
+                    if (Model.OwnerCompany == null || Model.OwnerCompany.ParentCompanies().All(x => x.AddressLegal == null))
+                    {
+                        yield return new ValidationResult("Не определено местоположение объекта.", new []{nameof(Address)});
+                    }
                 }
             }
         }

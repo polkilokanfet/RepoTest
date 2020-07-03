@@ -97,9 +97,9 @@
                                 <!--<infgDp:DateTimeField AlternateBinding="{Binding OrderInTakeDate}" BindingType="UseAlternateBinding" Label="ОИТ" Width="100" AllowResize="False" />-->
                                 <!--<infgDp:DateTimeField AlternateBinding="{Binding RealizationDate}" BindingType="UseAlternateBinding" Label="Реализация" Width="100" AllowResize="False" />-->
                                 <infgDp:DateTimeField AlternateBinding="{Binding TenderDate}" BindingType="UseAlternateBinding" Label="Тендер" Width="Auto" AllowResize="False"/>
-                                <infgDp:TextField AlternateBinding="{Binding Builder}" BindingType="UseAlternateBinding" Label="Подрядчик" Width="150"/>
-                                <infgDp:TextField AlternateBinding="{Binding ProjectMaker}" BindingType="UseAlternateBinding" Label="Проектировщик" Width="150"/>
-                                <infgDp:TextField AlternateBinding="{Binding Supplier}" BindingType="UseAlternateBinding" Label="Поставщик" Width="150"/>
+                                <infgDp:TextField AlternateBinding="{Binding Builder}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Подрядчик" Width="150"/>
+                                <infgDp:TextField AlternateBinding="{Binding ProjectMaker}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Проектировщик" Width="150"/>
+                                <infgDp:TextField AlternateBinding="{Binding Supplier}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Поставщик" Width="150"/>
                                 <infgDp:CheckBoxField Name="IsDone" AlternateBinding="{Binding IsDone}" BindingType="UseAlternateBinding" Label="Done" Width="Auto" AllowResize="False"/>
                                 <infgDp:CheckBoxField Name="IsLoosen" AlternateBinding="{Binding IsLoosen}" BindingType="UseAlternateBinding" Label="Loose" Width="Auto" AllowResize="False"/>
                                 <infgDp:CheckBoxField Name="InWork" AlternateBinding="{Binding InWork}" BindingType="UseAlternateBinding" Label="Work" Width="Auto" AllowResize="False"/>
@@ -169,8 +169,7 @@
                                         SelectedDataItem="{Binding Offers.SelectedItem}">
 
                         <infgDp:XamDataGrid.InputBindings>
-                            <MouseBinding MouseAction="LeftDoubleClick"
-                                          Command="{Binding Path=EditOfferCommand, Mode=OneWay}" />
+                            <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=EditOfferCommand, Mode=OneWay}" />
                         </infgDp:XamDataGrid.InputBindings>
 
                         <infgDp:XamDataGrid.FieldLayouts>
@@ -195,8 +194,7 @@
                                         SelectedDataItem="{Binding Tenders.SelectedItem}">
 
                         <infgDp:XamDataGrid.InputBindings>
-                            <MouseBinding MouseAction="LeftDoubleClick"
-                                          Command="{Binding Path=EditTenderCommand, Mode=OneWay}" />
+                            <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=EditTenderCommand, Mode=OneWay}" />
                         </infgDp:XamDataGrid.InputBindings>
 
                         <infgDp:XamDataGrid.FieldLayouts>

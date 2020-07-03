@@ -50,7 +50,6 @@ namespace HVTApp.UI
                 .Where(x => x.Types.Select(t => t.Type).Contains(tenderType))
                 .OrderBy(x => x.DateClose)
                 .LastOrDefault()?.Winner;
-
         }
 
         /// <summary>

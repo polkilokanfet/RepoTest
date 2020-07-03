@@ -74,11 +74,11 @@ namespace HVTApp.Infrastructure.Extansions
             return enumerable.SingleOrDefault(x => x.Id == objId.Id);
         }
 
-        public static void RemoveById<T>(this ICollection<T> collection, IId objId)
+        public static bool RemoveById<T>(this ICollection<T> collection, IId objId)
             where T : IId
         {
             var item = collection.Single(x => x.Id == objId.Id);
-            collection.Remove(item);
+            return collection.Remove(item);
         }
 
 
