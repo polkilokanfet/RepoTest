@@ -4,12 +4,13 @@ using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
-using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using HVTApp.Model.Wrapper;
+using HVTApp.Model.Wrapper.Base.TrackingCollections;
+using HVTApp.UI.Modules.Sales.ViewModels;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 
-namespace HVTApp.UI.Modules.Sales.ViewModels
+namespace HVTApp.UI.Modules.Sales.Market
 {
     public partial class Market2ViewModel : ViewModelBase
     {

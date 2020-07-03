@@ -4,6 +4,7 @@ using HVTApp.UI.Modules.Sales.Shippings;
 using HVTApp.UI.Modules.Sales.Views;
 using HVTApp.UI.Modules.Sales.Views.MarketView;
 using HVTApp.UI.PriceCalculations.View;
+using Market2View = HVTApp.UI.Modules.Sales.Market.Market2View;
 
 namespace HVTApp.Modules.Sales.Menus
 {

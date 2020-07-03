@@ -157,6 +157,7 @@
     <Compile Include="Modules\Directum\TabDirectumTasks.xaml.cs">
       <DependentUpon>TabDirectumTasks.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Sales\Market\Converters\DaysToColorConverter.cs" />
     <Compile Include="Modules\Sales\Payments\PaymentsGroup.cs" />
     <Compile Include="Modules\Sales\Payments\PaymentWrapper.cs" />
     <Compile Include="Modules\Products\ViewModels\ProductReplacementViewModel.cs" />
@@ -438,10 +439,10 @@
     <Compile Include="Modules\Sales\ViewModels\Groups\SalesUnitsGroupsViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\Groups\SalesUnitsViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\Groups\UnitsContainer.cs" />
-    <Compile Include="Modules\Sales\ViewModels\Market2ViewModel\Market2ViewModel_Notes.cs" />
-    <Compile Include="Modules\Sales\ViewModels\Market2ViewModel\Market2ViewModel.cs" />
-    <Compile Include="Modules\Sales\ViewModels\Market2ViewModel\Market2ViewModel_Commands.cs" />
-    <Compile Include="Modules\Sales\ViewModels\Market2ViewModel\SalesUnitsComparer.cs" />
+    <Compile Include="Modules\Sales\Market\Market2ViewModel_Notes.cs" />
+    <Compile Include="Modules\Sales\Market\Market2ViewModel.cs" />
+    <Compile Include="Modules\Sales\Market\Market2ViewModel_Commands.cs" />
+    <Compile Include="Modules\Sales\Market\SalesUnitsComparer.cs" />
     <Compile Include="Modules\Sales\ViewModels\OffersViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\OfferViewModel.cs" />
     <Compile Include="Modules\Sales\Payments\PaymentsViewModel.cs" />
@@ -449,10 +450,10 @@
     <Compile Include="Modules\Sales\ViewModels\ProductionViewModel\ProductionItem.cs" />
     <Compile Include="Modules\Sales\ViewModels\ProductionViewModel\ProductionViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\ProductsIncludedViewModel.cs" />
-    <Compile Include="Modules\Sales\ViewModels\ProjectItem.cs" />
+    <Compile Include="Modules\Sales\Market\Items\ProjectItem.cs" />
     <Compile Include="Modules\Sales\ViewModels\ProjectNotesWrapper.cs" />
     <Compile Include="Modules\Sales\ViewModels\ProjectsViewModel.cs" />
-    <Compile Include="Modules\Sales\ViewModels\ProjectUnitsGroup.cs" />
+    <Compile Include="Modules\Sales\Market\Items\ProjectUnitsGroup.cs" />
     <Compile Include="Modules\Sales\ViewModels\ProjectViewModel\ProjectViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\SalesUnitsCollection.cs" />
     <Compile Include="Modules\Sales\ViewModels\SalesUnitsWrappersGroupsContainer.cs" />
@@ -461,7 +462,7 @@
     <Compile Include="Modules\Sales\ViewModels\SpecificationUnitsGroupsViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\SpecificationViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\TenderViewModel.cs" />
-    <Compile Include="Modules\Sales\Views\MarketView\Market2View.xaml.cs">
+    <Compile Include="Modules\Sales\Market\Market2View.xaml.cs">
       <DependentUpon>Market2View.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Sales\Views\MarketView\MarketView.xaml.cs">
@@ -1092,7 +1093,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Modules\Sales\Views\MarketView\Market2View.xaml">
+    <Page Include="Modules\Sales\Market\Market2View.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

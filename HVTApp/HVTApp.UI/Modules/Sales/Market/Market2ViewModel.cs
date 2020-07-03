@@ -6,12 +6,14 @@ using HVTApp.Infrastructure;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Modules.Sales.Market.Items;
+using HVTApp.UI.Modules.Sales.ViewModels;
 using HVTApp.UI.Modules.Sales.ViewModels.Containers;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Events;
 
-namespace HVTApp.UI.Modules.Sales.ViewModels
+namespace HVTApp.UI.Modules.Sales.Market
 {
     public partial class Market2ViewModel : ViewModelBase
     {
@@ -33,7 +35,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
                     _eventAggregator.GetEvent<SelectedProjectChangedEvent>().Publish(value.Project);
                 }
 
-                OnPropertyChanged(nameof(Notes));
+                OnPropertyChanged(nameof(Market2ViewModel.Notes));
                 ((DelegateCommand)AddNoteCommand).RaiseCanExecuteChanged();
                 SelectedNote = null;
 

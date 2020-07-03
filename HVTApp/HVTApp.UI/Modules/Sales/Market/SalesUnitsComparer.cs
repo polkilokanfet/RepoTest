@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using HVTApp.Model.POCOs;
 
-namespace HVTApp.UI.Modules.Sales.ViewModels
+namespace HVTApp.UI.Modules.Sales.Market
 {
     public class SalesUnitsComparer : IEqualityComparer<SalesUnit>
     {

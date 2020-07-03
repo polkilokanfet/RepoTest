@@ -4,16 +4,17 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Modules.Sales.ViewModels;
 using HVTApp.UI.Modules.Sales.Views;
+using HVTApp.UI.PriceCalculations.View;
 using Microsoft.Practices.Unity;
 using Prism.Regions;
-using HVTApp.Infrastructure.Extansions;
-using HVTApp.UI.PriceCalculations.View;
 
-namespace HVTApp.UI.Modules.Sales.ViewModels
+namespace HVTApp.UI.Modules.Sales.Market
 {
     public partial class Market2ViewModel
     {

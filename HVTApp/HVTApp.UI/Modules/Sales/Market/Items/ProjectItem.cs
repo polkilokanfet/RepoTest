@@ -4,10 +4,11 @@ using System.Linq;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Modules.Sales.ViewModels;
 using Prism.Events;
 using Prism.Mvvm;
 
-namespace HVTApp.UI.Modules.Sales.ViewModels
+namespace HVTApp.UI.Modules.Sales.Market.Items
 {
     public class ProjectItem : BindableBase
     {
@@ -50,6 +51,19 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
         public IEnumerable<string> Facilities => SalesUnits.Select(x => x.Facility.ToString()).Distinct();
         public double Sum => SalesUnits.Sum(x => x.Cost);
+
+        public int? DaysToStartProduction
+        {
+            get
+            {
+                if (!SalesUnits.Any()) return null;
+
+                var salesUnit = SalesUnits.First();
+                if (salesUnit.IsLoosen || salesUnit.IsWon) return null;
+
+                return (salesUnit.DeliveryDateExpected.AddDays(- salesUnit.ProductionTerm - salesUnit.DeliveryPeriodCalculated) - DateTime.Today).Days;
+            }
+        }
 
         #region OrderInTakeRegion
 
@@ -131,6 +145,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
                 OnPropertyChanged(nameof(this.IsDone));
                 OnPropertyChanged(nameof(this.InWork));
                 OnPropertyChanged(nameof(this.ForReport));
+                OnPropertyChanged(nameof(this.DaysToStartProduction));
 
                 OnPropertyChanged(nameof(this.ProjectUnitsGroups));
             };

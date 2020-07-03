@@ -7,7 +7,7 @@ using HVTApp.UI.Modules.Sales.ViewModels;
 using Prism.Events;
 using Prism.Regions;
 
-namespace HVTApp.UI.Modules.Sales.Views.MarketView
+namespace HVTApp.UI.Modules.Sales.Market
 {
     [RibbonTab(typeof(MarketTab))]
     [RibbonTab(typeof(MarketViewTab))]
