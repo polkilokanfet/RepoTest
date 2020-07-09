@@ -47,7 +47,7 @@
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
                         <infg:TextField AlternateBinding="{Binding SalesUnits}" BindingType="UseAlternateBinding" Label="SalesUnits" Width="Auto" AllowResize="True" Converter="{StaticResource ObjectsToStringConverter}"/>
-                        <infg:TextField AlternateBinding="{Binding Order.Number}" BindingType="UseAlternateBinding" Label="Заказ" Width="Auto" AllowResize="True" />
+                        <infg:TextField AlternateBinding="{Binding Order}" BindingType="UseAlternateBinding" Label="Заказ" Width="Auto" AllowResize="True" />
                         <infg:TextField AlternateBinding="{Binding OrderPositions}" BindingType="UseAlternateBinding" Label="Позиции" Width="Auto" AllowResize="True" />
                         <infg:TextField AlternateBinding="{Binding FacilityOwners}" BindingType="UseAlternateBinding" Label="Владелец объекта" Width="Auto" AllowResize="True" />
                         <infg:TextField AlternateBinding="{Binding Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto" AllowResize="True" />
@@ -55,7 +55,7 @@
                         <infg:TextField AlternateBinding="{Binding Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto" AllowResize="True" />
                         <infg:TextField AlternateBinding="{Binding IsExport}" BindingType="UseAlternateBinding" Label="РФ/экспорт" Width="Auto" AllowResize="True" />
                         <infg:TextField AlternateBinding="{Binding RfSng}" BindingType="UseAlternateBinding" Label="РФ/СНГ" Width="Auto" AllowResize="True" />
-                        <infg:TextField AlternateBinding="{Binding Region}" BindingType="UseAlternateBinding" Label="Регион" Width="Auto" AllowResize="True" />
+                        <infg:TextField AlternateBinding="{Binding District}" BindingType="UseAlternateBinding" Label="Федеральный округ" Width="Auto" AllowResize="True" />
                         <infg:TextField AlternateBinding="{Binding Segment}" BindingType="UseAlternateBinding" Label="Сегмент" Width="Auto" AllowResize="True" />
                         <infg:TextField AlternateBinding="{Binding Kat}" BindingType="UseAlternateBinding" Label="Категория производства" Width="Auto" AllowResize="True" />
                         <infg:TextField AlternateBinding="{Binding ProductType}" BindingType="UseAlternateBinding" Label="Тип продукта" Width="Auto" AllowResize="True" />
@@ -119,8 +119,12 @@
                         <infg:TextField AlternateBinding="{Binding DeliveryType}" BindingType="UseAlternateBinding" Label="Тип доставки" Width="Auto" AllowResize="True" />
                         <infg:TextField AlternateBinding="{Binding DeliveryAddress}" BindingType="UseAlternateBinding" Label="Адрес доставки" Width="Auto" AllowResize="True" />
                         <infg:DateTimeField AlternateBinding="{Binding PickingDate}" BindingType="UseAlternateBinding" Label="Комплектация" Width="Auto" AllowResize="True" />
-                        <infg:TextField AlternateBinding="{Binding ProductsIncluded}" BindingType="UseAlternateBinding" Label="Включенное оборудование" Width="Auto" AllowResize="True" />
+                        <infg:TextField AlternateBinding="{Binding ProductsIncluded}" BindingType="UseAlternateBinding" Label="Включенное оборудование (на единицу)" Width="Auto" AllowResize="True" />
                         <infg:TextField AlternateBinding="{Binding PaymentsActual}" BindingType="UseAlternateBinding" Label="Оплаты" Width="Auto" AllowResize="True" />
+                        <infg:TextField AlternateBinding="{Binding TceInfo}" BindingType="UseAlternateBinding" Label="Информация из ТСЕ" Width="Auto" AllowResize="True" />
+                        <infg:TextField AlternateBinding="{Binding IsolationMaterial}" BindingType="UseAlternateBinding" Label="Материал изолятора" Width="Auto" AllowResize="True" />
+                        <infg:TextField AlternateBinding="{Binding IsolationDpu}" BindingType="UseAlternateBinding" Label="ДПУ" Width="Auto" AllowResize="True" />
+                        <infg:TextField AlternateBinding="{Binding IsolationColor}" BindingType="UseAlternateBinding" Label="Цвет изолятора" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField AlternateBinding="{Binding RealizationDateIsFake}" BindingType="UseAlternateBinding" Label="RealizationDateIsFake" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField AlternateBinding="{Binding PaymentConditionSetIsFake}" BindingType="UseAlternateBinding" Label="PaymentConditionSetIsFake" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField AlternateBinding="{Binding OrderInTakeDateIsFake}" BindingType="UseAlternateBinding" Label="OrderInTakeDateIsFake" Width="Auto" AllowResize="True" />

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
@@ -11,14 +10,14 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel
 {
-    public class ProjectViewModel : UnitsContainer<Project, ProjectWrapper, ProjectDetailsViewModel, SalesUnitsGroupsViewModel, SalesUnit, AfterSaveProjectEvent>
+    public class ProjectViewModel : UnitsContainer<Model.POCOs.Project, ProjectWrapper, ProjectDetailsViewModel, SalesUnitsGroupsViewModel, SalesUnit, AfterSaveProjectEvent>
     {
 
         public ProjectViewModel(IUnityContainer container) : base(container)
         {
         }
 
-        public override void Load(Project model, bool isNew, object parameter = null)
+        public override void Load(Model.POCOs.Project model, bool isNew, object parameter = null)
         {
             base.Load(model, isNew, parameter);
             //назначаем менеджера
@@ -29,7 +28,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel
             }
         }
 
-        protected override IEnumerable<SalesUnit> GetUnits(Project project, object parameter = null)
+        protected override IEnumerable<SalesUnit> GetUnits(Model.POCOs.Project project, object parameter = null)
         {
             return UnitOfWork.Repository<SalesUnit>().GetAll().Where(x => x.Project.Id == project.Id);
         }

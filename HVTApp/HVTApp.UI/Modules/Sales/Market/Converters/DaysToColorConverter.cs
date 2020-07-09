@@ -8,13 +8,13 @@ namespace HVTApp.UI.Modules.Sales.Market.Converters
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            if (value == null) return Colors.LightGreen;
+            if (value == null) return Colors.LightGray;
             int dblValue;
             if (int.TryParse(value.ToString(), out dblValue))
             {
                 if (dblValue <= 0) return Colors.Red;
                 if (dblValue < 30) return Colors.HotPink;
-                if (dblValue < 60) return Colors.Yellow;
+                if (dblValue < 60) return Colors.LightPink;
 
                 return Colors.White;
             }

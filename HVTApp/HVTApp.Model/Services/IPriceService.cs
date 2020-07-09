@@ -1,6 +1,5 @@
 ﻿using System;
 using HVTApp.Model.POCOs;
-using HVTApp.Model.Structures;
 
 namespace HVTApp.Model.Services
 {
@@ -9,10 +8,16 @@ namespace HVTApp.Model.Services
     /// </summary>
     public interface IPriceService
     {
+        /// <summary>
+        /// Получить прайс
+        /// </summary>
+        /// <param name="unit"></param>
+        /// <param name="targetDate">Целевая дата</param>
+        /// <returns></returns>
         Price GetPrice(IUnit unit, DateTime targetDate);
 
         /// <summary>
-        /// Получить прайс по калбкуляциям
+        /// Получить прайс по калькуляциям
         /// </summary>
         /// <param name="unit"></param>
         /// <returns></returns>

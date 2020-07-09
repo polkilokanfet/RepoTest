@@ -238,12 +238,15 @@ namespace HVTApp.TestDataGenerator
                 ComplectsGroup = ParameterGroupComplectsGroup,
                 ComplectsParameter = ParameterComplects,
                 ProductIncludedDefault = ProductZip1,
+                IsolationMaterialGroup = ParameterGroupIsolationMaterial,
+                IsolationColorGroup = ParameterGroupIsolationColor,
+                IsolationDpuGroup = ParameterGroupIsolation
             });
 
-#if DEBUG
+            #if DEBUG
             GlobalProperties.IncomingRequestsPath = @"G:\HVTAppTest\Requests";
             GlobalProperties.DirectumAttachmentsPath = @"G:\HVTAppTest\Directum";
-#endif
+            #endif
         }
 
     }

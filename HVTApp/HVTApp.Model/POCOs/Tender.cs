@@ -11,6 +11,9 @@ namespace HVTApp.Model.POCOs
     [DesignationPlural("Конкурсы")]
     public partial class Tender : BaseEntity
     {
+        [Designation("Ссылка"), OrderStatus(1)]
+        public virtual string Link { get; set; }
+
         [Designation("Проект"), Required, OrderStatus(4)]
         public virtual Project Project { get; set; }
 

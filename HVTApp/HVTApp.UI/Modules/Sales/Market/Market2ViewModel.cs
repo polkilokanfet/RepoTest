@@ -152,12 +152,11 @@ namespace HVTApp.UI.Modules.Sales.Market
 
             var items = salesUnits
                 .GroupBy(x => x, new SalesUnitsComparer())
-                .OrderBy(x => x.Key.OrderInTakeDate)
                 .Select(x => new ProjectItem(x, _eventAggregator))
                 .ToList();
 
             ProjectItems.Clear();
-            ProjectItems.AddRange(items);
+            ProjectItems.AddRange(items.OrderBy(x => x.OrderInTakeDate).ThenBy(x => x.DaysToStartProduction));
         }
         
         //удалить айтем, если он уже опустел

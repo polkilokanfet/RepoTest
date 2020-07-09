@@ -2205,11 +2205,6 @@ namespace HVTApp.UI.Views
             //    VisibilityNewProductParameterGroupGlobalProperties = Visibility.Collapsed;
 
 
-            //attr = typeof(HVTApp.Model.POCOs.GlobalProperties).GetProperty(nameof(HVTApp.Model.POCOs.GlobalProperties.VoltageGroup)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityVoltageGroupGlobalProperties = Visibility.Collapsed;
-
-
             //attr = typeof(HVTApp.Model.POCOs.GlobalProperties).GetProperty(nameof(HVTApp.Model.POCOs.GlobalProperties.ServiceParameter)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityServiceParameterGlobalProperties = Visibility.Collapsed;
@@ -2218,6 +2213,26 @@ namespace HVTApp.UI.Views
             //attr = typeof(HVTApp.Model.POCOs.GlobalProperties).GetProperty(nameof(HVTApp.Model.POCOs.GlobalProperties.SupervisionParameter)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilitySupervisionParameterGlobalProperties = Visibility.Collapsed;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.GlobalProperties).GetProperty(nameof(HVTApp.Model.POCOs.GlobalProperties.VoltageGroup)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityVoltageGroupGlobalProperties = Visibility.Collapsed;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.GlobalProperties).GetProperty(nameof(HVTApp.Model.POCOs.GlobalProperties.IsolationMaterialGroup)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityIsolationMaterialGroupGlobalProperties = Visibility.Collapsed;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.GlobalProperties).GetProperty(nameof(HVTApp.Model.POCOs.GlobalProperties.IsolationColorGroup)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityIsolationColorGroupGlobalProperties = Visibility.Collapsed;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.GlobalProperties).GetProperty(nameof(HVTApp.Model.POCOs.GlobalProperties.IsolationDpuGroup)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityIsolationDpuGroupGlobalProperties = Visibility.Collapsed;
 
 
             //attr = typeof(HVTApp.Model.POCOs.GlobalProperties).GetProperty(nameof(HVTApp.Model.POCOs.GlobalProperties.ComplectDesignationGroup)).GetCustomAttribute<NotUpdateAttribute>();
@@ -2361,15 +2376,6 @@ namespace HVTApp.UI.Views
 
 
 
-        public static readonly DependencyProperty VisibilityVoltageGroupGlobalPropertiesProperty = DependencyProperty.Register("VisibilityVoltageGroupGlobalProperties", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityVoltageGroupGlobalProperties
-        {
-            get { return (Visibility) GetValue(VisibilityVoltageGroupGlobalPropertiesProperty); }
-            set { SetValue(VisibilityVoltageGroupGlobalPropertiesProperty, value); OnPropertyChanged(); }
-        }
-
-
-
         public static readonly DependencyProperty VisibilityServiceParameterGlobalPropertiesProperty = DependencyProperty.Register("VisibilityServiceParameterGlobalProperties", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
         public Visibility VisibilityServiceParameterGlobalProperties
         {
@@ -2384,6 +2390,42 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilitySupervisionParameterGlobalPropertiesProperty); }
             set { SetValue(VisibilitySupervisionParameterGlobalPropertiesProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityVoltageGroupGlobalPropertiesProperty = DependencyProperty.Register("VisibilityVoltageGroupGlobalProperties", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityVoltageGroupGlobalProperties
+        {
+            get { return (Visibility) GetValue(VisibilityVoltageGroupGlobalPropertiesProperty); }
+            set { SetValue(VisibilityVoltageGroupGlobalPropertiesProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityIsolationMaterialGroupGlobalPropertiesProperty = DependencyProperty.Register("VisibilityIsolationMaterialGroupGlobalProperties", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityIsolationMaterialGroupGlobalProperties
+        {
+            get { return (Visibility) GetValue(VisibilityIsolationMaterialGroupGlobalPropertiesProperty); }
+            set { SetValue(VisibilityIsolationMaterialGroupGlobalPropertiesProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityIsolationColorGroupGlobalPropertiesProperty = DependencyProperty.Register("VisibilityIsolationColorGroupGlobalProperties", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityIsolationColorGroupGlobalProperties
+        {
+            get { return (Visibility) GetValue(VisibilityIsolationColorGroupGlobalPropertiesProperty); }
+            set { SetValue(VisibilityIsolationColorGroupGlobalPropertiesProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityIsolationDpuGroupGlobalPropertiesProperty = DependencyProperty.Register("VisibilityIsolationDpuGroupGlobalProperties", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityIsolationDpuGroupGlobalProperties
+        {
+            get { return (Visibility) GetValue(VisibilityIsolationDpuGroupGlobalPropertiesProperty); }
+            set { SetValue(VisibilityIsolationDpuGroupGlobalPropertiesProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -6908,6 +6950,11 @@ namespace HVTApp.UI.Views
             //NotUpdateAttribute attr;
 
 
+            //attr = typeof(HVTApp.Model.POCOs.Tender).GetProperty(nameof(HVTApp.Model.POCOs.Tender.Link)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityLinkTender = Visibility.Collapsed;
+
+
             //attr = typeof(HVTApp.Model.POCOs.Tender).GetProperty(nameof(HVTApp.Model.POCOs.Tender.Project)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityProjectTender = Visibility.Collapsed;
@@ -6944,6 +6991,15 @@ namespace HVTApp.UI.Views
 
 
 
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityLinkTenderProperty = DependencyProperty.Register("VisibilityLinkTender", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityLinkTender
+        {
+            get { return (Visibility) GetValue(VisibilityLinkTenderProperty); }
+            set { SetValue(VisibilityLinkTenderProperty, value); OnPropertyChanged(); }
         }
 
 

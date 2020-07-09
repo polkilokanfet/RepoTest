@@ -112,6 +112,9 @@
                     <infg:TextField AlternateBinding="{Binding ProductsIncluded}" BindingType="UseAlternateBinding" Label="Включенное оборудование (на единицу)" Width="Auto" AllowResize="True" />
                     <infg:TextField AlternateBinding="{Binding PaymentsActual}" BindingType="UseAlternateBinding" Label="Оплаты" Width="Auto" AllowResize="True" />
                     <infg:TextField AlternateBinding="{Binding TceInfo}" BindingType="UseAlternateBinding" Label="Информация из ТСЕ (на единицу)" Width="Auto" AllowResize="True" />
+                    <infg:TextField AlternateBinding="{Binding IsolationMaterial}" BindingType="UseAlternateBinding" Label="Материал изолятора" Width="Auto" AllowResize="True" />
+                    <infg:TextField AlternateBinding="{Binding IsolationDpu}" BindingType="UseAlternateBinding" Label="ДПУ" Width="Auto" AllowResize="True" />
+                    <infg:TextField AlternateBinding="{Binding IsolationColor}" BindingType="UseAlternateBinding" Label="Цвет изолятора" Width="Auto" AllowResize="True" />
                     <infg:CheckBoxField AlternateBinding="{Binding RealizationDateIsFake}" BindingType="UseAlternateBinding" Label="RealizationDateIsFake" Width="Auto" AllowResize="True" />
                     <infg:CheckBoxField AlternateBinding="{Binding PaymentConditionSetIsFake}" BindingType="UseAlternateBinding" Label="PaymentConditionSetIsFake" Width="Auto" AllowResize="True" />
                     <infg:CheckBoxField AlternateBinding="{Binding OrderInTakeDateIsFake}" BindingType="UseAlternateBinding" Label="OrderInTakeDateIsFake" Width="Auto" AllowResize="True" />

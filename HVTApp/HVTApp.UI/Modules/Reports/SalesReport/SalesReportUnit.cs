@@ -331,6 +331,15 @@ namespace HVTApp.UI.Modules.Reports.SalesReport
         [Designation("Информация из ТСЕ"), OrderStatus(-150)]
         public string TceInfo { get; }
 
+        [Designation("Материал изолятора"), OrderStatus(-160)]
+        public string IsolationMaterial { get; }
+
+        [Designation("ДПУ"), OrderStatus(-161)]
+        public string IsolationDpu { get; }
+
+        [Designation("Цвет изолятора"), OrderStatus(-162)]
+        public string IsolationColor { get; }
+
         #region Fake
 
         [OrderStatus(-500)]
@@ -446,6 +455,13 @@ namespace HVTApp.UI.Modules.Reports.SalesReport
             PaymentsActual = salesUnits.SelectMany(x => x.PaymentsActual).ToStringEnum();
 
             TceInfo = priceCalculationItem?.ToString();
+
+            IsolationMaterial = salesUnit.Product.ProductBlock.Parameters
+                .FirstOrDefault(x => Equals(x.ParameterGroup, GlobalAppProperties.Actual.IsolationMaterialGroup))?.Value;
+            IsolationDpu = salesUnit.Product.ProductBlock.Parameters
+                .FirstOrDefault(x => Equals(x.ParameterGroup, GlobalAppProperties.Actual.IsolationDpuGroup))?.Value;
+            IsolationColor = salesUnit.Product.ProductBlock.Parameters
+                .FirstOrDefault(x => Equals(x.ParameterGroup, GlobalAppProperties.Actual.IsolationColorGroup))?.Value;
 
             if (salesUnit.FakeData != null)
             {

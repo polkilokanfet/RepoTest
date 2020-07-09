@@ -7,6 +7,11 @@ namespace HVTApp.DataAccess
             HasRequired(x => x.NewProductParameter).WithMany().WillCascadeOnDelete(false);
             HasRequired(x => x.NewProductParameterGroup).WithMany().WillCascadeOnDelete(false);
             HasRequired(x => x.VoltageGroup).WithMany().WillCascadeOnDelete(false);
+
+            HasOptional(x => x.IsolationColorGroup).WithMany().WillCascadeOnDelete(false);
+            HasOptional(x => x.IsolationDpuGroup).WithMany().WillCascadeOnDelete(false);
+            HasOptional(x => x.IsolationMaterialGroup).WithMany().WillCascadeOnDelete(false);
+
             HasRequired(x => x.ServiceParameter).WithMany().WillCascadeOnDelete(false);
             HasRequired(x => x.SupervisionParameter).WithMany().WillCascadeOnDelete(false);
             HasRequired(x => x.SenderOfferEmployee).WithMany().WillCascadeOnDelete(false);

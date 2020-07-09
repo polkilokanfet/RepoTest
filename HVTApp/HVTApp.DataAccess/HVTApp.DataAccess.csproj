@@ -114,7 +114,7 @@
     <Compile Include="EntityTypeConfigurations\Generated\Configurations.g.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ParameterRelationConfiguration.cs" />
     <Compile Include="HvtAppContext.g.cs" />
-    <Compile Include="HVTAppDataBaseInitializer.cs" />
+    <Compile Include="HvtAppDataBaseInitializer.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\SpecificationConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\RegionConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\LocalityConfiguration.cs" />
@@ -187,6 +187,10 @@
     <Compile Include="Migrations\202004221539419_Complects.cs" />
     <Compile Include="Migrations\202004221539419_Complects.Designer.cs">
       <DependentUpon>202004221539419_Complects.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007091033407_GlobalPropertiesParametersIsolation2.cs" />
+    <Compile Include="Migrations\202007091033407_GlobalPropertiesParametersIsolation2.Designer.cs">
+      <DependentUpon>202007091033407_GlobalPropertiesParametersIsolation2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
@@ -279,6 +283,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202004221539419_Complects.resx">
       <DependentUpon>202004221539419_Complects.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007091033407_GlobalPropertiesParametersIsolation2.resx">
+      <DependentUpon>202007091033407_GlobalPropertiesParametersIsolation2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

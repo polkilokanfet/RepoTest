@@ -1559,12 +1559,6 @@ namespace HVTApp.Model.Wrapper
             set { SetComplexValue<ParameterGroup, ParameterGroupWrapper>(NewProductParameterGroup, value); }
         }
 
-	    public ParameterGroupWrapper VoltageGroup 
-        {
-            get { return GetWrapper<ParameterGroupWrapper>(); }
-            set { SetComplexValue<ParameterGroup, ParameterGroupWrapper>(VoltageGroup, value); }
-        }
-
 	    public ParameterWrapper ServiceParameter 
         {
             get { return GetWrapper<ParameterWrapper>(); }
@@ -1575,6 +1569,30 @@ namespace HVTApp.Model.Wrapper
         {
             get { return GetWrapper<ParameterWrapper>(); }
             set { SetComplexValue<Parameter, ParameterWrapper>(SupervisionParameter, value); }
+        }
+
+	    public ParameterGroupWrapper VoltageGroup 
+        {
+            get { return GetWrapper<ParameterGroupWrapper>(); }
+            set { SetComplexValue<ParameterGroup, ParameterGroupWrapper>(VoltageGroup, value); }
+        }
+
+	    public ParameterGroupWrapper IsolationMaterialGroup 
+        {
+            get { return GetWrapper<ParameterGroupWrapper>(); }
+            set { SetComplexValue<ParameterGroup, ParameterGroupWrapper>(IsolationMaterialGroup, value); }
+        }
+
+	    public ParameterGroupWrapper IsolationColorGroup 
+        {
+            get { return GetWrapper<ParameterGroupWrapper>(); }
+            set { SetComplexValue<ParameterGroup, ParameterGroupWrapper>(IsolationColorGroup, value); }
+        }
+
+	    public ParameterGroupWrapper IsolationDpuGroup 
+        {
+            get { return GetWrapper<ParameterGroupWrapper>(); }
+            set { SetComplexValue<ParameterGroup, ParameterGroupWrapper>(IsolationDpuGroup, value); }
         }
 
 	    public ParameterGroupWrapper ComplectDesignationGroup 
@@ -1633,9 +1651,12 @@ namespace HVTApp.Model.Wrapper
             InitializeComplexProperty<PaymentConditionSetWrapper>(nameof(StandartPaymentsConditionSet), Model.StandartPaymentsConditionSet == null ? null : new PaymentConditionSetWrapper(Model.StandartPaymentsConditionSet));
             InitializeComplexProperty<ParameterWrapper>(nameof(NewProductParameter), Model.NewProductParameter == null ? null : new ParameterWrapper(Model.NewProductParameter));
             InitializeComplexProperty<ParameterGroupWrapper>(nameof(NewProductParameterGroup), Model.NewProductParameterGroup == null ? null : new ParameterGroupWrapper(Model.NewProductParameterGroup));
-            InitializeComplexProperty<ParameterGroupWrapper>(nameof(VoltageGroup), Model.VoltageGroup == null ? null : new ParameterGroupWrapper(Model.VoltageGroup));
             InitializeComplexProperty<ParameterWrapper>(nameof(ServiceParameter), Model.ServiceParameter == null ? null : new ParameterWrapper(Model.ServiceParameter));
             InitializeComplexProperty<ParameterWrapper>(nameof(SupervisionParameter), Model.SupervisionParameter == null ? null : new ParameterWrapper(Model.SupervisionParameter));
+            InitializeComplexProperty<ParameterGroupWrapper>(nameof(VoltageGroup), Model.VoltageGroup == null ? null : new ParameterGroupWrapper(Model.VoltageGroup));
+            InitializeComplexProperty<ParameterGroupWrapper>(nameof(IsolationMaterialGroup), Model.IsolationMaterialGroup == null ? null : new ParameterGroupWrapper(Model.IsolationMaterialGroup));
+            InitializeComplexProperty<ParameterGroupWrapper>(nameof(IsolationColorGroup), Model.IsolationColorGroup == null ? null : new ParameterGroupWrapper(Model.IsolationColorGroup));
+            InitializeComplexProperty<ParameterGroupWrapper>(nameof(IsolationDpuGroup), Model.IsolationDpuGroup == null ? null : new ParameterGroupWrapper(Model.IsolationDpuGroup));
             InitializeComplexProperty<ParameterGroupWrapper>(nameof(ComplectDesignationGroup), Model.ComplectDesignationGroup == null ? null : new ParameterGroupWrapper(Model.ComplectDesignationGroup));
             InitializeComplexProperty<ParameterWrapper>(nameof(ComplectsParameter), Model.ComplectsParameter == null ? null : new ParameterWrapper(Model.ComplectsParameter));
             InitializeComplexProperty<ParameterGroupWrapper>(nameof(ComplectsGroup), Model.ComplectsGroup == null ? null : new ParameterGroupWrapper(Model.ComplectsGroup));
@@ -4233,6 +4254,14 @@ namespace HVTApp.Model.Wrapper
 	    public TenderWrapper(Tender model) : base(model) { }
 
         #region SimpleProperties
+
+        public System.String Link
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String LinkOriginalValue => GetOriginalValue<System.String>(nameof(Link));
+        public bool LinkIsChanged => GetIsChanged(nameof(Link));
 
         public System.DateTime DateOpen
         {

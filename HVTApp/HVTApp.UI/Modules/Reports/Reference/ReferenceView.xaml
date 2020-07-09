@@ -27,7 +27,7 @@
                         <infg:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" />
                         <infg:DateTimeField AlternateBinding="{Binding ShipmentDate}" BindingType="UseAlternateBinding" Label="Отгрузка" Width="Auto" />
                         <infg:TextField AlternateBinding="{Binding Manager}" BindingType="UseAlternateBinding" Label="Менеджер" Width="Auto" />
-                        <infg:TextField AlternateBinding="{Binding Region}" BindingType="UseAlternateBinding" Label="Регоин" Width="Auto" />
+                        <infg:TextField AlternateBinding="{Binding Region}" BindingType="UseAlternateBinding" Label="Регион" Width="Auto" />
                         <infg:TextField AlternateBinding="{Binding District}" BindingType="UseAlternateBinding" Label="Округ" Width="Auto" />
                         <infg:TextField AlternateBinding="{Binding Country}" BindingType="UseAlternateBinding" Label="Страна" Width="Auto" />
                         <infg:TextField AlternateBinding="{Binding Order}" BindingType="UseAlternateBinding" Label="Зав.зак." Width="Auto" />

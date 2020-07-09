@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using HVTApp.Infrastructure;
 
 namespace HVTApp.Modules.Products.Menus
@@ -15,7 +16,7 @@ namespace HVTApp.Modules.Products.Menus
         {
             get
             {
-                if (_xamDataTree.Nodes.Count > 0 && _xamDataTree.SelectionSettings.SelectedNodes.Count == 0)
+                if (_xamDataTree.Nodes.Any() && !_xamDataTree.SelectionSettings.SelectedNodes.Any())
                     _xamDataTree.SelectionSettings.SelectedNodes.Add(_xamDataTree.Nodes[0]);
 
                 var node = _xamDataTree.SelectionSettings.SelectedNodes[0];

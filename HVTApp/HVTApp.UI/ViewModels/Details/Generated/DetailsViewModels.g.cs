@@ -1,3 +1,18 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Events;
@@ -1347,11 +1362,6 @@ namespace HVTApp.UI.ViewModels
 		public ICommand SelectNewProductParameterGroupCommand { get; private set; }
 		public ICommand ClearNewProductParameterGroupCommand { get; private set; }
 
-		//private Func<Task<List<ParameterGroup>>> _getEntitiesForSelectVoltageGroupCommand;
-		private Func<List<ParameterGroup>> _getEntitiesForSelectVoltageGroupCommand;
-		public ICommand SelectVoltageGroupCommand { get; private set; }
-		public ICommand ClearVoltageGroupCommand { get; private set; }
-
 		//private Func<Task<List<Parameter>>> _getEntitiesForSelectServiceParameterCommand;
 		private Func<List<Parameter>> _getEntitiesForSelectServiceParameterCommand;
 		public ICommand SelectServiceParameterCommand { get; private set; }
@@ -1361,6 +1371,26 @@ namespace HVTApp.UI.ViewModels
 		private Func<List<Parameter>> _getEntitiesForSelectSupervisionParameterCommand;
 		public ICommand SelectSupervisionParameterCommand { get; private set; }
 		public ICommand ClearSupervisionParameterCommand { get; private set; }
+
+		//private Func<Task<List<ParameterGroup>>> _getEntitiesForSelectVoltageGroupCommand;
+		private Func<List<ParameterGroup>> _getEntitiesForSelectVoltageGroupCommand;
+		public ICommand SelectVoltageGroupCommand { get; private set; }
+		public ICommand ClearVoltageGroupCommand { get; private set; }
+
+		//private Func<Task<List<ParameterGroup>>> _getEntitiesForSelectIsolationMaterialGroupCommand;
+		private Func<List<ParameterGroup>> _getEntitiesForSelectIsolationMaterialGroupCommand;
+		public ICommand SelectIsolationMaterialGroupCommand { get; private set; }
+		public ICommand ClearIsolationMaterialGroupCommand { get; private set; }
+
+		//private Func<Task<List<ParameterGroup>>> _getEntitiesForSelectIsolationColorGroupCommand;
+		private Func<List<ParameterGroup>> _getEntitiesForSelectIsolationColorGroupCommand;
+		public ICommand SelectIsolationColorGroupCommand { get; private set; }
+		public ICommand ClearIsolationColorGroupCommand { get; private set; }
+
+		//private Func<Task<List<ParameterGroup>>> _getEntitiesForSelectIsolationDpuGroupCommand;
+		private Func<List<ParameterGroup>> _getEntitiesForSelectIsolationDpuGroupCommand;
+		public ICommand SelectIsolationDpuGroupCommand { get; private set; }
+		public ICommand ClearIsolationDpuGroupCommand { get; private set; }
 
 		//private Func<Task<List<ParameterGroup>>> _getEntitiesForSelectComplectDesignationGroupCommand;
 		private Func<List<ParameterGroup>> _getEntitiesForSelectComplectDesignationGroupCommand;
@@ -1426,11 +1456,6 @@ namespace HVTApp.UI.ViewModels
 			if (ClearNewProductParameterGroupCommand == null) ClearNewProductParameterGroupCommand = new DelegateCommand(ClearNewProductParameterGroupCommand_Execute_Default);
 
 			
-			if (_getEntitiesForSelectVoltageGroupCommand == null) _getEntitiesForSelectVoltageGroupCommand = () => { return UnitOfWork.Repository<ParameterGroup>().GetAll(); };
-			if (SelectVoltageGroupCommand == null) SelectVoltageGroupCommand = new DelegateCommand(SelectVoltageGroupCommand_Execute_Default);
-			if (ClearVoltageGroupCommand == null) ClearVoltageGroupCommand = new DelegateCommand(ClearVoltageGroupCommand_Execute_Default);
-
-			
 			if (_getEntitiesForSelectServiceParameterCommand == null) _getEntitiesForSelectServiceParameterCommand = () => { return UnitOfWork.Repository<Parameter>().GetAll(); };
 			if (SelectServiceParameterCommand == null) SelectServiceParameterCommand = new DelegateCommand(SelectServiceParameterCommand_Execute_Default);
 			if (ClearServiceParameterCommand == null) ClearServiceParameterCommand = new DelegateCommand(ClearServiceParameterCommand_Execute_Default);
@@ -1439,6 +1464,26 @@ namespace HVTApp.UI.ViewModels
 			if (_getEntitiesForSelectSupervisionParameterCommand == null) _getEntitiesForSelectSupervisionParameterCommand = () => { return UnitOfWork.Repository<Parameter>().GetAll(); };
 			if (SelectSupervisionParameterCommand == null) SelectSupervisionParameterCommand = new DelegateCommand(SelectSupervisionParameterCommand_Execute_Default);
 			if (ClearSupervisionParameterCommand == null) ClearSupervisionParameterCommand = new DelegateCommand(ClearSupervisionParameterCommand_Execute_Default);
+
+			
+			if (_getEntitiesForSelectVoltageGroupCommand == null) _getEntitiesForSelectVoltageGroupCommand = () => { return UnitOfWork.Repository<ParameterGroup>().GetAll(); };
+			if (SelectVoltageGroupCommand == null) SelectVoltageGroupCommand = new DelegateCommand(SelectVoltageGroupCommand_Execute_Default);
+			if (ClearVoltageGroupCommand == null) ClearVoltageGroupCommand = new DelegateCommand(ClearVoltageGroupCommand_Execute_Default);
+
+			
+			if (_getEntitiesForSelectIsolationMaterialGroupCommand == null) _getEntitiesForSelectIsolationMaterialGroupCommand = () => { return UnitOfWork.Repository<ParameterGroup>().GetAll(); };
+			if (SelectIsolationMaterialGroupCommand == null) SelectIsolationMaterialGroupCommand = new DelegateCommand(SelectIsolationMaterialGroupCommand_Execute_Default);
+			if (ClearIsolationMaterialGroupCommand == null) ClearIsolationMaterialGroupCommand = new DelegateCommand(ClearIsolationMaterialGroupCommand_Execute_Default);
+
+			
+			if (_getEntitiesForSelectIsolationColorGroupCommand == null) _getEntitiesForSelectIsolationColorGroupCommand = () => { return UnitOfWork.Repository<ParameterGroup>().GetAll(); };
+			if (SelectIsolationColorGroupCommand == null) SelectIsolationColorGroupCommand = new DelegateCommand(SelectIsolationColorGroupCommand_Execute_Default);
+			if (ClearIsolationColorGroupCommand == null) ClearIsolationColorGroupCommand = new DelegateCommand(ClearIsolationColorGroupCommand_Execute_Default);
+
+			
+			if (_getEntitiesForSelectIsolationDpuGroupCommand == null) _getEntitiesForSelectIsolationDpuGroupCommand = () => { return UnitOfWork.Repository<ParameterGroup>().GetAll(); };
+			if (SelectIsolationDpuGroupCommand == null) SelectIsolationDpuGroupCommand = new DelegateCommand(SelectIsolationDpuGroupCommand_Execute_Default);
+			if (ClearIsolationDpuGroupCommand == null) ClearIsolationDpuGroupCommand = new DelegateCommand(ClearIsolationDpuGroupCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectComplectDesignationGroupCommand == null) _getEntitiesForSelectComplectDesignationGroupCommand = () => { return UnitOfWork.Repository<ParameterGroup>().GetAll(); };
@@ -1526,17 +1571,6 @@ namespace HVTApp.UI.ViewModels
 		    
 		}
 
-		private void SelectVoltageGroupCommand_Execute_Default() 
-		{
-            SelectAndSetWrapper<ParameterGroup, ParameterGroupWrapper>(_getEntitiesForSelectVoltageGroupCommand(), nameof(Item.VoltageGroup), Item.VoltageGroup?.Id);
-		}
-
-		private void ClearVoltageGroupCommand_Execute_Default() 
-		{
-						Item.VoltageGroup = null;
-		    
-		}
-
 		private void SelectServiceParameterCommand_Execute_Default() 
 		{
             SelectAndSetWrapper<Parameter, ParameterWrapper>(_getEntitiesForSelectServiceParameterCommand(), nameof(Item.ServiceParameter), Item.ServiceParameter?.Id);
@@ -1556,6 +1590,50 @@ namespace HVTApp.UI.ViewModels
 		private void ClearSupervisionParameterCommand_Execute_Default() 
 		{
 						Item.SupervisionParameter = null;
+		    
+		}
+
+		private void SelectVoltageGroupCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<ParameterGroup, ParameterGroupWrapper>(_getEntitiesForSelectVoltageGroupCommand(), nameof(Item.VoltageGroup), Item.VoltageGroup?.Id);
+		}
+
+		private void ClearVoltageGroupCommand_Execute_Default() 
+		{
+						Item.VoltageGroup = null;
+		    
+		}
+
+		private void SelectIsolationMaterialGroupCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<ParameterGroup, ParameterGroupWrapper>(_getEntitiesForSelectIsolationMaterialGroupCommand(), nameof(Item.IsolationMaterialGroup), Item.IsolationMaterialGroup?.Id);
+		}
+
+		private void ClearIsolationMaterialGroupCommand_Execute_Default() 
+		{
+						Item.IsolationMaterialGroup = null;
+		    
+		}
+
+		private void SelectIsolationColorGroupCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<ParameterGroup, ParameterGroupWrapper>(_getEntitiesForSelectIsolationColorGroupCommand(), nameof(Item.IsolationColorGroup), Item.IsolationColorGroup?.Id);
+		}
+
+		private void ClearIsolationColorGroupCommand_Execute_Default() 
+		{
+						Item.IsolationColorGroup = null;
+		    
+		}
+
+		private void SelectIsolationDpuGroupCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<ParameterGroup, ParameterGroupWrapper>(_getEntitiesForSelectIsolationDpuGroupCommand(), nameof(Item.IsolationDpuGroup), Item.IsolationDpuGroup?.Id);
+		}
+
+		private void ClearIsolationDpuGroupCommand_Execute_Default() 
+		{
+						Item.IsolationDpuGroup = null;
 		    
 		}
 

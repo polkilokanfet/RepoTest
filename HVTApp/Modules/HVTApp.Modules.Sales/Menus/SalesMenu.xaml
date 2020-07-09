@@ -9,11 +9,11 @@
                     LargeImage="/HVTApp.Modules.Sales;component/Images/sales_32.png" 
                     SmallImage="/HVTApp.Modules.Sales;component/Images/sales_16.png">
 
-    <igs:XamDataTree Name="_xamDataTree"
+    <igs:XamDataTree Name="XamDataTree"
                      ItemsSource="{Binding Items}"
                      infPrism:XamDataTreeItemSelected.Command="{x:Static Member=inf:Commands.NavigateCommand}">
         <igs:XamDataTree.GlobalNodeLayouts>
-            <igs:NodeLayout Key="ItemsLayout" 
+            <igs:NodeLayout Key="ItemsLayout"
                             TargetTypeName="NavigationItem" 
                             DisplayMemberPath="Caption" 
                             IsExpandedMemberPath="IsExpended"/>

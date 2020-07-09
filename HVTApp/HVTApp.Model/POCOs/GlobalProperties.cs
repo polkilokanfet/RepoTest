@@ -36,14 +36,23 @@ namespace HVTApp.Model.POCOs
         public virtual ParameterGroup NewProductParameterGroup { get; set; }
 
 
-        [Designation("Группа параметров номинального напряжения"), Required]
-        public virtual ParameterGroup VoltageGroup { get; set; }
-
-        [Designation("Признак услуги"), Required]
+        [Designation("Признак услуги"), Required, OrderStatus(301)]
         public virtual Parameter ServiceParameter { get; set; }
 
-        [Designation("Признак шеф-монтажа"), Required]
+        [Designation("Признак шеф-монтажа"), Required, OrderStatus(302)]
         public virtual Parameter SupervisionParameter { get; set; }
+
+        [Designation("Группа параметров номинального напряжения"), Required, OrderStatus(303)]
+        public virtual ParameterGroup VoltageGroup { get; set; }
+
+        [Designation("Группа параметров материала изоляции"), OrderStatus(304)]
+        public virtual ParameterGroup IsolationMaterialGroup { get; set; }
+
+        [Designation("Группа параметров цвета изоляции"), OrderStatus(305)]
+        public virtual ParameterGroup IsolationColorGroup { get; set; }
+
+        [Designation("Группа параметров ДПУ изолятора"), OrderStatus(306)]
+        public virtual ParameterGroup IsolationDpuGroup { get; set; }
 
 
 

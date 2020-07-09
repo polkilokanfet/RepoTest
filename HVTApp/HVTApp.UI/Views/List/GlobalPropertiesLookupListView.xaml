@@ -38,6 +38,12 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
+                    <infg:TextField Name="IsolationDpuGroup" Label="Группа параметров ДПУ изолятора" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="IsolationColorGroup" Label="Группа параметров цвета изоляции" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="IsolationMaterialGroup" Label="Группа параметров материала изоляции" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="VoltageGroup" Label="Группа параметров номинального напряжения" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="SupervisionParameter" Label="Признак шеф-монтажа" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="ServiceParameter" Label="Признак услуги" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:DateTimeField Name="Date" Label="Дата настроек" Width="Auto" AllowResize="True" />
                     <infg:TextField Name="OurCompany" Label="Наша компания" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="StandartPaymentsConditionSet" Label="Стандартные условия оплаты" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
@@ -47,11 +53,8 @@
                     <infg:TextField Name="ProductIncludedDefault" Label="Дополнительное оборудование" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Developer" Label="Разработчик" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="NewProductParameter" Label="Родительский параметр новых параметров" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="ServiceParameter" Label="Признак услуги" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="SupervisionParameter" Label="Признак шеф-монтажа" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="ComplectsParameter" Label="Параметр комплекты и детали" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="NewProductParameterGroup" Label="Группа новых параметров" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="VoltageGroup" Label="Группа параметров номинального напряжения" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="ComplectDesignationGroup" Label="Группа параметров обозначения комплекта или детали" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="ComplectsGroup" Label="Группа типа комплекта или детали" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:NumericField Name="Vat" Label="НДС" Width="Auto" AllowResize="True" />

@@ -9,10 +9,9 @@
                        LargeImage="/HVTApp.Modules.Products;component/Images/production_32.png"
                        SmallImage="/HVTApp.Modules.Products;component/Images/production_16.png">
     
-    <igs:XamDataTree 
-        Name="_xamDataTree"
-        ItemsSource="{Binding Items}"
-        prism:XamDataTreeItemSelected.Command="{x:Static Member=inf:Commands.NavigateCommand}">
+    <igs:XamDataTree Name="_xamDataTree"
+                     ItemsSource="{Binding Items}"
+                     prism:XamDataTreeItemSelected.Command="{x:Static Member=inf:Commands.NavigateCommand}">
         <igs:XamDataTree.GlobalNodeLayouts>
             <igs:NodeLayout Key="ItemsLayout" 
                             TargetTypeName="NavigationItem" 

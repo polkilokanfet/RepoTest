@@ -2198,13 +2198,6 @@ namespace HVTApp.UI.Views
         }
 
 
-        public System.Windows.Visibility VoltageGroupVisibility
-        {
-            get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.VoltageGroup)].Visibility; }
-            set { GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.VoltageGroup)].Visibility = value; }
-        }
-
-
         public System.Windows.Visibility ServiceParameterVisibility
         {
             get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.ServiceParameter)].Visibility; }
@@ -2216,6 +2209,34 @@ namespace HVTApp.UI.Views
         {
             get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.SupervisionParameter)].Visibility; }
             set { GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.SupervisionParameter)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility VoltageGroupVisibility
+        {
+            get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.VoltageGroup)].Visibility; }
+            set { GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.VoltageGroup)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility IsolationMaterialGroupVisibility
+        {
+            get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.IsolationMaterialGroup)].Visibility; }
+            set { GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.IsolationMaterialGroup)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility IsolationColorGroupVisibility
+        {
+            get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.IsolationColorGroup)].Visibility; }
+            set { GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.IsolationColorGroup)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility IsolationDpuGroupVisibility
+        {
+            get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.IsolationDpuGroup)].Visibility; }
+            set { GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.IsolationDpuGroup)].Visibility = value; }
         }
 
 
@@ -6026,6 +6047,13 @@ namespace HVTApp.UI.Views
         }
 
 		#region VisibilityProps
+
+
+        public System.Windows.Visibility LinkVisibility
+        {
+            get { return TenderLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TenderLookup.Link)].Visibility; }
+            set { TenderLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TenderLookup.Link)].Visibility = value; }
+        }
 
 
         public System.Windows.Visibility DateOpenVisibility

@@ -14,7 +14,7 @@ namespace HVTApp
         {
             #if DEBUG
 
-                base.OnStartup(e);
+            base.OnStartup(e);
 
                 //Disable shutdown when the dialog closes
                 Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
@@ -40,13 +40,6 @@ namespace HVTApp
             }
             catch (Exception exception)
             {
-                //var sb = new StringBuilder();
-                //while (exception != null)
-                //{
-                //    sb.AppendLine(exception.Message);
-                //    exception = exception.InnerException;
-                //}
-
                 MessageBox.Show(exception.GetAllExceptions());
                 Console.WriteLine(exception.GetAllExceptions());
 

@@ -35,7 +35,7 @@ namespace HVTApp.Views
 
         private void XamOutlookBar_OnSelectedGroupChanging(object sender, SelectedGroupChangingEventArgs e)
         {
-            IOutlookBarGroup group = e.NewSelectedOutlookBarGroup as IOutlookBarGroup;
+            var group = e.NewSelectedOutlookBarGroup as IOutlookBarGroup;
             if (group != null)
             {
                 Commands.NavigateCommand.Execute(group.DefaultViewUri);

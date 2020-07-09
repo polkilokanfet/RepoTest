@@ -12,7 +12,7 @@
 <#@ output extension=".txt" #>
 <#
 
-    GenerateView(typeof(HVTApp.UI.Modules.Reports.ViewModels.SalesReportUnit));
+    GenerateView(typeof(HVTApp.UI.Modules.Reports.SalesReport.SalesReportUnit));
 
 #><#+
 
