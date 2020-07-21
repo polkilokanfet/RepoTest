@@ -9,8 +9,8 @@
     <inf:ViewBase.Resources>
         
         <Style x:Key="BoltFontCellsStyle" TargetType="{x:Type infgDp:CellValuePresenter}">
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="BorderBrush" Value="CornflowerBlue"/>
+            <!--<Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="CornflowerBlue"/>-->
             <Setter Property="ForegroundStyle">
                 <Setter.Value>
                     <Style>
@@ -107,7 +107,7 @@
 					        <infgDp:FieldLayout.Fields>
                                 <infgDp:TextField AlternateBinding="{Binding Facilities}" BindingType="UseAlternateBinding" Label="Объекты" Width="200" Converter="{StaticResource ObjectsToStringConverter}"/>
                                 <infgDp:TextField AlternateBinding="{Binding Project.Name}" BindingType="UseAlternateBinding" Label="Название" Width="350"/>
-                                <infgDp:NumericField AlternateBinding="{Binding Sum}" BindingType="UseAlternateBinding" Label="Сумма (без НДС)" Width="Auto" AllowResize="False"/>
+                                <infgDp:NumericField AlternateBinding="{Binding Sum}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto" AllowResize="False"/>
                                 <!--<infgDp:DateTimeField AlternateBinding="{Binding OrderInTakeDate}" BindingType="UseAlternateBinding" Label="ОИТ" Width="100" AllowResize="False" />-->
                                 <!--<infgDp:DateTimeField AlternateBinding="{Binding RealizationDate}" BindingType="UseAlternateBinding" Label="Реализация" Width="100" AllowResize="False" />-->
                                 <infgDp:DateTimeField AlternateBinding="{Binding TenderDate}" BindingType="UseAlternateBinding" Label="Тендер" Width="Auto" AllowResize="False"/>

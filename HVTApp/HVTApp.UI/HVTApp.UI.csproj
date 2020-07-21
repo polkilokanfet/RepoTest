@@ -237,6 +237,14 @@
       <DependentUpon>ProductTypesSalesChartView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Sales\Payments\SalesUnitWrapper1.cs" />
+    <Compile Include="Modules\Sales\Project1\IProjectUnit.cs" />
+    <Compile Include="Modules\Sales\Project1\PoductsIncludedCollection.cs" />
+    <Compile Include="Modules\Sales\Project1\ProjectUnitGroup.cs" />
+    <Compile Include="Modules\Sales\Project1\ProjectUnitGroupsCollection.cs" />
+    <Compile Include="Modules\Sales\Project1\ProjectUnitGroupsViewModel - Price.cs" />
+    <Compile Include="Modules\Sales\Project1\ProjectUnitGroupsViewModel.cs" />
+    <Compile Include="Modules\Sales\Project1\ProjectUnit.cs" />
+    <Compile Include="Modules\Sales\Project1\ProjectViewModel1.cs" />
     <Compile Include="Modules\Sales\Shippings\ShippingGroup.cs" />
     <Compile Include="Modules\Sales\Shippings\ShippingUnitWrapper.cs" />
     <Compile Include="Modules\Settings\ViewModels\DataBaseBackupViewModel.cs" />

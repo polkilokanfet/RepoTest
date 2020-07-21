@@ -38,7 +38,7 @@ namespace HVTApp.UI.Modules.Sales.Project1
         //    }
         //}
 
-        public object SelectedItem { get; set; }
+        public IProjectUnit SelectedItem { get; set; }
 
         /// <summary>
         /// Выбранный зависимый продукт.

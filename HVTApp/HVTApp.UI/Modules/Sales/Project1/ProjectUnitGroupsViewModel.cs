@@ -66,9 +66,9 @@ namespace HVTApp.UI.Modules.Sales.Project1
                     }
 
                     //удаление из подгруппы
-                    if (Groups.SelectedItem is ProjectUnitWrapper)
+                    if (Groups.SelectedItem is ProjectUnit)
                     {
-                        var unit = Groups.SelectedItem as ProjectUnitWrapper;
+                        var unit = Groups.SelectedItem as ProjectUnit;
                         var group = Groups.Single(x => x.Contains(unit));
 
                         //если группа стала пустая - удалить
@@ -139,8 +139,46 @@ namespace HVTApp.UI.Modules.Sales.Project1
                     var productsIncludedViewModel = new ProductsIncludedViewModel(productIncludedWrapper, UnitOfWork, Container);
                     var dr = Container.Resolve<IDialogService>().ShowDialog(productsIncludedViewModel);
                     if (!dr.HasValue || !dr.Value) return;
-                    Groups.SelectedGroup.AddProductIncluded(productsIncludedViewModel.ViewModel.Entity, productsIncludedViewModel.IsForEach);
-                    RefreshPrice(Groups.SelectedGroup);
+
+                    Groups.SelectedItem.ProductsIncluded.Add();.AddProductIncluded(productsIncludedViewModel.ViewModel.Entity, productsIncludedViewModel.IsForEach);
+
+                    //если вложенных групп нет
+                    if (Groups == null)
+                    {
+                        _unit.ProductsIncluded.Add(new ProductIncludedWrapper(productIncluded));
+                    }
+
+                    //если есть вложенные группы
+                    else
+                    {
+                        //если в каждой группе должен быть свой уникальный включенный продукт
+                        if (isForEach)
+                        {
+                            foreach (var grp in Groups)
+                            {
+                                var pi = new ProductIncluded { Product = productIncluded.Product, Amount = productIncluded.Amount };
+                                grp.AddProductIncluded(pi, true);
+                            }
+                        }
+
+                        //если один включенный продукт на все группы
+                        else
+                        {
+                            //обновляем количество родителей включенного продукта
+                            productIncluded.ParentsCount = Groups.Count;
+                            //добавляем продукт в каждую группу
+                            foreach (var grp in Groups)
+                            {
+                                grp.AddProductIncluded(productIncluded, false);
+                            }
+                        }
+                    }
+
+                    OnPropertyChanged(nameof(ProductsIncluded));
+
+
+
+                    RefreshPrice(Groups.SelectedItem);
                 },
                 () => Groups.SelectedItem != null);
 
@@ -206,8 +244,8 @@ namespace HVTApp.UI.Modules.Sales.Project1
         /// <summary>
         /// Заполнение юнита по выбранной группе
         /// </summary>
-        /// <param name="projectUnitWrapper"></param>
-        private void FillingSalesUnit(ProjectUnitWrapper projectUnitWrapper)
+        /// <param name="projectUnit"></param>
+        private void FillingSalesUnit(ProjectUnit projectUnit)
         {
             if (Groups.SelectedItem == null)
             {
@@ -215,26 +253,26 @@ namespace HVTApp.UI.Modules.Sales.Project1
                     .Repository<PaymentConditionSet>()
                     .Find(x => x.Id == GlobalAppProperties.Actual.PaymentConditionSet.Id)
                     .First();
-                projectUnitWrapper.PaymentConditionSet = new PaymentConditionSetWrapper(paymentConditionSet);
-                projectUnitWrapper.ProductionTerm = GlobalAppProperties.Actual.StandartTermFromStartToEndProduction;
+                projectUnit.PaymentConditionSet = new PaymentConditionSetWrapper(paymentConditionSet);
+                projectUnit.ProductionTerm = GlobalAppProperties.Actual.StandartTermFromStartToEndProduction;
 
                 return;
             }
 
             var selectedUnit = ((IProjectUnit)Groups.SelectedItem).Model;
 
-            projectUnitWrapper.Cost = selectedUnit.Cost;
-            projectUnitWrapper.Facility = new FacilityWrapper(selectedUnit.Facility);
-            projectUnitWrapper.PaymentConditionSet = new PaymentConditionSetWrapper(selectedUnit.PaymentConditionSet);
-            projectUnitWrapper.ProductionTerm = selectedUnit.ProductionTerm;
-            projectUnitWrapper.Product = new ProductWrapper(selectedUnit.Product);
-            projectUnitWrapper.DeliveryDateExpected = selectedUnit.DeliveryDateExpected;
+            projectUnit.Cost = selectedUnit.Cost;
+            projectUnit.Facility = new FacilityWrapper(selectedUnit.Facility);
+            projectUnit.PaymentConditionSet = new PaymentConditionSetWrapper(selectedUnit.PaymentConditionSet);
+            projectUnit.ProductionTerm = selectedUnit.ProductionTerm;
+            projectUnit.Product = new ProductWrapper(selectedUnit.Product);
+            projectUnit.DeliveryDateExpected = selectedUnit.DeliveryDateExpected;
 
             //создаем зависимое оборудование
             foreach (var prodIncl in selectedUnit.ProductsIncluded)
             {
                 var pi = new ProductIncluded { Product = prodIncl.Product, Amount = prodIncl.Amount };
-                projectUnitWrapper.ProductsIncluded.Add(new ProductIncludedWrapper(pi));
+                projectUnit.ProductsIncluded.Add(new ProductIncludedWrapper(pi));
             }
         }
 

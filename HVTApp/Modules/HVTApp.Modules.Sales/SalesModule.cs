@@ -1,8 +1,13 @@
-﻿using Prism.Regions;
+﻿using System.Linq;
+using Prism.Regions;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
+using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Prism;
+using HVTApp.Infrastructure.Services;
+using HVTApp.Model;
+using HVTApp.Model.POCOs;
 using HVTApp.Modules.Sales.Menus;
 using HVTApp.UI.Modules.Sales.Market;
 using HVTApp.UI.Modules.Sales.Payments;
@@ -20,6 +25,27 @@ namespace HVTApp.Modules.Sales
     {
         public SalesModule(IUnityContainer container, IRegionManager regionManager) : base(container, regionManager)
         {
+            //проверка на объекты без местоположения
+            var unitOfWork = container.Resolve<IUnitOfWork>();
+            var facilities = unitOfWork.Repository<SalesUnit>()
+                .Find(x => x.Project.Manager.Id == GlobalAppProperties.User.Id)
+                .Select(x => x.Facility)
+                .Distinct()
+                .Where(x => x.GetRegion() == null)
+                .ToList();
+
+            if (facilities.Any())
+            {
+                var messageService = container.Resolve<IMessageService>();
+                messageService.ShowOkMessageDialog("Укажите местоположения объектов", 
+                    "В Ваших проектах задействованы объекты без определенного местоположения. Исправьте сиё недоразумение.");
+
+                var updateDetailsService = container.Resolve<IUpdateDetailsService>();
+                foreach (var facility in facilities)
+                {
+                    updateDetailsService.UpdateDetails(facility);
+                }
+            }
         }
 
         protected override void RegisterTypes()

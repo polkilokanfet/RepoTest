@@ -36,8 +36,8 @@ namespace HVTApp.UI.Modules.Sales.Project1
                     GroupsViewModel.AcceptChanges();
 
                     //добавляем сущность, если ее не существовало
-                    if (UnitOfWork.Repository<Model.POCOs.Project>().GetById(DetailsViewModel.Item.Model.Id) == null)
-                        UnitOfWork.Repository<Model.POCOs.Project>().Add(DetailsViewModel.Item.Model);
+                    if (UnitOfWork.Repository<Project>().GetById(DetailsViewModel.Item.Model.Id) == null)
+                        UnitOfWork.Repository<Project>().Add(DetailsViewModel.Item.Model);
 
                     DetailsViewModel.Item.AcceptChanges();
                     Container.Resolve<IEventAggregator>().GetEvent<AfterSaveProjectEvent>().Publish(DetailsViewModel.Item.Model);

@@ -7,7 +7,7 @@ using HVTApp.Model.Wrapper.Base.TrackingCollections;
 
 namespace HVTApp.UI.Modules.Sales.Project1
 {
-    public class ProjectUnitWrapper : WrapperBase<SalesUnit>, IProjectUnit
+    public class ProjectUnit : WrapperBase<SalesUnit>, IProjectUnit
     {
         /// <summary>
         /// Можно ли удалить этот юнит
@@ -84,7 +84,7 @@ namespace HVTApp.UI.Modules.Sales.Project1
 
         #endregion
 
-        public ProjectUnitWrapper(SalesUnit model) : base(model) { }
+        public ProjectUnit(SalesUnit model) : base(model) { }
 
         public override void InitializeComplexProperties()
         {
