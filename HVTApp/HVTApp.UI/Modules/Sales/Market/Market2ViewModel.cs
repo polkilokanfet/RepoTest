@@ -156,7 +156,7 @@ namespace HVTApp.UI.Modules.Sales.Market
                 .ToList();
 
             ProjectItems.Clear();
-            ProjectItems.AddRange(items.OrderBy(x => x.OrderInTakeDate).ThenBy(x => x.DaysToStartProduction));
+            ProjectItems.AddRange(items.OrderBy(x => x.DaysToStartProduction).ThenBy(x => x.OrderInTakeDate));
         }
         
         //удалить айтем, если он уже опустел

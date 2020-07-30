@@ -1,21 +1,19 @@
 using System;
 using System.Windows.Data;
 using System.Windows.Media;
+using HVTApp.UI.Modules.Sales.ViewModels;
 
 namespace HVTApp.UI.Modules.Sales.Market.Converters
 {
-    public class DaysToColorConverter : IValueConverter
+    public class ProductionGroupToColorConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            if (value == null) return Colors.LightGray;
-            int dblValue;
-            if (int.TryParse(value.ToString(), out dblValue))
+            var productionGroup = value as ProductionGroup;
+            if (productionGroup != null)
             {
-                if (dblValue <= 0) return Colors.Red;
-                if (dblValue < 30) return Colors.HotPink;
-                if (dblValue < 60) return Colors.LightPink;
-
+                if (productionGroup.DifContract > 0) return Colors.HotPink;
+                if (productionGroup.DifExpected > 0) return Colors.LightPink;
                 return Colors.White;
             }
 

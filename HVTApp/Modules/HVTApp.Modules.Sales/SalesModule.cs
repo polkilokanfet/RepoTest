@@ -26,24 +26,27 @@ namespace HVTApp.Modules.Sales
         public SalesModule(IUnityContainer container, IRegionManager regionManager) : base(container, regionManager)
         {
             //проверка на объекты без местоположения
-            var unitOfWork = container.Resolve<IUnitOfWork>();
-            var facilities = unitOfWork.Repository<SalesUnit>()
-                .Find(x => x.Project.Manager.Id == GlobalAppProperties.User.Id)
-                .Select(x => x.Facility)
-                .Distinct()
-                .Where(x => x.GetRegion() == null)
-                .ToList();
-
-            if (facilities.Any())
+            if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager)
             {
-                var messageService = container.Resolve<IMessageService>();
-                messageService.ShowOkMessageDialog("Укажите местоположения объектов", 
-                    "В Ваших проектах задействованы объекты без определенного местоположения. Исправьте сиё недоразумение.");
+                var unitOfWork = container.Resolve<IUnitOfWork>();
+                var facilities = unitOfWork.Repository<SalesUnit>()
+                    .Find(x => x.Project.Manager.Id == GlobalAppProperties.User.Id)
+                    .Select(x => x.Facility)
+                    .Distinct()
+                    .Where(x => x.GetRegion() == null)
+                    .ToList();
 
-                var updateDetailsService = container.Resolve<IUpdateDetailsService>();
-                foreach (var facility in facilities)
+                if (facilities.Any())
                 {
-                    updateDetailsService.UpdateDetails(facility);
+                    var messageService = container.Resolve<IMessageService>();
+                    messageService.ShowOkMessageDialog("Укажите местоположения объектов", 
+                        "В Ваших проектах задействованы объекты без определенного местоположения. Исправьте сиё недоразумение.");
+
+                    var updateDetailsService = container.Resolve<IUpdateDetailsService>();
+                    foreach (var facility in facilities)
+                    {
+                        updateDetailsService.UpdateDetails(facility);
+                    }
                 }
             }
         }

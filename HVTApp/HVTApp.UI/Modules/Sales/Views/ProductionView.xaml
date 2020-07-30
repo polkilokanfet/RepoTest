@@ -3,7 +3,12 @@
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               xmlns:controls="http://infragistics.com/Windows"
+              xmlns:localConverters="clr-namespace:HVTApp.UI.Modules.Sales.Market.Converters"
               x:Class="HVTApp.UI.Modules.Sales.Views.ProductionView">
+    
+    <inf:ViewBase.Resources>
+        <localConverters:ProductionGroupToColorConverter x:Key="ProductionGroupToColorConverter"/>
+    </inf:ViewBase.Resources>
 
     <Grid>
         <Grid Name="ContentGrid">
@@ -18,6 +23,17 @@
                 <infg:XamDataGrid x:Name="ProductionListGrid"
                                   DataSource="{Binding GroupsInProduction}"
                                   SelectedDataItem="{Binding SelectedInProduction, Mode=TwoWay}">
+
+                    <infg:XamDataGrid.Resources>
+                        <Style TargetType="{x:Type infg:DataRecordPresenter}">
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="{Binding Path=DataItem, Converter={StaticResource ProductionGroupToColorConverter}}" Opacity="0.3" />
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </infg:XamDataGrid.Resources>
+
 
                     <infg:XamDataGrid.ContextMenu>
                         <ContextMenu>
