@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
@@ -18,6 +19,14 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
         {
         }
 
+        public override void AfterUnitsLoading()
+        {
+            if (string.IsNullOrEmpty(this.DetailsViewModel.Item.Comment))
+            {
+                var facilities = this.GroupsViewModel.Groups.Select(x => x.Facility).Distinct();
+                this.DetailsViewModel.Item.Comment = $"“ œ ({facilities.ToStringEnum()})";
+            }
+        }
 
         protected override IEnumerable<OfferUnit> GetUnits(Offer offer, object parameter = null)
         {
