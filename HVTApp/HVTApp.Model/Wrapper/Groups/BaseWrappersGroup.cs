@@ -65,11 +65,15 @@ namespace HVTApp.Model.Wrapper.Groups
             }
         }
 
+        /// <summary>
+        /// стоимость доставки группы оборудования
+        /// </summary>
         public double? CostDelivery
         {
             get
             {
-                if (Groups == null) return _unit.Model.CostDelivery;
+                if (Groups == null)
+                    return _unit.Model.CostDelivery;
                 return Groups.Sum(x => x.CostDelivery);
             }
             set
@@ -103,13 +107,16 @@ namespace HVTApp.Model.Wrapper.Groups
 
         private void CheckCost()
         {
-            if (Cost < CostMin) Cost = CostMin;
+            if (Cost < CostMin)
+                Cost = CostMin;
         }
 
         /// <summary>
         /// Минимально возможная цена (продукты с фиксированной ценой + стоимость доставки)
         /// </summary>
-        private double CostMin => CostDelivery.HasValue ? CostDelivery.Value + FixedCost : FixedCost;
+        private double CostMin => CostDelivery.HasValue 
+            ? FixedCost + CostDelivery.Value / Amount
+            : FixedCost;
 
         public double Price
         {
@@ -125,7 +132,12 @@ namespace HVTApp.Model.Wrapper.Groups
 
         public double? MarginalIncome
         {
-            get { return Cost - CostMin <= 0 ? default(double?) : (1.0 - Price / (Cost - CostMin)) * 100.0; }
+            get
+            {
+                return Cost - CostMin <= 0
+                    ? default(double?)
+                    : (1.0 - Price / (Cost - CostMin)) * 100.0;
+            }
             set
             {
                 if (!value.HasValue || value >= 100) return;

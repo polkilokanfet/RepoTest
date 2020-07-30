@@ -25,6 +25,8 @@ namespace HVTApp.Modules.Sales
     {
         public SalesModule(IUnityContainer container, IRegionManager regionManager) : base(container, regionManager)
         {
+#if DEBUG
+#else
             //проверка на объекты без местоположения
             if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager)
             {
@@ -49,6 +51,7 @@ namespace HVTApp.Modules.Sales
                     }
                 }
             }
+#endif
         }
 
         protected override void RegisterTypes()
