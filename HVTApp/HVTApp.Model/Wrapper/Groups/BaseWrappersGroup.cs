@@ -112,7 +112,7 @@ namespace HVTApp.Model.Wrapper.Groups
         }
 
         /// <summary>
-        /// Минимально возможная цена (продукты с фиксированной ценой + стоимость доставки)
+        /// Минимально возможная цена единицы оборудования (продукты с фиксированной ценой + стоимость доставки)
         /// </summary>
         private double CostMin => CostDelivery.HasValue 
             ? FixedCost + CostDelivery.Value / Amount

@@ -17,14 +17,14 @@ using Prism.Events;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels
 {
-    public class SpecificationUnitsGroupsViewModel : UI.Modules.Sales.ViewModels.Groups.BaseGroupsViewModel<SalesUnitsWrappersGroup, SalesUnitsWrappersGroup, SalesUnit, AfterSaveSalesUnitEvent, AfterRemoveSalesUnitEvent>, 
+    public class SpecificationUnitsGroupsViewModel : UI.Modules.Sales.ViewModels.Groups.BaseGroupsViewModel<ProjectUnitsGroup, ProjectUnitsGroup, SalesUnit, AfterSaveSalesUnitEvent, AfterRemoveSalesUnitEvent>, 
         IGroupsViewModel<SalesUnit, SpecificationWrapper>
     {
         private SpecificationWrapper _specificationWrapper;
         /// <summary>
         /// Необходимо для отмены изменений
         /// </summary>
-        private IValidatableChangeTrackingCollection<SalesUnitsWrappersGroup> _groupsToReject;
+        private IValidatableChangeTrackingCollection<ProjectUnitsGroup> _groupsToReject;
 
         public SpecificationUnitsGroupsViewModel(IUnityContainer container) : base(container)
         {
@@ -35,7 +35,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Manager.IsAppCurrentUser() && x.Specification == null);
             var unit = Container.Resolve<ISelectService>().SelectItem(salesUnits);
             if (unit == null) return;
-            var group = new SalesUnitsWrappersGroup(new List<SalesUnit> {unit});
+            var group = new ProjectUnitsGroup(new List<SalesUnit> {unit});
             group.Specification = _specificationWrapper;
             var uetm = UnitOfWork.Repository<Company>().GetById(GlobalAppProperties.Actual.OurCompany.Id);
             group.Producer = new CompanyWrapper(uetm);
@@ -44,9 +44,9 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             _groupsToReject.Add(group);
         }
 
-        protected override List<SalesUnitsWrappersGroup> GetGroups(IEnumerable<SalesUnit> units)
+        protected override List<ProjectUnitsGroup> GetGroups(IEnumerable<SalesUnit> units)
         {
-            return units.GroupBy(x => x, new SalesUnitsGroupsComparer()).OrderByDescending(x => x.Key.Cost).Select(x => new SalesUnitsWrappersGroup(x.ToList())).ToList();
+            return units.GroupBy(x => x, new SalesUnitsGroupsComparer()).OrderByDescending(x => x.Key.Cost).Select(x => new ProjectUnitsGroup(x.ToList())).ToList();
         }
 
         public void Load(IEnumerable<SalesUnit> units, SpecificationWrapper specificationWrapper, IUnitOfWork unitOfWork, bool isNew)
@@ -55,10 +55,10 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             _specificationWrapper = specificationWrapper;
             //назначаем спецификацию всем юнитам
             Groups.ForEach(x => x.Specification = _specificationWrapper);
-            _groupsToReject = new ValidatableChangeTrackingCollection<SalesUnitsWrappersGroup>(Groups);
+            _groupsToReject = new ValidatableChangeTrackingCollection<ProjectUnitsGroup>(Groups);
         }
 
-        protected override DateTime GetPriceDate(SalesUnitsWrappersGroup @group)
+        protected override DateTime GetPriceDate(ProjectUnitsGroup @group)
         {
             var spec = @group.Specification;
             if (spec == null || spec.Date == default(DateTime)) return DateTime.Today;

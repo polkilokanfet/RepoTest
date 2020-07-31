@@ -47,7 +47,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
 
         protected BaseGroupsViewModel(IUnityContainer container) : base(container)
         {
-            AddCommand = new DelegateCommand(AddCommand_Execute);
+            AddCommand = new DelegateCommand(AddCommand_Execute, AddCommand_CanExecute);
             RemoveCommand = new DelegateCommand(
                 () =>
                 {
@@ -172,6 +172,11 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
         #region Commands
 
         protected abstract void AddCommand_Execute();
+
+        protected virtual bool AddCommand_CanExecute()
+        {
+            return true;
+        }
 
         private void ChangeProductCommand_Execute(TGroup wrappersGroup)
         {

@@ -5,9 +5,9 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.Model.Wrapper.Groups
 {
-    public class SalesUnitsWrappersGroup : 
-        BaseWrappersGroup<SalesUnitsWrappersGroup, SalesUnit, SalesUnitWrapper>, 
-        IGroupValidatableChangeTrackingWithCollection<SalesUnitsWrappersGroup, SalesUnit>
+    public class ProjectUnitsGroup : 
+        BaseWrappersGroup<ProjectUnitsGroup, SalesUnit, ProjectUnit>, 
+        IGroupValidatableChangeTrackingWithCollection<ProjectUnitsGroup, SalesUnit>
     {
         private readonly List<SalesUnit> _units;
 
@@ -58,7 +58,7 @@ namespace HVTApp.Model.Wrapper.Groups
 
         public ProductType ProductType => Product.ProductType;
 
-        public SalesUnitsWrappersGroup(List<SalesUnit> units) : base(units)
+        public ProjectUnitsGroup(List<SalesUnit> units) : base(units)
         {
             _units = units;
         }

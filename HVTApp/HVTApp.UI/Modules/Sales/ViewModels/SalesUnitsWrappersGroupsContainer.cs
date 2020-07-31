@@ -6,13 +6,13 @@ using HVTApp.Model.Wrapper.Groups;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels
 {
-    public class SalesUnitsWrappersGroupsContainer : ObservableCollection<SalesUnitsWrappersGroup>
+    public class SalesUnitsWrappersGroupsContainer : ObservableCollection<ProjectUnitsGroup>
     {
-        private SalesUnitsWrappersGroup _selectedGroup;
+        private ProjectUnitsGroup _selectedGroup;
 
-        public event Action<SalesUnitsWrappersGroup> SelectedGroupChanged;
+        public event Action<ProjectUnitsGroup> SelectedGroupChanged;
 
-        public SalesUnitsWrappersGroup SelectedGroup
+        public ProjectUnitsGroup SelectedGroup
         {
             get { return _selectedGroup; }
             set
@@ -24,7 +24,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             }
         }
 
-        public void ClearAndAddRange(IEnumerable<SalesUnitsWrappersGroup> units)
+        public void ClearAndAddRange(IEnumerable<ProjectUnitsGroup> units)
         {
             this.SelectedGroup = null;
             this.Clear();

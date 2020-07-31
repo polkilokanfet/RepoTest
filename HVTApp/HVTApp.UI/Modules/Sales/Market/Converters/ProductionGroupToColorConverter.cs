@@ -12,9 +12,13 @@ namespace HVTApp.UI.Modules.Sales.Market.Converters
             var productionGroup = value as ProductionGroup;
             if (productionGroup != null)
             {
-                if (productionGroup.DifContract > 0) return Colors.HotPink;
-                if (productionGroup.DifExpected > 0) return Colors.LightPink;
-                return Colors.White;
+                if (productionGroup.DifContract > 0 && productionGroup.DifExpected > 0)
+                    return Colors.HotPink;
+
+                if (productionGroup.DifContract > 0 || productionGroup.DifExpected > 0)
+                    return Colors.Gold;
+
+                return Colors.LightGreen;
             }
 
             return Binding.DoNothing;

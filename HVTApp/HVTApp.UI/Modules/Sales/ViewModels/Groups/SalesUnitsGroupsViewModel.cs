@@ -17,9 +17,9 @@ using Prism.Commands;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
 {
-    public class SalesUnitsGroupsViewModel : BaseGroupsViewModel<SalesUnitsWrappersGroup, SalesUnitsWrappersGroup, SalesUnit, AfterSaveSalesUnitEvent, AfterRemoveSalesUnitEvent>, IGroupsViewModel<SalesUnit, ProjectWrapper>
+    public class SalesUnitsGroupsViewModel : BaseGroupsViewModel<ProjectUnitsGroup, ProjectUnitsGroup, SalesUnit, AfterSaveSalesUnitEvent, AfterRemoveSalesUnitEvent>, IGroupsViewModel<SalesUnit, ProjectWrapper>
     {
-        protected override bool CanRemoveGroup(SalesUnitsWrappersGroup grp)
+        protected override bool CanRemoveGroup(ProjectUnitsGroup grp)
         {
             if(!grp.CanRemove)
                 Container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", "Удаление невозможно, т.к. это оборудование размещено в производстве.");
@@ -33,38 +33,39 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
 
         public SalesUnitsGroupsViewModel(IUnityContainer container) : base(container)
         {
-            ChangeProducerCommand = new DelegateCommand<SalesUnitsWrappersGroup>(ChangeProducerCommand_Execute, ChangeProducerCommand_CanExecute);
+            ChangeProducerCommand = new DelegateCommand<ProjectUnitsGroup>(ChangeProducerCommand_Execute, ChangeProducerCommand_CanExecute);
         }
 
-        private bool ChangeProducerCommand_CanExecute(SalesUnitsWrappersGroup wrappersGroup)
+        private bool ChangeProducerCommand_CanExecute(ProjectUnitsGroup @group)
         {
-            return wrappersGroup?.Specification == null;
+            return @group?.Specification == null;
         }
 
-        private void ChangeProducerCommand_Execute(SalesUnitsWrappersGroup wrappersGroup)
+        private void ChangeProducerCommand_Execute(ProjectUnitsGroup @group)
         {
             var producers = UnitOfWork.Repository<Company>().Find(x => x.ActivityFilds.Select(af => af.ActivityFieldEnum).Contains(ActivityFieldEnum.ProducerOfHighVoltageEquipment));
-            var producer = Container.Resolve<ISelectService>().SelectItem(producers, wrappersGroup.Producer?.Id);
+            var producer = Container.Resolve<ISelectService>().SelectItem(producers, @group.Producer?.Id);
             if (producer == null) return;
             producer = UnitOfWork.Repository<Company>().GetById(producer.Id);
-            wrappersGroup.Producer = new CompanyWrapper(producer);
+            @group.Producer = new CompanyWrapper(producer);
         }
 
 
-        protected override List<SalesUnitsWrappersGroup> GetGroups(IEnumerable<SalesUnit> units)
+        protected override List<ProjectUnitsGroup> GetGroups(IEnumerable<SalesUnit> units)
         {
             return units.GroupBy(x => x, new SalesUnitsGroupsComparer())
                         .OrderByDescending(x => x.Key.Cost)
-                        .Select(x => new SalesUnitsWrappersGroup(x.ToList())).ToList();
+                        .Select(x => new ProjectUnitsGroup(x.ToList())).ToList();
         }
 
         public void Load(IEnumerable<SalesUnit> units, ProjectWrapper parentWrapper, IUnitOfWork unitOfWork, bool isNew)
         {
             Load(units, unitOfWork, isNew);
             _projectWrapper = parentWrapper;
+            _projectWrapper.PropertyChanged += (sender, args) => { ((DelegateCommand)AddCommand).RaiseCanExecuteChanged();};
         }
 
-        protected override DateTime GetPriceDate(SalesUnitsWrappersGroup @group)
+        protected override DateTime GetPriceDate(ProjectUnitsGroup @group)
         {
             return @group.OrderInTakeDate < DateTime.Today ? @group.OrderInTakeDate : DateTime.Today;
         }
@@ -91,10 +92,15 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             //клонируем юниты
             var units = CloneSalesUnits(viewModel.ViewModel.Item.Model, viewModel.Amount);
 
-            var group = new SalesUnitsWrappersGroup(units.ToList());
+            var group = new ProjectUnitsGroup(units.ToList());
             Groups.Add(group);
             RefreshPrice(group);
             Groups.SelectedGroup = group;
+        }
+
+        protected override bool AddCommand_CanExecute()
+        {
+            return _projectWrapper != null && _projectWrapper.IsValid;
         }
 
         /// <summary>

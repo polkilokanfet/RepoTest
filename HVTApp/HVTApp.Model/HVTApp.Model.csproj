@@ -212,8 +212,9 @@
     <Compile Include="Wrapper\Groups\IGroupValidatableChangeTrackingWithCollection.cs" />
     <Compile Include="Wrapper\Groups\IWrapperGroup.cs" />
     <Compile Include="Wrapper\Groups\OfferUnitsGroup.cs" />
+    <Compile Include="Wrapper\Groups\ProjectUnit.cs" />
     <Compile Include="Wrapper\Groups\SalesUnitsGroup.cs" />
-    <Compile Include="Wrapper\Groups\SalesUnitsWrappersGroup.cs" />
+    <Compile Include="Wrapper\Groups\ProjectUnitsGroup.cs" />
     <Compile Include="Wrapper\Custom\IProductCostDependentProductsWrapper.cs" />
     <Compile Include="Wrapper\IUnitsGroup.cs" />
     <Compile Include="Wrapper\IUnitWrapper.cs" />
