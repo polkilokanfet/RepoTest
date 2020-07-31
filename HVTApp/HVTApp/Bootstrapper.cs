@@ -126,7 +126,7 @@ namespace HVTApp
             Container.RegisterType<IUpdateDetailsService, UpdateDetailsServiceWpf>(new ContainerControlledLifetimeManager());
 
             Container.RegisterInstance(typeof(IDialogService), new DialogService((Window)Shell));
-            Container.RegisterType<IGetProductService, GetProductServiceWpf>();
+            Container.RegisterType<IGetProductService, GetProductServiceWpf>(new ContainerControlledLifetimeManager());
             Container.RegisterType<INewProductService, NewProductServiceWpf>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IPrintOfferService, PrintOfferService>();
             Container.RegisterType<IPrintProductService, PrintProductService>();

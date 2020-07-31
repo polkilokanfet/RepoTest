@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services;
+using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
@@ -29,25 +30,58 @@ namespace HVTApp.Services.GetProductService
             _eventAggregator = container.Resolve<IEventAggregator>();
         }
 
-        public void Load()
+        public void Load(Product originProduct)
         {
-            var parameters = _unitOfWork.Repository<Parameter>().Find(x => true);
-            var products = _unitOfWork.Repository<Product>().Find(x => true);
+            var parameters = _unitOfWork.Repository<Parameter>().GetAll();
+            var products = _unitOfWork.Repository<Product>().GetAll();
             var productRelations = _unitOfWork.Repository<ProductRelation>().GetAll();
             var productBlocks = _unitOfWork.Repository<ProductBlock>().GetAll();
 
-            _bank = new Bank(products, productBlocks, parameters, productRelations);
+            _bank = new Bank(products, productBlocks, ParametersWithoutComplectsParameters(parameters, originProduct), productRelations);
+        }
+
+        /// <summary>
+        /// Параметры без параметров "Деталей и Комплектов"
+        /// </summary>
+        /// <param name="parameters1"></param>
+        private List<Parameter> ParametersWithoutComplectsParameters(IEnumerable<Parameter> parameters1, Product selectedProduct)
+        {
+            var parameters = parameters1.ToList();
+
+            //парметры "обозначение комплекта"
+            var complectDesignationParameters = parameters.Where(x => x.ParameterGroup.Id == GlobalAppProperties.Actual.ComplectDesignationGroup.Id).ToList();
+
+            //параметры "тип комплекта"
+            var complectTypeParameters = parameters.Where(x => x.ParameterGroup.Id == GlobalAppProperties.Actual.ComplectsGroup.Id).ToList();
+
+            var parametersToExclude = complectTypeParameters.Union(complectDesignationParameters).ToList();
+
+            //параметр "Комплекты и детали"
+            var complectsParameter = parameters.SingleOrDefault(x => x.Id == GlobalAppProperties.Actual.ComplectsParameter.Id);
+            if (complectsParameter != null)
+                parametersToExclude.Add(complectsParameter);
+
+            if (selectedProduct != null)
+            {
+                var ids = selectedProduct.ProductBlock.Parameters.Select(x => x.Id).ToList();
+                parametersToExclude = parametersToExclude.Where(x => !ids.Contains(x.Id)).ToList();
+            }
+
+            return parameters.Except(parametersToExclude).ToList();
         }
 
         public Product GetProduct(Product originProduct = null)
         {
-            Load();
+            Load(originProduct);
 
-            var selectedProduct = originProduct == null ? null : _bank.Products.Single(x => x.Id == originProduct.Id);
+            var selectedProduct =
+                originProduct == null
+                    ? null
+                    : _bank.Products.Single(x => x.Id == originProduct.Id);
 
             var productSelector = new ProductSelector(_bank, _bank.Parameters, selectedProduct);
-            //var window = new SelectProductWindow { DataContext = productSelector, Owner = Application.Current.MainWindow };
-            var window = new SelectProductWindow { DataContext = productSelector };
+            var owner = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
+            var window = new SelectProductWindow { DataContext = productSelector, Owner = owner };
             window.ShowDialog();
 
             //если необходимо создать новый продукт
@@ -62,7 +96,9 @@ namespace HVTApp.Services.GetProductService
             {
                 var complectViewModel = _container.Resolve<ComplectsViewModel>();
                 complectViewModel.ShowDialog();
-                return complectViewModel.IsSelected ? complectViewModel.SelectedItem.Product : originProduct;
+                return complectViewModel.IsSelected 
+                    ? complectViewModel.SelectedItem.Product 
+                    : originProduct;
             }
 
             //выходим, если пользователь отменил выбор продукта.
@@ -87,6 +123,7 @@ namespace HVTApp.Services.GetProductService
 
             return result;
         }
+
 
         /// <summary>
         /// подмена блоков на уникальные

@@ -52,7 +52,7 @@ namespace HVTApp.Services.SelectService
                 ContentControl = { Content = view },
                 CreateNewButton = { Command = viewModel.NewItemCommand },
                 SelectButton = { Command = viewModel.SelectItemCommand },
-                Owner = Application.Current.MainWindow,
+                Owner = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive),
                 Title = GetTitle(typeof(TItem))
             };
 

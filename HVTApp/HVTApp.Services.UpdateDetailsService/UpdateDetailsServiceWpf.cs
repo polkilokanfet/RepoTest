@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
@@ -82,7 +83,7 @@ namespace HVTApp.Services.UpdateDetailsService
             {
                 ContentControl = { Content = detailsView },
                 SaveButton = { Command = ((ISavable)detailsViewModel).SaveCommand },
-                Owner = Application.Current.MainWindow,
+                Owner = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive),
                 Title = GetTitle(typeof(TEntity))
             };
 
@@ -123,7 +124,7 @@ namespace HVTApp.Services.UpdateDetailsService
             {
                 ContentControl = { Content = detailsView },
                 SaveButton = { Command = ((ISavable)detailsViewModel).OkCommand },
-                Owner = Application.Current.MainWindow,
+                Owner = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive),
                 Title = GetTitle(typeof(TEntity))
             };
 

@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Documents;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Services.ProductDesignationService;
 
