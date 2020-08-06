@@ -9,9 +9,9 @@ namespace HVTApp.Model.Events
 	public partial class AfterSaveConstructorParametersListEvent : PubSubEvent<ConstructorParametersList> { }
 	public partial class AfterSaveConstructorsParametersEvent : PubSubEvent<ConstructorsParameters> { }
 	public partial class AfterSaveCreateNewProductTaskEvent : PubSubEvent<CreateNewProductTask> { }
-    public partial class AfterSaveDirectumTaskEvent : PubSubEvent<DirectumTask> { }
-    public partial class AfterSaveDirectumTaskGroupEvent : PubSubEvent<DirectumTaskGroup> { }
-    public partial class AfterSaveDirectumTaskMessageEvent : PubSubEvent<DirectumTaskMessage> { }
+	public partial class AfterSaveDirectumTaskEvent : PubSubEvent<DirectumTask> { }
+	public partial class AfterSaveDirectumTaskGroupEvent : PubSubEvent<DirectumTaskGroup> { }
+	public partial class AfterSaveDirectumTaskMessageEvent : PubSubEvent<DirectumTaskMessage> { }
 	public partial class AfterSaveDocumentNumberEvent : PubSubEvent<DocumentNumber> { }
 	public partial class AfterSaveFakeDataEvent : PubSubEvent<FakeData> { }
 	public partial class AfterSaveIncomingRequestEvent : PubSubEvent<IncomingRequest> { }
@@ -31,6 +31,7 @@ namespace HVTApp.Model.Events
 	public partial class AfterSaveStandartMarginalIncomeEvent : PubSubEvent<StandartMarginalIncome> { }
 	public partial class AfterSaveStandartProductionTermEvent : PubSubEvent<StandartProductionTerm> { }
 	public partial class AfterSaveStructureCostEvent : PubSubEvent<StructureCost> { }
+	public partial class AfterSaveSupervisionEvent : PubSubEvent<Supervision> { }
 	public partial class AfterSaveGlobalPropertiesEvent : PubSubEvent<GlobalProperties> { }
 	public partial class AfterSaveAddressEvent : PubSubEvent<Address> { }
 	public partial class AfterSaveCountryEvent : PubSubEvent<Country> { }

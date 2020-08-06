@@ -200,6 +200,13 @@ namespace HVTApp.DataAccess
 		}
     }
 
+    public partial class SupervisionRepository : BaseRepository<Supervision>, ISupervisionRepository
+    {
+		public SupervisionRepository(DbContext context) : base(context) 
+		{
+		}
+    }
+
     public partial class GlobalPropertiesRepository : BaseRepository<GlobalProperties>, IGlobalPropertiesRepository
     {
 		public GlobalPropertiesRepository(DbContext context) : base(context) 

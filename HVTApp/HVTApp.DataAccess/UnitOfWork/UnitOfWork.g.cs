@@ -32,6 +32,7 @@ namespace HVTApp.DataAccess
             StandartMarginalIncomeRepository = new StandartMarginalIncomeRepository(_context);
             StandartProductionTermRepository = new StandartProductionTermRepository(_context);
             StructureCostRepository = new StructureCostRepository(_context);
+            SupervisionRepository = new SupervisionRepository(_context);
             GlobalPropertiesRepository = new GlobalPropertiesRepository(_context);
             AddressRepository = new AddressRepository(_context);
             CountryRepository = new CountryRepository(_context);
@@ -108,6 +109,7 @@ namespace HVTApp.DataAccess
         protected IStandartMarginalIncomeRepository StandartMarginalIncomeRepository;
         protected IStandartProductionTermRepository StandartProductionTermRepository;
         protected IStructureCostRepository StructureCostRepository;
+        protected ISupervisionRepository SupervisionRepository;
         protected IGlobalPropertiesRepository GlobalPropertiesRepository;
         protected IAddressRepository AddressRepository;
         protected ICountryRepository CountryRepository;

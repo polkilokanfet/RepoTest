@@ -40,6 +40,7 @@ namespace HVTApp.DataAccess
             context.StandartMarginalIncomeDbSet.AddRange(testData.GetAll<StandartMarginalIncome>());
             context.StandartProductionTermDbSet.AddRange(testData.GetAll<StandartProductionTerm>());
             context.StructureCostDbSet.AddRange(testData.GetAll<StructureCost>());
+            context.SupervisionDbSet.AddRange(testData.GetAll<Supervision>());
             context.GlobalPropertiesDbSet.AddRange(testData.GetAll<GlobalProperties>());
             context.AddressDbSet.AddRange(testData.GetAll<Address>());
             context.CountryDbSet.AddRange(testData.GetAll<Country>());

@@ -1340,6 +1340,60 @@ namespace HVTApp.UI.ViewModels
     }
 
 
+    public partial class SupervisionDetailsViewModel : BaseDetailsViewModel<SupervisionWrapper, Supervision, AfterSaveSupervisionEvent>
+    {
+		//private Func<Task<List<SalesUnit>>> _getEntitiesForSelectSalesUnitCommand;
+		private Func<List<SalesUnit>> _getEntitiesForSelectSalesUnitCommand;
+		public ICommand SelectSalesUnitCommand { get; private set; }
+		public ICommand ClearSalesUnitCommand { get; private set; }
+
+		//private Func<Task<List<SalesUnit>>> _getEntitiesForSelectSupervisionUnitCommand;
+		private Func<List<SalesUnit>> _getEntitiesForSelectSupervisionUnitCommand;
+		public ICommand SelectSupervisionUnitCommand { get; private set; }
+		public ICommand ClearSupervisionUnitCommand { get; private set; }
+
+
+        public SupervisionDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+			
+			if (_getEntitiesForSelectSalesUnitCommand == null) _getEntitiesForSelectSalesUnitCommand = () => { return UnitOfWork.Repository<SalesUnit>().GetAll(); };
+			if (SelectSalesUnitCommand == null) SelectSalesUnitCommand = new DelegateCommand(SelectSalesUnitCommand_Execute_Default);
+			if (ClearSalesUnitCommand == null) ClearSalesUnitCommand = new DelegateCommand(ClearSalesUnitCommand_Execute_Default);
+
+			
+			if (_getEntitiesForSelectSupervisionUnitCommand == null) _getEntitiesForSelectSupervisionUnitCommand = () => { return UnitOfWork.Repository<SalesUnit>().GetAll(); };
+			if (SelectSupervisionUnitCommand == null) SelectSupervisionUnitCommand = new DelegateCommand(SelectSupervisionUnitCommand_Execute_Default);
+			if (ClearSupervisionUnitCommand == null) ClearSupervisionUnitCommand = new DelegateCommand(ClearSupervisionUnitCommand_Execute_Default);
+
+		}
+
+		private void SelectSalesUnitCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<SalesUnit, SalesUnitWrapper>(_getEntitiesForSelectSalesUnitCommand(), nameof(Item.SalesUnit), Item.SalesUnit?.Id);
+		}
+
+		private void ClearSalesUnitCommand_Execute_Default() 
+		{
+						Item.SalesUnit = null;
+		    
+		}
+
+		private void SelectSupervisionUnitCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<SalesUnit, SalesUnitWrapper>(_getEntitiesForSelectSupervisionUnitCommand(), nameof(Item.SupervisionUnit), Item.SupervisionUnit?.Id);
+		}
+
+		private void ClearSupervisionUnitCommand_Execute_Default() 
+		{
+						Item.SupervisionUnit = null;
+		    
+		}
+
+
+
+    }
+
+
     public partial class GlobalPropertiesDetailsViewModel : BaseDetailsViewModel<GlobalPropertiesWrapper, GlobalProperties, AfterSaveGlobalPropertiesEvent>
     {
 		//private Func<Task<List<Company>>> _getEntitiesForSelectOurCompanyCommand;

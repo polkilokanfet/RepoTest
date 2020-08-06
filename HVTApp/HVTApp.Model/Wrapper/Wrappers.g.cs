@@ -1453,6 +1453,62 @@ namespace HVTApp.Model.Wrapper
 
 	}
 
+		public partial class SupervisionWrapper : WrapperBase<Supervision>
+	{
+	    public SupervisionWrapper(Supervision model) : base(model) { }
+
+        #region SimpleProperties
+
+        public System.Nullable<System.DateTime> DateFinish
+        {
+          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.DateTime> DateFinishOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(DateFinish));
+        public bool DateFinishIsChanged => GetIsChanged(nameof(DateFinish));
+
+        public System.String ServiceOrderNumber
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String ServiceOrderNumberOriginalValue => GetOriginalValue<System.String>(nameof(ServiceOrderNumber));
+        public bool ServiceOrderNumberIsChanged => GetIsChanged(nameof(ServiceOrderNumber));
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+        #endregion
+
+        #region ComplexProperties
+
+	    public SalesUnitWrapper SalesUnit 
+        {
+            get { return GetWrapper<SalesUnitWrapper>(); }
+            set { SetComplexValue<SalesUnit, SalesUnitWrapper>(SalesUnit, value); }
+        }
+
+	    public SalesUnitWrapper SupervisionUnit 
+        {
+            get { return GetWrapper<SalesUnitWrapper>(); }
+            set { SetComplexValue<SalesUnit, SalesUnitWrapper>(SupervisionUnit, value); }
+        }
+
+        #endregion
+
+        public override void InitializeComplexProperties()
+        {
+            InitializeComplexProperty<SalesUnitWrapper>(nameof(SalesUnit), Model.SalesUnit == null ? null : new SalesUnitWrapper(Model.SalesUnit));
+            InitializeComplexProperty<SalesUnitWrapper>(nameof(SupervisionUnit), Model.SupervisionUnit == null ? null : new SalesUnitWrapper(Model.SupervisionUnit));
+        }
+
+	}
+
 		public partial class GlobalPropertiesWrapper : WrapperBase<GlobalProperties>
 	{
 	    public GlobalPropertiesWrapper(GlobalProperties model) : base(model) { }

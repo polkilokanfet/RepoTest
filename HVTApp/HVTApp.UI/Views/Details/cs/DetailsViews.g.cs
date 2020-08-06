@@ -2141,6 +2141,88 @@ namespace HVTApp.UI.Views
 	}
 
 
+    public partial class SupervisionDetailsView : ViewBase
+    {
+        public SupervisionDetailsView()
+        {
+			InitializeComponent();
+        }
+
+        public SupervisionDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, SupervisionDetailsViewModel SupervisionDetailsViewModel) : base(regionManager, eventAggregator)
+        {
+            SetVisibilityProps();
+			InitializeComponent();
+            DataContext = SupervisionDetailsViewModel;
+        }
+
+        private void SetVisibilityProps()
+        {
+            //NotUpdateAttribute attr;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.Supervision).GetProperty(nameof(HVTApp.Model.POCOs.Supervision.SalesUnit)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilitySalesUnitSupervision = Visibility.Collapsed;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.Supervision).GetProperty(nameof(HVTApp.Model.POCOs.Supervision.SupervisionUnit)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilitySupervisionUnitSupervision = Visibility.Collapsed;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.Supervision).GetProperty(nameof(HVTApp.Model.POCOs.Supervision.DateFinish)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityDateFinishSupervision = Visibility.Collapsed;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.Supervision).GetProperty(nameof(HVTApp.Model.POCOs.Supervision.ServiceOrderNumber)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityServiceOrderNumberSupervision = Visibility.Collapsed;
+
+
+
+        }
+
+
+
+        public static readonly DependencyProperty VisibilitySalesUnitSupervisionProperty = DependencyProperty.Register("VisibilitySalesUnitSupervision", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilitySalesUnitSupervision
+        {
+            get { return (Visibility) GetValue(VisibilitySalesUnitSupervisionProperty); }
+            set { SetValue(VisibilitySalesUnitSupervisionProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilitySupervisionUnitSupervisionProperty = DependencyProperty.Register("VisibilitySupervisionUnitSupervision", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilitySupervisionUnitSupervision
+        {
+            get { return (Visibility) GetValue(VisibilitySupervisionUnitSupervisionProperty); }
+            set { SetValue(VisibilitySupervisionUnitSupervisionProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityDateFinishSupervisionProperty = DependencyProperty.Register("VisibilityDateFinishSupervision", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityDateFinishSupervision
+        {
+            get { return (Visibility) GetValue(VisibilityDateFinishSupervisionProperty); }
+            set { SetValue(VisibilityDateFinishSupervisionProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityServiceOrderNumberSupervisionProperty = DependencyProperty.Register("VisibilityServiceOrderNumberSupervision", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityServiceOrderNumberSupervision
+        {
+            get { return (Visibility) GetValue(VisibilityServiceOrderNumberSupervisionProperty); }
+            set { SetValue(VisibilityServiceOrderNumberSupervisionProperty, value); OnPropertyChanged(); }
+        }
+
+
+	}
+
+
     public partial class GlobalPropertiesDetailsView : ViewBase
     {
         public GlobalPropertiesDetailsView()

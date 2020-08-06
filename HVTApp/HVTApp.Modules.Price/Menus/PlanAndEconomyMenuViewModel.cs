@@ -1,5 +1,6 @@
 ﻿using HVTApp.Infrastructure;
 using HVTApp.Model;
+using HVTApp.UI.Modules.PlanAndEconomy.Supervision;
 using HVTApp.UI.Modules.PlanAndEconomy.Views;
 using PaymentsActualView = HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual.PaymentsActualView;
 
@@ -16,9 +17,12 @@ namespace HVTApp.Modules.PlanAndEconomy.Menus
 
             if (GlobalAppProperties.User.RoleCurrent == Role.Economist || GlobalAppProperties.User.RoleCurrent == Role.Admin)
             {
-                Items.Add(new NavigationItem("Фактические даты", typeof(DatesView)));
                 Items.Add(new NavigationItem("Поступления (факт)", typeof(PaymentsActualView)));
                 Items.Add(new NavigationItem("Поступления (план)", typeof(PaymentsPlanView)));
+
+                Items.Add(new NavigationItem("Фактические даты", typeof(DatesView)));
+
+                Items.Add(new NavigationItem("Шеф-монтаж", typeof(SupervisionView)));
             }
         }
     }

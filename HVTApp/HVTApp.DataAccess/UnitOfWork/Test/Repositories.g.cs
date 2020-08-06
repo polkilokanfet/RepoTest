@@ -144,6 +144,11 @@ namespace HVTApp.DataAccess
         public StructureCostRepositoryTest(TestData testData) : base(testData) {}
     }
 
+    public partial class SupervisionRepositoryTest : TestBaseRepository<Supervision>, ISupervisionRepository
+    {
+        public SupervisionRepositoryTest(TestData testData) : base(testData) {}
+    }
+
     public partial class GlobalPropertiesRepositoryTest : TestBaseRepository<GlobalProperties>, IGlobalPropertiesRepository
     {
         public GlobalPropertiesRepositoryTest(TestData testData) : base(testData) {}

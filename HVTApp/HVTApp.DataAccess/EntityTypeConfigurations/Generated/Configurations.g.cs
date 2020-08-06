@@ -31,6 +31,7 @@ namespace HVTApp.DataAccess
     public partial class StandartMarginalIncomeConfiguration : EntityTypeConfiguration<StandartMarginalIncome> { }
     public partial class StandartProductionTermConfiguration : EntityTypeConfiguration<StandartProductionTerm> { }
     public partial class StructureCostConfiguration : EntityTypeConfiguration<StructureCost> { }
+    public partial class SupervisionConfiguration : EntityTypeConfiguration<Supervision> { }
     public partial class GlobalPropertiesConfiguration : EntityTypeConfiguration<GlobalProperties> { }
     public partial class AddressConfiguration : EntityTypeConfiguration<Address> { }
     public partial class CountryConfiguration : EntityTypeConfiguration<Country> { }

@@ -56,13 +56,13 @@ namespace HVTApp.Model.POCOs
 
 
 
-        [Designation("Группа параметров обозначения комплекта или детали")]
+        [Designation("Группа параметров обозначения комплекта или детали"), Required, OrderStatus(-50)]
         public virtual ParameterGroup ComplectDesignationGroup{ get; set; }
 
-        [Designation("Параметр комплекты и детали")]
+        [Designation("Параметр комплекты и детали"), Required, OrderStatus(-50)]
         public virtual Parameter ComplectsParameter { get; set; }
 
-        [Designation("Группа типа комплекта или детали")]
+        [Designation("Группа типа комплекта или детали"), Required, OrderStatus(-50)]
         public virtual ParameterGroup ComplectsGroup { get; set; }
 
 

@@ -157,6 +157,13 @@
     <Compile Include="Modules\Directum\TabDirectumTasks.xaml.cs">
       <DependentUpon>TabDirectumTasks.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modules\PlanAndEconomy\Supervision\SupervisionView.xaml.cs">
+      <DependentUpon>SupervisionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PlanAndEconomy\Supervision\SupervisionViewModel.cs" />
+    <Compile Include="Modules\PlanAndEconomy\Supervision\TabSupervision.xaml.cs">
+      <DependentUpon>TabSupervision.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Sales\Market\Converters\ProductionGroupToColorConverter.cs" />
     <Compile Include="Modules\Sales\Market\Converters\ProjectItemToColorConverter.cs" />
     <Compile Include="Modules\Sales\Payments\PaymentsGroup.cs" />
@@ -874,6 +881,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Modules\PlanAndEconomy\Supervision\SupervisionView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\PlanAndEconomy\Supervision\TabSupervision.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Modules\PlanAndEconomy\Tabs\TabOrder.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1498,6 +1513,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\Details\SupervisionDetailsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Details\TenderDetailsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1787,6 +1806,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\List\SumOnDateLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\SupervisionLookupListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

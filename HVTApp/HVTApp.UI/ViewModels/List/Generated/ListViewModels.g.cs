@@ -192,6 +192,12 @@ namespace HVTApp.UI.ViewModels
     }
 
 
+	public partial class SupervisionLookupListViewModel : BaseListViewModel<Supervision, SupervisionLookup, AfterSaveSupervisionEvent, AfterSelectSupervisionEvent, AfterRemoveSupervisionEvent>
+    {
+        public SupervisionLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+
 	public partial class GlobalPropertiesLookupListViewModel : BaseListViewModel<GlobalProperties, GlobalPropertiesLookup, AfterSaveGlobalPropertiesEvent, AfterSelectGlobalPropertiesEvent, AfterRemoveGlobalPropertiesEvent>
     {
         public GlobalPropertiesLookupListViewModel(IUnityContainer container) : base(container) { }

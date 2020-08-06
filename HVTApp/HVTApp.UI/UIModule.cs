@@ -5,6 +5,7 @@ using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Prism;
 using HVTApp.UI.Modules.BookRegistration.Views;
 using HVTApp.UI.Modules.Directum;
+using HVTApp.UI.Modules.PlanAndEconomy.Supervision;
 using HVTApp.UI.Modules.PlanAndEconomy.Views;
 using HVTApp.UI.Modules.Products.Views;
 using HVTApp.UI.Modules.Reports.FlatReport;
@@ -69,6 +70,7 @@ namespace HVTApp.UI
             Container.RegisterViewForNavigation<DirectumTasksOutgoingView>();
             Container.RegisterViewForNavigation<DirectumTasksIncomingView>();
             Container.RegisterViewForNavigation<ProductReplacementView>();
+            Container.RegisterViewForNavigation<SupervisionView>();
 
             Container.Resolve<IDialogService>().Register<DirectumTaskRouteViewModel, DirectumTaskRouteWindow>();
 

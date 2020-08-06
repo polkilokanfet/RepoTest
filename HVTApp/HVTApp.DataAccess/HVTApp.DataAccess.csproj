@@ -109,6 +109,7 @@
     <Compile Include="EntityTypeConfigurations\Custom\ProductTypeDesignationConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ProjectTypeConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\StructureCostConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\SupervisionConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\TenderTypeConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\TestHusbandConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Generated\Configurations.g.cs" />
@@ -191,6 +192,10 @@
     <Compile Include="Migrations\202007091033407_GlobalPropertiesParametersIsolation2.cs" />
     <Compile Include="Migrations\202007091033407_GlobalPropertiesParametersIsolation2.Designer.cs">
       <DependentUpon>202007091033407_GlobalPropertiesParametersIsolation2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008061144561_Supervision.cs" />
+    <Compile Include="Migrations\202008061144561_Supervision.Designer.cs">
+      <DependentUpon>202008061144561_Supervision.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
@@ -286,6 +291,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007091033407_GlobalPropertiesParametersIsolation2.resx">
       <DependentUpon>202007091033407_GlobalPropertiesParametersIsolation2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008061144561_Supervision.resx">
+      <DependentUpon>202008061144561_Supervision.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

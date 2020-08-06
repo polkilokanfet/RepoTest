@@ -19,9 +19,9 @@ namespace HVTApp.DataAccess
             HasRequired(x => x.PaymentConditionSet).WithMany().WillCascadeOnDelete(false);
             HasOptional(x => x.Developer).WithMany().WillCascadeOnDelete(false);
             HasOptional(x => x.ProductIncludedDefault).WithMany().WillCascadeOnDelete(false);
-            HasOptional(x => x.ComplectsParameter).WithMany().WillCascadeOnDelete(false);
-            HasOptional(x => x.ComplectsGroup).WithMany().WillCascadeOnDelete(false);
-            HasOptional(x => x.ComplectDesignationGroup).WithMany().WillCascadeOnDelete(false);
+            HasRequired(x => x.ComplectsParameter).WithMany().WillCascadeOnDelete(false);
+            HasRequired(x => x.ComplectsGroup).WithMany().WillCascadeOnDelete(false);
+            HasRequired(x => x.ComplectDesignationGroup).WithMany().WillCascadeOnDelete(false);
         }
     }
 }

@@ -655,6 +655,33 @@ namespace HVTApp.UI.Lookup
 	}
 	[AllowEditAttribute(Role.Admin)]
 
+	[Designation("Шеф-монтаж")]
+	public partial class SupervisionLookup : LookupItem<Supervision>
+	{
+		public SupervisionLookup(Supervision entity) : base(entity) 
+		{
+		}
+		
+        #region SimpleProperties
+		[OrderStatus(40)]
+        public System.Nullable<System.DateTime> DateFinish => Entity.DateFinish;
+
+		[OrderStatus(30)]
+        public System.String ServiceOrderNumber => Entity.ServiceOrderNumber;
+
+        #endregion
+
+        #region ComplexProperties
+		[OrderStatus(50)]
+	    public SalesUnitLookup SalesUnit { get { return GetLookup<SalesUnitLookup>(); } }
+
+		[OrderStatus(45)]
+	    public SalesUnitLookup SupervisionUnit { get { return GetLookup<SalesUnitLookup>(); } }
+
+        #endregion
+	}
+	[AllowEditAttribute(Role.Admin)]
+
 	[Designation("Общие настройки")]
 	public partial class GlobalPropertiesLookup : LookupItem<GlobalProperties>
 	{
@@ -720,13 +747,13 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(306)]
 	    public ParameterGroupLookup IsolationDpuGroup { get { return GetLookup<ParameterGroupLookup>(); } }
 
-		[OrderStatus(1)]
+		[OrderStatus(-50)]
 	    public ParameterGroupLookup ComplectDesignationGroup { get { return GetLookup<ParameterGroupLookup>(); } }
 
-		[OrderStatus(1)]
+		[OrderStatus(-50)]
 	    public ParameterLookup ComplectsParameter { get { return GetLookup<ParameterLookup>(); } }
 
-		[OrderStatus(1)]
+		[OrderStatus(-50)]
 	    public ParameterGroupLookup ComplectsGroup { get { return GetLookup<ParameterGroupLookup>(); } }
 
 		[OrderStatus(1)]

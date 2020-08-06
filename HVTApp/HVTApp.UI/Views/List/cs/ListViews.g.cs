@@ -6022,6 +6022,81 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
+	[Designation("Шеф-монтаж")]
+	[DesignationPlural("SupervisionLookup")]
+	[AllowEditAttribute(Role.Admin)]
+
+    public partial class SupervisionLookupListView : ViewBase
+    {
+        public SupervisionLookupListView()
+        {
+            InitializeComponent();
+        }
+
+        public SupervisionLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, SupervisionLookupListViewModel SupervisionLookupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = SupervisionLookupListViewModel;
+			SupervisionLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			((SupervisionLookupListViewModel)DataContext).Load();
+        }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility DateFinishVisibility
+        {
+            get { return SupervisionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SupervisionLookup.DateFinish)].Visibility; }
+            set { SupervisionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SupervisionLookup.DateFinish)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ServiceOrderNumberVisibility
+        {
+            get { return SupervisionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SupervisionLookup.ServiceOrderNumber)].Visibility; }
+            set { SupervisionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SupervisionLookup.ServiceOrderNumber)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return SupervisionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SupervisionLookup.DisplayMember)].Visibility; }
+            set { SupervisionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SupervisionLookup.DisplayMember)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility SalesUnitVisibility
+        {
+            get { return SupervisionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SupervisionLookup.SalesUnit)].Visibility; }
+            set { SupervisionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SupervisionLookup.SalesUnit)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility SupervisionUnitVisibility
+        {
+            get { return SupervisionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SupervisionLookup.SupervisionUnit)].Visibility; }
+            set { SupervisionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SupervisionLookup.SupervisionUnit)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return SupervisionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SupervisionLookup.Entity)].Visibility; }
+            set { SupervisionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SupervisionLookup.Entity)].Visibility = value; }
+        }
+
+
+
+		#endregion
+    }
+
+
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Конкурс")]
 	[DesignationPlural("TenderLookup")]
 	[AllowEditAttribute(Role.Admin)]

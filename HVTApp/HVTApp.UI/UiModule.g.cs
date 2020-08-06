@@ -163,6 +163,11 @@ namespace HVTApp.UI
 			_selectService.Register<StructureCostLookupListView, StructureCost>();
             _updateDetailsService.Register<StructureCost, StructureCostDetailsView>();
 
+            Container.RegisterViewForNavigation<SupervisionLookupListView>();
+            //_dialogService.Register<SupervisionDetailsViewModel, SupervisionDetailsView>();
+			_selectService.Register<SupervisionLookupListView, Supervision>();
+            _updateDetailsService.Register<Supervision, SupervisionDetailsView>();
+
             Container.RegisterViewForNavigation<GlobalPropertiesLookupListView>();
             //_dialogService.Register<GlobalPropertiesDetailsViewModel, GlobalPropertiesDetailsView>();
 			_selectService.Register<GlobalPropertiesLookupListView, GlobalProperties>();
