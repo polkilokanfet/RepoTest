@@ -249,7 +249,7 @@
                         <infg:XamDataGrid.FieldLayouts>
                             <infg:FieldLayout>
                                 <infg:FieldLayout.Fields>
-                                    <infg:TextField AlternateBinding="{Binding Order.Number}" BindingType="UseAlternateBinding" Label="Заказ" Width="Auto" AllowResize="True" />
+                                    <infg:TextField AlternateBinding="{Binding Order}" BindingType="UseAlternateBinding" Label="Заказ" Width="Auto" AllowResize="True" />
                                     <infg:TextField AlternateBinding="{Binding OrderPositions}" BindingType="UseAlternateBinding" Label="Позиции" Width="Auto" AllowResize="True" />
                                     <infg:TextField AlternateBinding="{Binding FacilityOwners}" BindingType="UseAlternateBinding" Label="Владелец объекта" Width="Auto" AllowResize="True" />
                                     <infg:TextField AlternateBinding="{Binding Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto" AllowResize="True" />
@@ -324,6 +324,16 @@
                                     <infg:TextField AlternateBinding="{Binding ProductsIncluded}" BindingType="UseAlternateBinding" Label="Включенное оборудование (на единицу)" Width="Auto" AllowResize="True" />
                                     <infg:TextField AlternateBinding="{Binding PaymentsActual}" BindingType="UseAlternateBinding" Label="Оплаты" Width="Auto" AllowResize="True" />
                                     <infg:TextField AlternateBinding="{Binding TceInfo}" BindingType="UseAlternateBinding" Label="Информация из ТСЕ (на единицу)" Width="Auto" AllowResize="True" />
+                                    <infg:TextField AlternateBinding="{Binding IsolationMaterial}" BindingType="UseAlternateBinding" Label="Материал изолятора" Width="Auto" AllowResize="True" />
+                                    <infg:TextField AlternateBinding="{Binding IsolationDpu}" BindingType="UseAlternateBinding" Label="ДПУ" Width="Auto" AllowResize="True" />
+                                    <infg:TextField AlternateBinding="{Binding IsolationColor}" BindingType="UseAlternateBinding" Label="Цвет изолятора" Width="Auto" AllowResize="True" />
+                                    <infg:TextField AlternateBinding="{Binding TenderStatus}" BindingType="UseAlternateBinding" Label="TenderStatus" Width="Auto" AllowResize="True" />
+                                    <infg:TextField AlternateBinding="{Binding Producer}" BindingType="UseAlternateBinding" Label="Производитель" Width="Auto" AllowResize="True" />
+                                    <infg:CheckBoxField AlternateBinding="{Binding RealizationDateIsFake}" BindingType="UseAlternateBinding" Label="RealizationDateIsFake" Width="Auto" AllowResize="True" />
+                                    <infg:CheckBoxField AlternateBinding="{Binding PaymentConditionSetIsFake}" BindingType="UseAlternateBinding" Label="PaymentConditionSetIsFake" Width="Auto" AllowResize="True" />
+                                    <infg:CheckBoxField AlternateBinding="{Binding OrderInTakeDateIsFake}" BindingType="UseAlternateBinding" Label="OrderInTakeDateIsFake" Width="Auto" AllowResize="True" />
+                                    <infg:CheckBoxField AlternateBinding="{Binding CostIsFake}" BindingType="UseAlternateBinding" Label="CostIsFake" Width="Auto" AllowResize="True" />
+                                    <infg:TextField AlternateBinding="{Binding Country}" BindingType="UseAlternateBinding" Label="Страна поставки" Width="Auto" AllowResize="True" />
                                 </infg:FieldLayout.Fields>
                             </infg:FieldLayout>
 
