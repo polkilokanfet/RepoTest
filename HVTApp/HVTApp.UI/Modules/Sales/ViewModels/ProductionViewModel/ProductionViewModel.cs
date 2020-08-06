@@ -160,11 +160,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
             //пересечение этих множеств
             var salesUnits = salesUnitsAll.Intersect(priceCalculationItems.SelectMany(x => x.SalesUnits).Distinct()).ToList();
-            var productionItems = salesUnits.Select(x => new ProductionItem(x,
-                priceCalculationItems
-                    .Where(p => p.SalesUnits.Contains(x))
-                    .OrderBy(p => p.OrderInTakeDate)
-                    .LastOrDefault())).ToList();
+            var productionItems = salesUnits.Select(x => new ProductionItem(x, x.ActualPriceCalculationItem(UnitOfWork))).ToList();
 
             var groupsToProduction = productionItems
                 .Where(x => !x.SignalToStartProduction.HasValue)

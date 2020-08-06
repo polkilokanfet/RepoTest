@@ -340,6 +340,14 @@ namespace HVTApp.UI.Modules.Reports.SalesReport
         [Designation("Цвет изолятора"), OrderStatus(-162)]
         public string IsolationColor { get; }
 
+
+
+        [Designation("TenderStatus"), OrderStatus(-200)]
+        public string TenderStatus { get; }
+
+        [Designation("Производитель"), OrderStatus(-201)]
+        public string Producer { get; }
+
         #region Fake
 
         [OrderStatus(-500)]
@@ -470,6 +478,15 @@ namespace HVTApp.UI.Modules.Reports.SalesReport
                 OrderInTakeDateIsFake = salesUnit.FakeData.OrderInTakeDate.HasValue;
                 PaymentConditionSetIsFake = salesUnit.FakeData.PaymentConditionSet != null;
             }
+
+            if (salesUnit.IsLoosen)
+            {
+                TenderStatus = string.IsNullOrEmpty(Order) ? "Тендер проигран" : "Заказ аннулирован";
+            }
+            else if (OrderInTakeDate < DateTime.Today) TenderStatus = $"Факт ОИТ {OrderInTakeDate.Year}";
+            else if (OrderInTakeDate.Year > DateTime.Today.Year) TenderStatus = $"Закупка или тендер перенесены на {OrderInTakeDate.Year} год";
+
+            Producer = salesUnit.Producer?.ToString() ?? string.Empty;
         }
 
         private void SetPaymentsConditions(
