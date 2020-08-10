@@ -14,6 +14,7 @@ namespace HVTApp.DataAccess
 
             HasRequired(x => x.ServiceParameter).WithMany().WillCascadeOnDelete(false);
             HasRequired(x => x.SupervisionParameter).WithMany().WillCascadeOnDelete(false);
+            HasOptional(x => x.RecipientSupervisionLetterEmployee).WithMany().WillCascadeOnDelete(false);
             HasRequired(x => x.SenderOfferEmployee).WithMany().WillCascadeOnDelete(false);
             HasRequired(x => x.HvtProducersActivityField).WithMany().WillCascadeOnDelete(false);
             HasRequired(x => x.PaymentConditionSet).WithMany().WillCascadeOnDelete(false);

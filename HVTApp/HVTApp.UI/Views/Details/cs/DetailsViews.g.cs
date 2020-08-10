@@ -2175,6 +2175,16 @@ namespace HVTApp.UI.Views
             //    VisibilityDateFinishSupervision = Visibility.Collapsed;
 
 
+            //attr = typeof(HVTApp.Model.POCOs.Supervision).GetProperty(nameof(HVTApp.Model.POCOs.Supervision.DateRequired)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityDateRequiredSupervision = Visibility.Collapsed;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.Supervision).GetProperty(nameof(HVTApp.Model.POCOs.Supervision.ClientOrderNumber)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityClientOrderNumberSupervision = Visibility.Collapsed;
+
+
             //attr = typeof(HVTApp.Model.POCOs.Supervision).GetProperty(nameof(HVTApp.Model.POCOs.Supervision.ServiceOrderNumber)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityServiceOrderNumberSupervision = Visibility.Collapsed;
@@ -2208,6 +2218,24 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityDateFinishSupervisionProperty); }
             set { SetValue(VisibilityDateFinishSupervisionProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityDateRequiredSupervisionProperty = DependencyProperty.Register("VisibilityDateRequiredSupervision", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityDateRequiredSupervision
+        {
+            get { return (Visibility) GetValue(VisibilityDateRequiredSupervisionProperty); }
+            set { SetValue(VisibilityDateRequiredSupervisionProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityClientOrderNumberSupervisionProperty = DependencyProperty.Register("VisibilityClientOrderNumberSupervision", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityClientOrderNumberSupervision
+        {
+            get { return (Visibility) GetValue(VisibilityClientOrderNumberSupervisionProperty); }
+            set { SetValue(VisibilityClientOrderNumberSupervisionProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2330,6 +2358,11 @@ namespace HVTApp.UI.Views
             //attr = typeof(HVTApp.Model.POCOs.GlobalProperties).GetProperty(nameof(HVTApp.Model.POCOs.GlobalProperties.ComplectsGroup)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityComplectsGroupGlobalProperties = Visibility.Collapsed;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.GlobalProperties).GetProperty(nameof(HVTApp.Model.POCOs.GlobalProperties.RecipientSupervisionLetterEmployee)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityRecipientSupervisionLetterEmployeeGlobalProperties = Visibility.Collapsed;
 
 
             //attr = typeof(HVTApp.Model.POCOs.GlobalProperties).GetProperty(nameof(HVTApp.Model.POCOs.GlobalProperties.SenderOfferEmployee)).GetCustomAttribute<NotUpdateAttribute>();
@@ -2535,6 +2568,15 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityComplectsGroupGlobalPropertiesProperty); }
             set { SetValue(VisibilityComplectsGroupGlobalPropertiesProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityRecipientSupervisionLetterEmployeeGlobalPropertiesProperty = DependencyProperty.Register("VisibilityRecipientSupervisionLetterEmployeeGlobalProperties", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityRecipientSupervisionLetterEmployeeGlobalProperties
+        {
+            get { return (Visibility) GetValue(VisibilityRecipientSupervisionLetterEmployeeGlobalPropertiesProperty); }
+            set { SetValue(VisibilityRecipientSupervisionLetterEmployeeGlobalPropertiesProperty, value); OnPropertyChanged(); }
         }
 
 

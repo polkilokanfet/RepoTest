@@ -4,39 +4,42 @@
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               x:Class="HVTApp.UI.Modules.PlanAndEconomy.Supervision.SupervisionView">
 
-    <ScrollViewer>
-        <GroupBox Header="Шеф-монтаж оборудования">
-            <infg:XamDataGrid DataSource="{Binding Units}" VerticalAlignment="Stretch">
+    <GroupBox Header="Шеф-монтаж">
+        <infg:XamDataGrid DataSource="{Binding Units}" 
+                          VerticalAlignment="Stretch" 
+                          SelectedDataItemsScope="RecordsOrCells"
+                          SelectedDataItems="{Binding Path=SelectedUnits, Mode=TwoWay}">
 
-                <infg:XamDataGrid.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
-                    </ContextMenu>
-                </infg:XamDataGrid.ContextMenu>
+            <infg:XamDataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
+                </ContextMenu>
+            </infg:XamDataGrid.ContextMenu>
 
-                <infg:XamDataGrid.FieldLayouts>
-                    <infg:FieldLayout>
-                        <infg:FieldLayout.Fields>
+            <infg:XamDataGrid.FieldLayouts>
+                <infg:FieldLayout>
+                    <infg:FieldLayout.Fields>
 
-                            <infg:TextField AlternateBinding="{Binding SalesUnit.Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="100"/>
-                            <infg:TextField AlternateBinding="{Binding SalesUnit.Product.ProductType}" BindingType="UseAlternateBinding" Label="Тип" Width="200"/>
-                            <infg:TextField AlternateBinding="{Binding SalesUnit.Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="300"/>
-                            <infg:TextField AlternateBinding="{Binding SalesUnit.Order}" BindingType="UseAlternateBinding" Label="Заказ" Width="Auto"/>
-                            <infg:TextField AlternateBinding="{Binding SalesUnit.SerialNumber}" BindingType="UseAlternateBinding" Label="сер.№" Width="Auto"/>
-                            <infg:TextField AlternateBinding="{Binding SalesUnit.Specification.Number}" BindingType="UseAlternateBinding" Label="Сп." Width="Auto"/>
-                            <infg:TextField AlternateBinding="{Binding SalesUnit.Specification.Contract}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
-                            <infg:TextField AlternateBinding="{Binding SalesUnit.Project.Manager}" BindingType="UseAlternateBinding" Label="Менеджер" Width="100"/>
-                            <infg:CheckBoxField AlternateBinding="{Binding SalesUnit.IsPaid}" BindingType="UseAlternateBinding" Label="Оплачен" Width="Auto"/>
-                            <infg:DateTimeField Name="DateFinish" Label="Монтаж" Width="Auto" AllowEdit="True"/>
-                            <infg:TextField Name="ServiceOrderNumber" Label="Сервисный заказ" AllowEdit="True" Width="Auto"/>
+                        <infg:TextField AlternateBinding="{Binding SalesUnit.Facility}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Объект" Width="100"/>
+                        <infg:TextField AlternateBinding="{Binding SalesUnit.Product.ProductType.Name}" BindingType="UseAlternateBinding" Label="Тип" Width="200"/>
+                        <infg:TextField AlternateBinding="{Binding SalesUnit.Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="300"/>
+                        <infg:TextField AlternateBinding="{Binding SalesUnit.Order.Number}" BindingType="UseAlternateBinding" Label="Заказ" Width="Auto"/>
+                        <infg:TextField AlternateBinding="{Binding SalesUnit.SerialNumber}" BindingType="UseAlternateBinding" Label="сер.№" Width="Auto"/>
+                        <infg:TextField AlternateBinding="{Binding SalesUnit.Specification.Number}" BindingType="UseAlternateBinding" Label="Сп." Width="Auto"/>
+                        <infg:TextField AlternateBinding="{Binding SalesUnit.Specification.Contract.Number}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
+                        <infg:TextField AlternateBinding="{Binding SalesUnit.Project.Manager}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Менеджер" Width="100"/>
+                        <infg:CheckBoxField AlternateBinding="{Binding SalesUnit.IsPaid}" BindingType="UseAlternateBinding" Label="Оплачен" Width="Auto"/>
+                        <infg:DateTimeField Name="DateFinish" Label="Дата (факт.)" Width="Auto" AllowEdit="True"/>
+                        <infg:DateTimeField Name="DateRequired" Label="Дата (треб.)" Width="Auto" AllowEdit="True"/>
+                        <infg:TextField Name="ClientOrderNumber" Label="Сервисный заказ" AllowEdit="True" Width="Auto"/>
+                        <infg:TextField Name="ServiceOrderNumber" Label="Сервисный заказ" AllowEdit="True" Width="Auto"/>
 
-                        </infg:FieldLayout.Fields>
-                    </infg:FieldLayout>
+                    </infg:FieldLayout.Fields>
+                </infg:FieldLayout>
 
-                </infg:XamDataGrid.FieldLayouts>
-            </infg:XamDataGrid>
-        </GroupBox>
-    </ScrollViewer>
+            </infg:XamDataGrid.FieldLayouts>
+        </infg:XamDataGrid>
+    </GroupBox>
 </inf:ViewBase>
 
 	

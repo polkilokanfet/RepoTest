@@ -2261,6 +2261,13 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility RecipientSupervisionLetterEmployeeVisibility
+        {
+            get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.RecipientSupervisionLetterEmployee)].Visibility; }
+            set { GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.RecipientSupervisionLetterEmployee)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility SenderOfferEmployeeVisibility
         {
             get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.SenderOfferEmployee)].Visibility; }
@@ -6053,6 +6060,20 @@ namespace HVTApp.UI.Views
         {
             get { return SupervisionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SupervisionLookup.DateFinish)].Visibility; }
             set { SupervisionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SupervisionLookup.DateFinish)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DateRequiredVisibility
+        {
+            get { return SupervisionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SupervisionLookup.DateRequired)].Visibility; }
+            set { SupervisionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SupervisionLookup.DateRequired)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ClientOrderNumberVisibility
+        {
+            get { return SupervisionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SupervisionLookup.ClientOrderNumber)].Visibility; }
+            set { SupervisionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SupervisionLookup.ClientOrderNumber)].Visibility = value; }
         }
 
 

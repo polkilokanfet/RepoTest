@@ -68,6 +68,9 @@ namespace HVTApp.Model.POCOs
 
 
 
+        [Designation("Получатель писем по ШМ")]
+        public virtual Employee RecipientSupervisionLetterEmployee { get; set; }
+
         [Designation("Отправитель ТКП"), Required]
         public virtual Employee SenderOfferEmployee { get; set; }
 

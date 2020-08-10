@@ -49,6 +49,7 @@
                     <infg:TextField Name="StandartPaymentsConditionSet" Label="Стандартные условия оплаты" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="PaymentConditionSet" Label="Стандартные условия оплаты" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="HvtProducersActivityField" Label="Производитель ВВА" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="RecipientSupervisionLetterEmployee" Label="Получатель писем по ШМ" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="SenderOfferEmployee" Label="Отправитель ТКП" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="ProductIncludedDefault" Label="Дополнительное оборудование" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Developer" Label="Разработчик" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>

@@ -7,13 +7,13 @@ namespace HVTApp.DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class Supervision : IMigrationMetadata
+    public sealed partial class Supervision10 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Supervision));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Supervision10));
         
         string IMigrationMetadata.Id
         {
-            get { return "202008061144561_Supervision"; }
+            get { return "202008101035026_Supervision10"; }
         }
         
         string IMigrationMetadata.Source

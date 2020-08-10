@@ -115,6 +115,7 @@
     <Compile Include="Services\IGetProductService.cs" />
     <Compile Include="Services\INewProductService.cs" />
     <Compile Include="Services\IPriceService.cs" />
+    <Compile Include="Services\IPrintSupervisionLetterService.cs" />
     <Compile Include="Services\PriceErrors.cs" />
     <Compile Include="Services\PriceErrorType.cs" />
     <Compile Include="Structures\ProductStructure.cs" />

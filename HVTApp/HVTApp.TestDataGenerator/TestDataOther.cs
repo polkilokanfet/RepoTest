@@ -232,6 +232,7 @@ namespace HVTApp.TestDataGenerator
                 ServiceParameter = ParameterService,
                 SupervisionParameter = ParameterSupervision,
                 SenderOfferEmployee = EmployeeDeev,
+                RecipientSupervisionLetterEmployee = EmployeeGuseinov,
                 HvtProducersActivityField = ActivityFieldProducerOfHvt,
                 PaymentConditionSet = PaymentConditionSet50Na50,
                 ComplectDesignationGroup = ParameterGroupComplectDesignationGroup,

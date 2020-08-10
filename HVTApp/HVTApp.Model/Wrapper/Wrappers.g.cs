@@ -1467,6 +1467,22 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.DateTime> DateFinishOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(DateFinish));
         public bool DateFinishIsChanged => GetIsChanged(nameof(DateFinish));
 
+        public System.Nullable<System.DateTime> DateRequired
+        {
+          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.DateTime> DateRequiredOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(DateRequired));
+        public bool DateRequiredIsChanged => GetIsChanged(nameof(DateRequired));
+
+        public System.String ClientOrderNumber
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String ClientOrderNumberOriginalValue => GetOriginalValue<System.String>(nameof(ClientOrderNumber));
+        public bool ClientOrderNumberIsChanged => GetIsChanged(nameof(ClientOrderNumber));
+
         public System.String ServiceOrderNumber
         {
           get { return GetValue<System.String>(); }
@@ -1669,6 +1685,12 @@ namespace HVTApp.Model.Wrapper
             set { SetComplexValue<ParameterGroup, ParameterGroupWrapper>(ComplectsGroup, value); }
         }
 
+	    public EmployeeWrapper RecipientSupervisionLetterEmployee 
+        {
+            get { return GetWrapper<EmployeeWrapper>(); }
+            set { SetComplexValue<Employee, EmployeeWrapper>(RecipientSupervisionLetterEmployee, value); }
+        }
+
 	    public EmployeeWrapper SenderOfferEmployee 
         {
             get { return GetWrapper<EmployeeWrapper>(); }
@@ -1716,6 +1738,7 @@ namespace HVTApp.Model.Wrapper
             InitializeComplexProperty<ParameterGroupWrapper>(nameof(ComplectDesignationGroup), Model.ComplectDesignationGroup == null ? null : new ParameterGroupWrapper(Model.ComplectDesignationGroup));
             InitializeComplexProperty<ParameterWrapper>(nameof(ComplectsParameter), Model.ComplectsParameter == null ? null : new ParameterWrapper(Model.ComplectsParameter));
             InitializeComplexProperty<ParameterGroupWrapper>(nameof(ComplectsGroup), Model.ComplectsGroup == null ? null : new ParameterGroupWrapper(Model.ComplectsGroup));
+            InitializeComplexProperty<EmployeeWrapper>(nameof(RecipientSupervisionLetterEmployee), Model.RecipientSupervisionLetterEmployee == null ? null : new EmployeeWrapper(Model.RecipientSupervisionLetterEmployee));
             InitializeComplexProperty<EmployeeWrapper>(nameof(SenderOfferEmployee), Model.SenderOfferEmployee == null ? null : new EmployeeWrapper(Model.SenderOfferEmployee));
             InitializeComplexProperty<ActivityFieldWrapper>(nameof(HvtProducersActivityField), Model.HvtProducersActivityField == null ? null : new ActivityFieldWrapper(Model.HvtProducersActivityField));
             InitializeComplexProperty<PaymentConditionSetWrapper>(nameof(PaymentConditionSet), Model.PaymentConditionSet == null ? null : new PaymentConditionSetWrapper(Model.PaymentConditionSet));

@@ -17,10 +17,16 @@ namespace HVTApp.Model.POCOs
         [Designation("Единица шеф-монтажа"), OrderStatus(45)]
         public virtual SalesUnit SupervisionUnit { get; set; }
 
-        [Designation("Дата"), OrderStatus(40)]
+        [Designation("Дата (факт.)"), OrderStatus(40)]
         public DateTime? DateFinish { get; set; }
 
-        [Designation("Сервисный заказ"), OrderStatus(30), MaxLength(25)]
+        [Designation("Дата (треб.)"), OrderStatus(35)]
+        public DateTime? DateRequired { get; set; }
+
+        [Designation("Заказ клиента"), OrderStatus(30), MaxLength(25)]
+        public string ClientOrderNumber { get; set; }
+
+        [Designation("Сервисный заказ"), OrderStatus(20), MaxLength(25)]
         public string ServiceOrderNumber { get; set; }
     }
 }

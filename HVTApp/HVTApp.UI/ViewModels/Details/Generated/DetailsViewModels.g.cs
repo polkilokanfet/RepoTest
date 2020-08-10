@@ -1461,6 +1461,11 @@ namespace HVTApp.UI.ViewModels
 		public ICommand SelectComplectsGroupCommand { get; private set; }
 		public ICommand ClearComplectsGroupCommand { get; private set; }
 
+		//private Func<Task<List<Employee>>> _getEntitiesForSelectRecipientSupervisionLetterEmployeeCommand;
+		private Func<List<Employee>> _getEntitiesForSelectRecipientSupervisionLetterEmployeeCommand;
+		public ICommand SelectRecipientSupervisionLetterEmployeeCommand { get; private set; }
+		public ICommand ClearRecipientSupervisionLetterEmployeeCommand { get; private set; }
+
 		//private Func<Task<List<Employee>>> _getEntitiesForSelectSenderOfferEmployeeCommand;
 		private Func<List<Employee>> _getEntitiesForSelectSenderOfferEmployeeCommand;
 		public ICommand SelectSenderOfferEmployeeCommand { get; private set; }
@@ -1553,6 +1558,11 @@ namespace HVTApp.UI.ViewModels
 			if (_getEntitiesForSelectComplectsGroupCommand == null) _getEntitiesForSelectComplectsGroupCommand = () => { return UnitOfWork.Repository<ParameterGroup>().GetAll(); };
 			if (SelectComplectsGroupCommand == null) SelectComplectsGroupCommand = new DelegateCommand(SelectComplectsGroupCommand_Execute_Default);
 			if (ClearComplectsGroupCommand == null) ClearComplectsGroupCommand = new DelegateCommand(ClearComplectsGroupCommand_Execute_Default);
+
+			
+			if (_getEntitiesForSelectRecipientSupervisionLetterEmployeeCommand == null) _getEntitiesForSelectRecipientSupervisionLetterEmployeeCommand = () => { return UnitOfWork.Repository<Employee>().GetAll(); };
+			if (SelectRecipientSupervisionLetterEmployeeCommand == null) SelectRecipientSupervisionLetterEmployeeCommand = new DelegateCommand(SelectRecipientSupervisionLetterEmployeeCommand_Execute_Default);
+			if (ClearRecipientSupervisionLetterEmployeeCommand == null) ClearRecipientSupervisionLetterEmployeeCommand = new DelegateCommand(ClearRecipientSupervisionLetterEmployeeCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectSenderOfferEmployeeCommand == null) _getEntitiesForSelectSenderOfferEmployeeCommand = () => { return UnitOfWork.Repository<Employee>().GetAll(); };
@@ -1721,6 +1731,17 @@ namespace HVTApp.UI.ViewModels
 		private void ClearComplectsGroupCommand_Execute_Default() 
 		{
 						Item.ComplectsGroup = null;
+		    
+		}
+
+		private void SelectRecipientSupervisionLetterEmployeeCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<Employee, EmployeeWrapper>(_getEntitiesForSelectRecipientSupervisionLetterEmployeeCommand(), nameof(Item.RecipientSupervisionLetterEmployee), Item.RecipientSupervisionLetterEmployee?.Id);
+		}
+
+		private void ClearRecipientSupervisionLetterEmployeeCommand_Execute_Default() 
+		{
+						Item.RecipientSupervisionLetterEmployee = null;
 		    
 		}
 

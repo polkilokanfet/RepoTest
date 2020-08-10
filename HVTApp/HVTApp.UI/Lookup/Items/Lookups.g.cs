@@ -666,7 +666,13 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(40)]
         public System.Nullable<System.DateTime> DateFinish => Entity.DateFinish;
 
+		[OrderStatus(35)]
+        public System.Nullable<System.DateTime> DateRequired => Entity.DateRequired;
+
 		[OrderStatus(30)]
+        public System.String ClientOrderNumber => Entity.ClientOrderNumber;
+
+		[OrderStatus(20)]
         public System.String ServiceOrderNumber => Entity.ServiceOrderNumber;
 
         #endregion
@@ -755,6 +761,9 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(-50)]
 	    public ParameterGroupLookup ComplectsGroup { get { return GetLookup<ParameterGroupLookup>(); } }
+
+		[OrderStatus(1)]
+	    public EmployeeLookup RecipientSupervisionLetterEmployee { get { return GetLookup<EmployeeLookup>(); } }
 
 		[OrderStatus(1)]
 	    public EmployeeLookup SenderOfferEmployee { get { return GetLookup<EmployeeLookup>(); } }

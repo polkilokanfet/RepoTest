@@ -17,6 +17,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
 
@@ -36,14 +38,26 @@
 									Visibility="{Binding VisibilitySupervisionUnitSupervision, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="Дата" Visibility="{Binding VisibilityDateFinishSupervision, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="2" Content="Дата (факт.)" Visibility="{Binding VisibilityDateFinishSupervision, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="2" 
                     SelectedDate="{Binding Item.DateFinish, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityDateFinishSupervision, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="3" Content="Сервисный заказ" Visibility="{Binding VisibilityServiceOrderNumberSupervision, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="3" MinWidth="200" 
+        <Label Grid.Column="0" Grid.Row ="3" Content="Дата (треб.)" Visibility="{Binding VisibilityDateRequiredSupervision, ElementName=Root}"/>
+        <DatePicker Grid.Column="1" Grid.Row="3" 
+                    SelectedDate="{Binding Item.DateRequired, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding VisibilityDateRequiredSupervision, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="4" Content="Заказ клиента" Visibility="{Binding VisibilityClientOrderNumberSupervision, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="4" MinWidth="200" 
+                 Text="{Binding Item.ClientOrderNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding VisibilityClientOrderNumberSupervision, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="5" Content="Сервисный заказ" Visibility="{Binding VisibilityServiceOrderNumberSupervision, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="5" MinWidth="200" 
                  Text="{Binding Item.ServiceOrderNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityServiceOrderNumberSupervision, ElementName=Root}"/>
 

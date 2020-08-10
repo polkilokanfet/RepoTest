@@ -4,8 +4,10 @@ using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Services;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using Microsoft.Practices.ObjectBuilder2;
@@ -16,10 +18,26 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Supervision
 {
     public class SupervisionViewModel : ViewModelBaseCanExportToExcel
     {
-        public IValidatableChangeTrackingCollection<SupervisionWrapper> Units { get; } = new ValidatableChangeTrackingCollection<SupervisionWrapper>(new List<SupervisionWrapper>());
+        private object[] _selectedUnits;
+
+        public IValidatableChangeTrackingCollection<SupervisionWrapper> Units { get; } 
+            = new ValidatableChangeTrackingCollection<SupervisionWrapper>(new List<SupervisionWrapper>());
+
+        public object[] SelectedUnits
+        {
+            get { return _selectedUnits; }
+            set
+            {
+                _selectedUnits = value;
+                ((DelegateCommand)PrintLetterCommand).RaiseCanExecuteChanged();
+                OnPropertyChanged();
+            }
+        }
 
         public ICommand SaveCommand { get; }
         public ICommand RefreshCommand { get; }
+
+        public ICommand PrintLetterCommand { get; }
 
         public SupervisionViewModel(IUnityContainer container) : base(container)
         {
@@ -40,6 +58,14 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Supervision
                     UnitOfWork.SaveChanges();
                 }, 
                 () => Units.IsValid && Units.IsChanged);
+
+            PrintLetterCommand = new DelegateCommand(
+                () =>
+                {
+                    var printSupervisionLetterService = Container.Resolve<IPrintSupervisionLetterService>();
+                    printSupervisionLetterService.PrintSupervisionLetter(SelectedUnits.Cast<SupervisionWrapper>().Select(x => x.Model));
+                },
+                () => SelectedUnits != null && SelectedUnits.Any());
 
             Units.PropertyChanged += (sender, args) =>
             {

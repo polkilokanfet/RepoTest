@@ -25,6 +25,7 @@ namespace HVTApp.TestDataGenerator
         public Person PersonGazizov;
         public Person PersonTekin;
         public Person PersonDeev;
+        public Person PersonGuseinov;
 
         public Person PersonIgnatenko;
         public Person PersonEgorova;
@@ -49,6 +50,7 @@ namespace HVTApp.TestDataGenerator
         public Employee EmployeeGazizov;
         public Employee EmployeeTekin;
         public Employee EmployeeDeev;
+        public Employee EmployeeGuseinov;
 
         public Employee EmployeeIgnatenko;
         public Employee EmployeeEgorova;
@@ -152,6 +154,7 @@ namespace HVTApp.TestDataGenerator
             PersonGazizov.Clone(new Person { Surname = "Газизов", Name = "Евгений", Patronymic = "Рафаильевич", IsMan = true });
             PersonTekin.Clone(new Person { Surname = "Текин", Name = "Вадим", Patronymic = "Владимирович", IsMan = true });
             PersonDeev.Clone(new Person { Surname = "Деев", Name = "Дмитрий", Patronymic = "Геннадьевич", IsMan = true });
+            PersonGuseinov.Clone(new Person { Surname = "Гусейнов", Name = "Анатолий", Patronymic = "Рассулович", IsMan = true });
 
             PersonIgnatenko.Clone(new Person { Surname = "Игнатенко", Name = "Светлана", Patronymic = "Викторовна", IsMan = false });
             PersonEgorova.Clone(new Person { Surname = "Егорова", Name = "Татьяна", Patronymic = "Евгеньевна", IsMan = false });
@@ -186,6 +189,7 @@ namespace HVTApp.TestDataGenerator
             EmployeeGazizov.Clone(new Employee { Person = PersonGazizov, Position = EmployeesPositionManager, Company = CompanyUetm, PersonalNumber = "7410", Email = "gaz@uetm.ru", PhoneNumber = "326-36-36" });
             EmployeeTekin.Clone(new Employee { Person = PersonTekin, Position = EmployeesPositionManager, Company = CompanyUetm, PersonalNumber = "7478", Email = "tkn@uetm.ru", PhoneNumber = "326-36-36" });
             EmployeeDeev.Clone(new Employee { Person = PersonDeev, Position = EmployeesPositionDirector, Company = CompanyUetm, PersonalNumber = "7401", Email = "deev@uetm.ru", PhoneNumber = "326-36-36" });
+            EmployeeGuseinov.Clone(new Employee { Person = PersonGuseinov, Position = EmployeesPositionDirector, Company = CompanyUetm, PersonalNumber = "74", Email = "ggg@uetm.ru", PhoneNumber = "326-36-36" });
 
             EmployeeIgnatenko.Clone(new Employee { Person = PersonIgnatenko, Position = EmployeesPositionEconomist, Company = CompanyUetm, PersonalNumber = "74??", Email = "hz@uetm.ru", PhoneNumber = "326-36-36" });
             EmployeeEgorova.Clone(new Employee { Person = PersonEgorova, Position = EmployeesPositionEconomist, Company = CompanyUetm, PersonalNumber = "74??", Email = "hz@uetm.ru", PhoneNumber = "326-36-36" });

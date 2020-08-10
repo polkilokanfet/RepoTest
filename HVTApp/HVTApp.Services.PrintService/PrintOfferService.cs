@@ -415,7 +415,7 @@ namespace HVTApp.Services.PrintService
         private List<OfferUnitsGroup> GetOfferUnitsGroups(Guid offerId)
         {
             var unitOfWork = _container.Resolve<IUnitOfWork>();
-            var offerUnits = unitOfWork.Repository<OfferUnit>().GetAll().Where(x => x.Offer.Id == offerId).ToList();
+            var offerUnits = unitOfWork.Repository<OfferUnit>().Find(x => x.Offer.Id == offerId).ToList();
 
             //разбиваем на группы, а их делим по объектам
             var offerUnitsGroupsByFacilities = offerUnits
