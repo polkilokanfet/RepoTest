@@ -36,7 +36,7 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
                     return;
 
                 _selectedDocumentLookup = value;
-                ((DelegateCommand)UpdateDocumentCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)EditDocumentCommand).RaiseCanExecuteChanged();
                 ((DelegateCommand) OpenFolderCommand).RaiseCanExecuteChanged();
                 SelectedDocumentChanged?.Invoke(value?.Entity);
             }
@@ -46,7 +46,7 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
 
         public ICommand CreateOutgoingDocumentCommand { get; }
         public ICommand CreateIncomingDocumentCommand { get; }
-        public ICommand UpdateDocumentCommand { get; }
+        public ICommand EditDocumentCommand { get; }
         public ICommand OpenFolderCommand { get; }
         public ICommand ReloadCommand { get; }
 
@@ -74,10 +74,11 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
                 container.Resolve<IRegionManager>().RequestNavigateContentRegion<DocumentView>(new NavigationParameters { { DocumentDirection.Incoming.ToString(), document } });
             });
 
-            UpdateDocumentCommand = new DelegateCommand(
+            EditDocumentCommand = new DelegateCommand(
                 () =>
                 {
-                    
+                    var document = SelectedDocumentLookup.Entity;
+                    container.Resolve<IRegionManager>().RequestNavigateContentRegion<DocumentView>(new NavigationParameters { { document.Direction.ToString(), document } });
                 },
                 () => SelectedDocumentLookup != null);
 
