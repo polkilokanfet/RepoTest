@@ -248,6 +248,13 @@
     <Compile Include="Modules\Sales\Payments\SalesUnitWrapper1.cs" />
     <Compile Include="Modules\Sales\Shippings\ShippingGroup.cs" />
     <Compile Include="Modules\Sales\Shippings\ShippingUnitWrapper.cs" />
+    <Compile Include="Modules\Sales\Supervision\SupervisionView.xaml.cs">
+      <DependentUpon>SupervisionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Sales\Supervision\SupervisionViewModel.cs" />
+    <Compile Include="Modules\Sales\Supervision\TabSupervision.xaml.cs">
+      <DependentUpon>TabSupervision.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Settings\ViewModels\DataBaseBackupViewModel.cs" />
     <Compile Include="Modules\Settings\Views\DataBaseBackupView.xaml.cs">
       <DependentUpon>DataBaseBackupView.xaml</DependentUpon>
@@ -1075,6 +1082,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\Sales\Controls\UnitListControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Sales\Supervision\SupervisionView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Sales\Supervision\TabSupervision.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

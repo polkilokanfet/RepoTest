@@ -1,9 +1,12 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.ViewModels;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
@@ -69,7 +72,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Supervision
             };
         }
 
-        private void Load()
+        protected virtual void Load()
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
 

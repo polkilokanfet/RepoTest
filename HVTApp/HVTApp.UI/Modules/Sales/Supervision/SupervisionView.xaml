@@ -1,0 +1,57 @@
+﻿<inf:ViewBase xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:infg="http://infragistics.com/DataPresenter"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              x:Class="HVTApp.UI.Modules.Sales.Supervision.SupervisionView">
+
+    <GroupBox Header="Шеф-монтаж">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" MaxHeight="500"/>
+            </Grid.RowDefinitions>
+            
+            <infg:XamDataGrid DataSource="{Binding Units}" 
+                              VerticalAlignment="Stretch" 
+                              SelectedDataItemsScope="RecordsOrCells"
+                              SelectedDataItems="{Binding Path=SelectedUnits, Mode=TwoWay}">
+
+                <infg:XamDataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
+                    </ContextMenu>
+                </infg:XamDataGrid.ContextMenu>
+
+                <infg:XamDataGrid.FieldLayouts>
+                    <infg:FieldLayout>
+                        <infg:FieldLayout.Fields>
+                            <infg:TextField AlternateBinding="{Binding Model.SalesUnit.Facility}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Объект" Width="100"/>
+                            <infg:TextField AlternateBinding="{Binding Model.SalesUnit.Product.ProductType.Name}" BindingType="UseAlternateBinding" Label="Тип" Width="200"/>
+                            <infg:TextField AlternateBinding="{Binding Model.SalesUnit.Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="300"/>
+                            <infg:TextField AlternateBinding="{Binding Model.SalesUnit.Order.Number}" BindingType="UseAlternateBinding" Label="Заказ" Width="Auto"/>
+                            <infg:TextField AlternateBinding="{Binding Model.SalesUnit.SerialNumber}" BindingType="UseAlternateBinding" Label="сер.№" Width="Auto"/>
+                            <infg:TextField AlternateBinding="{Binding Model.SalesUnit.Specification.Number}" BindingType="UseAlternateBinding" Label="Сп." Width="Auto"/>
+                            <infg:TextField AlternateBinding="{Binding Model.SalesUnit.Specification.Contract.Number}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
+                            <infg:CheckBoxField AlternateBinding="{Binding Model.SalesUnit.IsPaid}" BindingType="UseAlternateBinding" Label="Оплачен" Width="Auto"/>
+                            <infg:DateTimeField Name="DateRequired" Label="Дата (треб.)" Width="Auto" AllowEdit="True"/>
+                            <infg:DateTimeField Name="DateFinish" Label="Дата (факт.)" Width="Auto" AllowEdit="False"/>
+                        </infg:FieldLayout.Fields>
+                    </infg:FieldLayout>
+
+                </infg:XamDataGrid.FieldLayouts>
+            </infg:XamDataGrid>
+            
+            <GridSplitter Grid.Row="1" VerticalAlignment="Center" Height="5" HorizontalAlignment="Stretch"/>
+            
+            <TextBox Grid.Row="2" 
+                     Text="{Binding SupervisionCall, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                     HorizontalScrollBarVisibility="Auto"
+                     VerticalScrollBarVisibility="Auto"
+                     IsReadOnly="True"/>
+            
+        </Grid>
+    </GroupBox>
+</inf:ViewBase>
+
+	

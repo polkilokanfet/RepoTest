@@ -1,10 +1,10 @@
 ﻿using HVTApp.Infrastructure;
 using HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual;
+using HVTApp.UI.Modules.Sales.Market;
 using HVTApp.UI.Modules.Sales.Shippings;
+using HVTApp.UI.Modules.Sales.Supervision;
 using HVTApp.UI.Modules.Sales.Views;
-using HVTApp.UI.Modules.Sales.Views.MarketView;
 using HVTApp.UI.PriceCalculations.View;
-using Market2View = HVTApp.UI.Modules.Sales.Market.Market2View;
 
 namespace HVTApp.Modules.Sales.Menus
 {
@@ -23,6 +23,7 @@ namespace HVTApp.Modules.Sales.Menus
             var paymentsPlan = new NavigationItem("Поступления (план)", typeof(UI.Modules.Sales.Payments.PaymentsView));
             var production = new NavigationItem("Производство", typeof(ProductionView));
             var shipping = new NavigationItem("Отгрузка", typeof(ShippingView));
+            var supervision = new NavigationItem("Шеф-монтаж", typeof(SupervisionView));
 
             Items.Add(market);
             Items.Add(priceCalculations);
@@ -30,6 +31,7 @@ namespace HVTApp.Modules.Sales.Menus
             Items.Add(paymentsActual);
             Items.Add(paymentsPlan);
             Items.Add(shipping);
+            Items.Add(supervision);
         }
     }
 }
