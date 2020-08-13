@@ -20,14 +20,14 @@
                 <infg:FieldLayout>
                     <infg:FieldLayout.Fields>
 
-                        <infg:TextField AlternateBinding="{Binding SalesUnit.Facility}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Объект" Width="100"/>
-                        <infg:TextField AlternateBinding="{Binding SalesUnit.Product.ProductType.Name}" BindingType="UseAlternateBinding" Label="Тип" Width="200"/>
-                        <infg:TextField AlternateBinding="{Binding SalesUnit.Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="300"/>
-                        <infg:TextField AlternateBinding="{Binding SalesUnit.Order.Number}" BindingType="UseAlternateBinding" Label="Заказ" Width="Auto"/>
-                        <infg:TextField AlternateBinding="{Binding SalesUnit.SerialNumber}" BindingType="UseAlternateBinding" Label="сер.№" Width="Auto"/>
-                        <infg:TextField AlternateBinding="{Binding SalesUnit.Specification.Number}" BindingType="UseAlternateBinding" Label="Сп." Width="Auto"/>
-                        <infg:TextField AlternateBinding="{Binding SalesUnit.Specification.Contract.Number}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
-                        <infg:TextField AlternateBinding="{Binding SalesUnit.Project.Manager}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Менеджер" Width="100"/>
+                        <infg:TextField AlternateBinding="{Binding Model.SalesUnit.Facility}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Объект" Width="100"/>
+                        <infg:TextField AlternateBinding="{Binding Model.SalesUnit.Product.ProductType.Name}" BindingType="UseAlternateBinding" Label="Тип" Width="200"/>
+                        <infg:TextField AlternateBinding="{Binding Model.SalesUnit.Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="300"/>
+                        <infg:TextField AlternateBinding="{Binding Model.SalesUnit.Order.Number}" BindingType="UseAlternateBinding" Label="Заказ" Width="Auto"/>
+                        <infg:TextField AlternateBinding="{Binding Model.SalesUnit.SerialNumber}" BindingType="UseAlternateBinding" Label="сер.№" Width="Auto"/>
+                        <infg:TextField AlternateBinding="{Binding Model.SalesUnit.Specification.Number}" BindingType="UseAlternateBinding" Label="Сп." Width="Auto"/>
+                        <infg:TextField AlternateBinding="{Binding Model.SalesUnit.Specification.Contract.Number}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
+                        <infg:TextField AlternateBinding="{Binding Model.SalesUnit.Project.Manager}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Менеджер" Width="100"/>
                         <infg:CheckBoxField AlternateBinding="{Binding SalesUnit.IsPaid}" BindingType="UseAlternateBinding" Label="Оплачен" Width="Auto"/>
                         <infg:DateTimeField Name="DateFinish" Label="Дата (факт.)" Width="Auto" AllowEdit="True"/>
                         <infg:DateTimeField Name="DateRequired" Label="Дата (треб.)" Width="Auto" AllowEdit="True"/>

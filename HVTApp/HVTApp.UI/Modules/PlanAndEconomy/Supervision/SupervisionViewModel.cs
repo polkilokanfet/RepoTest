@@ -1,14 +1,11 @@
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
-using HVTApp.Infrastructure.Services;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
-using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
@@ -20,8 +17,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Supervision
     {
         private object[] _selectedUnits;
 
-        public IValidatableChangeTrackingCollection<SupervisionWrapper> Units { get; } 
-            = new ValidatableChangeTrackingCollection<SupervisionWrapper>(new List<SupervisionWrapper>());
+        public IValidatableChangeTrackingCollection<SupervisionWr> Units { get; } = new ValidatableChangeTrackingCollection<SupervisionWr>(new List<SupervisionWr>());
 
         public object[] SelectedUnits
         {
@@ -63,7 +59,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Supervision
                 () =>
                 {
                     var printSupervisionLetterService = Container.Resolve<IPrintSupervisionLetterService>();
-                    printSupervisionLetterService.PrintSupervisionLetter(SelectedUnits.Cast<SupervisionWrapper>().Select(x => x.Model));
+                    printSupervisionLetterService.PrintSupervisionLetter(SelectedUnits.Cast<SupervisionWr>().Select(x => x.Model));
                 },
                 () => SelectedUnits != null && SelectedUnits.Any());
 
@@ -79,7 +75,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Supervision
 
             //шеф-монтажи (сохраненные)
             var supervisions = UnitOfWork.Repository<Model.POCOs.Supervision>().GetAll();
-            var units = supervisions.Select(supervision => new SupervisionWrapper(supervision)).ToList();
+            var units = supervisions.Select(supervision => new SupervisionWr(supervision)).ToList();
 
             //выигранное оборудование со включенным шеф-монтажом
             var salesUnits = UnitOfWork.Repository<SalesUnit>()
@@ -87,11 +83,11 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Supervision
                     .Except(supervisions.Select(x => x.SalesUnit)) //еще не сохраненное
                     .Where(x => x.ProductsIncluded.Any(pi => pi.Product.ProductBlock.IsSupervision)); //в которое включен шеф-монтаж
 
-            units.AddRange(salesUnits.Select(x => new SupervisionWrapper(x)));
+            units.AddRange(salesUnits.Select(x => new SupervisionWr(x)));
 
             Units.Clear();
 
-            Units.AddRange(units.OrderBy(x => x.DateFinish).ThenBy(x => x.SalesUnit.OrderInTakeDate));
+            Units.AddRange(units.OrderBy(x => x.DateFinish).ThenBy(x => x.Model.SalesUnit.OrderInTakeDate));
             Units.AcceptChanges();
         }
     }

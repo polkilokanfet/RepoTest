@@ -161,6 +161,7 @@
       <DependentUpon>SupervisionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\PlanAndEconomy\Supervision\SupervisionViewModel.cs" />
+    <Compile Include="Modules\PlanAndEconomy\Supervision\SupervisionWr.cs" />
     <Compile Include="Modules\PlanAndEconomy\Supervision\TabSupervision.xaml.cs">
       <DependentUpon>TabSupervision.xaml</DependentUpon>
     </Compile>

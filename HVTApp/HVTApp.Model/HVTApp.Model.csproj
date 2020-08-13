@@ -199,7 +199,6 @@
     <Compile Include="Wrapper\Custom\Functionality\SalesUnitWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\SpecificationWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\StructureCostWrapper.cs" />
-    <Compile Include="Wrapper\Custom\Functionality\SupervisionWrapper.cs" />
     <Compile Include="Wrapper\Custom\IProductWithCost.cs" />
     <Compile Include="Wrapper\Custom\Test\TestFriendAddressWrapper.cs" />
     <Compile Include="Wrapper\Custom\Test\TestFriendEmailWrapper.cs" />
