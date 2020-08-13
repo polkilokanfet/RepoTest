@@ -21,7 +21,7 @@
     <infRib:RibbonGroup Caption="Регистрация">
         <infRib:ButtonTool Caption="Входящий" Command="{Binding CreateIncomingDocumentCommand}" SmallImage="/HVTApp.UI;component/Images/in.png"/>
         <infRib:ButtonTool Caption="Исходящий" Command="{Binding CreateOutgoingDocumentCommand}" SmallImage="/HVTApp.UI;component/Images/out.png"/>
-        <!--<infRib:ButtonTool Caption="Изменить" Command="{Binding EditOutgoingDocumentCommand}" SmallImage="/HVTApp.UI;component/Images/Edit_16x16.png"/>-->
+        <infRib:ButtonTool Caption="Изменить" Command="{Binding UpdateDocumentCommand}" SmallImage="/HVTApp.UI;component/Images/edit.png"/>
     </infRib:RibbonGroup>
     
     <infRib:RibbonGroup Caption="Действия">

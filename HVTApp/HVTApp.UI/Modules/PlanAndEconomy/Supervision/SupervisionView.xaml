@@ -28,10 +28,10 @@
                         <infg:TextField AlternateBinding="{Binding Model.SalesUnit.Specification.Number}" BindingType="UseAlternateBinding" Label="Сп." Width="Auto"/>
                         <infg:TextField AlternateBinding="{Binding Model.SalesUnit.Specification.Contract.Number}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
                         <infg:TextField AlternateBinding="{Binding Model.SalesUnit.Project.Manager}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Менеджер" Width="100"/>
-                        <infg:CheckBoxField AlternateBinding="{Binding SalesUnit.IsPaid}" BindingType="UseAlternateBinding" Label="Оплачен" Width="Auto"/>
+                        <infg:CheckBoxField AlternateBinding="{Binding Model.SalesUnit.IsPaid}" BindingType="UseAlternateBinding" Label="Оплачен" Width="Auto"/>
                         <infg:DateTimeField Name="DateFinish" Label="Дата (факт.)" Width="Auto" AllowEdit="True"/>
                         <infg:DateTimeField Name="DateRequired" Label="Дата (треб.)" Width="Auto" AllowEdit="True"/>
-                        <infg:TextField Name="ClientOrderNumber" Label="Сервисный заказ" AllowEdit="True" Width="Auto"/>
+                        <infg:TextField Name="ClientOrderNumber" Label="Заказ клиента" AllowEdit="True" Width="Auto"/>
                         <infg:TextField Name="ServiceOrderNumber" Label="Сервисный заказ" AllowEdit="True" Width="Auto"/>
 
                     </infg:FieldLayout.Fields>

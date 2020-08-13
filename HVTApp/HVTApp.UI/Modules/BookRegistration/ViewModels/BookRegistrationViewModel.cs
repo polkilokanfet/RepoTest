@@ -36,6 +36,7 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
                     return;
 
                 _selectedDocumentLookup = value;
+                ((DelegateCommand)UpdateDocumentCommand).RaiseCanExecuteChanged();
                 ((DelegateCommand) OpenFolderCommand).RaiseCanExecuteChanged();
                 SelectedDocumentChanged?.Invoke(value?.Entity);
             }
@@ -45,6 +46,7 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
 
         public ICommand CreateOutgoingDocumentCommand { get; }
         public ICommand CreateIncomingDocumentCommand { get; }
+        public ICommand UpdateDocumentCommand { get; }
         public ICommand OpenFolderCommand { get; }
         public ICommand ReloadCommand { get; }
 
@@ -72,6 +74,13 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
                 container.Resolve<IRegionManager>().RequestNavigateContentRegion<DocumentView>(new NavigationParameters { { DocumentDirection.Incoming.ToString(), document } });
             });
 
+            UpdateDocumentCommand = new DelegateCommand(
+                () =>
+                {
+                    
+                },
+                () => SelectedDocumentLookup != null);
+
             OpenFolderCommand = new DelegateCommand(
                 () =>
                 {
@@ -89,7 +98,7 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
             Container.Resolve<IEventAggregator>().GetEvent<AfterSaveDocumentEvent>().Subscribe(document =>
             {
                 if(!_documentLookups.ContainsById(document))
-                    _documentLookups.Add(new DocumentLookup(document));
+                    _documentLookups.Insert(0, new DocumentLookup(document));
             });
         }
 
@@ -110,7 +119,12 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
                 documents = UnitOfWork.Repository<Document>().GetAll();
             }
 
-            _documentLookups = documents.OrderByDescending(x => x.Date).ThenBy(x => x.Number).Select(x => new DocumentLookup(x, requests.SingleOrDefault(r => r.Document.Id == x.Id)?.Performers)).ToList();
+            _documentLookups = documents
+                .OrderByDescending(x => x.Date)
+                .ThenByDescending(x => x.Number)
+                .Select(x => new DocumentLookup(x, requests.SingleOrDefault(r => r.Document.Id == x.Id)?.Performers))
+                .ToList();
+
             UpdateLookups();
         }
 

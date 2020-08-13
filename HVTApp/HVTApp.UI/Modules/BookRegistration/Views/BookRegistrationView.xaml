@@ -17,8 +17,8 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <infg:XamDataGrid x:Name="DocsGrid" 
-                          SelectedDataItem="{Binding SelectedDocumentLookup}"
+        <infg:XamDataGrid x:Name="DocsGrid"
+                          SelectedDataItem="{Binding SelectedDocumentLookup, Mode=TwoWay}"
                           DataSource="{Binding Lookups}">
 
             <infg:XamDataGrid.ContextMenu>
