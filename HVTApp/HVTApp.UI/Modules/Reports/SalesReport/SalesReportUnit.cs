@@ -403,7 +403,9 @@ namespace HVTApp.UI.Modules.Reports.SalesReport
                 }
             }
             District = region?.District.Name;
-            Segment = GetSegment();
+            Segment = SegmentConverter(GetSegment());
+            if (RfSng != "РФ")
+                Segment = "Экспорт";
             ProductType = salesUnit.Product.ProductType.Name;
             Designation = salesUnit.Product.Designation;
             ProductCategory = GetProductCategory(salesUnit.Product);
@@ -647,12 +649,29 @@ namespace HVTApp.UI.Modules.Reports.SalesReport
             do
             {
                 var activityField = owner.ActivityFilds.FirstOrDefault(x => actualActivities.Contains(x.ActivityFieldEnum));
-                if (activityField != null) return activityField.Name;
+                if (activityField != null)
+                    return activityField.Name;
                 owner = owner.ParentCompany;
             } while (owner != null);
 
             return "Промышленное предприятие";
         }
+
+        private string SegmentConverter(string segment)
+        {
+            switch (segment)
+            {
+                case "Генерация электроэнергии": return "Генерация";
+                case "Железная дорога": return "РЖД";
+                case "Передача электроэнергии": return "Сети";
+                case "Промышленное предприятие": return "Промышленность";
+                case "Распределение электроэнергии": return "Распределение";
+                case "Топливно-энергетический сектор": return "Нефтегаз.";
+            }
+
+            return segment;
+        }
+
 
         private string GetStatus()
         {

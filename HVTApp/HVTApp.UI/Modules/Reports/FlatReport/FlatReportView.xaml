@@ -274,7 +274,7 @@
                                     <infg:NumericField AlternateBinding="{Binding Sum}" BindingType="UseAlternateBinding" Label="Стоимость" Width="Auto" AllowResize="True" />
                                     <infg:NumericField AlternateBinding="{Binding SumWithVat}" BindingType="UseAlternateBinding" Label="Стоимость с НДС" Width="Auto" AllowResize="True" />
                                     <infg:NumericField AlternateBinding="{Binding CostDelivery}" BindingType="UseAlternateBinding" Label="Логистика" Width="Auto" AllowResize="True" />
-                                    <infg:NumericField AlternateBinding="{Binding FixedCost}" BindingType="UseAlternateBinding" Label="Стоимость блоков с фиксированной ценой" Width="Auto" AllowResize="True" />
+                                    <infg:NumericField AlternateBinding="{Binding FixedCost}" BindingType="UseAlternateBinding" Label="Шеф-монтаж" Width="Auto" AllowResize="True" />
                                     <infg:NumericField AlternateBinding="{Binding Kz}" BindingType="UseAlternateBinding" Label="КЗ" Width="Auto" AllowResize="True" />
                                     <infg:NumericField AlternateBinding="{Binding Proceeds}" BindingType="UseAlternateBinding" Label="Выручка" Width="Auto" AllowResize="True" />
                                     <infg:NumericField AlternateBinding="{Binding Price}" BindingType="UseAlternateBinding" Label="ПЗ" Width="Auto" AllowResize="True" />
