@@ -131,6 +131,7 @@ namespace HVTApp
             Container.RegisterType<IPrintOfferService, PrintOfferService>();
             Container.RegisterType<IPrintProductService, PrintProductService>();
             Container.RegisterType<IPrintSupervisionLetterService, PrintSupervisionLetterService>();
+            Container.RegisterType<IPrintBlankLetterService, PrintBlankLetterService>();
             Container.RegisterType<IProductDesignationService, ProductDesignator>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IPriceService, PriceService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IShippingService, ShippService>(new ContainerControlledLifetimeManager());

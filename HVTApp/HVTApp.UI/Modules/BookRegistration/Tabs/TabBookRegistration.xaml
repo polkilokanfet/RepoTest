@@ -25,6 +25,7 @@
     </infRib:RibbonGroup>
     
     <infRib:RibbonGroup Caption="Действия">
+        <infRib:ButtonTool Caption="Печать бланка" Command="{Binding PrintBlankLetterCommand}" SmallImage="/HVTApp.UI;component/Images/print.png"/>
         <infRib:ButtonTool Caption="Перезагрузить" Command="{Binding ReloadCommand}" SmallImage="/HVTApp.UI;component/Images/refresh.png"/>
     </infRib:RibbonGroup>
 

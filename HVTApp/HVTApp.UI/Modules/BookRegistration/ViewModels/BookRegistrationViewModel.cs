@@ -10,6 +10,7 @@ using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Services;
 using HVTApp.UI.Lookup;
 using HVTApp.UI.Modules.BookRegistration.Views;
 using HVTApp.UI.ViewModels;
@@ -36,8 +37,9 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
                     return;
 
                 _selectedDocumentLookup = value;
-                ((DelegateCommand)EditDocumentCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand) EditDocumentCommand).RaiseCanExecuteChanged();
                 ((DelegateCommand) OpenFolderCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand) PrintBlankLetterCommand).RaiseCanExecuteChanged();
                 SelectedDocumentChanged?.Invoke(value?.Entity);
             }
         }
@@ -49,6 +51,7 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
         public ICommand EditDocumentCommand { get; }
         public ICommand OpenFolderCommand { get; }
         public ICommand ReloadCommand { get; }
+        public ICommand PrintBlankLetterCommand { get; }
 
         public BookRegistrationViewModel(IUnityContainer container) : base(container)
         {
@@ -100,6 +103,14 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
                     Process.Start("explorer", $"\"{path}\"");
                 },
                 () => SelectedDocumentLookup != null);
+
+            PrintBlankLetterCommand = new DelegateCommand(
+                () =>
+                {
+                    var path = PathGetter.GetPath(SelectedDocumentLookup.Entity);
+                    Container.Resolve<IPrintBlankLetterService>().PrintBlankLetter(SelectedDocumentLookup.Entity, path);
+                },
+                () => SelectedDocumentLookup != null && SelectedDocumentLookup.Entity.Direction == DocumentDirection.Outgoing);
 
             Container.Resolve<IEventAggregator>().GetEvent<AfterSaveDocumentEvent>().Subscribe(document =>
             {
