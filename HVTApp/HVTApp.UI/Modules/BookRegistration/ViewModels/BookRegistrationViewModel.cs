@@ -78,7 +78,12 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
                 () =>
                 {
                     var document = SelectedDocumentLookup.Entity;
-                    container.Resolve<IRegionManager>().RequestNavigateContentRegion<DocumentView>(new NavigationParameters { { document.Direction.ToString(), document } });
+                    container.Resolve<IRegionManager>().RequestNavigateContentRegion<DocumentView>(
+                        new NavigationParameters
+                        {
+                            { document.Direction.ToString(), document },
+                            { "edit", true }
+                        });
                 },
                 () => SelectedDocumentLookup != null);
 

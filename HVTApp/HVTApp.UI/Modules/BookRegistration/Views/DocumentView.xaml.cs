@@ -34,13 +34,23 @@ namespace HVTApp.UI.Modules.BookRegistration.Views
         {
             var parameter = navigationContext.Parameters.First();
 
+            //если документ исходящий
             if (Equals(parameter.Key, DocumentDirection.Outgoing.ToString()))
             {
                 this.DocumentDetailsView.VisibilityAuthorDocument = Visibility.Collapsed;
                 this.DocumentDetailsView.VisibilityTceNumberDocument = Visibility.Collapsed;
             }
 
-            _viewModel.Load2(parameter.Value as Document, parameter.Key);
+            //если создаем документ
+            if (navigationContext.Parameters.Count() == 1)
+            {
+                _viewModel.LoadCreate(parameter.Value as Document, parameter.Key);
+            }
+            //если редактируем документ
+            else
+            {
+                _viewModel.LoadEdit(parameter.Value as Document);
+            }
 
             this.Browser.Source = new Uri(PathGetter.GetPath(_viewModel.Item.Model));
 

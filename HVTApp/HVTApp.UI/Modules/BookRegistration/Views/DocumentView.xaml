@@ -11,7 +11,7 @@
         <Image x:Key="AddImage" Height="16" Width="16" Source="/HVTApp.UI;component/Images/add.png"/>
     </inf:ViewBase.Resources>
     
-    <GroupBox Header="{Binding DocType}">
+    <GroupBox Header="{Binding DocType, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />

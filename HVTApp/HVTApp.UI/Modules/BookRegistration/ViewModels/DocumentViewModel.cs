@@ -62,7 +62,12 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
                 });
         }
 
-        public void Load2(Document document, string direction)
+        /// <summary>
+        /// «агрузка при создании нового документа
+        /// </summary>
+        /// <param name="document"></param>
+        /// <param name="direction"></param>
+        public void LoadCreate(Document document, string direction)
         {
             this.Load(new Document());
 
@@ -77,8 +82,15 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
 
             if (document.RecipientEmployee != null)
                 Item.RecipientEmployee = new EmployeeWrapper(UnitOfWork.Repository<Employee>().GetById(document.RecipientEmployee.Id));
+
+            OnPropertyChanged(nameof(DocType));
         }
 
+        public void LoadEdit(Document document)
+        {
+            this.Load(document);
+            OnPropertyChanged(nameof(DocType));
+        }
 
         protected override void SaveItem()
         {
