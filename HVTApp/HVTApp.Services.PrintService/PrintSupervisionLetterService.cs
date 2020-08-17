@@ -1,51 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
+using HVTApp.Services.PrintService.Extansions;
 using Infragistics.Documents.Word;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.Services.PrintService
 {
-    public class PrintSupervisionLetterService : IPrintSupervisionLetterService
+    public class PrintSupervisionLetterService : PrintServiceBase, IPrintSupervisionLetterService
     {
-        private readonly IUnityContainer _container;
-        private readonly IMessageService _messageService;
-        private IUnitOfWork _unitOfWork;
+        public PrintSupervisionLetterService(IUnityContainer container) : base(container) { }
 
-        public PrintSupervisionLetterService(IUnityContainer container, IMessageService messageService)
+        public void PrintSupervisionLetter(IEnumerable<Supervision> supervisions1, Document letter, string path = "")
         {
-            _container = container;
-            _messageService = messageService;
-        }
-
-        public void PrintSupervisionLetter(IEnumerable<Supervision> supervisions1, string path = "")
-        {
-            _unitOfWork = _container.Resolve<IUnitOfWork>();
             var supervisions = supervisions1.OrderBy(x => x.SalesUnit.SerialNumber).ToList();
+            //полный путь к файлу (с именем файла)
+            var fullPath = letter.GetPath(path);
 
-            var letter = new Document
-            {
-                Number = new DocumentNumber(),
-                Date = DateTime.Today,
-                Comment = $"Шеф-монтаж на {supervisions.Select(x => x.SalesUnit.Facility).Distinct().ToStringEnum(", ")}",
-                Author = _unitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id).Employee,
-                SenderEmployee = _unitOfWork.Repository<Employee>().GetById(GlobalAppProperties.Actual.SenderOfferEmployee.Id),
-                RecipientEmployee = _unitOfWork.Repository<Employee>().GetById(GlobalAppProperties.Actual.RecipientSupervisionLetterEmployee.Id)
-            };
-
-            _unitOfWork.Repository<Document>().Add(letter);
-            _unitOfWork.SaveChanges();
-
-            var docWriter = GetWordDocumentWriter(letter, path);
+            var docWriter = GetWordDocumentWriter(fullPath);
             if (docWriter == null) return;
             docWriter.StartDocument();
 
@@ -218,7 +197,7 @@ namespace HVTApp.Services.PrintService
             //подпись
             if (GlobalAppProperties.User.Id == GlobalAppProperties.Actual.Developer?.Id)
             {
-                var drt = _container.Resolve<IMessageService>().ShowYesNoMessageDialog("Подпись", "Печать с подписью?", defaultNo:true);
+                var drt = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Подпись", "Печать с подписью?", defaultNo:true);
                 if (drt == MessageDialogResult.Yes)
                 {
                     try
@@ -236,7 +215,7 @@ namespace HVTApp.Services.PrintService
                     }
                     catch (Exception e)
                     {
-                        _container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().ToString(), e.GetAllExceptions());
+                        Container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().ToString(), e.GetAllExceptions());
                         docWriter.PrintTableCell(string.Empty);
                     }
                 }
@@ -281,72 +260,9 @@ namespace HVTApp.Services.PrintService
             docWriter.EndDocument();
             docWriter.Close();
 
-            var dr = _messageService.ShowYesNoMessageDialog("Процесс завершен", "Формирование ТКП завершено. Открыть результат?", defaultYes:true);
-            if (dr == MessageDialogResult.Yes)
-                try
-                {
-                    System.Diagnostics.Process.Start(GetPath(letter, path));
-                }
-                catch (Exception e)
-                {
-                    _messageService.ShowOkMessageDialog("Error", e.GetAllExceptions());
-                }
+            OpenDocument(fullPath);
         }
 
-        private string GetPath(Document document, string path)
-        {
-            var fileName = $"{document.RegNumber}-{DateTime.Today.ToShortDateString()}";
-            fileName = fileName.ReplaceUncorrectSimbols("-").Replace('.', '-').Replace(' ', '_') + ".docx";
-            return path == "" ? AppDomain.CurrentDomain.BaseDirectory + $"\\{fileName}" : path + $"\\{fileName}";            
-        }
-
-        private WordDocumentWriter GetWordDocumentWriter(Document document, string path)
-        {
-            WordDocumentWriter docWriter;
-            try
-            {
-                docWriter = WordDocumentWriter.Create(GetPath(document, path));
-            }
-            catch (IOException e)
-            {
-                _messageService.ShowOkMessageDialog(e.GetType().Name, e.Message);
-                return null;
-            }
-            docWriter.DefaultParagraphProperties.Alignment = ParagraphAlignment.Left;
-
-            return docWriter;
-        }
-
-
-        private TableBorderProperties GetTableBorderProperties(WordDocumentWriter docWriter)
-        {
-            var borderProps = docWriter.CreateTableBorderProperties();
-            borderProps.Color = Colors.Black;
-            borderProps.Style = TableBorderStyle.Single;
-            return borderProps;
-        }
-
-        private TableProperties GetTableProperties(WordDocumentWriter docWriter, TableBorderProperties borderProps)
-        {
-            var tableProps = docWriter.CreateTableProperties();
-            tableProps.Alignment = ParagraphAlignment.Left;
-            tableProps.BorderProperties.Color = borderProps.Color;
-            tableProps.BorderProperties.Style = borderProps.Style;
-            return tableProps;
-        }
-
-        #region GetImage
-        private BitmapSource GetImage(string resourceName)
-        {
-            var uri = new Uri("pack://application:,,,/HVTApp.Services.PrintService;component/Images/" + resourceName);
-            return new BitmapImage(uri);
-            //var uri = new Uri(@"..\..\Images\" + resourceName, UriKind.Relative);
-            //return new BitmapImage(uri);
-            //return File.Exists(uri.AbsolutePath) ? new BitmapImage(uri) : null;
-            //return new BitmapImage(new Uri(@"HVTApp.Services.PrintService;component/Images/" + resourceName));
-        }
-
-        #endregion GetImage
     }
 
 }

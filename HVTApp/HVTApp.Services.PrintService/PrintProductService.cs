@@ -6,6 +6,7 @@ using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
+using HVTApp.Services.PrintService.Extansions;
 using Infragistics.Documents.Word;
 using Microsoft.Practices.Unity;
 using SautinSoft.Document;

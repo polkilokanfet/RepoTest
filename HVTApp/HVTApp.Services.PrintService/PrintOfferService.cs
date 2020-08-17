@@ -12,21 +12,18 @@ using HVTApp.Model.Comparers;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper.Groups;
+using HVTApp.Services.PrintService.Extansions;
 using Infragistics.Documents.Word;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.Services.PrintService
 {
-    public class PrintOfferService : IPrintOfferService
+    public class PrintOfferService : PrintServiceBase, IPrintOfferService
     {
-        private readonly IUnityContainer _container;
-        private readonly IMessageService _messageService;
         private readonly PrintProductService _printProductService;
 
-        public PrintOfferService(IUnityContainer container, IMessageService messageService)
+        public PrintOfferService(IUnityContainer container) : base(container)
         {
-            _container = container;
-            _messageService = messageService;
             _printProductService = container.Resolve<IPrintProductService>() as PrintProductService;
         }
 
@@ -35,8 +32,11 @@ namespace HVTApp.Services.PrintService
             var offerUnitsGroups = GetOfferUnitsGroups(offerId);
             var offerUnitsGroupsByFacilities = offerUnitsGroups.GroupBy(x => x.Model.Facility).ToList();
             var offer = offerUnitsGroups.First().Offer.Model;
+            
+            //полный путь к файлу (с именем файла)
+            var fullPath = offer.GetPath(path);
 
-            var docWriter = GetWordDocumentWriter(offer, path);
+            var docWriter = GetWordDocumentWriter(fullPath);
             if (docWriter == null) return;
             docWriter.StartDocument();
             //docWriter.Unit = UnitOfMeasurement.Centimeter;
@@ -240,7 +240,7 @@ namespace HVTApp.Services.PrintService
             //подпись
             if (GlobalAppProperties.User.Id == GlobalAppProperties.Actual.Developer?.Id)
             {
-                var drt = _container.Resolve<IMessageService>().ShowYesNoMessageDialog("Подпись", "Печать с подписью?", defaultNo:true);
+                var drt = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Подпись", "Печать с подписью?", defaultNo:true);
                 if (drt == MessageDialogResult.Yes)
                 {
                     try
@@ -258,7 +258,7 @@ namespace HVTApp.Services.PrintService
                     }
                     catch (Exception e)
                     {
-                        _container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().ToString(), e.GetAllExceptions());
+                        Container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().ToString(), e.GetAllExceptions());
                         docWriter.PrintTableCell(string.Empty);
                     }
                 }
@@ -359,16 +359,7 @@ namespace HVTApp.Services.PrintService
             docWriter.EndDocument();
             docWriter.Close();
 
-            var dr = _messageService.ShowYesNoMessageDialog("Процесс завершен", "Формирование ТКП завершено. Открыть результат?", defaultYes:true);
-            if (dr == MessageDialogResult.Yes)
-                try
-                {
-                    System.Diagnostics.Process.Start(GetOfferPath(offer, path));
-                }
-                catch (Exception e)
-                {
-                    _messageService.ShowOkMessageDialog("Error", e.GetAllExceptions());
-                }
+            OpenDocument(fullPath);
         }
 
         private string GetShipmentConditions(List<OfferUnitsGroup> offerUnitsGroups)
@@ -388,33 +379,10 @@ namespace HVTApp.Services.PrintService
             return "В стоимости оборудования не учтены расходы, связанные с его доставкой на объект.";
         }
 
-        private string GetOfferPath(Offer offer, string path)
-        {
-            var fileName = $"{offer.RegNumber} {offer.Date.ToShortDateString()} ({offer.RecipientEmployee.Company.ShortName.ReplaceUncorrectSimbols()}) {DateTime.Today.ToShortDateString()} {DateTime.Now.ToShortTimeString().ReplaceUncorrectSimbols("-")}";
-            fileName = fileName.ReplaceUncorrectSimbols("-").Replace('.', '-').Replace(' ', '_') + ".docx";
-            return path == "" ? AppDomain.CurrentDomain.BaseDirectory + $"\\{fileName}" : path + $"\\{fileName}";            
-        }
-
-        private WordDocumentWriter GetWordDocumentWriter(Offer offer, string path)
-        {
-            WordDocumentWriter docWriter;
-            try
-            {
-                docWriter = WordDocumentWriter.Create(GetOfferPath(offer, path));
-            }
-            catch (IOException e)
-            {
-                _messageService.ShowOkMessageDialog(e.GetType().Name, e.Message);
-                return null;
-            }
-            docWriter.DefaultParagraphProperties.Alignment = ParagraphAlignment.Left;
-
-            return docWriter;
-        }
 
         private List<OfferUnitsGroup> GetOfferUnitsGroups(Guid offerId)
         {
-            var unitOfWork = _container.Resolve<IUnitOfWork>();
+            var unitOfWork = Container.Resolve<IUnitOfWork>();
             var offerUnits = unitOfWork.Repository<OfferUnit>().Find(x => x.Offer.Id == offerId).ToList();
 
             //разбиваем на группы, а их делим по объектам
@@ -436,12 +404,23 @@ namespace HVTApp.Services.PrintService
 
         private static string PrintConditions<T>(string text, IEnumerable<IGrouping<T, OfferUnitsGroup>> offerUnitsGroupsGrouped)
         {
+            var result = text;
             if (offerUnitsGroupsGrouped.Count() == 1)
             {
+                if (typeof(T) == typeof(PaymentConditionSet))
+                {
+                    var paymentConditionSet = offerUnitsGroupsGrouped.First().Key as PaymentConditionSet;
+                    foreach (var condition in paymentConditionSet.PaymentConditions.OrderBy(x => x))
+                    {
+                        result += Environment.NewLine + " - ";
+                        result += condition + ";";
+                    }
+                    return result.Remove(result.Length - 1, 1) + ".";
+                }
+
                 return $"{text} {offerUnitsGroupsGrouped.First().Key}.";
             }
 
-            var result = text;
             foreach (var unitsGroups in offerUnitsGroupsGrouped)
             {
                 result += Environment.NewLine + "- ";
@@ -500,36 +479,6 @@ namespace HVTApp.Services.PrintService
                 }
             }
         }
-
-
-        private TableBorderProperties GetTableBorderProperties(WordDocumentWriter docWriter)
-        {
-            var borderProps = docWriter.CreateTableBorderProperties();
-            borderProps.Color = Colors.Black;
-            borderProps.Style = TableBorderStyle.Single;
-            return borderProps;
-        }
-
-        private TableProperties GetTableProperties(WordDocumentWriter docWriter, TableBorderProperties borderProps)
-        {
-            var tableProps = docWriter.CreateTableProperties();
-            tableProps.Alignment = ParagraphAlignment.Left;
-            tableProps.BorderProperties.Color = borderProps.Color;
-            tableProps.BorderProperties.Style = borderProps.Style;
-            return tableProps;
-        }
-
-        #region GetImage
-        private BitmapSource GetImage(string resourceName)
-        {
-            var uri = new Uri("pack://application:,,,/HVTApp.Services.PrintService;component/Images/" + resourceName);
-            return new BitmapImage(uri);
-            //var uri = new Uri(@"..\..\Images\" + resourceName, UriKind.Relative);
-            //return new BitmapImage(uri);
-            //return File.Exists(uri.AbsolutePath) ? new BitmapImage(uri) : null;
-            //return new BitmapImage(new Uri(@"HVTApp.Services.PrintService;component/Images/" + resourceName));
-        }
-        #endregion GetImage
     }
 
 }

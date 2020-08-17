@@ -2,16 +2,25 @@
 using Infragistics.Documents.Word;
 using Microsoft.Practices.ObjectBuilder2;
 
-namespace HVTApp.Services.PrintService
+namespace HVTApp.Services.PrintService.Extansions
 {
     public static class WordDocumentWriterExt
     {
+        /// <summary>
+        /// Печать параграфа.
+        /// </summary>
+        /// <param name="docWriter"></param>
+        /// <param name="text">Текст.</param>
+        /// <param name="paragraphProperties"></param>
+        /// <param name="font"></param>
         public static void PrintParagraph(this WordDocumentWriter docWriter, string text, ParagraphProperties paragraphProperties = null, Font font = null)
         {
             text = text ?? string.Empty;
 
-            if (paragraphProperties == null) docWriter.StartParagraph();
-            else docWriter.StartParagraph(paragraphProperties);
+            if (paragraphProperties == null)
+                docWriter.StartParagraph();
+            else
+                docWriter.StartParagraph(paragraphProperties);
 
             if(font == null)
                 docWriter.AddTextRun(text);

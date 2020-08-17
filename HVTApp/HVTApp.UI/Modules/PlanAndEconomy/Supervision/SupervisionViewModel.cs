@@ -61,8 +61,28 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Supervision
             PrintLetterCommand = new DelegateCommand(
                 () =>
                 {
-                    var printSupervisionLetterService = Container.Resolve<IPrintSupervisionLetterService>();
-                    printSupervisionLetterService.PrintSupervisionLetter(SelectedUnits.Cast<SupervisionWr>().Select(x => x.Model));
+                    var unitOfWork = Container.Resolve<IUnitOfWork>();
+                    var supervisions = SelectedUnits
+                        .Cast<SupervisionWr>()
+                        .Select(x => x.Model)
+                        .OrderBy(x => x.SalesUnit.SerialNumber)
+                        .ToList();
+
+                    var letter = new Document
+                    {
+                        Number = new DocumentNumber(),
+                        Date = DateTime.Today,
+                        Comment = $"Шеф-монтаж на {supervisions.Select(x => x.SalesUnit.Facility).Distinct().ToStringEnum(", ")}".GetFirstSimbols(150),
+                        Author = unitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id).Employee,
+                        SenderEmployee = unitOfWork.Repository<Employee>().GetById(GlobalAppProperties.Actual.SenderOfferEmployee.Id),
+                        RecipientEmployee = unitOfWork.Repository<Employee>().GetById(GlobalAppProperties.Actual.RecipientSupervisionLetterEmployee.Id)
+                    };
+
+                    unitOfWork.Repository<Document>().Add(letter);
+                    unitOfWork.SaveChanges();
+
+                    Container.Resolve<IPrintSupervisionLetterService>()
+                        .PrintSupervisionLetter(SelectedUnits.Cast<SupervisionWr>().Select(x => x.Model), letter, PathGetter.GetPath(letter));
                 },
                 () => SelectedUnits != null && SelectedUnits.Any());
 

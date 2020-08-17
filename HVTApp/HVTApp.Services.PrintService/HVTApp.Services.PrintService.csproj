@@ -57,7 +57,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extansions\OtherExt.cs" />
     <Compile Include="PrintBlankLetterService.cs" />
+    <Compile Include="PrintServiceBase.cs" />
     <Compile Include="PrintSupervisionLetterService.cs" />
     <Compile Include="PrintOfferService.cs" />
     <Compile Include="PrintProductService.cs" />
@@ -67,7 +69,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="WordDocumentWriterExt.cs" />
+    <Compile Include="Extansions\WordDocumentWriterExt.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HVTApp.Infrestructure\HVTApp.Infrastructure.csproj">
@@ -91,9 +93,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\sign_deev.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    <Resource Include="Images\sign_deev.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

@@ -46,12 +46,8 @@ namespace HVTApp.Services.GetProductService.Complects
                 () =>
                 {
                     //Обозначение продукта
-                    var designation = $"{ParameterComplectType.Value} {ParameterComplectDesignation.Value}";
-                    //Ограничение длины обозначения в 50 символов
-                    if (designation.Length > 50)
-                    {
-                        designation = designation.Substring(0, 50);
-                    }
+                    var designation = $"{ParameterComplectType.Value} {ParameterComplectDesignation.Value}".GetFirstSimbols(50);
+
                     Product.DesignationSpecial = Product.ProductBlock.DesignationSpecial = designation;
                     Product.AcceptChanges();
 

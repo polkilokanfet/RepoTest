@@ -22,5 +22,16 @@ namespace HVTApp.Infrastructure.Extansions
             }
             return result;
         }
+
+        /// <summary>
+        /// Вернуть первые символы (ограничить длинну строки).
+        /// </summary>
+        /// <param name="text">Текст</param>
+        /// <param name="lenght">Длина строки</param>
+        /// <returns></returns>
+        public static string GetFirstSimbols(this string text, int lenght)
+        {
+            return text.Length > lenght ? text.Substring(0, lenght) : text;
+        }
     }
 }
