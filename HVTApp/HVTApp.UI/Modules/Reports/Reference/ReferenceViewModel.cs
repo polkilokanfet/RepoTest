@@ -1,33 +1,33 @@
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Input;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Modules.Reports.ViewModels;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 
 namespace HVTApp.UI.Modules.Reports.Reference
 {
-    public class ReferenceViewModel : ViewModelBaseCanExportToExcel
+    public class ReferenceViewModel : LoadableExportableViewModel
     {
+        private IEnumerable<ReferenceItem> _items;
         public ObservableCollection<ReferenceItem> Items { get; } = new ObservableCollection<ReferenceItem>();
-
-        public ICommand ReloadCommand { get; }
 
         public ReferenceViewModel(IUnityContainer container) : base(container)
         {
-            ReloadCommand = new DelegateCommand(Load);
-            Load();
         }
 
-        public void Load()
+        protected override void GetData()
         {
             var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => x.IsWon);
             var groups = salesUnits.GroupBy(x => x, new SalesUnitsReferenceComparer());
-            var items = groups.Select(x => new ReferenceItem(x)).OrderBy(x => x.ShipmentDate);
+            _items = groups.Select(x => new ReferenceItem(x)).OrderBy(x => x.ShipmentDate);
+        }
+
+        protected override void AfterGetData()
+        {
             Items.Clear();
-            Items.AddRange(items);
+            Items.AddRange(_items);
         }
     }
 }

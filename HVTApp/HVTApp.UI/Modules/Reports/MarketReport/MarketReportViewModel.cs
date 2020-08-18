@@ -2,28 +2,16 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Modules.Reports.ViewModels;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 
 namespace HVTApp.UI.Modules.Reports.MarketReport
 {
-    public class ProducersMarket
-    {
-        public string Producer { get; }
-
-        public ProducersMarket(IEnumerable<MarketReportUnit> units)
-        {
-            Producer = units.First().Producer;
-        }
-    }
-
-    public class MarketReportViewModel : ViewModelBaseCanExportToExcelSaveCustomization
+    public class MarketReportViewModel : LoadableExportableViewModel
     {
         private List<MarketReportUnit> _marketReportUnits;
         private DateTime _startDate;
@@ -60,21 +48,12 @@ namespace HVTApp.UI.Modules.Reports.MarketReport
             }
         }
 
-        public ICommand ReloadCommand { get; }
-
         public MarketReportViewModel(IUnityContainer container) : base(container)
         {
-            ReloadCommand = new DelegateCommand(Load);
-            Load();
         }
 
-        /// <summary>
-        /// Загрузка отчета
-        /// </summary>
-        public void Load()
+        protected override void GetData()
         {
-            Units.Clear();
-
             UnitOfWork = Container.Resolve<IUnitOfWork>();
             var salesUnits = GlobalAppProperties.User.RoleCurrent == Role.SalesManager 
                 ? UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.ForReport && x.Project.Manager.IsAppCurrentUser()) 
@@ -93,10 +72,14 @@ namespace HVTApp.UI.Modules.Reports.MarketReport
             var tenders = UnitOfWork.Repository<Tender>().Find(x => true);
 
             _marketReportUnits = groups.Select(x => new MarketReportUnit(x, tenders.Where(t => Equals(x.Key.Project, t.Project)))).ToList();
-            Units.AddRange(_marketReportUnits);
+        }
 
+        protected override void AfterGetData()
+        {
             _startDate = _marketReportUnits.Min(x => x.OrderInTakeDate);
             _finishDate = _marketReportUnits.Max(x => x.OrderInTakeDate);
+
+            RefreshUnits();
         }
 
         private void RefreshUnits()

@@ -1,10 +1,9 @@
 ﻿using HVTApp.Infrastructure;
-using HVTApp.UI.Modules.Sales.Tabs;
 using HVTApp.UI.Modules.Sales.ViewModels;
 using Prism.Events;
 using Prism.Regions;
 
-namespace HVTApp.UI.Modules.Sales.Views
+namespace HVTApp.UI.Modules.Sales.Production
 {
     [RibbonTab(typeof(ProductionTab))]
     public partial class ProductionView

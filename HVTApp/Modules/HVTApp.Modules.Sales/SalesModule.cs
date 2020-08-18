@@ -1,7 +1,10 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Prism.Regions;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Prism;
@@ -11,6 +14,7 @@ using HVTApp.Model.POCOs;
 using HVTApp.Modules.Sales.Menus;
 using HVTApp.UI.Modules.Sales.Market;
 using HVTApp.UI.Modules.Sales.Payments;
+using HVTApp.UI.Modules.Sales.Production;
 using HVTApp.UI.Modules.Sales.Shippings;
 using HVTApp.UI.Modules.Sales.ViewModels;
 using HVTApp.UI.Modules.Sales.ViewModels.Groups;
@@ -30,29 +34,47 @@ namespace HVTApp.Modules.Sales
             //проверка на объекты без местоположения
             if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager)
             {
-                var unitOfWork = container.Resolve<IUnitOfWork>();
-                var facilities = unitOfWork.Repository<SalesUnit>()
-                    .Find(x => x.Project.Manager.Id == GlobalAppProperties.User.Id)
-                    .Select(x => x.Facility)
-                    .Distinct()
-                    .Where(x => x.GetRegion() == null)
-                    .ToList();
-
-                if (facilities.Any())
-                {
-                    var messageService = container.Resolve<IMessageService>();
-                    messageService.ShowOkMessageDialog("Укажите местоположения объектов", 
-                        "В Ваших проектах задействованы объекты без определенного местоположения. Исправьте сиё недоразумение.");
-
-                    var updateDetailsService = container.Resolve<IUpdateDetailsService>();
-                    foreach (var facility in facilities)
-                    {
-                        updateDetailsService.UpdateDetails(facility);
-                    }
-                }
+                CheckFacilities(container);
             }
 #endif
         }
+
+        private static List<Facility> _facilities;
+        /// <summary>
+        /// Поиск объектов с ошибками.
+        /// </summary>
+        /// <param name="container"></param>
+        private static void CheckFacilities(IUnityContainer container)
+        {
+            Task.Run(
+                () =>
+                {
+                    var unitOfWork = container.Resolve<IUnitOfWork>();
+                    _facilities = unitOfWork.Repository<SalesUnit>()
+                        .Find(x => x.Project.Manager.Id == GlobalAppProperties.User.Id)
+                        .Select(x => x.Facility)
+                        .Distinct()
+                        .Where(x => x.GetRegion() == null)
+                        .ToList();
+                }).Await(
+                () =>
+                {
+                    if (_facilities.Any())
+                    {
+                        var messageService = container.Resolve<IMessageService>();
+                        messageService.ShowOkMessageDialog("Укажите местоположения объектов",
+                            "В Ваших проектах задействованы объекты без определенного местоположения. Исправьте это недоразумение.");
+
+                        var updateDetailsService = container.Resolve<IUpdateDetailsService>();
+                        foreach (var facility in _facilities)
+                        {
+                            updateDetailsService.UpdateDetails(facility);
+                        }
+                    }
+                });
+
+        }
+
 
         protected override void RegisterTypes()
         {

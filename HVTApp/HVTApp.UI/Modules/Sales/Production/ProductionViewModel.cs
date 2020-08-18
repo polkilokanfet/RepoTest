@@ -11,9 +11,9 @@ using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 
-namespace HVTApp.UI.Modules.Sales.ViewModels
+namespace HVTApp.UI.Modules.Sales.Production
 {
-    public class ProductionViewModel : ViewModelBaseCanExportToExcel
+    public class ProductionViewModel : LoadableExportableViewModel
     {
         private object _selectedToProduction;
         private object _selectedInProduction;
@@ -43,11 +43,9 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
         public ICommand ProductUnitCommand { get; }
         public ICommand RemoveFromProductionCommand { get; }
-        public ICommand ReloadCommand { get; }
 
         public ProductionViewModel(IUnityContainer container) : base(container)
         {
-            ReloadCommand = new DelegateCommand(Load);
 
             ProductUnitCommand = new DelegateCommand(
                 () =>
@@ -144,12 +142,12 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
                 },
                 () => SelectedInProduction != null);
-
-
-            Load();
         }
 
-        private void Load()
+        private IEnumerable<ProductionGroup> _groupsToProduction;
+        private IEnumerable<ProductionGroup> _groupsInProduction;
+
+        protected override void GetData()
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
 
@@ -162,7 +160,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             var salesUnits = salesUnitsAll.Intersect(priceCalculationItems.SelectMany(x => x.SalesUnits).Distinct()).ToList();
             var productionItems = salesUnits.Select(x => new ProductionItem(x, x.ActualPriceCalculationItem(UnitOfWork))).ToList();
 
-            var groupsToProduction = productionItems
+            _groupsToProduction = productionItems
                 .Where(x => !x.SignalToStartProduction.HasValue)
                 .GroupBy(x => new
                 {
@@ -171,12 +169,11 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
                     x.Model.EndProductionDateCalculated
                 })
                 .OrderBy(x => x.Key.EndProductionDateCalculated)
-                .ThenBy(x => x.Key.FacilityId);
+                .ThenBy(x => x.Key.FacilityId)
+                .Select(x => new ProductionGroup(x));
 
-            GroupsToProduction.Clear();
-            GroupsToProduction.AddRange(groupsToProduction.Select(x => new ProductionGroup(x)));
 
-            var groupsInProduction = productionItems
+            _groupsInProduction = productionItems
                 .Where(x => x.SignalToStartProduction.HasValue)
                 .GroupBy(x => new
                 {
@@ -186,10 +183,17 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
                     x.Model.EndProductionDateCalculated
                 })
                 .OrderBy(x => x.Key.EndProductionDateCalculated)
-                .ThenBy(x => x.Key.FacilityId);
+                .ThenBy(x => x.Key.FacilityId)
+                .Select(x => new ProductionGroup(x));
+        }
+
+        protected override void AfterGetData()
+        {
+            GroupsToProduction.Clear();
+            GroupsToProduction.AddRange(_groupsToProduction);
 
             GroupsInProduction.Clear();
-            GroupsInProduction.AddRange(groupsInProduction.Select(x => new ProductionGroup(x)));
+            GroupsInProduction.AddRange(_groupsInProduction);
         }
     }
 }

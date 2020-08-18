@@ -98,6 +98,7 @@
     <Compile Include="Converters\DatePickerOriginalValueConverter.cs" />
     <Compile Include="Converters\ListToStringConverter.cs" />
     <Compile Include="Converters\ReverseBoolConverter.cs" />
+    <Compile Include="Extansions\TaskExtansions.cs" />
     <Compile Include="Extansions\EnumerableExtansions.cs" />
     <Compile Include="Extansions\DateExtansions.cs" />
     <Compile Include="Extansions\ExceptionExt.cs" />
@@ -154,6 +155,7 @@
     <Compile Include="ViewBase.cs" />
     <Compile Include="ViewBaseConfirmNavigationRequest.cs" />
     <Compile Include="ViewModels\LoadableBindableBaseCanExportToExcel.cs" />
+    <Compile Include="ViewModels\LoadableExportableViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\ViewModelBaseCanExportToExcel.cs" />
     <Compile Include="ViewModels\ViewModelBaseCanExportToExcelSaveCustomization.cs" />

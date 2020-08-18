@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
@@ -16,7 +15,7 @@ using Prism.Commands;
 
 namespace HVTApp.UI.Modules.PlanAndEconomy.Supervision
 {
-    public class SupervisionViewModel : ViewModelBaseCanExportToExcel
+    public class SupervisionViewModel : LoadableExportableViewModel
     {
         private object[] _selectedUnits;
 
@@ -34,16 +33,11 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Supervision
         }
 
         public ICommand SaveCommand { get; }
-        public ICommand RefreshCommand { get; }
 
         public ICommand PrintLetterCommand { get; }
 
         public SupervisionViewModel(IUnityContainer container) : base(container)
         {
-            Load();
-
-            RefreshCommand = new DelegateCommand(Load);
-
             SaveCommand = new DelegateCommand(
                 () =>
                 {
@@ -92,13 +86,14 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Supervision
             };
         }
 
-        protected virtual void Load()
+        protected List<SupervisionWr> Wrappers;
+        protected override void GetData()
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
 
             //шеф-монтажи (сохраненные)
             var supervisions = UnitOfWork.Repository<Model.POCOs.Supervision>().GetAll();
-            var units = supervisions.Select(supervision => new SupervisionWr(supervision)).ToList();
+            Wrappers = supervisions.Select(supervision => new SupervisionWr(supervision)).ToList();
 
             //выигранное оборудование со включенным шеф-монтажом
             var salesUnits = UnitOfWork.Repository<SalesUnit>()
@@ -106,11 +101,14 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Supervision
                     .Except(supervisions.Select(x => x.SalesUnit)) //еще не сохраненное
                     .Where(x => x.ProductsIncluded.Any(pi => pi.Product.ProductBlock.IsSupervision)); //в которое включен шеф-монтаж
 
-            units.AddRange(salesUnits.Select(x => new SupervisionWr(x)));
+            Wrappers.AddRange(salesUnits.Select(x => new SupervisionWr(x)));
+        }
 
+        protected override void AfterGetData()
+        {
             Units.Clear();
 
-            Units.AddRange(units.OrderBy(x => x.DateFinish).ThenBy(x => x.Model.SalesUnit.OrderInTakeDate));
+            Units.AddRange(Wrappers.OrderBy(x => x.DateFinish).ThenBy(x => x.Model.SalesUnit.OrderInTakeDate));
             Units.AcceptChanges();
         }
     }

@@ -4,11 +4,29 @@
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure">
 
-    <infg:XamDataGrid x:Name="ReportGrid" 
-                      DataSource="{Binding Units}"
-                      SelectedDataItem="{Binding SelectedSalesReportUnit}">
-            
-        <!--Style="{StaticResource ListViewGrid}"-->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label Content="Ожидание данных..." VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label.Style>
+                <Style>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=ReportGrid, Path=Visibility}" Value="Visible">
+                            <Setter Property="Label.Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
+
+        <infg:XamDataGrid x:Name="ReportGrid" 
+                          DataSource="{Binding Units}"
+                          SelectedDataItem="{Binding SelectedSalesReportUnit}"
+                          Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+
+            <!--Style="{StaticResource ListViewGrid}"-->
         <!--<infg:XamDataGrid.FieldLayoutSettings>
             <infg:FieldLayoutSettings 
                                         AutoGenerateFields="False"
@@ -128,5 +146,8 @@
 
         </infg:XamDataGrid.FieldLayouts>
     </infg:XamDataGrid>
+
+    </Grid>
+
     
 </inf:ViewBase>

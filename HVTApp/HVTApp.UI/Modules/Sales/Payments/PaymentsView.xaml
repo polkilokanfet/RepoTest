@@ -4,49 +4,69 @@
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               x:Class="HVTApp.UI.Modules.Sales.Payments.PaymentsView">
 
-    <infg:XamDataGrid x:Name="PaymentsGrid"
-                      DataSource="{Binding PaymentsGroups}"
-                      SelectedDataItem="{Binding SelectedItem, Mode=TwoWay}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-        <infg:XamDataGrid.ContextMenu>
-			<ContextMenu>
-				<MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
-			</ContextMenu>
-		</infg:XamDataGrid.ContextMenu>
+        <Label Content="Ожидание данных..." VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label.Style>
+                <Style>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=PaymentsGrid, Path=Visibility}" Value="Visible">
+                            <Setter Property="Label.Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
 
-		<infg:XamDataGrid.FieldLayouts>
-            <infg:FieldLayout Key="GroupsLayout">
-                <infg:FieldLayout.Fields>
-                    <infg:TextField AlternateBinding="{Binding SalesUnit.Model.Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto" Converter="{StaticResource ObjectToStringConverter}"/>
-                    <infg:TextField AlternateBinding="{Binding SalesUnit.Model.Product}" BindingType="UseAlternateBinding" Label="Продукт" Width="Auto" Converter="{StaticResource ObjectToStringConverter}"/>
-                    <infg:TextField AlternateBinding="{Binding SalesUnit.Model.Order}" BindingType="UseAlternateBinding" Label="Заказ" Width="Auto" Converter="{StaticResource ObjectToStringConverter}"/>
-                    <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" AllowEdit="True"/>
-                    <infg:NumericField Name="Amount" Label="Кол." Width="Auto"/>
-                    <infg:NumericField Name="Sum" Label="Сумма" Width="Auto"/>
-                    <infg:TextField AlternateBinding="{Binding Condition}" BindingType="UseAlternateBinding" Label="Условие" Width="Auto" Converter="{StaticResource ObjectToStringConverter}"/>
-                    <infg:CheckBoxField Name="IsCustom" Label="Custom" Width="Auto"/>
-                    <infg:TextField AlternateBinding="{Binding SalesUnit.Model.Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto" Converter="{StaticResource ObjectToStringConverter}"/>
-                    <infg:TextField AlternateBinding="{Binding SalesUnit.Model.Specification.Contract}" BindingType="UseAlternateBinding" Label="Контракт" Width="Auto" Converter="{StaticResource ObjectToStringConverter}"/>
-                    <infg:TextField AlternateBinding="{Binding SalesUnit.Model.Specification}" BindingType="UseAlternateBinding" Label="Сп." Width="Auto" Converter="{StaticResource ObjectToStringConverter}"/>
-                    <infg:NumericField Name="Year" Label="Год" Width="Auto" AllowResize="False"/>
-                    <infg:TextField Name="Month" Label="Месяц" Width="Auto" AllowResize="False"/>
-                    <infg:TextField Name="Week" Label="Неделя" Width="Auto" AllowResize="False"/>
-                    <infg:Field Name="Payments" IsExpandable="True"/>
-				</infg:FieldLayout.Fields>
-			</infg:FieldLayout>
+        <infg:XamDataGrid x:Name="PaymentsGrid"
+                          DataSource="{Binding PaymentsGroups}"
+                          SelectedDataItem="{Binding SelectedItem, Mode=TwoWay}"
+                          Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
 
-            <infg:FieldLayout ParentFieldLayoutKey="GroupsLayout" ParentFieldName="Payments">
-                <infg:FieldLayout.Fields>
-                    <infg:TextField AlternateBinding="{Binding SalesUnit.Model.OrderPosition}" BindingType="UseAlternateBinding" Label="Поз." Width="Auto"/>
-                    <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" AllowEdit="True"/>
-                    <infg:NumericField AlternateBinding="{Binding Sum}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto"/>
-                    <infg:CheckBoxField Name="IsInPlanPayments" Label="Custom" Width="Auto"/>
-                </infg:FieldLayout.Fields>
-            </infg:FieldLayout>
+            <infg:XamDataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
+                </ContextMenu>
+            </infg:XamDataGrid.ContextMenu>
 
-		</infg:XamDataGrid.FieldLayouts>
-	</infg:XamDataGrid>
+            <infg:XamDataGrid.FieldLayouts>
+                <infg:FieldLayout Key="GroupsLayout">
+                    <infg:FieldLayout.Fields>
+                        <infg:TextField AlternateBinding="{Binding SalesUnit.Model.Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto" Converter="{StaticResource ObjectToStringConverter}"/>
+                        <infg:TextField AlternateBinding="{Binding SalesUnit.Model.Product}" BindingType="UseAlternateBinding" Label="Продукт" Width="Auto" Converter="{StaticResource ObjectToStringConverter}"/>
+                        <infg:TextField AlternateBinding="{Binding SalesUnit.Model.Order}" BindingType="UseAlternateBinding" Label="Заказ" Width="Auto" Converter="{StaticResource ObjectToStringConverter}"/>
+                        <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" AllowEdit="True"/>
+                        <infg:NumericField Name="Amount" Label="Кол." Width="Auto"/>
+                        <infg:NumericField Name="Sum" Label="Сумма" Width="Auto"/>
+                        <infg:TextField AlternateBinding="{Binding Condition}" BindingType="UseAlternateBinding" Label="Условие" Width="Auto" Converter="{StaticResource ObjectToStringConverter}"/>
+                        <infg:CheckBoxField Name="IsCustom" Label="Custom" Width="Auto"/>
+                        <infg:TextField AlternateBinding="{Binding SalesUnit.Model.Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto" Converter="{StaticResource ObjectToStringConverter}"/>
+                        <infg:TextField AlternateBinding="{Binding SalesUnit.Model.Specification.Contract}" BindingType="UseAlternateBinding" Label="Контракт" Width="Auto" Converter="{StaticResource ObjectToStringConverter}"/>
+                        <infg:TextField AlternateBinding="{Binding SalesUnit.Model.Specification}" BindingType="UseAlternateBinding" Label="Сп." Width="Auto" Converter="{StaticResource ObjectToStringConverter}"/>
+                        <infg:NumericField Name="Year" Label="Год" Width="Auto" AllowResize="False"/>
+                        <infg:TextField Name="Month" Label="Месяц" Width="Auto" AllowResize="False"/>
+                        <infg:TextField Name="Week" Label="Неделя" Width="Auto" AllowResize="False"/>
+                        <infg:Field Name="Payments" IsExpandable="True"/>
+                    </infg:FieldLayout.Fields>
+                </infg:FieldLayout>
 
+                <infg:FieldLayout ParentFieldLayoutKey="GroupsLayout" ParentFieldName="Payments">
+                    <infg:FieldLayout.Fields>
+                        <infg:TextField AlternateBinding="{Binding SalesUnit.Model.OrderPosition}" BindingType="UseAlternateBinding" Label="Поз." Width="Auto"/>
+                        <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" AllowEdit="True"/>
+                        <infg:NumericField AlternateBinding="{Binding Sum}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto"/>
+                        <infg:CheckBoxField Name="IsInPlanPayments" Label="Custom" Width="Auto"/>
+                    </infg:FieldLayout.Fields>
+                </infg:FieldLayout>
+
+            </infg:XamDataGrid.FieldLayouts>
+        </infg:XamDataGrid>
+
+    </Grid>
+    
 </inf:ViewBase>
 
 	

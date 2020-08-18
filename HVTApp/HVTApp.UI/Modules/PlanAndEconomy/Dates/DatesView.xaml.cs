@@ -1,10 +1,9 @@
 ﻿using HVTApp.Infrastructure;
 using HVTApp.UI.Modules.PlanAndEconomy.Tabs;
-using HVTApp.UI.Modules.PlanAndEconomy.ViewModels;
 using Prism.Events;
 using Prism.Regions;
 
-namespace HVTApp.UI.Modules.PlanAndEconomy.Views
+namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
 {
     [RibbonTab(typeof(TabDates))]
     public partial class DatesView

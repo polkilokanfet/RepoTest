@@ -5,54 +5,75 @@
               xmlns:controls="http://infragistics.com/Windows"
               x:Class="HVTApp.UI.Modules.Sales.Shippings.ShippingView">
 
-    <infg:XamDataGrid x:Name="ShippingListGrid" 
-                      DataSource="{Binding ShippingGroups}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-        <infg:XamDataGrid.ContextMenu>
-            <ContextMenu>
-                <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
-            </ContextMenu>
-        </infg:XamDataGrid.ContextMenu>
+        <Label Content="Ожидание данных..." VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label.Style>
+                <Style>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=ShippingListGrid, Path=Visibility}" Value="Visible">
+                            <Setter Property="Label.Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
 
-        <infg:XamDataGrid.FieldLayouts>
-
-            <infg:FieldLayout Key="GroupsLayout">
-
-                <infg:FieldLayout.RecordFilters>
-                    <infg:RecordFilter FieldName="IsShipped">
-                        <infg:RecordFilter.Conditions>
-                            <controls:ComparisonCondition Operator="Equals" Value="False" />
-                        </infg:RecordFilter.Conditions>
-                    </infg:RecordFilter>
-                </infg:FieldLayout.RecordFilters>
-
-                <infg:FieldLayout.Fields>
-                    <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Facility}" Label="Объект" Width="150" Converter="{StaticResource ObjectToStringConverter}"/>
-                    <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding ProductType}" Label="Тип" Width="200" Converter="{StaticResource ObjectToStringConverter}"/>
-                    <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding ProductDesignation}" Label="Обозначение" Width="250"/>
-                    <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding Amount}" Label="Кол." Width="Auto" AllowResize="False"/>
-                    <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Order}" Label="З/з" Width="Auto" AllowResize="False" Converter="{StaticResource ObjectToStringConverter}"/>
-                    <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Facility.OwnerCompany}" Label="Владелец объекта" Width="200" AllowResize="True" Converter="{StaticResource ObjectToStringConverter}"/>
-                    <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Company}" Label="Контрагент" Width="150" Converter="{StaticResource ObjectToStringConverter}"/>
-                    <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Specification}" Label="Сп.№" Width="Auto" Converter="{StaticResource ObjectToStringConverter}"/>
-                    <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Contract}" Label="Договор" Width="Auto" Converter="{StaticResource ObjectToStringConverter}"/>
-                    <infg:DateTimeField Name="Date" Label="Отгрузка" Width="Auto" AllowEdit="True"/>
-                    <infg:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding ProductionDate}" Label="Производство" Width="Auto"/>
-                    <infg:CheckBoxField BindingType="UseAlternateBinding" AlternateBinding="{Binding IsShipped}" Name="IsShipped" Label="Отгружено" Width="Auto"/>
-                    <infg:Field Name="Units" IsExpandable="True"/>
-                </infg:FieldLayout.Fields>
-            </infg:FieldLayout>
-
-            <infg:FieldLayout ParentFieldLayoutKey="GroupsLayout" ParentFieldName="Units">
-                <infg:FieldLayout.Fields>
-                    <infg:TextField AlternateBinding="{Binding Model.OrderPosition}" BindingType="UseAlternateBinding" Label="Поз." Width="Auto"/>
-                    <infg:TextField AlternateBinding="{Binding Model.SerialNumber}" BindingType="UseAlternateBinding" Label="С/н" Width="Auto"/>
-                    <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" AllowEdit="True"/>
-                </infg:FieldLayout.Fields>
-            </infg:FieldLayout>
+        <infg:XamDataGrid x:Name="ShippingListGrid" 
+                          DataSource="{Binding ShippingGroups}"                          
+                          Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
 
 
-        </infg:XamDataGrid.FieldLayouts>
-    </infg:XamDataGrid>
+            <infg:XamDataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
+                </ContextMenu>
+            </infg:XamDataGrid.ContextMenu>
+
+            <infg:XamDataGrid.FieldLayouts>
+
+                <infg:FieldLayout Key="GroupsLayout">
+
+                    <infg:FieldLayout.RecordFilters>
+                        <infg:RecordFilter FieldName="IsShipped">
+                            <infg:RecordFilter.Conditions>
+                                <controls:ComparisonCondition Operator="Equals" Value="False" />
+                            </infg:RecordFilter.Conditions>
+                        </infg:RecordFilter>
+                    </infg:FieldLayout.RecordFilters>
+
+                    <infg:FieldLayout.Fields>
+                        <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Facility}" Label="Объект" Width="150" Converter="{StaticResource ObjectToStringConverter}"/>
+                        <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding ProductType}" Label="Тип" Width="200" Converter="{StaticResource ObjectToStringConverter}"/>
+                        <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding ProductDesignation}" Label="Обозначение" Width="250"/>
+                        <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding Amount}" Label="Кол." Width="Auto" AllowResize="False"/>
+                        <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Order}" Label="З/з" Width="Auto" AllowResize="False" Converter="{StaticResource ObjectToStringConverter}"/>
+                        <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Facility.OwnerCompany}" Label="Владелец объекта" Width="200" AllowResize="True" Converter="{StaticResource ObjectToStringConverter}"/>
+                        <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Company}" Label="Контрагент" Width="150" Converter="{StaticResource ObjectToStringConverter}"/>
+                        <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Specification}" Label="Сп.№" Width="Auto" Converter="{StaticResource ObjectToStringConverter}"/>
+                        <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Contract}" Label="Договор" Width="Auto" Converter="{StaticResource ObjectToStringConverter}"/>
+                        <infg:DateTimeField Name="Date" Label="Отгрузка" Width="Auto" AllowEdit="True"/>
+                        <infg:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding ProductionDate}" Label="Производство" Width="Auto"/>
+                        <infg:CheckBoxField BindingType="UseAlternateBinding" AlternateBinding="{Binding IsShipped}" Name="IsShipped" Label="Отгружено" Width="Auto"/>
+                        <infg:Field Name="Units" IsExpandable="True"/>
+                    </infg:FieldLayout.Fields>
+                </infg:FieldLayout>
+
+                <infg:FieldLayout ParentFieldLayoutKey="GroupsLayout" ParentFieldName="Units">
+                    <infg:FieldLayout.Fields>
+                        <infg:TextField AlternateBinding="{Binding Model.OrderPosition}" BindingType="UseAlternateBinding" Label="Поз." Width="Auto"/>
+                        <infg:TextField AlternateBinding="{Binding Model.SerialNumber}" BindingType="UseAlternateBinding" Label="С/н" Width="Auto"/>
+                        <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" AllowEdit="True"/>
+                    </infg:FieldLayout.Fields>
+                </infg:FieldLayout>
+
+
+            </infg:XamDataGrid.FieldLayouts>
+        </infg:XamDataGrid>
+
+    </Grid>
     
 </inf:ViewBase>

@@ -5,11 +5,13 @@ using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Prism;
 using HVTApp.UI.Modules.BookRegistration.Views;
 using HVTApp.UI.Modules.Directum;
+using HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual;
+using HVTApp.UI.Modules.PlanAndEconomy.PaymentsPlan;
 using HVTApp.UI.Modules.PlanAndEconomy.Supervision;
-using HVTApp.UI.Modules.PlanAndEconomy.Views;
 using HVTApp.UI.Modules.Products.Views;
 using HVTApp.UI.Modules.Reports.FlatReport;
 using HVTApp.UI.Modules.Reports.MarketReport;
+using HVTApp.UI.Modules.Reports.Reference;
 using HVTApp.UI.Modules.Reports.SalesCharts.ConsumersSalesChart;
 using HVTApp.UI.Modules.Reports.SalesCharts.ContragentsSalesChart;
 using HVTApp.UI.Modules.Reports.SalesCharts.ManagersSalesChart;
@@ -25,8 +27,6 @@ using HVTApp.UI.ViewModels;
 using HVTApp.UI.Views;
 using Microsoft.Practices.Unity;
 using Prism.Regions;
-using PaymentsActualView = HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual.PaymentsActualView;
-using ReferenceView = HVTApp.UI.Modules.Reports.Reference.ReferenceView;
 
 namespace HVTApp.UI
 {

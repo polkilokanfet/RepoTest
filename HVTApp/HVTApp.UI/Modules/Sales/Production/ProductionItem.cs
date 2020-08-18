@@ -2,7 +2,7 @@ using System;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base;
 
-namespace HVTApp.UI.Modules.Sales.ViewModels
+namespace HVTApp.UI.Modules.Sales.Production
 {
     public class ProductionItem : WrapperBase<SalesUnit>
     {

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -12,14 +13,13 @@ using Prism.Commands;
 
 namespace HVTApp.UI.Modules.Sales.Shippings
 {
-    public class ShippingViewModel : ViewModelBaseCanExportToExcelSaveCustomization
+    public class ShippingViewModel : LoadableExportableViewModel
     {
         private IValidatableChangeTrackingCollection<ShippingUnitWrapper> _salesUnits;
 
         public ObservableCollection<ShippingGroup> ShippingGroups { get; } = new ObservableCollection<ShippingGroup>();
 
         public ICommand SaveCommand { get; }
-        public ICommand ReloadCommand { get; }
 
         public ShippingViewModel(IUnityContainer container) : base(container)
         {
@@ -30,13 +30,9 @@ namespace HVTApp.UI.Modules.Sales.Shippings
                     UnitOfWork.SaveChanges();
                 },
                 () => _salesUnits != null && _salesUnits.IsChanged && _salesUnits.IsValid);
-
-            ReloadCommand = new DelegateCommand(Load);
-
-            Load();
         }
 
-        private void Load()
+        protected override void GetData()
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
 
@@ -45,8 +41,7 @@ namespace HVTApp.UI.Modules.Sales.Shippings
             _salesUnits = new ValidatableChangeTrackingCollection<ShippingUnitWrapper>(salesUnits.Select(x => new ShippingUnitWrapper(x)));
             _salesUnits.PropertyChanged += OnSalesUnitPropertyChanged;
 
-            ShippingGroups.Clear();
-            var groups = _salesUnits.GroupBy(x => new
+            _groups = _salesUnits.GroupBy(x => new
             {
                 FacilityId = x.Model.Facility.Id,
                 ProductId = x.Model.Product.Id,
@@ -54,10 +49,17 @@ namespace HVTApp.UI.Modules.Sales.Shippings
                 ProjectId = x.Model.Project.Id,
                 SpecificationId = x.Model.Specification?.Id,
                 ShipmentDateCalculated = x.Model.ShipmentDateCalculated
-            }).OrderBy(x => x.Key.ShipmentDateCalculated);
-
-            ShippingGroups.AddRange(groups.Select(x => new ShippingGroup(x)));
+            }).OrderBy(x => x.Key.ShipmentDateCalculated)
+            .Select(x => new ShippingGroup(x));
         }
+
+        protected override void AfterGetData()
+        {
+            ShippingGroups.Clear();
+            ShippingGroups.AddRange(_groups);
+        }
+
+        private IEnumerable<ShippingGroup> _groups;
 
         private void OnSalesUnitPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {

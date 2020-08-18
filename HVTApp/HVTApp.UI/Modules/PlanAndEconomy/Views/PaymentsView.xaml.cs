@@ -4,6 +4,7 @@ using HVTApp.UI.Modules.PlanAndEconomy.Tabs;
 using HVTApp.UI.Modules.PlanAndEconomy.ViewModels;
 using Prism.Events;
 using Prism.Regions;
+using TabPayments = HVTApp.UI.Modules.PlanAndEconomy.PaymentsPlan.TabPayments;
 
 namespace HVTApp.UI.Modules.PlanAndEconomy.Views
 {

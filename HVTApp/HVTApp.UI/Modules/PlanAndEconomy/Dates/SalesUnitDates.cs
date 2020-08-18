@@ -2,9 +2,8 @@ using System;
 using System.Runtime.CompilerServices;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base;
-using HVTApp.Model.Wrapper;
 
-namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
+namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
 {
     public class SalesUnitDates : WrapperBase<SalesUnit>
     {

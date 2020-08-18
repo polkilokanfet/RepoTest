@@ -4,51 +4,74 @@
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure">
 
-    <infg:XamDataGrid x:Name="ReportGrid" DataSource="{Binding Units}">
-                       
-        <infg:XamDataGrid.ContextMenu>
-            <ContextMenu>
-                <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
-            </ContextMenu>
-        </infg:XamDataGrid.ContextMenu>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-        <infg:XamDataGrid.FieldLayouts>
-            <infg:FieldLayout>
-                <infg:FieldLayout.Fields>
-                    <infg:TextField AlternateBinding="{Binding FacilityOwners}" BindingType="UseAlternateBinding" Label="Владелец объекта" Width="100" AllowResize="True" />
-                    <infg:TextField AlternateBinding="{Binding ProjectName}" BindingType="UseAlternateBinding" Label="Проект" Width="150" AllowResize="True" />
-                    <infg:TextField AlternateBinding="{Binding Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto" AllowResize="True" />
-                    <infg:TextField AlternateBinding="{Binding ProductType}" BindingType="UseAlternateBinding" Label="Тип продукта" Width="Auto" AllowResize="True" />
-                    <infg:TextField AlternateBinding="{Binding Voltage}" BindingType="UseAlternateBinding" Label="Uн" Width="Auto" AllowResize="True" />
-                    <infg:TextField AlternateBinding="{Binding Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="100" AllowResize="True" />
-                    <infg:TextField AlternateBinding="{Binding ProductCategory}" BindingType="UseAlternateBinding" Label="Категория оборудования" Width="Auto" AllowResize="True" />
-                    <infg:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" AllowResize="True" />
-                    <infg:NumericField AlternateBinding="{Binding Cost}" BindingType="UseAlternateBinding" Label="Цена без НДС" Width="Auto" AllowResize="True" />
-                    <infg:NumericField AlternateBinding="{Binding Sum}" BindingType="UseAlternateBinding" Label="Стоимость" Width="Auto" AllowResize="True" />
-                    <infg:DateTimeField AlternateBinding="{Binding OrderInTakeDate}" BindingType="UseAlternateBinding" Label="ОИТ" Width="Auto" AllowResize="True" />
-                    <infg:NumericField AlternateBinding="{Binding OrderInTakeMonth}" BindingType="UseAlternateBinding" Label="Месяц ОИТ" Width="Auto" AllowResize="True" />
-                    <infg:NumericField AlternateBinding="{Binding OrderInTakeYear}" BindingType="UseAlternateBinding" Label="Год ОИТ" Width="Auto" AllowResize="True" />
-                    <infg:DateTimeField AlternateBinding="{Binding ShipmentDate}" BindingType="UseAlternateBinding" Label="Дата отгрузки" Width="Auto" AllowResize="True" />
-                    <infg:DateTimeField AlternateBinding="{Binding DeliveryDate}" BindingType="UseAlternateBinding" Label="Дата доставки" Width="Auto" AllowResize="True" />
-                    <infg:DateTimeField AlternateBinding="{Binding RealizationDate}" BindingType="UseAlternateBinding" Label="Дата реализации" Width="Auto" AllowResize="True" />
-                    <infg:DateTimeField AlternateBinding="{Binding RealizationDateRequared}" BindingType="UseAlternateBinding" Label="Дата реализации требуемая" Width="Auto" AllowResize="True" />
-                    <infg:DateTimeField AlternateBinding="{Binding RealizationDateContract}" BindingType="UseAlternateBinding" Label="Дата реализации по контракту" Width="Auto" AllowResize="True" />
-                    <infg:TextField AlternateBinding="{Binding Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto" AllowResize="True" />
-                    <infg:TextField AlternateBinding="{Binding District}" BindingType="UseAlternateBinding" Label="Федеральный округ" Width="Auto" AllowResize="True" />
-                    <infg:TextField AlternateBinding="{Binding Region}" BindingType="UseAlternateBinding" Label="Регион" Width="Auto" AllowResize="True" />
-                    <infg:TextField AlternateBinding="{Binding Segment}" BindingType="UseAlternateBinding" Label="Сегмент" Width="Auto" AllowResize="True" />
-                    <infg:TextField AlternateBinding="{Binding ProjectMaker}" BindingType="UseAlternateBinding" Label="Проектировщик" Width="Auto" AllowResize="True" />
-                    <infg:TextField AlternateBinding="{Binding Builder}" BindingType="UseAlternateBinding" Label="Подрядчик" Width="Auto" AllowResize="True" />
-                    <infg:TextField AlternateBinding="{Binding Supplier}" BindingType="UseAlternateBinding" Label="Поставщик" Width="Auto" AllowResize="True" />
-                    <infg:TextField AlternateBinding="{Binding Producer}" BindingType="UseAlternateBinding" Label="Производитель" Width="Auto" AllowResize="True" />
+        <Label Content="Ожидание данных..." VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label.Style>
+                <Style>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=ReportGrid, Path=Visibility}" Value="Visible">
+                            <Setter Property="Label.Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
 
-                    <infg:TextField AlternateBinding="{Binding Status}" BindingType="UseAlternateBinding" Label="Статус" Width="Auto" AllowResize="True" />
-                    <infg:TextField AlternateBinding="{Binding Order}" BindingType="UseAlternateBinding" Label="Заказ" Width="Auto" AllowResize="True" />
-                    <infg:TextField AlternateBinding="{Binding Manager}" BindingType="UseAlternateBinding" Label="Менеджер" Width="Auto" AllowResize="True" />
-                </infg:FieldLayout.Fields>
-            </infg:FieldLayout>
+        <infg:XamDataGrid x:Name="ReportGrid" 
+                          DataSource="{Binding Units}" 
+                          Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
 
-        </infg:XamDataGrid.FieldLayouts>
-    </infg:XamDataGrid>
+                <infg:XamDataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
+                </ContextMenu>
+            </infg:XamDataGrid.ContextMenu>
+
+                <infg:XamDataGrid.FieldLayouts>
+                <infg:FieldLayout>
+                    <infg:FieldLayout.Fields>
+                        <infg:TextField AlternateBinding="{Binding FacilityOwners}" BindingType="UseAlternateBinding" Label="Владелец объекта" Width="100" AllowResize="True" />
+                        <infg:TextField AlternateBinding="{Binding ProjectName}" BindingType="UseAlternateBinding" Label="Проект" Width="150" AllowResize="True" />
+                        <infg:TextField AlternateBinding="{Binding Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto" AllowResize="True" />
+                        <infg:TextField AlternateBinding="{Binding ProductType}" BindingType="UseAlternateBinding" Label="Тип продукта" Width="Auto" AllowResize="True" />
+                        <infg:TextField AlternateBinding="{Binding Voltage}" BindingType="UseAlternateBinding" Label="Uн" Width="Auto" AllowResize="True" />
+                        <infg:TextField AlternateBinding="{Binding Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="100" AllowResize="True" />
+                        <infg:TextField AlternateBinding="{Binding ProductCategory}" BindingType="UseAlternateBinding" Label="Категория оборудования" Width="Auto" AllowResize="True" />
+                        <infg:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" AllowResize="True" />
+                        <infg:NumericField AlternateBinding="{Binding Cost}" BindingType="UseAlternateBinding" Label="Цена без НДС" Width="Auto" AllowResize="True" />
+                        <infg:NumericField AlternateBinding="{Binding Sum}" BindingType="UseAlternateBinding" Label="Стоимость" Width="Auto" AllowResize="True" />
+                        <infg:DateTimeField AlternateBinding="{Binding OrderInTakeDate}" BindingType="UseAlternateBinding" Label="ОИТ" Width="Auto" AllowResize="True" />
+                        <infg:NumericField AlternateBinding="{Binding OrderInTakeMonth}" BindingType="UseAlternateBinding" Label="Месяц ОИТ" Width="Auto" AllowResize="True" />
+                        <infg:NumericField AlternateBinding="{Binding OrderInTakeYear}" BindingType="UseAlternateBinding" Label="Год ОИТ" Width="Auto" AllowResize="True" />
+                        <infg:DateTimeField AlternateBinding="{Binding ShipmentDate}" BindingType="UseAlternateBinding" Label="Дата отгрузки" Width="Auto" AllowResize="True" />
+                        <infg:DateTimeField AlternateBinding="{Binding DeliveryDate}" BindingType="UseAlternateBinding" Label="Дата доставки" Width="Auto" AllowResize="True" />
+                        <infg:DateTimeField AlternateBinding="{Binding RealizationDate}" BindingType="UseAlternateBinding" Label="Дата реализации" Width="Auto" AllowResize="True" />
+                        <infg:DateTimeField AlternateBinding="{Binding RealizationDateRequared}" BindingType="UseAlternateBinding" Label="Дата реализации требуемая" Width="Auto" AllowResize="True" />
+                        <infg:DateTimeField AlternateBinding="{Binding RealizationDateContract}" BindingType="UseAlternateBinding" Label="Дата реализации по контракту" Width="Auto" AllowResize="True" />
+                        <infg:TextField AlternateBinding="{Binding Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto" AllowResize="True" />
+                        <infg:TextField AlternateBinding="{Binding District}" BindingType="UseAlternateBinding" Label="Федеральный округ" Width="Auto" AllowResize="True" />
+                        <infg:TextField AlternateBinding="{Binding Region}" BindingType="UseAlternateBinding" Label="Регион" Width="Auto" AllowResize="True" />
+                        <infg:TextField AlternateBinding="{Binding Segment}" BindingType="UseAlternateBinding" Label="Сегмент" Width="Auto" AllowResize="True" />
+                        <infg:TextField AlternateBinding="{Binding ProjectMaker}" BindingType="UseAlternateBinding" Label="Проектировщик" Width="Auto" AllowResize="True" />
+                        <infg:TextField AlternateBinding="{Binding Builder}" BindingType="UseAlternateBinding" Label="Подрядчик" Width="Auto" AllowResize="True" />
+                        <infg:TextField AlternateBinding="{Binding Supplier}" BindingType="UseAlternateBinding" Label="Поставщик" Width="Auto" AllowResize="True" />
+                        <infg:TextField AlternateBinding="{Binding Producer}" BindingType="UseAlternateBinding" Label="Производитель" Width="Auto" AllowResize="True" />
+
+                        <infg:TextField AlternateBinding="{Binding Status}" BindingType="UseAlternateBinding" Label="Статус" Width="Auto" AllowResize="True" />
+                        <infg:TextField AlternateBinding="{Binding Order}" BindingType="UseAlternateBinding" Label="Заказ" Width="Auto" AllowResize="True" />
+                        <infg:TextField AlternateBinding="{Binding Manager}" BindingType="UseAlternateBinding" Label="Менеджер" Width="Auto" AllowResize="True" />
+                    </infg:FieldLayout.Fields>
+                </infg:FieldLayout>
+
+            </infg:XamDataGrid.FieldLayouts>
+        </infg:XamDataGrid>
+
+    </Grid>
+
+
     
 </inf:ViewBase>

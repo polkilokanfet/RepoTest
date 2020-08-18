@@ -8,8 +8,27 @@
 
 
     <Grid>
-        <infg:XamDataGrid DataSource="{Binding Items}">
-                       
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label Content="Ожидание данных..." VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label.Style>
+                <Style>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=Grid, Path=Visibility}" Value="Visible">
+                            <Setter Property="Label.Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
+
+        <infg:XamDataGrid x:Name="Grid" 
+                          DataSource="{Binding Items}" 
+                          Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+
+
             <infg:XamDataGrid.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
@@ -38,5 +57,15 @@
 
         </infg:XamDataGrid>
 
+
+        <infg:XamDataGrid x:Name="SupervisionsDataGrid" 
+                          DataSource="{Binding Units}" 
+                          VerticalAlignment="Stretch" 
+                          SelectedDataItemsScope="RecordsOrCells"
+                          SelectedDataItems="{Binding Path=SelectedUnits, Mode=TwoWay}" 
+                          Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+        </infg:XamDataGrid>
+
     </Grid>
+
 </inf:ViewBase>

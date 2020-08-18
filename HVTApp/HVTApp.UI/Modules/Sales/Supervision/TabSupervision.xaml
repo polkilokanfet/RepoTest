@@ -7,7 +7,7 @@
     
     <infRib:RibbonGroup Caption="Действия">
         <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveCommand}" SmallImage="/HVTApp.UI;component/Images/save.png"/>
-        <infRib:ButtonTool Caption="Обновить" Command="{Binding RefreshCommand}" SmallImage="/HVTApp.UI;component/Images/refresh.png"/>
+        <infRib:ButtonTool Caption="Обновить" Command="{Binding ReloadCommand}" SmallImage="/HVTApp.UI;component/Images/refresh.png"/>
     </infRib:RibbonGroup>
     
 </inf:RibbonTabItemWithViewModel>

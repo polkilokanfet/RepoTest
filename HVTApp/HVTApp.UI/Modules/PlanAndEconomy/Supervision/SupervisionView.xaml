@@ -4,11 +4,30 @@
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               x:Class="HVTApp.UI.Modules.PlanAndEconomy.Supervision.SupervisionView">
 
-    <GroupBox Header="Шеф-монтаж">
-        <infg:XamDataGrid DataSource="{Binding Units}" 
-                            VerticalAlignment="Stretch" 
-                            SelectedDataItemsScope="RecordsOrCells"
-                            SelectedDataItems="{Binding Path=SelectedUnits, Mode=TwoWay}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label Content="Ожидание данных..." VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label.Style>
+                <Style>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=SupervisionsDataGrid, Path=Visibility}" Value="Visible">
+                            <Setter Property="Label.Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
+
+        <infg:XamDataGrid x:Name="SupervisionsDataGrid" 
+                          DataSource="{Binding Units}" 
+                          VerticalAlignment="Stretch" 
+                          SelectedDataItemsScope="RecordsOrCells"
+                          SelectedDataItems="{Binding Path=SelectedUnits, Mode=TwoWay}" 
+                          Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+
 
             <infg:XamDataGrid.ContextMenu>
                 <ContextMenu>
@@ -40,7 +59,9 @@
 
             </infg:XamDataGrid.FieldLayouts>
         </infg:XamDataGrid>
-    </GroupBox>
+
+    </Grid>
+
 </inf:ViewBase>
 
 	

@@ -1,4 +1,4 @@
-﻿namespace HVTApp.UI.Modules.Sales.Tabs
+﻿namespace HVTApp.UI.Modules.Sales.Production
 {
     public partial class ProductionTab
     {

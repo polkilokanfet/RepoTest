@@ -1,6 +1,7 @@
 using System;
 using System.Windows.Data;
 using System.Windows.Media;
+using HVTApp.UI.Modules.Sales.Production;
 using HVTApp.UI.Modules.Sales.ViewModels;
 
 namespace HVTApp.UI.Modules.Sales.Market.Converters

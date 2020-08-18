@@ -1,4 +1,4 @@
-﻿namespace HVTApp.UI.Modules.PlanAndEconomy.Tabs
+﻿namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsPlan
 {
     public partial class TabPayments
     {

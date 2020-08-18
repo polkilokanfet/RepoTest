@@ -1,6 +1,6 @@
 using HVTApp.Model.POCOs;
 
-namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
+namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsPlan
 {
     public class Payment1
     {

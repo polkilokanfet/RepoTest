@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:infRib="http://infragistics.com/Ribbon" 
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-             x:Class="HVTApp.UI.Modules.Sales.Tabs.ProductionTab"
-             Header="Поступления">
+             x:Class="HVTApp.UI.Modules.Sales.Production.ProductionTab"
+             Header="Производство">
 
     <infRib:RibbonGroup Caption="Редактирование">
         <infRib:ButtonTool Caption="Разместить" Command="{Binding ProductUnitCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>

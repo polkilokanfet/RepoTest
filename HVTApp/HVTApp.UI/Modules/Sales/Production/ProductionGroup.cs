@@ -7,7 +7,7 @@ using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using Microsoft.Practices.ObjectBuilder2;
 
-namespace HVTApp.UI.Modules.Sales.ViewModels
+namespace HVTApp.UI.Modules.Sales.Production
 {
     public class ProductionGroup : IValidatableChangeTracking
     {

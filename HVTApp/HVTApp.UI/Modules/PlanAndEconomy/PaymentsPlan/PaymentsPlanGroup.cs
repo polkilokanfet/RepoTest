@@ -6,7 +6,7 @@ using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using Prism.Mvvm;
 
-namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
+namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsPlan
 {
     public class PaymentsPlanGroup : BindableBase
     {

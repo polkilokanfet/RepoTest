@@ -9,6 +9,7 @@ using HVTApp.Infrastructure.Services;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Modules.PlanAndEconomy.PaymentsPlan;
 using HVTApp.UI.Modules.PlanAndEconomy.ViewModels;
 using HVTApp.UI.Modules.Reports.ViewModels;
 using Microsoft.Practices.ObjectBuilder2;

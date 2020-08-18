@@ -7,14 +7,13 @@ using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
-using HVTApp.Model.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 
-namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
+namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
 {
-    public class DatesViewModel : ViewModelBaseCanExportToExcel
+    public class DatesViewModel : LoadableExportableViewModel
     {
         private IUnitOfWork _unitOfWork;
         private IValidatableChangeTrackingCollection<SalesUnitDates> _salesUnits;
@@ -22,7 +21,6 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
         public ObservableCollection<SalesUnitDatesGroup> Groups { get; } = new ObservableCollection<SalesUnitDatesGroup>();
 
         public ICommand SaveCommand { get; }
-        public ICommand ReloadCommand { get; }
 
         public bool AutoFillingDates { get; set; } = true;
 
@@ -45,12 +43,11 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
                 () => _salesUnits != null &&
                       _salesUnits.IsValid &&
                       _salesUnits.IsChanged);
-
-            ReloadCommand = new DelegateCommand(Load);
-            Load();
         }
 
-        public void Load()
+        private IOrderedEnumerable<SalesUnitDatesGroup> _groups;
+
+        protected override void GetData()
         {
             _unitOfWork = Container.Resolve<IUnitOfWork>();
 
@@ -64,9 +61,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
             //подписываемся на изменение каждой сущности
             _salesUnits.PropertyChanged += SalesUnitsOnPropertyChanged;
 
-            Groups.SelectMany(x => x.Units).ForEach(x => x.PropertyChanged -= UnitOnPropertyChanged);
-            Groups.Clear();
-            var groups = _salesUnits
+            _groups = _salesUnits
                 .GroupBy(x => new
                 {
                     Cost = x.Model.Cost,
@@ -83,8 +78,13 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
                 })
                 .Select(x => new SalesUnitDatesGroup(x))
                 .OrderBy(x => x.Units.First().Model.OrderInTakeDate);
+        }
 
-            Groups.AddRange(groups);
+        protected override void AfterGetData()
+        {
+            Groups.SelectMany(x => x.Units).ForEach(x => x.PropertyChanged -= UnitOnPropertyChanged);
+            Groups.Clear();
+            Groups.AddRange(_groups);
             Groups.SelectMany(x => x.Units).ForEach(x => x.PropertyChanged += UnitOnPropertyChanged);
         }
 

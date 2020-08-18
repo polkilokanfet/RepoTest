@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Services;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
@@ -16,9 +17,10 @@ using Prism.Regions;
 
 namespace HVTApp.UI.Modules.Reports.SalesReport
 {
-    public class SalesReportViewModel : ViewModelBaseCanExportToExcelSaveCustomization
+    public class SalesReportViewModel : LoadableExportableViewModel
     {
         private List<SalesReportUnit> _salesReportUnits;
+
         private SalesReportUnit _selectedSalesReportUnit;
         private DateTime _startDate;
         private DateTime _finishDate;
@@ -60,13 +62,10 @@ namespace HVTApp.UI.Modules.Reports.SalesReport
         public bool TabEditVisibility => GlobalAppProperties.User.RoleCurrent == Role.Admin ||
                                          GlobalAppProperties.User.RoleCurrent == Role.ReportMaker;
 
-        public ICommand ReloadCommand { get; }
         public ICommand EditFakeDataCommand { get; }
 
         public SalesReportViewModel(IUnityContainer container) : base(container)
         {
-            ReloadCommand = new DelegateCommand(Load);
-
             EditFakeDataCommand = new DelegateCommand(
                 () =>
                 {
@@ -76,20 +75,13 @@ namespace HVTApp.UI.Modules.Reports.SalesReport
                     });
                 },
                 () => SelectedSalesReportUnit != null);
-
-            Load();
         }
 
-        /// <summary>
-        /// Загрузка отчета
-        /// </summary>
-        public void Load()
+        protected override void GetData()
         {
-            Units.Clear();
-
             UnitOfWork = Container.Resolve<IUnitOfWork>();
-            var salesUnits = GlobalAppProperties.User.RoleCurrent == Role.SalesManager 
-                ? UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.ForReport && x.Project.Manager.IsAppCurrentUser()) 
+            var salesUnits = GlobalAppProperties.User.RoleCurrent == Role.SalesManager
+                ? UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.ForReport && x.Project.Manager.IsAppCurrentUser())
                 : UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.ForReport);
 
             //проставляем количество родительских юнитов включенного оборудования
@@ -108,10 +100,14 @@ namespace HVTApp.UI.Modules.Reports.SalesReport
             _salesReportUnits = groups
                 .Select(x => new SalesReportUnit(x, tenders.Where(t => Equals(x.Key.Project, t.Project)), countryUnions, x.First().ActualPriceCalculationItem(UnitOfWork)))
                 .ToList();
-            Units.AddRange(_salesReportUnits);
+        }
 
+        protected override void AfterGetData()
+        {
             _startDate = _salesReportUnits.Min(x => x.OrderInTakeDate);
             _finishDate = _salesReportUnits.Max(x => x.OrderInTakeDate);
+            RefreshUnits();
+            Container.Resolve<IMessageService>().ShowOkMessageDialog("Загрузка данных", "Загрузка отчета завершена.");
         }
 
         private void RefreshUnits()

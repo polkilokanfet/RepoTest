@@ -13,7 +13,7 @@ using Prism.Regions;
 
 namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
 {
-    public class PaymentsActualViewModel : ViewModelBaseCanExportToExcel
+    public class PaymentsActualViewModel : LoadableExportableViewModel
     {
         private object _selectedItem;
 
@@ -34,24 +34,26 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
 
         public ICommand NewCommand { get; }
         public ICommand EditCommand { get; }
-        public ICommand ReloadCommand { get; }
 
         public PaymentsActualViewModel(IUnityContainer container) : base(container)
         {
-            Load();
-
             NewCommand = new DelegateCommand(() => RequestNavigate(new PaymentDocument()));
             EditCommand = new DelegateCommand(
                 () => RequestNavigate((SelectedItem as SalesUnitPayment).PaymentDocument),
                 () => SelectedItem is SalesUnitPayment);
-            ReloadCommand = new DelegateCommand(Load);
         }
 
-        private void Load()
+        private void RequestNavigate(PaymentDocument paymentDocument)
+        {
+            Container.Resolve<IRegionManager>().RequestNavigateContentRegion<PaymentsActual.PaymentDocumentView>(new NavigationParameters { { "", paymentDocument } });
+        }
+
+        private IOrderedEnumerable<SalesUnitPaymentGroup> _groups;
+        protected override void GetData()
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
 
-            var salesUnits = GlobalAppProperties.User.RoleCurrent == Role.SalesManager 
+            var salesUnits = GlobalAppProperties.User.RoleCurrent == Role.SalesManager
                 ? UnitOfWork.Repository<SalesUnit>().Find(x => Equals(x.Project.Manager.Id, GlobalAppProperties.User.Id) && x.PaymentsActual.Any())
                 : UnitOfWork.Repository<SalesUnit>().Find(x => x.PaymentsActual.Any());
             var documents = UnitOfWork.Repository<PaymentDocument>().GetAll();
@@ -59,26 +61,24 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
             var payments = new List<SalesUnitPayment>();
             foreach (var salesUnit in salesUnits)
             {
-                payments.AddRange(salesUnit.PaymentsActual.Select(payment => 
+                payments.AddRange(salesUnit.PaymentsActual.Select(payment =>
                     new SalesUnitPayment(salesUnit, payment, documents.Single(x => x.Payments.Contains(payment)))));
             }
-            var groups = payments.GroupBy(x => new
+            _groups = payments.GroupBy(x => new
                 {
                     OrderId = x.SalesUnit.Order?.Id,
                     FacilityId = x.SalesUnit.Facility.Id,
                     ProductId = x.SalesUnit.Product.Id,
-                SpecificationId = x.SalesUnit.Specification?.Id
+                    SpecificationId = x.SalesUnit.Specification?.Id
                 })
                 .Select(x => new SalesUnitPaymentGroup(x))
                 .OrderByDescending(x => x.LastDate);
-
-            PaymentGroups.Clear();
-            PaymentGroups.AddRange(groups);
         }
 
-        private void RequestNavigate(PaymentDocument paymentDocument)
+        protected override void AfterGetData()
         {
-            Container.Resolve<IRegionManager>().RequestNavigateContentRegion<PaymentsActual.PaymentDocumentView>(new NavigationParameters { { "", paymentDocument } });
+            PaymentGroups.Clear();
+            PaymentGroups.AddRange(_groups);
         }
     }
 }

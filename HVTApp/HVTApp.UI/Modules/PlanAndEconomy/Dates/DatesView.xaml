@@ -3,7 +3,7 @@
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               xmlns:controls="http://infragistics.com/Windows"
-              x:Class="HVTApp.UI.Modules.PlanAndEconomy.Views.DatesView">
+              x:Class="HVTApp.UI.Modules.PlanAndEconomy.Dates.DatesView">
 
     <inf:ViewBase.Resources>
         <Style x:Key="BoltFontCellsStyle" TargetType="{x:Type infg:CellValuePresenter}">
@@ -22,11 +22,10 @@
 
     <Grid>
          <Grid.RowDefinitions>
-             <RowDefinition Height="Auto"/>
              <RowDefinition Height="*"/>
          </Grid.RowDefinitions>
          
-        <Label Grid.Row="0" Content="Ожидание данных..." VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Label Content="Ожидание данных..." VerticalAlignment="Center" HorizontalAlignment="Center">
             <Label.Style>
                 <Style>
                 <Style.Triggers>
@@ -38,10 +37,9 @@
             </Label.Style>
         </Label>
 
-        <infg:XamDataGrid Grid.Row="1" 
-                            x:Name="ContentGrid"
-                            Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}"
-                            DataSource="{Binding Groups}">
+        <infg:XamDataGrid x:Name="ContentGrid" 
+                          Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}" 
+                          DataSource="{Binding Groups}">
 
             <infg:XamDataGrid.ContextMenu>
 				<ContextMenu>

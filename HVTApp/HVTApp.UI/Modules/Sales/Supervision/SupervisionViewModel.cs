@@ -52,7 +52,6 @@ namespace HVTApp.UI.Modules.Sales.Supervision
 
         public SupervisionViewModel(IUnityContainer container) : base(container)
         {
-            Load();
             this.PropertyChanged += (sender, args) =>
             {
                 if (args.PropertyName == nameof(SelectedUnits))
@@ -62,14 +61,14 @@ namespace HVTApp.UI.Modules.Sales.Supervision
             };
         }
 
-        protected override void Load()
+        protected override void GetData()
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
             var userId = GlobalAppProperties.User.Id;
 
             //шеф-монтажи (сохраненные)
             var supervisions = UnitOfWork.Repository<Model.POCOs.Supervision>().Find(x => x.SalesUnit.Project.Manager.Id == userId);
-            var units = supervisions.Select(supervision => new SupervisionWr(supervision)).ToList();
+            Wrappers = supervisions.Select(supervision => new SupervisionWr(supervision)).ToList();
 
             //выигранное оборудование со включенным шеф-монтажом
             var salesUnits = UnitOfWork.Repository<SalesUnit>()
@@ -77,12 +76,7 @@ namespace HVTApp.UI.Modules.Sales.Supervision
                     .Except(supervisions.Select(x => x.SalesUnit)) //еще не сохраненное
                     .Where(x => x.ProductsIncluded.Any(pi => pi.Product.ProductBlock.IsSupervision)); //в которое включен шеф-монтаж
 
-            units.AddRange(salesUnits.Select(x => new SupervisionWr(x)));
-
-            Units.Clear();
-
-            Units.AddRange(units.OrderBy(x => x.DateFinish).ThenBy(x => x.Model.SalesUnit.OrderInTakeDate));
-            Units.AcceptChanges();
+            Wrappers.AddRange(salesUnits.Select(x => new SupervisionWr(x)));
         }
     }
 }

@@ -4,10 +4,11 @@ using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Modules.PlanAndEconomy.ViewModels;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 
-namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
+namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsPlan
 {
     public class PaymentsPlanViewModel : ViewModelBaseCanExportToExcel
     {

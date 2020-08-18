@@ -2,7 +2,9 @@
 using HVTApp.Model;
 using HVTApp.UI.Modules.PlanAndEconomy.Supervision;
 using HVTApp.UI.Modules.PlanAndEconomy.Views;
+using DatesView = HVTApp.UI.Modules.PlanAndEconomy.Dates.DatesView;
 using PaymentsActualView = HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual.PaymentsActualView;
+using PaymentsPlanView = HVTApp.UI.Modules.PlanAndEconomy.PaymentsPlan.PaymentsPlanView;
 
 namespace HVTApp.Modules.PlanAndEconomy.Menus
 {

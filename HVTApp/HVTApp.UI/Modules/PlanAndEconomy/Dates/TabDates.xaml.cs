@@ -1,4 +1,4 @@
-﻿namespace HVTApp.UI.Modules.PlanAndEconomy.Tabs
+﻿namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
 {
     public partial class TabDates
     {

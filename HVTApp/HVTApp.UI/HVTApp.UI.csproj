@@ -165,6 +165,7 @@
     <Compile Include="Modules\PlanAndEconomy\Supervision\TabSupervision.xaml.cs">
       <DependentUpon>TabSupervision.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Reports\MarketReport\ProducersMarket.cs" />
     <Compile Include="Modules\Sales\Market\Converters\ProductionGroupToColorConverter.cs" />
     <Compile Include="Modules\Sales\Market\Converters\ProjectItemToColorConverter.cs" />
     <Compile Include="Modules\Sales\Payments\PaymentsGroup.cs" />
@@ -287,7 +288,7 @@
     <Compile Include="Modules\PlanAndEconomy\Tabs\TabPaymentDocument.xaml.cs">
       <DependentUpon>TabPaymentDocument.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\PlanAndEconomy\Tabs\TabPayments.xaml.cs">
+    <Compile Include="Modules\PlanAndEconomy\PaymentsPlan\TabPayments.xaml.cs">
       <DependentUpon>TabPayments.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\PlanAndEconomy\Tabs\TabPaymentsActual.xaml.cs">
@@ -296,21 +297,21 @@
     <Compile Include="Modules\PlanAndEconomy\Tabs\TabProductionPlan.xaml.cs">
       <DependentUpon>TabProductionPlan.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\PlanAndEconomy\Tabs\TabDates.xaml.cs">
+    <Compile Include="Modules\PlanAndEconomy\Dates\TabDates.xaml.cs">
       <DependentUpon>TabDates.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\PlanAndEconomy\ViewModels\Dates\DatesViewModel.cs" />
+    <Compile Include="Modules\PlanAndEconomy\Dates\DatesViewModel.cs" />
     <Compile Include="Modules\PlanAndEconomy\ViewModels\Groups\ISalesUnitOrder.cs" />
-    <Compile Include="Modules\PlanAndEconomy\ViewModels\Dates\SalesUnitDates.cs" />
-    <Compile Include="Modules\PlanAndEconomy\ViewModels\Dates\SalesUnitDatesGroup.cs" />
+    <Compile Include="Modules\PlanAndEconomy\Dates\SalesUnitDates.cs" />
+    <Compile Include="Modules\PlanAndEconomy\Dates\SalesUnitDatesGroup.cs" />
     <Compile Include="Modules\PlanAndEconomy\ViewModels\Groups\SalesUnitOrderItem.cs" />
     <Compile Include="Modules\PlanAndEconomy\ViewModels\Groups\SalesUnitOrderGroup.cs" />
     <Compile Include="Modules\PlanAndEconomy\ViewModels\Groups\SalesUnitOrderGroupsCollection.cs" />
     <Compile Include="Modules\PlanAndEconomy\PaymentsActual\SalesUnitPayment.cs" />
     <Compile Include="Modules\PlanAndEconomy\PaymentsActual\SalesUnitPaymentWrapper.cs" />
-    <Compile Include="Modules\PlanAndEconomy\ViewModels\PaymentsPlan\Payment1.cs" />
-    <Compile Include="Modules\PlanAndEconomy\ViewModels\PaymentsPlan\PaymentsPlanGroup.cs" />
-    <Compile Include="Modules\PlanAndEconomy\ViewModels\PaymentsPlan\PaymentsPlanViewModel.cs" />
+    <Compile Include="Modules\PlanAndEconomy\PaymentsPlan\Payment1.cs" />
+    <Compile Include="Modules\PlanAndEconomy\PaymentsPlan\PaymentsPlanGroup.cs" />
+    <Compile Include="Modules\PlanAndEconomy\PaymentsPlan\PaymentsPlanViewModel.cs" />
     <Compile Include="Modules\PlanAndEconomy\ViewModels\ProductionPlan\AfterSaveOrderItemsEvent.cs" />
     <Compile Include="Modules\PlanAndEconomy\ViewModels\ProductionPlan\OrderViewModel.cs" />
     <Compile Include="Modules\PlanAndEconomy\PaymentsActual\Payment.cs" />
@@ -320,7 +321,7 @@
     <Compile Include="Modules\PlanAndEconomy\ViewModels\ProductionPlan\OrderItem.cs" />
     <Compile Include="Modules\PlanAndEconomy\ViewModels\ProductionPlan\ProductionPlanViewModel.cs" />
     <Compile Include="Modules\PlanAndEconomy\ViewModels\ProjectItem.cs" />
-    <Compile Include="Modules\PlanAndEconomy\Views\DatesView.xaml.cs">
+    <Compile Include="Modules\PlanAndEconomy\Dates\DatesView.xaml.cs">
       <DependentUpon>DatesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\PlanAndEconomy\Views\OrderView.xaml.cs">
@@ -332,7 +333,7 @@
     <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentsActualView.xaml.cs">
       <DependentUpon>PaymentsActualView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\PlanAndEconomy\Views\PaymentsPlanView.xaml.cs">
+    <Compile Include="Modules\PlanAndEconomy\PaymentsPlan\PaymentsPlanView.xaml.cs">
       <DependentUpon>PaymentsPlanView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\PlanAndEconomy\Views\PaymentsView.xaml.cs">
@@ -425,7 +426,7 @@
     <Compile Include="Modules\Sales\Payments\PaymentsTab.xaml.cs">
       <DependentUpon>PaymentsTab.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Sales\Tabs\ProductionTab.xaml.cs">
+    <Compile Include="Modules\Sales\Production\ProductionTab.xaml.cs">
       <DependentUpon>ProductionTab.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Sales\Shippings\ShippingTab.xaml.cs">
@@ -462,9 +463,9 @@
     <Compile Include="Modules\Sales\ViewModels\OffersViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\OfferViewModel.cs" />
     <Compile Include="Modules\Sales\Payments\PaymentsViewModel.cs" />
-    <Compile Include="Modules\Sales\ViewModels\ProductionViewModel\ProductionGroup.cs" />
-    <Compile Include="Modules\Sales\ViewModels\ProductionViewModel\ProductionItem.cs" />
-    <Compile Include="Modules\Sales\ViewModels\ProductionViewModel\ProductionViewModel.cs" />
+    <Compile Include="Modules\Sales\Production\ProductionGroup.cs" />
+    <Compile Include="Modules\Sales\Production\ProductionItem.cs" />
+    <Compile Include="Modules\Sales\Production\ProductionViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\ProductsIncludedViewModel.cs" />
     <Compile Include="Modules\Sales\Market\Items\ProjectItem.cs" />
     <Compile Include="Modules\Sales\ViewModels\ProjectNotesWrapper.cs" />
@@ -496,7 +497,7 @@
     <Compile Include="Modules\Sales\Payments\PaymentsView.xaml.cs">
       <DependentUpon>PaymentsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Sales\Views\ProductionView.xaml.cs">
+    <Compile Include="Modules\Sales\Production\ProductionView.xaml.cs">
       <DependentUpon>ProductionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Sales\Views\ProductsIncludedWindow.xaml.cs">
@@ -905,7 +906,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Modules\PlanAndEconomy\Tabs\TabPayments.xaml">
+    <Page Include="Modules\PlanAndEconomy\PaymentsPlan\TabPayments.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -917,11 +918,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Modules\PlanAndEconomy\Tabs\TabDates.xaml">
+    <Page Include="Modules\PlanAndEconomy\Dates\TabDates.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Modules\PlanAndEconomy\Views\DatesView.xaml">
+    <Page Include="Modules\PlanAndEconomy\Dates\DatesView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -937,7 +938,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Modules\PlanAndEconomy\Views\PaymentsPlanView.xaml">
+    <Page Include="Modules\PlanAndEconomy\PaymentsPlan\PaymentsPlanView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1109,7 +1110,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Modules\Sales\Tabs\ProductionTab.xaml">
+    <Page Include="Modules\Sales\Production\ProductionTab.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1149,7 +1150,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Modules\Sales\Views\ProductionView.xaml">
+    <Page Include="Modules\Sales\Production\ProductionView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

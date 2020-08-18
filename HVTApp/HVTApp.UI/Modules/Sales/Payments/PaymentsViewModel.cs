@@ -13,7 +13,7 @@ using Prism.Commands;
 
 namespace HVTApp.UI.Modules.Sales.Payments
 {
-    public class PaymentsViewModel : ViewModelBaseCanExportToExcelSaveCustomization
+    public class PaymentsViewModel : LoadableExportableViewModel
     {
         private IValidatableChangeTrackingCollection<SalesUnitWrapper1> _salesUnitWrappers;
         private object _selectedItem;
@@ -34,7 +34,6 @@ namespace HVTApp.UI.Modules.Sales.Payments
         public ICommand SaveCommand { get; }
         public ICommand RefreshCommand { get; }
         public ICommand RemoveCommand { get; }
-        public ICommand ReloadCommand { get; }
 
         public ICommand ExpandCommand { get; }
         public ICommand CollapseCommand { get; }
@@ -51,7 +50,6 @@ namespace HVTApp.UI.Modules.Sales.Payments
                 }, 
                 () => _salesUnitWrappers != null && _salesUnitWrappers.IsChanged && _salesUnitWrappers.IsValid);
 
-            ReloadCommand = new DelegateCommand(Load);
 
             RefreshCommand = new DelegateCommand(RefreshPayments);
 
@@ -84,14 +82,9 @@ namespace HVTApp.UI.Modules.Sales.Payments
             ExpandCommand = new DelegateCommand(() => { ExpandCollapseEvent?.Invoke(true); });
             //свернуть
             CollapseCommand = new DelegateCommand(() => { ExpandCollapseEvent?.Invoke(false); });
-
-            Load();
         }
 
-        /// <summary>
-        /// Загрузка плановых платежей
-        /// </summary>
-        protected void Load()
+        protected override void GetData()
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
 
@@ -104,7 +97,10 @@ namespace HVTApp.UI.Modules.Sales.Payments
             //подписка на изменение
             _salesUnitWrappers.PropertyChanged += (sender, args) => ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
             _salesUnitWrappers.CollectionChanged += (sender, args) => ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
+        }
 
+        protected override void AfterGetData()
+        {
             RefreshPayments();
         }
 
@@ -133,7 +129,6 @@ namespace HVTApp.UI.Modules.Sales.Payments
             PaymentsGroups.Clear();
             PaymentsGroups.AddRange(groups.Select(x => new PaymentsGroup(x)));
         }
-
 
         private IEnumerable<PaymentWrapper> GetPayments(SalesUnitWrapper1 salesUnitWrapper)
         {
