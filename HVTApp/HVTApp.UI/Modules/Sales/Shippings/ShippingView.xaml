@@ -2,30 +2,13 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-              xmlns:controls="http://infragistics.com/Windows"
-              x:Class="HVTApp.UI.Modules.Sales.Shippings.ShippingView">
+              xmlns:igWpf="http://infragistics.com/Windows"
+              x:Class="HVTApp.UI.Modules.Sales.Shippings.ShippingView"
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls">
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+    <controls:LoadableContentControl ContentIsLoaded="{Binding IsLoaded}">
 
-        <Label Content="Ожидание данных..." VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Label.Style>
-                <Style>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=ShippingListGrid, Path=Visibility}" Value="Visible">
-                            <Setter Property="Label.Visibility" Value="Collapsed"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Label.Style>
-        </Label>
-
-        <infg:XamDataGrid x:Name="ShippingListGrid" 
-                          DataSource="{Binding ShippingGroups}"                          
-                          Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
-
+        <infg:XamDataGrid DataSource="{Binding ShippingGroups}">
 
             <infg:XamDataGrid.ContextMenu>
                 <ContextMenu>
@@ -40,7 +23,7 @@
                     <infg:FieldLayout.RecordFilters>
                         <infg:RecordFilter FieldName="IsShipped">
                             <infg:RecordFilter.Conditions>
-                                <controls:ComparisonCondition Operator="Equals" Value="False" />
+                                <igWpf:ComparisonCondition Operator="Equals" Value="False" />
                             </infg:RecordFilter.Conditions>
                         </infg:RecordFilter>
                     </infg:FieldLayout.RecordFilters>
@@ -74,6 +57,6 @@
             </infg:XamDataGrid.FieldLayouts>
         </infg:XamDataGrid>
 
-    </Grid>
+    </controls:LoadableContentControl>
     
 </inf:ViewBase>

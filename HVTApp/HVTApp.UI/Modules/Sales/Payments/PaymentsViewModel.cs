@@ -13,7 +13,7 @@ using Prism.Commands;
 
 namespace HVTApp.UI.Modules.Sales.Payments
 {
-    public class PaymentsViewModel : LoadableExportableViewModel
+    public class PaymentsViewModel : LoadableExportableExpandCollapseViewModel
     {
         private IValidatableChangeTrackingCollection<SalesUnitWrapper1> _salesUnitWrappers;
         private object _selectedItem;
@@ -34,11 +34,6 @@ namespace HVTApp.UI.Modules.Sales.Payments
         public ICommand SaveCommand { get; }
         public ICommand RefreshCommand { get; }
         public ICommand RemoveCommand { get; }
-
-        public ICommand ExpandCommand { get; }
-        public ICommand CollapseCommand { get; }
-
-        public event Action<bool> ExpandCollapseEvent;
 
         public PaymentsViewModel(IUnityContainer container) : base(container)
         {
@@ -78,10 +73,6 @@ namespace HVTApp.UI.Modules.Sales.Payments
                     return false;
                 });
 
-            //развернуть
-            ExpandCommand = new DelegateCommand(() => { ExpandCollapseEvent?.Invoke(true); });
-            //свернуть
-            CollapseCommand = new DelegateCommand(() => { ExpandCollapseEvent?.Invoke(false); });
         }
 
         protected override void GetData()

@@ -154,7 +154,9 @@
     <Compile Include="UnityExtensions.cs" />
     <Compile Include="ViewBase.cs" />
     <Compile Include="ViewBaseConfirmNavigationRequest.cs" />
+    <Compile Include="ViewBaseSaveCustomization.cs" />
     <Compile Include="ViewModels\LoadableBindableBaseCanExportToExcel.cs" />
+    <Compile Include="ViewModels\LoadableExportableExpandCollapseViewModel.cs" />
     <Compile Include="ViewModels\LoadableExportableViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\ViewModelBaseCanExportToExcel.cs" />

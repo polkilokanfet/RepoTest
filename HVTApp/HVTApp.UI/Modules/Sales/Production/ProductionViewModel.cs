@@ -13,7 +13,7 @@ using Prism.Commands;
 
 namespace HVTApp.UI.Modules.Sales.Production
 {
-    public class ProductionViewModel : LoadableExportableViewModel
+    public class ProductionViewModel : LoadableExportableExpandCollapseViewModel
     {
         private object _selectedToProduction;
         private object _selectedInProduction;

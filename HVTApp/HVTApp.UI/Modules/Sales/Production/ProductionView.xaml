@@ -1,160 +1,139 @@
-﻿<inf:ViewBase xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<inf:ViewBaseSaveCustomization xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-              xmlns:controls="http://infragistics.com/Windows"
+              xmlns:igWpf="http://infragistics.com/Windows"
               xmlns:localConverters="clr-namespace:HVTApp.UI.Modules.Sales.Market.Converters"
-              x:Class="HVTApp.UI.Modules.Sales.Production.ProductionView">
-    
+              x:Class="HVTApp.UI.Modules.Sales.Production.ProductionView"
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls">
+
     <inf:ViewBase.Resources>
         <localConverters:ProductionGroupToColorConverter x:Key="ProductionGroupToColorConverter"/>
     </inf:ViewBase.Resources>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+    <controls:LoadableContentControl x:Name="LoadbleControl" ContentIsLoaded="{Binding IsLoaded}">
 
-        <Label Content="Ожидание данных..." VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Label.Style>
-                <Style>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=Grid, Path=Visibility}" Value="Visible">
-                            <Setter Property="Label.Visibility" Value="Collapsed"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Label.Style>
-        </Label>
+        <Grid>
 
-        <Grid x:Name="Grid" 
-              Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
-            
-            <Grid Name="ContentGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-
-                <GroupBox Grid.Row="0" Header="Размещенное в производстве оборудование">
-                    <infg:XamDataGrid x:Name="ProductionListGrid"
-                                  DataSource="{Binding GroupsInProduction}"
+            <GroupBox Grid.Row="0" Header="Размещенное в производстве оборудование">
+                <infg:XamDataGrid DataSource="{Binding GroupsInProduction}"
                                   SelectedDataItem="{Binding SelectedInProduction, Mode=TwoWay}">
 
-                        <infg:XamDataGrid.Resources>
-                            <Style TargetType="{x:Type infg:DataRecordPresenter}">
-                                <Setter Property="Background">
-                                    <Setter.Value>
-                                        <SolidColorBrush Color="{Binding Path=DataItem, Converter={StaticResource ProductionGroupToColorConverter}}" Opacity="0.3" />
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </infg:XamDataGrid.Resources>
+                    <infg:XamDataGrid.Resources>
+                        <Style TargetType="{x:Type infg:DataRecordPresenter}">
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="{Binding Path=DataItem, Converter={StaticResource ProductionGroupToColorConverter}}" Opacity="0.3" />
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </infg:XamDataGrid.Resources>
 
 
-                        <infg:XamDataGrid.ContextMenu>
-                            <ContextMenu>
-                                <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
-                            </ContextMenu>
-                        </infg:XamDataGrid.ContextMenu>
+                    <infg:XamDataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
+                        </ContextMenu>
+                    </infg:XamDataGrid.ContextMenu>
 
-                        <infg:XamDataGrid.FieldLayouts>
-                            <infg:FieldLayout>
+                    <infg:XamDataGrid.FieldLayouts>
+                        <infg:FieldLayout>
 
-                                <infg:FieldLayout.RecordFilters>
-                                    <infg:RecordFilter FieldName="IsProduced">
-                                        <infg:RecordFilter.Conditions>
-                                            <controls:ComparisonCondition Operator="Equals" Value="False" />
-                                        </infg:RecordFilter.Conditions>
-                                    </infg:RecordFilter>
-                                </infg:FieldLayout.RecordFilters>
+                            <infg:FieldLayout.RecordFilters>
+                                <infg:RecordFilter FieldName="IsProduced">
+                                    <infg:RecordFilter.Conditions>
+                                        <igWpf:ComparisonCondition Operator="Equals" Value="False" />
+                                    </infg:RecordFilter.Conditions>
+                                </infg:RecordFilter>
+                            </infg:FieldLayout.RecordFilters>
 
-                                <infg:FieldLayout.Fields>
-                                    <infg:TextField AlternateBinding="{Binding SalesUnit.Facility}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Объект" Width="200" AllowResize="True"/>
-                                    <infg:TextField AlternateBinding="{Binding SalesUnit.Product.ProductType.Name}" BindingType="UseAlternateBinding" Label="Тип оборудования" Width="200" AllowResize="True"/>
-                                    <infg:TextField AlternateBinding="{Binding SalesUnit.Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="400"/>
-                                    <infg:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" AllowResize="False"/>
-                                    <infg:TextField AlternateBinding="{Binding SalesUnit.Order.Number}" BindingType="UseAlternateBinding" Label="З/з" Width="Auto"/>
-                                    <infg:DateTimeField AlternateBinding="{Binding SalesUnit.EndProductionDateCalculated}" BindingType="UseAlternateBinding" Label="Фактическая" Width="Auto" AllowResize="False"/>
-                                    <infg:DateTimeField AlternateBinding="{Binding EndProductionDateExpected}" BindingType="UseAlternateBinding" Label="Требуемая" Width="Auto" AllowResize="False"/>
-                                    <infg:NumericField AlternateBinding="{Binding DifExpected}" BindingType="UseAlternateBinding" Label="DE" Width="Auto" AllowResize="False"/>
-                                    <infg:DateTimeField AlternateBinding="{Binding SalesUnit.EndProductionDateByContractCalculated}" BindingType="UseAlternateBinding" Label="По договору" Width="Auto" AllowResize="False"/>
-                                    <infg:NumericField AlternateBinding="{Binding DifContract}" BindingType="UseAlternateBinding" Label="DC" Width="Auto" AllowResize="False"/>
-                                    <infg:TextField AlternateBinding="{Binding SalesUnit.Facility.OwnerCompany}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Владелец объекта" Width="200" AllowResize="True"/>
-                                    <infg:TextField AlternateBinding="{Binding SalesUnit.Specification.Contract.Contragent}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Контрагент" Width="200" AllowResize="True"/>
-                                    <infg:TextField AlternateBinding="{Binding SalesUnit.Specification}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Сп.№" Width="Auto"/>
-                                    <infg:TextField AlternateBinding="{Binding SalesUnit.Specification.Contract}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
-                                    <infg:CheckBoxField Name="IsProduced" AlternateBinding="{Binding IsProduced}" BindingType="UseAlternateBinding" Label="Произведено" Width="Auto" AllowResize="False"/>
-                                    <infg:Field Name="ProductionItems" IsExpandable="True"/>
-                                </infg:FieldLayout.Fields>
-                            </infg:FieldLayout>
+                            <infg:FieldLayout.Fields>
+                                <infg:TextField AlternateBinding="{Binding SalesUnit.Facility}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Объект" Width="200" AllowResize="True"/>
+                                <infg:TextField AlternateBinding="{Binding SalesUnit.Product.ProductType.Name}" BindingType="UseAlternateBinding" Label="Тип оборудования" Width="200" AllowResize="True"/>
+                                <infg:TextField AlternateBinding="{Binding SalesUnit.Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="400"/>
+                                <infg:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" AllowResize="False"/>
+                                <infg:TextField AlternateBinding="{Binding SalesUnit.Order.Number}" BindingType="UseAlternateBinding" Label="З/з" Width="Auto"/>
+                                <infg:DateTimeField AlternateBinding="{Binding SalesUnit.EndProductionDateCalculated}" BindingType="UseAlternateBinding" Label="Фактическая" Width="Auto" AllowResize="False"/>
+                                <infg:DateTimeField AlternateBinding="{Binding EndProductionDateExpected}" BindingType="UseAlternateBinding" Label="Требуемая" Width="Auto" AllowResize="False"/>
+                                <infg:NumericField AlternateBinding="{Binding DifExpected}" BindingType="UseAlternateBinding" Label="DE" Width="Auto" AllowResize="False"/>
+                                <infg:DateTimeField AlternateBinding="{Binding SalesUnit.EndProductionDateByContractCalculated}" BindingType="UseAlternateBinding" Label="По договору" Width="Auto" AllowResize="False"/>
+                                <infg:NumericField AlternateBinding="{Binding DifContract}" BindingType="UseAlternateBinding" Label="DC" Width="Auto" AllowResize="False"/>
+                                <infg:TextField AlternateBinding="{Binding SalesUnit.Facility.OwnerCompany}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Владелец объекта" Width="200" AllowResize="True"/>
+                                <infg:TextField AlternateBinding="{Binding SalesUnit.Specification.Contract.Contragent}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Контрагент" Width="200" AllowResize="True"/>
+                                <infg:TextField AlternateBinding="{Binding SalesUnit.Specification}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Сп.№" Width="Auto"/>
+                                <infg:TextField AlternateBinding="{Binding SalesUnit.Specification.Contract}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
+                                <infg:CheckBoxField Name="IsProduced" AlternateBinding="{Binding IsProduced}" BindingType="UseAlternateBinding" Label="Произведено" Width="Auto" AllowResize="False"/>
+                                <infg:Field Name="ProductionItems" IsExpandable="True"/>
+                            </infg:FieldLayout.Fields>
+                        </infg:FieldLayout>
 
-                            <infg:FieldLayout ParentFieldName="ProductionItems">
-                                <infg:FieldLayout.Fields>
-                                    <infg:TextField AlternateBinding="{Binding Model.OrderPosition}" BindingType="UseAlternateBinding" Label="Поз." Width="Auto" AllowResize="True"/>
-                                    <infg:DateTimeField AlternateBinding="{Binding Model.EndProductionDateCalculated}" BindingType="UseAlternateBinding" Label="Фактическая" Width="Auto" AllowResize="False"/>
-                                    <infg:DateTimeField Name="EndProductionDateExpected" Label="Требуемая" Width="Auto" AllowResize="False"/>
-                                    <infg:NumericField AlternateBinding="{Binding DifExpected}" BindingType="UseAlternateBinding" Label="DE" Width="Auto" AllowResize="False"/>
-                                    <infg:DateTimeField AlternateBinding="{Binding Model.EndProductionDateByContractCalculated}" BindingType="UseAlternateBinding" Label="По договору" Width="Auto" AllowResize="False"/>
-                                    <infg:NumericField AlternateBinding="{Binding DifContract}" BindingType="UseAlternateBinding" Label="DC" Width="Auto" AllowResize="False"/>
-                                    <infg:TextField AlternateBinding="{Binding TceInfo}" BindingType="UseAlternateBinding" Label="TCE" Width="Auto"/>
-                                </infg:FieldLayout.Fields>
-                            </infg:FieldLayout>
+                        <infg:FieldLayout ParentFieldName="ProductionItems">
+                            <infg:FieldLayout.Fields>
+                                <infg:TextField AlternateBinding="{Binding Model.OrderPosition}" BindingType="UseAlternateBinding" Label="Поз." Width="Auto" AllowResize="True"/>
+                                <infg:DateTimeField AlternateBinding="{Binding Model.EndProductionDateCalculated}" BindingType="UseAlternateBinding" Label="Фактическая" Width="Auto" AllowResize="False"/>
+                                <infg:DateTimeField Name="EndProductionDateExpected" Label="Требуемая" Width="Auto" AllowResize="False"/>
+                                <infg:NumericField AlternateBinding="{Binding DifExpected}" BindingType="UseAlternateBinding" Label="DE" Width="Auto" AllowResize="False"/>
+                                <infg:DateTimeField AlternateBinding="{Binding Model.EndProductionDateByContractCalculated}" BindingType="UseAlternateBinding" Label="По договору" Width="Auto" AllowResize="False"/>
+                                <infg:NumericField AlternateBinding="{Binding DifContract}" BindingType="UseAlternateBinding" Label="DC" Width="Auto" AllowResize="False"/>
+                                <infg:TextField AlternateBinding="{Binding TceInfo}" BindingType="UseAlternateBinding" Label="TCE" Width="Auto"/>
+                            </infg:FieldLayout.Fields>
+                        </infg:FieldLayout>
 
 
-                        </infg:XamDataGrid.FieldLayouts>
+                    </infg:XamDataGrid.FieldLayouts>
 
-                    </infg:XamDataGrid>
-                </GroupBox>
+                </infg:XamDataGrid>
+            </GroupBox>
 
-                <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="5"/>
+            <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="5"/>
 
-                <GroupBox Grid.Row="2" Header="Потенциальное">
-                    <infg:XamDataGrid x:Name="PotentialListGrid"
-                                  DataSource="{Binding GroupsToProduction}"
+            <GroupBox Grid.Row="2" Header="Потенциальное">
+                <infg:XamDataGrid DataSource="{Binding GroupsToProduction}" 
                                   SelectedDataItem="{Binding SelectedToProduction, Mode=TwoWay}">
 
-                        <infg:XamDataGrid.FieldLayouts>
+                    <infg:XamDataGrid.FieldLayouts>
 
-                            <infg:FieldLayout>
-                                <infg:FieldLayout.Fields>
-                                    <infg:TextField AlternateBinding="{Binding SalesUnit.Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="200"/>
-                                    <infg:TextField AlternateBinding="{Binding SalesUnit.Product.ProductType.Name}" BindingType="UseAlternateBinding" Label="Тип оборудования" Width="200"/>
-                                    <infg:TextField AlternateBinding="{Binding SalesUnit.Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="400"/>
-                                    <infg:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto"/>
-                                    <infg:DateTimeField Name="EndProductionDateExpected" Label="Требуемая" AllowEdit="True" Width="Auto" AllowResize="False"/>
-                                    <infg:TextField AlternateBinding="{Binding SalesUnit.Facility.OwnerCompany}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Владелец объекта" Width="200"/>
-                                    <infg:TextField AlternateBinding="{Binding SalesUnit.Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="200"/>
-                                    <infg:TextField AlternateBinding="{Binding SalesUnit.Specification}" BindingType="UseAlternateBinding" Label="Сп.№" Width="Auto"/>
-                                    <infg:TextField AlternateBinding="{Binding SalesUnit.Specification.Contract}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
-                                    <infg:Field Name="ProductionItems" IsExpandable="True"/>
-                                </infg:FieldLayout.Fields>
-                            </infg:FieldLayout>
+                        <infg:FieldLayout>
+                            <infg:FieldLayout.Fields>
+                                <infg:TextField AlternateBinding="{Binding SalesUnit.Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="200"/>
+                                <infg:TextField AlternateBinding="{Binding SalesUnit.Product.ProductType.Name}" BindingType="UseAlternateBinding" Label="Тип оборудования" Width="200"/>
+                                <infg:TextField AlternateBinding="{Binding SalesUnit.Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="400"/>
+                                <infg:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto"/>
+                                <infg:DateTimeField Name="EndProductionDateExpected" Label="Требуемая" AllowEdit="True" Width="Auto" AllowResize="False"/>
+                                <infg:TextField AlternateBinding="{Binding SalesUnit.Facility.OwnerCompany}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Владелец объекта" Width="200"/>
+                                <infg:TextField AlternateBinding="{Binding SalesUnit.Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="200"/>
+                                <infg:TextField AlternateBinding="{Binding SalesUnit.Specification}" BindingType="UseAlternateBinding" Label="Сп.№" Width="Auto"/>
+                                <infg:TextField AlternateBinding="{Binding SalesUnit.Specification.Contract}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
+                                <infg:Field Name="ProductionItems" IsExpandable="True"/>
+                            </infg:FieldLayout.Fields>
+                        </infg:FieldLayout>
 
-                            <infg:FieldLayout ParentFieldName="ProductionItems">
-                                <infg:FieldLayout.Fields>
-                                    <infg:TextField AlternateBinding="{Binding Model.Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="200"/>
-                                    <infg:TextField AlternateBinding="{Binding Model.Product.ProductType}" BindingType="UseAlternateBinding" Label="Тип оборудования" Width="200"/>
-                                    <infg:TextField AlternateBinding="{Binding Model.Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="400"/>
-                                    <infg:DateTimeField Name="EndProductionDateExpected" Label="Требуемая" AllowEdit="True" Width="Auto" AllowResize="False"/>
-                                    <infg:TextField AlternateBinding="{Binding Model.Facility.OwnerCompany}" BindingType="UseAlternateBinding" Label="Владелец объекта" Width="200"/>
-                                    <infg:TextField AlternateBinding="{Binding Model.Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="200"/>
-                                    <infg:TextField AlternateBinding="{Binding Model.Specification}" BindingType="UseAlternateBinding" Label="Сп.№" Width="Auto"/>
-                                    <infg:TextField AlternateBinding="{Binding Model.Specification.Contract}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
-                                    <infg:TextField AlternateBinding="{Binding TceInfo}" BindingType="UseAlternateBinding" Label="TCE" Width="Auto"/>
-                                </infg:FieldLayout.Fields>
-                            </infg:FieldLayout>
+                        <infg:FieldLayout ParentFieldName="ProductionItems">
+                            <infg:FieldLayout.Fields>
+                                <infg:TextField AlternateBinding="{Binding Model.Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="200"/>
+                                <infg:TextField AlternateBinding="{Binding Model.Product.ProductType}" BindingType="UseAlternateBinding" Label="Тип оборудования" Width="200"/>
+                                <infg:TextField AlternateBinding="{Binding Model.Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="400"/>
+                                <infg:DateTimeField Name="EndProductionDateExpected" Label="Требуемая" AllowEdit="True" Width="Auto" AllowResize="False"/>
+                                <infg:TextField AlternateBinding="{Binding Model.Facility.OwnerCompany}" BindingType="UseAlternateBinding" Label="Владелец объекта" Width="200"/>
+                                <infg:TextField AlternateBinding="{Binding Model.Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="200"/>
+                                <infg:TextField AlternateBinding="{Binding Model.Specification}" BindingType="UseAlternateBinding" Label="Сп.№" Width="Auto"/>
+                                <infg:TextField AlternateBinding="{Binding Model.Specification.Contract}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
+                                <infg:TextField AlternateBinding="{Binding TceInfo}" BindingType="UseAlternateBinding" Label="TCE" Width="Auto"/>
+                            </infg:FieldLayout.Fields>
+                        </infg:FieldLayout>
 
-                        </infg:XamDataGrid.FieldLayouts>
-                    </infg:XamDataGrid>
-                </GroupBox>
-
-            </Grid>
+                    </infg:XamDataGrid.FieldLayouts>
+                </infg:XamDataGrid>
+            </GroupBox>
 
         </Grid>
 
-    </Grid>
+    </controls:LoadableContentControl>
     
-</inf:ViewBase>	
+</inf:ViewBaseSaveCustomization>	

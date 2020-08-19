@@ -2,28 +2,13 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-              xmlns:controls="http://infragistics.com/Windows"
-              x:Class="HVTApp.UI.Modules.PriceMaking.Views.PricesView">
+              xmlns:igWpf="http://infragistics.com/Windows"
+              x:Class="HVTApp.UI.Modules.PriceMaking.Views.PricesView"
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls">
 
-    <Grid>
-         <Grid.RowDefinitions>
-             <RowDefinition Height="Auto"/>
-             <RowDefinition Height="*"/>
-         </Grid.RowDefinitions>
-         
-        <Label Grid.Row="0" Content="Ожидание данных..." VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Label.Style>
-                <Style>
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding ElementName=PricesListGrid, Path=Visibility}" Value="Visible">
-                        <Setter Property="Label.Visibility" Value="Collapsed"/>
-                    </DataTrigger>
-                </Style.Triggers>
-                </Style>
-            </Label.Style>
-        </Label>
-       
-        <GroupBox Grid.Row="1" Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+    <controls:LoadableContentControl ContentIsLoaded="{Binding IsLoaded}">
+
+        <GroupBox>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*"/>
@@ -33,8 +18,7 @@
                 
                 <GroupBox Header="Блоки оборудования">
                 
-		            <infg:XamDataGrid x:Name="PricesListGrid" 
-                                      DataSource="{Binding PriceTasks}"
+		            <infg:XamDataGrid DataSource="{Binding PriceTasks}"
                                       SelectedDataItem="{Binding SelectedPriceTask}">
                         
         
@@ -44,7 +28,7 @@
                                 <infg:FieldLayout.RecordFilters>
                                     <infg:RecordFilter FieldName="HasReasons">
                                         <infg:RecordFilter.Conditions>
-                                            <controls:ComparisonCondition Operator="Equals" Value="True" />
+                                            <igWpf:ComparisonCondition Operator="Equals" Value="True" />
                                         </infg:RecordFilter.Conditions>
                                     </infg:RecordFilter>
                                 </infg:FieldLayout.RecordFilters>
@@ -91,5 +75,7 @@
             </Grid>
             
         </GroupBox>
-    </Grid>
+
+    </controls:LoadableContentControl>
+
 </inf:ViewBase>

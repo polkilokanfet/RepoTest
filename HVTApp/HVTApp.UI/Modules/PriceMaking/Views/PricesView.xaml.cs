@@ -1,10 +1,9 @@
 ﻿using System.Windows;
 using HVTApp.Infrastructure;
-using HVTApp.UI.Modules.PlanAndEconomy.Tabs;
+using HVTApp.UI.Modules.PriceMaking.Tabs;
 using HVTApp.UI.Modules.PriceMaking.ViewModels;
 using Prism.Events;
 using Prism.Regions;
-using TabPriceTasks = HVTApp.UI.Modules.PriceMaking.Tabs.TabPriceTasks;
 
 namespace HVTApp.UI.Modules.PriceMaking.Views
 {

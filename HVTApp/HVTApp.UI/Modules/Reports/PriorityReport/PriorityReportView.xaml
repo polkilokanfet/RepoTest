@@ -2,28 +2,12 @@
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:infg="http://infragistics.com/DataPresenter"
-              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure">
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls">
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-        <Label Content="Ожидание данных..." VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Label.Style>
-                <Style>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=PriorityGrid, Path=Visibility}" Value="Visible">
-                            <Setter Property="Label.Visibility" Value="Collapsed"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Label.Style>
-        </Label>
-
-        <infg:XamDataGrid x:Name="PriorityGrid" 
-                          DataSource="{Binding Groups}" 
-                          Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+    <controls:LoadableContentControl ContentIsLoaded="{Binding IsLoaded}">
+        
+        <infg:XamDataGrid DataSource="{Binding Groups}">
 
 
             <infg:XamDataGrid.ContextMenu>
@@ -68,7 +52,6 @@
             </infg:XamDataGrid.FieldLayouts>
         </infg:XamDataGrid>
 
-    </Grid>
-
-    
+    </controls:LoadableContentControl>
+   
 </inf:ViewBase>

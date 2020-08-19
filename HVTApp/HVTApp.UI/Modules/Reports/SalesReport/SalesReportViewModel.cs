@@ -17,7 +17,7 @@ using Prism.Regions;
 
 namespace HVTApp.UI.Modules.Reports.SalesReport
 {
-    public class SalesReportViewModel : LoadableExportableViewModel
+    public class SalesReportViewModel : LoadableExportableExpandCollapseViewModel
     {
         private List<SalesReportUnit> _salesReportUnits;
 
