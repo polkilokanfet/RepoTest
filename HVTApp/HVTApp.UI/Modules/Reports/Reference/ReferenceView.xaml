@@ -3,11 +3,43 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-              xmlns:prism="http://prismlibrary.com/"             
-              prism:ViewModelLocator.AutoWireViewModel="True">
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls">
 
+    <controls:LoadableContentControl>
+        
+        <infg:XamDataGrid DataSource="{Binding Items}">
 
-    <Grid>
+            <infg:XamDataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
+                </ContextMenu>
+            </infg:XamDataGrid.ContextMenu>
+
+            <infg:XamDataGrid.FieldLayouts>
+                <infg:FieldLayout>
+                    <infg:FieldLayout.Fields>
+                        <infg:TextField AlternateBinding="{Binding FacilityOwner}" BindingType="UseAlternateBinding" Label="Владелец Объекта" Width="Auto" />
+                        <infg:TextField AlternateBinding="{Binding Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto" />
+                        <infg:TextField AlternateBinding="{Binding ProductType}" BindingType="UseAlternateBinding" Label="Тип продукта" Width="Auto" />
+                        <infg:TextField AlternateBinding="{Binding Voltage}" BindingType="UseAlternateBinding" Label="Uн" Width="Auto" />
+                        <infg:TextField AlternateBinding="{Binding Product}" BindingType="UseAlternateBinding" Label="Продукт" Width="Auto" />
+                        <infg:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" />
+                        <infg:DateTimeField AlternateBinding="{Binding ShipmentDate}" BindingType="UseAlternateBinding" Label="Отгрузка" Width="Auto" />
+                        <infg:TextField AlternateBinding="{Binding Manager}" BindingType="UseAlternateBinding" Label="Менеджер" Width="Auto" />
+                        <infg:TextField AlternateBinding="{Binding Region}" BindingType="UseAlternateBinding" Label="Регион" Width="Auto" />
+                        <infg:TextField AlternateBinding="{Binding District}" BindingType="UseAlternateBinding" Label="Округ" Width="Auto" />
+                        <infg:TextField AlternateBinding="{Binding Country}" BindingType="UseAlternateBinding" Label="Страна" Width="Auto" />
+                        <infg:TextField AlternateBinding="{Binding Order}" BindingType="UseAlternateBinding" Label="Зав.зак." Width="Auto" />
+                        <infg:TextField AlternateBinding="{Binding Numbers}" BindingType="UseAlternateBinding" Label="Номера" Width="Auto" />
+                    </infg:FieldLayout.Fields>
+                </infg:FieldLayout>
+            </infg:XamDataGrid.FieldLayouts>
+
+        </infg:XamDataGrid>
+
+    </controls:LoadableContentControl>
+
+    <!--<Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -57,15 +89,6 @@
 
         </infg:XamDataGrid>
 
-
-        <infg:XamDataGrid x:Name="SupervisionsDataGrid" 
-                          DataSource="{Binding Units}" 
-                          VerticalAlignment="Stretch" 
-                          SelectedDataItemsScope="RecordsOrCells"
-                          SelectedDataItems="{Binding Path=SelectedUnits, Mode=TwoWay}" 
-                          Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
-        </infg:XamDataGrid>
-
-    </Grid>
+    </Grid>-->
 
 </inf:ViewBase>

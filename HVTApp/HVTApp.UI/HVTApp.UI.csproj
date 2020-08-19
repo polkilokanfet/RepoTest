@@ -100,6 +100,9 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\LoadableContentControl.xaml.cs">
+      <DependentUpon>LoadableContentControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converter\LookupsToStringConverter.cs" />
     <Compile Include="Converter\ObjectsToStringConverter.cs" />
     <Compile Include="Converter\ObjectToStringConverter.cs" />
@@ -817,6 +820,10 @@
     <Page Include="Controls\ChooseItemsListControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\LoadableContentControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Modules\BookRegistration\Tabs\TabIncomingRequest.xaml">
       <Generator>MSBuild:Compile</Generator>

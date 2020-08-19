@@ -29,14 +29,14 @@ namespace HVTApp.Modules.Sales
     {
         public SalesModule(IUnityContainer container, IRegionManager regionManager) : base(container, regionManager)
         {
-#if DEBUG
-#else
-            //проверка на объекты без местоположения
-            if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager)
-            {
-                CheckFacilities(container);
-            }
-#endif
+//#if DEBUG
+//#else
+//            //проверка на объекты без местоположения
+//            if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager)
+//            {
+//                CheckFacilities(container);
+//            }
+//#endif
         }
 
         private static List<Facility> _facilities;
