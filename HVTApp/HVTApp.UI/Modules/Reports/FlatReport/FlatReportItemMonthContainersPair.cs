@@ -34,25 +34,39 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
             _containers = new List<FlatReportItemMonthContainer> {container1, container2};
         }
 
+        public bool CanMoveItem
+        {
+            get
+            {
+                var richContainer = RichContainer;
+                var poorContainer = PoorContainer;
+
+                //нельзя скинуть из пустого контейнера
+                if (!richContainer.FlatReportItems.Any())
+                    return false;
+
+                //нельзя скинуть айтемы, которые уже в ОИТе
+                if (richContainer.FlatReportItems.All(x => x.SalesUnit.OrderIsTaken))
+                    return false;
+
+                //нельзя скинуть в контейнер из прошлого
+                if (poorContainer.IsPast)
+                    return false;
+
+                return true;
+            }
+        }
+
         /// <summary>
         /// Перекинуть айтем из богатого контейнера в бедный
         /// </summary>
         public void MoveItem()
         {
+            if (!CanMoveItem)
+                return;
+
             var richContainer = RichContainer;
             var poorContainer = PoorContainer;
-
-            //нельзя скинуть из пустого контейнера
-            if (!richContainer.FlatReportItems.Any())
-                return;
-
-            //нельзя скинуть айтемы, которые уже в ОИТе
-            if (richContainer.FlatReportItems.All(x => x.SalesUnit.OrderIsTaken))
-                return;
-
-            //нельзя скинуть в контейнер из прошлого
-            if (poorContainer.IsPast)
-                return;
 
             var item = richContainer.FlatReportItems
                 .Where(x => !x.SalesUnit.OrderIsTaken)

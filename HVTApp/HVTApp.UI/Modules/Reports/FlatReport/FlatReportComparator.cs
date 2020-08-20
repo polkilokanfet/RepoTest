@@ -18,7 +18,10 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
             var difList = new List<double>();
             double dif;
 
+            //Формирование пар контейнеров
             var pairs = GetPairs(containers).ToList();
+
+
             while (!pairs.All(x => x.IsOk))
             {
                 pairs.Where(x => x.CanMove).OrderByDescending(x => x.Difference).ForEach(x =>

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.TestDataGenerator
@@ -241,12 +243,18 @@ namespace HVTApp.TestDataGenerator
                 ProductIncludedDefault = ProductZip1,
                 IsolationMaterialGroup = ParameterGroupIsolationMaterial,
                 IsolationColorGroup = ParameterGroupIsolationColor,
-                IsolationDpuGroup = ParameterGroupIsolation
+                IsolationDpuGroup = ParameterGroupIsolation,
+                Developer = UserKosolapov,
+                LastDeveloperVizit = DateTime.Today,
+                StandartTermFromPickToEndProduction = 7,
+                StandartTermFromStartToEndProduction = 120,
+                ActualPriceTerm = 90,
+                Date = DateTime.Today
             });
 
             #if DEBUG
-            GlobalProperties.IncomingRequestsPath = @"G:\HVTAppTest\Requests";
-            GlobalProperties.DirectumAttachmentsPath = @"G:\HVTAppTest\Directum";
+            GlobalProperties.IncomingRequestsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "HVTAppTest", "Requests");
+            GlobalProperties.DirectumAttachmentsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "HVTAppTest", "Directum");
             #endif
         }
 

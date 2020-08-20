@@ -111,8 +111,8 @@
                                 <infg:FieldLayout.Fields>
                                     <infg:NumericField Name="Year" Label="Год" Width="Auto"/>
                                     <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding MonthName}" Label="Месяц" Width="Auto"/>
-                                    <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding CurrentSum}" Label="Сумма" Width="Auto"/>
-                                    <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding TargetSum}" Label="Цель" Width="Auto"/>
+                                    <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding CurrentSum}" Label="Набрано" Width="Auto"/>
+                                    <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding TargetSum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Label="Цель" AllowEdit="True" Width="Auto"/>
                                     <infg:CheckBoxField BindingType="UseAlternateBinding" AlternateBinding="{Binding IsOk}" Label="V" Width="Auto"/>
                                 </infg:FieldLayout.Fields>
                             </infg:FieldLayout>

@@ -2,12 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure.Extansions;
+using Prism.Mvvm;
 
 namespace HVTApp.UI.Modules.Reports.FlatReport
 {
     [System.Diagnostics.DebuggerDisplay("{" + nameof(ToString) + "()}")]
-    public class FlatReportItemMonthContainer
+    public class FlatReportItemMonthContainer : BindableBase
     {
+        private double _targetSum;
+
         public List<FlatReportItem> FlatReportItems { get; }
 
         public DateTime Date => new DateTime(Year, Month, DateTime.DaysInMonth(Year, Month));
@@ -20,9 +23,21 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
         public double CurrentSum => FlatReportItems.Sum(x => x.Sum);
 
         /// <summary>
-        /// Целевая сумма
+        /// Целевая сумма (к которой необходимо стремиться).
         /// </summary>
-        public double TargetSum { get; }
+        public double TargetSum
+        {
+            get { return _targetSum; }
+            set
+            {
+                if (IsPast)
+                    return;
+
+                _targetSum = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(IsOk));
+            }
+        }
 
         /// <summary>
         /// Точность попадания (в долях: 0,01; 0,05 и т.д.)
@@ -54,7 +69,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
         {
             FlatReportItems = flatReportItems?.ToList() ?? new List<FlatReportItem>();
 
-            TargetSum = targetSum;
+            _targetSum = targetSum;
             Accuracy = accuracy;
 
             Year = date?.Year ?? FlatReportItems.First().EstimatedOrderInTakeDate.Year;

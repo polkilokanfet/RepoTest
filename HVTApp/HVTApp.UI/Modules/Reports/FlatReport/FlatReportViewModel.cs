@@ -80,16 +80,35 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
         public ObservableCollection<FlatReportItemYearContainer> YearContainers { get; } = new ObservableCollection<FlatReportItemYearContainer>();
         public ObservableCollection<FlatReportItemManagerContainer> ManagerContainers { get; } = new ObservableCollection<FlatReportItemManagerContainer>();
 
+        #region Commands
+
         /// <summary>
         /// Суммарная цена на все отмеченные айтемы
         /// </summary>
         public double Sum => Items.Where(x => x.InReport).Sum(x => x.Sum);
 
+        /// <summary>
+        /// Перезагрузить исходные данные
+        /// </summary>
         public ICommand ReloadCommand { get; set; }
+
+        /// <summary>
+        /// Выровнять данные
+        /// </summary>
         public ICommand AlignCommand { get; }
+
+        /// <summary>
+        /// Свормировать отчеты
+        /// </summary>
         public ICommand MakeReportCommand { get; }
 
+        /// <summary>
+        /// Прибавить месяц
+        /// </summary>
         public ICommand AddMonthCommand { get; set; }
+        
+
+        #endregion
 
         public FlatReportViewModel(IUnityContainer container) : base(container)
         {
@@ -111,7 +130,8 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
             AlignCommand = new DelegateCommand(
                 () =>
                 {
-                    var containers = FlatReportComparator.Align(GenerateMonthContainers()).ToList();
+                    //var containers = FlatReportComparator.Align(GenerateMonthContainers()).ToList();
+                    var containers = FlatReportComparator.Align(MonthContainers).ToList();
                     containers.ForEach(x => x.FillEstimatedOrderInTakeDates());
                     MonthContainers.Clear();
                     MonthContainers.AddRange(containers);
