@@ -13,8 +13,11 @@ namespace HVTApp.UI.Components
     {
         protected abstract XamDataGrid DataGrid { get; }
 
-        private string PathToCustomFile => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), FileName);
-        private string PathToCustomFileDeveloper => Path.Combine(GlobalAppProperties.Actual.IncomingRequestsPath, $"{FileName}Developer");
+        private string PathToCustomDirectory => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "HVTAppViewsCustom");
+        private string PathToCustomFile => Path.Combine(PathToCustomDirectory, FileName);
+
+        private string PathToCustomDirectoryDeveloper => Path.Combine(GlobalAppProperties.Actual.IncomingRequestsPath, "HVTAppViewsCustom");
+        private string PathToCustomFileDeveloper => Path.Combine(PathToCustomDirectoryDeveloper, $"{FileName}Developer");
 
         private string FileName => this.GetType().Name;
 
@@ -27,19 +30,9 @@ namespace HVTApp.UI.Components
             //сохранение кастомизации вида
             viewModel.SaveGridCustomisationEvent += () =>
             {
-                using (var fs = new FileStream(PathToCustomFile, FileMode.OpenOrCreate, FileAccess.ReadWrite))
-                {
-                    DataGrid.SaveCustomizations(fs);
-                }
-
-                //если разработчик сохраняет
+                SaveGridCustomisation(PathToCustomDirectory, PathToCustomFile);
                 if (GlobalAppProperties.User.Id == GlobalAppProperties.Actual.Developer.Id)
-                {
-                    using (var fs = new FileStream(PathToCustomFileDeveloper, FileMode.OpenOrCreate, FileAccess.ReadWrite))
-                    {
-                        DataGrid.SaveCustomizations(fs);
-                    }
-                }
+                    SaveGridCustomisation(PathToCustomDirectoryDeveloper, PathToCustomFileDeveloper);
             };
 
             //подписка на событие раскрытия всех юнитов
@@ -51,6 +44,17 @@ namespace HVTApp.UI.Components
                 ExpandCollapseMethod(true);
                 ExpandCollapseMethod(false);
             };
+        }
+
+        private void SaveGridCustomisation(string pathDirectory, string pathFile)
+        {
+            if (!Directory.Exists(pathDirectory))
+                Directory.CreateDirectory(pathDirectory);
+
+            using (var fs = new FileStream(pathFile, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+            {
+                DataGrid.SaveCustomizations(fs);
+            }
         }
 
         private void ExpandCollapseMethod(bool expand)
@@ -91,9 +95,10 @@ namespace HVTApp.UI.Components
         /// <returns></returns>
         private bool LoadCustomisation(string path)
         {
-            if (!File.Exists(path)) return false;
+            if (!File.Exists(path))
+                return false;
 
-            using (var fs = new FileStream(PathToCustomFileDeveloper, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+            using (var fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.ReadWrite))
             {
                 DataGrid.LoadCustomizations(fs);
             }
