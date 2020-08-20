@@ -7,11 +7,9 @@ using Prism.Regions;
 namespace HVTApp.UI.Modules.Sales.Payments
 {
     [RibbonTab(typeof(PaymentsTab))]
-    public partial class PaymentsView : ViewBaseSaveCustomization
+    public partial class PaymentsView
     {
-        protected override string FileName => "paymentsPlannedSalesCustomisation.xml";
-
-        protected override XamDataGrid DataGrid => (XamDataGrid)this.LoadbleControl.Content;
+        protected override XamDataGrid DataGrid => this.LoadbleControl.Content as XamDataGrid;
 
         public PaymentsView(PaymentsViewModel viewModel, IRegionManager regionManager, IEventAggregator eventAggregator) : base(viewModel, regionManager, eventAggregator)
         {

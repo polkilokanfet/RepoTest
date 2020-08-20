@@ -10,9 +10,7 @@ namespace HVTApp.UI.Modules.Reports.SalesReport
     [RibbonTab(typeof(TabReload))]
     public partial class SalesReportView
     {
-        protected override string FileName => "salesReportCustomisation.xml";
-
-        protected override XamDataGrid DataGrid => (XamDataGrid)this.LoadbleControl.Content;
+        protected override XamDataGrid DataGrid => this.LoadbleControl.Content as XamDataGrid;
 
 
         public SalesReportView(SalesReportViewModel viewModel, IRegionManager regionManager, IEventAggregator eventAggregator) : base(viewModel, regionManager, eventAggregator)

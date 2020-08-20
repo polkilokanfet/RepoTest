@@ -18,7 +18,6 @@ namespace HVTApp.Infrastructure.ViewModels
             ExpandCommand = new DelegateCommand(() => { ExpandCollapseEvent?.Invoke(true); });
             //свернуть
             CollapseCommand = new DelegateCommand(() => { ExpandCollapseEvent?.Invoke(false); });
-
         }
     }
 }

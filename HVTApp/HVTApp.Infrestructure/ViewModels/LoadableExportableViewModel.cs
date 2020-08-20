@@ -22,6 +22,8 @@ namespace HVTApp.Infrastructure.ViewModels
             }
         }
 
+        public event Action Loaded;
+
         public ICommand ReloadCommand { get; }
 
         protected LoadableExportableViewModel(IUnityContainer container) : base(container)
@@ -39,6 +41,7 @@ namespace HVTApp.Infrastructure.ViewModels
                     {
                         AfterGetData();
                         IsLoaded = true;
+                        Loaded?.Invoke();
                     }, 
                     ErrorCallback);
         }
