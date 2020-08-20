@@ -1,13 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Modules.Sales.Market.Items;
-using HVTApp.UI.Modules.Sales.ViewModels;
 using HVTApp.UI.Modules.Sales.ViewModels.Containers;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
@@ -15,7 +16,7 @@ using Prism.Events;
 
 namespace HVTApp.UI.Modules.Sales.Market
 {
-    public partial class Market2ViewModel : ViewModelBase
+    public partial class Market2ViewModel : LoadableExportableExpandCollapseViewModel
     {
         private ProjectItem _selectedProjectItem;
         private readonly IEventAggregator _eventAggregator;
@@ -75,16 +76,12 @@ namespace HVTApp.UI.Modules.Sales.Market
                 }
             };
 
-            Load();
-
             Offers = container.Resolve<OffersContainer>();
             Tenders = container.Resolve<TendersContainer>();
 
             #region Commands definition
             
             //команды
-            ReloadCommand = new DelegateCommand(Load);
-
             NewProjectCommand = new DelegateCommand(NewProjectCommand_Execute);
             EditProjectCommand = new DelegateCommand(EditProjectCommand_Execute, () => SelectedProjectItem != null);
             RemoveProjectCommand = new DelegateCommand(RemoveProjectCommand_Execute, () => SelectedProjectItem != null);
@@ -105,8 +102,6 @@ namespace HVTApp.UI.Modules.Sales.Market
 
             SelectProjectsFolderCommand = new DelegateCommand(SelectProjectsFolderCommand_Execute);
             OpenFolderCommand = new DelegateCommand(OpenFolderCommand_Execute, () => SelectedProjectItem != null);
-
-            SaveGridCustomisationsCommand = new DelegateCommand(() => { SaveGridCustomisationsEvent?.Invoke(); });
 
             #endregion
 
@@ -131,20 +126,14 @@ namespace HVTApp.UI.Modules.Sales.Market
 
             #endregion
 
-            //развернуть
-            ExpandCommand = new DelegateCommand(() => { ExpandCollapseEvent?.Invoke(true); });
-            //свернуть
-            CollapseCommand = new DelegateCommand(() => { ExpandCollapseEvent?.Invoke(false); });
-
             InitNotes();
         }
 
-        private void Load()
+        protected override void GetData()
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
 
-            ProjectItem.AllTenders.Clear();
-            ProjectItem.AllTenders.AddRange(UnitOfWork.Repository<Tender>().GetAll());
+            _tenders = UnitOfWork.Repository<Tender>().GetAll();
 
             var salesUnits = GlobalAppProperties.User.RoleCurrent == Role.Admin
                 ? UnitOfWork.Repository<SalesUnit>().GetAll()
@@ -155,9 +144,21 @@ namespace HVTApp.UI.Modules.Sales.Market
                 .Select(x => new ProjectItem(x, _eventAggregator))
                 .ToList();
 
-            ProjectItems.Clear();
-            ProjectItems.AddRange(items.OrderBy(x => x.DaysToStartProduction).ThenBy(x => x.OrderInTakeDate));
+            _projectItems = items.OrderBy(x => x.DaysToStartProduction).ThenBy(x => x.OrderInTakeDate);
         }
+
+        protected override void AfterGetData()
+        {
+            ProjectItem.AllTenders.Clear();
+            ProjectItem.AllTenders.AddRange(_tenders);
+
+            ProjectItems.Clear();
+            ProjectItems.AddRange(_projectItems);
+        }
+
+        private IEnumerable<Tender> _tenders;
+        private IEnumerable<ProjectItem> _projectItems;
+
         
         //удалить айтем, если он уже опустел
         private void ProjectItemOnLastSalesUnitRemoveEvent(ProjectItem item)

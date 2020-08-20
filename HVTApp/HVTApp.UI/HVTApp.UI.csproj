@@ -418,13 +418,13 @@
     <Compile Include="Modules\Sales\Controls\UnitListControl.xaml.cs">
       <DependentUpon>UnitListControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Sales\Tabs\MarketSettingsTab.xaml.cs">
+    <Compile Include="Modules\Sales\Market\Tabs\MarketSettingsTab.xaml.cs">
       <DependentUpon>MarketSettingsTab.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Sales\Tabs\MarketViewTab.xaml.cs">
+    <Compile Include="Modules\Sales\Market\Tabs\MarketViewTab.xaml.cs">
       <DependentUpon>MarketViewTab.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Sales\Tabs\MarketTab.xaml.cs">
+    <Compile Include="Modules\Sales\Market\Tabs\MarketTab.xaml.cs">
       <DependentUpon>MarketTab.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Sales\Payments\PaymentsTab.xaml.cs">
@@ -1102,15 +1102,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Modules\Sales\Tabs\MarketSettingsTab.xaml">
+    <Page Include="Modules\Sales\Market\Tabs\MarketSettingsTab.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Modules\Sales\Tabs\MarketViewTab.xaml">
+    <Page Include="Modules\Sales\Market\Tabs\MarketViewTab.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Modules\Sales\Tabs\MarketTab.xaml">
+    <Page Include="Modules\Sales\Market\Tabs\MarketTab.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -13,7 +13,10 @@ namespace HVTApp.Infrastructure.ViewModels
 
         protected ViewModelBaseCanExportToExcelSaveCustomization(IUnityContainer container) : base(container)
         {
-            SaveGridCustomisationsCommand = new DelegateCommand(() => { SaveGridCustomisationEvent?.Invoke(); });
+            SaveGridCustomisationsCommand = new DelegateCommand(() =>
+            {
+                SaveGridCustomisationEvent?.Invoke();
+            });
         }
     }
 }

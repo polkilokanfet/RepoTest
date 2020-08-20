@@ -25,7 +25,22 @@ namespace HVTApp.UI.Components
             this.DataContext = viewModel;
 
             //сохранение кастомизации вида
-            viewModel.SaveGridCustomisationEvent += SaveGridCustomisations;
+            viewModel.SaveGridCustomisationEvent += () =>
+            {
+                using (var fs = new FileStream(PathToCustomFile, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+                {
+                    DataGrid.SaveCustomizations(fs);
+                }
+
+                //если разработчик сохраняет
+                if (GlobalAppProperties.User.Id == GlobalAppProperties.Actual.Developer.Id)
+                {
+                    using (var fs = new FileStream(PathToCustomFileDeveloper, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+                    {
+                        DataGrid.SaveCustomizations(fs);
+                    }
+                }
+            };
 
             //подписка на событие раскрытия всех юнитов
             viewModel.ExpandCollapseEvent += ExpandCollapseMethod;
@@ -56,47 +71,34 @@ namespace HVTApp.UI.Components
         }
 
 
-        private void SaveGridCustomisations()
-        {
-            using (var fs = new FileStream(PathToCustomFile, FileMode.OpenOrCreate, FileAccess.ReadWrite))
-            {
-                DataGrid.SaveCustomizations(fs);
-            }
-
-            //если разработчик сохраняет
-            if (GlobalAppProperties.User.Id == GlobalAppProperties.Actual.Developer.Id)
-            {               
-                using (var fs = new FileStream(PathToCustomFileDeveloper, FileMode.OpenOrCreate, FileAccess.ReadWrite))
-                {
-                    DataGrid.SaveCustomizations(fs);
-                }
-            }
-        }
-
         private void LoadGridCustomisations()
         {
             if (DataGrid == null)
                 return;
 
             //загрузка личных настроек
-            if (File.Exists(PathToCustomFile))
+            if (!LoadCustomisation(PathToCustomFile))
             {
-                using (var fs = new FileStream(PathToCustomFile, FileMode.OpenOrCreate, FileAccess.ReadWrite))
-                {
-                    DataGrid.LoadCustomizations(fs);
-                }
-                return;
-            }
-
-            //загрузка настроек разработчика
-            if (File.Exists(PathToCustomFileDeveloper))
-            {
-                using (var fs = new FileStream(PathToCustomFileDeveloper, FileMode.OpenOrCreate, FileAccess.ReadWrite))
-                {
-                    DataGrid.LoadCustomizations(fs);
-                }
+                //загрузка настроек разработчика
+                LoadCustomisation(PathToCustomFileDeveloper);
             }
         }
 
+        /// <summary>
+        /// Загрузка настроек таблицы
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        private bool LoadCustomisation(string path)
+        {
+            if (!File.Exists(path)) return false;
+
+            using (var fs = new FileStream(PathToCustomFileDeveloper, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+            {
+                DataGrid.LoadCustomizations(fs);
+            }
+
+            return true;
+        }
     }
 }

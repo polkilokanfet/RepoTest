@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:infRib="http://infragistics.com/Ribbon" 
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure" 
-             x:Class="HVTApp.UI.Modules.Sales.Tabs.MarketViewTab"
+             x:Class="HVTApp.UI.Modules.Sales.Market.Tabs.MarketViewTab"
              Header="Вид">
 
 

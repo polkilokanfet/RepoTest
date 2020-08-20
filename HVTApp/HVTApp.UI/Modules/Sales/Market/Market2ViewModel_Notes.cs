@@ -12,7 +12,7 @@ using Prism.Commands;
 
 namespace HVTApp.UI.Modules.Sales.Market
 {
-    public partial class Market2ViewModel : ViewModelBase
+    public partial class Market2ViewModel
     {
         private IUnitOfWork _notesUnitOfWork;
         private IValidatableChangeTrackingCollection<ProjectNotesWrapper> _projectNotes;

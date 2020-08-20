@@ -23,13 +23,6 @@ namespace HVTApp.UI.Modules.Sales.Market
         public ICommand SelectProjectsFolderCommand { get; }
         public ICommand OpenFolderCommand { get; }
 
-        public ICommand ReloadCommand { get; }
-
-        public ICommand ExpandCommand { get; } 
-        public ICommand CollapseCommand { get; }
-
-        public event Action<bool> ExpandCollapseEvent;
-
 
         public ICommand NewProjectCommand { get; }
         public ICommand EditProjectCommand { get; }
@@ -49,9 +42,6 @@ namespace HVTApp.UI.Modules.Sales.Market
         public ICommand RemoveTenderCommand { get; }
 
         public ICommand StructureCostsCommand { get; }
-
-        public ICommand SaveGridCustomisationsCommand { get; }
-        public event Action SaveGridCustomisationsEvent;
 
         #endregion
 
