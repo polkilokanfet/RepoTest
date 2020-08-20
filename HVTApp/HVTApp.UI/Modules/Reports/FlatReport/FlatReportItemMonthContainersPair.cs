@@ -9,8 +9,8 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
     {
         private readonly List<FlatReportItemMonthContainer> _containers;
 
-        public FlatReportItemMonthContainer RichContainer => _containers.OrderBy(x => x.CurrentSum).Last();
-        public FlatReportItemMonthContainer PoorContainer => _containers.OrderBy(x => x.CurrentSum).First();
+        public FlatReportItemMonthContainer DonorContainer => _containers.OrderBy(x => x.CurrentSum).Last();
+        public FlatReportItemMonthContainer AcceptorContainer => _containers.OrderBy(x => x.CurrentSum).First();
 
         /// <summary>
         /// ќба контейнера в допуске
@@ -20,14 +20,14 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
         /// <summary>
         /// ћожно ли перекидывать айтемы из богатого контейнера в бедный
         /// </summary>
-        public bool CanMove => !IsOk || !PoorContainer.IsPast;
+        public bool CanMove => !IsOk || !AcceptorContainer.IsPast;
 
         public bool HasFatMember => _containers.Any(x => x.CurrentSum > x.TargetSum);
         public bool HasThinMember => _containers.Any(x => x.CurrentSum < x.TargetSum);
         public bool BothIsThin => _containers.All(x => x.CurrentSum < x.TargetSum);
 
 
-        public double Difference => RichContainer.CurrentSum - PoorContainer.CurrentSum;
+        public double Difference => DonorContainer.CurrentSum - AcceptorContainer.CurrentSum;
 
         public FlatReportItemMonthContainersPair(FlatReportItemMonthContainer container1, FlatReportItemMonthContainer container2)
         {
@@ -38,19 +38,16 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
         {
             get
             {
-                var richContainer = RichContainer;
-                var poorContainer = PoorContainer;
-
                 //нельз€ скинуть из пустого контейнера
-                if (!richContainer.FlatReportItems.Any())
+                if (!DonorContainer.FlatReportItems.Any())
                     return false;
 
                 //нельз€ скинуть айтемы, которые уже в ќ»“е
-                if (richContainer.FlatReportItems.All(x => x.SalesUnit.OrderIsTaken))
+                if (DonorContainer.FlatReportItems.All(x => x.SalesUnit.OrderIsTaken))
                     return false;
 
                 //нельз€ скинуть в контейнер из прошлого
-                if (poorContainer.IsPast)
+                if (AcceptorContainer.IsPast)
                     return false;
 
                 return true;
@@ -62,20 +59,22 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
         /// </summary>
         public void MoveItem()
         {
-            if (!CanMoveItem)
+            if (IsOk || !CanMoveItem)
                 return;
 
-            var richContainer = RichContainer;
-            var poorContainer = PoorContainer;
+            var donorContainer = DonorContainer;
+            var acceptorContainer = AcceptorContainer;
 
-            var item = richContainer.FlatReportItems
+            var notOkContainer = this._containers.Where(x => !x.IsOk).OrderBy(x => Math.Abs(x.Difference)).LastOrDefault();
+
+            var item = donorContainer.FlatReportItems
                 .Where(x => !x.SalesUnit.OrderIsTaken)
-                .OrderBy(x => MonthsBetween(poorContainer, x))
-                .ThenBy(x => Math.Abs(poorContainer.Difference - x.Sum))
+                .OrderBy(x => MonthsBetween(acceptorContainer, x))
+                .ThenBy(x => Math.Abs(Math.Abs(notOkContainer.Difference)- x.Sum))
                 .First();
 
-            richContainer.FlatReportItems.Remove(item);
-            poorContainer.FlatReportItems.Add(item);
+            donorContainer.FlatReportItems.Remove(item);
+            acceptorContainer.FlatReportItems.Add(item);
         }
 
         private int MonthsBetween(FlatReportItemMonthContainer container, FlatReportItem item)
