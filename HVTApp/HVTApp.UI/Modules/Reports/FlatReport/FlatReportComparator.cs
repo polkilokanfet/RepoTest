@@ -24,11 +24,14 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
 
             while (!pairs.All(x => x.IsOk))
             {
-                pairs.Where(x => x.CanMove).OrderByDescending(x => x.Difference).ForEach(x =>
-                {
-                    if (x.CanMove)
-                        x.MoveItem();
-                });
+                var pair = pairs.Where(x => x.CanMove).OrderBy(x => x.Difference).LastOrDefault();
+                pair?.MoveItem();
+
+                //pairs.Where(x => x.CanMove).OrderByDescending(x => x.Difference).ForEach(x =>
+                //{
+                //    if (x.CanMove)
+                //        x.MoveItem();
+                //});
 
                 //проверяем на мертвый цикл
                 dif = containers.Sum(x => Math.Abs(x.Difference));
