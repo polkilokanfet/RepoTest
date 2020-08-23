@@ -111,6 +111,10 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(1)]
+        public System.DateTime Date => Entity.Date;
+
+
 		[OrderStatus(100)]
         public System.String Name => Entity.Name;
 

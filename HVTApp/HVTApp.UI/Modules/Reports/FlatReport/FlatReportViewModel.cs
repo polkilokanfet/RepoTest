@@ -80,12 +80,12 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
         public ObservableCollection<FlatReportItemYearContainer> YearContainers { get; } = new ObservableCollection<FlatReportItemYearContainer>();
         public ObservableCollection<FlatReportItemManagerContainer> ManagerContainers { get; } = new ObservableCollection<FlatReportItemManagerContainer>();
 
-        #region Commands
-
         /// <summary>
         /// Суммарная цена на все отмеченные айтемы
         /// </summary>
         public double Sum => Items.Where(x => x.InReport).Sum(x => x.Sum);
+
+        #region Commands
 
         /// <summary>
         /// Перезагрузить исходные данные
@@ -106,13 +106,52 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
         /// Прибавить месяц
         /// </summary>
         public ICommand AddMonthCommand { get; set; }
-        
+
+        /// <summary>
+        /// Сохранить данные в бюджет
+        /// </summary>
+        public ICommand SaveBudgetCommand { get; set; }
 
         #endregion
 
         public FlatReportViewModel(IUnityContainer container) : base(container)
         {
             this.PaymentsPlanViewModel = new PaymentsPlanViewModel(container, false);
+
+            SaveBudgetCommand = new DelegateCommand(
+                () =>
+                {
+                    var budget = new Budget
+                    {
+                        Name = $"Дата: {DateTime.Today.ToShortDateString()}, время: {DateTime.Now.ToShortTimeString()}"
+                    };
+
+                    foreach (var flatReportItem in Items)
+                    {
+                        foreach (var salesUnit in flatReportItem.SalesUnits)
+                        {
+                            var budgetUnit = new BudgetUnit
+                            {
+                                Budget = budget,
+                                SalesUnit = salesUnit,
+                                Cost = flatReportItem.Cost,
+                                CostByManager = salesUnit.Cost,
+                                OrderInTakeDate = flatReportItem.EstimatedOrderInTakeDate,
+                                OrderInTakeDateByManager = salesUnit.OrderInTakeDate,
+                                RealizationDate = flatReportItem.RealizationDate,
+                                RealizationDateByManager = salesUnit.RealizationDateCalculated,
+                                PaymentConditionSet = flatReportItem.PaymentConditionSet,
+                                PaymentConditionSetByManager = salesUnit.PaymentConditionSet
+                            };
+                            
+                            salesUnit.BudgetUnits.Add(budgetUnit);
+                            budget.Units.Add(budgetUnit);
+                        }
+                    }
+
+                    UnitOfWork.SaveChanges();
+                    Container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", "Бюджет успешно сохранен.");
+                });
 
             ReloadCommand = new DelegateCommand(Load);
             MakeReportCommand = new DelegateCommand(MakeReportExecuteMethod);

@@ -140,6 +140,14 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        public System.DateTime Date
+        {
+          get { return GetValue<System.DateTime>(); }
+          set { SetValue(value); }
+        }
+        public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
+        public bool DateIsChanged => GetIsChanged(nameof(Date));
+
         public System.String Name
         {
           get { return GetValue<System.String>(); }

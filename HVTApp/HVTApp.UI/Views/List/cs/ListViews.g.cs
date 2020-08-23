@@ -382,6 +382,13 @@ namespace HVTApp.UI.Views
 		#region VisibilityProps
 
 
+        public System.Windows.Visibility DateVisibility
+        {
+            get { return BudgetLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetLookup.Date)].Visibility; }
+            set { BudgetLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetLookup.Date)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility NameVisibility
         {
             get { return BudgetLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetLookup.Name)].Visibility; }

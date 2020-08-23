@@ -15,6 +15,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
 
@@ -31,6 +32,12 @@
 										 AddItemCommand="{Binding AddInUnitsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromUnitsCommand}"
 										 Visibility="{Binding VisibilityUnitsBudget, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="2" Content="Дата" Visibility="{Binding VisibilityDateBudget, ElementName=Root}"/>
+        <DatePicker Grid.Column="1" Grid.Row="2" 
+                    SelectedDate="{Binding Item.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding VisibilityDateBudget, ElementName=Root}"/>
 
 
 

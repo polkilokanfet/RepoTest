@@ -194,6 +194,11 @@ namespace HVTApp.UI.Views
             //NotUpdateAttribute attr;
 
 
+            //attr = typeof(HVTApp.Model.POCOs.Budget).GetProperty(nameof(HVTApp.Model.POCOs.Budget.Date)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityDateBudget = Visibility.Collapsed;
+
+
             //attr = typeof(HVTApp.Model.POCOs.Budget).GetProperty(nameof(HVTApp.Model.POCOs.Budget.Name)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityNameBudget = Visibility.Collapsed;
@@ -205,6 +210,15 @@ namespace HVTApp.UI.Views
 
 
 
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityDateBudgetProperty = DependencyProperty.Register("VisibilityDateBudget", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityDateBudget
+        {
+            get { return (Visibility) GetValue(VisibilityDateBudgetProperty); }
+            set { SetValue(VisibilityDateBudgetProperty, value); OnPropertyChanged(); }
         }
 
 

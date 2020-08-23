@@ -12,6 +12,9 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
     {
         private DateTime _estimatedOrderInTakeDate;
         private bool _inReport = true;
+        private double _cost;
+        private DateTime _realizationDate;
+        private PaymentConditionSet _paymentConditionSet;
 
         public List<SalesUnit> SalesUnits { get; }
         public SalesUnit SalesUnit => SalesUnits.First();
@@ -63,14 +66,57 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
 
         public int DifDays => (EstimatedOrderInTakeDate - OriginalOrderInTakeDate).Days;
 
+        /// <summary>
+        /// Предположительная стоимость юнита
+        /// </summary>
+        public double Cost
+        {
+            get { return _cost; }
+            set
+            {
+                _cost = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Предположительная дата реализации
+        /// </summary>
+        public DateTime RealizationDate
+        {
+            get { return _realizationDate; }
+            set
+            {
+                _realizationDate = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Предполагаемые условия оплаты
+        /// </summary>
+        public PaymentConditionSet PaymentConditionSet
+        {
+            get { return _paymentConditionSet; }
+            set
+            {
+                _paymentConditionSet = value;
+                OnPropertyChanged();
+            }
+        }
+
         public FlatReportItem(IEnumerable<SalesUnit> salesUnits)
         {
             if(!salesUnits.Any())
                 throw new ArgumentException(nameof(salesUnits));
-
             SalesUnits = salesUnits.ToList();
-            OriginalOrderInTakeDate = SalesUnits.First().OrderInTakeDate;
-            _estimatedOrderInTakeDate = OriginalOrderInTakeDate;
+
+            var salesUnit = salesUnits.First();
+
+            Cost = salesUnit.Cost;
+            RealizationDate = salesUnit.RealizationDateCalculated;
+            PaymentConditionSet = salesUnit.PaymentConditionSet;
+            _estimatedOrderInTakeDate = OriginalOrderInTakeDate = salesUnit.OrderInTakeDate;
             Sum = SalesUnits.Sum(x => x.Cost);
         }
 

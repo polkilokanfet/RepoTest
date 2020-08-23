@@ -40,5 +40,9 @@
     <infRib:RibbonGroup Caption="Отчет">
         <infRib:ButtonTool Caption="Сформировать" Command="{Binding MakeReportCommand}" SmallImage="/HVTApp.UI;component/Images/refresh.png"/>
     </infRib:RibbonGroup>
+    
+    <infRib:RibbonGroup Caption="Бюджет">
+        <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveBudgetCommand}" SmallImage="/HVTApp.UI;component/Images/save.png"/>
+    </infRib:RibbonGroup>
 
 </inf:RibbonTabItemWithViewModel>
