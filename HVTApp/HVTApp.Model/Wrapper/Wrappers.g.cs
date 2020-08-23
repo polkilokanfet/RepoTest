@@ -134,6 +134,149 @@ namespace HVTApp.Model.Wrapper
 
 	}
 
+		public partial class BudgetWrapper : WrapperBase<Budget>
+	{
+	    public BudgetWrapper(Budget model) : base(model) { }
+
+        #region SimpleProperties
+
+        public System.String Name
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
+        public bool NameIsChanged => GetIsChanged(nameof(Name));
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+        #endregion
+
+        #region CollectionProperties
+
+        public IValidatableChangeTrackingCollection<BudgetUnitWrapper> Units { get; private set; }
+
+        #endregion
+
+        protected override void InitializeCollectionProperties()
+        {
+
+          if (Model.Units == null) throw new ArgumentException("Units cannot be null");
+          Units = new ValidatableChangeTrackingCollection<BudgetUnitWrapper>(Model.Units.Select(e => new BudgetUnitWrapper(e)));
+          RegisterCollection(Units, Model.Units);
+
+        }
+
+	}
+
+		public partial class BudgetUnitWrapper : WrapperBase<BudgetUnit>
+	{
+	    public BudgetUnitWrapper(BudgetUnit model) : base(model) { }
+
+        #region SimpleProperties
+
+        public System.DateTime OrderInTakeDate
+        {
+          get { return GetValue<System.DateTime>(); }
+          set { SetValue(value); }
+        }
+        public System.DateTime OrderInTakeDateOriginalValue => GetOriginalValue<System.DateTime>(nameof(OrderInTakeDate));
+        public bool OrderInTakeDateIsChanged => GetIsChanged(nameof(OrderInTakeDate));
+
+        public System.DateTime RealizationDate
+        {
+          get { return GetValue<System.DateTime>(); }
+          set { SetValue(value); }
+        }
+        public System.DateTime RealizationDateOriginalValue => GetOriginalValue<System.DateTime>(nameof(RealizationDate));
+        public bool RealizationDateIsChanged => GetIsChanged(nameof(RealizationDate));
+
+        public System.DateTime OrderInTakeDateByManager
+        {
+          get { return GetValue<System.DateTime>(); }
+          set { SetValue(value); }
+        }
+        public System.DateTime OrderInTakeDateByManagerOriginalValue => GetOriginalValue<System.DateTime>(nameof(OrderInTakeDateByManager));
+        public bool OrderInTakeDateByManagerIsChanged => GetIsChanged(nameof(OrderInTakeDateByManager));
+
+        public System.DateTime RealizationDateByManager
+        {
+          get { return GetValue<System.DateTime>(); }
+          set { SetValue(value); }
+        }
+        public System.DateTime RealizationDateByManagerOriginalValue => GetOriginalValue<System.DateTime>(nameof(RealizationDateByManager));
+        public bool RealizationDateByManagerIsChanged => GetIsChanged(nameof(RealizationDateByManager));
+
+        public System.Double Cost
+        {
+          get { return GetValue<System.Double>(); }
+          set { SetValue(value); }
+        }
+        public System.Double CostOriginalValue => GetOriginalValue<System.Double>(nameof(Cost));
+        public bool CostIsChanged => GetIsChanged(nameof(Cost));
+
+        public System.Double CostByManager
+        {
+          get { return GetValue<System.Double>(); }
+          set { SetValue(value); }
+        }
+        public System.Double CostByManagerOriginalValue => GetOriginalValue<System.Double>(nameof(CostByManager));
+        public bool CostByManagerIsChanged => GetIsChanged(nameof(CostByManager));
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+        #endregion
+
+        #region ComplexProperties
+
+	    public BudgetWrapper Budget 
+        {
+            get { return GetWrapper<BudgetWrapper>(); }
+            set { SetComplexValue<Budget, BudgetWrapper>(Budget, value); }
+        }
+
+	    public SalesUnitWrapper SalesUnit 
+        {
+            get { return GetWrapper<SalesUnitWrapper>(); }
+            set { SetComplexValue<SalesUnit, SalesUnitWrapper>(SalesUnit, value); }
+        }
+
+	    public PaymentConditionSetWrapper PaymentConditionSet 
+        {
+            get { return GetWrapper<PaymentConditionSetWrapper>(); }
+            set { SetComplexValue<PaymentConditionSet, PaymentConditionSetWrapper>(PaymentConditionSet, value); }
+        }
+
+	    public PaymentConditionSetWrapper PaymentConditionSetByManager 
+        {
+            get { return GetWrapper<PaymentConditionSetWrapper>(); }
+            set { SetComplexValue<PaymentConditionSet, PaymentConditionSetWrapper>(PaymentConditionSetByManager, value); }
+        }
+
+        #endregion
+
+        public override void InitializeComplexProperties()
+        {
+            InitializeComplexProperty<BudgetWrapper>(nameof(Budget), Model.Budget == null ? null : new BudgetWrapper(Model.Budget));
+            InitializeComplexProperty<SalesUnitWrapper>(nameof(SalesUnit), Model.SalesUnit == null ? null : new SalesUnitWrapper(Model.SalesUnit));
+            InitializeComplexProperty<PaymentConditionSetWrapper>(nameof(PaymentConditionSet), Model.PaymentConditionSet == null ? null : new PaymentConditionSetWrapper(Model.PaymentConditionSet));
+            InitializeComplexProperty<PaymentConditionSetWrapper>(nameof(PaymentConditionSetByManager), Model.PaymentConditionSetByManager == null ? null : new PaymentConditionSetWrapper(Model.PaymentConditionSetByManager));
+        }
+
+	}
+
 		public partial class ConstructorParametersListWrapper : WrapperBase<ConstructorParametersList>
 	{
 	    public ConstructorParametersListWrapper(ConstructorParametersList model) : base(model) { }
@@ -3282,6 +3425,14 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.DateTime> DeliveryDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(DeliveryDate));
         public bool DeliveryDateIsChanged => GetIsChanged(nameof(DeliveryDate));
 
+        public System.Boolean IsRemoved
+        {
+          get { return GetValue<System.Boolean>(); }
+          set { SetValue(value); }
+        }
+        public System.Boolean IsRemovedOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsRemoved));
+        public bool IsRemovedIsChanged => GetIsChanged(nameof(IsRemoved));
+
         public System.Nullable<System.DateTime> OrderInTakeDateInjected
         {
           get { return GetValue<System.Nullable<System.DateTime>>(); }
@@ -3382,6 +3533,8 @@ namespace HVTApp.Model.Wrapper
 
         public IValidatableChangeTrackingCollection<PaymentPlannedWrapper> PaymentsPlanned { get; private set; }
 
+        public IValidatableChangeTrackingCollection<BudgetUnitWrapper> BudgetUnits { get; private set; }
+
         public IValidatableChangeTrackingCollection<BankGuaranteeWrapper> BankGuarantees { get; private set; }
 
         public IValidatableChangeTrackingCollection<PaymentPlannedWrapper> PaymentsPlannedActual { get; private set; }
@@ -3480,6 +3633,10 @@ namespace HVTApp.Model.Wrapper
           if (Model.PaymentsPlanned == null) throw new ArgumentException("PaymentsPlanned cannot be null");
           PaymentsPlanned = new ValidatableChangeTrackingCollection<PaymentPlannedWrapper>(Model.PaymentsPlanned.Select(e => new PaymentPlannedWrapper(e)));
           RegisterCollection(PaymentsPlanned, Model.PaymentsPlanned);
+
+          if (Model.BudgetUnits == null) throw new ArgumentException("BudgetUnits cannot be null");
+          BudgetUnits = new ValidatableChangeTrackingCollection<BudgetUnitWrapper>(Model.BudgetUnits.Select(e => new BudgetUnitWrapper(e)));
+          RegisterCollection(BudgetUnits, Model.BudgetUnits);
 
           if (Model.BankGuarantees == null) throw new ArgumentException("BankGuarantees cannot be null");
           BankGuarantees = new ValidatableChangeTrackingCollection<BankGuaranteeWrapper>(Model.BankGuarantees.Select(e => new BankGuaranteeWrapper(e)));

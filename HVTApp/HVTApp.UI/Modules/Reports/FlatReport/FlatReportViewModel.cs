@@ -130,18 +130,140 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
             AlignCommand = new DelegateCommand(
                 () =>
                 {
-                    //var containers = FlatReportComparator.Align(GenerateMonthContainers()).ToList();
-                    var containers = FlatReportComparator.Align(MonthContainers).ToList();
-                    containers.ForEach(x => x.FillEstimatedOrderInTakeDates());
-                    MonthContainers.Clear();
-                    MonthContainers.AddRange(containers);
+                    var diffList = new List<double>();
 
-                    if(MonthContainers.Any(x => !x.IsOk))
+
+                    while (MonthContainers.Any(x => !x.IsOk))
+                    {
+                        var notOkContainers = MonthContainers.ToList();
+
+                        var toHighContainers = notOkContainers.Where(x => x.Difference < 0).OrderBy(x => x.Difference).ToList();
+                        foreach (var toHighContainer in toHighContainers)
+                        {
+                            //высокий контейнер (с него нужно скинуть в соседний)
+                            if (toHighContainer.FlatReportItems.Any())
+                            {
+                                //поиск соседа, в который можно скинуть
+                                var targetNeighboringContainer = GetNeighboringContainers(toHighContainer).OrderBy(x => x.Difference).LastOrDefault();
+                                if (targetNeighboringContainer != null)
+                                {
+                                    var item = GetNearestItem(toHighContainer, targetNeighboringContainer, true);
+
+                                    var dif1 = toHighContainer.Difference + item.Sum;
+                                    var dif2 = targetNeighboringContainer.Difference - item.Sum;
+                                    if (true)
+                                    {
+                                        toHighContainer.FlatReportItems.Remove(item);
+                                        targetNeighboringContainer.FlatReportItems.Add(item);
+                                    }
+                                }
+                            }
+                        }
+
+                        var toLowContainers = notOkContainers.Where(x => x.Difference > 0).OrderByDescending(x => x.Difference).ToList();
+                        foreach (var toLowContainer in toLowContainers)
+                        {
+                            //высокий контейнер (с него нужно скинуть в соседний)
+                            var targetNeighboringContainer = GetNeighboringContainers(toLowContainer).OrderBy(x => x.Difference).FirstOrDefault();
+                            if (targetNeighboringContainer != null && targetNeighboringContainer.FlatReportItems.Any())
+                            {
+                                var item = GetNearestItem(targetNeighboringContainer, toLowContainer, false);
+
+                                var dif1 = toLowContainer.Difference - item.Sum;
+                                var dif2 = targetNeighboringContainer.Difference + item.Sum;
+                                if (true)
+                                {
+                                    targetNeighboringContainer.FlatReportItems.Remove(item);
+                                    toLowContainer.FlatReportItems.Add(item);
+                                }
+
+                            }
+                        }
+
+                        //notOkContainers.Remove(toHighContainer);
+
+                        ////низкий контейнер
+                        //var toLowContainer = notOkContainers.Where(x => x.Difference < 0).OrderBy(x => x.Difference).FirstOrDefault();
+                        //if (toLowContainer != null)
+                        //{
+                        //    //поиск соседа-донора
+                        //    var targetNeighboringContainer = GetNeighboringContainers(toLowContainer).OrderBy(x => x.Difference).LastOrDefault();
+                        //    if (targetNeighboringContainer != null && targetNeighboringContainer.FlatReportItems.Any())
+                        //    {
+                        //        var item = GetNearestItam(targetNeighboringContainer, toLowContainer);
+                        //        targetNeighboringContainer.FlatReportItems.Remove(item);
+                        //        toLowContainer.FlatReportItems.Add(item);
+                        //    }
+                        //}
+
+                        //выход из мертвого цикла
+                        var dif = MonthContainers.Sum(x => x.Difference);
+                        diffList.Add(dif);
+                        if (diffList.Count(x => Math.Abs(x - dif) < 0.001) > 100)
+                        {
+                            break;
+                        }
+
+                    }
+
+                    ////var containers = FlatReportComparator.Align(GenerateMonthContainers()).ToList();
+                    //var containers = FlatReportComparator.Align(MonthContainers).ToList();
+                    //containers.ForEach(x => x.FillEstimatedOrderInTakeDates());
+                    //MonthContainers.Clear();
+                    //MonthContainers.AddRange(containers);
+
+
+                    var co = MonthContainers.ToList();
+                    co.ForEach(x => x.FillEstimatedOrderInTakeDates());
+
+                    MonthContainers.Clear();
+                    MonthContainers.AddRange(co);
+
+                    if (MonthContainers.Any(x => !x.IsOk))
                         Container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", "Не во всех месяцах удалось выровнять суммы с заданной точностью.");
                 });
 
             Load();
         }
+
+        private FlatReportItem GetNearestItem(FlatReportItemMonthContainer containerFrom, FlatReportItemMonthContainer containerTo, bool from = true)
+        {
+            var targetContainer = from ? containerFrom : containerTo;
+            return containerFrom.FlatReportItems
+                .Where(x => !x.SalesUnit.OrderIsTaken)
+                .OrderBy(x => MonthsBetween(containerTo, x))
+                .ThenBy(x => Math.Abs(Math.Abs(targetContainer.Difference) - x.Sum))
+                .First();
+        }
+
+        /// <summary>
+        /// Вернуть соседние контейнеры
+        /// </summary>
+        /// <param name="container"></param>
+        /// <returns></returns>
+        private IEnumerable<FlatReportItemMonthContainer> GetNeighboringContainers(FlatReportItemMonthContainer container)
+        {
+            var leftContainer = GetNeighboringContainer(container, -1);
+            if (leftContainer != null && !leftContainer.IsPast)
+                yield return leftContainer;
+
+            var rightContainer = GetNeighboringContainer(container, 1);
+            if (rightContainer != null && !rightContainer.IsPast)
+                yield return rightContainer;
+        }
+
+        private FlatReportItemMonthContainer GetNeighboringContainer(FlatReportItemMonthContainer container, int monthCount)
+        {
+            var naighborDate = container.Date.AddMonths(monthCount);
+            return MonthContainers.SingleOrDefault(x => x.Year == naighborDate.Year && x.Month == naighborDate.Month);
+        }
+
+        private int MonthsBetween(FlatReportItemMonthContainer container, FlatReportItem item)
+        {
+            var date = new DateTime(container.Year, container.Month, 1);
+            return Math.Abs(item.OriginalOrderInTakeDate.MonthsBetween(date));
+        }
+
 
         private void Load()
         {
@@ -205,7 +327,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
 
         private IEnumerable<FlatReportItemMonthContainer> GenerateMonthContainers()
         {
-            if(!Items.Any())
+            if (!Items.Any())
                 return new List<FlatReportItemMonthContainer>();
 
             var reportItems = Items.Where(x => x.InReport).ToList();
@@ -253,7 +375,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
         {
             return Items
                 .Where(x => x.InReport)
-                .GroupBy(x => new {x.Manager, x.EstimatedOrderInTakeDate.Year})
+                .GroupBy(x => new { x.Manager, x.EstimatedOrderInTakeDate.Year })
                 .Select(x => new FlatReportItemManagerContainer(x))
                 .OrderBy(x => x.Manager)
                 .ThenBy(x => x.Year);

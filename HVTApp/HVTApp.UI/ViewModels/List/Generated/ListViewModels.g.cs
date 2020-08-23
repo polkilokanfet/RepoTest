@@ -42,6 +42,18 @@ namespace HVTApp.UI.ViewModels
     }
 
 
+	public partial class BudgetLookupListViewModel : BaseListViewModel<Budget, BudgetLookup, AfterSaveBudgetEvent, AfterSelectBudgetEvent, AfterRemoveBudgetEvent>
+    {
+        public BudgetLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+
+	public partial class BudgetUnitLookupListViewModel : BaseListViewModel<BudgetUnit, BudgetUnitLookup, AfterSaveBudgetUnitEvent, AfterSelectBudgetUnitEvent, AfterRemoveBudgetUnitEvent>
+    {
+        public BudgetUnitLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+
 	public partial class ConstructorParametersListLookupListViewModel : BaseListViewModel<ConstructorParametersList, ConstructorParametersListLookup, AfterSaveConstructorParametersListEvent, AfterSelectConstructorParametersListEvent, AfterRemoveConstructorParametersListEvent>
     {
         public ConstructorParametersListLookupListViewModel(IUnityContainer container) : base(container) { }

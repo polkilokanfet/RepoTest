@@ -1,0 +1,99 @@
+<inf:ViewBase x:Class="HVTApp.UI.Views.BudgetUnitDetailsView"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			  xmlns:infDP="http://infragistics.com/DataPresenter"
+			  xmlns:infE="http://infragistics.com/Editors"
+			  xmlns:core="clr-namespace:System;assembly=mscorlib"
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+			  x:Name="Root">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" MinWidth="200"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+
+        <Label Grid.Column="0" Grid.Row ="0" Content="Бюджет" Visibility="{Binding VisibilityBudgetBudgetUnit, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="0" 
+                                    Item="{Binding Item.Budget}" 
+                                    AddItemCommand="{Binding SelectBudgetCommand}" 
+                                    RemoveItemCommand="{Binding ClearBudgetCommand}"
+									Visibility="{Binding VisibilityBudgetBudgetUnit, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="1" Content="Единица продаж" Visibility="{Binding VisibilitySalesUnitBudgetUnit, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
+                                    Item="{Binding Item.SalesUnit}" 
+                                    AddItemCommand="{Binding SelectSalesUnitCommand}" 
+                                    RemoveItemCommand="{Binding ClearSalesUnitCommand}"
+									Visibility="{Binding VisibilitySalesUnitBudgetUnit, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="2" Content="Дата ОИТ" Visibility="{Binding VisibilityOrderInTakeDateBudgetUnit, ElementName=Root}"/>
+        <DatePicker Grid.Column="1" Grid.Row="2" 
+                    SelectedDate="{Binding Item.OrderInTakeDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding VisibilityOrderInTakeDateBudgetUnit, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="3" Content="Дата ОИТ (менеджер)" Visibility="{Binding VisibilityOrderInTakeDateByManagerBudgetUnit, ElementName=Root}"/>
+        <DatePicker Grid.Column="1" Grid.Row="3" 
+                    SelectedDate="{Binding Item.OrderInTakeDateByManager, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding VisibilityOrderInTakeDateByManagerBudgetUnit, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="4" Content="Дата реализации" Visibility="{Binding VisibilityRealizationDateBudgetUnit, ElementName=Root}"/>
+        <DatePicker Grid.Column="1" Grid.Row="4" 
+                    SelectedDate="{Binding Item.RealizationDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding VisibilityRealizationDateBudgetUnit, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="5" Content="Дата реализации (менеджер)" Visibility="{Binding VisibilityRealizationDateByManagerBudgetUnit, ElementName=Root}"/>
+        <DatePicker Grid.Column="1" Grid.Row="5" 
+                    SelectedDate="{Binding Item.RealizationDateByManager, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding VisibilityRealizationDateByManagerBudgetUnit, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="6" Content="Стоимость" Visibility="{Binding VisibilityCostBudgetUnit, ElementName=Root}"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="6" 
+                               Value="{Binding Item.Cost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+							   Visibility="{Binding VisibilityCostBudgetUnit, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="7" Content="Стоимость (менеджер)" Visibility="{Binding VisibilityCostByManagerBudgetUnit, ElementName=Root}"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="7" 
+                               Value="{Binding Item.CostByManager, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+							   Visibility="{Binding VisibilityCostByManagerBudgetUnit, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="8" Content="Условия оплаты" Visibility="{Binding VisibilityPaymentConditionSetBudgetUnit, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="8" 
+                                    Item="{Binding Item.PaymentConditionSet}" 
+                                    AddItemCommand="{Binding SelectPaymentConditionSetCommand}" 
+                                    RemoveItemCommand="{Binding ClearPaymentConditionSetCommand}"
+									Visibility="{Binding VisibilityPaymentConditionSetBudgetUnit, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="9" Content="Условия оплаты (менеджер)" Visibility="{Binding VisibilityPaymentConditionSetByManagerBudgetUnit, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="9" 
+                                    Item="{Binding Item.PaymentConditionSetByManager}" 
+                                    AddItemCommand="{Binding SelectPaymentConditionSetByManagerCommand}" 
+                                    RemoveItemCommand="{Binding ClearPaymentConditionSetByManagerCommand}"
+									Visibility="{Binding VisibilityPaymentConditionSetByManagerBudgetUnit, ElementName=Root}"/>
+
+
+
+    </Grid>
+</inf:ViewBase>

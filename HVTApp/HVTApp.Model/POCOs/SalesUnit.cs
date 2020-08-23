@@ -135,6 +135,12 @@ namespace HVTApp.Model.POCOs
 
         #endregion
 
+        [Designation("Бюджеты")]
+        public virtual List<BudgetUnit> BudgetUnits { get; set; } = new List<BudgetUnit>();
+
+        [Designation("Удален")]
+        public bool IsRemoved { get; set; } = false;
+
         [Designation("Корректировочные данные")]
         public virtual FakeData FakeData { get; set; }
 

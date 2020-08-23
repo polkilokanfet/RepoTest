@@ -38,6 +38,16 @@ namespace HVTApp.UI
 			_selectService.Register<BankGuaranteeTypeLookupListView, BankGuaranteeType>();
             _updateDetailsService.Register<BankGuaranteeType, BankGuaranteeTypeDetailsView>();
 
+            Container.RegisterViewForNavigation<BudgetLookupListView>();
+            //_dialogService.Register<BudgetDetailsViewModel, BudgetDetailsView>();
+			_selectService.Register<BudgetLookupListView, Budget>();
+            _updateDetailsService.Register<Budget, BudgetDetailsView>();
+
+            Container.RegisterViewForNavigation<BudgetUnitLookupListView>();
+            //_dialogService.Register<BudgetUnitDetailsViewModel, BudgetUnitDetailsView>();
+			_selectService.Register<BudgetUnitLookupListView, BudgetUnit>();
+            _updateDetailsService.Register<BudgetUnit, BudgetUnitDetailsView>();
+
             Container.RegisterViewForNavigation<ConstructorParametersListLookupListView>();
             //_dialogService.Register<ConstructorParametersListDetailsViewModel, ConstructorParametersListDetailsView>();
 			_selectService.Register<ConstructorParametersListLookupListView, ConstructorParametersList>();

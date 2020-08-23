@@ -89,6 +89,7 @@
                     <infg:DateTimeField Name="OrderInTakeDateInjected" Label="OrderInTakeDateInjected" Width="Auto" AllowResize="True" />
                     <infg:TextField Name="LosingReasons" Label="Причины проигрыша" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:CheckBoxField Name="IsWon" Label="Выиграно" Width="Auto" AllowResize="True" />
+                    <infg:CheckBoxField Name="IsRemoved" Label="Удален" Width="Auto" AllowResize="True" />
                     <infg:CheckBoxField Name="IsPaid" Label="Оплачено?" Width="Auto" AllowResize="True" />
                     <infg:CheckBoxField Name="IsLoosen" Label="Проиграно" Width="Auto" AllowResize="True" />
                     <infg:CheckBoxField Name="IsDone" Label="Исполнено" Width="Auto" AllowResize="True" />
@@ -100,6 +101,7 @@
                     <infg:DateTimeField Name="DeliveryDateExpected" Label="Требуемая дата поставки" Width="Auto" AllowResize="True" />
                     <infg:DateTimeField Name="DeliveryDate" Label="Дата поставки" Width="Auto" AllowResize="True" />
                     <infg:CheckBoxField Name="CostDeliveryIncluded" Label="Стоимость доставки включена в основную стоимость" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="BudgetUnits" Label="Бюджеты" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:TextField Name="BankGuarantees" Label="Банковские гарантии" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:NumericField Name="AssembleTerm" Label="Срок сборки" Width="Auto" AllowResize="True" />
                     <infg:CheckBoxField Name="AllowEditProduct" Label="Разрешение на редактирование техники" Width="Auto" AllowResize="True" />

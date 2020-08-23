@@ -7,6 +7,8 @@ namespace HVTApp.DataAccess
             CountryUnionRepository = new CountryUnionRepository(_context);
             BankGuaranteeRepository = new BankGuaranteeRepository(_context);
             BankGuaranteeTypeRepository = new BankGuaranteeTypeRepository(_context);
+            BudgetRepository = new BudgetRepository(_context);
+            BudgetUnitRepository = new BudgetUnitRepository(_context);
             ConstructorParametersListRepository = new ConstructorParametersListRepository(_context);
             ConstructorsParametersRepository = new ConstructorsParametersRepository(_context);
             CreateNewProductTaskRepository = new CreateNewProductTaskRepository(_context);
@@ -84,6 +86,8 @@ namespace HVTApp.DataAccess
         protected ICountryUnionRepository CountryUnionRepository;
         protected IBankGuaranteeRepository BankGuaranteeRepository;
         protected IBankGuaranteeTypeRepository BankGuaranteeTypeRepository;
+        protected IBudgetRepository BudgetRepository;
+        protected IBudgetUnitRepository BudgetUnitRepository;
         protected IConstructorParametersListRepository ConstructorParametersListRepository;
         protected IConstructorsParametersRepository ConstructorsParametersRepository;
         protected ICreateNewProductTaskRepository CreateNewProductTaskRepository;

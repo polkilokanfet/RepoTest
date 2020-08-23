@@ -119,6 +119,150 @@ namespace HVTApp.UI.ViewModels
     }
 
 
+    public partial class BudgetDetailsViewModel : BaseDetailsViewModel<BudgetWrapper, Budget, AfterSaveBudgetEvent>
+    {
+		private Func<List<BudgetUnit>> _getEntitiesForAddInUnitsCommand;
+		public ICommand AddInUnitsCommand { get; }
+		public ICommand RemoveFromUnitsCommand { get; }
+		private BudgetUnitWrapper _selectedUnitsItem;
+		public BudgetUnitWrapper SelectedUnitsItem 
+		{ 
+			get { return _selectedUnitsItem; }
+			set 
+			{ 
+				if (Equals(_selectedUnitsItem, value)) return;
+				_selectedUnitsItem = value;
+				OnPropertyChanged();
+				((DelegateCommand)RemoveFromUnitsCommand).RaiseCanExecuteChanged();
+			}
+		}
+
+
+        public BudgetDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+			
+			if (_getEntitiesForAddInUnitsCommand == null) _getEntitiesForAddInUnitsCommand = () => { return UnitOfWork.Repository<BudgetUnit>().GetAll(); };;
+			if (AddInUnitsCommand == null) AddInUnitsCommand = new DelegateCommand(AddInUnitsCommand_Execute_Default);
+			if (RemoveFromUnitsCommand == null) RemoveFromUnitsCommand = new DelegateCommand(RemoveFromUnitsCommand_Execute_Default, RemoveFromUnitsCommand_CanExecute_Default);
+
+		}
+
+			private void AddInUnitsCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<BudgetUnit, BudgetUnitWrapper>(_getEntitiesForAddInUnitsCommand(), Item.Units);
+			}
+
+			private void RemoveFromUnitsCommand_Execute_Default()
+			{
+				Item.Units.Remove(SelectedUnitsItem);
+			}
+
+			private bool RemoveFromUnitsCommand_CanExecute_Default()
+			{
+				return SelectedUnitsItem != null;
+			}
+
+
+
+    }
+
+
+    public partial class BudgetUnitDetailsViewModel : BaseDetailsViewModel<BudgetUnitWrapper, BudgetUnit, AfterSaveBudgetUnitEvent>
+    {
+		//private Func<Task<List<Budget>>> _getEntitiesForSelectBudgetCommand;
+		private Func<List<Budget>> _getEntitiesForSelectBudgetCommand;
+		public ICommand SelectBudgetCommand { get; private set; }
+		public ICommand ClearBudgetCommand { get; private set; }
+
+		//private Func<Task<List<SalesUnit>>> _getEntitiesForSelectSalesUnitCommand;
+		private Func<List<SalesUnit>> _getEntitiesForSelectSalesUnitCommand;
+		public ICommand SelectSalesUnitCommand { get; private set; }
+		public ICommand ClearSalesUnitCommand { get; private set; }
+
+		//private Func<Task<List<PaymentConditionSet>>> _getEntitiesForSelectPaymentConditionSetCommand;
+		private Func<List<PaymentConditionSet>> _getEntitiesForSelectPaymentConditionSetCommand;
+		public ICommand SelectPaymentConditionSetCommand { get; private set; }
+		public ICommand ClearPaymentConditionSetCommand { get; private set; }
+
+		//private Func<Task<List<PaymentConditionSet>>> _getEntitiesForSelectPaymentConditionSetByManagerCommand;
+		private Func<List<PaymentConditionSet>> _getEntitiesForSelectPaymentConditionSetByManagerCommand;
+		public ICommand SelectPaymentConditionSetByManagerCommand { get; private set; }
+		public ICommand ClearPaymentConditionSetByManagerCommand { get; private set; }
+
+
+        public BudgetUnitDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+			
+			if (_getEntitiesForSelectBudgetCommand == null) _getEntitiesForSelectBudgetCommand = () => { return UnitOfWork.Repository<Budget>().GetAll(); };
+			if (SelectBudgetCommand == null) SelectBudgetCommand = new DelegateCommand(SelectBudgetCommand_Execute_Default);
+			if (ClearBudgetCommand == null) ClearBudgetCommand = new DelegateCommand(ClearBudgetCommand_Execute_Default);
+
+			
+			if (_getEntitiesForSelectSalesUnitCommand == null) _getEntitiesForSelectSalesUnitCommand = () => { return UnitOfWork.Repository<SalesUnit>().GetAll(); };
+			if (SelectSalesUnitCommand == null) SelectSalesUnitCommand = new DelegateCommand(SelectSalesUnitCommand_Execute_Default);
+			if (ClearSalesUnitCommand == null) ClearSalesUnitCommand = new DelegateCommand(ClearSalesUnitCommand_Execute_Default);
+
+			
+			if (_getEntitiesForSelectPaymentConditionSetCommand == null) _getEntitiesForSelectPaymentConditionSetCommand = () => { return UnitOfWork.Repository<PaymentConditionSet>().GetAll(); };
+			if (SelectPaymentConditionSetCommand == null) SelectPaymentConditionSetCommand = new DelegateCommand(SelectPaymentConditionSetCommand_Execute_Default);
+			if (ClearPaymentConditionSetCommand == null) ClearPaymentConditionSetCommand = new DelegateCommand(ClearPaymentConditionSetCommand_Execute_Default);
+
+			
+			if (_getEntitiesForSelectPaymentConditionSetByManagerCommand == null) _getEntitiesForSelectPaymentConditionSetByManagerCommand = () => { return UnitOfWork.Repository<PaymentConditionSet>().GetAll(); };
+			if (SelectPaymentConditionSetByManagerCommand == null) SelectPaymentConditionSetByManagerCommand = new DelegateCommand(SelectPaymentConditionSetByManagerCommand_Execute_Default);
+			if (ClearPaymentConditionSetByManagerCommand == null) ClearPaymentConditionSetByManagerCommand = new DelegateCommand(ClearPaymentConditionSetByManagerCommand_Execute_Default);
+
+		}
+
+		private void SelectBudgetCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<Budget, BudgetWrapper>(_getEntitiesForSelectBudgetCommand(), nameof(Item.Budget), Item.Budget?.Id);
+		}
+
+		private void ClearBudgetCommand_Execute_Default() 
+		{
+						Item.Budget = null;
+		    
+		}
+
+		private void SelectSalesUnitCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<SalesUnit, SalesUnitWrapper>(_getEntitiesForSelectSalesUnitCommand(), nameof(Item.SalesUnit), Item.SalesUnit?.Id);
+		}
+
+		private void ClearSalesUnitCommand_Execute_Default() 
+		{
+						Item.SalesUnit = null;
+		    
+		}
+
+		private void SelectPaymentConditionSetCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<PaymentConditionSet, PaymentConditionSetWrapper>(_getEntitiesForSelectPaymentConditionSetCommand(), nameof(Item.PaymentConditionSet), Item.PaymentConditionSet?.Id);
+		}
+
+		private void ClearPaymentConditionSetCommand_Execute_Default() 
+		{
+						Item.PaymentConditionSet = null;
+		    
+		}
+
+		private void SelectPaymentConditionSetByManagerCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<PaymentConditionSet, PaymentConditionSetWrapper>(_getEntitiesForSelectPaymentConditionSetByManagerCommand(), nameof(Item.PaymentConditionSetByManager), Item.PaymentConditionSetByManager?.Id);
+		}
+
+		private void ClearPaymentConditionSetByManagerCommand_Execute_Default() 
+		{
+						Item.PaymentConditionSetByManager = null;
+		    
+		}
+
+
+
+    }
+
+
     public partial class ConstructorParametersListDetailsViewModel : BaseDetailsViewModel<ConstructorParametersListWrapper, ConstructorParametersList, AfterSaveConstructorParametersListEvent>
     {
 		private Func<List<Parameter>> _getEntitiesForAddInParametersCommand;
@@ -3019,6 +3163,22 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
+		private Func<List<BudgetUnit>> _getEntitiesForAddInBudgetUnitsCommand;
+		public ICommand AddInBudgetUnitsCommand { get; }
+		public ICommand RemoveFromBudgetUnitsCommand { get; }
+		private BudgetUnitWrapper _selectedBudgetUnitsItem;
+		public BudgetUnitWrapper SelectedBudgetUnitsItem 
+		{ 
+			get { return _selectedBudgetUnitsItem; }
+			set 
+			{ 
+				if (Equals(_selectedBudgetUnitsItem, value)) return;
+				_selectedBudgetUnitsItem = value;
+				OnPropertyChanged();
+				((DelegateCommand)RemoveFromBudgetUnitsCommand).RaiseCanExecuteChanged();
+			}
+		}
+
 		private Func<List<BankGuarantee>> _getEntitiesForAddInBankGuaranteesCommand;
 		public ICommand AddInBankGuaranteesCommand { get; }
 		public ICommand RemoveFromBankGuaranteesCommand { get; }
@@ -3155,6 +3315,11 @@ namespace HVTApp.UI.ViewModels
 			if (_getEntitiesForAddInPaymentsPlannedCommand == null) _getEntitiesForAddInPaymentsPlannedCommand = () => { return UnitOfWork.Repository<PaymentPlanned>().GetAll(); };;
 			if (AddInPaymentsPlannedCommand == null) AddInPaymentsPlannedCommand = new DelegateCommand(AddInPaymentsPlannedCommand_Execute_Default);
 			if (RemoveFromPaymentsPlannedCommand == null) RemoveFromPaymentsPlannedCommand = new DelegateCommand(RemoveFromPaymentsPlannedCommand_Execute_Default, RemoveFromPaymentsPlannedCommand_CanExecute_Default);
+
+			
+			if (_getEntitiesForAddInBudgetUnitsCommand == null) _getEntitiesForAddInBudgetUnitsCommand = () => { return UnitOfWork.Repository<BudgetUnit>().GetAll(); };;
+			if (AddInBudgetUnitsCommand == null) AddInBudgetUnitsCommand = new DelegateCommand(AddInBudgetUnitsCommand_Execute_Default);
+			if (RemoveFromBudgetUnitsCommand == null) RemoveFromBudgetUnitsCommand = new DelegateCommand(RemoveFromBudgetUnitsCommand_Execute_Default, RemoveFromBudgetUnitsCommand_CanExecute_Default);
 
 			
 			if (_getEntitiesForAddInBankGuaranteesCommand == null) _getEntitiesForAddInBankGuaranteesCommand = () => { return UnitOfWork.Repository<BankGuarantee>().GetAll(); };;
@@ -3346,6 +3511,21 @@ namespace HVTApp.UI.ViewModels
 			private bool RemoveFromPaymentsPlannedCommand_CanExecute_Default()
 			{
 				return SelectedPaymentsPlannedItem != null;
+			}
+
+			private void AddInBudgetUnitsCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<BudgetUnit, BudgetUnitWrapper>(_getEntitiesForAddInBudgetUnitsCommand(), Item.BudgetUnits);
+			}
+
+			private void RemoveFromBudgetUnitsCommand_Execute_Default()
+			{
+				Item.BudgetUnits.Remove(SelectedBudgetUnitsItem);
+			}
+
+			private bool RemoveFromBudgetUnitsCommand_CanExecute_Default()
+			{
+				return SelectedBudgetUnitsItem != null;
 			}
 
 			private void AddInBankGuaranteesCommand_Execute_Default()

@@ -73,6 +73,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EntityTypeConfigurations\Custom\BankGuaranteeConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\BudgetConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\BudgetUnitConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ConstructorParametersListConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ConstructorsParametersConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\CountryUnionConfiguration.cs" />
@@ -197,6 +199,10 @@
     <Compile Include="Migrations\202008101035026_Supervision10.Designer.cs">
       <DependentUpon>202008101035026_Supervision10.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202008232234032_Budget.cs" />
+    <Compile Include="Migrations\202008232234032_Budget.Designer.cs">
+      <DependentUpon>202008232234032_Budget.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -215,6 +221,7 @@
     <Compile Include="UnitOfWork\Repositories\Repositories.g.cs" />
     <Compile Include="UnitOfWork\TestBaseRepository.cs" />
     <Compile Include="UnitOfWork\Test\Repositories.g.cs" />
+    <Compile Include="UnitOfWork\Test\SalesUnitRepositoryTest.cs" />
     <Compile Include="UnitOfWork\UnitOfWork.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\UserConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\UserRoleConfiguration.cs" />
@@ -294,6 +301,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202008101035026_Supervision10.resx">
       <DependentUpon>202008101035026_Supervision10.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008232234032_Budget.resx">
+      <DependentUpon>202008232234032_Budget.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

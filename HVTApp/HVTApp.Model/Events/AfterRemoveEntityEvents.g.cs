@@ -6,6 +6,8 @@ namespace HVTApp.Model.Events
 	public partial class AfterRemoveCountryUnionEvent : PubSubEvent<CountryUnion> { }
 	public partial class AfterRemoveBankGuaranteeEvent : PubSubEvent<BankGuarantee> { }
 	public partial class AfterRemoveBankGuaranteeTypeEvent : PubSubEvent<BankGuaranteeType> { }
+	public partial class AfterRemoveBudgetEvent : PubSubEvent<Budget> { }
+	public partial class AfterRemoveBudgetUnitEvent : PubSubEvent<BudgetUnit> { }
 	public partial class AfterRemoveConstructorParametersListEvent : PubSubEvent<ConstructorParametersList> { }
 	public partial class AfterRemoveConstructorsParametersEvent : PubSubEvent<ConstructorsParameters> { }
 	public partial class AfterRemoveCreateNewProductTaskEvent : PubSubEvent<CreateNewProductTask> { }

@@ -355,6 +355,184 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
+	[Designation("Бюджет")]
+	[DesignationPlural("BudgetLookup")]
+	[AllowEditAttribute(Role.Admin)]
+
+    public partial class BudgetLookupListView : ViewBase
+    {
+        public BudgetLookupListView()
+        {
+            InitializeComponent();
+        }
+
+        public BudgetLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, BudgetLookupListViewModel BudgetLookupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = BudgetLookupListViewModel;
+			BudgetLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			((BudgetLookupListViewModel)DataContext).Load();
+        }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility NameVisibility
+        {
+            get { return BudgetLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetLookup.Name)].Visibility; }
+            set { BudgetLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetLookup.Name)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return BudgetLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetLookup.DisplayMember)].Visibility; }
+            set { BudgetLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetLookup.DisplayMember)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return BudgetLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetLookup.Entity)].Visibility; }
+            set { BudgetLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetLookup.Entity)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility UnitsVisibility
+        {
+            get { return BudgetLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetLookup.Units)].Visibility; }
+            set { BudgetLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetLookup.Units)].Visibility = value; }
+        }
+
+
+
+		#endregion
+    }
+
+
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
+	[Designation("Единица бюджета")]
+	[DesignationPlural("BudgetUnitLookup")]
+	[AllowEditAttribute(Role.Admin)]
+
+    public partial class BudgetUnitLookupListView : ViewBase
+    {
+        public BudgetUnitLookupListView()
+        {
+            InitializeComponent();
+        }
+
+        public BudgetUnitLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, BudgetUnitLookupListViewModel BudgetUnitLookupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = BudgetUnitLookupListViewModel;
+			BudgetUnitLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			((BudgetUnitLookupListViewModel)DataContext).Load();
+        }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility OrderInTakeDateVisibility
+        {
+            get { return BudgetUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetUnitLookup.OrderInTakeDate)].Visibility; }
+            set { BudgetUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetUnitLookup.OrderInTakeDate)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility RealizationDateVisibility
+        {
+            get { return BudgetUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetUnitLookup.RealizationDate)].Visibility; }
+            set { BudgetUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetUnitLookup.RealizationDate)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility OrderInTakeDateByManagerVisibility
+        {
+            get { return BudgetUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetUnitLookup.OrderInTakeDateByManager)].Visibility; }
+            set { BudgetUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetUnitLookup.OrderInTakeDateByManager)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility RealizationDateByManagerVisibility
+        {
+            get { return BudgetUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetUnitLookup.RealizationDateByManager)].Visibility; }
+            set { BudgetUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetUnitLookup.RealizationDateByManager)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility CostVisibility
+        {
+            get { return BudgetUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetUnitLookup.Cost)].Visibility; }
+            set { BudgetUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetUnitLookup.Cost)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility CostByManagerVisibility
+        {
+            get { return BudgetUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetUnitLookup.CostByManager)].Visibility; }
+            set { BudgetUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetUnitLookup.CostByManager)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return BudgetUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetUnitLookup.DisplayMember)].Visibility; }
+            set { BudgetUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetUnitLookup.DisplayMember)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility BudgetVisibility
+        {
+            get { return BudgetUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetUnitLookup.Budget)].Visibility; }
+            set { BudgetUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetUnitLookup.Budget)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility SalesUnitVisibility
+        {
+            get { return BudgetUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetUnitLookup.SalesUnit)].Visibility; }
+            set { BudgetUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetUnitLookup.SalesUnit)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility PaymentConditionSetVisibility
+        {
+            get { return BudgetUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetUnitLookup.PaymentConditionSet)].Visibility; }
+            set { BudgetUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetUnitLookup.PaymentConditionSet)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility PaymentConditionSetByManagerVisibility
+        {
+            get { return BudgetUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetUnitLookup.PaymentConditionSetByManager)].Visibility; }
+            set { BudgetUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetUnitLookup.PaymentConditionSetByManager)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return BudgetUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetUnitLookup.Entity)].Visibility; }
+            set { BudgetUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetUnitLookup.Entity)].Visibility = value; }
+        }
+
+
+
+		#endregion
+    }
+
+
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Организационная форма")]
 	[DesignationPlural("CompanyFormLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -5265,6 +5443,13 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility IsRemovedVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.IsRemoved)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.IsRemoved)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility AllowEditCostVisibility
         {
             get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.AllowEditCost)].Visibility; }
@@ -5563,6 +5748,13 @@ namespace HVTApp.UI.Views
         {
             get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.PaymentsPlanned)].Visibility; }
             set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.PaymentsPlanned)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility BudgetUnitsVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.BudgetUnits)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.BudgetUnits)].Visibility = value; }
         }
 
 

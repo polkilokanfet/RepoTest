@@ -25,6 +25,20 @@ namespace HVTApp.DataAccess
 		}
     }
 
+    public partial class BudgetRepository : BaseRepository<Budget>, IBudgetRepository
+    {
+		public BudgetRepository(DbContext context) : base(context) 
+		{
+		}
+    }
+
+    public partial class BudgetUnitRepository : BaseRepository<BudgetUnit>, IBudgetUnitRepository
+    {
+		public BudgetUnitRepository(DbContext context) : base(context) 
+		{
+		}
+    }
+
     public partial class ConstructorParametersListRepository : BaseRepository<ConstructorParametersList>, IConstructorParametersListRepository
     {
 		public ConstructorParametersListRepository(DbContext context) : base(context) 
