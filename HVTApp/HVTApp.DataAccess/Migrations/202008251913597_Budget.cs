@@ -28,6 +28,7 @@ namespace HVTApp.DataAccess.Migrations
                         RealizationDateByManager = c.DateTime(nullable: false),
                         Cost = c.Double(nullable: false),
                         CostByManager = c.Double(nullable: false),
+                        IsRemoved = c.Boolean(nullable: false),
                         PaymentConditionSet_Id = c.Guid(nullable: false),
                         PaymentConditionSetByManager_Id = c.Guid(nullable: false),
                         SalesUnit_Id = c.Guid(nullable: false),

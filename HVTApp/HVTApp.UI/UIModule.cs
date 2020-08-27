@@ -10,6 +10,7 @@ using HVTApp.UI.Modules.PlanAndEconomy.PaymentsPlan;
 using HVTApp.UI.Modules.PlanAndEconomy.Supervision;
 using HVTApp.UI.Modules.Products.Views;
 using HVTApp.UI.Modules.Reports.FlatReport;
+using HVTApp.UI.Modules.Reports.FlatReport.Comparator;
 using HVTApp.UI.Modules.Reports.MarketReport;
 using HVTApp.UI.Modules.Reports.Reference;
 using HVTApp.UI.Modules.Reports.SalesCharts.ConsumersSalesChart;
@@ -72,10 +73,12 @@ namespace HVTApp.UI
             Container.RegisterViewForNavigation<ProductReplacementView>();
             Container.RegisterViewForNavigation<SupervisionView>();
             Container.RegisterViewForNavigation<HVTApp.UI.Modules.Sales.Supervision.SupervisionView>();
+            Container.RegisterViewForNavigation<BudgetComparisionView>();
 
             Container.Resolve<IDialogService>().Register<DirectumTaskRouteViewModel, DirectumTaskRouteWindow>();
 
             _dialogService.RegisterShow<ProductStructureViewModel, ProductStructureView>();
+            _dialogService.RegisterShow<BudgetComparisionViewModel, BudgetComparisionView>();
 
             RegisterViews();
         }

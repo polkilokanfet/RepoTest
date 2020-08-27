@@ -384,12 +384,17 @@ namespace HVTApp.Model.POCOs
         [Designation("Окончание производства по договору"), OrderStatus(854), NotMapped]
         public DateTime EndProductionDateByContractCalculated => StartProductionDateCalculated.AddDays(ProductionTerm);
 
+        /// <summary>
+        /// Реализация, внедренная извне (из отчета)
+        /// </summary>
+        [NotMapped]
+        public DateTime? RealizationDateInjected { get; set; }
 
         /// <summary>
         /// Расчетная дата реализации.
         /// </summary>
         [Designation("Расчетная дата реализации"), OrderStatus(850), NotMapped]
-        public DateTime RealizationDateCalculated => RealizationDate ?? DeliveryDateCalculated;
+        public DateTime RealizationDateCalculated => RealizationDateInjected ?? RealizationDate ?? DeliveryDateCalculated;
 
         /// <summary>
         /// Расчетная дата отгрузки.

@@ -199,9 +199,9 @@
     <Compile Include="Migrations\202008101035026_Supervision10.Designer.cs">
       <DependentUpon>202008101035026_Supervision10.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202008232332066_Budget.cs" />
-    <Compile Include="Migrations\202008232332066_Budget.Designer.cs">
-      <DependentUpon>202008232332066_Budget.cs</DependentUpon>
+    <Compile Include="Migrations\202008251913597_Budget.cs" />
+    <Compile Include="Migrations\202008251913597_Budget.Designer.cs">
+      <DependentUpon>202008251913597_Budget.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
@@ -302,8 +302,8 @@
     <EmbeddedResource Include="Migrations\202008101035026_Supervision10.resx">
       <DependentUpon>202008101035026_Supervision10.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202008232332066_Budget.resx">
-      <DependentUpon>202008232332066_Budget.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202008251913597_Budget.resx">
+      <DependentUpon>202008251913597_Budget.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

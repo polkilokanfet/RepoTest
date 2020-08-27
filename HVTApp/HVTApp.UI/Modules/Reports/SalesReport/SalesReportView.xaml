@@ -7,8 +7,7 @@
 
     <controls:LoadableContentControl x:Name="LoadbleControl" ContentIsLoaded="{Binding IsLoaded}">
 
-        <infg:XamDataGrid
-                          DataSource="{Binding Units}"
+        <infg:XamDataGrid DataSource="{Binding Units}"
                           SelectedDataItem="{Binding SelectedSalesReportUnit}">
 
             <!--Style="{StaticResource ListViewGrid}"-->

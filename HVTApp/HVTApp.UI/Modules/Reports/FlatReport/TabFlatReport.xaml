@@ -42,6 +42,7 @@
     </infRib:RibbonGroup>
     
     <infRib:RibbonGroup Caption="Бюджет">
+        <infRib:ButtonTool Caption="Сравнить" Command="{Binding CompareBudgetCommand}"/>
         <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveBudgetCommand}" SmallImage="/HVTApp.UI;component/Images/save.png"/>
     </infRib:RibbonGroup>
 

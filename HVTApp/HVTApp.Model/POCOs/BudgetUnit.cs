@@ -8,6 +8,19 @@ namespace HVTApp.Model.POCOs
     [Designation("Единица бюджета")]
     public class BudgetUnit : BaseEntity
     {
+        public BudgetUnit()
+        {
+        }
+
+        public BudgetUnit(SalesUnit salesUnit)
+        {
+            SalesUnit = salesUnit;
+            OrderInTakeDate = OrderInTakeDateByManager = salesUnit.OrderInTakeDate;
+            RealizationDate = RealizationDateByManager = salesUnit.RealizationDateCalculated;
+            Cost = CostByManager = salesUnit.Cost;
+            PaymentConditionSet = PaymentConditionSetByManager = salesUnit.PaymentConditionSet;
+        }
+
         [Designation("Бюджет"), Required, OrderStatus(110)]
         public virtual Budget Budget { get; set; }
 
@@ -40,5 +53,8 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Условия оплаты (менеджер)"), Required, OrderStatus(45)]
         public virtual PaymentConditionSet PaymentConditionSetByManager { get; set; }
+
+        [Designation("Удален"), OrderStatus(40)]
+        public bool IsRemoved { get; set; } = false;
     }
 }

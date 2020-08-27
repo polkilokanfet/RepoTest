@@ -23,6 +23,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
 
@@ -92,6 +93,12 @@
                                     AddItemCommand="{Binding SelectPaymentConditionSetByManagerCommand}" 
                                     RemoveItemCommand="{Binding ClearPaymentConditionSetByManagerCommand}"
 									Visibility="{Binding VisibilityPaymentConditionSetByManagerBudgetUnit, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="10" Content="Удален" Visibility="{Binding VisibilityIsRemovedBudgetUnit, ElementName=Root}"/>
+        <CheckBox Grid.Column="1" Grid.Row="10" MinWidth="200" 
+                  IsChecked="{Binding Item.IsRemoved, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				  Visibility="{Binding VisibilityIsRemovedBudgetUnit, ElementName=Root}"/>
 
 
 

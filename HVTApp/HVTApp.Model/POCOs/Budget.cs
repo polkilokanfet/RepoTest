@@ -17,5 +17,10 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Единицы бюджета"), Required]
         public virtual List<BudgetUnit> Units { get; set; } = new List<BudgetUnit>();
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

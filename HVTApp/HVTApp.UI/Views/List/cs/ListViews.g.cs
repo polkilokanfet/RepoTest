@@ -492,6 +492,13 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility IsRemovedVisibility
+        {
+            get { return BudgetUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetUnitLookup.IsRemoved)].Visibility; }
+            set { BudgetUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetUnitLookup.IsRemoved)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility DisplayMemberVisibility
         {
             get { return BudgetUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetUnitLookup.DisplayMember)].Visibility; }

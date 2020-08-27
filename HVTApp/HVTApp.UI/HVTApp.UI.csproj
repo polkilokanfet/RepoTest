@@ -169,6 +169,11 @@
     <Compile Include="Modules\PlanAndEconomy\Supervision\TabSupervision.xaml.cs">
       <DependentUpon>TabSupervision.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Reports\FlatReport\Comparator\BudgetComparisionViewModel.cs" />
+    <Compile Include="Modules\Reports\FlatReport\Comparator\BudgetComparisonItem.cs" />
+    <Compile Include="Modules\Reports\FlatReport\Comparator\BudgetComparisionView.xaml.cs">
+      <DependentUpon>BudgetComparisionView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Reports\MarketReport\ProducersMarket.cs" />
     <Compile Include="Modules\Sales\Market\Converters\ProductionGroupToColorConverter.cs" />
     <Compile Include="Modules\Sales\Market\Converters\ProjectItemToColorConverter.cs" />
@@ -999,6 +1004,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\Products\Views\StructureCostsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Reports\FlatReport\Comparator\BudgetComparisionView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

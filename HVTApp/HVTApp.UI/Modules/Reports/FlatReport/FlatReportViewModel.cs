@@ -5,12 +5,15 @@ using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Interfaces.Services.DialogService;
+using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Modules.PlanAndEconomy.PaymentsPlan;
 using HVTApp.UI.Modules.PlanAndEconomy.ViewModels;
+using HVTApp.UI.Modules.Reports.FlatReport.Comparator;
 using HVTApp.UI.Modules.Reports.ViewModels;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
@@ -112,11 +115,28 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
         /// </summary>
         public ICommand SaveBudgetCommand { get; set; }
 
+        /// <summary>
+        /// Сравнить с бюджетом
+        /// </summary>
+        public ICommand CompareBudgetCommand { get; set; }
+
         #endregion
 
         public FlatReportViewModel(IUnityContainer container) : base(container)
         {
             this.PaymentsPlanViewModel = new PaymentsPlanViewModel(container, false);
+
+            CompareBudgetCommand = new DelegateCommand(
+                () =>
+                {
+                    var budgets = UnitOfWork.Repository<Budget>().GetAll();
+                    var budget = Container.Resolve<ISelectService>().SelectItem(budgets);
+                    if (budget != null)
+                    {
+                        var viewModel = new BudgetComparisionViewModel(Items, budget.Units, Container);
+                        Container.Resolve<IDialogService>().Show(viewModel, $"Сравнение с бюджетом от {budget.Date.ToShortDateString()} {budget.Date.ToShortTimeString()}");
+                    }
+                });
 
             SaveBudgetCommand = new DelegateCommand(
                 () =>
@@ -134,14 +154,15 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                             {
                                 Budget = budget,
                                 SalesUnit = salesUnit,
-                                Cost = flatReportItem.Cost,
+                                Cost = flatReportItem.EstimatedCost,
                                 CostByManager = salesUnit.Cost,
                                 OrderInTakeDate = flatReportItem.EstimatedOrderInTakeDate,
                                 OrderInTakeDateByManager = salesUnit.OrderInTakeDate,
-                                RealizationDate = flatReportItem.RealizationDate,
+                                RealizationDate = flatReportItem.EstimatedRealizationDate,
                                 RealizationDateByManager = salesUnit.RealizationDateCalculated,
-                                PaymentConditionSet = flatReportItem.PaymentConditionSet,
-                                PaymentConditionSetByManager = salesUnit.PaymentConditionSet
+                                PaymentConditionSet = flatReportItem.EstimatedPaymentConditionSet,
+                                PaymentConditionSetByManager = salesUnit.PaymentConditionSet,
+                                IsRemoved = !flatReportItem.InReport
                             };
                             
                             salesUnit.BudgetUnits.Add(budgetUnit);
@@ -150,7 +171,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                     }
 
                     UnitOfWork.SaveChanges();
-                    Container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", "Бюджет успешно сохранен.");
+                    Container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", $"Бюджет \"{budget}\" успешно сохранен.");
                 });
 
             ReloadCommand = new DelegateCommand(Load);
@@ -164,7 +185,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                     var selectedItems = SelectedItems.Cast<FlatReportItem>();
                     selectedItems.ForEach(x => x.EstimatedOrderInTakeDate = x.EstimatedOrderInTakeDate.AddMonths(monthsAmount));
                 },
-                parameter => SelectedItem != null);
+                parameter => SelectedItem != null && SelectedItem.AllowEdit);
 
             AlignCommand = new DelegateCommand(
                 () =>
@@ -328,7 +349,9 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
             _items.ForEach(x => x.PropertyChanged += (sender, args) =>
             {
                 if (args.PropertyName == nameof(FlatReportItem.InReport) ||
-                    args.PropertyName == nameof(FlatReportItem.EstimatedOrderInTakeDate))
+                    args.PropertyName == nameof(FlatReportItem.EstimatedOrderInTakeDate) ||
+                    args.PropertyName == nameof(FlatReportItem.EstimatedRealizationDate) ||
+                    args.PropertyName == nameof(FlatReportItem.EstimatedCost))
                 {
                     RefreshContainers();
                 }

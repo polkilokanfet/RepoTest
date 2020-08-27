@@ -312,6 +312,11 @@ namespace HVTApp.UI.Views
             //    VisibilityPaymentConditionSetByManagerBudgetUnit = Visibility.Collapsed;
 
 
+            //attr = typeof(HVTApp.Model.POCOs.BudgetUnit).GetProperty(nameof(HVTApp.Model.POCOs.BudgetUnit.IsRemoved)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityIsRemovedBudgetUnit = Visibility.Collapsed;
+
+
 
         }
 
@@ -403,6 +408,15 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityPaymentConditionSetByManagerBudgetUnitProperty); }
             set { SetValue(VisibilityPaymentConditionSetByManagerBudgetUnitProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityIsRemovedBudgetUnitProperty = DependencyProperty.Register("VisibilityIsRemovedBudgetUnit", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityIsRemovedBudgetUnit
+        {
+            get { return (Visibility) GetValue(VisibilityIsRemovedBudgetUnitProperty); }
+            set { SetValue(VisibilityIsRemovedBudgetUnitProperty, value); OnPropertyChanged(); }
         }
 
 

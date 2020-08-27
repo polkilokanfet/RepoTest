@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using HVTApp.DataAccess.Annotations;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Modules.Reports.FlatReport
@@ -12,9 +13,9 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
     {
         private DateTime _estimatedOrderInTakeDate;
         private bool _inReport = true;
-        private double _cost;
-        private DateTime _realizationDate;
-        private PaymentConditionSet _paymentConditionSet;
+        private double _estimatedCost;
+        private DateTime _estimatedRealizationDate;
+        private PaymentConditionSet _estimatedPaymentConditionSet;
 
         public List<SalesUnit> SalesUnits { get; }
         public SalesUnit SalesUnit => SalesUnits.First();
@@ -41,7 +42,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
         /// <summary>
         /// Стоимость всех юнитов
         /// </summary>
-        public double Sum { get; }
+        public double Sum => EstimatedCost * Amount;
 
         /// <summary>
         /// Изначальная дата ОИТ
@@ -57,50 +58,76 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
             set
             {
                 if (!AllowEdit) return;
+                if (value < DateTime.Today) return;
+
                 if (Equals(_estimatedOrderInTakeDate, value)) return;
+
                 _estimatedOrderInTakeDate = value;
+
+                SalesUnits.ForEach(x => x.OrderInTakeDateInjected = value);
+                SalesUnits.ForEach(x => x.StartProductionDateInjected = value);
+                EstimatedRealizationDate = SalesUnit.RealizationDateCalculated;
+
                 OnPropertyChanged();
-                OnPropertyChanged(nameof(DifDays));
+                OnPropertyChanged(nameof(DifOitDays));
             }
         }
 
-        public int DifDays => (EstimatedOrderInTakeDate - OriginalOrderInTakeDate).Days;
+        /// <summary>
+        /// Сдвиг по дате ОИТ
+        /// </summary>
+        public int DifOitDays => EstimatedOrderInTakeDate.MonthsBetween(OriginalOrderInTakeDate);
 
         /// <summary>
         /// Предположительная стоимость юнита
         /// </summary>
-        public double Cost
+        public double EstimatedCost
         {
-            get { return _cost; }
+            get { return _estimatedCost; }
             set
             {
-                _cost = value;
+                if (!AllowEdit) return;
+                _estimatedCost = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(Sum));
             }
         }
+
+        /// <summary>
+        /// Изначальная дата реализации
+        /// </summary>
+        public DateTime OriginalRealizationDate { get; }
 
         /// <summary>
         /// Предположительная дата реализации
         /// </summary>
-        public DateTime RealizationDate
+        public DateTime EstimatedRealizationDate
         {
-            get { return _realizationDate; }
+            get { return _estimatedRealizationDate; }
             set
             {
-                _realizationDate = value;
+                if (!AllowEdit) return;
+                _estimatedRealizationDate = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(DifRealizationDays));
             }
         }
 
         /// <summary>
+        /// Сдвиг по дате реализации
+        /// </summary>
+        public int DifRealizationDays => EstimatedRealizationDate.MonthsBetween(OriginalRealizationDate);
+
+        /// <summary>
         /// Предполагаемые условия оплаты
         /// </summary>
-        public PaymentConditionSet PaymentConditionSet
+        public PaymentConditionSet EstimatedPaymentConditionSet
         {
-            get { return _paymentConditionSet; }
+            get { return _estimatedPaymentConditionSet; }
             set
             {
-                _paymentConditionSet = value;
+                if (!AllowEdit) return;
+                _estimatedPaymentConditionSet = value;
                 OnPropertyChanged();
             }
         }
@@ -113,11 +140,10 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
 
             var salesUnit = salesUnits.First();
 
-            Cost = salesUnit.Cost;
-            RealizationDate = salesUnit.RealizationDateCalculated;
-            PaymentConditionSet = salesUnit.PaymentConditionSet;
+            _estimatedCost = salesUnit.Cost;
             _estimatedOrderInTakeDate = OriginalOrderInTakeDate = salesUnit.OrderInTakeDate;
-            Sum = SalesUnits.Sum(x => x.Cost);
+            _estimatedRealizationDate = OriginalRealizationDate = salesUnit.RealizationDateCalculated;
+            EstimatedPaymentConditionSet = salesUnit.PaymentConditionSet;
         }
 
         /// <summary>

@@ -162,6 +162,10 @@ namespace HVTApp.UI.Lookup
         public System.Double CostByManager => Entity.CostByManager;
 
 
+		[OrderStatus(40)]
+        public System.Boolean IsRemoved => Entity.IsRemoved;
+
+
         #endregion
 
 

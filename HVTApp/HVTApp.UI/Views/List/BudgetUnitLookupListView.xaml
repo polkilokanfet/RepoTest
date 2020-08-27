@@ -48,6 +48,7 @@
                     <infg:NumericField Name="CostByManager" Label="Стоимость (менеджер)" Width="Auto" AllowResize="True" />
                     <infg:TextField Name="PaymentConditionSet" Label="Условия оплаты" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="PaymentConditionSetByManager" Label="Условия оплаты (менеджер)" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:CheckBoxField Name="IsRemoved" Label="Удален" Width="Auto" AllowResize="True" />
                     <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 
 					</infg:FieldLayout.Fields>
