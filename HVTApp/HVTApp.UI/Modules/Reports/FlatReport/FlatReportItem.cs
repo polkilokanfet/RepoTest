@@ -107,6 +107,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
             set
             {
                 if (!AllowEdit) return;
+                if (value < EstimatedOrderInTakeDate) return;
                 _estimatedRealizationDate = value;
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(DifRealizationDays));

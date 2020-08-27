@@ -1,6 +1,8 @@
 using System;
 using System.IO;
 using System.Windows;
+using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Services;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
 using Infragistics.Windows.DataPresenter;
@@ -11,6 +13,7 @@ namespace HVTApp.UI.Components
 {
     public abstract class ViewBaseSaveCustomization : HVTApp.Infrastructure.ViewBase
     {
+        private readonly IMessageService _messageService;
         protected abstract XamDataGrid DataGrid { get; }
 
         private string PathToCustomDirectory => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "HVTAppViewsCustom");
@@ -23,8 +26,9 @@ namespace HVTApp.UI.Components
 
         protected ViewBaseSaveCustomization() : base() { }
 
-        protected ViewBaseSaveCustomization(LoadableExportableExpandCollapseViewModel viewModel, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
+        protected ViewBaseSaveCustomization(LoadableExportableExpandCollapseViewModel viewModel, IRegionManager regionManager, IEventAggregator eventAggregator, IMessageService messageService) : base(regionManager, eventAggregator)
         {
+            _messageService = messageService;
             this.DataContext = viewModel;
 
             //сохранение кастомизации вида
@@ -98,9 +102,16 @@ namespace HVTApp.UI.Components
             if (!File.Exists(path))
                 return false;
 
-            using (var fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+            using (var fs = new FileStream(path, FileMode.Open, FileAccess.Read))
             {
-                DataGrid.LoadCustomizations(fs);
+                try
+                {
+                    DataGrid.LoadCustomizations(fs);
+                }
+                catch (Exception e)
+                {
+                    _messageService.ShowOkMessageDialog(e.GetType().ToString(), e.GetAllExceptions());
+                }
             }
 
             return true;

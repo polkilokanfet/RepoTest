@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Services;
 using HVTApp.UI.Modules.Sales.Market.Tabs;
 using Infragistics.Windows.DataPresenter;
 using Prism.Events;
@@ -17,8 +18,7 @@ namespace HVTApp.UI.Modules.Sales.Market
 
         protected override XamDataGrid DataGrid => this.ContentControl.Content as XamDataGrid;
 
-        public Market2View(Market2ViewModel viewModel, IRegionManager regionManager, IEventAggregator eventAggregator) 
-            : base(viewModel, regionManager, eventAggregator)
+        public Market2View(Market2ViewModel viewModel, IRegionManager regionManager, IEventAggregator eventAggregator, IMessageService messageService) : base(viewModel, regionManager, eventAggregator, messageService)
         {
             InitializeComponent();
 
