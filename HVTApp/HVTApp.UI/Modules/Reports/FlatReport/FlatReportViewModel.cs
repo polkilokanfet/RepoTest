@@ -123,7 +123,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                 if (!Items.Any())
                     return _monthContainersOit;
 
-                var reportItems = Items.Where(x => x.InReport).ToList();
+                var reportItems = Items.Where(x => x.InReport).Where(x => !x.IsLoosen).ToList();
                 var itemsInOit = reportItems.Where(x => x.SalesUnit.OrderIsTaken).ToList();
                 var itemsToOit = reportItems.Except(itemsInOit).ToList();
 
@@ -196,7 +196,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                 if (!Items.Any())
                     return _monthContainersRealization;
 
-                var reportItems = Items.Where(x => x.InReport).ToList();
+                var reportItems = Items.Where(x => x.InReport).Where(x => !x.IsLoosen).ToList();
                 var itemsRealized = reportItems.Where(x => x.SalesUnit.OrderIsRealized).ToList();
                 var itemsNotRealized = reportItems.Except(itemsRealized).ToList();
 
@@ -404,101 +404,101 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                 },
                 parameter => SelectedItem != null && SelectedItem.AllowEditRealization);
 
-            AlignCommand = new DelegateCommand(
-                () =>
-                {
-                    var diffList = new List<double>();
+            //AlignCommand = new DelegateCommand(
+            //    () =>
+            //    {
+            //        var diffList = new List<double>();
 
 
-                    while (MonthContainersOit.Any(x => !x.IsOk))
-                    {
-                        var notOkContainers = MonthContainersOit.ToList();
+            //        while (MonthContainersOit.Any(x => !x.IsOk))
+            //        {
+            //            var notOkContainers = MonthContainersOit.ToList();
 
-                        var toHighContainers = notOkContainers.Where(x => x.Difference < 0).OrderBy(x => x.Difference).ToList();
-                        foreach (var toHighContainer in toHighContainers)
-                        {
-                            //высокий контейнер (с него нужно скинуть в соседний)
-                            if (toHighContainer.FlatReportItems.Any())
-                            {
-                                //поиск соседа, в который можно скинуть
-                                var targetNeighboringContainer = GetNeighboringContainers(toHighContainer).OrderBy(x => x.Difference).LastOrDefault();
-                                if (targetNeighboringContainer != null)
-                                {
-                                    var item = GetNearestItem(toHighContainer, targetNeighboringContainer, true);
+            //            var toHighContainers = notOkContainers.Where(x => x.Difference < 0).OrderBy(x => x.Difference).ToList();
+            //            foreach (var toHighContainer in toHighContainers)
+            //            {
+            //                //высокий контейнер (с него нужно скинуть в соседний)
+            //                if (toHighContainer.FlatReportItems.Any())
+            //                {
+            //                    //поиск соседа, в который можно скинуть
+            //                    var targetNeighboringContainer = GetNeighboringContainers(toHighContainer).OrderBy(x => x.Difference).LastOrDefault();
+            //                    if (targetNeighboringContainer != null)
+            //                    {
+            //                        var item = GetNearestItem(toHighContainer, targetNeighboringContainer, true);
 
-                                    var dif1 = toHighContainer.Difference + item.Sum;
-                                    var dif2 = targetNeighboringContainer.Difference - item.Sum;
-                                    if (true)
-                                    {
-                                        toHighContainer.FlatReportItems.Remove(item);
-                                        targetNeighboringContainer.FlatReportItems.Add(item);
-                                    }
-                                }
-                            }
-                        }
+            //                        var dif1 = toHighContainer.Difference + item.Sum;
+            //                        var dif2 = targetNeighboringContainer.Difference - item.Sum;
+            //                        if (true)
+            //                        {
+            //                            toHighContainer.FlatReportItems.Remove(item);
+            //                            targetNeighboringContainer.FlatReportItems.Add(item);
+            //                        }
+            //                    }
+            //                }
+            //            }
 
-                        var toLowContainers = notOkContainers.Where(x => x.Difference > 0).OrderByDescending(x => x.Difference).ToList();
-                        foreach (var toLowContainer in toLowContainers)
-                        {
-                            //высокий контейнер (с него нужно скинуть в соседний)
-                            var targetNeighboringContainer = GetNeighboringContainers(toLowContainer).OrderBy(x => x.Difference).FirstOrDefault();
-                            if (targetNeighboringContainer != null && targetNeighboringContainer.FlatReportItems.Any())
-                            {
-                                var item = GetNearestItem(targetNeighboringContainer, toLowContainer, false);
+            //            var toLowContainers = notOkContainers.Where(x => x.Difference > 0).OrderByDescending(x => x.Difference).ToList();
+            //            foreach (var toLowContainer in toLowContainers)
+            //            {
+            //                //высокий контейнер (с него нужно скинуть в соседний)
+            //                var targetNeighboringContainer = GetNeighboringContainers(toLowContainer).OrderBy(x => x.Difference).FirstOrDefault();
+            //                if (targetNeighboringContainer != null && targetNeighboringContainer.FlatReportItems.Any())
+            //                {
+            //                    var item = GetNearestItem(targetNeighboringContainer, toLowContainer, false);
 
-                                var dif1 = toLowContainer.Difference - item.Sum;
-                                var dif2 = targetNeighboringContainer.Difference + item.Sum;
-                                if (true)
-                                {
-                                    targetNeighboringContainer.FlatReportItems.Remove(item);
-                                    toLowContainer.FlatReportItems.Add(item);
-                                }
+            //                    var dif1 = toLowContainer.Difference - item.Sum;
+            //                    var dif2 = targetNeighboringContainer.Difference + item.Sum;
+            //                    if (true)
+            //                    {
+            //                        targetNeighboringContainer.FlatReportItems.Remove(item);
+            //                        toLowContainer.FlatReportItems.Add(item);
+            //                    }
 
-                            }
-                        }
+            //                }
+            //            }
 
-                        //notOkContainers.Remove(toHighContainer);
+            //            //notOkContainers.Remove(toHighContainer);
 
-                        ////низкий контейнер
-                        //var toLowContainer = notOkContainers.Where(x => x.Difference < 0).OrderBy(x => x.Difference).FirstOrDefault();
-                        //if (toLowContainer != null)
-                        //{
-                        //    //поиск соседа-донора
-                        //    var targetNeighboringContainer = GetNeighboringContainers(toLowContainer).OrderBy(x => x.Difference).LastOrDefault();
-                        //    if (targetNeighboringContainer != null && targetNeighboringContainer.FlatReportItems.Any())
-                        //    {
-                        //        var item = GetNearestItam(targetNeighboringContainer, toLowContainer);
-                        //        targetNeighboringContainer.FlatReportItems.Remove(item);
-                        //        toLowContainer.FlatReportItems.Add(item);
-                        //    }
-                        //}
+            //            ////низкий контейнер
+            //            //var toLowContainer = notOkContainers.Where(x => x.Difference < 0).OrderBy(x => x.Difference).FirstOrDefault();
+            //            //if (toLowContainer != null)
+            //            //{
+            //            //    //поиск соседа-донора
+            //            //    var targetNeighboringContainer = GetNeighboringContainers(toLowContainer).OrderBy(x => x.Difference).LastOrDefault();
+            //            //    if (targetNeighboringContainer != null && targetNeighboringContainer.FlatReportItems.Any())
+            //            //    {
+            //            //        var item = GetNearestItam(targetNeighboringContainer, toLowContainer);
+            //            //        targetNeighboringContainer.FlatReportItems.Remove(item);
+            //            //        toLowContainer.FlatReportItems.Add(item);
+            //            //    }
+            //            //}
 
-                        //выход из мертвого цикла
-                        var dif = MonthContainersOit.Sum(x => x.Difference);
-                        diffList.Add(dif);
-                        if (diffList.Count(x => Math.Abs(x - dif) < 0.001) > 100)
-                        {
-                            break;
-                        }
+            //            //выход из мертвого цикла
+            //            var dif = MonthContainersOit.Sum(x => x.Difference);
+            //            diffList.Add(dif);
+            //            if (diffList.Count(x => Math.Abs(x - dif) < 0.001) > 100)
+            //            {
+            //                break;
+            //            }
 
-                    }
+            //        }
 
-                    ////var containers = FlatReportComparator.Align(GenerateMonthContainers()).ToList();
-                    //var containers = FlatReportComparator.Align(MonthContainers).ToList();
-                    //containers.ForEach(x => x.FillEstimatedOrderInTakeDates());
-                    //MonthContainers.Clear();
-                    //MonthContainers.AddRange(containers);
+            //        ////var containers = FlatReportComparator.Align(GenerateMonthContainers()).ToList();
+            //        //var containers = FlatReportComparator.Align(MonthContainers).ToList();
+            //        //containers.ForEach(x => x.FillEstimatedOrderInTakeDates());
+            //        //MonthContainers.Clear();
+            //        //MonthContainers.AddRange(containers);
 
 
-                    var co = MonthContainersOit.ToList();
-                    co.ForEach(x => x.FillEstimatedOrderInTakeDates());
+            //        var co = MonthContainersOit.ToList();
+            //        co.ForEach(x => x.FillEstimatedOrderInTakeDates());
 
-                    MonthContainersOit.Clear();
-                    MonthContainersOit.AddRange(co);
+            //        MonthContainersOit.Clear();
+            //        MonthContainersOit.AddRange(co);
 
-                    if (MonthContainersOit.Any(x => !x.IsOk))
-                        Container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", "Не во всех месяцах удалось выровнять суммы с заданной точностью.");
-                });
+            //        if (MonthContainersOit.Any(x => !x.IsOk))
+            //            Container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", "Не во всех месяцах удалось выровнять суммы с заданной точностью.");
+            //    });
 
             Load();
         }
@@ -547,8 +547,8 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
             UnitOfWork = Container.Resolve<IUnitOfWork>();
             //загрузка продажных единиц
             _salesUnits = GlobalAppProperties.User.RoleCurrent == Role.SalesManager
-                ? UnitOfWork.Repository<SalesUnit>().Find(x => !x.IsLoosen && x.Project.ForReport && x.Project.Manager.IsAppCurrentUser())
-                : UnitOfWork.Repository<SalesUnit>().Find(x => !x.IsLoosen && x.Project.ForReport);
+                ? UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.ForReport && x.Project.Manager.IsAppCurrentUser())
+                : UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.ForReport);
 
             _items = _salesUnits.GroupBy(x => x, new SalesUnitsReportComparer()).Select(x => new FlatReportItem(x)).ToList();
             
@@ -594,6 +594,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
             _finishDate = _items.Where(x => x.InReport).Max(x => x.EstimatedOrderInTakeDate);
             OnPropertyChanged(nameof(StartDate));
             OnPropertyChanged(nameof(FinishDate));
+            OnPropertyChanged(nameof(Items));
         }
 
         private double GetTargetOitSumPerMonth(IEnumerable<FlatReportItem> flatReportItems, double sum)

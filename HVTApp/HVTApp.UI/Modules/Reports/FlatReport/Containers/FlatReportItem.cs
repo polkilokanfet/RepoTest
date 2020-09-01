@@ -37,10 +37,11 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
             }
         }
 
-        public bool AllowEditOit => !SalesUnit.OrderIsTaken;
+        public bool AllowEditOit => !SalesUnit.OrderIsTaken && !IsLoosen;
 
-        public bool AllowEditRealization => !SalesUnit.OrderIsRealized;
+        public bool AllowEditRealization => !SalesUnit.OrderIsRealized && !IsLoosen;
 
+        public bool IsLoosen => SalesUnit.IsLoosen;
 
         /// <summary>
         /// Стоимость всех юнитов
@@ -147,7 +148,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
             _estimatedCost = salesUnit.Cost;
             _estimatedOrderInTakeDate = OriginalOrderInTakeDate = salesUnit.OrderInTakeDate;
             _estimatedRealizationDate = OriginalRealizationDate = salesUnit.RealizationDateCalculated;
-            EstimatedPaymentConditionSet = salesUnit.PaymentConditionSet;
+            _estimatedPaymentConditionSet = salesUnit.PaymentConditionSet;
         }
 
         /// <summary>

@@ -28,6 +28,13 @@
                                 </infg:RecordFilter.Conditions>
                             </infg:RecordFilter>
 
+
+                            <infg:RecordFilter FieldName="IsLoosen">
+                                <infg:RecordFilter.Conditions>
+                                    <controls:ComparisonCondition Operator="Equals" Value="False" />
+                                </infg:RecordFilter.Conditions>
+                            </infg:RecordFilter>
+
                         </infg:FieldLayout.RecordFilters>
 
 
@@ -44,7 +51,8 @@
                                 </infg:Field.Settings>
                             </infg:CheckBoxField>
                             <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.Facility}" Converter="{StaticResource ObjectToStringConverter}" Label="Объект" Width="Auto"/>
-                            <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.Product}" Converter="{StaticResource ObjectToStringConverter}" Label="Продукт" Width="Auto"/>
+                            <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.Product.ProductType.Name}" Label="Тип продукта" Width="Auto"/>
+                            <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.Product.Designation}" Label="Обозначение" Width="Auto"/>
                                     
                             <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.Cost}" Label="Цена" Width="Auto"/>
                             <infg:NumericField Name="EstimatedCost" Label="Цена (предп.)" Width="Auto" AllowEdit="True"/>                                    
@@ -62,6 +70,7 @@
                             <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Manager}" Converter="{StaticResource ObjectToStringConverter}" Label="Менеджер" Width="Auto"/>
                             <infg:CheckBoxField BindingType="UseAlternateBinding" AlternateBinding="{Binding AllowEditOit}" Label="Oit" Width="Auto" Name="AllowEditOit"/>
                             <infg:CheckBoxField BindingType="UseAlternateBinding" AlternateBinding="{Binding AllowEditRealization}" Label="Rlz" Width="Auto" Name="AllowEditRealization"/>
+                            <infg:CheckBoxField BindingType="UseAlternateBinding" AlternateBinding="{Binding IsLoosen}" Label="Lsn" Width="Auto" Name="IsLoosen"/>
                         </infg:FieldLayout.Fields>
                     </infg:FieldLayout>
                 </infg:XamDataGrid.FieldLayouts>
@@ -127,8 +136,8 @@
                                         <infg:NumericField Name="Year" Label="Год" Width="Auto"/>
                                         <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding MonthName}" Label="Месяц" Width="Auto"/>
                                         <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding CurrentSum}" Label="Набрано" Width="Auto"/>
-                                        <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding TargetSum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Label="Цель" AllowEdit="True" Width="Auto"/>
-                                        <infg:CheckBoxField BindingType="UseAlternateBinding" AlternateBinding="{Binding IsOk}" Label="V" Width="Auto"/>
+                                        <!--<infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding TargetSum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Label="Цель" AllowEdit="True" Width="Auto"/>
+                                        <infg:CheckBoxField BindingType="UseAlternateBinding" AlternateBinding="{Binding IsOk}" Label="V" Width="Auto"/>-->
                                     </infg:FieldLayout.Fields>
                                 </infg:FieldLayout>
                             </infg:XamDataGrid.FieldLayouts>
@@ -299,8 +308,8 @@
                                         <infg:NumericField Name="Year" Label="Год" Width="Auto"/>
                                         <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding MonthName}" Label="Месяц" Width="Auto"/>
                                         <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding CurrentSum}" Label="Набрано" Width="Auto"/>
-                                        <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding TargetSum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Label="Цель" AllowEdit="True" Width="Auto"/>
-                                        <infg:CheckBoxField BindingType="UseAlternateBinding" AlternateBinding="{Binding IsOk}" Label="V" Width="Auto"/>
+                                        <!--<infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding TargetSum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Label="Цель" AllowEdit="True" Width="Auto"/>
+                                        <infg:CheckBoxField BindingType="UseAlternateBinding" AlternateBinding="{Binding IsOk}" Label="V" Width="Auto"/>-->
                                     </infg:FieldLayout.Fields>
                                 </infg:FieldLayout>
                             </infg:XamDataGrid.FieldLayouts>

@@ -42,6 +42,7 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
             if (!Equals(x.OrderInTakeDate, y.OrderInTakeDate)) return false;
             if (!Equals(x.RealizationDateCalculated, y.RealizationDateCalculated)) return false;
             if (!Equals(x.PaymentConditionSet.Id, y.PaymentConditionSet.Id)) return false;
+            if (!Equals(x.IsLoosen, y.IsLoosen)) return false;
 
             return true;
         }
