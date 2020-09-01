@@ -7,7 +7,7 @@ using HVTApp.DataAccess.Annotations;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
 
-namespace HVTApp.UI.Modules.Reports.FlatReport
+namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
 {
     public class FlatReportItem : INotifyPropertyChanged
     {
@@ -30,14 +30,17 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
             get { return _inReport; }
             set
             {
-                if (!AllowEdit) return;
+                if (!AllowEditOit) return;
                 if (Equals(_inReport, value)) return;
                 _inReport = value;
                 OnPropertyChanged();
             }
         }
 
-        public bool AllowEdit => !SalesUnit.OrderIsTaken;
+        public bool AllowEditOit => !SalesUnit.OrderIsTaken;
+
+        public bool AllowEditRealization => !SalesUnit.OrderIsRealized;
+
 
         /// <summary>
         /// Стоимость всех юнитов
@@ -57,7 +60,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
             get { return _estimatedOrderInTakeDate; }
             set
             {
-                if (!AllowEdit) return;
+                if (!AllowEditOit) return;
                 if (value < DateTime.Today) return;
 
                 if (Equals(_estimatedOrderInTakeDate, value)) return;
@@ -86,7 +89,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
             get { return _estimatedCost; }
             set
             {
-                if (!AllowEdit) return;
+                if (!AllowEditOit) return;
                 _estimatedCost = value;
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(Sum));
@@ -106,7 +109,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
             get { return _estimatedRealizationDate; }
             set
             {
-                if (!AllowEdit) return;
+                if (!AllowEditRealization) return;
                 if (value < EstimatedOrderInTakeDate) return;
                 _estimatedRealizationDate = value;
                 OnPropertyChanged();
@@ -127,7 +130,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
             get { return _estimatedPaymentConditionSet; }
             set
             {
-                if (!AllowEdit) return;
+                if (!AllowEditOit) return;
                 _estimatedPaymentConditionSet = value;
                 OnPropertyChanged();
             }
@@ -156,8 +159,12 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
             {
                 if (!Equals(OriginalOrderInTakeDate, EstimatedOrderInTakeDate))
                 {
-                    x.OrderInTakeDateInjected = EstimatedOrderInTakeDate;
-                    x.StartProductionDateInjected = EstimatedOrderInTakeDate;
+                    x.OrderInTakeDateInjected = x.StartProductionDateInjected = EstimatedOrderInTakeDate;
+                }
+
+                if (!Equals(OriginalRealizationDate, EstimatedRealizationDate))
+                {
+                    x.EndProductionDateInjected = x.ShipmentDateInjected = x.RealizationDateInjected = EstimatedRealizationDate;
                 }
             });
         }

@@ -3,6 +3,7 @@ using HVTApp.Model;
 using HVTApp.UI.Modules.Reports.FlatReport;
 using HVTApp.UI.Modules.Reports.MarketReport;
 using HVTApp.UI.Modules.Reports.PriorityReport;
+using HVTApp.UI.Modules.Reports.Reference;
 using HVTApp.UI.Modules.Reports.SalesCharts.ConsumersSalesChart;
 using HVTApp.UI.Modules.Reports.SalesCharts.ContragentsSalesChart;
 using HVTApp.UI.Modules.Reports.SalesCharts.ManagersSalesChart;
@@ -11,8 +12,6 @@ using HVTApp.UI.Modules.Reports.SalesCharts.ProducersSalesChart;
 using HVTApp.UI.Modules.Reports.SalesCharts.ProductTypesSalesChart;
 using HVTApp.UI.Modules.Reports.SalesCharts.RegionsSalesChart;
 using HVTApp.UI.Modules.Reports.Views;
-using ReferenceView = HVTApp.UI.Modules.Reports.Reference.ReferenceView;
-using SalesReportView = HVTApp.UI.Modules.Reports.SalesReport.SalesReportView;
 
 namespace HVTApp.Modules.Reports.Menus
 {
@@ -27,7 +26,7 @@ namespace HVTApp.Modules.Reports.Menus
 
             Items.Add(new NavigationItem("Референс", typeof(ReferenceView)));
             Items.Add(new NavigationItem("Report maker", typeof(FlatReportView)));
-            Items.Add(new NavigationItem("Продажи", typeof(SalesReportView)));
+            //Items.Add(new NavigationItem("Продажи", typeof(SalesReportView)));
 
             if (GlobalAppProperties.User.RoleCurrent == Role.Admin ||
                 GlobalAppProperties.User.RoleCurrent == Role.ReportMaker ||

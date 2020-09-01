@@ -1,6 +1,7 @@
 using System;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Modules.Reports.FlatReport.Containers;
 
 namespace HVTApp.UI.Modules.Reports.FlatReport.Comparator
 {

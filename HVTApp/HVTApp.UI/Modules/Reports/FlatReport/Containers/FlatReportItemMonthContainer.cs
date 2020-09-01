@@ -4,12 +4,13 @@ using System.Linq;
 using HVTApp.Infrastructure.Extansions;
 using Prism.Mvvm;
 
-namespace HVTApp.UI.Modules.Reports.FlatReport
+namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
 {
     [System.Diagnostics.DebuggerDisplay("{" + nameof(ToString) + "()}")]
-    public class FlatReportItemMonthContainer : BindableBase
+    public abstract class FlatReportItemMonthContainer : BindableBase
     {
         private double _targetSum;
+        private double _accuracy;
 
         public List<FlatReportItem> FlatReportItems { get; }
 
@@ -42,7 +43,16 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
         /// <summary>
         /// Точность попадания (в долях: 0,01; 0,05 и т.д.)
         /// </summary>
-        public double Accuracy { get; }
+        public double Accuracy
+        {
+            get { return _accuracy; }
+            set
+            {
+                _accuracy = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(IsOk));
+            }
+        }
 
         /// <summary>
         /// Целевая сумма достигнута
@@ -59,41 +69,32 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
         /// </summary>
         public double Difference => TargetSum - CurrentSum;
 
-        public int Year { get; }
+        public int Year { get; protected set; }
 
-        public int Month { get; }
+        public int Month { get; protected set; }
 
         public string MonthName => new DateTime(Year, Month, 1).MonthName();
 
-        public FlatReportItemMonthContainer(IEnumerable<FlatReportItem> flatReportItems, double targetSum, double accuracy = 0.05, DateTime? date = null)
+        private FlatReportItemMonthContainer(double targetSum, double accuracy)
         {
-            FlatReportItems = flatReportItems?.ToList() ?? new List<FlatReportItem>();
-
             _targetSum = targetSum;
             Accuracy = accuracy;
-
-            Year = date?.Year ?? FlatReportItems.First().EstimatedOrderInTakeDate.Year;
-            Month = date?.Month ?? FlatReportItems.First().EstimatedOrderInTakeDate.Month;
         }
 
-        /// <summary>
-        /// Присвоить предложенным датам значения из контейнера
-        /// </summary>
-        public void FillEstimatedOrderInTakeDates()
+        protected FlatReportItemMonthContainer(IEnumerable<FlatReportItem> flatReportItems, double targetSum, double accuracy) : this(targetSum, accuracy)
         {
-            foreach (var flatReportItem in FlatReportItems)
-            {
-                if (Year != flatReportItem.OriginalOrderInTakeDate.Year || Month != flatReportItem.OriginalOrderInTakeDate.Month)
-                {
-                    var minDate = new DateTime(Year, Month, 1);
-                    var maxDate = new DateTime(Year, Month, DateTime.DaysInMonth(Year, Month));
-                    flatReportItem.EstimatedOrderInTakeDate = 
-                        Math.Abs((minDate - flatReportItem.OriginalOrderInTakeDate).Days) < Math.Abs((maxDate - flatReportItem.OriginalOrderInTakeDate).Days) 
-                        ? minDate 
-                        : maxDate;
-                }
-            }
+            FlatReportItems = flatReportItems.ToList();
+            FillYearAndMonth(flatReportItems);
         }
+
+        protected FlatReportItemMonthContainer(DateTime date, double targetSum, double accuracy) : this(targetSum, accuracy)
+        {
+            FlatReportItems = new List<FlatReportItem>();
+            Year = date.Year;
+            Month = date.Month;
+        }
+
+        protected abstract void FillYearAndMonth(IEnumerable<FlatReportItem> flatReportItems);
 
         public override string ToString()
         {

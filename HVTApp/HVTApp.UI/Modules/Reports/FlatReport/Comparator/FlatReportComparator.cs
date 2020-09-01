@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Practices.ObjectBuilder2;
+using HVTApp.UI.Modules.Reports.FlatReport.Containers;
 
-namespace HVTApp.UI.Modules.Reports.FlatReport
+namespace HVTApp.UI.Modules.Reports.FlatReport.Comparator
 {
     public class FlatReportComparator
     {

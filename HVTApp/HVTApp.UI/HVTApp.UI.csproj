@@ -174,6 +174,12 @@
     <Compile Include="Modules\Reports\FlatReport\Comparator\BudgetComparisionView.xaml.cs">
       <DependentUpon>BudgetComparisionView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Reports\FlatReport\Containers\MonthContainerOit.cs" />
+    <Compile Include="Modules\Reports\FlatReport\Containers\MonthContainerRealization.cs" />
+    <Compile Include="Modules\Reports\FlatReport\Reports\SalesReportView.xaml.cs">
+      <DependentUpon>SalesReportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\FlatReport\Reports\SalesReportViewModel.cs" />
     <Compile Include="Modules\Reports\MarketReport\ProducersMarket.cs" />
     <Compile Include="Modules\Sales\Market\Converters\ProductionGroupToColorConverter.cs" />
     <Compile Include="Modules\Sales\Market\Converters\ProjectItemToColorConverter.cs" />
@@ -183,14 +189,13 @@
     <Compile Include="Modules\Products\Views\ProductReplacementView.xaml.cs">
       <DependentUpon>ProductReplacementView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Reports\FlatReport\FlatReportComparator.cs" />
-    <Compile Include="Modules\Reports\FlatReport\FlatReportItem.cs" />
-    <Compile Include="Modules\Reports\FlatReport\FlatReportItemManagerContainer.cs" />
-    <Compile Include="Modules\Reports\FlatReport\FlatReportItemMonthContainersPair.cs" />
-    <Compile Include="Modules\Reports\FlatReport\FlatReportItemYearContainer.cs" />
-    <Compile Include="Modules\Reports\FlatReport\FlatReportViewModel - Report.cs" />
+    <Compile Include="Modules\Reports\FlatReport\Comparator\FlatReportComparator.cs" />
+    <Compile Include="Modules\Reports\FlatReport\Containers\FlatReportItem.cs" />
+    <Compile Include="Modules\Reports\FlatReport\Containers\FlatReportItemManagerContainer.cs" />
+    <Compile Include="Modules\Reports\FlatReport\Containers\FlatReportItemMonthContainersPair.cs" />
+    <Compile Include="Modules\Reports\FlatReport\Containers\FlatReportItemYearContainer.cs" />
     <Compile Include="Modules\Reports\FlatReport\FlatReportViewModel.cs" />
-    <Compile Include="Modules\Reports\FlatReport\FlatReportItemMonthContainer.cs" />
+    <Compile Include="Modules\Reports\FlatReport\Containers\FlatReportItemMonthContainer.cs" />
     <Compile Include="Modules\Reports\FlatReport\FlatReportView.xaml.cs">
       <DependentUpon>FlatReportView.xaml</DependentUpon>
     </Compile>
@@ -1012,6 +1017,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\Reports\FlatReport\FlatReportView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Reports\FlatReport\Reports\SalesReportView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

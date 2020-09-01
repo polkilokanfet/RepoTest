@@ -4,7 +4,6 @@ using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Modules.PlanAndEconomy.ViewModels;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 
@@ -15,6 +14,11 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsPlan
         public ObservableCollection<PaymentsPlanGroup> Payments { get; } = new ObservableCollection<PaymentsPlanGroup>();
         public ICommand ReloadCommand { get; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="load">Необходимость автоматической загрузки.</param>
         public PaymentsPlanViewModel(IUnityContainer container, bool load = true) : base(container)
         {
             ReloadCommand = new DelegateCommand(Load);

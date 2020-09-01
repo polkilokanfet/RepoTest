@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using HVTApp.Infrastructure;
+using HVTApp.UI.Modules.Reports.FlatReport.Containers;
 using Infragistics.Windows.DataPresenter;
 using Infragistics.Windows.Editors;
 using Prism.Events;

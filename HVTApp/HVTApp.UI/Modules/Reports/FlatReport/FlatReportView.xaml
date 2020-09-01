@@ -4,82 +4,68 @@
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               xmlns:igEditors="http://infragistics.com/Editors" 
-              xmlns:ig="http://schemas.infragistics.com/xaml">
+              xmlns:ig="http://schemas.infragistics.com/xaml" 
+              xmlns:controls="http://infragistics.com/Windows">
     
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="2*" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="2*" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         
         <GroupBox Header="Исходные данные">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="280" />
-                </Grid.ColumnDefinitions>
-    
-                <GroupBox Grid.Column="0" Header="Оборудование">
-                    <infg:XamDataGrid DataSource="{Binding Items}" SelectedDataItem="{Binding SelectedItem}" SelectedDataItems="{Binding SelectedItems, Mode=TwoWay}" SelectedDataItemsScope="RecordsOrCells">
-                        <infg:XamDataGrid.FieldLayouts>
-                            <infg:FieldLayout>
-                                <infg:FieldLayout.Fields>
-                                    <infg:CheckBoxField BindingType="UseAlternateBinding" AlternateBinding="{Binding InReport, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Label="V" Width="Auto" AllowEdit="True">
-                                        <infg:Field.Settings>
-                                            <infg:FieldSettings>
-                                                <infg:FieldSettings.EditorStyle>
-                                                    <Style TargetType="{x:Type igEditors:XamCheckEditor}">
-                                                        <EventSetter Event="ValueChanged" Handler="IsCheckedValueChanged" />
-                                                    </Style>
-                                                </infg:FieldSettings.EditorStyle>
-                                            </infg:FieldSettings>
-                                        </infg:Field.Settings>
-                                    </infg:CheckBoxField>
-                                    <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.Facility}" Converter="{StaticResource ObjectToStringConverter}" Label="Объект" Width="Auto"/>
-                                    <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.Product}" Converter="{StaticResource ObjectToStringConverter}" Label="Продукт" Width="Auto"/>
-                                    
-                                    <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.Cost}" Label="Цена" Width="Auto"/>
-                                    <infg:NumericField Name="EstimatedCost" Label="Цена (предп.)" Width="Auto" AllowEdit="True"/>                                    
-                                    <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding Amount}" Label="Кол." Width="Auto"/>
-                                    <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding Sum}" Label="Сумма" Width="Auto"/>
-                                    
-                                    <infg:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding OriginalOrderInTakeDate}" Label="ОИТ" Width="Auto"/>
-                                    <infg:DateTimeField Name="EstimatedOrderInTakeDate" Label="ОИТ (предп.)" Width="Auto" AllowEdit="True"/>
-                                    <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding DifOitDays}" Label="ОИТ (мес.)" Width="Auto"/>
-                                    
-                                    <infg:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding OriginalRealizationDate}" Label="Реал." Width="Auto"/>
-                                    <infg:DateTimeField Name="EstimatedRealizationDate" Label="Реал. (предп.)" Width="Auto" AllowEdit="True"/>
-                                    <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding DifRealizationDays}" Label="Реал. (мес.)" Width="Auto"/>
-                                    
-                                    <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Manager}" Converter="{StaticResource ObjectToStringConverter}" Label="Менеджер" Width="Auto"/>
-                                    <infg:CheckBoxField BindingType="UseAlternateBinding" AlternateBinding="{Binding AllowEdit}" Label="Редакт." Width="Auto"/>
-                                </infg:FieldLayout.Fields>
-                            </infg:FieldLayout>
-                        </infg:XamDataGrid.FieldLayouts>
-                    </infg:XamDataGrid>
-                </GroupBox>
-        
-                <GridSplitter Grid.Column="1" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+            <infg:XamDataGrid DataSource="{Binding Items}" SelectedDataItem="{Binding SelectedItem}" SelectedDataItems="{Binding SelectedItems, Mode=TwoWay}" SelectedDataItemsScope="RecordsOrCells">
+                <infg:XamDataGrid.FieldLayouts>
+                    <infg:FieldLayout>
+                        <infg:FieldLayout.RecordFilters>
 
-                <GroupBox Grid.Column="2" Header="ОИТ по менеджерам">
-                    <infg:XamDataGrid DataSource="{Binding ManagerContainers}">
-                        <infg:XamDataGrid.FieldLayouts>
-                            <infg:FieldLayout>
-                                <infg:FieldLayout.Fields>
-                                    <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Manager}" Label="Месяц" Width="Auto"/>
-                                    <infg:NumericField Name="Year" Label="Год" Width="Auto"/>
-                                    <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding Sum}" Label="Сумма" Width="Auto"/>
-                                </infg:FieldLayout.Fields>
-                            </infg:FieldLayout>
-                        </infg:XamDataGrid.FieldLayouts>
-                    </infg:XamDataGrid>
-                </GroupBox>
-                
-            </Grid>
+                            <infg:RecordFilter FieldName="AllowEditRealization">
+                                <infg:RecordFilter.Conditions>
+                                    <controls:ComparisonCondition Operator="Equals" Value="True" />
+                                </infg:RecordFilter.Conditions>
+                            </infg:RecordFilter>
+
+                        </infg:FieldLayout.RecordFilters>
+
+
+                        <infg:FieldLayout.Fields>
+                            <infg:CheckBoxField BindingType="UseAlternateBinding" AlternateBinding="{Binding InReport, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Label="V" Width="Auto" AllowEdit="True">
+                                <infg:Field.Settings>
+                                    <infg:FieldSettings>
+                                        <infg:FieldSettings.EditorStyle>
+                                            <Style TargetType="{x:Type igEditors:XamCheckEditor}">
+                                                <EventSetter Event="ValueChanged" Handler="IsCheckedValueChanged" />
+                                            </Style>
+                                        </infg:FieldSettings.EditorStyle>
+                                    </infg:FieldSettings>
+                                </infg:Field.Settings>
+                            </infg:CheckBoxField>
+                            <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.Facility}" Converter="{StaticResource ObjectToStringConverter}" Label="Объект" Width="Auto"/>
+                            <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.Product}" Converter="{StaticResource ObjectToStringConverter}" Label="Продукт" Width="Auto"/>
+                                    
+                            <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.Cost}" Label="Цена" Width="Auto"/>
+                            <infg:NumericField Name="EstimatedCost" Label="Цена (предп.)" Width="Auto" AllowEdit="True"/>                                    
+                            <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding Amount}" Label="Кол." Width="Auto"/>
+                            <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding Sum}" Label="Сумма" Width="Auto"/>
+                                    
+                            <infg:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding OriginalOrderInTakeDate}" Label="ОИТ" Width="Auto"/>
+                            <infg:DateTimeField Name="EstimatedOrderInTakeDate" Label="ОИТ (предп.)" Width="Auto" AllowEdit="True"/>
+                            <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding DifOitDays}" Label="ОИТ (мес.)" Width="Auto"/>
+                                    
+                            <infg:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding OriginalRealizationDate}" Label="Реал." Width="Auto"/>
+                            <infg:DateTimeField Name="EstimatedRealizationDate" Label="Реал. (предп.)" Width="Auto" AllowEdit="True"/>
+                            <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding DifRealizationDays}" Label="Реал. (мес.)" Width="Auto"/>
+                                    
+                            <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Manager}" Converter="{StaticResource ObjectToStringConverter}" Label="Менеджер" Width="Auto"/>
+                            <infg:CheckBoxField BindingType="UseAlternateBinding" AlternateBinding="{Binding AllowEditOit}" Label="Oit" Width="Auto" Name="AllowEditOit"/>
+                            <infg:CheckBoxField BindingType="UseAlternateBinding" AlternateBinding="{Binding AllowEditRealization}" Label="Rlz" Width="Auto" Name="AllowEditRealization"/>
+                        </infg:FieldLayout.Fields>
+                    </infg:FieldLayout>
+                </infg:XamDataGrid.FieldLayouts>
+            </infg:XamDataGrid>
         </GroupBox>
         
         <GridSplitter Grid.Row="1" Height="3" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
@@ -95,13 +81,31 @@
             
                 <Grid>
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="280" />
+                        <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="200" />
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <GroupBox Grid.Column="0" Header="По годам">
-                        <infg:XamDataGrid DataSource="{Binding YearContainers}">
+                    <GroupBox Grid.Column="0" Header="По менеджерам">
+                        <infg:XamDataGrid DataSource="{Binding ManagerContainersOit}">
+                            <infg:XamDataGrid.FieldLayouts>
+                                <infg:FieldLayout>
+                                    <infg:FieldLayout.Fields>
+                                        <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Manager}" Label="Менеджер" Width="Auto"/>
+                                        <infg:NumericField Name="Year" Label="Год" Width="Auto"/>
+                                        <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding Sum}" Label="Сумма" Width="Auto"/>
+                                    </infg:FieldLayout.Fields>
+                                </infg:FieldLayout>
+                            </infg:XamDataGrid.FieldLayouts>
+                        </infg:XamDataGrid>
+                    </GroupBox>
+
+                    <GridSplitter Grid.Column="1" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+                    
+                    <GroupBox Grid.Column="2" Header="По годам">
+                        <infg:XamDataGrid DataSource="{Binding YearContainersOit}">
                             <infg:XamDataGrid.FieldLayouts>
                                 <infg:FieldLayout>
                                     <infg:FieldLayout.Fields>
@@ -113,10 +117,10 @@
                         </infg:XamDataGrid>
                     </GroupBox>
                 
-                    <GridSplitter Grid.Column="1" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+                    <GridSplitter Grid.Column="3" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
                 
-                    <GroupBox Grid.Column="2" Header="По месяцам">
-                        <infg:XamDataGrid DataSource="{Binding MonthContainers}">
+                    <GroupBox Grid.Column="4" Header="По месяцам">
+                        <infg:XamDataGrid DataSource="{Binding MonthContainersOit}">
                             <infg:XamDataGrid.FieldLayouts>
                                 <infg:FieldLayout>
                                     <infg:FieldLayout.Fields>
@@ -135,7 +139,7 @@
             
                 <GridSplitter Grid.Column="1" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
         
-                <GroupBox Grid.Column="2" Header="Динамика продаж (ОИТ по месяцам)">
+                <GroupBox Grid.Column="2" Header="Динамика по месяцам">
 
                     <ig:XamDataChart x:Name="StackedBarChart"
                                      Padding="10"
@@ -148,11 +152,11 @@
 
                         <ig:XamDataChart.Axes>
                             <ig:NumericYAxis x:Name="YAxis" MinimumValue="0" Interval="400" Label="{}{:#,#} руб." />
-                            <ig:CategoryXAxis x:Name="XAxis" ItemsSource="{Binding MonthContainers}" Label="{}{Title}" />
+                            <ig:CategoryXAxis x:Name="XAxis" ItemsSource="{Binding MonthContainersOit}" Label="{}{Title}" />
                         </ig:XamDataChart.Axes>
 
                         <ig:XamDataChart.Series>
-                            <ig:ColumnSeries ItemsSource="{Binding MonthContainers}"
+                            <ig:ColumnSeries ItemsSource="{Binding MonthContainersOit}"
                                              ValueMemberPath="CurrentSum"
                                              Title="Title"
                                              XAxis="{Binding ElementName=XAxis}"
@@ -238,173 +242,367 @@
         
         <GridSplitter Grid.Row="3" Height="3" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
         
-        <GroupBox Grid.Row="4" Header="Отчеты">
-            
+        <GroupBox Grid.Row="4" Header="Реализация">
             <Grid>
+            
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                
-                <GroupBox Header="Бюджет продаж">
-                    <infg:XamDataGrid x:Name="ReportGrid"
-                                      DataSource="{Binding SalesReportUnits}"
-                                      SelectedDataItem="{Binding SelectedSalesReportUnit}">
-                        
-                        <infg:XamDataGrid.ContextMenu>
-                            <ContextMenu>
-                                <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
-                            </ContextMenu>
-                        </infg:XamDataGrid.ContextMenu>
-
-                        <infg:XamDataGrid.FieldLayouts>
-                            <infg:FieldLayout>
-                                <infg:FieldLayout.Fields>
-                                    <infg:TextField AlternateBinding="{Binding Order}" BindingType="UseAlternateBinding" Label="Заказ" Width="Auto" AllowResize="True" />
-                                    <infg:TextField AlternateBinding="{Binding OrderPositions}" BindingType="UseAlternateBinding" Label="Позиции" Width="Auto" AllowResize="True" />
-                                    <infg:TextField AlternateBinding="{Binding FacilityOwners}" BindingType="UseAlternateBinding" Label="Владелец объекта" Width="Auto" AllowResize="True" />
-                                    <infg:TextField AlternateBinding="{Binding Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto" AllowResize="True" />
-                                    <infg:TextField AlternateBinding="{Binding ContragentType}" BindingType="UseAlternateBinding" Label="Тип контрагента" Width="Auto" AllowResize="True" />
-                                    <infg:TextField AlternateBinding="{Binding Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto" AllowResize="True" />
-                                    <infg:TextField AlternateBinding="{Binding IsExport}" BindingType="UseAlternateBinding" Label="РФ/экспорт" Width="Auto" AllowResize="True" />
-                                    <infg:TextField AlternateBinding="{Binding RfSng}" BindingType="UseAlternateBinding" Label="РФ/СНГ" Width="Auto" AllowResize="True" />
-                                    <infg:TextField AlternateBinding="{Binding District}" BindingType="UseAlternateBinding" Label="Федеральный округ" Width="Auto" AllowResize="True" />
-                                    <infg:TextField AlternateBinding="{Binding Segment}" BindingType="UseAlternateBinding" Label="Сегмент" Width="Auto" AllowResize="True" />
-                                    <infg:TextField AlternateBinding="{Binding Kat}" BindingType="UseAlternateBinding" Label="Категория производства" Width="Auto" AllowResize="True" />
-                                    <infg:TextField AlternateBinding="{Binding ProductType}" BindingType="UseAlternateBinding" Label="Тип продукта" Width="Auto" AllowResize="True" />
-                                    <infg:TextField AlternateBinding="{Binding TransformerType}" BindingType="UseAlternateBinding" Label="Тип трансформатора" Width="Auto" AllowResize="True" />
-                                    <infg:TextField AlternateBinding="{Binding Power}" BindingType="UseAlternateBinding" Label="Суммарная мощность" Width="Auto" AllowResize="True" />
-                                    <infg:TextField AlternateBinding="{Binding Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="Auto" AllowResize="True" />
-                                    <infg:TextField AlternateBinding="{Binding ProductCategory}" BindingType="UseAlternateBinding" Label="Категория оборудования" Width="Auto" AllowResize="True" />
-                                    <infg:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" AllowResize="True" />
-                                    <infg:TextField AlternateBinding="{Binding Status}" BindingType="UseAlternateBinding" Label="Статус" Width="Auto" AllowResize="True" />
-                                    <infg:TextField AlternateBinding="{Binding StatusCategory}" BindingType="UseAlternateBinding" Label="Категория статуса" Width="Auto" AllowResize="True" />
-                                    <infg:NumericField AlternateBinding="{Binding Vat}" BindingType="UseAlternateBinding" Label="НДС, %" Width="Auto" AllowResize="True" />
-                                    <infg:NumericField AlternateBinding="{Binding Cost}" BindingType="UseAlternateBinding" Label="Цена" Width="Auto" AllowResize="True" />
-                                    <infg:NumericField AlternateBinding="{Binding CostWithVat}" BindingType="UseAlternateBinding" Label="Цена с НДС" Width="Auto" AllowResize="True" />
-                                    <infg:NumericField AlternateBinding="{Binding Sum}" BindingType="UseAlternateBinding" Label="Стоимость" Width="Auto" AllowResize="True" />
-                                    <infg:NumericField AlternateBinding="{Binding SumWithVat}" BindingType="UseAlternateBinding" Label="Стоимость с НДС" Width="Auto" AllowResize="True" />
-                                    <infg:NumericField AlternateBinding="{Binding CostDelivery}" BindingType="UseAlternateBinding" Label="Логистика" Width="Auto" AllowResize="True" />
-                                    <infg:NumericField AlternateBinding="{Binding FixedCost}" BindingType="UseAlternateBinding" Label="Шеф-монтаж" Width="Auto" AllowResize="True" />
-                                    <infg:NumericField AlternateBinding="{Binding Kz}" BindingType="UseAlternateBinding" Label="КЗ" Width="Auto" AllowResize="True" />
-                                    <infg:NumericField AlternateBinding="{Binding Proceeds}" BindingType="UseAlternateBinding" Label="Выручка" Width="Auto" AllowResize="True" />
-                                    <infg:NumericField AlternateBinding="{Binding Price}" BindingType="UseAlternateBinding" Label="ПЗ" Width="Auto" AllowResize="True" />
-                                    <infg:NumericField AlternateBinding="{Binding PriceOnAmount}" BindingType="UseAlternateBinding" Label="ПЗ на кол." Width="Auto" AllowResize="True" />
-                                    <infg:NumericField AlternateBinding="{Binding MarginalIncomeNatural}" BindingType="UseAlternateBinding" Label="МД, руб." Width="Auto" AllowResize="True" />
-                                    <infg:NumericField AlternateBinding="{Binding MarginalIncome}" BindingType="UseAlternateBinding" Label="МД, %" Width="Auto" AllowResize="True" />
-                                    <infg:TextField AlternateBinding="{Binding Manager}" BindingType="UseAlternateBinding" Label="Менеджер" Width="Auto" AllowResize="True" />
-                                    <infg:TextField AlternateBinding="{Binding ContractNumber}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto" AllowResize="True" />
-                                    <infg:TextField AlternateBinding="{Binding SpecificationNumber}" BindingType="UseAlternateBinding" Label="Спецификация" Width="Auto" AllowResize="True" />
-                                    <infg:DateTimeField AlternateBinding="{Binding ContractDate}" BindingType="UseAlternateBinding" Label="Дата договора" Width="Auto" AllowResize="True" />
-                                    <infg:DateTimeField AlternateBinding="{Binding SpecificationDate}" BindingType="UseAlternateBinding" Label="Дата спецификации" Width="Auto" AllowResize="True" />
-                                    <infg:NumericField AlternateBinding="{Binding SpecificationMonth}" BindingType="UseAlternateBinding" Label="Месяц спецификации" Width="Auto" AllowResize="True" />
-                                    <infg:NumericField AlternateBinding="{Binding SpecificationQuarter}" BindingType="UseAlternateBinding" Label="Квартал спецификации" Width="Auto" AllowResize="True" />
-                                    <infg:NumericField AlternateBinding="{Binding ContractYear}" BindingType="UseAlternateBinding" Label="Год контракта" Width="Auto" AllowResize="True" />
-                                    <infg:NumericField AlternateBinding="{Binding OrderInTakeMonth}" BindingType="UseAlternateBinding" Label="Месяц ОИТ" Width="Auto" AllowResize="True" />
-                                    <infg:NumericField AlternateBinding="{Binding OrderInTakeYear}" BindingType="UseAlternateBinding" Label="Год ОИТ" Width="Auto" AllowResize="True" />
-                                    <infg:DateTimeField AlternateBinding="{Binding OrderInTakeDate}" BindingType="UseAlternateBinding" Label="ОИТ" Width="Auto" AllowResize="True" />
-                                    <infg:DateTimeField AlternateBinding="{Binding StartProductionDate}" BindingType="UseAlternateBinding" Label="Дата запуска" Width="Auto" AllowResize="True" />
-                                    <infg:NumericField AlternateBinding="{Binding StartProductionMonth}" BindingType="UseAlternateBinding" Label="Месяц запуска" Width="Auto" AllowResize="True" />
-                                    <infg:NumericField AlternateBinding="{Binding StartProductionYear}" BindingType="UseAlternateBinding" Label="Год запуска" Width="Auto" AllowResize="True" />
-                                    <infg:DateTimeField AlternateBinding="{Binding ShipmentDate}" BindingType="UseAlternateBinding" Label="Дата отгрузки" Width="Auto" AllowResize="True" />
-                                    <infg:DateTimeField AlternateBinding="{Binding RealizationDate}" BindingType="UseAlternateBinding" Label="Дата реализации" Width="Auto" AllowResize="True" />
-                                    <infg:NumericField AlternateBinding="{Binding RealizationDatetMonth}" BindingType="UseAlternateBinding" Label="Месяц реализации" Width="Auto" AllowResize="True" />
-                                    <infg:NumericField AlternateBinding="{Binding RealizationDateYear}" BindingType="UseAlternateBinding" Label="Год реализации" Width="Auto" AllowResize="True" />
-                                    <infg:DateTimeField AlternateBinding="{Binding RealizationDateRequared}" BindingType="UseAlternateBinding" Label="Дата реализации требуемая" Width="Auto" AllowResize="True" />
-                                    <infg:DateTimeField AlternateBinding="{Binding RealizationDateContract}" BindingType="UseAlternateBinding" Label="Дата реализации по контракту" Width="Auto" AllowResize="True" />
-                                    <infg:TextField AlternateBinding="{Binding PaymentConditionSet}" BindingType="UseAlternateBinding" Label="Условия оплаты" Width="Auto" AllowResize="True" />
-                                    <infg:NumericField AlternateBinding="{Binding DaysToStartProduction}" BindingType="UseAlternateBinding" Label="Срок до (начало производства)" Width="Auto" AllowResize="True" />
-                                    <infg:NumericField AlternateBinding="{Binding PaymentStartProduction}" BindingType="UseAlternateBinding" Label="Платеж (начало производства)" Width="Auto" AllowResize="True" />
-                                    <infg:DateTimeField AlternateBinding="{Binding DatePaymentStartProduction}" BindingType="UseAlternateBinding" Label="Дата (начало производства)" Width="Auto" AllowResize="True" />
-                                    <infg:TextField AlternateBinding="{Binding PaymentTypeStartProduction}" BindingType="UseAlternateBinding" Label="Тип (начало производства)" Width="Auto" AllowResize="True" />
-                                    <infg:NumericField AlternateBinding="{Binding DaysToEndProduction}" BindingType="UseAlternateBinding" Label="Срок до (окончание производства)" Width="Auto" AllowResize="True" />
-                                    <infg:NumericField AlternateBinding="{Binding PaymentEndProduction}" BindingType="UseAlternateBinding" Label="Платеж (окончание производства)" Width="Auto" AllowResize="True" />
-                                    <infg:DateTimeField AlternateBinding="{Binding DatePaymentEndProduction}" BindingType="UseAlternateBinding" Label="Дата (окончание производства)" Width="Auto" AllowResize="True" />
-                                    <infg:TextField AlternateBinding="{Binding PaymentTypeEndProduction}" BindingType="UseAlternateBinding" Label="Тип (окончание производства)" Width="Auto" AllowResize="True" />
-                                    <infg:NumericField AlternateBinding="{Binding DaysToShipping}" BindingType="UseAlternateBinding" Label="Срок до (отгрузка)" Width="Auto" AllowResize="True" />
-                                    <infg:NumericField AlternateBinding="{Binding PaymentShipping}" BindingType="UseAlternateBinding" Label="Платежи (отгрузка)" Width="Auto" AllowResize="True" />
-                                    <infg:DateTimeField AlternateBinding="{Binding DatePaymentShipping}" BindingType="UseAlternateBinding" Label="Дата (отгрузка)" Width="Auto" AllowResize="True" />
-                                    <infg:TextField AlternateBinding="{Binding PaymentTypeShipping}" BindingType="UseAlternateBinding" Label="Тип (отгрузка)" Width="Auto" AllowResize="True" />
-                                    <infg:NumericField AlternateBinding="{Binding DaysToDelivery}" BindingType="UseAlternateBinding" Label="Срок до (поставка)" Width="Auto" AllowResize="True" />
-                                    <infg:NumericField AlternateBinding="{Binding PaymentDelivery}" BindingType="UseAlternateBinding" Label="Платеж (поставка)" Width="Auto" AllowResize="True" />
-                                    <infg:DateTimeField AlternateBinding="{Binding DatePaymentDelivery}" BindingType="UseAlternateBinding" Label="Дата (поставка)" Width="Auto" AllowResize="True" />
-                                    <infg:TextField AlternateBinding="{Binding PaymentTypeDelivery}" BindingType="UseAlternateBinding" Label="Тип (поставка)" Width="Auto" AllowResize="True" />
-                                    <infg:TextField AlternateBinding="{Binding DeliveryType}" BindingType="UseAlternateBinding" Label="Тип доставки" Width="Auto" AllowResize="True" />
-                                    <infg:TextField AlternateBinding="{Binding DeliveryAddress}" BindingType="UseAlternateBinding" Label="Адрес доставки" Width="Auto" AllowResize="True" />
-                                    <infg:DateTimeField AlternateBinding="{Binding PickingDate}" BindingType="UseAlternateBinding" Label="Комплектация" Width="Auto" AllowResize="True" />
-                                    <infg:TextField AlternateBinding="{Binding ProductsIncluded}" BindingType="UseAlternateBinding" Label="Включенное оборудование (на единицу)" Width="Auto" AllowResize="True" />
-                                    <infg:TextField AlternateBinding="{Binding PaymentsActual}" BindingType="UseAlternateBinding" Label="Оплаты" Width="Auto" AllowResize="True" />
-                                    <infg:TextField AlternateBinding="{Binding TceInfo}" BindingType="UseAlternateBinding" Label="Информация из ТСЕ (на единицу)" Width="Auto" AllowResize="True" />
-                                    <infg:TextField AlternateBinding="{Binding IsolationMaterial}" BindingType="UseAlternateBinding" Label="Материал изолятора" Width="Auto" AllowResize="True" />
-                                    <infg:TextField AlternateBinding="{Binding IsolationDpu}" BindingType="UseAlternateBinding" Label="ДПУ" Width="Auto" AllowResize="True" />
-                                    <infg:TextField AlternateBinding="{Binding IsolationColor}" BindingType="UseAlternateBinding" Label="Цвет изолятора" Width="Auto" AllowResize="True" />
-                                    <infg:TextField AlternateBinding="{Binding TenderStatus}" BindingType="UseAlternateBinding" Label="TenderStatus" Width="Auto" AllowResize="True" />
-                                    <infg:TextField AlternateBinding="{Binding Producer}" BindingType="UseAlternateBinding" Label="Производитель" Width="Auto" AllowResize="True" />
-                                    <infg:CheckBoxField AlternateBinding="{Binding RealizationDateIsFake}" BindingType="UseAlternateBinding" Label="RealizationDateIsFake" Width="Auto" AllowResize="True" />
-                                    <infg:CheckBoxField AlternateBinding="{Binding PaymentConditionSetIsFake}" BindingType="UseAlternateBinding" Label="PaymentConditionSetIsFake" Width="Auto" AllowResize="True" />
-                                    <infg:CheckBoxField AlternateBinding="{Binding OrderInTakeDateIsFake}" BindingType="UseAlternateBinding" Label="OrderInTakeDateIsFake" Width="Auto" AllowResize="True" />
-                                    <infg:CheckBoxField AlternateBinding="{Binding CostIsFake}" BindingType="UseAlternateBinding" Label="CostIsFake" Width="Auto" AllowResize="True" />
-                                    <infg:TextField AlternateBinding="{Binding Country}" BindingType="UseAlternateBinding" Label="Страна поставки" Width="Auto" AllowResize="True" />
-                                </infg:FieldLayout.Fields>
-                            </infg:FieldLayout>
-
-                        </infg:XamDataGrid.FieldLayouts>
-                    </infg:XamDataGrid>
-                </GroupBox>
-                
-                <GridSplitter Grid.Column="1" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
-                
-                <GroupBox Grid.Column="2" Header="План поступлений">
-                    <infg:XamDataGrid DataSource="{Binding PaymentsPlanViewModel.Payments}" VerticalAlignment="Stretch">
-
-                        <infg:XamDataGrid.ContextMenu>
-                            <ContextMenu>
-                                <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
-                            </ContextMenu>
-                        </infg:XamDataGrid.ContextMenu>
-
-                        <infg:XamDataGrid.FieldLayouts>
-                            <infg:FieldLayout>
-                                <infg:FieldLayout.Fields>
-
-                                    <infg:TextField AlternateBinding="{Binding Contragent}" BindingType="UseAlternateBinding" Label="Плательщик" Width="Auto" AllowResize="True"/>
-                                    <infg:TextField AlternateBinding="{Binding Contract.Number}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
-                                    <infg:TextField AlternateBinding="{Binding Region}" BindingType="UseAlternateBinding" Label="Регион" Width="Auto"/>
-                                    <infg:TextField AlternateBinding="{Binding SalesUnit.Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
-                                    <infg:TextField AlternateBinding="{Binding OrderNumber}" BindingType="UseAlternateBinding" Label="З/з" Width="Auto"/>
-                                    <infg:TextField AlternateBinding="{Binding SalesUnit.Product.Designation}" BindingType="UseAlternateBinding" Label="Продукт" Width="Auto"/>
-                                    <infg:TextField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto"/>
-                                    <infg:TextField AlternateBinding="{Binding Rf}" BindingType="UseAlternateBinding" Label="Эксп./РФ" Width="Auto"/>
-                                    <infg:TextField AlternateBinding="{Binding Currency}" BindingType="UseAlternateBinding" Label="Валюта" Width="Auto"/>
-                                    <infg:DateTimeField AlternateBinding="{Binding SalesUnit.RealizationDateCalculated}" BindingType="UseAlternateBinding" Label="Реализация" Width="Auto"/>
-                                    <infg:NumericField AlternateBinding="{Binding Days}" BindingType="UseAlternateBinding" Label="Разница" Width="Auto"/>
-                                    <infg:DateTimeField AlternateBinding="{Binding DateContract}" BindingType="UseAlternateBinding" Label="По договору" Width="Auto"/>
-                                    <infg:TextField AlternateBinding="{Binding PaymentType}" BindingType="UseAlternateBinding" Label="Тип" Width="Auto"/>
-                                    <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" AllowEdit="True"/>
-                                    <infg:NumericField AlternateBinding="{Binding Week}" BindingType="UseAlternateBinding" Label="Неделя" Width="Auto"/>
-                                    <infg:NumericField AlternateBinding="{Binding Sum}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto"/>
-                                    <infg:TextField AlternateBinding="{Binding SalesUnit.Project.Manager.Employee.Person}" BindingType="UseAlternateBinding" Label="Менеджер" Width="Auto"/>
-                                    <infg:TextField AlternateBinding="{Binding PaymentPlanned.Condition}" BindingType="UseAlternateBinding" Label="Условие" Width="Auto"/>
-                                    <infg:TextField AlternateBinding="{Binding Month}" BindingType="UseAlternateBinding" Label="Месяц" Width="Auto"/>
-                                    <infg:TextField AlternateBinding="{Binding Year}" BindingType="UseAlternateBinding" Label="Год" Width="Auto"/>
-
-                                </infg:FieldLayout.Fields>
-                            </infg:FieldLayout>
-
-                        </infg:XamDataGrid.FieldLayouts>
-                    </infg:XamDataGrid>
-
-                </GroupBox>
-            </Grid>
             
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="280" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="200" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
 
+                    <GroupBox Grid.Column="0" Header="По менеджерам">
+                        <infg:XamDataGrid DataSource="{Binding ManagerContainersRealization}">
+                            <infg:XamDataGrid.FieldLayouts>
+                                <infg:FieldLayout>
+                                    <infg:FieldLayout.Fields>
+                                        <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Manager}" Label="Менеджер" Width="Auto"/>
+                                        <infg:NumericField Name="Year" Label="Год" Width="Auto"/>
+                                        <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding Sum}" Label="Сумма" Width="Auto"/>
+                                    </infg:FieldLayout.Fields>
+                                </infg:FieldLayout>
+                            </infg:XamDataGrid.FieldLayouts>
+                        </infg:XamDataGrid>
+                    </GroupBox>
+
+                    <GridSplitter Grid.Column="1" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+                    
+                    <GroupBox Grid.Column="2" Header="По годам">
+                        <infg:XamDataGrid DataSource="{Binding YearContainersRealization}">
+                            <infg:XamDataGrid.FieldLayouts>
+                                <infg:FieldLayout>
+                                    <infg:FieldLayout.Fields>
+                                        <infg:NumericField Name="Year" Label="Год" Width="Auto"/>
+                                        <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding Sum}" Label="Сумма" Width="Auto"/>
+                                    </infg:FieldLayout.Fields>
+                                </infg:FieldLayout>
+                            </infg:XamDataGrid.FieldLayouts>
+                        </infg:XamDataGrid>
+                    </GroupBox>
+                
+                    <GridSplitter Grid.Column="3" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+                
+                    <GroupBox Grid.Column="4" Header="По месяцам">
+                        <infg:XamDataGrid DataSource="{Binding MonthContainersRealization}">
+                            <infg:XamDataGrid.FieldLayouts>
+                                <infg:FieldLayout>
+                                    <infg:FieldLayout.Fields>
+                                        <infg:NumericField Name="Year" Label="Год" Width="Auto"/>
+                                        <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding MonthName}" Label="Месяц" Width="Auto"/>
+                                        <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding CurrentSum}" Label="Набрано" Width="Auto"/>
+                                        <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding TargetSum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Label="Цель" AllowEdit="True" Width="Auto"/>
+                                        <infg:CheckBoxField BindingType="UseAlternateBinding" AlternateBinding="{Binding IsOk}" Label="V" Width="Auto"/>
+                                    </infg:FieldLayout.Fields>
+                                </infg:FieldLayout>
+                            </infg:XamDataGrid.FieldLayouts>
+                        </infg:XamDataGrid>
+                    </GroupBox>
+            
+                </Grid>
+            
+                <GridSplitter Grid.Column="1" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+        
+                <GroupBox Grid.Column="2" Header="Динамика по месяцам">
+
+                    <ig:XamDataChart x:Name="StackedBarChartRealization"
+                                     Padding="10"
+                                     Visibility="Visible"
+                                     DataContext="{Binding}"
+                                     HorizontalZoomable="True"
+                                     HorizontalZoombarVisibility="Collapsed"
+                                     VerticalZoomable="True"
+                                     VerticalZoombarVisibility="Collapsed">
+
+                        <ig:XamDataChart.Axes>
+                            <ig:NumericYAxis x:Name="YAxisRealization" MinimumValue="0" Interval="400" Label="{}{:#,#} руб." />
+                            <ig:CategoryXAxis x:Name="XAxisRealization" ItemsSource="{Binding MonthContainersRealization}" Label="{}{Title}" />
+                        </ig:XamDataChart.Axes>
+
+                        <ig:XamDataChart.Series>
+                            <ig:ColumnSeries ItemsSource="{Binding MonthContainersRealization}"
+                                             ValueMemberPath="CurrentSum"
+                                             Title="Title"
+                                             XAxis="{Binding ElementName=XAxisRealization}"
+                                             YAxis="{Binding ElementName=YAxisRealization}"
+                                             IsHighlightingEnabled="True"
+                                             IsTransitionInEnabled="True">
+
+                                <ig:ColumnSeries.ToolTip>
+                                    <StackPanel Orientation="Vertical">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label Content="Дата: " />
+                                            <TextBlock Text="{Binding Item.Date, StringFormat=MM.yyyy}" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label Content="Сумма (руб.): " />
+                                            <TextBlock Text="{Binding Item.CurrentSum, StringFormat={}{0:#,#}}" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </ig:ColumnSeries.ToolTip>
+
+                            </ig:ColumnSeries>
+                        </ig:XamDataChart.Series>
+
+                    </ig:XamDataChart>
+
+                </GroupBox>
+
+            </Grid>
         </GroupBox>
 
     </Grid>
 
     
 </inf:ViewBase>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

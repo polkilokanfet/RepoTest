@@ -11,6 +11,7 @@ using HVTApp.UI.Modules.PlanAndEconomy.Supervision;
 using HVTApp.UI.Modules.Products.Views;
 using HVTApp.UI.Modules.Reports.FlatReport;
 using HVTApp.UI.Modules.Reports.FlatReport.Comparator;
+using HVTApp.UI.Modules.Reports.FlatReport.Reports;
 using HVTApp.UI.Modules.Reports.MarketReport;
 using HVTApp.UI.Modules.Reports.Reference;
 using HVTApp.UI.Modules.Reports.SalesCharts.ConsumersSalesChart;
@@ -79,6 +80,8 @@ namespace HVTApp.UI
 
             _dialogService.RegisterShow<ProductStructureViewModel, ProductStructureView>();
             _dialogService.RegisterShow<BudgetComparisionViewModel, BudgetComparisionView>();
+            _dialogService.RegisterShow<SalesReportViewModel, SalesReportView>();
+            _dialogService.RegisterShow<PaymentsPlanViewModel, PaymentsPlanView>();
 
             RegisterViews();
         }

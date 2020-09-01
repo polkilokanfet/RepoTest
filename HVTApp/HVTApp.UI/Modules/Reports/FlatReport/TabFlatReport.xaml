@@ -22,9 +22,14 @@
         </StackPanel>
     </infRib:RibbonGroup>
 
-    <infRib:RibbonGroup Caption="Месяц">
-        <infRib:ButtonTool Caption="Добавить" Command="{Binding AddMonthCommand}" CommandParameter="1" SmallImage="/HVTApp.UI;component/Images/add.png" />
-        <infRib:ButtonTool Caption="Отнять" Command="{Binding AddMonthCommand}" CommandParameter="-1" SmallImage="/HVTApp.UI;component/Images/remove.png" />
+    <infRib:RibbonGroup Caption="ОИТ">
+        <infRib:ButtonTool Caption="+ месяц" Command="{Binding AddMonthToOitCommand}" CommandParameter="1" SmallImage="/HVTApp.UI;component/Images/add.png" />
+        <infRib:ButtonTool Caption="- месяц" Command="{Binding AddMonthToOitCommand}" CommandParameter="-1" SmallImage="/HVTApp.UI;component/Images/remove.png" />
+    </infRib:RibbonGroup>
+
+    <infRib:RibbonGroup Caption="Реализация">
+        <infRib:ButtonTool Caption="+ месяц" Command="{Binding AddMonthToRealizationCommand}" CommandParameter="1" SmallImage="/HVTApp.UI;component/Images/add.png" />
+        <infRib:ButtonTool Caption="- месяц" Command="{Binding AddMonthToRealizationCommand}" CommandParameter="-1" SmallImage="/HVTApp.UI;component/Images/remove.png" />
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Выравнивание">
@@ -37,8 +42,9 @@
         </StackPanel>
     </infRib:RibbonGroup>
     
-    <infRib:RibbonGroup Caption="Отчет">
-        <infRib:ButtonTool Caption="Сформировать" Command="{Binding MakeReportCommand}" SmallImage="/HVTApp.UI;component/Images/refresh.png"/>
+    <infRib:RibbonGroup Caption="Отчеты">
+        <infRib:ButtonTool Caption="Бюджет" Command="{Binding MakeSalesReportCommand}" SmallImage="/HVTApp.UI;component/Images/refresh.png"/>
+        <infRib:ButtonTool Caption="Поступления" Command="{Binding MakePaymentsReportCommand}" SmallImage="/HVTApp.UI;component/Images/refresh.png"/>
     </infRib:RibbonGroup>
     
     <infRib:RibbonGroup Caption="Бюджет">

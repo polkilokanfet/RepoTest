@@ -1,25 +1,22 @@
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Linq;
-using HVTApp.Infrastructure.Services;
+using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Modules.PlanAndEconomy.PaymentsPlan;
-using HVTApp.UI.Modules.PlanAndEconomy.ViewModels;
+using HVTApp.UI.Modules.Reports.FlatReport.Containers;
 using HVTApp.UI.Modules.Reports.SalesReport;
 using HVTApp.UI.Modules.Reports.ViewModels;
-using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 
-namespace HVTApp.UI.Modules.Reports.FlatReport
+namespace HVTApp.UI.Modules.Reports.FlatReport.Reports
 {
-    public partial class FlatReportViewModel
+    public class SalesReportViewModel : ViewModelBaseCanExportToExcel
     {
-        public PaymentsPlanViewModel PaymentsPlanViewModel { get; }
-        public ObservableCollection<SalesReportUnit> SalesReportUnits { get; } = new ObservableCollection<SalesReportUnit>();
+        public List<SalesReportUnit> Units { get; }
 
-        private void MakeReportExecuteMethod()
+        public SalesReportViewModel(IUnityContainer container, List<FlatReportItem> flatReportItems) : base(container)
         {
-            Items.ForEach(x => x.InjectDates());
-            var salesUnits = Items.Where(x => x.InReport).SelectMany(x => x.SalesUnits).ToList();
+            flatReportItems.ForEach(x => x.InjectDates());
+            var salesUnits = flatReportItems.SelectMany(x => x.SalesUnits).ToList();
 
             //проставляем количество родительских юнитов включенного оборудования
             var productsIncluded = salesUnits.SelectMany(x => x.ProductsIncluded).ToList();
@@ -37,13 +34,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                 .Select(x => new SalesReportUnit(x, tenders.Where(t => Equals(x.Key.Project, t.Project)), countryUnions, x.First().ActualPriceCalculationItem(UnitOfWork)))
                 .ToList();
 
-            SalesReportUnits.Clear();
-            SalesReportUnits.AddRange(salesReportUnits);
-
-            //формирование поступлений
-            PaymentsPlanViewModel.Load(salesUnits);
-
-            Container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", "Формирование отчетов успешно завершено!");
+            Units = new List<SalesReportUnit>(salesReportUnits);
         }
     }
 }

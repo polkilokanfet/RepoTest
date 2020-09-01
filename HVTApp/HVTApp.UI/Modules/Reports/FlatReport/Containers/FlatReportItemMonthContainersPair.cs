@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure.Extansions;
 
-namespace HVTApp.UI.Modules.Reports.FlatReport
+namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
 {
     public class FlatReportItemMonthContainersPair
     {

@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Modules.Reports.FlatReport.Containers;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 
