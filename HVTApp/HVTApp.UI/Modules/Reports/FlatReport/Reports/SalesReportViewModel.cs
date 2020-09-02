@@ -15,8 +15,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Reports
 
         public SalesReportViewModel(IUnityContainer container, List<FlatReportItem> flatReportItems) : base(container)
         {
-            flatReportItems.ForEach(x => x.InjectDates());
-            var salesUnits = flatReportItems.SelectMany(x => x.SalesUnits).ToList();
+            var salesUnits = flatReportItems.SelectMany(x => x.GetSalesUnitsWithInjactedData(UnitOfWork)).ToList();
 
             //проставляем количество родительских юнитов включенного оборудования
             var productsIncluded = salesUnits.SelectMany(x => x.ProductsIncluded).ToList();

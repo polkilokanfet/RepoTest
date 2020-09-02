@@ -366,11 +366,9 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
             MakePaymentsReportCommand = new DelegateCommand(
                 () =>
                 {
-                    var items = Items.Where(x => x.InReport).ToList();
-                    items.ForEach(x => x.InjectDates());
-
+                    var unitOfWork = Container.Resolve<IUnitOfWork>();
                     var paymentsPlanViewModel = new PaymentsPlanViewModel(Container, load:false);
-                    paymentsPlanViewModel.Load(items.SelectMany(x => x.SalesUnits));
+                    paymentsPlanViewModel.Load(Items.Where(x => x.InReport).SelectMany(x => x.GetSalesUnitsWithInjactedData(unitOfWork)));
 
                     Container.Resolve<IDialogService>().Show(paymentsPlanViewModel, $"Поступления. Момент формирования отчета: {DateTime.Today.ToShortDateString()} {DateTime.Now.ToShortTimeString()}");
                 });

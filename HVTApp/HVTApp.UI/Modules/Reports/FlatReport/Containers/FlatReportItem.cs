@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using HVTApp.DataAccess.Annotations;
+using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
 
@@ -151,31 +152,49 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
             _estimatedPaymentConditionSet = salesUnit.PaymentConditionSet;
         }
 
-        /// <summary>
-        /// Внедрить в айтемы предположительную дату в качестве даты ОИТ
-        /// </summary>
-        public void InjectDates()
-        {
-            SalesUnits.ForEach(x =>
-            {
-                if (!Equals(OriginalOrderInTakeDate, EstimatedOrderInTakeDate))
-                {
-                    x.OrderInTakeDateInjected = x.StartProductionDateInjected = EstimatedOrderInTakeDate;
-                }
-
-                if (!Equals(OriginalRealizationDate, EstimatedRealizationDate))
-                {
-                    x.EndProductionDateInjected = x.ShipmentDateInjected = x.RealizationDateInjected = EstimatedRealizationDate;
-                }
-            });
-        }
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        /// <summary>
+        /// Получить юниты с внедренными данными (эти юниты не похранять!)
+        /// </summary>
+        /// <param name="unitOfWork"></param>
+        /// <returns></returns>
+        public IEnumerable<SalesUnit> GetSalesUnitsWithInjactedData(IUnitOfWork unitOfWork)
+        {
+            foreach (var salesUnit in SalesUnits)
+            {
+                var salesUnitWithInjactedData = unitOfWork.Repository<SalesUnit>().GetById(salesUnit.Id);
+
+                //внедрение стоимости
+                if (!Equals(EstimatedCost, salesUnit.Cost))
+                {
+                    salesUnitWithInjactedData.Cost = EstimatedCost;
+                }
+
+                //внедрение даты ОИТ
+                if (!Equals(OriginalOrderInTakeDate, EstimatedOrderInTakeDate))
+                {
+                    salesUnitWithInjactedData.OrderInTakeDateInjected = EstimatedOrderInTakeDate;
+                    salesUnitWithInjactedData.StartProductionDate = EstimatedOrderInTakeDate;
+                }
+
+                //внедрение даты реализации
+                if (!Equals(OriginalRealizationDate, EstimatedRealizationDate))
+                {
+                    salesUnitWithInjactedData.EndProductionDate = EstimatedRealizationDate;
+                    salesUnitWithInjactedData.ShipmentDate = EstimatedRealizationDate;
+                    salesUnitWithInjactedData.RealizationDate = EstimatedRealizationDate;
+                    salesUnitWithInjactedData.DeliveryDate = null;
+                }
+
+                yield return salesUnitWithInjactedData;
+            }
         }
     }
 }

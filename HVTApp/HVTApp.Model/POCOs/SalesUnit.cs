@@ -355,12 +355,6 @@ namespace HVTApp.Model.POCOs
         }
 
         /// <summary>
-        /// Дата окончания производства, внедренная извне (для отчета)
-        /// </summary>
-        [NotMapped]
-        public DateTime? EndProductionDateInjected { get; set; }
-
-        /// <summary>
         /// Расчетная дата окончания производства.
         /// </summary>
         [Designation("Окончание производства (расч.)"), OrderStatus(855), NotMapped]
@@ -368,8 +362,6 @@ namespace HVTApp.Model.POCOs
         {
             get
             {
-                if (EndProductionDateInjected.HasValue) return EndProductionDateInjected.Value;
-
                 //по дате производства
                 if (EndProductionDate.HasValue) return EndProductionDate.Value;
                 
@@ -399,23 +391,11 @@ namespace HVTApp.Model.POCOs
         public DateTime EndProductionDateByContractCalculated => StartProductionDateCalculated.AddDays(ProductionTerm);
 
         /// <summary>
-        /// Реализация, внедренная извне (для отчета)
-        /// </summary>
-        [NotMapped]
-        public DateTime? RealizationDateInjected { get; set; }
-
-        /// <summary>
         /// Расчетная дата реализации.
         /// </summary>
         [Designation("Расчетная дата реализации"), OrderStatus(850), NotMapped]
-        public DateTime RealizationDateCalculated => RealizationDateInjected ?? RealizationDate ?? DeliveryDateCalculated;
+        public DateTime RealizationDateCalculated => RealizationDate ?? DeliveryDateCalculated;
         
-        /// <summary>
-        /// Дата отгрузки, внедренная извне (для отчета)
-        /// </summary>
-        [NotMapped]
-        public DateTime? ShipmentDateInjected { get; set; }
-
         /// <summary>
         /// Расчетная дата отгрузки.
         /// </summary>
@@ -424,8 +404,6 @@ namespace HVTApp.Model.POCOs
         {
             get
             {
-                if (ShipmentDateInjected.HasValue) return ShipmentDateInjected.Value;
-
                 //по реальной дате отгрузки
                 if (ShipmentDate.HasValue)
                     return ShipmentDate.Value;
