@@ -65,9 +65,13 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
         public bool IsPast => new DateTime(Year, Month, 1) < DateTime.Today && !(Year == DateTime.Today.Year && Month == DateTime.Today.Month);
 
         /// <summary>
-        /// Разница между целевой и текущей суммой
+        /// Разница между целевой и текущей суммой.
+        /// Difference => TargetSum - CurrentSum
         /// </summary>
         public double Difference => TargetSum - CurrentSum;
+
+        public bool IsHigh => CurrentSum > TargetSum;
+        public bool IsLow => CurrentSum < TargetSum;
 
         public int Year { get; protected set; }
 
@@ -98,7 +102,18 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
 
         public override string ToString()
         {
-            return $"{Year}/{Month} {Difference / 1000000.0} {IsOk}";
+            var d = "";
+            if (!IsOk)
+            {
+                if (IsHigh)
+                    d = "избыток";
+                if (IsLow)
+                    d = "недостаток";
+
+                return $"Год: {Year}, месяц: {Month:D2}; не в допуске; {Difference:N} ({d})";
+            }
+
+            return $"Год: {Year}, месяц: {Month:D2}; в допуске";
         }
     }
 }

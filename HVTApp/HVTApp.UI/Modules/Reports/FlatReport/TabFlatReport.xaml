@@ -32,7 +32,7 @@
         <infRib:ButtonTool Caption="- месяц" Command="{Binding AddMonthToRealizationCommand}" CommandParameter="-1" SmallImage="/HVTApp.UI;component/Images/remove.png" />
     </infRib:RibbonGroup>
 
-    <!--<infRib:RibbonGroup Caption="Выравнивание">
+    <infRib:RibbonGroup Caption="Выравнивание">
         <StackPanel Orientation="Vertical">
             <StackPanel Orientation="Horizontal">
                 <Label Content="Точность (%): " />
@@ -40,7 +40,7 @@
             </StackPanel>
         <infRib:ButtonTool Caption="Выровнять" Command="{Binding AlignCommand}" SmallImage="/HVTApp.UI;component/Images/refresh.png"/>
         </StackPanel>
-    </infRib:RibbonGroup>-->
+    </infRib:RibbonGroup>
     
     <infRib:RibbonGroup Caption="Отчеты">
         <infRib:ButtonTool Caption="Бюджет" Command="{Binding MakeSalesReportCommand}" SmallImage="/HVTApp.UI;component/Images/refresh.png"/>

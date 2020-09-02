@@ -5,7 +5,7 @@ using HVTApp.Infrastructure.Extansions;
 
 namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
 {
-    public class FlatReportItemMonthContainersPair
+    public class MonthContainersPair
     {
         private readonly List<FlatReportItemMonthContainer> _containers;
 
@@ -18,18 +18,16 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
         public bool IsOk => _containers.All(x => x.IsOk);
 
         /// <summary>
-        /// Можно ли перекидывать айтемы из богатого контейнера в бедный
+        /// Можно ли перекидывать айтемы
         /// </summary>
         public bool CanMove => !IsOk && CanMoveItem;
 
-        public bool HasFatMember => _containers.Any(x => x.CurrentSum > x.TargetSum);
-        public bool HasThinMember => _containers.Any(x => x.CurrentSum < x.TargetSum);
-        public bool BothIsThin => _containers.All(x => x.CurrentSum < x.TargetSum);
+        /// <summary>
+        /// Потенциал
+        /// </summary>
+        public double Difference => Math.Abs(AcceptorContainer.Difference - DonorContainer.Difference);
 
-
-        public double Difference => AcceptorContainer.Difference - DonorContainer.Difference;
-
-        public FlatReportItemMonthContainersPair(FlatReportItemMonthContainer container1, FlatReportItemMonthContainer container2)
+        public MonthContainersPair(FlatReportItemMonthContainer container1, FlatReportItemMonthContainer container2)
         {
             _containers = new List<FlatReportItemMonthContainer> {container1, container2};
         }
@@ -55,7 +53,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
         }
 
         /// <summary>
-        /// Перекинуть айтем из богатого контейнера в бедный
+        /// Перекинуть айтем
         /// </summary>
         public void MoveItem()
         {

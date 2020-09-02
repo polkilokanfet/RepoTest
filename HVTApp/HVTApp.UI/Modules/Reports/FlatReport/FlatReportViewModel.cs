@@ -402,143 +402,21 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                 },
                 parameter => SelectedItem != null && SelectedItem.AllowEditRealization);
 
-            //AlignCommand = new DelegateCommand(
-            //    () =>
-            //    {
-            //        var diffList = new List<double>();
+            AlignCommand = new DelegateCommand(
+                () =>
+                {
+                    var monthContainers = FlatReportComparator.Align(MonthContainersOit).ToList();
+                    monthContainers.Cast<MonthContainerOit>().ForEach(x => x.FillEstimatedOrderInTakeDates());
 
+                    OnPropertyChanged(nameof(Items));
+                    OnPropertyChanged(nameof(MonthContainersOit));
 
-            //        while (MonthContainersOit.Any(x => !x.IsOk))
-            //        {
-            //            var notOkContainers = MonthContainersOit.ToList();
-
-            //            var toHighContainers = notOkContainers.Where(x => x.Difference < 0).OrderBy(x => x.Difference).ToList();
-            //            foreach (var toHighContainer in toHighContainers)
-            //            {
-            //                //высокий контейнер (с него нужно скинуть в соседний)
-            //                if (toHighContainer.FlatReportItems.Any())
-            //                {
-            //                    //поиск соседа, в который можно скинуть
-            //                    var targetNeighboringContainer = GetNeighboringContainers(toHighContainer).OrderBy(x => x.Difference).LastOrDefault();
-            //                    if (targetNeighboringContainer != null)
-            //                    {
-            //                        var item = GetNearestItem(toHighContainer, targetNeighboringContainer, true);
-
-            //                        var dif1 = toHighContainer.Difference + item.Sum;
-            //                        var dif2 = targetNeighboringContainer.Difference - item.Sum;
-            //                        if (true)
-            //                        {
-            //                            toHighContainer.FlatReportItems.Remove(item);
-            //                            targetNeighboringContainer.FlatReportItems.Add(item);
-            //                        }
-            //                    }
-            //                }
-            //            }
-
-            //            var toLowContainers = notOkContainers.Where(x => x.Difference > 0).OrderByDescending(x => x.Difference).ToList();
-            //            foreach (var toLowContainer in toLowContainers)
-            //            {
-            //                //высокий контейнер (с него нужно скинуть в соседний)
-            //                var targetNeighboringContainer = GetNeighboringContainers(toLowContainer).OrderBy(x => x.Difference).FirstOrDefault();
-            //                if (targetNeighboringContainer != null && targetNeighboringContainer.FlatReportItems.Any())
-            //                {
-            //                    var item = GetNearestItem(targetNeighboringContainer, toLowContainer, false);
-
-            //                    var dif1 = toLowContainer.Difference - item.Sum;
-            //                    var dif2 = targetNeighboringContainer.Difference + item.Sum;
-            //                    if (true)
-            //                    {
-            //                        targetNeighboringContainer.FlatReportItems.Remove(item);
-            //                        toLowContainer.FlatReportItems.Add(item);
-            //                    }
-
-            //                }
-            //            }
-
-            //            //notOkContainers.Remove(toHighContainer);
-
-            //            ////низкий контейнер
-            //            //var toLowContainer = notOkContainers.Where(x => x.Difference < 0).OrderBy(x => x.Difference).FirstOrDefault();
-            //            //if (toLowContainer != null)
-            //            //{
-            //            //    //поиск соседа-донора
-            //            //    var targetNeighboringContainer = GetNeighboringContainers(toLowContainer).OrderBy(x => x.Difference).LastOrDefault();
-            //            //    if (targetNeighboringContainer != null && targetNeighboringContainer.FlatReportItems.Any())
-            //            //    {
-            //            //        var item = GetNearestItam(targetNeighboringContainer, toLowContainer);
-            //            //        targetNeighboringContainer.FlatReportItems.Remove(item);
-            //            //        toLowContainer.FlatReportItems.Add(item);
-            //            //    }
-            //            //}
-
-            //            //выход из мертвого цикла
-            //            var dif = MonthContainersOit.Sum(x => x.Difference);
-            //            diffList.Add(dif);
-            //            if (diffList.Count(x => Math.Abs(x - dif) < 0.001) > 100)
-            //            {
-            //                break;
-            //            }
-
-            //        }
-
-            //        ////var containers = FlatReportComparator.Align(GenerateMonthContainers()).ToList();
-            //        //var containers = FlatReportComparator.Align(MonthContainers).ToList();
-            //        //containers.ForEach(x => x.FillEstimatedOrderInTakeDates());
-            //        //MonthContainers.Clear();
-            //        //MonthContainers.AddRange(containers);
-
-
-            //        var co = MonthContainersOit.ToList();
-            //        co.ForEach(x => x.FillEstimatedOrderInTakeDates());
-
-            //        MonthContainersOit.Clear();
-            //        MonthContainersOit.AddRange(co);
-
-            //        if (MonthContainersOit.Any(x => !x.IsOk))
-            //            Container.Resolve<IMessageService>().ShowOkMessageDialog("»нформаци€", "Ќе во всех мес€цах удалось выровн€ть суммы с заданной точностью.");
-            //    });
+                    if (monthContainers.Any(x => !x.IsOk))
+                        Container.Resolve<IMessageService>().ShowOkMessageDialog("»нформаци€", "Ќе во всех мес€цах удалось выровн€ть суммы с заданной точностью.");
+                });
 
             Load();
         }
-
-        private FlatReportItem GetNearestItem(FlatReportItemMonthContainer containerFrom, FlatReportItemMonthContainer containerTo, bool from = true)
-        {
-            var targetContainer = from ? containerFrom : containerTo;
-            return containerFrom.FlatReportItems
-                .Where(x => !x.SalesUnit.OrderIsTaken)
-                .OrderBy(x => MonthsBetween(containerTo, x))
-                .ThenBy(x => Math.Abs(Math.Abs(targetContainer.Difference) - x.Sum))
-                .First();
-        }
-
-        /// <summary>
-        /// ¬ернуть соседние контейнеры
-        /// </summary>
-        /// <param name="container"></param>
-        /// <returns></returns>
-        private IEnumerable<FlatReportItemMonthContainer> GetNeighboringContainers(FlatReportItemMonthContainer container)
-        {
-            var leftContainer = GetNeighboringContainer(container, -1);
-            if (leftContainer != null && !leftContainer.IsPast)
-                yield return leftContainer;
-
-            var rightContainer = GetNeighboringContainer(container, 1);
-            if (rightContainer != null && !rightContainer.IsPast)
-                yield return rightContainer;
-        }
-
-        private FlatReportItemMonthContainer GetNeighboringContainer(FlatReportItemMonthContainer container, int monthCount)
-        {
-            var naighborDate = container.Date.AddMonths(monthCount);
-            return MonthContainersOit.SingleOrDefault(x => x.Year == naighborDate.Year && x.Month == naighborDate.Month);
-        }
-
-        private int MonthsBetween(FlatReportItemMonthContainer container, FlatReportItem item)
-        {
-            var date = new DateTime(container.Year, container.Month, 1);
-            return Math.Abs(item.OriginalOrderInTakeDate.MonthsBetween(date));
-        }
-
 
         private void Load()
         {

@@ -21,7 +21,6 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Comparator
             //Формирование пар контейнеров
             var pairs = GetPairs(containers).ToList();
 
-
             while (!pairs.All(x => x.IsOk))
             {
                 var pair = pairs.Where(x => x.CanMove).OrderBy(x => x.Difference).LastOrDefault();
@@ -61,12 +60,12 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Comparator
         /// </summary>
         /// <param name="containersEnum"></param>
         /// <returns></returns>
-        private static IEnumerable<FlatReportItemMonthContainersPair> GetPairs(IEnumerable<FlatReportItemMonthContainer> containersEnum)
+        private static IEnumerable<MonthContainersPair> GetPairs(IEnumerable<FlatReportItemMonthContainer> containersEnum)
         {
             var containers = containersEnum.OrderBy(x => x.Year).ThenBy(x => x.Month).ToList();
             for (int i = 1; i < containers.Count; i++)
             {
-                yield return new FlatReportItemMonthContainersPair(containers[i-1], containers[i]);
+                yield return new MonthContainersPair(containers[i-1], containers[i]);
             }
         }
     }

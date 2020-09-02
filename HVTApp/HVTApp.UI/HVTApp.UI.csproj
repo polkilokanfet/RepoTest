@@ -192,7 +192,7 @@
     <Compile Include="Modules\Reports\FlatReport\Comparator\FlatReportComparator.cs" />
     <Compile Include="Modules\Reports\FlatReport\Containers\FlatReportItem.cs" />
     <Compile Include="Modules\Reports\FlatReport\Containers\FlatReportItemManagerContainer.cs" />
-    <Compile Include="Modules\Reports\FlatReport\Containers\FlatReportItemMonthContainersPair.cs" />
+    <Compile Include="Modules\Reports\FlatReport\Containers\MonthContainersPair.cs" />
     <Compile Include="Modules\Reports\FlatReport\Containers\FlatReportItemYearContainer.cs" />
     <Compile Include="Modules\Reports\FlatReport\FlatReportViewModel.cs" />
     <Compile Include="Modules\Reports\FlatReport\Containers\FlatReportItemMonthContainer.cs" />
