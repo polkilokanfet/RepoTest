@@ -422,6 +422,11 @@
                                     Label="Страна поставки"
                                     Width="Auto"
                                     AllowResize="True" />
+                    <infg:TextField AlternateBinding="{Binding TenderLink}"
+                                    BindingType="UseAlternateBinding"
+                                    Label="Ссылка на конкурс"
+                                    Width="200"
+                                    AllowResize="True" />
 
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
