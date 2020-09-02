@@ -35,8 +35,11 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
                 if (Equals(_inReport, value)) return;
                 _inReport = value;
                 OnPropertyChanged();
+                InReportIsChanged?.Invoke();
             }
         }
+
+        public event Action InReportIsChanged;
 
         public bool AllowEditOit => !SalesUnit.OrderIsTaken && !IsLoosen;
 
@@ -67,6 +70,13 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
 
                 if (Equals(_estimatedOrderInTakeDate, value)) return;
 
+                if (!Equals(_estimatedOrderInTakeDate.Year, value.Year) ||
+                    !Equals(_estimatedOrderInTakeDate.Month, value.Month))
+                {
+                    _estimatedOrderInTakeDate = value;
+                    EstimatedOrderInTakeMonthIsChanged?.Invoke();
+                }
+
                 _estimatedOrderInTakeDate = value;
 
                 SalesUnits.ForEach(x => x.OrderInTakeDateInjected = value);
@@ -77,6 +87,8 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
                 OnPropertyChanged(nameof(DifOitDays));
             }
         }
+
+        public event Action EstimatedOrderInTakeMonthIsChanged;
 
         /// <summary>
         /// Сдвиг по дате ОИТ

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using HVTApp.Infrastructure.Extansions;
 using Prism.Mvvm;
@@ -12,7 +13,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
         private double _targetSum;
         private double _accuracy;
 
-        public List<FlatReportItem> FlatReportItems { get; }
+        public ObservableCollection<FlatReportItem> FlatReportItems { get; } = new ObservableCollection<FlatReportItem>();
 
         public DateTime Date => new DateTime(Year, Month, DateTime.DaysInMonth(Year, Month));
 
@@ -21,7 +22,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
         /// <summary>
         /// Текущая сумма
         /// </summary>
-        public double CurrentSum => FlatReportItems.Sum(x => x.Sum);
+        public double CurrentSum => FlatReportItems.Any() ? FlatReportItems.Sum(x => x.Sum) : 0.0;
 
         /// <summary>
         /// Целевая сумма (к которой необходимо стремиться).
@@ -83,21 +84,30 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
         {
             _targetSum = targetSum;
             Accuracy = accuracy;
+
+            this.FlatReportItems.CollectionChanged += (sender, args) =>
+            {
+                OnPropertyChanged(nameof(CurrentSum));
+                OnPropertyChanged(nameof(IsOk));
+            };
         }
 
         protected FlatReportItemMonthContainer(IEnumerable<FlatReportItem> flatReportItems, double targetSum, double accuracy) : this(targetSum, accuracy)
         {
-            FlatReportItems = flatReportItems.ToList();
-            FillYearAndMonth(flatReportItems);
+            FlatReportItems.AddRange(flatReportItems);
+            FillYearAndMonth(FlatReportItems);
         }
 
         protected FlatReportItemMonthContainer(DateTime date, double targetSum, double accuracy) : this(targetSum, accuracy)
         {
-            FlatReportItems = new List<FlatReportItem>();
             Year = date.Year;
             Month = date.Month;
         }
 
+        /// <summary>
+        /// Присвоить контейнеру год и месяц (в зависимости от того, что содержит контейнер: ОИТ или реализацию)
+        /// </summary>
+        /// <param name="flatReportItems"></param>
         protected abstract void FillYearAndMonth(IEnumerable<FlatReportItem> flatReportItems);
 
         public override string ToString()

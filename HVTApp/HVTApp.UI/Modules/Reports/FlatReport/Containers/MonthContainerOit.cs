@@ -19,7 +19,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
         /// </summary>
         public void FillEstimatedOrderInTakeDates()
         {
-            foreach (var flatReportItem in FlatReportItems)
+            foreach (var flatReportItem in FlatReportItems.ToList())
             {
                 if (Year != flatReportItem.OriginalOrderInTakeDate.Year || Month != flatReportItem.OriginalOrderInTakeDate.Month)
                 {

@@ -5,6 +5,7 @@ using HVTApp.Infrastructure.Extansions;
 
 namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
 {
+    [System.Diagnostics.DebuggerDisplay("{" + nameof(ToString) + "()}")]
     public class MonthContainersPair
     {
         private readonly List<FlatReportItemMonthContainer> _containers;
@@ -25,7 +26,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
         /// <summary>
         /// Потенциал
         /// </summary>
-        public double Difference => Math.Abs(AcceptorContainer.Difference - DonorContainer.Difference);
+        public double Difference => Math.Abs(DonorContainer.Difference - AcceptorContainer.Difference);
 
         public MonthContainersPair(FlatReportItemMonthContainer container1, FlatReportItemMonthContainer container2)
         {
@@ -60,6 +61,8 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
             if (!CanMoveItem)
                 return;
 
+            double dif = Difference;
+
             var donorContainer = DonorContainer;
             var acceptorContainer = AcceptorContainer;
 
@@ -71,12 +74,25 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
 
             donorContainer.FlatReportItems.Remove(item);
             acceptorContainer.FlatReportItems.Add(item);
+
+            //if (Difference > dif)
+            //{
+            //    donorContainer.FlatReportItems.Add(item);
+            //    acceptorContainer.FlatReportItems.Remove(item);
+            //}
         }
 
         private int MonthsBetween(FlatReportItemMonthContainer container, FlatReportItem item)
         {
             var date = new DateTime(container.Year, container.Month, 1);
             return Math.Abs(item.OriginalOrderInTakeDate.MonthsBetween(date));
+        }
+
+        public override string ToString()
+        {
+            if (IsOk)
+                return "Ok";
+            return $"{Difference:N}";
         }
     }
 }

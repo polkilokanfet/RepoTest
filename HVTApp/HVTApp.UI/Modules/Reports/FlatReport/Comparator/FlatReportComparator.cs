@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Documents;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.UI.Modules.Reports.FlatReport.Containers;
+using Microsoft.Practices.ObjectBuilder2;
 
 namespace HVTApp.UI.Modules.Reports.FlatReport.Comparator
 {
@@ -16,41 +19,48 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Comparator
         {
             var containers = containersEnum.ToList();
             var difList = new List<double>();
-            double dif;
+            double difCurrent;
+            string ds;
+            Dictionary<FlatReportItemMonthContainer, List<FlatReportItem>> dictionary = new Dictionary<FlatReportItemMonthContainer, List<FlatReportItem>>();
 
             //Формирование пар контейнеров
             var pairs = GetPairs(containers).ToList();
 
             while (!pairs.All(x => x.IsOk))
             {
-                var pair = pairs.Where(x => x.CanMove).OrderBy(x => x.Difference).LastOrDefault();
-                pair?.MoveItem();
+                foreach (var containersPair in pairs.Where(x => x.CanMove).OrderBy(x => x.Difference))
+                {
+                    if (containersPair.CanMove)
+                        containersPair.MoveItem();
+                }
 
-                //pairs.Where(x => x.CanMove).OrderByDescending(x => x.Difference).ForEach(x =>
-                //{
-                //    if (x.CanMove)
-                //        x.MoveItem();
-                //});
+                difCurrent = containers.Sum(x => Math.Abs(x.Difference));
+                difList.Add(difCurrent);
+
+                var difMin = difList.Min();
+                if (Math.Abs(difMin - difCurrent) < 0.001)
+                {
+                    dictionary.Clear();
+                    foreach (var container in containers)
+                    {
+                        dictionary.Add(container, container.FlatReportItems.ToList());
+                    }
+                }
+
+                ds = $"{difMin:N}";
 
                 //проверяем на мертвый цикл
-                dif = containers.Sum(x => Math.Abs(x.Difference));
-                difList.Add(dif);
-                if (difList.Count(x => Math.Abs(dif - x) < 0.001) > 200)
+                if (difList.Count(x => Math.Abs(difCurrent - x) < 0.001) > 100)
+                {
+                    foreach (var kvp in dictionary)
+                    {
+                        var container = kvp.Key;
+                        container.FlatReportItems.Clear();
+                        container.FlatReportItems.AddRange(kvp.Value);
+                    }
                     break;
+                }
             }
-
-
-            //while (!containers.All(x => x.IsOk))
-            //{
-            //    var pairs = GetPairs(containers).Where(x => x.CanMove).ToList();
-            //    pairs.Where(x => x.CanMove).ForEach(x => x.MoveItem());
-
-            //    //проверяем на мертвый цикл
-            //    dif = containers.Sum(x => Math.Abs(x.Difference));
-            //    difList.Add(dif);
-            //    if (difList.Count(x => Math.Abs(dif - x) < 0.001) > 200)
-            //        break;
-            //}
 
             return containers;
         }

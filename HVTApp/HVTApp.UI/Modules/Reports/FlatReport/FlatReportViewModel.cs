@@ -53,6 +53,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                 if (Equals(_startDate, value)) return;
                 _startDate = value;
                 OnPropertyChanged(nameof(Items));
+                OnPropertyChanged(nameof(MonthContainersOit));
             }
         }
 
@@ -64,6 +65,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                 if(Equals(_finishDate, value)) return;
                 _finishDate = value;
                 OnPropertyChanged(nameof(Items));
+                OnPropertyChanged(nameof(MonthContainersOit));
             }
         }
 
@@ -114,43 +116,49 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
 
         #region OrderInTake
 
-        public ObservableCollection<MonthContainerOit> MonthContainersOit
+        public List<MonthContainerOit> MonthContainersOit
         {
             get
             {
-                _monthContainersOit.Clear();
-
-                if (!Items.Any())
-                    return _monthContainersOit;
-
-                var reportItems = Items.Where(x => x.InReport).Where(x => !x.IsLoosen).ToList();
-                var itemsInOit = reportItems.Where(x => x.SalesUnit.OrderIsTaken).ToList();
-                var itemsToOit = reportItems.Except(itemsInOit).ToList();
-
-                //средн€€ сумма ќ»“ в мес€ц
-                var sumPerMonth = itemsToOit.Sum(x => x.Sum) / (itemsToOit.Max(x => x.EstimatedOrderInTakeDate).MonthsBetween(itemsToOit.Min(x => x.EstimatedOrderInTakeDate)) + 1);
-
-                var containers = reportItems
-                    .GroupBy(x => new { x.EstimatedOrderInTakeDate.Year, x.EstimatedOrderInTakeDate.Month })
-                    .Select(x => new MonthContainerOit(x, GetTargetOitSumPerMonth(x, sumPerMonth), Accuracy / 100.0))
-                    .ToList();
-
-                //создаем оставшиес€ контейнеры
-                var date = new DateTime(StartDate.Year, StartDate.Month, 1);
-                while (date <= FinishDate)
-                {
-                    if (!containers.Any(x => x.Year == date.Year && x.Month == date.Month))
-                    {
-                        var targetContainerSum = DateTime.Today >= date ? 0 : sumPerMonth;
-                        containers.Add(new MonthContainerOit(date, targetContainerSum, Accuracy / 100.0));
-                    }
-                    date = date.AddMonths(1);
-                }
-
-                _monthContainersOit.AddRange(containers.OrderBy(x => x.Year).ThenBy(x => x.Month));
-
-                return _monthContainersOit;
+                var start = new DateTime(StartDate.Year, StartDate.Month, 1);
+                var finish = new DateTime(FinishDate.Year, FinishDate.Month, DateTime.DaysInMonth(FinishDate.Year, FinishDate.Month));
+                return _monthContainersOit.Where(x => x.Date >= start && x.Date <= finish).ToList();
             }
+        }
+
+        private void GenerateMonthContainersOit(List<FlatReportItem> flatReportItems)
+        {
+            if (!flatReportItems.Any()) return;
+
+            var reportItems = flatReportItems.Where(x => x.InReport).Where(x => !x.IsLoosen).ToList();
+            var itemsInOit = reportItems.Where(x => x.SalesUnit.OrderIsTaken).ToList();
+            var itemsToOit = reportItems.Except(itemsInOit).ToList();
+
+
+            //средн€€ сумма ќ»“ в мес€ц
+            var sumPerMonth = itemsToOit.Sum(x => x.Sum) / (itemsToOit.Max(x => x.EstimatedOrderInTakeDate).MonthsBetween(itemsToOit.Min(x => x.EstimatedOrderInTakeDate)) + 1);
+
+            var containers = reportItems
+                .GroupBy(x => new {x.EstimatedOrderInTakeDate.Year, x.EstimatedOrderInTakeDate.Month})
+                .Select(items => new MonthContainerOit(items, GetTargetOitSumPerMonth(items, sumPerMonth), Accuracy / 100.0))
+                .ToList();
+
+            //создаем оставшиес€ контейнеры
+            var startDate = flatReportItems.Min(x => x.EstimatedOrderInTakeDate);
+            var finishDate = flatReportItems.Max(x => x.EstimatedOrderInTakeDate);
+            var date = new DateTime(startDate.Year, startDate.Month, 1);
+            while (date <= finishDate)
+            {
+                if (!containers.Any(x => x.Year == date.Year && x.Month == date.Month))
+                {
+                    var targetContainerSum = DateTime.Today >= date ? 0 : sumPerMonth;
+                    containers.Add(new MonthContainerOit(date, targetContainerSum, Accuracy / 100.0));
+                }
+                date = date.AddMonths(1);
+            }
+
+            _monthContainersOit.Clear();
+            _monthContainersOit.AddRange(containers.OrderBy(x => x.Year).ThenBy(x => x.Month));
         }
 
         public ObservableCollection<FlatReportItemYearContainer> YearContainersOit
@@ -430,6 +438,8 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
             
             //расстановка цен в нулевых единицах
             _items.Where(x => Math.Abs(x.SalesUnit.Cost) < 0.001).ForEach(x => x.EstimatedCost = GlobalAppProperties.PriceService.GetPrice(x.SalesUnit, x.EstimatedOrderInTakeDate).SumTotal * 1.4);
+
+            GenerateMonthContainersOit(_items);
             
             //подписка на событие изменени€ ключевых параметров
             _items.ForEach(flatReportItem => flatReportItem.PropertyChanged += (sender, args) =>
@@ -466,11 +476,50 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                 }
             });
 
+            foreach (var item in _items)
+            {
+                item.InReportIsChanged += () =>
+                {
+                    if (item.InReport)
+                        AddItemToContainer(item);
+                    else
+                        RemoveItemFromContainer(item);
+                };
+
+                item.EstimatedOrderInTakeMonthIsChanged += () =>
+                {
+                    if (!item.InReport)
+                        return;
+
+                    RemoveItemFromContainer(item);
+                    AddItemToContainer(item);
+                };
+            }
+
             _startDate = _items.Where(x => x.InReport).Min(x => x.EstimatedOrderInTakeDate);
             _finishDate = _items.Where(x => x.InReport).Max(x => x.EstimatedOrderInTakeDate);
             OnPropertyChanged(nameof(StartDate));
             OnPropertyChanged(nameof(FinishDate));
             OnPropertyChanged(nameof(Items));
+        }
+
+        private void RemoveItemFromContainer(FlatReportItem item)
+        {
+            _monthContainersOit.Single(x => x.FlatReportItems.Contains(item)).FlatReportItems.Remove(item);
+        }
+
+        private void AddItemToContainer(FlatReportItem item)
+        {
+            var container = _monthContainersOit.SingleOrDefault(x => x.Year == item.EstimatedOrderInTakeDate.Year && x.Month == item.EstimatedOrderInTakeDate.Month);
+            if (container == null)
+            {
+                container = new MonthContainerOit(new[] { item }, item.Sum, Accuracy / 100.0);
+                _monthContainersOit.Add(container);
+            }
+            else
+            {
+                container.FlatReportItems.Add(item);
+            }
         }
 
         private double GetTargetOitSumPerMonth(IEnumerable<FlatReportItem> flatReportItems, double sum)
