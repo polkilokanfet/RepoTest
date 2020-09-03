@@ -173,6 +173,9 @@
       <DependentUpon>CommonInfoView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Reports\CommonInfo\CommonInfoViewModel.cs" />
+    <Compile Include="Modules\Reports\CommonInfo\TabCommonInfo.xaml.cs">
+      <DependentUpon>TabCommonInfo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Reports\FlatReport\Comparator\BudgetComparisionViewModel.cs" />
     <Compile Include="Modules\Reports\FlatReport\Comparator\BudgetComparisonItem.cs" />
     <Compile Include="Modules\Reports\FlatReport\Comparator\BudgetComparisionView.xaml.cs">
@@ -1017,6 +1020,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\Reports\CommonInfo\CommonInfoView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Reports\CommonInfo\TabCommonInfo.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

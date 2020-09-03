@@ -117,7 +117,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
             {
                 var start = new DateTime(StartDate.Year, StartDate.Month, 1);
                 var finish = new DateTime(FinishDate.Year, FinishDate.Month, DateTime.DaysInMonth(FinishDate.Year, FinishDate.Month));
-                return _monthContainersOit.Where(x => x.Date >= start && x.Date <= finish).ToList();
+                return _monthContainersOit.Where(x => x.Date >= start && x.Date <= finish).OrderBy(x => x.Year).ThenBy(x => x.Month).ToList();
             }
         }
 

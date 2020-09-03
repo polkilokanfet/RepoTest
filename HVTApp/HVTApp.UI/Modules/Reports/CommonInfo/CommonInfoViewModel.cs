@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using HVTApp.Infrastructure;
@@ -15,6 +16,9 @@ namespace HVTApp.UI.Modules.Reports.CommonInfo
     {
         public ObservableCollection<SalesReportUnit> Units { get; } = new ObservableCollection<SalesReportUnit>();
 
+        public DateTime StartDate { get; set; } = DateTime.Today.AddMonths(-1);
+        public DateTime FinishDate { get; set; } = DateTime.Today.AddMonths(1);
+
         public CommonInfoViewModel(IUnityContainer container) : base(container)
         {
         }
@@ -22,10 +26,9 @@ namespace HVTApp.UI.Modules.Reports.CommonInfo
         private IEnumerable<SalesReportUnit> _salesReportUnits;
         protected override void GetData()
         {
-            UnitOfWork = Container.Resolve<IUnitOfWork>();
             var salesUnits = GlobalAppProperties.User.RoleCurrent == Role.SalesManager
-                ? UnitOfWork.Repository<SalesUnit>().Find(x => !x.IsLoosen && x.Project.Manager.IsAppCurrentUser())
-                : UnitOfWork.Repository<SalesUnit>().Find(x => !x.IsLoosen);
+                ? UnitOfWork.Repository<SalesUnit>().Find(x => x.OrderInTakeDate >= StartDate && x.OrderInTakeDate <= FinishDate && !x.IsLoosen && x.Project.Manager.IsAppCurrentUser())
+                : UnitOfWork.Repository<SalesUnit>().Find(x => x.OrderInTakeDate >= StartDate && x.OrderInTakeDate <= FinishDate && !x.IsLoosen);
 
             //проставляем количество родительских юнитов включенного оборудования
             var productsIncluded = salesUnits.SelectMany(x => x.ProductsIncluded).ToList();

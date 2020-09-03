@@ -29,12 +29,14 @@ namespace HVTApp.DataAccess
         {
             return Context.Set<SalesUnit>().AsQueryable()
                 .Include(x => x.Facility)
+                .Include(x => x.Project)
                 .Include(x => x.Project.Manager)
                 .Include(x => x.Product.ProductBlock.Parameters)
                 .Include(x => x.Product.DependentProducts.Select(dp => dp.Product.ProductBlock.Parameters))
                 .Include(x => x.ProductsIncluded.Select(dp => dp.Product.ProductBlock.Parameters))
                 .Include(x => x.PaymentsActual)
                 .Include(x => x.PaymentsPlanned)
+                .Include(x => x.PaymentConditionSet)
                 .Include(x => x.Order)
                 .Include(x => x.Penalty)
                 .Include(x => x.Producer);

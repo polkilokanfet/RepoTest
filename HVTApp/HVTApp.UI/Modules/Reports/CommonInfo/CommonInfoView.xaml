@@ -71,6 +71,16 @@
                                            Label="Шеф-монтаж"
                                            Width="Auto"
                                            AllowResize="True" />
+                        <infg:TextField AlternateBinding="{Binding ProductsIncluded}"
+                                        BindingType="UseAlternateBinding"
+                                        Label="Включенное оборудование (на единицу)"
+                                        Width="500"
+                                        AllowResize="True" />
+                        <infg:TextField AlternateBinding="{Binding TceInfo}"
+                                        BindingType="UseAlternateBinding"
+                                        Label="Информация из ТСЕ (на единицу)"
+                                        Width="500"
+                                        AllowResize="True" />
                         <infg:TextField AlternateBinding="{Binding Order}"
                                         BindingType="UseAlternateBinding"
                                         Label="Заказ"
@@ -145,16 +155,6 @@
                                         BindingType="UseAlternateBinding"
                                         Label="Адрес доставки"
                                         Width="Auto"
-                                        AllowResize="True" />
-                        <infg:TextField AlternateBinding="{Binding ProductsIncluded}"
-                                        BindingType="UseAlternateBinding"
-                                        Label="Включенное оборудование (на единицу)"
-                                        Width="350"
-                                        AllowResize="True" />
-                        <infg:TextField AlternateBinding="{Binding TceInfo}"
-                                        BindingType="UseAlternateBinding"
-                                        Label="Информация из ТСЕ (на единицу)"
-                                        Width="350"
                                         AllowResize="True" />
 
                     </infg:FieldLayout.Fields>
