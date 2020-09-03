@@ -1,5 +1,6 @@
 ﻿using HVTApp.Infrastructure;
 using HVTApp.Model;
+using HVTApp.UI.Modules.Reports.CommonInfo;
 using HVTApp.UI.Modules.Reports.FlatReport;
 using HVTApp.UI.Modules.Reports.MarketReport;
 using HVTApp.UI.Modules.Reports.PriorityReport;
@@ -25,6 +26,7 @@ namespace HVTApp.Modules.Reports.Menus
                 Items.Add(new NavigationItem("Рынок", typeof(MarketReportView)));
 
             Items.Add(new NavigationItem("Референс", typeof(ReferenceView)));
+            Items.Add(new NavigationItem("Сводная информация (для счета)", typeof(CommonInfoView)));
             Items.Add(new NavigationItem("Report maker", typeof(FlatReportView)));
             //Items.Add(new NavigationItem("Продажи", typeof(SalesReportView)));
 

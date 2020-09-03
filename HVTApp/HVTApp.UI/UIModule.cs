@@ -9,6 +9,7 @@ using HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual;
 using HVTApp.UI.Modules.PlanAndEconomy.PaymentsPlan;
 using HVTApp.UI.Modules.PlanAndEconomy.Supervision;
 using HVTApp.UI.Modules.Products.Views;
+using HVTApp.UI.Modules.Reports.CommonInfo;
 using HVTApp.UI.Modules.Reports.FlatReport;
 using HVTApp.UI.Modules.Reports.FlatReport.Comparator;
 using HVTApp.UI.Modules.Reports.FlatReport.Reports;
@@ -75,6 +76,7 @@ namespace HVTApp.UI
             Container.RegisterViewForNavigation<SupervisionView>();
             Container.RegisterViewForNavigation<HVTApp.UI.Modules.Sales.Supervision.SupervisionView>();
             Container.RegisterViewForNavigation<BudgetComparisionView>();
+            Container.RegisterViewForNavigation<CommonInfoView>();
 
             Container.Resolve<IDialogService>().Register<DirectumTaskRouteViewModel, DirectumTaskRouteWindow>();
 
