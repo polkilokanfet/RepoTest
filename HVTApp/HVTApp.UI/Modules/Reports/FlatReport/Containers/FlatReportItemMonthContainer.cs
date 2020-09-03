@@ -87,9 +87,30 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
 
             this.FlatReportItems.CollectionChanged += (sender, args) =>
             {
-                OnPropertyChanged(nameof(CurrentSum));
-                OnPropertyChanged(nameof(IsOk));
+                if (args.NewItems != null)
+                {
+                    foreach (var item in args.NewItems.Cast<FlatReportItem>())
+                    {
+                        item.EstimatedCostIsChanged += ItemOnEstimatedCostIsChanged;
+                    }
+                }
+
+                if (args.OldItems != null)
+                {
+                    foreach (var item in args.OldItems.Cast<FlatReportItem>())
+                    {
+                        item.EstimatedCostIsChanged -= ItemOnEstimatedCostIsChanged;
+                    }
+                }
+
+                ItemOnEstimatedCostIsChanged();
             };
+        }
+
+        private void ItemOnEstimatedCostIsChanged()
+        {
+            OnPropertyChanged(nameof(CurrentSum));
+            OnPropertyChanged(nameof(IsOk));
         }
 
         protected FlatReportItemMonthContainer(IEnumerable<FlatReportItem> flatReportItems, double targetSum, double accuracy) : this(targetSum, accuracy)

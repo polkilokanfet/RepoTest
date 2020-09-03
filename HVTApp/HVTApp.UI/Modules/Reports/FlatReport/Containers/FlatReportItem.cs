@@ -105,10 +105,13 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
             {
                 if (!AllowEditOit) return;
                 _estimatedCost = value;
+                EstimatedCostIsChanged?.Invoke();
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(Sum));
             }
         }
+
+        public event Action EstimatedCostIsChanged;
 
         /// <summary>
         /// Изначальная дата реализации

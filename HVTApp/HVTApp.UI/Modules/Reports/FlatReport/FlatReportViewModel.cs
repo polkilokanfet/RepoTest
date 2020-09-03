@@ -35,13 +35,8 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
         private readonly ObservableCollection<FlatReportItem> _itemsFiltred = new ObservableCollection<FlatReportItem>();
 
         private readonly ObservableCollection<MonthContainerOit> _monthContainersOit = new ObservableCollection<MonthContainerOit>();
-        private readonly ObservableCollection<FlatReportItemYearContainer> _yearContainersOit = new ObservableCollection<FlatReportItemYearContainer>();
-        private readonly ObservableCollection<FlatReportItemManagerContainer> _managerContainersOit = new ObservableCollection<FlatReportItemManagerContainer>();
 
         private readonly ObservableCollection<MonthContainerRealization> _monthContainersRealization = new ObservableCollection<MonthContainerRealization>();
-        private readonly ObservableCollection<FlatReportItemYearContainer> _yearContainersRealization = new ObservableCollection<FlatReportItemYearContainer>();
-        private readonly ObservableCollection<FlatReportItemManagerContainer> _managerContainersRealization = new ObservableCollection<FlatReportItemManagerContainer>();
-
 
         #endregion
 
@@ -80,7 +75,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                 if (Equals(_accuracy, value)) return;
                 if(value < 0) return;
                 _accuracy = value;
-                MonthContainersOit.ForEach(x => x.Accuracy = value / 100.0);
+                _monthContainersOit.ForEach(x => x.Accuracy = value / 100.0);
             }
         }
 
@@ -161,35 +156,15 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
             _monthContainersOit.AddRange(containers.OrderBy(x => x.Year).ThenBy(x => x.Month));
         }
 
-        public ObservableCollection<FlatReportItemYearContainer> YearContainersOit
-        {
-            get
-            {
-                _yearContainersOit.Clear();
-                _yearContainersOit.AddRange(
-                    MonthContainersOit
-                        .GroupBy(x => x.Year)
-                        .Select(x => new FlatReportItemYearContainer(x))
-                        .OrderBy(x => x.Year));
-                return _yearContainersOit;
-            }
-        }
+        public List<FlatReportItemYearContainer> YearContainersOit => 
+            MonthContainersOit.GroupBy(x => x.Year).Select(x => new FlatReportItemYearContainer(x)).OrderBy(x => x.Year).ToList();
 
-        public ObservableCollection<FlatReportItemManagerContainer> ManagerContainersOit
-        {
-            get
-            {
-                _managerContainersOit.Clear();
-                _managerContainersOit.AddRange(
-                    Items
-                        .Where(x => x.InReport)
-                        .GroupBy(x => new {x.Manager, x.EstimatedOrderInTakeDate.Year})
-                        .Select(x => new FlatReportItemManagerContainer(x))
-                        .OrderBy(x => x.Manager)
-                        .ThenBy(x => x.Year));
-                return _managerContainersOit;
-            }
-        }
+        public List<FlatReportItemManagerContainer> ManagerContainersOit => Items
+            .Where(x => x.InReport)
+            .GroupBy(x => new {x.Manager, x.EstimatedOrderInTakeDate.Year})
+            .Select(x => new FlatReportItemManagerContainer(x))
+            .OrderBy(x => x.Manager)
+            .ThenBy(x => x.Year).ToList();
 
         #endregion
 
@@ -236,35 +211,17 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
             }
         }
 
-        public ObservableCollection<FlatReportItemYearContainer> YearContainersRealization
-        {
-            get
-            {
-                _yearContainersRealization.Clear();
-                _yearContainersRealization.AddRange(
-                    MonthContainersRealization
-                        .GroupBy(x => x.Year)
-                        .Select(x => new FlatReportItemYearContainer(x))
-                        .OrderBy(x => x.Year));
-                return _yearContainersRealization;
-            }
-        }
+        public List<FlatReportItemYearContainer> YearContainersRealization => MonthContainersRealization
+            .GroupBy(x => x.Year)
+            .Select(x => new FlatReportItemYearContainer(x))
+            .OrderBy(x => x.Year).ToList();
 
-        public ObservableCollection<FlatReportItemManagerContainer> ManagerContainersRealization
-        {
-            get
-            {
-                _managerContainersRealization.Clear();
-                _managerContainersRealization.AddRange(
-                    Items
-                        .Where(x => x.InReport)
-                        .GroupBy(x => new { x.Manager, x.EstimatedRealizationDate.Year })
-                        .Select(x => new FlatReportItemManagerContainer(x))
-                        .OrderBy(x => x.Manager)
-                        .ThenBy(x => x.Year));
-                return _managerContainersRealization;
-            }
-        }
+        public List<FlatReportItemManagerContainer> ManagerContainersRealization => Items
+            .Where(x => x.InReport)
+            .GroupBy(x => new {x.Manager, x.EstimatedRealizationDate.Year})
+            .Select(x => new FlatReportItemManagerContainer(x))
+            .OrderBy(x => x.Manager)
+            .ThenBy(x => x.Year).ToList();
 
         #endregion
 
@@ -442,57 +399,41 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
             GenerateMonthContainersOit(_items);
             
             //подписка на событие изменения ключевых параметров
-            _items.ForEach(flatReportItem => flatReportItem.PropertyChanged += (sender, args) =>
+            _items.ForEach(item => item.PropertyChanged += (sender, args) =>
             {
-                if (args.PropertyName == nameof(FlatReportItem.InReport) ||
-                    args.PropertyName == nameof(FlatReportItem.EstimatedOrderInTakeDate))
+                if (args.PropertyName == nameof(FlatReportItem.EstimatedCost))
                 {
-                    if (flatReportItem.InReport)
-                    {
-                        if (flatReportItem.EstimatedOrderInTakeDate > FinishDate)
-                        {
-                            FinishDate = flatReportItem.EstimatedOrderInTakeDate;
-                            OnPropertyChanged(nameof(FinishDate));
-                        }                        
-                    }
-                }
-
-                if (args.PropertyName == nameof(FlatReportItem.InReport) ||
-                    args.PropertyName == nameof(FlatReportItem.EstimatedOrderInTakeDate) ||
-                    args.PropertyName == nameof(FlatReportItem.EstimatedCost))
-                {
-                    OnPropertyChanged(nameof(MonthContainersOit));
-                    OnPropertyChanged(nameof(YearContainersOit));
-                    OnPropertyChanged(nameof(ManagerContainersOit));
-                }
-
-                if (args.PropertyName == nameof(FlatReportItem.InReport) ||
-                    args.PropertyName == nameof(FlatReportItem.EstimatedRealizationDate) ||
-                    args.PropertyName == nameof(FlatReportItem.EstimatedCost))
-                {
-                    OnPropertyChanged(nameof(MonthContainersRealization));
-                    OnPropertyChanged(nameof(YearContainersRealization));
-                    OnPropertyChanged(nameof(ManagerContainersRealization));
+                    RefreshContainers();
                 }
             });
 
             foreach (var item in _items)
             {
+                //исключение/включение айтема в отчет
                 item.InReportIsChanged += () =>
                 {
                     if (item.InReport)
+                    {
                         AddItemToContainer(item);
+                    }
                     else
+                    {
                         RemoveItemFromContainer(item);
+                    }
+
+                    RefreshContainers();
                 };
 
+                //изменение месяца ОИТ в айтеме
                 item.EstimatedOrderInTakeMonthIsChanged += () =>
                 {
-                    if (!item.InReport)
-                        return;
+                    if (item.InReport)
+                    {
+                        RemoveItemFromContainer(item);
+                        AddItemToContainer(item);
 
-                    RemoveItemFromContainer(item);
-                    AddItemToContainer(item);
+                        RefreshContainers();
+                    }
                 };
             }
 
@@ -503,11 +444,29 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
             OnPropertyChanged(nameof(Items));
         }
 
+        private void RefreshContainers()
+        {
+            OnPropertyChanged(nameof(YearContainersOit));
+            OnPropertyChanged(nameof(ManagerContainersOit));
+
+            OnPropertyChanged(nameof(MonthContainersRealization));
+            OnPropertyChanged(nameof(YearContainersRealization));
+            OnPropertyChanged(nameof(ManagerContainersRealization));
+        }
+
+        /// <summary>
+        /// Исключение айтема из контейнера
+        /// </summary>
+        /// <param name="item"></param>
         private void RemoveItemFromContainer(FlatReportItem item)
         {
             _monthContainersOit.Single(x => x.FlatReportItems.Contains(item)).FlatReportItems.Remove(item);
         }
 
+        /// <summary>
+        /// Добавление айтема в контейнер
+        /// </summary>
+        /// <param name="item"></param>
         private void AddItemToContainer(FlatReportItem item)
         {
             var container = _monthContainersOit.SingleOrDefault(x => x.Year == item.EstimatedOrderInTakeDate.Year && x.Month == item.EstimatedOrderInTakeDate.Month);
