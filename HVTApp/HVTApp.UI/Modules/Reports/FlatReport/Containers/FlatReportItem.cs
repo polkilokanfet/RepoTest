@@ -127,12 +127,23 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
             set
             {
                 if (!AllowEditRealization) return;
+                if (Equals(value, _estimatedRealizationDate)) return;
                 if (value < EstimatedOrderInTakeDate) return;
+
+                if (!Equals(_estimatedRealizationDate.Year, value.Year) ||
+                    !Equals(EstimatedRealizationDate.Month, value.Month))
+                {
+                    _estimatedRealizationDate = value;
+                    EstimatedRealizationMonthIsChanged?.Invoke();
+                }
+
                 _estimatedRealizationDate = value;
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(DifRealizationDays));
             }
         }
+
+        public event Action EstimatedRealizationMonthIsChanged;
 
         /// <summary>
         /// Сдвиг по дате реализации

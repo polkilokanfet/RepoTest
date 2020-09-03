@@ -29,7 +29,11 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
         /// </summary>
         public double TargetSum
         {
-            get { return _targetSum; }
+            get
+            {
+                if (IsPast) return CurrentSum;
+                return _targetSum;
+            }
             set
             {
                 if (IsPast)
@@ -80,9 +84,8 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
 
         public string MonthName => new DateTime(Year, Month, 1).MonthName();
 
-        private FlatReportItemMonthContainer(double targetSum, double accuracy)
+        private FlatReportItemMonthContainer(double accuracy)
         {
-            _targetSum = targetSum;
             Accuracy = accuracy;
 
             this.FlatReportItems.CollectionChanged += (sender, args) =>
@@ -113,13 +116,13 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
             OnPropertyChanged(nameof(IsOk));
         }
 
-        protected FlatReportItemMonthContainer(IEnumerable<FlatReportItem> flatReportItems, double targetSum, double accuracy) : this(targetSum, accuracy)
+        protected FlatReportItemMonthContainer(IEnumerable<FlatReportItem> flatReportItems, double accuracy) : this(accuracy)
         {
             FlatReportItems.AddRange(flatReportItems);
             FillYearAndMonth(FlatReportItems);
         }
 
-        protected FlatReportItemMonthContainer(DateTime date, double targetSum, double accuracy) : this(targetSum, accuracy)
+        protected FlatReportItemMonthContainer(DateTime date, double accuracy) : this(accuracy)
         {
             Year = date.Year;
             Month = date.Month;

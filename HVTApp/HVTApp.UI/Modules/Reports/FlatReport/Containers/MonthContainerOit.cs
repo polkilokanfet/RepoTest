@@ -6,11 +6,11 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
 {
     public class MonthContainerOit : FlatReportItemMonthContainer
     {
-        public MonthContainerOit(IEnumerable<FlatReportItem> flatReportItems, double targetSum, double accuracy) : base(flatReportItems, targetSum, accuracy)
+        public MonthContainerOit(IEnumerable<FlatReportItem> flatReportItems, double accuracy) : base(flatReportItems, accuracy)
         {
         }
 
-        public MonthContainerOit(DateTime date, double targetSum, double accuracy) : base(date, targetSum, accuracy)
+        public MonthContainerOit(DateTime date, double accuracy) : base(date, accuracy)
         {
         }
 
