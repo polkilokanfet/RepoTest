@@ -21,9 +21,19 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
     {
         protected override bool CanRemoveGroup(ProjectUnitsGroup grp)
         {
-            if(!grp.CanRemove)
+            if (!grp.CanRemove)
+            {
                 Container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", "Удаление невозможно, т.к. это оборудование размещено в производстве.");
-            return grp.CanRemove;
+                return grp.CanRemove;
+            }
+
+            if (!grp.CanTotalRemove)
+            {
+                Container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", "Удаление невозможно, т.к. это оборудование включено в бюджет.");
+                return grp.CanTotalRemove;
+            }
+
+            return true;
         }
 
         private ProjectWrapper _projectWrapper;

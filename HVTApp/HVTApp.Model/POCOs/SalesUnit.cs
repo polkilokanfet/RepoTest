@@ -188,6 +188,22 @@ namespace HVTApp.Model.POCOs
         [Designation("Заказ реализован")]
         public bool OrderIsRealized => RealizationDateCalculated < DateTime.Today;
 
+
+        /// <summary>
+        /// Разрешено тотальное удаление юнита
+        /// </summary>
+        [Designation("Разрешено тотальное удаление")]
+        public bool AllowTotalRemove
+        {
+            get
+            {
+                if (Order != null) return false;
+                if (BudgetUnits.Any(x => !x.IsRemoved)) return false;
+                return true;
+            }
+        }
+
+
         /// <summary>
         /// Все платежи (совершенные + плановые).
         /// </summary>

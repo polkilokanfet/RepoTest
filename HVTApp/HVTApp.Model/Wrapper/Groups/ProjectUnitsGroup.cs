@@ -12,6 +12,7 @@ namespace HVTApp.Model.Wrapper.Groups
         private readonly List<SalesUnit> _units;
 
         public bool CanRemove => _units.All(x => x.Order == null);
+        public bool CanTotalRemove => _units.All(x => x.AllowTotalRemove);
 
         public CompanyWrapper Producer
         {

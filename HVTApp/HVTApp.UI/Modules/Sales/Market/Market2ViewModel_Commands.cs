@@ -83,25 +83,39 @@ namespace HVTApp.UI.Modules.Sales.Market
         private void RemoveProjectCommand_Execute()
         {
             var unitOfWork = Container.Resolve<IUnitOfWork>();
-            var units = unitOfWork.Repository<SalesUnit>().Find(x => x.Project.Id == SelectedProjectItem.Project.Id);
+            var salesUnits = unitOfWork.Repository<SalesUnit>()
+                .Find(x => x.Project.Id == SelectedProjectItem.Project.Id)
+                .Where(x => !x.IsRemoved).ToList();
 
-            if (units.Any(x => x.Order != null))
+            if (salesUnits.Any(x => x.Order != null))
             {
                 Container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", "Нельзя удалить проект, т.к. в нем есть оборудование, размещенное в производстве.");
                 return;
             }
 
-            if (units.Any(x => x.BudgetUnits.Any()))
+            if (salesUnits.Any(x => !x.AllowTotalRemove))
             {
-                Container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", "Нельзя удалить проект, т.к. в нем есть оборудование, занесённое в бюджет.");
+                Container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", "Нельзя удалить проект, т.к. в нем есть оборудование, включенное в бюджет.");
                 return;
             }
 
             var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удалить проект.", "Вы уверены, что хотите удалить проект?", defaultNo: true);
             if (dr != MessageDialogResult.Yes) return;
 
-            unitOfWork.Repository<SalesUnit>().DeleteRange(units);
+            foreach (var salesUnit in salesUnits)
+            {
+                if (salesUnit.Order != null) continue;
+                if (salesUnit.AllowTotalRemove)
+                {
+                    unitOfWork.Repository<SalesUnit>().Delete(salesUnit);
+                }
+                else
+                {
+                    salesUnit.IsRemoved = true;
+                }
+            }
             unitOfWork.SaveChanges();
+
             var remove = ProjectItems.Where(x => x.Project.Id == SelectedProjectItem.Project.Id).ToList();
             remove.ForEach(x => ProjectItems.Remove(x));
         }
