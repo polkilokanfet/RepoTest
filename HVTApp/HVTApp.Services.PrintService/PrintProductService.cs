@@ -41,7 +41,7 @@ namespace HVTApp.Services.PrintService
         {
             try
             {
-                var pathDocx = AppDomain.CurrentDomain.BaseDirectory + @"\ProductsDocument.docx";
+                var pathDocx = AppDomain.CurrentDomain.BaseDirectory + $"\\{Guid.NewGuid()}.docx";
                 WordDocumentWriter docWriter = WordDocumentWriter.Create(pathDocx);
                 docWriter.StartDocument();
 
@@ -59,12 +59,12 @@ namespace HVTApp.Services.PrintService
                 docWriter.EndDocument();
                 docWriter.Close();
 
-                var pathPdf = AppDomain.CurrentDomain.BaseDirectory + @"\ProductsDocument.pdf";
-                var documentCore = DocumentCore.Load(pathDocx);
-                documentCore.Save(pathPdf, SaveOptions.PdfDefault);
+                //var pathPdf = AppDomain.CurrentDomain.BaseDirectory + @"\ProductsDocument.pdf";
+                //var documentCore = DocumentCore.Load(pathDocx);
+                //documentCore.Save(pathPdf, SaveOptions.PdfDefault);
 
-                //System.Diagnostics.Process.Start(pathDocx);
-                System.Diagnostics.Process.Start(pathPdf);
+                System.Diagnostics.Process.Start(pathDocx);
+                //System.Diagnostics.Process.Start(pathPdf);
             }
             catch (IOException ioException)
             {
