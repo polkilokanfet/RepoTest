@@ -96,6 +96,11 @@
                                         Label="Контрагент"
                                         Width="Auto"
                                         AllowResize="True" />
+                        <infg:TextField AlternateBinding="{Binding ContragentType}"
+                                        BindingType="UseAlternateBinding"
+                                        Label="Тип контрагента"
+                                        Width="Auto"
+                                        AllowResize="True" />
                         <infg:TextField AlternateBinding="{Binding Country}"
                                         BindingType="UseAlternateBinding"
                                         Label="Страна поставки"

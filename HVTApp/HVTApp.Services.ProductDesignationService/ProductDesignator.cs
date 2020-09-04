@@ -10,43 +10,45 @@ namespace HVTApp.Services.ProductDesignationService
 {
     public class ProductDesignator : IProductDesignationService
     {
-        private readonly IEnumerable<ProductTypeDesignation> _typeDesignations;
+        private readonly List<ProductTypeDesignation> _designationsOfProductTypes;
 
-        private readonly Dictionary<List<Parameter>, string> _designationDictionary = new Dictionary<List<Parameter>, string>();
+        private readonly List<DesignationOfBlock> _designationsOfBlocks = new List<DesignationOfBlock>();
 
         public ProductDesignator(IUnitOfWork unitOfWork)
         {
             //загрузка всех типов оборудования
-            _typeDesignations = unitOfWork.Repository<ProductTypeDesignation>().Find(x => true);
+            _designationsOfProductTypes = unitOfWork.Repository<ProductTypeDesignation>().GetAll();
 
-            //загрузка всех обозначений оборудования
-            var designations = unitOfWork.Repository<ProductDesignation>().Find(x => true);
+            //загрузка всех обозначений блоков оборудования
+            var designationsOfBlocks = unitOfWork.Repository<ProductDesignation>().GetAll();
 
-            foreach (var designation in designations)
+            foreach (var designationOfBlock in designationsOfBlocks)
             {
-                foreach (var kvp in designation.GetDesignationDictionary())
+                foreach (var kvp in designationOfBlock.GetDesignationDictionary())
                 {
-                    _designationDictionary.Add(kvp.Key.ToList(), kvp.Value);
+                    _designationsOfBlocks.Add(new DesignationOfBlock(kvp.Key.ToList(), kvp.Value));
                 }
             }
-            _designationDictionary = _designationDictionary.OrderByDescending(x => x.Key.Count).ToDictionary(x => x.Key, x => x.Value);
+            _designationsOfBlocks = _designationsOfBlocks.OrderByDescending(x => x.Parameters.Count()).ToList();
         }
 
         #region Designation
 
         public string GetDesignation(ProductBlock block)
         {
-            if (block == null) return "block is null!";
+            if (block == null)
+                return "block is null!";
 
             if (!string.IsNullOrEmpty(block.DesignationSpecial))
                 return block.DesignationSpecial;
 
-            if (!block.Parameters.Any()) return "Block has no parameters!";
+            if (!block.Parameters.Any())
+                return "block has no parameters!";
 
-            var designation = _designationDictionary.FirstOrDefault(pd => pd.Key.AllContainsIn(block.Parameters, new ParameterComparer()));
+            var designation = _designationsOfBlocks.FirstOrDefault(desOfBlock => desOfBlock.Parameters.AllContainsIn(block.Parameters, new ParameterComparer()));
 
-            return !Equals(designation, default(KeyValuePair<List<Parameter>, string>)) 
-                ? designation.Value 
+            return !Equals(designation, default(DesignationOfBlock)) 
+                ? designation.Designation 
                 : block.ParametersToString();
         }
 
@@ -63,7 +65,7 @@ namespace HVTApp.Services.ProductDesignationService
 
         public ProductType GetProductType(ProductBlock block)
         {
-            var designations = _typeDesignations.Where(pd => pd.Parameters.AllContainsIn(block.Parameters, new ParameterComparer())).ToList();
+            var designations = _designationsOfProductTypes.Where(pd => pd.Parameters.AllContainsIn(block.Parameters, new ParameterComparer())).ToList();
 
             return designations.Any() 
                 ? designations.OrderBy(x => x.Parameters.Count).Last().ProductType 
