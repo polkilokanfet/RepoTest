@@ -27,7 +27,7 @@ namespace HVTApp.Model
         {
             get
             {
-                if (HasCalculation) return "Прайс по калькуляции";
+                if (HasCalculation) return "По калькуляции.";
                 if (_analog != null) return _analog;
                 if (Prices.Any(x => x.Analog != null)) return "Присутствуют аналоги";
                 return null;
@@ -126,7 +126,7 @@ namespace HVTApp.Model
                 PriceMainBlock = new Price(unit.Product.ToString(), 1);
                 PricesOfDependentBlocks = priceCalculationItem.StructureCosts
                     .Where(x => x.UnitPrice.HasValue)
-                    .Select(x => new Price(x.Comment, x.Amount, x.UnitPrice.Value))
+                    .Select(x => new Price($"{x.Comment} ({x.Number})", x.Amount, x.UnitPrice.Value))
                     .ToList();
 
                 productsIncluded = unit.ProductsIncluded.Where(x => x.Product.HasBlockWithFixedCost).ToList();

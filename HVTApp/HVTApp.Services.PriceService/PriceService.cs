@@ -12,43 +12,65 @@ namespace HVTApp.Services.PriceService
 {
     public class PriceService : IPriceService
     {
-        private readonly List<ProductBlock> _blocks;
-        private readonly List<PriceCalculation> _priceCalculations;
+        private List<ProductBlock> Blocks { get; }
+
+        /// <summary>
+        /// Словарь завершенных калькуляций
+        /// </summary>
+        private Dictionary<Guid, PriceCalculationItem> PriceCalculationItemsFinished { get; } = new Dictionary<Guid, PriceCalculationItem>();
+
+        /// <summary>
+        /// Словарь прайсов по калькуляции
+        /// SalesUnit.Id => стоимость
+        /// </summary>
+        private Dictionary<Guid, double?> PricesOfSalesUnitsFromCalculations { get; } = new Dictionary<Guid, double?>();
 
         /// <summary>
         /// Словарь блоков с прайсами
         /// </summary>
         private readonly Dictionary<Guid, ProductBlock> _analogsWithPrice = new Dictionary<Guid, ProductBlock>();
 
+        public PriceService(IUnitOfWork unitOfWork)
+        {
+            Blocks = unitOfWork.Repository<ProductBlock>().GetAll();
+            var priceCalculationsFinished = unitOfWork.Repository<PriceCalculation>()
+                .Find(x => x.TaskCloseMoment.HasValue)
+                .OrderBy(x => x.TaskCloseMoment).ToList();
+
+            //формирование словарей прайсов по калькуляции
+            foreach (var salesUnit in priceCalculationsFinished.SelectMany(x => x.PriceCalculationItems).SelectMany(x => x.SalesUnits).Distinct())
+            {
+                var priceCalculationItem =
+                    priceCalculationsFinished
+                        .OrderBy(x => x.TaskCloseMoment)
+                        .SelectMany(x => x.PriceCalculationItems)
+                        .LastOrDefault(x => x.SalesUnits.ContainsById(salesUnit));
+
+                PriceCalculationItemsFinished.Add(salesUnit.Id, priceCalculationItem);
+                PricesOfSalesUnitsFromCalculations.Add(salesUnit.Id, priceCalculationItem.StructureCosts.Sum(x => x.Total));
+            }
+        }
+
         public PriceCalculationItem GetPriceCalculationItem(IUnit unit)
         {
-            if (unit == null) throw new ArgumentNullException(nameof(unit));
+            if (unit == null)
+                throw new ArgumentNullException(nameof(unit));
 
-            //по расчетам себестоимости
-            return _priceCalculations
-                .OrderByDescending(x => x.TaskCloseMoment)
-                .SelectMany(x => x.PriceCalculationItems)
-                .FirstOrDefault(x => x.SalesUnits.ContainsById(unit));
+            return PriceCalculationItemsFinished.ContainsKey(unit.Id)
+                ? PriceCalculationItemsFinished[unit.Id]
+                : null;
         }
 
         public double? GetPriceByCalculations(IUnit unit)
         {
-            //по проставленному прайсу
-            //if (unit.Price.HasValue) 
-            //    return unit.Price.Value * _kUp;
-
-            return GetPriceCalculationItem(unit)?.StructureCosts.Sum(x => x.Total);
+            return PricesOfSalesUnitsFromCalculations.ContainsKey(unit.Id) 
+                ? PricesOfSalesUnitsFromCalculations[unit.Id] 
+                : null;
         }
 
         public Price GetPrice(IUnit unit, DateTime targetDate)
         {
             return new Price(unit, targetDate, this);
-        }
-
-        public PriceService(IUnitOfWork unitOfWork)
-        {
-            _blocks = unitOfWork.Repository<ProductBlock>().GetAll();
-            _priceCalculations = unitOfWork.Repository<PriceCalculation>().Find(x => x.TaskCloseMoment.HasValue);
         }
 
         /// <summary>
@@ -61,8 +83,8 @@ namespace HVTApp.Services.PriceService
             if (_analogsWithPrice.ContainsKey(blockTarget.Id))
                 return _analogsWithPrice[blockTarget.Id];
 
-            var targetBlock = _blocks.SingleOrDefault(x => x.Id == blockTarget.Id) ?? blockTarget;
-            var blocks = _blocks.Where(x => x.Prices.Any()).ToList();
+            var targetBlock = Blocks.SingleOrDefault(x => x.Id == blockTarget.Id) ?? blockTarget;
+            var blocks = Blocks.Where(x => x.Prices.Any()).ToList();
             blocks.Remove(targetBlock);
 
             var dic = new Dictionary<ProductBlock, double>();

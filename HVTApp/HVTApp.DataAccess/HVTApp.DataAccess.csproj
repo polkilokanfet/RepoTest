@@ -211,6 +211,8 @@
     <Compile Include="UnitOfWork\Repositories\Custom\OfferRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\Custom\OfferUnitRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\Custom\ParameterRepository.cs" />
+    <Compile Include="UnitOfWork\Repositories\Custom\PriceCalculationItemRepository.cs" />
+    <Compile Include="UnitOfWork\Repositories\Custom\PriceCalculationRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\Custom\ProductBlockRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\Custom\ProductDesignationRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\Custom\ProductRepository.cs" />
