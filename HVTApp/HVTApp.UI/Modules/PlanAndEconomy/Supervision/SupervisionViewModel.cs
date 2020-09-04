@@ -9,7 +9,6 @@ using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
-using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 
@@ -41,11 +40,39 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Supervision
             SaveCommand = new DelegateCommand(
                 () =>
                 {
-                    Units.Where(x => x.IsNew && x.IsValid && x.IsChanged).ForEach(x =>
+                    foreach (var supervisionWr in Units.Where(x => x.IsNew && x.IsValid && x.IsChanged).ToList())
                     {
-                        UnitOfWork.Repository<Model.POCOs.Supervision>().Add(x.Model);
-                        x.IsNew = false;
-                    });
+                        var supervision = UnitOfWork.Repository<Model.POCOs.Supervision>()
+                            .Find(x => x.SalesUnit.Id == supervisionWr.Model.SalesUnit.Id)
+                            .SingleOrDefault();
+
+                        if (supervision == null)
+                        {
+                            UnitOfWork.Repository<Model.POCOs.Supervision>().Add(supervisionWr.Model);
+                            supervisionWr.IsNew = false;
+                        }
+                        //если кто-то раньше сохранил
+                        else
+                        {
+                            var supervisionWr2 = new SupervisionWr(supervision);
+
+                            if (supervisionWr.DateFinishIsChanged)
+                                supervisionWr2.DateFinish = supervisionWr.DateFinish;
+
+                            if (supervisionWr.DateRequiredIsChanged)
+                                supervisionWr2.DateRequired = supervisionWr.DateRequired;
+
+                            if (supervisionWr.ServiceOrderNumberIsChanged)
+                                supervisionWr2.ServiceOrderNumber = supervisionWr.ServiceOrderNumber;
+
+                            if (supervisionWr.ClientOrderNumberIsChanged)
+                                supervisionWr2.ClientOrderNumber = supervisionWr.ClientOrderNumber;
+
+                            Units.Remove(supervisionWr);
+                            Units.Add(supervisionWr2);
+                        }
+
+                    }
                     Units.AcceptChanges();
 
                     UnitOfWork.SaveChanges();

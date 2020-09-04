@@ -10,7 +10,8 @@ namespace HVTApp.DataAccess
         {
             return Context.Set<PriceCalculation>().AsQueryable()
                 .Include(x => x.PriceCalculationItems)
-                .Include(x => x.PriceCalculationItems.Select(item => item.StructureCosts));
+                .Include(x => x.PriceCalculationItems.Select(item => item.StructureCosts))
+                .Include(x => x.PriceCalculationItems.Select(item => item.SalesUnits));
         }
     }
 }

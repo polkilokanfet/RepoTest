@@ -12,6 +12,9 @@ namespace HVTApp.Services.PriceService
 {
     public class PriceService : IPriceService
     {
+        /// <summary>
+        /// Все блоки
+        /// </summary>
         private List<ProductBlock> Blocks { get; }
 
         /// <summary>
@@ -28,7 +31,7 @@ namespace HVTApp.Services.PriceService
         /// <summary>
         /// Словарь блоков с прайсами
         /// </summary>
-        private readonly Dictionary<Guid, ProductBlock> _analogsWithPrice = new Dictionary<Guid, ProductBlock>();
+        private Dictionary<Guid, ProductBlock> AnalogsWithPrice { get; } = new Dictionary<Guid, ProductBlock>();
 
         public PriceService(IUnitOfWork unitOfWork)
         {
@@ -80,37 +83,38 @@ namespace HVTApp.Services.PriceService
         /// <returns></returns>
         public ProductBlock GetAnalogWithPrice(ProductBlock blockTarget)
         {
-            if (_analogsWithPrice.ContainsKey(blockTarget.Id))
-                return _analogsWithPrice[blockTarget.Id];
+            if (AnalogsWithPrice.ContainsKey(blockTarget.Id))
+                return AnalogsWithPrice[blockTarget.Id];
 
             var targetBlock = Blocks.SingleOrDefault(x => x.Id == blockTarget.Id) ?? blockTarget;
-            var blocks = Blocks.Where(x => x.Prices.Any()).ToList();
-            blocks.Remove(targetBlock);
+            var blocksWithPrices = Blocks
+                .Where(x => x.Id != targetBlock.Id)
+                .Where(x => x.Prices.Any()).ToList();
 
             var dic = new Dictionary<ProductBlock, double>();
-            foreach (var block in blocks)
+            foreach (var blockWithPrice in blocksWithPrices)
             {
                 double dif = 0;
 
                 //общие параметры
-                var intParams = block.Parameters.Intersect(targetBlock.Parameters, new ParameterComparer()).ToList();
+                var intParams = blockWithPrice.Parameters.Intersect(targetBlock.Parameters, new ParameterComparer()).ToList();
                 foreach (var parameter in intParams)
                 {
                     //Single было бы правильнее, но надо искать ошибку в формировании путей
-                    var path = parameter.Paths().First(x => x.Parameters.AllContainsIn(block.Parameters, new ParameterComparer()));
+                    var path = parameter.Paths().First(x => x.Parameters.AllContainsIn(blockWithPrice.Parameters, new ParameterComparer()));
                     dif += 1.0 / path.Parameters.Count;
                 }
 
                 //различающиеся параметры
-                var difParams1 = block.Parameters.Except(targetBlock.Parameters, new ParameterComparer()).ToList();
+                var difParams1 = blockWithPrice.Parameters.Except(targetBlock.Parameters, new ParameterComparer()).ToList();
                 foreach (var parameter in difParams1)
                 {
                     //Single было бы правильнее, но надо искать ошибку в формировании путей
-                    var path = parameter.Paths().First(x => x.Parameters.AllContainsIn(block.Parameters, new ParameterComparer()));
+                    var path = parameter.Paths().First(x => x.Parameters.AllContainsIn(blockWithPrice.Parameters, new ParameterComparer()));
                     dif -= 1.0 / path.Parameters.Count;
                 }
 
-                var difParams2 = targetBlock.Parameters.Except(block.Parameters, new ParameterComparer()).ToList();
+                var difParams2 = targetBlock.Parameters.Except(blockWithPrice.Parameters, new ParameterComparer()).ToList();
                 foreach (var parameter in difParams2)
                 {
                     //Single было бы правильнее, но надо искать ошибку в формировании путей
@@ -118,11 +122,11 @@ namespace HVTApp.Services.PriceService
                     dif -= 1.0 / path.Parameters.Count;
                 }
 
-                dic.Add(block, dif);
+                dic.Add(blockWithPrice, dif);
             }
 
             var blockAnalog = dic.OrderByDescending(x => x.Value).First().Key;
-            _analogsWithPrice.Add(blockTarget.Id, blockAnalog);
+            AnalogsWithPrice.Add(blockTarget.Id, blockAnalog);
             return blockAnalog;
         }
     }
