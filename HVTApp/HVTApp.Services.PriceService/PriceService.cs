@@ -36,6 +36,7 @@ namespace HVTApp.Services.PriceService
         public PriceService(IUnitOfWork unitOfWork)
         {
             Blocks = unitOfWork.Repository<ProductBlock>().GetAll();
+
             var priceCalculationsFinished = unitOfWork.Repository<PriceCalculation>()
                 .Find(x => x.TaskCloseMoment.HasValue)
                 .OrderBy(x => x.TaskCloseMoment).ToList();
@@ -89,7 +90,7 @@ namespace HVTApp.Services.PriceService
             var targetBlock = Blocks.SingleOrDefault(x => x.Id == blockTarget.Id) ?? blockTarget;
             var blocksWithPrices = Blocks
                 .Where(x => x.Id != targetBlock.Id)
-                .Where(x => x.Prices.Any()).ToList();
+                .Where(x => x.HasPrice).ToList();
 
             var dic = new Dictionary<ProductBlock, double>();
             foreach (var blockWithPrice in blocksWithPrices)

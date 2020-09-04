@@ -8,7 +8,10 @@ namespace HVTApp.DataAccess
     {
         protected override IQueryable<ProductBlock> GetQuary()
         {
-            return Context.Set<ProductBlock>().AsQueryable().Include(x => x.Parameters);
+            return Context.Set<ProductBlock>().AsQueryable()
+                .Include(x => x.Prices)
+                .Include(x => x.FixedCosts)
+                .Include(x => x.Parameters);
         }
     }
 }

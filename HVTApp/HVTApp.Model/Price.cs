@@ -163,11 +163,15 @@ namespace HVTApp.Model
             Amount = amount;
 
             if (productBlock.HasPrice || productBlock.HasFixedPrice)
+            {
                 //инициализация по прайсу/фиксированной цене
                 InitByBlock(productBlock, targetDate);
+            }
             else
+            {
                 //инициализация по аналогу
                 InitByBlock(priceService.GetAnalogWithPrice(productBlock), targetDate, productBlock);
+            }
         }
 
         private void InitByBlock(ProductBlock productBlock, DateTime targetDate, ProductBlock originalBlock = null)
