@@ -78,8 +78,12 @@ namespace HVTApp.Modules.Sales
 
         protected override void RegisterTypes()
         {
-            Container.RegisterViewForNavigation<MarketView>();
+            //для подгрузки данных заранее
+            if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager)
+                Container.RegisterInstance(typeof(Market2ViewModel), new Market2ViewModel(Container));
+
             Container.RegisterViewForNavigation<Market2View>();
+            Container.RegisterViewForNavigation<MarketView>();
             Container.RegisterViewForNavigation<PaymentsView>();
             Container.RegisterViewForNavigation<ProjectsView>();
             Container.RegisterViewForNavigation<OffersView>();

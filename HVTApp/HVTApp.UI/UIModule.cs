@@ -74,7 +74,7 @@ namespace HVTApp.UI
             Container.RegisterViewForNavigation<DirectumTasksIncomingView>();
             Container.RegisterViewForNavigation<ProductReplacementView>();
             Container.RegisterViewForNavigation<SupervisionView>();
-            Container.RegisterViewForNavigation<HVTApp.UI.Modules.Sales.Supervision.SupervisionView>();
+            Container.RegisterViewForNavigation<Modules.Sales.Supervision.SupervisionView>();
             Container.RegisterViewForNavigation<BudgetComparisionView>();
             Container.RegisterViewForNavigation<CommonInfoView>();
 
