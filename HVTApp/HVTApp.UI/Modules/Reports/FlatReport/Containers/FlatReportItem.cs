@@ -13,7 +13,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
     public class FlatReportItem : INotifyPropertyChanged
     {
         private DateTime _estimatedOrderInTakeDate;
-        private bool _inReport = true;
+        private bool _inReport;
         private double _estimatedCost;
         private DateTime _estimatedRealizationDate;
         private PaymentConditionSet _estimatedPaymentConditionSet;
@@ -31,8 +31,8 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
             get { return _inReport; }
             set
             {
-                if (!AllowEditOit) return;
-                if (Equals(_inReport, value)) return;
+                //if (!AllowEditOit) return;
+                //if (Equals(_inReport, value)) return;
                 _inReport = value;
                 OnPropertyChanged();
                 InReportIsChanged?.Invoke();
@@ -164,7 +164,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
             }
         }
 
-        public FlatReportItem(IEnumerable<SalesUnit> salesUnits)
+        public FlatReportItem(IEnumerable<SalesUnit> salesUnits, bool inReport)
         {
             if(!salesUnits.Any())
                 throw new ArgumentException(nameof(salesUnits));
@@ -176,6 +176,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
             _estimatedOrderInTakeDate = OriginalOrderInTakeDate = salesUnit.OrderInTakeDate;
             _estimatedRealizationDate = OriginalRealizationDate = salesUnit.RealizationDateCalculated;
             _estimatedPaymentConditionSet = salesUnit.PaymentConditionSet;
+            _inReport = inReport;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

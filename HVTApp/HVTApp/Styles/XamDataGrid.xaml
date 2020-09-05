@@ -33,8 +33,41 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
-    
+
+    <Style TargetType="infg:XamDataGrid" x:Key="RecordFilterScopeAllRecords">
+
+        <!--Автоматическая ширина колонок таблицы-->
+        <Setter Property="AutoFit"
+                Value="False" />
+
+        <!--Фильтры и запрет на редактирование-->
+        <Setter Property="FieldSettings">
+            <Setter.Value>
+                <infg:FieldSettings AllowEdit="False"
+                                    AllowResize="True"
+                                    AllowRecordFiltering="True"
+                                    FilterLabelIconDropDownType="MultiSelectExcelStyle" />
+            </Setter.Value>
+        </Setter>
+
+        <Setter Property="FieldLayoutSettings">
+            <Setter.Value>
+                <infg:FieldLayoutSettings AutoGenerateFields="False"
+                                          AllowAddNew="False"
+                                          AllowDelete="False"
+                                          AllowFieldMoving="Yes"
+                                          AllowRecordFixing="Top"
+                                          HeaderPrefixAreaDisplayMode="FieldChooserButton"
+                                          FilterUIType="LabelIcons"
+                                          HeaderPlacement="OnTopOnly"
+                                          HeaderPlacementInGroupBy="OnTopOnly"
+                                          RecordFilterScope="AllRecords"/>
+                <!--HighlightAlternateRecords="True"-->
+                <!--AutoFitMode="Always"-->
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 
     <Style TargetType="infg:XamDataGrid" x:Key="ListViewGrid">
         

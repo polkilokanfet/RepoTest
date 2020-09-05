@@ -102,5 +102,17 @@ namespace HVTApp.Infrastructure.Extansions
         {
             return ((date1.Year - date2.Year) * 12) + date1.Month - date2.Month;
         }
+
+        /// <summary>
+        /// Дата находится внутри диапазона дат (включая края).
+        /// </summary>
+        /// <param name="date">Проверяемая дата</param>
+        /// <param name="startDate">Начало диапазона дат</param>
+        /// <param name="finishDate">Конец диапазона дат</param>
+        /// <returns></returns>
+        public static bool BetweenDates(this DateTime date, DateTime startDate, DateTime finishDate)
+        {
+            return date >= startDate && date <= finishDate;
+        }
     }
 }

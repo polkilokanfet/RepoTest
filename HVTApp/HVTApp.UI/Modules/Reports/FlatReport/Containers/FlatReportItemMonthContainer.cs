@@ -12,6 +12,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
     {
         private double _targetSum;
         private double _accuracy;
+        private bool _inReport;
 
         public ObservableCollection<FlatReportItem> FlatReportItems { get; } = new ObservableCollection<FlatReportItem>();
 
@@ -23,6 +24,8 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
         /// Текущая сумма
         /// </summary>
         public double CurrentSum => FlatReportItems.Any() ? FlatReportItems.Sum(x => x.Sum) : 0.0;
+
+        public event Action CurrentSumIsChanged;
 
         /// <summary>
         /// Целевая сумма (к которой необходимо стремиться).
@@ -40,10 +43,14 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
                     return;
 
                 _targetSum = value;
+                TargetSumIsChanged?.Invoke();
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(IsOk));
             }
         }
+
+        public event Action TargetSumIsChanged;
+
 
         /// <summary>
         /// Точность попадания (в долях: 0,01; 0,05 и т.д.)
@@ -84,6 +91,16 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
 
         public string MonthName => new DateTime(Year, Month, 1).MonthName();
 
+        public bool InReport
+        {
+            get { return _inReport; }
+            set
+            {
+                _inReport = value;
+                OnPropertyChanged();
+            }
+        }
+
         private FlatReportItemMonthContainer(double accuracy)
         {
             Accuracy = accuracy;
@@ -114,6 +131,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
         {
             OnPropertyChanged(nameof(CurrentSum));
             OnPropertyChanged(nameof(IsOk));
+            CurrentSumIsChanged?.Invoke();
         }
 
         protected FlatReportItemMonthContainer(IEnumerable<FlatReportItem> flatReportItems, double accuracy) : this(accuracy)

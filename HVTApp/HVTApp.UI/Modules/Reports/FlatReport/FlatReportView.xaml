@@ -22,6 +22,12 @@
                     <infg:FieldLayout>
                         <infg:FieldLayout.RecordFilters>
 
+                            <infg:RecordFilter FieldName="InReport">
+                                <infg:RecordFilter.Conditions>
+                                    <controls:ComparisonCondition Operator="Equals" Value="True" />
+                                </infg:RecordFilter.Conditions>
+                            </infg:RecordFilter>
+
                             <infg:RecordFilter FieldName="AllowEditRealization">
                                 <infg:RecordFilter.Conditions>
                                     <controls:ComparisonCondition Operator="Equals" Value="True" />
@@ -39,8 +45,8 @@
 
 
                         <infg:FieldLayout.Fields>
-                            <infg:CheckBoxField BindingType="UseAlternateBinding" AlternateBinding="{Binding InReport, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Label="V" Width="Auto" AllowEdit="True">
-                                <infg:Field.Settings>
+                            <infg:CheckBoxField Name="InReport" BindingType="UseAlternateBinding" AlternateBinding="{Binding InReport, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Label="V" Width="Auto" AllowEdit="True">
+                                <!--<infg:Field.Settings>
                                     <infg:FieldSettings>
                                         <infg:FieldSettings.EditorStyle>
                                             <Style TargetType="{x:Type igEditors:XamCheckEditor}">
@@ -48,7 +54,7 @@
                                             </Style>
                                         </infg:FieldSettings.EditorStyle>
                                     </infg:FieldSettings>
-                                </infg:Field.Settings>
+                                </infg:Field.Settings>-->
                             </infg:CheckBoxField>
                             <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.Facility}" Converter="{StaticResource ObjectToStringConverter}" Label="Объект" Width="Auto"/>
                             <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.Product.ProductType.Name}" Label="Тип продукта" Width="Auto"/>
@@ -90,60 +96,77 @@
             
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="280" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="200" />
-                        <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <GroupBox Grid.Column="0" Header="По менеджерам">
+                    <!--<GroupBox Grid.Column="0" Header="По менеджерам">
                         <infg:XamDataGrid DataSource="{Binding ManagerContainersOit}">
                             <infg:XamDataGrid.FieldLayouts>
                                 <infg:FieldLayout>
                                     <infg:FieldLayout.Fields>
                                         <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Manager}" Label="Менеджер" Width="Auto"/>
                                         <infg:NumericField Name="Year" Label="Год" Width="Auto"/>
-                                        <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding Sum}" Label="Сумма" Width="Auto"/>
+                                        <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding Sum}" Label="Набрано" Width="Auto"/>
                                     </infg:FieldLayout.Fields>
                                 </infg:FieldLayout>
                             </infg:XamDataGrid.FieldLayouts>
                         </infg:XamDataGrid>
                     </GroupBox>
 
-                    <GridSplitter Grid.Column="1" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+                    <GridSplitter Grid.Column="1" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>-->
                     
-                    <GroupBox Grid.Column="2" Header="По годам">
-                        <infg:XamDataGrid DataSource="{Binding YearContainersOit}">
+                    <GroupBox Grid.Column="0" Header="Распределение ОИТ">
+                        <infg:XamDataGrid DataSource="{Binding YearContainersOit}"
+                                          Style="{StaticResource RecordFilterScopeAllRecords}">
+                            
                             <infg:XamDataGrid.FieldLayouts>
+                                
                                 <infg:FieldLayout>
+
+                                    <infg:FieldLayout.RecordFilters>
+
+                                        <infg:RecordFilter FieldName="InReport">
+                                            <infg:RecordFilter.Conditions>
+                                                <controls:ComparisonCondition Operator="Equals" Value="True" />
+                                            </infg:RecordFilter.Conditions>
+                                        </infg:RecordFilter>
+
+                                    </infg:FieldLayout.RecordFilters>
+
                                     <infg:FieldLayout.Fields>
                                         <infg:NumericField Name="Year" Label="Год" Width="Auto"/>
-                                        <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding Sum}" Label="Сумма" Width="Auto"/>
+                                        <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding Sum}" Label="Набрано" Width="Auto"/>
+                                        <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding TargetSum}" Label="Цель" Width="Auto"/>
+                                        <infg:CheckBoxField BindingType="UseAlternateBinding" AlternateBinding="{Binding InReport}" Label="V" Width="Auto" Name="InReport"/>
+                                        <infg:Field Name="MonthContainers" IsExpandable="True"/>
                                     </infg:FieldLayout.Fields>
                                 </infg:FieldLayout>
-                            </infg:XamDataGrid.FieldLayouts>
-                        </infg:XamDataGrid>
-                    </GroupBox>
-                
-                    <GridSplitter Grid.Column="3" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
-                
-                    <GroupBox Grid.Column="4" Header="По месяцам">
-                        <infg:XamDataGrid DataSource="{Binding MonthContainersOit}">
-                            <infg:XamDataGrid.FieldLayouts>
-                                <infg:FieldLayout>
+
+                                <infg:FieldLayout ParentFieldName="MonthContainers">
+
+                                    <infg:FieldLayout.RecordFilters>
+
+                                        <infg:RecordFilter FieldName="InReport1">
+                                            <infg:RecordFilter.Conditions>
+                                                <controls:ComparisonCondition Operator="Equals" Value="True" />
+                                            </infg:RecordFilter.Conditions>
+                                        </infg:RecordFilter>
+
+                                    </infg:FieldLayout.RecordFilters>
+
                                     <infg:FieldLayout.Fields>
-                                        <infg:NumericField Name="Year" Label="Год" Width="Auto"/>
                                         <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding MonthName}" Label="Месяц" Width="Auto"/>
                                         <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding CurrentSum}" Label="Набрано" Width="Auto"/>
                                         <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding TargetSum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Label="Цель" AllowEdit="True" Width="Auto"/>
                                         <infg:CheckBoxField BindingType="UseAlternateBinding" AlternateBinding="{Binding IsOk}" Label="V" Width="Auto"/>
+                                        <infg:CheckBoxField BindingType="UseAlternateBinding" AlternateBinding="{Binding InReport}" Label="V" Width="Auto" Name="InReport1" AllowRecordFiltering="True"/>
                                     </infg:FieldLayout.Fields>
                                 </infg:FieldLayout>
+                                
                             </infg:XamDataGrid.FieldLayouts>
                         </infg:XamDataGrid>
                     </GroupBox>
-            
+                            
                 </Grid>
             
                 <GridSplitter Grid.Column="1" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
@@ -262,9 +285,9 @@
             
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="280" />
                         <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="200" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
