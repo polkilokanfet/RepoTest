@@ -23,11 +23,13 @@ namespace HVTApp.Modules.Reports.Menus
             if (GlobalAppProperties.User.RoleCurrent == Role.Admin ||
                 GlobalAppProperties.User.RoleCurrent == Role.SalesManager ||
                 GlobalAppProperties.User.RoleCurrent == Role.Director)
+            {
                 Items.Add(new NavigationItem("Рынок", typeof(MarketReportView)));
+            }
 
             Items.Add(new NavigationItem("Референс", typeof(ReferenceView)));
             Items.Add(new NavigationItem("Сводная информация (для счета)", typeof(CommonInfoView)));
-            Items.Add(new NavigationItem("Report maker", typeof(FlatReportView)));
+            Items.Add(new NavigationItem("Фабрика бюджетов", typeof(FlatReportView)));
             //Items.Add(new NavigationItem("Продажи", typeof(SalesReportView)));
 
             if (GlobalAppProperties.User.RoleCurrent == Role.Admin ||
@@ -38,15 +40,20 @@ namespace HVTApp.Modules.Reports.Menus
 
             Items.Add(new NavigationItem("График продаж", typeof(SalesChartView)));
 
-            var item = new NavigationItem("Аналитика", typeof(ManagersSalesChartView));
-            item.Items.Add(new NavigationItem("Ёмкость рынка", typeof(MarketCapacityChartView)));
-            item.Items.Add(new NavigationItem("Продажи по менеджерам", typeof(ManagersSalesChartView)));
-            item.Items.Add(new NavigationItem("Продажи по типам оборудования", typeof(ProductTypesSalesChartView)));
-            item.Items.Add(new NavigationItem("Продажи по регионам", typeof(RegionsSalesChartView)));
-            item.Items.Add(new NavigationItem("Продажи по потребителям", typeof(ConsumersSalesChartView)));
-            item.Items.Add(new NavigationItem("Продажи по контрагентам", typeof(ContragentsSalesChartView)));
-            item.Items.Add(new NavigationItem("Продажи по производителям", typeof(ProducersSalesChartView)));
-            Items.Add(item);
+            if (GlobalAppProperties.User.RoleCurrent == Role.Admin ||
+                GlobalAppProperties.User.RoleCurrent == Role.SalesManager ||
+                GlobalAppProperties.User.RoleCurrent == Role.Director)
+            {
+                var item = new NavigationItem("Аналитика", typeof(ManagersSalesChartView));
+                item.Items.Add(new NavigationItem("Ёмкость рынка", typeof(MarketCapacityChartView)));
+                item.Items.Add(new NavigationItem("Продажи по менеджерам", typeof(ManagersSalesChartView)));
+                item.Items.Add(new NavigationItem("Продажи по типам оборудования", typeof(ProductTypesSalesChartView)));
+                item.Items.Add(new NavigationItem("Продажи по регионам", typeof(RegionsSalesChartView)));
+                item.Items.Add(new NavigationItem("Продажи по потребителям", typeof(ConsumersSalesChartView)));
+                item.Items.Add(new NavigationItem("Продажи по контрагентам", typeof(ContragentsSalesChartView)));
+                item.Items.Add(new NavigationItem("Продажи по производителям", typeof(ProducersSalesChartView)));
+                Items.Add(item);
+            }
         }
     }
 }

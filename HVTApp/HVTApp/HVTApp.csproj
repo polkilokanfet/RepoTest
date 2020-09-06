@@ -15,7 +15,7 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>D:\app\</PublishUrl>
+    <PublishUrl>G:\app\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -29,7 +29,7 @@
     <ProductName>HVTApplication</ProductName>
     <PublisherName>Kosolapov</PublisherName>
     <MinimumRequiredVersion>1.0.0.169</MinimumRequiredVersion>
-    <ApplicationRevision>170</ApplicationRevision>
+    <ApplicationRevision>171</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>

@@ -69,17 +69,31 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
         private void RefreshInReportStatus()
         {
             int monthsCount = MonthContainersOit.Count();
-            var start = new DateTime(StartDate.Year, StartDate.Month, 1);
-            var finish = new DateTime(FinishDate.Year, FinishDate.Month, DateTime.DaysInMonth(FinishDate.Year, FinishDate.Month));
-            var monthContainers = YearContainersOit.SelectMany(x => x.MonthContainers).ToList();
-            monthContainers.ForEach(x => x.InReport = false);
-            monthContainers.Where(x => x.Date.BetweenDates(start, finish)).ForEach(x => x.InReport = true);
+            var startOit = new DateTime(StartDate.Year, StartDate.Month, 1);
+            var finishOit = new DateTime(FinishDate.Year, FinishDate.Month, DateTime.DaysInMonth(FinishDate.Year, FinishDate.Month));
+            var monthContainersOit = YearContainersOit.SelectMany(x => x.MonthContainers).ToList();
+            monthContainersOit.Where(x => !x.Date.BetweenDates(startOit, finishOit)).ForEach(x => x.InReport = false);
+            monthContainersOit.Where(x => x.Date.BetweenDates(startOit, finishOit)).ForEach(x => x.InReport = true);
 
             Items.Where(x => !x.EstimatedOrderInTakeDate.BetweenDates(StartDate, FinishDate)).ForEach(x => x.InReport = false);
 
             if(monthsCount != MonthContainersOit.Count())
                 RefreshTargetSums();
+
+            RefreshInReportStatusRealization();
         }
+
+        private void RefreshInReportStatusRealization()
+        {
+            var startRealization = Items.Where(x => x.InReport).Min(x => x.EstimatedRealizationDate);
+            startRealization = new DateTime(startRealization.Year, startRealization.Month, 1);
+            var finishRealization = Items.Where(x => x.InReport).Max(x => x.EstimatedRealizationDate);
+            finishRealization = new DateTime(finishRealization.Year, finishRealization.Month, DateTime.DaysInMonth(finishRealization.Year, finishRealization.Month));
+            var monthContainersRealization = YearContainersRealization.SelectMany(x => x.MonthContainers).ToList();
+            monthContainersRealization.Where(x => !x.Date.BetweenDates(startRealization, finishRealization)).ForEach(x => x.InReport = false);
+            monthContainersRealization.Where(x => x.Date.BetweenDates(startRealization, finishRealization)).ForEach(x => x.InReport = true);
+        }
+
 
         /// <summary>
         /// Точность выравнивания (в процентах)
@@ -113,9 +127,9 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
 
         #region OrderInTake
 
-        public ObservableCollection<FlatReportItemYearContainer> YearContainersOit { get; } = new ObservableCollection<FlatReportItemYearContainer>();
+        public ObservableCollection<ContainerYear> YearContainersOit { get; } = new ObservableCollection<ContainerYear>();
 
-        public IEnumerable<FlatReportItemMonthContainer> MonthContainersOit => YearContainersOit.SelectMany(x => x.MonthContainers).Where(x => x.InReport).OrderBy(x => x.Year).ThenBy(x => x.Month);
+        public IEnumerable<ContainerMonth> MonthContainersOit => YearContainersOit.SelectMany(x => x.MonthContainers).Where(x => x.InReport).OrderBy(x => x.Year).ThenBy(x => x.Month);
 
         public List<FlatReportItemManagerContainer> ManagerContainersOit => Items
             .Where(x => x.InReport)
@@ -128,20 +142,9 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
 
         #region Realization
 
-        public List<MonthContainerRealization> MonthContainersRealization
-        {
-            get
-            {
-                return  new List<MonthContainerRealization>();
-                //var startDate = Items.Min(x => x.EstimatedRealizationDate);
-                //var start = new DateTime(startDate.Year, startDate.Month, 1);
-                //var finishDate = Items.Max(x => x.EstimatedRealizationDate);
-                //var finish = new DateTime(finishDate.Year, finishDate.Month, DateTime.DaysInMonth(finishDate.Year, finishDate.Month));
-                //return _monthContainersRealization.Where(x => x.Date >= start && x.Date <= finish).OrderBy(x => x.Year).ThenBy(x => x.Month).ToList();
-            }
-        }
+        public ObservableCollection<ContainerYear> YearContainersRealization { get; } = new ObservableCollection<ContainerYear>();
 
-        public ObservableCollection<FlatReportItemYearContainer> YearContainersRealization { get; } = new ObservableCollection<FlatReportItemYearContainer>();
+        public List<ContainerMonth> MonthContainersRealization => YearContainersRealization.SelectMany(x => x.MonthContainers).Where(x => x.InReport).OrderBy(x => x.Year).ThenBy(x => x.Month).ToList();
 
         public List<FlatReportItemManagerContainer> ManagerContainersRealization => Items
             .Where(x => x.InReport)
@@ -268,7 +271,8 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
 
                     UnitOfWork.SaveChanges();
                     Container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", $"Бюджет \"{budget}\" успешно сохранен.");
-                });
+                },
+                () => GlobalAppProperties.User.RoleCurrent == Role.Admin || GlobalAppProperties.User.RoleCurrent == Role.Director || GlobalAppProperties.User.RoleCurrent == Role.ReportMaker);
 
             ReloadCommand = new DelegateCommand(Load);
 
@@ -327,7 +331,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                 () =>
                 {
                     var monthContainers = FlatReportComparator.Align(YearContainersOit.SelectMany(x => x.MonthContainers).Where(x => x.InReport)).ToList();
-                    monthContainers.Cast<MonthContainerOit>().ForEach(x => x.FillEstimatedOrderInTakeDates());
+                    monthContainers.Cast<ContainerMonthOit>().ForEach(x => x.FillEstimatedOrderInTakeDates());
 
                     if (monthContainers.Any(x => !x.IsOk))
                         Container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", "Не во всех месяцах удалось выровнять суммы с заданной точностью.");
@@ -407,18 +411,16 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                     {
                         RemoveItemFromContainerRealization(item);
                         AddItemToContainerRealization(item);
-                        OnPropertyChanged(nameof(ManagerContainersRealization));
+                        RefreshInReportStatusRealization();
+                        OnPropertyChanged(nameof(MonthContainersRealization));
                     }
                 };
 
-                //изменение в айтеме
-                item.PropertyChanged += (sender, args) =>
+                //изменение цены в айтеме
+                item.EstimatedCostIsChanged += () =>
                 {
-                    if (args.PropertyName == nameof(FlatReportItem.EstimatedCost))
-                    {
-                        RefreshTargetSums();
-                        RefreshContainers();
-                    }
+                    RefreshTargetSums();
+                    RefreshContainers();
                 };
             }
 
@@ -462,17 +464,17 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
             GetMonthContainerOit(item.EstimatedOrderInTakeDate).Items.Add(item);
         }
 
-        private FlatReportItemMonthContainer GetMonthContainerOit(DateTime date)
+        private ContainerMonth GetMonthContainerOit(DateTime date)
         {
             return GetYearContainerOit(date.Year).MonthContainers.Single(x => x.Month == date.Month);
         }
 
-        private FlatReportItemYearContainer GetYearContainerOit(int year)
+        private ContainerYear GetYearContainerOit(int year)
         {
             var yearContainer = YearContainersOit.SingleOrDefault(x => x.Year == year);
             if (yearContainer == null)
             {
-                yearContainer = new FlatReportItemYearContainer(year, Accuracy / 100.0);
+                yearContainer = new ContainerYear(year, Accuracy / 100.0);
                 YearContainersOit.Add(yearContainer);
             }
 
@@ -511,17 +513,17 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
             GetMonthContainerRealization(item.EstimatedRealizationDate).Items.Add(item);
         }
 
-        private FlatReportItemMonthContainer GetMonthContainerRealization(DateTime date)
+        private ContainerMonth GetMonthContainerRealization(DateTime date)
         {
             return GetYearContainerRealization(date.Year).MonthContainers.Single(x => x.Month == date.Month);
         }
 
-        private FlatReportItemYearContainer GetYearContainerRealization(int year)
+        private ContainerYear GetYearContainerRealization(int year)
         {
             var yearContainer = YearContainersRealization.SingleOrDefault(x => x.Year == year);
             if (yearContainer == null)
             {
-                yearContainer = new FlatReportItemYearContainer(year, Accuracy / 100.0);
+                yearContainer = new ContainerYear(year, Accuracy / 100.0);
                 YearContainersRealization.Add(yearContainer);
             }
 

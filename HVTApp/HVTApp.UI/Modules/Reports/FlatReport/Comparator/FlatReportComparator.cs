@@ -15,13 +15,13 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Comparator
         /// </summary>
         /// <param name="containersEnum"></param>
         /// <returns></returns>
-        public static IEnumerable<FlatReportItemMonthContainer> Align(IEnumerable<FlatReportItemMonthContainer> containersEnum)
+        public static IEnumerable<ContainerMonth> Align(IEnumerable<ContainerMonth> containersEnum)
         {
             var containers = containersEnum.ToList();
             var difList = new List<double>();
             double difCurrent;
             string ds;
-            var dictionary = new Dictionary<FlatReportItemMonthContainer, List<FlatReportItem>>();
+            var dictionary = new Dictionary<ContainerMonth, List<FlatReportItem>>();
 
             //Формирование пар контейнеров
             var pairs = GetPairs(containers).ToList();
@@ -70,7 +70,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Comparator
         /// </summary>
         /// <param name="containersEnum"></param>
         /// <returns></returns>
-        private static IEnumerable<MonthContainersPair> GetPairs(IEnumerable<FlatReportItemMonthContainer> containersEnum)
+        private static IEnumerable<MonthContainersPair> GetPairs(IEnumerable<ContainerMonth> containersEnum)
         {
             var containers = containersEnum.OrderBy(x => x.Year).ThenBy(x => x.Month).ToList();
             for (int i = 1; i < containers.Count; i++)

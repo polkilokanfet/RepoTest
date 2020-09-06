@@ -106,6 +106,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
             set
             {
                 if (!AllowEditOit) return;
+                if (Math.Abs(_estimatedCost - value) < 0.001) return;
                 _estimatedCost = value;
                 EstimatedCostIsChanged?.Invoke();
                 OnPropertyChanged();

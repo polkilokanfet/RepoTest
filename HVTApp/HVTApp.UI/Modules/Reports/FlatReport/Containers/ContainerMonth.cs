@@ -8,7 +8,7 @@ using Prism.Mvvm;
 namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
 {
     [System.Diagnostics.DebuggerDisplay("{" + nameof(ToString) + "()}")]
-    public abstract class FlatReportItemMonthContainer : BindableBase
+    public abstract class ContainerMonth : BindableBase
     {
         private double _targetSum;
         private double _accuracy;
@@ -123,7 +123,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
 
         public event Action InReportIsChanged;
 
-        private FlatReportItemMonthContainer(double accuracy)
+        private ContainerMonth(double accuracy)
         {
             Accuracy = accuracy;
 
@@ -156,13 +156,13 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
             CurrentSumIsChanged?.Invoke();
         }
 
-        protected FlatReportItemMonthContainer(IEnumerable<FlatReportItem> flatReportItems, double accuracy) : this(accuracy)
+        protected ContainerMonth(IEnumerable<FlatReportItem> flatReportItems, double accuracy) : this(accuracy)
         {
             Items.AddRange(flatReportItems);
             FillYearAndMonth(Items);
         }
 
-        protected FlatReportItemMonthContainer(DateTime date, double accuracy) : this(accuracy)
+        protected ContainerMonth(DateTime date, double accuracy) : this(accuracy)
         {
             Year = date.Year;
             Month = date.Month;

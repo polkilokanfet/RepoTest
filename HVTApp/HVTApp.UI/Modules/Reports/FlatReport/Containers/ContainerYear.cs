@@ -6,11 +6,10 @@ using Prism.Mvvm;
 
 namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
 {
-    public class FlatReportItemYearContainer : BindableBase
+    public class ContainerYear : BindableBase
     {
         private double _accuracy;
-        private bool _inReport;
-        public ObservableCollection<FlatReportItemMonthContainer> MonthContainers { get; } = new ObservableCollection<FlatReportItemMonthContainer>();
+        public ObservableCollection<ContainerMonth> MonthContainers { get; } = new ObservableCollection<ContainerMonth>();
         public int Year => MonthContainers.First().Year;
         public double Sum => MonthContainers.Where(x => x.InReport).Sum(x => x.CurrentSum);
         public double TargetSum
@@ -45,13 +44,13 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
             }
         }
 
-        public FlatReportItemYearContainer(int year, double accuracy)
+        public ContainerYear(int year, double accuracy)
         {
             Accuracy = accuracy;
 
             for (int month = 1; month <= 12; month++)
             {
-                MonthContainers.Add(new MonthContainerOit(new DateTime(year, month, 1), Accuracy));                
+                MonthContainers.Add(new ContainerMonthOit(new DateTime(year, month, 1), Accuracy));                
             }
 
             foreach (var monthContainer in MonthContainers)

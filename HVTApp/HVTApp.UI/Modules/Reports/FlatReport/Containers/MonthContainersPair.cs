@@ -8,10 +8,10 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
     [System.Diagnostics.DebuggerDisplay("{" + nameof(ToString) + "()}")]
     public class MonthContainersPair
     {
-        private readonly List<FlatReportItemMonthContainer> _containers;
+        private readonly List<ContainerMonth> _containers;
 
-        public FlatReportItemMonthContainer DonorContainer => _containers.OrderBy(x => x.Difference).First();
-        public FlatReportItemMonthContainer AcceptorContainer => _containers.OrderBy(x => x.Difference).Last();
+        public ContainerMonth DonorContainer => _containers.OrderBy(x => x.Difference).First();
+        public ContainerMonth AcceptorContainer => _containers.OrderBy(x => x.Difference).Last();
 
         /// <summary>
         /// Оба контейнера в допуске
@@ -28,9 +28,9 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
         /// </summary>
         public double Difference => Math.Abs(DonorContainer.Difference - AcceptorContainer.Difference);
 
-        public MonthContainersPair(FlatReportItemMonthContainer container1, FlatReportItemMonthContainer container2)
+        public MonthContainersPair(ContainerMonth container1, ContainerMonth container2)
         {
-            _containers = new List<FlatReportItemMonthContainer> {container1, container2};
+            _containers = new List<ContainerMonth> {container1, container2};
         }
 
         private bool CanMoveItem
@@ -74,7 +74,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
             acceptorContainer.Items.Add(item);
         }
 
-        private int MonthsBetween(FlatReportItemMonthContainer container, FlatReportItem item)
+        private int MonthsBetween(ContainerMonth container, FlatReportItem item)
         {
             var date = new DateTime(container.Year, container.Month, 1);
             return Math.Abs(item.OriginalOrderInTakeDate.MonthsBetween(date));

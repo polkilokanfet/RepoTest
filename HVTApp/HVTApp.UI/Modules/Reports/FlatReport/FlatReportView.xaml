@@ -89,7 +89,7 @@
             <Grid>
             
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="400" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
@@ -115,7 +115,7 @@
 
                     <GridSplitter Grid.Column="1" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>-->
                     
-                    <GroupBox Grid.Column="0" Header="Распределение ОИТ">
+                    <GroupBox Grid.Column="0" Header="Распределение">
                         <infg:XamDataGrid DataSource="{Binding YearContainersOit}"
                                           Style="{StaticResource RecordFilterScopeAllRecords}">
                             
@@ -171,7 +171,7 @@
             
                 <GridSplitter Grid.Column="1" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
         
-                <GroupBox Grid.Column="2" Header="Динамика по месяцам">
+                <GroupBox Grid.Column="2" Header="Динамика">
 
                     <ig:XamDataChart x:Name="StackedBarChart"
                                      Padding="10"
@@ -278,72 +278,89 @@
             <Grid>
             
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="400" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
             
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <GroupBox Grid.Column="0" Header="По менеджерам">
-                        <infg:XamDataGrid DataSource="{Binding ManagerContainersRealization}">
+                    <!--<GroupBox Grid.Column="0" Header="По менеджерам">
+                        <infg:XamDataGrid DataSource="{Binding ManagerContainersOit}">
                             <infg:XamDataGrid.FieldLayouts>
                                 <infg:FieldLayout>
                                     <infg:FieldLayout.Fields>
                                         <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Manager}" Label="Менеджер" Width="Auto"/>
                                         <infg:NumericField Name="Year" Label="Год" Width="Auto"/>
-                                        <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding Sum}" Label="Сумма" Width="Auto"/>
+                                        <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding Sum}" Label="Набрано" Width="Auto"/>
                                     </infg:FieldLayout.Fields>
                                 </infg:FieldLayout>
                             </infg:XamDataGrid.FieldLayouts>
                         </infg:XamDataGrid>
                     </GroupBox>
 
-                    <GridSplitter Grid.Column="1" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+                    <GridSplitter Grid.Column="1" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>-->
                     
-                    <GroupBox Grid.Column="2" Header="По годам">
-                        <infg:XamDataGrid DataSource="{Binding YearContainersRealization}">
+                    <GroupBox Grid.Column="0" Header="Распределение">
+                        <infg:XamDataGrid DataSource="{Binding YearContainersRealization}"
+                                          Style="{StaticResource RecordFilterScopeAllRecords}">
+                            
                             <infg:XamDataGrid.FieldLayouts>
+                                
                                 <infg:FieldLayout>
+
+                                    <infg:FieldLayout.RecordFilters>
+
+                                        <infg:RecordFilter FieldName="InReport">
+                                            <infg:RecordFilter.Conditions>
+                                                <controls:ComparisonCondition Operator="Equals" Value="True" />
+                                            </infg:RecordFilter.Conditions>
+                                        </infg:RecordFilter>
+
+                                    </infg:FieldLayout.RecordFilters>
+
                                     <infg:FieldLayout.Fields>
                                         <infg:NumericField Name="Year" Label="Год" Width="Auto"/>
-                                        <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding Sum}" Label="Сумма" Width="Auto"/>
+                                        <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding Sum}" Label="Набрано" Width="Auto"/>
+                                        <!--<infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding TargetSum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Label="Цель" AllowEdit="True" Width="Auto"/>-->
+                                        <infg:CheckBoxField BindingType="UseAlternateBinding" AlternateBinding="{Binding InReport}" Label="Отч." Width="Auto" Name="InReport"/>
+                                        <infg:Field Name="MonthContainers" IsExpandable="True"/>
                                     </infg:FieldLayout.Fields>
                                 </infg:FieldLayout>
-                            </infg:XamDataGrid.FieldLayouts>
-                        </infg:XamDataGrid>
-                    </GroupBox>
-                
-                    <GridSplitter Grid.Column="3" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
-                
-                    <GroupBox Grid.Column="4" Header="По месяцам">
-                        <infg:XamDataGrid DataSource="{Binding MonthContainersRealization}">
-                            <infg:XamDataGrid.FieldLayouts>
-                                <infg:FieldLayout>
+
+                                <infg:FieldLayout ParentFieldName="MonthContainers">
+
+                                    <infg:FieldLayout.RecordFilters>
+
+                                        <infg:RecordFilter FieldName="InReport1">
+                                            <infg:RecordFilter.Conditions>
+                                                <controls:ComparisonCondition Operator="Equals" Value="True" />
+                                            </infg:RecordFilter.Conditions>
+                                        </infg:RecordFilter>
+
+                                    </infg:FieldLayout.RecordFilters>
+
                                     <infg:FieldLayout.Fields>
-                                        <infg:NumericField Name="Year" Label="Год" Width="Auto"/>
                                         <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding MonthName}" Label="Месяц" Width="Auto"/>
                                         <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding CurrentSum}" Label="Набрано" Width="Auto"/>
                                         <!--<infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding TargetSum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Label="Цель" AllowEdit="True" Width="Auto"/>
                                         <infg:CheckBoxField BindingType="UseAlternateBinding" AlternateBinding="{Binding IsOk}" Label="V" Width="Auto"/>-->
+                                        <infg:CheckBoxField BindingType="UseAlternateBinding" AlternateBinding="{Binding InReport}" Label="Отч." Width="Auto" Name="InReport1" AllowRecordFiltering="True"/>
                                     </infg:FieldLayout.Fields>
                                 </infg:FieldLayout>
+                                
                             </infg:XamDataGrid.FieldLayouts>
                         </infg:XamDataGrid>
                     </GroupBox>
-            
+                            
                 </Grid>
             
                 <GridSplitter Grid.Column="1" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
         
-                <GroupBox Grid.Column="2" Header="Динамика по месяцам">
+                <GroupBox Grid.Column="2" Header="Динамика">
 
                     <ig:XamDataChart x:Name="StackedBarChartRealization"
                                      Padding="10"
@@ -390,7 +407,7 @@
 
             </Grid>
         </GroupBox>
-
+        
     </Grid>
 
     

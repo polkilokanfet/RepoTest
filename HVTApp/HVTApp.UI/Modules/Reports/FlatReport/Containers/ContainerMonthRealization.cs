@@ -4,13 +4,13 @@ using System.Linq;
 
 namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
 {
-    public class MonthContainerRealization : FlatReportItemMonthContainer
+    public class ContainerMonthRealization : ContainerMonth
     {
-        public MonthContainerRealization(IEnumerable<FlatReportItem> flatReportItems, double accuracy) : base(flatReportItems, accuracy)
+        public ContainerMonthRealization(IEnumerable<FlatReportItem> flatReportItems, double accuracy) : base(flatReportItems, accuracy)
         {
         }
 
-        public MonthContainerRealization(DateTime date, double accuracy) : base(date, accuracy)
+        public ContainerMonthRealization(DateTime date, double accuracy) : base(date, accuracy)
         {
         }
 

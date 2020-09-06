@@ -181,8 +181,8 @@
     <Compile Include="Modules\Reports\FlatReport\Comparator\BudgetComparisionView.xaml.cs">
       <DependentUpon>BudgetComparisionView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Reports\FlatReport\Containers\MonthContainerOit.cs" />
-    <Compile Include="Modules\Reports\FlatReport\Containers\MonthContainerRealization.cs" />
+    <Compile Include="Modules\Reports\FlatReport\Containers\ContainerMonthOit.cs" />
+    <Compile Include="Modules\Reports\FlatReport\Containers\ContainerMonthRealization.cs" />
     <Compile Include="Modules\Reports\FlatReport\Reports\SalesReportView.xaml.cs">
       <DependentUpon>SalesReportView.xaml</DependentUpon>
     </Compile>
@@ -200,9 +200,9 @@
     <Compile Include="Modules\Reports\FlatReport\Containers\FlatReportItem.cs" />
     <Compile Include="Modules\Reports\FlatReport\Containers\FlatReportItemManagerContainer.cs" />
     <Compile Include="Modules\Reports\FlatReport\Containers\MonthContainersPair.cs" />
-    <Compile Include="Modules\Reports\FlatReport\Containers\FlatReportItemYearContainer.cs" />
+    <Compile Include="Modules\Reports\FlatReport\Containers\ContainerYear.cs" />
     <Compile Include="Modules\Reports\FlatReport\FlatReportViewModel.cs" />
-    <Compile Include="Modules\Reports\FlatReport\Containers\FlatReportItemMonthContainer.cs" />
+    <Compile Include="Modules\Reports\FlatReport\Containers\ContainerMonth.cs" />
     <Compile Include="Modules\Reports\FlatReport\FlatReportView.xaml.cs">
       <DependentUpon>FlatReportView.xaml</DependentUpon>
     </Compile>
