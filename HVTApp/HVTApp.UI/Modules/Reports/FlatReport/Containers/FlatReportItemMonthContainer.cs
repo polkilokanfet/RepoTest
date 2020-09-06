@@ -23,7 +23,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
         /// <summary>
         /// Текущая сумма
         /// </summary>
-        public double CurrentSum => FlatReportItems.Any() ? FlatReportItems.Sum(x => x.Sum) : 0.0;
+        public double CurrentSum => FlatReportItems.Any(x => x.InReport && !x.IsLoosen) ? FlatReportItems.Where(x => x.InReport && !x.IsLoosen).Sum(x => x.Sum) : 0.0;
 
         public event Action CurrentSumIsChanged;
 

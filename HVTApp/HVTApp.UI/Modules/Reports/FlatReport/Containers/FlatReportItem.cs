@@ -223,5 +223,10 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
                 yield return salesUnitWithInjactedData;
             }
         }
+
+        public override string ToString()
+        {
+            return $"{SalesUnit} ({Amount} רע.)";
+        }
     }
 }

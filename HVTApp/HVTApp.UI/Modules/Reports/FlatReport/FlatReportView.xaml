@@ -45,7 +45,7 @@
 
 
                         <infg:FieldLayout.Fields>
-                            <infg:CheckBoxField Name="InReport" BindingType="UseAlternateBinding" AlternateBinding="{Binding InReport, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Label="V" Width="Auto" AllowEdit="True">
+                            <infg:CheckBoxField Name="InReport" BindingType="UseAlternateBinding" AlternateBinding="{Binding InReport, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Label="Отч." Width="Auto" AllowEdit="True">
                                 <!--<infg:Field.Settings>
                                     <infg:FieldSettings>
                                         <infg:FieldSettings.EditorStyle>
@@ -136,8 +136,8 @@
                                     <infg:FieldLayout.Fields>
                                         <infg:NumericField Name="Year" Label="Год" Width="Auto"/>
                                         <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding Sum}" Label="Набрано" Width="Auto"/>
-                                        <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding TargetSum}" Label="Цель" Width="Auto"/>
-                                        <infg:CheckBoxField BindingType="UseAlternateBinding" AlternateBinding="{Binding InReport}" Label="V" Width="Auto" Name="InReport"/>
+                                        <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding TargetSum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Label="Цель" AllowEdit="True" Width="Auto"/>
+                                        <infg:CheckBoxField BindingType="UseAlternateBinding" AlternateBinding="{Binding InReport}" Label="Отч." Width="Auto" Name="InReport"/>
                                         <infg:Field Name="MonthContainers" IsExpandable="True"/>
                                     </infg:FieldLayout.Fields>
                                 </infg:FieldLayout>
@@ -159,7 +159,7 @@
                                         <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding CurrentSum}" Label="Набрано" Width="Auto"/>
                                         <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding TargetSum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Label="Цель" AllowEdit="True" Width="Auto"/>
                                         <infg:CheckBoxField BindingType="UseAlternateBinding" AlternateBinding="{Binding IsOk}" Label="V" Width="Auto"/>
-                                        <infg:CheckBoxField BindingType="UseAlternateBinding" AlternateBinding="{Binding InReport}" Label="V" Width="Auto" Name="InReport1" AllowRecordFiltering="True"/>
+                                        <infg:CheckBoxField BindingType="UseAlternateBinding" AlternateBinding="{Binding InReport}" Label="Отч." Width="Auto" Name="InReport1" AllowRecordFiltering="True"/>
                                     </infg:FieldLayout.Fields>
                                 </infg:FieldLayout>
                                 

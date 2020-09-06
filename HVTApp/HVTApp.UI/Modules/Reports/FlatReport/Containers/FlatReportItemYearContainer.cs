@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Microsoft.Practices.ObjectBuilder2;
@@ -14,7 +13,25 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
         public ObservableCollection<FlatReportItemMonthContainer> MonthContainers { get; } = new ObservableCollection<FlatReportItemMonthContainer>();
         public int Year => MonthContainers.First().Year;
         public double Sum => MonthContainers.Sum(x => x.CurrentSum);
-        public double TargetSum => MonthContainers.Sum(x => x.TargetSum);
+        public double TargetSum
+        {
+            get { return MonthContainers.Where(x => x.InReport).Sum(x => x.TargetSum); }
+            set
+            {
+                if (Math.Abs(value - TargetSum) > 0.001)
+                {
+                    var sum = value - MonthContainers.Where(x => x.InReport && x.IsPast).Sum(x => x.TargetSum);
+                    if (sum > 0)
+                    {
+                        var monthContainers = MonthContainers.Where(container => container.InReport && !container.IsPast).ToList();
+                        foreach (var monthContainer in monthContainers)
+                        {
+                            monthContainer.TargetSum = sum / monthContainers.Count;
+                        }
+                    }
+                }
+            }
+        }
 
         public bool InReport
         {
@@ -36,8 +53,10 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
             }
         }
 
-        public FlatReportItemYearContainer(int year)
+        public FlatReportItemYearContainer(int year, double accuracy)
         {
+            Accuracy = accuracy;
+
             for (int month = 1; month <= 12; month++)
             {
                 MonthContainers.Add(new MonthContainerOit(new DateTime(year, month, 1), Accuracy));                

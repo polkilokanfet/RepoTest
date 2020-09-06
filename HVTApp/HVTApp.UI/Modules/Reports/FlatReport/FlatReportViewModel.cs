@@ -43,10 +43,11 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
             set
             {
                 _startDate = value;
-                RefreshTargetSums();
-                RefreshContainers();
+                //нужно дл€ создани€ контейнеров
+                GetYearContainer(StartDate.Year);
                 RefreshInReportStatus();
-                OnPropertyChanged(nameof(MonthContainersRealization));
+                RefreshContainers();
+                OnPropertyChanged();
             }
         }
 
@@ -56,10 +57,11 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
             set
             {
                 _finishDate = value;
-                RefreshTargetSums();
-                RefreshContainers();
+                //нужно дл€ создани€ контейнеров
+                GetYearContainer(FinishDate.Year);
                 RefreshInReportStatus();
-                OnPropertyChanged(nameof(MonthContainersRealization));
+                RefreshContainers();
+                OnPropertyChanged();
             }
         }
 
@@ -71,11 +73,15 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
             YearContainersOit.ForEach(x => x.InReport = false);
             YearContainersOit.Where(x => x.Year >= StartDate.Year && x.Year <= FinishDate.Year).ForEach(x => x.InReport = true);
 
+            int monthsCount = MonthContainersOit.Count();
             var start = new DateTime(StartDate.Year, StartDate.Month, 1);
             var finish = new DateTime(FinishDate.Year, FinishDate.Month, DateTime.DaysInMonth(FinishDate.Year, FinishDate.Month));
             var monthContainers = YearContainersOit.SelectMany(x => x.MonthContainers).ToList();
             monthContainers.ForEach(x => x.InReport = false);
             monthContainers.Where(x => x.Date >= start && x.Date <= finish).ForEach(x => x.InReport = true);
+
+            if(monthsCount != MonthContainersOit.Count())
+                RefreshTargetSums();
         }
 
         /// <summary>
@@ -112,7 +118,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
 
         public ObservableCollection<FlatReportItemYearContainer> YearContainersOit { get; } = new ObservableCollection<FlatReportItemYearContainer>();
 
-        public IEnumerable<FlatReportItemMonthContainer> MonthContainersOit => YearContainersOit.SelectMany(x => x.MonthContainers);
+        public IEnumerable<FlatReportItemMonthContainer> MonthContainersOit => YearContainersOit.SelectMany(x => x.MonthContainers).Where(x => x.InReport).OrderBy(x => x.Year).ThenBy(x => x.Month);
 
         public List<FlatReportItemManagerContainer> ManagerContainersOit => Items
             .Where(x => x.InReport)
@@ -139,7 +145,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
 
         public List<FlatReportItemYearContainer> YearContainersRealization => MonthContainersRealization
             .GroupBy(x => x.Year)
-            .Select(x => new FlatReportItemYearContainer(x.Key))
+            .Select(x => new FlatReportItemYearContainer(x.Key, Accuracy / 100.0))
             .OrderBy(x => x.Year).ToList();
 
         public List<FlatReportItemManagerContainer> ManagerContainersRealization => Items
@@ -330,6 +336,8 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
 
         private void Load()
         {
+            _startDate = DateTime.Today.AddYears(-1);
+            _finishDate = DateTime.Today.AddYears(2);
             Items.Clear();
             YearContainersOit.Clear();
             _monthContainersRealization.Clear();
@@ -377,7 +385,13 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                         RemoveItemFromContainerOit(item);
                         AddItemToContainerOit(item);
 
-                        RefreshTargetSums();
+                        //не вылетел ли айтем из отчета?
+                        if (!item.EstimatedOrderInTakeDate.BetweenDates(StartDate, FinishDate))
+                        {
+                            item.InReport = false;
+                            Container.Resolve<IMessageService>().ShowOkMessageDialog("»нформаци€", $"\"{item}\" вышел за рамки отчетного диапазона дат.");
+                        }
+
                         RefreshContainers();
                     }
                 };
@@ -416,9 +430,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
         private void RefreshContainers()
         {
             OnPropertyChanged(nameof(MonthContainersOit));
-
-            OnPropertyChanged(nameof(YearContainersOit));
-            OnPropertyChanged(nameof(ManagerContainersOit));
+            OnPropertyChanged(nameof(MonthContainersRealization));
 
             OnPropertyChanged(nameof(YearContainersRealization));
             OnPropertyChanged(nameof(ManagerContainersRealization));
@@ -458,9 +470,19 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
             var yearContainer = YearContainersOit.SingleOrDefault(x => x.Year == year);
             if (yearContainer == null)
             {
-                yearContainer = new FlatReportItemYearContainer(year);
+                yearContainer = new FlatReportItemYearContainer(year, Accuracy / 100.0);
                 YearContainersOit.Add(yearContainer);
             }
+
+            //создание контейнеров между годами (если они еще не созданы)
+            var min = YearContainersOit.Min(x => x.Year);
+            var max = YearContainersOit.Max(x => x.Year);
+            for (int i = min; i <= max; i++)
+            {
+                if (YearContainersOit.All(x => x.Year != i))
+                    GetYearContainer(i);
+            }
+
             return yearContainer;
         }
 
@@ -494,26 +516,25 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
 
         #endregion
 
+        /// <summary>
+        /// ќбновление целевых сумм
+        /// </summary>
         private void RefreshTargetSums()
         {
-            //var itemsToOit = Items.Where(x => x.InReport).Where(x => !x.IsLoosen).Where(x => !x.SalesUnit.OrderIsTaken).ToList();
+            if (!MonthContainersOit.Any() || MonthContainersOit.All(x => x.IsPast))
+                return;
 
-            ////средн€€ сумма ќ»“ в мес€ц
-            //var sumPerMonth = itemsToOit.Any()
-            //    ? itemsToOit.Sum(x => x.Sum) / (itemsToOit.Max(x => x.EstimatedOrderInTakeDate).MonthsBetween(itemsToOit.Min(x => x.EstimatedOrderInTakeDate)) + 1)
-            //    : 0;
+            var toOitSum = Items.Where(x => x.InReport).Where(x => !x.IsLoosen).Where(x => !x.SalesUnit.OrderIsTaken).Sum(x => x.Sum);
+            var thisMonthOitSum = Items
+                .Where(x => x.InReport)
+                .Where(x => !x.IsLoosen)
+                .Where(x => x.OriginalOrderInTakeDate.BetweenDates(new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1), DateTime.Today))
+                .Where(x => x.SalesUnit.OrderIsTaken)
+                .Sum(x => x.Sum);
+            //средн€€ сумма ќ»“ в мес€ц
+            var sumPerMonth = (toOitSum + thisMonthOitSum) / MonthContainersOit.Count(x => !x.IsPast);
 
-            //if (Math.Abs(_currentSumPerMonthOit - sumPerMonth) < 0.001)
-            //    return;
-
-            //foreach (var monthContainerOit in MonthContainersOit)
-            //{
-            //    monthContainerOit.TargetSum = monthContainerOit.IsPast 
-            //        ? monthContainerOit.CurrentSum
-            //        : sumPerMonth;
-            //}
-
-            //_currentSumPerMonthOit = sumPerMonth;
+            MonthContainersOit.Where(x => !x.IsPast).ForEach(x => x.TargetSum = sumPerMonth);
         }
     }
 }
