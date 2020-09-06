@@ -29,6 +29,10 @@ namespace HVTApp.DataAccess
         {
             return Context.Set<SalesUnit>().AsQueryable()
                 .Include(x => x.Facility)
+                .Include(x => x.Facility.Type)
+                .Include(x => x.Facility.Address.Locality.Region.District.Country)
+                .Include(x => x.Facility.OwnerCompany)
+                .Include(x => x.Facility.OwnerCompany.AddressLegal.Locality.Region.District.Country)
                 .Include(x => x.Project)
                 .Include(x => x.Project.Manager)
                 .Include(x => x.Product.ProductBlock.Parameters)
@@ -37,9 +41,11 @@ namespace HVTApp.DataAccess
                 .Include(x => x.PaymentsActual)
                 .Include(x => x.PaymentsPlanned)
                 .Include(x => x.PaymentConditionSet)
+                .Include(x => x.PaymentConditionSet.PaymentConditions)
                 .Include(x => x.Order)
                 .Include(x => x.Penalty)
-                .Include(x => x.Producer);
+                .Include(x => x.Producer)
+                .Include(x => x.AddressDelivery);
         }
 
         public IEnumerable<SalesUnit> GetUsersSalesUnits()

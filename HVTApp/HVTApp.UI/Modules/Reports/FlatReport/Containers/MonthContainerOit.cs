@@ -19,7 +19,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
         /// </summary>
         public void FillEstimatedOrderInTakeDates()
         {
-            foreach (var flatReportItem in FlatReportItems.ToList())
+            foreach (var flatReportItem in Items.ToList())
             {
                 if (Year != flatReportItem.OriginalOrderInTakeDate.Year || Month != flatReportItem.OriginalOrderInTakeDate.Month)
                 {
@@ -40,8 +40,8 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
 
         protected override void FillYearAndMonth(IEnumerable<FlatReportItem> flatReportItems)
         {
-            Year = FlatReportItems.First().EstimatedOrderInTakeDate.Year;
-            Month = FlatReportItems.First().EstimatedOrderInTakeDate.Month;
+            Year = Items.First().EstimatedOrderInTakeDate.Year;
+            Month = Items.First().EstimatedOrderInTakeDate.Month;
         }
     }
 }

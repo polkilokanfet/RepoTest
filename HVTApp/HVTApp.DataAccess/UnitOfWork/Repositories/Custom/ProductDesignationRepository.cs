@@ -8,7 +8,9 @@ namespace HVTApp.DataAccess
     {
         protected override IQueryable<ProductDesignation> GetQuary()
         {
-            return Context.Set<ProductDesignation>().AsQueryable().Include(x => x.Parameters);
+            return Context.Set<ProductDesignation>().AsQueryable()
+                .Include(x => x.Parents)
+                .Include(x => x.Parameters);
         }
     }
 }

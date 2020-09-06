@@ -12,7 +12,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
         private bool _inReport;
         public ObservableCollection<FlatReportItemMonthContainer> MonthContainers { get; } = new ObservableCollection<FlatReportItemMonthContainer>();
         public int Year => MonthContainers.First().Year;
-        public double Sum => MonthContainers.Sum(x => x.CurrentSum);
+        public double Sum => MonthContainers.Where(x => x.InReport).Sum(x => x.CurrentSum);
         public double TargetSum
         {
             get { return MonthContainers.Where(x => x.InReport).Sum(x => x.TargetSum); }
@@ -33,15 +33,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
             }
         }
 
-        public bool InReport
-        {
-            get { return _inReport; }
-            set
-            {
-                _inReport = value;
-                OnPropertyChanged();
-            }
-        }
+        public bool InReport => MonthContainers.Any(x => x.InReport);
 
         public double Accuracy
         {
@@ -64,6 +56,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
 
             foreach (var monthContainer in MonthContainers)
             {
+                monthContainer.InReportIsChanged += () => OnPropertyChanged(nameof(InReport));
                 monthContainer.CurrentSumIsChanged += () => OnPropertyChanged(nameof(Sum));
                 monthContainer.TargetSumIsChanged += () => OnPropertyChanged(nameof(TargetSum));
             }

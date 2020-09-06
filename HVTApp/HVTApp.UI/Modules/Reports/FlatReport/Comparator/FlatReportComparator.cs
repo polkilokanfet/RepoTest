@@ -21,7 +21,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Comparator
             var difList = new List<double>();
             double difCurrent;
             string ds;
-            Dictionary<FlatReportItemMonthContainer, List<FlatReportItem>> dictionary = new Dictionary<FlatReportItemMonthContainer, List<FlatReportItem>>();
+            var dictionary = new Dictionary<FlatReportItemMonthContainer, List<FlatReportItem>>();
 
             //Формирование пар контейнеров
             var pairs = GetPairs(containers).ToList();
@@ -43,7 +43,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Comparator
                     dictionary.Clear();
                     foreach (var container in containers)
                     {
-                        dictionary.Add(container, container.FlatReportItems.ToList());
+                        dictionary.Add(container, container.Items.ToList());
                     }
                 }
 
@@ -55,8 +55,8 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Comparator
                     foreach (var kvp in dictionary)
                     {
                         var container = kvp.Key;
-                        container.FlatReportItems.Clear();
-                        container.FlatReportItems.AddRange(kvp.Value);
+                        container.Items.Clear();
+                        container.Items.AddRange(kvp.Value);
                     }
                     break;
                 }

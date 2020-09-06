@@ -114,5 +114,15 @@ namespace HVTApp.Infrastructure.Extansions
         {
             return date >= startDate && date <= finishDate;
         }
+
+        /// <summary>
+        /// Дата из текущего месяца
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        public static bool IsFromCurrentMonth(this DateTime date)
+        {
+            return date.Year == DateTime.Today.Year && date.Month == DateTime.Today.Month;
+        }
     }
 }

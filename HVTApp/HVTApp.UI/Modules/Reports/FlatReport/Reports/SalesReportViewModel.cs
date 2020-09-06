@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Modules.Reports.FlatReport.Containers;
 using HVTApp.UI.Modules.Reports.SalesReport;
 using HVTApp.UI.Modules.Reports.ViewModels;
 using Microsoft.Practices.Unity;
@@ -13,9 +13,9 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Reports
     {
         public List<SalesReportUnit> Units { get; }
 
-        public SalesReportViewModel(IUnityContainer container, List<FlatReportItem> flatReportItems) : base(container)
+        public SalesReportViewModel(IUnityContainer container, IUnitOfWork unitOfWork, List<SalesUnit> salesUnits) : base(container)
         {
-            var salesUnits = flatReportItems.SelectMany(x => x.GetSalesUnitsWithInjactedData(UnitOfWork)).ToList();
+            UnitOfWork = unitOfWork;
 
             //проставляем количество родительских юнитов включенного оборудования
             var productsIncluded = salesUnits.SelectMany(x => x.ProductsIncluded).ToList();

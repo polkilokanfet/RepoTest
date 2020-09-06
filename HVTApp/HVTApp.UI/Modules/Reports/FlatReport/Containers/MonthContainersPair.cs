@@ -38,11 +38,11 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
             get
             {
                 //нельзя скинуть из пустого контейнера
-                if (!DonorContainer.FlatReportItems.Any())
+                if (!DonorContainer.ItemsNotLoosed.Any())
                     return false;
 
                 //нельзя скинуть айтемы, которые уже в ОИТе
-                if (DonorContainer.FlatReportItems.All(x => x.SalesUnit.OrderIsTaken))
+                if (DonorContainer.ItemsNotLoosed.All(x => x.SalesUnit.OrderIsTaken))
                     return false;
 
                 //нельзя скинуть в контейнер из прошлого
@@ -61,25 +61,17 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
             if (!CanMoveItem)
                 return;
 
-            double dif = Difference;
-
             var donorContainer = DonorContainer;
             var acceptorContainer = AcceptorContainer;
 
-            var item = donorContainer.FlatReportItems
+            var item = donorContainer.ItemsNotLoosed
                 .Where(x => !x.SalesUnit.OrderIsTaken)
                 .OrderBy(x => MonthsBetween(acceptorContainer, x))
                 .ThenBy(x => Math.Abs(acceptorContainer.Difference - x.Sum))
                 .First();
 
-            donorContainer.FlatReportItems.Remove(item);
-            acceptorContainer.FlatReportItems.Add(item);
-
-            //if (Difference > dif)
-            //{
-            //    donorContainer.FlatReportItems.Add(item);
-            //    acceptorContainer.FlatReportItems.Remove(item);
-            //}
+            donorContainer.Items.Remove(item);
+            acceptorContainer.Items.Add(item);
         }
 
         private int MonthsBetween(FlatReportItemMonthContainer container, FlatReportItem item)

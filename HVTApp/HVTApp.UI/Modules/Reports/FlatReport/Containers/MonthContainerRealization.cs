@@ -17,8 +17,8 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
 
         protected override void FillYearAndMonth(IEnumerable<FlatReportItem> flatReportItems)
         {
-            Year = FlatReportItems.First().EstimatedRealizationDate.Year;
-            Month = FlatReportItems.First().EstimatedRealizationDate.Month;
+            Year = Items.First().EstimatedRealizationDate.Year;
+            Month = Items.First().EstimatedRealizationDate.Month;
         }
     }
 }

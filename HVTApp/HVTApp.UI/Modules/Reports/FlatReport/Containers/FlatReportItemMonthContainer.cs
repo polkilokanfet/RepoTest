@@ -14,7 +14,9 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
         private double _accuracy;
         private bool _inReport;
 
-        public ObservableCollection<FlatReportItem> FlatReportItems { get; } = new ObservableCollection<FlatReportItem>();
+        public ObservableCollection<FlatReportItem> Items { get; } = new ObservableCollection<FlatReportItem>();
+
+        public IEnumerable<FlatReportItem> ItemsNotLoosed => Items.Where(x => !x.IsLoosen);
 
         public DateTime Date => new DateTime(Year, Month, DateTime.DaysInMonth(Year, Month));
 
@@ -23,7 +25,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
         /// <summary>
         /// Текущая сумма
         /// </summary>
-        public double CurrentSum => FlatReportItems.Any(x => x.InReport && !x.IsLoosen) ? FlatReportItems.Where(x => x.InReport && !x.IsLoosen).Sum(x => x.Sum) : 0.0;
+        public double CurrentSum => Items.Any(x => x.InReport && !x.IsLoosen) ? Items.Where(x => x.InReport && !x.IsLoosen).Sum(x => x.Sum) : 0.0;
 
         public event Action CurrentSumIsChanged;
 
@@ -41,6 +43,20 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
             {
                 if (IsPast)
                     return;
+
+                //если контейнер текущего месяца, в нем могут быть уже взятые в ОИТ айтемы
+                if (this.Date.IsFromCurrentMonth())
+                {
+                    var thisMonthOitSum = Items
+                        .Where(x => x.InReport)
+                        .Where(x => !x.IsLoosen)
+                        .Where(x => x.OriginalOrderInTakeDate.BetweenDates(new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1), DateTime.Today))
+                        .Where(x => x.SalesUnit.OrderIsTaken)
+                        .Sum(x => x.Sum);
+
+                    if (value < thisMonthOitSum)
+                        value = thisMonthOitSum;
+                }
 
                 _targetSum = value;
                 TargetSumIsChanged?.Invoke();
@@ -74,7 +90,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
         /// <summary>
         /// Контейнер из прошлого
         /// </summary>
-        public bool IsPast => new DateTime(Year, Month, 1) < DateTime.Today && !(Year == DateTime.Today.Year && Month == DateTime.Today.Month);
+        public bool IsPast => new DateTime(Year, Month, 1) < DateTime.Today && !this.Date.IsFromCurrentMonth();
 
         /// <summary>
         /// Разница между целевой и текущей суммой.
@@ -96,16 +112,22 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
             get { return _inReport; }
             set
             {
+                if (_inReport == value)
+                    return;
+
                 _inReport = value;
+                InReportIsChanged?.Invoke();
                 OnPropertyChanged();
             }
         }
+
+        public event Action InReportIsChanged;
 
         private FlatReportItemMonthContainer(double accuracy)
         {
             Accuracy = accuracy;
 
-            this.FlatReportItems.CollectionChanged += (sender, args) =>
+            this.Items.CollectionChanged += (sender, args) =>
             {
                 if (args.NewItems != null)
                 {
@@ -136,8 +158,8 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
 
         protected FlatReportItemMonthContainer(IEnumerable<FlatReportItem> flatReportItems, double accuracy) : this(accuracy)
         {
-            FlatReportItems.AddRange(flatReportItems);
-            FillYearAndMonth(FlatReportItems);
+            Items.AddRange(flatReportItems);
+            FillYearAndMonth(Items);
         }
 
         protected FlatReportItemMonthContainer(DateTime date, double accuracy) : this(accuracy)
