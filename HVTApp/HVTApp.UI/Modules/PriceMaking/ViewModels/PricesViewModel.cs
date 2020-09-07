@@ -7,6 +7,7 @@ using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Services;
+using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.UI.Modules.PlanAndEconomy.ViewModels;
@@ -14,13 +15,11 @@ using HVTApp.Model.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
-using Prism.Mvvm;
 
 namespace HVTApp.UI.Modules.PriceMaking.ViewModels
 {
-    public class PricesViewModel : BindableBase
+    public class PricesViewModel : LoadableExportableExpandCollapseViewModel
     {
-        private readonly IUnityContainer _container;
         private IUnitOfWork _unitOfWork;
         private PriceTask _selectedPriceTask;
         private SumOnDateWrapper _selectedSumOnDate;
@@ -51,7 +50,6 @@ namespace HVTApp.UI.Modules.PriceMaking.ViewModels
             }
         }
 
-        public ICommand ReloadCommand { get; }
         public ICommand PrintBlockInContext { get; }
 
         /// <summary>
@@ -69,19 +67,15 @@ namespace HVTApp.UI.Modules.PriceMaking.ViewModels
         /// </summary>
         public ICommand SetPricesFromCalculationsCommand { get; }
 
-        public PricesViewModel(IUnityContainer container)
+        public PricesViewModel(IUnityContainer container) : base(container)
         {
-            _container = container;
-
-            ReloadCommand = new DelegateCommand(Load);
-
             PrintBlockInContext = new DelegateCommand(PrintBlockInContextExecute, () => SelectedPriceTask != null);
 
             AddPriceCommand = new DelegateCommand(
                 () =>
                 {
                     var price = new SumOnDate();
-                    if (_container.Resolve<IUpdateDetailsService>().UpdateDetails(price))
+                    if (Container.Resolve<IUpdateDetailsService>().UpdateDetails(price))
                     {
                         var wrapper = new SumOnDateWrapper(_unitOfWork.Repository<SumOnDate>().GetById(price.Id));
                         SelectedPriceTask.Prices.Add(wrapper);
@@ -95,7 +89,7 @@ namespace HVTApp.UI.Modules.PriceMaking.ViewModels
             RemovePriceCommand = new DelegateCommand(
                 () =>
                 {
-                    var dr = _container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Удалить выбранный прайс?", defaultNo: true);
+                    var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Удалить выбранный прайс?", defaultNo: true);
                     if (dr != MessageDialogResult.Yes)
                         return;
                     SelectedPriceTask.Prices.Remove(SelectedSumOnDate);
@@ -108,7 +102,7 @@ namespace HVTApp.UI.Modules.PriceMaking.ViewModels
             SetPricesFromCalculationsCommand = new DelegateCommand(
                 () =>
                 {
-                    var dr = _container.Resolve<IMessageService>().ShowYesNoMessageDialog("Прайсы", "Подтянуть прайсы из калькуляций?", defaultYes:true);
+                    var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Прайсы", "Подтянуть прайсы из калькуляций?", defaultYes:true);
                     if (dr != MessageDialogResult.Yes)
                         return;
 
@@ -159,30 +153,34 @@ namespace HVTApp.UI.Modules.PriceMaking.ViewModels
             var block = SelectedPriceTask;
             var products = _unitOfWork.Repository<Product>().GetAll();
             products = products.Where(x => x.GetBlocks().Contains(block.Model)).Distinct().ToList();
-            _container.Resolve<IPrintProductService>().PrintProducts(products, block.Model);
+            Container.Resolve<IPrintProductService>().PrintProducts(products, block.Model);
         }
 
-        public void Load()
+        private List<PriceTask> _priceTasks;
+        protected override void GetData()
         {
-            _unitOfWork = _container.Resolve<IUnitOfWork>();
+            _unitOfWork = Container.Resolve<IUnitOfWork>();
 
             var salesUnits = _unitOfWork.Repository<SalesUnit>().GetAll();
             var offerUnits = _unitOfWork.Repository<OfferUnit>().GetAll();
             var blocks = _unitOfWork.Repository<ProductBlock>().Find(x => !x.IsService);
             
-            var priceTasks = new List<PriceTask>();
+            _priceTasks = new List<PriceTask>();
             foreach (var block in blocks)
             {
-                var specifications = salesUnits.Where(x => ContainsBlock(x, block) && x.Specification != null).Select(x => x.Specification).Distinct();
+                var specifications = salesUnits.Where(x => x.Specification != null).Where(x => ContainsBlock(x, block)).Select(x => x.Specification).Distinct();
                 var projects = salesUnits.Where(x => ContainsBlock(x, block)).Select(x => new ProjectItem(x.Project, x.OrderInTakeDate)).Distinct();
                 var offers = offerUnits.Where(x => ContainsBlock(x, block)).Select(x => x.Offer).Distinct();
-                priceTasks.Add(new PriceTask(block, specifications, offers, projects));
+                _priceTasks.Add(new PriceTask(block, specifications, offers, projects));
             }
 
-            priceTasks.Sort();
+            _priceTasks.Sort();
+        }
 
+        protected override void AfterGetData()
+        {
             PriceTasks.Clear();
-            PriceTasks.AddRange(priceTasks);
+            PriceTasks.AddRange(_priceTasks);
         }
 
         private bool ContainsBlock(SalesUnit salesUnit, ProductBlock block)

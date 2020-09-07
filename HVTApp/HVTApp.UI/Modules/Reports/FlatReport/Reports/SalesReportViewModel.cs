@@ -26,8 +26,8 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Reports
 
             var groups = salesUnits.OrderBy(x => x.OrderInTakeDate).GroupBy(x => x, new SalesUnitsReportComparer());
 
-            var tenders = UnitOfWork.Repository<Tender>().Find(x => true);
-            var countryUnions = UnitOfWork.Repository<CountryUnion>().Find(x => true);
+            var tenders = UnitOfWork.Repository<Tender>().GetAll();
+            var countryUnions = UnitOfWork.Repository<CountryUnion>().GetAll();
 
             var salesReportUnits = groups
                 .Select(x => new SalesReportUnit(x, tenders.Where(t => Equals(x.Key.Project, t.Project)), countryUnions, x.First().ActualPriceCalculationItem(UnitOfWork)))

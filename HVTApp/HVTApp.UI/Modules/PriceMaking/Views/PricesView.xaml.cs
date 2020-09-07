@@ -1,7 +1,9 @@
 ﻿using System.Windows;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Services;
 using HVTApp.UI.Modules.PriceMaking.Tabs;
 using HVTApp.UI.Modules.PriceMaking.ViewModels;
+using Infragistics.Windows.DataPresenter;
 using Prism.Events;
 using Prism.Regions;
 
@@ -10,20 +12,14 @@ namespace HVTApp.UI.Modules.PriceMaking.Views
     [RibbonTab(typeof(TabPriceTasks))]
     public partial class PricesView
     {
-        private readonly PricesViewModel _pricesViewModel;
+        protected override XamDataGrid DataGrid => null; //this.BlocksGroupBox.Content as XamDataGrid;
 
-        public PricesView(PricesViewModel pricesViewModel, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
+        public PricesView(PricesViewModel viewModel, IRegionManager regionManager, IEventAggregator eventAggregator, IMessageService messageService) 
+            : base(viewModel, regionManager, eventAggregator, messageService)
         {
-            _pricesViewModel = pricesViewModel;
             InitializeComponent();
-            this.DataContext = pricesViewModel;
-            this.Loaded += OnLoaded;
+            this.DataContext = viewModel;
         }
 
-        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-            _pricesViewModel.Load();
-            this.Loaded -= OnLoaded;
-        }
     }
 }
