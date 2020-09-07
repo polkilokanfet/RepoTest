@@ -15,7 +15,6 @@ namespace HVTApp.Model.Events
 	public partial class AfterSelectDirectumTaskGroupEvent : PubSubEvent<PubSubEventArgs<DirectumTaskGroup>> { }
 	public partial class AfterSelectDirectumTaskMessageEvent : PubSubEvent<PubSubEventArgs<DirectumTaskMessage>> { }
 	public partial class AfterSelectDocumentNumberEvent : PubSubEvent<PubSubEventArgs<DocumentNumber>> { }
-	public partial class AfterSelectFakeDataEvent : PubSubEvent<PubSubEventArgs<FakeData>> { }
 	public partial class AfterSelectIncomingRequestEvent : PubSubEvent<PubSubEventArgs<IncomingRequest>> { }
 	public partial class AfterSelectLosingReasonEvent : PubSubEvent<PubSubEventArgs<LosingReason>> { }
 	public partial class AfterSelectMarketFieldEvent : PubSubEvent<PubSubEventArgs<MarketField>> { }

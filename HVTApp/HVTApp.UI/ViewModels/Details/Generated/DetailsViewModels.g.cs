@@ -782,39 +782,6 @@ namespace HVTApp.UI.ViewModels
     }
 
 
-    public partial class FakeDataDetailsViewModel : BaseDetailsViewModel<FakeDataWrapper, FakeData, AfterSaveFakeDataEvent>
-    {
-		//private Func<Task<List<PaymentConditionSet>>> _getEntitiesForSelectPaymentConditionSetCommand;
-		private Func<List<PaymentConditionSet>> _getEntitiesForSelectPaymentConditionSetCommand;
-		public ICommand SelectPaymentConditionSetCommand { get; private set; }
-		public ICommand ClearPaymentConditionSetCommand { get; private set; }
-
-
-        public FakeDataDetailsViewModel(IUnityContainer container) : base(container) 
-		{
-			
-			if (_getEntitiesForSelectPaymentConditionSetCommand == null) _getEntitiesForSelectPaymentConditionSetCommand = () => { return UnitOfWork.Repository<PaymentConditionSet>().GetAll(); };
-			if (SelectPaymentConditionSetCommand == null) SelectPaymentConditionSetCommand = new DelegateCommand(SelectPaymentConditionSetCommand_Execute_Default);
-			if (ClearPaymentConditionSetCommand == null) ClearPaymentConditionSetCommand = new DelegateCommand(ClearPaymentConditionSetCommand_Execute_Default);
-
-		}
-
-		private void SelectPaymentConditionSetCommand_Execute_Default() 
-		{
-            SelectAndSetWrapper<PaymentConditionSet, PaymentConditionSetWrapper>(_getEntitiesForSelectPaymentConditionSetCommand(), nameof(Item.PaymentConditionSet), Item.PaymentConditionSet?.Id);
-		}
-
-		private void ClearPaymentConditionSetCommand_Execute_Default() 
-		{
-						Item.PaymentConditionSet = null;
-		    
-		}
-
-
-
-    }
-
-
     public partial class IncomingRequestDetailsViewModel : BaseDetailsViewModel<IncomingRequestWrapper, IncomingRequest, AfterSaveIncomingRequestEvent>
     {
 		//private Func<Task<List<Document>>> _getEntitiesForSelectDocumentCommand;
@@ -3094,11 +3061,6 @@ namespace HVTApp.UI.ViewModels
 		public ICommand SelectAddressDeliveryCommand { get; private set; }
 		public ICommand ClearAddressDeliveryCommand { get; private set; }
 
-		//private Func<Task<List<FakeData>>> _getEntitiesForSelectFakeDataCommand;
-		private Func<List<FakeData>> _getEntitiesForSelectFakeDataCommand;
-		public ICommand SelectFakeDataCommand { get; private set; }
-		public ICommand ClearFakeDataCommand { get; private set; }
-
 		private Func<List<ProductIncluded>> _getEntitiesForAddInProductsIncludedCommand;
 		public ICommand AddInProductsIncludedCommand { get; }
 		public ICommand RemoveFromProductsIncludedCommand { get; }
@@ -3292,11 +3254,6 @@ namespace HVTApp.UI.ViewModels
 			if (ClearAddressDeliveryCommand == null) ClearAddressDeliveryCommand = new DelegateCommand(ClearAddressDeliveryCommand_Execute_Default);
 
 			
-			if (_getEntitiesForSelectFakeDataCommand == null) _getEntitiesForSelectFakeDataCommand = () => { return UnitOfWork.Repository<FakeData>().GetAll(); };
-			if (SelectFakeDataCommand == null) SelectFakeDataCommand = new DelegateCommand(SelectFakeDataCommand_Execute_Default);
-			if (ClearFakeDataCommand == null) ClearFakeDataCommand = new DelegateCommand(ClearFakeDataCommand_Execute_Default);
-
-			
 			if (_getEntitiesForAddInProductsIncludedCommand == null) _getEntitiesForAddInProductsIncludedCommand = () => { return UnitOfWork.Repository<ProductIncluded>().GetAll(); };;
 			if (AddInProductsIncludedCommand == null) AddInProductsIncludedCommand = new DelegateCommand(AddInProductsIncludedCommand_Execute_Default);
 			if (RemoveFromProductsIncludedCommand == null) RemoveFromProductsIncludedCommand = new DelegateCommand(RemoveFromProductsIncludedCommand_Execute_Default, RemoveFromProductsIncludedCommand_CanExecute_Default);
@@ -3439,17 +3396,6 @@ namespace HVTApp.UI.ViewModels
 		private void ClearAddressDeliveryCommand_Execute_Default() 
 		{
 						Item.AddressDelivery = null;
-		    
-		}
-
-		private void SelectFakeDataCommand_Execute_Default() 
-		{
-            SelectAndSetWrapper<FakeData, FakeDataWrapper>(_getEntitiesForSelectFakeDataCommand(), nameof(Item.FakeData), Item.FakeData?.Id);
-		}
-
-		private void ClearFakeDataCommand_Execute_Default() 
-		{
-						Item.FakeData = null;
 		    
 		}
 

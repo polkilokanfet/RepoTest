@@ -83,11 +83,6 @@ namespace HVTApp.UI
 			_selectService.Register<DocumentNumberLookupListView, DocumentNumber>();
             _updateDetailsService.Register<DocumentNumber, DocumentNumberDetailsView>();
 
-            Container.RegisterViewForNavigation<FakeDataLookupListView>();
-            //_dialogService.Register<FakeDataDetailsViewModel, FakeDataDetailsView>();
-			_selectService.Register<FakeDataLookupListView, FakeData>();
-            _updateDetailsService.Register<FakeData, FakeDataDetailsView>();
-
             Container.RegisterViewForNavigation<IncomingRequestLookupListView>();
             //_dialogService.Register<IncomingRequestDetailsViewModel, IncomingRequestDetailsView>();
 			_selectService.Register<IncomingRequestLookupListView, IncomingRequest>();

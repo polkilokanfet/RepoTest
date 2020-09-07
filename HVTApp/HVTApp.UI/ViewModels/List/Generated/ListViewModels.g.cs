@@ -96,12 +96,6 @@ namespace HVTApp.UI.ViewModels
     }
 
 
-	public partial class FakeDataLookupListViewModel : BaseListViewModel<FakeData, FakeDataLookup, AfterSaveFakeDataEvent, AfterSelectFakeDataEvent, AfterRemoveFakeDataEvent>
-    {
-        public FakeDataLookupListViewModel(IUnityContainer container) : base(container) { }
-    }
-
-
 	public partial class IncomingRequestLookupListViewModel : BaseListViewModel<IncomingRequest, IncomingRequestLookup, AfterSaveIncomingRequestEvent, AfterSelectIncomingRequestEvent, AfterRemoveIncomingRequestEvent>
     {
         public IncomingRequestLookupListViewModel(IUnityContainer container) : base(container) { }

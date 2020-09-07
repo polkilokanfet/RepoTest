@@ -138,10 +138,10 @@ namespace HVTApp.UI.Modules.Reports.MarketReport
 
             RealizationDateContract = salesUnit.EndProductionDateByContractCalculated;
 
-            OrderInTakeDate = salesUnit.FakeData?.OrderInTakeDate ?? salesUnit.OrderInTakeDate;
+            OrderInTakeDate = salesUnit.OrderInTakeDate;
             ShipmentDate = salesUnit.ShipmentDateCalculated;
             DeliveryDate = salesUnit.DeliveryDateCalculated;
-            RealizationDate = salesUnit.FakeData?.RealizationDate ?? salesUnit.RealizationDateCalculated;
+            RealizationDate = salesUnit.RealizationDateCalculated;
             RealizationDateRequared = salesUnit.DeliveryDateExpected;
         }
 

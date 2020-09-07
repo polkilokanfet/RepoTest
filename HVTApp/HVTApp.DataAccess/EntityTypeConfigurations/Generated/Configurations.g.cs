@@ -15,7 +15,6 @@ namespace HVTApp.DataAccess
     public partial class DirectumTaskGroupConfiguration : EntityTypeConfiguration<DirectumTaskGroup> { }
     public partial class DirectumTaskMessageConfiguration : EntityTypeConfiguration<DirectumTaskMessage> { }
     public partial class DocumentNumberConfiguration : EntityTypeConfiguration<DocumentNumber> { }
-    public partial class FakeDataConfiguration : EntityTypeConfiguration<FakeData> { }
     public partial class IncomingRequestConfiguration : EntityTypeConfiguration<IncomingRequest> { }
     public partial class LosingReasonConfiguration : EntityTypeConfiguration<LosingReason> { }
     public partial class MarketFieldConfiguration : EntityTypeConfiguration<MarketField> { }

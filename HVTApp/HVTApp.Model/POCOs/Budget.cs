@@ -9,8 +9,14 @@ namespace HVTApp.Model.POCOs
     [Designation("Бюджет")]
     public class Budget : BaseEntity
     {
-        [Designation("Дата"), Required]
+        [Designation("Дата"), Required, OrderStatus(110)]
         public DateTime Date { get; set; } = DateTime.Now;
+
+        [Designation("Старт"), Required, OrderStatus(80)]
+        public DateTime DateStart { get; set; }
+
+        [Designation("Финиш"), Required, OrderStatus(70)]
+        public DateTime DateFinish { get; set; }
 
         [Designation("Название"), Required, MaxLength(50), OrderStatus(100)]
         public string Name { get; set; }

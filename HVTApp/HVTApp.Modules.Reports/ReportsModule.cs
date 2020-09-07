@@ -20,7 +20,6 @@ namespace HVTApp.Modules.Reports
         protected override void RegisterTypes()
         {
             Container.RegisterViewForNavigation<SalesReportView>();
-            Container.RegisterViewForNavigation<FakeDataView>();
             Container.RegisterViewForNavigation<PriorityReportView>();
         }
 

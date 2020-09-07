@@ -21,7 +21,6 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new DirectumTaskGroupConfiguration());
             modelBuilder.Configurations.Add(new DirectumTaskMessageConfiguration());
             modelBuilder.Configurations.Add(new DocumentNumberConfiguration());
-            modelBuilder.Configurations.Add(new FakeDataConfiguration());
             modelBuilder.Configurations.Add(new IncomingRequestConfiguration());
             modelBuilder.Configurations.Add(new LosingReasonConfiguration());
             modelBuilder.Configurations.Add(new MarketFieldConfiguration());
@@ -100,7 +99,6 @@ namespace HVTApp.DataAccess
         public virtual DbSet<DirectumTaskGroup> DirectumTaskGroupDbSet { get; set; }
         public virtual DbSet<DirectumTaskMessage> DirectumTaskMessageDbSet { get; set; }
         public virtual DbSet<DocumentNumber> DocumentNumberDbSet { get; set; }
-        public virtual DbSet<FakeData> FakeDataDbSet { get; set; }
         public virtual DbSet<IncomingRequest> IncomingRequestDbSet { get; set; }
         public virtual DbSet<LosingReason> LosingReasonDbSet { get; set; }
         public virtual DbSet<MarketField> MarketFieldDbSet { get; set; }

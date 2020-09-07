@@ -16,7 +16,6 @@ namespace HVTApp.DataAccess
             DirectumTaskGroupRepository = new DirectumTaskGroupRepository(_context);
             DirectumTaskMessageRepository = new DirectumTaskMessageRepository(_context);
             DocumentNumberRepository = new DocumentNumberRepository(_context);
-            FakeDataRepository = new FakeDataRepository(_context);
             IncomingRequestRepository = new IncomingRequestRepository(_context);
             LosingReasonRepository = new LosingReasonRepository(_context);
             MarketFieldRepository = new MarketFieldRepository(_context);
@@ -95,7 +94,6 @@ namespace HVTApp.DataAccess
         protected IDirectumTaskGroupRepository DirectumTaskGroupRepository;
         protected IDirectumTaskMessageRepository DirectumTaskMessageRepository;
         protected IDocumentNumberRepository DocumentNumberRepository;
-        protected IFakeDataRepository FakeDataRepository;
         protected IIncomingRequestRepository IncomingRequestRepository;
         protected ILosingReasonRepository LosingReasonRepository;
         protected IMarketFieldRepository MarketFieldRepository;

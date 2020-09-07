@@ -400,23 +400,15 @@
     <Compile Include="Modules\Products\Views\StructureCostsView.xaml.cs">
       <DependentUpon>StructureCostsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Reports\Tabs\TabFakeData.xaml.cs">
-      <DependentUpon>TabFakeData.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Modules\Reports\Tabs\TabReload.xaml.cs">
       <DependentUpon>TabReload.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Reports\ViewModels\FakeDataViewModel.cs" />
     <Compile Include="Modules\Reports\Reference\ReferenceItem.cs" />
     <Compile Include="Modules\Reports\Reference\ReferenceViewModel.cs" />
     <Compile Include="Modules\Reports\ViewModels\SalesChartViewModel.cs" />
     <Compile Include="Modules\Reports\SalesReport\SalesReportUnit.cs" />
     <Compile Include="Modules\Reports\SalesReport\SalesReportViewModel.cs" />
-    <Compile Include="Modules\Reports\SalesReport\SalesUnitFakeDataGroup.cs" />
     <Compile Include="Modules\Reports\ViewModels\Comparers.cs" />
-    <Compile Include="Modules\Reports\Views\FakeDataView.xaml.cs">
-      <DependentUpon>FakeDataView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Modules\Reports\Views\SalesChartView.xaml.cs">
       <DependentUpon>SalesChartView.xaml</DependentUpon>
     </Compile>
@@ -1087,19 +1079,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Modules\Reports\Tabs\TabFakeData.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Modules\Reports\FlatReport\TabFlatReport.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\Reports\Tabs\TabReload.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Modules\Reports\Views\FakeDataView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -19,7 +19,6 @@ namespace HVTApp.DataAccess
             DirectumTaskGroupRepository = new DirectumTaskGroupRepositoryTest(testData);
             DirectumTaskMessageRepository = new DirectumTaskMessageRepositoryTest(testData);
             DocumentNumberRepository = new DocumentNumberRepositoryTest(testData);
-            FakeDataRepository = new FakeDataRepositoryTest(testData);
             IncomingRequestRepository = new IncomingRequestRepositoryTest(testData);
             LosingReasonRepository = new LosingReasonRepositoryTest(testData);
             MarketFieldRepository = new MarketFieldRepositoryTest(testData);
@@ -99,7 +98,6 @@ namespace HVTApp.DataAccess
         public IDirectumTaskGroupRepository DirectumTaskGroupRepository { get; }
         public IDirectumTaskMessageRepository DirectumTaskMessageRepository { get; }
         public IDocumentNumberRepository DocumentNumberRepository { get; }
-        public IFakeDataRepository FakeDataRepository { get; }
         public IIncomingRequestRepository IncomingRequestRepository { get; }
         public ILosingReasonRepository LosingReasonRepository { get; }
         public IMarketFieldRepository MarketFieldRepository { get; }

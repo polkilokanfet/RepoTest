@@ -203,6 +203,10 @@
     <Compile Include="Migrations\202008251913597_Budget.Designer.cs">
       <DependentUpon>202008251913597_Budget.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009071250281_RemoveFakeData.cs" />
+    <Compile Include="Migrations\202009071250281_RemoveFakeData.Designer.cs">
+      <DependentUpon>202009071250281_RemoveFakeData.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -307,6 +311,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202008251913597_Budget.resx">
       <DependentUpon>202008251913597_Budget.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009071250281_RemoveFakeData.resx">
+      <DependentUpon>202009071250281_RemoveFakeData.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -417,7 +417,7 @@ namespace HVTApp.UI.Modules.Reports.SalesReport
             Amount = SalesUnits.Count;
             Status = GetStatus();
             Vat = salesUnit.Vat / 100.0 + 1.0;
-            Cost = salesUnit.FakeData?.Cost ?? salesUnit.Cost;
+            Cost = salesUnit.Cost;
             var costDelivery = SalesUnits.Select(x => x.CostDelivery).Where(x => x.HasValue).Sum(x => x.Value);
             CostDelivery = -1.0 * costDelivery;
 
@@ -442,13 +442,13 @@ namespace HVTApp.UI.Modules.Reports.SalesReport
 
             RealizationDateContract = salesUnit.EndProductionDateByContractCalculated;
 
-            OrderInTakeDate = salesUnit.FakeData?.OrderInTakeDate ?? salesUnit.OrderInTakeDate;
+            OrderInTakeDate = salesUnit.OrderInTakeDate;
             StartProductionDate = salesUnit.StartProductionDateCalculated;
             ShipmentDate = salesUnit.ShipmentDateCalculated;
-            RealizationDate = salesUnit.FakeData?.RealizationDate ?? salesUnit.RealizationDateCalculated;
+            RealizationDate = salesUnit.RealizationDateCalculated;
             RealizationDateRequared = salesUnit.DeliveryDateExpected;
 
-            PaymentConditionSet = salesUnit.FakeData?.PaymentConditionSet ?? salesUnit.PaymentConditionSet;
+            PaymentConditionSet = salesUnit.PaymentConditionSet;
             SetPaymentsConditions(salesUnit, PaymentConditionPointEnum.ProductionStart, ref _daysToStartProduction, ref _paymentStartProduction, ref _datePaymentStartProduction, ref _paymentTypeStartProduction);
             SetPaymentsConditions(salesUnit, PaymentConditionPointEnum.ProductionEnd, ref _daysToEndProduction, ref _paymentEndProduction, ref _datePaymentEndProduction, ref _paymentTypeEndProduction);
             SetPaymentsConditions(salesUnit, PaymentConditionPointEnum.Shipment, ref _daysToShipping, ref _paymentShipping, ref _datePaymentShipping, ref _paymentTypeShipping);
@@ -477,14 +477,6 @@ namespace HVTApp.UI.Modules.Reports.SalesReport
                 .FirstOrDefault(x => Equals(x.ParameterGroup, GlobalAppProperties.Actual.IsolationDpuGroup))?.Value;
             IsolationColor = salesUnit.Product.ProductBlock.Parameters
                 .FirstOrDefault(x => Equals(x.ParameterGroup, GlobalAppProperties.Actual.IsolationColorGroup))?.Value;
-
-            if (salesUnit.FakeData != null)
-            {
-                CostIsFake = salesUnit.FakeData.Cost.HasValue;
-                RealizationDateIsFake = salesUnit.FakeData.RealizationDate.HasValue;
-                OrderInTakeDateIsFake = salesUnit.FakeData.OrderInTakeDate.HasValue;
-                PaymentConditionSetIsFake = salesUnit.FakeData.PaymentConditionSet != null;
-            }
 
             if (salesUnit.IsLoosen)
             {

@@ -1,17 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 using HVTApp.Model.POCOs;
 using Prism.Events;
 
@@ -29,7 +15,6 @@ namespace HVTApp.Model.Events
 	public partial class AfterSaveDirectumTaskGroupEvent : PubSubEvent<DirectumTaskGroup> { }
 	public partial class AfterSaveDirectumTaskMessageEvent : PubSubEvent<DirectumTaskMessage> { }
 	public partial class AfterSaveDocumentNumberEvent : PubSubEvent<DocumentNumber> { }
-	public partial class AfterSaveFakeDataEvent : PubSubEvent<FakeData> { }
 	public partial class AfterSaveIncomingRequestEvent : PubSubEvent<IncomingRequest> { }
 	public partial class AfterSaveLosingReasonEvent : PubSubEvent<LosingReason> { }
 	public partial class AfterSaveMarketFieldEvent : PubSubEvent<MarketField> { }

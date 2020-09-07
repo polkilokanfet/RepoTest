@@ -389,6 +389,20 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility DateStartVisibility
+        {
+            get { return BudgetLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetLookup.DateStart)].Visibility; }
+            set { BudgetLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetLookup.DateStart)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DateFinishVisibility
+        {
+            get { return BudgetLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetLookup.DateFinish)].Visibility; }
+            set { BudgetLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetLookup.DateFinish)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility NameVisibility
         {
             get { return BudgetLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetLookup.Name)].Visibility; }
@@ -2188,81 +2202,6 @@ namespace HVTApp.UI.Views
         {
             get { return FacilityTypeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.FacilityTypeLookup.Entity)].Visibility; }
             set { FacilityTypeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.FacilityTypeLookup.Entity)].Visibility = value; }
-        }
-
-
-
-		#endregion
-    }
-
-
-    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
-	[Designation("Корректировочные данные")]
-	[DesignationPlural("FakeDataLookup")]
-	[AllowEditAttribute(Role.Admin)]
-
-    public partial class FakeDataLookupListView : ViewBase
-    {
-        public FakeDataLookupListView()
-        {
-            InitializeComponent();
-        }
-
-        public FakeDataLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, FakeDataLookupListViewModel FakeDataLookupListViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = FakeDataLookupListViewModel;
-			FakeDataLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
-            Loaded += OnLoaded;
-        }
-		        
-        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-			((FakeDataLookupListViewModel)DataContext).Load();
-        }
-
-		#region VisibilityProps
-
-
-        public System.Windows.Visibility CostVisibility
-        {
-            get { return FakeDataLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.FakeDataLookup.Cost)].Visibility; }
-            set { FakeDataLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.FakeDataLookup.Cost)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility RealizationDateVisibility
-        {
-            get { return FakeDataLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.FakeDataLookup.RealizationDate)].Visibility; }
-            set { FakeDataLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.FakeDataLookup.RealizationDate)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility OrderInTakeDateVisibility
-        {
-            get { return FakeDataLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.FakeDataLookup.OrderInTakeDate)].Visibility; }
-            set { FakeDataLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.FakeDataLookup.OrderInTakeDate)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility DisplayMemberVisibility
-        {
-            get { return FakeDataLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.FakeDataLookup.DisplayMember)].Visibility; }
-            set { FakeDataLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.FakeDataLookup.DisplayMember)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility PaymentConditionSetVisibility
-        {
-            get { return FakeDataLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.FakeDataLookup.PaymentConditionSet)].Visibility; }
-            set { FakeDataLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.FakeDataLookup.PaymentConditionSet)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility EntityVisibility
-        {
-            get { return FakeDataLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.FakeDataLookup.Entity)].Visibility; }
-            set { FakeDataLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.FakeDataLookup.Entity)].Visibility = value; }
         }
 
 
@@ -5506,6 +5445,20 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility OrderIsRealizedVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.OrderIsRealized)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.OrderIsRealized)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility AllowTotalRemoveVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.AllowTotalRemove)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.AllowTotalRemove)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility IsPaidVisibility
         {
             get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.IsPaid)].Visibility; }
@@ -5720,13 +5673,6 @@ namespace HVTApp.UI.Views
         {
             get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.AddressDelivery)].Visibility; }
             set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.AddressDelivery)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility FakeDataVisibility
-        {
-            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.FakeData)].Visibility; }
-            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.FakeData)].Visibility = value; }
         }
 
 

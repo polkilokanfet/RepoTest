@@ -58,7 +58,6 @@
                     <infg:TextField Name="Penalty" Label="Штрафные санкции" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="PaymentConditionSet" Label="Условия оплаты" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Specification" Label="Спецификация" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="FakeData" Label="Корректировочные данные" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Producer" Label="Производитель" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Order" Label="Заказ" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="AddressDelivery" Label="Адрес доставки" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
@@ -86,6 +85,7 @@
                     <infg:TextField Name="PaymentsActual" Label="Совершённые платежи" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:TextField Name="OrderPosition" Label="Позиция" Width="Auto" AllowResize="True" />
                     <infg:CheckBoxField Name="OrderIsTaken" Label="Заказ взят" Width="Auto" AllowResize="True" />
+                    <infg:CheckBoxField Name="OrderIsRealized" Label="Заказ реализован" Width="Auto" AllowResize="True" />
                     <infg:DateTimeField Name="OrderInTakeDateInjected" Label="OrderInTakeDateInjected" Width="Auto" AllowResize="True" />
                     <infg:TextField Name="LosingReasons" Label="Причины проигрыша" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:CheckBoxField Name="IsWon" Label="Выиграно" Width="Auto" AllowResize="True" />
@@ -104,6 +104,7 @@
                     <infg:TextField Name="BudgetUnits" Label="Бюджеты" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:TextField Name="BankGuarantees" Label="Банковские гарантии" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:NumericField Name="AssembleTerm" Label="Срок сборки" Width="Auto" AllowResize="True" />
+                    <infg:CheckBoxField Name="AllowTotalRemove" Label="Разрешено тотальное удаление" Width="Auto" AllowResize="True" />
                     <infg:CheckBoxField Name="AllowEditProduct" Label="Разрешение на редактирование техники" Width="Auto" AllowResize="True" />
                     <infg:CheckBoxField Name="AllowEditCost" Label="Разрешение на редактирование стоимости" Width="Auto" AllowResize="True" />
                     <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />

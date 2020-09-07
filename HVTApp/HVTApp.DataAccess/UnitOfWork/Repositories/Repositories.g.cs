@@ -88,13 +88,6 @@ namespace HVTApp.DataAccess
 		}
     }
 
-    public partial class FakeDataRepository : BaseRepository<FakeData>, IFakeDataRepository
-    {
-		public FakeDataRepository(DbContext context) : base(context) 
-		{
-		}
-    }
-
     public partial class IncomingRequestRepository : BaseRepository<IncomingRequest>, IIncomingRequestRepository
     {
 		public IncomingRequestRepository(DbContext context) : base(context) 

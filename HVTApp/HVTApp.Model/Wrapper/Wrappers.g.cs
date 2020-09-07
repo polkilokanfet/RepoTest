@@ -148,6 +148,22 @@ namespace HVTApp.Model.Wrapper
         public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
         public bool DateIsChanged => GetIsChanged(nameof(Date));
 
+        public System.DateTime DateStart
+        {
+          get { return GetValue<System.DateTime>(); }
+          set { SetValue(value); }
+        }
+        public System.DateTime DateStartOriginalValue => GetOriginalValue<System.DateTime>(nameof(DateStart));
+        public bool DateStartIsChanged => GetIsChanged(nameof(DateStart));
+
+        public System.DateTime DateFinish
+        {
+          get { return GetValue<System.DateTime>(); }
+          set { SetValue(value); }
+        }
+        public System.DateTime DateFinishOriginalValue => GetOriginalValue<System.DateTime>(nameof(DateFinish));
+        public bool DateFinishIsChanged => GetIsChanged(nameof(DateFinish));
+
         public System.String Name
         {
           get { return GetValue<System.String>(); }
@@ -236,6 +252,14 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Double CostByManagerOriginalValue => GetOriginalValue<System.Double>(nameof(CostByManager));
         public bool CostByManagerIsChanged => GetIsChanged(nameof(CostByManager));
+
+        public System.Boolean IsRemoved
+        {
+          get { return GetValue<System.Boolean>(); }
+          set { SetValue(value); }
+        }
+        public System.Boolean IsRemovedOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsRemoved));
+        public bool IsRemovedIsChanged => GetIsChanged(nameof(IsRemoved));
 
         public System.Guid Id
         {
@@ -719,63 +743,6 @@ namespace HVTApp.Model.Wrapper
         public bool IdIsChanged => GetIsChanged(nameof(Id));
 
         #endregion
-
-	}
-
-		public partial class FakeDataWrapper : WrapperBase<FakeData>
-	{
-	    public FakeDataWrapper(FakeData model) : base(model) { }
-
-        #region SimpleProperties
-
-        public System.Nullable<System.Double> Cost
-        {
-          get { return GetValue<System.Nullable<System.Double>>(); }
-          set { SetValue(value); }
-        }
-        public System.Nullable<System.Double> CostOriginalValue => GetOriginalValue<System.Nullable<System.Double>>(nameof(Cost));
-        public bool CostIsChanged => GetIsChanged(nameof(Cost));
-
-        public System.Nullable<System.DateTime> RealizationDate
-        {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
-          set { SetValue(value); }
-        }
-        public System.Nullable<System.DateTime> RealizationDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(RealizationDate));
-        public bool RealizationDateIsChanged => GetIsChanged(nameof(RealizationDate));
-
-        public System.Nullable<System.DateTime> OrderInTakeDate
-        {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
-          set { SetValue(value); }
-        }
-        public System.Nullable<System.DateTime> OrderInTakeDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(OrderInTakeDate));
-        public bool OrderInTakeDateIsChanged => GetIsChanged(nameof(OrderInTakeDate));
-
-        public System.Guid Id
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
-        public bool IdIsChanged => GetIsChanged(nameof(Id));
-
-        #endregion
-
-        #region ComplexProperties
-
-	    public PaymentConditionSetWrapper PaymentConditionSet 
-        {
-            get { return GetWrapper<PaymentConditionSetWrapper>(); }
-            set { SetComplexValue<PaymentConditionSet, PaymentConditionSetWrapper>(PaymentConditionSet, value); }
-        }
-
-        #endregion
-
-        public override void InitializeComplexProperties()
-        {
-            InitializeComplexProperty<PaymentConditionSetWrapper>(nameof(PaymentConditionSet), Model.PaymentConditionSet == null ? null : new PaymentConditionSetWrapper(Model.PaymentConditionSet));
-        }
 
 	}
 
@@ -3523,12 +3490,6 @@ namespace HVTApp.Model.Wrapper
             set { SetComplexValue<Address, AddressWrapper>(AddressDelivery, value); }
         }
 
-	    public FakeDataWrapper FakeData 
-        {
-            get { return GetWrapper<FakeDataWrapper>(); }
-            set { SetComplexValue<FakeData, FakeDataWrapper>(FakeData, value); }
-        }
-
         #endregion
 
         #region CollectionProperties
@@ -3568,6 +3529,10 @@ namespace HVTApp.Model.Wrapper
         public System.Boolean IsDone => GetValue<System.Boolean>(); 
 
         public System.Boolean OrderIsTaken => GetValue<System.Boolean>(); 
+
+        public System.Boolean OrderIsRealized => GetValue<System.Boolean>(); 
+
+        public System.Boolean AllowTotalRemove => GetValue<System.Boolean>(); 
 
         public System.Boolean IsPaid => GetValue<System.Boolean>(); 
 
@@ -3620,7 +3585,6 @@ namespace HVTApp.Model.Wrapper
             InitializeComplexProperty<SpecificationWrapper>(nameof(Specification), Model.Specification == null ? null : new SpecificationWrapper(Model.Specification));
             InitializeComplexProperty<PenaltyWrapper>(nameof(Penalty), Model.Penalty == null ? null : new PenaltyWrapper(Model.Penalty));
             InitializeComplexProperty<AddressWrapper>(nameof(AddressDelivery), Model.AddressDelivery == null ? null : new AddressWrapper(Model.AddressDelivery));
-            InitializeComplexProperty<FakeDataWrapper>(nameof(FakeData), Model.FakeData == null ? null : new FakeDataWrapper(Model.FakeData));
         }
 
         protected override void InitializeCollectionProperties()

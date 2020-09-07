@@ -33,7 +33,6 @@ namespace HVTApp.UI.Modules.Reports.SalesReport
             set
             {
                 _selectedSalesReportUnit = value;
-                ((DelegateCommand)EditFakeDataCommand).RaiseCanExecuteChanged();
             }
         }
 
@@ -62,19 +61,8 @@ namespace HVTApp.UI.Modules.Reports.SalesReport
         public bool TabEditVisibility => GlobalAppProperties.User.RoleCurrent == Role.Admin ||
                                          GlobalAppProperties.User.RoleCurrent == Role.ReportMaker;
 
-        public ICommand EditFakeDataCommand { get; }
-
         public SalesReportViewModel(IUnityContainer container) : base(container)
         {
-            EditFakeDataCommand = new DelegateCommand(
-                () =>
-                {
-                    RegionManager.RequestNavigateContentRegion<FakeDataView>(new NavigationParameters
-                    {
-                        {"units", SelectedSalesReportUnit.SalesUnits}
-                    });
-                },
-                () => SelectedSalesReportUnit != null);
         }
 
         protected override void GetData()
