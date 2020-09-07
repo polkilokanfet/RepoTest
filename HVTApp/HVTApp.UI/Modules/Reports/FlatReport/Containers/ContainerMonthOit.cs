@@ -17,13 +17,13 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
         /// <summary>
         /// Присвоить предложенным датам значения из контейнера
         /// </summary>
-        public void FillEstimatedOrderInTakeDates()
+        public void FillEstimatedDates()
         {
-            foreach (var flatReportItem in Items.ToList())
+            foreach (var item in Items.ToList())
             {
-                if (Year != flatReportItem.OriginalOrderInTakeDate.Year || Month != flatReportItem.OriginalOrderInTakeDate.Month)
+                if (Year != item.OriginalOrderInTakeDate.Year || Month != item.OriginalOrderInTakeDate.Month)
                 {
-                    flatReportItem.EstimatedOrderInTakeDate = GetNearestDate(flatReportItem.OriginalOrderInTakeDate);
+                    item.EstimatedOrderInTakeDate = GetNearestDate(item.OriginalOrderInTakeDate);
                 }
             }
         }

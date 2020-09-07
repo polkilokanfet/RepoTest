@@ -27,7 +27,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
         #region Fields
 
         private List<SalesUnit> _salesUnits;
-        private readonly DateTime _startDateDefault = new DateTime(DateTime.Today.Year, 1, 1);
+        private readonly DateTime _startDateDefault = new DateTime(DateTime.Today.Year - 1, 1, 1);
         private readonly DateTime _finishDateDefault = DateTime.Today.AddYears(2);
         private DateTime _startDate;
         private DateTime _finishDate;
@@ -43,6 +43,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
             get { return _startDate; }
             set
             {
+                if (value > FinishDate) return;
                 _startDate = value;
                 //нужно для создания контейнеров
                 GetYearContainerOit(StartDate.Year);
@@ -57,6 +58,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
             get { return _finishDate; }
             set
             {
+                if (value < StartDate) return;
                 _finishDate = value;
                 //нужно для создания контейнеров
                 GetYearContainerOit(FinishDate.Year);
@@ -263,16 +265,19 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                                 PaymentConditionSetByManager = salesUnit.PaymentConditionSet,
                                 IsRemoved = !flatReportItem.InReport
                             };
-                            
+
                             salesUnit.BudgetUnits.Add(budgetUnit);
                             budget.Units.Add(budgetUnit);
                         }
                     }
 
                     UnitOfWork.SaveChanges();
-                    Container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", $"Бюджет \"{budget}\" успешно сохранен.");
+                    Container.Resolve<IMessageService>()
+                        .ShowOkMessageDialog("Информация", $"Бюджет \"{budget}\" успешно сохранен.");
                 },
-                () => GlobalAppProperties.User.RoleCurrent == Role.Admin || GlobalAppProperties.User.RoleCurrent == Role.Director || GlobalAppProperties.User.RoleCurrent == Role.ReportMaker);
+                //() => GlobalAppProperties.User.RoleCurrent == Role.Admin || GlobalAppProperties.User.RoleCurrent == Role.Director || GlobalAppProperties.User.RoleCurrent == Role.ReportMaker);
+                () => false);
+
 
             ReloadCommand = new DelegateCommand(Load);
 
@@ -331,7 +336,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                 () =>
                 {
                     var monthContainers = FlatReportComparator.Align(YearContainersOit.SelectMany(x => x.MonthContainers).Where(x => x.InReport)).ToList();
-                    monthContainers.Cast<ContainerMonthOit>().ForEach(x => x.FillEstimatedOrderInTakeDates());
+                    monthContainers.Cast<ContainerMonthOit>().ForEach(x => x.FillEstimatedDates());
 
                     if (monthContainers.Any(x => !x.IsOk))
                         Container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", "Не во всех месяцах удалось выровнять суммы с заданной точностью.");
@@ -347,7 +352,6 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
             Items.Clear();
             YearContainersOit.Clear();
 
-            //UnitOfWork = Container.Resolve<IUnitOfWork>();
             //загрузка продажных единиц
             _salesUnits = GlobalAppProperties.User.RoleCurrent == Role.SalesManager
                 ? UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.ForReport && x.Project.Manager.IsAppCurrentUser())
@@ -369,8 +373,12 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                 {
                     if (item.InReport)
                     {
-                        AddItemToContainerOit(item);
-                        AddItemToContainerRealization(item);
+                        //добавляем только непроигранные айтемы
+                        if (!item.IsLoosen)
+                        {
+                            AddItemToContainerOit(item);
+                            AddItemToContainerRealization(item);
+                        }
                     }
                     else
                     {

@@ -359,16 +359,16 @@ namespace HVTApp.Model.POCOs
                 //по дате первого платежа
                 if (PaymentsActual.Any()) return PaymentsActual.Select(x => x.Date).Min();
 
-                //по дате реализации
-                if (RealizationDate.HasValue) return RealizationDate.Value.AddDays(-ProductionTerm).SkipPastAndWeekend();
-
                 //по дате доставки оборудования на объект
                 if (DeliveryDate.HasValue) return DeliveryDate.Value.AddDays(-ProductionTerm).AddDays(-DeliveryPeriodCalculated).SkipPastAndWeekend();
+
+                //по дате реализации
+                if (RealizationDate.HasValue) return RealizationDate.Value.AddDays(-ProductionTerm).SkipPastAndWeekend();
 
                 //если проиграно
                 if (IsLoosen) return DeliveryDateExpected.AddDays(-ProductionTerm);
 
-                //по необходимой дате реализации проекта
+                //по необходимой дате поставки на объект
                 return DeliveryDateExpected.AddDays(-ProductionTerm).AddDays(-DeliveryPeriodCalculated).SkipPastAndWeekend();
             }
         }

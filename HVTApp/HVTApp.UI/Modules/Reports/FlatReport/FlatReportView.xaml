@@ -3,7 +3,6 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-              xmlns:igEditors="http://infragistics.com/Editors" 
               xmlns:ig="http://schemas.infragistics.com/xaml" 
               xmlns:controls="http://infragistics.com/Windows">
     
@@ -77,6 +76,8 @@
                             <infg:CheckBoxField BindingType="UseAlternateBinding" AlternateBinding="{Binding AllowEditOit}" Label="Oit" Width="Auto" Name="AllowEditOit"/>
                             <infg:CheckBoxField BindingType="UseAlternateBinding" AlternateBinding="{Binding AllowEditRealization}" Label="Rlz" Width="Auto" Name="AllowEditRealization"/>
                             <infg:CheckBoxField BindingType="UseAlternateBinding" AlternateBinding="{Binding IsLoosen}" Label="Lsn" Width="Auto" Name="IsLoosen"/>
+                            <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding EstimatedOrderInTakeDateYear}" Label="ОИТ Год" Width="Auto"/>
+                            <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding EstimatedOrderInTakeDateMonth}" Label="ОИТ месяц" Width="Auto"/>
                         </infg:FieldLayout.Fields>
                     </infg:FieldLayout>
                 </infg:XamDataGrid.FieldLayouts>

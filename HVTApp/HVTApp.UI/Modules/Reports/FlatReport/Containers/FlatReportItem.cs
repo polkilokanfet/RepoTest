@@ -12,7 +12,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
     public class FlatReportItem : INotifyPropertyChanged
     {
         private DateTime _estimatedOrderInTakeDate;
-        private bool _inReport;
+        private bool _inReport = false;
         private double _estimatedCost;
         private DateTime _estimatedRealizationDate;
         private PaymentConditionSet _estimatedPaymentConditionSet;
@@ -30,8 +30,6 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
             get { return _inReport; }
             set
             {
-                //if (!AllowEditOit) return;
-
                 if (Equals(_inReport, value))
                     return;
 
@@ -81,14 +79,21 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
 
                 _estimatedOrderInTakeDate = value;
 
+                //внедряем даты для расчета даты реализации
                 SalesUnits.ForEach(x => x.OrderInTakeDateInjected = value);
                 SalesUnits.ForEach(x => x.StartProductionDateInjected = value);
                 EstimatedRealizationDate = SalesUnit.RealizationDateCalculated;
 
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(EstimatedOrderInTakeDateYear));
+                OnPropertyChanged(nameof(EstimatedOrderInTakeDateMonth));
                 OnPropertyChanged(nameof(DifOitDays));
             }
         }
+
+        public int EstimatedOrderInTakeDateYear => EstimatedOrderInTakeDate.Year;
+        public string EstimatedOrderInTakeDateMonth => EstimatedOrderInTakeDate.MonthName();
+
 
         public event Action EstimatedOrderInTakeMonthIsChanged;
 

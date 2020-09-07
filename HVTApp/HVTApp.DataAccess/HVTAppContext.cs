@@ -1,4 +1,5 @@
-﻿using System.Data.Entity.ModelConfiguration.Conventions;
+﻿using System.Data.Entity.Infrastructure;
+using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace HVTApp.DataAccess
 {
@@ -13,9 +14,9 @@ namespace HVTApp.DataAccess
         public HvtAppContext() : base("name=OPvva")
         {
 #endif
-            //#if DEBUG
             Database.SetInitializer(new HvtAppDataBaseInitializer());
-            //#endif
+            //ожидание ответа от сервера
+            ((IObjectContextAdapter) this).ObjectContext.CommandTimeout = 180;
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
