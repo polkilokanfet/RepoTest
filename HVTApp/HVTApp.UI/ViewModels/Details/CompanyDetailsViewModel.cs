@@ -1,4 +1,6 @@
 ﻿using System.Linq;
+using HVTApp.Infrastructure;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.ViewModels
@@ -21,11 +23,19 @@ namespace HVTApp.UI.ViewModels
             //потенциальные сферы деятельности
             _getEntitiesForAddInActivityFildsCommand = () =>
             {
-                return
-                    UnitOfWork.Repository<ActivityField>()
-                        .GetAll()
-                        .Where(x => !Item.ActivityFilds.Select(a => a.Id).Contains(x.Id))
-                        .ToList();
+                var fields = UnitOfWork.Repository<ActivityField>().GetAll();
+
+                //удаляем возможность выбора "производитель ВВА" у всех, кроме администратора
+                if (GlobalAppProperties.User.Roles.All(x => x.Role != Role.Admin))
+                {
+                    var producerField = fields.Single(x => x.ActivityFieldEnum == ActivityFieldEnum.ProducerOfHighVoltageEquipment);
+                    fields.Remove(producerField);
+                }
+
+                var fieldsTarget = fields.Where(x => !Item.ActivityFilds.Select(a => a.Id).Contains(x.Id)).ToList();
+
+                return fieldsTarget;
+
             };
         }
     }
