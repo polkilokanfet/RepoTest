@@ -87,6 +87,9 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
 
         private void RefreshInReportStatusRealization()
         {
+            if (Items.All(x => !x.InReport))
+                return;
+
             var startRealization = Items.Where(x => x.InReport).Min(x => x.EstimatedRealizationDate);
             startRealization = new DateTime(startRealization.Year, startRealization.Month, 1);
             var finishRealization = Items.Where(x => x.InReport).Max(x => x.EstimatedRealizationDate);
@@ -95,7 +98,6 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
             monthContainersRealization.Where(x => !x.Date.BetweenDates(startRealization, finishRealization)).ForEach(x => x.InReport = false);
             monthContainersRealization.Where(x => x.Date.BetweenDates(startRealization, finishRealization)).ForEach(x => x.InReport = true);
         }
-
 
         /// <summary>
         /// Точность выравнивания (в процентах)
@@ -192,12 +194,17 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
         /// <summary>
         /// Сохранить данные в бюджет
         /// </summary>
-        public ICommand SaveBudgetCommand { get; set; }
+        public ICommand SaveBudgetCommand { get; }
 
         /// <summary>
         /// Сравнить с бюджетом
         /// </summary>
-        public ICommand CompareBudgetCommand { get; set; }
+        public ICommand CompareBudgetCommand { get; }
+
+        /// <summary>
+        /// Загрузить бюджет
+        /// </summary>
+        public ICommand LoadBudgetCommand { get; }
 
         #endregion
         
@@ -227,6 +234,8 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                 }
             };
 
+            ReloadCommand = new DelegateCommand(LoadDefault);
+
             CompareBudgetCommand = new DelegateCommand(
                 () =>
                 {
@@ -244,6 +253,9 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                 {
                     var budget = new Budget
                     {
+                        DateStart = StartDate,
+                        DateFinish = FinishDate,
+                        Date = DateTime.Now,
                         Name = $"Дата: {DateTime.Today.ToShortDateString()}, время: {DateTime.Now.ToShortTimeString()}"
                     };
 
@@ -275,11 +287,29 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                     Container.Resolve<IMessageService>()
                         .ShowOkMessageDialog("Информация", $"Бюджет \"{budget}\" успешно сохранен.");
                 },
-                //() => GlobalAppProperties.User.RoleCurrent == Role.Admin || GlobalAppProperties.User.RoleCurrent == Role.Director || GlobalAppProperties.User.RoleCurrent == Role.ReportMaker);
-                () => false);
+                () => new List<Role> {Role.Admin, Role.Director, Role.ReportMaker}.Contains(GlobalAppProperties.User.RoleCurrent));
 
+            LoadBudgetCommand = new DelegateCommand(
+                () =>
+                {
+                    var budgets = UnitOfWork.Repository<Budget>().GetAll();
+                    var budget = Container.Resolve<ISelectService>().SelectItem(budgets);
+                    if (budget != null)
+                    {
+                        var items = new List<FlatReportItem>();
+                        var groups = budget.Units.GroupBy(x => new BudgetUnitComparer());
+                        foreach (var grp in groups)
+                        {
+                            var salesUnits = grp.Select(x => x.SalesUnit);
+                            var budgetUnit = grp.First();
+                            items.Add(new FlatReportItem(salesUnits, !budgetUnit.IsRemoved, budgetUnit.Cost, budgetUnit.OrderInTakeDate, budgetUnit.RealizationDate, budgetUnit.PaymentConditionSet));
+                        }
 
-            ReloadCommand = new DelegateCommand(Load);
+                        LoadBase(items, budget.DateStart, budget.DateFinish);
+                    }
+                });
+
+            #region MakeReportCommand
 
             MakeSalesReportCommand = new DelegateCommand(
                 () =>
@@ -303,6 +333,10 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                     Container.Resolve<IDialogService>().Show(paymentsPlanViewModel, $"Поступления. Момент формирования отчета: {DateTime.Today.ToShortDateString()} {DateTime.Now.ToShortTimeString()}");
                 });
 
+            #endregion
+
+            #region AddMonthCommand
+
             AddMonthToOitCommand = new DelegateCommand<string>(
                 parameter =>
                 {
@@ -316,7 +350,6 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                     });
                 },
                 parameter => SelectedItem != null && SelectedItem.AllowEditOit);
-
 
             AddMonthToRealizationCommand = new DelegateCommand<string>(
                 parameter =>
@@ -332,6 +365,8 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                 },
                 parameter => SelectedItem != null && SelectedItem.AllowEditRealization);
 
+            #endregion
+
             AlignCommand = new DelegateCommand(
                 () =>
                 {
@@ -342,16 +377,11 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                         Container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", "Не во всех месяцах удалось выровнять суммы с заданной точностью.");
                 });
 
-            Load();
+            LoadDefault();
         }
 
-        private void Load()
+        private void LoadDefault()
         {
-            _startDate = _startDateDefault;
-            _finishDate = _finishDateDefault;
-            Items.Clear();
-            YearContainersOit.Clear();
-
             //загрузка продажных единиц
             _salesUnits = GlobalAppProperties.User.RoleCurrent == Role.SalesManager
                 ? UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.ForReport && x.Project.Manager.IsAppCurrentUser())
@@ -359,12 +389,23 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
 
             var items = _salesUnits
                 .GroupBy(x => x, new SalesUnitsReportComparer())
-                .Select(x => new FlatReportItem(x, x.Key.OrderInTakeDate.BetweenDates(StartDate, FinishDate)))
+                .Select(x => new FlatReportItem(x, x.Key.OrderInTakeDate.BetweenDates(_startDateDefault, _finishDateDefault)))
                 .OrderBy(x => x.EstimatedOrderInTakeDate).ToList();
             
             //расстановка цен в нулевых единицах
             items.Where(x => Math.Abs(x.SalesUnit.Cost) < 0.001).ForEach(x => x.EstimatedCost = GlobalAppProperties.PriceService.GetPrice(x.SalesUnit, x.EstimatedOrderInTakeDate).SumTotal * 1.4);
-            
+
+            LoadBase(items, _startDateDefault, _finishDateDefault);
+        }
+
+        private void LoadBase(List<FlatReportItem> items, DateTime startDate, DateTime finishDate)
+        {
+            _startDate = startDate;
+            _finishDate = finishDate;
+            Items.Clear();
+            YearContainersOit.Clear();
+            YearContainersRealization.Clear();
+
             //подписка на событие изменения ключевых параметров
             foreach (var item in items)
             {
@@ -434,8 +475,8 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
 
             Items.AddRange(items);
 
-            StartDate = _startDateDefault;
-            FinishDate = _finishDateDefault;
+            StartDate = startDate;
+            FinishDate = finishDate;
 
             OnPropertyChanged(nameof(MonthContainersRealization));
         }

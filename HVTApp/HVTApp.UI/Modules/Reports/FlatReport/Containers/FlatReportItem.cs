@@ -172,6 +172,20 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
             }
         }
 
+        public FlatReportItem(IEnumerable<SalesUnit> salesUnits, bool inReport,
+            double estimatedCost, DateTime estimatedOrderInTakeDate, DateTime estimatedRealizationDate,
+            PaymentConditionSet estimatedPaymentConditionSet) : this(salesUnits, inReport)
+        {
+            var salesUnit = salesUnits.First();
+
+            EstimatedCost = salesUnit.Cost;
+            _estimatedCost = estimatedCost;
+
+            _estimatedOrderInTakeDate = estimatedOrderInTakeDate;
+            _estimatedRealizationDate = estimatedRealizationDate;
+            _estimatedPaymentConditionSet = estimatedPaymentConditionSet;
+        }
+
         public FlatReportItem(IEnumerable<SalesUnit> salesUnits, bool inReport)
         {
             if(!salesUnits.Any())

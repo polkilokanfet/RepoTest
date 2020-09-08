@@ -118,7 +118,7 @@ namespace HVTApp.Services.PrintService
             paragraphProps.Alignment = ParagraphAlignment.Left;
 
             docWriter.PrintTableRow(tableCellProperties, tableRowProperties, paragraphProps, fontBold, 
-                "№", "Тип оборудования", "Обозначение оборудования", "зав.№", "Заказ клиента", "Сервисный заказ", "Дата монтажа");
+                "№", "Тип оборудования", "Обозначение оборудования", "зав.№", "Заказ клиента", "Сервисный заказ", "Требуемая дата монтажа");
 
             // Reset the cell properties, so that the cell properties are different from the header cells.
             tableCellProperties.Reset();
@@ -156,7 +156,8 @@ namespace HVTApp.Services.PrintService
                     docWriter.PrintTableCell($"{supervision.SalesUnit.SerialNumber}", tableCellProperties);
                     docWriter.PrintTableCell($"{supervision.ClientOrderNumber}", tableCellProperties);
                     docWriter.PrintTableCell($"{supervision.ServiceOrderNumber}", tableCellProperties);
-                    docWriter.PrintTableCell($"{supervision.DateRequired?.ToShortDateString()}", tableCellProperties);
+                    var dateReq = supervision.DateRequired?.ToShortDateString() ?? "по согл.";
+                    docWriter.PrintTableCell(dateReq, tableCellProperties);
 
                     docWriter.EndTableRow();
                 }

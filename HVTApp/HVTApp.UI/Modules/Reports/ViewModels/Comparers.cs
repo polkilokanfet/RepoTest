@@ -25,6 +25,29 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
         }
     }
 
+    public class BudgetUnitComparer : IEqualityComparer<BudgetUnit>
+    {
+        public bool Equals(BudgetUnit x, BudgetUnit y)
+        {
+            if (x == null) throw new ArgumentNullException(nameof(x));
+            if (y == null) throw new ArgumentNullException(nameof(y));
+
+            if (!new SalesUnitsReportComparer().Equals(x.SalesUnit, y.SalesUnit)) return false;
+            if (Equals(x.IsRemoved, y.IsRemoved)) return false;
+            if (Equals(x.Cost, y.Cost)) return false;
+            if (Equals(x.OrderInTakeDate, y.OrderInTakeDate)) return false;
+            if (Equals(x.RealizationDate, y.RealizationDate)) return false;
+            if (Equals(x.PaymentConditionSet.Id, y.PaymentConditionSet.Id)) return false;
+
+            return true;
+        }
+
+        public int GetHashCode(BudgetUnit obj)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
     public class SalesUnitsReportComparer : IEqualityComparer<SalesUnit>
     {
         public bool Equals(SalesUnit x, SalesUnit y)
