@@ -124,6 +124,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                 _selectedItem = value;
                 ((DelegateCommand<string>)AddMonthToOitCommand).RaiseCanExecuteChanged();
                 ((DelegateCommand<string>)AddMonthToRealizationCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)ExplodeItemCommand).RaiseCanExecuteChanged();
             }
         }
 
@@ -206,6 +207,11 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
         /// </summary>
         public ICommand LoadBudgetCommand { get; }
 
+        /// <summary>
+        /// ¬зорвать айтем
+        /// </summary>
+        public ICommand ExplodeItemCommand { get; }
+
         #endregion
         
         #endregion
@@ -214,27 +220,51 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
         {
             Items.CollectionChanged += (sender, args) =>
             {
+                //если новые айтемы
                 if (args.NewItems != null)
                 {
                     foreach (var item in args.NewItems.Cast<FlatReportItem>())
                     {
-                        if(!item.InReport) continue;
-                        AddItemToContainerOit(item);
-                        AddItemToContainerRealization(item);
+                        if (item.InReport)
+                        {
+                            AddItemToContainerOit(item);
+                            AddItemToContainerRealization(item);                            
+                        }
+                        #region Subscribes
+
+                        //подписка на событие изменени€ ключевых параметров
+                        item.InReportIsChanged += OnInReportIsChanged; //исключение/включение айтема в отчет
+                        item.EstimatedOrderInTakeMonthIsChanged += OnEstimatedOrderInTakeMonthIsChanged; //изменение мес€ца ќ»“ в айтеме
+                        item.EstimatedRealizationMonthIsChanged += OnEstimatedRealizationMonthIsChanged; //изменение мес€ца реализации в айтеме
+                        item.EstimatedCostIsChanged += OnEstimatedCostIsChanged; //изменение цены в айтеме
+
+                        #endregion
                     }
                 }
 
+                //если удаленные айтемы
                 if (args.OldItems != null)
                 {
                     foreach (var item in args.OldItems.Cast<FlatReportItem>())
                     {
                         RemoveItemFromContainerOit(item);
                         RemoveItemFromContainerRealization(item);
+                        #region UnSubscribes
+
+                        //отписка от событий изменений ключевых параметров
+                        item.InReportIsChanged -= OnInReportIsChanged; //исключение/включение айтема в отчет
+                        item.EstimatedOrderInTakeMonthIsChanged -= OnEstimatedOrderInTakeMonthIsChanged; //изменение мес€ца ќ»“ в айтеме
+                        item.EstimatedRealizationMonthIsChanged -= OnEstimatedRealizationMonthIsChanged; //изменение мес€ца реализации в айтеме
+                        item.EstimatedCostIsChanged -= OnEstimatedCostIsChanged; //изменение цены в айтеме
+
+                        #endregion
                     }
                 }
             };
 
             ReloadCommand = new DelegateCommand(LoadDefault);
+
+            #region Budget
 
             CompareBudgetCommand = new DelegateCommand(
                 () =>
@@ -310,6 +340,8 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                     }
                 });
 
+            #endregion
+
             #region MakeReportCommand
 
             MakeSalesReportCommand = new DelegateCommand(
@@ -378,8 +410,101 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                         Container.Resolve<IMessageService>().ShowOkMessageDialog("»нформаци€", "Ќе во всех мес€цах удалось выровн€ть суммы с заданной точностью.");
                 });
 
+            ExplodeItemCommand = new DelegateCommand(
+                () =>
+                {
+                    var item = SelectedItem;
+                    var items = item.SalesUnits
+                        .Select(x => new FlatReportItem(new List<SalesUnit> {x}, item.InReport, item.EstimatedCost,
+                            item.EstimatedOrderInTakeDate, item.EstimatedRealizationDate, item.EstimatedPaymentConditionSet));
+                    var index = Items.IndexOf(SelectedItem);
+                    Items.Remove(SelectedItem);
+                    items.ForEach(x => Items.Insert(index, x));
+                    SelectedItem = null;
+                },
+                () => SelectedItem != null);
+
             LoadDefault();
         }
+
+        #region OnItemIsChanged
+
+        /// <summary>
+        /// изменение цены в айтеме
+        /// </summary>
+        private void OnEstimatedCostIsChanged(FlatReportItem item)
+        {
+            RefreshTargetSums();
+            RefreshContainers();
+        }
+
+        /// <summary>
+        /// изменение мес€ца реализации в айтеме
+        /// </summary>
+        /// <param name="item"></param>
+        private void OnEstimatedRealizationMonthIsChanged(FlatReportItem item)
+        {
+            if (item.InReport)
+            {
+                RemoveItemFromContainerRealization(item);
+                AddItemToContainerRealization(item);
+                RefreshInReportStatusRealization();
+                OnPropertyChanged(nameof(MonthContainersRealization));
+            }
+        }
+
+        /// <summary>
+        /// изменение мес€ца ќ»“ в айтеме
+        /// </summary>
+        /// <param name="item"></param>
+        private void OnEstimatedOrderInTakeMonthIsChanged(FlatReportItem item)
+        {
+            if (item.InReport)
+            {
+                RemoveItemFromContainerOit(item);
+
+                //не вылетел ли айтем из отчета?
+                if (!item.EstimatedOrderInTakeDate.BetweenDates(StartDate, FinishDate))
+                {
+                    item.InReport = false;
+                    Container.Resolve<IMessageService>()
+                        .ShowOkMessageDialog("»нформаци€", $"\"{item}\" вышел за рамки отчетного диапазона дат (по дате ќ»“).");
+                }
+                else
+                {
+                    AddItemToContainerOit(item);
+                }
+
+                OnPropertyChanged(nameof(MonthContainersOit));
+            }
+        }
+
+        /// <summary>
+        /// исключение/включение айтема в отчет
+        /// </summary>
+        /// <param name="item"></param>
+        private void OnInReportIsChanged(FlatReportItem item)
+        {
+            if (item.InReport)
+            {
+                //добавл€ем только непроигранные айтемы
+                if (!item.IsLoosen)
+                {
+                    AddItemToContainerOit(item);
+                    AddItemToContainerRealization(item);
+                }
+            }
+            else
+            {
+                RemoveItemFromContainerOit(item);
+                RemoveItemFromContainerRealization(item);
+            }
+
+            RefreshTargetSums();
+            RefreshContainers();
+        }
+
+        #endregion
 
         private void LoadDefault()
         {
@@ -409,72 +534,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
             YearContainersOit.Clear();
             YearContainersRealization.Clear();
 
-            //подписка на событие изменени€ ключевых параметров
-            foreach (var item in items)
-            {
-                //исключение/включение айтема в отчет
-                item.InReportIsChanged += () =>
-                {
-                    if (item.InReport)
-                    {
-                        //добавл€ем только непроигранные айтемы
-                        if (!item.IsLoosen)
-                        {
-                            AddItemToContainerOit(item);
-                            AddItemToContainerRealization(item);
-                        }
-                    }
-                    else
-                    {
-                        RemoveItemFromContainerOit(item);
-                        RemoveItemFromContainerRealization(item);
-                    }
-
-                    RefreshTargetSums();
-                    RefreshContainers();
-                };
-
-                //изменение мес€ца ќ»“ в айтеме
-                item.EstimatedOrderInTakeMonthIsChanged += () =>
-                {
-                    if (item.InReport)
-                    {
-                        RemoveItemFromContainerOit(item);
-
-                        //не вылетел ли айтем из отчета?
-                        if (!item.EstimatedOrderInTakeDate.BetweenDates(StartDate, FinishDate))
-                        {
-                            item.InReport = false;
-                            Container.Resolve<IMessageService>().ShowOkMessageDialog("»нформаци€", $"\"{item}\" вышел за рамки отчетного диапазона дат (по дате ќ»“).");
-                        }
-                        else
-                        {
-                            AddItemToContainerOit(item);
-                        }
-
-                        OnPropertyChanged(nameof(MonthContainersOit));
-                    }
-                };
-
-                //изменение мес€ца реализации в айтеме
-                item.EstimatedRealizationMonthIsChanged += () =>
-                {
-                    if (item.InReport)
-                    {
-                        RemoveItemFromContainerRealization(item);
-                        AddItemToContainerRealization(item);
-                        RefreshInReportStatusRealization();
-                        OnPropertyChanged(nameof(MonthContainersRealization));
-                    }
-                };
-
-                //изменение цены в айтеме
-                item.EstimatedCostIsChanged += () =>
-                {
-                    RefreshTargetSums();
-                    RefreshContainers();
-                };
-            }
+            //подписка на событие изменени€ ключевых параметров была в конструкторе
 
             Items.AddRange(items);
 

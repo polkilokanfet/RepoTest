@@ -41,7 +41,11 @@
         <infRib:ButtonTool Caption="Выровнять" Command="{Binding AlignCommand}" SmallImage="/HVTApp.UI;component/Images/refresh.png"/>
         </StackPanel>
     </infRib:RibbonGroup>
-    
+
+    <infRib:RibbonGroup Caption="Строка">
+        <infRib:ButtonTool Caption="Разбить" Command="{Binding ExplodeItemCommand}" SmallImage="/HVTApp.UI;component/Images/expand.png"/>
+    </infRib:RibbonGroup>
+
     <infRib:RibbonGroup Caption="Отчеты">
         <infRib:ButtonTool Caption="Бюджет" Command="{Binding MakeSalesReportCommand}" SmallImage="/HVTApp.UI;component/Images/refresh.png"/>
         <infRib:ButtonTool Caption="Поступления" Command="{Binding MakePaymentsReportCommand}" SmallImage="/HVTApp.UI;component/Images/refresh.png"/>

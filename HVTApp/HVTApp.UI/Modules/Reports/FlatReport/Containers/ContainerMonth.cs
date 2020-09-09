@@ -145,11 +145,11 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
                     }
                 }
 
-                ItemOnEstimatedCostIsChanged();
+                ItemOnEstimatedCostIsChanged(null);
             };
         }
 
-        private void ItemOnEstimatedCostIsChanged()
+        private void ItemOnEstimatedCostIsChanged(FlatReportItem item)
         {
             OnPropertyChanged(nameof(CurrentSum));
             OnPropertyChanged(nameof(IsOk));

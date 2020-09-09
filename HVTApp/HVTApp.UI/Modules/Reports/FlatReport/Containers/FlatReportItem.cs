@@ -35,11 +35,11 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
 
                 _inReport = value;
                 OnPropertyChanged();
-                InReportIsChanged?.Invoke();
+                InReportIsChanged?.Invoke(this);
             }
         }
 
-        public event Action InReportIsChanged;
+        public event Action<FlatReportItem> InReportIsChanged;
 
         public bool AllowEditOit => !SalesUnit.OrderIsTaken && !IsLoosen;
 
@@ -74,7 +74,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
                     !Equals(_estimatedOrderInTakeDate.Month, value.Month))
                 {
                     _estimatedOrderInTakeDate = value;
-                    EstimatedOrderInTakeMonthIsChanged?.Invoke();
+                    EstimatedOrderInTakeMonthIsChanged?.Invoke(this);
                 }
 
                 _estimatedOrderInTakeDate = value;
@@ -95,7 +95,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
         public string EstimatedOrderInTakeDateMonth => EstimatedOrderInTakeDate.MonthName();
 
 
-        public event Action EstimatedOrderInTakeMonthIsChanged;
+        public event Action<FlatReportItem> EstimatedOrderInTakeMonthIsChanged;
 
         /// <summary>
         /// Сдвиг по дате ОИТ
@@ -113,13 +113,13 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
                 if (!AllowEditOit) return;
                 if (Math.Abs(_estimatedCost - value) < 0.001) return;
                 _estimatedCost = value;
-                EstimatedCostIsChanged?.Invoke();
+                EstimatedCostIsChanged?.Invoke(this);
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(Sum));
             }
         }
 
-        public event Action EstimatedCostIsChanged;
+        public event Action<FlatReportItem> EstimatedCostIsChanged;
 
         /// <summary>
         /// Изначальная дата реализации
@@ -142,7 +142,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
                     !Equals(EstimatedRealizationDate.Month, value.Month))
                 {
                     _estimatedRealizationDate = value;
-                    EstimatedRealizationMonthIsChanged?.Invoke();
+                    EstimatedRealizationMonthIsChanged?.Invoke(this);
                 }
 
                 _estimatedRealizationDate = value;
@@ -151,7 +151,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
             }
         }
 
-        public event Action EstimatedRealizationMonthIsChanged;
+        public event Action<FlatReportItem> EstimatedRealizationMonthIsChanged;
 
         /// <summary>
         /// Сдвиг по дате реализации
