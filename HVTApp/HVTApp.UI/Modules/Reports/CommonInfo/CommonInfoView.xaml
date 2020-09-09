@@ -20,7 +20,12 @@
             <infg:XamDataGrid.FieldLayouts>
                 <infg:FieldLayout>
                     <infg:FieldLayout.Fields>
-                        
+
+                        <infg:TextField AlternateBinding="{Binding FacilityOwners}"
+                                        BindingType="UseAlternateBinding"
+                                        Label="Владелец объекта"
+                                        Width="Auto"
+                                        AllowResize="True" />
                         <infg:TextField AlternateBinding="{Binding Facility}"
                                         BindingType="UseAlternateBinding"
                                         Label="Объект"
@@ -161,6 +166,11 @@
                                         Label="Адрес доставки"
                                         Width="Auto"
                                         AllowResize="True" />
+                        <infg:NumericField AlternateBinding="{Binding ProductionTerm}"
+                                           BindingType="UseAlternateBinding"
+                                           Label="Срок производства"
+                                           Width="Auto"
+                                           AllowResize="True" />
 
                     </infg:FieldLayout.Fields>
                 </infg:FieldLayout>

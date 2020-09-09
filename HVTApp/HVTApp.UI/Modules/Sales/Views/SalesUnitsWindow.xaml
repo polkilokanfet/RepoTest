@@ -60,6 +60,7 @@
                                     VisibilityOrderInTakeDateInjectedSalesUnit="Collapsed"
                                     VisibilityCostDeliveryIncludedSalesUnit="Collapsed"
                                     VisibilityLosingReasonsSalesUnit="Collapsed"
+                                    VisibilityBudgetUnitsSalesUnit="Collapsed"
                                     VisibilityStartProductionDateInjectedSalesUnit="Collapsed"/>
         
         <Grid>

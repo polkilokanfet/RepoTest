@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
@@ -27,8 +28,8 @@ namespace HVTApp.UI.Modules.Reports.CommonInfo
         protected override void GetData()
         {
             var salesUnits = GlobalAppProperties.User.RoleCurrent == Role.SalesManager
-                ? UnitOfWork.Repository<SalesUnit>().Find(x => x.OrderInTakeDate >= StartDate && x.OrderInTakeDate <= FinishDate && !x.IsLoosen && x.Project.Manager.IsAppCurrentUser())
-                : UnitOfWork.Repository<SalesUnit>().Find(x => x.OrderInTakeDate >= StartDate && x.OrderInTakeDate <= FinishDate && !x.IsLoosen);
+                ? UnitOfWork.Repository<SalesUnit>().Find(x => x.OrderInTakeDate.BetweenDates(StartDate, FinishDate) && !x.IsLoosen && x.Project.Manager.IsAppCurrentUser())
+                : UnitOfWork.Repository<SalesUnit>().Find(x => x.OrderInTakeDate.BetweenDates(StartDate, FinishDate) && !x.IsLoosen);
 
             //проставляем количество родительских юнитов включенного оборудования
             var productsIncluded = salesUnits.SelectMany(x => x.ProductsIncluded).ToList();

@@ -365,6 +365,9 @@ namespace HVTApp.UI.Modules.Reports.SalesReport
         [Designation("—сылка на конкурс"), OrderStatus(-250)]
         public string TenderLink { get; }
 
+        [Designation("—рок производства"), OrderStatus(-245)]
+        public int ProductionTerm { get; }
+
 
         public SalesReportUnit(
             IEnumerable<SalesUnit> salesUnits, 
@@ -382,6 +385,7 @@ namespace HVTApp.UI.Modules.Reports.SalesReport
             Order = salesUnit.Order?.ToString();
             OrderPositions = SalesUnits.Select(x => x.OrderPosition).GetOrderPositions();
 
+            ProductionTerm = salesUnit.ProductionTerm;
             var owners = new List<Company> {salesUnit.Facility.OwnerCompany};
             owners.AddRange(salesUnit.Facility.OwnerCompany.ParentCompanies().ToList());
             FacilityOwners = owners.ToStringEnum();
