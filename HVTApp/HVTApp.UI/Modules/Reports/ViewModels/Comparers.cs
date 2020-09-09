@@ -27,24 +27,25 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
 
     public class BudgetUnitComparer : IEqualityComparer<BudgetUnit>
     {
+        static readonly SalesUnitsReportComparer SalesUnitsReportComparer = new SalesUnitsReportComparer();
         public bool Equals(BudgetUnit x, BudgetUnit y)
         {
             if (x == null) throw new ArgumentNullException(nameof(x));
             if (y == null) throw new ArgumentNullException(nameof(y));
 
-            if (!new SalesUnitsReportComparer().Equals(x.SalesUnit, y.SalesUnit)) return false;
-            if (Equals(x.IsRemoved, y.IsRemoved)) return false;
-            if (Equals(x.Cost, y.Cost)) return false;
-            if (Equals(x.OrderInTakeDate, y.OrderInTakeDate)) return false;
-            if (Equals(x.RealizationDate, y.RealizationDate)) return false;
-            if (Equals(x.PaymentConditionSet.Id, y.PaymentConditionSet.Id)) return false;
+            if (!SalesUnitsReportComparer.Equals(x.SalesUnit, y.SalesUnit)) return false;
+            if (!Equals(x.IsRemoved, y.IsRemoved)) return false;
+            if ((Math.Abs(x.Cost - y.Cost) > 0.001)) return false;
+            if (!Equals(x.OrderInTakeDate, y.OrderInTakeDate)) return false;
+            if (!Equals(x.RealizationDate, y.RealizationDate)) return false;
+            if (!Equals(x.PaymentConditionSet.Id, y.PaymentConditionSet.Id)) return false;
 
             return true;
         }
 
         public int GetHashCode(BudgetUnit obj)
         {
-            throw new NotImplementedException();
+            return 0;
         }
     }
 

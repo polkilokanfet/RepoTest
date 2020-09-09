@@ -292,12 +292,13 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
             LoadBudgetCommand = new DelegateCommand(
                 () =>
                 {
+                    UnitOfWork = Container.Resolve<IUnitOfWork>();
                     var budgets = UnitOfWork.Repository<Budget>().GetAll();
                     var budget = Container.Resolve<ISelectService>().SelectItem(budgets);
                     if (budget != null)
                     {
                         var items = new List<FlatReportItem>();
-                        var groups = budget.Units.GroupBy(x => new BudgetUnitComparer());
+                        var groups = budget.Units.GroupBy(x => x, new BudgetUnitComparer());
                         foreach (var grp in groups)
                         {
                             var salesUnits = grp.Select(x => x.SalesUnit);
@@ -382,6 +383,8 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
 
         private void LoadDefault()
         {
+            UnitOfWork = Container.Resolve<IUnitOfWork>();
+
             //загрузка продажных единиц
             _salesUnits = GlobalAppProperties.User.RoleCurrent == Role.SalesManager
                 ? UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.ForReport && x.Project.Manager.IsAppCurrentUser())
