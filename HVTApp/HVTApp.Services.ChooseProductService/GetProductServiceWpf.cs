@@ -1,43 +1,36 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.Services.GetProductService.Complects;
-using HVTApp.Services.ProductDesignationService;
 using Microsoft.Practices.Unity;
 using Prism.Events;
-using Prism.Mvvm;
 
 namespace HVTApp.Services.GetProductService
 {
     public class GetProductServiceWpf : IGetProductService
     {
-        private readonly IUnityContainer _container;
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IEventAggregator _eventAggregator;
-        private Bank _bank;
+        private IUnityContainer Container { get; }
+        private IUnitOfWork UnitOfWork { get; }
 
         public GetProductServiceWpf(IUnityContainer container)
         {
-            _container = container;
-            _unitOfWork = container.Resolve<IUnitOfWork>();
-            _eventAggregator = container.Resolve<IEventAggregator>();
+            Container = container;
+            UnitOfWork = container.Resolve<IUnitOfWork>();
         }
 
-        public void Load(Product originProduct)
+        public Bank GetBank(Product originProduct)
         {
-            var parameters = _unitOfWork.Repository<Parameter>().GetAll();
-            var products = _unitOfWork.Repository<Product>().GetAll();
-            var productRelations = _unitOfWork.Repository<ProductRelation>().GetAll();
-            var productBlocks = _unitOfWork.Repository<ProductBlock>().GetAll();
+            var parameters = UnitOfWork.Repository<Parameter>().GetAll();
+            var products = UnitOfWork.Repository<Product>().GetAll();
+            var productRelations = UnitOfWork.Repository<ProductRelation>().GetAll();
+            var productBlocks = UnitOfWork.Repository<ProductBlock>().GetAll();
 
-            _bank = new Bank(products, productBlocks, ParametersWithoutComplectsParameters(parameters, originProduct), productRelations);
+            return new Bank(products, productBlocks, ParametersWithoutComplectsParameters(parameters, originProduct), productRelations);
         }
 
         /// <summary>
@@ -72,14 +65,14 @@ namespace HVTApp.Services.GetProductService
 
         public Product GetProduct(Product originProduct = null)
         {
-            Load(originProduct);
+            var bank = GetBank(originProduct);
 
-            var selectedProduct =
-                originProduct == null
-                    ? null
-                    : _bank.Products.Single(x => x.Id == originProduct.Id);
+            //предварительно выбранный продукт
+            var selectedProduct = originProduct == null 
+                ? null 
+                : bank.Products.Single(x => x.Id == originProduct.Id);
 
-            var productSelector = new ProductSelector(_bank, _bank.Parameters, selectedProduct);
+            var productSelector = new ProductSelector(bank, bank.Parameters, selectedProduct);
             var owner = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
             var window = new SelectProductWindow { DataContext = productSelector, Owner = owner };
             window.ShowDialog();
@@ -87,14 +80,14 @@ namespace HVTApp.Services.GetProductService
             //если необходимо создать новый продукт
             if (window.ShoodCreateNew)
             {
-                var productNew = _container.Resolve<INewProductService>().GetNewProduct();
+                var productNew = Container.Resolve<INewProductService>().GetNewProduct();
                 return productNew ?? originProduct;
             }
 
             //если необходимо выбрать комплект
             if (window.ShoodSelectComplect)
             {
-                var complectViewModel = _container.Resolve<ComplectsViewModel>();
+                var complectViewModel = Container.Resolve<ComplectsViewModel>();
                 complectViewModel.ShowDialog();
                 return complectViewModel.IsSelected 
                     ? complectViewModel.SelectedItem.Product 
@@ -111,14 +104,14 @@ namespace HVTApp.Services.GetProductService
             //SubstitutionBlocks(result, blocks);
 
             //загрузка актуальных продуктов
-            var products = _unitOfWork.Repository<Product>().GetAll();
+            var products = UnitOfWork.Repository<Product>().GetAll();
             //если выбранного продукта нет в базе
             if (!products.Contains(result))
             {
                 SubstitutionProducts(result, products);
-                _unitOfWork.Repository<Product>().Add(result);
-                _unitOfWork.SaveChanges();
-                _eventAggregator.GetEvent<AfterSaveProductEvent>().Publish(result);
+                UnitOfWork.Repository<Product>().Add(result);
+                UnitOfWork.SaveChanges();
+                Container.Resolve<IEventAggregator>().GetEvent<AfterSaveProductEvent>().Publish(result);
             }
 
             return result;

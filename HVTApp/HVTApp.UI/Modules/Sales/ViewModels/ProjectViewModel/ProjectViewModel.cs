@@ -12,6 +12,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel
 {
     public class ProjectViewModel : UnitsContainer<Project, ProjectWrapper, ProjectDetailsViewModel, SalesUnitsGroupsViewModel, SalesUnit, AfterSaveProjectEvent>
     {
+        private bool _isNew;
 
         public ProjectViewModel(IUnityContainer container) : base(container)
         {
@@ -19,6 +20,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel
 
         public override void Load(Project model, bool isNew, object parameter = null)
         {
+            _isNew = isNew;
             base.Load(model, isNew, parameter);
             //назначаем менеджера
             if (DetailsViewModel.Item.Manager == null)
@@ -30,7 +32,10 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel
 
         protected override IEnumerable<SalesUnit> GetUnits(Project project, object parameter = null)
         {
-            return UnitOfWork.Repository<SalesUnit>().GetAll().Where(x => x.Project.Id == project.Id);
+            if(_isNew)
+                return new SalesUnit[] {};
+
+            return UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Id == project.Id);
         }
     }
 }

@@ -220,6 +220,7 @@
     <Compile Include="UnitOfWork\Repositories\Custom\PriceCalculationRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\Custom\ProductBlockRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\Custom\ProductDesignationRepository.cs" />
+    <Compile Include="UnitOfWork\Repositories\Custom\ProductRelationRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\Custom\ProductRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\Custom\ProductTypeDesignationRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\Custom\SalesUnitRepository.cs" />

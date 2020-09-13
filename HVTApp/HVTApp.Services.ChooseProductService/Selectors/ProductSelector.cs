@@ -7,15 +7,21 @@ using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Services.ProductDesignationService;
+using Microsoft.Practices.ObjectBuilder2;
 
 namespace HVTApp.Services.GetProductService
 {
     public class ProductSelector : NotifyPropertyChanged
     {
-        private readonly Bank _bank;
+        private Bank Bank { get; }
 
         public ProductBlockSelector BlockSelector { get; }
+
+        /// <summary>
+        /// Селекторы дочерних продуктов
+        /// </summary>
         public ObservableCollection<ProductSelector> ProductSelectors { get; } = new ObservableCollection<ProductSelector>();
+
         public int Amount { get; }
         public bool HasDependentProducts => ProductSelectors.Any();
 
@@ -35,19 +41,24 @@ namespace HVTApp.Services.GetProductService
             } 
         }
 
-        public Product SelectedProduct => _bank.GetProduct(BlockSelector.SelectedBlock, ProductDependents);
+        public Product SelectedProduct => Bank.GetProduct(BlockSelector.SelectedBlock, ProductDependents);
 
         public ProductSelector(Bank bank, IEnumerable<Parameter> parameters, Product selectedProduct = null, int amount = 1)
         {
-            if (bank == null) throw new ArgumentNullException(nameof(bank));
             if (parameters == null) throw new ArgumentNullException(nameof(parameters));
 
-            _bank = bank;
+            Bank = bank;
             Amount = amount;
 
             //создаем селектор блока и подписываемся на событие его изменения
-            BlockSelector = new ProductBlockSelector(parameters, _bank, selectedProduct?.ProductBlock);
+            BlockSelector = new ProductBlockSelector(parameters, Bank, selectedProduct?.ProductBlock);
             BlockSelector.SelectedBlockChanged += OnSelectedBlockChanged;
+
+            ProductSelectors.CollectionChanged += (sender, args) =>
+            {
+                args.NewItems?.Cast<ProductSelector>().ForEach(x => x.SelectedProductChanged += OnChildProductChanged);
+                args.OldItems?.Cast<ProductSelector>().ForEach(x => x.SelectedProductChanged -= OnChildProductChanged);
+            };
 
             if (selectedProduct == null)
             {
@@ -68,7 +79,6 @@ namespace HVTApp.Services.GetProductService
                         var usefullParameters = bank.Parameters.GetUsefull(kvp.Key);
                         var productSelector = new ProductSelector(bank, usefullParameters, product);
                         ProductSelectors.Add(productSelector);
-                        productSelector.SelectedProductChanged += OnChildProductChanged;
                     }
                 }
             }
@@ -87,7 +97,7 @@ namespace HVTApp.Services.GetProductService
             var productSelectors = ProductSelectors.OrderByDescending(x => x.SelectedProduct.ProductBlock.Parameters.Count).ToList();
 
             //загружаем связи к дочерним продуктам, упорядоченные по количеству параметров, зависимого продукта
-            var childProductsRelations = _bank.RelationsToChildProducts(SelectedProduct).OrderBy(x => x.ChildProductParameters.Count).ToList();
+            var childProductsRelations = Bank.RelationsToChildProducts(SelectedProduct).OrderBy(x => x.ChildProductParameters.Count).ToList();
 
             var relaitionsDictionary = new Dictionary<ProductRelation, int>();
             foreach (var actualProductRelation in childProductsRelations)
@@ -105,7 +115,6 @@ namespace HVTApp.Services.GetProductService
                 if (relation == null)
                 {
                     ProductSelectors.Remove(productSelector);
-                    productSelector.SelectedProductChanged -= OnChildProductChanged;
                 }
                 //если находим - корректируем связь и удаляем этот селектор из поиска
                 else
@@ -126,9 +135,8 @@ namespace HVTApp.Services.GetProductService
                 for (int i = 0; i < relaitionsDictionary[productRelation]; i++)
                 {
                     //новый селектор с усеченными под связь параметрами
-                    var productSelector = new ProductSelector(_bank, _bank.Parameters.GetUsefull(productRelation));
+                    var productSelector = new ProductSelector(Bank, Bank.Parameters.GetUsefull(productRelation));
                     ProductSelectors.Add(productSelector);
-                    productSelector.SelectedProductChanged += OnChildProductChanged;
                 }
             }
 
@@ -150,7 +158,7 @@ namespace HVTApp.Services.GetProductService
         {
             var result = new Dictionary<ProductRelation, IEnumerable<Product>>();
             //получаем актуальные для выбранных параметров связи
-            var actualProductRelations = _bank.RelationsToChildProducts(product).ToList();
+            var actualProductRelations = Bank.RelationsToChildProducts(product).ToList();
             actualProductRelations.ForEach(x => result.Add(x, default(IEnumerable<Product>)));
 
             //составляем список дочерних продуктов

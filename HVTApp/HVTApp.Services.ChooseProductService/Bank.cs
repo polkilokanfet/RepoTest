@@ -8,7 +8,7 @@ namespace HVTApp.Services.GetProductService
     /// <summary>
     /// ’ранилище параметров и т.д.
     /// </summary>
-    public class Bank
+    public struct Bank
     {
         public List<Product> Products { get; }
         public List<ProductBlock> Blocks { get; }
@@ -63,7 +63,6 @@ namespace HVTApp.Services.GetProductService
             //добавление блока в банк
             Blocks.Add(block);
             return block;
-
         }
 
         /// <summary>

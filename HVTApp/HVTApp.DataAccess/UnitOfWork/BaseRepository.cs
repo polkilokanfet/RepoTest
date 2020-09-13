@@ -25,6 +25,7 @@ namespace HVTApp.DataAccess
 
         public virtual List<TEntity> GetAll()
         {
+            System.Diagnostics.Debug.WriteLine($"Метод GetAll из репозитория {this.GetType().Name}");
             Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
             return GetQuary().ToList();
         }
