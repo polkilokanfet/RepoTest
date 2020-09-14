@@ -30,13 +30,17 @@ namespace HVTApp.Services.GetProductService
             var productRelations = UnitOfWork.Repository<ProductRelation>().GetAll();
             var productBlocks = UnitOfWork.Repository<ProductBlock>().GetAll();
 
-            return new Bank(products, productBlocks, ParametersWithoutComplectsParameters(parameters, originProduct), productRelations);
+            parameters = ParametersWithoutComplectsParameters(parameters, originProduct);
+            parameters = ParametersWithoutNewParameters(parameters, originProduct);
+
+            return new Bank(products, productBlocks, parameters, productRelations);
         }
 
         /// <summary>
         /// Параметры без параметров "Деталей и Комплектов"
         /// </summary>
         /// <param name="parameters1"></param>
+        /// <param name="selectedProduct"></param>
         private List<Parameter> ParametersWithoutComplectsParameters(IEnumerable<Parameter> parameters1, Product selectedProduct)
         {
             var parameters = parameters1.ToList();
@@ -53,6 +57,32 @@ namespace HVTApp.Services.GetProductService
             var complectsParameter = parameters.SingleOrDefault(x => x.Id == GlobalAppProperties.Actual.ComplectsParameter.Id);
             if (complectsParameter != null)
                 parametersToExclude.Add(complectsParameter);
+
+            if (selectedProduct != null)
+            {
+                var ids = selectedProduct.ProductBlock.Parameters.Select(x => x.Id).ToList();
+                parametersToExclude = parametersToExclude.Where(x => !ids.Contains(x.Id)).ToList();
+            }
+
+            return parameters.Except(parametersToExclude).ToList();
+        }
+
+        /// <summary>
+        /// Параметры без параметров "Новое оборудование"
+        /// </summary>
+        /// <param name="parameters1"></param>
+        /// <param name="selectedProduct"></param>
+        private List<Parameter> ParametersWithoutNewParameters(IEnumerable<Parameter> parameters1, Product selectedProduct)
+        {
+            var parameters = parameters1.ToList();
+
+            //парметры "обозначение"
+            var parametersToExclude = parameters.Where(x => x.ParameterGroup.Id == GlobalAppProperties.Actual.NewProductParameterGroup.Id).ToList();
+
+            //параметр "Комплекты и детали"
+            var newProductParameter = parameters.SingleOrDefault(x => x.Id == GlobalAppProperties.Actual.NewProductParameter.Id);
+            if (newProductParameter != null)
+                parametersToExclude.Add(newProductParameter);
 
             if (selectedProduct != null)
             {

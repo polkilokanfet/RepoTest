@@ -2,11 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Documents;
 using HVTApp.Infrastructure.Extansions;
-using HVTApp.Model;
 using HVTApp.Model.POCOs;
-using HVTApp.Services.ProductDesignationService;
 using Microsoft.Practices.ObjectBuilder2;
 
 namespace HVTApp.Services.GetProductService
@@ -50,10 +47,17 @@ namespace HVTApp.Services.GetProductService
             Bank = bank;
             Amount = amount;
 
-            //создаем селектор блока и подписываемся на событие его изменения
+            //создаем селектор блока
             BlockSelector = new ProductBlockSelector(parameters, Bank, selectedProduct?.ProductBlock);
-            BlockSelector.SelectedBlockChanged += OnSelectedBlockChanged;
+            //подписываемся на событие его изменения
+            BlockSelector.SelectedBlockChanged += selector =>
+            {
+                RefreshProductSelectors();
+                SelectedProductChanged?.Invoke();
+                OnPropertyChanged(nameof(SelectedProduct));
+            };
 
+            //удаление/добавление селекторов дочерних продуктов
             ProductSelectors.CollectionChanged += (sender, args) =>
             {
                 args.NewItems?.Cast<ProductSelector>().ForEach(x => x.SelectedProductChanged += OnChildProductChanged);
@@ -82,13 +86,6 @@ namespace HVTApp.Services.GetProductService
                     }
                 }
             }
-        }
-
-        private void OnSelectedBlockChanged(ProductBlockSelector blockSelector)
-        {
-            RefreshProductSelectors();
-            SelectedProductChanged?.Invoke();
-            OnPropertyChanged(nameof(SelectedProduct));
         }
 
         private void RefreshProductSelectors()
