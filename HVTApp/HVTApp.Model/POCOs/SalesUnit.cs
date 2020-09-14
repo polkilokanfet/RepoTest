@@ -272,6 +272,13 @@ namespace HVTApp.Model.POCOs
                 if (OrderInTakeDateInjected.HasValue)
                     return OrderInTakeDateInjected.Value;
 
+                //если для старта производства не требуется денег
+                if (Cost > 0 && Math.Abs(SumToStartProduction) < 0.001)
+                {
+                    if (Specification != null)
+                        return Specification.Date;
+                }
+
                 //первый платеж по заказу
                 return PaymentsActual.Any(x => x.Sum > 0) 
                     ? PaymentsActual.Where(x => x.Sum > 0).Select(x => x.Date).Min() 
@@ -321,7 +328,21 @@ namespace HVTApp.Model.POCOs
         /// Дата исполнения условий для запуска производства
         /// </summary>
         [Designation("Дата исполнения условий для начала производства"), OrderStatus(870), NotMapped]
-        public DateTime? StartProductionConditionsDoneDate => AchiveSumDate(SumToStartProduction);
+        public DateTime? StartProductionConditionsDoneDate
+        {
+            get
+            {
+                //если для старта производства не требуется денег
+                if (Cost > 0 && Math.Abs(SumToStartProduction) < 0.001)
+                {
+                    if (Specification != null)
+                        return Specification.Date;
+                }
+
+                //если требуются деньги
+                return AchiveSumDate(SumToStartProduction);
+            }
+        }
 
         /// <summary>
         /// Дата исполнения условий для осуществления отгрузки

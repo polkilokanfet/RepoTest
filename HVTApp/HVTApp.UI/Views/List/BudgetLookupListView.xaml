@@ -42,7 +42,6 @@
                     <infg:TextField Name="Name" Label="Название" Width="Auto" AllowResize="True" />
                     <infg:DateTimeField Name="DateStart" Label="Старт" Width="Auto" AllowResize="True" />
                     <infg:DateTimeField Name="DateFinish" Label="Финиш" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="Units" Label="Единицы бюджета" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 
 					</infg:FieldLayout.Fields>
