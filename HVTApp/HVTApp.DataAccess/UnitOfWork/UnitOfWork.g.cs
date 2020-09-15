@@ -25,6 +25,8 @@ namespace HVTApp.DataAccess
             PenaltyRepository = new PenaltyRepository(_context);
             PriceCalculationRepository = new PriceCalculationRepository(_context);
             PriceCalculationItemRepository = new PriceCalculationItemRepository(_context);
+            ProductCategoryRepository = new ProductCategoryRepository(_context);
+            ProductCategoryPriceAndCostRepository = new ProductCategoryPriceAndCostRepository(_context);
             ProductIncludedRepository = new ProductIncludedRepository(_context);
             ProductDesignationRepository = new ProductDesignationRepository(_context);
             ProductTypeRepository = new ProductTypeRepository(_context);
@@ -103,6 +105,8 @@ namespace HVTApp.DataAccess
         protected IPenaltyRepository PenaltyRepository;
         protected IPriceCalculationRepository PriceCalculationRepository;
         protected IPriceCalculationItemRepository PriceCalculationItemRepository;
+        protected IProductCategoryRepository ProductCategoryRepository;
+        protected IProductCategoryPriceAndCostRepository ProductCategoryPriceAndCostRepository;
         protected IProductIncludedRepository ProductIncludedRepository;
         protected IProductDesignationRepository ProductDesignationRepository;
         protected IProductTypeRepository ProductTypeRepository;

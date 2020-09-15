@@ -1,3 +1,17 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 using HVTApp.Model.POCOs;
 using Prism.Events;
 
@@ -24,6 +38,8 @@ namespace HVTApp.Model.Events
 	public partial class AfterSavePenaltyEvent : PubSubEvent<Penalty> { }
 	public partial class AfterSavePriceCalculationEvent : PubSubEvent<PriceCalculation> { }
 	public partial class AfterSavePriceCalculationItemEvent : PubSubEvent<PriceCalculationItem> { }
+	public partial class AfterSaveProductCategoryEvent : PubSubEvent<ProductCategory> { }
+	public partial class AfterSaveProductCategoryPriceAndCostEvent : PubSubEvent<ProductCategoryPriceAndCost> { }
 	public partial class AfterSaveProductIncludedEvent : PubSubEvent<ProductIncluded> { }
 	public partial class AfterSaveProductDesignationEvent : PubSubEvent<ProductDesignation> { }
 	public partial class AfterSaveProductTypeEvent : PubSubEvent<ProductType> { }

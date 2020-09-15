@@ -30,6 +30,8 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new PenaltyConfiguration());
             modelBuilder.Configurations.Add(new PriceCalculationConfiguration());
             modelBuilder.Configurations.Add(new PriceCalculationItemConfiguration());
+            modelBuilder.Configurations.Add(new ProductCategoryConfiguration());
+            modelBuilder.Configurations.Add(new ProductCategoryPriceAndCostConfiguration());
             modelBuilder.Configurations.Add(new ProductIncludedConfiguration());
             modelBuilder.Configurations.Add(new ProductDesignationConfiguration());
             modelBuilder.Configurations.Add(new ProductTypeConfiguration());
@@ -108,6 +110,8 @@ namespace HVTApp.DataAccess
         public virtual DbSet<Penalty> PenaltyDbSet { get; set; }
         public virtual DbSet<PriceCalculation> PriceCalculationDbSet { get; set; }
         public virtual DbSet<PriceCalculationItem> PriceCalculationItemDbSet { get; set; }
+        public virtual DbSet<ProductCategory> ProductCategoryDbSet { get; set; }
+        public virtual DbSet<ProductCategoryPriceAndCost> ProductCategoryPriceAndCostDbSet { get; set; }
         public virtual DbSet<ProductIncluded> ProductIncludedDbSet { get; set; }
         public virtual DbSet<ProductDesignation> ProductDesignationDbSet { get; set; }
         public virtual DbSet<ProductType> ProductTypeDbSet { get; set; }

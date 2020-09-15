@@ -104,6 +104,8 @@
     <Compile Include="EntityTypeConfigurations\Custom\PriceCalculationConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\PriceCalculationItemConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ProductBlockConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\ProductCategoryConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\ProductCategoryPriceAndCostConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ProductDependentConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ProductDesignationConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ProductIncludedConfiguration.cs" />
@@ -207,6 +209,10 @@
     <Compile Include="Migrations\202009071250281_RemoveFakeData.Designer.cs">
       <DependentUpon>202009071250281_RemoveFakeData.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009151613370_ProductCategory.cs" />
+    <Compile Include="Migrations\202009151613370_ProductCategory.Designer.cs">
+      <DependentUpon>202009151613370_ProductCategory.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -219,6 +225,7 @@
     <Compile Include="UnitOfWork\Repositories\Custom\PriceCalculationItemRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\Custom\PriceCalculationRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\Custom\ProductBlockRepository.cs" />
+    <Compile Include="UnitOfWork\Repositories\Custom\ProductCategoryRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\Custom\ProductDesignationRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\Custom\ProductRelationRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\Custom\ProductRepository.cs" />
@@ -315,6 +322,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009071250281_RemoveFakeData.resx">
       <DependentUpon>202009071250281_RemoveFakeData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009151613370_ProductCategory.resx">
+      <DependentUpon>202009151613370_ProductCategory.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

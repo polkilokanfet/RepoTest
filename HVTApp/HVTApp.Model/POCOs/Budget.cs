@@ -21,7 +21,7 @@ namespace HVTApp.Model.POCOs
         [Designation("Название"), Required, MaxLength(50), OrderStatus(100)]
         public string Name { get; set; }
 
-        [Designation("Единицы бюджета"), Required]
+        [Designation("Единицы бюджета"), Required, NotForListView]
         public virtual List<BudgetUnit> Units { get; set; } = new List<BudgetUnit>();
 
         public override string ToString()

@@ -16,21 +16,18 @@ namespace HVTApp.Model.POCOs
         private string _designation = null;
 
         [Designation("Обозначение"), NotMapped, OrderStatus(8)]
-        public string Designation
-        {
-            get
-            {
-                if(_designation == null)
-                    _designation = DesignationSpecial ?? GlobalAppProperties.ProductDesignationService.GetDesignation(this);
-                return _designation;
-            }
-        }
+        public string Designation => _designation ?? (_designation = DesignationSpecial ?? GlobalAppProperties.ProductDesignationService.GetDesignation(this));
 
         [Designation("Специальное обозначение"), MaxLength(50), OrderStatus(6)]
         public string DesignationSpecial { get; set; }
 
+        private ProductType _type;
         [Designation("Тип"), NotMapped, OrderStatus(10)]
-        public ProductType ProductType => GlobalAppProperties.ProductDesignationService.GetProductType(this);
+        public ProductType ProductType => _type ?? (_type = GlobalAppProperties.ProductDesignationService.GetProductType(this));
+
+        private ProductCategory _category;
+        [Designation("Категория"), NotMapped, OrderStatus(9)]
+        public ProductCategory Category => _category ?? (_category = GlobalAppProperties.ProductDesignationService.GetProductCategory(this));
 
         [Designation("Блок"), Required, OrderStatus(5)]
         public virtual ProductBlock ProductBlock { get; set; }

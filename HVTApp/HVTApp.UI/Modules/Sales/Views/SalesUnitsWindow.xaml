@@ -5,7 +5,9 @@
         xmlns:core="clr-namespace:System;assembly=mscorlib"
         xmlns:views="clr-namespace:HVTApp.UI.Views"
         Title="Оборудование основное"
-        SizeToContent="WidthAndHeight"
+        Width="640"
+        MinWidth="400"
+        SizeToContent="Height"
         WindowStartupLocation="CenterScreen">
     
     <StackPanel>

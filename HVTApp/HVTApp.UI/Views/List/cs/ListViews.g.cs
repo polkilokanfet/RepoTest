@@ -4429,6 +4429,151 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
+	[Designation("Категория продукта")]
+	[DesignationPlural("ProductCategoryLookup")]
+	[AllowEditAttribute(Role.Admin)]
+
+    public partial class ProductCategoryLookupListView : ViewBase
+    {
+        public ProductCategoryLookupListView()
+        {
+            InitializeComponent();
+        }
+
+        public ProductCategoryLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductCategoryLookupListViewModel ProductCategoryLookupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = ProductCategoryLookupListViewModel;
+			ProductCategoryLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			((ProductCategoryLookupListViewModel)DataContext).Load();
+        }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility NameFullVisibility
+        {
+            get { return ProductCategoryLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductCategoryLookup.NameFull)].Visibility; }
+            set { ProductCategoryLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductCategoryLookup.NameFull)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility NameShortVisibility
+        {
+            get { return ProductCategoryLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductCategoryLookup.NameShort)].Visibility; }
+            set { ProductCategoryLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductCategoryLookup.NameShort)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return ProductCategoryLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductCategoryLookup.DisplayMember)].Visibility; }
+            set { ProductCategoryLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductCategoryLookup.DisplayMember)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return ProductCategoryLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductCategoryLookup.Entity)].Visibility; }
+            set { ProductCategoryLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductCategoryLookup.Entity)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ParametersVisibility
+        {
+            get { return ProductCategoryLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductCategoryLookup.Parameters)].Visibility; }
+            set { ProductCategoryLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductCategoryLookup.Parameters)].Visibility = value; }
+        }
+
+
+
+		#endregion
+    }
+
+
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
+	[Designation("Стоимость и ПЗ категории продукта")]
+	[DesignationPlural("ProductCategoryPriceAndCostLookup")]
+	[AllowEditAttribute(Role.ReportMaker)]
+[AllowEditAttribute(Role.Director)]
+[AllowEditAttribute(Role.Admin)]
+
+    public partial class ProductCategoryPriceAndCostLookupListView : ViewBase
+    {
+        public ProductCategoryPriceAndCostLookupListView()
+        {
+            InitializeComponent();
+        }
+
+        public ProductCategoryPriceAndCostLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductCategoryPriceAndCostLookupListViewModel ProductCategoryPriceAndCostLookupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = ProductCategoryPriceAndCostLookupListViewModel;
+			ProductCategoryPriceAndCostLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			((ProductCategoryPriceAndCostLookupListViewModel)DataContext).Load();
+        }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility CostVisibility
+        {
+            get { return ProductCategoryPriceAndCostLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductCategoryPriceAndCostLookup.Cost)].Visibility; }
+            set { ProductCategoryPriceAndCostLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductCategoryPriceAndCostLookup.Cost)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility PriceVisibility
+        {
+            get { return ProductCategoryPriceAndCostLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductCategoryPriceAndCostLookup.Price)].Visibility; }
+            set { ProductCategoryPriceAndCostLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductCategoryPriceAndCostLookup.Price)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility StructureCostVisibility
+        {
+            get { return ProductCategoryPriceAndCostLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductCategoryPriceAndCostLookup.StructureCost)].Visibility; }
+            set { ProductCategoryPriceAndCostLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductCategoryPriceAndCostLookup.StructureCost)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return ProductCategoryPriceAndCostLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductCategoryPriceAndCostLookup.DisplayMember)].Visibility; }
+            set { ProductCategoryPriceAndCostLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductCategoryPriceAndCostLookup.DisplayMember)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility CategoryVisibility
+        {
+            get { return ProductCategoryPriceAndCostLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductCategoryPriceAndCostLookup.Category)].Visibility; }
+            set { ProductCategoryPriceAndCostLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductCategoryPriceAndCostLookup.Category)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return ProductCategoryPriceAndCostLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductCategoryPriceAndCostLookup.Entity)].Visibility; }
+            set { ProductCategoryPriceAndCostLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductCategoryPriceAndCostLookup.Entity)].Visibility = value; }
+        }
+
+
+
+		#endregion
+    }
+
+
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Зависимое оборудование")]
 	[DesignationPlural("ProductDependentLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -4706,6 +4851,13 @@ namespace HVTApp.UI.Views
         {
             get { return ProductLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductLookup.ProductType)].Visibility; }
             set { ProductLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductLookup.ProductType)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility CategoryVisibility
+        {
+            get { return ProductLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductLookup.Category)].Visibility; }
+            set { ProductLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductLookup.Category)].Visibility = value; }
         }
 
 

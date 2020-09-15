@@ -426,7 +426,15 @@ namespace HVTApp.UI.Modules.Reports.SalesReport
             CostDelivery = -1.0 * costDelivery;
 
             var price = GlobalAppProperties.PriceService.GetPrice(salesUnit, salesUnit.OrderInTakeDate);
-            Price = price.SumPriceTotal;
+            if (salesUnit.Price.HasValue)
+            {
+                Price = salesUnit.Price.Value;
+            }
+            else
+            {
+                Price = price.SumPriceTotal;
+            }
+
             FixedCost = -1.0 * price.SumFixedTotal * Amount;
             //FixedCostAndDelivery = CostDelivery.HasValue ? CostDelivery.Value + FixedCost : FixedCost;
 

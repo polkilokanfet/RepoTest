@@ -24,6 +24,8 @@ namespace HVTApp.DataAccess
     public partial interface IPenaltyRepository : IRepository<Penalty> { }
     public partial interface IPriceCalculationRepository : IRepository<PriceCalculation> { }
     public partial interface IPriceCalculationItemRepository : IRepository<PriceCalculationItem> { }
+    public partial interface IProductCategoryRepository : IRepository<ProductCategory> { }
+    public partial interface IProductCategoryPriceAndCostRepository : IRepository<ProductCategoryPriceAndCost> { }
     public partial interface IProductIncludedRepository : IRepository<ProductIncluded> { }
     public partial interface IProductDesignationRepository : IRepository<ProductDesignation> { }
     public partial interface IProductTypeRepository : IRepository<ProductType> { }

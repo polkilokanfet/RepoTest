@@ -128,6 +128,16 @@ namespace HVTApp.UI
 			_selectService.Register<PriceCalculationItemLookupListView, PriceCalculationItem>();
             _updateDetailsService.Register<PriceCalculationItem, PriceCalculationItemDetailsView>();
 
+            Container.RegisterViewForNavigation<ProductCategoryLookupListView>();
+            //_dialogService.Register<ProductCategoryDetailsViewModel, ProductCategoryDetailsView>();
+			_selectService.Register<ProductCategoryLookupListView, ProductCategory>();
+            _updateDetailsService.Register<ProductCategory, ProductCategoryDetailsView>();
+
+            Container.RegisterViewForNavigation<ProductCategoryPriceAndCostLookupListView>();
+            //_dialogService.Register<ProductCategoryPriceAndCostDetailsViewModel, ProductCategoryPriceAndCostDetailsView>();
+			_selectService.Register<ProductCategoryPriceAndCostLookupListView, ProductCategoryPriceAndCost>();
+            _updateDetailsService.Register<ProductCategoryPriceAndCost, ProductCategoryPriceAndCostDetailsView>();
+
             Container.RegisterViewForNavigation<ProductIncludedLookupListView>();
             //_dialogService.Register<ProductIncludedDetailsViewModel, ProductIncludedDetailsView>();
 			_selectService.Register<ProductIncludedLookupListView, ProductIncluded>();

@@ -122,6 +122,11 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
         public event Action<FlatReportItem> EstimatedCostIsChanged;
 
         /// <summary>
+        /// Предполагаемая себестоимость
+        /// </summary>
+        public double? EstimatedPrice { get; set; }
+
+        /// <summary>
         /// Изначальная дата реализации
         /// </summary>
         public DateTime OriginalRealizationDate { get; }

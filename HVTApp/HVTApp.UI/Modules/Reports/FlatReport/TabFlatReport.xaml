@@ -42,8 +42,9 @@
         </StackPanel>
     </infRib:RibbonGroup>
 
-    <infRib:RibbonGroup Caption="Строка">
-        <infRib:ButtonTool Caption="Разбить" Command="{Binding ExplodeItemCommand}" SmallImage="/HVTApp.UI;component/Images/expand.png"/>
+    <infRib:RibbonGroup Caption="Команды">
+        <infRib:ButtonTool Caption="Разбить строку" Command="{Binding ExplodeItemCommand}" SmallImage="/HVTApp.UI;component/Images/expand.png"/>
+        <infRib:ButtonTool Caption="Стандартные стоимости и ПЗ" Command="{Binding LoadDefaultCostsAndPricesCommand}"/>
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Отчеты">

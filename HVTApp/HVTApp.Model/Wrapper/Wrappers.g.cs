@@ -1223,6 +1223,112 @@ namespace HVTApp.Model.Wrapper
 
 	}
 
+		public partial class ProductCategoryWrapper : WrapperBase<ProductCategory>
+	{
+	    public ProductCategoryWrapper(ProductCategory model) : base(model) { }
+
+        #region SimpleProperties
+
+        public System.String NameFull
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String NameFullOriginalValue => GetOriginalValue<System.String>(nameof(NameFull));
+        public bool NameFullIsChanged => GetIsChanged(nameof(NameFull));
+
+        public System.String NameShort
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String NameShortOriginalValue => GetOriginalValue<System.String>(nameof(NameShort));
+        public bool NameShortIsChanged => GetIsChanged(nameof(NameShort));
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+        #endregion
+
+        #region CollectionProperties
+
+        public IValidatableChangeTrackingCollection<ParameterWrapper> Parameters { get; private set; }
+
+        #endregion
+
+        protected override void InitializeCollectionProperties()
+        {
+
+          if (Model.Parameters == null) throw new ArgumentException("Parameters cannot be null");
+          Parameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.Parameters.Select(e => new ParameterWrapper(e)));
+          RegisterCollection(Parameters, Model.Parameters);
+
+        }
+
+	}
+
+		public partial class ProductCategoryPriceAndCostWrapper : WrapperBase<ProductCategoryPriceAndCost>
+	{
+	    public ProductCategoryPriceAndCostWrapper(ProductCategoryPriceAndCost model) : base(model) { }
+
+        #region SimpleProperties
+
+        public System.Double Cost
+        {
+          get { return GetValue<System.Double>(); }
+          set { SetValue(value); }
+        }
+        public System.Double CostOriginalValue => GetOriginalValue<System.Double>(nameof(Cost));
+        public bool CostIsChanged => GetIsChanged(nameof(Cost));
+
+        public System.Double Price
+        {
+          get { return GetValue<System.Double>(); }
+          set { SetValue(value); }
+        }
+        public System.Double PriceOriginalValue => GetOriginalValue<System.Double>(nameof(Price));
+        public bool PriceIsChanged => GetIsChanged(nameof(Price));
+
+        public System.String StructureCost
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String StructureCostOriginalValue => GetOriginalValue<System.String>(nameof(StructureCost));
+        public bool StructureCostIsChanged => GetIsChanged(nameof(StructureCost));
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+        #endregion
+
+        #region ComplexProperties
+
+	    public ProductCategoryWrapper Category 
+        {
+            get { return GetWrapper<ProductCategoryWrapper>(); }
+            set { SetComplexValue<ProductCategory, ProductCategoryWrapper>(Category, value); }
+        }
+
+        #endregion
+
+        public override void InitializeComplexProperties()
+        {
+            InitializeComplexProperty<ProductCategoryWrapper>(nameof(Category), Model.Category == null ? null : new ProductCategoryWrapper(Model.Category));
+        }
+
+	}
+
 		public partial class ProductIncludedWrapper : WrapperBase<ProductIncluded>
 	{
 	    public ProductIncludedWrapper(ProductIncluded model) : base(model) { }
@@ -3850,6 +3956,8 @@ namespace HVTApp.Model.Wrapper
         public System.Boolean HasBlockWithFixedCost => GetValue<System.Boolean>(); 
 
         public HVTApp.Model.POCOs.ProductType ProductType => GetValue<HVTApp.Model.POCOs.ProductType>(); 
+
+        public HVTApp.Model.POCOs.ProductCategory Category => GetValue<HVTApp.Model.POCOs.ProductCategory>(); 
 
         #endregion
 

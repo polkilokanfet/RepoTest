@@ -212,6 +212,11 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
         /// </summary>
         public ICommand ExplodeItemCommand { get; }
 
+        /// <summary>
+        /// Загрузка стандартных цен и ПЗ
+        /// </summary>
+        public ICommand LoadDefaultCostsAndPricesCommand { get; }
+
         #endregion
         
         #endregion
@@ -423,6 +428,21 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                     SelectedItem = null;
                 },
                 () => SelectedItem != null);
+
+            LoadDefaultCostsAndPricesCommand = new DelegateCommand(
+                () =>
+                {
+                    var defaultCostsAndPrices = UnitOfWork.Repository<ProductCategoryPriceAndCost>().GetAll();
+                    var items = Items.Where(x => x.InReport && !x.IsLoosen && x.AllowEditOit).ToList();
+                    foreach (var defaultCostAndPrice in defaultCostsAndPrices)
+                    {
+                        foreach (var item in items.Where(x => x.SalesUnit.Product.Category.Id == defaultCostAndPrice.Category.Id))
+                        {
+                            item.EstimatedCost = defaultCostAndPrice.Cost;
+                            item.EstimatedPrice = defaultCostAndPrice.Price;
+                        }
+                    }
+                });
 
             LoadDefault();
         }
@@ -683,6 +703,12 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
             if (!Equals(reportItem.EstimatedCost, salesUnit.Cost))
             {
                 salesUnit.Cost = reportItem.EstimatedCost;
+            }
+
+            //внедрение ПЗ
+            if (!Equals(reportItem.EstimatedPrice, salesUnit.Price))
+            {
+                salesUnit.Price = reportItem.EstimatedPrice;
             }
 
             //внедрение даты ОИТ

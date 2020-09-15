@@ -24,6 +24,8 @@ namespace HVTApp.DataAccess
     public partial class PenaltyConfiguration : EntityTypeConfiguration<Penalty> { }
     public partial class PriceCalculationConfiguration : EntityTypeConfiguration<PriceCalculation> { }
     public partial class PriceCalculationItemConfiguration : EntityTypeConfiguration<PriceCalculationItem> { }
+    public partial class ProductCategoryConfiguration : EntityTypeConfiguration<ProductCategory> { }
+    public partial class ProductCategoryPriceAndCostConfiguration : EntityTypeConfiguration<ProductCategoryPriceAndCost> { }
     public partial class ProductIncludedConfiguration : EntityTypeConfiguration<ProductIncluded> { }
     public partial class ProductDesignationConfiguration : EntityTypeConfiguration<ProductDesignation> { }
     public partial class ProductTypeConfiguration : EntityTypeConfiguration<ProductType> { }

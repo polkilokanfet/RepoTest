@@ -103,6 +103,8 @@
     <Compile Include="POCOs\Penalty.cs" />
     <Compile Include="POCOs\PriceCalculation.cs" />
     <Compile Include="POCOs\PriceCalculationItem.cs" />
+    <Compile Include="POCOs\ProductCategory.cs" />
+    <Compile Include="POCOs\ProductCategoryPriceAndCost.cs" />
     <Compile Include="POCOs\ProductIncluded.cs" />
     <Compile Include="POCOs\ProductDesignation.cs" />
     <Compile Include="POCOs\ProductType.cs" />

@@ -1133,6 +1133,87 @@ namespace HVTApp.UI.ViewModels
     }
 
 
+    public partial class ProductCategoryDetailsViewModel : BaseDetailsViewModel<ProductCategoryWrapper, ProductCategory, AfterSaveProductCategoryEvent>
+    {
+		private Func<List<Parameter>> _getEntitiesForAddInParametersCommand;
+		public ICommand AddInParametersCommand { get; }
+		public ICommand RemoveFromParametersCommand { get; }
+		private ParameterWrapper _selectedParametersItem;
+		public ParameterWrapper SelectedParametersItem 
+		{ 
+			get { return _selectedParametersItem; }
+			set 
+			{ 
+				if (Equals(_selectedParametersItem, value)) return;
+				_selectedParametersItem = value;
+				OnPropertyChanged();
+				((DelegateCommand)RemoveFromParametersCommand).RaiseCanExecuteChanged();
+			}
+		}
+
+
+        public ProductCategoryDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+			
+			if (_getEntitiesForAddInParametersCommand == null) _getEntitiesForAddInParametersCommand = () => { return UnitOfWork.Repository<Parameter>().GetAll(); };;
+			if (AddInParametersCommand == null) AddInParametersCommand = new DelegateCommand(AddInParametersCommand_Execute_Default);
+			if (RemoveFromParametersCommand == null) RemoveFromParametersCommand = new DelegateCommand(RemoveFromParametersCommand_Execute_Default, RemoveFromParametersCommand_CanExecute_Default);
+
+		}
+
+			private void AddInParametersCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<Parameter, ParameterWrapper>(_getEntitiesForAddInParametersCommand(), Item.Parameters);
+			}
+
+			private void RemoveFromParametersCommand_Execute_Default()
+			{
+				Item.Parameters.Remove(SelectedParametersItem);
+			}
+
+			private bool RemoveFromParametersCommand_CanExecute_Default()
+			{
+				return SelectedParametersItem != null;
+			}
+
+
+
+    }
+
+
+    public partial class ProductCategoryPriceAndCostDetailsViewModel : BaseDetailsViewModel<ProductCategoryPriceAndCostWrapper, ProductCategoryPriceAndCost, AfterSaveProductCategoryPriceAndCostEvent>
+    {
+		//private Func<Task<List<ProductCategory>>> _getEntitiesForSelectCategoryCommand;
+		private Func<List<ProductCategory>> _getEntitiesForSelectCategoryCommand;
+		public ICommand SelectCategoryCommand { get; private set; }
+		public ICommand ClearCategoryCommand { get; private set; }
+
+
+        public ProductCategoryPriceAndCostDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+			
+			if (_getEntitiesForSelectCategoryCommand == null) _getEntitiesForSelectCategoryCommand = () => { return UnitOfWork.Repository<ProductCategory>().GetAll(); };
+			if (SelectCategoryCommand == null) SelectCategoryCommand = new DelegateCommand(SelectCategoryCommand_Execute_Default);
+			if (ClearCategoryCommand == null) ClearCategoryCommand = new DelegateCommand(ClearCategoryCommand_Execute_Default);
+
+		}
+
+		private void SelectCategoryCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<ProductCategory, ProductCategoryWrapper>(_getEntitiesForSelectCategoryCommand(), nameof(Item.Category), Item.Category?.Id);
+		}
+
+		private void ClearCategoryCommand_Execute_Default() 
+		{
+						Item.Category = null;
+		    
+		}
+
+
+
+    }
+
+
     public partial class ProductIncludedDetailsViewModel : BaseDetailsViewModel<ProductIncludedWrapper, ProductIncluded, AfterSaveProductIncludedEvent>
     {
 		//private Func<Task<List<Product>>> _getEntitiesForSelectProductCommand;
@@ -3732,6 +3813,11 @@ namespace HVTApp.UI.ViewModels
 		public ICommand SelectProductTypeCommand { get; private set; }
 		public ICommand ClearProductTypeCommand { get; private set; }
 
+		//private Func<Task<List<ProductCategory>>> _getEntitiesForSelectCategoryCommand;
+		private Func<List<ProductCategory>> _getEntitiesForSelectCategoryCommand;
+		public ICommand SelectCategoryCommand { get; private set; }
+		public ICommand ClearCategoryCommand { get; private set; }
+
 		//private Func<Task<List<ProductBlock>>> _getEntitiesForSelectProductBlockCommand;
 		private Func<List<ProductBlock>> _getEntitiesForSelectProductBlockCommand;
 		public ICommand SelectProductBlockCommand { get; private set; }
@@ -3762,6 +3848,11 @@ namespace HVTApp.UI.ViewModels
 			if (ClearProductTypeCommand == null) ClearProductTypeCommand = new DelegateCommand(ClearProductTypeCommand_Execute_Default);
 
 			
+			if (_getEntitiesForSelectCategoryCommand == null) _getEntitiesForSelectCategoryCommand = () => { return UnitOfWork.Repository<ProductCategory>().GetAll(); };
+			if (SelectCategoryCommand == null) SelectCategoryCommand = new DelegateCommand(SelectCategoryCommand_Execute_Default);
+			if (ClearCategoryCommand == null) ClearCategoryCommand = new DelegateCommand(ClearCategoryCommand_Execute_Default);
+
+			
 			if (_getEntitiesForSelectProductBlockCommand == null) _getEntitiesForSelectProductBlockCommand = () => { return UnitOfWork.Repository<ProductBlock>().GetAll(); };
 			if (SelectProductBlockCommand == null) SelectProductBlockCommand = new DelegateCommand(SelectProductBlockCommand_Execute_Default);
 			if (ClearProductBlockCommand == null) ClearProductBlockCommand = new DelegateCommand(ClearProductBlockCommand_Execute_Default);
@@ -3779,6 +3870,17 @@ namespace HVTApp.UI.ViewModels
 		}
 
 		private void ClearProductTypeCommand_Execute_Default() 
+		{
+		
+		    
+		}
+
+		private void SelectCategoryCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<ProductCategory, ProductCategoryWrapper>(_getEntitiesForSelectCategoryCommand(), nameof(Item.Category), Item.Category?.Id);
+		}
+
+		private void ClearCategoryCommand_Execute_Default() 
 		{
 		
 		    

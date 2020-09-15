@@ -7,6 +7,8 @@ namespace HVTApp.Model.Services
         string GetDesignation(ProductBlock block);
         string GetDesignation(Product product);
 
+        ProductCategory GetProductCategory(Product product);
+
         ProductType GetProductType(ProductBlock block);
         ProductType GetProductType(Product product);
     }

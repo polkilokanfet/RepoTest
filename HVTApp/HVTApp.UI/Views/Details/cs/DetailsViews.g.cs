@@ -1833,6 +1833,156 @@ namespace HVTApp.UI.Views
 	}
 
 
+    public partial class ProductCategoryDetailsView : ViewBase
+    {
+        public ProductCategoryDetailsView()
+        {
+			InitializeComponent();
+        }
+
+        public ProductCategoryDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductCategoryDetailsViewModel ProductCategoryDetailsViewModel) : base(regionManager, eventAggregator)
+        {
+            SetVisibilityProps();
+			InitializeComponent();
+            DataContext = ProductCategoryDetailsViewModel;
+        }
+
+        private void SetVisibilityProps()
+        {
+            //NotUpdateAttribute attr;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.ProductCategory).GetProperty(nameof(HVTApp.Model.POCOs.ProductCategory.NameFull)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityNameFullProductCategory = Visibility.Collapsed;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.ProductCategory).GetProperty(nameof(HVTApp.Model.POCOs.ProductCategory.NameShort)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityNameShortProductCategory = Visibility.Collapsed;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.ProductCategory).GetProperty(nameof(HVTApp.Model.POCOs.ProductCategory.Parameters)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityParametersProductCategory = Visibility.Collapsed;
+
+
+
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityNameFullProductCategoryProperty = DependencyProperty.Register("VisibilityNameFullProductCategory", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityNameFullProductCategory
+        {
+            get { return (Visibility) GetValue(VisibilityNameFullProductCategoryProperty); }
+            set { SetValue(VisibilityNameFullProductCategoryProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityNameShortProductCategoryProperty = DependencyProperty.Register("VisibilityNameShortProductCategory", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityNameShortProductCategory
+        {
+            get { return (Visibility) GetValue(VisibilityNameShortProductCategoryProperty); }
+            set { SetValue(VisibilityNameShortProductCategoryProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityParametersProductCategoryProperty = DependencyProperty.Register("VisibilityParametersProductCategory", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityParametersProductCategory
+        {
+            get { return (Visibility) GetValue(VisibilityParametersProductCategoryProperty); }
+            set { SetValue(VisibilityParametersProductCategoryProperty, value); OnPropertyChanged(); }
+        }
+
+
+	}
+
+
+    public partial class ProductCategoryPriceAndCostDetailsView : ViewBase
+    {
+        public ProductCategoryPriceAndCostDetailsView()
+        {
+			InitializeComponent();
+        }
+
+        public ProductCategoryPriceAndCostDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductCategoryPriceAndCostDetailsViewModel ProductCategoryPriceAndCostDetailsViewModel) : base(regionManager, eventAggregator)
+        {
+            SetVisibilityProps();
+			InitializeComponent();
+            DataContext = ProductCategoryPriceAndCostDetailsViewModel;
+        }
+
+        private void SetVisibilityProps()
+        {
+            //NotUpdateAttribute attr;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.ProductCategoryPriceAndCost).GetProperty(nameof(HVTApp.Model.POCOs.ProductCategoryPriceAndCost.Category)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityCategoryProductCategoryPriceAndCost = Visibility.Collapsed;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.ProductCategoryPriceAndCost).GetProperty(nameof(HVTApp.Model.POCOs.ProductCategoryPriceAndCost.Cost)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityCostProductCategoryPriceAndCost = Visibility.Collapsed;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.ProductCategoryPriceAndCost).GetProperty(nameof(HVTApp.Model.POCOs.ProductCategoryPriceAndCost.Price)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityPriceProductCategoryPriceAndCost = Visibility.Collapsed;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.ProductCategoryPriceAndCost).GetProperty(nameof(HVTApp.Model.POCOs.ProductCategoryPriceAndCost.StructureCost)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityStructureCostProductCategoryPriceAndCost = Visibility.Collapsed;
+
+
+
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityCategoryProductCategoryPriceAndCostProperty = DependencyProperty.Register("VisibilityCategoryProductCategoryPriceAndCost", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityCategoryProductCategoryPriceAndCost
+        {
+            get { return (Visibility) GetValue(VisibilityCategoryProductCategoryPriceAndCostProperty); }
+            set { SetValue(VisibilityCategoryProductCategoryPriceAndCostProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityCostProductCategoryPriceAndCostProperty = DependencyProperty.Register("VisibilityCostProductCategoryPriceAndCost", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityCostProductCategoryPriceAndCost
+        {
+            get { return (Visibility) GetValue(VisibilityCostProductCategoryPriceAndCostProperty); }
+            set { SetValue(VisibilityCostProductCategoryPriceAndCostProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityPriceProductCategoryPriceAndCostProperty = DependencyProperty.Register("VisibilityPriceProductCategoryPriceAndCost", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityPriceProductCategoryPriceAndCost
+        {
+            get { return (Visibility) GetValue(VisibilityPriceProductCategoryPriceAndCostProperty); }
+            set { SetValue(VisibilityPriceProductCategoryPriceAndCostProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityStructureCostProductCategoryPriceAndCostProperty = DependencyProperty.Register("VisibilityStructureCostProductCategoryPriceAndCost", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityStructureCostProductCategoryPriceAndCost
+        {
+            get { return (Visibility) GetValue(VisibilityStructureCostProductCategoryPriceAndCostProperty); }
+            set { SetValue(VisibilityStructureCostProductCategoryPriceAndCostProperty, value); OnPropertyChanged(); }
+        }
+
+
+	}
+
+
     public partial class ProductIncludedDetailsView : ViewBase
     {
         public ProductIncludedDetailsView()
@@ -6295,6 +6445,11 @@ namespace HVTApp.UI.Views
             //    VisibilityProductTypeProduct = Visibility.Collapsed;
 
 
+            //attr = typeof(HVTApp.Model.POCOs.Product).GetProperty(nameof(HVTApp.Model.POCOs.Product.Category)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityCategoryProduct = Visibility.Collapsed;
+
+
             //attr = typeof(HVTApp.Model.POCOs.Product).GetProperty(nameof(HVTApp.Model.POCOs.Product.ProductBlock)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityProductBlockProduct = Visibility.Collapsed;
@@ -6343,6 +6498,15 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityProductTypeProductProperty); }
             set { SetValue(VisibilityProductTypeProductProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityCategoryProductProperty = DependencyProperty.Register("VisibilityCategoryProduct", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityCategoryProduct
+        {
+            get { return (Visibility) GetValue(VisibilityCategoryProductProperty); }
+            set { SetValue(VisibilityCategoryProductProperty, value); OnPropertyChanged(); }
         }
 
 

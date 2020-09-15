@@ -151,6 +151,20 @@ namespace HVTApp.DataAccess
 		}
     }
 
+    public partial class ProductCategoryRepository : BaseRepository<ProductCategory>, IProductCategoryRepository
+    {
+		public ProductCategoryRepository(DbContext context) : base(context) 
+		{
+		}
+    }
+
+    public partial class ProductCategoryPriceAndCostRepository : BaseRepository<ProductCategoryPriceAndCost>, IProductCategoryPriceAndCostRepository
+    {
+		public ProductCategoryPriceAndCostRepository(DbContext context) : base(context) 
+		{
+		}
+    }
+
     public partial class ProductIncludedRepository : BaseRepository<ProductIncluded>, IProductIncludedRepository
     {
 		public ProductIncludedRepository(DbContext context) : base(context) 

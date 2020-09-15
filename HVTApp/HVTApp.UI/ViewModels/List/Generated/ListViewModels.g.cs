@@ -150,6 +150,18 @@ namespace HVTApp.UI.ViewModels
     }
 
 
+	public partial class ProductCategoryLookupListViewModel : BaseListViewModel<ProductCategory, ProductCategoryLookup, AfterSaveProductCategoryEvent, AfterSelectProductCategoryEvent, AfterRemoveProductCategoryEvent>
+    {
+        public ProductCategoryLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+
+	public partial class ProductCategoryPriceAndCostLookupListViewModel : BaseListViewModel<ProductCategoryPriceAndCost, ProductCategoryPriceAndCostLookup, AfterSaveProductCategoryPriceAndCostEvent, AfterSelectProductCategoryPriceAndCostEvent, AfterRemoveProductCategoryPriceAndCostEvent>
+    {
+        public ProductCategoryPriceAndCostLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+
 	public partial class ProductIncludedLookupListViewModel : BaseListViewModel<ProductIncluded, ProductIncludedLookup, AfterSaveProductIncludedEvent, AfterSelectProductIncludedEvent, AfterRemoveProductIncludedEvent>
     {
         public ProductIncludedLookupListViewModel(IUnityContainer container) : base(container) { }
