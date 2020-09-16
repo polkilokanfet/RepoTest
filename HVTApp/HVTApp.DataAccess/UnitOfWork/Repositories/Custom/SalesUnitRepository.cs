@@ -25,28 +25,28 @@ namespace HVTApp.DataAccess
 
     public partial class SalesUnitRepository
     {
-        protected override IQueryable<SalesUnit> GetQuary()
-        {
-            return Context.Set<SalesUnit>().AsQueryable()
-                .Include(x => x.Facility)
-                .Include(x => x.Facility.Type)
-                .Include(x => x.Facility.Address.Locality.Region.District.Country)
-                .Include(x => x.Facility.OwnerCompany)
-                .Include(x => x.Facility.OwnerCompany.AddressLegal.Locality.Region.District.Country)
-                .Include(x => x.Project)
-                .Include(x => x.Project.Manager)
-                .Include(x => x.Product.ProductBlock.Parameters)
-                .Include(x => x.Product.DependentProducts.Select(dp => dp.Product.ProductBlock.Parameters))
-                .Include(x => x.ProductsIncluded.Select(dp => dp.Product.ProductBlock.Parameters))
-                .Include(x => x.PaymentsActual)
-                .Include(x => x.PaymentsPlanned)
-                .Include(x => x.PaymentConditionSet)
-                .Include(x => x.PaymentConditionSet.PaymentConditions)
-                .Include(x => x.Order)
-                .Include(x => x.Penalty)
-                .Include(x => x.Producer)
-                .Include(x => x.AddressDelivery);
-        }
+        //protected override IQueryable<SalesUnit> GetQuary()
+        //{
+        //    return Context.Set<SalesUnit>().AsQueryable()
+        //        .Include(x => x.Facility)
+        //        .Include(x => x.Facility.Type)
+        //        .Include(x => x.Facility.Address.Locality.Region.District.Country)
+        //        .Include(x => x.Facility.OwnerCompany)
+        //        .Include(x => x.Facility.OwnerCompany.AddressLegal.Locality.Region.District.Country)
+        //        .Include(x => x.Project)
+        //        .Include(x => x.Project.Manager)
+        //        .Include(x => x.Product.ProductBlock.Parameters)
+        //        .Include(x => x.Product.DependentProducts.Select(dp => dp.Product.ProductBlock.Parameters))
+        //        .Include(x => x.ProductsIncluded.Select(dp => dp.Product.ProductBlock.Parameters))
+        //        .Include(x => x.PaymentsActual)
+        //        .Include(x => x.PaymentsPlanned)
+        //        .Include(x => x.PaymentConditionSet)
+        //        .Include(x => x.PaymentConditionSet.PaymentConditions)
+        //        .Include(x => x.Order)
+        //        .Include(x => x.Penalty)
+        //        .Include(x => x.Producer)
+        //        .Include(x => x.AddressDelivery);
+        //}
 
         public IEnumerable<SalesUnit> GetUsersSalesUnits()
         {
