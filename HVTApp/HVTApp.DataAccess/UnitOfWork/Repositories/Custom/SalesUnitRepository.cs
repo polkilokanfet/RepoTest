@@ -25,6 +25,16 @@ namespace HVTApp.DataAccess
 
     public partial class SalesUnitRepository
     {
+        protected override IQueryable<SalesUnit> GetQuary()
+        {
+            return Context.Set<SalesUnit>().AsQueryable()
+                .Include(x => x.Facility.Type)
+                .Include(x => x.Product.ProductBlock.Parameters)
+                .Include(x => x.Product.DependentProducts.Select(dp => dp.Product.ProductBlock.Parameters))
+                .Include(x => x.ProductsIncluded.Select(dp => dp.Product.ProductBlock.Parameters))
+                .Include(x => x.PaymentConditionSet.PaymentConditions.Select(pc => pc.PaymentConditionPoint));
+        }
+
         //protected override IQueryable<SalesUnit> GetQuary()
         //{
         //    return Context.Set<SalesUnit>().AsQueryable()

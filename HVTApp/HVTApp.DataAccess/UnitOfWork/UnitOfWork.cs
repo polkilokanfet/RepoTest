@@ -26,8 +26,11 @@ namespace HVTApp.DataAccess
 
         public IRepository<T> Repository<T>() where T : class, IBaseEntity
         {
-            var repositoryFieldInfo = this.GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
-                                                    .Single(x => typeof(IRepository<T>).IsAssignableFrom(x.FieldType));
+            var repositoryFieldInfo = this.GetType()
+                .GetFields(BindingFlags.NonPublic | BindingFlags.Instance)                                   
+                .Single(x => typeof(IRepository<T>)
+                .IsAssignableFrom(x.FieldType));
+
             return (IRepository<T>) repositoryFieldInfo.GetValue(this);
         }
 

@@ -230,6 +230,7 @@
     <Compile Include="UnitOfWork\Repositories\Custom\ProductRelationRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\Custom\ProductRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\Custom\ProductTypeDesignationRepository.cs" />
+    <Compile Include="UnitOfWork\Repositories\Custom\ProjectRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\Custom\SalesUnitRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\Custom\TenderRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\IRepositories.g.cs" />

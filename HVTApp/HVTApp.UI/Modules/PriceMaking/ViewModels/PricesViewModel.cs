@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
@@ -106,13 +107,16 @@ namespace HVTApp.UI.Modules.PriceMaking.ViewModels
                     if (dr != MessageDialogResult.Yes)
                         return;
 
+                    var sb = new StringBuilder();
+
                     //все стракчакосты с заполненной ценой
                     var structureCosts = _unitOfWork.Repository<PriceCalculation>()
                         .Find(x => x.TaskCloseMoment.HasValue)
                         .SelectMany(x => x.PriceCalculationItems)
                         .SelectMany(x => x.StructureCosts)
                         .Distinct()
-                        .Where(x => x.UnitPrice.HasValue && x.UnitPrice.Value > 0 && x.Number != null);
+                        .Where(x => x.UnitPrice.HasValue && x.UnitPrice.Value > 0 && !string.IsNullOrEmpty(x.Number))
+                        .ToList();
 
                     //для каждой задачи со стракчакостом
                     foreach (var priceTask in PriceTasks.Where(x => !string.IsNullOrEmpty(x.Model.StructureCostNumber)))
@@ -140,11 +144,15 @@ namespace HVTApp.UI.Modules.PriceMaking.ViewModels
                                 Date = date.Value,
                                 Sum = structureCost.UnitPrice.Value
                             });
+
+                            sb.AppendLine($"В \"{priceTask.BlockName}\" добавлен прайс: {structureCost.UnitPrice.Value} {date.Value.ToShortDateString()}");
                         }
                     }
 
                     PriceTasks.Where(x => x.IsValid && x.IsChanged).ForEach(x => x.AcceptChanges());
                     _unitOfWork.SaveChanges();
+
+                    Container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", sb.ToString());
                 });
         }
 

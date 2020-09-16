@@ -28,5 +28,10 @@ namespace HVTApp.Model.POCOs
         {
             return Amount == other?.Amount && this.Product.Equals(other.Product);
         }
+
+        public override string ToString()
+        {
+            return $"{Product} ({Amount} רע.)";
+        }
     }
 }
