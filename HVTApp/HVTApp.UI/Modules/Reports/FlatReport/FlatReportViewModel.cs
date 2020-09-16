@@ -125,6 +125,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                 ((DelegateCommand<string>)AddMonthToOitCommand).RaiseCanExecuteChanged();
                 ((DelegateCommand<string>)AddMonthToRealizationCommand).RaiseCanExecuteChanged();
                 ((DelegateCommand)ExplodeItemCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)ChangeInReportStatusCommand).RaiseCanExecuteChanged();
             }
         }
 
@@ -216,6 +217,8 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
         /// Загрузка стандартных цен и ПЗ
         /// </summary>
         public ICommand LoadDefaultCostsAndPricesCommand { get; }
+
+        public ICommand ChangeInReportStatusCommand { get; }
 
         #endregion
         
@@ -433,7 +436,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                 () =>
                 {
                     var defaultCostsAndPrices = UnitOfWork.Repository<ProductCategoryPriceAndCost>().GetAll();
-                    var items = Items.Where(x => x.InReport && !x.IsLoosen && x.AllowEditOit).ToList();
+                    var items = Items.Where(x => x.InReport && !x.IsLoosen && x.AllowEditOit && x.SalesUnit.Specification == null).ToList();
                     foreach (var defaultCostAndPrice in defaultCostsAndPrices)
                     {
                         foreach (var item in items.Where(x => x.SalesUnit.Product.Category.Id == defaultCostAndPrice.Category.Id))
@@ -443,6 +446,17 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                         }
                     }
                 });
+
+            ChangeInReportStatusCommand = new DelegateCommand(
+                () =>
+                {
+                    //групповое исключение/включение
+                    if (SelectedItems != null && SelectedItems.Any())
+                    {
+                        SelectedItems.Cast<FlatReportItem>().ForEach(x => x.InReport = !x.InReport);
+                    }
+                },
+                () => SelectedItem != null);
 
             LoadDefault();
         }
@@ -537,13 +551,17 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
 
             var items = _salesUnits
                 .GroupBy(x => x, new SalesUnitsReportComparer())
-                .Select(x => new FlatReportItem(x, x.Key.OrderInTakeDate.BetweenDates(_startDateDefault, _finishDateDefault)))
+                //.Select(x => new FlatReportItem(x, x.Key.OrderInTakeDate.BetweenDates(_startDateDefault, _finishDateDefault)))
+                .Select(x => new FlatReportItem(x, true))
                 .OrderBy(x => x.EstimatedOrderInTakeDate).ToList();
             
             //расстановка цен в нулевых единицах
             items.Where(x => Math.Abs(x.SalesUnit.Cost) < 0.001).ForEach(x => x.EstimatedCost = GlobalAppProperties.PriceService.GetPrice(x.SalesUnit, x.EstimatedOrderInTakeDate).SumTotal * 1.4);
 
-            LoadBase(items, _startDateDefault, _finishDateDefault);
+            var min = items.Min(x => x.EstimatedOrderInTakeDate);
+            var max = items.Max(x => x.EstimatedOrderInTakeDate);
+
+            LoadBase(items, new DateTime(min.Year, min.Month, 1), new DateTime(max.Year, max.Month, DateTime.DaysInMonth(max.Year, max.Month)));
         }
 
         private void LoadBase(List<FlatReportItem> items, DateTime startDate, DateTime finishDate)

@@ -44,6 +44,7 @@
 
     <infRib:RibbonGroup Caption="Команды">
         <infRib:ButtonTool Caption="Разбить строку" Command="{Binding ExplodeItemCommand}" SmallImage="/HVTApp.UI;component/Images/expand.png"/>
+        <infRib:ButtonTool Caption="Инвертировать строки" Command="{Binding ChangeInReportStatusCommand}"/>
         <infRib:ButtonTool Caption="Стандартные стоимости и ПЗ" Command="{Binding LoadDefaultCostsAndPricesCommand}"/>
     </infRib:RibbonGroup>
 
