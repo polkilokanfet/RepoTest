@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using HVTApp.Infrastructure.Comparers;
 
 namespace HVTApp.UI.PriceCalculations.ViewModel
 {
@@ -24,7 +25,6 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
             if (productsInclX.Except(productsInclY, new ProductAmountComparer()).Any()) return false;
             if (productsInclY.Except(productsInclX, new ProductAmountComparer()).Any()) return false;
 
-
             return true;
         }
 
@@ -32,40 +32,5 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
         {
             return 0;
         }
-
-
-        private class ProductAmount
-        {
-            public Guid ProductId { get; }
-            public int Amount { get; }
-            public double? Price { get; }
-
-            public ProductAmount(Guid productId, int amount, double? price)
-            {
-                ProductId = productId;
-                Amount = amount;
-                Price = price;
-            }
-
-            public override bool Equals(object obj)
-            {
-                var other = obj as ProductAmount;
-                return other != null && Equals(this.Price, other.Price) && Equals(this.ProductId, other.ProductId) && this.Amount == other.Amount;
-            }
-        }
-
-        private class ProductAmountComparer : IEqualityComparer<ProductAmount>
-        {
-            public bool Equals(ProductAmount x, ProductAmount y)
-            {
-                return Equals(x.ProductId, y.ProductId) && Equals(x.Amount, y.Amount) && Equals(x.Price, y.Price);
-            }
-
-            public int GetHashCode(ProductAmount obj)
-            {
-                return 0;
-            }
-        }
-
     }
 }

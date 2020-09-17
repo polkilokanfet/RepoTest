@@ -118,14 +118,22 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             SetCustomFixedPriceCommand = new DelegateCommand(
                 () =>
                 {
-                    var original = Groups.SelectedProductIncluded.CustomFixedPrice;
+                    //костыль (тк нужно найти именно тот wrapper)
+                    var productIncluded = Groups
+                        .Where(x => x.Groups != null)
+                        .SelectMany(x => x.Groups)
+                        .SelectMany(x => x.ProductsIncluded)
+                        .SingleOrDefault(x => Equals(x.Id, Groups.SelectedProductIncluded.Id));
+                    productIncluded = productIncluded ?? Groups.SelectedProductIncluded;
 
-                    var viewModel = new SupervisionPriceViewModel(Groups.SelectedProductIncluded, UnitOfWork, Container);
+                    var original = productIncluded.CustomFixedPrice;
+
+                    var viewModel = new SupervisionPriceViewModel(productIncluded, UnitOfWork, Container);
                     var dr = Container.Resolve<IDialogService>().ShowDialog(viewModel);
                     if (!dr.HasValue || dr.Value == false)
-                        Groups.SelectedProductIncluded.CustomFixedPrice = original;
+                        productIncluded.CustomFixedPrice = original;
 
-                    if (!Equals(Groups.SelectedProductIncluded.CustomFixedPrice, original))
+                    if (!Equals(productIncluded.CustomFixedPrice, original))
                     {
                         RefreshPrice(Groups.SelectedGroup);
                     }

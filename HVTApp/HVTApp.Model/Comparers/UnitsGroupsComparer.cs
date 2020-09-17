@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using HVTApp.Infrastructure.Comparers;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.Model.Comparers
@@ -32,39 +33,6 @@ namespace HVTApp.Model.Comparers
         public int GetHashCode(T obj)
         {
             return 0;
-        }
-
-        private class ProductAmount
-        {
-            public Guid ProductId { get; }
-            public int Amount { get; }
-            public double? Price { get; }
-
-            public ProductAmount(Guid productId, int amount, double? price)
-            {
-                ProductId = productId;
-                Amount = amount;
-                Price = price;
-            }
-
-            public override bool Equals(object obj)
-            {
-                var other = obj as ProductAmount;
-                return other != null && Equals(this.ProductId, other.ProductId) && this.Amount == other.Amount && Equals(this.Price, other.Price);
-            }
-        }
-
-        private class ProductAmountComparer : IEqualityComparer<ProductAmount>
-        {
-            public bool Equals(ProductAmount x, ProductAmount y)
-            {
-                return Equals(x.ProductId, y.ProductId) && Equals(x.Amount, y.Amount) && Equals(x.Price, y.Price);
-            }
-
-            public int GetHashCode(ProductAmount obj)
-            {
-                return 0;
-            }
         }
 
     }

@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using HVTApp.Infrastructure.Comparers;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Modules.Reports.ViewModels
@@ -69,6 +71,13 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
             if (!Equals(x.PaymentConditionSet.Id, y.PaymentConditionSet.Id)) return false;
             if (!Equals(x.IsLoosen, y.IsLoosen)) return false;
             if (!Equals(x.Producer?.Id, y.Producer?.Id)) return false;
+
+            var productsInclX = x.ProductsIncluded.Select(p => new ProductAmount(p.Product.Id, p.Amount, p.CustomFixedPrice)).ToList();
+            var productsInclY = y.ProductsIncluded.Select(p => new ProductAmount(p.Product.Id, p.Amount, p.CustomFixedPrice)).ToList();
+
+            if (productsInclX.Except(productsInclY, new ProductAmountComparer()).Any()) return false;
+            if (productsInclY.Except(productsInclX, new ProductAmountComparer()).Any()) return false;
+
 
             return true;
         }
