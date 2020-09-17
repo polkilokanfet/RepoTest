@@ -17,6 +17,12 @@ namespace HVTApp.Model.POCOs
         [Designation("Количество"), Required, OrderStatus(5)]
         public int Amount { get; set; } = 1;
 
+        /// <summary>
+        /// Нестандартная себестоимость одной единицы включенного оборудования (для нестандартной стоимости шеф-монтажа).
+        /// </summary>
+        [Designation("Прайс на единицу"), OrderStatus(3)]
+        public double? CustomFixedPrice { get; set; }
+
         public override string ToString()
         {
             return $"{Product} ({AmountOnUnit} шт.)";

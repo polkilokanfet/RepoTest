@@ -60,7 +60,7 @@ namespace HVTApp.Model
             }
         }
 
-        private double? _sumFixed;
+        public double? SumFixed { get; set; }
         /// <summary>
         /// Стоимость блоков с фиксированной ценой
         /// </summary>
@@ -68,8 +68,8 @@ namespace HVTApp.Model
         {
             get
             {
-                if (_sumFixed.HasValue)
-                    return _sumFixed.Value * Amount;
+                if (SumFixed.HasValue)
+                    return SumFixed.Value * Amount;
 
                 var sumPriceMainBlock = PriceMainBlock?.SumFixedTotal ?? 0;
 
@@ -137,9 +137,14 @@ namespace HVTApp.Model
             }
 
             //включенное оборудование
-            PricesProductsIncluded = productsIncluded
-                .Select(x => new Price(x.Product, targetDate, priceService, x.AmountOnUnit))
-                .ToList();
+            foreach (var productIncluded in productsIncluded)
+            {
+                var price = new Price(productIncluded.Product, targetDate, priceService, productIncluded.AmountOnUnit);
+                PricesProductsIncluded.Add(price);
+                //расстановка нестандартных фиксированных прайсов
+                if (productIncluded.CustomFixedPrice.HasValue)
+                    price.SumFixed = productIncluded.CustomFixedPrice;
+            }
         }
 
         public Price(Product product, DateTime targetDate, IPriceService priceService, double amount = 1)
@@ -189,7 +194,7 @@ namespace HVTApp.Model
             //по фиксированной цене
             if (productBlock.HasFixedPrice)
             {
-                _sumFixed = productBlock.FixedCosts.GetClosedSumOnDate(targetDate).Sum;
+                SumFixed = productBlock.FixedCosts.GetClosedSumOnDate(targetDate).Sum;
                 return;
             }
 

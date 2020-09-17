@@ -5,6 +5,7 @@ namespace HVTApp.DataAccess
         public ProductIncludedConfiguration()
         {
             HasRequired(x => x.Product).WithMany().WillCascadeOnDelete(false);
+            Property(x => x.CustomFixedPrice).IsOptional();
         }
     }
 }

@@ -213,6 +213,10 @@
     <Compile Include="Migrations\202009151613370_ProductCategory.Designer.cs">
       <DependentUpon>202009151613370_ProductCategory.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009170744256_CustomSupervisionPrice.cs" />
+    <Compile Include="Migrations\202009170744256_CustomSupervisionPrice.Designer.cs">
+      <DependentUpon>202009170744256_CustomSupervisionPrice.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -326,6 +330,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009151613370_ProductCategory.resx">
       <DependentUpon>202009151613370_ProductCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009170744256_CustomSupervisionPrice.resx">
+      <DependentUpon>202009170744256_CustomSupervisionPrice.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

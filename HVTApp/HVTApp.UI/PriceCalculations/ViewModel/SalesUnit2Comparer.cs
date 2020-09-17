@@ -18,8 +18,8 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
             if (!Equals(x.Model.OrderInTakeDate, y.Model.OrderInTakeDate)) return false;
             if (!Equals(x.Model.RealizationDateCalculated, y.Model.RealizationDateCalculated)) return false;
 
-            var productsInclX = x.Model.ProductsIncluded.Select(p => new ProductAmount(p.Product.Id, p.Amount)).ToList();
-            var productsInclY = y.Model.ProductsIncluded.Select(p => new ProductAmount(p.Product.Id, p.Amount)).ToList();
+            var productsInclX = x.Model.ProductsIncluded.Select(p => new ProductAmount(p.Product.Id, p.Amount, p.CustomFixedPrice)).ToList();
+            var productsInclY = y.Model.ProductsIncluded.Select(p => new ProductAmount(p.Product.Id, p.Amount, p.CustomFixedPrice)).ToList();
 
             if (productsInclX.Except(productsInclY, new ProductAmountComparer()).Any()) return false;
             if (productsInclY.Except(productsInclX, new ProductAmountComparer()).Any()) return false;
@@ -38,17 +38,19 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
         {
             public Guid ProductId { get; }
             public int Amount { get; }
+            public double? Price { get; }
 
-            public ProductAmount(Guid productId, int amount)
+            public ProductAmount(Guid productId, int amount, double? price)
             {
                 ProductId = productId;
                 Amount = amount;
+                Price = price;
             }
 
             public override bool Equals(object obj)
             {
                 var other = obj as ProductAmount;
-                return other != null && Equals(this.ProductId, other.ProductId) && this.Amount == other.Amount;
+                return other != null && Equals(this.Price, other.Price) && Equals(this.ProductId, other.ProductId) && this.Amount == other.Amount;
             }
         }
 
@@ -56,7 +58,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
         {
             public bool Equals(ProductAmount x, ProductAmount y)
             {
-                return Equals(x.ProductId, y.ProductId) && Equals(x.Amount, y.Amount);
+                return Equals(x.ProductId, y.ProductId) && Equals(x.Amount, y.Amount) && Equals(x.Price, y.Price);
             }
 
             public int GetHashCode(ProductAmount obj)

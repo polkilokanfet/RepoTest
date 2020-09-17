@@ -225,8 +225,7 @@ namespace HVTApp.Model.Wrapper.Groups
         {
             get
             {
-                return _unit?.ProductsIncluded ?? 
-                    Groups.SelectMany(x => x.ProductsIncluded).Select(x => x.Model).Distinct().Select(x => new ProductIncludedWrapper(x));
+                return _unit?.ProductsIncluded ?? Groups.SelectMany(x => x.ProductsIncluded).Select(x => x.Model).Distinct().Select(x => new ProductIncludedWrapper(x));
             }
         }
 

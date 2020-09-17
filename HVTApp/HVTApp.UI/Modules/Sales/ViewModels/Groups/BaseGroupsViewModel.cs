@@ -43,6 +43,8 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
         public ICommand AddProductIncludedCommand { get; }
         public ICommand RemoveProductIncludedCommand { get; }
 
+        public ICommand SetCustomFixedPriceCommand { get; }
+
         #endregion
 
         protected BaseGroupsViewModel(IUnityContainer container) : base(container)
@@ -96,7 +98,6 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
                     if (!dr.HasValue || !dr.Value) return;
                     Groups.SelectedGroup.AddProductIncluded(productsIncludedViewModel.ViewModel.Entity, productsIncludedViewModel.IsForEach);
                     RefreshPrice(Groups.SelectedGroup);
-
                 }, 
                 () => Groups.SelectedGroup != null);
 
@@ -104,14 +105,32 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             RemoveProductIncludedCommand = new DelegateCommand(
                 () =>
                 {
-                    if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Удалить?", defaultNo:true) == MessageDialogResult.No)
+                    if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Удалить?", defaultNo: true) == MessageDialogResult.No)
                         return;
 
                     Groups.SelectedGroup.RemoveProductIncluded(Groups.SelectedProductIncluded);
                     RefreshPrice(Groups.SelectedGroup);
 
-                }, 
+                },
                 () => Groups.SelectedProductIncluded != null);
+
+            //установка нестандартной себестоимости шеф-монтажа
+            SetCustomFixedPriceCommand = new DelegateCommand(
+                () =>
+                {
+                    var original = Groups.SelectedProductIncluded.CustomFixedPrice;
+
+                    var viewModel = new SupervisionPriceViewModel(Groups.SelectedProductIncluded, UnitOfWork, Container);
+                    var dr = Container.Resolve<IDialogService>().ShowDialog(viewModel);
+                    if (!dr.HasValue || dr.Value == false)
+                        Groups.SelectedProductIncluded.CustomFixedPrice = original;
+
+                    if (!Equals(Groups.SelectedProductIncluded.CustomFixedPrice, original))
+                    {
+                        RefreshPrice(Groups.SelectedGroup);
+                    }
+                },
+                () => Groups.SelectedProductIncluded != null && Groups.SelectedProductIncluded.Model.Product.ProductBlock.IsSupervision);
 
             #endregion
 
@@ -156,6 +175,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             Groups.SelectedProductIncludedChanged += productIncluded =>
             {
                 ((DelegateCommand)RemoveProductIncludedCommand)?.RaiseCanExecuteChanged();
+                ((DelegateCommand)SetCustomFixedPriceCommand)?.RaiseCanExecuteChanged();
             };
 
             // событие для того, чтобы вид перепривязал группы
@@ -168,7 +188,12 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             // обновление прайса каждой группы
             Groups.ForEach(RefreshPrice);
         }
-        
+
+        private void GrpOnProductIncludedIsChanged()
+        {
+            //((DelegateCommand))
+        }
+
         #region Commands
 
         protected abstract void AddCommand_Execute();

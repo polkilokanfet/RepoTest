@@ -2012,6 +2012,11 @@ namespace HVTApp.UI.Views
             //    VisibilityAmountProductIncluded = Visibility.Collapsed;
 
 
+            //attr = typeof(HVTApp.Model.POCOs.ProductIncluded).GetProperty(nameof(HVTApp.Model.POCOs.ProductIncluded.CustomFixedPrice)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityCustomFixedPriceProductIncluded = Visibility.Collapsed;
+
+
             //attr = typeof(HVTApp.Model.POCOs.ProductIncluded).GetProperty(nameof(HVTApp.Model.POCOs.ProductIncluded.ParentsCount)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityParentsCountProductIncluded = Visibility.Collapsed;
@@ -2041,6 +2046,15 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityAmountProductIncludedProperty); }
             set { SetValue(VisibilityAmountProductIncludedProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityCustomFixedPriceProductIncludedProperty = DependencyProperty.Register("VisibilityCustomFixedPriceProductIncluded", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityCustomFixedPriceProductIncluded
+        {
+            get { return (Visibility) GetValue(VisibilityCustomFixedPriceProductIncludedProperty); }
+            set { SetValue(VisibilityCustomFixedPriceProductIncludedProperty, value); OnPropertyChanged(); }
         }
 
 

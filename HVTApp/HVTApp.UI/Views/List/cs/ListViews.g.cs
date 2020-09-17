@@ -4744,6 +4744,13 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility CustomFixedPriceVisibility
+        {
+            get { return ProductIncludedLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductIncludedLookup.CustomFixedPrice)].Visibility; }
+            set { ProductIncludedLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductIncludedLookup.CustomFixedPrice)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility ParentsCountVisibility
         {
             get { return ProductIncludedLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductIncludedLookup.ParentsCount)].Visibility; }

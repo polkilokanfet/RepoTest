@@ -67,7 +67,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
                     //все сущности должны быть валидны
                     if (!GroupsViewModel.IsValid || !DetailsViewModel.Item.IsValid)
                         return false;
-
+                    
                     //какая-то сущность должна быть изменена
                     return DetailsViewModel.Item.IsChanged || GroupsViewModel.IsChanged;
                 });

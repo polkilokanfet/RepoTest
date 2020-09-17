@@ -1343,6 +1343,14 @@ namespace HVTApp.Model.Wrapper
         public System.Int32 AmountOriginalValue => GetOriginalValue<System.Int32>(nameof(Amount));
         public bool AmountIsChanged => GetIsChanged(nameof(Amount));
 
+        public System.Nullable<System.Double> CustomFixedPrice
+        {
+          get { return GetValue<System.Nullable<System.Double>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Double> CustomFixedPriceOriginalValue => GetOriginalValue<System.Nullable<System.Double>>(nameof(CustomFixedPrice));
+        public bool CustomFixedPriceIsChanged => GetIsChanged(nameof(CustomFixedPrice));
+
         public System.Int32 ParentsCount
         {
           get { return GetValue<System.Int32>(); }

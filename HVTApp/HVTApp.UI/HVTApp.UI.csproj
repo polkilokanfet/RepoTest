@@ -277,6 +277,10 @@
     <Compile Include="Modules\Sales\Supervision\TabSupervision.xaml.cs">
       <DependentUpon>TabSupervision.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Sales\ViewModels\SupervisionPriceViewModel.cs" />
+    <Compile Include="Modules\Sales\Views\SupervisionPriceWindow.xaml.cs">
+      <DependentUpon>SupervisionPriceWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Settings\ViewModels\DataBaseBackupViewModel.cs" />
     <Compile Include="Modules\Settings\Views\DataBaseBackupView.xaml.cs">
       <DependentUpon>DataBaseBackupView.xaml</DependentUpon>
@@ -1189,6 +1193,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\Sales\Views\ProjectView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Sales\Views\SupervisionPriceWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
