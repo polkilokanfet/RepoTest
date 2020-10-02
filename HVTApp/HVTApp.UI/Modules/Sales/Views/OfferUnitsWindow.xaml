@@ -9,7 +9,9 @@
     
     <StackPanel>
         <views:OfferUnitDetailsView DataContext="{Binding ViewModel}" 
-                                    VisibilityOfferOfferUnit="Collapsed"/>
+                                    VisibilityOfferOfferUnit="Collapsed"
+                                    VisibilityProductsIncludedOfferUnit="Collapsed"
+                                    VisibilityCostDeliveryIncludedOfferUnit="Collapsed"/>
         <StackPanel Orientation="Horizontal">
             <Label Content="Количество"/>
             <igWPF:XamNumericEditor Value="{Binding Amount}" ValueType="core:Int32"/>
