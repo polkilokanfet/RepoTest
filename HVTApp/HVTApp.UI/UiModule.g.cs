@@ -183,6 +183,21 @@ namespace HVTApp.UI
 			_selectService.Register<SupervisionLookupListView, Supervision>();
             _updateDetailsService.Register<Supervision, SupervisionDetailsView>();
 
+            Container.RegisterViewForNavigation<TechnicalRequrementsLookupListView>();
+            //_dialogService.Register<TechnicalRequrementsDetailsViewModel, TechnicalRequrementsDetailsView>();
+			_selectService.Register<TechnicalRequrementsLookupListView, TechnicalRequrements>();
+            _updateDetailsService.Register<TechnicalRequrements, TechnicalRequrementsDetailsView>();
+
+            Container.RegisterViewForNavigation<TechnicalRequrementsFileLookupListView>();
+            //_dialogService.Register<TechnicalRequrementsFileDetailsViewModel, TechnicalRequrementsFileDetailsView>();
+			_selectService.Register<TechnicalRequrementsFileLookupListView, TechnicalRequrementsFile>();
+            _updateDetailsService.Register<TechnicalRequrementsFile, TechnicalRequrementsFileDetailsView>();
+
+            Container.RegisterViewForNavigation<TechnicalRequrementsTaskLookupListView>();
+            //_dialogService.Register<TechnicalRequrementsTaskDetailsViewModel, TechnicalRequrementsTaskDetailsView>();
+			_selectService.Register<TechnicalRequrementsTaskLookupListView, TechnicalRequrementsTask>();
+            _updateDetailsService.Register<TechnicalRequrementsTask, TechnicalRequrementsTaskDetailsView>();
+
             Container.RegisterViewForNavigation<GlobalPropertiesLookupListView>();
             //_dialogService.Register<GlobalPropertiesDetailsViewModel, GlobalPropertiesDetailsView>();
 			_selectService.Register<GlobalPropertiesLookupListView, GlobalProperties>();

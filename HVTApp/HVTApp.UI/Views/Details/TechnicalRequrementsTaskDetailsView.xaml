@@ -1,0 +1,61 @@
+<inf:ViewBase x:Class="HVTApp.UI.Views.TechnicalRequrementsTaskDetailsView"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			  xmlns:infDP="http://infragistics.com/DataPresenter"
+			  xmlns:infE="http://infragistics.com/Editors"
+			  xmlns:core="clr-namespace:System;assembly=mscorlib"
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+			  x:Name="Root">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" MinWidth="200"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+
+        <Label Grid.Column="0" Grid.Row ="0" Content="Список требований" Visibility="{Binding VisibilityRequrementsTechnicalRequrementsTask, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="0"
+										 Items="{Binding Path=Item.Requrements}"
+										 SelectedItem="{Binding SelectedRequrementsItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInRequrementsCommand}"
+										 RemoveItemCommand="{Binding RemoveFromRequrementsCommand}"
+										 Visibility="{Binding VisibilityRequrementsTechnicalRequrementsTask, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="1" Content="Комментарий" Visibility="{Binding VisibilityCommentTechnicalRequrementsTask, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
+                 Text="{Binding Item.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding VisibilityCommentTechnicalRequrementsTask, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="2" Content="Номер в ТСЕ" Visibility="{Binding VisibilityTceNumberTechnicalRequrementsTask, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
+                 Text="{Binding Item.TceNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding VisibilityTceNumberTechnicalRequrementsTask, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="3" Content="Старт" Visibility="{Binding VisibilityStartTechnicalRequrementsTask, ElementName=Root}"/>
+        <DatePicker Grid.Column="1" Grid.Row="3" 
+                    SelectedDate="{Binding Item.Start, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding VisibilityStartTechnicalRequrementsTask, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="4" Content="Back manager" Visibility="{Binding VisibilityBackManagerTechnicalRequrementsTask, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 
+                                    Item="{Binding Item.BackManager}" 
+                                    AddItemCommand="{Binding SelectBackManagerCommand}" 
+                                    RemoveItemCommand="{Binding ClearBackManagerCommand}"
+									Visibility="{Binding VisibilityBackManagerTechnicalRequrementsTask, ElementName=Root}"/>
+
+
+
+    </Grid>
+</inf:ViewBase>

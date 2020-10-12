@@ -216,6 +216,24 @@ namespace HVTApp.UI.ViewModels
     }
 
 
+	public partial class TechnicalRequrementsLookupListViewModel : BaseListViewModel<TechnicalRequrements, TechnicalRequrementsLookup, AfterSaveTechnicalRequrementsEvent, AfterSelectTechnicalRequrementsEvent, AfterRemoveTechnicalRequrementsEvent>
+    {
+        public TechnicalRequrementsLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+
+	public partial class TechnicalRequrementsFileLookupListViewModel : BaseListViewModel<TechnicalRequrementsFile, TechnicalRequrementsFileLookup, AfterSaveTechnicalRequrementsFileEvent, AfterSelectTechnicalRequrementsFileEvent, AfterRemoveTechnicalRequrementsFileEvent>
+    {
+        public TechnicalRequrementsFileLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+
+	public partial class TechnicalRequrementsTaskLookupListViewModel : BaseListViewModel<TechnicalRequrementsTask, TechnicalRequrementsTaskLookup, AfterSaveTechnicalRequrementsTaskEvent, AfterSelectTechnicalRequrementsTaskEvent, AfterRemoveTechnicalRequrementsTaskEvent>
+    {
+        public TechnicalRequrementsTaskLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+
 	public partial class GlobalPropertiesLookupListViewModel : BaseListViewModel<GlobalProperties, GlobalPropertiesLookup, AfterSaveGlobalPropertiesEvent, AfterSelectGlobalPropertiesEvent, AfterRemoveGlobalPropertiesEvent>
     {
         public GlobalPropertiesLookupListViewModel(IUnityContainer container) : base(container) { }

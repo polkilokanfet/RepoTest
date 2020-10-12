@@ -163,6 +163,21 @@ namespace HVTApp.DataAccess
         public SupervisionRepositoryTest(TestData testData) : base(testData) {}
     }
 
+    public partial class TechnicalRequrementsRepositoryTest : TestBaseRepository<TechnicalRequrements>, ITechnicalRequrementsRepository
+    {
+        public TechnicalRequrementsRepositoryTest(TestData testData) : base(testData) {}
+    }
+
+    public partial class TechnicalRequrementsFileRepositoryTest : TestBaseRepository<TechnicalRequrementsFile>, ITechnicalRequrementsFileRepository
+    {
+        public TechnicalRequrementsFileRepositoryTest(TestData testData) : base(testData) {}
+    }
+
+    public partial class TechnicalRequrementsTaskRepositoryTest : TestBaseRepository<TechnicalRequrementsTask>, ITechnicalRequrementsTaskRepository
+    {
+        public TechnicalRequrementsTaskRepositoryTest(TestData testData) : base(testData) {}
+    }
+
     public partial class GlobalPropertiesRepositoryTest : TestBaseRepository<GlobalProperties>, IGlobalPropertiesRepository
     {
         public GlobalPropertiesRepositoryTest(TestData testData) : base(testData) {}

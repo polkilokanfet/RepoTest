@@ -35,6 +35,9 @@ namespace HVTApp.Model.Events
 	public partial class AfterRemoveStandartProductionTermEvent : PubSubEvent<StandartProductionTerm> { }
 	public partial class AfterRemoveStructureCostEvent : PubSubEvent<StructureCost> { }
 	public partial class AfterRemoveSupervisionEvent : PubSubEvent<Supervision> { }
+	public partial class AfterRemoveTechnicalRequrementsEvent : PubSubEvent<TechnicalRequrements> { }
+	public partial class AfterRemoveTechnicalRequrementsFileEvent : PubSubEvent<TechnicalRequrementsFile> { }
+	public partial class AfterRemoveTechnicalRequrementsTaskEvent : PubSubEvent<TechnicalRequrementsTask> { }
 	public partial class AfterRemoveGlobalPropertiesEvent : PubSubEvent<GlobalProperties> { }
 	public partial class AfterRemoveAddressEvent : PubSubEvent<Address> { }
 	public partial class AfterRemoveCountryEvent : PubSubEvent<Country> { }

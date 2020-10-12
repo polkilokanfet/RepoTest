@@ -2287,6 +2287,13 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility TechnicalRequrementsFilesPathVisibility
+        {
+            get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.TechnicalRequrementsFilesPath)].Visibility; }
+            set { GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.TechnicalRequrementsFilesPath)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility LastDeveloperVizitVisibility
         {
             get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.LastDeveloperVizit)].Visibility; }
@@ -6420,6 +6427,217 @@ namespace HVTApp.UI.Views
         {
             get { return SupervisionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SupervisionLookup.Entity)].Visibility; }
             set { SupervisionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SupervisionLookup.Entity)].Visibility = value; }
+        }
+
+
+
+		#endregion
+    }
+
+
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
+	[Designation("Тех.задание (файл)")]
+	[DesignationPlural("TechnicalRequrementsFileLookup")]
+	[AllowEditAttribute(Role.Admin)]
+
+    public partial class TechnicalRequrementsFileLookupListView : ViewBase
+    {
+        public TechnicalRequrementsFileLookupListView()
+        {
+            InitializeComponent();
+        }
+
+        public TechnicalRequrementsFileLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, TechnicalRequrementsFileLookupListViewModel TechnicalRequrementsFileLookupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = TechnicalRequrementsFileLookupListViewModel;
+			TechnicalRequrementsFileLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			((TechnicalRequrementsFileLookupListViewModel)DataContext).Load();
+        }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility NameVisibility
+        {
+            get { return TechnicalRequrementsFileLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsFileLookup.Name)].Visibility; }
+            set { TechnicalRequrementsFileLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsFileLookup.Name)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility CommentVisibility
+        {
+            get { return TechnicalRequrementsFileLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsFileLookup.Comment)].Visibility; }
+            set { TechnicalRequrementsFileLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsFileLookup.Comment)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return TechnicalRequrementsFileLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsFileLookup.DisplayMember)].Visibility; }
+            set { TechnicalRequrementsFileLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsFileLookup.DisplayMember)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return TechnicalRequrementsFileLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsFileLookup.Entity)].Visibility; }
+            set { TechnicalRequrementsFileLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsFileLookup.Entity)].Visibility = value; }
+        }
+
+
+
+		#endregion
+    }
+
+
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
+	[Designation("Тех.задание")]
+	[DesignationPlural("TechnicalRequrementsLookup")]
+	[AllowEditAttribute(Role.Admin)]
+
+    public partial class TechnicalRequrementsLookupListView : ViewBase
+    {
+        public TechnicalRequrementsLookupListView()
+        {
+            InitializeComponent();
+        }
+
+        public TechnicalRequrementsLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, TechnicalRequrementsLookupListViewModel TechnicalRequrementsLookupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = TechnicalRequrementsLookupListViewModel;
+			TechnicalRequrementsLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			((TechnicalRequrementsLookupListViewModel)DataContext).Load();
+        }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility CommentVisibility
+        {
+            get { return TechnicalRequrementsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsLookup.Comment)].Visibility; }
+            set { TechnicalRequrementsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsLookup.Comment)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return TechnicalRequrementsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsLookup.DisplayMember)].Visibility; }
+            set { TechnicalRequrementsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsLookup.DisplayMember)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return TechnicalRequrementsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsLookup.Entity)].Visibility; }
+            set { TechnicalRequrementsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsLookup.Entity)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility SalesUnitsVisibility
+        {
+            get { return TechnicalRequrementsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsLookup.SalesUnits)].Visibility; }
+            set { TechnicalRequrementsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsLookup.SalesUnits)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility FilesVisibility
+        {
+            get { return TechnicalRequrementsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsLookup.Files)].Visibility; }
+            set { TechnicalRequrementsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsLookup.Files)].Visibility = value; }
+        }
+
+
+
+		#endregion
+    }
+
+
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
+	[Designation("Тех.задание (задача)")]
+	[DesignationPlural("TechnicalRequrementsTaskLookup")]
+	[AllowEditAttribute(Role.Admin)]
+
+    public partial class TechnicalRequrementsTaskLookupListView : ViewBase
+    {
+        public TechnicalRequrementsTaskLookupListView()
+        {
+            InitializeComponent();
+        }
+
+        public TechnicalRequrementsTaskLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, TechnicalRequrementsTaskLookupListViewModel TechnicalRequrementsTaskLookupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = TechnicalRequrementsTaskLookupListViewModel;
+			TechnicalRequrementsTaskLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			((TechnicalRequrementsTaskLookupListViewModel)DataContext).Load();
+        }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility CommentVisibility
+        {
+            get { return TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.Comment)].Visibility; }
+            set { TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.Comment)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility TceNumberVisibility
+        {
+            get { return TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.TceNumber)].Visibility; }
+            set { TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.TceNumber)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility StartVisibility
+        {
+            get { return TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.Start)].Visibility; }
+            set { TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.Start)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.DisplayMember)].Visibility; }
+            set { TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.DisplayMember)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility BackManagerVisibility
+        {
+            get { return TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.BackManager)].Visibility; }
+            set { TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.BackManager)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.Entity)].Visibility; }
+            set { TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.Entity)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility RequrementsVisibility
+        {
+            get { return TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.Requrements)].Visibility; }
+            set { TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.Requrements)].Visibility = value; }
         }
 
 

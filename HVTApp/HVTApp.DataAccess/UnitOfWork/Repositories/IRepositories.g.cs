@@ -35,6 +35,9 @@ namespace HVTApp.DataAccess
     public partial interface IStandartProductionTermRepository : IRepository<StandartProductionTerm> { }
     public partial interface IStructureCostRepository : IRepository<StructureCost> { }
     public partial interface ISupervisionRepository : IRepository<Supervision> { }
+    public partial interface ITechnicalRequrementsRepository : IRepository<TechnicalRequrements> { }
+    public partial interface ITechnicalRequrementsFileRepository : IRepository<TechnicalRequrementsFile> { }
+    public partial interface ITechnicalRequrementsTaskRepository : IRepository<TechnicalRequrementsTask> { }
     public partial interface IGlobalPropertiesRepository : IRepository<GlobalProperties> { }
     public partial interface IAddressRepository : IRepository<Address> { }
     public partial interface ICountryRepository : IRepository<Country> { }

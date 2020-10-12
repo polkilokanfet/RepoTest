@@ -35,6 +35,9 @@ namespace HVTApp.Model.Events
 	public partial class AfterSelectStandartProductionTermEvent : PubSubEvent<PubSubEventArgs<StandartProductionTerm>> { }
 	public partial class AfterSelectStructureCostEvent : PubSubEvent<PubSubEventArgs<StructureCost>> { }
 	public partial class AfterSelectSupervisionEvent : PubSubEvent<PubSubEventArgs<Supervision>> { }
+	public partial class AfterSelectTechnicalRequrementsEvent : PubSubEvent<PubSubEventArgs<TechnicalRequrements>> { }
+	public partial class AfterSelectTechnicalRequrementsFileEvent : PubSubEvent<PubSubEventArgs<TechnicalRequrementsFile>> { }
+	public partial class AfterSelectTechnicalRequrementsTaskEvent : PubSubEvent<PubSubEventArgs<TechnicalRequrementsTask>> { }
 	public partial class AfterSelectGlobalPropertiesEvent : PubSubEvent<PubSubEventArgs<GlobalProperties>> { }
 	public partial class AfterSelectAddressEvent : PubSubEvent<PubSubEventArgs<Address>> { }
 	public partial class AfterSelectCountryEvent : PubSubEvent<PubSubEventArgs<Country>> { }

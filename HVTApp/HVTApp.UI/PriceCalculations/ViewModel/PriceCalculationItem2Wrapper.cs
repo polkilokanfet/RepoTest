@@ -81,7 +81,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
 
         #region CollectionProperties
 
-        public IValidatableChangeTrackingCollection<SalesUnit2Wrapper> SalesUnits { get; private set; }
+        public IValidatableChangeTrackingCollection<SalesUnitEmptyWrapper> SalesUnits { get; private set; }
 
         public IValidatableChangeTrackingCollection<StructureCostWrapper> StructureCosts { get; private set; }
 
@@ -90,7 +90,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
         protected override void InitializeCollectionProperties()
         {
             if (Model.SalesUnits == null) throw new ArgumentException("SalesUnits cannot be null");
-            SalesUnits = new ValidatableChangeTrackingCollection<SalesUnit2Wrapper>(Model.SalesUnits.Select(e => new SalesUnit2Wrapper(e)));
+            SalesUnits = new ValidatableChangeTrackingCollection<SalesUnitEmptyWrapper>(Model.SalesUnits.Select(e => new SalesUnitEmptyWrapper(e)));
             RegisterCollection(SalesUnits, Model.SalesUnits);
 
             if (Model.StructureCosts == null) throw new ArgumentException("StructureCosts cannot be null");

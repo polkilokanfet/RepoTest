@@ -35,6 +35,9 @@ namespace HVTApp.DataAccess
     public partial class StandartProductionTermConfiguration : EntityTypeConfiguration<StandartProductionTerm> { }
     public partial class StructureCostConfiguration : EntityTypeConfiguration<StructureCost> { }
     public partial class SupervisionConfiguration : EntityTypeConfiguration<Supervision> { }
+    public partial class TechnicalRequrementsConfiguration : EntityTypeConfiguration<TechnicalRequrements> { }
+    public partial class TechnicalRequrementsFileConfiguration : EntityTypeConfiguration<TechnicalRequrementsFile> { }
+    public partial class TechnicalRequrementsTaskConfiguration : EntityTypeConfiguration<TechnicalRequrementsTask> { }
     public partial class GlobalPropertiesConfiguration : EntityTypeConfiguration<GlobalProperties> { }
     public partial class AddressConfiguration : EntityTypeConfiguration<Address> { }
     public partial class CountryConfiguration : EntityTypeConfiguration<Country> { }

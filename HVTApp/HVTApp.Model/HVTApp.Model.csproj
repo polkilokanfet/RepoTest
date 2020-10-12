@@ -114,6 +114,9 @@
     <Compile Include="POCOs\StandartProductionTerm.cs" />
     <Compile Include="POCOs\StructureCost.cs" />
     <Compile Include="POCOs\Supervision.cs" />
+    <Compile Include="POCOs\TechnicalRequrements.cs" />
+    <Compile Include="POCOs\TechnicalRequrementsFile.cs" />
+    <Compile Include="POCOs\TechnicalRequrementsTask.cs" />
     <Compile Include="Price.cs" />
     <Compile Include="Services\IGetProductService.cs" />
     <Compile Include="Services\INewProductService.cs" />

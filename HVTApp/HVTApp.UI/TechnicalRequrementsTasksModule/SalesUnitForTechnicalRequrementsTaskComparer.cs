@@ -2,20 +2,22 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure.Comparers;
+using HVTApp.UI.PriceCalculations.ViewModel;
 
-namespace HVTApp.UI.PriceCalculations.ViewModel
+namespace HVTApp.UI.TechnicalRequrementsTasksModule
 {
-    public class SalesUnit2Comparer : IEqualityComparer<SalesUnitEmptyWrapper>
+    public class SalesUnitForTechnicalRequrementsTaskComparer : IEqualityComparer<SalesUnitEmptyWrapper>
     {
         public bool Equals(SalesUnitEmptyWrapper x, SalesUnitEmptyWrapper y)
         {
             if (x == null) throw new ArgumentNullException(nameof(x));
             if (y == null) throw new ArgumentNullException(nameof(y));
 
+            if (!Equals(x.Model.Cost, y.Model.Cost)) return false;
+            if (!Equals(x.Model.CostDelivery, y.Model.CostDelivery)) return false;
             if (!Equals(x.Model.Project.Id, y.Model.Project.Id)) return false;
             if (!Equals(x.Model.Facility.Id, y.Model.Facility.Id)) return false;
             if (!Equals(x.Model.Product.Id, y.Model.Product.Id)) return false;
-            if (!Equals(x.Model.PaymentConditionSet.Id, y.Model.PaymentConditionSet.Id)) return false;
             if (!Equals(x.Model.OrderInTakeDate, y.Model.OrderInTakeDate)) return false;
             if (!Equals(x.Model.RealizationDateCalculated, y.Model.RealizationDateCalculated)) return false;
 

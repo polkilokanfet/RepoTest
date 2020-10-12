@@ -1586,6 +1586,171 @@ namespace HVTApp.UI.ViewModels
     }
 
 
+    public partial class TechnicalRequrementsDetailsViewModel : BaseDetailsViewModel<TechnicalRequrementsWrapper, TechnicalRequrements, AfterSaveTechnicalRequrementsEvent>
+    {
+		private Func<List<SalesUnit>> _getEntitiesForAddInSalesUnitsCommand;
+		public ICommand AddInSalesUnitsCommand { get; }
+		public ICommand RemoveFromSalesUnitsCommand { get; }
+		private SalesUnitWrapper _selectedSalesUnitsItem;
+		public SalesUnitWrapper SelectedSalesUnitsItem 
+		{ 
+			get { return _selectedSalesUnitsItem; }
+			set 
+			{ 
+				if (Equals(_selectedSalesUnitsItem, value)) return;
+				_selectedSalesUnitsItem = value;
+				OnPropertyChanged();
+				((DelegateCommand)RemoveFromSalesUnitsCommand).RaiseCanExecuteChanged();
+			}
+		}
+
+		private Func<List<TechnicalRequrementsFile>> _getEntitiesForAddInFilesCommand;
+		public ICommand AddInFilesCommand { get; }
+		public ICommand RemoveFromFilesCommand { get; }
+		private TechnicalRequrementsFileWrapper _selectedFilesItem;
+		public TechnicalRequrementsFileWrapper SelectedFilesItem 
+		{ 
+			get { return _selectedFilesItem; }
+			set 
+			{ 
+				if (Equals(_selectedFilesItem, value)) return;
+				_selectedFilesItem = value;
+				OnPropertyChanged();
+				((DelegateCommand)RemoveFromFilesCommand).RaiseCanExecuteChanged();
+			}
+		}
+
+
+        public TechnicalRequrementsDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+			
+			if (_getEntitiesForAddInSalesUnitsCommand == null) _getEntitiesForAddInSalesUnitsCommand = () => { return UnitOfWork.Repository<SalesUnit>().GetAll(); };;
+			if (AddInSalesUnitsCommand == null) AddInSalesUnitsCommand = new DelegateCommand(AddInSalesUnitsCommand_Execute_Default);
+			if (RemoveFromSalesUnitsCommand == null) RemoveFromSalesUnitsCommand = new DelegateCommand(RemoveFromSalesUnitsCommand_Execute_Default, RemoveFromSalesUnitsCommand_CanExecute_Default);
+
+			
+			if (_getEntitiesForAddInFilesCommand == null) _getEntitiesForAddInFilesCommand = () => { return UnitOfWork.Repository<TechnicalRequrementsFile>().GetAll(); };;
+			if (AddInFilesCommand == null) AddInFilesCommand = new DelegateCommand(AddInFilesCommand_Execute_Default);
+			if (RemoveFromFilesCommand == null) RemoveFromFilesCommand = new DelegateCommand(RemoveFromFilesCommand_Execute_Default, RemoveFromFilesCommand_CanExecute_Default);
+
+		}
+
+			private void AddInSalesUnitsCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<SalesUnit, SalesUnitWrapper>(_getEntitiesForAddInSalesUnitsCommand(), Item.SalesUnits);
+			}
+
+			private void RemoveFromSalesUnitsCommand_Execute_Default()
+			{
+				Item.SalesUnits.Remove(SelectedSalesUnitsItem);
+			}
+
+			private bool RemoveFromSalesUnitsCommand_CanExecute_Default()
+			{
+				return SelectedSalesUnitsItem != null;
+			}
+
+			private void AddInFilesCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<TechnicalRequrementsFile, TechnicalRequrementsFileWrapper>(_getEntitiesForAddInFilesCommand(), Item.Files);
+			}
+
+			private void RemoveFromFilesCommand_Execute_Default()
+			{
+				Item.Files.Remove(SelectedFilesItem);
+			}
+
+			private bool RemoveFromFilesCommand_CanExecute_Default()
+			{
+				return SelectedFilesItem != null;
+			}
+
+
+
+    }
+
+
+    public partial class TechnicalRequrementsFileDetailsViewModel : BaseDetailsViewModel<TechnicalRequrementsFileWrapper, TechnicalRequrementsFile, AfterSaveTechnicalRequrementsFileEvent>
+    {
+
+        public TechnicalRequrementsFileDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+		}
+
+
+
+    }
+
+
+    public partial class TechnicalRequrementsTaskDetailsViewModel : BaseDetailsViewModel<TechnicalRequrementsTaskWrapper, TechnicalRequrementsTask, AfterSaveTechnicalRequrementsTaskEvent>
+    {
+		//private Func<Task<List<User>>> _getEntitiesForSelectBackManagerCommand;
+		private Func<List<User>> _getEntitiesForSelectBackManagerCommand;
+		public ICommand SelectBackManagerCommand { get; private set; }
+		public ICommand ClearBackManagerCommand { get; private set; }
+
+		private Func<List<TechnicalRequrements>> _getEntitiesForAddInRequrementsCommand;
+		public ICommand AddInRequrementsCommand { get; }
+		public ICommand RemoveFromRequrementsCommand { get; }
+		private TechnicalRequrementsWrapper _selectedRequrementsItem;
+		public TechnicalRequrementsWrapper SelectedRequrementsItem 
+		{ 
+			get { return _selectedRequrementsItem; }
+			set 
+			{ 
+				if (Equals(_selectedRequrementsItem, value)) return;
+				_selectedRequrementsItem = value;
+				OnPropertyChanged();
+				((DelegateCommand)RemoveFromRequrementsCommand).RaiseCanExecuteChanged();
+			}
+		}
+
+
+        public TechnicalRequrementsTaskDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+			
+			if (_getEntitiesForSelectBackManagerCommand == null) _getEntitiesForSelectBackManagerCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };
+			if (SelectBackManagerCommand == null) SelectBackManagerCommand = new DelegateCommand(SelectBackManagerCommand_Execute_Default);
+			if (ClearBackManagerCommand == null) ClearBackManagerCommand = new DelegateCommand(ClearBackManagerCommand_Execute_Default);
+
+			
+			if (_getEntitiesForAddInRequrementsCommand == null) _getEntitiesForAddInRequrementsCommand = () => { return UnitOfWork.Repository<TechnicalRequrements>().GetAll(); };;
+			if (AddInRequrementsCommand == null) AddInRequrementsCommand = new DelegateCommand(AddInRequrementsCommand_Execute_Default);
+			if (RemoveFromRequrementsCommand == null) RemoveFromRequrementsCommand = new DelegateCommand(RemoveFromRequrementsCommand_Execute_Default, RemoveFromRequrementsCommand_CanExecute_Default);
+
+		}
+
+		private void SelectBackManagerCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<User, UserWrapper>(_getEntitiesForSelectBackManagerCommand(), nameof(Item.BackManager), Item.BackManager?.Id);
+		}
+
+		private void ClearBackManagerCommand_Execute_Default() 
+		{
+						Item.BackManager = null;
+		    
+		}
+
+			private void AddInRequrementsCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<TechnicalRequrements, TechnicalRequrementsWrapper>(_getEntitiesForAddInRequrementsCommand(), Item.Requrements);
+			}
+
+			private void RemoveFromRequrementsCommand_Execute_Default()
+			{
+				Item.Requrements.Remove(SelectedRequrementsItem);
+			}
+
+			private bool RemoveFromRequrementsCommand_CanExecute_Default()
+			{
+				return SelectedRequrementsItem != null;
+			}
+
+
+
+    }
+
+
     public partial class GlobalPropertiesDetailsViewModel : BaseDetailsViewModel<GlobalPropertiesWrapper, GlobalProperties, AfterSaveGlobalPropertiesEvent>
     {
 		//private Func<Task<List<Company>>> _getEntitiesForSelectOurCompanyCommand;

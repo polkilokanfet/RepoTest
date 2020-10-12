@@ -36,6 +36,9 @@ namespace HVTApp.DataAccess
             StandartProductionTermRepository = new StandartProductionTermRepository(_context);
             StructureCostRepository = new StructureCostRepository(_context);
             SupervisionRepository = new SupervisionRepository(_context);
+            TechnicalRequrementsRepository = new TechnicalRequrementsRepository(_context);
+            TechnicalRequrementsFileRepository = new TechnicalRequrementsFileRepository(_context);
+            TechnicalRequrementsTaskRepository = new TechnicalRequrementsTaskRepository(_context);
             GlobalPropertiesRepository = new GlobalPropertiesRepository(_context);
             AddressRepository = new AddressRepository(_context);
             CountryRepository = new CountryRepository(_context);
@@ -116,6 +119,9 @@ namespace HVTApp.DataAccess
         protected IStandartProductionTermRepository StandartProductionTermRepository;
         protected IStructureCostRepository StructureCostRepository;
         protected ISupervisionRepository SupervisionRepository;
+        protected ITechnicalRequrementsRepository TechnicalRequrementsRepository;
+        protected ITechnicalRequrementsFileRepository TechnicalRequrementsFileRepository;
+        protected ITechnicalRequrementsTaskRepository TechnicalRequrementsTaskRepository;
         protected IGlobalPropertiesRepository GlobalPropertiesRepository;
         protected IAddressRepository AddressRepository;
         protected ICountryRepository CountryRepository;

@@ -150,7 +150,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                     var items = UnitOfWork.Repository<SalesUnit>()
                             .Find(x => x.Project.Manager.IsAppCurrentUser())
                             .Except(PriceCalculationWrapper.PriceCalculationItems.SelectMany(x => x.SalesUnits).Select(x => x.Model))
-                            .Select(x => new SalesUnit2Wrapper(x))
+                            .Select(x => new SalesUnitEmptyWrapper(x))
                             .GroupBy(x => x, new SalesUnit2Comparer())
                             .Select(GetPriceCalculationItem2Wrapper);
 
@@ -386,14 +386,14 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
         {
             var salesUnitWrappers = salesUnits
                 .Select(x => UnitOfWork.Repository<SalesUnit>().GetById(x.Id))
-                .Select(x => new SalesUnit2Wrapper(x))
+                .Select(x => new SalesUnitEmptyWrapper(x))
                 .ToList();
             
             salesUnitWrappers.GroupBy(x => x, new SalesUnit2Comparer())
                              .ForEach(x => { PriceCalculationWrapper.PriceCalculationItems.Add(GetPriceCalculationItem2Wrapper(x)); });
         }
 
-        private PriceCalculationItem2Wrapper GetPriceCalculationItem2Wrapper(IEnumerable<SalesUnit2Wrapper> salesUnits)
+        private PriceCalculationItem2Wrapper GetPriceCalculationItem2Wrapper(IEnumerable<SalesUnitEmptyWrapper> salesUnits)
         {
             var priceCalculationItem2Wrapper = new PriceCalculationItem2Wrapper(new PriceCalculationItem());
             salesUnits.ForEach(x => priceCalculationItem2Wrapper.SalesUnits.Add(x));

@@ -787,6 +787,72 @@ namespace HVTApp.UI.Lookup
 	}
 	[AllowEditAttribute(Role.Admin)]
 
+	[Designation("Тех.задание")]
+	public partial class TechnicalRequrementsLookup : LookupItem<TechnicalRequrements>
+	{
+		public TechnicalRequrementsLookup(TechnicalRequrements entity) : base(entity) 
+		{
+		}
+		
+        #region SimpleProperties
+		[OrderStatus(5)]
+        public System.String Comment => Entity.Comment;
+
+        #endregion
+		[OrderStatus(20)]
+	    public List<SalesUnitLookup> SalesUnits { get { return GetLookupEnum<SalesUnitLookup>().ToList(); } }
+		[OrderStatus(10)]
+	    public List<TechnicalRequrementsFileLookup> Files { get { return GetLookupEnum<TechnicalRequrementsFileLookup>().ToList(); } }
+	}
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Тех.задание (файл)")]
+	public partial class TechnicalRequrementsFileLookup : LookupItem<TechnicalRequrementsFile>
+	{
+		public TechnicalRequrementsFileLookup(TechnicalRequrementsFile entity) : base(entity) 
+		{
+		}
+		
+        #region SimpleProperties
+		[OrderStatus(20)]
+        public System.String Name => Entity.Name;
+
+		[OrderStatus(10)]
+        public System.String Comment => Entity.Comment;
+
+        #endregion
+	}
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Тех.задание (задача)")]
+	public partial class TechnicalRequrementsTaskLookup : LookupItem<TechnicalRequrementsTask>
+	{
+		public TechnicalRequrementsTaskLookup(TechnicalRequrementsTask entity) : base(entity) 
+		{
+		}
+		
+        #region SimpleProperties
+		[OrderStatus(5)]
+        public System.String Comment => Entity.Comment;
+
+		[OrderStatus(4)]
+        public System.String TceNumber => Entity.TceNumber;
+
+		[OrderStatus(3)]
+        public System.Nullable<System.DateTime> Start => Entity.Start;
+
+        #endregion
+
+        #region ComplexProperties
+		[OrderStatus(1)]
+	    public UserLookup BackManager { get { return GetLookup<UserLookup>(); } }
+
+        #endregion
+		[OrderStatus(20)]
+	    public List<TechnicalRequrementsLookup> Requrements { get { return GetLookupEnum<TechnicalRequrementsLookup>().ToList(); } }
+	}
+	[AllowEditAttribute(Role.Admin)]
+
 	[Designation("Общие настройки")]
 	public partial class GlobalPropertiesLookup : LookupItem<GlobalProperties>
 	{
@@ -815,6 +881,9 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
         public System.String DirectumAttachmentsPath => Entity.DirectumAttachmentsPath;
+
+		[OrderStatus(1)]
+        public System.String TechnicalRequrementsFilesPath => Entity.TechnicalRequrementsFilesPath;
 
 		[OrderStatus(1)]
         public System.Nullable<System.DateTime> LastDeveloperVizit => Entity.LastDeveloperVizit;

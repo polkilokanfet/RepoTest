@@ -576,7 +576,7 @@
     </Compile>
     <Compile Include="PriceCalculations\ViewModel\PriceCalculationViewModel.cs" />
     <Compile Include="PriceCalculations\ViewModel\SalesUnit2Comparer.cs" />
-    <Compile Include="PriceCalculations\ViewModel\SalesUnit2Wrapper.cs" />
+    <Compile Include="PriceCalculations\ViewModel\SalesUnitEmptyWrapper.cs" />
     <Compile Include="PriceCalculations\Tabs\TabPriceCalculation.xaml.cs">
       <DependentUpon>TabPriceCalculation.xaml</DependentUpon>
     </Compile>
@@ -586,6 +586,10 @@
     <Compile Include="Tabs\TabRefresh.xaml.cs">
       <DependentUpon>TabRefresh.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TechnicalRequrementsTasksModule\SalesUnitForTechnicalRequrementsTaskComparer.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\TechnicalRequrementsTaskViewModel.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Wrapper\TechnicalRequrements2Wrapper.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Wrapper\TechnicalRequrementsTaskWrapper.cs" />
     <Compile Include="ViewModels\Details\EmployeeDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\FacilityDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\IncomingRequestDetailsViewModel.cs" />
@@ -1580,6 +1584,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\Details\TechnicalRequrementsDetailsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Details\TechnicalRequrementsFileDetailsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Details\TechnicalRequrementsTaskDetailsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Details\TenderDetailsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1885,6 +1901,18 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\List\SupervisionLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\TechnicalRequrementsFileLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\TechnicalRequrementsLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\TechnicalRequrementsTaskLookupListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

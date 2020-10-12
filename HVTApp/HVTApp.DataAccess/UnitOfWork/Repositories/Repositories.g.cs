@@ -228,6 +228,27 @@ namespace HVTApp.DataAccess
 		}
     }
 
+    public partial class TechnicalRequrementsRepository : BaseRepository<TechnicalRequrements>, ITechnicalRequrementsRepository
+    {
+		public TechnicalRequrementsRepository(DbContext context) : base(context) 
+		{
+		}
+    }
+
+    public partial class TechnicalRequrementsFileRepository : BaseRepository<TechnicalRequrementsFile>, ITechnicalRequrementsFileRepository
+    {
+		public TechnicalRequrementsFileRepository(DbContext context) : base(context) 
+		{
+		}
+    }
+
+    public partial class TechnicalRequrementsTaskRepository : BaseRepository<TechnicalRequrementsTask>, ITechnicalRequrementsTaskRepository
+    {
+		public TechnicalRequrementsTaskRepository(DbContext context) : base(context) 
+		{
+		}
+    }
+
     public partial class GlobalPropertiesRepository : BaseRepository<GlobalProperties>, IGlobalPropertiesRepository
     {
 		public GlobalPropertiesRepository(DbContext context) : base(context) 

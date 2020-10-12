@@ -80,11 +80,18 @@ namespace HVTApp.Model.POCOs
         [Designation("Стандартные условия оплаты"), Required]
         public virtual PaymentConditionSet PaymentConditionSet { get; set; }
 
-        [Designation("Путь к папке с запросами")]
+
+
+        [Designation("Путь к папке с запросами"), Required]
         public string IncomingRequestsPath { get; set; }
 
-        [Designation("Путь к папке с приложениями Directum")]
+        [Designation("Путь к папке с приложениями Directum"), Required]
         public string DirectumAttachmentsPath { get; set; }
+
+        [Designation("Путь к папке с файлами ТЗ")]
+        public string TechnicalRequrementsFilesPath { get; set; }
+
+
 
         [Designation("Разработчик")]
         public virtual User Developer { get; set; }

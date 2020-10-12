@@ -1757,6 +1757,159 @@ namespace HVTApp.Model.Wrapper
 
 	}
 
+		public partial class TechnicalRequrementsWrapper : WrapperBase<TechnicalRequrements>
+	{
+	    public TechnicalRequrementsWrapper(TechnicalRequrements model) : base(model) { }
+
+        #region SimpleProperties
+
+        public System.String Comment
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
+        public bool CommentIsChanged => GetIsChanged(nameof(Comment));
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+        #endregion
+
+        #region CollectionProperties
+
+        public IValidatableChangeTrackingCollection<SalesUnitWrapper> SalesUnits { get; private set; }
+
+        public IValidatableChangeTrackingCollection<TechnicalRequrementsFileWrapper> Files { get; private set; }
+
+        #endregion
+
+        protected override void InitializeCollectionProperties()
+        {
+
+          if (Model.SalesUnits == null) throw new ArgumentException("SalesUnits cannot be null");
+          SalesUnits = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(Model.SalesUnits.Select(e => new SalesUnitWrapper(e)));
+          RegisterCollection(SalesUnits, Model.SalesUnits);
+
+          if (Model.Files == null) throw new ArgumentException("Files cannot be null");
+          Files = new ValidatableChangeTrackingCollection<TechnicalRequrementsFileWrapper>(Model.Files.Select(e => new TechnicalRequrementsFileWrapper(e)));
+          RegisterCollection(Files, Model.Files);
+
+        }
+
+	}
+
+		public partial class TechnicalRequrementsFileWrapper : WrapperBase<TechnicalRequrementsFile>
+	{
+	    public TechnicalRequrementsFileWrapper(TechnicalRequrementsFile model) : base(model) { }
+
+        #region SimpleProperties
+
+        public System.String Name
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
+        public bool NameIsChanged => GetIsChanged(nameof(Name));
+
+        public System.String Comment
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
+        public bool CommentIsChanged => GetIsChanged(nameof(Comment));
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+        #endregion
+
+	}
+
+		public partial class TechnicalRequrementsTaskWrapper : WrapperBase<TechnicalRequrementsTask>
+	{
+	    public TechnicalRequrementsTaskWrapper(TechnicalRequrementsTask model) : base(model) { }
+
+        #region SimpleProperties
+
+        public System.String Comment
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
+        public bool CommentIsChanged => GetIsChanged(nameof(Comment));
+
+        public System.String TceNumber
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String TceNumberOriginalValue => GetOriginalValue<System.String>(nameof(TceNumber));
+        public bool TceNumberIsChanged => GetIsChanged(nameof(TceNumber));
+
+        public System.Nullable<System.DateTime> Start
+        {
+          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.DateTime> StartOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(Start));
+        public bool StartIsChanged => GetIsChanged(nameof(Start));
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+        #endregion
+
+        #region ComplexProperties
+
+	    public UserWrapper BackManager 
+        {
+            get { return GetWrapper<UserWrapper>(); }
+            set { SetComplexValue<User, UserWrapper>(BackManager, value); }
+        }
+
+        #endregion
+
+        #region CollectionProperties
+
+        public IValidatableChangeTrackingCollection<TechnicalRequrementsWrapper> Requrements { get; private set; }
+
+        #endregion
+
+        public override void InitializeComplexProperties()
+        {
+            InitializeComplexProperty<UserWrapper>(nameof(BackManager), Model.BackManager == null ? null : new UserWrapper(Model.BackManager));
+        }
+
+        protected override void InitializeCollectionProperties()
+        {
+
+          if (Model.Requrements == null) throw new ArgumentException("Requrements cannot be null");
+          Requrements = new ValidatableChangeTrackingCollection<TechnicalRequrementsWrapper>(Model.Requrements.Select(e => new TechnicalRequrementsWrapper(e)));
+          RegisterCollection(Requrements, Model.Requrements);
+
+        }
+
+	}
+
 		public partial class GlobalPropertiesWrapper : WrapperBase<GlobalProperties>
 	{
 	    public GlobalPropertiesWrapper(GlobalProperties model) : base(model) { }
@@ -1818,6 +1971,14 @@ namespace HVTApp.Model.Wrapper
         }
         public System.String DirectumAttachmentsPathOriginalValue => GetOriginalValue<System.String>(nameof(DirectumAttachmentsPath));
         public bool DirectumAttachmentsPathIsChanged => GetIsChanged(nameof(DirectumAttachmentsPath));
+
+        public System.String TechnicalRequrementsFilesPath
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String TechnicalRequrementsFilesPathOriginalValue => GetOriginalValue<System.String>(nameof(TechnicalRequrementsFilesPath));
+        public bool TechnicalRequrementsFilesPathIsChanged => GetIsChanged(nameof(TechnicalRequrementsFilesPath));
 
         public System.Nullable<System.DateTime> LastDeveloperVizit
         {
