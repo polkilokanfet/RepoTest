@@ -103,6 +103,7 @@ namespace HVTApp.UI.Modules.Sales.Market
             SelectProjectsFolderCommand = new DelegateCommand(SelectProjectsFolderCommand_Execute);
             OpenFolderCommand = new DelegateCommand(OpenFolderCommand_Execute, () => SelectedProjectItem != null);
 
+            MakeTceTaskCommand = new DelegateCommand(MakeTceTaskCommand_Execute, () => SelectedProjectItem != null);
             #endregion
 
             #region Subscribe to Events
@@ -175,6 +176,7 @@ namespace HVTApp.UI.Modules.Sales.Market
             ((DelegateCommand)EditProjectCommand).RaiseCanExecuteChanged();
             ((DelegateCommand)NewSpecificationCommand).RaiseCanExecuteChanged();
             ((DelegateCommand)StructureCostsCommand).RaiseCanExecuteChanged();
+            ((DelegateCommand)MakeTceTaskCommand).RaiseCanExecuteChanged();
             ((DelegateCommand)OpenFolderCommand).RaiseCanExecuteChanged();
             OfferRaiseCanExecuteChanged();
             TenderRaiseCanExecuteChanged();

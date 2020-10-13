@@ -6,6 +6,9 @@ using HVTApp.Infrastructure.Attributes;
 
 namespace HVTApp.Model.POCOs
 {
+    /// <summary>
+    /// Тех.задание (задача)
+    /// </summary>
     [Designation("Тех.задание (задача)")]
     [DesignationPlural("Тех.задания (задача)")]
     public partial class TechnicalRequrementsTask : BaseEntity

@@ -586,6 +586,12 @@
     <Compile Include="Tabs\TabRefresh.xaml.cs">
       <DependentUpon>TabRefresh.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TechnicalRequrementsTasksModule\TabTechnicalRequrementsTask.xaml.cs">
+      <DependentUpon>TabTechnicalRequrementsTask.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TechnicalRequrementsTasksModule\TechnicalRequrementsTaskView.xaml.cs">
+      <DependentUpon>TechnicalRequrementsTaskView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TechnicalRequrementsTasksModule\SalesUnitForTechnicalRequrementsTaskComparer.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\TechnicalRequrementsTaskViewModel.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Wrapper\TechnicalRequrements2Wrapper.cs" />
@@ -1281,6 +1287,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Tabs\TabCRUD.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TechnicalRequrementsTasksModule\TabTechnicalRequrementsTask.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TechnicalRequrementsTasksModule\TechnicalRequrementsTaskView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

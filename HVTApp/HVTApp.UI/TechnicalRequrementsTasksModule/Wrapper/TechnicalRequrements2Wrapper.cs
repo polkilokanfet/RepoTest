@@ -10,7 +10,11 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper
 {
     public partial class TechnicalRequrements2Wrapper : WrapperBase<TechnicalRequrements>
     {
-        public TechnicalRequrements2Wrapper(TechnicalRequrements model) : base(model) { }
+        public bool IsChecked { get; set; }
+
+        public SalesUnit SalesUnit { get; }
+
+        public int Amount => SalesUnits.Count;
 
         #region SimpleProperties
 
@@ -31,6 +35,11 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper
         public IValidatableChangeTrackingCollection<TechnicalRequrementsFileWrapper> Files { get; private set; }
 
         #endregion
+
+        public TechnicalRequrements2Wrapper(TechnicalRequrements model) : base(model)
+        {
+            SalesUnit = model.SalesUnits.First();
+        }
 
         protected override void InitializeCollectionProperties()
         {

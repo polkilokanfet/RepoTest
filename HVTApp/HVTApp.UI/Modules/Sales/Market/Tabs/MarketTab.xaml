@@ -39,5 +39,9 @@
     <infRib:RibbonGroup Caption="Переменные затраты">
         <infRib:ButtonTool Caption="Создать задание" Command="{Binding StructureCostsCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
     </infRib:RibbonGroup>
+    
+    <infRib:RibbonGroup Caption="Действия">
+        <infRib:ButtonTool Caption="Передать в ТСЕ" Command="{Binding MakeTceTaskCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
+    </infRib:RibbonGroup>
 
 </inf:RibbonTabItemWithViewModel>

@@ -26,6 +26,7 @@ using HVTApp.UI.Modules.Reports.Views;
 using HVTApp.UI.Modules.SupplyModule.Views;
 using HVTApp.UI.PriceCalculations.View;
 using HVTApp.UI.PriceCalculations.ViewModel;
+using HVTApp.UI.TechnicalRequrementsTasksModule;
 using HVTApp.UI.ViewModels;
 using HVTApp.UI.Views;
 using Microsoft.Practices.Unity;
@@ -77,6 +78,7 @@ namespace HVTApp.UI
             Container.RegisterViewForNavigation<Modules.Sales.Supervision.SupervisionView>();
             Container.RegisterViewForNavigation<BudgetComparisionView>();
             Container.RegisterViewForNavigation<CommonInfoView>();
+            Container.RegisterViewForNavigation<TechnicalRequrementsTaskView>();
 
             Container.Resolve<IDialogService>().Register<DirectumTaskRouteViewModel, DirectumTaskRouteWindow>();
 

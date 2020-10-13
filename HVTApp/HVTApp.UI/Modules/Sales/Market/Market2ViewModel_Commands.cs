@@ -11,6 +11,7 @@ using HVTApp.Model.POCOs;
 using HVTApp.UI.Modules.Sales.ViewModels;
 using HVTApp.UI.Modules.Sales.Views;
 using HVTApp.UI.PriceCalculations.View;
+using HVTApp.UI.TechnicalRequrementsTasksModule;
 using Microsoft.Practices.Unity;
 using Prism.Regions;
 
@@ -42,6 +43,8 @@ namespace HVTApp.UI.Modules.Sales.Market
         public ICommand RemoveTenderCommand { get; }
 
         public ICommand StructureCostsCommand { get; }
+
+        public ICommand MakeTceTaskCommand { get; }
 
         #endregion
 
@@ -177,6 +180,12 @@ namespace HVTApp.UI.Modules.Sales.Market
                     Properties.Settings.Default.Save();
                 }
             }
+        }
+
+        private void MakeTceTaskCommand_Execute()
+        {
+            var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Id == SelectedProjectItem.Project.Id);
+            RegionManager.RequestNavigateContentRegion<TechnicalRequrementsTaskView>(new NavigationParameters { { nameof(SalesUnit), salesUnits } });
         }
     }
 }

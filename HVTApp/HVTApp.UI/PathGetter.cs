@@ -9,16 +9,35 @@ namespace HVTApp.UI
 {
     public static class PathGetter
     {
+        /// <summary>
+        /// путь к папке файла тех.требований
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        public static string GetPath(TechnicalRequrementsFile file)
+        {
+            var rootDirectory = GlobalAppProperties.Actual.TechnicalRequrementsFilesPath;
+            return GetPath(file.Id, rootDirectory);
+        }
+
+        /// <summary>
+        /// путь к папке задачи Директум
+        /// </summary>
+        /// <param name="directumTaskGroup"></param>
+        /// <returns></returns>
         public static string GetPath(DirectumTaskGroup directumTaskGroup)
         {
-            //путь к папке проекта
             var rootDirectory = GlobalAppProperties.Actual.DirectumAttachmentsPath;
             return GetPath(directumTaskGroup.Id, rootDirectory);
         }
 
+        /// <summary>
+        /// путь к папке документа
+        /// </summary>
+        /// <param name="document"></param>
+        /// <returns></returns>
         public static string GetPath(Document document)
         {
-            //путь к папке проекта
             var rootDirectory = GlobalAppProperties.Actual.IncomingRequestsPath;
             return GetPath(document.Id, rootDirectory, document.RegNumber);
         }

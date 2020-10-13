@@ -1,10 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
+using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
@@ -22,7 +26,6 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 {
     public class TechnicalRequrementsTaskViewModel : ViewModelBaseCanExportToExcel
     {
-        private readonly IMessageService _messageService;
         private TechnicalRequrementsTask2Wrapper _technicalRequrementsTaskWrapper;
 
         private object _selectedItem;
@@ -33,7 +36,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             {
                 _selectedItem = value;
 
-                ((DelegateCommand)AddFileCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)AddNewFileCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)AddOldFileCommand).RaiseCanExecuteChanged();
                 ((DelegateCommand)RemoveFileCommand).RaiseCanExecuteChanged();
                 ((DelegateCommand)RemoveGroupCommand).RaiseCanExecuteChanged();
                 ((DelegateCommand)DivideCommand).RaiseCanExecuteChanged();
@@ -47,7 +51,16 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         #region ICommand
 
         public ICommand SaveCommand { get; }
-        public ICommand AddFileCommand { get; }
+
+        /// <summary>
+        /// Добавление нового файла
+        /// </summary>
+        public ICommand AddNewFileCommand { get; }
+
+        /// <summary>
+        /// Добавление существующего файла
+        /// </summary>
+        public ICommand AddOldFileCommand { get; }
         public ICommand RemoveFileCommand { get; }
 
         public ICommand AddGroupCommand { get; }
@@ -56,7 +69,6 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         public ICommand StartCommand { get; }
 
         public ICommand CancelCommand { get; }
-
 
         public ICommand MeregeCommand { get; }
         public ICommand DivideCommand { get; }
@@ -81,7 +93,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
         public TechnicalRequrementsTaskViewModel(IUnityContainer container) : base(container)
         {
-            _messageService = container.Resolve<IMessageService>();
+            var messageService = container.Resolve<IMessageService>();
 
             #region SaveCommand
           
@@ -109,15 +121,65 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
             #region AddFileCommand
 
-            //добавление стракчакоста
-            AddFileCommand = new DelegateCommand(
+            AddNewFileCommand = new DelegateCommand(
                 () =>
                 {
-                    var structureCost = new StructureCost { Comment = "No title" };
-                    var structureCostWrapper = new StructureCostWrapper(structureCost);
-                    (SelectedItem as PriceCalculationItem2Wrapper).StructureCosts.Add(structureCostWrapper);
+                    var openFileDialog = new OpenFileDialog
+                    {
+                        Multiselect = true,
+                        RestoreDirectory = true
+                    };
+
+                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        var rootDirectoryPath = GlobalAppProperties.Actual.TechnicalRequrementsFilesPath;
+
+                        //копируем каждый файл
+                        foreach (var fileName in openFileDialog.FileNames)
+                        {
+                            var fileWrapper = new TechnicalRequrementsFileWrapper(new TechnicalRequrementsFile());
+                            try
+                            {
+                                File.Copy(fileName, $"{rootDirectoryPath}\\{fileWrapper.Id}{Path.GetExtension(fileName)}");
+                                fileWrapper.Name = Path.GetFileNameWithoutExtension(fileName);
+                                ((TechnicalRequrements2Wrapper)SelectedItem).Files.Add(fileWrapper);
+                            }
+                            catch (Exception e)
+                            {
+                                messageService.ShowOkMessageDialog("Exception", e.GetAllExceptions());
+                            }
+                        }
+                    }
+
                 },
-                () => SelectedItem is PriceCalculationItem2Wrapper && !IsStarted);
+                () => !IsStarted && SelectedItem is TechnicalRequrements2Wrapper);
+
+            AddOldFileCommand = new DelegateCommand(
+                () =>
+                {
+                    var selectedRequirements = (TechnicalRequrements2Wrapper)SelectedItem;
+
+                    var files = TechnicalRequrementsTaskWrapper.Requrements
+                        .Where(x => x.Model.Id != selectedRequirements.Model.Id)
+                        .SelectMany(x => x.Files)
+                        .Select(x => x.Model)
+                        .Distinct();
+
+                    var selectService = Container.Resolve<ISelectService>();
+                    var file = selectService.SelectItem(files);
+
+                    //добавляем файл в выбранные требования
+                    if (file != null)
+                    {
+                        var fileWrapper = TechnicalRequrementsTaskWrapper.Requrements
+                            .SelectMany(x => x.Files)
+                            .Distinct()
+                            .Single(x => x.Id == file.Id);
+
+                        selectedRequirements.Files.Add(fileWrapper);
+                    }
+                },
+                () => !IsStarted && SelectedItem is TechnicalRequrements2Wrapper);
 
             #endregion
 
@@ -132,14 +194,18 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                     if (result != MessageDialogResult.Yes) return;
 
                     //поиск конкретной задачи
-                    var file = SelectedItem as TechnicalRequrementsFileWrapper;
-                    var task = TechnicalRequrementsTaskWrapper.Requrements.Single(x => x.Files.Contains(file));
+                    var file =  (TechnicalRequrementsFileWrapper)SelectedItem;
+                    var technicalRequrements2Wrapper = TechnicalRequrementsTaskWrapper.Requrements.Single(x => x.Files.Contains(file));
 
                     //удаление
-                    task.Files.Remove(file);
+                    technicalRequrements2Wrapper.Files.Remove(file);
                     if (UnitOfWork.Repository<TechnicalRequrementsFile>().GetById(file.Id) != null)
                     {
-                        UnitOfWork.Repository<TechnicalRequrementsFile>().Delete(file.Model);
+                        //если используется только в одном месте
+                        if (TechnicalRequrementsTaskWrapper.Requrements.Count(x => x.Files.Select(f => f.Model).ContainsById(file.Model)) == 1)
+                        {
+                            UnitOfWork.Repository<TechnicalRequrementsFile>().Delete(file.Model);
+                        }
                     }
 
                     SelectedItem = null;
@@ -232,7 +298,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                     OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsStarted)));
                     ((DelegateCommand)StartCommand).RaiseCanExecuteChanged();
                     ((DelegateCommand)CancelCommand).RaiseCanExecuteChanged();
-                    ((DelegateCommand)AddFileCommand).RaiseCanExecuteChanged();
+                    ((DelegateCommand)AddNewFileCommand).RaiseCanExecuteChanged();
                     ((DelegateCommand)AddGroupCommand).RaiseCanExecuteChanged();
                     ((DelegateCommand)RemoveFileCommand).RaiseCanExecuteChanged();
                     ((DelegateCommand)RemoveGroupCommand).RaiseCanExecuteChanged();
@@ -256,7 +322,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsStarted)));
                 ((DelegateCommand)StartCommand).RaiseCanExecuteChanged();
                 ((DelegateCommand)CancelCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)AddFileCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)AddNewFileCommand).RaiseCanExecuteChanged();
                 ((DelegateCommand)AddGroupCommand).RaiseCanExecuteChanged();
                 ((DelegateCommand)RemoveFileCommand).RaiseCanExecuteChanged();
                 ((DelegateCommand)RemoveGroupCommand).RaiseCanExecuteChanged();
@@ -268,42 +334,54 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
             #region MergeCommand
 
-            //MeregeCommand = new DelegateCommand(
-            //    () =>
-            //    {
-            //        var result = _messageService.ShowYesNoMessageDialog("Слияние", "Действительно хотите слить строки, выделенные галкой?", defaultYes:true);
-            //        if (result != MessageDialogResult.Yes) return;
+            MeregeCommand = new DelegateCommand(
+                () =>
+                {
+                    var result = messageService.ShowYesNoMessageDialog("Слияние", "Действительно хотите слить строки, выделенные галкой?", defaultYes: true);
+                    if (result != MessageDialogResult.Yes) return;
 
-            //        //айтемы для слияния
-            //        var items = TechnicalRequrementsTaskWrapper.PriceCalculationItems.Where(x => x.IsChecked).ToList();
+                    //айтемы для слияния
+                    var items = TechnicalRequrementsTaskWrapper.Requrements.Where(x => x.IsChecked).ToList();
 
-            //        if (items.Select(x => x.Facility.Id).Distinct().Count() > 1)
-            //        {
-            //            _messageService.ShowOkMessageDialog("Слияние", "Вы не можете объединить строки с разными Объектами поставки.");
-            //            return;
-            //        }
+                    if (items.Select(x => x.SalesUnit.Facility.Id).Distinct().Count() > 1)
+                    {
+                        messageService.ShowOkMessageDialog("Слияние", "Вы не можете объединить строки с разными Объектами поставки.");
+                        return;
+                    }
 
-            //        if (items.Select(x => x.Product.Id).Distinct().Count() > 1)
-            //        {
-            //            _messageService.ShowOkMessageDialog("Слияние", "Вы не можете объединить строки с разными Продуктами поставки.");
-            //            return;
-            //        }
+                    if (items.Select(x => x.SalesUnit.Product.Id).Distinct().Count() > 1)
+                    {
+                        messageService.ShowOkMessageDialog("Слияние", "Вы не можете объединить строки с разными Продуктами поставки.");
+                        return;
+                    }
 
-            //        var itemToSave = items.First();
-            //        items.Remove(itemToSave);
+                    if (items.Select(x => x.SalesUnit.OrderInTakeDate).Distinct().Count() > 1)
+                    {
+                        messageService.ShowOkMessageDialog("Слияние", "Вы не можете объединить строки с разными датами ОИТ.");
+                        return;
+                    }
 
-            //        foreach (var item in items)
-            //        {
-            //            item.SalesUnits.ForEach(x => itemToSave.SalesUnits.Add(x));
-            //            TechnicalRequrementsTaskWrapper.PriceCalculationItems.Remove(item);
-            //            if (UnitOfWork.Repository<PriceCalculationItem>().GetById(item.Model.Id) != null)
-            //                UnitOfWork.Repository<PriceCalculationItem>().Delete(item.Model);
-            //        }
-            //    },
-            //    () =>
-            //    {
-            //        return !IsStarted && TechnicalRequrementsTaskWrapper.PriceCalculationItems.Count(x => x.IsChecked) > 1;
-            //    });
+                    if (items.Select(x => x.SalesUnit.RealizationDateCalculated).Distinct().Count() > 1)
+                    {
+                        messageService.ShowOkMessageDialog("Слияние", "Вы не можете объединить строки с разными датами реализации.");
+                        return;
+                    }
+
+                    var itemToSave = items.First();
+                    items.Remove(itemToSave);
+
+                    foreach (var item in items)
+                    {
+                        item.SalesUnits.ForEach(x => itemToSave.SalesUnits.Add(x));
+                        TechnicalRequrementsTaskWrapper.Requrements.Remove(item);
+                        if (UnitOfWork.Repository<TechnicalRequrements>().GetById(item.Model.Id) != null)
+                            UnitOfWork.Repository<TechnicalRequrements>().Delete(item.Model);
+                    }
+                },
+                () =>
+                {
+                    return !IsStarted && TechnicalRequrementsTaskWrapper.Requrements.Count(x => x.IsChecked) > 1;
+                });
 
             #endregion
 
@@ -312,37 +390,32 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             DivideCommand = new DelegateCommand(
                 () =>
                 {
-                    var result = _messageService.ShowYesNoMessageDialog("Разбиение", "Действительно хотите разбить выбранную строку?", defaultNo: true);
+                    var result = messageService.ShowYesNoMessageDialog("Разбиение", "Действительно хотите разбить выбранную строку?", defaultNo: true);
                     if (result != MessageDialogResult.Yes) return;
 
-                    var technicalRequrementsWrapper = (TechnicalRequrementsWrapper)SelectedItem;
+                    var technicalRequrementsWrapper = (TechnicalRequrements2Wrapper)SelectedItem;
                     var salesUnit = technicalRequrementsWrapper.SalesUnits.First();
 
                     var salesUnitsToDivide = technicalRequrementsWrapper.SalesUnits.ToList();
                     salesUnitsToDivide.Remove(salesUnit);
 
+                    //создаем новые строки
                     foreach (var unit in salesUnitsToDivide)
                     {
                         technicalRequrementsWrapper.SalesUnits.Remove(unit);
 
-                        var technicalRequrements = new TechnicalRequrements()
+                        //создаем новую строку
+                        var newTechnicalRequrements = new TechnicalRequrements { Comment = technicalRequrementsWrapper.Comment };
+                        var newTechnicalRequrementsWrapper = new TechnicalRequrements2Wrapper(newTechnicalRequrements);
+                        newTechnicalRequrementsWrapper.SalesUnits.Add(unit);
+
+                        //добавляем в новую строку файлы
+                        foreach (var fileWrapper in technicalRequrementsWrapper.Files)
                         {
-                            Comment = technicalRequrementsWrapper.Comment
-                        };
-                        var requrementsWrapper = new TechnicalRequrementsWrapper(technicalRequrements);
-                        requrementsWrapper.SalesUnits.Add(unit);
-                        foreach (var structureCost in technicalRequrementsWrapper.StructureCosts)
-                        {
-                            var sc = new StructureCost()
-                            {
-                                Comment = structureCost.Comment,
-                                Amount = structureCost.Amount,
-                                Number = structureCost.Number
-                            };
-                            requrementsWrapper.StructureCosts.Add(new StructureCostWrapper(sc));
+                            newTechnicalRequrementsWrapper.Files.Add(fileWrapper);
                         }
 
-                        TechnicalRequrementsTaskWrapper.PriceCalculationItems.Add(requrementsWrapper);
+                        TechnicalRequrementsTaskWrapper.Requrements.Add(newTechnicalRequrementsWrapper);
                     }
 
                 },
@@ -355,10 +428,10 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
         public void Load(TechnicalRequrementsTask technicalRequrementsTask)
         {
-            var priceCalculationLoaded = UnitOfWork.Repository<TechnicalRequrementsTask>().GetById(technicalRequrementsTask.Id);
+            var technicalRequrementsTaskLoaded = UnitOfWork.Repository<TechnicalRequrementsTask>().GetById(technicalRequrementsTask.Id);
 
-            TechnicalRequrementsTaskWrapper = priceCalculationLoaded != null 
-                ? new TechnicalRequrementsTask2Wrapper(priceCalculationLoaded) 
+            TechnicalRequrementsTaskWrapper = technicalRequrementsTaskLoaded != null 
+                ? new TechnicalRequrementsTask2Wrapper(technicalRequrementsTaskLoaded) 
                 : new TechnicalRequrementsTask2Wrapper(technicalRequrementsTask);
         }
 

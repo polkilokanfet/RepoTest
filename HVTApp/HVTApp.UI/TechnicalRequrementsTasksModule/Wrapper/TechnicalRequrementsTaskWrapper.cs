@@ -9,9 +9,9 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper
 {
     public partial class TechnicalRequrementsTask2Wrapper : WrapperBase<TechnicalRequrementsTask>
     {
-        public TechnicalRequrementsTask2Wrapper(TechnicalRequrementsTask model) : base(model) { }
-
         #region SimpleProperties
+
+        public string ProjectName { get; }
 
         public string Comment
         {
@@ -54,6 +54,11 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper
         public IValidatableChangeTrackingCollection<TechnicalRequrements2Wrapper> Requrements { get; private set; }
 
         #endregion
+
+        public TechnicalRequrementsTask2Wrapper(TechnicalRequrementsTask model) : base(model)
+        {
+            ProjectName = model.Requrements.First().SalesUnits.First().Project.Name;
+        }
 
         public override void InitializeComplexProperties()
         {
