@@ -6,10 +6,12 @@
              x:Class="HVTApp.UI.TechnicalRequrementsTasksModule.TabTechnicalRequrementsTask"
              Header="Задание на расчет себестоимости">
 
-    <infRib:RibbonGroup Caption="Требования" Visibility="{Binding CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityConverter}}">
+    <infRib:RibbonGroup Caption="Технические требования" Visibility="{Binding CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityConverter}}">
         <infRib:ButtonTool Caption="Добавить новое" Command="{Binding AddNewFileCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
         <infRib:ButtonTool Caption="Добавить старое" Command="{Binding AddOldFileCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
         <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveFileCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>
+        <infRib:ButtonTool Caption="Открыть" Command="{Binding LoadFileCommand}" SmallImage="/HVTApp.UI;component/Images/out.png"/>
+        <infRib:ButtonTool Caption="Открыть всё" Command="{Binding LoadAllFilesCommand}" SmallImage="/HVTApp.UI;component/Images/out.png"/>
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Оборудование" Visibility="{Binding CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityConverter}}">

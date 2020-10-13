@@ -39,7 +39,7 @@
                 </Grid.ColumnDefinitions>
 
                 <Label Grid.Row="0" Grid.Column="0" Content="Проект: "/>
-                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding TechnicalRequrementsTaskWrapper.ProjectName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="False"/>
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding TechnicalRequrementsTaskWrapper.ProjectName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
 
                 <Label Grid.Row="1" Grid.Column="0" Content="Комментарий: "/>
                 <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding TechnicalRequrementsTaskWrapper.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsStarted, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ReverseBoolConverter}}"/>
@@ -90,6 +90,7 @@
                             <infgDp:DateTimeField AlternateBinding="{Binding SalesUnit.OrderInTakeDate}" Label="ОИТ" AllowEdit="False" AllowResize="False" Width="Auto"/>
                             <infgDp:DateTimeField AlternateBinding="{Binding SalesUnit.RealizationDateCalculated}" Label="Реализация" AllowEdit="False" AllowResize="False" Width="Auto"/>
                             <infgDp:TextField AlternateBinding="{Binding SalesUnit.Producer}" BindingType="UseAlternateBinding" Label="Производитель" Width="Auto"/>
+                            <infgDp:TextField AlternateBinding="{Binding Model.Id}" BindingType="UseAlternateBinding" Label="Id" Width="Auto"/>
                             <infgDp:Field Name="Files" IsExpandable="True"/>
                         </infgDp:FieldLayout.Fields>
                     </infgDp:FieldLayout>

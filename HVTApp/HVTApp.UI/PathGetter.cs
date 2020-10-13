@@ -21,6 +21,27 @@ namespace HVTApp.UI
         }
 
         /// <summary>
+        /// Папка для временного хранения файла требований
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        public static string GetPathToCopyTemp(TechnicalRequrementsFile file, string reqPath = null)
+        {
+            var rootDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "TceTemp");
+            if (reqPath != null)
+            {
+                rootDirectory = Path.Combine(rootDirectory, reqPath);
+            }
+            return GetPath(file.Id, rootDirectory);
+        }
+
+        public static string GetPathToCopyTemp(TechnicalRequrementsTask technicalRequrementsTask)
+        {
+            var rootDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "TceTemp");
+            return GetPath(technicalRequrementsTask.Id, rootDirectory);
+        }
+
+        /// <summary>
         /// путь к папке задачи Директум
         /// </summary>
         /// <param name="directumTaskGroup"></param>

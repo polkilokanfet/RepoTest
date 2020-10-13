@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.ServiceModel.Configuration;
 using System.Windows.Forms;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
-using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Infrastructure.ViewModels;
@@ -30,6 +29,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         private TechnicalRequrementsTask2Wrapper _technicalRequrementsTaskWrapper;
 
         private object _selectedItem;
+        private IMessageService _messageService;
+
         public object SelectedItem
         {
             get { return _selectedItem; }
@@ -83,7 +84,9 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         public ICommand DivideCommand { get; }
 
         public ICommand LoadFileCommand { get; }
-        
+        public ICommand LoadAllFilesCommand { get; }
+
+
         #endregion
 
         public TechnicalRequrementsTask2Wrapper TechnicalRequrementsTaskWrapper
@@ -104,7 +107,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
         public TechnicalRequrementsTaskViewModel(IUnityContainer container) : base(container)
         {
-            var messageService = container.Resolve<IMessageService>();
+            _messageService = container.Resolve<IMessageService>();
 
             #region SaveCommand
           
@@ -157,7 +160,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                             }
                             catch (Exception e)
                             {
-                                messageService.ShowOkMessageDialog("Exception", e.GetAllExceptions());
+                                _messageService.ShowOkMessageDialog("Exception", e.GetAllExceptions());
                             }
                         }
                     }
@@ -348,7 +351,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             MeregeCommand = new DelegateCommand(
                 () =>
                 {
-                    var result = messageService.ShowYesNoMessageDialog("Слияние", "Действительно хотите слить строки, выделенные галкой?", defaultYes: true);
+                    var result = _messageService.ShowYesNoMessageDialog("Слияние", "Действительно хотите слить строки, выделенные галкой?", defaultYes: true);
                     if (result != MessageDialogResult.Yes) return;
 
                     //айтемы для слияния
@@ -356,31 +359,31 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
                     if (items.Select(x => x.SalesUnit.Facility.Id).Distinct().Count() > 1)
                     {
-                        messageService.ShowOkMessageDialog("Слияние", "Вы не можете объединить строки с разными Объектами поставки.");
+                        _messageService.ShowOkMessageDialog("Слияние", "Вы не можете объединить строки с разными Объектами поставки.");
                         return;
                     }
 
                     if (items.Select(x => x.SalesUnit.Product.Id).Distinct().Count() > 1)
                     {
-                        messageService.ShowOkMessageDialog("Слияние", "Вы не можете объединить строки с разными Продуктами поставки.");
+                        _messageService.ShowOkMessageDialog("Слияние", "Вы не можете объединить строки с разными Продуктами поставки.");
                         return;
                     }
 
                     if (items.Select(x => x.SalesUnit.OrderInTakeDate).Distinct().Count() > 1)
                     {
-                        messageService.ShowOkMessageDialog("Слияние", "Вы не можете объединить строки с разными датами ОИТ.");
+                        _messageService.ShowOkMessageDialog("Слияние", "Вы не можете объединить строки с разными датами ОИТ.");
                         return;
                     }
 
                     if (items.Select(x => x.SalesUnit.RealizationDateCalculated).Distinct().Count() > 1)
                     {
-                        messageService.ShowOkMessageDialog("Слияние", "Вы не можете объединить строки с разными датами реализации.");
+                        _messageService.ShowOkMessageDialog("Слияние", "Вы не можете объединить строки с разными датами реализации.");
                         return;
                     }
 
                     if (items.Select(x => x.SalesUnit.Producer).Distinct().Count() > 1)
                     {
-                        messageService.ShowOkMessageDialog("Слияние", "Вы не можете объединить строки с разными производителями.");
+                        _messageService.ShowOkMessageDialog("Слияние", "Вы не можете объединить строки с разными производителями.");
                         return;
                     }
 
@@ -407,7 +410,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             DivideCommand = new DelegateCommand(
                 () =>
                 {
-                    var result = messageService.ShowYesNoMessageDialog("Разбиение", "Действительно хотите разбить выбранную строку?", defaultNo: true);
+                    var result = _messageService.ShowYesNoMessageDialog("Разбиение", "Действительно хотите разбить выбранную строку?", defaultNo: true);
                     if (result != MessageDialogResult.Yes) return;
 
                     var technicalRequrementsWrapper = (TechnicalRequrements2Wrapper)SelectedItem;
@@ -446,22 +449,60 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 () =>
                 {
                     var fileWrapper = (TechnicalRequrementsFileWrapper) SelectedItem;
-                    var directory = new DirectoryInfo(GlobalAppProperties.Actual.TechnicalRequrementsFilesPath);
-                    var filesInDir = directory.GetFiles($"*{fileWrapper.Id}*.*");
-
-                    if (!filesInDir.Any())
-                    {
-                        messageService.ShowOkMessageDialog("Предупреждение", "Файл не найден в хранилище!");
-                        return;
-                    }
-
-
+                    CopyFile(fileWrapper, PathGetter.GetPathToCopyTemp(fileWrapper.Model));
+                    Process.Start("explorer.exe", PathGetter.GetPathToCopyTemp(fileWrapper.Model));
                 },
                 () => SelectedItem is TechnicalRequrementsFileWrapper);
+
+            LoadAllFilesCommand = new DelegateCommand(
+                () =>
+                {
+                    var taskPath = PathGetter.GetPathToCopyTemp(this.TechnicalRequrementsTaskWrapper.Model);
+                    foreach (var requrement in this.TechnicalRequrementsTaskWrapper.Requrements)
+                    {
+                        var reqDirName = $"{requrement.Model.Id} {requrement.SalesUnit.Product.Designation.ReplaceUncorrectSimbols().LimitLengh()} ({requrement.Amount} шт.)";
+                        var dirPath = Path.Combine(taskPath, reqDirName);
+                        if (!Directory.Exists(dirPath))
+                        {
+                            Directory.CreateDirectory(dirPath);
+                        }
+
+                        foreach (var file in requrement.Files)
+                        {
+                            CopyFile(file, dirPath);
+                        }
+                    }
+
+                    Process.Start("explorer.exe", taskPath);
+                });
 
             #endregion
 
             TechnicalRequrementsTaskWrapper = new TechnicalRequrementsTask2Wrapper(new TechnicalRequrementsTask());
+        }
+
+        private void CopyFile(TechnicalRequrementsFileWrapper fileWrapper, string destDirPath)
+        {
+            var directory = new DirectoryInfo(GlobalAppProperties.Actual.TechnicalRequrementsFilesPath);
+            var filesInDir = directory.GetFiles($"*{fileWrapper.Id}*.*");
+
+            if (!filesInDir.Any())
+            {
+                _messageService.ShowOkMessageDialog("Предупреждение", "Файл не найден в хранилище!");
+                return;
+            }
+
+            if (filesInDir.Length > 1)
+            {
+                _messageService.ShowOkMessageDialog("Предупреждение", "Файлов больше одного!");
+                return;
+            }
+
+            foreach (var fileInDir in filesInDir)
+            {
+                var path = Path.Combine(destDirPath, $"{fileWrapper.Id} {fileWrapper.Name.ReplaceUncorrectSimbols().LimitLengh()}{fileInDir.Extension}");
+                File.Copy(fileInDir.FullName, path, true);
+            }
         }
 
         public void Load(TechnicalRequrementsTask technicalRequrementsTask)
