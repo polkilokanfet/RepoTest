@@ -38,22 +38,14 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Grid Grid.Row="0" ColumnSpan="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Content="Проект: "/>
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding TechnicalRequrementsTaskWrapper.ProjectName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="False"/>
 
-                    <Label Grid.Column="0" Content="Старт: "/>
-                    <Label Grid.Column="1" Content="{Binding TechnicalRequrementsTaskWrapper.Start, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
-                    
-                </Grid>
+                <Label Grid.Row="1" Grid.Column="0" Content="Комментарий: "/>
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding TechnicalRequrementsTaskWrapper.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsStarted, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ReverseBoolConverter}}"/>
 
-                <Label Grid.Row="1" Grid.Column="0" Content="Проект: "/>
-                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding TechnicalRequrementsTaskWrapper.ProjectName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="False"/>
-
-                <Label Grid.Row="2" Grid.Column="0" Content="Комментарий: "/>
-                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding TechnicalRequrementsTaskWrapper.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsStarted, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ReverseBoolConverter}}"/>
+                <Label Grid.Row="2" Grid.Column="0" Content="Старт: "/>
+                <Label Grid.Row="2" Grid.Column="1" Content="{Binding TechnicalRequrementsTaskWrapper.Start, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
 
             </Grid>
 
@@ -90,12 +82,14 @@
                                 </infgDp:Field.Settings>
                             </infgDp:CheckBoxField>
                             <infgDp:TextField AlternateBinding="{Binding SalesUnit.Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
-                            <infgDp:TextField AlternateBinding="{Binding SalesUnit.Product}" BindingType="UseAlternateBinding" Label="Оборудование" Width="Auto"/>
+                            <infgDp:TextField AlternateBinding="{Binding SalesUnit.Product.ProductType}" BindingType="UseAlternateBinding" Label="Тип оборудования" Width="Auto"/>
+                            <infgDp:TextField AlternateBinding="{Binding SalesUnit.Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="Auto"/>
                             <infgDp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" AllowResize="False"/>
                             <infgDp:NumericField AlternateBinding="{Binding SalesUnit.Cost}" BindingType="UseAlternateBinding" Label="Стоимость" Width="Auto" AllowResize="False"/>
                             <infgDp:NumericField AlternateBinding="{Binding SalesUnit.CostDelivery}" BindingType="UseAlternateBinding" Label="Доставка" Width="Auto" AllowResize="False"/>
                             <infgDp:DateTimeField AlternateBinding="{Binding SalesUnit.OrderInTakeDate}" Label="ОИТ" AllowEdit="False" AllowResize="False" Width="Auto"/>
                             <infgDp:DateTimeField AlternateBinding="{Binding SalesUnit.RealizationDateCalculated}" Label="Реализация" AllowEdit="False" AllowResize="False" Width="Auto"/>
+                            <infgDp:TextField AlternateBinding="{Binding SalesUnit.Producer}" BindingType="UseAlternateBinding" Label="Производитель" Width="Auto"/>
                             <infgDp:Field Name="Files" IsExpandable="True"/>
                         </infgDp:FieldLayout.Fields>
                     </infgDp:FieldLayout>
@@ -103,7 +97,7 @@
                     <infgDp:FieldLayout ParentFieldName="Files">
                         <infgDp:FieldLayout.Fields>
                             <infgDp:TextField AlternateBinding="{Binding Name, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Название" Width="Auto" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}"/>
-                            <infgDp:TextField AlternateBinding="{Binding Comment, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Название" Width="Auto" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}"/>
+                            <infgDp:TextField AlternateBinding="{Binding Comment, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Комментарий" Width="Auto" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}"/>
                         </infgDp:FieldLayout.Fields>
                     </infgDp:FieldLayout>
 

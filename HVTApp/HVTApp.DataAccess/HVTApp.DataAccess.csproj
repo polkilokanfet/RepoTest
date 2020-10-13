@@ -219,6 +219,10 @@
     <Compile Include="Migrations\202009170744256_CustomSupervisionPrice.Designer.cs">
       <DependentUpon>202009170744256_CustomSupervisionPrice.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202010131131164_BackOfficeTask.cs" />
+    <Compile Include="Migrations\202010131131164_BackOfficeTask.Designer.cs">
+      <DependentUpon>202010131131164_BackOfficeTask.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -335,6 +339,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009170744256_CustomSupervisionPrice.resx">
       <DependentUpon>202009170744256_CustomSupervisionPrice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010131131164_BackOfficeTask.resx">
+      <DependentUpon>202010131131164_BackOfficeTask.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

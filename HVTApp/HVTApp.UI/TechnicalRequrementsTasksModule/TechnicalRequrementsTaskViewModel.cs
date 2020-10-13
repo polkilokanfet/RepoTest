@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.ServiceModel.Configuration;
 using System.Windows.Forms;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
@@ -41,6 +42,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 ((DelegateCommand)RemoveFileCommand).RaiseCanExecuteChanged();
                 ((DelegateCommand)RemoveGroupCommand).RaiseCanExecuteChanged();
                 ((DelegateCommand)DivideCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)LoadFileCommand).RaiseCanExecuteChanged();
             }
         }
 
@@ -70,8 +72,17 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
         public ICommand CancelCommand { get; }
 
+        /// <summary>
+        /// Разбить строку
+        /// </summary>
         public ICommand MeregeCommand { get; }
+
+        /// <summary>
+        /// Слить строки
+        /// </summary>
         public ICommand DivideCommand { get; }
+
+        public ICommand LoadFileCommand { get; }
         
         #endregion
 
@@ -216,66 +227,66 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
             #region AddGroupCommand
 
-            ////добавление группы оборудования
-            //AddGroupCommand = new DelegateCommand(
-            //    () =>
-            //    {
-            //        //потенциальные группы
-            //        var items = UnitOfWork.Repository<SalesUnit>()
-            //                .Find(x => x.Project.Manager.IsAppCurrentUser())
-            //                .Except(TechnicalRequrementsTaskWrapper.PriceCalculationItems.SelectMany(x => x.SalesUnits).Select(x => x.Model))
-            //                .Select(x => new SalesUnitEmptyWrapper(x))
-            //                .GroupBy(x => x, new SalesUnit2Comparer())
-            //                .Select(GetPriceCalculationItem2Wrapper);
+            //добавление группы оборудования
+            AddGroupCommand = new DelegateCommand(
+                () =>
+                {
+                    ////потенциальные группы
+                    //var items = UnitOfWork.Repository<SalesUnit>()
+                    //        .Find(x => x.Project.Manager.IsAppCurrentUser())
+                    //        .Except(TechnicalRequrementsTaskWrapper.PriceCalculationItems.SelectMany(x => x.SalesUnits).Select(x => x.Model))
+                    //        .Select(x => new SalesUnitEmptyWrapper(x))
+                    //        .GroupBy(x => x, new SalesUnit2Comparer())
+                    //        .Select(GetPriceCalculationItem2Wrapper);
 
-            //        //выбор группы
-            //        var viewModel = new PriceCalculationItemsViewModel(items);
-            //        var dialogResult = Container.Resolve<IDialogService>().ShowDialog(viewModel);
+                    ////выбор группы
+                    //var viewModel = new PriceCalculationItemsViewModel(items);
+                    //var dialogResult = Container.Resolve<IDialogService>().ShowDialog(viewModel);
 
-            //        //добавление группы
-            //        if (dialogResult.HasValue && dialogResult.Value)
-            //        {
-            //            viewModel.SelectedItemWrappers.ForEach(x => TechnicalRequrementsTaskWrapper.PriceCalculationItems.Add(x));
-            //        }
-            //    },
-            //    () =>  !IsStarted);
+                    ////добавление группы
+                    //if (dialogResult.HasValue && dialogResult.Value)
+                    //{
+                    //    viewModel.SelectedItemWrappers.ForEach(x => TechnicalRequrementsTaskWrapper.PriceCalculationItems.Add(x));
+                    //}
+                },
+                () => !IsStarted);
 
             #endregion
 
             #region RemoveGroupCommand
 
             //удаление группы
-            //RemoveGroupCommand = new DelegateCommand(
-            //    () =>
-            //    {
-            //        var result = _messageService.ShowYesNoMessageDialog("Удаление", "Действительно хотите удалить из расчета группу оборудования?", defaultNo:true);
-            //        if (result != MessageDialogResult.Yes) return;
+            RemoveGroupCommand = new DelegateCommand(
+                () =>
+                {
+                    //var result = _messageService.ShowYesNoMessageDialog("Удаление", "Действительно хотите удалить из расчета группу оборудования?", defaultNo: true);
+                    //if (result != MessageDialogResult.Yes) return;
 
-            //        var selectedGroup = SelectedItem as PriceCalculationItem2Wrapper;
+                    //var selectedGroup = SelectedItem as PriceCalculationItem2Wrapper;
 
-            //        var salesUnits = selectedGroup.SalesUnits.ToList();
-                    
-            //        //единицы, которы нельзя удалить из расчета, т.к. они размещены в производстве
-            //        var salesUnitsNotForRemove = salesUnits
-            //            .Where(x => x.Model.SignalToStartProduction.HasValue)
-            //            .Where(x => x.Model.ActualPriceCalculationItem(UnitOfWork)?.Id == selectedGroup.Model.Id)
-            //            .ToList();
+                    //var salesUnits = selectedGroup.SalesUnits.ToList();
 
-            //        if (salesUnitsNotForRemove.Any())
-            //        {
-            //            _messageService.ShowOkMessageDialog("Удаление", "Вы не можете удалить некоторые строки, т.к. они размещены в производстве.");
+                    ////единицы, которы нельзя удалить из расчета, т.к. они размещены в производстве
+                    //var salesUnitsNotForRemove = salesUnits
+                    //    .Where(x => x.Model.SignalToStartProduction.HasValue)
+                    //    .Where(x => x.Model.ActualPriceCalculationItem(UnitOfWork)?.Id == selectedGroup.Model.Id)
+                    //    .ToList();
 
-            //            var salesUnitsToRemove = salesUnits.Except(salesUnitsNotForRemove).ToList();
-            //            salesUnitsToRemove.ForEach(x => selectedGroup.SalesUnits.Remove(x));
-            //            if(!selectedGroup.SalesUnits.Any())
-            //                TechnicalRequrementsTaskWrapper.PriceCalculationItems.Remove(selectedGroup);
-            //        }
-            //        else
-            //        {
-            //            TechnicalRequrementsTaskWrapper.PriceCalculationItems.Remove(selectedGroup);
-            //        }
-            //    },
-            //    () => SelectedItem is PriceCalculationItem2Wrapper && !IsStarted);
+                    //if (salesUnitsNotForRemove.Any())
+                    //{
+                    //    _messageService.ShowOkMessageDialog("Удаление", "Вы не можете удалить некоторые строки, т.к. они размещены в производстве.");
+
+                    //    var salesUnitsToRemove = salesUnits.Except(salesUnitsNotForRemove).ToList();
+                    //    salesUnitsToRemove.ForEach(x => selectedGroup.SalesUnits.Remove(x));
+                    //    if (!selectedGroup.SalesUnits.Any())
+                    //        TechnicalRequrementsTaskWrapper.PriceCalculationItems.Remove(selectedGroup);
+                    //}
+                    //else
+                    //{
+                    //    TechnicalRequrementsTaskWrapper.PriceCalculationItems.Remove(selectedGroup);
+                    //}
+                },
+                () => SelectedItem is PriceCalculationItem2Wrapper && !IsStarted);
 
             #endregion
 
@@ -367,6 +378,12 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                         return;
                     }
 
+                    if (items.Select(x => x.SalesUnit.Producer).Distinct().Count() > 1)
+                    {
+                        messageService.ShowOkMessageDialog("Слияние", "Вы не можете объединить строки с разными производителями.");
+                        return;
+                    }
+
                     var itemToSave = items.First();
                     items.Remove(itemToSave);
 
@@ -419,7 +436,28 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                     }
 
                 },
-                () => !IsStarted && SelectedItem is PriceCalculationItem2Wrapper && ((PriceCalculationItem2Wrapper)SelectedItem).Amount > 1);
+                () => !IsStarted && SelectedItem is TechnicalRequrements2Wrapper && ((TechnicalRequrements2Wrapper)SelectedItem).Amount > 1);
+
+            #endregion
+
+            #region LoadFileCommand
+
+            LoadFileCommand = new DelegateCommand(
+                () =>
+                {
+                    var fileWrapper = (TechnicalRequrementsFileWrapper) SelectedItem;
+                    var directory = new DirectoryInfo(GlobalAppProperties.Actual.TechnicalRequrementsFilesPath);
+                    var filesInDir = directory.GetFiles($"*{fileWrapper.Id}*.*");
+
+                    if (!filesInDir.Any())
+                    {
+                        messageService.ShowOkMessageDialog("Предупреждение", "Файл не найден в хранилище!");
+                        return;
+                    }
+
+
+                },
+                () => SelectedItem is TechnicalRequrementsFileWrapper);
 
             #endregion
 

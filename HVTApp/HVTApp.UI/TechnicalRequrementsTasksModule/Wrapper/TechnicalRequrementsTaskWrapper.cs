@@ -11,7 +11,18 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper
     {
         #region SimpleProperties
 
-        public string ProjectName { get; }
+        public string ProjectName
+        {
+            get
+            {
+                if (Requrements.Any() && Requrements.First().SalesUnit != null)
+                {
+                    return Requrements.First().SalesUnit.Project.Name;
+                }
+
+                return "no info";
+            }
+        }
 
         public string Comment
         {
@@ -57,7 +68,6 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper
 
         public TechnicalRequrementsTask2Wrapper(TechnicalRequrementsTask model) : base(model)
         {
-            ProjectName = model.Requrements.First().SalesUnits.First().Project.Name;
         }
 
         public override void InitializeComplexProperties()
