@@ -29,7 +29,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         private TechnicalRequrementsTask2Wrapper _technicalRequrementsTaskWrapper;
 
         private object _selectedItem;
-        private IMessageService _messageService;
+        private readonly IMessageService _messageService;
 
         public object SelectedItem
         {
@@ -448,32 +448,46 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             LoadFileCommand = new DelegateCommand(
                 () =>
                 {
-                    var fileWrapper = (TechnicalRequrementsFileWrapper) SelectedItem;
-                    CopyFile(fileWrapper, PathGetter.GetPathToCopyTemp(fileWrapper.Model));
-                    Process.Start("explorer.exe", PathGetter.GetPathToCopyTemp(fileWrapper.Model));
+                    using (var fdb = new FolderBrowserDialog())
+                    {
+                        var result = fdb.ShowDialog();
+                        if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fdb.SelectedPath))
+                        {
+                            var fileWrapper = (TechnicalRequrementsFileWrapper) SelectedItem;
+                            CopyFile(fileWrapper, fdb.SelectedPath);
+                            Process.Start("explorer.exe", fdb.SelectedPath);
+                        }
+                    }
                 },
                 () => SelectedItem is TechnicalRequrementsFileWrapper);
 
             LoadAllFilesCommand = new DelegateCommand(
                 () =>
                 {
-                    var taskPath = PathGetter.GetPathToCopyTemp(this.TechnicalRequrementsTaskWrapper.Model);
-                    foreach (var requrement in this.TechnicalRequrementsTaskWrapper.Requrements)
+                    using (var fdb = new FolderBrowserDialog())
                     {
-                        var reqDirName = $"{requrement.Model.Id} {requrement.SalesUnit.Product.Designation.ReplaceUncorrectSimbols().LimitLengh()} ({requrement.Amount} רע.)";
-                        var dirPath = Path.Combine(taskPath, reqDirName);
-                        if (!Directory.Exists(dirPath))
+                        var result = fdb.ShowDialog();
+                        if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fdb.SelectedPath))
                         {
-                            Directory.CreateDirectory(dirPath);
-                        }
+                            var taskPath = fdb.SelectedPath;
+                            foreach (var requrement in this.TechnicalRequrementsTaskWrapper.Requrements)
+                            {
+                                var reqDirName = $"{requrement.Model.Id} {requrement.SalesUnit.Product.Designation.ReplaceUncorrectSimbols().LimitLengh()} ({requrement.Amount} רע.)";
+                                var dirPath = Path.Combine(taskPath, reqDirName);
+                                if (!Directory.Exists(dirPath))
+                                {
+                                    Directory.CreateDirectory(dirPath);
+                                }
 
-                        foreach (var file in requrement.Files)
-                        {
-                            CopyFile(file, dirPath);
+                                foreach (var file in requrement.Files)
+                                {
+                                    CopyFile(file, dirPath);
+                                }
+                            }
+
+                            Process.Start("explorer.exe", taskPath);                            
                         }
                     }
-
-                    Process.Start("explorer.exe", taskPath);
                 });
 
             #endregion

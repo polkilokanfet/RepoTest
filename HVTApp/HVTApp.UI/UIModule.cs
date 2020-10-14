@@ -79,6 +79,7 @@ namespace HVTApp.UI
             Container.RegisterViewForNavigation<BudgetComparisionView>();
             Container.RegisterViewForNavigation<CommonInfoView>();
             Container.RegisterViewForNavigation<TechnicalRequrementsTaskView>();
+            Container.RegisterViewForNavigation<TechnicalRequrementsTasksView>();
 
             Container.Resolve<IDialogService>().Register<DirectumTaskRouteViewModel, DirectumTaskRouteWindow>();
 

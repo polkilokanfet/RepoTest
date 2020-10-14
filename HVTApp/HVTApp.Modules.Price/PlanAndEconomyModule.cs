@@ -2,17 +2,15 @@
 using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Prism;
 using HVTApp.Modules.PlanAndEconomy.Menus;
-using HVTApp.UI.Modules.PlanAndEconomy;
+using HVTApp.UI.Modules.PlanAndEconomy.Dates;
+using HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual;
 using HVTApp.UI.Modules.PlanAndEconomy.Views;
 using Microsoft.Practices.Unity;
 using Prism.Regions;
-using DatesView = HVTApp.UI.Modules.PlanAndEconomy.Dates.DatesView;
-using PaymentDocumentView = HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual.PaymentDocumentView;
-
 
 namespace HVTApp.Modules.PlanAndEconomy
 {
-    [ModuleAccess(Role.Admin, Role.Economist, Role.PlanMaker)]
+    [ModuleAccess(Role.Admin, Role.Economist, Role.PlanMaker, Role.BackManager, Role.BackManagerBoss)]
     public class PlanAndEconomyModule : ModuleBase
     {
         public PlanAndEconomyModule(IUnityContainer container, IRegionManager regionManager) : base(container, regionManager)

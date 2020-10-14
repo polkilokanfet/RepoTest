@@ -115,6 +115,7 @@
     <Compile Include="Lookup\Items\Custom\PaymentConditionSetLookup.cs" />
     <Compile Include="Lookup\Items\Custom\PriceCalculationLookup.cs" />
     <Compile Include="Lookup\Items\Custom\SalesUnitLookup.cs" />
+    <Compile Include="Lookup\Items\Custom\TechnicalRequrementsTaskLookup.cs" />
     <Compile Include="Modules\BookRegistration\Tabs\TabIncomingRequest.xaml.cs">
       <DependentUpon>TabIncomingRequest.xaml</DependentUpon>
     </Compile>
@@ -586,6 +587,13 @@
     <Compile Include="Tabs\TabRefresh.xaml.cs">
       <DependentUpon>TabRefresh.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TechnicalRequrementsTasksModule\TabTechnicalRequrementsTasksView.xaml.cs">
+      <DependentUpon>TabTechnicalRequrementsTasksView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TechnicalRequrementsTasksModule\TechnicalRequrementsTasksView.xaml.cs">
+      <DependentUpon>TechnicalRequrementsTasksView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TechnicalRequrementsTasksModule\TechnicalRequrementsTasksViewModel.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\TabTechnicalRequrementsTask.xaml.cs">
       <DependentUpon>TabTechnicalRequrementsTask.xaml</DependentUpon>
     </Compile>
@@ -1287,6 +1295,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Tabs\TabCRUD.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TechnicalRequrementsTasksModule\TabTechnicalRequrementsTasksView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TechnicalRequrementsTasksModule\TechnicalRequrementsTasksView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

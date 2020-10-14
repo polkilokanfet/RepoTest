@@ -16,6 +16,18 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper
 
         public int Amount => SalesUnits.Count;
 
+        public string DeliveryType
+        {
+            get
+            {
+                if (SalesUnit.CostDelivery.HasValue && SalesUnit.CostDelivery > 0)
+                {
+                    return "доставка";
+                }
+                return "самовывоз";
+            }
+        }
+
         #region SimpleProperties
 
         public string Comment

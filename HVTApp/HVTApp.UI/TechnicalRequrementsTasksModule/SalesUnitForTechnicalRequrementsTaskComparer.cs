@@ -18,6 +18,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             if (!Equals(x.Model.Project.Id, y.Model.Project.Id)) return false;
             if (!Equals(x.Model.Facility.Id, y.Model.Facility.Id)) return false;
             if (!Equals(x.Model.Product.Id, y.Model.Product.Id)) return false;
+            if (!Equals(x.Model.Specification?.Id, y.Model.Specification?.Id)) return false;
             if (!Equals(x.Model.OrderInTakeDate, y.Model.OrderInTakeDate)) return false;
             if (!Equals(x.Model.RealizationDateCalculated, y.Model.RealizationDateCalculated)) return false;
 

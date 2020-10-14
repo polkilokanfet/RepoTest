@@ -23,28 +23,45 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
             Command = new DelegateCommand(
                 () =>
                 {
-                    //_container.Resolve<IEmailService>().SendMail("kosolapov.ag@gmail.com", "SubjTest", "BodyTest");
-                    //var unitOfWork = container.Resolve<IUnitOfWork>();
-
-                    var dependent = new Dependent {Name = "dep1"};
-                    var mList = new List<Main>();
-                    for (int i = 0; i < 4; i++)
+                    var roleBackManager = new UserRole()
                     {
-                        mList.Add(new Main {Name = $"main{i}", Dependent = dependent});
-                    }
+                        Name = "BackManager",
+                        Role = Role.BackManager
+                    };
 
-                    var serializer = new XmlSerializer(typeof(List<Main>));
-                    using (var fs = new FileStream(@"G:\main.xml", FileMode.Create))
+                    var roleBackManagerBoss = new UserRole()
                     {
-                        serializer.Serialize(fs, mList);
-                    }
+                        Name = "BackManagerBoss",
+                        Role = Role.BackManagerBoss
+                    };
 
-                    using (var fs = new FileStream(@"G:\main.xml", FileMode.Open))
-                    {
-                        var list = (List<Main>)serializer.Deserialize(fs);
-                        var dep = list.Select(x => x.Dependent).Distinct().ToList();
-                    }
+                    var unitOfWork = _container.Resolve<IUnitOfWork>();
+                    unitOfWork.Repository<UserRole>().Add(roleBackManager);
+                    unitOfWork.Repository<UserRole>().Add(roleBackManagerBoss);
 
+                    unitOfWork.SaveChanges();
+
+                    ////_container.Resolve<IEmailService>().SendMail("kosolapov.ag@gmail.com", "SubjTest", "BodyTest");
+                    ////var unitOfWork = container.Resolve<IUnitOfWork>();
+
+                    //var dependent = new Dependent {Name = "dep1"};
+                    //var mList = new List<Main>();
+                    //for (int i = 0; i < 4; i++)
+                    //{
+                    //    mList.Add(new Main {Name = $"main{i}", Dependent = dependent});
+                    //}
+
+                    //var serializer = new XmlSerializer(typeof(List<Main>));
+                    //using (var fs = new FileStream(@"G:\main.xml", FileMode.Create))
+                    //{
+                    //    serializer.Serialize(fs, mList);
+                    //}
+
+                    //using (var fs = new FileStream(@"G:\main.xml", FileMode.Open))
+                    //{
+                    //    var list = (List<Main>)serializer.Deserialize(fs);
+                    //    var dep = list.Select(x => x.Dependent).Distinct().ToList();
+                    //}
                 });
         }
     }

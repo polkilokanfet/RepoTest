@@ -2,6 +2,7 @@
 using HVTApp.Model;
 using HVTApp.UI.Modules.PlanAndEconomy.Supervision;
 using HVTApp.UI.Modules.PlanAndEconomy.Views;
+using HVTApp.UI.TechnicalRequrementsTasksModule;
 using DatesView = HVTApp.UI.Modules.PlanAndEconomy.Dates.DatesView;
 using PaymentsActualView = HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual.PaymentsActualView;
 using PaymentsPlanView = HVTApp.UI.Modules.PlanAndEconomy.PaymentsPlan.PaymentsPlanView;
@@ -26,6 +27,12 @@ namespace HVTApp.Modules.PlanAndEconomy.Menus
 
                 Items.Add(new NavigationItem("Шеф-монтаж", typeof(SupervisionView)));
             }
+
+            if (GlobalAppProperties.User.RoleCurrent == Role.BackManager || GlobalAppProperties.User.RoleCurrent == Role.BackManagerBoss)
+            {
+                Items.Add(new NavigationItem("Задачи в ТСЕ", typeof(TechnicalRequrementsTasksView)));
+            }
+
         }
     }
 }

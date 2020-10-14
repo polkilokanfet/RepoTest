@@ -6620,6 +6620,13 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility FacilitiesVisibility
+        {
+            get { return TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.Facilities)].Visibility; }
+            set { TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.Facilities)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility BackManagerVisibility
         {
             get { return TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.BackManager)].Visibility; }
