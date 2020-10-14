@@ -1122,19 +1122,11 @@ namespace HVTApp.Model.Wrapper
 
         #endregion
 
-        #region ComplexProperties
-
-	    public PriceCalculationFileWrapper File 
-        {
-            get { return GetWrapper<PriceCalculationFileWrapper>(); }
-            set { SetComplexValue<PriceCalculationFile, PriceCalculationFileWrapper>(File, value); }
-        }
-
-        #endregion
-
         #region CollectionProperties
 
         public IValidatableChangeTrackingCollection<PriceCalculationItemWrapper> PriceCalculationItems { get; private set; }
+
+        public IValidatableChangeTrackingCollection<PriceCalculationFileWrapper> Files { get; private set; }
 
         #endregion
 
@@ -1144,17 +1136,16 @@ namespace HVTApp.Model.Wrapper
 
         #endregion
 
-        public override void InitializeComplexProperties()
-        {
-            InitializeComplexProperty<PriceCalculationFileWrapper>(nameof(File), Model.File == null ? null : new PriceCalculationFileWrapper(Model.File));
-        }
-
         protected override void InitializeCollectionProperties()
         {
 
           if (Model.PriceCalculationItems == null) throw new ArgumentException("PriceCalculationItems cannot be null");
           PriceCalculationItems = new ValidatableChangeTrackingCollection<PriceCalculationItemWrapper>(Model.PriceCalculationItems.Select(e => new PriceCalculationItemWrapper(e)));
           RegisterCollection(PriceCalculationItems, Model.PriceCalculationItems);
+
+          if (Model.Files == null) throw new ArgumentException("Files cannot be null");
+          Files = new ValidatableChangeTrackingCollection<PriceCalculationFileWrapper>(Model.Files.Select(e => new PriceCalculationFileWrapper(e)));
+          RegisterCollection(Files, Model.Files);
 
         }
 
@@ -1165,6 +1156,22 @@ namespace HVTApp.Model.Wrapper
 	    public PriceCalculationFileWrapper(PriceCalculationFile model) : base(model) { }
 
         #region SimpleProperties
+
+        public System.DateTime CreationMoment
+        {
+          get { return GetValue<System.DateTime>(); }
+          set { SetValue(value); }
+        }
+        public System.DateTime CreationMomentOriginalValue => GetOriginalValue<System.DateTime>(nameof(CreationMoment));
+        public bool CreationMomentIsChanged => GetIsChanged(nameof(CreationMoment));
+
+        public System.Guid CalculationId
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid CalculationIdOriginalValue => GetOriginalValue<System.Guid>(nameof(CalculationId));
+        public bool CalculationIdIsChanged => GetIsChanged(nameof(CalculationId));
 
         public System.Guid Id
         {

@@ -108,6 +108,7 @@
     <Compile Include="Converter\ObjectsToStringConverter.cs" />
     <Compile Include="Converter\ObjectToStringConverter.cs" />
     <Compile Include="Extantions\Ext.cs" />
+    <Compile Include="FilesStorage.cs" />
     <Compile Include="Lookup\Items\Custom\DirectumTaskGroupLookup.cs" />
     <Compile Include="Lookup\Items\Custom\DirectumTaskLookup.cs" />
     <Compile Include="Lookup\Items\Custom\DocumentLookup.cs" />

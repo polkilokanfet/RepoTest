@@ -47,19 +47,10 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
 
         #endregion
 
-        #region ComplexProperties
-
-        public PriceCalculationFileWrapper File
-        {
-            get { return GetWrapper<PriceCalculationFileWrapper>(); }
-            set { SetComplexValue<PriceCalculationFile, PriceCalculationFileWrapper>(File, value); }
-        }
-
-        #endregion
-
         #region CollectionProperties
 
         public IValidatableChangeTrackingCollection<PriceCalculationItem2Wrapper> PriceCalculationItems { get; private set; }
+        public IValidatableChangeTrackingCollection<PriceCalculationFileWrapper> Files { get; private set; }
 
         #endregion
 
@@ -74,6 +65,10 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
             if (Model.PriceCalculationItems == null) throw new ArgumentException("PriceCalculationItems cannot be null");
             PriceCalculationItems = new ValidatableChangeTrackingCollection<PriceCalculationItem2Wrapper>(Model.PriceCalculationItems.Select(e => new PriceCalculationItem2Wrapper(e)));
             RegisterCollection(PriceCalculationItems, Model.PriceCalculationItems);
+
+            if (Model.Files == null) throw new ArgumentException("Files cannot be null");
+            Files = new ValidatableChangeTrackingCollection<PriceCalculationFileWrapper>(Model.Files.Select(e => new PriceCalculationFileWrapper(e)));
+            RegisterCollection(Files, Model.Files);
         }
     }
 }

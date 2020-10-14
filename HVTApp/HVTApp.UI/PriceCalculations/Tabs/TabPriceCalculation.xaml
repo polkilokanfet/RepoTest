@@ -32,10 +32,13 @@
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Действия">
-        <infRib:ButtonTool Caption="Загрузить файл в расчет" 
+        <infRib:ButtonTool Caption="Загрузить файл в базу"
                            Command="{Binding LoadFileToDbCommand}"
                            Visibility="{Binding CurrentUserIsPricer, Converter={StaticResource BooleanToVisibilityConverter}}"
-                           SmallImage="/HVTApp.UI;component/Images/save.png"/>
+                           SmallImage="/HVTApp.UI;component/Images/in.png" />
+        <infRib:ButtonTool Caption="Скачать файл из базы"
+                           Command="{Binding LoadFileFromDbCommand}"
+                           SmallImage="/HVTApp.UI;component/Images/out.png" />
         <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveCommand}" SmallImage="/HVTApp.UI;component/Images/save.png"/>
         <infRib:ButtonTool Caption="Назад" Command="{Binding GoBackCommand}" SmallImage="/HVTApp.UI;component/Images/ar_back.png"/>
     </infRib:RibbonGroup>

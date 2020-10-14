@@ -3,10 +3,12 @@ using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Wrapper;
 using HVTApp.UI.Lookup;
 using HVTApp.UI.ViewModels;
 using Microsoft.Practices.Unity;
@@ -24,6 +26,8 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
 
         public ICommand ReloadCommand { get; }
 
+        public ICommand LoadFileCommand { get; }
+
         public bool CurrentUserIsManager => GlobalAppProperties.User.RoleCurrent == Role.SalesManager;
 
         public PriceCalculationsViewModel(IUnityContainer container) : base(container)
@@ -34,6 +38,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
             {
                 ((DelegateCommand)EditCalculationCommand).RaiseCanExecuteChanged();
                 ((DelegateCommand)RemoveCalculationCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)LoadFileCommand).RaiseCanExecuteChanged();
             };
 
             NewCalculationCommand = new DelegateCommand(
@@ -100,6 +105,31 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                     unitOfWork.SaveChanges();                   
                 }, 
                 () => SelectedItem != null);
+
+            LoadFileCommand = new DelegateCommand(
+                () =>
+                {
+                    var messageService = Container.Resolve<IMessageService>();
+                    if (!SelectedItem.Files.Any())
+                    {
+                        messageService.ShowOkMessageDialog("Информация", "В этот расчет ещё не загружен ни один файл.");
+                        return;
+                    }
+
+                    var file = SelectedItem.Files.First();
+                    if (SelectedItem.Files.Count > 1)
+                    {
+                        var selectService = Container.Resolve<ISelectService>();
+                        file = selectService.SelectItem(SelectedItem.Files);
+                        if (file == null)
+                            return;
+                    }
+
+                    var storageDirectory = GlobalAppProperties.Actual.PriceCalculationsFilesPath;
+                    string addToFileName = $"{file.CreationMoment.ToShortDateString()} {file.CreationMoment.ToShortTimeString()}";
+                    FilesStorage.CopyFileFromStorage(file.Id, messageService, storageDirectory, addToFileName: addToFileName.ReplaceUncorrectSimbols("-"));
+                },
+                () => SelectedLookup != null);
 
             ReloadCommand = new DelegateCommand(Load);
         }

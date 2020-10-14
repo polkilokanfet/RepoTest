@@ -38,12 +38,12 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:TextField Name="File" Label="Файл расчета" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:DateTimeField Name="TaskOpenMoment" Label="Старт задачи" Width="Auto" AllowResize="True" />
                     <infg:DateTimeField Name="TaskCloseMoment" Label="Финиш задачи" Width="Auto" AllowResize="True" />
                     <infg:TextField Name="PriceCalculationItems" Label="Единицы расчета" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:TextField Name="Name" Label="Название" Width="Auto" AllowResize="True" />
                     <infg:CheckBoxField Name="IsNeedExcelFile" Label="Требуется расчетный файл" Width="Auto" AllowResize="True" />
+                    <infg:TextField Name="Files" Label="Файлы расчета" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" AllowResize="True" />
                     <infg:TextField Name="Manager" Label="Менеджер" Width="Auto" AllowResize="True" />
                     <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />

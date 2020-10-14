@@ -447,16 +447,10 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             LoadFileCommand = new DelegateCommand(
                 () =>
                 {
-                    using (var fdb = new FolderBrowserDialog())
-                    {
-                        var result = fdb.ShowDialog();
-                        if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fdb.SelectedPath))
-                        {
-                            var fileWrapper = (TechnicalRequrementsFileWrapper) SelectedItem;
-                            CopyFile(fileWrapper, fdb.SelectedPath);
-                            Process.Start("explorer.exe", fdb.SelectedPath);
-                        }
-                    }
+                    var fileWrapper = (TechnicalRequrementsFileWrapper) SelectedItem;
+                    var storageDirectory = GlobalAppProperties.Actual.TechnicalRequrementsFilesPath;
+                    string addToFileName = $"{fileWrapper.Name.ReplaceUncorrectSimbols().LimitLengh()}";
+                    FilesStorage.CopyFileFromStorage(fileWrapper.Id, _messageService, storageDirectory, addToFileName: addToFileName);
                 },
                 () => SelectedItem is TechnicalRequrementsFileWrapper);
 
@@ -480,7 +474,10 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
                                 foreach (var file in requrement.Files)
                                 {
-                                    CopyFile(file, dirPath);
+                                    var storageDirectory = GlobalAppProperties.Actual.TechnicalRequrementsFilesPath;
+                                    string addToFileName = $"{file.Name.ReplaceUncorrectSimbols().LimitLengh()}";
+                                    FilesStorage.CopyFileFromStorage(file.Id, _messageService, storageDirectory, dirPath, addToFileName, false);
+
                                 }
                             }
 
@@ -492,30 +489,6 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             #endregion
 
             TechnicalRequrementsTaskWrapper = new TechnicalRequrementsTask2Wrapper(new TechnicalRequrementsTask());
-        }
-
-        private void CopyFile(TechnicalRequrementsFileWrapper fileWrapper, string destDirPath)
-        {
-            var directory = new DirectoryInfo(GlobalAppProperties.Actual.TechnicalRequrementsFilesPath);
-            var filesInDir = directory.GetFiles($"*{fileWrapper.Id}*.*");
-
-            if (!filesInDir.Any())
-            {
-                _messageService.ShowOkMessageDialog("Предупреждение", "Файл не найден в хранилище!");
-                return;
-            }
-
-            if (filesInDir.Length > 1)
-            {
-                _messageService.ShowOkMessageDialog("Предупреждение", "Файлов больше одного!");
-                return;
-            }
-
-            foreach (var fileInDir in filesInDir)
-            {
-                var path = Path.Combine(destDirPath, $"{fileWrapper.Id} {fileWrapper.Name.ReplaceUncorrectSimbols().LimitLengh()}{fileInDir.Extension}");
-                File.Copy(fileInDir.FullName, path, true);
-            }
         }
 
         public void Load(TechnicalRequrementsTask technicalRequrementsTask)

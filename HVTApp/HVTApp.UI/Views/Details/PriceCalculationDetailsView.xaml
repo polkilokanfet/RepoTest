@@ -29,12 +29,13 @@
 					Visibility="{Binding VisibilityTaskCloseMomentPriceCalculation, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="Файл расчета" Visibility="{Binding VisibilityFilePriceCalculation, ElementName=Root}"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
-                                    Item="{Binding Item.File}" 
-                                    AddItemCommand="{Binding SelectFileCommand}" 
-                                    RemoveItemCommand="{Binding ClearFileCommand}"
-									Visibility="{Binding VisibilityFilePriceCalculation, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Файлы расчета" Visibility="{Binding VisibilityFilesPriceCalculation, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="1"
+										 Items="{Binding Path=Item.Files}"
+										 SelectedItem="{Binding SelectedFilesItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInFilesCommand}"
+										 RemoveItemCommand="{Binding RemoveFromFilesCommand}"
+										 Visibility="{Binding VisibilityFilesPriceCalculation, ElementName=Root}"/>
 
 
         <Label Grid.Column="0" Grid.Row ="2" Content="Требуется расчетный файл" Visibility="{Binding VisibilityIsNeedExcelFilePriceCalculation, ElementName=Root}"/>

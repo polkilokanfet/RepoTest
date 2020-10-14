@@ -982,11 +982,6 @@ namespace HVTApp.UI.ViewModels
 
     public partial class PriceCalculationDetailsViewModel : BaseDetailsViewModel<PriceCalculationWrapper, PriceCalculation, AfterSavePriceCalculationEvent>
     {
-		//private Func<Task<List<PriceCalculationFile>>> _getEntitiesForSelectFileCommand;
-		private Func<List<PriceCalculationFile>> _getEntitiesForSelectFileCommand;
-		public ICommand SelectFileCommand { get; private set; }
-		public ICommand ClearFileCommand { get; private set; }
-
 		private Func<List<PriceCalculationItem>> _getEntitiesForAddInPriceCalculationItemsCommand;
 		public ICommand AddInPriceCalculationItemsCommand { get; }
 		public ICommand RemoveFromPriceCalculationItemsCommand { get; }
@@ -1003,30 +998,35 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
+		private Func<List<PriceCalculationFile>> _getEntitiesForAddInFilesCommand;
+		public ICommand AddInFilesCommand { get; }
+		public ICommand RemoveFromFilesCommand { get; }
+		private PriceCalculationFileWrapper _selectedFilesItem;
+		public PriceCalculationFileWrapper SelectedFilesItem 
+		{ 
+			get { return _selectedFilesItem; }
+			set 
+			{ 
+				if (Equals(_selectedFilesItem, value)) return;
+				_selectedFilesItem = value;
+				OnPropertyChanged();
+				((DelegateCommand)RemoveFromFilesCommand).RaiseCanExecuteChanged();
+			}
+		}
+
 
         public PriceCalculationDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			
-			if (_getEntitiesForSelectFileCommand == null) _getEntitiesForSelectFileCommand = () => { return UnitOfWork.Repository<PriceCalculationFile>().GetAll(); };
-			if (SelectFileCommand == null) SelectFileCommand = new DelegateCommand(SelectFileCommand_Execute_Default);
-			if (ClearFileCommand == null) ClearFileCommand = new DelegateCommand(ClearFileCommand_Execute_Default);
-
 			
 			if (_getEntitiesForAddInPriceCalculationItemsCommand == null) _getEntitiesForAddInPriceCalculationItemsCommand = () => { return UnitOfWork.Repository<PriceCalculationItem>().GetAll(); };;
 			if (AddInPriceCalculationItemsCommand == null) AddInPriceCalculationItemsCommand = new DelegateCommand(AddInPriceCalculationItemsCommand_Execute_Default);
 			if (RemoveFromPriceCalculationItemsCommand == null) RemoveFromPriceCalculationItemsCommand = new DelegateCommand(RemoveFromPriceCalculationItemsCommand_Execute_Default, RemoveFromPriceCalculationItemsCommand_CanExecute_Default);
 
-		}
+			
+			if (_getEntitiesForAddInFilesCommand == null) _getEntitiesForAddInFilesCommand = () => { return UnitOfWork.Repository<PriceCalculationFile>().GetAll(); };;
+			if (AddInFilesCommand == null) AddInFilesCommand = new DelegateCommand(AddInFilesCommand_Execute_Default);
+			if (RemoveFromFilesCommand == null) RemoveFromFilesCommand = new DelegateCommand(RemoveFromFilesCommand_Execute_Default, RemoveFromFilesCommand_CanExecute_Default);
 
-		private void SelectFileCommand_Execute_Default() 
-		{
-            SelectAndSetWrapper<PriceCalculationFile, PriceCalculationFileWrapper>(_getEntitiesForSelectFileCommand(), nameof(Item.File), Item.File?.Id);
-		}
-
-		private void ClearFileCommand_Execute_Default() 
-		{
-						Item.File = null;
-		    
 		}
 
 			private void AddInPriceCalculationItemsCommand_Execute_Default()
@@ -1042,6 +1042,21 @@ namespace HVTApp.UI.ViewModels
 			private bool RemoveFromPriceCalculationItemsCommand_CanExecute_Default()
 			{
 				return SelectedPriceCalculationItemsItem != null;
+			}
+
+			private void AddInFilesCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<PriceCalculationFile, PriceCalculationFileWrapper>(_getEntitiesForAddInFilesCommand(), Item.Files);
+			}
+
+			private void RemoveFromFilesCommand_Execute_Default()
+			{
+				Item.Files.Remove(SelectedFilesItem);
+			}
+
+			private bool RemoveFromFilesCommand_CanExecute_Default()
+			{
+				return SelectedFilesItem != null;
 			}
 
 

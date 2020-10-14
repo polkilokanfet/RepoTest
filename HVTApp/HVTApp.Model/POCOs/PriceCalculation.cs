@@ -39,7 +39,7 @@ namespace HVTApp.Model.POCOs
             }
         }
 
-        [Designation("Файл расчета")]
-        public virtual PriceCalculationFile File { get; set; }
+        [Designation("Файлы расчета")]
+        public virtual List<PriceCalculationFile> Files { get; set; } = new List<PriceCalculationFile>();
     }
 }

@@ -4126,6 +4126,20 @@ namespace HVTApp.UI.Views
 		#region VisibilityProps
 
 
+        public System.Windows.Visibility CreationMomentVisibility
+        {
+            get { return PriceCalculationFileLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationFileLookup.CreationMoment)].Visibility; }
+            set { PriceCalculationFileLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationFileLookup.CreationMoment)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility CalculationIdVisibility
+        {
+            get { return PriceCalculationFileLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationFileLookup.CalculationId)].Visibility; }
+            set { PriceCalculationFileLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationFileLookup.CalculationId)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility DisplayMemberVisibility
         {
             get { return PriceCalculationFileLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationFileLookup.DisplayMember)].Visibility; }
@@ -4311,13 +4325,6 @@ namespace HVTApp.UI.Views
         }
 
 
-        public System.Windows.Visibility FileVisibility
-        {
-            get { return PriceCalculationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationLookup.File)].Visibility; }
-            set { PriceCalculationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationLookup.File)].Visibility = value; }
-        }
-
-
         public System.Windows.Visibility EntityVisibility
         {
             get { return PriceCalculationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationLookup.Entity)].Visibility; }
@@ -4329,6 +4336,13 @@ namespace HVTApp.UI.Views
         {
             get { return PriceCalculationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationLookup.PriceCalculationItems)].Visibility; }
             set { PriceCalculationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationLookup.PriceCalculationItems)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility FilesVisibility
+        {
+            get { return PriceCalculationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationLookup.Files)].Visibility; }
+            set { PriceCalculationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationLookup.Files)].Visibility = value; }
         }
 
 
@@ -5840,6 +5854,13 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.Entity)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.Entity)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility FacilityVisibility
         {
             get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.Facility)].Visibility; }
@@ -5900,13 +5921,6 @@ namespace HVTApp.UI.Views
         {
             get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.AddressDelivery)].Visibility; }
             set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.AddressDelivery)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility EntityVisibility
-        {
-            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.Entity)].Visibility; }
-            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.Entity)].Visibility = value; }
         }
 
 
