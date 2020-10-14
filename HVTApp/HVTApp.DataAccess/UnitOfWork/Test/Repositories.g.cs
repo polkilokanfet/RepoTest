@@ -103,6 +103,11 @@ namespace HVTApp.DataAccess
         public PriceCalculationRepositoryTest(TestData testData) : base(testData) {}
     }
 
+    public partial class PriceCalculationFileRepositoryTest : TestBaseRepository<PriceCalculationFile>, IPriceCalculationFileRepository
+    {
+        public PriceCalculationFileRepositoryTest(TestData testData) : base(testData) {}
+    }
+
     public partial class PriceCalculationItemRepositoryTest : TestBaseRepository<PriceCalculationItem>, IPriceCalculationItemRepository
     {
         public PriceCalculationItemRepositoryTest(TestData testData) : base(testData) {}

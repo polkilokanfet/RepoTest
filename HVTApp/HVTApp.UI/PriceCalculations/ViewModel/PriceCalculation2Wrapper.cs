@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
 
@@ -43,6 +44,16 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
         }
         public bool IsNeedExcelFileOriginalValue => GetOriginalValue<bool>(nameof(IsNeedExcelFile));
         public bool IsNeedExcelFileIsChanged => GetIsChanged(nameof(IsNeedExcelFile));
+
+        #endregion
+
+        #region ComplexProperties
+
+        public PriceCalculationFileWrapper File
+        {
+            get { return GetWrapper<PriceCalculationFileWrapper>(); }
+            set { SetComplexValue<PriceCalculationFile, PriceCalculationFileWrapper>(File, value); }
+        }
 
         #endregion
 

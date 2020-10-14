@@ -23,6 +23,7 @@ namespace HVTApp.DataAccess
     public partial class PaymentPlannedConfiguration : EntityTypeConfiguration<PaymentPlanned> { }
     public partial class PenaltyConfiguration : EntityTypeConfiguration<Penalty> { }
     public partial class PriceCalculationConfiguration : EntityTypeConfiguration<PriceCalculation> { }
+    public partial class PriceCalculationFileConfiguration : EntityTypeConfiguration<PriceCalculationFile> { }
     public partial class PriceCalculationItemConfiguration : EntityTypeConfiguration<PriceCalculationItem> { }
     public partial class ProductCategoryConfiguration : EntityTypeConfiguration<ProductCategory> { }
     public partial class ProductCategoryPriceAndCostConfiguration : EntityTypeConfiguration<ProductCategoryPriceAndCost> { }

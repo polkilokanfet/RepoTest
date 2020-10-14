@@ -509,9 +509,24 @@ namespace HVTApp.UI.Lookup
         public System.String Name => Entity.Name;
 
         #endregion
+
+        #region ComplexProperties
+		[OrderStatus(1)]
+	    public PriceCalculationFileLookup File { get { return GetLookup<PriceCalculationFileLookup>(); } }
+
+        #endregion
 		[OrderStatus(1)]
 	    public List<PriceCalculationItemLookup> PriceCalculationItems { get { return GetLookupEnum<PriceCalculationItemLookup>().ToList(); } }
 	}
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Расчет себестоимости оборудования (файл)")]
+	public partial class PriceCalculationFileLookup : LookupItem<PriceCalculationFile>
+	{
+		public PriceCalculationFileLookup(PriceCalculationFile entity) : base(entity) 
+		{
+		}
+			}
 	[AllowEditAttribute(Role.Admin)]
 
 	[Designation("Единица расчета себестоимости оборудования")]
@@ -850,6 +865,8 @@ namespace HVTApp.UI.Lookup
         #endregion
 		[OrderStatus(20)]
 	    public List<TechnicalRequrementsLookup> Requrements { get { return GetLookupEnum<TechnicalRequrementsLookup>().ToList(); } }
+		[OrderStatus(-10)]
+	    public List<PriceCalculationLookup> PriceCalculations { get { return GetLookupEnum<PriceCalculationLookup>().ToList(); } }
 	}
 	[AllowEditAttribute(Role.Admin)]
 
@@ -884,6 +901,9 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
         public System.String TechnicalRequrementsFilesPath => Entity.TechnicalRequrementsFilesPath;
+
+		[OrderStatus(1)]
+        public System.String PriceCalculationsFilesPath => Entity.PriceCalculationsFilesPath;
 
 		[OrderStatus(1)]
         public System.Nullable<System.DateTime> LastDeveloperVizit => Entity.LastDeveloperVizit;

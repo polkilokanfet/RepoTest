@@ -164,7 +164,6 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                             }
                         }
                     }
-
                 },
                 () => !IsStarted && SelectedItem is TechnicalRequrements2Wrapper);
 

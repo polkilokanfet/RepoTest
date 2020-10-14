@@ -10,12 +10,11 @@ using Infragistics.Windows.Editors;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Regions;
-using ViewBase = HVTApp.Infrastructure.ViewBase;
 
 namespace HVTApp.UI.PriceCalculations.View
 {
     [RibbonTab(typeof(Tabs.TabPriceCalculation))]
-    public partial class PriceCalculationView : ViewBase
+    public partial class PriceCalculationView 
     {
         private readonly PriceCalculationViewModel _viewModel;
         public PriceCalculationView(PriceCalculationViewModel viewModel, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
@@ -39,14 +38,17 @@ namespace HVTApp.UI.PriceCalculations.View
 
             if (navigationContext.Parameters.First().Value is PriceCalculation)
             {
-                var priceCalculation = navigationContext.Parameters.First().Value as PriceCalculation;
-                _viewModel.Load(priceCalculation);
+                _viewModel.Load((PriceCalculation)navigationContext.Parameters.First().Value);
+            }
+
+            if (navigationContext.Parameters.First().Value is TechnicalRequrementsTask)
+            {
+                _viewModel.Load((TechnicalRequrementsTask)navigationContext.Parameters.First().Value);
             }
 
             if (navigationContext.Parameters.First().Value is IEnumerable<SalesUnit>)
             {
-                var salesUnits = navigationContext.Parameters.First().Value as IEnumerable<SalesUnit>;
-                _viewModel.Load(salesUnits);
+                _viewModel.Load((IEnumerable<SalesUnit>)navigationContext.Parameters.First().Value);
             }
 
             //var dg = this.Groups; //(XamDataGrid)sender;

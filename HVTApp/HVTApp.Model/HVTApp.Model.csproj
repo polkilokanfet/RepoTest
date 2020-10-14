@@ -102,6 +102,7 @@
     <Compile Include="Comparers\ProductDependentComparer.cs" />
     <Compile Include="POCOs\Penalty.cs" />
     <Compile Include="POCOs\PriceCalculation.cs" />
+    <Compile Include="POCOs\PriceCalculationFile.cs" />
     <Compile Include="POCOs\PriceCalculationItem.cs" />
     <Compile Include="POCOs\ProductCategory.cs" />
     <Compile Include="POCOs\ProductCategoryPriceAndCost.cs" />

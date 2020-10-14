@@ -91,6 +91,9 @@ namespace HVTApp.Model.POCOs
         [Designation("Путь к папке с файлами ТЗ")]
         public string TechnicalRequrementsFilesPath { get; set; }
 
+        [Designation("Путь к папке с расчетами себестоимости")]
+        public string PriceCalculationsFilesPath { get; set; }
+
 
 
         [Designation("Разработчик")]

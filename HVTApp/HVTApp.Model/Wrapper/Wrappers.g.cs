@@ -1122,6 +1122,16 @@ namespace HVTApp.Model.Wrapper
 
         #endregion
 
+        #region ComplexProperties
+
+	    public PriceCalculationFileWrapper File 
+        {
+            get { return GetWrapper<PriceCalculationFileWrapper>(); }
+            set { SetComplexValue<PriceCalculationFile, PriceCalculationFileWrapper>(File, value); }
+        }
+
+        #endregion
+
         #region CollectionProperties
 
         public IValidatableChangeTrackingCollection<PriceCalculationItemWrapper> PriceCalculationItems { get; private set; }
@@ -1134,6 +1144,11 @@ namespace HVTApp.Model.Wrapper
 
         #endregion
 
+        public override void InitializeComplexProperties()
+        {
+            InitializeComplexProperty<PriceCalculationFileWrapper>(nameof(File), Model.File == null ? null : new PriceCalculationFileWrapper(Model.File));
+        }
+
         protected override void InitializeCollectionProperties()
         {
 
@@ -1142,6 +1157,24 @@ namespace HVTApp.Model.Wrapper
           RegisterCollection(PriceCalculationItems, Model.PriceCalculationItems);
 
         }
+
+	}
+
+		public partial class PriceCalculationFileWrapper : WrapperBase<PriceCalculationFile>
+	{
+	    public PriceCalculationFileWrapper(PriceCalculationFile model) : base(model) { }
+
+        #region SimpleProperties
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+        #endregion
 
 	}
 
@@ -1892,6 +1925,8 @@ namespace HVTApp.Model.Wrapper
 
         public IValidatableChangeTrackingCollection<TechnicalRequrementsWrapper> Requrements { get; private set; }
 
+        public IValidatableChangeTrackingCollection<PriceCalculationWrapper> PriceCalculations { get; private set; }
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -1905,6 +1940,10 @@ namespace HVTApp.Model.Wrapper
           if (Model.Requrements == null) throw new ArgumentException("Requrements cannot be null");
           Requrements = new ValidatableChangeTrackingCollection<TechnicalRequrementsWrapper>(Model.Requrements.Select(e => new TechnicalRequrementsWrapper(e)));
           RegisterCollection(Requrements, Model.Requrements);
+
+          if (Model.PriceCalculations == null) throw new ArgumentException("PriceCalculations cannot be null");
+          PriceCalculations = new ValidatableChangeTrackingCollection<PriceCalculationWrapper>(Model.PriceCalculations.Select(e => new PriceCalculationWrapper(e)));
+          RegisterCollection(PriceCalculations, Model.PriceCalculations);
 
         }
 
@@ -1979,6 +2018,14 @@ namespace HVTApp.Model.Wrapper
         }
         public System.String TechnicalRequrementsFilesPathOriginalValue => GetOriginalValue<System.String>(nameof(TechnicalRequrementsFilesPath));
         public bool TechnicalRequrementsFilesPathIsChanged => GetIsChanged(nameof(TechnicalRequrementsFilesPath));
+
+        public System.String PriceCalculationsFilesPath
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String PriceCalculationsFilesPathOriginalValue => GetOriginalValue<System.String>(nameof(PriceCalculationsFilesPath));
+        public bool PriceCalculationsFilesPathIsChanged => GetIsChanged(nameof(PriceCalculationsFilesPath));
 
         public System.Nullable<System.DateTime> LastDeveloperVizit
         {

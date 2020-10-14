@@ -27,5 +27,8 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Старт"), OrderStatus(3)]
         public virtual DateTime? Start { get; set; }
+
+        [Designation("Расчеты себестоимости"), OrderStatus(-10)]
+        public virtual List<PriceCalculation> PriceCalculations { get; set; } = new List<PriceCalculation>();
     }
 }

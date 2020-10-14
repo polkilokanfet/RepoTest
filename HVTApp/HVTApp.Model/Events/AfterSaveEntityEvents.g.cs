@@ -23,6 +23,7 @@ namespace HVTApp.Model.Events
 	public partial class AfterSavePaymentPlannedEvent : PubSubEvent<PaymentPlanned> { }
 	public partial class AfterSavePenaltyEvent : PubSubEvent<Penalty> { }
 	public partial class AfterSavePriceCalculationEvent : PubSubEvent<PriceCalculation> { }
+	public partial class AfterSavePriceCalculationFileEvent : PubSubEvent<PriceCalculationFile> { }
 	public partial class AfterSavePriceCalculationItemEvent : PubSubEvent<PriceCalculationItem> { }
 	public partial class AfterSaveProductCategoryEvent : PubSubEvent<ProductCategory> { }
 	public partial class AfterSaveProductCategoryPriceAndCostEvent : PubSubEvent<ProductCategoryPriceAndCost> { }

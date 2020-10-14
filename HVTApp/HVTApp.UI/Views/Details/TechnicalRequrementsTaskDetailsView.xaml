@@ -18,6 +18,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
 
@@ -54,6 +55,15 @@
                                     AddItemCommand="{Binding SelectBackManagerCommand}" 
                                     RemoveItemCommand="{Binding ClearBackManagerCommand}"
 									Visibility="{Binding VisibilityBackManagerTechnicalRequrementsTask, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="5" Content="Расчеты себестоимости" Visibility="{Binding VisibilityPriceCalculationsTechnicalRequrementsTask, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="5"
+										 Items="{Binding Path=Item.PriceCalculations}"
+										 SelectedItem="{Binding SelectedPriceCalculationsItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInPriceCalculationsCommand}"
+										 RemoveItemCommand="{Binding RemoveFromPriceCalculationsCommand}"
+										 Visibility="{Binding VisibilityPriceCalculationsTechnicalRequrementsTask, ElementName=Root}"/>
 
 
 

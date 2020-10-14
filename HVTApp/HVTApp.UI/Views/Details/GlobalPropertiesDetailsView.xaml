@@ -41,6 +41,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
 
@@ -165,88 +166,94 @@
 				 Visibility="{Binding VisibilityTechnicalRequrementsFilesPathGlobalProperties, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="16" Content="Путь к папке с приложениями Directum" Visibility="{Binding VisibilityDirectumAttachmentsPathGlobalProperties, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="16" Content="Путь к папке с расчетами себестоимости" Visibility="{Binding VisibilityPriceCalculationsFilesPathGlobalProperties, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="16" MinWidth="200" 
+                 Text="{Binding Item.PriceCalculationsFilesPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding VisibilityPriceCalculationsFilesPathGlobalProperties, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="17" Content="Путь к папке с приложениями Directum" Visibility="{Binding VisibilityDirectumAttachmentsPathGlobalProperties, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="17" MinWidth="200" 
                  Text="{Binding Item.DirectumAttachmentsPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityDirectumAttachmentsPathGlobalProperties, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="17" Content="Путь к папке с запросами" Visibility="{Binding VisibilityIncomingRequestsPathGlobalProperties, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="17" MinWidth="200" 
+        <Label Grid.Column="0" Grid.Row ="18" Content="Путь к папке с запросами" Visibility="{Binding VisibilityIncomingRequestsPathGlobalProperties, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="18" MinWidth="200" 
                  Text="{Binding Item.IncomingRequestsPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityIncomingRequestsPathGlobalProperties, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="18" Content="Производитель ВВА" Visibility="{Binding VisibilityHvtProducersActivityFieldGlobalProperties, ElementName=Root}"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="18" 
+        <Label Grid.Column="0" Grid.Row ="19" Content="Производитель ВВА" Visibility="{Binding VisibilityHvtProducersActivityFieldGlobalProperties, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="19" 
                                     Item="{Binding Item.HvtProducersActivityField}" 
                                     AddItemCommand="{Binding SelectHvtProducersActivityFieldCommand}" 
                                     RemoveItemCommand="{Binding ClearHvtProducersActivityFieldCommand}"
 									Visibility="{Binding VisibilityHvtProducersActivityFieldGlobalProperties, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="19" Content="Получатель писем по ШМ" Visibility="{Binding VisibilityRecipientSupervisionLetterEmployeeGlobalProperties, ElementName=Root}"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="19" 
+        <Label Grid.Column="0" Grid.Row ="20" Content="Получатель писем по ШМ" Visibility="{Binding VisibilityRecipientSupervisionLetterEmployeeGlobalProperties, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="20" 
                                     Item="{Binding Item.RecipientSupervisionLetterEmployee}" 
                                     AddItemCommand="{Binding SelectRecipientSupervisionLetterEmployeeCommand}" 
                                     RemoveItemCommand="{Binding ClearRecipientSupervisionLetterEmployeeCommand}"
 									Visibility="{Binding VisibilityRecipientSupervisionLetterEmployeeGlobalProperties, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="20" Content="Отправитель ТКП" Visibility="{Binding VisibilitySenderOfferEmployeeGlobalProperties, ElementName=Root}"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="20" 
+        <Label Grid.Column="0" Grid.Row ="21" Content="Отправитель ТКП" Visibility="{Binding VisibilitySenderOfferEmployeeGlobalProperties, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="21" 
                                     Item="{Binding Item.SenderOfferEmployee}" 
                                     AddItemCommand="{Binding SelectSenderOfferEmployeeCommand}" 
                                     RemoveItemCommand="{Binding ClearSenderOfferEmployeeCommand}"
 									Visibility="{Binding VisibilitySenderOfferEmployeeGlobalProperties, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="21" Content="НДС" Visibility="{Binding VisibilityVatGlobalProperties, ElementName=Root}"/>
-		<infE:XamNumericEditor Grid.Column="1" Grid.Row="21" 
+        <Label Grid.Column="0" Grid.Row ="22" Content="НДС" Visibility="{Binding VisibilityVatGlobalProperties, ElementName=Root}"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="22" 
                                Value="{Binding Item.Vat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding VisibilityVatGlobalProperties, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="22" Content="Дополнительное оборудование" Visibility="{Binding VisibilityProductIncludedDefaultGlobalProperties, ElementName=Root}"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="22" 
+        <Label Grid.Column="0" Grid.Row ="23" Content="Дополнительное оборудование" Visibility="{Binding VisibilityProductIncludedDefaultGlobalProperties, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="23" 
                                     Item="{Binding Item.ProductIncludedDefault}" 
                                     AddItemCommand="{Binding SelectProductIncludedDefaultCommand}" 
                                     RemoveItemCommand="{Binding ClearProductIncludedDefaultCommand}"
 									Visibility="{Binding VisibilityProductIncludedDefaultGlobalProperties, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="23" Content="Дата последнего визита разработчика" Visibility="{Binding VisibilityLastDeveloperVizitGlobalProperties, ElementName=Root}"/>
-        <DatePicker Grid.Column="1" Grid.Row="23" 
+        <Label Grid.Column="0" Grid.Row ="24" Content="Дата последнего визита разработчика" Visibility="{Binding VisibilityLastDeveloperVizitGlobalProperties, ElementName=Root}"/>
+        <DatePicker Grid.Column="1" Grid.Row="24" 
                     SelectedDate="{Binding Item.LastDeveloperVizit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityLastDeveloperVizitGlobalProperties, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="24" Content="Группа новых параметров" Visibility="{Binding VisibilityNewProductParameterGroupGlobalProperties, ElementName=Root}"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="24" 
+        <Label Grid.Column="0" Grid.Row ="25" Content="Группа новых параметров" Visibility="{Binding VisibilityNewProductParameterGroupGlobalProperties, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="25" 
                                     Item="{Binding Item.NewProductParameterGroup}" 
                                     AddItemCommand="{Binding SelectNewProductParameterGroupCommand}" 
                                     RemoveItemCommand="{Binding ClearNewProductParameterGroupCommand}"
 									Visibility="{Binding VisibilityNewProductParameterGroupGlobalProperties, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="25" Content="Параметр комплекты и детали" Visibility="{Binding VisibilityComplectsParameterGlobalProperties, ElementName=Root}"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="25" 
+        <Label Grid.Column="0" Grid.Row ="26" Content="Параметр комплекты и детали" Visibility="{Binding VisibilityComplectsParameterGlobalProperties, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="26" 
                                     Item="{Binding Item.ComplectsParameter}" 
                                     AddItemCommand="{Binding SelectComplectsParameterCommand}" 
                                     RemoveItemCommand="{Binding ClearComplectsParameterCommand}"
 									Visibility="{Binding VisibilityComplectsParameterGlobalProperties, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="26" Content="Группа типа комплекта или детали" Visibility="{Binding VisibilityComplectsGroupGlobalProperties, ElementName=Root}"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="26" 
+        <Label Grid.Column="0" Grid.Row ="27" Content="Группа типа комплекта или детали" Visibility="{Binding VisibilityComplectsGroupGlobalProperties, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="27" 
                                     Item="{Binding Item.ComplectsGroup}" 
                                     AddItemCommand="{Binding SelectComplectsGroupCommand}" 
                                     RemoveItemCommand="{Binding ClearComplectsGroupCommand}"
 									Visibility="{Binding VisibilityComplectsGroupGlobalProperties, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="27" Content="Группа параметров обозначения комплекта или детали" Visibility="{Binding VisibilityComplectDesignationGroupGlobalProperties, ElementName=Root}"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="27" 
+        <Label Grid.Column="0" Grid.Row ="28" Content="Группа параметров обозначения комплекта или детали" Visibility="{Binding VisibilityComplectDesignationGroupGlobalProperties, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="28" 
                                     Item="{Binding Item.ComplectDesignationGroup}" 
                                     AddItemCommand="{Binding SelectComplectDesignationGroupCommand}" 
                                     RemoveItemCommand="{Binding ClearComplectDesignationGroupCommand}"

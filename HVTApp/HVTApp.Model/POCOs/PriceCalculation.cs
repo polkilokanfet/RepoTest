@@ -38,5 +38,8 @@ namespace HVTApp.Model.POCOs
                 return sb.ToString();
             }
         }
+
+        [Designation("Файл расчета")]
+        public virtual PriceCalculationFile File { get; set; }
     }
 }

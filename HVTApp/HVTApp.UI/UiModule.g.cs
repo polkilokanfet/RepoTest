@@ -123,6 +123,11 @@ namespace HVTApp.UI
 			_selectService.Register<PriceCalculationLookupListView, PriceCalculation>();
             _updateDetailsService.Register<PriceCalculation, PriceCalculationDetailsView>();
 
+            Container.RegisterViewForNavigation<PriceCalculationFileLookupListView>();
+            //_dialogService.Register<PriceCalculationFileDetailsViewModel, PriceCalculationFileDetailsView>();
+			_selectService.Register<PriceCalculationFileLookupListView, PriceCalculationFile>();
+            _updateDetailsService.Register<PriceCalculationFile, PriceCalculationFileDetailsView>();
+
             Container.RegisterViewForNavigation<PriceCalculationItemLookupListView>();
             //_dialogService.Register<PriceCalculationItemDetailsViewModel, PriceCalculationItemDetailsView>();
 			_selectService.Register<PriceCalculationItemLookupListView, PriceCalculationItem>();

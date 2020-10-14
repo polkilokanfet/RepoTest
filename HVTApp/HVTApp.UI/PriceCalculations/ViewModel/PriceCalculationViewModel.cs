@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Infrastructure.ViewModels;
@@ -11,6 +14,7 @@ using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
+using HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
@@ -20,6 +24,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
 {
     public class PriceCalculationViewModel : ViewModelBaseCanExportToExcel
     {
+        private TechnicalRequrementsTask _technicalRequrementsTask = null;
         private readonly IMessageService _messageService;
         private object _selectedItem;
         private PriceCalculation2Wrapper _priceCalculationWrapper;
@@ -62,6 +67,8 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
         public ICommand MeregeCommand { get; }
         public ICommand DivideCommand { get; }
 
+        public ICommand LoadFileToDbCommand { get; }
+
         public PriceCalculation2Wrapper PriceCalculationWrapper
         {
             get { return _priceCalculationWrapper; }
@@ -73,6 +80,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                 {
                     ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
                     ((DelegateCommand)StartCommand).RaiseCanExecuteChanged();
+                    ((DelegateCommand)LoadFileToDbCommand).RaiseCanExecuteChanged();
                 };
                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsStarted)));
                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(CanChangePrice)));
@@ -91,11 +99,13 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                 {
                     PriceCalculationWrapper.AcceptChanges();
 
-                    var pc = UnitOfWork.Repository<PriceCalculation>().GetById(PriceCalculationWrapper.Model.Id);
-                    if (pc == null)
+                    var priceCalculation = UnitOfWork.Repository<PriceCalculation>().GetById(PriceCalculationWrapper.Model.Id);
+                    if (priceCalculation == null)
                     {
                         UnitOfWork.Repository<PriceCalculation>().Add(PriceCalculationWrapper.Model);
                     }
+
+                    _technicalRequrementsTask?.PriceCalculations.Add(priceCalculation);
 
                     UnitOfWork.SaveChanges();
 
@@ -249,6 +259,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                     OnPropertyChanged(new PropertyChangedEventArgs(nameof(CanChangePrice)));
 
                     ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
+                    ((DelegateCommand)LoadFileToDbCommand).RaiseCanExecuteChanged();
                 },
                 () => !IsFinished && PriceCalculationWrapper.IsValid && PriceCalculationWrapper.PriceCalculationItems.SelectMany(x => x.StructureCosts).All(x => x.UnitPrice.HasValue));
 
@@ -366,6 +377,41 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
 
             #endregion
 
+            #region LoadFileToDbCommand
+
+            LoadFileToDbCommand = new DelegateCommand(
+                () =>
+                {
+                    var openFileDialog = new OpenFileDialog
+                    {
+                        Multiselect = false,
+                        RestoreDirectory = true
+                    };
+
+                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        var rootDirectoryPath = GlobalAppProperties.Actual.PriceCalculationsFilesPath;
+
+                        //копируем каждый файл
+                        foreach (var fileName in openFileDialog.FileNames)
+                        {
+                            var fileWrapper = new PriceCalculationFileWrapper(new PriceCalculationFile());
+                            try
+                            {
+                                File.Copy(fileName, $"{rootDirectoryPath}\\{fileWrapper.Id}{Path.GetExtension(fileName)}");
+                                ((PriceCalculation2Wrapper)SelectedItem).File = fileWrapper;
+                            }
+                            catch (Exception e)
+                            {
+                                _messageService.ShowOkMessageDialog("Exception", e.GetAllExceptions());
+                            }
+                        }
+                    }
+                },
+                () => this.PriceCalculationWrapper.TaskCloseMoment != null);
+
+            #endregion
+
             PriceCalculationWrapper = new PriceCalculation2Wrapper(new PriceCalculation());
         }
 
@@ -391,6 +437,16 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
             
             salesUnitWrappers.GroupBy(x => x, new SalesUnit2Comparer())
                              .ForEach(x => { PriceCalculationWrapper.PriceCalculationItems.Add(GetPriceCalculationItem2Wrapper(x)); });
+        }
+
+        public void Load(TechnicalRequrementsTask technicalRequrementsTask)
+        {
+            _technicalRequrementsTask = UnitOfWork.Repository<TechnicalRequrementsTask>().GetById(technicalRequrementsTask.Id);
+            foreach (var requrement in _technicalRequrementsTask.Requrements)
+            {
+                var saleUnits = requrement.SalesUnits.Select(x => new SalesUnitEmptyWrapper(x));
+                PriceCalculationWrapper.PriceCalculationItems.Add(GetPriceCalculationItem2Wrapper(saleUnits));
+            }
         }
 
         private PriceCalculationItem2Wrapper GetPriceCalculationItem2Wrapper(IEnumerable<SalesUnitEmptyWrapper> salesUnits)
