@@ -227,6 +227,10 @@
     <Compile Include="Migrations\202010141716196_PriceCalculationFiles.Designer.cs">
       <DependentUpon>202010141716196_PriceCalculationFiles.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202010150658255_FixBackManagerBug.cs" />
+    <Compile Include="Migrations\202010150658255_FixBackManagerBug.Designer.cs">
+      <DependentUpon>202010150658255_FixBackManagerBug.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -349,6 +353,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202010141716196_PriceCalculationFiles.resx">
       <DependentUpon>202010141716196_PriceCalculationFiles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010150658255_FixBackManagerBug.resx">
+      <DependentUpon>202010150658255_FixBackManagerBug.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -51,6 +51,10 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper
         public TechnicalRequrements2Wrapper(TechnicalRequrements model) : base(model)
         {
             SalesUnit = model.SalesUnits.First();
+            this.SalesUnits.CollectionChanged += (sender, args) =>
+            {
+                OnPropertyChanged(nameof(Amount));
+            };
         }
 
         protected override void InitializeCollectionProperties()

@@ -15,12 +15,14 @@ using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
+using HVTApp.UI.PriceCalculations.View;
 using HVTApp.UI.PriceCalculations.ViewModel;
 using HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Events;
+using Prism.Regions;
 
 namespace HVTApp.UI.TechnicalRequrementsTasksModule
 {
@@ -48,6 +50,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         }
 
         public bool CurrentUserIsManager => GlobalAppProperties.User.RoleCurrent == Role.SalesManager;
+        public bool CurrentUserIsBackManager => GlobalAppProperties.User.RoleCurrent == Role.BackManager;
 
         public bool IsStarted => TechnicalRequrementsTaskWrapper?.Start != null;
 
@@ -86,6 +89,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         public ICommand LoadFileCommand { get; }
         public ICommand LoadAllFilesCommand { get; }
 
+        public ICommand CreatePriceCalculationCommand { get; }
 
         #endregion
 
@@ -233,10 +237,11 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             AddGroupCommand = new DelegateCommand(
                 () =>
                 {
+                    _messageService.ShowYesNoMessageDialog("Информация", "Пока эта функция не работает. Она реально тут нужна?");
                     ////потенциальные группы
                     //var items = UnitOfWork.Repository<SalesUnit>()
                     //        .Find(x => x.Project.Manager.IsAppCurrentUser())
-                    //        .Except(TechnicalRequrementsTaskWrapper.PriceCalculationItems.SelectMany(x => x.SalesUnits).Select(x => x.Model))
+                    //        .Except(TechnicalRequrementsTaskWrapper.Requrements.SelectMany(x => x.SalesUnits).Select(x => x.Model))
                     //        .Select(x => new SalesUnitEmptyWrapper(x))
                     //        .GroupBy(x => x, new SalesUnit2Comparer())
                     //        .Select(GetPriceCalculationItem2Wrapper);
@@ -261,34 +266,34 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             RemoveGroupCommand = new DelegateCommand(
                 () =>
                 {
-                    //var result = _messageService.ShowYesNoMessageDialog("Удаление", "Действительно хотите удалить из расчета группу оборудования?", defaultNo: true);
-                    //if (result != MessageDialogResult.Yes) return;
+                    var result = _messageService.ShowYesNoMessageDialog("Удаление", "Действительно хотите удалить из задачи это оборудование?", defaultNo: true);
+                    if (result != MessageDialogResult.Yes) return;
 
-                    //var selectedGroup = SelectedItem as PriceCalculationItem2Wrapper;
+                    var selectedGroup = SelectedItem as TechnicalRequrements2Wrapper;
 
-                    //var salesUnits = selectedGroup.SalesUnits.ToList();
+                    var salesUnits = selectedGroup.SalesUnits.ToList();
 
-                    ////единицы, которы нельзя удалить из расчета, т.к. они размещены в производстве
-                    //var salesUnitsNotForRemove = salesUnits
-                    //    .Where(x => x.Model.SignalToStartProduction.HasValue)
-                    //    .Where(x => x.Model.ActualPriceCalculationItem(UnitOfWork)?.Id == selectedGroup.Model.Id)
-                    //    .ToList();
+                    //единицы, которы нельзя удалить из расчета, т.к. они размещены в производстве
+                    var salesUnitsNotForRemove = salesUnits
+                        .Where(x => x.Model.SignalToStartProduction.HasValue)
+                        .Where(x => x.Model.ActualPriceCalculationItem(UnitOfWork)?.Id == selectedGroup.Model.Id)
+                        .ToList();
 
-                    //if (salesUnitsNotForRemove.Any())
-                    //{
-                    //    _messageService.ShowOkMessageDialog("Удаление", "Вы не можете удалить некоторые строки, т.к. они размещены в производстве.");
+                    if (salesUnitsNotForRemove.Any())
+                    {
+                        _messageService.ShowOkMessageDialog("Удаление", "Вы не можете удалить некоторые строки, т.к. они размещены в производстве.");
 
-                    //    var salesUnitsToRemove = salesUnits.Except(salesUnitsNotForRemove).ToList();
-                    //    salesUnitsToRemove.ForEach(x => selectedGroup.SalesUnits.Remove(x));
-                    //    if (!selectedGroup.SalesUnits.Any())
-                    //        TechnicalRequrementsTaskWrapper.PriceCalculationItems.Remove(selectedGroup);
-                    //}
-                    //else
-                    //{
-                    //    TechnicalRequrementsTaskWrapper.PriceCalculationItems.Remove(selectedGroup);
-                    //}
+                        var salesUnitsToRemove = salesUnits.Except(salesUnitsNotForRemove).ToList();
+                        salesUnitsToRemove.ForEach(x => selectedGroup.SalesUnits.Remove(x));
+                        if (!selectedGroup.SalesUnits.Any())
+                            TechnicalRequrementsTaskWrapper.Requrements.Remove(selectedGroup);
+                    }
+                    else
+                    {
+                        TechnicalRequrementsTaskWrapper.Requrements.Remove(selectedGroup);
+                    }
                 },
-                () => SelectedItem is PriceCalculationItem2Wrapper && !IsStarted);
+                () => SelectedItem is TechnicalRequrements2Wrapper && !IsStarted);
 
             #endregion
 
@@ -424,9 +429,12 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                         technicalRequrementsWrapper.SalesUnits.Remove(unit);
 
                         //создаем новую строку
-                        var newTechnicalRequrements = new TechnicalRequrements { Comment = technicalRequrementsWrapper.Comment };
+                        var newTechnicalRequrements = new TechnicalRequrements
+                        {
+                            SalesUnits = new List<SalesUnit> { unit.Model },
+                            Comment = technicalRequrementsWrapper.Comment
+                        };
                         var newTechnicalRequrementsWrapper = new TechnicalRequrements2Wrapper(newTechnicalRequrements);
-                        newTechnicalRequrementsWrapper.SalesUnits.Add(unit);
 
                         //добавляем в новую строку файлы
                         foreach (var fileWrapper in technicalRequrementsWrapper.Files)
@@ -487,6 +495,15 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 });
 
             #endregion
+
+            CreatePriceCalculationCommand = new DelegateCommand(
+                () =>
+                {
+                    RegionManager.RequestNavigateContentRegion<PriceCalculationView>(new NavigationParameters
+                    {
+                        { nameof(TechnicalRequrementsTask), this.TechnicalRequrementsTaskWrapper.Model }
+                    });
+                });
 
             TechnicalRequrementsTaskWrapper = new TechnicalRequrementsTask2Wrapper(new TechnicalRequrementsTask());
         }

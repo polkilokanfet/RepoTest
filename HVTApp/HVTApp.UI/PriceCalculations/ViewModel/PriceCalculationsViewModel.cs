@@ -6,14 +6,11 @@ using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
-using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
-using HVTApp.Model.Wrapper;
 using HVTApp.UI.Lookup;
 using HVTApp.UI.ViewModels;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
-using Prism.Events;
 using Prism.Regions;
 
 namespace HVTApp.UI.PriceCalculations.ViewModel
@@ -29,6 +26,9 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
         public ICommand LoadFileCommand { get; }
 
         public bool CurrentUserIsManager => GlobalAppProperties.User.RoleCurrent == Role.SalesManager;
+        public bool CurrentUserIsPricer => GlobalAppProperties.User.RoleCurrent == Role.Pricer;
+        public bool CurrentUserIsBackManager => GlobalAppProperties.User.RoleCurrent == Role.BackManager;
+        public bool CurrentUserIsBackManagerBoss => GlobalAppProperties.User.RoleCurrent == Role.BackManagerBoss;
 
         public PriceCalculationsViewModel(IUnityContainer container) : base(container)
         {
@@ -44,14 +44,20 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
             NewCalculationCommand = new DelegateCommand(
                 () =>
                 {
-                    RegionManager.RequestNavigateContentRegion<View.PriceCalculationView>(new NavigationParameters { { nameof(PriceCalculation), new PriceCalculation() } });
+                    RegionManager.RequestNavigateContentRegion<View.PriceCalculationView>(new NavigationParameters
+                    {
+                        { nameof(PriceCalculation), new PriceCalculation() }
+                    });
                 });
 
 
             EditCalculationCommand = new DelegateCommand(
                 () =>
                 {
-                    RegionManager.RequestNavigateContentRegion<View.PriceCalculationView>(new NavigationParameters { { nameof(PriceCalculation), SelectedItem } });
+                    RegionManager.RequestNavigateContentRegion<View.PriceCalculationView>(new NavigationParameters
+                    {
+                        { nameof(PriceCalculation), SelectedItem }
+                    });
                 },
                 () => SelectedItem != null);
 
@@ -162,9 +168,29 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
             
             RemoveFails(UnitOfWork);
 
-            var calculations = CurrentUserIsManager 
-                ? UnitOfWork.Repository<PriceCalculation>().Find(IsCalculationOfManager) 
-                : UnitOfWork.Repository<PriceCalculation>().Find(x => x.TaskOpenMoment.HasValue);
+            var calculations = new List<PriceCalculation>();
+
+            if (CurrentUserIsManager)
+            {
+                calculations = UnitOfWork.Repository<PriceCalculation>().Find(IsCalculationOfManager);
+            }
+
+            if (CurrentUserIsBackManager)
+            {
+                var tasks = UnitOfWork.Repository<TechnicalRequrementsTask>().Find(x => x.BackManager != null && x.BackManager.IsAppCurrentUser());
+                calculations = tasks.SelectMany(x => x.PriceCalculations).Distinct().ToList();
+            }
+
+            if (CurrentUserIsBackManagerBoss)
+            {
+                var tasks = UnitOfWork.Repository<TechnicalRequrementsTask>().Find(x => x.BackManager != null);
+                calculations = tasks.SelectMany(x => x.PriceCalculations).Distinct().ToList();
+            }
+
+            if (CurrentUserIsPricer)
+            {
+                calculations = UnitOfWork.Repository<PriceCalculation>().Find(x => x.TaskOpenMoment.HasValue);
+            }
 
             this.Load(calculations.OrderByDescending(x => x.TaskOpenMoment));
         }

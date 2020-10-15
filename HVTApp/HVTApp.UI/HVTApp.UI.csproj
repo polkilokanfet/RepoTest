@@ -588,14 +588,14 @@
     <Compile Include="Tabs\TabRefresh.xaml.cs">
       <DependentUpon>TabRefresh.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TechnicalRequrementsTasksModule\TabTechnicalRequrementsTasksView.xaml.cs">
+    <Compile Include="TechnicalRequrementsTasksModule\Tabs\TabTechnicalRequrementsTasksView.xaml.cs">
       <DependentUpon>TabTechnicalRequrementsTasksView.xaml</DependentUpon>
     </Compile>
     <Compile Include="TechnicalRequrementsTasksModule\TechnicalRequrementsTasksView.xaml.cs">
       <DependentUpon>TechnicalRequrementsTasksView.xaml</DependentUpon>
     </Compile>
     <Compile Include="TechnicalRequrementsTasksModule\TechnicalRequrementsTasksViewModel.cs" />
-    <Compile Include="TechnicalRequrementsTasksModule\TabTechnicalRequrementsTask.xaml.cs">
+    <Compile Include="TechnicalRequrementsTasksModule\Tabs\TabTechnicalRequrementsTask.xaml.cs">
       <DependentUpon>TabTechnicalRequrementsTask.xaml</DependentUpon>
     </Compile>
     <Compile Include="TechnicalRequrementsTasksModule\TechnicalRequrementsTaskView.xaml.cs">
@@ -1299,7 +1299,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="TechnicalRequrementsTasksModule\TabTechnicalRequrementsTasksView.xaml">
+    <Page Include="TechnicalRequrementsTasksModule\Tabs\TabTechnicalRequrementsTasksView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1307,7 +1307,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="TechnicalRequrementsTasksModule\TabTechnicalRequrementsTask.xaml">
+    <Page Include="TechnicalRequrementsTasksModule\Tabs\TabTechnicalRequrementsTask.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

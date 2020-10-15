@@ -12,7 +12,7 @@ using Prism.Regions;
 
 namespace HVTApp.UI.TechnicalRequrementsTasksModule
 {
-    [RibbonTab(typeof(TabTechnicalRequrementsTask))]
+    [RibbonTab(typeof(Tabs.TabTechnicalRequrementsTask))]
     public partial class TechnicalRequrementsTaskView : HVTApp.Infrastructure.ViewBase
     {
         private readonly TechnicalRequrementsTaskViewModel _viewModel;

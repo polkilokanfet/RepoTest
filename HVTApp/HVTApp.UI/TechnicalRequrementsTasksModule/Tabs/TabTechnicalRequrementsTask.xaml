@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:infRib="http://infragistics.com/Ribbon" 
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-             x:Class="HVTApp.UI.TechnicalRequrementsTasksModule.TabTechnicalRequrementsTask"
+             x:Class="HVTApp.UI.TechnicalRequrementsTasksModule.Tabs.TabTechnicalRequrementsTask"
              Header="TCE">
 
     <infRib:RibbonGroup Caption="Технические требования">
@@ -50,6 +50,10 @@
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Действия">
+        <infRib:ButtonTool Caption="Запуск на расчет ПЗ" 
+                           Command="{Binding CreatePriceCalculationCommand}" 
+                           Visibility="{Binding CurrentUserIsBackManager, Converter={StaticResource BooleanToVisibilityConverter}}"
+                           SmallImage="/HVTApp.UI;component/Images/save.png"/>
         <infRib:ButtonTool Caption="Сохранить" 
                            Command="{Binding SaveCommand}" 
                            Visibility="{Binding CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityConverter}}"

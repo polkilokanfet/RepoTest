@@ -6,7 +6,7 @@ namespace HVTApp.DataAccess
         {
             HasMany(x => x.Requrements).WithRequired().WillCascadeOnDelete(false);
             HasMany(x => x.PriceCalculations).WithOptional().WillCascadeOnDelete(false);
-            HasOptional(x => x.BackManager).WithOptionalPrincipal().WillCascadeOnDelete(false);
+            HasOptional(x => x.BackManager).WithMany().WillCascadeOnDelete(false);
         }
     }
 }

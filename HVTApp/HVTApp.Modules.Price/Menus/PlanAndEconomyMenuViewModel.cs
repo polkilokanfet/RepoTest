@@ -1,11 +1,12 @@
 ﻿using HVTApp.Infrastructure;
 using HVTApp.Model;
+using HVTApp.UI.Modules.PlanAndEconomy.Dates;
+using HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual;
+using HVTApp.UI.Modules.PlanAndEconomy.PaymentsPlan;
 using HVTApp.UI.Modules.PlanAndEconomy.Supervision;
 using HVTApp.UI.Modules.PlanAndEconomy.Views;
+using HVTApp.UI.PriceCalculations.View;
 using HVTApp.UI.TechnicalRequrementsTasksModule;
-using DatesView = HVTApp.UI.Modules.PlanAndEconomy.Dates.DatesView;
-using PaymentsActualView = HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual.PaymentsActualView;
-using PaymentsPlanView = HVTApp.UI.Modules.PlanAndEconomy.PaymentsPlan.PaymentsPlanView;
 
 namespace HVTApp.Modules.PlanAndEconomy.Menus
 {
@@ -13,12 +14,14 @@ namespace HVTApp.Modules.PlanAndEconomy.Menus
     {
         protected override void GenerateMenu()
         {
-            if (GlobalAppProperties.User.RoleCurrent == Role.PlanMaker || GlobalAppProperties.User.RoleCurrent == Role.Admin)
+            if (GlobalAppProperties.User.RoleCurrent == Role.PlanMaker 
+                || GlobalAppProperties.User.RoleCurrent == Role.Admin)
             {
                 Items.Add(new NavigationItem("План производства", typeof(ProductionPlanView)));
             }
 
-            if (GlobalAppProperties.User.RoleCurrent == Role.Economist || GlobalAppProperties.User.RoleCurrent == Role.Admin)
+            if (GlobalAppProperties.User.RoleCurrent == Role.Economist 
+                || GlobalAppProperties.User.RoleCurrent == Role.Admin)
             {
                 Items.Add(new NavigationItem("Поступления (факт)", typeof(PaymentsActualView)));
                 Items.Add(new NavigationItem("Поступления (план)", typeof(PaymentsPlanView)));
@@ -28,9 +31,12 @@ namespace HVTApp.Modules.PlanAndEconomy.Menus
                 Items.Add(new NavigationItem("Шеф-монтаж", typeof(SupervisionView)));
             }
 
-            if (GlobalAppProperties.User.RoleCurrent == Role.BackManager || GlobalAppProperties.User.RoleCurrent == Role.BackManagerBoss)
+            if (GlobalAppProperties.User.RoleCurrent == Role.BackManager 
+                || GlobalAppProperties.User.RoleCurrent == Role.BackManagerBoss 
+                || GlobalAppProperties.User.RoleCurrent == Role.Admin)
             {
                 Items.Add(new NavigationItem("Задачи в ТСЕ", typeof(TechnicalRequrementsTasksView)));
+                Items.Add(new NavigationItem("Расчеты ПЗ", typeof(PriceCalculationsView)));
             }
 
         }

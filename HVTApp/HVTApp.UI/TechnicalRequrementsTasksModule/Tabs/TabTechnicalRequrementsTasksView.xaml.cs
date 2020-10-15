@@ -1,4 +1,4 @@
-﻿namespace HVTApp.UI.TechnicalRequrementsTasksModule
+﻿namespace HVTApp.UI.TechnicalRequrementsTasksModule.Tabs
 {
     public partial class TabTechnicalRequrementsTasksView
     {
