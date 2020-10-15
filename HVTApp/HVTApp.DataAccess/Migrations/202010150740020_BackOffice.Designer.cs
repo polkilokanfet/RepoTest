@@ -7,13 +7,13 @@ namespace HVTApp.DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class BackOfficeTask : IMigrationMetadata
+    public sealed partial class BackOffice : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(BackOfficeTask));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(BackOffice));
         
         string IMigrationMetadata.Id
         {
-            get { return "202010131131164_BackOfficeTask"; }
+            get { return "202010150740020_BackOffice"; }
         }
         
         string IMigrationMetadata.Source

@@ -7,7 +7,7 @@ namespace HVTApp.Model.POCOs
     [Designation("Расчет себестоимости оборудования (файл)")]
     public class PriceCalculationFile : BaseEntity
     {
-        [Designation("Момент создания")]
+        [Designation("Момент создания"), OrderStatus(20)]
         public DateTime CreationMoment { get; set; } = DateTime.Now;
 
         public virtual Guid CalculationId { get; set; }

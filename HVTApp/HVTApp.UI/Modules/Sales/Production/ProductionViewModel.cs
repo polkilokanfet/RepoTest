@@ -153,11 +153,11 @@ namespace HVTApp.UI.Modules.Sales.Production
 
             //все единицы текущего пользователя
             var salesUnitsAll = UnitOfWork.Repository<SalesUnit>().Find(x => !x.IsLoosen && x.Project.Manager.IsAppCurrentUser());
-            //все задачи на расчет с номерами стракчакостов
-            var priceCalculationItems = UnitOfWork.Repository<PriceCalculationItem>().Find(x => x.StructureCosts.All(sc => !string.IsNullOrEmpty(sc.Number)));
+            //задачи из ТСЕ
+            var requrementsTasks = UnitOfWork.Repository<TechnicalRequrementsTask>().Find(x => x.Start.HasValue);
 
             //пересечение этих множеств
-            var salesUnits = salesUnitsAll.Intersect(priceCalculationItems.SelectMany(x => x.SalesUnits).Distinct()).ToList();
+            var salesUnits = salesUnitsAll.Intersect(requrementsTasks.SelectMany(x => x.Requrements.SelectMany(r => r.SalesUnits)).Distinct()).ToList();
             var productionItems = salesUnits.Select(x => new ProductionItem(x, x.ActualPriceCalculationItem(UnitOfWork))).ToList();
 
             _groupsToProduction = productionItems
@@ -173,8 +173,9 @@ namespace HVTApp.UI.Modules.Sales.Production
                 .Select(x => new ProductionGroup(x));
 
 
-            _groupsInProduction = productionItems
+            _groupsInProduction = salesUnitsAll
                 .Where(x => x.SignalToStartProduction.HasValue)
+                .Select(x => new ProductionItem(x, x.ActualPriceCalculationItem(UnitOfWork)))
                 .GroupBy(x => new
                 {
                     ProductId = x.Model.Product.Id,

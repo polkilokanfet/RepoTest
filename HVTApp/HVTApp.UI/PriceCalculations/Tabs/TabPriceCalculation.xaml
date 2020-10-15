@@ -6,9 +6,12 @@
              x:Class="HVTApp.UI.PriceCalculations.Tabs.TabPriceCalculation"
              Header="Задание на расчет себестоимости">
 
-    <infRib:RibbonGroup Caption="Сралчахвост" Visibility="{Binding CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityConverter}}">
-        <infRib:ButtonTool Caption="Добавить" Command="{Binding AddStructureCostCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
-        <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveStructureCostCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>
+    <infRib:RibbonGroup Caption="Сралчахвост" 
+                        Visibility="{Binding StartVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <infRib:ButtonTool Caption="Добавить" 
+                           Command="{Binding AddStructureCostCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
+        <infRib:ButtonTool Caption="Удалить" 
+                           Command="{Binding RemoveStructureCostCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Оборудование" Visibility="{Binding CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -19,7 +22,7 @@
     <infRib:RibbonGroup Caption="Задача">
         <infRib:ButtonTool Caption="Стартовать"
                            Command="{Binding StartCommand}"
-                           Visibility="{Binding CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityConverter}}"
+                           Visibility="{Binding StartVisibility, Converter={StaticResource BooleanToVisibilityConverter}}"
                            SmallImage="/HVTApp.UI;component/Images/start.png" />
         <infRib:ButtonTool Caption="Остановить"
                            Command="{Binding CancelCommand}"

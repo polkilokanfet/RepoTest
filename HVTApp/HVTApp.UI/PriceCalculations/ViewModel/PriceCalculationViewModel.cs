@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -16,7 +15,6 @@ using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
-using HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
@@ -26,7 +24,6 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
 {
     public class PriceCalculationViewModel : ViewModelBaseCanExportToExcel
     {
-        private TechnicalRequrementsTask _technicalRequrementsTask = null;
         private readonly IMessageService _messageService;
         private object _selectedItem;
         private PriceCalculation2Wrapper _priceCalculationWrapper;
@@ -46,7 +43,10 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
             }
         }
         public bool CurrentUserIsManager => GlobalAppProperties.User.RoleCurrent == Role.SalesManager;
+        public bool CurrentUserIsBackManager => GlobalAppProperties.User.RoleCurrent == Role.BackManager;
         public bool CurrentUserIsPricer => GlobalAppProperties.User.RoleCurrent == Role.Pricer;
+
+        public bool StartVisibility => CurrentUserIsManager || CurrentUserIsBackManager;
 
         public bool IsStarted => PriceCalculationWrapper?.TaskOpenMoment != null;
         public bool IsFinished => PriceCalculationWrapper?.TaskCloseMoment != null;
@@ -95,6 +95,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                 {
                     ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
                     ((DelegateCommand)StartCommand).RaiseCanExecuteChanged();
+                    ((DelegateCommand)FinishCommand).RaiseCanExecuteChanged();
                     ((DelegateCommand)LoadFileFromDbCommand).RaiseCanExecuteChanged();
                 };
                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsStarted)));
@@ -120,8 +121,6 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                     {
                         UnitOfWork.Repository<PriceCalculation>().Add(PriceCalculationWrapper.Model);
                     }
-
-                    _technicalRequrementsTask?.PriceCalculations.Add(priceCalculation);
 
                     UnitOfWork.SaveChanges();
 
@@ -276,7 +275,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
 
                     ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
                 },
-                () => !IsFinished && PriceCalculationWrapper.IsValid && PriceCalculationWrapper.PriceCalculationItems.SelectMany(x => x.StructureCosts).All(x => x.UnitPrice.HasValue));
+                () => !IsFinished && CalculationHasFile && PriceCalculationWrapper.IsValid && PriceCalculationWrapper.PriceCalculationItems.SelectMany(x => x.StructureCosts).All(x => x.UnitPrice.HasValue));
 
             #endregion
 
@@ -476,8 +475,13 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
 
         public void Load(TechnicalRequrementsTask technicalRequrementsTask)
         {
-            _technicalRequrementsTask = UnitOfWork.Repository<TechnicalRequrementsTask>().GetById(technicalRequrementsTask.Id);
-            foreach (var requrement in _technicalRequrementsTask.Requrements)
+            technicalRequrementsTask = UnitOfWork.Repository<TechnicalRequrementsTask>().GetById(technicalRequrementsTask.Id);
+            if (!technicalRequrementsTask.PriceCalculations.ContainsById(PriceCalculationWrapper.Model))
+            {
+                technicalRequrementsTask.PriceCalculations.Add(this.PriceCalculationWrapper.Model);
+            }
+
+            foreach (var requrement in technicalRequrementsTask.Requrements)
             {
                 var saleUnits = requrement.SalesUnits.Select(x => new SalesUnitEmptyWrapper(x));
                 PriceCalculationWrapper.PriceCalculationItems.Add(GetPriceCalculationItem2Wrapper(saleUnits));

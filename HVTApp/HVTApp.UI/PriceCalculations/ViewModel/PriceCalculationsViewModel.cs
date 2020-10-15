@@ -29,6 +29,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
         public bool CurrentUserIsPricer => GlobalAppProperties.User.RoleCurrent == Role.Pricer;
         public bool CurrentUserIsBackManager => GlobalAppProperties.User.RoleCurrent == Role.BackManager;
         public bool CurrentUserIsBackManagerBoss => GlobalAppProperties.User.RoleCurrent == Role.BackManagerBoss;
+        public bool CurrentUserIsDirector=> GlobalAppProperties.User.RoleCurrent == Role.Director;
 
         public PriceCalculationsViewModel(IUnityContainer container) : base(container)
         {
@@ -190,6 +191,11 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
             if (CurrentUserIsPricer)
             {
                 calculations = UnitOfWork.Repository<PriceCalculation>().Find(x => x.TaskOpenMoment.HasValue);
+            }
+
+            if (CurrentUserIsDirector)
+            {
+                calculations = UnitOfWork.Repository<PriceCalculation>().Find(x => x.TaskCloseMoment.HasValue);
             }
 
             this.Load(calculations.OrderByDescending(x => x.TaskOpenMoment));

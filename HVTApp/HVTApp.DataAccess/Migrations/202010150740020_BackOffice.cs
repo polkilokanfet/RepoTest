@@ -3,10 +3,22 @@ namespace HVTApp.DataAccess.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class BackOfficeTask : DbMigration
+    public partial class BackOffice : DbMigration
     {
         public override void Up()
         {
+            CreateTable(
+                "dbo.PriceCalculationFile",
+                c => new
+                    {
+                        Id = c.Guid(nullable: false),
+                        CreationMoment = c.DateTime(nullable: false),
+                        CalculationId = c.Guid(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.PriceCalculation", t => t.CalculationId)
+                .Index(t => t.CalculationId);
+            
             CreateTable(
                 "dbo.TechnicalRequrements",
                 c => new
@@ -37,8 +49,11 @@ namespace HVTApp.DataAccess.Migrations
                         Comment = c.String(maxLength: 250),
                         TceNumber = c.String(maxLength: 10),
                         Start = c.DateTime(),
+                        BackManager_Id = c.Guid(),
                     })
-                .PrimaryKey(t => t.Id);
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.User", t => t.BackManager_Id)
+                .Index(t => t.BackManager_Id);
             
             CreateTable(
                 "dbo.TechnicalRequrementsTechnicalRequrementsFile",
@@ -66,37 +81,44 @@ namespace HVTApp.DataAccess.Migrations
                 .Index(t => t.TechnicalRequrements_Id)
                 .Index(t => t.SalesUnit_Id);
             
-            AddColumn("dbo.User", "TechnicalRequrementsTask_Id", c => c.Guid());
             AddColumn("dbo.GlobalProperties", "TechnicalRequrementsFilesPath", c => c.String());
+            AddColumn("dbo.GlobalProperties", "PriceCalculationsFilesPath", c => c.String());
+            AddColumn("dbo.PriceCalculation", "TechnicalRequrementsTask_Id", c => c.Guid());
             AlterColumn("dbo.GlobalProperties", "IncomingRequestsPath", c => c.String(nullable: false));
             AlterColumn("dbo.GlobalProperties", "DirectumAttachmentsPath", c => c.String(nullable: false));
-            CreateIndex("dbo.User", "TechnicalRequrementsTask_Id");
-            AddForeignKey("dbo.User", "TechnicalRequrementsTask_Id", "dbo.TechnicalRequrementsTask", "Id");
+            CreateIndex("dbo.PriceCalculation", "TechnicalRequrementsTask_Id");
+            AddForeignKey("dbo.PriceCalculation", "TechnicalRequrementsTask_Id", "dbo.TechnicalRequrementsTask", "Id");
         }
         
         public override void Down()
         {
             DropForeignKey("dbo.TechnicalRequrements", "TechnicalRequrementsTask_Id", "dbo.TechnicalRequrementsTask");
-            DropForeignKey("dbo.User", "TechnicalRequrementsTask_Id", "dbo.TechnicalRequrementsTask");
+            DropForeignKey("dbo.PriceCalculation", "TechnicalRequrementsTask_Id", "dbo.TechnicalRequrementsTask");
+            DropForeignKey("dbo.TechnicalRequrementsTask", "BackManager_Id", "dbo.User");
             DropForeignKey("dbo.TechnicalRequrementsSalesUnit", "SalesUnit_Id", "dbo.SalesUnit");
             DropForeignKey("dbo.TechnicalRequrementsSalesUnit", "TechnicalRequrements_Id", "dbo.TechnicalRequrements");
             DropForeignKey("dbo.TechnicalRequrementsTechnicalRequrementsFile", "TechnicalRequrementsFile_Id", "dbo.TechnicalRequrementsFile");
             DropForeignKey("dbo.TechnicalRequrementsTechnicalRequrementsFile", "TechnicalRequrements_Id", "dbo.TechnicalRequrements");
+            DropForeignKey("dbo.PriceCalculationFile", "CalculationId", "dbo.PriceCalculation");
             DropIndex("dbo.TechnicalRequrementsSalesUnit", new[] { "SalesUnit_Id" });
             DropIndex("dbo.TechnicalRequrementsSalesUnit", new[] { "TechnicalRequrements_Id" });
             DropIndex("dbo.TechnicalRequrementsTechnicalRequrementsFile", new[] { "TechnicalRequrementsFile_Id" });
             DropIndex("dbo.TechnicalRequrementsTechnicalRequrementsFile", new[] { "TechnicalRequrements_Id" });
+            DropIndex("dbo.TechnicalRequrementsTask", new[] { "BackManager_Id" });
             DropIndex("dbo.TechnicalRequrements", new[] { "TechnicalRequrementsTask_Id" });
-            DropIndex("dbo.User", new[] { "TechnicalRequrementsTask_Id" });
+            DropIndex("dbo.PriceCalculationFile", new[] { "CalculationId" });
+            DropIndex("dbo.PriceCalculation", new[] { "TechnicalRequrementsTask_Id" });
             AlterColumn("dbo.GlobalProperties", "DirectumAttachmentsPath", c => c.String());
             AlterColumn("dbo.GlobalProperties", "IncomingRequestsPath", c => c.String());
+            DropColumn("dbo.PriceCalculation", "TechnicalRequrementsTask_Id");
+            DropColumn("dbo.GlobalProperties", "PriceCalculationsFilesPath");
             DropColumn("dbo.GlobalProperties", "TechnicalRequrementsFilesPath");
-            DropColumn("dbo.User", "TechnicalRequrementsTask_Id");
             DropTable("dbo.TechnicalRequrementsSalesUnit");
             DropTable("dbo.TechnicalRequrementsTechnicalRequrementsFile");
             DropTable("dbo.TechnicalRequrementsTask");
             DropTable("dbo.TechnicalRequrementsFile");
             DropTable("dbo.TechnicalRequrements");
+            DropTable("dbo.PriceCalculationFile");
         }
     }
 }

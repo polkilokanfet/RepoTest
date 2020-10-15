@@ -2,30 +2,52 @@
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-              xmlns:dataPresenter="http://infragistics.com/DataPresenter">
+              xmlns:dp="http://infragistics.com/DataPresenter">
 
     <Grid>
-        <dataPresenter:XamDataGrid x:Name="PriceCalculationLookupListGrid"
+        <dp:XamDataGrid x:Name="PriceCalculationLookupListGrid"
                                    DataSource="{Binding Lookups}"
                                    SelectedDataItem="{Binding SelectedLookup}">
         
-            <dataPresenter:XamDataGrid.InputBindings>
+            <dp:XamDataGrid.InputBindings>
                 <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=EditCalculationCommand, Mode=OneWay}"/>
-            </dataPresenter:XamDataGrid.InputBindings>
+            </dp:XamDataGrid.InputBindings>
 
-			<dataPresenter:XamDataGrid.FieldLayouts>
-				<dataPresenter:FieldLayout>
-					<dataPresenter:FieldLayout.Fields>
-                    <dataPresenter:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding TaskOpenMoment}" Label="Старт задачи" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
-                    <dataPresenter:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding TaskCloseMoment}" Label="Финиш задачи" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
-                    <dataPresenter:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Name}" Label="Название" Width="400" AllowResize="True" />
-                    <dataPresenter:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Manager}" Label="Менеджер" Width="Auto" AllowResize="True" />
-                    <dataPresenter:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Comment}" Label="Комментарий" Width="200" AllowResize="True" />
-                    <dataPresenter:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Id}" Label="Id" Width="Auto" AllowResize="True" />
-					</dataPresenter:FieldLayout.Fields>
-				</dataPresenter:FieldLayout>
-			</dataPresenter:XamDataGrid.FieldLayouts>
-		</dataPresenter:XamDataGrid>
+			<dp:XamDataGrid.FieldLayouts>
+                
+				<dp:FieldLayout Key="Calculation">
+					<dp:FieldLayout.Fields>
+                        <dp:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding TaskOpenMoment}" Label="Старт задачи" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
+                        <dp:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding TaskCloseMoment}" Label="Финиш задачи" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
+                        <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Name}" Label="Название" Width="400" AllowResize="True" />
+                        <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Manager}" Label="Менеджер" Width="Auto" AllowResize="True" />
+                        <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Comment}" Label="Комментарий" Width="200" AllowResize="True" />
+                        <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Id}" Label="Id" Width="Auto" AllowResize="True" />
+                        <dp:Field Name="PriceCalculationItems" IsExpandable="True"/>
+					</dp:FieldLayout.Fields>
+				</dp:FieldLayout>
+
+                <dp:FieldLayout Key="CalculationItem" ParentFieldLayoutKey="Calculation" ParentFieldName="PriceCalculationItems">
+                    <dp:FieldLayout.Fields>
+                        <dp:TextField AlternateBinding="{Binding Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
+                        <dp:TextField AlternateBinding="{Binding Product}" BindingType="UseAlternateBinding" Label="Оборудование" Width="Auto"/>
+                        <dp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" AllowResize="False"/>
+                        <dp:NumericField AlternateBinding="{Binding UnitPrice}" BindingType="UseAlternateBinding" Label="Цена за ед." Width="Auto" AllowResize="False"/>
+                        <dp:Field Name="StructureCosts" IsExpandable="True"/>
+                    </dp:FieldLayout.Fields>
+                </dp:FieldLayout>
+
+                <dp:FieldLayout ParentFieldLayoutKey="CalculationItem" ParentFieldName="StructureCosts">
+                    <dp:FieldLayout.Fields>
+                        <dp:TextField AlternateBinding="{Binding Comment}" BindingType="UseAlternateBinding" Label="Название" Width="Auto" />
+                        <dp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол. на ед." Width="Auto" AllowResize="False" />
+                        <dp:TextField AlternateBinding="{Binding Number}" BindingType="UseAlternateBinding" Label="Номер" Width="Auto" />
+                        <dp:NumericField AlternateBinding="{Binding UnitPrice}" BindingType="UseAlternateBinding" Label="Цена за ед." Width="Auto" />
+                        <dp:NumericField AlternateBinding="{Binding Total}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto" AllowResize="False"/>
+                    </dp:FieldLayout.Fields>
+                </dp:FieldLayout>
+            </dp:XamDataGrid.FieldLayouts>
+		</dp:XamDataGrid>
 
     </Grid>
 

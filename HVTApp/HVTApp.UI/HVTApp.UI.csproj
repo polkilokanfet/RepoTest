@@ -114,6 +114,8 @@
     <Compile Include="Lookup\Items\Custom\DocumentLookup.cs" />
     <Compile Include="Lookup\Items\Custom\IncomingRequestLookup.cs" />
     <Compile Include="Lookup\Items\Custom\PaymentConditionSetLookup.cs" />
+    <Compile Include="Lookup\Items\Custom\PriceCalculationFileLookup.cs" />
+    <Compile Include="Lookup\Items\Custom\PriceCalculationItemLookup.cs" />
     <Compile Include="Lookup\Items\Custom\PriceCalculationLookup.cs" />
     <Compile Include="Lookup\Items\Custom\SalesUnitLookup.cs" />
     <Compile Include="Lookup\Items\Custom\TechnicalRequrementsTaskLookup.cs" />
