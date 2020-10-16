@@ -119,6 +119,7 @@
                                     <infgDp:NumericField Name="OrderInTakeYear" Label="ОИТ (год)" Width="Auto" AllowResize="False"/>
                                     <infgDp:TextField Name="OrderInTakeMonth" Label="ОИТ (месяц)" Width="Auto" AllowResize="False"/>
                                     <infgDp:NumericField Name="DaysToStartProduction" Label="DTSP" Width="Auto" AllowResize="False"/>
+                                    <infgDp:TextField AlternateBinding="{Binding ProductsInProject}" BindingType="UseAlternateBinding" Label="Номенклатура" Width="150"/>
                                     <infgDp:Field Name="ProjectUnitsGroups" IsExpandable="True"/>
 					            </infgDp:FieldLayout.Fields>
 				            </infgDp:FieldLayout>

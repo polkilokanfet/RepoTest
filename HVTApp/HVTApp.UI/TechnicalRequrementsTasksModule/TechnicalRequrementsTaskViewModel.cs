@@ -159,7 +159,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                             try
                             {
                                 File.Copy(fileName, $"{rootDirectoryPath}\\{fileWrapper.Id}{Path.GetExtension(fileName)}");
-                                fileWrapper.Name = Path.GetFileNameWithoutExtension(fileName);
+                                fileWrapper.Name = Path.GetFileNameWithoutExtension(fileName).LimitLengh(50);
                                 ((TechnicalRequrements2Wrapper)SelectedItem).Files.Add(fileWrapper);
                             }
                             catch (Exception e)

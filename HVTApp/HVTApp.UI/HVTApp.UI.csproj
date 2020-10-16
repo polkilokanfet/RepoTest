@@ -118,6 +118,7 @@
     <Compile Include="Lookup\Items\Custom\PriceCalculationItemLookup.cs" />
     <Compile Include="Lookup\Items\Custom\PriceCalculationLookup.cs" />
     <Compile Include="Lookup\Items\Custom\SalesUnitLookup.cs" />
+    <Compile Include="Lookup\Items\Custom\TechnicalRequrementsLookup.cs" />
     <Compile Include="Lookup\Items\Custom\TechnicalRequrementsTaskLookup.cs" />
     <Compile Include="Modules\BookRegistration\Tabs\TabIncomingRequest.xaml.cs">
       <DependentUpon>TabIncomingRequest.xaml</DependentUpon>

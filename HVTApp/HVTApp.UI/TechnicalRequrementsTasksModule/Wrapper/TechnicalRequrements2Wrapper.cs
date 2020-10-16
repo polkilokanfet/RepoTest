@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base;
@@ -8,7 +9,7 @@ using HVTApp.UI.PriceCalculations.ViewModel;
 
 namespace HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper
 {
-    public partial class TechnicalRequrements2Wrapper : WrapperBase<TechnicalRequrements>
+    public class TechnicalRequrements2Wrapper : WrapperBase<TechnicalRequrements>
     {
         public bool IsChecked { get; set; }
 
@@ -27,6 +28,9 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper
                 return "самовывоз";
             }
         }
+
+        public string FacilityOwners => this.Model.SalesUnits.Select(x => x.Facility.OwnerCompany).Distinct().ToStringEnum(" <= ");
+
 
         #region SimpleProperties
 

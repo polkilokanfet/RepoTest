@@ -124,7 +124,9 @@ namespace HVTApp.UI.Modules.Sales.Market.Items
         /// <summary>
         /// В группе не осталось юнитов
         /// </summary>
-        public event Action<ProjectItem> LastSalesUnitRemoveEvent; 
+        public event Action<ProjectItem> LastSalesUnitRemoveEvent;
+
+        public string ProductsInProject => SalesUnits.Select(x => x.Product.Designation).Distinct().ToStringEnum();
 
         public ProjectItem(IEnumerable<SalesUnit> salesUnits, IEventAggregator eventAggregator)
         {
