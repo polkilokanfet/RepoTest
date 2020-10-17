@@ -442,8 +442,8 @@
     <Compile Include="Modules\Sales\Market\Tabs\MarketViewTab.xaml.cs">
       <DependentUpon>MarketViewTab.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Sales\Market\Tabs\MarketTab.xaml.cs">
-      <DependentUpon>MarketTab.xaml</DependentUpon>
+    <Compile Include="Modules\Sales\Market\Tabs\MarketMainTab.xaml.cs">
+      <DependentUpon>MarketMainTab.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Sales\Payments\PaymentsTab.xaml.cs">
       <DependentUpon>PaymentsTab.xaml</DependentUpon>
@@ -1154,7 +1154,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Modules\Sales\Market\Tabs\MarketTab.xaml">
+    <Page Include="Modules\Sales\Market\Tabs\MarketMainTab.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

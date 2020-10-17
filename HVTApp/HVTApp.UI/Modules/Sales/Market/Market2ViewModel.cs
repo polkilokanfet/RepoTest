@@ -4,10 +4,12 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Services;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Services;
 using HVTApp.UI.Modules.Sales.Market.Items;
 using HVTApp.UI.Modules.Sales.ViewModels.Containers;
 using Microsoft.Practices.Unity;
@@ -20,6 +22,7 @@ namespace HVTApp.UI.Modules.Sales.Market
     {
         private ProjectItem _selectedProjectItem;
         private readonly IEventAggregator _eventAggregator;
+        private readonly IMessageService _messageService;
 
         public ObservableCollection<ProjectItem> ProjectItems { get; } = new ObservableCollection<ProjectItem>();
 
@@ -55,6 +58,7 @@ namespace HVTApp.UI.Modules.Sales.Market
         public Market2ViewModel(IUnityContainer container) : base(container)
         {
             _eventAggregator = Container.Resolve<IEventAggregator>();
+            _messageService = Container.Resolve<IMessageService>();
 
             //при добавлении или удалении айтема, подписываем/отписываем на событие удаления
             ProjectItems.CollectionChanged += (sender, args) =>
@@ -146,6 +150,8 @@ namespace HVTApp.UI.Modules.Sales.Market
                 .ToList();
 
             _projectItems = items.OrderBy(x => x.DaysToStartProduction).ThenBy(x => x.OrderInTakeDate);
+
+            Container.Resolve<IPriceService>().ReloadService();
         }
 
         protected override void AfterGetData()

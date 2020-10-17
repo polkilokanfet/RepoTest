@@ -275,7 +275,20 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
 
                     ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
                 },
-                () => !IsFinished && CalculationHasFile && PriceCalculationWrapper.IsValid && PriceCalculationWrapper.PriceCalculationItems.SelectMany(x => x.StructureCosts).All(x => x.UnitPrice.HasValue));
+                () =>
+                {
+                    if (PriceCalculationWrapper == null)
+                    {
+                        return false;
+                    }
+
+                    if (PriceCalculationWrapper.IsNeedExcelFile && !CalculationHasFile)
+                    {
+                        return false;
+                    }
+
+                    return !IsFinished && PriceCalculationWrapper.IsValid && PriceCalculationWrapper.PriceCalculationItems.SelectMany(x => x.StructureCosts).All(x => x.UnitPrice.HasValue);
+                });
 
             #endregion
 
@@ -421,6 +434,12 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                             }
                         }
                         OnPropertyChanged(new PropertyChangedEventArgs(nameof(CalculationHasFile)));
+
+                        //костыль
+                        if (((DelegateCommand)SaveCommand).CanExecute())
+                        {
+                            ((DelegateCommand)SaveCommand).Execute();
+                        }
                     }
                 },
                 () => CurrentUserIsPricer);

@@ -9,7 +9,7 @@ using Prism.Regions;
 
 namespace HVTApp.UI.Modules.Sales.Market
 {
-    [RibbonTab(typeof(MarketTab))]
+    [RibbonTab(typeof(MarketMainTab))]
     [RibbonTab(typeof(MarketViewTab))]
     [RibbonTab(typeof(MarketSettingsTab))]
     public partial class Market2View

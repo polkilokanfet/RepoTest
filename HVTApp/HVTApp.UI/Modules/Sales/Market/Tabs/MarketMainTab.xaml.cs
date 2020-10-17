@@ -1,8 +1,8 @@
 ﻿namespace HVTApp.UI.Modules.Sales.Market.Tabs
 {
-    public partial class MarketTab
+    public partial class MarketMainTab
     {
-        public MarketTab()
+        public MarketMainTab()
         {
             InitializeComponent();
         }

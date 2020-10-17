@@ -89,8 +89,8 @@ namespace HVTApp.UI
 
             //создаём, если директории не существует
             if (!string.IsNullOrEmpty(addToFolderName))
-                addToFolderName = addToFolderName.ReplaceUncorrectSimbols("_") + " ";
-            var path = Path.Combine(rootDirectory, $"{addToFolderName}{id}");
+                addToFolderName = addToFolderName.ReplaceUncorrectSimbols("_");
+            var path = Path.Combine(rootDirectory, $"{addToFolderName} {id}");
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
 

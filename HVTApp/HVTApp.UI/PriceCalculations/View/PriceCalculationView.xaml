@@ -59,7 +59,7 @@
                     <CheckBox Grid.Column="5" IsChecked="{Binding PriceCalculationWrapper.IsNeedExcelFile, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" IsEnabled="{Binding IsStarted, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ReverseBoolConverter}}"/>
 
                     <Label Grid.Column="6" Content="Файл загружен: "/>
-                    <CheckBox Grid.Column="7" IsChecked="{Binding CalculationHasFile, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" IsEnabled="{Binding IsStarted, UpdateSourceTrigger=PropertyChanged}"/>
+                    <CheckBox Grid.Column="7" IsChecked="{Binding CalculationHasFile, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" IsEnabled="False"/>
                     
                 </Grid>
 

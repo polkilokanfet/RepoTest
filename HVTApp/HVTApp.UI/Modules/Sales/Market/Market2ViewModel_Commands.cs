@@ -92,17 +92,17 @@ namespace HVTApp.UI.Modules.Sales.Market
 
             if (salesUnits.Any(x => x.Order != null))
             {
-                Container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", "Нельзя удалить проект, т.к. в нем есть оборудование, размещенное в производстве.");
+                _messageService.ShowOkMessageDialog("Информация", "Нельзя удалить проект, т.к. в нем есть оборудование, размещенное в производстве.");
                 return;
             }
 
             if (salesUnits.Any(x => !x.AllowTotalRemove))
             {
-                Container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", "Нельзя удалить проект, т.к. в нем есть оборудование, включенное в бюджет.");
+                _messageService.ShowOkMessageDialog("Информация", "Нельзя удалить проект, т.к. в нем есть оборудование, включенное в бюджет.");
                 return;
             }
 
-            var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удалить проект.", "Вы уверены, что хотите удалить проект?", defaultNo: true);
+            var dr = _messageService.ShowYesNoMessageDialog("Удалить проект.", "Вы уверены, что хотите удалить проект?", defaultNo: true);
             if (dr != MessageDialogResult.Yes) return;
 
             foreach (var salesUnit in salesUnits)
@@ -162,8 +162,6 @@ namespace HVTApp.UI.Modules.Sales.Market
             RegionManager.RequestNavigateContentRegion<PriceCalculationView>(new NavigationParameters { { nameof(SalesUnit), salesUnits } });
         }
 
-        #endregion
-
         private void OpenFolderCommand_Execute()
         {
             var path = PathGetter.GetPath(SelectedProjectItem.Project);
@@ -187,5 +185,7 @@ namespace HVTApp.UI.Modules.Sales.Market
             var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Id == SelectedProjectItem.Project.Id);
             RegionManager.RequestNavigateContentRegion<TechnicalRequrementsTaskView>(new NavigationParameters { { nameof(SalesUnit), salesUnits } });
         }
+
+        #endregion
     }
 }

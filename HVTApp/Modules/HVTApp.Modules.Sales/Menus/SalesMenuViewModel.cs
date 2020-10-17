@@ -15,26 +15,26 @@ namespace HVTApp.Modules.Sales.Menus
         protected override void GenerateMenu()
         {
             var market = new NavigationItem("Рынок", typeof(Market2View));
+            market.Items.Add(new NavigationItem("Задачи в ТСЕ", typeof(TechnicalRequrementsTasksView)));
+            market.Items.Add(new NavigationItem("Расчеты стоимости", typeof(PriceCalculationsView)));
             market.Items.Add(new NavigationItem("Предложения", typeof(OffersView)));
             market.Items.Add(new NavigationItem("Спецификации", typeof(SpecificationsView)));
             market.IsExpended = true;
 
-            var reqs = new NavigationItem("Задачи в ТСЕ", typeof(TechnicalRequrementsTasksView));
-            var priceCalculations = new NavigationItem("Расчеты стоимости", typeof(PriceCalculationsView));
-            var paymentsActual = new NavigationItem("Поступления (факт)", typeof(PaymentsActualView));
-            var paymentsPlan = new NavigationItem("Поступления (план)", typeof(UI.Modules.Sales.Payments.PaymentsView));
-            var production = new NavigationItem("Производство", typeof(ProductionView));
-            var shipping = new NavigationItem("Отгрузка", typeof(ShippingView));
-            var supervision = new NavigationItem("Шеф-монтаж", typeof(SupervisionView));
+            var payments = new NavigationItem("Поступления", typeof(PaymentsActualView));
+            payments.Items.Add(new NavigationItem("Фактические", typeof(PaymentsActualView)));
+            payments.Items.Add(new NavigationItem("Планируемые", typeof(UI.Modules.Sales.Payments.PaymentsView)));
+            payments.IsExpended = true;
+
+            var production = new NavigationItem("Исполнение", typeof(ProductionView));
+            production.Items.Add(new NavigationItem("Производство", typeof(ProductionView)));
+            production.Items.Add(new NavigationItem("Отгрузка", typeof(ShippingView)));
+            production.Items.Add(new NavigationItem("Шеф-монтаж", typeof(SupervisionView)));
+            production.IsExpended = true;
 
             Items.Add(market);
-            Items.Add(reqs);
-            Items.Add(priceCalculations);
+            Items.Add(payments);
             Items.Add(production);
-            Items.Add(paymentsActual);
-            Items.Add(paymentsPlan);
-            Items.Add(shipping);
-            Items.Add(supervision);
         }
     }
 }

@@ -7,15 +7,18 @@ using HVTApp.Model;
 using HVTApp.Model.Comparers;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
+using Microsoft.Practices.Unity;
 
 namespace HVTApp.Services.PriceService
 {
     public class PriceService : IPriceService
     {
+        private readonly IUnityContainer _container;
+
         /// <summary>
         /// ¬се блоки
         /// </summary>
-        private List<ProductBlock> Blocks { get; }
+        private List<ProductBlock> Blocks { get; set; } = new List<ProductBlock>();
 
         /// <summary>
         /// —ловарь завершенных калькул€ций
@@ -33,10 +36,19 @@ namespace HVTApp.Services.PriceService
         /// </summary>
         private Dictionary<Guid, ProductBlock> AnalogsWithPrice { get; } = new Dictionary<Guid, ProductBlock>();
 
-        public PriceService(IUnitOfWork unitOfWork)
+        public PriceService(IUnityContainer container)
         {
+            _container = container;
+            ReloadService();
+        }
+
+        public void ReloadService()
+        {
+            var unitOfWork = _container.Resolve<IUnitOfWork>();
             Blocks = unitOfWork.Repository<ProductBlock>().GetAll();
 
+            PriceCalculationItemsFinished.Clear();
+            PricesOfSalesUnitsFromCalculations.Clear();
             var priceCalculationsFinished = unitOfWork.Repository<PriceCalculation>()
                 .Find(x => x.TaskCloseMoment.HasValue)
                 .OrderBy(x => x.TaskCloseMoment).ToList();
@@ -44,11 +56,10 @@ namespace HVTApp.Services.PriceService
             //формирование словарей прайсов по калькул€ции
             foreach (var salesUnit in priceCalculationsFinished.SelectMany(x => x.PriceCalculationItems).SelectMany(x => x.SalesUnits).Distinct())
             {
-                var priceCalculationItem =
-                    priceCalculationsFinished
-                        .OrderBy(x => x.TaskCloseMoment)
-                        .SelectMany(x => x.PriceCalculationItems)
-                        .LastOrDefault(x => x.SalesUnits.ContainsById(salesUnit));
+                var priceCalculationItem = priceCalculationsFinished
+                    .OrderBy(x => x.TaskCloseMoment)
+                    .SelectMany(x => x.PriceCalculationItems)
+                    .LastOrDefault(x => x.SalesUnits.ContainsById(salesUnit));
 
                 PriceCalculationItemsFinished.Add(salesUnit.Id, priceCalculationItem);
                 PricesOfSalesUnitsFromCalculations.Add(salesUnit.Id, priceCalculationItem.StructureCosts.Sum(x => x.Total));
