@@ -7,4 +7,5 @@ namespace HVTApp.Model.Events
     public class AfterSavePriceCalculationSyncEvent : PubSubEvent<PriceCalculation> { }
     public class AfterSaveIncomingRequestSyncEvent : PubSubEvent<IncomingRequest> { }
     public class AfterSaveIncomingDocumentSyncEvent : PubSubEvent<Document> { }
+    public class AfterFinishPriceCalculationSyncEvent : PubSubEvent<PriceCalculation> { }
 }

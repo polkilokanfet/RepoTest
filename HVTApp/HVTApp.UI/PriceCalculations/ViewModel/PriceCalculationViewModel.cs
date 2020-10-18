@@ -65,6 +65,8 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
             }
         }
 
+        #region ICommand
+
         public ICommand SaveCommand { get; }
         public ICommand AddStructureCostCommand { get; }
         public ICommand RemoveStructureCostCommand { get; }
@@ -83,6 +85,8 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
 
         public ICommand LoadFileToDbCommand { get; }
         public ICommand LoadFileFromDbCommand { get; }
+
+        #endregion
 
         public PriceCalculation2Wrapper PriceCalculationWrapper
         {
@@ -274,6 +278,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                     OnPropertyChanged(new PropertyChangedEventArgs(nameof(CanChangePrice)));
 
                     ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
+                    container.Resolve<IEventAggregator>().GetEvent<AfterFinishPriceCalculationSyncEvent>().Publish(this.PriceCalculationWrapper.Model);
                 },
                 () =>
                 {

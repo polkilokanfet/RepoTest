@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Interfaces.Services.EventService;
 using HVTApp.Model;
 using HVTApp.Model.Comparers;
+using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using Microsoft.Practices.Unity;
+using Prism.Events;
 
 namespace HVTApp.Services.PriceService
 {
@@ -39,6 +42,29 @@ namespace HVTApp.Services.PriceService
         public PriceService(IUnityContainer container)
         {
             _container = container;
+
+            //синхронизация завершения новых расчетов
+            container.Resolve<IEventAggregator>().GetEvent<AfterFinishPriceCalculationSyncEvent>().Subscribe(calculation =>
+            {
+                foreach (var priceCalculationItem in calculation.PriceCalculationItems)
+                {
+                    foreach (var salesUnit in priceCalculationItem.SalesUnits)
+                    {
+                        if (PriceCalculationItemsFinished.ContainsKey(salesUnit.Id))
+                        {
+                            PriceCalculationItemsFinished.Remove(salesUnit.Id);
+                        }
+
+                        if (PricesOfSalesUnitsFromCalculations.ContainsKey(salesUnit.Id))
+                        {
+                            PricesOfSalesUnitsFromCalculations.Remove(salesUnit.Id);
+                        }
+
+                        PriceCalculationItemsFinished.Add(salesUnit.Id, priceCalculationItem);
+                        PricesOfSalesUnitsFromCalculations.Add(salesUnit.Id, priceCalculationItem.StructureCosts.Sum(x => x.Total));
+                    }
+                }
+            });
             ReloadService();
         }
 
@@ -49,6 +75,7 @@ namespace HVTApp.Services.PriceService
 
             PriceCalculationItemsFinished.Clear();
             PricesOfSalesUnitsFromCalculations.Clear();
+
             var priceCalculationsFinished = unitOfWork.Repository<PriceCalculation>()
                 .Find(x => x.TaskCloseMoment.HasValue)
                 .OrderBy(x => x.TaskCloseMoment).ToList();
