@@ -12,7 +12,16 @@ namespace HVTApp.UI
         public static bool CopyFileFromStorage(Guid fileId, IMessageService messageService, string storageDirectoryPath, string targetDirectoryPath = null, string addToFileName = null, bool showTargetDirectory = true)
         {
             var storageDirectory = new DirectoryInfo(storageDirectoryPath);
-            var filesInDir = storageDirectory.GetFiles($"*{fileId}*.*");
+            FileInfo[] filesInDir;
+            try
+            {
+                filesInDir = storageDirectory.GetFiles($"*{fileId}*.*");
+            }
+            catch (IOException ioException)
+            {
+                Console.WriteLine(ioException);
+                return false;
+            }
 
             if (!filesInDir.Any())
             {

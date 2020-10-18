@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
@@ -12,9 +13,11 @@ using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.UI.Modules.Sales.Market.Items;
 using HVTApp.UI.Modules.Sales.ViewModels.Containers;
+using HVTApp.UI.TechnicalRequrementsTasksModule;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Events;
+using Prism.Regions;
 
 namespace HVTApp.UI.Modules.Sales.Market
 {
@@ -54,6 +57,7 @@ namespace HVTApp.UI.Modules.Sales.Market
 
         public OffersContainer Offers { get; }
         public TendersContainer Tenders { get; }
+        public TechnicalRequrementsTasksContainer TechnicalRequrementsTasks { get; }
 
         public Market2ViewModel(IUnityContainer container) : base(container)
         {
@@ -82,6 +86,7 @@ namespace HVTApp.UI.Modules.Sales.Market
 
             Offers = container.Resolve<OffersContainer>();
             Tenders = container.Resolve<TendersContainer>();
+            TechnicalRequrementsTasks = container.Resolve<TechnicalRequrementsTasksContainer>();
 
             #region Commands definition
             
@@ -101,6 +106,8 @@ namespace HVTApp.UI.Modules.Sales.Market
             NewTenderCommand = new DelegateCommand(NewTenderCommand_Execute, () => SelectedProjectItem != null);
             EditTenderCommand = new DelegateCommand(EditTenderCommand_Execute, () => Tenders.SelectedItem != null);
             RemoveTenderCommand = new DelegateCommand(() => Tenders.RemoveSelectedItem(), () => Tenders.SelectedItem != null);
+
+            EditTechnicalRequrementsTaskCommand = new DelegateCommand(EditTechnicalRequrementsTaskCommand_Execute, () => TechnicalRequrementsTasks.SelectedItem != null);
 
             StructureCostsCommand = new DelegateCommand(StructureCostsCommand_Execute, () => SelectedProjectItem != null);
 

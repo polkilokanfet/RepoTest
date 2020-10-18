@@ -282,6 +282,7 @@
     <Compile Include="Modules\Sales\Supervision\TabSupervision.xaml.cs">
       <DependentUpon>TabSupervision.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Sales\ViewModels\Containers\TechnicalRequrementsTasksContainer.cs" />
     <Compile Include="Modules\Sales\ViewModels\SupervisionPriceViewModel.cs" />
     <Compile Include="Modules\Sales\Views\SupervisionPriceWindow.xaml.cs">
       <DependentUpon>SupervisionPriceWindow.xaml</DependentUpon>

@@ -242,6 +242,7 @@
     <Compile Include="UnitOfWork\Repositories\Custom\ProductTypeDesignationRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\Custom\ProjectRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\Custom\SalesUnitRepository.cs" />
+    <Compile Include="UnitOfWork\Repositories\Custom\TechnicalRequrementsTaskRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\Custom\TenderRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\IRepositories.g.cs" />
     <Compile Include="UnitOfWork\Repositories\Repositories.g.cs" />

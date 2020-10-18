@@ -42,6 +42,8 @@ namespace HVTApp.UI.Modules.Sales.Market
         public ICommand EditTenderCommand { get; }
         public ICommand RemoveTenderCommand { get; }
 
+        public ICommand EditTechnicalRequrementsTaskCommand { get; }
+
         public ICommand StructureCostsCommand { get; }
 
         public ICommand MakeTceTaskCommand { get; }
@@ -184,6 +186,11 @@ namespace HVTApp.UI.Modules.Sales.Market
         {
             var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Id == SelectedProjectItem.Project.Id);
             RegionManager.RequestNavigateContentRegion<TechnicalRequrementsTaskView>(new NavigationParameters { { nameof(SalesUnit), salesUnits } });
+        }
+
+        private void EditTechnicalRequrementsTaskCommand_Execute()
+        {
+            RegionManager.RequestNavigateContentRegion<TechnicalRequrementsTaskView>(new NavigationParameters { { nameof(TechnicalRequrementsTask), TechnicalRequrementsTasks.SelectedItem.Entity } });
         }
 
         #endregion

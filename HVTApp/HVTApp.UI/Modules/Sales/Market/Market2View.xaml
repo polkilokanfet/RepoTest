@@ -181,6 +181,8 @@
                             <RowDefinition Height="2*" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
                         <GroupBox Grid.Row="0" Header="Предложения">
@@ -232,6 +234,31 @@
                                 </infgDp:XamDataGrid.FieldLayouts>
                             </infgDp:XamDataGrid>
                         </GroupBox>
+
+                
+                        <GridSplitter Grid.Row="3" HorizontalAlignment="Stretch" Height="3"/>
+
+                        <GroupBox Grid.Row="4" Header="TCE">
+                            <infgDp:XamDataGrid DataSource="{Binding TechnicalRequrementsTasks}"
+                                                SelectedDataItem="{Binding TechnicalRequrementsTasks.SelectedItem}">
+
+                                <infgDp:XamDataGrid.InputBindings>
+                                    <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=EditTechnicalRequrementsTaskCommand, Mode=OneWay}" />
+                                </infgDp:XamDataGrid.InputBindings>
+
+                                <infgDp:XamDataGrid.FieldLayouts>
+                                    <infgDp:FieldLayout>
+                                        <infgDp:FieldLayout.Fields>
+                                            <infgDp:DateTimeField Name="Start" Label="Старт" Width="Auto" AllowResize="True" />
+                                            <infgDp:TextField Name="BackManager" Label="Back manager" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                                        </infgDp:FieldLayout.Fields>
+                                    </infgDp:FieldLayout>
+
+                                </infgDp:XamDataGrid.FieldLayouts>
+                            </infgDp:XamDataGrid>
+                        </GroupBox>
+
+                        
                     </Grid>
                 
                 </Grid>
