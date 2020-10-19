@@ -51,7 +51,6 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                     });
                 });
 
-
             EditCalculationCommand = new DelegateCommand(
                 () =>
                 {

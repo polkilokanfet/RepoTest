@@ -44,9 +44,14 @@ namespace HVTApp.UI.Modules.Sales.Market
 
         public ICommand EditTechnicalRequrementsTaskCommand { get; }
 
+        public ICommand EditPriceCalculationCommand { get; }
+
         public ICommand StructureCostsCommand { get; }
 
         public ICommand MakeTceTaskCommand { get; }
+
+
+        public ICommand OpenTenderLinkCommand { get; }
 
         #endregion
 
@@ -191,6 +196,14 @@ namespace HVTApp.UI.Modules.Sales.Market
         private void EditTechnicalRequrementsTaskCommand_Execute()
         {
             RegionManager.RequestNavigateContentRegion<TechnicalRequrementsTaskView>(new NavigationParameters { { nameof(TechnicalRequrementsTask), TechnicalRequrementsTasks.SelectedItem.Entity } });
+        }
+
+        private void EditPriceCalculationCommand_Execute()
+        {
+            RegionManager.RequestNavigateContentRegion<PriceCalculations.View.PriceCalculationView>(new NavigationParameters
+            {
+                {nameof(PriceCalculation), PriceCalculations.SelectedItem.Entity}
+            });
         }
 
         #endregion

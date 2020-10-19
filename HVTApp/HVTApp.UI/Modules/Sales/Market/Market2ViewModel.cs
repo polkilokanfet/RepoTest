@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
@@ -13,7 +14,6 @@ using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.UI.Modules.Sales.Market.Items;
 using HVTApp.UI.Modules.Sales.ViewModels.Containers;
-using HVTApp.UI.TechnicalRequrementsTasksModule;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Events;
@@ -48,6 +48,8 @@ namespace HVTApp.UI.Modules.Sales.Market
 
                 Offers.SelectedItem = null;
                 Tenders.SelectedItem = null;
+                TechnicalRequrementsTasks.SelectedItem = null;
+                PriceCalculations.SelectedItem = null;
 
                 SelectedProjectItemChanged?.Invoke(SelectedProjectItem);
             }
@@ -58,6 +60,7 @@ namespace HVTApp.UI.Modules.Sales.Market
         public OffersContainer Offers { get; }
         public TendersContainer Tenders { get; }
         public TechnicalRequrementsTasksContainer TechnicalRequrementsTasks { get; }
+        public PriceCalculationsContainer PriceCalculations { get; }
 
         public Market2ViewModel(IUnityContainer container) : base(container)
         {
@@ -87,6 +90,7 @@ namespace HVTApp.UI.Modules.Sales.Market
             Offers = container.Resolve<OffersContainer>();
             Tenders = container.Resolve<TendersContainer>();
             TechnicalRequrementsTasks = container.Resolve<TechnicalRequrementsTasksContainer>();
+            PriceCalculations = container.Resolve<PriceCalculationsContainer>();
 
             #region Commands definition
             
@@ -108,6 +112,7 @@ namespace HVTApp.UI.Modules.Sales.Market
             RemoveTenderCommand = new DelegateCommand(() => Tenders.RemoveSelectedItem(), () => Tenders.SelectedItem != null);
 
             EditTechnicalRequrementsTaskCommand = new DelegateCommand(EditTechnicalRequrementsTaskCommand_Execute, () => TechnicalRequrementsTasks.SelectedItem != null);
+            EditPriceCalculationCommand = new DelegateCommand(EditPriceCalculationCommand_Execute);
 
             StructureCostsCommand = new DelegateCommand(StructureCostsCommand_Execute, () => SelectedProjectItem != null);
 
@@ -115,6 +120,17 @@ namespace HVTApp.UI.Modules.Sales.Market
             OpenFolderCommand = new DelegateCommand(OpenFolderCommand_Execute, () => SelectedProjectItem != null);
 
             MakeTceTaskCommand = new DelegateCommand(MakeTceTaskCommand_Execute, () => SelectedProjectItem != null);
+
+            OpenTenderLinkCommand = new DelegateCommand(
+                () =>
+                {
+                    if (!string.IsNullOrWhiteSpace(Tenders.SelectedItem?.Link))
+                    {
+                        Process.Start(Tenders.SelectedItem.Link);
+                    }
+                },
+                () => !string.IsNullOrWhiteSpace(Tenders.SelectedItem?.Link));
+
             #endregion
 
             #region Subscribe to Events
@@ -209,6 +225,7 @@ namespace HVTApp.UI.Modules.Sales.Market
             ((DelegateCommand)NewTenderCommand).RaiseCanExecuteChanged();
             ((DelegateCommand)EditTenderCommand).RaiseCanExecuteChanged();
             ((DelegateCommand)RemoveTenderCommand).RaiseCanExecuteChanged();
+            ((DelegateCommand)OpenTenderLinkCommand).RaiseCanExecuteChanged();
         }
 
         #endregion

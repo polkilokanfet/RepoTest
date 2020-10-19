@@ -16,6 +16,7 @@
         <infRib:ButtonTool Caption="Создать" Command="{Binding NewTenderCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
         <infRib:ButtonTool Caption="Изменить" Command="{Binding EditTenderCommand}" SmallImage="/HVTApp.UI;component/Images/edit.png"/>
         <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveTenderCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>
+        <infRib:ButtonTool Caption="Открыть ссылку" Command="{Binding OpenTenderLinkCommand}" SmallImage="/HVTApp.UI;component/Images/out.png"/>
     </infRib:RibbonGroup>
     
     <infRib:RibbonGroup Caption="Предложения">
