@@ -14,5 +14,21 @@ namespace HVTApp.UI.Lookup
         [Designation("Front manager"), OrderStatus(-10)]
         public string FrontManager => 
             Entity.Requrements.FirstOrDefault()?.SalesUnits.FirstOrDefault()?.Project.Manager.ToString();
+
+        [Designation("Статус"), OrderStatus(-10)]
+        public string Status
+        {
+            get
+            {
+                if (BackManager == null) return "Этап назначения back-менеджера";
+                if (this.PriceCalculations.Any())
+                {
+                    if (this.PriceCalculations.All(x => x.TaskCloseMoment.HasValue))
+                        return "Проработано (все расчеты ПЗ завершены)";
+                    return "Этап расчета ПЗ (запущено на расчет ПЗ)";
+                }
+                return "Этап проработки back-менеджером";
+            }
+        }
     }
 }

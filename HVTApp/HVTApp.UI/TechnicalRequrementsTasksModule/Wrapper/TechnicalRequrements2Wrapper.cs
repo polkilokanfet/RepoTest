@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
@@ -29,8 +30,15 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper
             }
         }
 
-        public string FacilityOwners => this.Model.SalesUnits.Select(x => x.Facility.OwnerCompany).Distinct().ToStringEnum(" <= ");
-
+        public string FacilityOwners
+        {
+            get
+            {
+                var owners = new List<Company> { SalesUnit.Facility.OwnerCompany };
+                owners.AddRange(SalesUnit.Facility.OwnerCompany.ParentCompanies().ToList());
+                return owners.Distinct().ToStringEnum(" <= ");
+            }
+        }
 
         #region SimpleProperties
 

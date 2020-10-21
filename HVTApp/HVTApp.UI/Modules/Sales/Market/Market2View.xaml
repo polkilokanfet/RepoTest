@@ -36,7 +36,7 @@
             
             <Grid Grid.Row="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="6*"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
@@ -52,7 +52,7 @@
                                                  Grid.Column="0">
                 
                     <dp:XamDataGrid DataSource="{Binding ProjectItems}"
-                                        SelectedDataItem="{Binding SelectedProjectItem, Mode=TwoWay}">
+                                        SelectedDataItem="{Binding SelectedItem, Mode=TwoWay}">
                     
                         <dp:XamDataGrid.Resources>
                             <Style TargetType="{x:Type dp:DataRecordPresenter}">
@@ -151,9 +151,9 @@
             
                 <Grid Grid.Row="0" Grid.Column="2" Grid.RowSpan="3">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="1*"/>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="2*"/>
                     </Grid.RowDefinitions>
                 
                     <GroupBox Grid.Row="0" Header="Приложения проекта">
@@ -178,7 +178,7 @@
                     
                     <Grid Grid.Row="2">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="2*" />
+                            <RowDefinition Height="*" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />
                             <RowDefinition Height="Auto" />
@@ -252,6 +252,7 @@
                                         <dp:FieldLayout.Fields>
                                             <dp:DateTimeField Name="Start" Label="Старт" Width="Auto" AllowResize="True" Format="dd/MM/yy HH:mm"/>
                                             <dp:TextField Name="BackManager" Label="Back manager" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                                            <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Status}" Label="Этап" Width="Auto" AllowResize="True" />
                                         </dp:FieldLayout.Fields>
                                     </dp:FieldLayout>
 

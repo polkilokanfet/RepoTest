@@ -29,6 +29,32 @@ namespace HVTApp.UI.Modules.Sales.Market
 
         public ObservableCollection<ProjectItem> ProjectItems { get; } = new ObservableCollection<ProjectItem>();
 
+        public object SelectedItem
+        {
+            get { return _selectedItem; }
+            set
+            {
+                _selectedItem = value;
+
+                if (value != null)
+                {
+                    if (value is ProjectItem)
+                    {
+                        SelectedProjectItem = (ProjectItem)value;
+                    }
+
+                    if (value is ProjectUnitsGroup)
+                    {
+                        SelectedProjectUnitsGroup = (ProjectUnitsGroup)value;
+                        if (SelectedProjectItem != SelectedProjectUnitsGroup.ProjectItem)
+                        {
+                            SelectedProjectItem = SelectedProjectUnitsGroup.ProjectItem;
+                        }
+                    }
+                }
+            }
+        }
+
         public ProjectItem SelectedProjectItem
         {
             get { return _selectedProjectItem; }
@@ -55,12 +81,49 @@ namespace HVTApp.UI.Modules.Sales.Market
             }
         }
 
+        public ProjectUnitsGroup SelectedProjectUnitsGroup { get; set; }
+
         public event Action<ProjectItem> SelectedProjectItemChanged;
 
-        public OffersContainer Offers { get; }
-        public TendersContainer Tenders { get; }
-        public TechnicalRequrementsTasksContainer TechnicalRequrementsTasks { get; }
-        public PriceCalculationsContainer PriceCalculations { get; }
+        public OffersContainer Offers
+        {
+            get { return _offers; }
+            private set
+            {
+                _offers = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public TendersContainer Tenders
+        {
+            get { return _tenders1; }
+            private set
+            {
+                _tenders1 = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public TechnicalRequrementsTasksContainer TechnicalRequrementsTasks
+        {
+            get { return _technicalRequrementsTasks; }
+            private set
+            {
+                _technicalRequrementsTasks = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public PriceCalculationsContainer PriceCalculations
+        {
+            get { return _priceCalculations; }
+            private set
+            {
+                _priceCalculations = value;
+                OnPropertyChanged();
+            }
+        }
 
         public Market2ViewModel(IUnityContainer container) : base(container)
         {
@@ -87,10 +150,6 @@ namespace HVTApp.UI.Modules.Sales.Market
                 }
             };
 
-            Offers = container.Resolve<OffersContainer>();
-            Tenders = container.Resolve<TendersContainer>();
-            TechnicalRequrementsTasks = container.Resolve<TechnicalRequrementsTasksContainer>();
-            PriceCalculations = container.Resolve<PriceCalculationsContainer>();
 
             #region Commands definition
             
@@ -101,17 +160,17 @@ namespace HVTApp.UI.Modules.Sales.Market
 
             NewSpecificationCommand = new DelegateCommand(NewSpecificationCommand_Execute, () => SelectedProjectItem != null);
 
-            EditOfferCommand = new DelegateCommand(EditOfferCommand_Execute, () => Offers.SelectedItem != null);
-            RemoveOfferCommand = new DelegateCommand(() => Offers.RemoveSelectedItem(), () => Offers.SelectedItem != null);
-            PrintOfferCommand = new DelegateCommand(PrintOfferCommand_Execute, () => Offers.SelectedItem != null);
+            EditOfferCommand = new DelegateCommand(EditOfferCommand_Execute, () => Offers?.SelectedItem != null);
+            RemoveOfferCommand = new DelegateCommand(() => Offers.RemoveSelectedItem(), () => Offers?.SelectedItem != null);
+            PrintOfferCommand = new DelegateCommand(PrintOfferCommand_Execute, () => Offers?.SelectedItem != null);
             NewOfferByProjectCommand = new DelegateCommand(NewOfferByProjectCommand_Execute, () => SelectedProjectItem != null);
-            NewOfferByOfferCommand = new DelegateCommand(NewOfferByOfferCommand_Execute, () => Offers.SelectedItem != null);
+            NewOfferByOfferCommand = new DelegateCommand(NewOfferByOfferCommand_Execute, () => Offers?.SelectedItem != null);
 
             NewTenderCommand = new DelegateCommand(NewTenderCommand_Execute, () => SelectedProjectItem != null);
-            EditTenderCommand = new DelegateCommand(EditTenderCommand_Execute, () => Tenders.SelectedItem != null);
-            RemoveTenderCommand = new DelegateCommand(() => Tenders.RemoveSelectedItem(), () => Tenders.SelectedItem != null);
+            EditTenderCommand = new DelegateCommand(EditTenderCommand_Execute, () => Tenders?.SelectedItem != null);
+            RemoveTenderCommand = new DelegateCommand(() => Tenders.RemoveSelectedItem(), () => Tenders?.SelectedItem != null);
 
-            EditTechnicalRequrementsTaskCommand = new DelegateCommand(EditTechnicalRequrementsTaskCommand_Execute, () => TechnicalRequrementsTasks.SelectedItem != null);
+            EditTechnicalRequrementsTaskCommand = new DelegateCommand(EditTechnicalRequrementsTaskCommand_Execute, () => TechnicalRequrementsTasks?.SelectedItem != null);
             EditPriceCalculationCommand = new DelegateCommand(EditPriceCalculationCommand_Execute);
 
             StructureCostsCommand = new DelegateCommand(StructureCostsCommand_Execute, () => SelectedProjectItem != null);
@@ -129,7 +188,7 @@ namespace HVTApp.UI.Modules.Sales.Market
                         Process.Start(Tenders.SelectedItem.Link);
                     }
                 },
-                () => !string.IsNullOrWhiteSpace(Tenders.SelectedItem?.Link));
+                () => !string.IsNullOrWhiteSpace(Tenders?.SelectedItem?.Link));
 
             #endregion
 
@@ -175,6 +234,11 @@ namespace HVTApp.UI.Modules.Sales.Market
             _projectItems = items.OrderBy(x => x.DaysToStartProduction).ThenBy(x => x.OrderInTakeDate);
 
             Container.Resolve<IPriceService>().ReloadService();
+
+            Offers = Container.Resolve<OffersContainer>();
+            Tenders = Container.Resolve<TendersContainer>();
+            TechnicalRequrementsTasks = Container.Resolve<TechnicalRequrementsTasksContainer>();
+            PriceCalculations = Container.Resolve<PriceCalculationsContainer>();
         }
 
         protected override void AfterGetData()
@@ -188,8 +252,13 @@ namespace HVTApp.UI.Modules.Sales.Market
 
         private IEnumerable<Tender> _tenders;
         private IEnumerable<ProjectItem> _projectItems;
+        private OffersContainer _offers;
+        private TendersContainer _tenders1;
+        private TechnicalRequrementsTasksContainer _technicalRequrementsTasks;
+        private PriceCalculationsContainer _priceCalculations;
+        private object _selectedItem;
 
-        
+
         //удалить айтем, если он уже опустел
         private void ProjectItemOnLastSalesUnitRemoveEvent(ProjectItem item)
         {

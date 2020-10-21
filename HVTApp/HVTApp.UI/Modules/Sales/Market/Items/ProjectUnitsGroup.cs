@@ -7,6 +7,9 @@ namespace HVTApp.UI.Modules.Sales.Market.Items
 {
     public class ProjectUnitsGroup
     {
+        public ProjectItem ProjectItem { get; }
+        public List<SalesUnit> SalesUnits { get; }
+
         public Facility Facility { get; }
         public Product Product { get; }
         public int Amount { get; }
@@ -15,16 +18,19 @@ namespace HVTApp.UI.Modules.Sales.Market.Items
         public DateTime OrderInTakeDate { get; }
         public DateTime ShipmentDate { get; }
 
-        public ProjectUnitsGroup(IEnumerable<SalesUnit> salesUnits)
+        public ProjectUnitsGroup(IEnumerable<SalesUnit> salesUnits, ProjectItem projectItem)
         {
+            ProjectItem = projectItem;
             if (salesUnits == null) throw new ArgumentNullException(nameof(salesUnits));
             if (!salesUnits.Any()) throw new ArgumentException($"{nameof(salesUnits)} - аргумент без членов");
 
-            var salesUnit = salesUnits.First();
+            SalesUnits = salesUnits.ToList();
+
+            var salesUnit = SalesUnits.First();
 
             Facility = salesUnit.Facility;
             Product = salesUnit.Product;
-            Amount = salesUnits.Count();
+            Amount = SalesUnits.Count;
             Cost = salesUnit.Cost;
             Total = Amount * Cost;
             OrderInTakeDate = salesUnit.OrderInTakeDate;

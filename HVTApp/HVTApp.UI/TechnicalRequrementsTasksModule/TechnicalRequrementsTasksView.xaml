@@ -21,6 +21,7 @@
                         <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding BackManager}" Label="Back manager" Width="Auto" AllowResize="True" Converter="{StaticResource ObjectToStringConverter}"/>
                         <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding FrontManager}" Label="Front manager" Width="Auto" AllowResize="True" Converter="{StaticResource ObjectToStringConverter}"/>
                         <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Comment}" Label="Комментарий" Width="200" AllowResize="True" />
+                        <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Status}" Label="Этап" Width="Auto" AllowResize="True" />
                         <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Id}" Label="Id" Width="Auto" AllowResize="True" />
 					</dp:FieldLayout.Fields>
 				</dp:FieldLayout>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
@@ -8,6 +9,7 @@ using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Modules.Sales.Market.Items;
 using HVTApp.UI.Modules.Sales.ViewModels;
 using HVTApp.UI.Modules.Sales.Views;
 using HVTApp.UI.PriceCalculations.View;
@@ -189,8 +191,20 @@ namespace HVTApp.UI.Modules.Sales.Market
 
         private void MakeTceTaskCommand_Execute()
         {
-            var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Id == SelectedProjectItem.Project.Id);
-            RegionManager.RequestNavigateContentRegion<TechnicalRequrementsTaskView>(new NavigationParameters { { nameof(SalesUnit), salesUnits } });
+            if (SelectedItem != null)
+            {
+                if (SelectedItem is ProjectItem)
+                {
+                    var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Id == SelectedProjectItem.Project.Id);
+                    RegionManager.RequestNavigateContentRegion<TechnicalRequrementsTaskView>(new NavigationParameters { { nameof(SalesUnit), salesUnits } });
+                }
+                if (SelectedItem is ProjectUnitsGroup)
+                {
+                    var salesUnits = SelectedProjectUnitsGroup.SalesUnits.ToList();
+                    RegionManager.RequestNavigateContentRegion<TechnicalRequrementsTaskView>(new NavigationParameters { { nameof(SalesUnit), salesUnits } });
+                }
+                
+            }
         }
 
         private void EditTechnicalRequrementsTaskCommand_Execute()

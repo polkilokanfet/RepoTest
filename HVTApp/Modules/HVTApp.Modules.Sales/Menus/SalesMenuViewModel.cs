@@ -16,14 +16,14 @@ namespace HVTApp.Modules.Sales.Menus
         {
             var market = new NavigationItem("Рынок", typeof(Market2View));
             market.Items.Add(new NavigationItem("Задачи в ТСЕ", typeof(TechnicalRequrementsTasksView)));
-            market.Items.Add(new NavigationItem("Расчеты стоимости", typeof(PriceCalculationsView)));
+            market.Items.Add(new NavigationItem("Расчеты переменных затрат", typeof(PriceCalculationsView)));
             market.Items.Add(new NavigationItem("Предложения", typeof(OffersView)));
             market.Items.Add(new NavigationItem("Спецификации", typeof(SpecificationsView)));
             market.IsExpended = true;
 
             var payments = new NavigationItem("Поступления", typeof(PaymentsActualView));
-            payments.Items.Add(new NavigationItem("Фактические", typeof(PaymentsActualView)));
             payments.Items.Add(new NavigationItem("Планируемые", typeof(UI.Modules.Sales.Payments.PaymentsView)));
+            payments.Items.Add(new NavigationItem("Фактические", typeof(PaymentsActualView)));
             payments.IsExpended = true;
 
             var production = new NavigationItem("Исполнение", typeof(ProductionView));

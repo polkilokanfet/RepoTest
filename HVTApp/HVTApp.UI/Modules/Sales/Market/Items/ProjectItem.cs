@@ -33,7 +33,7 @@ namespace HVTApp.UI.Modules.Sales.Market.Items
                         RealizationDateCalculated = x.RealizationDateCalculated
                     })
                     .OrderByDescending(x => x.Key.Cost)
-                    .Select(x => new ProjectUnitsGroup(x));
+                    .Select(x => new ProjectUnitsGroup(x, this));
             }
         }
 
