@@ -135,9 +135,6 @@ namespace HVTApp.Model.POCOs
 
         #endregion
 
-        [Designation("ֱ‏הזועû")]
-        public virtual List<BudgetUnit> BudgetUnits { get; set; } = new List<BudgetUnit>();
-
         [Designation("׃האכום")]
         public bool IsRemoved { get; set; } = false;
 
@@ -195,7 +192,6 @@ namespace HVTApp.Model.POCOs
             get
             {
                 if (Order != null) return false;
-                if (BudgetUnits.Any(x => !x.IsRemoved)) return false;
                 return true;
             }
         }

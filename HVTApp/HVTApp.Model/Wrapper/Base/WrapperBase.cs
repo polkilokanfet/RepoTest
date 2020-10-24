@@ -313,12 +313,20 @@ namespace HVTApp.Model.Wrapper.Base
             where TModelOfItem : class, IBaseEntity
             where TWrapperCollection : WrapperBase<TModelOfItem>
         {
+            //реакция на изменение состава членов коллекции
             wrapperCollection.CollectionChanged += (s, e) =>
             {
                 modelCollection.Clear();
                 modelCollection.AddRange(wrapperCollection.Select(w => w.Model));
                 Validate();
             };
+
+            //реакция на изменение в каком-либо члене коллекции
+            wrapperCollection.PropertyChanged += (sender, args) =>
+            {
+                Validate();
+            };
+
             RegisterTrackingObject(wrapperCollection);
         }
 
@@ -424,7 +432,7 @@ namespace HVTApp.Model.Wrapper.Base
                 if (prop.PropertyType == typeof(string))
                 {
                     var lenghAttr = prop.GetCustomAttribute<MaxLengthAttribute>();
-                    if (lenghAttr != null && prop.GetValue(Model) != null && ((string)prop.GetValue(Model)).Count() > lenghAttr.Length)
+                    if (lenghAttr != null && prop.GetValue(Model) != null && ((string)prop.GetValue(Model)).Length > lenghAttr.Length)
                     {
                         result.Add(new ValidationResult($"количество символов в поле \"{prop.Name}\" не может превышать {lenghAttr.Length}.", new[] { prop.Name }));
                     }

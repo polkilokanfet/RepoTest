@@ -273,12 +273,6 @@ namespace HVTApp.Model.Wrapper
 
         #region ComplexProperties
 
-	    public BudgetWrapper Budget 
-        {
-            get { return GetWrapper<BudgetWrapper>(); }
-            set { SetComplexValue<Budget, BudgetWrapper>(Budget, value); }
-        }
-
 	    public SalesUnitWrapper SalesUnit 
         {
             get { return GetWrapper<SalesUnitWrapper>(); }
@@ -301,7 +295,6 @@ namespace HVTApp.Model.Wrapper
 
         public override void InitializeComplexProperties()
         {
-            InitializeComplexProperty<BudgetWrapper>(nameof(Budget), Model.Budget == null ? null : new BudgetWrapper(Model.Budget));
             InitializeComplexProperty<SalesUnitWrapper>(nameof(SalesUnit), Model.SalesUnit == null ? null : new SalesUnitWrapper(Model.SalesUnit));
             InitializeComplexProperty<PaymentConditionSetWrapper>(nameof(PaymentConditionSet), Model.PaymentConditionSet == null ? null : new PaymentConditionSetWrapper(Model.PaymentConditionSet));
             InitializeComplexProperty<PaymentConditionSetWrapper>(nameof(PaymentConditionSetByManager), Model.PaymentConditionSetByManager == null ? null : new PaymentConditionSetWrapper(Model.PaymentConditionSetByManager));
@@ -1811,6 +1804,14 @@ namespace HVTApp.Model.Wrapper
         public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
         public bool CommentIsChanged => GetIsChanged(nameof(Comment));
 
+        public System.Nullable<System.Boolean> IsActual
+        {
+          get { return GetValue<System.Nullable<System.Boolean>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Boolean> IsActualOriginalValue => GetOriginalValue<System.Nullable<System.Boolean>>(nameof(IsActual));
+        public bool IsActualIsChanged => GetIsChanged(nameof(IsActual));
+
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -1866,6 +1867,14 @@ namespace HVTApp.Model.Wrapper
         public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
         public bool CommentIsChanged => GetIsChanged(nameof(Comment));
 
+        public System.Nullable<System.Boolean> IsActual
+        {
+          get { return GetValue<System.Nullable<System.Boolean>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Boolean> IsActualOriginalValue => GetOriginalValue<System.Nullable<System.Boolean>>(nameof(IsActual));
+        public bool IsActualIsChanged => GetIsChanged(nameof(IsActual));
+
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -1907,6 +1916,30 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Nullable<System.DateTime> StartOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(Start));
         public bool StartIsChanged => GetIsChanged(nameof(Start));
+
+        public System.Nullable<System.DateTime> Finish
+        {
+          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.DateTime> FinishOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(Finish));
+        public bool FinishIsChanged => GetIsChanged(nameof(Finish));
+
+        public System.Nullable<System.DateTime> LastOpenBackManagerMoment
+        {
+          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.DateTime> LastOpenBackManagerMomentOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(LastOpenBackManagerMoment));
+        public bool LastOpenBackManagerMomentIsChanged => GetIsChanged(nameof(LastOpenBackManagerMoment));
+
+        public System.Nullable<System.DateTime> FirstStartMoment
+        {
+          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.DateTime> FirstStartMomentOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(FirstStartMoment));
+        public bool FirstStartMomentIsChanged => GetIsChanged(nameof(FirstStartMoment));
 
         public System.Guid Id
         {
@@ -3831,8 +3864,6 @@ namespace HVTApp.Model.Wrapper
 
         public IValidatableChangeTrackingCollection<PaymentPlannedWrapper> PaymentsPlanned { get; private set; }
 
-        public IValidatableChangeTrackingCollection<BudgetUnitWrapper> BudgetUnits { get; private set; }
-
         public IValidatableChangeTrackingCollection<BankGuaranteeWrapper> BankGuarantees { get; private set; }
 
         public IValidatableChangeTrackingCollection<PaymentPlannedWrapper> PaymentsPlannedActual { get; private set; }
@@ -3934,10 +3965,6 @@ namespace HVTApp.Model.Wrapper
           if (Model.PaymentsPlanned == null) throw new ArgumentException("PaymentsPlanned cannot be null");
           PaymentsPlanned = new ValidatableChangeTrackingCollection<PaymentPlannedWrapper>(Model.PaymentsPlanned.Select(e => new PaymentPlannedWrapper(e)));
           RegisterCollection(PaymentsPlanned, Model.PaymentsPlanned);
-
-          if (Model.BudgetUnits == null) throw new ArgumentException("BudgetUnits cannot be null");
-          BudgetUnits = new ValidatableChangeTrackingCollection<BudgetUnitWrapper>(Model.BudgetUnits.Select(e => new BudgetUnitWrapper(e)));
-          RegisterCollection(BudgetUnits, Model.BudgetUnits);
 
           if (Model.BankGuarantees == null) throw new ArgumentException("BankGuarantees cannot be null");
           BankGuarantees = new ValidatableChangeTrackingCollection<BankGuaranteeWrapper>(Model.BankGuarantees.Select(e => new BankGuaranteeWrapper(e)));

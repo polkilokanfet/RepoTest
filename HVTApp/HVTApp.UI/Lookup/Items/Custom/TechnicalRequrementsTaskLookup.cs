@@ -21,12 +21,22 @@ namespace HVTApp.UI.Lookup
             get
             {
                 if (BackManager == null) return "Этап назначения back-менеджера";
+                
                 if (this.PriceCalculations.Any())
                 {
                     if (this.PriceCalculations.All(x => x.TaskCloseMoment.HasValue))
                         return "Проработано (все расчеты ПЗ завершены)";
                     return "Этап расчета ПЗ (запущено на расчет ПЗ)";
                 }
+
+                if (FirstStartMoment.HasValue && Start.HasValue && !Equals(Start, FirstStartMoment))
+                {
+                    if (LastOpenBackManagerMoment.HasValue && (Start > LastOpenBackManagerMoment))
+                    {
+                        return "Front-менеджер внес изменения с момента последнего просмотра задания back-менеджером";
+                    }
+                }
+
                 return "Этап проработки back-менеджером";
             }
         }

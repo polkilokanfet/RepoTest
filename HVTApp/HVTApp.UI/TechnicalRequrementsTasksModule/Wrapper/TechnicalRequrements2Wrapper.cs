@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
@@ -41,6 +42,14 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper
         }
 
         #region SimpleProperties
+        public bool? IsActual
+        {
+            get { return GetValue<bool?>(); }
+            set { SetValue(value); }
+        }
+        public bool? IsActualOriginalValue => GetOriginalValue<bool?>(nameof(IsActual));
+        public bool IsActualIsChanged => GetIsChanged(nameof(IsActual));
+
 
         public string Comment
         {
@@ -79,8 +88,18 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper
             if (Model.Files == null) throw new ArgumentException("Files cannot be null");
             Files = new ValidatableChangeTrackingCollection<TechnicalRequrementsFileWrapper>(Model.Files.Select(e => new TechnicalRequrementsFileWrapper(e)));
             RegisterCollection(Files, Model.Files);
-
         }
 
+
+        protected override IEnumerable<ValidationResult> ValidateOther()
+        {
+            if (IsActual.HasValue && IsActual.Value)
+            {
+                if (!Files.Any(x => x.IsActual.HasValue && x.IsActual.Value))
+                {
+                    yield return new ValidationResult("Нет ни одного актуального файла.", new []{nameof(Files)});
+                }
+            }
+        }
     }
 }

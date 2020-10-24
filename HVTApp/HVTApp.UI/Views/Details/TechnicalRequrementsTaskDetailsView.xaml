@@ -19,6 +19,9 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
 
@@ -49,16 +52,34 @@
 					Visibility="{Binding VisibilityStartTechnicalRequrementsTask, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="4" Content="Back manager" Visibility="{Binding VisibilityBackManagerTechnicalRequrementsTask, ElementName=Root}"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 
+        <Label Grid.Column="0" Grid.Row ="4" Content="Финиш" Visibility="{Binding VisibilityFinishTechnicalRequrementsTask, ElementName=Root}"/>
+        <DatePicker Grid.Column="1" Grid.Row="4" 
+                    SelectedDate="{Binding Item.Finish, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding VisibilityFinishTechnicalRequrementsTask, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="5" Content="Последний просмотр back-менеджером" Visibility="{Binding VisibilityLastOpenBackManagerMomentTechnicalRequrementsTask, ElementName=Root}"/>
+        <DatePicker Grid.Column="1" Grid.Row="5" 
+                    SelectedDate="{Binding Item.LastOpenBackManagerMoment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding VisibilityLastOpenBackManagerMomentTechnicalRequrementsTask, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="6" Content="Первый старт" Visibility="{Binding VisibilityFirstStartMomentTechnicalRequrementsTask, ElementName=Root}"/>
+        <DatePicker Grid.Column="1" Grid.Row="6" 
+                    SelectedDate="{Binding Item.FirstStartMoment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding VisibilityFirstStartMomentTechnicalRequrementsTask, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="7" Content="Back manager" Visibility="{Binding VisibilityBackManagerTechnicalRequrementsTask, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="7" 
                                     Item="{Binding Item.BackManager}" 
                                     AddItemCommand="{Binding SelectBackManagerCommand}" 
                                     RemoveItemCommand="{Binding ClearBackManagerCommand}"
 									Visibility="{Binding VisibilityBackManagerTechnicalRequrementsTask, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="5" Content="Расчеты себестоимости" Visibility="{Binding VisibilityPriceCalculationsTechnicalRequrementsTask, ElementName=Root}"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="5"
+        <Label Grid.Column="0" Grid.Row ="8" Content="Расчеты себестоимости" Visibility="{Binding VisibilityPriceCalculationsTechnicalRequrementsTask, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="8"
 										 Items="{Binding Path=Item.PriceCalculations}"
 										 SelectedItem="{Binding SelectedPriceCalculationsItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInPriceCalculationsCommand}"

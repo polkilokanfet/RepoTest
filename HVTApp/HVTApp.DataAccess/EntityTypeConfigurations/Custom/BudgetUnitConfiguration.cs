@@ -4,8 +4,7 @@ namespace HVTApp.DataAccess
     {
         public BudgetUnitConfiguration()
         {
-            HasRequired(x => x.SalesUnit).WithMany(x => x.BudgetUnits);
-            HasRequired(x => x.Budget).WithMany(x => x.Units).WillCascadeOnDelete(true);
+            HasRequired(x => x.SalesUnit).WithMany();
             HasRequired(x => x.PaymentConditionSet).WithMany().WillCascadeOnDelete(false);
             HasRequired(x => x.PaymentConditionSetByManager).WithMany().WillCascadeOnDelete(false);
 

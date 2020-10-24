@@ -3,7 +3,8 @@
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:infgDp="http://infragistics.com/DataPresenter" 
-              xmlns:igEditors="http://infragistics.com/Editors">
+              xmlns:igEditors="http://infragistics.com/Editors"
+              x:Name="ViewBase">
     
     <inf:ViewBase.Resources>
         <Style x:Key="BoltFontCellsStyle" TargetType="{x:Type infgDp:CellValuePresenter}">
@@ -23,8 +24,9 @@
     <GroupBox Header="Задание на размещение в ТСЕ">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" MaxHeight="300"/>
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
@@ -70,7 +72,13 @@
 
                         <infgDp:FieldLayout.Fields>
 
-                            <infgDp:CheckBoxField AlternateBinding="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" BindingType="UseAlternateBinding" Label=" " Width="Auto" AllowEdit="True" AllowResize="False">
+                            <infgDp:CheckBoxField AlternateBinding="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                                  BindingType="UseAlternateBinding" 
+                                                  Label=" " Width="Auto" 
+                                                  AllowEdit="True"
+                                                  AllowResize="False">
+                                                  <!--Visibility="{Binding ElementName=ViewBase, Path=ViewModel1.CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityConverter}}"-->
+                                <!--Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type inf:ViewBase}}, Path=ViewModel1.CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityConverter}}"-->
                                 <infgDp:Field.Settings>
                                     <infgDp:FieldSettings>
                                         <infgDp:FieldSettings.EditorStyle>
@@ -81,6 +89,26 @@
                                     </infgDp:FieldSettings>
                                 </infgDp:Field.Settings>
                             </infgDp:CheckBoxField>
+                            
+                            <infgDp:CheckBoxField AlternateBinding="{Binding IsActual, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                  BindingType="UseAlternateBinding"
+                                                  Label="Актуально?"
+                                                  Width="Auto"
+                                                  AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}"
+                                                  AllowResize="False">
+                                <infgDp:Field.Settings>
+                                    <infgDp:FieldSettings>
+                                        <infgDp:FieldSettings.EditorStyle>
+                                            <Style TargetType="{x:Type igEditors:XamCheckEditor}">
+                                                <EventSetter Event="ValueChanged"
+                                                             Handler="IsActualValueChanged" />
+                                            </Style>
+                                        </infgDp:FieldSettings.EditorStyle>
+                                    </infgDp:FieldSettings>
+                                </infgDp:Field.Settings>
+                            </infgDp:CheckBoxField>
+                            
+                            <!--<infgDp:CheckBoxField AlternateBinding="{Binding IsActual, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Актуально?" Width="Auto" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}"/>-->
                             <infgDp:TextField AlternateBinding="{Binding SalesUnit.Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
                             <infgDp:TextField AlternateBinding="{Binding SalesUnit.Product.ProductType}" BindingType="UseAlternateBinding" Label="Тип оборудования" Width="Auto"/>
                             <infgDp:TextField AlternateBinding="{Binding SalesUnit.Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="Auto"/>
@@ -104,6 +132,24 @@
 
                     <infgDp:FieldLayout ParentFieldName="Files">
                         <infgDp:FieldLayout.Fields>
+                            <infgDp:CheckBoxField AlternateBinding="{Binding IsActual, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                  BindingType="UseAlternateBinding"
+                                                  Label="Актуально?"
+                                                  Width="Auto"
+                                                  AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}"
+                                                  AllowResize="False">
+                                <infgDp:Field.Settings>
+                                    <infgDp:FieldSettings>
+                                        <infgDp:FieldSettings.EditorStyle>
+                                            <Style TargetType="{x:Type igEditors:XamCheckEditor}">
+                                                <EventSetter Event="ValueChanged"
+                                                             Handler="IsActualValueChanged" />
+                                            </Style>
+                                        </infgDp:FieldSettings.EditorStyle>
+                                    </infgDp:FieldSettings>
+                                </infgDp:Field.Settings>
+                            </infgDp:CheckBoxField>
+                            <!--<infgDp:CheckBoxField AlternateBinding="{Binding IsActual, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="" Width="Auto" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}"/>-->
                             <infgDp:TextField AlternateBinding="{Binding Name, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Название" Width="Auto" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}"/>
                             <infgDp:TextField AlternateBinding="{Binding Comment, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Комментарий" Width="Auto" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}"/>
                         </infgDp:FieldLayout.Fields>
@@ -111,6 +157,8 @@
 
                 </infgDp:XamDataGrid.FieldLayouts>
             </infgDp:XamDataGrid>
+
+            <Label Grid.Row="2" Content="{Binding ValidationResult, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
         </Grid>
     </GroupBox>
 </inf:ViewBase>

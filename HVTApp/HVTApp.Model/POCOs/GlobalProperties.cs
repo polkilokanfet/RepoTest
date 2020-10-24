@@ -88,10 +88,10 @@ namespace HVTApp.Model.POCOs
         [Designation("Путь к папке с приложениями Directum"), Required]
         public string DirectumAttachmentsPath { get; set; }
 
-        [Designation("Путь к папке с файлами ТЗ")]
+        [Designation("Путь к папке с файлами ТЗ"), Required]
         public string TechnicalRequrementsFilesPath { get; set; }
 
-        [Designation("Путь к папке с расчетами себестоимости")]
+        [Designation("Путь к папке с расчетами себестоимости"), Required]
         public string PriceCalculationsFilesPath { get; set; }
 
 

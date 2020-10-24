@@ -23,21 +23,11 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
             Command = new DelegateCommand(
                 () =>
                 {
-                    var roleBackManager = new UserRole()
-                    {
-                        Name = "BackManager",
-                        Role = Role.BackManager
-                    };
-
-                    var roleBackManagerBoss = new UserRole()
-                    {
-                        Name = "BackManagerBoss",
-                        Role = Role.BackManagerBoss
-                    };
-
                     var unitOfWork = _container.Resolve<IUnitOfWork>();
-                    unitOfWork.Repository<UserRole>().Add(roleBackManager);
-                    unitOfWork.Repository<UserRole>().Add(roleBackManagerBoss);
+
+                    unitOfWork.Repository<TechnicalRequrementsFile>().GetAll().ForEach(x => x.IsActual = true);
+                    unitOfWork.Repository<TechnicalRequrements>().GetAll().ForEach(x => x.IsActual = true);
+                    unitOfWork.Repository<TechnicalRequrementsTask>().Find(x => x.Start.HasValue).ForEach(x => x.FirstStartMoment = x.Start);
 
                     unitOfWork.SaveChanges();
 

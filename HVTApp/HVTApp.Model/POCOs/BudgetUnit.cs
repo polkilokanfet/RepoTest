@@ -21,9 +21,6 @@ namespace HVTApp.Model.POCOs
             PaymentConditionSet = PaymentConditionSetByManager = salesUnit.PaymentConditionSet;
         }
 
-        [Designation("Бюджет"), Required, OrderStatus(110)]
-        public virtual Budget Budget { get; set; }
-
         [Designation("Единица продаж"), Required, OrderStatus(100)]
         public virtual SalesUnit SalesUnit { get; set; }
 

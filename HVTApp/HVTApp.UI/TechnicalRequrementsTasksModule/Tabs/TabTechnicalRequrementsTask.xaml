@@ -43,6 +43,9 @@
         <infRib:ButtonTool Caption="Стартовать"
                            Command="{Binding StartCommand}"
                            SmallImage="/HVTApp.UI;component/Images/start.png" />
+        <infRib:ButtonTool Caption="Изменить"
+                           Command="{Binding EditCommand}"
+                           SmallImage="/HVTApp.UI;component/Images/edit.png" />
         <!--<infRib:ButtonTool Caption="Остановить"
                            Command="{Binding CancelCommand}"
                            Visibility="{Binding CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityConverter}}"

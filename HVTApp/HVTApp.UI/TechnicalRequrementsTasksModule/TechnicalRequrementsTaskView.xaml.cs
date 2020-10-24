@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Wrapper;
 using HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper;
 using Infragistics.Windows.DataPresenter;
 using Infragistics.Windows.Editors;
@@ -15,12 +16,12 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
     [RibbonTab(typeof(Tabs.TabTechnicalRequrementsTask))]
     public partial class TechnicalRequrementsTaskView : HVTApp.Infrastructure.ViewBase
     {
-        private readonly TechnicalRequrementsTaskViewModel _viewModel;
-        public TechnicalRequrementsTaskView(TechnicalRequrementsTaskViewModel viewModel, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
+        public TechnicalRequrementsTaskViewModel ViewModel1 { get; }
+        public TechnicalRequrementsTaskView(TechnicalRequrementsTaskViewModel viewModel1, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
         {
+            ViewModel1 = viewModel1;
             InitializeComponent();
-            _viewModel = viewModel;
-            this.DataContext = viewModel;
+            this.DataContext = viewModel1;
         }
 
         public override bool IsNavigationTarget(NavigationContext navigationContext)
@@ -35,13 +36,13 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             if (navigationContext.Parameters.First().Value is TechnicalRequrementsTask)
             {
                 var technicalRequrementsTask = navigationContext.Parameters.First().Value as TechnicalRequrementsTask;
-                _viewModel.Load(technicalRequrementsTask);
+                ViewModel1.Load(technicalRequrementsTask);
             }
 
             if (navigationContext.Parameters.First().Value is IEnumerable<SalesUnit>)
             {
                 var salesUnits = navigationContext.Parameters.First().Value as IEnumerable<SalesUnit>;
-                _viewModel.Load(salesUnits);
+                ViewModel1.Load(salesUnits);
             }
 
             //var dg = this.Groups; //(XamDataGrid)sender;
@@ -53,13 +54,30 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
         void IsCheckedValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            if (Equals(e.OldValue, e.NewValue))
-                return;
+            if (Equals(e.OldValue, e.NewValue)) return;
 
             var editor = sender as XamCheckEditor;
             ((TechnicalRequrements2Wrapper)(((DataRecord)editor.DataContext).DataItem)).IsChecked = editor.IsChecked.Value;
 
-            ((DelegateCommand) _viewModel.MeregeCommand).RaiseCanExecuteChanged();
+            ((DelegateCommand) ViewModel1.MeregeCommand).RaiseCanExecuteChanged();
+        }
+
+        void IsActualValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            if (Equals(e.OldValue, e.NewValue)) return;
+
+            var editor = (XamCheckEditor)sender;
+            if (((DataRecord)editor.DataContext).DataItem is TechnicalRequrementsFileWrapper)
+            {
+                ((TechnicalRequrementsFileWrapper)(((DataRecord)editor.DataContext).DataItem)).IsActual = editor.IsChecked.Value;
+            }
+
+            if (((DataRecord)editor.DataContext).DataItem is TechnicalRequrements2Wrapper)
+            {
+                ((TechnicalRequrements2Wrapper)(((DataRecord)editor.DataContext).DataItem)).IsActual = editor.IsChecked.Value;
+            }
+
+            ((DelegateCommand)ViewModel1.StartCommand).RaiseCanExecuteChanged();
         }
 
     }

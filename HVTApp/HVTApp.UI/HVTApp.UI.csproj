@@ -609,7 +609,7 @@
     <Compile Include="TechnicalRequrementsTasksModule\SalesUnitForTechnicalRequrementsTaskComparer.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\TechnicalRequrementsTaskViewModel.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Wrapper\TechnicalRequrements2Wrapper.cs" />
-    <Compile Include="TechnicalRequrementsTasksModule\Wrapper\TechnicalRequrementsTaskWrapper.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Wrapper\TechnicalRequrementsTask2Wrapper.cs" />
     <Compile Include="ViewModels\Details\EmployeeDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\FacilityDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\IncomingRequestDetailsViewModel.cs" />

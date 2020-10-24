@@ -63,7 +63,7 @@ namespace HVTApp.TestDataGenerator
             var managers = new List<User> {UserIvanov, UserKosolapov, UserGazizov, UserBrehov, UserKolesnik, UserRybin};
             var paymentConditionSets = new List<PaymentConditionSet> { PaymentConditionSet50Na50, PaymentConditionSet30Na70};
 
-            for (int projectNum = 0; projectNum < 120; projectNum++)
+            for (int projectNum = 0; projectNum < 20; projectNum++)
             {
                 var manager = managers[random.Next(0, managers.Count)];
                 var project = new Project {Name = $"Реконструкция ПС №{projectNum}", ProjectType = ProjectTypeReconstruction, Manager = manager};

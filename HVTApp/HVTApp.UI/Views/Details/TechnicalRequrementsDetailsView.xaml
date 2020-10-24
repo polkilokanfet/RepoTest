@@ -16,6 +16,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
 
@@ -41,6 +42,12 @@
         <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
                  Text="{Binding Item.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityCommentTechnicalRequrements, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="3" Content="Актуально" Visibility="{Binding VisibilityIsActualTechnicalRequrements, ElementName=Root}"/>
+        <CheckBox Grid.Column="1" Grid.Row="3" MinWidth="200" 
+                  IsChecked="{Binding Item.IsActual, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				  Visibility="{Binding VisibilityIsActualTechnicalRequrements, ElementName=Root}"/>
 
 
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 
@@ -92,7 +93,9 @@ namespace HVTApp.TestDataGenerator
         public UserRole UserRolePlanMaker;
         public UserRole UserRoleConstructor;
         public UserRole UserRoleReportMaker;
-
+        public UserRole UserRoleSupplier;
+        public UserRole UserRoleBackManager;
+        public UserRole UserRoleBackManagerBoss;
 
         #if DEBUG
 
@@ -120,6 +123,9 @@ namespace HVTApp.TestDataGenerator
             UserRolePlanMaker.Clone(new UserRole { Role = Role.PlanMaker, Name = "Плановик" });
             UserRoleConstructor.Clone(new UserRole { Role = Role.Constructor, Name = "Конструктор" });
             UserRoleReportMaker.Clone(new UserRole { Role = Role.ReportMaker, Name = "Отчетчик" });
+            UserRoleSupplier.Clone(new UserRole { Role = Role.Supplier, Name = "Снабженец" });
+            UserRoleBackManager.Clone(new UserRole { Role = Role.BackManager, Name = "BackManager" });
+            UserRoleBackManagerBoss.Clone(new UserRole { Role = Role.BackManagerBoss, Name = "BackManagerBoss" });
         }
 
         private void GenerateEmployeesPositions()
@@ -205,9 +211,24 @@ namespace HVTApp.TestDataGenerator
             var pas1 = StringToGuid.GetHashString("1");
             var pas2 = StringToGuid.GetHashString("2");
 
+            var allRoles = new List<UserRole>
+            {
+                UserRoleAdmin,
+                UserRoleDataBaseFiller,
+                UserRoleSalesManager,
+                UserRolePlanMaker,
+                UserRoleDirector,
+                UserRoleEconomist,
+                UserRolePricer,
+                UserRoleConstructor,
+                UserRoleSupplier,
+                UserRoleBackManager,
+                UserRoleBackManagerBoss
+            };
+
             #if DEBUG
 
-            UserIvanov.Clone(new User { Login = "1", Password = pas1, Employee = EmployeeIvanov, Roles = new List<UserRole> { UserRoleAdmin, UserRoleDataBaseFiller, UserRoleSalesManager, UserRolePlanMaker, UserRoleDirector, UserRoleEconomist, UserRolePricer, UserRoleConstructor } });
+            UserIvanov.Clone(new User { Login = "1", Password = pas1, Employee = EmployeeIvanov, Roles = allRoles.ToList()});
             UserPetrov.Clone(new User { Login = "2", Password = pas2, Employee = EmployeePetrov, Roles = new List<UserRole> { UserRoleDataBaseFiller } });
 
             #endif
@@ -219,7 +240,7 @@ namespace HVTApp.TestDataGenerator
             UserKolesnik.Clone(new User { Login = "kolesnik", Password = pas1, Employee = EmployeeKolesnik, Roles = new List<UserRole> { UserRoleSalesManager } });
             UserKopitin.Clone(new User { Login = "kopitin", Password = pas1, Employee = EmployeeKopitin, Roles = new List<UserRole> { UserRoleSalesManager } });
             UserPostnikova.Clone(new User { Login = "postnikova", Password = pas1, Employee = EmployeePostnikova, Roles = new List<UserRole> { UserRoleSalesManager } });
-            UserKosolapov.Clone(new User { Login = "kos", Password = pas1, Employee = EmployeeKosolapov, Roles = new List<UserRole> { UserRoleAdmin, UserRoleDataBaseFiller, UserRoleSalesManager, UserRolePlanMaker, UserRoleDirector, UserRoleEconomist, UserRolePricer, UserRoleConstructor, UserRoleReportMaker } });
+            UserKosolapov.Clone(new User { Login = "kos", Password = pas1, Employee = EmployeeKosolapov, Roles = allRoles.ToList() });
             UserKoreshkov.Clone(new User { Login = "koreshkov", Password = pas1, Employee = EmployeeKoreshkov, Roles = new List<UserRole> { UserRoleSalesManager } });
             UserEmelyanov.Clone(new User { Login = "emelianov", Password = pas1, Employee = EmployeeEmelyanov, Roles = new List<UserRole> { UserRoleSalesManager } });
             UserRybin.Clone(new User { Login = "rybin", Password = pas1, Employee = EmployeeRybin, Roles = new List<UserRole> { UserRoleSalesManager } });

@@ -38,7 +38,6 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:TextField Name="Budget" Label="Бюджет" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="SalesUnit" Label="Единица продаж" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:DateTimeField Name="OrderInTakeDate" Label="Дата ОИТ" Width="Auto" AllowResize="True" />
                     <infg:DateTimeField Name="OrderInTakeDateByManager" Label="Дата ОИТ (менеджер)" Width="Auto" AllowResize="True" />

@@ -101,13 +101,15 @@ namespace HVTApp.UI.Modules.Sales.Market
 
             if (salesUnits.Any(x => x.Order != null))
             {
-                _messageService.ShowOkMessageDialog("Информация", "Нельзя удалить проект, т.к. в нем есть оборудование, размещенное в производстве.");
+                _messageService.ShowOkMessageDialog("Информация", "Нельзя полностью удалить проект, т.к. в нем есть оборудование, размещенное в производстве.");
                 return;
             }
 
-            if (salesUnits.Any(x => !x.AllowTotalRemove))
+            //проверяем не включено ли оборудование в какой-либо бюджет
+            var budgetUnits = unitOfWork.Repository<BudgetUnit>().Find(x => !x.IsRemoved);
+            if (salesUnits.Select(x => x.Id).Intersect(budgetUnits.Select(x => x.SalesUnit.Id)).Any())
             {
-                _messageService.ShowOkMessageDialog("Информация", "Нельзя удалить проект, т.к. в нем есть оборудование, включенное в бюджет.");
+                _messageService.ShowOkMessageDialog("Информация", "Нельзя полностью удалить проект, т.к. в нем есть оборудование, включенное в бюджет.");
                 return;
             }
 

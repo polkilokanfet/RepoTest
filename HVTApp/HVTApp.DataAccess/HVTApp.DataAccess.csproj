@@ -223,6 +223,10 @@
     <Compile Include="Migrations\202010150740020_BackOffice.Designer.cs">
       <DependentUpon>202010150740020_BackOffice.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202010231846216_TeqReqChanges3.cs" />
+    <Compile Include="Migrations\202010231846216_TeqReqChanges3.Designer.cs">
+      <DependentUpon>202010231846216_TeqReqChanges3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -343,6 +347,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202010150740020_BackOffice.resx">
       <DependentUpon>202010150740020_BackOffice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010231846216_TeqReqChanges3.resx">
+      <DependentUpon>202010231846216_TeqReqChanges3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

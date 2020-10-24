@@ -303,7 +303,6 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                         {
                             var budgetUnit = new BudgetUnit
                             {
-                                Budget = budget,
                                 SalesUnit = salesUnit,
                                 Cost = flatReportItem.EstimatedCost,
                                 CostByManager = salesUnit.Cost,
@@ -316,7 +315,6 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                                 IsRemoved = !flatReportItem.InReport
                             };
 
-                            salesUnit.BudgetUnits.Add(budgetUnit);
                             budget.Units.Add(budgetUnit);
                         }
                     }

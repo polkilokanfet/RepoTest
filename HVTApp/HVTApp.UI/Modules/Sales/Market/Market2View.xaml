@@ -251,8 +251,8 @@
                                     <dp:FieldLayout>
                                         <dp:FieldLayout.Fields>
                                             <dp:DateTimeField Name="Start" Label="Старт" Width="Auto" AllowResize="True" Format="dd/MM/yy HH:mm"/>
-                                            <dp:TextField Name="BackManager" Label="Back manager" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                                             <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Status}" Label="Этап" Width="Auto" AllowResize="True" />
+                                            <dp:TextField AlternateBinding="{Binding BackManager.Employee.Person}" BindingType="UseAlternateBinding" Label="Back manager" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                                         </dp:FieldLayout.Fields>
                                     </dp:FieldLayout>
 

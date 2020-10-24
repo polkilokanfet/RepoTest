@@ -7,13 +7,13 @@ namespace HVTApp.DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class GlobalPropertiesParametersIsolation : IMigrationMetadata
+    public sealed partial class TeqReqChanges3 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(GlobalPropertiesParametersIsolation));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(TeqReqChanges3));
         
         string IMigrationMetadata.Id
         {
-            get { return "202007091014060_GlobalPropertiesParametersIsolation"; }
+            get { return "202010231846216_TeqReqChanges3"; }
         }
         
         string IMigrationMetadata.Source

@@ -44,8 +44,6 @@ namespace HVTApp.DataAccess
 
             HasOptional(x => x.Penalty).WithRequired().WillCascadeOnDelete(true);
             HasMany(x => x.BankGuarantees).WithRequired().WillCascadeOnDelete(true);
-
-            HasMany(x => x.BudgetUnits).WithRequired(x => x.SalesUnit).WillCascadeOnDelete(true);
         }
     }
 }

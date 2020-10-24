@@ -81,7 +81,6 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
 
@@ -314,17 +313,8 @@
 										 Visibility="{Binding VisibilityProductsIncludedSalesUnit, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="33" Content="Бюджеты" Visibility="{Binding VisibilityBudgetUnitsSalesUnit, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="33" Content="Банковские гарантии" Visibility="{Binding VisibilityBankGuaranteesSalesUnit, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="33"
-										 Items="{Binding Path=Item.BudgetUnits}"
-										 SelectedItem="{Binding SelectedBudgetUnitsItem, Mode=TwoWay}"
-										 AddItemCommand="{Binding AddInBudgetUnitsCommand}"
-										 RemoveItemCommand="{Binding RemoveFromBudgetUnitsCommand}"
-										 Visibility="{Binding VisibilityBudgetUnitsSalesUnit, ElementName=Root}"/>
-
-
-        <Label Grid.Column="0" Grid.Row ="34" Content="Банковские гарантии" Visibility="{Binding VisibilityBankGuaranteesSalesUnit, ElementName=Root}"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="34"
 										 Items="{Binding Path=Item.BankGuarantees}"
 										 SelectedItem="{Binding SelectedBankGuaranteesItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInBankGuaranteesCommand}"
@@ -332,22 +322,22 @@
 										 Visibility="{Binding VisibilityBankGuaranteesSalesUnit, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="35" Content="Адрес доставки" Visibility="{Binding VisibilityAddressDeliverySalesUnit, ElementName=Root}"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="35" 
+        <Label Grid.Column="0" Grid.Row ="34" Content="Адрес доставки" Visibility="{Binding VisibilityAddressDeliverySalesUnit, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="34" 
                                     Item="{Binding Item.AddressDelivery}" 
                                     AddItemCommand="{Binding SelectAddressDeliveryCommand}" 
                                     RemoveItemCommand="{Binding ClearAddressDeliveryCommand}"
 									Visibility="{Binding VisibilityAddressDeliverySalesUnit, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="36" Content="StartProductionDateInjected" Visibility="{Binding VisibilityStartProductionDateInjectedSalesUnit, ElementName=Root}"/>
-        <DatePicker Grid.Column="1" Grid.Row="36" 
+        <Label Grid.Column="0" Grid.Row ="35" Content="StartProductionDateInjected" Visibility="{Binding VisibilityStartProductionDateInjectedSalesUnit, ElementName=Root}"/>
+        <DatePicker Grid.Column="1" Grid.Row="35" 
                     SelectedDate="{Binding Item.StartProductionDateInjected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityStartProductionDateInjectedSalesUnit, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="37" Content="OrderInTakeDateInjected" Visibility="{Binding VisibilityOrderInTakeDateInjectedSalesUnit, ElementName=Root}"/>
-        <DatePicker Grid.Column="1" Grid.Row="37" 
+        <Label Grid.Column="0" Grid.Row ="36" Content="OrderInTakeDateInjected" Visibility="{Binding VisibilityOrderInTakeDateInjectedSalesUnit, ElementName=Root}"/>
+        <DatePicker Grid.Column="1" Grid.Row="36" 
                     SelectedDate="{Binding Item.OrderInTakeDateInjected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityOrderInTakeDateInjectedSalesUnit, ElementName=Root}"/>
 

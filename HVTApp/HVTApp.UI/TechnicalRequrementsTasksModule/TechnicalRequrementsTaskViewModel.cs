@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -32,6 +33,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
         private object _selectedItem;
         private readonly IMessageService _messageService;
+        private readonly List<TechnicalRequrementsFile> _removedFiles = new List<TechnicalRequrementsFile>();
 
         public object SelectedItem
         {
@@ -54,6 +56,10 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
         public bool IsStarted => TechnicalRequrementsTaskWrapper?.Start != null;
 
+        public bool WasStarted => TechnicalRequrementsTaskWrapper?.Model.FirstStartMoment != null;
+
+        public string ValidationResult => TechnicalRequrementsTaskWrapper?.ValidationResult;
+
         #region ICommand
 
         public ICommand SaveCommand { get; }
@@ -73,6 +79,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         public ICommand RemoveGroupCommand { get; }
 
         public ICommand StartCommand { get; }
+
+        public ICommand EditCommand { get; }
 
         public ICommand CancelCommand { get; }
 
@@ -104,7 +112,9 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 {
                     ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
                     ((DelegateCommand)StartCommand).RaiseCanExecuteChanged();
+                    OnPropertyChanged(nameof(ValidationResult));
                 };
+                OnPropertyChanged();
                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsStarted)));
             }
         }
@@ -133,7 +143,10 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
                     ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
                 },
-                () => TechnicalRequrementsTaskWrapper.IsValid && TechnicalRequrementsTaskWrapper.IsChanged);
+                () => TechnicalRequrementsTaskWrapper != null && 
+                      TechnicalRequrementsTaskWrapper.IsValid && 
+                      TechnicalRequrementsTaskWrapper.IsChanged &&
+                      !WasStarted);
 
             #endregion
 
@@ -224,10 +237,10 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                             UnitOfWork.Repository<TechnicalRequrementsFile>().Delete(file.Model);
                         }
                     }
-
+                    _removedFiles.Add(file.Model);
                     SelectedItem = null;
                 },
-                () => !IsStarted && SelectedItem is TechnicalRequrementsFileWrapper);
+                () => !WasStarted && !IsStarted && SelectedItem is TechnicalRequrementsFileWrapper);
 
             #endregion
 
@@ -256,7 +269,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                     //    viewModel.SelectedItemWrappers.ForEach(x => TechnicalRequrementsTaskWrapper.PriceCalculationItems.Add(x));
                     //}
                 },
-                () => !IsStarted);
+                () => !WasStarted && !IsStarted);
 
             #endregion
 
@@ -293,7 +306,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                         TechnicalRequrementsTaskWrapper.Requrements.Remove(selectedGroup);
                     }
                 },
-                () => SelectedItem is TechnicalRequrements2Wrapper && !IsStarted);
+                () => !WasStarted && !IsStarted && SelectedItem is TechnicalRequrements2Wrapper);
 
             #endregion
 
@@ -306,6 +319,10 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                     if (dr != MessageDialogResult.Yes) return;
 
                     TechnicalRequrementsTaskWrapper.Start = DateTime.Now;
+                    if (!TechnicalRequrementsTaskWrapper.Model.FirstStartMoment.HasValue)
+                    {
+                        TechnicalRequrementsTaskWrapper.Model.FirstStartMoment = TechnicalRequrementsTaskWrapper.Start;
+                    }
                     SaveCommand.Execute(null);
 
                     Container.Resolve<IEventAggregator>().GetEvent<AfterSaveTechnicalRequrementsTaskEvent>().Publish(TechnicalRequrementsTaskWrapper.Model);
@@ -314,14 +331,34 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                     //Container.Resolve<IEmailService>().SendMail("kos@uetm.ru", $"{GlobalAppProperties.User.Employee.Person} отправил новое задание на расчет", "test");
 
                     OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsStarted)));
-                    ((DelegateCommand)StartCommand).RaiseCanExecuteChanged();
-                    ((DelegateCommand)CancelCommand).RaiseCanExecuteChanged();
-                    ((DelegateCommand)AddNewFileCommand).RaiseCanExecuteChanged();
-                    ((DelegateCommand)AddGroupCommand).RaiseCanExecuteChanged();
-                    ((DelegateCommand)RemoveFileCommand).RaiseCanExecuteChanged();
-                    ((DelegateCommand)RemoveGroupCommand).RaiseCanExecuteChanged();
+                    RaiseCanExecuteChange();
                 },
-                () => !IsStarted && TechnicalRequrementsTaskWrapper.IsValid);
+                () =>
+                {
+                    if (TechnicalRequrementsTaskWrapper != null)
+                    {
+                        //если уже стартовано
+                        if (IsStarted)
+                            return false;
+
+                        //для рестарта
+                        if (TechnicalRequrementsTaskWrapper.Model.FirstStartMoment.HasValue)
+                            return TechnicalRequrementsTaskWrapper.IsValid && TechnicalRequrementsTaskWrapper.IsChanged;
+
+                        //для старта
+                        return TechnicalRequrementsTaskWrapper.IsValid;
+                    }
+                    return false;
+                });
+
+            EditCommand = new DelegateCommand(
+                () =>
+                {
+                    TechnicalRequrementsTaskWrapper.Model.Start = null;
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsStarted)));
+                    RaiseCanExecuteChange();
+                },
+                () => CurrentUserIsManager && IsStarted);
 
             #endregion
 
@@ -338,13 +375,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 Container.Resolve<IEventAggregator>().GetEvent<AfterSaveTechnicalRequrementsTaskEvent>().Publish(TechnicalRequrementsTaskWrapper.Model);
 
                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsStarted)));
-                ((DelegateCommand)StartCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)CancelCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)AddNewFileCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)AddGroupCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)RemoveFileCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)RemoveGroupCommand).RaiseCanExecuteChanged();
-
+                RaiseCanExecuteChange();
             },
             () => IsStarted);
 
@@ -471,7 +502,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                         if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fdb.SelectedPath))
                         {
                             var taskPath = fdb.SelectedPath;
-                            foreach (var requrement in this.TechnicalRequrementsTaskWrapper.Requrements)
+                            foreach (var requrement in this.TechnicalRequrementsTaskWrapper.Requrements.Where(x => x.IsActual.HasValue && x.IsActual.Value))
                             {
                                 var reqDirName = $"{requrement.Model.Id} {requrement.SalesUnit.Product.Designation.ReplaceUncorrectSimbols().LimitLengh()} ({requrement.Amount} шт.)";
                                 var dirPath = Path.Combine(taskPath, reqDirName);
@@ -480,12 +511,11 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                                     Directory.CreateDirectory(dirPath);
                                 }
 
-                                foreach (var file in requrement.Files)
+                                foreach (var file in requrement.Files.Where(x => x.IsActual.HasValue && x.IsActual.Value))
                                 {
                                     var storageDirectory = GlobalAppProperties.Actual.TechnicalRequrementsFilesPath;
                                     string addToFileName = $"{file.Name.ReplaceUncorrectSimbols().LimitLengh()}";
                                     FilesStorage.CopyFileFromStorage(file.Id, _messageService, storageDirectory, dirPath, addToFileName, false);
-
                                 }
                             }
 
@@ -495,6 +525,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 });
 
             #endregion
+
+            #region CreatePriceCalculationCommand
 
             CreatePriceCalculationCommand = new DelegateCommand(
                 () =>
@@ -506,8 +538,26 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 });
 
             TechnicalRequrementsTaskWrapper = new TechnicalRequrementsTask2Wrapper(new TechnicalRequrementsTask());
+
+            #endregion
         }
 
+        private void RaiseCanExecuteChange()
+        {
+            ((DelegateCommand)StartCommand).RaiseCanExecuteChanged();
+            ((DelegateCommand)EditCommand).RaiseCanExecuteChanged();
+            ((DelegateCommand)CancelCommand).RaiseCanExecuteChanged();
+            ((DelegateCommand)AddNewFileCommand).RaiseCanExecuteChanged();
+            ((DelegateCommand)AddOldFileCommand).RaiseCanExecuteChanged();
+            ((DelegateCommand)AddGroupCommand).RaiseCanExecuteChanged();
+            ((DelegateCommand)RemoveFileCommand).RaiseCanExecuteChanged();
+            ((DelegateCommand)RemoveGroupCommand).RaiseCanExecuteChanged();
+        }
+
+        /// <summary>
+        /// Загрузка существующего расчета
+        /// </summary>
+        /// <param name="technicalRequrementsTask"></param>
         public void Load(TechnicalRequrementsTask technicalRequrementsTask)
         {
             var technicalRequrementsTaskLoaded = UnitOfWork.Repository<TechnicalRequrementsTask>().GetById(technicalRequrementsTask.Id);
@@ -515,6 +565,13 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             TechnicalRequrementsTaskWrapper = technicalRequrementsTaskLoaded != null 
                 ? new TechnicalRequrementsTask2Wrapper(technicalRequrementsTaskLoaded) 
                 : new TechnicalRequrementsTask2Wrapper(technicalRequrementsTask);
+
+            //обновление момента просмотра задания бэк-менеджером
+            if (CurrentUserIsBackManager)
+            {
+                TechnicalRequrementsTaskWrapper.Model.LastOpenBackManagerMoment = DateTime.Now;
+                UnitOfWork.SaveChanges();
+            }
         }
 
         /// <summary>

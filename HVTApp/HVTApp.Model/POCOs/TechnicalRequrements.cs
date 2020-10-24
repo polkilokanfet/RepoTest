@@ -15,10 +15,13 @@ namespace HVTApp.Model.POCOs
         [Designation("Юниты"), Required, OrderStatus(20)]
         public virtual List<SalesUnit> SalesUnits { get; set; } = new List<SalesUnit>();
 
-        [Designation("Файлы"), Required, OrderStatus(10)]
+        [Designation("Файлы"), OrderStatus(10)]
         public virtual List<TechnicalRequrementsFile> Files { get; set; } = new List<TechnicalRequrementsFile>();
 
         [Designation("Комментарий"), MaxLength(250), OrderStatus(5)]
         public string Comment { get; set; }
+
+        [Designation("Актуально"), OrderStatus(2)]
+        public bool? IsActual { get; set; } = true;
     }
 }

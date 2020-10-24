@@ -27,10 +27,16 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
                 return grp.CanRemove;
             }
 
-            if (!grp.CanTotalRemove)
+            //проверяем не включено ли оборудование в какой-либо бюджет
+            var salesUnits = grp.Groups == null
+                ? new List<SalesUnit> {grp.SalesUnit}
+                : new List<SalesUnit>(grp.Groups.Select(x => x.SalesUnit));
+            var budgetUnits = UnitOfWork.Repository<BudgetUnit>().Find(x => !x.IsRemoved);
+
+            if (salesUnits.Select(x => x.Id).Intersect(budgetUnits.Select(x => x.SalesUnit.Id)).Any())
             {
                 Container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", "Удаление невозможно, т.к. это оборудование включено в бюджет.");
-                return grp.CanTotalRemove;
+                return false;
             }
 
             return true;
