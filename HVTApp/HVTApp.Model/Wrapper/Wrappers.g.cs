@@ -1941,6 +1941,22 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.DateTime> FirstStartMomentOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(FirstStartMoment));
         public bool FirstStartMomentIsChanged => GetIsChanged(nameof(FirstStartMoment));
 
+        public System.Nullable<System.DateTime> RejectByBackManagerMoment
+        {
+          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.DateTime> RejectByBackManagerMomentOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(RejectByBackManagerMoment));
+        public bool RejectByBackManagerMomentIsChanged => GetIsChanged(nameof(RejectByBackManagerMoment));
+
+        public System.String RejectComment
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String RejectCommentOriginalValue => GetOriginalValue<System.String>(nameof(RejectComment));
+        public bool RejectCommentIsChanged => GetIsChanged(nameof(RejectComment));
+
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }

@@ -28,14 +28,20 @@ namespace HVTApp.Model.POCOs
         [Designation("Старт"), OrderStatus(3)]
         public virtual DateTime? Start { get; set; }
 
-        [Designation("Финиш"), OrderStatus(2)]
+        [Designation("Финиш"), OrderStatus(2), NotForListView]
         public virtual DateTime? Finish { get; set; }
 
-        [Designation("Последний просмотр back-менеджером"), OrderStatus(1)]
+        [Designation("Последний просмотр back-менеджером"), OrderStatus(1), NotForListView]
         public virtual DateTime? LastOpenBackManagerMoment { get; set; }
 
-        [Designation("Первый старт"), OrderStatus(1)]
+        [Designation("Первый старт"), OrderStatus(1), NotForListView]
         public virtual DateTime? FirstStartMoment { get; set; }
+
+        [Designation("Отклонение"), OrderStatus(-1), NotForListView]
+        public virtual DateTime? RejectByBackManagerMoment { get; set; }
+
+        [Designation("Комментарий по отклонению"), MaxLength(250), OrderStatus(-5), NotForListView]
+        public string RejectComment { get; set; }
 
         [Designation("Расчеты себестоимости"), OrderStatus(-10)]
         public virtual List<PriceCalculation> PriceCalculations { get; set; } = new List<PriceCalculation>();

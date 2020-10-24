@@ -58,6 +58,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
         public bool WasStarted => TechnicalRequrementsTaskWrapper?.Model.FirstStartMoment != null;
 
+        public bool IsRejected => TechnicalRequrementsTaskWrapper?.RejectByBackManagerMoment != null;
+
         public string ValidationResult => TechnicalRequrementsTaskWrapper?.ValidationResult;
 
         #region ICommand
@@ -99,6 +101,13 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
         public ICommand CreatePriceCalculationCommand { get; }
 
+        /// <summary>
+        /// Отклонить задачу
+        /// </summary>
+        public ICommand RejectCommand { get; }
+
+        public ICommand OpenPriceCalculationCommand { get; }
+
         #endregion
 
         public TechnicalRequrementsTask2Wrapper TechnicalRequrementsTaskWrapper
@@ -112,6 +121,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 {
                     ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
                     ((DelegateCommand)StartCommand).RaiseCanExecuteChanged();
+                    ((DelegateCommand)RejectCommand).RaiseCanExecuteChanged();
                     OnPropertyChanged(nameof(ValidationResult));
                 };
                 OnPropertyChanged();
@@ -355,6 +365,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 () =>
                 {
                     TechnicalRequrementsTaskWrapper.Model.Start = null;
+                    TechnicalRequrementsTaskWrapper.Model.RejectByBackManagerMoment = null;
                     OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsStarted)));
                     RaiseCanExecuteChange();
                 },
@@ -538,6 +549,42 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 });
 
             TechnicalRequrementsTaskWrapper = new TechnicalRequrementsTask2Wrapper(new TechnicalRequrementsTask());
+
+            #endregion
+
+            #region RejectCommand
+
+            RejectCommand = new DelegateCommand(
+                () =>
+                {
+                    if (string.IsNullOrWhiteSpace(TechnicalRequrementsTaskWrapper.RejectComment))
+                    {
+                        _messageService.ShowOkMessageDialog("Информация", "Перед отклонением необходимо заполнить причину отклонения");
+                        return;
+                    }
+
+                    TechnicalRequrementsTaskWrapper.RejectByBackManagerMoment = DateTime.Now;
+                    TechnicalRequrementsTaskWrapper.AcceptChanges();
+                    UnitOfWork.SaveChanges();
+                },
+                () => !IsRejected);
+
+            #endregion
+
+            #region OpenPriceCalculationCommand
+
+            OpenPriceCalculationCommand = new DelegateCommand(
+                () =>
+                {
+                    var priceCalculation = Container.Resolve<ISelectService>().SelectItem(TechnicalRequrementsTaskWrapper.Model.PriceCalculations);
+                    if (priceCalculation != null)
+                    {
+                        RegionManager.RequestNavigateContentRegion<PriceCalculationView>(new NavigationParameters
+                        {
+                            {nameof(PriceCalculation), priceCalculation}
+                        });
+                    }
+                });
 
             #endregion
         }

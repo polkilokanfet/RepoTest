@@ -1197,6 +1197,14 @@ namespace HVTApp.UI.Lookup
         public System.Nullable<System.DateTime> FirstStartMoment => Entity.FirstStartMoment;
 
 
+		[OrderStatus(-1)]
+        public System.Nullable<System.DateTime> RejectByBackManagerMoment => Entity.RejectByBackManagerMoment;
+
+
+		[OrderStatus(-5)]
+        public System.String RejectComment => Entity.RejectComment;
+
+
         #endregion
 
 

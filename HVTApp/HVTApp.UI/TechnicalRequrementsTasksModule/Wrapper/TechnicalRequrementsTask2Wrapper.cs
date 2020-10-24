@@ -50,6 +50,24 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper
         public DateTime? StartOriginalValue => GetOriginalValue<DateTime?>(nameof(Start));
         public bool StartIsChanged => GetIsChanged(nameof(Start));
 
+
+        public DateTime? RejectByBackManagerMoment
+        {
+            get { return GetValue<DateTime?>(); }
+            set { SetValue(value); }
+        }
+        public DateTime? RejectByBackManagerMomentOriginalValue => GetOriginalValue<DateTime?>(nameof(RejectByBackManagerMoment));
+        public bool RejectByBackManagerMomentIsChanged => GetIsChanged(nameof(RejectByBackManagerMoment));
+
+
+        public System.String RejectComment
+        {
+            get { return GetValue<System.String>(); }
+            set { SetValue(value); }
+        }
+        public System.String RejectCommentOriginalValue => GetOriginalValue<System.String>(nameof(RejectComment));
+        public bool RejectCommentIsChanged => GetIsChanged(nameof(RejectComment));
+
         #endregion
 
         #region ComplexProperties

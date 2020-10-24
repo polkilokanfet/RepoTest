@@ -22,6 +22,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
 
@@ -78,8 +80,20 @@
 									Visibility="{Binding VisibilityBackManagerTechnicalRequrementsTask, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="8" Content="Расчеты себестоимости" Visibility="{Binding VisibilityPriceCalculationsTechnicalRequrementsTask, ElementName=Root}"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="8"
+        <Label Grid.Column="0" Grid.Row ="8" Content="Отклонение" Visibility="{Binding VisibilityRejectByBackManagerMomentTechnicalRequrementsTask, ElementName=Root}"/>
+        <DatePicker Grid.Column="1" Grid.Row="8" 
+                    SelectedDate="{Binding Item.RejectByBackManagerMoment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding VisibilityRejectByBackManagerMomentTechnicalRequrementsTask, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="9" Content="Комментарий по отклонению" Visibility="{Binding VisibilityRejectCommentTechnicalRequrementsTask, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="9" MinWidth="200" 
+                 Text="{Binding Item.RejectComment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding VisibilityRejectCommentTechnicalRequrementsTask, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="10" Content="Расчеты себестоимости" Visibility="{Binding VisibilityPriceCalculationsTechnicalRequrementsTask, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="10"
 										 Items="{Binding Path=Item.PriceCalculations}"
 										 SelectedItem="{Binding SelectedPriceCalculationsItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInPriceCalculationsCommand}"

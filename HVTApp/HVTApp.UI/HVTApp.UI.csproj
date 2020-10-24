@@ -568,8 +568,8 @@
     <Compile Include="Modules\SupplyModule\Views\PickingDatesView.xaml.cs">
       <DependentUpon>PickingDatesView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PriceCalculations\ViewModel\PriceCalculation2Wrapper.cs" />
-    <Compile Include="PriceCalculations\ViewModel\PriceCalculationItem2Wrapper.cs" />
+    <Compile Include="PriceCalculations\ViewModel\Wrapper\PriceCalculation2Wrapper.cs" />
+    <Compile Include="PriceCalculations\ViewModel\Wrapper\PriceCalculationItem2Wrapper.cs" />
     <Compile Include="PriceCalculations\ViewModel\PriceCalculationItemsViewModel.cs" />
     <Compile Include="PriceCalculations\View\PriceCalculationItemsWindow.xaml.cs">
       <DependentUpon>PriceCalculationItemsWindow.xaml</DependentUpon>

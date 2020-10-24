@@ -33,7 +33,8 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -44,10 +45,19 @@
                 <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding TechnicalRequrementsTaskWrapper.ProjectName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
 
                 <Label Grid.Row="1" Grid.Column="0" Content="Комментарий: "/>
-                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding TechnicalRequrementsTaskWrapper.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsStarted, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ReverseBoolConverter}}"/>
+                <TextBox Grid.Row="1" 
+                         Grid.Column="1" 
+                         Text="{Binding TechnicalRequrementsTaskWrapper.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                         IsEnabled="{Binding IsStarted, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ReverseBoolConverter}}"/>
 
                 <Label Grid.Row="2" Grid.Column="0" Content="Старт: "/>
                 <Label Grid.Row="2" Grid.Column="1" Content="{Binding TechnicalRequrementsTaskWrapper.Start, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
+
+                <Label Grid.Row="3" Grid.Column="0" Content="Причина отклонения: "/>
+                <TextBox Grid.Row="3"
+                         Grid.Column="1"
+                         Text="{Binding TechnicalRequrementsTaskWrapper.RejectComment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         IsEnabled="{Binding CurrentUserIsBackManager, UpdateSourceTrigger=PropertyChanged}"/>
 
             </Grid>
 

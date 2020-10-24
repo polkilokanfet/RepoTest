@@ -49,7 +49,7 @@ namespace HVTApp.UI.Modules.Sales.Market.Items
             }
         }
 
-        public IEnumerable<string> Facilities => SalesUnits.Select(x => x.Facility.ToString()).Distinct();
+        public IEnumerable<Facility> Facilities => SalesUnits.Select(x => x.Facility).Distinct().OrderBy(x => x.Name);
         public double Sum => SalesUnits.Sum(x => x.Cost);
 
         public int? DaysToStartProduction
@@ -126,7 +126,21 @@ namespace HVTApp.UI.Modules.Sales.Market.Items
         /// </summary>
         public event Action<ProjectItem> LastSalesUnitRemoveEvent;
 
-        public string ProductsInProject => SalesUnits.Select(x => x.Product.Designation).Distinct().ToStringEnum();
+        public string ProductsInProject => SalesUnits.Select(x => x.Product.Designation).Distinct().OrderBy(x => x).ToStringEnum();
+
+        public IEnumerable<Company> FacilitiesOwners
+        {
+            get
+            {
+                var owners = this.Facilities.Select(x => x.OwnerCompany).ToList();
+                var result = new List<Company>(owners);
+                foreach (var owner in owners)
+                {
+                    result.AddRange(owner.ParentCompanies());
+                }
+                return result.Distinct().OrderBy(x => x.ShortName);
+            }
+        }
 
         public ProjectItem(IEnumerable<SalesUnit> salesUnits, IEventAggregator eventAggregator)
         {
