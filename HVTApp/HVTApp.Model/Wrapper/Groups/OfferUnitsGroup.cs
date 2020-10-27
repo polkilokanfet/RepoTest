@@ -5,7 +5,7 @@ using HVTApp.Model.POCOs;
 namespace HVTApp.Model.Wrapper.Groups
 {
     public class OfferUnitsGroup : 
-        BaseWrappersGroup<OfferUnitsGroup, OfferUnit, OfferUnitWrapper>, 
+        BaseWrappersGroup<OfferUnitsGroup, OfferUnit, OfferUnit2Wrapper>, 
         IGroupValidatableChangeTrackingWithCollection<OfferUnitsGroup, OfferUnit>
     {
         /// <summary>

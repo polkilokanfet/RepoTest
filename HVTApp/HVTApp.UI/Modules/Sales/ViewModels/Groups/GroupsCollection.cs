@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Linq;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
-using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Groups;
 using HVTApp.Model.Wrapper.Groups.SimpleWrappers;
 using Microsoft.Practices.ObjectBuilder2;
