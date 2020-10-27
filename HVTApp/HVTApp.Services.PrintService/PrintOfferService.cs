@@ -162,9 +162,9 @@ namespace HVTApp.Services.PrintService
                     docWriter.StartTableRow();
 
                     docWriter.PrintTableCell(offerUnitsGroup.Position.ToString(), tableCellProperties); //номер строки ТКП
-                    docWriter.PrintTableCell(offerUnitsGroup.Product.ProductType?.Name, tableCellProperties);
+                    docWriter.PrintTableCell(offerUnitsGroup.Model.Product.ProductType?.Name, tableCellProperties);
                     //тип оборудования
-                    docWriter.PrintTableCell(offerUnitsGroup.Product.Designation, tableCellProperties); //обозначение
+                    docWriter.PrintTableCell(offerUnitsGroup.Model.Product.Designation, tableCellProperties); //обозначение
                     docWriter.PrintTableCell($"{offerUnitsGroup.Amount:D}", tableCellProperties, parPropRight); //колличество
                     docWriter.PrintTableCell($"{offerUnitsGroup.Cost:N}", tableCellProperties, parPropRight); //стоимость
                     docWriter.PrintTableCell($"{offerUnitsGroup.Total:N}", tableCellProperties, parPropRight); //сумма
@@ -315,13 +315,13 @@ namespace HVTApp.Services.PrintService
                         int n = 1;
                         var productsIncluded = offerUnitsGroup.ProductsIncluded.GroupBy(x => new
                         {
-                            x.Product.Model,
-                            x.Amount
+                            x.Model.Product,
+                            x.Model.Amount
                         });
                         foreach (var productIncluded in productsIncluded)
                         {
-                            docWriter.PrintParagraph(Environment.NewLine + $"{offerUnitsGroup.Position}.{n++} {productIncluded.Key.Model} - {productIncluded.Count() * productIncluded.Key.Amount} шт.:");
-                            _printProductService.Print(docWriter, productIncluded.Key.Model);
+                            docWriter.PrintParagraph(Environment.NewLine + $"{offerUnitsGroup.Position}.{n++} {productIncluded.Key.Product} - {productIncluded.Count() * productIncluded.Key.Amount} шт.:");
+                            _printProductService.Print(docWriter, productIncluded.Key.Product);
                         }
                     }
                 }
@@ -470,8 +470,8 @@ namespace HVTApp.Services.PrintService
                         docWriter.PrintParagraph("Дополнительное оборудование, включенное в состав:");
                         foreach (var productIncluded in offerUnitsGroup.ProductsIncluded)
                         {
-                            docWriter.PrintParagraph($"{productIncluded.Product} {productIncluded.Amount} шт.:");
-                            _printProductService.Print(docWriter, productIncluded.Product.Model);
+                            docWriter.PrintParagraph($"{productIncluded.Model.Product} {productIncluded.Model.Amount} шт.:");
+                            _printProductService.Print(docWriter, productIncluded.Model.Product);
                         }
                     }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
+using HVTApp.Model.Wrapper.Groups.SimpleWrappers;
 
 namespace HVTApp.Model.Wrapper.Groups
 {
@@ -17,13 +18,13 @@ namespace HVTApp.Model.Wrapper.Groups
         double Price { set; }
         double FixedCost { set; }
         int ProductionTerm { get; }
-        ProductWrapper Product { get; set; }
-        FacilityWrapper Facility { get; set; }
-        PaymentConditionSetWrapper PaymentConditionSet { get; set; }
+        ProductSimpleWrapper Product { get; set; }
+        FacilitySimpleWrapper Facility { get; set; }
+        PaymentConditionSetSimpleWrapper PaymentConditionSet { get; set; }
 
-        IEnumerable<ProductIncludedWrapper> ProductsIncluded { get; }
+        IEnumerable<ProductIncludedSimpleWrapper> ProductsIncluded { get; }
         void AddProductIncluded(ProductIncluded productIncluded, bool isForEach);
-        void RemoveProductIncluded(ProductIncludedWrapper productIncluded);
+        void RemoveProductIncluded(ProductIncludedSimpleWrapper productIncluded);
 
         SalesUnit SalesUnit { get; }
     }

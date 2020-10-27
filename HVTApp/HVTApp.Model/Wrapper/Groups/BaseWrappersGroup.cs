@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
+using HVTApp.Model.Wrapper.Groups.SimpleWrappers;
 using Microsoft.Practices.ObjectBuilder2;
 using Prism.Mvvm;
 
@@ -35,21 +36,21 @@ namespace HVTApp.Model.Wrapper.Groups
 
         public double Total => Groups?.Sum(x => x.Cost) ?? _unit.Cost;
 
-        public FacilityWrapper Facility
+        public FacilitySimpleWrapper Facility
         {
-            get { return GetValue<FacilityWrapper>(); }
+            get { return _unit != null ? _unit.Facility : Groups.First().Facility; }
             set { SetValue(value); }
         }
 
-        public ProductWrapper Product
+        public ProductSimpleWrapper Product
         {
-            get { return GetValue<ProductWrapper>(); }
+            get { return _unit != null ? _unit.Product : Groups.First().Product; }
             set { SetValue(value); }
         }
 
-        public PaymentConditionSetWrapper PaymentConditionSet
+        public PaymentConditionSetSimpleWrapper PaymentConditionSet
         {
-            get { return GetValue<PaymentConditionSetWrapper>(); }
+            get { return GetValue<PaymentConditionSetSimpleWrapper>(); }
             set { SetValue(value); }
         }
 
@@ -221,11 +222,11 @@ namespace HVTApp.Model.Wrapper.Groups
 
         #region Included Products
 
-        public IEnumerable<ProductIncludedWrapper> ProductsIncluded
+        public IEnumerable<ProductIncludedSimpleWrapper> ProductsIncluded
         {
             get
             {
-                return _unit?.ProductsIncluded ?? Groups.SelectMany(x => x.ProductsIncluded).Select(x => x.Model).Distinct().Select(x => new ProductIncludedWrapper(x));
+                return _unit?.ProductsIncluded ?? Groups.SelectMany(x => x.ProductsIncluded).Select(x => x.Model).Distinct().Select(x => new ProductIncludedSimpleWrapper(x));
             }
         }
 
@@ -240,7 +241,7 @@ namespace HVTApp.Model.Wrapper.Groups
             //если вложенных групп нет
             if (Groups == null)
             {
-                _unit.ProductsIncluded.Add(new ProductIncludedWrapper(productIncluded));
+                _unit.ProductsIncluded.Add(new ProductIncludedSimpleWrapper(productIncluded));
             }
 
             //если есть вложенные группы
@@ -276,7 +277,7 @@ namespace HVTApp.Model.Wrapper.Groups
         /// удаление зависимого оборудования
         /// </summary>
         /// <param name="productIncluded"></param>
-        public void RemoveProductIncluded(ProductIncludedWrapper productIncluded)
+        public void RemoveProductIncluded(ProductIncludedSimpleWrapper productIncluded)
         {
             if (Groups == null)
             {
@@ -284,11 +285,11 @@ namespace HVTApp.Model.Wrapper.Groups
             }
             else
             {
-                foreach (var salesUnitsGroup in Groups)
+                foreach (var grp in Groups)
                 {
-                    var pi = salesUnitsGroup.ProductsIncluded.First(x => x.Product.Id == productIncluded.Product.Id &&
-                                                                         x.Count == productIncluded.Count);
-                    salesUnitsGroup.RemoveProductIncluded(pi);
+                    var pi = grp.ProductsIncluded.First(x => x.Model.Product.Id == productIncluded.Model.Product.Id &&
+                                                                         x.Model.Amount == productIncluded.Model.Amount);
+                    grp.RemoveProductIncluded(pi);
                 }
             }
 

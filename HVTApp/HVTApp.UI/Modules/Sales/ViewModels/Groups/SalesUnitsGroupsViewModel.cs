@@ -137,16 +137,16 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             }
 
             salesUnitWrapper.Cost = Groups.SelectedGroup.Cost;
-            salesUnitWrapper.Facility = Groups.SelectedGroup.Facility;
-            salesUnitWrapper.PaymentConditionSet = Groups.SelectedGroup.PaymentConditionSet;
+            salesUnitWrapper.Facility = new FacilityWrapper(Groups.SelectedGroup.Facility.Model);
+            salesUnitWrapper.PaymentConditionSet = new PaymentConditionSetWrapper(Groups.SelectedGroup.PaymentConditionSet.Model);
             salesUnitWrapper.ProductionTerm = Groups.SelectedGroup.ProductionTerm;
-            salesUnitWrapper.Product = Groups.SelectedGroup.Product;
+            salesUnitWrapper.Product = new ProductWrapper(Groups.SelectedGroup.Product.Model);
             salesUnitWrapper.DeliveryDateExpected = Groups.SelectedGroup.DeliveryDateExpected;
                 
             //создаем зависимое оборудование
             foreach (var prodIncl in Groups.SelectedGroup.ProductsIncluded)
             {
-                var pi = new ProductIncluded { Product = prodIncl.Product.Model, Amount = prodIncl.Amount };
+                var pi = new ProductIncluded { Product = prodIncl.Model.Product, Amount = prodIncl.Model.Amount };
                 salesUnitWrapper.ProductsIncluded.Add(new ProductIncludedWrapper(pi));
             }
         }

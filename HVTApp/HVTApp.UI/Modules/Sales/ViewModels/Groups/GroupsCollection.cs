@@ -6,6 +6,7 @@ using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Groups;
+using HVTApp.Model.Wrapper.Groups.SimpleWrappers;
 using Microsoft.Practices.ObjectBuilder2;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
@@ -16,13 +17,13 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
         where TMember : class, IGroupValidatableChangeTracking<TModel>
     {
         private TGroup _selectedGroup;
-        private ProductIncludedWrapper _selectedProductIncluded;
+        private ProductIncludedSimpleWrapper _selectedProductIncluded;
 
         public event Action SumChanged;
 
         public event Action<TGroup> SelectedGroupChanged;
 
-        public event Action<ProductIncludedWrapper> SelectedProductIncludedChanged; 
+        public event Action<ProductIncludedSimpleWrapper> SelectedProductIncludedChanged; 
 
         /// <summary>
         /// Выбранная группа
@@ -42,12 +43,12 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
         /// <summary>
         /// Выбранный зависимый продукт.
         /// </summary>
-        public ProductIncludedWrapper SelectedProductIncluded
+        public ProductIncludedSimpleWrapper SelectedProductIncluded
         {
             get { return _selectedProductIncluded; }
             set
             {
-                if (Equals(_selectedProductIncluded, value)) return;
+                if (Equals(_selectedProductIncluded?.Model, value?.Model)) return;
                 _selectedProductIncluded = value;
                 SelectedProductIncludedChanged?.Invoke(SelectedProductIncluded);
                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(SelectedProductIncluded)));

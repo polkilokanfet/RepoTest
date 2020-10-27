@@ -1,6 +1,7 @@
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
+using HVTApp.Model.Wrapper.Groups.SimpleWrappers;
 
 namespace HVTApp.Model.Wrapper.Groups
 {
@@ -8,9 +9,9 @@ namespace HVTApp.Model.Wrapper.Groups
         where TModel : class, IUnit
     {
         double Cost { get; set; }
-        FacilityWrapper Facility { get; set; }
-        ProductWrapper Product { get; set; }
-        IValidatableChangeTrackingCollection<ProductIncludedWrapper> ProductsIncluded { get; }
-        PaymentConditionSetWrapper PaymentConditionSet { get; set; }
+        FacilitySimpleWrapper Facility { get; set; }
+        ProductSimpleWrapper Product { get; set; }
+        IValidatableChangeTrackingCollection<ProductIncludedSimpleWrapper> ProductsIncluded { get; }
+        PaymentConditionSetSimpleWrapper PaymentConditionSet { get; set; }
     }
 }

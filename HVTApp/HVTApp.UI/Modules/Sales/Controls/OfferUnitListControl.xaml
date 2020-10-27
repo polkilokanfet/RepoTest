@@ -140,8 +140,8 @@
 
                         <dp:FieldLayout>
                             <dp:FieldLayout.Fields>
-                                <dp:Field Name="Product" Label="Продукт" Width="250" AllowResize="True" Converter="{StaticResource WrapperToStringConverter}" />
-                                <dp:NumericField Name="Count" Label="Кол." Width="Auto" />
+                                <dp:Field BindingType="UseAlternateBinding" AlternateBinding="{Binding Model.Product}" Label="Продукт" Width="250" AllowResize="True" Converter="{StaticResource ObjectToStringConverter}" />
+                                <dp:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding Count}" Label="Кол." Width="Auto" />
                             </dp:FieldLayout.Fields>
                         </dp:FieldLayout>
 

@@ -57,7 +57,7 @@ namespace HVTApp.Model.Wrapper.Groups
             }
         }
 
-        public ProductType ProductType => Product.ProductType;
+        public ProductType ProductType => Product.Model.ProductType;
 
         public ProjectUnitsGroup(List<SalesUnit> units) : base(units)
         {

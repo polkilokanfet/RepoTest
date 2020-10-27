@@ -11,6 +11,7 @@ using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Groups;
+using HVTApp.Model.Wrapper.Groups.SimpleWrappers;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
@@ -123,17 +124,17 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
                         .Where(x => x.Groups != null)
                         .SelectMany(x => x.Groups)
                         .SelectMany(x => x.ProductsIncluded)
-                        .SingleOrDefault(x => Equals(x.Id, Groups.SelectedProductIncluded.Id));
+                        .SingleOrDefault(x => Equals(x.Model.Id, Groups.SelectedProductIncluded.Model.Id));
                     productIncluded = productIncluded ?? Groups.SelectedProductIncluded;
 
-                    var original = productIncluded.CustomFixedPrice;
+                    var original = productIncluded.Model.CustomFixedPrice;
 
-                    var viewModel = new SupervisionPriceViewModel(productIncluded, UnitOfWork, Container);
+                    var viewModel = new SupervisionPriceViewModel(new ProductIncludedWrapper(productIncluded.Model), UnitOfWork, Container);
                     var dr = Container.Resolve<IDialogService>().ShowDialog(viewModel);
                     if (!dr.HasValue || dr.Value == false)
                         productIncluded.CustomFixedPrice = original;
 
-                    if (!Equals(productIncluded.CustomFixedPrice, original))
+                    if (!Equals(productIncluded.Model.CustomFixedPrice, original))
                     {
                         RefreshPrice(Groups.SelectedGroup);
                     }
@@ -214,28 +215,28 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
         private void ChangeProductCommand_Execute(TGroup wrappersGroup)
         {
             var product = Container.Resolve<IGetProductService>().GetProduct(wrappersGroup.Product?.Model);
-            if (product == null || product.Id == wrappersGroup.Product.Id) return;
+            if (product == null || product.Id == wrappersGroup.Product?.Model.Id) return;
             product = UnitOfWork.Repository<Product>().GetById(product.Id);
-            wrappersGroup.Product = new ProductWrapper(product);
+            wrappersGroup.Product = new ProductSimpleWrapper(product);
             RefreshPrice(wrappersGroup);
         }
 
         private void ChangeFacilityCommand_Execute(TGroup wrappersGroup)
         {
             var facilities = UnitOfWork.Repository<Facility>().GetAllAsNoTracking();
-            var facility = Container.Resolve<ISelectService>().SelectItem(facilities, wrappersGroup.Facility?.Id);
+            var facility = Container.Resolve<ISelectService>().SelectItem(facilities, wrappersGroup.Facility?.Model.Id);
             if (facility == null) return;
             facility = UnitOfWork.Repository<Facility>().GetById(facility.Id);
-            wrappersGroup.Facility = new FacilityWrapper(facility);
+            wrappersGroup.Facility = new FacilitySimpleWrapper(facility);
         }
 
         private void ChangePaymentsCommand_Execute(TGroup wrappersGroup)
         {
             var sets = UnitOfWork.Repository<PaymentConditionSet>().GetAllAsNoTracking();
-            var set = Container.Resolve<ISelectService>().SelectItem(sets, wrappersGroup.PaymentConditionSet?.Id);
+            var set = Container.Resolve<ISelectService>().SelectItem(sets, wrappersGroup.PaymentConditionSet?.Model.Id);
             if (set == null) return;
             set = UnitOfWork.Repository<PaymentConditionSet>().GetById(set.Id);
-            wrappersGroup.PaymentConditionSet = new PaymentConditionSetWrapper(set);
+            wrappersGroup.PaymentConditionSet = new PaymentConditionSetSimpleWrapper(set);
         }
 
         #endregion

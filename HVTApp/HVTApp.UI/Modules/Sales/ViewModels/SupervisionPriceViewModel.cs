@@ -7,9 +7,9 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 {
     public class SupervisionPriceViewModel : ProductIncludedDetailsViewModel
     {
-        public SupervisionPriceViewModel(ProductIncludedWrapper wrapper, IUnitOfWork unitOfWork, IUnityContainer container) : base(container)
+        public SupervisionPriceViewModel(ProductIncludedWrapper productIncludedWrapper, IUnitOfWork unitOfWork, IUnityContainer container) : base(container)
         {
-            Load(wrapper, unitOfWork);
+            Load(productIncludedWrapper, unitOfWork);
         }
     }
 }

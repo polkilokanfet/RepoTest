@@ -3,6 +3,7 @@ using System.Linq;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
+using HVTApp.Model.Wrapper.Groups.SimpleWrappers;
 
 namespace HVTApp.Model.Wrapper.Groups
 {
@@ -61,22 +62,22 @@ namespace HVTApp.Model.Wrapper.Groups
 
         #region ComplexProperties
 
-        public FacilityWrapper Facility
+        public FacilitySimpleWrapper Facility
         {
-            get { return GetWrapper<FacilityWrapper>(); }
-            set { SetComplexValue<Facility, FacilityWrapper>(Facility, value); }
+            get { return GetWrapper<FacilitySimpleWrapper>(); }
+            set { SetComplexValue<Facility, FacilitySimpleWrapper>(Facility, value); }
         }
 
-        public ProductWrapper Product
+        public ProductSimpleWrapper Product
         {
-            get { return GetWrapper<ProductWrapper>(); }
-            set { SetComplexValue<Product, ProductWrapper>(Product, value); }
+            get { return GetWrapper<ProductSimpleWrapper>(); }
+            set { SetComplexValue<Product, ProductSimpleWrapper>(Product, value); }
         }
 
-        public PaymentConditionSetWrapper PaymentConditionSet
+        public PaymentConditionSetSimpleWrapper PaymentConditionSet
         {
-            get { return GetWrapper<PaymentConditionSetWrapper>(); }
-            set { SetComplexValue<PaymentConditionSet, PaymentConditionSetWrapper>(PaymentConditionSet, value); }
+            get { return GetWrapper<PaymentConditionSetSimpleWrapper>(); }
+            set { SetComplexValue<PaymentConditionSet, PaymentConditionSetSimpleWrapper>(PaymentConditionSet, value); }
         }
 
         public CompanyWrapper Producer
@@ -98,7 +99,7 @@ namespace HVTApp.Model.Wrapper.Groups
             set { SetComplexValue<Specification, SpecificationWrapper>(Specification, value); }
         }
 
-        public ProductType ProductType => Product.ProductType;
+        public ProductType ProductType => Product.Model.ProductType;
 
 
 
@@ -106,7 +107,7 @@ namespace HVTApp.Model.Wrapper.Groups
 
         #region CollectionProperties
 
-        public IValidatableChangeTrackingCollection<ProductIncludedWrapper> ProductsIncluded { get; private set; }
+        public IValidatableChangeTrackingCollection<ProductIncludedSimpleWrapper> ProductsIncluded { get; private set; }
 
         #endregion
 
@@ -114,9 +115,9 @@ namespace HVTApp.Model.Wrapper.Groups
 
         public override void InitializeComplexProperties()
         {
-            InitializeComplexProperty(nameof(this.Facility), Model.Facility == null ? null : new FacilityWrapper(Model.Facility));
-            InitializeComplexProperty(nameof(this.Product), Model.Product == null ? null : new ProductWrapper(Model.Product));
-            InitializeComplexProperty(nameof(this.PaymentConditionSet), Model.PaymentConditionSet == null ? null : new PaymentConditionSetWrapper(Model.PaymentConditionSet));
+            InitializeComplexProperty(nameof(this.Facility), Model.Facility == null ? null : new FacilitySimpleWrapper(Model.Facility));
+            InitializeComplexProperty(nameof(this.Product), Model.Product == null ? null : new ProductSimpleWrapper(Model.Product));
+            InitializeComplexProperty(nameof(this.PaymentConditionSet), Model.PaymentConditionSet == null ? null : new PaymentConditionSetSimpleWrapper(Model.PaymentConditionSet));
             InitializeComplexProperty(nameof(this.Producer), Model.Producer == null ? null : new CompanyWrapper(Model.Producer));
             InitializeComplexProperty(nameof(this.Specification), Model.Specification == null ? null : new SpecificationWrapper(Model.Specification));
             InitializeComplexProperty(nameof(this.Order), Model.Order == null ? null : new OrderWrapper(Model.Order));
@@ -125,7 +126,7 @@ namespace HVTApp.Model.Wrapper.Groups
         protected override void InitializeCollectionProperties()
         {
             if (Model.ProductsIncluded == null) throw new ArgumentException("ProductsIncluded cannot be null");
-            ProductsIncluded = new ValidatableChangeTrackingCollection<ProductIncludedWrapper>(Model.ProductsIncluded.Select(e => new ProductIncludedWrapper(e)));
+            ProductsIncluded = new ValidatableChangeTrackingCollection<ProductIncludedSimpleWrapper>(Model.ProductsIncluded.Select(e => new ProductIncludedSimpleWrapper(e)));
             RegisterCollection(ProductsIncluded, Model.ProductsIncluded);
         }
 

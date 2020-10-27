@@ -219,6 +219,10 @@
     <Compile Include="Wrapper\Custom\Validate\SalesUnitWrapper.cs" />
     <Compile Include="Wrapper\Custom\Validate\SpecificationWrapper.cs" />
     <Compile Include="Wrapper\Groups\BaseWrappersGroup.cs" />
+    <Compile Include="Wrapper\Groups\SimpleWrappers\PaymentConditionSetSimpleWrapper.cs" />
+    <Compile Include="Wrapper\Groups\SimpleWrappers\ProductIncludedSimpleWrapper.cs" />
+    <Compile Include="Wrapper\Groups\SimpleWrappers\ProductSimpleWrapper.cs" />
+    <Compile Include="Wrapper\Groups\SimpleWrappers\FacilitySimpleWrapper.cs" />
     <Compile Include="Wrapper\Groups\IGroupValidatableChangeTrackingWithCollection.cs" />
     <Compile Include="Wrapper\Groups\IWrapperGroup.cs" />
     <Compile Include="Wrapper\Groups\OfferUnitsGroup.cs" />

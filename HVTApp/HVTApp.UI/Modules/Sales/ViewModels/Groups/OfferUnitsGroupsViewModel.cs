@@ -52,15 +52,15 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             if (Groups.SelectedGroup != null)
             {
                 viewModel.ViewModel.Item.Cost = Groups.SelectedGroup.Cost;
-                viewModel.ViewModel.Item.Facility = Groups.SelectedGroup.Facility;
-                viewModel.ViewModel.Item.PaymentConditionSet = Groups.SelectedGroup.PaymentConditionSet;
+                viewModel.ViewModel.Item.Facility = new FacilityWrapper(Groups.SelectedGroup.Facility.Model);
+                viewModel.ViewModel.Item.PaymentConditionSet = new PaymentConditionSetWrapper(Groups.SelectedGroup.PaymentConditionSet.Model);
                 viewModel.ViewModel.Item.ProductionTerm = Groups.SelectedGroup.ProductionTerm;
-                viewModel.ViewModel.Item.Product = Groups.SelectedGroup.Product;
+                viewModel.ViewModel.Item.Product = new ProductWrapper(Groups.SelectedGroup.Product.Model);
 
                 //создаем зависимое оборудование
                 foreach (var prodIncl in Groups.SelectedGroup.ProductsIncluded)
                 {
-                    var pi = new ProductIncluded { Product = prodIncl.Product.Model, Amount = prodIncl.Amount };
+                    var pi = new ProductIncluded { Product = prodIncl.Model.Product, Amount = prodIncl.Model.Amount };
                     viewModel.ViewModel.Item.ProductsIncluded.Add(new ProductIncludedWrapper(pi));
                 }
             }
