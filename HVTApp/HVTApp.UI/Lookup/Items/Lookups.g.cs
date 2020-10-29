@@ -1120,7 +1120,7 @@ namespace HVTApp.UI.Lookup
 
 
 		[OrderStatus(2)]
-        public System.Nullable<System.Boolean> IsActual => Entity.IsActual;
+        public System.Boolean IsActual => Entity.IsActual;
 
 
         #endregion
@@ -1154,7 +1154,7 @@ namespace HVTApp.UI.Lookup
 
 
 		[OrderStatus(2)]
-        public System.Nullable<System.Boolean> IsActual => Entity.IsActual;
+        public System.Boolean IsActual => Entity.IsActual;
 
 
         #endregion

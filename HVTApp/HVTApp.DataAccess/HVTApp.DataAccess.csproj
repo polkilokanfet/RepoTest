@@ -227,6 +227,10 @@
     <Compile Include="Migrations\202010241903377_TeqReqChanges4.Designer.cs">
       <DependentUpon>202010241903377_TeqReqChanges4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202010291038593_IsActualRequired.cs" />
+    <Compile Include="Migrations\202010291038593_IsActualRequired.Designer.cs">
+      <DependentUpon>202010291038593_IsActualRequired.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -350,6 +354,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202010241903377_TeqReqChanges4.resx">
       <DependentUpon>202010241903377_TeqReqChanges4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010291038593_IsActualRequired.resx">
+      <DependentUpon>202010291038593_IsActualRequired.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

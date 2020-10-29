@@ -15,7 +15,7 @@ namespace HVTApp.Model.POCOs
         public string Comment { get; set; }
 
         [Designation("Актуально"), OrderStatus(2)]
-        public bool? IsActual { get; set; } = true;
+        public bool IsActual { get; set; } = true;
 
         public override string ToString()
         {

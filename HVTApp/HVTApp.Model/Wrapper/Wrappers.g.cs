@@ -1804,12 +1804,12 @@ namespace HVTApp.Model.Wrapper
         public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
         public bool CommentIsChanged => GetIsChanged(nameof(Comment));
 
-        public System.Nullable<System.Boolean> IsActual
+        public System.Boolean IsActual
         {
-          get { return GetValue<System.Nullable<System.Boolean>>(); }
+          get { return GetValue<System.Boolean>(); }
           set { SetValue(value); }
         }
-        public System.Nullable<System.Boolean> IsActualOriginalValue => GetOriginalValue<System.Nullable<System.Boolean>>(nameof(IsActual));
+        public System.Boolean IsActualOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsActual));
         public bool IsActualIsChanged => GetIsChanged(nameof(IsActual));
 
         public System.Guid Id
@@ -1867,12 +1867,12 @@ namespace HVTApp.Model.Wrapper
         public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
         public bool CommentIsChanged => GetIsChanged(nameof(Comment));
 
-        public System.Nullable<System.Boolean> IsActual
+        public System.Boolean IsActual
         {
-          get { return GetValue<System.Nullable<System.Boolean>>(); }
+          get { return GetValue<System.Boolean>(); }
           set { SetValue(value); }
         }
-        public System.Nullable<System.Boolean> IsActualOriginalValue => GetOriginalValue<System.Nullable<System.Boolean>>(nameof(IsActual));
+        public System.Boolean IsActualOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsActual));
         public bool IsActualIsChanged => GetIsChanged(nameof(IsActual));
 
         public System.Guid Id

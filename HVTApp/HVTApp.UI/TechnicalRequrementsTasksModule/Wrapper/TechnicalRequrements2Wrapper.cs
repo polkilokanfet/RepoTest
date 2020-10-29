@@ -95,7 +95,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper
         {
             if (IsActual.HasValue && IsActual.Value)
             {
-                if (!Files.Any(x => x.IsActual.HasValue && x.IsActual.Value))
+                if (!Files.Any(x => x.IsActual))
                 {
                     yield return new ValidationResult("Нет ни одного актуального файла.", new []{nameof(Files)});
                 }

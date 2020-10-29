@@ -522,7 +522,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                                     Directory.CreateDirectory(dirPath);
                                 }
 
-                                foreach (var file in requrement.Files.Where(x => x.IsActual.HasValue && x.IsActual.Value))
+                                foreach (var file in requrement.Files.Where(x => x.IsActual))
                                 {
                                     var storageDirectory = GlobalAppProperties.Actual.TechnicalRequrementsFilesPath;
                                     string addToFileName = $"{file.Name.ReplaceUncorrectSimbols().LimitLengh()}";
