@@ -6,13 +6,26 @@
              x:Class="HVTApp.UI.PriceCalculations.Tabs.TabPriceCalculation"
              Header="Задание на расчет себестоимости">
 
-    <infRib:RibbonGroup Caption="Оборудование" 
+    <infRib:RibbonGroup Caption="Оборудование"
                         Visibility="{Binding CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityConverter}}">
-        
-        <infRib:ButtonTool Caption="Добавить" Command="{Binding AddGroupCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
-        
-        <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveGroupCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>
-    
+
+        <infRib:ButtonTool Caption="Добавить"
+                           Command="{Binding AddGroupCommand}"
+                           SmallImage="/HVTApp.UI;component/Images/add.png" />
+
+        <infRib:ButtonTool Caption="Удалить"
+                           Command="{Binding RemoveGroupCommand}"
+                           SmallImage="/HVTApp.UI;component/Images/remove.png" />
+
+    </infRib:RibbonGroup>
+
+    <infRib:RibbonGroup Caption="Оборудование"
+                        Visibility="{Binding CurrentUserIsBackManager, Converter={StaticResource BooleanToVisibilityConverter}}">
+
+        <infRib:ButtonTool Caption="Удалить"
+                           Command="{Binding RemoveGroupCommand}"
+                           SmallImage="/HVTApp.UI;component/Images/remove.png" />
+
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Сралчахвост" 
