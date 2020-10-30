@@ -124,7 +124,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Supervision
 
             //выигранное оборудование со включенным шеф-монтажом
             var salesUnits = UnitOfWork.Repository<SalesUnit>()
-                    .Find(x => x.IsWon) //только выигранное оборудование
+                    .Find(x => !x.IsRemoved && x.IsWon) //только выигранное оборудование
                     .Except(supervisions.Select(x => x.SalesUnit)) //еще не сохраненное
                     .Where(x => x.ProductsIncluded.Any(pi => pi.Product.ProductBlock.IsSupervision)); //в которое включен шеф-монтаж
 

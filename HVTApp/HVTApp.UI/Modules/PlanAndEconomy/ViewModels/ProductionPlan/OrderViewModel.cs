@@ -120,7 +120,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
             //оставляем юниты без заказов либо с редактируемым заказом
             //исключаем юниты без сигнала к производству
             var salesUnits = UnitOfWork.Repository<SalesUnit>()
-                .Find(x => x.SignalToStartProduction.HasValue && (x.Order == null || x.Order.Id == Item.Id));
+                .Find(x => !x.IsRemoved && x.SignalToStartProduction.HasValue && (x.Order == null || x.Order.Id == Item.Id));
 
             _unitsWrappers = new ValidatableChangeTrackingCollection<SalesUnitOrderItem>(salesUnits.Select(x => new SalesUnitOrderItem(x, x.ActualPriceCalculationItem(UnitOfWork))));
 

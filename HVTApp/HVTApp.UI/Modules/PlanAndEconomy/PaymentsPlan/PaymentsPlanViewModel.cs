@@ -28,7 +28,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsPlan
 
         public void Load()
         {
-            var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => !x.IsLoosen && !x.IsPaid && x.Project.ForReport);
+            var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => !x.IsRemoved && !x.IsLoosen && !x.IsPaid && x.Project.ForReport);
             Load(salesUnits);
         }
 

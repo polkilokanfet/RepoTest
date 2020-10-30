@@ -52,7 +52,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
             _unitOfWork = Container.Resolve<IUnitOfWork>();
 
             var salesUnits = _unitOfWork.Repository<SalesUnit>().GetAll()
-                .Where(x => !x.IsLoosen && (x.Order != null || x.OrderInTakeDate <= DateTime.Today))
+                .Where(x => !x.IsRemoved && !x.IsLoosen && (x.Order != null || x.OrderInTakeDate <= DateTime.Today))
                 .OrderBy(salesUnit => salesUnit.EndProductionDateCalculated)
                 .Select(salesUnit => new SalesUnitDates(salesUnit))
                 .ToList();

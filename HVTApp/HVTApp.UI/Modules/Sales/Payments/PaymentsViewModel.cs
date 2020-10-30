@@ -82,7 +82,7 @@ namespace HVTApp.UI.Modules.Sales.Payments
             //загружаем все юниты и фиксируем их в коллекции для отслеживания изменений
             _salesUnitWrappers = new ValidatableChangeTrackingCollection<SalesUnitWrapper1>(
                 UnitOfWork.Repository<SalesUnit>()
-                .Find(x => !x.IsPaid && !x.IsLoosen && x.Project.ForReport && x.Project.Manager.IsAppCurrentUser())
+                .Find(x => !x.IsRemoved && !x.IsLoosen && !x.IsPaid && x.Project.ForReport && x.Project.Manager.IsAppCurrentUser())
                 .Select(x => new SalesUnitWrapper1(x, UnitOfWork)));
 
             //подписка на изменение

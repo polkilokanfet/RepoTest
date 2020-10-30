@@ -152,7 +152,7 @@ namespace HVTApp.UI.Modules.Sales.Production
             UnitOfWork = Container.Resolve<IUnitOfWork>();
 
             //все единицы текущего пользователя
-            var salesUnitsAll = UnitOfWork.Repository<SalesUnit>().Find(x => !x.IsLoosen && x.Project.Manager.IsAppCurrentUser());
+            var salesUnitsAll = UnitOfWork.Repository<SalesUnit>().Find(x => !x.IsRemoved && !x.IsLoosen && x.Project.Manager.IsAppCurrentUser());
             //задачи из ТСЕ
             var requrementsTasks = UnitOfWork.Repository<TechnicalRequrementsTask>().Find(x => x.Start.HasValue);
 

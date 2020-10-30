@@ -19,7 +19,7 @@ namespace HVTApp.UI.Modules.Reports.Reference
 
         protected override void GetData()
         {
-            var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => x.IsWon);
+            var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => !x.IsRemoved && x.IsWon);
             var groups = salesUnits.GroupBy(x => x, new SalesUnitsReferenceComparer());
             _items = groups.Select(x => new ReferenceItem(x)).OrderBy(x => x.ShipmentDate);
         }

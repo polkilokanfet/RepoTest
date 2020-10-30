@@ -94,38 +94,42 @@ namespace HVTApp.UI.Modules.Sales.Market
 
         private void RemoveProjectCommand_Execute()
         {
+            var dr = _messageService.ShowYesNoMessageDialog("Удалить проект.", "Вы уверены, что хотите удалить проект?", defaultNo: true);
+            if (dr != MessageDialogResult.Yes)
+                return;
+
             var unitOfWork = Container.Resolve<IUnitOfWork>();
             var salesUnits = unitOfWork.Repository<SalesUnit>()
                 .Find(x => x.Project.Id == SelectedProjectItem.Project.Id)
-                .Where(x => !x.IsRemoved).ToList();
+                .Where(x => !x.IsRemoved)
+                .ToList();
 
             if (salesUnits.Any(x => x.Order != null))
             {
-                _messageService.ShowOkMessageDialog("Информация", "Нельзя полностью удалить проект, т.к. в нем есть оборудование, размещенное в производстве.");
+                _messageService.ShowOkMessageDialog("Информация", "Нельзя удалить проект целиком, т.к. в нем есть оборудование, размещенное в производстве.");
                 return;
             }
 
             //проверяем не включено ли оборудование в какой-либо бюджет
             var budgetUnits = unitOfWork.Repository<BudgetUnit>().Find(x => !x.IsRemoved);
-            if (salesUnits.Select(x => x.Id).Intersect(budgetUnits.Select(x => x.SalesUnit.Id)).Any())
+            var idIntersection = salesUnits.Select(x => x.Id).Intersect(budgetUnits.Select(x => x.SalesUnit.Id)).ToList();
+            if (idIntersection.Any())
             {
-                _messageService.ShowOkMessageDialog("Информация", "Нельзя полностью удалить проект, т.к. в нем есть оборудование, включенное в бюджет.");
-                return;
+                var dr1 = _messageService.ShowYesNoMessageDialog("Информация", "В проекте есть оборудование, занесенное в бюджет. Вы уверены, что хотите удалить его?", defaultNo:true);
+                if (dr1 != MessageDialogResult.Yes)
+                    return;
             }
-
-            var dr = _messageService.ShowYesNoMessageDialog("Удалить проект.", "Вы уверены, что хотите удалить проект?", defaultNo: true);
-            if (dr != MessageDialogResult.Yes) return;
 
             foreach (var salesUnit in salesUnits)
             {
                 if (salesUnit.Order != null) continue;
-                if (salesUnit.AllowTotalRemove)
+                if (idIntersection.Contains(salesUnit.Id))
                 {
-                    unitOfWork.Repository<SalesUnit>().Delete(salesUnit);
+                    salesUnit.IsRemoved = true;
                 }
                 else
                 {
-                    salesUnit.IsRemoved = true;
+                    unitOfWork.Repository<SalesUnit>().Delete(salesUnit);
                 }
             }
             unitOfWork.SaveChanges();

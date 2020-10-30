@@ -171,8 +171,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             //для бэка
             if (CurrentUserIsBackManager)
             {
-                calculations = UnitOfWork.Repository<TechnicalRequrementsTask>()
-                        .Find(x => x.Start.HasValue && x.BackManager != null && x.BackManager.IsAppCurrentUser());
+                calculations = UnitOfWork.Repository<TechnicalRequrementsTask>().Find(x => x.Start.HasValue && x.BackManager != null && x.BackManager.IsAppCurrentUser());
             }
             //для боса бэка
             else if(CurrentUserIsBackManagerBoss)
@@ -190,6 +189,12 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
         private bool IsTaskOfManager(TechnicalRequrementsTask task)
         {
+            if (!task.Requrements.Any())
+                return false;
+
+            if (!task.Requrements.First().SalesUnits.Any())
+                return false;
+
             return task.Requrements.First().SalesUnits.First().Project.Manager.IsAppCurrentUser();
         }
     }

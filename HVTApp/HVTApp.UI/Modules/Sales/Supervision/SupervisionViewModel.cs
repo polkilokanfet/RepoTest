@@ -64,15 +64,14 @@ namespace HVTApp.UI.Modules.Sales.Supervision
         protected override void GetData()
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
-            var userId = GlobalAppProperties.User.Id;
 
             //шеф-монтажи (сохраненные)
-            var supervisions = UnitOfWork.Repository<Model.POCOs.Supervision>().Find(x => x.SalesUnit.Project.Manager.Id == userId);
+            var supervisions = UnitOfWork.Repository<Model.POCOs.Supervision>().Find(x => x.SalesUnit.Project.Manager.IsAppCurrentUser());
             Wrappers = supervisions.Select(supervision => new SupervisionWr(supervision)).ToList();
 
             //выигранное оборудование со включенным шеф-монтажом
             var salesUnits = UnitOfWork.Repository<SalesUnit>()
-                    .Find(x => x.IsWon && x.Project.Manager.Id == userId) //только выигранное оборудование
+                    .Find(x => !x.IsRemoved && x.IsWon && x.Project.Manager.IsAppCurrentUser()) //только выигранное оборудование
                     .Except(supervisions.Select(x => x.SalesUnit)) //еще не сохраненное
                     .Where(x => x.ProductsIncluded.Any(pi => pi.Product.ProductBlock.IsSupervision)); //в которое включен шеф-монтаж
 

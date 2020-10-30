@@ -69,8 +69,8 @@ namespace HVTApp.UI.Modules.Reports.SalesReport
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
             var salesUnits = GlobalAppProperties.User.RoleCurrent == Role.SalesManager
-                ? UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.ForReport && x.Project.Manager.IsAppCurrentUser())
-                : UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.ForReport);
+                ? UnitOfWork.Repository<SalesUnit>().Find(x => !x.IsRemoved && x.Project.ForReport && x.Project.Manager.IsAppCurrentUser())
+                : UnitOfWork.Repository<SalesUnit>().Find(x => !x.IsRemoved && x.Project.ForReport);
 
             //проставляем количество родительских юнитов включенного оборудования
             var productsIncluded = salesUnits.SelectMany(x => x.ProductsIncluded).ToList();

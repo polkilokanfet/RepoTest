@@ -35,7 +35,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel
             if(_isNew)
                 return new SalesUnit[] {};
 
-            return UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Id == project.Id);
+            return UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Id == project.Id && !x.IsRemoved);
         }
     }
 }

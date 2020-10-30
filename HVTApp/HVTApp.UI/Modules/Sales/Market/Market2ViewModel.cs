@@ -223,8 +223,8 @@ namespace HVTApp.UI.Modules.Sales.Market
             _tenders = UnitOfWork.Repository<Tender>().GetAll();
 
             var salesUnits = GlobalAppProperties.User.RoleCurrent == Role.Admin
-                ? UnitOfWork.Repository<SalesUnit>().GetAll()
-                : UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Manager.IsAppCurrentUser());
+                ? UnitOfWork.Repository<SalesUnit>().Find(x => !x.IsRemoved)
+                : UnitOfWork.Repository<SalesUnit>().Find(x => !x.IsRemoved && x.Project.Manager.IsAppCurrentUser());
 
             var items = salesUnits
                 .GroupBy(x => x, new SalesUnitsComparer())

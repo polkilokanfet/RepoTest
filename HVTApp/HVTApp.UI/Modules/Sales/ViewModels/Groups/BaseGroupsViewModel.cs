@@ -54,32 +54,16 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             RemoveCommand = new DelegateCommand(
                 () =>
                 {
-                    if (!CanRemoveGroup(Groups.SelectedGroup))
-                        return;
-
-                    if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Удалить?", defaultNo:true) == MessageDialogResult.No)
-                        return;
-
-                    //удаление из группы
-                    if (Groups.Contains(Groups.SelectedGroup))
+                    if (CanRemoveGroup(Groups.SelectedGroup))
                     {
-                        Groups.Remove(Groups.SelectedGroup);
-                    }
-                    //удаление из подгруппы
-                    else
-                    {
-                        var group = Groups.Single(x => x.Groups != null && x.Groups.Contains(Groups.SelectedGroup as TMember));
-                        group.Groups.Remove(Groups.SelectedGroup as TMember);
-
-                        //если группа стала пустая - удалить
-                        if (!group.Groups.Any())
+                        if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Вы уверены, что хотите удалить это оборудование?", defaultNo: true) != MessageDialogResult.Yes)
                         {
-                            Groups.Remove(group);
+                            return;
                         }
+
+                        RemoveGroup(Groups.SelectedGroup);
+                        Groups.SelectedGroup = default(TGroup);
                     }
-
-                    Groups.SelectedGroup = default(TGroup);
-
                 }, 
                 () => Groups.SelectedGroup != null);
 
@@ -146,12 +130,33 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             Groups.SumChanged += () => { OnPropertyChanged(nameof(Sum)); };
         }
 
+        protected virtual void RemoveGroup(TGroup targetGroup)
+        {
+            //удаление из группы
+            if (Groups.Contains(targetGroup))
+            {
+                Groups.Remove(targetGroup);
+            }
+            //удаление из подгруппы
+            else
+            {
+                var parentGroup = Groups.Single(x => x.Groups != null && x.Groups.Contains(targetGroup as TMember));
+                parentGroup.Groups.Remove(targetGroup as TMember);
+
+                //если группа стала пустая - удалить
+                if (!parentGroup.Groups.Any())
+                {
+                    Groups.Remove(parentGroup);
+                }
+            }
+        }
+
         /// <summary>
         /// Можно ли удалять группу?
         /// </summary>
-        /// <param name="grp"></param>
+        /// <param name="targetGroup"></param>
         /// <returns></returns>
-        protected virtual bool CanRemoveGroup(TGroup grp)
+        protected virtual bool CanRemoveGroup(TGroup targetGroup)
         {
             return true;
         }
@@ -258,7 +263,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             UnitOfWork.Repository<TModel>().AddRange(added);
 
             //удаляем удаленные
-            var removedModels = GetRemovedUnits().ToList();
+            var removedModels = GetUnitsForTotalRemove().ToList();
             //сообщаем об удалении (так высоко, т.к. после удаления объект рушится)
             removedModels.ForEach(x => eventAggregator.GetEvent<TAfterRemoveEvent>().Publish(x));
             UnitOfWork.Repository<TModel>().DeleteRange(removedModels);
@@ -278,7 +283,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             return added.Select(x => x.Model).Distinct();
         }
 
-        protected IEnumerable<TModel> GetRemovedUnits()
+        protected virtual IEnumerable<TModel> GetUnitsForTotalRemove()
         {
             var added = Groups.AddedItems.Where(x => x.Groups != null).SelectMany(x => x.Groups).Cast<TGroup>().ToList();
             added = added.Concat(Groups.AddedItems).ToList();

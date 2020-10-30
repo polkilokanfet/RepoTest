@@ -40,6 +40,12 @@ namespace HVTApp.Model.Wrapper.Groups
             set { SetValue(value); }
         }
 
+        public bool IsRemoved
+        {
+            get { return GetValue<bool>(); }
+            set { SetValue(value); }
+        }
+
         public DateTime SignalToStartProduction
         {
             set { SetValue(value); }

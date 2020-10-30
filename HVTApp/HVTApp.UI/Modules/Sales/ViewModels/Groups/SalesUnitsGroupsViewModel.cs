@@ -12,6 +12,7 @@ using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Groups;
+using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 
@@ -19,53 +20,63 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
 {
     public class SalesUnitsGroupsViewModel : BaseGroupsViewModel<ProjectUnitsGroup, ProjectUnitsGroup, SalesUnit, AfterSaveSalesUnitEvent, AfterRemoveSalesUnitEvent>, IGroupsViewModel<SalesUnit, ProjectWrapper>
     {
-        protected override bool CanRemoveGroup(ProjectUnitsGroup grp)
+        private ProjectWrapper _projectWrapper;
+
+        protected override bool CanRemoveGroup(ProjectUnitsGroup targetGroup)
         {
-            if (!grp.CanRemove)
+            if (!targetGroup.CanRemove)
             {
                 Container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", "Удаление невозможно, т.к. это оборудование размещено в производстве.");
-                return grp.CanRemove;
-            }
-
-            //проверяем не включено ли оборудование в какой-либо бюджет
-            var salesUnits = grp.Groups == null
-                ? new List<SalesUnit> {grp.SalesUnit}
-                : new List<SalesUnit>(grp.Groups.Select(x => x.SalesUnit));
-            var budgetUnits = UnitOfWork.Repository<BudgetUnit>().Find(x => !x.IsRemoved);
-
-            if (salesUnits.Select(x => x.Id).Intersect(budgetUnits.Select(x => x.SalesUnit.Id)).Any())
-            {
-                Container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", "Удаление невозможно, т.к. это оборудование включено в бюджет.");
-                return false;
+                return targetGroup.CanRemove;
             }
 
             return true;
         }
 
-        private ProjectWrapper _projectWrapper;
+        protected override void RemoveGroup(ProjectUnitsGroup targetGroup)
+        {
+            var salesUnits = targetGroup.Groups == null
+                ? new List<SalesUnit> {targetGroup.SalesUnit}
+                : new List<SalesUnit>(targetGroup.Groups.Select(x => x.SalesUnit));
 
+            //проверяем не включено ли оборудование в какой-либо бюджет
+            var budgetUnits = UnitOfWork.Repository<BudgetUnit>().Find(x => !x.IsRemoved);
+
+            var idIntersection = salesUnits.Select(x => x.Id).Intersect(budgetUnits.Select(x => x.SalesUnit.Id)).ToList();
+            if (idIntersection.Any())
+            {
+                var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Информация", "Это оборудование включено в бюджет. Вы уверены, что хотите удалить его?");
+                if (dr == MessageDialogResult.Yes)
+                {
+                    salesUnits.Where(x => idIntersection.Contains(x.Id)).ForEach(x => x.IsRemoved = true);
+                    base.RemoveGroup(targetGroup);
+                }
+            }
+        }
+
+        protected override IEnumerable<SalesUnit> GetUnitsForTotalRemove()
+        {
+            return base.GetUnitsForTotalRemove().Where(x => !x.IsRemoved);
+        }
+
+        /// <summary>
+        /// Изменить производителя
+        /// </summary>
         public ICommand ChangeProducerCommand { get; }
-
 
         public SalesUnitsGroupsViewModel(IUnityContainer container) : base(container)
         {
-            ChangeProducerCommand = new DelegateCommand<ProjectUnitsGroup>(ChangeProducerCommand_Execute, ChangeProducerCommand_CanExecute);
+            ChangeProducerCommand = new DelegateCommand<ProjectUnitsGroup>(
+                projectUnitsGroup =>
+                {
+                    var producers = UnitOfWork.Repository<Company>().Find(x => x.ActivityFilds.Select(af => af.ActivityFieldEnum).Contains(ActivityFieldEnum.ProducerOfHighVoltageEquipment));
+                    var producer = Container.Resolve<ISelectService>().SelectItem(producers, projectUnitsGroup.Producer?.Id);
+                    if (producer == null) return;
+                    producer = UnitOfWork.Repository<Company>().GetById(producer.Id);
+                    projectUnitsGroup.Producer = new CompanyWrapper(producer);
+                }, 
+                projectUnitsGroup => projectUnitsGroup?.Specification == null);
         }
-
-        private bool ChangeProducerCommand_CanExecute(ProjectUnitsGroup @group)
-        {
-            return @group?.Specification == null;
-        }
-
-        private void ChangeProducerCommand_Execute(ProjectUnitsGroup @group)
-        {
-            var producers = UnitOfWork.Repository<Company>().Find(x => x.ActivityFilds.Select(af => af.ActivityFieldEnum).Contains(ActivityFieldEnum.ProducerOfHighVoltageEquipment));
-            var producer = Container.Resolve<ISelectService>().SelectItem(producers, @group.Producer?.Id);
-            if (producer == null) return;
-            producer = UnitOfWork.Repository<Company>().GetById(producer.Id);
-            @group.Producer = new CompanyWrapper(producer);
-        }
-
 
         protected override List<ProjectUnitsGroup> GetGroups(IEnumerable<SalesUnit> units)
         {
@@ -85,7 +96,6 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
         {
             return @group.OrderInTakeDate < DateTime.Today ? @group.OrderInTakeDate : DateTime.Today;
         }
-
 
         #region AddCommand
 
@@ -170,7 +180,5 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
         }
 
         #endregion
-
-
     }
 }

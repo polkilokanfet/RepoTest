@@ -42,7 +42,7 @@ namespace HVTApp.UI.Modules.Director.ViewModels
         {
             IsLoaded = false;
 
-            var salesUnits = UnitOfWork.Repository<SalesUnit>().GetAll().Where(x => x.Project.ForReport);
+            var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => !x.IsRemoved && x.Project.ForReport);
 
             MarketUnits.Clear();
             MarketUnits.AddRange(

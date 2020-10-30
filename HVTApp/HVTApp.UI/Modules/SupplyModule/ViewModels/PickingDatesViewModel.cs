@@ -54,7 +54,7 @@ namespace HVTApp.UI.Modules.SupplyModule.ViewModels
             UnitOfWork = Container.Resolve<IUnitOfWork>();
 
             var salesUnits = UnitOfWork.Repository<SalesUnit>()
-                .Find(x => !x.IsLoosen && !x.Product.ProductBlock.IsService && x.OrderInTakeDate <= DateTime.Today)
+                .Find(x => !x.IsRemoved && !x.IsLoosen && !x.Product.ProductBlock.IsService && x.OrderInTakeDate <= DateTime.Today)
                 .OrderBy(salesUnit => salesUnit.EndProductionDateCalculated)
                 .Select(salesUnit => new SalesUnitDates(salesUnit))
                 .ToList();

@@ -28,8 +28,8 @@ namespace HVTApp.UI.Modules.Reports.CommonInfo
         protected override void GetData()
         {
             var salesUnits = GlobalAppProperties.User.RoleCurrent == Role.SalesManager
-                ? UnitOfWork.Repository<SalesUnit>().Find(x => x.OrderInTakeDate.BetweenDates(StartDate, FinishDate) && !x.IsLoosen && x.Project.Manager.IsAppCurrentUser())
-                : UnitOfWork.Repository<SalesUnit>().Find(x => x.OrderInTakeDate.BetweenDates(StartDate, FinishDate) && !x.IsLoosen);
+                ? UnitOfWork.Repository<SalesUnit>().Find(x => x.OrderInTakeDate.BetweenDates(StartDate, FinishDate) && !x.IsRemoved && !x.IsLoosen && x.Project.Manager.IsAppCurrentUser())
+                : UnitOfWork.Repository<SalesUnit>().Find(x => x.OrderInTakeDate.BetweenDates(StartDate, FinishDate) && !x.IsRemoved && !x.IsLoosen);
 
             //проставляем количество родительских юнитов включенного оборудования
             var productsIncluded = salesUnits.SelectMany(x => x.ProductsIncluded).ToList();
