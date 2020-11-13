@@ -34,6 +34,9 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
         public TechnicalRequrementsTasksViewModel(IUnityContainer container) : base(container)
         {
+            //костыль - удаление пустых задач
+            RemoveFailTasks();
+
             Load();
 
             this.SelectedLookupChanged += lookup =>
@@ -160,6 +163,32 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 ((ICollection<TechnicalRequrementsTaskLookup>)Lookups).Add(new TechnicalRequrementsTaskLookup(task));
             }
 
+        }
+
+        //костыль - удаление пустых задач
+        private void RemoveFailTasks()
+        {
+            if (CurrentUserIsBackManagerBoss)
+            {
+                List<TechnicalRequrementsTask> technicalRequrementsTasks = UnitOfWork.Repository<TechnicalRequrementsTask>().GetAll();
+                foreach (var task in technicalRequrementsTasks)
+                {
+                    foreach (TechnicalRequrements requrement in task.Requrements.ToList())
+                    {
+                        if (!requrement.SalesUnits.Any())
+                        {
+                            UnitOfWork.Repository<TechnicalRequrements>().Delete(requrement);
+                        }
+                    }
+
+                    if (!task.Requrements.Any())
+                    {
+                        UnitOfWork.Repository<TechnicalRequrementsTask>().Delete(task);
+                    }
+                }
+
+                UnitOfWork.SaveChanges();
+            }
         }
 
         public override void Load()

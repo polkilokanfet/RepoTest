@@ -215,8 +215,11 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                 var items = failCalculation.PriceCalculationItems.Intersect(failItems).ToList();
                 items.ForEach(item => failCalculation.PriceCalculationItems.Remove(item));
                 unitOfWork.Repository<PriceCalculationItem>().DeleteRange(items);
-                if(!failCalculation.PriceCalculationItems.Any())
+                if (!failCalculation.PriceCalculationItems.Any())
+                {
+                    unitOfWork.Repository<PriceCalculationFile>().DeleteRange(failCalculation.Files);
                     unitOfWork.Repository<PriceCalculation>().Delete(failCalculation);
+                }
             }
             unitOfWork.SaveChanges();
         }
