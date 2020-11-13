@@ -38,16 +38,17 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:TextField Name="FullName" Label="Наименование" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="ShortName" Label="Сокращенное наименование" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="Form" Label="Организационная форма" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="ParentCompany" Label="Родительская компания" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="AddressLegal" Label="Юридический адрес" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Kpp" Label="КПП" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="Inn" Label="ИНН" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="ActivityFilds" Label="Сферы деятельности" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <infg:TextField Name="BankDetailsList" Label="Банковские реквизиты" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
+
+                        <infg:TextField Name="FullName" Label="Наименование" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="ShortName" Label="Сокращенное наименование" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="Form" Label="Организационная форма" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField Name="ParentCompany" Label="Родительская компания" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField Name="AddressLegal" Label="Юридический адрес" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField Name="Kpp" Label="КПП" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="Inn" Label="ИНН" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="ActivityFilds" Label="Сферы деятельности" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                        <infg:TextField Name="BankDetailsList" Label="Банковские реквизиты" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                        <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

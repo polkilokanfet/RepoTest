@@ -10,6 +10,7 @@
 
 
 
+
 using System;
 using System.Linq;
 using HVTApp.Model.POCOs;
@@ -24,6 +25,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Name
         public System.String Name
         {
           get { return GetValue<System.String>(); }
@@ -32,6 +34,7 @@ namespace HVTApp.Model.Wrapper
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
         public bool NameIsChanged => GetIsChanged(nameof(Name));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -65,6 +68,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Percent
         public System.Double Percent
         {
           get { return GetValue<System.Double>(); }
@@ -73,6 +77,7 @@ namespace HVTApp.Model.Wrapper
         public System.Double PercentOriginalValue => GetOriginalValue<System.Double>(nameof(Percent));
         public bool PercentIsChanged => GetIsChanged(nameof(Percent));
 
+        //Days
         public System.Int32 Days
         {
           get { return GetValue<System.Int32>(); }
@@ -81,6 +86,7 @@ namespace HVTApp.Model.Wrapper
         public System.Int32 DaysOriginalValue => GetOriginalValue<System.Int32>(nameof(Days));
         public bool DaysIsChanged => GetIsChanged(nameof(Days));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -114,6 +120,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Name
         public System.String Name
         {
           get { return GetValue<System.String>(); }
@@ -122,6 +129,7 @@ namespace HVTApp.Model.Wrapper
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
         public bool NameIsChanged => GetIsChanged(nameof(Name));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -140,6 +148,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Date
         public System.DateTime Date
         {
           get { return GetValue<System.DateTime>(); }
@@ -148,6 +157,7 @@ namespace HVTApp.Model.Wrapper
         public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
         public bool DateIsChanged => GetIsChanged(nameof(Date));
 
+        //DateStart
         public System.DateTime DateStart
         {
           get { return GetValue<System.DateTime>(); }
@@ -156,6 +166,7 @@ namespace HVTApp.Model.Wrapper
         public System.DateTime DateStartOriginalValue => GetOriginalValue<System.DateTime>(nameof(DateStart));
         public bool DateStartIsChanged => GetIsChanged(nameof(DateStart));
 
+        //DateFinish
         public System.DateTime DateFinish
         {
           get { return GetValue<System.DateTime>(); }
@@ -164,6 +175,7 @@ namespace HVTApp.Model.Wrapper
         public System.DateTime DateFinishOriginalValue => GetOriginalValue<System.DateTime>(nameof(DateFinish));
         public bool DateFinishIsChanged => GetIsChanged(nameof(DateFinish));
 
+        //Name
         public System.String Name
         {
           get { return GetValue<System.String>(); }
@@ -172,6 +184,7 @@ namespace HVTApp.Model.Wrapper
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
         public bool NameIsChanged => GetIsChanged(nameof(Name));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -205,6 +218,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //OrderInTakeDate
         public System.DateTime OrderInTakeDate
         {
           get { return GetValue<System.DateTime>(); }
@@ -213,6 +227,7 @@ namespace HVTApp.Model.Wrapper
         public System.DateTime OrderInTakeDateOriginalValue => GetOriginalValue<System.DateTime>(nameof(OrderInTakeDate));
         public bool OrderInTakeDateIsChanged => GetIsChanged(nameof(OrderInTakeDate));
 
+        //RealizationDate
         public System.DateTime RealizationDate
         {
           get { return GetValue<System.DateTime>(); }
@@ -221,6 +236,7 @@ namespace HVTApp.Model.Wrapper
         public System.DateTime RealizationDateOriginalValue => GetOriginalValue<System.DateTime>(nameof(RealizationDate));
         public bool RealizationDateIsChanged => GetIsChanged(nameof(RealizationDate));
 
+        //OrderInTakeDateByManager
         public System.DateTime OrderInTakeDateByManager
         {
           get { return GetValue<System.DateTime>(); }
@@ -229,6 +245,7 @@ namespace HVTApp.Model.Wrapper
         public System.DateTime OrderInTakeDateByManagerOriginalValue => GetOriginalValue<System.DateTime>(nameof(OrderInTakeDateByManager));
         public bool OrderInTakeDateByManagerIsChanged => GetIsChanged(nameof(OrderInTakeDateByManager));
 
+        //RealizationDateByManager
         public System.DateTime RealizationDateByManager
         {
           get { return GetValue<System.DateTime>(); }
@@ -237,6 +254,7 @@ namespace HVTApp.Model.Wrapper
         public System.DateTime RealizationDateByManagerOriginalValue => GetOriginalValue<System.DateTime>(nameof(RealizationDateByManager));
         public bool RealizationDateByManagerIsChanged => GetIsChanged(nameof(RealizationDateByManager));
 
+        //Cost
         public System.Double Cost
         {
           get { return GetValue<System.Double>(); }
@@ -245,6 +263,7 @@ namespace HVTApp.Model.Wrapper
         public System.Double CostOriginalValue => GetOriginalValue<System.Double>(nameof(Cost));
         public bool CostIsChanged => GetIsChanged(nameof(Cost));
 
+        //CostByManager
         public System.Double CostByManager
         {
           get { return GetValue<System.Double>(); }
@@ -253,6 +272,7 @@ namespace HVTApp.Model.Wrapper
         public System.Double CostByManagerOriginalValue => GetOriginalValue<System.Double>(nameof(CostByManager));
         public bool CostByManagerIsChanged => GetIsChanged(nameof(CostByManager));
 
+        //IsRemoved
         public System.Boolean IsRemoved
         {
           get { return GetValue<System.Boolean>(); }
@@ -261,6 +281,7 @@ namespace HVTApp.Model.Wrapper
         public System.Boolean IsRemovedOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsRemoved));
         public bool IsRemovedIsChanged => GetIsChanged(nameof(IsRemoved));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -308,6 +329,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Name
         public System.String Name
         {
           get { return GetValue<System.String>(); }
@@ -316,6 +338,7 @@ namespace HVTApp.Model.Wrapper
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
         public bool NameIsChanged => GetIsChanged(nameof(Name));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -349,6 +372,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Name
         public System.String Name
         {
           get { return GetValue<System.String>(); }
@@ -357,6 +381,7 @@ namespace HVTApp.Model.Wrapper
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
         public bool NameIsChanged => GetIsChanged(nameof(Name));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -396,6 +421,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Designation
         public System.String Designation
         {
           get { return GetValue<System.String>(); }
@@ -404,6 +430,7 @@ namespace HVTApp.Model.Wrapper
         public System.String DesignationOriginalValue => GetOriginalValue<System.String>(nameof(Designation));
         public bool DesignationIsChanged => GetIsChanged(nameof(Designation));
 
+        //StructureCostNumber
         public System.String StructureCostNumber
         {
           get { return GetValue<System.String>(); }
@@ -412,6 +439,7 @@ namespace HVTApp.Model.Wrapper
         public System.String StructureCostNumberOriginalValue => GetOriginalValue<System.String>(nameof(StructureCostNumber));
         public bool StructureCostNumberIsChanged => GetIsChanged(nameof(StructureCostNumber));
 
+        //Comment
         public System.String Comment
         {
           get { return GetValue<System.String>(); }
@@ -420,6 +448,7 @@ namespace HVTApp.Model.Wrapper
         public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
         public bool CommentIsChanged => GetIsChanged(nameof(Comment));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -453,6 +482,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //StartPerformer
         public System.Nullable<System.DateTime> StartPerformer
         {
           get { return GetValue<System.Nullable<System.DateTime>>(); }
@@ -461,6 +491,7 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.DateTime> StartPerformerOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(StartPerformer));
         public bool StartPerformerIsChanged => GetIsChanged(nameof(StartPerformer));
 
+        //FinishPlan
         public System.DateTime FinishPlan
         {
           get { return GetValue<System.DateTime>(); }
@@ -469,6 +500,7 @@ namespace HVTApp.Model.Wrapper
         public System.DateTime FinishPlanOriginalValue => GetOriginalValue<System.DateTime>(nameof(FinishPlan));
         public bool FinishPlanIsChanged => GetIsChanged(nameof(FinishPlan));
 
+        //FinishPerformer
         public System.Nullable<System.DateTime> FinishPerformer
         {
           get { return GetValue<System.Nullable<System.DateTime>>(); }
@@ -477,6 +509,7 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.DateTime> FinishPerformerOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(FinishPerformer));
         public bool FinishPerformerIsChanged => GetIsChanged(nameof(FinishPerformer));
 
+        //FinishAuthor
         public System.Nullable<System.DateTime> FinishAuthor
         {
           get { return GetValue<System.Nullable<System.DateTime>>(); }
@@ -485,6 +518,7 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.DateTime> FinishAuthorOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(FinishAuthor));
         public bool FinishAuthorIsChanged => GetIsChanged(nameof(FinishAuthor));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -582,6 +616,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Title
         public System.String Title
         {
           get { return GetValue<System.String>(); }
@@ -590,6 +625,7 @@ namespace HVTApp.Model.Wrapper
         public System.String TitleOriginalValue => GetOriginalValue<System.String>(nameof(Title));
         public bool TitleIsChanged => GetIsChanged(nameof(Title));
 
+        //StartAuthor
         public System.DateTime StartAuthor
         {
           get { return GetValue<System.DateTime>(); }
@@ -598,6 +634,7 @@ namespace HVTApp.Model.Wrapper
         public System.DateTime StartAuthorOriginalValue => GetOriginalValue<System.DateTime>(nameof(StartAuthor));
         public bool StartAuthorIsChanged => GetIsChanged(nameof(StartAuthor));
 
+        //IsStoped
         public System.Boolean IsStoped
         {
           get { return GetValue<System.Boolean>(); }
@@ -606,6 +643,7 @@ namespace HVTApp.Model.Wrapper
         public System.Boolean IsStopedOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsStoped));
         public bool IsStopedIsChanged => GetIsChanged(nameof(IsStoped));
 
+        //Priority
         public HVTApp.Model.POCOs.DirectumTaskPriority Priority
         {
           get { return GetValue<HVTApp.Model.POCOs.DirectumTaskPriority>(); }
@@ -614,6 +652,7 @@ namespace HVTApp.Model.Wrapper
         public HVTApp.Model.POCOs.DirectumTaskPriority PriorityOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.DirectumTaskPriority>(nameof(Priority));
         public bool PriorityIsChanged => GetIsChanged(nameof(Priority));
 
+        //Message
         public System.String Message
         {
           get { return GetValue<System.String>(); }
@@ -622,6 +661,7 @@ namespace HVTApp.Model.Wrapper
         public System.String MessageOriginalValue => GetOriginalValue<System.String>(nameof(Message));
         public bool MessageIsChanged => GetIsChanged(nameof(Message));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -670,6 +710,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Moment
         public System.DateTime Moment
         {
           get { return GetValue<System.DateTime>(); }
@@ -678,6 +719,7 @@ namespace HVTApp.Model.Wrapper
         public System.DateTime MomentOriginalValue => GetOriginalValue<System.DateTime>(nameof(Moment));
         public bool MomentIsChanged => GetIsChanged(nameof(Moment));
 
+        //Message
         public System.String Message
         {
           get { return GetValue<System.String>(); }
@@ -686,6 +728,7 @@ namespace HVTApp.Model.Wrapper
         public System.String MessageOriginalValue => GetOriginalValue<System.String>(nameof(Message));
         public bool MessageIsChanged => GetIsChanged(nameof(Message));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -719,6 +762,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Number
         public System.Int32 Number
         {
           get { return GetValue<System.Int32>(); }
@@ -727,6 +771,7 @@ namespace HVTApp.Model.Wrapper
         public System.Int32 NumberOriginalValue => GetOriginalValue<System.Int32>(nameof(Number));
         public bool NumberIsChanged => GetIsChanged(nameof(Number));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -745,6 +790,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //IsActual
         public System.Boolean IsActual
         {
           get { return GetValue<System.Boolean>(); }
@@ -753,6 +799,7 @@ namespace HVTApp.Model.Wrapper
         public System.Boolean IsActualOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsActual));
         public bool IsActualIsChanged => GetIsChanged(nameof(IsActual));
 
+        //InstructionDate
         public System.Nullable<System.DateTime> InstructionDate
         {
           get { return GetValue<System.Nullable<System.DateTime>>(); }
@@ -761,6 +808,7 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.DateTime> InstructionDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(InstructionDate));
         public bool InstructionDateIsChanged => GetIsChanged(nameof(InstructionDate));
 
+        //DoneDate
         public System.Nullable<System.DateTime> DoneDate
         {
           get { return GetValue<System.Nullable<System.DateTime>>(); }
@@ -769,6 +817,7 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.DateTime> DoneDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(DoneDate));
         public bool DoneDateIsChanged => GetIsChanged(nameof(DoneDate));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -823,6 +872,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Name
         public System.String Name
         {
           get { return GetValue<System.String>(); }
@@ -831,6 +881,7 @@ namespace HVTApp.Model.Wrapper
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
         public bool NameIsChanged => GetIsChanged(nameof(Name));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -849,6 +900,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Name
         public System.String Name
         {
           get { return GetValue<System.String>(); }
@@ -857,6 +909,7 @@ namespace HVTApp.Model.Wrapper
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
         public bool NameIsChanged => GetIsChanged(nameof(Name));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -890,6 +943,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Date
         public System.DateTime Date
         {
           get { return GetValue<System.DateTime>(); }
@@ -898,6 +952,7 @@ namespace HVTApp.Model.Wrapper
         public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
         public bool DateIsChanged => GetIsChanged(nameof(Date));
 
+        //Sum
         public System.Double Sum
         {
           get { return GetValue<System.Double>(); }
@@ -906,6 +961,7 @@ namespace HVTApp.Model.Wrapper
         public System.Double SumOriginalValue => GetOriginalValue<System.Double>(nameof(Sum));
         public bool SumIsChanged => GetIsChanged(nameof(Sum));
 
+        //Comment
         public System.String Comment
         {
           get { return GetValue<System.String>(); }
@@ -914,6 +970,7 @@ namespace HVTApp.Model.Wrapper
         public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
         public bool CommentIsChanged => GetIsChanged(nameof(Comment));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -932,6 +989,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Name
         public System.String Name
         {
           get { return GetValue<System.String>(); }
@@ -940,6 +998,7 @@ namespace HVTApp.Model.Wrapper
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
         public bool NameIsChanged => GetIsChanged(nameof(Name));
 
+        //PaymentConditionPointEnum
         public HVTApp.Model.POCOs.PaymentConditionPointEnum PaymentConditionPointEnum
         {
           get { return GetValue<HVTApp.Model.POCOs.PaymentConditionPointEnum>(); }
@@ -948,6 +1007,7 @@ namespace HVTApp.Model.Wrapper
         public HVTApp.Model.POCOs.PaymentConditionPointEnum PaymentConditionPointEnumOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.PaymentConditionPointEnum>(nameof(PaymentConditionPointEnum));
         public bool PaymentConditionPointEnumIsChanged => GetIsChanged(nameof(PaymentConditionPointEnum));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -966,6 +1026,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Date
         public System.DateTime Date
         {
           get { return GetValue<System.DateTime>(); }
@@ -974,6 +1035,7 @@ namespace HVTApp.Model.Wrapper
         public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
         public bool DateIsChanged => GetIsChanged(nameof(Date));
 
+        //DateCalculated
         public System.DateTime DateCalculated
         {
           get { return GetValue<System.DateTime>(); }
@@ -982,6 +1044,7 @@ namespace HVTApp.Model.Wrapper
         public System.DateTime DateCalculatedOriginalValue => GetOriginalValue<System.DateTime>(nameof(DateCalculated));
         public bool DateCalculatedIsChanged => GetIsChanged(nameof(DateCalculated));
 
+        //Part
         public System.Double Part
         {
           get { return GetValue<System.Double>(); }
@@ -990,6 +1053,7 @@ namespace HVTApp.Model.Wrapper
         public System.Double PartOriginalValue => GetOriginalValue<System.Double>(nameof(Part));
         public bool PartIsChanged => GetIsChanged(nameof(Part));
 
+        //Comment
         public System.String Comment
         {
           get { return GetValue<System.String>(); }
@@ -998,6 +1062,7 @@ namespace HVTApp.Model.Wrapper
         public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
         public bool CommentIsChanged => GetIsChanged(nameof(Comment));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -1031,6 +1096,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //PercentPerDay
         public System.Double PercentPerDay
         {
           get { return GetValue<System.Double>(); }
@@ -1039,6 +1105,7 @@ namespace HVTApp.Model.Wrapper
         public System.Double PercentPerDayOriginalValue => GetOriginalValue<System.Double>(nameof(PercentPerDay));
         public bool PercentPerDayIsChanged => GetIsChanged(nameof(PercentPerDay));
 
+        //PercentLimit
         public System.Double PercentLimit
         {
           get { return GetValue<System.Double>(); }
@@ -1047,6 +1114,7 @@ namespace HVTApp.Model.Wrapper
         public System.Double PercentLimitOriginalValue => GetOriginalValue<System.Double>(nameof(PercentLimit));
         public bool PercentLimitIsChanged => GetIsChanged(nameof(PercentLimit));
 
+        //PenaltyPaid
         public System.Double PenaltyPaid
         {
           get { return GetValue<System.Double>(); }
@@ -1055,6 +1123,7 @@ namespace HVTApp.Model.Wrapper
         public System.Double PenaltyPaidOriginalValue => GetOriginalValue<System.Double>(nameof(PenaltyPaid));
         public bool PenaltyPaidIsChanged => GetIsChanged(nameof(PenaltyPaid));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -1073,6 +1142,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //TaskOpenMoment
         public System.Nullable<System.DateTime> TaskOpenMoment
         {
           get { return GetValue<System.Nullable<System.DateTime>>(); }
@@ -1081,6 +1151,7 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.DateTime> TaskOpenMomentOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(TaskOpenMoment));
         public bool TaskOpenMomentIsChanged => GetIsChanged(nameof(TaskOpenMoment));
 
+        //TaskCloseMoment
         public System.Nullable<System.DateTime> TaskCloseMoment
         {
           get { return GetValue<System.Nullable<System.DateTime>>(); }
@@ -1089,6 +1160,7 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.DateTime> TaskCloseMomentOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(TaskCloseMoment));
         public bool TaskCloseMomentIsChanged => GetIsChanged(nameof(TaskCloseMoment));
 
+        //Comment
         public System.String Comment
         {
           get { return GetValue<System.String>(); }
@@ -1097,6 +1169,7 @@ namespace HVTApp.Model.Wrapper
         public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
         public bool CommentIsChanged => GetIsChanged(nameof(Comment));
 
+        //IsNeedExcelFile
         public System.Boolean IsNeedExcelFile
         {
           get { return GetValue<System.Boolean>(); }
@@ -1105,6 +1178,7 @@ namespace HVTApp.Model.Wrapper
         public System.Boolean IsNeedExcelFileOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsNeedExcelFile));
         public bool IsNeedExcelFileIsChanged => GetIsChanged(nameof(IsNeedExcelFile));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -1150,6 +1224,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //CreationMoment
         public System.DateTime CreationMoment
         {
           get { return GetValue<System.DateTime>(); }
@@ -1158,6 +1233,7 @@ namespace HVTApp.Model.Wrapper
         public System.DateTime CreationMomentOriginalValue => GetOriginalValue<System.DateTime>(nameof(CreationMoment));
         public bool CreationMomentIsChanged => GetIsChanged(nameof(CreationMoment));
 
+        //CalculationId
         public System.Guid CalculationId
         {
           get { return GetValue<System.Guid>(); }
@@ -1166,6 +1242,7 @@ namespace HVTApp.Model.Wrapper
         public System.Guid CalculationIdOriginalValue => GetOriginalValue<System.Guid>(nameof(CalculationId));
         public bool CalculationIdIsChanged => GetIsChanged(nameof(CalculationId));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -1184,6 +1261,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //PriceCalculationId
         public System.Guid PriceCalculationId
         {
           get { return GetValue<System.Guid>(); }
@@ -1192,6 +1270,7 @@ namespace HVTApp.Model.Wrapper
         public System.Guid PriceCalculationIdOriginalValue => GetOriginalValue<System.Guid>(nameof(PriceCalculationId));
         public bool PriceCalculationIdIsChanged => GetIsChanged(nameof(PriceCalculationId));
 
+        //OrderInTakeDate
         public System.Nullable<System.DateTime> OrderInTakeDate
         {
           get { return GetValue<System.Nullable<System.DateTime>>(); }
@@ -1200,6 +1279,7 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.DateTime> OrderInTakeDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(OrderInTakeDate));
         public bool OrderInTakeDateIsChanged => GetIsChanged(nameof(OrderInTakeDate));
 
+        //RealizationDate
         public System.Nullable<System.DateTime> RealizationDate
         {
           get { return GetValue<System.Nullable<System.DateTime>>(); }
@@ -1208,6 +1288,7 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.DateTime> RealizationDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(RealizationDate));
         public bool RealizationDateIsChanged => GetIsChanged(nameof(RealizationDate));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -1262,6 +1343,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //NameFull
         public System.String NameFull
         {
           get { return GetValue<System.String>(); }
@@ -1270,6 +1352,7 @@ namespace HVTApp.Model.Wrapper
         public System.String NameFullOriginalValue => GetOriginalValue<System.String>(nameof(NameFull));
         public bool NameFullIsChanged => GetIsChanged(nameof(NameFull));
 
+        //NameShort
         public System.String NameShort
         {
           get { return GetValue<System.String>(); }
@@ -1278,6 +1361,7 @@ namespace HVTApp.Model.Wrapper
         public System.String NameShortOriginalValue => GetOriginalValue<System.String>(nameof(NameShort));
         public bool NameShortIsChanged => GetIsChanged(nameof(NameShort));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -1311,6 +1395,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Cost
         public System.Double Cost
         {
           get { return GetValue<System.Double>(); }
@@ -1319,6 +1404,7 @@ namespace HVTApp.Model.Wrapper
         public System.Double CostOriginalValue => GetOriginalValue<System.Double>(nameof(Cost));
         public bool CostIsChanged => GetIsChanged(nameof(Cost));
 
+        //Price
         public System.Double Price
         {
           get { return GetValue<System.Double>(); }
@@ -1327,6 +1413,7 @@ namespace HVTApp.Model.Wrapper
         public System.Double PriceOriginalValue => GetOriginalValue<System.Double>(nameof(Price));
         public bool PriceIsChanged => GetIsChanged(nameof(Price));
 
+        //StructureCost
         public System.String StructureCost
         {
           get { return GetValue<System.String>(); }
@@ -1335,6 +1422,7 @@ namespace HVTApp.Model.Wrapper
         public System.String StructureCostOriginalValue => GetOriginalValue<System.String>(nameof(StructureCost));
         public bool StructureCostIsChanged => GetIsChanged(nameof(StructureCost));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -1368,6 +1456,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Amount
         public System.Int32 Amount
         {
           get { return GetValue<System.Int32>(); }
@@ -1376,6 +1465,7 @@ namespace HVTApp.Model.Wrapper
         public System.Int32 AmountOriginalValue => GetOriginalValue<System.Int32>(nameof(Amount));
         public bool AmountIsChanged => GetIsChanged(nameof(Amount));
 
+        //CustomFixedPrice
         public System.Nullable<System.Double> CustomFixedPrice
         {
           get { return GetValue<System.Nullable<System.Double>>(); }
@@ -1384,6 +1474,7 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.Double> CustomFixedPriceOriginalValue => GetOriginalValue<System.Nullable<System.Double>>(nameof(CustomFixedPrice));
         public bool CustomFixedPriceIsChanged => GetIsChanged(nameof(CustomFixedPrice));
 
+        //ParentsCount
         public System.Int32 ParentsCount
         {
           get { return GetValue<System.Int32>(); }
@@ -1392,6 +1483,7 @@ namespace HVTApp.Model.Wrapper
         public System.Int32 ParentsCountOriginalValue => GetOriginalValue<System.Int32>(nameof(ParentsCount));
         public bool ParentsCountIsChanged => GetIsChanged(nameof(ParentsCount));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -1431,6 +1523,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Designation
         public System.String Designation
         {
           get { return GetValue<System.String>(); }
@@ -1439,6 +1532,7 @@ namespace HVTApp.Model.Wrapper
         public System.String DesignationOriginalValue => GetOriginalValue<System.String>(nameof(Designation));
         public bool DesignationIsChanged => GetIsChanged(nameof(Designation));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -1478,6 +1572,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Name
         public System.String Name
         {
           get { return GetValue<System.String>(); }
@@ -1486,6 +1581,7 @@ namespace HVTApp.Model.Wrapper
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
         public bool NameIsChanged => GetIsChanged(nameof(Name));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -1504,6 +1600,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -1552,6 +1649,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Name
         public System.String Name
         {
           get { return GetValue<System.String>(); }
@@ -1560,6 +1658,7 @@ namespace HVTApp.Model.Wrapper
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
         public bool NameIsChanged => GetIsChanged(nameof(Name));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -1578,6 +1677,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //MarginalIncome
         public System.Double MarginalIncome
         {
           get { return GetValue<System.Double>(); }
@@ -1586,6 +1686,7 @@ namespace HVTApp.Model.Wrapper
         public System.Double MarginalIncomeOriginalValue => GetOriginalValue<System.Double>(nameof(MarginalIncome));
         public bool MarginalIncomeIsChanged => GetIsChanged(nameof(MarginalIncome));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -1619,6 +1720,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //ProductionTerm
         public System.Int32 ProductionTerm
         {
           get { return GetValue<System.Int32>(); }
@@ -1627,6 +1729,7 @@ namespace HVTApp.Model.Wrapper
         public System.Int32 ProductionTermOriginalValue => GetOriginalValue<System.Int32>(nameof(ProductionTerm));
         public bool ProductionTermIsChanged => GetIsChanged(nameof(ProductionTerm));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -1660,6 +1763,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //PriceCalculationItemId
         public System.Guid PriceCalculationItemId
         {
           get { return GetValue<System.Guid>(); }
@@ -1668,6 +1772,7 @@ namespace HVTApp.Model.Wrapper
         public System.Guid PriceCalculationItemIdOriginalValue => GetOriginalValue<System.Guid>(nameof(PriceCalculationItemId));
         public bool PriceCalculationItemIdIsChanged => GetIsChanged(nameof(PriceCalculationItemId));
 
+        //Number
         public System.String Number
         {
           get { return GetValue<System.String>(); }
@@ -1676,6 +1781,7 @@ namespace HVTApp.Model.Wrapper
         public System.String NumberOriginalValue => GetOriginalValue<System.String>(nameof(Number));
         public bool NumberIsChanged => GetIsChanged(nameof(Number));
 
+        //Amount
         public System.Double Amount
         {
           get { return GetValue<System.Double>(); }
@@ -1684,6 +1790,7 @@ namespace HVTApp.Model.Wrapper
         public System.Double AmountOriginalValue => GetOriginalValue<System.Double>(nameof(Amount));
         public bool AmountIsChanged => GetIsChanged(nameof(Amount));
 
+        //UnitPrice
         public System.Nullable<System.Double> UnitPrice
         {
           get { return GetValue<System.Nullable<System.Double>>(); }
@@ -1692,6 +1799,7 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.Double> UnitPriceOriginalValue => GetOriginalValue<System.Nullable<System.Double>>(nameof(UnitPrice));
         public bool UnitPriceIsChanged => GetIsChanged(nameof(UnitPrice));
 
+        //Comment
         public System.String Comment
         {
           get { return GetValue<System.String>(); }
@@ -1700,6 +1808,7 @@ namespace HVTApp.Model.Wrapper
         public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
         public bool CommentIsChanged => GetIsChanged(nameof(Comment));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -1724,6 +1833,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //DateFinish
         public System.Nullable<System.DateTime> DateFinish
         {
           get { return GetValue<System.Nullable<System.DateTime>>(); }
@@ -1732,6 +1842,7 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.DateTime> DateFinishOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(DateFinish));
         public bool DateFinishIsChanged => GetIsChanged(nameof(DateFinish));
 
+        //DateRequired
         public System.Nullable<System.DateTime> DateRequired
         {
           get { return GetValue<System.Nullable<System.DateTime>>(); }
@@ -1740,6 +1851,7 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.DateTime> DateRequiredOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(DateRequired));
         public bool DateRequiredIsChanged => GetIsChanged(nameof(DateRequired));
 
+        //ClientOrderNumber
         public System.String ClientOrderNumber
         {
           get { return GetValue<System.String>(); }
@@ -1748,6 +1860,7 @@ namespace HVTApp.Model.Wrapper
         public System.String ClientOrderNumberOriginalValue => GetOriginalValue<System.String>(nameof(ClientOrderNumber));
         public bool ClientOrderNumberIsChanged => GetIsChanged(nameof(ClientOrderNumber));
 
+        //ServiceOrderNumber
         public System.String ServiceOrderNumber
         {
           get { return GetValue<System.String>(); }
@@ -1756,6 +1869,7 @@ namespace HVTApp.Model.Wrapper
         public System.String ServiceOrderNumberOriginalValue => GetOriginalValue<System.String>(nameof(ServiceOrderNumber));
         public bool ServiceOrderNumberIsChanged => GetIsChanged(nameof(ServiceOrderNumber));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -1796,6 +1910,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Comment
         public System.String Comment
         {
           get { return GetValue<System.String>(); }
@@ -1804,6 +1919,7 @@ namespace HVTApp.Model.Wrapper
         public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
         public bool CommentIsChanged => GetIsChanged(nameof(Comment));
 
+        //IsActual
         public System.Boolean IsActual
         {
           get { return GetValue<System.Boolean>(); }
@@ -1812,6 +1928,7 @@ namespace HVTApp.Model.Wrapper
         public System.Boolean IsActualOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsActual));
         public bool IsActualIsChanged => GetIsChanged(nameof(IsActual));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -1851,6 +1968,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Name
         public System.String Name
         {
           get { return GetValue<System.String>(); }
@@ -1859,6 +1977,7 @@ namespace HVTApp.Model.Wrapper
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
         public bool NameIsChanged => GetIsChanged(nameof(Name));
 
+        //Comment
         public System.String Comment
         {
           get { return GetValue<System.String>(); }
@@ -1867,6 +1986,7 @@ namespace HVTApp.Model.Wrapper
         public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
         public bool CommentIsChanged => GetIsChanged(nameof(Comment));
 
+        //IsActual
         public System.Boolean IsActual
         {
           get { return GetValue<System.Boolean>(); }
@@ -1875,6 +1995,7 @@ namespace HVTApp.Model.Wrapper
         public System.Boolean IsActualOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsActual));
         public bool IsActualIsChanged => GetIsChanged(nameof(IsActual));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -1893,6 +2014,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Comment
         public System.String Comment
         {
           get { return GetValue<System.String>(); }
@@ -1901,6 +2023,7 @@ namespace HVTApp.Model.Wrapper
         public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
         public bool CommentIsChanged => GetIsChanged(nameof(Comment));
 
+        //TceNumber
         public System.String TceNumber
         {
           get { return GetValue<System.String>(); }
@@ -1909,6 +2032,7 @@ namespace HVTApp.Model.Wrapper
         public System.String TceNumberOriginalValue => GetOriginalValue<System.String>(nameof(TceNumber));
         public bool TceNumberIsChanged => GetIsChanged(nameof(TceNumber));
 
+        //Start
         public System.Nullable<System.DateTime> Start
         {
           get { return GetValue<System.Nullable<System.DateTime>>(); }
@@ -1917,6 +2041,7 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.DateTime> StartOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(Start));
         public bool StartIsChanged => GetIsChanged(nameof(Start));
 
+        //Finish
         public System.Nullable<System.DateTime> Finish
         {
           get { return GetValue<System.Nullable<System.DateTime>>(); }
@@ -1925,6 +2050,7 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.DateTime> FinishOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(Finish));
         public bool FinishIsChanged => GetIsChanged(nameof(Finish));
 
+        //LastOpenBackManagerMoment
         public System.Nullable<System.DateTime> LastOpenBackManagerMoment
         {
           get { return GetValue<System.Nullable<System.DateTime>>(); }
@@ -1933,6 +2059,7 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.DateTime> LastOpenBackManagerMomentOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(LastOpenBackManagerMoment));
         public bool LastOpenBackManagerMomentIsChanged => GetIsChanged(nameof(LastOpenBackManagerMoment));
 
+        //FirstStartMoment
         public System.Nullable<System.DateTime> FirstStartMoment
         {
           get { return GetValue<System.Nullable<System.DateTime>>(); }
@@ -1941,6 +2068,7 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.DateTime> FirstStartMomentOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(FirstStartMoment));
         public bool FirstStartMomentIsChanged => GetIsChanged(nameof(FirstStartMoment));
 
+        //RejectByBackManagerMoment
         public System.Nullable<System.DateTime> RejectByBackManagerMoment
         {
           get { return GetValue<System.Nullable<System.DateTime>>(); }
@@ -1949,6 +2077,7 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.DateTime> RejectByBackManagerMomentOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(RejectByBackManagerMoment));
         public bool RejectByBackManagerMomentIsChanged => GetIsChanged(nameof(RejectByBackManagerMoment));
 
+        //RejectComment
         public System.String RejectComment
         {
           get { return GetValue<System.String>(); }
@@ -1957,6 +2086,7 @@ namespace HVTApp.Model.Wrapper
         public System.String RejectCommentOriginalValue => GetOriginalValue<System.String>(nameof(RejectComment));
         public bool RejectCommentIsChanged => GetIsChanged(nameof(RejectComment));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -2011,6 +2141,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Date
         public System.DateTime Date
         {
           get { return GetValue<System.DateTime>(); }
@@ -2019,6 +2150,7 @@ namespace HVTApp.Model.Wrapper
         public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
         public bool DateIsChanged => GetIsChanged(nameof(Date));
 
+        //ActualPriceTerm
         public System.Int32 ActualPriceTerm
         {
           get { return GetValue<System.Int32>(); }
@@ -2027,6 +2159,7 @@ namespace HVTApp.Model.Wrapper
         public System.Int32 ActualPriceTermOriginalValue => GetOriginalValue<System.Int32>(nameof(ActualPriceTerm));
         public bool ActualPriceTermIsChanged => GetIsChanged(nameof(ActualPriceTerm));
 
+        //StandartTermFromStartToEndProduction
         public System.Int32 StandartTermFromStartToEndProduction
         {
           get { return GetValue<System.Int32>(); }
@@ -2035,6 +2168,7 @@ namespace HVTApp.Model.Wrapper
         public System.Int32 StandartTermFromStartToEndProductionOriginalValue => GetOriginalValue<System.Int32>(nameof(StandartTermFromStartToEndProduction));
         public bool StandartTermFromStartToEndProductionIsChanged => GetIsChanged(nameof(StandartTermFromStartToEndProduction));
 
+        //StandartTermFromPickToEndProduction
         public System.Int32 StandartTermFromPickToEndProduction
         {
           get { return GetValue<System.Int32>(); }
@@ -2043,6 +2177,7 @@ namespace HVTApp.Model.Wrapper
         public System.Int32 StandartTermFromPickToEndProductionOriginalValue => GetOriginalValue<System.Int32>(nameof(StandartTermFromPickToEndProduction));
         public bool StandartTermFromPickToEndProductionIsChanged => GetIsChanged(nameof(StandartTermFromPickToEndProduction));
 
+        //Vat
         public System.Double Vat
         {
           get { return GetValue<System.Double>(); }
@@ -2051,6 +2186,7 @@ namespace HVTApp.Model.Wrapper
         public System.Double VatOriginalValue => GetOriginalValue<System.Double>(nameof(Vat));
         public bool VatIsChanged => GetIsChanged(nameof(Vat));
 
+        //IncomingRequestsPath
         public System.String IncomingRequestsPath
         {
           get { return GetValue<System.String>(); }
@@ -2059,6 +2195,7 @@ namespace HVTApp.Model.Wrapper
         public System.String IncomingRequestsPathOriginalValue => GetOriginalValue<System.String>(nameof(IncomingRequestsPath));
         public bool IncomingRequestsPathIsChanged => GetIsChanged(nameof(IncomingRequestsPath));
 
+        //DirectumAttachmentsPath
         public System.String DirectumAttachmentsPath
         {
           get { return GetValue<System.String>(); }
@@ -2067,6 +2204,7 @@ namespace HVTApp.Model.Wrapper
         public System.String DirectumAttachmentsPathOriginalValue => GetOriginalValue<System.String>(nameof(DirectumAttachmentsPath));
         public bool DirectumAttachmentsPathIsChanged => GetIsChanged(nameof(DirectumAttachmentsPath));
 
+        //TechnicalRequrementsFilesPath
         public System.String TechnicalRequrementsFilesPath
         {
           get { return GetValue<System.String>(); }
@@ -2075,6 +2213,7 @@ namespace HVTApp.Model.Wrapper
         public System.String TechnicalRequrementsFilesPathOriginalValue => GetOriginalValue<System.String>(nameof(TechnicalRequrementsFilesPath));
         public bool TechnicalRequrementsFilesPathIsChanged => GetIsChanged(nameof(TechnicalRequrementsFilesPath));
 
+        //PriceCalculationsFilesPath
         public System.String PriceCalculationsFilesPath
         {
           get { return GetValue<System.String>(); }
@@ -2083,6 +2222,7 @@ namespace HVTApp.Model.Wrapper
         public System.String PriceCalculationsFilesPathOriginalValue => GetOriginalValue<System.String>(nameof(PriceCalculationsFilesPath));
         public bool PriceCalculationsFilesPathIsChanged => GetIsChanged(nameof(PriceCalculationsFilesPath));
 
+        //LastDeveloperVizit
         public System.Nullable<System.DateTime> LastDeveloperVizit
         {
           get { return GetValue<System.Nullable<System.DateTime>>(); }
@@ -2091,6 +2231,7 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.DateTime> LastDeveloperVizitOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(LastDeveloperVizit));
         public bool LastDeveloperVizitIsChanged => GetIsChanged(nameof(LastDeveloperVizit));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -2250,6 +2391,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Description
         public System.String Description
         {
           get { return GetValue<System.String>(); }
@@ -2258,6 +2400,7 @@ namespace HVTApp.Model.Wrapper
         public System.String DescriptionOriginalValue => GetOriginalValue<System.String>(nameof(Description));
         public bool DescriptionIsChanged => GetIsChanged(nameof(Description));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -2291,6 +2434,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Name
         public System.String Name
         {
           get { return GetValue<System.String>(); }
@@ -2299,6 +2443,7 @@ namespace HVTApp.Model.Wrapper
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
         public bool NameIsChanged => GetIsChanged(nameof(Name));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -2317,6 +2462,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Name
         public System.String Name
         {
           get { return GetValue<System.String>(); }
@@ -2325,6 +2471,7 @@ namespace HVTApp.Model.Wrapper
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
         public bool NameIsChanged => GetIsChanged(nameof(Name));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -2358,6 +2505,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Name
         public System.String Name
         {
           get { return GetValue<System.String>(); }
@@ -2366,6 +2514,7 @@ namespace HVTApp.Model.Wrapper
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
         public bool NameIsChanged => GetIsChanged(nameof(Name));
 
+        //IsCountryCapital
         public System.Boolean IsCountryCapital
         {
           get { return GetValue<System.Boolean>(); }
@@ -2374,6 +2523,7 @@ namespace HVTApp.Model.Wrapper
         public System.Boolean IsCountryCapitalOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsCountryCapital));
         public bool IsCountryCapitalIsChanged => GetIsChanged(nameof(IsCountryCapital));
 
+        //IsDistrictCapital
         public System.Boolean IsDistrictCapital
         {
           get { return GetValue<System.Boolean>(); }
@@ -2382,6 +2532,7 @@ namespace HVTApp.Model.Wrapper
         public System.Boolean IsDistrictCapitalOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsDistrictCapital));
         public bool IsDistrictCapitalIsChanged => GetIsChanged(nameof(IsDistrictCapital));
 
+        //IsRegionCapital
         public System.Boolean IsRegionCapital
         {
           get { return GetValue<System.Boolean>(); }
@@ -2390,6 +2541,7 @@ namespace HVTApp.Model.Wrapper
         public System.Boolean IsRegionCapitalOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsRegionCapital));
         public bool IsRegionCapitalIsChanged => GetIsChanged(nameof(IsRegionCapital));
 
+        //DistanceToEkb
         public System.Nullable<System.Double> DistanceToEkb
         {
           get { return GetValue<System.Nullable<System.Double>>(); }
@@ -2398,6 +2550,7 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.Double> DistanceToEkbOriginalValue => GetOriginalValue<System.Nullable<System.Double>>(nameof(DistanceToEkb));
         public bool DistanceToEkbIsChanged => GetIsChanged(nameof(DistanceToEkb));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -2438,6 +2591,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //FullName
         public System.String FullName
         {
           get { return GetValue<System.String>(); }
@@ -2446,6 +2600,7 @@ namespace HVTApp.Model.Wrapper
         public System.String FullNameOriginalValue => GetOriginalValue<System.String>(nameof(FullName));
         public bool FullNameIsChanged => GetIsChanged(nameof(FullName));
 
+        //ShortName
         public System.String ShortName
         {
           get { return GetValue<System.String>(); }
@@ -2454,6 +2609,7 @@ namespace HVTApp.Model.Wrapper
         public System.String ShortNameOriginalValue => GetOriginalValue<System.String>(nameof(ShortName));
         public bool ShortNameIsChanged => GetIsChanged(nameof(ShortName));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -2472,6 +2628,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Name
         public System.String Name
         {
           get { return GetValue<System.String>(); }
@@ -2480,6 +2637,7 @@ namespace HVTApp.Model.Wrapper
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
         public bool NameIsChanged => GetIsChanged(nameof(Name));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -2513,6 +2671,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Type
         public HVTApp.Model.POCOs.SumType Type
         {
           get { return GetValue<HVTApp.Model.POCOs.SumType>(); }
@@ -2521,6 +2680,7 @@ namespace HVTApp.Model.Wrapper
         public HVTApp.Model.POCOs.SumType TypeOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.SumType>(nameof(Type));
         public bool TypeIsChanged => GetIsChanged(nameof(Type));
 
+        //Currency
         public HVTApp.Model.POCOs.Currency Currency
         {
           get { return GetValue<HVTApp.Model.POCOs.Currency>(); }
@@ -2529,6 +2689,7 @@ namespace HVTApp.Model.Wrapper
         public HVTApp.Model.POCOs.Currency CurrencyOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.Currency>(nameof(Currency));
         public bool CurrencyIsChanged => GetIsChanged(nameof(Currency));
 
+        //Value
         public System.Decimal Value
         {
           get { return GetValue<System.Decimal>(); }
@@ -2537,6 +2698,7 @@ namespace HVTApp.Model.Wrapper
         public System.Decimal ValueOriginalValue => GetOriginalValue<System.Decimal>(nameof(Value));
         public bool ValueIsChanged => GetIsChanged(nameof(Value));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -2555,6 +2717,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Date
         public System.DateTime Date
         {
           get { return GetValue<System.DateTime>(); }
@@ -2563,6 +2726,7 @@ namespace HVTApp.Model.Wrapper
         public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
         public bool DateIsChanged => GetIsChanged(nameof(Date));
 
+        //FirstCurrency
         public HVTApp.Model.POCOs.Currency FirstCurrency
         {
           get { return GetValue<HVTApp.Model.POCOs.Currency>(); }
@@ -2571,6 +2735,7 @@ namespace HVTApp.Model.Wrapper
         public HVTApp.Model.POCOs.Currency FirstCurrencyOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.Currency>(nameof(FirstCurrency));
         public bool FirstCurrencyIsChanged => GetIsChanged(nameof(FirstCurrency));
 
+        //SecondCurrency
         public HVTApp.Model.POCOs.Currency SecondCurrency
         {
           get { return GetValue<HVTApp.Model.POCOs.Currency>(); }
@@ -2579,6 +2744,7 @@ namespace HVTApp.Model.Wrapper
         public HVTApp.Model.POCOs.Currency SecondCurrencyOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.Currency>(nameof(SecondCurrency));
         public bool SecondCurrencyIsChanged => GetIsChanged(nameof(SecondCurrency));
 
+        //ExchangeRate
         public System.Double ExchangeRate
         {
           get { return GetValue<System.Double>(); }
@@ -2587,6 +2753,7 @@ namespace HVTApp.Model.Wrapper
         public System.Double ExchangeRateOriginalValue => GetOriginalValue<System.Double>(nameof(ExchangeRate));
         public bool ExchangeRateIsChanged => GetIsChanged(nameof(ExchangeRate));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -2605,6 +2772,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Date
         public System.DateTime Date
         {
           get { return GetValue<System.DateTime>(); }
@@ -2613,6 +2781,7 @@ namespace HVTApp.Model.Wrapper
         public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
         public bool DateIsChanged => GetIsChanged(nameof(Date));
 
+        //Text
         public System.String Text
         {
           get { return GetValue<System.String>(); }
@@ -2621,6 +2790,7 @@ namespace HVTApp.Model.Wrapper
         public System.String TextOriginalValue => GetOriginalValue<System.String>(nameof(Text));
         public bool TextIsChanged => GetIsChanged(nameof(Text));
 
+        //IsImportant
         public System.Boolean IsImportant
         {
           get { return GetValue<System.Boolean>(); }
@@ -2629,6 +2799,7 @@ namespace HVTApp.Model.Wrapper
         public System.Boolean IsImportantOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsImportant));
         public bool IsImportantIsChanged => GetIsChanged(nameof(IsImportant));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -2647,6 +2818,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Cost
         public System.Double Cost
         {
           get { return GetValue<System.Double>(); }
@@ -2655,6 +2827,7 @@ namespace HVTApp.Model.Wrapper
         public System.Double CostOriginalValue => GetOriginalValue<System.Double>(nameof(Cost));
         public bool CostIsChanged => GetIsChanged(nameof(Cost));
 
+        //CostDelivery
         public System.Nullable<System.Double> CostDelivery
         {
           get { return GetValue<System.Nullable<System.Double>>(); }
@@ -2663,6 +2836,7 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.Double> CostDeliveryOriginalValue => GetOriginalValue<System.Nullable<System.Double>>(nameof(CostDelivery));
         public bool CostDeliveryIsChanged => GetIsChanged(nameof(CostDelivery));
 
+        //CostDeliveryIncluded
         public System.Boolean CostDeliveryIncluded
         {
           get { return GetValue<System.Boolean>(); }
@@ -2671,6 +2845,7 @@ namespace HVTApp.Model.Wrapper
         public System.Boolean CostDeliveryIncludedOriginalValue => GetOriginalValue<System.Boolean>(nameof(CostDeliveryIncluded));
         public bool CostDeliveryIncludedIsChanged => GetIsChanged(nameof(CostDeliveryIncluded));
 
+        //ProductionTerm
         public System.Int32 ProductionTerm
         {
           get { return GetValue<System.Int32>(); }
@@ -2679,6 +2854,7 @@ namespace HVTApp.Model.Wrapper
         public System.Int32 ProductionTermOriginalValue => GetOriginalValue<System.Int32>(nameof(ProductionTerm));
         public bool ProductionTermIsChanged => GetIsChanged(nameof(ProductionTerm));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -2748,6 +2924,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -2781,6 +2958,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //DesignationSpecial
         public System.String DesignationSpecial
         {
           get { return GetValue<System.String>(); }
@@ -2789,6 +2967,7 @@ namespace HVTApp.Model.Wrapper
         public System.String DesignationSpecialOriginalValue => GetOriginalValue<System.String>(nameof(DesignationSpecial));
         public bool DesignationSpecialIsChanged => GetIsChanged(nameof(DesignationSpecial));
 
+        //StructureCostNumber
         public System.String StructureCostNumber
         {
           get { return GetValue<System.String>(); }
@@ -2797,6 +2976,7 @@ namespace HVTApp.Model.Wrapper
         public System.String StructureCostNumberOriginalValue => GetOriginalValue<System.String>(nameof(StructureCostNumber));
         public bool StructureCostNumberIsChanged => GetIsChanged(nameof(StructureCostNumber));
 
+        //Design
         public System.String Design
         {
           get { return GetValue<System.String>(); }
@@ -2805,6 +2985,7 @@ namespace HVTApp.Model.Wrapper
         public System.String DesignOriginalValue => GetOriginalValue<System.String>(nameof(Design));
         public bool DesignIsChanged => GetIsChanged(nameof(Design));
 
+        //IsDelivery
         public System.Boolean IsDelivery
         {
           get { return GetValue<System.Boolean>(); }
@@ -2813,6 +2994,7 @@ namespace HVTApp.Model.Wrapper
         public System.Boolean IsDeliveryOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsDelivery));
         public bool IsDeliveryIsChanged => GetIsChanged(nameof(IsDelivery));
 
+        //Weight
         public System.Double Weight
         {
           get { return GetValue<System.Double>(); }
@@ -2821,6 +3003,7 @@ namespace HVTApp.Model.Wrapper
         public System.Double WeightOriginalValue => GetOriginalValue<System.Double>(nameof(Weight));
         public bool WeightIsChanged => GetIsChanged(nameof(Weight));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -2886,6 +3069,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //MainProductId
         public System.Guid MainProductId
         {
           get { return GetValue<System.Guid>(); }
@@ -2894,6 +3078,7 @@ namespace HVTApp.Model.Wrapper
         public System.Guid MainProductIdOriginalValue => GetOriginalValue<System.Guid>(nameof(MainProductId));
         public bool MainProductIdIsChanged => GetIsChanged(nameof(MainProductId));
 
+        //Amount
         public System.Int32 Amount
         {
           get { return GetValue<System.Int32>(); }
@@ -2902,6 +3087,7 @@ namespace HVTApp.Model.Wrapper
         public System.Int32 AmountOriginalValue => GetOriginalValue<System.Int32>(nameof(Amount));
         public bool AmountIsChanged => GetIsChanged(nameof(Amount));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -2935,6 +3121,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //BankName
         public System.String BankName
         {
           get { return GetValue<System.String>(); }
@@ -2943,6 +3130,7 @@ namespace HVTApp.Model.Wrapper
         public System.String BankNameOriginalValue => GetOriginalValue<System.String>(nameof(BankName));
         public bool BankNameIsChanged => GetIsChanged(nameof(BankName));
 
+        //BankIdentificationCode
         public System.String BankIdentificationCode
         {
           get { return GetValue<System.String>(); }
@@ -2951,6 +3139,7 @@ namespace HVTApp.Model.Wrapper
         public System.String BankIdentificationCodeOriginalValue => GetOriginalValue<System.String>(nameof(BankIdentificationCode));
         public bool BankIdentificationCodeIsChanged => GetIsChanged(nameof(BankIdentificationCode));
 
+        //CorrespondentAccount
         public System.String CorrespondentAccount
         {
           get { return GetValue<System.String>(); }
@@ -2959,6 +3148,7 @@ namespace HVTApp.Model.Wrapper
         public System.String CorrespondentAccountOriginalValue => GetOriginalValue<System.String>(nameof(CorrespondentAccount));
         public bool CorrespondentAccountIsChanged => GetIsChanged(nameof(CorrespondentAccount));
 
+        //CheckingAccount
         public System.String CheckingAccount
         {
           get { return GetValue<System.String>(); }
@@ -2967,6 +3157,7 @@ namespace HVTApp.Model.Wrapper
         public System.String CheckingAccountOriginalValue => GetOriginalValue<System.String>(nameof(CheckingAccount));
         public bool CheckingAccountIsChanged => GetIsChanged(nameof(CheckingAccount));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -2985,6 +3176,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //FullName
         public System.String FullName
         {
           get { return GetValue<System.String>(); }
@@ -2993,6 +3185,7 @@ namespace HVTApp.Model.Wrapper
         public System.String FullNameOriginalValue => GetOriginalValue<System.String>(nameof(FullName));
         public bool FullNameIsChanged => GetIsChanged(nameof(FullName));
 
+        //ShortName
         public System.String ShortName
         {
           get { return GetValue<System.String>(); }
@@ -3001,6 +3194,7 @@ namespace HVTApp.Model.Wrapper
         public System.String ShortNameOriginalValue => GetOriginalValue<System.String>(nameof(ShortName));
         public bool ShortNameIsChanged => GetIsChanged(nameof(ShortName));
 
+        //Inn
         public System.String Inn
         {
           get { return GetValue<System.String>(); }
@@ -3009,6 +3203,7 @@ namespace HVTApp.Model.Wrapper
         public System.String InnOriginalValue => GetOriginalValue<System.String>(nameof(Inn));
         public bool InnIsChanged => GetIsChanged(nameof(Inn));
 
+        //Kpp
         public System.String Kpp
         {
           get { return GetValue<System.String>(); }
@@ -3017,6 +3212,7 @@ namespace HVTApp.Model.Wrapper
         public System.String KppOriginalValue => GetOriginalValue<System.String>(nameof(Kpp));
         public bool KppIsChanged => GetIsChanged(nameof(Kpp));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -3092,6 +3288,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //FullName
         public System.String FullName
         {
           get { return GetValue<System.String>(); }
@@ -3100,6 +3297,7 @@ namespace HVTApp.Model.Wrapper
         public System.String FullNameOriginalValue => GetOriginalValue<System.String>(nameof(FullName));
         public bool FullNameIsChanged => GetIsChanged(nameof(FullName));
 
+        //ShortName
         public System.String ShortName
         {
           get { return GetValue<System.String>(); }
@@ -3108,6 +3306,7 @@ namespace HVTApp.Model.Wrapper
         public System.String ShortNameOriginalValue => GetOriginalValue<System.String>(nameof(ShortName));
         public bool ShortNameIsChanged => GetIsChanged(nameof(ShortName));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -3126,6 +3325,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Date
         public System.DateTime Date
         {
           get { return GetValue<System.DateTime>(); }
@@ -3134,6 +3334,7 @@ namespace HVTApp.Model.Wrapper
         public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
         public bool DateIsChanged => GetIsChanged(nameof(Date));
 
+        //Number
         public System.String Number
         {
           get { return GetValue<System.String>(); }
@@ -3142,6 +3343,7 @@ namespace HVTApp.Model.Wrapper
         public System.String NumberOriginalValue => GetOriginalValue<System.String>(nameof(Number));
         public bool NumberIsChanged => GetIsChanged(nameof(Number));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -3160,6 +3362,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Name
         public System.String Name
         {
           get { return GetValue<System.String>(); }
@@ -3168,6 +3371,7 @@ namespace HVTApp.Model.Wrapper
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
         public bool NameIsChanged => GetIsChanged(nameof(Name));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -3186,6 +3390,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //FullName
         public System.String FullName
         {
           get { return GetValue<System.String>(); }
@@ -3194,6 +3399,7 @@ namespace HVTApp.Model.Wrapper
         public System.String FullNameOriginalValue => GetOriginalValue<System.String>(nameof(FullName));
         public bool FullNameIsChanged => GetIsChanged(nameof(FullName));
 
+        //ShortName
         public System.String ShortName
         {
           get { return GetValue<System.String>(); }
@@ -3202,6 +3408,7 @@ namespace HVTApp.Model.Wrapper
         public System.String ShortNameOriginalValue => GetOriginalValue<System.String>(nameof(ShortName));
         public bool ShortNameIsChanged => GetIsChanged(nameof(ShortName));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -3220,6 +3427,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Name
         public System.String Name
         {
           get { return GetValue<System.String>(); }
@@ -3228,6 +3436,7 @@ namespace HVTApp.Model.Wrapper
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
         public bool NameIsChanged => GetIsChanged(nameof(Name));
 
+        //ActivityFieldEnum
         public HVTApp.Model.POCOs.ActivityFieldEnum ActivityFieldEnum
         {
           get { return GetValue<HVTApp.Model.POCOs.ActivityFieldEnum>(); }
@@ -3236,6 +3445,7 @@ namespace HVTApp.Model.Wrapper
         public HVTApp.Model.POCOs.ActivityFieldEnum ActivityFieldEnumOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.ActivityFieldEnum>(nameof(ActivityFieldEnum));
         public bool ActivityFieldEnumIsChanged => GetIsChanged(nameof(ActivityFieldEnum));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -3254,6 +3464,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Number
         public System.String Number
         {
           get { return GetValue<System.String>(); }
@@ -3262,6 +3473,7 @@ namespace HVTApp.Model.Wrapper
         public System.String NumberOriginalValue => GetOriginalValue<System.String>(nameof(Number));
         public bool NumberIsChanged => GetIsChanged(nameof(Number));
 
+        //Date
         public System.DateTime Date
         {
           get { return GetValue<System.DateTime>(); }
@@ -3270,6 +3482,7 @@ namespace HVTApp.Model.Wrapper
         public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
         public bool DateIsChanged => GetIsChanged(nameof(Date));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -3303,6 +3516,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //FullName
         public System.String FullName
         {
           get { return GetValue<System.String>(); }
@@ -3311,6 +3525,7 @@ namespace HVTApp.Model.Wrapper
         public System.String FullNameOriginalValue => GetOriginalValue<System.String>(nameof(FullName));
         public bool FullNameIsChanged => GetIsChanged(nameof(FullName));
 
+        //ShortName
         public System.String ShortName
         {
           get { return GetValue<System.String>(); }
@@ -3319,6 +3534,7 @@ namespace HVTApp.Model.Wrapper
         public System.String ShortNameOriginalValue => GetOriginalValue<System.String>(nameof(ShortName));
         public bool ShortNameIsChanged => GetIsChanged(nameof(ShortName));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -3337,6 +3553,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Value
         public System.String Value
         {
           get { return GetValue<System.String>(); }
@@ -3345,6 +3562,7 @@ namespace HVTApp.Model.Wrapper
         public System.String ValueOriginalValue => GetOriginalValue<System.String>(nameof(Value));
         public bool ValueIsChanged => GetIsChanged(nameof(Value));
 
+        //Rang
         public System.Int32 Rang
         {
           get { return GetValue<System.Int32>(); }
@@ -3353,6 +3571,7 @@ namespace HVTApp.Model.Wrapper
         public System.Int32 RangOriginalValue => GetOriginalValue<System.Int32>(nameof(Rang));
         public bool RangIsChanged => GetIsChanged(nameof(Rang));
 
+        //Comment
         public System.String Comment
         {
           get { return GetValue<System.String>(); }
@@ -3361,6 +3580,7 @@ namespace HVTApp.Model.Wrapper
         public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
         public bool CommentIsChanged => GetIsChanged(nameof(Comment));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -3415,6 +3635,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Name
         public System.String Name
         {
           get { return GetValue<System.String>(); }
@@ -3423,6 +3644,7 @@ namespace HVTApp.Model.Wrapper
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
         public bool NameIsChanged => GetIsChanged(nameof(Name));
 
+        //Comment
         public System.String Comment
         {
           get { return GetValue<System.String>(); }
@@ -3431,6 +3653,7 @@ namespace HVTApp.Model.Wrapper
         public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
         public bool CommentIsChanged => GetIsChanged(nameof(Comment));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -3464,6 +3687,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Name
         public System.String Name
         {
           get { return GetValue<System.String>(); }
@@ -3472,6 +3696,7 @@ namespace HVTApp.Model.Wrapper
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
         public bool NameIsChanged => GetIsChanged(nameof(Name));
 
+        //ChildProductsAmount
         public System.Int32 ChildProductsAmount
         {
           get { return GetValue<System.Int32>(); }
@@ -3480,6 +3705,7 @@ namespace HVTApp.Model.Wrapper
         public System.Int32 ChildProductsAmountOriginalValue => GetOriginalValue<System.Int32>(nameof(ChildProductsAmount));
         public bool ChildProductsAmountIsChanged => GetIsChanged(nameof(ChildProductsAmount));
 
+        //IsUnique
         public System.Boolean IsUnique
         {
           get { return GetValue<System.Boolean>(); }
@@ -3488,6 +3714,7 @@ namespace HVTApp.Model.Wrapper
         public System.Boolean IsUniqueOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsUnique));
         public bool IsUniqueIsChanged => GetIsChanged(nameof(IsUnique));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -3527,6 +3754,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Surname
         public System.String Surname
         {
           get { return GetValue<System.String>(); }
@@ -3535,6 +3763,7 @@ namespace HVTApp.Model.Wrapper
         public System.String SurnameOriginalValue => GetOriginalValue<System.String>(nameof(Surname));
         public bool SurnameIsChanged => GetIsChanged(nameof(Surname));
 
+        //Name
         public System.String Name
         {
           get { return GetValue<System.String>(); }
@@ -3543,6 +3772,7 @@ namespace HVTApp.Model.Wrapper
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
         public bool NameIsChanged => GetIsChanged(nameof(Name));
 
+        //Patronymic
         public System.String Patronymic
         {
           get { return GetValue<System.String>(); }
@@ -3551,6 +3781,7 @@ namespace HVTApp.Model.Wrapper
         public System.String PatronymicOriginalValue => GetOriginalValue<System.String>(nameof(Patronymic));
         public bool PatronymicIsChanged => GetIsChanged(nameof(Patronymic));
 
+        //IsMan
         public System.Boolean IsMan
         {
           get { return GetValue<System.Boolean>(); }
@@ -3559,6 +3790,7 @@ namespace HVTApp.Model.Wrapper
         public System.Boolean IsManOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsMan));
         public bool IsManIsChanged => GetIsChanged(nameof(IsMan));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -3577,6 +3809,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //ParameterId
         public System.Guid ParameterId
         {
           get { return GetValue<System.Guid>(); }
@@ -3585,6 +3818,7 @@ namespace HVTApp.Model.Wrapper
         public System.Guid ParameterIdOriginalValue => GetOriginalValue<System.Guid>(nameof(ParameterId));
         public bool ParameterIdIsChanged => GetIsChanged(nameof(ParameterId));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -3618,6 +3852,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Cost
         public System.Double Cost
         {
           get { return GetValue<System.Double>(); }
@@ -3626,6 +3861,7 @@ namespace HVTApp.Model.Wrapper
         public System.Double CostOriginalValue => GetOriginalValue<System.Double>(nameof(Cost));
         public bool CostIsChanged => GetIsChanged(nameof(Cost));
 
+        //Price
         public System.Nullable<System.Double> Price
         {
           get { return GetValue<System.Nullable<System.Double>>(); }
@@ -3634,6 +3870,7 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.Double> PriceOriginalValue => GetOriginalValue<System.Nullable<System.Double>>(nameof(Price));
         public bool PriceIsChanged => GetIsChanged(nameof(Price));
 
+        //ProductionTerm
         public System.Int32 ProductionTerm
         {
           get { return GetValue<System.Int32>(); }
@@ -3642,6 +3879,7 @@ namespace HVTApp.Model.Wrapper
         public System.Int32 ProductionTermOriginalValue => GetOriginalValue<System.Int32>(nameof(ProductionTerm));
         public bool ProductionTermIsChanged => GetIsChanged(nameof(ProductionTerm));
 
+        //DeliveryDateExpected
         public System.DateTime DeliveryDateExpected
         {
           get { return GetValue<System.DateTime>(); }
@@ -3650,6 +3888,7 @@ namespace HVTApp.Model.Wrapper
         public System.DateTime DeliveryDateExpectedOriginalValue => GetOriginalValue<System.DateTime>(nameof(DeliveryDateExpected));
         public bool DeliveryDateExpectedIsChanged => GetIsChanged(nameof(DeliveryDateExpected));
 
+        //RealizationDate
         public System.Nullable<System.DateTime> RealizationDate
         {
           get { return GetValue<System.Nullable<System.DateTime>>(); }
@@ -3658,6 +3897,7 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.DateTime> RealizationDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(RealizationDate));
         public bool RealizationDateIsChanged => GetIsChanged(nameof(RealizationDate));
 
+        //OrderPosition
         public System.String OrderPosition
         {
           get { return GetValue<System.String>(); }
@@ -3666,6 +3906,7 @@ namespace HVTApp.Model.Wrapper
         public System.String OrderPositionOriginalValue => GetOriginalValue<System.String>(nameof(OrderPosition));
         public bool OrderPositionIsChanged => GetIsChanged(nameof(OrderPosition));
 
+        //SerialNumber
         public System.String SerialNumber
         {
           get { return GetValue<System.String>(); }
@@ -3674,6 +3915,7 @@ namespace HVTApp.Model.Wrapper
         public System.String SerialNumberOriginalValue => GetOriginalValue<System.String>(nameof(SerialNumber));
         public bool SerialNumberIsChanged => GetIsChanged(nameof(SerialNumber));
 
+        //AssembleTerm
         public System.Nullable<System.Int32> AssembleTerm
         {
           get { return GetValue<System.Nullable<System.Int32>>(); }
@@ -3682,6 +3924,7 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.Int32> AssembleTermOriginalValue => GetOriginalValue<System.Nullable<System.Int32>>(nameof(AssembleTerm));
         public bool AssembleTermIsChanged => GetIsChanged(nameof(AssembleTerm));
 
+        //SignalToStartProduction
         public System.Nullable<System.DateTime> SignalToStartProduction
         {
           get { return GetValue<System.Nullable<System.DateTime>>(); }
@@ -3690,6 +3933,7 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.DateTime> SignalToStartProductionOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(SignalToStartProduction));
         public bool SignalToStartProductionIsChanged => GetIsChanged(nameof(SignalToStartProduction));
 
+        //SignalToStartProductionDone
         public System.Nullable<System.DateTime> SignalToStartProductionDone
         {
           get { return GetValue<System.Nullable<System.DateTime>>(); }
@@ -3698,6 +3942,7 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.DateTime> SignalToStartProductionDoneOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(SignalToStartProductionDone));
         public bool SignalToStartProductionDoneIsChanged => GetIsChanged(nameof(SignalToStartProductionDone));
 
+        //StartProductionDate
         public System.Nullable<System.DateTime> StartProductionDate
         {
           get { return GetValue<System.Nullable<System.DateTime>>(); }
@@ -3706,6 +3951,7 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.DateTime> StartProductionDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(StartProductionDate));
         public bool StartProductionDateIsChanged => GetIsChanged(nameof(StartProductionDate));
 
+        //PickingDate
         public System.Nullable<System.DateTime> PickingDate
         {
           get { return GetValue<System.Nullable<System.DateTime>>(); }
@@ -3714,6 +3960,7 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.DateTime> PickingDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(PickingDate));
         public bool PickingDateIsChanged => GetIsChanged(nameof(PickingDate));
 
+        //EndProductionPlanDate
         public System.Nullable<System.DateTime> EndProductionPlanDate
         {
           get { return GetValue<System.Nullable<System.DateTime>>(); }
@@ -3722,6 +3969,7 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.DateTime> EndProductionPlanDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(EndProductionPlanDate));
         public bool EndProductionPlanDateIsChanged => GetIsChanged(nameof(EndProductionPlanDate));
 
+        //EndProductionDate
         public System.Nullable<System.DateTime> EndProductionDate
         {
           get { return GetValue<System.Nullable<System.DateTime>>(); }
@@ -3730,6 +3978,7 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.DateTime> EndProductionDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(EndProductionDate));
         public bool EndProductionDateIsChanged => GetIsChanged(nameof(EndProductionDate));
 
+        //CostDelivery
         public System.Nullable<System.Double> CostDelivery
         {
           get { return GetValue<System.Nullable<System.Double>>(); }
@@ -3738,6 +3987,7 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.Double> CostDeliveryOriginalValue => GetOriginalValue<System.Nullable<System.Double>>(nameof(CostDelivery));
         public bool CostDeliveryIsChanged => GetIsChanged(nameof(CostDelivery));
 
+        //CostDeliveryIncluded
         public System.Boolean CostDeliveryIncluded
         {
           get { return GetValue<System.Boolean>(); }
@@ -3746,6 +3996,7 @@ namespace HVTApp.Model.Wrapper
         public System.Boolean CostDeliveryIncludedOriginalValue => GetOriginalValue<System.Boolean>(nameof(CostDeliveryIncluded));
         public bool CostDeliveryIncludedIsChanged => GetIsChanged(nameof(CostDeliveryIncluded));
 
+        //ExpectedDeliveryPeriod
         public System.Nullable<System.Int32> ExpectedDeliveryPeriod
         {
           get { return GetValue<System.Nullable<System.Int32>>(); }
@@ -3754,6 +4005,7 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.Int32> ExpectedDeliveryPeriodOriginalValue => GetOriginalValue<System.Nullable<System.Int32>>(nameof(ExpectedDeliveryPeriod));
         public bool ExpectedDeliveryPeriodIsChanged => GetIsChanged(nameof(ExpectedDeliveryPeriod));
 
+        //ShipmentDate
         public System.Nullable<System.DateTime> ShipmentDate
         {
           get { return GetValue<System.Nullable<System.DateTime>>(); }
@@ -3762,6 +4014,7 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.DateTime> ShipmentDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(ShipmentDate));
         public bool ShipmentDateIsChanged => GetIsChanged(nameof(ShipmentDate));
 
+        //ShipmentPlanDate
         public System.Nullable<System.DateTime> ShipmentPlanDate
         {
           get { return GetValue<System.Nullable<System.DateTime>>(); }
@@ -3770,6 +4023,7 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.DateTime> ShipmentPlanDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(ShipmentPlanDate));
         public bool ShipmentPlanDateIsChanged => GetIsChanged(nameof(ShipmentPlanDate));
 
+        //DeliveryDate
         public System.Nullable<System.DateTime> DeliveryDate
         {
           get { return GetValue<System.Nullable<System.DateTime>>(); }
@@ -3778,6 +4032,7 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.DateTime> DeliveryDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(DeliveryDate));
         public bool DeliveryDateIsChanged => GetIsChanged(nameof(DeliveryDate));
 
+        //IsRemoved
         public System.Boolean IsRemoved
         {
           get { return GetValue<System.Boolean>(); }
@@ -3786,6 +4041,7 @@ namespace HVTApp.Model.Wrapper
         public System.Boolean IsRemovedOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsRemoved));
         public bool IsRemovedIsChanged => GetIsChanged(nameof(IsRemoved));
 
+        //OrderInTakeDateInjected
         public System.Nullable<System.DateTime> OrderInTakeDateInjected
         {
           get { return GetValue<System.Nullable<System.DateTime>>(); }
@@ -3794,6 +4050,7 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.DateTime> OrderInTakeDateInjectedOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(OrderInTakeDateInjected));
         public bool OrderInTakeDateInjectedIsChanged => GetIsChanged(nameof(OrderInTakeDateInjected));
 
+        //StartProductionDateInjected
         public System.Nullable<System.DateTime> StartProductionDateInjected
         {
           get { return GetValue<System.Nullable<System.DateTime>>(); }
@@ -3802,6 +4059,7 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.DateTime> StartProductionDateInjectedOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(StartProductionDateInjected));
         public bool StartProductionDateInjectedIsChanged => GetIsChanged(nameof(StartProductionDateInjected));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -4008,6 +4266,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Date
         public System.DateTime Date
         {
           get { return GetValue<System.DateTime>(); }
@@ -4016,6 +4275,7 @@ namespace HVTApp.Model.Wrapper
         public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
         public bool DateIsChanged => GetIsChanged(nameof(Date));
 
+        //SenderId
         public System.Guid SenderId
         {
           get { return GetValue<System.Guid>(); }
@@ -4024,6 +4284,7 @@ namespace HVTApp.Model.Wrapper
         public System.Guid SenderIdOriginalValue => GetOriginalValue<System.Guid>(nameof(SenderId));
         public bool SenderIdIsChanged => GetIsChanged(nameof(SenderId));
 
+        //RecipientId
         public System.Guid RecipientId
         {
           get { return GetValue<System.Guid>(); }
@@ -4032,6 +4293,7 @@ namespace HVTApp.Model.Wrapper
         public System.Guid RecipientIdOriginalValue => GetOriginalValue<System.Guid>(nameof(RecipientId));
         public bool RecipientIdIsChanged => GetIsChanged(nameof(RecipientId));
 
+        //Comment
         public System.String Comment
         {
           get { return GetValue<System.String>(); }
@@ -4040,6 +4302,7 @@ namespace HVTApp.Model.Wrapper
         public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
         public bool CommentIsChanged => GetIsChanged(nameof(Comment));
 
+        //TceNumber
         public System.String TceNumber
         {
           get { return GetValue<System.String>(); }
@@ -4048,6 +4311,7 @@ namespace HVTApp.Model.Wrapper
         public System.String TceNumberOriginalValue => GetOriginalValue<System.String>(nameof(TceNumber));
         public bool TceNumberIsChanged => GetIsChanged(nameof(TceNumber));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -4139,6 +4403,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Date
         public System.DateTime Date
         {
           get { return GetValue<System.DateTime>(); }
@@ -4147,6 +4412,7 @@ namespace HVTApp.Model.Wrapper
         public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
         public bool DateIsChanged => GetIsChanged(nameof(Date));
 
+        //Sum
         public System.Double Sum
         {
           get { return GetValue<System.Double>(); }
@@ -4155,6 +4421,7 @@ namespace HVTApp.Model.Wrapper
         public System.Double SumOriginalValue => GetOriginalValue<System.Double>(nameof(Sum));
         public bool SumIsChanged => GetIsChanged(nameof(Sum));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -4173,6 +4440,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //DesignationSpecial
         public System.String DesignationSpecial
         {
           get { return GetValue<System.String>(); }
@@ -4181,6 +4449,7 @@ namespace HVTApp.Model.Wrapper
         public System.String DesignationSpecialOriginalValue => GetOriginalValue<System.String>(nameof(DesignationSpecial));
         public bool DesignationSpecialIsChanged => GetIsChanged(nameof(DesignationSpecial));
 
+        //Comment
         public System.String Comment
         {
           get { return GetValue<System.String>(); }
@@ -4189,6 +4458,7 @@ namespace HVTApp.Model.Wrapper
         public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
         public bool CommentIsChanged => GetIsChanged(nameof(Comment));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -4249,6 +4519,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //ValidityDate
         public System.DateTime ValidityDate
         {
           get { return GetValue<System.DateTime>(); }
@@ -4257,6 +4528,7 @@ namespace HVTApp.Model.Wrapper
         public System.DateTime ValidityDateOriginalValue => GetOriginalValue<System.DateTime>(nameof(ValidityDate));
         public bool ValidityDateIsChanged => GetIsChanged(nameof(ValidityDate));
 
+        //Vat
         public System.Double Vat
         {
           get { return GetValue<System.Double>(); }
@@ -4265,6 +4537,7 @@ namespace HVTApp.Model.Wrapper
         public System.Double VatOriginalValue => GetOriginalValue<System.Double>(nameof(Vat));
         public bool VatIsChanged => GetIsChanged(nameof(Vat));
 
+        //Date
         public System.DateTime Date
         {
           get { return GetValue<System.DateTime>(); }
@@ -4273,6 +4546,7 @@ namespace HVTApp.Model.Wrapper
         public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
         public bool DateIsChanged => GetIsChanged(nameof(Date));
 
+        //SenderId
         public System.Guid SenderId
         {
           get { return GetValue<System.Guid>(); }
@@ -4281,6 +4555,7 @@ namespace HVTApp.Model.Wrapper
         public System.Guid SenderIdOriginalValue => GetOriginalValue<System.Guid>(nameof(SenderId));
         public bool SenderIdIsChanged => GetIsChanged(nameof(SenderId));
 
+        //RecipientId
         public System.Guid RecipientId
         {
           get { return GetValue<System.Guid>(); }
@@ -4289,6 +4564,7 @@ namespace HVTApp.Model.Wrapper
         public System.Guid RecipientIdOriginalValue => GetOriginalValue<System.Guid>(nameof(RecipientId));
         public bool RecipientIdIsChanged => GetIsChanged(nameof(RecipientId));
 
+        //Comment
         public System.String Comment
         {
           get { return GetValue<System.String>(); }
@@ -4297,6 +4573,7 @@ namespace HVTApp.Model.Wrapper
         public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
         public bool CommentIsChanged => GetIsChanged(nameof(Comment));
 
+        //TceNumber
         public System.String TceNumber
         {
           get { return GetValue<System.String>(); }
@@ -4305,6 +4582,7 @@ namespace HVTApp.Model.Wrapper
         public System.String TceNumberOriginalValue => GetOriginalValue<System.String>(nameof(TceNumber));
         public bool TceNumberIsChanged => GetIsChanged(nameof(TceNumber));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -4403,6 +4681,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //PersonalNumber
         public System.String PersonalNumber
         {
           get { return GetValue<System.String>(); }
@@ -4411,6 +4690,7 @@ namespace HVTApp.Model.Wrapper
         public System.String PersonalNumberOriginalValue => GetOriginalValue<System.String>(nameof(PersonalNumber));
         public bool PersonalNumberIsChanged => GetIsChanged(nameof(PersonalNumber));
 
+        //PhoneNumber
         public System.String PhoneNumber
         {
           get { return GetValue<System.String>(); }
@@ -4419,6 +4699,7 @@ namespace HVTApp.Model.Wrapper
         public System.String PhoneNumberOriginalValue => GetOriginalValue<System.String>(nameof(PhoneNumber));
         public bool PhoneNumberIsChanged => GetIsChanged(nameof(PhoneNumber));
 
+        //Email
         public System.String Email
         {
           get { return GetValue<System.String>(); }
@@ -4427,6 +4708,7 @@ namespace HVTApp.Model.Wrapper
         public System.String EmailOriginalValue => GetOriginalValue<System.String>(nameof(Email));
         public bool EmailIsChanged => GetIsChanged(nameof(Email));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -4474,6 +4756,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Number
         public System.String Number
         {
           get { return GetValue<System.String>(); }
@@ -4482,6 +4765,7 @@ namespace HVTApp.Model.Wrapper
         public System.String NumberOriginalValue => GetOriginalValue<System.String>(nameof(Number));
         public bool NumberIsChanged => GetIsChanged(nameof(Number));
 
+        //DateOpen
         public System.DateTime DateOpen
         {
           get { return GetValue<System.DateTime>(); }
@@ -4490,6 +4774,7 @@ namespace HVTApp.Model.Wrapper
         public System.DateTime DateOpenOriginalValue => GetOriginalValue<System.DateTime>(nameof(DateOpen));
         public bool DateOpenIsChanged => GetIsChanged(nameof(DateOpen));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -4508,6 +4793,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Part
         public System.Double Part
         {
           get { return GetValue<System.Double>(); }
@@ -4516,6 +4802,7 @@ namespace HVTApp.Model.Wrapper
         public System.Double PartOriginalValue => GetOriginalValue<System.Double>(nameof(Part));
         public bool PartIsChanged => GetIsChanged(nameof(Part));
 
+        //DaysToPoint
         public System.Int32 DaysToPoint
         {
           get { return GetValue<System.Int32>(); }
@@ -4524,6 +4811,7 @@ namespace HVTApp.Model.Wrapper
         public System.Int32 DaysToPointOriginalValue => GetOriginalValue<System.Int32>(nameof(DaysToPoint));
         public bool DaysToPointIsChanged => GetIsChanged(nameof(DaysToPoint));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -4557,6 +4845,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Number
         public System.String Number
         {
           get { return GetValue<System.String>(); }
@@ -4565,6 +4854,7 @@ namespace HVTApp.Model.Wrapper
         public System.String NumberOriginalValue => GetOriginalValue<System.String>(nameof(Number));
         public bool NumberIsChanged => GetIsChanged(nameof(Number));
 
+        //Vat
         public System.Double Vat
         {
           get { return GetValue<System.Double>(); }
@@ -4573,6 +4863,7 @@ namespace HVTApp.Model.Wrapper
         public System.Double VatOriginalValue => GetOriginalValue<System.Double>(nameof(Vat));
         public bool VatIsChanged => GetIsChanged(nameof(Vat));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -4612,6 +4903,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Name
         public System.String Name
         {
           get { return GetValue<System.String>(); }
@@ -4620,6 +4912,7 @@ namespace HVTApp.Model.Wrapper
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
         public bool NameIsChanged => GetIsChanged(nameof(Name));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -4667,6 +4960,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Name
         public System.String Name
         {
           get { return GetValue<System.String>(); }
@@ -4675,6 +4969,7 @@ namespace HVTApp.Model.Wrapper
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
         public bool NameIsChanged => GetIsChanged(nameof(Name));
 
+        //InWork
         public System.Boolean InWork
         {
           get { return GetValue<System.Boolean>(); }
@@ -4683,6 +4978,7 @@ namespace HVTApp.Model.Wrapper
         public System.Boolean InWorkOriginalValue => GetOriginalValue<System.Boolean>(nameof(InWork));
         public bool InWorkIsChanged => GetIsChanged(nameof(InWork));
 
+        //ForReport
         public System.Boolean ForReport
         {
           get { return GetValue<System.Boolean>(); }
@@ -4691,6 +4987,7 @@ namespace HVTApp.Model.Wrapper
         public System.Boolean ForReportOriginalValue => GetOriginalValue<System.Boolean>(nameof(ForReport));
         public bool ForReportIsChanged => GetIsChanged(nameof(ForReport));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -4746,6 +5043,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Name
         public System.String Name
         {
           get { return GetValue<System.String>(); }
@@ -4754,6 +5052,7 @@ namespace HVTApp.Model.Wrapper
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
         public bool NameIsChanged => GetIsChanged(nameof(Name));
 
+        //Role
         public HVTApp.Infrastructure.Role Role
         {
           get { return GetValue<HVTApp.Infrastructure.Role>(); }
@@ -4762,6 +5061,7 @@ namespace HVTApp.Model.Wrapper
         public HVTApp.Infrastructure.Role RoleOriginalValue => GetOriginalValue<HVTApp.Infrastructure.Role>(nameof(Role));
         public bool RoleIsChanged => GetIsChanged(nameof(Role));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -4780,6 +5080,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Number
         public System.String Number
         {
           get { return GetValue<System.String>(); }
@@ -4788,6 +5089,7 @@ namespace HVTApp.Model.Wrapper
         public System.String NumberOriginalValue => GetOriginalValue<System.String>(nameof(Number));
         public bool NumberIsChanged => GetIsChanged(nameof(Number));
 
+        //Date
         public System.DateTime Date
         {
           get { return GetValue<System.DateTime>(); }
@@ -4796,6 +5098,7 @@ namespace HVTApp.Model.Wrapper
         public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
         public bool DateIsChanged => GetIsChanged(nameof(Date));
 
+        //Vat
         public System.Double Vat
         {
           get { return GetValue<System.Double>(); }
@@ -4804,6 +5107,7 @@ namespace HVTApp.Model.Wrapper
         public System.Double VatOriginalValue => GetOriginalValue<System.Double>(nameof(Vat));
         public bool VatIsChanged => GetIsChanged(nameof(Vat));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -4837,6 +5141,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Link
         public System.String Link
         {
           get { return GetValue<System.String>(); }
@@ -4845,6 +5150,7 @@ namespace HVTApp.Model.Wrapper
         public System.String LinkOriginalValue => GetOriginalValue<System.String>(nameof(Link));
         public bool LinkIsChanged => GetIsChanged(nameof(Link));
 
+        //DateOpen
         public System.DateTime DateOpen
         {
           get { return GetValue<System.DateTime>(); }
@@ -4853,6 +5159,7 @@ namespace HVTApp.Model.Wrapper
         public System.DateTime DateOpenOriginalValue => GetOriginalValue<System.DateTime>(nameof(DateOpen));
         public bool DateOpenIsChanged => GetIsChanged(nameof(DateOpen));
 
+        //DateClose
         public System.DateTime DateClose
         {
           get { return GetValue<System.DateTime>(); }
@@ -4861,6 +5168,7 @@ namespace HVTApp.Model.Wrapper
         public System.DateTime DateCloseOriginalValue => GetOriginalValue<System.DateTime>(nameof(DateClose));
         public bool DateCloseIsChanged => GetIsChanged(nameof(DateClose));
 
+        //DateNotice
         public System.Nullable<System.DateTime> DateNotice
         {
           get { return GetValue<System.Nullable<System.DateTime>>(); }
@@ -4869,6 +5177,7 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.DateTime> DateNoticeOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(DateNotice));
         public bool DateNoticeIsChanged => GetIsChanged(nameof(DateNotice));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -4930,6 +5239,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Name
         public System.String Name
         {
           get { return GetValue<System.String>(); }
@@ -4938,6 +5248,7 @@ namespace HVTApp.Model.Wrapper
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
         public bool NameIsChanged => GetIsChanged(nameof(Name));
 
+        //Type
         public HVTApp.Model.POCOs.TenderTypeEnum Type
         {
           get { return GetValue<HVTApp.Model.POCOs.TenderTypeEnum>(); }
@@ -4946,6 +5257,7 @@ namespace HVTApp.Model.Wrapper
         public HVTApp.Model.POCOs.TenderTypeEnum TypeOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.TenderTypeEnum>(nameof(Type));
         public bool TypeIsChanged => GetIsChanged(nameof(Type));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -4964,6 +5276,7 @@ namespace HVTApp.Model.Wrapper
 
         #region SimpleProperties
 
+        //Login
         public System.String Login
         {
           get { return GetValue<System.String>(); }
@@ -4972,6 +5285,7 @@ namespace HVTApp.Model.Wrapper
         public System.String LoginOriginalValue => GetOriginalValue<System.String>(nameof(Login));
         public bool LoginIsChanged => GetIsChanged(nameof(Login));
 
+        //Password
         public System.Guid Password
         {
           get { return GetValue<System.Guid>(); }
@@ -4980,6 +5294,7 @@ namespace HVTApp.Model.Wrapper
         public System.Guid PasswordOriginalValue => GetOriginalValue<System.Guid>(nameof(Password));
         public bool PasswordIsChanged => GetIsChanged(nameof(Password));
 
+        //RoleCurrent
         public HVTApp.Infrastructure.Role RoleCurrent
         {
           get { return GetValue<HVTApp.Infrastructure.Role>(); }
@@ -4988,6 +5303,7 @@ namespace HVTApp.Model.Wrapper
         public HVTApp.Infrastructure.Role RoleCurrentOriginalValue => GetOriginalValue<HVTApp.Infrastructure.Role>(nameof(RoleCurrent));
         public bool RoleCurrentIsChanged => GetIsChanged(nameof(RoleCurrent));
 
+        //Id
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }

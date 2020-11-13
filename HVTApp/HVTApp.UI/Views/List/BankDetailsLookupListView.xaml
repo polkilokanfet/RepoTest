@@ -38,11 +38,12 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:TextField Name="BankName" Label="Банк" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="BankIdentificationCode" Label="БИК" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="CorrespondentAccount" Label="Кор.счет" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="CheckingAccount" Label="Расч.счет" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
+
+                        <infg:TextField Name="BankName" Label="Банк" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="BankIdentificationCode" Label="БИК" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="CorrespondentAccount" Label="Кор.счет" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="CheckingAccount" Label="Расч.счет" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

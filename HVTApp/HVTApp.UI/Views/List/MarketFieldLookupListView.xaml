@@ -38,9 +38,10 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:TextField Name="Name" Label="Название" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="ActivityFields" Label="Сферы деятельноси" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
+
+                        <infg:TextField Name="Name" Label="Название" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="ActivityFields" Label="Сферы деятельноси" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                        <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

@@ -38,10 +38,11 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:TextField Name="Name" Label="Название" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="Measure" Label="Единица измерения" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
+
+                        <infg:TextField Name="Name" Label="Название" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="Measure" Label="Единица измерения" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

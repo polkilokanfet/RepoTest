@@ -10,16 +10,14 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="HVTApp.Model.POCOs" #>
 <#@ output extension=".cs" #>
-<#
-	var modelTypes = GeneratorHelpers.GetModelTypesPocos();
+<#	var modelTypes = GeneratorHelpers.GetModelTypesPocos();
     GenerateWrappers(modelTypes);
-	SaveGeneratedCodeAsFile("Wrappers.g.cs", "Wrapper");
-#>
+	SaveGeneratedCodeAsFile("Wrappers.g.cs", "Wrapper");#>
 <#+
-
     private void GenerateWrappers(IEnumerable<Type> modelTypes)
     {
-#>using System;
+#>
+using System;
 using System.Linq;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base;
@@ -104,6 +102,7 @@ namespace HVTApp.Model.Wrapper
       var propertyType = property.PropertyType.GetTypeName();
       var propertyName = property.Name;
 #>
+        //<#=propertyName#>
         public <#=propertyType#> <#=propertyName#>
         {
           get { return GetValue<<#=propertyType#>>(); }

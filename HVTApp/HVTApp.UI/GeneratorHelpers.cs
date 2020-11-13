@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Lookup;
 
@@ -282,10 +283,14 @@ namespace HVTApp.UI
 
         public static string GetAllowEdit(this Type type)
         {
+            List<AllowEditAttribute> attributes = type.GetAllowEditAttributes().ToList();
+            return attributes.Any() 
+                ? attributes.Select(x => x.ToString()).ToStringEnum(" ")
+                : string.Empty;
             StringBuilder sb = new StringBuilder();
             foreach (var attribute in type.GetAllowEditAttributes())
             {
-                sb.Append(attribute.ToString());
+                sb.AppendLine(attribute.ToString());
             }
             return sb.ToString();
         }

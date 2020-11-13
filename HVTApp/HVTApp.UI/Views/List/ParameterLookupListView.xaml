@@ -38,13 +38,14 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:TextField Name="ParameterGroup" Label="Группа" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Value" Label="Значение" Width="Auto" AllowResize="True" />
-                    <infg:NumericField Name="Rang" Label="Ранг" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="ParameterRelations" Label="Ограничения" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <infg:CheckBoxField Name="IsOrigin" Label="Начало?" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
+
+                        <infg:TextField Name="ParameterGroup" Label="Группа" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField Name="Value" Label="Значение" Width="Auto" AllowResize="True" />
+                        <infg:NumericField Name="Rang" Label="Ранг" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="ParameterRelations" Label="Ограничения" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                        <infg:CheckBoxField Name="IsOrigin" Label="Начало?" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

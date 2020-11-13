@@ -64,7 +64,7 @@
             <infgDp:XamDataGrid x:Name="Groups"
                                 Grid.Row="1"
                                 DataSource="{Binding TechnicalRequrementsTaskWrapper.Requrements}"
-                                SelectedDataItem="{Binding SelectedItem, Mode=TwoWay}">
+                                ActiveDataItem="{Binding SelectedItem, Mode=TwoWay}">
 
                 <infgDp:XamDataGrid.ContextMenu>
                     <ContextMenu>

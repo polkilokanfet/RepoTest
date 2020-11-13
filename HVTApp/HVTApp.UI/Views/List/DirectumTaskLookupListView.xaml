@@ -38,20 +38,21 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:TextField Name="Group" Label="Группа задач" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Performer" Label="Исполнитель" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:DateTimeField Name="StartPerformer" Label="Приём" Width="Auto" AllowResize="True" />
-                    <infg:DateTimeField Name="FinishPlan" Label="Срок" Width="Auto" AllowResize="True" />
-                    <infg:DateTimeField Name="FinishPerformer" Label="Финиш исполнителем" Width="Auto" AllowResize="True" />
-                    <infg:DateTimeField Name="FinishAuthor" Label="Финиш" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="Messages" Label="Переписка" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <infg:TextField Name="ParentTask" Label="Родительская задача" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="PreviousTask" Label="Предыдущая задача" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Status" Label="Статус" Width="Auto" AllowResize="True" />
-                    <infg:DateTimeField Name="StartResult" Label="StartResult" Width="Auto" AllowResize="True" />
-                    <infg:CheckBoxField Name="IsActual" Label="Актуальность" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="Direction" Label="Direction" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
+
+                        <infg:TextField Name="Group" Label="Группа задач" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField Name="Performer" Label="Исполнитель" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:DateTimeField Name="StartPerformer" Label="Приём" Width="Auto" AllowResize="True" />
+                        <infg:DateTimeField Name="FinishPlan" Label="Срок" Width="Auto" AllowResize="True" />
+                        <infg:DateTimeField Name="FinishPerformer" Label="Финиш исполнителем" Width="Auto" AllowResize="True" />
+                        <infg:DateTimeField Name="FinishAuthor" Label="Финиш" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="Messages" Label="Переписка" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                        <infg:TextField Name="ParentTask" Label="Родительская задача" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField Name="PreviousTask" Label="Предыдущая задача" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField Name="Status" Label="Статус" Width="Auto" AllowResize="True" />
+                        <infg:DateTimeField Name="StartResult" Label="StartResult" Width="Auto" AllowResize="True" />
+                        <infg:CheckBoxField Name="IsActual" Label="Актуальность" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="Direction" Label="Direction" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

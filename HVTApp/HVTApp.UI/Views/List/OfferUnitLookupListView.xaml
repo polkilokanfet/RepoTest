@@ -38,16 +38,17 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:TextField Name="PaymentConditionSet" Label="Условия оплаты" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Product" Label="Продукт" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Offer" Label="ТКП" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Facility" Label="Объект" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="ProductsIncluded" Label="Включенные продукты" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <infg:NumericField Name="ProductionTerm" Label="Срок производства" Width="Auto" AllowResize="True" />
-                    <infg:CheckBoxField Name="CostDeliveryIncluded" Label="Стоимость доставки включена в основную стоимость" Width="Auto" AllowResize="True" />
-                    <infg:NumericField Name="CostDelivery" Label="Стоимость доставки" Width="Auto" AllowResize="True" />
-                    <infg:NumericField Name="Cost" Label="Стоимость" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
+
+                        <infg:TextField Name="PaymentConditionSet" Label="Условия оплаты" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField Name="Product" Label="Продукт" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField Name="Offer" Label="ТКП" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField Name="Facility" Label="Объект" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField Name="ProductsIncluded" Label="Включенные продукты" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                        <infg:NumericField Name="ProductionTerm" Label="Срок производства" Width="Auto" AllowResize="True" />
+                        <infg:CheckBoxField Name="CostDeliveryIncluded" Label="Стоимость доставки включена в основную стоимость" Width="Auto" AllowResize="True" />
+                        <infg:NumericField Name="CostDelivery" Label="Стоимость доставки" Width="Auto" AllowResize="True" />
+                        <infg:NumericField Name="Cost" Label="Стоимость" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

@@ -38,11 +38,12 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="Name" Label="Название" Width="Auto" AllowResize="True" />
-                    <infg:DateTimeField Name="DateStart" Label="Старт" Width="Auto" AllowResize="True" />
-                    <infg:DateTimeField Name="DateFinish" Label="Финиш" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
+
+                        <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="Name" Label="Название" Width="Auto" AllowResize="True" />
+                        <infg:DateTimeField Name="DateStart" Label="Старт" Width="Auto" AllowResize="True" />
+                        <infg:DateTimeField Name="DateFinish" Label="Финиш" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

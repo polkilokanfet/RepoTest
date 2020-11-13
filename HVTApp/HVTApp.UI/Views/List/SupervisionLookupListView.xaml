@@ -38,13 +38,14 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:TextField Name="SalesUnit" Label="Оборудование" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="SupervisionUnit" Label="Единица шеф-монтажа" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:DateTimeField Name="DateFinish" Label="Дата (факт.)" Width="Auto" AllowResize="True" />
-                    <infg:DateTimeField Name="DateRequired" Label="Дата (треб.)" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="ClientOrderNumber" Label="Заказ клиента" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="ServiceOrderNumber" Label="Сервисный заказ" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
+
+                        <infg:TextField Name="SalesUnit" Label="Оборудование" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField Name="SupervisionUnit" Label="Единица шеф-монтажа" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:DateTimeField Name="DateFinish" Label="Дата (факт.)" Width="Auto" AllowResize="True" />
+                        <infg:DateTimeField Name="DateRequired" Label="Дата (треб.)" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="ClientOrderNumber" Label="Заказ клиента" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="ServiceOrderNumber" Label="Сервисный заказ" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

@@ -38,11 +38,12 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:TextField Name="Category" Label="Категория" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:NumericField Name="Cost" Label="Стоимость" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="StructureCost" Label="StructureCost" Width="Auto" AllowResize="True" />
-                    <infg:NumericField Name="Price" Label="Себестоимость" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
+
+                        <infg:TextField Name="Category" Label="Категория" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:NumericField Name="Cost" Label="Стоимость" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="StructureCost" Label="StructureCost" Width="Auto" AllowResize="True" />
+                        <infg:NumericField Name="Price" Label="Себестоимость" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

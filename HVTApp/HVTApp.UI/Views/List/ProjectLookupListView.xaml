@@ -38,25 +38,26 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:TextField Name="Facilities" Label="Объекты" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <infg:TextField Name="Name" Label="Название" Width="Auto" AllowResize="True" />
-                    <infg:NumericField Name="Sum" Label="Сумма проекта" Width="Auto" AllowResize="True" />
-                    <infg:DateTimeField Name="RealizationDate" Label="Дата поставки" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="ProjectType" Label="Тип проекта" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:DateTimeField Name="TenderDate" Label="Тендер" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="Manager" Label="Менеджер" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Builder" Label="Подрядчик" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="ProjectMaker" Label="Проектировщик" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Supplier" Label="Поставщик" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:CheckBoxField Name="InWork" Label="В работе" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="Tenders" Label="Tenders" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <infg:TextField Name="SalesUnits" Label="SalesUnits" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <infg:TextField Name="Offers" Label="Offers" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <infg:CheckBoxField Name="ForReport" Label="Отчетный" Width="Auto" AllowResize="True" />
-                    <infg:CheckBoxField Name="IsDone" Label="Done" Width="Auto" AllowResize="True" />
-                    <infg:CheckBoxField Name="IsLoosen" Label="Проигран" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="Notes" Label="Заметки" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
+
+                        <infg:TextField Name="Facilities" Label="Объекты" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                        <infg:TextField Name="Name" Label="Название" Width="Auto" AllowResize="True" />
+                        <infg:NumericField Name="Sum" Label="Сумма проекта" Width="Auto" AllowResize="True" />
+                        <infg:DateTimeField Name="RealizationDate" Label="Дата поставки" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="ProjectType" Label="Тип проекта" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:DateTimeField Name="TenderDate" Label="Тендер" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="Manager" Label="Менеджер" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField Name="Builder" Label="Подрядчик" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField Name="ProjectMaker" Label="Проектировщик" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField Name="Supplier" Label="Поставщик" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:CheckBoxField Name="InWork" Label="В работе" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="Tenders" Label="Tenders" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                        <infg:TextField Name="SalesUnits" Label="SalesUnits" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                        <infg:TextField Name="Offers" Label="Offers" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                        <infg:CheckBoxField Name="ForReport" Label="Отчетный" Width="Auto" AllowResize="True" />
+                        <infg:CheckBoxField Name="IsDone" Label="Done" Width="Auto" AllowResize="True" />
+                        <infg:CheckBoxField Name="IsLoosen" Label="Проигран" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="Notes" Label="Заметки" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                        <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

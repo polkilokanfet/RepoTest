@@ -38,13 +38,14 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:TextField Name="Company" Label="Компания" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Position" Label="Должность" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Person" Label="Персона" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="PhoneNumber" Label="Телефон" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="PersonalNumber" Label="Шифр" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="Email" Label="e-mail" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
+
+                        <infg:TextField Name="Company" Label="Компания" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField Name="Position" Label="Должность" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField Name="Person" Label="Персона" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField Name="PhoneNumber" Label="Телефон" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="PersonalNumber" Label="Шифр" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="Email" Label="e-mail" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

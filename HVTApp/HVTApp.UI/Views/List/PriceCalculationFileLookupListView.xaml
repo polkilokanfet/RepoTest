@@ -38,10 +38,11 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:DateTimeField Name="CreationMoment" Label="Момент создания" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="Time" Label="Время" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="CalculationId" Label="CalculationId" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
+
+                        <infg:DateTimeField Name="CreationMoment" Label="Момент создания" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="Time" Label="Время" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="CalculationId" Label="CalculationId" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

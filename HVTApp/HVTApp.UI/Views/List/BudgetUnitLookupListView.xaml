@@ -38,17 +38,18 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:TextField Name="SalesUnit" Label="Единица продаж" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:DateTimeField Name="OrderInTakeDate" Label="Дата ОИТ" Width="Auto" AllowResize="True" />
-                    <infg:DateTimeField Name="OrderInTakeDateByManager" Label="Дата ОИТ (менеджер)" Width="Auto" AllowResize="True" />
-                    <infg:DateTimeField Name="RealizationDate" Label="Дата реализации" Width="Auto" AllowResize="True" />
-                    <infg:DateTimeField Name="RealizationDateByManager" Label="Дата реализации (менеджер)" Width="Auto" AllowResize="True" />
-                    <infg:NumericField Name="Cost" Label="Стоимость" Width="Auto" AllowResize="True" />
-                    <infg:NumericField Name="CostByManager" Label="Стоимость (менеджер)" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="PaymentConditionSet" Label="Условия оплаты" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="PaymentConditionSetByManager" Label="Условия оплаты (менеджер)" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:CheckBoxField Name="IsRemoved" Label="Удален" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
+
+                        <infg:TextField Name="SalesUnit" Label="Единица продаж" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:DateTimeField Name="OrderInTakeDate" Label="Дата ОИТ" Width="Auto" AllowResize="True" />
+                        <infg:DateTimeField Name="OrderInTakeDateByManager" Label="Дата ОИТ (менеджер)" Width="Auto" AllowResize="True" />
+                        <infg:DateTimeField Name="RealizationDate" Label="Дата реализации" Width="Auto" AllowResize="True" />
+                        <infg:DateTimeField Name="RealizationDateByManager" Label="Дата реализации (менеджер)" Width="Auto" AllowResize="True" />
+                        <infg:NumericField Name="Cost" Label="Стоимость" Width="Auto" AllowResize="True" />
+                        <infg:NumericField Name="CostByManager" Label="Стоимость (менеджер)" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="PaymentConditionSet" Label="Условия оплаты" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField Name="PaymentConditionSetByManager" Label="Условия оплаты (менеджер)" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:CheckBoxField Name="IsRemoved" Label="Удален" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

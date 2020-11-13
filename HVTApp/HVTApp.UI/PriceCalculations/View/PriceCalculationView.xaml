@@ -72,7 +72,7 @@
             <infgDp:XamDataGrid x:Name="Groups"
                                 Grid.Row="1"
                                 DataSource="{Binding PriceCalculationWrapper.PriceCalculationItems}"
-                                SelectedDataItem="{Binding SelectedItem, Mode=TwoWay}">
+                                ActiveDataItem="{Binding SelectedItem, Mode=TwoWay}">
 
                 <infgDp:XamDataGrid.ContextMenu>
                     <ContextMenu>

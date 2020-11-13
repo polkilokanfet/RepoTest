@@ -15,7 +15,6 @@ namespace HVTApp.UI.Views
 	[Designation("Сфера деятельности")]
 	[DesignationPlural("ActivityFieldLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class ActivityFieldLookupListView : ViewBase
     {
         public ActivityFieldLookupListView()
@@ -75,10 +74,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Адрес")]
 	[DesignationPlural("AddressLookup")]
-	[AllowEditAttribute(Role.SalesManager)]
-[AllowEditAttribute(Role.Economist)]
-[AllowEditAttribute(Role.Admin)]
-
+	[AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.Economist)] [AllowEditAttribute(Role.Admin)]
     public partial class AddressLookupListView : ViewBase
     {
         public AddressLookupListView()
@@ -159,9 +155,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Банковские реквизиты")]
 	[DesignationPlural("BankDetailsLookup")]
-	[AllowEditAttribute(Role.SalesManager)]
-[AllowEditAttribute(Role.Admin)]
-
+	[AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.Admin)]
     public partial class BankDetailsLookupListView : ViewBase
     {
         public BankDetailsLookupListView()
@@ -236,7 +230,6 @@ namespace HVTApp.UI.Views
 	[Designation("Банковская гарантия")]
 	[DesignationPlural("BankGuaranteeLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class BankGuaranteeLookupListView : ViewBase
     {
         public BankGuaranteeLookupListView()
@@ -304,7 +297,6 @@ namespace HVTApp.UI.Views
 	[Designation("Банковская гарантия (тип)")]
 	[DesignationPlural("BankGuaranteeTypeLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class BankGuaranteeTypeLookupListView : ViewBase
     {
         public BankGuaranteeTypeLookupListView()
@@ -358,7 +350,6 @@ namespace HVTApp.UI.Views
 	[Designation("Бюджет")]
 	[DesignationPlural("BudgetLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class BudgetLookupListView : ViewBase
     {
         public BudgetLookupListView()
@@ -440,7 +431,6 @@ namespace HVTApp.UI.Views
 	[Designation("Единица бюджета")]
 	[DesignationPlural("BudgetUnitLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class BudgetUnitLookupListView : ViewBase
     {
         public BudgetUnitLookupListView()
@@ -557,7 +547,6 @@ namespace HVTApp.UI.Views
 	[Designation("Организационная форма")]
 	[DesignationPlural("CompanyFormLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class CompanyFormLookupListView : ViewBase
     {
         public CompanyFormLookupListView()
@@ -617,11 +606,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Компания")]
 	[DesignationPlural("CompanyLookup")]
-	[AllowEditAttribute(Role.SalesManager)]
-[AllowEditAttribute(Role.DataBaseFiller)]
-[AllowEditAttribute(Role.Economist)]
-[AllowEditAttribute(Role.Admin)]
-
+	[AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.DataBaseFiller)] [AllowEditAttribute(Role.Economist)] [AllowEditAttribute(Role.Admin)]
     public partial class CompanyLookupListView : ViewBase
     {
         public CompanyLookupListView()
@@ -738,7 +723,6 @@ namespace HVTApp.UI.Views
 	[Designation("Конструктора - параметры (список)")]
 	[DesignationPlural("ConstructorParametersListLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class ConstructorParametersListLookupListView : ViewBase
     {
         public ConstructorParametersListLookupListView()
@@ -799,7 +783,6 @@ namespace HVTApp.UI.Views
 	[Designation("Конструктора - параметры")]
 	[DesignationPlural("ConstructorsParametersLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class ConstructorsParametersLookupListView : ViewBase
     {
         public ConstructorsParametersLookupListView()
@@ -866,9 +849,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Контракт")]
 	[DesignationPlural("ContractLookup")]
-	[AllowEditAttribute(Role.SalesManager)]
-[AllowEditAttribute(Role.Admin)]
-
+	[AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.Admin)]
     public partial class ContractLookupListView : ViewBase
     {
         public ContractLookupListView()
@@ -935,9 +916,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Страна")]
 	[DesignationPlural("CountryLookup")]
-	[AllowEditAttribute(Role.SalesManager)]
-[AllowEditAttribute(Role.Admin)]
-
+	[AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.Admin)]
     public partial class CountryLookupListView : ViewBase
     {
         public CountryLookupListView()
@@ -991,7 +970,6 @@ namespace HVTApp.UI.Views
 	[Designation("Объединение стран")]
 	[DesignationPlural("CountryUnionLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class CountryUnionLookupListView : ViewBase
     {
         public CountryUnionLookupListView()
@@ -1052,7 +1030,6 @@ namespace HVTApp.UI.Views
 	[Designation("Задание на создание нового продукта")]
 	[DesignationPlural("CreateNewProductTaskLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class CreateNewProductTaskLookupListView : ViewBase
     {
         public CreateNewProductTaskLookupListView()
@@ -1127,7 +1104,6 @@ namespace HVTApp.UI.Views
 	[Designation("Курс обмена валют")]
 	[DesignationPlural("CurrencyExchangeRateLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class CurrencyExchangeRateLookupListView : ViewBase
     {
         public CurrencyExchangeRateLookupListView()
@@ -1202,7 +1178,6 @@ namespace HVTApp.UI.Views
 	[Designation("Группа задач")]
 	[DesignationPlural("DirectumTaskGroupLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class DirectumTaskGroupLookupListView : ViewBase
     {
         public DirectumTaskGroupLookupListView()
@@ -1347,7 +1322,6 @@ namespace HVTApp.UI.Views
 	[Designation("Задача")]
 	[DesignationPlural("DirectumTaskLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class DirectumTaskLookupListView : ViewBase
     {
         public DirectumTaskLookupListView()
@@ -1506,7 +1480,6 @@ namespace HVTApp.UI.Views
 	[Designation("Сообщение в задаче")]
 	[DesignationPlural("DirectumTaskMessageLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class DirectumTaskMessageLookupListView : ViewBase
     {
         public DirectumTaskMessageLookupListView()
@@ -1573,9 +1546,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Округ")]
 	[DesignationPlural("DistrictLookup")]
-	[AllowEditAttribute(Role.SalesManager)]
-[AllowEditAttribute(Role.Admin)]
-
+	[AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.Admin)]
     public partial class DistrictLookupListView : ViewBase
     {
         public DistrictLookupListView()
@@ -1636,7 +1607,6 @@ namespace HVTApp.UI.Views
 	[Designation("Документ")]
 	[DesignationPlural("DocumentLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class DocumentLookupListView : ViewBase
     {
         public DocumentLookupListView()
@@ -1802,7 +1772,6 @@ namespace HVTApp.UI.Views
 	[Designation("Номер документа")]
 	[DesignationPlural("DocumentNumberLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class DocumentNumberLookupListView : ViewBase
     {
         public DocumentNumberLookupListView()
@@ -1855,11 +1824,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Регистрационные данные")]
 	[DesignationPlural("DocumentsRegistrationDetailsLookup")]
-	[AllowEditAttribute(Role.SalesManager)]
-[AllowEditAttribute(Role.DataBaseFiller)]
-[AllowEditAttribute(Role.Economist)]
-[AllowEditAttribute(Role.Admin)]
-
+	[AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.DataBaseFiller)] [AllowEditAttribute(Role.Economist)] [AllowEditAttribute(Role.Admin)]
     public partial class DocumentsRegistrationDetailsLookupListView : ViewBase
     {
         public DocumentsRegistrationDetailsLookupListView()
@@ -1919,11 +1884,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Сотрудник")]
 	[DesignationPlural("EmployeeLookup")]
-	[AllowEditAttribute(Role.DataBaseFiller)]
-[AllowEditAttribute(Role.SalesManager)]
-[AllowEditAttribute(Role.Economist)]
-[AllowEditAttribute(Role.Admin)]
-
+	[AllowEditAttribute(Role.DataBaseFiller)] [AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.Economist)] [AllowEditAttribute(Role.Admin)]
     public partial class EmployeeLookupListView : ViewBase
     {
         public EmployeeLookupListView()
@@ -2011,11 +1972,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Должность")]
 	[DesignationPlural("EmployeesPositionLookup")]
-	[AllowEditAttribute(Role.DataBaseFiller)]
-[AllowEditAttribute(Role.SalesManager)]
-[AllowEditAttribute(Role.Economist)]
-[AllowEditAttribute(Role.Admin)]
-
+	[AllowEditAttribute(Role.DataBaseFiller)] [AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.Economist)] [AllowEditAttribute(Role.Admin)]
     public partial class EmployeesPositionLookupListView : ViewBase
     {
         public EmployeesPositionLookupListView()
@@ -2068,9 +2025,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Объект")]
 	[DesignationPlural("FacilityLookup")]
-	[AllowEditAttribute(Role.SalesManager)]
-[AllowEditAttribute(Role.Admin)]
-
+	[AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.Admin)]
     public partial class FacilityLookupListView : ViewBase
     {
         public FacilityLookupListView()
@@ -2144,9 +2099,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Тип объекта")]
 	[DesignationPlural("FacilityTypeLookup")]
-	[AllowEditAttribute(Role.SalesManager)]
-[AllowEditAttribute(Role.Admin)]
-
+	[AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.Admin)]
     public partial class FacilityTypeLookupListView : ViewBase
     {
         public FacilityTypeLookupListView()
@@ -2207,7 +2160,6 @@ namespace HVTApp.UI.Views
 	[Designation("Общие настройки")]
 	[DesignationPlural("GlobalPropertiesLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class GlobalPropertiesLookupListView : ViewBase
     {
         public GlobalPropertiesLookupListView()
@@ -2457,7 +2409,6 @@ namespace HVTApp.UI.Views
 	[Designation("Входящий запрос")]
 	[DesignationPlural("IncomingRequestLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class IncomingRequestLookupListView : ViewBase
     {
         public IncomingRequestLookupListView()
@@ -2552,9 +2503,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Населенный пункт")]
 	[DesignationPlural("LocalityLookup")]
-	[AllowEditAttribute(Role.SalesManager)]
-[AllowEditAttribute(Role.Admin)]
-
+	[AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.Admin)]
     public partial class LocalityLookupListView : ViewBase
     {
         public LocalityLookupListView()
@@ -2649,9 +2598,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Тип населенного пункта")]
 	[DesignationPlural("LocalityTypeLookup")]
-	[AllowEditAttribute(Role.SalesManager)]
-[AllowEditAttribute(Role.Admin)]
-
+	[AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.Admin)]
     public partial class LocalityTypeLookupListView : ViewBase
     {
         public LocalityTypeLookupListView()
@@ -2712,7 +2659,6 @@ namespace HVTApp.UI.Views
 	[Designation("Причина проигрыша")]
 	[DesignationPlural("LosingReasonLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class LosingReasonLookupListView : ViewBase
     {
         public LosingReasonLookupListView()
@@ -2766,7 +2712,6 @@ namespace HVTApp.UI.Views
 	[Designation("Область рынка")]
 	[DesignationPlural("MarketFieldLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class MarketFieldLookupListView : ViewBase
     {
         public MarketFieldLookupListView()
@@ -2827,7 +2772,6 @@ namespace HVTApp.UI.Views
 	[Designation("Единица измерения")]
 	[DesignationPlural("MeasureLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class MeasureLookupListView : ViewBase
     {
         public MeasureLookupListView()
@@ -2888,7 +2832,6 @@ namespace HVTApp.UI.Views
 	[Designation("Заметка")]
 	[DesignationPlural("NoteLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class NoteLookupListView : ViewBase
     {
         public NoteLookupListView()
@@ -2956,7 +2899,6 @@ namespace HVTApp.UI.Views
 	[Designation("Предложение")]
 	[DesignationPlural("OfferLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class OfferLookupListView : ViewBase
     {
         public OfferLookupListView()
@@ -3143,7 +3085,6 @@ namespace HVTApp.UI.Views
 	[Designation("Единица ТКП")]
 	[DesignationPlural("OfferUnitLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class OfferUnitLookupListView : ViewBase
     {
         public OfferUnitLookupListView()
@@ -3252,9 +3193,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Заводской заказ")]
 	[DesignationPlural("OrderLookup")]
-	[AllowEditAttribute(Role.PlanMaker)]
-[AllowEditAttribute(Role.Admin)]
-
+	[AllowEditAttribute(Role.PlanMaker)] [AllowEditAttribute(Role.Admin)]
     public partial class OrderLookupListView : ViewBase
     {
         public OrderLookupListView()
@@ -3315,7 +3254,6 @@ namespace HVTApp.UI.Views
 	[Designation("Группа параметров")]
 	[DesignationPlural("ParameterGroupLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class ParameterGroupLookupListView : ViewBase
     {
         public ParameterGroupLookupListView()
@@ -3383,7 +3321,6 @@ namespace HVTApp.UI.Views
 	[Designation("Параметр")]
 	[DesignationPlural("ParameterLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class ParameterLookupListView : ViewBase
     {
         public ParameterLookupListView()
@@ -3472,7 +3409,6 @@ namespace HVTApp.UI.Views
 	[Designation("Ограничение использования параметра")]
 	[DesignationPlural("ParameterRelationLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class ParameterRelationLookupListView : ViewBase
     {
         public ParameterRelationLookupListView()
@@ -3533,7 +3469,6 @@ namespace HVTApp.UI.Views
 	[Designation("Платеж совершенный")]
 	[DesignationPlural("PaymentActualLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class PaymentActualLookupListView : ViewBase
     {
         public PaymentActualLookupListView()
@@ -3601,7 +3536,6 @@ namespace HVTApp.UI.Views
 	[Designation("Условие платежа")]
 	[DesignationPlural("PaymentConditionLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class PaymentConditionLookupListView : ViewBase
     {
         public PaymentConditionLookupListView()
@@ -3669,7 +3603,6 @@ namespace HVTApp.UI.Views
 	[Designation("Условие платежа (точка отсчета)")]
 	[DesignationPlural("PaymentConditionPointLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class PaymentConditionPointLookupListView : ViewBase
     {
         public PaymentConditionPointLookupListView()
@@ -3730,7 +3663,6 @@ namespace HVTApp.UI.Views
 	[Designation("Условия оплаты")]
 	[DesignationPlural("PaymentConditionSetLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class PaymentConditionSetLookupListView : ViewBase
     {
         public PaymentConditionSetLookupListView()
@@ -3790,9 +3722,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Платежный документ")]
 	[DesignationPlural("PaymentDocumentLookup")]
-	[AllowEditAttribute(Role.Economist)]
-[AllowEditAttribute(Role.Admin)]
-
+	[AllowEditAttribute(Role.Economist)] [AllowEditAttribute(Role.Admin)]
     public partial class PaymentDocumentLookupListView : ViewBase
     {
         public PaymentDocumentLookupListView()
@@ -3867,7 +3797,6 @@ namespace HVTApp.UI.Views
 	[Designation("Платеж плановый")]
 	[DesignationPlural("PaymentPlannedLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class PaymentPlannedLookupListView : ViewBase
     {
         public PaymentPlannedLookupListView()
@@ -3949,7 +3878,6 @@ namespace HVTApp.UI.Views
 	[Designation("Штрафные санкции")]
 	[DesignationPlural("PenaltyLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class PenaltyLookupListView : ViewBase
     {
         public PenaltyLookupListView()
@@ -4016,11 +3944,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Персона")]
 	[DesignationPlural("PersonLookup")]
-	[AllowEditAttribute(Role.DataBaseFiller)]
-[AllowEditAttribute(Role.SalesManager)]
-[AllowEditAttribute(Role.Economist)]
-[AllowEditAttribute(Role.Admin)]
-
+	[AllowEditAttribute(Role.DataBaseFiller)] [AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.Economist)] [AllowEditAttribute(Role.Admin)]
     public partial class PersonLookupListView : ViewBase
     {
         public PersonLookupListView()
@@ -4095,7 +4019,6 @@ namespace HVTApp.UI.Views
 	[Designation("Расчет себестоимости оборудования (файл)")]
 	[DesignationPlural("PriceCalculationFileLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class PriceCalculationFileLookupListView : ViewBase
     {
         public PriceCalculationFileLookupListView()
@@ -4163,7 +4086,6 @@ namespace HVTApp.UI.Views
 	[Designation("Единица расчета себестоимости оборудования")]
 	[DesignationPlural("PriceCalculationItemLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class PriceCalculationItemLookupListView : ViewBase
     {
         public PriceCalculationItemLookupListView()
@@ -4287,7 +4209,6 @@ namespace HVTApp.UI.Views
 	[Designation("Расчет себестоимости оборудования")]
 	[DesignationPlural("PriceCalculationLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class PriceCalculationLookupListView : ViewBase
     {
         public PriceCalculationLookupListView()
@@ -4404,7 +4325,6 @@ namespace HVTApp.UI.Views
 	[Designation("Блок")]
 	[DesignationPlural("ProductBlockLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class ProductBlockLookupListView : ViewBase
     {
         public ProductBlockLookupListView()
@@ -4563,7 +4483,6 @@ namespace HVTApp.UI.Views
 	[Designation("Категория продукта")]
 	[DesignationPlural("ProductCategoryLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class ProductCategoryLookupListView : ViewBase
     {
         public ProductCategoryLookupListView()
@@ -4630,10 +4549,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Стоимость и ПЗ категории продукта")]
 	[DesignationPlural("ProductCategoryPriceAndCostLookup")]
-	[AllowEditAttribute(Role.ReportMaker)]
-[AllowEditAttribute(Role.Director)]
-[AllowEditAttribute(Role.Admin)]
-
+	[AllowEditAttribute(Role.ReportMaker)] [AllowEditAttribute(Role.Director)] [AllowEditAttribute(Role.Admin)]
     public partial class ProductCategoryPriceAndCostLookupListView : ViewBase
     {
         public ProductCategoryPriceAndCostLookupListView()
@@ -4708,7 +4624,6 @@ namespace HVTApp.UI.Views
 	[Designation("Зависимое оборудование")]
 	[DesignationPlural("ProductDependentLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class ProductDependentLookupListView : ViewBase
     {
         public ProductDependentLookupListView()
@@ -4776,7 +4691,6 @@ namespace HVTApp.UI.Views
 	[Designation("Обозначение продукта")]
 	[DesignationPlural("ProductDesignationLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class ProductDesignationLookupListView : ViewBase
     {
         public ProductDesignationLookupListView()
@@ -4844,7 +4758,6 @@ namespace HVTApp.UI.Views
 	[Designation("Включенное в стоимость оборудование")]
 	[DesignationPlural("ProductIncludedLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class ProductIncludedLookupListView : ViewBase
     {
         public ProductIncludedLookupListView()
@@ -4926,7 +4839,6 @@ namespace HVTApp.UI.Views
 	[Designation("Продукт")]
 	[DesignationPlural("ProductLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class ProductLookupListView : ViewBase
     {
         public ProductLookupListView()
@@ -5029,7 +4941,6 @@ namespace HVTApp.UI.Views
 	[Designation("Связи продуктов")]
 	[DesignationPlural("ProductRelationLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class ProductRelationLookupListView : ViewBase
     {
         public ProductRelationLookupListView()
@@ -5111,7 +5022,6 @@ namespace HVTApp.UI.Views
 	[Designation("Обозначение типа продукта")]
 	[DesignationPlural("ProductTypeDesignationLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class ProductTypeDesignationLookupListView : ViewBase
     {
         public ProductTypeDesignationLookupListView()
@@ -5172,7 +5082,6 @@ namespace HVTApp.UI.Views
 	[Designation("Тип продукта")]
 	[DesignationPlural("ProductTypeLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class ProductTypeLookupListView : ViewBase
     {
         public ProductTypeLookupListView()
@@ -5226,7 +5135,6 @@ namespace HVTApp.UI.Views
 	[Designation("Проект")]
 	[DesignationPlural("ProjectLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class ProjectLookupListView : ViewBase
     {
         public ProjectLookupListView()
@@ -5399,7 +5307,6 @@ namespace HVTApp.UI.Views
 	[Designation("Тип проекта")]
 	[DesignationPlural("ProjectTypeLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class ProjectTypeLookupListView : ViewBase
     {
         public ProjectTypeLookupListView()
@@ -5452,9 +5359,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Регион")]
 	[DesignationPlural("RegionLookup")]
-	[AllowEditAttribute(Role.SalesManager)]
-[AllowEditAttribute(Role.Admin)]
-
+	[AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.Admin)]
     public partial class RegionLookupListView : ViewBase
     {
         public RegionLookupListView()
@@ -5515,7 +5420,6 @@ namespace HVTApp.UI.Views
 	[Designation("Единица продаж")]
 	[DesignationPlural("SalesUnitLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class SalesUnitLookupListView : ViewBase
     {
         public SalesUnitLookupListView()
@@ -6038,7 +5942,6 @@ namespace HVTApp.UI.Views
 	[Designation("Спецификация")]
 	[DesignationPlural("SpecificationLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class SpecificationLookupListView : ViewBase
     {
         public SpecificationLookupListView()
@@ -6127,7 +6030,6 @@ namespace HVTApp.UI.Views
 	[Designation("Стандартный маржинальный доход")]
 	[DesignationPlural("StandartMarginalIncomeLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class StandartMarginalIncomeLookupListView : ViewBase
     {
         public StandartMarginalIncomeLookupListView()
@@ -6188,7 +6090,6 @@ namespace HVTApp.UI.Views
 	[Designation("Стандартный срок производства")]
 	[DesignationPlural("StandartProductionTermLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class StandartProductionTermLookupListView : ViewBase
     {
         public StandartProductionTermLookupListView()
@@ -6249,7 +6150,6 @@ namespace HVTApp.UI.Views
 	[Designation("Стракчакост")]
 	[DesignationPlural("StructureCostLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class StructureCostLookupListView : ViewBase
     {
         public StructureCostLookupListView()
@@ -6338,7 +6238,6 @@ namespace HVTApp.UI.Views
 	[Designation("Сумма (фэйк)")]
 	[DesignationPlural("SumLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class SumLookupListView : ViewBase
     {
         public SumLookupListView()
@@ -6406,7 +6305,6 @@ namespace HVTApp.UI.Views
 	[Designation("Сумма на дату")]
 	[DesignationPlural("SumOnDateLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class SumOnDateLookupListView : ViewBase
     {
         public SumOnDateLookupListView()
@@ -6467,7 +6365,6 @@ namespace HVTApp.UI.Views
 	[Designation("Шеф-монтаж")]
 	[DesignationPlural("SupervisionLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class SupervisionLookupListView : ViewBase
     {
         public SupervisionLookupListView()
@@ -6556,7 +6453,6 @@ namespace HVTApp.UI.Views
 	[Designation("Тех.задание (файл)")]
 	[DesignationPlural("TechnicalRequrementsFileLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class TechnicalRequrementsFileLookupListView : ViewBase
     {
         public TechnicalRequrementsFileLookupListView()
@@ -6624,7 +6520,6 @@ namespace HVTApp.UI.Views
 	[Designation("Тех.задание")]
 	[DesignationPlural("TechnicalRequrementsLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class TechnicalRequrementsLookupListView : ViewBase
     {
         public TechnicalRequrementsLookupListView()
@@ -6699,7 +6594,6 @@ namespace HVTApp.UI.Views
 	[Designation("Тех.задание (задача)")]
 	[DesignationPlural("TechnicalRequrementsTaskLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class TechnicalRequrementsTaskLookupListView : ViewBase
     {
         public TechnicalRequrementsTaskLookupListView()
@@ -6844,7 +6738,6 @@ namespace HVTApp.UI.Views
 	[Designation("Конкурс")]
 	[DesignationPlural("TenderLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class TenderLookupListView : ViewBase
     {
         public TenderLookupListView()
@@ -6947,7 +6840,6 @@ namespace HVTApp.UI.Views
 	[Designation("Тип тендера")]
 	[DesignationPlural("TenderTypeLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class TenderTypeLookupListView : ViewBase
     {
         public TenderTypeLookupListView()
@@ -7008,7 +6900,6 @@ namespace HVTApp.UI.Views
 	[Designation("Пользователь")]
 	[DesignationPlural("UserLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class UserLookupListView : ViewBase
     {
         public UserLookupListView()
@@ -7090,7 +6981,6 @@ namespace HVTApp.UI.Views
 	[Designation("Роль пользователя")]
 	[DesignationPlural("UserRoleLookup")]
 	[AllowEditAttribute(Role.Admin)]
-
     public partial class UserRoleLookupListView : ViewBase
     {
         public UserRoleLookupListView()

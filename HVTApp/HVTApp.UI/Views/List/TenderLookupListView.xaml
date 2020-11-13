@@ -38,15 +38,16 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:TextField Name="Types" Label="Типы" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <infg:DateTimeField Name="DateOpen" Label="Открытие" Width="Auto" AllowResize="True" />
-                    <infg:DateTimeField Name="DateClose" Label="Закрытие" Width="Auto" AllowResize="True" />
-                    <infg:DateTimeField Name="DateNotice" Label="Итоги" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="Participants" Label="Участники" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <infg:TextField Name="Winner" Label="Победитель" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Project" Label="Проект" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Link" Label="Ссылка" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
+
+                        <infg:TextField Name="Types" Label="Типы" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                        <infg:DateTimeField Name="DateOpen" Label="Открытие" Width="Auto" AllowResize="True" />
+                        <infg:DateTimeField Name="DateClose" Label="Закрытие" Width="Auto" AllowResize="True" />
+                        <infg:DateTimeField Name="DateNotice" Label="Итоги" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="Participants" Label="Участники" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                        <infg:TextField Name="Winner" Label="Победитель" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField Name="Project" Label="Проект" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField Name="Link" Label="Ссылка" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

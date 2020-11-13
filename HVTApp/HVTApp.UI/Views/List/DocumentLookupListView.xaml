@@ -38,23 +38,24 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:TextField Name="RegNumber" Label="Номер" Width="Auto" AllowResize="True" />
-                    <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="CompanySender" Label="Компания-отправитель" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="CompanyRecipient" Label="Компания-получатель" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Number" Label="ИД" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Author" Label="Автор" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="SenderEmployee" Label="Отправитель" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="RecipientEmployee" Label="Получатель" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="RegistrationDetailsOfRecipient" Label="Рег.данные получателя" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="RequestDocument" Label="Запрос" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="SenderId" Label="SenderId" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="RecipientId" Label="RecipientId" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="Performers" Label="Performers" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <infg:TextField Name="CopyToRecipients" Label="Копия" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <infg:TextField Name="TceNumber" Label="Номер в ТСЕ" Width="Auto" AllowResize="True" />
-                    <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
+
+                        <infg:TextField Name="RegNumber" Label="Номер" Width="Auto" AllowResize="True" />
+                        <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="CompanySender" Label="Компания-отправитель" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField Name="CompanyRecipient" Label="Компания-получатель" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField Name="Number" Label="ИД" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField Name="Author" Label="Автор" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField Name="SenderEmployee" Label="Отправитель" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField Name="RecipientEmployee" Label="Получатель" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField Name="RegistrationDetailsOfRecipient" Label="Рег.данные получателя" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField Name="RequestDocument" Label="Запрос" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField Name="SenderId" Label="SenderId" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="RecipientId" Label="RecipientId" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="Performers" Label="Performers" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                        <infg:TextField Name="CopyToRecipients" Label="Копия" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                        <infg:TextField Name="TceNumber" Label="Номер в ТСЕ" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

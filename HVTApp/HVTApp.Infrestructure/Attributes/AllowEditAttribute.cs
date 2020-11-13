@@ -1,5 +1,7 @@
 using System;
+using System.Linq;
 using System.Text;
+using HVTApp.Infrastructure.Extansions;
 
 namespace HVTApp.Infrastructure.Attributes
 {
@@ -15,6 +17,9 @@ namespace HVTApp.Infrastructure.Attributes
 
         public override string ToString()
         {
+            return Roles.Any()
+                ? Roles.OrderBy(x => x).Select(role => $"[{this.GetType().Name}(Role.{role.ToString()})]").ToStringEnum(" ")
+                : string.Empty;
             var sb = new StringBuilder();
             foreach (var role in Roles)
             {
