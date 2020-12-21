@@ -18,10 +18,10 @@
 					<dp:FieldLayout.Fields>
                         <dp:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding Start}" Label="Старт задачи" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
                         <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Facilities}" Label="Объекты" Width="400" AllowResize="True" Converter="{StaticResource ObjectsToStringConverter}"/>
-                        <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding BackManager}" Label="Back manager" Width="Auto" AllowResize="True" Converter="{StaticResource ObjectToStringConverter}"/>
-                        <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding FrontManager}" Label="Front manager" Width="Auto" AllowResize="True" Converter="{StaticResource ObjectToStringConverter}"/>
+                        <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding BackManager}" Label="Back manager" Width="Auto" AllowResize="True" Converter="{StaticResource ObjectToStringConverter}" /> <!--Visibility="{Binding CurrentUserIsBackManager, Converter={StaticResource BooleanToVisibilityReverseConverter}}"/>-->
+                        <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding FrontManager}" Label="Front manager" Width="Auto" AllowResize="True" Converter="{StaticResource ObjectToStringConverter}" /> <!--Visibility="{Binding CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityReverseConverter}}"/>-->
                         <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Comment}" Label="Комментарий" Width="200" AllowResize="True" />
-                        <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Status}" Label="Этап" Width="Auto" AllowResize="True" />
+                        <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Status}" Label="Этап проработки" Width="400" AllowResize="True" />
                         <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Id}" Label="Id" Width="Auto" AllowResize="True" />
 					</dp:FieldLayout.Fields>
 				</dp:FieldLayout>

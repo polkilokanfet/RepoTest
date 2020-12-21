@@ -9,7 +9,7 @@ using Prism.Events;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
 {
-    public abstract partial class BaseGroupsViewModel<TGroup, TMember, TModel, TAfterSaveEvent, TAfterRemoveEvent> : ViewModelBase
+    public abstract partial class BaseGroupsViewModel<TGroup, TMember, TModel, TAfterSaveEvent, TAfterRemoveEvent>
         where TModel : class, IUnit
         where TMember : class, IGroupValidatableChangeTracking<TModel>
         where TGroup : class, IGroupValidatableChangeTrackingWithCollection<TMember, TModel>

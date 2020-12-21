@@ -6,6 +6,7 @@ using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
+using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
@@ -19,7 +20,7 @@ using Prism.Events;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
 {
-    public abstract partial class BaseGroupsViewModel<TGroup, TMember, TModel, TAfterSaveEvent, TAfterRemoveEvent> : ViewModelBase
+    public abstract partial class BaseGroupsViewModel<TGroup, TMember, TModel, TAfterSaveEvent, TAfterRemoveEvent> : ViewModelBaseCanExportToExcel
         where TModel : class, IUnit
         where TMember : class, IGroupValidatableChangeTracking<TModel>
         where TGroup : class, IGroupValidatableChangeTrackingWithCollection<TMember, TModel>
@@ -297,5 +298,15 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
 
         #endregion
 
+        /// <summary>
+        /// Округлание цен
+        /// </summary>
+        public void RoundUpGroupsCosts(double roundUpAccuracy)
+        {
+            foreach (var grp in Groups)
+            {
+                grp.Cost = Math.Ceiling(grp.Cost / roundUpAccuracy) * roundUpAccuracy;
+            }
+        }
     }
 }

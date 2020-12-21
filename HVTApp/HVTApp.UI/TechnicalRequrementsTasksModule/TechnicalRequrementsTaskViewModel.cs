@@ -614,7 +614,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 : new TechnicalRequrementsTask2Wrapper(technicalRequrementsTask);
 
             //обновление момента просмотра задания бэк-менеджером
-            if (CurrentUserIsBackManager)
+            if (GlobalAppProperties.User.Id == TechnicalRequrementsTaskWrapper.BackManager?.Id)
             {
                 TechnicalRequrementsTaskWrapper.Model.LastOpenBackManagerMoment = DateTime.Now;
                 UnitOfWork.SaveChanges();

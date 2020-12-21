@@ -49,6 +49,13 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             InstructCommand = new DelegateCommand(
                 () =>
                 {
+                    if (SelectedLookup.BackManager != null)
+                    {
+                        var dr = MessageService.ShowYesNoMessageDialog("Информация", "Back manager уже назначен. Вы хотите его сменить?");
+                        if (dr != MessageDialogResult.Yes)
+                            return;
+                    }
+
                     var unitOfWork = Container.Resolve<IUnitOfWork>();
                     var backManagers = unitOfWork.Repository<User>().Find(x => x.Roles.Any(role => role.Role == Role.BackManager));
                     var selectService = Container.Resolve<ISelectService>();
@@ -62,7 +69,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                         EventAggregator.GetEvent<AfterSaveTechnicalRequrementsTaskEvent>().Publish(task);
                     }
                 },
-                () => CurrentUserIsBackManagerBoss && SelectedLookup != null && SelectedLookup.BackManager == null);
+                () => CurrentUserIsBackManagerBoss && SelectedLookup != null);
 
             NewCommand = new DelegateCommand(
                 () =>

@@ -6,6 +6,7 @@ using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
+using HVTApp.Infrastructure.ViewModels;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Events;
@@ -19,6 +20,21 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
         where TGroupsViewModel : IGroupsViewModel<TUnit, TWrapper>
         where TAfterSaveModelEvent : PubSubEvent<TModel>, new()
     {
+        private double _roundUpAccuracy = 5000;
+
+        /// <summary>
+        /// Коэффициент округления
+        /// </summary>
+        public double RoundUpAccuracy
+        {
+            get { return _roundUpAccuracy; }
+            set
+            {
+                if (value <= 0) return;
+                _roundUpAccuracy = value;
+            }
+        }
+
         //детали
         public TDetailsViewModel DetailsViewModel { get; }
 
@@ -27,10 +43,16 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
 
         public ICommand SaveCommand { get; }
 
+        /// <summary>
+        /// Округлить цены
+        /// </summary>
+        public ICommand RoundUpCommand { get; }
+
         protected UnitsContainer(IUnityContainer container) : base(container)
         {
             DetailsViewModel = container.Resolve<TDetailsViewModel>();
             GroupsViewModel = container.Resolve<TGroupsViewModel>();
+
             SaveCommand = new DelegateCommand(
                 () =>
                 {
@@ -70,6 +92,12 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
                     
                     //какая-то сущность должна быть изменена
                     return DetailsViewModel.Item.IsChanged || GroupsViewModel.IsChanged;
+                });
+
+            RoundUpCommand = new DelegateCommand(
+                () =>
+                {
+                    GroupsViewModel.RoundUpGroupsCosts(RoundUpAccuracy);
                 });
         }
 
@@ -111,14 +139,19 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
         }
 
+        public bool IsConfirmGoBackWithoutSaving { get; private set; } = false;
+
         protected override void GoBackCommand_Execute()
         {
             //если придет запрос при несохраненных изменениях
             if (SaveCommand.CanExecute(null))
             {
-                var ms = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Сохранение", "Сохранить сделанные изменения?", defaultNo:true);
-                if(ms == MessageDialogResult.Yes)
+                var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Сохранение", "Сохранить сделанные изменения?", defaultNo:true);
+                if(dr == MessageDialogResult.Yes)
                     SaveCommand.Execute(null);
+
+                if (dr == MessageDialogResult.No)
+                    IsConfirmGoBackWithoutSaving = true;
             }
 
             base.GoBackCommand_Execute();

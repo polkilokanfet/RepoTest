@@ -46,12 +46,20 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             if (idIntersection.Any())
             {
                 var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Информация", "Это оборудование включено в бюджет. Вы уверены, что хотите удалить его?");
+
                 if (dr == MessageDialogResult.Yes)
                 {
                     salesUnits.Where(x => idIntersection.Contains(x.Id)).ForEach(x => x.IsRemoved = true);
-                    base.RemoveGroup(targetGroup);
+                }
+
+                if (dr == MessageDialogResult.No)
+                {
+                    return;
                 }
             }
+
+            UnitOfWork.Repository<SalesUnit>().DeleteRange(salesUnits.Where(x => x.IsRemoved == false));
+            base.RemoveGroup(targetGroup);
         }
 
         protected override IEnumerable<SalesUnit> GetUnitsForTotalRemove()
@@ -64,6 +72,11 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
         /// </summary>
         public ICommand ChangeProducerCommand { get; }
 
+        /// <summary>
+        /// Удалить производителя
+        /// </summary>
+        public ICommand RemoveProducerCommand { get; }
+
         public SalesUnitsGroupsViewModel(IUnityContainer container) : base(container)
         {
             ChangeProducerCommand = new DelegateCommand<ProjectUnitsGroup>(
@@ -74,8 +87,17 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
                     if (producer == null) return;
                     producer = UnitOfWork.Repository<Company>().GetById(producer.Id);
                     projectUnitsGroup.Producer = new CompanyWrapper(producer);
-                }, 
+                    ((DelegateCommand<ProjectUnitsGroup>)RemoveProducerCommand).RaiseCanExecuteChanged();
+                },
                 projectUnitsGroup => projectUnitsGroup?.Specification == null);
+
+            RemoveProducerCommand = new DelegateCommand<ProjectUnitsGroup>(
+                projectUnitsGroup =>
+                {
+                    projectUnitsGroup.Producer = null;
+                    ((DelegateCommand<ProjectUnitsGroup>)RemoveProducerCommand).RaiseCanExecuteChanged();
+                },
+                projectUnitsGroup => projectUnitsGroup?.Specification == null && projectUnitsGroup?.Producer != null);
         }
 
         protected override List<ProjectUnitsGroup> GetGroups(IEnumerable<SalesUnit> units)

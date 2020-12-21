@@ -1,4 +1,5 @@
-﻿<UserControl xmlns:igWPF="http://schemas.infragistics.com/xaml/wpf"  x:Class="HVTApp.UI.Modules.Sales.Controls.SalesUnitListControl"
+﻿<UserControl x:Class="HVTApp.UI.Modules.Sales.Controls.SalesUnitListControl"
+             xmlns:igWPF="http://schemas.infragistics.com/xaml/wpf"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:dp="http://infragistics.com/DataPresenter"
@@ -66,6 +67,9 @@
                             <Button Content="..."
                                     Command="{Binding DataContext.ChangeProducerCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
                                     CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Record.DataItem}" />
+                            <Button Content=" X "
+                                    Command="{Binding DataContext.RemoveProducerCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
+                                    CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Record.DataItem}" />
                             <TextBlock Text="{TemplateBinding Value}"
                                        VerticalAlignment="Center" />
                         </StackPanel>
@@ -101,7 +105,14 @@
                     
                     <dp:XamDataGrid x:Name="UnitListGrid"
                                     DataSource="{Binding Groups}"
-                                    SelectedDataItem="{Binding Groups.SelectedGroup, Mode=TwoWay}">
+                                    ActiveDataItem="{Binding Groups.SelectedGroup, Mode=TwoWay}">
+
+                        <dp:XamDataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
+                            </ContextMenu>
+                        </dp:XamDataGrid.ContextMenu>
+
 
                         <dp:XamDataGrid.FieldLayouts>
 
@@ -112,7 +123,7 @@
                                             <dp:FieldSettings CellValuePresenterStyle="{StaticResource FacilityCellStyle}" />
                                         </dp:Field.Settings>
                                     </dp:Field>
-                                    <dp:Field Name="Product" Label="Продукт" Width="Auto" Converter="{StaticResource WrapperToStringConverter}">
+                                    <dp:Field Name="Product" Label="Продукт" Width="Auto" Converter="{StaticResource ObjectToStringConverter}">
                                         <dp:Field.Settings>
                                             <dp:FieldSettings CellValuePresenterStyle="{StaticResource ProductCellStyle}" />
                                         </dp:Field.Settings>

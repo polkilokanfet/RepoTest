@@ -5,7 +5,7 @@ using Prism.Regions;
 namespace HVTApp.UI.TechnicalRequrementsTasksModule
 {
     [RibbonTab(typeof(Tabs.TabTechnicalRequrementsTasksView))]
-    public partial class TechnicalRequrementsTasksView : ViewBase
+    public partial class TechnicalRequrementsTasksView
     {
         public TechnicalRequrementsTasksView(TechnicalRequrementsTasksViewModel viewModel, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
         {

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:infRib="http://infragistics.com/Ribbon" 
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+             xmlns:editors="http://infragistics.com/Editors"
              x:Class="HVTApp.UI.Modules.Sales.Tabs.TabCrudUnits"
              Header="Редактирование оборудования">
 
@@ -17,9 +18,20 @@
         <infRib:ButtonTool Caption="Стоимость" Command="{Binding GroupsViewModel.SetCustomFixedPriceCommand}"/>
     </infRib:RibbonGroup>
 
+    <infRib:RibbonGroup Caption="Стоимости">
+        <StackPanel Orientation="Vertical">
+            <infRib:ButtonTool Caption="Округлить" Command="{Binding RoundUpCommand}"/>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="до: " />
+                <editors:XamNumericEditor Value="{Binding RoundUpAccuracy}"/>
+            </StackPanel>
+        </StackPanel>
+    </infRib:RibbonGroup>
+
     <infRib:RibbonGroup Caption="Действия">
         <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveCommand}" SmallImage="/HVTApp.UI;component/Images/save.png"/>
         <infRib:ButtonTool Caption="Назад" Command="{Binding GoBackCommand}" SmallImage="/HVTApp.UI;component/Images/ar_back.png"/>
     </infRib:RibbonGroup>
+
 
 </inf:RibbonTabItemWithViewModel>

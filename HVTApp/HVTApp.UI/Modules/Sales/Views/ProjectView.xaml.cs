@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Modules.Sales.Tabs;
 using HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel;
@@ -46,6 +48,21 @@ namespace HVTApp.UI.Modules.Sales.Views
         protected override bool IsSomethingChanged()
         {
             return _viewModel.DetailsViewModel.Item.IsChanged || _viewModel.GroupsViewModel.IsChanged;
+        }
+
+        public override void ConfirmNavigationRequest(NavigationContext navigationContext, Action<bool> continuationCallback)
+        {
+            ////если придет запрос при несохраненных изменениях
+            //if (_viewModel.SaveCommand.CanExecute(null))
+            //{
+            //    var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Сохранение", "Сохранить сделанные изменения?", defaultNo: true);
+            //    if (dr == MessageDialogResult.Yes)
+            //        _viewModel.SaveCommand.Execute(null);
+            //}
+
+            //continuationCallback(true);
+
+            continuationCallback(true);
         }
     }
 }

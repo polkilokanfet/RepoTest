@@ -11,6 +11,12 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
         bool IsChanged { get; }
         void AcceptChanges();
 
+        /// <summary>
+        /// Округление цен
+        /// </summary>
+        /// <param name="roundUpAccuracy">До</param>
+        void RoundUpGroupsCosts(double roundUpAccuracy);
+
         event Action GroupChanged;
     }
 }
