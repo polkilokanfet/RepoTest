@@ -29,7 +29,29 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
     {
         public GroupsCollection<TModel, TGroup, TMember> Groups { get; protected set; } = new GroupsCollection<TModel, TGroup, TMember>(new List<TGroup>(), false);
 
-        public double Sum => Groups.Sum(x => x.Total);
+        public double Sum
+        {
+            get { return Groups.Sum(x => x.Total); }
+            set
+            {
+                //распределение суммы по всем юнитам равномерно
+                
+                if (!Groups.Any()) return;
+
+                if (value <= 0) return;
+
+                var totalWithoutFixedCosts = value - Groups.Sum(x => x.FixedCost * x.Amount);
+
+                if (totalWithoutFixedCosts <= 0) return;
+
+                var priceTotal = Groups.Sum(x => x.Price * x.Amount);
+
+                foreach (var grp in Groups)
+                {
+                    grp.Cost = grp.FixedCost + totalWithoutFixedCosts * (grp.Price) / priceTotal;
+                }
+            }
+        }
 
         protected abstract List<TGroup> GetGroups(IEnumerable<TModel> units);
 

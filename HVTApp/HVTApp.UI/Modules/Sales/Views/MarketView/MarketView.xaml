@@ -15,7 +15,7 @@
 
         <infg:XamDataGrid x:Name="ProjectListGrid" 
                           DataSource="{Binding Projects}"
-                          SelectedDataItem="{Binding SelectedProject}"
+                          ActiveDataItem="{Binding SelectedProject}"
                           Grid.Row="0">
 
             <infg:XamDataGrid.FieldLayouts>
@@ -47,13 +47,13 @@
         
         <infg:XamDataGrid Grid.Row="2" 
                           DataSource="{Binding Offers}" 
-                          SelectedDataItem="{Binding SelectedOffer, Mode=TwoWay}">
+                          ActiveDataItem="{Binding SelectedOffer, Mode=TwoWay}">
 
             <infg:XamDataGrid.FieldLayouts>
                 <infg:FieldLayout Key="Offer">
                     <infg:FieldLayout.Fields>
-                        <infg:TextField AlternateBinding="{Binding RecipientEmployee.Company}" BindingType="UseAlternateBinding" Label="Компания" Width="Auto" />
-                        <infg:NumericField Name="Sum" Label="Сумма" Width="Auto" />
+                        <infg:TextField AlternateBinding="{Binding RecipientEmployee.Company}" BindingType="UseAlternateBinding" Label="Компания" Width="100" AllowResize="True"/>
+                        <infg:NumericField Name="Sum" Label="Сумма" Width="Auto" AllowResize="False"/>
                         <infg:DateTimeField AlternateBinding="{Binding RegistrationDetailsOfSender.RegistrationDate}" BindingType="UseAlternateBinding" Label="Дата" Width="Auto"/>
                         <infg:Field Name="OfferUnitsGroups" IsExpandable="True"/>
                     </infg:FieldLayout.Fields>
@@ -77,7 +77,7 @@
         
         <infg:XamDataGrid Grid.Row="4" 
                           DataSource="{Binding Tenders}" 
-                          SelectedDataItem="{Binding SelectedTender, Mode=TwoWay}">
+                          ActiveDataItem="{Binding SelectedTender, Mode=TwoWay}">
             
             <infg:XamDataGrid.FieldLayouts>
                 <infg:FieldLayout>

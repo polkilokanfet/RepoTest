@@ -156,7 +156,7 @@
                     
                     <StackPanel Grid.Row="1" Orientation="Horizontal">
                         <Label Content="Общая стоимость без НДС: "/>
-                        <igWPF:XamNumericEditor Value="{Binding Sum, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
+                        <igWPF:XamNumericEditor Value="{Binding Sum, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
                     </StackPanel>
                 
                 </Grid>

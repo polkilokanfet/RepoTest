@@ -23,7 +23,7 @@
             <infRib:ButtonTool Caption="Округлить" Command="{Binding RoundUpCommand}"/>
             <StackPanel Orientation="Horizontal">
                 <Label Content="до: " />
-                <editors:XamNumericEditor Value="{Binding RoundUpAccuracy}"/>
+                <editors:XamNumericEditor Value="{Binding RoundUpAccuracy}" MinWidth="50"/>
             </StackPanel>
         </StackPanel>
     </infRib:RibbonGroup>
