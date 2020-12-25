@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
-using HVTApp.Infrastructure.Interfaces.Services.EventService;
 using HVTApp.Model;
 using HVTApp.Model.Comparers;
 using HVTApp.Model.Events;

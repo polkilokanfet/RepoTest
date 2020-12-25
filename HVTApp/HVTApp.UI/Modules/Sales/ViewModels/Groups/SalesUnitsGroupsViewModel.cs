@@ -174,6 +174,8 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             salesUnitWrapper.ProductionTerm = Groups.SelectedGroup.ProductionTerm;
             salesUnitWrapper.Product = new ProductWrapper(Groups.SelectedGroup.Product.Model);
             salesUnitWrapper.DeliveryDateExpected = Groups.SelectedGroup.DeliveryDateExpected;
+            if(Groups.SelectedGroup.CostDelivery.HasValue)
+                salesUnitWrapper.CostDelivery = Groups.SelectedGroup.CostDelivery / Groups.SelectedGroup.Amount;
                 
             //создаем зависимое оборудование
             foreach (var prodIncl in Groups.SelectedGroup.ProductsIncluded)

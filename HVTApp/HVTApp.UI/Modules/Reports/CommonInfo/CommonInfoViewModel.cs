@@ -27,6 +27,8 @@ namespace HVTApp.UI.Modules.Reports.CommonInfo
         private IEnumerable<SalesReportUnit> _salesReportUnits;
         protected override void GetData()
         {
+            UnitOfWork = Container.Resolve<IUnitOfWork>();
+
             var salesUnits = GlobalAppProperties.User.RoleCurrent == Role.SalesManager
                 ? UnitOfWork.Repository<SalesUnit>().Find(x => x.OrderInTakeDate.BetweenDates(StartDate, FinishDate) && !x.IsRemoved && !x.IsLoosen && x.Project.Manager.IsAppCurrentUser())
                 : UnitOfWork.Repository<SalesUnit>().Find(x => x.OrderInTakeDate.BetweenDates(StartDate, FinishDate) && !x.IsRemoved && !x.IsLoosen);

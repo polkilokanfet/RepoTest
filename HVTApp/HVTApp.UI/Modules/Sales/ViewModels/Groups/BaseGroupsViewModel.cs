@@ -40,15 +40,18 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
 
                 if (value <= 0) return;
 
-                var totalWithoutFixedCosts = value - Groups.Sum(x => x.FixedCost * x.Amount);
+                var totalWithout = value 
+                    - Groups.Sum(x => x.FixedCost * x.Amount) 
+                    - Groups.Sum(x => x.CostDelivery ?? 0);
 
-                if (totalWithoutFixedCosts <= 0) return;
+                if (totalWithout <= 0) return;
 
                 var priceTotal = Groups.Sum(x => x.Price * x.Amount);
 
                 foreach (var grp in Groups)
                 {
-                    grp.Cost = grp.FixedCost + totalWithoutFixedCosts * (grp.Price) / priceTotal;
+                    double deliveryCost = grp.CostDelivery ?? 0;
+                    grp.Cost = grp.FixedCost + deliveryCost / grp.Amount + totalWithout * (grp.Price) / priceTotal;
                 }
             }
         }

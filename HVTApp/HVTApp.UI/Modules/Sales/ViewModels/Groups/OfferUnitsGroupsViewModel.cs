@@ -13,7 +13,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
 {
-    public class OfferUnitsGroupsViewModel : Groups.BaseGroupsViewModel<OfferUnitsGroup, OfferUnitsGroup, OfferUnit, AfterSaveOfferUnitEvent, AfterRemoveOfferUnitEvent>, 
+    public class OfferUnitsGroupsViewModel : BaseGroupsViewModel<OfferUnitsGroup, OfferUnitsGroup, OfferUnit, AfterSaveOfferUnitEvent, AfterRemoveOfferUnitEvent>, 
         IGroupsViewModel<OfferUnit, OfferWrapper>
     {
         private OfferWrapper _offerWrapper;

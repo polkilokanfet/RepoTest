@@ -23,7 +23,7 @@
 
             <GroupBox Grid.Row="0" Header="Размещенное в производстве оборудование">
                 <infg:XamDataGrid DataSource="{Binding GroupsInProduction}"
-                                  SelectedDataItem="{Binding SelectedInProduction, Mode=TwoWay}">
+                                  ActiveDataItem="{Binding SelectedInProduction, Mode=TwoWay}">
 
                     <infg:XamDataGrid.Resources>
                         <Style TargetType="{x:Type infg:DataRecordPresenter}">
@@ -95,7 +95,7 @@
 
             <GroupBox Grid.Row="2" Header="Потенциальное">
                 <infg:XamDataGrid DataSource="{Binding GroupsToProduction}" 
-                                  SelectedDataItem="{Binding SelectedToProduction, Mode=TwoWay}">
+                                  ActiveDataItem="{Binding SelectedToProduction, Mode=TwoWay}">
 
                     <infg:XamDataGrid.FieldLayouts>
 

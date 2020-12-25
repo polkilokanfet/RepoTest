@@ -251,7 +251,7 @@
                                 <dp:XamDataGrid.FieldLayouts>
                                     <dp:FieldLayout>
                                         <dp:FieldLayout.Fields>
-                                            <dp:DateTimeField Name="Start" Label="Старт" Width="150" AllowResize="True" Format="dd/MM/yy HH:mm"/>
+                                            <dp:DateTimeField Name="Start" Label="Старт" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
                                             <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Status}" Label="Этап" Width="150" AllowResize="True" />
                                             <dp:TextField AlternateBinding="{Binding BackManager.Employee.Person}" BindingType="UseAlternateBinding" Label="Back manager" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                                         </dp:FieldLayout.Fields>
