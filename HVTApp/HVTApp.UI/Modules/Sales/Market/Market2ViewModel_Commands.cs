@@ -61,7 +61,7 @@ namespace HVTApp.UI.Modules.Sales.Market
 
         private void PrintOfferCommand_Execute()
         {
-            Container.Resolve<IPrintOfferService>().PrintOffer(Offers.SelectedItem.Id, PathGetter.GetPath(SelectedProjectItem.Project));
+            Container.Resolve<IPrintOfferService>().PrintOffer(Offers.SelectedItem.Id, PathGetter.GetPath(Offers.SelectedItem.Entity));
         }
 
         private void EditTenderCommand_Execute()

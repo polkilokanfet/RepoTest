@@ -9,6 +9,11 @@ namespace HVTApp.UI
 {
     public static class PathGetter
     {
+        public const string OffersFolderName = "ТКП";
+        public const string CorrespondenceFolderName = "Переписка";
+        public const string TceTempFolderName = "TceTemp";
+        public const string HVTAppProjectsFolderName = "HVTAppProjects";
+
         /// <summary>
         /// путь к папке файла тех.требований
         /// </summary>
@@ -27,7 +32,7 @@ namespace HVTApp.UI
         /// <returns></returns>
         public static string GetPathToCopyTemp(TechnicalRequrementsFile file, string reqPath = null)
         {
-            var rootDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "TceTemp");
+            var rootDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), TceTempFolderName);
             if (reqPath != null)
             {
                 rootDirectory = Path.Combine(rootDirectory, reqPath);
@@ -37,7 +42,7 @@ namespace HVTApp.UI
 
         public static string GetPathToCopyTemp(TechnicalRequrementsTask technicalRequrementsTask)
         {
-            var rootDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "TceTemp");
+            var rootDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), TceTempFolderName);
             return GetPath(technicalRequrementsTask.Id, rootDirectory);
         }
 
@@ -63,11 +68,18 @@ namespace HVTApp.UI
             return GetPath(document.Id, rootDirectory, document.RegNumber);
         }
 
+        public static string GetPath(Offer offer)
+        {
+            string path = Path.Combine(GetPath(offer.Project), OffersFolderName);
+            CreateDirectory(path);
+            return path;
+        }
+
         public static string GetPath(Project project)
         {
             //путь к папке проекта
             var projectsFolderPath = string.IsNullOrEmpty(Properties.Settings.Default.ProjectsFolderPath)
-                ? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "HVTAppProjects")
+                ? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), HVTAppProjectsFolderName)
                 : Properties.Settings.Default.ProjectsFolderPath;
 
             return GetPath(project.Id, projectsFolderPath, project.Name);
@@ -89,12 +101,29 @@ namespace HVTApp.UI
 
             //создаём, если директории не существует
             if (!string.IsNullOrEmpty(addToFolderName))
-                addToFolderName = addToFolderName.ReplaceUncorrectSimbols("_");
+            { 
+                addToFolderName = addToFolderName.ReplaceUncorrectSimbols("_"); 
+            }
             var path = Path.Combine(rootDirectory, $"{addToFolderName} {id}");
-            if (!Directory.Exists(path))
-                Directory.CreateDirectory(path);
+            CreateDirectory(path);
+
+            //создание вспомогательных папок "ТКП" и "Переписка"
+            CreateDirectory(Path.Combine(path, OffersFolderName));
+            CreateDirectory(Path.Combine(path, CorrespondenceFolderName));
 
             return path;
+        }
+
+        /// <summary>
+        /// Создать директорию, если ее не существует.
+        /// </summary>
+        /// <param name="path"></param>
+        private static void CreateDirectory(string path)
+        {
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
         }
     }
 }
