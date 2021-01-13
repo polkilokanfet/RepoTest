@@ -26,7 +26,6 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
         <Label Grid.Column="0" Grid.Row ="0" Content="Список требований" Visibility="{Binding VisibilityRequrementsTechnicalRequrementsTask, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="0"
 										 Items="{Binding Path=Item.Requrements}"
@@ -35,42 +34,35 @@
 										 RemoveItemCommand="{Binding RemoveFromRequrementsCommand}"
 										 Visibility="{Binding VisibilityRequrementsTechnicalRequrementsTask, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="1" Content="Комментарий" Visibility="{Binding VisibilityCommentTechnicalRequrementsTask, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityCommentTechnicalRequrementsTask, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="2" Content="Номер в ТСЕ" Visibility="{Binding VisibilityTceNumberTechnicalRequrementsTask, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
                  Text="{Binding Item.TceNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityTceNumberTechnicalRequrementsTask, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="3" Content="Старт" Visibility="{Binding VisibilityStartTechnicalRequrementsTask, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="3" 
                     SelectedDate="{Binding Item.Start, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityStartTechnicalRequrementsTask, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="4" Content="Финиш" Visibility="{Binding VisibilityFinishTechnicalRequrementsTask, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="4" 
                     SelectedDate="{Binding Item.Finish, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityFinishTechnicalRequrementsTask, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="5" Content="Последний просмотр back-менеджером" Visibility="{Binding VisibilityLastOpenBackManagerMomentTechnicalRequrementsTask, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="5" 
                     SelectedDate="{Binding Item.LastOpenBackManagerMoment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityLastOpenBackManagerMomentTechnicalRequrementsTask, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="6" Content="Первый старт" Visibility="{Binding VisibilityFirstStartMomentTechnicalRequrementsTask, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="6" 
                     SelectedDate="{Binding Item.FirstStartMoment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityFirstStartMomentTechnicalRequrementsTask, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="7" Content="Back manager" Visibility="{Binding VisibilityBackManagerTechnicalRequrementsTask, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="7" 
@@ -79,18 +71,15 @@
                                     RemoveItemCommand="{Binding ClearBackManagerCommand}"
 									Visibility="{Binding VisibilityBackManagerTechnicalRequrementsTask, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="8" Content="Отклонение" Visibility="{Binding VisibilityRejectByBackManagerMomentTechnicalRequrementsTask, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="8" 
                     SelectedDate="{Binding Item.RejectByBackManagerMoment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityRejectByBackManagerMomentTechnicalRequrementsTask, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="9" Content="Комментарий по отклонению" Visibility="{Binding VisibilityRejectCommentTechnicalRequrementsTask, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="9" MinWidth="200" 
                  Text="{Binding Item.RejectComment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityRejectCommentTechnicalRequrementsTask, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="10" Content="Расчеты себестоимости" Visibility="{Binding VisibilityPriceCalculationsTechnicalRequrementsTask, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="10"
@@ -99,7 +88,6 @@
 										 AddItemCommand="{Binding AddInPriceCalculationsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromPriceCalculationsCommand}"
 										 Visibility="{Binding VisibilityPriceCalculationsTechnicalRequrementsTask, ElementName=Root}"/>
-
 
 
     </Grid>

@@ -145,6 +145,7 @@
                                             <dp:FieldSettings CellValuePresenterStyle="{StaticResource ProducerCellStyle}" />
                                         </dp:Field.Settings>
                                     </dp:Field>
+                                    <dp:TextField Name="Comment" Label="Комментарий" Width="150" AllowEdit="True" />
                                     <dp:Field Name="Groups" IsExpandable="True" />
 
                                 </dp:FieldLayout.Fields>

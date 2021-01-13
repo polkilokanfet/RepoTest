@@ -46,7 +46,6 @@
                         <infg:TextField Name="PersonalNumber" Label="Шифр" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Email" Label="e-mail" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
-
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>
 

@@ -11,7 +11,7 @@ namespace HVTApp.Model.POCOs
     [AllowEdit(Role.DataBaseFiller, Role.SalesManager, Role.Economist)]
     public partial class EmployeesPosition : BaseEntity
     {
-        [Designation("Название"), Required, MaxLength(50)]
+        [Designation("Название"), Required, MaxLength(150)]
         public string Name { get; set; }
 
         public override string ToString()

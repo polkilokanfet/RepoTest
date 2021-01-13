@@ -20,7 +20,6 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
         <Label Grid.Column="0" Grid.Row ="0" Content="Сотрудник" Visibility="{Binding VisibilityEmployeeUser, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="0" 
                                     Item="{Binding Item.Employee}" 
@@ -28,12 +27,10 @@
                                     RemoveItemCommand="{Binding ClearEmployeeCommand}"
 									Visibility="{Binding VisibilityEmployeeUser, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="1" Content="Логин" Visibility="{Binding VisibilityLoginUser, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityLoginUser, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="2" Content="Роли" Visibility="{Binding VisibilityRolesUser, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
@@ -42,7 +39,6 @@
 										 AddItemCommand="{Binding AddInRolesCommand}"
 										 RemoveItemCommand="{Binding RemoveFromRolesCommand}"
 										 Visibility="{Binding VisibilityRolesUser, ElementName=Root}"/>
-
 
 
     </Grid>

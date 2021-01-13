@@ -35,6 +35,8 @@ namespace HVTApp.Model.POCOs
         [Designation("Срок производства"), Required]
         public int ProductionTerm { get; set; } = GlobalAppProperties.Actual.StandartTermFromStartToEndProduction;
 
+        [Designation("Комментарий"), MaxLength(150)]
+        public string Comment { get; set; }
 
         #region Проект
 

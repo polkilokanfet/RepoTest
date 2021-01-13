@@ -21,14 +21,12 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
         <Label Grid.Column="0" Grid.Row ="0" Content="Запрос" Visibility="{Binding VisibilityDocumentIncomingRequest, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="0" 
                                     Item="{Binding Item.Document}" 
                                     AddItemCommand="{Binding SelectDocumentCommand}" 
                                     RemoveItemCommand="{Binding ClearDocumentCommand}"
 									Visibility="{Binding VisibilityDocumentIncomingRequest, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Исполнители" Visibility="{Binding VisibilityPerformersIncomingRequest, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="1"
@@ -38,24 +36,20 @@
 										 RemoveItemCommand="{Binding RemoveFromPerformersCommand}"
 										 Visibility="{Binding VisibilityPerformersIncomingRequest, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="2" Content="Дата поручения" Visibility="{Binding VisibilityInstructionDateIncomingRequest, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="2" 
                     SelectedDate="{Binding Item.InstructionDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityInstructionDateIncomingRequest, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="3" Content="Дата исполнения поручения" Visibility="{Binding VisibilityDoneDateIncomingRequest, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="3" 
                     SelectedDate="{Binding Item.DoneDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityDoneDateIncomingRequest, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="4" Content="Актуален" Visibility="{Binding VisibilityIsActualIncomingRequest, ElementName=Root}"/>
         <CheckBox Grid.Column="1" Grid.Row="4" MinWidth="200" 
                   IsChecked="{Binding Item.IsActual, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				  Visibility="{Binding VisibilityIsActualIncomingRequest, ElementName=Root}"/>
-
 
 
     </Grid>

@@ -17,12 +17,10 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
         <Label Grid.Column="0" Grid.Row ="0" Content="МД" Visibility="{Binding VisibilityMarginalIncomeStandartMarginalIncome, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="0" 
                                Value="{Binding Item.MarginalIncome, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding VisibilityMarginalIncomeStandartMarginalIncome, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Параметры оборудования" Visibility="{Binding VisibilityParametersStandartMarginalIncome, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="1"
@@ -31,7 +29,6 @@
 										 AddItemCommand="{Binding AddInParametersCommand}"
 										 RemoveItemCommand="{Binding RemoveFromParametersCommand}"
 										 Visibility="{Binding VisibilityParametersStandartMarginalIncome, ElementName=Root}"/>
-
 
 
     </Grid>

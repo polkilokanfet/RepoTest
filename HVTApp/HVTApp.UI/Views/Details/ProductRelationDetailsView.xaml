@@ -20,12 +20,10 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
         <Label Grid.Column="0" Grid.Row ="0" Content="Имя" Visibility="{Binding VisibilityNameProductRelation, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityNameProductRelation, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Родительские параметры" Visibility="{Binding VisibilityParentProductParametersProductRelation, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="1"
@@ -35,7 +33,6 @@
 										 RemoveItemCommand="{Binding RemoveFromParentProductParametersCommand}"
 										 Visibility="{Binding VisibilityParentProductParametersProductRelation, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="2" Content="Дочерние параметры" Visibility="{Binding VisibilityChildProductParametersProductRelation, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
 										 Items="{Binding Path=Item.ChildProductParameters}"
@@ -44,19 +41,16 @@
 										 RemoveItemCommand="{Binding RemoveFromChildProductParametersCommand}"
 										 Visibility="{Binding VisibilityChildProductParametersProductRelation, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="3" Content="Количество дочерних продуктов" Visibility="{Binding VisibilityChildProductsAmountProductRelation, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="3"
 							   ValueType="core:Int32"
                                Value="{Binding Item.ChildProductsAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding VisibilityChildProductsAmountProductRelation, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="4" Content="Уникальность" Visibility="{Binding VisibilityIsUniqueProductRelation, ElementName=Root}"/>
         <CheckBox Grid.Column="1" Grid.Row="4" MinWidth="200" 
                   IsChecked="{Binding Item.IsUnique, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				  Visibility="{Binding VisibilityIsUniqueProductRelation, ElementName=Root}"/>
-
 
 
     </Grid>

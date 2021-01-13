@@ -21,7 +21,6 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
         <Label Grid.Column="0" Grid.Row ="0" Content="Группа" Visibility="{Binding VisibilityParameterGroupParameter, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="0" 
                                     Item="{Binding Item.ParameterGroup}" 
@@ -29,19 +28,16 @@
                                     RemoveItemCommand="{Binding ClearParameterGroupCommand}"
 									Visibility="{Binding VisibilityParameterGroupParameter, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="1" Content="Значение" Visibility="{Binding VisibilityValueParameter, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityValueParameter, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="2" Content="Ранг" Visibility="{Binding VisibilityRangParameter, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="2"
 							   ValueType="core:Int32"
                                Value="{Binding Item.Rang, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding VisibilityRangParameter, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="3" Content="Ограничения" Visibility="{Binding VisibilityParameterRelationsParameter, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="3"
@@ -51,12 +47,10 @@
 										 RemoveItemCommand="{Binding RemoveFromParameterRelationsCommand}"
 										 Visibility="{Binding VisibilityParameterRelationsParameter, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="4" Content="Комментарий" Visibility="{Binding VisibilityCommentParameter, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="4" MinWidth="200" 
                  Text="{Binding Item.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityCommentParameter, ElementName=Root}"/>
-
 
 
     </Grid>

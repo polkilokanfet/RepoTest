@@ -19,30 +19,25 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
         <Label Grid.Column="0" Grid.Row ="0" Content="Фамилия" Visibility="{Binding VisibilitySurnamePerson, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Surname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilitySurnamePerson, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Имя" Visibility="{Binding VisibilityNamePerson, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityNamePerson, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="2" Content="Отчество" Visibility="{Binding VisibilityPatronymicPerson, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
                  Text="{Binding Item.Patronymic, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityPatronymicPerson, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="3" Content="Мужского пола" Visibility="{Binding VisibilityIsManPerson, ElementName=Root}"/>
         <CheckBox Grid.Column="1" Grid.Row="3" MinWidth="200" 
                   IsChecked="{Binding Item.IsMan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				  Visibility="{Binding VisibilityIsManPerson, ElementName=Root}"/>
-
 
 
     </Grid>

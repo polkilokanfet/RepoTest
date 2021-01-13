@@ -37,6 +37,9 @@ namespace HVTApp.Model.POCOs
         [Designation("Включенные продукты")]
         public virtual List<ProductIncluded> ProductsIncluded { get; set; } = new List<ProductIncluded>();
 
+        [Designation("Комментарий"), MaxLength(150)]
+        public string Comment { get; set; }
+
         public object Clone()
         {
             return this.MemberwiseClone();

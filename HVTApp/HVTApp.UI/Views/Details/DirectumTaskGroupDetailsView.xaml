@@ -22,12 +22,10 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
         <Label Grid.Column="0" Grid.Row ="0" Content="Тема" Visibility="{Binding VisibilityTitleDirectumTaskGroup, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityTitleDirectumTaskGroup, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Инициатор" Visibility="{Binding VisibilityAuthorDirectumTaskGroup, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
@@ -36,18 +34,15 @@
                                     RemoveItemCommand="{Binding ClearAuthorCommand}"
 									Visibility="{Binding VisibilityAuthorDirectumTaskGroup, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="2" Content="Старт" Visibility="{Binding VisibilityStartAuthorDirectumTaskGroup, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="2" 
                     SelectedDate="{Binding Item.StartAuthor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityStartAuthorDirectumTaskGroup, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="3" Content="Прекращена инициатором" Visibility="{Binding VisibilityIsStopedDirectumTaskGroup, ElementName=Root}"/>
         <CheckBox Grid.Column="1" Grid.Row="3" MinWidth="200" 
                   IsChecked="{Binding Item.IsStoped, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				  Visibility="{Binding VisibilityIsStopedDirectumTaskGroup, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="4" Content="Наблюдатели" Visibility="{Binding VisibilityObserversDirectumTaskGroup, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="4"
@@ -57,12 +52,10 @@
 										 RemoveItemCommand="{Binding RemoveFromObserversCommand}"
 										 Visibility="{Binding VisibilityObserversDirectumTaskGroup, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="5" Content="Сообщение автора" Visibility="{Binding VisibilityMessageDirectumTaskGroup, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="5" MinWidth="200" 
                  Text="{Binding Item.Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityMessageDirectumTaskGroup, ElementName=Root}"/>
-
 
 
     </Grid>

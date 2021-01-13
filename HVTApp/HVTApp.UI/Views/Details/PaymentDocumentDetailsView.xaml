@@ -19,12 +19,10 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
         <Label Grid.Column="0" Grid.Row ="0" Content="Номер" Visibility="{Binding VisibilityNumberPaymentDocument, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityNumberPaymentDocument, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Платежи" Visibility="{Binding VisibilityPaymentsPaymentDocument, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="1"
@@ -34,12 +32,10 @@
 										 RemoveItemCommand="{Binding RemoveFromPaymentsCommand}"
 										 Visibility="{Binding VisibilityPaymentsPaymentDocument, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="2" Content="НДС" Visibility="{Binding VisibilityVatPaymentDocument, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="2" 
                                Value="{Binding Item.Vat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding VisibilityVatPaymentDocument, ElementName=Root}"/>
-
 
 
     </Grid>
