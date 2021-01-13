@@ -18,6 +18,15 @@ namespace HVTApp.Model.Wrapper.Groups
 
         public DateTime OrderInTakeDate => Model.OrderInTakeDate;
 
+        public string Comment
+        {
+            get => Model.Comment;
+            set => SetValue(value);
+        }
+        public string CommentOriginalValue => GetOriginalValue<string>(nameof(Comment));
+        public bool CommentIsChanged => GetIsChanged(nameof(Cost));
+
+
         public double Cost
         {
             get { return Model.Cost; }

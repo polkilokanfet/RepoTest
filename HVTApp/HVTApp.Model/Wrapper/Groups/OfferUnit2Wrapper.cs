@@ -16,6 +16,14 @@ namespace HVTApp.Model.Wrapper.Groups
 
         #region SimpleProperties
 
+        public string Comment
+        {
+            get => Model.Comment;
+            set => SetValue(value);
+        }
+        public string CommentOriginalValue => GetOriginalValue<string>(nameof(Comment));
+        public bool CommentIsChanged => GetIsChanged(nameof(Cost));
+
         public double Cost
         {
             get { return Model.Cost; }

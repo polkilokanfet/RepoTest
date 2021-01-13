@@ -68,6 +68,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
                 var offerUnit = new OfferUnit();
 
                 offerUnit.Cost = salesUnit.Cost;
+                offerUnit.Comment = salesUnit.Comment;
                 offerUnit.Facility = salesUnit.Facility;
                 offerUnit.Product = salesUnit.Product;
                 offerUnit.CostDelivery = salesUnit.CostDelivery;
@@ -161,6 +162,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
                 var offerUnitNew = new OfferUnit
                 {
                     Cost = offerUnit.Cost,
+                    Comment = offerUnit.Comment,
                     CostDelivery = offerUnit.CostDelivery,
                     ProductionTerm = offerUnit.ProductionTerm,
                     Product = UnitOfWork.Repository<Product>().GetById(offerUnit.Product.Id),

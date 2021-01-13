@@ -20,6 +20,7 @@ namespace HVTApp.Model.Comparers
             if (!Equals(x.Facility.Id, y.Facility.Id)) return false;
             if (!Equals(x.PaymentConditionSet.Id, y.PaymentConditionSet.Id)) return false;
             if (!Equals(x.CostDelivery, y.CostDelivery)) return false;
+            if (!Equals(x.Comment, y.Comment)) return false;
 
             var productsInclX = x.ProductsIncluded.Select(p => new ProductAmount(p.Product.Id, p.Amount, p.CustomFixedPrice)).ToList();
             var productsInclY = y.ProductsIncluded.Select(p => new ProductAmount(p.Product.Id, p.Amount, p.CustomFixedPrice)).ToList();

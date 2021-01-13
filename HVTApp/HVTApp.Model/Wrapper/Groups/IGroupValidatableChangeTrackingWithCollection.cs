@@ -11,6 +11,7 @@ namespace HVTApp.Model.Wrapper.Groups
         where TModel : IUnit
     {
         TModel Model { get; }
+        string Comment { get; set; }
         double Cost { get; set; }
         double Total { get; }
         double? CostDelivery { get; set; }

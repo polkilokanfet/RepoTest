@@ -14,12 +14,6 @@ namespace HVTApp.Model.Wrapper.Groups
         public bool CanRemove => _units.All(x => x.Order == null);
         public bool CanTotalRemove => _units.All(x => x.AllowTotalRemove);
 
-        public string Comment
-        {
-            get { return GetValue<string>(); }
-            set { SetValue(value); }
-        }
-
         public CompanyWrapper Producer
         {
             get { return GetValue<CompanyWrapper>(); }

@@ -36,6 +36,13 @@ namespace HVTApp.Model.Wrapper.Groups
 
         public double Total => Groups?.Sum(x => x.Cost) ?? _unit.Cost;
 
+
+        public string Comment
+        {
+            get => GetValue<string>();
+            set => SetValue(value);
+        }
+
         public FacilitySimpleWrapper Facility
         {
             get { return _unit != null ? _unit.Facility : Groups.First().Facility; }
