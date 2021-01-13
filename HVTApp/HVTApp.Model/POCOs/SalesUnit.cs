@@ -365,7 +365,8 @@ namespace HVTApp.Model.POCOs
                 if (StartProductionDate.HasValue) return StartProductionDate.Value;
 
                 //по исполнению условий, необходимых для запуска производства
-                if (StartProductionConditionsDoneDate.HasValue) return StartProductionConditionsDoneDate.Value;
+                var startProductionConditionsDoneDate = StartProductionConditionsDoneDate;
+                if (startProductionConditionsDoneDate.HasValue) return startProductionConditionsDoneDate.Value;
 
                 //по сигналу менеджера
                 if (SignalToStartProduction.HasValue) return SignalToStartProduction.Value;

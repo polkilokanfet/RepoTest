@@ -80,9 +80,11 @@ namespace HVTApp.TestDataGenerator
 
         public PaymentCondition PaymentConditionAvans30;
         public PaymentCondition PaymentConditionPostoplata70;
+        public PaymentCondition PaymentConditionPostoplata100;
 
         public PaymentConditionSet PaymentConditionSet50Na50;
         public PaymentConditionSet PaymentConditionSet30Na70;
+        public PaymentConditionSet PaymentConditionSet100;
 
         public TenderType TenderTypeProject;
         public TenderType TenderTypeWork;
@@ -220,6 +222,11 @@ namespace HVTApp.TestDataGenerator
             PaymentConditionPostoplata70.Clone(new PaymentCondition { Part = 0.7, DaysToPoint = 1, PaymentConditionPoint = PaymentConditionPointDelivery });
 
             PaymentConditionSet30Na70.Clone(new PaymentConditionSet { PaymentConditions = new List<PaymentCondition> { PaymentConditionAvans30, PaymentConditionPostoplata70 } });
+
+            PaymentConditionPostoplata100.Clone(new PaymentCondition { Part = 1, DaysToPoint = 15, PaymentConditionPoint = PaymentConditionPointDelivery });
+
+            PaymentConditionSet100.Clone(new PaymentConditionSet { PaymentConditions = new List<PaymentCondition> { PaymentConditionPostoplata100 } });
+        
         }
 
         private void GenerateGlobalProperties()
