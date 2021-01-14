@@ -166,6 +166,7 @@ namespace HVTApp.UI.Modules.Sales.Production
                 {
                     ProductId = x.Model.Product.Id,
                     FacilityId = x.Model.Facility.Id,
+                    x.Model.Comment,
                     x.Model.EndProductionDateCalculated
                 })
                 .OrderBy(x => x.Key.EndProductionDateCalculated)
@@ -181,6 +182,7 @@ namespace HVTApp.UI.Modules.Sales.Production
                     ProductId = x.Model.Product.Id,
                     FacilityId = x.Model.Facility.Id,
                     OrderId = x.Model.Order?.Id,
+                    x.Model.Comment,
                     x.Model.EndProductionDateCalculated
                 })
                 .OrderBy(x => x.Key.EndProductionDateCalculated)

@@ -14,6 +14,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             if (y == null) throw new ArgumentNullException(nameof(y));
 
             if (!Equals(x.Model.Cost, y.Model.Cost)) return false;
+            if (!Equals(x.Model.Comment, y.Model.Comment)) return false;
             if (!Equals(x.Model.CostDelivery, y.Model.CostDelivery)) return false;
             if (!Equals(x.Model.Project.Id, y.Model.Project.Id)) return false;
             if (!Equals(x.Model.Facility.Id, y.Model.Facility.Id)) return false;
