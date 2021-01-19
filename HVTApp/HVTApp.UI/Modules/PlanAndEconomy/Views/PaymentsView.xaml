@@ -8,7 +8,7 @@
         <GroupBox Header="Планируемые поступления">
             <infg:XamDataGrid DataSource="{Binding Payments}"
                               VerticalAlignment="Stretch"
-                              SelectedDataItem="{Binding SelectedPayment}">
+                              ActiveDataItem="{Binding SelectedPayment}">
 
                 <infg:XamDataGrid.ContextMenu>
                     <ContextMenu>

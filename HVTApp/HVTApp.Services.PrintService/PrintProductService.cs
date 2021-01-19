@@ -106,7 +106,7 @@ namespace HVTApp.Services.PrintService
             foreach (var dependent in product.DependentProducts)
             {
                 docWriter.StartTableRow();
-                docWriter.StartTableCell(docWriter.CellProps(2, Padding.PadAll(7)));
+                docWriter.StartTableCell(docWriter.CellProps(2, Padding.PadAll(0.25f)));
                 Print(docWriter, dependent.Product, dependent.Amount, block);
                 docWriter.EndTableCell();
                 docWriter.EndTableRow();

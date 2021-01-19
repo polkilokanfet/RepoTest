@@ -22,7 +22,7 @@
                 <GroupBox Grid.Row="1" Header="Оборудование в заказе">
                     <infg:XamDataGrid x:Name="ProductionListGrid"
                                       DataSource="{Binding GroupsInOrder}"
-                                      SelectedDataItem="{Binding GroupsInOrder.SelectedItem, Mode=TwoWay}">
+                                      ActiveDataItem="{Binding GroupsInOrder.SelectedItem, Mode=TwoWay}">
 
 			            <infg:XamDataGrid.FieldLayouts>
 				            <infg:FieldLayout Key="UnitsInOrder">
@@ -66,7 +66,7 @@
                 <GroupBox Grid.Row="3" Header="Оборудование для производства">
                     <infg:XamDataGrid x:Name="PotentialListGrid"
                                       DataSource="{Binding GroupsPotential}"
-                                      SelectedDataItem="{Binding GroupsPotential.SelectedItem, Mode=TwoWay}">
+                                      ActiveDataItem="{Binding GroupsPotential.SelectedItem, Mode=TwoWay}">
 
                         <infg:XamDataGrid.FieldLayouts>
                             <infg:FieldLayout Key="UnitsPotential">

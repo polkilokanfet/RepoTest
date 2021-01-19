@@ -20,10 +20,12 @@ namespace HVTApp.Services.PrintService
 {
     public class PrintOfferService : PrintServiceBase, IPrintOfferService
     {
+        private readonly IMessageService _messageService;
         private readonly PrintProductService _printProductService;
 
         public PrintOfferService(IUnityContainer container) : base(container)
         {
+            _messageService = Container.Resolve<IMessageService>();
             _printProductService = container.Resolve<IPrintProductService>() as PrintProductService;
         }
 
@@ -36,14 +38,20 @@ namespace HVTApp.Services.PrintService
             //полный путь к файлу (с именем файла)
             var fullPath = offer.GetPath(path);
 
+            if (File.Exists(fullPath))
+            {
+                var dr = _messageService.ShowYesNoMessageDialog("Внимание", "Это ТКП уже напечатано. Заменить его?", defaultNo: true);
+                if(dr != MessageDialogResult.Yes)
+                    return;
+            }
+
             var docWriter = GetWordDocumentWriter(fullPath);
             if (docWriter == null) return;
             docWriter.StartDocument();
-            //docWriter.Unit = UnitOfMeasurement.Centimeter;
+            
             //var sp = docWriter.CreateSectionProperties();
-            //sp.PageMargins = new Padding(40, 20, 40, 10);
+            //sp.PageMargins = new Padding(7, 7, 7, 7);
             //docWriter.DefineSection(sp);
-
 
             #region Print Header
 
@@ -97,7 +105,7 @@ namespace HVTApp.Services.PrintService
 
             #endregion
 
-            #region Print Text Before Table
+            #region Print Text Above Table
 
             docWriter.PrintParagraph(string.Empty);
 
@@ -240,7 +248,7 @@ namespace HVTApp.Services.PrintService
             //подпись
             if (GlobalAppProperties.User.Id == GlobalAppProperties.Actual.Developer?.Id)
             {
-                var drt = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Подпись", "Печать с подписью?", defaultNo:true);
+                var drt = _messageService.ShowYesNoMessageDialog("Подпись", "Печать с подписью?", defaultNo:true);
                 if (drt == MessageDialogResult.Yes)
                 {
                     try
@@ -258,7 +266,7 @@ namespace HVTApp.Services.PrintService
                     }
                     catch (Exception e)
                     {
-                        Container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().ToString(), e.GetAllExceptions());
+                        _messageService.ShowOkMessageDialog(e.GetType().ToString(), e.GetAllExceptions());
                         docWriter.PrintTableCell(string.Empty);
                     }
                 }
@@ -339,17 +347,14 @@ namespace HVTApp.Services.PrintService
             var parts = SectionHeaderFooterParts.FooterAllPages;
             var writerSet = docWriter.AddSectionHeaderFooter(parts);
             writerSet.FooterWriterAllPages.Open();
+
             writerSet.FooterWriterAllPages.StartParagraph();
-            writerSet.FooterWriterAllPages.AddTextRun("Исполнитель:" + Environment.NewLine + $"{offer.Author}" + Environment.NewLine + $"тел.: {offer.Author.PhoneNumber}; e-mail: {offer.Author.Email}; uetm.ru");
+            writerSet.FooterWriterAllPages.AddTextRun("Исполнитель:" + Environment.NewLine + $"{offer.Author}" + Environment.NewLine + $"тел.: {offer.Author.PhoneNumber}; e-mail: {offer.Author.Email}; ");
+            writerSet.FooterWriterAllPages.AddHyperlink("https://uetm.ru", "https://uetm.ru");
             writerSet.FooterWriterAllPages.AddTextRun(Environment.NewLine + $"{offer.RegNumber} от {offer.Date.ToShortDateString()} г. - стр. ");
             writerSet.FooterWriterAllPages.AddPageNumberField(PageNumberFieldFormat.Decimal);
             writerSet.FooterWriterAllPages.EndParagraph();
-            //writerSet.FooterWriterAllPages.StartParagraph();
-            //writerSet.FooterWriterAllPages.AddTextRun($"{offer.Author.Person.Surname} {offer.Author.Person.Name} {offer.Author.Person.Patronymic}");
-            //writerSet.FooterWriterAllPages.EndParagraph();
-            //writerSet.FooterWriterAllPages.StartParagraph();
-            //writerSet.FooterWriterAllPages.AddTextRun($"тел.: {offer.Author.PhoneNumber}; e-mail: {offer.Author.Email}; uetm.ru");
-            //writerSet.FooterWriterAllPages.EndParagraph();
+
             writerSet.FooterWriterAllPages.Close();
 
             #endregion

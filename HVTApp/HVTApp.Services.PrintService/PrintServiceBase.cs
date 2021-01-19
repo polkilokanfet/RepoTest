@@ -34,6 +34,7 @@ namespace HVTApp.Services.PrintService
                 return null;
             }
             docWriter.DefaultParagraphProperties.Alignment = ParagraphAlignment.Left;
+            docWriter.Unit = UnitOfMeasurement.Centimeter;
 
             return docWriter;
         }
