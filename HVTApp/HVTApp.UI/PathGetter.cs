@@ -82,7 +82,13 @@ namespace HVTApp.UI
                 ? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), HVTAppProjectsFolderName)
                 : Properties.Settings.Default.ProjectsFolderPath;
 
-            return GetPath(project.Id, projectsFolderPath, project.Name);
+            var path = GetPath(project.Id, projectsFolderPath, project.Name);
+
+            //создание вспомогательных папок "ТКП" и "Переписка"
+            CreateDirectory(Path.Combine(path, OffersFolderName));
+            CreateDirectory(Path.Combine(path, CorrespondenceFolderName));
+
+            return path;
         }
 
         private static string GetPath(Guid guid, string rootDirectory, string addToFolderName = null)
@@ -99,17 +105,13 @@ namespace HVTApp.UI
                 }
             }
 
-            //создаём, если директории не существует
             if (!string.IsNullOrEmpty(addToFolderName))
             { 
                 addToFolderName = addToFolderName.ReplaceUncorrectSimbols("_"); 
             }
             var path = Path.Combine(rootDirectory, $"{addToFolderName} {id}");
+            //создаём, если директории не существует
             CreateDirectory(path);
-
-            //создание вспомогательных папок "ТКП" и "Переписка"
-            CreateDirectory(Path.Combine(path, OffersFolderName));
-            CreateDirectory(Path.Combine(path, CorrespondenceFolderName));
 
             return path;
         }

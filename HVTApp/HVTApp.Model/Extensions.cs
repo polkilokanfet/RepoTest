@@ -68,6 +68,18 @@ namespace HVTApp.Model
             return region;
         }
 
+        public static string GetDeliveryAddress(this SalesUnit salesUnit)
+        {
+            if (salesUnit.AddressDelivery != null)
+                return salesUnit.AddressDelivery.ToString();
+
+            if (salesUnit.Facility.Address != null)
+                return salesUnit.Facility.Address.ToString();
+
+            var region = salesUnit.Facility.GetRegion();
+            return $"{region.District.Country}, {region}, {salesUnit.Facility}";
+        }
+
         /// <summary>
         /// Возвращает ближайшую к дате сумму.
         /// </summary>

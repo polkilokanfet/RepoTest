@@ -199,17 +199,21 @@ namespace HVTApp.UI.Modules.Sales.Market
         {
             if (SelectedItem != null)
             {
+                List<SalesUnit> salesUnits = new List<SalesUnit>();
+                
+                //если выбран проект целиком
                 if (SelectedItem is ProjectItem)
                 {
-                    var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Id == SelectedProjectItem.Project.Id);
-                    RegionManager.RequestNavigateContentRegion<TechnicalRequrementsTaskView>(new NavigationParameters { { nameof(SalesUnit), salesUnits } });
-                }
-                if (SelectedItem is ProjectUnitsGroup)
-                {
-                    var salesUnits = SelectedProjectUnitsGroup.SalesUnits.ToList();
-                    RegionManager.RequestNavigateContentRegion<TechnicalRequrementsTaskView>(new NavigationParameters { { nameof(SalesUnit), salesUnits } });
+                    salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Id == SelectedProjectItem.Project.Id && !x.IsRemoved);
                 }
                 
+                //если выбрано конкретное оборудование
+                if (SelectedItem is ProjectUnitsGroup)
+                {
+                    salesUnits = SelectedProjectUnitsGroup.SalesUnits.ToList();
+                }
+
+                RegionManager.RequestNavigateContentRegion<TechnicalRequrementsTaskView>(new NavigationParameters { { nameof(SalesUnit), salesUnits } });
             }
         }
 

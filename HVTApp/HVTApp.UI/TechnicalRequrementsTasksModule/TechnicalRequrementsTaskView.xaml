@@ -130,7 +130,7 @@
                             <infgDp:DateTimeField AlternateBinding="{Binding SalesUnit.RealizationDateCalculated}" Label="Реализация" AllowEdit="False" AllowResize="False" Width="Auto"/>
                             <infgDp:TextField AlternateBinding="{Binding SalesUnit.Project.ProjectType}" BindingType="UseAlternateBinding" Label="Тип проекта" Width="Auto"/>
                             <infgDp:TextField AlternateBinding="{Binding FacilityOwners}" BindingType="UseAlternateBinding" Label="Владелец объекта" Width="100"/>
-                            <infgDp:TextField AlternateBinding="{Binding SalesUnit.Facility.Address}" BindingType="UseAlternateBinding" Label="Адрес объекта" Width="100"/>
+                            <infgDp:TextField AlternateBinding="{Binding DeliveryAddress}" BindingType="UseAlternateBinding" Label="Адрес объекта" Width="100"/>
                             <infgDp:TextField AlternateBinding="{Binding SalesUnit.Producer}" BindingType="UseAlternateBinding" Label="Производитель" Width="Auto"/>
                             <infgDp:TextField AlternateBinding="{Binding SalesUnit.Specification.Contract.Number}" BindingType="UseAlternateBinding" Label="Контракт" Width="Auto"/>
                             <infgDp:TextField AlternateBinding="{Binding SalesUnit.Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto"/>

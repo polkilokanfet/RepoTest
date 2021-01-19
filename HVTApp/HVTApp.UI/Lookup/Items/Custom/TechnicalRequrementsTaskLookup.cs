@@ -22,7 +22,7 @@ namespace HVTApp.UI.Lookup
             {
                 if (BackManager == null) return "Назначение back-менеджера";
 
-                if (Entity.RejectByBackManagerMoment.HasValue) return "Отклонено back-офисом";
+                if (Entity.RejectByBackManagerMoment.HasValue) return $"Отклонено. Причина: {Entity.RejectComment}";
 
                 if (FirstStartMoment.HasValue && Start.HasValue && !Equals(Start, FirstStartMoment))
                 {
@@ -30,9 +30,21 @@ namespace HVTApp.UI.Lookup
                     {
                         return "Проработка back-менеджером (внимание: front-менеджер внес изменения с момента последнего просмотра задания back-менеджером)";
                     }
+
+                    //расчеты
+                    if(this.Entity.PriceCalculations.Any(x => x.TaskCloseMoment.HasValue))
+                    {
+                        var max = this.Entity.PriceCalculations
+                            .Where(x => x.TaskCloseMoment.HasValue)
+                            .Max(x => x.TaskCloseMoment.Value);
+                        if (max < Start.Value)
+                        {
+                            return "Проработка back-менеджером (последний расчет ПЗ завершен до изменений).";
+                        }
+                    }
                 }
                 
-                if (this.PriceCalculations.Any(x => x.TaskOpenMoment.HasValue))
+                if (this.Entity.PriceCalculations.Any(x => x.TaskOpenMoment.HasValue))
                 {
                     if (this.PriceCalculations.Where(x => x.TaskOpenMoment.HasValue).All(x => x.TaskCloseMoment.HasValue))
                         return "Проработано (все расчеты ПЗ завершены)";

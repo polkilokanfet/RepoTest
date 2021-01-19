@@ -8,6 +8,7 @@ using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using HVTApp.UI.PriceCalculations.ViewModel;
+using HVTApp.Model;
 
 namespace HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper
 {
@@ -30,6 +31,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper
                 return "самовывоз";
             }
         }
+
+        public string DeliveryAddress => SalesUnit.GetDeliveryAddress();
 
         public string FacilityOwners
         {
