@@ -14,6 +14,7 @@ using HVTApp.Model.Wrapper.Groups;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Events;
+using HVTApp.Infrastructure.Services;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels
 {
@@ -25,6 +26,8 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
         /// Необходимо для отмены изменений
         /// </summary>
         private IValidatableChangeTrackingCollection<ProjectUnitsGroup> _groupsToReject;
+
+        private List<ProjectUnitsGroup> _removedUnits = new List<ProjectUnitsGroup>();
 
         public SpecificationUnitsGroupsViewModel(IUnityContainer container) : base(container)
         {
@@ -42,6 +45,21 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             RefreshPrice(group);
             Groups.Add(group);
             _groupsToReject.Add(group);
+        }
+
+        protected override void RemoveCommand_Execute()
+        {
+            if (CanRemoveGroup(Groups.SelectedGroup))
+            {
+                if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Вы уверены, что хотите удалить это оборудование?", defaultNo: true) != MessageDialogResult.Yes)
+                {
+                    return;
+                }
+
+                _removedUnits.Add(Groups.SelectedGroup);
+                RemoveGroup(Groups.SelectedGroup);
+                Groups.SelectedGroup = null;
+            }
         }
 
         protected override List<ProjectUnitsGroup> GetGroups(IEnumerable<SalesUnit> units)
@@ -70,10 +88,15 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             var eventAggregator = Container.Resolve<IEventAggregator>();
 
             //удаленные из спецификации группы
+            _removedUnits.ForEach(x => { x.RejectChanges(); });
+            _removedUnits.ForEach(x => { x.Specification = null; });
+            _removedUnits.ForEach(x => { x.AcceptChanges(); });
+
+            //удаленные из спецификации группы
             var removed = Groups.Where(x => x.Groups != null).SelectMany(x => x.Groups.RemovedItems).ToList();
             removed = Groups.RemovedItems.Concat(removed).ToList();
-            removed.ForEach(x => { x.Specification = null; });
             removed.ForEach(x => { x.RejectChanges(); });
+            removed.ForEach(x => { x.Specification = null; });
             removed.ForEach(x => { x.AcceptChanges(); });
 
             var added = GetAddedUnits().ToList();
@@ -86,6 +109,5 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
             added.Concat(modified.Select(x => x.Model)).Distinct().ForEach(x => eventAggregator.GetEvent<AfterSaveSalesUnitEvent>().Publish(x));
         }
-
     }
 }

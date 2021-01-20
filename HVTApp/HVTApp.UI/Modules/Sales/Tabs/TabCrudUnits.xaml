@@ -10,7 +10,6 @@
     <infRib:RibbonGroup Caption="Основное">
         <infRib:ButtonTool Caption="Добавить" Command="{Binding GroupsViewModel.AddCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
         <infRib:ButtonTool Caption="Удалить" Command="{Binding GroupsViewModel.RemoveCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>
-        <infRib:ButtonTool Caption="Перенести" Command="{Binding GroupsViewModel.ChangeProjectCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Включенное">

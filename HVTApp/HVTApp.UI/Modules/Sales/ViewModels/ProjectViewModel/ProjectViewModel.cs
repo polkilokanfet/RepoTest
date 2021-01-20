@@ -13,6 +13,8 @@ using Prism.Regions;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.UI.Modules.Sales.Views;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
+using HVTApp.Infrastructure.Services;
+using HVTApp.Infrastructure;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel
 {
@@ -36,6 +38,11 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel
             MoveToNewProjectCommand = new DelegateCommand(
                 () =>
                 {
+                    if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("”даление", "¬ы уверены, что хотите перенести это оборудование в новый проект?", defaultYes: true) != MessageDialogResult.Yes)
+                    {
+                        return;
+                    }
+
                     regionManager.RequestNavigateContentRegion<ProjectView>(new NavigationParameters
                     {
                         { nameof(SalesUnit), this.GroupsViewModel.Groups.SelectedGroup.SalesUnits }

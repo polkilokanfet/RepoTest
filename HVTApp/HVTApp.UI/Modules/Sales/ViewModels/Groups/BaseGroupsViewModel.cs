@@ -77,21 +77,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
         protected BaseGroupsViewModel(IUnityContainer container) : base(container)
         {
             AddCommand = new DelegateCommand(AddCommand_Execute, AddCommand_CanExecute);
-            RemoveCommand = new DelegateCommand(
-                () =>
-                {
-                    if (CanRemoveGroup(Groups.SelectedGroup))
-                    {
-                        if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Вы уверены, что хотите удалить это оборудование?", defaultNo: true) != MessageDialogResult.Yes)
-                        {
-                            return;
-                        }
-
-                        RemoveGroup(Groups.SelectedGroup);
-                        Groups.SelectedGroup = default(TGroup);
-                    }
-                }, 
-                () => Groups.SelectedGroup != null);
+            RemoveCommand = new DelegateCommand(RemoveCommand_Execute, () => Groups.SelectedGroup != null);
 
             ChangeFacilityCommand = new DelegateCommand<TGroup>(ChangeFacilityCommand_Execute);
             ChangeProductCommand = new DelegateCommand<TGroup>(ChangeProductCommand_Execute);
@@ -154,6 +140,20 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             #endregion
 
             Groups.SumChanged += () => { OnPropertyChanged(nameof(Sum)); };
+        }
+
+        protected virtual void RemoveCommand_Execute()
+        {
+            if (CanRemoveGroup(Groups.SelectedGroup))
+            {
+                if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Вы уверены, что хотите удалить это оборудование?", defaultNo: true) != MessageDialogResult.Yes)
+                {
+                    return;
+                }
+
+                RemoveGroup(Groups.SelectedGroup);
+                Groups.SelectedGroup = default(TGroup);
+            }
         }
 
         protected virtual void RemoveGroup(TGroup targetGroup)
