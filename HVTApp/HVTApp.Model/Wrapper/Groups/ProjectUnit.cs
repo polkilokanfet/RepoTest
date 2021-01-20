@@ -71,6 +71,12 @@ namespace HVTApp.Model.Wrapper.Groups
 
         #region ComplexProperties
 
+        public ProjectWrapper Project
+        {
+            get { return GetWrapper<ProjectWrapper>(); }
+            set { SetComplexValue<Project, ProjectWrapper>(Project, value); }
+        }
+
         public FacilitySimpleWrapper Facility
         {
             get { return GetWrapper<FacilitySimpleWrapper>(); }
@@ -124,6 +130,7 @@ namespace HVTApp.Model.Wrapper.Groups
 
         public override void InitializeComplexProperties()
         {
+            InitializeComplexProperty(nameof(this.Project), Model.Project == null ? null : new ProjectWrapper(Model.Project));
             InitializeComplexProperty(nameof(this.Facility), Model.Facility == null ? null : new FacilitySimpleWrapper(Model.Facility));
             InitializeComplexProperty(nameof(this.Product), Model.Product == null ? null : new ProductSimpleWrapper(Model.Product));
             InitializeComplexProperty(nameof(this.PaymentConditionSet), Model.PaymentConditionSet == null ? null : new PaymentConditionSetSimpleWrapper(Model.PaymentConditionSet));

@@ -77,8 +77,29 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
         /// </summary>
         public ICommand RemoveProducerCommand { get; }
 
+        /// <summary>
+        /// Перенести оборудование в другой проект
+        /// </summary>
+        public ICommand ChangeProjectCommand { get; }
+
         public SalesUnitsGroupsViewModel(IUnityContainer container) : base(container)
         {
+            ChangeProjectCommand = new DelegateCommand(
+                () =>
+                {
+                    var projectUnitsGroup = Groups.SelectedGroup;
+
+                    var projects = UnitOfWork.Repository<Project>().Find(x => x.Manager.Id == GlobalAppProperties.User.Id);
+                    var project = Container.Resolve<ISelectService>().SelectItem(projects);
+                    if (project == null) return;
+                    project = UnitOfWork.Repository<Project>().GetById(project.Id);
+                    projectUnitsGroup.Project = new ProjectWrapper(project);
+                    base.RemoveGroup(projectUnitsGroup);
+
+                    ((DelegateCommand<ProjectUnitsGroup>)ChangeProjectCommand).RaiseCanExecuteChanged();
+                },
+                () => true);
+
             ChangeProducerCommand = new DelegateCommand<ProjectUnitsGroup>(
                 projectUnitsGroup =>
                 {

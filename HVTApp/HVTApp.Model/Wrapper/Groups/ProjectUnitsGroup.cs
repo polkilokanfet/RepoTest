@@ -9,10 +9,16 @@ namespace HVTApp.Model.Wrapper.Groups
         BaseWrappersGroup<ProjectUnitsGroup, SalesUnit, ProjectUnit>, 
         IGroupValidatableChangeTrackingWithCollection<ProjectUnitsGroup, SalesUnit>
     {
-        private readonly List<SalesUnit> _units;
+        public List<SalesUnit> SalesUnits { get; }
 
-        public bool CanRemove => _units.All(x => x.Order == null);
-        public bool CanTotalRemove => _units.All(x => x.AllowTotalRemove);
+        public bool CanRemove => SalesUnits.All(x => x.Order == null);
+        public bool CanTotalRemove => SalesUnits.All(x => x.AllowTotalRemove);
+
+        public ProjectWrapper Project
+        {
+            get { return GetValue<ProjectWrapper>(); }
+            set { SetValue(value); }
+        }
 
         public CompanyWrapper Producer
         {
@@ -67,7 +73,7 @@ namespace HVTApp.Model.Wrapper.Groups
 
         public ProjectUnitsGroup(List<SalesUnit> units) : base(units)
         {
-            _units = units;
+            SalesUnits = units;
         }
 
         protected override SalesUnit GetSalesUnit()

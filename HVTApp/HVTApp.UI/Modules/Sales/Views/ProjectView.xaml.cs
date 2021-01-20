@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
@@ -34,11 +35,34 @@ namespace HVTApp.UI.Modules.Sales.Views
         {
             base.OnNavigatedTo(navigationContext);
 
+            //если грузится существующий проект
             if (navigationContext.Parameters != null && navigationContext.Parameters.Any())
             {
-                var project = (Project)navigationContext.Parameters.First().Value;
-                _viewModel.Load(project, false);
+                if (navigationContext.Parameters.Count() == 1)
+                {
+                    //загрузка проекта
+                    if (navigationContext.Parameters.First().Value is Project)
+                    {
+                        var project = (Project)navigationContext.Parameters.First().Value;
+                        _viewModel.Load(project, false);
+                    }
+
+                    //перенос оборудования в новый проект
+                    if (navigationContext.Parameters.First().Value is List<SalesUnit>)
+                    {
+                        var units = (List<SalesUnit>)navigationContext.Parameters.First().Value;
+                        _viewModel.LoadForMove(units);
+                    }
+                }
+                else if (navigationContext.Parameters.Count() == 2)
+                {
+                    //перенос оборудования в существующий проект
+                    var project = (Project)navigationContext.Parameters.First().Value;
+                    var units = (List<SalesUnit>)navigationContext.Parameters.Last().Value;
+                    _viewModel.LoadForMove(units, project);
+                }
             }
+            //если грузится новый проект
             else
             {
                 _viewModel.Load(new Project(), true);

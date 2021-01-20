@@ -85,7 +85,7 @@ namespace HVTApp.UI
             var path = GetPath(project.Id, projectsFolderPath, project.Name);
 
             //создание вспомогательных папок "ТКП" и "Переписка"
-            CreateDirectory(Path.Combine(path, OffersFolderName));
+            //CreateDirectory(Path.Combine(path, OffersFolderName));
             CreateDirectory(Path.Combine(path, CorrespondenceFolderName));
 
             return path;

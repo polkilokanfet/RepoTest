@@ -10,6 +10,7 @@
     <infRib:RibbonGroup Caption="Основное">
         <infRib:ButtonTool Caption="Добавить" Command="{Binding GroupsViewModel.AddCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
         <infRib:ButtonTool Caption="Удалить" Command="{Binding GroupsViewModel.RemoveCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>
+        <infRib:ButtonTool Caption="Перенести" Command="{Binding GroupsViewModel.ChangeProjectCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Включенное">
@@ -20,12 +21,17 @@
 
     <infRib:RibbonGroup Caption="Стоимости">
         <StackPanel Orientation="Vertical">
-            <infRib:ButtonTool Caption="Округлить" Command="{Binding RoundUpCommand}"/>
             <StackPanel Orientation="Horizontal">
-                <Label Content="до: " />
-                <editors:XamNumericEditor Value="{Binding RoundUpAccuracy}" MinWidth="50"/>
+                <Label Content="До: " />
+                <editors:XamNumericEditor Value="{Binding RoundUpAccuracy}" MinWidth="80"/>
             </StackPanel>
+            <infRib:ButtonTool Caption="Округлить" Command="{Binding RoundUpCommand}"/>
         </StackPanel>
+    </infRib:RibbonGroup>
+
+    <infRib:RibbonGroup Caption="Перенести оборудование">
+        <infRib:ButtonTool Caption="В новый проект" Command="{Binding MoveToNewProjectCommand}" SmallImage="/HVTApp.UI;component/Images/arrow_forward.png"/>
+        <infRib:ButtonTool Caption="В существующий проект" Command="{Binding MoveToExistsProjectCommand}" SmallImage="/HVTApp.UI;component/Images/arrow_forward.png"/>
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Действия">
