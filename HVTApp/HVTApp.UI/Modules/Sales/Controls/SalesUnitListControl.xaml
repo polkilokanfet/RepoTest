@@ -169,7 +169,7 @@
             <GroupBox Grid.Column="2" Header="Включено в стоимость (на единицу)" Name="ProductsIncludedGroupBox">
                 <dp:XamDataGrid x:Name="ProductsIncludedListGrid"
                                 DataSource="{Binding Path=SelectedDataItem.ProductsIncluded, ElementName=UnitListGrid, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                SelectedDataItem="{Binding Groups.SelectedProductIncluded}">
+                                ActiveDataItem="{Binding Groups.SelectedProductIncluded}">
 
                     <dp:XamDataGrid.FieldLayouts>
                         <dp:FieldLayout>

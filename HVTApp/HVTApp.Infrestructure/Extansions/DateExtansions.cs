@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace HVTApp.Infrastructure.Extansions
 {
@@ -60,19 +61,14 @@ namespace HVTApp.Infrastructure.Extansions
             return "-";
         }
 
+        /// <summary>
+        /// Номер недели в году (первая неделя та, в которой от 4-х дней)
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns>Номер недели</returns>
         public static int WeekNumber(this DateTime date)
         {
-            var firstDayOfTheYear = new DateTime(date.Year, 1, 1);
-            var firstMondayOfTheYear = firstDayOfTheYear;
-            while (firstMondayOfTheYear.DayOfWeek != DayOfWeek.Monday)
-            {
-                firstMondayOfTheYear = firstMondayOfTheYear.AddDays(1);
-            }
-            var daysDif = (date - firstMondayOfTheYear).Days + 1;
-            var week = (int)Math.Ceiling(daysDif / 7.0);
-            if (Equals(firstDayOfTheYear, firstMondayOfTheYear))
-                return week;
-            return week + 1;
+            return new GregorianCalendar().GetWeekOfYear(date, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
         }
 
         public static string WeekNumberString(this DateTime date)
