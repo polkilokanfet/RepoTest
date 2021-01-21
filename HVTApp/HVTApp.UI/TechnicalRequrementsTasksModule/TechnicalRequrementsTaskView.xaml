@@ -48,7 +48,7 @@
                 <TextBox Grid.Row="1" 
                          Grid.Column="1" 
                          Text="{Binding TechnicalRequrementsTaskWrapper.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                         IsEnabled="{Binding IsStarted, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ReverseBoolConverter}}"/>
+                         IsReadOnly="{Binding IsStarted, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <Label Grid.Row="2" Grid.Column="0" Content="Старт: "/>
                 <Label Grid.Row="2" Grid.Column="1" Content="{Binding TechnicalRequrementsTaskWrapper.Start, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
@@ -57,7 +57,7 @@
                 <TextBox Grid.Row="3"
                          Grid.Column="1"
                          Text="{Binding TechnicalRequrementsTaskWrapper.RejectComment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                         IsEnabled="{Binding CurrentUserIsBackManager, UpdateSourceTrigger=PropertyChanged}"/>
+                         IsReadOnly="{Binding CurrentUserIsBackManager, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ReverseBoolConverter}}"/>
 
             </Grid>
 

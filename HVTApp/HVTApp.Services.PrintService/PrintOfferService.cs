@@ -204,11 +204,11 @@ namespace HVTApp.Services.PrintService
             {
                 "Комплектация и характеристики оборудования в соответствии с техническим приложением к настоящему предложению.",
                 GetShipmentConditions(offerUnitsGroups),
-                PrintConditions("Условия оплаты:", offerUnitsGroups.GroupBy(x => x.PaymentConditionSet.Model)),
+                PrintConditions("Условия оплаты:", offerUnitsGroups.GroupBy(x => x.Model.PaymentConditionSet)),
                 PrintConditions("Срок производства (календарных дней, с правом досрочной поставки): ", offerUnitsGroups.GroupBy(x => x.ProductionTerm)),
                 "Точный срок поставки оборудования уточняется при заключении договора.",
-                "Цена и сроки поставки могут быть пересмотрены после окончательного согласования опросных листов на оборудование.",
-                $"Настоящее предложение действительно до {offer.ValidityDate.ToShortDateString()} г.",
+                $"Настоящее предложение действительно до {offer.ValidityDate.ToShortDateString()} года.",
+                "В случае изменения технических характеристик оборудования или объёма поставки, условия предложения могут быть пересмотрены.",
                 "Заводская гарантия на оборудование: 5 лет."
             };
 

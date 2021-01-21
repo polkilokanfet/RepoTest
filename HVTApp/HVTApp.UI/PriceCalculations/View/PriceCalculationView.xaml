@@ -65,7 +65,7 @@
 
 
                 <Label Grid.Row="1" Grid.Column="0" Content="Комментарий: "/>
-                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding PriceCalculationWrapper.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsStarted, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ReverseBoolConverter}}"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding PriceCalculationWrapper.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding IsStarted, UpdateSourceTrigger=PropertyChanged}"/>
                 
             </Grid>
             
