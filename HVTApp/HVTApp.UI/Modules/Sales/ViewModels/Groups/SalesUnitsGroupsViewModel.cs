@@ -12,6 +12,7 @@ using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Groups;
+using HVTApp.Model.Wrapper.Groups.SimpleWrappers;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
@@ -93,7 +94,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
                     var project = Container.Resolve<ISelectService>().SelectItem(projects);
                     if (project == null) return;
                     project = UnitOfWork.Repository<Project>().GetById(project.Id);
-                    projectUnitsGroup.Project = new ProjectWrapper(project);
+                    projectUnitsGroup.Project = new ProjectSimpleWrapper(project);
                     base.RemoveGroup(projectUnitsGroup);
 
                     ((DelegateCommand<ProjectUnitsGroup>)ChangeProjectCommand).RaiseCanExecuteChanged();
@@ -104,10 +105,10 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
                 projectUnitsGroup =>
                 {
                     var producers = UnitOfWork.Repository<Company>().Find(x => x.ActivityFilds.Select(af => af.ActivityFieldEnum).Contains(ActivityFieldEnum.ProducerOfHighVoltageEquipment));
-                    var producer = Container.Resolve<ISelectService>().SelectItem(producers, projectUnitsGroup.Producer?.Id);
+                    var producer = Container.Resolve<ISelectService>().SelectItem(producers, projectUnitsGroup.Producer?.Model.Id);
                     if (producer == null) return;
                     producer = UnitOfWork.Repository<Company>().GetById(producer.Id);
-                    projectUnitsGroup.Producer = new CompanyWrapper(producer);
+                    projectUnitsGroup.Producer = new CompanySimpleWrapper(producer);
                     ((DelegateCommand<ProjectUnitsGroup>)RemoveProducerCommand).RaiseCanExecuteChanged();
                 },
                 projectUnitsGroup => projectUnitsGroup?.Specification == null);

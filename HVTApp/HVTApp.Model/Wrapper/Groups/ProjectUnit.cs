@@ -71,10 +71,10 @@ namespace HVTApp.Model.Wrapper.Groups
 
         #region ComplexProperties
 
-        public ProjectWrapper Project
+        public ProjectSimpleWrapper Project
         {
-            get { return GetWrapper<ProjectWrapper>(); }
-            set { SetComplexValue<Project, ProjectWrapper>(Project, value); }
+            get { return GetWrapper<ProjectSimpleWrapper>(); }
+            set { SetComplexValue<Project, ProjectSimpleWrapper>(Project, value); }
         }
 
         public FacilitySimpleWrapper Facility
@@ -95,28 +95,19 @@ namespace HVTApp.Model.Wrapper.Groups
             set { SetComplexValue<PaymentConditionSet, PaymentConditionSetSimpleWrapper>(PaymentConditionSet, value); }
         }
 
-        public CompanyWrapper Producer
+        public CompanySimpleWrapper Producer
         {
-            get { return GetWrapper<CompanyWrapper>(); }
-            set { SetComplexValue<Company, CompanyWrapper>(Producer, value); }
+            get { return GetWrapper<CompanySimpleWrapper>(); }
+            set => SetComplexValue<Company, CompanySimpleWrapper>(Producer, value);
         }
 
-
-        public OrderWrapper Order
+        public SpecificationSimpleWrapper Specification
         {
-            get { return GetWrapper<OrderWrapper>(); }
-            set { SetComplexValue<Order, OrderWrapper>(Order, value); }
-        }
-
-        public SpecificationWrapper Specification
-        {
-            get { return GetWrapper<SpecificationWrapper>(); }
-            set { SetComplexValue<Specification, SpecificationWrapper>(Specification, value); }
+            get { return GetWrapper<SpecificationSimpleWrapper>(); }
+            set { SetComplexValue<Specification, SpecificationSimpleWrapper>(Specification, value); }
         }
 
         public ProductType ProductType => Product.Model.ProductType;
-
-
 
         #endregion
 
@@ -130,13 +121,12 @@ namespace HVTApp.Model.Wrapper.Groups
 
         public override void InitializeComplexProperties()
         {
-            InitializeComplexProperty(nameof(this.Project), Model.Project == null ? null : new ProjectWrapper(Model.Project));
+            InitializeComplexProperty(nameof(this.Project), Model.Project == null ? null : new ProjectSimpleWrapper(Model.Project));
             InitializeComplexProperty(nameof(this.Facility), Model.Facility == null ? null : new FacilitySimpleWrapper(Model.Facility));
             InitializeComplexProperty(nameof(this.Product), Model.Product == null ? null : new ProductSimpleWrapper(Model.Product));
             InitializeComplexProperty(nameof(this.PaymentConditionSet), Model.PaymentConditionSet == null ? null : new PaymentConditionSetSimpleWrapper(Model.PaymentConditionSet));
-            InitializeComplexProperty(nameof(this.Producer), Model.Producer == null ? null : new CompanyWrapper(Model.Producer));
-            InitializeComplexProperty(nameof(this.Specification), Model.Specification == null ? null : new SpecificationWrapper(Model.Specification));
-            InitializeComplexProperty(nameof(this.Order), Model.Order == null ? null : new OrderWrapper(Model.Order));
+            InitializeComplexProperty(nameof(this.Producer), Model.Producer == null ? null : new CompanySimpleWrapper(Model.Producer));
+            InitializeComplexProperty(nameof(this.Specification), Model.Specification == null ? null : new SpecificationSimpleWrapper(Model.Specification));
         }
 
         protected override void InitializeCollectionProperties()

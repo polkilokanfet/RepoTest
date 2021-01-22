@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Wrapper.Groups.SimpleWrappers;
 
 namespace HVTApp.Model.Wrapper.Groups
 {
@@ -14,31 +15,25 @@ namespace HVTApp.Model.Wrapper.Groups
         public bool CanRemove => SalesUnits.All(x => x.Order == null);
         public bool CanTotalRemove => SalesUnits.All(x => x.AllowTotalRemove);
 
-        public ProjectWrapper Project
+        public ProjectSimpleWrapper Project
         {
-            get { return GetValue<ProjectWrapper>(); }
+            get { return GetValue<ProjectSimpleWrapper>(); }
             set { SetValue(value); }
         }
 
-        public CompanyWrapper Producer
+        public CompanySimpleWrapper Producer
         {
-            get { return GetValue<CompanyWrapper>(); }
+            get { return GetValue<CompanySimpleWrapper>(); }
             set { SetValue(value); }
         }
 
-        public SpecificationWrapper Specification
+        public SpecificationSimpleWrapper Specification
         {
-            get { return GetValue<SpecificationWrapper>(); }
+            get { return GetValue<SpecificationSimpleWrapper>(); }
             set { SetValue(value); }
         }
 
         public DateTime OrderInTakeDate => GetValue<DateTime>();
-
-        public OrderWrapper Order
-        {
-            get { return GetValue<OrderWrapper>(); }
-            set { SetValue(value); }
-        }
 
         public string TceRequest
         {

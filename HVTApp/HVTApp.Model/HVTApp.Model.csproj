@@ -220,6 +220,7 @@
     <Compile Include="Wrapper\Custom\Validate\SpecificationWrapper.cs" />
     <Compile Include="Wrapper\Groups\BaseWrappersGroup.cs" />
     <Compile Include="Wrapper\Groups\OfferUnit2Wrapper.cs" />
+    <Compile Include="Wrapper\Groups\SimpleWrappers\CompanySimpleWrapper.cs" />
     <Compile Include="Wrapper\Groups\SimpleWrappers\PaymentConditionSetSimpleWrapper.cs" />
     <Compile Include="Wrapper\Groups\SimpleWrappers\ProductIncludedSimpleWrapper.cs" />
     <Compile Include="Wrapper\Groups\SimpleWrappers\ProductSimpleWrapper.cs" />
@@ -231,6 +232,9 @@
     <Compile Include="Wrapper\Groups\SalesUnitsGroup.cs" />
     <Compile Include="Wrapper\Groups\ProjectUnitsGroup.cs" />
     <Compile Include="Wrapper\Custom\IProductCostDependentProductsWrapper.cs" />
+    <Compile Include="Wrapper\Groups\SimpleWrappers\ProjectSimpleWrapper.cs" />
+    <Compile Include="Wrapper\Groups\SimpleWrappers\SimpleWrapperBase.cs" />
+    <Compile Include="Wrapper\Groups\SimpleWrappers\SpecificationSimpleWrapper.cs" />
     <Compile Include="Wrapper\IUnitsGroup.cs" />
     <Compile Include="Wrapper\IUnitWrapper.cs" />
     <Compile Include="Wrapper\IWrapperWithUnits.cs" />

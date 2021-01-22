@@ -15,6 +15,7 @@ using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 using HVTApp.Infrastructure.Services;
+using HVTApp.Model.Wrapper.Groups.SimpleWrappers;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels
 {
@@ -39,9 +40,9 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             var unit = Container.Resolve<ISelectService>().SelectItem(salesUnits);
             if (unit == null) return;
             var group = new ProjectUnitsGroup(new List<SalesUnit> {unit});
-            group.Specification = _specificationWrapper;
+            group.Specification = new SpecificationSimpleWrapper(_specificationWrapper.Model);
             var uetm = UnitOfWork.Repository<Company>().GetById(GlobalAppProperties.Actual.OurCompany.Id);
-            group.Producer = new CompanyWrapper(uetm);
+            group.Producer = new CompanySimpleWrapper(uetm);
             RefreshPrice(group);
             Groups.Add(group);
             _groupsToReject.Add(group);
@@ -72,15 +73,16 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             Load(units, unitOfWork, isNew);
             _specificationWrapper = specificationWrapper;
             //назначаем спецификацию всем юнитам
-            Groups.ForEach(x => x.Specification = _specificationWrapper);
+            var specificationSimpleWrapper = new SpecificationSimpleWrapper(_specificationWrapper.Model);
+            Groups.ForEach(x => x.Specification = specificationSimpleWrapper);
             _groupsToReject = new ValidatableChangeTrackingCollection<ProjectUnitsGroup>(Groups);
         }
 
         protected override DateTime GetPriceDate(ProjectUnitsGroup @group)
         {
             var spec = @group.Specification;
-            if (spec == null || spec.Date == default(DateTime)) return DateTime.Today;
-            return spec.Date < DateTime.Today ? spec.Date : DateTime.Today;
+            if (spec == null || spec.Model.Date == default(DateTime)) return DateTime.Today;
+            return spec.Model.Date < DateTime.Today ? spec.Model.Date : DateTime.Today;
         }
 
         public override void AcceptChanges()

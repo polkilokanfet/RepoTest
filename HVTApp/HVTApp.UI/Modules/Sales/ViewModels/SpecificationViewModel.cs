@@ -7,6 +7,7 @@ using HVTApp.Model.POCOs;
 using HVTApp.UI.Modules.Sales.ViewModels.Groups;
 using HVTApp.UI.ViewModels;
 using HVTApp.Model.Wrapper;
+using HVTApp.Model.Wrapper.Groups.SimpleWrappers;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 
@@ -26,7 +27,8 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             if (isNew)
             {
                 DetailsViewModel.Item.Date = DateTime.Today;
-                GroupsViewModel.Groups.ForEach(x => x.Specification = DetailsViewModel.Item);
+                var specificationSimpleWrapper = new SpecificationSimpleWrapper(DetailsViewModel.Item.Model);
+                GroupsViewModel.Groups.ForEach(x => x.Specification = specificationSimpleWrapper);
             }
         }
 
@@ -44,7 +46,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
         public override void AfterUnitsLoading()
         {
             var uetm = UnitOfWork.Repository<Company>().GetById(GlobalAppProperties.Actual.OurCompany.Id);
-            var uetmWrapper = new CompanyWrapper(uetm);
+            var uetmWrapper = new CompanySimpleWrapper(uetm);
             GroupsViewModel.Groups.ForEach(x => x.Producer = uetmWrapper);
         }
     }

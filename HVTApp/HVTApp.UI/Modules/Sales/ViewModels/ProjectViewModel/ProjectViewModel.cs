@@ -15,6 +15,7 @@ using HVTApp.UI.Modules.Sales.Views;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Infrastructure;
+using HVTApp.Model.Wrapper.Groups.SimpleWrappers;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel
 {
@@ -113,9 +114,11 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel
             }
 
             //назначение проекта во всех юнитах
+            ProjectSimpleWrapper projectSimpleWrapper = new ProjectSimpleWrapper(this.DetailsViewModel.Item.Model);
             foreach (var grp in this.GroupsViewModel.Groups)
             {
-                grp.Project = this.DetailsViewModel.Item;
+                if(grp.Project.Model.Id != projectSimpleWrapper.Model.Id)
+                    grp.Project = projectSimpleWrapper;
             }
         }
 
