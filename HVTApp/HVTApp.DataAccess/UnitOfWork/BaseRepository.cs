@@ -25,10 +25,7 @@ namespace HVTApp.DataAccess
 
         public virtual List<TEntity> GetAll()
         {
-#if DEBUG
-            System.Diagnostics.Debug.WriteLine($"Метод GetAll из репозитория {this.GetType().Name}");
-            Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
-#endif
+            Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
             return GetQuary().ToList();
         }
 
@@ -40,68 +37,50 @@ namespace HVTApp.DataAccess
 
         public virtual List<TEntity> GetAllAsNoTracking()
         {
-#if DEBUG
-            Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
-#endif
+            Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
             return GetQuary().AsNoTracking().ToList();
         }
 
         public virtual List<TEntity> Find(Func<TEntity, bool> predicate)
         {
-#if DEBUG
-            System.Diagnostics.Debug.WriteLine($"Метод Find из репозитория {this.GetType().Name}");
-            Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
-#endif
+            Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
             return GetQuary().Where(predicate).ToList();
         }
 
         public List<TEntity> FindAsNoTracking(Func<TEntity, bool> predicate)
         {
-#if DEBUG
-            Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
-#endif
+            Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
             return GetQuary().AsNoTracking().Where(predicate).ToList();
         }
 
         public void Add(TEntity entity)
         {
-#if DEBUG
-            Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
-#endif
+            Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
             Context.Set<TEntity>().Add(entity);
         }
 
         public void AddRange(IEnumerable<TEntity> entities)
         {
-#if DEBUG
-            Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
-#endif
+            Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
             Context.Set<TEntity>().AddRange(entities);
         }
 
 
         public void Delete(TEntity entity)
         {
-#if DEBUG
-            Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
-#endif
+            Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
             Context.Set<TEntity>().Remove(entity);
         }
 
         public void DeleteRange(IEnumerable<TEntity> entities)
         {
-#if DEBUG
-            Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
-#endif
+            Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
             Context.Set<TEntity>().RemoveRange(entities);
         }
 
         public TEntity GetById(Guid id)
         {
-#if DEBUG
-            System.Diagnostics.Debug.WriteLine($"Метод GetById из репозитория {this.GetType().Name}");
-            Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
-#endif
+            Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
             return GetQuary().SingleOrDefault(x => x.Id == id);
         }
 
@@ -124,5 +103,15 @@ namespace HVTApp.DataAccess
         {
             return Context.Set<TEntity>().AsQueryable();
         }
+
+
+        private void Loging(string methodName)
+        {
+#if DEBUG
+            System.Diagnostics.Debug.WriteLine($"Метод {methodName} из репозитория {this.GetType().Name}");
+            Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
+#endif
+        }
+
     }
 }
