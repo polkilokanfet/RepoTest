@@ -154,6 +154,7 @@
     <Compile Include="Services\IMessageService.cs" />
     <Compile Include="Services\IPrintOfferService.cs" />
     <Compile Include="StringToGuid.cs" />
+    <Compile Include="TimeMeasure.cs" />
     <Compile Include="UnityExtensions.cs" />
     <Compile Include="ViewBase.cs" />
     <Compile Include="ViewBaseConfirmNavigationRequest.cs" />
