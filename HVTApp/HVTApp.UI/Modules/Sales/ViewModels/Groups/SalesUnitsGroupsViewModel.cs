@@ -13,15 +13,16 @@ using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Groups;
 using HVTApp.Model.Wrapper.Groups.SimpleWrappers;
+using HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
 {
-    public class SalesUnitsGroupsViewModel : BaseGroupsViewModel<ProjectUnitsGroup, ProjectUnitsGroup, SalesUnit, AfterSaveSalesUnitEvent, AfterRemoveSalesUnitEvent>, IGroupsViewModel<SalesUnit, ProjectWrapper>
+    public class SalesUnitsGroupsViewModel : BaseGroupsViewModel<ProjectUnitsGroup, ProjectUnitsGroup, SalesUnit, AfterSaveSalesUnitEvent, AfterRemoveSalesUnitEvent>, IGroupsViewModel<SalesUnit, ProjectWrapper1>
     {
-        private ProjectWrapper _projectWrapper;
+        private ProjectWrapper1 _projectWrapper;
 
         protected override bool CanRemoveGroup(ProjectUnitsGroup targetGroup)
         {
@@ -30,7 +31,6 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
                 Container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", "Удаление невозможно, т.к. это оборудование размещено в производстве.");
                 return targetGroup.CanRemove;
             }
-
             return true;
         }
 
@@ -129,7 +129,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
                         .Select(x => new ProjectUnitsGroup(x.ToList())).ToList();
         }
 
-        public void Load(IEnumerable<SalesUnit> units, ProjectWrapper parentWrapper, IUnitOfWork unitOfWork, bool isNew)
+        public void Load(IEnumerable<SalesUnit> units, ProjectWrapper1 parentWrapper, IUnitOfWork unitOfWork, bool isNew)
         {
             Load(units, unitOfWork, isNew);
             _projectWrapper = parentWrapper;
@@ -147,7 +147,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
         {
             //создаем новый юнит и привязываем его к объекту
             var salesUnit = new SalesUnitWrapper(new SalesUnit());
-            if(_projectWrapper != null) salesUnit.Project = _projectWrapper;
+            if(_projectWrapper != null) salesUnit.Project = new ProjectWrapper(_projectWrapper.Model);;
 
             //создаем модель для диалога
             var viewModel = new SalesUnitsViewModel(salesUnit, Container, UnitOfWork);

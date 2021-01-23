@@ -284,6 +284,8 @@
     </Compile>
     <Compile Include="Modules\Sales\ViewModels\Containers\PriceCalculationsContainer.cs" />
     <Compile Include="Modules\Sales\ViewModels\Containers\TechnicalRequrementsTasksContainer.cs" />
+    <Compile Include="Modules\Sales\ViewModels\ProjectViewModel\ProjectDetailsViewModel1.cs" />
+    <Compile Include="Modules\Sales\ViewModels\ProjectViewModel\ProjectWrapper1.cs" />
     <Compile Include="Modules\Sales\ViewModels\SupervisionPriceViewModel.cs" />
     <Compile Include="Modules\Sales\Views\SupervisionPriceWindow.xaml.cs">
       <DependentUpon>SupervisionPriceWindow.xaml</DependentUpon>

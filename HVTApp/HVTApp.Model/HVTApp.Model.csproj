@@ -233,6 +233,7 @@
     <Compile Include="Wrapper\Groups\ProjectUnitsGroup.cs" />
     <Compile Include="Wrapper\Custom\IProductCostDependentProductsWrapper.cs" />
     <Compile Include="Wrapper\Groups\SimpleWrappers\ProjectSimpleWrapper.cs" />
+    <Compile Include="Wrapper\Groups\SimpleWrappers\ProjectTypeSimpleWrapper.cs" />
     <Compile Include="Wrapper\Groups\SimpleWrappers\SimpleWrapperBase.cs" />
     <Compile Include="Wrapper\Groups\SimpleWrappers\SpecificationSimpleWrapper.cs" />
     <Compile Include="Wrapper\IUnitsGroup.cs" />

@@ -4,7 +4,6 @@ using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Modules.Sales.ViewModels.Groups;
-using HVTApp.UI.ViewModels;
 using HVTApp.Model.Wrapper;
 using Microsoft.Practices.Unity;
 using System.Windows.Input;
@@ -19,7 +18,7 @@ using HVTApp.Model.Wrapper.Groups.SimpleWrappers;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel
 {
-    public class ProjectViewModel : UnitsContainer<Project, ProjectWrapper, ProjectDetailsViewModel, SalesUnitsGroupsViewModel, SalesUnit, AfterSaveProjectEvent>
+    public class ProjectViewModel : UnitsContainer<Project, ProjectWrapper1, ProjectDetailsViewModel1, SalesUnitsGroupsViewModel, SalesUnit, AfterSaveProjectEvent>
     {
         private bool _isNew;
 
@@ -74,10 +73,10 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel
             base.Load(project, isNew, parameter);
             
             //назначаем менеджера
-            if (DetailsViewModel.Item.Manager == null)
+            if (DetailsViewModel.Item.Model.Manager == null)
             {
-                var user = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id);
-                DetailsViewModel.Item.Manager = new UserWrapper(user);
+                var manager = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id);
+                DetailsViewModel.Item.Model.Manager = manager;
             }
 
             //проверяем актуальность команд при смене группы
