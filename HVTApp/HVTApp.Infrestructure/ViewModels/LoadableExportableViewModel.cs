@@ -28,7 +28,12 @@ namespace HVTApp.Infrastructure.ViewModels
 
         protected LoadableExportableViewModel(IUnityContainer container) : base(container)
         {
-            ReloadCommand = new DelegateCommand(Load);
+            ReloadCommand = new DelegateCommand(ReloadCommand_Execute);
+            Load();
+        }
+
+        protected virtual void ReloadCommand_Execute()
+        {
             Load();
         }
 

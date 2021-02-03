@@ -14,6 +14,7 @@ using HVTApp.UI.Modules.Sales.Views;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Model.Wrapper.Groups.SimpleWrappers;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel
@@ -101,23 +102,16 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel
                 _movedSalesUnits.Add(UnitOfWork.Repository<SalesUnit>().GetById(unit.Id));
             }
 
-            if (project == null)
-            {
-                //перенос в новый проект
-                this.Load(new Project(), false);
-            }
-            else
-            {
-                //перенос в существующий проект
-                this.Load(project, false);
-            }
+            this.Load(project ?? new Project(), false);
 
             //назначение проекта во всех юнитах
             ProjectSimpleWrapper projectSimpleWrapper = new ProjectSimpleWrapper(this.DetailsViewModel.Item.Model);
             foreach (var grp in this.GroupsViewModel.Groups)
             {
-                if(grp.Project.Model.Id != projectSimpleWrapper.Model.Id)
+                if (grp.Project.Model.Id != projectSimpleWrapper.Model.Id)
+                {
                     grp.Project = projectSimpleWrapper;
+                }
             }
         }
 
@@ -127,7 +121,16 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel
 
             if (!_isNew)
             {
-                result = UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Id == project.Id && !x.IsRemoved);
+                //result = UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Id == project.Id && !x.IsRemoved);
+                var unitsIds = Container.Resolve<IProjectUnitsStore>().GetUnitsIds(this.DetailsViewModel.Item.Model.Id);
+                foreach (var unitId in unitsIds)
+                {
+                    SalesUnit salesUnit = UnitOfWork.Repository<SalesUnit>().GetById(unitId);
+                    if (!salesUnit.IsRemoved)
+                    {
+                        result.Add(salesUnit);
+                    }
+                }
             }
 
             if (_movedSalesUnits != null)

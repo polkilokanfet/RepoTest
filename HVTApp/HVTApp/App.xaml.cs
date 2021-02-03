@@ -21,7 +21,10 @@ namespace HVTApp
 
                 GlobalAppProperties.User = new Auth().GetCurrentUser();
 
+
                 var bootstrapper = new Bootstrapper();
+                SplashScreenWindow splashScreenWindow = new SplashScreenWindow(bootstrapper);
+                splashScreenWindow.Show();
                 bootstrapper.Run();
 
             #else

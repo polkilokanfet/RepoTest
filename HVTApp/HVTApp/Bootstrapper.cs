@@ -1,14 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using HVTApp.Views;
 using System.Windows;
 using EventServiceClient2;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Attributes;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.AuthenticationService;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
@@ -55,8 +55,11 @@ using Prism.Unity;
 
 namespace HVTApp
 {
-    class Bootstrapper : UnityBootstrapper
+    internal class Bootstrapper : UnityBootstrapper
     {
+        public event Action AllModulesAreInitialized;
+        public event Action<double> ModuleIsInitialized;
+
         protected override DependencyObject CreateShell()
         {
             var mainWindow = Container.Resolve<MainWindow>();
@@ -66,12 +69,27 @@ namespace HVTApp
             return mainWindow;
         }
 
+        private readonly List<Type> _initializedModules = new List<Type>();
+
         protected override void InitializeShell()
         {
             SetGlobalAppProperties();
             CheckLastDeveloperVizit();
             //Container.Resolve<IEventServiceClient>().Start();
-            Application.Current.MainWindow.Show();
+
+
+            Container.Resolve<IEventAggregator>().GetEvent<ModuleIsInitializedEvent>().Subscribe(moduleType =>
+            {
+                _initializedModules.Add(moduleType);
+
+                ModuleIsInitialized?.Invoke((double)_initializedModules.Count / _modules.Count);
+
+                if (_modules.Select(moduleInfo => moduleInfo.ModuleName).AllContainsIn(_initializedModules.Select(type => type.Name)))
+                {
+                    AllModulesAreInitialized?.Invoke();
+                    Application.Current.MainWindow.Show();
+                }
+            });
         }
 
         /// <summary>
@@ -139,7 +157,10 @@ namespace HVTApp
             Container.RegisterType<IEventServiceClient, EventServiceClient>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IMessenger, Messenger>(new ContainerControlledLifetimeManager());
 
+            Container.RegisterInstance(typeof(IModelsStore), new ModelsStore(Container));
         }
+
+        private List<ModuleInfo> _modules;
 
         protected override IModuleCatalog CreateModuleCatalog()
         {
@@ -147,19 +168,21 @@ namespace HVTApp
 
             catalog.AddModule(typeof(UiModule));
 
-            AddModuleIfInRole(catalog, typeof(SalesModule));
-            AddModuleIfInRole(catalog, typeof(DirectorModule));
-            AddModuleIfInRole(catalog, typeof(PlanAndEconomyModule));
-            AddModuleIfInRole(catalog, typeof(PriceMakingModule));
-            AddModuleIfInRole(catalog, typeof(SupplyModule));
-            AddModuleIfInRole(catalog, typeof(ProductsModule));
-            AddModuleIfInRole(catalog, typeof(DirectumLiteModule));
-            AddModuleIfInRole(catalog, typeof(BookRegistrationModule));
-            AddModuleIfInRole(catalog, typeof(ReportsModule));
-
+            catalog.AddModuleByRole(typeof(SalesModule));
+            catalog.AddModuleByRole(typeof(DirectorModule));
+            catalog.AddModuleByRole(typeof(PlanAndEconomyModule));
+            catalog.AddModuleByRole(typeof(PriceMakingModule));
+            catalog.AddModuleByRole(typeof(SupplyModule));
+            catalog.AddModuleByRole(typeof(ProductsModule));
+            catalog.AddModuleByRole(typeof(DirectumLiteModule));
+            catalog.AddModuleByRole(typeof(BookRegistrationModule));
+            catalog.AddModuleByRole(typeof(ReportsModule));
+            
             //catalog.AddModule(typeof(MessengerModule));
             catalog.AddModule(typeof(BaseEntitiesModule));
             catalog.AddModule(typeof(SettingsModule));
+
+            _modules = catalog.Modules.ToList();
 
             return catalog;
         }
@@ -179,17 +202,5 @@ namespace HVTApp
             return behaviors;
         }
 
-
-        /// <summary>
-        /// Загрузка модулей на основе ролей
-        /// </summary>
-        /// <param name="catalog"></param>
-        /// <param name="moduleType"></param>
-        private void AddModuleIfInRole(ModuleCatalog catalog, Type moduleType)
-        {
-            var attr = (moduleType.GetCustomAttribute<ModuleAccessAttribute>());
-            if (attr != null && attr.Roles.Contains(GlobalAppProperties.User.RoleCurrent))
-                catalog.AddModule(moduleType);
-        }
     }
 }

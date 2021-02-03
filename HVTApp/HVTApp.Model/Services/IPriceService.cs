@@ -32,6 +32,6 @@ namespace HVTApp.Model.Services
         /// <returns></returns>
         ProductBlock GetAnalogWithPrice(ProductBlock blockTarget);
 
-        void ReloadService();
+        void Reload();
     }
 }

@@ -64,12 +64,15 @@ namespace HVTApp.Services.PriceService
                     }
                 }
             });
-            ReloadService();
+
+            _container.Resolve<IModelsStore>().IsRefreshed += Reload;
+
+            Reload();
         }
 
-        public void ReloadService()
+        public void Reload()
         {
-            var unitOfWork = _container.Resolve<IUnitOfWork>();
+            var unitOfWork = _container.Resolve<IModelsStore>().UnitOfWork;
             Blocks = unitOfWork.Repository<ProductBlock>().GetAll();
 
             PriceCalculationItemsFinished.Clear();

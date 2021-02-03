@@ -21,6 +21,7 @@ using HVTApp.UI.Modules.Sales.ViewModels.Groups;
 using HVTApp.UI.Modules.Sales.Views;
 using HVTApp.UI.Modules.Sales.Views.MarketView;
 using Microsoft.Practices.Unity;
+using Prism.Events;
 
 namespace HVTApp.Modules.Sales
 {
@@ -80,7 +81,10 @@ namespace HVTApp.Modules.Sales
         {
             //для подгрузки данных заранее
             if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager)
-                Container.RegisterInstance(typeof(Market2ViewModel), new Market2ViewModel(Container));
+            {
+                //Container.RegisterInstance(typeof(Market2ViewModel), new Market2ViewModel(Container));
+                Container.RegisterInstance(typeof(IProjectUnitsStore), new ProjectUnitsStore(Container.Resolve<IModelsStore>(), Container.Resolve<IEventAggregator>()));
+            }
 
             Container.RegisterViewForNavigation<Market2View>();
             Container.RegisterViewForNavigation<MarketView>();

@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
+using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
@@ -26,6 +27,7 @@ namespace HVTApp.UI.Modules.Sales.Market
         private ProjectItem _selectedProjectItem;
         private readonly IEventAggregator _eventAggregator;
         private readonly IMessageService _messageService;
+        private readonly IModelsStore _modelsStore;
 
         public ObservableCollection<ProjectItem> ProjectItems { get; } = new ObservableCollection<ProjectItem>();
 
@@ -129,6 +131,7 @@ namespace HVTApp.UI.Modules.Sales.Market
         {
             _eventAggregator = Container.Resolve<IEventAggregator>();
             _messageService = Container.Resolve<IMessageService>();
+            _modelsStore = Container.Resolve<IModelsStore>();
 
             //при добавлении или удалении айтема, подписываем/отписываем на событие удаления
             ProjectItems.CollectionChanged += (sender, args) =>
@@ -216,9 +219,15 @@ namespace HVTApp.UI.Modules.Sales.Market
             InitNotes();
         }
 
+        protected override void ReloadCommand_Execute()
+        {
+            _modelsStore.Refresh();
+            base.ReloadCommand_Execute();
+        }
+
         protected override void GetData()
         {
-            UnitOfWork = Container.Resolve<IUnitOfWork>();
+            UnitOfWork = _modelsStore.UnitOfWork;
 
             _tenders = UnitOfWork.Repository<Tender>().GetAll();
 
@@ -227,13 +236,11 @@ namespace HVTApp.UI.Modules.Sales.Market
                 : UnitOfWork.Repository<SalesUnit>().Find(x => !x.IsRemoved && x.Project.Manager.IsAppCurrentUser());
 
             var items = salesUnits
-                .GroupBy(x => x, new SalesUnitsComparer())
-                .Select(x => new ProjectItem(x, _eventAggregator))
+                .GroupBy(unit => unit, new SalesUnitsComparer())
+                .Select(units => new ProjectItem(units, _eventAggregator))
                 .ToList();
 
-            _projectItems = items.OrderBy(x => x.DaysToStartProduction).ThenBy(x => x.OrderInTakeDate);
-
-            Container.Resolve<IPriceService>().ReloadService();
+            _projectItems = items.OrderBy(projectItem => projectItem.DaysToStartProduction).ThenBy(x => x.OrderInTakeDate);
 
             Offers = Container.Resolve<OffersContainer>();
             Tenders = Container.Resolve<TendersContainer>();
