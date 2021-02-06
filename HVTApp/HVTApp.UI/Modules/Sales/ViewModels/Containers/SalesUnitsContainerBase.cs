@@ -59,7 +59,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
         protected override IEnumerable<SalesUnitLookup> GetLookups(IUnitOfWork unitOfWork)
         {
             return ((ISalesUnitRepository)unitOfWork.Repository<SalesUnit>())
-                .GetUsersSalesUnits()
+                .GetCurrentUserSalesUnits()
                 .Select(x => new SalesUnitLookup(x));
         }
 

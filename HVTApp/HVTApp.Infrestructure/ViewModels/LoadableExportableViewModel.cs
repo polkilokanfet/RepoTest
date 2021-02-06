@@ -14,7 +14,7 @@ namespace HVTApp.Infrastructure.ViewModels
 
         public bool IsLoaded
         {
-            get { return _isLoaded; }
+            get => _isLoaded;
             private set
             {
                 _isLoaded = value;
@@ -40,6 +40,7 @@ namespace HVTApp.Infrastructure.ViewModels
         private void Load()
         {
             IsLoaded = false;
+            BeforeGetData();
             Task.Run(() => { GetData(); })
                 .Await(
                     () =>
@@ -60,6 +61,13 @@ namespace HVTApp.Infrastructure.ViewModels
         /// Получение всех необходимых данных.
         /// </summary>
         protected abstract void GetData();
+
+        /// <summary>
+        /// Действия до получения всех необходимых данных.
+        /// </summary>
+        protected virtual void BeforeGetData()
+        {
+        }
 
         /// <summary>
         /// Действия после получения всех необходимых данных.

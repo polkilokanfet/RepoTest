@@ -1,7 +1,5 @@
 using System;
 using System.Data.Entity;
-using System.Threading.Tasks;
-using System.Windows;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.AuthenticationService;
@@ -30,10 +28,14 @@ namespace HVTApp
         {
             var aus = (AuthenticationService)_container.Resolve<IAuthenticationService>();
             if (aus.Authentication())
+            {
                 return aus.User;
+            }
 
-            Application.Current.Shutdown();
-            throw new NullReferenceException("User не прошел авторизацию.");
+            //User не прошел авторизацию.
+            throw new NoUserException();
         }
     }
+
+    public class NoUserException : Exception {}
 }

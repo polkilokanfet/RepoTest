@@ -44,13 +44,13 @@ namespace HVTApp.DataAccess
         public virtual List<TEntity> Find(Func<TEntity, bool> predicate)
         {
             Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
-            return GetQuary().Where(predicate).ToList();
+            return GetQuary().AsEnumerable().Where(predicate).ToList();
         }
 
         public List<TEntity> FindAsNoTracking(Func<TEntity, bool> predicate)
         {
             Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
-            return GetQuary().AsNoTracking().Where(predicate).ToList();
+            return GetQuary().AsNoTracking().AsEnumerable().Where(predicate).ToList();
         }
 
         public void Add(TEntity entity)
@@ -81,7 +81,7 @@ namespace HVTApp.DataAccess
         public TEntity GetById(Guid id)
         {
             Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
-            return GetQuary().SingleOrDefault(x => x.Id == id);
+            return GetQuary().SingleOrDefault(entity => entity.Id == id);
         }
 
         //public virtual async Task<TEntity> GetByIdAsync(Guid id)
@@ -105,7 +105,7 @@ namespace HVTApp.DataAccess
         }
 
 
-        private void Loging(string methodName)
+        protected void Loging(string methodName)
         {
 #if DEBUG
             System.Diagnostics.Debug.WriteLine($"Метод {methodName} из репозитория {this.GetType().Name}");

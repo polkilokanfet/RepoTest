@@ -6,7 +6,12 @@ namespace HVTApp.DataAccess
 {
     public partial class SalesUnitRepositoryTest
     {
-        public IEnumerable<SalesUnit> GetUsersSalesUnits()
+        public IEnumerable<SalesUnit> GetCurrentUserSalesUnits()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<SalesUnit> GetByProject(Guid projectId)
         {
             throw new NotImplementedException();
         }

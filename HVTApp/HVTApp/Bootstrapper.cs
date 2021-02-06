@@ -157,7 +157,8 @@ namespace HVTApp
             Container.RegisterType<IEventServiceClient, EventServiceClient>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IMessenger, Messenger>(new ContainerControlledLifetimeManager());
 
-            Container.RegisterInstance(typeof(IModelsStore), new ModelsStore(Container));
+            Container.RegisterType<IModelsStore, ModelsStore>(new ContainerControlledLifetimeManager());
+            //Container.RegisterInstance(typeof(IModelsStore), new ModelsStore(Container));
         }
 
         private List<ModuleInfo> _modules;

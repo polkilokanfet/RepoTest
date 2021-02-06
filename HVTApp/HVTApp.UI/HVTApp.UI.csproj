@@ -485,7 +485,7 @@
     <Compile Include="Modules\Sales\Market\Market2ViewModel_Notes.cs" />
     <Compile Include="Modules\Sales\Market\Market2ViewModel.cs" />
     <Compile Include="Modules\Sales\Market\Market2ViewModel_Commands.cs" />
-    <Compile Include="Modules\Sales\Market\SalesUnitsComparer.cs" />
+    <Compile Include="Modules\Sales\Market\SalesUnitsMarketViewComparer.cs" />
     <Compile Include="Modules\Sales\ViewModels\OffersViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\OfferViewModel.cs" />
     <Compile Include="Modules\Sales\Payments\PaymentsViewModel.cs" />

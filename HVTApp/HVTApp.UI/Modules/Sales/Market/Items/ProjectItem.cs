@@ -214,7 +214,7 @@ namespace HVTApp.UI.Modules.Sales.Market.Items
             var fits =  SalesUnits
                 //.Where(x => x.Id != salesUnit.Id)
                 .Concat(new[] { salesUnit })
-                .GroupBy(x => x, new SalesUnitsComparer())
+                .GroupBy(x => x, new SalesUnitsMarketViewComparer())
                 .Count() == 1;
 
             //если юнит подходит этой группе

@@ -29,7 +29,7 @@ namespace HVTApp.UI.Modules.Sales.Views
 
         private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-            var units = ((ISalesUnitRepository)_container.Resolve<IUnitOfWork>().Repository<SalesUnit>()).GetUsersSalesUnits();
+            var units = ((ISalesUnitRepository)_container.Resolve<IUnitOfWork>().Repository<SalesUnit>()).GetCurrentUserSalesUnits();
             var projects = units.Select(x => x.Project).Distinct();
             var lookups = projects.Select(x => new ProjectLookup(x)).ToList();
             foreach (var projectLookup in lookups)

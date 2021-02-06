@@ -19,7 +19,7 @@ namespace HVTApp.Infrastructure
         public ModelsStore(IUnityContainer container)
         {
             _container = container;
-            Refresh();
+            UnitOfWork = _container.Resolve<IUnitOfWork>();
         }
 
         public void Refresh()

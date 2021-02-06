@@ -83,7 +83,7 @@ namespace HVTApp.Modules.Sales
             if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager)
             {
                 //Container.RegisterInstance(typeof(Market2ViewModel), new Market2ViewModel(Container));
-                Container.RegisterInstance(typeof(IProjectUnitsStore), new ProjectUnitsStore(Container.Resolve<IModelsStore>(), Container.Resolve<IEventAggregator>()));
+                //Container.RegisterInstance(typeof(IProjectUnitsStore), new ProjectUnitsStore(Container.Resolve<IModelsStore>(), Container.Resolve<IEventAggregator>()));
             }
 
             Container.RegisterViewForNavigation<Market2View>();

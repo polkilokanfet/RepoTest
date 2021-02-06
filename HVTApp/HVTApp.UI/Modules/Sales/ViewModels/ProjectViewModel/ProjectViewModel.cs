@@ -7,6 +7,7 @@ using HVTApp.UI.Modules.Sales.ViewModels.Groups;
 using HVTApp.Model.Wrapper;
 using Microsoft.Practices.Unity;
 using System.Windows.Input;
+using HVTApp.DataAccess;
 using Prism.Commands;
 using Prism.Regions;
 using HVTApp.Infrastructure.Extansions;
@@ -121,16 +122,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel
 
             if (!_isNew)
             {
-                //result = UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Id == project.Id && !x.IsRemoved);
-                var unitsIds = Container.Resolve<IProjectUnitsStore>().GetUnitsIds(this.DetailsViewModel.Item.Model.Id);
-                foreach (var unitId in unitsIds)
-                {
-                    SalesUnit salesUnit = UnitOfWork.Repository<SalesUnit>().GetById(unitId);
-                    if (!salesUnit.IsRemoved)
-                    {
-                        result.Add(salesUnit);
-                    }
-                }
+                result.AddRange(((ISalesUnitRepository)UnitOfWork.Repository<SalesUnit>()).GetByProject(project.Id).Where(salesUnit => !salesUnit.IsRemoved));
             }
 
             if (_movedSalesUnits != null)

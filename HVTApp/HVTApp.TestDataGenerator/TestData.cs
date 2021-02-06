@@ -115,7 +115,7 @@ namespace HVTApp.TestDataGenerator
                     }
 
                     var salesUnits = new List<SalesUnit>();
-                    for (int salesUnitNum = 0; salesUnitNum < random.Next(1, 10); salesUnitNum++)
+                    for (int salesUnitNum = 0; salesUnitNum < random.Next(1, 100); salesUnitNum++)
                     {
                         var salesUnit = new SalesUnit
                         {

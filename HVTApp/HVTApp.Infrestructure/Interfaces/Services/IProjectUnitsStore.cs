@@ -5,6 +5,6 @@ namespace HVTApp.Infrastructure.Interfaces.Services
 {
     public interface IProjectUnitsStore
     {
-        IEnumerable<Guid> GetUnitsIds(Guid projectId);
+        //IEnumerable<Guid> GetUnitsIds(Guid projectId);
     }
 }

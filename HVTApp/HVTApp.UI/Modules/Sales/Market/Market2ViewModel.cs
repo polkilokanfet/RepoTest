@@ -27,7 +27,7 @@ namespace HVTApp.UI.Modules.Sales.Market
         private ProjectItem _selectedProjectItem;
         private readonly IEventAggregator _eventAggregator;
         private readonly IMessageService _messageService;
-        private readonly IModelsStore _modelsStore;
+        private IModelsStore ModelsStore => Container.Resolve<IModelsStore>();
 
         public ObservableCollection<ProjectItem> ProjectItems { get; } = new ObservableCollection<ProjectItem>();
 
@@ -131,7 +131,6 @@ namespace HVTApp.UI.Modules.Sales.Market
         {
             _eventAggregator = Container.Resolve<IEventAggregator>();
             _messageService = Container.Resolve<IMessageService>();
-            _modelsStore = Container.Resolve<IModelsStore>();
 
             //при добавлении или удалении айтема, подписываем/отписываем на событие удаления
             ProjectItems.CollectionChanged += (sender, args) =>
@@ -152,7 +151,6 @@ namespace HVTApp.UI.Modules.Sales.Market
                     }
                 }
             };
-
 
             #region Commands definition
             
@@ -221,26 +219,28 @@ namespace HVTApp.UI.Modules.Sales.Market
 
         protected override void ReloadCommand_Execute()
         {
-            _modelsStore.Refresh();
+            ModelsStore.Refresh();
             base.ReloadCommand_Execute();
         }
 
         protected override void GetData()
         {
-            UnitOfWork = _modelsStore.UnitOfWork;
+            UnitOfWork = ModelsStore.UnitOfWork;
 
             _tenders = UnitOfWork.Repository<Tender>().GetAll();
 
-            var salesUnits = GlobalAppProperties.User.RoleCurrent == Role.Admin
-                ? UnitOfWork.Repository<SalesUnit>().Find(x => !x.IsRemoved)
-                : UnitOfWork.Repository<SalesUnit>().Find(x => !x.IsRemoved && x.Project.Manager.IsAppCurrentUser());
+            var salesUnits =
+                (GlobalAppProperties.User.RoleCurrent == Role.Admin
+                    ? UnitOfWork.Repository<SalesUnit>().GetAll()
+                    : ((ISalesUnitRepository) UnitOfWork.Repository<SalesUnit>()).GetCurrentUserSalesUnits())
+                .Where(salesUnit => !salesUnit.IsRemoved).ToList();
 
             var items = salesUnits
-                .GroupBy(unit => unit, new SalesUnitsComparer())
+                .GroupBy(unit => unit, new SalesUnitsMarketViewComparer())
                 .Select(units => new ProjectItem(units, _eventAggregator))
                 .ToList();
 
-            _projectItems = items.OrderBy(projectItem => projectItem.DaysToStartProduction).ThenBy(x => x.OrderInTakeDate);
+            _projectItems = items.OrderBy(projectItem => projectItem.DaysToStartProduction).ThenBy(projectItem => projectItem.OrderInTakeDate);
 
             Offers = Container.Resolve<OffersContainer>();
             Tenders = Container.Resolve<TendersContainer>();
@@ -248,12 +248,15 @@ namespace HVTApp.UI.Modules.Sales.Market
             PriceCalculations = Container.Resolve<PriceCalculationsContainer>();
         }
 
-        protected override void AfterGetData()
+        protected override void BeforeGetData()
         {
             ProjectItem.AllTenders.Clear();
-            ProjectItem.AllTenders.AddRange(_tenders);
-
             ProjectItems.Clear();
+        }
+
+        protected override void AfterGetData()
+        {
+            ProjectItem.AllTenders.AddRange(_tenders);
             ProjectItems.AddRange(_projectItems);
         }
 

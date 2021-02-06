@@ -4,6 +4,7 @@ using System.Linq;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services;
+using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using Prism.Events;
@@ -50,6 +51,7 @@ namespace HVTApp.Modules.Sales
                     if(!_dictionary.ContainsKey(unit.Project.Id))
                         _dictionary.Add(unit.Project.Id, new List<Guid>());
 
+                    //если в проекте нет такого юнита, добавляем
                     if(!_dictionary[unit.Project.Id].Contains(unit.Id))
                         _dictionary[unit.Project.Id].Add(unit.Id);
 
@@ -71,8 +73,13 @@ namespace HVTApp.Modules.Sales
 
         private void Load()
         {
-            //загрузка всех юнитов и сопоставление их с проектами
-            List<SalesUnit> salesUnits = _modelsStore.UnitOfWork.Repository<SalesUnit>().GetAll();
+            //загрузка юнитов и сопоставление их с проектами
+            IUnitOfWork unitOfWork = _modelsStore.UnitOfWork;
+            IEnumerable<SalesUnit> salesUnits = GlobalAppProperties.User.RoleCurrent == Role.Admin
+                ? unitOfWork.Repository<SalesUnit>().GetAll()
+                : ((ISalesUnitRepository)unitOfWork.Repository<SalesUnit>()).GetCurrentUserSalesUnits();
+            salesUnits = salesUnits.Where(salesUnit => !salesUnit.IsRemoved);
+
             var salesUnitsGroups = salesUnits.GroupBy(salesUnit => salesUnit.Project.Id);
             foreach (var salesUnitsGroup in salesUnitsGroups)
             {

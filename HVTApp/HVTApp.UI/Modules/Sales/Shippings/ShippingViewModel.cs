@@ -36,7 +36,7 @@ namespace HVTApp.UI.Modules.Sales.Shippings
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
 
-            var salesUnits = ((ISalesUnitRepository)UnitOfWork.Repository<SalesUnit>()).GetUsersSalesUnits().Where(x => !x.IsLoosen && !x.IsRemoved);
+            var salesUnits = ((ISalesUnitRepository)UnitOfWork.Repository<SalesUnit>()).GetCurrentUserSalesUnits().Where(x => !x.IsLoosen && !x.IsRemoved);
             if(_salesUnits != null) _salesUnits.PropertyChanged -= OnSalesUnitPropertyChanged;
             _salesUnits = new ValidatableChangeTrackingCollection<ShippingUnitWrapper>(salesUnits.Select(x => new ShippingUnitWrapper(x)));
             _salesUnits.PropertyChanged += OnSalesUnitPropertyChanged;

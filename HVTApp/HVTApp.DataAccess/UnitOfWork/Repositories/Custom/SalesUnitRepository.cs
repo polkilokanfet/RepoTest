@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,16 +12,22 @@ namespace HVTApp.DataAccess
     public partial interface ISalesUnitRepository : IRepository<SalesUnit>
     {
         /// <summary>
-        /// Получить все юниты авторизованного пользователя
+        /// Получить все юниты текущего пользователя
         /// </summary>
         /// <returns></returns>
-        IEnumerable<SalesUnit> GetUsersSalesUnits();
+        IEnumerable<SalesUnit> GetCurrentUserSalesUnits();
 
         ///// <summary>
         ///// Получить все юниты авторизованного пользователя асинхронно
         ///// </summary>
         ///// <returns></returns>
         //Task<IEnumerable<SalesUnit>> GetUsersSalesUnitsAsync();
+
+        /// <summary>
+        /// Получить все юниты из проекта
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<SalesUnit> GetByProject(Guid projectId);
     }
 
     public partial class SalesUnitRepository
@@ -28,11 +35,11 @@ namespace HVTApp.DataAccess
         protected override IQueryable<SalesUnit> GetQuary()
         {
             return Context.Set<SalesUnit>().AsQueryable()
-                .Include(x => x.Facility.Type)
-                .Include(x => x.Product.ProductBlock.Parameters)
-                .Include(x => x.Product.DependentProducts.Select(dp => dp.Product.ProductBlock.Parameters))
-                .Include(x => x.ProductsIncluded.Select(dp => dp.Product.ProductBlock.Parameters))
-                .Include(x => x.PaymentConditionSet.PaymentConditions.Select(pc => pc.PaymentConditionPoint));
+                .Include(salesUnit => salesUnit.Facility.Type)
+                .Include(salesUnit => salesUnit.Product.ProductBlock.Parameters)
+                .Include(salesUnit => salesUnit.Product.DependentProducts.Select(productDependent => productDependent.Product.ProductBlock.Parameters))
+                .Include(salesUnit => salesUnit.ProductsIncluded.Select(productIncluded => productIncluded.Product.ProductBlock.Parameters))
+                .Include(salesUnit => salesUnit.PaymentConditionSet.PaymentConditions.Select(paymentCondition => paymentCondition.PaymentConditionPoint));
         }
 
         //protected override IQueryable<SalesUnit> GetQuary()
@@ -58,9 +65,25 @@ namespace HVTApp.DataAccess
         //        .Include(x => x.AddressDelivery);
         //}
 
-        public IEnumerable<SalesUnit> GetUsersSalesUnits()
+        public IEnumerable<SalesUnit> GetCurrentUserSalesUnits()
         {
-            return this.Find(x => x.Project.Manager.IsAppCurrentUser());
+            Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
+            return this.Find(salesUnit => salesUnit.Project.Manager.Id == GlobalAppProperties.User.Id);
+        }
+
+        public IEnumerable<SalesUnit> GetByProject(Guid projectId)
+        {
+            Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
+            var salesUnitsIds = this.Context.Set<SalesUnit>().AsNoTracking()
+                .Where(salesUnit => salesUnit.Project.Id == projectId)
+                .Select(salesUnit => salesUnit.Id)
+                .ToList();
+
+            foreach (var id in salesUnitsIds)
+            {
+                yield return this.GetById(id);
+            }
         }
 
         //public async Task<IEnumerable<SalesUnit>> GetUsersSalesUnitsAsync()

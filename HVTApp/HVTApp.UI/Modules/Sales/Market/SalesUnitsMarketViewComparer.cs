@@ -3,7 +3,7 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Modules.Sales.Market
 {
-    public class SalesUnitsComparer : IEqualityComparer<SalesUnit>
+    public class SalesUnitsMarketViewComparer : IEqualityComparer<SalesUnit>
     {
         public bool Equals(SalesUnit x, SalesUnit y)
         {
@@ -15,6 +15,7 @@ namespace HVTApp.UI.Modules.Sales.Market
             if (!Equals(x.Project.Id, y.Project.Id)) return false;
             if (!Equals(x.IsDone, y.IsDone)) return false;
             if (!Equals(x.IsLoosen, y.IsLoosen)) return false;
+            if (!Equals(x.IsRemoved, y.IsRemoved)) return false;
 
             return true;
         }
