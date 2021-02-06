@@ -55,20 +55,17 @@ namespace HVTApp.UI.Modules.Sales.Production
                     if (dr != MessageDialogResult.Yes) return;
 
                     //размещение в производстве
-
-                    var productionGroup = SelectedToProduction as ProductionGroup;
-                    if (productionGroup != null)
+                    if (SelectedToProduction is ProductionGroup productionGroup)
                     {
                         productionGroup.SignalToStartProduction = DateTime.Today;
                         GroupsToProduction.Remove(productionGroup);
                         GroupsInProduction.Add(productionGroup);
+                        productionGroup.AcceptChanges();
                     }
-
-                    var productionItem = SelectedToProduction as ProductionItem;
-                    if (productionItem != null)
+                    else if (SelectedToProduction is ProductionItem productionItem)
                     {
                         productionItem.SignalToStartProduction = DateTime.Today;
-                        var group = GroupsToProduction.Single(x => x.ProductionItems.Contains(productionItem));
+                        var group = GroupsToProduction.Single(productionGroup1 => productionGroup1.ProductionItems.Contains(productionItem));
                         if (group.Amount == 1)
                         {
                             GroupsToProduction.Remove(group);
@@ -79,14 +76,13 @@ namespace HVTApp.UI.Modules.Sales.Production
                             group.ProductionItems.Remove(productionItem);
                             GroupsInProduction.Add(new ProductionGroup(new List<ProductionItem> {productionItem}));
                         }
+
+                        productionItem.AcceptChanges();
                     }
 
-                    //сохранение изменений
-                    ((IValidatableChangeTracking)SelectedToProduction).AcceptChanges();
                     UnitOfWork.SaveChanges();
 
                     SelectedToProduction = null;
-
                 }, 
             () => SelectedToProduction != null);
 
@@ -98,8 +94,7 @@ namespace HVTApp.UI.Modules.Sales.Production
                     var dr = messageService.ShowYesNoMessageDialog("Отзыв из производства", "Отозвать оборудование из производства?", defaultNo: true);
                     if (dr != MessageDialogResult.Yes) return;
 
-                    var productionGroup = SelectedInProduction as ProductionGroup;
-                    if (productionGroup != null)
+                    if (SelectedInProduction is ProductionGroup productionGroup)
                     {
                         if (productionGroup.SalesUnit.Order != null)
                         {
@@ -110,10 +105,10 @@ namespace HVTApp.UI.Modules.Sales.Production
                         productionGroup.SignalToStartProduction = null;
                         GroupsInProduction.Remove(productionGroup);
                         GroupsToProduction.Add(productionGroup);
-                    }
 
-                    var productionItem = SelectedInProduction as ProductionItem;
-                    if (productionItem != null)
+                        productionGroup.AcceptChanges();
+                    }
+                    else if (SelectedInProduction is ProductionItem productionItem)
                     {
                         if (productionItem.Model.Order != null)
                         {
@@ -121,7 +116,7 @@ namespace HVTApp.UI.Modules.Sales.Production
                             return;
                         }
                         productionItem.SignalToStartProduction = null;
-                        var group = GroupsInProduction.Single(x => x.ProductionItems.Contains(productionItem));
+                        var group = GroupsInProduction.Single(productionGroup1 => productionGroup1.ProductionItems.Contains(productionItem));
                         if (group.Amount == 1)
                         {
                             GroupsInProduction.Remove(group);
@@ -132,14 +127,14 @@ namespace HVTApp.UI.Modules.Sales.Production
                             group.ProductionItems.Remove(productionItem);
                             GroupsToProduction.Add(new ProductionGroup(new List<ProductionItem> {productionItem}));
                         }
+
+                        productionItem.AcceptChanges();
                     }
 
                     //сохранение изменений
-                    ((IValidatableChangeTracking) SelectedInProduction).AcceptChanges();
                     UnitOfWork.SaveChanges();
 
                     SelectedInProduction = null;
-
                 },
                 () => SelectedInProduction != null);
         }

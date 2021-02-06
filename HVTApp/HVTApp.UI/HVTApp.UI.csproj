@@ -592,6 +592,9 @@
     <Compile Include="PriceCalculations\Tabs\TabPriceCalculations.xaml.cs">
       <DependentUpon>TabPriceCalculations.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Tabs\TabUsers.xaml.cs">
+      <DependentUpon>TabUsers.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Tabs\TabRefresh.xaml.cs">
       <DependentUpon>TabRefresh.xaml</DependentUpon>
     </Compile>
@@ -619,6 +622,7 @@
     <Compile Include="ViewModels\Details\TenderDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\UserDetailsViewModel.cs" />
     <Compile Include="ViewModels\List\ProductTypeDesignationLookupListViewModel.cs" />
+    <Compile Include="ViewModels\List\UserLookupListViewModel.cs" />
     <Compile Include="ViewModels\ProductStructureViewModel.cs" />
     <Compile Include="ViewModels\Details\ProductIncludedDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\SalesUnitDetailsViewModel.cs" />
@@ -626,6 +630,7 @@
     <Compile Include="Views\Details\Custom\OrderView.xaml.cs">
       <DependentUpon>OrderView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\List\cs\UserLookupListView.cs" />
     <Compile Include="Views\ProductStructureView.xaml.cs">
       <DependentUpon>ProductStructureView.xaml</DependentUpon>
     </Compile>
@@ -1287,6 +1292,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="PriceCalculations\Tabs\TabPriceCalculations.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Tabs\TabUsers.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
