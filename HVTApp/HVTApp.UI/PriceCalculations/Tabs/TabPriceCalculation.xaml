@@ -76,16 +76,16 @@
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Строки ПЗ"
-                        Visibility="{Binding CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        Visibility="{Binding StartVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
         
         <infRib:ButtonTool Caption="Слить" 
                            Command="{Binding MeregeCommand}" 
-                           Visibility="{Binding CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityConverter}}"
+                           Visibility="{Binding StartVisibility, Converter={StaticResource BooleanToVisibilityConverter}}"
                            SmallImage="/HVTApp.UI;component/Images/collapse.png"/>
         
         <infRib:ButtonTool Caption="Разбить" 
                            Command="{Binding DivideCommand}" 
-                           Visibility="{Binding CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityConverter}}"
+                           Visibility="{Binding StartVisibility, Converter={StaticResource BooleanToVisibilityConverter}}"
                            SmallImage="/HVTApp.UI;component/Images/expand.png"/>
         
     </infRib:RibbonGroup>

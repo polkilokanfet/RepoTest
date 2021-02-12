@@ -7,7 +7,7 @@
     <Grid>
         <dp:XamDataGrid x:Name="PriceCalculationLookupListGrid"
                                    DataSource="{Binding Lookups}"
-                                   SelectedDataItem="{Binding SelectedLookup}">
+                                   ActiveDataItem="{Binding SelectedLookup}">
         
             <dp:XamDataGrid.InputBindings>
                 <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=EditCalculationCommand, Mode=OneWay}"/>

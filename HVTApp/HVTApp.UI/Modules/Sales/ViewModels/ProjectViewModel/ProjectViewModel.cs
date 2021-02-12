@@ -107,11 +107,11 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel
 
             //назначение проекта во всех юнитах
             ProjectSimpleWrapper projectSimpleWrapper = new ProjectSimpleWrapper(this.DetailsViewModel.Item.Model);
-            foreach (var grp in this.GroupsViewModel.Groups)
+            foreach (var projectUnitsGroup in this.GroupsViewModel.Groups)
             {
-                if (grp.Project.Model.Id != projectSimpleWrapper.Model.Id)
+                if (projectUnitsGroup.Project.Model.Id != projectSimpleWrapper.Model.Id)
                 {
-                    grp.Project = projectSimpleWrapper;
+                    projectUnitsGroup.Project = projectSimpleWrapper;
                 }
             }
         }

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Input;
+using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
@@ -202,15 +203,15 @@ namespace HVTApp.UI.Modules.Sales.Market
                 List<SalesUnit> salesUnits = new List<SalesUnit>();
                 
                 //если выбран проект целиком
-                if (SelectedItem is ProjectItem)
+                if (SelectedItem is ProjectItem projectItem)
                 {
-                    salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Id == SelectedProjectItem.Project.Id && !x.IsRemoved);
+                    salesUnits = ((ISalesUnitRepository)UnitOfWork.Repository<SalesUnit>()).GetByProject(projectItem.Project.Id).Where(salesUnit => !salesUnit.IsRemoved).ToList();
                 }
                 
                 //если выбрано конкретное оборудование
-                if (SelectedItem is ProjectUnitsGroup)
+                else if (SelectedItem is ProjectUnitsGroup projectUnitsGroup)
                 {
-                    salesUnits = SelectedProjectUnitsGroup.SalesUnits.ToList();
+                    salesUnits = projectUnitsGroup.SalesUnits.ToList();
                 }
 
                 RegionManager.RequestNavigateContentRegion<TechnicalRequrementsTaskView>(new NavigationParameters { { nameof(SalesUnit), salesUnits } });

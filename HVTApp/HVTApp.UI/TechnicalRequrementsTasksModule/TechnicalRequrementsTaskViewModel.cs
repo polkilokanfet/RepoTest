@@ -628,8 +628,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         public void Load(IEnumerable<SalesUnit> salesUnits)
         {
             var salesUnitWrappers = salesUnits
-                .Select(x => UnitOfWork.Repository<SalesUnit>().GetById(x.Id))
-                .Select(x => new SalesUnitEmptyWrapper(x))
+                .Select(salesUnit => UnitOfWork.Repository<SalesUnit>().GetById(salesUnit.Id))
+                .Select(salesUnit => new SalesUnitEmptyWrapper(salesUnit))
                 .ToList();
             
             var requirements = salesUnitWrappers

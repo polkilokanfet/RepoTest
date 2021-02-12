@@ -30,7 +30,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
 
         public object SelectedItem
         {
-            get { return _selectedItem; }
+            get => _selectedItem;
             set
             {
                 _selectedItem = value;
@@ -90,7 +90,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
 
         public PriceCalculation2Wrapper PriceCalculationWrapper
         {
-            get { return _priceCalculationWrapper; }
+            get => _priceCalculationWrapper;
             private set
             {
                 _priceCalculationWrapper = value;
@@ -257,6 +257,8 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                     ((DelegateCommand)AddGroupCommand).RaiseCanExecuteChanged();
                     ((DelegateCommand)RemoveStructureCostCommand).RaiseCanExecuteChanged();
                     ((DelegateCommand)RemoveGroupCommand).RaiseCanExecuteChanged();
+                    ((DelegateCommand)MeregeCommand).RaiseCanExecuteChanged();
+                    ((DelegateCommand)DivideCommand).RaiseCanExecuteChanged();
                 },
                 () => !IsStarted && PriceCalculationWrapper.IsValid);
 
@@ -317,7 +319,8 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                 ((DelegateCommand)AddGroupCommand).RaiseCanExecuteChanged();
                 ((DelegateCommand)RemoveStructureCostCommand).RaiseCanExecuteChanged();
                 ((DelegateCommand)RemoveGroupCommand).RaiseCanExecuteChanged();
-
+                ((DelegateCommand)MeregeCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)DivideCommand).RaiseCanExecuteChanged();
             },
             () => IsStarted);
 
@@ -392,11 +395,12 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                         priceCalculationItemWrapper.SalesUnits.Add(unit);
                         foreach (var structureCost in selectedItem.StructureCosts)
                         {
-                            var sc = new StructureCost()
+                            var sc = new StructureCost
                             {
                                 Comment = structureCost.Comment,
                                 Amount = structureCost.Amount,
-                                Number = structureCost.Number
+                                Number = structureCost.Number, 
+                                UnitPrice = structureCost.UnitPrice
                             };
                             priceCalculationItemWrapper.StructureCosts.Add(new StructureCostWrapper(sc));
                         }

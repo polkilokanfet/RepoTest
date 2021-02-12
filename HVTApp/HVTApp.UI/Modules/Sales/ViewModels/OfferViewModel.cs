@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using HVTApp.DataAccess;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
 using HVTApp.Model.Events;
@@ -61,20 +62,21 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             DetailsViewModel.Item.Author = new EmployeeWrapper(author);
             DetailsViewModel.Item.SenderEmployee = new EmployeeWrapper(sender);
 
-            var salesUnits =  UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Id == project.Id);
+            IEnumerable<SalesUnit> salesUnits = ((ISalesUnitRepository)UnitOfWork.Repository<SalesUnit>()).GetByProject(project.Id).Where(salesUnit => !salesUnit.IsRemoved);
             var offerUnits = new List<OfferUnit>();
             foreach (var salesUnit in salesUnits)
             {
-                var offerUnit = new OfferUnit();
-
-                offerUnit.Cost = salesUnit.Cost;
-                offerUnit.Comment = salesUnit.Comment;
-                offerUnit.Facility = salesUnit.Facility;
-                offerUnit.Product = salesUnit.Product;
-                offerUnit.CostDelivery = salesUnit.CostDelivery;
-                offerUnit.PaymentConditionSet = salesUnit.PaymentConditionSet;
-                offerUnit.ProductionTerm = salesUnit.ProductionTerm;
-                offerUnit.ProductsIncluded = salesUnit.ProductsIncluded;
+                var offerUnit = new OfferUnit
+                {
+                    Cost = salesUnit.Cost,
+                    Comment = salesUnit.Comment,
+                    Facility = salesUnit.Facility,
+                    Product = salesUnit.Product,
+                    CostDelivery = salesUnit.CostDelivery,
+                    PaymentConditionSet = salesUnit.PaymentConditionSet,
+                    ProductionTerm = salesUnit.ProductionTerm,
+                    ProductsIncluded = salesUnit.ProductsIncluded
+                };
 
                 offerUnits.Add(offerUnit);
             }
