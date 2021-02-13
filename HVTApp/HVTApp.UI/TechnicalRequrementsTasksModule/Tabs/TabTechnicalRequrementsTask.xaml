@@ -38,6 +38,24 @@
                            SmallImage="/HVTApp.UI;component/Images/out.png"/>
     </infRib:RibbonGroup>
 
+    <infRib:RibbonGroup Caption="Приложения к ответу ОГК">
+        <infRib:ButtonTool Caption="Прикрепить новые" 
+                           Command="{Binding AddNewFileAnswersCommand}"
+                           Visibility="{Binding CurrentUserIsBackManager, Converter={StaticResource BooleanToVisibilityConverter}}"
+                           SmallImage="/HVTApp.UI;component/Images/add.png"/>
+        <infRib:ButtonTool Caption="Удалить" 
+                           Command="{Binding RemoveFileAnswerCommand}" 
+                           Visibility="{Binding CurrentUserIsBackManager, Converter={StaticResource BooleanToVisibilityConverter}}"
+                           SmallImage="/HVTApp.UI;component/Images/remove.png"/>
+
+        <infRib:ButtonTool Caption="Скачать приложение" 
+                           Command="{Binding LoadFileAnswerCommand}" 
+                           SmallImage="/HVTApp.UI;component/Images/out.png"/>
+        <infRib:ButtonTool Caption="Скачать все приложения" 
+                           Command="{Binding LoadAllFileAnswersCommand}" 
+                           SmallImage="/HVTApp.UI;component/Images/out.png"/>
+    </infRib:RibbonGroup>
+
     <infRib:RibbonGroup Caption="Задача"
                         Visibility="{Binding CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityConverter}}">
         <infRib:ButtonTool Caption="Стартовать"
@@ -50,6 +68,19 @@
                            Command="{Binding CancelCommand}"
                            Visibility="{Binding CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityConverter}}"
                            SmallImage="/HVTApp.UI;component/Images/stop.png" />-->
+    </infRib:RibbonGroup>
+
+    <infRib:RibbonGroup Caption="Строки"
+                        Visibility="{Binding CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityConverter}}">
+        
+        <infRib:ButtonTool Caption="Слить" 
+                           Command="{Binding MeregeCommand}" 
+                           SmallImage="/HVTApp.UI;component/Images/collapse.png"/>
+        
+        <infRib:ButtonTool Caption="Разбить" 
+                           Command="{Binding DivideCommand}" 
+                           SmallImage="/HVTApp.UI;component/Images/expand.png"/>
+    
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Действия">
@@ -77,21 +108,6 @@
                            Command="{Binding GoBackCommand}" 
                            SmallImage="/HVTApp.UI;component/Images/ar_back.png"/>
         
-    </infRib:RibbonGroup>
-
-    <infRib:RibbonGroup Caption="Строки"
-                        Visibility="{Binding CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityConverter}}">
-        
-        <infRib:ButtonTool Caption="Слить" 
-                           Command="{Binding MeregeCommand}" 
-                           Visibility="{Binding CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityConverter}}"
-                           SmallImage="/HVTApp.UI;component/Images/collapse.png"/>
-        
-        <infRib:ButtonTool Caption="Разбить" 
-                           Command="{Binding DivideCommand}" 
-                           Visibility="{Binding CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityConverter}}"
-                           SmallImage="/HVTApp.UI;component/Images/expand.png"/>
-    
     </infRib:RibbonGroup>
 
 

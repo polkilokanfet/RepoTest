@@ -92,6 +92,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper
 
         public IValidatableChangeTrackingCollection<TechnicalRequrements2Wrapper> Requrements { get; private set; }
 
+        public IValidatableChangeTrackingCollection<AnswerFileTceWrapper> AnswerFiles { get; private set; }
+
         #endregion
 
         public TechnicalRequrementsTask2Wrapper(TechnicalRequrementsTask model) : base(model)
@@ -105,10 +107,13 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper
 
         protected override void InitializeCollectionProperties()
         {
-
             if (Model.Requrements == null) throw new ArgumentException("Requrements cannot be null");
             Requrements = new ValidatableChangeTrackingCollection<TechnicalRequrements2Wrapper>(Model.Requrements.Select(e => new TechnicalRequrements2Wrapper(e)));
             RegisterCollection(Requrements, Model.Requrements);
+
+            if (Model.AnswerFiles == null) throw new ArgumentException("AnswerFiles cannot be null");
+            AnswerFiles = new ValidatableChangeTrackingCollection<AnswerFileTceWrapper>(Model.AnswerFiles.Select(e => new AnswerFileTceWrapper(e)));
+            RegisterCollection(AnswerFiles, Model.AnswerFiles);
         }
 
         public string ValidationResult

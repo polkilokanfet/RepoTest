@@ -177,24 +177,25 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
 
             if (CurrentUserIsBackManager)
             {
-                var tasks = UnitOfWork.Repository<TechnicalRequrementsTask>().Find(x => x.BackManager != null && x.BackManager.IsAppCurrentUser());
-                calculations = tasks.SelectMany(x => x.PriceCalculations).Distinct().ToList();
+                //var tasks = UnitOfWork.Repository<TechnicalRequrementsTask>().Find(technicalRequrementsTask => technicalRequrementsTask.BackManager != null && technicalRequrementsTask.BackManager.IsAppCurrentUser());
+                //calculations = tasks.SelectMany(technicalRequrementsTask => technicalRequrementsTask.PriceCalculations).Distinct().ToList();
+                calculations = UnitOfWork.Repository<PriceCalculation>().Find(priceCalculation => priceCalculation.Initiator?.Id == GlobalAppProperties.User.Id);
             }
 
             if (CurrentUserIsBackManagerBoss)
             {
-                var tasks = UnitOfWork.Repository<TechnicalRequrementsTask>().Find(x => x.BackManager != null);
-                calculations = tasks.SelectMany(x => x.PriceCalculations).Distinct().ToList();
+                var tasks = UnitOfWork.Repository<TechnicalRequrementsTask>().Find(technicalRequrementsTask => technicalRequrementsTask.BackManager != null);
+                calculations = tasks.SelectMany(technicalRequrementsTask => technicalRequrementsTask.PriceCalculations).Distinct().ToList();
             }
 
             if (CurrentUserIsPricer)
             {
-                calculations = UnitOfWork.Repository<PriceCalculation>().Find(x => x.TaskOpenMoment.HasValue);
+                calculations = UnitOfWork.Repository<PriceCalculation>().Find(priceCalculation => priceCalculation.TaskOpenMoment.HasValue);
             }
 
             if (CurrentUserIsDirector)
             {
-                calculations = UnitOfWork.Repository<PriceCalculation>().Find(x => x.TaskCloseMoment.HasValue);
+                calculations = UnitOfWork.Repository<PriceCalculation>().Find(priceCalculation => priceCalculation.TaskCloseMoment.HasValue);
             }
 
             this.Load(calculations.OrderByDescending(x => x.TaskOpenMoment));

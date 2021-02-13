@@ -34,6 +34,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         private object _selectedItem;
         private readonly IMessageService _messageService;
         private readonly List<TechnicalRequrementsFile> _removedFiles = new List<TechnicalRequrementsFile>();
+        private AnswerFileTceWrapper _selectedAnswerFile;
+        private PriceCalculation _selectedCalculation;
 
         public object SelectedItem
         {
@@ -48,6 +50,27 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 ((DelegateCommand)RemoveGroupCommand).RaiseCanExecuteChanged();
                 ((DelegateCommand)DivideCommand).RaiseCanExecuteChanged();
                 ((DelegateCommand)LoadFileCommand).RaiseCanExecuteChanged();
+            }
+        }
+
+        public AnswerFileTceWrapper SelectedAnswerFile
+        {
+            get => _selectedAnswerFile;
+            set
+            {
+                _selectedAnswerFile = value;
+                ((DelegateCommand)RemoveFileAnswerCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)LoadFileAnswerCommand).RaiseCanExecuteChanged();
+            }
+        }
+
+        public PriceCalculation SelectedCalculation
+        {
+            get => _selectedCalculation;
+            set
+            {
+                _selectedCalculation = value;
+                ((DelegateCommand)OpenPriceCalculationCommand).RaiseCanExecuteChanged();
             }
         }
 
@@ -72,10 +95,16 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         public ICommand AddNewFileCommand { get; }
 
         /// <summary>
+        /// Добавление нового приложения к ответу ОГК
+        /// </summary>
+        public ICommand AddNewFileAnswersCommand { get; }
+
+        /// <summary>
         /// Добавление существующего файла
         /// </summary>
         public ICommand AddOldFileCommand { get; }
         public ICommand RemoveFileCommand { get; }
+        public ICommand RemoveFileAnswerCommand { get; }
 
         public ICommand AddGroupCommand { get; }
         public ICommand RemoveGroupCommand { get; }
@@ -99,6 +128,9 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         public ICommand LoadFileCommand { get; }
         public ICommand LoadAllFilesCommand { get; }
 
+        public ICommand LoadFileAnswerCommand { get; }
+        public ICommand LoadAllFileAnswersCommand { get; }
+
         public ICommand CreatePriceCalculationCommand { get; }
 
         /// <summary>
@@ -107,6 +139,10 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         public ICommand RejectCommand { get; }
 
         public ICommand OpenPriceCalculationCommand { get; }
+
+        public ICommand OpenAnswerCommand { get; }
+
+        public ICommand OpenFileCommand { get; }
 
         #endregion
 
@@ -522,7 +558,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                                     Directory.CreateDirectory(dirPath);
                                 }
 
-                                foreach (var file in requrement.Files.Where(x => x.IsActual))
+                                foreach (var file in requrement.Files.Where(technicalRequrementsFileWrapper => technicalRequrementsFileWrapper.IsActual))
                                 {
                                     var storageDirectory = GlobalAppProperties.Actual.TechnicalRequrementsFilesPath;
                                     string addToFileName = $"{file.Name.ReplaceUncorrectSimbols().LimitLengh()}";
@@ -576,15 +612,152 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             OpenPriceCalculationCommand = new DelegateCommand(
                 () =>
                 {
-                    var priceCalculation = Container.Resolve<ISelectService>().SelectItem(TechnicalRequrementsTaskWrapper.Model.PriceCalculations);
-                    if (priceCalculation != null)
+                    RegionManager.RequestNavigateContentRegion<PriceCalculationView>(new NavigationParameters
                     {
-                        RegionManager.RequestNavigateContentRegion<PriceCalculationView>(new NavigationParameters
+                        {nameof(PriceCalculation), SelectedCalculation}
+                    });
+                },
+                () => SelectedCalculation != null);
+
+            #endregion
+
+            #region AnswerCommands
+
+            LoadFileAnswerCommand = new DelegateCommand(
+                () =>
+                {
+                    var storageDirectory = GlobalAppProperties.Actual.TechnicalRequrementsFilesAnswersPath;
+                    string addToFileName = $"{SelectedAnswerFile.Name.ReplaceUncorrectSimbols().LimitLengh()}";
+                    FilesStorage.CopyFileFromStorage(SelectedAnswerFile.Id, _messageService, storageDirectory, addToFileName: addToFileName);
+                }, 
+                () => SelectedAnswerFile != null);
+
+            LoadAllFileAnswersCommand = new DelegateCommand(
+                () =>
+                {
+                    using (var fdb = new FolderBrowserDialog())
+                    {
+                        var result = fdb.ShowDialog();
+                        if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fdb.SelectedPath))
                         {
-                            {nameof(PriceCalculation), priceCalculation}
-                        });
+                            var targetDirectoryPath = fdb.SelectedPath;
+
+                            foreach (var answerFile in this.TechnicalRequrementsTaskWrapper.AnswerFiles)
+                            {
+
+                                var storageDirectory = GlobalAppProperties.Actual.TechnicalRequrementsFilesAnswersPath;
+                                string addToFileName = $"{answerFile.Name.ReplaceUncorrectSimbols().LimitLengh()}";
+                                FilesStorage.CopyFileFromStorage(answerFile.Id, _messageService, storageDirectory, targetDirectoryPath, addToFileName, false);
+                            }
+
+                            Process.Start("explorer.exe", targetDirectoryPath);
+                        }
                     }
+                }, 
+                () => this.TechnicalRequrementsTaskWrapper.AnswerFiles.Any());
+
+            AddNewFileAnswersCommand = new DelegateCommand(
+                () =>
+                {
+                    var openFileDialog = new OpenFileDialog
+                    {
+                        Multiselect = true,
+                        RestoreDirectory = true
+                    };
+
+                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        var rootDirectoryPath = GlobalAppProperties.Actual.TechnicalRequrementsFilesAnswersPath;
+
+                        //копируем каждый файл
+                        foreach (var fileName in openFileDialog.FileNames)
+                        {
+                            try
+                            {
+                                var fileWrapper = new AnswerFileTceWrapper(new AnswerFileTce())
+                                {
+                                    Name = Path.GetFileNameWithoutExtension(fileName).LimitLengh(50)
+                                };
+                                File.Copy(fileName, $"{rootDirectoryPath}\\{fileWrapper.Id}{Path.GetExtension(fileName)}");
+                                this.TechnicalRequrementsTaskWrapper.AnswerFiles.Add(fileWrapper);
+
+                                this.TechnicalRequrementsTaskWrapper.AcceptChanges();
+                                UnitOfWork.SaveChanges();
+                            }
+                            catch (Exception e)
+                            {
+                                _messageService.ShowOkMessageDialog("Exception", e.GetAllExceptions());
+                            }
+                        }
+                    }
+
+                    ((DelegateCommand)LoadAllFileAnswersCommand).RaiseCanExecuteChanged();
                 });
+
+            RemoveFileAnswerCommand = new DelegateCommand(
+                () =>
+                {
+                    //диалог
+                    var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Подтверждение", "Вы уверены, что хотите удалить выделенное приложение?", defaultYes: true);
+                    if (dr != MessageDialogResult.Yes) return;
+
+                    try
+                    {
+                        //удаление
+                        FileInfo fileInfo = FilesStorage.FindFile(SelectedAnswerFile.Id, GlobalAppProperties.Actual.TechnicalRequrementsFilesAnswersPath);
+                        File.Delete(fileInfo.FullName);
+                        UnitOfWork.Repository<AnswerFileTce>().Delete(SelectedAnswerFile.Model);
+                        this.TechnicalRequrementsTaskWrapper.AnswerFiles.Remove(SelectedAnswerFile);
+
+                        //сохранение
+                        this.TechnicalRequrementsTaskWrapper.AcceptChanges();
+                        UnitOfWork.SaveChanges();
+                    }
+                    catch (Exception e)
+                    {
+                        _messageService.ShowOkMessageDialog("Exception", e.GetAllExceptions());
+                    }
+
+                    SelectedAnswerFile = null;
+                }, 
+                () => SelectedAnswerFile != null);
+
+            #endregion
+
+            #region OpenAnswerCommand
+
+            OpenAnswerCommand = new DelegateCommand(
+                () =>
+                {
+                    try
+                    {
+                        FilesStorage.OpenFileFromStorage(SelectedAnswerFile.Id, _messageService, GlobalAppProperties.Actual.TechnicalRequrementsFilesAnswersPath, SelectedAnswerFile.Name);
+                    }
+                    catch (Exception e)
+                    {
+                        _messageService.ShowOkMessageDialog("Exception", e.GetAllExceptions());
+                    }
+                }, 
+                () => SelectedAnswerFile != null);
+
+            #endregion
+
+            #region OpenFileCommand
+
+            OpenFileCommand = new DelegateCommand(
+                    () =>
+                    {
+                        try
+                        {
+                            TechnicalRequrementsFileWrapper fileWrapper = (TechnicalRequrementsFileWrapper) SelectedItem;
+                            FilesStorage.OpenFileFromStorage(fileWrapper.Id, _messageService, GlobalAppProperties.Actual.TechnicalRequrementsFilesPath, fileWrapper.Name);
+                        }
+                        catch (Exception e)
+                        {
+                            _messageService.ShowOkMessageDialog("Exception", e.GetAllExceptions());
+                        }
+                    },
+                    () => SelectedItem is TechnicalRequrementsFileWrapper);
 
             #endregion
         }
