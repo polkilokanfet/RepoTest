@@ -20,25 +20,30 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Дата" Visibility="{Binding VisibilityDateBudget, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="0" 
                     SelectedDate="{Binding Item.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityDateBudget, ElementName=Root}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Название" Visibility="{Binding VisibilityNameBudget, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityNameBudget, ElementName=Root}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="2" Content="Старт" Visibility="{Binding VisibilityDateStartBudget, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="2" 
                     SelectedDate="{Binding Item.DateStart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityDateStartBudget, ElementName=Root}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="3" Content="Финиш" Visibility="{Binding VisibilityDateFinishBudget, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="3" 
                     SelectedDate="{Binding Item.DateFinish, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityDateFinishBudget, ElementName=Root}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="4" Content="Единицы бюджета" Visibility="{Binding VisibilityUnitsBudget, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="4"
@@ -47,6 +52,7 @@
 										 AddItemCommand="{Binding AddInUnitsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromUnitsCommand}"
 										 Visibility="{Binding VisibilityUnitsBudget, ElementName=Root}"/>
+
 
 
     </Grid>

@@ -47,6 +47,16 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
 
         #endregion
 
+        #region ComplexProperties
+
+        public UserWrapper Initiator
+        {
+            get => GetWrapper<UserWrapper>();
+            set => SetComplexValue<User, UserWrapper>(Initiator, value);
+        }
+
+        #endregion
+
         #region CollectionProperties
 
         public IValidatableChangeTrackingCollection<PriceCalculationItem2Wrapper> PriceCalculationItems { get; private set; }
@@ -59,6 +69,11 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
         public string Name => GetValue<string>();
 
         #endregion
+
+        public override void InitializeComplexProperties()
+        {
+            InitializeComplexProperty<UserWrapper>(nameof(Initiator), Model.Initiator == null ? null : new UserWrapper(Model.Initiator));
+        }
 
         protected override void InitializeCollectionProperties()
         {

@@ -47,20 +47,25 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     
                     <Label Grid.Column="0" Content="Старт задачи: "/>
-                    <Label Grid.Column="1" Content="{Binding PriceCalculationWrapper.TaskOpenMoment, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
+                    <Label Grid.Column="1" Content="{Binding PriceCalculationWrapper.TaskOpenMoment, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DateTimeToStringConverter}}" HorizontalAlignment="Left"/>
 
                     <Label Grid.Column="2" Content="Финиш задачи: "/>
-                    <Label Grid.Column="3" Content="{Binding PriceCalculationWrapper.TaskCloseMoment, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
+                    <Label Grid.Column="3" Content="{Binding PriceCalculationWrapper.TaskCloseMoment, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DateTimeToStringConverter}}" HorizontalAlignment="Left"/>
 
                     <Label Grid.Column="4" Content="Требуется файл: "/>
                     <CheckBox Grid.Column="5" IsChecked="{Binding PriceCalculationWrapper.IsNeedExcelFile, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" IsEnabled="{Binding IsStarted, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ReverseBoolConverter}}"/>
 
                     <Label Grid.Column="6" Content="Файл загружен: "/>
                     <CheckBox Grid.Column="7" IsChecked="{Binding CalculationHasFile, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" IsEnabled="False"/>
-                    
+
+                    <Label Grid.Column="8" Content="Инициатор: "/>
+                    <Label Grid.Column="9" Content="{Binding PriceCalculationWrapper.Initiator, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ObjectToStringConverter}}" HorizontalAlignment="Left"/>
+
                 </Grid>
 
 

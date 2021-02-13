@@ -17,10 +17,12 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Название" Visibility="{Binding VisibilityNameMarketField, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityNameMarketField, ElementName=Root}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Сферы деятельноси" Visibility="{Binding VisibilityActivityFieldsMarketField, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="1"
@@ -29,6 +31,7 @@
 										 AddItemCommand="{Binding AddInActivityFieldsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromActivityFieldsCommand}"
 										 Visibility="{Binding VisibilityActivityFieldsMarketField, ElementName=Root}"/>
+
 
 
     </Grid>

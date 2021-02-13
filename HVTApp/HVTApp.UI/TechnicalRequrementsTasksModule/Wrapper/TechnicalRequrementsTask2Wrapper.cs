@@ -26,26 +26,34 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper
             }
         }
 
+        public bool LogisticsCalculationRequired
+        {
+            get => GetValue<bool>();
+            set => SetValue(value);
+        }
+        public bool LogisticsCalculationRequiredOriginalValue => GetOriginalValue<bool>(nameof(LogisticsCalculationRequired));
+        public bool LogisticsCalculationRequiredIsChanged => GetIsChanged(nameof(LogisticsCalculationRequired));
+
         public string Comment
         {
-            get { return GetValue<string>(); }
-            set { SetValue(value); }
+            get => GetValue<string>();
+            set => SetValue(value);
         }
         public string CommentOriginalValue => GetOriginalValue<string>(nameof(Comment));
         public bool CommentIsChanged => GetIsChanged(nameof(Comment));
 
         public string TceNumber
         {
-            get { return GetValue<string>(); }
-            set { SetValue(value); }
+            get => GetValue<string>();
+            set => SetValue(value);
         }
         public string TceNumberOriginalValue => GetOriginalValue<string>(nameof(TceNumber));
         public bool TceNumberIsChanged => GetIsChanged(nameof(TceNumber));
 
         public DateTime? Start
         {
-            get { return GetValue<DateTime?>(); }
-            set { SetValue(value); }
+            get => GetValue<DateTime?>();
+            set => SetValue(value);
         }
         public DateTime? StartOriginalValue => GetOriginalValue<DateTime?>(nameof(Start));
         public bool StartIsChanged => GetIsChanged(nameof(Start));
@@ -53,8 +61,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper
 
         public DateTime? RejectByBackManagerMoment
         {
-            get { return GetValue<DateTime?>(); }
-            set { SetValue(value); }
+            get => GetValue<DateTime?>();
+            set => SetValue(value);
         }
         public DateTime? RejectByBackManagerMomentOriginalValue => GetOriginalValue<DateTime?>(nameof(RejectByBackManagerMoment));
         public bool RejectByBackManagerMomentIsChanged => GetIsChanged(nameof(RejectByBackManagerMoment));
@@ -62,8 +70,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper
 
         public System.String RejectComment
         {
-            get { return GetValue<System.String>(); }
-            set { SetValue(value); }
+            get => GetValue<System.String>();
+            set => SetValue(value);
         }
         public System.String RejectCommentOriginalValue => GetOriginalValue<System.String>(nameof(RejectComment));
         public bool RejectCommentIsChanged => GetIsChanged(nameof(RejectComment));

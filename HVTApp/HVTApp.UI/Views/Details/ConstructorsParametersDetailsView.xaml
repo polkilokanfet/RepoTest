@@ -18,6 +18,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Списки параметров" Visibility="{Binding VisibilityPatametersListsConstructorsParameters, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="0"
 										 Items="{Binding Path=Item.PatametersLists}"
@@ -26,10 +27,12 @@
 										 RemoveItemCommand="{Binding RemoveFromPatametersListsCommand}"
 										 Visibility="{Binding VisibilityPatametersListsConstructorsParameters, ElementName=Root}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="1" Content="Название" Visibility="{Binding VisibilityNameConstructorsParameters, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityNameConstructorsParameters, ElementName=Root}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="2" Content="Конструкторы" Visibility="{Binding VisibilityConstructorsConstructorsParameters, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
@@ -38,6 +41,7 @@
 										 AddItemCommand="{Binding AddInConstructorsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromConstructorsCommand}"
 										 Visibility="{Binding VisibilityConstructorsConstructorsParameters, ElementName=Root}"/>
+
 
 
     </Grid>

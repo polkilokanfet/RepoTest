@@ -18,6 +18,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Тип гарантии" Visibility="{Binding VisibilityBankGuaranteeTypeBankGuarantee, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="0" 
                                     Item="{Binding Item.BankGuaranteeType}" 
@@ -25,16 +26,19 @@
                                     RemoveItemCommand="{Binding ClearBankGuaranteeTypeCommand}"
 									Visibility="{Binding VisibilityBankGuaranteeTypeBankGuarantee, ElementName=Root}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="1" Content="Срок (дней)" Visibility="{Binding VisibilityDaysBankGuarantee, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1"
 							   ValueType="core:Int32"
                                Value="{Binding Item.Days, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding VisibilityDaysBankGuarantee, ElementName=Root}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="2" Content="Процент" Visibility="{Binding VisibilityPercentBankGuarantee, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="2" 
                                Value="{Binding Item.Percent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding VisibilityPercentBankGuarantee, ElementName=Root}"/>
+
 
 
     </Grid>

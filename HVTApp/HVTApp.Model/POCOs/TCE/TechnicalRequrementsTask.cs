@@ -45,5 +45,11 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Расчеты себестоимости"), OrderStatus(-10)]
         public virtual List<PriceCalculation> PriceCalculations { get; set; } = new List<PriceCalculation>();
+
+        [Designation("Файлы-ответы ОГК"), OrderStatus(-6)]
+        public virtual List<AnswerFileTce> AnswerFiles { get; set; } = new List<AnswerFileTce>();
+
+        [Designation("Необходимость РТЗ"), OrderStatus(-4)] 
+        public bool LogisticsCalculationRequired { get; set; } = false;
     }
 }

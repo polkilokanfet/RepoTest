@@ -42,6 +42,7 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new StandartProductionTermConfiguration());
             modelBuilder.Configurations.Add(new StructureCostConfiguration());
             modelBuilder.Configurations.Add(new SupervisionConfiguration());
+            modelBuilder.Configurations.Add(new AnswerFileTceConfiguration());
             modelBuilder.Configurations.Add(new TechnicalRequrementsConfiguration());
             modelBuilder.Configurations.Add(new TechnicalRequrementsFileConfiguration());
             modelBuilder.Configurations.Add(new TechnicalRequrementsTaskConfiguration());
@@ -126,6 +127,7 @@ namespace HVTApp.DataAccess
         public virtual DbSet<StandartProductionTerm> StandartProductionTermDbSet { get; set; }
         public virtual DbSet<StructureCost> StructureCostDbSet { get; set; }
         public virtual DbSet<Supervision> SupervisionDbSet { get; set; }
+        public virtual DbSet<AnswerFileTce> AnswerFileTceDbSet { get; set; }
         public virtual DbSet<TechnicalRequrements> TechnicalRequrementsDbSet { get; set; }
         public virtual DbSet<TechnicalRequrementsFile> TechnicalRequrementsFileDbSet { get; set; }
         public virtual DbSet<TechnicalRequrementsTask> TechnicalRequrementsTaskDbSet { get; set; }

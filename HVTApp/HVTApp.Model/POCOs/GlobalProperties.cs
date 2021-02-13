@@ -82,16 +82,19 @@ namespace HVTApp.Model.POCOs
 
 
 
-        [Designation("Путь к папке с запросами"), Required]
+        [Designation("Путь к папке с запросами"), Required, OrderStatus(500), MaxLength(500)]
         public string IncomingRequestsPath { get; set; }
 
-        [Designation("Путь к папке с приложениями Directum"), Required]
+        [Designation("Путь к папке с приложениями Directum"), Required, OrderStatus(501), MaxLength(500)]
         public string DirectumAttachmentsPath { get; set; }
 
-        [Designation("Путь к папке с файлами ТЗ"), Required]
+        [Designation("Путь к папке с файлами ТЗ"), Required, OrderStatus(502), MaxLength(500)]
         public string TechnicalRequrementsFilesPath { get; set; }
 
-        [Designation("Путь к папке с расчетами себестоимости"), Required]
+        [Designation("Путь к папке с файлами ответов из ТСЕ"), OrderStatus(503), MaxLength(500)]
+        public string TechnicalRequrementsFilesAnswersPath { get; set; }
+
+        [Designation("Путь к папке с расчетами себестоимости"), Required, OrderStatus(504), MaxLength(500)]
         public string PriceCalculationsFilesPath { get; set; }
 
 
@@ -104,6 +107,5 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Дополнительное оборудование")]
         public virtual Product ProductIncludedDefault { get; set; }
-
     }
 }

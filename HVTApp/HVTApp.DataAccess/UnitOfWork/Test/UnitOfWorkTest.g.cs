@@ -40,6 +40,7 @@ namespace HVTApp.DataAccess
             StandartProductionTermRepository = new StandartProductionTermRepositoryTest(testData);
             StructureCostRepository = new StructureCostRepositoryTest(testData);
             SupervisionRepository = new SupervisionRepositoryTest(testData);
+            AnswerFileTceRepository = new AnswerFileTceRepositoryTest(testData);
             TechnicalRequrementsRepository = new TechnicalRequrementsRepositoryTest(testData);
             TechnicalRequrementsFileRepository = new TechnicalRequrementsFileRepositoryTest(testData);
             TechnicalRequrementsTaskRepository = new TechnicalRequrementsTaskRepositoryTest(testData);
@@ -125,6 +126,7 @@ namespace HVTApp.DataAccess
         public IStandartProductionTermRepository StandartProductionTermRepository { get; }
         public IStructureCostRepository StructureCostRepository { get; }
         public ISupervisionRepository SupervisionRepository { get; }
+        public IAnswerFileTceRepository AnswerFileTceRepository { get; }
         public ITechnicalRequrementsRepository TechnicalRequrementsRepository { get; }
         public ITechnicalRequrementsFileRepository TechnicalRequrementsFileRepository { get; }
         public ITechnicalRequrementsTaskRepository TechnicalRequrementsTaskRepository { get; }

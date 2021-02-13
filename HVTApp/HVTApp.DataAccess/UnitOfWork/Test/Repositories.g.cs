@@ -168,6 +168,11 @@ namespace HVTApp.DataAccess
         public SupervisionRepositoryTest(TestData testData) : base(testData) {}
     }
 
+    public partial class AnswerFileTceRepositoryTest : TestBaseRepository<AnswerFileTce>, IAnswerFileTceRepository
+    {
+        public AnswerFileTceRepositoryTest(TestData testData) : base(testData) {}
+    }
+
     public partial class TechnicalRequrementsRepositoryTest : TestBaseRepository<TechnicalRequrements>, ITechnicalRequrementsRepository
     {
         public TechnicalRequrementsRepositoryTest(TestData testData) : base(testData) {}

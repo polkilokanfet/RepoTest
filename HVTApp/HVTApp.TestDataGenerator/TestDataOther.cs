@@ -262,7 +262,8 @@ namespace HVTApp.TestDataGenerator
             #if DEBUG
             GlobalProperties.IncomingRequestsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "HVTAppTest", "Requests");
             GlobalProperties.DirectumAttachmentsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "HVTAppTest", "Directum");
-            GlobalProperties.TechnicalRequrementsFilesPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "HVTAppTest", "TCE");
+            GlobalProperties.TechnicalRequrementsFilesPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "HVTAppTest", "Tce");
+            GlobalProperties.TechnicalRequrementsFilesAnswersPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "HVTAppTest", "TceAnswer");
             GlobalProperties.PriceCalculationsFilesPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "HVTAppTest", "PriceCalculations");
             #endif
         }

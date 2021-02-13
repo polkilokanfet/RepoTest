@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Xml.Serialization;
 using HVTApp.Infrastructure;
@@ -25,9 +26,24 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
                 {
                     var unitOfWork = _container.Resolve<IUnitOfWork>();
 
-                    unitOfWork.Repository<TechnicalRequrementsFile>().GetAll().ForEach(x => x.IsActual = true);
-                    unitOfWork.Repository<TechnicalRequrements>().GetAll().ForEach(x => x.IsActual = true);
-                    unitOfWork.Repository<TechnicalRequrementsTask>().Find(x => x.Start.HasValue).ForEach(x => x.FirstStartMoment = x.Start);
+                    
+                    var tasks = unitOfWork.Repository<TechnicalRequrementsTask>().Find(requrementsTask => requrementsTask.LastOpenBackManagerMoment != null);
+                    foreach (TechnicalRequrementsTask requrementsTask in tasks)
+                    {
+                        foreach (PriceCalculation priceCalculation in requrementsTask.PriceCalculations)
+                        {
+                            priceCalculation.Initiator = requrementsTask.BackManager;
+                        }
+                    }
+
+
+                    List<PriceCalculation> priceCalculations = unitOfWork.Repository<PriceCalculation>().Find(priceCalculation => priceCalculation.Initiator == null);
+                    foreach (PriceCalculation priceCalculation in priceCalculations)
+                    {
+                        priceCalculation.Initiator = priceCalculation.PriceCalculationItems
+                            .SelectMany(x => x.SalesUnits).First().Project
+                            .Manager;
+                    }
 
                     unitOfWork.SaveChanges();
 

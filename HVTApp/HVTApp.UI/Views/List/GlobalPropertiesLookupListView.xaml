@@ -39,6 +39,11 @@
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
 
+                        <infg:TextField Name="PriceCalculationsFilesPath" Label="Путь к папке с расчетами себестоимости" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="TechnicalRequrementsFilesAnswersPath" Label="Путь к папке с файлами ответов из ТСЕ" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="TechnicalRequrementsFilesPath" Label="Путь к папке с файлами ТЗ" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="DirectumAttachmentsPath" Label="Путь к папке с приложениями Directum" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="IncomingRequestsPath" Label="Путь к папке с запросами" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="IsolationDpuGroup" Label="Группа параметров ДПУ изолятора" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:TextField Name="IsolationColorGroup" Label="Группа параметров цвета изоляции" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:TextField Name="IsolationMaterialGroup" Label="Группа параметров материала изоляции" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
@@ -57,18 +62,15 @@
                         <infg:TextField Name="NewProductParameter" Label="Родительский параметр новых параметров" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:TextField Name="NewProductParameterGroup" Label="Группа новых параметров" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:NumericField Name="Vat" Label="НДС" Width="Auto" AllowResize="True" />
-                        <infg:TextField Name="TechnicalRequrementsFilesPath" Label="Путь к папке с файлами ТЗ" Width="Auto" AllowResize="True" />
                         <infg:NumericField Name="StandartTermFromStartToEndProduction" Label="Стандартный срок производства" Width="Auto" AllowResize="True" />
                         <infg:NumericField Name="StandartTermFromPickToEndProduction" Label="Стандартный срок сборки" Width="Auto" AllowResize="True" />
-                        <infg:TextField Name="PriceCalculationsFilesPath" Label="Путь к папке с расчетами себестоимости" Width="Auto" AllowResize="True" />
                         <infg:DateTimeField Name="LastDeveloperVizit" Label="Дата последнего визита разработчика" Width="Auto" AllowResize="True" />
-                        <infg:TextField Name="IncomingRequestsPath" Label="Путь к папке с запросами" Width="Auto" AllowResize="True" />
-                        <infg:TextField Name="DirectumAttachmentsPath" Label="Путь к папке с приложениями Directum" Width="Auto" AllowResize="True" />
                         <infg:NumericField Name="ActualPriceTerm" Label="Срок актуальности себестоимости" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="ComplectsParameter" Label="Параметр комплекты и детали" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:TextField Name="ComplectDesignationGroup" Label="Группа параметров обозначения комплекта или детали" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:TextField Name="ComplectsGroup" Label="Группа типа комплекта или детали" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
+
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>
 

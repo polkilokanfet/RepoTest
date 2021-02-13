@@ -18,6 +18,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Контрагент" Visibility="{Binding VisibilityContragentContract, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="0" 
                                     Item="{Binding Item.Contragent}" 
@@ -25,15 +26,18 @@
                                     RemoveItemCommand="{Binding ClearContragentCommand}"
 									Visibility="{Binding VisibilityContragentContract, ElementName=Root}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="1" Content="Дата" Visibility="{Binding VisibilityDateContract, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="1" 
                     SelectedDate="{Binding Item.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityDateContract, ElementName=Root}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="2" Content="№" Visibility="{Binding VisibilityNumberContract, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
                  Text="{Binding Item.Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityNumberContract, ElementName=Root}"/>
+
 
 
     </Grid>

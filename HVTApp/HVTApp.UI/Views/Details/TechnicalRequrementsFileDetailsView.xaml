@@ -18,20 +18,24 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Имя" Visibility="{Binding VisibilityNameTechnicalRequrementsFile, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityNameTechnicalRequrementsFile, ElementName=Root}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Комментарий" Visibility="{Binding VisibilityCommentTechnicalRequrementsFile, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityCommentTechnicalRequrementsFile, ElementName=Root}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="2" Content="Актуально" Visibility="{Binding VisibilityIsActualTechnicalRequrementsFile, ElementName=Root}"/>
         <CheckBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
                   IsChecked="{Binding Item.IsActual, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				  Visibility="{Binding VisibilityIsActualTechnicalRequrementsFile, ElementName=Root}"/>
+
 
 
     </Grid>

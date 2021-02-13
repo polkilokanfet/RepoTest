@@ -235,6 +235,13 @@ namespace HVTApp.DataAccess
 		}
     }
 
+    public partial class AnswerFileTceRepository : BaseRepository<AnswerFileTce>, IAnswerFileTceRepository
+    {
+		public AnswerFileTceRepository(DbContext context) : base(context) 
+		{
+		}
+    }
+
     public partial class TechnicalRequrementsRepository : BaseRepository<TechnicalRequrements>, ITechnicalRequrementsRepository
     {
 		public TechnicalRequrementsRepository(DbContext context) : base(context) 

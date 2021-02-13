@@ -260,7 +260,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                     ((DelegateCommand)MeregeCommand).RaiseCanExecuteChanged();
                     ((DelegateCommand)DivideCommand).RaiseCanExecuteChanged();
                 },
-                () => !IsStarted && PriceCalculationWrapper.IsValid);
+                () => !IsStarted && PriceCalculationWrapper.IsValid && GlobalAppProperties.User.Id == PriceCalculationWrapper.Initiator?.Id);
 
             #endregion
 
@@ -322,7 +322,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                 ((DelegateCommand)MeregeCommand).RaiseCanExecuteChanged();
                 ((DelegateCommand)DivideCommand).RaiseCanExecuteChanged();
             },
-            () => IsStarted);
+            () => IsStarted && GlobalAppProperties.User.Id == PriceCalculationWrapper.Initiator?.Id);
 
             #endregion
 
@@ -493,12 +493,16 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
         public void Load(IEnumerable<SalesUnit> salesUnits)
         {
             var salesUnitWrappers = salesUnits
-                .Select(x => UnitOfWork.Repository<SalesUnit>().GetById(x.Id))
-                .Select(x => new SalesUnitEmptyWrapper(x))
+                .Select(salesUnit => UnitOfWork.Repository<SalesUnit>().GetById(salesUnit.Id))
+                .Select(salesUnit => new SalesUnitEmptyWrapper(salesUnit))
                 .ToList();
             
             salesUnitWrappers.GroupBy(x => x, new SalesUnit2Comparer())
                              .ForEach(x => { PriceCalculationWrapper.PriceCalculationItems.Add(GetPriceCalculationItem2Wrapper(x)); });
+
+            //инициатор задачи
+            if(this.PriceCalculationWrapper.Initiator == null)
+                this.PriceCalculationWrapper.Initiator = new UserWrapper(UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id));
         }
 
         public void Load(TechnicalRequrementsTask technicalRequrementsTask)
@@ -509,11 +513,15 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                 technicalRequrementsTask.PriceCalculations.Add(this.PriceCalculationWrapper.Model);
             }
 
-            foreach (var requrement in technicalRequrementsTask.Requrements)
+            foreach (var technicalRequrements in technicalRequrementsTask.Requrements)
             {
-                var saleUnits = requrement.SalesUnits.Select(x => new SalesUnitEmptyWrapper(x));
+                var saleUnits = technicalRequrements.SalesUnits.Select(salesUnit => new SalesUnitEmptyWrapper(salesUnit));
                 PriceCalculationWrapper.PriceCalculationItems.Add(GetPriceCalculationItem2Wrapper(saleUnits));
             }
+
+            //инициатор задачи
+            if (this.PriceCalculationWrapper.Initiator == null)
+                this.PriceCalculationWrapper.Initiator = new UserWrapper(UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id));
         }
 
         private PriceCalculationItem2Wrapper GetPriceCalculationItem2Wrapper(IEnumerable<SalesUnitEmptyWrapper> salesUnits)

@@ -11,6 +11,7 @@
             <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
             <converters:BooleanToVisibilityReverseConverter x:Key="BooleanToVisibilityReverseConverter"/>
             <converters:DatePickerOriginalValueConverter x:Key="DatePickerOriginalValueConverter"/>
+            <converters:DateTimeToStringConverter x:Key="DateTimeToStringConverter"/>
             <converters:ListToStringConverter x:Key="ListToStringConverter"/>
             <convertersUi:LookupToStringConverter x:Key="LookupToStringConverter" />
             <convertersUi:LookupsToStringConverter x:Key="LookupsToStringConverter" />

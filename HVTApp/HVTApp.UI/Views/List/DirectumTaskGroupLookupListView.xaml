@@ -53,6 +53,7 @@
                         <infg:DateTimeField Name="Finish" Label="Finish" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="DirectumTasks" Label="DirectumTasks" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
+
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>
 

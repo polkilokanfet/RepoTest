@@ -37,7 +37,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
         public object SelectedItem
         {
-            get { return _selectedItem; }
+            get => _selectedItem;
             set
             {
                 _selectedItem = value;
@@ -112,7 +112,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
         public TechnicalRequrementsTask2Wrapper TechnicalRequrementsTaskWrapper
         {
-            get { return _technicalRequrementsTaskWrapper; }
+            get => _technicalRequrementsTaskWrapper;
             private set
             {
                 _technicalRequrementsTaskWrapper = value;

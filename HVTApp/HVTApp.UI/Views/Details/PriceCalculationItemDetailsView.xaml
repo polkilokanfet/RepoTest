@@ -21,12 +21,14 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Условия оплаты" Visibility="{Binding VisibilityPaymentConditionSetPriceCalculationItem, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="0" 
                                     Item="{Binding Item.PaymentConditionSet}" 
                                     AddItemCommand="{Binding SelectPaymentConditionSetCommand}" 
                                     RemoveItemCommand="{Binding ClearPaymentConditionSetCommand}"
 									Visibility="{Binding VisibilityPaymentConditionSetPriceCalculationItem, ElementName=Root}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Сралчахвосты" Visibility="{Binding VisibilityStructureCostsPriceCalculationItem, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="1"
@@ -36,6 +38,7 @@
 										 RemoveItemCommand="{Binding RemoveFromStructureCostsCommand}"
 										 Visibility="{Binding VisibilityStructureCostsPriceCalculationItem, ElementName=Root}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="2" Content="Единицы продаж" Visibility="{Binding VisibilitySalesUnitsPriceCalculationItem, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
 										 Items="{Binding Path=Item.SalesUnits}"
@@ -44,15 +47,18 @@
 										 RemoveItemCommand="{Binding RemoveFromSalesUnitsCommand}"
 										 Visibility="{Binding VisibilitySalesUnitsPriceCalculationItem, ElementName=Root}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="3" Content="Дата реализации" Visibility="{Binding VisibilityRealizationDatePriceCalculationItem, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="3" 
                     SelectedDate="{Binding Item.RealizationDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityRealizationDatePriceCalculationItem, ElementName=Root}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="4" Content="Дата ОИТ" Visibility="{Binding VisibilityOrderInTakeDatePriceCalculationItem, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="4" 
                     SelectedDate="{Binding Item.OrderInTakeDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityOrderInTakeDatePriceCalculationItem, ElementName=Root}"/>
+
 
 
     </Grid>

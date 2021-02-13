@@ -1,3 +1,17 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 using HVTApp.Model.POCOs;
 using Prism.Events;
 
@@ -36,6 +50,7 @@ namespace HVTApp.Model.Events
 	public partial class AfterSaveStandartProductionTermEvent : PubSubEvent<StandartProductionTerm> { }
 	public partial class AfterSaveStructureCostEvent : PubSubEvent<StructureCost> { }
 	public partial class AfterSaveSupervisionEvent : PubSubEvent<Supervision> { }
+	public partial class AfterSaveAnswerFileTceEvent : PubSubEvent<AnswerFileTce> { }
 	public partial class AfterSaveTechnicalRequrementsEvent : PubSubEvent<TechnicalRequrements> { }
 	public partial class AfterSaveTechnicalRequrementsFileEvent : PubSubEvent<TechnicalRequrementsFile> { }
 	public partial class AfterSaveTechnicalRequrementsTaskEvent : PubSubEvent<TechnicalRequrementsTask> { }

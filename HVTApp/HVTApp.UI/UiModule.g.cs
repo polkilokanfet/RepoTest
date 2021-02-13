@@ -188,6 +188,11 @@ namespace HVTApp.UI
 			_selectService.Register<SupervisionLookupListView, Supervision>();
             _updateDetailsService.Register<Supervision, SupervisionDetailsView>();
 
+            Container.RegisterViewForNavigation<AnswerFileTceLookupListView>();
+            //_dialogService.Register<AnswerFileTceDetailsViewModel, AnswerFileTceDetailsView>();
+			_selectService.Register<AnswerFileTceLookupListView, AnswerFileTce>();
+            _updateDetailsService.Register<AnswerFileTce, AnswerFileTceDetailsView>();
+
             Container.RegisterViewForNavigation<TechnicalRequrementsLookupListView>();
             //_dialogService.Register<TechnicalRequrementsDetailsViewModel, TechnicalRequrementsDetailsView>();
 			_selectService.Register<TechnicalRequrementsLookupListView, TechnicalRequrements>();

@@ -235,6 +235,10 @@
     <Compile Include="Migrations\202101131450525_CommentInIUnit.Designer.cs">
       <DependentUpon>202101131450525_CommentInIUnit.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102131114547_AnswerFiles2.cs" />
+    <Compile Include="Migrations\202102131114547_AnswerFiles2.Designer.cs">
+      <DependentUpon>202102131114547_AnswerFiles2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -364,6 +368,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101131450525_CommentInIUnit.resx">
       <DependentUpon>202101131450525_CommentInIUnit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102131114547_AnswerFiles2.resx">
+      <DependentUpon>202102131114547_AnswerFiles2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
