@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Infrastructure.ViewModels;
@@ -17,32 +18,45 @@ namespace HVTApp.UI.Modules.Sales.Production
     {
         private object _selectedToProduction;
         private object _selectedInProduction;
+        private IEnumerable<ProductionGroup> _groupsInProduction;
 
         public ObservableCollection<ProductionGroup> GroupsInProduction { get; } = new ObservableCollection<ProductionGroup>();
         public ObservableCollection<ProductionGroup> GroupsToProduction { get; } = new ObservableCollection<ProductionGroup>();
 
         public object SelectedInProduction
         {
-            get { return _selectedInProduction; }
+            get => _selectedInProduction;
             set
             {
                 _selectedInProduction = value;
-                ((DelegateCommand)RemoveFromProductionCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand) RemoveFromProductionCommand)?.RaiseCanExecuteChanged();
             }
         }
 
         public object SelectedToProduction
         {
-            get { return _selectedToProduction; }
+            get => _selectedToProduction;
             set
             {
                 _selectedToProduction = value;
-                ((DelegateCommand)ProductUnitCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)ProductUnitCommand)?.RaiseCanExecuteChanged();
             }
         }
 
+        /// <summary>
+        /// Разместить оборудование в производстве
+        /// </summary>
         public ICommand ProductUnitCommand { get; }
+
+        /// <summary>
+        /// Отозвать оборудование из производства
+        /// </summary>
         public ICommand RemoveFromProductionCommand { get; }
+
+        /// <summary>
+        /// Загрузить оборудование, которое можно разместить в производстве
+        /// </summary>
+        public ICommand LoadUnitsToProductionCommand { get; }
 
         public ProductionViewModel(IUnityContainer container) : base(container)
         {
@@ -84,7 +98,7 @@ namespace HVTApp.UI.Modules.Sales.Production
 
                     SelectedToProduction = null;
                 }, 
-            () => SelectedToProduction != null);
+                () => SelectedToProduction != null);
 
             RemoveFromProductionCommand = new DelegateCommand(
                 () =>
@@ -137,61 +151,81 @@ namespace HVTApp.UI.Modules.Sales.Production
                     SelectedInProduction = null;
                 },
                 () => SelectedInProduction != null);
+
+            LoadUnitsToProductionCommand = new DelegateCommand(LoadUnitsToProduction, () => _salesUnitsAll != null);
         }
 
-        private IEnumerable<ProductionGroup> _groupsToProduction;
-        private IEnumerable<ProductionGroup> _groupsInProduction;
+        private List<SalesUnit> _salesUnitsAll;
 
         protected override void GetData()
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
 
             //все единицы текущего пользователя
-            var salesUnitsAll = UnitOfWork.Repository<SalesUnit>().Find(x => !x.IsRemoved && !x.IsLoosen && x.Project.Manager.IsAppCurrentUser());
-            //задачи из ТСЕ
-            var requrementsTasks = UnitOfWork.Repository<TechnicalRequrementsTask>().Find(x => x.Start.HasValue);
+            _salesUnitsAll = ((ISalesUnitRepository) UnitOfWork.Repository<SalesUnit>()).GetCurrentUserSalesUnits().ToList();
 
-            //пересечение этих множеств
-            var salesUnits = salesUnitsAll.Intersect(requrementsTasks.SelectMany(x => x.Requrements.SelectMany(r => r.SalesUnits)).Distinct()).ToList();
-            var productionItems = salesUnits.Select(x => new ProductionItem(x, x.ActualPriceCalculationItem(UnitOfWork))).ToList();
-
-            _groupsToProduction = productionItems
-                .Where(x => !x.SignalToStartProduction.HasValue)
-                .GroupBy(x => new
+            _groupsInProduction = _salesUnitsAll
+                .Where(salesUnit => salesUnit.SignalToStartProduction.HasValue)
+                .Select(salesUnit => new ProductionItem(salesUnit, salesUnit.ActualPriceCalculationItem(UnitOfWork)))
+                .GroupBy(productionItem => new
                 {
-                    ProductId = x.Model.Product.Id,
-                    FacilityId = x.Model.Facility.Id,
-                    x.Model.Comment,
-                    x.Model.EndProductionDateCalculated
-                })
-                .OrderBy(x => x.Key.EndProductionDateCalculated)
-                .ThenBy(x => x.Key.FacilityId)
-                .Select(x => new ProductionGroup(x));
-
-
-            _groupsInProduction = salesUnitsAll
-                .Where(x => x.SignalToStartProduction.HasValue)
-                .Select(x => new ProductionItem(x, x.ActualPriceCalculationItem(UnitOfWork)))
-                .GroupBy(x => new
-                {
-                    ProductId = x.Model.Product.Id,
-                    FacilityId = x.Model.Facility.Id,
-                    OrderId = x.Model.Order?.Id,
-                    x.Model.Comment,
-                    x.Model.EndProductionDateCalculated
+                    ProductId = productionItem.Model.Product.Id,
+                    FacilityId = productionItem.Model.Facility.Id,
+                    OrderId = productionItem.Model.Order?.Id,
+                    productionItem.Model.Comment,
+                    productionItem.Model.EndProductionDateCalculated
                 })
                 .OrderBy(x => x.Key.EndProductionDateCalculated)
                 .ThenBy(x => x.Key.FacilityId)
                 .Select(x => new ProductionGroup(x));
         }
 
+        /// <summary>
+        /// Загрузка юнитов, которые могут быть включены в производство
+        /// </summary>
+        private void LoadUnitsToProduction()
+        {
+            //задачи из ТСЕ, которые менеджер запустил
+            List<TechnicalRequrementsTask> requrementsTasks = UnitOfWork.Repository<TechnicalRequrementsTask>().Find(technicalRequrementsTask => technicalRequrementsTask.Start.HasValue);
+
+            //пересечение множеств
+            var salesUnits = _salesUnitsAll
+                .Where(salesUnit => !salesUnit.IsRemoved)                           //не удалены
+                .Where(salesUnit => !salesUnit.IsLoosen)                            //не проиграны
+                .Where(salesUnit => !salesUnit.SignalToStartProduction.HasValue)    //не включены в производство
+                .Intersect(requrementsTasks.SelectMany(technicalRequrementsTask => technicalRequrementsTask.Requrements.SelectMany(technicalRequrements => technicalRequrements.SalesUnits)).Distinct());
+            
+            var productionItems = salesUnits.Select(salesUnit => new ProductionItem(salesUnit, salesUnit.ActualPriceCalculationItem(UnitOfWork))).ToList();
+
+            var groupsToProduction = productionItems
+                .Where(productionItem => !productionItem.SignalToStartProduction.HasValue)
+                .GroupBy(productionItem => new
+                {
+                    ProductId = productionItem.Model.Product.Id,
+                    FacilityId = productionItem.Model.Facility.Id,
+                    productionItem.Model.Comment,
+                    productionItem.Model.EndProductionDateCalculated
+                })
+                .OrderBy(x => x.Key.EndProductionDateCalculated)
+                .ThenBy(x => x.Key.FacilityId)
+                .Select(x => new ProductionGroup(x));
+
+            GroupsToProduction.Clear();
+            GroupsToProduction.AddRange(groupsToProduction);
+        }
+
+        protected override void BeforeGetData()
+        {
+            GroupsInProduction.Clear();
+            GroupsToProduction.Clear();
+            SelectedToProduction = null;
+            SelectedInProduction = null;
+        }
+
         protected override void AfterGetData()
         {
-            GroupsToProduction.Clear();
-            GroupsToProduction.AddRange(_groupsToProduction);
-
-            GroupsInProduction.Clear();
             GroupsInProduction.AddRange(_groupsInProduction);
+            ((DelegateCommand)LoadUnitsToProductionCommand).RaiseCanExecuteChanged();
         }
     }
 }

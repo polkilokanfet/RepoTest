@@ -16,7 +16,7 @@
         <Grid>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="3*"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
@@ -94,7 +94,7 @@
 
             <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="5"/>
 
-            <GroupBox Grid.Row="2" Header="Потенциальное">
+            <GroupBox Grid.Row="2" Header="Потенциальное (для загрузки нажмите соответствующую кнопку)">
                 <infg:XamDataGrid DataSource="{Binding GroupsToProduction}" 
                                   ActiveDataItem="{Binding SelectedToProduction, Mode=TwoWay}">
 
