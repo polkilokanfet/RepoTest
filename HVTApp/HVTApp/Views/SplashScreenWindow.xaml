@@ -10,7 +10,7 @@
         WindowStartupLocation="CenterScreen" 
         WindowStyle="None">
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Loading... Please wait..."></TextBlock>
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="УП ВВА загружается... Ожидайте..."></TextBlock>
         <!--<ProgressBar x:Name="ProgressBar1" HorizontalAlignment="Center" Width="300" Height="15" Margin="0, 10" IsIndeterminate="True"/>-->
     </StackPanel>
 </Window>

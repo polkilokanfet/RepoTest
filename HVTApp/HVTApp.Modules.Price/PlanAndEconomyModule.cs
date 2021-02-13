@@ -3,6 +3,7 @@ using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Prism;
 using HVTApp.Modules.PlanAndEconomy.Menus;
 using HVTApp.UI.Modules.PlanAndEconomy.Dates;
+using HVTApp.UI.Modules.PlanAndEconomy.Dates.ServiceRealizationDates;
 using HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual;
 using HVTApp.UI.Modules.PlanAndEconomy.Views;
 using Microsoft.Practices.Unity;
@@ -24,6 +25,7 @@ namespace HVTApp.Modules.PlanAndEconomy
             Container.RegisterViewForNavigation<DatesView>();
             Container.RegisterViewForNavigation<PaymentDocumentView>();
             Container.RegisterViewForNavigation<PaymentsView>();
+            Container.RegisterViewForNavigation<ServiceRealizationDatesView>();
         }
 
         protected override void ResolveOutlookGroup()

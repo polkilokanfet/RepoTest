@@ -39,7 +39,7 @@ namespace HVTApp.UI.Modules.Sales.Market.Items
 
         public Project Project
         {
-            get { return _project; }
+            get => _project;
             set
             {
                 _project = value;
@@ -75,8 +75,8 @@ namespace HVTApp.UI.Modules.Sales.Market.Items
 
         #region CheckRegion
 
-        public bool IsDone => SalesUnits.All(x => x.IsDone);
-        public bool IsLoosen => SalesUnits.All(x => x.IsLoosen);
+        public bool IsDone => SalesUnits.All(salesUnit => salesUnit.IsDone);
+        public bool IsLoosen => SalesUnits.All(salesUnit => salesUnit.IsLoosen);
         public bool ForReport => Project != null && Project.ForReport;
         public bool InWork => Project != null && Project.InWork;
 
@@ -138,7 +138,7 @@ namespace HVTApp.UI.Modules.Sales.Market.Items
                 {
                     result.AddRange(owner.ParentCompanies());
                 }
-                return result.Distinct().OrderBy(x => x.ShortName);
+                return result.Distinct().OrderBy(company => company.ShortName);
             }
         }
 

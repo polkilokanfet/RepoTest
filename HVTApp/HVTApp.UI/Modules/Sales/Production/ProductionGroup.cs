@@ -27,8 +27,8 @@ namespace HVTApp.UI.Modules.Sales.Production
 
         public DateTime EndProductionDateExpected
         {
-            get { return ProductionItems.First().EndProductionDateExpected; }
-            set { ProductionItems.ForEach(x => x.EndProductionDateExpected = value);}
+            get => ProductionItems.First().EndProductionDateExpected;
+            set { ProductionItems.ForEach(productionItem => productionItem.EndProductionDateExpected = value);}
         }
 
         public ProductionGroup(IEnumerable<ProductionItem> productionItems)
@@ -47,7 +47,7 @@ namespace HVTApp.UI.Modules.Sales.Production
 
         public bool IsChanged => ProductionItems.IsChanged;
 
-        public bool IsProduced => ProductionItems.All(x => x.IsProduced);
+        public bool IsProduced => ProductionItems.All(productionItem => productionItem.IsProduced);
 
 
         public int DifExpected => ProductionItems.First().DifExpected;

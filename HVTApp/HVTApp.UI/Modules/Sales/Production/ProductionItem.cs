@@ -10,27 +10,27 @@ namespace HVTApp.UI.Modules.Sales.Production
 
         public DateTime? SignalToStartProduction
         {
-            get { return GetValue<DateTime?>(); }
-            set { SetValue(value); }
+            get => GetValue<DateTime?>();
+            set => SetValue(value);
         }
 
 
         public DateTime? SignalToStartProductionDone
         {
-            get { return GetValue<DateTime?>(); }
-            set { SetValue(value); }
+            get => GetValue<DateTime?>();
+            set => SetValue(value);
         }
 
         public DateTime DeliveryDateExpected
         {
-            get { return GetValue<DateTime>(); }
-            set { SetValue(value); }
+            get => GetValue<DateTime>();
+            set => SetValue(value);
         }
 
 
         public DateTime EndProductionDateExpected
         {
-            get { return Model.DeliveryDateExpected.AddDays(-Model.DeliveryPeriodCalculated); }
+            get => Model.DeliveryDateExpected.AddDays(-Model.DeliveryPeriodCalculated);
             set
             {
                 this.DeliveryDateExpected = value.AddDays(Model.DeliveryPeriodCalculated);
@@ -40,11 +40,20 @@ namespace HVTApp.UI.Modules.Sales.Production
 
         public string TceInfo => _priceCalculationItem?.ToString() ?? "no information";
 
-        public bool IsProduced => Model.EndProductionDateCalculated < DateTime.Today;
+        public bool IsProduced
+        {
+            get
+            {
+                if (Model.Product.ProductBlock.IsService)
+                    return Model.RealizationDateCalculated < DateTime.Today;
+
+                return Model.EndProductionDateCalculated < DateTime.Today;
+            }
+        }
 
         public int DifExpected => (Model.EndProductionDateCalculated - EndProductionDateExpected).Days;
 
-        public int DifContract=> (Model.EndProductionDateCalculated - Model.EndProductionDateByContractCalculated).Days;
+        public int DifContract => (Model.EndProductionDateCalculated - Model.EndProductionDateByContractCalculated).Days;
 
         public ProductionItem(SalesUnit model, PriceCalculationItem priceCalculationItem) : base(model)
         {

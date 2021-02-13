@@ -159,7 +159,16 @@ namespace HVTApp.Model.POCOs
         public bool IsWon => Producer != null && Producer.Id == GlobalAppProperties.Actual.OurCompany.Id && OrderInTakeDate <= DateTime.Today;
 
         [NotMapped, Designation("Исполнено")]
-        public bool IsDone => RealizationDateCalculated < DateTime.Today && ShipmentDateCalculated < DateTime.Today;
+        public bool IsDone
+        {
+            get
+            {
+                if (this.Product.ProductBlock.IsService)
+                    return RealizationDateCalculated < DateTime.Today;
+
+                return RealizationDateCalculated < DateTime.Today && ShipmentDateCalculated < DateTime.Today;
+            }
+        }
 
 
         public override string ToString()
