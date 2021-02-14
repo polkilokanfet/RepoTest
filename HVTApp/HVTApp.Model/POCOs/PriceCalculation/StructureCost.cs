@@ -19,14 +19,14 @@ namespace HVTApp.Model.POCOs
         [Designation("Себестоимость единицы")]
         public double? UnitPrice { get; set; }
 
-        public double? Total => UnitPrice.HasValue ? UnitPrice * Amount : null;
+        public double? Total => UnitPrice * Amount;
 
         [Designation("Комментарий"), MaxLength(200)]
         public string Comment { get; set; }
 
         public override string ToString()
         {
-            return $"{Comment} = {Amount} шт. = {Number}";
+            return $"{Comment} = {Amount:N2} шт. = {Number}";
         }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base;
 
@@ -6,7 +7,7 @@ namespace HVTApp.UI.Modules.Sales.Production
 {
     public class ProductionItem : WrapperBase<SalesUnit>
     {
-        private readonly PriceCalculationItem _priceCalculationItem;
+        private readonly IUnitOfWork _unitOfWork;
 
         public DateTime? SignalToStartProduction
         {
@@ -38,7 +39,7 @@ namespace HVTApp.UI.Modules.Sales.Production
             }
         }
 
-        public string TceInfo => _priceCalculationItem?.ToString() ?? "no information";
+        public string TceInfo => Model.ActualPriceCalculationItem(_unitOfWork)?.ToString() ?? "no information";
 
         public bool IsProduced
         {
@@ -55,9 +56,9 @@ namespace HVTApp.UI.Modules.Sales.Production
 
         public int DifContract => (Model.EndProductionDateCalculated - Model.EndProductionDateByContractCalculated).Days;
 
-        public ProductionItem(SalesUnit model, PriceCalculationItem priceCalculationItem) : base(model)
+        public ProductionItem(SalesUnit model, IUnitOfWork unitOfWork) : base(model)
         {
-            _priceCalculationItem = priceCalculationItem;
+            _unitOfWork = unitOfWork;
         }
     }
 }

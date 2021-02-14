@@ -283,12 +283,14 @@ namespace HVTApp.Model.POCOs
                 if (Cost > 0 && Math.Abs(SumToStartProduction) < 0.001)
                 {
                     if (Specification != null)
+                    {
                         return Specification.Date;
+                    }
                 }
 
                 //первый платеж по заказу
-                return PaymentsActual.Any(x => x.Sum > 0) 
-                    ? PaymentsActual.Where(x => x.Sum > 0).Select(x => x.Date).Min() 
+                return PaymentsActual.Any(paymentActual => paymentActual.Sum > 0) 
+                    ? PaymentsActual.Where(paymentActual => paymentActual.Sum > 0).Select(paymentActual => paymentActual.Date).Min() 
                     : StartProductionDateCalculated;
             }
         }

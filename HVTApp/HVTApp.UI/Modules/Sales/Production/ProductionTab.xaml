@@ -6,9 +6,8 @@
              x:Class="HVTApp.UI.Modules.Sales.Production.ProductionTab"
              Header="Производство">
 
-    <infRib:RibbonGroup Caption="Загрузка оборудования">
-        <infRib:ButtonTool Caption="Размещенного" Command="{Binding ReloadCommand}" SmallImage="/HVTApp.UI;component/Images/refresh.png"/>
-        <infRib:ButtonTool Caption="Потенциального" Command="{Binding LoadUnitsToProductionCommand}" SmallImage="/HVTApp.UI;component/Images/refresh.png"/>
+    <infRib:RibbonGroup Caption="Вид">
+        <infRib:ButtonTool Caption="Перезагрузить" Command="{Binding ReloadCommand}" SmallImage="/HVTApp.UI;component/Images/refresh.png"/>
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Редактирование">

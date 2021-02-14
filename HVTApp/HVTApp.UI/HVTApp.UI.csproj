@@ -183,10 +183,12 @@
     <Compile Include="Modules\PlanAndEconomy\Supervision\TabSupervision.xaml.cs">
       <DependentUpon>TabSupervision.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Reports\CommonInfo\SalesUnitsCommonInfoComparer.cs" />
     <Compile Include="Modules\Reports\CommonInfo\CommonInfoView.xaml.cs">
       <DependentUpon>CommonInfoView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Reports\CommonInfo\CommonInfoViewModel.cs" />
+    <Compile Include="Modules\Reports\CommonInfo\CommonInfoUnitGroup.cs" />
     <Compile Include="Modules\Reports\CommonInfo\TabCommonInfo.xaml.cs">
       <DependentUpon>TabCommonInfo.xaml</DependentUpon>
     </Compile>

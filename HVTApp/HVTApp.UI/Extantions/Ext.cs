@@ -9,6 +9,12 @@ namespace HVTApp.UI
 {
     public static class Ext
     {
+        /// <summary>
+        /// Актуальный расчет ПЗ
+        /// </summary>
+        /// <param name="unit"></param>
+        /// <param name="unitOfWork"></param>
+        /// <returns></returns>
         public static PriceCalculationItem ActualPriceCalculationItem(this SalesUnit unit, IUnitOfWork unitOfWork)
         {
             var salesUnit = unitOfWork.Repository<SalesUnit>().GetById(unit.Id);

@@ -7,7 +7,6 @@ using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Infrastructure.ViewModels;
-using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
@@ -18,7 +17,8 @@ namespace HVTApp.UI.Modules.Sales.Production
     {
         private object _selectedToProduction;
         private object _selectedInProduction;
-        private IEnumerable<ProductionGroup> _groupsInProduction;
+        private List<ProductionGroup> _groupsInProduction;
+        private List<ProductionGroup> _groupsToProduction;
 
         public ObservableCollection<ProductionGroup> GroupsInProduction { get; } = new ObservableCollection<ProductionGroup>();
         public ObservableCollection<ProductionGroup> GroupsToProduction { get; } = new ObservableCollection<ProductionGroup>();
@@ -52,11 +52,6 @@ namespace HVTApp.UI.Modules.Sales.Production
         /// Отозвать оборудование из производства
         /// </summary>
         public ICommand RemoveFromProductionCommand { get; }
-
-        /// <summary>
-        /// Загрузить оборудование, которое можно разместить в производстве
-        /// </summary>
-        public ICommand LoadUnitsToProductionCommand { get; }
 
         public ProductionViewModel(IUnityContainer container) : base(container)
         {
@@ -151,8 +146,6 @@ namespace HVTApp.UI.Modules.Sales.Production
                     SelectedInProduction = null;
                 },
                 () => SelectedInProduction != null);
-
-            LoadUnitsToProductionCommand = new DelegateCommand(LoadUnitsToProduction, () => _salesUnitsAll != null);
         }
 
         private List<SalesUnit> _salesUnitsAll;
@@ -164,9 +157,10 @@ namespace HVTApp.UI.Modules.Sales.Production
             //все единицы текущего пользователя
             _salesUnitsAll = ((ISalesUnitRepository) UnitOfWork.Repository<SalesUnit>()).GetCurrentUserSalesUnits().ToList();
 
+            //оборудование, которое уже размещено в производстве
             _groupsInProduction = _salesUnitsAll
                 .Where(salesUnit => salesUnit.SignalToStartProduction.HasValue)
-                .Select(salesUnit => new ProductionItem(salesUnit, salesUnit.ActualPriceCalculationItem(UnitOfWork)))
+                .Select(salesUnit => new ProductionItem(salesUnit, UnitOfWork))
                 .GroupBy(productionItem => new
                 {
                     ProductId = productionItem.Model.Product.Id,
@@ -177,14 +171,10 @@ namespace HVTApp.UI.Modules.Sales.Production
                 })
                 .OrderBy(x => x.Key.EndProductionDateCalculated)
                 .ThenBy(x => x.Key.FacilityId)
-                .Select(x => new ProductionGroup(x));
-        }
+                .Select(x => new ProductionGroup(x))
+                .ToList();
 
-        /// <summary>
-        /// Загрузка юнитов, которые могут быть включены в производство
-        /// </summary>
-        private void LoadUnitsToProduction()
-        {
+            // Загрузка юнитов, которые могут быть включены в производство
             //задачи из ТСЕ, которые менеджер запустил
             List<TechnicalRequrementsTask> requrementsTasks = UnitOfWork.Repository<TechnicalRequrementsTask>().Find(technicalRequrementsTask => technicalRequrementsTask.Start.HasValue);
 
@@ -194,10 +184,10 @@ namespace HVTApp.UI.Modules.Sales.Production
                 .Where(salesUnit => !salesUnit.IsLoosen)                            //не проиграны
                 .Where(salesUnit => !salesUnit.SignalToStartProduction.HasValue)    //не включены в производство
                 .Intersect(requrementsTasks.SelectMany(technicalRequrementsTask => technicalRequrementsTask.Requrements.SelectMany(technicalRequrements => technicalRequrements.SalesUnits)).Distinct());
-            
-            var productionItems = salesUnits.Select(salesUnit => new ProductionItem(salesUnit, salesUnit.ActualPriceCalculationItem(UnitOfWork))).ToList();
 
-            var groupsToProduction = productionItems
+            var productionItems = salesUnits.Select(salesUnit => new ProductionItem(salesUnit, UnitOfWork)).ToList();
+
+            _groupsToProduction = productionItems
                 .Where(productionItem => !productionItem.SignalToStartProduction.HasValue)
                 .GroupBy(productionItem => new
                 {
@@ -208,16 +198,16 @@ namespace HVTApp.UI.Modules.Sales.Production
                 })
                 .OrderBy(x => x.Key.EndProductionDateCalculated)
                 .ThenBy(x => x.Key.FacilityId)
-                .Select(x => new ProductionGroup(x));
+                .Select(x => new ProductionGroup(x))
+                .ToList();
 
-            GroupsToProduction.Clear();
-            GroupsToProduction.AddRange(groupsToProduction);
         }
 
         protected override void BeforeGetData()
         {
             GroupsInProduction.Clear();
             GroupsToProduction.Clear();
+
             SelectedToProduction = null;
             SelectedInProduction = null;
         }
@@ -225,7 +215,7 @@ namespace HVTApp.UI.Modules.Sales.Production
         protected override void AfterGetData()
         {
             GroupsInProduction.AddRange(_groupsInProduction);
-            ((DelegateCommand)LoadUnitsToProductionCommand).RaiseCanExecuteChanged();
+            GroupsToProduction.AddRange(_groupsToProduction);
         }
     }
 }
