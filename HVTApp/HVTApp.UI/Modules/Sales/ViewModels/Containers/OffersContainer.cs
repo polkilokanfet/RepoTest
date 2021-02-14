@@ -24,17 +24,17 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
 
         protected override OfferLookup MakeLookup(Offer offer)
         {
-            var offerUnits = _offerUnits.Where(x => x.Offer.Id == offer.Id);
+            var offerUnits = _offerUnits.Where(offerUnit => offerUnit.Offer.Id == offer.Id);
             return new OfferLookup(offer, offerUnits, Container);
         }
 
         protected override IEnumerable<OfferLookup> GetLookups(IUnitOfWork unitOfWork)
         {
-            _offerUnits = unitOfWork.Repository<OfferUnit>().Find(x => x.Offer.Project.Manager.IsAppCurrentUser());
+            _offerUnits = unitOfWork.Repository<OfferUnit>().Find(offerUnit => offerUnit.Offer.Project.Manager.IsAppCurrentUser());
             return _offerUnits
-                .Select(x => x.Offer)
+                .Select(offerUnit => offerUnit.Offer)
                 .Distinct()
-                .OrderBy(x => x.Date)
+                .OrderByDescending(offer => offer.Date)
                 .Select(MakeLookup);
         }
 

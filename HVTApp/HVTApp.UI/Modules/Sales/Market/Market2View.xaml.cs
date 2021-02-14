@@ -14,12 +14,14 @@ namespace HVTApp.UI.Modules.Sales.Market
     [RibbonTab(typeof(MarketSettingsTab))]
     public partial class Market2View
     {
+        private readonly Market2ViewModel _viewModel;
         private Uri _currentUri;
 
         protected override XamDataGrid DataGrid => this.ContentControl.Content as XamDataGrid;
 
         public Market2View(Market2ViewModel viewModel, IRegionManager regionManager, IEventAggregator eventAggregator, IMessageService messageService) : base(viewModel, regionManager, eventAggregator, messageService)
         {
+            _viewModel = viewModel;
             InitializeComponent();
 
             //приложения проекта
@@ -31,6 +33,19 @@ namespace HVTApp.UI.Modules.Sales.Market
                     this.Browser.Source = _currentUri;
                 }
             };
+
+            this.Loaded += OnLoaded;
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            if (_viewModel.IsLoaded)
+            {
+                ExpandCollapseMethod(true);
+                ExpandCollapseMethod(false);
+            }
+
+            this.Loaded -= OnLoaded;
         }
 
         private void GoBackButton_OnClick(object sender, RoutedEventArgs e)

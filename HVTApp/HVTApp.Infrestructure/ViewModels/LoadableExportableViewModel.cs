@@ -15,21 +15,32 @@ namespace HVTApp.Infrastructure.ViewModels
         public bool IsLoaded
         {
             get => _isLoaded;
-            private set
+            protected set
             {
                 _isLoaded = value;
                 OnPropertyChanged();
+
+                if (_isLoaded)
+                {
+                    LoadComplited?.Invoke();
+                }
             }
         }
 
-        public event Action Loaded;
+        /// <summary>
+        /// Загрузка завершена
+        /// </summary>
+        public event Action LoadComplited;
 
         public ICommand ReloadCommand { get; }
 
-        protected LoadableExportableViewModel(IUnityContainer container) : base(container)
+        protected LoadableExportableViewModel(IUnityContainer container, bool loadDataInCtor = true) : base(container)
         {
             ReloadCommand = new DelegateCommand(ReloadCommand_Execute);
-            Load();
+            if (loadDataInCtor)
+            {
+                Load();
+            }
         }
 
         protected virtual void ReloadCommand_Execute()
@@ -47,7 +58,6 @@ namespace HVTApp.Infrastructure.ViewModels
                     {
                         AfterGetData();
                         IsLoaded = true;
-                        Loaded?.Invoke();
                     }, 
                     ErrorCallback);
         }

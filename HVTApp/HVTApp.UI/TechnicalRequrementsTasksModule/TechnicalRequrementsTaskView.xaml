@@ -209,7 +209,7 @@
                     </infgDp:XamDataGrid>
                 </GroupBox>
 
-                <GroupBox Grid.Column="1" Header="Файлы расчета ПЗ" MaxHeight="300">
+                <GroupBox Grid.Column="1" Header="Расчеты Переменных Затрат" MaxHeight="300">
                     <infgDp:XamDataGrid x:Name="PriceCalculationsGrid"
                                         DataSource="{Binding TechnicalRequrementsTaskWrapper.Model.PriceCalculations}"
                                         ActiveDataItem="{Binding SelectedCalculation}">
@@ -222,8 +222,8 @@
 
                             <infgDp:FieldLayout Key="Calculation">
                                 <infgDp:FieldLayout.Fields>
-                                    <infgDp:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding TaskOpenMoment}" Label="Старт задачи" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
-                                    <infgDp:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding TaskCloseMoment}" Label="Финиш задачи" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
+                                    <infgDp:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding TaskOpenMoment}" Label="Старт расчета" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
+                                    <infgDp:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding TaskCloseMoment}" Label="Финиш расчета" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
                                     <infgDp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Initiator}" Label="Инициатор" Width="150" AllowResize="True" Converter="{StaticResource ObjectToStringConverter}"/>
                                     <infgDp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Comment}" Label="Комментарий" Width="200" AllowResize="True" />
                                 </infgDp:FieldLayout.Fields>

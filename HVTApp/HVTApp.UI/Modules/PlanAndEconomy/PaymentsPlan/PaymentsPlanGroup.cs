@@ -14,11 +14,20 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsPlan
         public SalesUnit SalesUnit { get; }
         public PaymentPlanned PaymentPlanned { get; }
         public int Amount { get; }
+
+        /// <summary>
+        /// Ñóììà ñ ÍÄÑ
+        /// </summary>
         public double Sum { get; }
+
+        /// <summary>
+        /// Ñóììà áåç ÍÄÑ
+        /// </summary>
+        public double SumWithoutVat { get; }
 
         public DateTime Date
         {
-            get { return _date; }
+            get => _date;
             set
             {
                 if (Equals(_date, value)) return;
@@ -76,8 +85,9 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsPlan
             SalesUnit = payments.First().SalesUnit;
             PaymentPlanned = payments.First().PaymentPlanned;
             Amount = payments.Count;
+            SumWithoutVat = SalesUnit.Cost * PaymentPlanned.Condition.Part * PaymentPlanned.Part * Amount;
             var vat = SalesUnit.Specification?.Vat ?? 20;
-            Sum = SalesUnit.Cost * PaymentPlanned.Condition.Part * PaymentPlanned.Part * (1.0 + vat / 100.0) * Amount;
+            Sum = SumWithoutVat * (1.0 + vat / 100.0);
             _date = PaymentPlanned.Date;
             OrderNumber = SalesUnit.Order?.Number;
         }

@@ -127,7 +127,7 @@ namespace HVTApp.UI.Modules.Sales.Market
             }
         }
 
-        public Market2ViewModel(IUnityContainer container) : base(container)
+        public Market2ViewModel(IUnityContainer container) : base(container, loadDataInCtor: false)
         {
             _eventAggregator = Container.Resolve<IEventAggregator>();
             _messageService = Container.Resolve<IMessageService>();
@@ -215,6 +215,12 @@ namespace HVTApp.UI.Modules.Sales.Market
             #endregion
 
             InitNotes();
+
+            //загрузка данных
+            BeforeGetData();
+            GetData();
+            AfterGetData();
+            IsLoaded = true;
         }
 
         protected override void ReloadCommand_Execute()

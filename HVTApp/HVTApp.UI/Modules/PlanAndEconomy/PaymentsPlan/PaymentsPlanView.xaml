@@ -35,7 +35,8 @@
                         <infg:TextField AlternateBinding="{Binding PaymentType}" BindingType="UseAlternateBinding" Label="Тип" Width="Auto"/>
                         <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" AllowEdit="True"/>
                         <infg:NumericField AlternateBinding="{Binding Week}" BindingType="UseAlternateBinding" Label="Неделя" Width="Auto"/>
-                        <infg:NumericField AlternateBinding="{Binding Sum}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto"/>
+                        <infg:NumericField AlternateBinding="{Binding SumWithoutVat}" BindingType="UseAlternateBinding" Label="Сумма без НДС" Width="Auto"/>
+                        <infg:NumericField AlternateBinding="{Binding Sum}" BindingType="UseAlternateBinding" Label="Сумма с НДС" Width="Auto"/>
                         <infg:TextField AlternateBinding="{Binding SalesUnit.Project.Manager.Employee.Person}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Менеджер" Width="Auto"/>
                         <infg:TextField AlternateBinding="{Binding PaymentPlanned.Condition}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Условие" Width="Auto"/>
                         <infg:TextField AlternateBinding="{Binding Month}" BindingType="UseAlternateBinding" Label="Месяц" Width="Auto"/>

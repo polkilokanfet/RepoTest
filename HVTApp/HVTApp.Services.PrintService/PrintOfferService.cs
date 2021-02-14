@@ -350,7 +350,7 @@ namespace HVTApp.Services.PrintService
 
             writerSet.FooterWriterAllPages.StartParagraph();
             writerSet.FooterWriterAllPages.AddTextRun("Исполнитель:" + Environment.NewLine + $"{offer.Author}" + Environment.NewLine + $"тел.: {offer.Author.PhoneNumber}; e-mail: {offer.Author.Email}; ");
-            writerSet.FooterWriterAllPages.AddHyperlink("uetm.ru", "http://www.uetm.ru");
+            writerSet.FooterWriterAllPages.AddHyperlink(@"http://www.uetm.ru", "uetm.ru");
             writerSet.FooterWriterAllPages.AddTextRun(Environment.NewLine + $"{offer.RegNumber} от {offer.Date.ToShortDateString()} г. - стр. ");
             writerSet.FooterWriterAllPages.AddPageNumberField(PageNumberFieldFormat.Decimal);
             writerSet.FooterWriterAllPages.EndParagraph();

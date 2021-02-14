@@ -43,7 +43,7 @@ namespace HVTApp.UI.Components
             viewModel.ExpandCollapseEvent += ExpandCollapseMethod;
 
             this.Loaded += OnLoaded;
-            viewModel.Loaded += () =>
+            viewModel.LoadComplited += () =>
             {
                 ExpandCollapseMethod(true);
                 ExpandCollapseMethod(false);
@@ -61,7 +61,7 @@ namespace HVTApp.UI.Components
             }
         }
 
-        private void ExpandCollapseMethod(bool expand)
+        protected void ExpandCollapseMethod(bool expand)
         {
             if (DataGrid == null)
                 return;

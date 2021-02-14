@@ -5,10 +5,9 @@
                     xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
                     xmlns:infPrism="clr-namespace:HVTApp.Infrastructure.Prism;assembly=HVTApp.Infrastructure"
                     x:Class="HVTApp.Modules.DirectumLite.Menus.DirectumLiteMenu"
-                    Header="DirectumLite"
-                    >
-                    <!--LargeImage="/HVTApp.Modules.DirectumLite;component/images/32.png"
-                    SmallImage="/HVTApp.Modules.DirectumLite;component/images/16.png"-->
+                    Header="DirectumLite">
+                    <!--SmallImage="/HVTApp.Modules.DirectumLite;component/Images/p16.png"
+                    LargeImage="/HVTApp.Modules.DirectumLite;component/Images/p32.png">-->
 
     <igs:XamDataTree Name="_xamDataTree"
                      ItemsSource="{Binding Items}"

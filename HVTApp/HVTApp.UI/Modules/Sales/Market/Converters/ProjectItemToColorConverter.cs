@@ -9,15 +9,14 @@ namespace HVTApp.UI.Modules.Sales.Market.Converters
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            var item = value as ProjectItem;
-            if (item != null)
+            if (value is ProjectItem item)
             {
                 if (item.IsLoosen) return Colors.LightPink;
                 if (!item.DaysToStartProduction.HasValue) return Colors.LightGreen;
 
-                if (item.DaysToStartProduction.Value <= 0) return Colors.DarkGoldenrod;
-                if (item.DaysToStartProduction.Value < 30) return Colors.Goldenrod;
-                if (item.DaysToStartProduction.Value < 60) return Colors.PaleGoldenrod;
+                if (item.DaysToStartProduction.Value <= 0) return Colors.Orange;
+                if (item.DaysToStartProduction.Value < 30) return Colors.Yellow;
+                if (item.DaysToStartProduction.Value < 60) return Colors.LightYellow;
 
                 return Colors.White;
             }

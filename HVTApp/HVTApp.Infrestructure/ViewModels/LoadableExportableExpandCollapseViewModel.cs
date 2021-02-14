@@ -12,7 +12,7 @@ namespace HVTApp.Infrastructure.ViewModels
 
         public event Action<bool> ExpandCollapseEvent;
 
-        protected LoadableExportableExpandCollapseViewModel(IUnityContainer container) : base(container)
+        protected LoadableExportableExpandCollapseViewModel(IUnityContainer container, bool loadDataInCtor = true) : base(container, loadDataInCtor)
         {
             //развернуть
             ExpandCommand = new DelegateCommand(() => { ExpandCollapseEvent?.Invoke(true); });
