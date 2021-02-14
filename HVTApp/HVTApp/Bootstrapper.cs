@@ -169,8 +169,8 @@ namespace HVTApp
 
             catalog.AddModule(typeof(UiModule));
 
-            catalog.AddModuleByRole(typeof(SalesModule));
             catalog.AddModuleByRole(typeof(DirectorModule));
+            catalog.AddModuleByRole(typeof(SalesModule));
             catalog.AddModuleByRole(typeof(PlanAndEconomyModule));
             catalog.AddModuleByRole(typeof(PriceMakingModule));
             catalog.AddModuleByRole(typeof(SupplyModule));

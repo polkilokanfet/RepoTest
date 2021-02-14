@@ -1,6 +1,10 @@
-﻿using EventServiceClient2;
+﻿using System.Linq;
+using System.Windows;
+using EventServiceClient2;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
+using HVTApp.Model;
+using Infragistics.Windows.OutlookBar;
 using Infragistics.Windows.OutlookBar.Events;
 using Microsoft.Practices.Unity;
 
@@ -33,12 +37,37 @@ namespace HVTApp.Views
             };
         }
 
+        /// <summary>
+        /// Реакция на смену выделенной группы
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void XamOutlookBar_OnSelectedGroupChanging(object sender, SelectedGroupChangingEventArgs e)
         {
-            var group = e.NewSelectedOutlookBarGroup as IOutlookBarGroup;
-            if (group != null)
+            if (e.NewSelectedOutlookBarGroup is IOutlookBarGroup outlookBarGroup)
             {
-                Commands.NavigateCommand.Execute(group.DefaultViewUri);
+                //грузим вид из этой группы
+                Commands.NavigateCommand.Execute(outlookBarGroup.DefaultViewUri);
+            }
+        }
+
+        //нужно, чтобы при первой загрузке отображался дефолтный вид
+        private void XamOutlookBar_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            //if (GlobalAppProperties.User.RoleCurrent == Role.Admin)
+            //{
+            //    return;
+            //}
+
+            if (sender is XamOutlookBar outlookBar)
+            {
+                outlookBar.SelectedGroup.Loaded += (s, args) =>
+                {
+                    if (s is IOutlookBarGroup outlookBarGroup)
+                    {
+                        Commands.NavigateCommand.Execute(outlookBarGroup.DefaultViewUri);
+                    }
+                };
             }
         }
     }
