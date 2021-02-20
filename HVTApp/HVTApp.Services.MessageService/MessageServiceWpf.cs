@@ -11,17 +11,27 @@ namespace HVTApp.Services.MessageService
         {
             var window = new YesNoWindow(title, message, defaultYes, defaultNo)
             {
-                Owner = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive)
+                Owner = Application.Current.Windows.OfType<Window>().SingleOrDefault(window1 => window1.IsActive)
             };
             window.ShowDialog();
             if (window.DialogResult.HasValue && window.DialogResult.Value)
+            {
                 return MessageDialogResult.Yes;
+            }
             return MessageDialogResult.No;
         }
 
         public void ShowOkMessageDialog(string title, string message)
         {
-            MessageBox.Show(Application.Current.Windows.OfType<Window>().Single(x => x.IsActive), message, title);
+            var owner = Application.Current.Windows.OfType<Window>().SingleOrDefault(window => window.IsActive);
+            if (owner == null)
+            {
+                MessageBox.Show(message, title);
+            }
+            else
+            {
+                MessageBox.Show(owner, message, title);
+            }
         }
     }
 }

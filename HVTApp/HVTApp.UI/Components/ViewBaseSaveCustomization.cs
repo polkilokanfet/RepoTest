@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Windows;
+using System.Xml;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Infrastructure.ViewModels;
@@ -61,14 +62,21 @@ namespace HVTApp.UI.Components
             }
         }
 
-        protected void ExpandCollapseMethod(bool expand)
+        protected void ExpandCollapseMethod(bool isExpanded)
         {
             if (DataGrid == null)
                 return;
 
             foreach (var o in DataGrid.DataSource)
             {
-                DataGrid.GetRecordFromDataItem(o, recursive: false).IsExpanded = expand;
+                try
+                {
+                    DataGrid.GetRecordFromDataItem(o, recursive: false).IsExpanded = isExpanded;
+                }
+                catch (InvalidOperationException)
+                {
+                    return;
+                }
             }
         }
 
@@ -108,9 +116,11 @@ namespace HVTApp.UI.Components
                 {
                     DataGrid.LoadCustomizations(fs);
                 }
-                catch (Exception e)
+                catch (XmlException e)
                 {
-                    _messageService.ShowOkMessageDialog(e.GetType().ToString(), e.GetAllExceptions());
+                    string message = $"Файл настройки вида {this.GetType().FullName} поврежден. Путь к файлу: {path} \n" + e.GetAllExceptions();
+                    _messageService.ShowOkMessageDialog(e.GetType().ToString(), message);
+                    return false;
                 }
             }
 
