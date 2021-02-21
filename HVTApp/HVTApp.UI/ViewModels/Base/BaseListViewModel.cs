@@ -87,7 +87,7 @@ namespace HVTApp.UI.ViewModels
         /// </summary>
         public TLookup SelectedLookup
         {
-            get { return _selectedLookup; }
+            get => _selectedLookup;
             set
             {
                 if (Equals(_selectedLookup, value)) return;
@@ -105,12 +105,14 @@ namespace HVTApp.UI.ViewModels
         /// </summary>
         public TEntity SelectedItem
         {
-            get { return _selectedItem; }
+            get => _selectedItem;
             set
             {
                 if (Equals(_selectedItem, value)) return;
                 _selectedItem = value;
-                SelectedLookup = _selectedLookup != null ? Lookups.Single(x => x.Entity.Id == _selectedItem.Id) : null;
+                SelectedLookup = _selectedItem == null 
+                    ? null
+                    : Lookups.Single(lookup => lookup.Entity.Id == _selectedItem.Id);
                 OnPropertyChanged();
             }
         }
@@ -144,8 +146,9 @@ namespace HVTApp.UI.ViewModels
             LoadBegin?.Invoke();
             IsLoaded = false;
             LookupsCollection.Clear();
-            if(!Lookups.Contains(SelectedLookup)) SelectedLookup = null;
-            lookups.OrderBy(x => x).ForEach(LookupsCollection.Add);
+            if(!Lookups.Contains(SelectedLookup)) 
+                SelectedLookup = null;
+            lookups.OrderBy(lookup => lookup).ForEach(LookupsCollection.Add);
             Loaded?.Invoke();
         }
 
@@ -251,7 +254,7 @@ namespace HVTApp.UI.ViewModels
         #endregion
 
         /// <summary>
-        /// реакция на корректировку айтема или на создание нового
+        /// Реакция на корректировку айтема или на создание нового
         /// </summary>
         /// <param name="entity"></param>
         protected virtual void OnAfterSaveEntity(TEntity entity)
@@ -266,7 +269,14 @@ namespace HVTApp.UI.ViewModels
 
             //добавление айтема не из списка
             lookup = (TLookup)Activator.CreateInstance(typeof(TLookup), entity);
-            LookupsCollection.Add(lookup);
+            if (Lookups is ObservableCollection<TLookup> collection)
+            {
+                collection.Insert(0, lookup);
+            }
+            else
+            {
+                LookupsCollection.Add(lookup);
+            }
 
             //выбор добавленного айтема
             SelectedLookup = lookup;

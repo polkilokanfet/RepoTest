@@ -95,7 +95,7 @@
         </Setter>
 
         <Setter Property="DataSource" Value="{Binding Lookups, Mode=OneWay}" />
-        <Setter Property="SelectedDataItem" Value="{Binding SelectedLookup, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <Setter Property="ActiveDataItem" Value="{Binding SelectedLookup, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         <!--<Setter Property="AutoFit" Value="True" />-->
     </Style>
     

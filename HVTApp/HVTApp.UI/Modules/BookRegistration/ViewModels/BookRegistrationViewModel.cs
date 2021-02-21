@@ -46,11 +46,26 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
 
         public event Action<Document> SelectedDocumentChanged;
 
+        /// <summary>
+        /// Создание исходящего документа
+        /// </summary>
         public ICommand CreateOutgoingDocumentCommand { get; }
+
+        /// <summary>
+        /// Создание входящего документа
+        /// </summary>
         public ICommand CreateIncomingDocumentCommand { get; }
+
+        /// <summary>
+        /// Редактирование документа
+        /// </summary>
         public ICommand EditDocumentCommand { get; }
         public ICommand OpenFolderCommand { get; }
         public ICommand ReloadCommand { get; }
+
+        /// <summary>
+        /// Печать бланка письма
+        /// </summary>
         public ICommand PrintBlankLetterCommand { get; }
 
         public BookRegistrationViewModel(IUnityContainer container) : base(container)
