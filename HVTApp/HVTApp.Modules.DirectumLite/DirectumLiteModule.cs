@@ -23,15 +23,29 @@ namespace HVTApp.Modules.DirectumLite
         protected override void RegisterTypes()
         {
             Container.Resolve<IDialogService>().RegisterShow<DirectumTasksIncomingViewModel, DirectumTasksIncomingToLateView>();
+            ShowDirectumTasks();
+        }
 
-            //проверка на просроченные задания
+        /// <summary>
+        /// Показ просроченных заданий
+        /// </summary>
+        private void ShowDirectumTasks()
+        {
             var viewModel = new DirectumTasksIncomingViewModel(Container);
-            var items = viewModel.Items.ToList();
-            viewModel.Items.Clear();
-            viewModel.Items.AddRange(items.Where(x => x.IsActual && (x.FinishPlan < DateTime.Now || (x.Performer.Id == GlobalAppProperties.User.Id && !x.StartPerformer.HasValue))));
-            if (viewModel.Items.Any())
+            //просроченные задачи
+            var targetItems = viewModel.Items
+                .Where(directumTask => directumTask.IsActual)
+                .Where(directumTask => 
+                    (directumTask.Group.Author.Id == GlobalAppProperties.User.Id && directumTask.FinishPlan < DateTime.Now) ||     //если пользователь автор задачи и задача просрочена
+                    (directumTask.Performer.Id == GlobalAppProperties.User.Id && !directumTask.StartPerformer.HasValue) ||         //если пользователь исполнитель и не приступил к исполнению задачи
+                    (directumTask.Performer.Id == GlobalAppProperties.User.Id && directumTask.FinishPlan < DateTime.Now))          //если пользователь исполнитель и просрочил выполнение
+                .ToList();
+            
+            if (targetItems.Any())
             {
-                Container.Resolve<IDialogService>().Show(viewModel, "Новые задачи и задачи с истекшим сроком исполнения/проверки");
+                viewModel.Items.Clear();
+                viewModel.Items.AddRange(targetItems);
+                Container.Resolve<IDialogService>().Show(viewModel, "Новые задачи и задачи с истекшим сроком исполнения или проверки");
             }
         }
 
