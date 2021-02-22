@@ -81,7 +81,7 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
         protected override void SaveItem()
         {
             base.SaveItem();
-            Container.Resolve<IEventAggregator>().GetEvent<AfterSaveIncomingRequestSyncEvent>().Publish(Item.Model);
+            //Container.Resolve<IEventAggregator>().GetEvent<AfterSaveIncomingRequestSyncEvent>().Publish(Item.Model);
         }
     }
 }

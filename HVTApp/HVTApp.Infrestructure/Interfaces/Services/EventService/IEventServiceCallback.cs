@@ -18,15 +18,27 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
 
 
         [OperationContract(IsOneWay = true)]
-        void OnSaveDirectumTaskPublishEvent(Guid taskId);
+        void OnSaveDirectumTaskServiceCallback(Guid taskId);
 
         [OperationContract(IsOneWay = true)]
-        void OnSavePriceCalculationPublishEvent(Guid calculationId);
+        void OnSavePriceCalculationServiceCallback(Guid calculationId);
 
         [OperationContract(IsOneWay = true)]
-        void OnSaveIncomingRequestPublishEvent(Guid requestId);
+        void OnStartPriceCalculationServiceCallback(Guid calculationId);
 
         [OperationContract(IsOneWay = true)]
-        void OnSaveIncomingDocumentPublishEvent(Guid documentId);
+        void OnFinishPriceCalculationServiceCallback(Guid calculationId);
+
+        [OperationContract(IsOneWay = true)]
+        void OnCancelPriceCalculationServiceCallback(Guid calculationId);
+
+        [OperationContract(IsOneWay = true)]
+        void OnSaveIncomingRequestServiceCallback(Guid requestId);
+
+        [OperationContract(IsOneWay = true)]
+        void OnSaveIncomingDocumentServiceCallback(Guid documentId);
+
+        [OperationContract(IsOneWay = true)]
+        void OnSaveTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId);
     }
 }

@@ -93,8 +93,8 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
         protected override void SaveItem()
         {
             base.SaveItem();
-            if (Item.Model.RecipientEmployee.Company.Id == GlobalAppProperties.Actual.OurCompany?.Id)
-                Container.Resolve<IEventAggregator>().GetEvent<AfterSaveIncomingDocumentSyncEvent>().Publish(Item.Model);
+            //if (Item.Model.RecipientEmployee.Company.Id == GlobalAppProperties.Actual.OurCompany?.Id)
+            //    Container.Resolve<IEventAggregator>().GetEvent<AfterSaveIncomingDocumentSyncEvent>().Publish(Item.Model);
         }
 
     }

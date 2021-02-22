@@ -51,6 +51,24 @@ namespace EventServiceClient2.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/SavePriceCalculationPublishEvent")]
         System.Threading.Tasks.Task SavePriceCalculationPublishEventAsync(System.Guid appSessionId, System.Guid priceCalculationId);
         
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/StartPriceCalculationPublishEvent")]
+        void StartPriceCalculationPublishEvent(System.Guid appSessionId, System.Guid priceCalculationId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/StartPriceCalculationPublishEvent")]
+        System.Threading.Tasks.Task StartPriceCalculationPublishEventAsync(System.Guid appSessionId, System.Guid priceCalculationId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/FinishPriceCalculationPublishEvent")]
+        void FinishPriceCalculationPublishEvent(System.Guid appSessionId, System.Guid priceCalculationId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/FinishPriceCalculationPublishEvent")]
+        System.Threading.Tasks.Task FinishPriceCalculationPublishEventAsync(System.Guid appSessionId, System.Guid priceCalculationId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/CancelPriceCalculationPublishEvent")]
+        void CancelPriceCalculationPublishEvent(System.Guid appSessionId, System.Guid priceCalculationId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/CancelPriceCalculationPublishEvent")]
+        System.Threading.Tasks.Task CancelPriceCalculationPublishEventAsync(System.Guid appSessionId, System.Guid priceCalculationId);
+        
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/SaveIncomingRequestPublishEvent")]
         void SaveIncomingRequestPublishEvent(System.Guid appSessionId, System.Guid requestId);
         
@@ -62,6 +80,12 @@ namespace EventServiceClient2.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/SaveIncomingDocumentPublishEvent")]
         System.Threading.Tasks.Task SaveIncomingDocumentPublishEventAsync(System.Guid appSessionId, System.Guid documentId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/SaveTechnicalRequarementsTaskPublishEvent")]
+        void SaveTechnicalRequarementsTaskPublishEvent(System.Guid appSessionId, System.Guid technicalRequarementsTaskId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/SaveTechnicalRequarementsTaskPublishEvent")]
+        System.Threading.Tasks.Task SaveTechnicalRequarementsTaskPublishEventAsync(System.Guid appSessionId, System.Guid technicalRequarementsTaskId);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -76,17 +100,29 @@ namespace EventServiceClient2.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnSendMessageToUser")]
         void OnSendMessageToUser(System.Guid authorId, string message);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnSaveDirectumTaskPublishEvent")]
-        void OnSaveDirectumTaskPublishEvent(System.Guid taskId);
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnSaveDirectumTaskServiceCallback")]
+        void OnSaveDirectumTaskServiceCallback(System.Guid taskId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnSavePriceCalculationPublishEvent")]
-        void OnSavePriceCalculationPublishEvent(System.Guid calculationId);
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnSavePriceCalculationServiceCallback")]
+        void OnSavePriceCalculationServiceCallback(System.Guid calculationId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnSaveIncomingRequestPublishEvent")]
-        void OnSaveIncomingRequestPublishEvent(System.Guid requestId);
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnStartPriceCalculationServiceCallback")]
+        void OnStartPriceCalculationServiceCallback(System.Guid calculationId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnSaveIncomingDocumentPublishEvent")]
-        void OnSaveIncomingDocumentPublishEvent(System.Guid documentId);
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnFinishPriceCalculationServiceCallback")]
+        void OnFinishPriceCalculationServiceCallback(System.Guid calculationId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnCancelPriceCalculationServiceCallback")]
+        void OnCancelPriceCalculationServiceCallback(System.Guid calculationId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnSaveIncomingRequestServiceCallback")]
+        void OnSaveIncomingRequestServiceCallback(System.Guid requestId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnSaveIncomingDocumentServiceCallback")]
+        void OnSaveIncomingDocumentServiceCallback(System.Guid documentId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnSaveTechnicalRequarementsTaskServiceCallback")]
+        void OnSaveTechnicalRequarementsTaskServiceCallback(System.Guid technicalRequarementsTaskId);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -165,6 +201,30 @@ namespace EventServiceClient2.ServiceReference1 {
             return base.Channel.SavePriceCalculationPublishEventAsync(appSessionId, priceCalculationId);
         }
         
+        public void StartPriceCalculationPublishEvent(System.Guid appSessionId, System.Guid priceCalculationId) {
+            base.Channel.StartPriceCalculationPublishEvent(appSessionId, priceCalculationId);
+        }
+        
+        public System.Threading.Tasks.Task StartPriceCalculationPublishEventAsync(System.Guid appSessionId, System.Guid priceCalculationId) {
+            return base.Channel.StartPriceCalculationPublishEventAsync(appSessionId, priceCalculationId);
+        }
+        
+        public void FinishPriceCalculationPublishEvent(System.Guid appSessionId, System.Guid priceCalculationId) {
+            base.Channel.FinishPriceCalculationPublishEvent(appSessionId, priceCalculationId);
+        }
+        
+        public System.Threading.Tasks.Task FinishPriceCalculationPublishEventAsync(System.Guid appSessionId, System.Guid priceCalculationId) {
+            return base.Channel.FinishPriceCalculationPublishEventAsync(appSessionId, priceCalculationId);
+        }
+        
+        public void CancelPriceCalculationPublishEvent(System.Guid appSessionId, System.Guid priceCalculationId) {
+            base.Channel.CancelPriceCalculationPublishEvent(appSessionId, priceCalculationId);
+        }
+        
+        public System.Threading.Tasks.Task CancelPriceCalculationPublishEventAsync(System.Guid appSessionId, System.Guid priceCalculationId) {
+            return base.Channel.CancelPriceCalculationPublishEventAsync(appSessionId, priceCalculationId);
+        }
+        
         public void SaveIncomingRequestPublishEvent(System.Guid appSessionId, System.Guid requestId) {
             base.Channel.SaveIncomingRequestPublishEvent(appSessionId, requestId);
         }
@@ -179,6 +239,14 @@ namespace EventServiceClient2.ServiceReference1 {
         
         public System.Threading.Tasks.Task SaveIncomingDocumentPublishEventAsync(System.Guid appSessionId, System.Guid documentId) {
             return base.Channel.SaveIncomingDocumentPublishEventAsync(appSessionId, documentId);
+        }
+        
+        public void SaveTechnicalRequarementsTaskPublishEvent(System.Guid appSessionId, System.Guid technicalRequarementsTaskId) {
+            base.Channel.SaveTechnicalRequarementsTaskPublishEvent(appSessionId, technicalRequarementsTaskId);
+        }
+        
+        public System.Threading.Tasks.Task SaveTechnicalRequarementsTaskPublishEventAsync(System.Guid appSessionId, System.Guid technicalRequarementsTaskId) {
+            return base.Channel.SaveTechnicalRequarementsTaskPublishEventAsync(appSessionId, technicalRequarementsTaskId);
         }
     }
 }

@@ -48,11 +48,23 @@
   <wsdl:message name="IEventService_SavePriceCalculationPublishEvent_InputMessage">
     <wsdl:part name="parameters" element="tns:SavePriceCalculationPublishEvent" />
   </wsdl:message>
+  <wsdl:message name="IEventService_StartPriceCalculationPublishEvent_InputMessage">
+    <wsdl:part name="parameters" element="tns:StartPriceCalculationPublishEvent" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_FinishPriceCalculationPublishEvent_InputMessage">
+    <wsdl:part name="parameters" element="tns:FinishPriceCalculationPublishEvent" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_CancelPriceCalculationPublishEvent_InputMessage">
+    <wsdl:part name="parameters" element="tns:CancelPriceCalculationPublishEvent" />
+  </wsdl:message>
   <wsdl:message name="IEventService_SaveIncomingRequestPublishEvent_InputMessage">
     <wsdl:part name="parameters" element="tns:SaveIncomingRequestPublishEvent" />
   </wsdl:message>
   <wsdl:message name="IEventService_SaveIncomingDocumentPublishEvent_InputMessage">
     <wsdl:part name="parameters" element="tns:SaveIncomingDocumentPublishEvent" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_SaveTechnicalRequarementsTaskPublishEvent_InputMessage">
+    <wsdl:part name="parameters" element="tns:SaveTechnicalRequarementsTaskPublishEvent" />
   </wsdl:message>
   <wsdl:message name="IEventService_OnServiceDisposeEvent_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnServiceDisposeEvent" />
@@ -63,17 +75,29 @@
   <wsdl:message name="IEventService_OnSendMessageToUser_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnSendMessageToUser" />
   </wsdl:message>
-  <wsdl:message name="IEventService_OnSaveDirectumTaskPublishEvent_OutputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnSaveDirectumTaskPublishEvent" />
+  <wsdl:message name="IEventService_OnSaveDirectumTaskServiceCallback_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnSaveDirectumTaskServiceCallback" />
   </wsdl:message>
-  <wsdl:message name="IEventService_OnSavePriceCalculationPublishEvent_OutputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnSavePriceCalculationPublishEvent" />
+  <wsdl:message name="IEventService_OnSavePriceCalculationServiceCallback_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnSavePriceCalculationServiceCallback" />
   </wsdl:message>
-  <wsdl:message name="IEventService_OnSaveIncomingRequestPublishEvent_OutputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnSaveIncomingRequestPublishEvent" />
+  <wsdl:message name="IEventService_OnStartPriceCalculationServiceCallback_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnStartPriceCalculationServiceCallback" />
   </wsdl:message>
-  <wsdl:message name="IEventService_OnSaveIncomingDocumentPublishEvent_OutputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnSaveIncomingDocumentPublishEvent" />
+  <wsdl:message name="IEventService_OnFinishPriceCalculationServiceCallback_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnFinishPriceCalculationServiceCallback" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_OnCancelPriceCalculationServiceCallback_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnCancelPriceCalculationServiceCallback" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_OnSaveIncomingRequestServiceCallback_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnSaveIncomingRequestServiceCallback" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_OnSaveIncomingDocumentServiceCallback_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnSaveIncomingDocumentServiceCallback" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_OnSaveTechnicalRequarementsTaskServiceCallback_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnSaveTechnicalRequarementsTaskServiceCallback" />
   </wsdl:message>
   <wsdl:portType name="IEventService">
     <wsdl:operation name="Connect">
@@ -98,11 +122,23 @@
     <wsdl:operation name="SavePriceCalculationPublishEvent">
       <wsdl:input wsaw:Action="http://tempuri.org/IEventService/SavePriceCalculationPublishEvent" message="tns:IEventService_SavePriceCalculationPublishEvent_InputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="StartPriceCalculationPublishEvent">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/StartPriceCalculationPublishEvent" message="tns:IEventService_StartPriceCalculationPublishEvent_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FinishPriceCalculationPublishEvent">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/FinishPriceCalculationPublishEvent" message="tns:IEventService_FinishPriceCalculationPublishEvent_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelPriceCalculationPublishEvent">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/CancelPriceCalculationPublishEvent" message="tns:IEventService_CancelPriceCalculationPublishEvent_InputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="SaveIncomingRequestPublishEvent">
       <wsdl:input wsaw:Action="http://tempuri.org/IEventService/SaveIncomingRequestPublishEvent" message="tns:IEventService_SaveIncomingRequestPublishEvent_InputMessage" />
     </wsdl:operation>
     <wsdl:operation name="SaveIncomingDocumentPublishEvent">
       <wsdl:input wsaw:Action="http://tempuri.org/IEventService/SaveIncomingDocumentPublishEvent" message="tns:IEventService_SaveIncomingDocumentPublishEvent_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveTechnicalRequarementsTaskPublishEvent">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/SaveTechnicalRequarementsTaskPublishEvent" message="tns:IEventService_SaveTechnicalRequarementsTaskPublishEvent_InputMessage" />
     </wsdl:operation>
     <wsdl:operation name="OnServiceDisposeEvent">
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnServiceDisposeEvent" message="tns:IEventService_OnServiceDisposeEvent_OutputCallbackMessage" />
@@ -113,17 +149,29 @@
     <wsdl:operation name="OnSendMessageToUser">
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnSendMessageToUser" message="tns:IEventService_OnSendMessageToUser_OutputCallbackMessage" />
     </wsdl:operation>
-    <wsdl:operation name="OnSaveDirectumTaskPublishEvent">
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnSaveDirectumTaskPublishEvent" message="tns:IEventService_OnSaveDirectumTaskPublishEvent_OutputCallbackMessage" />
+    <wsdl:operation name="OnSaveDirectumTaskServiceCallback">
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnSaveDirectumTaskServiceCallback" message="tns:IEventService_OnSaveDirectumTaskServiceCallback_OutputCallbackMessage" />
     </wsdl:operation>
-    <wsdl:operation name="OnSavePriceCalculationPublishEvent">
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnSavePriceCalculationPublishEvent" message="tns:IEventService_OnSavePriceCalculationPublishEvent_OutputCallbackMessage" />
+    <wsdl:operation name="OnSavePriceCalculationServiceCallback">
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnSavePriceCalculationServiceCallback" message="tns:IEventService_OnSavePriceCalculationServiceCallback_OutputCallbackMessage" />
     </wsdl:operation>
-    <wsdl:operation name="OnSaveIncomingRequestPublishEvent">
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnSaveIncomingRequestPublishEvent" message="tns:IEventService_OnSaveIncomingRequestPublishEvent_OutputCallbackMessage" />
+    <wsdl:operation name="OnStartPriceCalculationServiceCallback">
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnStartPriceCalculationServiceCallback" message="tns:IEventService_OnStartPriceCalculationServiceCallback_OutputCallbackMessage" />
     </wsdl:operation>
-    <wsdl:operation name="OnSaveIncomingDocumentPublishEvent">
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnSaveIncomingDocumentPublishEvent" message="tns:IEventService_OnSaveIncomingDocumentPublishEvent_OutputCallbackMessage" />
+    <wsdl:operation name="OnFinishPriceCalculationServiceCallback">
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnFinishPriceCalculationServiceCallback" message="tns:IEventService_OnFinishPriceCalculationServiceCallback_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OnCancelPriceCalculationServiceCallback">
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnCancelPriceCalculationServiceCallback" message="tns:IEventService_OnCancelPriceCalculationServiceCallback_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OnSaveIncomingRequestServiceCallback">
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnSaveIncomingRequestServiceCallback" message="tns:IEventService_OnSaveIncomingRequestServiceCallback_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OnSaveIncomingDocumentServiceCallback">
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnSaveIncomingDocumentServiceCallback" message="tns:IEventService_OnSaveIncomingDocumentServiceCallback_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OnSaveTechnicalRequarementsTaskServiceCallback">
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnSaveTechnicalRequarementsTaskServiceCallback" message="tns:IEventService_OnSaveTechnicalRequarementsTaskServiceCallback_OutputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_IEventService" type="tns:IEventService">
@@ -177,6 +225,24 @@
         <soap12:body use="literal" />
       </wsdl:input>
     </wsdl:operation>
+    <wsdl:operation name="StartPriceCalculationPublishEvent">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/StartPriceCalculationPublishEvent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="FinishPriceCalculationPublishEvent">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/FinishPriceCalculationPublishEvent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="CancelPriceCalculationPublishEvent">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/CancelPriceCalculationPublishEvent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
     <wsdl:operation name="SaveIncomingRequestPublishEvent">
       <soap12:operation soapAction="http://tempuri.org/IEventService/SaveIncomingRequestPublishEvent" style="document" />
       <wsdl:input>
@@ -185,6 +251,12 @@
     </wsdl:operation>
     <wsdl:operation name="SaveIncomingDocumentPublishEvent">
       <soap12:operation soapAction="http://tempuri.org/IEventService/SaveIncomingDocumentPublishEvent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="SaveTechnicalRequarementsTaskPublishEvent">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/SaveTechnicalRequarementsTaskPublishEvent" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -207,26 +279,50 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="OnSaveDirectumTaskPublishEvent">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/OnSaveDirectumTaskPublishEvent" style="document" />
+    <wsdl:operation name="OnSaveDirectumTaskServiceCallback">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/OnSaveDirectumTaskServiceCallback" style="document" />
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="OnSavePriceCalculationPublishEvent">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/OnSavePriceCalculationPublishEvent" style="document" />
+    <wsdl:operation name="OnSavePriceCalculationServiceCallback">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/OnSavePriceCalculationServiceCallback" style="document" />
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="OnSaveIncomingRequestPublishEvent">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/OnSaveIncomingRequestPublishEvent" style="document" />
+    <wsdl:operation name="OnStartPriceCalculationServiceCallback">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/OnStartPriceCalculationServiceCallback" style="document" />
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="OnSaveIncomingDocumentPublishEvent">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/OnSaveIncomingDocumentPublishEvent" style="document" />
+    <wsdl:operation name="OnFinishPriceCalculationServiceCallback">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/OnFinishPriceCalculationServiceCallback" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnCancelPriceCalculationServiceCallback">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/OnCancelPriceCalculationServiceCallback" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnSaveIncomingRequestServiceCallback">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/OnSaveIncomingRequestServiceCallback" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnSaveIncomingDocumentServiceCallback">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/OnSaveIncomingDocumentServiceCallback" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnSaveTechnicalRequarementsTaskServiceCallback">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/OnSaveTechnicalRequarementsTaskServiceCallback" style="document" />
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>

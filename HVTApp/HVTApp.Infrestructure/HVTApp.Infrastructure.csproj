@@ -122,6 +122,7 @@
     <Compile Include="Interfaces\Services\ChooseService\IChooseViewModel.cs" />
     <Compile Include="Interfaces\Services\DialogService\DialogRequestCloseEventArgs.cs" />
     <Compile Include="Interfaces\Services\DialogService\IDialogService.cs" />
+    <Compile Include="Interfaces\Services\EventService\EventServiceAddresses.cs" />
     <Compile Include="Interfaces\Services\EventService\IEventService.cs" />
     <Compile Include="Interfaces\Services\EventService\IEventServiceCallback.cs" />
     <Compile Include="Interfaces\Services\EventService\IEventServiceClient.cs" />
@@ -152,7 +153,6 @@
     <Compile Include="RibbonTabItemWithViewModel.cs" />
     <Compile Include="RibbonTabAttribute.cs" />
     <Compile Include="Role.cs" />
-    <Compile Include="Services\IEventService.cs" />
     <Compile Include="Services\IMessageService.cs" />
     <Compile Include="Services\IPrintOfferService.cs" />
     <Compile Include="StringToGuid.cs" />

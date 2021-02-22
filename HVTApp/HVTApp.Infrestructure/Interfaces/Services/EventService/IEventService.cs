@@ -6,9 +6,19 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
     [ServiceContract(CallbackContract = typeof(IEventServiceCallback))]
     public interface IEventService
     {
+        /// <summary>
+        /// Подключение к сервису
+        /// </summary>
+        /// <param name="appSessionId">Id сессии приложения</param>
+        /// <param name="userId">Id юзера</param>
+        /// <returns></returns>
         [OperationContract]
         bool Connect(Guid appSessionId, Guid userId);
 
+        /// <summary>
+        /// Отключение от сервиса
+        /// </summary>
+        /// <param name="appSessionId">Id сессии приложения</param>
         [OperationContract]
         void Disconnect(Guid appSessionId);
 
@@ -27,9 +37,21 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
         void SavePriceCalculationPublishEvent(Guid appSessionId, Guid priceCalculationId);
 
         [OperationContract(IsOneWay = true)]
+        void StartPriceCalculationPublishEvent(Guid appSessionId, Guid priceCalculationId);
+
+        [OperationContract(IsOneWay = true)]
+        void FinishPriceCalculationPublishEvent(Guid appSessionId, Guid priceCalculationId);
+
+        [OperationContract(IsOneWay = true)]
+        void CancelPriceCalculationPublishEvent(Guid appSessionId, Guid priceCalculationId);
+
+        [OperationContract(IsOneWay = true)]
         void SaveIncomingRequestPublishEvent(Guid appSessionId, Guid requestId);
 
         [OperationContract(IsOneWay = true)]
         void SaveIncomingDocumentPublishEvent(Guid appSessionId, Guid documentId);
+
+        [OperationContract(IsOneWay = true)]
+        void SaveTechnicalRequarementsTaskPublishEvent(Guid appSessionId, Guid technicalRequarementsTaskId);
     }
 }

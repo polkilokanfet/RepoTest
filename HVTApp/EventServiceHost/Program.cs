@@ -10,17 +10,11 @@ namespace EventServiceHost
     class Program
     {
         private static readonly EventService1 EventService = new EventService1();
-        #if DEBUG
-        private static string Address = "localhost";
-        #else
-        private static string Address = "EKB1461";
-        #endif
 
         static void Main(string[] args)
         {
-
-            var tcpBaseAddress = new Uri($"net.tcp://{Address}:8302/EventService.EventService");
-            var httpBaseAddress = new Uri($"http://{Address}:8301/EventService.EventService");
+            var tcpBaseAddress = EventServiceAddresses.TcpBaseAddress;
+            var httpBaseAddress = EventServiceAddresses.HttpBaseAddress;
 
             var binding = new NetTcpBinding(SecurityMode.None, true);
 
@@ -33,8 +27,10 @@ namespace EventServiceHost
                 host.Description.Behaviors.Add(new ServiceDiscoveryBehavior());
                 host.AddServiceEndpoint(new UdpDiscoveryEndpoint());
 
+                EventService.PrintMessageEvent += s => {Console.WriteLine($"[{DateTime.Now.ToShortDateString()} {DateTime.Now.ToShortTimeString()}] {s}");};
+
                 host.Closing += (sender, eventArgs) => { EventService.Close(); };
-                host.Opening += (sender, eventArgs) => { Console.WriteLine($"Opening service on {Address}..."); };
+                host.Opening += (sender, eventArgs) => { Console.WriteLine($"Opening service on {EventServiceAddresses.Address}..."); };
                 host.Opened += (sender, eventArgs) => { Console.WriteLine("Service is ready...\nPress <enter> to terminate service."); };
                 host.Open();
 

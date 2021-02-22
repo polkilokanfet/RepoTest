@@ -1,11 +1,22 @@
+using System;
 using HVTApp.Model.POCOs;
 using Prism.Events;
 
 namespace HVTApp.Model.Events
 {
-    public class AfterSaveDirectumTaskSyncEvent : PubSubEvent<DirectumTask> { }
-    public class AfterSavePriceCalculationSyncEvent : PubSubEvent<PriceCalculation> { }
-    public class AfterSaveIncomingRequestSyncEvent : PubSubEvent<IncomingRequest> { }
-    public class AfterSaveIncomingDocumentSyncEvent : PubSubEvent<Document> { }
-    public class AfterFinishPriceCalculationSyncEvent : PubSubEvent<PriceCalculation> { }
+    /// <summary>
+    /// Событие, поднимаемое после старта расчета ПЗ
+    /// </summary>
+    public class AfterStartPriceCalculationEvent : PubSubEvent<PriceCalculation> { }
+
+    /// <summary>
+    /// Событие, поднимаемое после финиша расчета ПЗ
+    /// </summary>
+    public class AfterFinishPriceCalculationEvent : PubSubEvent<PriceCalculation> { }
+    
+    /// <summary>
+    /// Событие, поднимаемое после остановки расчета ПЗ
+    /// </summary>
+    public class AfterCancelPriceCalculationEvent : PubSubEvent<PriceCalculation> { }
+
 }

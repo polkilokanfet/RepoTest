@@ -105,5 +105,18 @@ namespace HVTApp.Model
             //return result;
         }
 
+        public static User GetFrontManager(this TechnicalRequrementsTask technicalRequrementsTask)
+        {
+            if (!technicalRequrementsTask.Requrements.Any()) return null;
+            if (!technicalRequrementsTask.Requrements.SelectMany(technicalRequrements => technicalRequrements.SalesUnits).Any()) return null;
+            return technicalRequrementsTask.Requrements.SelectMany(technicalRequrements => technicalRequrements.SalesUnits).First().Project.Manager;
+        }
+
+        public static User GetFrontManager(this PriceCalculation priceCalculation)
+        {
+            if (!priceCalculation.PriceCalculationItems.Any()) return null;
+            if (!priceCalculation.PriceCalculationItems.SelectMany(priceCalculationItem => priceCalculationItem.SalesUnits).Any()) return null;
+            return priceCalculation.PriceCalculationItems.SelectMany(priceCalculationItem => priceCalculationItem.SalesUnits).First().Project.Manager;
+        }
     }
 }

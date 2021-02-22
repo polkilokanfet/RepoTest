@@ -9,62 +9,117 @@ namespace EventService
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, IncludeExceptionDetailInFaults = true)]
     public class EventService : IEventService
     {
+        /// <summary>
+        /// Список приложений, подключенных в настоящий момент к сервису
+        /// </summary>
         private readonly List<AppSession> _appSessions = new List<AppSession>();
 
+        public event Action<string> PrintMessageEvent;
+
+        /// <summary>
+        /// Подключение к сервису
+        /// </summary>
+        /// <param name="appSessionId">Id сессии приложения</param>
+        /// <param name="userId">Id юзера</param>
+        /// <returns></returns>
         public bool Connect(Guid appSessionId, Guid userId)
         {
-            if (_appSessions.Select(x => x.AppSessionId).Contains(appSessionId))
+            //если приложение уже подключено к сервису
+            if (_appSessions.Select(appSession => appSession.AppSessionId).Contains(appSessionId))
                 return false;
 
+            //подключаем новое приложение к сервису
             _appSessions.Add(new AppSession(appSessionId, userId, OperationContext.Current));
+            PrintMessageEvent?.Invoke($"Connected appSession {appSessionId}.");
             return true;
         }
 
+        /// <summary>
+        /// Отключение от сервиса
+        /// </summary>
+        /// <param name="appSessionId">Id сессии приложения</param>
         public void Disconnect(Guid appSessionId)
         {
-            var appSession = _appSessions.SingleOrDefault(x => x.AppSessionId == appSessionId);
+            var appSession = _appSessions.SingleOrDefault(session => session.AppSessionId == appSessionId);
             if (appSession != null)
+            {
                 _appSessions.Remove(appSession);
+                PrintMessageEvent?.Invoke($"Disconnected appSession {appSessionId}.");
+            }
         }
 
         #region SavePublishEvent
 
         public void SaveIncomingRequestPublishEvent(Guid appSessionId, Guid requestId)
         {
-            SavePublishEvent(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveIncomingRequestPublishEvent(requestId));
+            PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveIncomingRequestServiceCallback(requestId));
         }
 
         public void SaveDirectumTaskPublishEvent(Guid appSessionId, Guid taskId)
         {
-            SavePublishEvent(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveDirectumTaskPublishEvent(taskId));
+            PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveDirectumTaskServiceCallback(taskId));
         }
 
         public void SavePriceCalculationPublishEvent(Guid appSessionId, Guid priceCalculationId)
         {
-            SavePublishEvent(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSavePriceCalculationPublishEvent(priceCalculationId));
+            PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSavePriceCalculationServiceCallback(priceCalculationId));
+        }
+
+        public void StartPriceCalculationPublishEvent(Guid appSessionId, Guid priceCalculationId)
+        {
+            PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnStartPriceCalculationServiceCallback(priceCalculationId));
+        }
+
+        public void FinishPriceCalculationPublishEvent(Guid appSessionId, Guid priceCalculationId)
+        {
+            PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnFinishPriceCalculationServiceCallback(priceCalculationId));
+        }
+        public void CancelPriceCalculationPublishEvent(Guid appSessionId, Guid priceCalculationId)
+        {
+            PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnCancelPriceCalculationServiceCallback(priceCalculationId));
         }
 
         public void SaveIncomingDocumentPublishEvent(Guid appSessionId, Guid documentId)
         {
-            SavePublishEvent(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveIncomingDocumentPublishEvent(documentId));
+            PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveIncomingDocumentServiceCallback(documentId));
         }
 
-        private void SavePublishEvent(Guid appSessionId, Action<AppSession> publishEvent)
+        public void SaveTechnicalRequarementsTaskPublishEvent(Guid appSessionId, Guid technicalRequarementsTaskId)
         {
-            foreach (var appSession in _appSessions.Where(x => x.AppSessionId != appSessionId).ToList())
+            PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveTechnicalRequarementsTaskServiceCallback(technicalRequarementsTaskId));
+        }
+
+        /// <summary>
+        /// Публикация события через сервис синхронизации
+        /// </summary>
+        /// <param name="appSessionId"></param>
+        /// <param name="publishEvent"></param>
+        private void PublishEventByService(Guid appSessionId, Action<AppSession> publishEvent)
+        {
+            //целевые приложения (приложения без того, которое и послало событие).
+            var targetAppSessions = _appSessions
+                .Where(appSession => appSession.AppSessionId != appSessionId)
+                .ToList();
+
+            foreach (var appSession in targetAppSessions)
             {
                 try
                 {
                     publishEvent.Invoke(appSession);
                 }
-                catch (TimeoutException timeoutException)
+                //отключаем приложение от сервиса
+                catch (TimeoutException)
                 {
-                    _appSessions.Remove(appSession);
+                    this.Disconnect(appSession.AppSessionId);
+                    PrintMessageEvent?.Invoke($"Disconnected appSession {appSessionId}. TimeoutException.");
                 }
                 catch (Exception e)
                 {
+                    PrintMessageEvent?.Invoke($"SavePublishEvent appSession {appSessionId}. {e.GetType().FullName}");
                 }
             }
+
+            PrintMessageEvent?.Invoke($"SavePublishEvent by appSession {appSessionId}");
         }
 
         #endregion
@@ -79,6 +134,7 @@ namespace EventService
                 }
                 catch (Exception e)
                 {
+                    PrintMessageEvent?.Invoke($"Close() appSession {appSession.AppSessionId}. {e.GetType().FullName}");
                 }
             }
         }

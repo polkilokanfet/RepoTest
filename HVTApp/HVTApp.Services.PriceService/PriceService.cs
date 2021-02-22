@@ -43,27 +43,32 @@ namespace HVTApp.Services.PriceService
             _container = container;
 
             //синхронизация завершения новых расчетов
-            container.Resolve<IEventAggregator>().GetEvent<AfterFinishPriceCalculationSyncEvent>().Subscribe(calculation =>
-            {
-                foreach (var priceCalculationItem in calculation.PriceCalculationItems)
+            container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceCalculationEvent>().Subscribe(
+                calculation =>
                 {
-                    foreach (var salesUnit in priceCalculationItem.SalesUnits)
+                    foreach (var priceCalculationItem in calculation.PriceCalculationItems)
                     {
-                        if (PriceCalculationItemsFinished.ContainsKey(salesUnit.Id))
+                        foreach (var salesUnit in priceCalculationItem.SalesUnits)
                         {
-                            PriceCalculationItemsFinished.Remove(salesUnit.Id);
-                        }
+                            if (PriceCalculationItemsFinished.ContainsKey(salesUnit.Id))
+                            {
+                                PriceCalculationItemsFinished.Remove(salesUnit.Id);
+                            }
 
-                        if (PricesOfSalesUnitsFromCalculations.ContainsKey(salesUnit.Id))
-                        {
-                            PricesOfSalesUnitsFromCalculations.Remove(salesUnit.Id);
-                        }
+                            if (PricesOfSalesUnitsFromCalculations.ContainsKey(salesUnit.Id))
+                            {
+                                PricesOfSalesUnitsFromCalculations.Remove(salesUnit.Id);
+                            }
 
-                        PriceCalculationItemsFinished.Add(salesUnit.Id, priceCalculationItem);
-                        PricesOfSalesUnitsFromCalculations.Add(salesUnit.Id, priceCalculationItem.StructureCosts.Sum(x => x.Total));
+                            //добавляем только данные из завершенных расчетов
+                            if (calculation.TaskCloseMoment.HasValue)
+                            {
+                                PriceCalculationItemsFinished.Add(salesUnit.Id, priceCalculationItem);
+                                PricesOfSalesUnitsFromCalculations.Add(salesUnit.Id, priceCalculationItem.StructureCosts.Sum(structureCost => structureCost.Total));
+                            }
+                        }
                     }
-                }
-            });
+                });
 
             _container.Resolve<IModelsStore>().IsRefreshed += Reload;
 

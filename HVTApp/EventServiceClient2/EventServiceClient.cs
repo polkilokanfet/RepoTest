@@ -1,36 +1,39 @@
 ﻿using System;
 using System.Linq;
 using System.ServiceModel;
-using EventServiceClient2.ServiceReference1;
+using EventServiceClient2.SyncEntities;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
-using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.EventService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Modules.BookRegistration.Views;
-using Microsoft.Practices.Unity;
-using Prism.Events;
-using Prism.Regions;
 using HVTApp.UI.Modules.Directum;
 using HVTApp.UI.PriceCalculations.View;
+using HVTApp.UI.TechnicalRequrementsTasksModule;
+using Microsoft.Practices.Unity;
+using Prism.Regions;
 
 namespace EventServiceClient2
 {
-    public class EventServiceClient : IEventServiceClient, EventServiceClient2.ServiceReference1.IEventServiceCallback
+    public partial class EventServiceClient : IEventServiceClient, EventServiceClient2.ServiceReference1.IEventServiceCallback
     {
         private readonly Guid _appSessionId = Guid.NewGuid();
         private readonly IUnityContainer _container;
-        private readonly IEventAggregator _eventAggregator;
         private readonly Guid _userId = GlobalAppProperties.User.Id;
-        private ServiceReference1.EventServiceClient _service;
+        /// <summary>
+        /// Сервис работает
+        /// </summary>
+        private bool _isEnabled = false;
+        private ServiceReference1.EventServiceClient _eventServiceClient;
+
+        private SyncContainer _syncContainer;
 
         public EventServiceClient(IUnityContainer container)
         {
             _container = container;
-            _eventAggregator = container.Resolve<IEventAggregator>();
         }
 
         public void Start()
@@ -38,149 +41,210 @@ namespace EventServiceClient2
             try
             {
                 var binding = new NetTcpBinding(SecurityMode.None, true);
-#if DEBUG
-                var tcpBaseAddress = new Uri("net.tcp://localhost:8302/EventService.EventService");
-#else
-                var tcpBaseAddress = new Uri("net.tcp://EKB1461:8302/EventService.EventService");
-#endif
-                _service = new ServiceReference1.EventServiceClient(new InstanceContext(this), binding, new EndpointAddress(tcpBaseAddress));
-                if (_service.Connect(_appSessionId, _userId))
+                Uri tcpBaseAddress = EventServiceAddresses.TcpBaseAddress;
+                _eventServiceClient = new ServiceReference1.EventServiceClient(new InstanceContext(this), binding, new EndpointAddress(tcpBaseAddress));
+                _syncContainer = new SyncContainer();
+
+                if (_eventServiceClient.Connect(_appSessionId, _userId))
                 {
-                    //Задачи
-                    _eventAggregator.GetEvent<AfterSaveDirectumTaskSyncEvent>().Subscribe(task => { SavePublishEvent(
-                        () => _service?.SaveDirectumTaskPublishEvent(_appSessionId, task.Id)); }, true);
+                    _syncContainer.Add(new SyncDirectumTask(_container, _eventServiceClient, _appSessionId));               //Задачи из DirectumLite
+                    _syncContainer.Add(new SyncTechnicalRequrementsTask(_container, _eventServiceClient, _appSessionId));   //Задачи TCE
+                    _syncContainer.Add(new SyncPriceCalculation(_container, _eventServiceClient, _appSessionId));           //Калькуляции себестоимости сохранение
+                    _syncContainer.Add(new SyncPriceCalculationStart(_container, _eventServiceClient, _appSessionId));      //Калькуляции себестоимости старт
+                    _syncContainer.Add(new SyncPriceCalculationFinish(_container, _eventServiceClient, _appSessionId));     //Калькуляции себестоимости финиш
+                    _syncContainer.Add(new SyncPriceCalculationCancel(_container, _eventServiceClient, _appSessionId));     //Калькуляции себестоимости остановка
+                    _syncContainer.Add(new SyncIncomingRequest(_container, _eventServiceClient, _appSessionId));            //Запросы
 
-                    //Калькуляции себестоимости
-                    _eventAggregator.GetEvent<AfterSavePriceCalculationSyncEvent>().Subscribe(priceCalculation => { SavePublishEvent(
-                        () => _service?.SavePriceCalculationPublishEvent(_appSessionId, priceCalculation.Id)); }, true);
+                    ////Входящие документы
+                    //_eventAggregator.GetEvent<AfterSaveIncomingDocumentSyncEvent>().Subscribe(document => { SavePublishEvent(
+                    //    () => _eventServiceClient?.SaveIncomingDocumentPublishEvent(_appSessionId, document.Id)); }, true);
 
-                    //Запросы
-                    _eventAggregator.GetEvent<AfterSaveIncomingRequestSyncEvent>().Subscribe(request => { SavePublishEvent(
-                        () => _service?.SaveIncomingRequestPublishEvent(_appSessionId, request.Id)); }, true);
-
-                    //Входящие документы
-                    _eventAggregator.GetEvent<AfterSaveIncomingDocumentSyncEvent>().Subscribe(document => { SavePublishEvent(
-                        () => _service?.SaveIncomingDocumentPublishEvent(_appSessionId, document.Id)); }, true);
+                    _isEnabled = true;
                 }
             }
             catch (Exception e)
             {
                 var message = $"Не удалось подключиться к сервису синхронизации. Вы можете продолжать работу без синхронизации.\nПопросите разработчика запустить сервис синхронизации.\n\n{e.GetAllExceptions()}";
-                _container.Resolve<IMessageService>().ShowOkMessageDialog("Exception", message);
-            }
-        }
-
-        private void SavePublishEvent(Action publishEvent)
-        {
-            try
-            {
-                if (_service != null && _service.State != CommunicationState.Faulted)
-                    publishEvent.Invoke();
-            }
-            catch (Exception e)
-            {
-                _container.Resolve<IMessageService>().ShowOkMessageDialog("Exception", e.GetAllExceptions());
+                _container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().Name, message);
             }
         }
 
         public void Stop()
         {
-            if (_service != null && _service.State != CommunicationState.Faulted)
+            //отключаемся от сервера
+            if (_isEnabled 
+                && _eventServiceClient != null 
+                && _eventServiceClient.State != CommunicationState.Faulted 
+                && _eventServiceClient.State != CommunicationState.Closed)
             {
                 try
                 {
-                    _service.Disconnect(_appSessionId);
+                    _eventServiceClient.Disconnect(_appSessionId);
                 }
-                catch (TimeoutException timeoutException)
+                catch (TimeoutException e)
                 {
+                    _container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().Name, e.GetAllExceptions());
                 }
             }
+
+            //чистим контейнер
+            _syncContainer?.Dispose();
+            _isEnabled = false;
         }
 
-        #region SavePublishEvent
-
-        public void OnSaveDirectumTaskPublishEvent(Guid taskId)
+        public void OnServiceDisposeEvent()
         {
-            if (_service == null) return;
+            //чистим контейнер
+            _syncContainer?.Dispose();
+            _isEnabled = false;
 
-            var task = _container.Resolve<IUnitOfWork>().Repository<DirectumTask>().GetById(taskId);
+            _container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", "Синхронизация прекращена.");
+        }
 
+        //действия, когда прилетают события из сервера синхронизации
+        #region ServiceCallback
+
+        public void OnSaveDirectumTaskServiceCallback(Guid taskId)
+        {
+            var directumTask = _container.Resolve<IUnitOfWork>().Repository<DirectumTask>().GetById(taskId);
+
+            //можно ли принимать
             var allowAccept =
-                task.Group.Author.Id == GlobalAppProperties.User.Id &&
-                task.FinishPerformer.HasValue &&
-                !task.FinishAuthor.HasValue;
+                directumTask.FinishPerformer.HasValue &&
+                !directumTask.FinishAuthor.HasValue &&
+                directumTask.Group.Author.IsAppCurrentUser();
 
-            var allowPerform = 
-                task.StartResult.HasValue && 
-                task.Performer.Id == GlobalAppProperties.User.Id;
+            //можно ли исполнять
+            var allowPerform =
+                directumTask.StartResult.HasValue &&
+                directumTask.Performer.IsAppCurrentUser();
 
             if (allowPerform || allowAccept)
             {
-                _eventAggregator.GetEvent<AfterSaveDirectumTaskEvent>().Publish(task);
+                this._syncContainer.Publish<DirectumTask, AfterSaveDirectumTaskEvent>(directumTask);
 
-                string message = $"Задача от: {task.Group.Author}\nТема: \"{task.Group.Title}\"";
+                string title = allowPerform 
+                    ? "Поручена задача в DirectumLite" 
+                    : "Выполнена задача в DirectumLite";
+
+                string message = allowPerform 
+                    ? $"Инициатор: {directumTask.Group.Author}\nТема: \"{directumTask.Group.Title}\"" 
+                    : $"Исполнитель: {directumTask.Performer}\nТема: \"{directumTask.Group.Title}\"";
+
                 var action = new Action(() =>
                 {
-                    _container.Resolve<IRegionManager>().RequestNavigateContentRegion<DirectumTaskView>(new NavigationParameters { { "task", task } });
+                    _container.Resolve<IRegionManager>().RequestNavigateContentRegion<DirectumTaskView>(new NavigationParameters { { "task", directumTask } });
                 });
-                Popup.Popup.ShowPopup(message, action);
+
+                Popup.Popup.ShowPopup(message, title, action);
             }
         }
 
-        public void OnSavePriceCalculationPublishEvent(Guid calculationId)
+        public void OnSavePriceCalculationServiceCallback(Guid calculationId)
         {
-            if (_service == null) return;
-
             var calculation = _container.Resolve<IUnitOfWork>().Repository<PriceCalculation>().GetById(calculationId);
 
-            var author = calculation.PriceCalculationItems.FirstOrDefault()?.SalesUnits.FirstOrDefault()?.Project.Manager;
-            var canWath = author?.Id == GlobalAppProperties.User.Id && calculation.TaskCloseMoment.HasValue;
-            var canCalc = calculation.TaskOpenMoment.HasValue &&
-                          (GlobalAppProperties.User.RoleCurrent == Role.Admin ||
-                           GlobalAppProperties.User.RoleCurrent == Role.Pricer);
+            var frontManager = calculation.GetFrontManager();
+            var isProjectManager = frontManager != null && frontManager.IsAppCurrentUser();
+            var isInitiator = calculation.Initiator.IsAppCurrentUser();
 
-            if (canWath || canCalc)
+            if (isProjectManager || isInitiator || GlobalAppProperties.User.RoleCurrent == Role.Pricer)
             {
-                _eventAggregator.GetEvent<AfterSavePriceCalculationEvent>().Publish(calculation);
+                this._syncContainer.Publish<PriceCalculation, AfterSavePriceCalculationEvent>(calculation);
+            }
+        }
 
-                string message = $"Калькуляция: \"{calculation.Name}\"";
+        /// <summary>
+        /// Реакция на старт расчета ПЗ
+        /// </summary>
+        /// <param name="calculationId"></param>
+        public void OnStartPriceCalculationServiceCallback(Guid calculationId)
+        {
+            var calculation = _container.Resolve<IUnitOfWork>().Repository<PriceCalculation>().GetById(calculationId);
+
+            if (GlobalAppProperties.User.RoleCurrent == Role.Pricer)
+            {
+                this._syncContainer.Publish<PriceCalculation, AfterSavePriceCalculationEvent>(calculation);
+
+                string message = $"{calculation.Name}";
                 var action = new Action(() =>
                 {
                     _container.Resolve<IRegionManager>().RequestNavigateContentRegion<PriceCalculationView>(new NavigationParameters { { nameof(PriceCalculation), calculation } });
                 });
-                Popup.Popup.ShowPopup(message, action);
+                Popup.Popup.ShowPopup(message, "Запущен расчет переменных затрат", action);
             }
         }
 
-        public void OnSaveIncomingRequestPublishEvent(Guid requestId)
+        /// <summary>
+        /// Реакция на завершение расчета ПЗ
+        /// </summary>
+        /// <param name="calculationId"></param>
+        public void OnFinishPriceCalculationServiceCallback(Guid calculationId)
         {
-            if (_service == null) return;
+            var calculation = _container.Resolve<IUnitOfWork>().Repository<PriceCalculation>().GetById(calculationId);
 
+            var frontManager = calculation.GetFrontManager();
+            var isProjectManager = frontManager != null && frontManager.IsAppCurrentUser();
+            var isInitiator = calculation.Initiator.IsAppCurrentUser();
+
+            if (isProjectManager || isInitiator)
+            {
+                this._syncContainer.Publish<PriceCalculation, AfterSavePriceCalculationEvent>(calculation);
+
+                string message = $"{calculation.Name}";
+                var action = new Action(() =>
+                {
+                    _container.Resolve<IRegionManager>().RequestNavigateContentRegion<PriceCalculationView>(new NavigationParameters { { nameof(PriceCalculation), calculation } });
+                });
+                Popup.Popup.ShowPopup(message, "Завершен расчет переменных затрат", action);
+            }
+        }
+
+        /// <summary>
+        /// Реакция на остановку расчета ПЗ
+        /// </summary>
+        /// <param name="calculationId"></param>
+        public void OnCancelPriceCalculationServiceCallback(Guid calculationId)
+        {
+            var calculation = _container.Resolve<IUnitOfWork>().Repository<PriceCalculation>().GetById(calculationId);
+
+            if (GlobalAppProperties.User.RoleCurrent == Role.Pricer)
+            {
+                this._syncContainer.Publish<PriceCalculation, AfterSavePriceCalculationEvent>(calculation);
+
+                string message = $"{calculation.Name}";
+                var action = new Action(() =>
+                {
+                    _container.Resolve<IRegionManager>().RequestNavigateContentRegion<PriceCalculationView>(new NavigationParameters { { nameof(PriceCalculation), calculation } });
+                });
+                Popup.Popup.ShowPopup(message, "Остановлен расчет переменных затрат", action);
+            }
+        }
+
+        public void OnSaveIncomingRequestServiceCallback(Guid requestId)
+        {
             var request = _container.Resolve<IUnitOfWork>().Repository<IncomingRequest>().GetById(requestId);
 
-            var canInstruct = GlobalAppProperties.User.RoleCurrent == Role.Admin ||
-                              GlobalAppProperties.User.RoleCurrent == Role.Director;
+            var canInstruct = GlobalAppProperties.User.RoleCurrent == Role.Admin || GlobalAppProperties.User.RoleCurrent == Role.Director;
 
             var canPerform = GlobalAppProperties.User.RoleCurrent == Role.SalesManager &&
-                             request.Performers.Any(x => x.Id == GlobalAppProperties.User.Employee.Id);
+                             request.Performers.Any(employee => employee.Id == GlobalAppProperties.User.Employee.Id);
 
             if (canInstruct || canPerform)
             {
-                _eventAggregator.GetEvent<AfterSaveIncomingRequestEvent>().Publish(request);
+                this._syncContainer.Publish<IncomingRequest, AfterSaveIncomingRequestEvent>(request);
 
-                string message = $"Запрос: \"{request.Document.Comment}\"";
+                string message = $"{request.Document.Comment}";
                 var action = new Action(() =>
                 {
                     _container.Resolve<IRegionManager>().RequestNavigateContentRegion<IncomingRequestsView>(new NavigationParameters());
                 });
-                Popup.Popup.ShowPopup(message, action);
+                Popup.Popup.ShowPopup(message, "Запрос", action);
             }
         }
 
-        public void OnSaveIncomingDocumentPublishEvent(Guid documentId)
+        public void OnSaveIncomingDocumentServiceCallback(Guid documentId)
         {
-            if (_service == null) return;
-
             var unitOfWork = _container.Resolve<IUnitOfWork>();
             var document = unitOfWork.Repository<Document>().GetById(documentId);
 
@@ -190,10 +254,10 @@ namespace EventServiceClient2
 
             if (canInstruct)
             {
-                var request = new IncomingRequest {Document = document};
-                _eventAggregator.GetEvent<AfterSaveIncomingRequestEvent>().Publish(request);
+                var request = new IncomingRequest { Document = document };
+                this._syncContainer.Publish<IncomingRequest, AfterSaveIncomingRequestEvent>(request);
 
-                string message = $"Запрос: \"{document.Comment}\"";
+                string message = $"{document.Comment}";
                 var action = new Action(() =>
                 {
                     _container.Resolve<IRegionManager>().RequestNavigateContentRegion<IncomingRequestView>(
@@ -204,39 +268,74 @@ namespace EventServiceClient2
                         });
 
                 });
-                Popup.Popup.ShowPopup(message, action);
+                Popup.Popup.ShowPopup(message, "Запрос", action);
+            }
+        }
+
+        public void OnSaveTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId)
+        {
+            var technicalRequrementsTask = _container.Resolve<IUnitOfWork>().Repository<TechnicalRequrementsTask>().GetById(technicalRequarementsTaskId);
+            var frontManager = technicalRequrementsTask.GetFrontManager();
+
+            if (frontManager == null) return;
+
+            string message = string.Empty;
+            var action = new Action(() =>
+            {
+                _container.Resolve<IRegionManager>().RequestNavigateContentRegion<TechnicalRequrementsTaskView>(new NavigationParameters { { "technicalRequrementsTask", technicalRequrementsTask } });
+            });
+
+            //если текущий пользователь Front-Менеджер
+            if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager)
+            {
+                if (!frontManager.IsAppCurrentUser()) return;
+                message = "Изменения в задаче";
+            }
+
+            //если текущий пользователь Back-Менеджер
+            else if (GlobalAppProperties.User.RoleCurrent == Role.BackManager)
+            {
+                if (technicalRequrementsTask.BackManager == null) return;
+                if (technicalRequrementsTask.BackManager.IsAppCurrentUser())
+                {
+                    if (technicalRequrementsTask.Start.HasValue)
+                    {
+                        if (technicalRequrementsTask.LastOpenBackManagerMoment.HasValue)
+                        {
+                            if (technicalRequrementsTask.Start.Value > technicalRequrementsTask.LastOpenBackManagerMoment.Value)
+                            {
+                                message = $"Задача изменена с момента последнего её просмотра (инициатор: {frontManager})";
+                            }
+                        }
+                        else
+                        {
+                            message = $"Вам поручена новая задача (инициатор: {frontManager})";
+                        }
+                    }
+                    else
+                    {
+                        message = $"Задача остановлена (инициатор: {frontManager})";
+                    }
+                }
+            }
+
+            //если текущий пользователь BackManagerBoss
+            else if (GlobalAppProperties.User.RoleCurrent == Role.BackManagerBoss)
+            {
+                if (technicalRequrementsTask.Start.HasValue && technicalRequrementsTask.BackManager == null)
+                {
+                    message = $"Создана новая задача. Её необходимо кому-то поручить (инициатор: {frontManager})";
+                }
+            }
+
+            if (message != string.Empty)
+            {
+                this._syncContainer.Publish<TechnicalRequrementsTask, AfterSaveTechnicalRequrementsTaskEvent>(technicalRequrementsTask);
+                Popup.Popup.ShowPopup(message, $"Задача в TCE с Id {technicalRequrementsTask.Id}", action);
             }
         }
 
         #endregion
 
-        public void OnServiceDisposeEvent()
-        {
-            _service = null;
-        }
-
-
-
-        public void SendMessageToChat(string message)
-        {
-            _service?.SendMessageToChat(_userId, message);
-        }
-
-        public void SendMessageToUser(Guid recipientId, string message)
-        {
-            _service?.SendMessageToUser(_userId, recipientId, message);
-        }
-
-
-
-        public void OnSendMessageToChat(Guid authorId, string message)
-        {
-            _container.Resolve<IMessenger>().ReceiveChatMessage(authorId, message);
-        }
-
-        public void OnSendMessageToUser(Guid authorId, string message)
-        {
-            _container.Resolve<IMessenger>().ReceivePersonalMessage(authorId, message);
-        }
     }
 }

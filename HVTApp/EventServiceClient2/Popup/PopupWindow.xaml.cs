@@ -7,11 +7,22 @@ namespace EventServiceClient2.Popup
     {
         private readonly Action _action;
 
-        public PopupWindow(string text, Action action = null)
+        public PopupWindow(string text, string title = null, Action action = null)
         {
             _action = action;
             InitializeComponent();
+            if (title != null)
+            {
+                this.Title = title;
+            }
             TextBlock.Text = text;
+
+            //для того, чтобы уведомление оставалось наверху
+            this.Deactivated += (sender, args) =>
+            {
+                Window window = (Window) sender;
+                window.Topmost = true;
+            };
         }
 
         private void Window_Loaded(object sender, System.Windows.RoutedEventArgs e)

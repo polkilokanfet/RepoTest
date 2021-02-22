@@ -32,17 +32,16 @@ namespace HVTApp
                 {
                     Application.Current.Shutdown();
                 }
-
 #if DEBUG
 #else
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(exception.GetAllExceptions());
-                Console.WriteLine(exception.GetAllExceptions());
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show(exception.GetAllExceptions());
+                    Console.WriteLine(exception.GetAllExceptions());
 
-                Application.Current.Shutdown();
-            }
+                    Application.Current.Shutdown();
+                }
 #endif
         }
     }

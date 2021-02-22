@@ -74,6 +74,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EventServiceClient_Chat.cs" />
+    <Compile Include="SyncEntities\ISync.cs" />
     <Compile Include="Popup\Popup.cs" />
     <Compile Include="Popup\PopupWindow.xaml.cs">
       <DependentUpon>PopupWindow.xaml</DependentUpon>
@@ -85,6 +87,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="SyncEntities\Sync.cs" />
+    <Compile Include="SyncEntities\SyncContainer.cs" />
+    <Compile Include="SyncEntities\SyncDirectumTask.cs" />
+    <Compile Include="SyncEntities\SyncIncomingRequest.cs" />
+    <Compile Include="SyncEntities\SyncPriceCalculation.cs" />
+    <Compile Include="SyncEntities\SyncPriceCalculationCancel.cs" />
+    <Compile Include="SyncEntities\SyncPriceCalculationFinish.cs" />
+    <Compile Include="SyncEntities\SyncPriceCalculationStart.cs" />
+    <Compile Include="SyncEntities\SyncTechnicalRequrementsTask.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -138,6 +149,7 @@
   <ItemGroup>
     <None Include="Service References\ServiceReference1\EventService.disco" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

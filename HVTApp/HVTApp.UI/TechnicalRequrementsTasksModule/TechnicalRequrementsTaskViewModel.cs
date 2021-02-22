@@ -371,8 +371,6 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                     }
                     SaveCommand.Execute(null);
 
-                    Container.Resolve<IEventAggregator>().GetEvent<AfterSaveTechnicalRequrementsTaskEvent>().Publish(TechnicalRequrementsTaskWrapper.Model);
-
                     //уведомление по почте
                     //Container.Resolve<IEmailService>().SendMail("kos@uetm.ru", $"{GlobalAppProperties.User.Employee.Person} отправил новое задание на расчет", "test");
 
