@@ -27,9 +27,15 @@ namespace HVTApp.UI.Modules.Directum
         private DirectumTaskMessageWrapper _message;
         private Model.POCOs.DirectumTask _parentTask;
 
+        //необходимо при согласовании последовательных задач
+        private List<DirectumTaskMessageWrapper> _messagesSeria;
+
+        /// <summary>
+        /// Задача
+        /// </summary>
         public DirectumTaskWrapper DirectumTask
         {
-            get { return _directumTask; }
+            get => _directumTask;
             private set
             {
                 _directumTask = value;
@@ -42,7 +48,7 @@ namespace HVTApp.UI.Modules.Directum
         /// </summary>
         public DirectumTaskRouteWrapper Route
         {
-            get { return _route; }
+            get => _route;
             private set
             {
                 _route = value;
@@ -52,7 +58,7 @@ namespace HVTApp.UI.Modules.Directum
 
         public bool TaskIsNew
         {
-            get { return _taskIsNew; }
+            get => _taskIsNew;
             private set
             {
                 _taskIsNew = value;
@@ -65,7 +71,7 @@ namespace HVTApp.UI.Modules.Directum
 
         public bool TaskIsSubTask
         {
-            get { return _taskIsSubTask; }
+            get => _taskIsSubTask;
             private set
             {
                 _taskIsSubTask = value;
@@ -74,29 +80,60 @@ namespace HVTApp.UI.Modules.Directum
             }
         }
 
+        /// <summary>
+        /// Разрешено ли редактировать тему задачи
+        /// </summary>
         public bool AllowEditTitle => TaskIsNew && !TaskIsSubTask;
 
+        /// <summary>
+        /// Разрешено ли создавать подзадачи
+        /// </summary>
         public bool AllowSubTask => !TaskIsNew;
 
+        /// <summary>
+        /// Разрешение на выполнение задачи
+        /// </summary>
         public bool AllowPerform =>
             DirectumTask?.Performer != null && 
-            DirectumTask.Performer.Id == GlobalAppProperties.User.Id && 
-            !DirectumTask.FinishPerformer.HasValue;
+            DirectumTask.Performer.IsAppCurrentUser() && 
+            !DirectumTask.FinishPerformer.HasValue &&
+            !DirectumTask.Group.IsStoped;
 
+        /// <summary>
+        /// Разрешение на принятие выполнения задачи
+        /// </summary>
         public bool AllowAccept => 
             DirectumTask?.Performer != null && 
-            DirectumTask.Group.Author.Id == GlobalAppProperties.User.Id && 
+            DirectumTask.Group.Author.IsAppCurrentUser() && 
             DirectumTask.FinishPerformer.HasValue && 
             !DirectumTask.FinishAuthor.HasValue &&
             !DirectumTask.NextTasks.Any();
 
+        /// <summary>
+        /// Разрешение на принятие или выполнение задачи
+        /// </summary>
         public bool AllowPerformOrAccept => AllowPerform || AllowAccept;
 
+        /// <summary>
+        /// Разрешение на остановку задачи
+        /// </summary>
         public bool AllowStop => 
             !TaskIsNew && 
             !DirectumTask.Group.IsStoped &&
             !DirectumTask.FinishAuthor.HasValue &&
-            DirectumTask.Group.Author.Id == GlobalAppProperties.User.Id;
+            DirectumTask.Group.Author.IsAppCurrentUser();
+
+        public DirectumTaskMessageWrapper Message
+        {
+            get => _message;
+            private set
+            {
+                _message = value;
+                OnPropertyChanged();
+            }
+        }
+
+        #region ICommand
 
         /// <summary>
         /// Выбор маршрута
@@ -132,6 +169,8 @@ namespace HVTApp.UI.Modules.Directum
         /// Создать подзадачу
         /// </summary>
         public ICommand SubTaskCommand { get; }
+
+        #endregion
 
         public DirectumTaskViewModel(IUnityContainer container) : base(container)
         {
@@ -300,7 +339,7 @@ namespace HVTApp.UI.Modules.Directum
                             task.FinishAuthor = moment;
                             task = task.PreviousTask;
                         }
-                        _messagesSeria.ForEach(x => x.Moment = moment);
+                        _messagesSeria.ForEach(messageWrapper => messageWrapper.Moment = moment);
                     }
                     DirectumTask.AcceptChanges();
                     UnitOfWork.SaveChanges();
@@ -332,7 +371,7 @@ namespace HVTApp.UI.Modules.Directum
                             task.FinishPerformer = default(DateTime?);
                             task = task.PreviousTask;
                         }
-                        _messagesSeria.ForEach(x => x.Moment = moment);
+                        _messagesSeria.ForEach(messageWrapper => messageWrapper.Moment = moment);
                     }
 
                     DirectumTask.AcceptChanges();
@@ -357,45 +396,50 @@ namespace HVTApp.UI.Modules.Directum
                 () => !TaskIsNew);
         }
 
+        #region Load
+
         /// <summary>
         /// Создание новой задачи
         /// </summary>
         public void Load()
         {
             TaskIsNew = true;
-            DirectumTask.Group.Title = "Новая задача";
-            DirectumTask.Group.Message = "Сделай всё красиво.";
+            DirectumTask.Group.Title = "Введите тему задачи";
+            DirectumTask.Group.Message = "Сформулируйте суть задачи";
             DirectumTask.Group.Author = new UserWrapper(UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id));
             DirectumTask.IsMain = true;
         }
 
-        public DirectumTaskMessageWrapper Message
+        /// <summary>
+        /// Загрузка существующей задачи по группе
+        /// </summary>
+        /// <param name="directumTaskGroup">Группа задач.</param>
+        public void Load(DirectumTaskGroup directumTaskGroup)
         {
-            get { return _message; }
-            private set
+            var tasks = UnitOfWork.Repository<Model.POCOs.DirectumTask>()
+                .Find(directumTask => directumTask.Group.Id == directumTaskGroup.Id)
+                .OrderBy(directumTask => directumTask.FinishPlan)
+                .ToList();
+
+            if (tasks.Any(directumTask => directumTask.PreviousTask != null))
             {
-                _message = value;
-                OnPropertyChanged();
+                Load(tasks.Last());
+            }
+            else if (tasks.Any(directumTask => !directumTask.FinishAuthor.HasValue))
+            {
+                Load(tasks.First(directumTask => !directumTask.FinishAuthor.HasValue));
+            }
+            else
+            {
+                Load(tasks.First());
             }
         }
 
         /// <summary>
-        /// Загрузка существующей задачи
+        /// Загрузка подзадачи
         /// </summary>
-        public void Load(DirectumTaskGroup directumTaskGroup)
-        {
-            var tasks = UnitOfWork.Repository<Model.POCOs.DirectumTask>()
-                .Find(x => x.Group.Id == directumTaskGroup.Id)
-                .OrderBy(x => x.FinishPlan);
-
-            if (tasks.Any(x => x.PreviousTask != null))
-                Load(tasks.Last());
-            else if (tasks.Any(x => !x.FinishAuthor.HasValue))
-                Load(tasks.First(x => !x.FinishAuthor.HasValue));
-            else
-                Load(tasks.First());
-        }
-
+        /// <param name="parentTask"></param>
+        /// <param name="isSubTask"></param>
         public void Load(Model.POCOs.DirectumTask parentTask, bool isSubTask)
         {
             _parentTask = parentTask;
@@ -409,7 +453,7 @@ namespace HVTApp.UI.Modules.Directum
         /// <summary>
         /// Загрузка существующей задачи
         /// </summary>
-        /// <param name="directumTask"></param>
+        /// <param name="directumTask">Задача для загрузки</param>
         public void Load(Model.POCOs.DirectumTask directumTask)
         {
             TaskIsNew = false;
@@ -426,7 +470,7 @@ namespace HVTApp.UI.Modules.Directum
                 {
                     Author = new UserWrapper(UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id)),
                     Moment = DateTime.Now,
-                    Message = "Задание выполнено, командир."
+                    Message = "Выполнено."
                 };
 
                 DirectumTask.Messages.Add(Message);
@@ -475,7 +519,7 @@ namespace HVTApp.UI.Modules.Directum
                     Message.PropertyChanged += (sender, args) =>
                     {
                         if (args.PropertyName == nameof(DirectumTaskMessage.Message))
-                            _messagesSeria.ForEach(x => x.Message = Message.Message);
+                            _messagesSeria.ForEach(messageWrapper => messageWrapper.Message = Message.Message);
                     };
 
                     Message.Message = "Принято.";
@@ -488,9 +532,11 @@ namespace HVTApp.UI.Modules.Directum
             OnPropertyChanged(nameof(AllowPerformOrAccept));
         }
 
-        //необходимо при согласовании последовательных задач
-        private List<DirectumTaskMessageWrapper> _messagesSeria;
-
+        #endregion
+        
+        /// <summary>
+        /// Загрузка маршрута
+        /// </summary>
         private void GetRoute()
         {
             //параллельные
@@ -531,7 +577,7 @@ namespace HVTApp.UI.Modules.Directum
             if (DirectumTask.StartPerformer.HasValue)
                 return;
 
-            if (DirectumTask.Performer.Id != GlobalAppProperties.User.Id)
+            if (!DirectumTask.Performer.IsAppCurrentUser())
                 return;
 
             var unitOfWork = Container.Resolve<IUnitOfWork>();
@@ -597,6 +643,5 @@ namespace HVTApp.UI.Modules.Directum
 
             return directumTask;
         }
-
     }
 }

@@ -33,12 +33,10 @@ namespace HVTApp.UI.Modules.Directum
             {
                 if (navigationContext.Parameters.Count() == 1)
                 {
-                    var directumTask = navigationContext.Parameters.First().Value as Model.POCOs.DirectumTask;
-                    if (directumTask != null)
+                    if (navigationContext.Parameters.First().Value is Model.POCOs.DirectumTask directumTask)
                         _viewModel.Load(directumTask);
 
-                    var directumTaskGroup = navigationContext.Parameters.First().Value as Model.POCOs.DirectumTaskGroup;
-                    if (directumTaskGroup != null)
+                    if (navigationContext.Parameters.First().Value is DirectumTaskGroup directumTaskGroup)
                         _viewModel.Load(directumTaskGroup);
                 }
 

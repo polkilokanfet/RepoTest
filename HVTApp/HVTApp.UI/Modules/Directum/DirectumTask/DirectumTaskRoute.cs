@@ -11,6 +11,9 @@ using HVTApp.Model.Wrapper;
 
 namespace HVTApp.UI.Modules.Directum
 {
+    /// <summary>
+    /// Маршрут задачи
+    /// </summary>
     public class DirectumTaskRoute : BaseEntity
     {
         [Required]
@@ -23,8 +26,8 @@ namespace HVTApp.UI.Modules.Directum
     {
         public bool IsParallel
         {
-            get { return GetValue<bool>(); }
-            set { SetValue(value); }
+            get => GetValue<bool>();
+            set => SetValue(value);
         }
 
         [Required]
@@ -57,6 +60,10 @@ namespace HVTApp.UI.Modules.Directum
     }
 
 
+
+    /// <summary>
+    /// Этап маршрута задачи
+    /// </summary>
     public class DirectumTaskRouteItem : BaseEntity
     {
         [Required]
@@ -71,7 +78,7 @@ namespace HVTApp.UI.Modules.Directum
 
         public bool IsParallel
         {
-            get { return _isParallel; }
+            get => _isParallel;
             set
             {
                 _isParallel = value;
@@ -82,8 +89,8 @@ namespace HVTApp.UI.Modules.Directum
         [Required]
         public DateTime FinishPlan
         {
-            get { return GetValue<DateTime>(); }
-            set { SetValue(value); }
+            get => GetValue<DateTime>();
+            set => SetValue(value);
         }
         public DateTime FinishPlanOriginalValue => GetOriginalValue<DateTime>(nameof(FinishPlan));
         public bool FinishPlanIsChanged => GetIsChanged(nameof(FinishPlan));
@@ -91,8 +98,8 @@ namespace HVTApp.UI.Modules.Directum
         [Required]
         public UserWrapper Performer
         {
-            get { return GetWrapper<UserWrapper>(); }
-            set { SetComplexValue<User, UserWrapper>(Performer, value); }
+            get => GetWrapper<UserWrapper>();
+            set => SetComplexValue<User, UserWrapper>(Performer, value);
         }
 
         public DirectumTaskRouteItemWrapper(DirectumTaskRouteItem model) : base(model)

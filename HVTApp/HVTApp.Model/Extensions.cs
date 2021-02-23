@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Wrapper;
 
 namespace HVTApp.Model
 {
@@ -50,6 +51,16 @@ namespace HVTApp.Model
         public static bool IsAppCurrentUser(this User user)
         {
             return GlobalAppProperties.User.Id == user.Id;
+        }
+
+        /// <summary>
+        /// ѕользователь €вл€етс€ текущим пользователем приложени€
+        /// </summary>
+        /// <param name="userWrapper">ѕровер€емый пользователь</param>
+        /// <returns></returns>
+        public static bool IsAppCurrentUser(this UserWrapper userWrapper)
+        {
+            return userWrapper.Model.IsAppCurrentUser();
         }
 
         public static Region GetRegion(this Facility facility)
