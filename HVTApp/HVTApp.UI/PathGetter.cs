@@ -71,12 +71,26 @@ namespace HVTApp.UI
         public static string GetPath(Offer offer)
         {
             string path = Path.Combine(GetPath(offer.Project), OffersFolderName);
-            CreateDirectory(path);
-            return path;
+            return CreateDirectoryPathIfNotExists(path) 
+                ? path 
+                : Environment.SpecialFolder.MyDocuments.ToString();
         }
 
+        /// <summary>
+        /// Путь к проекту
+        /// </summary>
+        /// <param name="project">Проект</param>
+        /// <returns>Путь к проекту</returns>
         public static string GetPath(Project project)
         {
+            //проверка доступности папки
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.ProjectsFolderPath) && 
+                !Directory.Exists(Properties.Settings.Default.ProjectsFolderPath))
+            {
+                Properties.Settings.Default.ProjectsFolderPath = string.Empty;
+                Properties.Settings.Default.Save();
+            }
+
             //путь к папке проекта
             var projectsFolderPath = string.IsNullOrEmpty(Properties.Settings.Default.ProjectsFolderPath)
                 ? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), HVTAppProjectsFolderName)
@@ -86,7 +100,7 @@ namespace HVTApp.UI
 
             //создание вспомогательных папок "ТКП" и "Переписка"
             //CreateDirectory(Path.Combine(path, OffersFolderName));
-            CreateDirectory(Path.Combine(path, CorrespondenceFolderName));
+            CreateDirectoryPathIfNotExists(Path.Combine(path, CorrespondenceFolderName));
 
             return path;
         }
@@ -110,21 +124,31 @@ namespace HVTApp.UI
                 addToFolderName = addToFolderName.ReplaceUncorrectSimbols("_"); 
             }
             var path = Path.Combine(rootDirectory, $"{addToFolderName} {id}");
+            
             //создаём, если директории не существует
-            CreateDirectory(path);
-
-            return path;
+            return CreateDirectoryPathIfNotExists(path)
+                ? path
+                : Environment.SpecialFolder.MyDocuments.ToString();
         }
 
         /// <summary>
         /// Создать директорию, если ее не существует.
         /// </summary>
-        /// <param name="path"></param>
-        private static void CreateDirectory(string path)
+        /// <param name="path">Путь к директории</param>
+        private static bool CreateDirectoryPathIfNotExists(string path)
         {
-            if (!Directory.Exists(path))
+            try
             {
-                Directory.CreateDirectory(path);
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
             }
         }
     }

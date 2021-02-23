@@ -33,7 +33,7 @@ namespace HVTApp.UI.Modules.Sales.Market
 
         public object SelectedItem
         {
-            get { return _selectedItem; }
+            get => _selectedItem;
             set
             {
                 _selectedItem = value;
@@ -59,7 +59,7 @@ namespace HVTApp.UI.Modules.Sales.Market
 
         public ProjectItem SelectedProjectItem
         {
-            get { return _selectedProjectItem; }
+            get => _selectedProjectItem;
             set
             {
                 _selectedProjectItem = value;
@@ -89,7 +89,7 @@ namespace HVTApp.UI.Modules.Sales.Market
 
         public OffersContainer Offers
         {
-            get { return _offers; }
+            get => _offers;
             private set
             {
                 _offers = value;
@@ -99,7 +99,7 @@ namespace HVTApp.UI.Modules.Sales.Market
 
         public TendersContainer Tenders
         {
-            get { return _tenders1; }
+            get => _tenders1;
             private set
             {
                 _tenders1 = value;
@@ -109,7 +109,7 @@ namespace HVTApp.UI.Modules.Sales.Market
 
         public TechnicalRequrementsTasksContainer TechnicalRequrementsTasks
         {
-            get { return _technicalRequrementsTasks; }
+            get => _technicalRequrementsTasks;
             private set
             {
                 _technicalRequrementsTasks = value;
@@ -119,7 +119,7 @@ namespace HVTApp.UI.Modules.Sales.Market
 
         public PriceCalculationsContainer PriceCalculations
         {
-            get { return _priceCalculations; }
+            get => _priceCalculations;
             private set
             {
                 _priceCalculations = value;
