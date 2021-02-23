@@ -19,4 +19,13 @@ namespace HVTApp.Model.Events
     /// </summary>
     public class AfterCancelPriceCalculationEvent : PubSubEvent<PriceCalculation> { }
 
+    #region Directum
+
+    public class AfterStartDirectumTaskEvent : PubSubEvent<DirectumTask> { }
+    public class AfterStopDirectumTaskEvent : PubSubEvent<DirectumTask> { }
+    public class AfterPerformDirectumTaskEvent : PubSubEvent<DirectumTask> { }
+    public class AfterAcceptDirectumTaskEvent : PubSubEvent<DirectumTask> { }
+    public class AfterRejectDirectumTaskEvent : PubSubEvent<DirectumTask> { }
+
+    #endregion
 }

@@ -16,9 +16,29 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
         [OperationContract(IsOneWay = true)]
         void OnSendMessageToUser(Guid authorId, string message);
 
+        #region Directum
 
         [OperationContract(IsOneWay = true)]
         void OnSaveDirectumTaskServiceCallback(Guid taskId);
+
+        [OperationContract(IsOneWay = true)]
+        void OnStartDirectumTaskServiceCallback(Guid taskId);
+
+        [OperationContract(IsOneWay = true)]
+        void OnStopDirectumTaskServiceCallback(Guid taskId);
+
+        [OperationContract(IsOneWay = true)]
+        void OnPerformDirectumTaskServiceCallback(Guid taskId);
+
+        [OperationContract(IsOneWay = true)]
+        void OnAcceptDirectumTaskServiceCallback(Guid taskId);
+
+        [OperationContract(IsOneWay = true)]
+        void OnRejectDirectumTaskServiceCallback(Guid taskId);
+
+        #endregion
+
+        #region PriceCalculation
 
         [OperationContract(IsOneWay = true)]
         void OnSavePriceCalculationServiceCallback(Guid calculationId);
@@ -31,6 +51,8 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
 
         [OperationContract(IsOneWay = true)]
         void OnCancelPriceCalculationServiceCallback(Guid calculationId);
+
+        #endregion
 
         [OperationContract(IsOneWay = true)]
         void OnSaveIncomingRequestServiceCallback(Guid requestId);

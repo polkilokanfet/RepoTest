@@ -48,6 +48,11 @@ namespace EventServiceClient2
                 if (_eventServiceClient.Connect(_appSessionId, _userId))
                 {
                     _syncContainer.Add(new SyncDirectumTask(_container, _eventServiceClient, _appSessionId));               //Задачи из DirectumLite
+                    _syncContainer.Add(new SyncDirectumTaskStart(_container, _eventServiceClient, _appSessionId));          //Задачи из DirectumLite
+                    _syncContainer.Add(new SyncDirectumTaskStop(_container, _eventServiceClient, _appSessionId));           //Задачи из DirectumLite
+                    _syncContainer.Add(new SyncDirectumTaskPerform(_container, _eventServiceClient, _appSessionId));        //Задачи из DirectumLite
+                    _syncContainer.Add(new SyncDirectumTaskAccept(_container, _eventServiceClient, _appSessionId));         //Задачи из DirectumLite
+                    _syncContainer.Add(new SyncDirectumTaskReject(_container, _eventServiceClient, _appSessionId));         //Задачи из DirectumLite
                     _syncContainer.Add(new SyncTechnicalRequrementsTask(_container, _eventServiceClient, _appSessionId));   //Задачи TCE
                     _syncContainer.Add(new SyncPriceCalculation(_container, _eventServiceClient, _appSessionId));           //Калькуляции себестоимости сохранение
                     _syncContainer.Add(new SyncPriceCalculationStart(_container, _eventServiceClient, _appSessionId));      //Калькуляции себестоимости старт
@@ -104,32 +109,24 @@ namespace EventServiceClient2
         //действия, когда прилетают события из сервера синхронизации
         #region ServiceCallback
 
+        #region Directum
+
         public void OnSaveDirectumTaskServiceCallback(Guid taskId)
+        {
+        }
+
+        public void OnStartDirectumTaskServiceCallback(Guid taskId)
         {
             var directumTask = _container.Resolve<IUnitOfWork>().Repository<DirectumTask>().GetById(taskId);
 
-            //можно ли принимать
-            var allowAccept =
-                directumTask.FinishPerformer.HasValue &&
-                !directumTask.FinishAuthor.HasValue &&
-                directumTask.Group.Author.IsAppCurrentUser();
-
             //можно ли исполнять
-            var allowPerform =
-                directumTask.StartResult.HasValue &&
-                directumTask.Performer.IsAppCurrentUser();
-
-            if (allowPerform || allowAccept)
+            var allowPerform = directumTask.StartResult.HasValue && directumTask.Performer != null && directumTask.Performer.IsAppCurrentUser();
+            if (allowPerform)
             {
                 this._syncContainer.Publish<DirectumTask, AfterSaveDirectumTaskEvent>(directumTask);
 
-                string title = allowPerform 
-                    ? "Поручена задача в DirectumLite" 
-                    : "Выполнена задача в DirectumLite";
-
-                string message = allowPerform 
-                    ? $"Инициатор: {directumTask.Group.Author}\nТема: \"{directumTask.Group.Title}\"" 
-                    : $"Исполнитель: {directumTask.Performer}\nТема: \"{directumTask.Group.Title}\"";
+                string title = "Вам поручена задача в DirectumLite";
+                string message = $"Инициатор: {directumTask.Group.Author}\nТема: \"{directumTask.Group.Title}\"";
 
                 var action = new Action(() =>
                 {
@@ -140,13 +137,108 @@ namespace EventServiceClient2
             }
         }
 
+        public void OnStopDirectumTaskServiceCallback(Guid taskId)
+        {
+            var directumTask = _container.Resolve<IUnitOfWork>().Repository<DirectumTask>().GetById(taskId);
+
+            //можно ли исполнять
+            var isPerformer = directumTask.Performer != null && directumTask.Performer.IsAppCurrentUser();
+            if (isPerformer)
+            {
+                this._syncContainer.Publish<DirectumTask, AfterSaveDirectumTaskEvent>(directumTask);
+
+                string title = "Остановлена задача в DirectumLite";
+                string message = $"Инициатор: {directumTask.Group.Author}\nТема: \"{directumTask.Group.Title}\"";
+
+                var action = new Action(() =>
+                {
+                    _container.Resolve<IRegionManager>().RequestNavigateContentRegion<DirectumTaskView>(new NavigationParameters { { "task", directumTask } });
+                });
+
+                Popup.Popup.ShowPopup(message, title, action);
+            }
+
+        }
+
+        public void OnPerformDirectumTaskServiceCallback(Guid taskId)
+        {
+            var directumTask = _container.Resolve<IUnitOfWork>().Repository<DirectumTask>().GetById(taskId);
+
+            //можно ли принимать
+            var isAuthor = directumTask.Group.Author.IsAppCurrentUser();
+
+            if (isAuthor)
+            {
+                this._syncContainer.Publish<DirectumTask, AfterSaveDirectumTaskEvent>(directumTask);
+
+                string title = "Выполнена задача в DirectumLite";
+                string message = $"Исполнитель: {directumTask.Performer}\nТема: \"{directumTask.Group.Title}\"";
+
+                var action = new Action(() =>
+                {
+                    _container.Resolve<IRegionManager>().RequestNavigateContentRegion<DirectumTaskView>(new NavigationParameters { { "task", directumTask } });
+                });
+
+                Popup.Popup.ShowPopup(message, title, action);
+            }
+        }
+
+        public void OnAcceptDirectumTaskServiceCallback(Guid taskId)
+        {
+            var directumTask = _container.Resolve<IUnitOfWork>().Repository<DirectumTask>().GetById(taskId);
+
+            //можно ли исполнять
+            var allowPerform = directumTask.StartResult.HasValue && directumTask.Performer != null && directumTask.Performer.IsAppCurrentUser();
+            if (allowPerform)
+            {
+                this._syncContainer.Publish<DirectumTask, AfterSaveDirectumTaskEvent>(directumTask);
+
+                string title = "Принята задача в DirectumLite";
+                string message = $"Инициатор: {directumTask.Group.Author}\nТема: \"{directumTask.Group.Title}\"";
+
+                var action = new Action(() =>
+                {
+                    _container.Resolve<IRegionManager>().RequestNavigateContentRegion<DirectumTaskView>(new NavigationParameters { { "task", directumTask } });
+                });
+
+                Popup.Popup.ShowPopup(message, title, action);
+            }
+        }
+
+        public void OnRejectDirectumTaskServiceCallback(Guid taskId)
+        {
+
+            var directumTask = _container.Resolve<IUnitOfWork>().Repository<DirectumTask>().GetById(taskId);
+
+            //можно ли исполнять
+            var allowPerform = directumTask.StartResult.HasValue && directumTask.Performer != null && directumTask.Performer.IsAppCurrentUser();
+            if (allowPerform)
+            {
+                this._syncContainer.Publish<DirectumTask, AfterSaveDirectumTaskEvent>(directumTask);
+
+                string title = "Не принята задача в DirectumLite";
+                string message = $"Инициатор: {directumTask.Group.Author}\nТема: \"{directumTask.Group.Title}\"";
+
+                var action = new Action(() =>
+                {
+                    _container.Resolve<IRegionManager>().RequestNavigateContentRegion<DirectumTaskView>(new NavigationParameters { { "task", directumTask } });
+                });
+
+                Popup.Popup.ShowPopup(message, title, action);
+            }
+        }
+
+        #endregion
+
+        #region PriceCalculation
+
         public void OnSavePriceCalculationServiceCallback(Guid calculationId)
         {
             var calculation = _container.Resolve<IUnitOfWork>().Repository<PriceCalculation>().GetById(calculationId);
 
             var frontManager = calculation.GetFrontManager();
             var isProjectManager = frontManager != null && frontManager.IsAppCurrentUser();
-            var isInitiator = calculation.Initiator.IsAppCurrentUser();
+            var isInitiator = calculation.Initiator != null && calculation.Initiator.IsAppCurrentUser();
 
             if (isProjectManager || isInitiator || GlobalAppProperties.User.RoleCurrent == Role.Pricer)
             {
@@ -220,6 +312,8 @@ namespace EventServiceClient2
                 Popup.Popup.ShowPopup(message, "Остановлен расчет переменных затрат", action);
             }
         }
+
+        #endregion
 
         public void OnSaveIncomingRequestServiceCallback(Guid requestId)
         {

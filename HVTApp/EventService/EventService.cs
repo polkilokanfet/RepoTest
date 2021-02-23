@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.ServiceModel;
 using HVTApp.Infrastructure.Interfaces.Services.EventService;
 
@@ -55,10 +56,41 @@ namespace EventService
             PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveIncomingRequestServiceCallback(requestId));
         }
 
+        #region Directum
+
         public void SaveDirectumTaskPublishEvent(Guid appSessionId, Guid taskId)
         {
             PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveDirectumTaskServiceCallback(taskId));
         }
+
+        public void StartDirectumTaskPublishEvent(Guid appSessionId, Guid taskId)
+        {
+            PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnStartDirectumTaskServiceCallback(taskId));
+        }
+
+        public void StopDirectumTaskPublishEvent(Guid appSessionId, Guid taskId)
+        {
+            PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnStopDirectumTaskServiceCallback(taskId));
+        }
+
+        public void PerformDirectumTaskPublishEvent(Guid appSessionId, Guid taskId)
+        {
+            PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnPerformDirectumTaskServiceCallback(taskId));
+        }
+
+        public void AcceptDirectumTaskPublishEvent(Guid appSessionId, Guid taskId)
+        {
+            PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnAcceptDirectumTaskServiceCallback(taskId));
+        }
+
+        public void RejectDirectumTaskPublishEvent(Guid appSessionId, Guid taskId)
+        {
+            PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnRejectDirectumTaskServiceCallback(taskId));
+        }
+
+        #endregion
+
+        #region PriceCalculation
 
         public void SavePriceCalculationPublishEvent(Guid appSessionId, Guid priceCalculationId)
         {
@@ -78,6 +110,8 @@ namespace EventService
         {
             PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnCancelPriceCalculationServiceCallback(priceCalculationId));
         }
+
+        #endregion
 
         public void SaveIncomingDocumentPublishEvent(Guid appSessionId, Guid documentId)
         {
@@ -111,15 +145,14 @@ namespace EventService
                 catch (TimeoutException)
                 {
                     this.Disconnect(appSession.AppSessionId);
-                    PrintMessageEvent?.Invoke($"Disconnected appSession {appSessionId}. TimeoutException.");
                 }
                 catch (Exception e)
                 {
-                    PrintMessageEvent?.Invoke($"SavePublishEvent appSession {appSessionId}. {e.GetType().FullName}");
+                    PrintMessageEvent?.Invoke($"Invoke {publishEvent.GetMethodInfo().Name} by appSession {appSessionId}. {e.GetType().FullName}");
                 }
             }
 
-            PrintMessageEvent?.Invoke($"SavePublishEvent by appSession {appSessionId}");
+            PrintMessageEvent?.Invoke($"Invoke {publishEvent.GetMethodInfo().Name} by appSession {appSessionId}");
         }
 
         #endregion

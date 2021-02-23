@@ -45,6 +45,21 @@
   <wsdl:message name="IEventService_SaveDirectumTaskPublishEvent_InputMessage">
     <wsdl:part name="parameters" element="tns:SaveDirectumTaskPublishEvent" />
   </wsdl:message>
+  <wsdl:message name="IEventService_StartDirectumTaskPublishEvent_InputMessage">
+    <wsdl:part name="parameters" element="tns:StartDirectumTaskPublishEvent" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_StopDirectumTaskPublishEvent_InputMessage">
+    <wsdl:part name="parameters" element="tns:StopDirectumTaskPublishEvent" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_PerformDirectumTaskPublishEvent_InputMessage">
+    <wsdl:part name="parameters" element="tns:PerformDirectumTaskPublishEvent" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_AcceptDirectumTaskPublishEvent_InputMessage">
+    <wsdl:part name="parameters" element="tns:AcceptDirectumTaskPublishEvent" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_RejectDirectumTaskPublishEvent_InputMessage">
+    <wsdl:part name="parameters" element="tns:RejectDirectumTaskPublishEvent" />
+  </wsdl:message>
   <wsdl:message name="IEventService_SavePriceCalculationPublishEvent_InputMessage">
     <wsdl:part name="parameters" element="tns:SavePriceCalculationPublishEvent" />
   </wsdl:message>
@@ -77,6 +92,21 @@
   </wsdl:message>
   <wsdl:message name="IEventService_OnSaveDirectumTaskServiceCallback_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnSaveDirectumTaskServiceCallback" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_OnStartDirectumTaskServiceCallback_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnStartDirectumTaskServiceCallback" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_OnStopDirectumTaskServiceCallback_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnStopDirectumTaskServiceCallback" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_OnPerformDirectumTaskServiceCallback_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnPerformDirectumTaskServiceCallback" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_OnAcceptDirectumTaskServiceCallback_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnAcceptDirectumTaskServiceCallback" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_OnRejectDirectumTaskServiceCallback_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnRejectDirectumTaskServiceCallback" />
   </wsdl:message>
   <wsdl:message name="IEventService_OnSavePriceCalculationServiceCallback_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnSavePriceCalculationServiceCallback" />
@@ -119,6 +149,21 @@
     <wsdl:operation name="SaveDirectumTaskPublishEvent">
       <wsdl:input wsaw:Action="http://tempuri.org/IEventService/SaveDirectumTaskPublishEvent" message="tns:IEventService_SaveDirectumTaskPublishEvent_InputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="StartDirectumTaskPublishEvent">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/StartDirectumTaskPublishEvent" message="tns:IEventService_StartDirectumTaskPublishEvent_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="StopDirectumTaskPublishEvent">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/StopDirectumTaskPublishEvent" message="tns:IEventService_StopDirectumTaskPublishEvent_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PerformDirectumTaskPublishEvent">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/PerformDirectumTaskPublishEvent" message="tns:IEventService_PerformDirectumTaskPublishEvent_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AcceptDirectumTaskPublishEvent">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/AcceptDirectumTaskPublishEvent" message="tns:IEventService_AcceptDirectumTaskPublishEvent_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RejectDirectumTaskPublishEvent">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/RejectDirectumTaskPublishEvent" message="tns:IEventService_RejectDirectumTaskPublishEvent_InputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="SavePriceCalculationPublishEvent">
       <wsdl:input wsaw:Action="http://tempuri.org/IEventService/SavePriceCalculationPublishEvent" message="tns:IEventService_SavePriceCalculationPublishEvent_InputMessage" />
     </wsdl:operation>
@@ -151,6 +196,21 @@
     </wsdl:operation>
     <wsdl:operation name="OnSaveDirectumTaskServiceCallback">
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnSaveDirectumTaskServiceCallback" message="tns:IEventService_OnSaveDirectumTaskServiceCallback_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OnStartDirectumTaskServiceCallback">
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnStartDirectumTaskServiceCallback" message="tns:IEventService_OnStartDirectumTaskServiceCallback_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OnStopDirectumTaskServiceCallback">
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnStopDirectumTaskServiceCallback" message="tns:IEventService_OnStopDirectumTaskServiceCallback_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OnPerformDirectumTaskServiceCallback">
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnPerformDirectumTaskServiceCallback" message="tns:IEventService_OnPerformDirectumTaskServiceCallback_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OnAcceptDirectumTaskServiceCallback">
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnAcceptDirectumTaskServiceCallback" message="tns:IEventService_OnAcceptDirectumTaskServiceCallback_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OnRejectDirectumTaskServiceCallback">
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnRejectDirectumTaskServiceCallback" message="tns:IEventService_OnRejectDirectumTaskServiceCallback_OutputCallbackMessage" />
     </wsdl:operation>
     <wsdl:operation name="OnSavePriceCalculationServiceCallback">
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnSavePriceCalculationServiceCallback" message="tns:IEventService_OnSavePriceCalculationServiceCallback_OutputCallbackMessage" />
@@ -219,6 +279,36 @@
         <soap12:body use="literal" />
       </wsdl:input>
     </wsdl:operation>
+    <wsdl:operation name="StartDirectumTaskPublishEvent">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/StartDirectumTaskPublishEvent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="StopDirectumTaskPublishEvent">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/StopDirectumTaskPublishEvent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="PerformDirectumTaskPublishEvent">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/PerformDirectumTaskPublishEvent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="AcceptDirectumTaskPublishEvent">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/AcceptDirectumTaskPublishEvent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="RejectDirectumTaskPublishEvent">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/RejectDirectumTaskPublishEvent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
     <wsdl:operation name="SavePriceCalculationPublishEvent">
       <soap12:operation soapAction="http://tempuri.org/IEventService/SavePriceCalculationPublishEvent" style="document" />
       <wsdl:input>
@@ -281,6 +371,36 @@
     </wsdl:operation>
     <wsdl:operation name="OnSaveDirectumTaskServiceCallback">
       <soap12:operation soapAction="http://tempuri.org/IEventService/OnSaveDirectumTaskServiceCallback" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnStartDirectumTaskServiceCallback">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/OnStartDirectumTaskServiceCallback" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnStopDirectumTaskServiceCallback">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/OnStopDirectumTaskServiceCallback" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnPerformDirectumTaskServiceCallback">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/OnPerformDirectumTaskServiceCallback" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnAcceptDirectumTaskServiceCallback">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/OnAcceptDirectumTaskServiceCallback" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnRejectDirectumTaskServiceCallback">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/OnRejectDirectumTaskServiceCallback" style="document" />
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>

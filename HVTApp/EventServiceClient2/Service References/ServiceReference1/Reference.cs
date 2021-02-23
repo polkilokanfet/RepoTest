@@ -45,6 +45,36 @@ namespace EventServiceClient2.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/SaveDirectumTaskPublishEvent")]
         System.Threading.Tasks.Task SaveDirectumTaskPublishEventAsync(System.Guid appSessionId, System.Guid taskId);
         
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/StartDirectumTaskPublishEvent")]
+        void StartDirectumTaskPublishEvent(System.Guid appSessionId, System.Guid taskId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/StartDirectumTaskPublishEvent")]
+        System.Threading.Tasks.Task StartDirectumTaskPublishEventAsync(System.Guid appSessionId, System.Guid taskId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/StopDirectumTaskPublishEvent")]
+        void StopDirectumTaskPublishEvent(System.Guid appSessionId, System.Guid taskId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/StopDirectumTaskPublishEvent")]
+        System.Threading.Tasks.Task StopDirectumTaskPublishEventAsync(System.Guid appSessionId, System.Guid taskId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/PerformDirectumTaskPublishEvent")]
+        void PerformDirectumTaskPublishEvent(System.Guid appSessionId, System.Guid taskId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/PerformDirectumTaskPublishEvent")]
+        System.Threading.Tasks.Task PerformDirectumTaskPublishEventAsync(System.Guid appSessionId, System.Guid taskId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/AcceptDirectumTaskPublishEvent")]
+        void AcceptDirectumTaskPublishEvent(System.Guid appSessionId, System.Guid taskId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/AcceptDirectumTaskPublishEvent")]
+        System.Threading.Tasks.Task AcceptDirectumTaskPublishEventAsync(System.Guid appSessionId, System.Guid taskId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/RejectDirectumTaskPublishEvent")]
+        void RejectDirectumTaskPublishEvent(System.Guid appSessionId, System.Guid taskId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/RejectDirectumTaskPublishEvent")]
+        System.Threading.Tasks.Task RejectDirectumTaskPublishEventAsync(System.Guid appSessionId, System.Guid taskId);
+        
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/SavePriceCalculationPublishEvent")]
         void SavePriceCalculationPublishEvent(System.Guid appSessionId, System.Guid priceCalculationId);
         
@@ -102,6 +132,21 @@ namespace EventServiceClient2.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnSaveDirectumTaskServiceCallback")]
         void OnSaveDirectumTaskServiceCallback(System.Guid taskId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnStartDirectumTaskServiceCallback")]
+        void OnStartDirectumTaskServiceCallback(System.Guid taskId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnStopDirectumTaskServiceCallback")]
+        void OnStopDirectumTaskServiceCallback(System.Guid taskId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnPerformDirectumTaskServiceCallback")]
+        void OnPerformDirectumTaskServiceCallback(System.Guid taskId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnAcceptDirectumTaskServiceCallback")]
+        void OnAcceptDirectumTaskServiceCallback(System.Guid taskId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnRejectDirectumTaskServiceCallback")]
+        void OnRejectDirectumTaskServiceCallback(System.Guid taskId);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnSavePriceCalculationServiceCallback")]
         void OnSavePriceCalculationServiceCallback(System.Guid calculationId);
@@ -191,6 +236,46 @@ namespace EventServiceClient2.ServiceReference1 {
         
         public System.Threading.Tasks.Task SaveDirectumTaskPublishEventAsync(System.Guid appSessionId, System.Guid taskId) {
             return base.Channel.SaveDirectumTaskPublishEventAsync(appSessionId, taskId);
+        }
+        
+        public void StartDirectumTaskPublishEvent(System.Guid appSessionId, System.Guid taskId) {
+            base.Channel.StartDirectumTaskPublishEvent(appSessionId, taskId);
+        }
+        
+        public System.Threading.Tasks.Task StartDirectumTaskPublishEventAsync(System.Guid appSessionId, System.Guid taskId) {
+            return base.Channel.StartDirectumTaskPublishEventAsync(appSessionId, taskId);
+        }
+        
+        public void StopDirectumTaskPublishEvent(System.Guid appSessionId, System.Guid taskId) {
+            base.Channel.StopDirectumTaskPublishEvent(appSessionId, taskId);
+        }
+        
+        public System.Threading.Tasks.Task StopDirectumTaskPublishEventAsync(System.Guid appSessionId, System.Guid taskId) {
+            return base.Channel.StopDirectumTaskPublishEventAsync(appSessionId, taskId);
+        }
+        
+        public void PerformDirectumTaskPublishEvent(System.Guid appSessionId, System.Guid taskId) {
+            base.Channel.PerformDirectumTaskPublishEvent(appSessionId, taskId);
+        }
+        
+        public System.Threading.Tasks.Task PerformDirectumTaskPublishEventAsync(System.Guid appSessionId, System.Guid taskId) {
+            return base.Channel.PerformDirectumTaskPublishEventAsync(appSessionId, taskId);
+        }
+        
+        public void AcceptDirectumTaskPublishEvent(System.Guid appSessionId, System.Guid taskId) {
+            base.Channel.AcceptDirectumTaskPublishEvent(appSessionId, taskId);
+        }
+        
+        public System.Threading.Tasks.Task AcceptDirectumTaskPublishEventAsync(System.Guid appSessionId, System.Guid taskId) {
+            return base.Channel.AcceptDirectumTaskPublishEventAsync(appSessionId, taskId);
+        }
+        
+        public void RejectDirectumTaskPublishEvent(System.Guid appSessionId, System.Guid taskId) {
+            base.Channel.RejectDirectumTaskPublishEvent(appSessionId, taskId);
+        }
+        
+        public System.Threading.Tasks.Task RejectDirectumTaskPublishEventAsync(System.Guid appSessionId, System.Guid taskId) {
+            return base.Channel.RejectDirectumTaskPublishEventAsync(appSessionId, taskId);
         }
         
         public void SavePriceCalculationPublishEvent(System.Guid appSessionId, System.Guid priceCalculationId) {

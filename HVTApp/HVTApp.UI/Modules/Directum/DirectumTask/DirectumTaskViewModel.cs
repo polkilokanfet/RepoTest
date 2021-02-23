@@ -78,7 +78,7 @@ namespace HVTApp.UI.Modules.Directum
 
         public bool AllowSubTask => !TaskIsNew;
 
-        public bool AllowPerform => 
+        public bool AllowPerform =>
             DirectumTask?.Performer != null && 
             DirectumTask.Performer.Id == GlobalAppProperties.User.Id && 
             !DirectumTask.FinishPerformer.HasValue;
@@ -209,11 +209,12 @@ namespace HVTApp.UI.Modules.Directum
                     unitOfWork.SaveChanges();
 
                     var afterSaveDirectumTaskEvent = Container.Resolve<IEventAggregator>().GetEvent<AfterSaveDirectumTaskEvent>();
-                    //var afterSaveDirectumTaskSyncEvent = Container.Resolve<IEventAggregator>().GetEvent<AfterSaveDirectumTaskSyncEvent>();
+                    var afterStartDirectumTaskEvent = Container.Resolve<IEventAggregator>().GetEvent<AfterStartDirectumTaskEvent>();
+
                     directumTasks.ForEach(directumTask =>
                     {
                         afterSaveDirectumTaskEvent.Publish(directumTask);
-                        //afterSaveDirectumTaskSyncEvent.Publish(directumTask);
+                        afterStartDirectumTaskEvent.Publish(directumTask);
                     });
 
                     DirectumTask = null; //костыль, чтобы не возмущался при выходе
@@ -254,6 +255,9 @@ namespace HVTApp.UI.Modules.Directum
                     UnitOfWork.SaveChanges();
 
                     ((DelegateCommand)PerformCommand).RaiseCanExecuteChanged();
+
+                    Container.Resolve<IEventAggregator>().GetEvent<AfterStopDirectumTaskEvent>().Publish(DirectumTask.Model);
+
                     GoBackCommand.Execute(null);
                 });
 
@@ -270,7 +274,7 @@ namespace HVTApp.UI.Modules.Directum
                     UnitOfWork.SaveChanges();
 
                     Container.Resolve<IEventAggregator>().GetEvent<AfterSaveDirectumTaskEvent>().Publish(DirectumTask.Model);
-                    //Container.Resolve<IEventAggregator>().GetEvent<AfterSaveDirectumTaskSyncEvent>().Publish(DirectumTask.Model);
+                    Container.Resolve<IEventAggregator>().GetEvent<AfterPerformDirectumTaskEvent>().Publish(DirectumTask.Model);
 
                     GoBackCommand.Execute(null);
                 },
@@ -300,8 +304,10 @@ namespace HVTApp.UI.Modules.Directum
                     }
                     DirectumTask.AcceptChanges();
                     UnitOfWork.SaveChanges();
+
                     Container.Resolve<IEventAggregator>().GetEvent<AfterSaveDirectumTaskEvent>().Publish(DirectumTask.Model);
-                    //Container.Resolve<IEventAggregator>().GetEvent<AfterSaveDirectumTaskSyncEvent>().Publish(DirectumTask.Model);
+                    Container.Resolve<IEventAggregator>().GetEvent<AfterAcceptDirectumTaskEvent>().Publish(DirectumTask.Model);
+
                     GoBackCommand.Execute(null);
                 },
                 () => AllowAccept && DirectumTask.IsValid);
@@ -331,8 +337,10 @@ namespace HVTApp.UI.Modules.Directum
 
                     DirectumTask.AcceptChanges();
                     UnitOfWork.SaveChanges();
+                    
                     Container.Resolve<IEventAggregator>().GetEvent<AfterSaveDirectumTaskEvent>().Publish(DirectumTask.Model);
-                    //Container.Resolve<IEventAggregator>().GetEvent<AfterSaveDirectumTaskSyncEvent>().Publish(DirectumTask.Model);
+                    Container.Resolve<IEventAggregator>().GetEvent<AfterRejectDirectumTaskEvent>().Publish(DirectumTask.Model);
+
                     GoBackCommand.Execute(null);
                 },
                 () => AllowAccept && DirectumTask.IsValid);

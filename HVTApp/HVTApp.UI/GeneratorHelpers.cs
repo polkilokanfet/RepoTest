@@ -287,12 +287,6 @@ namespace HVTApp.UI
             return attributes.Any() 
                 ? attributes.Select(x => x.ToString()).ToStringEnum(" ")
                 : string.Empty;
-            StringBuilder sb = new StringBuilder();
-            foreach (var attribute in type.GetAllowEditAttributes())
-            {
-                sb.AppendLine(attribute.ToString());
-            }
-            return sb.ToString();
         }
 
     }
