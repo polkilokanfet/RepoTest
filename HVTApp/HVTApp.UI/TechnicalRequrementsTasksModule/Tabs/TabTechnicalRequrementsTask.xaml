@@ -99,6 +99,11 @@
                            Visibility="{Binding CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityConverter}}"
                            SmallImage="/HVTApp.UI;component/Images/save.png" />
 
+        <infRib:ButtonTool Caption="Поручить"
+                           Command="{Binding InstructCommand}"
+                           Visibility="{Binding CurrentUserIsBackManagerBoss, Converter={StaticResource BooleanToVisibilityConverter}}"
+                           SmallImage="/HVTApp.UI;component/Images/remove.png"/>
+
         <infRib:ButtonTool Caption="Отклонить"
                            Command="{Binding RejectCommand}"
                            Visibility="{Binding CurrentUserIsBackManager, Converter={StaticResource BooleanToVisibilityConverter}}"

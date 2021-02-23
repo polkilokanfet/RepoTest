@@ -53,12 +53,19 @@ namespace EventServiceClient2
                     _syncContainer.Add(new SyncDirectumTaskPerform(_container, _eventServiceClient, _appSessionId));        //Задачи из DirectumLite
                     _syncContainer.Add(new SyncDirectumTaskAccept(_container, _eventServiceClient, _appSessionId));         //Задачи из DirectumLite
                     _syncContainer.Add(new SyncDirectumTaskReject(_container, _eventServiceClient, _appSessionId));         //Задачи из DirectumLite
-                    _syncContainer.Add(new SyncTechnicalRequrementsTask(_container, _eventServiceClient, _appSessionId));   //Задачи TCE
+
+                    _syncContainer.Add(new SyncTechnicalRequrementsTask(_container, _eventServiceClient, _appSessionId));           //Задачи TCE
+                    _syncContainer.Add(new SyncTechnicalRequrementsTaskStart(_container, _eventServiceClient, _appSessionId));      //Задачи TCE
+                    _syncContainer.Add(new SyncTechnicalRequrementsTaskInstruct(_container, _eventServiceClient, _appSessionId));   //Задачи TCE
+                    _syncContainer.Add(new SyncTechnicalRequrementsTaskCancel(_container, _eventServiceClient, _appSessionId));     //Задачи TCE
+                    _syncContainer.Add(new SyncTechnicalRequrementsTaskReject(_container, _eventServiceClient, _appSessionId));     //Задачи TCE
+
                     _syncContainer.Add(new SyncPriceCalculation(_container, _eventServiceClient, _appSessionId));           //Калькуляции себестоимости сохранение
                     _syncContainer.Add(new SyncPriceCalculationStart(_container, _eventServiceClient, _appSessionId));      //Калькуляции себестоимости старт
                     _syncContainer.Add(new SyncPriceCalculationFinish(_container, _eventServiceClient, _appSessionId));     //Калькуляции себестоимости финиш
                     _syncContainer.Add(new SyncPriceCalculationCancel(_container, _eventServiceClient, _appSessionId));     //Калькуляции себестоимости остановка
-                    _syncContainer.Add(new SyncIncomingRequest(_container, _eventServiceClient, _appSessionId));            //Запросы
+
+                    //_syncContainer.Add(new SyncIncomingRequest(_container, _eventServiceClient, _appSessionId));            //Запросы
 
                     ////Входящие документы
                     //_eventAggregator.GetEvent<AfterSaveIncomingDocumentSyncEvent>().Subscribe(document => { SavePublishEvent(
@@ -69,7 +76,7 @@ namespace EventServiceClient2
             }
             catch (Exception e)
             {
-                var message = $"Не удалось подключиться к сервису синхронизации. Вы можете продолжать работу без синхронизации.\nПопросите разработчика запустить сервис синхронизации.\n\n{e.GetAllExceptions()}";
+                var message = $"Не удалось подключиться к сервису синхронизации. Вы можете продолжать работу без синхронизации с другими пользователями.\nПопросите разработчика запустить сервис синхронизации.\n\n{e.GetAllExceptions()}";
                 _container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().Name, message);
             }
         }
@@ -366,68 +373,119 @@ namespace EventServiceClient2
             }
         }
 
+        #region TechnicalRequarementsTask
+
         public void OnSaveTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId)
         {
-            var technicalRequrementsTask = _container.Resolve<IUnitOfWork>().Repository<TechnicalRequrementsTask>().GetById(technicalRequarementsTaskId);
-            var frontManager = technicalRequrementsTask.GetFrontManager();
+        }
 
-            if (frontManager == null) return;
-
-            string message = string.Empty;
-            var action = new Action(() =>
+        public void OnStartTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId)
+        {
+            if (GlobalAppProperties.User.RoleCurrent == Role.BackManagerBoss ||
+                GlobalAppProperties.User.RoleCurrent == Role.BackManager)
             {
-                _container.Resolve<IRegionManager>().RequestNavigateContentRegion<TechnicalRequrementsTaskView>(new NavigationParameters { { "technicalRequrementsTask", technicalRequrementsTask } });
-            });
+                var technicalRequrementsTask = _container.Resolve<IUnitOfWork>().Repository<TechnicalRequrementsTask>().GetById(technicalRequarementsTaskId);
+                var frontManager = technicalRequrementsTask.GetFrontManager();
+                if (frontManager == null) return;
 
-            //если текущий пользователь Front-Менеджер
-            if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager)
-            {
-                if (!frontManager.IsAppCurrentUser()) return;
-                message = "Изменения в задаче";
+                string message = string.Empty;
+                var action = new Action(() =>
+                {
+                    _container.Resolve<IRegionManager>().RequestNavigateContentRegion<TechnicalRequrementsTaskView>(new NavigationParameters { { "technicalRequrementsTask", technicalRequrementsTask } });
+                });
+
+                //если текущий пользователь BackManagerBoss
+                if (GlobalAppProperties.User.RoleCurrent == Role.BackManagerBoss)
+                {
+                    if (technicalRequrementsTask.Start.HasValue && technicalRequrementsTask.BackManager == null)
+                    {
+                        message = $"Поручите кому-нибудь новую задачу ТСЕ (инициатор: {frontManager})";
+                    }
+                }
+                //если текущий пользователь Back-Менеджер
+                else if (GlobalAppProperties.User.RoleCurrent == Role.BackManager)
+                {
+                    if (technicalRequrementsTask.BackManager == null) return;
+                    if (technicalRequrementsTask.BackManager.IsAppCurrentUser())
+                    {
+                        message = $"Рестартована задача (инициатор: {frontManager})";
+                    }
+                }
+
+                if (message != string.Empty)
+                {
+                    this._syncContainer.Publish<TechnicalRequrementsTask, AfterSaveTechnicalRequrementsTaskEvent>(technicalRequrementsTask);
+                    Popup.Popup.ShowPopup(message, $"Задача в TCE с Id {technicalRequrementsTask.Id}", action);
+                }
             }
 
-            //если текущий пользователь Back-Менеджер
-            else if (GlobalAppProperties.User.RoleCurrent == Role.BackManager)
+        }
+
+        public void OnInstructTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId)
+        {
+            if (GlobalAppProperties.User.RoleCurrent == Role.BackManager)
             {
+                var technicalRequrementsTask = _container.Resolve<IUnitOfWork>().Repository<TechnicalRequrementsTask>().GetById(technicalRequarementsTaskId);
+                var frontManager = technicalRequrementsTask.GetFrontManager();
+
+                if (frontManager == null) return;
                 if (technicalRequrementsTask.BackManager == null) return;
-                if (technicalRequrementsTask.BackManager.IsAppCurrentUser())
-                {
-                    if (technicalRequrementsTask.Start.HasValue)
-                    {
-                        if (technicalRequrementsTask.LastOpenBackManagerMoment.HasValue)
-                        {
-                            if (technicalRequrementsTask.Start.Value > technicalRequrementsTask.LastOpenBackManagerMoment.Value)
-                            {
-                                message = $"Задача изменена с момента последнего её просмотра (инициатор: {frontManager})";
-                            }
-                        }
-                        else
-                        {
-                            message = $"Вам поручена новая задача (инициатор: {frontManager})";
-                        }
-                    }
-                    else
-                    {
-                        message = $"Задача остановлена (инициатор: {frontManager})";
-                    }
-                }
-            }
+                if (!technicalRequrementsTask.BackManager.IsAppCurrentUser()) return;
 
-            //если текущий пользователь BackManagerBoss
-            else if (GlobalAppProperties.User.RoleCurrent == Role.BackManagerBoss)
-            {
-                if (technicalRequrementsTask.Start.HasValue && technicalRequrementsTask.BackManager == null)
+                var action = new Action(() =>
                 {
-                    message = $"Создана новая задача. Её необходимо кому-то поручить (инициатор: {frontManager})";
-                }
-            }
+                    _container.Resolve<IRegionManager>().RequestNavigateContentRegion<TechnicalRequrementsTaskView>(new NavigationParameters { { "technicalRequrementsTask", technicalRequrementsTask } });
+                });
 
-            if (message != string.Empty)
-            {
                 this._syncContainer.Publish<TechnicalRequrementsTask, AfterSaveTechnicalRequrementsTaskEvent>(technicalRequrementsTask);
-                Popup.Popup.ShowPopup(message, $"Задача в TCE с Id {technicalRequrementsTask.Id}", action);
+                Popup.Popup.ShowPopup($"Вам поручена задача ТСЕ (инициатор: {frontManager})", $"Задача в TCE с Id {technicalRequrementsTask.Id}", action);
+            }
+
+            else if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager)
+            {
+                var technicalRequrementsTask = _container.Resolve<IUnitOfWork>().Repository<TechnicalRequrementsTask>().GetById(technicalRequarementsTaskId);
+                var frontManager = technicalRequrementsTask.GetFrontManager();
+
+                if (frontManager == null) return;
+                if (!frontManager.IsAppCurrentUser()) return;
+                if (technicalRequrementsTask.BackManager == null) return;
+
+                var action = new Action(() =>
+                {
+                    _container.Resolve<IRegionManager>().RequestNavigateContentRegion<TechnicalRequrementsTaskView>(new NavigationParameters { { "technicalRequrementsTask", technicalRequrementsTask } });
+                });
+
+                this._syncContainer.Publish<TechnicalRequrementsTask, AfterSaveTechnicalRequrementsTaskEvent>(technicalRequrementsTask);
+                Popup.Popup.ShowPopup($"Ваша задача ТСЕ поручена (back-manager: {technicalRequrementsTask.BackManager})", $"Задача в TCE с Id {technicalRequrementsTask.Id}", action);
             }
         }
+
+        public void OnCancelTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId)
+        {
+        }
+
+        public void OnRejectTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId)
+        {
+            if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager)
+            {
+                var technicalRequrementsTask = _container.Resolve<IUnitOfWork>().Repository<TechnicalRequrementsTask>().GetById(technicalRequarementsTaskId);
+                var frontManager = technicalRequrementsTask.GetFrontManager();
+
+                if (frontManager == null) return;
+                if (!frontManager.IsAppCurrentUser()) return;
+                if (technicalRequrementsTask.BackManager == null) return;
+
+                var action = new Action(() =>
+                {
+                    _container.Resolve<IRegionManager>().RequestNavigateContentRegion<TechnicalRequrementsTaskView>(new NavigationParameters { { "technicalRequrementsTask", technicalRequrementsTask } });
+                });
+
+                this._syncContainer.Publish<TechnicalRequrementsTask, AfterSaveTechnicalRequrementsTaskEvent>(technicalRequrementsTask);
+                Popup.Popup.ShowPopup($"Ваша задача ТСЕ отклонена (back-manager: {technicalRequrementsTask.BackManager})\nПричина отклонения: {technicalRequrementsTask.RejectComment}", $"Задача в TCE с Id {technicalRequrementsTask.Id}", action);
+            }
+        }
+
+        #endregion
 
         #endregion
 

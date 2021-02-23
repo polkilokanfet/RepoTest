@@ -60,7 +60,23 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
         [OperationContract(IsOneWay = true)]
         void OnSaveIncomingDocumentServiceCallback(Guid documentId);
 
+        #region TechnicalRequarementsTask
+
         [OperationContract(IsOneWay = true)]
         void OnSaveTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId);
+
+        [OperationContract(IsOneWay = true)]
+        void OnStartTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId);
+
+        [OperationContract(IsOneWay = true)]
+        void OnInstructTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId);
+
+        [OperationContract(IsOneWay = true)]
+        void OnCancelTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId);
+
+        [OperationContract(IsOneWay = true)]
+        void OnRejectTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId);
+        
+        #endregion
     }
 }

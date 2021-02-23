@@ -49,7 +49,7 @@ namespace EventService
             }
         }
 
-        #region SavePublishEvent
+        #region PublishEventsByService
 
         public void SaveIncomingRequestPublishEvent(Guid appSessionId, Guid requestId)
         {
@@ -118,10 +118,34 @@ namespace EventService
             PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveIncomingDocumentServiceCallback(documentId));
         }
 
+        #region TechnicalRequarementsTask
+
         public void SaveTechnicalRequarementsTaskPublishEvent(Guid appSessionId, Guid technicalRequarementsTaskId)
         {
             PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveTechnicalRequarementsTaskServiceCallback(technicalRequarementsTaskId));
         }
+
+        public void StartTechnicalRequarementsTaskPublishEvent(Guid appSessionId, Guid technicalRequarementsTaskId)
+        {
+            PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnStartTechnicalRequarementsTaskServiceCallback(technicalRequarementsTaskId));
+        }
+
+        public void InstructTechnicalRequarementsTaskPublishEvent(Guid appSessionId, Guid technicalRequarementsTaskId)
+        {
+            PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnInstructTechnicalRequarementsTaskServiceCallback(technicalRequarementsTaskId));
+        }
+
+        public void CancelTechnicalRequarementsTaskPublishEvent(Guid appSessionId, Guid technicalRequarementsTaskId)
+        {
+            PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnCancelTechnicalRequarementsTaskServiceCallback(technicalRequarementsTaskId));
+        }
+
+        public void RejectTechnicalRequarementsTaskPublishEvent(Guid appSessionId, Guid technicalRequarementsTaskId)
+        {
+            PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnRejectTechnicalRequarementsTaskServiceCallback(technicalRequarementsTaskId));
+        }
+
+        #endregion
 
         /// <summary>
         /// Публикация события через сервис синхронизации

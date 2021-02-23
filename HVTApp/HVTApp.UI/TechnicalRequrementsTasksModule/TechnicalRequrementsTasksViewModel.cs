@@ -67,6 +67,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                         task.BackManager = backManager;
                         unitOfWork.SaveChanges();
                         EventAggregator.GetEvent<AfterSaveTechnicalRequrementsTaskEvent>().Publish(task);
+                        EventAggregator.GetEvent<AfterInstructTechnicalRequrementsTaskEvent>().Publish(task);
                     }
                 },
                 () => CurrentUserIsBackManagerBoss && SelectedLookup != null);

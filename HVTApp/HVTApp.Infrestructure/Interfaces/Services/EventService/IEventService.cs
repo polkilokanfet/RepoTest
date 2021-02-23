@@ -73,7 +73,23 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
         [OperationContract(IsOneWay = true)]
         void SaveIncomingDocumentPublishEvent(Guid appSessionId, Guid documentId);
 
+        #region TechnicalRequarementsTask
+
         [OperationContract(IsOneWay = true)]
         void SaveTechnicalRequarementsTaskPublishEvent(Guid appSessionId, Guid technicalRequarementsTaskId);
+
+        [OperationContract(IsOneWay = true)]
+        void StartTechnicalRequarementsTaskPublishEvent(Guid appSessionId, Guid technicalRequarementsTaskId);
+
+        [OperationContract(IsOneWay = true)]
+        void InstructTechnicalRequarementsTaskPublishEvent(Guid appSessionId, Guid technicalRequarementsTaskId);
+
+        [OperationContract(IsOneWay = true)]
+        void CancelTechnicalRequarementsTaskPublishEvent(Guid appSessionId, Guid technicalRequarementsTaskId);
+
+        [OperationContract(IsOneWay = true)]
+        void RejectTechnicalRequarementsTaskPublishEvent(Guid appSessionId, Guid technicalRequarementsTaskId);
+
+        #endregion
     }
 }

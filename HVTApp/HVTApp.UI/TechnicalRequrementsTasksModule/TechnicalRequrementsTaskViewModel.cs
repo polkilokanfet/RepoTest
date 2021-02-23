@@ -76,6 +76,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
         public bool CurrentUserIsManager => GlobalAppProperties.User.RoleCurrent == Role.SalesManager;
         public bool CurrentUserIsBackManager => GlobalAppProperties.User.RoleCurrent == Role.BackManager;
+        public bool CurrentUserIsBackManagerBoss => GlobalAppProperties.User.RoleCurrent == Role.BackManagerBoss;
+
 
         public bool IsStarted => TechnicalRequrementsTaskWrapper?.Start != null;
 
@@ -143,6 +145,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         public ICommand OpenAnswerCommand { get; }
 
         public ICommand OpenFileCommand { get; }
+
+        public ICommand InstructCommand { get; }
 
         #endregion
 
@@ -376,6 +380,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
                     OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsStarted)));
                     RaiseCanExecuteChange();
+
+                    container.Resolve<IEventAggregator>().GetEvent<AfterStartTechnicalRequrementsTaskEvent>().Publish(TechnicalRequrementsTaskWrapper.Model);
                 },
                 () =>
                 {
@@ -421,6 +427,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsStarted)));
                 RaiseCanExecuteChange();
+
+                container.Resolve<IEventAggregator>().GetEvent<AfterCancelTechnicalRequrementsTaskEvent>().Publish(TechnicalRequrementsTaskWrapper.Model);
             },
             () => IsStarted);
 
@@ -600,6 +608,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                     TechnicalRequrementsTaskWrapper.RejectByBackManagerMoment = DateTime.Now;
                     TechnicalRequrementsTaskWrapper.AcceptChanges();
                     UnitOfWork.SaveChanges();
+                    container.Resolve<IEventAggregator>().GetEvent<AfterRejectTechnicalRequrementsTaskEvent>().Publish(TechnicalRequrementsTaskWrapper.Model);
+
                 },
                 () => !IsRejected);
 
@@ -756,6 +766,35 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                         }
                     },
                     () => SelectedItem is TechnicalRequrementsFileWrapper);
+
+            #endregion
+
+            #region InstructCommand
+
+            InstructCommand = new DelegateCommand(
+                () =>
+                {
+                    if (TechnicalRequrementsTaskWrapper.Model.BackManager != null)
+                    {
+                        var dr = _messageService.ShowYesNoMessageDialog("Информация", "Back manager уже назначен. Вы хотите его сменить?");
+                        if (dr != MessageDialogResult.Yes) return;
+                    }
+
+                    var backManagers = UnitOfWork.Repository<User>().Find(user => user.Roles.Any(role => role.Role == Role.BackManager));
+                    var selectService = Container.Resolve<ISelectService>();
+                    var backManager = selectService.SelectItem(backManagers, TechnicalRequrementsTaskWrapper.Model.BackManager?.Id);
+
+                    if (backManager != null)
+                    {
+                        TechnicalRequrementsTaskWrapper.BackManager = new UserWrapper(backManager);
+                        TechnicalRequrementsTaskWrapper.AcceptChanges();
+                        UnitOfWork.SaveChanges();
+                        container.Resolve<IEventAggregator>().GetEvent<AfterSaveTechnicalRequrementsTaskEvent>().Publish(TechnicalRequrementsTaskWrapper.Model);
+                        container.Resolve<IEventAggregator>().GetEvent<AfterInstructTechnicalRequrementsTaskEvent>().Publish(TechnicalRequrementsTaskWrapper.Model);
+                    }
+                },
+                () => CurrentUserIsBackManagerBoss);
+
 
             #endregion
         }

@@ -36,6 +36,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -59,8 +60,11 @@
                 <Label Grid.Row="3" Grid.Column="0" Content="Старт: "/>
                 <Label Grid.Row="3" Grid.Column="1" Content="{Binding TechnicalRequrementsTaskWrapper.Start, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DateTimeToStringConverter}}" HorizontalAlignment="Left"/>
 
-                <Label Grid.Row="4" Grid.Column="0" Content="Причина отклонения: "/>
-                <TextBox Grid.Row="4" Grid.Column="1"
+                <Label Grid.Row="4" Grid.Column="0" Content="Back-manager: "/>
+                <Label Grid.Row="4" Grid.Column="1" Content="{Binding TechnicalRequrementsTaskWrapper.BackManager, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ObjectToStringConverter}}" HorizontalAlignment="Left"/>
+
+                <Label Grid.Row="5" Grid.Column="0" Content="Причина отклонения: "/>
+                <TextBox Grid.Row="5" Grid.Column="1"
                          Text="{Binding TechnicalRequrementsTaskWrapper.RejectComment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                          IsReadOnly="{Binding CurrentUserIsBackManager, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ReverseBoolConverter}}"/>
 

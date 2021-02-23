@@ -28,4 +28,13 @@ namespace HVTApp.Model.Events
     public class AfterRejectDirectumTaskEvent : PubSubEvent<DirectumTask> { }
 
     #endregion
+
+    #region TechnicalRequrementsTask
+
+    public class AfterStartTechnicalRequrementsTaskEvent : PubSubEvent<TechnicalRequrementsTask> { }
+    public class AfterInstructTechnicalRequrementsTaskEvent : PubSubEvent<TechnicalRequrementsTask> { }
+    public class AfterRejectTechnicalRequrementsTaskEvent : PubSubEvent<TechnicalRequrementsTask> { }
+    public class AfterCancelTechnicalRequrementsTaskEvent : PubSubEvent<TechnicalRequrementsTask> { }
+
+    #endregion
 }
