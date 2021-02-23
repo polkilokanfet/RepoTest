@@ -3,10 +3,10 @@
                     xmlns:infg="http://infragistics.com/DataPresenter">
 
     <Style TargetType="infg:XamDataGrid">
-        
+
         <!--Автоматическая ширина колонок таблицы-->
         <Setter Property="AutoFit" Value="False" />
-        
+
         <!--Фильтры и запрет на редактирование-->
         <Setter Property="FieldSettings">
             <Setter.Value>
@@ -28,10 +28,14 @@
                                           FilterUIType="LabelIcons" 
                                           HeaderPlacement="OnTopOnly"
                                           HeaderPlacementInGroupBy="OnTopOnly"/>
-                                          <!--HighlightAlternateRecords="True"--> 
-                                          <!--AutoFitMode="Always"-->
+                <!--HighlightAlternateRecords="True"-->
+                <!--AutoFitMode="Always"-->
             </Setter.Value>
         </Setter>
+    </Style>
+
+    <Style TargetType="infg:XamDataGrid" x:Key="XamDataGridWithoutGroupByArea" BasedOn="{StaticResource {x:Type infg:XamDataGrid}}">
+        <Setter Property="GroupByAreaLocation" Value="None"/>
     </Style>
 
     <Style TargetType="infg:XamDataGrid" x:Key="RecordFilterScopeAllRecords">

@@ -189,9 +189,10 @@
                         </Grid.RowDefinitions>
 
                         <GroupBox Grid.Row="0" Header="Предложения">
-                            <dp:XamDataGrid x:Name="OfferLookupListGrid"
-                                                DataSource="{Binding Offers}"
-                                                ActiveDataItem="{Binding Offers.SelectedItem}">
+                            <dp:XamDataGrid x:Name="OfferLookupListGrid" 
+                                            Style="{StaticResource XamDataGridWithoutGroupByArea}"
+                                            DataSource="{Binding Offers}"
+                                            ActiveDataItem="{Binding Offers.SelectedItem}">
 
                                 <dp:XamDataGrid.InputBindings>
                                     <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=EditOfferCommand, Mode=OneWay}" />
@@ -216,7 +217,8 @@
 
                         <GroupBox Grid.Row="2" Header="Конкурсы">
                             <dp:XamDataGrid DataSource="{Binding Tenders}" 
-                                            ActiveDataItem="{Binding Tenders.SelectedItem}">
+                                            ActiveDataItem="{Binding Tenders.SelectedItem}"
+                                            Style="{StaticResource XamDataGridWithoutGroupByArea}">
 
                                 <dp:XamDataGrid.InputBindings>
                                     <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=EditTenderCommand, Mode=OneWay}" />
@@ -242,7 +244,8 @@
 
                         <GroupBox Grid.Row="4" Header="Задачи в TCE">
                             <dp:XamDataGrid DataSource="{Binding TechnicalRequrementsTasks}"
-                                            ActiveDataItem="{Binding TechnicalRequrementsTasks.SelectedItem}">
+                                            ActiveDataItem="{Binding TechnicalRequrementsTasks.SelectedItem}"
+                                            Style="{StaticResource XamDataGridWithoutGroupByArea}">
 
                                 <dp:XamDataGrid.InputBindings>
                                     <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=EditTechnicalRequrementsTaskCommand, Mode=OneWay}" />
@@ -265,7 +268,8 @@
 
                         <GroupBox Grid.Row="6" Header="Расчеты переменных затрат">
                             <dp:XamDataGrid DataSource="{Binding PriceCalculations}" 
-                                            ActiveDataItem="{Binding PriceCalculations.SelectedItem}">
+                                            ActiveDataItem="{Binding PriceCalculations.SelectedItem}"
+                                            Style="{StaticResource XamDataGridWithoutGroupByArea}">
 
                                 <dp:XamDataGrid.InputBindings>
                                     <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=EditPriceCalculationCommand, Mode=OneWay}" />
@@ -316,7 +320,8 @@
                           Grid.Column="0">
 
                     <dp:XamDataGrid DataSource="{Binding Notes}" 
-                                    ActiveDataItem="{Binding SelectedNote, Mode=TwoWay}">
+                                    ActiveDataItem="{Binding SelectedNote, Mode=TwoWay}"
+                                    Style="{StaticResource XamDataGridWithoutGroupByArea}">
 
                         <dp:XamDataGrid.FieldLayoutSettings>
 
@@ -324,7 +329,7 @@
                                                         AutoFitMode="OnlyWithVisibleStarFields"
                                                         AllowAddNew="False"
                                                         AllowDelete="False"
-                                                        FilterUIType="LabelIcons" />
+                                                        FilterUIType="LabelIcons"/>
                         </dp:XamDataGrid.FieldLayoutSettings>
 
                         <dp:XamDataGrid.FieldLayouts>
