@@ -4,9 +4,9 @@ namespace HVTApp.DataAccess
     {
         public PriceCalculationConfiguration()
         {
-            HasMany(priceCalculation => priceCalculation.Files).WithRequired().HasForeignKey(x => x.CalculationId).WillCascadeOnDelete(false);
-            HasMany(priceCalculation => priceCalculation.PriceCalculationItems).WithRequired().HasForeignKey(x => x.PriceCalculationId).WillCascadeOnDelete(true);
-            HasOptional(priceCalculation => priceCalculation.Initiator).WithMany();
+            HasMany(priceCalculation => priceCalculation.Files).WithRequired().HasForeignKey(file => file.CalculationId).WillCascadeOnDelete(false);
+            HasMany(priceCalculation => priceCalculation.PriceCalculationItems).WithRequired().HasForeignKey(item => item.PriceCalculationId).WillCascadeOnDelete(true);
+            HasRequired(priceCalculation => priceCalculation.Initiator).WithMany().WillCascadeOnDelete(false);
         }
     }
 }

@@ -4,7 +4,7 @@ namespace HVTApp.DataAccess
     {
         public ActivityFieldConfiguration()
         {
-            Property(x => x.ActivityFieldEnum).IsRequired();
+            Property(activityField => activityField.ActivityFieldEnum).IsRequired();
         }
     }
 }

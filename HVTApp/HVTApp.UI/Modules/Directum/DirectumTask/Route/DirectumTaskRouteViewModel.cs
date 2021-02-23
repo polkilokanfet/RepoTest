@@ -24,7 +24,7 @@ namespace HVTApp.UI.Modules.Directum
 
         public bool IsParallel
         {
-            get { return DirectumTaskRoute.IsParallel; }
+            get => DirectumTaskRoute.IsParallel;
             set
             {
                 DirectumTaskRoute.IsParallel = value;
@@ -41,7 +41,7 @@ namespace HVTApp.UI.Modules.Directum
 
         public DateTime FinishPlan
         {
-            get { return _finishPlan; }
+            get => _finishPlan;
             set
             {
                 if (Equals(_finishPlan, value)) return;
@@ -65,6 +65,7 @@ namespace HVTApp.UI.Modules.Directum
             }
         }
 
+        public ICommand AddGroupPerformersCommand { get; }
         public ICommand AddPerformerCommand { get; }
         public ICommand RemovePerformerCommand { get; }
         public ICommand OkCommand { get; }
@@ -74,11 +75,17 @@ namespace HVTApp.UI.Modules.Directum
             DirectumTaskRoute = route;
             AllowEdit = allowEdit;
 
+            AddGroupPerformersCommand = new DelegateCommand(
+                () =>
+                {
+
+                });
+
             AddPerformerCommand = new DelegateCommand(
                 () =>
                 {
                     var users = UnitOfWork.Repository<User>().Find(x => x.Employee.Company.Id == GlobalAppProperties.Actual.OurCompany.Id);
-                    DirectumTaskRoute.Items.Select(x => x.Performer.Model).ForEach(x => users.RemoveIfContainsById(x));
+                    DirectumTaskRoute.Items.Select(x => x.Performer.Model).ForEach(user => users.RemoveIfContainsById(user));
                     var performer = Container.Resolve<ISelectService>().SelectItem(users);
                     if (performer != null)
                     {

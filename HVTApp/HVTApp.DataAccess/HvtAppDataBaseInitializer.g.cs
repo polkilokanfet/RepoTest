@@ -22,6 +22,7 @@ namespace HVTApp.DataAccess
             context.CreateNewProductTaskDbSet.AddRange(testData.GetAll<CreateNewProductTask>());
             context.DirectumTaskDbSet.AddRange(testData.GetAll<DirectumTask>());
             context.DirectumTaskGroupDbSet.AddRange(testData.GetAll<DirectumTaskGroup>());
+            context.DirectumTaskGroupFileDbSet.AddRange(testData.GetAll<DirectumTaskGroupFile>());
             context.DirectumTaskMessageDbSet.AddRange(testData.GetAll<DirectumTaskMessage>());
             context.DocumentNumberDbSet.AddRange(testData.GetAll<DocumentNumber>());
             context.IncomingRequestDbSet.AddRange(testData.GetAll<IncomingRequest>());
@@ -49,6 +50,7 @@ namespace HVTApp.DataAccess
             context.TechnicalRequrementsDbSet.AddRange(testData.GetAll<TechnicalRequrements>());
             context.TechnicalRequrementsFileDbSet.AddRange(testData.GetAll<TechnicalRequrementsFile>());
             context.TechnicalRequrementsTaskDbSet.AddRange(testData.GetAll<TechnicalRequrementsTask>());
+            context.UserGroupDbSet.AddRange(testData.GetAll<UserGroup>());
             context.GlobalPropertiesDbSet.AddRange(testData.GetAll<GlobalProperties>());
             context.AddressDbSet.AddRange(testData.GetAll<Address>());
             context.CountryDbSet.AddRange(testData.GetAll<Country>());

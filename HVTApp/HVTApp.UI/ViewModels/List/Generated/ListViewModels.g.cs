@@ -84,6 +84,12 @@ namespace HVTApp.UI.ViewModels
     }
 
 
+	public partial class DirectumTaskGroupFileLookupListViewModel : BaseListViewModel<DirectumTaskGroupFile, DirectumTaskGroupFileLookup, AfterSaveDirectumTaskGroupFileEvent, AfterSelectDirectumTaskGroupFileEvent, AfterRemoveDirectumTaskGroupFileEvent>
+    {
+        public DirectumTaskGroupFileLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+
 	public partial class DirectumTaskMessageLookupListViewModel : BaseListViewModel<DirectumTaskMessage, DirectumTaskMessageLookup, AfterSaveDirectumTaskMessageEvent, AfterSelectDirectumTaskMessageEvent, AfterRemoveDirectumTaskMessageEvent>
     {
         public DirectumTaskMessageLookupListViewModel(IUnityContainer container) : base(container) { }
@@ -243,6 +249,12 @@ namespace HVTApp.UI.ViewModels
 	public partial class TechnicalRequrementsTaskLookupListViewModel : BaseListViewModel<TechnicalRequrementsTask, TechnicalRequrementsTaskLookup, AfterSaveTechnicalRequrementsTaskEvent, AfterSelectTechnicalRequrementsTaskEvent, AfterRemoveTechnicalRequrementsTaskEvent>
     {
         public TechnicalRequrementsTaskLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+
+	public partial class UserGroupLookupListViewModel : BaseListViewModel<UserGroup, UserGroupLookup, AfterSaveUserGroupEvent, AfterSelectUserGroupEvent, AfterRemoveUserGroupEvent>
+    {
+        public UserGroupLookupListViewModel(IUnityContainer container) : base(container) { }
     }
 
 

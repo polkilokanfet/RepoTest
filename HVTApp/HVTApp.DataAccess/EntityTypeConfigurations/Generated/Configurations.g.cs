@@ -13,6 +13,7 @@ namespace HVTApp.DataAccess
     public partial class CreateNewProductTaskConfiguration : EntityTypeConfiguration<CreateNewProductTask> { }
     public partial class DirectumTaskConfiguration : EntityTypeConfiguration<DirectumTask> { }
     public partial class DirectumTaskGroupConfiguration : EntityTypeConfiguration<DirectumTaskGroup> { }
+    public partial class DirectumTaskGroupFileConfiguration : EntityTypeConfiguration<DirectumTaskGroupFile> { }
     public partial class DirectumTaskMessageConfiguration : EntityTypeConfiguration<DirectumTaskMessage> { }
     public partial class DocumentNumberConfiguration : EntityTypeConfiguration<DocumentNumber> { }
     public partial class IncomingRequestConfiguration : EntityTypeConfiguration<IncomingRequest> { }
@@ -40,6 +41,7 @@ namespace HVTApp.DataAccess
     public partial class TechnicalRequrementsConfiguration : EntityTypeConfiguration<TechnicalRequrements> { }
     public partial class TechnicalRequrementsFileConfiguration : EntityTypeConfiguration<TechnicalRequrementsFile> { }
     public partial class TechnicalRequrementsTaskConfiguration : EntityTypeConfiguration<TechnicalRequrementsTask> { }
+    public partial class UserGroupConfiguration : EntityTypeConfiguration<UserGroup> { }
     public partial class GlobalPropertiesConfiguration : EntityTypeConfiguration<GlobalProperties> { }
     public partial class AddressConfiguration : EntityTypeConfiguration<Address> { }
     public partial class CountryConfiguration : EntityTypeConfiguration<Country> { }

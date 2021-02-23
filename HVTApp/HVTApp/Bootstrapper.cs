@@ -75,8 +75,12 @@ namespace HVTApp
         {
             SetGlobalAppProperties();
             CheckLastDeveloperVizit();
+
             //старт клиентской части сервиса синхронизации
-            Container.Resolve<IEventServiceClient>().Start();
+#if DEBUG
+            if(false)
+#endif
+                Container.Resolve<IEventServiceClient>().Start();
 
 
             Container.Resolve<IEventAggregator>().GetEvent<ModuleIsInitializedEvent>().Subscribe(moduleType =>

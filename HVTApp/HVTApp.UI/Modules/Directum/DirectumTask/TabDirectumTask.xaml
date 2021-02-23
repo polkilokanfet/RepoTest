@@ -9,14 +9,20 @@
         <infRib:ButtonTool Caption="Стартовать" Command="{Binding StartCommand}" SmallImage="/HVTApp.UI;component/Images/start.png" Visibility="{Binding TaskIsNew, Converter={StaticResource BooleanToVisibilityConverter}}"/>
         <infRib:ButtonTool Caption="Остановить" Command="{Binding StopCommand}" SmallImage="/HVTApp.UI;component/Images/stop.png" Visibility="{Binding AllowStop, Converter={StaticResource BooleanToVisibilityConverter}}"/>
         <infRib:ButtonTool Caption="Выполнить" Command="{Binding PerformCommand}" SmallImage="/HVTApp.UI;component/Images/done.png" Visibility="{Binding AllowPerform, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-        <infRib:ButtonTool Caption="Принять выполнение" Command="{Binding AcceptCommand}" SmallImage="/HVTApp.UI;component/Images/done.png" Visibility="{Binding AllowAccept, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-        <infRib:ButtonTool Caption="Вернуть на доработку" Command="{Binding RejectCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png" Visibility="{Binding AllowAccept, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        <infRib:ButtonTool Caption="Принять" Command="{Binding AcceptCommand}" SmallImage="/HVTApp.UI;component/Images/done.png" Visibility="{Binding AllowAccept, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        <infRib:ButtonTool Caption="На доработку" Command="{Binding RejectCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png" Visibility="{Binding AllowAccept, Converter={StaticResource BooleanToVisibilityConverter}}"/>
     </infRib:RibbonGroup>
 
-    <infRib:RibbonGroup Caption="Подзадача" Visibility="{Binding AllowSubTask, Converter={StaticResource BooleanToVisibilityConverter}}">
+    <!--<infRib:RibbonGroup Caption="Подзадача" Visibility="{Binding AllowSubTask, Converter={StaticResource BooleanToVisibilityConverter}}">
         <infRib:ButtonTool Caption="Создать" Command="{Binding SubTaskCommand}" SmallImage="/HVTApp.UI;component/Images/edit.png"/>
+    </infRib:RibbonGroup>-->
+
+    <infRib:RibbonGroup Caption="Приложения">
+        <infRib:ButtonTool Caption="Добавить" Command="{Binding AddFileCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
+        <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveFileCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>
+        <infRib:ButtonTool Caption="Открыть" Command="{Binding OpenFileCommand}" SmallImage="/HVTApp.UI;component/Images/done.png"/>
     </infRib:RibbonGroup>
-    
+
     <infRib:RibbonGroup Caption="Действия">
         <infRib:ButtonTool Caption="Назад" Command="{Binding GoBackCommand}" SmallImage="/HVTApp.UI;component/Images/ar_back.png"/>
     </infRib:RibbonGroup>

@@ -9,7 +9,7 @@
                     <!--SmallImage="/HVTApp.Modules.DirectumLite;component/Images/p16.png"
                     LargeImage="/HVTApp.Modules.DirectumLite;component/Images/p32.png">-->
 
-    <igs:XamDataTree Name="_xamDataTree"
+    <igs:XamDataTree Name="XamDataTree"
                      ItemsSource="{Binding Items}"
                      infPrism:XamDataTreeItemSelected.Command="{x:Static Member=inf:Commands.NavigateCommand}">
         <igs:XamDataTree.GlobalNodeLayouts>

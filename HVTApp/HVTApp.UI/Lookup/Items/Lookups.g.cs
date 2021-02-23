@@ -394,6 +394,45 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(50)]
 	    public List<UserLookup> Observers { get { return GetLookupEnum<UserLookup>().ToList(); } }
 
+		[OrderStatus(1)]
+	    public List<DirectumTaskGroupFileLookup> Files { get { return GetLookupEnum<DirectumTaskGroupFileLookup>().ToList(); } }
+
+	}
+
+	[AllowEditAttribute(Role.Admin)]
+	[Designation("Файл (DirectumLite)")]
+	public partial class DirectumTaskGroupFileLookup : LookupItem<DirectumTaskGroupFile>
+	{
+		public DirectumTaskGroupFileLookup(DirectumTaskGroupFile entity) : base(entity) 
+		{
+		}
+		
+
+        #region SimpleProperties
+
+		[OrderStatus(10)]
+        public System.String Name => Entity.Name;
+
+
+		[OrderStatus(5)]
+        public System.DateTime LoadMoment => Entity.LoadMoment;
+
+
+		[OrderStatus(1)]
+        public System.Guid DirectumTaskGroupId => Entity.DirectumTaskGroupId;
+
+
+        #endregion
+
+
+        #region ComplexProperties
+
+		[OrderStatus(2)]
+	    public UserLookup Author { get { return GetLookup<UserLookup>(); } }
+
+
+        #endregion
+
 	}
 
 	[AllowEditAttribute(Role.Admin)]
@@ -1230,6 +1269,28 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(-6)]
 	    public List<AnswerFileTceLookup> AnswerFiles { get { return GetLookupEnum<AnswerFileTceLookup>().ToList(); } }
+
+	}
+
+	[AllowEditAttribute(Role.Admin)]
+	[Designation("Группа пользователей")]
+	public partial class UserGroupLookup : LookupItem<UserGroup>
+	{
+		public UserGroupLookup(UserGroup entity) : base(entity) 
+		{
+		}
+		
+
+        #region SimpleProperties
+
+		[OrderStatus(1)]
+        public System.String Name => Entity.Name;
+
+
+        #endregion
+
+		[OrderStatus(1)]
+	    public List<UserLookup> Users { get { return GetLookupEnum<UserLookup>().ToList(); } }
 
 	}
 

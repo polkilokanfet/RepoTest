@@ -27,6 +27,7 @@ namespace HVTApp.Model.Events
 	public partial class AfterSaveCreateNewProductTaskEvent : PubSubEvent<CreateNewProductTask> { }
 	public partial class AfterSaveDirectumTaskEvent : PubSubEvent<DirectumTask> { }
 	public partial class AfterSaveDirectumTaskGroupEvent : PubSubEvent<DirectumTaskGroup> { }
+	public partial class AfterSaveDirectumTaskGroupFileEvent : PubSubEvent<DirectumTaskGroupFile> { }
 	public partial class AfterSaveDirectumTaskMessageEvent : PubSubEvent<DirectumTaskMessage> { }
 	public partial class AfterSaveDocumentNumberEvent : PubSubEvent<DocumentNumber> { }
 	public partial class AfterSaveIncomingRequestEvent : PubSubEvent<IncomingRequest> { }
@@ -54,6 +55,7 @@ namespace HVTApp.Model.Events
 	public partial class AfterSaveTechnicalRequrementsEvent : PubSubEvent<TechnicalRequrements> { }
 	public partial class AfterSaveTechnicalRequrementsFileEvent : PubSubEvent<TechnicalRequrementsFile> { }
 	public partial class AfterSaveTechnicalRequrementsTaskEvent : PubSubEvent<TechnicalRequrementsTask> { }
+	public partial class AfterSaveUserGroupEvent : PubSubEvent<UserGroup> { }
 	public partial class AfterSaveGlobalPropertiesEvent : PubSubEvent<GlobalProperties> { }
 	public partial class AfterSaveAddressEvent : PubSubEvent<Address> { }
 	public partial class AfterSaveCountryEvent : PubSubEvent<Country> { }

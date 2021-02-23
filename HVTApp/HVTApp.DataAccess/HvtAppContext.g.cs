@@ -19,6 +19,7 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new CreateNewProductTaskConfiguration());
             modelBuilder.Configurations.Add(new DirectumTaskConfiguration());
             modelBuilder.Configurations.Add(new DirectumTaskGroupConfiguration());
+            modelBuilder.Configurations.Add(new DirectumTaskGroupFileConfiguration());
             modelBuilder.Configurations.Add(new DirectumTaskMessageConfiguration());
             modelBuilder.Configurations.Add(new DocumentNumberConfiguration());
             modelBuilder.Configurations.Add(new IncomingRequestConfiguration());
@@ -46,6 +47,7 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new TechnicalRequrementsConfiguration());
             modelBuilder.Configurations.Add(new TechnicalRequrementsFileConfiguration());
             modelBuilder.Configurations.Add(new TechnicalRequrementsTaskConfiguration());
+            modelBuilder.Configurations.Add(new UserGroupConfiguration());
             modelBuilder.Configurations.Add(new GlobalPropertiesConfiguration());
             modelBuilder.Configurations.Add(new AddressConfiguration());
             modelBuilder.Configurations.Add(new CountryConfiguration());
@@ -104,6 +106,7 @@ namespace HVTApp.DataAccess
         public virtual DbSet<CreateNewProductTask> CreateNewProductTaskDbSet { get; set; }
         public virtual DbSet<DirectumTask> DirectumTaskDbSet { get; set; }
         public virtual DbSet<DirectumTaskGroup> DirectumTaskGroupDbSet { get; set; }
+        public virtual DbSet<DirectumTaskGroupFile> DirectumTaskGroupFileDbSet { get; set; }
         public virtual DbSet<DirectumTaskMessage> DirectumTaskMessageDbSet { get; set; }
         public virtual DbSet<DocumentNumber> DocumentNumberDbSet { get; set; }
         public virtual DbSet<IncomingRequest> IncomingRequestDbSet { get; set; }
@@ -131,6 +134,7 @@ namespace HVTApp.DataAccess
         public virtual DbSet<TechnicalRequrements> TechnicalRequrementsDbSet { get; set; }
         public virtual DbSet<TechnicalRequrementsFile> TechnicalRequrementsFileDbSet { get; set; }
         public virtual DbSet<TechnicalRequrementsTask> TechnicalRequrementsTaskDbSet { get; set; }
+        public virtual DbSet<UserGroup> UserGroupDbSet { get; set; }
         public virtual DbSet<GlobalProperties> GlobalPropertiesDbSet { get; set; }
         public virtual DbSet<Address> AddressDbSet { get; set; }
         public virtual DbSet<Country> CountryDbSet { get; set; }

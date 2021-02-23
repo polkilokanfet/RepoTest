@@ -706,7 +706,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 () =>
                 {
                     //диалог
-                    var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Подтверждение", "Вы уверены, что хотите удалить выделенное приложение?", defaultYes: true);
+                    var dr = _messageService.ShowYesNoMessageDialog("Подтверждение", "Вы уверены, что хотите удалить выделенное приложение?", defaultYes: true);
                     if (dr != MessageDialogResult.Yes) return;
 
                     try

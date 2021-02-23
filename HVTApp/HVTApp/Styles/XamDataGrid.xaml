@@ -38,6 +38,24 @@
         <Setter Property="GroupByAreaLocation" Value="None"/>
     </Style>
 
+
+    <Style TargetType="infg:XamDataGrid" x:Key="XamDataGridOnlyWithVisibleStarFields" BasedOn="{StaticResource XamDataGridWithoutGroupByArea}">
+        <Setter Property="FieldLayoutSettings">
+            <Setter.Value>
+                <infg:FieldLayoutSettings AutoGenerateFields="False"
+                                          AutoFitMode="OnlyWithVisibleStarFields"
+                                          AllowAddNew="False"
+                                          AllowDelete="False"
+                                          AllowFieldMoving="Yes"
+                                          AllowRecordFixing="Top"
+                                          HeaderPrefixAreaDisplayMode="FieldChooserButton"
+                                          FilterUIType="LabelIcons" 
+                                          HeaderPlacement="OnTopOnly"
+                                          HeaderPlacementInGroupBy="OnTopOnly"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style TargetType="infg:XamDataGrid" x:Key="RecordFilterScopeAllRecords">
 
         <!--Автоматическая ширина колонок таблицы-->

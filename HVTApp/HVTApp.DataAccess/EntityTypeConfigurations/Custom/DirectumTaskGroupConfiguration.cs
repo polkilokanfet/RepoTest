@@ -4,11 +4,12 @@ namespace HVTApp.DataAccess
     {
         public DirectumTaskGroupConfiguration()
         {
-            HasRequired(x => x.Author).WithMany().WillCascadeOnDelete(false);
-            HasMany(x => x.Observers).WithMany();
-            Property(x => x.Priority).IsRequired();
-            Property(x => x.Title).IsRequired().HasMaxLength(250);
-            Property(x => x.Message).IsRequired().HasMaxLength(1000);
+            HasRequired(directumTaskGroup => directumTaskGroup.Author).WithMany().WillCascadeOnDelete(false);
+            HasMany(directumTaskGroup => directumTaskGroup.Observers).WithMany();
+            HasMany(directumTaskGroup => directumTaskGroup.Files).WithRequired().HasForeignKey(file => file.DirectumTaskGroupId).WillCascadeOnDelete(false);
+            Property(directumTaskGroup => directumTaskGroup.Priority).IsRequired();
+            Property(directumTaskGroup => directumTaskGroup.Title).IsRequired().HasMaxLength(250);
+            Property(directumTaskGroup => directumTaskGroup.Message).IsRequired().HasMaxLength(5000);
         }
     }
 }

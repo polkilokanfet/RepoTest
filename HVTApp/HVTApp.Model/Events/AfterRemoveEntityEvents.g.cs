@@ -13,6 +13,7 @@ namespace HVTApp.Model.Events
 	public partial class AfterRemoveCreateNewProductTaskEvent : PubSubEvent<CreateNewProductTask> { }
 	public partial class AfterRemoveDirectumTaskEvent : PubSubEvent<DirectumTask> { }
 	public partial class AfterRemoveDirectumTaskGroupEvent : PubSubEvent<DirectumTaskGroup> { }
+	public partial class AfterRemoveDirectumTaskGroupFileEvent : PubSubEvent<DirectumTaskGroupFile> { }
 	public partial class AfterRemoveDirectumTaskMessageEvent : PubSubEvent<DirectumTaskMessage> { }
 	public partial class AfterRemoveDocumentNumberEvent : PubSubEvent<DocumentNumber> { }
 	public partial class AfterRemoveIncomingRequestEvent : PubSubEvent<IncomingRequest> { }
@@ -40,6 +41,7 @@ namespace HVTApp.Model.Events
 	public partial class AfterRemoveTechnicalRequrementsEvent : PubSubEvent<TechnicalRequrements> { }
 	public partial class AfterRemoveTechnicalRequrementsFileEvent : PubSubEvent<TechnicalRequrementsFile> { }
 	public partial class AfterRemoveTechnicalRequrementsTaskEvent : PubSubEvent<TechnicalRequrementsTask> { }
+	public partial class AfterRemoveUserGroupEvent : PubSubEvent<UserGroup> { }
 	public partial class AfterRemoveGlobalPropertiesEvent : PubSubEvent<GlobalProperties> { }
 	public partial class AfterRemoveAddressEvent : PubSubEvent<Address> { }
 	public partial class AfterRemoveCountryEvent : PubSubEvent<Country> { }

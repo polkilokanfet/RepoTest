@@ -53,5 +53,11 @@ namespace HVTApp.Model.POCOs
         /// </summary>
         [Designation("Сообщение автора"), Required, OrderStatus(30)]
         public string Message { get; set; }
+
+        /// <summary>
+        /// Приложения
+        /// </summary>
+        [Designation("Приложения")]
+        public virtual List<DirectumTaskGroupFile> Files { get; set; } = new List<DirectumTaskGroupFile>();
     }
 }

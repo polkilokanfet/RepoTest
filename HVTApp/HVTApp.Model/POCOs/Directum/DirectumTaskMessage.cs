@@ -20,7 +20,7 @@ namespace HVTApp.Model.POCOs
         /// <summary>
         /// Сообщение
         /// </summary>
-        [Designation("Сообщение"), OrderStatus(1), Required, MaxLength(1000)]
+        [Designation("Сообщение"), OrderStatus(1), Required, MaxLength(5000)]
         public string Message { get; set; }
     }
 }

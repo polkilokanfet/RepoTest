@@ -80,6 +80,7 @@
     <Compile Include="EntityTypeConfigurations\Custom\CountryUnionConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\DirectumTaskConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\DirectumTaskGroupConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\DirectumTaskGroupFileConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\DirectumTaskMessageConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\GlobalPropertiesConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\CostOnDateConfiguration.cs" />
@@ -118,6 +119,7 @@
     <Compile Include="EntityTypeConfigurations\Custom\TechnicalRequrementsTaskConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\TenderTypeConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\TestHusbandConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\UserGroupConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Generated\Configurations.g.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ParameterRelationConfiguration.cs" />
     <Compile Include="HvtAppContext.g.cs" />
@@ -238,6 +240,10 @@
     <Compile Include="Migrations\202102131114547_AnswerFiles2.cs" />
     <Compile Include="Migrations\202102131114547_AnswerFiles2.Designer.cs">
       <DependentUpon>202102131114547_AnswerFiles2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102231856277_DirectumFile.cs" />
+    <Compile Include="Migrations\202102231856277_DirectumFile.Designer.cs">
+      <DependentUpon>202102231856277_DirectumFile.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
@@ -371,6 +377,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102131114547_AnswerFiles2.resx">
       <DependentUpon>202102131114547_AnswerFiles2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102231856277_DirectumFile.resx">
+      <DependentUpon>202102231856277_DirectumFile.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

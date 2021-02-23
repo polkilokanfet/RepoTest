@@ -73,6 +73,11 @@ namespace HVTApp.UI
 			_selectService.Register<DirectumTaskGroupLookupListView, DirectumTaskGroup>();
             _updateDetailsService.Register<DirectumTaskGroup, DirectumTaskGroupDetailsView>();
 
+            Container.RegisterViewForNavigation<DirectumTaskGroupFileLookupListView>();
+            //_dialogService.Register<DirectumTaskGroupFileDetailsViewModel, DirectumTaskGroupFileDetailsView>();
+			_selectService.Register<DirectumTaskGroupFileLookupListView, DirectumTaskGroupFile>();
+            _updateDetailsService.Register<DirectumTaskGroupFile, DirectumTaskGroupFileDetailsView>();
+
             Container.RegisterViewForNavigation<DirectumTaskMessageLookupListView>();
             //_dialogService.Register<DirectumTaskMessageDetailsViewModel, DirectumTaskMessageDetailsView>();
 			_selectService.Register<DirectumTaskMessageLookupListView, DirectumTaskMessage>();
@@ -207,6 +212,11 @@ namespace HVTApp.UI
             //_dialogService.Register<TechnicalRequrementsTaskDetailsViewModel, TechnicalRequrementsTaskDetailsView>();
 			_selectService.Register<TechnicalRequrementsTaskLookupListView, TechnicalRequrementsTask>();
             _updateDetailsService.Register<TechnicalRequrementsTask, TechnicalRequrementsTaskDetailsView>();
+
+            Container.RegisterViewForNavigation<UserGroupLookupListView>();
+            //_dialogService.Register<UserGroupDetailsViewModel, UserGroupDetailsView>();
+			_selectService.Register<UserGroupLookupListView, UserGroup>();
+            _updateDetailsService.Register<UserGroup, UserGroupDetailsView>();
 
             Container.RegisterViewForNavigation<GlobalPropertiesLookupListView>();
             //_dialogService.Register<GlobalPropertiesDetailsViewModel, GlobalPropertiesDetailsView>();

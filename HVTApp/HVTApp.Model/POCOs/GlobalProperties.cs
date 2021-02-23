@@ -91,7 +91,7 @@ namespace HVTApp.Model.POCOs
         [Designation("Путь к папке с файлами ТЗ"), Required, OrderStatus(502), MaxLength(500)]
         public string TechnicalRequrementsFilesPath { get; set; }
 
-        [Designation("Путь к папке с файлами ответов из ТСЕ"), OrderStatus(503), MaxLength(500)]
+        [Designation("Путь к папке с файлами ответов из ТСЕ"), Required, OrderStatus(503), MaxLength(500)]
         public string TechnicalRequrementsFilesAnswersPath { get; set; }
 
         [Designation("Путь к папке с расчетами себестоимости"), Required, OrderStatus(504), MaxLength(500)]

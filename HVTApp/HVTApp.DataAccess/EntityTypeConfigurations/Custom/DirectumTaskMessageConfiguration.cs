@@ -4,8 +4,8 @@ namespace HVTApp.DataAccess
     {
         public DirectumTaskMessageConfiguration()
         {
-            HasRequired(x => x.Author).WithMany().WillCascadeOnDelete(false);
-            Property(x => x.Message).IsRequired().HasMaxLength(1000);
+            HasRequired(directumTaskMessage => directumTaskMessage.Author).WithMany().WillCascadeOnDelete(false);
+            Property(directumTaskMessage => directumTaskMessage.Message).IsRequired().HasMaxLength(5000);
         }
     }
 }

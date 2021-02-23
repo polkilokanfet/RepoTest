@@ -13,6 +13,7 @@ namespace HVTApp.DataAccess
     public partial interface ICreateNewProductTaskRepository : IRepository<CreateNewProductTask> { }
     public partial interface IDirectumTaskRepository : IRepository<DirectumTask> { }
     public partial interface IDirectumTaskGroupRepository : IRepository<DirectumTaskGroup> { }
+    public partial interface IDirectumTaskGroupFileRepository : IRepository<DirectumTaskGroupFile> { }
     public partial interface IDirectumTaskMessageRepository : IRepository<DirectumTaskMessage> { }
     public partial interface IDocumentNumberRepository : IRepository<DocumentNumber> { }
     public partial interface IIncomingRequestRepository : IRepository<IncomingRequest> { }
@@ -40,6 +41,7 @@ namespace HVTApp.DataAccess
     public partial interface ITechnicalRequrementsRepository : IRepository<TechnicalRequrements> { }
     public partial interface ITechnicalRequrementsFileRepository : IRepository<TechnicalRequrementsFile> { }
     public partial interface ITechnicalRequrementsTaskRepository : IRepository<TechnicalRequrementsTask> { }
+    public partial interface IUserGroupRepository : IRepository<UserGroup> { }
     public partial interface IGlobalPropertiesRepository : IRepository<GlobalProperties> { }
     public partial interface IAddressRepository : IRepository<Address> { }
     public partial interface ICountryRepository : IRepository<Country> { }

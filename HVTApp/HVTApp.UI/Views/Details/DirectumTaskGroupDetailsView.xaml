@@ -20,6 +20,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
 
@@ -62,6 +63,15 @@
         <TextBox Grid.Column="1" Grid.Row="5" MinWidth="200" 
                  Text="{Binding Item.Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityMessageDirectumTaskGroup, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="6" Content="Приложения" Visibility="{Binding VisibilityFilesDirectumTaskGroup, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="6"
+										 Items="{Binding Path=Item.Files}"
+										 SelectedItem="{Binding SelectedFilesItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInFilesCommand}"
+										 RemoveItemCommand="{Binding RemoveFromFilesCommand}"
+										 Visibility="{Binding VisibilityFilesDirectumTaskGroup, ElementName=Root}"/>
 
 
 

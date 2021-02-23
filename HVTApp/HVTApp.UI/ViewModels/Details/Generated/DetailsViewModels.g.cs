@@ -670,6 +670,22 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
+		private Func<List<DirectumTaskGroupFile>> _getEntitiesForAddInFilesCommand;
+		public ICommand AddInFilesCommand { get; }
+		public ICommand RemoveFromFilesCommand { get; }
+		private DirectumTaskGroupFileWrapper _selectedFilesItem;
+		public DirectumTaskGroupFileWrapper SelectedFilesItem 
+		{ 
+			get { return _selectedFilesItem; }
+			set 
+			{ 
+				if (Equals(_selectedFilesItem, value)) return;
+				_selectedFilesItem = value;
+				OnPropertyChanged();
+				((DelegateCommand)RemoveFromFilesCommand).RaiseCanExecuteChanged();
+			}
+		}
+
 
         public DirectumTaskGroupDetailsViewModel(IUnityContainer container) : base(container) 
 		{
@@ -682,6 +698,11 @@ namespace HVTApp.UI.ViewModels
 			if (_getEntitiesForAddInObserversCommand == null) _getEntitiesForAddInObserversCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };;
 			if (AddInObserversCommand == null) AddInObserversCommand = new DelegateCommand(AddInObserversCommand_Execute_Default);
 			if (RemoveFromObserversCommand == null) RemoveFromObserversCommand = new DelegateCommand(RemoveFromObserversCommand_Execute_Default, RemoveFromObserversCommand_CanExecute_Default);
+
+			
+			if (_getEntitiesForAddInFilesCommand == null) _getEntitiesForAddInFilesCommand = () => { return UnitOfWork.Repository<DirectumTaskGroupFile>().GetAll(); };;
+			if (AddInFilesCommand == null) AddInFilesCommand = new DelegateCommand(AddInFilesCommand_Execute_Default);
+			if (RemoveFromFilesCommand == null) RemoveFromFilesCommand = new DelegateCommand(RemoveFromFilesCommand_Execute_Default, RemoveFromFilesCommand_CanExecute_Default);
 
 		}
 
@@ -710,6 +731,54 @@ namespace HVTApp.UI.ViewModels
 			{
 				return SelectedObserversItem != null;
 			}
+
+			private void AddInFilesCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<DirectumTaskGroupFile, DirectumTaskGroupFileWrapper>(_getEntitiesForAddInFilesCommand(), Item.Files);
+			}
+
+			private void RemoveFromFilesCommand_Execute_Default()
+			{
+				Item.Files.Remove(SelectedFilesItem);
+			}
+
+			private bool RemoveFromFilesCommand_CanExecute_Default()
+			{
+				return SelectedFilesItem != null;
+			}
+
+
+
+    }
+
+
+    public partial class DirectumTaskGroupFileDetailsViewModel : BaseDetailsViewModel<DirectumTaskGroupFileWrapper, DirectumTaskGroupFile, AfterSaveDirectumTaskGroupFileEvent>
+    {
+		//private Func<Task<List<User>>> _getEntitiesForSelectAuthorCommand;
+		private Func<List<User>> _getEntitiesForSelectAuthorCommand;
+		public ICommand SelectAuthorCommand { get; private set; }
+		public ICommand ClearAuthorCommand { get; private set; }
+
+
+        public DirectumTaskGroupFileDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+			
+			if (_getEntitiesForSelectAuthorCommand == null) _getEntitiesForSelectAuthorCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };
+			if (SelectAuthorCommand == null) SelectAuthorCommand = new DelegateCommand(SelectAuthorCommand_Execute_Default);
+			if (ClearAuthorCommand == null) ClearAuthorCommand = new DelegateCommand(ClearAuthorCommand_Execute_Default);
+
+		}
+
+		private void SelectAuthorCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<User, UserWrapper>(_getEntitiesForSelectAuthorCommand(), nameof(Item.Author), Item.Author?.Id);
+		}
+
+		private void ClearAuthorCommand_Execute_Default() 
+		{
+						Item.Author = null;
+		    
+		}
 
 
 
@@ -1876,6 +1945,54 @@ namespace HVTApp.UI.ViewModels
 			private bool RemoveFromAnswerFilesCommand_CanExecute_Default()
 			{
 				return SelectedAnswerFilesItem != null;
+			}
+
+
+
+    }
+
+
+    public partial class UserGroupDetailsViewModel : BaseDetailsViewModel<UserGroupWrapper, UserGroup, AfterSaveUserGroupEvent>
+    {
+		private Func<List<User>> _getEntitiesForAddInUsersCommand;
+		public ICommand AddInUsersCommand { get; }
+		public ICommand RemoveFromUsersCommand { get; }
+		private UserWrapper _selectedUsersItem;
+		public UserWrapper SelectedUsersItem 
+		{ 
+			get { return _selectedUsersItem; }
+			set 
+			{ 
+				if (Equals(_selectedUsersItem, value)) return;
+				_selectedUsersItem = value;
+				OnPropertyChanged();
+				((DelegateCommand)RemoveFromUsersCommand).RaiseCanExecuteChanged();
+			}
+		}
+
+
+        public UserGroupDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+			
+			if (_getEntitiesForAddInUsersCommand == null) _getEntitiesForAddInUsersCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };;
+			if (AddInUsersCommand == null) AddInUsersCommand = new DelegateCommand(AddInUsersCommand_Execute_Default);
+			if (RemoveFromUsersCommand == null) RemoveFromUsersCommand = new DelegateCommand(RemoveFromUsersCommand_Execute_Default, RemoveFromUsersCommand_CanExecute_Default);
+
+		}
+
+			private void AddInUsersCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<User, UserWrapper>(_getEntitiesForAddInUsersCommand(), Item.Users);
+			}
+
+			private void RemoveFromUsersCommand_Execute_Default()
+			{
+				Item.Users.Remove(SelectedUsersItem);
+			}
+
+			private bool RemoveFromUsersCommand_CanExecute_Default()
+			{
+				return SelectedUsersItem != null;
 			}
 
 

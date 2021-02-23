@@ -14,6 +14,7 @@ namespace HVTApp.DataAccess
             CreateNewProductTaskRepository = new CreateNewProductTaskRepository(_context);
             DirectumTaskRepository = new DirectumTaskRepository(_context);
             DirectumTaskGroupRepository = new DirectumTaskGroupRepository(_context);
+            DirectumTaskGroupFileRepository = new DirectumTaskGroupFileRepository(_context);
             DirectumTaskMessageRepository = new DirectumTaskMessageRepository(_context);
             DocumentNumberRepository = new DocumentNumberRepository(_context);
             IncomingRequestRepository = new IncomingRequestRepository(_context);
@@ -41,6 +42,7 @@ namespace HVTApp.DataAccess
             TechnicalRequrementsRepository = new TechnicalRequrementsRepository(_context);
             TechnicalRequrementsFileRepository = new TechnicalRequrementsFileRepository(_context);
             TechnicalRequrementsTaskRepository = new TechnicalRequrementsTaskRepository(_context);
+            UserGroupRepository = new UserGroupRepository(_context);
             GlobalPropertiesRepository = new GlobalPropertiesRepository(_context);
             AddressRepository = new AddressRepository(_context);
             CountryRepository = new CountryRepository(_context);
@@ -99,6 +101,7 @@ namespace HVTApp.DataAccess
         protected ICreateNewProductTaskRepository CreateNewProductTaskRepository;
         protected IDirectumTaskRepository DirectumTaskRepository;
         protected IDirectumTaskGroupRepository DirectumTaskGroupRepository;
+        protected IDirectumTaskGroupFileRepository DirectumTaskGroupFileRepository;
         protected IDirectumTaskMessageRepository DirectumTaskMessageRepository;
         protected IDocumentNumberRepository DocumentNumberRepository;
         protected IIncomingRequestRepository IncomingRequestRepository;
@@ -126,6 +129,7 @@ namespace HVTApp.DataAccess
         protected ITechnicalRequrementsRepository TechnicalRequrementsRepository;
         protected ITechnicalRequrementsFileRepository TechnicalRequrementsFileRepository;
         protected ITechnicalRequrementsTaskRepository TechnicalRequrementsTaskRepository;
+        protected IUserGroupRepository UserGroupRepository;
         protected IGlobalPropertiesRepository GlobalPropertiesRepository;
         protected IAddressRepository AddressRepository;
         protected ICountryRepository CountryRepository;

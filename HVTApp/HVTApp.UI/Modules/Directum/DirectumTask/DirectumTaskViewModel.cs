@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
@@ -26,9 +29,12 @@ namespace HVTApp.UI.Modules.Directum
         private DirectumTaskWrapper _directumTask = new DirectumTaskWrapper(new Model.POCOs.DirectumTask {Group = new DirectumTaskGroup {StartAuthor = DateTime.Now} });
         private DirectumTaskMessageWrapper _message;
         private Model.POCOs.DirectumTask _parentTask;
+        private readonly IMessageService _messageService;
+        private readonly string _rootFilesDirectoryPath = GlobalAppProperties.Actual.DirectumAttachmentsPath;
 
         //необходимо при согласовании последовательных задач
         private List<DirectumTaskMessageWrapper> _messagesSeria;
+        private DirectumTaskGroupFileWrapper _selectedFile;
 
         /// <summary>
         /// Задача
@@ -40,6 +46,8 @@ namespace HVTApp.UI.Modules.Directum
             {
                 _directumTask = value;
                 OnPropertyChanged();
+                ((DelegateCommand)AddFileCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)RemoveFileCommand).RaiseCanExecuteChanged();
             }
         }
 
@@ -56,6 +64,18 @@ namespace HVTApp.UI.Modules.Directum
             }
         }
 
+        public DirectumTaskGroupFileWrapper SelectedFile
+        {
+            get => _selectedFile;
+            set
+            {
+                _selectedFile = value;
+                ((DelegateCommand)RemoveFileCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)OpenFileCommand).RaiseCanExecuteChanged();
+                OnPropertyChanged();
+            }
+        }
+
         public bool TaskIsNew
         {
             get => _taskIsNew;
@@ -66,6 +86,8 @@ namespace HVTApp.UI.Modules.Directum
                 OnPropertyChanged(nameof(AllowEditTitle));
                 OnPropertyChanged(nameof(AllowSubTask));
                 OnPropertyChanged(nameof(AllowStop));
+                ((DelegateCommand)AddFileCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)RemoveFileCommand).RaiseCanExecuteChanged();
             }
         }
 
@@ -77,6 +99,8 @@ namespace HVTApp.UI.Modules.Directum
                 _taskIsSubTask = value;
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(AllowEditTitle));
+                ((DelegateCommand)AddFileCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)RemoveFileCommand).RaiseCanExecuteChanged();
             }
         }
 
@@ -170,10 +194,28 @@ namespace HVTApp.UI.Modules.Directum
         /// </summary>
         public ICommand SubTaskCommand { get; }
 
+        /// <summary>
+        /// Загрузить приложение в задачу
+        /// </summary>
+        public ICommand AddFileCommand { get; }
+
+        /// <summary>
+        /// Удалить приложение из задачи
+        /// </summary>
+        public ICommand RemoveFileCommand { get; }
+
+
+        /// <summary>
+        /// Открыть приложение
+        /// </summary>
+        public ICommand OpenFileCommand { get; }
+
         #endregion
 
         public DirectumTaskViewModel(IUnityContainer container) : base(container)
         {
+            _messageService = container.Resolve<IMessageService>();
+
             RouteCommand = new DelegateCommand(
                 () =>
                 {
@@ -207,15 +249,17 @@ namespace HVTApp.UI.Modules.Directum
                         Author = unitOfWork.Repository<User>().GetById(DirectumTask.Group.Author.Id),
                         StartAuthor = DateTime.Now,
                         Title = DirectumTask.Group.Title,
-                        Message = DirectumTask.Group.Message
+                        Message = DirectumTask.Group.Message,
+                        Files = DirectumTask.Model.Group.Files.ToList()
                     };
-
+                    User user = unitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id);
+                    directumTaskGroup.Files.ForEach(file => file.Author = user);
 
                     var directumTasks = new List<Model.POCOs.DirectumTask>();
                     //если маршрут параллельный
                     if (Route.IsParallel)
                     {
-                        directumTasks = Route.Items.OrderBy(x => x.Performer.ToString()).Select(
+                        directumTasks = Route.Items.OrderBy(routeItemWrapper => routeItemWrapper.Performer.ToString()).Select(
                             routeItem => new Model.POCOs.DirectumTask
                             {
                                 Group = directumTaskGroup,
@@ -245,6 +289,8 @@ namespace HVTApp.UI.Modules.Directum
                     }
 
                     unitOfWork.Repository<Model.POCOs.DirectumTask>().AddRange(directumTasks);
+                    AddFiles();
+                    RemoveFiles();
                     unitOfWork.SaveChanges();
 
                     var afterSaveDirectumTaskEvent = Container.Resolve<IEventAggregator>().GetEvent<AfterSaveDirectumTaskEvent>();
@@ -394,6 +440,116 @@ namespace HVTApp.UI.Modules.Directum
                     });
                 },
                 () => !TaskIsNew);
+
+            AddFileCommand = new DelegateCommand(
+                () =>
+                {
+                    var openFileDialog = new OpenFileDialog
+                    {
+                        Multiselect = true,
+                        RestoreDirectory = true
+                    };
+
+                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        User currentUser = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id);
+                        UserWrapper currentUserWrapper = new UserWrapper(currentUser);
+                        //копируем каждый файл
+                        foreach (var path in openFileDialog.FileNames)
+                        {
+                            var fileWrapper = new DirectumTaskGroupFileWrapper(new DirectumTaskGroupFile())
+                            {
+                                Name = Path.GetFileNameWithoutExtension(path).LimitLengh(255),
+                                Author = currentUserWrapper
+                            };
+                            _filesToAdd.Add(fileWrapper, path);
+                            this.DirectumTask.Group.Files.Add(fileWrapper);
+                        }
+                    }
+                },
+                () => DirectumTask != null && TaskIsNew && !TaskIsSubTask);
+
+            RemoveFileCommand = new DelegateCommand(
+                () =>
+                {
+                    //диалог
+                    var dr = _messageService.ShowYesNoMessageDialog("Подтверждение", "Вы уверены, что хотите удалить выделенное приложение?", defaultYes: true);
+                    if (dr != MessageDialogResult.Yes) return;
+
+                    if (_filesToAdd.ContainsKey(SelectedFile))
+                    {
+                        _filesToAdd.Remove(SelectedFile);
+                    }
+                    else
+                    {
+                        _filesToRemove.Add(SelectedFile, null);
+                    }
+
+                    this.DirectumTask.Group.Files.Remove(SelectedFile);
+                    SelectedFile = null;
+                }, 
+                () => DirectumTask != null && TaskIsNew && !TaskIsSubTask && SelectedFile != null);
+
+            OpenFileCommand = new DelegateCommand(
+                () =>
+                {
+                    if (_filesToAdd.ContainsKey(SelectedFile))
+                    {
+                        Process.Start(_filesToAdd[SelectedFile]);
+                    }
+                    else
+                    {
+                        FilesStorage.OpenFileFromStorage(SelectedFile.Id, _messageService, _rootFilesDirectoryPath);
+                    }
+                }, 
+                () => SelectedFile != null);
+
+        }
+
+        private readonly Dictionary<DirectumTaskGroupFileWrapper, string> _filesToAdd = new Dictionary<DirectumTaskGroupFileWrapper, string>();
+        private readonly Dictionary<DirectumTaskGroupFileWrapper, string> _filesToRemove = new Dictionary<DirectumTaskGroupFileWrapper, string>();
+
+        private void AddFiles()
+        {
+            foreach (var keyValuePair in _filesToAdd)
+            {
+                try
+                {
+                    string path = keyValuePair.Value;
+                    var file = keyValuePair.Key;
+                    File.Copy(path, $"{_rootFilesDirectoryPath}\\{file.Id}{Path.GetExtension(path)}");
+                }
+                catch (Exception e)
+                {
+                    _messageService.ShowOkMessageDialog(e.GetType().Name, e.GetAllExceptions());
+                }
+            }
+
+            _filesToAdd.Clear();
+        }
+
+        private void RemoveFiles()
+        {
+            foreach (var keyValuePair in _filesToRemove)
+            {
+                try
+                {
+                    string path = keyValuePair.Value;
+                    var file = keyValuePair.Key;
+
+                    //удаление
+                    FileInfo fileInfo = FilesStorage.FindFile(file.Id, _rootFilesDirectoryPath);
+                    File.Delete(fileInfo.FullName);
+
+                    UnitOfWork.Repository<DirectumTaskGroupFile>().Delete(SelectedFile.Model);
+                }
+                catch (Exception e)
+                {
+                    _messageService.ShowOkMessageDialog(e.GetType().Name, e.GetAllExceptions());
+                }
+            }
+
+            _filesToRemove.Clear();
         }
 
         #region Load
@@ -572,6 +728,9 @@ namespace HVTApp.UI.Modules.Directum
             Route = new DirectumTaskRouteWrapper(route);
         }
 
+        /// <summary>
+        /// Простановка времени начала исполнения задачи
+        /// </summary>
         private void CheckStartPerformer()
         {
             if (DirectumTask.StartPerformer.HasValue)

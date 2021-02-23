@@ -686,6 +686,8 @@ namespace HVTApp.Model.Wrapper
 
         public IValidatableChangeTrackingCollection<UserWrapper> Observers { get; private set; }
 
+        public IValidatableChangeTrackingCollection<DirectumTaskGroupFileWrapper> Files { get; private set; }
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -700,6 +702,71 @@ namespace HVTApp.Model.Wrapper
           Observers = new ValidatableChangeTrackingCollection<UserWrapper>(Model.Observers.Select(e => new UserWrapper(e)));
           RegisterCollection(Observers, Model.Observers);
 
+          if (Model.Files == null) throw new ArgumentException("Files cannot be null");
+          Files = new ValidatableChangeTrackingCollection<DirectumTaskGroupFileWrapper>(Model.Files.Select(e => new DirectumTaskGroupFileWrapper(e)));
+          RegisterCollection(Files, Model.Files);
+
+        }
+
+	}
+
+		public partial class DirectumTaskGroupFileWrapper : WrapperBase<DirectumTaskGroupFile>
+	{
+	    public DirectumTaskGroupFileWrapper(DirectumTaskGroupFile model) : base(model) { }
+
+        #region SimpleProperties
+
+        //Name
+        public System.String Name
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
+        public bool NameIsChanged => GetIsChanged(nameof(Name));
+
+        //LoadMoment
+        public System.DateTime LoadMoment
+        {
+          get { return GetValue<System.DateTime>(); }
+          set { SetValue(value); }
+        }
+        public System.DateTime LoadMomentOriginalValue => GetOriginalValue<System.DateTime>(nameof(LoadMoment));
+        public bool LoadMomentIsChanged => GetIsChanged(nameof(LoadMoment));
+
+        //DirectumTaskGroupId
+        public System.Guid DirectumTaskGroupId
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid DirectumTaskGroupIdOriginalValue => GetOriginalValue<System.Guid>(nameof(DirectumTaskGroupId));
+        public bool DirectumTaskGroupIdIsChanged => GetIsChanged(nameof(DirectumTaskGroupId));
+
+        //Id
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+        #endregion
+
+        #region ComplexProperties
+
+	    public UserWrapper Author 
+        {
+            get { return GetWrapper<UserWrapper>(); }
+            set { SetComplexValue<User, UserWrapper>(Author, value); }
+        }
+
+        #endregion
+
+        public override void InitializeComplexProperties()
+        {
+            InitializeComplexProperty<UserWrapper>(nameof(Author), Model.Author == null ? null : new UserWrapper(Model.Author));
         }
 
 	}
@@ -2215,6 +2282,49 @@ namespace HVTApp.Model.Wrapper
           if (Model.AnswerFiles == null) throw new ArgumentException("AnswerFiles cannot be null");
           AnswerFiles = new ValidatableChangeTrackingCollection<AnswerFileTceWrapper>(Model.AnswerFiles.Select(e => new AnswerFileTceWrapper(e)));
           RegisterCollection(AnswerFiles, Model.AnswerFiles);
+
+        }
+
+	}
+
+		public partial class UserGroupWrapper : WrapperBase<UserGroup>
+	{
+	    public UserGroupWrapper(UserGroup model) : base(model) { }
+
+        #region SimpleProperties
+
+        //Name
+        public System.String Name
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
+        public bool NameIsChanged => GetIsChanged(nameof(Name));
+
+        //Id
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+        #endregion
+
+        #region CollectionProperties
+
+        public IValidatableChangeTrackingCollection<UserWrapper> Users { get; private set; }
+
+        #endregion
+
+        protected override void InitializeCollectionProperties()
+        {
+
+          if (Model.Users == null) throw new ArgumentException("Users cannot be null");
+          Users = new ValidatableChangeTrackingCollection<UserWrapper>(Model.Users.Select(e => new UserWrapper(e)));
+          RegisterCollection(Users, Model.Users);
 
         }
 

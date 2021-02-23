@@ -12,7 +12,7 @@
 		<dataPresenter:XamDataGrid x:Name="DirectumTaskLookupListGrid" 
                                    Grid.Row="0" 
                                    DataSource="{Binding Items}"
-                                   SelectedDataItem="{Binding SelectedItem}">
+                                   ActiveDataItem="{Binding SelectedItem}">
         
 			<dataPresenter:XamDataGrid.ContextMenu>
 				<ContextMenu>

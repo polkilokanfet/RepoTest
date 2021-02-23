@@ -53,6 +53,11 @@ namespace HVTApp.DataAccess
         public DirectumTaskGroupRepositoryTest(TestData testData) : base(testData) {}
     }
 
+    public partial class DirectumTaskGroupFileRepositoryTest : TestBaseRepository<DirectumTaskGroupFile>, IDirectumTaskGroupFileRepository
+    {
+        public DirectumTaskGroupFileRepositoryTest(TestData testData) : base(testData) {}
+    }
+
     public partial class DirectumTaskMessageRepositoryTest : TestBaseRepository<DirectumTaskMessage>, IDirectumTaskMessageRepository
     {
         public DirectumTaskMessageRepositoryTest(TestData testData) : base(testData) {}
@@ -186,6 +191,11 @@ namespace HVTApp.DataAccess
     public partial class TechnicalRequrementsTaskRepositoryTest : TestBaseRepository<TechnicalRequrementsTask>, ITechnicalRequrementsTaskRepository
     {
         public TechnicalRequrementsTaskRepositoryTest(TestData testData) : base(testData) {}
+    }
+
+    public partial class UserGroupRepositoryTest : TestBaseRepository<UserGroup>, IUserGroupRepository
+    {
+        public UserGroupRepositoryTest(TestData testData) : base(testData) {}
     }
 
     public partial class GlobalPropertiesRepositoryTest : TestBaseRepository<GlobalProperties>, IGlobalPropertiesRepository

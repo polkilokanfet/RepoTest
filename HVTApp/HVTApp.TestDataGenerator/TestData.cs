@@ -110,7 +110,8 @@ namespace HVTApp.TestDataGenerator
                         priceCalculation = new PriceCalculation
                         {
                             TaskOpenMoment = deliveryDateExpected.AddDays(-140),
-                            TaskCloseMoment = deliveryDateExpected.AddDays(-130)
+                            TaskCloseMoment = deliveryDateExpected.AddDays(-130),
+                            Initiator = UserKosolapov
                         };
                     }
 

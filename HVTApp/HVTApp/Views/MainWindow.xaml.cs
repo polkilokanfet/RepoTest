@@ -2,6 +2,7 @@
 using System.Windows;
 using EventServiceClient2;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Interfaces.Services.EventService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using Infragistics.Windows.OutlookBar;
@@ -33,7 +34,7 @@ namespace HVTApp.Views
 #endif
 
                 //остановка синхронизатора
-                _container.Resolve<EventServiceClient>().Stop();
+                _container.Resolve<IEventServiceClient>().Stop();
             };
         }
 

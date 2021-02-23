@@ -17,6 +17,7 @@ namespace HVTApp.DataAccess
             CreateNewProductTaskRepository = new CreateNewProductTaskRepositoryTest(testData);
             DirectumTaskRepository = new DirectumTaskRepositoryTest(testData);
             DirectumTaskGroupRepository = new DirectumTaskGroupRepositoryTest(testData);
+            DirectumTaskGroupFileRepository = new DirectumTaskGroupFileRepositoryTest(testData);
             DirectumTaskMessageRepository = new DirectumTaskMessageRepositoryTest(testData);
             DocumentNumberRepository = new DocumentNumberRepositoryTest(testData);
             IncomingRequestRepository = new IncomingRequestRepositoryTest(testData);
@@ -44,6 +45,7 @@ namespace HVTApp.DataAccess
             TechnicalRequrementsRepository = new TechnicalRequrementsRepositoryTest(testData);
             TechnicalRequrementsFileRepository = new TechnicalRequrementsFileRepositoryTest(testData);
             TechnicalRequrementsTaskRepository = new TechnicalRequrementsTaskRepositoryTest(testData);
+            UserGroupRepository = new UserGroupRepositoryTest(testData);
             GlobalPropertiesRepository = new GlobalPropertiesRepositoryTest(testData);
             AddressRepository = new AddressRepositoryTest(testData);
             CountryRepository = new CountryRepositoryTest(testData);
@@ -103,6 +105,7 @@ namespace HVTApp.DataAccess
         public ICreateNewProductTaskRepository CreateNewProductTaskRepository { get; }
         public IDirectumTaskRepository DirectumTaskRepository { get; }
         public IDirectumTaskGroupRepository DirectumTaskGroupRepository { get; }
+        public IDirectumTaskGroupFileRepository DirectumTaskGroupFileRepository { get; }
         public IDirectumTaskMessageRepository DirectumTaskMessageRepository { get; }
         public IDocumentNumberRepository DocumentNumberRepository { get; }
         public IIncomingRequestRepository IncomingRequestRepository { get; }
@@ -130,6 +133,7 @@ namespace HVTApp.DataAccess
         public ITechnicalRequrementsRepository TechnicalRequrementsRepository { get; }
         public ITechnicalRequrementsFileRepository TechnicalRequrementsFileRepository { get; }
         public ITechnicalRequrementsTaskRepository TechnicalRequrementsTaskRepository { get; }
+        public IUserGroupRepository UserGroupRepository { get; }
         public IGlobalPropertiesRepository GlobalPropertiesRepository { get; }
         public IAddressRepository AddressRepository { get; }
         public ICountryRepository CountryRepository { get; }

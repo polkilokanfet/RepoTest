@@ -13,6 +13,7 @@ namespace HVTApp.Model.Events
 	public partial class AfterSelectCreateNewProductTaskEvent : PubSubEvent<PubSubEventArgs<CreateNewProductTask>> { }
 	public partial class AfterSelectDirectumTaskEvent : PubSubEvent<PubSubEventArgs<DirectumTask>> { }
 	public partial class AfterSelectDirectumTaskGroupEvent : PubSubEvent<PubSubEventArgs<DirectumTaskGroup>> { }
+	public partial class AfterSelectDirectumTaskGroupFileEvent : PubSubEvent<PubSubEventArgs<DirectumTaskGroupFile>> { }
 	public partial class AfterSelectDirectumTaskMessageEvent : PubSubEvent<PubSubEventArgs<DirectumTaskMessage>> { }
 	public partial class AfterSelectDocumentNumberEvent : PubSubEvent<PubSubEventArgs<DocumentNumber>> { }
 	public partial class AfterSelectIncomingRequestEvent : PubSubEvent<PubSubEventArgs<IncomingRequest>> { }
@@ -40,6 +41,7 @@ namespace HVTApp.Model.Events
 	public partial class AfterSelectTechnicalRequrementsEvent : PubSubEvent<PubSubEventArgs<TechnicalRequrements>> { }
 	public partial class AfterSelectTechnicalRequrementsFileEvent : PubSubEvent<PubSubEventArgs<TechnicalRequrementsFile>> { }
 	public partial class AfterSelectTechnicalRequrementsTaskEvent : PubSubEvent<PubSubEventArgs<TechnicalRequrementsTask>> { }
+	public partial class AfterSelectUserGroupEvent : PubSubEvent<PubSubEventArgs<UserGroup>> { }
 	public partial class AfterSelectGlobalPropertiesEvent : PubSubEvent<PubSubEventArgs<GlobalProperties>> { }
 	public partial class AfterSelectAddressEvent : PubSubEvent<PubSubEventArgs<Address>> { }
 	public partial class AfterSelectCountryEvent : PubSubEvent<PubSubEventArgs<Country>> { }
