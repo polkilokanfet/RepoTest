@@ -66,15 +66,17 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         {
             if (Equals(e.OldValue, e.NewValue)) return;
 
-            var editor = (XamCheckEditor)sender;
-            if (((DataRecord)editor.DataContext).DataItem is TechnicalRequrementsFileWrapper)
+            var checkEditor = (XamCheckEditor)sender;
+            if (((DataRecord)checkEditor.DataContext).DataItem is TechnicalRequrementsFileWrapper)
             {
-                ((TechnicalRequrementsFileWrapper)(((DataRecord)editor.DataContext).DataItem)).IsActual = editor.IsChecked.Value;
+                if(((TechnicalRequrementsFileWrapper)((DataRecord)checkEditor.DataContext).DataItem).IsActual != checkEditor.IsChecked.Value)
+                    ((TechnicalRequrementsFileWrapper)((DataRecord)checkEditor.DataContext).DataItem).IsActual = checkEditor.IsChecked.Value;
             }
 
-            if (((DataRecord)editor.DataContext).DataItem is TechnicalRequrements2Wrapper)
+            else if (((DataRecord)checkEditor.DataContext).DataItem is TechnicalRequrements2Wrapper)
             {
-                ((TechnicalRequrements2Wrapper)(((DataRecord)editor.DataContext).DataItem)).IsActual = editor.IsChecked.Value;
+                if(((TechnicalRequrements2Wrapper)((DataRecord)checkEditor.DataContext).DataItem).IsActual != checkEditor.IsChecked.Value)
+                    ((TechnicalRequrements2Wrapper)((DataRecord)checkEditor.DataContext).DataItem).IsActual = checkEditor.IsChecked.Value;
             }
 
             ((DelegateCommand)ViewModel1.StartCommand).RaiseCanExecuteChanged();

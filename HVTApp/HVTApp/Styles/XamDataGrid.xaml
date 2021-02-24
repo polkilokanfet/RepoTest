@@ -34,6 +34,18 @@
         </Setter>
     </Style>
 
+    <Style TargetType="infg:XamDataGrid" x:Key="XamDataGridUpdateOnCellValueChange" BasedOn="{StaticResource {x:Type infg:XamDataGrid}}">
+        <Setter Property="FieldSettings">
+            <Setter.Value>
+                <infg:FieldSettings AllowEdit="False" 
+                                    AllowResize="True"
+                                    AllowRecordFiltering="True" 
+                                    FilterLabelIconDropDownType="MultiSelectExcelStyle"
+                                    DataItemUpdateTrigger="OnCellValueChange"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style TargetType="infg:XamDataGrid" x:Key="XamDataGridWithoutGroupByArea" BasedOn="{StaticResource {x:Type infg:XamDataGrid}}">
         <Setter Property="GroupByAreaLocation" Value="None"/>
     </Style>
