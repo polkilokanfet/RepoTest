@@ -30,6 +30,7 @@ namespace HVTApp.UI.Modules.Sales.Production
             {
                 _selectedInProduction = value;
                 ((DelegateCommand) RemoveFromProductionCommand)?.RaiseCanExecuteChanged();
+                OnPropertyChanged();
             }
         }
 
@@ -40,6 +41,7 @@ namespace HVTApp.UI.Modules.Sales.Production
             {
                 _selectedToProduction = value;
                 ((DelegateCommand)ProductUnitCommand)?.RaiseCanExecuteChanged();
+                OnPropertyChanged();
             }
         }
 
