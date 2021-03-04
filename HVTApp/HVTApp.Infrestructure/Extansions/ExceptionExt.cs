@@ -22,7 +22,7 @@ namespace HVTApp.Infrastructure.Extansions
                 stringBuilder.Clear();
             } while (exception != null);
 
-            var sep = Environment.NewLine + "--------------" + Environment.NewLine;
+            var sep = Environment.NewLine + "--------------" + Environment.NewLine + Environment.NewLine;
             messages.Reverse();
             return string.Join(sep, messages);
         }

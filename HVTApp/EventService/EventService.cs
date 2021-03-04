@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.ServiceModel;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.EventService;
 
 namespace EventService
@@ -172,7 +173,7 @@ namespace EventService
                 }
                 catch (Exception e)
                 {
-                    PrintMessageEvent?.Invoke($"Invoke {publishEvent.GetMethodInfo().Name} by appSession {appSessionId}. {e.GetType().FullName}");
+                    PrintMessageEvent?.Invoke($"!Exception on Invoke {publishEvent.GetMethodInfo().Name} by appSession {appSessionId}. \n{e.GetType().FullName}\n{e.GetAllExceptions()}");
                 }
             }
 
@@ -191,7 +192,7 @@ namespace EventService
                 }
                 catch (Exception e)
                 {
-                    PrintMessageEvent?.Invoke($"Close() appSession {appSession.AppSessionId}. {e.GetType().FullName}");
+                    PrintMessageEvent?.Invoke($"Close() appSession {appSession.AppSessionId}. {e.GetType().FullName} \n {e.GetAllExceptions()}");
                 }
             }
         }
