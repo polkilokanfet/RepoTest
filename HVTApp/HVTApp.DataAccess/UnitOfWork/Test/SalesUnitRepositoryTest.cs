@@ -4,7 +4,7 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.DataAccess
 {
-    public partial class SalesUnitRepositoryTest
+    public partial class SalesUnitRepositoryTest : ISalesUnitRepository
     {
         public IEnumerable<SalesUnit> GetCurrentUserSalesUnits()
         {
@@ -12,6 +12,11 @@ namespace HVTApp.DataAccess
         }
 
         public IEnumerable<SalesUnit> GetByProject(Guid projectId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<SalesUnit> GetBySpecification(Guid specificationId)
         {
             throw new NotImplementedException();
         }

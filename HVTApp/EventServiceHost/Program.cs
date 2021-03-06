@@ -17,6 +17,11 @@ namespace EventServiceHost
             var httpBaseAddress = EventServiceAddresses.HttpBaseAddress;
 
             var binding = new NetTcpBinding(SecurityMode.None, true);
+            //увеличиваем таймаут бездействия
+            binding.SendTimeout = new TimeSpan(7, 0, 0, 0);
+            binding.ReceiveTimeout = new TimeSpan(7, 0, 0, 0);
+            binding.OpenTimeout = new TimeSpan(7, 0, 0, 0);
+            binding.CloseTimeout = new TimeSpan(7, 0, 0, 0);
 
             using (var host = new ServiceHost(EventService, tcpBaseAddress, httpBaseAddress))
             {

@@ -10,6 +10,8 @@ using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Groups.SimpleWrappers;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
+using HVTApp.DataAccess;
+using System.Linq;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels
 {
@@ -34,13 +36,15 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
         protected override IEnumerable<SalesUnit> GetUnits(Specification specification, object parameter = null)
         {
-            var project = parameter as Project;
-            return project != null 
-                //новая спецификация по проекту
-                ? UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Id == project.Id && x.Specification == null) 
-                //редактирование существующей спецификации
-                : UnitOfWork.Repository<SalesUnit>().Find(x => x.Specification != null && x.Specification.Id == specification.Id);
-
+            if(parameter is Project project)
+            {
+                var salesUnits = ((ISalesUnitRepository)UnitOfWork.Repository<SalesUnit>()).GetByProject(project.Id);
+                return salesUnits.Where(x => x.Specification == null).Where(x => !x.IsLoosen && !x.IsRemoved);
+            }
+            else
+            {
+                return ((ISalesUnitRepository)UnitOfWork.Repository<SalesUnit>()).GetBySpecification(specification.Id);
+            }
         }
 
         public override void AfterUnitsLoading()

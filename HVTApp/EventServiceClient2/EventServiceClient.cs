@@ -41,6 +41,12 @@ namespace EventServiceClient2
             try
             {
                 var binding = new NetTcpBinding(SecurityMode.None, true);
+                //увеличиваем таймаут бездействия
+                binding.SendTimeout = new TimeSpan(7, 0, 0, 0);
+                binding.ReceiveTimeout = new TimeSpan(7, 0, 0, 0);
+                binding.OpenTimeout = new TimeSpan(7, 0, 0, 0);
+                binding.CloseTimeout = new TimeSpan(7, 0, 0, 0);
+
                 Uri tcpBaseAddress = EventServiceAddresses.TcpBaseAddress;
                 _eventServiceClient = new ServiceReference1.EventServiceClient(new InstanceContext(this), binding, new EndpointAddress(tcpBaseAddress));
                 _syncContainer = new SyncContainer();

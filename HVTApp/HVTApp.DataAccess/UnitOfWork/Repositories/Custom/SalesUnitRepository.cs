@@ -28,9 +28,15 @@ namespace HVTApp.DataAccess
         /// </summary>
         /// <returns></returns>
         IEnumerable<SalesUnit> GetByProject(Guid projectId);
+
+        /// <summary>
+        /// Получить все юниты из спецификации
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<SalesUnit> GetBySpecification(Guid specificationId);
     }
 
-    public partial class SalesUnitRepository
+    public partial class SalesUnitRepository : ISalesUnitRepository
     {
         protected override IQueryable<SalesUnit> GetQuary()
         {
@@ -77,6 +83,22 @@ namespace HVTApp.DataAccess
 
             var salesUnitsIds = this.Context.Set<SalesUnit>().AsNoTracking()
                 .Where(salesUnit => salesUnit.Project.Id == projectId)
+                .Select(salesUnit => salesUnit.Id)
+                .ToList();
+
+            foreach (var id in salesUnitsIds)
+            {
+                yield return this.GetById(id);
+            }
+        }
+
+        public IEnumerable<SalesUnit> GetBySpecification(Guid specificationId)
+        {
+            Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
+            var salesUnitsIds = this.Context.Set<SalesUnit>().AsNoTracking()
+                .Where(salesUnit => salesUnit.Specification != null)
+                .Where(salesUnit => salesUnit.Specification.Id == specificationId)
                 .Select(salesUnit => salesUnit.Id)
                 .ToList();
 
