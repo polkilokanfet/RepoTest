@@ -10,16 +10,16 @@ namespace HVTApp.Services.GetProductService.Comparers
     /// </summary>
     public class ParametersEnumerableComparerByPaths : IComparer<IEnumerable<Parameter>>
     {
-        public int Compare(IEnumerable<Parameter> x, IEnumerable<Parameter> y)
+        public int Compare(IEnumerable<Parameter> parameterX, IEnumerable<Parameter> parameterY)
         {
-            if (x == null) throw new ArgumentNullException(nameof(x));
-            if (y == null) throw new ArgumentNullException(nameof(y));
+            if (parameterX == null) throw new ArgumentNullException(nameof(parameterX));
+            if (parameterY == null) throw new ArgumentNullException(nameof(parameterY));
 
-            var xPaths = x.SelectMany(n => n.Paths()).ToList();
-            double kx = (double)xPaths.Sum(n => n.Parameters.Count) / xPaths.Count;
+            var parameterXPaths = parameterX.SelectMany(parameter => parameter.Paths()).ToList();
+            double kx = (double)parameterXPaths.Sum(path => path.Parameters.Count) / parameterXPaths.Count;
 
-            var yPaths = y.SelectMany(n => n.Paths()).ToList();
-            double ky = (double)yPaths.Sum(n => n.Parameters.Count) / yPaths.Count;
+            var parameterYPaths = parameterY.SelectMany(n => n.Paths()).ToList();
+            double ky = (double)parameterYPaths.Sum(path => path.Parameters.Count) / parameterYPaths.Count;
 
             if (kx < ky) return -1;
             if (kx > ky) return 1;

@@ -62,9 +62,17 @@ namespace HVTApp.Model.POCOs
         /// <returns></returns>
         public List<PathToOrigin> Paths()
         {
-            return Paths(null).Where(x => x.IsFull).Distinct(new PathComparer()).ToList();
-        }
+            //если пути еще не формировались или связи изменились
+            if (_pathsToOrigin == null || !this.ParameterRelations.MembersAreSame(_previousParameterRelations))
+            {
+                _previousParameterRelations = this.ParameterRelations.ToList();
+                _pathsToOrigin = Paths(null).Where(x => x.IsFull).Distinct(new PathComparer()).ToList();
+            }
 
+            return _pathsToOrigin;
+        }
+        List<PathToOrigin> _pathsToOrigin;
+        List<ParameterRelation> _previousParameterRelations = new List<ParameterRelation>();
         
 
         private IEnumerable<PathToOrigin> Paths(PathToOrigin path = null, ParameterRelation parameterRelation = null)
