@@ -191,6 +191,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
                     if (!task.Requrements.Any())
                     {
+                        var answerFiles = UnitOfWork.Repository<AnswerFileTce>().Find(x => x.TechnicalRequrementsTaskId == task.Id);
+                        answerFiles.ForEach(x => UnitOfWork.Repository<AnswerFileTce>().Delete(x));
                         UnitOfWork.Repository<TechnicalRequrementsTask>().Delete(task);
                     }
                 }
