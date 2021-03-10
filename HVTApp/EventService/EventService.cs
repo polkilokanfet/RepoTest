@@ -167,13 +167,20 @@ namespace EventService
                     publishEvent.Invoke(appSession);
                 }
                 //отключаем приложение от сервиса
-                catch (TimeoutException)
+                catch (CommunicationObjectAbortedException e)
                 {
+                    PrintMessageEvent?.Invoke($"{e.GetType().FullName}.");
+                    this.Disconnect(appSession.AppSessionId);
+                }
+                catch (TimeoutException e)
+                {
+                    PrintMessageEvent?.Invoke($"{e.GetType().FullName}.");
                     this.Disconnect(appSession.AppSessionId);
                 }
                 catch (Exception e)
                 {
                     PrintMessageEvent?.Invoke($"!Exception on Invoke {publishEvent.GetMethodInfo().Name} by appSession {appSessionId}. \n{e.GetType().FullName}\n{e.GetAllExceptions()}");
+                    this.Disconnect(appSession.AppSessionId);
                 }
             }
 
