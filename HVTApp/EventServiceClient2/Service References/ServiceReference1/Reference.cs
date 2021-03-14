@@ -207,6 +207,9 @@ namespace EventServiceClient2.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnRejectTechnicalRequarementsTaskServiceCallback" +
             "")]
         void OnRejectTechnicalRequarementsTaskServiceCallback(System.Guid technicalRequarementsTaskId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/IsAlive", ReplyAction="http://tempuri.org/IEventService/IsAliveResponse")]
+        bool IsAlive();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]

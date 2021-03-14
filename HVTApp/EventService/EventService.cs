@@ -52,10 +52,14 @@ namespace EventService
 
         #region PublishEventsByService
 
+        #region IncomingRequest
+
         public void SaveIncomingRequestPublishEvent(Guid appSessionId, Guid requestId)
         {
             PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveIncomingRequestServiceCallback(requestId));
         }
+
+        #endregion
 
         #region Directum
 
@@ -114,10 +118,14 @@ namespace EventService
 
         #endregion
 
+        #region IncomingDocument
+
         public void SaveIncomingDocumentPublishEvent(Guid appSessionId, Guid documentId)
         {
             PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveIncomingDocumentServiceCallback(documentId));
         }
+
+        #endregion
 
         #region TechnicalRequarementsTask
 
@@ -151,7 +159,7 @@ namespace EventService
         /// <summary>
         /// Публикация события через сервис синхронизации
         /// </summary>
-        /// <param name="appSessionId"></param>
+        /// <param name="appSessionId">Id приложения инициировшего событие</param>
         /// <param name="publishEvent"></param>
         private void PublishEventByService(Guid appSessionId, Action<AppSession> publishEvent)
         {
@@ -196,10 +204,11 @@ namespace EventService
                 try
                 {
                     appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnServiceDisposeEvent();
+                    PrintMessageEvent?.Invoke($"Succsess on Close() appSession {appSession.AppSessionId}.");
                 }
                 catch (Exception e)
                 {
-                    PrintMessageEvent?.Invoke($"Close() appSession {appSession.AppSessionId}. {e.GetType().FullName} \n {e.GetAllExceptions()}");
+                    PrintMessageEvent?.Invoke($"Exception on Close() appSession {appSession.AppSessionId}. {e.GetType().FullName} \n {e.GetAllExceptions()}");
                 }
             }
         }

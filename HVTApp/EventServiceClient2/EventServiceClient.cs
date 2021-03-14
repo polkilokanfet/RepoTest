@@ -40,12 +40,14 @@ namespace EventServiceClient2
         {
             try
             {
-                var binding = new NetTcpBinding(SecurityMode.None, true);
                 //увеличиваем таймаут бездействия
-                binding.SendTimeout = new TimeSpan(7, 0, 0, 0);
-                binding.ReceiveTimeout = new TimeSpan(7, 0, 0, 0);
-                binding.OpenTimeout = new TimeSpan(7, 0, 0, 0);
-                binding.CloseTimeout = new TimeSpan(7, 0, 0, 0);
+                var binding = new NetTcpBinding(SecurityMode.None, true)
+                {
+                    //SendTimeout = new TimeSpan(7, 0, 0, 0),
+                    ReceiveTimeout = new TimeSpan(7, 0, 0, 0),
+                    //OpenTimeout = new TimeSpan(7, 0, 0, 0),
+                    //CloseTimeout = new TimeSpan(7, 0, 0, 0)
+                };
 
                 Uri tcpBaseAddress = EventServiceAddresses.TcpBaseAddress;
                 _eventServiceClient = new ServiceReference1.EventServiceClient(new InstanceContext(this), binding, new EndpointAddress(tcpBaseAddress));
@@ -53,30 +55,7 @@ namespace EventServiceClient2
 
                 if (_eventServiceClient.Connect(_appSessionId, _userId))
                 {
-                    _syncContainer.Add(new SyncDirectumTask(_container, _eventServiceClient, _appSessionId));               //Задачи из DirectumLite
-                    _syncContainer.Add(new SyncDirectumTaskStart(_container, _eventServiceClient, _appSessionId));          //Задачи из DirectumLite
-                    _syncContainer.Add(new SyncDirectumTaskStop(_container, _eventServiceClient, _appSessionId));           //Задачи из DirectumLite
-                    _syncContainer.Add(new SyncDirectumTaskPerform(_container, _eventServiceClient, _appSessionId));        //Задачи из DirectumLite
-                    _syncContainer.Add(new SyncDirectumTaskAccept(_container, _eventServiceClient, _appSessionId));         //Задачи из DirectumLite
-                    _syncContainer.Add(new SyncDirectumTaskReject(_container, _eventServiceClient, _appSessionId));         //Задачи из DirectumLite
-
-                    _syncContainer.Add(new SyncTechnicalRequrementsTask(_container, _eventServiceClient, _appSessionId));           //Задачи TCE
-                    _syncContainer.Add(new SyncTechnicalRequrementsTaskStart(_container, _eventServiceClient, _appSessionId));      //Задачи TCE
-                    _syncContainer.Add(new SyncTechnicalRequrementsTaskInstruct(_container, _eventServiceClient, _appSessionId));   //Задачи TCE
-                    _syncContainer.Add(new SyncTechnicalRequrementsTaskCancel(_container, _eventServiceClient, _appSessionId));     //Задачи TCE
-                    _syncContainer.Add(new SyncTechnicalRequrementsTaskReject(_container, _eventServiceClient, _appSessionId));     //Задачи TCE
-
-                    _syncContainer.Add(new SyncPriceCalculation(_container, _eventServiceClient, _appSessionId));           //Калькуляции себестоимости сохранение
-                    _syncContainer.Add(new SyncPriceCalculationStart(_container, _eventServiceClient, _appSessionId));      //Калькуляции себестоимости старт
-                    _syncContainer.Add(new SyncPriceCalculationFinish(_container, _eventServiceClient, _appSessionId));     //Калькуляции себестоимости финиш
-                    _syncContainer.Add(new SyncPriceCalculationCancel(_container, _eventServiceClient, _appSessionId));     //Калькуляции себестоимости остановка
-
-                    //_syncContainer.Add(new SyncIncomingRequest(_container, _eventServiceClient, _appSessionId));            //Запросы
-
-                    ////Входящие документы
-                    //_eventAggregator.GetEvent<AfterSaveIncomingDocumentSyncEvent>().Subscribe(document => { SavePublishEvent(
-                    //    () => _eventServiceClient?.SaveIncomingDocumentPublishEvent(_appSessionId, document.Id)); }, true);
-
+                    ConfigureSyncContainer();
                     _isEnabled = true;
                 }
             }
@@ -85,6 +64,33 @@ namespace EventServiceClient2
                 var message = $"Не удалось подключиться к сервису синхронизации. Вы можете продолжать работу без синхронизации с другими пользователями.\nПопросите разработчика запустить сервис синхронизации.\n\n{e.GetAllExceptions()}";
                 _container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().Name, message);
             }
+        }
+
+        private void ConfigureSyncContainer()
+        {
+            _syncContainer.Add(new SyncDirectumTask(_container, _eventServiceClient, _appSessionId)); //Задачи из DirectumLite
+            _syncContainer.Add(new SyncDirectumTaskStart(_container, _eventServiceClient, _appSessionId)); //Задачи из DirectumLite
+            _syncContainer.Add(new SyncDirectumTaskStop(_container, _eventServiceClient, _appSessionId)); //Задачи из DirectumLite
+            _syncContainer.Add(new SyncDirectumTaskPerform(_container, _eventServiceClient, _appSessionId)); //Задачи из DirectumLite
+            _syncContainer.Add(new SyncDirectumTaskAccept(_container, _eventServiceClient, _appSessionId)); //Задачи из DirectumLite
+            _syncContainer.Add(new SyncDirectumTaskReject(_container, _eventServiceClient, _appSessionId)); //Задачи из DirectumLite
+
+            _syncContainer.Add(new SyncTechnicalRequrementsTask(_container, _eventServiceClient, _appSessionId)); //Задачи TCE
+            _syncContainer.Add(new SyncTechnicalRequrementsTaskStart(_container, _eventServiceClient, _appSessionId)); //Задачи TCE
+            _syncContainer.Add(new SyncTechnicalRequrementsTaskInstruct(_container, _eventServiceClient, _appSessionId)); //Задачи TCE
+            _syncContainer.Add(new SyncTechnicalRequrementsTaskCancel(_container, _eventServiceClient, _appSessionId)); //Задачи TCE
+            _syncContainer.Add(new SyncTechnicalRequrementsTaskReject(_container, _eventServiceClient, _appSessionId)); //Задачи TCE
+
+            _syncContainer.Add(new SyncPriceCalculation(_container, _eventServiceClient, _appSessionId)); //Калькуляции себестоимости сохранение
+            _syncContainer.Add(new SyncPriceCalculationStart(_container, _eventServiceClient, _appSessionId)); //Калькуляции себестоимости старт
+            _syncContainer.Add(new SyncPriceCalculationFinish(_container, _eventServiceClient, _appSessionId)); //Калькуляции себестоимости финиш
+            _syncContainer.Add(new SyncPriceCalculationCancel(_container, _eventServiceClient, _appSessionId)); //Калькуляции себестоимости остановка
+
+            //_syncContainer.Add(new SyncIncomingRequest(_container, _eventServiceClient, _appSessionId));            //Запросы
+
+            ////Входящие документы
+            //_eventAggregator.GetEvent<AfterSaveIncomingDocumentSyncEvent>().Subscribe(document => { SavePublishEvent(
+            //    () => _eventServiceClient?.SaveIncomingDocumentPublishEvent(_appSessionId, document.Id)); }, true);
         }
 
         public void Stop()
@@ -100,6 +106,10 @@ namespace EventServiceClient2
                     _eventServiceClient.Disconnect(_appSessionId);
                 }
                 catch (TimeoutException e)
+                {
+                    _container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().Name, e.GetAllExceptions());
+                }
+                catch (Exception e)
                 {
                     _container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().Name, e.GetAllExceptions());
                 }
@@ -120,7 +130,7 @@ namespace EventServiceClient2
         }
 
         //действия, когда прилетают события из сервера синхронизации
-        #region ServiceCallback
+        #region Service Callback Actions
 
         #region Directum
 
@@ -328,6 +338,8 @@ namespace EventServiceClient2
 
         #endregion
 
+        #region IncomingRequest
+
         public void OnSaveIncomingRequestServiceCallback(Guid requestId)
         {
             var request = _container.Resolve<IUnitOfWork>().Repository<IncomingRequest>().GetById(requestId);
@@ -379,6 +391,8 @@ namespace EventServiceClient2
             }
         }
 
+        #endregion
+
         #region TechnicalRequarementsTask
 
         public void OnSaveTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId)
@@ -424,7 +438,6 @@ namespace EventServiceClient2
                     Popup.Popup.ShowPopup(message, $"Задача в TCE с Id {technicalRequrementsTask.Id}", action);
                 }
             }
-
         }
 
         public void OnInstructTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId)
@@ -492,6 +505,11 @@ namespace EventServiceClient2
         }
 
         #endregion
+
+        public bool IsAlive()
+        {
+            return true;
+        }
 
         #endregion
 

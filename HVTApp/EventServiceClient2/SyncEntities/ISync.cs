@@ -7,5 +7,10 @@ namespace EventServiceClient2.SyncEntities
         Type ModelType { get; }
         Type EventType { get; }
         void Publish(object model);
+
+        /// <summary>
+        /// Сервис отключился.
+        /// </summary>
+        event Action EventServiceClientDisabled;
     }
 }

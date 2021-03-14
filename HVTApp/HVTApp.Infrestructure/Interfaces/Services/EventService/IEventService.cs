@@ -22,12 +22,15 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
         [OperationContract]
         void Disconnect(Guid appSessionId);
 
+        #region Chat
 
         [OperationContract]
         void SendMessageToChat(Guid authorId, string message);
 
         [OperationContract]
         void SendMessageToUser(Guid authorId, Guid recipientId, string message);
+
+        #endregion
 
         #region Directum
 

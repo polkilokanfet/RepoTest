@@ -153,6 +153,12 @@
   <wsdl:message name="IEventService_OnRejectTechnicalRequarementsTaskServiceCallback_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnRejectTechnicalRequarementsTaskServiceCallback" />
   </wsdl:message>
+  <wsdl:message name="IEventService_IsAlive_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:IsAlive" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_IsAlive_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:IsAliveResponse" />
+  </wsdl:message>
   <wsdl:portType name="IEventService">
     <wsdl:operation name="Connect">
       <wsdl:input wsaw:Action="http://tempuri.org/IEventService/Connect" message="tns:IEventService_Connect_InputMessage" />
@@ -280,6 +286,10 @@
     </wsdl:operation>
     <wsdl:operation name="OnRejectTechnicalRequarementsTaskServiceCallback">
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnRejectTechnicalRequarementsTaskServiceCallback" message="tns:IEventService_OnRejectTechnicalRequarementsTaskServiceCallback_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="IsAlive">
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/IsAlive" message="tns:IEventService_IsAlive_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/IsAliveResponse" message="tns:IEventService_IsAlive_InputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_IEventService" type="tns:IEventService">
@@ -539,6 +549,15 @@
     </wsdl:operation>
     <wsdl:operation name="OnRejectTechnicalRequarementsTaskServiceCallback">
       <soap12:operation soapAction="http://tempuri.org/IEventService/OnRejectTechnicalRequarementsTaskServiceCallback" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsAlive">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/IsAlive" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>

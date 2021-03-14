@@ -47,9 +47,13 @@ namespace EventServiceClient2.SyncEntities
         {
             try
             {
-                if (EventServiceClient != null && EventServiceClient.State != CommunicationState.Faulted)
+                if (EventServiceClient != null && EventServiceClient.State != CommunicationState.Faulted && EventServiceClient.State != CommunicationState.Closed)
                 {
                     PublishEventAction.Invoke(model);
+                }
+                else
+                {
+                    EventServiceClientDisabled?.Invoke();
                 }
             }
             catch (Exception e)
@@ -66,6 +70,8 @@ namespace EventServiceClient2.SyncEntities
             _eventAggregator.GetEvent<TAfterSaveEvent>().Publish((TModel)model);
             Subscribe();
         }
+
+        public event Action EventServiceClientDisabled;
 
         public void Dispose()
         {

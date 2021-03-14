@@ -78,5 +78,8 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
         void OnRejectTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId);
         
         #endregion
+
+        [OperationContract]
+        bool IsAlive();
     }
 }
