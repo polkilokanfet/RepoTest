@@ -47,7 +47,8 @@ namespace EventServiceClient2.SyncEntities
         {
             try
             {
-                if (EventServiceClient != null && EventServiceClient.State != CommunicationState.Faulted && EventServiceClient.State != CommunicationState.Closed)
+                if (EventServiceClient != null && EventServiceClient.State != CommunicationState.Faulted &&
+                    EventServiceClient.State != CommunicationState.Closed)
                 {
                     PublishEventAction.Invoke(model);
                 }
@@ -55,6 +56,10 @@ namespace EventServiceClient2.SyncEntities
                 {
                     EventServiceClientDisabled?.Invoke();
                 }
+            }
+            catch (TimeoutException)
+            {
+                EventServiceClientDisabled?.Invoke();
             }
             catch (Exception e)
             {

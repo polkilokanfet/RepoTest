@@ -18,6 +18,8 @@ namespace EventServiceClient2.SyncEntities
             }
 
             _list.Add(member);
+
+            member.EventServiceClientDisabled += () => this.EventServiceClientDisabled?.Invoke();
         }
 
         public void Publish<TModel, TEvent>(TModel model)
@@ -32,5 +34,8 @@ namespace EventServiceClient2.SyncEntities
             _list.ForEach(x => x.Dispose());
             _list.Clear();
         }
+
+        public event Action EventServiceClientDisabled;
+
     }
 }

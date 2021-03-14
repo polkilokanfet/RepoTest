@@ -15,5 +15,10 @@ namespace EventService
             UserId = userId;
             OperationContext = operationContext;
         }
+
+        public override string ToString()
+        {
+            return $"appSessionId: {AppSessionId}";
+        }
     }
 }

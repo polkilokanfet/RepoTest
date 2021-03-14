@@ -51,7 +51,6 @@ namespace EventServiceClient2
 
                 Uri tcpBaseAddress = EventServiceAddresses.TcpBaseAddress;
                 _eventServiceClient = new ServiceReference1.EventServiceClient(new InstanceContext(this), binding, new EndpointAddress(tcpBaseAddress));
-                _syncContainer = new SyncContainer();
 
                 if (_eventServiceClient.Connect(_appSessionId, _userId))
                 {
@@ -68,6 +67,8 @@ namespace EventServiceClient2
 
         private void ConfigureSyncContainer()
         {
+            _syncContainer = new SyncContainer();
+
             _syncContainer.Add(new SyncDirectumTask(_container, _eventServiceClient, _appSessionId)); //Задачи из DirectumLite
             _syncContainer.Add(new SyncDirectumTaskStart(_container, _eventServiceClient, _appSessionId)); //Задачи из DirectumLite
             _syncContainer.Add(new SyncDirectumTaskStop(_container, _eventServiceClient, _appSessionId)); //Задачи из DirectumLite
@@ -81,8 +82,8 @@ namespace EventServiceClient2
             _syncContainer.Add(new SyncTechnicalRequrementsTaskCancel(_container, _eventServiceClient, _appSessionId)); //Задачи TCE
             _syncContainer.Add(new SyncTechnicalRequrementsTaskReject(_container, _eventServiceClient, _appSessionId)); //Задачи TCE
 
-            _syncContainer.Add(new SyncPriceCalculation(_container, _eventServiceClient, _appSessionId)); //Калькуляции себестоимости сохранение
-            _syncContainer.Add(new SyncPriceCalculationStart(_container, _eventServiceClient, _appSessionId)); //Калькуляции себестоимости старт
+            _syncContainer.Add(new SyncPriceCalculation(_container, _eventServiceClient, _appSessionId));       //Калькуляции себестоимости сохранение
+            _syncContainer.Add(new SyncPriceCalculationStart(_container, _eventServiceClient, _appSessionId));  //Калькуляции себестоимости старт
             _syncContainer.Add(new SyncPriceCalculationFinish(_container, _eventServiceClient, _appSessionId)); //Калькуляции себестоимости финиш
             _syncContainer.Add(new SyncPriceCalculationCancel(_container, _eventServiceClient, _appSessionId)); //Калькуляции себестоимости остановка
 
@@ -91,6 +92,12 @@ namespace EventServiceClient2
             ////Входящие документы
             //_eventAggregator.GetEvent<AfterSaveIncomingDocumentSyncEvent>().Subscribe(document => { SavePublishEvent(
             //    () => _eventServiceClient?.SaveIncomingDocumentPublishEvent(_appSessionId, document.Id)); }, true);
+
+            _syncContainer.EventServiceClientDisabled += () =>
+            {
+                _isEnabled = false;
+                this.Stop();
+            };
         }
 
         public void Stop()
@@ -122,10 +129,8 @@ namespace EventServiceClient2
 
         public void OnServiceDisposeEvent()
         {
-            //чистим контейнер
-            _syncContainer?.Dispose();
             _isEnabled = false;
-
+            this.Stop();
             _container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", "Синхронизация прекращена.");
         }
 

@@ -204,11 +204,11 @@ namespace EventService
                 try
                 {
                     appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnServiceDisposeEvent();
-                    PrintMessageEvent?.Invoke($"Succsess on Close() appSession {appSession.AppSessionId}.");
+                    PrintMessageEvent?.Invoke($"Succsess on Close() {appSession}.");
                 }
                 catch (Exception e)
                 {
-                    PrintMessageEvent?.Invoke($"Exception on Close() appSession {appSession.AppSessionId}. {e.GetType().FullName} \n {e.GetAllExceptions()}");
+                    PrintMessageEvent?.Invoke($"Exception on Close() {appSession}. {e.GetType().FullName} \n {e.GetAllExceptions()}");
                 }
             }
         }

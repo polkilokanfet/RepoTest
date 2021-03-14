@@ -6,6 +6,9 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
     [ServiceContract]
     public interface IEventServiceCallback
     {
+        /// <summary>
+        /// Реакция клиента на остановку сервиса
+        /// </summary>
         [OperationContract(IsOneWay = true)]
         void OnServiceDisposeEvent();
 
