@@ -16,6 +16,11 @@ namespace HVTApp.DataAccess
             throw new NotImplementedException();
         }
 
+        public IEnumerable<SalesUnit> GetByOrder(Guid orderId)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<SalesUnit> GetBySpecification(Guid specificationId)
         {
             throw new NotImplementedException();

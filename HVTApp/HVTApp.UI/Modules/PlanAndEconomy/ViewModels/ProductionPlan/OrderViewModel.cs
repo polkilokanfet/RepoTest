@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
+using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Services;
@@ -120,35 +121,42 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
             //оставляем юниты без заказов либо с редактируемым заказом
             //исключаем юниты без сигнала к производству
             var salesUnits = UnitOfWork.Repository<SalesUnit>()
-                .Find(x => !x.IsRemoved && x.SignalToStartProduction.HasValue && (x.Order == null || x.Order.Id == Item.Id));
+                .Find(salesUnit => 
+                    !salesUnit.IsRemoved && 
+                    salesUnit.SignalToStartProduction.HasValue && 
+                    salesUnit.Order == null);
 
-            _unitsWrappers = new ValidatableChangeTrackingCollection<SalesUnitOrderItem>(salesUnits.Select(x => new SalesUnitOrderItem(x, x.ActualPriceCalculationItem(UnitOfWork))));
+            //юниты из заказа
+            var salesUnitsInOrder = ((ISalesUnitRepository) UnitOfWork.Repository<SalesUnit>()).GetByOrder(Item.Id).ToList();
+            salesUnits.AddRange(salesUnitsInOrder);
+
+            _unitsWrappers = new ValidatableChangeTrackingCollection<SalesUnitOrderItem>(salesUnits.Select(salesUnit => new SalesUnitOrderItem(salesUnit, salesUnit.ActualPriceCalculationItem(UnitOfWork))));
 
             //юниты в заказе
-            var unitsInOrder = _unitsWrappers.Where(x => x.Order != null).ToList();
-            var groupsInOrder = unitsInOrder.GroupBy(x => new
+            var unitsInOrder = _unitsWrappers.Where(item => item.Order != null).ToList();
+            var groupsInOrder = unitsInOrder.GroupBy(item => new
             {
-                FacilityId = x.Model.Facility.Id,
-                ProductId = x.Model.Product.Id,
-                OrderId = x.Order?.Id,
-                ProjectId = x.Model.Project.Id,
-                SpecificationId = x.Model.Specification?.Id,
-                x.Model.EndProductionPlanDate,
-                x.Model.Cost
+                FacilityId = item.Model.Facility.Id,
+                ProductId = item.Model.Product.Id,
+                OrderId = item.Order?.Id,
+                ProjectId = item.Model.Project.Id,
+                SpecificationId = item.Model.Specification?.Id,
+                item.Model.EndProductionPlanDate,
+                item.Model.Cost
             }).OrderBy(x => x.Key.EndProductionPlanDate);
             GroupsInOrder.AddRange(groupsInOrder.Select(x => new SalesUnitOrderGroup(x)));
 
             //юниты для размещения в производстве
-            var unitsToProduct = _unitsWrappers.Where(x => !x.Model.IsLoosen).Except(unitsInOrder).ToList();
-            var groupsToProduct = unitsToProduct.GroupBy(x => new
+            var unitsToProduct = _unitsWrappers.Where(item => !item.Model.IsLoosen).Except(unitsInOrder).ToList();
+            var groupsToProduct = unitsToProduct.GroupBy(item => new
             {
-                FacilityId = x.Model.Facility.Id,
-                ProductId = x.Model.Product.Id,
-                OrderId = x.Order?.Id,
-                ProjectId = x.Model.Project.Id,
-                SpecificationId = x.Model.Specification?.Id,
-                x.Model.EndProductionDateCalculated,
-                x.Model.Cost
+                FacilityId = item.Model.Facility.Id,
+                ProductId = item.Model.Product.Id,
+                OrderId = item.Order?.Id,
+                ProjectId = item.Model.Project.Id,
+                SpecificationId = item.Model.Specification?.Id,
+                item.Model.EndProductionDateCalculated,
+                item.Model.Cost
             }).OrderBy(x => x.Key.EndProductionDateCalculated);
             GroupsPotential.AddRange(groupsToProduct.Select(x => new SalesUnitOrderGroup(x)));
 

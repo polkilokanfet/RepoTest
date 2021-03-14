@@ -78,7 +78,7 @@ namespace HVTApp
 
             //старт клиентской части сервиса синхронизации
 #if DEBUG
-            if(true)
+            if(false)
 #endif
                 Container.Resolve<IEventServiceClient>().Start();
 

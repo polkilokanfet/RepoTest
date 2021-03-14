@@ -30,6 +30,12 @@ namespace HVTApp.DataAccess
         IEnumerable<SalesUnit> GetByProject(Guid projectId);
 
         /// <summary>
+        /// Получить все юниты из заказа
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<SalesUnit> GetByOrder(Guid orderId);
+
+        /// <summary>
         /// Получить все юниты из спецификации
         /// </summary>
         /// <returns></returns>
@@ -83,6 +89,22 @@ namespace HVTApp.DataAccess
 
             var salesUnitsIds = this.Context.Set<SalesUnit>().AsNoTracking()
                 .Where(salesUnit => salesUnit.Project.Id == projectId)
+                .Select(salesUnit => salesUnit.Id)
+                .ToList();
+
+            foreach (var id in salesUnitsIds)
+            {
+                yield return this.GetById(id);
+            }
+        }
+
+        public IEnumerable<SalesUnit> GetByOrder(Guid orderId)
+        {
+            Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
+            var salesUnitsIds = this.Context.Set<SalesUnit>().AsNoTracking()
+                .Where(salesUnit => salesUnit.Order != null)
+                .Where(salesUnit => salesUnit.Order.Id == orderId)
                 .Select(salesUnit => salesUnit.Id)
                 .ToList();
 
