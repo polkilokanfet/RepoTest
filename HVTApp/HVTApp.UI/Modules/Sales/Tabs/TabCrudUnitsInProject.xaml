@@ -4,7 +4,7 @@
              xmlns:infRib="http://infragistics.com/Ribbon" 
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
              xmlns:editors="http://infragistics.com/Editors"
-             x:Class="HVTApp.UI.Modules.Sales.Tabs.TabCrudUnits"
+             x:Class="HVTApp.UI.Modules.Sales.Tabs.TabCrudUnitsInProject"
              Header="Редактирование оборудования">
 
     <infRib:RibbonGroup Caption="Основное">
@@ -26,6 +26,11 @@
             </StackPanel>
             <infRib:ButtonTool Caption="Округлить" Command="{Binding RoundUpCommand}"/>
         </StackPanel>
+    </infRib:RibbonGroup>
+
+    <infRib:RibbonGroup Caption="Перенести оборудование">
+        <infRib:ButtonTool Caption="В новый проект" Command="{Binding MoveToNewProjectCommand}" SmallImage="/HVTApp.UI;component/Images/arrow_forward.png"/>
+        <infRib:ButtonTool Caption="В существующий проект" Command="{Binding MoveToExistsProjectCommand}" SmallImage="/HVTApp.UI;component/Images/arrow_forward.png"/>
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Действия">

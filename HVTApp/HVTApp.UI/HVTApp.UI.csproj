@@ -293,6 +293,9 @@
     <Compile Include="Modules\Sales\Supervision\TabSupervision.xaml.cs">
       <DependentUpon>TabSupervision.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Sales\Tabs\TabCrudUnitsInProject.xaml.cs">
+      <DependentUpon>TabCrudUnitsInProject.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Sales\ViewModels\Containers\PriceCalculationsContainer.cs" />
     <Compile Include="Modules\Sales\ViewModels\Containers\TechnicalRequrementsTasksContainer.cs" />
     <Compile Include="Modules\Sales\ViewModels\ProjectViewModel\ProjectDetailsViewModel1.cs" />
@@ -1195,6 +1198,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\Sales\Shippings\ShippingTab.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Sales\Tabs\TabCrudUnitsInProject.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

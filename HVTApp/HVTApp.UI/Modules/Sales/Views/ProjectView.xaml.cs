@@ -12,7 +12,7 @@ using Prism.Regions;
 
 namespace HVTApp.UI.Modules.Sales.Views
 {
-    [RibbonTab(typeof(TabCrudUnits))]
+    [RibbonTab(typeof(TabCrudUnitsInProject))]
     public partial class ProjectView : ViewBaseConfirmNavigationRequest
     {
         private readonly IUnityContainer _container;
