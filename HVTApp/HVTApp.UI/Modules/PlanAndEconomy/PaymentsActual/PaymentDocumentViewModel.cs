@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
+using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
@@ -257,7 +258,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
         protected override void AfterLoading()
         {
             //получаем коллекцию единниц продаж
-            var salesUnitWrappers = UnitOfWork.Repository<SalesUnit>().GetAll()
+            var salesUnitWrappers = ((ISalesUnitRepository)UnitOfWork.Repository<SalesUnit>()).GetAllIncludeActualPayments()
                 .Select(salesUnit => new SalesUnitPaymentWrapper(salesUnit))
                 .ToList();
             _salesUnitWrappers = new ValidatableChangeTrackingCollection<SalesUnitPaymentWrapper>(salesUnitWrappers);

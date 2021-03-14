@@ -40,6 +40,24 @@ namespace HVTApp.DataAccess
         /// </summary>
         /// <returns></returns>
         IEnumerable<SalesUnit> GetBySpecification(Guid specificationId);
+
+        /// <summary>
+        /// Получить все юниты с какими-либо актуальными платежами
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<SalesUnit> GetAllWithActualPayments();
+
+        /// <summary>
+        /// Получить все юниты определенного пользователя с какими-либо актуальными платежами
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<SalesUnit> GetAllWithActualPaymentsOfCurrentUser();
+
+        /// <summary>
+        /// Получить все юниты, подгрузив актуальные платежи
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<SalesUnit> GetAllIncludeActualPayments();
     }
 
     public partial class SalesUnitRepository : ISalesUnitRepository
@@ -128,6 +146,39 @@ namespace HVTApp.DataAccess
             {
                 yield return this.GetById(id);
             }
+        }
+
+        public IEnumerable<SalesUnit> GetAllWithActualPayments()
+        {
+            Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
+            return this.GetQuary()
+                .Include(salesUnit => salesUnit.PaymentsActual)
+                .Include(salesUnit => salesUnit.Order)
+                .Where(salesUnit => salesUnit.PaymentsActual.Any())
+                .ToList();
+        }
+
+        public IEnumerable<SalesUnit> GetAllWithActualPaymentsOfCurrentUser()
+        {
+            Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
+            return this.GetQuary()
+                .Include(salesUnit => salesUnit.PaymentsActual)
+                .Include(salesUnit => salesUnit.Order)
+                .Include(salesUnit => salesUnit.Project.Manager)
+                .Where(salesUnit => salesUnit.Project.Manager.Id == GlobalAppProperties.User.Id)
+                .Where(salesUnit => salesUnit.PaymentsActual.Any())
+                .ToList();
+        }
+
+        public IEnumerable<SalesUnit> GetAllIncludeActualPayments()
+        {
+            Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
+            return this.GetQuary()
+                .Include(salesUnit => salesUnit.PaymentsActual)
+                .ToList();
         }
 
         //public async Task<IEnumerable<SalesUnit>> GetUsersSalesUnitsAsync()

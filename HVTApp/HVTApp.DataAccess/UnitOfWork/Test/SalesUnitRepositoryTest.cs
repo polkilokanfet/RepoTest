@@ -25,5 +25,20 @@ namespace HVTApp.DataAccess
         {
             throw new NotImplementedException();
         }
+
+        public IEnumerable<SalesUnit> GetAllWithActualPayments()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<SalesUnit> GetAllWithActualPaymentsOfCurrentUser()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<SalesUnit> GetAllIncludeActualPayments()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

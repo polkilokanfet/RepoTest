@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.ViewModels;
@@ -54,22 +55,22 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
             UnitOfWork = Container.Resolve<IUnitOfWork>();
 
             var salesUnits = GlobalAppProperties.User.RoleCurrent == Role.SalesManager
-                ? UnitOfWork.Repository<SalesUnit>().Find(x => Equals(x.Project.Manager.Id, GlobalAppProperties.User.Id) && x.PaymentsActual.Any())
-                : UnitOfWork.Repository<SalesUnit>().Find(x => x.PaymentsActual.Any());
+                ? ((ISalesUnitRepository) UnitOfWork.Repository<SalesUnit>()).GetAllWithActualPaymentsOfCurrentUser()
+                : ((ISalesUnitRepository) UnitOfWork.Repository<SalesUnit>()).GetAllWithActualPayments();
             var documents = UnitOfWork.Repository<PaymentDocument>().GetAll();
 
             var payments = new List<SalesUnitPayment>();
             foreach (var salesUnit in salesUnits)
             {
                 payments.AddRange(salesUnit.PaymentsActual.Select(payment =>
-                    new SalesUnitPayment(salesUnit, payment, documents.Single(x => x.Payments.Contains(payment)))));
+                    new SalesUnitPayment(salesUnit, payment, documents.Single(paymentDocument => paymentDocument.Payments.Contains(payment)))));
             }
-            _groups = payments.GroupBy(x => new
+            _groups = payments.GroupBy(salesUnitPayment => new
                 {
-                    OrderId = x.SalesUnit.Order?.Id,
-                    FacilityId = x.SalesUnit.Facility.Id,
-                    ProductId = x.SalesUnit.Product.Id,
-                    SpecificationId = x.SalesUnit.Specification?.Id
+                    OrderId = salesUnitPayment.SalesUnit.Order?.Id,
+                    FacilityId = salesUnitPayment.SalesUnit.Facility.Id,
+                    ProductId = salesUnitPayment.SalesUnit.Product.Id,
+                    SpecificationId = salesUnitPayment.SalesUnit.Specification?.Id
                 })
                 .Select(x => new SalesUnitPaymentGroup(x))
                 .OrderByDescending(x => x.LastDate);

@@ -9,9 +9,9 @@ namespace HVTApp.DataAccess
         protected override IQueryable<Parameter> GetQuary()
         {
             return Context.Set<Parameter>().AsQueryable()
-                .Include(x => x.ParameterGroup)
-                .Include(x => x.ParameterRelations.Select(r => r.RequiredParameters))
-                .Include(x => x.ParameterGroup.Measure);
+                .Include(parameter => parameter.ParameterGroup)
+                .Include(parameter => parameter.ParameterRelations.Select(parameterRelation => parameterRelation.RequiredParameters))
+                .Include(parameter => parameter.ParameterGroup.Measure);
         }
     }
 }

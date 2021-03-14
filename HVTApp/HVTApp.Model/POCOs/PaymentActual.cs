@@ -5,7 +5,7 @@ using HVTApp.Infrastructure.Attributes;
 
 namespace HVTApp.Model.POCOs
 {
-    [Designation("Платеж совершенный")]
+    [Designation("Платеж совершённый")]
     public partial class PaymentActual : BaseEntity
     {
         [Designation("Дата"), Required]
