@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
@@ -68,7 +69,7 @@ namespace HVTApp.UI.Modules.Sales.Market
         public void InitNotes()
         {
             _notesUnitOfWork = Container.Resolve<IUnitOfWork>();
-            var projectNotes = _notesUnitOfWork.Repository<Project>().Find(x => true).Select(x => new ProjectNotesWrapper(x));
+            var projectNotes = ((IProjectRepository)_notesUnitOfWork.Repository<Project>()).GetAllWithNotes().Select(project => new ProjectNotesWrapper(project));
             _projectNotes = new ValidatableChangeTrackingCollection<ProjectNotesWrapper>(projectNotes);
 
             AddNoteCommand = new DelegateCommand(
@@ -102,7 +103,5 @@ namespace HVTApp.UI.Modules.Sales.Market
                 ((DelegateCommand)SaveNotesCommand).RaiseCanExecuteChanged();
             };
         }
-
-
     }
 }

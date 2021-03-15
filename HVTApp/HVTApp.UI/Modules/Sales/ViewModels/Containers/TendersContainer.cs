@@ -22,7 +22,9 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
 
         protected override IEnumerable<TenderLookup> GetActualLookups(Project project)
         {
-            return AllLookups.Where(x => x.Project.Id == project.Id);
+            return AllLookups
+                .Where(tenderLookup => tenderLookup.Project.Id == project.Id)
+                .OrderByDescending(tenderLookup => tenderLookup.Entity.DateOpen);
         }
 
         protected override bool CanBeShown(Tender tender)

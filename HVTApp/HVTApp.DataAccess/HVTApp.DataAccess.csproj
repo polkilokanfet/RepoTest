@@ -270,6 +270,7 @@
     <Compile Include="UnitOfWork\Repositories\IRepositories.g.cs" />
     <Compile Include="UnitOfWork\Repositories\Repositories.g.cs" />
     <Compile Include="UnitOfWork\TestBaseRepository.cs" />
+    <Compile Include="UnitOfWork\Test\ProjectRepositoryTest.cs" />
     <Compile Include="UnitOfWork\Test\Repositories.g.cs" />
     <Compile Include="UnitOfWork\Test\SalesUnitRepositoryTest.cs" />
     <Compile Include="UnitOfWork\UnitOfWork.cs" />

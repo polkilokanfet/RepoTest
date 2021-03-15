@@ -106,7 +106,7 @@ namespace HVTApp
             //репозиторий с опциями
             var repository = Container.Resolve<IUnitOfWork>().Repository<GlobalProperties>();
             //назначение актуальных опций (последние по дате)
-            GlobalAppProperties.Actual = repository.GetAll().OrderBy(x => x.Date).Last();
+            GlobalAppProperties.Actual = repository.GetAll().OrderBy(globalProperties => globalProperties.Date).Last();
             
             GlobalAppProperties.ProductDesignationService = Container.Resolve<IProductDesignationService>();
             GlobalAppProperties.ShippingService = Container.Resolve<IShippingService>();

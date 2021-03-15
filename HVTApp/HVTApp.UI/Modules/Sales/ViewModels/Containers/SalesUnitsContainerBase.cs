@@ -59,8 +59,8 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
         protected override IEnumerable<SalesUnitLookup> GetLookups(IUnitOfWork unitOfWork)
         {
             return ((ISalesUnitRepository)unitOfWork.Repository<SalesUnit>())
-                .GetCurrentUserSalesUnits()
-                .Select(x => new SalesUnitLookup(x));
+                .GetAllOfCurrentUser()
+                .Select(salesUnit => new SalesUnitLookup(salesUnit));
         }
 
         protected void RefreshGroups()
@@ -71,13 +71,13 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
             //если нет фильтра - ничего не отображаем
             if (Filter == null) return;
 
-            var salesUnits = GetActualLookups(Filter).Select(x => x.Entity);
+            var salesUnits = GetActualLookups(Filter).Select(salesUnitLookup => salesUnitLookup.Entity);
 
             //группируем их
-            var groups = salesUnits.GroupBy(x => x, new SalesUnitsGroupsComparer()).Select(x => new SalesUnitsGroup(x));
+            var groups = salesUnits.GroupBy(salesUnit => salesUnit, new SalesUnitsGroupsComparer()).Select(x => new SalesUnitsGroup(x));
 
             //обновляем вид
-            Groups.AddRange(groups.OrderByDescending(x => x.Total));
+            Groups.AddRange(groups.OrderByDescending(salesUnitsGroup => salesUnitsGroup.Total));
         }
     }
 }

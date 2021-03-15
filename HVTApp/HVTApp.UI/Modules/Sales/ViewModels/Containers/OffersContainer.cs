@@ -40,7 +40,9 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
 
         protected override IEnumerable<OfferLookup> GetActualLookups(Project project)
         {
-            return AllLookups.Where(offerLookup => offerLookup.Project.Id == project.Id);
+            return AllLookups
+                .Where(offerLookup => offerLookup.Project.Id == project.Id)
+                .OrderByDescending(offerLookup => offerLookup.Entity.Date);
         }
 
         protected override bool CanBeShown(Offer offer)

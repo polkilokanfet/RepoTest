@@ -24,7 +24,9 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
 
         protected override IEnumerable<PriceCalculationLookup> GetActualLookups(Project project)
         {
-            return AllLookups.Where(x => x.PriceCalculationItems.SelectMany(r => r.SalesUnits).Any(su => su.Project.Id == project.Id)).OrderBy(x => x.TaskCloseMoment);
+            return AllLookups
+                .Where(priceCalculationLookup => priceCalculationLookup.PriceCalculationItems.SelectMany(priceCalculationItemLookup => priceCalculationItemLookup.SalesUnits).Any(salesUnitLookup => salesUnitLookup.Project.Id == project.Id))
+                .OrderByDescending(priceCalculationLookup => priceCalculationLookup.Entity.TaskCloseMoment);
         }
 
         protected override bool CanBeShown(PriceCalculation technicalRequrementsTask)

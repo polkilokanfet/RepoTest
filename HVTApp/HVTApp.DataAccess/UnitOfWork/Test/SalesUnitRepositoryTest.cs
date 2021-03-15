@@ -6,7 +6,12 @@ namespace HVTApp.DataAccess
 {
     public partial class SalesUnitRepositoryTest : ISalesUnitRepository
     {
-        public IEnumerable<SalesUnit> GetCurrentUserSalesUnits()
+        public IEnumerable<SalesUnit> GetAllOfCurrentUser()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<SalesUnit> GetAllOfCurrentUserForMarketView()
         {
             throw new NotImplementedException();
         }
@@ -37,6 +42,11 @@ namespace HVTApp.DataAccess
         }
 
         public IEnumerable<SalesUnit> GetAllIncludeActualPayments()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<SalesUnit> GetAllNotRemovedNotLoosen()
         {
             throw new NotImplementedException();
         }

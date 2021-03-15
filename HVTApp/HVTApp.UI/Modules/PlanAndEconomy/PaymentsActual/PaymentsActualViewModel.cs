@@ -18,11 +18,13 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
     {
         private object _selectedItem;
 
+        public bool CurrentUserIsManager => GlobalAppProperties.User.RoleCurrent == Role.SalesManager;
+
         public ObservableCollection<SalesUnitPaymentGroup> PaymentGroups { get; } = new ObservableCollection<SalesUnitPaymentGroup>();
 
         public object SelectedItem
         {
-            get { return _selectedItem; }
+            get => _selectedItem;
             set
             {
                 _selectedItem = value;

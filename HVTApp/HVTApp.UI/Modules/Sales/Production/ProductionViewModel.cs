@@ -157,7 +157,7 @@ namespace HVTApp.UI.Modules.Sales.Production
             UnitOfWork = Container.Resolve<IUnitOfWork>();
 
             //все единицы текущего пользователя
-            _salesUnitsAll = ((ISalesUnitRepository) UnitOfWork.Repository<SalesUnit>()).GetCurrentUserSalesUnits().ToList();
+            _salesUnitsAll = ((ISalesUnitRepository) UnitOfWork.Repository<SalesUnit>()).GetAllOfCurrentUser().ToList();
 
             //оборудование, которое уже размещено в производстве
             _groupsInProduction = _salesUnitsAll

@@ -15,7 +15,13 @@ namespace HVTApp.DataAccess
         /// Получить все юниты текущего пользователя
         /// </summary>
         /// <returns></returns>
-        IEnumerable<SalesUnit> GetCurrentUserSalesUnits();
+        IEnumerable<SalesUnit> GetAllOfCurrentUser();
+
+        /// <summary>
+        /// Получить все неудаленные юниты текущего пользователя
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<SalesUnit> GetAllOfCurrentUserForMarketView();
 
         ///// <summary>
         ///// Получить все юниты авторизованного пользователя асинхронно
@@ -58,6 +64,12 @@ namespace HVTApp.DataAccess
         /// </summary>
         /// <returns></returns>
         IEnumerable<SalesUnit> GetAllIncludeActualPayments();
+
+        /// <summary>
+        /// Получить все не удаленные и не проигранные юниты
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<SalesUnit> GetAllNotRemovedNotLoosen();
     }
 
     public partial class SalesUnitRepository : ISalesUnitRepository
@@ -69,7 +81,9 @@ namespace HVTApp.DataAccess
                 .Include(salesUnit => salesUnit.Product.ProductBlock.Parameters)
                 .Include(salesUnit => salesUnit.Product.DependentProducts.Select(productDependent => productDependent.Product.ProductBlock.Parameters))
                 .Include(salesUnit => salesUnit.ProductsIncluded.Select(productIncluded => productIncluded.Product.ProductBlock.Parameters))
-                .Include(salesUnit => salesUnit.PaymentConditionSet.PaymentConditions.Select(paymentCondition => paymentCondition.PaymentConditionPoint));
+                .Include(salesUnit => salesUnit.PaymentConditionSet.PaymentConditions.Select(paymentCondition => paymentCondition.PaymentConditionPoint))
+                .Include(salesUnit => salesUnit.PaymentsActual)
+                .Include(salesUnit => salesUnit.PaymentsPlanned);
         }
 
         //protected override IQueryable<SalesUnit> GetQuary()
@@ -95,10 +109,20 @@ namespace HVTApp.DataAccess
         //        .Include(x => x.AddressDelivery);
         //}
 
-        public IEnumerable<SalesUnit> GetCurrentUserSalesUnits()
+        public IEnumerable<SalesUnit> GetAllOfCurrentUser()
         {
             Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
-            return this.Find(salesUnit => salesUnit.Project.Manager.Id == GlobalAppProperties.User.Id);
+            return this.GetQuary().Where(salesUnit => salesUnit.Project.Manager.Id == GlobalAppProperties.User.Id).ToList();
+        }
+
+        public IEnumerable<SalesUnit> GetAllOfCurrentUserForMarketView()
+        {
+            Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
+            return this.GetQuary()
+                .Include(salesUnit => salesUnit.Project.Manager)
+                .Include(salesUnit => salesUnit.Producer)
+                .Where(salesUnit => !salesUnit.IsRemoved && salesUnit.Project.Manager.Id == GlobalAppProperties.User.Id)
+                .ToList();
         }
 
         public IEnumerable<SalesUnit> GetByProject(Guid projectId)
@@ -153,7 +177,7 @@ namespace HVTApp.DataAccess
             Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
             return this.GetQuary()
-                .Include(salesUnit => salesUnit.PaymentsActual)
+                //.Include(salesUnit => salesUnit.PaymentsActual)
                 .Include(salesUnit => salesUnit.Order)
                 .Where(salesUnit => salesUnit.PaymentsActual.Any())
                 .ToList();
@@ -164,7 +188,7 @@ namespace HVTApp.DataAccess
             Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
             return this.GetQuary()
-                .Include(salesUnit => salesUnit.PaymentsActual)
+                //.Include(salesUnit => salesUnit.PaymentsActual)
                 .Include(salesUnit => salesUnit.Order)
                 .Include(salesUnit => salesUnit.Project.Manager)
                 .Where(salesUnit => salesUnit.Project.Manager.Id == GlobalAppProperties.User.Id)
@@ -177,7 +201,17 @@ namespace HVTApp.DataAccess
             Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
             return this.GetQuary()
-                .Include(salesUnit => salesUnit.PaymentsActual)
+                //.Include(salesUnit => salesUnit.PaymentsActual)
+                .ToList();
+        }
+
+        public IEnumerable<SalesUnit> GetAllNotRemovedNotLoosen()
+        {
+            Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
+            return this.GetQuary()
+                .Include(salesUnit => salesUnit.Producer)
+                .Where(salesUnit => !salesUnit.IsRemoved && (salesUnit.Producer == null || salesUnit.Producer.Id == GlobalAppProperties.Actual.OurCompany.Id))
                 .ToList();
         }
 

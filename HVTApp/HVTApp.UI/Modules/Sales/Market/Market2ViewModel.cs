@@ -235,18 +235,19 @@ namespace HVTApp.UI.Modules.Sales.Market
 
             _tenders = UnitOfWork.Repository<Tender>().GetAll();
 
-            var salesUnits =
-                (GlobalAppProperties.User.RoleCurrent == Role.Admin
+            var salesUnits = (GlobalAppProperties.User.RoleCurrent == Role.Admin
                     ? UnitOfWork.Repository<SalesUnit>().GetAll()
-                    : ((ISalesUnitRepository) UnitOfWork.Repository<SalesUnit>()).GetCurrentUserSalesUnits())
-                .Where(salesUnit => !salesUnit.IsRemoved).ToList();
+                    : ((ISalesUnitRepository) UnitOfWork.Repository<SalesUnit>()).GetAllOfCurrentUserForMarketView()).ToList();
 
             var items = salesUnits
                 .GroupBy(unit => unit, new SalesUnitsMarketViewComparer())
                 .Select(units => new ProjectItem(units, _eventAggregator))
                 .ToList();
 
-            _projectItems = items.OrderBy(projectItem => projectItem.DaysToStartProduction).ThenBy(projectItem => projectItem.OrderInTakeDate);
+            _projectItems = items
+                .OrderBy(projectItem => projectItem.DaysToStartProduction)
+                .ThenBy(projectItem => projectItem.OrderInTakeDate)
+                .ToList();
 
             Offers = Container.Resolve<OffersContainer>();
             Tenders = Container.Resolve<TendersContainer>();

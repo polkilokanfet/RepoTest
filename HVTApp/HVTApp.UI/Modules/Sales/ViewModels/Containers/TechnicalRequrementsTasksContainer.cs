@@ -24,7 +24,9 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
 
         protected override IEnumerable<TechnicalRequrementsTaskLookup> GetActualLookups(Project project)
         {
-            return AllLookups.Where(x => x.Requrements.SelectMany(r => r.SalesUnits).Any(su => su.Project.Id == project.Id)).OrderBy(x => x.Start);
+            return AllLookups
+                .Where(technicalRequrementsTaskLookup => technicalRequrementsTaskLookup.Requrements.SelectMany(technicalRequrementsLookup => technicalRequrementsLookup.SalesUnits).Any(su => su.Project.Id == project.Id))
+                .OrderByDescending(technicalRequrementsTaskLookup => technicalRequrementsTaskLookup.Start);
         }
 
         protected override bool CanBeShown(TechnicalRequrementsTask technicalRequrementsTask)

@@ -18,7 +18,7 @@ namespace HVTApp.Services.ProductDesignationService
         public ProductDesignator(IUnitOfWork unitOfWork)
         {
             //загрузка всех категорий оборудования
-            _productCategories = unitOfWork.Repository<ProductCategory>().GetAll().OrderByDescending(x => x.Parameters.Count).ToList();
+            _productCategories = unitOfWork.Repository<ProductCategory>().GetAll().OrderByDescending(productCategory => productCategory.Parameters.Count).ToList();
 
             //загрузка всех типов оборудования
             _designationsOfProductTypes = unitOfWork.Repository<ProductTypeDesignation>().GetAll();
@@ -33,7 +33,7 @@ namespace HVTApp.Services.ProductDesignationService
                     _designationsOfBlocks.Add(new DesignationOfBlock(kvp.Key.ToList(), kvp.Value));
                 }
             }
-            _designationsOfBlocks = _designationsOfBlocks.OrderByDescending(x => x.Parameters.Count()).ToList();
+            _designationsOfBlocks = _designationsOfBlocks.OrderByDescending(designationOfBlock => designationOfBlock.Parameters.Count()).ToList();
         }
 
         #region Designation

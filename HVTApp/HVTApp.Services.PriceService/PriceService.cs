@@ -24,6 +24,7 @@ namespace HVTApp.Services.PriceService
 
         /// <summary>
         /// Словарь завершенных калькуляций
+        /// Какому SalesUnit.Id соответствует какой Расчет ПЗ
         /// </summary>
         private Dictionary<Guid, PriceCalculationItem> PriceCalculationItemsFinished { get; } = new Dictionary<Guid, PriceCalculationItem>();
 
@@ -83,20 +84,26 @@ namespace HVTApp.Services.PriceService
             PriceCalculationItemsFinished.Clear();
             PricesOfSalesUnitsFromCalculations.Clear();
 
+            //завершенные расчеты ПЗ, упорядоченные по дате завершения
             var priceCalculationsFinished = unitOfWork.Repository<PriceCalculation>()
-                .Find(x => x.TaskCloseMoment.HasValue)
-                .OrderBy(x => x.TaskCloseMoment).ToList();
+                .Find(priceCalculation => priceCalculation.TaskCloseMoment.HasValue)
+                .OrderBy(priceCalculation => priceCalculation.TaskCloseMoment)
+                .ToList();
 
             //формирование словарей прайсов по калькуляции
-            foreach (var salesUnit in priceCalculationsFinished.SelectMany(x => x.PriceCalculationItems).SelectMany(x => x.SalesUnits).Distinct())
+            var salesUnits = priceCalculationsFinished
+                .SelectMany(priceCalculation => priceCalculation.PriceCalculationItems)
+                .SelectMany(priceCalculationItem => priceCalculationItem.SalesUnits)
+                .Distinct();
+            foreach (var salesUnit in salesUnits)
             {
                 var priceCalculationItem = priceCalculationsFinished
-                    .OrderBy(x => x.TaskCloseMoment)
-                    .SelectMany(x => x.PriceCalculationItems)
-                    .LastOrDefault(x => x.SalesUnits.ContainsById(salesUnit));
+                    //.OrderBy(priceCalculation => priceCalculation.TaskCloseMoment)
+                    .SelectMany(priceCalculation => priceCalculation.PriceCalculationItems)
+                    .Last(calculationItem => calculationItem.SalesUnits.ContainsById(salesUnit));
 
                 PriceCalculationItemsFinished.Add(salesUnit.Id, priceCalculationItem);
-                PricesOfSalesUnitsFromCalculations.Add(salesUnit.Id, priceCalculationItem.StructureCosts.Sum(x => x.Total));
+                PricesOfSalesUnitsFromCalculations.Add(salesUnit.Id, priceCalculationItem.StructureCosts.Sum(structureCost => structureCost.Total));
             }
         }
 
@@ -134,8 +141,8 @@ namespace HVTApp.Services.PriceService
 
             var targetBlock = Blocks.SingleOrDefault(x => x.Id == blockTarget.Id) ?? blockTarget;
             var blocksWithPrices = Blocks
-                .Where(x => x.Id != targetBlock.Id)
-                .Where(x => x.HasPrice).ToList();
+                .Where(productBlock => productBlock.Id != targetBlock.Id)
+                .Where(productBlock => productBlock.HasPrice).ToList();
 
             var dic = new Dictionary<ProductBlock, double>();
             foreach (var blockWithPrice in blocksWithPrices)
@@ -147,7 +154,7 @@ namespace HVTApp.Services.PriceService
                 foreach (var parameter in intParams)
                 {
                     //Single было бы правильнее, но надо искать ошибку в формировании путей
-                    var path = parameter.Paths().First(x => x.Parameters.AllContainsIn(blockWithPrice.Parameters, new ParameterComparer()));
+                    var path = parameter.Paths().First(pathToOrigin => pathToOrigin.Parameters.AllContainsIn(blockWithPrice.Parameters, new ParameterComparer()));
                     dif += 1.0 / path.Parameters.Count;
                 }
 
@@ -156,7 +163,7 @@ namespace HVTApp.Services.PriceService
                 foreach (var parameter in difParams1)
                 {
                     //Single было бы правильнее, но надо искать ошибку в формировании путей
-                    var path = parameter.Paths().First(x => x.Parameters.AllContainsIn(blockWithPrice.Parameters, new ParameterComparer()));
+                    var path = parameter.Paths().First(pathToOrigin => pathToOrigin.Parameters.AllContainsIn(blockWithPrice.Parameters, new ParameterComparer()));
                     dif -= 1.0 / path.Parameters.Count;
                 }
 
@@ -164,7 +171,7 @@ namespace HVTApp.Services.PriceService
                 foreach (var parameter in difParams2)
                 {
                     //Single было бы правильнее, но надо искать ошибку в формировании путей
-                    var path = parameter.Paths().First(x => x.Parameters.AllContainsIn(targetBlock.Parameters, new ParameterComparer()));
+                    var path = parameter.Paths().First(pathToOrigin => pathToOrigin.Parameters.AllContainsIn(targetBlock.Parameters, new ParameterComparer()));
                     dif -= 1.0 / path.Parameters.Count;
                 }
 

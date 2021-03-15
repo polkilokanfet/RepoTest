@@ -14,7 +14,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
 
         protected override IEnumerable<SalesUnitLookup> GetActualLookups(Project project)
         {
-            return AllLookups.Where(x => x.Project.Id == project.Id);
+            return AllLookups.Where(salesUnitLookup => salesUnitLookup.Entity.Project.Id == project.Id);
         }
 
         protected override bool CanBeShown(SalesUnit salesUnit)

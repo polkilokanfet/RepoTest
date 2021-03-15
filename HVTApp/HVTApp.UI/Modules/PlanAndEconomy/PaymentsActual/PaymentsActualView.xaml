@@ -35,7 +35,8 @@
                     <infg:TextField AlternateBinding="{Binding SalesUnitPayment.SalesUnit.Specification}" Converter="{StaticResource ObjectToStringConverter}" Label="Сп." BindingType="UseAlternateBinding" Width="Auto"/>
                     <infg:NumericField AlternateBinding="{Binding SalesUnitPayment.SalesUnit.Vat}" Label="НДС" BindingType="UseAlternateBinding" Width="Auto" AllowResize="False"/>
                     <infg:TextField AlternateBinding="{Binding SalesUnitPayment.Contragent}" Converter="{StaticResource ObjectToStringConverter}" Label="Контрагент" BindingType="UseAlternateBinding" Width="150"/>
-                    <infg:TextField AlternateBinding="{Binding SalesUnitPayment.SalesUnit.Project.Manager}" Converter="{StaticResource ObjectToStringConverter}" Label="Менеджер" BindingType="UseAlternateBinding" Width="Auto" AllowResize="False"/>
+                    <infg:TextField AlternateBinding="{Binding SalesUnitPayment.SalesUnit.Project.Manager}" Converter="{StaticResource ObjectToStringConverter}" Label="Менеджер" BindingType="UseAlternateBinding" Width="Auto" AllowResize="False"
+                                    Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityReverseConverter}}"/>
                     <infg:Field Name="SalesUnitPayments" IsExpandable="True"/>
                 </infg:FieldLayout>
 
