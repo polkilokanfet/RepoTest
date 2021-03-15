@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
+using HVTApp.UI.PriceCalculations.ViewModel.Wrapper;
 using Prism.Commands;
 
 namespace HVTApp.UI.PriceCalculations.ViewModel
@@ -14,7 +15,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
 
         public object[] SelectedItems
         {
-            get { return _selectedItems; }
+            get => _selectedItems;
             set
             {
                 _selectedItems = value;

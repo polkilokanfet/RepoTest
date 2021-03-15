@@ -5,7 +5,7 @@ using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
 
-namespace HVTApp.UI.PriceCalculations.ViewModel
+namespace HVTApp.UI.PriceCalculations.ViewModel.Wrapper
 {
     public class PriceCalculation2Wrapper : WrapperBase<PriceCalculation>
     {
@@ -15,32 +15,32 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
 
         public DateTime? TaskOpenMoment
         {
-            get { return GetValue<DateTime?>(); }
-            set { SetValue(value); }
+            get => GetValue<DateTime?>();
+            set => SetValue(value);
         }
         public DateTime? TaskOpenMomentOriginalValue => GetOriginalValue<DateTime?>(nameof(TaskOpenMoment));
         public bool TaskOpenMomentIsChanged => GetIsChanged(nameof(TaskOpenMoment));
 
         public DateTime? TaskCloseMoment
         {
-            get { return GetValue<DateTime?>(); }
-            set { SetValue(value); }
+            get => GetValue<DateTime?>();
+            set => SetValue(value);
         }
         public DateTime? TaskCloseMomentOriginalValue => GetOriginalValue<DateTime?>(nameof(TaskCloseMoment));
         public bool TaskCloseMomentIsChanged => GetIsChanged(nameof(TaskCloseMoment));
 
         public string Comment
         {
-            get { return GetValue<string>(); }
-            set { SetValue(value); }
+            get => GetValue<string>();
+            set => SetValue(value);
         }
         public string CommentOriginalValue => GetOriginalValue<string>(nameof(Comment));
         public bool CommentIsChanged => GetIsChanged(nameof(Comment));
 
         public bool IsNeedExcelFile
         {
-            get { return GetValue<bool>(); }
-            set { SetValue(value); }
+            get => GetValue<bool>();
+            set => SetValue(value);
         }
         public bool IsNeedExcelFileOriginalValue => GetOriginalValue<bool>(nameof(IsNeedExcelFile));
         public bool IsNeedExcelFileIsChanged => GetIsChanged(nameof(IsNeedExcelFile));

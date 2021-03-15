@@ -71,6 +71,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             {
                 _selectedCalculation = value;
                 ((DelegateCommand)OpenPriceCalculationCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)CopyPriceCalculationCommand).RaiseCanExecuteChanged();
             }
         }
 
@@ -139,6 +140,11 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         /// Отклонить задачу
         /// </summary>
         public ICommand RejectCommand { get; }
+
+        /// <summary>
+        /// Создать копию расчета ПЗ
+        /// </summary>
+        public ICommand CopyPriceCalculationCommand { get; }
 
         public ICommand OpenPriceCalculationCommand { get; }
 
@@ -623,6 +629,21 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                     RegionManager.RequestNavigateContentRegion<PriceCalculationView>(new NavigationParameters
                     {
                         {nameof(PriceCalculation), SelectedCalculation}
+                    });
+                },
+                () => SelectedCalculation != null);
+
+            #endregion
+
+            #region CopyPriceCalculationCommand
+
+            CopyPriceCalculationCommand = new DelegateCommand(
+                () =>
+                {
+                    RegionManager.RequestNavigateContentRegion<PriceCalculationView>(new NavigationParameters
+                    {
+                        {nameof(PriceCalculation), SelectedCalculation},
+                        {nameof(TechnicalRequrementsTask), this.TechnicalRequrementsTaskWrapper.Model}
                     });
                 },
                 () => SelectedCalculation != null);

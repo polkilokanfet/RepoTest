@@ -5,6 +5,7 @@ using System.Windows;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.PriceCalculations.ViewModel;
+using HVTApp.UI.PriceCalculations.ViewModel.Wrapper;
 using Infragistics.Windows.DataPresenter;
 using Infragistics.Windows.Editors;
 using Prism.Commands;
@@ -36,21 +37,37 @@ namespace HVTApp.UI.PriceCalculations.View
         {
             base.OnNavigatedTo(navigationContext);
 
-            if (navigationContext.Parameters.First().Value is PriceCalculation)
+            if (navigationContext.Parameters.Any())
             {
-                _viewModel.Load((PriceCalculation)navigationContext.Parameters.First().Value);
+                if (navigationContext.Parameters.Count() == 1)
+                {
+                    //загрузка калькуляции 
+                    if (navigationContext.Parameters.First().Value is PriceCalculation priceCalculation)
+                    {
+                        _viewModel.Load(priceCalculation);
+                    }
+                    //загрузка калькуляции по задаче из ТСЕ
+                    else if (navigationContext.Parameters.First().Value is TechnicalRequrementsTask technicalRequrementsTask)
+                    {
+                        _viewModel.Load(technicalRequrementsTask);
+                    }
+                    //загрузка калькуляции по юнитам
+                    else if (navigationContext.Parameters.First().Value is IEnumerable<SalesUnit> salesUnits)
+                    {
+                        _viewModel.Load(salesUnits);
+                    }
+                }
+                else if (navigationContext.Parameters.Count() == 2)
+                {
+                    //создание копии калькуляции
+                    if (navigationContext.Parameters.First().Value is PriceCalculation priceCalculation && 
+                        navigationContext.Parameters.Last().Value is TechnicalRequrementsTask technicalRequrementsTask)
+                    {
+                        _viewModel.CreateCopy(priceCalculation, technicalRequrementsTask);
+                    }
+                }
             }
-
-            if (navigationContext.Parameters.First().Value is TechnicalRequrementsTask)
-            {
-                _viewModel.Load((TechnicalRequrementsTask)navigationContext.Parameters.First().Value);
-            }
-
-            if (navigationContext.Parameters.First().Value is IEnumerable<SalesUnit>)
-            {
-                _viewModel.Load((IEnumerable<SalesUnit>)navigationContext.Parameters.First().Value);
-            }
-
+            
             //var dg = this.Groups; //(XamDataGrid)sender;
             //foreach (var o in dg.DataSource)
             //{

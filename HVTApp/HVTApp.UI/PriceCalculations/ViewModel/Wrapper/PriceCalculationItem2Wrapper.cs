@@ -1,11 +1,11 @@
 using System;
 using System.Linq;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
-using HVTApp.Model.Wrapper;
 
-namespace HVTApp.UI.PriceCalculations.ViewModel
+namespace HVTApp.UI.PriceCalculations.ViewModel.Wrapper
 {
     public class PriceCalculationItem2Wrapper : WrapperBase<PriceCalculationItem>
     {

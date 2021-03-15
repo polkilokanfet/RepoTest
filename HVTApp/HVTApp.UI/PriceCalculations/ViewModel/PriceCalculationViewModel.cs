@@ -15,6 +15,7 @@ using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
+using HVTApp.UI.PriceCalculations.ViewModel.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
@@ -475,13 +476,69 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
             PriceCalculationWrapper = new PriceCalculation2Wrapper(new PriceCalculation());
         }
 
+        /// <summary>
+        /// Загрузка существующей калькуляции или создание новой
+        /// </summary>
+        /// <param name="priceCalculation"></param>
         public void Load(PriceCalculation priceCalculation)
         {
             var priceCalculationLoaded = UnitOfWork.Repository<PriceCalculation>().GetById(priceCalculation.Id);
 
-            PriceCalculationWrapper = priceCalculationLoaded != null 
-                ? new PriceCalculation2Wrapper(priceCalculationLoaded) 
+            PriceCalculationWrapper = priceCalculationLoaded != null
+                ? new PriceCalculation2Wrapper(priceCalculationLoaded)
                 : new PriceCalculation2Wrapper(priceCalculation);
+        }
+
+        /// <summary>
+        /// Создание копии калькуляции
+        /// </summary>
+        /// <param name="priceCalculation2">Какой расчет скопировать</param>
+        /// <param name="technicalRequrementsTask2">Из какой задачи</param>
+        public void CreateCopy(PriceCalculation priceCalculation2, TechnicalRequrementsTask technicalRequrementsTask2)
+        {
+            var priceCalculation = UnitOfWork.Repository<PriceCalculation>().GetById(priceCalculation2.Id);
+            var technicalRequrementsTask = UnitOfWork.Repository<TechnicalRequrementsTask>().GetById(technicalRequrementsTask2.Id);
+
+            PriceCalculationWrapper = new PriceCalculation2Wrapper(new PriceCalculation())
+            {
+                Initiator = new UserWrapper(UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id)),
+                Comment = priceCalculation.Comment,
+                IsNeedExcelFile = priceCalculation.IsNeedExcelFile
+            };
+
+            foreach (var calculationItem in priceCalculation.PriceCalculationItems)
+            {
+                var priceCalculationItem2Wrapper = new PriceCalculationItem2Wrapper(new PriceCalculationItem())
+                {
+                    PriceCalculationId = PriceCalculationWrapper.Model.Id,
+                    OrderInTakeDate = calculationItem.OrderInTakeDate, 
+                    RealizationDate = calculationItem.RealizationDate, 
+                    PaymentConditionSet = calculationItem.PaymentConditionSet
+                };
+
+                foreach (var salesUnit in calculationItem.SalesUnits)
+                {
+                    priceCalculationItem2Wrapper.SalesUnits.Add(new SalesUnitEmptyWrapper(salesUnit));
+                }
+
+                foreach (var structureCost in calculationItem.StructureCosts)
+                {
+                    var structureCostWrapper = new StructureCostWrapper(new StructureCost())
+                    {
+                        Amount = structureCost.Amount, 
+                        Number = structureCost.Number, 
+                        Comment = structureCost.Comment, 
+                        PriceCalculationItemId = priceCalculationItem2Wrapper.Model.Id, 
+                        UnitPrice = structureCost.UnitPrice
+                    };
+
+                    priceCalculationItem2Wrapper.StructureCosts.Add(structureCostWrapper);
+                }
+
+                PriceCalculationWrapper.PriceCalculationItems.Add(priceCalculationItem2Wrapper);
+            }
+
+            technicalRequrementsTask.PriceCalculations.Add(PriceCalculationWrapper.Model);
         }
 
         /// <summary>

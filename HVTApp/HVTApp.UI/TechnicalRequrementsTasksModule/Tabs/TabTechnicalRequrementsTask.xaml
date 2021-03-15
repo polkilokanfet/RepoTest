@@ -89,9 +89,13 @@
                            Command="{Binding CreatePriceCalculationCommand}" 
                            Visibility="{Binding CurrentUserIsBackManager, Converter={StaticResource BooleanToVisibilityConverter}}"
                            SmallImage="/HVTApp.UI;component/Images/out.png"/>
-        
+
         <infRib:ButtonTool Caption="Открыть расчет ПЗ"
                            Command="{Binding OpenPriceCalculationCommand}"
+                           SmallImage="/HVTApp.UI;component/Images/out.png" />
+
+        <infRib:ButtonTool Caption="Копировать расчет ПЗ"
+                           Command="{Binding CopyPriceCalculationCommand}"
                            SmallImage="/HVTApp.UI;component/Images/out.png" />
 
         <infRib:ButtonTool Caption="Сохранить"
