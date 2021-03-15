@@ -166,7 +166,8 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                     if (UnitOfWork.Repository<StructureCost>().GetById(structureCost.Id) != null)
                         UnitOfWork.Repository<StructureCost>().Delete(structureCost.Model);
                 },
-                () => SelectedItem is StructureCostWrapper && !IsStarted && ((StructureCostWrapper)SelectedItem).Model.UnitPrice == null);
+                () => SelectedItem is StructureCostWrapper && !IsStarted);
+//            () => SelectedItem is StructureCostWrapper && !IsStarted && ((StructureCostWrapper)SelectedItem).Model.UnitPrice == null);
 
             #endregion
 

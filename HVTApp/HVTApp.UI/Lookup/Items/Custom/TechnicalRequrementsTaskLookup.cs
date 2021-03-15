@@ -22,7 +22,7 @@ namespace HVTApp.UI.Lookup
             {
                 if (BackManager == null) return "Назначение back-менеджера";
 
-                if (Entity.RejectByBackManagerMoment.HasValue) return $"Отклонено. Причина: {Entity.RejectComment}";
+                if (Entity.RejectByBackManagerMoment.HasValue) return "Отклонено.";
 
                 if (FirstStartMoment.HasValue && Start.HasValue && !Equals(Start, FirstStartMoment))
                 {

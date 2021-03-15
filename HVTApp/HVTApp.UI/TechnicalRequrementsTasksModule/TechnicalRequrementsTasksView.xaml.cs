@@ -1,4 +1,7 @@
-﻿using HVTApp.Infrastructure;
+﻿using System.Globalization;
+using System.Windows;
+using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Converters;
 using Prism.Events;
 using Prism.Regions;
 
@@ -11,6 +14,9 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         {
             InitializeComponent();
             this.DataContext = viewModel;
+
+            //отображение колонки FrontManager
+//            FieldLayout1.Fields[3].Visibility = (Visibility)((new BooleanToVisibilityReverseConverter()).Convert(viewModel.CurrentUserIsManager, null, null, CultureInfo.CurrentCulture));
         }
     }
 }
