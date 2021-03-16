@@ -14,17 +14,17 @@ namespace EventServiceClient2.SyncEntities
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly IMessageService _messageService;
-        protected readonly ServiceReference1.EventServiceClient EventServiceClient;
+        protected readonly ServiceReference1.EventServiceClient EventServiceHost;
         protected readonly Guid AppSessionId;
 
         public Type ModelType => typeof(TModel);
         public Type EventType => typeof(TAfterSaveEvent);
 
-        protected Sync(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceClient, Guid appSessionId)
+        protected Sync(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId)
         {
             _eventAggregator = container.Resolve<IEventAggregator>();
             _messageService = container.Resolve<IMessageService>();
-            EventServiceClient = eventServiceClient;
+            EventServiceHost = eventServiceHost;
             AppSessionId = appSessionId;
             Subscribe();
         }
@@ -47,19 +47,20 @@ namespace EventServiceClient2.SyncEntities
         {
             try
             {
-                if (EventServiceClient != null && EventServiceClient.State != CommunicationState.Faulted &&
-                    EventServiceClient.State != CommunicationState.Closed)
+                if (EventServiceHost != null && 
+                    EventServiceHost.State != CommunicationState.Faulted &&
+                    EventServiceHost.State != CommunicationState.Closed)
                 {
                     PublishEventAction.Invoke(model);
                 }
                 else
                 {
-                    EventServiceClientDisabled?.Invoke();
+                    ServiceHostDisabled?.Invoke();
                 }
             }
             catch (TimeoutException)
             {
-                EventServiceClientDisabled?.Invoke();
+                ServiceHostDisabled?.Invoke();
             }
             catch (Exception e)
             {
@@ -76,7 +77,10 @@ namespace EventServiceClient2.SyncEntities
             Subscribe();
         }
 
-        public event Action EventServiceClientDisabled;
+        /// <summary>
+        /// Хост сервиса недоступен
+        /// </summary>
+        public event Action ServiceHostDisabled;
 
         public void Dispose()
         {

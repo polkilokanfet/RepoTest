@@ -37,7 +37,7 @@ namespace EventServiceHost
                 EventService.PrintMessageEvent += s => {Console.WriteLine($"[{DateTime.Now.ToShortDateString()} {DateTime.Now.ToShortTimeString()}] {s}");};
 
                 host.Closing += (sender, eventArgs) => { EventService.Close(); };
-                host.Opening += (sender, eventArgs) => { Console.WriteLine($"Opening service on {EventServiceAddresses.Address}..."); };
+                host.Opening += (sender, eventArgs) => { Console.WriteLine($"Opening service...\nTCP: {tcpBaseAddress}\nHTTP: {httpBaseAddress}"); };
                 host.Opened += (sender, eventArgs) => { Console.WriteLine("Service is ready...\nPress <enter> to terminate service."); };
                 host.Open();
 

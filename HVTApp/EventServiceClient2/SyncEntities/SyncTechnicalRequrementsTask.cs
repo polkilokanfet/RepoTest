@@ -7,59 +7,59 @@ namespace EventServiceClient2.SyncEntities
 {
     public class SyncTechnicalRequrementsTask : Sync<TechnicalRequrementsTask, AfterSaveTechnicalRequrementsTaskEvent>
     {
-        public SyncTechnicalRequrementsTask(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceClient, Guid appSessionId) : base(container, eventServiceClient, appSessionId)
+        public SyncTechnicalRequrementsTask(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId) : base(container, eventServiceHost, appSessionId)
         {
         }
 
         protected override Action<TechnicalRequrementsTask> PublishEventAction
         {
-            get { return technicalRequrementsTask => this.EventServiceClient.SaveTechnicalRequarementsTaskPublishEvent(AppSessionId, technicalRequrementsTask.Id); }
+            get { return technicalRequrementsTask => this.EventServiceHost.SaveTechnicalRequarementsTaskPublishEvent(AppSessionId, technicalRequrementsTask.Id); }
         }
     }
 
     public class SyncTechnicalRequrementsTaskStart : Sync<TechnicalRequrementsTask, AfterStartTechnicalRequrementsTaskEvent>
     {
-        public SyncTechnicalRequrementsTaskStart(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceClient, Guid appSessionId) : base(container, eventServiceClient, appSessionId)
+        public SyncTechnicalRequrementsTaskStart(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId) : base(container, eventServiceHost, appSessionId)
         {
         }
 
         protected override Action<TechnicalRequrementsTask> PublishEventAction
         {
-            get { return technicalRequrementsTask => this.EventServiceClient.StartTechnicalRequarementsTaskPublishEvent(AppSessionId, technicalRequrementsTask.Id); }
+            get { return technicalRequrementsTask => this.EventServiceHost.StartTechnicalRequarementsTaskPublishEvent(AppSessionId, technicalRequrementsTask.Id); }
         }
     }
 
     public class SyncTechnicalRequrementsTaskInstruct : Sync<TechnicalRequrementsTask, AfterInstructTechnicalRequrementsTaskEvent>
     {
-        public SyncTechnicalRequrementsTaskInstruct(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceClient, Guid appSessionId) : base(container, eventServiceClient, appSessionId)
+        public SyncTechnicalRequrementsTaskInstruct(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId) : base(container, eventServiceHost, appSessionId)
         {
         }
 
         protected override Action<TechnicalRequrementsTask> PublishEventAction
         {
-            get { return technicalRequrementsTask => this.EventServiceClient.InstructTechnicalRequarementsTaskPublishEvent(AppSessionId, technicalRequrementsTask.Id); }
+            get { return technicalRequrementsTask => this.EventServiceHost.InstructTechnicalRequarementsTaskPublishEvent(AppSessionId, technicalRequrementsTask.Id); }
         }
     }
     public class SyncTechnicalRequrementsTaskReject : Sync<TechnicalRequrementsTask, AfterRejectTechnicalRequrementsTaskEvent>
     {
-        public SyncTechnicalRequrementsTaskReject(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceClient, Guid appSessionId) : base(container, eventServiceClient, appSessionId)
+        public SyncTechnicalRequrementsTaskReject(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId) : base(container, eventServiceHost, appSessionId)
         {
         }
 
         protected override Action<TechnicalRequrementsTask> PublishEventAction
         {
-            get { return technicalRequrementsTask => this.EventServiceClient.RejectTechnicalRequarementsTaskPublishEvent(AppSessionId, technicalRequrementsTask.Id); }
+            get { return technicalRequrementsTask => this.EventServiceHost.RejectTechnicalRequarementsTaskPublishEvent(AppSessionId, technicalRequrementsTask.Id); }
         }
     }
     public class SyncTechnicalRequrementsTaskCancel : Sync<TechnicalRequrementsTask, AfterCancelTechnicalRequrementsTaskEvent>
     {
-        public SyncTechnicalRequrementsTaskCancel(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceClient, Guid appSessionId) : base(container, eventServiceClient, appSessionId)
+        public SyncTechnicalRequrementsTaskCancel(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId) : base(container, eventServiceHost, appSessionId)
         {
         }
 
         protected override Action<TechnicalRequrementsTask> PublishEventAction
         {
-            get { return technicalRequrementsTask => this.EventServiceClient.CancelTechnicalRequarementsTaskPublishEvent(AppSessionId, technicalRequrementsTask.Id); }
+            get { return technicalRequrementsTask => this.EventServiceHost.CancelTechnicalRequarementsTaskPublishEvent(AppSessionId, technicalRequrementsTask.Id); }
         }
     }
 

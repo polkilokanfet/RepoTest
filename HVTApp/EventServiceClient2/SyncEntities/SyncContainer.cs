@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using HVTApp.Infrastructure;
 using Prism.Events;
 
@@ -19,23 +20,40 @@ namespace EventServiceClient2.SyncEntities
 
             _list.Add(member);
 
-            member.EventServiceClientDisabled += () => this.EventServiceClientDisabled?.Invoke();
+            member.ServiceHostDisabled += MemberOnServiceHostDisabled;
+        }
+
+        private void MemberOnServiceHostDisabled()
+        {
+            this.ServiceHostDisabled?.Invoke();
         }
 
         public void Publish<TModel, TEvent>(TModel model)
             where TModel : BaseEntity
             where TEvent : PubSubEvent<TModel>
         {
-            _list.Single(x => x.ModelType == typeof(TModel) && x.EventType == typeof(TEvent)).Publish(model);
+            //переводим в основной поток
+            Application.Current.Dispatcher.Invoke(
+                () =>
+                {
+                    //публикуем событие
+                    _list.Single(x => x.ModelType == typeof(TModel) && x.EventType == typeof(TEvent)).Publish(model);
+                });
         }
 
         public void Dispose()
         {
-            _list.ForEach(x => x.Dispose());
+            foreach (var member in _list)
+            {
+                member.ServiceHostDisabled -= MemberOnServiceHostDisabled;
+                member.Dispose();
+            }
             _list.Clear();
         }
 
-        public event Action EventServiceClientDisabled;
-
+        /// <summary>
+        /// Хост сервиса недоступен
+        /// </summary>
+        public event Action ServiceHostDisabled;
     }
 }

@@ -22,6 +22,13 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
         [OperationContract]
         void Disconnect(Guid appSessionId);
 
+        /// <summary>
+        /// Сервис доступен
+        /// </summary>
+        /// <returns></returns>
+        [OperationContract]
+        bool HostIsAlive();
+
         #region Chat
 
         [OperationContract]

@@ -7,13 +7,13 @@ namespace EventServiceClient2.SyncEntities
 {
     public class SyncPriceCalculationStart : Sync<PriceCalculation, AfterStartPriceCalculationEvent>
     {
-        public SyncPriceCalculationStart(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceClient, Guid appSessionId) : base(container, eventServiceClient, appSessionId)
+        public SyncPriceCalculationStart(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId) : base(container, eventServiceHost, appSessionId)
         {
         }
 
         protected override Action<PriceCalculation> PublishEventAction
         {
-            get { return priceCalculation => EventServiceClient.StartPriceCalculationPublishEvent(AppSessionId, priceCalculation.Id); }
+            get { return priceCalculation => EventServiceHost.StartPriceCalculationPublishEvent(AppSessionId, priceCalculation.Id); }
         }
     }
 }

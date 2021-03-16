@@ -50,6 +50,11 @@ namespace EventService
             }
         }
 
+        public bool HostIsAlive()
+        {
+            return true;
+        }
+
         #region PublishEventsByService
 
         #region IncomingRequest
@@ -197,6 +202,9 @@ namespace EventService
 
         #endregion
 
+        /// <summary>
+        /// Закрытие хоста
+        /// </summary>
         public void Close()
         {
             foreach (var appSession in _appSessions)

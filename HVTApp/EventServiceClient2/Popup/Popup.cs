@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 
 namespace EventServiceClient2.Popup
 {
@@ -6,7 +7,12 @@ namespace EventServiceClient2.Popup
     {
         public static void ShowPopup(string text, string title = null, Action action = null)
         {
-            new PopupWindow(text, title, action).Show();
+            //переводим всплывающее окно в основной поток
+            Application.Current.Dispatcher.Invoke(
+                () =>
+                {
+                    new PopupWindow(text, title, action).Show();
+                });
         }
     }
 }

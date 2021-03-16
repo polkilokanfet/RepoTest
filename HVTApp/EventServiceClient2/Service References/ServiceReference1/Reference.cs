@@ -27,6 +27,12 @@ namespace EventServiceClient2.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/Disconnect", ReplyAction="http://tempuri.org/IEventService/DisconnectResponse")]
         System.Threading.Tasks.Task DisconnectAsync(System.Guid appSessionId);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/HostIsAlive", ReplyAction="http://tempuri.org/IEventService/HostIsAliveResponse")]
+        bool HostIsAlive();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/HostIsAlive", ReplyAction="http://tempuri.org/IEventService/HostIsAliveResponse")]
+        System.Threading.Tasks.Task<bool> HostIsAliveAsync();
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/SendMessageToChat", ReplyAction="http://tempuri.org/IEventService/SendMessageToChatResponse")]
         void SendMessageToChat(System.Guid authorId, string message);
         
@@ -254,6 +260,14 @@ namespace EventServiceClient2.ServiceReference1 {
         
         public System.Threading.Tasks.Task DisconnectAsync(System.Guid appSessionId) {
             return base.Channel.DisconnectAsync(appSessionId);
+        }
+        
+        public bool HostIsAlive() {
+            return base.Channel.HostIsAlive();
+        }
+        
+        public System.Threading.Tasks.Task<bool> HostIsAliveAsync() {
+            return base.Channel.HostIsAliveAsync();
         }
         
         public void SendMessageToChat(System.Guid authorId, string message) {

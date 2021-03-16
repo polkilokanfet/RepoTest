@@ -10,69 +10,69 @@ namespace EventServiceClient2.SyncEntities
 
         protected override Action<DirectumTask> PublishEventAction
         {
-            get { return directumTask => EventServiceClient.SaveDirectumTaskPublishEvent(AppSessionId, directumTask.Id); }
+            get { return directumTask => EventServiceHost.SaveDirectumTaskPublishEvent(AppSessionId, directumTask.Id); }
         }
 
-        public SyncDirectumTask(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceClient, Guid appSessionId) : base(container, eventServiceClient, appSessionId)
+        public SyncDirectumTask(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId) : base(container, eventServiceHost, appSessionId)
         {
         }
     }
     public class SyncDirectumTaskStart : Sync<DirectumTask, AfterStartDirectumTaskEvent>
     {
-        public SyncDirectumTaskStart(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceClient, Guid appSessionId) : base(container, eventServiceClient, appSessionId)
+        public SyncDirectumTaskStart(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId) : base(container, eventServiceHost, appSessionId)
         {
         }
 
         protected override Action<DirectumTask> PublishEventAction
         {
-            get { return directumTask => EventServiceClient.StartDirectumTaskPublishEvent(AppSessionId, directumTask.Id); }
+            get { return directumTask => EventServiceHost.StartDirectumTaskPublishEvent(AppSessionId, directumTask.Id); }
         }
     }
     public class SyncDirectumTaskStop : Sync<DirectumTask, AfterStopDirectumTaskEvent>
     {
-        public SyncDirectumTaskStop(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceClient, Guid appSessionId) : base(container, eventServiceClient, appSessionId)
+        public SyncDirectumTaskStop(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId) : base(container, eventServiceHost, appSessionId)
         {
         }
 
         protected override Action<DirectumTask> PublishEventAction
         {
-            get { return directumTask => EventServiceClient.StopDirectumTaskPublishEvent(AppSessionId, directumTask.Id); }
+            get { return directumTask => EventServiceHost.StopDirectumTaskPublishEvent(AppSessionId, directumTask.Id); }
         }
     }
 
     public class SyncDirectumTaskPerform : Sync<DirectumTask, AfterPerformDirectumTaskEvent>
     {
-        public SyncDirectumTaskPerform(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceClient, Guid appSessionId) : base(container, eventServiceClient, appSessionId)
+        public SyncDirectumTaskPerform(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId) : base(container, eventServiceHost, appSessionId)
         {
         }
 
         protected override Action<DirectumTask> PublishEventAction
         {
-            get { return directumTask => EventServiceClient.PerformDirectumTaskPublishEvent(AppSessionId, directumTask.Id); }
+            get { return directumTask => EventServiceHost.PerformDirectumTaskPublishEvent(AppSessionId, directumTask.Id); }
         }
     }
 
     public class SyncDirectumTaskAccept: Sync<DirectumTask, AfterAcceptDirectumTaskEvent>
     {
-        public SyncDirectumTaskAccept(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceClient, Guid appSessionId) : base(container, eventServiceClient, appSessionId)
+        public SyncDirectumTaskAccept(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId) : base(container, eventServiceHost, appSessionId)
         {
         }
 
         protected override Action<DirectumTask> PublishEventAction
         {
-            get { return directumTask => EventServiceClient.AcceptDirectumTaskPublishEvent(AppSessionId, directumTask.Id); }
+            get { return directumTask => EventServiceHost.AcceptDirectumTaskPublishEvent(AppSessionId, directumTask.Id); }
         }
     }
 
     public class SyncDirectumTaskReject : Sync<DirectumTask, AfterRejectDirectumTaskEvent>
     {
-        public SyncDirectumTaskReject(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceClient, Guid appSessionId) : base(container, eventServiceClient, appSessionId)
+        public SyncDirectumTaskReject(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId) : base(container, eventServiceHost, appSessionId)
         {
         }
 
         protected override Action<DirectumTask> PublishEventAction
         {
-            get { return directumTask => EventServiceClient.RejectDirectumTaskPublishEvent(AppSessionId, directumTask.Id); }
+            get { return directumTask => EventServiceHost.RejectDirectumTaskPublishEvent(AppSessionId, directumTask.Id); }
         }
     }
 

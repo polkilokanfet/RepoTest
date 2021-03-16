@@ -9,8 +9,8 @@ namespace EventServiceClient2.SyncEntities
         void Publish(object model);
 
         /// <summary>
-        /// Сервис отключился.
+        /// Хост сервиса недоступен
         /// </summary>
-        event Action EventServiceClientDisabled;
+        event Action ServiceHostDisabled;
     }
 }

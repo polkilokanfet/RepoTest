@@ -7,13 +7,13 @@ namespace EventServiceClient2.SyncEntities
 {
     public class SyncIncomingRequest : Sync<IncomingRequest, AfterSaveIncomingRequestEvent>
     {
-        public SyncIncomingRequest(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceClient, Guid appSessionId) : base(container, eventServiceClient, appSessionId)
+        public SyncIncomingRequest(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId) : base(container, eventServiceHost, appSessionId)
         {
         }
 
         protected override Action<IncomingRequest> PublishEventAction
         {
-            get { return incomingRequest => this.EventServiceClient.SaveIncomingRequestPublishEvent(AppSessionId, incomingRequest.Id); }
+            get { return incomingRequest => this.EventServiceHost.SaveIncomingRequestPublishEvent(AppSessionId, incomingRequest.Id); }
         }
     }
 }

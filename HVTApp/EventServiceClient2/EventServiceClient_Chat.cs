@@ -10,12 +10,12 @@ namespace EventServiceClient2
 
         public void SendMessageToChat(string message)
         {
-            _eventServiceClient?.SendMessageToChat(_userId, message);
+            _eventServiceHost?.SendMessageToChat(_userId, message);
         }
 
         public void SendMessageToUser(Guid recipientId, string message)
         {
-            _eventServiceClient?.SendMessageToUser(_userId, recipientId, message);
+            _eventServiceHost?.SendMessageToUser(_userId, recipientId, message);
         }
 
 

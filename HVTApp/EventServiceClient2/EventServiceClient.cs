@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.ServiceModel;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
 using EventServiceClient2.SyncEntities;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
@@ -20,72 +23,120 @@ namespace EventServiceClient2
 {
     public partial class EventServiceClient : IEventServiceClient, EventServiceClient2.ServiceReference1.IEventServiceCallback
     {
-        private readonly Guid _appSessionId = Guid.NewGuid();
+        private Guid _appSessionId;
         private readonly IUnityContainer _container;
         private readonly Guid _userId = GlobalAppProperties.User.Id;
         /// <summary>
-        /// Сервис работает
+        /// Хост сервиса работает
         /// </summary>
-        private bool _isEnabled = false;
-        private ServiceReference1.EventServiceClient _eventServiceClient;
+        private bool _hostIsEnabled = false;
+        private ServiceReference1.EventServiceClient _eventServiceHost;
 
         private SyncContainer _syncContainer;
+
+        private readonly EndpointAddress _endpointAddress;
+        private readonly NetTcpBinding _netTcpBinding;
 
         public EventServiceClient(IUnityContainer container)
         {
             _container = container;
+
+            //увеличиваем таймаут бездействия
+            _netTcpBinding = new NetTcpBinding(SecurityMode.None, true)
+            {
+                //SendTimeout = new TimeSpan(7, 0, 0, 0),
+                ReceiveTimeout = new TimeSpan(7, 0, 0, 0),
+                //OpenTimeout = new TimeSpan(7, 0, 0, 0),
+                //CloseTimeout = new TimeSpan(7, 0, 0, 0)
+            };
+
+            _endpointAddress = new EndpointAddress(EventServiceAddresses.TcpBaseAddress);
         }
 
         public void Start()
         {
-            try
-            {
-                //увеличиваем таймаут бездействия
-                var binding = new NetTcpBinding(SecurityMode.None, true)
+            Task.Run(
+                () =>
                 {
-                    //SendTimeout = new TimeSpan(7, 0, 0, 0),
-                    ReceiveTimeout = new TimeSpan(7, 0, 0, 0),
-                    //OpenTimeout = new TimeSpan(7, 0, 0, 0),
-                    //CloseTimeout = new TimeSpan(7, 0, 0, 0)
-                };
+                    try
+                    {
+                        _eventServiceHost = new ServiceReference1.EventServiceClient(new InstanceContext(this), _netTcpBinding, _endpointAddress);
+                        _appSessionId = Guid.NewGuid();
+                        if (_eventServiceHost.Connect(_appSessionId, _userId))
+                        {
+                            ConfigureSyncContainer();
+                            _hostIsEnabled = true;
+                            PingHost();
+                        }
+                        else
+                        {
+                            throw new Exception("_eventServiceClient.Connect() вернул false");
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        this.DisableWaitReStart();
+                    }
+                }).Await();
+        }
 
-                Uri tcpBaseAddress = EventServiceAddresses.TcpBaseAddress;
-                _eventServiceClient = new ServiceReference1.EventServiceClient(new InstanceContext(this), binding, new EndpointAddress(tcpBaseAddress));
+        private void Disable()
+        {
+            _hostIsEnabled = false;
 
-                if (_eventServiceClient.Connect(_appSessionId, _userId))
-                {
-                    ConfigureSyncContainer();
-                    _isEnabled = true;
-                }
-            }
-            catch (Exception e)
+            //сносим старый хост
+            if (_eventServiceHost != null)
             {
-                var message = $"Не удалось подключиться к сервису синхронизации. Вы можете продолжать работу без синхронизации с другими пользователями.\nПопросите разработчика запустить сервис синхронизации.\n\n{e.GetAllExceptions()}";
-                _container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().Name, message);
+                _eventServiceHost.Abort();
+                _eventServiceHost = null;
             }
+
+            //освобождаем старый контейнер синхронизации
+            if (_syncContainer != null)
+            {
+                _syncContainer.ServiceHostDisabled -= DisableWaitReStart;
+                _syncContainer.Dispose();
+                _syncContainer = null;
+            }
+        }
+
+        /// <summary>
+        /// Очистить старое, подождать, рестартовать
+        /// </summary>
+        private void DisableWaitReStart()
+        {
+            Disable();
+
+            //рестартуем
+            Task.Run(
+                () =>
+                {
+                    Thread.Sleep(new TimeSpan(0,0,5,0));
+                    this.Start();
+                }).Await();
         }
 
         private void ConfigureSyncContainer()
         {
             _syncContainer = new SyncContainer();
 
-            _syncContainer.Add(new SyncDirectumTask(_container, _eventServiceClient, _appSessionId)); //Задачи из DirectumLite
-            _syncContainer.Add(new SyncDirectumTaskStart(_container, _eventServiceClient, _appSessionId)); //Задачи из DirectumLite
-            _syncContainer.Add(new SyncDirectumTaskStop(_container, _eventServiceClient, _appSessionId)); //Задачи из DirectumLite
-            _syncContainer.Add(new SyncDirectumTaskPerform(_container, _eventServiceClient, _appSessionId)); //Задачи из DirectumLite
-            _syncContainer.Add(new SyncDirectumTaskAccept(_container, _eventServiceClient, _appSessionId)); //Задачи из DirectumLite
-            _syncContainer.Add(new SyncDirectumTaskReject(_container, _eventServiceClient, _appSessionId)); //Задачи из DirectumLite
+            _syncContainer.Add(new SyncDirectumTask(_container, _eventServiceHost, _appSessionId)); //Задачи из DirectumLite
+            _syncContainer.Add(new SyncDirectumTaskStart(_container, _eventServiceHost, _appSessionId)); //Задачи из DirectumLite
+            _syncContainer.Add(new SyncDirectumTaskStop(_container, _eventServiceHost, _appSessionId)); //Задачи из DirectumLite
+            _syncContainer.Add(new SyncDirectumTaskPerform(_container, _eventServiceHost, _appSessionId)); //Задачи из DirectumLite
+            _syncContainer.Add(new SyncDirectumTaskAccept(_container, _eventServiceHost, _appSessionId)); //Задачи из DirectumLite
+            _syncContainer.Add(new SyncDirectumTaskReject(_container, _eventServiceHost, _appSessionId)); //Задачи из DirectumLite
 
-            _syncContainer.Add(new SyncTechnicalRequrementsTask(_container, _eventServiceClient, _appSessionId)); //Задачи TCE
-            _syncContainer.Add(new SyncTechnicalRequrementsTaskStart(_container, _eventServiceClient, _appSessionId)); //Задачи TCE
-            _syncContainer.Add(new SyncTechnicalRequrementsTaskInstruct(_container, _eventServiceClient, _appSessionId)); //Задачи TCE
-            _syncContainer.Add(new SyncTechnicalRequrementsTaskCancel(_container, _eventServiceClient, _appSessionId)); //Задачи TCE
-            _syncContainer.Add(new SyncTechnicalRequrementsTaskReject(_container, _eventServiceClient, _appSessionId)); //Задачи TCE
+            _syncContainer.Add(new SyncTechnicalRequrementsTask(_container, _eventServiceHost, _appSessionId)); //Задачи TCE
+            _syncContainer.Add(new SyncTechnicalRequrementsTaskStart(_container, _eventServiceHost, _appSessionId)); //Задачи TCE
+            _syncContainer.Add(new SyncTechnicalRequrementsTaskInstruct(_container, _eventServiceHost, _appSessionId)); //Задачи TCE
+            _syncContainer.Add(new SyncTechnicalRequrementsTaskCancel(_container, _eventServiceHost, _appSessionId)); //Задачи TCE
+            _syncContainer.Add(new SyncTechnicalRequrementsTaskReject(_container, _eventServiceHost, _appSessionId)); //Задачи TCE
 
-            _syncContainer.Add(new SyncPriceCalculation(_container, _eventServiceClient, _appSessionId));       //Калькуляции себестоимости сохранение
-            _syncContainer.Add(new SyncPriceCalculationStart(_container, _eventServiceClient, _appSessionId));  //Калькуляции себестоимости старт
-            _syncContainer.Add(new SyncPriceCalculationFinish(_container, _eventServiceClient, _appSessionId)); //Калькуляции себестоимости финиш
-            _syncContainer.Add(new SyncPriceCalculationCancel(_container, _eventServiceClient, _appSessionId)); //Калькуляции себестоимости остановка
+            _syncContainer.Add(new SyncPriceCalculation(_container, _eventServiceHost, _appSessionId));       //Калькуляции себестоимости сохранение
+            _syncContainer.Add(new SyncPriceCalculationStart(_container, _eventServiceHost, _appSessionId));  //Калькуляции себестоимости старт
+            _syncContainer.Add(new SyncPriceCalculationFinish(_container, _eventServiceHost, _appSessionId)); //Калькуляции себестоимости финиш
+            _syncContainer.Add(new SyncPriceCalculationCancel(_container, _eventServiceHost, _appSessionId)); //Калькуляции себестоимости остановка
 
             //_syncContainer.Add(new SyncIncomingRequest(_container, _eventServiceClient, _appSessionId));            //Запросы
 
@@ -93,24 +144,48 @@ namespace EventServiceClient2
             //_eventAggregator.GetEvent<AfterSaveIncomingDocumentSyncEvent>().Subscribe(document => { SavePublishEvent(
             //    () => _eventServiceClient?.SaveIncomingDocumentPublishEvent(_appSessionId, document.Id)); }, true);
 
-            _syncContainer.EventServiceClientDisabled += () =>
-            {
-                _isEnabled = false;
-                this.Stop();
-            };
+            _syncContainer.ServiceHostDisabled += DisableWaitReStart;
+        }
+
+        /// <summary>
+        /// Пинг хоста
+        /// </summary>
+        private void PingHost()
+        {
+            Task.Run(
+                () =>
+                {
+                    if (_hostIsEnabled == false || _eventServiceHost == null)
+                    {
+                        return;
+                    }
+
+                    try
+                    {
+                        if (_eventServiceHost.HostIsAlive())
+                        {
+                            Thread.Sleep(new TimeSpan(0, 0, 2, 0));
+                            this.PingHost();
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        this.DisableWaitReStart();
+                    }
+                }).Await();
         }
 
         public void Stop()
         {
             //отключаемся от сервера
-            if (_isEnabled 
-                && _eventServiceClient != null 
-                && _eventServiceClient.State != CommunicationState.Faulted 
-                && _eventServiceClient.State != CommunicationState.Closed)
+            if (_hostIsEnabled 
+                && _eventServiceHost != null 
+                && _eventServiceHost.State != CommunicationState.Faulted 
+                && _eventServiceHost.State != CommunicationState.Closed)
             {
                 try
                 {
-                    _eventServiceClient.Disconnect(_appSessionId);
+                    _eventServiceHost.Disconnect(_appSessionId);
                 }
                 catch (TimeoutException e)
                 {
@@ -122,16 +197,13 @@ namespace EventServiceClient2
                 }
             }
 
-            //чистим контейнер
-            _syncContainer?.Dispose();
-            _isEnabled = false;
+            this.Disable();
         }
 
         public void OnServiceDisposeEvent()
         {
-            _isEnabled = false;
-            this.Stop();
-            _container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", "Синхронизация прекращена.");
+            this.DisableWaitReStart();
+            //_container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", "Синхронизация прекращена.");
         }
 
         //действия, когда прилетают события из сервера синхронизации

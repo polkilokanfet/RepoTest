@@ -40,14 +40,14 @@ namespace HVTApp.UI.Modules.Sales.Market
 
                 if (value != null)
                 {
-                    if (value is ProjectItem)
+                    if (value is ProjectItem projectItem)
                     {
-                        SelectedProjectItem = (ProjectItem)value;
+                        SelectedProjectItem = projectItem;
                     }
 
-                    if (value is ProjectUnitsGroup)
+                    if (value is ProjectUnitsGroup projectUnitsGroup)
                     {
-                        SelectedProjectUnitsGroup = (ProjectUnitsGroup)value;
+                        SelectedProjectUnitsGroup = projectUnitsGroup;
                         if (SelectedProjectItem != SelectedProjectUnitsGroup.ProjectItem)
                         {
                             SelectedProjectItem = SelectedProjectUnitsGroup.ProjectItem;
