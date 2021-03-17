@@ -8,8 +8,8 @@ namespace HVTApp.Modules.Settings.Menus
     {
         protected override void GenerateMenu()
         {
-            var root = new NavigationItem("Смена пароля", typeof(PasswordView));
-            Items.Add(root);
+            Items.Add(new NavigationItem("Смена пароля", typeof(PasswordView)));
+            Items.Add(new NavigationItem("Настройки", typeof(UserSettingsView)));
 
             if (GlobalAppProperties.User.RoleCurrent == Role.Admin)
             {

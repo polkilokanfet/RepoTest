@@ -305,8 +305,12 @@
       <DependentUpon>SupervisionPriceWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Settings\ViewModels\DataBaseBackupViewModel.cs" />
+    <Compile Include="Modules\Settings\ViewModels\UserSettingsViewModel.cs" />
     <Compile Include="Modules\Settings\Views\DataBaseBackupView.xaml.cs">
       <DependentUpon>DataBaseBackupView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Settings\Views\UserSettingsView.xaml.cs">
+      <DependentUpon>UserSettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="PathGetter.cs" />
     <Compile Include="Modules\BookRegistration\Views\IncomingRequestView.xaml.cs">
@@ -1282,6 +1286,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\Settings\Views\AdminView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Settings\Views\UserSettingsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

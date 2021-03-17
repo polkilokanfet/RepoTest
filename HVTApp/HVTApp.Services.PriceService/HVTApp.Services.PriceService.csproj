@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PriceItem.cs" />
+    <Compile Include="PriceItems.cs" />
     <Compile Include="PriceService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
