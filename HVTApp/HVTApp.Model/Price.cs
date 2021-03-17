@@ -29,7 +29,7 @@ namespace HVTApp.Model
             {
                 if (HasCalculation) return "По калькуляции.";
                 if (_analog != null) return _analog;
-                if (Prices.Any(x => x.Analog != null)) return "Присутствуют аналоги";
+                if (Prices.Any(price => price.Analog != null)) return "Присутствуют аналоги";
                 return null;
             }
         }

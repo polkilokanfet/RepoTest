@@ -382,6 +382,7 @@ namespace EventServiceClient2
             if (isProjectManager || isInitiator)
             {
                 this._syncContainer.Publish<PriceCalculation, AfterSavePriceCalculationEvent>(calculation);
+                this._syncContainer.Publish<PriceCalculation, AfterFinishPriceCalculationEvent>(calculation);
 
                 string message = $"{calculation.Name}";
                 var action = new Action(() =>
@@ -403,6 +404,7 @@ namespace EventServiceClient2
             if (GlobalAppProperties.User.RoleCurrent == Role.Pricer)
             {
                 this._syncContainer.Publish<PriceCalculation, AfterSavePriceCalculationEvent>(calculation);
+                this._syncContainer.Publish<PriceCalculation, AfterCancelPriceCalculationEvent>(calculation);
 
                 string message = $"{calculation.Name}";
                 var action = new Action(() =>

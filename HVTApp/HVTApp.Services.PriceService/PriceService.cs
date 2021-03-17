@@ -13,6 +13,50 @@ using Prism.Events;
 
 namespace HVTApp.Services.PriceService
 {
+    internal class PriceItems
+    {
+        private readonly Dictionary<Guid, PriceItem> _items = new Dictionary<Guid, PriceItem>();
+
+        public bool IsEmpty => _items.Any() == false;
+
+        public double? Price => IsEmpty
+            ? null
+            : this.PriceCalculationItem.StructureCosts.Sum(structureCost => structureCost.Total);
+
+        public PriceCalculationItem PriceCalculationItem => IsEmpty
+            ? null
+            : _items
+                .Select(x => x.Value)
+                .OrderBy(priceItem => priceItem.FinishDate)
+                .Last()
+                .PriceCalculationItem;
+
+        public PriceItems(IEnumerable<PriceItem> items)
+        {
+            foreach (var item in items)
+            {
+                this.Add(item);
+            }
+        }
+
+        public void Add(PriceItem item)
+        {
+            this.Remove(item.PriceCalculationItem);
+            _items.Add(item.PriceCalculationItem.Id, item);
+        }
+
+        public bool Remove(PriceCalculationItem item)
+        {
+            if (_items.ContainsKey(item.Id))
+            {
+                _items.Remove(item.Id);
+                return true;
+            }
+
+            return false;
+        }
+    }
+
     public class PriceService : IPriceService
     {
         private readonly IUnityContainer _container;
@@ -23,16 +67,9 @@ namespace HVTApp.Services.PriceService
         private List<ProductBlock> Blocks { get; set; } = new List<ProductBlock>();
 
         /// <summary>
-        /// Словарь завершенных калькуляций
-        /// Какому SalesUnit.Id соответствует какой Расчет ПЗ
+        /// Словарь по калькуляций
         /// </summary>
-        private Dictionary<Guid, PriceCalculationItem> PriceCalculationItemsFinished { get; } = new Dictionary<Guid, PriceCalculationItem>();
-
-        /// <summary>
-        /// Словарь прайсов по калькуляции
-        /// SalesUnit.Id => стоимость
-        /// </summary>
-        private Dictionary<Guid, double?> PricesOfSalesUnitsFromCalculations { get; } = new Dictionary<Guid, double?>();
+        private Dictionary<Guid, PriceItems> SalesUnitsCalculationsDictionary { get; } = new Dictionary<Guid, PriceItems>();
 
         /// <summary>
         /// Словарь блоков с прайсами
@@ -43,29 +80,49 @@ namespace HVTApp.Services.PriceService
         {
             _container = container;
 
-            //синхронизация завершения новых расчетов
-            container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceCalculationEvent>().Subscribe(
+            //синхронизация завершения расчетов
+            container.Resolve<IEventAggregator>().GetEvent<AfterFinishPriceCalculationEvent>().Subscribe(
                 calculation =>
                 {
+                    //добавляем только данные из завершенных расчетов
+                    if (!calculation.TaskCloseMoment.HasValue) return;
+
                     foreach (var priceCalculationItem in calculation.PriceCalculationItems)
                     {
                         foreach (var salesUnit in priceCalculationItem.SalesUnits)
                         {
-                            if (PriceCalculationItemsFinished.ContainsKey(salesUnit.Id))
-                            {
-                                PriceCalculationItemsFinished.Remove(salesUnit.Id);
-                            }
+                            var priceItem = new PriceItem(calculation, priceCalculationItem);
 
-                            if (PricesOfSalesUnitsFromCalculations.ContainsKey(salesUnit.Id))
+                            if (SalesUnitsCalculationsDictionary.ContainsKey(salesUnit.Id))
                             {
-                                PricesOfSalesUnitsFromCalculations.Remove(salesUnit.Id);
+                                SalesUnitsCalculationsDictionary[salesUnit.Id].Add(priceItem);
                             }
-
-                            //добавляем только данные из завершенных расчетов
-                            if (calculation.TaskCloseMoment.HasValue)
+                            else
                             {
-                                PriceCalculationItemsFinished.Add(salesUnit.Id, priceCalculationItem);
-                                PricesOfSalesUnitsFromCalculations.Add(salesUnit.Id, priceCalculationItem.StructureCosts.Sum(structureCost => structureCost.Total));
+                                SalesUnitsCalculationsDictionary.Add(salesUnit.Id, new PriceItems(new[] { priceItem }));
+                            }
+                        }
+                    }
+                });
+
+            //синхронизация остановки расчетов
+            container.Resolve<IEventAggregator>().GetEvent<AfterCancelPriceCalculationEvent>().Subscribe(
+                calculation =>
+                {
+                    if (calculation.TaskCloseMoment.HasValue) return;
+
+                    foreach (var priceCalculationItem in calculation.PriceCalculationItems)
+                    {
+                        foreach (var salesUnit in priceCalculationItem.SalesUnits)
+                        {
+                            if (SalesUnitsCalculationsDictionary.ContainsKey(salesUnit.Id))
+                            {
+                                var priceItems = SalesUnitsCalculationsDictionary[salesUnit.Id];
+
+                                if (priceItems.Remove(priceCalculationItem) && priceItems.IsEmpty)
+                                {
+                                    SalesUnitsCalculationsDictionary.Remove(salesUnit.Id);
+                                }
                             }
                         }
                     }
@@ -81,8 +138,8 @@ namespace HVTApp.Services.PriceService
             var unitOfWork = _container.Resolve<IModelsStore>().UnitOfWork;
             Blocks = unitOfWork.Repository<ProductBlock>().GetAll();
 
-            PriceCalculationItemsFinished.Clear();
-            PricesOfSalesUnitsFromCalculations.Clear();
+            //PriceCalculationItemsFinished.Clear();
+            SalesUnitsCalculationsDictionary.Clear();
 
             //завершенные расчеты ПЗ, упорядоченные по дате завершения
             var priceCalculationsFinished = unitOfWork.Repository<PriceCalculation>()
@@ -90,20 +147,24 @@ namespace HVTApp.Services.PriceService
                 .OrderBy(priceCalculation => priceCalculation.TaskCloseMoment)
                 .ToList();
 
+            //завершенные айтемы расчетов ПЗ
+            var priceCalculationItemsFinished = priceCalculationsFinished
+                .SelectMany(priceCalculation => priceCalculation.PriceCalculationItems)
+                .Distinct()
+                .ToList();
+
             //формирование словарей прайсов по калькуляции
             var salesUnits = priceCalculationsFinished
                 .SelectMany(priceCalculation => priceCalculation.PriceCalculationItems)
                 .SelectMany(priceCalculationItem => priceCalculationItem.SalesUnits)
                 .Distinct();
+
             foreach (var salesUnit in salesUnits)
             {
-                var priceCalculationItem = priceCalculationsFinished
-                    //.OrderBy(priceCalculation => priceCalculation.TaskCloseMoment)
-                    .SelectMany(priceCalculation => priceCalculation.PriceCalculationItems)
-                    .Last(calculationItem => calculationItem.SalesUnits.ContainsById(salesUnit));
-
-                PriceCalculationItemsFinished.Add(salesUnit.Id, priceCalculationItem);
-                PricesOfSalesUnitsFromCalculations.Add(salesUnit.Id, priceCalculationItem.StructureCosts.Sum(structureCost => structureCost.Total));
+                var priceItems = priceCalculationItemsFinished
+                    .Where(calculationItem => calculationItem.SalesUnits.ContainsById(salesUnit))
+                    .Select(item => new PriceItem(priceCalculationsFinished.Single(calculation => calculation.PriceCalculationItems.Contains(item)), item));
+                SalesUnitsCalculationsDictionary.Add(salesUnit.Id, new PriceItems(priceItems));
             }
         }
 
@@ -112,15 +173,15 @@ namespace HVTApp.Services.PriceService
             if (unit == null)
                 throw new ArgumentNullException(nameof(unit));
 
-            return PriceCalculationItemsFinished.ContainsKey(unit.Id)
-                ? PriceCalculationItemsFinished[unit.Id]
+            return this.SalesUnitsCalculationsDictionary.ContainsKey(unit.Id)
+                ? SalesUnitsCalculationsDictionary[unit.Id].PriceCalculationItem
                 : null;
         }
 
         public double? GetPriceByCalculations(IUnit unit)
         {
-            return PricesOfSalesUnitsFromCalculations.ContainsKey(unit.Id) 
-                ? PricesOfSalesUnitsFromCalculations[unit.Id] 
+            return SalesUnitsCalculationsDictionary.ContainsKey(unit.Id) 
+                ? SalesUnitsCalculationsDictionary[unit.Id].Price
                 : null;
         }
 
