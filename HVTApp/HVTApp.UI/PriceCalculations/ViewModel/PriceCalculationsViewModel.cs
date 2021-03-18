@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
@@ -142,7 +143,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
 
         protected override void OnAfterSaveEntity(PriceCalculation calculation)
         {
-            var targetCalculationLookup = Lookups.SingleOrDefault(x => x.Id == calculation.Id);
+            var targetCalculationLookup = Lookups.SingleOrDefault(priceCalculationLookup => priceCalculationLookup.Id == calculation.Id);
             if (targetCalculationLookup != null)
             {
                 targetCalculationLookup.Refresh(calculation);
@@ -152,12 +153,15 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
             var author = calculation.PriceCalculationItems.FirstOrDefault()?.SalesUnits.FirstOrDefault()?.Project.Manager;
             var canWath = author?.Id == GlobalAppProperties.User.Id && calculation.TaskCloseMoment.HasValue;
             var canCalc = calculation.TaskOpenMoment.HasValue &&
-                          (GlobalAppProperties.User.RoleCurrent == Role.Admin ||
-                           GlobalAppProperties.User.RoleCurrent == Role.Pricer);
+                              (GlobalAppProperties.User.RoleCurrent == Role.Admin || GlobalAppProperties.User.RoleCurrent == Role.Pricer);
 
             if (canWath || canCalc)
             {
-                ((ICollection<PriceCalculationLookup>) Lookups).Add(new PriceCalculationLookup(calculation));
+                if (Lookups is ObservableCollection<PriceCalculationLookup> collection)
+                {
+                    if (!Lookups.Select(lookup => lookup.Entity).ContainsById(calculation))
+                        collection.Insert(0, new PriceCalculationLookup(calculation));
+                }
                 return;
             }
         }

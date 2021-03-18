@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.DataAccess
@@ -9,9 +11,16 @@ namespace HVTApp.DataAccess
         protected override IQueryable<Offer> GetQuary()
         {
             return Context.Set<Offer>().AsQueryable()
-                .Include(x => x.Project)
-                .Include(x => x.SenderEmployee.Company)
-                .Include(x => x.RecipientEmployee.Company);
+                .Include(offer => offer.Project.Manager)
+                .Include(offer => offer.SenderEmployee.Company)
+                .Include(offer => offer.RecipientEmployee.Company);
+        }
+
+        public IEnumerable<Offer> GetAllOfCurrentUser()
+        {
+            return this.GetQuary()
+                .Where(offer => offer.Project.Manager.Id == GlobalAppProperties.User.Id)
+                .ToList();
         }
     }
 }

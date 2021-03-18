@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
@@ -30,7 +31,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
 
         protected override IEnumerable<OfferLookup> GetLookups(IUnitOfWork unitOfWork)
         {
-            _offerUnits = unitOfWork.Repository<OfferUnit>().Find(offerUnit => offerUnit.Offer.Project.Manager.IsAppCurrentUser());
+            _offerUnits = ((IOfferUnitRepository)unitOfWork.Repository<OfferUnit>()).GetAllOfCurrentUser().ToList();
             return _offerUnits
                 .Select(offerUnit => offerUnit.Offer)
                 .Distinct()

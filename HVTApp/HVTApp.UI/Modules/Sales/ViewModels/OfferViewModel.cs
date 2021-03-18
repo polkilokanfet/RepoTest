@@ -33,11 +33,10 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
         {
             //при редактировании существующего ТКП
             if (parameter == null)
-                return UnitOfWork.Repository<OfferUnit>().Find(x => x.Offer.Id == offer.Id);
+                return ((IOfferUnitRepository) UnitOfWork.Repository<OfferUnit>()).GetByOffer(offer);
 
             //при создании ТКП по проекту
-            var project = parameter as Project;
-            if (project != null)
+            if (parameter is Project project)
                 return LoadByProject(project);
 
             //при создании ТКП по другому ТКП
@@ -101,7 +100,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             DetailsViewModel.Item.Vat = offer.Vat;
             DetailsViewModel.Item.ValidityDate = offer.ValidityDate;
 
-            var offerUnits = UnitOfWork.Repository<OfferUnit>().Find(x => x.Offer.Id == offer.Id);
+            var offerUnits = ((IOfferUnitRepository)UnitOfWork.Repository<OfferUnit>()).GetByOffer(offer);
             return CloneOfferUnits(offerUnits);
         }
 

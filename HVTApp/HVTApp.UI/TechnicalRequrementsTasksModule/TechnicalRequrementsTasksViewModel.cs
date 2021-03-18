@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
@@ -142,7 +143,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
         protected override void OnAfterSaveEntity(TechnicalRequrementsTask task)
         {
-            var targetCalculationLookup = Lookups.SingleOrDefault(x => x.Id == task.Id);
+            var targetCalculationLookup = Lookups.SingleOrDefault(technicalRequrementsTaskLookup => technicalRequrementsTaskLookup.Id == task.Id);
             if (targetCalculationLookup != null)
             {
                 targetCalculationLookup.Refresh(task);
@@ -153,7 +154,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             {
                 if (task.Requrements.First().SalesUnits.First().Project.Manager.IsAppCurrentUser())
                 {
-                    ((ICollection<TechnicalRequrementsTaskLookup>)Lookups).Add(new TechnicalRequrementsTaskLookup(task));
+                    InsertTask(task);
                 }
             }
 
@@ -161,16 +162,25 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             {
                 if (task.BackManager?.IsAppCurrentUser() != null)
                 {
-                    ((ICollection<TechnicalRequrementsTaskLookup>) Lookups).Add(new TechnicalRequrementsTaskLookup(task));
+                    InsertTask(task);
                 }
             }
 
 
             if (CurrentUserIsBackManagerBoss)
             {
-                ((ICollection<TechnicalRequrementsTaskLookup>)Lookups).Add(new TechnicalRequrementsTaskLookup(task));
+                InsertTask(task);
             }
 
+        }
+
+        private void InsertTask(TechnicalRequrementsTask task)
+        {
+            if (Lookups is ObservableCollection<TechnicalRequrementsTaskLookup> collection)
+            {
+                if (!Lookups.Select(lookup => lookup.Entity).ContainsById(task))
+                    collection.Insert(0, new TechnicalRequrementsTaskLookup(task));
+            }
         }
 
         //костыль - удаление пустых задач
@@ -210,12 +220,12 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             //для бэка
             if (CurrentUserIsBackManager)
             {
-                calculations = UnitOfWork.Repository<TechnicalRequrementsTask>().Find(x => x.Start.HasValue && x.BackManager != null && x.BackManager.IsAppCurrentUser());
+                calculations = UnitOfWork.Repository<TechnicalRequrementsTask>().Find(technicalRequrementsTask => technicalRequrementsTask.Start.HasValue && technicalRequrementsTask.BackManager != null && technicalRequrementsTask.BackManager.IsAppCurrentUser());
             }
             //для боса бэка
             else if(CurrentUserIsBackManagerBoss)
             {
-                calculations = UnitOfWork.Repository<TechnicalRequrementsTask>().Find(x => x.Start.HasValue);
+                calculations = UnitOfWork.Repository<TechnicalRequrementsTask>().Find(technicalRequrementsTask => technicalRequrementsTask.Start.HasValue);
             }
             //для менеджера
             else
@@ -223,7 +233,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 calculations = UnitOfWork.Repository<TechnicalRequrementsTask>().Find(IsTaskOfManager);
             }
 
-            this.Load(calculations.OrderByDescending(x => x.Start));
+            this.Load(calculations.OrderByDescending(technicalRequrementsTask => technicalRequrementsTask.Start));
         }
 
         private bool IsTaskOfManager(TechnicalRequrementsTask task)
