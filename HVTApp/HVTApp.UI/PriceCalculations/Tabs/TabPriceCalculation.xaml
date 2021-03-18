@@ -6,6 +6,12 @@
              x:Class="HVTApp.UI.PriceCalculations.Tabs.TabPriceCalculation"
              Header="Задание на расчет себестоимости">
 
+    <infRib:RibbonGroup Caption="Навигация">
+        <infRib:ButtonTool Caption="Назад" 
+                           Command="{Binding GoBackCommand}" 
+                           SmallImage="/HVTApp.UI;component/Images/ar_back.png"/>
+    </infRib:RibbonGroup>
+
     <infRib:RibbonGroup Caption="Оборудование"
                         Visibility="{Binding CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityConverter}}">
 
@@ -70,9 +76,7 @@
                            SmallImage="/HVTApp.UI;component/Images/out.png" />
         
         <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveCommand}" SmallImage="/HVTApp.UI;component/Images/save.png"/>
-        
-        <infRib:ButtonTool Caption="Назад" Command="{Binding GoBackCommand}" SmallImage="/HVTApp.UI;component/Images/ar_back.png"/>
-        
+
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Строки ПЗ"

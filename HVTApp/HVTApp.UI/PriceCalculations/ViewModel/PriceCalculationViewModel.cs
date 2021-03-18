@@ -294,7 +294,10 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                         return false;
                     }
 
-                    return !IsFinished && PriceCalculationWrapper.IsValid && PriceCalculationWrapper.PriceCalculationItems.SelectMany(x => x.StructureCosts).All(x => x.UnitPrice.HasValue);
+                    return IsStarted &&
+                           !IsFinished && 
+                           PriceCalculationWrapper.IsValid && 
+                           PriceCalculationWrapper.PriceCalculationItems.SelectMany(item => item.StructureCosts).All(structureCost => structureCost.UnitPrice.HasValue);
                 });
 
             #endregion

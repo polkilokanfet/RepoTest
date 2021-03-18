@@ -7,6 +7,12 @@
              x:Class="HVTApp.UI.Modules.Sales.Tabs.TabCrudUnits"
              Header="Редактирование оборудования">
 
+    <infRib:RibbonGroup Caption="Навигация">
+        <infRib:ButtonTool Caption="Назад" 
+                           Command="{Binding GoBackCommand}" 
+                           SmallImage="/HVTApp.UI;component/Images/ar_back.png"/>
+    </infRib:RibbonGroup>
+
     <infRib:RibbonGroup Caption="Основное">
         <infRib:ButtonTool Caption="Добавить" Command="{Binding GroupsViewModel.AddCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
         <infRib:ButtonTool Caption="Удалить" Command="{Binding GroupsViewModel.RemoveCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>
@@ -30,7 +36,6 @@
 
     <infRib:RibbonGroup Caption="Действия">
         <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveCommand}" SmallImage="/HVTApp.UI;component/Images/save.png"/>
-        <infRib:ButtonTool Caption="Назад" Command="{Binding GoBackCommand}" SmallImage="/HVTApp.UI;component/Images/ar_back.png"/>
     </infRib:RibbonGroup>
 
 

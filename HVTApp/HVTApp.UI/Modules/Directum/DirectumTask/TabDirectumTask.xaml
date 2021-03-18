@@ -4,7 +4,13 @@
                                  xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
                                  x:Class="HVTApp.UI.Modules.Directum.TabDirectumTask"
                                  Header="DirectumLite">
-    
+
+    <infRib:RibbonGroup Caption="Навигация">
+        <infRib:ButtonTool Caption="Назад" 
+                           Command="{Binding GoBackCommand}" 
+                           SmallImage="/HVTApp.UI;component/Images/ar_back.png"/>
+    </infRib:RibbonGroup>
+
     <infRib:RibbonGroup Caption="Задача">
         <infRib:ButtonTool Caption="Стартовать" Command="{Binding StartCommand}" SmallImage="/HVTApp.UI;component/Images/start.png" Visibility="{Binding TaskIsNew, Converter={StaticResource BooleanToVisibilityConverter}}"/>
         <infRib:ButtonTool Caption="Остановить" Command="{Binding StopCommand}" SmallImage="/HVTApp.UI;component/Images/stop.png" Visibility="{Binding AllowStop, Converter={StaticResource BooleanToVisibilityConverter}}"/>
@@ -23,8 +29,4 @@
         <infRib:ButtonTool Caption="Открыть" Command="{Binding OpenFileCommand}" SmallImage="/HVTApp.UI;component/Images/done.png"/>
     </infRib:RibbonGroup>
 
-    <infRib:RibbonGroup Caption="Действия">
-        <infRib:ButtonTool Caption="Назад" Command="{Binding GoBackCommand}" SmallImage="/HVTApp.UI;component/Images/ar_back.png"/>
-    </infRib:RibbonGroup>
-    
 </inf:RibbonTabItemWithViewModel>

@@ -4,9 +4,11 @@
                                  xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
                                  x:Class="HVTApp.UI.Modules.BookRegistration.Tabs.TabIncomingRequest"
                                  Header="Входящий запрос">
-    
-    <infRib:RibbonGroup Caption="Действия">
-        <infRib:ButtonTool Caption="Назад" Command="{Binding GoBackCommand}" SmallImage="/HVTApp.UI;component/Images/ar_back.png"/>
+
+    <infRib:RibbonGroup Caption="Навигация">
+        <infRib:ButtonTool Caption="Назад" 
+                           Command="{Binding GoBackCommand}" 
+                           SmallImage="/HVTApp.UI;component/Images/ar_back.png"/>
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Запрос">

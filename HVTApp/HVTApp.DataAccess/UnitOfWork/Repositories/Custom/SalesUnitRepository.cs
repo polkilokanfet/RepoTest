@@ -120,6 +120,7 @@ namespace HVTApp.DataAccess
             Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
             return this.GetQuary()
                 .Include(salesUnit => salesUnit.Project.Manager)
+                .Include(salesUnit => salesUnit.Facility.OwnerCompany)
                 .Include(salesUnit => salesUnit.Producer)
                 .Where(salesUnit => !salesUnit.IsRemoved && salesUnit.Project.Manager.Id == GlobalAppProperties.User.Id)
                 .ToList();
