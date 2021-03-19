@@ -38,6 +38,9 @@ namespace HVTApp.UI.ViewModels
         private TLookup _selectedLookup;
         private TEntity _selectedItem;
         private bool _isLoaded = false;
+        private object[] _selectedLookups;
+
+        public bool CurrentUserIsAdmin { get; } = GlobalAppProperties.User.RoleCurrent == Role.Admin;
 
         protected BaseListViewModel(IUnityContainer container) : base(container)
         {
@@ -55,6 +58,31 @@ namespace HVTApp.UI.ViewModels
 
             RefreshCommand = new DelegateCommand(RefreshCommand_Execute);
 
+            UnionCommand = new DelegateCommand(
+                () =>
+                {
+                    var selectedItem = container.Resolve<ISelectService>().SelectItem(SelectedItems);
+                    if (selectedItem == null) return;
+
+                    IUnitOfWork unitOfWork = container.Resolve<IUnitOfWork>();
+                    var repository = unitOfWork.Repository<TEntity>();
+                    TEntity mainItem = repository.GetById(selectedItem.Id);
+                    List<TEntity> otherItems = SelectedItems.Select(entity => repository.GetById(entity.Id)).ToList();
+                    otherItems.Remove(mainItem);
+
+                    if (UnionItemsAction(unitOfWork, mainItem, otherItems) == false) return;
+
+                    foreach (var otherItem in otherItems)
+                    {
+                        EventAggregator.GetEvent<TAfterRemoveEntityEvent>().Publish(otherItem);
+                    }
+                    repository.DeleteRange(otherItems);
+                    unitOfWork.SaveChanges();
+
+                    container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", "Объединение успешно завершено!");
+                },
+                () => SelectedItems != null && SelectedItems.Count() > 1);
+
             EventAggregator.GetEvent<TAfterSaveEntityEvent>().Subscribe(OnAfterSaveEntity);
             EventAggregator.GetEvent<TAfterRemoveEntityEvent>().Subscribe(OnAfterRemoveEntity);
 
@@ -63,6 +91,11 @@ namespace HVTApp.UI.ViewModels
 
             InitSpecialCommands();
             SubscribesToEvents();
+        }
+
+        protected virtual bool UnionItemsAction(IUnitOfWork unitOfWork, TEntity mainItem, List<TEntity> otherItems)
+        {
+            return false;
         }
 
         public bool IsLoaded
@@ -117,6 +150,20 @@ namespace HVTApp.UI.ViewModels
             }
         }
 
+        public object[] SelectedLookups
+        {
+            get => _selectedLookups;
+            set
+            {
+                _selectedLookups = value;
+                ((DelegateCommand)UnionCommand).RaiseCanExecuteChanged();
+            }
+        }
+
+        public IEnumerable<TEntity> SelectedItems => _selectedItem == null
+            ? null
+            : _selectedLookups.Cast<TLookup>().Select(lookup => lookup.Entity);
+
         public IEnumerable<TLookup> Lookups { get; }
         private ICollection<TLookup> LookupsCollection => (ICollection<TLookup>)Lookups;
 
@@ -163,11 +210,35 @@ namespace HVTApp.UI.ViewModels
 
         #region Commands
 
+        /// <summary>
+        /// Создание новой сущности
+        /// </summary>
         public ICommand NewItemCommand { get; protected set; }
+
+        /// <summary>
+        /// Редактирование сущности
+        /// </summary>
         public ICommand EditItemCommand { get; protected set; }
+
+        /// <summary>
+        /// Удаление сущности
+        /// </summary>
         public ICommand RemoveItemCommand { get; protected set; }
+
+        /// <summary>
+        /// Выбор сущности
+        /// </summary>
         public ICommand SelectItemCommand { get; protected set; }
+
+        /// <summary>
+        /// Перезагрузка списка сущностей
+        /// </summary>
         public ICommand RefreshCommand { get; protected set; }
+
+        /// <summary>
+        /// Объединение сущностей.
+        /// </summary>
+        public ICommand UnionCommand { get; protected set; }
 
         /// <summary>
         /// Генерация нового айтема (при создании нового).

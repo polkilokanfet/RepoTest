@@ -11,7 +11,7 @@ namespace HVTApp.UI.ViewModels
             {
                 //нельзя выбрать адрес из другого объекта
                 var addresses = UnitOfWork.Repository<Address>().GetAll();
-                addresses = addresses.Except(UnitOfWork.Repository<Facility>().Find(x => x.Address != null).Select(x => x.Address)).ToList();
+                addresses = addresses.Except(UnitOfWork.Repository<Facility>().Find(facility => facility.Address != null).Select(facility => facility.Address)).ToList();
                 return addresses;
             };
         }

@@ -4,11 +4,15 @@
                                  xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
                                  x:Class="HVTApp.UI.Tabs.TabCRUD"
                                  Header="Редактирование">
-    
+
     <infRib:RibbonGroup Caption="Действия">
         <infRib:ButtonTool Caption="Создать" Command="{Binding NewItemCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
         <infRib:ButtonTool Caption="Изменить" Command="{Binding EditItemCommand}" SmallImage="/HVTApp.UI;component/Images/edit.png"/>
         <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveItemCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>
     </infRib:RibbonGroup>
-    
+
+    <infRib:RibbonGroup Caption="Действия админа">
+        <infRib:ButtonTool Caption="Объединить" Command="{Binding UnionCommand}" Visibility="{Binding CurrentUserIsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+    </infRib:RibbonGroup>
+
 </inf:RibbonTabItemWithViewModel>

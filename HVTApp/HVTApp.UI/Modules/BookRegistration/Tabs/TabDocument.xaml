@@ -12,7 +12,7 @@
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Действия">
-        <infRib:ButtonTool Caption="Назад" Command="{Binding GoBackCommand}" SmallImage="/HVTApp.UI;component/Images/ar_back.png"/>
+        <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveCommand}" SmallImage="/HVTApp.UI;component/Images/save.png"/>
     </infRib:RibbonGroup>
     
 </inf:RibbonTabItemWithViewModel>

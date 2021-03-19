@@ -636,10 +636,13 @@
     <Compile Include="ViewModels\Details\EmployeeDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\FacilityDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\IncomingRequestDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Details\LocalityDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\ProductCategoryPriceAndCostDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\TenderDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\UserDetailsViewModel.cs" />
+    <Compile Include="ViewModels\List\LocalityLookupListViewModel.cs" />
     <Compile Include="ViewModels\List\ProductTypeDesignationLookupListViewModel.cs" />
+    <Compile Include="ViewModels\List\RegionLookupListViewModel.cs" />
     <Compile Include="ViewModels\List\UserLookupListViewModel.cs" />
     <Compile Include="ViewModels\ProductStructureViewModel.cs" />
     <Compile Include="ViewModels\Details\ProductIncludedDetailsViewModel.cs" />

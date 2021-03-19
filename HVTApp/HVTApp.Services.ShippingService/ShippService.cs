@@ -34,17 +34,14 @@ namespace HVTApp.Services.ShippingService
                 company = company.ParentCompany;
             }
 
-            if(locality != null)
-            { 
-                do
+            while (locality != null)
+            {
+                if (locality.DistanceToEkb.HasValue)
                 {
-                    if (locality.DistanceToEkb.HasValue)
-                    {
-                        var distance = locality.DistanceToEkb.Value;
-                        return (int) Math.Ceiling((distance / 8 / 80));
-                    }
-                    locality = GetCapital(locality);
-                } while (locality != null);
+                    var distance = locality.DistanceToEkb.Value;
+                    return (int) Math.Ceiling((distance / 8 / 80));
+                }
+                locality = GetCapital(locality);
             }
 
             return null;         

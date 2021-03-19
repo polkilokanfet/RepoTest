@@ -42,7 +42,7 @@ namespace HVTApp.UI.ViewModels
             UnitOfWork = Container.Resolve<IUnitOfWork>();
             EventAggregator = Container.Resolve<IEventAggregator>();
 
-            SaveCommand = new DelegateCommand(() => { SaveItem(); }, SaveCommand_CanExecute);
+            SaveCommand = new DelegateCommand(SaveItem, SaveCommand_CanExecute);
             OkCommand = new DelegateCommand(OkCommand_Execute, OkCommand_CanExecute);
 
             InitSpecialCommands();
@@ -141,8 +141,19 @@ namespace HVTApp.UI.ViewModels
             return Item != null && Item.IsValid;
         }
 
+        /// <summary>
+        /// ѕроверка возможности сохранить
+        /// </summary>
+        /// <returns></returns>
+        protected virtual bool AllowSave()
+        {
+            return true;
+        }
+
         protected virtual void SaveItem()
         {
+            if (AllowSave() == false) return;
+
             //добавл€ем сущность, если ее не существовало
             if (UnitOfWork.Repository<TEntity>().GetById(Item.Model.Id) == null)
                 UnitOfWork.Repository<TEntity>().Add(Item.Model);
