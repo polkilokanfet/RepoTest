@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Extansions;
+using HVTApp.Model;
+using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
+using Prism.Events;
 
 namespace HVTApp.Services.ShippingService
 {
@@ -11,35 +15,25 @@ namespace HVTApp.Services.ShippingService
     {
         private readonly List<Locality> _localities;
 
-        public ShippService(IUnitOfWork unitOfWork)
+        public ShippService(IUnitOfWork unitOfWork, IEventAggregator eventAggregator)
         {
             _localities = unitOfWork.Repository<Locality>().GetAll();
+            eventAggregator.GetEvent<AfterSaveLocalityEvent>().Subscribe(locality => { _localities.ReAddById(locality); });
+            eventAggregator.GetEvent<AfterRemoveLocalityEvent>().Subscribe(locality => { _localities.RemoveIfContainsById(locality); });
         }
 
         public int? DeliveryTerm(SalesUnit salesUnit)
         {
-            var facility = salesUnit.Facility;
-            
-            if (facility == null) return null;
+            if (salesUnit.Facility == null) return null;
 
-            var locality = salesUnit.AddressDelivery?.Locality              //адрес доставки
-                           ?? facility.Address?.Locality                    //адрес объекта
-                           ?? facility.OwnerCompany.AddressLegal?.Locality; //адрес владельца объекта
-
-            //поиск адреса в голове владельца
-            var company = facility.OwnerCompany.ParentCompany;
-            while (company != null && locality == null)
-            {
-                locality = company.AddressLegal?.Locality;
-                company = company.ParentCompany;
-            }
+            //адрес доставки
+            var locality = salesUnit.GetDeliveryAddress()?.Locality;
 
             while (locality != null)
             {
                 if (locality.DistanceToEkb.HasValue)
                 {
-                    var distance = locality.DistanceToEkb.Value;
-                    return (int) Math.Ceiling((distance / 8 / 80));
+                    return (int) Math.Ceiling((locality.DistanceToEkb.Value / 8 / 80));
                 }
                 locality = GetCapital(locality);
             }
@@ -47,28 +41,32 @@ namespace HVTApp.Services.ShippingService
             return null;         
         }
 
-        private Locality GetCapital(Locality locality)
+        /// <summary>
+        /// Замена населенного пункта на столицу
+        /// </summary>
+        /// <param name="localityToChange"></param>
+        /// <returns></returns>
+        private Locality GetCapital(Locality localityToChange)
         {
-            if (locality.IsCountryCapital)
+            if (localityToChange.IsCountryCapital)
             {
                 return null;
             }
 
             //меняем столицу ФО на столицу страны
-            if (locality.IsDistrictCapital)
+            if (localityToChange.IsDistrictCapital)
             {
-                return _localities.FirstOrDefault(x => locality.Region.District.Country.Id == x.Region.District.Country.Id && x.IsCountryCapital);
-                //return _localities.SingleOrDefault(x => locality.Region.District.Country.Id == x.Region.District.Country.Id && x.IsCountryCapital);
+                return _localities.FirstOrDefault(locality => localityToChange.Region.District.Country.Id == locality.Region.District.Country.Id && locality.IsCountryCapital);
             }
 
             //меняем столицу региона на столицу ФО
-            if (locality.IsRegionCapital)
+            if (localityToChange.IsRegionCapital)
             {
-                return _localities.FirstOrDefault(x => locality.Region.District.Id == x.Region.District.Id && x.IsDistrictCapital);
+                return _localities.FirstOrDefault(locality => localityToChange.Region.District.Id == locality.Region.District.Id && locality.IsDistrictCapital);
             }
 
-            return _localities.FirstOrDefault(x => locality.Region.Id == x.Region.Id && x.IsRegionCapital);
-
+            //меняем населенный пункт на столицу региона
+            return _localities.FirstOrDefault(locality => localityToChange.Region.Id == locality.Region.Id && locality.IsRegionCapital);
         }
     }
 }

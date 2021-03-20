@@ -173,7 +173,7 @@ namespace HVTApp.UI.Modules.Reports.CommonInfo
 
             DeliveryType = Math.Abs(CostDelivery) > 0  ? "Доставка" : "Самовывоз";
 
-            DeliveryAddress = salesUnit.GetDeliveryAddress();
+            DeliveryAddress = salesUnit.GetDeliveryAddressString();
         }
 
         private string GetContragentType(Company contragent)

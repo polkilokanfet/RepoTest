@@ -469,7 +469,7 @@ namespace HVTApp.UI.Modules.Reports.SalesReport
 
             DeliveryType = -1 * CostDelivery > 0  ? "Доставка" : "Самовывоз";
 
-            DeliveryAddress = salesUnit.GetDeliveryAddress();
+            DeliveryAddress = salesUnit.GetDeliveryAddressString();
 
             PickingDate = salesUnit.PickingDate;
 

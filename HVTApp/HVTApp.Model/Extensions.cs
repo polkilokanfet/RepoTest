@@ -79,16 +79,45 @@ namespace HVTApp.Model
             return region;
         }
 
-        public static string GetDeliveryAddress(this SalesUnit salesUnit)
+        public static Address GetDeliveryAddress(this SalesUnit salesUnit)
         {
+            //по адресу доставки
             if (salesUnit.AddressDelivery != null)
-                return salesUnit.AddressDelivery.ToString();
+                return salesUnit.AddressDelivery;
 
+            //по адресу объекта
             if (salesUnit.Facility.Address != null)
-                return salesUnit.Facility.Address.ToString();
+                return salesUnit.Facility.Address;
 
-            var region = salesUnit.Facility.GetRegion();
-            return $"{region.District.Country}, {region}, {salesUnit.Facility}";
+            ////по адресу владельца объекта
+            //if (salesUnit.Facility.OwnerCompany.AddressLegal != null)
+            //    return salesUnit.Facility.OwnerCompany.AddressLegal;
+
+            //по населенному пункту владельца объекта (или его головных организаций)
+            var company = salesUnit.Facility.OwnerCompany;
+            Locality locality = company.AddressLegal?.Locality;
+            while (company != null && locality == null)
+            {
+                locality = company.AddressLegal?.Locality;
+                company = company.ParentCompany;
+            }
+
+            if (locality != null)
+            {
+                return new Address
+                {
+                    Locality = locality,
+                    Description = $"{salesUnit.Facility} (вычислено)"
+                };
+            }
+
+            return null;
+        }
+
+        public static string GetDeliveryAddressString(this SalesUnit salesUnit)
+        {
+            Address address = salesUnit.GetDeliveryAddress();
+            return address == null ? "Адрес не определен." : address.ToString();
         }
 
         /// <summary>

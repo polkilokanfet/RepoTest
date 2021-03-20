@@ -32,7 +32,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper
             }
         }
 
-        public string DeliveryAddress => SalesUnit.GetDeliveryAddress();
+        public string DeliveryAddress => SalesUnit.GetDeliveryAddressString();
 
         public string FacilityOwners
         {
