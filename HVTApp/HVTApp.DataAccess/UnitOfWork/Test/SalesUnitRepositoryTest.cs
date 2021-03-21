@@ -50,5 +50,10 @@ namespace HVTApp.DataAccess
         {
             throw new NotImplementedException();
         }
+
+        public IEnumerable<SalesUnit> GetForDatesView()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

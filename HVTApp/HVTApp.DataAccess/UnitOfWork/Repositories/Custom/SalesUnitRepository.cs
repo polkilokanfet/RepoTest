@@ -152,6 +152,18 @@ namespace HVTApp.DataAccess
                 .ToList();
         }
 
+        public IEnumerable<SalesUnit> GetForDatesView()
+        {
+            Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
+            return this.GetQuary()
+                .Include(salesUnit => salesUnit.Order)
+                .Include(salesUnit => salesUnit.Specification.Contract.Contragent.Form)
+                .Include(salesUnit => salesUnit.Producer)
+                .Where(salesUnit => !salesUnit.IsRemoved && (salesUnit.Producer == null || salesUnit.Producer.Id == GlobalAppProperties.Actual.OurCompany.Id))
+                .ToList();
+        }
+
         //public async Task<IEnumerable<SalesUnit>> GetUsersSalesUnitsAsync()
         //{
         //    var su = await this.GetAllAsync();

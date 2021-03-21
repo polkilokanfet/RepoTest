@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
+using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model.POCOs;
@@ -51,8 +52,8 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
         {
             _unitOfWork = Container.Resolve<IUnitOfWork>();
 
-            var salesUnits = _unitOfWork.Repository<SalesUnit>().GetAll()
-                .Where(x => !x.IsRemoved && !x.IsLoosen && (x.Order != null || x.OrderInTakeDate <= DateTime.Today))
+            var salesUnits = ((ISalesUnitRepository)_unitOfWork.Repository<SalesUnit>()).GetForDatesView()
+                .Where(salesUnit => salesUnit.Order != null || salesUnit.OrderInTakeDate <= DateTime.Today)
                 .OrderBy(salesUnit => salesUnit.EndProductionDateCalculated)
                 .Select(salesUnit => new SalesUnitDates(salesUnit))
                 .ToList();
@@ -62,19 +63,19 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
             _salesUnits.PropertyChanged += SalesUnitsOnPropertyChanged;
 
             _groups = _salesUnits
-                .GroupBy(x => new
+                .GroupBy(salesUnitDates => new
                 {
-                    Cost = x.Model.Cost,
-                    Facility = x.Model.Facility.Id,
-                    Product = x.Model.Product.Id,
-                    Order = x.Model.Order?.Id,
-                    Project = x.Model.Project.Id,
-                    Specification = x.Model.Specification?.Id,
-                    x.DeliveryDate,
-                    x.EndProductionDate,
-                    x.PickingDate,
-                    x.RealizationDate,
-                    x.ShipmentDate
+                    Cost = salesUnitDates.Model.Cost,
+                    Facility = salesUnitDates.Model.Facility.Id,
+                    Product = salesUnitDates.Model.Product.Id,
+                    Order = salesUnitDates.Model.Order?.Id,
+                    Project = salesUnitDates.Model.Project.Id,
+                    Specification = salesUnitDates.Model.Specification?.Id,
+                    salesUnitDates.DeliveryDate,
+                    salesUnitDates.EndProductionDate,
+                    salesUnitDates.PickingDate,
+                    salesUnitDates.RealizationDate,
+                    salesUnitDates.ShipmentDate
                 })
                 .Select(x => new SalesUnitDatesGroup(x))
                 .OrderBy(x => x.Units.First().Model.OrderInTakeDate);

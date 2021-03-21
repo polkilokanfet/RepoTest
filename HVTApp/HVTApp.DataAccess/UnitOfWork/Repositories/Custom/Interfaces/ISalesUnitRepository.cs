@@ -66,5 +66,12 @@ namespace HVTApp.DataAccess
         /// </summary>
         /// <returns></returns>
         IEnumerable<SalesUnit> GetAllNotRemovedNotLoosen();
+
+        /// <summary>
+        /// Получить все юниты для DatesView
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<SalesUnit> GetForDatesView();
+
     }
 }
