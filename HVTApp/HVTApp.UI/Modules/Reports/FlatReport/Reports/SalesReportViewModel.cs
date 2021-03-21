@@ -11,29 +11,63 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Reports
 {
     public class SalesReportViewModel : ViewModelBaseCanExportToExcel
     {
+        private readonly List<PriceCalculation> _priceCalculations;
+
         public List<SalesReportUnit> Units { get; }
 
         public SalesReportViewModel(IUnityContainer container, IUnitOfWork unitOfWork, List<SalesUnit> salesUnits) : base(container)
         {
             UnitOfWork = unitOfWork;
-
-            //проставляем количество родительских юнитов включенного оборудования
-            var productsIncluded = salesUnits.SelectMany(x => x.ProductsIncluded).ToList();
-            foreach (var productIncluded in productsIncluded)
-            {
-                productIncluded.ParentsCount = salesUnits.Count(x => x.ProductsIncluded.Contains(productIncluded));
-            }
-
-            var groups = salesUnits.OrderBy(x => x.OrderInTakeDate).GroupBy(x => x, new SalesUnitsReportComparer());
-
             var tenders = UnitOfWork.Repository<Tender>().GetAll();
             var countryUnions = UnitOfWork.Repository<CountryUnion>().GetAll();
+            _priceCalculations = UnitOfWork.Repository<PriceCalculation>().GetAll();
+
+            //проставляем количество родительских юнитов включенного оборудования
+            var productsIncluded = salesUnits.SelectMany(salesUnit => salesUnit.ProductsIncluded).ToList();
+            foreach (var productIncluded in productsIncluded)
+            {
+                productIncluded.ParentsCount = salesUnits.Count(salesUnit => salesUnit.ProductsIncluded.Contains(productIncluded));
+            }
+
+            var groups = salesUnits
+                .OrderBy(salesUnit => salesUnit.OrderInTakeDate)
+                .GroupBy(salesUnit => salesUnit, new SalesUnitsReportComparer())
+                .ToList();
 
             var salesReportUnits = groups
-                .Select(x => new SalesReportUnit(x, tenders.Where(t => Equals(x.Key.Project, t.Project)), countryUnions, x.First().ActualPriceCalculationItem(UnitOfWork)))
+                .Select(x => new SalesReportUnit(x, tenders.Where(tender => Equals(x.Key.Project, tender.Project)), countryUnions, ActualPriceCalculationItem(x.First())))
                 .ToList();
 
             Units = new List<SalesReportUnit>(salesReportUnits);
         }
+
+        /// <summary>
+        /// Актуальный расчет ПЗ
+        /// </summary>
+        /// <param name="salesUnit"></param>
+        /// <returns></returns>
+        private PriceCalculationItem ActualPriceCalculationItem(SalesUnit salesUnit)
+        {
+            var calculations = _priceCalculations
+                .Where(priceCalculation => priceCalculation.PriceCalculationItems.ContainsSalesUnit(salesUnit))
+                .ToList();
+
+            //позже всех запущено на расчет
+            var result = calculations
+                .Where(priceCalculation => priceCalculation.TaskOpenMoment.HasValue)
+                .OrderByDescending(priceCalculation => priceCalculation.TaskOpenMoment.Value)
+                .FirstOrDefault(priceCalculation => priceCalculation.PriceCalculationItems.ContainsSalesUnit(salesUnit))
+                ?.PriceCalculationItems.Single(priceCalculationItem => priceCalculationItem.SalesUnits.Contains(salesUnit));
+            if (result != null) return result;
+
+            //позже всех дата ОИТ
+            result = calculations
+                .SelectMany(priceCalculation => priceCalculation.PriceCalculationItems)
+                .OrderByDescending(priceCalculationItem => priceCalculationItem.OrderInTakeDate)
+                .FirstOrDefault(priceCalculationItem => priceCalculationItem.SalesUnits.Contains(salesUnit));
+
+            return result;
+        }
+
     }
 }

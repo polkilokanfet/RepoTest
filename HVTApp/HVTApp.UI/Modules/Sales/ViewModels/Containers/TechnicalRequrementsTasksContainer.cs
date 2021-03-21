@@ -17,9 +17,11 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
 
         protected override IEnumerable<TechnicalRequrementsTaskLookup> GetLookups(IUnitOfWork unitOfWork)
         {
-            return unitOfWork.Repository<TechnicalRequrementsTask>()
-                .Find(x => x.Requrements.SelectMany(r => r.SalesUnits).Any(su => su.Project.Manager.IsAppCurrentUser()))
-                .Select(x => new TechnicalRequrementsTaskLookup(x));
+            return GlobalAppProperties.User.RoleCurrent == Role.Admin 
+                    ? unitOfWork.Repository<TechnicalRequrementsTask>().GetAll().Select(x => new TechnicalRequrementsTaskLookup(x))
+                    : unitOfWork.Repository<TechnicalRequrementsTask>()
+                        .Find(technicalRequrementsTask => technicalRequrementsTask.Requrements.SelectMany(technicalRequrements => technicalRequrements.SalesUnits).Any(salesUnit => salesUnit.Project.Manager.IsAppCurrentUser()))
+                        .Select(technicalRequrementsTask => new TechnicalRequrementsTaskLookup(technicalRequrementsTask));
         }
 
         protected override IEnumerable<TechnicalRequrementsTaskLookup> GetActualLookups(Project project)
@@ -31,7 +33,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
 
         protected override bool CanBeShown(TechnicalRequrementsTask technicalRequrementsTask)
         {
-            return Filter != null && technicalRequrementsTask.Requrements.SelectMany(x => x.SalesUnits).Any(su => su.Project.Id == Filter.Id);
+            return Filter != null && technicalRequrementsTask.Requrements.SelectMany(technicalRequrements => technicalRequrements.SalesUnits).Any(salesUnit => salesUnit.Project.Id == Filter.Id);
         }
     }
 }

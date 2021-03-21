@@ -17,9 +17,11 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
 
         protected override IEnumerable<PriceCalculationLookup> GetLookups(IUnitOfWork unitOfWork)
         {
-            return unitOfWork.Repository<PriceCalculation>()
-                .Find(x => x.PriceCalculationItems.SelectMany(r => r.SalesUnits).Any(su => su.Project.Manager.IsAppCurrentUser()))
-                .Select(x => new PriceCalculationLookup(x));
+            return GlobalAppProperties.User.RoleCurrent == Role.Admin
+                ? unitOfWork.Repository<PriceCalculation>().GetAll().Select(x => new PriceCalculationLookup(x))
+                : unitOfWork.Repository<PriceCalculation>()
+                    .Find(priceCalculation => priceCalculation.PriceCalculationItems.SelectMany(priceCalculationItem => priceCalculationItem.SalesUnits).Any(salesUnit => salesUnit.Project.Manager.IsAppCurrentUser()))
+                    .Select(priceCalculation => new PriceCalculationLookup(priceCalculation));
         }
 
         protected override IEnumerable<PriceCalculationLookup> GetActualLookups(Project project)

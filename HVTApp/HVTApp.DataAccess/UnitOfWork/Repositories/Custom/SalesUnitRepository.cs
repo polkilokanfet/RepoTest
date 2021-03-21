@@ -164,6 +164,45 @@ namespace HVTApp.DataAccess
                 .ToList();
         }
 
+        public IEnumerable<SalesUnit> GetForFlatReportView()
+        {
+            Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
+            return this.GetQuary()
+                .Include(salesUnit => salesUnit.Project.Manager.Employee.Person)
+                .Include(salesUnit => salesUnit.Facility.Address.Locality)
+                .Include(salesUnit => salesUnit.Facility.OwnerCompany.AddressLegal.Locality)
+                .Include(salesUnit => salesUnit.Order)
+                .Include(salesUnit => salesUnit.Specification.Contract.Contragent.Form)
+                .Include(salesUnit => salesUnit.Producer)
+                .Where(salesUnit => !salesUnit.IsRemoved && salesUnit.Project.ForReport)
+                .ToList();
+        }
+
+        public IEnumerable<SalesUnit> GetForFlatReportView(IEnumerable<Guid> salesUnitsIds)
+        {
+            Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
+            return Context.Set<SalesUnit>().AsQueryable()
+
+                .Include(salesUnit => salesUnit.Facility.Type)
+                .Include(salesUnit => salesUnit.Product.ProductBlock.Parameters)
+                .Include(salesUnit => salesUnit.Product.DependentProducts.Select(productDependent => productDependent.Product.ProductBlock.Parameters))
+                .Include(salesUnit => salesUnit.ProductsIncluded.Select(productIncluded => productIncluded.Product.ProductBlock.Parameters))
+                .Include(salesUnit => salesUnit.PaymentConditionSet.PaymentConditions.Select(paymentCondition => paymentCondition.PaymentConditionPoint))
+                .Include(salesUnit => salesUnit.PaymentsActual)
+                .Include(salesUnit => salesUnit.PaymentsPlanned)
+                .Include(salesUnit => salesUnit.Project.Manager.Employee.Person)
+                .Include(salesUnit => salesUnit.Facility.Address.Locality)
+                .Include(salesUnit => salesUnit.Facility.OwnerCompany.AddressLegal.Locality)
+                .Include(salesUnit => salesUnit.Order)
+                .Include(salesUnit => salesUnit.Specification.Contract.Contragent.Form)
+                .Include(salesUnit => salesUnit.Producer)
+                .AsEnumerable()
+                .Where(salesUnit => salesUnitsIds.Contains(salesUnit.Id))
+                .ToList();
+        }
+
         //public async Task<IEnumerable<SalesUnit>> GetUsersSalesUnitsAsync()
         //{
         //    var su = await this.GetAllAsync();

@@ -31,7 +31,9 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
 
         protected override IEnumerable<OfferLookup> GetLookups(IUnitOfWork unitOfWork)
         {
-            _offerUnits = ((IOfferUnitRepository)unitOfWork.Repository<OfferUnit>()).GetAllOfCurrentUser().ToList();
+            _offerUnits = GlobalAppProperties.User.RoleCurrent == Role.Admin
+                ? unitOfWork.Repository<OfferUnit>().GetAll()
+                : ((IOfferUnitRepository)unitOfWork.Repository<OfferUnit>()).GetAllOfCurrentUser().ToList();
             return _offerUnits
                 .Select(offerUnit => offerUnit.Offer)
                 .Distinct()

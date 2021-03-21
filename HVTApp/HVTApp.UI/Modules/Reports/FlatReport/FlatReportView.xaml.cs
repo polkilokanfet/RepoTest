@@ -17,16 +17,16 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
             this.DataContext = viewModel;
         }
 
-        void IsCheckedValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-            if (Equals(e.OldValue, e.NewValue))
-                return;
+        //void IsCheckedValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        //{
+        //    if (Equals(e.OldValue, e.NewValue))
+        //        return;
             
-            var editor = sender as XamCheckEditor;
-            var item = (FlatReportItem)((DataRecord)editor.DataContext).DataItem;
-            if (item.InReport != editor.IsChecked.Value)
-                item.InReport = editor.IsChecked.Value;
-        }
+        //    var editor = sender as XamCheckEditor;
+        //    var item = (FlatReportItem)((DataRecord)editor.DataContext).DataItem;
+        //    if (item.InReport != editor.IsChecked.Value)
+        //        item.InReport = editor.IsChecked.Value;
+        //}
 
     }
 }

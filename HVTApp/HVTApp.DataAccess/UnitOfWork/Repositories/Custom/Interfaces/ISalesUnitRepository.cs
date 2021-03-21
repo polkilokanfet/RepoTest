@@ -73,5 +73,17 @@ namespace HVTApp.DataAccess
         /// <returns></returns>
         IEnumerable<SalesUnit> GetForDatesView();
 
+        /// <summary>
+        /// Получить все юниты для FlatReportView
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<SalesUnit> GetForFlatReportView();
+
+        /// <summary>
+        /// Получить все юниты для FlatReportView
+        /// </summary>
+        /// <param name="salesUnitsIds">В соответствии с Id</param>
+        /// <returns></returns>
+        IEnumerable<SalesUnit> GetForFlatReportView(IEnumerable<Guid> salesUnitsIds);
     }
 }

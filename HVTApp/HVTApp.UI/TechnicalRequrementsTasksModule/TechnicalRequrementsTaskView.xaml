@@ -98,7 +98,8 @@
 
                                 <infgDp:CheckBoxField AlternateBinding="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                                       BindingType="UseAlternateBinding" 
-                                                      Label=" " Width="Auto" 
+                                                      Label=" " 
+                                                      Width="Auto" 
                                                       AllowEdit="True"
                                                       AllowResize="False">
                                                       <!--Visibility="{Binding ElementName=ViewBase, Path=ViewModel1.CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityConverter}}"-->

@@ -14,7 +14,11 @@
         </Grid.RowDefinitions>
                
         <GroupBox Header="Исходные данные">
-            <infg:XamDataGrid DataSource="{Binding Items}" SelectedDataItem="{Binding SelectedItem}" SelectedDataItems="{Binding SelectedItems, Mode=TwoWay}" SelectedDataItemsScope="RecordsOrCells">
+            <infg:XamDataGrid DataSource="{Binding Items}" 
+                              SelectedDataItem="{Binding SelectedItem}" 
+                              SelectedDataItems="{Binding SelectedItems, Mode=TwoWay}" 
+                              SelectedDataItemsScope="RecordsOrCells"
+                              Style="{StaticResource XamDataGridUpdateOnCellValueChange}">
             
                 <infg:XamDataGrid.ContextMenu>
                 <ContextMenu>
@@ -24,6 +28,7 @@
 
                 <infg:XamDataGrid.FieldLayouts>
                     <infg:FieldLayout>
+
                         <infg:FieldLayout.RecordFilters>
 
                             <infg:RecordFilter FieldName="InReport">
@@ -49,20 +54,10 @@
 
 
                         <infg:FieldLayout.Fields>
-                            <infg:CheckBoxField Name="InReport" BindingType="UseAlternateBinding" AlternateBinding="{Binding InReport, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Label="Отч." Width="Auto" AllowEdit="True">
-                                <!--<infg:Field.Settings>
-                                    <infg:FieldSettings>
-                                        <infg:FieldSettings.EditorStyle>
-                                            <Style TargetType="{x:Type igEditors:XamCheckEditor}">
-                                                <EventSetter Event="ValueChanged" Handler="IsCheckedValueChanged" />
-                                            </Style>
-                                        </infg:FieldSettings.EditorStyle>
-                                    </infg:FieldSettings>
-                                </infg:Field.Settings>-->
-                            </infg:CheckBoxField>
-                            <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.Facility}" Converter="{StaticResource ObjectToStringConverter}" Label="Объект" Width="Auto"/>
-                            <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.Product.ProductType.Name}" Label="Тип продукта" Width="Auto"/>
-                            <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.Product.Designation}" Label="Обозначение" Width="Auto"/>
+                            <infg:CheckBoxField Name="InReport" BindingType="UseAlternateBinding" AlternateBinding="{Binding InReport, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Label="Отч." Width="Auto" AllowEdit="True" />
+                            <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.Facility}" Converter="{StaticResource ObjectToStringConverter}" Label="Объект" Width="200"/>
+                            <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.Product.ProductType.Name}" Label="Тип продукта" Width="200"/>
+                            <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.Product.Designation}" Label="Обозначение" Width="300"/>
                                     
                             <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.Cost}" Label="Цена" Width="Auto"/>
                             <infg:NumericField Name="EstimatedCost" Label="Цена (предп.)" Width="Auto" AllowEdit="True"/>                                    

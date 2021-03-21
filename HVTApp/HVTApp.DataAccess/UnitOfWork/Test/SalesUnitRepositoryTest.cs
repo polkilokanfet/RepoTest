@@ -55,5 +55,15 @@ namespace HVTApp.DataAccess
         {
             throw new NotImplementedException();
         }
+
+        public IEnumerable<SalesUnit> GetForFlatReportView()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<SalesUnit> GetForFlatReportView(IEnumerable<Guid> salesUnitsIds)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
