@@ -33,6 +33,18 @@ namespace EventServiceClient2.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/HostIsAlive", ReplyAction="http://tempuri.org/IEventService/HostIsAliveResponse")]
         System.Threading.Tasks.Task<bool> HostIsAliveAsync();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/UserIsConnected", ReplyAction="http://tempuri.org/IEventService/UserIsConnectedResponse")]
+        bool UserIsConnected(System.Guid userId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/UserIsConnected", ReplyAction="http://tempuri.org/IEventService/UserIsConnectedResponse")]
+        System.Threading.Tasks.Task<bool> UserIsConnectedAsync(System.Guid userId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/CopyProjectAttachments", ReplyAction="http://tempuri.org/IEventService/CopyProjectAttachmentsResponse")]
+        bool CopyProjectAttachments(System.Guid userId, System.Guid projectId, string targetDirectory);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/CopyProjectAttachments", ReplyAction="http://tempuri.org/IEventService/CopyProjectAttachmentsResponse")]
+        System.Threading.Tasks.Task<bool> CopyProjectAttachmentsAsync(System.Guid userId, System.Guid projectId, string targetDirectory);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/SendMessageToChat", ReplyAction="http://tempuri.org/IEventService/SendMessageToChatResponse")]
         void SendMessageToChat(System.Guid authorId, string message);
         
@@ -154,6 +166,9 @@ namespace EventServiceClient2.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnServiceDisposeEvent")]
         void OnServiceDisposeEvent();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/CopyProjectAttachmentsCallback", ReplyAction="http://tempuri.org/IEventService/CopyProjectAttachmentsCallbackResponse")]
+        bool CopyProjectAttachmentsCallback(System.Guid userId, System.Guid projectId, string targetDirectory);
+        
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnSendMessageToChat")]
         void OnSendMessageToChat(System.Guid authorId, string message);
         
@@ -268,6 +283,22 @@ namespace EventServiceClient2.ServiceReference1 {
         
         public System.Threading.Tasks.Task<bool> HostIsAliveAsync() {
             return base.Channel.HostIsAliveAsync();
+        }
+        
+        public bool UserIsConnected(System.Guid userId) {
+            return base.Channel.UserIsConnected(userId);
+        }
+        
+        public System.Threading.Tasks.Task<bool> UserIsConnectedAsync(System.Guid userId) {
+            return base.Channel.UserIsConnectedAsync(userId);
+        }
+        
+        public bool CopyProjectAttachments(System.Guid userId, System.Guid projectId, string targetDirectory) {
+            return base.Channel.CopyProjectAttachments(userId, projectId, targetDirectory);
+        }
+        
+        public System.Threading.Tasks.Task<bool> CopyProjectAttachmentsAsync(System.Guid userId, System.Guid projectId, string targetDirectory) {
+            return base.Channel.CopyProjectAttachmentsAsync(userId, projectId, targetDirectory);
         }
         
         public void SendMessageToChat(System.Guid authorId, string message) {

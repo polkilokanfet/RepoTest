@@ -29,6 +29,23 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
         [OperationContract]
         bool HostIsAlive();
 
+        /// <summary>
+        /// Пользователь подключен к сервису
+        /// </summary>
+        /// <returns></returns>
+        [OperationContract]
+        bool UserIsConnected(Guid userId);
+
+        /// <summary>
+        /// Скопировать приложения к проекту
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="projectId"></param>
+        /// <param name="targetDirectory">Куда копировать приложения</param>
+        /// <returns></returns>
+        [OperationContract]
+        bool CopyProjectAttachments(Guid userId, Guid projectId, string targetDirectory);
+
         #region Chat
 
         [OperationContract]

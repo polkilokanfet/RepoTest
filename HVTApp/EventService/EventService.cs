@@ -55,6 +55,16 @@ namespace EventService
             return true;
         }
 
+        public bool UserIsConnected(Guid userId)
+        {
+            return _appSessions.Select(appSession => appSession.UserId).Contains(userId);
+        }
+
+        public bool CopyProjectAttachments(Guid userId, Guid projectId, string targetDirectory)
+        {
+            throw new NotImplementedException();
+        }
+
         #region PublishEventsByService
 
         #region IncomingRequest

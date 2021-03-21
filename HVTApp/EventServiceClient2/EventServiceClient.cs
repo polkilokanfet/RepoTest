@@ -206,6 +206,11 @@ namespace EventServiceClient2
             //_container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", "Синхронизация прекращена.");
         }
 
+        public bool CopyProjectAttachmentsCallback(Guid userId, Guid projectId, string targetDirectory)
+        {
+            throw new NotImplementedException();
+        }
+
         //действия, когда прилетают события из сервера синхронизации
         #region Service Callback Actions
 
