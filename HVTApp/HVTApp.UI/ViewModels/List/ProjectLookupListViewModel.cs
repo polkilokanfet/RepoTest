@@ -1,3 +1,4 @@
+using System.IO;
 using System.Windows.Forms;
 using System.Windows.Input;
 using HVTApp.Infrastructure.Interfaces.Services.EventService;
@@ -15,9 +16,9 @@ namespace HVTApp.UI.ViewModels
             CopyAttachmentsCommand = new DelegateCommand(
                 () =>
                 {
-                    IEventService eventService = Container.Resolve<IEventService>();
+                    IEventServiceClient eventServiceClient = Container.Resolve<IEventServiceClient>();
                     IMessageService messageService = Container.Resolve<IMessageService>();
-                    if (eventService.UserIsConnected(SelectedItem.Manager.Id))
+                    if (eventServiceClient.UserConnected(SelectedItem.Manager.Id))
                     {
                         using (var fdb = new FolderBrowserDialog())
                         {
@@ -25,11 +26,10 @@ namespace HVTApp.UI.ViewModels
                             if (dialogResult == DialogResult.OK && !string.IsNullOrWhiteSpace(fdb.SelectedPath))
                             {
                                 var targetDirectoryPath = fdb.SelectedPath;
-                                var result = eventService.CopyProjectAttachments(SelectedItem.Manager.Id, SelectedItem.Id, targetDirectoryPath);
-                                if (result)
-                                {
-                                    messageService.ShowOkMessageDialog("Info", $"Succsess. Copied to: {targetDirectoryPath}");
-                                }
+                                targetDirectoryPath = Path.Combine(targetDirectoryPath, SelectedItem.Id.ToString());
+                                PathGetter.CreateDirectoryPathIfNotExists(targetDirectoryPath);
+                                eventServiceClient.CopyProjectAttachmentsRequest(SelectedItem.Manager.Id, SelectedItem.Id, targetDirectoryPath);
+                                messageService.ShowOkMessageDialog("Info", $"Started copy proccess to: {targetDirectoryPath}");
                             }
                         }
                     }

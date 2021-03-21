@@ -5,7 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using HVTApp.Infrastructure.Services;
 
-namespace HVTApp.UI
+namespace HVTApp.Infrastructure
 {
     //public class FilesNotFoundException : Exception { }
     public class FileNotSingleFoundException : Exception { }

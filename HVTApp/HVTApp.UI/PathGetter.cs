@@ -12,7 +12,7 @@ namespace HVTApp.UI
         public const string OffersFolderName = "ТКП";
         public const string CorrespondenceFolderName = "Переписка";
         public const string TceTempFolderName = "TceTemp";
-        public const string HVTAppProjectsFolderName = "HVTAppProjects";
+        public const string HvtAppProjectsFolderName = "HVTAppProjects";
 
         /// <summary>
         /// путь к папке файла тех.требований
@@ -93,7 +93,7 @@ namespace HVTApp.UI
 
             //путь к папке проекта
             var projectsFolderPath = string.IsNullOrEmpty(Properties.Settings.Default.ProjectsFolderPath)
-                ? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), HVTAppProjectsFolderName)
+                ? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), HvtAppProjectsFolderName)
                 : Properties.Settings.Default.ProjectsFolderPath;
 
             var path = GetPath(project.Id, projectsFolderPath, project.Name);
@@ -135,7 +135,7 @@ namespace HVTApp.UI
         /// Создать директорию, если ее не существует.
         /// </summary>
         /// <param name="path">Путь к директории</param>
-        private static bool CreateDirectoryPathIfNotExists(string path)
+        public static bool CreateDirectoryPathIfNotExists(string path)
         {
             try
             {
@@ -146,7 +146,7 @@ namespace HVTApp.UI
 
                 return true;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }

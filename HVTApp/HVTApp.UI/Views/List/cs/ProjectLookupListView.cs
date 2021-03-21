@@ -3,7 +3,7 @@ using HVTApp.UI.Modules.Sales.Tabs;
 
 namespace HVTApp.UI.Views
 {
-    [RibbonTab(typeof(TabProjects))]
+    [RibbonTab(typeof(HVTApp.UI.Tabs.TabProjects))]
     public partial class ProjectLookupListView
     {
     }

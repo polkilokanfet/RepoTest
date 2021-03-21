@@ -117,9 +117,6 @@
   <wsdl:message name="IEventService_CopyProjectAttachmentsCallback_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:CopyProjectAttachmentsCallback" />
   </wsdl:message>
-  <wsdl:message name="IEventService_CopyProjectAttachmentsCallback_InputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:CopyProjectAttachmentsCallbackResponse" />
-  </wsdl:message>
   <wsdl:message name="IEventService_OnSendMessageToChat_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnSendMessageToChat" />
   </wsdl:message>
@@ -268,7 +265,6 @@
     </wsdl:operation>
     <wsdl:operation name="CopyProjectAttachmentsCallback">
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/CopyProjectAttachmentsCallback" message="tns:IEventService_CopyProjectAttachmentsCallback_OutputCallbackMessage" />
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/CopyProjectAttachmentsCallbackResponse" message="tns:IEventService_CopyProjectAttachmentsCallback_InputCallbackMessage" />
     </wsdl:operation>
     <wsdl:operation name="OnSendMessageToChat">
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnSendMessageToChat" message="tns:IEventService_OnSendMessageToChat_OutputCallbackMessage" />
@@ -508,9 +504,6 @@
     </wsdl:operation>
     <wsdl:operation name="CopyProjectAttachmentsCallback">
       <soap12:operation soapAction="http://tempuri.org/IEventService/CopyProjectAttachmentsCallback" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>

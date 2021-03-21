@@ -12,6 +12,7 @@ using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
+using HVTApp.UI;
 using HVTApp.UI.Modules.BookRegistration.Views;
 using HVTApp.UI.Modules.Directum;
 using HVTApp.UI.PriceCalculations.View;
@@ -200,15 +201,41 @@ namespace EventServiceClient2
             this.Disable();
         }
 
+        public void CopyProjectAttachmentsRequest(Guid userId, Guid projectId, string targetDirectory)
+        {
+            if (_hostIsEnabled || _eventServiceHost != null)
+            {
+                _eventServiceHost.CopyProjectAttachments(userId, projectId, targetDirectory);
+            }
+        }
+
+        public bool UserConnected(Guid userId)
+        {
+            if (_hostIsEnabled || _eventServiceHost != null)
+            {
+                try
+                {
+                    return _eventServiceHost.UserIsConnected(userId);
+                }
+                catch (CommunicationObjectFaultedException)
+                {
+                    return false;
+                }
+            }
+
+            return false;
+        }
+
         public void OnServiceDisposeEvent()
         {
             this.DisableWaitReStart();
             //_container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", "Синхронизация прекращена.");
         }
 
-        public bool CopyProjectAttachmentsCallback(Guid userId, Guid projectId, string targetDirectory)
+        public void CopyProjectAttachmentsCallback(Guid projectId, string targetDirectory)
         {
-            throw new NotImplementedException();
+            Project project = _container.Resolve<IUnitOfWork>().Repository<Project>().GetById(projectId);
+            FilesStorage.CopyDirectory(PathGetter.GetPath(project), targetDirectory);
         }
 
         //действия, когда прилетают события из сервера синхронизации

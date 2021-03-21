@@ -62,7 +62,21 @@ namespace EventService
 
         public bool CopyProjectAttachments(Guid userId, Guid projectId, string targetDirectory)
         {
-            throw new NotImplementedException();
+            var appSession = _appSessions.FirstOrDefault(session => session.UserId == userId);
+            if (appSession != null)
+            {
+                try
+                {
+                    appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().CopyProjectAttachmentsCallback(projectId, targetDirectory);
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    this.PrintMessageEvent?.Invoke(e.GetAllExceptions());
+                }
+            }
+
+            return false;
         }
 
         #region PublishEventsByService

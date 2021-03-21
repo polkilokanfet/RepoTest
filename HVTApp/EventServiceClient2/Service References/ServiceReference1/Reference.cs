@@ -166,8 +166,8 @@ namespace EventServiceClient2.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnServiceDisposeEvent")]
         void OnServiceDisposeEvent();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/CopyProjectAttachmentsCallback", ReplyAction="http://tempuri.org/IEventService/CopyProjectAttachmentsCallbackResponse")]
-        bool CopyProjectAttachmentsCallback(System.Guid userId, System.Guid projectId, string targetDirectory);
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/CopyProjectAttachmentsCallback")]
+        void CopyProjectAttachmentsCallback(System.Guid projectId, string targetDirectory);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnSendMessageToChat")]
         void OnSendMessageToChat(System.Guid authorId, string message);
