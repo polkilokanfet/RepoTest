@@ -89,8 +89,9 @@
                 <infg:XamDataGrid.FieldLayouts>
                     <infg:FieldLayout>
                         <infg:FieldLayout.Fields>
-                            <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Name}" Label="Имя" Width="*"  AllowResize="True" />
+                            <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Name}" Label="Имя" Width="*" AllowResize="True" />
                             <infg:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding LoadMoment}" Label="Создан" Width="Auto" AllowResize="False" />
+                            <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Author}" Label="Автор" Width="50" AllowResize="True" Converter="{StaticResource ObjectToStringConverter}"/>
                         </infg:FieldLayout.Fields>
                     </infg:FieldLayout>
                 </infg:XamDataGrid.FieldLayouts>

@@ -23,18 +23,25 @@ namespace HVTApp.UI.Modules.Directum
 {
     public class DirectumTaskViewModel : ViewModelBase
     {
+        #region Fields
+
         private bool _taskIsNew = false;
         private bool _taskIsSubTask = false;
         private DirectumTaskRouteWrapper _route = new DirectumTaskRouteWrapper(new DirectumTaskRoute());
-        private DirectumTaskWrapper _directumTask = new DirectumTaskWrapper(new Model.POCOs.DirectumTask {Group = new DirectumTaskGroup {StartAuthor = DateTime.Now} });
+        private DirectumTaskWrapper _directumTask = new DirectumTaskWrapper(new Model.POCOs.DirectumTask { Group = new DirectumTaskGroup { StartAuthor = DateTime.Now } });
         private DirectumTaskMessageWrapper _message;
         private Model.POCOs.DirectumTask _parentTask;
         private readonly IMessageService _messageService;
         private readonly string _rootFilesDirectoryPath = GlobalAppProperties.Actual.DirectumAttachmentsPath;
+        private readonly Guid _currentUserId = GlobalAppProperties.User.Id;
 
         //необходимо при согласовании последовательных задач
         private List<DirectumTaskMessageWrapper> _messagesSeria;
         private DirectumTaskGroupFileWrapper _selectedFile;
+
+        #endregion
+
+        #region Props
 
         /// <summary>
         /// Задача
@@ -76,6 +83,9 @@ namespace HVTApp.UI.Modules.Directum
             }
         }
 
+        /// <summary>
+        /// Новая ли задача (только создается).
+        /// </summary>
         public bool TaskIsNew
         {
             get => _taskIsNew;
@@ -91,6 +101,9 @@ namespace HVTApp.UI.Modules.Directum
             }
         }
 
+        /// <summary>
+        /// Данная задача является подзадачей?
+        /// </summary>
         public bool TaskIsSubTask
         {
             get => _taskIsSubTask;
@@ -112,7 +125,7 @@ namespace HVTApp.UI.Modules.Directum
         /// <summary>
         /// Разрешено ли создавать подзадачи
         /// </summary>
-        public bool AllowSubTask => !TaskIsNew;
+        public bool AllowSubTask => TaskIsNew == false;
 
         /// <summary>
         /// Разрешение на выполнение задачи
@@ -156,6 +169,8 @@ namespace HVTApp.UI.Modules.Directum
                 OnPropertyChanged();
             }
         }
+
+        #endregion
 
         #region ICommand
 
@@ -356,6 +371,8 @@ namespace HVTApp.UI.Modules.Directum
                     Message.Moment = moment;
                     DirectumTask.FinishPerformer = moment;
                     DirectumTask.AcceptChanges();
+                    AddFiles();
+                    RemoveFiles();
                     UnitOfWork.SaveChanges();
 
                     Container.Resolve<IEventAggregator>().GetEvent<AfterSaveDirectumTaskEvent>().Publish(DirectumTask.Model);
@@ -452,7 +469,7 @@ namespace HVTApp.UI.Modules.Directum
 
                     if (openFileDialog.ShowDialog() == DialogResult.OK)
                     {
-                        User currentUser = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id);
+                        User currentUser = UnitOfWork.Repository<User>().GetById(_currentUserId);
                         UserWrapper currentUserWrapper = new UserWrapper(currentUser);
                         //копируем каждый файл
                         foreach (var path in openFileDialog.FileNames)
@@ -467,7 +484,13 @@ namespace HVTApp.UI.Modules.Directum
                         }
                     }
                 },
-                () => DirectumTask != null && TaskIsNew && !TaskIsSubTask);
+                () =>
+                {
+                    if (DirectumTask == null) return false;
+                    if (TaskIsNew) return true;
+                    if (AllowPerform) return true;
+                    return false;
+                });
 
             RemoveFileCommand = new DelegateCommand(
                 () =>
@@ -488,7 +511,16 @@ namespace HVTApp.UI.Modules.Directum
                     this.DirectumTask.Group.Files.Remove(SelectedFile);
                     SelectedFile = null;
                 }, 
-                () => DirectumTask != null && TaskIsNew && !TaskIsSubTask && SelectedFile != null);
+                () =>
+                {
+                    if (DirectumTask == null) return false;
+                    if (SelectedFile == null) return false;
+                    if (SelectedFile.Author.Id != _currentUserId) return false;
+                    if (TaskIsNew) return true;
+                    if (AllowPerform) return true;
+
+                    return false;
+                });
 
             OpenFileCommand = new DelegateCommand(
                 () =>
@@ -532,21 +564,21 @@ namespace HVTApp.UI.Modules.Directum
         {
             foreach (var keyValuePair in _filesToRemove)
             {
+                string path = keyValuePair.Value;
+                var file = keyValuePair.Key;
+
                 try
                 {
-                    string path = keyValuePair.Value;
-                    var file = keyValuePair.Key;
-
                     //удаление
                     FileInfo fileInfo = FilesStorage.FindFile(file.Id, _rootFilesDirectoryPath);
                     File.Delete(fileInfo.FullName);
-
-                    UnitOfWork.Repository<DirectumTaskGroupFile>().Delete(SelectedFile.Model);
                 }
-                catch (Exception e)
+                catch (FileNotFoundException e)
                 {
                     _messageService.ShowOkMessageDialog(e.GetType().Name, e.GetAllExceptions());
                 }
+
+                UnitOfWork.Repository<DirectumTaskGroupFile>().Delete(file.Model);
             }
 
             _filesToRemove.Clear();
