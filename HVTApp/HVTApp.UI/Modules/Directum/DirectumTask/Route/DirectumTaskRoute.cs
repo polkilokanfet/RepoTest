@@ -20,6 +20,26 @@ namespace HVTApp.UI.Modules.Directum
         public List<DirectumTaskRouteItem> Items { get; } = new List<DirectumTaskRouteItem>();
 
         public bool IsParallel { get; set; } = true;
+
+        public override string ToString()
+        {
+            if (Items.Any() == false)
+            {
+                return "Для формирования маршрута нажмите кнопку Маршрут. Она слева)";
+            }
+
+            if (Items.Count > 1)
+            {
+                if (IsParallel)
+                {
+                    return $"Параллельный: {Items.OrderBy(directumTaskRouteItem => directumTaskRouteItem.Performer.ToString()).Select(routeItem => routeItem.Performer).ToStringEnum()}";
+                }
+
+                return $"Последовательный: {Items.OrderBy(routeItem => routeItem.FinishPlan).ThenBy(directumTaskRouteItem => directumTaskRouteItem.Performer.ToString()).Select(routeItem => routeItem.Performer).ToStringEnum(" => ")}";
+            }
+
+            return $"{Items.Select(routeItem => routeItem.Performer).ToStringEnum()}";
+        }
     }
 
     public class DirectumTaskRouteWrapper : WrapperBase<DirectumTaskRoute>
@@ -49,13 +69,6 @@ namespace HVTApp.UI.Modules.Directum
         {
             if(!Items.Any())
                 yield return new ValidationResult("Не назначен ни один исполнитель.");
-        }
-
-        public override string ToString()
-        {
-            return !Items.Any() 
-                ? "Is empty" 
-                : Items.Select(x => x.Performer).ToStringEnum();
         }
     }
 

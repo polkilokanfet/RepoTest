@@ -19,9 +19,9 @@
         <infRib:ButtonTool Caption="На доработку" Command="{Binding RejectCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png" Visibility="{Binding AllowAccept, Converter={StaticResource BooleanToVisibilityConverter}}"/>
     </infRib:RibbonGroup>
 
-    <!--<infRib:RibbonGroup Caption="Подзадача" Visibility="{Binding AllowSubTask, Converter={StaticResource BooleanToVisibilityConverter}}">
+    <infRib:RibbonGroup Caption="Подзадача" Visibility="{Binding AllowSubTask, Converter={StaticResource BooleanToVisibilityConverter}}">
         <infRib:ButtonTool Caption="Создать" Command="{Binding SubTaskCommand}" SmallImage="/HVTApp.UI;component/Images/edit.png"/>
-    </infRib:RibbonGroup>-->
+    </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Приложения">
         <infRib:ButtonTool Caption="Добавить" Command="{Binding AddFileCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>

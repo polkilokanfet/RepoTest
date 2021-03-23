@@ -49,7 +49,7 @@
                 
                 <GroupBox Grid.Row="1" Header="История выполнения">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
-                        <directumTask:ContentTaskControl DataContext="{Binding DirectumTask, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <directumTask:ContentTaskControl DataContext="{Binding DirectumTaskToShow, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
                     </ScrollViewer>
                 </GroupBox>
                 
@@ -78,7 +78,7 @@
                
         <GroupBox Grid.Column="2" Header="Приложения">
 
-            <infg:XamDataGrid DataSource="{Binding DirectumTask.Group.Files, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+            <infg:XamDataGrid DataSource="{Binding Files, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                               ActiveDataItem="{Binding SelectedFile, Mode=TwoWay}"
                               Style="{StaticResource XamDataGridOnlyWithVisibleStarFields}">
 

@@ -196,6 +196,7 @@
     <Compile Include="Wrapper\Base\TrackingCollections\IValidatableChangeTrackingCollection.cs" />
     <Compile Include="Wrapper\Base\TrackingCollections\ValidatableChangeTrackingCollection.cs" />
     <Compile Include="Wrapper\Base\WrapperBase.cs" />
+    <Compile Include="Wrapper\Custom\Functionality\DirectumTaskGroupFileWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\DirectumTaskWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\DocumentWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\OfferUnitWrapper.cs" />

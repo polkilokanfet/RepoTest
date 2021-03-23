@@ -84,13 +84,13 @@ namespace HVTApp.UI.Modules.Directum
             AddPerformerCommand = new DelegateCommand(
                 () =>
                 {
-                    var users = UnitOfWork.Repository<User>().Find(x => x.Employee.Company.Id == GlobalAppProperties.Actual.OurCompany.Id);
-                    DirectumTaskRoute.Items.Select(x => x.Performer.Model).ForEach(user => users.RemoveIfContainsById(user));
+                    var users = UnitOfWork.Repository<User>().Find(user => user.Employee.Company.Id == GlobalAppProperties.Actual.OurCompany.Id);
+                    DirectumTaskRoute.Items.Select(routeItemWrapper => routeItemWrapper.Performer.Model).ForEach(user => users.RemoveIfContainsById(user));
                     var performer = Container.Resolve<ISelectService>().SelectItem(users);
                     if (performer != null)
                     {
                         if (!IsParallel && DirectumTaskRoute.Items.Any())
-                            FinishPlan = DirectumTaskRoute.Items.Max(x => x.FinishPlan).AddDays(1).SkipWeekend();
+                            FinishPlan = DirectumTaskRoute.Items.Max(routeItemWrapper => routeItemWrapper.FinishPlan).AddDays(1).SkipWeekend();
 
                         var item = new DirectumTaskRouteItemWrapper(new DirectumTaskRouteItem())
                         {
