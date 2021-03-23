@@ -12,9 +12,9 @@ using Prism.Commands;
 using Prism.Events;
 using Prism.Regions;
 
-namespace HVTApp.UI.Modules.Directum
+namespace HVTApp.UI.Modules.Directum.ToPerform
 {
-    public class DirectumTasksIncomingViewModel : DirectumTasksViewModelBase
+    public class DirectumTasksIncomingToPerformViewModel : DirectumTasksViewModelBase
     {
         private DirectumTaskLookup _selectedItem;
         public ObservableCollection<DirectumTaskLookup> Items { get; } = new ObservableCollection<DirectumTaskLookup>();
@@ -29,12 +29,12 @@ namespace HVTApp.UI.Modules.Directum
             }
         }
 
-        public DirectumTasksIncomingViewModel(IUnityContainer container) : base(container)
+        public DirectumTasksIncomingToPerformViewModel(IUnityContainer container) : base(container)
         {
             OpenDirectumTaskCommand = new DelegateCommand(
                 () =>
                 {
-                    RegionManager.RequestNavigateContentRegion<DirectumTaskView>(new NavigationParameters { {nameof(DirectumTask), SelectedItem.Entity} });
+                    RegionManager.RequestNavigateContentRegion<DirectumTaskView>(new NavigationParameters { { nameof(DirectumTask), SelectedItem.Entity } });
                 },
                 () => SelectedItem != null);
 
@@ -54,17 +54,7 @@ namespace HVTApp.UI.Modules.Directum
                     //если задачу нужно выполнить
                     if (task.Performer.IsAppCurrentUser())
                     {
-                        Items.Add(new DirectumTaskLookup(task) {Direction = "Исполнение"});
-                    }
-
-                    //если задачу нужно принять
-                    if (task.FinishPerformer.HasValue &&
-                        task.StartResult.HasValue &&
-                        task.Group.Author.IsAppCurrentUser() && 
-                        !HaveTale(task) &&
-                        !Items.ContainsById(task))
-                    {
-                        Items.Add(new DirectumTaskLookup(task) {Direction = "Контроль"});
+                        Items.Add(new DirectumTaskLookup(task) { Direction = "Исполнение" });
                     }
                 });
 
@@ -84,13 +74,7 @@ namespace HVTApp.UI.Modules.Directum
                 .Where(directumTask => directumTask.Performer.Id == GlobalAppProperties.User.Id && directumTask.StartResult.HasValue)
                 .Select(directumTask => new DirectumTaskLookup(directumTask) { Direction = "Исполнение" });
 
-            //задачи на проверку
-            var tasksToAccept = _directumTasks
-                .Where(directumTask => directumTask.FinishPerformer.HasValue && directumTask.StartResult.HasValue && directumTask.Group.Author.Id == GlobalAppProperties.User.Id && !HaveTale(directumTask))
-                .Select(directumTask => new DirectumTaskLookup(directumTask) { Direction = "Контроль" });
-
             _directumTaskLookups = tasksToPerform
-                .Union(tasksToAccept)
                 .OrderByDescending(directumTaskLookup => directumTaskLookup.StartResult)
                 .ToList();
         }
@@ -99,16 +83,6 @@ namespace HVTApp.UI.Modules.Directum
         {
             Items.Clear();
             Items.AddRange(_directumTaskLookups);
-        }
-
-        /// <summary>
-        /// Задача не является последней в цепочке последовательных задач
-        /// </summary>
-        /// <param name="directumTask"></param>
-        /// <returns></returns>
-        private bool HaveTale(Model.POCOs.DirectumTask directumTask)
-        {
-            return _directumTasks.Any(task => task.PreviousTask?.Id == directumTask.Id);
         }
     }
 }

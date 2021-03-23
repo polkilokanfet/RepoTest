@@ -250,6 +250,8 @@
     <Compile Include="UnitOfWork\BaseRepository.cs" />
     <Compile Include="HVTAppContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitOfWork\Repositories\Custom\DirectumTaskRepository.cs" />
+    <Compile Include="UnitOfWork\Repositories\Custom\Interfaces\IDirectumTaskRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\Custom\Interfaces\IOfferRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\Custom\Interfaces\IOfferUnitRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\Custom\Interfaces\ISalesUnitRepository.cs" />
@@ -273,6 +275,7 @@
     <Compile Include="UnitOfWork\Repositories\IRepositories.g.cs" />
     <Compile Include="UnitOfWork\Repositories\Repositories.g.cs" />
     <Compile Include="UnitOfWork\TestBaseRepository.cs" />
+    <Compile Include="UnitOfWork\Test\DirectumTaskRepositoryTest.cs" />
     <Compile Include="UnitOfWork\Test\OfferRepositoryTest.cs" />
     <Compile Include="UnitOfWork\Test\OfferUnitRepositoryTest.cs" />
     <Compile Include="UnitOfWork\Test\ProjectRepositoryTest.cs" />

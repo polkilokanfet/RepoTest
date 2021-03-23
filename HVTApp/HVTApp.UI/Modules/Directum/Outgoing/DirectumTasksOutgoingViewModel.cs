@@ -1,5 +1,7 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
@@ -20,7 +22,7 @@ namespace HVTApp.UI.Modules.Directum
 
         public DirectumTaskGroupLookup SelectedItem
         {
-            get { return _selectedItem; }
+            get => _selectedItem;
             set
             {
                 _selectedItem = value;
@@ -42,42 +44,49 @@ namespace HVTApp.UI.Modules.Directum
             Container.Resolve<IEventAggregator>().GetEvent<AfterSaveDirectumTaskEvent>().Subscribe(
                 task =>
                 {
-                    if (Items.SelectMany(x => x.DirectumTasks).ContainsById(task))
+                    if (Items.SelectMany(directumTaskGroupLookup => directumTaskGroupLookup.DirectumTasks).ContainsById(task))
                     {
-                        var lookup = Items.Single(x => x.DirectumTasks.ContainsById(task));
+                        var lookup = Items.Single(directumTaskGroupLookup => directumTaskGroupLookup.DirectumTasks.ContainsById(task));
                         RefreshLookup(lookup, task.Group);
                         return;
                     }
 
-                    if (task.Group.Author.Id == GlobalAppProperties.User.Id)
+                    if (task.Group.Author.IsAppCurrentUser())
                     {
                         Items.Add(RefreshLookup(new DirectumTaskGroupLookup(task.Group), task.Group));
                     }
                 });
-
-            Load();
         }
 
         private DirectumTaskGroupLookup RefreshLookup(DirectumTaskGroupLookup taskGroupLookup, DirectumTaskGroup taskGroup)
         {
             taskGroupLookup.DirectumTasks.Clear();
-            taskGroupLookup.DirectumTasks.AddRange(Container.Resolve<IUnitOfWork>().Repository<Model.POCOs.DirectumTask>().Find(x => x.Group.Id == taskGroup.Id));
+            taskGroupLookup.DirectumTasks.AddRange(Container.Resolve<IUnitOfWork>().Repository<Model.POCOs.DirectumTask>().Find(directumTask => directumTask.Group.Id == taskGroup.Id));
             taskGroupLookup.Refresh(taskGroup);
             return taskGroupLookup;
         }
 
-        protected override void Load()
+        private List<DirectumTaskGroupLookup> _groups;
+        protected override void GetData()
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
-            var tasks = UnitOfWork.Repository<Model.POCOs.DirectumTask>().Find(x => x.Group.Author.Id == GlobalAppProperties.User.Id);
-            var groups = tasks.Select(x => x.Group).Distinct().Select(x => new DirectumTaskGroupLookup(x)).OrderByDescending(x => x.StartAuthor).ToList();
-            foreach (var taskGroup in groups)
+            var tasks = ((IDirectumTaskRepository)UnitOfWork.Repository<Model.POCOs.DirectumTask>()).GetAllOfCurrentUser().ToList();
+            _groups = tasks
+                .Select(directumTask => directumTask.Group)
+                .Distinct()
+                .Select(directumTaskGroup => new DirectumTaskGroupLookup(directumTaskGroup))
+                .OrderByDescending(directumTaskGroupLookup => directumTaskGroupLookup.StartAuthor)
+                .ToList();
+            foreach (var taskGroup in _groups)
             {
-                taskGroup.DirectumTasks.AddRange(tasks.Where(x => x.Group.Id == taskGroup.Id));
+                taskGroup.DirectumTasks.AddRange(tasks.Where(directumTask => directumTask.Group.Id == taskGroup.Id));
             }
+        }
 
+        protected override void AfterGetData()
+        {
             Items.Clear();
-            Items.AddRange(groups);
+            Items.AddRange(_groups);
         }
     }
 }

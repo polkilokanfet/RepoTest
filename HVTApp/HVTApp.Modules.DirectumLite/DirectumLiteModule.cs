@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Prism;
 using HVTApp.Modules.DirectumLite.Menus;
@@ -32,21 +34,25 @@ namespace HVTApp.Modules.DirectumLite
         private void ShowDirectumTasks()
         {
             var viewModel = new DirectumTasksIncomingViewModel(Container);
-            //просроченные задачи
-            var targetItems = viewModel.Items
-                .Where(directumTask => directumTask.IsActual)
-                .Where(directumTask => 
-                    (directumTask.Group.Author.Id == GlobalAppProperties.User.Id && directumTask.FinishPlan < DateTime.Now) ||     //если пользователь автор задачи и задача просрочена
-                    (directumTask.Performer.Id == GlobalAppProperties.User.Id && !directumTask.StartPerformer.HasValue) ||         //если пользователь исполнитель и не приступил к исполнению задачи
-                    (directumTask.Performer.Id == GlobalAppProperties.User.Id && directumTask.FinishPlan < DateTime.Now))          //если пользователь исполнитель и просрочил выполнение
-                .ToList();
-            
-            if (targetItems.Any())
-            {
-                viewModel.Items.Clear();
-                viewModel.Items.AddRange(targetItems);
-                Container.Resolve<IDialogService>().Show(viewModel, "Новые задачи и задачи с истекшим сроком исполнения или проверки");
-            }
+            viewModel.LoadComplited +=
+                () =>
+                {
+                    //просроченные задачи
+                    var targetItems = viewModel.Items
+                        .Where(directumTask => directumTask.IsActual)
+                        .Where(directumTask =>
+                            (directumTask.Group.Author.Id == GlobalAppProperties.User.Id && directumTask.FinishPlan < DateTime.Now) ||     //если пользователь автор задачи и задача просрочена
+                            (directumTask.Performer.Id == GlobalAppProperties.User.Id && !directumTask.StartPerformer.HasValue) ||         //если пользователь исполнитель и не приступил к исполнению задачи
+                            (directumTask.Performer.Id == GlobalAppProperties.User.Id && directumTask.FinishPlan < DateTime.Now))          //если пользователь исполнитель и просрочил выполнение
+                        .ToList();
+
+                    if (targetItems.Any())
+                    {
+                        viewModel.Items.Clear();
+                        viewModel.Items.AddRange(targetItems);
+                        Container.Resolve<IDialogService>().Show(viewModel, "Новые задачи и задачи с истекшим сроком исполнения или проверки");
+                    }
+                };
         }
 
         protected override void ResolveOutlookGroup()

@@ -146,13 +146,21 @@
     <Compile Include="Modules\Directum\DirectumTask\TabDirectumTask.xaml.cs">
       <DependentUpon>TabDirectumTask.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Directum\Incoming\ToAccept\DirectumTasksIncomingToAcceptViewModel.cs" />
     <Compile Include="Modules\Directum\Incoming\DirectumTasksIncomingToLateView.xaml.cs">
       <DependentUpon>DirectumTasksIncomingToLateView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Directum\Incoming\ToAccept\DirectumTasksIncomingToAcceptView.xaml.cs">
+      <DependentUpon>DirectumTasksIncomingToAcceptView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Directum\Incoming\ToPerform\DirectumTasksIncomingToPerformViewModel.cs" />
     <Compile Include="Modules\Directum\Incoming\DirectumTasksIncomingView.xaml.cs">
       <DependentUpon>DirectumTasksIncomingView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Directum\Incoming\DirectumTasksIncomingViewModel.cs" />
+    <Compile Include="Modules\Directum\Incoming\ToPerform\DirectumTasksIncomingToPerformView.xaml.cs">
+      <DependentUpon>DirectumTasksIncomingToPerformView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Directum\Outgoing\DirectumTasksOutgoingViewModel.cs" />
     <Compile Include="Modules\Directum\DirectumTask\DirectumTaskView.xaml.cs">
       <DependentUpon>DirectumTaskView.xaml</DependentUpon>
@@ -957,6 +965,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\Directum\Incoming\DirectumTasksIncomingView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Directum\Incoming\ToAccept\DirectumTasksIncomingToAcceptView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Directum\Incoming\ToPerform\DirectumTasksIncomingToPerformView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

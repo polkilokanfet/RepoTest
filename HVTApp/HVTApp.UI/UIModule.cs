@@ -5,6 +5,8 @@ using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Prism;
 using HVTApp.UI.Modules.BookRegistration.Views;
 using HVTApp.UI.Modules.Directum;
+using HVTApp.UI.Modules.Directum.ToAccept;
+using HVTApp.UI.Modules.Directum.ToPerform;
 using HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual;
 using HVTApp.UI.Modules.PlanAndEconomy.PaymentsPlan;
 using HVTApp.UI.Modules.PlanAndEconomy.Supervision;
@@ -73,6 +75,8 @@ namespace HVTApp.UI
             Container.RegisterViewForNavigation<DirectumTaskView>();
             Container.RegisterViewForNavigation<DirectumTasksOutgoingView>();
             Container.RegisterViewForNavigation<DirectumTasksIncomingView>();
+            Container.RegisterViewForNavigation<DirectumTasksIncomingToAcceptView>();
+            Container.RegisterViewForNavigation<DirectumTasksIncomingToPerformView>();
             Container.RegisterViewForNavigation<ProductReplacementView>();
             Container.RegisterViewForNavigation<SupervisionView>();
             Container.RegisterViewForNavigation<Modules.Sales.Supervision.SupervisionView>();

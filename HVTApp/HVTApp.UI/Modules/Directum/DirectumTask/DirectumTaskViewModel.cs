@@ -671,7 +671,7 @@ namespace HVTApp.UI.Modules.Directum
                 ParentTask = _parentTask
             };
             DirectumTask = GetDirectumTaskWrapper(directumTask);
-            DirectumTask.Group.Title = $"{_parentTask.Group.Title} [подзадача]";
+            DirectumTask.Group.Title = $">> {_parentTask.Group.Title}";
             DirectumTask.Group.Message = _parentTask.Group.Message;
             DirectumTask.Group.Author = new UserWrapper(UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id));
 

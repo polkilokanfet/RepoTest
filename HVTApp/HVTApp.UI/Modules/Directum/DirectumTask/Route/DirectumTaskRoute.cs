@@ -25,7 +25,7 @@ namespace HVTApp.UI.Modules.Directum
         {
             if (Items.Any() == false)
             {
-                return "Для формирования маршрута нажмите кнопку Маршрут. Она слева)";
+                return "Для формирования маршрута нажмите кнопку \"Маршрут\". Она слева.";
             }
 
             if (Items.Count > 1)

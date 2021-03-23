@@ -18,6 +18,8 @@ namespace HVTApp.DataAccess
 
         public IEnumerable<Offer> GetAllOfCurrentUser()
         {
+            Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
             return this.GetQuary()
                 .Where(offer => offer.Project.Manager.Id == GlobalAppProperties.User.Id)
                 .ToList();

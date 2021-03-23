@@ -4,17 +4,16 @@
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               xmlns:prism="http://prismlibrary.com/" 
               xmlns:dataPresenter="http://infragistics.com/DataPresenter"
-              xmlns:controls="http://infragistics.com/Windows"
+              xmlns:ctrls="http://infragistics.com/Windows" 
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
               prism:ViewModelLocator.AutoWireViewModel="True">
 
-    <Grid>
-        
-		<dataPresenter:XamDataGrid x:Name="DirectumTaskLookupListGrid" 
-                                   Grid.Row="0" 
-                                   DataSource="{Binding Items}"
-                                   SelectedDataItem="{Binding SelectedItem}">
-        
-			<!--<dataPresenter:XamDataGrid.ContextMenu>
+    <controls:LoadableContentControl x:Name="LoadbleControl1" ContentIsLoaded="{Binding IsLoaded}">
+
+        <dataPresenter:XamDataGrid DataSource="{Binding Items}"
+                                   ActiveDataItem="{Binding SelectedItem}">
+
+            <!--<dataPresenter:XamDataGrid.ContextMenu>
 				<ContextMenu>
 					<MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
 				</ContextMenu>
@@ -26,35 +25,35 @@
 
 
             <dataPresenter:XamDataGrid.FieldLayouts>
-				<dataPresenter:FieldLayout>
+                <dataPresenter:FieldLayout>
 
                     <dataPresenter:FieldLayout.RecordFilters>
                         <dataPresenter:RecordFilter FieldName="IsActual">
                             <dataPresenter:RecordFilter.Conditions>
-                                <controls:ComparisonCondition Operator="Equals" Value="True" />
+                                <ctrls:ComparisonCondition Operator="Equals" Value="True" />
                             </dataPresenter:RecordFilter.Conditions>
                         </dataPresenter:RecordFilter>
                     </dataPresenter:FieldLayout.RecordFilters>
 
                     <dataPresenter:FieldLayout.Fields>
-                        
-                    <dataPresenter:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Title}" Label="Тема" Width="400" AllowResize="True"/>
-                    <dataPresenter:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding StartAuthor}" Label="Старт" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
-                    <dataPresenter:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding FinishPlan}" Label="Срок" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
-                    <dataPresenter:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding FinishPerformers}" Label="Исполнено" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
-                    <dataPresenter:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding Finish}" Label="Принято" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
-                    <dataPresenter:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Status}" Label="Статус" Width="Auto" AllowResize="True" />
-                    <dataPresenter:CheckBoxField Name="IsActual" BindingType="UseAlternateBinding" AlternateBinding="{Binding IsActual}" Label="A" Width="Auto" AllowResize="False"/>
-                    <dataPresenter:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Performers}" Label="Исполнители" Width="300" AllowResize="True" Converter="{StaticResource ObjectsToStringConverter}"/>
-                    <dataPresenter:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Id}" Label="Id" Width="Auto" AllowResize="True" />
 
-					</dataPresenter:FieldLayout.Fields>
-				</dataPresenter:FieldLayout>
+                        <dataPresenter:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Title}" Label="Тема" Width="400" AllowResize="True"/>
+                        <dataPresenter:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding StartAuthor}" Label="Старт" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
+                        <dataPresenter:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding FinishPlan}" Label="Срок" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
+                        <dataPresenter:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding FinishPerformers}" Label="Исполнено" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
+                        <dataPresenter:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding Finish}" Label="Принято" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
+                        <dataPresenter:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Status}" Label="Статус" Width="Auto" AllowResize="True" />
+                        <dataPresenter:CheckBoxField Name="IsActual" BindingType="UseAlternateBinding" AlternateBinding="{Binding IsActual}" Label="A" Width="Auto" AllowResize="False"/>
+                        <dataPresenter:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Performers}" Label="Исполнители" Width="300" AllowResize="True" Converter="{StaticResource ObjectsToStringConverter}"/>
+                        <dataPresenter:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Id}" Label="Id" Width="Auto" AllowResize="True" />
 
-			</dataPresenter:XamDataGrid.FieldLayouts>
-		</dataPresenter:XamDataGrid>
-        
-    </Grid>
+                    </dataPresenter:FieldLayout.Fields>
+                </dataPresenter:FieldLayout>
+
+            </dataPresenter:XamDataGrid.FieldLayouts>
+        </dataPresenter:XamDataGrid>
+
+    </controls:LoadableContentControl>
 
 </inf:ViewBase>
 
