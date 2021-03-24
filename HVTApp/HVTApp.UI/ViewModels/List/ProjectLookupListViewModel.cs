@@ -49,17 +49,18 @@ namespace HVTApp.UI.ViewModels
                                 var dialogResult = fdb.ShowDialog();
                                 if (dialogResult == DialogResult.OK && !string.IsNullOrWhiteSpace(fdb.SelectedPath))
                                 {
-                                    var targetDirectoryPath = fdb.SelectedPath;
+                                    var selectedDirectoryPath = fdb.SelectedPath;
 
                                     foreach (var selectedProject in selectedProjects)
                                     {
                                         if (!managers.Contains(selectedProject.Manager)) continue;
 
-                                        targetDirectoryPath = Path.Combine(targetDirectoryPath, selectedProject.Id.ToString());
+                                        var targetDirectoryPath = Path.Combine(selectedDirectoryPath, selectedProject.Id.ToString().Replace("-", string.Empty));
                                         PathGetter.CreateDirectoryPathIfNotExists(targetDirectoryPath);
                                         eventServiceClient.CopyProjectAttachmentsRequest(selectedProject.Manager.Id, selectedProject.Id, targetDirectoryPath);
                                     }
-                                    messageService.ShowOkMessageDialog("Info", $"Started copy proccess to: {targetDirectoryPath}");
+
+                                    messageService.ShowOkMessageDialog("Info", $"Started copy proccess to: {selectedDirectoryPath}");
                                 }
                             }
                         }

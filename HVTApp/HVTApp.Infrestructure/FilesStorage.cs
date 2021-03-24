@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
 
 namespace HVTApp.Infrastructure
@@ -72,6 +73,17 @@ namespace HVTApp.Infrastructure
                 messageService.ShowOkMessageDialog("Предупреждение", "Файлов больше одного!");
                 return string.Empty;
             }
+            catch (IOException ioException)
+            {
+                messageService.ShowOkMessageDialog(ioException.GetType().ToString(), ioException.GetAllExceptions());
+                return string.Empty;
+            }
+            catch (Exception e)
+            {
+                messageService.ShowOkMessageDialog(e.GetType().ToString(), e.GetAllExceptions());
+                return string.Empty;
+            }
+
 
             //выбор папки назначения
             if (targetDirectoryPath == null)
@@ -89,6 +101,7 @@ namespace HVTApp.Infrastructure
                     }
                 }
             }
+
 
             var fileName = $"{fileId}";
             if (!string.IsNullOrWhiteSpace(addToFileName))
@@ -125,7 +138,14 @@ namespace HVTApp.Infrastructure
 
             if (!string.IsNullOrEmpty(filePath))
             {
-                Process.Start(filePath);
+                try
+                {
+                    Process.Start(filePath);
+                }
+                catch (Exception e)
+                {
+                    messageService.ShowOkMessageDialog(e.GetType().ToString(), e.GetAllExceptions());
+                }
             }
         }
 
