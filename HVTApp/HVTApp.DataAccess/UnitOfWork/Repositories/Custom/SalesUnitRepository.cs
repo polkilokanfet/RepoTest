@@ -62,6 +62,34 @@ namespace HVTApp.DataAccess
                 .ToList();
         }
 
+        public IEnumerable<SalesUnit> GetAllForProductionPlanView()
+        {
+            Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
+            return Context.Set<SalesUnit>().AsQueryable()
+                .Include(salesUnit => salesUnit.Order)
+                .Include(salesUnit => salesUnit.Facility.Type)
+                .Include(salesUnit => salesUnit.Product.ProductBlock.Parameters)
+                .Include(salesUnit => salesUnit.Project.Manager.Employee.Person)
+                .Where(salesUnit => salesUnit.Order != null);
+        }
+
+        public IEnumerable<SalesUnit> GetAllForOrderView()
+        {
+            Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
+            return Context.Set<SalesUnit>().AsQueryable()
+                .Include(salesUnit => salesUnit.Order)
+                .Include(salesUnit => salesUnit.Specification.Contract.Contragent)
+                .Include(salesUnit => salesUnit.Facility.Type)
+                .Include(salesUnit => salesUnit.Product.ProductBlock.Parameters)
+                .Where(
+                    salesUnit =>
+                        !salesUnit.IsRemoved &&
+                        salesUnit.SignalToStartProduction.HasValue &&
+                        salesUnit.Order == null);
+        }
+
         public IEnumerable<SalesUnit> GetByProject(Guid projectId)
         {
             Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);

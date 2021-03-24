@@ -16,6 +16,16 @@ namespace HVTApp.DataAccess
             throw new NotImplementedException();
         }
 
+        public IEnumerable<SalesUnit> GetAllForProductionPlanView()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<SalesUnit> GetAllForOrderView()
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<SalesUnit> GetByProject(Guid projectId)
         {
             throw new NotImplementedException();

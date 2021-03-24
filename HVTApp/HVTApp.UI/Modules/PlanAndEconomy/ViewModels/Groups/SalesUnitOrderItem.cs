@@ -11,38 +11,38 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels.Groups
 
         public DateTime? SignalToStartProductionDone
         {
-            get { return GetValue<DateTime?>(); }
-            set { SetValue(value); }
+            get => GetValue<DateTime?>();
+            set => SetValue(value);
         }
         public DateTime? SignalToStartProductionDoneOriginalValue => GetOriginalValue<DateTime?>(nameof(SignalToStartProductionDone));
         public bool SignalToStartProductionDoneIsChanged => GetIsChanged(nameof(SignalToStartProductionDone));
 
         public DateTime? EndProductionPlanDate
         {
-            get { return GetValue<DateTime?>(); }
-            set { SetValue(value); }
+            get => GetValue<DateTime?>();
+            set => SetValue(value);
         }
         public DateTime? EndProductionPlanDateOriginalValue => GetOriginalValue<DateTime?>(nameof(EndProductionPlanDate));
         public bool EndProductionPlanDateIsChanged => GetIsChanged(nameof(EndProductionPlanDate));
 
         public string OrderPosition
         {
-            get { return GetValue<string>(); }
-            set { SetValue(value); }
+            get => GetValue<string>();
+            set => SetValue(value);
         }
         public string OrderPositionOriginalValue => GetOriginalValue<string>(nameof(OrderPosition));
         public bool OrderPositionIsChanged => GetIsChanged(nameof(OrderPosition));
 
         public OrderWrapper Order
         {
-            get { return GetWrapper<OrderWrapper>(); }
-            set { SetComplexValue<Order, OrderWrapper>(Order, value); }
+            get => GetWrapper<OrderWrapper>();
+            set => SetComplexValue<Order, OrderWrapper>(Order, value);
         }
 
         public DateTime EndProductionDateExpected => Model.DeliveryDateExpected.AddDays(-Model.DeliveryPeriodCalculated);
 
 
-        public string TceInfo => _priceCalculationItem?.ToString() ?? string.Empty;
+        public string TceInfo => _priceCalculationItem?.ToString() ?? "–асчет переменных затрат еще не делалс€";
 
 
         public SalesUnitOrderItem(SalesUnit model, PriceCalculationItem priceCalculationItem) : base(model)

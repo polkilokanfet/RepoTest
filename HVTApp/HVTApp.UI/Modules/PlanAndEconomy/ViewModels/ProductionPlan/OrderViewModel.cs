@@ -43,11 +43,12 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
                 {
                     var changed = _unitsWrappers.ModifiedItems.ToList();
 
+                    Item.AcceptChanges();
                     _unitsWrappers.AcceptChanges();
                     UnitOfWork.SaveChanges();
 
                     if(changed.Any())
-                        Container.Resolve<IEventAggregator>().GetEvent<AfterSaveOrderItemsEvent>().Publish(changed.Select(x => x.Model));
+                        Container.Resolve<IEventAggregator>().GetEvent<AfterSaveOrderItemsEvent>().Publish(changed.Select(salesUnitOrderItem => salesUnitOrderItem.Model));
 
                     ((DelegateCommand) SaveOrderCommand).RaiseCanExecuteChanged();
                 },
@@ -120,17 +121,17 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
         {
             //оставляем юниты без заказов либо с редактируемым заказом
             //исключаем юниты без сигнала к производству
-            var salesUnits = UnitOfWork.Repository<SalesUnit>()
-                .Find(salesUnit => 
-                    !salesUnit.IsRemoved && 
-                    salesUnit.SignalToStartProduction.HasValue && 
-                    salesUnit.Order == null);
+            var salesUnits = ((ISalesUnitRepository)UnitOfWork.Repository<SalesUnit>()).GetAllForOrderView().ToList();
 
             //юниты из заказа
             var salesUnitsInOrder = ((ISalesUnitRepository) UnitOfWork.Repository<SalesUnit>()).GetByOrder(Item.Id).ToList();
             salesUnits.AddRange(salesUnitsInOrder);
 
-            _unitsWrappers = new ValidatableChangeTrackingCollection<SalesUnitOrderItem>(salesUnits.Select(salesUnit => new SalesUnitOrderItem(salesUnit, salesUnit.ActualPriceCalculationItem(UnitOfWork))));
+            List<PriceCalculation> calculations = UnitOfWork.Repository<PriceCalculation>().GetAll();
+            List<SalesUnitOrderItem> salesUnitOrderItems = salesUnits
+                .Select(salesUnit => new SalesUnitOrderItem(salesUnit, salesUnit.ActualPriceCalculationItem(calculations)))
+                .ToList();
+            _unitsWrappers = new ValidatableChangeTrackingCollection<SalesUnitOrderItem>(salesUnitOrderItems);
 
             //юниты в заказе
             var unitsInOrder = _unitsWrappers.Where(item => item.Order != null).ToList();

@@ -366,7 +366,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                 () =>
                 {
                     var unitOfWork = Container.Resolve<IUnitOfWork>();
-                    var salesUnits = Items.Where(x => x.InReport).Where(x => !x.IsLoosen).SelectMany(x => x.SalesUnits).ToList();
+                    var salesUnits = Items.Where(flatReportItem => flatReportItem.InReport).Where(x => !x.IsLoosen).SelectMany(x => x.SalesUnits).ToList();
                     var salesUnits2 = unitOfWork.Repository<SalesUnit>().Find(x => salesUnits.ContainsById(x)).Select(GetSalesUnitWithInjectedData).ToList();
                     var paymentsPlanViewModel = new PaymentsPlanViewModel(Container, load:false);
                     paymentsPlanViewModel.Load(salesUnits2);

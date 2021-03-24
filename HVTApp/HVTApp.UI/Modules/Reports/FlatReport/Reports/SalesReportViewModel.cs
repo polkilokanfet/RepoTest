@@ -11,8 +11,6 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Reports
 {
     public class SalesReportViewModel : ViewModelBaseCanExportToExcel
     {
-        private readonly List<PriceCalculation> _priceCalculations;
-
         public List<SalesReportUnit> Units { get; }
 
         public SalesReportViewModel(IUnityContainer container, IUnitOfWork unitOfWork, List<SalesUnit> salesUnits) : base(container)
@@ -20,7 +18,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Reports
             UnitOfWork = unitOfWork;
             var tenders = UnitOfWork.Repository<Tender>().GetAll();
             var countryUnions = UnitOfWork.Repository<CountryUnion>().GetAll();
-            _priceCalculations = UnitOfWork.Repository<PriceCalculation>().GetAll();
+            var priceCalculations = UnitOfWork.Repository<PriceCalculation>().GetAll();
 
             //проставляем количество родительских юнитов включенного оборудования
             var productsIncluded = salesUnits.SelectMany(salesUnit => salesUnit.ProductsIncluded).ToList();
@@ -35,39 +33,10 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Reports
                 .ToList();
 
             var salesReportUnits = groups
-                .Select(x => new SalesReportUnit(x, tenders.Where(tender => Equals(x.Key.Project, tender.Project)), countryUnions, ActualPriceCalculationItem(x.First())))
+                .Select(x => new SalesReportUnit(x, tenders.Where(tender => Equals(x.Key.Project, tender.Project)), countryUnions, x.First().ActualPriceCalculationItem(priceCalculations)))
                 .ToList();
 
             Units = new List<SalesReportUnit>(salesReportUnits);
         }
-
-        /// <summary>
-        /// Актуальный расчет ПЗ
-        /// </summary>
-        /// <param name="salesUnit"></param>
-        /// <returns></returns>
-        private PriceCalculationItem ActualPriceCalculationItem(SalesUnit salesUnit)
-        {
-            var calculations = _priceCalculations
-                .Where(priceCalculation => priceCalculation.PriceCalculationItems.ContainsSalesUnit(salesUnit))
-                .ToList();
-
-            //позже всех запущено на расчет
-            var result = calculations
-                .Where(priceCalculation => priceCalculation.TaskOpenMoment.HasValue)
-                .OrderByDescending(priceCalculation => priceCalculation.TaskOpenMoment.Value)
-                .FirstOrDefault(priceCalculation => priceCalculation.PriceCalculationItems.ContainsSalesUnit(salesUnit))
-                ?.PriceCalculationItems.Single(priceCalculationItem => priceCalculationItem.SalesUnits.Contains(salesUnit));
-            if (result != null) return result;
-
-            //позже всех дата ОИТ
-            result = calculations
-                .SelectMany(priceCalculation => priceCalculation.PriceCalculationItems)
-                .OrderByDescending(priceCalculationItem => priceCalculationItem.OrderInTakeDate)
-                .FirstOrDefault(priceCalculationItem => priceCalculationItem.SalesUnits.Contains(salesUnit));
-
-            return result;
-        }
-
     }
 }

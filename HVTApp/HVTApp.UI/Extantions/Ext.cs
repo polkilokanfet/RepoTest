@@ -18,33 +18,49 @@ namespace HVTApp.UI
         public static PriceCalculationItem ActualPriceCalculationItem(this SalesUnit unit, IUnitOfWork unitOfWork)
         {
             var salesUnit = unitOfWork.Repository<SalesUnit>().GetById(unit.Id);
-            var calculations = unitOfWork.Repository<PriceCalculation>().Find(x => x.PriceCalculationItems.ContainsSalesUnit(salesUnit));
+            var calculations = unitOfWork.Repository<PriceCalculation>().Find(priceCalculation => priceCalculation.PriceCalculationItems.ContainsSalesUnit(salesUnit));
+
+            return salesUnit.ActualPriceCalculationItem(calculations);
+        }
+
+        /// <summary>
+        /// Актуальный расчет ПЗ
+        /// </summary>
+        /// <param name="salesUnit"></param>
+        /// <param name="calculationsAll"></param>
+        /// <returns></returns>
+        public static PriceCalculationItem ActualPriceCalculationItem(this SalesUnit salesUnit, IEnumerable<PriceCalculation> calculationsAll)
+        {
+            var calculations = calculationsAll
+                .Where(priceCalculation => priceCalculation.PriceCalculationItems.ContainsSalesUnit(salesUnit))
+                .ToList();
 
             //позже всех запущено на расчет
             var result = calculations
-                .Where(x => x.TaskOpenMoment.HasValue)
-                .OrderByDescending(x => x.TaskOpenMoment.Value)
-                .FirstOrDefault(x => x.PriceCalculationItems.ContainsSalesUnit(salesUnit))
-                ?.PriceCalculationItems.Single(x => x.SalesUnits.Contains(salesUnit));
+                .Where(priceCalculation => priceCalculation.TaskOpenMoment.HasValue)
+                .OrderByDescending(priceCalculation => priceCalculation.TaskOpenMoment.Value)
+                .FirstOrDefault(priceCalculation => priceCalculation.PriceCalculationItems.ContainsSalesUnit(salesUnit))
+                ?.PriceCalculationItems.Single(priceCalculationItem => priceCalculationItem.SalesUnits.ContainsById(salesUnit));
             if (result != null) return result;
 
             //позже всех дата ОИТ
             result = calculations
-                .SelectMany(x => x.PriceCalculationItems)
-                .OrderByDescending(x => x.OrderInTakeDate)
-                .FirstOrDefault(x => x.SalesUnits.Contains(salesUnit));
+                .SelectMany(priceCalculation => priceCalculation.PriceCalculationItems)
+                .OrderByDescending(priceCalculationItem => priceCalculationItem.OrderInTakeDate)
+                .FirstOrDefault(priceCalculationItem => priceCalculationItem.SalesUnits.ContainsById(salesUnit));
 
             return result;
         }
 
+
         public static bool ContainsSalesUnit(this IEnumerable<PriceCalculationItem> items, SalesUnit salesUnit)
         {
-            return items.SelectMany(x => x.SalesUnits).ContainsById(salesUnit);
+            return items.SelectMany(priceCalculationItem => priceCalculationItem.SalesUnits).ContainsById(salesUnit);
         }
 
         public static string Voltage(this Product product)
         {
-            return product.ProductBlock.Parameters.FirstOrDefault(x => Equals(x.ParameterGroup, GlobalAppProperties.Actual.VoltageGroup))?.Value;
+            return product.ProductBlock.Parameters.FirstOrDefault(parameter => Equals(parameter.ParameterGroup, GlobalAppProperties.Actual.VoltageGroup))?.Value;
         }
 
         public static Company GetWinner(this IEnumerable<Tender> tenders, TenderTypeEnum tenderType)
@@ -53,8 +69,8 @@ namespace HVTApp.UI
                 return null;
 
             return tenders
-                .Where(x => x.Types.Select(t => t.Type).Contains(tenderType))
-                .OrderBy(x => x.DateClose)
+                .Where(tender => tender.Types.Select(t => t.Type).Contains(tenderType))
+                .OrderBy(tender => tender.DateClose)
                 .LastOrDefault()?.Winner;
         }
 

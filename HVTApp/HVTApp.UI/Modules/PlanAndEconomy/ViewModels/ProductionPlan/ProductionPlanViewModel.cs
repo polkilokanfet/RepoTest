@@ -1,12 +1,14 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Modules.PlanAndEconomy.Views;
-using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Events;
@@ -14,7 +16,7 @@ using Prism.Regions;
 
 namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
 {
-    public class ProductionPlanViewModel : ViewModelBase
+    public class ProductionPlanViewModel : LoadableExportableViewModel
     {
         private OrderItem _selectedOrderItem;
         public ObservableCollection<OrderItem> OrderItems { get; } = new ObservableCollection<OrderItem>();
@@ -31,12 +33,9 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
 
         public ICommand NewOrderCommand { get; }
         public ICommand EditOrderCommand { get; }
-        public ICommand ReloadCommand { get; }
 
         public ProductionPlanViewModel(IUnityContainer container) : base(container)
         {
-            Load();
-
             NewOrderCommand = new DelegateCommand(
                 () =>
                 {
@@ -47,43 +46,49 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
                 () => { RequestNavigate(SelectedOrderItem.Order); }, 
                 () => SelectedOrderItem != null);
 
-            ReloadCommand = new DelegateCommand(Load);
 
             Container.Resolve<IEventAggregator>().GetEvent<AfterSaveOrderItemsEvent>().Subscribe(salesUnits =>
             {
                 var units = salesUnits.ToList();
                 if (units.First().Order == null) return;
-                if (OrderItems.Select(x => x.Order).ContainsById(units.First().Order)) return;
+                if (OrderItems.Select(orderItem => orderItem.Order).ContainsById(units.First().Order)) return;
 
                 OrderItems.Add(new OrderItem(units));
             });
 
             container.Resolve<IEventAggregator>().GetEvent<AfterRemoveOrderEvent>().Subscribe(order =>
             {
-                var items = OrderItems.Where(x => x.Order.Id == order.Id).ToList();
-                items.ForEach(x => this.OrderItems.Remove(x));
+                var items = OrderItems.Where(orderItem => orderItem.Order.Id == order.Id).ToList();
+                items.ForEach(orderItem => this.OrderItems.Remove(orderItem));
             });
         }
 
-        private void Load()
+        private List<OrderItem> _orderItems;
+        protected override void GetData()
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
-            var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => x.Order != null);
-            var groups = salesUnits.GroupBy(x => new
-            {
-                ProductId = x.Product.Id,
-                EndProductionPlanDate = x.EndProductionPlanDate,
-                OrderId = x.Order.Id
-            }).OrderByDescending(x => x.Key.EndProductionPlanDate);
+            var salesUnits = ((ISalesUnitRepository)UnitOfWork.Repository<SalesUnit>()).GetAllForProductionPlanView().ToList();
+            _orderItems = salesUnits
+                .GroupBy(salesUnit => new
+                {
+                    ProductId = salesUnit.Product.Id,
+                    EndProductionPlanDate = salesUnit.EndProductionPlanDate,
+                    OrderId = salesUnit.Order.Id
+                })
+                .Select(x => new OrderItem(x))
+                .OrderByDescending(orderItem => orderItem.EndProductionPlanDate)
+                .ToList();
+        }
 
+        protected override void AfterGetData()
+        {
             OrderItems.Clear();
-            OrderItems.AddRange(groups.Select(x => new OrderItem(x)));
+            OrderItems.AddRange(_orderItems);
         }
 
         private void RequestNavigate(Order order)
         {
             Container.Resolve<IRegionManager>().RequestNavigateContentRegion<OrderView>(new NavigationParameters { { nameof(Order), order } });
         }
-
     }
 }

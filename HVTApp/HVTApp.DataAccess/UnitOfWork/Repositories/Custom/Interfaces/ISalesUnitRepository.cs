@@ -19,6 +19,19 @@ namespace HVTApp.DataAccess
         /// <returns></returns>
         IEnumerable<SalesUnit> GetAllOfCurrentUserForMarketView();
 
+        /// <summary>
+        /// Получить все юниты для ProductionPlanView
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<SalesUnit> GetAllForProductionPlanView();
+
+
+        /// <summary>
+        /// Получить все юниты для OrderView
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<SalesUnit> GetAllForOrderView();
+
         ///// <summary>
         ///// Получить все юниты авторизованного пользователя асинхронно
         ///// </summary>

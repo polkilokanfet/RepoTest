@@ -3,30 +3,36 @@
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               xmlns:prism="http://prismlibrary.com/"
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
               prism:ViewModelLocator.AutoWireViewModel="True"
               x:Class="HVTApp.UI.Modules.PlanAndEconomy.Views.ProductionPlanView">
 
-    <Grid>
+    <controls:LoadableContentControl x:Name="LoadbleControl" ContentIsLoaded="{Binding IsLoaded}">
         <infg:XamDataGrid DataSource="{Binding OrderItems}" 
                           ActiveDataItem="{Binding SelectedOrderItem}">
-            
-        <infg:XamDataGrid.FieldLayouts>
-            <infg:FieldLayout>
-                <infg:TextField Name="Facility" Label="Объект" Width="Auto"/>
-                <infg:TextField Name="Product" Label="Продукт" Width="500"/>
-                <infg:NumericField Name="Amount" Label="Кол." Width="Auto" AllowResize="False"/>
-                <infg:TextField Name="Order" Label="З/з" Width="Auto" AllowResize="False"/>
-                <infg:DateTimeField Name="OrderOpenDate" Label="Открытие з/з" Width="Auto" AllowResize="False"/>
-                <infg:DateTimeField Name="EndProductionDate" Label="Расчетная дата" Width="Auto" AllowResize="False"/>
-                <infg:DateTimeField Name="EndProductionPlanDate" Label="Плановая дата" Width="Auto" AllowResize="False"/>
-                <infg:NumericField Name="EndProductionPlanDateYear" Label="Год" Width="Auto" AllowResize="False"/>
-                <infg:NumericField Name="EndProductionPlanDateMonth" Label="Месяц" Width="Auto" AllowResize="False"/>
-                <infg:TextField Name="Manager" Label="Менеджер" Width="Auto"/>
-            </infg:FieldLayout>
-        </infg:XamDataGrid.FieldLayouts>
-            
-    </infg:XamDataGrid>
-    </Grid>
+
+            <infg:XamDataGrid.InputBindings>
+                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=EditOrderCommand, Mode=OneWay}" />
+            </infg:XamDataGrid.InputBindings>
+
+            <infg:XamDataGrid.FieldLayouts>
+                <infg:FieldLayout>
+                    <infg:TextField Name="Facility" Label="Объект" Width="200"/>
+                    <infg:TextField Name="Product" Label="Продукт" Width="500"/>
+                    <infg:NumericField Name="Amount" Label="Кол." Width="Auto" AllowResize="False"/>
+                    <infg:TextField Name="Order" Label="З/з" Width="Auto" AllowResize="False"/>
+                    <infg:DateTimeField Name="OrderOpenDate" Label="Открытие з/з" Width="Auto" AllowResize="False"/>
+                    <infg:DateTimeField Name="EndProductionDate" Label="Расчетная дата" Width="Auto" AllowResize="False"/>
+                    <infg:DateTimeField Name="EndProductionPlanDate" Label="Плановая дата" Width="Auto" AllowResize="False"/>
+                    <infg:NumericField Name="EndProductionPlanDateYear" Label="Год" Width="Auto" AllowResize="False"/>
+                    <infg:NumericField Name="EndProductionPlanDateMonth" Label="Месяц" Width="Auto" AllowResize="False"/>
+                    <infg:TextField AlternateBinding="{Binding Manager.Employee.Person}" BindingType="UseAlternateBinding" Label="Менеджер" Width="Auto"/>
+                </infg:FieldLayout>
+            </infg:XamDataGrid.FieldLayouts>
+
+        </infg:XamDataGrid>
+    </controls:LoadableContentControl>
+
 </inf:ViewBase>
 
 	
