@@ -36,8 +36,12 @@ namespace HVTApp.Model.Wrapper
                     task = task.PreviousTask;
                     result.Add(task);
                 }
-                return result;
-            } }
+                return result
+                    .OrderBy(directumTaskWrapper => directumTaskWrapper.Model.FinishPlan)
+                    .ThenBy(directumTaskWrapper => directumTaskWrapper.Model.StartResult)
+                    .ToList();
+            }
+        }
 
         /// <summary>
         /// Список всех последующих задач

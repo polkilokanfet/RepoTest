@@ -69,7 +69,7 @@
                         </Border>
                     
                         <Border Grid.Row="1" Background="White"  BorderThickness="1" BorderBrush="Black">
-                            <TextBox Margin="2" Text="{Binding Group.Message, Mode=OneWay}" IsReadOnly="True" BorderThickness="0"/>
+                            <TextBox Margin="2" Text="{Binding Group.Message, Mode=OneWay}" IsReadOnly="True" BorderThickness="0" HorizontalScrollBarVisibility="Auto"/>
                         </Border>
                     </Grid>
                 </DataTemplate>

@@ -76,7 +76,9 @@ namespace HVTApp.Model.POCOs
         [NotMapped, NotForDetailsView, NotForListView]
         public List<DirectumTask> Next { get; } = new List<DirectumTask>();
 
-        public DateTime? StartResult => PreviousTask == null ? Group.StartAuthor : PreviousTask.FinishPerformer;
+        public DateTime? StartResult => PreviousTask == null 
+            ? Group.StartAuthor 
+            : PreviousTask.FinishPerformer;
 
         [Designation("Статус"), NotMapped]
         public string Status
@@ -101,6 +103,35 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Актуальность"), NotMapped]
         public bool IsActual => !Group.IsStoped && !FinishAuthor.HasValue;
+
+        /// <summary>
+        /// Вернуть "самую верхнюю" задачу
+        /// </summary>
+        /// <returns></returns>
+        public DirectumTask GetTopDirectumTask()
+        {
+            var result = this;
+
+            //если есть родительская задача
+            if (result.ParentTask != null)
+            {
+                while (result.ParentTask != null)
+                {
+                    result = result.ParentTask;
+                }
+            }
+
+            ////если есть предыдущая задача
+            //if (result.PreviousTask != null)
+            //{
+            //    while (result.PreviousTask != null)
+            //    {
+            //        result = result.PreviousTask;
+            //    }
+            //}
+
+            return result;
+        }
 
         public override string ToString()
         {

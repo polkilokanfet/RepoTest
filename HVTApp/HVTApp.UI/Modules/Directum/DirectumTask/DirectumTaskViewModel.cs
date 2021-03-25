@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Input;
+using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
@@ -399,6 +400,18 @@ namespace HVTApp.UI.Modules.Directum
                     Container.Resolve<IEventAggregator>().GetEvent<AfterSaveDirectumTaskEvent>().Publish(DirectumTask.Model);
                     Container.Resolve<IEventAggregator>().GetEvent<AfterPerformDirectumTaskEvent>().Publish(DirectumTask.Model);
 
+                    //если маршрут последовательный
+                    if (Route.IsParallel == false)
+                    {
+                        var nextTasks = InjectTasks(new DirectumTaskWrapper(this.DirectumTask.Model)).NextTasks;
+                        if (nextTasks.Any())
+                        {
+                            var nextTask = nextTasks.Single(directumTaskWrapper => directumTaskWrapper.Model.PreviousTask.Id == this.DirectumTask.Model.Id).Model;
+                            Container.Resolve<IEventAggregator>().GetEvent<AfterSaveDirectumTaskEvent>().Publish(nextTask);
+                            Container.Resolve<IEventAggregator>().GetEvent<AfterStartDirectumTaskEvent>().Publish(nextTask);
+                        }
+                    }
+
                     GoBackCommand.Execute(null);
                 },
                 () => AllowPerform && DirectumTask.IsValid);
@@ -636,14 +649,21 @@ namespace HVTApp.UI.Modules.Directum
         /// <param name="directumTaskGroup">Группа задач.</param>
         public void Load(DirectumTaskGroup directumTaskGroup)
         {
-            var tasks = UnitOfWork.Repository<Model.POCOs.DirectumTask>()
-                .Find(directumTask => directumTask.Group.Id == directumTaskGroup.Id)
-                .OrderBy(directumTask => directumTask.FinishPlan)
+            var tasks = ((IDirectumTaskRepository)UnitOfWork.Repository<Model.POCOs.DirectumTask>())
+                .GetAllByGroup(directumTaskGroup.Id)
+                //.OrderBy(directumTask => directumTask.FinishPlan)
+                //.ThenBy(directumTask => directumTask.StartResult)
                 .ToList();
 
+            //если маршрут последовательный
             if (tasks.Any(directumTask => directumTask.PreviousTask != null))
             {
-                Load(tasks.Last());
+                //поиск последней задачи в цепочке
+                var previousTasks = tasks
+                    .Where(directumTask => directumTask.PreviousTask != null)
+                    .Select(directumTask => directumTask.PreviousTask);
+                var lastTask = tasks.Except(previousTasks).First();
+                Load(lastTask);
             }
             else if (tasks.Any(directumTask => !directumTask.FinishAuthor.HasValue))
             {
@@ -675,30 +695,29 @@ namespace HVTApp.UI.Modules.Directum
             DirectumTask.Group.Message = _parentTask.Group.Message;
             DirectumTask.Group.Author = new UserWrapper(UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id));
 
-            //Load();
-            //DirectumTask.Group.Title = $"{_parentTask.Group.Title} [подзадача]";
-            //DirectumTask.Group.Message = parentTask.Group.Message;
-            //DirectumTask.ParentTask = new DirectumTaskWrapper(_parentTask);
             TaskIsSubTask = true;
             LoadFiles();
         }
 
         private DirectumTaskWrapper GetDirectumTaskWrapper(Model.POCOs.DirectumTask directumTask)
         {
-            var mainTask = directumTask;
-            while (mainTask.ParentTask != null)
-            {
-                mainTask = mainTask.ParentTask;
-            }
+            //самая "верхняя" задача
+            var topDirectumTask = directumTask.GetTopDirectumTask();
 
-            var mainTaskWrapper = new DirectumTaskWrapper(mainTask);
-            InjectTasks(mainTaskWrapper);
-            InjectParallelTasks(mainTaskWrapper);
+            var topDirectumTaskWrapper = new DirectumTaskWrapper(topDirectumTask);
+            InjectTasks(topDirectumTaskWrapper);
+            InjectParallelTasks(topDirectumTaskWrapper);
 
-            DirectumTaskToShow = mainTaskWrapper;
-            return GetTargetDirectumTaskWrapper(directumTask, mainTaskWrapper);
+            DirectumTaskToShow = topDirectumTaskWrapper;
+            return GetTargetDirectumTaskWrapper(directumTask, topDirectumTaskWrapper);
         }
 
+        /// <summary>
+        /// Формирование целевого DirectumTaskWrapper
+        /// </summary>
+        /// <param name="directumTask"></param>
+        /// <param name="currentDirectumTaskWrapper"></param>
+        /// <returns></returns>
         private DirectumTaskWrapper GetTargetDirectumTaskWrapper(Model.POCOs.DirectumTask directumTask, DirectumTaskWrapper currentDirectumTaskWrapper)
         {
             //если задача только создается, внедряем её
@@ -714,9 +733,17 @@ namespace HVTApp.UI.Modules.Directum
             }
             else
             {
+                //поиск в дочерних задачах
                 foreach (var childTask in currentDirectumTaskWrapper.ChildTasks)
                 {
                     var result = GetTargetDirectumTaskWrapper(directumTask, childTask);
+                    if (result != null) return result;
+                }
+
+                //поиск в последующих задачах
+                foreach (var nextTask in currentDirectumTaskWrapper.NextTasks)
+                {
+                    var result = GetTargetDirectumTaskWrapper(directumTask, nextTask);
                     if (result != null) return result;
                 }
             }
@@ -798,7 +825,10 @@ namespace HVTApp.UI.Modules.Directum
                 }
             }
 
-            GetRoute();
+            //маршрут
+            InjectParallelTasks(new DirectumTaskWrapper(this.DirectumTask.Model)); //костыль для отображения параллельных задач в маршруте
+            Route = new DirectumTaskRouteWrapper(new DirectumTaskRoute(this.DirectumTask.Model));
+
             LoadFiles();
             CheckStartPerformer();
 
@@ -806,45 +836,6 @@ namespace HVTApp.UI.Modules.Directum
         }
 
         #endregion
-        
-        /// <summary>
-        /// Загрузка маршрута
-        /// </summary>
-        private void GetRoute()
-        {
-            //параллельные
-            var parallelTasks = DirectumTask.Model.Parallel.ToList();
-            parallelTasks.Add(DirectumTask.Model);
-
-            var route = new DirectumTaskRoute();
-            route.Items.AddRange(parallelTasks
-                .OrderBy(directumTask => directumTask.FinishPlan)
-                .Select(directumTask => new DirectumTaskRouteItem
-                {
-                    FinishPlan = directumTask.FinishPlan,
-                    Performer = directumTask.Performer
-                })
-                .ToList());
-
-            //предыдущие
-            var task = DirectumTask.Model.PreviousTask;
-            while (task != null)
-            {
-                route.IsParallel = false;
-                route.Items.Add(new DirectumTaskRouteItem()
-                {
-                    FinishPlan = task.FinishPlan,
-                    Performer = task.Performer
-                });
-                task = task.PreviousTask;
-            }
-
-            var items = route.Items.OrderBy(routeItem => routeItem.FinishPlan).ToList();
-            route.Items.Clear();
-            route.Items.AddRange(items);
-
-            Route = new DirectumTaskRouteWrapper(route);
-        }
 
         /// <summary>
         /// Простановка времени начала исполнения задачи
@@ -878,7 +869,7 @@ namespace HVTApp.UI.Modules.Directum
             }
 
             //внедряем последующие задачи
-            var nextTasks = UnitOfWork.Repository<Model.POCOs.DirectumTask>().Find(task => task.PreviousTask?.Id == directumTask.Id);
+            var nextTasks = ((IDirectumTaskRepository)UnitOfWork.Repository<Model.POCOs.DirectumTask>()).GetNextTasks(directumTask.Id);
             foreach (var nextTask in nextTasks)
             {
                 directumTask.NextTasks.Add(InjectTasks(new DirectumTaskWrapper(nextTask), false));
@@ -891,8 +882,8 @@ namespace HVTApp.UI.Modules.Directum
         private DirectumTaskWrapper InjectChildTasks(DirectumTaskWrapper directumTask)
         {
             //внедряем дочерние задачи
-            directumTask.ChildTasks.AddRange(UnitOfWork.Repository<Model.POCOs.DirectumTask>()
-                .Find(task => Equals(task.ParentTask, directumTask.Model))
+            directumTask.ChildTasks.AddRange(((IDirectumTaskRepository)UnitOfWork.Repository<Model.POCOs.DirectumTask>())
+                .GetChildTasks(directumTask.Id)
                 .OrderBy(task => task.FinishPlan)
                 .Select(task => InjectTasks(new DirectumTaskWrapper(task))));
 
@@ -907,24 +898,23 @@ namespace HVTApp.UI.Modules.Directum
             if (directumTask.PreviousTask != null)
                 return directumTask;
 
-            var parallelTasks = UnitOfWork
-                .Repository<Model.POCOs.DirectumTask>()
-                .Find(x => Equals(x.Group, directumTask.Model.Group))
-                .Where(x => !Equals(x.Id, directumTask.Id))
-                .OrderBy(x => x.FinishPlan)
-                .Select(x => new DirectumTaskWrapper(x))
+            var parallelTasks = ((IDirectumTaskRepository)UnitOfWork.Repository<Model.POCOs.DirectumTask>())
+                .GetAllByGroup(directumTask.Model.Group.Id)
+                .Where(task => !Equals(task.Id, directumTask.Id))
+                .OrderBy(task => task.FinishPlan)
+                .Select(model => new DirectumTaskWrapper(model))
                 .ToList();
 
             //если есть предыдущие задачи в параллельных, значит эти задачи не параллельные
-            if (parallelTasks.Any(x => x.PreviousTask != null))
+            if (parallelTasks.Any(directumTaskWrapper => directumTaskWrapper.PreviousTask != null))
                 return directumTask;
 
-            if (parallelTasks.Any(x => x.Model.Parallel.Any()))
+            if (parallelTasks.Any(directumTaskWrapper => directumTaskWrapper.Model.Parallel.Any()))
                 return directumTask;
 
             directumTask.ParallelTasks.AddRange(parallelTasks);
-            directumTask.Model.Parallel.AddRange(parallelTasks.Select(x => x.Model));
-            parallelTasks.ForEach(x => InjectTasks(x));
+            directumTask.Model.Parallel.AddRange(parallelTasks.Select(directumTaskWrapper => directumTaskWrapper.Model));
+            parallelTasks.ForEach(directumTaskWrapper => InjectTasks(directumTaskWrapper));
 
             return directumTask;
         }

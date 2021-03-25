@@ -21,6 +21,49 @@ namespace HVTApp.UI.Modules.Directum
 
         public bool IsParallel { get; set; } = true;
 
+        public DirectumTaskRoute()
+        {
+        }
+
+        public DirectumTaskRoute(Model.POCOs.DirectumTask directumTask)
+        {
+            //параллельные
+            var parallelTasks = directumTask.Parallel.ToList();
+
+            //если маршрут параллельный
+            if (parallelTasks.Any())
+            {
+                this.IsParallel = true;
+                parallelTasks.Add(directumTask);
+                this.Items.AddRange(parallelTasks
+                    .Select(task => new DirectumTaskRouteItem
+                    {
+                        FinishPlan = task.FinishPlan,
+                        Performer = task.Performer,
+                        StartResult = task.StartResult
+                    })
+                    .ToList());
+            }
+            //если маршрут последовательный
+            else
+            {
+                this.IsParallel = false;
+                var task = directumTask;
+                do
+                {
+                    this.Items.Insert(0, new DirectumTaskRouteItem
+                    {
+                        FinishPlan = task.FinishPlan,
+                        Performer = task.Performer,
+                        StartResult = task.StartResult
+                    });
+
+                    task = task.PreviousTask;
+                }
+                while (task != null);
+            }
+        }
+
         public override string ToString()
         {
             if (Items.Any() == false)
@@ -32,10 +75,20 @@ namespace HVTApp.UI.Modules.Directum
             {
                 if (IsParallel)
                 {
-                    return $"Параллельный: {Items.OrderBy(directumTaskRouteItem => directumTaskRouteItem.Performer.ToString()).Select(routeItem => routeItem.Performer).ToStringEnum()}";
-                }
+                    var items = Items
+                        .OrderBy(directumTaskRouteItem => directumTaskRouteItem.Performer.ToString());
 
-                return $"Последовательный: {Items.OrderBy(routeItem => routeItem.FinishPlan).ThenBy(directumTaskRouteItem => directumTaskRouteItem.Performer.ToString()).Select(routeItem => routeItem.Performer).ToStringEnum(" => ")}";
+                    return $"Параллельный: {items.Select(routeItem => routeItem.Performer).ToStringEnum()}";
+                }
+                else
+                {
+                    var items = Items
+                        .OrderBy(routeItem => routeItem.FinishPlan)
+                        .ToList();
+                        //.ThenBy(routeItem => routeItem.StartResult);
+
+                    return $"Последовательный: {items.Select(routeItem => routeItem.Performer).ToStringEnum(" => ")}";
+                }
             }
 
             return $"{Items.Select(routeItem => routeItem.Performer).ToStringEnum()}";
@@ -81,8 +134,16 @@ namespace HVTApp.UI.Modules.Directum
     {
         [Required]
         public User Performer { get; set; }
+        
         [Required]
         public DateTime FinishPlan { get; set; }
+
+        public DateTime? StartResult { get; set; }
+
+        public override string ToString()
+        {
+            return $"FinishPlan: {FinishPlan}, StartResult: {StartResult}, Performer: {Performer}";
+        }
     }
 
     public class DirectumTaskRouteItemWrapper : WrapperBase<DirectumTaskRouteItem>
