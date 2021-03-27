@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.Entity.Infrastructure;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
@@ -11,6 +13,7 @@ using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.Wrapper.Base;
 using HVTApp.Model.Wrapper;
+using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Events;
@@ -29,7 +32,7 @@ namespace HVTApp.UI.ViewModels
 
         public bool IsLoaded
         {
-            get { return _isLoaded; }
+            get => _isLoaded;
             set
             {
                 _isLoaded = value;
@@ -110,7 +113,7 @@ namespace HVTApp.UI.ViewModels
 
         public TWrapper Item
         {
-            get { return _item; }
+            get => _item;
             protected set
             {
                 if (Equals(_item, value)) return;
@@ -225,16 +228,23 @@ namespace HVTApp.UI.ViewModels
             }
         }
 
-        protected void SelectAndAddInListWrapper<TModel, TWrap>(IEnumerable<TModel> entities, IList<TWrap> list, Guid? selectedItemId = null)
+        protected void SelectAndAddInListWrapper<TModel, TWrap>(IEnumerable<TModel> entities, IList<TWrap> list)
             where TModel : class, IBaseEntity
             where TWrap : WrapperBase<TModel>
         {
-            var entity = Container.Resolve<ISelectService>().SelectItem(entities, selectedItemId);
-            if (entity != null)
+            //вычищение того, что уже есть в списке
+            List<TModel> targetEntities = entities.ToList();
+            list.Select(wrap => wrap.Model).ForEach(model => targetEntities.RemoveIfContainsById(model));
+
+            var selectItems = Container.Resolve<ISelectService>().SelectItems(targetEntities);
+            if (selectItems != null)
             {
-                var item = UnitOfWork.Repository<TModel>().GetById(entity.Id);
-                var wrapper = (TWrap)Activator.CreateInstance(typeof(TWrap), item);
-                list.Add(wrapper);
+                foreach (var selectItem in selectItems)
+                {
+                    var item = UnitOfWork.Repository<TModel>().GetById(selectItem.Id);
+                    var wrapper = (TWrap)Activator.CreateInstance(typeof(TWrap), item);
+                    list.Add(wrapper);
+                }
             }
         }
 

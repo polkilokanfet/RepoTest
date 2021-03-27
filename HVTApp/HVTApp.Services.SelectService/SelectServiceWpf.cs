@@ -44,15 +44,15 @@ namespace HVTApp.Services.SelectService
             var viewModel = (ISelectServiceViewModel<TItem>)view.DataContext;
             viewModel.Load(items);
 
-            if (selectedItemId != null && items.Any(x => x.Id == selectedItemId))
-                viewModel.SelectedItem = items.Single(x => x.Id == selectedItemId);
+            if (selectedItemId != null && items.Any(item => item.Id == selectedItemId))
+                viewModel.SelectedItem = items.Single(item => item.Id == selectedItemId);
 
             var selectWindow = new SelectWindow
             {
                 ContentControl = { Content = view },
                 CreateNewButton = { Command = viewModel.NewItemCommand },
                 SelectButton = { Command = viewModel.SelectItemCommand },
-                Owner = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive),
+                Owner = Application.Current.Windows.OfType<Window>().SingleOrDefault(window => window.IsActive),
                 Title = GetTitle(typeof(TItem))
             };
 
@@ -63,6 +63,42 @@ namespace HVTApp.Services.SelectService
 
                 if (args.DialogResult.HasValue && args.DialogResult.Value)
                     result = viewModel.SelectedItem;
+                selectWindow.Close();
+            };
+
+            viewModel.CloseRequested += handler;
+
+            selectWindow.ShowDialog();
+
+            return result;
+        }
+
+        public IEnumerable<TItem> SelectItems<TItem>(IEnumerable<TItem> items) where TItem : class, IBaseEntity
+        {
+            IEnumerable<TItem> result = null;
+
+            Type viewType = Mappings[typeof(TItem)];
+
+            var view = (Control)_container.Resolve(viewType);
+            var viewModel = (ISelectServiceViewModel<TItem>)view.DataContext;
+            viewModel.Load(items);
+
+            var selectWindow = new SelectWindow
+            {
+                ContentControl = { Content = view },
+                CreateNewButton = { Command = viewModel.NewItemCommand },
+                SelectButton = { Command = viewModel.SelectItemsCommand },
+                Owner = Application.Current.Windows.OfType<Window>().SingleOrDefault(window => window.IsActive),
+                Title = GetTitle(typeof(TItem))
+            };
+
+            EventHandler<DialogRequestCloseEventArgs> handler = null;
+            handler = (sender, args) =>
+            {
+                viewModel.CloseRequested -= handler;
+
+                if (args.DialogResult.HasValue && args.DialogResult.Value)
+                    result = viewModel.SelectedItems;
                 selectWindow.Close();
             };
 

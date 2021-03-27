@@ -11,7 +11,7 @@ namespace HVTApp.UI.ViewModels
             _getEntitiesForSelectPersonCommand = () =>
             {
                 var persons = UnitOfWork.Repository<Person>().GetAll();
-                var except = UnitOfWork.Repository<Employee>().GetAll().Select(x => x.Person).Distinct();
+                var except = UnitOfWork.Repository<Employee>().GetAll().Select(employee => employee.Person).Distinct();
                 return persons.Except(except).ToList();
             };
         }

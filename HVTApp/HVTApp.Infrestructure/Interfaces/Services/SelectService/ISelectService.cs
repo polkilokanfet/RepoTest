@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
@@ -13,7 +12,10 @@ namespace HVTApp.Infrastructure.Interfaces.Services.SelectService
             where TView : Control 
             where TItem : class, IBaseEntity;
 
-        TItem SelectItem<TItem>(IEnumerable<TItem> items, Guid? selectedItemId = null) 
+        TItem SelectItem<TItem>(IEnumerable<TItem> items, Guid? selectedItemId = null)
+            where TItem : class, IBaseEntity;
+
+        IEnumerable<TItem> SelectItems<TItem>(IEnumerable<TItem> items)
             where TItem : class, IBaseEntity;
     }
 
@@ -24,6 +26,11 @@ namespace HVTApp.Infrastructure.Interfaces.Services.SelectService
 
         TItem SelectedItem { get; set; }
         ICommand SelectItemCommand { get; }
+
+        IEnumerable<TItem> SelectedItems { get; }
+        ICommand SelectItemsCommand { get; }
+
+
         ICommand NewItemCommand { get; }
     }
 }

@@ -28,11 +28,11 @@ namespace HVTApp.UI.Modules.Directum
             set
             {
                 DirectumTaskRoute.IsParallel = value;
-                DirectumTaskRoute.Items.ForEach(x =>
+                DirectumTaskRoute.Items.ForEach(directumTaskRouteItemWrapper =>
                 {
-                    x.IsParallel = IsParallel;
+                    directumTaskRouteItemWrapper.IsParallel = IsParallel;
                     if (IsParallel)
-                        x.FinishPlan = FinishPlan;
+                        directumTaskRouteItemWrapper.FinishPlan = FinishPlan;
                 });
 
                 OnPropertyChanged();
@@ -56,7 +56,7 @@ namespace HVTApp.UI.Modules.Directum
 
         public DirectumTaskRouteItemWrapper SelectedDirectumTaskRouteItem
         {
-            get { return _selectedDirectumTaskRouteItem; }
+            get => _selectedDirectumTaskRouteItem;
             set
             {
                 _selectedDirectumTaskRouteItem = value;
@@ -86,19 +86,25 @@ namespace HVTApp.UI.Modules.Directum
                 {
                     var users = UnitOfWork.Repository<User>().Find(user => user.Employee.Company.Id == GlobalAppProperties.Actual.OurCompany.Id);
                     DirectumTaskRoute.Items.Select(routeItemWrapper => routeItemWrapper.Performer.Model).ForEach(user => users.RemoveIfContainsById(user));
-                    var performer = Container.Resolve<ISelectService>().SelectItem(users);
-                    if (performer != null)
+                    var performers = Container.Resolve<ISelectService>().SelectItems(users);
+                    if (performers != null)
                     {
-                        if (!IsParallel && DirectumTaskRoute.Items.Any())
-                            FinishPlan = DirectumTaskRoute.Items.Max(routeItemWrapper => routeItemWrapper.FinishPlan).AddDays(1).SkipWeekend();
-
-                        var item = new DirectumTaskRouteItemWrapper(new DirectumTaskRouteItem())
+                        foreach (var performer in performers.OrderBy(user => user.ToString()))
                         {
-                            Performer = new UserWrapper(performer),
-                            FinishPlan = FinishPlan
-                        };
+                            //если маршрут последовательный
+                            if (!IsParallel && DirectumTaskRoute.Items.Any())
+                                FinishPlan = DirectumTaskRoute.Items.Max(routeItemWrapper => routeItemWrapper.FinishPlan).AddDays(1).SkipWeekend();
 
-                        DirectumTaskRoute.Items.Add(item);
+
+                            var item = new DirectumTaskRouteItemWrapper(new DirectumTaskRouteItem())
+                            {
+                                Performer = new UserWrapper(performer),
+                                FinishPlan = FinishPlan
+                            };
+
+                            DirectumTaskRoute.Items.Add(item);
+                        }
+
                         ((DelegateCommand)OkCommand).RaiseCanExecuteChanged();
                     }
                 });

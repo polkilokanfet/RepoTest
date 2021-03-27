@@ -26,13 +26,13 @@ namespace HVTApp.UI.ViewModels
                 var fields = UnitOfWork.Repository<ActivityField>().GetAll();
 
                 //удаляем возможность выбора "производитель ВВА" у всех, кроме администратора
-                if (GlobalAppProperties.User.Roles.All(x => x.Role != Role.Admin))
+                if (GlobalAppProperties.User.Roles.All(userRole => userRole.Role != Role.Admin))
                 {
-                    var producerField = fields.Single(x => x.ActivityFieldEnum == ActivityFieldEnum.ProducerOfHighVoltageEquipment);
+                    var producerField = fields.Single(activityField => activityField.ActivityFieldEnum == ActivityFieldEnum.ProducerOfHighVoltageEquipment);
                     fields.Remove(producerField);
                 }
 
-                var fieldsTarget = fields.Where(x => !Item.ActivityFilds.Select(a => a.Id).Contains(x.Id)).ToList();
+                var fieldsTarget = fields.Where(activityField => !Item.ActivityFilds.Select(a => a.Id).Contains(activityField.Id)).ToList();
 
                 return fieldsTarget;
 

@@ -55,6 +55,12 @@ namespace HVTApp.UI.ViewModels
             RemoveItemCommand = new DelegateCommand(RemoveItemCommand_Execute, RemoveItemCommand_CanExecute);
 
             SelectItemCommand = new DelegateCommand(SelectItemCommand_Execute, SelectItemCommand_CanExecute);
+            SelectItemsCommand = new DelegateCommand(
+                () =>
+                {
+                    CloseRequested?.Invoke(this, new DialogRequestCloseEventArgs(true));
+                }, 
+                () => SelectedItems != null);
 
             RefreshCommand = new DelegateCommand(RefreshCommand_Execute);
 
@@ -157,12 +163,15 @@ namespace HVTApp.UI.ViewModels
             {
                 _selectedLookups = value;
                 ((DelegateCommand)UnionCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)SelectItemsCommand).RaiseCanExecuteChanged();
             }
         }
 
         public IEnumerable<TEntity> SelectedItems => _selectedItem == null
             ? null
             : _selectedLookups.Cast<TLookup>().Select(lookup => lookup.Entity);
+
+        public ICommand SelectItemsCommand { get; protected set; }
 
         public IEnumerable<TLookup> Lookups { get; }
         private ICollection<TLookup> LookupsCollection => (ICollection<TLookup>)Lookups;
