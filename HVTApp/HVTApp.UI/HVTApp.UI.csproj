@@ -135,6 +135,7 @@
     <Compile Include="Modules\BookRegistration\ViewModels\DocumentViewModel.cs" />
     <Compile Include="Modules\BookRegistration\ViewModels\IncomingRequestsViewModel.cs" />
     <Compile Include="Modules\BookRegistration\ViewModels\IncomingRequestViewModel.cs" />
+    <Compile Include="Modules\Directum\DirectumExt.cs" />
     <Compile Include="Modules\Directum\DirectumTask\ContentTaskControl.xaml.cs">
       <DependentUpon>ContentTaskControl.xaml</DependentUpon>
     </Compile>

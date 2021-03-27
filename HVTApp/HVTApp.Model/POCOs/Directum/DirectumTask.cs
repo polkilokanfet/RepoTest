@@ -11,7 +11,7 @@ namespace HVTApp.Model.POCOs
     /// Задача
     /// </summary>
     [Designation("Задача")]
-    public class DirectumTask : BaseEntity
+    public class DirectumTask : BaseEntity, IComparable<DirectumTask>
     {
         /// <summary>
         /// Группа задач
@@ -105,10 +105,10 @@ namespace HVTApp.Model.POCOs
         public bool IsActual => !Group.IsStoped && !FinishAuthor.HasValue;
 
         /// <summary>
-        /// Вернуть "самую верхнюю" задачу
+        /// Вернуть задачу для отображения
         /// </summary>
         /// <returns></returns>
-        public DirectumTask GetTopDirectumTask()
+        public DirectumTask GetDirectumTaskToShow()
         {
             var result = this;
 
@@ -135,7 +135,35 @@ namespace HVTApp.Model.POCOs
 
         public override string ToString()
         {
-            return $"Title: {this.Group.Title}; Author: {this.Group.Author}; Id: {this.Id}";
+            return $"Author: {this.Group.Author.Employee.Person.Surname}; Performer: {Performer.Employee.Person.Surname}; Title: {this.Group.Title}; Id: {this.Id}";
+        }
+
+        public int CompareTo(DirectumTask other)
+        {
+            if (ReferenceEquals(this, other)) return 0;
+            if (ReferenceEquals(null, other)) return 1;
+
+            if (other.ParentTask?.Id == this.Id) return 1;
+            if (this.ParentTask?.Id == other.Id) return -1;
+
+            if (other.PreviousTask?.Id == this.Id) return 1;
+            if (this.PreviousTask?.Id == other.Id) return -1;
+
+            if (this.FinishPlan < other.FinishPlan) return 1;
+            if (this.FinishPlan > other.FinishPlan) return -1;
+
+            if (this.StartResult.HasValue && !other.StartResult.HasValue) return 1;
+            if (!this.StartResult.HasValue && other.StartResult.HasValue) return -1;
+
+            if (this.StartResult.HasValue && other.StartResult.HasValue)
+            {
+                if (this.StartResult < other.StartResult) return 1;
+                if (this.StartResult > other.StartResult) return -1;
+            }
+
+            return String.Compare(this.Performer.ToString(), other.Performer.ToString(), StringComparison.Ordinal);
+
+            //return 0;
         }
     }
 }

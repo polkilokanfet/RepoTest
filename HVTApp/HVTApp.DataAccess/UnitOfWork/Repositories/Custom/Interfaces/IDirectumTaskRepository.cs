@@ -18,6 +18,17 @@ namespace HVTApp.DataAccess
         /// <returns></returns>
         IEnumerable<DirectumTask> GetAllByGroup(Guid groupId);
 
+        /// <summary>
+        /// Получить все параллельные задачи (без последующих)
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<DirectumTask> GetAllParallelTasks(DirectumTask task);
+
+        /// <summary>
+        /// Получить все последовательные задачи задачи
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<DirectumTask> GetAllSerialTasks(DirectumTask task);
 
         /// <summary>
         /// Получить все задачи после этой

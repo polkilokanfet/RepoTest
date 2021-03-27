@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
@@ -25,43 +26,41 @@ namespace HVTApp.UI.Modules.Directum
         {
         }
 
-        public DirectumTaskRoute(Model.POCOs.DirectumTask directumTask)
+        public DirectumTaskRoute(Model.POCOs.DirectumTask directumTask, IUnitOfWork unitOfWork)
         {
             //параллельные
-            var parallelTasks = directumTask.Parallel.ToList();
+            var parallelTasks = ((IDirectumTaskRepository)unitOfWork.Repository<Model.POCOs.DirectumTask>())
+                .GetAllParallelTasks(directumTask)
+                .ToList();
+
+            List<Model.POCOs.DirectumTask> resultTasks;
 
             //если маршрут параллельный
-            if (parallelTasks.Any())
+            if (parallelTasks.Count > 1)
             {
                 this.IsParallel = true;
-                parallelTasks.Add(directumTask);
-                this.Items.AddRange(parallelTasks
-                    .Select(task => new DirectumTaskRouteItem
-                    {
-                        FinishPlan = task.FinishPlan,
-                        Performer = task.Performer,
-                        StartResult = task.StartResult
-                    })
-                    .ToList());
+                resultTasks = parallelTasks;
             }
+
             //если маршрут последовательный
             else
             {
                 this.IsParallel = false;
-                var task = directumTask;
-                do
-                {
-                    this.Items.Insert(0, new DirectumTaskRouteItem
-                    {
-                        FinishPlan = task.FinishPlan,
-                        Performer = task.Performer,
-                        StartResult = task.StartResult
-                    });
 
-                    task = task.PreviousTask;
-                }
-                while (task != null);
+                resultTasks = ((IDirectumTaskRepository)unitOfWork.Repository<Model.POCOs.DirectumTask>())
+                    .GetAllSerialTasks(directumTask)
+                    .ToList();
             }
+
+            this.Items.AddRange(resultTasks
+                .Select(task => new DirectumTaskRouteItem
+                {
+                    FinishPlan = task.FinishPlan,
+                    Performer = task.Performer,
+                    StartResult = task.StartResult
+                })
+                .ToList());
+
         }
 
         public override string ToString()

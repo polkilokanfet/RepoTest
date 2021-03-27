@@ -16,6 +16,16 @@ namespace HVTApp.DataAccess
             throw new NotImplementedException();
         }
 
+        public IEnumerable<DirectumTask> GetAllParallelTasks(DirectumTask task)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<DirectumTask> GetAllSerialTasks(DirectumTask task)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<DirectumTask> GetNextTasks(Guid taskId)
         {
             throw new NotImplementedException();

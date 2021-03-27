@@ -13,7 +13,9 @@
         </Grid.RowDefinitions>
 
         <!--Предыдущие задачи-->
-        <ItemsControl Grid.Row="0" ItemsSource="{Binding PreviousTasks}" Visibility="{Binding IsMain, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <ItemsControl Grid.Row="0" 
+                      ItemsSource="{Binding PreviousTasks}" 
+                      Visibility="{Binding IsMain, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
@@ -144,7 +146,9 @@
         </Expander>
         
         <!--Следующие задачи-->
-        <ItemsControl Grid.Row="2" ItemsSource="{Binding NextTasks}" Visibility="{Binding IsMain, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <ItemsControl Grid.Row="2" 
+                      ItemsSource="{Binding NextTasks}" 
+                      Visibility="{Binding IsMain, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
@@ -156,7 +160,8 @@
         </ItemsControl>
         
         <!--Параллельные задачи-->
-        <ItemsControl Grid.Row="3" ItemsSource="{Binding ParallelTasks}">
+        <ItemsControl Grid.Row="3" 
+                      ItemsSource="{Binding ParallelTasks}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
