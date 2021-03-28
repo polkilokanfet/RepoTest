@@ -22,6 +22,8 @@ namespace HVTApp.Model.Wrapper
             }
         }
 
+        public bool HasChildTasks => ChildTasks.Any();
+
         /// <summary>
         /// Список предыдущих задач
         /// </summary>

@@ -140,30 +140,42 @@ namespace HVTApp.Model.POCOs
 
         public int CompareTo(DirectumTask other)
         {
-            if (ReferenceEquals(this, other)) return 0;
-            if (ReferenceEquals(null, other)) return 1;
+            //if (ReferenceEquals(this, other)) return 0;
+            //if (ReferenceEquals(null, other)) return 1;
 
-            if (other.ParentTask?.Id == this.Id) return 1;
             if (this.ParentTask?.Id == other.Id) return -1;
+            if (other.ParentTask?.Id == this.Id) return 1;
 
-            if (other.PreviousTask?.Id == this.Id) return 1;
-            if (this.PreviousTask?.Id == other.Id) return -1;
-
-            if (this.FinishPlan < other.FinishPlan) return 1;
-            if (this.FinishPlan > other.FinishPlan) return -1;
-
-            if (this.StartResult.HasValue && !other.StartResult.HasValue) return 1;
-            if (!this.StartResult.HasValue && other.StartResult.HasValue) return -1;
-
-            if (this.StartResult.HasValue && other.StartResult.HasValue)
+            //сравничаем задачи из одной группы
+            if (this.Group.Id == other.Group.Id)
             {
-                if (this.StartResult < other.StartResult) return 1;
-                if (this.StartResult > other.StartResult) return -1;
+                //если задачи параллельные
+                if (this.PreviousTask == null && other.PreviousTask == null)
+                {
+                    return string.Compare(this.Performer.ToString(), other.Performer.ToString(), StringComparison.Ordinal);
+                }
+
+                //если задачи последовательные
+                else
+                {
+                    if (other.PreviousTask?.Id == this.Id) return -1;
+                    if (this.PreviousTask?.Id == other.Id) return 1;
+
+                    if (this.FinishPlan < other.FinishPlan) return -1;
+                    if (this.FinishPlan > other.FinishPlan) return 1;
+
+                    if (this.StartResult.HasValue && !other.StartResult.HasValue) return -1;
+                    if (!this.StartResult.HasValue && other.StartResult.HasValue) return 1;
+
+                    if (this.StartResult.HasValue && other.StartResult.HasValue)
+                    {
+                        if (this.StartResult < other.StartResult) return -1;
+                        if (this.StartResult > other.StartResult) return 1;
+                    }
+                }
             }
 
-            return String.Compare(this.Performer.ToString(), other.Performer.ToString(), StringComparison.Ordinal);
-
-            //return 0;
+            return 0;
         }
     }
 }

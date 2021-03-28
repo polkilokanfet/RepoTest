@@ -655,9 +655,19 @@ namespace HVTApp.UI.Modules.Directum
         public void Load(DirectumTaskGroup directumTaskGroup)
         {
             var tasks = ((IDirectumTaskRepository)UnitOfWork.Repository<Model.POCOs.DirectumTask>())
-                .GetAllByGroup(directumTaskGroup.Id).ToList();
-            tasks.Sort();
-            Load(tasks.First());
+                .GetAllByGroup(directumTaskGroup.Id)
+                .OrderBy(directumTask => directumTask).ToList();
+
+            //если маршрут параллельный
+            if (tasks.All(directumTask => directumTask.PreviousTask == null))
+            {
+                Load(tasks.First());
+            }
+            //если маршрут последовательный
+            else
+            {
+                Load(tasks.Last());
+            }
         }
 
         /// <summary>
@@ -775,7 +785,7 @@ namespace HVTApp.UI.Modules.Directum
             //задача для показа
             var directumTaskToShow = directumTask.GetDirectumTaskToShow();
 
-            DirectumTaskToShow = new DirectumTaskWrapper(directumTaskToShow)
+            DirectumTaskToShow = new DirectumTaskWrapper(directumTaskToShow) { IsMain = true }
                 .InjectTasks(UnitOfWork)
                 .InjectParallelTasks(UnitOfWork);
 
@@ -798,7 +808,7 @@ namespace HVTApp.UI.Modules.Directum
 
             if (currentDirectumTaskWrapper.Id == directumTask.Id)
             {
-                currentDirectumTaskWrapper.IsMain = true;
+                //currentDirectumTaskWrapper.IsMain = true;
                 return currentDirectumTaskWrapper;
             }
             else

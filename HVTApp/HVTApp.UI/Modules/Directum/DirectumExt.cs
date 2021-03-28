@@ -46,12 +46,22 @@ namespace HVTApp.UI.Modules.Directum
             //внедряем дочерние задачи
             var childTasks = ((IDirectumTaskRepository) unitOfWork.Repository<Model.POCOs.DirectumTask>())
                 .GetChildTasks(directumTask.Id)
-                .OrderByDescending(task => task)
+                .OrderBy(task => task)
                 .Select(task => new DirectumTaskWrapper(task).InjectTasks(unitOfWork));
-            directumTask.ChildTasks.AddRange(childTasks);
 
-            directumTask.ChildTasks.ForEach(directumTaskWrapper => directumTaskWrapper.ShowPreviousTask = false);
-            directumTask.ChildTasks.ForEach(directumTaskWrapper => directumTaskWrapper.ShowNextTask = false);
+            foreach (var childTask in childTasks)
+            {
+                if(directumTask.ChildTasks.Select(x => x.Id).Contains(childTask.Id))
+                    continue;
+
+                directumTask.ChildTasks.Add(childTask);
+                childTask.ShowNextTask = false;
+                childTask.ShowPreviousTask = false;
+            }
+            //directumTask.ChildTasks.AddRange(childTasks);
+
+            //directumTask.ChildTasks.ForEach(directumTaskWrapper => directumTaskWrapper.ShowPreviousTask = false);
+            //directumTask.ChildTasks.ForEach(directumTaskWrapper => directumTaskWrapper.ShowNextTask = false);
 
             return directumTask;
         }

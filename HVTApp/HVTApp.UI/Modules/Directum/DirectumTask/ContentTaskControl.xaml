@@ -136,18 +136,27 @@
                 </ItemsControl>
 
                 <!--Дочерние задачи-->
-                <ItemsControl Grid.Row="2" ItemsSource="{Binding ChildTasks}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Border Background="White" Margin="20 0 10 0" Padding="5 2">
-                                <StackPanel>
-                                    <Label Content="Дочерняя задача:" HorizontalAlignment="Left" />
-                                    <directumTask:ContentTaskControl DataContext="{Binding}" />
-                                </StackPanel>
-                            </Border>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+                <Expander Grid.Row="2"
+                          IsExpanded="True"
+                          Header="Подзадачи"
+                          Margin="5"
+                          BorderBrush="Black"
+                          Visibility="{Binding HasChildTasks, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}">
+
+                    <ItemsControl ItemsSource="{Binding ChildTasks}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="White" Margin="20 0 10 0" Padding="5 2">
+                                    <StackPanel>
+                                        <Label Content="Дочерняя задача:" HorizontalAlignment="Left" />
+                                        <directumTask:ContentTaskControl DataContext="{Binding}" />
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                </Expander>
 
             </Grid>
 

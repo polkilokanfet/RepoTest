@@ -66,7 +66,6 @@ namespace HVTApp.DataAccess
             } while (nextTask != null);
 
             result.Sort();
-            result.Reverse();
 
             return result;
         }
@@ -96,7 +95,6 @@ namespace HVTApp.DataAccess
             if (tasks.Count > 1)
             {
                 tasks.Sort();
-                tasks.Reverse();
             }
 
             return tasks;
