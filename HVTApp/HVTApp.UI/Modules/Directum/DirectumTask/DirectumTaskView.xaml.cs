@@ -9,6 +9,7 @@ using Prism.Regions;
 
 namespace HVTApp.UI.Modules.Directum
 {
+    //[RegionMemberLifetime(KeepAlive = false)]
     [RibbonTab(typeof(TabDirectumTask))]
     public partial class DirectumTaskView : ViewBaseConfirmNavigationRequest, IDisposable
     {
@@ -75,6 +76,8 @@ namespace HVTApp.UI.Modules.Directum
             _viewModel.Dispose();
             _viewModel = null;
             this.DataContext = null;
+
+            GC.SuppressFinalize(this);
         }
     }
 }

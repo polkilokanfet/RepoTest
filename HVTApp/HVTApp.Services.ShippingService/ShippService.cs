@@ -14,12 +14,32 @@ namespace HVTApp.Services.ShippingService
     public class ShippService : IShippingService
     {
         private readonly List<Locality> _localities;
+        private readonly Dictionary<Guid, int?> _shippingDaysDictionary = new Dictionary<Guid, int?>();
 
         public ShippService(IUnitOfWork unitOfWork, IEventAggregator eventAggregator)
         {
             _localities = unitOfWork.Repository<Locality>().GetAll();
-            eventAggregator.GetEvent<AfterSaveLocalityEvent>().Subscribe(locality => { _localities.ReAddById(locality); });
-            eventAggregator.GetEvent<AfterRemoveLocalityEvent>().Subscribe(locality => { _localities.RemoveIfContainsById(locality); });
+            RefreshShippingDaysDictionary();
+
+            eventAggregator.GetEvent<AfterSaveLocalityEvent>().Subscribe(
+                locality =>
+                {
+                    _localities.ReAddById(locality);
+                    RefreshShippingDaysDictionary();
+                });
+
+            eventAggregator.GetEvent<AfterRemoveLocalityEvent>().Subscribe(
+                locality =>
+                {
+                    _localities.RemoveIfContainsById(locality);
+                    RefreshShippingDaysDictionary();
+                });
+        }
+
+        private void RefreshShippingDaysDictionary()
+        {
+            _shippingDaysDictionary.Clear();
+            _localities.ForEach(locality => _shippingDaysDictionary.Add(locality.Id, DeliveryTerm(locality)));
         }
 
         public int? DeliveryTerm(SalesUnit salesUnit)
@@ -29,16 +49,31 @@ namespace HVTApp.Services.ShippingService
             //адрес доставки
             var locality = salesUnit.GetDeliveryAddress()?.Locality;
 
+            return locality == null 
+                ? null 
+                : _shippingDaysDictionary[locality.Id];         
+        }
+
+        private int? DeliveryTerm(Locality locality)
+        {
             while (locality != null)
             {
                 if (locality.DistanceToEkb.HasValue)
                 {
-                    return (int) Math.Ceiling((locality.DistanceToEkb.Value / 8 / 80));
+                    return GetShippingDays(locality);
                 }
                 locality = GetCapital(locality);
             }
 
-            return null;         
+            return null;
+        }
+
+        private int? GetShippingDays(Locality locality)
+        {
+            if (locality.DistanceToEkb.HasValue == false)
+                return null;
+
+            return (int)Math.Ceiling((locality.DistanceToEkb.Value / 8 / 80));
         }
 
         /// <summary>
