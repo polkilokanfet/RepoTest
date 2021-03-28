@@ -23,7 +23,7 @@ using DirectumTaskWrapper = HVTApp.Model.Wrapper.DirectumTaskWrapper;
 
 namespace HVTApp.UI.Modules.Directum
 {
-    public class DirectumTaskViewModel : ViewModelBase
+    public class DirectumTaskViewModel : ViewModelBase, IDisposable
     {
         #region Fields
 
@@ -863,5 +863,12 @@ namespace HVTApp.UI.Modules.Directum
             this.Files.AddRange(files);
         }
 
+        public void Dispose()
+        {
+            this.DirectumTask = null;
+            this.DirectumTaskToShow = null;
+            Route = null;
+            Files.Clear();
+        }
     }
 }

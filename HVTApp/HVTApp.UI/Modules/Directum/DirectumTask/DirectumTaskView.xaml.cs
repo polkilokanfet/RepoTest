@@ -10,9 +10,9 @@ using Prism.Regions;
 namespace HVTApp.UI.Modules.Directum
 {
     [RibbonTab(typeof(TabDirectumTask))]
-    public partial class DirectumTaskView : ViewBaseConfirmNavigationRequest
+    public partial class DirectumTaskView : ViewBaseConfirmNavigationRequest, IDisposable
     {
-        private readonly DirectumTaskViewModel _viewModel;
+        private DirectumTaskViewModel _viewModel;
 
         public DirectumTaskView(DirectumTaskViewModel viewModel, IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator) : base(container, regionManager, eventAggregator)
         {
@@ -20,7 +20,6 @@ namespace HVTApp.UI.Modules.Directum
             InitializeComponent();
             this.DataContext = _viewModel;
         }
-
 
         public override bool IsNavigationTarget(NavigationContext navigationContext)
         {
@@ -55,9 +54,27 @@ namespace HVTApp.UI.Modules.Directum
             base.OnNavigatedTo(navigationContext);
         }
 
+        public override void OnNavigatedFrom(NavigationContext navigationContext)
+        {
+            base.OnNavigatedFrom(navigationContext);
+            this.Dispose();
+
+            //if (RegionManager.Regions[RegionNames.ContentRegion].Views.Contains(this))
+            //{
+            //    RegionManager.Regions[RegionNames.ContentRegion].Remove(this);
+            //}
+        }
+
         protected override bool IsSomethingChanged()
         {
             return _viewModel.DirectumTask?.IsChanged ?? false;
+        }
+
+        public void Dispose()
+        {
+            _viewModel.Dispose();
+            _viewModel = null;
+            this.DataContext = null;
         }
     }
 }

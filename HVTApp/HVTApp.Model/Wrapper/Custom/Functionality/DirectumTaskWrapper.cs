@@ -1,9 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace HVTApp.Model.Wrapper
 {
-    public partial class DirectumTaskWrapper
+    public partial class DirectumTaskWrapper : IComparable<DirectumTaskWrapper>
     {
         private bool _showPreviousTask = true;
         private bool _showNextTask = true;
@@ -31,16 +32,15 @@ namespace HVTApp.Model.Wrapper
         {
             get
             {
-                var result = new List<DirectumTaskWrapper>();
+                var tasks = new List<DirectumTaskWrapper>();
                 var task = this;
                 while (task.PreviousTask != null)
                 {
                     task = task.PreviousTask;
-                    result.Add(task);
+                    tasks.Add(task);
                 }
-                result.Sort();
-                result.Reverse();
-                return result;
+                tasks.Sort();
+                return tasks;
             }
         }
 
@@ -142,6 +142,11 @@ namespace HVTApp.Model.Wrapper
                     yield return file;
                 }
             }
+        }
+
+        public int CompareTo(DirectumTaskWrapper other)
+        {
+            return this.Model.CompareTo(other.Model);
         }
     }
 }

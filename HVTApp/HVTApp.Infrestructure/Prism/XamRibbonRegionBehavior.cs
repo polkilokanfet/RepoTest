@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Windows.Controls;
 using Prism.Regions;
 
 namespace HVTApp.Infrastructure.Prism

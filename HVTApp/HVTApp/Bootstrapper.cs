@@ -205,6 +205,7 @@ namespace HVTApp
         {
             IRegionBehaviorFactory behaviors = base.ConfigureDefaultRegionBehaviors();
             behaviors.AddIfMissing(XamRibbonRegionBehavior.BehaviorKey, typeof(XamRibbonRegionBehavior));
+            //behaviors.AddIfMissing(typeof(DisposeClosedViewsBehavior).FullName, typeof(DisposeClosedViewsBehavior));
             return behaviors;
         }
 
