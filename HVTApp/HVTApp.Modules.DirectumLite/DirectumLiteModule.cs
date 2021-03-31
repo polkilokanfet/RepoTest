@@ -43,14 +43,14 @@ namespace HVTApp.Modules.DirectumLite
                         .Where(directumTask =>
                             (directumTask.Group.Author.Id == GlobalAppProperties.User.Id && directumTask.FinishPlan < DateTime.Now) ||     //если пользователь автор задачи и задача просрочена
                             (directumTask.Performer.Id == GlobalAppProperties.User.Id && !directumTask.StartPerformer.HasValue) ||         //если пользователь исполнитель и не приступил к исполнению задачи
-                            (directumTask.Performer.Id == GlobalAppProperties.User.Id && directumTask.FinishPlan < DateTime.Now))          //если пользователь исполнитель и просрочил выполнение
+                            (directumTask.Performer.Id == GlobalAppProperties.User.Id && !directumTask.FinishPerformer.HasValue && directumTask.FinishPlan < DateTime.Now))          //если пользователь исполнитель и просрочил выполнение
                         .ToList();
 
                     if (targetItems.Any())
                     {
                         viewModel.Items.Clear();
                         viewModel.Items.AddRange(targetItems);
-                        Container.Resolve<IDialogService>().Show(viewModel, "Новые задачи и задачи с истекшим сроком исполнения или проверки");
+                        Container.Resolve<IDialogService>().Show(viewModel, "Новые задачи и задачи с истекшим сроком исполнения/проверки");
                     }
                 };
         }
