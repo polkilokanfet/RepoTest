@@ -181,9 +181,9 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
         {
             if (Groups.SelectedGroup == null)
             {
-                var paymentConditionSet =
-                    UnitOfWork.Repository<PaymentConditionSet>()
-                        .Find(x => x.Id == GlobalAppProperties.Actual.PaymentConditionSet.Id).First();
+                var paymentConditionSet = UnitOfWork.Repository<PaymentConditionSet>()
+                        .Find(conditionSet => conditionSet.Id == GlobalAppProperties.Actual.PaymentConditionSet.Id)
+                        .First();
                 salesUnitWrapper.PaymentConditionSet = new PaymentConditionSetWrapper(paymentConditionSet);
                 salesUnitWrapper.ProductionTerm = GlobalAppProperties.Actual.StandartTermFromStartToEndProduction;
 
@@ -196,9 +196,20 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             salesUnitWrapper.ProductionTerm = Groups.SelectedGroup.ProductionTerm;
             salesUnitWrapper.Product = new ProductWrapper(Groups.SelectedGroup.Product.Model);
             salesUnitWrapper.DeliveryDateExpected = Groups.SelectedGroup.DeliveryDateExpected;
-            if(Groups.SelectedGroup.CostDelivery.HasValue)
-                salesUnitWrapper.CostDelivery = Groups.SelectedGroup.CostDelivery / Groups.SelectedGroup.Amount;
-                
+            if (Groups.SelectedGroup.CostDelivery.HasValue)
+            {
+                if (Groups.SelectedGroup.Groups != null &&
+                    Groups.SelectedGroup.Groups.Any() &&
+                    !Groups.SelectedGroup.Groups.First().CostDelivery.HasValue)
+                {
+                    salesUnitWrapper.CostDelivery = null;
+                }
+                else
+                {
+                    salesUnitWrapper.CostDelivery = Groups.SelectedGroup.CostDelivery / Groups.SelectedGroup.Amount;
+                }
+            }
+
             //создаем зависимое оборудование
             foreach (var prodIncl in Groups.SelectedGroup.ProductsIncluded)
             {
