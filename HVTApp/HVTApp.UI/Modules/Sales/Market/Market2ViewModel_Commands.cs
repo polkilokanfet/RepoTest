@@ -48,6 +48,7 @@ namespace HVTApp.UI.Modules.Sales.Market
         public ICommand EditTechnicalRequrementsTaskCommand { get; }
 
         public ICommand EditPriceCalculationCommand { get; }
+        public ICommand CopyPriceCalculationCommand { get; }
 
         public ICommand StructureCostsCommand { get; }
 

@@ -496,12 +496,22 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
         /// <summary>
         /// Создание копии калькуляции
         /// </summary>
-        /// <param name="priceCalculation2">Какой расчет скопировать</param>
+        /// <param name="priceCalculation">Какой расчет скопировать</param>
         /// <param name="technicalRequrementsTask2">Из какой задачи</param>
-        public void CreateCopy(PriceCalculation priceCalculation2, TechnicalRequrementsTask technicalRequrementsTask2)
+        public void CreateCopy(PriceCalculation priceCalculation, TechnicalRequrementsTask technicalRequrementsTask2)
+        {
+            CreateCopy(priceCalculation);
+            var technicalRequrementsTask = UnitOfWork.Repository<TechnicalRequrementsTask>().GetById(technicalRequrementsTask2.Id);
+            technicalRequrementsTask.PriceCalculations.Add(PriceCalculationWrapper.Model);
+        }
+
+        /// <summary>
+        /// Создание копии калькуляции
+        /// </summary>
+        /// <param name="priceCalculation2">Какой расчет скопировать</param>
+        public void CreateCopy(PriceCalculation priceCalculation2)
         {
             var priceCalculation = UnitOfWork.Repository<PriceCalculation>().GetById(priceCalculation2.Id);
-            var technicalRequrementsTask = UnitOfWork.Repository<TechnicalRequrementsTask>().GetById(technicalRequrementsTask2.Id);
 
             PriceCalculationWrapper = new PriceCalculation2Wrapper(new PriceCalculation())
             {
@@ -515,8 +525,8 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                 var priceCalculationItem2Wrapper = new PriceCalculationItem2Wrapper(new PriceCalculationItem())
                 {
                     PriceCalculationId = PriceCalculationWrapper.Model.Id,
-                    OrderInTakeDate = calculationItem.OrderInTakeDate, 
-                    RealizationDate = calculationItem.RealizationDate, 
+                    OrderInTakeDate = calculationItem.OrderInTakeDate,
+                    RealizationDate = calculationItem.RealizationDate,
                     PaymentConditionSet = calculationItem.PaymentConditionSet
                 };
 
@@ -529,10 +539,10 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                 {
                     var structureCostWrapper = new StructureCostWrapper(new StructureCost())
                     {
-                        Amount = structureCost.Amount, 
-                        Number = structureCost.Number, 
-                        Comment = structureCost.Comment, 
-                        PriceCalculationItemId = priceCalculationItem2Wrapper.Model.Id, 
+                        Amount = structureCost.Amount,
+                        Number = structureCost.Number,
+                        Comment = structureCost.Comment,
+                        PriceCalculationItemId = priceCalculationItem2Wrapper.Model.Id,
                         UnitPrice = structureCost.UnitPrice
                     };
 
@@ -541,9 +551,8 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
 
                 PriceCalculationWrapper.PriceCalculationItems.Add(priceCalculationItem2Wrapper);
             }
-
-            technicalRequrementsTask.PriceCalculations.Add(PriceCalculationWrapper.Model);
         }
+
 
         /// <summary>
         /// Загрузка при создании нового расчета по единицам продаж

@@ -15,6 +15,7 @@ using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.UI.Modules.Sales.Market.Items;
 using HVTApp.UI.Modules.Sales.ViewModels.Containers;
+using HVTApp.UI.PriceCalculations.View;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Events;
@@ -173,6 +174,17 @@ namespace HVTApp.UI.Modules.Sales.Market
 
             EditTechnicalRequrementsTaskCommand = new DelegateCommand(EditTechnicalRequrementsTaskCommand_Execute, () => TechnicalRequrementsTasks?.SelectedItem != null);
             EditPriceCalculationCommand = new DelegateCommand(EditPriceCalculationCommand_Execute);
+            CopyPriceCalculationCommand = new DelegateCommand(
+                () =>
+                {
+                    RegionManager.RequestNavigateContentRegion<PriceCalculationView>(new NavigationParameters
+                    {
+                        {nameof(PriceCalculation), PriceCalculations.SelectedItem.Entity},
+                        {nameof(TechnicalRequrementsTask), null}
+                    });
+                },
+                () => PriceCalculations?.SelectedItem != null);
+
 
             StructureCostsCommand = new DelegateCommand(StructureCostsCommand_Execute, () => SelectedProjectItem != null);
 
@@ -199,10 +211,10 @@ namespace HVTApp.UI.Modules.Sales.Market
             _eventAggregator.GetEvent<AfterSaveSalesUnitEvent>().Subscribe(salesUnit =>
             {
                 //проверяем, можно ли юнит поместить в существующую группу
-                ProjectItems.ToList().ForEach(x => x.Check(salesUnit));
+                ProjectItems.ToList().ForEach(projectItem => projectItem.Check(salesUnit));
 
                 //если не смогли пристроить в существующую группу, создаем новую
-                if (!ProjectItems.SelectMany(x => x.SalesUnits).Contains(salesUnit))
+                if (!ProjectItems.SelectMany(projectItem => projectItem.SalesUnits).Contains(salesUnit))
                 {
                     ProjectItems.Add(new ProjectItem(new[] { salesUnit }, _eventAggregator));
                 }
@@ -211,6 +223,7 @@ namespace HVTApp.UI.Modules.Sales.Market
             //подписка на выбор сущностей
             _eventAggregator.GetEvent<SelectedOfferChangedEvent>().Subscribe(offer => OfferRaiseCanExecuteChanged());
             _eventAggregator.GetEvent<SelectedTenderChangedEvent>().Subscribe(tender => TenderRaiseCanExecuteChanged());
+            _eventAggregator.GetEvent<SelectedPriceCalculationChangedEvent>().Subscribe(calculation => ((DelegateCommand)CopyPriceCalculationCommand).RaiseCanExecuteChanged());
 
             #endregion
 

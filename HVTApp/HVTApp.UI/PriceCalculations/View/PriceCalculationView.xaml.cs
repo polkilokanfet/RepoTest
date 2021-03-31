@@ -60,10 +60,17 @@ namespace HVTApp.UI.PriceCalculations.View
                 else if (navigationContext.Parameters.Count() == 2)
                 {
                     //создание копии калькуляции
-                    if (navigationContext.Parameters.First().Value is PriceCalculation priceCalculation && 
-                        navigationContext.Parameters.Last().Value is TechnicalRequrementsTask technicalRequrementsTask)
+                    if (navigationContext.Parameters.First().Value is PriceCalculation priceCalculation)
                     {
-                        _viewModel.CreateCopy(priceCalculation, technicalRequrementsTask);
+                        if (navigationContext.Parameters.Last().Value == null)
+                        {
+                            _viewModel.CreateCopy(priceCalculation);
+
+                        }
+                        else if (navigationContext.Parameters.Last().Value is TechnicalRequrementsTask technicalRequrementsTask)
+                        {
+                            _viewModel.CreateCopy(priceCalculation, technicalRequrementsTask);
+                        }
                     }
                 }
             }

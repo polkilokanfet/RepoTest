@@ -4,39 +4,46 @@
              xmlns:infRib="http://infragistics.com/Ribbon" 
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure" 
              x:Class="HVTApp.UI.Modules.Sales.Market.Tabs.MarketMainTab"
-             Header="Действия">
+             Header="Рынок">
 
-    <infRib:RibbonGroup Caption="Проекты">
+    <infRib:RibbonGroup Caption="Проект">
         <infRib:ButtonTool Caption="Создать" Command="{Binding NewProjectCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
         <infRib:ButtonTool Caption="Изменить" Command="{Binding EditProjectCommand}" SmallImage="/HVTApp.UI;component/Images/edit.png"/>
         <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveProjectCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>
     </infRib:RibbonGroup>
 
-    <infRib:RibbonGroup Caption="Конкурсы">
+    <infRib:RibbonGroup Caption="Конкурс">
         <infRib:ButtonTool Caption="Создать" Command="{Binding NewTenderCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
         <infRib:ButtonTool Caption="Изменить" Command="{Binding EditTenderCommand}" SmallImage="/HVTApp.UI;component/Images/edit.png"/>
         <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveTenderCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>
         <infRib:ButtonTool Caption="Открыть ссылку" Command="{Binding OpenTenderLinkCommand}" SmallImage="/HVTApp.UI;component/Images/out.png"/>
     </infRib:RibbonGroup>
     
-    <infRib:RibbonGroup Caption="Предложения">
-        <infRib:ButtonTool Caption="Создать ТКП по проекту" Command="{Binding NewOfferByProjectCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
-        <infRib:ButtonTool Caption="Создать ТКП по ТКП" Command="{Binding NewOfferByOfferCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
+    <infRib:RibbonGroup Caption="Предложение">
+        <infRib:ButtonTool Caption="ТКП по проекту" Command="{Binding NewOfferByProjectCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
+        <infRib:ButtonTool Caption="ТКП по ТКП" Command="{Binding NewOfferByOfferCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
         <infRib:ButtonTool Caption="Изменить" Command="{Binding EditOfferCommand}" SmallImage="/HVTApp.UI;component/Images/edit.png"/>
         <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveOfferCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>
         <infRib:ButtonTool Caption="Печать" Command="{Binding PrintOfferCommand}" SmallImage="/HVTApp.UI;component/Images/print.png"/>
     </infRib:RibbonGroup>
 
-    <infRib:RibbonGroup Caption="Заметки">
+    <infRib:RibbonGroup Caption="Заметка">
         <infRib:ButtonTool Caption="Создать заметку" Command="{Binding AddNoteCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
         <infRib:ButtonTool Caption="Удалить заметку" Command="{Binding RemoveNoteCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>
         <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveNotesCommand}" SmallImage="/HVTApp.UI;component/Images/save.png"/>
     </infRib:RibbonGroup>
 
-    <infRib:RibbonGroup Caption="Действия">
-        <infRib:ButtonTool Caption="Создать спецификацию" Command="{Binding NewSpecificationCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
+    <infRib:RibbonGroup Caption="ТСЕ">
         <infRib:ButtonTool Caption="Передать в ТСЕ" Command="{Binding MakeTceTaskCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
-        <infRib:ButtonTool Caption="Создать задание на расчет ПЗ" Command="{Binding StructureCostsCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
+    </infRib:RibbonGroup>
+
+    <infRib:RibbonGroup Caption="Расчет ПЗ">
+        <infRib:ButtonTool Caption="Создать" Command="{Binding StructureCostsCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
+        <infRib:ButtonTool Caption="Копировать" Command="{Binding CopyPriceCalculationCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
+    </infRib:RibbonGroup>
+
+    <infRib:RibbonGroup Caption="Спецификация">
+        <infRib:ButtonTool Caption="Создать" Command="{Binding NewSpecificationCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
     </infRib:RibbonGroup>
 
 </inf:RibbonTabItemWithViewModel>
