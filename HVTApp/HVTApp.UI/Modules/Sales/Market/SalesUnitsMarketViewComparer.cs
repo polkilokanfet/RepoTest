@@ -16,6 +16,7 @@ namespace HVTApp.UI.Modules.Sales.Market
             if (!Equals(x.IsDone, y.IsDone)) return false;
             if (!Equals(x.IsLoosen, y.IsLoosen)) return false;
             if (!Equals(x.IsRemoved, y.IsRemoved)) return false;
+            if (!Equals(x.IsWon, y.IsWon)) return false;
 
             return true;
         }

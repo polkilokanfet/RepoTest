@@ -12,7 +12,16 @@ namespace HVTApp.UI.Modules.Sales.Market.Converters
             if (value is ProjectItem item)
             {
                 if (item.IsLoosen) return Colors.LightPink;
-                if (!item.DaysToStartProduction.HasValue) return Colors.LightGreen;
+
+                //если оборудование запущено в производство
+                if (item.DaysToStartProduction.HasValue == false)
+                {
+                    if (item.IsDone)
+                    {
+                        return Colors.DarkSeaGreen;
+                    }
+                    return Colors.LightGreen;
+                }
 
                 if (item.DaysToStartProduction.Value <= 0) return Colors.Orange;
                 if (item.DaysToStartProduction.Value < 30) return Colors.Yellow;

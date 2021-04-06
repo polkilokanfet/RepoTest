@@ -58,7 +58,7 @@
                             <Style TargetType="{x:Type dp:DataRecordPresenter}">
                                 <Setter Property="Background">
                                     <Setter.Value>
-                                        <SolidColorBrush Color="{Binding Path=DataItem, Converter={StaticResource ProjectItemToColorConverter}}" Opacity="0.3" />
+                                        <SolidColorBrush Color="{Binding Path=DataItem, Converter={StaticResource ProjectItemToColorConverter}}" Opacity="0.5" />
                                     </Setter.Value>
                                 </Setter>
                             </Style>

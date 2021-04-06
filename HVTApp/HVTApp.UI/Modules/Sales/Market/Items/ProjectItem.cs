@@ -15,7 +15,7 @@ namespace HVTApp.UI.Modules.Sales.Market.Items
         private Project _project;
 
         public static List<Tender> AllTenders { get; } = new List<Tender>();
-        private IEnumerable<Tender> Tenders => AllTenders.Where(x => x.Project.Id == Project.Id);
+        private IEnumerable<Tender> Tenders => AllTenders.Where(tender => tender.Project.Id == Project.Id);
 
         public SalesUnitsCollection SalesUnits { get; }
 
@@ -24,13 +24,13 @@ namespace HVTApp.UI.Modules.Sales.Market.Items
             get
             {
                 return SalesUnits
-                    .GroupBy(x => new
+                    .GroupBy(salesUnit => new
                     {
-                        ProductId = x.Product.Id,
-                        Cost = x.Cost,
-                        FacilityId = x.Facility.Id,
-                        OrderInTakeDate = x.OrderInTakeDate,
-                        RealizationDateCalculated = x.RealizationDateCalculated
+                        ProductId = salesUnit.Product.Id,
+                        Cost = salesUnit.Cost,
+                        FacilityId = salesUnit.Facility.Id,
+                        OrderInTakeDate = salesUnit.OrderInTakeDate,
+                        RealizationDateCalculated = salesUnit.RealizationDateCalculated
                     })
                     .OrderByDescending(x => x.Key.Cost)
                     .Select(x => new ProjectUnitsGroup(x, this));
@@ -49,8 +49,8 @@ namespace HVTApp.UI.Modules.Sales.Market.Items
             }
         }
 
-        public IEnumerable<Facility> Facilities => SalesUnits.Select(x => x.Facility).Distinct().OrderBy(x => x.Name);
-        public double Sum => SalesUnits.Sum(x => x.Cost);
+        public IEnumerable<Facility> Facilities => SalesUnits.Select(salesUnit => salesUnit.Facility).Distinct().OrderBy(facility => facility.Name);
+        public double Sum => SalesUnits.Sum(salesUnit => salesUnit.Cost);
 
         public int? DaysToStartProduction
         {
@@ -126,13 +126,13 @@ namespace HVTApp.UI.Modules.Sales.Market.Items
         /// </summary>
         public event Action<ProjectItem> LastSalesUnitRemoveEvent;
 
-        public string ProductsInProject => SalesUnits.Select(x => x.Product.Designation).Distinct().OrderBy(x => x).ToStringEnum();
+        public string ProductsInProject => SalesUnits.Select(salesUnit => salesUnit.Product.Designation).Distinct().OrderBy(x => x).ToStringEnum();
 
         public IEnumerable<Company> FacilitiesOwners
         {
             get
             {
-                var owners = this.Facilities.Select(x => x.OwnerCompany).ToList();
+                var owners = this.Facilities.Select(facility => facility.OwnerCompany).ToList();
                 var result = new List<Company>(owners);
                 foreach (var owner in owners)
                 {
@@ -214,7 +214,7 @@ namespace HVTApp.UI.Modules.Sales.Market.Items
             var fits =  SalesUnits
                 //.Where(x => x.Id != salesUnit.Id)
                 .Concat(new[] { salesUnit })
-                .GroupBy(x => x, new SalesUnitsMarketViewComparer())
+                .GroupBy(unit => unit, new SalesUnitsMarketViewComparer())
                 .Count() == 1;
 
             //если юнит подходит этой группе
