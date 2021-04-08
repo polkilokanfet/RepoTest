@@ -11,13 +11,19 @@
     <Grid>
         <dp:XamDataGrid x:Name="LookupListGrid" 
                         DataSource="{Binding Lookups}" 
-                        SelectedDataItem="{Binding SelectedLookup}">
+                        ActiveDataItem="{Binding SelectedLookup}">
         
             <dp:XamDataGrid.InputBindings>
                 <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=EditCommand, Mode=OneWay}"/>
             </dp:XamDataGrid.InputBindings>
 
-			<dp:XamDataGrid.FieldLayouts>
+            <dp:XamDataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
+                </ContextMenu>
+            </dp:XamDataGrid.ContextMenu>
+
+            <dp:XamDataGrid.FieldLayouts>
 				<dp:FieldLayout x:Name="FieldLayout1">
 					<dp:FieldLayout.Fields>
                         <dp:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding Start}" Label="Старт задачи" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
