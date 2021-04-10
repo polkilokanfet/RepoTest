@@ -12,7 +12,7 @@ namespace HVTApp.Modules.Messenger
     public class Messenger : IMessenger
     {
         private readonly IUnityContainer _container;
-        private readonly User[] _users;
+        private readonly List<User> _users;
         private readonly List<PersonalChatViewModel> _personalChatViewModels = new List<PersonalChatViewModel>();
 
         public GeneralChatViewModel GeneralChatViewModel { get; }
@@ -26,13 +26,13 @@ namespace HVTApp.Modules.Messenger
 
         public void ReceiveChatMessage(Guid authorId, string message)
         {
-            GeneralChatViewModel.ReceiveMessage(_users.Single(user => user.Id == authorId).Employee.ToString(), DateTime.Now, message);
+            GeneralChatViewModel.ReceiveMessage(_users.Single(x => x.Id == authorId).Employee.ToString(), DateTime.Now, message);
         }
 
         public void ReceivePersonalMessage(Guid authorId, string message)
         {
             var personalChatViewModel = GetPersonalChatViewModel(authorId);
-            personalChatViewModel.ReceiveMessage(_users.Single(user => user.Id == authorId).Employee.ToString(), DateTime.Now, message);
+            personalChatViewModel.ReceiveMessage(_users.Single(x => x.Id == authorId).Employee.ToString(), DateTime.Now, message);
         }
 
         public void SendChatMessage(string message)

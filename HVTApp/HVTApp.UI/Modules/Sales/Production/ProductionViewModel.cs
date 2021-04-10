@@ -178,7 +178,7 @@ namespace HVTApp.UI.Modules.Sales.Production
 
             // Загрузка юнитов, которые могут быть включены в производство
             //задачи из ТСЕ, которые менеджер запустил
-            TechnicalRequrementsTask[] requrementsTasks = UnitOfWork.Repository<TechnicalRequrementsTask>().Find(technicalRequrementsTask => technicalRequrementsTask.Start.HasValue);
+            List<TechnicalRequrementsTask> requrementsTasks = UnitOfWork.Repository<TechnicalRequrementsTask>().Find(technicalRequrementsTask => technicalRequrementsTask.Start.HasValue);
 
             //пересечение множеств
             var salesUnits = _salesUnitsAll

@@ -139,12 +139,12 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
             UnitOfWork = Container.Resolve<IUnitOfWork>();
 
             var requests = UnitOfWork.Repository<IncomingRequest>().GetAll();
-            Document[] documents;
+            List<Document> documents;
             if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager)
             {
-                documents = UnitOfWork.Repository<Document>().Find(document => document.Author.Id == GlobalAppProperties.User.Employee.Id);
+                documents = UnitOfWork.Repository<Document>().Find(x => x.Author.Id == GlobalAppProperties.User.Employee.Id);
                 var requests2 = requests.Where(x => x.Performers.ContainsById(GlobalAppProperties.User.Employee));
-                documents = documents.Union(requests2.Select(incomingRequest => incomingRequest.Document)).ToArray();
+                documents = documents.Union(requests2.Select(x => x.Document)).ToList();
             }
             else
             {
@@ -152,9 +152,9 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
             }
 
             _documentLookups = documents
-                .OrderByDescending(document => document.Date)
-                .ThenByDescending(document => document.Number)
-                .Select(document => new DocumentLookup(document, requests.SingleOrDefault(incomingRequest => incomingRequest.Document.Id == document.Id)?.Performers))
+                .OrderByDescending(x => x.Date)
+                .ThenByDescending(x => x.Number)
+                .Select(x => new DocumentLookup(x, requests.SingleOrDefault(r => r.Document.Id == x.Id)?.Performers))
                 .ToList();
 
             UpdateLookups();
@@ -162,7 +162,7 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
 
         public bool ShowIncoming
         {
-            get => _showIncoming;
+            get { return _showIncoming; }
             set
             {
                 if (Equals(_showIncoming, value)) return;

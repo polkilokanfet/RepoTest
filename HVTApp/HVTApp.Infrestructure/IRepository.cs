@@ -8,16 +8,16 @@ namespace HVTApp.Infrastructure
         where TEntity : class, IBaseEntity
     {
         //Task<List<TEntity>> GetAllAsync();
-        TEntity[] GetAll();
+        List<TEntity> GetAll();
 
-        TEntity[] GetAllAsNoTracking();
+        List<TEntity> GetAllAsNoTracking();
         //Task<List<TEntity>> GetAllAsNoTrackingAsync();
 
         TEntity GetById(Guid id);
         //Task<TEntity> GetByIdAsync(Guid id);
 
-        TEntity[] Find(Func<TEntity, bool> predicate);
-        TEntity[] FindAsNoTracking(Func<TEntity, bool> predicate);
+        List<TEntity> Find(Func<TEntity, bool> predicate);
+        List<TEntity> FindAsNoTracking(Func<TEntity, bool> predicate);
 
         void Add(TEntity entity);
         void AddRange(IEnumerable<TEntity> entities);

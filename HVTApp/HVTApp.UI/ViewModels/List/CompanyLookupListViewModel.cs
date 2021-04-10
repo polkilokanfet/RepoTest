@@ -23,31 +23,31 @@ namespace HVTApp.UI.ViewModels
             foreach (var otherCompany in otherItems)
             {
                 //замена компании в родительских
-                List<Company> companies = unitOfWork.Repository<Company>().Find(company => Equals(company.ParentCompany, otherCompany)).ToList();
+                List<Company> companies = unitOfWork.Repository<Company>().Find(company => Equals(company.ParentCompany, otherCompany));
                 companies.ForEach(company => company.ParentCompany = mainCompany);
 
                 //замена контрагентов в контрактах
-                List<Contract> contracts = unitOfWork.Repository<Contract>().Find(contract => Equals(contract.Contragent, otherCompany)).ToList();
+                List<Contract> contracts = unitOfWork.Repository<Contract>().Find(contract => Equals(contract.Contragent, otherCompany));
                 contracts.ForEach(contract => contract.Contragent = mainCompany);
 
                 //замена компании в сотрудниках
-                List<Employee> employees = unitOfWork.Repository<Employee>().Find(employee => Equals(employee.Company, otherCompany)).ToList();
+                List<Employee> employees = unitOfWork.Repository<Employee>().Find(employee => Equals(employee.Company, otherCompany));
                 employees.ForEach(employee => employee.Company = mainCompany);
 
                 //замена компании в объектах
-                List<Facility> facilities = unitOfWork.Repository<Facility>().Find(facility => Equals(facility.OwnerCompany, otherCompany)).ToList();
+                List<Facility> facilities = unitOfWork.Repository<Facility>().Find(facility => Equals(facility.OwnerCompany, otherCompany));
                 facilities.ForEach(employee => employee.OwnerCompany = mainCompany);
                 
                 //замена компании-производителя
-                List<SalesUnit> salesUnits = unitOfWork.Repository<SalesUnit>().Find(salesUnit => Equals(salesUnit.Producer, otherCompany)).ToList();
+                List<SalesUnit> salesUnits = unitOfWork.Repository<SalesUnit>().Find(salesUnit => Equals(salesUnit.Producer, otherCompany));
                 salesUnits.ForEach(salesUnit => salesUnit.Producer = mainCompany);
 
                 //замена компании в тендерах - победители
-                List<Tender> tenders = unitOfWork.Repository<Tender>().Find(tender => Equals(tender.Winner, otherCompany)).ToList();
+                List<Tender> tenders = unitOfWork.Repository<Tender>().Find(tender => Equals(tender.Winner, otherCompany));
                 tenders.ForEach(tender => tender.Winner = mainCompany);
 
                 //замена компании в тендерах - участники
-                tenders = unitOfWork.Repository<Tender>().Find(tender => tender.Participants.Contains(otherCompany)).ToList();
+                tenders = unitOfWork.Repository<Tender>().Find(tender => tender.Participants.Contains(otherCompany));
                 foreach (var tender in tenders)
                 {
                     tender.Participants.Remove(otherCompany);

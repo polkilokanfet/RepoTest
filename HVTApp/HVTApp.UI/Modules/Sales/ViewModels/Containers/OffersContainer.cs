@@ -14,7 +14,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
 {
     public class OffersContainer : BaseContainerFilt<Offer, OfferLookup, SelectedOfferChangedEvent, AfterSaveOfferEvent, AfterRemoveOfferEvent, Project, SelectedProjectChangedEvent>
     {
-        private OfferUnit[] _offerUnits;
+        private List<OfferUnit> _offerUnits;
 
         public OffersContainer(IUnityContainer container) : base(container)
         {
@@ -33,7 +33,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
         {
             _offerUnits = GlobalAppProperties.User.RoleCurrent == Role.Admin
                 ? unitOfWork.Repository<OfferUnit>().GetAll()
-                : ((IOfferUnitRepository)unitOfWork.Repository<OfferUnit>()).GetAllOfCurrentUser().ToArray();
+                : ((IOfferUnitRepository)unitOfWork.Repository<OfferUnit>()).GetAllOfCurrentUser().ToList();
             return _offerUnits
                 .Select(offerUnit => offerUnit.Offer)
                 .Distinct()

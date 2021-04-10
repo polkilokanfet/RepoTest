@@ -67,7 +67,7 @@ namespace HVTApp.UI.Modules.Directum.ToPerform
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
 
-            _directumTasks = UnitOfWork.Repository<Model.POCOs.DirectumTask>().GetAll().ToList();
+            _directumTasks = UnitOfWork.Repository<Model.POCOs.DirectumTask>().GetAll();
 
             //задачи на выполнение
             var tasksToPerform = _directumTasks

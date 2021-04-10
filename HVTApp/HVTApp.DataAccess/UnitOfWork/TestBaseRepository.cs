@@ -17,9 +17,9 @@ namespace HVTApp.DataAccess
             _testData = testData;
         }
 
-        public TEntity[] GetAll()
+        public List<TEntity> GetAll()
         {
-            return _testData.GetAll<TEntity>().ToArray();
+            return _testData.GetAll<TEntity>().ToList();
         }
 
         public async Task<List<TEntity>> GetAllAsync()
@@ -33,9 +33,9 @@ namespace HVTApp.DataAccess
             return (await GetAllAsync()).Single(x => x.Id == id);
         }
 
-        public TEntity[] Find(Func<TEntity, bool> predicate)
+        public List<TEntity> Find(Func<TEntity, bool> predicate)
         {
-            return GetAll().Where(predicate).ToArray();
+            return GetAll().Where(predicate).ToList();
         }
 
         public void Add(TEntity entity)
@@ -68,12 +68,12 @@ namespace HVTApp.DataAccess
             throw new NotImplementedException();
         }
 
-        public TEntity[] FindAsNoTracking(Func<TEntity, bool> predicate)
+        public List<TEntity> FindAsNoTracking(Func<TEntity, bool> predicate)
         {
             throw new NotImplementedException();
         }
 
-        public TEntity[] GetAllAsNoTracking()
+        public List<TEntity> GetAllAsNoTracking()
         {
             throw new NotImplementedException();
         }

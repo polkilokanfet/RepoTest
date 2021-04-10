@@ -172,7 +172,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
             
             RemoveFails(UnitOfWork);
 
-            PriceCalculation[] calculations = new PriceCalculation[] { };
+            var calculations = new List<PriceCalculation>();
 
             if (CurrentUserIsManager)
             {
@@ -189,7 +189,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
             if (CurrentUserIsBackManagerBoss)
             {
                 var tasks = UnitOfWork.Repository<TechnicalRequrementsTask>().Find(technicalRequrementsTask => technicalRequrementsTask.BackManager != null);
-                calculations = tasks.SelectMany(technicalRequrementsTask => technicalRequrementsTask.PriceCalculations).Distinct().ToArray();
+                calculations = tasks.SelectMany(technicalRequrementsTask => technicalRequrementsTask.PriceCalculations).Distinct().ToList();
             }
 
             if (CurrentUserIsPricer)
@@ -202,7 +202,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                 calculations = UnitOfWork.Repository<PriceCalculation>().Find(priceCalculation => priceCalculation.TaskCloseMoment.HasValue);
             }
 
-            this.Load(calculations.OrderByDescending(priceCalculation => priceCalculation.TaskOpenMoment));
+            this.Load(calculations.OrderByDescending(x => x.TaskOpenMoment));
         }
 
         /// <summary>
@@ -211,10 +211,10 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
         /// <param name="unitOfWork"></param>
         private void RemoveFails(IUnitOfWork unitOfWork)
         {
-            var failItems = unitOfWork.Repository<PriceCalculationItem>().Find(priceCalculationItem => !priceCalculationItem.SalesUnits.Any());
+            var failItems = unitOfWork.Repository<PriceCalculationItem>().Find(x => !x.SalesUnits.Any());
             if (!failItems.Any()) return;
 
-            var failCalculations = unitOfWork.Repository<PriceCalculation>().Find(priceCalculation => priceCalculation.PriceCalculationItems.Any(item => failItems.Contains(item)));
+            var failCalculations = unitOfWork.Repository<PriceCalculation>().Find(x => x.PriceCalculationItems.Any(item => failItems.Contains(item)));
             foreach (var failCalculation in failCalculations)
             {
                 var items = failCalculation.PriceCalculationItems.Intersect(failItems).ToList();

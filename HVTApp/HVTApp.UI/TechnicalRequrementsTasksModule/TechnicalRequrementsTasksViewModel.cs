@@ -188,7 +188,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         {
             if (CurrentUserIsBackManagerBoss)
             {
-                TechnicalRequrementsTask[] technicalRequrementsTasks = UnitOfWork.Repository<TechnicalRequrementsTask>().GetAll();
+                List<TechnicalRequrementsTask> technicalRequrementsTasks = UnitOfWork.Repository<TechnicalRequrementsTask>().GetAll();
                 foreach (var task in technicalRequrementsTasks)
                 {
                     foreach (TechnicalRequrements requrement in task.Requrements.ToList())
@@ -201,8 +201,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
                     if (!task.Requrements.Any())
                     {
-                        var answerFiles = UnitOfWork.Repository<AnswerFileTce>().Find(answerFileTce => answerFileTce.TechnicalRequrementsTaskId == task.Id).ToList();
-                        answerFiles.ForEach(answerFileTce => UnitOfWork.Repository<AnswerFileTce>().Delete(answerFileTce));
+                        var answerFiles = UnitOfWork.Repository<AnswerFileTce>().Find(x => x.TechnicalRequrementsTaskId == task.Id);
+                        answerFiles.ForEach(x => UnitOfWork.Repository<AnswerFileTce>().Delete(x));
                         UnitOfWork.Repository<TechnicalRequrementsTask>().Delete(task);
                     }
                 }

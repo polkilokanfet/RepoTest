@@ -32,8 +32,8 @@ namespace HVTApp.UI.Modules.Products.ViewModels
                     targetProduct = unitOfWork.Repository<Product>().GetById(targetProduct.Id);
 
                     //юниты с новым продуктом
-                    var salesUnits = unitOfWork.Repository<SalesUnit>().Find(salesUnit => salesUnit.Product.Id == task.Product.Id).ToList();
-                    var offerUnits = unitOfWork.Repository<OfferUnit>().Find(offerUnit => offerUnit.Product.Id == task.Product.Id).ToList();
+                    var salesUnits = unitOfWork.Repository<SalesUnit>().Find(x => x.Product.Id == task.Product.Id);
+                    var offerUnits = unitOfWork.Repository<OfferUnit>().Find(x => x.Product.Id == task.Product.Id);
 
                     //меняем продукт в юнитах
                     salesUnits.ForEach(x => x.Product = targetProduct);
@@ -41,12 +41,12 @@ namespace HVTApp.UI.Modules.Products.ViewModels
 
                     //удаление параметров
                     var parameters = task.Product.ProductBlock.Parameters
-                        .Where(parameter => parameter.Id != GlobalAppProperties.Actual.NewProductParameter.Id).ToList();
+                        .Where(x => x.Id != GlobalAppProperties.Actual.NewProductParameter.Id).ToList();
                     unitOfWork.Repository<Parameter>().DeleteRange(parameters);
 
                     //удаление связей параметров
                     var relations = unitOfWork.Repository<ParameterRelation>().GetAll()
-                        .Where(parameterRelation => parameters.Select(p => p.Id).Contains(parameterRelation.ParameterId)).ToList();
+                        .Where(x => parameters.Select(p => p.Id).Contains(x.ParameterId)).ToList();
                     unitOfWork.Repository<ParameterRelation>().DeleteRange(relations);
 
                     //удаление блока

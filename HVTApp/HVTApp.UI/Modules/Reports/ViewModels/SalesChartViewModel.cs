@@ -11,7 +11,7 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
 {
     public class SalesChartViewModel : ViewModelBase
     {
-        private readonly SalesUnit[] _salesUnits;
+        private List<SalesUnit> _salesUnits;
         private DateTime _startDate;
         private DateTime _finishDate;
 
@@ -19,7 +19,7 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
 
         public DateTime StartDate
         {
-            get => _startDate;
+            get { return _startDate; }
             set
             {
                 if(Equals(_startDate, value)) return;
@@ -30,7 +30,7 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
 
         public DateTime FinishDate
         {
-            get => _finishDate;
+            get { return _finishDate; }
             set
             {
                 if (Equals(_finishDate, value)) return;
@@ -42,23 +42,21 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
         public SalesChartViewModel(IUnityContainer container) : base(container)
         {
             _salesUnits = GlobalAppProperties.User.RoleCurrent == Role.SalesManager
-                ? UnitOfWork.Repository<SalesUnit>().Find(salesUnit => salesUnit.Project.ForReport && !salesUnit.IsLoosen && salesUnit.Project.Manager.IsAppCurrentUser())
-                : UnitOfWork.Repository<SalesUnit>().Find(salesUnit => salesUnit.Project.ForReport && !salesUnit.IsLoosen);
+                ? UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.ForReport && !x.IsLoosen && x.Project.Manager.IsAppCurrentUser())
+                : UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.ForReport && !x.IsLoosen);
 
-            _startDate = _salesUnits.Min(salesUnit => salesUnit.OrderInTakeDate);
-            _finishDate = _salesUnits.Max(salesUnit => salesUnit.OrderInTakeDate);
+            _startDate = _salesUnits.Min(x => x.OrderInTakeDate);
+            _finishDate = _salesUnits.Max(x => x.OrderInTakeDate);
 
             Load();
         }
 
         private void Load()
         {
-            var sumsOnMonths = _salesUnits
-                .Where(salesUnit => salesUnit.OrderInTakeDate >= _startDate && salesUnit.OrderInTakeDate <= _finishDate)
-                .GroupBy(salesUnit => new
+            var sumsOnMonths = _salesUnits.Where(x => x.OrderInTakeDate >= _startDate && x.OrderInTakeDate <= _finishDate).GroupBy(x => new
                 {
-                    salesUnit.OrderInTakeDate.Year,
-                    salesUnit.OrderInTakeDate.Month
+                    x.OrderInTakeDate.Year,
+                    x.OrderInTakeDate.Month
                 })
                 .Select(x => new SumOnMonth(x))
                 .ToList();
@@ -67,7 +65,7 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
             var date = new DateTime(_startDate.Year, _startDate.Month, 1);
             while (date <= _finishDate)
             {
-                if (!sumsOnMonths.Any(sumOnMonth => sumOnMonth.Date.Year == date.Year && sumOnMonth.Date.Month == date.Month))
+                if (!sumsOnMonths.Any(x => x.Date.Year == date.Year && x.Date.Month == date.Month))
                 {
                     sumsOnMonths.Add(new SumOnMonth(new DateTime(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month))));
                 }

@@ -19,16 +19,16 @@ namespace HVTApp.Services.WpfAuthenticationService
         private string _password;
         private UserRole _selectedRole;
 
-        public AuthenticationWindowModel(IEnumerable<User> users)
+        public AuthenticationWindowModel(List<User> users)
         {
-            _users = users.ToList();
+            _users = users;
             OkCommand = new DelegateCommand(OkCommand_Execute, OkCommand_CanExecute);
             Login = Properties.Settings.Default.Login;
         }
 
         public string Login
         {
-            get => _login;
+            get { return _login; }
             set
             {
                 _login = value;
@@ -38,7 +38,7 @@ namespace HVTApp.Services.WpfAuthenticationService
 
         public string Password
         {
-            get => _password;
+            get { return _password; }
             set
             {
                 _password = value;
@@ -48,7 +48,7 @@ namespace HVTApp.Services.WpfAuthenticationService
 
         public UserRole SelectedRole
         {
-            get => _selectedRole;
+            get { return _selectedRole; }
             set
             {
                 _selectedRole = value;
@@ -86,17 +86,17 @@ namespace HVTApp.Services.WpfAuthenticationService
             var password = Guid.Empty;
             if (!String.IsNullOrEmpty(_password))
                 password = StringToGuid.GetHashString(_password);
-            User = _users.FirstOrDefault(user => user.Login == Login && user.Password == password);
+            User = _users.FirstOrDefault(x => x.Login == Login && x.Password == password);
 
             Roles.Clear();
             SelectedRole = null;
             if (User != null)
             {
-                User.Roles.OrderBy(userRole => userRole.Role).ToList().ForEach(Roles.Add);
+                User.Roles.OrderBy(x => x.Role).ToList().ForEach(Roles.Add);
 
                 if (User.Roles.Any())
                 {
-                    SelectedRole = User.Roles.OrderBy(userRole => userRole.Role).First();
+                    SelectedRole = User.Roles.OrderBy(x => x.Role).First();
                     User.RoleCurrent = SelectedRole.Role;
                 }
             }

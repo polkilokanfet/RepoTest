@@ -10,7 +10,7 @@ namespace HVTApp.UI.ViewModels
             _getEntitiesForSelectAddressCommand = () =>
             {
                 //нельзя выбрать адрес из другого объекта
-                var addresses = UnitOfWork.Repository<Address>().GetAll().ToList();
+                var addresses = UnitOfWork.Repository<Address>().GetAll();
                 addresses = addresses.Except(UnitOfWork.Repository<Facility>().Find(facility => facility.Address != null).Select(facility => facility.Address)).ToList();
                 return addresses;
             };

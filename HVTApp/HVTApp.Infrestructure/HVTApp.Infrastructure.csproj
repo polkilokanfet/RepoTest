@@ -103,7 +103,6 @@
     <Compile Include="Converters\DateTimeToStringConverter.cs" />
     <Compile Include="Converters\ListToStringConverter.cs" />
     <Compile Include="Converters\ReverseBoolConverter.cs" />
-    <Compile Include="Extansions\ExtIList.cs" />
     <Compile Include="Extansions\TaskExtansions.cs" />
     <Compile Include="Extansions\EnumerableExtansions.cs" />
     <Compile Include="Extansions\DateExtansions.cs" />

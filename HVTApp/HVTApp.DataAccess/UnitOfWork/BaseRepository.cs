@@ -4,7 +4,6 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Extansions;
 
 namespace HVTApp.DataAccess
 {
@@ -24,10 +23,10 @@ namespace HVTApp.DataAccess
         //    return await GetQuary().ToListAsync();
         //}
 
-        public virtual TEntity[] GetAll()
+        public virtual List<TEntity> GetAll()
         {
             Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
-            return GetQuary().ToArray();
+            return GetQuary().ToList();
         }
 
         //public virtual async Task<List<TEntity>> GetAllAsNoTracking()
@@ -36,22 +35,22 @@ namespace HVTApp.DataAccess
         //    return await GetQuary().AsNoTracking().ToListAsync();
         //}
 
-        public virtual TEntity[] GetAllAsNoTracking()
+        public virtual List<TEntity> GetAllAsNoTracking()
         {
             Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
-            return GetQuary().AsNoTracking().ToArray();
+            return GetQuary().AsNoTracking().ToList();
         }
 
-        public virtual TEntity[] Find(Func<TEntity, bool> predicate)
+        public virtual List<TEntity> Find(Func<TEntity, bool> predicate)
         {
             Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
-            return GetQuary().AsEnumerable().Where(predicate).ToArray();
+            return GetQuary().AsEnumerable().Where(predicate).ToList();
         }
 
-        public TEntity[] FindAsNoTracking(Func<TEntity, bool> predicate)
+        public List<TEntity> FindAsNoTracking(Func<TEntity, bool> predicate)
         {
             Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
-            return GetQuary().AsNoTracking().AsEnumerable().Where(predicate).ToArray();
+            return GetQuary().AsNoTracking().AsEnumerable().Where(predicate).ToList();
         }
 
         public void Add(TEntity entity)
