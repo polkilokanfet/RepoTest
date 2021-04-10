@@ -13,7 +13,7 @@ namespace HVTApp.Services.ShippingService
 {
     public class ShippService : IShippingService
     {
-        private readonly List<Locality> _localities;
+        private readonly Locality[] _localities;
         private readonly Dictionary<Guid, int?> _shippingDaysDictionary = new Dictionary<Guid, int?>();
 
         public ShippService(IUnitOfWork unitOfWork, IEventAggregator eventAggregator)
@@ -39,7 +39,7 @@ namespace HVTApp.Services.ShippingService
         private void RefreshShippingDaysDictionary()
         {
             _shippingDaysDictionary.Clear();
-            _localities.ForEach(locality => _shippingDaysDictionary.Add(locality.Id, DeliveryTerm(locality)));
+            _localities.ToList().ForEach(locality => _shippingDaysDictionary.Add(locality.Id, DeliveryTerm(locality)));
         }
 
         public int? DeliveryTerm(SalesUnit salesUnit)

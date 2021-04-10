@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 
@@ -11,7 +12,7 @@ namespace HVTApp.UI.ViewModels
             //замена региона в населенных пунктах
             foreach (var region in otherItems)
             {
-                List<Locality> localities = unitOfWork.Repository<Locality>().Find(locality => Equals(locality.Region, region));
+                var localities = unitOfWork.Repository<Locality>().Find(locality => Equals(locality.Region, region)).ToList();
                 localities.ForEach(locality => locality.Region = mainItem);
             }
 

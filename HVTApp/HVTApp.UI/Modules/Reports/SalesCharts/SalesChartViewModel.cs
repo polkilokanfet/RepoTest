@@ -132,8 +132,8 @@ namespace HVTApp.UI.Modules.Reports.SalesCharts
         protected virtual List<SalesUnit> GetSalesUnits()
         {
             return GlobalAppProperties.User.RoleCurrent == Role.SalesManager
-                ? SalesUnitsContainer.SalesUnits.Where(x => x.IsWon && x.Project.Manager.IsAppCurrentUser()).ToList()
-                : SalesUnitsContainer.SalesUnits.Where(x => x.IsWon).ToList();
+                ? SalesUnitsContainer.SalesUnits.Where(salesUnit => salesUnit.IsWon && salesUnit.Project.Manager.IsAppCurrentUser()).ToList()
+                : SalesUnitsContainer.SalesUnits.Where(salesUnit => salesUnit.IsWon).ToList();
         }
 
         private void Load(bool isReload = false)
@@ -145,12 +145,12 @@ namespace HVTApp.UI.Modules.Reports.SalesCharts
 
             if (isReload || SalesUnitsContainer.SalesUnits == null)
             {
-                SalesUnitsContainer.SalesUnits = UnitOfWork.Repository<SalesUnit>().GetAll();
+                SalesUnitsContainer.SalesUnits = UnitOfWork.Repository<SalesUnit>().GetAll().ToList();
             }
             _salesUnits = GetSalesUnits();
 
-            _startDate = _salesUnits.Min(x => x.OrderInTakeDate);
-            _finishDate = _salesUnits.Max(x => x.OrderInTakeDate);
+            _startDate = _salesUnits.Min(salesUnit => salesUnit.OrderInTakeDate);
+            _finishDate = _salesUnits.Max(salesUnit => salesUnit.OrderInTakeDate);
             OnPropertyChanged(nameof(StartDate));
             OnPropertyChanged(nameof(FinishDate));
             RefreshItems();

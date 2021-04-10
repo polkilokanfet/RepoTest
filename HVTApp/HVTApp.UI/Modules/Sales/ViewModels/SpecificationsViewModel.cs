@@ -32,10 +32,8 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
         public void LoadSpecifications()
         {
-            var salesUnits =
-                UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Manager.Id == GlobalAppProperties.User.Id
-                                                             && x.Specification != null);
-            this.Load(salesUnits.Select(x => x.Specification).Distinct());
+            var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(salesUnit => salesUnit.Project.Manager.IsAppCurrentUser() && salesUnit.Specification != null);
+            this.Load(salesUnits.Select(salesUnit => salesUnit.Specification).Distinct());
         }
 
         protected override void InitSpecialCommands()
@@ -52,8 +50,8 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
                     var specification = unitOfWork.Repository<Specification>().GetById(SelectedLookup.Id);
                     if (specification != null)
                     {
-                        var salesUnits = unitOfWork.Repository<SalesUnit>().Find(x => x.Specification?.Id == specification.Id);
-                        salesUnits.ForEach(x => x.Specification = null);
+                        var salesUnits = unitOfWork.Repository<SalesUnit>().Find(salesUnit => salesUnit.Specification?.Id == specification.Id).ToList();
+                        salesUnits.ForEach(salesUnit => salesUnit.Specification = null);
                         try
                         {
                             unitOfWork.Repository<Specification>().Delete(specification);

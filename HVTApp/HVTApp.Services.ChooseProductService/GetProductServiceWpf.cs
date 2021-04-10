@@ -30,10 +30,10 @@ namespace HVTApp.Services.GetProductService
             var productRelations = UnitOfWork.Repository<ProductRelation>().GetAll();
             var productBlocks = UnitOfWork.Repository<ProductBlock>().GetAll();
 
-            parameters = ParametersWithoutComplectsParameters(parameters, originProduct);
-            parameters = ParametersWithoutNewParameters(parameters, originProduct);
+            parameters = ParametersWithoutComplectsParameters(parameters, originProduct).ToArray();
+            parameters = ParametersWithoutNewParameters(parameters, originProduct).ToArray();
 
-            return new Bank(products, productBlocks, parameters, productRelations);
+            return new Bank(products.ToList(), productBlocks.ToList(), parameters.ToList(), productRelations.ToList());
         }
 
         /// <summary>
@@ -46,22 +46,22 @@ namespace HVTApp.Services.GetProductService
             var parameters = parameters1.ToList();
 
             //парметры "обозначение комплекта"
-            var complectDesignationParameters = parameters.Where(x => x.ParameterGroup.Id == GlobalAppProperties.Actual.ComplectDesignationGroup.Id).ToList();
+            var complectDesignationParameters = parameters.Where(parameter => parameter.ParameterGroup.Id == GlobalAppProperties.Actual.ComplectDesignationGroup.Id).ToList();
 
             //параметры "тип комплекта"
-            var complectTypeParameters = parameters.Where(x => x.ParameterGroup.Id == GlobalAppProperties.Actual.ComplectsGroup.Id).ToList();
+            var complectTypeParameters = parameters.Where(parameter => parameter.ParameterGroup.Id == GlobalAppProperties.Actual.ComplectsGroup.Id).ToList();
 
             var parametersToExclude = complectTypeParameters.Union(complectDesignationParameters).ToList();
 
             //параметр "Комплекты и детали"
-            var complectsParameter = parameters.SingleOrDefault(x => x.Id == GlobalAppProperties.Actual.ComplectsParameter.Id);
+            var complectsParameter = parameters.SingleOrDefault(parameter => parameter.Id == GlobalAppProperties.Actual.ComplectsParameter.Id);
             if (complectsParameter != null)
                 parametersToExclude.Add(complectsParameter);
 
             if (selectedProduct != null)
             {
-                var ids = selectedProduct.ProductBlock.Parameters.Select(x => x.Id).ToList();
-                parametersToExclude = parametersToExclude.Where(x => !ids.Contains(x.Id)).ToList();
+                var ids = selectedProduct.ProductBlock.Parameters.Select(parameter => parameter.Id).ToList();
+                parametersToExclude = parametersToExclude.Where(parameter => !ids.Contains(parameter.Id)).ToList();
             }
 
             return parameters.Except(parametersToExclude).ToList();

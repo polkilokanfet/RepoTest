@@ -1,21 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
-using Microsoft.Practices.ObjectBuilder2;
 
 namespace HVTApp.Services.GetProductService.ProductGeneration
 {
     public class BlockGeneration
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly List<Parameter> _allParameters;
+        private readonly Parameter[] _allParameters;
 
-        private IEnumerable<PathToOrigin> AllPaths => _allParameters.SelectMany(x => x.Paths());
+        private IEnumerable<PathToOrigin> AllPaths => _allParameters.SelectMany(parameter => parameter.Paths());
 
         //полные пути параметров
         private IEnumerable<PathToOrigin> FullPaths => AllPaths.Where(x => AllPaths.Count(p => x.Parameters.AllContainsIn(p.Parameters)) == 1);
@@ -23,7 +19,7 @@ namespace HVTApp.Services.GetProductService.ProductGeneration
         public BlockGeneration(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _allParameters = unitOfWork.Repository<Parameter>().Find(x => true);
+            _allParameters = unitOfWork.Repository<Parameter>().GetAll();
         }
 
         /// <summary>
@@ -32,7 +28,7 @@ namespace HVTApp.Services.GetProductService.ProductGeneration
         /// <returns></returns>
         public IEnumerable<PathToOrigin> GetFullPaths()
         {
-            return AllPaths.Where(x => AllPaths.Count(p => x.Parameters.AllContainsIn(p.Parameters)) == 1);
+            return AllPaths.Where(pathToOrigin => AllPaths.Count(p => pathToOrigin.Parameters.AllContainsIn(p.Parameters)) == 1);
         }
 
         //всё, что ниже, слишком мудрено и нихрена не работает

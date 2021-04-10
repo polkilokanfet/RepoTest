@@ -1,9 +1,7 @@
-using System.Collections.Generic;
 using System.Windows.Input;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
-using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Groups.SimpleWrappers;
 using HVTApp.UI.ViewModels;
 using Microsoft.Practices.Unity;
@@ -22,7 +20,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel
             SelectProjectTypeCommand = new DelegateCommand(
                 () =>
                 {
-                    List<ProjectType> projectTypes = UnitOfWork.Repository<ProjectType>().GetAll();
+                    ProjectType[] projectTypes = UnitOfWork.Repository<ProjectType>().GetAll();
 
                     //выбор сущности
                     var selectedProjectType = Container.Resolve<ISelectService>().SelectItem(projectTypes, Item.ProjectType?.Model.Id);

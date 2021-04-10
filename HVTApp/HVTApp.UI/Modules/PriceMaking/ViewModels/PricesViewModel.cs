@@ -149,7 +149,10 @@ namespace HVTApp.UI.Modules.PriceMaking.ViewModels
                         }
                     }
 
-                    PriceTasks.Where(x => x.IsValid && x.IsChanged).ForEach(x => x.AcceptChanges());
+                    PriceTasks
+                        .Where(priceTask => priceTask.IsValid && priceTask.IsChanged)
+                        .ForEach(priceTask => priceTask.AcceptChanges());
+
                     _unitOfWork.SaveChanges();
 
                     Container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", sb.ToString());
@@ -160,7 +163,7 @@ namespace HVTApp.UI.Modules.PriceMaking.ViewModels
         {
             var block = SelectedPriceTask;
             var products = _unitOfWork.Repository<Product>().GetAll();
-            products = products.Where(x => x.GetBlocks().Contains(block.Model)).Distinct().ToList();
+            products = products.Where(product => product.GetBlocks().Contains(block.Model)).Distinct().ToArray();
             Container.Resolve<IPrintProductService>().PrintProducts(products, block.Model);
         }
 
@@ -171,7 +174,7 @@ namespace HVTApp.UI.Modules.PriceMaking.ViewModels
 
             var salesUnits = _unitOfWork.Repository<SalesUnit>().GetAll();
             var offerUnits = _unitOfWork.Repository<OfferUnit>().GetAll();
-            var blocks = _unitOfWork.Repository<ProductBlock>().Find(x => !x.IsService);
+            var blocks = _unitOfWork.Repository<ProductBlock>().Find(productBlock => !productBlock.IsService);
             
             _priceTasks = new List<PriceTask>();
             foreach (var block in blocks)

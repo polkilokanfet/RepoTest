@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 
@@ -11,7 +12,7 @@ namespace HVTApp.UI.ViewModels
             //замена населенного пункта в адресах
             foreach (var locality in otherItems)
             {
-                var addresses = unitOfWork.Repository<Address>().Find(address => Equals(address.Locality, locality));
+                var addresses = unitOfWork.Repository<Address>().Find(address => Equals(address.Locality, locality)).ToList();
                 addresses.ForEach(address => address.Locality = mainItem);
             }
 

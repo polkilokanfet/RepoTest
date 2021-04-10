@@ -60,8 +60,8 @@ namespace HVTApp.UI.ViewModels
 <#+		
 		foreach(var propInfo in modelType.AllComplexProperties())
         {
-#>		//private Func<Task<List<<#=propInfo.PropertyType.Name#>>>> _getEntitiesForSelect<#=propInfo.Name#>Command;
-		private Func<List<<#=propInfo.PropertyType.Name#>>> _getEntitiesForSelect<#=propInfo.Name#>Command;
+#>		//private Func<Task<IEnumerable<<#=propInfo.PropertyType.Name#>>>> _getEntitiesForSelect<#=propInfo.Name#>Command;
+		private Func<IEnumerable<<#=propInfo.PropertyType.Name#>>> _getEntitiesForSelect<#=propInfo.Name#>Command;
 		public ICommand Select<#=propInfo.Name#>Command { get; private set; }
 		public ICommand Clear<#=propInfo.Name#>Command { get; private set; }
 
@@ -72,7 +72,7 @@ namespace HVTApp.UI.ViewModels
 			var itemType = propInfo.PropertyType.GetInterfaces().First(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICollection<>)).GenericTypeArguments[0].Name;
 			var propertyName = propInfo.Name;
 
-#>		private Func<List<<#=itemType#>>> _getEntitiesForAddIn<#=propertyName#>Command;
+#>		private Func<IEnumerable<<#=itemType#>>> _getEntitiesForAddIn<#=propertyName#>Command;
 		public ICommand AddIn<#=propertyName#>Command { get; }
 		public ICommand RemoveFrom<#=propertyName#>Command { get; }
 		private <#=itemType#>Wrapper _selected<#=propertyName#>Item;

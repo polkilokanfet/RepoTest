@@ -127,10 +127,10 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
             var salesUnitsInOrder = ((ISalesUnitRepository) UnitOfWork.Repository<SalesUnit>()).GetByOrder(Item.Id).ToList();
             salesUnits.AddRange(salesUnitsInOrder);
 
-            List<PriceCalculation> calculations = UnitOfWork.Repository<PriceCalculation>().GetAll();
-            List<SalesUnitOrderItem> salesUnitOrderItems = salesUnits
+            PriceCalculation[] calculations = UnitOfWork.Repository<PriceCalculation>().GetAll();
+            SalesUnitOrderItem[] salesUnitOrderItems = salesUnits
                 .Select(salesUnit => new SalesUnitOrderItem(salesUnit, salesUnit.ActualPriceCalculationItem(calculations)))
-                .ToList();
+                .ToArray();
             _unitsWrappers = new ValidatableChangeTrackingCollection<SalesUnitOrderItem>(salesUnitOrderItems);
 
             //юниты в заказе
@@ -198,10 +198,10 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
             unitsGroup.SignalToStartProductionDone = DateTime.Today;
             //ставим предполагаемую дату производства
             unitsGroup.EndProductionPlanDate = unitsGroup.Units.First().EndProductionDateExpected;
-            unitsGroup.Units.ForEach(x => x.EndProductionPlanDate = x.EndProductionDateExpected);
+            unitsGroup.Units.ForEach(salesUnitOrderItem => salesUnitOrderItem.EndProductionPlanDate = salesUnitOrderItem.EndProductionDateExpected);
             //заполняем позиции заказа
             int orderPosition = 1;
-            unitsGroup.Units.ForEach(x => x.OrderPosition = orderPosition++.ToString());
+            unitsGroup.Units.ForEach(salesUnitOrderItem => salesUnitOrderItem.OrderPosition = orderPosition++.ToString());
             //переносим группу в план производства
             GroupsInOrder.Add(unitsGroup);
             GroupsPotential.Remove(unitsGroup);
@@ -226,7 +226,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
         private void RemoveUnitFromGroup(SalesUnitOrderGroupsCollection collection, SalesUnitOrderItem unit)
         {
             //группа из которой необходимо удалить юнит
-            var group = collection.Single(x => x.Units.Contains(unit));
+            var group = collection.Single(salesUnitOrderGroup => salesUnitOrderGroup.Units.Contains(unit));
             //удаление
             group.Units.Remove(unit);
             //если в группе не осталось юнитов, удаляем группу из коллекции

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
@@ -74,11 +75,11 @@ namespace HVTApp.UI.Modules.Products.ViewModels
             ReplaceCommand = new DelegateCommand(
                 () =>
                 {
-                    var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => x.Product.Id == ProductReplaceable.Id);
-                    salesUnits.ForEach(x => x.Product = ProductTarget);
+                    var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(salesUnit => salesUnit.Product.Id == ProductReplaceable.Id).ToList();
+                    salesUnits.ForEach(salesUnit => salesUnit.Product = ProductTarget);
 
-                    var offerUnits = UnitOfWork.Repository<OfferUnit>().Find(x => x.Product.Id == ProductReplaceable.Id);
-                    offerUnits.ForEach(x => x.Product = ProductTarget);
+                    var offerUnits = UnitOfWork.Repository<OfferUnit>().Find(offerUnit => offerUnit.Product.Id == ProductReplaceable.Id).ToList();
+                    offerUnits.ForEach(offerUnit => offerUnit.Product = ProductTarget);
 
                     try
                     {

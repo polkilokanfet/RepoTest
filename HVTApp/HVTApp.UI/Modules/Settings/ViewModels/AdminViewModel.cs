@@ -37,12 +37,10 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
                     }
 
 
-                    List<PriceCalculation> priceCalculations = unitOfWork.Repository<PriceCalculation>().Find(priceCalculation => priceCalculation.Initiator == null);
+                    PriceCalculation[] priceCalculations = unitOfWork.Repository<PriceCalculation>().Find(priceCalculation => priceCalculation.Initiator == null);
                     foreach (PriceCalculation priceCalculation in priceCalculations)
                     {
-                        priceCalculation.Initiator = priceCalculation.PriceCalculationItems
-                            .SelectMany(x => x.SalesUnits).First().Project
-                            .Manager;
+                        priceCalculation.Initiator = priceCalculation.PriceCalculationItems.SelectMany(priceCalculationItem => priceCalculationItem.SalesUnits).First().Project.Manager;
                     }
 
                     unitOfWork.SaveChanges();

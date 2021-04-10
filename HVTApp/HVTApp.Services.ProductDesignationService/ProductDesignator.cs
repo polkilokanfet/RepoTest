@@ -12,7 +12,7 @@ namespace HVTApp.Services.ProductDesignationService
     public class ProductDesignator : IProductDesignationService
     {
         private readonly List<ProductCategory> _productCategories;
-        private readonly List<ProductTypeDesignation> _designationsOfProductTypes;
+        private readonly ProductTypeDesignation[] _designationsOfProductTypes;
         private readonly List<DesignationOfBlock> _designationsOfBlocks = new List<DesignationOfBlock>();
 
         public ProductDesignator(IUnitOfWork unitOfWork)
@@ -90,7 +90,7 @@ namespace HVTApp.Services.ProductDesignationService
             var designations = _designationsOfProductTypes.Where(pd => pd.Parameters.AllContainsIn(block.Parameters, new ParameterComparer())).ToList();
 
             var result = designations.Any() 
-                ? designations.OrderBy(x => x.Parameters.Count).Last().ProductType 
+                ? designations.OrderBy(productTypeDesignation => productTypeDesignation.Parameters.Count).Last().ProductType 
                 : _emptyProductType;
 
             _dictionaryBlockTypes.Add(block.Id, result);

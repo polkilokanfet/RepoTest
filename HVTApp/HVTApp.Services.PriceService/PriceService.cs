@@ -92,7 +92,7 @@ namespace HVTApp.Services.PriceService
         public void Reload()
         {
             var unitOfWork = _container.Resolve<IModelsStore>().UnitOfWork;
-            Blocks = unitOfWork.Repository<ProductBlock>().GetAll();
+            Blocks = unitOfWork.Repository<ProductBlock>().GetAll().ToList();
 
             //PriceCalculationItemsFinished.Clear();
             SalesUnitsCalculationsDictionary.Clear();

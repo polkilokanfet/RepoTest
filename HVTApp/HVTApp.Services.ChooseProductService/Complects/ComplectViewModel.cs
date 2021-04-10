@@ -14,7 +14,7 @@ namespace HVTApp.Services.GetProductService.Complects
 {
     public class ComplectViewModel : ViewModelBase
     {
-        private readonly List<Parameter> _complectTypes;
+        private readonly Parameter[] _complectTypes;
         private readonly ParameterRelationWrapper _relation;
         private ParameterWrapper _parameterComplectType;
 
@@ -24,7 +24,7 @@ namespace HVTApp.Services.GetProductService.Complects
 
         public ParameterWrapper ParameterComplectType
         {
-            get { return _parameterComplectType; }
+            get => _parameterComplectType;
             private set
             {
                 _parameterComplectType = value;
@@ -95,7 +95,7 @@ namespace HVTApp.Services.GetProductService.Complects
             ParameterComplectDesignation.ParameterRelations.Add(_relation);
             Product.ProductBlock.Parameters.Add(ParameterComplectDesignation);
 
-            _complectTypes = UnitOfWork.Repository<Parameter>().Find(x => x.ParameterGroup.Id == GlobalAppProperties.Actual.ComplectsGroup.Id);
+            _complectTypes = UnitOfWork.Repository<Parameter>().Find(parameter => parameter.ParameterGroup.Id == GlobalAppProperties.Actual.ComplectsGroup.Id);
             var parameterComplectType = _complectTypes.FirstOrDefault();
             if (parameterComplectType != null)
             {

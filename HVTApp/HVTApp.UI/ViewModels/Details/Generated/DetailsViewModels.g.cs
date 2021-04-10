@@ -28,7 +28,7 @@ namespace HVTApp.UI.ViewModels
 
     public partial class CountryUnionDetailsViewModel : BaseDetailsViewModel<CountryUnionWrapper, CountryUnion, AfterSaveCountryUnionEvent>
     {
-		private Func<List<Country>> _getEntitiesForAddInCountriesCommand;
+		private Func<IEnumerable<Country>> _getEntitiesForAddInCountriesCommand;
 		public ICommand AddInCountriesCommand { get; }
 		public ICommand RemoveFromCountriesCommand { get; }
 		private CountryWrapper _selectedCountriesItem;
@@ -76,8 +76,8 @@ namespace HVTApp.UI.ViewModels
 
     public partial class BankGuaranteeDetailsViewModel : BaseDetailsViewModel<BankGuaranteeWrapper, BankGuarantee, AfterSaveBankGuaranteeEvent>
     {
-		//private Func<Task<List<BankGuaranteeType>>> _getEntitiesForSelectBankGuaranteeTypeCommand;
-		private Func<List<BankGuaranteeType>> _getEntitiesForSelectBankGuaranteeTypeCommand;
+		//private Func<Task<IEnumerable<BankGuaranteeType>>> _getEntitiesForSelectBankGuaranteeTypeCommand;
+		private Func<IEnumerable<BankGuaranteeType>> _getEntitiesForSelectBankGuaranteeTypeCommand;
 		public ICommand SelectBankGuaranteeTypeCommand { get; private set; }
 		public ICommand ClearBankGuaranteeTypeCommand { get; private set; }
 
@@ -121,7 +121,7 @@ namespace HVTApp.UI.ViewModels
 
     public partial class BudgetDetailsViewModel : BaseDetailsViewModel<BudgetWrapper, Budget, AfterSaveBudgetEvent>
     {
-		private Func<List<BudgetUnit>> _getEntitiesForAddInUnitsCommand;
+		private Func<IEnumerable<BudgetUnit>> _getEntitiesForAddInUnitsCommand;
 		public ICommand AddInUnitsCommand { get; }
 		public ICommand RemoveFromUnitsCommand { get; }
 		private BudgetUnitWrapper _selectedUnitsItem;
@@ -169,18 +169,18 @@ namespace HVTApp.UI.ViewModels
 
     public partial class BudgetUnitDetailsViewModel : BaseDetailsViewModel<BudgetUnitWrapper, BudgetUnit, AfterSaveBudgetUnitEvent>
     {
-		//private Func<Task<List<SalesUnit>>> _getEntitiesForSelectSalesUnitCommand;
-		private Func<List<SalesUnit>> _getEntitiesForSelectSalesUnitCommand;
+		//private Func<Task<IEnumerable<SalesUnit>>> _getEntitiesForSelectSalesUnitCommand;
+		private Func<IEnumerable<SalesUnit>> _getEntitiesForSelectSalesUnitCommand;
 		public ICommand SelectSalesUnitCommand { get; private set; }
 		public ICommand ClearSalesUnitCommand { get; private set; }
 
-		//private Func<Task<List<PaymentConditionSet>>> _getEntitiesForSelectPaymentConditionSetCommand;
-		private Func<List<PaymentConditionSet>> _getEntitiesForSelectPaymentConditionSetCommand;
+		//private Func<Task<IEnumerable<PaymentConditionSet>>> _getEntitiesForSelectPaymentConditionSetCommand;
+		private Func<IEnumerable<PaymentConditionSet>> _getEntitiesForSelectPaymentConditionSetCommand;
 		public ICommand SelectPaymentConditionSetCommand { get; private set; }
 		public ICommand ClearPaymentConditionSetCommand { get; private set; }
 
-		//private Func<Task<List<PaymentConditionSet>>> _getEntitiesForSelectPaymentConditionSetByManagerCommand;
-		private Func<List<PaymentConditionSet>> _getEntitiesForSelectPaymentConditionSetByManagerCommand;
+		//private Func<Task<IEnumerable<PaymentConditionSet>>> _getEntitiesForSelectPaymentConditionSetByManagerCommand;
+		private Func<IEnumerable<PaymentConditionSet>> _getEntitiesForSelectPaymentConditionSetByManagerCommand;
 		public ICommand SelectPaymentConditionSetByManagerCommand { get; private set; }
 		public ICommand ClearPaymentConditionSetByManagerCommand { get; private set; }
 
@@ -244,7 +244,7 @@ namespace HVTApp.UI.ViewModels
 
     public partial class ConstructorParametersListDetailsViewModel : BaseDetailsViewModel<ConstructorParametersListWrapper, ConstructorParametersList, AfterSaveConstructorParametersListEvent>
     {
-		private Func<List<Parameter>> _getEntitiesForAddInParametersCommand;
+		private Func<IEnumerable<Parameter>> _getEntitiesForAddInParametersCommand;
 		public ICommand AddInParametersCommand { get; }
 		public ICommand RemoveFromParametersCommand { get; }
 		private ParameterWrapper _selectedParametersItem;
@@ -292,7 +292,7 @@ namespace HVTApp.UI.ViewModels
 
     public partial class ConstructorsParametersDetailsViewModel : BaseDetailsViewModel<ConstructorsParametersWrapper, ConstructorsParameters, AfterSaveConstructorsParametersEvent>
     {
-		private Func<List<User>> _getEntitiesForAddInConstructorsCommand;
+		private Func<IEnumerable<User>> _getEntitiesForAddInConstructorsCommand;
 		public ICommand AddInConstructorsCommand { get; }
 		public ICommand RemoveFromConstructorsCommand { get; }
 		private UserWrapper _selectedConstructorsItem;
@@ -308,7 +308,7 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
-		private Func<List<ConstructorParametersList>> _getEntitiesForAddInPatametersListsCommand;
+		private Func<IEnumerable<ConstructorParametersList>> _getEntitiesForAddInPatametersListsCommand;
 		public ICommand AddInPatametersListsCommand { get; }
 		public ICommand RemoveFromPatametersListsCommand { get; }
 		private ConstructorParametersListWrapper _selectedPatametersListsItem;
@@ -376,8 +376,8 @@ namespace HVTApp.UI.ViewModels
 
     public partial class CreateNewProductTaskDetailsViewModel : BaseDetailsViewModel<CreateNewProductTaskWrapper, CreateNewProductTask, AfterSaveCreateNewProductTaskEvent>
     {
-		//private Func<Task<List<Product>>> _getEntitiesForSelectProductCommand;
-		private Func<List<Product>> _getEntitiesForSelectProductCommand;
+		//private Func<Task<IEnumerable<Product>>> _getEntitiesForSelectProductCommand;
+		private Func<IEnumerable<Product>> _getEntitiesForSelectProductCommand;
 		public ICommand SelectProductCommand { get; private set; }
 		public ICommand ClearProductCommand { get; private set; }
 
@@ -409,27 +409,27 @@ namespace HVTApp.UI.ViewModels
 
     public partial class DirectumTaskDetailsViewModel : BaseDetailsViewModel<DirectumTaskWrapper, DirectumTask, AfterSaveDirectumTaskEvent>
     {
-		//private Func<Task<List<DirectumTaskGroup>>> _getEntitiesForSelectGroupCommand;
-		private Func<List<DirectumTaskGroup>> _getEntitiesForSelectGroupCommand;
+		//private Func<Task<IEnumerable<DirectumTaskGroup>>> _getEntitiesForSelectGroupCommand;
+		private Func<IEnumerable<DirectumTaskGroup>> _getEntitiesForSelectGroupCommand;
 		public ICommand SelectGroupCommand { get; private set; }
 		public ICommand ClearGroupCommand { get; private set; }
 
-		//private Func<Task<List<User>>> _getEntitiesForSelectPerformerCommand;
-		private Func<List<User>> _getEntitiesForSelectPerformerCommand;
+		//private Func<Task<IEnumerable<User>>> _getEntitiesForSelectPerformerCommand;
+		private Func<IEnumerable<User>> _getEntitiesForSelectPerformerCommand;
 		public ICommand SelectPerformerCommand { get; private set; }
 		public ICommand ClearPerformerCommand { get; private set; }
 
-		//private Func<Task<List<DirectumTask>>> _getEntitiesForSelectParentTaskCommand;
-		private Func<List<DirectumTask>> _getEntitiesForSelectParentTaskCommand;
+		//private Func<Task<IEnumerable<DirectumTask>>> _getEntitiesForSelectParentTaskCommand;
+		private Func<IEnumerable<DirectumTask>> _getEntitiesForSelectParentTaskCommand;
 		public ICommand SelectParentTaskCommand { get; private set; }
 		public ICommand ClearParentTaskCommand { get; private set; }
 
-		//private Func<Task<List<DirectumTask>>> _getEntitiesForSelectPreviousTaskCommand;
-		private Func<List<DirectumTask>> _getEntitiesForSelectPreviousTaskCommand;
+		//private Func<Task<IEnumerable<DirectumTask>>> _getEntitiesForSelectPreviousTaskCommand;
+		private Func<IEnumerable<DirectumTask>> _getEntitiesForSelectPreviousTaskCommand;
 		public ICommand SelectPreviousTaskCommand { get; private set; }
 		public ICommand ClearPreviousTaskCommand { get; private set; }
 
-		private Func<List<DirectumTaskMessage>> _getEntitiesForAddInMessagesCommand;
+		private Func<IEnumerable<DirectumTaskMessage>> _getEntitiesForAddInMessagesCommand;
 		public ICommand AddInMessagesCommand { get; }
 		public ICommand RemoveFromMessagesCommand { get; }
 		private DirectumTaskMessageWrapper _selectedMessagesItem;
@@ -445,7 +445,7 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
-		private Func<List<DirectumTask>> _getEntitiesForAddInChildsCommand;
+		private Func<IEnumerable<DirectumTask>> _getEntitiesForAddInChildsCommand;
 		public ICommand AddInChildsCommand { get; }
 		public ICommand RemoveFromChildsCommand { get; }
 		private DirectumTaskWrapper _selectedChildsItem;
@@ -461,7 +461,7 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
-		private Func<List<DirectumTask>> _getEntitiesForAddInParallelCommand;
+		private Func<IEnumerable<DirectumTask>> _getEntitiesForAddInParallelCommand;
 		public ICommand AddInParallelCommand { get; }
 		public ICommand RemoveFromParallelCommand { get; }
 		private DirectumTaskWrapper _selectedParallelItem;
@@ -477,7 +477,7 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
-		private Func<List<DirectumTask>> _getEntitiesForAddInNextCommand;
+		private Func<IEnumerable<DirectumTask>> _getEntitiesForAddInNextCommand;
 		public ICommand AddInNextCommand { get; }
 		public ICommand RemoveFromNextCommand { get; }
 		private DirectumTaskWrapper _selectedNextItem;
@@ -649,12 +649,12 @@ namespace HVTApp.UI.ViewModels
 
     public partial class DirectumTaskGroupDetailsViewModel : BaseDetailsViewModel<DirectumTaskGroupWrapper, DirectumTaskGroup, AfterSaveDirectumTaskGroupEvent>
     {
-		//private Func<Task<List<User>>> _getEntitiesForSelectAuthorCommand;
-		private Func<List<User>> _getEntitiesForSelectAuthorCommand;
+		//private Func<Task<IEnumerable<User>>> _getEntitiesForSelectAuthorCommand;
+		private Func<IEnumerable<User>> _getEntitiesForSelectAuthorCommand;
 		public ICommand SelectAuthorCommand { get; private set; }
 		public ICommand ClearAuthorCommand { get; private set; }
 
-		private Func<List<User>> _getEntitiesForAddInObserversCommand;
+		private Func<IEnumerable<User>> _getEntitiesForAddInObserversCommand;
 		public ICommand AddInObserversCommand { get; }
 		public ICommand RemoveFromObserversCommand { get; }
 		private UserWrapper _selectedObserversItem;
@@ -670,7 +670,7 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
-		private Func<List<DirectumTaskGroupFile>> _getEntitiesForAddInFilesCommand;
+		private Func<IEnumerable<DirectumTaskGroupFile>> _getEntitiesForAddInFilesCommand;
 		public ICommand AddInFilesCommand { get; }
 		public ICommand RemoveFromFilesCommand { get; }
 		private DirectumTaskGroupFileWrapper _selectedFilesItem;
@@ -754,8 +754,8 @@ namespace HVTApp.UI.ViewModels
 
     public partial class DirectumTaskGroupFileDetailsViewModel : BaseDetailsViewModel<DirectumTaskGroupFileWrapper, DirectumTaskGroupFile, AfterSaveDirectumTaskGroupFileEvent>
     {
-		//private Func<Task<List<User>>> _getEntitiesForSelectAuthorCommand;
-		private Func<List<User>> _getEntitiesForSelectAuthorCommand;
+		//private Func<Task<IEnumerable<User>>> _getEntitiesForSelectAuthorCommand;
+		private Func<IEnumerable<User>> _getEntitiesForSelectAuthorCommand;
 		public ICommand SelectAuthorCommand { get; private set; }
 		public ICommand ClearAuthorCommand { get; private set; }
 
@@ -787,8 +787,8 @@ namespace HVTApp.UI.ViewModels
 
     public partial class DirectumTaskMessageDetailsViewModel : BaseDetailsViewModel<DirectumTaskMessageWrapper, DirectumTaskMessage, AfterSaveDirectumTaskMessageEvent>
     {
-		//private Func<Task<List<User>>> _getEntitiesForSelectAuthorCommand;
-		private Func<List<User>> _getEntitiesForSelectAuthorCommand;
+		//private Func<Task<IEnumerable<User>>> _getEntitiesForSelectAuthorCommand;
+		private Func<IEnumerable<User>> _getEntitiesForSelectAuthorCommand;
 		public ICommand SelectAuthorCommand { get; private set; }
 		public ICommand ClearAuthorCommand { get; private set; }
 
@@ -832,12 +832,12 @@ namespace HVTApp.UI.ViewModels
 
     public partial class IncomingRequestDetailsViewModel : BaseDetailsViewModel<IncomingRequestWrapper, IncomingRequest, AfterSaveIncomingRequestEvent>
     {
-		//private Func<Task<List<Document>>> _getEntitiesForSelectDocumentCommand;
-		private Func<List<Document>> _getEntitiesForSelectDocumentCommand;
+		//private Func<Task<IEnumerable<Document>>> _getEntitiesForSelectDocumentCommand;
+		private Func<IEnumerable<Document>> _getEntitiesForSelectDocumentCommand;
 		public ICommand SelectDocumentCommand { get; private set; }
 		public ICommand ClearDocumentCommand { get; private set; }
 
-		private Func<List<Employee>> _getEntitiesForAddInPerformersCommand;
+		private Func<IEnumerable<Employee>> _getEntitiesForAddInPerformersCommand;
 		public ICommand AddInPerformersCommand { get; }
 		public ICommand RemoveFromPerformersCommand { get; }
 		private EmployeeWrapper _selectedPerformersItem;
@@ -913,7 +913,7 @@ namespace HVTApp.UI.ViewModels
 
     public partial class MarketFieldDetailsViewModel : BaseDetailsViewModel<MarketFieldWrapper, MarketField, AfterSaveMarketFieldEvent>
     {
-		private Func<List<ActivityField>> _getEntitiesForAddInActivityFieldsCommand;
+		private Func<IEnumerable<ActivityField>> _getEntitiesForAddInActivityFieldsCommand;
 		public ICommand AddInActivityFieldsCommand { get; }
 		public ICommand RemoveFromActivityFieldsCommand { get; }
 		private ActivityFieldWrapper _selectedActivityFieldsItem;
@@ -985,8 +985,8 @@ namespace HVTApp.UI.ViewModels
 
     public partial class PaymentPlannedDetailsViewModel : BaseDetailsViewModel<PaymentPlannedWrapper, PaymentPlanned, AfterSavePaymentPlannedEvent>
     {
-		//private Func<Task<List<PaymentCondition>>> _getEntitiesForSelectConditionCommand;
-		private Func<List<PaymentCondition>> _getEntitiesForSelectConditionCommand;
+		//private Func<Task<IEnumerable<PaymentCondition>>> _getEntitiesForSelectConditionCommand;
+		private Func<IEnumerable<PaymentCondition>> _getEntitiesForSelectConditionCommand;
 		public ICommand SelectConditionCommand { get; private set; }
 		public ICommand ClearConditionCommand { get; private set; }
 
@@ -1030,12 +1030,12 @@ namespace HVTApp.UI.ViewModels
 
     public partial class PriceCalculationDetailsViewModel : BaseDetailsViewModel<PriceCalculationWrapper, PriceCalculation, AfterSavePriceCalculationEvent>
     {
-		//private Func<Task<List<User>>> _getEntitiesForSelectInitiatorCommand;
-		private Func<List<User>> _getEntitiesForSelectInitiatorCommand;
+		//private Func<Task<IEnumerable<User>>> _getEntitiesForSelectInitiatorCommand;
+		private Func<IEnumerable<User>> _getEntitiesForSelectInitiatorCommand;
 		public ICommand SelectInitiatorCommand { get; private set; }
 		public ICommand ClearInitiatorCommand { get; private set; }
 
-		private Func<List<PriceCalculationItem>> _getEntitiesForAddInPriceCalculationItemsCommand;
+		private Func<IEnumerable<PriceCalculationItem>> _getEntitiesForAddInPriceCalculationItemsCommand;
 		public ICommand AddInPriceCalculationItemsCommand { get; }
 		public ICommand RemoveFromPriceCalculationItemsCommand { get; }
 		private PriceCalculationItemWrapper _selectedPriceCalculationItemsItem;
@@ -1051,7 +1051,7 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
-		private Func<List<PriceCalculationFile>> _getEntitiesForAddInFilesCommand;
+		private Func<IEnumerable<PriceCalculationFile>> _getEntitiesForAddInFilesCommand;
 		public ICommand AddInFilesCommand { get; }
 		public ICommand RemoveFromFilesCommand { get; }
 		private PriceCalculationFileWrapper _selectedFilesItem;
@@ -1147,12 +1147,12 @@ namespace HVTApp.UI.ViewModels
 
     public partial class PriceCalculationItemDetailsViewModel : BaseDetailsViewModel<PriceCalculationItemWrapper, PriceCalculationItem, AfterSavePriceCalculationItemEvent>
     {
-		//private Func<Task<List<PaymentConditionSet>>> _getEntitiesForSelectPaymentConditionSetCommand;
-		private Func<List<PaymentConditionSet>> _getEntitiesForSelectPaymentConditionSetCommand;
+		//private Func<Task<IEnumerable<PaymentConditionSet>>> _getEntitiesForSelectPaymentConditionSetCommand;
+		private Func<IEnumerable<PaymentConditionSet>> _getEntitiesForSelectPaymentConditionSetCommand;
 		public ICommand SelectPaymentConditionSetCommand { get; private set; }
 		public ICommand ClearPaymentConditionSetCommand { get; private set; }
 
-		private Func<List<SalesUnit>> _getEntitiesForAddInSalesUnitsCommand;
+		private Func<IEnumerable<SalesUnit>> _getEntitiesForAddInSalesUnitsCommand;
 		public ICommand AddInSalesUnitsCommand { get; }
 		public ICommand RemoveFromSalesUnitsCommand { get; }
 		private SalesUnitWrapper _selectedSalesUnitsItem;
@@ -1168,7 +1168,7 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
-		private Func<List<StructureCost>> _getEntitiesForAddInStructureCostsCommand;
+		private Func<IEnumerable<StructureCost>> _getEntitiesForAddInStructureCostsCommand;
 		public ICommand AddInStructureCostsCommand { get; }
 		public ICommand RemoveFromStructureCostsCommand { get; }
 		private StructureCostWrapper _selectedStructureCostsItem;
@@ -1252,7 +1252,7 @@ namespace HVTApp.UI.ViewModels
 
     public partial class ProductCategoryDetailsViewModel : BaseDetailsViewModel<ProductCategoryWrapper, ProductCategory, AfterSaveProductCategoryEvent>
     {
-		private Func<List<Parameter>> _getEntitiesForAddInParametersCommand;
+		private Func<IEnumerable<Parameter>> _getEntitiesForAddInParametersCommand;
 		public ICommand AddInParametersCommand { get; }
 		public ICommand RemoveFromParametersCommand { get; }
 		private ParameterWrapper _selectedParametersItem;
@@ -1300,8 +1300,8 @@ namespace HVTApp.UI.ViewModels
 
     public partial class ProductCategoryPriceAndCostDetailsViewModel : BaseDetailsViewModel<ProductCategoryPriceAndCostWrapper, ProductCategoryPriceAndCost, AfterSaveProductCategoryPriceAndCostEvent>
     {
-		//private Func<Task<List<ProductCategory>>> _getEntitiesForSelectCategoryCommand;
-		private Func<List<ProductCategory>> _getEntitiesForSelectCategoryCommand;
+		//private Func<Task<IEnumerable<ProductCategory>>> _getEntitiesForSelectCategoryCommand;
+		private Func<IEnumerable<ProductCategory>> _getEntitiesForSelectCategoryCommand;
 		public ICommand SelectCategoryCommand { get; private set; }
 		public ICommand ClearCategoryCommand { get; private set; }
 
@@ -1333,8 +1333,8 @@ namespace HVTApp.UI.ViewModels
 
     public partial class ProductIncludedDetailsViewModel : BaseDetailsViewModel<ProductIncludedWrapper, ProductIncluded, AfterSaveProductIncludedEvent>
     {
-		//private Func<Task<List<Product>>> _getEntitiesForSelectProductCommand;
-		private Func<List<Product>> _getEntitiesForSelectProductCommand;
+		//private Func<Task<IEnumerable<Product>>> _getEntitiesForSelectProductCommand;
+		private Func<IEnumerable<Product>> _getEntitiesForSelectProductCommand;
 		public ICommand SelectProductCommand { get; private set; }
 		public ICommand ClearProductCommand { get; private set; }
 
@@ -1366,7 +1366,7 @@ namespace HVTApp.UI.ViewModels
 
     public partial class ProductDesignationDetailsViewModel : BaseDetailsViewModel<ProductDesignationWrapper, ProductDesignation, AfterSaveProductDesignationEvent>
     {
-		private Func<List<Parameter>> _getEntitiesForAddInParametersCommand;
+		private Func<IEnumerable<Parameter>> _getEntitiesForAddInParametersCommand;
 		public ICommand AddInParametersCommand { get; }
 		public ICommand RemoveFromParametersCommand { get; }
 		private ParameterWrapper _selectedParametersItem;
@@ -1382,7 +1382,7 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
-		private Func<List<ProductDesignation>> _getEntitiesForAddInParentsCommand;
+		private Func<IEnumerable<ProductDesignation>> _getEntitiesForAddInParentsCommand;
 		public ICommand AddInParentsCommand { get; }
 		public ICommand RemoveFromParentsCommand { get; }
 		private ProductDesignationWrapper _selectedParentsItem;
@@ -1462,12 +1462,12 @@ namespace HVTApp.UI.ViewModels
 
     public partial class ProductTypeDesignationDetailsViewModel : BaseDetailsViewModel<ProductTypeDesignationWrapper, ProductTypeDesignation, AfterSaveProductTypeDesignationEvent>
     {
-		//private Func<Task<List<ProductType>>> _getEntitiesForSelectProductTypeCommand;
-		private Func<List<ProductType>> _getEntitiesForSelectProductTypeCommand;
+		//private Func<Task<IEnumerable<ProductType>>> _getEntitiesForSelectProductTypeCommand;
+		private Func<IEnumerable<ProductType>> _getEntitiesForSelectProductTypeCommand;
 		public ICommand SelectProductTypeCommand { get; private set; }
 		public ICommand ClearProductTypeCommand { get; private set; }
 
-		private Func<List<Parameter>> _getEntitiesForAddInParametersCommand;
+		private Func<IEnumerable<Parameter>> _getEntitiesForAddInParametersCommand;
 		public ICommand AddInParametersCommand { get; }
 		public ICommand RemoveFromParametersCommand { get; }
 		private ParameterWrapper _selectedParametersItem;
@@ -1543,7 +1543,7 @@ namespace HVTApp.UI.ViewModels
 
     public partial class StandartMarginalIncomeDetailsViewModel : BaseDetailsViewModel<StandartMarginalIncomeWrapper, StandartMarginalIncome, AfterSaveStandartMarginalIncomeEvent>
     {
-		private Func<List<Parameter>> _getEntitiesForAddInParametersCommand;
+		private Func<IEnumerable<Parameter>> _getEntitiesForAddInParametersCommand;
 		public ICommand AddInParametersCommand { get; }
 		public ICommand RemoveFromParametersCommand { get; }
 		private ParameterWrapper _selectedParametersItem;
@@ -1591,7 +1591,7 @@ namespace HVTApp.UI.ViewModels
 
     public partial class StandartProductionTermDetailsViewModel : BaseDetailsViewModel<StandartProductionTermWrapper, StandartProductionTerm, AfterSaveStandartProductionTermEvent>
     {
-		private Func<List<Parameter>> _getEntitiesForAddInParametersCommand;
+		private Func<IEnumerable<Parameter>> _getEntitiesForAddInParametersCommand;
 		public ICommand AddInParametersCommand { get; }
 		public ICommand RemoveFromParametersCommand { get; }
 		private ParameterWrapper _selectedParametersItem;
@@ -1651,13 +1651,13 @@ namespace HVTApp.UI.ViewModels
 
     public partial class SupervisionDetailsViewModel : BaseDetailsViewModel<SupervisionWrapper, Supervision, AfterSaveSupervisionEvent>
     {
-		//private Func<Task<List<SalesUnit>>> _getEntitiesForSelectSalesUnitCommand;
-		private Func<List<SalesUnit>> _getEntitiesForSelectSalesUnitCommand;
+		//private Func<Task<IEnumerable<SalesUnit>>> _getEntitiesForSelectSalesUnitCommand;
+		private Func<IEnumerable<SalesUnit>> _getEntitiesForSelectSalesUnitCommand;
 		public ICommand SelectSalesUnitCommand { get; private set; }
 		public ICommand ClearSalesUnitCommand { get; private set; }
 
-		//private Func<Task<List<SalesUnit>>> _getEntitiesForSelectSupervisionUnitCommand;
-		private Func<List<SalesUnit>> _getEntitiesForSelectSupervisionUnitCommand;
+		//private Func<Task<IEnumerable<SalesUnit>>> _getEntitiesForSelectSupervisionUnitCommand;
+		private Func<IEnumerable<SalesUnit>> _getEntitiesForSelectSupervisionUnitCommand;
 		public ICommand SelectSupervisionUnitCommand { get; private set; }
 		public ICommand ClearSupervisionUnitCommand { get; private set; }
 
@@ -1717,7 +1717,7 @@ namespace HVTApp.UI.ViewModels
 
     public partial class TechnicalRequrementsDetailsViewModel : BaseDetailsViewModel<TechnicalRequrementsWrapper, TechnicalRequrements, AfterSaveTechnicalRequrementsEvent>
     {
-		private Func<List<SalesUnit>> _getEntitiesForAddInSalesUnitsCommand;
+		private Func<IEnumerable<SalesUnit>> _getEntitiesForAddInSalesUnitsCommand;
 		public ICommand AddInSalesUnitsCommand { get; }
 		public ICommand RemoveFromSalesUnitsCommand { get; }
 		private SalesUnitWrapper _selectedSalesUnitsItem;
@@ -1733,7 +1733,7 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
-		private Func<List<TechnicalRequrementsFile>> _getEntitiesForAddInFilesCommand;
+		private Func<IEnumerable<TechnicalRequrementsFile>> _getEntitiesForAddInFilesCommand;
 		public ICommand AddInFilesCommand { get; }
 		public ICommand RemoveFromFilesCommand { get; }
 		private TechnicalRequrementsFileWrapper _selectedFilesItem;
@@ -1813,12 +1813,12 @@ namespace HVTApp.UI.ViewModels
 
     public partial class TechnicalRequrementsTaskDetailsViewModel : BaseDetailsViewModel<TechnicalRequrementsTaskWrapper, TechnicalRequrementsTask, AfterSaveTechnicalRequrementsTaskEvent>
     {
-		//private Func<Task<List<User>>> _getEntitiesForSelectBackManagerCommand;
-		private Func<List<User>> _getEntitiesForSelectBackManagerCommand;
+		//private Func<Task<IEnumerable<User>>> _getEntitiesForSelectBackManagerCommand;
+		private Func<IEnumerable<User>> _getEntitiesForSelectBackManagerCommand;
 		public ICommand SelectBackManagerCommand { get; private set; }
 		public ICommand ClearBackManagerCommand { get; private set; }
 
-		private Func<List<TechnicalRequrements>> _getEntitiesForAddInRequrementsCommand;
+		private Func<IEnumerable<TechnicalRequrements>> _getEntitiesForAddInRequrementsCommand;
 		public ICommand AddInRequrementsCommand { get; }
 		public ICommand RemoveFromRequrementsCommand { get; }
 		private TechnicalRequrementsWrapper _selectedRequrementsItem;
@@ -1834,7 +1834,7 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
-		private Func<List<PriceCalculation>> _getEntitiesForAddInPriceCalculationsCommand;
+		private Func<IEnumerable<PriceCalculation>> _getEntitiesForAddInPriceCalculationsCommand;
 		public ICommand AddInPriceCalculationsCommand { get; }
 		public ICommand RemoveFromPriceCalculationsCommand { get; }
 		private PriceCalculationWrapper _selectedPriceCalculationsItem;
@@ -1850,7 +1850,7 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
-		private Func<List<AnswerFileTce>> _getEntitiesForAddInAnswerFilesCommand;
+		private Func<IEnumerable<AnswerFileTce>> _getEntitiesForAddInAnswerFilesCommand;
 		public ICommand AddInAnswerFilesCommand { get; }
 		public ICommand RemoveFromAnswerFilesCommand { get; }
 		private AnswerFileTceWrapper _selectedAnswerFilesItem;
@@ -1954,7 +1954,7 @@ namespace HVTApp.UI.ViewModels
 
     public partial class UserGroupDetailsViewModel : BaseDetailsViewModel<UserGroupWrapper, UserGroup, AfterSaveUserGroupEvent>
     {
-		private Func<List<User>> _getEntitiesForAddInUsersCommand;
+		private Func<IEnumerable<User>> _getEntitiesForAddInUsersCommand;
 		public ICommand AddInUsersCommand { get; }
 		public ICommand RemoveFromUsersCommand { get; }
 		private UserWrapper _selectedUsersItem;
@@ -2002,98 +2002,98 @@ namespace HVTApp.UI.ViewModels
 
     public partial class GlobalPropertiesDetailsViewModel : BaseDetailsViewModel<GlobalPropertiesWrapper, GlobalProperties, AfterSaveGlobalPropertiesEvent>
     {
-		//private Func<Task<List<Company>>> _getEntitiesForSelectOurCompanyCommand;
-		private Func<List<Company>> _getEntitiesForSelectOurCompanyCommand;
+		//private Func<Task<IEnumerable<Company>>> _getEntitiesForSelectOurCompanyCommand;
+		private Func<IEnumerable<Company>> _getEntitiesForSelectOurCompanyCommand;
 		public ICommand SelectOurCompanyCommand { get; private set; }
 		public ICommand ClearOurCompanyCommand { get; private set; }
 
-		//private Func<Task<List<PaymentConditionSet>>> _getEntitiesForSelectStandartPaymentsConditionSetCommand;
-		private Func<List<PaymentConditionSet>> _getEntitiesForSelectStandartPaymentsConditionSetCommand;
+		//private Func<Task<IEnumerable<PaymentConditionSet>>> _getEntitiesForSelectStandartPaymentsConditionSetCommand;
+		private Func<IEnumerable<PaymentConditionSet>> _getEntitiesForSelectStandartPaymentsConditionSetCommand;
 		public ICommand SelectStandartPaymentsConditionSetCommand { get; private set; }
 		public ICommand ClearStandartPaymentsConditionSetCommand { get; private set; }
 
-		//private Func<Task<List<Parameter>>> _getEntitiesForSelectNewProductParameterCommand;
-		private Func<List<Parameter>> _getEntitiesForSelectNewProductParameterCommand;
+		//private Func<Task<IEnumerable<Parameter>>> _getEntitiesForSelectNewProductParameterCommand;
+		private Func<IEnumerable<Parameter>> _getEntitiesForSelectNewProductParameterCommand;
 		public ICommand SelectNewProductParameterCommand { get; private set; }
 		public ICommand ClearNewProductParameterCommand { get; private set; }
 
-		//private Func<Task<List<ParameterGroup>>> _getEntitiesForSelectNewProductParameterGroupCommand;
-		private Func<List<ParameterGroup>> _getEntitiesForSelectNewProductParameterGroupCommand;
+		//private Func<Task<IEnumerable<ParameterGroup>>> _getEntitiesForSelectNewProductParameterGroupCommand;
+		private Func<IEnumerable<ParameterGroup>> _getEntitiesForSelectNewProductParameterGroupCommand;
 		public ICommand SelectNewProductParameterGroupCommand { get; private set; }
 		public ICommand ClearNewProductParameterGroupCommand { get; private set; }
 
-		//private Func<Task<List<Parameter>>> _getEntitiesForSelectServiceParameterCommand;
-		private Func<List<Parameter>> _getEntitiesForSelectServiceParameterCommand;
+		//private Func<Task<IEnumerable<Parameter>>> _getEntitiesForSelectServiceParameterCommand;
+		private Func<IEnumerable<Parameter>> _getEntitiesForSelectServiceParameterCommand;
 		public ICommand SelectServiceParameterCommand { get; private set; }
 		public ICommand ClearServiceParameterCommand { get; private set; }
 
-		//private Func<Task<List<Parameter>>> _getEntitiesForSelectSupervisionParameterCommand;
-		private Func<List<Parameter>> _getEntitiesForSelectSupervisionParameterCommand;
+		//private Func<Task<IEnumerable<Parameter>>> _getEntitiesForSelectSupervisionParameterCommand;
+		private Func<IEnumerable<Parameter>> _getEntitiesForSelectSupervisionParameterCommand;
 		public ICommand SelectSupervisionParameterCommand { get; private set; }
 		public ICommand ClearSupervisionParameterCommand { get; private set; }
 
-		//private Func<Task<List<ParameterGroup>>> _getEntitiesForSelectVoltageGroupCommand;
-		private Func<List<ParameterGroup>> _getEntitiesForSelectVoltageGroupCommand;
+		//private Func<Task<IEnumerable<ParameterGroup>>> _getEntitiesForSelectVoltageGroupCommand;
+		private Func<IEnumerable<ParameterGroup>> _getEntitiesForSelectVoltageGroupCommand;
 		public ICommand SelectVoltageGroupCommand { get; private set; }
 		public ICommand ClearVoltageGroupCommand { get; private set; }
 
-		//private Func<Task<List<ParameterGroup>>> _getEntitiesForSelectIsolationMaterialGroupCommand;
-		private Func<List<ParameterGroup>> _getEntitiesForSelectIsolationMaterialGroupCommand;
+		//private Func<Task<IEnumerable<ParameterGroup>>> _getEntitiesForSelectIsolationMaterialGroupCommand;
+		private Func<IEnumerable<ParameterGroup>> _getEntitiesForSelectIsolationMaterialGroupCommand;
 		public ICommand SelectIsolationMaterialGroupCommand { get; private set; }
 		public ICommand ClearIsolationMaterialGroupCommand { get; private set; }
 
-		//private Func<Task<List<ParameterGroup>>> _getEntitiesForSelectIsolationColorGroupCommand;
-		private Func<List<ParameterGroup>> _getEntitiesForSelectIsolationColorGroupCommand;
+		//private Func<Task<IEnumerable<ParameterGroup>>> _getEntitiesForSelectIsolationColorGroupCommand;
+		private Func<IEnumerable<ParameterGroup>> _getEntitiesForSelectIsolationColorGroupCommand;
 		public ICommand SelectIsolationColorGroupCommand { get; private set; }
 		public ICommand ClearIsolationColorGroupCommand { get; private set; }
 
-		//private Func<Task<List<ParameterGroup>>> _getEntitiesForSelectIsolationDpuGroupCommand;
-		private Func<List<ParameterGroup>> _getEntitiesForSelectIsolationDpuGroupCommand;
+		//private Func<Task<IEnumerable<ParameterGroup>>> _getEntitiesForSelectIsolationDpuGroupCommand;
+		private Func<IEnumerable<ParameterGroup>> _getEntitiesForSelectIsolationDpuGroupCommand;
 		public ICommand SelectIsolationDpuGroupCommand { get; private set; }
 		public ICommand ClearIsolationDpuGroupCommand { get; private set; }
 
-		//private Func<Task<List<ParameterGroup>>> _getEntitiesForSelectComplectDesignationGroupCommand;
-		private Func<List<ParameterGroup>> _getEntitiesForSelectComplectDesignationGroupCommand;
+		//private Func<Task<IEnumerable<ParameterGroup>>> _getEntitiesForSelectComplectDesignationGroupCommand;
+		private Func<IEnumerable<ParameterGroup>> _getEntitiesForSelectComplectDesignationGroupCommand;
 		public ICommand SelectComplectDesignationGroupCommand { get; private set; }
 		public ICommand ClearComplectDesignationGroupCommand { get; private set; }
 
-		//private Func<Task<List<Parameter>>> _getEntitiesForSelectComplectsParameterCommand;
-		private Func<List<Parameter>> _getEntitiesForSelectComplectsParameterCommand;
+		//private Func<Task<IEnumerable<Parameter>>> _getEntitiesForSelectComplectsParameterCommand;
+		private Func<IEnumerable<Parameter>> _getEntitiesForSelectComplectsParameterCommand;
 		public ICommand SelectComplectsParameterCommand { get; private set; }
 		public ICommand ClearComplectsParameterCommand { get; private set; }
 
-		//private Func<Task<List<ParameterGroup>>> _getEntitiesForSelectComplectsGroupCommand;
-		private Func<List<ParameterGroup>> _getEntitiesForSelectComplectsGroupCommand;
+		//private Func<Task<IEnumerable<ParameterGroup>>> _getEntitiesForSelectComplectsGroupCommand;
+		private Func<IEnumerable<ParameterGroup>> _getEntitiesForSelectComplectsGroupCommand;
 		public ICommand SelectComplectsGroupCommand { get; private set; }
 		public ICommand ClearComplectsGroupCommand { get; private set; }
 
-		//private Func<Task<List<Employee>>> _getEntitiesForSelectRecipientSupervisionLetterEmployeeCommand;
-		private Func<List<Employee>> _getEntitiesForSelectRecipientSupervisionLetterEmployeeCommand;
+		//private Func<Task<IEnumerable<Employee>>> _getEntitiesForSelectRecipientSupervisionLetterEmployeeCommand;
+		private Func<IEnumerable<Employee>> _getEntitiesForSelectRecipientSupervisionLetterEmployeeCommand;
 		public ICommand SelectRecipientSupervisionLetterEmployeeCommand { get; private set; }
 		public ICommand ClearRecipientSupervisionLetterEmployeeCommand { get; private set; }
 
-		//private Func<Task<List<Employee>>> _getEntitiesForSelectSenderOfferEmployeeCommand;
-		private Func<List<Employee>> _getEntitiesForSelectSenderOfferEmployeeCommand;
+		//private Func<Task<IEnumerable<Employee>>> _getEntitiesForSelectSenderOfferEmployeeCommand;
+		private Func<IEnumerable<Employee>> _getEntitiesForSelectSenderOfferEmployeeCommand;
 		public ICommand SelectSenderOfferEmployeeCommand { get; private set; }
 		public ICommand ClearSenderOfferEmployeeCommand { get; private set; }
 
-		//private Func<Task<List<ActivityField>>> _getEntitiesForSelectHvtProducersActivityFieldCommand;
-		private Func<List<ActivityField>> _getEntitiesForSelectHvtProducersActivityFieldCommand;
+		//private Func<Task<IEnumerable<ActivityField>>> _getEntitiesForSelectHvtProducersActivityFieldCommand;
+		private Func<IEnumerable<ActivityField>> _getEntitiesForSelectHvtProducersActivityFieldCommand;
 		public ICommand SelectHvtProducersActivityFieldCommand { get; private set; }
 		public ICommand ClearHvtProducersActivityFieldCommand { get; private set; }
 
-		//private Func<Task<List<PaymentConditionSet>>> _getEntitiesForSelectPaymentConditionSetCommand;
-		private Func<List<PaymentConditionSet>> _getEntitiesForSelectPaymentConditionSetCommand;
+		//private Func<Task<IEnumerable<PaymentConditionSet>>> _getEntitiesForSelectPaymentConditionSetCommand;
+		private Func<IEnumerable<PaymentConditionSet>> _getEntitiesForSelectPaymentConditionSetCommand;
 		public ICommand SelectPaymentConditionSetCommand { get; private set; }
 		public ICommand ClearPaymentConditionSetCommand { get; private set; }
 
-		//private Func<Task<List<User>>> _getEntitiesForSelectDeveloperCommand;
-		private Func<List<User>> _getEntitiesForSelectDeveloperCommand;
+		//private Func<Task<IEnumerable<User>>> _getEntitiesForSelectDeveloperCommand;
+		private Func<IEnumerable<User>> _getEntitiesForSelectDeveloperCommand;
 		public ICommand SelectDeveloperCommand { get; private set; }
 		public ICommand ClearDeveloperCommand { get; private set; }
 
-		//private Func<Task<List<Product>>> _getEntitiesForSelectProductIncludedDefaultCommand;
-		private Func<List<Product>> _getEntitiesForSelectProductIncludedDefaultCommand;
+		//private Func<Task<IEnumerable<Product>>> _getEntitiesForSelectProductIncludedDefaultCommand;
+		private Func<IEnumerable<Product>> _getEntitiesForSelectProductIncludedDefaultCommand;
 		public ICommand SelectProductIncludedDefaultCommand { get; private set; }
 		public ICommand ClearProductIncludedDefaultCommand { get; private set; }
 
@@ -2413,8 +2413,8 @@ namespace HVTApp.UI.ViewModels
 
     public partial class AddressDetailsViewModel : BaseDetailsViewModel<AddressWrapper, Address, AfterSaveAddressEvent>
     {
-		//private Func<Task<List<Locality>>> _getEntitiesForSelectLocalityCommand;
-		private Func<List<Locality>> _getEntitiesForSelectLocalityCommand;
+		//private Func<Task<IEnumerable<Locality>>> _getEntitiesForSelectLocalityCommand;
+		private Func<IEnumerable<Locality>> _getEntitiesForSelectLocalityCommand;
 		public ICommand SelectLocalityCommand { get; private set; }
 		public ICommand ClearLocalityCommand { get; private set; }
 
@@ -2458,8 +2458,8 @@ namespace HVTApp.UI.ViewModels
 
     public partial class DistrictDetailsViewModel : BaseDetailsViewModel<DistrictWrapper, District, AfterSaveDistrictEvent>
     {
-		//private Func<Task<List<Country>>> _getEntitiesForSelectCountryCommand;
-		private Func<List<Country>> _getEntitiesForSelectCountryCommand;
+		//private Func<Task<IEnumerable<Country>>> _getEntitiesForSelectCountryCommand;
+		private Func<IEnumerable<Country>> _getEntitiesForSelectCountryCommand;
 		public ICommand SelectCountryCommand { get; private set; }
 		public ICommand ClearCountryCommand { get; private set; }
 
@@ -2491,13 +2491,13 @@ namespace HVTApp.UI.ViewModels
 
     public partial class LocalityDetailsViewModel : BaseDetailsViewModel<LocalityWrapper, Locality, AfterSaveLocalityEvent>
     {
-		//private Func<Task<List<LocalityType>>> _getEntitiesForSelectLocalityTypeCommand;
-		private Func<List<LocalityType>> _getEntitiesForSelectLocalityTypeCommand;
+		//private Func<Task<IEnumerable<LocalityType>>> _getEntitiesForSelectLocalityTypeCommand;
+		private Func<IEnumerable<LocalityType>> _getEntitiesForSelectLocalityTypeCommand;
 		public ICommand SelectLocalityTypeCommand { get; private set; }
 		public ICommand ClearLocalityTypeCommand { get; private set; }
 
-		//private Func<Task<List<Region>>> _getEntitiesForSelectRegionCommand;
-		private Func<List<Region>> _getEntitiesForSelectRegionCommand;
+		//private Func<Task<IEnumerable<Region>>> _getEntitiesForSelectRegionCommand;
+		private Func<IEnumerable<Region>> _getEntitiesForSelectRegionCommand;
 		public ICommand SelectRegionCommand { get; private set; }
 		public ICommand ClearRegionCommand { get; private set; }
 
@@ -2557,8 +2557,8 @@ namespace HVTApp.UI.ViewModels
 
     public partial class RegionDetailsViewModel : BaseDetailsViewModel<RegionWrapper, Region, AfterSaveRegionEvent>
     {
-		//private Func<Task<List<District>>> _getEntitiesForSelectDistrictCommand;
-		private Func<List<District>> _getEntitiesForSelectDistrictCommand;
+		//private Func<Task<IEnumerable<District>>> _getEntitiesForSelectDistrictCommand;
+		private Func<IEnumerable<District>> _getEntitiesForSelectDistrictCommand;
 		public ICommand SelectDistrictCommand { get; private set; }
 		public ICommand ClearDistrictCommand { get; private set; }
 
@@ -2626,27 +2626,27 @@ namespace HVTApp.UI.ViewModels
 
     public partial class OfferUnitDetailsViewModel : BaseDetailsViewModel<OfferUnitWrapper, OfferUnit, AfterSaveOfferUnitEvent>
     {
-		//private Func<Task<List<Offer>>> _getEntitiesForSelectOfferCommand;
-		private Func<List<Offer>> _getEntitiesForSelectOfferCommand;
+		//private Func<Task<IEnumerable<Offer>>> _getEntitiesForSelectOfferCommand;
+		private Func<IEnumerable<Offer>> _getEntitiesForSelectOfferCommand;
 		public ICommand SelectOfferCommand { get; private set; }
 		public ICommand ClearOfferCommand { get; private set; }
 
-		//private Func<Task<List<Facility>>> _getEntitiesForSelectFacilityCommand;
-		private Func<List<Facility>> _getEntitiesForSelectFacilityCommand;
+		//private Func<Task<IEnumerable<Facility>>> _getEntitiesForSelectFacilityCommand;
+		private Func<IEnumerable<Facility>> _getEntitiesForSelectFacilityCommand;
 		public ICommand SelectFacilityCommand { get; private set; }
 		public ICommand ClearFacilityCommand { get; private set; }
 
-		//private Func<Task<List<Product>>> _getEntitiesForSelectProductCommand;
-		private Func<List<Product>> _getEntitiesForSelectProductCommand;
+		//private Func<Task<IEnumerable<Product>>> _getEntitiesForSelectProductCommand;
+		private Func<IEnumerable<Product>> _getEntitiesForSelectProductCommand;
 		public ICommand SelectProductCommand { get; private set; }
 		public ICommand ClearProductCommand { get; private set; }
 
-		//private Func<Task<List<PaymentConditionSet>>> _getEntitiesForSelectPaymentConditionSetCommand;
-		private Func<List<PaymentConditionSet>> _getEntitiesForSelectPaymentConditionSetCommand;
+		//private Func<Task<IEnumerable<PaymentConditionSet>>> _getEntitiesForSelectPaymentConditionSetCommand;
+		private Func<IEnumerable<PaymentConditionSet>> _getEntitiesForSelectPaymentConditionSetCommand;
 		public ICommand SelectPaymentConditionSetCommand { get; private set; }
 		public ICommand ClearPaymentConditionSetCommand { get; private set; }
 
-		private Func<List<ProductIncluded>> _getEntitiesForAddInProductsIncludedCommand;
+		private Func<IEnumerable<ProductIncluded>> _getEntitiesForAddInProductsIncludedCommand;
 		public ICommand AddInProductsIncludedCommand { get; }
 		public ICommand RemoveFromProductsIncludedCommand { get; }
 		private ProductIncludedWrapper _selectedProductsIncludedItem;
@@ -2758,7 +2758,7 @@ namespace HVTApp.UI.ViewModels
 
     public partial class PaymentConditionSetDetailsViewModel : BaseDetailsViewModel<PaymentConditionSetWrapper, PaymentConditionSet, AfterSavePaymentConditionSetEvent>
     {
-		private Func<List<PaymentCondition>> _getEntitiesForAddInPaymentConditionsCommand;
+		private Func<IEnumerable<PaymentCondition>> _getEntitiesForAddInPaymentConditionsCommand;
 		public ICommand AddInPaymentConditionsCommand { get; }
 		public ICommand RemoveFromPaymentConditionsCommand { get; }
 		private PaymentConditionWrapper _selectedPaymentConditionsItem;
@@ -2806,12 +2806,12 @@ namespace HVTApp.UI.ViewModels
 
     public partial class ProductBlockDetailsViewModel : BaseDetailsViewModel<ProductBlockWrapper, ProductBlock, AfterSaveProductBlockEvent>
     {
-		//private Func<Task<List<ProductType>>> _getEntitiesForSelectProductTypeCommand;
-		private Func<List<ProductType>> _getEntitiesForSelectProductTypeCommand;
+		//private Func<Task<IEnumerable<ProductType>>> _getEntitiesForSelectProductTypeCommand;
+		private Func<IEnumerable<ProductType>> _getEntitiesForSelectProductTypeCommand;
 		public ICommand SelectProductTypeCommand { get; private set; }
 		public ICommand ClearProductTypeCommand { get; private set; }
 
-		private Func<List<Parameter>> _getEntitiesForAddInParametersCommand;
+		private Func<IEnumerable<Parameter>> _getEntitiesForAddInParametersCommand;
 		public ICommand AddInParametersCommand { get; }
 		public ICommand RemoveFromParametersCommand { get; }
 		private ParameterWrapper _selectedParametersItem;
@@ -2827,7 +2827,7 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
-		private Func<List<SumOnDate>> _getEntitiesForAddInPricesCommand;
+		private Func<IEnumerable<SumOnDate>> _getEntitiesForAddInPricesCommand;
 		public ICommand AddInPricesCommand { get; }
 		public ICommand RemoveFromPricesCommand { get; }
 		private SumOnDateWrapper _selectedPricesItem;
@@ -2843,7 +2843,7 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
-		private Func<List<SumOnDate>> _getEntitiesForAddInFixedCostsCommand;
+		private Func<IEnumerable<SumOnDate>> _getEntitiesForAddInFixedCostsCommand;
 		public ICommand AddInFixedCostsCommand { get; }
 		public ICommand RemoveFromFixedCostsCommand { get; }
 		private SumOnDateWrapper _selectedFixedCostsItem;
@@ -2947,8 +2947,8 @@ namespace HVTApp.UI.ViewModels
 
     public partial class ProductDependentDetailsViewModel : BaseDetailsViewModel<ProductDependentWrapper, ProductDependent, AfterSaveProductDependentEvent>
     {
-		//private Func<Task<List<Product>>> _getEntitiesForSelectProductCommand;
-		private Func<List<Product>> _getEntitiesForSelectProductCommand;
+		//private Func<Task<IEnumerable<Product>>> _getEntitiesForSelectProductCommand;
+		private Func<IEnumerable<Product>> _getEntitiesForSelectProductCommand;
 		public ICommand SelectProductCommand { get; private set; }
 		public ICommand ClearProductCommand { get; private set; }
 
@@ -2992,27 +2992,27 @@ namespace HVTApp.UI.ViewModels
 
     public partial class CompanyDetailsViewModel : BaseDetailsViewModel<CompanyWrapper, Company, AfterSaveCompanyEvent>
     {
-		//private Func<Task<List<CompanyForm>>> _getEntitiesForSelectFormCommand;
-		private Func<List<CompanyForm>> _getEntitiesForSelectFormCommand;
+		//private Func<Task<IEnumerable<CompanyForm>>> _getEntitiesForSelectFormCommand;
+		private Func<IEnumerable<CompanyForm>> _getEntitiesForSelectFormCommand;
 		public ICommand SelectFormCommand { get; private set; }
 		public ICommand ClearFormCommand { get; private set; }
 
-		//private Func<Task<List<Company>>> _getEntitiesForSelectParentCompanyCommand;
-		private Func<List<Company>> _getEntitiesForSelectParentCompanyCommand;
+		//private Func<Task<IEnumerable<Company>>> _getEntitiesForSelectParentCompanyCommand;
+		private Func<IEnumerable<Company>> _getEntitiesForSelectParentCompanyCommand;
 		public ICommand SelectParentCompanyCommand { get; private set; }
 		public ICommand ClearParentCompanyCommand { get; private set; }
 
-		//private Func<Task<List<Address>>> _getEntitiesForSelectAddressLegalCommand;
-		private Func<List<Address>> _getEntitiesForSelectAddressLegalCommand;
+		//private Func<Task<IEnumerable<Address>>> _getEntitiesForSelectAddressLegalCommand;
+		private Func<IEnumerable<Address>> _getEntitiesForSelectAddressLegalCommand;
 		public ICommand SelectAddressLegalCommand { get; private set; }
 		public ICommand ClearAddressLegalCommand { get; private set; }
 
-		//private Func<Task<List<Address>>> _getEntitiesForSelectAddressPostCommand;
-		private Func<List<Address>> _getEntitiesForSelectAddressPostCommand;
+		//private Func<Task<IEnumerable<Address>>> _getEntitiesForSelectAddressPostCommand;
+		private Func<IEnumerable<Address>> _getEntitiesForSelectAddressPostCommand;
 		public ICommand SelectAddressPostCommand { get; private set; }
 		public ICommand ClearAddressPostCommand { get; private set; }
 
-		private Func<List<BankDetails>> _getEntitiesForAddInBankDetailsListCommand;
+		private Func<IEnumerable<BankDetails>> _getEntitiesForAddInBankDetailsListCommand;
 		public ICommand AddInBankDetailsListCommand { get; }
 		public ICommand RemoveFromBankDetailsListCommand { get; }
 		private BankDetailsWrapper _selectedBankDetailsListItem;
@@ -3028,7 +3028,7 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
-		private Func<List<ActivityField>> _getEntitiesForAddInActivityFildsCommand;
+		private Func<IEnumerable<ActivityField>> _getEntitiesForAddInActivityFildsCommand;
 		public ICommand AddInActivityFildsCommand { get; }
 		public ICommand RemoveFromActivityFildsCommand { get; }
 		private ActivityFieldWrapper _selectedActivityFildsItem;
@@ -3220,8 +3220,8 @@ namespace HVTApp.UI.ViewModels
 
     public partial class ContractDetailsViewModel : BaseDetailsViewModel<ContractWrapper, Contract, AfterSaveContractEvent>
     {
-		//private Func<Task<List<Company>>> _getEntitiesForSelectContragentCommand;
-		private Func<List<Company>> _getEntitiesForSelectContragentCommand;
+		//private Func<Task<IEnumerable<Company>>> _getEntitiesForSelectContragentCommand;
+		private Func<IEnumerable<Company>> _getEntitiesForSelectContragentCommand;
 		public ICommand SelectContragentCommand { get; private set; }
 		public ICommand ClearContragentCommand { get; private set; }
 
@@ -3265,12 +3265,12 @@ namespace HVTApp.UI.ViewModels
 
     public partial class ParameterDetailsViewModel : BaseDetailsViewModel<ParameterWrapper, Parameter, AfterSaveParameterEvent>
     {
-		//private Func<Task<List<ParameterGroup>>> _getEntitiesForSelectParameterGroupCommand;
-		private Func<List<ParameterGroup>> _getEntitiesForSelectParameterGroupCommand;
+		//private Func<Task<IEnumerable<ParameterGroup>>> _getEntitiesForSelectParameterGroupCommand;
+		private Func<IEnumerable<ParameterGroup>> _getEntitiesForSelectParameterGroupCommand;
 		public ICommand SelectParameterGroupCommand { get; private set; }
 		public ICommand ClearParameterGroupCommand { get; private set; }
 
-		private Func<List<ParameterRelation>> _getEntitiesForAddInParameterRelationsCommand;
+		private Func<IEnumerable<ParameterRelation>> _getEntitiesForAddInParameterRelationsCommand;
 		public ICommand AddInParameterRelationsCommand { get; }
 		public ICommand RemoveFromParameterRelationsCommand { get; }
 		private ParameterRelationWrapper _selectedParameterRelationsItem;
@@ -3334,8 +3334,8 @@ namespace HVTApp.UI.ViewModels
 
     public partial class ParameterGroupDetailsViewModel : BaseDetailsViewModel<ParameterGroupWrapper, ParameterGroup, AfterSaveParameterGroupEvent>
     {
-		//private Func<Task<List<Measure>>> _getEntitiesForSelectMeasureCommand;
-		private Func<List<Measure>> _getEntitiesForSelectMeasureCommand;
+		//private Func<Task<IEnumerable<Measure>>> _getEntitiesForSelectMeasureCommand;
+		private Func<IEnumerable<Measure>> _getEntitiesForSelectMeasureCommand;
 		public ICommand SelectMeasureCommand { get; private set; }
 		public ICommand ClearMeasureCommand { get; private set; }
 
@@ -3367,7 +3367,7 @@ namespace HVTApp.UI.ViewModels
 
     public partial class ProductRelationDetailsViewModel : BaseDetailsViewModel<ProductRelationWrapper, ProductRelation, AfterSaveProductRelationEvent>
     {
-		private Func<List<Parameter>> _getEntitiesForAddInParentProductParametersCommand;
+		private Func<IEnumerable<Parameter>> _getEntitiesForAddInParentProductParametersCommand;
 		public ICommand AddInParentProductParametersCommand { get; }
 		public ICommand RemoveFromParentProductParametersCommand { get; }
 		private ParameterWrapper _selectedParentProductParametersItem;
@@ -3383,7 +3383,7 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
-		private Func<List<Parameter>> _getEntitiesForAddInChildProductParametersCommand;
+		private Func<IEnumerable<Parameter>> _getEntitiesForAddInChildProductParametersCommand;
 		public ICommand AddInChildProductParametersCommand { get; }
 		public ICommand RemoveFromChildProductParametersCommand { get; }
 		private ParameterWrapper _selectedChildProductParametersItem;
@@ -3463,7 +3463,7 @@ namespace HVTApp.UI.ViewModels
 
     public partial class ParameterRelationDetailsViewModel : BaseDetailsViewModel<ParameterRelationWrapper, ParameterRelation, AfterSaveParameterRelationEvent>
     {
-		private Func<List<Parameter>> _getEntitiesForAddInRequiredParametersCommand;
+		private Func<IEnumerable<Parameter>> _getEntitiesForAddInRequiredParametersCommand;
 		public ICommand AddInRequiredParametersCommand { get; }
 		public ICommand RemoveFromRequiredParametersCommand { get; }
 		private ParameterWrapper _selectedRequiredParametersItem;
@@ -3511,52 +3511,52 @@ namespace HVTApp.UI.ViewModels
 
     public partial class SalesUnitDetailsViewModel : BaseDetailsViewModel<SalesUnitWrapper, SalesUnit, AfterSaveSalesUnitEvent>
     {
-		//private Func<Task<List<Facility>>> _getEntitiesForSelectFacilityCommand;
-		private Func<List<Facility>> _getEntitiesForSelectFacilityCommand;
+		//private Func<Task<IEnumerable<Facility>>> _getEntitiesForSelectFacilityCommand;
+		private Func<IEnumerable<Facility>> _getEntitiesForSelectFacilityCommand;
 		public ICommand SelectFacilityCommand { get; private set; }
 		public ICommand ClearFacilityCommand { get; private set; }
 
-		//private Func<Task<List<Product>>> _getEntitiesForSelectProductCommand;
-		private Func<List<Product>> _getEntitiesForSelectProductCommand;
+		//private Func<Task<IEnumerable<Product>>> _getEntitiesForSelectProductCommand;
+		private Func<IEnumerable<Product>> _getEntitiesForSelectProductCommand;
 		public ICommand SelectProductCommand { get; private set; }
 		public ICommand ClearProductCommand { get; private set; }
 
-		//private Func<Task<List<PaymentConditionSet>>> _getEntitiesForSelectPaymentConditionSetCommand;
-		private Func<List<PaymentConditionSet>> _getEntitiesForSelectPaymentConditionSetCommand;
+		//private Func<Task<IEnumerable<PaymentConditionSet>>> _getEntitiesForSelectPaymentConditionSetCommand;
+		private Func<IEnumerable<PaymentConditionSet>> _getEntitiesForSelectPaymentConditionSetCommand;
 		public ICommand SelectPaymentConditionSetCommand { get; private set; }
 		public ICommand ClearPaymentConditionSetCommand { get; private set; }
 
-		//private Func<Task<List<Project>>> _getEntitiesForSelectProjectCommand;
-		private Func<List<Project>> _getEntitiesForSelectProjectCommand;
+		//private Func<Task<IEnumerable<Project>>> _getEntitiesForSelectProjectCommand;
+		private Func<IEnumerable<Project>> _getEntitiesForSelectProjectCommand;
 		public ICommand SelectProjectCommand { get; private set; }
 		public ICommand ClearProjectCommand { get; private set; }
 
-		//private Func<Task<List<Company>>> _getEntitiesForSelectProducerCommand;
-		private Func<List<Company>> _getEntitiesForSelectProducerCommand;
+		//private Func<Task<IEnumerable<Company>>> _getEntitiesForSelectProducerCommand;
+		private Func<IEnumerable<Company>> _getEntitiesForSelectProducerCommand;
 		public ICommand SelectProducerCommand { get; private set; }
 		public ICommand ClearProducerCommand { get; private set; }
 
-		//private Func<Task<List<Order>>> _getEntitiesForSelectOrderCommand;
-		private Func<List<Order>> _getEntitiesForSelectOrderCommand;
+		//private Func<Task<IEnumerable<Order>>> _getEntitiesForSelectOrderCommand;
+		private Func<IEnumerable<Order>> _getEntitiesForSelectOrderCommand;
 		public ICommand SelectOrderCommand { get; private set; }
 		public ICommand ClearOrderCommand { get; private set; }
 
-		//private Func<Task<List<Specification>>> _getEntitiesForSelectSpecificationCommand;
-		private Func<List<Specification>> _getEntitiesForSelectSpecificationCommand;
+		//private Func<Task<IEnumerable<Specification>>> _getEntitiesForSelectSpecificationCommand;
+		private Func<IEnumerable<Specification>> _getEntitiesForSelectSpecificationCommand;
 		public ICommand SelectSpecificationCommand { get; private set; }
 		public ICommand ClearSpecificationCommand { get; private set; }
 
-		//private Func<Task<List<Penalty>>> _getEntitiesForSelectPenaltyCommand;
-		private Func<List<Penalty>> _getEntitiesForSelectPenaltyCommand;
+		//private Func<Task<IEnumerable<Penalty>>> _getEntitiesForSelectPenaltyCommand;
+		private Func<IEnumerable<Penalty>> _getEntitiesForSelectPenaltyCommand;
 		public ICommand SelectPenaltyCommand { get; private set; }
 		public ICommand ClearPenaltyCommand { get; private set; }
 
-		//private Func<Task<List<Address>>> _getEntitiesForSelectAddressDeliveryCommand;
-		private Func<List<Address>> _getEntitiesForSelectAddressDeliveryCommand;
+		//private Func<Task<IEnumerable<Address>>> _getEntitiesForSelectAddressDeliveryCommand;
+		private Func<IEnumerable<Address>> _getEntitiesForSelectAddressDeliveryCommand;
 		public ICommand SelectAddressDeliveryCommand { get; private set; }
 		public ICommand ClearAddressDeliveryCommand { get; private set; }
 
-		private Func<List<ProductIncluded>> _getEntitiesForAddInProductsIncludedCommand;
+		private Func<IEnumerable<ProductIncluded>> _getEntitiesForAddInProductsIncludedCommand;
 		public ICommand AddInProductsIncludedCommand { get; }
 		public ICommand RemoveFromProductsIncludedCommand { get; }
 		private ProductIncludedWrapper _selectedProductsIncludedItem;
@@ -3572,7 +3572,7 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
-		private Func<List<LosingReason>> _getEntitiesForAddInLosingReasonsCommand;
+		private Func<IEnumerable<LosingReason>> _getEntitiesForAddInLosingReasonsCommand;
 		public ICommand AddInLosingReasonsCommand { get; }
 		public ICommand RemoveFromLosingReasonsCommand { get; }
 		private LosingReasonWrapper _selectedLosingReasonsItem;
@@ -3588,7 +3588,7 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
-		private Func<List<PaymentActual>> _getEntitiesForAddInPaymentsActualCommand;
+		private Func<IEnumerable<PaymentActual>> _getEntitiesForAddInPaymentsActualCommand;
 		public ICommand AddInPaymentsActualCommand { get; }
 		public ICommand RemoveFromPaymentsActualCommand { get; }
 		private PaymentActualWrapper _selectedPaymentsActualItem;
@@ -3604,7 +3604,7 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
-		private Func<List<PaymentPlanned>> _getEntitiesForAddInPaymentsPlannedCommand;
+		private Func<IEnumerable<PaymentPlanned>> _getEntitiesForAddInPaymentsPlannedCommand;
 		public ICommand AddInPaymentsPlannedCommand { get; }
 		public ICommand RemoveFromPaymentsPlannedCommand { get; }
 		private PaymentPlannedWrapper _selectedPaymentsPlannedItem;
@@ -3620,7 +3620,7 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
-		private Func<List<BankGuarantee>> _getEntitiesForAddInBankGuaranteesCommand;
+		private Func<IEnumerable<BankGuarantee>> _getEntitiesForAddInBankGuaranteesCommand;
 		public ICommand AddInBankGuaranteesCommand { get; }
 		public ICommand RemoveFromBankGuaranteesCommand { get; }
 		private BankGuaranteeWrapper _selectedBankGuaranteesItem;
@@ -3636,7 +3636,7 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
-		private Func<List<PaymentPlanned>> _getEntitiesForAddInPaymentsPlannedActualCommand;
+		private Func<IEnumerable<PaymentPlanned>> _getEntitiesForAddInPaymentsPlannedActualCommand;
 		public ICommand AddInPaymentsPlannedActualCommand { get; }
 		public ICommand RemoveFromPaymentsPlannedActualCommand { get; }
 		private PaymentPlannedWrapper _selectedPaymentsPlannedActualItem;
@@ -3652,7 +3652,7 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
-		private Func<List<PaymentPlanned>> _getEntitiesForAddInPaymentsPlannedGeneratedCommand;
+		private Func<IEnumerable<PaymentPlanned>> _getEntitiesForAddInPaymentsPlannedGeneratedCommand;
 		public ICommand AddInPaymentsPlannedGeneratedCommand { get; }
 		public ICommand RemoveFromPaymentsPlannedGeneratedCommand { get; }
 		private PaymentPlannedWrapper _selectedPaymentsPlannedGeneratedItem;
@@ -3668,7 +3668,7 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
-		private Func<List<PaymentPlanned>> _getEntitiesForAddInPaymentsPlannedCalculatedCommand;
+		private Func<IEnumerable<PaymentPlanned>> _getEntitiesForAddInPaymentsPlannedCalculatedCommand;
 		public ICommand AddInPaymentsPlannedCalculatedCommand { get; }
 		public ICommand RemoveFromPaymentsPlannedCalculatedCommand { get; }
 		private PaymentPlannedWrapper _selectedPaymentsPlannedCalculatedItem;
@@ -4000,37 +4000,37 @@ namespace HVTApp.UI.ViewModels
 
     public partial class DocumentDetailsViewModel : BaseDetailsViewModel<DocumentWrapper, Document, AfterSaveDocumentEvent>
     {
-		//private Func<Task<List<DocumentNumber>>> _getEntitiesForSelectNumberCommand;
-		private Func<List<DocumentNumber>> _getEntitiesForSelectNumberCommand;
+		//private Func<Task<IEnumerable<DocumentNumber>>> _getEntitiesForSelectNumberCommand;
+		private Func<IEnumerable<DocumentNumber>> _getEntitiesForSelectNumberCommand;
 		public ICommand SelectNumberCommand { get; private set; }
 		public ICommand ClearNumberCommand { get; private set; }
 
-		//private Func<Task<List<Document>>> _getEntitiesForSelectRequestDocumentCommand;
-		private Func<List<Document>> _getEntitiesForSelectRequestDocumentCommand;
+		//private Func<Task<IEnumerable<Document>>> _getEntitiesForSelectRequestDocumentCommand;
+		private Func<IEnumerable<Document>> _getEntitiesForSelectRequestDocumentCommand;
 		public ICommand SelectRequestDocumentCommand { get; private set; }
 		public ICommand ClearRequestDocumentCommand { get; private set; }
 
-		//private Func<Task<List<Employee>>> _getEntitiesForSelectAuthorCommand;
-		private Func<List<Employee>> _getEntitiesForSelectAuthorCommand;
+		//private Func<Task<IEnumerable<Employee>>> _getEntitiesForSelectAuthorCommand;
+		private Func<IEnumerable<Employee>> _getEntitiesForSelectAuthorCommand;
 		public ICommand SelectAuthorCommand { get; private set; }
 		public ICommand ClearAuthorCommand { get; private set; }
 
-		//private Func<Task<List<Employee>>> _getEntitiesForSelectSenderEmployeeCommand;
-		private Func<List<Employee>> _getEntitiesForSelectSenderEmployeeCommand;
+		//private Func<Task<IEnumerable<Employee>>> _getEntitiesForSelectSenderEmployeeCommand;
+		private Func<IEnumerable<Employee>> _getEntitiesForSelectSenderEmployeeCommand;
 		public ICommand SelectSenderEmployeeCommand { get; private set; }
 		public ICommand ClearSenderEmployeeCommand { get; private set; }
 
-		//private Func<Task<List<Employee>>> _getEntitiesForSelectRecipientEmployeeCommand;
-		private Func<List<Employee>> _getEntitiesForSelectRecipientEmployeeCommand;
+		//private Func<Task<IEnumerable<Employee>>> _getEntitiesForSelectRecipientEmployeeCommand;
+		private Func<IEnumerable<Employee>> _getEntitiesForSelectRecipientEmployeeCommand;
 		public ICommand SelectRecipientEmployeeCommand { get; private set; }
 		public ICommand ClearRecipientEmployeeCommand { get; private set; }
 
-		//private Func<Task<List<DocumentsRegistrationDetails>>> _getEntitiesForSelectRegistrationDetailsOfRecipientCommand;
-		private Func<List<DocumentsRegistrationDetails>> _getEntitiesForSelectRegistrationDetailsOfRecipientCommand;
+		//private Func<Task<IEnumerable<DocumentsRegistrationDetails>>> _getEntitiesForSelectRegistrationDetailsOfRecipientCommand;
+		private Func<IEnumerable<DocumentsRegistrationDetails>> _getEntitiesForSelectRegistrationDetailsOfRecipientCommand;
 		public ICommand SelectRegistrationDetailsOfRecipientCommand { get; private set; }
 		public ICommand ClearRegistrationDetailsOfRecipientCommand { get; private set; }
 
-		private Func<List<Employee>> _getEntitiesForAddInCopyToRecipientsCommand;
+		private Func<IEnumerable<Employee>> _getEntitiesForAddInCopyToRecipientsCommand;
 		public ICommand AddInCopyToRecipientsCommand { get; }
 		public ICommand RemoveFromCopyToRecipientsCommand { get; }
 		private EmployeeWrapper _selectedCopyToRecipientsItem;
@@ -4186,22 +4186,22 @@ namespace HVTApp.UI.ViewModels
 
     public partial class ProductDetailsViewModel : BaseDetailsViewModel<ProductWrapper, Product, AfterSaveProductEvent>
     {
-		//private Func<Task<List<ProductType>>> _getEntitiesForSelectProductTypeCommand;
-		private Func<List<ProductType>> _getEntitiesForSelectProductTypeCommand;
+		//private Func<Task<IEnumerable<ProductType>>> _getEntitiesForSelectProductTypeCommand;
+		private Func<IEnumerable<ProductType>> _getEntitiesForSelectProductTypeCommand;
 		public ICommand SelectProductTypeCommand { get; private set; }
 		public ICommand ClearProductTypeCommand { get; private set; }
 
-		//private Func<Task<List<ProductCategory>>> _getEntitiesForSelectCategoryCommand;
-		private Func<List<ProductCategory>> _getEntitiesForSelectCategoryCommand;
+		//private Func<Task<IEnumerable<ProductCategory>>> _getEntitiesForSelectCategoryCommand;
+		private Func<IEnumerable<ProductCategory>> _getEntitiesForSelectCategoryCommand;
 		public ICommand SelectCategoryCommand { get; private set; }
 		public ICommand ClearCategoryCommand { get; private set; }
 
-		//private Func<Task<List<ProductBlock>>> _getEntitiesForSelectProductBlockCommand;
-		private Func<List<ProductBlock>> _getEntitiesForSelectProductBlockCommand;
+		//private Func<Task<IEnumerable<ProductBlock>>> _getEntitiesForSelectProductBlockCommand;
+		private Func<IEnumerable<ProductBlock>> _getEntitiesForSelectProductBlockCommand;
 		public ICommand SelectProductBlockCommand { get; private set; }
 		public ICommand ClearProductBlockCommand { get; private set; }
 
-		private Func<List<ProductDependent>> _getEntitiesForAddInDependentProductsCommand;
+		private Func<IEnumerable<ProductDependent>> _getEntitiesForAddInDependentProductsCommand;
 		public ICommand AddInDependentProductsCommand { get; }
 		public ICommand RemoveFromDependentProductsCommand { get; }
 		private ProductDependentWrapper _selectedDependentProductsItem;
@@ -4297,42 +4297,42 @@ namespace HVTApp.UI.ViewModels
 
     public partial class OfferDetailsViewModel : BaseDetailsViewModel<OfferWrapper, Offer, AfterSaveOfferEvent>
     {
-		//private Func<Task<List<Project>>> _getEntitiesForSelectProjectCommand;
-		private Func<List<Project>> _getEntitiesForSelectProjectCommand;
+		//private Func<Task<IEnumerable<Project>>> _getEntitiesForSelectProjectCommand;
+		private Func<IEnumerable<Project>> _getEntitiesForSelectProjectCommand;
 		public ICommand SelectProjectCommand { get; private set; }
 		public ICommand ClearProjectCommand { get; private set; }
 
-		//private Func<Task<List<DocumentNumber>>> _getEntitiesForSelectNumberCommand;
-		private Func<List<DocumentNumber>> _getEntitiesForSelectNumberCommand;
+		//private Func<Task<IEnumerable<DocumentNumber>>> _getEntitiesForSelectNumberCommand;
+		private Func<IEnumerable<DocumentNumber>> _getEntitiesForSelectNumberCommand;
 		public ICommand SelectNumberCommand { get; private set; }
 		public ICommand ClearNumberCommand { get; private set; }
 
-		//private Func<Task<List<Document>>> _getEntitiesForSelectRequestDocumentCommand;
-		private Func<List<Document>> _getEntitiesForSelectRequestDocumentCommand;
+		//private Func<Task<IEnumerable<Document>>> _getEntitiesForSelectRequestDocumentCommand;
+		private Func<IEnumerable<Document>> _getEntitiesForSelectRequestDocumentCommand;
 		public ICommand SelectRequestDocumentCommand { get; private set; }
 		public ICommand ClearRequestDocumentCommand { get; private set; }
 
-		//private Func<Task<List<Employee>>> _getEntitiesForSelectAuthorCommand;
-		private Func<List<Employee>> _getEntitiesForSelectAuthorCommand;
+		//private Func<Task<IEnumerable<Employee>>> _getEntitiesForSelectAuthorCommand;
+		private Func<IEnumerable<Employee>> _getEntitiesForSelectAuthorCommand;
 		public ICommand SelectAuthorCommand { get; private set; }
 		public ICommand ClearAuthorCommand { get; private set; }
 
-		//private Func<Task<List<Employee>>> _getEntitiesForSelectSenderEmployeeCommand;
-		private Func<List<Employee>> _getEntitiesForSelectSenderEmployeeCommand;
+		//private Func<Task<IEnumerable<Employee>>> _getEntitiesForSelectSenderEmployeeCommand;
+		private Func<IEnumerable<Employee>> _getEntitiesForSelectSenderEmployeeCommand;
 		public ICommand SelectSenderEmployeeCommand { get; private set; }
 		public ICommand ClearSenderEmployeeCommand { get; private set; }
 
-		//private Func<Task<List<Employee>>> _getEntitiesForSelectRecipientEmployeeCommand;
-		private Func<List<Employee>> _getEntitiesForSelectRecipientEmployeeCommand;
+		//private Func<Task<IEnumerable<Employee>>> _getEntitiesForSelectRecipientEmployeeCommand;
+		private Func<IEnumerable<Employee>> _getEntitiesForSelectRecipientEmployeeCommand;
 		public ICommand SelectRecipientEmployeeCommand { get; private set; }
 		public ICommand ClearRecipientEmployeeCommand { get; private set; }
 
-		//private Func<Task<List<DocumentsRegistrationDetails>>> _getEntitiesForSelectRegistrationDetailsOfRecipientCommand;
-		private Func<List<DocumentsRegistrationDetails>> _getEntitiesForSelectRegistrationDetailsOfRecipientCommand;
+		//private Func<Task<IEnumerable<DocumentsRegistrationDetails>>> _getEntitiesForSelectRegistrationDetailsOfRecipientCommand;
+		private Func<IEnumerable<DocumentsRegistrationDetails>> _getEntitiesForSelectRegistrationDetailsOfRecipientCommand;
 		public ICommand SelectRegistrationDetailsOfRecipientCommand { get; private set; }
 		public ICommand ClearRegistrationDetailsOfRecipientCommand { get; private set; }
 
-		private Func<List<Employee>> _getEntitiesForAddInCopyToRecipientsCommand;
+		private Func<IEnumerable<Employee>> _getEntitiesForAddInCopyToRecipientsCommand;
 		public ICommand AddInCopyToRecipientsCommand { get; }
 		public ICommand RemoveFromCopyToRecipientsCommand { get; }
 		private EmployeeWrapper _selectedCopyToRecipientsItem;
@@ -4492,18 +4492,18 @@ namespace HVTApp.UI.ViewModels
 
     public partial class EmployeeDetailsViewModel : BaseDetailsViewModel<EmployeeWrapper, Employee, AfterSaveEmployeeEvent>
     {
-		//private Func<Task<List<Person>>> _getEntitiesForSelectPersonCommand;
-		private Func<List<Person>> _getEntitiesForSelectPersonCommand;
+		//private Func<Task<IEnumerable<Person>>> _getEntitiesForSelectPersonCommand;
+		private Func<IEnumerable<Person>> _getEntitiesForSelectPersonCommand;
 		public ICommand SelectPersonCommand { get; private set; }
 		public ICommand ClearPersonCommand { get; private set; }
 
-		//private Func<Task<List<Company>>> _getEntitiesForSelectCompanyCommand;
-		private Func<List<Company>> _getEntitiesForSelectCompanyCommand;
+		//private Func<Task<IEnumerable<Company>>> _getEntitiesForSelectCompanyCommand;
+		private Func<IEnumerable<Company>> _getEntitiesForSelectCompanyCommand;
 		public ICommand SelectCompanyCommand { get; private set; }
 		public ICommand ClearCompanyCommand { get; private set; }
 
-		//private Func<Task<List<EmployeesPosition>>> _getEntitiesForSelectPositionCommand;
-		private Func<List<EmployeesPosition>> _getEntitiesForSelectPositionCommand;
+		//private Func<Task<IEnumerable<EmployeesPosition>>> _getEntitiesForSelectPositionCommand;
+		private Func<IEnumerable<EmployeesPosition>> _getEntitiesForSelectPositionCommand;
 		public ICommand SelectPositionCommand { get; private set; }
 		public ICommand ClearPositionCommand { get; private set; }
 
@@ -4579,8 +4579,8 @@ namespace HVTApp.UI.ViewModels
 
     public partial class PaymentConditionDetailsViewModel : BaseDetailsViewModel<PaymentConditionWrapper, PaymentCondition, AfterSavePaymentConditionEvent>
     {
-		//private Func<Task<List<PaymentConditionPoint>>> _getEntitiesForSelectPaymentConditionPointCommand;
-		private Func<List<PaymentConditionPoint>> _getEntitiesForSelectPaymentConditionPointCommand;
+		//private Func<Task<IEnumerable<PaymentConditionPoint>>> _getEntitiesForSelectPaymentConditionPointCommand;
+		private Func<IEnumerable<PaymentConditionPoint>> _getEntitiesForSelectPaymentConditionPointCommand;
 		public ICommand SelectPaymentConditionPointCommand { get; private set; }
 		public ICommand ClearPaymentConditionPointCommand { get; private set; }
 
@@ -4612,7 +4612,7 @@ namespace HVTApp.UI.ViewModels
 
     public partial class PaymentDocumentDetailsViewModel : BaseDetailsViewModel<PaymentDocumentWrapper, PaymentDocument, AfterSavePaymentDocumentEvent>
     {
-		private Func<List<PaymentActual>> _getEntitiesForAddInPaymentsCommand;
+		private Func<IEnumerable<PaymentActual>> _getEntitiesForAddInPaymentsCommand;
 		public ICommand AddInPaymentsCommand { get; }
 		public ICommand RemoveFromPaymentsCommand { get; }
 		private PaymentActualWrapper _selectedPaymentsItem;
@@ -4660,18 +4660,18 @@ namespace HVTApp.UI.ViewModels
 
     public partial class FacilityDetailsViewModel : BaseDetailsViewModel<FacilityWrapper, Facility, AfterSaveFacilityEvent>
     {
-		//private Func<Task<List<FacilityType>>> _getEntitiesForSelectTypeCommand;
-		private Func<List<FacilityType>> _getEntitiesForSelectTypeCommand;
+		//private Func<Task<IEnumerable<FacilityType>>> _getEntitiesForSelectTypeCommand;
+		private Func<IEnumerable<FacilityType>> _getEntitiesForSelectTypeCommand;
 		public ICommand SelectTypeCommand { get; private set; }
 		public ICommand ClearTypeCommand { get; private set; }
 
-		//private Func<Task<List<Company>>> _getEntitiesForSelectOwnerCompanyCommand;
-		private Func<List<Company>> _getEntitiesForSelectOwnerCompanyCommand;
+		//private Func<Task<IEnumerable<Company>>> _getEntitiesForSelectOwnerCompanyCommand;
+		private Func<IEnumerable<Company>> _getEntitiesForSelectOwnerCompanyCommand;
 		public ICommand SelectOwnerCompanyCommand { get; private set; }
 		public ICommand ClearOwnerCompanyCommand { get; private set; }
 
-		//private Func<Task<List<Address>>> _getEntitiesForSelectAddressCommand;
-		private Func<List<Address>> _getEntitiesForSelectAddressCommand;
+		//private Func<Task<IEnumerable<Address>>> _getEntitiesForSelectAddressCommand;
+		private Func<IEnumerable<Address>> _getEntitiesForSelectAddressCommand;
 		public ICommand SelectAddressCommand { get; private set; }
 		public ICommand ClearAddressCommand { get; private set; }
 
@@ -4735,17 +4735,17 @@ namespace HVTApp.UI.ViewModels
 
     public partial class ProjectDetailsViewModel : BaseDetailsViewModel<ProjectWrapper, Project, AfterSaveProjectEvent>
     {
-		//private Func<Task<List<ProjectType>>> _getEntitiesForSelectProjectTypeCommand;
-		private Func<List<ProjectType>> _getEntitiesForSelectProjectTypeCommand;
+		//private Func<Task<IEnumerable<ProjectType>>> _getEntitiesForSelectProjectTypeCommand;
+		private Func<IEnumerable<ProjectType>> _getEntitiesForSelectProjectTypeCommand;
 		public ICommand SelectProjectTypeCommand { get; private set; }
 		public ICommand ClearProjectTypeCommand { get; private set; }
 
-		//private Func<Task<List<User>>> _getEntitiesForSelectManagerCommand;
-		private Func<List<User>> _getEntitiesForSelectManagerCommand;
+		//private Func<Task<IEnumerable<User>>> _getEntitiesForSelectManagerCommand;
+		private Func<IEnumerable<User>> _getEntitiesForSelectManagerCommand;
 		public ICommand SelectManagerCommand { get; private set; }
 		public ICommand ClearManagerCommand { get; private set; }
 
-		private Func<List<Note>> _getEntitiesForAddInNotesCommand;
+		private Func<IEnumerable<Note>> _getEntitiesForAddInNotesCommand;
 		public ICommand AddInNotesCommand { get; }
 		public ICommand RemoveFromNotesCommand { get; }
 		private NoteWrapper _selectedNotesItem;
@@ -4837,8 +4837,8 @@ namespace HVTApp.UI.ViewModels
 
     public partial class SpecificationDetailsViewModel : BaseDetailsViewModel<SpecificationWrapper, Specification, AfterSaveSpecificationEvent>
     {
-		//private Func<Task<List<Contract>>> _getEntitiesForSelectContractCommand;
-		private Func<List<Contract>> _getEntitiesForSelectContractCommand;
+		//private Func<Task<IEnumerable<Contract>>> _getEntitiesForSelectContractCommand;
+		private Func<IEnumerable<Contract>> _getEntitiesForSelectContractCommand;
 		public ICommand SelectContractCommand { get; private set; }
 		public ICommand ClearContractCommand { get; private set; }
 
@@ -4870,17 +4870,17 @@ namespace HVTApp.UI.ViewModels
 
     public partial class TenderDetailsViewModel : BaseDetailsViewModel<TenderWrapper, Tender, AfterSaveTenderEvent>
     {
-		//private Func<Task<List<Project>>> _getEntitiesForSelectProjectCommand;
-		private Func<List<Project>> _getEntitiesForSelectProjectCommand;
+		//private Func<Task<IEnumerable<Project>>> _getEntitiesForSelectProjectCommand;
+		private Func<IEnumerable<Project>> _getEntitiesForSelectProjectCommand;
 		public ICommand SelectProjectCommand { get; private set; }
 		public ICommand ClearProjectCommand { get; private set; }
 
-		//private Func<Task<List<Company>>> _getEntitiesForSelectWinnerCommand;
-		private Func<List<Company>> _getEntitiesForSelectWinnerCommand;
+		//private Func<Task<IEnumerable<Company>>> _getEntitiesForSelectWinnerCommand;
+		private Func<IEnumerable<Company>> _getEntitiesForSelectWinnerCommand;
 		public ICommand SelectWinnerCommand { get; private set; }
 		public ICommand ClearWinnerCommand { get; private set; }
 
-		private Func<List<TenderType>> _getEntitiesForAddInTypesCommand;
+		private Func<IEnumerable<TenderType>> _getEntitiesForAddInTypesCommand;
 		public ICommand AddInTypesCommand { get; }
 		public ICommand RemoveFromTypesCommand { get; }
 		private TenderTypeWrapper _selectedTypesItem;
@@ -4896,7 +4896,7 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
-		private Func<List<Company>> _getEntitiesForAddInParticipantsCommand;
+		private Func<IEnumerable<Company>> _getEntitiesForAddInParticipantsCommand;
 		public ICommand AddInParticipantsCommand { get; }
 		public ICommand RemoveFromParticipantsCommand { get; }
 		private CompanyWrapper _selectedParticipantsItem;
@@ -5008,12 +5008,12 @@ namespace HVTApp.UI.ViewModels
 
     public partial class UserDetailsViewModel : BaseDetailsViewModel<UserWrapper, User, AfterSaveUserEvent>
     {
-		//private Func<Task<List<Employee>>> _getEntitiesForSelectEmployeeCommand;
-		private Func<List<Employee>> _getEntitiesForSelectEmployeeCommand;
+		//private Func<Task<IEnumerable<Employee>>> _getEntitiesForSelectEmployeeCommand;
+		private Func<IEnumerable<Employee>> _getEntitiesForSelectEmployeeCommand;
 		public ICommand SelectEmployeeCommand { get; private set; }
 		public ICommand ClearEmployeeCommand { get; private set; }
 
-		private Func<List<UserRole>> _getEntitiesForAddInRolesCommand;
+		private Func<IEnumerable<UserRole>> _getEntitiesForAddInRolesCommand;
 		public ICommand AddInRolesCommand { get; }
 		public ICommand RemoveFromRolesCommand { get; }
 		private UserRoleWrapper _selectedRolesItem;

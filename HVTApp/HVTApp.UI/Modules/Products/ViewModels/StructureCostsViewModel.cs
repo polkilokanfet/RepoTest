@@ -20,7 +20,7 @@ namespace HVTApp.UI.Modules.Products.ViewModels
 
         public ProductBlockStructureCostWrapper SelectedProductBlock
         {
-            get { return _selectedProductBlock; }
+            get => _selectedProductBlock;
             set
             {
                 _selectedProductBlock = value;
@@ -42,14 +42,14 @@ namespace HVTApp.UI.Modules.Products.ViewModels
                 : new List<ConstructorParametersList>();
 
             //загружаем блоки
-            var blocks = unitOfWork.Repository<ProductBlock>().Find(x => !x.IsService && !x.IsNew);
+            var blocks = unitOfWork.Repository<ProductBlock>().Find(productBlock => !productBlock.IsService && !productBlock.IsNew);
             if (requaredParametersLists.Any())
             {
-                blocks = blocks.Where(block => requaredParametersLists.Any(rpl => rpl.Parameters.Select(p => p.Id).AllContainsIn(block.Parameters.Select(p => p.Id)))).ToList();
+                blocks = blocks.Where(block => requaredParametersLists.Any(rpl => rpl.Parameters.Select(p => p.Id).AllContainsIn(block.Parameters.Select(p => p.Id)))).ToArray();
             }
             var blockWrappers = blocks
-                .OrderBy(x => x.Designation)
-                .Select(x => new ProductBlockStructureCostWrapper(x));
+                .OrderBy(productBlock => productBlock.Designation)
+                .Select(productBlock => new ProductBlockStructureCostWrapper(productBlock));
             ProductBlocks = new ValidatableChangeTrackingCollection<ProductBlockStructureCostWrapper>(blockWrappers);
 
             //сохранение
@@ -74,7 +74,7 @@ namespace HVTApp.UI.Modules.Products.ViewModels
                 {
                     var block = SelectedProductBlock;
                     var products = unitOfWork.Repository<Product>().GetAll();
-                    products = products.Where(x => x.GetBlocks().Contains(block.Model)).Distinct().ToList();
+                    products = products.Where(product => product.GetBlocks().Contains(block.Model)).Distinct().ToArray();
                     container.Resolve<IPrintProductService>().PrintProducts(products, block.Model);
                 },
                 () => SelectedProductBlock != null);

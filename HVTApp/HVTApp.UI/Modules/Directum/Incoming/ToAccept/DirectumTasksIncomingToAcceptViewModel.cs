@@ -71,7 +71,7 @@ namespace HVTApp.UI.Modules.Directum.ToAccept
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
 
-            _directumTasks = UnitOfWork.Repository<Model.POCOs.DirectumTask>().GetAll();
+            _directumTasks = UnitOfWork.Repository<Model.POCOs.DirectumTask>().GetAll().ToList();
 
             //задачи на проверку
             var tasksToAccept = _directumTasks
