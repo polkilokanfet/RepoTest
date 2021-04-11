@@ -18,18 +18,15 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
         <Label Grid.Column="0" Grid.Row ="0" Content="Название полное" Visibility="{Binding VisibilityNameFullProductCategory, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.NameFull, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityNameFullProductCategory, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="1" Content="Название сокращенное" Visibility="{Binding VisibilityNameShortProductCategory, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.NameShort, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityNameShortProductCategory, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="2" Content="Параметры" Visibility="{Binding VisibilityParametersProductCategory, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
@@ -38,7 +35,6 @@
 										 AddItemCommand="{Binding AddInParametersCommand}"
 										 RemoveItemCommand="{Binding RemoveFromParametersCommand}"
 										 Visibility="{Binding VisibilityParametersProductCategory, ElementName=Root}"/>
-
 
 
     </Grid>

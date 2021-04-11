@@ -14,8 +14,13 @@ namespace HVTApp.Services.GetProductService.Complects
         public Complect(Product product)
         {
             Product = product;
-            ComplectType = product.ProductBlock.Parameters.Single(x => x.ParameterGroup.Id == GlobalAppProperties.Actual.ComplectsGroup.Id).Value;
-            ComplectDesignation = product.ProductBlock.Parameters.Single(x => x.ParameterGroup.Id == GlobalAppProperties.Actual.ComplectDesignationGroup.Id).Value;
+            ComplectType = product.ProductBlock.Parameters.Single(parameter => parameter.ParameterGroup.IsComplectsGroup()).Value;
+            ComplectDesignation = product.ProductBlock.Parameters.Single(parameter => parameter.ParameterGroup.IsComplectDesignationGroup()).Value;
+        }
+
+        public override string ToString()
+        {
+            return $"{ComplectType} {ComplectDesignation}";
         }
     }
 }

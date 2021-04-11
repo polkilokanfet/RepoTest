@@ -19,18 +19,15 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
         <Label Grid.Column="0" Grid.Row ="0" Content="Имя" Visibility="{Binding VisibilityNameDirectumTaskGroupFile, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityNameDirectumTaskGroupFile, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="1" Content="Создан" Visibility="{Binding VisibilityLoadMomentDirectumTaskGroupFile, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="1" 
                     SelectedDate="{Binding Item.LoadMoment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityLoadMomentDirectumTaskGroupFile, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="2" Content="Автор" Visibility="{Binding VisibilityAuthorDirectumTaskGroupFile, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
@@ -38,7 +35,6 @@
                                     AddItemCommand="{Binding SelectAuthorCommand}" 
                                     RemoveItemCommand="{Binding ClearAuthorCommand}"
 									Visibility="{Binding VisibilityAuthorDirectumTaskGroupFile, ElementName=Root}"/>
-
 
 
     </Grid>

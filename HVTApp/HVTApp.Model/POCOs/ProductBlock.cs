@@ -18,7 +18,7 @@ namespace HVTApp.Model.POCOs
         public string Designation => GlobalAppProperties.ProductDesignationService.GetDesignation(this);
 
 
-        [Designation("Специальное обозначение"), MaxLength(50)]
+        [Designation("Специальное обозначение"), MaxLength(256)]
         public string DesignationSpecial { get; set; }
 
 

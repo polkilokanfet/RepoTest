@@ -68,7 +68,10 @@ namespace HVTApp.Model.POCOs
 
 
 
-        [Designation("Получатель писем по ШМ")]
+        [Designation("Тип проекта (по умолчанию)")]
+        public virtual ProjectType DefaultProjectType { get; set; }
+
+        [Designation("Получатель писем по ШМ"), Required]
         public virtual Employee RecipientSupervisionLetterEmployee { get; set; }
 
         [Designation("Отправитель ТКП"), Required]

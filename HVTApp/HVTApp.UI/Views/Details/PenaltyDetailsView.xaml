@@ -18,24 +18,20 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
         <Label Grid.Column="0" Grid.Row ="0" Content="Фактически уплаченные штрафы" Visibility="{Binding VisibilityPenaltyPaidPenalty, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="0" 
                                Value="{Binding Item.PenaltyPaid, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding VisibilityPenaltyPaidPenalty, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Ограничение штрафа" Visibility="{Binding VisibilityPercentLimitPenalty, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1" 
                                Value="{Binding Item.PercentLimit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding VisibilityPercentLimitPenalty, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="2" Content="% за день просрочки" Visibility="{Binding VisibilityPercentPerDayPenalty, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="2" 
                                Value="{Binding Item.PercentPerDay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding VisibilityPercentPerDayPenalty, ElementName=Root}"/>
-
 
 
     </Grid>

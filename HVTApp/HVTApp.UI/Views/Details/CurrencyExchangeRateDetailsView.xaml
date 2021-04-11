@@ -19,18 +19,15 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
         <Label Grid.Column="0" Grid.Row ="0" Content="Дата" Visibility="{Binding VisibilityDateCurrencyExchangeRate, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="0" 
                     SelectedDate="{Binding Item.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityDateCurrencyExchangeRate, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="1" Content="Валюта 1 / Валюта 2" Visibility="{Binding VisibilityExchangeRateCurrencyExchangeRate, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1" 
                                Value="{Binding Item.ExchangeRate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding VisibilityExchangeRateCurrencyExchangeRate, ElementName=Root}"/>
-
 
 
     </Grid>

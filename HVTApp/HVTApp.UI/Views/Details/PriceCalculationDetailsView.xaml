@@ -23,12 +23,10 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
         <Label Grid.Column="0" Grid.Row ="0" Content="Финиш задачи" Visibility="{Binding VisibilityTaskCloseMomentPriceCalculation, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="0" 
                     SelectedDate="{Binding Item.TaskCloseMoment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityTaskCloseMomentPriceCalculation, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Файлы расчета" Visibility="{Binding VisibilityFilesPriceCalculation, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="1"
@@ -38,24 +36,20 @@
 										 RemoveItemCommand="{Binding RemoveFromFilesCommand}"
 										 Visibility="{Binding VisibilityFilesPriceCalculation, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="2" Content="Требуется расчетный файл" Visibility="{Binding VisibilityIsNeedExcelFilePriceCalculation, ElementName=Root}"/>
         <CheckBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
                   IsChecked="{Binding Item.IsNeedExcelFile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				  Visibility="{Binding VisibilityIsNeedExcelFilePriceCalculation, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="3" Content="Старт задачи" Visibility="{Binding VisibilityTaskOpenMomentPriceCalculation, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="3" 
                     SelectedDate="{Binding Item.TaskOpenMoment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityTaskOpenMomentPriceCalculation, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="4" Content="Комментарий" Visibility="{Binding VisibilityCommentPriceCalculation, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="4" MinWidth="200" 
                  Text="{Binding Item.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityCommentPriceCalculation, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="5" Content="Инициатор" Visibility="{Binding VisibilityInitiatorPriceCalculation, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="5" 
@@ -64,7 +58,6 @@
                                     RemoveItemCommand="{Binding ClearInitiatorCommand}"
 									Visibility="{Binding VisibilityInitiatorPriceCalculation, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="6" Content="Единицы расчета" Visibility="{Binding VisibilityPriceCalculationItemsPriceCalculation, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="6"
 										 Items="{Binding Path=Item.PriceCalculationItems}"
@@ -72,7 +65,6 @@
 										 AddItemCommand="{Binding AddInPriceCalculationItemsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromPriceCalculationItemsCommand}"
 										 Visibility="{Binding VisibilityPriceCalculationItemsPriceCalculation, ElementName=Root}"/>
-
 
 
     </Grid>

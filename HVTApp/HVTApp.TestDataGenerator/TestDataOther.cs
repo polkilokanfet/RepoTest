@@ -240,6 +240,7 @@ namespace HVTApp.TestDataGenerator
                 VoltageGroup = ParameterGroupVoltage,
                 ServiceParameter = ParameterService,
                 SupervisionParameter = ParameterSupervision,
+                DefaultProjectType = ProjectTypeReconstruction,
                 SenderOfferEmployee = EmployeeDeev,
                 RecipientSupervisionLetterEmployee = EmployeeGuseinov,
                 HvtProducersActivityField = ActivityFieldProducerOfHvt,

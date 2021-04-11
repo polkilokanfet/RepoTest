@@ -571,7 +571,7 @@ namespace HVTApp.UI.Lookup
 	}
 
 	[AllowEditAttribute(Role.Admin)]
-	[Designation("Платеж совершенный")]
+	[Designation("Платеж совершённый")]
 	public partial class PaymentActualLookup : LookupItem<PaymentActual>
 	{
 		public PaymentActualLookup(PaymentActual entity) : base(entity) 
@@ -1235,6 +1235,10 @@ namespace HVTApp.UI.Lookup
 
 
 		[OrderStatus(1)]
+        public System.Nullable<System.DateTime> LastOpenFrontManagerMoment => Entity.LastOpenFrontManagerMoment;
+
+
+		[OrderStatus(1)]
         public System.Nullable<System.DateTime> FirstStartMoment => Entity.FirstStartMoment;
 
 
@@ -1404,6 +1408,10 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(-50)]
 	    public ParameterGroupLookup ComplectsGroup { get { return GetLookup<ParameterGroupLookup>(); } }
+
+
+		[OrderStatus(1)]
+	    public ProjectTypeLookup DefaultProjectType { get { return GetLookup<ProjectTypeLookup>(); } }
 
 
 		[OrderStatus(1)]

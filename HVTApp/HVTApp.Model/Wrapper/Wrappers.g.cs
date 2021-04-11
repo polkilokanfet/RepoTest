@@ -2196,6 +2196,15 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.DateTime> LastOpenBackManagerMomentOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(LastOpenBackManagerMoment));
         public bool LastOpenBackManagerMomentIsChanged => GetIsChanged(nameof(LastOpenBackManagerMoment));
 
+        //LastOpenFrontManagerMoment
+        public System.Nullable<System.DateTime> LastOpenFrontManagerMoment
+        {
+          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.DateTime> LastOpenFrontManagerMomentOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(LastOpenFrontManagerMoment));
+        public bool LastOpenFrontManagerMomentIsChanged => GetIsChanged(nameof(LastOpenFrontManagerMoment));
+
         //FirstStartMoment
         public System.Nullable<System.DateTime> FirstStartMoment
         {
@@ -2526,6 +2535,12 @@ namespace HVTApp.Model.Wrapper
             set { SetComplexValue<ParameterGroup, ParameterGroupWrapper>(ComplectsGroup, value); }
         }
 
+	    public ProjectTypeWrapper DefaultProjectType 
+        {
+            get { return GetWrapper<ProjectTypeWrapper>(); }
+            set { SetComplexValue<ProjectType, ProjectTypeWrapper>(DefaultProjectType, value); }
+        }
+
 	    public EmployeeWrapper RecipientSupervisionLetterEmployee 
         {
             get { return GetWrapper<EmployeeWrapper>(); }
@@ -2579,6 +2594,7 @@ namespace HVTApp.Model.Wrapper
             InitializeComplexProperty<ParameterGroupWrapper>(nameof(ComplectDesignationGroup), Model.ComplectDesignationGroup == null ? null : new ParameterGroupWrapper(Model.ComplectDesignationGroup));
             InitializeComplexProperty<ParameterWrapper>(nameof(ComplectsParameter), Model.ComplectsParameter == null ? null : new ParameterWrapper(Model.ComplectsParameter));
             InitializeComplexProperty<ParameterGroupWrapper>(nameof(ComplectsGroup), Model.ComplectsGroup == null ? null : new ParameterGroupWrapper(Model.ComplectsGroup));
+            InitializeComplexProperty<ProjectTypeWrapper>(nameof(DefaultProjectType), Model.DefaultProjectType == null ? null : new ProjectTypeWrapper(Model.DefaultProjectType));
             InitializeComplexProperty<EmployeeWrapper>(nameof(RecipientSupervisionLetterEmployee), Model.RecipientSupervisionLetterEmployee == null ? null : new EmployeeWrapper(Model.RecipientSupervisionLetterEmployee));
             InitializeComplexProperty<EmployeeWrapper>(nameof(SenderOfferEmployee), Model.SenderOfferEmployee == null ? null : new EmployeeWrapper(Model.SenderOfferEmployee));
             InitializeComplexProperty<ActivityFieldWrapper>(nameof(HvtProducersActivityField), Model.HvtProducersActivityField == null ? null : new ActivityFieldWrapper(Model.HvtProducersActivityField));

@@ -34,6 +34,9 @@ namespace HVTApp.Model.POCOs
         [Designation("Последний просмотр back-менеджером"), OrderStatus(1), NotForListView]
         public virtual DateTime? LastOpenBackManagerMoment { get; set; }
 
+        [Designation("Последний просмотр front-менеджером"), OrderStatus(1), NotForListView]
+        public virtual DateTime? LastOpenFrontManagerMoment { get; set; }
+
         [Designation("Первый старт"), OrderStatus(1), NotForListView]
         public virtual DateTime? FirstStartMoment { get; set; }
 

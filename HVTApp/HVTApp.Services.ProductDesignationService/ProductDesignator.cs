@@ -44,8 +44,11 @@ namespace HVTApp.Services.ProductDesignationService
             if (block == null)
                 return "block is null!";
 
+            //если обозначение уже содержится в словаре
             if (_dictionaryBlockDesignations.ContainsKey(block.Id))
+            {
                 return _dictionaryBlockDesignations[block.Id];
+            }
 
             if (!string.IsNullOrEmpty(block.DesignationSpecial))
             {

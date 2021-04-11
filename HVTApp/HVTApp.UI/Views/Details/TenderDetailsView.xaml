@@ -23,7 +23,6 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
         <Label Grid.Column="0" Grid.Row ="0" Content="Типы" Visibility="{Binding VisibilityTypesTender, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="0"
 										 Items="{Binding Path=Item.Types}"
@@ -32,24 +31,20 @@
 										 RemoveItemCommand="{Binding RemoveFromTypesCommand}"
 										 Visibility="{Binding VisibilityTypesTender, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="1" Content="Открытие" Visibility="{Binding VisibilityDateOpenTender, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="1" 
                     SelectedDate="{Binding Item.DateOpen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityDateOpenTender, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="2" Content="Закрытие" Visibility="{Binding VisibilityDateCloseTender, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="2" 
                     SelectedDate="{Binding Item.DateClose, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityDateCloseTender, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="3" Content="Итоги" Visibility="{Binding VisibilityDateNoticeTender, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="3" 
                     SelectedDate="{Binding Item.DateNotice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityDateNoticeTender, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="4" Content="Участники" Visibility="{Binding VisibilityParticipantsTender, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="4"
@@ -59,14 +54,12 @@
 										 RemoveItemCommand="{Binding RemoveFromParticipantsCommand}"
 										 Visibility="{Binding VisibilityParticipantsTender, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="5" Content="Победитель" Visibility="{Binding VisibilityWinnerTender, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="5" 
                                     Item="{Binding Item.Winner}" 
                                     AddItemCommand="{Binding SelectWinnerCommand}" 
                                     RemoveItemCommand="{Binding ClearWinnerCommand}"
 									Visibility="{Binding VisibilityWinnerTender, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="6" Content="Проект" Visibility="{Binding VisibilityProjectTender, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="6" 
@@ -75,12 +68,10 @@
                                     RemoveItemCommand="{Binding ClearProjectCommand}"
 									Visibility="{Binding VisibilityProjectTender, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="7" Content="Ссылка" Visibility="{Binding VisibilityLinkTender, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="7" MinWidth="200" 
                  Text="{Binding Item.Link, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityLinkTender, ElementName=Root}"/>
-
 
 
     </Grid>

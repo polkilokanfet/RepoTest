@@ -20,7 +20,6 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
         <Label Grid.Column="0" Grid.Row ="0" Content="Продукт" Visibility="{Binding VisibilityProductProductIncluded, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="0" 
                                     Item="{Binding Item.Product}" 
@@ -28,26 +27,22 @@
                                     RemoveItemCommand="{Binding ClearProductCommand}"
 									Visibility="{Binding VisibilityProductProductIncluded, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="1" Content="Количество" Visibility="{Binding VisibilityAmountProductIncluded, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1"
 							   ValueType="core:Int32"
                                Value="{Binding Item.Amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding VisibilityAmountProductIncluded, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="2" Content="Прайс на единицу" Visibility="{Binding VisibilityCustomFixedPriceProductIncluded, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="2" 
                                Value="{Binding Item.CustomFixedPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding VisibilityCustomFixedPriceProductIncluded, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="3" Content="ParentsCount" Visibility="{Binding VisibilityParentsCountProductIncluded, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="3"
 							   ValueType="core:Int32"
                                Value="{Binding Item.ParentsCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding VisibilityParentsCountProductIncluded, ElementName=Root}"/>
-
 
 
     </Grid>

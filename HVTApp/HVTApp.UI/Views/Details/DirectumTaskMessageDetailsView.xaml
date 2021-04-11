@@ -18,12 +18,10 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
         <Label Grid.Column="0" Grid.Row ="0" Content="Момент" Visibility="{Binding VisibilityMomentDirectumTaskMessage, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="0" 
                     SelectedDate="{Binding Item.Moment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityMomentDirectumTaskMessage, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Автор" Visibility="{Binding VisibilityAuthorDirectumTaskMessage, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
@@ -32,12 +30,10 @@
                                     RemoveItemCommand="{Binding ClearAuthorCommand}"
 									Visibility="{Binding VisibilityAuthorDirectumTaskMessage, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="2" Content="Сообщение" Visibility="{Binding VisibilityMessageDirectumTaskMessage, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
                  Text="{Binding Item.Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityMessageDirectumTaskMessage, ElementName=Root}"/>
-
 
 
     </Grid>

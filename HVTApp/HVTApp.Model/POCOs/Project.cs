@@ -9,7 +9,7 @@ namespace HVTApp.Model.POCOs
     [DesignationPlural("Проекты")]
     public partial class Project : BaseEntity
     {
-        [Designation("Название"), Required, OrderStatus(9), MaxLength(100)]
+        [Designation("Название"), Required, OrderStatus(9), MaxLength(512)]
         public string Name { get; set; }
 
         [Designation("Тип проекта"), Required, OrderStatus(5)]

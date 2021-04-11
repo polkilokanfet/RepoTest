@@ -245,6 +245,10 @@
     <Compile Include="Migrations\202102231856277_DirectumFile.Designer.cs">
       <DependentUpon>202102231856277_DirectumFile.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104100832193_ProjectNameLengh.cs" />
+    <Compile Include="Migrations\202104100832193_ProjectNameLengh.Designer.cs">
+      <DependentUpon>202104100832193_ProjectNameLengh.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -390,6 +394,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102231856277_DirectumFile.resx">
       <DependentUpon>202102231856277_DirectumFile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104100832193_ProjectNameLengh.resx">
+      <DependentUpon>202104100832193_ProjectNameLengh.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

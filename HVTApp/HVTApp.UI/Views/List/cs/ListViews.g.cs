@@ -1507,6 +1507,13 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility IsActualToPerformVisibility
+        {
+            get { return DirectumTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskLookup.IsActualToPerform)].Visibility; }
+            set { DirectumTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskLookup.IsActualToPerform)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility StartPerformerVisibility
         {
             get { return DirectumTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskLookup.StartPerformer)].Visibility; }
@@ -2510,6 +2517,13 @@ namespace HVTApp.UI.Views
         {
             get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.ComplectsGroup)].Visibility; }
             set { GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.ComplectsGroup)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DefaultProjectTypeVisibility
+        {
+            get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.DefaultProjectType)].Visibility; }
+            set { GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.DefaultProjectType)].Visibility = value; }
         }
 
 
@@ -3635,7 +3649,7 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
-	[Designation("Платеж совершенный")]
+	[Designation("Платеж совершённый")]
 	[DesignationPlural("PaymentActualLookup")]
 	[AllowEditAttribute(Role.Admin)]
     public partial class PaymentActualLookupListView : ViewBase
@@ -6846,6 +6860,13 @@ namespace HVTApp.UI.Views
         {
             get { return TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.LastOpenBackManagerMoment)].Visibility; }
             set { TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.LastOpenBackManagerMoment)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility LastOpenFrontManagerMomentVisibility
+        {
+            get { return TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.LastOpenFrontManagerMoment)].Visibility; }
+            set { TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.LastOpenFrontManagerMoment)].Visibility = value; }
         }
 
 

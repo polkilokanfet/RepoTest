@@ -86,14 +86,14 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Supervision
                     var supervisions = SelectedUnits
                         .Cast<SupervisionWr>()
                         .Select(x => x.Model)
-                        .OrderBy(x => x.SalesUnit.SerialNumber)
+                        .OrderBy(supervision => supervision.SalesUnit.SerialNumber)
                         .ToList();
 
                     var letter = new Document
                     {
                         Number = new DocumentNumber(),
                         Date = DateTime.Today,
-                        Comment = $"Шеф-монтаж на {supervisions.Select(x => x.SalesUnit.Facility).Distinct().ToStringEnum(", ")}".GetFirstSimbols(150),
+                        Comment = $"Шеф-монтаж на {supervisions.Select(supervision => supervision.SalesUnit.Facility).Distinct().ToStringEnum(", ")}".GetFirstSimbols(150),
                         Author = unitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id).Employee,
                         SenderEmployee = unitOfWork.Repository<Employee>().GetById(GlobalAppProperties.Actual.SenderOfferEmployee.Id),
                         RecipientEmployee = unitOfWork.Repository<Employee>().GetById(GlobalAppProperties.Actual.RecipientSupervisionLetterEmployee.Id)

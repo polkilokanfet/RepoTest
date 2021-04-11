@@ -81,6 +81,16 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel
                 DetailsViewModel.Item.Model.Manager = manager;
             }
 
+            if (isNew)
+            {
+                //назначаем стандартный тип проекта
+                if (GlobalAppProperties.Actual.DefaultProjectType != null)
+                {
+                    ProjectType defaultProjectType = UnitOfWork.Repository<ProjectType>().GetById(GlobalAppProperties.Actual.DefaultProjectType.Id);
+                    DetailsViewModel.Item.ProjectType = new ProjectTypeSimpleWrapper(defaultProjectType);
+                }
+            }
+
             //проверяем актуальность команд при смене группы
             this.GroupsViewModel.Groups.SelectedGroupChanged += 
                 grp => 

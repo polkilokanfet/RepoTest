@@ -24,7 +24,7 @@ namespace HVTApp.Services.GetProductService.Complects
 
         public ParameterWrapper ParameterComplectType
         {
-            get { return _parameterComplectType; }
+            get => _parameterComplectType;
             private set
             {
                 _parameterComplectType = value;
@@ -46,7 +46,7 @@ namespace HVTApp.Services.GetProductService.Complects
                 () =>
                 {
                     //Обозначение продукта
-                    var designation = $"{ParameterComplectType.Value} {ParameterComplectDesignation.Value}".GetFirstSimbols(50);
+                    var designation = $"{ParameterComplectType.Value} {ParameterComplectDesignation.Value}".GetFirstSimbols(255);
 
                     Product.DesignationSpecial = Product.ProductBlock.DesignationSpecial = designation;
                     Product.AcceptChanges();

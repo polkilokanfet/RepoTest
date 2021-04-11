@@ -30,14 +30,12 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
         <Label Grid.Column="0" Grid.Row ="0" Content="Группа задач" Visibility="{Binding VisibilityGroupDirectumTask, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="0" 
                                     Item="{Binding Item.Group}" 
                                     AddItemCommand="{Binding SelectGroupCommand}" 
                                     RemoveItemCommand="{Binding ClearGroupCommand}"
 									Visibility="{Binding VisibilityGroupDirectumTask, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Исполнитель" Visibility="{Binding VisibilityPerformerDirectumTask, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
@@ -46,30 +44,25 @@
                                     RemoveItemCommand="{Binding ClearPerformerCommand}"
 									Visibility="{Binding VisibilityPerformerDirectumTask, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="2" Content="Приём" Visibility="{Binding VisibilityStartPerformerDirectumTask, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="2" 
                     SelectedDate="{Binding Item.StartPerformer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityStartPerformerDirectumTask, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="3" Content="Срок" Visibility="{Binding VisibilityFinishPlanDirectumTask, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="3" 
                     SelectedDate="{Binding Item.FinishPlan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityFinishPlanDirectumTask, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="4" Content="Финиш исполнителем" Visibility="{Binding VisibilityFinishPerformerDirectumTask, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="4" 
                     SelectedDate="{Binding Item.FinishPerformer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityFinishPerformerDirectumTask, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="5" Content="Финиш" Visibility="{Binding VisibilityFinishAuthorDirectumTask, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="5" 
                     SelectedDate="{Binding Item.FinishAuthor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityFinishAuthorDirectumTask, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="6" Content="Переписка" Visibility="{Binding VisibilityMessagesDirectumTask, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="6"
@@ -79,7 +72,6 @@
 										 RemoveItemCommand="{Binding RemoveFromMessagesCommand}"
 										 Visibility="{Binding VisibilityMessagesDirectumTask, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="7" Content="Родительская задача" Visibility="{Binding VisibilityParentTaskDirectumTask, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="7" 
                                     Item="{Binding Item.ParentTask}" 
@@ -87,14 +79,12 @@
                                     RemoveItemCommand="{Binding ClearParentTaskCommand}"
 									Visibility="{Binding VisibilityParentTaskDirectumTask, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="8" Content="Предыдущая задача" Visibility="{Binding VisibilityPreviousTaskDirectumTask, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="8" 
                                     Item="{Binding Item.PreviousTask}" 
                                     AddItemCommand="{Binding SelectPreviousTaskCommand}" 
                                     RemoveItemCommand="{Binding ClearPreviousTaskCommand}"
 									Visibility="{Binding VisibilityPreviousTaskDirectumTask, ElementName=Root}"/>
-
 
 
     </Grid>

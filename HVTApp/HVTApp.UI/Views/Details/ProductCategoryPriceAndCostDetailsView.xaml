@@ -19,7 +19,6 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
         <Label Grid.Column="0" Grid.Row ="0" Content="Категория" Visibility="{Binding VisibilityCategoryProductCategoryPriceAndCost, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="0" 
                                     Item="{Binding Item.Category}" 
@@ -27,24 +26,20 @@
                                     RemoveItemCommand="{Binding ClearCategoryCommand}"
 									Visibility="{Binding VisibilityCategoryProductCategoryPriceAndCost, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="1" Content="Стоимость" Visibility="{Binding VisibilityCostProductCategoryPriceAndCost, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1" 
                                Value="{Binding Item.Cost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding VisibilityCostProductCategoryPriceAndCost, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="2" Content="Себестоимость" Visibility="{Binding VisibilityPriceProductCategoryPriceAndCost, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="2" 
                                Value="{Binding Item.Price, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding VisibilityPriceProductCategoryPriceAndCost, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="3" Content="StructureCost" Visibility="{Binding VisibilityStructureCostProductCategoryPriceAndCost, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="3" MinWidth="200" 
                  Text="{Binding Item.StructureCost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityStructureCostProductCategoryPriceAndCost, ElementName=Root}"/>
-
 
 
     </Grid>

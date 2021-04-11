@@ -17,7 +17,6 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
         <Label Grid.Column="0" Grid.Row ="0" Content="Пользователи" Visibility="{Binding VisibilityUsersUserGroup, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="0"
 										 Items="{Binding Path=Item.Users}"
@@ -26,12 +25,10 @@
 										 RemoveItemCommand="{Binding RemoveFromUsersCommand}"
 										 Visibility="{Binding VisibilityUsersUserGroup, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="1" Content="Имя группы" Visibility="{Binding VisibilityNameUserGroup, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityNameUserGroup, ElementName=Root}"/>
-
 
 
     </Grid>

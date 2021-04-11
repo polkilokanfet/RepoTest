@@ -43,6 +43,16 @@ namespace HVTApp.Model
             return result;
         }
 
+        public static bool IsComplectsGroup(this ParameterGroup parameterGroup)
+        {
+            return GlobalAppProperties.Actual.ComplectsGroup.Id == parameterGroup.Id;
+        }
+
+        public static bool IsComplectDesignationGroup(this ParameterGroup parameterGroup)
+        {
+            return GlobalAppProperties.Actual.ComplectDesignationGroup.Id == parameterGroup.Id;
+        }
+
         /// <summary>
         /// Пользователь является текущим пользователем приложения
         /// </summary>

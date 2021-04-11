@@ -10,6 +10,7 @@ using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
+using HVTApp.Model;
 
 namespace HVTApp.UI.Modules.Settings.ViewModels
 {
@@ -26,23 +27,13 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
                 {
                     var unitOfWork = _container.Resolve<IUnitOfWork>();
 
-                    
-                    var tasks = unitOfWork.Repository<TechnicalRequrementsTask>().Find(requrementsTask => requrementsTask.LastOpenBackManagerMoment != null);
-                    foreach (TechnicalRequrementsTask requrementsTask in tasks)
+                    var blocks = unitOfWork.Repository<ProductBlock>().GetAll();
+                    blocks = blocks.Where(productBlock => productBlock.Parameters.Any(parameter => parameter.ParameterGroup.IsComplectsGroup())).ToList();
+                    foreach (var productBlock in blocks)
                     {
-                        foreach (PriceCalculation priceCalculation in requrementsTask.PriceCalculations)
-                        {
-                            priceCalculation.Initiator = requrementsTask.BackManager;
-                        }
-                    }
-
-
-                    List<PriceCalculation> priceCalculations = unitOfWork.Repository<PriceCalculation>().Find(priceCalculation => priceCalculation.Initiator == null);
-                    foreach (PriceCalculation priceCalculation in priceCalculations)
-                    {
-                        priceCalculation.Initiator = priceCalculation.PriceCalculationItems
-                            .SelectMany(x => x.SalesUnits).First().Project
-                            .Manager;
+                        var complectType = productBlock.Parameters.Single(parameter => parameter.ParameterGroup.IsComplectsGroup()).Value;
+                        var complectDesignation = productBlock.Parameters.Single(parameter => parameter.ParameterGroup.IsComplectDesignationGroup()).Value;
+                        productBlock.DesignationSpecial = $"{complectType} {complectDesignation}";
                     }
 
                     unitOfWork.SaveChanges();

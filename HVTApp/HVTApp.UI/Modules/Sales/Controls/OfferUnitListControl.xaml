@@ -85,33 +85,33 @@
                     <dp:XamDataGrid x:Name="UnitListGrid"
                                     DataSource="{Binding Groups, UpdateSourceTrigger=PropertyChanged}"
                                     ActiveDataItem="{Binding Groups.SelectedGroup, Mode=TwoWay}">
-
+                        
                         <dp:XamDataGrid.FieldLayouts>
 
                             <dp:FieldLayout>
                                 <dp:FieldLayout.Fields>
-                                    <dp:Field AlternateBinding="{Binding Facility.Model}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto" Converter="{StaticResource ObjectToStringConverter}">
+                                    <dp:Field AlternateBinding="{Binding Facility.Model}" BindingType="UseAlternateBinding" Label="Объект" Width="150" Converter="{StaticResource ObjectToStringConverter}">
                                         <dp:Field.Settings>
                                             <dp:FieldSettings CellValuePresenterStyle="{StaticResource FacilityCellStyle}" />
                                         </dp:Field.Settings>
                                     </dp:Field>
-                                    <dp:Field Name="Product" Label="Продукт" Width="Auto" Converter="{StaticResource WrapperToStringConverter}">
+                                    <dp:Field Name="Product" Label="Продукт" Width="350" Converter="{StaticResource ObjectToStringConverter}">
                                         <dp:Field.Settings>
                                             <dp:FieldSettings CellValuePresenterStyle="{StaticResource ProductCellStyle}" />
                                         </dp:Field.Settings>
                                     </dp:Field>
-                                    <dp:NumericField Name="Amount" Label="Кол." Width="Auto" />
-                                    <dp:NumericField Name="MarginalIncome" Label="МД" Width="Auto" AllowEdit="True" />
-                                    <dp:NumericField Name="Cost" Label="Стоимость" Width="Auto" AllowEdit="True" />
-                                    <dp:NumericField Name="Total" Label="Сумма" Width="Auto" />
-                                    <dp:NumericField Name="ProductionTerm" Label="Срок" Width="Auto" AllowEdit="True" />
-                                    <dp:NumericField Name="CostDelivery" Label="Доставка" Width="Auto" AllowEdit="True" />
-                                    <dp:Field AlternateBinding="{Binding PaymentConditionSet}" BindingType="UseAlternateBinding" Label="Условия оплаты" Width="Auto" Converter="{StaticResource ObjectToStringConverter}">
+                                    <dp:NumericField Name="Amount" Label="Кол." Width="Auto" AllowResize="False"/>
+                                    <dp:NumericField Name="MarginalIncome" Label="МД" Width="50" AllowEdit="True" AllowResize="False"/>
+                                    <dp:NumericField Name="Cost" Label="Стоимость" Width="Auto" AllowEdit="True" AllowResize="False"/>
+                                    <dp:NumericField Name="Total" Label="Сумма" Width="Auto" AllowResize="False"/>
+                                    <dp:NumericField Name="CostDelivery" Label="Доставка" Width="Auto" AllowEdit="True" AllowResize="False"/>
+                                    <dp:NumericField Name="ProductionTerm" Label="Срок" Width="55" AllowEdit="True" AllowResize="False"/>
+                                    <dp:Field AlternateBinding="{Binding PaymentConditionSet}" BindingType="UseAlternateBinding" Label="Условия оплаты" Width="300" Converter="{StaticResource ObjectToStringConverter}">
                                         <dp:Field.Settings>
                                             <dp:FieldSettings CellValuePresenterStyle="{StaticResource PaymentsCellStyle}" />
                                         </dp:Field.Settings>
                                     </dp:Field>
-                                    <dp:TextField Name="Comment" Label="Комментарий" Width="150" AllowEdit="True" />
+                                    <dp:TextField Name="Comment" Label="Комментарий" Width="200" AllowEdit="True" />
                                     <dp:Field Name="Groups" IsExpandable="True" />
 
                                 </dp:FieldLayout.Fields>
