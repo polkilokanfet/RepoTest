@@ -4,25 +4,26 @@ namespace HVTApp.DataAccess
     {
         public GlobalPropertiesConfiguration()
         {
-            HasRequired(x => x.NewProductParameter).WithMany().WillCascadeOnDelete(false);
-            HasRequired(x => x.NewProductParameterGroup).WithMany().WillCascadeOnDelete(false);
-            HasRequired(x => x.VoltageGroup).WithMany().WillCascadeOnDelete(false);
+            HasRequired(globalProperties => globalProperties.NewProductParameter).WithMany().WillCascadeOnDelete(false);
+            HasRequired(globalProperties => globalProperties.NewProductParameterGroup).WithMany().WillCascadeOnDelete(false);
+            HasRequired(globalProperties => globalProperties.VoltageGroup).WithMany().WillCascadeOnDelete(false);
 
-            HasOptional(x => x.IsolationColorGroup).WithMany().WillCascadeOnDelete(false);
-            HasOptional(x => x.IsolationDpuGroup).WithMany().WillCascadeOnDelete(false);
-            HasOptional(x => x.IsolationMaterialGroup).WithMany().WillCascadeOnDelete(false);
-
-            HasRequired(x => x.ServiceParameter).WithMany().WillCascadeOnDelete(false);
-            HasRequired(x => x.SupervisionParameter).WithMany().WillCascadeOnDelete(false);
-            HasOptional(x => x.RecipientSupervisionLetterEmployee).WithMany().WillCascadeOnDelete(false);
-            HasRequired(x => x.SenderOfferEmployee).WithMany().WillCascadeOnDelete(false);
-            HasRequired(x => x.HvtProducersActivityField).WithMany().WillCascadeOnDelete(false);
-            HasRequired(x => x.PaymentConditionSet).WithMany().WillCascadeOnDelete(false);
-            HasOptional(x => x.Developer).WithMany().WillCascadeOnDelete(false);
-            HasOptional(x => x.ProductIncludedDefault).WithMany().WillCascadeOnDelete(false);
-            HasRequired(x => x.ComplectsParameter).WithMany().WillCascadeOnDelete(false);
-            HasRequired(x => x.ComplectsGroup).WithMany().WillCascadeOnDelete(false);
-            HasRequired(x => x.ComplectDesignationGroup).WithMany().WillCascadeOnDelete(false);
+            HasOptional(globalProperties => globalProperties.IsolationColorGroup).WithMany().WillCascadeOnDelete(false);
+            HasOptional(globalProperties => globalProperties.IsolationDpuGroup).WithMany().WillCascadeOnDelete(false);
+            HasOptional(globalProperties => globalProperties.IsolationMaterialGroup).WithMany().WillCascadeOnDelete(false);
+                                            
+            HasRequired(globalProperties => globalProperties.ServiceParameter).WithMany().WillCascadeOnDelete(false);
+            HasRequired(globalProperties => globalProperties.SupervisionParameter).WithMany().WillCascadeOnDelete(false);
+            HasOptional(globalProperties => globalProperties.RecipientSupervisionLetterEmployee).WithMany().WillCascadeOnDelete(false);
+            HasRequired(globalProperties => globalProperties.SenderOfferEmployee).WithMany().WillCascadeOnDelete(false);
+            HasRequired(globalProperties => globalProperties.HvtProducersActivityField).WithMany().WillCascadeOnDelete(false);
+            HasRequired(globalProperties => globalProperties.PaymentConditionSet).WithMany().WillCascadeOnDelete(false);
+            HasOptional(globalProperties => globalProperties.Developer).WithMany().WillCascadeOnDelete(false);
+            HasOptional(globalProperties => globalProperties.ProductIncludedDefault).WithMany().WillCascadeOnDelete(false);
+            HasRequired(globalProperties => globalProperties.ComplectsParameter).WithMany().WillCascadeOnDelete(false);
+            HasRequired(globalProperties => globalProperties.ComplectsGroup).WithMany().WillCascadeOnDelete(false);
+            HasRequired(globalProperties => globalProperties.ComplectDesignationGroup).WithMany().WillCascadeOnDelete(false);
+            HasRequired(globalProperties => globalProperties.DefaultProjectType).WithMany().WillCascadeOnDelete(false);
         }
     }
 }

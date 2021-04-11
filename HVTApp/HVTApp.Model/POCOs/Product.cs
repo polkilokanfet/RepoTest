@@ -18,7 +18,7 @@ namespace HVTApp.Model.POCOs
         [Designation("Обозначение"), NotMapped, OrderStatus(8)]
         public string Designation => _designation ?? (_designation = DesignationSpecial ?? GlobalAppProperties.ProductDesignationService.GetDesignation(this));
 
-        [Designation("Специальное обозначение"), MaxLength(50), OrderStatus(6)]
+        [Designation("Специальное обозначение"), MaxLength(256), OrderStatus(6)]
         public string DesignationSpecial { get; set; }
 
         private ProductType _type;
@@ -44,7 +44,7 @@ namespace HVTApp.Model.POCOs
             get
             {
                 if (ProductBlock.HasFixedPrice) return true;
-                if (DependentProducts.Any(x => x.Product.HasBlockWithFixedCost)) return true;
+                if (DependentProducts.Any(productDependent => productDependent.Product.HasBlockWithFixedCost)) return true;
                 return false;
             }
         }

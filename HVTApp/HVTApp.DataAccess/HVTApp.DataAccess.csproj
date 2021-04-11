@@ -249,6 +249,10 @@
     <Compile Include="Migrations\202104100832193_ProjectNameLengh.Designer.cs">
       <DependentUpon>202104100832193_ProjectNameLengh.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104111858131_DesignationSpecialProductLengh.cs" />
+    <Compile Include="Migrations\202104111858131_DesignationSpecialProductLengh.Designer.cs">
+      <DependentUpon>202104111858131_DesignationSpecialProductLengh.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -397,6 +401,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104100832193_ProjectNameLengh.resx">
       <DependentUpon>202104100832193_ProjectNameLengh.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104111858131_DesignationSpecialProductLengh.resx">
+      <DependentUpon>202104111858131_DesignationSpecialProductLengh.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
