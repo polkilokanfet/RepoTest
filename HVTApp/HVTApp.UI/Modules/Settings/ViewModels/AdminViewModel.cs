@@ -36,6 +36,9 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
                         productBlock.DesignationSpecial = $"{complectType} {complectDesignation}";
                     }
 
+                    var products = unitOfWork.Repository<Product>().Find(product => !string.IsNullOrEmpty(product.ProductBlock.DesignationSpecial));
+                    products.ForEach(product => product.DesignationSpecial = product.ProductBlock.DesignationSpecial);
+
                     unitOfWork.SaveChanges();
 
                     ////_container.Resolve<IEmailService>().SendMail("kosolapov.ag@gmail.com", "SubjTest", "BodyTest");
