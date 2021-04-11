@@ -79,68 +79,6 @@ namespace HVTApp.UI.Modules.Sales.Market
         }
 
 
-        private void NewSpecificationCommand_Execute()
-        {
-            RegionManager.RequestNavigateContentRegion<SpecificationView>(new NavigationParameters { { nameof(Project), SelectedProjectItem.Project } });
-        }
-
-        private void EditProjectCommand_Execute()
-        {
-            RegionManager.RequestNavigateContentRegion<ProjectView>(new NavigationParameters { { nameof(Project), SelectedProjectItem.Project} });
-        }
-
-        private void NewProjectCommand_Execute()
-        {
-            RegionManager.RequestNavigateContentRegion<ProjectView>(new NavigationParameters());
-        }
-
-        private void RemoveProjectCommand_Execute()
-        {
-            var dr = _messageService.ShowYesNoMessageDialog("Удалить проект.", "Вы уверены, что хотите удалить проект?", defaultNo: true);
-            if (dr != MessageDialogResult.Yes)
-                return;
-
-            var unitOfWork = Container.Resolve<IUnitOfWork>();
-            var salesUnits = unitOfWork.Repository<SalesUnit>()
-                .Find(x => x.Project.Id == SelectedProjectItem.Project.Id)
-                .Where(x => !x.IsRemoved)
-                .ToList();
-
-            if (salesUnits.Any(x => x.Order != null))
-            {
-                _messageService.ShowOkMessageDialog("Информация", "Нельзя удалить проект целиком, т.к. в нем есть оборудование, размещенное в производстве.");
-                return;
-            }
-
-            //проверяем не включено ли оборудование в какой-либо бюджет
-            var budgetUnits = unitOfWork.Repository<BudgetUnit>().Find(x => !x.IsRemoved);
-            var idIntersection = salesUnits.Select(x => x.Id).Intersect(budgetUnits.Select(x => x.SalesUnit.Id)).ToList();
-            if (idIntersection.Any())
-            {
-                var dr1 = _messageService.ShowYesNoMessageDialog("Информация", "В проекте есть оборудование, занесенное в бюджет. Вы уверены, что хотите удалить его?", defaultNo:true);
-                if (dr1 != MessageDialogResult.Yes)
-                    return;
-            }
-
-            foreach (var salesUnit in salesUnits)
-            {
-                if (salesUnit.Order != null) continue;
-                if (idIntersection.Contains(salesUnit.Id))
-                {
-                    salesUnit.IsRemoved = true;
-                }
-                else
-                {
-                    unitOfWork.Repository<SalesUnit>().Delete(salesUnit);
-                }
-            }
-            unitOfWork.SaveChanges();
-
-            var remove = ProjectItems.Where(x => x.Project.Id == SelectedProjectItem.Project.Id).ToList();
-            remove.ForEach(x => ProjectItems.Remove(x));
-        }
-
-
         #region OfferCommands
 
         /// <summary>
@@ -175,7 +113,7 @@ namespace HVTApp.UI.Modules.Sales.Market
 
         private void StructureCostsCommand_Execute()
         {
-            var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Id == SelectedProjectItem.Project.Id);
+            var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(salesUnit => salesUnit.Project.Id == SelectedProjectItem.Project.Id);
             RegionManager.RequestNavigateContentRegion<PriceCalculationView>(new NavigationParameters { { nameof(SalesUnit), salesUnits } });
         }
 

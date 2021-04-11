@@ -119,11 +119,12 @@ namespace HVTApp.UI
                 }
             }
 
+            //создаём требуемую директорию
             if (!string.IsNullOrEmpty(addToFolderName))
             { 
                 addToFolderName = addToFolderName.ReplaceUncorrectSimbols("_"); 
             }
-            var path = Path.Combine(rootDirectory, $"{addToFolderName} {id}");
+            var path = Path.Combine(rootDirectory, $"{addToFolderName.GetFirstSimbols(50)} {id}");
             
             //создаём, если директории не существует
             return CreateDirectoryPathIfNotExists(path)

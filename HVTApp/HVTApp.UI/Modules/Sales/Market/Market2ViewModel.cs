@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
+using System.Windows.Input;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
@@ -13,6 +14,7 @@ using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
+using HVTApp.UI.Modules.Sales.Market.Commands;
 using HVTApp.UI.Modules.Sales.Market.Items;
 using HVTApp.UI.Modules.Sales.ViewModels.Containers;
 using HVTApp.UI.PriceCalculations.View;
@@ -154,13 +156,13 @@ namespace HVTApp.UI.Modules.Sales.Market
             };
 
             #region Commands definition
-            
-            //команды
-            NewProjectCommand = new DelegateCommand(NewProjectCommand_Execute);
-            EditProjectCommand = new DelegateCommand(EditProjectCommand_Execute, () => SelectedProjectItem != null);
-            RemoveProjectCommand = new DelegateCommand(RemoveProjectCommand_Execute, () => SelectedProjectItem != null);
 
-            NewSpecificationCommand = new DelegateCommand(NewSpecificationCommand_Execute, () => SelectedProjectItem != null);
+            //команды
+            NewProjectCommand = new ProjectNewCommand(this.RegionManager);
+            EditProjectCommand = new ProjectEditCommand(this, this.RegionManager);
+            RemoveProjectCommand = new ProjectRemoveCommand(this, this.Container);
+
+            NewSpecificationCommand = new SpecificationNewCommand(this, this.Container, this.RegionManager);
 
             EditOfferCommand = new DelegateCommand(EditOfferCommand_Execute, () => Offers?.SelectedItem != null);
             RemoveOfferCommand = new DelegateCommand(() => Offers.RemoveSelectedItem(), () => Offers?.SelectedItem != null);
@@ -173,17 +175,9 @@ namespace HVTApp.UI.Modules.Sales.Market
             RemoveTenderCommand = new DelegateCommand(() => Tenders.RemoveSelectedItem(), () => Tenders?.SelectedItem != null);
 
             EditTechnicalRequrementsTaskCommand = new DelegateCommand(EditTechnicalRequrementsTaskCommand_Execute, () => TechnicalRequrementsTasks?.SelectedItem != null);
+            
             EditPriceCalculationCommand = new DelegateCommand(EditPriceCalculationCommand_Execute);
-            CopyPriceCalculationCommand = new DelegateCommand(
-                () =>
-                {
-                    RegionManager.RequestNavigateContentRegion<PriceCalculationView>(new NavigationParameters
-                    {
-                        {nameof(PriceCalculation), PriceCalculations.SelectedItem.Entity},
-                        {nameof(TechnicalRequrementsTask), null}
-                    });
-                },
-                () => PriceCalculations?.SelectedItem != null);
+            CopyPriceCalculationCommand = new PriceCalculationCopyCommand(this, this.RegionManager);
 
 
             StructureCostsCommand = new DelegateCommand(StructureCostsCommand_Execute, () => SelectedProjectItem != null);
@@ -193,15 +187,7 @@ namespace HVTApp.UI.Modules.Sales.Market
 
             MakeTceTaskCommand = new DelegateCommand(MakeTceTaskCommand_Execute, () => SelectedProjectItem != null);
 
-            OpenTenderLinkCommand = new DelegateCommand(
-                () =>
-                {
-                    if (!string.IsNullOrWhiteSpace(Tenders.SelectedItem?.Link))
-                    {
-                        Process.Start(Tenders.SelectedItem.Link);
-                    }
-                },
-                () => !string.IsNullOrWhiteSpace(Tenders?.SelectedItem?.Link));
+            OpenTenderLinkCommand = new OpenTenderLinkCommand(this);
 
             #endregion
 
@@ -223,7 +209,7 @@ namespace HVTApp.UI.Modules.Sales.Market
             //подписка на выбор сущностей
             _eventAggregator.GetEvent<SelectedOfferChangedEvent>().Subscribe(offer => OfferRaiseCanExecuteChanged());
             _eventAggregator.GetEvent<SelectedTenderChangedEvent>().Subscribe(tender => TenderRaiseCanExecuteChanged());
-            _eventAggregator.GetEvent<SelectedPriceCalculationChangedEvent>().Subscribe(calculation => ((DelegateCommand)CopyPriceCalculationCommand).RaiseCanExecuteChanged());
+            _eventAggregator.GetEvent<SelectedPriceCalculationChangedEvent>().Subscribe(calculation => ((DelegateCommandBase)CopyPriceCalculationCommand).RaiseCanExecuteChanged());
 
             #endregion
 
@@ -300,9 +286,9 @@ namespace HVTApp.UI.Modules.Sales.Market
 
         private void ProjectRaiseCanExecuteChanged()
         {
-            ((DelegateCommand)RemoveProjectCommand).RaiseCanExecuteChanged();
-            ((DelegateCommand)EditProjectCommand).RaiseCanExecuteChanged();
-            ((DelegateCommand)NewSpecificationCommand).RaiseCanExecuteChanged();
+            ((DelegateCommandBase)RemoveProjectCommand).RaiseCanExecuteChanged();
+            ((DelegateCommandBase)EditProjectCommand).RaiseCanExecuteChanged();
+            ((DelegateCommandBase)NewSpecificationCommand).RaiseCanExecuteChanged();
             ((DelegateCommand)StructureCostsCommand).RaiseCanExecuteChanged();
             ((DelegateCommand)MakeTceTaskCommand).RaiseCanExecuteChanged();
             ((DelegateCommand)OpenFolderCommand).RaiseCanExecuteChanged();
@@ -324,7 +310,7 @@ namespace HVTApp.UI.Modules.Sales.Market
             ((DelegateCommand)NewTenderCommand).RaiseCanExecuteChanged();
             ((DelegateCommand)EditTenderCommand).RaiseCanExecuteChanged();
             ((DelegateCommand)RemoveTenderCommand).RaiseCanExecuteChanged();
-            ((DelegateCommand)OpenTenderLinkCommand).RaiseCanExecuteChanged();
+            ((DelegateCommandBase)OpenTenderLinkCommand).RaiseCanExecuteChanged();
         }
 
         #endregion

@@ -212,8 +212,14 @@
     </Compile>
     <Compile Include="Modules\Reports\FlatReport\Reports\SalesReportViewModel.cs" />
     <Compile Include="Modules\Reports\MarketReport\ProducersMarket.cs" />
+    <Compile Include="Modules\Sales\Market\Commands\OpenTenderLinkCommand.cs" />
+    <Compile Include="Modules\Sales\Market\Commands\PriceCalculationCopyCommand.cs" />
+    <Compile Include="Modules\Sales\Market\Commands\ProjectEditCommand.cs" />
+    <Compile Include="Modules\Sales\Market\Commands\ProjectRemoveCommand.cs" />
+    <Compile Include="Modules\Sales\Market\Commands\SpecificationNewCommand.cs" />
     <Compile Include="Modules\Sales\Market\Converters\ProductionGroupToColorConverter.cs" />
     <Compile Include="Modules\Sales\Market\Converters\ProjectItemToColorConverter.cs" />
+    <Compile Include="Modules\Sales\Market\Commands\ProjectNewCommand.cs" />
     <Compile Include="Modules\Sales\Payments\PaymentsGroup.cs" />
     <Compile Include="Modules\Sales\Payments\PaymentWrapper.cs" />
     <Compile Include="Modules\Products\ViewModels\ProductReplacementViewModel.cs" />
