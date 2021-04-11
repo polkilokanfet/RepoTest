@@ -148,26 +148,13 @@ namespace HVTApp.UI.Modules.Sales.Market.Items
             Project = SalesUnits.First().Project;
 
             //если коллекция изменилась, обновляем все отображаемые поля
-            SalesUnits.CollectionChanged += () =>
-            {
-                if (!SalesUnits.Any()) return;
+            SalesUnits.CollectionChanged += RefreshAllProperties;
 
-                OnPropertyChanged(nameof(this.Facilities));
-                OnPropertyChanged(nameof(this.Sum));
-                OnPropertyChanged(nameof(this.OrderInTakeDate));
-                OnPropertyChanged(nameof(this.OrderInTakeYear));
-                OnPropertyChanged(nameof(this.OrderInTakeMonth));
-                OnPropertyChanged(nameof(this.IsLoosen));
-                OnPropertyChanged(nameof(this.IsDone));
-                OnPropertyChanged(nameof(this.InWork));
-                OnPropertyChanged(nameof(this.ForReport));
-                OnPropertyChanged(nameof(this.DaysToStartProduction));
-
-                OnPropertyChanged(nameof(this.ProjectUnitsGroups));
-            };
+            //SalesUnits.SalesUnitChanged += salesUnit => { RefreshAllProperties(); };
 
             SalesUnits.CollectionIsEmptyEvent += () =>
             {
+                SalesUnits.CollectionChanged -= RefreshAllProperties;
                 LastSalesUnitRemoveEvent?.Invoke(this);
             };
 
@@ -205,20 +192,30 @@ namespace HVTApp.UI.Modules.Sales.Market.Items
             });
         }
 
+        private void RefreshAllProperties()
+        {
+            if (!SalesUnits.Any()) return;
+
+            OnPropertyChanged(nameof(this.Facilities));
+            OnPropertyChanged(nameof(this.Sum));
+            OnPropertyChanged(nameof(this.OrderInTakeDate));
+            OnPropertyChanged(nameof(this.OrderInTakeYear));
+            OnPropertyChanged(nameof(this.OrderInTakeMonth));
+            OnPropertyChanged(nameof(this.IsLoosen));
+            OnPropertyChanged(nameof(this.IsDone));
+            OnPropertyChanged(nameof(this.InWork));
+            OnPropertyChanged(nameof(this.ForReport));
+            OnPropertyChanged(nameof(this.DaysToStartProduction));
+
+            OnPropertyChanged(nameof(this.ProjectUnitsGroups));
+        }
+
         public void Check(SalesUnit salesUnit)
         {
-            if (!SalesUnits.Any())
-                return;
-
-            //Юнит подходит в этот айтем
-            var fits =  SalesUnits
-                //.Where(x => x.Id != salesUnit.Id)
-                .Concat(new[] { salesUnit })
-                .GroupBy(unit => unit, new SalesUnitsMarketViewComparer())
-                .Count() == 1;
+            if (!SalesUnits.Any()) return;
 
             //если юнит подходит этой группе
-            if (fits)
+            if (Fits(salesUnit))
             {
                 //добавляем/обновляем его
                 SalesUnits.Add(salesUnit);
@@ -230,6 +227,20 @@ namespace HVTApp.UI.Modules.Sales.Market.Items
                     //удаляем его
                     SalesUnits.Remove(salesUnit);
             }
+        }
+
+        /// <summary>
+        /// Подходит ли юнит в этот айтем
+        /// </summary>
+        /// <param name="salesUnit"></param>
+        /// <returns></returns>
+        private bool Fits(SalesUnit salesUnit)
+        {
+            return SalesUnits
+                //.Where(x => x.Id != salesUnit.Id)
+                .Concat(new[] {salesUnit})
+                .GroupBy(unit => unit, new SalesUnitsMarketViewComparer())
+                .Count() == 1;
         }
     }
 }

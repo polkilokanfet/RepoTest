@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
+using Microsoft.Practices.ObjectBuilder2;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels
 {
@@ -13,17 +14,22 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
         public void Add(SalesUnit salesUnit)
         {
-            if (_salesUnits.Contains(salesUnit))
-                return;
+            if (salesUnit == null)
+            {
+                throw new ArgumentNullException(nameof(salesUnit));
+            }
 
-            //заменяемый юнит
-            var oldSalesUnit = _salesUnits.SingleOrDefault(x => x.Id == salesUnit.Id);
+            //добавляем новый юнит
+            if (_salesUnits.Any(unit => ReferenceEquals(unit, salesUnit)) == false)
+            {
+                _salesUnits.Add(salesUnit);
+            }
 
-            _salesUnits.Add(salesUnit);
-
-            //удаляем замененный юнит
-            if (oldSalesUnit != null)
-                _salesUnits.Remove(oldSalesUnit);
+            //удаляем старый юнит, если он есть
+            _salesUnits
+                .Where(unit => unit.Id == salesUnit.Id && !ReferenceEquals(unit, salesUnit))
+                .ToList()
+                .ForEach(unit => _salesUnits.Remove(unit));
 
             CollectionChanged?.Invoke();
         }
@@ -35,7 +41,9 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             if (result)
             {
                 if (!_salesUnits.Any())
+                {
                     CollectionIsEmptyEvent?.Invoke();
+                }
 
                 CollectionChanged?.Invoke();
             }

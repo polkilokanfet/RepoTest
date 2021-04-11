@@ -1,27 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.Diagnostics;
 using System.Linq;
-using System.Windows.Input;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
-using HVTApp.Model.Services;
 using HVTApp.UI.Modules.Sales.Market.Commands;
 using HVTApp.UI.Modules.Sales.Market.Items;
 using HVTApp.UI.Modules.Sales.ViewModels.Containers;
-using HVTApp.UI.PriceCalculations.View;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Events;
-using Prism.Regions;
 
 namespace HVTApp.UI.Modules.Sales.Market
 {
@@ -29,10 +22,9 @@ namespace HVTApp.UI.Modules.Sales.Market
     {
         private ProjectItem _selectedProjectItem;
         private readonly IEventAggregator _eventAggregator;
-        private readonly IMessageService _messageService;
         private IModelsStore ModelsStore => Container.Resolve<IModelsStore>();
 
-        public ObservableCollection<ProjectItem> ProjectItems { get; } = new ObservableCollection<ProjectItem>();
+        public ProjectItemsCollection ProjectItems { get; } 
 
         public object SelectedItem
         {
@@ -133,27 +125,7 @@ namespace HVTApp.UI.Modules.Sales.Market
         public Market2ViewModel(IUnityContainer container) : base(container, loadDataInCtor: false)
         {
             _eventAggregator = Container.Resolve<IEventAggregator>();
-            _messageService = Container.Resolve<IMessageService>();
-
-            //при добавлении или удалении айтема, подписываем/отписываем на событие удаления
-            ProjectItems.CollectionChanged += (sender, args) =>
-            {
-                if (args.Action == NotifyCollectionChangedAction.Add)
-                {
-                    foreach (var projectItem in args.NewItems.Cast<ProjectItem>())
-                    {
-                        projectItem.LastSalesUnitRemoveEvent += ProjectItemOnLastSalesUnitRemoveEvent;
-                    }
-                }
-
-                if (args.Action == NotifyCollectionChangedAction.Remove)
-                {
-                    foreach (var projectItem in args.OldItems.Cast<ProjectItem>())
-                    {
-                        projectItem.LastSalesUnitRemoveEvent -= ProjectItemOnLastSalesUnitRemoveEvent;
-                    }
-                }
-            };
+            ProjectItems = new ProjectItemsCollection(this, _eventAggregator);
 
             #region Commands definition
 
@@ -193,18 +165,6 @@ namespace HVTApp.UI.Modules.Sales.Market
 
             #region Subscribe to Events
 
-            //реакция на сохранение юнита
-            _eventAggregator.GetEvent<AfterSaveSalesUnitEvent>().Subscribe(salesUnit =>
-            {
-                //проверяем, можно ли юнит поместить в существующую группу
-                ProjectItems.ToList().ForEach(projectItem => projectItem.Check(salesUnit));
-
-                //если не смогли пристроить в существующую группу, создаем новую
-                if (!ProjectItems.SelectMany(projectItem => projectItem.SalesUnits).Contains(salesUnit))
-                {
-                    ProjectItems.Add(new ProjectItem(new[] { salesUnit }, _eventAggregator));
-                }
-            });
 
             //подписка на выбор сущностей
             _eventAggregator.GetEvent<SelectedOfferChangedEvent>().Subscribe(offer => OfferRaiseCanExecuteChanged());
@@ -274,13 +234,6 @@ namespace HVTApp.UI.Modules.Sales.Market
         private PriceCalculationsContainer _priceCalculations;
         private object _selectedItem;
 
-
-        //удалить айтем, если он уже опустел
-        private void ProjectItemOnLastSalesUnitRemoveEvent(ProjectItem item)
-        {
-            if (ProjectItems.Contains(item))
-                ProjectItems.Remove(item);
-        }
 
         #region RaiseCanExecuteChanged
 
