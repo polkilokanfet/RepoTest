@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Input;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
+using HVTApp.UI.Commands;
 using HVTApp.UI.PriceCalculations.ViewModel.Wrapper;
-using Prism.Commands;
 
 namespace HVTApp.UI.PriceCalculations.ViewModel
 {
@@ -19,18 +18,18 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
             set
             {
                 _selectedItems = value;
-                ((DelegateCommand)SelectCommand).RaiseCanExecuteChanged();
+                SelectCommand.RaiseCanExecuteChanged();
             }
         }
 
         public List<PriceCalculationItem2Wrapper> SelectedItemWrappers => SelectedItems?.Cast<PriceCalculationItem2Wrapper>().ToList();
 
-        public ICommand SelectCommand { get; }
+        public DelegateLogCommand SelectCommand { get; }
 
         public PriceCalculationItemsViewModel(IEnumerable<PriceCalculationItem2Wrapper> items)
         {
             Items = items;
-            SelectCommand = new DelegateCommand(
+            SelectCommand = new DelegateLogCommand(
                 () => { CloseRequested?.Invoke(this, new DialogRequestCloseEventArgs(true)); }, 
                 () => SelectedItems != null && SelectedItems.Any());
         }

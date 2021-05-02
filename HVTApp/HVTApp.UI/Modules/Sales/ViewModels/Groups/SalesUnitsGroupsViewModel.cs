@@ -13,6 +13,7 @@ using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Groups;
 using HVTApp.Model.Wrapper.Groups.SimpleWrappers;
+using HVTApp.UI.Commands;
 using HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
@@ -43,14 +44,16 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             //проверяем не включено ли оборудование в какой-либо бюджет
             var budgetUnits = UnitOfWork.Repository<BudgetUnit>().Find(x => !x.IsRemoved);
 
-            var idIntersection = salesUnits.Select(x => x.Id).Intersect(budgetUnits.Select(x => x.SalesUnit.Id)).ToList();
+            var idIntersection = salesUnits
+                .Select(salesUnit => salesUnit.Id)
+                .Intersect(budgetUnits.Select(budgetUnit => budgetUnit.SalesUnit.Id)).ToList();
             if (idIntersection.Any())
             {
                 var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Информация", "Это оборудование включено в бюджет. Вы уверены, что хотите удалить его?");
 
                 if (dr == MessageDialogResult.Yes)
                 {
-                    salesUnits.Where(x => idIntersection.Contains(x.Id)).ForEach(x => x.IsRemoved = true);
+                    salesUnits.Where(salesUnit => idIntersection.Contains(salesUnit.Id)).ForEach(salesUnit => salesUnit.IsRemoved = true);
                 }
 
                 if (dr == MessageDialogResult.No)
@@ -59,13 +62,13 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
                 }
             }
 
-            UnitOfWork.Repository<SalesUnit>().DeleteRange(salesUnits.Where(x => x.IsRemoved == false));
+            UnitOfWork.Repository<SalesUnit>().DeleteRange(salesUnits.Where(salesUnit => salesUnit.IsRemoved == false));
             base.RemoveGroup(targetGroup);
         }
 
         protected override IEnumerable<SalesUnit> GetUnitsForTotalRemove()
         {
-            return base.GetUnitsForTotalRemove().Where(x => !x.IsRemoved);
+            return base.GetUnitsForTotalRemove().Where(salesUnit => !salesUnit.IsRemoved);
         }
 
         /// <summary>
@@ -81,23 +84,23 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
         /// <summary>
         /// Перенести оборудование в другой проект
         /// </summary>
-        public ICommand ChangeProjectCommand { get; }
+        public DelegateLogCommand ChangeProjectCommand { get; }
 
         public SalesUnitsGroupsViewModel(IUnityContainer container) : base(container)
         {
-            ChangeProjectCommand = new DelegateCommand(
+            ChangeProjectCommand = new DelegateLogCommand(
                 () =>
                 {
                     var projectUnitsGroup = Groups.SelectedGroup;
 
-                    var projects = UnitOfWork.Repository<Project>().Find(x => x.Manager.Id == GlobalAppProperties.User.Id);
+                    var projects = UnitOfWork.Repository<Project>().Find(project1 => project1.Manager.Id == GlobalAppProperties.User.Id);
                     var project = Container.Resolve<ISelectService>().SelectItem(projects);
                     if (project == null) return;
                     project = UnitOfWork.Repository<Project>().GetById(project.Id);
                     projectUnitsGroup.Project = new ProjectSimpleWrapper(project);
                     base.RemoveGroup(projectUnitsGroup);
 
-                    ((DelegateCommand<ProjectUnitsGroup>)ChangeProjectCommand).RaiseCanExecuteChanged();
+                    ChangeProjectCommand.RaiseCanExecuteChanged();
                 },
                 () => true);
 
@@ -133,7 +136,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
         {
             Load(units, unitOfWork, isNew);
             _projectWrapper = parentWrapper;
-            _projectWrapper.PropertyChanged += (sender, args) => { ((DelegateCommand)AddCommand).RaiseCanExecuteChanged();};
+            _projectWrapper.PropertyChanged += (sender, args) => { AddCommand.RaiseCanExecuteChanged();};
         }
 
         protected override DateTime GetPriceDate(ProjectUnitsGroup @group)

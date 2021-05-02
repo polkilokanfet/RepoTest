@@ -5,9 +5,9 @@ using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Groups.SimpleWrappers;
+using HVTApp.UI.Commands;
 using HVTApp.UI.ViewModels;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel
 {
@@ -19,7 +19,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel
         public ProjectDetailsViewModel1(IUnityContainer container) : base(container)
         {
 
-            SelectProjectTypeCommand = new DelegateCommand(
+            SelectProjectTypeCommand = new DelegateLogCommand(
                 () =>
                 {
                     List<ProjectType> projectTypes = UnitOfWork.Repository<ProjectType>().GetAll();
@@ -35,7 +35,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel
                     }
                 });
 
-            ClearProjectTypeCommand = new DelegateCommand(() => { Item.ProjectType = null; });
+            ClearProjectTypeCommand = new DelegateLogCommand(() => { Item.ProjectType = null; });
         }
     }
 }

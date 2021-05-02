@@ -2,17 +2,16 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Windows.Input;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
+using HVTApp.UI.Commands;
 using HVTApp.UI.ViewModels;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 
 namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
 {
@@ -52,7 +51,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
             set
             {
                 _selectedPotentialUnits = value;
-                ((DelegateCommand)AddPaymentCommand).RaiseCanExecuteChanged();
+                (AddPaymentCommand).RaiseCanExecuteChanged();
                 OnPropertyChanged();
             }
         }
@@ -66,7 +65,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
             set
             {
                 _selectedPayment = value;
-                ((DelegateCommand)RemovePaymentCommand).RaiseCanExecuteChanged();
+                (RemovePaymentCommand).RaiseCanExecuteChanged();
                 OnPropertyChanged();
             }
         }
@@ -146,15 +145,15 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
 
         #region ICommand
 
-        public ICommand AddPaymentCommand { get; }
-        public ICommand RemovePaymentCommand { get; }
-        public ICommand SaveDocumentCommand { get; }
-        public ICommand RemoveDocumentCommand { get; }
+        public DelegateLogCommand AddPaymentCommand { get; }
+        public DelegateLogCommand RemovePaymentCommand { get; }
+        public DelegateLogCommand SaveDocumentCommand { get; }
+        public DelegateLogCommand RemoveDocumentCommand { get; }
 
         /// <summary>
         /// Оплата остатка
         /// </summary>
-        public ICommand RestPaymentCommand { get; }
+        public DelegateLogCommand RestPaymentCommand { get; }
         
         #endregion
 
@@ -162,7 +161,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
         {
             _messageService = container.Resolve<IMessageService>();
 
-            SaveDocumentCommand = new DelegateCommand(
+            SaveDocumentCommand = new DelegateLogCommand(
                 () =>
                 {
                     PaymentDocument.PropertyChanged -= PaymentDocumentOnPropertyChanged;
@@ -170,7 +169,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
 
                     _salesUnitWrappers.AcceptChanges();
                     SaveItem();
-                    ((DelegateCommand)SaveDocumentCommand).RaiseCanExecuteChanged();
+                    (SaveDocumentCommand).RaiseCanExecuteChanged();
 
                     PaymentDocument.PropertyChanged += PaymentDocumentOnPropertyChanged;
                     _salesUnitWrappers.PropertyChanged += SalesUnitWrappersOnPropertyChanged;
@@ -185,7 +184,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
                 });
 
 
-            AddPaymentCommand = new DelegateCommand(
+            AddPaymentCommand = new DelegateLogCommand(
                 () =>
                 {
                     var sum = DockSumWithVat;
@@ -207,7 +206,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
                 },
                 () => SelectedPotentialUnits != null);
 
-            RemovePaymentCommand = new DelegateCommand(
+            RemovePaymentCommand = new DelegateLogCommand(
                 () =>
                 {
                     UnitOfWork.Repository<PaymentActual>().Delete(SelectedPayment.PaymentActual.Model);
@@ -230,7 +229,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
                 },
                 () => SelectedPayment != null);
 
-            RemoveDocumentCommand = new DelegateCommand(
+            RemoveDocumentCommand = new DelegateLogCommand(
                 () =>
                 {
                     var dr = _messageService.ShowYesNoMessageDialog("Удаление", "Вы уверены, что хотите удалить весь платежный документ?", defaultYes:true);
@@ -245,14 +244,14 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
                 () => UnitOfWork.Repository<PaymentDocument>().GetById(PaymentDocument.Id) != null
             );
 
-            RestPaymentCommand = new DelegateCommand(
+            RestPaymentCommand = new DelegateLogCommand(
                 () =>
                 {
                     Payments.ForEach(x => x.SumWithVat += x.SumNotPaidWithVat);
                 }, 
                 () => Payments.Any());
 
-            Payments.CollectionChanged += (sender, args) => ((DelegateCommand)RestPaymentCommand).RaiseCanExecuteChanged();
+            Payments.CollectionChanged += (sender, args) => (RestPaymentCommand).RaiseCanExecuteChanged();
         }
 
         protected override void AfterLoading()
@@ -295,23 +294,23 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
 
         private void SalesUnitWrappersOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
-            ((DelegateCommand)SaveDocumentCommand).RaiseCanExecuteChanged();
+            (SaveDocumentCommand).RaiseCanExecuteChanged();
             OnPropertyChanged(nameof(DockSumWithVat));
         }
 
         private void PaymentDocumentOnPropertyChanged(object sender, PropertyChangedEventArgs args)
         {
-            ((DelegateCommand) SaveDocumentCommand).RaiseCanExecuteChanged();
+            ( SaveDocumentCommand).RaiseCanExecuteChanged();
         }
 
         protected override void GoBackCommand_Execute()
         {
             //если были какие-то изменения
-            if (((DelegateCommand)SaveDocumentCommand).CanExecute())
+            if ((SaveDocumentCommand).CanExecute())
             {
                 if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Сохранение", "Сохранить изменения?", defaultNo:true) == MessageDialogResult.Yes)
                 {
-                    ((DelegateCommand)SaveDocumentCommand).Execute();
+                    (SaveDocumentCommand).Execute();
                 }
             }
 

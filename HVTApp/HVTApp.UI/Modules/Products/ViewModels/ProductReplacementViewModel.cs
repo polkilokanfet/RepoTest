@@ -1,13 +1,12 @@
 using System;
-using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
+using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 
 namespace HVTApp.UI.Modules.Products.ViewModels
 {
@@ -21,11 +20,11 @@ namespace HVTApp.UI.Modules.Products.ViewModels
         /// </summary>
         public Product ProductReplaceable
         {
-            get { return _productReplaceable; }
+            get => _productReplaceable;
             set
             {
                 _productReplaceable = value;
-                ((DelegateCommand)ReplaceCommand).RaiseCanExecuteChanged();
+                ReplaceCommand.RaiseCanExecuteChanged();
                 OnPropertyChanged();
             }
         }
@@ -39,18 +38,18 @@ namespace HVTApp.UI.Modules.Products.ViewModels
             set
             {
                 _productTarget = value;
-                ((DelegateCommand)ReplaceCommand).RaiseCanExecuteChanged();
+                ReplaceCommand.RaiseCanExecuteChanged();
                 OnPropertyChanged();
             }
         }
 
-        public ICommand ProductReplaceableCommand { get; }
-        public ICommand ProductTargetCommand { get; }
-        public ICommand ReplaceCommand { get; }
+        public DelegateLogCommand ProductReplaceableCommand { get; }
+        public DelegateLogCommand ProductTargetCommand { get; }
+        public DelegateLogCommand ReplaceCommand { get; }
 
         public ProductReplacementViewModel(IUnityContainer container) : base(container)
         {
-            ProductReplaceableCommand = new DelegateCommand(
+            ProductReplaceableCommand = new DelegateLogCommand(
                 () =>
                 {
                     var products = UnitOfWork.Repository<Product>().GetAll();
@@ -61,7 +60,7 @@ namespace HVTApp.UI.Modules.Products.ViewModels
                     }
                 });
 
-            ProductTargetCommand = new DelegateCommand(
+            ProductTargetCommand = new DelegateLogCommand(
                 () =>
                 {
                     var product = Container.Resolve<IGetProductService>().GetProduct(ProductTarget);
@@ -71,7 +70,7 @@ namespace HVTApp.UI.Modules.Products.ViewModels
                     }
                 });
 
-            ReplaceCommand = new DelegateCommand(
+            ReplaceCommand = new DelegateLogCommand(
                 () =>
                 {
                     var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => x.Product.Id == ProductReplaceable.Id);

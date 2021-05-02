@@ -7,9 +7,9 @@ using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Commands;
 using HVTApp.UI.Lookup;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 using Prism.Events;
 using Prism.Regions;
 
@@ -26,14 +26,14 @@ namespace HVTApp.UI.Modules.Directum
             set
             {
                 _selectedItem = value;
-                ((DelegateCommand)OpenDirectumTaskCommand).RaiseCanExecuteChanged();
+                OpenDirectumTaskCommand.RaiseCanExecuteChanged();
             }
         }
 
         public DirectumTasksOutgoingViewModel(IUnityContainer container) : base(container)
         {
 
-            OpenDirectumTaskCommand = new DelegateCommand(
+            OpenDirectumTaskCommand = new DelegateLogCommand(
                 () =>
                 {
                     RegionManager.RequestNavigateContentRegion<DirectumTaskView>(new NavigationParameters { {nameof(DirectumTaskGroup), SelectedItem.Entity} });

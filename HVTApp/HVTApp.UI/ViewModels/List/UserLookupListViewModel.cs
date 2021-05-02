@@ -1,19 +1,19 @@
 using System;
-using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 
 namespace HVTApp.UI.ViewModels
 {
     public partial class UserLookupListViewModel
     {
-        public ICommand RemovePasswordCommand { get; private set; }
+        public DelegateLogCommand RemovePasswordCommand { get; private set; }
+
         protected override void InitSpecialCommands()
         {
-            RemovePasswordCommand = new DelegateCommand(
+            RemovePasswordCommand = new DelegateLogCommand(
                 () =>
                 {
                     var dr = MessageService.ShowYesNoMessageDialog("Сброс пароля", "Вы действительно хотите сбросить пароль выбранному пользователю?");
@@ -27,7 +27,7 @@ namespace HVTApp.UI.ViewModels
                 }, 
                 () => SelectedItem != null);
 
-            this.SelectedLookupChanged += lookup => ((DelegateCommand) RemovePasswordCommand).RaiseCanExecuteChanged();
+            this.SelectedLookupChanged += lookup => RemovePasswordCommand.RaiseCanExecuteChanged();
         }
     }
 }

@@ -2,7 +2,6 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
@@ -10,10 +9,10 @@ using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Commands;
 using HVTApp.UI.Lookup;
 using HVTApp.UI.Modules.BookRegistration.Views;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 using Prism.Events;
 using Prism.Regions;
 
@@ -30,16 +29,16 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
 
         public IncomingRequestLookup SelectedIncomingRequest
         {
-            get { return _selectedIncomingRequest; }
+            get => _selectedIncomingRequest;
             set
             {
                 if (Equals(_selectedIncomingRequest, value))
                     return;
                 
                 _selectedIncomingRequest = value;
-                ((DelegateCommand)InstructRequestCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)OpenFolderCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)RequestIsDoneCommand).RaiseCanExecuteChanged();
+                InstructRequestCommand.RaiseCanExecuteChanged();
+                OpenFolderCommand.RaiseCanExecuteChanged();
+                RequestIsDoneCommand.RaiseCanExecuteChanged();
 
                 SelectedIncomingRequestChanged?.Invoke(value?.Entity);
             }
@@ -48,19 +47,19 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
         public event Action<IncomingRequest> SelectedIncomingRequestChanged;
 
         //перезагрузить
-        public ICommand ReloadCommand { get; }       
+        public DelegateLogCommand ReloadCommand { get; }       
         //поручить запрос
-        public ICommand InstructRequestCommand { get; }
+        public DelegateLogCommand InstructRequestCommand { get; }
 
-        public ICommand OpenFolderCommand { get; }
+        public DelegateLogCommand OpenFolderCommand { get; }
 
-        public ICommand RequestIsDoneCommand { get; }
+        public DelegateLogCommand RequestIsDoneCommand { get; }
 
         public IncomingRequestsViewModel(IUnityContainer container) : base(container)
         {
-            ReloadCommand = new DelegateCommand(Load);
+            ReloadCommand = new DelegateLogCommand(Load);
 
-            InstructRequestCommand = new DelegateCommand(
+            InstructRequestCommand = new DelegateLogCommand(
                 () =>
                 {
                     container.Resolve<IRegionManager>().RequestNavigateContentRegion<IncomingRequestView>(
@@ -72,7 +71,7 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
                 },
                 () => SelectedIncomingRequest != null && IsDirectorView);
 
-            OpenFolderCommand = new DelegateCommand(
+            OpenFolderCommand = new DelegateLogCommand(
                 () =>
                 {
                     if (string.IsNullOrEmpty(GlobalAppProperties.Actual.IncomingRequestsPath))
@@ -86,7 +85,7 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
                 },
                 () => SelectedIncomingRequest != null);
 
-            RequestIsDoneCommand = new DelegateCommand(
+            RequestIsDoneCommand = new DelegateLogCommand(
                 () =>
                 {
                     var unitOfWork = Container.Resolve<IUnitOfWork>();
@@ -96,7 +95,7 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
 
                     SelectedIncomingRequest.Refresh(request);
                     Container.Resolve<IEventAggregator>().GetEvent<AfterSaveIncomingRequestEvent>().Publish(request);
-                    ((DelegateCommand)RequestIsDoneCommand).RaiseCanExecuteChanged();
+                    (RequestIsDoneCommand).RaiseCanExecuteChanged();
                 },
                 () => SelectedIncomingRequest != null && !SelectedIncomingRequest.Entity.IsDone);
 

@@ -1,7 +1,6 @@
-﻿using System.Windows.Input;
-using HVTApp.Infrastructure;
+﻿using HVTApp.Infrastructure;
+using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 using Prism.Regions;
 
 namespace HVTApp.UI.Tabs
@@ -12,16 +11,16 @@ namespace HVTApp.UI.Tabs
 
         protected readonly IUnityContainer Container;
 
-        public ICommand GoForwardCommand { get; }
-        public ICommand GoBackCommand { get; }
+        public DelegateLogCommand GoForwardCommand { get; }
+        public DelegateLogCommand GoBackCommand { get; }
 
         public TabNavigation(IUnityContainer container)
         {
             InitializeComponent();
             Container = container;
             RegionManager = Container.Resolve<IRegionManager>();
-            GoForwardCommand = new DelegateCommand(GoForwardCommand_Execute, GoForwardCommand_CanExecute);
-            GoBackCommand = new DelegateCommand(GoBackCommand_Execute, GoBackCommand_CanExecute);
+            GoForwardCommand = new DelegateLogCommand(GoForwardCommand_Execute, GoForwardCommand_CanExecute);
+            GoBackCommand = new DelegateLogCommand(GoBackCommand_Execute, GoBackCommand_CanExecute);
         }
 
         private void GoForwardCommand_Execute()

@@ -16,6 +16,7 @@ using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
+using HVTApp.UI.Commands;
 using HVTApp.UI.PriceCalculations.View;
 using HVTApp.UI.PriceCalculations.ViewModel;
 using HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper;
@@ -44,12 +45,12 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             {
                 _selectedItem = value;
 
-                ((DelegateCommand)AddNewFileCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)AddOldFileCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)RemoveFileCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)RemoveGroupCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)DivideCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)LoadFileCommand).RaiseCanExecuteChanged();
+                (AddNewFileCommand).RaiseCanExecuteChanged();
+                (AddOldFileCommand).RaiseCanExecuteChanged();
+                (RemoveFileCommand).RaiseCanExecuteChanged();
+                (RemoveGroupCommand).RaiseCanExecuteChanged();
+                (DivideCommand).RaiseCanExecuteChanged();
+                (LoadFileCommand).RaiseCanExecuteChanged();
             }
         }
 
@@ -59,8 +60,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             set
             {
                 _selectedAnswerFile = value;
-                ((DelegateCommand)RemoveFileAnswerCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)LoadFileAnswerCommand).RaiseCanExecuteChanged();
+                (RemoveFileAnswerCommand).RaiseCanExecuteChanged();
+                (LoadFileAnswerCommand).RaiseCanExecuteChanged();
             }
         }
 
@@ -70,8 +71,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             set
             {
                 _selectedCalculation = value;
-                ((DelegateCommand)OpenPriceCalculationCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)CopyPriceCalculationCommand).RaiseCanExecuteChanged();
+                (OpenPriceCalculationCommand).RaiseCanExecuteChanged();
+                (CopyPriceCalculationCommand).RaiseCanExecuteChanged();
             }
         }
 
@@ -88,71 +89,71 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
         public string ValidationResult => TechnicalRequrementsTaskWrapper?.ValidationResult;
 
-        #region ICommand
+        #region DelegateLogCommand
 
-        public ICommand SaveCommand { get; }
+        public DelegateLogCommand SaveCommand { get; }
 
         /// <summary>
         /// Добавление нового файла
         /// </summary>
-        public ICommand AddNewFileCommand { get; }
+        public DelegateLogCommand AddNewFileCommand { get; }
 
         /// <summary>
         /// Добавление нового приложения к ответу ОГК
         /// </summary>
-        public ICommand AddNewFileAnswersCommand { get; }
+        public DelegateLogCommand AddNewFileAnswersCommand { get; }
 
         /// <summary>
         /// Добавление существующего файла
         /// </summary>
-        public ICommand AddOldFileCommand { get; }
-        public ICommand RemoveFileCommand { get; }
-        public ICommand RemoveFileAnswerCommand { get; }
+        public DelegateLogCommand AddOldFileCommand { get; }
+        public DelegateLogCommand RemoveFileCommand { get; }
+        public DelegateLogCommand RemoveFileAnswerCommand { get; }
 
-        public ICommand AddGroupCommand { get; }
-        public ICommand RemoveGroupCommand { get; }
+        public DelegateLogCommand AddGroupCommand { get; }
+        public DelegateLogCommand RemoveGroupCommand { get; }
 
-        public ICommand StartCommand { get; }
+        public DelegateLogCommand StartCommand { get; }
 
-        public ICommand EditCommand { get; }
+        public DelegateLogCommand EditCommand { get; }
 
-        public ICommand CancelCommand { get; }
+        public DelegateLogCommand CancelCommand { get; }
 
         /// <summary>
         /// Разбить строку
         /// </summary>
-        public ICommand MeregeCommand { get; }
+        public DelegateLogCommand MeregeCommand { get; }
 
         /// <summary>
         /// Слить строки
         /// </summary>
-        public ICommand DivideCommand { get; }
+        public DelegateLogCommand DivideCommand { get; }
 
-        public ICommand LoadFileCommand { get; }
-        public ICommand LoadAllFilesCommand { get; }
+        public DelegateLogCommand LoadFileCommand { get; }
+        public DelegateLogCommand LoadAllFilesCommand { get; }
 
-        public ICommand LoadFileAnswerCommand { get; }
-        public ICommand LoadAllFileAnswersCommand { get; }
+        public DelegateLogCommand LoadFileAnswerCommand { get; }
+        public DelegateLogCommand LoadAllFileAnswersCommand { get; }
 
-        public ICommand CreatePriceCalculationCommand { get; }
+        public DelegateLogCommand CreatePriceCalculationCommand { get; }
 
         /// <summary>
         /// Отклонить задачу
         /// </summary>
-        public ICommand RejectCommand { get; }
+        public DelegateLogCommand RejectCommand { get; }
 
         /// <summary>
         /// Создать копию расчета ПЗ
         /// </summary>
-        public ICommand CopyPriceCalculationCommand { get; }
+        public DelegateLogCommand CopyPriceCalculationCommand { get; }
 
-        public ICommand OpenPriceCalculationCommand { get; }
+        public DelegateLogCommand OpenPriceCalculationCommand { get; }
 
-        public ICommand OpenAnswerCommand { get; }
+        public DelegateLogCommand OpenAnswerCommand { get; }
 
-        public ICommand OpenFileCommand { get; }
+        public DelegateLogCommand OpenFileCommand { get; }
 
-        public ICommand InstructCommand { get; }
+        public DelegateLogCommand InstructCommand { get; }
 
         #endregion
 
@@ -165,9 +166,9 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 //реакция на изменения в задаче
                 _technicalRequrementsTaskWrapper.PropertyChanged += (sender, args) =>
                 {
-                    ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
-                    ((DelegateCommand)StartCommand).RaiseCanExecuteChanged();
-                    ((DelegateCommand)RejectCommand).RaiseCanExecuteChanged();
+                    (SaveCommand).RaiseCanExecuteChanged();
+                    (StartCommand).RaiseCanExecuteChanged();
+                    (RejectCommand).RaiseCanExecuteChanged();
                     OnPropertyChanged(nameof(ValidationResult));
                 };
                 OnPropertyChanged();
@@ -182,7 +183,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             #region SaveCommand
           
             //сохранение изменений
-            SaveCommand = new DelegateCommand(
+            SaveCommand = new DelegateLogCommand(
                 () =>
                 {
                     TechnicalRequrementsTaskWrapper.AcceptChanges();
@@ -197,7 +198,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
                     Container.Resolve<IEventAggregator>().GetEvent<AfterSaveTechnicalRequrementsTaskEvent>().Publish(TechnicalRequrementsTaskWrapper.Model);
 
-                    ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
+                    (SaveCommand).RaiseCanExecuteChanged();
                 },
                 () => TechnicalRequrementsTaskWrapper != null && 
                       TechnicalRequrementsTaskWrapper.IsValid && 
@@ -208,7 +209,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
             #region AddFileCommand
 
-            AddNewFileCommand = new DelegateCommand(
+            AddNewFileCommand = new DelegateLogCommand(
                 () =>
                 {
                     var openFileDialog = new OpenFileDialog
@@ -240,7 +241,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 },
                 () => !IsStarted && SelectedItem is TechnicalRequrements2Wrapper);
 
-            AddOldFileCommand = new DelegateCommand(
+            AddOldFileCommand = new DelegateLogCommand(
                 () =>
                 {
                     var selectedRequirements = (TechnicalRequrements2Wrapper)SelectedItem;
@@ -272,7 +273,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             #region RemoveFileCommand
 
             //удаление файла
-            RemoveFileCommand = new DelegateCommand(
+            RemoveFileCommand = new DelegateLogCommand(
                 () =>
                 {
                     //диалог
@@ -303,7 +304,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             #region AddGroupCommand
 
             //добавление группы оборудования
-            AddGroupCommand = new DelegateCommand(
+            AddGroupCommand = new DelegateLogCommand(
                 () =>
                 {
                     _messageService.ShowYesNoMessageDialog("Информация", "Пока эта функция не работает. Она реально тут нужна?");
@@ -332,7 +333,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             #region RemoveGroupCommand
 
             //удаление группы
-            RemoveGroupCommand = new DelegateCommand(
+            RemoveGroupCommand = new DelegateLogCommand(
                 () =>
                 {
                     var result = _messageService.ShowYesNoMessageDialog("Удаление", "Действительно хотите удалить из задачи это оборудование?", defaultNo: true);
@@ -368,7 +369,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
             #region StartCommand
 
-            StartCommand = new DelegateCommand(
+            StartCommand = new DelegateLogCommand(
                 () =>
                 {
                     var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Подтверждение", "Вы уверены, что хотите стартовать задачу?", defaultYes:true);
@@ -407,7 +408,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                     return false;
                 });
 
-            EditCommand = new DelegateCommand(
+            EditCommand = new DelegateLogCommand(
                 () =>
                 {
                     TechnicalRequrementsTaskWrapper.Model.Start = null;
@@ -421,7 +422,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
             #region CancelCommand
 
-            CancelCommand = new DelegateCommand(() =>
+            CancelCommand = new DelegateLogCommand(() =>
             {
                 var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Подтверждение", "Вы уверены, что хотите остановить задачу?", defaultNo:true);
                 if (dr != MessageDialogResult.Yes) return;
@@ -442,7 +443,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
             #region MergeCommand
 
-            MeregeCommand = new DelegateCommand(
+            MeregeCommand = new DelegateLogCommand(
                 () =>
                 {
                     var result = _messageService.ShowYesNoMessageDialog("Слияние", "Действительно хотите слить строки, выделенные галкой?", defaultYes: true);
@@ -501,7 +502,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
             #region DivideCommand
 
-            DivideCommand = new DelegateCommand(
+            DivideCommand = new DelegateLogCommand(
                 () =>
                 {
                     var result = _messageService.ShowYesNoMessageDialog("Разбиение", "Действительно хотите разбить выбранную строку?", defaultNo: true);
@@ -542,7 +543,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
             #region LoadFileCommand
 
-            LoadFileCommand = new DelegateCommand(
+            LoadFileCommand = new DelegateLogCommand(
                 () =>
                 {
                     var fileWrapper = (TechnicalRequrementsFileWrapper) SelectedItem;
@@ -552,7 +553,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 },
                 () => SelectedItem is TechnicalRequrementsFileWrapper);
 
-            LoadAllFilesCommand = new DelegateCommand(
+            LoadAllFilesCommand = new DelegateLogCommand(
                 () =>
                 {
                     using (var fdb = new FolderBrowserDialog())
@@ -587,7 +588,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
             #region CreatePriceCalculationCommand
 
-            CreatePriceCalculationCommand = new DelegateCommand(
+            CreatePriceCalculationCommand = new DelegateLogCommand(
                 () =>
                 {
                     RegionManager.RequestNavigateContentRegion<PriceCalculationView>(new NavigationParameters
@@ -602,7 +603,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
             #region RejectCommand
 
-            RejectCommand = new DelegateCommand(
+            RejectCommand = new DelegateLogCommand(
                 () =>
                 {
                     if (string.IsNullOrWhiteSpace(TechnicalRequrementsTaskWrapper.RejectComment))
@@ -623,7 +624,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
             #region OpenPriceCalculationCommand
 
-            OpenPriceCalculationCommand = new DelegateCommand(
+            OpenPriceCalculationCommand = new DelegateLogCommand(
                 () =>
                 {
                     RegionManager.RequestNavigateContentRegion<PriceCalculationView>(new NavigationParameters
@@ -637,7 +638,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
             #region CopyPriceCalculationCommand
 
-            CopyPriceCalculationCommand = new DelegateCommand(
+            CopyPriceCalculationCommand = new DelegateLogCommand(
                 () =>
                 {
                     RegionManager.RequestNavigateContentRegion<PriceCalculationView>(new NavigationParameters
@@ -652,7 +653,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
             #region AnswerCommands
 
-            LoadFileAnswerCommand = new DelegateCommand(
+            LoadFileAnswerCommand = new DelegateLogCommand(
                 () =>
                 {
                     var storageDirectory = GlobalAppProperties.Actual.TechnicalRequrementsFilesAnswersPath;
@@ -661,7 +662,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 }, 
                 () => SelectedAnswerFile != null);
 
-            LoadAllFileAnswersCommand = new DelegateCommand(
+            LoadAllFileAnswersCommand = new DelegateLogCommand(
                 () =>
                 {
                     using (var fdb = new FolderBrowserDialog())
@@ -685,7 +686,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 }, 
                 () => this.TechnicalRequrementsTaskWrapper.AnswerFiles.Any());
 
-            AddNewFileAnswersCommand = new DelegateCommand(
+            AddNewFileAnswersCommand = new DelegateLogCommand(
                 () =>
                 {
                     var openFileDialog = new OpenFileDialog
@@ -720,10 +721,10 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                         }
                     }
 
-                    ((DelegateCommand)LoadAllFileAnswersCommand).RaiseCanExecuteChanged();
+                    (LoadAllFileAnswersCommand).RaiseCanExecuteChanged();
                 });
 
-            RemoveFileAnswerCommand = new DelegateCommand(
+            RemoveFileAnswerCommand = new DelegateLogCommand(
                 () =>
                 {
                     //диалог
@@ -755,7 +756,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
             #region OpenAnswerCommand
 
-            OpenAnswerCommand = new DelegateCommand(
+            OpenAnswerCommand = new DelegateLogCommand(
                 () =>
                 {
                     try
@@ -773,7 +774,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
             #region OpenFileCommand
 
-            OpenFileCommand = new DelegateCommand(
+            OpenFileCommand = new DelegateLogCommand(
                     () =>
                     {
                         try
@@ -792,7 +793,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
             #region InstructCommand
 
-            InstructCommand = new DelegateCommand(
+            InstructCommand = new DelegateLogCommand(
                 () =>
                 {
                     if (TechnicalRequrementsTaskWrapper.Model.BackManager != null)
@@ -822,14 +823,14 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
         private void RaiseCanExecuteChange()
         {
-            ((DelegateCommand)StartCommand).RaiseCanExecuteChanged();
-            ((DelegateCommand)EditCommand).RaiseCanExecuteChanged();
-            ((DelegateCommand)CancelCommand).RaiseCanExecuteChanged();
-            ((DelegateCommand)AddNewFileCommand).RaiseCanExecuteChanged();
-            ((DelegateCommand)AddOldFileCommand).RaiseCanExecuteChanged();
-            ((DelegateCommand)AddGroupCommand).RaiseCanExecuteChanged();
-            ((DelegateCommand)RemoveFileCommand).RaiseCanExecuteChanged();
-            ((DelegateCommand)RemoveGroupCommand).RaiseCanExecuteChanged();
+            (StartCommand).RaiseCanExecuteChanged();
+            (EditCommand).RaiseCanExecuteChanged();
+            (CancelCommand).RaiseCanExecuteChanged();
+            (AddNewFileCommand).RaiseCanExecuteChanged();
+            (AddOldFileCommand).RaiseCanExecuteChanged();
+            (AddGroupCommand).RaiseCanExecuteChanged();
+            (RemoveFileCommand).RaiseCanExecuteChanged();
+            (RemoveGroupCommand).RaiseCanExecuteChanged();
         }
 
         /// <summary>

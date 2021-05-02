@@ -1,8 +1,8 @@
 ﻿using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper;
+using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 
 namespace HVTApp.UI.ViewModels
 {
@@ -10,7 +10,7 @@ namespace HVTApp.UI.ViewModels
     {
         protected override void InitSpecialCommands()
         {
-            SelectProductCommand = new DelegateCommand(SelectProductCommand_Execute);
+            SelectProductCommand = new DelegateLogCommand(SelectProductCommand_Execute);
         }
 
         private void SelectProductCommand_Execute()

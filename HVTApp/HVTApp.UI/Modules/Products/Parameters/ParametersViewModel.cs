@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Input;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
+using HVTApp.UI.Commands;
 using HVTApp.UI.Lookup;
 using HVTApp.UI.ViewModels;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 
 namespace HVTApp.UI.Modules.Products.Parameters
 {
@@ -47,8 +46,8 @@ namespace HVTApp.UI.Modules.Products.Parameters
                 Paths.Clear();
                 Paths.AddRange(Item.Model.Paths());
 
-                ((DelegateCommand)AddSimilarParameterCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)AddRelationCommand).RaiseCanExecuteChanged();
+                (AddSimilarParameterCommand).RaiseCanExecuteChanged();
+                (AddRelationCommand).RaiseCanExecuteChanged();
             }
         }
 
@@ -65,8 +64,8 @@ namespace HVTApp.UI.Modules.Products.Parameters
                 SelectedPotentialParameter = null;
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(PotentialRelationParameters));
-                ((DelegateCommand)RemoveRelationCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)AddParameterToRelationCommand).RaiseCanExecuteChanged();
+                (RemoveRelationCommand).RaiseCanExecuteChanged();
+                (AddParameterToRelationCommand).RaiseCanExecuteChanged();
             }
         }
 
@@ -90,38 +89,38 @@ namespace HVTApp.UI.Modules.Products.Parameters
 
         public ParameterWrapper SelectedPotentialParameter
         {
-            get { return _selectedPotentialParameter; }
+            get => _selectedPotentialParameter;
             set
             {
                 _selectedPotentialParameter = value;
-                ((DelegateCommand)AddParameterToRelationCommand).RaiseCanExecuteChanged();
+                AddParameterToRelationCommand.RaiseCanExecuteChanged();
             }
         }
 
         public ObservableCollection<PathToOrigin> Paths { get; } = new ObservableCollection<PathToOrigin>();
 
-        public ICommand AddParameterCommand { get; }
-        public ICommand AddSimilarParameterCommand { get; }
+        public DelegateLogCommand AddParameterCommand { get; }
+        public DelegateLogCommand AddSimilarParameterCommand { get; }
 
-        public ICommand AddRelationCommand { get; }
-        public ICommand RemoveRelationCommand { get; }
+        public DelegateLogCommand AddRelationCommand { get; }
+        public DelegateLogCommand RemoveRelationCommand { get; }
 
-        public ICommand AddParameterToRelationCommand { get; }
+        public DelegateLogCommand AddParameterToRelationCommand { get; }
 
         public ParametersViewModel(IUnityContainer container) : base(container)
         {
             var parameters = UnitOfWork.Repository<Parameter>().Find(x => true);
             ParameterLookups = new ObservableCollection<ParameterLookup>(parameters.Select(x => new ParameterLookup(x)));
 
-            AddParameterCommand = new DelegateCommand(
+            AddParameterCommand = new DelegateLogCommand(
                 () =>
                 {
                     this.Item = new ParameterWrapper(new Parameter());
-                    ((DelegateCommand)AddRelationCommand).RaiseCanExecuteChanged();
+                    (AddRelationCommand).RaiseCanExecuteChanged();
                 }
             );
 
-            AddSimilarParameterCommand = new DelegateCommand(
+            AddSimilarParameterCommand = new DelegateLogCommand(
                 () =>
                 {
                     //создаем подобный парметр
@@ -153,7 +152,7 @@ namespace HVTApp.UI.Modules.Products.Parameters
                 },
                 () => SelectedParameterLookup != null);
 
-            AddRelationCommand = new DelegateCommand(
+            AddRelationCommand = new DelegateLogCommand(
                 () =>
                 {
                     var relation = new ParameterRelationWrapper(new ParameterRelation())
@@ -165,11 +164,11 @@ namespace HVTApp.UI.Modules.Products.Parameters
                 },
                 () => Item != null);
 
-            RemoveRelationCommand = new DelegateCommand(
+            RemoveRelationCommand = new DelegateLogCommand(
                 () => { Item.ParameterRelations.Remove(SelectedRelation); },
                 () => SelectedRelation != null);
 
-            AddParameterToRelationCommand = new DelegateCommand(
+            AddParameterToRelationCommand = new DelegateLogCommand(
                 () => { SelectedRelation.RequiredParameters.Add(SelectedPotentialParameter); },
                 () => SelectedRelation != null && SelectedPotentialParameter != null);
         }

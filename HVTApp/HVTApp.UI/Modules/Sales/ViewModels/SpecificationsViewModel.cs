@@ -5,6 +5,7 @@ using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Commands;
 using HVTApp.UI.Modules.Sales.ViewModels.Containers;
 using HVTApp.UI.Modules.Sales.Views;
 using HVTApp.UI.ViewModels;
@@ -40,8 +41,8 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
         protected override void InitSpecialCommands()
         {
-            EditItemCommand = new DelegateCommand(EditItemCommandExecute, () => SelectedItem != null);
-            RemoveItemCommand = new DelegateCommand(
+            EditItemCommand = new DelegateLogCommand(EditItemCommandExecute, () => SelectedItem != null);
+            RemoveItemCommand = new DelegateLogCommand(
                 () =>
                 {
                     var dr = MessageService.ShowYesNoMessageDialog("Удаление", $"Вы действительно хотите удалить \"{SelectedLookup.DisplayMember}\"?", defaultNo:true);

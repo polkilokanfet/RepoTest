@@ -2,14 +2,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Windows.Input;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
+using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 
 namespace HVTApp.UI.Modules.Sales.Shippings
 {
@@ -19,11 +18,11 @@ namespace HVTApp.UI.Modules.Sales.Shippings
 
         public ObservableCollection<ShippingGroup> ShippingGroups { get; } = new ObservableCollection<ShippingGroup>();
 
-        public ICommand SaveCommand { get; }
+        public DelegateLogCommand SaveCommand { get; }
 
         public ShippingViewModel(IUnityContainer container) : base(container)
         {
-            SaveCommand = new DelegateCommand(
+            SaveCommand = new DelegateLogCommand(
                 () =>
                 {
                     _salesUnits.AcceptChanges();
@@ -63,7 +62,7 @@ namespace HVTApp.UI.Modules.Sales.Shippings
 
         private void OnSalesUnitPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
-            ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
+            SaveCommand.RaiseCanExecuteChanged();
         }
     }
 }

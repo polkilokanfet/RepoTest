@@ -22,7 +22,6 @@ namespace HVTApp.UI.Modules.Sales.Market.Commands
 
         protected override void Execute(object parameter)
         {
-
             if (_messageService.ShowYesNoMessageDialog("Удалить проект.", "Вы уверены, что хотите удалить проект?", defaultNo: true) != MessageDialogResult.Yes)
                 return;
 

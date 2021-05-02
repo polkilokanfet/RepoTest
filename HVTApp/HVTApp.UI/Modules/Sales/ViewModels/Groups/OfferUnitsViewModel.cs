@@ -1,11 +1,10 @@
 using System;
-using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.UI.ViewModels;
 using HVTApp.Model.Wrapper;
+using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 using Prism.Mvvm;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
@@ -16,28 +15,28 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
 
         public int Amount
         {
-            get { return _amount; }
+            get => _amount;
             set
             {
                 if (Equals(_amount, value)) return;
                 _amount = value;
-                ((DelegateCommand)OkCommand).RaiseCanExecuteChanged();
+                OkCommand.RaiseCanExecuteChanged();
                 OnPropertyChanged();
             }
         }
 
         public OfferUnitDetailsViewModel ViewModel { get; } 
 
-        public ICommand OkCommand { get; }
+        public DelegateLogCommand OkCommand { get; }
 
         public OfferUnitsViewModel(OfferUnitWrapper item, IUnityContainer container, IUnitOfWork unitOfWork)
         {
             ViewModel = container.Resolve<OfferUnitDetailsViewModel>();
             ViewModel.Load(item, unitOfWork);
-            OkCommand = new DelegateCommand(
+            OkCommand = new DelegateLogCommand(
                 () => CloseRequested?.Invoke(this, new DialogRequestCloseEventArgs(true)),
                 () => Amount > 0 && ViewModel.Item.IsValid);
-            ViewModel.Item.PropertyChanged += (sender, args) => ((DelegateCommand)OkCommand).RaiseCanExecuteChanged();
+            ViewModel.Item.PropertyChanged += (sender, args) => OkCommand.RaiseCanExecuteChanged();
         }
 
         public event EventHandler<DialogRequestCloseEventArgs> CloseRequested;

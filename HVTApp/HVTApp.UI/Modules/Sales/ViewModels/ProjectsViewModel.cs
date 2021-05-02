@@ -1,4 +1,5 @@
 ﻿using HVTApp.Infrastructure.Extansions;
+using HVTApp.UI.Commands;
 using HVTApp.UI.Modules.Sales.Views;
 using HVTApp.UI.ViewModels;
 using Microsoft.Practices.Unity;
@@ -15,9 +16,9 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
         protected override void InitSpecialCommands()
         {
-            NewItemCommand = new DelegateCommand(NewItemCommandExecute, NewItemCommandCanExecute);
-            EditItemCommand = new DelegateCommand(EditItemCommandExecute, EditItemCommandCanExecute);
-            RemoveItemCommand = new DelegateCommand(RemoveItemCommand_Execute, () => SelectedItem != null);
+            NewItemCommand = new DelegateLogCommand(NewItemCommandExecute, NewItemCommandCanExecute);
+            EditItemCommand = new DelegateLogCommand(EditItemCommandExecute, EditItemCommandCanExecute);
+            RemoveItemCommand = new DelegateLogCommand(RemoveItemCommand_Execute, () => SelectedItem != null);
         }
 
         private void EditItemCommandExecute()

@@ -5,10 +5,10 @@ using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
 using HVTApp.Model.Events;
+using HVTApp.UI.Commands;
 using HVTApp.UI.Lookup;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 using Prism.Events;
 using Prism.Regions;
 
@@ -25,13 +25,13 @@ namespace HVTApp.UI.Modules.Directum.ToAccept
             set
             {
                 _selectedItem = value;
-                ((DelegateCommand)OpenDirectumTaskCommand).RaiseCanExecuteChanged();
+                OpenDirectumTaskCommand.RaiseCanExecuteChanged();
             }
         }
 
         public DirectumTasksIncomingToAcceptViewModel(IUnityContainer container) : base(container)
         {
-            OpenDirectumTaskCommand = new DelegateCommand(
+            OpenDirectumTaskCommand = new DelegateLogCommand(
                 () =>
                 {
                     RegionManager.RequestNavigateContentRegion<DirectumTaskView>(new NavigationParameters { { nameof(DirectumTask), SelectedItem.Entity } });

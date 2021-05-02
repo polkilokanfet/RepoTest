@@ -5,7 +5,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using System.Windows.Input;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
@@ -15,8 +14,8 @@ using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
+using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 using Prism.Events;
 using Prism.Regions;
 using DirectumTaskWrapper = HVTApp.Model.Wrapper.DirectumTaskWrapper;
@@ -70,8 +69,8 @@ namespace HVTApp.UI.Modules.Directum
                 //    DirectumTaskToShow = DirectumTask;
 
                 OnPropertyChanged();
-                ((DelegateCommand)AddFileCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)RemoveFileCommand).RaiseCanExecuteChanged();
+                (AddFileCommand).RaiseCanExecuteChanged();
+                (RemoveFileCommand).RaiseCanExecuteChanged();
             }
         }
 
@@ -99,8 +98,8 @@ namespace HVTApp.UI.Modules.Directum
             set
             {
                 _selectedFile = value;
-                ((DelegateCommand)RemoveFileCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)OpenFileCommand).RaiseCanExecuteChanged();
+                (RemoveFileCommand).RaiseCanExecuteChanged();
+                (OpenFileCommand).RaiseCanExecuteChanged();
                 OnPropertyChanged();
             }
         }
@@ -118,8 +117,8 @@ namespace HVTApp.UI.Modules.Directum
                 OnPropertyChanged(nameof(AllowEditTitle));
                 OnPropertyChanged(nameof(AllowSubTask));
                 OnPropertyChanged(nameof(AllowStop));
-                ((DelegateCommand)AddFileCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)RemoveFileCommand).RaiseCanExecuteChanged();
+                (AddFileCommand).RaiseCanExecuteChanged();
+                (RemoveFileCommand).RaiseCanExecuteChanged();
             }
         }
 
@@ -134,8 +133,8 @@ namespace HVTApp.UI.Modules.Directum
                 _taskIsSubTask = value;
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(AllowEditTitle));
-                ((DelegateCommand)AddFileCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)RemoveFileCommand).RaiseCanExecuteChanged();
+                (AddFileCommand).RaiseCanExecuteChanged();
+                (RemoveFileCommand).RaiseCanExecuteChanged();
             }
         }
 
@@ -199,53 +198,53 @@ namespace HVTApp.UI.Modules.Directum
         /// <summary>
         /// Выбор маршрута
         /// </summary>
-        public ICommand RouteCommand { get; }
+        public DelegateLogCommand RouteCommand { get; }
 
         /// <summary>
         /// Старт задачи
         /// </summary>
-        public ICommand StartCommand { get; }
+        public DelegateLogCommand StartCommand { get; }
 
         /// <summary>
         /// Остановка задачи
         /// </summary>
-        public ICommand StopCommand { get; }
+        public DelegateLogCommand StopCommand { get; }
 
         /// <summary>
         /// Выполнение задачи
         /// </summary>
-        public ICommand PerformCommand { get; }
+        public DelegateLogCommand PerformCommand { get; }
 
         /// <summary>
         /// Согласование выполнения задачи
         /// </summary>
-        public ICommand AcceptCommand { get; }
+        public DelegateLogCommand AcceptCommand { get; }
 
         /// <summary>
         /// Отклонение выполнененной задачи
         /// </summary>
-        public ICommand RejectCommand { get; }
+        public DelegateLogCommand RejectCommand { get; }
 
         /// <summary>
         /// Создать подзадачу
         /// </summary>
-        public ICommand SubTaskCommand { get; }
+        public DelegateLogCommand SubTaskCommand { get; }
 
         /// <summary>
         /// Загрузить приложение в задачу
         /// </summary>
-        public ICommand AddFileCommand { get; }
+        public DelegateLogCommand AddFileCommand { get; }
 
         /// <summary>
         /// Удалить приложение из задачи
         /// </summary>
-        public ICommand RemoveFileCommand { get; }
+        public DelegateLogCommand RemoveFileCommand { get; }
 
 
         /// <summary>
         /// Открыть приложение
         /// </summary>
-        public ICommand OpenFileCommand { get; }
+        public DelegateLogCommand OpenFileCommand { get; }
 
         #endregion
 
@@ -253,7 +252,7 @@ namespace HVTApp.UI.Modules.Directum
         {
             _messageService = container.Resolve<IMessageService>();
 
-            RouteCommand = new DelegateCommand(
+            RouteCommand = new DelegateLogCommand(
                 () =>
                 {
                     var viewModel = new DirectumTaskRouteViewModel(Container, Route, TaskIsNew);
@@ -270,10 +269,10 @@ namespace HVTApp.UI.Modules.Directum
                         Route.RejectChanges();
                     }
 
-                    ((DelegateCommand)StartCommand).RaiseCanExecuteChanged();
+                    (StartCommand).RaiseCanExecuteChanged();
                 });
 
-            StartCommand = new DelegateCommand(
+            StartCommand = new DelegateLogCommand(
                 () =>
                 {
                     var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Информация", "Вы уверены, что хотите стартовать задачу?", defaultYes: true);
@@ -349,7 +348,7 @@ namespace HVTApp.UI.Modules.Directum
                 },
                 () => !string.IsNullOrEmpty(DirectumTask?.Group.Title) && !string.IsNullOrEmpty(DirectumTask.Group.Message) && Route.IsValid);
 
-            StopCommand = new DelegateCommand(
+            StopCommand = new DelegateLogCommand(
                 () =>
                 {
                     var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Информация", "Вы уверены, что хотите прекратить задачу?\nБудут прекращены все параллельные предыдущие и последующие задачи в цепочке", defaultNo: true);
@@ -381,14 +380,14 @@ namespace HVTApp.UI.Modules.Directum
                     DirectumTask.AcceptChanges();
                     UnitOfWork.SaveChanges();
 
-                    ((DelegateCommand)PerformCommand).RaiseCanExecuteChanged();
+                    (PerformCommand).RaiseCanExecuteChanged();
 
                     Container.Resolve<IEventAggregator>().GetEvent<AfterStopDirectumTaskEvent>().Publish(DirectumTask.Model);
 
                     GoBackCommand.Execute(null);
                 });
 
-            PerformCommand = new DelegateCommand(
+            PerformCommand = new DelegateLogCommand(
                 () =>
                 {
                     var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Информация", "Вы уверены, что хотите выполнить задачу?", defaultYes:true);
@@ -421,7 +420,7 @@ namespace HVTApp.UI.Modules.Directum
                 },
                 () => AllowPerform && DirectumTask.IsValid);
 
-            AcceptCommand = new DelegateCommand(
+            AcceptCommand = new DelegateLogCommand(
                 () =>
                 {
                     var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Информация", "Вы уверены, что хотите принять выполнение задачи?", defaultYes: true);
@@ -453,7 +452,7 @@ namespace HVTApp.UI.Modules.Directum
                 },
                 () => AllowAccept && DirectumTask.IsValid);
 
-            RejectCommand = new DelegateCommand(
+            RejectCommand = new DelegateLogCommand(
                 () =>
                 {
                     var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Информация", "Вы уверены, что хотите вернуть на доработку задачу?", defaultNo: true);
@@ -486,7 +485,7 @@ namespace HVTApp.UI.Modules.Directum
                 },
                 () => AllowAccept && DirectumTask.IsValid);
 
-            SubTaskCommand = new DelegateCommand(
+            SubTaskCommand = new DelegateLogCommand(
                 () =>
                 {
                     RegionManager.RequestNavigateContentRegion<DirectumTaskView>(new NavigationParameters()
@@ -497,7 +496,7 @@ namespace HVTApp.UI.Modules.Directum
                 },
                 () => TaskIsNew == false);
 
-            AddFileCommand = new DelegateCommand(
+            AddFileCommand = new DelegateLogCommand(
                 () =>
                 {
                     var openFileDialog = new OpenFileDialog
@@ -532,7 +531,7 @@ namespace HVTApp.UI.Modules.Directum
                     return false;
                 });
 
-            RemoveFileCommand = new DelegateCommand(
+            RemoveFileCommand = new DelegateLogCommand(
                 () =>
                 {
                     //диалог
@@ -564,7 +563,7 @@ namespace HVTApp.UI.Modules.Directum
                     return false;
                 });
 
-            OpenFileCommand = new DelegateCommand(
+            OpenFileCommand = new DelegateLogCommand(
                 () =>
                 {
                     if (_filesToAdd.ContainsKey(SelectedFile))
@@ -715,8 +714,8 @@ namespace HVTApp.UI.Modules.Directum
                 };
 
                 DirectumTask.Messages.Add(Message);
-                Message.PropertyChanged += (sender, args) => { ((DelegateCommand)PerformCommand).RaiseCanExecuteChanged(); };
-                ((DelegateCommand)PerformCommand).RaiseCanExecuteChanged();
+                Message.PropertyChanged += (sender, args) => { (PerformCommand).RaiseCanExecuteChanged(); };
+                (PerformCommand).RaiseCanExecuteChanged();
             }
 
             //если есть возможность принять задачу
@@ -733,8 +732,8 @@ namespace HVTApp.UI.Modules.Directum
                     };
 
                     DirectumTask.Messages.Add(Message);
-                    Message.PropertyChanged += (sender, args) => { ((DelegateCommand)AcceptCommand).RaiseCanExecuteChanged(); };
-                    ((DelegateCommand)AcceptCommand).RaiseCanExecuteChanged();
+                    Message.PropertyChanged += (sender, args) => { (AcceptCommand).RaiseCanExecuteChanged(); };
+                    (AcceptCommand).RaiseCanExecuteChanged();
                 }
 
                 //если задача последняя в цепочке последовательных задач

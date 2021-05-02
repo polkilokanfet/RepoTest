@@ -2,16 +2,15 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using HVTApp.UI.Modules.PlanAndEconomy.ViewModels;
 using HVTApp.Model.Wrapper;
+using HVTApp.UI.Commands;
 using HVTApp.UI.Modules.PlanAndEconomy.Dates;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 
 namespace HVTApp.UI.Modules.SupplyModule.ViewModels
 {
@@ -21,12 +20,12 @@ namespace HVTApp.UI.Modules.SupplyModule.ViewModels
 
         public ObservableCollection<SalesUnitDatesGroup> Groups { get; } = new ObservableCollection<SalesUnitDatesGroup>();
 
-        public ICommand SaveCommand { get; }
-        public ICommand ReloadCommand { get; }
+        public DelegateLogCommand SaveCommand { get; }
+        public DelegateLogCommand ReloadCommand { get; }
 
         public PickingDatesViewModel(IUnityContainer container) : base(container)
         {
-            SaveCommand = new DelegateCommand(
+            SaveCommand = new DelegateLogCommand(
                 () =>
                 {
                     _salesUnits.PropertyChanged -= SalesUnitsOnPropertyChanged;
@@ -36,7 +35,7 @@ namespace HVTApp.UI.Modules.SupplyModule.ViewModels
                     //принимаем все изменения
                     _salesUnits.Where(x => x.IsChanged).ToList().ForEach(x => x.AcceptChanges());
                     //проверяем актуальность команды
-                    ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
+                    (SaveCommand).RaiseCanExecuteChanged();
 
                     _salesUnits.PropertyChanged += SalesUnitsOnPropertyChanged;
                 },
@@ -44,7 +43,7 @@ namespace HVTApp.UI.Modules.SupplyModule.ViewModels
                       _salesUnits.IsValid &&
                       _salesUnits.IsChanged);
 
-            ReloadCommand = new DelegateCommand(Load);
+            ReloadCommand = new DelegateLogCommand(Load);
 
             Load();
         }
@@ -83,7 +82,7 @@ namespace HVTApp.UI.Modules.SupplyModule.ViewModels
 
         private void SalesUnitsOnPropertyChanged(object sender, PropertyChangedEventArgs args)
         {
-            ((DelegateCommand) SaveCommand).RaiseCanExecuteChanged();
+            ( SaveCommand).RaiseCanExecuteChanged();
         }
     }
 }

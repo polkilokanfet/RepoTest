@@ -1,11 +1,10 @@
-using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
+using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 using Prism.Events;
 
 namespace HVTApp.UI.Modules.Products.ViewModels
@@ -17,17 +16,17 @@ namespace HVTApp.UI.Modules.Products.ViewModels
 
         public ParameterWrapper SelectedParameter
         {
-            get { return _selectedParameter; }
+            get => _selectedParameter;
             set
             {
                 _selectedParameter = value;
-                ((DelegateCommand) RemoveParameterCommand).RaiseCanExecuteChanged();
+                RemoveParameterCommand.RaiseCanExecuteChanged();
             }
         }
 
-        public ICommand SaveCommand { get; }
-        public ICommand AddParameterCommand { get; }
-        public ICommand RemoveParameterCommand { get; }
+        public DelegateLogCommand SaveCommand { get; }
+        public DelegateLogCommand AddParameterCommand { get; }
+        public DelegateLogCommand RemoveParameterCommand { get; }
 
         public ProductTypeDesignationViewModel(IUnityContainer container) : base(container)
         {
@@ -39,18 +38,18 @@ namespace HVTApp.UI.Modules.Products.ViewModels
                 }
             };
 
-            SaveCommand = new DelegateCommand(
+            SaveCommand = new DelegateLogCommand(
                 () =>
                 {
                     ProductTypeDesignationWrapper.AcceptChanges();
                     UnitOfWork.Repository<ProductTypeDesignation>().Add(ProductTypeDesignationWrapper.Model);
                     UnitOfWork.SaveChanges();
                     Container.Resolve<IEventAggregator>().GetEvent<AfterSaveProductTypeDesignationEvent>().Publish(ProductTypeDesignationWrapper.Model);
-                    ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
+                    SaveCommand.RaiseCanExecuteChanged();
                 },
                 () => ProductTypeDesignationWrapper.IsValid && ProductTypeDesignationWrapper.IsChanged);
 
-            AddParameterCommand = new DelegateCommand(
+            AddParameterCommand = new DelegateLogCommand(
                 () =>
                 {
                     var parameters = UnitOfWork.Repository<Parameter>().Find(x => true);
@@ -61,13 +60,13 @@ namespace HVTApp.UI.Modules.Products.ViewModels
                     }
                 });
 
-            RemoveParameterCommand = new DelegateCommand(
+            RemoveParameterCommand = new DelegateLogCommand(
                 () => { ProductTypeDesignationWrapper.Parameters.Remove(SelectedParameter); },
                 () => SelectedParameter != null);
 
             ProductTypeDesignationWrapper.PropertyChanged += (sender, args) =>
             {
-                ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
+                SaveCommand.RaiseCanExecuteChanged();
             };
         }
     }

@@ -2,11 +2,10 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 
 namespace HVTApp.UI.Modules.Director.ViewModels
 {
@@ -17,7 +16,7 @@ namespace HVTApp.UI.Modules.Director.ViewModels
 
         public bool IsLoaded
         {
-            get { return _isLoaded; }
+            get => _isLoaded;
             private set
             {
                 _isLoaded = value;
@@ -25,17 +24,17 @@ namespace HVTApp.UI.Modules.Director.ViewModels
             }
         }
 
-        public ICommand ReloadCommand { get; }
-        public ICommand ExpandCommand { get; }
-        public ICommand CollapseCommand { get; }
+        public DelegateLogCommand ReloadCommand { get; }
+        public DelegateLogCommand ExpandCommand { get; }
+        public DelegateLogCommand CollapseCommand { get; }
 
         public event Action<bool> ExpandCollapseEvent; 
 
         public MarketViewModel(IUnityContainer container) : base(container)
         {
-            ReloadCommand = new DelegateCommand(Load);
-            ExpandCommand = new DelegateCommand(() => { ExpandCollapseEvent?.Invoke(true); });
-            CollapseCommand = new DelegateCommand(() => { ExpandCollapseEvent?.Invoke(false); });
+            ReloadCommand = new DelegateLogCommand(Load);
+            ExpandCommand = new DelegateLogCommand(() => { ExpandCollapseEvent?.Invoke(true); });
+            CollapseCommand = new DelegateLogCommand(() => { ExpandCollapseEvent?.Invoke(false); });
         }
 
         public void Load()
@@ -47,7 +46,7 @@ namespace HVTApp.UI.Modules.Director.ViewModels
             MarketUnits.Clear();
             MarketUnits.AddRange(
                 salesUnits
-                .GroupBy(x => new {x.Project.Id, x.OrderInTakeDate})
+                .GroupBy(salesUnit => new {salesUnit.Project.Id, salesUnit.OrderInTakeDate})
                 .OrderBy(x => x.Key.OrderInTakeDate)
                 .Select(x => new MarketUnit(x)));
 

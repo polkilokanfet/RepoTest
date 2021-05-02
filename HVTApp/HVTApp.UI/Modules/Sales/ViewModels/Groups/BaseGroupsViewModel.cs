@@ -61,15 +61,15 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
 
         #region ICommand
 
-        public ICommand AddCommand { get; private set; }
-        public ICommand RemoveCommand { get; }
+        public DelegateLogCommand AddCommand { get; private set; }
+        public DelegateLogCommand RemoveCommand { get; }
 
         public ICommand ChangeFacilityCommand { get; }
         public ICommand ChangeProductCommand { get; }
         public ICommand ChangePaymentsCommand { get; }
 
-        public ICommand AddProductIncludedCommand { get; }
-        public ICommand RemoveProductIncludedCommand { get; }
+        public DelegateLogCommand AddProductIncludedCommand { get; }
+        public DelegateLogCommand RemoveProductIncludedCommand { get; }
 
         public DelegateLogCommand SetCustomFixedPriceCommand { get; }
 
@@ -77,8 +77,8 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
 
         protected BaseGroupsViewModel(IUnityContainer container) : base(container)
         {
-            AddCommand = new DelegateCommand(AddCommand_Execute, AddCommand_CanExecute);
-            RemoveCommand = new DelegateCommand(RemoveCommand_Execute, () => Groups.SelectedGroup != null);
+            AddCommand = new DelegateLogCommand(AddCommand_Execute, AddCommand_CanExecute);
+            RemoveCommand = new DelegateLogCommand(RemoveCommand_Execute, () => Groups.SelectedGroup != null);
 
             ChangeFacilityCommand = new DelegateCommand<TGroup>(ChangeFacilityCommand_Execute);
             ChangeProductCommand = new DelegateCommand<TGroup>(ChangeProductCommand_Execute);
@@ -87,7 +87,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             #region ProductIncludedCommands
 
             //добавление включенного оборудования
-            AddProductIncludedCommand = new DelegateCommand(
+            AddProductIncludedCommand = new DelegateLogCommand(
                 () =>
                 {
                     var productIncludedWrapper = new ProductIncludedWrapper(new ProductIncluded());
@@ -100,7 +100,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
                 () => Groups.SelectedGroup != null);
 
             //удаление включенного оборудования
-            RemoveProductIncludedCommand = new DelegateCommand(
+            RemoveProductIncludedCommand = new DelegateLogCommand(
                 () =>
                 {
                     if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Удалить?", defaultNo: true) == MessageDialogResult.No)
@@ -116,22 +116,32 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             SetCustomFixedPriceCommand = new DelegateLogCommand(
                 () =>
                 {
-                    //костыль (тк нужно найти именно тот wrapper)
-                    var productIncluded = Groups
+                    //костыль (т.к. нужно найти именно тот wrapper)
+                    var productsIncluded = Groups
                         .Where(x => x.Groups != null)
                         .SelectMany(x => x.Groups)
                         .SelectMany(x => x.ProductsIncluded)
-                        .SingleOrDefault(x => Equals(x.Model.Id, Groups.SelectedProductIncluded.Model.Id));
-                    productIncluded = productIncluded ?? Groups.SelectedProductIncluded;
+                        .Where(x => Equals(x.Model.Id, Groups.SelectedProductIncluded.Model.Id))
+                        .ToList();
+                    
+                    var productIncluded = productsIncluded.Any() 
+                        ? productsIncluded.Select(x => x.Model).Distinct().Single()
+                        : Groups.SelectedProductIncluded.Model;
 
-                    var original = productIncluded.Model.CustomFixedPrice;
+                    var original = productIncluded.CustomFixedPrice;
 
-                    var viewModel = new SupervisionPriceViewModel(new ProductIncludedWrapper(productIncluded.Model), UnitOfWork, Container);
+                    var viewModel = new SupervisionPriceViewModel(new ProductIncludedWrapper(productIncluded), UnitOfWork, Container);
                     var dr = Container.Resolve<IDialogService>().ShowDialog(viewModel);
-                    if (!dr.HasValue || dr.Value == false)
-                        productIncluded.CustomFixedPrice = original;
+                    if (dr.HasValue || dr.Value == true)
+                    {
+                        productsIncluded.ForEach(x => x.CustomFixedPrice = productIncluded.CustomFixedPrice);
+                    }
+                    else
+                    {
+                        productsIncluded.ForEach(x => x.CustomFixedPrice = original);
+                    }
 
-                    if (!Equals(productIncluded.Model.CustomFixedPrice, original))
+                    if (!Equals(productIncluded.CustomFixedPrice, original))
                     {
                         RefreshPrice(Groups.SelectedGroup);
                     }
@@ -207,15 +217,15 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             // реакция на выбор группы
             Groups.SelectedGroupChanged += group =>
             {
-                ((DelegateCommand)RemoveCommand)?.RaiseCanExecuteChanged();
-                ((DelegateCommand)AddProductIncludedCommand)?.RaiseCanExecuteChanged();
+                (RemoveCommand)?.RaiseCanExecuteChanged();
+                (AddProductIncludedCommand)?.RaiseCanExecuteChanged();
                 OnPropertyChanged(nameof(Prices));
             };
 
             // реакция на выбор включенного оборудования
             Groups.SelectedProductIncludedChanged += productIncluded =>
             {
-                ((DelegateCommand)RemoveProductIncludedCommand)?.RaiseCanExecuteChanged();
+                (RemoveProductIncludedCommand)?.RaiseCanExecuteChanged();
                 SetCustomFixedPriceCommand?.RaiseCanExecuteChanged();
             };
 
@@ -232,7 +242,6 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
 
         private void GrpOnProductIncludedIsChanged()
         {
-            //((DelegateCommand))
         }
 
         #region Commands

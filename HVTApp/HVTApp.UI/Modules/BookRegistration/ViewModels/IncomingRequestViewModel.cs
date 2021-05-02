@@ -1,14 +1,13 @@
 using System;
 using System.Diagnostics;
 using System.Linq;
-using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.Events;
+using HVTApp.UI.Commands;
 using HVTApp.UI.ViewModels;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 using Prism.Events;
 
 namespace HVTApp.UI.Modules.BookRegistration.ViewModels
@@ -18,15 +17,15 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
         private readonly IMessageService _messageService;
 
         //поручить запрос
-        public ICommand InstructRequestCommand { get; }
-        public ICommand RequestIsNotActualCommand { get; }
-        public ICommand OpenFolderCommand { get; }
+        public DelegateLogCommand InstructRequestCommand { get; }
+        public DelegateLogCommand RequestIsNotActualCommand { get; }
+        public DelegateLogCommand OpenFolderCommand { get; }
 
         public IncomingRequestViewModel(IUnityContainer container) : base(container)
         {
             _messageService = container.Resolve<IMessageService>();
 
-            InstructRequestCommand = new DelegateCommand(
+            InstructRequestCommand = new DelegateLogCommand(
                 () =>
                 {
                     Item.IsActual = true;
@@ -38,7 +37,7 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
                 },
                 () => Item.IsValid && Item.IsChanged && Item.Performers.Any());
 
-            RequestIsNotActualCommand = new DelegateCommand(
+            RequestIsNotActualCommand = new DelegateLogCommand(
                 () =>
                 {
                     var dr = _messageService.ShowYesNoMessageDialog("Подтверждение", "Вы уверены, что запрос не актуален?", defaultYes: true);
@@ -55,7 +54,7 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
                 },
                 () => Item.IsValid);
 
-            OpenFolderCommand = new DelegateCommand(
+            OpenFolderCommand = new DelegateLogCommand(
                 () =>
                 {
                     if (string.IsNullOrEmpty(GlobalAppProperties.Actual.IncomingRequestsPath))
@@ -74,7 +73,7 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
             base.AfterLoading();
             Item.Performers.CollectionChanged += (sender, args) =>
             {
-                ((DelegateCommand) InstructRequestCommand).RaiseCanExecuteChanged();
+                ( InstructRequestCommand).RaiseCanExecuteChanged();
             };
         }
 

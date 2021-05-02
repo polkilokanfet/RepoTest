@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
-using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services;
@@ -13,9 +12,9 @@ using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.UI.Modules.PlanAndEconomy.ViewModels;
 using HVTApp.Model.Wrapper;
+using HVTApp.UI.Commands;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 
 namespace HVTApp.UI.Modules.PriceMaking.ViewModels
 {
@@ -29,13 +28,13 @@ namespace HVTApp.UI.Modules.PriceMaking.ViewModels
 
         public PriceTask SelectedPriceTask
         {
-            get { return _selectedPriceTask; }
+            get => _selectedPriceTask;
             set
             {
                 _selectedPriceTask = value;
-                ((DelegateCommand)PrintBlockInContext).RaiseCanExecuteChanged();
-                ((DelegateCommand)AddPriceCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)RemovePriceCommand).RaiseCanExecuteChanged();
+                (PrintBlockInContext).RaiseCanExecuteChanged();
+                (AddPriceCommand).RaiseCanExecuteChanged();
+                (RemovePriceCommand).RaiseCanExecuteChanged();
                 SelectedSumOnDate = null;
                 OnPropertyChanged();
             }
@@ -43,36 +42,36 @@ namespace HVTApp.UI.Modules.PriceMaking.ViewModels
 
         public SumOnDateWrapper SelectedSumOnDate
         {
-            get { return _selectedSumOnDate; }
+            get => _selectedSumOnDate;
             set
             {
                 _selectedSumOnDate = value;
-                ((DelegateCommand)RemovePriceCommand).RaiseCanExecuteChanged();
+                (RemovePriceCommand).RaiseCanExecuteChanged();
             }
         }
 
-        public ICommand PrintBlockInContext { get; }
+        public DelegateLogCommand PrintBlockInContext { get; }
 
         /// <summary>
         /// Добавить прайс
         /// </summary>
-        public ICommand AddPriceCommand { get; }
+        public DelegateLogCommand AddPriceCommand { get; }
 
         /// <summary>
         /// Удалить прайс
         /// </summary>
-        public ICommand RemovePriceCommand { get; }
+        public DelegateLogCommand RemovePriceCommand { get; }
 
         /// <summary>
         /// Подтянуть прайсы из калькуляций
         /// </summary>
-        public ICommand SetPricesFromCalculationsCommand { get; }
+        public DelegateLogCommand SetPricesFromCalculationsCommand { get; }
 
         public PricesViewModel(IUnityContainer container) : base(container)
         {
-            PrintBlockInContext = new DelegateCommand(PrintBlockInContextExecute, () => SelectedPriceTask != null);
+            PrintBlockInContext = new DelegateLogCommand(PrintBlockInContextExecute, () => SelectedPriceTask != null);
 
-            AddPriceCommand = new DelegateCommand(
+            AddPriceCommand = new DelegateLogCommand(
                 () =>
                 {
                     var price = new SumOnDate();
@@ -87,7 +86,7 @@ namespace HVTApp.UI.Modules.PriceMaking.ViewModels
                 },
                 () => SelectedPriceTask != null);
 
-            RemovePriceCommand = new DelegateCommand(
+            RemovePriceCommand = new DelegateLogCommand(
                 () =>
                 {
                     var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Удалить выбранный прайс?", defaultNo: true);
@@ -100,7 +99,7 @@ namespace HVTApp.UI.Modules.PriceMaking.ViewModels
                 },
                 () => SelectedPriceTask != null && SelectedSumOnDate != null);
 
-            SetPricesFromCalculationsCommand = new DelegateCommand(
+            SetPricesFromCalculationsCommand = new DelegateLogCommand(
                 () =>
                 {
                     var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Прайсы", "Подтянуть прайсы из калькуляций?", defaultYes:true);
@@ -111,11 +110,11 @@ namespace HVTApp.UI.Modules.PriceMaking.ViewModels
 
                     //все стракчакосты с заполненной ценой
                     var structureCosts = _unitOfWork.Repository<PriceCalculation>()
-                        .Find(x => x.TaskCloseMoment.HasValue)
-                        .SelectMany(x => x.PriceCalculationItems)
-                        .SelectMany(x => x.StructureCosts)
+                        .Find(priceCalculation => priceCalculation.TaskCloseMoment.HasValue)
+                        .SelectMany(priceCalculation => priceCalculation.PriceCalculationItems)
+                        .SelectMany(priceCalculationItem => priceCalculationItem.StructureCosts)
                         .Distinct()
-                        .Where(x => x.UnitPrice.HasValue && x.UnitPrice.Value > 0 && !string.IsNullOrEmpty(x.Number))
+                        .Where(structureCost => structureCost.UnitPrice.HasValue && structureCost.UnitPrice.Value > 0 && !string.IsNullOrEmpty(structureCost.Number))
                         .ToList();
 
                     //для каждой задачи со стракчакостом

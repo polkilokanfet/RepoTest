@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
+using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 
 namespace HVTApp.UI.Modules.Sales.Payments
 {
@@ -24,20 +22,20 @@ namespace HVTApp.UI.Modules.Sales.Payments
             set
             {
                 _selectedItem = value;
-                ((DelegateCommand)RemoveCommand).RaiseCanExecuteChanged();
+                (RemoveCommand).RaiseCanExecuteChanged();
                 OnPropertyChanged();
             }
         }
 
         public ObservableCollection<PaymentsGroup> PaymentsGroups { get; } = new ObservableCollection<PaymentsGroup>();
 
-        public ICommand SaveCommand { get; }
-        public ICommand RefreshCommand { get; }
-        public ICommand RemoveCommand { get; }
+        public DelegateLogCommand SaveCommand { get; }
+        public DelegateLogCommand RefreshCommand { get; }
+        public DelegateLogCommand RemoveCommand { get; }
 
         public PaymentsViewModel(IUnityContainer container) : base(container)
         {
-            SaveCommand = new DelegateCommand(
+            SaveCommand = new DelegateLogCommand(
                 () =>
                 {
                     _salesUnitWrappers.AcceptChanges();
@@ -46,9 +44,9 @@ namespace HVTApp.UI.Modules.Sales.Payments
                 () => _salesUnitWrappers != null && _salesUnitWrappers.IsChanged && _salesUnitWrappers.IsValid);
 
 
-            RefreshCommand = new DelegateCommand(RefreshPayments);
+            RefreshCommand = new DelegateLogCommand(RefreshPayments);
 
-            RemoveCommand = new DelegateCommand(
+            RemoveCommand = new DelegateLogCommand(
                 () =>
                 {
                     (SelectedItem as PaymentsGroup)?.RemovePayments(UnitOfWork);
@@ -56,16 +54,14 @@ namespace HVTApp.UI.Modules.Sales.Payments
                 },
                 () =>
                 {
-                    var paymentsGroup = SelectedItem as PaymentsGroup;
-                    if (paymentsGroup != null)
+                    if (SelectedItem is PaymentsGroup paymentsGroup)
                     {
                         if (paymentsGroup.IsCustom != null)
                             return paymentsGroup.IsCustom.Value;
                         return false;
                     }
 
-                    var item = SelectedItem as PaymentWrapper;
-                    if (item != null)
+                    if (SelectedItem is PaymentWrapper item)
                     {
                         return item.IsInPlanPayments;
                     }
@@ -86,8 +82,8 @@ namespace HVTApp.UI.Modules.Sales.Payments
                 .Select(x => new SalesUnitWrapper1(x, UnitOfWork)));
 
             //подписка на изменение
-            _salesUnitWrappers.PropertyChanged += (sender, args) => ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
-            _salesUnitWrappers.CollectionChanged += (sender, args) => ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
+            _salesUnitWrappers.PropertyChanged += (sender, args) => SaveCommand.RaiseCanExecuteChanged();
+            _salesUnitWrappers.CollectionChanged += (sender, args) => SaveCommand.RaiseCanExecuteChanged();
         }
 
         protected override void AfterGetData()

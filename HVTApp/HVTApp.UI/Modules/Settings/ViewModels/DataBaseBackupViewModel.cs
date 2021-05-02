@@ -1,18 +1,17 @@
 ﻿using System;
-using System.Windows.Input;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
+using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
 //using Microsoft.SqlServer.Management.Common;
 //using Microsoft.SqlServer.Management.Smo;
-using Prism.Commands;
 
 namespace HVTApp.UI.Modules.Settings.ViewModels
 {
     public class DataBaseBackupViewModel
     {
         private readonly IUnityContainer _container;
-        public ICommand BackupDataBaseCommand { get; }
+        public DelegateLogCommand BackupDataBaseCommand { get; }
 
 #if DEBUG
         public string ConnectionString { get; set; } = @"data source=(LocalDb)\MSSQLLocalDB;initial catalog=HvtAppDB;integrated security=True";
@@ -26,7 +25,7 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
         public DataBaseBackupViewModel(IUnityContainer container)
         {
             _container = container;
-            BackupDataBaseCommand = new DelegateCommand(
+            BackupDataBaseCommand = new DelegateLogCommand(
                 () =>
                 {
                     try

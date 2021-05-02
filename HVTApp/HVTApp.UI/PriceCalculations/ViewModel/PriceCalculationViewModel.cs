@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
@@ -15,10 +14,10 @@ using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
+using HVTApp.UI.Commands;
 using HVTApp.UI.PriceCalculations.ViewModel.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 using Prism.Events;
 
 namespace HVTApp.UI.PriceCalculations.ViewModel
@@ -36,11 +35,11 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
             {
                 _selectedItem = value;
 
-                ((DelegateCommand)AddStructureCostCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)RemoveStructureCostCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)RemoveGroupCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)FinishCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)DivideCommand).RaiseCanExecuteChanged();
+                (AddStructureCostCommand).RaiseCanExecuteChanged();
+                (RemoveStructureCostCommand).RaiseCanExecuteChanged();
+                (RemoveGroupCommand).RaiseCanExecuteChanged();
+                (FinishCommand).RaiseCanExecuteChanged();
+                (DivideCommand).RaiseCanExecuteChanged();
             }
         }
         public bool CurrentUserIsManager => GlobalAppProperties.User.RoleCurrent == Role.SalesManager;
@@ -68,24 +67,24 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
 
         #region ICommand
 
-        public ICommand SaveCommand { get; }
-        public ICommand AddStructureCostCommand { get; }
-        public ICommand RemoveStructureCostCommand { get; }
+        public DelegateLogCommand SaveCommand { get; }
+        public DelegateLogCommand AddStructureCostCommand { get; }
+        public DelegateLogCommand RemoveStructureCostCommand { get; }
 
-        public ICommand AddGroupCommand { get; }
-        public ICommand RemoveGroupCommand { get; }
+        public DelegateLogCommand AddGroupCommand { get; }
+        public DelegateLogCommand RemoveGroupCommand { get; }
 
-        public ICommand StartCommand { get; }
-        public ICommand FinishCommand { get; }
+        public DelegateLogCommand StartCommand { get; }
+        public DelegateLogCommand FinishCommand { get; }
 
-        public ICommand CancelCommand { get; }
+        public DelegateLogCommand CancelCommand { get; }
 
 
-        public ICommand MeregeCommand { get; }
-        public ICommand DivideCommand { get; }
+        public DelegateLogCommand MeregeCommand { get; }
+        public DelegateLogCommand DivideCommand { get; }
 
-        public ICommand LoadFileToDbCommand { get; }
-        public ICommand LoadFileFromDbCommand { get; }
+        public DelegateLogCommand LoadFileToDbCommand { get; }
+        public DelegateLogCommand LoadFileFromDbCommand { get; }
 
         #endregion
 
@@ -98,10 +97,10 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                 //реакция на изменения в задаче
                 PriceCalculationWrapper.PropertyChanged += (sender, args) =>
                 {
-                    ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
-                    ((DelegateCommand)StartCommand).RaiseCanExecuteChanged();
-                    ((DelegateCommand)FinishCommand).RaiseCanExecuteChanged();
-                    ((DelegateCommand)LoadFileFromDbCommand).RaiseCanExecuteChanged();
+                    (SaveCommand).RaiseCanExecuteChanged();
+                    (StartCommand).RaiseCanExecuteChanged();
+                    (FinishCommand).RaiseCanExecuteChanged();
+                    (LoadFileFromDbCommand).RaiseCanExecuteChanged();
                 };
                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsStarted)));
                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(CanChangePrice)));
@@ -116,7 +115,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
             #region SaveCommand
           
             //сохранение изменений
-            SaveCommand = new DelegateCommand(
+            SaveCommand = new DelegateLogCommand(
                 () =>
                 {
                     PriceCalculationWrapper.AcceptChanges();
@@ -131,7 +130,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
 
                     Container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceCalculationEvent>().Publish(PriceCalculationWrapper.Model);
 
-                    ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
+                    (SaveCommand).RaiseCanExecuteChanged();
                 },
                 () => PriceCalculationWrapper.IsValid && PriceCalculationWrapper.IsChanged);
 
@@ -140,7 +139,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
             #region AddStructureCostCommand
 
             //добавление стракчакоста
-            AddStructureCostCommand = new DelegateCommand(
+            AddStructureCostCommand = new DelegateLogCommand(
                 () =>
                 {
                     var structureCost = new StructureCost { Comment = "No title" };
@@ -154,7 +153,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
             #region RemoveStructureCostCommand
 
             //удаление стракчакоста
-            RemoveStructureCostCommand = new DelegateCommand(
+            RemoveStructureCostCommand = new DelegateLogCommand(
                 () =>
                 {
                     var result = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Действительно хотите удалить StructureCost?", defaultNo:true);
@@ -174,7 +173,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
             #region AddGroupCommand
 
             //добавление группы оборудования
-            AddGroupCommand = new DelegateCommand(
+            AddGroupCommand = new DelegateLogCommand(
                 () =>
                 {
                     //потенциальные группы
@@ -202,7 +201,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
             #region RemoveGroupCommand
 
             //удаление группы
-            RemoveGroupCommand = new DelegateCommand(
+            RemoveGroupCommand = new DelegateLogCommand(
                 () =>
                 {
                     var result = _messageService.ShowYesNoMessageDialog("Удаление", "Действительно хотите удалить из расчета группу оборудования?", defaultNo:true);
@@ -238,7 +237,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
 
             #region StartCommand
 
-            StartCommand = new DelegateCommand(
+            StartCommand = new DelegateLogCommand(
                 () =>
                 {
                     var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Подтверждение", "Вы уверены, что хотите стартовать задачу?", defaultYes:true);
@@ -253,14 +252,14 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                     //Container.Resolve<IEmailService>().SendMail("kos@uetm.ru", $"{GlobalAppProperties.User.Employee.Person} отправил новое задание на расчет", "test");
 
                     OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsStarted)));
-                    ((DelegateCommand)StartCommand).RaiseCanExecuteChanged();
-                    ((DelegateCommand)CancelCommand).RaiseCanExecuteChanged();
-                    ((DelegateCommand)AddStructureCostCommand).RaiseCanExecuteChanged();
-                    ((DelegateCommand)AddGroupCommand).RaiseCanExecuteChanged();
-                    ((DelegateCommand)RemoveStructureCostCommand).RaiseCanExecuteChanged();
-                    ((DelegateCommand)RemoveGroupCommand).RaiseCanExecuteChanged();
-                    ((DelegateCommand)MeregeCommand).RaiseCanExecuteChanged();
-                    ((DelegateCommand)DivideCommand).RaiseCanExecuteChanged();
+                    (StartCommand).RaiseCanExecuteChanged();
+                    (CancelCommand).RaiseCanExecuteChanged();
+                    (AddStructureCostCommand).RaiseCanExecuteChanged();
+                    (AddGroupCommand).RaiseCanExecuteChanged();
+                    (RemoveStructureCostCommand).RaiseCanExecuteChanged();
+                    (RemoveGroupCommand).RaiseCanExecuteChanged();
+                    (MeregeCommand).RaiseCanExecuteChanged();
+                    (DivideCommand).RaiseCanExecuteChanged();
                 },
                 () => !IsStarted && PriceCalculationWrapper.IsValid && GlobalAppProperties.User.Id == PriceCalculationWrapper.Initiator?.Id);
 
@@ -268,7 +267,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
 
             #region FinishCommand
 
-            FinishCommand = new DelegateCommand(
+            FinishCommand = new DelegateLogCommand(
                 () =>
                 {
                     var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Подтверждение", "Вы уверены, что хотите завершить задачу?", defaultYes:true);
@@ -279,7 +278,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
 
                     OnPropertyChanged(new PropertyChangedEventArgs(nameof(CanChangePrice)));
 
-                    ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
+                    (SaveCommand).RaiseCanExecuteChanged();
                     container.Resolve<IEventAggregator>().GetEvent<AfterFinishPriceCalculationEvent>().Publish(this.PriceCalculationWrapper.Model);
                 },
                 () =>
@@ -304,7 +303,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
 
             #region CancelCommand
 
-            CancelCommand = new DelegateCommand(() =>
+            CancelCommand = new DelegateLogCommand(() =>
             {
                 var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Подтверждение", "Вы уверены, что хотите остановить задачу?", defaultNo:true);
                 if (dr != MessageDialogResult.Yes) return;
@@ -316,14 +315,14 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                 container.Resolve<IEventAggregator>().GetEvent<AfterCancelPriceCalculationEvent>().Publish(this.PriceCalculationWrapper.Model);
 
                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsStarted)));
-                ((DelegateCommand)StartCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)CancelCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)AddStructureCostCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)AddGroupCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)RemoveStructureCostCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)RemoveGroupCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)MeregeCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)DivideCommand).RaiseCanExecuteChanged();
+                (StartCommand).RaiseCanExecuteChanged();
+                (CancelCommand).RaiseCanExecuteChanged();
+                (AddStructureCostCommand).RaiseCanExecuteChanged();
+                (AddGroupCommand).RaiseCanExecuteChanged();
+                (RemoveStructureCostCommand).RaiseCanExecuteChanged();
+                (RemoveGroupCommand).RaiseCanExecuteChanged();
+                (MeregeCommand).RaiseCanExecuteChanged();
+                (DivideCommand).RaiseCanExecuteChanged();
             },
             () => IsStarted && GlobalAppProperties.User.Id == PriceCalculationWrapper.Initiator?.Id);
 
@@ -331,7 +330,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
 
             #region MergeCommand
 
-            MeregeCommand = new DelegateCommand(
+            MeregeCommand = new DelegateLogCommand(
                 () =>
                 {
                     var result = _messageService.ShowYesNoMessageDialog("Слияние", "Действительно хотите слить строки, выделенные галкой?", defaultYes:true);
@@ -372,7 +371,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
 
             #region DivideCommand
 
-            DivideCommand = new DelegateCommand(
+            DivideCommand = new DelegateLogCommand(
                 () =>
                 {
                     var result = _messageService.ShowYesNoMessageDialog("Разбиение", "Действительно хотите разбить выбранную строку?", defaultNo:true);
@@ -418,7 +417,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
 
             #region LoadFileCommand
 
-            LoadFileToDbCommand = new DelegateCommand(
+            LoadFileToDbCommand = new DelegateLogCommand(
                 () =>
                 {
                     var openFileDialog = new OpenFileDialog
@@ -448,15 +447,15 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                         OnPropertyChanged(new PropertyChangedEventArgs(nameof(CalculationHasFile)));
 
                         //костыль
-                        if (((DelegateCommand)SaveCommand).CanExecute())
+                        if ((SaveCommand).CanExecute())
                         {
-                            ((DelegateCommand)SaveCommand).Execute();
+                            (SaveCommand).Execute();
                         }
                     }
                 },
                 () => CurrentUserIsPricer);
 
-            LoadFileFromDbCommand = new DelegateCommand(
+            LoadFileFromDbCommand = new DelegateLogCommand(
                 () =>
                 {
                     var file = PriceCalculationWrapper.Files.First().Model;

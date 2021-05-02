@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Input;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 
 namespace HVTApp.UI.Modules.Sales.Production
 {
@@ -29,7 +28,7 @@ namespace HVTApp.UI.Modules.Sales.Production
             set
             {
                 _selectedInProduction = value;
-                ((DelegateCommand) RemoveFromProductionCommand)?.RaiseCanExecuteChanged();
+                RemoveFromProductionCommand?.RaiseCanExecuteChanged();
                 OnPropertyChanged();
             }
         }
@@ -40,7 +39,7 @@ namespace HVTApp.UI.Modules.Sales.Production
             set
             {
                 _selectedToProduction = value;
-                ((DelegateCommand)ProductUnitCommand)?.RaiseCanExecuteChanged();
+                (ProductUnitCommand)?.RaiseCanExecuteChanged();
                 OnPropertyChanged();
             }
         }
@@ -48,17 +47,17 @@ namespace HVTApp.UI.Modules.Sales.Production
         /// <summary>
         /// Разместить оборудование в производстве
         /// </summary>
-        public ICommand ProductUnitCommand { get; }
+        public DelegateLogCommand ProductUnitCommand { get; }
 
         /// <summary>
         /// Отозвать оборудование из производства
         /// </summary>
-        public ICommand RemoveFromProductionCommand { get; }
+        public DelegateLogCommand RemoveFromProductionCommand { get; }
 
         public ProductionViewModel(IUnityContainer container) : base(container)
         {
 
-            ProductUnitCommand = new DelegateCommand(
+            ProductUnitCommand = new DelegateLogCommand(
                 () =>
                 {
                     //подтверждение
@@ -97,7 +96,7 @@ namespace HVTApp.UI.Modules.Sales.Production
                 }, 
                 () => SelectedToProduction != null);
 
-            RemoveFromProductionCommand = new DelegateCommand(
+            RemoveFromProductionCommand = new DelegateLogCommand(
                 () =>
                 {
                     //подтверждение

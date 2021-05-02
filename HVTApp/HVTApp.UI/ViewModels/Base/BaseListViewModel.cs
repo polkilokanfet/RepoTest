@@ -14,6 +14,7 @@ using HVTApp.Infrastructure.Services;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
 using HVTApp.Model.Events;
+using HVTApp.UI.Commands;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
@@ -50,21 +51,21 @@ namespace HVTApp.UI.ViewModels
 
             Lookups = new ObservableCollection<TLookup>();
 
-            NewItemCommand = new DelegateCommand(NewItemCommand_Execute, NewItemCommand_CanExecute);
-            EditItemCommand = new DelegateCommand(EditItemCommand_Execute, EditItemCommand_CanExecute);
-            RemoveItemCommand = new DelegateCommand(RemoveItemCommand_Execute, RemoveItemCommand_CanExecute);
+            NewItemCommand = new DelegateLogCommand(NewItemCommand_Execute, NewItemCommand_CanExecute);
+            EditItemCommand = new DelegateLogCommand(EditItemCommand_Execute, EditItemCommand_CanExecute);
+            RemoveItemCommand = new DelegateLogCommand(RemoveItemCommand_Execute, RemoveItemCommand_CanExecute);
 
-            SelectItemCommand = new DelegateCommand(SelectItemCommand_Execute, SelectItemCommand_CanExecute);
-            SelectItemsCommand = new DelegateCommand(
+            SelectItemCommand = new DelegateLogCommand(SelectItemCommand_Execute, SelectItemCommand_CanExecute);
+            SelectItemsCommand = new DelegateLogCommand(
                 () =>
                 {
                     CloseRequested?.Invoke(this, new DialogRequestCloseEventArgs(true));
                 }, 
                 () => SelectedItems != null);
 
-            RefreshCommand = new DelegateCommand(RefreshCommand_Execute);
+            RefreshCommand = new DelegateLogCommand(RefreshCommand_Execute);
 
-            UnionCommand = new DelegateCommand(
+            UnionCommand = new DelegateLogCommand(
                 () =>
                 {
                     var selectedItem = container.Resolve<ISelectService>().SelectItem(SelectedItems);
@@ -162,8 +163,8 @@ namespace HVTApp.UI.ViewModels
             set
             {
                 _selectedLookups = value;
-                ((DelegateCommand)UnionCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)SelectItemsCommand).RaiseCanExecuteChanged();
+                ((DelegateLogCommand)UnionCommand).RaiseCanExecuteChanged();
+                ((DelegateLogCommand)SelectItemsCommand).RaiseCanExecuteChanged();
             }
         }
 
@@ -326,10 +327,10 @@ namespace HVTApp.UI.ViewModels
 
         protected virtual void InvalidateCommands()
         {
-            ((DelegateCommand)NewItemCommand).RaiseCanExecuteChanged();
-            ((DelegateCommand)EditItemCommand).RaiseCanExecuteChanged();
-            ((DelegateCommand)RemoveItemCommand).RaiseCanExecuteChanged();
-            ((DelegateCommand)SelectItemCommand).RaiseCanExecuteChanged();
+            ((DelegateLogCommand)NewItemCommand).RaiseCanExecuteChanged();
+            ((DelegateLogCommand)EditItemCommand).RaiseCanExecuteChanged();
+            ((DelegateLogCommand)RemoveItemCommand).RaiseCanExecuteChanged();
+            ((DelegateLogCommand)SelectItemCommand).RaiseCanExecuteChanged();
         }
         #endregion
 

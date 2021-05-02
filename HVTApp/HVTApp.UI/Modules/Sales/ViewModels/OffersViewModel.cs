@@ -1,6 +1,6 @@
-﻿using System.Windows.Input;
-using HVTApp.Infrastructure.Extansions;
+﻿using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
+using HVTApp.UI.Commands;
 using HVTApp.UI.Modules.Sales.Views;
 using HVTApp.UI.ViewModels;
 using Microsoft.Practices.Unity;
@@ -11,24 +11,24 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 {
     public class OffersViewModel : OfferLookupListViewModel
     {
-        public ICommand PrintOfferCommand { get; }
+        public DelegateLogCommand PrintOfferCommand { get; }
 
         public OffersViewModel(IUnityContainer container) : base(container)
         {
-            PrintOfferCommand = new DelegateCommand(
+            PrintOfferCommand = new DelegateLogCommand(
                 () =>
                 {
                     Container.Resolve<IPrintOfferService>().PrintOffer(SelectedItem.Id);
                 },
                 () => SelectedItem != null);
 
-            this.SelectedLookupChanged += lookup => { ((DelegateCommand)PrintOfferCommand).RaiseCanExecuteChanged(); };
+            this.SelectedLookupChanged += lookup => { PrintOfferCommand.RaiseCanExecuteChanged(); };
         }
 
         protected override void InitSpecialCommands()
         {
-            EditItemCommand = new DelegateCommand(EditItemCommandExecute, () => SelectedItem != null);
-            RemoveItemCommand = new DelegateCommand(RemoveItemCommand_Execute, () => SelectedItem != null);
+            EditItemCommand = new DelegateLogCommand(EditItemCommandExecute, () => SelectedItem != null);
+            RemoveItemCommand = new DelegateLogCommand(RemoveItemCommand_Execute, () => SelectedItem != null);
         }
 
         private void EditItemCommandExecute()

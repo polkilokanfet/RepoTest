@@ -20,10 +20,10 @@ namespace HVTApp.UI.ViewModels
 
     //    protected override void InitSpecialCommands()
     //    {
-    //        SelectProductCommand = new DelegateCommand(SelectProduct_Execute);
-    //        SelectFacilityCommand = new DelegateCommand(SelectFacility_Execute);
-    //        SelectProducerCommand = new DelegateCommand(SelectProducer_Execute);
-    //        SelectProjectCommand = new DelegateCommand(SelectProject_Execute);
+    //        SelectProductCommand = new DelegateLogCommand(SelectProduct_Execute);
+    //        SelectFacilityCommand = new DelegateLogCommand(SelectFacility_Execute);
+    //        SelectProducerCommand = new DelegateLogCommand(SelectProducer_Execute);
+    //        SelectProjectCommand = new DelegateLogCommand(SelectProject_Execute);
     //    }
 
     //    private async void SelectProduct_Execute()

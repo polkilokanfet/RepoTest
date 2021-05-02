@@ -17,6 +17,7 @@ using HVTApp.Infrastructure.Services;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Model.Wrapper.Groups.SimpleWrappers;
+using HVTApp.UI.Commands;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel
 {
@@ -27,17 +28,17 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel
         /// <summary>
         /// ѕеренести оборудование в новый проект
         /// </summary>
-        public ICommand MoveToNewProjectCommand { get; }
+        public DelegateLogCommand MoveToNewProjectCommand { get; }
 
         /// <summary>
         /// ѕеренести оборудование в существующий проект
         /// </summary>
-        public ICommand MoveToExistsProjectCommand { get; }
+        public DelegateLogCommand MoveToExistsProjectCommand { get; }
 
         public ProjectViewModel(IUnityContainer container) : base(container)
         {
             var regionManager = Container.Resolve<IRegionManager>();
-            MoveToNewProjectCommand = new DelegateCommand(
+            MoveToNewProjectCommand = new DelegateLogCommand(
                 () =>
                 {
                     if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("”даление", "¬ы уверены, что хотите перенести это оборудование в новый проект?", defaultYes: true) != MessageDialogResult.Yes)
@@ -52,7 +53,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel
                 },
                 () => this.GroupsViewModel.Groups.SelectedGroup != null);
 
-            MoveToExistsProjectCommand = new DelegateCommand(
+            MoveToExistsProjectCommand = new DelegateLogCommand(
                 () =>
                 {
                     var projects = UnitOfWork.Repository<Project>().Find(x => x.Manager.Id == GlobalAppProperties.User.Id);
@@ -95,8 +96,8 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel
             this.GroupsViewModel.Groups.SelectedGroupChanged += 
                 grp => 
                 {
-                    ((DelegateCommand)MoveToNewProjectCommand).RaiseCanExecuteChanged();
-                    ((DelegateCommand)MoveToExistsProjectCommand).RaiseCanExecuteChanged();
+                    MoveToNewProjectCommand.RaiseCanExecuteChanged();
+                    MoveToExistsProjectCommand.RaiseCanExecuteChanged();
                 };
         }
 

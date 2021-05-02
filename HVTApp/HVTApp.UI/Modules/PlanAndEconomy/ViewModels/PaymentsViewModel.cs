@@ -6,8 +6,8 @@ using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 
 namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
 {
@@ -17,11 +17,11 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
 
         public ObservableCollection<PaymentsGroup> Payments { get; } = new ObservableCollection<PaymentsGroup>();
 
-        public ICommand ReloadCommand { get; }
+        public DelegateLogCommand ReloadCommand { get; }
 
         public PaymentsViewModel(IUnityContainer container) : base(container)
         {
-            ReloadCommand = new DelegateCommand(Load);
+            ReloadCommand = new DelegateLogCommand(Load);
         }
 
         protected override void LoadedMethod()

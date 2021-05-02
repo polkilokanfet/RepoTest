@@ -7,6 +7,7 @@ using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
+using HVTApp.UI.Commands;
 using HVTApp.UI.Modules.Sales.ViewModels;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
@@ -35,11 +36,11 @@ namespace HVTApp.UI.Modules.Sales.Market
 
         public NoteWrapper SelectedNote
         {
-            get { return _selectedNote; }
+            get => _selectedNote;
             set
             {
                 _selectedNote = value;
-                ((DelegateCommand)RemoveNoteCommand).RaiseCanExecuteChanged();
+                RemoveNoteCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -61,9 +62,9 @@ namespace HVTApp.UI.Modules.Sales.Market
         }
 
 
-        public ICommand AddNoteCommand { get; private set; }
-        public ICommand RemoveNoteCommand { get; private set; }
-        public ICommand SaveNotesCommand { get; private set; }
+        public DelegateLogCommand AddNoteCommand { get; private set; }
+        public DelegateLogCommand RemoveNoteCommand { get; private set; }
+        public DelegateLogCommand SaveNotesCommand { get; private set; }
 
 
         public void InitNotes()
@@ -72,7 +73,7 @@ namespace HVTApp.UI.Modules.Sales.Market
             var projectNotes = ((IProjectRepository)_notesUnitOfWork.Repository<Project>()).GetAllWithNotes().Select(project => new ProjectNotesWrapper(project));
             _projectNotes = new ValidatableChangeTrackingCollection<ProjectNotesWrapper>(projectNotes);
 
-            AddNoteCommand = new DelegateCommand(
+            AddNoteCommand = new DelegateLogCommand(
                 () =>
                 {
                     var note = new NoteWrapper(new Note {Date = DateTime.Now});
@@ -81,7 +82,7 @@ namespace HVTApp.UI.Modules.Sales.Market
                 },
                 () => ProjectNotesWrapper != null);
 
-            RemoveNoteCommand = new DelegateCommand(
+            RemoveNoteCommand = new DelegateLogCommand(
                 () =>
                 {
                     ProjectNotesWrapper.Notes.Remove(SelectedNote);
@@ -90,7 +91,7 @@ namespace HVTApp.UI.Modules.Sales.Market
                 },
                 () => SelectedNote != null);
 
-            SaveNotesCommand = new DelegateCommand(
+            SaveNotesCommand = new DelegateLogCommand(
                 () =>
                 {
                     _projectNotes.AcceptChanges();
@@ -100,7 +101,7 @@ namespace HVTApp.UI.Modules.Sales.Market
 
             _projectNotes.PropertyChanged += (sender, args) =>
             {
-                ((DelegateCommand)SaveNotesCommand).RaiseCanExecuteChanged();
+                SaveNotesCommand.RaiseCanExecuteChanged();
             };
         }
     }

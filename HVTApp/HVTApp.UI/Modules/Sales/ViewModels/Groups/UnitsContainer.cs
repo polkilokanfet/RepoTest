@@ -2,13 +2,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.Entity.Infrastructure;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Infrastructure.ViewModels;
+using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 using Prism.Events;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
@@ -41,19 +40,19 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
         //группы юнитов
         public TGroupsViewModel GroupsViewModel { get; }
 
-        public ICommand SaveCommand { get; }
+        public DelegateLogCommand SaveCommand { get; }
 
         /// <summary>
         /// Округлить цены
         /// </summary>
-        public ICommand RoundUpCommand { get; }
+        public DelegateLogCommand RoundUpCommand { get; }
 
         protected UnitsContainer(IUnityContainer container) : base(container)
         {
             DetailsViewModel = container.Resolve<TDetailsViewModel>();
             GroupsViewModel = container.Resolve<TGroupsViewModel>();
 
-            SaveCommand = new DelegateCommand(
+            SaveCommand = new DelegateLogCommand(
                 () =>
                 {
                     //отписка от событий изменения строк с оборудованием
@@ -81,7 +80,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
                     //регистрация на события изменения строк с оборудованием
                     this.GroupsViewModel.GroupChanged += OnGroupChanged;
 
-                    ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
+                    (SaveCommand).RaiseCanExecuteChanged();
 
                 },
                 () =>
@@ -94,7 +93,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
                     return DetailsViewModel.Item.IsChanged || GroupsViewModel.IsChanged;
                 });
 
-            RoundUpCommand = new DelegateCommand(
+            RoundUpCommand = new DelegateLogCommand(
                 () =>
                 {
                     GroupsViewModel.RoundUpGroupsCosts(RoundUpAccuracy);
@@ -114,7 +113,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
 
             AfterUnitsLoading();
 
-            ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
+            (SaveCommand).RaiseCanExecuteChanged();
         }
 
         public virtual void AfterUnitsLoading()
@@ -131,12 +130,12 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
 
         private void ItemOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
-            ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
+            (SaveCommand).RaiseCanExecuteChanged();
         }
 
         private void OnGroupChanged()
         {
-            ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
+            (SaveCommand).RaiseCanExecuteChanged();
         }
 
         public bool IsConfirmGoBackWithoutSaving { get; private set; } = false;

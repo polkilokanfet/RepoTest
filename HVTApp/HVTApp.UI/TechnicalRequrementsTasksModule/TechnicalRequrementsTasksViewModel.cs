@@ -1,33 +1,32 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Commands;
 using HVTApp.UI.Lookup;
 using HVTApp.UI.ViewModels;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 using Prism.Regions;
 
 namespace HVTApp.UI.TechnicalRequrementsTasksModule
 {
     public class TechnicalRequrementsTasksViewModel : TechnicalRequrementsTaskLookupListViewModel
     {
-        public ICommand NewCommand { get; }
-        public ICommand EditCommand { get; }
-        public ICommand RemoveCommand { get; }
+        public DelegateLogCommand NewCommand { get; }
+        public DelegateLogCommand EditCommand { get; }
+        public DelegateLogCommand RemoveCommand { get; }
 
         /// <summary>
         /// Поручить выполнение задачи
         /// </summary>
-        public ICommand InstructCommand { get; set; }
+        public DelegateLogCommand InstructCommand { get; set; }
 
-        public ICommand ReloadCommand { get; }
+        public DelegateLogCommand ReloadCommand { get; }
 
         public bool CurrentUserIsManager => GlobalAppProperties.User.RoleCurrent == Role.SalesManager;
         public bool CurrentUserIsBackManager => GlobalAppProperties.User.RoleCurrent == Role.BackManager;
@@ -42,12 +41,12 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
             this.SelectedLookupChanged += lookup =>
             {
-                ((DelegateCommand)EditCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)RemoveCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)InstructCommand).RaiseCanExecuteChanged();
+                (EditCommand).RaiseCanExecuteChanged();
+                (RemoveCommand).RaiseCanExecuteChanged();
+                (InstructCommand).RaiseCanExecuteChanged();
             };
 
-            InstructCommand = new DelegateCommand(
+            InstructCommand = new DelegateLogCommand(
                 () =>
                 {
                     if (SelectedLookup.BackManager != null)
@@ -73,21 +72,21 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 },
                 () => CurrentUserIsBackManagerBoss && SelectedLookup != null);
 
-            NewCommand = new DelegateCommand(
+            NewCommand = new DelegateLogCommand(
                 () =>
                 {
                     //RegionManager.RequestNavigateContentRegion<PriceCalculations.View.PriceCalculationView>(new NavigationParameters { { nameof(PriceCalculation), new PriceCalculation() } });
                 });
 
 
-            EditCommand = new DelegateCommand(
+            EditCommand = new DelegateLogCommand(
                 () =>
                 {
                     RegionManager.RequestNavigateContentRegion<TechnicalRequrementsTaskView>(new NavigationParameters { { nameof(TechnicalRequrementsTask), SelectedItem } });
                 },
                 () => SelectedItem != null);
 
-            RemoveCommand = new DelegateCommand(
+            RemoveCommand = new DelegateLogCommand(
                 () =>
                 {
                     //var messageService = Container.Resolve<IMessageService>();
@@ -138,7 +137,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 }, 
                 () => SelectedItem != null);
 
-            ReloadCommand = new DelegateCommand(Load);
+            ReloadCommand = new DelegateLogCommand(Load);
         }
 
         protected override void OnAfterSaveEntity(TechnicalRequrementsTask task)

@@ -1,16 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Input;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Commands;
 using HVTApp.UI.Modules.PlanAndEconomy.Views;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 using Prism.Events;
 using Prism.Regions;
 
@@ -23,26 +22,26 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
 
         public OrderItem SelectedOrderItem
         {
-            get { return _selectedOrderItem; }
+            get => _selectedOrderItem;
             set
             {
                 _selectedOrderItem = value;
-                ((DelegateCommand)EditOrderCommand).RaiseCanExecuteChanged();
+                EditOrderCommand.RaiseCanExecuteChanged();
             }
         }
 
-        public ICommand NewOrderCommand { get; }
-        public ICommand EditOrderCommand { get; }
+        public DelegateLogCommand NewOrderCommand { get; }
+        public DelegateLogCommand EditOrderCommand { get; }
 
         public ProductionPlanViewModel(IUnityContainer container) : base(container)
         {
-            NewOrderCommand = new DelegateCommand(
+            NewOrderCommand = new DelegateLogCommand(
                 () =>
                 {
                     RequestNavigate(new Order());
                 });
 
-            EditOrderCommand = new DelegateCommand(
+            EditOrderCommand = new DelegateLogCommand(
                 () => { RequestNavigate(SelectedOrderItem.Order); }, 
                 () => SelectedOrderItem != null);
 

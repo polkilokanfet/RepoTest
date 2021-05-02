@@ -9,8 +9,8 @@ using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
+using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 
 namespace HVTApp.UI.Modules.PlanAndEconomy.Supervision
 {
@@ -22,28 +22,28 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Supervision
 
         public object[] SelectedUnits
         {
-            get { return _selectedUnits; }
+            get => _selectedUnits;
             set
             {
                 _selectedUnits = value;
-                ((DelegateCommand)PrintLetterCommand).RaiseCanExecuteChanged();
+                PrintLetterCommand.RaiseCanExecuteChanged();
                 OnPropertyChanged();
             }
         }
 
-        public ICommand SaveCommand { get; }
+        public DelegateLogCommand SaveCommand { get; }
 
-        public ICommand PrintLetterCommand { get; }
+        public DelegateLogCommand PrintLetterCommand { get; }
 
         public SupervisionViewModel(IUnityContainer container) : base(container)
         {
-            SaveCommand = new DelegateCommand(
+            SaveCommand = new DelegateLogCommand(
                 () =>
                 {
                     foreach (var supervisionWr in Units.Where(x => x.IsNew && x.IsValid && x.IsChanged).ToList())
                     {
                         var supervision = UnitOfWork.Repository<Model.POCOs.Supervision>()
-                            .Find(x => x.SalesUnit.Id == supervisionWr.Model.SalesUnit.Id)
+                            .Find(supervision1 => supervision1.SalesUnit.Id == supervisionWr.Model.SalesUnit.Id)
                             .SingleOrDefault();
 
                         if (supervision == null)
@@ -79,7 +79,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Supervision
                 }, 
                 () => Units.IsValid && Units.IsChanged);
 
-            PrintLetterCommand = new DelegateCommand(
+            PrintLetterCommand = new DelegateLogCommand(
                 () =>
                 {
                     var unitOfWork = Container.Resolve<IUnitOfWork>();
@@ -109,7 +109,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Supervision
 
             Units.PropertyChanged += (sender, args) =>
             {
-                ((DelegateCommand) SaveCommand).RaiseCanExecuteChanged();
+                SaveCommand.RaiseCanExecuteChanged();
             };
         }
 

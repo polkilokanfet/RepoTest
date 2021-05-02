@@ -8,9 +8,9 @@ using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
+using HVTApp.UI.Commands;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 
 namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
 {
@@ -21,13 +21,13 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
 
         public ObservableCollection<SalesUnitDatesGroup> Groups { get; } = new ObservableCollection<SalesUnitDatesGroup>();
 
-        public ICommand SaveCommand { get; }
+        public DelegateLogCommand SaveCommand { get; }
 
         public bool AutoFillingDates { get; set; } = true;
 
         public DatesViewModel(IUnityContainer container) : base(container)
         {
-            SaveCommand = new DelegateCommand(
+            SaveCommand = new DelegateLogCommand(
                 () =>
                 {
                     _salesUnits.PropertyChanged -= SalesUnitsOnPropertyChanged;
@@ -37,7 +37,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
                     //сохраняем изменения
                     _unitOfWork.SaveChanges();
                     //проверяем актуальность команды
-                    ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
+                    SaveCommand.RaiseCanExecuteChanged();
 
                     _salesUnits.PropertyChanged += SalesUnitsOnPropertyChanged;
                 },
@@ -97,7 +97,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
 
         private void SalesUnitsOnPropertyChanged(object sender, PropertyChangedEventArgs args)
         {
-            ((DelegateCommand) SaveCommand).RaiseCanExecuteChanged();
+            SaveCommand.RaiseCanExecuteChanged();
         }
     }
 }

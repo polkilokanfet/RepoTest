@@ -4,6 +4,7 @@ using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -16,37 +17,37 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
         private string _passNew;
         private string _passAgain;
 
-        public ICommand OkCommand { get; set; }
+        public DelegateLogCommand OkCommand { get; set; }
 
         public string PassOld
         {
-            get { return _passOld; }
+            get => _passOld;
             set
             {
                 _passOld = value;
-                ((DelegateCommand)OkCommand).RaiseCanExecuteChanged();
+                (OkCommand).RaiseCanExecuteChanged();
                 OnPropertyChanged();
             }
         }
 
         public string PassNew
         {
-            get { return _passNew; }
+            get => _passNew;
             set
             {
                 _passNew = value;
-                ((DelegateCommand)OkCommand).RaiseCanExecuteChanged();
+                (OkCommand).RaiseCanExecuteChanged();
                 OnPropertyChanged();
             }
         }
 
         public string PassAgain
         {
-            get { return _passAgain; }
+            get => _passAgain;
             set
             {
                 _passAgain = value;
-                ((DelegateCommand)OkCommand).RaiseCanExecuteChanged();
+                (OkCommand).RaiseCanExecuteChanged();
                 OnPropertyChanged();
             }
         }
@@ -56,7 +57,7 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
             var unitOfWork = container.Resolve<IUnitOfWork>();
             var user = unitOfWork.Repository<User>().Find(x => x.IsAppCurrentUser()).First();
 
-            OkCommand = new DelegateCommand(
+            OkCommand = new DelegateLogCommand(
                 () =>
                 {
                     user.Password = StringToGuid.GetHashString(PassNew);
@@ -74,6 +75,5 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
                       StringToGuid.GetHashString(PassOld) == user.Password 
                       && PassNew == PassAgain);
         }
-
     }
 }

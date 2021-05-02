@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
@@ -8,9 +7,9 @@ using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
+using HVTApp.UI.Commands;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 
 namespace HVTApp.UI.Modules.Directum
 {
@@ -49,7 +48,7 @@ namespace HVTApp.UI.Modules.Directum
                 _finishPlan = value;
                 if(IsParallel)
                     DirectumTaskRoute.Items.ForEach(x => x.FinishPlan = value);
-                ((DelegateCommand)OkCommand).RaiseCanExecuteChanged();
+                (OkCommand).RaiseCanExecuteChanged();
                 OnPropertyChanged();
             }
         }
@@ -61,27 +60,27 @@ namespace HVTApp.UI.Modules.Directum
             {
                 _selectedDirectumTaskRouteItem = value;
                 OnPropertyChanged();
-                ((DelegateCommand)RemovePerformerCommand).RaiseCanExecuteChanged();
+                (RemovePerformerCommand).RaiseCanExecuteChanged();
             }
         }
 
-        public ICommand AddGroupPerformersCommand { get; }
-        public ICommand AddPerformerCommand { get; }
-        public ICommand RemovePerformerCommand { get; }
-        public ICommand OkCommand { get; }
+        public DelegateLogCommand AddGroupPerformersCommand { get; }
+        public DelegateLogCommand AddPerformerCommand { get; }
+        public DelegateLogCommand RemovePerformerCommand { get; }
+        public DelegateLogCommand OkCommand { get; }
 
         public DirectumTaskRouteViewModel(IUnityContainer container, DirectumTaskRouteWrapper route, bool allowEdit) : base(container)
         {
             DirectumTaskRoute = route;
             AllowEdit = allowEdit;
 
-            AddGroupPerformersCommand = new DelegateCommand(
+            AddGroupPerformersCommand = new DelegateLogCommand(
                 () =>
                 {
 
                 });
 
-            AddPerformerCommand = new DelegateCommand(
+            AddPerformerCommand = new DelegateLogCommand(
                 () =>
                 {
                     var users = UnitOfWork.Repository<User>().Find(user => user.Employee.Company.Id == GlobalAppProperties.Actual.OurCompany.Id);
@@ -105,20 +104,20 @@ namespace HVTApp.UI.Modules.Directum
                             DirectumTaskRoute.Items.Add(item);
                         }
 
-                        ((DelegateCommand)OkCommand).RaiseCanExecuteChanged();
+                        OkCommand.RaiseCanExecuteChanged();
                     }
                 });
 
-            RemovePerformerCommand = new DelegateCommand(
+            RemovePerformerCommand = new DelegateLogCommand(
                 () =>
                 {
                     DirectumTaskRoute.Items.Remove(SelectedDirectumTaskRouteItem);
                     SelectedDirectumTaskRouteItem = null;
-                    ((DelegateCommand)OkCommand).RaiseCanExecuteChanged();
+                    OkCommand.RaiseCanExecuteChanged();
                 },
                 () => SelectedDirectumTaskRouteItem != null);
 
-            OkCommand = new DelegateCommand(
+            OkCommand = new DelegateLogCommand(
                 () =>
                 {
                     if(DirectumTaskRoute.IsValid && DirectumTaskRoute.IsChanged)

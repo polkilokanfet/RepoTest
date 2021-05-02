@@ -1,15 +1,14 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Input;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 using Prism.Regions;
 
 namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
@@ -28,20 +27,20 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
             set
             {
                 _selectedItem = value;
-                ((DelegateCommand)EditCommand).RaiseCanExecuteChanged();
+                EditCommand.RaiseCanExecuteChanged();
             }
         }
 
         public bool CanEdit => GlobalAppProperties.User.RoleCurrent != Role.SalesManager && 
                                GlobalAppProperties.User.RoleCurrent != Role.Director;
 
-        public ICommand NewCommand { get; }
-        public ICommand EditCommand { get; }
+        public DelegateLogCommand NewCommand { get; }
+        public DelegateLogCommand EditCommand { get; }
 
         public PaymentsActualViewModel(IUnityContainer container) : base(container)
         {
-            NewCommand = new DelegateCommand(() => RequestNavigate(new PaymentDocument()));
-            EditCommand = new DelegateCommand(
+            NewCommand = new DelegateLogCommand(() => RequestNavigate(new PaymentDocument()));
+            EditCommand = new DelegateLogCommand(
                 () => RequestNavigate((SelectedItem as SalesUnitPayment).PaymentDocument),
                 () => SelectedItem is SalesUnitPayment);
         }

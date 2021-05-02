@@ -6,8 +6,8 @@ using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
+using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 
 namespace HVTApp.UI.Modules.PlanAndEconomy.Dates.ServiceRealizationDates
 {
@@ -18,11 +18,11 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates.ServiceRealizationDates
 
         public ObservableCollection<ServiceRealizationDatesGroup> Groups { get; } = new ObservableCollection<ServiceRealizationDatesGroup>();
 
-        public ICommand SaveCommand { get; }
+        public DelegateLogCommand SaveCommand { get; }
 
         public ServiceRealizationDatesViewModel(IUnityContainer container) : base(container)
         {
-            SaveCommand = new DelegateCommand(
+            SaveCommand = new DelegateLogCommand(
                 () =>
                 {
                     _items.PropertyChanged -= ItemsOnPropertyChanged;
@@ -32,7 +32,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates.ServiceRealizationDates
                     //сохраняем изменения
                     _unitOfWork.SaveChanges();
                     //проверяем актуальность команды
-                    ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
+                    SaveCommand.RaiseCanExecuteChanged();
 
                     _items.PropertyChanged += ItemsOnPropertyChanged;
                 }, 
@@ -83,7 +83,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates.ServiceRealizationDates
 
         private void ItemsOnPropertyChanged(object sender, PropertyChangedEventArgs args)
         {
-            ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
+            SaveCommand.RaiseCanExecuteChanged();
         }
     }
 }

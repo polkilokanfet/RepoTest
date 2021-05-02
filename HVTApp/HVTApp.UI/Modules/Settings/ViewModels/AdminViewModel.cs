@@ -3,26 +3,25 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Documents;
-using System.Windows.Input;
 using System.Xml.Serialization;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 using HVTApp.Model;
+using HVTApp.UI.Commands;
 
 namespace HVTApp.UI.Modules.Settings.ViewModels
 {
     public class AdminViewModel
     {
         private readonly IUnityContainer _container;
-        public ICommand Command { get; }
+        public DelegateLogCommand Command { get; }
 
         public AdminViewModel(IUnityContainer container)
         {
             _container = container;
-            Command = new DelegateCommand(
+            Command = new DelegateLogCommand(
                 () =>
                 {
                     var unitOfWork = _container.Resolve<IUnitOfWork>();

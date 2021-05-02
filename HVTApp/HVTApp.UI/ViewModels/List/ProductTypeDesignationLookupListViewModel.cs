@@ -1,6 +1,6 @@
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.UI.Commands;
 using HVTApp.UI.Modules.Products.Views;
-using Prism.Commands;
 using Prism.Regions;
 
 namespace HVTApp.UI.ViewModels
@@ -9,7 +9,7 @@ namespace HVTApp.UI.ViewModels
     {
         protected override void InitSpecialCommands()
         {
-            NewItemCommand = new DelegateCommand(() =>
+            NewItemCommand = new DelegateLogCommand(() =>
             {
                 RegionManager.RequestNavigateContentRegion<ProductTypeDesignationView>(new NavigationParameters());
             });

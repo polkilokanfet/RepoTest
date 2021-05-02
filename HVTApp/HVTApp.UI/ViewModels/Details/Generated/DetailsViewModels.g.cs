@@ -3,18 +3,18 @@ using HVTApp.Model.Wrapper;
 using HVTApp.Model.Events;
 using Microsoft.Practices.Unity;
 using System.Windows.Input;
-using Prism.Commands;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
+using HVTApp.UI.Commands;
 
 namespace HVTApp.UI.ViewModels
 {
     public partial class CountryUnionDetailsViewModel : BaseDetailsViewModel<CountryUnionWrapper, CountryUnion, AfterSaveCountryUnionEvent>
     {
 		private Func<List<Country>> _getEntitiesForAddInCountriesCommand;
-		public ICommand AddInCountriesCommand { get; }
-		public ICommand RemoveFromCountriesCommand { get; }
+		public DelegateLogCommand AddInCountriesCommand { get; }
+		public DelegateLogCommand RemoveFromCountriesCommand { get; }
 		private CountryWrapper _selectedCountriesItem;
 		public CountryWrapper SelectedCountriesItem 
 		{ 
@@ -24,7 +24,7 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedCountriesItem, value)) return;
 				_selectedCountriesItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromCountriesCommand).RaiseCanExecuteChanged();
+				RemoveFromCountriesCommand.RaiseCanExecuteChanged();
 			}
 		}
 
@@ -32,8 +32,8 @@ namespace HVTApp.UI.ViewModels
 		{
 			
 			if (_getEntitiesForAddInCountriesCommand == null) _getEntitiesForAddInCountriesCommand = () => { return UnitOfWork.Repository<Country>().GetAll(); };;
-			if (AddInCountriesCommand == null) AddInCountriesCommand = new DelegateCommand(AddInCountriesCommand_Execute_Default);
-			if (RemoveFromCountriesCommand == null) RemoveFromCountriesCommand = new DelegateCommand(RemoveFromCountriesCommand_Execute_Default, RemoveFromCountriesCommand_CanExecute_Default);
+			if (AddInCountriesCommand == null) AddInCountriesCommand = new DelegateLogCommand(AddInCountriesCommand_Execute_Default);
+			if (RemoveFromCountriesCommand == null) RemoveFromCountriesCommand = new DelegateLogCommand(RemoveFromCountriesCommand_Execute_Default, RemoveFromCountriesCommand_CanExecute_Default);
 
 		}
 
@@ -59,15 +59,15 @@ namespace HVTApp.UI.ViewModels
     {
 		//private Func<Task<List<BankGuaranteeType>>> _getEntitiesForSelectBankGuaranteeTypeCommand;
 		private Func<List<BankGuaranteeType>> _getEntitiesForSelectBankGuaranteeTypeCommand;
-		public ICommand SelectBankGuaranteeTypeCommand { get; private set; }
-		public ICommand ClearBankGuaranteeTypeCommand { get; private set; }
+		public DelegateLogCommand SelectBankGuaranteeTypeCommand { get; private set; }
+		public DelegateLogCommand ClearBankGuaranteeTypeCommand { get; private set; }
 
         public BankGuaranteeDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
 			if (_getEntitiesForSelectBankGuaranteeTypeCommand == null) _getEntitiesForSelectBankGuaranteeTypeCommand = () => { return UnitOfWork.Repository<BankGuaranteeType>().GetAll(); };
-			if (SelectBankGuaranteeTypeCommand == null) SelectBankGuaranteeTypeCommand = new DelegateCommand(SelectBankGuaranteeTypeCommand_Execute_Default);
-			if (ClearBankGuaranteeTypeCommand == null) ClearBankGuaranteeTypeCommand = new DelegateCommand(ClearBankGuaranteeTypeCommand_Execute_Default);
+			if (SelectBankGuaranteeTypeCommand == null) SelectBankGuaranteeTypeCommand = new DelegateLogCommand(SelectBankGuaranteeTypeCommand_Execute_Default);
+			if (ClearBankGuaranteeTypeCommand == null) ClearBankGuaranteeTypeCommand = new DelegateLogCommand(ClearBankGuaranteeTypeCommand_Execute_Default);
 
 		}
 
@@ -96,8 +96,8 @@ namespace HVTApp.UI.ViewModels
     public partial class BudgetDetailsViewModel : BaseDetailsViewModel<BudgetWrapper, Budget, AfterSaveBudgetEvent>
     {
 		private Func<List<BudgetUnit>> _getEntitiesForAddInUnitsCommand;
-		public ICommand AddInUnitsCommand { get; }
-		public ICommand RemoveFromUnitsCommand { get; }
+		public DelegateLogCommand AddInUnitsCommand { get; }
+		public DelegateLogCommand RemoveFromUnitsCommand { get; }
 		private BudgetUnitWrapper _selectedUnitsItem;
 		public BudgetUnitWrapper SelectedUnitsItem 
 		{ 
@@ -107,7 +107,7 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedUnitsItem, value)) return;
 				_selectedUnitsItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromUnitsCommand).RaiseCanExecuteChanged();
+				RemoveFromUnitsCommand.RaiseCanExecuteChanged();
 			}
 		}
 
@@ -115,8 +115,8 @@ namespace HVTApp.UI.ViewModels
 		{
 			
 			if (_getEntitiesForAddInUnitsCommand == null) _getEntitiesForAddInUnitsCommand = () => { return UnitOfWork.Repository<BudgetUnit>().GetAll(); };;
-			if (AddInUnitsCommand == null) AddInUnitsCommand = new DelegateCommand(AddInUnitsCommand_Execute_Default);
-			if (RemoveFromUnitsCommand == null) RemoveFromUnitsCommand = new DelegateCommand(RemoveFromUnitsCommand_Execute_Default, RemoveFromUnitsCommand_CanExecute_Default);
+			if (AddInUnitsCommand == null) AddInUnitsCommand = new DelegateLogCommand(AddInUnitsCommand_Execute_Default);
+			if (RemoveFromUnitsCommand == null) RemoveFromUnitsCommand = new DelegateLogCommand(RemoveFromUnitsCommand_Execute_Default, RemoveFromUnitsCommand_CanExecute_Default);
 
 		}
 
@@ -142,35 +142,35 @@ namespace HVTApp.UI.ViewModels
     {
 		//private Func<Task<List<SalesUnit>>> _getEntitiesForSelectSalesUnitCommand;
 		private Func<List<SalesUnit>> _getEntitiesForSelectSalesUnitCommand;
-		public ICommand SelectSalesUnitCommand { get; private set; }
-		public ICommand ClearSalesUnitCommand { get; private set; }
+		public DelegateLogCommand SelectSalesUnitCommand { get; private set; }
+		public DelegateLogCommand ClearSalesUnitCommand { get; private set; }
 
 		//private Func<Task<List<PaymentConditionSet>>> _getEntitiesForSelectPaymentConditionSetCommand;
 		private Func<List<PaymentConditionSet>> _getEntitiesForSelectPaymentConditionSetCommand;
-		public ICommand SelectPaymentConditionSetCommand { get; private set; }
-		public ICommand ClearPaymentConditionSetCommand { get; private set; }
+		public DelegateLogCommand SelectPaymentConditionSetCommand { get; private set; }
+		public DelegateLogCommand ClearPaymentConditionSetCommand { get; private set; }
 
 		//private Func<Task<List<PaymentConditionSet>>> _getEntitiesForSelectPaymentConditionSetByManagerCommand;
 		private Func<List<PaymentConditionSet>> _getEntitiesForSelectPaymentConditionSetByManagerCommand;
-		public ICommand SelectPaymentConditionSetByManagerCommand { get; private set; }
-		public ICommand ClearPaymentConditionSetByManagerCommand { get; private set; }
+		public DelegateLogCommand SelectPaymentConditionSetByManagerCommand { get; private set; }
+		public DelegateLogCommand ClearPaymentConditionSetByManagerCommand { get; private set; }
 
         public BudgetUnitDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
 			if (_getEntitiesForSelectSalesUnitCommand == null) _getEntitiesForSelectSalesUnitCommand = () => { return UnitOfWork.Repository<SalesUnit>().GetAll(); };
-			if (SelectSalesUnitCommand == null) SelectSalesUnitCommand = new DelegateCommand(SelectSalesUnitCommand_Execute_Default);
-			if (ClearSalesUnitCommand == null) ClearSalesUnitCommand = new DelegateCommand(ClearSalesUnitCommand_Execute_Default);
+			if (SelectSalesUnitCommand == null) SelectSalesUnitCommand = new DelegateLogCommand(SelectSalesUnitCommand_Execute_Default);
+			if (ClearSalesUnitCommand == null) ClearSalesUnitCommand = new DelegateLogCommand(ClearSalesUnitCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectPaymentConditionSetCommand == null) _getEntitiesForSelectPaymentConditionSetCommand = () => { return UnitOfWork.Repository<PaymentConditionSet>().GetAll(); };
-			if (SelectPaymentConditionSetCommand == null) SelectPaymentConditionSetCommand = new DelegateCommand(SelectPaymentConditionSetCommand_Execute_Default);
-			if (ClearPaymentConditionSetCommand == null) ClearPaymentConditionSetCommand = new DelegateCommand(ClearPaymentConditionSetCommand_Execute_Default);
+			if (SelectPaymentConditionSetCommand == null) SelectPaymentConditionSetCommand = new DelegateLogCommand(SelectPaymentConditionSetCommand_Execute_Default);
+			if (ClearPaymentConditionSetCommand == null) ClearPaymentConditionSetCommand = new DelegateLogCommand(ClearPaymentConditionSetCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectPaymentConditionSetByManagerCommand == null) _getEntitiesForSelectPaymentConditionSetByManagerCommand = () => { return UnitOfWork.Repository<PaymentConditionSet>().GetAll(); };
-			if (SelectPaymentConditionSetByManagerCommand == null) SelectPaymentConditionSetByManagerCommand = new DelegateCommand(SelectPaymentConditionSetByManagerCommand_Execute_Default);
-			if (ClearPaymentConditionSetByManagerCommand == null) ClearPaymentConditionSetByManagerCommand = new DelegateCommand(ClearPaymentConditionSetByManagerCommand_Execute_Default);
+			if (SelectPaymentConditionSetByManagerCommand == null) SelectPaymentConditionSetByManagerCommand = new DelegateLogCommand(SelectPaymentConditionSetByManagerCommand_Execute_Default);
+			if (ClearPaymentConditionSetByManagerCommand == null) ClearPaymentConditionSetByManagerCommand = new DelegateLogCommand(ClearPaymentConditionSetByManagerCommand_Execute_Default);
 
 		}
 
@@ -210,8 +210,8 @@ namespace HVTApp.UI.ViewModels
     public partial class ConstructorParametersListDetailsViewModel : BaseDetailsViewModel<ConstructorParametersListWrapper, ConstructorParametersList, AfterSaveConstructorParametersListEvent>
     {
 		private Func<List<Parameter>> _getEntitiesForAddInParametersCommand;
-		public ICommand AddInParametersCommand { get; }
-		public ICommand RemoveFromParametersCommand { get; }
+		public DelegateLogCommand AddInParametersCommand { get; }
+		public DelegateLogCommand RemoveFromParametersCommand { get; }
 		private ParameterWrapper _selectedParametersItem;
 		public ParameterWrapper SelectedParametersItem 
 		{ 
@@ -221,7 +221,7 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedParametersItem, value)) return;
 				_selectedParametersItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromParametersCommand).RaiseCanExecuteChanged();
+				RemoveFromParametersCommand.RaiseCanExecuteChanged();
 			}
 		}
 
@@ -229,8 +229,8 @@ namespace HVTApp.UI.ViewModels
 		{
 			
 			if (_getEntitiesForAddInParametersCommand == null) _getEntitiesForAddInParametersCommand = () => { return UnitOfWork.Repository<Parameter>().GetAll(); };;
-			if (AddInParametersCommand == null) AddInParametersCommand = new DelegateCommand(AddInParametersCommand_Execute_Default);
-			if (RemoveFromParametersCommand == null) RemoveFromParametersCommand = new DelegateCommand(RemoveFromParametersCommand_Execute_Default, RemoveFromParametersCommand_CanExecute_Default);
+			if (AddInParametersCommand == null) AddInParametersCommand = new DelegateLogCommand(AddInParametersCommand_Execute_Default);
+			if (RemoveFromParametersCommand == null) RemoveFromParametersCommand = new DelegateLogCommand(RemoveFromParametersCommand_Execute_Default, RemoveFromParametersCommand_CanExecute_Default);
 
 		}
 
@@ -255,8 +255,8 @@ namespace HVTApp.UI.ViewModels
     public partial class ConstructorsParametersDetailsViewModel : BaseDetailsViewModel<ConstructorsParametersWrapper, ConstructorsParameters, AfterSaveConstructorsParametersEvent>
     {
 		private Func<List<User>> _getEntitiesForAddInConstructorsCommand;
-		public ICommand AddInConstructorsCommand { get; }
-		public ICommand RemoveFromConstructorsCommand { get; }
+		public DelegateLogCommand AddInConstructorsCommand { get; }
+		public DelegateLogCommand RemoveFromConstructorsCommand { get; }
 		private UserWrapper _selectedConstructorsItem;
 		public UserWrapper SelectedConstructorsItem 
 		{ 
@@ -266,13 +266,13 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedConstructorsItem, value)) return;
 				_selectedConstructorsItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromConstructorsCommand).RaiseCanExecuteChanged();
+				RemoveFromConstructorsCommand.RaiseCanExecuteChanged();
 			}
 		}
 
 		private Func<List<ConstructorParametersList>> _getEntitiesForAddInPatametersListsCommand;
-		public ICommand AddInPatametersListsCommand { get; }
-		public ICommand RemoveFromPatametersListsCommand { get; }
+		public DelegateLogCommand AddInPatametersListsCommand { get; }
+		public DelegateLogCommand RemoveFromPatametersListsCommand { get; }
 		private ConstructorParametersListWrapper _selectedPatametersListsItem;
 		public ConstructorParametersListWrapper SelectedPatametersListsItem 
 		{ 
@@ -282,7 +282,7 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedPatametersListsItem, value)) return;
 				_selectedPatametersListsItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromPatametersListsCommand).RaiseCanExecuteChanged();
+				RemoveFromPatametersListsCommand.RaiseCanExecuteChanged();
 			}
 		}
 
@@ -290,13 +290,13 @@ namespace HVTApp.UI.ViewModels
 		{
 			
 			if (_getEntitiesForAddInConstructorsCommand == null) _getEntitiesForAddInConstructorsCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };;
-			if (AddInConstructorsCommand == null) AddInConstructorsCommand = new DelegateCommand(AddInConstructorsCommand_Execute_Default);
-			if (RemoveFromConstructorsCommand == null) RemoveFromConstructorsCommand = new DelegateCommand(RemoveFromConstructorsCommand_Execute_Default, RemoveFromConstructorsCommand_CanExecute_Default);
+			if (AddInConstructorsCommand == null) AddInConstructorsCommand = new DelegateLogCommand(AddInConstructorsCommand_Execute_Default);
+			if (RemoveFromConstructorsCommand == null) RemoveFromConstructorsCommand = new DelegateLogCommand(RemoveFromConstructorsCommand_Execute_Default, RemoveFromConstructorsCommand_CanExecute_Default);
 
 			
 			if (_getEntitiesForAddInPatametersListsCommand == null) _getEntitiesForAddInPatametersListsCommand = () => { return UnitOfWork.Repository<ConstructorParametersList>().GetAll(); };;
-			if (AddInPatametersListsCommand == null) AddInPatametersListsCommand = new DelegateCommand(AddInPatametersListsCommand_Execute_Default);
-			if (RemoveFromPatametersListsCommand == null) RemoveFromPatametersListsCommand = new DelegateCommand(RemoveFromPatametersListsCommand_Execute_Default, RemoveFromPatametersListsCommand_CanExecute_Default);
+			if (AddInPatametersListsCommand == null) AddInPatametersListsCommand = new DelegateLogCommand(AddInPatametersListsCommand_Execute_Default);
+			if (RemoveFromPatametersListsCommand == null) RemoveFromPatametersListsCommand = new DelegateLogCommand(RemoveFromPatametersListsCommand_Execute_Default, RemoveFromPatametersListsCommand_CanExecute_Default);
 
 		}
 
@@ -337,15 +337,15 @@ namespace HVTApp.UI.ViewModels
     {
 		//private Func<Task<List<Product>>> _getEntitiesForSelectProductCommand;
 		private Func<List<Product>> _getEntitiesForSelectProductCommand;
-		public ICommand SelectProductCommand { get; private set; }
-		public ICommand ClearProductCommand { get; private set; }
+		public DelegateLogCommand SelectProductCommand { get; private set; }
+		public DelegateLogCommand ClearProductCommand { get; private set; }
 
         public CreateNewProductTaskDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
 			if (_getEntitiesForSelectProductCommand == null) _getEntitiesForSelectProductCommand = () => { return UnitOfWork.Repository<Product>().GetAll(); };
-			if (SelectProductCommand == null) SelectProductCommand = new DelegateCommand(SelectProductCommand_Execute_Default);
-			if (ClearProductCommand == null) ClearProductCommand = new DelegateCommand(ClearProductCommand_Execute_Default);
+			if (SelectProductCommand == null) SelectProductCommand = new DelegateLogCommand(SelectProductCommand_Execute_Default);
+			if (ClearProductCommand == null) ClearProductCommand = new DelegateLogCommand(ClearProductCommand_Execute_Default);
 
 		}
 
@@ -366,27 +366,27 @@ namespace HVTApp.UI.ViewModels
     {
 		//private Func<Task<List<DirectumTaskGroup>>> _getEntitiesForSelectGroupCommand;
 		private Func<List<DirectumTaskGroup>> _getEntitiesForSelectGroupCommand;
-		public ICommand SelectGroupCommand { get; private set; }
-		public ICommand ClearGroupCommand { get; private set; }
+		public DelegateLogCommand SelectGroupCommand { get; private set; }
+		public DelegateLogCommand ClearGroupCommand { get; private set; }
 
 		//private Func<Task<List<User>>> _getEntitiesForSelectPerformerCommand;
 		private Func<List<User>> _getEntitiesForSelectPerformerCommand;
-		public ICommand SelectPerformerCommand { get; private set; }
-		public ICommand ClearPerformerCommand { get; private set; }
+		public DelegateLogCommand SelectPerformerCommand { get; private set; }
+		public DelegateLogCommand ClearPerformerCommand { get; private set; }
 
 		//private Func<Task<List<DirectumTask>>> _getEntitiesForSelectParentTaskCommand;
 		private Func<List<DirectumTask>> _getEntitiesForSelectParentTaskCommand;
-		public ICommand SelectParentTaskCommand { get; private set; }
-		public ICommand ClearParentTaskCommand { get; private set; }
+		public DelegateLogCommand SelectParentTaskCommand { get; private set; }
+		public DelegateLogCommand ClearParentTaskCommand { get; private set; }
 
 		//private Func<Task<List<DirectumTask>>> _getEntitiesForSelectPreviousTaskCommand;
 		private Func<List<DirectumTask>> _getEntitiesForSelectPreviousTaskCommand;
-		public ICommand SelectPreviousTaskCommand { get; private set; }
-		public ICommand ClearPreviousTaskCommand { get; private set; }
+		public DelegateLogCommand SelectPreviousTaskCommand { get; private set; }
+		public DelegateLogCommand ClearPreviousTaskCommand { get; private set; }
 
 		private Func<List<DirectumTaskMessage>> _getEntitiesForAddInMessagesCommand;
-		public ICommand AddInMessagesCommand { get; }
-		public ICommand RemoveFromMessagesCommand { get; }
+		public DelegateLogCommand AddInMessagesCommand { get; }
+		public DelegateLogCommand RemoveFromMessagesCommand { get; }
 		private DirectumTaskMessageWrapper _selectedMessagesItem;
 		public DirectumTaskMessageWrapper SelectedMessagesItem 
 		{ 
@@ -396,13 +396,13 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedMessagesItem, value)) return;
 				_selectedMessagesItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromMessagesCommand).RaiseCanExecuteChanged();
+				RemoveFromMessagesCommand.RaiseCanExecuteChanged();
 			}
 		}
 
 		private Func<List<DirectumTask>> _getEntitiesForAddInChildsCommand;
-		public ICommand AddInChildsCommand { get; }
-		public ICommand RemoveFromChildsCommand { get; }
+		public DelegateLogCommand AddInChildsCommand { get; }
+		public DelegateLogCommand RemoveFromChildsCommand { get; }
 		private DirectumTaskWrapper _selectedChildsItem;
 		public DirectumTaskWrapper SelectedChildsItem 
 		{ 
@@ -412,13 +412,13 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedChildsItem, value)) return;
 				_selectedChildsItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromChildsCommand).RaiseCanExecuteChanged();
+				RemoveFromChildsCommand.RaiseCanExecuteChanged();
 			}
 		}
 
 		private Func<List<DirectumTask>> _getEntitiesForAddInParallelCommand;
-		public ICommand AddInParallelCommand { get; }
-		public ICommand RemoveFromParallelCommand { get; }
+		public DelegateLogCommand AddInParallelCommand { get; }
+		public DelegateLogCommand RemoveFromParallelCommand { get; }
 		private DirectumTaskWrapper _selectedParallelItem;
 		public DirectumTaskWrapper SelectedParallelItem 
 		{ 
@@ -428,13 +428,13 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedParallelItem, value)) return;
 				_selectedParallelItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromParallelCommand).RaiseCanExecuteChanged();
+				RemoveFromParallelCommand.RaiseCanExecuteChanged();
 			}
 		}
 
 		private Func<List<DirectumTask>> _getEntitiesForAddInNextCommand;
-		public ICommand AddInNextCommand { get; }
-		public ICommand RemoveFromNextCommand { get; }
+		public DelegateLogCommand AddInNextCommand { get; }
+		public DelegateLogCommand RemoveFromNextCommand { get; }
 		private DirectumTaskWrapper _selectedNextItem;
 		public DirectumTaskWrapper SelectedNextItem 
 		{ 
@@ -444,7 +444,7 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedNextItem, value)) return;
 				_selectedNextItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromNextCommand).RaiseCanExecuteChanged();
+				RemoveFromNextCommand.RaiseCanExecuteChanged();
 			}
 		}
 
@@ -452,43 +452,43 @@ namespace HVTApp.UI.ViewModels
 		{
 			
 			if (_getEntitiesForSelectGroupCommand == null) _getEntitiesForSelectGroupCommand = () => { return UnitOfWork.Repository<DirectumTaskGroup>().GetAll(); };
-			if (SelectGroupCommand == null) SelectGroupCommand = new DelegateCommand(SelectGroupCommand_Execute_Default);
-			if (ClearGroupCommand == null) ClearGroupCommand = new DelegateCommand(ClearGroupCommand_Execute_Default);
+			if (SelectGroupCommand == null) SelectGroupCommand = new DelegateLogCommand(SelectGroupCommand_Execute_Default);
+			if (ClearGroupCommand == null) ClearGroupCommand = new DelegateLogCommand(ClearGroupCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectPerformerCommand == null) _getEntitiesForSelectPerformerCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };
-			if (SelectPerformerCommand == null) SelectPerformerCommand = new DelegateCommand(SelectPerformerCommand_Execute_Default);
-			if (ClearPerformerCommand == null) ClearPerformerCommand = new DelegateCommand(ClearPerformerCommand_Execute_Default);
+			if (SelectPerformerCommand == null) SelectPerformerCommand = new DelegateLogCommand(SelectPerformerCommand_Execute_Default);
+			if (ClearPerformerCommand == null) ClearPerformerCommand = new DelegateLogCommand(ClearPerformerCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectParentTaskCommand == null) _getEntitiesForSelectParentTaskCommand = () => { return UnitOfWork.Repository<DirectumTask>().GetAll(); };
-			if (SelectParentTaskCommand == null) SelectParentTaskCommand = new DelegateCommand(SelectParentTaskCommand_Execute_Default);
-			if (ClearParentTaskCommand == null) ClearParentTaskCommand = new DelegateCommand(ClearParentTaskCommand_Execute_Default);
+			if (SelectParentTaskCommand == null) SelectParentTaskCommand = new DelegateLogCommand(SelectParentTaskCommand_Execute_Default);
+			if (ClearParentTaskCommand == null) ClearParentTaskCommand = new DelegateLogCommand(ClearParentTaskCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectPreviousTaskCommand == null) _getEntitiesForSelectPreviousTaskCommand = () => { return UnitOfWork.Repository<DirectumTask>().GetAll(); };
-			if (SelectPreviousTaskCommand == null) SelectPreviousTaskCommand = new DelegateCommand(SelectPreviousTaskCommand_Execute_Default);
-			if (ClearPreviousTaskCommand == null) ClearPreviousTaskCommand = new DelegateCommand(ClearPreviousTaskCommand_Execute_Default);
+			if (SelectPreviousTaskCommand == null) SelectPreviousTaskCommand = new DelegateLogCommand(SelectPreviousTaskCommand_Execute_Default);
+			if (ClearPreviousTaskCommand == null) ClearPreviousTaskCommand = new DelegateLogCommand(ClearPreviousTaskCommand_Execute_Default);
 
 			
 			if (_getEntitiesForAddInMessagesCommand == null) _getEntitiesForAddInMessagesCommand = () => { return UnitOfWork.Repository<DirectumTaskMessage>().GetAll(); };;
-			if (AddInMessagesCommand == null) AddInMessagesCommand = new DelegateCommand(AddInMessagesCommand_Execute_Default);
-			if (RemoveFromMessagesCommand == null) RemoveFromMessagesCommand = new DelegateCommand(RemoveFromMessagesCommand_Execute_Default, RemoveFromMessagesCommand_CanExecute_Default);
+			if (AddInMessagesCommand == null) AddInMessagesCommand = new DelegateLogCommand(AddInMessagesCommand_Execute_Default);
+			if (RemoveFromMessagesCommand == null) RemoveFromMessagesCommand = new DelegateLogCommand(RemoveFromMessagesCommand_Execute_Default, RemoveFromMessagesCommand_CanExecute_Default);
 
 			
 			if (_getEntitiesForAddInChildsCommand == null) _getEntitiesForAddInChildsCommand = () => { return UnitOfWork.Repository<DirectumTask>().GetAll(); };;
-			if (AddInChildsCommand == null) AddInChildsCommand = new DelegateCommand(AddInChildsCommand_Execute_Default);
-			if (RemoveFromChildsCommand == null) RemoveFromChildsCommand = new DelegateCommand(RemoveFromChildsCommand_Execute_Default, RemoveFromChildsCommand_CanExecute_Default);
+			if (AddInChildsCommand == null) AddInChildsCommand = new DelegateLogCommand(AddInChildsCommand_Execute_Default);
+			if (RemoveFromChildsCommand == null) RemoveFromChildsCommand = new DelegateLogCommand(RemoveFromChildsCommand_Execute_Default, RemoveFromChildsCommand_CanExecute_Default);
 
 			
 			if (_getEntitiesForAddInParallelCommand == null) _getEntitiesForAddInParallelCommand = () => { return UnitOfWork.Repository<DirectumTask>().GetAll(); };;
-			if (AddInParallelCommand == null) AddInParallelCommand = new DelegateCommand(AddInParallelCommand_Execute_Default);
-			if (RemoveFromParallelCommand == null) RemoveFromParallelCommand = new DelegateCommand(RemoveFromParallelCommand_Execute_Default, RemoveFromParallelCommand_CanExecute_Default);
+			if (AddInParallelCommand == null) AddInParallelCommand = new DelegateLogCommand(AddInParallelCommand_Execute_Default);
+			if (RemoveFromParallelCommand == null) RemoveFromParallelCommand = new DelegateLogCommand(RemoveFromParallelCommand_Execute_Default, RemoveFromParallelCommand_CanExecute_Default);
 
 			
 			if (_getEntitiesForAddInNextCommand == null) _getEntitiesForAddInNextCommand = () => { return UnitOfWork.Repository<DirectumTask>().GetAll(); };;
-			if (AddInNextCommand == null) AddInNextCommand = new DelegateCommand(AddInNextCommand_Execute_Default);
-			if (RemoveFromNextCommand == null) RemoveFromNextCommand = new DelegateCommand(RemoveFromNextCommand_Execute_Default, RemoveFromNextCommand_CanExecute_Default);
+			if (AddInNextCommand == null) AddInNextCommand = new DelegateLogCommand(AddInNextCommand_Execute_Default);
+			if (RemoveFromNextCommand == null) RemoveFromNextCommand = new DelegateLogCommand(RemoveFromNextCommand_Execute_Default, RemoveFromNextCommand_CanExecute_Default);
 
 		}
 
@@ -599,12 +599,12 @@ namespace HVTApp.UI.ViewModels
     {
 		//private Func<Task<List<User>>> _getEntitiesForSelectAuthorCommand;
 		private Func<List<User>> _getEntitiesForSelectAuthorCommand;
-		public ICommand SelectAuthorCommand { get; private set; }
-		public ICommand ClearAuthorCommand { get; private set; }
+		public DelegateLogCommand SelectAuthorCommand { get; private set; }
+		public DelegateLogCommand ClearAuthorCommand { get; private set; }
 
 		private Func<List<User>> _getEntitiesForAddInObserversCommand;
-		public ICommand AddInObserversCommand { get; }
-		public ICommand RemoveFromObserversCommand { get; }
+		public DelegateLogCommand AddInObserversCommand { get; }
+		public DelegateLogCommand RemoveFromObserversCommand { get; }
 		private UserWrapper _selectedObserversItem;
 		public UserWrapper SelectedObserversItem 
 		{ 
@@ -614,13 +614,13 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedObserversItem, value)) return;
 				_selectedObserversItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromObserversCommand).RaiseCanExecuteChanged();
+				RemoveFromObserversCommand.RaiseCanExecuteChanged();
 			}
 		}
 
 		private Func<List<DirectumTaskGroupFile>> _getEntitiesForAddInFilesCommand;
-		public ICommand AddInFilesCommand { get; }
-		public ICommand RemoveFromFilesCommand { get; }
+		public DelegateLogCommand AddInFilesCommand { get; }
+		public DelegateLogCommand RemoveFromFilesCommand { get; }
 		private DirectumTaskGroupFileWrapper _selectedFilesItem;
 		public DirectumTaskGroupFileWrapper SelectedFilesItem 
 		{ 
@@ -630,7 +630,7 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedFilesItem, value)) return;
 				_selectedFilesItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromFilesCommand).RaiseCanExecuteChanged();
+				RemoveFromFilesCommand.RaiseCanExecuteChanged();
 			}
 		}
 
@@ -638,18 +638,18 @@ namespace HVTApp.UI.ViewModels
 		{
 			
 			if (_getEntitiesForSelectAuthorCommand == null) _getEntitiesForSelectAuthorCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };
-			if (SelectAuthorCommand == null) SelectAuthorCommand = new DelegateCommand(SelectAuthorCommand_Execute_Default);
-			if (ClearAuthorCommand == null) ClearAuthorCommand = new DelegateCommand(ClearAuthorCommand_Execute_Default);
+			if (SelectAuthorCommand == null) SelectAuthorCommand = new DelegateLogCommand(SelectAuthorCommand_Execute_Default);
+			if (ClearAuthorCommand == null) ClearAuthorCommand = new DelegateLogCommand(ClearAuthorCommand_Execute_Default);
 
 			
 			if (_getEntitiesForAddInObserversCommand == null) _getEntitiesForAddInObserversCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };;
-			if (AddInObserversCommand == null) AddInObserversCommand = new DelegateCommand(AddInObserversCommand_Execute_Default);
-			if (RemoveFromObserversCommand == null) RemoveFromObserversCommand = new DelegateCommand(RemoveFromObserversCommand_Execute_Default, RemoveFromObserversCommand_CanExecute_Default);
+			if (AddInObserversCommand == null) AddInObserversCommand = new DelegateLogCommand(AddInObserversCommand_Execute_Default);
+			if (RemoveFromObserversCommand == null) RemoveFromObserversCommand = new DelegateLogCommand(RemoveFromObserversCommand_Execute_Default, RemoveFromObserversCommand_CanExecute_Default);
 
 			
 			if (_getEntitiesForAddInFilesCommand == null) _getEntitiesForAddInFilesCommand = () => { return UnitOfWork.Repository<DirectumTaskGroupFile>().GetAll(); };;
-			if (AddInFilesCommand == null) AddInFilesCommand = new DelegateCommand(AddInFilesCommand_Execute_Default);
-			if (RemoveFromFilesCommand == null) RemoveFromFilesCommand = new DelegateCommand(RemoveFromFilesCommand_Execute_Default, RemoveFromFilesCommand_CanExecute_Default);
+			if (AddInFilesCommand == null) AddInFilesCommand = new DelegateLogCommand(AddInFilesCommand_Execute_Default);
+			if (RemoveFromFilesCommand == null) RemoveFromFilesCommand = new DelegateLogCommand(RemoveFromFilesCommand_Execute_Default, RemoveFromFilesCommand_CanExecute_Default);
 
 		}
 
@@ -700,15 +700,15 @@ namespace HVTApp.UI.ViewModels
     {
 		//private Func<Task<List<User>>> _getEntitiesForSelectAuthorCommand;
 		private Func<List<User>> _getEntitiesForSelectAuthorCommand;
-		public ICommand SelectAuthorCommand { get; private set; }
-		public ICommand ClearAuthorCommand { get; private set; }
+		public DelegateLogCommand SelectAuthorCommand { get; private set; }
+		public DelegateLogCommand ClearAuthorCommand { get; private set; }
 
         public DirectumTaskGroupFileDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
 			if (_getEntitiesForSelectAuthorCommand == null) _getEntitiesForSelectAuthorCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };
-			if (SelectAuthorCommand == null) SelectAuthorCommand = new DelegateCommand(SelectAuthorCommand_Execute_Default);
-			if (ClearAuthorCommand == null) ClearAuthorCommand = new DelegateCommand(ClearAuthorCommand_Execute_Default);
+			if (SelectAuthorCommand == null) SelectAuthorCommand = new DelegateLogCommand(SelectAuthorCommand_Execute_Default);
+			if (ClearAuthorCommand == null) ClearAuthorCommand = new DelegateLogCommand(ClearAuthorCommand_Execute_Default);
 
 		}
 
@@ -729,15 +729,15 @@ namespace HVTApp.UI.ViewModels
     {
 		//private Func<Task<List<User>>> _getEntitiesForSelectAuthorCommand;
 		private Func<List<User>> _getEntitiesForSelectAuthorCommand;
-		public ICommand SelectAuthorCommand { get; private set; }
-		public ICommand ClearAuthorCommand { get; private set; }
+		public DelegateLogCommand SelectAuthorCommand { get; private set; }
+		public DelegateLogCommand ClearAuthorCommand { get; private set; }
 
         public DirectumTaskMessageDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
 			if (_getEntitiesForSelectAuthorCommand == null) _getEntitiesForSelectAuthorCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };
-			if (SelectAuthorCommand == null) SelectAuthorCommand = new DelegateCommand(SelectAuthorCommand_Execute_Default);
-			if (ClearAuthorCommand == null) ClearAuthorCommand = new DelegateCommand(ClearAuthorCommand_Execute_Default);
+			if (SelectAuthorCommand == null) SelectAuthorCommand = new DelegateLogCommand(SelectAuthorCommand_Execute_Default);
+			if (ClearAuthorCommand == null) ClearAuthorCommand = new DelegateLogCommand(ClearAuthorCommand_Execute_Default);
 
 		}
 
@@ -767,12 +767,12 @@ namespace HVTApp.UI.ViewModels
     {
 		//private Func<Task<List<Document>>> _getEntitiesForSelectDocumentCommand;
 		private Func<List<Document>> _getEntitiesForSelectDocumentCommand;
-		public ICommand SelectDocumentCommand { get; private set; }
-		public ICommand ClearDocumentCommand { get; private set; }
+		public DelegateLogCommand SelectDocumentCommand { get; private set; }
+		public DelegateLogCommand ClearDocumentCommand { get; private set; }
 
 		private Func<List<Employee>> _getEntitiesForAddInPerformersCommand;
-		public ICommand AddInPerformersCommand { get; }
-		public ICommand RemoveFromPerformersCommand { get; }
+		public DelegateLogCommand AddInPerformersCommand { get; }
+		public DelegateLogCommand RemoveFromPerformersCommand { get; }
 		private EmployeeWrapper _selectedPerformersItem;
 		public EmployeeWrapper SelectedPerformersItem 
 		{ 
@@ -782,7 +782,7 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedPerformersItem, value)) return;
 				_selectedPerformersItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromPerformersCommand).RaiseCanExecuteChanged();
+				RemoveFromPerformersCommand.RaiseCanExecuteChanged();
 			}
 		}
 
@@ -790,13 +790,13 @@ namespace HVTApp.UI.ViewModels
 		{
 			
 			if (_getEntitiesForSelectDocumentCommand == null) _getEntitiesForSelectDocumentCommand = () => { return UnitOfWork.Repository<Document>().GetAll(); };
-			if (SelectDocumentCommand == null) SelectDocumentCommand = new DelegateCommand(SelectDocumentCommand_Execute_Default);
-			if (ClearDocumentCommand == null) ClearDocumentCommand = new DelegateCommand(ClearDocumentCommand_Execute_Default);
+			if (SelectDocumentCommand == null) SelectDocumentCommand = new DelegateLogCommand(SelectDocumentCommand_Execute_Default);
+			if (ClearDocumentCommand == null) ClearDocumentCommand = new DelegateLogCommand(ClearDocumentCommand_Execute_Default);
 
 			
 			if (_getEntitiesForAddInPerformersCommand == null) _getEntitiesForAddInPerformersCommand = () => { return UnitOfWork.Repository<Employee>().GetAll(); };;
-			if (AddInPerformersCommand == null) AddInPerformersCommand = new DelegateCommand(AddInPerformersCommand_Execute_Default);
-			if (RemoveFromPerformersCommand == null) RemoveFromPerformersCommand = new DelegateCommand(RemoveFromPerformersCommand_Execute_Default, RemoveFromPerformersCommand_CanExecute_Default);
+			if (AddInPerformersCommand == null) AddInPerformersCommand = new DelegateLogCommand(AddInPerformersCommand_Execute_Default);
+			if (RemoveFromPerformersCommand == null) RemoveFromPerformersCommand = new DelegateLogCommand(RemoveFromPerformersCommand_Execute_Default, RemoveFromPerformersCommand_CanExecute_Default);
 
 		}
 
@@ -840,8 +840,8 @@ namespace HVTApp.UI.ViewModels
     public partial class MarketFieldDetailsViewModel : BaseDetailsViewModel<MarketFieldWrapper, MarketField, AfterSaveMarketFieldEvent>
     {
 		private Func<List<ActivityField>> _getEntitiesForAddInActivityFieldsCommand;
-		public ICommand AddInActivityFieldsCommand { get; }
-		public ICommand RemoveFromActivityFieldsCommand { get; }
+		public DelegateLogCommand AddInActivityFieldsCommand { get; }
+		public DelegateLogCommand RemoveFromActivityFieldsCommand { get; }
 		private ActivityFieldWrapper _selectedActivityFieldsItem;
 		public ActivityFieldWrapper SelectedActivityFieldsItem 
 		{ 
@@ -851,7 +851,7 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedActivityFieldsItem, value)) return;
 				_selectedActivityFieldsItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromActivityFieldsCommand).RaiseCanExecuteChanged();
+				RemoveFromActivityFieldsCommand.RaiseCanExecuteChanged();
 			}
 		}
 
@@ -859,8 +859,8 @@ namespace HVTApp.UI.ViewModels
 		{
 			
 			if (_getEntitiesForAddInActivityFieldsCommand == null) _getEntitiesForAddInActivityFieldsCommand = () => { return UnitOfWork.Repository<ActivityField>().GetAll(); };;
-			if (AddInActivityFieldsCommand == null) AddInActivityFieldsCommand = new DelegateCommand(AddInActivityFieldsCommand_Execute_Default);
-			if (RemoveFromActivityFieldsCommand == null) RemoveFromActivityFieldsCommand = new DelegateCommand(RemoveFromActivityFieldsCommand_Execute_Default, RemoveFromActivityFieldsCommand_CanExecute_Default);
+			if (AddInActivityFieldsCommand == null) AddInActivityFieldsCommand = new DelegateLogCommand(AddInActivityFieldsCommand_Execute_Default);
+			if (RemoveFromActivityFieldsCommand == null) RemoveFromActivityFieldsCommand = new DelegateLogCommand(RemoveFromActivityFieldsCommand_Execute_Default, RemoveFromActivityFieldsCommand_CanExecute_Default);
 
 		}
 
@@ -904,15 +904,15 @@ namespace HVTApp.UI.ViewModels
     {
 		//private Func<Task<List<PaymentCondition>>> _getEntitiesForSelectConditionCommand;
 		private Func<List<PaymentCondition>> _getEntitiesForSelectConditionCommand;
-		public ICommand SelectConditionCommand { get; private set; }
-		public ICommand ClearConditionCommand { get; private set; }
+		public DelegateLogCommand SelectConditionCommand { get; private set; }
+		public DelegateLogCommand ClearConditionCommand { get; private set; }
 
         public PaymentPlannedDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
 			if (_getEntitiesForSelectConditionCommand == null) _getEntitiesForSelectConditionCommand = () => { return UnitOfWork.Repository<PaymentCondition>().GetAll(); };
-			if (SelectConditionCommand == null) SelectConditionCommand = new DelegateCommand(SelectConditionCommand_Execute_Default);
-			if (ClearConditionCommand == null) ClearConditionCommand = new DelegateCommand(ClearConditionCommand_Execute_Default);
+			if (SelectConditionCommand == null) SelectConditionCommand = new DelegateLogCommand(SelectConditionCommand_Execute_Default);
+			if (ClearConditionCommand == null) ClearConditionCommand = new DelegateLogCommand(ClearConditionCommand_Execute_Default);
 
 		}
 
@@ -942,12 +942,12 @@ namespace HVTApp.UI.ViewModels
     {
 		//private Func<Task<List<User>>> _getEntitiesForSelectInitiatorCommand;
 		private Func<List<User>> _getEntitiesForSelectInitiatorCommand;
-		public ICommand SelectInitiatorCommand { get; private set; }
-		public ICommand ClearInitiatorCommand { get; private set; }
+		public DelegateLogCommand SelectInitiatorCommand { get; private set; }
+		public DelegateLogCommand ClearInitiatorCommand { get; private set; }
 
 		private Func<List<PriceCalculationItem>> _getEntitiesForAddInPriceCalculationItemsCommand;
-		public ICommand AddInPriceCalculationItemsCommand { get; }
-		public ICommand RemoveFromPriceCalculationItemsCommand { get; }
+		public DelegateLogCommand AddInPriceCalculationItemsCommand { get; }
+		public DelegateLogCommand RemoveFromPriceCalculationItemsCommand { get; }
 		private PriceCalculationItemWrapper _selectedPriceCalculationItemsItem;
 		public PriceCalculationItemWrapper SelectedPriceCalculationItemsItem 
 		{ 
@@ -957,13 +957,13 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedPriceCalculationItemsItem, value)) return;
 				_selectedPriceCalculationItemsItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromPriceCalculationItemsCommand).RaiseCanExecuteChanged();
+				RemoveFromPriceCalculationItemsCommand.RaiseCanExecuteChanged();
 			}
 		}
 
 		private Func<List<PriceCalculationFile>> _getEntitiesForAddInFilesCommand;
-		public ICommand AddInFilesCommand { get; }
-		public ICommand RemoveFromFilesCommand { get; }
+		public DelegateLogCommand AddInFilesCommand { get; }
+		public DelegateLogCommand RemoveFromFilesCommand { get; }
 		private PriceCalculationFileWrapper _selectedFilesItem;
 		public PriceCalculationFileWrapper SelectedFilesItem 
 		{ 
@@ -973,7 +973,7 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedFilesItem, value)) return;
 				_selectedFilesItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromFilesCommand).RaiseCanExecuteChanged();
+				RemoveFromFilesCommand.RaiseCanExecuteChanged();
 			}
 		}
 
@@ -981,18 +981,18 @@ namespace HVTApp.UI.ViewModels
 		{
 			
 			if (_getEntitiesForSelectInitiatorCommand == null) _getEntitiesForSelectInitiatorCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };
-			if (SelectInitiatorCommand == null) SelectInitiatorCommand = new DelegateCommand(SelectInitiatorCommand_Execute_Default);
-			if (ClearInitiatorCommand == null) ClearInitiatorCommand = new DelegateCommand(ClearInitiatorCommand_Execute_Default);
+			if (SelectInitiatorCommand == null) SelectInitiatorCommand = new DelegateLogCommand(SelectInitiatorCommand_Execute_Default);
+			if (ClearInitiatorCommand == null) ClearInitiatorCommand = new DelegateLogCommand(ClearInitiatorCommand_Execute_Default);
 
 			
 			if (_getEntitiesForAddInPriceCalculationItemsCommand == null) _getEntitiesForAddInPriceCalculationItemsCommand = () => { return UnitOfWork.Repository<PriceCalculationItem>().GetAll(); };;
-			if (AddInPriceCalculationItemsCommand == null) AddInPriceCalculationItemsCommand = new DelegateCommand(AddInPriceCalculationItemsCommand_Execute_Default);
-			if (RemoveFromPriceCalculationItemsCommand == null) RemoveFromPriceCalculationItemsCommand = new DelegateCommand(RemoveFromPriceCalculationItemsCommand_Execute_Default, RemoveFromPriceCalculationItemsCommand_CanExecute_Default);
+			if (AddInPriceCalculationItemsCommand == null) AddInPriceCalculationItemsCommand = new DelegateLogCommand(AddInPriceCalculationItemsCommand_Execute_Default);
+			if (RemoveFromPriceCalculationItemsCommand == null) RemoveFromPriceCalculationItemsCommand = new DelegateLogCommand(RemoveFromPriceCalculationItemsCommand_Execute_Default, RemoveFromPriceCalculationItemsCommand_CanExecute_Default);
 
 			
 			if (_getEntitiesForAddInFilesCommand == null) _getEntitiesForAddInFilesCommand = () => { return UnitOfWork.Repository<PriceCalculationFile>().GetAll(); };;
-			if (AddInFilesCommand == null) AddInFilesCommand = new DelegateCommand(AddInFilesCommand_Execute_Default);
-			if (RemoveFromFilesCommand == null) RemoveFromFilesCommand = new DelegateCommand(RemoveFromFilesCommand_Execute_Default, RemoveFromFilesCommand_CanExecute_Default);
+			if (AddInFilesCommand == null) AddInFilesCommand = new DelegateLogCommand(AddInFilesCommand_Execute_Default);
+			if (RemoveFromFilesCommand == null) RemoveFromFilesCommand = new DelegateLogCommand(RemoveFromFilesCommand_Execute_Default, RemoveFromFilesCommand_CanExecute_Default);
 
 		}
 
@@ -1052,12 +1052,12 @@ namespace HVTApp.UI.ViewModels
     {
 		//private Func<Task<List<PaymentConditionSet>>> _getEntitiesForSelectPaymentConditionSetCommand;
 		private Func<List<PaymentConditionSet>> _getEntitiesForSelectPaymentConditionSetCommand;
-		public ICommand SelectPaymentConditionSetCommand { get; private set; }
-		public ICommand ClearPaymentConditionSetCommand { get; private set; }
+		public DelegateLogCommand SelectPaymentConditionSetCommand { get; private set; }
+		public DelegateLogCommand ClearPaymentConditionSetCommand { get; private set; }
 
 		private Func<List<SalesUnit>> _getEntitiesForAddInSalesUnitsCommand;
-		public ICommand AddInSalesUnitsCommand { get; }
-		public ICommand RemoveFromSalesUnitsCommand { get; }
+		public DelegateLogCommand AddInSalesUnitsCommand { get; }
+		public DelegateLogCommand RemoveFromSalesUnitsCommand { get; }
 		private SalesUnitWrapper _selectedSalesUnitsItem;
 		public SalesUnitWrapper SelectedSalesUnitsItem 
 		{ 
@@ -1067,13 +1067,13 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedSalesUnitsItem, value)) return;
 				_selectedSalesUnitsItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromSalesUnitsCommand).RaiseCanExecuteChanged();
+				RemoveFromSalesUnitsCommand.RaiseCanExecuteChanged();
 			}
 		}
 
 		private Func<List<StructureCost>> _getEntitiesForAddInStructureCostsCommand;
-		public ICommand AddInStructureCostsCommand { get; }
-		public ICommand RemoveFromStructureCostsCommand { get; }
+		public DelegateLogCommand AddInStructureCostsCommand { get; }
+		public DelegateLogCommand RemoveFromStructureCostsCommand { get; }
 		private StructureCostWrapper _selectedStructureCostsItem;
 		public StructureCostWrapper SelectedStructureCostsItem 
 		{ 
@@ -1083,7 +1083,7 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedStructureCostsItem, value)) return;
 				_selectedStructureCostsItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromStructureCostsCommand).RaiseCanExecuteChanged();
+				RemoveFromStructureCostsCommand.RaiseCanExecuteChanged();
 			}
 		}
 
@@ -1091,18 +1091,18 @@ namespace HVTApp.UI.ViewModels
 		{
 			
 			if (_getEntitiesForSelectPaymentConditionSetCommand == null) _getEntitiesForSelectPaymentConditionSetCommand = () => { return UnitOfWork.Repository<PaymentConditionSet>().GetAll(); };
-			if (SelectPaymentConditionSetCommand == null) SelectPaymentConditionSetCommand = new DelegateCommand(SelectPaymentConditionSetCommand_Execute_Default);
-			if (ClearPaymentConditionSetCommand == null) ClearPaymentConditionSetCommand = new DelegateCommand(ClearPaymentConditionSetCommand_Execute_Default);
+			if (SelectPaymentConditionSetCommand == null) SelectPaymentConditionSetCommand = new DelegateLogCommand(SelectPaymentConditionSetCommand_Execute_Default);
+			if (ClearPaymentConditionSetCommand == null) ClearPaymentConditionSetCommand = new DelegateLogCommand(ClearPaymentConditionSetCommand_Execute_Default);
 
 			
 			if (_getEntitiesForAddInSalesUnitsCommand == null) _getEntitiesForAddInSalesUnitsCommand = () => { return UnitOfWork.Repository<SalesUnit>().GetAll(); };;
-			if (AddInSalesUnitsCommand == null) AddInSalesUnitsCommand = new DelegateCommand(AddInSalesUnitsCommand_Execute_Default);
-			if (RemoveFromSalesUnitsCommand == null) RemoveFromSalesUnitsCommand = new DelegateCommand(RemoveFromSalesUnitsCommand_Execute_Default, RemoveFromSalesUnitsCommand_CanExecute_Default);
+			if (AddInSalesUnitsCommand == null) AddInSalesUnitsCommand = new DelegateLogCommand(AddInSalesUnitsCommand_Execute_Default);
+			if (RemoveFromSalesUnitsCommand == null) RemoveFromSalesUnitsCommand = new DelegateLogCommand(RemoveFromSalesUnitsCommand_Execute_Default, RemoveFromSalesUnitsCommand_CanExecute_Default);
 
 			
 			if (_getEntitiesForAddInStructureCostsCommand == null) _getEntitiesForAddInStructureCostsCommand = () => { return UnitOfWork.Repository<StructureCost>().GetAll(); };;
-			if (AddInStructureCostsCommand == null) AddInStructureCostsCommand = new DelegateCommand(AddInStructureCostsCommand_Execute_Default);
-			if (RemoveFromStructureCostsCommand == null) RemoveFromStructureCostsCommand = new DelegateCommand(RemoveFromStructureCostsCommand_Execute_Default, RemoveFromStructureCostsCommand_CanExecute_Default);
+			if (AddInStructureCostsCommand == null) AddInStructureCostsCommand = new DelegateLogCommand(AddInStructureCostsCommand_Execute_Default);
+			if (RemoveFromStructureCostsCommand == null) RemoveFromStructureCostsCommand = new DelegateLogCommand(RemoveFromStructureCostsCommand_Execute_Default, RemoveFromStructureCostsCommand_CanExecute_Default);
 
 		}
 
@@ -1152,8 +1152,8 @@ namespace HVTApp.UI.ViewModels
     public partial class ProductCategoryDetailsViewModel : BaseDetailsViewModel<ProductCategoryWrapper, ProductCategory, AfterSaveProductCategoryEvent>
     {
 		private Func<List<Parameter>> _getEntitiesForAddInParametersCommand;
-		public ICommand AddInParametersCommand { get; }
-		public ICommand RemoveFromParametersCommand { get; }
+		public DelegateLogCommand AddInParametersCommand { get; }
+		public DelegateLogCommand RemoveFromParametersCommand { get; }
 		private ParameterWrapper _selectedParametersItem;
 		public ParameterWrapper SelectedParametersItem 
 		{ 
@@ -1163,7 +1163,7 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedParametersItem, value)) return;
 				_selectedParametersItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromParametersCommand).RaiseCanExecuteChanged();
+				RemoveFromParametersCommand.RaiseCanExecuteChanged();
 			}
 		}
 
@@ -1171,8 +1171,8 @@ namespace HVTApp.UI.ViewModels
 		{
 			
 			if (_getEntitiesForAddInParametersCommand == null) _getEntitiesForAddInParametersCommand = () => { return UnitOfWork.Repository<Parameter>().GetAll(); };;
-			if (AddInParametersCommand == null) AddInParametersCommand = new DelegateCommand(AddInParametersCommand_Execute_Default);
-			if (RemoveFromParametersCommand == null) RemoveFromParametersCommand = new DelegateCommand(RemoveFromParametersCommand_Execute_Default, RemoveFromParametersCommand_CanExecute_Default);
+			if (AddInParametersCommand == null) AddInParametersCommand = new DelegateLogCommand(AddInParametersCommand_Execute_Default);
+			if (RemoveFromParametersCommand == null) RemoveFromParametersCommand = new DelegateLogCommand(RemoveFromParametersCommand_Execute_Default, RemoveFromParametersCommand_CanExecute_Default);
 
 		}
 
@@ -1198,15 +1198,15 @@ namespace HVTApp.UI.ViewModels
     {
 		//private Func<Task<List<ProductCategory>>> _getEntitiesForSelectCategoryCommand;
 		private Func<List<ProductCategory>> _getEntitiesForSelectCategoryCommand;
-		public ICommand SelectCategoryCommand { get; private set; }
-		public ICommand ClearCategoryCommand { get; private set; }
+		public DelegateLogCommand SelectCategoryCommand { get; private set; }
+		public DelegateLogCommand ClearCategoryCommand { get; private set; }
 
         public ProductCategoryPriceAndCostDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
 			if (_getEntitiesForSelectCategoryCommand == null) _getEntitiesForSelectCategoryCommand = () => { return UnitOfWork.Repository<ProductCategory>().GetAll(); };
-			if (SelectCategoryCommand == null) SelectCategoryCommand = new DelegateCommand(SelectCategoryCommand_Execute_Default);
-			if (ClearCategoryCommand == null) ClearCategoryCommand = new DelegateCommand(ClearCategoryCommand_Execute_Default);
+			if (SelectCategoryCommand == null) SelectCategoryCommand = new DelegateLogCommand(SelectCategoryCommand_Execute_Default);
+			if (ClearCategoryCommand == null) ClearCategoryCommand = new DelegateLogCommand(ClearCategoryCommand_Execute_Default);
 
 		}
 
@@ -1227,15 +1227,15 @@ namespace HVTApp.UI.ViewModels
     {
 		//private Func<Task<List<Product>>> _getEntitiesForSelectProductCommand;
 		private Func<List<Product>> _getEntitiesForSelectProductCommand;
-		public ICommand SelectProductCommand { get; private set; }
-		public ICommand ClearProductCommand { get; private set; }
+		public DelegateLogCommand SelectProductCommand { get; private set; }
+		public DelegateLogCommand ClearProductCommand { get; private set; }
 
         public ProductIncludedDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
 			if (_getEntitiesForSelectProductCommand == null) _getEntitiesForSelectProductCommand = () => { return UnitOfWork.Repository<Product>().GetAll(); };
-			if (SelectProductCommand == null) SelectProductCommand = new DelegateCommand(SelectProductCommand_Execute_Default);
-			if (ClearProductCommand == null) ClearProductCommand = new DelegateCommand(ClearProductCommand_Execute_Default);
+			if (SelectProductCommand == null) SelectProductCommand = new DelegateLogCommand(SelectProductCommand_Execute_Default);
+			if (ClearProductCommand == null) ClearProductCommand = new DelegateLogCommand(ClearProductCommand_Execute_Default);
 
 		}
 
@@ -1255,8 +1255,8 @@ namespace HVTApp.UI.ViewModels
     public partial class ProductDesignationDetailsViewModel : BaseDetailsViewModel<ProductDesignationWrapper, ProductDesignation, AfterSaveProductDesignationEvent>
     {
 		private Func<List<Parameter>> _getEntitiesForAddInParametersCommand;
-		public ICommand AddInParametersCommand { get; }
-		public ICommand RemoveFromParametersCommand { get; }
+		public DelegateLogCommand AddInParametersCommand { get; }
+		public DelegateLogCommand RemoveFromParametersCommand { get; }
 		private ParameterWrapper _selectedParametersItem;
 		public ParameterWrapper SelectedParametersItem 
 		{ 
@@ -1266,13 +1266,13 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedParametersItem, value)) return;
 				_selectedParametersItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromParametersCommand).RaiseCanExecuteChanged();
+				RemoveFromParametersCommand.RaiseCanExecuteChanged();
 			}
 		}
 
 		private Func<List<ProductDesignation>> _getEntitiesForAddInParentsCommand;
-		public ICommand AddInParentsCommand { get; }
-		public ICommand RemoveFromParentsCommand { get; }
+		public DelegateLogCommand AddInParentsCommand { get; }
+		public DelegateLogCommand RemoveFromParentsCommand { get; }
 		private ProductDesignationWrapper _selectedParentsItem;
 		public ProductDesignationWrapper SelectedParentsItem 
 		{ 
@@ -1282,7 +1282,7 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedParentsItem, value)) return;
 				_selectedParentsItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromParentsCommand).RaiseCanExecuteChanged();
+				RemoveFromParentsCommand.RaiseCanExecuteChanged();
 			}
 		}
 
@@ -1290,13 +1290,13 @@ namespace HVTApp.UI.ViewModels
 		{
 			
 			if (_getEntitiesForAddInParametersCommand == null) _getEntitiesForAddInParametersCommand = () => { return UnitOfWork.Repository<Parameter>().GetAll(); };;
-			if (AddInParametersCommand == null) AddInParametersCommand = new DelegateCommand(AddInParametersCommand_Execute_Default);
-			if (RemoveFromParametersCommand == null) RemoveFromParametersCommand = new DelegateCommand(RemoveFromParametersCommand_Execute_Default, RemoveFromParametersCommand_CanExecute_Default);
+			if (AddInParametersCommand == null) AddInParametersCommand = new DelegateLogCommand(AddInParametersCommand_Execute_Default);
+			if (RemoveFromParametersCommand == null) RemoveFromParametersCommand = new DelegateLogCommand(RemoveFromParametersCommand_Execute_Default, RemoveFromParametersCommand_CanExecute_Default);
 
 			
 			if (_getEntitiesForAddInParentsCommand == null) _getEntitiesForAddInParentsCommand = () => { return UnitOfWork.Repository<ProductDesignation>().GetAll(); };;
-			if (AddInParentsCommand == null) AddInParentsCommand = new DelegateCommand(AddInParentsCommand_Execute_Default);
-			if (RemoveFromParentsCommand == null) RemoveFromParentsCommand = new DelegateCommand(RemoveFromParentsCommand_Execute_Default, RemoveFromParentsCommand_CanExecute_Default);
+			if (AddInParentsCommand == null) AddInParentsCommand = new DelegateLogCommand(AddInParentsCommand_Execute_Default);
+			if (RemoveFromParentsCommand == null) RemoveFromParentsCommand = new DelegateLogCommand(RemoveFromParentsCommand_Execute_Default, RemoveFromParentsCommand_CanExecute_Default);
 
 		}
 
@@ -1346,12 +1346,12 @@ namespace HVTApp.UI.ViewModels
     {
 		//private Func<Task<List<ProductType>>> _getEntitiesForSelectProductTypeCommand;
 		private Func<List<ProductType>> _getEntitiesForSelectProductTypeCommand;
-		public ICommand SelectProductTypeCommand { get; private set; }
-		public ICommand ClearProductTypeCommand { get; private set; }
+		public DelegateLogCommand SelectProductTypeCommand { get; private set; }
+		public DelegateLogCommand ClearProductTypeCommand { get; private set; }
 
 		private Func<List<Parameter>> _getEntitiesForAddInParametersCommand;
-		public ICommand AddInParametersCommand { get; }
-		public ICommand RemoveFromParametersCommand { get; }
+		public DelegateLogCommand AddInParametersCommand { get; }
+		public DelegateLogCommand RemoveFromParametersCommand { get; }
 		private ParameterWrapper _selectedParametersItem;
 		public ParameterWrapper SelectedParametersItem 
 		{ 
@@ -1361,7 +1361,7 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedParametersItem, value)) return;
 				_selectedParametersItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromParametersCommand).RaiseCanExecuteChanged();
+				RemoveFromParametersCommand.RaiseCanExecuteChanged();
 			}
 		}
 
@@ -1369,13 +1369,13 @@ namespace HVTApp.UI.ViewModels
 		{
 			
 			if (_getEntitiesForSelectProductTypeCommand == null) _getEntitiesForSelectProductTypeCommand = () => { return UnitOfWork.Repository<ProductType>().GetAll(); };
-			if (SelectProductTypeCommand == null) SelectProductTypeCommand = new DelegateCommand(SelectProductTypeCommand_Execute_Default);
-			if (ClearProductTypeCommand == null) ClearProductTypeCommand = new DelegateCommand(ClearProductTypeCommand_Execute_Default);
+			if (SelectProductTypeCommand == null) SelectProductTypeCommand = new DelegateLogCommand(SelectProductTypeCommand_Execute_Default);
+			if (ClearProductTypeCommand == null) ClearProductTypeCommand = new DelegateLogCommand(ClearProductTypeCommand_Execute_Default);
 
 			
 			if (_getEntitiesForAddInParametersCommand == null) _getEntitiesForAddInParametersCommand = () => { return UnitOfWork.Repository<Parameter>().GetAll(); };;
-			if (AddInParametersCommand == null) AddInParametersCommand = new DelegateCommand(AddInParametersCommand_Execute_Default);
-			if (RemoveFromParametersCommand == null) RemoveFromParametersCommand = new DelegateCommand(RemoveFromParametersCommand_Execute_Default, RemoveFromParametersCommand_CanExecute_Default);
+			if (AddInParametersCommand == null) AddInParametersCommand = new DelegateLogCommand(AddInParametersCommand_Execute_Default);
+			if (RemoveFromParametersCommand == null) RemoveFromParametersCommand = new DelegateLogCommand(RemoveFromParametersCommand_Execute_Default, RemoveFromParametersCommand_CanExecute_Default);
 
 		}
 
@@ -1419,8 +1419,8 @@ namespace HVTApp.UI.ViewModels
     public partial class StandartMarginalIncomeDetailsViewModel : BaseDetailsViewModel<StandartMarginalIncomeWrapper, StandartMarginalIncome, AfterSaveStandartMarginalIncomeEvent>
     {
 		private Func<List<Parameter>> _getEntitiesForAddInParametersCommand;
-		public ICommand AddInParametersCommand { get; }
-		public ICommand RemoveFromParametersCommand { get; }
+		public DelegateLogCommand AddInParametersCommand { get; }
+		public DelegateLogCommand RemoveFromParametersCommand { get; }
 		private ParameterWrapper _selectedParametersItem;
 		public ParameterWrapper SelectedParametersItem 
 		{ 
@@ -1430,7 +1430,7 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedParametersItem, value)) return;
 				_selectedParametersItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromParametersCommand).RaiseCanExecuteChanged();
+				RemoveFromParametersCommand.RaiseCanExecuteChanged();
 			}
 		}
 
@@ -1438,8 +1438,8 @@ namespace HVTApp.UI.ViewModels
 		{
 			
 			if (_getEntitiesForAddInParametersCommand == null) _getEntitiesForAddInParametersCommand = () => { return UnitOfWork.Repository<Parameter>().GetAll(); };;
-			if (AddInParametersCommand == null) AddInParametersCommand = new DelegateCommand(AddInParametersCommand_Execute_Default);
-			if (RemoveFromParametersCommand == null) RemoveFromParametersCommand = new DelegateCommand(RemoveFromParametersCommand_Execute_Default, RemoveFromParametersCommand_CanExecute_Default);
+			if (AddInParametersCommand == null) AddInParametersCommand = new DelegateLogCommand(AddInParametersCommand_Execute_Default);
+			if (RemoveFromParametersCommand == null) RemoveFromParametersCommand = new DelegateLogCommand(RemoveFromParametersCommand_Execute_Default, RemoveFromParametersCommand_CanExecute_Default);
 
 		}
 
@@ -1464,8 +1464,8 @@ namespace HVTApp.UI.ViewModels
     public partial class StandartProductionTermDetailsViewModel : BaseDetailsViewModel<StandartProductionTermWrapper, StandartProductionTerm, AfterSaveStandartProductionTermEvent>
     {
 		private Func<List<Parameter>> _getEntitiesForAddInParametersCommand;
-		public ICommand AddInParametersCommand { get; }
-		public ICommand RemoveFromParametersCommand { get; }
+		public DelegateLogCommand AddInParametersCommand { get; }
+		public DelegateLogCommand RemoveFromParametersCommand { get; }
 		private ParameterWrapper _selectedParametersItem;
 		public ParameterWrapper SelectedParametersItem 
 		{ 
@@ -1475,7 +1475,7 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedParametersItem, value)) return;
 				_selectedParametersItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromParametersCommand).RaiseCanExecuteChanged();
+				RemoveFromParametersCommand.RaiseCanExecuteChanged();
 			}
 		}
 
@@ -1483,8 +1483,8 @@ namespace HVTApp.UI.ViewModels
 		{
 			
 			if (_getEntitiesForAddInParametersCommand == null) _getEntitiesForAddInParametersCommand = () => { return UnitOfWork.Repository<Parameter>().GetAll(); };;
-			if (AddInParametersCommand == null) AddInParametersCommand = new DelegateCommand(AddInParametersCommand_Execute_Default);
-			if (RemoveFromParametersCommand == null) RemoveFromParametersCommand = new DelegateCommand(RemoveFromParametersCommand_Execute_Default, RemoveFromParametersCommand_CanExecute_Default);
+			if (AddInParametersCommand == null) AddInParametersCommand = new DelegateLogCommand(AddInParametersCommand_Execute_Default);
+			if (RemoveFromParametersCommand == null) RemoveFromParametersCommand = new DelegateLogCommand(RemoveFromParametersCommand_Execute_Default, RemoveFromParametersCommand_CanExecute_Default);
 
 		}
 
@@ -1519,25 +1519,25 @@ namespace HVTApp.UI.ViewModels
     {
 		//private Func<Task<List<SalesUnit>>> _getEntitiesForSelectSalesUnitCommand;
 		private Func<List<SalesUnit>> _getEntitiesForSelectSalesUnitCommand;
-		public ICommand SelectSalesUnitCommand { get; private set; }
-		public ICommand ClearSalesUnitCommand { get; private set; }
+		public DelegateLogCommand SelectSalesUnitCommand { get; private set; }
+		public DelegateLogCommand ClearSalesUnitCommand { get; private set; }
 
 		//private Func<Task<List<SalesUnit>>> _getEntitiesForSelectSupervisionUnitCommand;
 		private Func<List<SalesUnit>> _getEntitiesForSelectSupervisionUnitCommand;
-		public ICommand SelectSupervisionUnitCommand { get; private set; }
-		public ICommand ClearSupervisionUnitCommand { get; private set; }
+		public DelegateLogCommand SelectSupervisionUnitCommand { get; private set; }
+		public DelegateLogCommand ClearSupervisionUnitCommand { get; private set; }
 
         public SupervisionDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
 			if (_getEntitiesForSelectSalesUnitCommand == null) _getEntitiesForSelectSalesUnitCommand = () => { return UnitOfWork.Repository<SalesUnit>().GetAll(); };
-			if (SelectSalesUnitCommand == null) SelectSalesUnitCommand = new DelegateCommand(SelectSalesUnitCommand_Execute_Default);
-			if (ClearSalesUnitCommand == null) ClearSalesUnitCommand = new DelegateCommand(ClearSalesUnitCommand_Execute_Default);
+			if (SelectSalesUnitCommand == null) SelectSalesUnitCommand = new DelegateLogCommand(SelectSalesUnitCommand_Execute_Default);
+			if (ClearSalesUnitCommand == null) ClearSalesUnitCommand = new DelegateLogCommand(ClearSalesUnitCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectSupervisionUnitCommand == null) _getEntitiesForSelectSupervisionUnitCommand = () => { return UnitOfWork.Repository<SalesUnit>().GetAll(); };
-			if (SelectSupervisionUnitCommand == null) SelectSupervisionUnitCommand = new DelegateCommand(SelectSupervisionUnitCommand_Execute_Default);
-			if (ClearSupervisionUnitCommand == null) ClearSupervisionUnitCommand = new DelegateCommand(ClearSupervisionUnitCommand_Execute_Default);
+			if (SelectSupervisionUnitCommand == null) SelectSupervisionUnitCommand = new DelegateLogCommand(SelectSupervisionUnitCommand_Execute_Default);
+			if (ClearSupervisionUnitCommand == null) ClearSupervisionUnitCommand = new DelegateLogCommand(ClearSupervisionUnitCommand_Execute_Default);
 
 		}
 
@@ -1576,8 +1576,8 @@ namespace HVTApp.UI.ViewModels
     public partial class TechnicalRequrementsDetailsViewModel : BaseDetailsViewModel<TechnicalRequrementsWrapper, TechnicalRequrements, AfterSaveTechnicalRequrementsEvent>
     {
 		private Func<List<SalesUnit>> _getEntitiesForAddInSalesUnitsCommand;
-		public ICommand AddInSalesUnitsCommand { get; }
-		public ICommand RemoveFromSalesUnitsCommand { get; }
+		public DelegateLogCommand AddInSalesUnitsCommand { get; }
+		public DelegateLogCommand RemoveFromSalesUnitsCommand { get; }
 		private SalesUnitWrapper _selectedSalesUnitsItem;
 		public SalesUnitWrapper SelectedSalesUnitsItem 
 		{ 
@@ -1587,13 +1587,13 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedSalesUnitsItem, value)) return;
 				_selectedSalesUnitsItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromSalesUnitsCommand).RaiseCanExecuteChanged();
+				RemoveFromSalesUnitsCommand.RaiseCanExecuteChanged();
 			}
 		}
 
 		private Func<List<TechnicalRequrementsFile>> _getEntitiesForAddInFilesCommand;
-		public ICommand AddInFilesCommand { get; }
-		public ICommand RemoveFromFilesCommand { get; }
+		public DelegateLogCommand AddInFilesCommand { get; }
+		public DelegateLogCommand RemoveFromFilesCommand { get; }
 		private TechnicalRequrementsFileWrapper _selectedFilesItem;
 		public TechnicalRequrementsFileWrapper SelectedFilesItem 
 		{ 
@@ -1603,7 +1603,7 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedFilesItem, value)) return;
 				_selectedFilesItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromFilesCommand).RaiseCanExecuteChanged();
+				RemoveFromFilesCommand.RaiseCanExecuteChanged();
 			}
 		}
 
@@ -1611,13 +1611,13 @@ namespace HVTApp.UI.ViewModels
 		{
 			
 			if (_getEntitiesForAddInSalesUnitsCommand == null) _getEntitiesForAddInSalesUnitsCommand = () => { return UnitOfWork.Repository<SalesUnit>().GetAll(); };;
-			if (AddInSalesUnitsCommand == null) AddInSalesUnitsCommand = new DelegateCommand(AddInSalesUnitsCommand_Execute_Default);
-			if (RemoveFromSalesUnitsCommand == null) RemoveFromSalesUnitsCommand = new DelegateCommand(RemoveFromSalesUnitsCommand_Execute_Default, RemoveFromSalesUnitsCommand_CanExecute_Default);
+			if (AddInSalesUnitsCommand == null) AddInSalesUnitsCommand = new DelegateLogCommand(AddInSalesUnitsCommand_Execute_Default);
+			if (RemoveFromSalesUnitsCommand == null) RemoveFromSalesUnitsCommand = new DelegateLogCommand(RemoveFromSalesUnitsCommand_Execute_Default, RemoveFromSalesUnitsCommand_CanExecute_Default);
 
 			
 			if (_getEntitiesForAddInFilesCommand == null) _getEntitiesForAddInFilesCommand = () => { return UnitOfWork.Repository<TechnicalRequrementsFile>().GetAll(); };;
-			if (AddInFilesCommand == null) AddInFilesCommand = new DelegateCommand(AddInFilesCommand_Execute_Default);
-			if (RemoveFromFilesCommand == null) RemoveFromFilesCommand = new DelegateCommand(RemoveFromFilesCommand_Execute_Default, RemoveFromFilesCommand_CanExecute_Default);
+			if (AddInFilesCommand == null) AddInFilesCommand = new DelegateLogCommand(AddInFilesCommand_Execute_Default);
+			if (RemoveFromFilesCommand == null) RemoveFromFilesCommand = new DelegateLogCommand(RemoveFromFilesCommand_Execute_Default, RemoveFromFilesCommand_CanExecute_Default);
 
 		}
 
@@ -1667,12 +1667,12 @@ namespace HVTApp.UI.ViewModels
     {
 		//private Func<Task<List<User>>> _getEntitiesForSelectBackManagerCommand;
 		private Func<List<User>> _getEntitiesForSelectBackManagerCommand;
-		public ICommand SelectBackManagerCommand { get; private set; }
-		public ICommand ClearBackManagerCommand { get; private set; }
+		public DelegateLogCommand SelectBackManagerCommand { get; private set; }
+		public DelegateLogCommand ClearBackManagerCommand { get; private set; }
 
 		private Func<List<TechnicalRequrements>> _getEntitiesForAddInRequrementsCommand;
-		public ICommand AddInRequrementsCommand { get; }
-		public ICommand RemoveFromRequrementsCommand { get; }
+		public DelegateLogCommand AddInRequrementsCommand { get; }
+		public DelegateLogCommand RemoveFromRequrementsCommand { get; }
 		private TechnicalRequrementsWrapper _selectedRequrementsItem;
 		public TechnicalRequrementsWrapper SelectedRequrementsItem 
 		{ 
@@ -1682,13 +1682,13 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedRequrementsItem, value)) return;
 				_selectedRequrementsItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromRequrementsCommand).RaiseCanExecuteChanged();
+				RemoveFromRequrementsCommand.RaiseCanExecuteChanged();
 			}
 		}
 
 		private Func<List<PriceCalculation>> _getEntitiesForAddInPriceCalculationsCommand;
-		public ICommand AddInPriceCalculationsCommand { get; }
-		public ICommand RemoveFromPriceCalculationsCommand { get; }
+		public DelegateLogCommand AddInPriceCalculationsCommand { get; }
+		public DelegateLogCommand RemoveFromPriceCalculationsCommand { get; }
 		private PriceCalculationWrapper _selectedPriceCalculationsItem;
 		public PriceCalculationWrapper SelectedPriceCalculationsItem 
 		{ 
@@ -1698,13 +1698,13 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedPriceCalculationsItem, value)) return;
 				_selectedPriceCalculationsItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromPriceCalculationsCommand).RaiseCanExecuteChanged();
+				RemoveFromPriceCalculationsCommand.RaiseCanExecuteChanged();
 			}
 		}
 
 		private Func<List<AnswerFileTce>> _getEntitiesForAddInAnswerFilesCommand;
-		public ICommand AddInAnswerFilesCommand { get; }
-		public ICommand RemoveFromAnswerFilesCommand { get; }
+		public DelegateLogCommand AddInAnswerFilesCommand { get; }
+		public DelegateLogCommand RemoveFromAnswerFilesCommand { get; }
 		private AnswerFileTceWrapper _selectedAnswerFilesItem;
 		public AnswerFileTceWrapper SelectedAnswerFilesItem 
 		{ 
@@ -1714,7 +1714,7 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedAnswerFilesItem, value)) return;
 				_selectedAnswerFilesItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromAnswerFilesCommand).RaiseCanExecuteChanged();
+				RemoveFromAnswerFilesCommand.RaiseCanExecuteChanged();
 			}
 		}
 
@@ -1722,23 +1722,23 @@ namespace HVTApp.UI.ViewModels
 		{
 			
 			if (_getEntitiesForSelectBackManagerCommand == null) _getEntitiesForSelectBackManagerCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };
-			if (SelectBackManagerCommand == null) SelectBackManagerCommand = new DelegateCommand(SelectBackManagerCommand_Execute_Default);
-			if (ClearBackManagerCommand == null) ClearBackManagerCommand = new DelegateCommand(ClearBackManagerCommand_Execute_Default);
+			if (SelectBackManagerCommand == null) SelectBackManagerCommand = new DelegateLogCommand(SelectBackManagerCommand_Execute_Default);
+			if (ClearBackManagerCommand == null) ClearBackManagerCommand = new DelegateLogCommand(ClearBackManagerCommand_Execute_Default);
 
 			
 			if (_getEntitiesForAddInRequrementsCommand == null) _getEntitiesForAddInRequrementsCommand = () => { return UnitOfWork.Repository<TechnicalRequrements>().GetAll(); };;
-			if (AddInRequrementsCommand == null) AddInRequrementsCommand = new DelegateCommand(AddInRequrementsCommand_Execute_Default);
-			if (RemoveFromRequrementsCommand == null) RemoveFromRequrementsCommand = new DelegateCommand(RemoveFromRequrementsCommand_Execute_Default, RemoveFromRequrementsCommand_CanExecute_Default);
+			if (AddInRequrementsCommand == null) AddInRequrementsCommand = new DelegateLogCommand(AddInRequrementsCommand_Execute_Default);
+			if (RemoveFromRequrementsCommand == null) RemoveFromRequrementsCommand = new DelegateLogCommand(RemoveFromRequrementsCommand_Execute_Default, RemoveFromRequrementsCommand_CanExecute_Default);
 
 			
 			if (_getEntitiesForAddInPriceCalculationsCommand == null) _getEntitiesForAddInPriceCalculationsCommand = () => { return UnitOfWork.Repository<PriceCalculation>().GetAll(); };;
-			if (AddInPriceCalculationsCommand == null) AddInPriceCalculationsCommand = new DelegateCommand(AddInPriceCalculationsCommand_Execute_Default);
-			if (RemoveFromPriceCalculationsCommand == null) RemoveFromPriceCalculationsCommand = new DelegateCommand(RemoveFromPriceCalculationsCommand_Execute_Default, RemoveFromPriceCalculationsCommand_CanExecute_Default);
+			if (AddInPriceCalculationsCommand == null) AddInPriceCalculationsCommand = new DelegateLogCommand(AddInPriceCalculationsCommand_Execute_Default);
+			if (RemoveFromPriceCalculationsCommand == null) RemoveFromPriceCalculationsCommand = new DelegateLogCommand(RemoveFromPriceCalculationsCommand_Execute_Default, RemoveFromPriceCalculationsCommand_CanExecute_Default);
 
 			
 			if (_getEntitiesForAddInAnswerFilesCommand == null) _getEntitiesForAddInAnswerFilesCommand = () => { return UnitOfWork.Repository<AnswerFileTce>().GetAll(); };;
-			if (AddInAnswerFilesCommand == null) AddInAnswerFilesCommand = new DelegateCommand(AddInAnswerFilesCommand_Execute_Default);
-			if (RemoveFromAnswerFilesCommand == null) RemoveFromAnswerFilesCommand = new DelegateCommand(RemoveFromAnswerFilesCommand_Execute_Default, RemoveFromAnswerFilesCommand_CanExecute_Default);
+			if (AddInAnswerFilesCommand == null) AddInAnswerFilesCommand = new DelegateLogCommand(AddInAnswerFilesCommand_Execute_Default);
+			if (RemoveFromAnswerFilesCommand == null) RemoveFromAnswerFilesCommand = new DelegateLogCommand(RemoveFromAnswerFilesCommand_Execute_Default, RemoveFromAnswerFilesCommand_CanExecute_Default);
 
 		}
 
@@ -1803,8 +1803,8 @@ namespace HVTApp.UI.ViewModels
     public partial class UserGroupDetailsViewModel : BaseDetailsViewModel<UserGroupWrapper, UserGroup, AfterSaveUserGroupEvent>
     {
 		private Func<List<User>> _getEntitiesForAddInUsersCommand;
-		public ICommand AddInUsersCommand { get; }
-		public ICommand RemoveFromUsersCommand { get; }
+		public DelegateLogCommand AddInUsersCommand { get; }
+		public DelegateLogCommand RemoveFromUsersCommand { get; }
 		private UserWrapper _selectedUsersItem;
 		public UserWrapper SelectedUsersItem 
 		{ 
@@ -1814,7 +1814,7 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedUsersItem, value)) return;
 				_selectedUsersItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromUsersCommand).RaiseCanExecuteChanged();
+				RemoveFromUsersCommand.RaiseCanExecuteChanged();
 			}
 		}
 
@@ -1822,8 +1822,8 @@ namespace HVTApp.UI.ViewModels
 		{
 			
 			if (_getEntitiesForAddInUsersCommand == null) _getEntitiesForAddInUsersCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };;
-			if (AddInUsersCommand == null) AddInUsersCommand = new DelegateCommand(AddInUsersCommand_Execute_Default);
-			if (RemoveFromUsersCommand == null) RemoveFromUsersCommand = new DelegateCommand(RemoveFromUsersCommand_Execute_Default, RemoveFromUsersCommand_CanExecute_Default);
+			if (AddInUsersCommand == null) AddInUsersCommand = new DelegateLogCommand(AddInUsersCommand_Execute_Default);
+			if (RemoveFromUsersCommand == null) RemoveFromUsersCommand = new DelegateLogCommand(RemoveFromUsersCommand_Execute_Default, RemoveFromUsersCommand_CanExecute_Default);
 
 		}
 
@@ -1849,205 +1849,205 @@ namespace HVTApp.UI.ViewModels
     {
 		//private Func<Task<List<Company>>> _getEntitiesForSelectOurCompanyCommand;
 		private Func<List<Company>> _getEntitiesForSelectOurCompanyCommand;
-		public ICommand SelectOurCompanyCommand { get; private set; }
-		public ICommand ClearOurCompanyCommand { get; private set; }
+		public DelegateLogCommand SelectOurCompanyCommand { get; private set; }
+		public DelegateLogCommand ClearOurCompanyCommand { get; private set; }
 
 		//private Func<Task<List<PaymentConditionSet>>> _getEntitiesForSelectStandartPaymentsConditionSetCommand;
 		private Func<List<PaymentConditionSet>> _getEntitiesForSelectStandartPaymentsConditionSetCommand;
-		public ICommand SelectStandartPaymentsConditionSetCommand { get; private set; }
-		public ICommand ClearStandartPaymentsConditionSetCommand { get; private set; }
+		public DelegateLogCommand SelectStandartPaymentsConditionSetCommand { get; private set; }
+		public DelegateLogCommand ClearStandartPaymentsConditionSetCommand { get; private set; }
 
 		//private Func<Task<List<Parameter>>> _getEntitiesForSelectNewProductParameterCommand;
 		private Func<List<Parameter>> _getEntitiesForSelectNewProductParameterCommand;
-		public ICommand SelectNewProductParameterCommand { get; private set; }
-		public ICommand ClearNewProductParameterCommand { get; private set; }
+		public DelegateLogCommand SelectNewProductParameterCommand { get; private set; }
+		public DelegateLogCommand ClearNewProductParameterCommand { get; private set; }
 
 		//private Func<Task<List<ParameterGroup>>> _getEntitiesForSelectNewProductParameterGroupCommand;
 		private Func<List<ParameterGroup>> _getEntitiesForSelectNewProductParameterGroupCommand;
-		public ICommand SelectNewProductParameterGroupCommand { get; private set; }
-		public ICommand ClearNewProductParameterGroupCommand { get; private set; }
+		public DelegateLogCommand SelectNewProductParameterGroupCommand { get; private set; }
+		public DelegateLogCommand ClearNewProductParameterGroupCommand { get; private set; }
 
 		//private Func<Task<List<Parameter>>> _getEntitiesForSelectServiceParameterCommand;
 		private Func<List<Parameter>> _getEntitiesForSelectServiceParameterCommand;
-		public ICommand SelectServiceParameterCommand { get; private set; }
-		public ICommand ClearServiceParameterCommand { get; private set; }
+		public DelegateLogCommand SelectServiceParameterCommand { get; private set; }
+		public DelegateLogCommand ClearServiceParameterCommand { get; private set; }
 
 		//private Func<Task<List<Parameter>>> _getEntitiesForSelectSupervisionParameterCommand;
 		private Func<List<Parameter>> _getEntitiesForSelectSupervisionParameterCommand;
-		public ICommand SelectSupervisionParameterCommand { get; private set; }
-		public ICommand ClearSupervisionParameterCommand { get; private set; }
+		public DelegateLogCommand SelectSupervisionParameterCommand { get; private set; }
+		public DelegateLogCommand ClearSupervisionParameterCommand { get; private set; }
 
 		//private Func<Task<List<ParameterGroup>>> _getEntitiesForSelectVoltageGroupCommand;
 		private Func<List<ParameterGroup>> _getEntitiesForSelectVoltageGroupCommand;
-		public ICommand SelectVoltageGroupCommand { get; private set; }
-		public ICommand ClearVoltageGroupCommand { get; private set; }
+		public DelegateLogCommand SelectVoltageGroupCommand { get; private set; }
+		public DelegateLogCommand ClearVoltageGroupCommand { get; private set; }
 
 		//private Func<Task<List<ParameterGroup>>> _getEntitiesForSelectIsolationMaterialGroupCommand;
 		private Func<List<ParameterGroup>> _getEntitiesForSelectIsolationMaterialGroupCommand;
-		public ICommand SelectIsolationMaterialGroupCommand { get; private set; }
-		public ICommand ClearIsolationMaterialGroupCommand { get; private set; }
+		public DelegateLogCommand SelectIsolationMaterialGroupCommand { get; private set; }
+		public DelegateLogCommand ClearIsolationMaterialGroupCommand { get; private set; }
 
 		//private Func<Task<List<ParameterGroup>>> _getEntitiesForSelectIsolationColorGroupCommand;
 		private Func<List<ParameterGroup>> _getEntitiesForSelectIsolationColorGroupCommand;
-		public ICommand SelectIsolationColorGroupCommand { get; private set; }
-		public ICommand ClearIsolationColorGroupCommand { get; private set; }
+		public DelegateLogCommand SelectIsolationColorGroupCommand { get; private set; }
+		public DelegateLogCommand ClearIsolationColorGroupCommand { get; private set; }
 
 		//private Func<Task<List<ParameterGroup>>> _getEntitiesForSelectIsolationDpuGroupCommand;
 		private Func<List<ParameterGroup>> _getEntitiesForSelectIsolationDpuGroupCommand;
-		public ICommand SelectIsolationDpuGroupCommand { get; private set; }
-		public ICommand ClearIsolationDpuGroupCommand { get; private set; }
+		public DelegateLogCommand SelectIsolationDpuGroupCommand { get; private set; }
+		public DelegateLogCommand ClearIsolationDpuGroupCommand { get; private set; }
 
 		//private Func<Task<List<ParameterGroup>>> _getEntitiesForSelectComplectDesignationGroupCommand;
 		private Func<List<ParameterGroup>> _getEntitiesForSelectComplectDesignationGroupCommand;
-		public ICommand SelectComplectDesignationGroupCommand { get; private set; }
-		public ICommand ClearComplectDesignationGroupCommand { get; private set; }
+		public DelegateLogCommand SelectComplectDesignationGroupCommand { get; private set; }
+		public DelegateLogCommand ClearComplectDesignationGroupCommand { get; private set; }
 
 		//private Func<Task<List<Parameter>>> _getEntitiesForSelectComplectsParameterCommand;
 		private Func<List<Parameter>> _getEntitiesForSelectComplectsParameterCommand;
-		public ICommand SelectComplectsParameterCommand { get; private set; }
-		public ICommand ClearComplectsParameterCommand { get; private set; }
+		public DelegateLogCommand SelectComplectsParameterCommand { get; private set; }
+		public DelegateLogCommand ClearComplectsParameterCommand { get; private set; }
 
 		//private Func<Task<List<ParameterGroup>>> _getEntitiesForSelectComplectsGroupCommand;
 		private Func<List<ParameterGroup>> _getEntitiesForSelectComplectsGroupCommand;
-		public ICommand SelectComplectsGroupCommand { get; private set; }
-		public ICommand ClearComplectsGroupCommand { get; private set; }
+		public DelegateLogCommand SelectComplectsGroupCommand { get; private set; }
+		public DelegateLogCommand ClearComplectsGroupCommand { get; private set; }
 
 		//private Func<Task<List<ProjectType>>> _getEntitiesForSelectDefaultProjectTypeCommand;
 		private Func<List<ProjectType>> _getEntitiesForSelectDefaultProjectTypeCommand;
-		public ICommand SelectDefaultProjectTypeCommand { get; private set; }
-		public ICommand ClearDefaultProjectTypeCommand { get; private set; }
+		public DelegateLogCommand SelectDefaultProjectTypeCommand { get; private set; }
+		public DelegateLogCommand ClearDefaultProjectTypeCommand { get; private set; }
 
 		//private Func<Task<List<Employee>>> _getEntitiesForSelectRecipientSupervisionLetterEmployeeCommand;
 		private Func<List<Employee>> _getEntitiesForSelectRecipientSupervisionLetterEmployeeCommand;
-		public ICommand SelectRecipientSupervisionLetterEmployeeCommand { get; private set; }
-		public ICommand ClearRecipientSupervisionLetterEmployeeCommand { get; private set; }
+		public DelegateLogCommand SelectRecipientSupervisionLetterEmployeeCommand { get; private set; }
+		public DelegateLogCommand ClearRecipientSupervisionLetterEmployeeCommand { get; private set; }
 
 		//private Func<Task<List<Employee>>> _getEntitiesForSelectSenderOfferEmployeeCommand;
 		private Func<List<Employee>> _getEntitiesForSelectSenderOfferEmployeeCommand;
-		public ICommand SelectSenderOfferEmployeeCommand { get; private set; }
-		public ICommand ClearSenderOfferEmployeeCommand { get; private set; }
+		public DelegateLogCommand SelectSenderOfferEmployeeCommand { get; private set; }
+		public DelegateLogCommand ClearSenderOfferEmployeeCommand { get; private set; }
 
 		//private Func<Task<List<ActivityField>>> _getEntitiesForSelectHvtProducersActivityFieldCommand;
 		private Func<List<ActivityField>> _getEntitiesForSelectHvtProducersActivityFieldCommand;
-		public ICommand SelectHvtProducersActivityFieldCommand { get; private set; }
-		public ICommand ClearHvtProducersActivityFieldCommand { get; private set; }
+		public DelegateLogCommand SelectHvtProducersActivityFieldCommand { get; private set; }
+		public DelegateLogCommand ClearHvtProducersActivityFieldCommand { get; private set; }
 
 		//private Func<Task<List<PaymentConditionSet>>> _getEntitiesForSelectPaymentConditionSetCommand;
 		private Func<List<PaymentConditionSet>> _getEntitiesForSelectPaymentConditionSetCommand;
-		public ICommand SelectPaymentConditionSetCommand { get; private set; }
-		public ICommand ClearPaymentConditionSetCommand { get; private set; }
+		public DelegateLogCommand SelectPaymentConditionSetCommand { get; private set; }
+		public DelegateLogCommand ClearPaymentConditionSetCommand { get; private set; }
 
 		//private Func<Task<List<User>>> _getEntitiesForSelectDeveloperCommand;
 		private Func<List<User>> _getEntitiesForSelectDeveloperCommand;
-		public ICommand SelectDeveloperCommand { get; private set; }
-		public ICommand ClearDeveloperCommand { get; private set; }
+		public DelegateLogCommand SelectDeveloperCommand { get; private set; }
+		public DelegateLogCommand ClearDeveloperCommand { get; private set; }
 
 		//private Func<Task<List<Product>>> _getEntitiesForSelectProductIncludedDefaultCommand;
 		private Func<List<Product>> _getEntitiesForSelectProductIncludedDefaultCommand;
-		public ICommand SelectProductIncludedDefaultCommand { get; private set; }
-		public ICommand ClearProductIncludedDefaultCommand { get; private set; }
+		public DelegateLogCommand SelectProductIncludedDefaultCommand { get; private set; }
+		public DelegateLogCommand ClearProductIncludedDefaultCommand { get; private set; }
 
         public GlobalPropertiesDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
 			if (_getEntitiesForSelectOurCompanyCommand == null) _getEntitiesForSelectOurCompanyCommand = () => { return UnitOfWork.Repository<Company>().GetAll(); };
-			if (SelectOurCompanyCommand == null) SelectOurCompanyCommand = new DelegateCommand(SelectOurCompanyCommand_Execute_Default);
-			if (ClearOurCompanyCommand == null) ClearOurCompanyCommand = new DelegateCommand(ClearOurCompanyCommand_Execute_Default);
+			if (SelectOurCompanyCommand == null) SelectOurCompanyCommand = new DelegateLogCommand(SelectOurCompanyCommand_Execute_Default);
+			if (ClearOurCompanyCommand == null) ClearOurCompanyCommand = new DelegateLogCommand(ClearOurCompanyCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectStandartPaymentsConditionSetCommand == null) _getEntitiesForSelectStandartPaymentsConditionSetCommand = () => { return UnitOfWork.Repository<PaymentConditionSet>().GetAll(); };
-			if (SelectStandartPaymentsConditionSetCommand == null) SelectStandartPaymentsConditionSetCommand = new DelegateCommand(SelectStandartPaymentsConditionSetCommand_Execute_Default);
-			if (ClearStandartPaymentsConditionSetCommand == null) ClearStandartPaymentsConditionSetCommand = new DelegateCommand(ClearStandartPaymentsConditionSetCommand_Execute_Default);
+			if (SelectStandartPaymentsConditionSetCommand == null) SelectStandartPaymentsConditionSetCommand = new DelegateLogCommand(SelectStandartPaymentsConditionSetCommand_Execute_Default);
+			if (ClearStandartPaymentsConditionSetCommand == null) ClearStandartPaymentsConditionSetCommand = new DelegateLogCommand(ClearStandartPaymentsConditionSetCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectNewProductParameterCommand == null) _getEntitiesForSelectNewProductParameterCommand = () => { return UnitOfWork.Repository<Parameter>().GetAll(); };
-			if (SelectNewProductParameterCommand == null) SelectNewProductParameterCommand = new DelegateCommand(SelectNewProductParameterCommand_Execute_Default);
-			if (ClearNewProductParameterCommand == null) ClearNewProductParameterCommand = new DelegateCommand(ClearNewProductParameterCommand_Execute_Default);
+			if (SelectNewProductParameterCommand == null) SelectNewProductParameterCommand = new DelegateLogCommand(SelectNewProductParameterCommand_Execute_Default);
+			if (ClearNewProductParameterCommand == null) ClearNewProductParameterCommand = new DelegateLogCommand(ClearNewProductParameterCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectNewProductParameterGroupCommand == null) _getEntitiesForSelectNewProductParameterGroupCommand = () => { return UnitOfWork.Repository<ParameterGroup>().GetAll(); };
-			if (SelectNewProductParameterGroupCommand == null) SelectNewProductParameterGroupCommand = new DelegateCommand(SelectNewProductParameterGroupCommand_Execute_Default);
-			if (ClearNewProductParameterGroupCommand == null) ClearNewProductParameterGroupCommand = new DelegateCommand(ClearNewProductParameterGroupCommand_Execute_Default);
+			if (SelectNewProductParameterGroupCommand == null) SelectNewProductParameterGroupCommand = new DelegateLogCommand(SelectNewProductParameterGroupCommand_Execute_Default);
+			if (ClearNewProductParameterGroupCommand == null) ClearNewProductParameterGroupCommand = new DelegateLogCommand(ClearNewProductParameterGroupCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectServiceParameterCommand == null) _getEntitiesForSelectServiceParameterCommand = () => { return UnitOfWork.Repository<Parameter>().GetAll(); };
-			if (SelectServiceParameterCommand == null) SelectServiceParameterCommand = new DelegateCommand(SelectServiceParameterCommand_Execute_Default);
-			if (ClearServiceParameterCommand == null) ClearServiceParameterCommand = new DelegateCommand(ClearServiceParameterCommand_Execute_Default);
+			if (SelectServiceParameterCommand == null) SelectServiceParameterCommand = new DelegateLogCommand(SelectServiceParameterCommand_Execute_Default);
+			if (ClearServiceParameterCommand == null) ClearServiceParameterCommand = new DelegateLogCommand(ClearServiceParameterCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectSupervisionParameterCommand == null) _getEntitiesForSelectSupervisionParameterCommand = () => { return UnitOfWork.Repository<Parameter>().GetAll(); };
-			if (SelectSupervisionParameterCommand == null) SelectSupervisionParameterCommand = new DelegateCommand(SelectSupervisionParameterCommand_Execute_Default);
-			if (ClearSupervisionParameterCommand == null) ClearSupervisionParameterCommand = new DelegateCommand(ClearSupervisionParameterCommand_Execute_Default);
+			if (SelectSupervisionParameterCommand == null) SelectSupervisionParameterCommand = new DelegateLogCommand(SelectSupervisionParameterCommand_Execute_Default);
+			if (ClearSupervisionParameterCommand == null) ClearSupervisionParameterCommand = new DelegateLogCommand(ClearSupervisionParameterCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectVoltageGroupCommand == null) _getEntitiesForSelectVoltageGroupCommand = () => { return UnitOfWork.Repository<ParameterGroup>().GetAll(); };
-			if (SelectVoltageGroupCommand == null) SelectVoltageGroupCommand = new DelegateCommand(SelectVoltageGroupCommand_Execute_Default);
-			if (ClearVoltageGroupCommand == null) ClearVoltageGroupCommand = new DelegateCommand(ClearVoltageGroupCommand_Execute_Default);
+			if (SelectVoltageGroupCommand == null) SelectVoltageGroupCommand = new DelegateLogCommand(SelectVoltageGroupCommand_Execute_Default);
+			if (ClearVoltageGroupCommand == null) ClearVoltageGroupCommand = new DelegateLogCommand(ClearVoltageGroupCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectIsolationMaterialGroupCommand == null) _getEntitiesForSelectIsolationMaterialGroupCommand = () => { return UnitOfWork.Repository<ParameterGroup>().GetAll(); };
-			if (SelectIsolationMaterialGroupCommand == null) SelectIsolationMaterialGroupCommand = new DelegateCommand(SelectIsolationMaterialGroupCommand_Execute_Default);
-			if (ClearIsolationMaterialGroupCommand == null) ClearIsolationMaterialGroupCommand = new DelegateCommand(ClearIsolationMaterialGroupCommand_Execute_Default);
+			if (SelectIsolationMaterialGroupCommand == null) SelectIsolationMaterialGroupCommand = new DelegateLogCommand(SelectIsolationMaterialGroupCommand_Execute_Default);
+			if (ClearIsolationMaterialGroupCommand == null) ClearIsolationMaterialGroupCommand = new DelegateLogCommand(ClearIsolationMaterialGroupCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectIsolationColorGroupCommand == null) _getEntitiesForSelectIsolationColorGroupCommand = () => { return UnitOfWork.Repository<ParameterGroup>().GetAll(); };
-			if (SelectIsolationColorGroupCommand == null) SelectIsolationColorGroupCommand = new DelegateCommand(SelectIsolationColorGroupCommand_Execute_Default);
-			if (ClearIsolationColorGroupCommand == null) ClearIsolationColorGroupCommand = new DelegateCommand(ClearIsolationColorGroupCommand_Execute_Default);
+			if (SelectIsolationColorGroupCommand == null) SelectIsolationColorGroupCommand = new DelegateLogCommand(SelectIsolationColorGroupCommand_Execute_Default);
+			if (ClearIsolationColorGroupCommand == null) ClearIsolationColorGroupCommand = new DelegateLogCommand(ClearIsolationColorGroupCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectIsolationDpuGroupCommand == null) _getEntitiesForSelectIsolationDpuGroupCommand = () => { return UnitOfWork.Repository<ParameterGroup>().GetAll(); };
-			if (SelectIsolationDpuGroupCommand == null) SelectIsolationDpuGroupCommand = new DelegateCommand(SelectIsolationDpuGroupCommand_Execute_Default);
-			if (ClearIsolationDpuGroupCommand == null) ClearIsolationDpuGroupCommand = new DelegateCommand(ClearIsolationDpuGroupCommand_Execute_Default);
+			if (SelectIsolationDpuGroupCommand == null) SelectIsolationDpuGroupCommand = new DelegateLogCommand(SelectIsolationDpuGroupCommand_Execute_Default);
+			if (ClearIsolationDpuGroupCommand == null) ClearIsolationDpuGroupCommand = new DelegateLogCommand(ClearIsolationDpuGroupCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectComplectDesignationGroupCommand == null) _getEntitiesForSelectComplectDesignationGroupCommand = () => { return UnitOfWork.Repository<ParameterGroup>().GetAll(); };
-			if (SelectComplectDesignationGroupCommand == null) SelectComplectDesignationGroupCommand = new DelegateCommand(SelectComplectDesignationGroupCommand_Execute_Default);
-			if (ClearComplectDesignationGroupCommand == null) ClearComplectDesignationGroupCommand = new DelegateCommand(ClearComplectDesignationGroupCommand_Execute_Default);
+			if (SelectComplectDesignationGroupCommand == null) SelectComplectDesignationGroupCommand = new DelegateLogCommand(SelectComplectDesignationGroupCommand_Execute_Default);
+			if (ClearComplectDesignationGroupCommand == null) ClearComplectDesignationGroupCommand = new DelegateLogCommand(ClearComplectDesignationGroupCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectComplectsParameterCommand == null) _getEntitiesForSelectComplectsParameterCommand = () => { return UnitOfWork.Repository<Parameter>().GetAll(); };
-			if (SelectComplectsParameterCommand == null) SelectComplectsParameterCommand = new DelegateCommand(SelectComplectsParameterCommand_Execute_Default);
-			if (ClearComplectsParameterCommand == null) ClearComplectsParameterCommand = new DelegateCommand(ClearComplectsParameterCommand_Execute_Default);
+			if (SelectComplectsParameterCommand == null) SelectComplectsParameterCommand = new DelegateLogCommand(SelectComplectsParameterCommand_Execute_Default);
+			if (ClearComplectsParameterCommand == null) ClearComplectsParameterCommand = new DelegateLogCommand(ClearComplectsParameterCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectComplectsGroupCommand == null) _getEntitiesForSelectComplectsGroupCommand = () => { return UnitOfWork.Repository<ParameterGroup>().GetAll(); };
-			if (SelectComplectsGroupCommand == null) SelectComplectsGroupCommand = new DelegateCommand(SelectComplectsGroupCommand_Execute_Default);
-			if (ClearComplectsGroupCommand == null) ClearComplectsGroupCommand = new DelegateCommand(ClearComplectsGroupCommand_Execute_Default);
+			if (SelectComplectsGroupCommand == null) SelectComplectsGroupCommand = new DelegateLogCommand(SelectComplectsGroupCommand_Execute_Default);
+			if (ClearComplectsGroupCommand == null) ClearComplectsGroupCommand = new DelegateLogCommand(ClearComplectsGroupCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectDefaultProjectTypeCommand == null) _getEntitiesForSelectDefaultProjectTypeCommand = () => { return UnitOfWork.Repository<ProjectType>().GetAll(); };
-			if (SelectDefaultProjectTypeCommand == null) SelectDefaultProjectTypeCommand = new DelegateCommand(SelectDefaultProjectTypeCommand_Execute_Default);
-			if (ClearDefaultProjectTypeCommand == null) ClearDefaultProjectTypeCommand = new DelegateCommand(ClearDefaultProjectTypeCommand_Execute_Default);
+			if (SelectDefaultProjectTypeCommand == null) SelectDefaultProjectTypeCommand = new DelegateLogCommand(SelectDefaultProjectTypeCommand_Execute_Default);
+			if (ClearDefaultProjectTypeCommand == null) ClearDefaultProjectTypeCommand = new DelegateLogCommand(ClearDefaultProjectTypeCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectRecipientSupervisionLetterEmployeeCommand == null) _getEntitiesForSelectRecipientSupervisionLetterEmployeeCommand = () => { return UnitOfWork.Repository<Employee>().GetAll(); };
-			if (SelectRecipientSupervisionLetterEmployeeCommand == null) SelectRecipientSupervisionLetterEmployeeCommand = new DelegateCommand(SelectRecipientSupervisionLetterEmployeeCommand_Execute_Default);
-			if (ClearRecipientSupervisionLetterEmployeeCommand == null) ClearRecipientSupervisionLetterEmployeeCommand = new DelegateCommand(ClearRecipientSupervisionLetterEmployeeCommand_Execute_Default);
+			if (SelectRecipientSupervisionLetterEmployeeCommand == null) SelectRecipientSupervisionLetterEmployeeCommand = new DelegateLogCommand(SelectRecipientSupervisionLetterEmployeeCommand_Execute_Default);
+			if (ClearRecipientSupervisionLetterEmployeeCommand == null) ClearRecipientSupervisionLetterEmployeeCommand = new DelegateLogCommand(ClearRecipientSupervisionLetterEmployeeCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectSenderOfferEmployeeCommand == null) _getEntitiesForSelectSenderOfferEmployeeCommand = () => { return UnitOfWork.Repository<Employee>().GetAll(); };
-			if (SelectSenderOfferEmployeeCommand == null) SelectSenderOfferEmployeeCommand = new DelegateCommand(SelectSenderOfferEmployeeCommand_Execute_Default);
-			if (ClearSenderOfferEmployeeCommand == null) ClearSenderOfferEmployeeCommand = new DelegateCommand(ClearSenderOfferEmployeeCommand_Execute_Default);
+			if (SelectSenderOfferEmployeeCommand == null) SelectSenderOfferEmployeeCommand = new DelegateLogCommand(SelectSenderOfferEmployeeCommand_Execute_Default);
+			if (ClearSenderOfferEmployeeCommand == null) ClearSenderOfferEmployeeCommand = new DelegateLogCommand(ClearSenderOfferEmployeeCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectHvtProducersActivityFieldCommand == null) _getEntitiesForSelectHvtProducersActivityFieldCommand = () => { return UnitOfWork.Repository<ActivityField>().GetAll(); };
-			if (SelectHvtProducersActivityFieldCommand == null) SelectHvtProducersActivityFieldCommand = new DelegateCommand(SelectHvtProducersActivityFieldCommand_Execute_Default);
-			if (ClearHvtProducersActivityFieldCommand == null) ClearHvtProducersActivityFieldCommand = new DelegateCommand(ClearHvtProducersActivityFieldCommand_Execute_Default);
+			if (SelectHvtProducersActivityFieldCommand == null) SelectHvtProducersActivityFieldCommand = new DelegateLogCommand(SelectHvtProducersActivityFieldCommand_Execute_Default);
+			if (ClearHvtProducersActivityFieldCommand == null) ClearHvtProducersActivityFieldCommand = new DelegateLogCommand(ClearHvtProducersActivityFieldCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectPaymentConditionSetCommand == null) _getEntitiesForSelectPaymentConditionSetCommand = () => { return UnitOfWork.Repository<PaymentConditionSet>().GetAll(); };
-			if (SelectPaymentConditionSetCommand == null) SelectPaymentConditionSetCommand = new DelegateCommand(SelectPaymentConditionSetCommand_Execute_Default);
-			if (ClearPaymentConditionSetCommand == null) ClearPaymentConditionSetCommand = new DelegateCommand(ClearPaymentConditionSetCommand_Execute_Default);
+			if (SelectPaymentConditionSetCommand == null) SelectPaymentConditionSetCommand = new DelegateLogCommand(SelectPaymentConditionSetCommand_Execute_Default);
+			if (ClearPaymentConditionSetCommand == null) ClearPaymentConditionSetCommand = new DelegateLogCommand(ClearPaymentConditionSetCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectDeveloperCommand == null) _getEntitiesForSelectDeveloperCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };
-			if (SelectDeveloperCommand == null) SelectDeveloperCommand = new DelegateCommand(SelectDeveloperCommand_Execute_Default);
-			if (ClearDeveloperCommand == null) ClearDeveloperCommand = new DelegateCommand(ClearDeveloperCommand_Execute_Default);
+			if (SelectDeveloperCommand == null) SelectDeveloperCommand = new DelegateLogCommand(SelectDeveloperCommand_Execute_Default);
+			if (ClearDeveloperCommand == null) ClearDeveloperCommand = new DelegateLogCommand(ClearDeveloperCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectProductIncludedDefaultCommand == null) _getEntitiesForSelectProductIncludedDefaultCommand = () => { return UnitOfWork.Repository<Product>().GetAll(); };
-			if (SelectProductIncludedDefaultCommand == null) SelectProductIncludedDefaultCommand = new DelegateCommand(SelectProductIncludedDefaultCommand_Execute_Default);
-			if (ClearProductIncludedDefaultCommand == null) ClearProductIncludedDefaultCommand = new DelegateCommand(ClearProductIncludedDefaultCommand_Execute_Default);
+			if (SelectProductIncludedDefaultCommand == null) SelectProductIncludedDefaultCommand = new DelegateLogCommand(SelectProductIncludedDefaultCommand_Execute_Default);
+			if (ClearProductIncludedDefaultCommand == null) ClearProductIncludedDefaultCommand = new DelegateLogCommand(ClearProductIncludedDefaultCommand_Execute_Default);
 
 		}
 
@@ -2258,15 +2258,15 @@ namespace HVTApp.UI.ViewModels
     {
 		//private Func<Task<List<Locality>>> _getEntitiesForSelectLocalityCommand;
 		private Func<List<Locality>> _getEntitiesForSelectLocalityCommand;
-		public ICommand SelectLocalityCommand { get; private set; }
-		public ICommand ClearLocalityCommand { get; private set; }
+		public DelegateLogCommand SelectLocalityCommand { get; private set; }
+		public DelegateLogCommand ClearLocalityCommand { get; private set; }
 
         public AddressDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
 			if (_getEntitiesForSelectLocalityCommand == null) _getEntitiesForSelectLocalityCommand = () => { return UnitOfWork.Repository<Locality>().GetAll(); };
-			if (SelectLocalityCommand == null) SelectLocalityCommand = new DelegateCommand(SelectLocalityCommand_Execute_Default);
-			if (ClearLocalityCommand == null) ClearLocalityCommand = new DelegateCommand(ClearLocalityCommand_Execute_Default);
+			if (SelectLocalityCommand == null) SelectLocalityCommand = new DelegateLogCommand(SelectLocalityCommand_Execute_Default);
+			if (ClearLocalityCommand == null) ClearLocalityCommand = new DelegateLogCommand(ClearLocalityCommand_Execute_Default);
 
 		}
 
@@ -2296,15 +2296,15 @@ namespace HVTApp.UI.ViewModels
     {
 		//private Func<Task<List<Country>>> _getEntitiesForSelectCountryCommand;
 		private Func<List<Country>> _getEntitiesForSelectCountryCommand;
-		public ICommand SelectCountryCommand { get; private set; }
-		public ICommand ClearCountryCommand { get; private set; }
+		public DelegateLogCommand SelectCountryCommand { get; private set; }
+		public DelegateLogCommand ClearCountryCommand { get; private set; }
 
         public DistrictDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
 			if (_getEntitiesForSelectCountryCommand == null) _getEntitiesForSelectCountryCommand = () => { return UnitOfWork.Repository<Country>().GetAll(); };
-			if (SelectCountryCommand == null) SelectCountryCommand = new DelegateCommand(SelectCountryCommand_Execute_Default);
-			if (ClearCountryCommand == null) ClearCountryCommand = new DelegateCommand(ClearCountryCommand_Execute_Default);
+			if (SelectCountryCommand == null) SelectCountryCommand = new DelegateLogCommand(SelectCountryCommand_Execute_Default);
+			if (ClearCountryCommand == null) ClearCountryCommand = new DelegateLogCommand(ClearCountryCommand_Execute_Default);
 
 		}
 
@@ -2325,25 +2325,25 @@ namespace HVTApp.UI.ViewModels
     {
 		//private Func<Task<List<LocalityType>>> _getEntitiesForSelectLocalityTypeCommand;
 		private Func<List<LocalityType>> _getEntitiesForSelectLocalityTypeCommand;
-		public ICommand SelectLocalityTypeCommand { get; private set; }
-		public ICommand ClearLocalityTypeCommand { get; private set; }
+		public DelegateLogCommand SelectLocalityTypeCommand { get; private set; }
+		public DelegateLogCommand ClearLocalityTypeCommand { get; private set; }
 
 		//private Func<Task<List<Region>>> _getEntitiesForSelectRegionCommand;
 		private Func<List<Region>> _getEntitiesForSelectRegionCommand;
-		public ICommand SelectRegionCommand { get; private set; }
-		public ICommand ClearRegionCommand { get; private set; }
+		public DelegateLogCommand SelectRegionCommand { get; private set; }
+		public DelegateLogCommand ClearRegionCommand { get; private set; }
 
         public LocalityDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
 			if (_getEntitiesForSelectLocalityTypeCommand == null) _getEntitiesForSelectLocalityTypeCommand = () => { return UnitOfWork.Repository<LocalityType>().GetAll(); };
-			if (SelectLocalityTypeCommand == null) SelectLocalityTypeCommand = new DelegateCommand(SelectLocalityTypeCommand_Execute_Default);
-			if (ClearLocalityTypeCommand == null) ClearLocalityTypeCommand = new DelegateCommand(ClearLocalityTypeCommand_Execute_Default);
+			if (SelectLocalityTypeCommand == null) SelectLocalityTypeCommand = new DelegateLogCommand(SelectLocalityTypeCommand_Execute_Default);
+			if (ClearLocalityTypeCommand == null) ClearLocalityTypeCommand = new DelegateLogCommand(ClearLocalityTypeCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectRegionCommand == null) _getEntitiesForSelectRegionCommand = () => { return UnitOfWork.Repository<Region>().GetAll(); };
-			if (SelectRegionCommand == null) SelectRegionCommand = new DelegateCommand(SelectRegionCommand_Execute_Default);
-			if (ClearRegionCommand == null) ClearRegionCommand = new DelegateCommand(ClearRegionCommand_Execute_Default);
+			if (SelectRegionCommand == null) SelectRegionCommand = new DelegateLogCommand(SelectRegionCommand_Execute_Default);
+			if (ClearRegionCommand == null) ClearRegionCommand = new DelegateLogCommand(ClearRegionCommand_Execute_Default);
 
 		}
 
@@ -2383,15 +2383,15 @@ namespace HVTApp.UI.ViewModels
     {
 		//private Func<Task<List<District>>> _getEntitiesForSelectDistrictCommand;
 		private Func<List<District>> _getEntitiesForSelectDistrictCommand;
-		public ICommand SelectDistrictCommand { get; private set; }
-		public ICommand ClearDistrictCommand { get; private set; }
+		public DelegateLogCommand SelectDistrictCommand { get; private set; }
+		public DelegateLogCommand ClearDistrictCommand { get; private set; }
 
         public RegionDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
 			if (_getEntitiesForSelectDistrictCommand == null) _getEntitiesForSelectDistrictCommand = () => { return UnitOfWork.Repository<District>().GetAll(); };
-			if (SelectDistrictCommand == null) SelectDistrictCommand = new DelegateCommand(SelectDistrictCommand_Execute_Default);
-			if (ClearDistrictCommand == null) ClearDistrictCommand = new DelegateCommand(ClearDistrictCommand_Execute_Default);
+			if (SelectDistrictCommand == null) SelectDistrictCommand = new DelegateLogCommand(SelectDistrictCommand_Execute_Default);
+			if (ClearDistrictCommand == null) ClearDistrictCommand = new DelegateLogCommand(ClearDistrictCommand_Execute_Default);
 
 		}
 
@@ -2439,27 +2439,27 @@ namespace HVTApp.UI.ViewModels
     {
 		//private Func<Task<List<Offer>>> _getEntitiesForSelectOfferCommand;
 		private Func<List<Offer>> _getEntitiesForSelectOfferCommand;
-		public ICommand SelectOfferCommand { get; private set; }
-		public ICommand ClearOfferCommand { get; private set; }
+		public DelegateLogCommand SelectOfferCommand { get; private set; }
+		public DelegateLogCommand ClearOfferCommand { get; private set; }
 
 		//private Func<Task<List<Facility>>> _getEntitiesForSelectFacilityCommand;
 		private Func<List<Facility>> _getEntitiesForSelectFacilityCommand;
-		public ICommand SelectFacilityCommand { get; private set; }
-		public ICommand ClearFacilityCommand { get; private set; }
+		public DelegateLogCommand SelectFacilityCommand { get; private set; }
+		public DelegateLogCommand ClearFacilityCommand { get; private set; }
 
 		//private Func<Task<List<Product>>> _getEntitiesForSelectProductCommand;
 		private Func<List<Product>> _getEntitiesForSelectProductCommand;
-		public ICommand SelectProductCommand { get; private set; }
-		public ICommand ClearProductCommand { get; private set; }
+		public DelegateLogCommand SelectProductCommand { get; private set; }
+		public DelegateLogCommand ClearProductCommand { get; private set; }
 
 		//private Func<Task<List<PaymentConditionSet>>> _getEntitiesForSelectPaymentConditionSetCommand;
 		private Func<List<PaymentConditionSet>> _getEntitiesForSelectPaymentConditionSetCommand;
-		public ICommand SelectPaymentConditionSetCommand { get; private set; }
-		public ICommand ClearPaymentConditionSetCommand { get; private set; }
+		public DelegateLogCommand SelectPaymentConditionSetCommand { get; private set; }
+		public DelegateLogCommand ClearPaymentConditionSetCommand { get; private set; }
 
 		private Func<List<ProductIncluded>> _getEntitiesForAddInProductsIncludedCommand;
-		public ICommand AddInProductsIncludedCommand { get; }
-		public ICommand RemoveFromProductsIncludedCommand { get; }
+		public DelegateLogCommand AddInProductsIncludedCommand { get; }
+		public DelegateLogCommand RemoveFromProductsIncludedCommand { get; }
 		private ProductIncludedWrapper _selectedProductsIncludedItem;
 		public ProductIncludedWrapper SelectedProductsIncludedItem 
 		{ 
@@ -2469,7 +2469,7 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedProductsIncludedItem, value)) return;
 				_selectedProductsIncludedItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromProductsIncludedCommand).RaiseCanExecuteChanged();
+				RemoveFromProductsIncludedCommand.RaiseCanExecuteChanged();
 			}
 		}
 
@@ -2477,28 +2477,28 @@ namespace HVTApp.UI.ViewModels
 		{
 			
 			if (_getEntitiesForSelectOfferCommand == null) _getEntitiesForSelectOfferCommand = () => { return UnitOfWork.Repository<Offer>().GetAll(); };
-			if (SelectOfferCommand == null) SelectOfferCommand = new DelegateCommand(SelectOfferCommand_Execute_Default);
-			if (ClearOfferCommand == null) ClearOfferCommand = new DelegateCommand(ClearOfferCommand_Execute_Default);
+			if (SelectOfferCommand == null) SelectOfferCommand = new DelegateLogCommand(SelectOfferCommand_Execute_Default);
+			if (ClearOfferCommand == null) ClearOfferCommand = new DelegateLogCommand(ClearOfferCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectFacilityCommand == null) _getEntitiesForSelectFacilityCommand = () => { return UnitOfWork.Repository<Facility>().GetAll(); };
-			if (SelectFacilityCommand == null) SelectFacilityCommand = new DelegateCommand(SelectFacilityCommand_Execute_Default);
-			if (ClearFacilityCommand == null) ClearFacilityCommand = new DelegateCommand(ClearFacilityCommand_Execute_Default);
+			if (SelectFacilityCommand == null) SelectFacilityCommand = new DelegateLogCommand(SelectFacilityCommand_Execute_Default);
+			if (ClearFacilityCommand == null) ClearFacilityCommand = new DelegateLogCommand(ClearFacilityCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectProductCommand == null) _getEntitiesForSelectProductCommand = () => { return UnitOfWork.Repository<Product>().GetAll(); };
-			if (SelectProductCommand == null) SelectProductCommand = new DelegateCommand(SelectProductCommand_Execute_Default);
-			if (ClearProductCommand == null) ClearProductCommand = new DelegateCommand(ClearProductCommand_Execute_Default);
+			if (SelectProductCommand == null) SelectProductCommand = new DelegateLogCommand(SelectProductCommand_Execute_Default);
+			if (ClearProductCommand == null) ClearProductCommand = new DelegateLogCommand(ClearProductCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectPaymentConditionSetCommand == null) _getEntitiesForSelectPaymentConditionSetCommand = () => { return UnitOfWork.Repository<PaymentConditionSet>().GetAll(); };
-			if (SelectPaymentConditionSetCommand == null) SelectPaymentConditionSetCommand = new DelegateCommand(SelectPaymentConditionSetCommand_Execute_Default);
-			if (ClearPaymentConditionSetCommand == null) ClearPaymentConditionSetCommand = new DelegateCommand(ClearPaymentConditionSetCommand_Execute_Default);
+			if (SelectPaymentConditionSetCommand == null) SelectPaymentConditionSetCommand = new DelegateLogCommand(SelectPaymentConditionSetCommand_Execute_Default);
+			if (ClearPaymentConditionSetCommand == null) ClearPaymentConditionSetCommand = new DelegateLogCommand(ClearPaymentConditionSetCommand_Execute_Default);
 
 			
 			if (_getEntitiesForAddInProductsIncludedCommand == null) _getEntitiesForAddInProductsIncludedCommand = () => { return UnitOfWork.Repository<ProductIncluded>().GetAll(); };;
-			if (AddInProductsIncludedCommand == null) AddInProductsIncludedCommand = new DelegateCommand(AddInProductsIncludedCommand_Execute_Default);
-			if (RemoveFromProductsIncludedCommand == null) RemoveFromProductsIncludedCommand = new DelegateCommand(RemoveFromProductsIncludedCommand_Execute_Default, RemoveFromProductsIncludedCommand_CanExecute_Default);
+			if (AddInProductsIncludedCommand == null) AddInProductsIncludedCommand = new DelegateLogCommand(AddInProductsIncludedCommand_Execute_Default);
+			if (RemoveFromProductsIncludedCommand == null) RemoveFromProductsIncludedCommand = new DelegateLogCommand(RemoveFromProductsIncludedCommand_Execute_Default, RemoveFromProductsIncludedCommand_CanExecute_Default);
 
 		}
 
@@ -2563,8 +2563,8 @@ namespace HVTApp.UI.ViewModels
     public partial class PaymentConditionSetDetailsViewModel : BaseDetailsViewModel<PaymentConditionSetWrapper, PaymentConditionSet, AfterSavePaymentConditionSetEvent>
     {
 		private Func<List<PaymentCondition>> _getEntitiesForAddInPaymentConditionsCommand;
-		public ICommand AddInPaymentConditionsCommand { get; }
-		public ICommand RemoveFromPaymentConditionsCommand { get; }
+		public DelegateLogCommand AddInPaymentConditionsCommand { get; }
+		public DelegateLogCommand RemoveFromPaymentConditionsCommand { get; }
 		private PaymentConditionWrapper _selectedPaymentConditionsItem;
 		public PaymentConditionWrapper SelectedPaymentConditionsItem 
 		{ 
@@ -2574,7 +2574,7 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedPaymentConditionsItem, value)) return;
 				_selectedPaymentConditionsItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromPaymentConditionsCommand).RaiseCanExecuteChanged();
+				RemoveFromPaymentConditionsCommand.RaiseCanExecuteChanged();
 			}
 		}
 
@@ -2582,8 +2582,8 @@ namespace HVTApp.UI.ViewModels
 		{
 			
 			if (_getEntitiesForAddInPaymentConditionsCommand == null) _getEntitiesForAddInPaymentConditionsCommand = () => { return UnitOfWork.Repository<PaymentCondition>().GetAll(); };;
-			if (AddInPaymentConditionsCommand == null) AddInPaymentConditionsCommand = new DelegateCommand(AddInPaymentConditionsCommand_Execute_Default);
-			if (RemoveFromPaymentConditionsCommand == null) RemoveFromPaymentConditionsCommand = new DelegateCommand(RemoveFromPaymentConditionsCommand_Execute_Default, RemoveFromPaymentConditionsCommand_CanExecute_Default);
+			if (AddInPaymentConditionsCommand == null) AddInPaymentConditionsCommand = new DelegateLogCommand(AddInPaymentConditionsCommand_Execute_Default);
+			if (RemoveFromPaymentConditionsCommand == null) RemoveFromPaymentConditionsCommand = new DelegateLogCommand(RemoveFromPaymentConditionsCommand_Execute_Default, RemoveFromPaymentConditionsCommand_CanExecute_Default);
 
 		}
 
@@ -2609,12 +2609,12 @@ namespace HVTApp.UI.ViewModels
     {
 		//private Func<Task<List<ProductType>>> _getEntitiesForSelectProductTypeCommand;
 		private Func<List<ProductType>> _getEntitiesForSelectProductTypeCommand;
-		public ICommand SelectProductTypeCommand { get; private set; }
-		public ICommand ClearProductTypeCommand { get; private set; }
+		public DelegateLogCommand SelectProductTypeCommand { get; private set; }
+		public DelegateLogCommand ClearProductTypeCommand { get; private set; }
 
 		private Func<List<Parameter>> _getEntitiesForAddInParametersCommand;
-		public ICommand AddInParametersCommand { get; }
-		public ICommand RemoveFromParametersCommand { get; }
+		public DelegateLogCommand AddInParametersCommand { get; }
+		public DelegateLogCommand RemoveFromParametersCommand { get; }
 		private ParameterWrapper _selectedParametersItem;
 		public ParameterWrapper SelectedParametersItem 
 		{ 
@@ -2624,13 +2624,13 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedParametersItem, value)) return;
 				_selectedParametersItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromParametersCommand).RaiseCanExecuteChanged();
+				RemoveFromParametersCommand.RaiseCanExecuteChanged();
 			}
 		}
 
 		private Func<List<SumOnDate>> _getEntitiesForAddInPricesCommand;
-		public ICommand AddInPricesCommand { get; }
-		public ICommand RemoveFromPricesCommand { get; }
+		public DelegateLogCommand AddInPricesCommand { get; }
+		public DelegateLogCommand RemoveFromPricesCommand { get; }
 		private SumOnDateWrapper _selectedPricesItem;
 		public SumOnDateWrapper SelectedPricesItem 
 		{ 
@@ -2640,13 +2640,13 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedPricesItem, value)) return;
 				_selectedPricesItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromPricesCommand).RaiseCanExecuteChanged();
+				RemoveFromPricesCommand.RaiseCanExecuteChanged();
 			}
 		}
 
 		private Func<List<SumOnDate>> _getEntitiesForAddInFixedCostsCommand;
-		public ICommand AddInFixedCostsCommand { get; }
-		public ICommand RemoveFromFixedCostsCommand { get; }
+		public DelegateLogCommand AddInFixedCostsCommand { get; }
+		public DelegateLogCommand RemoveFromFixedCostsCommand { get; }
 		private SumOnDateWrapper _selectedFixedCostsItem;
 		public SumOnDateWrapper SelectedFixedCostsItem 
 		{ 
@@ -2656,7 +2656,7 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedFixedCostsItem, value)) return;
 				_selectedFixedCostsItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromFixedCostsCommand).RaiseCanExecuteChanged();
+				RemoveFromFixedCostsCommand.RaiseCanExecuteChanged();
 			}
 		}
 
@@ -2664,23 +2664,23 @@ namespace HVTApp.UI.ViewModels
 		{
 			
 			if (_getEntitiesForSelectProductTypeCommand == null) _getEntitiesForSelectProductTypeCommand = () => { return UnitOfWork.Repository<ProductType>().GetAll(); };
-			if (SelectProductTypeCommand == null) SelectProductTypeCommand = new DelegateCommand(SelectProductTypeCommand_Execute_Default);
-			if (ClearProductTypeCommand == null) ClearProductTypeCommand = new DelegateCommand(ClearProductTypeCommand_Execute_Default);
+			if (SelectProductTypeCommand == null) SelectProductTypeCommand = new DelegateLogCommand(SelectProductTypeCommand_Execute_Default);
+			if (ClearProductTypeCommand == null) ClearProductTypeCommand = new DelegateLogCommand(ClearProductTypeCommand_Execute_Default);
 
 			
 			if (_getEntitiesForAddInParametersCommand == null) _getEntitiesForAddInParametersCommand = () => { return UnitOfWork.Repository<Parameter>().GetAll(); };;
-			if (AddInParametersCommand == null) AddInParametersCommand = new DelegateCommand(AddInParametersCommand_Execute_Default);
-			if (RemoveFromParametersCommand == null) RemoveFromParametersCommand = new DelegateCommand(RemoveFromParametersCommand_Execute_Default, RemoveFromParametersCommand_CanExecute_Default);
+			if (AddInParametersCommand == null) AddInParametersCommand = new DelegateLogCommand(AddInParametersCommand_Execute_Default);
+			if (RemoveFromParametersCommand == null) RemoveFromParametersCommand = new DelegateLogCommand(RemoveFromParametersCommand_Execute_Default, RemoveFromParametersCommand_CanExecute_Default);
 
 			
 			if (_getEntitiesForAddInPricesCommand == null) _getEntitiesForAddInPricesCommand = () => { return UnitOfWork.Repository<SumOnDate>().GetAll(); };;
-			if (AddInPricesCommand == null) AddInPricesCommand = new DelegateCommand(AddInPricesCommand_Execute_Default);
-			if (RemoveFromPricesCommand == null) RemoveFromPricesCommand = new DelegateCommand(RemoveFromPricesCommand_Execute_Default, RemoveFromPricesCommand_CanExecute_Default);
+			if (AddInPricesCommand == null) AddInPricesCommand = new DelegateLogCommand(AddInPricesCommand_Execute_Default);
+			if (RemoveFromPricesCommand == null) RemoveFromPricesCommand = new DelegateLogCommand(RemoveFromPricesCommand_Execute_Default, RemoveFromPricesCommand_CanExecute_Default);
 
 			
 			if (_getEntitiesForAddInFixedCostsCommand == null) _getEntitiesForAddInFixedCostsCommand = () => { return UnitOfWork.Repository<SumOnDate>().GetAll(); };;
-			if (AddInFixedCostsCommand == null) AddInFixedCostsCommand = new DelegateCommand(AddInFixedCostsCommand_Execute_Default);
-			if (RemoveFromFixedCostsCommand == null) RemoveFromFixedCostsCommand = new DelegateCommand(RemoveFromFixedCostsCommand_Execute_Default, RemoveFromFixedCostsCommand_CanExecute_Default);
+			if (AddInFixedCostsCommand == null) AddInFixedCostsCommand = new DelegateLogCommand(AddInFixedCostsCommand_Execute_Default);
+			if (RemoveFromFixedCostsCommand == null) RemoveFromFixedCostsCommand = new DelegateLogCommand(RemoveFromFixedCostsCommand_Execute_Default, RemoveFromFixedCostsCommand_CanExecute_Default);
 
 		}
 
@@ -2746,15 +2746,15 @@ namespace HVTApp.UI.ViewModels
     {
 		//private Func<Task<List<Product>>> _getEntitiesForSelectProductCommand;
 		private Func<List<Product>> _getEntitiesForSelectProductCommand;
-		public ICommand SelectProductCommand { get; private set; }
-		public ICommand ClearProductCommand { get; private set; }
+		public DelegateLogCommand SelectProductCommand { get; private set; }
+		public DelegateLogCommand ClearProductCommand { get; private set; }
 
         public ProductDependentDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
 			if (_getEntitiesForSelectProductCommand == null) _getEntitiesForSelectProductCommand = () => { return UnitOfWork.Repository<Product>().GetAll(); };
-			if (SelectProductCommand == null) SelectProductCommand = new DelegateCommand(SelectProductCommand_Execute_Default);
-			if (ClearProductCommand == null) ClearProductCommand = new DelegateCommand(ClearProductCommand_Execute_Default);
+			if (SelectProductCommand == null) SelectProductCommand = new DelegateLogCommand(SelectProductCommand_Execute_Default);
+			if (ClearProductCommand == null) ClearProductCommand = new DelegateLogCommand(ClearProductCommand_Execute_Default);
 
 		}
 
@@ -2784,27 +2784,27 @@ namespace HVTApp.UI.ViewModels
     {
 		//private Func<Task<List<CompanyForm>>> _getEntitiesForSelectFormCommand;
 		private Func<List<CompanyForm>> _getEntitiesForSelectFormCommand;
-		public ICommand SelectFormCommand { get; private set; }
-		public ICommand ClearFormCommand { get; private set; }
+		public DelegateLogCommand SelectFormCommand { get; private set; }
+		public DelegateLogCommand ClearFormCommand { get; private set; }
 
 		//private Func<Task<List<Company>>> _getEntitiesForSelectParentCompanyCommand;
 		private Func<List<Company>> _getEntitiesForSelectParentCompanyCommand;
-		public ICommand SelectParentCompanyCommand { get; private set; }
-		public ICommand ClearParentCompanyCommand { get; private set; }
+		public DelegateLogCommand SelectParentCompanyCommand { get; private set; }
+		public DelegateLogCommand ClearParentCompanyCommand { get; private set; }
 
 		//private Func<Task<List<Address>>> _getEntitiesForSelectAddressLegalCommand;
 		private Func<List<Address>> _getEntitiesForSelectAddressLegalCommand;
-		public ICommand SelectAddressLegalCommand { get; private set; }
-		public ICommand ClearAddressLegalCommand { get; private set; }
+		public DelegateLogCommand SelectAddressLegalCommand { get; private set; }
+		public DelegateLogCommand ClearAddressLegalCommand { get; private set; }
 
 		//private Func<Task<List<Address>>> _getEntitiesForSelectAddressPostCommand;
 		private Func<List<Address>> _getEntitiesForSelectAddressPostCommand;
-		public ICommand SelectAddressPostCommand { get; private set; }
-		public ICommand ClearAddressPostCommand { get; private set; }
+		public DelegateLogCommand SelectAddressPostCommand { get; private set; }
+		public DelegateLogCommand ClearAddressPostCommand { get; private set; }
 
 		private Func<List<BankDetails>> _getEntitiesForAddInBankDetailsListCommand;
-		public ICommand AddInBankDetailsListCommand { get; }
-		public ICommand RemoveFromBankDetailsListCommand { get; }
+		public DelegateLogCommand AddInBankDetailsListCommand { get; }
+		public DelegateLogCommand RemoveFromBankDetailsListCommand { get; }
 		private BankDetailsWrapper _selectedBankDetailsListItem;
 		public BankDetailsWrapper SelectedBankDetailsListItem 
 		{ 
@@ -2814,13 +2814,13 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedBankDetailsListItem, value)) return;
 				_selectedBankDetailsListItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromBankDetailsListCommand).RaiseCanExecuteChanged();
+				RemoveFromBankDetailsListCommand.RaiseCanExecuteChanged();
 			}
 		}
 
 		private Func<List<ActivityField>> _getEntitiesForAddInActivityFildsCommand;
-		public ICommand AddInActivityFildsCommand { get; }
-		public ICommand RemoveFromActivityFildsCommand { get; }
+		public DelegateLogCommand AddInActivityFildsCommand { get; }
+		public DelegateLogCommand RemoveFromActivityFildsCommand { get; }
 		private ActivityFieldWrapper _selectedActivityFildsItem;
 		public ActivityFieldWrapper SelectedActivityFildsItem 
 		{ 
@@ -2830,7 +2830,7 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedActivityFildsItem, value)) return;
 				_selectedActivityFildsItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromActivityFildsCommand).RaiseCanExecuteChanged();
+				RemoveFromActivityFildsCommand.RaiseCanExecuteChanged();
 			}
 		}
 
@@ -2838,33 +2838,33 @@ namespace HVTApp.UI.ViewModels
 		{
 			
 			if (_getEntitiesForSelectFormCommand == null) _getEntitiesForSelectFormCommand = () => { return UnitOfWork.Repository<CompanyForm>().GetAll(); };
-			if (SelectFormCommand == null) SelectFormCommand = new DelegateCommand(SelectFormCommand_Execute_Default);
-			if (ClearFormCommand == null) ClearFormCommand = new DelegateCommand(ClearFormCommand_Execute_Default);
+			if (SelectFormCommand == null) SelectFormCommand = new DelegateLogCommand(SelectFormCommand_Execute_Default);
+			if (ClearFormCommand == null) ClearFormCommand = new DelegateLogCommand(ClearFormCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectParentCompanyCommand == null) _getEntitiesForSelectParentCompanyCommand = () => { return UnitOfWork.Repository<Company>().GetAll(); };
-			if (SelectParentCompanyCommand == null) SelectParentCompanyCommand = new DelegateCommand(SelectParentCompanyCommand_Execute_Default);
-			if (ClearParentCompanyCommand == null) ClearParentCompanyCommand = new DelegateCommand(ClearParentCompanyCommand_Execute_Default);
+			if (SelectParentCompanyCommand == null) SelectParentCompanyCommand = new DelegateLogCommand(SelectParentCompanyCommand_Execute_Default);
+			if (ClearParentCompanyCommand == null) ClearParentCompanyCommand = new DelegateLogCommand(ClearParentCompanyCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectAddressLegalCommand == null) _getEntitiesForSelectAddressLegalCommand = () => { return UnitOfWork.Repository<Address>().GetAll(); };
-			if (SelectAddressLegalCommand == null) SelectAddressLegalCommand = new DelegateCommand(SelectAddressLegalCommand_Execute_Default);
-			if (ClearAddressLegalCommand == null) ClearAddressLegalCommand = new DelegateCommand(ClearAddressLegalCommand_Execute_Default);
+			if (SelectAddressLegalCommand == null) SelectAddressLegalCommand = new DelegateLogCommand(SelectAddressLegalCommand_Execute_Default);
+			if (ClearAddressLegalCommand == null) ClearAddressLegalCommand = new DelegateLogCommand(ClearAddressLegalCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectAddressPostCommand == null) _getEntitiesForSelectAddressPostCommand = () => { return UnitOfWork.Repository<Address>().GetAll(); };
-			if (SelectAddressPostCommand == null) SelectAddressPostCommand = new DelegateCommand(SelectAddressPostCommand_Execute_Default);
-			if (ClearAddressPostCommand == null) ClearAddressPostCommand = new DelegateCommand(ClearAddressPostCommand_Execute_Default);
+			if (SelectAddressPostCommand == null) SelectAddressPostCommand = new DelegateLogCommand(SelectAddressPostCommand_Execute_Default);
+			if (ClearAddressPostCommand == null) ClearAddressPostCommand = new DelegateLogCommand(ClearAddressPostCommand_Execute_Default);
 
 			
 			if (_getEntitiesForAddInBankDetailsListCommand == null) _getEntitiesForAddInBankDetailsListCommand = () => { return UnitOfWork.Repository<BankDetails>().GetAll(); };;
-			if (AddInBankDetailsListCommand == null) AddInBankDetailsListCommand = new DelegateCommand(AddInBankDetailsListCommand_Execute_Default);
-			if (RemoveFromBankDetailsListCommand == null) RemoveFromBankDetailsListCommand = new DelegateCommand(RemoveFromBankDetailsListCommand_Execute_Default, RemoveFromBankDetailsListCommand_CanExecute_Default);
+			if (AddInBankDetailsListCommand == null) AddInBankDetailsListCommand = new DelegateLogCommand(AddInBankDetailsListCommand_Execute_Default);
+			if (RemoveFromBankDetailsListCommand == null) RemoveFromBankDetailsListCommand = new DelegateLogCommand(RemoveFromBankDetailsListCommand_Execute_Default, RemoveFromBankDetailsListCommand_CanExecute_Default);
 
 			
 			if (_getEntitiesForAddInActivityFildsCommand == null) _getEntitiesForAddInActivityFildsCommand = () => { return UnitOfWork.Repository<ActivityField>().GetAll(); };;
-			if (AddInActivityFildsCommand == null) AddInActivityFildsCommand = new DelegateCommand(AddInActivityFildsCommand_Execute_Default);
-			if (RemoveFromActivityFildsCommand == null) RemoveFromActivityFildsCommand = new DelegateCommand(RemoveFromActivityFildsCommand_Execute_Default, RemoveFromActivityFildsCommand_CanExecute_Default);
+			if (AddInActivityFildsCommand == null) AddInActivityFildsCommand = new DelegateLogCommand(AddInActivityFildsCommand_Execute_Default);
+			if (RemoveFromActivityFildsCommand == null) RemoveFromActivityFildsCommand = new DelegateLogCommand(RemoveFromActivityFildsCommand_Execute_Default, RemoveFromActivityFildsCommand_CanExecute_Default);
 
 		}
 
@@ -2990,15 +2990,15 @@ namespace HVTApp.UI.ViewModels
     {
 		//private Func<Task<List<Company>>> _getEntitiesForSelectContragentCommand;
 		private Func<List<Company>> _getEntitiesForSelectContragentCommand;
-		public ICommand SelectContragentCommand { get; private set; }
-		public ICommand ClearContragentCommand { get; private set; }
+		public DelegateLogCommand SelectContragentCommand { get; private set; }
+		public DelegateLogCommand ClearContragentCommand { get; private set; }
 
         public ContractDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
 			if (_getEntitiesForSelectContragentCommand == null) _getEntitiesForSelectContragentCommand = () => { return UnitOfWork.Repository<Company>().GetAll(); };
-			if (SelectContragentCommand == null) SelectContragentCommand = new DelegateCommand(SelectContragentCommand_Execute_Default);
-			if (ClearContragentCommand == null) ClearContragentCommand = new DelegateCommand(ClearContragentCommand_Execute_Default);
+			if (SelectContragentCommand == null) SelectContragentCommand = new DelegateLogCommand(SelectContragentCommand_Execute_Default);
+			if (ClearContragentCommand == null) ClearContragentCommand = new DelegateLogCommand(ClearContragentCommand_Execute_Default);
 
 		}
 
@@ -3028,12 +3028,12 @@ namespace HVTApp.UI.ViewModels
     {
 		//private Func<Task<List<ParameterGroup>>> _getEntitiesForSelectParameterGroupCommand;
 		private Func<List<ParameterGroup>> _getEntitiesForSelectParameterGroupCommand;
-		public ICommand SelectParameterGroupCommand { get; private set; }
-		public ICommand ClearParameterGroupCommand { get; private set; }
+		public DelegateLogCommand SelectParameterGroupCommand { get; private set; }
+		public DelegateLogCommand ClearParameterGroupCommand { get; private set; }
 
 		private Func<List<ParameterRelation>> _getEntitiesForAddInParameterRelationsCommand;
-		public ICommand AddInParameterRelationsCommand { get; }
-		public ICommand RemoveFromParameterRelationsCommand { get; }
+		public DelegateLogCommand AddInParameterRelationsCommand { get; }
+		public DelegateLogCommand RemoveFromParameterRelationsCommand { get; }
 		private ParameterRelationWrapper _selectedParameterRelationsItem;
 		public ParameterRelationWrapper SelectedParameterRelationsItem 
 		{ 
@@ -3043,7 +3043,7 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedParameterRelationsItem, value)) return;
 				_selectedParameterRelationsItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromParameterRelationsCommand).RaiseCanExecuteChanged();
+				RemoveFromParameterRelationsCommand.RaiseCanExecuteChanged();
 			}
 		}
 
@@ -3051,13 +3051,13 @@ namespace HVTApp.UI.ViewModels
 		{
 			
 			if (_getEntitiesForSelectParameterGroupCommand == null) _getEntitiesForSelectParameterGroupCommand = () => { return UnitOfWork.Repository<ParameterGroup>().GetAll(); };
-			if (SelectParameterGroupCommand == null) SelectParameterGroupCommand = new DelegateCommand(SelectParameterGroupCommand_Execute_Default);
-			if (ClearParameterGroupCommand == null) ClearParameterGroupCommand = new DelegateCommand(ClearParameterGroupCommand_Execute_Default);
+			if (SelectParameterGroupCommand == null) SelectParameterGroupCommand = new DelegateLogCommand(SelectParameterGroupCommand_Execute_Default);
+			if (ClearParameterGroupCommand == null) ClearParameterGroupCommand = new DelegateLogCommand(ClearParameterGroupCommand_Execute_Default);
 
 			
 			if (_getEntitiesForAddInParameterRelationsCommand == null) _getEntitiesForAddInParameterRelationsCommand = () => { return UnitOfWork.Repository<ParameterRelation>().GetAll(); };;
-			if (AddInParameterRelationsCommand == null) AddInParameterRelationsCommand = new DelegateCommand(AddInParameterRelationsCommand_Execute_Default);
-			if (RemoveFromParameterRelationsCommand == null) RemoveFromParameterRelationsCommand = new DelegateCommand(RemoveFromParameterRelationsCommand_Execute_Default, RemoveFromParameterRelationsCommand_CanExecute_Default);
+			if (AddInParameterRelationsCommand == null) AddInParameterRelationsCommand = new DelegateLogCommand(AddInParameterRelationsCommand_Execute_Default);
+			if (RemoveFromParameterRelationsCommand == null) RemoveFromParameterRelationsCommand = new DelegateLogCommand(RemoveFromParameterRelationsCommand_Execute_Default, RemoveFromParameterRelationsCommand_CanExecute_Default);
 
 		}
 
@@ -3093,15 +3093,15 @@ namespace HVTApp.UI.ViewModels
     {
 		//private Func<Task<List<Measure>>> _getEntitiesForSelectMeasureCommand;
 		private Func<List<Measure>> _getEntitiesForSelectMeasureCommand;
-		public ICommand SelectMeasureCommand { get; private set; }
-		public ICommand ClearMeasureCommand { get; private set; }
+		public DelegateLogCommand SelectMeasureCommand { get; private set; }
+		public DelegateLogCommand ClearMeasureCommand { get; private set; }
 
         public ParameterGroupDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
 			if (_getEntitiesForSelectMeasureCommand == null) _getEntitiesForSelectMeasureCommand = () => { return UnitOfWork.Repository<Measure>().GetAll(); };
-			if (SelectMeasureCommand == null) SelectMeasureCommand = new DelegateCommand(SelectMeasureCommand_Execute_Default);
-			if (ClearMeasureCommand == null) ClearMeasureCommand = new DelegateCommand(ClearMeasureCommand_Execute_Default);
+			if (SelectMeasureCommand == null) SelectMeasureCommand = new DelegateLogCommand(SelectMeasureCommand_Execute_Default);
+			if (ClearMeasureCommand == null) ClearMeasureCommand = new DelegateLogCommand(ClearMeasureCommand_Execute_Default);
 
 		}
 
@@ -3121,8 +3121,8 @@ namespace HVTApp.UI.ViewModels
     public partial class ProductRelationDetailsViewModel : BaseDetailsViewModel<ProductRelationWrapper, ProductRelation, AfterSaveProductRelationEvent>
     {
 		private Func<List<Parameter>> _getEntitiesForAddInParentProductParametersCommand;
-		public ICommand AddInParentProductParametersCommand { get; }
-		public ICommand RemoveFromParentProductParametersCommand { get; }
+		public DelegateLogCommand AddInParentProductParametersCommand { get; }
+		public DelegateLogCommand RemoveFromParentProductParametersCommand { get; }
 		private ParameterWrapper _selectedParentProductParametersItem;
 		public ParameterWrapper SelectedParentProductParametersItem 
 		{ 
@@ -3132,13 +3132,13 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedParentProductParametersItem, value)) return;
 				_selectedParentProductParametersItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromParentProductParametersCommand).RaiseCanExecuteChanged();
+				RemoveFromParentProductParametersCommand.RaiseCanExecuteChanged();
 			}
 		}
 
 		private Func<List<Parameter>> _getEntitiesForAddInChildProductParametersCommand;
-		public ICommand AddInChildProductParametersCommand { get; }
-		public ICommand RemoveFromChildProductParametersCommand { get; }
+		public DelegateLogCommand AddInChildProductParametersCommand { get; }
+		public DelegateLogCommand RemoveFromChildProductParametersCommand { get; }
 		private ParameterWrapper _selectedChildProductParametersItem;
 		public ParameterWrapper SelectedChildProductParametersItem 
 		{ 
@@ -3148,7 +3148,7 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedChildProductParametersItem, value)) return;
 				_selectedChildProductParametersItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromChildProductParametersCommand).RaiseCanExecuteChanged();
+				RemoveFromChildProductParametersCommand.RaiseCanExecuteChanged();
 			}
 		}
 
@@ -3156,13 +3156,13 @@ namespace HVTApp.UI.ViewModels
 		{
 			
 			if (_getEntitiesForAddInParentProductParametersCommand == null) _getEntitiesForAddInParentProductParametersCommand = () => { return UnitOfWork.Repository<Parameter>().GetAll(); };;
-			if (AddInParentProductParametersCommand == null) AddInParentProductParametersCommand = new DelegateCommand(AddInParentProductParametersCommand_Execute_Default);
-			if (RemoveFromParentProductParametersCommand == null) RemoveFromParentProductParametersCommand = new DelegateCommand(RemoveFromParentProductParametersCommand_Execute_Default, RemoveFromParentProductParametersCommand_CanExecute_Default);
+			if (AddInParentProductParametersCommand == null) AddInParentProductParametersCommand = new DelegateLogCommand(AddInParentProductParametersCommand_Execute_Default);
+			if (RemoveFromParentProductParametersCommand == null) RemoveFromParentProductParametersCommand = new DelegateLogCommand(RemoveFromParentProductParametersCommand_Execute_Default, RemoveFromParentProductParametersCommand_CanExecute_Default);
 
 			
 			if (_getEntitiesForAddInChildProductParametersCommand == null) _getEntitiesForAddInChildProductParametersCommand = () => { return UnitOfWork.Repository<Parameter>().GetAll(); };;
-			if (AddInChildProductParametersCommand == null) AddInChildProductParametersCommand = new DelegateCommand(AddInChildProductParametersCommand_Execute_Default);
-			if (RemoveFromChildProductParametersCommand == null) RemoveFromChildProductParametersCommand = new DelegateCommand(RemoveFromChildProductParametersCommand_Execute_Default, RemoveFromChildProductParametersCommand_CanExecute_Default);
+			if (AddInChildProductParametersCommand == null) AddInChildProductParametersCommand = new DelegateLogCommand(AddInChildProductParametersCommand_Execute_Default);
+			if (RemoveFromChildProductParametersCommand == null) RemoveFromChildProductParametersCommand = new DelegateLogCommand(RemoveFromChildProductParametersCommand_Execute_Default, RemoveFromChildProductParametersCommand_CanExecute_Default);
 
 		}
 
@@ -3211,8 +3211,8 @@ namespace HVTApp.UI.ViewModels
     public partial class ParameterRelationDetailsViewModel : BaseDetailsViewModel<ParameterRelationWrapper, ParameterRelation, AfterSaveParameterRelationEvent>
     {
 		private Func<List<Parameter>> _getEntitiesForAddInRequiredParametersCommand;
-		public ICommand AddInRequiredParametersCommand { get; }
-		public ICommand RemoveFromRequiredParametersCommand { get; }
+		public DelegateLogCommand AddInRequiredParametersCommand { get; }
+		public DelegateLogCommand RemoveFromRequiredParametersCommand { get; }
 		private ParameterWrapper _selectedRequiredParametersItem;
 		public ParameterWrapper SelectedRequiredParametersItem 
 		{ 
@@ -3222,7 +3222,7 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedRequiredParametersItem, value)) return;
 				_selectedRequiredParametersItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromRequiredParametersCommand).RaiseCanExecuteChanged();
+				RemoveFromRequiredParametersCommand.RaiseCanExecuteChanged();
 			}
 		}
 
@@ -3230,8 +3230,8 @@ namespace HVTApp.UI.ViewModels
 		{
 			
 			if (_getEntitiesForAddInRequiredParametersCommand == null) _getEntitiesForAddInRequiredParametersCommand = () => { return UnitOfWork.Repository<Parameter>().GetAll(); };;
-			if (AddInRequiredParametersCommand == null) AddInRequiredParametersCommand = new DelegateCommand(AddInRequiredParametersCommand_Execute_Default);
-			if (RemoveFromRequiredParametersCommand == null) RemoveFromRequiredParametersCommand = new DelegateCommand(RemoveFromRequiredParametersCommand_Execute_Default, RemoveFromRequiredParametersCommand_CanExecute_Default);
+			if (AddInRequiredParametersCommand == null) AddInRequiredParametersCommand = new DelegateLogCommand(AddInRequiredParametersCommand_Execute_Default);
+			if (RemoveFromRequiredParametersCommand == null) RemoveFromRequiredParametersCommand = new DelegateLogCommand(RemoveFromRequiredParametersCommand_Execute_Default, RemoveFromRequiredParametersCommand_CanExecute_Default);
 
 		}
 
@@ -3257,52 +3257,52 @@ namespace HVTApp.UI.ViewModels
     {
 		//private Func<Task<List<Facility>>> _getEntitiesForSelectFacilityCommand;
 		private Func<List<Facility>> _getEntitiesForSelectFacilityCommand;
-		public ICommand SelectFacilityCommand { get; private set; }
-		public ICommand ClearFacilityCommand { get; private set; }
+		public DelegateLogCommand SelectFacilityCommand { get; private set; }
+		public DelegateLogCommand ClearFacilityCommand { get; private set; }
 
 		//private Func<Task<List<Product>>> _getEntitiesForSelectProductCommand;
 		private Func<List<Product>> _getEntitiesForSelectProductCommand;
-		public ICommand SelectProductCommand { get; private set; }
-		public ICommand ClearProductCommand { get; private set; }
+		public DelegateLogCommand SelectProductCommand { get; private set; }
+		public DelegateLogCommand ClearProductCommand { get; private set; }
 
 		//private Func<Task<List<PaymentConditionSet>>> _getEntitiesForSelectPaymentConditionSetCommand;
 		private Func<List<PaymentConditionSet>> _getEntitiesForSelectPaymentConditionSetCommand;
-		public ICommand SelectPaymentConditionSetCommand { get; private set; }
-		public ICommand ClearPaymentConditionSetCommand { get; private set; }
+		public DelegateLogCommand SelectPaymentConditionSetCommand { get; private set; }
+		public DelegateLogCommand ClearPaymentConditionSetCommand { get; private set; }
 
 		//private Func<Task<List<Project>>> _getEntitiesForSelectProjectCommand;
 		private Func<List<Project>> _getEntitiesForSelectProjectCommand;
-		public ICommand SelectProjectCommand { get; private set; }
-		public ICommand ClearProjectCommand { get; private set; }
+		public DelegateLogCommand SelectProjectCommand { get; private set; }
+		public DelegateLogCommand ClearProjectCommand { get; private set; }
 
 		//private Func<Task<List<Company>>> _getEntitiesForSelectProducerCommand;
 		private Func<List<Company>> _getEntitiesForSelectProducerCommand;
-		public ICommand SelectProducerCommand { get; private set; }
-		public ICommand ClearProducerCommand { get; private set; }
+		public DelegateLogCommand SelectProducerCommand { get; private set; }
+		public DelegateLogCommand ClearProducerCommand { get; private set; }
 
 		//private Func<Task<List<Order>>> _getEntitiesForSelectOrderCommand;
 		private Func<List<Order>> _getEntitiesForSelectOrderCommand;
-		public ICommand SelectOrderCommand { get; private set; }
-		public ICommand ClearOrderCommand { get; private set; }
+		public DelegateLogCommand SelectOrderCommand { get; private set; }
+		public DelegateLogCommand ClearOrderCommand { get; private set; }
 
 		//private Func<Task<List<Specification>>> _getEntitiesForSelectSpecificationCommand;
 		private Func<List<Specification>> _getEntitiesForSelectSpecificationCommand;
-		public ICommand SelectSpecificationCommand { get; private set; }
-		public ICommand ClearSpecificationCommand { get; private set; }
+		public DelegateLogCommand SelectSpecificationCommand { get; private set; }
+		public DelegateLogCommand ClearSpecificationCommand { get; private set; }
 
 		//private Func<Task<List<Penalty>>> _getEntitiesForSelectPenaltyCommand;
 		private Func<List<Penalty>> _getEntitiesForSelectPenaltyCommand;
-		public ICommand SelectPenaltyCommand { get; private set; }
-		public ICommand ClearPenaltyCommand { get; private set; }
+		public DelegateLogCommand SelectPenaltyCommand { get; private set; }
+		public DelegateLogCommand ClearPenaltyCommand { get; private set; }
 
 		//private Func<Task<List<Address>>> _getEntitiesForSelectAddressDeliveryCommand;
 		private Func<List<Address>> _getEntitiesForSelectAddressDeliveryCommand;
-		public ICommand SelectAddressDeliveryCommand { get; private set; }
-		public ICommand ClearAddressDeliveryCommand { get; private set; }
+		public DelegateLogCommand SelectAddressDeliveryCommand { get; private set; }
+		public DelegateLogCommand ClearAddressDeliveryCommand { get; private set; }
 
 		private Func<List<ProductIncluded>> _getEntitiesForAddInProductsIncludedCommand;
-		public ICommand AddInProductsIncludedCommand { get; }
-		public ICommand RemoveFromProductsIncludedCommand { get; }
+		public DelegateLogCommand AddInProductsIncludedCommand { get; }
+		public DelegateLogCommand RemoveFromProductsIncludedCommand { get; }
 		private ProductIncludedWrapper _selectedProductsIncludedItem;
 		public ProductIncludedWrapper SelectedProductsIncludedItem 
 		{ 
@@ -3312,13 +3312,13 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedProductsIncludedItem, value)) return;
 				_selectedProductsIncludedItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromProductsIncludedCommand).RaiseCanExecuteChanged();
+				RemoveFromProductsIncludedCommand.RaiseCanExecuteChanged();
 			}
 		}
 
 		private Func<List<LosingReason>> _getEntitiesForAddInLosingReasonsCommand;
-		public ICommand AddInLosingReasonsCommand { get; }
-		public ICommand RemoveFromLosingReasonsCommand { get; }
+		public DelegateLogCommand AddInLosingReasonsCommand { get; }
+		public DelegateLogCommand RemoveFromLosingReasonsCommand { get; }
 		private LosingReasonWrapper _selectedLosingReasonsItem;
 		public LosingReasonWrapper SelectedLosingReasonsItem 
 		{ 
@@ -3328,13 +3328,13 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedLosingReasonsItem, value)) return;
 				_selectedLosingReasonsItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromLosingReasonsCommand).RaiseCanExecuteChanged();
+				RemoveFromLosingReasonsCommand.RaiseCanExecuteChanged();
 			}
 		}
 
 		private Func<List<PaymentActual>> _getEntitiesForAddInPaymentsActualCommand;
-		public ICommand AddInPaymentsActualCommand { get; }
-		public ICommand RemoveFromPaymentsActualCommand { get; }
+		public DelegateLogCommand AddInPaymentsActualCommand { get; }
+		public DelegateLogCommand RemoveFromPaymentsActualCommand { get; }
 		private PaymentActualWrapper _selectedPaymentsActualItem;
 		public PaymentActualWrapper SelectedPaymentsActualItem 
 		{ 
@@ -3344,13 +3344,13 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedPaymentsActualItem, value)) return;
 				_selectedPaymentsActualItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromPaymentsActualCommand).RaiseCanExecuteChanged();
+				RemoveFromPaymentsActualCommand.RaiseCanExecuteChanged();
 			}
 		}
 
 		private Func<List<PaymentPlanned>> _getEntitiesForAddInPaymentsPlannedCommand;
-		public ICommand AddInPaymentsPlannedCommand { get; }
-		public ICommand RemoveFromPaymentsPlannedCommand { get; }
+		public DelegateLogCommand AddInPaymentsPlannedCommand { get; }
+		public DelegateLogCommand RemoveFromPaymentsPlannedCommand { get; }
 		private PaymentPlannedWrapper _selectedPaymentsPlannedItem;
 		public PaymentPlannedWrapper SelectedPaymentsPlannedItem 
 		{ 
@@ -3360,13 +3360,13 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedPaymentsPlannedItem, value)) return;
 				_selectedPaymentsPlannedItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromPaymentsPlannedCommand).RaiseCanExecuteChanged();
+				RemoveFromPaymentsPlannedCommand.RaiseCanExecuteChanged();
 			}
 		}
 
 		private Func<List<BankGuarantee>> _getEntitiesForAddInBankGuaranteesCommand;
-		public ICommand AddInBankGuaranteesCommand { get; }
-		public ICommand RemoveFromBankGuaranteesCommand { get; }
+		public DelegateLogCommand AddInBankGuaranteesCommand { get; }
+		public DelegateLogCommand RemoveFromBankGuaranteesCommand { get; }
 		private BankGuaranteeWrapper _selectedBankGuaranteesItem;
 		public BankGuaranteeWrapper SelectedBankGuaranteesItem 
 		{ 
@@ -3376,13 +3376,13 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedBankGuaranteesItem, value)) return;
 				_selectedBankGuaranteesItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromBankGuaranteesCommand).RaiseCanExecuteChanged();
+				RemoveFromBankGuaranteesCommand.RaiseCanExecuteChanged();
 			}
 		}
 
 		private Func<List<PaymentPlanned>> _getEntitiesForAddInPaymentsPlannedActualCommand;
-		public ICommand AddInPaymentsPlannedActualCommand { get; }
-		public ICommand RemoveFromPaymentsPlannedActualCommand { get; }
+		public DelegateLogCommand AddInPaymentsPlannedActualCommand { get; }
+		public DelegateLogCommand RemoveFromPaymentsPlannedActualCommand { get; }
 		private PaymentPlannedWrapper _selectedPaymentsPlannedActualItem;
 		public PaymentPlannedWrapper SelectedPaymentsPlannedActualItem 
 		{ 
@@ -3392,13 +3392,13 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedPaymentsPlannedActualItem, value)) return;
 				_selectedPaymentsPlannedActualItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromPaymentsPlannedActualCommand).RaiseCanExecuteChanged();
+				RemoveFromPaymentsPlannedActualCommand.RaiseCanExecuteChanged();
 			}
 		}
 
 		private Func<List<PaymentPlanned>> _getEntitiesForAddInPaymentsPlannedGeneratedCommand;
-		public ICommand AddInPaymentsPlannedGeneratedCommand { get; }
-		public ICommand RemoveFromPaymentsPlannedGeneratedCommand { get; }
+		public DelegateLogCommand AddInPaymentsPlannedGeneratedCommand { get; }
+		public DelegateLogCommand RemoveFromPaymentsPlannedGeneratedCommand { get; }
 		private PaymentPlannedWrapper _selectedPaymentsPlannedGeneratedItem;
 		public PaymentPlannedWrapper SelectedPaymentsPlannedGeneratedItem 
 		{ 
@@ -3408,13 +3408,13 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedPaymentsPlannedGeneratedItem, value)) return;
 				_selectedPaymentsPlannedGeneratedItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromPaymentsPlannedGeneratedCommand).RaiseCanExecuteChanged();
+				RemoveFromPaymentsPlannedGeneratedCommand.RaiseCanExecuteChanged();
 			}
 		}
 
 		private Func<List<PaymentPlanned>> _getEntitiesForAddInPaymentsPlannedCalculatedCommand;
-		public ICommand AddInPaymentsPlannedCalculatedCommand { get; }
-		public ICommand RemoveFromPaymentsPlannedCalculatedCommand { get; }
+		public DelegateLogCommand AddInPaymentsPlannedCalculatedCommand { get; }
+		public DelegateLogCommand RemoveFromPaymentsPlannedCalculatedCommand { get; }
 		private PaymentPlannedWrapper _selectedPaymentsPlannedCalculatedItem;
 		public PaymentPlannedWrapper SelectedPaymentsPlannedCalculatedItem 
 		{ 
@@ -3424,7 +3424,7 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedPaymentsPlannedCalculatedItem, value)) return;
 				_selectedPaymentsPlannedCalculatedItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromPaymentsPlannedCalculatedCommand).RaiseCanExecuteChanged();
+				RemoveFromPaymentsPlannedCalculatedCommand.RaiseCanExecuteChanged();
 			}
 		}
 
@@ -3432,88 +3432,88 @@ namespace HVTApp.UI.ViewModels
 		{
 			
 			if (_getEntitiesForSelectFacilityCommand == null) _getEntitiesForSelectFacilityCommand = () => { return UnitOfWork.Repository<Facility>().GetAll(); };
-			if (SelectFacilityCommand == null) SelectFacilityCommand = new DelegateCommand(SelectFacilityCommand_Execute_Default);
-			if (ClearFacilityCommand == null) ClearFacilityCommand = new DelegateCommand(ClearFacilityCommand_Execute_Default);
+			if (SelectFacilityCommand == null) SelectFacilityCommand = new DelegateLogCommand(SelectFacilityCommand_Execute_Default);
+			if (ClearFacilityCommand == null) ClearFacilityCommand = new DelegateLogCommand(ClearFacilityCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectProductCommand == null) _getEntitiesForSelectProductCommand = () => { return UnitOfWork.Repository<Product>().GetAll(); };
-			if (SelectProductCommand == null) SelectProductCommand = new DelegateCommand(SelectProductCommand_Execute_Default);
-			if (ClearProductCommand == null) ClearProductCommand = new DelegateCommand(ClearProductCommand_Execute_Default);
+			if (SelectProductCommand == null) SelectProductCommand = new DelegateLogCommand(SelectProductCommand_Execute_Default);
+			if (ClearProductCommand == null) ClearProductCommand = new DelegateLogCommand(ClearProductCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectPaymentConditionSetCommand == null) _getEntitiesForSelectPaymentConditionSetCommand = () => { return UnitOfWork.Repository<PaymentConditionSet>().GetAll(); };
-			if (SelectPaymentConditionSetCommand == null) SelectPaymentConditionSetCommand = new DelegateCommand(SelectPaymentConditionSetCommand_Execute_Default);
-			if (ClearPaymentConditionSetCommand == null) ClearPaymentConditionSetCommand = new DelegateCommand(ClearPaymentConditionSetCommand_Execute_Default);
+			if (SelectPaymentConditionSetCommand == null) SelectPaymentConditionSetCommand = new DelegateLogCommand(SelectPaymentConditionSetCommand_Execute_Default);
+			if (ClearPaymentConditionSetCommand == null) ClearPaymentConditionSetCommand = new DelegateLogCommand(ClearPaymentConditionSetCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectProjectCommand == null) _getEntitiesForSelectProjectCommand = () => { return UnitOfWork.Repository<Project>().GetAll(); };
-			if (SelectProjectCommand == null) SelectProjectCommand = new DelegateCommand(SelectProjectCommand_Execute_Default);
-			if (ClearProjectCommand == null) ClearProjectCommand = new DelegateCommand(ClearProjectCommand_Execute_Default);
+			if (SelectProjectCommand == null) SelectProjectCommand = new DelegateLogCommand(SelectProjectCommand_Execute_Default);
+			if (ClearProjectCommand == null) ClearProjectCommand = new DelegateLogCommand(ClearProjectCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectProducerCommand == null) _getEntitiesForSelectProducerCommand = () => { return UnitOfWork.Repository<Company>().GetAll(); };
-			if (SelectProducerCommand == null) SelectProducerCommand = new DelegateCommand(SelectProducerCommand_Execute_Default);
-			if (ClearProducerCommand == null) ClearProducerCommand = new DelegateCommand(ClearProducerCommand_Execute_Default);
+			if (SelectProducerCommand == null) SelectProducerCommand = new DelegateLogCommand(SelectProducerCommand_Execute_Default);
+			if (ClearProducerCommand == null) ClearProducerCommand = new DelegateLogCommand(ClearProducerCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectOrderCommand == null) _getEntitiesForSelectOrderCommand = () => { return UnitOfWork.Repository<Order>().GetAll(); };
-			if (SelectOrderCommand == null) SelectOrderCommand = new DelegateCommand(SelectOrderCommand_Execute_Default);
-			if (ClearOrderCommand == null) ClearOrderCommand = new DelegateCommand(ClearOrderCommand_Execute_Default);
+			if (SelectOrderCommand == null) SelectOrderCommand = new DelegateLogCommand(SelectOrderCommand_Execute_Default);
+			if (ClearOrderCommand == null) ClearOrderCommand = new DelegateLogCommand(ClearOrderCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectSpecificationCommand == null) _getEntitiesForSelectSpecificationCommand = () => { return UnitOfWork.Repository<Specification>().GetAll(); };
-			if (SelectSpecificationCommand == null) SelectSpecificationCommand = new DelegateCommand(SelectSpecificationCommand_Execute_Default);
-			if (ClearSpecificationCommand == null) ClearSpecificationCommand = new DelegateCommand(ClearSpecificationCommand_Execute_Default);
+			if (SelectSpecificationCommand == null) SelectSpecificationCommand = new DelegateLogCommand(SelectSpecificationCommand_Execute_Default);
+			if (ClearSpecificationCommand == null) ClearSpecificationCommand = new DelegateLogCommand(ClearSpecificationCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectPenaltyCommand == null) _getEntitiesForSelectPenaltyCommand = () => { return UnitOfWork.Repository<Penalty>().GetAll(); };
-			if (SelectPenaltyCommand == null) SelectPenaltyCommand = new DelegateCommand(SelectPenaltyCommand_Execute_Default);
-			if (ClearPenaltyCommand == null) ClearPenaltyCommand = new DelegateCommand(ClearPenaltyCommand_Execute_Default);
+			if (SelectPenaltyCommand == null) SelectPenaltyCommand = new DelegateLogCommand(SelectPenaltyCommand_Execute_Default);
+			if (ClearPenaltyCommand == null) ClearPenaltyCommand = new DelegateLogCommand(ClearPenaltyCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectAddressDeliveryCommand == null) _getEntitiesForSelectAddressDeliveryCommand = () => { return UnitOfWork.Repository<Address>().GetAll(); };
-			if (SelectAddressDeliveryCommand == null) SelectAddressDeliveryCommand = new DelegateCommand(SelectAddressDeliveryCommand_Execute_Default);
-			if (ClearAddressDeliveryCommand == null) ClearAddressDeliveryCommand = new DelegateCommand(ClearAddressDeliveryCommand_Execute_Default);
+			if (SelectAddressDeliveryCommand == null) SelectAddressDeliveryCommand = new DelegateLogCommand(SelectAddressDeliveryCommand_Execute_Default);
+			if (ClearAddressDeliveryCommand == null) ClearAddressDeliveryCommand = new DelegateLogCommand(ClearAddressDeliveryCommand_Execute_Default);
 
 			
 			if (_getEntitiesForAddInProductsIncludedCommand == null) _getEntitiesForAddInProductsIncludedCommand = () => { return UnitOfWork.Repository<ProductIncluded>().GetAll(); };;
-			if (AddInProductsIncludedCommand == null) AddInProductsIncludedCommand = new DelegateCommand(AddInProductsIncludedCommand_Execute_Default);
-			if (RemoveFromProductsIncludedCommand == null) RemoveFromProductsIncludedCommand = new DelegateCommand(RemoveFromProductsIncludedCommand_Execute_Default, RemoveFromProductsIncludedCommand_CanExecute_Default);
+			if (AddInProductsIncludedCommand == null) AddInProductsIncludedCommand = new DelegateLogCommand(AddInProductsIncludedCommand_Execute_Default);
+			if (RemoveFromProductsIncludedCommand == null) RemoveFromProductsIncludedCommand = new DelegateLogCommand(RemoveFromProductsIncludedCommand_Execute_Default, RemoveFromProductsIncludedCommand_CanExecute_Default);
 
 			
 			if (_getEntitiesForAddInLosingReasonsCommand == null) _getEntitiesForAddInLosingReasonsCommand = () => { return UnitOfWork.Repository<LosingReason>().GetAll(); };;
-			if (AddInLosingReasonsCommand == null) AddInLosingReasonsCommand = new DelegateCommand(AddInLosingReasonsCommand_Execute_Default);
-			if (RemoveFromLosingReasonsCommand == null) RemoveFromLosingReasonsCommand = new DelegateCommand(RemoveFromLosingReasonsCommand_Execute_Default, RemoveFromLosingReasonsCommand_CanExecute_Default);
+			if (AddInLosingReasonsCommand == null) AddInLosingReasonsCommand = new DelegateLogCommand(AddInLosingReasonsCommand_Execute_Default);
+			if (RemoveFromLosingReasonsCommand == null) RemoveFromLosingReasonsCommand = new DelegateLogCommand(RemoveFromLosingReasonsCommand_Execute_Default, RemoveFromLosingReasonsCommand_CanExecute_Default);
 
 			
 			if (_getEntitiesForAddInPaymentsActualCommand == null) _getEntitiesForAddInPaymentsActualCommand = () => { return UnitOfWork.Repository<PaymentActual>().GetAll(); };;
-			if (AddInPaymentsActualCommand == null) AddInPaymentsActualCommand = new DelegateCommand(AddInPaymentsActualCommand_Execute_Default);
-			if (RemoveFromPaymentsActualCommand == null) RemoveFromPaymentsActualCommand = new DelegateCommand(RemoveFromPaymentsActualCommand_Execute_Default, RemoveFromPaymentsActualCommand_CanExecute_Default);
+			if (AddInPaymentsActualCommand == null) AddInPaymentsActualCommand = new DelegateLogCommand(AddInPaymentsActualCommand_Execute_Default);
+			if (RemoveFromPaymentsActualCommand == null) RemoveFromPaymentsActualCommand = new DelegateLogCommand(RemoveFromPaymentsActualCommand_Execute_Default, RemoveFromPaymentsActualCommand_CanExecute_Default);
 
 			
 			if (_getEntitiesForAddInPaymentsPlannedCommand == null) _getEntitiesForAddInPaymentsPlannedCommand = () => { return UnitOfWork.Repository<PaymentPlanned>().GetAll(); };;
-			if (AddInPaymentsPlannedCommand == null) AddInPaymentsPlannedCommand = new DelegateCommand(AddInPaymentsPlannedCommand_Execute_Default);
-			if (RemoveFromPaymentsPlannedCommand == null) RemoveFromPaymentsPlannedCommand = new DelegateCommand(RemoveFromPaymentsPlannedCommand_Execute_Default, RemoveFromPaymentsPlannedCommand_CanExecute_Default);
+			if (AddInPaymentsPlannedCommand == null) AddInPaymentsPlannedCommand = new DelegateLogCommand(AddInPaymentsPlannedCommand_Execute_Default);
+			if (RemoveFromPaymentsPlannedCommand == null) RemoveFromPaymentsPlannedCommand = new DelegateLogCommand(RemoveFromPaymentsPlannedCommand_Execute_Default, RemoveFromPaymentsPlannedCommand_CanExecute_Default);
 
 			
 			if (_getEntitiesForAddInBankGuaranteesCommand == null) _getEntitiesForAddInBankGuaranteesCommand = () => { return UnitOfWork.Repository<BankGuarantee>().GetAll(); };;
-			if (AddInBankGuaranteesCommand == null) AddInBankGuaranteesCommand = new DelegateCommand(AddInBankGuaranteesCommand_Execute_Default);
-			if (RemoveFromBankGuaranteesCommand == null) RemoveFromBankGuaranteesCommand = new DelegateCommand(RemoveFromBankGuaranteesCommand_Execute_Default, RemoveFromBankGuaranteesCommand_CanExecute_Default);
+			if (AddInBankGuaranteesCommand == null) AddInBankGuaranteesCommand = new DelegateLogCommand(AddInBankGuaranteesCommand_Execute_Default);
+			if (RemoveFromBankGuaranteesCommand == null) RemoveFromBankGuaranteesCommand = new DelegateLogCommand(RemoveFromBankGuaranteesCommand_Execute_Default, RemoveFromBankGuaranteesCommand_CanExecute_Default);
 
 			
 			if (_getEntitiesForAddInPaymentsPlannedActualCommand == null) _getEntitiesForAddInPaymentsPlannedActualCommand = () => { return UnitOfWork.Repository<PaymentPlanned>().GetAll(); };;
-			if (AddInPaymentsPlannedActualCommand == null) AddInPaymentsPlannedActualCommand = new DelegateCommand(AddInPaymentsPlannedActualCommand_Execute_Default);
-			if (RemoveFromPaymentsPlannedActualCommand == null) RemoveFromPaymentsPlannedActualCommand = new DelegateCommand(RemoveFromPaymentsPlannedActualCommand_Execute_Default, RemoveFromPaymentsPlannedActualCommand_CanExecute_Default);
+			if (AddInPaymentsPlannedActualCommand == null) AddInPaymentsPlannedActualCommand = new DelegateLogCommand(AddInPaymentsPlannedActualCommand_Execute_Default);
+			if (RemoveFromPaymentsPlannedActualCommand == null) RemoveFromPaymentsPlannedActualCommand = new DelegateLogCommand(RemoveFromPaymentsPlannedActualCommand_Execute_Default, RemoveFromPaymentsPlannedActualCommand_CanExecute_Default);
 
 			
 			if (_getEntitiesForAddInPaymentsPlannedGeneratedCommand == null) _getEntitiesForAddInPaymentsPlannedGeneratedCommand = () => { return UnitOfWork.Repository<PaymentPlanned>().GetAll(); };;
-			if (AddInPaymentsPlannedGeneratedCommand == null) AddInPaymentsPlannedGeneratedCommand = new DelegateCommand(AddInPaymentsPlannedGeneratedCommand_Execute_Default);
-			if (RemoveFromPaymentsPlannedGeneratedCommand == null) RemoveFromPaymentsPlannedGeneratedCommand = new DelegateCommand(RemoveFromPaymentsPlannedGeneratedCommand_Execute_Default, RemoveFromPaymentsPlannedGeneratedCommand_CanExecute_Default);
+			if (AddInPaymentsPlannedGeneratedCommand == null) AddInPaymentsPlannedGeneratedCommand = new DelegateLogCommand(AddInPaymentsPlannedGeneratedCommand_Execute_Default);
+			if (RemoveFromPaymentsPlannedGeneratedCommand == null) RemoveFromPaymentsPlannedGeneratedCommand = new DelegateLogCommand(RemoveFromPaymentsPlannedGeneratedCommand_Execute_Default, RemoveFromPaymentsPlannedGeneratedCommand_CanExecute_Default);
 
 			
 			if (_getEntitiesForAddInPaymentsPlannedCalculatedCommand == null) _getEntitiesForAddInPaymentsPlannedCalculatedCommand = () => { return UnitOfWork.Repository<PaymentPlanned>().GetAll(); };;
-			if (AddInPaymentsPlannedCalculatedCommand == null) AddInPaymentsPlannedCalculatedCommand = new DelegateCommand(AddInPaymentsPlannedCalculatedCommand_Execute_Default);
-			if (RemoveFromPaymentsPlannedCalculatedCommand == null) RemoveFromPaymentsPlannedCalculatedCommand = new DelegateCommand(RemoveFromPaymentsPlannedCalculatedCommand_Execute_Default, RemoveFromPaymentsPlannedCalculatedCommand_CanExecute_Default);
+			if (AddInPaymentsPlannedCalculatedCommand == null) AddInPaymentsPlannedCalculatedCommand = new DelegateLogCommand(AddInPaymentsPlannedCalculatedCommand_Execute_Default);
+			if (RemoveFromPaymentsPlannedCalculatedCommand == null) RemoveFromPaymentsPlannedCalculatedCommand = new DelegateLogCommand(RemoveFromPaymentsPlannedCalculatedCommand_Execute_Default, RemoveFromPaymentsPlannedCalculatedCommand_CanExecute_Default);
 
 		}
 
@@ -3734,37 +3734,37 @@ namespace HVTApp.UI.ViewModels
     {
 		//private Func<Task<List<DocumentNumber>>> _getEntitiesForSelectNumberCommand;
 		private Func<List<DocumentNumber>> _getEntitiesForSelectNumberCommand;
-		public ICommand SelectNumberCommand { get; private set; }
-		public ICommand ClearNumberCommand { get; private set; }
+		public DelegateLogCommand SelectNumberCommand { get; private set; }
+		public DelegateLogCommand ClearNumberCommand { get; private set; }
 
 		//private Func<Task<List<Document>>> _getEntitiesForSelectRequestDocumentCommand;
 		private Func<List<Document>> _getEntitiesForSelectRequestDocumentCommand;
-		public ICommand SelectRequestDocumentCommand { get; private set; }
-		public ICommand ClearRequestDocumentCommand { get; private set; }
+		public DelegateLogCommand SelectRequestDocumentCommand { get; private set; }
+		public DelegateLogCommand ClearRequestDocumentCommand { get; private set; }
 
 		//private Func<Task<List<Employee>>> _getEntitiesForSelectAuthorCommand;
 		private Func<List<Employee>> _getEntitiesForSelectAuthorCommand;
-		public ICommand SelectAuthorCommand { get; private set; }
-		public ICommand ClearAuthorCommand { get; private set; }
+		public DelegateLogCommand SelectAuthorCommand { get; private set; }
+		public DelegateLogCommand ClearAuthorCommand { get; private set; }
 
 		//private Func<Task<List<Employee>>> _getEntitiesForSelectSenderEmployeeCommand;
 		private Func<List<Employee>> _getEntitiesForSelectSenderEmployeeCommand;
-		public ICommand SelectSenderEmployeeCommand { get; private set; }
-		public ICommand ClearSenderEmployeeCommand { get; private set; }
+		public DelegateLogCommand SelectSenderEmployeeCommand { get; private set; }
+		public DelegateLogCommand ClearSenderEmployeeCommand { get; private set; }
 
 		//private Func<Task<List<Employee>>> _getEntitiesForSelectRecipientEmployeeCommand;
 		private Func<List<Employee>> _getEntitiesForSelectRecipientEmployeeCommand;
-		public ICommand SelectRecipientEmployeeCommand { get; private set; }
-		public ICommand ClearRecipientEmployeeCommand { get; private set; }
+		public DelegateLogCommand SelectRecipientEmployeeCommand { get; private set; }
+		public DelegateLogCommand ClearRecipientEmployeeCommand { get; private set; }
 
 		//private Func<Task<List<DocumentsRegistrationDetails>>> _getEntitiesForSelectRegistrationDetailsOfRecipientCommand;
 		private Func<List<DocumentsRegistrationDetails>> _getEntitiesForSelectRegistrationDetailsOfRecipientCommand;
-		public ICommand SelectRegistrationDetailsOfRecipientCommand { get; private set; }
-		public ICommand ClearRegistrationDetailsOfRecipientCommand { get; private set; }
+		public DelegateLogCommand SelectRegistrationDetailsOfRecipientCommand { get; private set; }
+		public DelegateLogCommand ClearRegistrationDetailsOfRecipientCommand { get; private set; }
 
 		private Func<List<Employee>> _getEntitiesForAddInCopyToRecipientsCommand;
-		public ICommand AddInCopyToRecipientsCommand { get; }
-		public ICommand RemoveFromCopyToRecipientsCommand { get; }
+		public DelegateLogCommand AddInCopyToRecipientsCommand { get; }
+		public DelegateLogCommand RemoveFromCopyToRecipientsCommand { get; }
 		private EmployeeWrapper _selectedCopyToRecipientsItem;
 		public EmployeeWrapper SelectedCopyToRecipientsItem 
 		{ 
@@ -3774,7 +3774,7 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedCopyToRecipientsItem, value)) return;
 				_selectedCopyToRecipientsItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromCopyToRecipientsCommand).RaiseCanExecuteChanged();
+				RemoveFromCopyToRecipientsCommand.RaiseCanExecuteChanged();
 			}
 		}
 
@@ -3782,38 +3782,38 @@ namespace HVTApp.UI.ViewModels
 		{
 			
 			if (_getEntitiesForSelectNumberCommand == null) _getEntitiesForSelectNumberCommand = () => { return UnitOfWork.Repository<DocumentNumber>().GetAll(); };
-			if (SelectNumberCommand == null) SelectNumberCommand = new DelegateCommand(SelectNumberCommand_Execute_Default);
-			if (ClearNumberCommand == null) ClearNumberCommand = new DelegateCommand(ClearNumberCommand_Execute_Default);
+			if (SelectNumberCommand == null) SelectNumberCommand = new DelegateLogCommand(SelectNumberCommand_Execute_Default);
+			if (ClearNumberCommand == null) ClearNumberCommand = new DelegateLogCommand(ClearNumberCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectRequestDocumentCommand == null) _getEntitiesForSelectRequestDocumentCommand = () => { return UnitOfWork.Repository<Document>().GetAll(); };
-			if (SelectRequestDocumentCommand == null) SelectRequestDocumentCommand = new DelegateCommand(SelectRequestDocumentCommand_Execute_Default);
-			if (ClearRequestDocumentCommand == null) ClearRequestDocumentCommand = new DelegateCommand(ClearRequestDocumentCommand_Execute_Default);
+			if (SelectRequestDocumentCommand == null) SelectRequestDocumentCommand = new DelegateLogCommand(SelectRequestDocumentCommand_Execute_Default);
+			if (ClearRequestDocumentCommand == null) ClearRequestDocumentCommand = new DelegateLogCommand(ClearRequestDocumentCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectAuthorCommand == null) _getEntitiesForSelectAuthorCommand = () => { return UnitOfWork.Repository<Employee>().GetAll(); };
-			if (SelectAuthorCommand == null) SelectAuthorCommand = new DelegateCommand(SelectAuthorCommand_Execute_Default);
-			if (ClearAuthorCommand == null) ClearAuthorCommand = new DelegateCommand(ClearAuthorCommand_Execute_Default);
+			if (SelectAuthorCommand == null) SelectAuthorCommand = new DelegateLogCommand(SelectAuthorCommand_Execute_Default);
+			if (ClearAuthorCommand == null) ClearAuthorCommand = new DelegateLogCommand(ClearAuthorCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectSenderEmployeeCommand == null) _getEntitiesForSelectSenderEmployeeCommand = () => { return UnitOfWork.Repository<Employee>().GetAll(); };
-			if (SelectSenderEmployeeCommand == null) SelectSenderEmployeeCommand = new DelegateCommand(SelectSenderEmployeeCommand_Execute_Default);
-			if (ClearSenderEmployeeCommand == null) ClearSenderEmployeeCommand = new DelegateCommand(ClearSenderEmployeeCommand_Execute_Default);
+			if (SelectSenderEmployeeCommand == null) SelectSenderEmployeeCommand = new DelegateLogCommand(SelectSenderEmployeeCommand_Execute_Default);
+			if (ClearSenderEmployeeCommand == null) ClearSenderEmployeeCommand = new DelegateLogCommand(ClearSenderEmployeeCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectRecipientEmployeeCommand == null) _getEntitiesForSelectRecipientEmployeeCommand = () => { return UnitOfWork.Repository<Employee>().GetAll(); };
-			if (SelectRecipientEmployeeCommand == null) SelectRecipientEmployeeCommand = new DelegateCommand(SelectRecipientEmployeeCommand_Execute_Default);
-			if (ClearRecipientEmployeeCommand == null) ClearRecipientEmployeeCommand = new DelegateCommand(ClearRecipientEmployeeCommand_Execute_Default);
+			if (SelectRecipientEmployeeCommand == null) SelectRecipientEmployeeCommand = new DelegateLogCommand(SelectRecipientEmployeeCommand_Execute_Default);
+			if (ClearRecipientEmployeeCommand == null) ClearRecipientEmployeeCommand = new DelegateLogCommand(ClearRecipientEmployeeCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectRegistrationDetailsOfRecipientCommand == null) _getEntitiesForSelectRegistrationDetailsOfRecipientCommand = () => { return UnitOfWork.Repository<DocumentsRegistrationDetails>().GetAll(); };
-			if (SelectRegistrationDetailsOfRecipientCommand == null) SelectRegistrationDetailsOfRecipientCommand = new DelegateCommand(SelectRegistrationDetailsOfRecipientCommand_Execute_Default);
-			if (ClearRegistrationDetailsOfRecipientCommand == null) ClearRegistrationDetailsOfRecipientCommand = new DelegateCommand(ClearRegistrationDetailsOfRecipientCommand_Execute_Default);
+			if (SelectRegistrationDetailsOfRecipientCommand == null) SelectRegistrationDetailsOfRecipientCommand = new DelegateLogCommand(SelectRegistrationDetailsOfRecipientCommand_Execute_Default);
+			if (ClearRegistrationDetailsOfRecipientCommand == null) ClearRegistrationDetailsOfRecipientCommand = new DelegateLogCommand(ClearRegistrationDetailsOfRecipientCommand_Execute_Default);
 
 			
 			if (_getEntitiesForAddInCopyToRecipientsCommand == null) _getEntitiesForAddInCopyToRecipientsCommand = () => { return UnitOfWork.Repository<Employee>().GetAll(); };;
-			if (AddInCopyToRecipientsCommand == null) AddInCopyToRecipientsCommand = new DelegateCommand(AddInCopyToRecipientsCommand_Execute_Default);
-			if (RemoveFromCopyToRecipientsCommand == null) RemoveFromCopyToRecipientsCommand = new DelegateCommand(RemoveFromCopyToRecipientsCommand_Execute_Default, RemoveFromCopyToRecipientsCommand_CanExecute_Default);
+			if (AddInCopyToRecipientsCommand == null) AddInCopyToRecipientsCommand = new DelegateLogCommand(AddInCopyToRecipientsCommand_Execute_Default);
+			if (RemoveFromCopyToRecipientsCommand == null) RemoveFromCopyToRecipientsCommand = new DelegateLogCommand(RemoveFromCopyToRecipientsCommand_Execute_Default, RemoveFromCopyToRecipientsCommand_CanExecute_Default);
 
 		}
 
@@ -3908,22 +3908,22 @@ namespace HVTApp.UI.ViewModels
     {
 		//private Func<Task<List<ProductType>>> _getEntitiesForSelectProductTypeCommand;
 		private Func<List<ProductType>> _getEntitiesForSelectProductTypeCommand;
-		public ICommand SelectProductTypeCommand { get; private set; }
-		public ICommand ClearProductTypeCommand { get; private set; }
+		public DelegateLogCommand SelectProductTypeCommand { get; private set; }
+		public DelegateLogCommand ClearProductTypeCommand { get; private set; }
 
 		//private Func<Task<List<ProductCategory>>> _getEntitiesForSelectCategoryCommand;
 		private Func<List<ProductCategory>> _getEntitiesForSelectCategoryCommand;
-		public ICommand SelectCategoryCommand { get; private set; }
-		public ICommand ClearCategoryCommand { get; private set; }
+		public DelegateLogCommand SelectCategoryCommand { get; private set; }
+		public DelegateLogCommand ClearCategoryCommand { get; private set; }
 
 		//private Func<Task<List<ProductBlock>>> _getEntitiesForSelectProductBlockCommand;
 		private Func<List<ProductBlock>> _getEntitiesForSelectProductBlockCommand;
-		public ICommand SelectProductBlockCommand { get; private set; }
-		public ICommand ClearProductBlockCommand { get; private set; }
+		public DelegateLogCommand SelectProductBlockCommand { get; private set; }
+		public DelegateLogCommand ClearProductBlockCommand { get; private set; }
 
 		private Func<List<ProductDependent>> _getEntitiesForAddInDependentProductsCommand;
-		public ICommand AddInDependentProductsCommand { get; }
-		public ICommand RemoveFromDependentProductsCommand { get; }
+		public DelegateLogCommand AddInDependentProductsCommand { get; }
+		public DelegateLogCommand RemoveFromDependentProductsCommand { get; }
 		private ProductDependentWrapper _selectedDependentProductsItem;
 		public ProductDependentWrapper SelectedDependentProductsItem 
 		{ 
@@ -3933,7 +3933,7 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedDependentProductsItem, value)) return;
 				_selectedDependentProductsItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromDependentProductsCommand).RaiseCanExecuteChanged();
+				RemoveFromDependentProductsCommand.RaiseCanExecuteChanged();
 			}
 		}
 
@@ -3941,23 +3941,23 @@ namespace HVTApp.UI.ViewModels
 		{
 			
 			if (_getEntitiesForSelectProductTypeCommand == null) _getEntitiesForSelectProductTypeCommand = () => { return UnitOfWork.Repository<ProductType>().GetAll(); };
-			if (SelectProductTypeCommand == null) SelectProductTypeCommand = new DelegateCommand(SelectProductTypeCommand_Execute_Default);
-			if (ClearProductTypeCommand == null) ClearProductTypeCommand = new DelegateCommand(ClearProductTypeCommand_Execute_Default);
+			if (SelectProductTypeCommand == null) SelectProductTypeCommand = new DelegateLogCommand(SelectProductTypeCommand_Execute_Default);
+			if (ClearProductTypeCommand == null) ClearProductTypeCommand = new DelegateLogCommand(ClearProductTypeCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectCategoryCommand == null) _getEntitiesForSelectCategoryCommand = () => { return UnitOfWork.Repository<ProductCategory>().GetAll(); };
-			if (SelectCategoryCommand == null) SelectCategoryCommand = new DelegateCommand(SelectCategoryCommand_Execute_Default);
-			if (ClearCategoryCommand == null) ClearCategoryCommand = new DelegateCommand(ClearCategoryCommand_Execute_Default);
+			if (SelectCategoryCommand == null) SelectCategoryCommand = new DelegateLogCommand(SelectCategoryCommand_Execute_Default);
+			if (ClearCategoryCommand == null) ClearCategoryCommand = new DelegateLogCommand(ClearCategoryCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectProductBlockCommand == null) _getEntitiesForSelectProductBlockCommand = () => { return UnitOfWork.Repository<ProductBlock>().GetAll(); };
-			if (SelectProductBlockCommand == null) SelectProductBlockCommand = new DelegateCommand(SelectProductBlockCommand_Execute_Default);
-			if (ClearProductBlockCommand == null) ClearProductBlockCommand = new DelegateCommand(ClearProductBlockCommand_Execute_Default);
+			if (SelectProductBlockCommand == null) SelectProductBlockCommand = new DelegateLogCommand(SelectProductBlockCommand_Execute_Default);
+			if (ClearProductBlockCommand == null) ClearProductBlockCommand = new DelegateLogCommand(ClearProductBlockCommand_Execute_Default);
 
 			
 			if (_getEntitiesForAddInDependentProductsCommand == null) _getEntitiesForAddInDependentProductsCommand = () => { return UnitOfWork.Repository<ProductDependent>().GetAll(); };;
-			if (AddInDependentProductsCommand == null) AddInDependentProductsCommand = new DelegateCommand(AddInDependentProductsCommand_Execute_Default);
-			if (RemoveFromDependentProductsCommand == null) RemoveFromDependentProductsCommand = new DelegateCommand(RemoveFromDependentProductsCommand_Execute_Default, RemoveFromDependentProductsCommand_CanExecute_Default);
+			if (AddInDependentProductsCommand == null) AddInDependentProductsCommand = new DelegateLogCommand(AddInDependentProductsCommand_Execute_Default);
+			if (RemoveFromDependentProductsCommand == null) RemoveFromDependentProductsCommand = new DelegateLogCommand(RemoveFromDependentProductsCommand_Execute_Default, RemoveFromDependentProductsCommand_CanExecute_Default);
 
 		}
 
@@ -4013,42 +4013,42 @@ namespace HVTApp.UI.ViewModels
     {
 		//private Func<Task<List<Project>>> _getEntitiesForSelectProjectCommand;
 		private Func<List<Project>> _getEntitiesForSelectProjectCommand;
-		public ICommand SelectProjectCommand { get; private set; }
-		public ICommand ClearProjectCommand { get; private set; }
+		public DelegateLogCommand SelectProjectCommand { get; private set; }
+		public DelegateLogCommand ClearProjectCommand { get; private set; }
 
 		//private Func<Task<List<DocumentNumber>>> _getEntitiesForSelectNumberCommand;
 		private Func<List<DocumentNumber>> _getEntitiesForSelectNumberCommand;
-		public ICommand SelectNumberCommand { get; private set; }
-		public ICommand ClearNumberCommand { get; private set; }
+		public DelegateLogCommand SelectNumberCommand { get; private set; }
+		public DelegateLogCommand ClearNumberCommand { get; private set; }
 
 		//private Func<Task<List<Document>>> _getEntitiesForSelectRequestDocumentCommand;
 		private Func<List<Document>> _getEntitiesForSelectRequestDocumentCommand;
-		public ICommand SelectRequestDocumentCommand { get; private set; }
-		public ICommand ClearRequestDocumentCommand { get; private set; }
+		public DelegateLogCommand SelectRequestDocumentCommand { get; private set; }
+		public DelegateLogCommand ClearRequestDocumentCommand { get; private set; }
 
 		//private Func<Task<List<Employee>>> _getEntitiesForSelectAuthorCommand;
 		private Func<List<Employee>> _getEntitiesForSelectAuthorCommand;
-		public ICommand SelectAuthorCommand { get; private set; }
-		public ICommand ClearAuthorCommand { get; private set; }
+		public DelegateLogCommand SelectAuthorCommand { get; private set; }
+		public DelegateLogCommand ClearAuthorCommand { get; private set; }
 
 		//private Func<Task<List<Employee>>> _getEntitiesForSelectSenderEmployeeCommand;
 		private Func<List<Employee>> _getEntitiesForSelectSenderEmployeeCommand;
-		public ICommand SelectSenderEmployeeCommand { get; private set; }
-		public ICommand ClearSenderEmployeeCommand { get; private set; }
+		public DelegateLogCommand SelectSenderEmployeeCommand { get; private set; }
+		public DelegateLogCommand ClearSenderEmployeeCommand { get; private set; }
 
 		//private Func<Task<List<Employee>>> _getEntitiesForSelectRecipientEmployeeCommand;
 		private Func<List<Employee>> _getEntitiesForSelectRecipientEmployeeCommand;
-		public ICommand SelectRecipientEmployeeCommand { get; private set; }
-		public ICommand ClearRecipientEmployeeCommand { get; private set; }
+		public DelegateLogCommand SelectRecipientEmployeeCommand { get; private set; }
+		public DelegateLogCommand ClearRecipientEmployeeCommand { get; private set; }
 
 		//private Func<Task<List<DocumentsRegistrationDetails>>> _getEntitiesForSelectRegistrationDetailsOfRecipientCommand;
 		private Func<List<DocumentsRegistrationDetails>> _getEntitiesForSelectRegistrationDetailsOfRecipientCommand;
-		public ICommand SelectRegistrationDetailsOfRecipientCommand { get; private set; }
-		public ICommand ClearRegistrationDetailsOfRecipientCommand { get; private set; }
+		public DelegateLogCommand SelectRegistrationDetailsOfRecipientCommand { get; private set; }
+		public DelegateLogCommand ClearRegistrationDetailsOfRecipientCommand { get; private set; }
 
 		private Func<List<Employee>> _getEntitiesForAddInCopyToRecipientsCommand;
-		public ICommand AddInCopyToRecipientsCommand { get; }
-		public ICommand RemoveFromCopyToRecipientsCommand { get; }
+		public DelegateLogCommand AddInCopyToRecipientsCommand { get; }
+		public DelegateLogCommand RemoveFromCopyToRecipientsCommand { get; }
 		private EmployeeWrapper _selectedCopyToRecipientsItem;
 		public EmployeeWrapper SelectedCopyToRecipientsItem 
 		{ 
@@ -4058,7 +4058,7 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedCopyToRecipientsItem, value)) return;
 				_selectedCopyToRecipientsItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromCopyToRecipientsCommand).RaiseCanExecuteChanged();
+				RemoveFromCopyToRecipientsCommand.RaiseCanExecuteChanged();
 			}
 		}
 
@@ -4066,43 +4066,43 @@ namespace HVTApp.UI.ViewModels
 		{
 			
 			if (_getEntitiesForSelectProjectCommand == null) _getEntitiesForSelectProjectCommand = () => { return UnitOfWork.Repository<Project>().GetAll(); };
-			if (SelectProjectCommand == null) SelectProjectCommand = new DelegateCommand(SelectProjectCommand_Execute_Default);
-			if (ClearProjectCommand == null) ClearProjectCommand = new DelegateCommand(ClearProjectCommand_Execute_Default);
+			if (SelectProjectCommand == null) SelectProjectCommand = new DelegateLogCommand(SelectProjectCommand_Execute_Default);
+			if (ClearProjectCommand == null) ClearProjectCommand = new DelegateLogCommand(ClearProjectCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectNumberCommand == null) _getEntitiesForSelectNumberCommand = () => { return UnitOfWork.Repository<DocumentNumber>().GetAll(); };
-			if (SelectNumberCommand == null) SelectNumberCommand = new DelegateCommand(SelectNumberCommand_Execute_Default);
-			if (ClearNumberCommand == null) ClearNumberCommand = new DelegateCommand(ClearNumberCommand_Execute_Default);
+			if (SelectNumberCommand == null) SelectNumberCommand = new DelegateLogCommand(SelectNumberCommand_Execute_Default);
+			if (ClearNumberCommand == null) ClearNumberCommand = new DelegateLogCommand(ClearNumberCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectRequestDocumentCommand == null) _getEntitiesForSelectRequestDocumentCommand = () => { return UnitOfWork.Repository<Document>().GetAll(); };
-			if (SelectRequestDocumentCommand == null) SelectRequestDocumentCommand = new DelegateCommand(SelectRequestDocumentCommand_Execute_Default);
-			if (ClearRequestDocumentCommand == null) ClearRequestDocumentCommand = new DelegateCommand(ClearRequestDocumentCommand_Execute_Default);
+			if (SelectRequestDocumentCommand == null) SelectRequestDocumentCommand = new DelegateLogCommand(SelectRequestDocumentCommand_Execute_Default);
+			if (ClearRequestDocumentCommand == null) ClearRequestDocumentCommand = new DelegateLogCommand(ClearRequestDocumentCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectAuthorCommand == null) _getEntitiesForSelectAuthorCommand = () => { return UnitOfWork.Repository<Employee>().GetAll(); };
-			if (SelectAuthorCommand == null) SelectAuthorCommand = new DelegateCommand(SelectAuthorCommand_Execute_Default);
-			if (ClearAuthorCommand == null) ClearAuthorCommand = new DelegateCommand(ClearAuthorCommand_Execute_Default);
+			if (SelectAuthorCommand == null) SelectAuthorCommand = new DelegateLogCommand(SelectAuthorCommand_Execute_Default);
+			if (ClearAuthorCommand == null) ClearAuthorCommand = new DelegateLogCommand(ClearAuthorCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectSenderEmployeeCommand == null) _getEntitiesForSelectSenderEmployeeCommand = () => { return UnitOfWork.Repository<Employee>().GetAll(); };
-			if (SelectSenderEmployeeCommand == null) SelectSenderEmployeeCommand = new DelegateCommand(SelectSenderEmployeeCommand_Execute_Default);
-			if (ClearSenderEmployeeCommand == null) ClearSenderEmployeeCommand = new DelegateCommand(ClearSenderEmployeeCommand_Execute_Default);
+			if (SelectSenderEmployeeCommand == null) SelectSenderEmployeeCommand = new DelegateLogCommand(SelectSenderEmployeeCommand_Execute_Default);
+			if (ClearSenderEmployeeCommand == null) ClearSenderEmployeeCommand = new DelegateLogCommand(ClearSenderEmployeeCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectRecipientEmployeeCommand == null) _getEntitiesForSelectRecipientEmployeeCommand = () => { return UnitOfWork.Repository<Employee>().GetAll(); };
-			if (SelectRecipientEmployeeCommand == null) SelectRecipientEmployeeCommand = new DelegateCommand(SelectRecipientEmployeeCommand_Execute_Default);
-			if (ClearRecipientEmployeeCommand == null) ClearRecipientEmployeeCommand = new DelegateCommand(ClearRecipientEmployeeCommand_Execute_Default);
+			if (SelectRecipientEmployeeCommand == null) SelectRecipientEmployeeCommand = new DelegateLogCommand(SelectRecipientEmployeeCommand_Execute_Default);
+			if (ClearRecipientEmployeeCommand == null) ClearRecipientEmployeeCommand = new DelegateLogCommand(ClearRecipientEmployeeCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectRegistrationDetailsOfRecipientCommand == null) _getEntitiesForSelectRegistrationDetailsOfRecipientCommand = () => { return UnitOfWork.Repository<DocumentsRegistrationDetails>().GetAll(); };
-			if (SelectRegistrationDetailsOfRecipientCommand == null) SelectRegistrationDetailsOfRecipientCommand = new DelegateCommand(SelectRegistrationDetailsOfRecipientCommand_Execute_Default);
-			if (ClearRegistrationDetailsOfRecipientCommand == null) ClearRegistrationDetailsOfRecipientCommand = new DelegateCommand(ClearRegistrationDetailsOfRecipientCommand_Execute_Default);
+			if (SelectRegistrationDetailsOfRecipientCommand == null) SelectRegistrationDetailsOfRecipientCommand = new DelegateLogCommand(SelectRegistrationDetailsOfRecipientCommand_Execute_Default);
+			if (ClearRegistrationDetailsOfRecipientCommand == null) ClearRegistrationDetailsOfRecipientCommand = new DelegateLogCommand(ClearRegistrationDetailsOfRecipientCommand_Execute_Default);
 
 			
 			if (_getEntitiesForAddInCopyToRecipientsCommand == null) _getEntitiesForAddInCopyToRecipientsCommand = () => { return UnitOfWork.Repository<Employee>().GetAll(); };;
-			if (AddInCopyToRecipientsCommand == null) AddInCopyToRecipientsCommand = new DelegateCommand(AddInCopyToRecipientsCommand_Execute_Default);
-			if (RemoveFromCopyToRecipientsCommand == null) RemoveFromCopyToRecipientsCommand = new DelegateCommand(RemoveFromCopyToRecipientsCommand_Execute_Default, RemoveFromCopyToRecipientsCommand_CanExecute_Default);
+			if (AddInCopyToRecipientsCommand == null) AddInCopyToRecipientsCommand = new DelegateLogCommand(AddInCopyToRecipientsCommand_Execute_Default);
+			if (RemoveFromCopyToRecipientsCommand == null) RemoveFromCopyToRecipientsCommand = new DelegateLogCommand(RemoveFromCopyToRecipientsCommand_Execute_Default, RemoveFromCopyToRecipientsCommand_CanExecute_Default);
 
 		}
 
@@ -4198,35 +4198,35 @@ namespace HVTApp.UI.ViewModels
     {
 		//private Func<Task<List<Person>>> _getEntitiesForSelectPersonCommand;
 		private Func<List<Person>> _getEntitiesForSelectPersonCommand;
-		public ICommand SelectPersonCommand { get; private set; }
-		public ICommand ClearPersonCommand { get; private set; }
+		public DelegateLogCommand SelectPersonCommand { get; private set; }
+		public DelegateLogCommand ClearPersonCommand { get; private set; }
 
 		//private Func<Task<List<Company>>> _getEntitiesForSelectCompanyCommand;
 		private Func<List<Company>> _getEntitiesForSelectCompanyCommand;
-		public ICommand SelectCompanyCommand { get; private set; }
-		public ICommand ClearCompanyCommand { get; private set; }
+		public DelegateLogCommand SelectCompanyCommand { get; private set; }
+		public DelegateLogCommand ClearCompanyCommand { get; private set; }
 
 		//private Func<Task<List<EmployeesPosition>>> _getEntitiesForSelectPositionCommand;
 		private Func<List<EmployeesPosition>> _getEntitiesForSelectPositionCommand;
-		public ICommand SelectPositionCommand { get; private set; }
-		public ICommand ClearPositionCommand { get; private set; }
+		public DelegateLogCommand SelectPositionCommand { get; private set; }
+		public DelegateLogCommand ClearPositionCommand { get; private set; }
 
         public EmployeeDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
 			if (_getEntitiesForSelectPersonCommand == null) _getEntitiesForSelectPersonCommand = () => { return UnitOfWork.Repository<Person>().GetAll(); };
-			if (SelectPersonCommand == null) SelectPersonCommand = new DelegateCommand(SelectPersonCommand_Execute_Default);
-			if (ClearPersonCommand == null) ClearPersonCommand = new DelegateCommand(ClearPersonCommand_Execute_Default);
+			if (SelectPersonCommand == null) SelectPersonCommand = new DelegateLogCommand(SelectPersonCommand_Execute_Default);
+			if (ClearPersonCommand == null) ClearPersonCommand = new DelegateLogCommand(ClearPersonCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectCompanyCommand == null) _getEntitiesForSelectCompanyCommand = () => { return UnitOfWork.Repository<Company>().GetAll(); };
-			if (SelectCompanyCommand == null) SelectCompanyCommand = new DelegateCommand(SelectCompanyCommand_Execute_Default);
-			if (ClearCompanyCommand == null) ClearCompanyCommand = new DelegateCommand(ClearCompanyCommand_Execute_Default);
+			if (SelectCompanyCommand == null) SelectCompanyCommand = new DelegateLogCommand(SelectCompanyCommand_Execute_Default);
+			if (ClearCompanyCommand == null) ClearCompanyCommand = new DelegateLogCommand(ClearCompanyCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectPositionCommand == null) _getEntitiesForSelectPositionCommand = () => { return UnitOfWork.Repository<EmployeesPosition>().GetAll(); };
-			if (SelectPositionCommand == null) SelectPositionCommand = new DelegateCommand(SelectPositionCommand_Execute_Default);
-			if (ClearPositionCommand == null) ClearPositionCommand = new DelegateCommand(ClearPositionCommand_Execute_Default);
+			if (SelectPositionCommand == null) SelectPositionCommand = new DelegateLogCommand(SelectPositionCommand_Execute_Default);
+			if (ClearPositionCommand == null) ClearPositionCommand = new DelegateLogCommand(ClearPositionCommand_Execute_Default);
 
 		}
 
@@ -4276,15 +4276,15 @@ namespace HVTApp.UI.ViewModels
     {
 		//private Func<Task<List<PaymentConditionPoint>>> _getEntitiesForSelectPaymentConditionPointCommand;
 		private Func<List<PaymentConditionPoint>> _getEntitiesForSelectPaymentConditionPointCommand;
-		public ICommand SelectPaymentConditionPointCommand { get; private set; }
-		public ICommand ClearPaymentConditionPointCommand { get; private set; }
+		public DelegateLogCommand SelectPaymentConditionPointCommand { get; private set; }
+		public DelegateLogCommand ClearPaymentConditionPointCommand { get; private set; }
 
         public PaymentConditionDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
 			if (_getEntitiesForSelectPaymentConditionPointCommand == null) _getEntitiesForSelectPaymentConditionPointCommand = () => { return UnitOfWork.Repository<PaymentConditionPoint>().GetAll(); };
-			if (SelectPaymentConditionPointCommand == null) SelectPaymentConditionPointCommand = new DelegateCommand(SelectPaymentConditionPointCommand_Execute_Default);
-			if (ClearPaymentConditionPointCommand == null) ClearPaymentConditionPointCommand = new DelegateCommand(ClearPaymentConditionPointCommand_Execute_Default);
+			if (SelectPaymentConditionPointCommand == null) SelectPaymentConditionPointCommand = new DelegateLogCommand(SelectPaymentConditionPointCommand_Execute_Default);
+			if (ClearPaymentConditionPointCommand == null) ClearPaymentConditionPointCommand = new DelegateLogCommand(ClearPaymentConditionPointCommand_Execute_Default);
 
 		}
 
@@ -4304,8 +4304,8 @@ namespace HVTApp.UI.ViewModels
     public partial class PaymentDocumentDetailsViewModel : BaseDetailsViewModel<PaymentDocumentWrapper, PaymentDocument, AfterSavePaymentDocumentEvent>
     {
 		private Func<List<PaymentActual>> _getEntitiesForAddInPaymentsCommand;
-		public ICommand AddInPaymentsCommand { get; }
-		public ICommand RemoveFromPaymentsCommand { get; }
+		public DelegateLogCommand AddInPaymentsCommand { get; }
+		public DelegateLogCommand RemoveFromPaymentsCommand { get; }
 		private PaymentActualWrapper _selectedPaymentsItem;
 		public PaymentActualWrapper SelectedPaymentsItem 
 		{ 
@@ -4315,7 +4315,7 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedPaymentsItem, value)) return;
 				_selectedPaymentsItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromPaymentsCommand).RaiseCanExecuteChanged();
+				RemoveFromPaymentsCommand.RaiseCanExecuteChanged();
 			}
 		}
 
@@ -4323,8 +4323,8 @@ namespace HVTApp.UI.ViewModels
 		{
 			
 			if (_getEntitiesForAddInPaymentsCommand == null) _getEntitiesForAddInPaymentsCommand = () => { return UnitOfWork.Repository<PaymentActual>().GetAll(); };;
-			if (AddInPaymentsCommand == null) AddInPaymentsCommand = new DelegateCommand(AddInPaymentsCommand_Execute_Default);
-			if (RemoveFromPaymentsCommand == null) RemoveFromPaymentsCommand = new DelegateCommand(RemoveFromPaymentsCommand_Execute_Default, RemoveFromPaymentsCommand_CanExecute_Default);
+			if (AddInPaymentsCommand == null) AddInPaymentsCommand = new DelegateLogCommand(AddInPaymentsCommand_Execute_Default);
+			if (RemoveFromPaymentsCommand == null) RemoveFromPaymentsCommand = new DelegateLogCommand(RemoveFromPaymentsCommand_Execute_Default, RemoveFromPaymentsCommand_CanExecute_Default);
 
 		}
 
@@ -4350,35 +4350,35 @@ namespace HVTApp.UI.ViewModels
     {
 		//private Func<Task<List<FacilityType>>> _getEntitiesForSelectTypeCommand;
 		private Func<List<FacilityType>> _getEntitiesForSelectTypeCommand;
-		public ICommand SelectTypeCommand { get; private set; }
-		public ICommand ClearTypeCommand { get; private set; }
+		public DelegateLogCommand SelectTypeCommand { get; private set; }
+		public DelegateLogCommand ClearTypeCommand { get; private set; }
 
 		//private Func<Task<List<Company>>> _getEntitiesForSelectOwnerCompanyCommand;
 		private Func<List<Company>> _getEntitiesForSelectOwnerCompanyCommand;
-		public ICommand SelectOwnerCompanyCommand { get; private set; }
-		public ICommand ClearOwnerCompanyCommand { get; private set; }
+		public DelegateLogCommand SelectOwnerCompanyCommand { get; private set; }
+		public DelegateLogCommand ClearOwnerCompanyCommand { get; private set; }
 
 		//private Func<Task<List<Address>>> _getEntitiesForSelectAddressCommand;
 		private Func<List<Address>> _getEntitiesForSelectAddressCommand;
-		public ICommand SelectAddressCommand { get; private set; }
-		public ICommand ClearAddressCommand { get; private set; }
+		public DelegateLogCommand SelectAddressCommand { get; private set; }
+		public DelegateLogCommand ClearAddressCommand { get; private set; }
 
         public FacilityDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
 			if (_getEntitiesForSelectTypeCommand == null) _getEntitiesForSelectTypeCommand = () => { return UnitOfWork.Repository<FacilityType>().GetAll(); };
-			if (SelectTypeCommand == null) SelectTypeCommand = new DelegateCommand(SelectTypeCommand_Execute_Default);
-			if (ClearTypeCommand == null) ClearTypeCommand = new DelegateCommand(ClearTypeCommand_Execute_Default);
+			if (SelectTypeCommand == null) SelectTypeCommand = new DelegateLogCommand(SelectTypeCommand_Execute_Default);
+			if (ClearTypeCommand == null) ClearTypeCommand = new DelegateLogCommand(ClearTypeCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectOwnerCompanyCommand == null) _getEntitiesForSelectOwnerCompanyCommand = () => { return UnitOfWork.Repository<Company>().GetAll(); };
-			if (SelectOwnerCompanyCommand == null) SelectOwnerCompanyCommand = new DelegateCommand(SelectOwnerCompanyCommand_Execute_Default);
-			if (ClearOwnerCompanyCommand == null) ClearOwnerCompanyCommand = new DelegateCommand(ClearOwnerCompanyCommand_Execute_Default);
+			if (SelectOwnerCompanyCommand == null) SelectOwnerCompanyCommand = new DelegateLogCommand(SelectOwnerCompanyCommand_Execute_Default);
+			if (ClearOwnerCompanyCommand == null) ClearOwnerCompanyCommand = new DelegateLogCommand(ClearOwnerCompanyCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectAddressCommand == null) _getEntitiesForSelectAddressCommand = () => { return UnitOfWork.Repository<Address>().GetAll(); };
-			if (SelectAddressCommand == null) SelectAddressCommand = new DelegateCommand(SelectAddressCommand_Execute_Default);
-			if (ClearAddressCommand == null) ClearAddressCommand = new DelegateCommand(ClearAddressCommand_Execute_Default);
+			if (SelectAddressCommand == null) SelectAddressCommand = new DelegateLogCommand(SelectAddressCommand_Execute_Default);
+			if (ClearAddressCommand == null) ClearAddressCommand = new DelegateLogCommand(ClearAddressCommand_Execute_Default);
 
 		}
 
@@ -4419,17 +4419,17 @@ namespace HVTApp.UI.ViewModels
     {
 		//private Func<Task<List<ProjectType>>> _getEntitiesForSelectProjectTypeCommand;
 		private Func<List<ProjectType>> _getEntitiesForSelectProjectTypeCommand;
-		public ICommand SelectProjectTypeCommand { get; private set; }
-		public ICommand ClearProjectTypeCommand { get; private set; }
+		public DelegateLogCommand SelectProjectTypeCommand { get; private set; }
+		public DelegateLogCommand ClearProjectTypeCommand { get; private set; }
 
 		//private Func<Task<List<User>>> _getEntitiesForSelectManagerCommand;
 		private Func<List<User>> _getEntitiesForSelectManagerCommand;
-		public ICommand SelectManagerCommand { get; private set; }
-		public ICommand ClearManagerCommand { get; private set; }
+		public DelegateLogCommand SelectManagerCommand { get; private set; }
+		public DelegateLogCommand ClearManagerCommand { get; private set; }
 
 		private Func<List<Note>> _getEntitiesForAddInNotesCommand;
-		public ICommand AddInNotesCommand { get; }
-		public ICommand RemoveFromNotesCommand { get; }
+		public DelegateLogCommand AddInNotesCommand { get; }
+		public DelegateLogCommand RemoveFromNotesCommand { get; }
 		private NoteWrapper _selectedNotesItem;
 		public NoteWrapper SelectedNotesItem 
 		{ 
@@ -4439,7 +4439,7 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedNotesItem, value)) return;
 				_selectedNotesItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromNotesCommand).RaiseCanExecuteChanged();
+				RemoveFromNotesCommand.RaiseCanExecuteChanged();
 			}
 		}
 
@@ -4447,18 +4447,18 @@ namespace HVTApp.UI.ViewModels
 		{
 			
 			if (_getEntitiesForSelectProjectTypeCommand == null) _getEntitiesForSelectProjectTypeCommand = () => { return UnitOfWork.Repository<ProjectType>().GetAll(); };
-			if (SelectProjectTypeCommand == null) SelectProjectTypeCommand = new DelegateCommand(SelectProjectTypeCommand_Execute_Default);
-			if (ClearProjectTypeCommand == null) ClearProjectTypeCommand = new DelegateCommand(ClearProjectTypeCommand_Execute_Default);
+			if (SelectProjectTypeCommand == null) SelectProjectTypeCommand = new DelegateLogCommand(SelectProjectTypeCommand_Execute_Default);
+			if (ClearProjectTypeCommand == null) ClearProjectTypeCommand = new DelegateLogCommand(ClearProjectTypeCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectManagerCommand == null) _getEntitiesForSelectManagerCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };
-			if (SelectManagerCommand == null) SelectManagerCommand = new DelegateCommand(SelectManagerCommand_Execute_Default);
-			if (ClearManagerCommand == null) ClearManagerCommand = new DelegateCommand(ClearManagerCommand_Execute_Default);
+			if (SelectManagerCommand == null) SelectManagerCommand = new DelegateLogCommand(SelectManagerCommand_Execute_Default);
+			if (ClearManagerCommand == null) ClearManagerCommand = new DelegateLogCommand(ClearManagerCommand_Execute_Default);
 
 			
 			if (_getEntitiesForAddInNotesCommand == null) _getEntitiesForAddInNotesCommand = () => { return UnitOfWork.Repository<Note>().GetAll(); };;
-			if (AddInNotesCommand == null) AddInNotesCommand = new DelegateCommand(AddInNotesCommand_Execute_Default);
-			if (RemoveFromNotesCommand == null) RemoveFromNotesCommand = new DelegateCommand(RemoveFromNotesCommand_Execute_Default, RemoveFromNotesCommand_CanExecute_Default);
+			if (AddInNotesCommand == null) AddInNotesCommand = new DelegateLogCommand(AddInNotesCommand_Execute_Default);
+			if (RemoveFromNotesCommand == null) RemoveFromNotesCommand = new DelegateLogCommand(RemoveFromNotesCommand_Execute_Default, RemoveFromNotesCommand_CanExecute_Default);
 
 		}
 
@@ -4513,15 +4513,15 @@ namespace HVTApp.UI.ViewModels
     {
 		//private Func<Task<List<Contract>>> _getEntitiesForSelectContractCommand;
 		private Func<List<Contract>> _getEntitiesForSelectContractCommand;
-		public ICommand SelectContractCommand { get; private set; }
-		public ICommand ClearContractCommand { get; private set; }
+		public DelegateLogCommand SelectContractCommand { get; private set; }
+		public DelegateLogCommand ClearContractCommand { get; private set; }
 
         public SpecificationDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
 			if (_getEntitiesForSelectContractCommand == null) _getEntitiesForSelectContractCommand = () => { return UnitOfWork.Repository<Contract>().GetAll(); };
-			if (SelectContractCommand == null) SelectContractCommand = new DelegateCommand(SelectContractCommand_Execute_Default);
-			if (ClearContractCommand == null) ClearContractCommand = new DelegateCommand(ClearContractCommand_Execute_Default);
+			if (SelectContractCommand == null) SelectContractCommand = new DelegateLogCommand(SelectContractCommand_Execute_Default);
+			if (ClearContractCommand == null) ClearContractCommand = new DelegateLogCommand(ClearContractCommand_Execute_Default);
 
 		}
 
@@ -4542,17 +4542,17 @@ namespace HVTApp.UI.ViewModels
     {
 		//private Func<Task<List<Project>>> _getEntitiesForSelectProjectCommand;
 		private Func<List<Project>> _getEntitiesForSelectProjectCommand;
-		public ICommand SelectProjectCommand { get; private set; }
-		public ICommand ClearProjectCommand { get; private set; }
+		public DelegateLogCommand SelectProjectCommand { get; private set; }
+		public DelegateLogCommand ClearProjectCommand { get; private set; }
 
 		//private Func<Task<List<Company>>> _getEntitiesForSelectWinnerCommand;
 		private Func<List<Company>> _getEntitiesForSelectWinnerCommand;
-		public ICommand SelectWinnerCommand { get; private set; }
-		public ICommand ClearWinnerCommand { get; private set; }
+		public DelegateLogCommand SelectWinnerCommand { get; private set; }
+		public DelegateLogCommand ClearWinnerCommand { get; private set; }
 
 		private Func<List<TenderType>> _getEntitiesForAddInTypesCommand;
-		public ICommand AddInTypesCommand { get; }
-		public ICommand RemoveFromTypesCommand { get; }
+		public DelegateLogCommand AddInTypesCommand { get; }
+		public DelegateLogCommand RemoveFromTypesCommand { get; }
 		private TenderTypeWrapper _selectedTypesItem;
 		public TenderTypeWrapper SelectedTypesItem 
 		{ 
@@ -4562,13 +4562,13 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedTypesItem, value)) return;
 				_selectedTypesItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromTypesCommand).RaiseCanExecuteChanged();
+				RemoveFromTypesCommand.RaiseCanExecuteChanged();
 			}
 		}
 
 		private Func<List<Company>> _getEntitiesForAddInParticipantsCommand;
-		public ICommand AddInParticipantsCommand { get; }
-		public ICommand RemoveFromParticipantsCommand { get; }
+		public DelegateLogCommand AddInParticipantsCommand { get; }
+		public DelegateLogCommand RemoveFromParticipantsCommand { get; }
 		private CompanyWrapper _selectedParticipantsItem;
 		public CompanyWrapper SelectedParticipantsItem 
 		{ 
@@ -4578,7 +4578,7 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedParticipantsItem, value)) return;
 				_selectedParticipantsItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromParticipantsCommand).RaiseCanExecuteChanged();
+				RemoveFromParticipantsCommand.RaiseCanExecuteChanged();
 			}
 		}
 
@@ -4586,23 +4586,23 @@ namespace HVTApp.UI.ViewModels
 		{
 			
 			if (_getEntitiesForSelectProjectCommand == null) _getEntitiesForSelectProjectCommand = () => { return UnitOfWork.Repository<Project>().GetAll(); };
-			if (SelectProjectCommand == null) SelectProjectCommand = new DelegateCommand(SelectProjectCommand_Execute_Default);
-			if (ClearProjectCommand == null) ClearProjectCommand = new DelegateCommand(ClearProjectCommand_Execute_Default);
+			if (SelectProjectCommand == null) SelectProjectCommand = new DelegateLogCommand(SelectProjectCommand_Execute_Default);
+			if (ClearProjectCommand == null) ClearProjectCommand = new DelegateLogCommand(ClearProjectCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectWinnerCommand == null) _getEntitiesForSelectWinnerCommand = () => { return UnitOfWork.Repository<Company>().GetAll(); };
-			if (SelectWinnerCommand == null) SelectWinnerCommand = new DelegateCommand(SelectWinnerCommand_Execute_Default);
-			if (ClearWinnerCommand == null) ClearWinnerCommand = new DelegateCommand(ClearWinnerCommand_Execute_Default);
+			if (SelectWinnerCommand == null) SelectWinnerCommand = new DelegateLogCommand(SelectWinnerCommand_Execute_Default);
+			if (ClearWinnerCommand == null) ClearWinnerCommand = new DelegateLogCommand(ClearWinnerCommand_Execute_Default);
 
 			
 			if (_getEntitiesForAddInTypesCommand == null) _getEntitiesForAddInTypesCommand = () => { return UnitOfWork.Repository<TenderType>().GetAll(); };;
-			if (AddInTypesCommand == null) AddInTypesCommand = new DelegateCommand(AddInTypesCommand_Execute_Default);
-			if (RemoveFromTypesCommand == null) RemoveFromTypesCommand = new DelegateCommand(RemoveFromTypesCommand_Execute_Default, RemoveFromTypesCommand_CanExecute_Default);
+			if (AddInTypesCommand == null) AddInTypesCommand = new DelegateLogCommand(AddInTypesCommand_Execute_Default);
+			if (RemoveFromTypesCommand == null) RemoveFromTypesCommand = new DelegateLogCommand(RemoveFromTypesCommand_Execute_Default, RemoveFromTypesCommand_CanExecute_Default);
 
 			
 			if (_getEntitiesForAddInParticipantsCommand == null) _getEntitiesForAddInParticipantsCommand = () => { return UnitOfWork.Repository<Company>().GetAll(); };;
-			if (AddInParticipantsCommand == null) AddInParticipantsCommand = new DelegateCommand(AddInParticipantsCommand_Execute_Default);
-			if (RemoveFromParticipantsCommand == null) RemoveFromParticipantsCommand = new DelegateCommand(RemoveFromParticipantsCommand_Execute_Default, RemoveFromParticipantsCommand_CanExecute_Default);
+			if (AddInParticipantsCommand == null) AddInParticipantsCommand = new DelegateLogCommand(AddInParticipantsCommand_Execute_Default);
+			if (RemoveFromParticipantsCommand == null) RemoveFromParticipantsCommand = new DelegateLogCommand(RemoveFromParticipantsCommand_Execute_Default, RemoveFromParticipantsCommand_CanExecute_Default);
 
 		}
 
@@ -4672,12 +4672,12 @@ namespace HVTApp.UI.ViewModels
     {
 		//private Func<Task<List<Employee>>> _getEntitiesForSelectEmployeeCommand;
 		private Func<List<Employee>> _getEntitiesForSelectEmployeeCommand;
-		public ICommand SelectEmployeeCommand { get; private set; }
-		public ICommand ClearEmployeeCommand { get; private set; }
+		public DelegateLogCommand SelectEmployeeCommand { get; private set; }
+		public DelegateLogCommand ClearEmployeeCommand { get; private set; }
 
 		private Func<List<UserRole>> _getEntitiesForAddInRolesCommand;
-		public ICommand AddInRolesCommand { get; }
-		public ICommand RemoveFromRolesCommand { get; }
+		public DelegateLogCommand AddInRolesCommand { get; }
+		public DelegateLogCommand RemoveFromRolesCommand { get; }
 		private UserRoleWrapper _selectedRolesItem;
 		public UserRoleWrapper SelectedRolesItem 
 		{ 
@@ -4687,7 +4687,7 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selectedRolesItem, value)) return;
 				_selectedRolesItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromRolesCommand).RaiseCanExecuteChanged();
+				RemoveFromRolesCommand.RaiseCanExecuteChanged();
 			}
 		}
 
@@ -4695,13 +4695,13 @@ namespace HVTApp.UI.ViewModels
 		{
 			
 			if (_getEntitiesForSelectEmployeeCommand == null) _getEntitiesForSelectEmployeeCommand = () => { return UnitOfWork.Repository<Employee>().GetAll(); };
-			if (SelectEmployeeCommand == null) SelectEmployeeCommand = new DelegateCommand(SelectEmployeeCommand_Execute_Default);
-			if (ClearEmployeeCommand == null) ClearEmployeeCommand = new DelegateCommand(ClearEmployeeCommand_Execute_Default);
+			if (SelectEmployeeCommand == null) SelectEmployeeCommand = new DelegateLogCommand(SelectEmployeeCommand_Execute_Default);
+			if (ClearEmployeeCommand == null) ClearEmployeeCommand = new DelegateLogCommand(ClearEmployeeCommand_Execute_Default);
 
 			
 			if (_getEntitiesForAddInRolesCommand == null) _getEntitiesForAddInRolesCommand = () => { return UnitOfWork.Repository<UserRole>().GetAll(); };;
-			if (AddInRolesCommand == null) AddInRolesCommand = new DelegateCommand(AddInRolesCommand_Execute_Default);
-			if (RemoveFromRolesCommand == null) RemoveFromRolesCommand = new DelegateCommand(RemoveFromRolesCommand_Execute_Default, RemoveFromRolesCommand_CanExecute_Default);
+			if (AddInRolesCommand == null) AddInRolesCommand = new DelegateLogCommand(AddInRolesCommand_Execute_Default);
+			if (RemoveFromRolesCommand == null) RemoveFromRolesCommand = new DelegateLogCommand(RemoveFromRolesCommand_Execute_Default, RemoveFromRolesCommand_CanExecute_Default);
 
 		}
 

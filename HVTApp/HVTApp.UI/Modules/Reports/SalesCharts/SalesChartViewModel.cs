@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 
 namespace HVTApp.UI.Modules.Reports.SalesCharts
 {
@@ -69,35 +68,35 @@ namespace HVTApp.UI.Modules.Reports.SalesCharts
             set
             {
                 _year = value;
-                ((DelegateCommand)GetDataByYearCommand).RaiseCanExecuteChanged();
+                (GetDataByYearCommand).RaiseCanExecuteChanged();
             }
         }
 
         public ObservableCollection<T> Items { get; } = new ObservableCollection<T>();
 
 
-        public ICommand AddParameterCommand { get; }
-        public ICommand RemoveParameterCommand { get; }
+        public DelegateLogCommand AddParameterCommand { get; }
+        public DelegateLogCommand RemoveParameterCommand { get; }
 
         public ObservableCollection<Parameter> Parameters { get; } = new ObservableCollection<Parameter>();
 
         public Parameter SelectedParameter
         {
-            get { return _selectedParameter; }
+            get => _selectedParameter;
             set
             {
                 _selectedParameter = value;
-                ((DelegateCommand)RemoveParameterCommand).RaiseCanExecuteChanged();
+                RemoveParameterCommand.RaiseCanExecuteChanged();
             }
         }
 
 
-        public ICommand ReloadCommand { get; }
-        public ICommand GetDataByYearCommand { get; }
+        public DelegateLogCommand ReloadCommand { get; }
+        public DelegateLogCommand GetDataByYearCommand { get; }
 
         protected SalesChartViewModel(IUnityContainer container) : base(container)
         {
-            AddParameterCommand = new DelegateCommand(
+            AddParameterCommand = new DelegateLogCommand(
                 () =>
                 {
                     var parameters = UnitOfWork.Repository<Parameter>().GetAll();
@@ -108,7 +107,7 @@ namespace HVTApp.UI.Modules.Reports.SalesCharts
                     }
                 });
 
-            RemoveParameterCommand = new DelegateCommand(
+            RemoveParameterCommand = new DelegateLogCommand(
                 () =>
                 {
                     Parameters.Remove(SelectedParameter);
@@ -118,14 +117,14 @@ namespace HVTApp.UI.Modules.Reports.SalesCharts
 
             Parameters.CollectionChanged += (sender, args) => { this.RefreshItems(); };
 
-            GetDataByYearCommand = new DelegateCommand(
+            GetDataByYearCommand = new DelegateLogCommand(
                 () =>
                 {
                     StartDate = new DateTime(Year, 1, 1);
                     FinishDate = new DateTime(Year, 12, 31);
                 },
                 () => Year > 1899 && Year < 2201);
-            ReloadCommand = new DelegateCommand(() => Load(true));
+            ReloadCommand = new DelegateLogCommand(() => Load(true));
             Load();
         }
 

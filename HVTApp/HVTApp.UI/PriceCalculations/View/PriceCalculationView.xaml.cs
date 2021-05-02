@@ -90,7 +90,7 @@ namespace HVTApp.UI.PriceCalculations.View
             var editor = sender as XamCheckEditor;
             ((PriceCalculationItem2Wrapper)(((DataRecord)editor.DataContext).DataItem)).IsChecked = editor.IsChecked.Value;
 
-            ((DelegateCommand) _viewModel.MeregeCommand).RaiseCanExecuteChanged();
+            _viewModel.MeregeCommand.RaiseCanExecuteChanged();
         }
 
     }

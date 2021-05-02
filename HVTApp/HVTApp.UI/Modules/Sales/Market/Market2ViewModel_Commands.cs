@@ -10,6 +10,8 @@ using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Commands;
+using HVTApp.UI.Modules.Sales.Market.Commands;
 using HVTApp.UI.Modules.Sales.Market.Items;
 using HVTApp.UI.Modules.Sales.ViewModels;
 using HVTApp.UI.Modules.Sales.Views;
@@ -24,38 +26,38 @@ namespace HVTApp.UI.Modules.Sales.Market
     {
         #region ICommand
 
-        public ICommand SelectProjectsFolderCommand { get; }
-        public ICommand OpenFolderCommand { get; }
+        public DelegateLogCommand SelectProjectsFolderCommand { get; }
+        public DelegateLogCommand OpenFolderCommand { get; }
 
 
-        public ICommand NewProjectCommand { get; }
-        public ICommand EditProjectCommand { get; }
-        public ICommand RemoveProjectCommand { get; }
+        public ProjectNewCommand NewProjectCommand { get; }
+        public ProjectEditCommand EditProjectCommand { get; }
+        public ProjectRemoveCommand RemoveProjectCommand { get; }
 
-        public ICommand NewSpecificationCommand { get; }
-
-
-        public ICommand NewOfferByProjectCommand { get; }
-        public ICommand NewOfferByOfferCommand { get; }
-        public ICommand EditOfferCommand { get; }
-        public ICommand RemoveOfferCommand { get; }
-        public ICommand PrintOfferCommand { get; }
-
-        public ICommand NewTenderCommand { get; }
-        public ICommand EditTenderCommand { get; }
-        public ICommand RemoveTenderCommand { get; }
-
-        public ICommand EditTechnicalRequrementsTaskCommand { get; }
-
-        public ICommand EditPriceCalculationCommand { get; }
-        public ICommand CopyPriceCalculationCommand { get; }
-
-        public ICommand StructureCostsCommand { get; }
-
-        public ICommand MakeTceTaskCommand { get; }
+        public SpecificationNewCommand NewSpecificationCommand { get; }
 
 
-        public ICommand OpenTenderLinkCommand { get; }
+        public DelegateLogCommand NewOfferByProjectCommand { get; }
+        public DelegateLogCommand NewOfferByOfferCommand { get; }
+        public DelegateLogCommand EditOfferCommand { get; }
+        public DelegateLogCommand RemoveOfferCommand { get; }
+        public DelegateLogCommand PrintOfferCommand { get; }
+
+        public DelegateLogCommand NewTenderCommand { get; }
+        public DelegateLogCommand EditTenderCommand { get; }
+        public DelegateLogCommand RemoveTenderCommand { get; }
+
+        public DelegateLogCommand EditTechnicalRequrementsTaskCommand { get; }
+
+        public DelegateLogCommand EditPriceCalculationCommand { get; }
+        public PriceCalculationCopyCommand CopyPriceCalculationCommand { get; }
+
+        public DelegateLogCommand StructureCostsCommand { get; }
+
+        public DelegateLogCommand MakeTceTaskCommand { get; }
+
+
+        public OpenTenderLinkCommand OpenTenderLinkCommand { get; }
 
         #endregion
 

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
+using HVTApp.Model;
 using Microsoft.Practices.Unity;
 
 
@@ -28,8 +29,8 @@ namespace HVTApp.DataAccess
         {
             var repositoryFieldInfo = this.GetType()
                 .GetFields(BindingFlags.NonPublic | BindingFlags.Instance)                                   
-                .Single(x => typeof(IRepository<T>)
-                .IsAssignableFrom(x.FieldType));
+                .Single(fieldInfo => typeof(IRepository<T>)
+                .IsAssignableFrom(fieldInfo.FieldType));
 
             return (IRepository<T>) repositoryFieldInfo.GetValue(this);
         }
@@ -61,13 +62,14 @@ namespace HVTApp.DataAccess
                         result += $"- Property: \"{ve.PropertyName}\", Error: \"{ve.ErrorMessage}\"";
                     }
                 }
-                _container.Resolve<IMessageService>().ShowOkMessageDialog("отправьте это разработчику!!!", result);
+                _container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().Name, result);
+                _container.Resolve<IHvtAppLogger>().LogError(result);
                 throw;
             }
             catch (Exception e)
             {
-                var text = e.GetAllExceptions();
-                _container.Resolve<IMessageService>().ShowOkMessageDialog("Обратитесь к разработчику", text);
+                _container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().Name, e.GetAllExceptions());
+                _container.Resolve<IHvtAppLogger>().LogError(e.GetType().Name, e);
                 throw;
             }
 

@@ -10,16 +10,16 @@ namespace HVTApp.Model.Wrapper.Groups.SimpleWrappers
 
         public double? CustomFixedPrice
         {
-            get { return GetValue<double?>(); }
-            set { SetValue(value); }
+            get => Model.CustomFixedPrice;
+            set => SetValue(value);
         }
         public double? CustomFixedPriceOriginalValue => GetOriginalValue<double?>(nameof(CustomFixedPrice));
         public bool CustomFixedPriceIsChanged => GetIsChanged(nameof(CustomFixedPrice));
 
         public int ParentsCount
         {
-            get { return GetValue<System.Int32>(); }
-            set { SetValue(value); }
+            get => Model.ParentsCount;
+            set => SetValue(value);
         }
         public int ParentsCountOriginalValue => GetOriginalValue<int>(nameof(ParentsCount));
         public bool ParentsCountIsChanged => GetIsChanged(nameof(ParentsCount));

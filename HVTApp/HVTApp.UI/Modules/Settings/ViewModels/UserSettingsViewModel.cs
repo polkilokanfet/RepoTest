@@ -1,7 +1,6 @@
-﻿using System.Windows.Input;
-using HVTApp.Infrastructure.Interfaces.Services.EventService;
+﻿using HVTApp.Infrastructure.Interfaces.Services.EventService;
+using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 
 namespace HVTApp.UI.Modules.Settings.ViewModels
 {
@@ -9,8 +8,8 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
     {
         private readonly IUnityContainer _container;
 
-        public ICommand StartEventServiceCommand { get; }
-        public ICommand StopEventServiceCommand { get; }
+        public DelegateLogCommand StartEventServiceCommand { get; }
+        public DelegateLogCommand StopEventServiceCommand { get; }
 
         public UserSettingsViewModel(IUnityContainer container)
         {
@@ -18,14 +17,14 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
             
             var eventServiceClient = _container.Resolve<IEventServiceClient>();
 
-            StartEventServiceCommand = new DelegateCommand(
+            StartEventServiceCommand = new DelegateLogCommand(
                 () =>
                 {
                     eventServiceClient.Stop();
                     eventServiceClient.Start();
                 });
 
-            StopEventServiceCommand = new DelegateCommand(
+            StopEventServiceCommand = new DelegateLogCommand(
                 () =>
                 {
                     eventServiceClient.Stop();

@@ -1,20 +1,19 @@
 using System;
-using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.ViewModels;
 using HVTApp.Model.Wrapper;
+using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels
 {
     public class ProductsIncludedViewModel : ViewModelBase, IDialogRequestClose
     {
         public ProductIncludedDetailsViewModel ViewModel { get; }
-        public ICommand OkCommand { get; }
+        public DelegateLogCommand OkCommand { get; }
         public bool IsForEach { get; set; } = true;
 
         public ProductsIncludedViewModel(ProductIncludedWrapper wrapper, IUnitOfWork unitOfWork, IUnityContainer container) : base(container)
@@ -30,7 +29,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
                 }
             }
 
-            OkCommand = new DelegateCommand(
+            OkCommand = new DelegateLogCommand(
                 () =>
                 {
                     CloseRequested?.Invoke(this, new DialogRequestCloseEventArgs(true));
@@ -39,7 +38,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
                 {
                     return ViewModel?.Item.Product != null && ViewModel.Item.Amount > 0;
                 });
-            ViewModel.Item.PropertyChanged += (s, a) => ((DelegateCommand) OkCommand).RaiseCanExecuteChanged();
+            ViewModel.Item.PropertyChanged += (s, a) => OkCommand.RaiseCanExecuteChanged();
         }
 
         public event EventHandler<DialogRequestCloseEventArgs> CloseRequested;

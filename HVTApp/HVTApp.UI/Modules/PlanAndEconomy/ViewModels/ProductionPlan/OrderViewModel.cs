@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Windows.Input;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
@@ -14,9 +13,9 @@ using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using HVTApp.UI.Modules.PlanAndEconomy.ViewModels.Groups;
 using HVTApp.UI.ViewModels;
 using HVTApp.Model.Wrapper;
+using HVTApp.UI.Commands;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 using Prism.Events;
 
 namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
@@ -28,17 +27,17 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
         public SalesUnitOrderGroupsCollection GroupsInOrder { get; } = new SalesUnitOrderGroupsCollection();
         public SalesUnitOrderGroupsCollection GroupsPotential { get; } = new SalesUnitOrderGroupsCollection();
 
-        public ICommand SaveOrderCommand { get; }
-        public ICommand RemoveOrderCommand { get; }
-        public ICommand AddGroupCommand { get; }
-        public ICommand RemoveGroupCommand { get; }
+        public DelegateLogCommand SaveOrderCommand { get; }
+        public DelegateLogCommand RemoveOrderCommand { get; }
+        public DelegateLogCommand AddGroupCommand { get; }
+        public DelegateLogCommand RemoveGroupCommand { get; }
 
-        public ICommand ShowProductStructureCommand { get; }
+        public DelegateLogCommand ShowProductStructureCommand { get; }
 
         public OrderViewModel(IUnityContainer container) : base(container)
         {
             //сохранить заказ
-            SaveOrderCommand = new DelegateCommand(
+            SaveOrderCommand = new DelegateLogCommand(
                 () =>
                 {
                     var changed = _unitsWrappers.ModifiedItems.ToList();
@@ -50,7 +49,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
                     if(changed.Any())
                         Container.Resolve<IEventAggregator>().GetEvent<AfterSaveOrderItemsEvent>().Publish(changed.Select(salesUnitOrderItem => salesUnitOrderItem.Model));
 
-                    ((DelegateCommand) SaveOrderCommand).RaiseCanExecuteChanged();
+                    ( SaveOrderCommand).RaiseCanExecuteChanged();
                 },
                 () =>
                 {
@@ -74,7 +73,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
                     return _unitsWrappers.IsChanged || Item.IsChanged;
                 });
 
-            RemoveOrderCommand = new DelegateCommand(
+            RemoveOrderCommand = new DelegateLogCommand(
                 () =>
                 {
                     var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Вы уверены, что хотите удалить этот заказ?");
@@ -102,11 +101,11 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
                     GoBackCommand.Execute(null);
                 });
 
-            AddGroupCommand = new DelegateCommand(AddGroupCommand_Execute, () => GroupsPotential.SelectedItem != null);
+            AddGroupCommand = new DelegateLogCommand(AddGroupCommand_Execute, () => GroupsPotential.SelectedItem != null);
 
-            RemoveGroupCommand = new DelegateCommand(RemoveGroupCommand_Execute, () => GroupsInOrder.SelectedItem != null);
+            RemoveGroupCommand = new DelegateLogCommand(RemoveGroupCommand_Execute, () => GroupsInOrder.SelectedItem != null);
 
-            ShowProductStructureCommand = new DelegateCommand(
+            ShowProductStructureCommand = new DelegateLogCommand(
                 () =>
                 {
                     var salesUnit = GroupsPotential.SelectedUnit?.Model ??
@@ -164,14 +163,14 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
             //подписка на смену выбранной потенциальной группы в производстве
             GroupsPotential.SelectedGroupChanged += group =>
             {
-                ((DelegateCommand)AddGroupCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)ShowProductStructureCommand).RaiseCanExecuteChanged();
+                (AddGroupCommand).RaiseCanExecuteChanged();
+                (ShowProductStructureCommand).RaiseCanExecuteChanged();
             };
 
             //подписка на смену выбранной группы в производстве
             GroupsInOrder.SelectedGroupChanged += group =>
             {
-                ((DelegateCommand)RemoveGroupCommand).RaiseCanExecuteChanged();
+                (RemoveGroupCommand).RaiseCanExecuteChanged();
             };
 
             //подписка на изменение свойств заказа и юнитов
@@ -259,18 +258,18 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs args)
         {
-            ((DelegateCommand)SaveOrderCommand).RaiseCanExecuteChanged();
-            ((DelegateCommand)AddGroupCommand).RaiseCanExecuteChanged();
+            (SaveOrderCommand).RaiseCanExecuteChanged();
+            (AddGroupCommand).RaiseCanExecuteChanged();
         }
 
         protected override void GoBackCommand_Execute()
         {
             //если были какие-то изменения
-            if (((DelegateCommand)SaveOrderCommand).CanExecute())
+            if (SaveOrderCommand.CanExecute())
             {
                 if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Сохранение", "Сохранить изменения?", defaultNo:true) == MessageDialogResult.Yes)
                 {
-                    ((DelegateCommand)SaveOrderCommand).Execute();
+                    SaveOrderCommand.Execute();
                 }
             }
 

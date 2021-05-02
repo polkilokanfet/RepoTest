@@ -12,6 +12,7 @@ using HVTApp.Infrastructure.Services;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Commands;
 using HVTApp.UI.Modules.PlanAndEconomy.PaymentsPlan;
 using HVTApp.UI.Modules.Reports.FlatReport.Comparator;
 using HVTApp.UI.Modules.Reports.FlatReport.Containers;
@@ -131,8 +132,8 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                 _selectedItem = value;
                 ((DelegateCommand<string>)AddMonthToOitCommand).RaiseCanExecuteChanged();
                 ((DelegateCommand<string>)AddMonthToRealizationCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)ExplodeItemCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)ChangeInReportStatusCommand).RaiseCanExecuteChanged();
+                (ExplodeItemCommand).RaiseCanExecuteChanged();
+                (ChangeInReportStatusCommand).RaiseCanExecuteChanged();
             }
         }
 
@@ -178,22 +179,22 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
         /// <summary>
         /// Перезагрузить исходные данные
         /// </summary>
-        public ICommand ReloadCommand { get; set; }
+        public DelegateLogCommand ReloadCommand { get; set; }
 
         /// <summary>
         /// Выровнять данные
         /// </summary>
-        public ICommand AlignCommand { get; }
+        public DelegateLogCommand AlignCommand { get; }
 
         /// <summary>
         /// Свормировать отчет Бюджет
         /// </summary>
-        public ICommand MakeSalesReportCommand { get; }
+        public DelegateLogCommand MakeSalesReportCommand { get; }
 
         /// <summary>
         /// Свормировать отчет Поступления
         /// </summary>
-        public ICommand MakePaymentsReportCommand { get; }
+        public DelegateLogCommand MakePaymentsReportCommand { get; }
 
         /// <summary>
         /// Прибавить месяц к ОИТ
@@ -208,29 +209,29 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
         /// <summary>
         /// Сохранить данные в бюджет
         /// </summary>
-        public ICommand SaveBudgetCommand { get; }
+        public DelegateLogCommand SaveBudgetCommand { get; }
 
         /// <summary>
         /// Сравнить с бюджетом
         /// </summary>
-        public ICommand CompareBudgetCommand { get; }
+        public DelegateLogCommand CompareBudgetCommand { get; }
 
         /// <summary>
         /// Загрузить бюджет
         /// </summary>
-        public ICommand LoadBudgetCommand { get; }
+        public DelegateLogCommand LoadBudgetCommand { get; }
 
         /// <summary>
         /// Взорвать айтем
         /// </summary>
-        public ICommand ExplodeItemCommand { get; }
+        public DelegateLogCommand ExplodeItemCommand { get; }
 
         /// <summary>
         /// Загрузка стандартных цен и ПЗ
         /// </summary>
-        public ICommand LoadDefaultCostsAndPricesCommand { get; }
+        public DelegateLogCommand LoadDefaultCostsAndPricesCommand { get; }
 
-        public ICommand ChangeInReportStatusCommand { get; }
+        public DelegateLogCommand ChangeInReportStatusCommand { get; }
 
         #endregion
         
@@ -266,11 +267,11 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                 }
             };
 
-            ReloadCommand = new DelegateCommand(LoadDefault);
+            ReloadCommand = new DelegateLogCommand(LoadDefault);
 
             #region Budget
 
-            CompareBudgetCommand = new DelegateCommand(
+            CompareBudgetCommand = new DelegateLogCommand(
                 () =>
                 {
                     var budgets = UnitOfWork.Repository<Budget>().GetAll();
@@ -282,7 +283,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                     }
                 });
 
-            SaveBudgetCommand = new DelegateCommand(
+            SaveBudgetCommand = new DelegateLogCommand(
                 () =>
                 {
                     var budget = new Budget
@@ -321,7 +322,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                 },
                 () => new List<Role> {Role.Admin, Role.Director, Role.ReportMaker}.Contains(GlobalAppProperties.User.RoleCurrent));
 
-            LoadBudgetCommand = new DelegateCommand(
+            LoadBudgetCommand = new DelegateLogCommand(
                 () =>
                 {
                     UnitOfWork = Container.Resolve<IUnitOfWork>();
@@ -346,7 +347,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
 
             #region MakeReportCommand
 
-            MakeSalesReportCommand = new DelegateCommand(
+            MakeSalesReportCommand = new DelegateLogCommand(
                 () =>
                 {
                     var unitOfWork = Container.Resolve<IUnitOfWork>();
@@ -362,7 +363,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                     Container.Resolve<IDialogService>().Show(salesReportViewModel, $"Бюджет. Момент формирования отчета: {DateTime.Today.ToShortDateString()} {DateTime.Now.ToShortTimeString()}");
                 });
 
-            MakePaymentsReportCommand = new DelegateCommand(
+            MakePaymentsReportCommand = new DelegateLogCommand(
                 () =>
                 {
                     var unitOfWork = Container.Resolve<IUnitOfWork>();
@@ -408,7 +409,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
 
             #endregion
 
-            AlignCommand = new DelegateCommand(
+            AlignCommand = new DelegateLogCommand(
                 () =>
                 {
                     var monthContainers = FlatReportComparator.Align(YearContainersOit.SelectMany(containerYear => containerYear.MonthContainers).Where(containerMonth => containerMonth.InReport)).ToList();
@@ -418,7 +419,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                         Container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", "Не во всех месяцах удалось выровнять суммы с заданной точностью.");
                 });
 
-            ExplodeItemCommand = new DelegateCommand(
+            ExplodeItemCommand = new DelegateLogCommand(
                 () =>
                 {
                     var item = SelectedItem;
@@ -432,7 +433,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                 },
                 () => SelectedItem != null);
 
-            LoadDefaultCostsAndPricesCommand = new DelegateCommand(
+            LoadDefaultCostsAndPricesCommand = new DelegateLogCommand(
                 () =>
                 {
                     var defaultCostsAndPrices = UnitOfWork.Repository<ProductCategoryPriceAndCost>().GetAll();
@@ -447,7 +448,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                     }
                 });
 
-            ChangeInReportStatusCommand = new DelegateCommand(
+            ChangeInReportStatusCommand = new DelegateLogCommand(
                 () =>
                 {
                     //групповое исключение/включение

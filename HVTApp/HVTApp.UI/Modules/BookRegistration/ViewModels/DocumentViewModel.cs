@@ -1,15 +1,14 @@
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
-using System.Windows.Input;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.ViewModels;
 using HVTApp.Model.Wrapper;
+using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 using Prism.Events;
 
 namespace HVTApp.UI.Modules.BookRegistration.ViewModels
@@ -22,12 +21,12 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
             ? "Исходящий документ"
             : "Входящий документ";
 
-        public ICommand OpenFolderCommand { get; }
-        public ICommand AddFilesCommand { get; }
+        public DelegateLogCommand OpenFolderCommand { get; }
+        public DelegateLogCommand AddFilesCommand { get; }
 
         public DocumentViewModel(IUnityContainer container) : base(container)
         {
-            OpenFolderCommand = new DelegateCommand(
+            OpenFolderCommand = new DelegateLogCommand(
                 () =>
                 {
                     if (string.IsNullOrEmpty(GlobalAppProperties.Actual.IncomingRequestsPath))
@@ -40,7 +39,7 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
                     Process.Start("explorer", $"\"{path}\"");
                 });
 
-            AddFilesCommand = new DelegateCommand(
+            AddFilesCommand = new DelegateLogCommand(
                 () =>
                 {
                     var openFileDialog = new OpenFileDialog

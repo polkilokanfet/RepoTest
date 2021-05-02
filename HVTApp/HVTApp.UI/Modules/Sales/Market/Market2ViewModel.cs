@@ -9,6 +9,7 @@ using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Commands;
 using HVTApp.UI.Modules.Sales.Market.Commands;
 using HVTApp.UI.Modules.Sales.Market.Items;
 using HVTApp.UI.Modules.Sales.ViewModels.Containers;
@@ -66,7 +67,7 @@ namespace HVTApp.UI.Modules.Sales.Market
                 }
 
                 OnPropertyChanged(nameof(Market2ViewModel.Notes));
-                ((DelegateCommand)AddNoteCommand).RaiseCanExecuteChanged();
+                (AddNoteCommand).RaiseCanExecuteChanged();
                 SelectedNote = null;
 
                 Offers.SelectedItem = null;
@@ -136,28 +137,28 @@ namespace HVTApp.UI.Modules.Sales.Market
 
             NewSpecificationCommand = new SpecificationNewCommand(this, this.Container, this.RegionManager);
 
-            EditOfferCommand = new DelegateCommand(EditOfferCommand_Execute, () => Offers?.SelectedItem != null);
-            RemoveOfferCommand = new DelegateCommand(() => Offers.RemoveSelectedItem(), () => Offers?.SelectedItem != null);
-            PrintOfferCommand = new DelegateCommand(PrintOfferCommand_Execute, () => Offers?.SelectedItem != null);
-            NewOfferByProjectCommand = new DelegateCommand(NewOfferByProjectCommand_Execute, () => SelectedProjectItem != null);
-            NewOfferByOfferCommand = new DelegateCommand(NewOfferByOfferCommand_Execute, () => Offers?.SelectedItem != null);
+            EditOfferCommand = new DelegateLogCommand(EditOfferCommand_Execute, () => Offers?.SelectedItem != null);
+            RemoveOfferCommand = new DelegateLogCommand(() => Offers.RemoveSelectedItem(), () => Offers?.SelectedItem != null);
+            PrintOfferCommand = new DelegateLogCommand(PrintOfferCommand_Execute, () => Offers?.SelectedItem != null);
+            NewOfferByProjectCommand = new DelegateLogCommand(NewOfferByProjectCommand_Execute, () => SelectedProjectItem != null);
+            NewOfferByOfferCommand = new DelegateLogCommand(NewOfferByOfferCommand_Execute, () => Offers?.SelectedItem != null);
 
-            NewTenderCommand = new DelegateCommand(NewTenderCommand_Execute, () => SelectedProjectItem != null);
-            EditTenderCommand = new DelegateCommand(EditTenderCommand_Execute, () => Tenders?.SelectedItem != null);
-            RemoveTenderCommand = new DelegateCommand(() => Tenders.RemoveSelectedItem(), () => Tenders?.SelectedItem != null);
+            NewTenderCommand = new DelegateLogCommand(NewTenderCommand_Execute, () => SelectedProjectItem != null);
+            EditTenderCommand = new DelegateLogCommand(EditTenderCommand_Execute, () => Tenders?.SelectedItem != null);
+            RemoveTenderCommand = new DelegateLogCommand(() => Tenders.RemoveSelectedItem(), () => Tenders?.SelectedItem != null);
 
-            EditTechnicalRequrementsTaskCommand = new DelegateCommand(EditTechnicalRequrementsTaskCommand_Execute, () => TechnicalRequrementsTasks?.SelectedItem != null);
+            EditTechnicalRequrementsTaskCommand = new DelegateLogCommand(EditTechnicalRequrementsTaskCommand_Execute, () => TechnicalRequrementsTasks?.SelectedItem != null);
             
-            EditPriceCalculationCommand = new DelegateCommand(EditPriceCalculationCommand_Execute);
+            EditPriceCalculationCommand = new DelegateLogCommand(EditPriceCalculationCommand_Execute);
             CopyPriceCalculationCommand = new PriceCalculationCopyCommand(this, this.RegionManager);
 
 
-            StructureCostsCommand = new DelegateCommand(StructureCostsCommand_Execute, () => SelectedProjectItem != null);
+            StructureCostsCommand = new DelegateLogCommand(StructureCostsCommand_Execute, () => SelectedProjectItem != null);
 
-            SelectProjectsFolderCommand = new DelegateCommand(SelectProjectsFolderCommand_Execute);
-            OpenFolderCommand = new DelegateCommand(OpenFolderCommand_Execute, () => SelectedProjectItem != null);
+            SelectProjectsFolderCommand = new DelegateLogCommand(SelectProjectsFolderCommand_Execute);
+            OpenFolderCommand = new DelegateLogCommand(OpenFolderCommand_Execute, () => SelectedProjectItem != null);
 
-            MakeTceTaskCommand = new DelegateCommand(MakeTceTaskCommand_Execute, () => SelectedProjectItem != null);
+            MakeTceTaskCommand = new DelegateLogCommand(MakeTceTaskCommand_Execute, () => SelectedProjectItem != null);
 
             OpenTenderLinkCommand = new OpenTenderLinkCommand(this);
 
@@ -242,27 +243,27 @@ namespace HVTApp.UI.Modules.Sales.Market
             ((DelegateCommandBase)RemoveProjectCommand).RaiseCanExecuteChanged();
             ((DelegateCommandBase)EditProjectCommand).RaiseCanExecuteChanged();
             ((DelegateCommandBase)NewSpecificationCommand).RaiseCanExecuteChanged();
-            ((DelegateCommand)StructureCostsCommand).RaiseCanExecuteChanged();
-            ((DelegateCommand)MakeTceTaskCommand).RaiseCanExecuteChanged();
-            ((DelegateCommand)OpenFolderCommand).RaiseCanExecuteChanged();
+            (StructureCostsCommand).RaiseCanExecuteChanged();
+            (MakeTceTaskCommand).RaiseCanExecuteChanged();
+            (OpenFolderCommand).RaiseCanExecuteChanged();
             OfferRaiseCanExecuteChanged();
             TenderRaiseCanExecuteChanged();
         }
 
         private void OfferRaiseCanExecuteChanged()
         {
-            ((DelegateCommand)EditOfferCommand).RaiseCanExecuteChanged();
-            ((DelegateCommand)RemoveOfferCommand).RaiseCanExecuteChanged();
-            ((DelegateCommand)PrintOfferCommand).RaiseCanExecuteChanged();
-            ((DelegateCommand)NewOfferByOfferCommand).RaiseCanExecuteChanged();
-            ((DelegateCommand)NewOfferByProjectCommand).RaiseCanExecuteChanged();
+            (EditOfferCommand).RaiseCanExecuteChanged();
+            (RemoveOfferCommand).RaiseCanExecuteChanged();
+            (PrintOfferCommand).RaiseCanExecuteChanged();
+            (NewOfferByOfferCommand).RaiseCanExecuteChanged();
+            (NewOfferByProjectCommand).RaiseCanExecuteChanged();
         }
 
         private void TenderRaiseCanExecuteChanged()
         {
-            ((DelegateCommand)NewTenderCommand).RaiseCanExecuteChanged();
-            ((DelegateCommand)EditTenderCommand).RaiseCanExecuteChanged();
-            ((DelegateCommand)RemoveTenderCommand).RaiseCanExecuteChanged();
+            (NewTenderCommand).RaiseCanExecuteChanged();
+            (EditTenderCommand).RaiseCanExecuteChanged();
+            (RemoveTenderCommand).RaiseCanExecuteChanged();
             ((DelegateCommandBase)OpenTenderLinkCommand).RaiseCanExecuteChanged();
         }
 

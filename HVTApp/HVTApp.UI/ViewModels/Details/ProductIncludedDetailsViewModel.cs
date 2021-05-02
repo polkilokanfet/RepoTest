@@ -1,9 +1,8 @@
-using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper;
+using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 
 namespace HVTApp.UI.ViewModels
 {
@@ -12,7 +11,7 @@ namespace HVTApp.UI.ViewModels
 
         protected override void InitSpecialCommands()
         {
-            SelectProductCommand = new DelegateCommand(
+            SelectProductCommand = new DelegateLogCommand(
                 () =>
                 {
                     var product = Container.Resolve<IGetProductService>().GetProduct(Item.Model.Product);

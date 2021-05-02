@@ -5,6 +5,7 @@ using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
+using HVTApp.UI.Commands;
 using HVTApp.UI.ViewModels;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
@@ -14,11 +15,11 @@ namespace HVTApp.UI.Modules.Products.ViewModels
 {
     public class CreateNewProductTasksViewModel : CreateNewProductTaskLookupListViewModel
     {
-        public ICommand ChangeProductCommand { get; }
+        public DelegateLogCommand ChangeProductCommand { get; }
 
         public CreateNewProductTasksViewModel(IUnityContainer container) : base(container)
         {
-            ChangeProductCommand = new DelegateCommand(() =>
+            ChangeProductCommand = new DelegateLogCommand(() =>
                 {
                     var unitOfWork = Container.Resolve<IUnitOfWork>();
 
@@ -32,16 +33,16 @@ namespace HVTApp.UI.Modules.Products.ViewModels
                     targetProduct = unitOfWork.Repository<Product>().GetById(targetProduct.Id);
 
                     //юниты с новым продуктом
-                    var salesUnits = unitOfWork.Repository<SalesUnit>().Find(x => x.Product.Id == task.Product.Id);
-                    var offerUnits = unitOfWork.Repository<OfferUnit>().Find(x => x.Product.Id == task.Product.Id);
+                    var salesUnits = unitOfWork.Repository<SalesUnit>().Find(salesUnit => salesUnit.Product.Id == task.Product.Id);
+                    var offerUnits = unitOfWork.Repository<OfferUnit>().Find(offerUnit => offerUnit.Product.Id == task.Product.Id);
 
                     //меняем продукт в юнитах
-                    salesUnits.ForEach(x => x.Product = targetProduct);
-                    offerUnits.ForEach(x => x.Product = targetProduct);
+                    salesUnits.ForEach(salesUnit => salesUnit.Product = targetProduct);
+                    offerUnits.ForEach(offerUnit => offerUnit.Product = targetProduct);
 
                     //удаление параметров
                     var parameters = task.Product.ProductBlock.Parameters
-                        .Where(x => x.Id != GlobalAppProperties.Actual.NewProductParameter.Id).ToList();
+                        .Where(parameter => parameter.Id != GlobalAppProperties.Actual.NewProductParameter.Id).ToList();
                     unitOfWork.Repository<Parameter>().DeleteRange(parameters);
 
                     //удаление связей параметров
@@ -66,7 +67,7 @@ namespace HVTApp.UI.Modules.Products.ViewModels
 
             this.SelectedLookupChanged += lookup =>
             {
-                ((DelegateCommand)ChangeProductCommand).RaiseCanExecuteChanged();
+                ChangeProductCommand.RaiseCanExecuteChanged();
             };
         }
     }

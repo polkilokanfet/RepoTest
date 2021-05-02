@@ -9,6 +9,7 @@ namespace HVTApp.UI.Commands
 {
     public class DelegateLogCommand : ICommand
     {
+        private readonly bool _shutdownAppOnException;
         private DelegateCommand _delegateCommand;
 
         private DelegateCommand DelegateCommand
@@ -24,23 +25,28 @@ namespace HVTApp.UI.Commands
             }
         }
 
-        public DelegateLogCommand(Action executeMethod)
+        public DelegateLogCommand(Action executeMethod, bool shutdownAppOnException = true)
         {
             _delegateCommand = new DelegateCommand(executeMethod, () => true);
+            _shutdownAppOnException = shutdownAppOnException;
         }
 
-        public DelegateLogCommand(Action executeMethod, Func<bool> canExecuteMethod)
+        public DelegateLogCommand(Action executeMethod, Func<bool> canExecuteMethod, bool shutdownAppOnException = true)
         {
             _delegateCommand = new DelegateCommand(executeMethod, canExecuteMethod);
+            _shutdownAppOnException = shutdownAppOnException;
         }
 
-        public bool CanExecute(object parameter)
+        public bool CanExecute(object parameter = null)
         {
             return DelegateCommand.CanExecute();
         }
 
-        public void Execute(object parameter)
+        public void Execute(object parameter = null)
         {
+#if DEBUG
+            DelegateCommand.Execute();
+#else
             try
             {
                 DelegateCommand.Execute();
@@ -49,8 +55,12 @@ namespace HVTApp.UI.Commands
             {
                 GlobalAppProperties.HvtAppLogger.LogError(e.GetType().Name, e);
                 GlobalAppProperties.MessageService.ShowOkMessageDialog($"Исключение в DelegateLogCommand: {e.GetType().Name}", e.GetAllExceptions());
-                Application.Current.Shutdown();
+                if (_shutdownAppOnException)
+                {
+                    Application.Current.Shutdown();
+                }
             }
+#endif
         }
 
         public event EventHandler CanExecuteChanged;
@@ -58,6 +68,7 @@ namespace HVTApp.UI.Commands
         public void RaiseCanExecuteChanged()
         {
             DelegateCommand.RaiseCanExecuteChanged();
+            this.CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }

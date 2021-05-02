@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
+using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -20,18 +20,18 @@ namespace HVTApp.UI.Modules.Products.ViewModels
 
         public ProductBlockStructureCostWrapper SelectedProductBlock
         {
-            get { return _selectedProductBlock; }
+            get => _selectedProductBlock;
             set
             {
                 _selectedProductBlock = value;
                 OnPropertyChanged();
-                ((DelegateCommand) PrintProductBlockCommand).RaiseCanExecuteChanged();
+                PrintProductBlockCommand.RaiseCanExecuteChanged();
             }
         }
 
-        public ICommand SaveCommand { get; }
-        public ICommand CancelCommand { get; }
-        public ICommand PrintProductBlockCommand { get; }
+        public DelegateLogCommand SaveCommand { get; }
+        public DelegateLogCommand CancelCommand { get; }
+        public DelegateLogCommand PrintProductBlockCommand { get; }
 
         public StructureCostsViewModel(IUnityContainer container)
         {
@@ -42,7 +42,7 @@ namespace HVTApp.UI.Modules.Products.ViewModels
                 : new List<ConstructorParametersList>();
 
             //загружаем блоки
-            var blocks = unitOfWork.Repository<ProductBlock>().Find(x => !x.IsService && !x.IsNew);
+            var blocks = unitOfWork.Repository<ProductBlock>().Find(productBlock => !productBlock.IsService && !productBlock.IsNew);
             if (requaredParametersLists.Any())
             {
                 blocks = blocks.Where(block => requaredParametersLists.Any(rpl => rpl.Parameters.Select(p => p.Id).AllContainsIn(block.Parameters.Select(p => p.Id)))).ToList();
@@ -53,7 +53,7 @@ namespace HVTApp.UI.Modules.Products.ViewModels
             ProductBlocks = new ValidatableChangeTrackingCollection<ProductBlockStructureCostWrapper>(blockWrappers);
 
             //сохранение
-            SaveCommand = new DelegateCommand(
+            SaveCommand = new DelegateLogCommand(
                 () =>
                 {
                     ProductBlocks.AcceptChanges();
@@ -62,14 +62,14 @@ namespace HVTApp.UI.Modules.Products.ViewModels
                 () => ProductBlocks != null && ProductBlocks.IsValid && ProductBlocks.IsChanged);
 
             //отмена изменений
-            CancelCommand = new DelegateCommand(() =>
+            CancelCommand = new DelegateLogCommand(() =>
             {
                 ProductBlocks.RejectChanges();
             },
             () => ProductBlocks != null && ProductBlocks.IsChanged);
 
             //печать блока в контексте оборудования
-            PrintProductBlockCommand = new DelegateCommand(
+            PrintProductBlockCommand = new DelegateLogCommand(
                 () =>
                 {
                     var block = SelectedProductBlock;
@@ -82,8 +82,8 @@ namespace HVTApp.UI.Modules.Products.ViewModels
             //подписка на изменение параметров
             ProductBlocks.PropertyChanged += (sender, args) =>
             {
-                ((DelegateCommand) SaveCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand) CancelCommand).RaiseCanExecuteChanged();
+                ( SaveCommand).RaiseCanExecuteChanged();
+                ( CancelCommand).RaiseCanExecuteChanged();
             };
 
 

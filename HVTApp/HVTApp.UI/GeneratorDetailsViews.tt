@@ -34,10 +34,10 @@ using HVTApp.Model.Wrapper;
 using HVTApp.Model.Events;
 using Microsoft.Practices.Unity;
 using System.Windows.Input;
-using Prism.Commands;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
+using HVTApp.UI.Commands;
 
 namespace HVTApp.UI.ViewModels
 {
@@ -62,8 +62,8 @@ namespace HVTApp.UI.ViewModels
         {
 #>		//private Func<Task<List<<#=propInfo.PropertyType.Name#>>>> _getEntitiesForSelect<#=propInfo.Name#>Command;
 		private Func<List<<#=propInfo.PropertyType.Name#>>> _getEntitiesForSelect<#=propInfo.Name#>Command;
-		public ICommand Select<#=propInfo.Name#>Command { get; private set; }
-		public ICommand Clear<#=propInfo.Name#>Command { get; private set; }
+		public DelegateLogCommand Select<#=propInfo.Name#>Command { get; private set; }
+		public DelegateLogCommand Clear<#=propInfo.Name#>Command { get; private set; }
 
 <#+		}
 
@@ -73,8 +73,8 @@ namespace HVTApp.UI.ViewModels
 			var propertyName = propInfo.Name;
 
 #>		private Func<List<<#=itemType#>>> _getEntitiesForAddIn<#=propertyName#>Command;
-		public ICommand AddIn<#=propertyName#>Command { get; }
-		public ICommand RemoveFrom<#=propertyName#>Command { get; }
+		public DelegateLogCommand AddIn<#=propertyName#>Command { get; }
+		public DelegateLogCommand RemoveFrom<#=propertyName#>Command { get; }
 		private <#=itemType#>Wrapper _selected<#=propertyName#>Item;
 		public <#=itemType#>Wrapper Selected<#=propertyName#>Item 
 		{ 
@@ -84,7 +84,7 @@ namespace HVTApp.UI.ViewModels
 				if (Equals(_selected<#=propertyName#>Item, value)) return;
 				_selected<#=propertyName#>Item = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFrom<#=propertyName#>Command).RaiseCanExecuteChanged();
+				RemoveFrom<#=propertyName#>Command.RaiseCanExecuteChanged();
 			}
 		}
 
@@ -97,8 +97,8 @@ namespace HVTApp.UI.ViewModels
         {
 #>			
 			if (_getEntitiesForSelect<#=propInfo.Name#>Command == null) _getEntitiesForSelect<#=propInfo.Name#>Command = () => { return UnitOfWork.Repository<<#=propInfo.PropertyType.Name#>>().GetAll(); };
-			if (Select<#=propInfo.Name#>Command == null) Select<#=propInfo.Name#>Command = new DelegateCommand(Select<#=propInfo.Name#>Command_Execute_Default);
-			if (Clear<#=propInfo.Name#>Command == null) Clear<#=propInfo.Name#>Command = new DelegateCommand(Clear<#=propInfo.Name#>Command_Execute_Default);
+			if (Select<#=propInfo.Name#>Command == null) Select<#=propInfo.Name#>Command = new DelegateLogCommand(Select<#=propInfo.Name#>Command_Execute_Default);
+			if (Clear<#=propInfo.Name#>Command == null) Clear<#=propInfo.Name#>Command = new DelegateLogCommand(Clear<#=propInfo.Name#>Command_Execute_Default);
 
 <#+		}
 
@@ -109,8 +109,8 @@ namespace HVTApp.UI.ViewModels
 
 #>			
 			if (_getEntitiesForAddIn<#=propertyName#>Command == null) _getEntitiesForAddIn<#=propertyName#>Command = () => { return UnitOfWork.Repository<<#=itemType#>>().GetAll(); };;
-			if (AddIn<#=propertyName#>Command == null) AddIn<#=propertyName#>Command = new DelegateCommand(AddIn<#=propertyName#>Command_Execute_Default);
-			if (RemoveFrom<#=propertyName#>Command == null) RemoveFrom<#=propertyName#>Command = new DelegateCommand(RemoveFrom<#=propertyName#>Command_Execute_Default, RemoveFrom<#=propertyName#>Command_CanExecute_Default);
+			if (AddIn<#=propertyName#>Command == null) AddIn<#=propertyName#>Command = new DelegateLogCommand(AddIn<#=propertyName#>Command_Execute_Default);
+			if (RemoveFrom<#=propertyName#>Command == null) RemoveFrom<#=propertyName#>Command = new DelegateLogCommand(RemoveFrom<#=propertyName#>Command_Execute_Default, RemoveFrom<#=propertyName#>Command_CanExecute_Default);
 
 <#+		}
 #>		}

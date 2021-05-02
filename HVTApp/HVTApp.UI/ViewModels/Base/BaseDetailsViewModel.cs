@@ -13,6 +13,7 @@ using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.Wrapper.Base;
 using HVTApp.Model.Wrapper;
+using HVTApp.UI.Commands;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
@@ -45,8 +46,8 @@ namespace HVTApp.UI.ViewModels
             UnitOfWork = Container.Resolve<IUnitOfWork>();
             EventAggregator = Container.Resolve<IEventAggregator>();
 
-            SaveCommand = new DelegateCommand(SaveItem, SaveCommand_CanExecute);
-            OkCommand = new DelegateCommand(OkCommand_Execute, OkCommand_CanExecute);
+            SaveCommand = new DelegateLogCommand(SaveItem, SaveCommand_CanExecute);
+            OkCommand = new DelegateLogCommand(OkCommand_Execute, OkCommand_CanExecute);
 
             InitSpecialCommands();
             InitSpecialGetMethods();
@@ -122,8 +123,8 @@ namespace HVTApp.UI.ViewModels
                 _item = value;
                 if (_item != null) _item.PropertyChanged += ItemOnPropertyChanged;
 
-                ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)OkCommand).RaiseCanExecuteChanged();
+                ((DelegateLogCommand)SaveCommand).RaiseCanExecuteChanged();
+                ((DelegateLogCommand)OkCommand).RaiseCanExecuteChanged();
                 OnPropertyChanged();
             }
         }
@@ -191,8 +192,8 @@ namespace HVTApp.UI.ViewModels
         /// <param name="propertyChangedEventArgs"></param>
         private void ItemOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
-            ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
-            ((DelegateCommand)OkCommand).RaiseCanExecuteChanged();
+            ((DelegateLogCommand)SaveCommand).RaiseCanExecuteChanged();
+            ((DelegateLogCommand)OkCommand).RaiseCanExecuteChanged();
         }
 
         protected override void GoBackCommand_Execute()

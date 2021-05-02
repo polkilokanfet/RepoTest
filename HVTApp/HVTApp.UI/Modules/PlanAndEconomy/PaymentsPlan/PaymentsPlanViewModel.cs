@@ -4,15 +4,15 @@ using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 
 namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsPlan
 {
     public class PaymentsPlanViewModel : ViewModelBaseCanExportToExcel
     {
         public ObservableCollection<PaymentsPlanGroup> Payments { get; } = new ObservableCollection<PaymentsPlanGroup>();
-        public ICommand ReloadCommand { get; }
+        public DelegateLogCommand ReloadCommand { get; }
 
         /// <summary>
         /// 
@@ -21,14 +21,14 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsPlan
         /// <param name="load">Необходимость автоматической загрузки.</param>
         public PaymentsPlanViewModel(IUnityContainer container, bool load = true) : base(container)
         {
-            ReloadCommand = new DelegateCommand(Load);
+            ReloadCommand = new DelegateLogCommand(Load);
             if (load)
                 Load();
         }
 
         public void Load()
         {
-            var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => !x.IsRemoved && !x.IsLoosen && !x.IsPaid && x.Project.ForReport);
+            var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(salesUnit => !salesUnit.IsRemoved && !salesUnit.IsLoosen && !salesUnit.IsPaid && salesUnit.Project.ForReport);
             Load(salesUnits);
         }
 

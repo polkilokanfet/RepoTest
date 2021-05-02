@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
@@ -11,11 +10,11 @@ using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
+using HVTApp.UI.Commands;
 using HVTApp.UI.Lookup;
 using HVTApp.UI.Modules.BookRegistration.Views;
 using HVTApp.UI.ViewModels;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 using Prism.Events;
 using Prism.Regions;
 
@@ -30,16 +29,16 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
 
         public DocumentLookup SelectedDocumentLookup
         {
-            get { return _selectedDocumentLookup; }
+            get => _selectedDocumentLookup;
             set
             {
                 if (Equals(_selectedDocumentLookup, value))
                     return;
 
                 _selectedDocumentLookup = value;
-                ((DelegateCommand) EditDocumentCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand) OpenFolderCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand) PrintBlankLetterCommand).RaiseCanExecuteChanged();
+                EditDocumentCommand.RaiseCanExecuteChanged();
+                OpenFolderCommand.RaiseCanExecuteChanged();
+                PrintBlankLetterCommand.RaiseCanExecuteChanged();
                 SelectedDocumentChanged?.Invoke(value?.Entity);
             }
         }
@@ -49,30 +48,30 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
         /// <summary>
         /// Создание исходящего документа
         /// </summary>
-        public ICommand CreateOutgoingDocumentCommand { get; }
+        public DelegateLogCommand CreateOutgoingDocumentCommand { get; }
 
         /// <summary>
         /// Создание входящего документа
         /// </summary>
-        public ICommand CreateIncomingDocumentCommand { get; }
+        public DelegateLogCommand CreateIncomingDocumentCommand { get; }
 
         /// <summary>
         /// Редактирование документа
         /// </summary>
-        public ICommand EditDocumentCommand { get; }
-        public ICommand OpenFolderCommand { get; }
-        public ICommand ReloadCommand { get; }
+        public DelegateLogCommand EditDocumentCommand { get; }
+        public DelegateLogCommand OpenFolderCommand { get; }
+        public DelegateLogCommand ReloadCommand { get; }
 
         /// <summary>
         /// Печать бланка письма
         /// </summary>
-        public ICommand PrintBlankLetterCommand { get; }
+        public DelegateLogCommand PrintBlankLetterCommand { get; }
 
         public BookRegistrationViewModel(IUnityContainer container) : base(container)
         {
-            ReloadCommand = new DelegateCommand(Load2);
+            ReloadCommand = new DelegateLogCommand(Load2);
 
-            CreateOutgoingDocumentCommand = new DelegateCommand(() =>
+            CreateOutgoingDocumentCommand = new DelegateLogCommand(() =>
             {
                 var document = new Document
                 {
@@ -82,7 +81,7 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
                 container.Resolve<IRegionManager>().RequestNavigateContentRegion<DocumentView>(new NavigationParameters { { DocumentDirection.Outgoing.ToString(), document } });
             });
 
-            CreateIncomingDocumentCommand = new DelegateCommand(() =>
+            CreateIncomingDocumentCommand = new DelegateLogCommand(() =>
             {
                 var document = new Document
                 {
@@ -92,7 +91,7 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
                 container.Resolve<IRegionManager>().RequestNavigateContentRegion<DocumentView>(new NavigationParameters { { DocumentDirection.Incoming.ToString(), document } });
             });
 
-            EditDocumentCommand = new DelegateCommand(
+            EditDocumentCommand = new DelegateLogCommand(
                 () =>
                 {
                     var document = SelectedDocumentLookup.Entity;
@@ -105,7 +104,7 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
                 },
                 () => SelectedDocumentLookup != null);
 
-            OpenFolderCommand = new DelegateCommand(
+            OpenFolderCommand = new DelegateLogCommand(
                 () =>
                 {
                     if (string.IsNullOrEmpty(GlobalAppProperties.Actual.IncomingRequestsPath))
@@ -119,7 +118,7 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
                 },
                 () => SelectedDocumentLookup != null);
 
-            PrintBlankLetterCommand = new DelegateCommand(
+            PrintBlankLetterCommand = new DelegateLogCommand(
                 () =>
                 {
                     var path = PathGetter.GetPath(SelectedDocumentLookup.Entity);

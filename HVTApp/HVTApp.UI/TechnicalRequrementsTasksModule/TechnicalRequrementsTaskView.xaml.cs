@@ -59,7 +59,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             var editor = sender as XamCheckEditor;
             ((TechnicalRequrements2Wrapper)(((DataRecord)editor.DataContext).DataItem)).IsChecked = editor.IsChecked.Value;
 
-            ((DelegateCommand) ViewModel1.MeregeCommand).RaiseCanExecuteChanged();
+            ViewModel1.MeregeCommand.RaiseCanExecuteChanged();
         }
 
         void IsActualValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
@@ -79,7 +79,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                     ((TechnicalRequrements2Wrapper)((DataRecord)checkEditor.DataContext).DataItem).IsActual = checkEditor.IsChecked.Value;
             }
 
-            ((DelegateCommand)ViewModel1.StartCommand).RaiseCanExecuteChanged();
+            ViewModel1.StartCommand.RaiseCanExecuteChanged();
         }
 
     }

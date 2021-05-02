@@ -8,6 +8,7 @@ using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Commands;
 using HVTApp.UI.Lookup;
 using HVTApp.UI.ViewModels;
 using Microsoft.Practices.Unity;
@@ -18,13 +19,13 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
 {
     public class PriceCalculationsViewModel : PriceCalculationLookupListViewModel
     {
-        public ICommand NewCalculationCommand { get; }
-        public ICommand EditCalculationCommand { get; }
-        public ICommand RemoveCalculationCommand { get; }
+        public DelegateLogCommand NewCalculationCommand { get; }
+        public DelegateLogCommand EditCalculationCommand { get; }
+        public DelegateLogCommand RemoveCalculationCommand { get; }
 
-        public ICommand ReloadCommand { get; }
+        public DelegateLogCommand ReloadCommand { get; }
 
-        public ICommand LoadFileCommand { get; }
+        public DelegateLogCommand LoadFileCommand { get; }
 
         public bool CurrentUserIsManager => GlobalAppProperties.User.RoleCurrent == Role.SalesManager;
         public bool CurrentUserIsPricer => GlobalAppProperties.User.RoleCurrent == Role.Pricer;
@@ -38,12 +39,12 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
 
             this.SelectedLookupChanged += lookup =>
             {
-                ((DelegateCommand)EditCalculationCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)RemoveCalculationCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)LoadFileCommand).RaiseCanExecuteChanged();
+                (EditCalculationCommand).RaiseCanExecuteChanged();
+                (RemoveCalculationCommand).RaiseCanExecuteChanged();
+                (LoadFileCommand).RaiseCanExecuteChanged();
             };
 
-            NewCalculationCommand = new DelegateCommand(
+            NewCalculationCommand = new DelegateLogCommand(
                 () =>
                 {
                     RegionManager.RequestNavigateContentRegion<View.PriceCalculationView>(new NavigationParameters
@@ -52,7 +53,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                     });
                 });
 
-            EditCalculationCommand = new DelegateCommand(
+            EditCalculationCommand = new DelegateLogCommand(
                 () =>
                 {
                     RegionManager.RequestNavigateContentRegion<View.PriceCalculationView>(new NavigationParameters
@@ -62,7 +63,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                 },
                 () => SelectedItem != null);
 
-            RemoveCalculationCommand = new DelegateCommand(
+            RemoveCalculationCommand = new DelegateLogCommand(
                 () =>
                 {
                     var messageService = Container.Resolve<IMessageService>();
@@ -113,7 +114,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                 }, 
                 () => SelectedItem != null);
 
-            LoadFileCommand = new DelegateCommand(
+            LoadFileCommand = new DelegateLogCommand(
                 () =>
                 {
                     var messageService = Container.Resolve<IMessageService>();
@@ -138,7 +139,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                 },
                 () => SelectedLookup != null);
 
-            ReloadCommand = new DelegateCommand(Load);
+            ReloadCommand = new DelegateLogCommand(Load);
         }
 
         protected override void OnAfterSaveEntity(PriceCalculation calculation)

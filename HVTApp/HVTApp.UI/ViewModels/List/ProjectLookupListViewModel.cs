@@ -2,23 +2,22 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.EventService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 
 namespace HVTApp.UI.ViewModels
 {
     public partial class ProjectLookupListViewModel
     {
-        public ICommand CopyAttachmentsCommand { get; private set; }
+        public DelegateLogCommand CopyAttachmentsCommand { get; private set; }
         protected override void InitSpecialCommands()
         {
-            CopyAttachmentsCommand = new DelegateCommand(
+            CopyAttachmentsCommand = new DelegateLogCommand(
                 () =>
                 {
                     IEventServiceClient eventServiceClient = Container.Resolve<IEventServiceClient>();
@@ -68,7 +67,7 @@ namespace HVTApp.UI.ViewModels
                 },
                 () => SelectedItem != null);
 
-            this.SelectedLookupChanged += lookup => ((DelegateCommand)CopyAttachmentsCommand).RaiseCanExecuteChanged();
+            this.SelectedLookupChanged += lookup => CopyAttachmentsCommand.RaiseCanExecuteChanged();
 
         }
     }
