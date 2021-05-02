@@ -9,32 +9,46 @@ namespace HVTApp.UI.Commands
 {
     public class DelegateLogCommand : ICommand
     {
-        private readonly DelegateCommand _delegateCommand;
+        private DelegateCommand _delegateCommand;
+
+        private DelegateCommand DelegateCommand
+        {
+            get => _delegateCommand;
+            set
+            {
+                _delegateCommand = value;
+                _delegateCommand.CanExecuteChanged += (sender, args) =>
+                {
+                    CanExecuteChanged?.Invoke(sender, args);
+                };
+            }
+        }
+
+        public DelegateLogCommand(Action executeMethod)
+        {
+            _delegateCommand = new DelegateCommand(executeMethod, () => true);
+        }
 
         public DelegateLogCommand(Action executeMethod, Func<bool> canExecuteMethod)
         {
             _delegateCommand = new DelegateCommand(executeMethod, canExecuteMethod);
-            _delegateCommand.CanExecuteChanged += (sender, args) =>
-            {
-                CanExecuteChanged?.Invoke(sender, args);
-            };
         }
 
         public bool CanExecute(object parameter)
         {
-            return _delegateCommand.CanExecute();
+            return DelegateCommand.CanExecute();
         }
 
         public void Execute(object parameter)
         {
             try
             {
-                _delegateCommand.Execute();
+                DelegateCommand.Execute();
             }
             catch (Exception e)
             {
                 GlobalAppProperties.HvtAppLogger.LogError(e.GetType().Name, e);
-                GlobalAppProperties.MessageService.ShowOkMessageDialog($"DelegateLogCommand: {e.GetType().Name}", e.GetAllExceptions());
+                GlobalAppProperties.MessageService.ShowOkMessageDialog($"Исключение в DelegateLogCommand: {e.GetType().Name}", e.GetAllExceptions());
                 Application.Current.Shutdown();
             }
         }
@@ -43,7 +57,7 @@ namespace HVTApp.UI.Commands
 
         public void RaiseCanExecuteChanged()
         {
-            _delegateCommand.RaiseCanExecuteChanged();
+            DelegateCommand.RaiseCanExecuteChanged();
         }
     }
 }
