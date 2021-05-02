@@ -29,8 +29,7 @@ namespace HVTApp.Model.Wrapper.Base
 
         protected WrapperBase(TModel model)
         {
-            if (model == null) throw new ArgumentNullException(nameof(Model));
-            Model = model;
+            Model = model ?? throw new ArgumentNullException(nameof(Model));
 
             InitializeComplexProperties();
             InitializeCollectionProperties();

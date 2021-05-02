@@ -73,6 +73,7 @@ namespace HVTApp.UI.Modules.Sales.Production
             Model.EndProductionPlanDate = null;
             Model.EndProductionDate = null;
             Model.RealizationDate = null;
+            Model.ShipmentDate = null;
             Model.DeliveryDate = null;
         }
     }
