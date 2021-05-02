@@ -1,4 +1,6 @@
-﻿using HVTApp.Model.POCOs;
+﻿using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Services;
+using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 
 namespace HVTApp.Model
@@ -17,5 +19,8 @@ namespace HVTApp.Model
         public static IProductDesignationService ProductDesignationService { get; set; }
         public static IShippingService ShippingService { get; set; }
         public static IPriceService PriceService { get; set; }
+
+        public static IHvtAppLogger HvtAppLogger { get; set; }
+        public static IMessageService MessageService { get; set; }
     }
 }

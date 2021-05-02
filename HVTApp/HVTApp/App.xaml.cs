@@ -10,6 +10,8 @@ namespace HVTApp
     {
         protected override void OnStartup(StartupEventArgs e)
         {
+            //Logger.GetLogger().Debug("Test1");
+
 #if DEBUG
 #else
             try
@@ -34,14 +36,16 @@ namespace HVTApp
                 }
 #if DEBUG
 #else
-                }
-                catch (Exception exception)
-                {
-                    MessageBox.Show(exception.GetAllExceptions());
-                    Console.WriteLine(exception.GetAllExceptions());
+            }
+            catch (Exception exception)
+            {
+                Logger.Log.Error($"{exception.GetType().Name}", exception);
 
-                    Application.Current.Shutdown();
-                }
+                MessageBox.Show(exception.GetAllExceptions());
+                Console.WriteLine(exception.GetAllExceptions());
+
+                Application.Current.Shutdown();
+            }
 #endif
         }
     }

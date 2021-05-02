@@ -111,6 +111,8 @@ namespace HVTApp
             GlobalAppProperties.ProductDesignationService = Container.Resolve<IProductDesignationService>();
             GlobalAppProperties.ShippingService = Container.Resolve<IShippingService>();
             GlobalAppProperties.PriceService = Container.Resolve<IPriceService>();
+            GlobalAppProperties.HvtAppLogger = Container.Resolve<IHvtAppLogger>();
+            GlobalAppProperties.MessageService = Container.Resolve<IMessageService>();
         }
 
         private void CheckLastDeveloperVizit()
@@ -136,6 +138,8 @@ namespace HVTApp
         protected override void ConfigureContainer()
         {
             base.ConfigureContainer();
+
+            Container.RegisterType<IHvtAppLogger, HvtAppLogger>(new ContainerControlledLifetimeManager());
             
             Container.RegisterType<IEventAggregator, EventAggregator>(new ContainerControlledLifetimeManager());
             Container.RegisterType<DbContext, HvtAppContext>();

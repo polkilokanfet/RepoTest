@@ -13,6 +13,7 @@ using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Groups;
 using HVTApp.Model.Wrapper.Groups.SimpleWrappers;
+using HVTApp.UI.Commands;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
@@ -70,7 +71,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
         public ICommand AddProductIncludedCommand { get; }
         public ICommand RemoveProductIncludedCommand { get; }
 
-        public ICommand SetCustomFixedPriceCommand { get; }
+        public DelegateLogCommand SetCustomFixedPriceCommand { get; }
 
         #endregion
 
@@ -112,7 +113,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
                 () => Groups.SelectedProductIncluded != null);
 
             //установка нестандартной себестоимости шеф-монтажа
-            SetCustomFixedPriceCommand = new DelegateCommand(
+            SetCustomFixedPriceCommand = new DelegateLogCommand(
                 () =>
                 {
                     //костыль (тк нужно найти именно тот wrapper)
@@ -215,7 +216,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             Groups.SelectedProductIncludedChanged += productIncluded =>
             {
                 ((DelegateCommand)RemoveProductIncludedCommand)?.RaiseCanExecuteChanged();
-                ((DelegateCommand)SetCustomFixedPriceCommand)?.RaiseCanExecuteChanged();
+                SetCustomFixedPriceCommand?.RaiseCanExecuteChanged();
             };
 
             // событие для того, чтобы вид перепривязал группы

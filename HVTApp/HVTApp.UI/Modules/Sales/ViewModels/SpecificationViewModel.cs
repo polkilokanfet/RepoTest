@@ -39,7 +39,9 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             if(parameter is Project project)
             {
                 var salesUnits = ((ISalesUnitRepository)UnitOfWork.Repository<SalesUnit>()).GetByProject(project.Id);
-                return salesUnits.Where(x => x.Specification == null).Where(x => !x.IsLoosen && !x.IsRemoved);
+                return salesUnits
+                    .Where(salesUnit => salesUnit.Specification == null)
+                    .Where(salesUnit => !salesUnit.IsLoosen && !salesUnit.IsRemoved);
             }
             else
             {

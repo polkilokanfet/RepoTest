@@ -112,6 +112,7 @@
     <Compile Include="Extansions\StringExt.cs" />
     <Compile Include="FilesStorage.cs" />
     <Compile Include="IBaseEntity.cs" />
+    <Compile Include="IHvtAppLogger.cs" />
     <Compile Include="IId.cs" />
     <Compile Include="IDetailsViewModel.cs" />
     <Compile Include="IGetWrapper.cs" />
