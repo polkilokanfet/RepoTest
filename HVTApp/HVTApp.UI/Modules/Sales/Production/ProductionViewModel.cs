@@ -109,11 +109,12 @@ namespace HVTApp.UI.Modules.Sales.Production
                     {
                         if (productionGroup.SalesUnit.Order != null)
                         {
-                            messageService.ShowOkMessageDialog("Отзыв из производства", "Отзыв из производства невозможен. \nСначала удалите заводской заказ.");
+                            messageService.ShowOkMessageDialog("Отзыв из производства", "Отзыв из производства невозможен.\nСначала удалите заводской заказ.");
                             return;
                         }
 
-                        productionGroup.SignalToStartProduction = null;
+                        productionGroup.CleanDatesOnRemoveFromProduction();
+
                         GroupsInProduction.Remove(productionGroup);
                         GroupsToProduction.Add(productionGroup);
 

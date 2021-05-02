@@ -11,20 +11,19 @@ namespace HVTApp.UI.Modules.Sales.Production
 
         public DateTime? SignalToStartProduction
         {
-            get => GetValue<DateTime?>();
+            get => Model.SignalToStartProduction;
             set => SetValue(value);
         }
 
-
         public DateTime? SignalToStartProductionDone
         {
-            get => GetValue<DateTime?>();
+            get => Model.SignalToStartProductionDone;
             set => SetValue(value);
         }
 
         public DateTime DeliveryDateExpected
         {
-            get => GetValue<DateTime>();
+            get => Model.DeliveryDateExpected;
             set => SetValue(value);
         }
 
@@ -59,6 +58,22 @@ namespace HVTApp.UI.Modules.Sales.Production
         public ProductionItem(SalesUnit model, IUnitOfWork unitOfWork) : base(model)
         {
             _unitOfWork = unitOfWork;
+        }
+
+        /// <summary>
+        /// Очистка дат при удалении юнита из производства
+        /// </summary>
+        public void CleanDatesOnRemoveFromProduction()
+        {
+            this.SignalToStartProduction = null;
+            this.SignalToStartProductionDone = null;
+
+            Model.StartProductionDate = null;
+            Model.PickingDate = null;
+            Model.EndProductionPlanDate = null;
+            Model.EndProductionDate = null;
+            Model.RealizationDate = null;
+            Model.DeliveryDate = null;
         }
     }
 }

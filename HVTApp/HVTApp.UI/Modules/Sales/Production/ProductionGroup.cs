@@ -21,7 +21,7 @@ namespace HVTApp.UI.Modules.Sales.Production
         {
             set
             {
-                ProductionItems.ForEach(x => x.SignalToStartProduction = value);
+                ProductionItems.ForEach(productionItem => productionItem.SignalToStartProduction = value);
             }
         }
 
@@ -63,6 +63,16 @@ namespace HVTApp.UI.Modules.Sales.Production
         public event PropertyChangedEventHandler PropertyChanged;
 
         public bool IsValid => ProductionItems.IsValid;
+
+
+        /// <summary>
+        /// Очистка дат при удалении группы из производства
+        /// </summary>
+        public void CleanDatesOnRemoveFromProduction()
+        {
+            this.ProductionItems.ForEach(productionItem => productionItem.CleanDatesOnRemoveFromProduction());
+        }
+
 
     }
 }

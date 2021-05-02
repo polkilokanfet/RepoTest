@@ -310,14 +310,14 @@ namespace HVTApp.Model.POCOs
         {
             var accuracy = 0.001;
             double sum = 0;
-            foreach (var payment in PaymentsActual.OrderBy(x => x.Date))
+            foreach (var payment in PaymentsActual.OrderBy(paymentActual => paymentActual.Date))
             {
                 sum += payment.Sum;
                 if (sumToAchive - sum <= accuracy) return payment.Date;
             }
 
             var dic = PaymentConditionsDictionary;
-            foreach (var payment in PaymentsPlannedActual.OrderBy(x => x.Date))
+            foreach (var payment in PaymentsPlannedActual.OrderBy(paymentPlanned => paymentPlanned.Date))
             {
                 //если пропущены какие-то условия перед сохраненными - выйти
                 if (!Equals(dic.First(x => x.Value < 1).Key, payment.Condition))
@@ -385,7 +385,7 @@ namespace HVTApp.Model.POCOs
                 if (SignalToStartProduction.HasValue) return SignalToStartProduction.Value;
 
                 //по дате первого платежа
-                if (PaymentsActual.Any()) return PaymentsActual.Select(x => x.Date).Min();
+                if (PaymentsActual.Any()) return PaymentsActual.Select(paymentActual => paymentActual.Date).Min();
 
                 //по дате доставки оборудования на объект
                 if (DeliveryDate.HasValue) return DeliveryDate.Value.AddDays(-ProductionTerm).AddDays(-DeliveryPeriodCalculated).SkipPastAndWeekend();
