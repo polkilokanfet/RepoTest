@@ -45,25 +45,25 @@ namespace HVTApp.Model.Wrapper.Groups
 
         public FacilitySimpleWrapper Facility
         {
-            get { return _unit != null ? _unit.Facility : Groups.First().Facility; }
-            set { SetValue(value); }
+            get => _unit != null ? _unit.Facility : Groups.First().Facility;
+            set => SetValue(value);
         }
 
         public ProductSimpleWrapper Product
         {
-            get { return _unit != null ? _unit.Product : Groups.First().Product; }
-            set { SetValue(value); }
+            get => _unit != null ? _unit.Product : Groups.First().Product;
+            set => SetValue(value);
         }
 
         public PaymentConditionSetSimpleWrapper PaymentConditionSet
         {
-            get { return GetValue<PaymentConditionSetSimpleWrapper>(); }
-            set { SetValue(value); }
+            get => GetValue<PaymentConditionSetSimpleWrapper>();
+            set => SetValue(value);
         }
 
         public double Cost
         {
-            get { return Total / Amount; }
+            get => Total / Amount;
             set
             {
                 if (value < CostMin) return;
@@ -96,13 +96,13 @@ namespace HVTApp.Model.Wrapper.Groups
 
         public bool CostDeliveryIncluded
         {
-            get { return GetValue<bool>(); }
-            set { SetValue(value); }
+            get => GetValue<bool>();
+            set => SetValue(value);
         }
 
         public double FixedCost
         {
-            get { return _fixedCost; }
+            get => _fixedCost;
             set
             {
                 if (Math.Abs(_fixedCost - value) < 0.00001) return;
@@ -128,7 +128,7 @@ namespace HVTApp.Model.Wrapper.Groups
 
         public double Price
         {
-            get { return _price; }
+            get => _price;
             set
             {
                 if (Math.Abs(_price - value) < 0.00001) return;
@@ -158,7 +158,7 @@ namespace HVTApp.Model.Wrapper.Groups
 
         public int ProductionTerm
         {
-            get { return GetValue<int>(); }
+            get => GetValue<int>();
             set
             {
                 if (value < 0) return;
@@ -233,11 +233,15 @@ namespace HVTApp.Model.Wrapper.Groups
         {
             get
             {
-                return _unit?.ProductsIncluded ?? Groups.SelectMany(x => x.ProductsIncluded).Select(x => x.Model).Distinct().Select(x => new ProductIncludedSimpleWrapper(x));
+                return _unit?.ProductsIncluded 
+                       ?? Groups
+                           .SelectMany(x => x.ProductsIncluded)
+                           .Select(x => x.Model)
+                           .Distinct()
+                           .Select(productIncluded => new ProductIncludedSimpleWrapper(productIncluded));
             }
         }
-
-
+        
         /// <summary>
         /// добавление зависимого оборудования
         /// </summary>

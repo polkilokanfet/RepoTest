@@ -80,7 +80,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
                     //регистрация на события изменения строк с оборудованием
                     this.GroupsViewModel.GroupChanged += OnGroupChanged;
 
-                    (SaveCommand).RaiseCanExecuteChanged();
+                    SaveCommand.RaiseCanExecuteChanged();
 
                 },
                 () =>
@@ -113,7 +113,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
 
             AfterUnitsLoading();
 
-            (SaveCommand).RaiseCanExecuteChanged();
+            SaveCommand.RaiseCanExecuteChanged();
         }
 
         public virtual void AfterUnitsLoading()
@@ -130,12 +130,12 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
 
         private void ItemOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
-            (SaveCommand).RaiseCanExecuteChanged();
+            SaveCommand.RaiseCanExecuteChanged();
         }
 
         private void OnGroupChanged()
         {
-            (SaveCommand).RaiseCanExecuteChanged();
+            SaveCommand.RaiseCanExecuteChanged();
         }
 
         public bool IsConfirmGoBackWithoutSaving { get; private set; } = false;
@@ -143,11 +143,11 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
         protected override void GoBackCommand_Execute()
         {
             //если придет запрос при несохраненных изменениях
-            if (SaveCommand.CanExecute(null))
+            if (SaveCommand.CanExecute())
             {
                 var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Сохранение", "Сохранить сделанные изменения?", defaultNo:true);
                 if(dr == MessageDialogResult.Yes)
-                    SaveCommand.Execute(null);
+                    SaveCommand.Execute();
 
                 if (dr == MessageDialogResult.No)
                     IsConfirmGoBackWithoutSaving = true;

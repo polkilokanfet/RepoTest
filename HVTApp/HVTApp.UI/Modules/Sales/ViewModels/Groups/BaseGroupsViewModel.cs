@@ -116,16 +116,16 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             SetCustomFixedPriceCommand = new DelegateLogCommand(
                 () =>
                 {
-                    //костыль (т.к. нужно найти именно тот wrapper)
-                    var productsIncluded = Groups
+                    //шеф-монтажи, которые подлежат изменению
+                    var productsIncludedTarget = Groups
                         .Where(x => x.Groups != null)
                         .SelectMany(x => x.Groups)
                         .SelectMany(x => x.ProductsIncluded)
                         .Where(x => Equals(x.Model.Id, Groups.SelectedProductIncluded.Model.Id))
                         .ToList();
                     
-                    var productIncluded = productsIncluded.Any() 
-                        ? productsIncluded.Select(x => x.Model).Distinct().Single()
+                    var productIncluded = productsIncludedTarget.Any() 
+                        ? productsIncludedTarget.Select(x => x.Model).Distinct().Single()
                         : Groups.SelectedProductIncluded.Model;
 
                     var original = productIncluded.CustomFixedPrice;
@@ -134,11 +134,11 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
                     var dr = Container.Resolve<IDialogService>().ShowDialog(viewModel);
                     if (dr.HasValue || dr.Value == true)
                     {
-                        productsIncluded.ForEach(x => x.CustomFixedPrice = productIncluded.CustomFixedPrice);
+                        productsIncludedTarget.ForEach(x => x.CustomFixedPrice = productIncluded.CustomFixedPrice);
                     }
                     else
                     {
-                        productsIncluded.ForEach(x => x.CustomFixedPrice = original);
+                        productsIncludedTarget.ForEach(x => x.CustomFixedPrice = original);
                     }
 
                     if (!Equals(productIncluded.CustomFixedPrice, original))

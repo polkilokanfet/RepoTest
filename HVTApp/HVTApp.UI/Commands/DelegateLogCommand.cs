@@ -7,49 +7,28 @@ using Prism.Commands;
 
 namespace HVTApp.UI.Commands
 {
-    public class DelegateLogCommand : ICommand
+    public class DelegateLogCommand : DelegateCommand
     {
         private readonly bool _shutdownAppOnException;
-        private DelegateCommand _delegateCommand;
 
-        private DelegateCommand DelegateCommand
+        public DelegateLogCommand(Action executeMethod, bool shutdownAppOnException = true) : base(executeMethod)
         {
-            get => _delegateCommand;
-            set
-            {
-                _delegateCommand = value;
-                _delegateCommand.CanExecuteChanged += (sender, args) =>
-                {
-                    CanExecuteChanged?.Invoke(sender, args);
-                };
-            }
-        }
-
-        public DelegateLogCommand(Action executeMethod, bool shutdownAppOnException = true)
-        {
-            _delegateCommand = new DelegateCommand(executeMethod, () => true);
             _shutdownAppOnException = shutdownAppOnException;
         }
 
-        public DelegateLogCommand(Action executeMethod, Func<bool> canExecuteMethod, bool shutdownAppOnException = true)
+        public DelegateLogCommand(Action executeMethod, Func<bool> canExecuteMethod, bool shutdownAppOnException = true) : base(executeMethod, canExecuteMethod)
         {
-            _delegateCommand = new DelegateCommand(executeMethod, canExecuteMethod);
             _shutdownAppOnException = shutdownAppOnException;
         }
 
-        public bool CanExecute(object parameter = null)
-        {
-            return DelegateCommand.CanExecute();
-        }
-
-        public void Execute(object parameter = null)
+        public new void Execute()
         {
 #if DEBUG
-            DelegateCommand.Execute();
+            base.Execute();
 #else
             try
             {
-                DelegateCommand.Execute();
+                base.Execute();
             }
             catch (Exception e)
             {
@@ -63,12 +42,25 @@ namespace HVTApp.UI.Commands
 #endif
         }
 
-        public event EventHandler CanExecuteChanged;
-
-        public void RaiseCanExecuteChanged()
+        protected override void Execute(object parameter)
         {
-            DelegateCommand.RaiseCanExecuteChanged();
-            this.CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+#if DEBUG
+            base.Execute(parameter);
+#else
+            try
+            {
+                base.Execute(parameter);
+            }
+            catch (Exception e)
+            {
+                GlobalAppProperties.HvtAppLogger.LogError(e.GetType().Name, e);
+                GlobalAppProperties.MessageService.ShowOkMessageDialog($"Исключение в DelegateLogCommand: {e.GetType().Name}", e.GetAllExceptions());
+                if (_shutdownAppOnException)
+                {
+                    Application.Current.Shutdown();
+                }
+            }
+#endif
         }
     }
 }

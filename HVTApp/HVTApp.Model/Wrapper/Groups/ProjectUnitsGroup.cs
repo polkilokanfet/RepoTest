@@ -12,51 +12,51 @@ namespace HVTApp.Model.Wrapper.Groups
     {
         public List<SalesUnit> SalesUnits { get; }
 
-        public bool CanRemove => SalesUnits.All(x => x.Order == null);
-        public bool CanTotalRemove => SalesUnits.All(x => x.AllowTotalRemove);
+        public bool CanRemove => SalesUnits.All(salesUnit => salesUnit.Order == null);
+        public bool CanTotalRemove => SalesUnits.All(salesUnit => salesUnit.AllowTotalRemove);
 
         public ProjectSimpleWrapper Project
         {
-            get { return GetValue<ProjectSimpleWrapper>(); }
-            set { SetValue(value); }
+            get => GetValue<ProjectSimpleWrapper>();
+            set => SetValue(value);
         }
 
         public CompanySimpleWrapper Producer
         {
-            get { return GetValue<CompanySimpleWrapper>(); }
-            set { SetValue(value); }
+            get => GetValue<CompanySimpleWrapper>();
+            set => SetValue(value);
         }
 
         public SpecificationSimpleWrapper Specification
         {
-            get { return GetValue<SpecificationSimpleWrapper>(); }
-            set { SetValue(value); }
+            get => GetValue<SpecificationSimpleWrapper>();
+            set => SetValue(value);
         }
 
         public DateTime OrderInTakeDate => GetValue<DateTime>();
 
         public string TceRequest
         {
-            get { return GetValue<string>(); }
-            set { SetValue(value); }
+            get => GetValue<string>();
+            set => SetValue(value);
         }
 
         public bool IsRemoved
         {
-            get { return GetValue<bool>(); }
-            set { SetValue(value); }
+            get => GetValue<bool>();
+            set => SetValue(value);
         }
 
         public DateTime SignalToStartProduction
         {
-            set { SetValue(value); }
+            set => SetValue(value);
         }
 
         public DateTime EndProductionDateCalculated => GetValue<DateTime>();
 
         public DateTime DeliveryDateExpected
         {
-            get { return GetValue<DateTime>(); }
+            get => GetValue<DateTime>();
             set
             {
                 //if(value < DateTime.Today) return;

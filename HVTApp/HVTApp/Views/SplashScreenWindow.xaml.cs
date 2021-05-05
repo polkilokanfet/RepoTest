@@ -7,20 +7,25 @@ namespace HVTApp.Views
     /// </summary>
     public partial class SplashScreenWindow : Window
     {
-        internal SplashScreenWindow(Bootstrapper bootstrapper)
+        internal SplashScreenWindow()
         {
             InitializeComponent();
-
-            //bootstrapper.ModuleIsInitialized += part =>
-            //{
-            //    ProgressBar1.Value = ProgressBar1.Maximum * part;
-            //};
-
-            bootstrapper.AllModulesAreInitialized += () =>
-            {
-                //ProgressBar1.Value = ProgressBar1.Maximum;
-                this.Close();
-            };
         }
+
+        //internal SplashScreenWindow(Bootstrapper bootstrapper)
+        //{
+        //    InitializeComponent();
+
+        //    //bootstrapper.ModuleIsInitialized += part =>
+        //    //{
+        //    //    ProgressBar1.Value = ProgressBar1.Maximum * part;
+        //    //};
+
+        //    //bootstrapper.AllModulesAreInitialized += () =>
+        //    //{
+        //    //    //ProgressBar1.Value = ProgressBar1.Maximum;
+        //    //    this.Close();
+        //    //};
+        //}
     }
 }

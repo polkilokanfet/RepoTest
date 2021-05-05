@@ -97,7 +97,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                 //реакция на изменения в задаче
                 PriceCalculationWrapper.PropertyChanged += (sender, args) =>
                 {
-                    (SaveCommand).RaiseCanExecuteChanged();
+                    SaveCommand.RaiseCanExecuteChanged();
                     (StartCommand).RaiseCanExecuteChanged();
                     (FinishCommand).RaiseCanExecuteChanged();
                     (LoadFileFromDbCommand).RaiseCanExecuteChanged();
@@ -130,7 +130,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
 
                     Container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceCalculationEvent>().Publish(PriceCalculationWrapper.Model);
 
-                    (SaveCommand).RaiseCanExecuteChanged();
+                    SaveCommand.RaiseCanExecuteChanged();
                 },
                 () => PriceCalculationWrapper.IsValid && PriceCalculationWrapper.IsChanged);
 
@@ -244,7 +244,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                     if (dr != MessageDialogResult.Yes) return;
 
                     PriceCalculationWrapper.TaskOpenMoment = DateTime.Now;
-                    SaveCommand.Execute(null);
+                    SaveCommand.Execute();
 
                     container.Resolve<IEventAggregator>().GetEvent<AfterStartPriceCalculationEvent>().Publish(this.PriceCalculationWrapper.Model);
 
@@ -274,11 +274,11 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                     if (dr != MessageDialogResult.Yes) return;
 
                     PriceCalculationWrapper.TaskCloseMoment = DateTime.Now;
-                    SaveCommand.Execute(null);
+                    SaveCommand.Execute();
 
                     OnPropertyChanged(new PropertyChangedEventArgs(nameof(CanChangePrice)));
 
-                    (SaveCommand).RaiseCanExecuteChanged();
+                    SaveCommand.RaiseCanExecuteChanged();
                     container.Resolve<IEventAggregator>().GetEvent<AfterFinishPriceCalculationEvent>().Publish(this.PriceCalculationWrapper.Model);
                 },
                 () =>
@@ -310,7 +310,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
 
                 PriceCalculationWrapper.TaskOpenMoment = null;
                 PriceCalculationWrapper.TaskCloseMoment = null;
-                SaveCommand.Execute(null);
+                SaveCommand.Execute();
 
                 container.Resolve<IEventAggregator>().GetEvent<AfterCancelPriceCalculationEvent>().Publish(this.PriceCalculationWrapper.Model);
 

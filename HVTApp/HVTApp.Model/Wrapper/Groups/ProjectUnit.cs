@@ -29,32 +29,32 @@ namespace HVTApp.Model.Wrapper.Groups
 
         public double Cost
         {
-            get { return Model.Cost; }
-            set { SetValue(value); }
+            get => Model.Cost;
+            set => SetValue(value);
         }
         public double CostOriginalValue => GetOriginalValue<double>(nameof(Cost));
         public bool CostIsChanged => GetIsChanged(nameof(Cost));
 
         public int ProductionTerm
         {
-            get { return Model.ProductionTerm; }
-            set { SetValue(value); }
+            get => Model.ProductionTerm;
+            set => SetValue(value);
         }
         public int ProductionTermOriginalValue => GetOriginalValue<int>(nameof(ProductionTerm));
         public bool ProductionTermIsChanged => GetIsChanged(nameof(ProductionTerm));
 
         public DateTime DeliveryDateExpected
         {
-            get { return Model.DeliveryDateExpected; }
-            set { SetValue(value); }
+            get => Model.DeliveryDateExpected;
+            set => SetValue(value);
         }
         public DateTime DeliveryDateExpectedOriginalValue => GetOriginalValue<DateTime>(nameof(DeliveryDateExpected));
         public bool DeliveryDateExpectedIsChanged => GetIsChanged(nameof(DeliveryDateExpected));
 
         public double? CostDelivery
         {
-            get { return Model.CostDelivery; }
-            set { SetValue(value); }
+            get => Model.CostDelivery;
+            set => SetValue(value);
         }
         public double? CostDeliveryOriginalValue => GetOriginalValue<double?>(nameof(CostDelivery));
         public bool CostDeliveryIsChanged => GetIsChanged(nameof(CostDelivery));
@@ -62,7 +62,7 @@ namespace HVTApp.Model.Wrapper.Groups
 
         public DateTime SignalToStartProduction
         {
-            set { SetValue(value); }
+            set => SetValue(value);
         }
 
         public DateTime EndProductionDateCalculated => Model.EndProductionDateCalculated;
@@ -132,7 +132,7 @@ namespace HVTApp.Model.Wrapper.Groups
         protected override void InitializeCollectionProperties()
         {
             if (Model.ProductsIncluded == null) throw new ArgumentException("ProductsIncluded cannot be null");
-            ProductsIncluded = new ValidatableChangeTrackingCollection<ProductIncludedSimpleWrapper>(Model.ProductsIncluded.Select(e => new ProductIncludedSimpleWrapper(e)));
+            ProductsIncluded = new ValidatableChangeTrackingCollection<ProductIncludedSimpleWrapper>(Model.ProductsIncluded.Select(productIncluded => new ProductIncludedSimpleWrapper(productIncluded)));
             RegisterCollection(ProductsIncluded, Model.ProductsIncluded);
         }
 

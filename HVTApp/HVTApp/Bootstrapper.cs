@@ -57,117 +57,12 @@ namespace HVTApp
 {
     internal class Bootstrapper : UnityBootstrapper
     {
-        public event Action AllModulesAreInitialized;
-        public event Action<double> ModuleIsInitialized;
+        private readonly SplashScreenWindow _splashScreenWindow = new SplashScreenWindow();
 
-        protected override DependencyObject CreateShell()
+        public Bootstrapper()
         {
-            var mainWindow = Container.Resolve<MainWindow>();
-            Application.Current.MainWindow = mainWindow;
-            //Завершить приложение при закрытии главного окна.
-            Application.Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
-            return mainWindow;
-        }
-
-        private readonly List<Type> _initializedModules = new List<Type>();
-
-        protected override void InitializeShell()
-        {
-            SetGlobalAppProperties();
-            CheckLastDeveloperVizit();
-
-            //старт клиентской части сервиса синхронизации
-#if DEBUG
-            if(true)
-#endif
-                Container.Resolve<IEventServiceClient>().Start();
-
-
-            Container.Resolve<IEventAggregator>().GetEvent<ModuleIsInitializedEvent>().Subscribe(moduleType =>
-            {
-                _initializedModules.Add(moduleType);
-
-                ModuleIsInitialized?.Invoke((double)_initializedModules.Count / _modules.Count);
-
-                if (_modules.Select(moduleInfo => moduleInfo.ModuleName).AllContainsIn(_initializedModules.Select(type => type.Name)))
-                {
-                    AllModulesAreInitialized?.Invoke();
-                    Application.Current.MainWindow.Show();
-                }
-            });
-        }
-
-        /// <summary>
-        /// Установка общих опций для всех (наша компания, стандартный срок изготовления и т.д.)
-        /// </summary>
-        /// <returns></returns>
-        private void SetGlobalAppProperties()
-        {
-            //репозиторий с опциями
-            var repository = Container.Resolve<IUnitOfWork>().Repository<GlobalProperties>();
-            //назначение актуальных опций (последние по дате)
-            GlobalAppProperties.Actual = repository.GetAll().OrderBy(globalProperties => globalProperties.Date).Last();
-            
-            GlobalAppProperties.ProductDesignationService = Container.Resolve<IProductDesignationService>();
-            GlobalAppProperties.ShippingService = Container.Resolve<IShippingService>();
-            GlobalAppProperties.PriceService = Container.Resolve<IPriceService>();
-            GlobalAppProperties.HvtAppLogger = Container.Resolve<IHvtAppLogger>();
-            GlobalAppProperties.MessageService = Container.Resolve<IMessageService>();
-        }
-
-        private void CheckLastDeveloperVizit()
-        {
-            if (GlobalAppProperties.Actual.Developer != null)
-            {
-                var unitOfWork = Container.Resolve<IUnitOfWork>();
-                var globalProperties = unitOfWork.Repository<GlobalProperties>().GetAll().OrderBy(x => x.Date).LastOrDefault();
-                if (globalProperties != null && GlobalAppProperties.Actual.Developer.Id == GlobalAppProperties.User.Id)
-                {
-                    globalProperties.LastDeveloperVizit = DateTime.Today;
-                    unitOfWork.SaveChanges();
-                    GlobalAppProperties.Actual.LastDeveloperVizit = DateTime.Today;
-                }
-
-                if (GlobalAppProperties.Actual.LastDeveloperVizit.HasValue && (DateTime.Today - GlobalAppProperties.Actual.LastDeveloperVizit.Value).Days > 90)
-                {
-                    Application.Current.Shutdown();
-                }
-            }
-        }
-
-        protected override void ConfigureContainer()
-        {
-            base.ConfigureContainer();
-
-            Container.RegisterType<IHvtAppLogger, HvtAppLogger>(new ContainerControlledLifetimeManager());
-            
-            Container.RegisterType<IEventAggregator, EventAggregator>(new ContainerControlledLifetimeManager());
-            Container.RegisterType<DbContext, HvtAppContext>();
-            Container.RegisterType<IUnitOfWork, UnitOfWork>();
-            //Container.RegisterType<IUnitOfWorkDisplay, UnitOfWork>(new ContainerControlledLifetimeManager()); //используется в отображении для создания синглтона
-            Container.RegisterType<IAuthenticationService, AuthenticationService>();
-            Container.RegisterType<ISelectService, SelectServiceWpf>(new ContainerControlledLifetimeManager());
-            Container.RegisterType<IMessageService, MessageServiceWpf>();
-            Container.RegisterType<IEmailService, EmailService>();
-
-            Container.RegisterType<IUpdateDetailsService, UpdateDetailsServiceWpf>(new ContainerControlledLifetimeManager());
-
-            Container.RegisterInstance(typeof(IDialogService), new DialogService((Window)Shell));
-            Container.RegisterType<IGetProductService, GetProductServiceWpf>(new ContainerControlledLifetimeManager());
-            Container.RegisterType<INewProductService, NewProductServiceWpf>(new ContainerControlledLifetimeManager());
-            Container.RegisterType<IPrintOfferService, PrintOfferService>();
-            Container.RegisterType<IPrintProductService, PrintProductService>();
-            Container.RegisterType<IPrintSupervisionLetterService, PrintSupervisionLetterService>();
-            Container.RegisterType<IPrintBlankLetterService, PrintBlankLetterService>();
-            Container.RegisterType<IProductDesignationService, ProductDesignator>(new ContainerControlledLifetimeManager());
-            Container.RegisterType<IPriceService, PriceService>(new ContainerControlledLifetimeManager());
-            Container.RegisterType<IShippingService, ShippService>(new ContainerControlledLifetimeManager());
-
-            Container.RegisterType<IEventServiceClient, EventServiceClient>(new ContainerControlledLifetimeManager());
-            Container.RegisterType<IMessenger, Messenger>(new ContainerControlledLifetimeManager());
-
-            Container.RegisterType<IModelsStore, ModelsStore>(new ContainerControlledLifetimeManager());
-            //Container.RegisterInstance(typeof(IModelsStore), new ModelsStore(Container));
+            GlobalAppProperties.User = new Auth().GetCurrentUser();
+            _splashScreenWindow.Show();
         }
 
         private List<ModuleInfo> _modules;
@@ -197,6 +92,40 @@ namespace HVTApp
             return catalog;
         }
 
+        protected override void ConfigureContainer()
+        {
+            base.ConfigureContainer();
+
+            Container.RegisterType<IHvtAppLogger, HvtAppLogger>(new ContainerControlledLifetimeManager());
+            
+            Container.RegisterType<IEventAggregator, EventAggregator>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<DbContext, HvtAppContext>();
+            Container.RegisterType<IUnitOfWork, UnitOfWork>();
+            Container.RegisterType<IAuthenticationService, AuthenticationService>();
+            Container.RegisterType<ISelectService, SelectServiceWpf>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IMessageService, MessageServiceWpf>();
+            Container.RegisterType<IEmailService, EmailService>();
+
+            Container.RegisterType<IUpdateDetailsService, UpdateDetailsServiceWpf>(new ContainerControlledLifetimeManager());
+
+            Container.RegisterInstance(typeof(IDialogService), new DialogService((Window)Shell));
+            Container.RegisterType<IGetProductService, GetProductServiceWpf>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<INewProductService, NewProductServiceWpf>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IPrintOfferService, PrintOfferService>();
+            Container.RegisterType<IPrintProductService, PrintProductService>();
+            Container.RegisterType<IPrintSupervisionLetterService, PrintSupervisionLetterService>();
+            Container.RegisterType<IPrintBlankLetterService, PrintBlankLetterService>();
+            Container.RegisterType<IProductDesignationService, ProductDesignator>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IPriceService, PriceService>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IShippingService, ShippService>(new ContainerControlledLifetimeManager());
+
+            Container.RegisterType<IEventServiceClient, EventServiceClient>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IMessenger, Messenger>(new ContainerControlledLifetimeManager());
+
+            Container.RegisterType<IModelsStore, ModelsStore>(new ContainerControlledLifetimeManager());
+            //Container.RegisterInstance(typeof(IModelsStore), new ModelsStore(Container));
+        }
+
         protected override RegionAdapterMappings ConfigureRegionAdapterMappings()
         {
             var mappings = base.ConfigureRegionAdapterMappings();
@@ -211,6 +140,84 @@ namespace HVTApp
             behaviors.AddIfMissing(XamRibbonRegionBehavior.BehaviorKey, typeof(XamRibbonRegionBehavior));
             //behaviors.AddIfMissing(typeof(DisposeClosedViewsBehavior).FullName, typeof(DisposeClosedViewsBehavior));
             return behaviors;
+        }
+
+        protected override DependencyObject CreateShell()
+        {
+            var mainWindow = Container.Resolve<MainWindow>();
+            Application.Current.MainWindow = mainWindow;
+            //Завершить приложение при закрытии главного окна.
+            Application.Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
+            return mainWindow;
+        }
+
+        private readonly List<Type> _initializedModules = new List<Type>();
+        public event Action AllModulesAreInitialized;
+        public event Action<double> ModuleIsInitialized;
+
+        protected override void InitializeShell()
+        {
+            SetGlobalAppProperties();
+            CheckLastDeveloperVizit();
+
+            //старт клиентской части сервиса синхронизации
+#if DEBUG
+            if(true)
+#endif
+                Container.Resolve<IEventServiceClient>().Start();
+
+
+            Container.Resolve<IEventAggregator>().GetEvent<ModuleIsInitializedEvent>().Subscribe(moduleType =>
+            {
+                _initializedModules.Add(moduleType);
+
+                ModuleIsInitialized?.Invoke((double)_initializedModules.Count / _modules.Count);
+
+                if (_modules.Select(moduleInfo => moduleInfo.ModuleName).AllContainsIn(_initializedModules.Select(type => type.Name)))
+                {
+                    AllModulesAreInitialized?.Invoke();
+                    Application.Current.MainWindow.Show();
+                    _splashScreenWindow.Close();
+                }
+            });
+        }
+
+        /// <summary>
+        /// Установка общих опций для всех (наша компания, стандартный срок изготовления и т.д.)
+        /// </summary>
+        /// <returns></returns>
+        private void SetGlobalAppProperties()
+        {
+            //репозиторий с опциями
+            var repository = Container.Resolve<IUnitOfWork>().Repository<GlobalProperties>();
+            //назначение актуальных опций (последние по дате)
+            GlobalAppProperties.Actual = repository.GetAll().OrderBy(globalProperties => globalProperties.Date).Last();
+            
+            GlobalAppProperties.ProductDesignationService = Container.Resolve<IProductDesignationService>();
+            GlobalAppProperties.ShippingService = Container.Resolve<IShippingService>();
+            GlobalAppProperties.PriceService = Container.Resolve<IPriceService>();
+            GlobalAppProperties.HvtAppLogger = Container.Resolve<IHvtAppLogger>();
+            GlobalAppProperties.MessageService = Container.Resolve<IMessageService>();
+        }
+
+        private void CheckLastDeveloperVizit()
+        {
+            if (GlobalAppProperties.Actual.Developer != null)
+            {
+                var unitOfWork = Container.Resolve<IUnitOfWork>();
+                var globalProperties = unitOfWork.Repository<GlobalProperties>().GetAll().OrderBy(properties => properties.Date).LastOrDefault();
+                if (globalProperties != null && GlobalAppProperties.Actual.Developer.Id == GlobalAppProperties.User.Id)
+                {
+                    globalProperties.LastDeveloperVizit = DateTime.Today;
+                    unitOfWork.SaveChanges();
+                    GlobalAppProperties.Actual.LastDeveloperVizit = DateTime.Today;
+                }
+
+                if (GlobalAppProperties.Actual.LastDeveloperVizit.HasValue && (DateTime.Today - GlobalAppProperties.Actual.LastDeveloperVizit.Value).Days > 90)
+                {
+                    Application.Current.Shutdown();
+                }
+            }
         }
 
     }

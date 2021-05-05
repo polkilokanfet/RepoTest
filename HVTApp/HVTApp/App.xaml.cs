@@ -10,8 +10,6 @@ namespace HVTApp
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            //Logger.GetLogger().Debug("Test1");
-
 #if DEBUG
 #else
             try
@@ -24,10 +22,7 @@ namespace HVTApp
 
                 try
                 {
-                    GlobalAppProperties.User = new Auth().GetCurrentUser();
                     var bootstrapper = new Bootstrapper();
-                    SplashScreenWindow splashScreenWindow = new SplashScreenWindow(bootstrapper);
-                    splashScreenWindow.Show();
                     bootstrapper.Run();
                 }
                 catch (NoUserException)
@@ -39,7 +34,7 @@ namespace HVTApp
             }
             catch (Exception exception)
             {
-                Logger.Log.Error($"{exception.GetType().Name}", exception);
+                (new HvtAppLogger()).LogError(exception.GetType().Name, exception);
 
                 MessageBox.Show(exception.GetAllExceptions());
                 Console.WriteLine(exception.GetAllExceptions());

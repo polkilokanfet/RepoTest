@@ -35,7 +35,7 @@ namespace HVTApp.UI.Modules.SupplyModule.ViewModels
                     //принимаем все изменения
                     _salesUnits.Where(x => x.IsChanged).ToList().ForEach(x => x.AcceptChanges());
                     //проверяем актуальность команды
-                    (SaveCommand).RaiseCanExecuteChanged();
+                    SaveCommand.RaiseCanExecuteChanged();
 
                     _salesUnits.PropertyChanged += SalesUnitsOnPropertyChanged;
                 },

@@ -166,7 +166,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 //реакция на изменения в задаче
                 _technicalRequrementsTaskWrapper.PropertyChanged += (sender, args) =>
                 {
-                    (SaveCommand).RaiseCanExecuteChanged();
+                    SaveCommand.RaiseCanExecuteChanged();
                     (StartCommand).RaiseCanExecuteChanged();
                     (RejectCommand).RaiseCanExecuteChanged();
                     OnPropertyChanged(nameof(ValidationResult));
@@ -198,7 +198,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
                     Container.Resolve<IEventAggregator>().GetEvent<AfterSaveTechnicalRequrementsTaskEvent>().Publish(TechnicalRequrementsTaskWrapper.Model);
 
-                    (SaveCommand).RaiseCanExecuteChanged();
+                    SaveCommand.RaiseCanExecuteChanged();
                 },
                 () => TechnicalRequrementsTaskWrapper != null && 
                       TechnicalRequrementsTaskWrapper.IsValid && 
@@ -380,7 +380,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                     {
                         TechnicalRequrementsTaskWrapper.Model.FirstStartMoment = TechnicalRequrementsTaskWrapper.Start;
                     }
-                    SaveCommand.Execute(null);
+                    SaveCommand.Execute();
 
                     //уведомление по почте
                     //Container.Resolve<IEmailService>().SendMail("kos@uetm.ru", $"{GlobalAppProperties.User.Employee.Person} отправил новое задание на расчет", "test");
@@ -428,7 +428,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 if (dr != MessageDialogResult.Yes) return;
 
                 TechnicalRequrementsTaskWrapper.Start = null;
-                SaveCommand.Execute(null);
+                SaveCommand.Execute();
 
                 Container.Resolve<IEventAggregator>().GetEvent<AfterSaveTechnicalRequrementsTaskEvent>().Publish(TechnicalRequrementsTaskWrapper.Model);
 
