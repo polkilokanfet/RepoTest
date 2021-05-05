@@ -55,7 +55,6 @@ namespace HVTApp.Model.POCOs
         public virtual ParameterGroup IsolationDpuGroup { get; set; }
 
 
-
         [Designation("Группа параметров обозначения комплекта или детали"), Required, OrderStatus(-50)]
         public virtual ParameterGroup ComplectDesignationGroup{ get; set; }
 
@@ -64,8 +63,6 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Группа типа комплекта или детали"), Required, OrderStatus(-50)]
         public virtual ParameterGroup ComplectsGroup { get; set; }
-
-
 
 
         [Designation("Тип проекта (по умолчанию)"), Required]
@@ -84,7 +81,6 @@ namespace HVTApp.Model.POCOs
         public virtual PaymentConditionSet PaymentConditionSet { get; set; }
 
 
-
         [Designation("Путь к папке с запросами"), Required, OrderStatus(500), MaxLength(500)]
         public string IncomingRequestsPath { get; set; }
 
@@ -99,6 +95,9 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Путь к папке с расчетами себестоимости"), Required, OrderStatus(504), MaxLength(500)]
         public string PriceCalculationsFilesPath { get; set; }
+
+        [Designation("Путь к папке с логами"), OrderStatus(505), MaxLength(500)]
+        public string LogsPath { get; set; }
 
 
 

@@ -39,6 +39,7 @@
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
 
+                        <infg:TextField Name="LogsPath" Label="Путь к папке с логами" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="PriceCalculationsFilesPath" Label="Путь к папке с расчетами себестоимости" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="TechnicalRequrementsFilesAnswersPath" Label="Путь к папке с файлами ответов из ТСЕ" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="TechnicalRequrementsFilesPath" Label="Путь к папке с файлами ТЗ" Width="Auto" AllowResize="True" />
@@ -71,7 +72,6 @@
                         <infg:TextField Name="ComplectDesignationGroup" Label="Группа параметров обозначения комплекта или детали" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:TextField Name="ComplectsGroup" Label="Группа типа комплекта или детали" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
-
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>
 

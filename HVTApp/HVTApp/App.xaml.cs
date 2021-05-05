@@ -39,7 +39,7 @@ namespace HVTApp
             }
             catch (Exception exception)
             {
-                Logger.Log.Error($"{exception.GetType().Name}", exception);
+                (new HvtAppLogger()).LogError(exception.GetType().Name, exception);
 
                 MessageBox.Show(exception.GetAllExceptions());
                 Console.WriteLine(exception.GetAllExceptions());

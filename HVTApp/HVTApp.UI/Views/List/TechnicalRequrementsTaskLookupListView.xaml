@@ -51,7 +51,6 @@
                         <infg:TextField Name="PriceCalculations" Label="Расчеты себестоимости" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:TextField Name="FrontManager" Label="Front manager" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
-
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>
 

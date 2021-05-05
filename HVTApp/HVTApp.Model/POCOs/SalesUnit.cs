@@ -279,6 +279,12 @@ namespace HVTApp.Model.POCOs
                 if (OrderInTakeDateInjected.HasValue)
                     return OrderInTakeDateInjected.Value;
 
+                //по подписанной спецификации
+                if (Specification?.SignDate != null)
+                {
+                    return Specification.SignDate.Value;
+                }
+
                 //если для старта производства не требуется денег
                 if (Cost > 0 && Math.Abs(SumToStartProduction) < 0.001)
                 {

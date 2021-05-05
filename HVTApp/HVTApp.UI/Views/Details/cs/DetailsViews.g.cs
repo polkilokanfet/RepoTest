@@ -2971,6 +2971,10 @@ namespace HVTApp.UI.Views
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityPriceCalculationsFilesPathGlobalProperties = Visibility.Collapsed;
 
+            //attr = typeof(HVTApp.Model.POCOs.GlobalProperties).GetProperty(nameof(HVTApp.Model.POCOs.GlobalProperties.LogsPath)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityLogsPathGlobalProperties = Visibility.Collapsed;
+
             //attr = typeof(HVTApp.Model.POCOs.GlobalProperties).GetProperty(nameof(HVTApp.Model.POCOs.GlobalProperties.Developer)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityDeveloperGlobalProperties = Visibility.Collapsed;
@@ -3208,6 +3212,14 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityPriceCalculationsFilesPathGlobalPropertiesProperty); }
             set { SetValue(VisibilityPriceCalculationsFilesPathGlobalPropertiesProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityLogsPathGlobalPropertiesProperty = DependencyProperty.Register("VisibilityLogsPathGlobalProperties", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityLogsPathGlobalProperties
+        {
+            get { return (Visibility) GetValue(VisibilityLogsPathGlobalPropertiesProperty); }
+            set { SetValue(VisibilityLogsPathGlobalPropertiesProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -7051,6 +7063,10 @@ namespace HVTApp.UI.Views
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityDateSpecification = Visibility.Collapsed;
 
+            //attr = typeof(HVTApp.Model.POCOs.Specification).GetProperty(nameof(HVTApp.Model.POCOs.Specification.SignDate)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilitySignDateSpecification = Visibility.Collapsed;
+
             //attr = typeof(HVTApp.Model.POCOs.Specification).GetProperty(nameof(HVTApp.Model.POCOs.Specification.Vat)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityVatSpecification = Visibility.Collapsed;
@@ -7076,6 +7092,14 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityDateSpecificationProperty); }
             set { SetValue(VisibilityDateSpecificationProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilitySignDateSpecificationProperty = DependencyProperty.Register("VisibilitySignDateSpecification", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilitySignDateSpecification
+        {
+            get { return (Visibility) GetValue(VisibilitySignDateSpecificationProperty); }
+            set { SetValue(VisibilitySignDateSpecificationProperty, value); OnPropertyChanged(); }
         }
 
 

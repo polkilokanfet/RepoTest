@@ -143,11 +143,11 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
         protected override void GoBackCommand_Execute()
         {
             //если придет запрос при несохраненных изменени€х
-            if (SaveCommand.CanExecute(null))
+            if (SaveCommand.CanExecute())
             {
                 var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("—охранение", "—охранить сделанные изменени€?", defaultNo:true);
                 if(dr == MessageDialogResult.Yes)
-                    SaveCommand.Execute(null);
+                    SaveCommand.Execute();
 
                 if (dr == MessageDialogResult.No)
                     IsConfirmGoBackWithoutSaving = true;

@@ -13,6 +13,7 @@ namespace HVTApp.DataAccess
         protected override IQueryable<SalesUnit> GetQuary()
         {
             return Context.Set<SalesUnit>().AsQueryable()
+                .Include(salesUnit => salesUnit.Specification)
                 .Include(salesUnit => salesUnit.Facility.Type)
                 .Include(salesUnit => salesUnit.Product.ProductBlock.Parameters)
                 .Include(salesUnit => salesUnit.Product.DependentProducts.Select(productDependent => productDependent.Product.ProductBlock.Parameters))
@@ -55,6 +56,7 @@ namespace HVTApp.DataAccess
         {
             Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
             return this.GetQuary()
+                .Include(salesUnit => salesUnit.Specification)
                 .Include(salesUnit => salesUnit.Project.Manager)
                 .Include(salesUnit => salesUnit.Facility.OwnerCompany)
                 .Include(salesUnit => salesUnit.Producer)
@@ -67,6 +69,7 @@ namespace HVTApp.DataAccess
             Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
             return Context.Set<SalesUnit>().AsQueryable()
+                .Include(salesUnit => salesUnit.Specification)
                 .Include(salesUnit => salesUnit.Order)
                 .Include(salesUnit => salesUnit.Facility.Type)
                 .Include(salesUnit => salesUnit.Product.ProductBlock.Parameters)
@@ -154,6 +157,7 @@ namespace HVTApp.DataAccess
 
             return this.GetQuary()
                 //.Include(salesUnit => salesUnit.PaymentsActual)
+                .Include(salesUnit => salesUnit.Specification)
                 .Include(salesUnit => salesUnit.Order)
                 .Include(salesUnit => salesUnit.Project.Manager)
                 .Where(salesUnit => salesUnit.Project.Manager.Id == GlobalAppProperties.User.Id)
