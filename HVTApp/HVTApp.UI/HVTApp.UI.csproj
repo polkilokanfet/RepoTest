@@ -183,6 +183,14 @@
     <Compile Include="Modules\PlanAndEconomy\Dates\ServiceRealizationDates\TabServiceRealizationDates.xaml.cs">
       <DependentUpon>TabServiceRealizationDates.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modules\PlanAndEconomy\SpecificationSignDates\SpecificationSignDatesViewModel.cs" />
+    <Compile Include="Modules\PlanAndEconomy\SpecificationSignDates\SpecificationSignDatesView.xaml.cs">
+      <DependentUpon>SpecificationSignDatesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PlanAndEconomy\SpecificationSignDates\SpecificationSignDatesWrapper.cs" />
+    <Compile Include="Modules\PlanAndEconomy\SpecificationSignDates\TabSpecificationSignDates.xaml.cs">
+      <DependentUpon>TabSpecificationSignDates.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modules\PlanAndEconomy\Supervision\SupervisionView.xaml.cs">
       <DependentUpon>SupervisionView.xaml</DependentUpon>
     </Compile>
@@ -998,6 +1006,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\PlanAndEconomy\Dates\ServiceRealizationDates\TabServiceRealizationDates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\PlanAndEconomy\SpecificationSignDates\SpecificationSignDatesView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\PlanAndEconomy\SpecificationSignDates\TabSpecificationSignDates.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

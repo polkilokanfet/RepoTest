@@ -17,6 +17,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row ="0" Content="№" Visibility="{Binding VisibilityNumberSpecification, ElementName=Root}"/>
@@ -40,6 +41,11 @@
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="3" 
                                Value="{Binding Item.Vat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding VisibilityVatSpecification, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="4" Content="Дата подписания" Visibility="{Binding VisibilitySignDateSpecification, ElementName=Root}"/>
+        <DatePicker Grid.Column="1" Grid.Row="4" 
+                    SelectedDate="{Binding Item.SignDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding VisibilitySignDateSpecification, ElementName=Root}"/>
 
 
     </Grid>

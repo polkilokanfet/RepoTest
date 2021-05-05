@@ -47,7 +47,6 @@
                         <infg:CheckBoxField Name="IsCountryCapital" Label="Столица страны" Width="Auto" AllowResize="True" />
                         <infg:NumericField Name="DistanceToEkb" Label="Расстояние до Екатеринбурга, км" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
-
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>
 

@@ -14,6 +14,9 @@ namespace HVTApp.Model.POCOs
         [Designation("Дата"), Required, OrderStatus(9)]
         public DateTime Date { get; set; }
 
+        [Designation("Дата подписания"), OrderStatus(5)]
+        public DateTime? SignDate { get; set; }
+
         [Designation("НДС"), Required, OrderStatus(7)]
         public double Vat { get; set; } = GlobalAppProperties.Actual.Vat;
 
