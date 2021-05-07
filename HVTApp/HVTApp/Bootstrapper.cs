@@ -32,6 +32,7 @@ using HVTApp.Modules.Settings;
 using HVTApp.Modules.Sales;
 using HVTApp.Modules.SupplyModule;
 using HVTApp.RegionAdapters;
+using HVTApp.Services.AllowStartService;
 using HVTApp.Services.GetProductService;
 using HVTApp.Services.WpfAuthenticationService;
 using HVTApp.Services.DialogService;
@@ -52,7 +53,6 @@ using Prism.Events;
 using Prism.Modularity;
 using Prism.Regions;
 using Prism.Unity;
-//using HVTApp.Services.AllowStartService;
 
 namespace HVTApp
 {
@@ -105,7 +105,7 @@ namespace HVTApp
             Container.RegisterType<ISelectService, SelectServiceWpf>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IMessageService, MessageServiceWpf>();
             Container.RegisterType<IEmailService, EmailService>();
-            //Container.RegisterType<IAllowStartService, AllowStartAppService>();
+            Container.RegisterType<IAllowStartService, AllowStartAppService>();
 
             Container.RegisterType<IUpdateDetailsService, UpdateDetailsServiceWpf>(new ContainerControlledLifetimeManager());
 
@@ -160,7 +160,10 @@ namespace HVTApp
         {
             SetGlobalAppProperties();
 
-            CheckLastDeveloperVizit();
+            if (Container.Resolve<IAllowStartService>().AllowStart() == false)
+            {
+                Application.Current.Shutdown();
+            }
 
             #region IEventServiceClient
 
@@ -204,26 +207,5 @@ namespace HVTApp
             GlobalAppProperties.HvtAppLogger = Container.Resolve<IHvtAppLogger>();
             GlobalAppProperties.MessageService = Container.Resolve<IMessageService>();
         }
-
-        private void CheckLastDeveloperVizit()
-        {
-            if (GlobalAppProperties.Actual.Developer != null)
-            {
-                var unitOfWork = Container.Resolve<IUnitOfWork>();
-                var globalProperties = unitOfWork.Repository<GlobalProperties>().GetAll().OrderBy(properties => properties.Date).LastOrDefault();
-                if (globalProperties != null && GlobalAppProperties.Actual.Developer.Id == GlobalAppProperties.User.Id)
-                {
-                    globalProperties.LastDeveloperVizit = DateTime.Today;
-                    unitOfWork.SaveChanges();
-                    GlobalAppProperties.Actual.LastDeveloperVizit = DateTime.Today;
-                }
-
-                if (GlobalAppProperties.Actual.LastDeveloperVizit.HasValue && (DateTime.Today - GlobalAppProperties.Actual.LastDeveloperVizit.Value).Days > 90)
-                {
-                    Application.Current.Shutdown();
-                }
-            }
-        }
-
     }
 }
