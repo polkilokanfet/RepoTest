@@ -323,6 +323,10 @@
       <Project>{C411737D-33AD-4249-8BFB-3478BCB984A1}</Project>
       <Name>HVTApp.Modules.SupplyModule</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HVTApp.Services.AllowStartService\HVTApp.Services.AllowStartService.csproj">
+      <Project>{bde8766b-585e-4dd3-bb88-7edfde5f61d8}</Project>
+      <Name>HVTApp.Services.AllowStartService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HVTApp.Services.ChooseProductService\HVTApp.Services.GetProductService.csproj">
       <Project>{6BAD8F07-90FB-4CE8-8966-10604E1BF4DA}</Project>
       <Name>HVTApp.Services.GetProductService</Name>

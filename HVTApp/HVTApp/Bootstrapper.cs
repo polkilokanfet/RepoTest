@@ -52,11 +52,13 @@ using Prism.Events;
 using Prism.Modularity;
 using Prism.Regions;
 using Prism.Unity;
+//using HVTApp.Services.AllowStartService;
 
 namespace HVTApp
 {
     internal class Bootstrapper : UnityBootstrapper
     {
+        private List<ModuleInfo> _modules;
         private readonly SplashScreenWindow _splashScreenWindow = new SplashScreenWindow();
 
         public Bootstrapper()
@@ -64,8 +66,6 @@ namespace HVTApp
             GlobalAppProperties.User = new Auth().GetCurrentUser();
             _splashScreenWindow.Show();
         }
-
-        private List<ModuleInfo> _modules;
 
         protected override IModuleCatalog CreateModuleCatalog()
         {
@@ -105,6 +105,7 @@ namespace HVTApp
             Container.RegisterType<ISelectService, SelectServiceWpf>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IMessageService, MessageServiceWpf>();
             Container.RegisterType<IEmailService, EmailService>();
+            //Container.RegisterType<IAllowStartService, AllowStartAppService>();
 
             Container.RegisterType<IUpdateDetailsService, UpdateDetailsServiceWpf>(new ContainerControlledLifetimeManager());
 
@@ -158,7 +159,10 @@ namespace HVTApp
         protected override void InitializeShell()
         {
             SetGlobalAppProperties();
+
             CheckLastDeveloperVizit();
+
+            #region IEventServiceClient
 
             //старт клиентской части сервиса синхронизации
 #if DEBUG
@@ -166,6 +170,7 @@ namespace HVTApp
 #endif
                 Container.Resolve<IEventServiceClient>().Start();
 
+            #endregion
 
             Container.Resolve<IEventAggregator>().GetEvent<ModuleIsInitializedEvent>().Subscribe(moduleType =>
             {

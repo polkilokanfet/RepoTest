@@ -185,9 +185,8 @@ namespace HVTApp.TestDataGenerator
 
         private void GenDocuments()
         {
-            var employees = new List<Employee>() {EmployeeDeev};
-            Employee sender;
-            Employee recipient;
+            var employees = new List<Employee> {EmployeeDeev};
+
             for (int i = 0; i < 50; i++)
             {
                 Documents.Add(new Document {Number = new DocumentNumber {Number = i}, Author = EmployeeSidorov, SenderEmployee = EmployeeSidorov, RecipientEmployee = EmployeeDeev, Comment = $"{i}"});

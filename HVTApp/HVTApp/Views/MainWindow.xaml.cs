@@ -55,13 +55,13 @@ namespace HVTApp.Views
         //нужно, чтобы при первой загрузке отображался дефолтный вид
         private void XamOutlookBar_OnLoaded(object sender, RoutedEventArgs e)
         {
-            //if (GlobalAppProperties.User.RoleCurrent == Role.Admin)
-            //{
-            //    return;
-            //}
-
             if (sender is XamOutlookBar outlookBar)
             {
+                //if (outlookBar.SelectedGroup == null)
+                //{
+                //    return;
+                //}
+
                 outlookBar.SelectedGroup.Loaded += (s, args) =>
                 {
                     if (s is IOutlookBarGroup outlookBarGroup)

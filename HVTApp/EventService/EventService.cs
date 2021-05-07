@@ -255,11 +255,11 @@ namespace EventService
                 {
                     appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSendMessageToChat(authorId, message);
                 }
-                catch (TimeoutException timeoutException)
+                catch (TimeoutException)
                 {
                     _appSessions.Remove(appSession);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                 }
             }
@@ -273,11 +273,11 @@ namespace EventService
                 {
                     appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSendMessageToUser(authorId, message);
                 }
-                catch (TimeoutException timeoutException)
+                catch (TimeoutException)
                 {
                     _appSessions.Remove(appSession);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                 }
             }
