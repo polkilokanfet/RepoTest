@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using HVTApp.Views;
 using System.Windows;
 using EventServiceClient2;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.AuthenticationService;
@@ -73,16 +75,16 @@ namespace HVTApp
 
             catalog.AddModule(typeof(UiModule));
 
-            catalog.AddModuleByRole(typeof(DirectorModule));
-            catalog.AddModuleByRole(typeof(SalesModule));
-            catalog.AddModuleByRole(typeof(PlanAndEconomyModule));
-            catalog.AddModuleByRole(typeof(PriceMakingModule));
-            catalog.AddModuleByRole(typeof(SupplyModule));
-            catalog.AddModuleByRole(typeof(ProductsModule));
-            catalog.AddModuleByRole(typeof(DirectumLiteModule));
-            catalog.AddModuleByRole(typeof(BookRegistrationModule));
-            catalog.AddModuleByRole(typeof(ReportsModule));
-            
+            AddModuleByRole(catalog, typeof(DirectorModule));
+            AddModuleByRole(catalog, typeof(SalesModule));
+            AddModuleByRole(catalog, typeof(PlanAndEconomyModule));
+            AddModuleByRole(catalog, typeof(PriceMakingModule));
+            AddModuleByRole(catalog, typeof(SupplyModule));
+            AddModuleByRole(catalog, typeof(ProductsModule));
+            AddModuleByRole(catalog, typeof(DirectumLiteModule));
+            AddModuleByRole(catalog, typeof(BookRegistrationModule));
+            AddModuleByRole(catalog, typeof(ReportsModule));
+
             //catalog.AddModule(typeof(MessengerModule));
             catalog.AddModule(typeof(BaseEntitiesModule));
             catalog.AddModule(typeof(SettingsModule));
@@ -206,6 +208,20 @@ namespace HVTApp
             GlobalAppProperties.PriceService = Container.Resolve<IPriceService>();
             GlobalAppProperties.HvtAppLogger = Container.Resolve<IHvtAppLogger>();
             GlobalAppProperties.MessageService = Container.Resolve<IMessageService>();
+        }
+
+        /// <summary>
+        /// Добавление модулей на основе ролей.
+        /// </summary>
+        /// <param name="catalog">Каталог</param>
+        /// <param name="moduleType">Тип модуля</param>
+        private void AddModuleByRole(ModuleCatalog catalog, Type moduleType)
+        {
+            var attr = moduleType.GetCustomAttribute<ModuleAccessAttribute>();
+            if (attr != null && attr.Roles.Contains(GlobalAppProperties.User.RoleCurrent))
+            {
+                catalog.AddModule(moduleType);
+            }
         }
     }
 }

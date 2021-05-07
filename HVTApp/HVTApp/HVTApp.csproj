@@ -156,7 +156,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Auth.cs" />
-    <Compile Include="Extansions.cs" />
     <Compile Include="HvtAppLogger.cs" />
     <Compile Include="Views\SplashScreenWindow.xaml.cs">
       <DependentUpon>SplashScreenWindow.xaml</DependentUpon>
