@@ -51,7 +51,7 @@ namespace HVTApp.UI.Modules.Directum
             set
             {
                 _directumTaskToShow = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -68,7 +68,7 @@ namespace HVTApp.UI.Modules.Directum
                 //if (DirectumTaskToShow == null) 
                 //    DirectumTaskToShow = DirectumTask;
 
-                OnPropertyChanged();
+                RaisePropertyChanged();
                 (AddFileCommand).RaiseCanExecuteChanged();
                 (RemoveFileCommand).RaiseCanExecuteChanged();
             }
@@ -88,7 +88,7 @@ namespace HVTApp.UI.Modules.Directum
             private set
             {
                 _route = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -100,7 +100,7 @@ namespace HVTApp.UI.Modules.Directum
                 _selectedFile = value;
                 (RemoveFileCommand).RaiseCanExecuteChanged();
                 (OpenFileCommand).RaiseCanExecuteChanged();
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -113,10 +113,10 @@ namespace HVTApp.UI.Modules.Directum
             private set
             {
                 _taskIsNew = value;
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(AllowEditTitle));
-                OnPropertyChanged(nameof(AllowSubTask));
-                OnPropertyChanged(nameof(AllowStop));
+                RaisePropertyChanged();
+                RaisePropertyChanged(nameof(AllowEditTitle));
+                RaisePropertyChanged(nameof(AllowSubTask));
+                RaisePropertyChanged(nameof(AllowStop));
                 (AddFileCommand).RaiseCanExecuteChanged();
                 (RemoveFileCommand).RaiseCanExecuteChanged();
             }
@@ -131,8 +131,8 @@ namespace HVTApp.UI.Modules.Directum
             private set
             {
                 _taskIsSubTask = value;
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(AllowEditTitle));
+                RaisePropertyChanged();
+                RaisePropertyChanged(nameof(AllowEditTitle));
                 (AddFileCommand).RaiseCanExecuteChanged();
                 (RemoveFileCommand).RaiseCanExecuteChanged();
             }
@@ -187,7 +187,7 @@ namespace HVTApp.UI.Modules.Directum
             private set
             {
                 _message = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -262,7 +262,7 @@ namespace HVTApp.UI.Modules.Directum
                     {
                         Route.AcceptChanges();
                         DirectumTask.Performer = Route.Items.First().Performer;
-                        OnPropertyChanged(nameof(Route));
+                        RaisePropertyChanged(nameof(Route));
                     }
                     else
                     {
@@ -772,7 +772,7 @@ namespace HVTApp.UI.Modules.Directum
             LoadFiles();
             CheckStartPerformer();
 
-            OnPropertyChanged(nameof(AllowPerformOrAccept));
+            RaisePropertyChanged(nameof(AllowPerformOrAccept));
         }
 
         #endregion

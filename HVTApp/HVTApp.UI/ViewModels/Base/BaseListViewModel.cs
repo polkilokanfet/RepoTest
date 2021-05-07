@@ -107,11 +107,11 @@ namespace HVTApp.UI.ViewModels
 
         public bool IsLoaded
         {
-            get { return _isLoaded; }
+            get => _isLoaded;
             private set
             {
                 _isLoaded = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -133,7 +133,7 @@ namespace HVTApp.UI.ViewModels
                 if (Equals(_selectedLookup, value)) return;
                 _selectedLookup = value;
                 SelectedItem = _selectedLookup?.Entity;
-                OnPropertyChanged();
+                RaisePropertyChanged();
                 SelectedLookupChanged?.Invoke(_selectedLookup);
                 EventAggregator.GetEvent<TAfterSelectEntityEvent>().Publish(new PubSubEventArgs<TEntity>(this, value?.Entity));
                 InvalidateCommands();
@@ -153,7 +153,7 @@ namespace HVTApp.UI.ViewModels
                 SelectedLookup = _selectedItem == null 
                     ? null
                     : Lookups.Single(lookup => lookup.Entity.Id == _selectedItem.Id);
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 

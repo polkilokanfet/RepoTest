@@ -47,7 +47,7 @@ namespace HVTApp.UI.Lookup
                 Entity = entity;
                 _complexProperties.Clear();
             }
-            OnPropertyChanged(string.Empty);
+            RaisePropertyChanged(string.Empty);
         }
 
         protected T GetValue<T>([CallerMemberName] string propertyName = null)

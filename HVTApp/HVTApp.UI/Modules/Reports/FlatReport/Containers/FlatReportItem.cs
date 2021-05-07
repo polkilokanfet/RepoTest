@@ -80,8 +80,8 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
                 _estimatedOrderInTakeDate = value;
 
                 //внедряем даты для расчета даты реализации
-                SalesUnits.ForEach(x => x.OrderInTakeDateInjected = value);
-                SalesUnits.ForEach(x => x.StartProductionDateInjected = value);
+                SalesUnits.ForEach(salesUnit => salesUnit.OrderInTakeDateInjected = value);
+                SalesUnits.ForEach(salesUnit => salesUnit.StartProductionDateInjected = value);
                 EstimatedRealizationDate = SalesUnit.RealizationDateCalculated;
 
                 OnPropertyChanged();
@@ -168,7 +168,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
         /// </summary>
         public PaymentConditionSet EstimatedPaymentConditionSet
         {
-            get { return _estimatedPaymentConditionSet; }
+            get => _estimatedPaymentConditionSet;
             set
             {
                 if (!AllowEditOit) return;

@@ -60,8 +60,8 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
 
                 _targetSum = value;
                 TargetSumIsChanged?.Invoke();
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(IsOk));
+                RaisePropertyChanged();
+                RaisePropertyChanged(nameof(IsOk));
             }
         }
 
@@ -73,12 +73,12 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
         /// </summary>
         public double Accuracy
         {
-            get { return _accuracy; }
+            get => _accuracy;
             set
             {
                 _accuracy = value;
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(IsOk));
+                RaisePropertyChanged();
+                RaisePropertyChanged(nameof(IsOk));
             }
         }
 
@@ -117,7 +117,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
 
                 _inReport = value;
                 InReportIsChanged?.Invoke();
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -151,8 +151,8 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
 
         private void ItemOnEstimatedCostIsChanged(FlatReportItem item)
         {
-            OnPropertyChanged(nameof(CurrentSum));
-            OnPropertyChanged(nameof(IsOk));
+            RaisePropertyChanged(nameof(CurrentSum));
+            RaisePropertyChanged(nameof(IsOk));
             CurrentSumIsChanged?.Invoke();
         }
 

@@ -15,12 +15,12 @@ namespace HVTApp.UI.Modules.Sales.Payments
 
         public DateTime Date
         {
-            get { return PaymentPlanned.Date; }
+            get => PaymentPlanned.Date;
             set
             {
                 PaymentPlanned.Date = value;
-                OnPropertyChanged(nameof(IsInPlanPayments));
-                OnPropertyChanged();
+                RaisePropertyChanged(nameof(IsInPlanPayments));
+                RaisePropertyChanged();
             }
         }
 
@@ -56,7 +56,7 @@ namespace HVTApp.UI.Modules.Sales.Payments
             if (!IsInPlanPayments)
             {
                 SalesUnit.PaymentsPlanned.Add(PaymentPlanned);
-                OnPropertyChanged(nameof(IsInPlanPayments));
+                RaisePropertyChanged(nameof(IsInPlanPayments));
             }
         }
 
@@ -70,8 +70,8 @@ namespace HVTApp.UI.Modules.Sales.Payments
             if(unitOfWork.Repository<PaymentPlanned>().Find(x => Equals(x, PaymentPlanned.Model)).Any())
                 unitOfWork.Repository<PaymentPlanned>().Delete(PaymentPlanned.Model);
 
-            OnPropertyChanged(nameof(Date));
-            OnPropertyChanged(nameof(IsInPlanPayments));
+            RaisePropertyChanged(nameof(Date));
+            RaisePropertyChanged(nameof(IsInPlanPayments));
         }
     }
 }

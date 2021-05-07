@@ -25,7 +25,7 @@ namespace HVTApp.UI.Modules.Products.ViewModels
             {
                 _productReplaceable = value;
                 ReplaceCommand.RaiseCanExecuteChanged();
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -39,7 +39,7 @@ namespace HVTApp.UI.Modules.Products.ViewModels
             {
                 _productTarget = value;
                 ReplaceCommand.RaiseCanExecuteChanged();
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 

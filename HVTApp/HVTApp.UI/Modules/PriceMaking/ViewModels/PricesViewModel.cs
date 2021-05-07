@@ -36,7 +36,7 @@ namespace HVTApp.UI.Modules.PriceMaking.ViewModels
                 (AddPriceCommand).RaiseCanExecuteChanged();
                 (RemovePriceCommand).RaiseCanExecuteChanged();
                 SelectedSumOnDate = null;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 

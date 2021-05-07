@@ -26,7 +26,7 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
             {
                 _passOld = value;
                 (OkCommand).RaiseCanExecuteChanged();
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -37,7 +37,7 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
             {
                 _passNew = value;
                 (OkCommand).RaiseCanExecuteChanged();
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -48,7 +48,7 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
             {
                 _passAgain = value;
                 (OkCommand).RaiseCanExecuteChanged();
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 

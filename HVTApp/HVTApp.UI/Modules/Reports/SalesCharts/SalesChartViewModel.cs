@@ -46,7 +46,7 @@ namespace HVTApp.UI.Modules.Reports.SalesCharts
                 if (Equals(_startDate, value)) return;
                 _startDate = value;
                 RefreshItems();
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -58,7 +58,7 @@ namespace HVTApp.UI.Modules.Reports.SalesCharts
                 if (Equals(_finishDate, value)) return;
                 _finishDate = value;
                 RefreshItems();
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -150,8 +150,8 @@ namespace HVTApp.UI.Modules.Reports.SalesCharts
 
             _startDate = _salesUnits.Min(x => x.OrderInTakeDate);
             _finishDate = _salesUnits.Max(x => x.OrderInTakeDate);
-            OnPropertyChanged(nameof(StartDate));
-            OnPropertyChanged(nameof(FinishDate));
+            RaisePropertyChanged(nameof(StartDate));
+            RaisePropertyChanged(nameof(FinishDate));
             RefreshItems();
         }
 
@@ -162,7 +162,7 @@ namespace HVTApp.UI.Modules.Reports.SalesCharts
             var items = GetItems();
             Items.Clear();
             Items.AddRange(items);
-            OnPropertyChanged(nameof(SumOfSalesUnits));
+            RaisePropertyChanged(nameof(SumOfSalesUnits));
         }
     }
 }

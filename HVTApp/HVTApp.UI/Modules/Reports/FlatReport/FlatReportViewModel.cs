@@ -53,7 +53,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                 //нужно для создания контейнеров
                 GetYearContainerOit(StartDate.Year);
                 RefreshInReportStatus();
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -67,7 +67,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                 //нужно для создания контейнеров
                 GetYearContainerOit(FinishDate.Year);
                 RefreshInReportStatus();
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -516,7 +516,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                 RemoveItemFromContainerRealization(item);
                 AddItemToContainerRealization(item);
                 RefreshInReportStatusRealization();
-                OnPropertyChanged(nameof(MonthContainersRealization));
+                RaisePropertyChanged(nameof(MonthContainersRealization));
             }
         }
 
@@ -541,7 +541,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                     AddItemToContainerOit(item);
                 }
 
-                OnPropertyChanged(nameof(MonthContainersOit));
+                RaisePropertyChanged(nameof(MonthContainersOit));
             }
         }
 
@@ -614,14 +614,14 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
             StartDate = startDate;
             FinishDate = finishDate;
 
-            OnPropertyChanged(nameof(MonthContainersRealization));
+            RaisePropertyChanged(nameof(MonthContainersRealization));
         }
 
         private void RefreshContainersVisualisation()
         {
             if (_doNotRefreshContainersVisualisation) return;
-            OnPropertyChanged(nameof(MonthContainersOit));
-            OnPropertyChanged(nameof(MonthContainersRealization));
+            RaisePropertyChanged(nameof(MonthContainersOit));
+            RaisePropertyChanged(nameof(MonthContainersRealization));
         }
 
         #region ItemAddRemove

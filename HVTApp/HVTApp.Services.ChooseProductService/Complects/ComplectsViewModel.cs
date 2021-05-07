@@ -22,7 +22,7 @@ namespace HVTApp.Services.GetProductService.Complects
             set
             {
                 _selectedItem = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
                 ((DelegateCommand)SelectCommand).RaiseCanExecuteChanged();
             }
         }

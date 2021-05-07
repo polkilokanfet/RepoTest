@@ -23,7 +23,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedCountriesItem, value)) return;
 				_selectedCountriesItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromCountriesCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -106,7 +106,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedUnitsItem, value)) return;
 				_selectedUnitsItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromUnitsCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -220,7 +220,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedParametersItem, value)) return;
 				_selectedParametersItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromParametersCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -265,7 +265,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedConstructorsItem, value)) return;
 				_selectedConstructorsItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromConstructorsCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -281,7 +281,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedPatametersListsItem, value)) return;
 				_selectedPatametersListsItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromPatametersListsCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -395,7 +395,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedMessagesItem, value)) return;
 				_selectedMessagesItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromMessagesCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -411,7 +411,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedChildsItem, value)) return;
 				_selectedChildsItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromChildsCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -427,7 +427,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedParallelItem, value)) return;
 				_selectedParallelItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromParallelCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -443,7 +443,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedNextItem, value)) return;
 				_selectedNextItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromNextCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -613,7 +613,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedObserversItem, value)) return;
 				_selectedObserversItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromObserversCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -629,7 +629,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedFilesItem, value)) return;
 				_selectedFilesItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromFilesCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -781,7 +781,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedPerformersItem, value)) return;
 				_selectedPerformersItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromPerformersCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -850,7 +850,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedActivityFieldsItem, value)) return;
 				_selectedActivityFieldsItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromActivityFieldsCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -956,7 +956,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedPriceCalculationItemsItem, value)) return;
 				_selectedPriceCalculationItemsItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromPriceCalculationItemsCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -972,7 +972,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedFilesItem, value)) return;
 				_selectedFilesItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromFilesCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -1066,7 +1066,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedSalesUnitsItem, value)) return;
 				_selectedSalesUnitsItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromSalesUnitsCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -1082,7 +1082,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedStructureCostsItem, value)) return;
 				_selectedStructureCostsItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromStructureCostsCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -1162,7 +1162,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedParametersItem, value)) return;
 				_selectedParametersItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromParametersCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -1265,7 +1265,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedParametersItem, value)) return;
 				_selectedParametersItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromParametersCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -1281,7 +1281,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedParentsItem, value)) return;
 				_selectedParentsItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromParentsCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -1360,7 +1360,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedParametersItem, value)) return;
 				_selectedParametersItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromParametersCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -1429,7 +1429,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedParametersItem, value)) return;
 				_selectedParametersItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromParametersCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -1474,7 +1474,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedParametersItem, value)) return;
 				_selectedParametersItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromParametersCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -1586,7 +1586,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedSalesUnitsItem, value)) return;
 				_selectedSalesUnitsItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromSalesUnitsCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -1602,7 +1602,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedFilesItem, value)) return;
 				_selectedFilesItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromFilesCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -1681,7 +1681,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedRequrementsItem, value)) return;
 				_selectedRequrementsItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromRequrementsCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -1697,7 +1697,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedPriceCalculationsItem, value)) return;
 				_selectedPriceCalculationsItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromPriceCalculationsCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -1713,7 +1713,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedAnswerFilesItem, value)) return;
 				_selectedAnswerFilesItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromAnswerFilesCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -1813,7 +1813,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedUsersItem, value)) return;
 				_selectedUsersItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromUsersCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -2468,7 +2468,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedProductsIncludedItem, value)) return;
 				_selectedProductsIncludedItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromProductsIncludedCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -2573,7 +2573,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedPaymentConditionsItem, value)) return;
 				_selectedPaymentConditionsItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromPaymentConditionsCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -2623,7 +2623,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedParametersItem, value)) return;
 				_selectedParametersItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromParametersCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -2639,7 +2639,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedPricesItem, value)) return;
 				_selectedPricesItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromPricesCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -2655,7 +2655,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedFixedCostsItem, value)) return;
 				_selectedFixedCostsItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromFixedCostsCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -2813,7 +2813,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedBankDetailsListItem, value)) return;
 				_selectedBankDetailsListItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromBankDetailsListCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -2829,7 +2829,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedActivityFildsItem, value)) return;
 				_selectedActivityFildsItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromActivityFildsCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -3042,7 +3042,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedParameterRelationsItem, value)) return;
 				_selectedParameterRelationsItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromParameterRelationsCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -3131,7 +3131,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedParentProductParametersItem, value)) return;
 				_selectedParentProductParametersItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromParentProductParametersCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -3147,7 +3147,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedChildProductParametersItem, value)) return;
 				_selectedChildProductParametersItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromChildProductParametersCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -3221,7 +3221,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedRequiredParametersItem, value)) return;
 				_selectedRequiredParametersItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromRequiredParametersCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -3311,7 +3311,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedProductsIncludedItem, value)) return;
 				_selectedProductsIncludedItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromProductsIncludedCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -3327,7 +3327,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedLosingReasonsItem, value)) return;
 				_selectedLosingReasonsItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromLosingReasonsCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -3343,7 +3343,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedPaymentsActualItem, value)) return;
 				_selectedPaymentsActualItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromPaymentsActualCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -3359,7 +3359,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedPaymentsPlannedItem, value)) return;
 				_selectedPaymentsPlannedItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromPaymentsPlannedCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -3375,7 +3375,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedBankGuaranteesItem, value)) return;
 				_selectedBankGuaranteesItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromBankGuaranteesCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -3391,7 +3391,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedPaymentsPlannedActualItem, value)) return;
 				_selectedPaymentsPlannedActualItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromPaymentsPlannedActualCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -3407,7 +3407,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedPaymentsPlannedGeneratedItem, value)) return;
 				_selectedPaymentsPlannedGeneratedItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromPaymentsPlannedGeneratedCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -3423,7 +3423,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedPaymentsPlannedCalculatedItem, value)) return;
 				_selectedPaymentsPlannedCalculatedItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromPaymentsPlannedCalculatedCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -3773,7 +3773,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedCopyToRecipientsItem, value)) return;
 				_selectedCopyToRecipientsItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromCopyToRecipientsCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -3932,7 +3932,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedDependentProductsItem, value)) return;
 				_selectedDependentProductsItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromDependentProductsCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -4057,7 +4057,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedCopyToRecipientsItem, value)) return;
 				_selectedCopyToRecipientsItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromCopyToRecipientsCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -4314,7 +4314,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedPaymentsItem, value)) return;
 				_selectedPaymentsItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromPaymentsCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -4438,7 +4438,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedNotesItem, value)) return;
 				_selectedNotesItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromNotesCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -4561,7 +4561,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedTypesItem, value)) return;
 				_selectedTypesItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromTypesCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -4577,7 +4577,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedParticipantsItem, value)) return;
 				_selectedParticipantsItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromParticipantsCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -4686,7 +4686,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selectedRolesItem, value)) return;
 				_selectedRolesItem = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFromRolesCommand.RaiseCanExecuteChanged();
 			}
 		}

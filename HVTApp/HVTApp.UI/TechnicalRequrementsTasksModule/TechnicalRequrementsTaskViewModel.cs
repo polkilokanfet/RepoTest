@@ -169,9 +169,9 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                     SaveCommand.RaiseCanExecuteChanged();
                     (StartCommand).RaiseCanExecuteChanged();
                     (RejectCommand).RaiseCanExecuteChanged();
-                    OnPropertyChanged(nameof(ValidationResult));
+                    RaisePropertyChanged(nameof(ValidationResult));
                 };
-                OnPropertyChanged();
+                RaisePropertyChanged();
                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsStarted)));
             }
         }

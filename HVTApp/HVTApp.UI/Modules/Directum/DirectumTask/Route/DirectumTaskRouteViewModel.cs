@@ -34,7 +34,7 @@ namespace HVTApp.UI.Modules.Directum
                         directumTaskRouteItemWrapper.FinishPlan = FinishPlan;
                 });
 
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -49,7 +49,7 @@ namespace HVTApp.UI.Modules.Directum
                 if(IsParallel)
                     DirectumTaskRoute.Items.ForEach(x => x.FinishPlan = value);
                 (OkCommand).RaiseCanExecuteChanged();
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -59,7 +59,7 @@ namespace HVTApp.UI.Modules.Directum
             set
             {
                 _selectedDirectumTaskRouteItem = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
                 (RemovePerformerCommand).RaiseCanExecuteChanged();
             }
         }

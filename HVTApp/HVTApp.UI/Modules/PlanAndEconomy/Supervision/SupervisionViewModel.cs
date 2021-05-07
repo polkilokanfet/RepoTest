@@ -27,7 +27,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Supervision
             {
                 _selectedUnits = value;
                 PrintLetterCommand.RaiseCanExecuteChanged();
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 

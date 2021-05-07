@@ -23,7 +23,7 @@ namespace HVTApp.UI.Modules.Sales.Payments
             {
                 _selectedItem = value;
                 (RemoveCommand).RaiseCanExecuteChanged();
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 

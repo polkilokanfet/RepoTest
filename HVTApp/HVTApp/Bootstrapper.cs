@@ -168,9 +168,9 @@ namespace HVTApp
             #region IEventServiceClient
 
             //старт клиентской части сервиса синхронизации
-#if DEBUG
+            #if DEBUG
             if(true)
-#endif
+            #endif
                 Container.Resolve<IEventServiceClient>().Start();
 
             #endregion

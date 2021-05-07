@@ -66,8 +66,8 @@ namespace HVTApp.UI.Modules.Sales.Market
                     _eventAggregator.GetEvent<SelectedProjectChangedEvent>().Publish(value.Project);
                 }
 
-                OnPropertyChanged(nameof(Market2ViewModel.Notes));
-                (AddNoteCommand).RaiseCanExecuteChanged();
+                RaisePropertyChanged(nameof(Market2ViewModel.Notes));
+                AddNoteCommand.RaiseCanExecuteChanged();
                 SelectedNote = null;
 
                 Offers.SelectedItem = null;
@@ -89,7 +89,7 @@ namespace HVTApp.UI.Modules.Sales.Market
             private set
             {
                 _offers = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -99,7 +99,7 @@ namespace HVTApp.UI.Modules.Sales.Market
             private set
             {
                 _tenders1 = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -109,7 +109,7 @@ namespace HVTApp.UI.Modules.Sales.Market
             private set
             {
                 _technicalRequrementsTasks = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -119,7 +119,7 @@ namespace HVTApp.UI.Modules.Sales.Market
             private set
             {
                 _priceCalculations = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 

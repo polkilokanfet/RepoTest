@@ -48,7 +48,7 @@ namespace HVTApp.Services.WpfAuthenticationService
 
         public UserRole SelectedRole
         {
-            get { return _selectedRole; }
+            get => _selectedRole;
             set
             {
                 _selectedRole = value;

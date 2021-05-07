@@ -54,7 +54,7 @@ namespace HVTApp.Model.Wrapper
             {
                 if (Equals(_priceDate, value)) return;
                 _priceDate = value;
-                OnPropertyChanged();
+                OnPropertyChanged(); 
                 RisePropertyChangedEvents();
             }
         }
@@ -85,7 +85,7 @@ namespace HVTApp.Model.Wrapper
 
         public double MarginalIncome
         {
-            get { return (Math.Abs(Cost) > 0.0001) ? 100 * (Cost - Price) / Cost : 0; }
+            get => (Math.Abs(Cost) > 0.0001) ? 100 * (Cost - Price) / Cost : 0;
             set
             {
                 if (Equals(MarginalIncome, value)) return;

@@ -32,11 +32,11 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsPlan
             {
                 if (Equals(_date, value)) return;
                 _date = value;
-                OnPropertyChanged(nameof(Week));
-                OnPropertyChanged(nameof(Month));
-                OnPropertyChanged(nameof(Year));
-                OnPropertyChanged(nameof(Days));
-                OnPropertyChanged(nameof(PaymentType));
+                RaisePropertyChanged(nameof(Week));
+                RaisePropertyChanged(nameof(Month));
+                RaisePropertyChanged(nameof(Year));
+                RaisePropertyChanged(nameof(Days));
+                RaisePropertyChanged(nameof(PaymentType));
             }
         }
 

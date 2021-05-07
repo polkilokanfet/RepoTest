@@ -42,8 +42,8 @@ namespace HVTApp.UI.Modules.Sales.Payments
             set
             {
                 if (value < DateTime.Today) return;
-                Payments.ForEach(x => x.Date = value);
-                OnPropertyChanged(nameof(IsCustom));
+                Payments.ForEach(paymentWrapper => paymentWrapper.Date = value);
+                RaisePropertyChanged(nameof(IsCustom));
             }
         }
 
@@ -54,9 +54,9 @@ namespace HVTApp.UI.Modules.Sales.Payments
 
         public void RemovePayments(IUnitOfWork unitOfWork)
         {
-            Payments.ForEach(x => x.Remove(unitOfWork));
-            OnPropertyChanged(nameof(Date));
-            OnPropertyChanged(nameof(IsCustom));
+            Payments.ForEach(paymentWrapper => paymentWrapper.Remove(unitOfWork));
+            RaisePropertyChanged(nameof(Date));
+            RaisePropertyChanged(nameof(IsCustom));
         }
     }
 }

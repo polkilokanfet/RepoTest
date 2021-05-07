@@ -21,7 +21,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
                 if (Equals(_amount, value)) return;
                 _amount = value;
                 OkCommand.RaiseCanExecuteChanged();
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 

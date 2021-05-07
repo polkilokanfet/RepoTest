@@ -27,7 +27,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
                 if (value - (SumNotPaid + Sum) > 0.000001) return;
 
                 PaymentActual.Sum = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -37,7 +37,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
             set
             {
                 Sum = value / ((100.0 + SalesUnit.Model.Vat) / 100.0);
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -59,9 +59,9 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
 
         private void PaymentActualOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
-            OnPropertyChanged(nameof(SumNotPaid));
-            OnPropertyChanged(nameof(SumNotPaidWithVat));
-            OnPropertyChanged(nameof(Sum));
+            RaisePropertyChanged(nameof(SumNotPaid));
+            RaisePropertyChanged(nameof(SumNotPaidWithVat));
+            RaisePropertyChanged(nameof(Sum));
         }
     }
 }

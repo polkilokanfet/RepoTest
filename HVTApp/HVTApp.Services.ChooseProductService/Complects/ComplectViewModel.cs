@@ -28,7 +28,7 @@ namespace HVTApp.Services.GetProductService.Complects
             private set
             {
                 _parameterComplectType = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 

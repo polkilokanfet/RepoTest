@@ -18,7 +18,7 @@ namespace HVTApp.Infrastructure.ViewModels
             protected set
             {
                 _isLoaded = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
 
                 if (_isLoaded)
                 {

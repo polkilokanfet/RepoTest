@@ -37,7 +37,7 @@ namespace HVTApp.UI.ViewModels
             set
             {
                 _isLoaded = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -125,7 +125,7 @@ namespace HVTApp.UI.ViewModels
 
                 ((DelegateLogCommand)SaveCommand).RaiseCanExecuteChanged();
                 ((DelegateLogCommand)OkCommand).RaiseCanExecuteChanged();
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 

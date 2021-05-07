@@ -78,7 +78,7 @@ namespace HVTApp.UI.Modules.Sales.Market
                 {
                     var note = new NoteWrapper(new Note {Date = DateTime.Now});
                     ProjectNotesWrapper.Notes.Add(note);
-                    OnPropertyChanged(nameof(Notes));
+                    RaisePropertyChanged(nameof(Notes));
                 },
                 () => ProjectNotesWrapper != null);
 
@@ -86,7 +86,7 @@ namespace HVTApp.UI.Modules.Sales.Market
                 () =>
                 {
                     ProjectNotesWrapper.Notes.Remove(SelectedNote);
-                    OnPropertyChanged(nameof(Notes));
+                    RaisePropertyChanged(nameof(Notes));
                     SelectedNote = null;
                 },
                 () => SelectedNote != null);

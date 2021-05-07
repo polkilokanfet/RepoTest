@@ -25,22 +25,22 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels.Groups
 
         public DateTime? SignalToStartProductionDone
         {
-            get { return _signalToStartProductionDone; }
+            get => _signalToStartProductionDone;
             set
             {
                 _signalToStartProductionDone = value;
-                Units.ForEach(x => x.SignalToStartProductionDone = value);
+                Units.ForEach(salesUnitOrderItem => salesUnitOrderItem.SignalToStartProductionDone = value);
                 OnPropertyChanged();
             }
         }
 
         public DateTime? EndProductionPlanDate
         {
-            get { return _endProductionPlanDate; }
+            get => _endProductionPlanDate;
             set
             {
                 _endProductionPlanDate = value;
-                Units.ForEach(x => x.EndProductionPlanDate = value);
+                Units.ForEach(salesUnitOrderItem => salesUnitOrderItem.EndProductionPlanDate = value);
                 OnPropertyChanged();
             }
         }

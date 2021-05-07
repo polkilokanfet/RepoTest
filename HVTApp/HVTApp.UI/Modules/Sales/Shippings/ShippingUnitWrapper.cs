@@ -10,7 +10,7 @@ namespace HVTApp.UI.Modules.Sales.Shippings
 
         public DateTime? Date
         {
-            get { return Model.ShipmentDate?.Date ?? Model.ShipmentPlanDate; }
+            get => Model.ShipmentDate?.Date ?? Model.ShipmentPlanDate;
             set
             {
                 if (Model.ShipmentDate.HasValue) return;
@@ -21,8 +21,8 @@ namespace HVTApp.UI.Modules.Sales.Shippings
 
         public DateTime? ShipmentPlanDate
         {
-            get { return GetValue<DateTime?>(); }
-            set { SetValue(value); }
+            get => GetValue<DateTime?>();
+            set => SetValue(value);
         }
         public DateTime? ShipmentPlanDateOriginalValue => GetOriginalValue<DateTime?>(nameof(ShipmentPlanDate));
         public bool ShipmentPlanDateIsChanged => GetIsChanged(nameof(ShipmentPlanDate));

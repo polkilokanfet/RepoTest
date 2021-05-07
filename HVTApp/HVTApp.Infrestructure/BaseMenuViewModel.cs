@@ -8,11 +8,11 @@ namespace HVTApp.Infrastructure
         private ObservableCollection<NavigationItem> _items;
         public ObservableCollection<NavigationItem> Items
         {
-            get { return _items; }
+            get => _items;
             set
             {
                 _items = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 

@@ -25,40 +25,40 @@ namespace HVTApp.Model.Wrapper
 
         public FacilityWrapper Facility
         {
-            get { return Units.First().Facility; }
-            set { SetValue(value); }
+            get => Units.First().Facility;
+            set => SetValue(value);
         }
 
         public ProductWrapper Product
         {
-            get { return Units.First().Product; }
-            set { SetValue(value); }
+            get => Units.First().Product;
+            set => SetValue(value);
         }
 
         public PaymentConditionSetWrapper PaymentConditionSet
         {
-            get { return Units.First().PaymentConditionSet; }
-            set { SetValue(value); }
+            get => Units.First().PaymentConditionSet;
+            set => SetValue(value);
         }
 
         public IValidatableChangeTrackingCollection<ProductIncludedWrapper> ProductsIncluded { get; }
 
         public double Price
         {
-            get { return _price; }
+            get => _price;
             set
             {
                 if (Math.Abs(_price - value) < 0.0001) return;
                 _price = value;
                 MarginalIncome = (1 - Price / Cost) * 100;
                 Groups.ForEach(x => x.Price = value);
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
         public double Cost
         {
-            get { return Units.First().Cost; }
+            get => Units.First().Cost;
             set
             {
                 if (Equals(value, Cost)) return;
@@ -67,14 +67,14 @@ namespace HVTApp.Model.Wrapper
                 Groups.ForEach(x => x.Cost = value);
                 Units.ForEach(x => x.Cost = value);
                 MarginalIncome = (1 - Price / value) * 100;
-                OnPropertyChanged(nameof(Total));
-                OnPropertyChanged();
+                RaisePropertyChanged(nameof(Total));
+                RaisePropertyChanged();
             }
         }
 
         public double? MarginalIncome
         {
-            get { return _marginalIncome; }
+            get => _marginalIncome;
             set
             {
                 if (Equals(_marginalIncome, value)) return;
@@ -82,13 +82,13 @@ namespace HVTApp.Model.Wrapper
 
                 //_marginalIncome = value;
                 //Cost = Price / (1 - value / 100);
-                //OnPropertyChanged();
+                //RaisePropertyChanged();
             }
         }
 
         public int? ProductionTerm
         {
-            get { return Units.First().ProductionTerm; }
+            get => Units.First().ProductionTerm;
             set
             {
                 if (value.HasValue && value < 0)
@@ -170,7 +170,7 @@ namespace HVTApp.Model.Wrapper
                     property.SetValue(unit, value);
                 }
             }
-            OnPropertyChanged(propertyName);
+            RaisePropertyChanged(propertyName);
         }
 
         public void AcceptChanges()
@@ -191,8 +191,8 @@ namespace HVTApp.Model.Wrapper
     {
         public DateTime DeliveryDateExpected
         {
-            get { return ((IUnitWrapperDated)Units.First()).DeliveryDateExpected; }
-            set { SetValue(value); }
+            get => ((IUnitWrapperDated)Units.First()).DeliveryDateExpected;
+            set => SetValue(value);
         }
 
         public UnitsDatedGroup(IEnumerable<IUnitWrapperDated> units) : base(units)

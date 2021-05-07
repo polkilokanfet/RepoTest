@@ -80,13 +80,13 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
             if (document.RecipientEmployee != null)
                 Item.RecipientEmployee = new EmployeeWrapper(UnitOfWork.Repository<Employee>().GetById(document.RecipientEmployee.Id));
 
-            OnPropertyChanged(nameof(DocType));
+            RaisePropertyChanged(nameof(DocType));
         }
 
         public void LoadEdit(Document document)
         {
             this.Load(document);
-            OnPropertyChanged(nameof(DocType));
+            RaisePropertyChanged(nameof(DocType));
         }
 
         protected override void SaveItem()

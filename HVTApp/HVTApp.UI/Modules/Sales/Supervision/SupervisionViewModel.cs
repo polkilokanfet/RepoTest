@@ -56,7 +56,7 @@ namespace HVTApp.UI.Modules.Sales.Supervision
             {
                 if (args.PropertyName == nameof(SelectedUnits))
                 {
-                    OnPropertyChanged(nameof(SupervisionCall));
+                    RaisePropertyChanged(nameof(SupervisionCall));
                 }
             };
         }

@@ -68,8 +68,8 @@ namespace HVTApp.Model.Wrapper.Groups
             {
                 if (value < CostMin) return;
                 SetValue(value);
-                OnPropertyChanged(nameof(MarginalIncome));
-                OnPropertyChanged(nameof(Total));
+                RaisePropertyChanged(nameof(MarginalIncome));
+                RaisePropertyChanged(nameof(Total));
             }
         }
 
@@ -90,7 +90,7 @@ namespace HVTApp.Model.Wrapper.Groups
 
                 SetValue(value / Amount);
                 CheckCost();
-                OnPropertyChanged(nameof(MarginalIncome));
+                RaisePropertyChanged(nameof(MarginalIncome));
             }
         }
 
@@ -108,8 +108,8 @@ namespace HVTApp.Model.Wrapper.Groups
                 if (Math.Abs(_fixedCost - value) < 0.00001) return;
                 _fixedCost = value;
                 CheckCost();
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(MarginalIncome));
+                RaisePropertyChanged();
+                RaisePropertyChanged(nameof(MarginalIncome));
             }
         }
 
@@ -133,8 +133,8 @@ namespace HVTApp.Model.Wrapper.Groups
             {
                 if (Math.Abs(_price - value) < 0.00001) return;
                 _price = value;
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(MarginalIncome));
+                RaisePropertyChanged();
+                RaisePropertyChanged(nameof(MarginalIncome));
             }
         }
 
@@ -152,7 +152,7 @@ namespace HVTApp.Model.Wrapper.Groups
 
                 var marginalIncome = value.Value;
                 Cost = Price / (1.0 - marginalIncome / 100.0) + CostMin;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -207,9 +207,9 @@ namespace HVTApp.Model.Wrapper.Groups
         /// <param name="args"></param>
         private void UnitOnPropertyChanged(object sender, PropertyChangedEventArgs args)
         {
-            if (args.PropertyName == nameof(Cost)) OnPropertyChanged(nameof(Cost));
-            if (args.PropertyName == nameof(IsChanged)) OnPropertyChanged(nameof(IsChanged));
-            if (args.PropertyName == nameof(IsValid)) OnPropertyChanged(nameof(IsValid));
+            if (args.PropertyName == nameof(Cost)) RaisePropertyChanged(nameof(Cost));
+            if (args.PropertyName == nameof(IsChanged)) RaisePropertyChanged(nameof(IsChanged));
+            if (args.PropertyName == nameof(IsValid)) RaisePropertyChanged(nameof(IsValid));
         }
 
         /// <summary>
@@ -219,10 +219,10 @@ namespace HVTApp.Model.Wrapper.Groups
         /// <param name="args"></param>
         private void GroupsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
         {
-            OnPropertyChanged(nameof(Amount));
-            OnPropertyChanged(nameof(Total));
-            OnPropertyChanged(nameof(IsChanged));
-            OnPropertyChanged(nameof(IsValid));
+            RaisePropertyChanged(nameof(Amount));
+            RaisePropertyChanged(nameof(Total));
+            RaisePropertyChanged(nameof(IsChanged));
+            RaisePropertyChanged(nameof(IsValid));
         }
 
         #endregion
@@ -281,7 +281,7 @@ namespace HVTApp.Model.Wrapper.Groups
                 }
             }
 
-            OnPropertyChanged(nameof(ProductsIncluded));
+            RaisePropertyChanged(nameof(ProductsIncluded));
         }
 
         /// <summary>
@@ -304,7 +304,7 @@ namespace HVTApp.Model.Wrapper.Groups
                 }
             }
 
-            OnPropertyChanged(nameof(ProductsIncluded));
+            RaisePropertyChanged(nameof(ProductsIncluded));
         }
 
         #endregion
@@ -333,7 +333,7 @@ namespace HVTApp.Model.Wrapper.Groups
                     salesUnitsGroup.GetType().GetProperty(propertyName).SetValue(salesUnitsGroup, value);
                 }
             }
-            OnPropertyChanged(propertyName);
+            RaisePropertyChanged(propertyName);
         }
 
         #endregion

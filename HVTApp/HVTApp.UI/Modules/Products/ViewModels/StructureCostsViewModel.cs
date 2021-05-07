@@ -24,7 +24,7 @@ namespace HVTApp.UI.Modules.Products.ViewModels
             set
             {
                 _selectedProductBlock = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
                 PrintProductBlockCommand.RaiseCanExecuteChanged();
             }
         }

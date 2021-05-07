@@ -150,7 +150,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
 
             #endregion
 
-            Groups.SumChanged += () => { OnPropertyChanged(nameof(Sum)); };
+            Groups.SumChanged += () => { RaisePropertyChanged(nameof(Sum)); };
         }
 
         protected virtual void RemoveCommand_Execute()
@@ -212,14 +212,14 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
 
             //создаем контейнер
             Groups = new GroupsCollection<TModel, TGroup, TMember>(GetGroups(unitsArray), isNew);
-            Groups.SumChanged += () => { OnPropertyChanged(nameof(Sum)); };
+            Groups.SumChanged += () => { RaisePropertyChanged(nameof(Sum)); };
 
             // реакция на выбор группы
             Groups.SelectedGroupChanged += group =>
             {
-                (RemoveCommand)?.RaiseCanExecuteChanged();
-                (AddProductIncludedCommand)?.RaiseCanExecuteChanged();
-                OnPropertyChanged(nameof(Prices));
+                RemoveCommand?.RaiseCanExecuteChanged();
+                AddProductIncludedCommand?.RaiseCanExecuteChanged();
+                RaisePropertyChanged(nameof(Prices));
             };
 
             // реакция на выбор включенного оборудования
@@ -230,7 +230,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             };
 
             // событие для того, чтобы вид перепривязал группы
-            OnPropertyChanged(nameof(Groups));
+            RaisePropertyChanged(nameof(Groups));
 
             // подписка на события изменения каждой группы и их членов
             ((IValidatableChangeTrackingCollection<TGroup>)Groups).PropertyChanged += (sender, args) => GroupChanged?.Invoke();

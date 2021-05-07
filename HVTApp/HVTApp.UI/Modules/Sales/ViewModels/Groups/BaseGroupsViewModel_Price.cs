@@ -51,7 +51,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             //обновляем себестоимость группы
             grp.Price = PriceDictionary[grp].SumPriceTotal;
             grp.FixedCost = PriceDictionary[grp].SumFixedTotal;
-            OnPropertyChanged(nameof(Prices));
+            RaisePropertyChanged(nameof(Prices));
 
             //если в группе есть зависимые группы - обновить и для них
             grp.Groups?.ForEach(x => RefreshPrice(x as TGroup));

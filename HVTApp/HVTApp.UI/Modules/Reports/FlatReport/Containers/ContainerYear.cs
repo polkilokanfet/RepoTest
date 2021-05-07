@@ -55,9 +55,9 @@ namespace HVTApp.UI.Modules.Reports.FlatReport.Containers
 
             foreach (var monthContainer in MonthContainers)
             {
-                monthContainer.InReportIsChanged += () => OnPropertyChanged(nameof(InReport));
-                monthContainer.CurrentSumIsChanged += () => OnPropertyChanged(nameof(Sum));
-                monthContainer.TargetSumIsChanged += () => OnPropertyChanged(nameof(TargetSum));
+                monthContainer.InReportIsChanged += () => RaisePropertyChanged(nameof(InReport));
+                monthContainer.CurrentSumIsChanged += () => RaisePropertyChanged(nameof(Sum));
+                monthContainer.TargetSumIsChanged += () => RaisePropertyChanged(nameof(TargetSum));
             }
         }
     }

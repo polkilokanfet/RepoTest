@@ -48,7 +48,7 @@ namespace HVTApp.UI.Modules.Sales.Shippings
                 _date = value;
 
                 Units.ForEach(x => x.Date = value);
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 

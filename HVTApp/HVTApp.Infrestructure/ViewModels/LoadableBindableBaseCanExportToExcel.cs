@@ -19,7 +19,7 @@ namespace HVTApp.Infrastructure.ViewModels
                 if (Equals(_isLoaded, value))
                     return;
                 _isLoaded = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 

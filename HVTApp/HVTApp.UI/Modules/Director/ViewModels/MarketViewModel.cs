@@ -20,7 +20,7 @@ namespace HVTApp.UI.Modules.Director.ViewModels
             private set
             {
                 _isLoaded = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 

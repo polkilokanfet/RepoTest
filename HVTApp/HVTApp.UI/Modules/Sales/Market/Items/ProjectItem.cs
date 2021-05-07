@@ -43,9 +43,9 @@ namespace HVTApp.UI.Modules.Sales.Market.Items
             set
             {
                 _project = value;
-                OnPropertyChanged(nameof(this.InWork));
-                OnPropertyChanged(nameof(this.ForReport));
-                OnPropertyChanged();
+                RaisePropertyChanged(nameof(this.InWork));
+                RaisePropertyChanged(nameof(this.ForReport));
+                RaisePropertyChanged();
             }
         }
 
@@ -113,10 +113,10 @@ namespace HVTApp.UI.Modules.Sales.Market.Items
 
         private void RefreshTenderInformation()
         {
-            OnPropertyChanged(nameof(TenderDate));
-            OnPropertyChanged(nameof(Builder));
-            OnPropertyChanged(nameof(ProjectMaker));
-            OnPropertyChanged(nameof(Supplier));
+            RaisePropertyChanged(nameof(TenderDate));
+            RaisePropertyChanged(nameof(Builder));
+            RaisePropertyChanged(nameof(ProjectMaker));
+            RaisePropertyChanged(nameof(Supplier));
         }
 
         #endregion
@@ -196,18 +196,18 @@ namespace HVTApp.UI.Modules.Sales.Market.Items
         {
             if (!SalesUnits.Any()) return;
 
-            OnPropertyChanged(nameof(this.Facilities));
-            OnPropertyChanged(nameof(this.Sum));
-            OnPropertyChanged(nameof(this.OrderInTakeDate));
-            OnPropertyChanged(nameof(this.OrderInTakeYear));
-            OnPropertyChanged(nameof(this.OrderInTakeMonth));
-            OnPropertyChanged(nameof(this.IsLoosen));
-            OnPropertyChanged(nameof(this.IsDone));
-            OnPropertyChanged(nameof(this.InWork));
-            OnPropertyChanged(nameof(this.ForReport));
-            OnPropertyChanged(nameof(this.DaysToStartProduction));
+            RaisePropertyChanged(nameof(this.Facilities));
+            RaisePropertyChanged(nameof(this.Sum));
+            RaisePropertyChanged(nameof(this.OrderInTakeDate));
+            RaisePropertyChanged(nameof(this.OrderInTakeYear));
+            RaisePropertyChanged(nameof(this.OrderInTakeMonth));
+            RaisePropertyChanged(nameof(this.IsLoosen));
+            RaisePropertyChanged(nameof(this.IsDone));
+            RaisePropertyChanged(nameof(this.InWork));
+            RaisePropertyChanged(nameof(this.ForReport));
+            RaisePropertyChanged(nameof(this.DaysToStartProduction));
 
-            OnPropertyChanged(nameof(this.ProjectUnitsGroups));
+            RaisePropertyChanged(nameof(this.ProjectUnitsGroups));
         }
 
         public void Check(SalesUnit salesUnit)

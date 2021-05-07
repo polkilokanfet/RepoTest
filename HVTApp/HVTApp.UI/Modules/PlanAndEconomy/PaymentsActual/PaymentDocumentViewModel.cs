@@ -52,7 +52,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
             {
                 _selectedPotentialUnits = value;
                 (AddPaymentCommand).RaiseCanExecuteChanged();
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -66,7 +66,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
             {
                 _selectedPayment = value;
                 (RemovePaymentCommand).RaiseCanExecuteChanged();
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -80,7 +80,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
             {
                 Payments.ForEach(x => x.PaymentActual.Date = value);
                 _dockDate = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -225,7 +225,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
 
                     Payments.Remove(SelectedPayment);
 
-                    OnPropertyChanged(nameof(DockSumWithVat));
+                    RaisePropertyChanged(nameof(DockSumWithVat));
                 },
                 () => SelectedPayment != null);
 
@@ -280,8 +280,8 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
 
             _dockDate = Payments.Any() ? Payments.First().PaymentActual.Date : DateTime.Today;
 
-            OnPropertyChanged(nameof(DockSumWithVat));
-            OnPropertyChanged(nameof(DockDate));
+            RaisePropertyChanged(nameof(DockSumWithVat));
+            RaisePropertyChanged(nameof(DockDate));
 
             //событие изменения в платежном документе
             PaymentDocument.PropertyChanged += PaymentDocumentOnPropertyChanged;
@@ -295,7 +295,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
         private void SalesUnitWrappersOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
             (SaveDocumentCommand).RaiseCanExecuteChanged();
-            OnPropertyChanged(nameof(DockSumWithVat));
+            RaisePropertyChanged(nameof(DockSumWithVat));
         }
 
         private void PaymentDocumentOnPropertyChanged(object sender, PropertyChangedEventArgs args)

@@ -62,8 +62,8 @@ namespace HVTApp.UI.Modules.Products.Parameters
                 if (Equals(_selectedRelation, value)) return;
                 _selectedRelation = value;
                 SelectedPotentialParameter = null;
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(PotentialRelationParameters));
+                RaisePropertyChanged();
+                RaisePropertyChanged(nameof(PotentialRelationParameters));
                 (RemoveRelationCommand).RaiseCanExecuteChanged();
                 (AddParameterToRelationCommand).RaiseCanExecuteChanged();
             }

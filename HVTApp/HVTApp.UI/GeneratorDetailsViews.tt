@@ -83,7 +83,7 @@ namespace HVTApp.UI.ViewModels
 			{ 
 				if (Equals(_selected<#=propertyName#>Item, value)) return;
 				_selected<#=propertyName#>Item = value;
-				OnPropertyChanged();
+				RaisePropertyChanged();
 				RemoveFrom<#=propertyName#>Command.RaiseCanExecuteChanged();
 			}
 		}
