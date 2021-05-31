@@ -1,4 +1,5 @@
 ﻿using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Interfaces.Services.EventService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
@@ -22,5 +23,6 @@ namespace HVTApp.Model
 
         public static IHvtAppLogger HvtAppLogger { get; set; }
         public static IMessageService MessageService { get; set; }
+        public static IEventServiceClient EventServiceClient { get; set; }
     }
 }

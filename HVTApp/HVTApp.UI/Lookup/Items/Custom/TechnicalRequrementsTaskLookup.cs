@@ -20,6 +20,8 @@ namespace HVTApp.UI.Lookup
         {
             get
             {
+                if (Entity.Start == null) return "Инициализация задачи";
+
                 if (BackManager == null) return "Назначение back-менеджера";
 
                 if (Entity.RejectByBackManagerMoment.HasValue) return "Отклонено.";
@@ -32,11 +34,11 @@ namespace HVTApp.UI.Lookup
                     }
 
                     //расчеты
-                    if(this.Entity.PriceCalculations.Any(x => x.TaskCloseMoment.HasValue))
+                    if(this.Entity.PriceCalculations.Any(calculation => calculation.TaskCloseMoment.HasValue))
                     {
                         var max = this.Entity.PriceCalculations
-                            .Where(x => x.TaskCloseMoment.HasValue)
-                            .Max(x => x.TaskCloseMoment.Value);
+                            .Where(calculation => calculation.TaskCloseMoment.HasValue)
+                            .Max(calculation => calculation.TaskCloseMoment.Value);
                         if (max < Start.Value)
                         {
                             return "Проработка back-менеджером (последний расчет ПЗ завершен до изменений).";
@@ -44,9 +46,9 @@ namespace HVTApp.UI.Lookup
                     }
                 }
                 
-                if (this.Entity.PriceCalculations.Any(x => x.TaskOpenMoment.HasValue))
+                if (this.Entity.PriceCalculations.Any(calculation => calculation.TaskOpenMoment.HasValue))
                 {
-                    if (this.PriceCalculations.Where(x => x.TaskOpenMoment.HasValue).All(x => x.TaskCloseMoment.HasValue))
+                    if (this.PriceCalculations.Where(calculationLookup => calculationLookup.TaskOpenMoment.HasValue).All(x => x.TaskCloseMoment.HasValue))
                         return "Проработано (все расчеты ПЗ завершены)";
                     return "Расчет ПЗ (запущено на расчет ПЗ)";
                 }

@@ -41,9 +41,9 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
             this.SelectedLookupChanged += lookup =>
             {
-                (EditCommand).RaiseCanExecuteChanged();
-                (RemoveCommand).RaiseCanExecuteChanged();
-                (InstructCommand).RaiseCanExecuteChanged();
+                EditCommand.RaiseCanExecuteChanged();
+                RemoveCommand.RaiseCanExecuteChanged();
+                InstructCommand.RaiseCanExecuteChanged();
             };
 
             InstructCommand = new DelegateLogCommand(

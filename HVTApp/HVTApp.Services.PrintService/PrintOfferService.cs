@@ -205,7 +205,7 @@ namespace HVTApp.Services.PrintService
                 "Комплектация и характеристики оборудования в соответствии с техническим приложением к настоящему предложению.",
                 GetShipmentConditions(offerUnitsGroups),
                 PrintConditions("Условия оплаты:", offerUnitsGroups.GroupBy(x => x.Model.PaymentConditionSet)),
-                PrintConditions("Срок производства (календарных дней, с правом досрочной поставки): ", offerUnitsGroups.GroupBy(x => x.ProductionTerm)),
+                PrintConditions("Срок производства (календарных дней, с правом досрочной поставки):", offerUnitsGroups.GroupBy(offerUnitsGroup => offerUnitsGroup.ProductionTerm)),
                 "Точный срок поставки оборудования уточняется при заключении договора.",
                 $"Настоящее предложение действительно до {offer.ValidityDate.ToShortDateString()} года.",
                 "В случае изменения технических характеристик оборудования или объёма поставки, условия предложения могут быть пересмотрены.",

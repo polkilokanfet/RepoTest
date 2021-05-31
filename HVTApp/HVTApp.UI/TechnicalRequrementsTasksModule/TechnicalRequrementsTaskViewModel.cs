@@ -823,14 +823,14 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
         private void RaiseCanExecuteChange()
         {
-            (StartCommand).RaiseCanExecuteChanged();
-            (EditCommand).RaiseCanExecuteChanged();
-            (CancelCommand).RaiseCanExecuteChanged();
-            (AddNewFileCommand).RaiseCanExecuteChanged();
-            (AddOldFileCommand).RaiseCanExecuteChanged();
-            (AddGroupCommand).RaiseCanExecuteChanged();
-            (RemoveFileCommand).RaiseCanExecuteChanged();
-            (RemoveGroupCommand).RaiseCanExecuteChanged();
+            StartCommand.RaiseCanExecuteChanged();
+            EditCommand.RaiseCanExecuteChanged();
+            CancelCommand.RaiseCanExecuteChanged();
+            AddNewFileCommand.RaiseCanExecuteChanged();
+            AddOldFileCommand.RaiseCanExecuteChanged();
+            AddGroupCommand.RaiseCanExecuteChanged();
+            RemoveFileCommand.RaiseCanExecuteChanged();
+            RemoveGroupCommand.RaiseCanExecuteChanged();
         }
 
         /// <summary>
