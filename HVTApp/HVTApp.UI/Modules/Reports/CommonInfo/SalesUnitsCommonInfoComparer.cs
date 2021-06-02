@@ -16,6 +16,7 @@ namespace HVTApp.UI.Modules.Reports.CommonInfo
             if (!Equals(x.Cost, y.Cost)) return false;
             if (!Equals(x.ProductionTerm, y.ProductionTerm)) return false;
             if (!Equals(x.Price, y.Price)) return false;
+            if (!Equals(x.LaborHours, y.LaborHours)) return false;
             if (!Equals(x.CostDelivery, y.CostDelivery)) return false;
             if (!Equals(x.CostDeliveryIncluded, y.CostDeliveryIncluded)) return false;
             if (!Equals(x.Project.Id, y.Project.Id)) return false;

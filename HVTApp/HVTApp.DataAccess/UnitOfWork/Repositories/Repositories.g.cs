@@ -53,6 +53,13 @@ namespace HVTApp.DataAccess
 		}
     }
 
+    public partial class CostsPercentsRepository : BaseRepository<CostsPercents>, ICostsPercentsRepository
+    {
+		public CostsPercentsRepository(DbContext context) : base(context) 
+		{
+		}
+    }
+
     public partial class CreateNewProductTaskRepository : BaseRepository<CreateNewProductTask>, ICreateNewProductTaskRepository
     {
 		public CreateNewProductTaskRepository(DbContext context) : base(context) 
@@ -98,6 +105,20 @@ namespace HVTApp.DataAccess
     public partial class IncomingRequestRepository : BaseRepository<IncomingRequest>, IIncomingRequestRepository
     {
 		public IncomingRequestRepository(DbContext context) : base(context) 
+		{
+		}
+    }
+
+    public partial class LaborHourCostRepository : BaseRepository<LaborHourCost>, ILaborHourCostRepository
+    {
+		public LaborHourCostRepository(DbContext context) : base(context) 
+		{
+		}
+    }
+
+    public partial class LaborHoursRepository : BaseRepository<LaborHours>, ILaborHoursRepository
+    {
+		public LaborHoursRepository(DbContext context) : base(context) 
 		{
 		}
     }

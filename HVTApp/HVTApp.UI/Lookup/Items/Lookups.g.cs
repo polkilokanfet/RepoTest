@@ -163,6 +163,29 @@ namespace HVTApp.UI.Lookup
 	    public List<ConstructorParametersListLookup> PatametersLists { get { return GetLookupEnum<ConstructorParametersListLookup>().ToList(); } }
 	}
 	[AllowEditAttribute(Role.Admin)]
+	[Designation("Расходы в процентах")]
+	public partial class CostsPercentsLookup : LookupItem<CostsPercents>
+	{
+		public CostsPercentsLookup(CostsPercents entity) : base(entity) 
+		{
+		}
+		
+        #region SimpleProperties
+		[OrderStatus(1)]
+        public System.DateTime Date => Entity.Date;
+
+		[OrderStatus(1)]
+        public System.Double ManagmentCosts => Entity.ManagmentCosts;
+
+		[OrderStatus(1)]
+        public System.Double EconomicCosts => Entity.EconomicCosts;
+
+		[OrderStatus(1)]
+        public System.Double CommercialCosts => Entity.CommercialCosts;
+
+        #endregion
+	}
+	[AllowEditAttribute(Role.Admin)]
 	[Designation("Задание на создание нового продукта")]
 	public partial class CreateNewProductTaskLookup : LookupItem<CreateNewProductTask>
 	{
@@ -372,6 +395,39 @@ namespace HVTApp.UI.Lookup
         #endregion
 		[OrderStatus(40)]
 	    public List<EmployeeLookup> Performers { get { return GetLookupEnum<EmployeeLookup>().ToList(); } }
+	}
+	[AllowEditAttribute(Role.Admin)]
+	[Designation("Нормо-час стоимость")]
+	public partial class LaborHourCostLookup : LookupItem<LaborHourCost>
+	{
+		public LaborHourCostLookup(LaborHourCost entity) : base(entity) 
+		{
+		}
+		
+        #region SimpleProperties
+		[OrderStatus(1)]
+        public System.DateTime Date => Entity.Date;
+
+		[OrderStatus(1)]
+        public System.Double Sum => Entity.Sum;
+
+        #endregion
+	}
+	[AllowEditAttribute(Role.Admin)]
+	[Designation("Нормо-часы")]
+	public partial class LaborHoursLookup : LookupItem<LaborHours>
+	{
+		public LaborHoursLookup(LaborHours entity) : base(entity) 
+		{
+		}
+		
+        #region SimpleProperties
+		[OrderStatus(9)]
+        public System.Double Amount => Entity.Amount;
+
+        #endregion
+		[OrderStatus(8)]
+	    public List<ParameterLookup> Parameters { get { return GetLookupEnum<ParameterLookup>().ToList(); } }
 	}
 	[AllowEditAttribute(Role.Admin)]
 	[Designation("Причина проигрыша")]
@@ -1686,6 +1742,9 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(985)]
         public System.Nullable<System.Double> Price => Entity.Price;
+
+		[OrderStatus(980)]
+        public System.Nullable<System.Double> LaborHours => Entity.LaborHours;
 
 		[OrderStatus(1)]
         public System.Int32 ProductionTerm => Entity.ProductionTerm;

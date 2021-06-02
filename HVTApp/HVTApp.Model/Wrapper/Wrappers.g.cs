@@ -321,6 +321,53 @@ namespace HVTApp.Model.Wrapper
         }
 	}
 
+		public partial class CostsPercentsWrapper : WrapperBase<CostsPercents>
+	{
+	    public CostsPercentsWrapper(CostsPercents model) : base(model) { }
+        #region SimpleProperties
+        //Date
+        public System.DateTime Date
+        {
+          get { return GetValue<System.DateTime>(); }
+          set { SetValue(value); }
+        }
+        public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
+        public bool DateIsChanged => GetIsChanged(nameof(Date));
+        //ManagmentCosts
+        public System.Double ManagmentCosts
+        {
+          get { return GetValue<System.Double>(); }
+          set { SetValue(value); }
+        }
+        public System.Double ManagmentCostsOriginalValue => GetOriginalValue<System.Double>(nameof(ManagmentCosts));
+        public bool ManagmentCostsIsChanged => GetIsChanged(nameof(ManagmentCosts));
+        //EconomicCosts
+        public System.Double EconomicCosts
+        {
+          get { return GetValue<System.Double>(); }
+          set { SetValue(value); }
+        }
+        public System.Double EconomicCostsOriginalValue => GetOriginalValue<System.Double>(nameof(EconomicCosts));
+        public bool EconomicCostsIsChanged => GetIsChanged(nameof(EconomicCosts));
+        //CommercialCosts
+        public System.Double CommercialCosts
+        {
+          get { return GetValue<System.Double>(); }
+          set { SetValue(value); }
+        }
+        public System.Double CommercialCostsOriginalValue => GetOriginalValue<System.Double>(nameof(CommercialCosts));
+        public bool CommercialCostsIsChanged => GetIsChanged(nameof(CommercialCosts));
+        //Id
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+        #endregion
+	}
+
 		public partial class CreateNewProductTaskWrapper : WrapperBase<CreateNewProductTask>
 	{
 	    public CreateNewProductTaskWrapper(CreateNewProductTask model) : base(model) { }
@@ -726,6 +773,69 @@ namespace HVTApp.Model.Wrapper
           if (Model.Performers == null) throw new ArgumentException("Performers cannot be null");
           Performers = new ValidatableChangeTrackingCollection<EmployeeWrapper>(Model.Performers.Select(e => new EmployeeWrapper(e)));
           RegisterCollection(Performers, Model.Performers);
+        }
+	}
+
+		public partial class LaborHourCostWrapper : WrapperBase<LaborHourCost>
+	{
+	    public LaborHourCostWrapper(LaborHourCost model) : base(model) { }
+        #region SimpleProperties
+        //Date
+        public System.DateTime Date
+        {
+          get { return GetValue<System.DateTime>(); }
+          set { SetValue(value); }
+        }
+        public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
+        public bool DateIsChanged => GetIsChanged(nameof(Date));
+        //Sum
+        public System.Double Sum
+        {
+          get { return GetValue<System.Double>(); }
+          set { SetValue(value); }
+        }
+        public System.Double SumOriginalValue => GetOriginalValue<System.Double>(nameof(Sum));
+        public bool SumIsChanged => GetIsChanged(nameof(Sum));
+        //Id
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+        #endregion
+	}
+
+		public partial class LaborHoursWrapper : WrapperBase<LaborHours>
+	{
+	    public LaborHoursWrapper(LaborHours model) : base(model) { }
+        #region SimpleProperties
+        //Amount
+        public System.Double Amount
+        {
+          get { return GetValue<System.Double>(); }
+          set { SetValue(value); }
+        }
+        public System.Double AmountOriginalValue => GetOriginalValue<System.Double>(nameof(Amount));
+        public bool AmountIsChanged => GetIsChanged(nameof(Amount));
+        //Id
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+        #endregion
+        #region CollectionProperties
+        public IValidatableChangeTrackingCollection<ParameterWrapper> Parameters { get; private set; }
+        #endregion
+        protected override void InitializeCollectionProperties()
+        {
+          if (Model.Parameters == null) throw new ArgumentException("Parameters cannot be null");
+          Parameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.Parameters.Select(e => new ParameterWrapper(e)));
+          RegisterCollection(Parameters, Model.Parameters);
         }
 	}
 
@@ -3291,6 +3401,14 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Nullable<System.Double> PriceOriginalValue => GetOriginalValue<System.Nullable<System.Double>>(nameof(Price));
         public bool PriceIsChanged => GetIsChanged(nameof(Price));
+        //LaborHours
+        public System.Nullable<System.Double> LaborHours
+        {
+          get { return GetValue<System.Nullable<System.Double>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Double> LaborHoursOriginalValue => GetOriginalValue<System.Nullable<System.Double>>(nameof(LaborHours));
+        public bool LaborHoursIsChanged => GetIsChanged(nameof(LaborHours));
         //ProductionTerm
         public System.Int32 ProductionTerm
         {

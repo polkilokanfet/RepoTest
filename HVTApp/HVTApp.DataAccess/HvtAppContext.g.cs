@@ -16,6 +16,7 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new BudgetUnitConfiguration());
             modelBuilder.Configurations.Add(new ConstructorParametersListConfiguration());
             modelBuilder.Configurations.Add(new ConstructorsParametersConfiguration());
+            modelBuilder.Configurations.Add(new CostsPercentsConfiguration());
             modelBuilder.Configurations.Add(new CreateNewProductTaskConfiguration());
             modelBuilder.Configurations.Add(new DirectumTaskConfiguration());
             modelBuilder.Configurations.Add(new DirectumTaskGroupConfiguration());
@@ -23,6 +24,8 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new DirectumTaskMessageConfiguration());
             modelBuilder.Configurations.Add(new DocumentNumberConfiguration());
             modelBuilder.Configurations.Add(new IncomingRequestConfiguration());
+            modelBuilder.Configurations.Add(new LaborHourCostConfiguration());
+            modelBuilder.Configurations.Add(new LaborHoursConfiguration());
             modelBuilder.Configurations.Add(new LosingReasonConfiguration());
             modelBuilder.Configurations.Add(new MarketFieldConfiguration());
             modelBuilder.Configurations.Add(new PaymentActualConfiguration());
@@ -103,6 +106,7 @@ namespace HVTApp.DataAccess
         public virtual DbSet<BudgetUnit> BudgetUnitDbSet { get; set; }
         public virtual DbSet<ConstructorParametersList> ConstructorParametersListDbSet { get; set; }
         public virtual DbSet<ConstructorsParameters> ConstructorsParametersDbSet { get; set; }
+        public virtual DbSet<CostsPercents> CostsPercentsDbSet { get; set; }
         public virtual DbSet<CreateNewProductTask> CreateNewProductTaskDbSet { get; set; }
         public virtual DbSet<DirectumTask> DirectumTaskDbSet { get; set; }
         public virtual DbSet<DirectumTaskGroup> DirectumTaskGroupDbSet { get; set; }
@@ -110,6 +114,8 @@ namespace HVTApp.DataAccess
         public virtual DbSet<DirectumTaskMessage> DirectumTaskMessageDbSet { get; set; }
         public virtual DbSet<DocumentNumber> DocumentNumberDbSet { get; set; }
         public virtual DbSet<IncomingRequest> IncomingRequestDbSet { get; set; }
+        public virtual DbSet<LaborHourCost> LaborHourCostDbSet { get; set; }
+        public virtual DbSet<LaborHours> LaborHoursDbSet { get; set; }
         public virtual DbSet<LosingReason> LosingReasonDbSet { get; set; }
         public virtual DbSet<MarketField> MarketFieldDbSet { get; set; }
         public virtual DbSet<PaymentActual> PaymentActualDbSet { get; set; }

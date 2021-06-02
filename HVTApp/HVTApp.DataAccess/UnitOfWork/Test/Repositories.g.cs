@@ -38,6 +38,11 @@ namespace HVTApp.DataAccess
         public ConstructorsParametersRepositoryTest(TestData testData) : base(testData) {}
     }
 
+    public partial class CostsPercentsRepositoryTest : TestBaseRepository<CostsPercents>, ICostsPercentsRepository
+    {
+        public CostsPercentsRepositoryTest(TestData testData) : base(testData) {}
+    }
+
     public partial class CreateNewProductTaskRepositoryTest : TestBaseRepository<CreateNewProductTask>, ICreateNewProductTaskRepository
     {
         public CreateNewProductTaskRepositoryTest(TestData testData) : base(testData) {}
@@ -71,6 +76,16 @@ namespace HVTApp.DataAccess
     public partial class IncomingRequestRepositoryTest : TestBaseRepository<IncomingRequest>, IIncomingRequestRepository
     {
         public IncomingRequestRepositoryTest(TestData testData) : base(testData) {}
+    }
+
+    public partial class LaborHourCostRepositoryTest : TestBaseRepository<LaborHourCost>, ILaborHourCostRepository
+    {
+        public LaborHourCostRepositoryTest(TestData testData) : base(testData) {}
+    }
+
+    public partial class LaborHoursRepositoryTest : TestBaseRepository<LaborHours>, ILaborHoursRepository
+    {
+        public LaborHoursRepositoryTest(TestData testData) : base(testData) {}
     }
 
     public partial class LosingReasonRepositoryTest : TestBaseRepository<LosingReason>, ILosingReasonRepository

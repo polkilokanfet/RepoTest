@@ -26,6 +26,9 @@ namespace HVTApp.Model.POCOs
         [Designation("Себестоимость"), OrderStatus(985)]
         public double? Price { get; set; }
 
+        [Designation("Нормо-часы"), OrderStatus(980)]
+        public double? LaborHours { get; set; }
+
         [Designation("Включенные продукты")]
         public virtual List<ProductIncluded> ProductsIncluded { get; set; } = new List<ProductIncluded>();
 

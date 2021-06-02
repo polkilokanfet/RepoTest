@@ -333,6 +333,15 @@ namespace HVTApp.UI.ViewModels
 
     }
 
+    public partial class CostsPercentsDetailsViewModel : BaseDetailsViewModel<CostsPercentsWrapper, CostsPercents, AfterSaveCostsPercentsEvent>
+    {
+        public CostsPercentsDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+		}
+
+
+    }
+
     public partial class CreateNewProductTaskDetailsViewModel : BaseDetailsViewModel<CreateNewProductTaskWrapper, CreateNewProductTask, AfterSaveCreateNewProductTaskEvent>
     {
 		//private Func<Task<List<Product>>> _getEntitiesForSelectProductCommand;
@@ -823,6 +832,60 @@ namespace HVTApp.UI.ViewModels
 			private bool RemoveFromPerformersCommand_CanExecute_Default()
 			{
 				return SelectedPerformersItem != null;
+			}
+
+
+    }
+
+    public partial class LaborHourCostDetailsViewModel : BaseDetailsViewModel<LaborHourCostWrapper, LaborHourCost, AfterSaveLaborHourCostEvent>
+    {
+        public LaborHourCostDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+		}
+
+
+    }
+
+    public partial class LaborHoursDetailsViewModel : BaseDetailsViewModel<LaborHoursWrapper, LaborHours, AfterSaveLaborHoursEvent>
+    {
+		private Func<List<Parameter>> _getEntitiesForAddInParametersCommand;
+		public DelegateLogCommand AddInParametersCommand { get; }
+		public DelegateLogCommand RemoveFromParametersCommand { get; }
+		private ParameterWrapper _selectedParametersItem;
+		public ParameterWrapper SelectedParametersItem 
+		{ 
+			get { return _selectedParametersItem; }
+			set 
+			{ 
+				if (Equals(_selectedParametersItem, value)) return;
+				_selectedParametersItem = value;
+				RaisePropertyChanged();
+				RemoveFromParametersCommand.RaiseCanExecuteChanged();
+			}
+		}
+
+        public LaborHoursDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+			
+			if (_getEntitiesForAddInParametersCommand == null) _getEntitiesForAddInParametersCommand = () => { return UnitOfWork.Repository<Parameter>().GetAll(); };;
+			if (AddInParametersCommand == null) AddInParametersCommand = new DelegateLogCommand(AddInParametersCommand_Execute_Default);
+			if (RemoveFromParametersCommand == null) RemoveFromParametersCommand = new DelegateLogCommand(RemoveFromParametersCommand_Execute_Default, RemoveFromParametersCommand_CanExecute_Default);
+
+		}
+
+			private void AddInParametersCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<Parameter, ParameterWrapper>(_getEntitiesForAddInParametersCommand(), Item.Parameters);
+			}
+
+			private void RemoveFromParametersCommand_Execute_Default()
+			{
+				Item.Parameters.Remove(SelectedParametersItem);
+			}
+
+			private bool RemoveFromParametersCommand_CanExecute_Default()
+			{
+				return SelectedParametersItem != null;
 			}
 
 

@@ -10,6 +10,7 @@ namespace HVTApp.Model.Events
 	public partial class AfterSelectBudgetUnitEvent : PubSubEvent<PubSubEventArgs<BudgetUnit>> { }
 	public partial class AfterSelectConstructorParametersListEvent : PubSubEvent<PubSubEventArgs<ConstructorParametersList>> { }
 	public partial class AfterSelectConstructorsParametersEvent : PubSubEvent<PubSubEventArgs<ConstructorsParameters>> { }
+	public partial class AfterSelectCostsPercentsEvent : PubSubEvent<PubSubEventArgs<CostsPercents>> { }
 	public partial class AfterSelectCreateNewProductTaskEvent : PubSubEvent<PubSubEventArgs<CreateNewProductTask>> { }
 	public partial class AfterSelectDirectumTaskEvent : PubSubEvent<PubSubEventArgs<DirectumTask>> { }
 	public partial class AfterSelectDirectumTaskGroupEvent : PubSubEvent<PubSubEventArgs<DirectumTaskGroup>> { }
@@ -17,6 +18,8 @@ namespace HVTApp.Model.Events
 	public partial class AfterSelectDirectumTaskMessageEvent : PubSubEvent<PubSubEventArgs<DirectumTaskMessage>> { }
 	public partial class AfterSelectDocumentNumberEvent : PubSubEvent<PubSubEventArgs<DocumentNumber>> { }
 	public partial class AfterSelectIncomingRequestEvent : PubSubEvent<PubSubEventArgs<IncomingRequest>> { }
+	public partial class AfterSelectLaborHourCostEvent : PubSubEvent<PubSubEventArgs<LaborHourCost>> { }
+	public partial class AfterSelectLaborHoursEvent : PubSubEvent<PubSubEventArgs<LaborHours>> { }
 	public partial class AfterSelectLosingReasonEvent : PubSubEvent<PubSubEventArgs<LosingReason>> { }
 	public partial class AfterSelectMarketFieldEvent : PubSubEvent<PubSubEventArgs<MarketField>> { }
 	public partial class AfterSelectPaymentActualEvent : PubSubEvent<PubSubEventArgs<PaymentActual>> { }

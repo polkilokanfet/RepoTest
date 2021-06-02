@@ -7,13 +7,14 @@ using HVTApp.Model;
 using HVTApp.Model.Comparers;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Price;
 using HVTApp.Model.Services;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 
 namespace HVTApp.Services.PriceService
 {
-    public class PriceService : IPriceService
+    public partial class PriceService : IPriceService
     {
         private readonly IUnityContainer _container;
 
@@ -122,6 +123,9 @@ namespace HVTApp.Services.PriceService
                     .Select(item => new PriceItem(priceCalculationsFinished.Single(calculation => calculation.PriceCalculationItems.Contains(item)), item));
                 SalesUnitsCalculationsDictionary.Add(salesUnit.Id, new PriceItems(priceItems));
             }
+
+            LaborHoursList = unitOfWork.Repository<LaborHours>().GetAll();
+            LaborHourCosts = unitOfWork.Repository<LaborHourCost>().GetAll();
         }
 
         public PriceCalculationItem GetPriceCalculationItem(IUnit unit)
@@ -136,7 +140,7 @@ namespace HVTApp.Services.PriceService
 
         public double? GetPriceByCalculations(IUnit unit)
         {
-            return SalesUnitsCalculationsDictionary.ContainsKey(unit.Id) 
+            return SalesUnitsCalculationsDictionary.ContainsKey(unit.Id)
                 ? SalesUnitsCalculationsDictionary[unit.Id].Price
                 : null;
         }

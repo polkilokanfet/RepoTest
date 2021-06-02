@@ -881,6 +881,72 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
+	[Designation("Расходы в процентах")]
+	[DesignationPlural("CostsPercentsLookup")]
+	[AllowEditAttribute(Role.Admin)]
+    public partial class CostsPercentsLookupListView : ViewBase
+    {
+        public CostsPercentsLookupListView()
+        {
+            InitializeComponent();
+        }
+
+        public CostsPercentsLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, CostsPercentsLookupListViewModel CostsPercentsLookupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = CostsPercentsLookupListViewModel;
+			CostsPercentsLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			((CostsPercentsLookupListViewModel)DataContext).Load();
+        }
+
+		#region VisibilityProps
+
+        public System.Windows.Visibility DateVisibility
+        {
+            get { return CostsPercentsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CostsPercentsLookup.Date)].Visibility; }
+            set { CostsPercentsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CostsPercentsLookup.Date)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility ManagmentCostsVisibility
+        {
+            get { return CostsPercentsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CostsPercentsLookup.ManagmentCosts)].Visibility; }
+            set { CostsPercentsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CostsPercentsLookup.ManagmentCosts)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility EconomicCostsVisibility
+        {
+            get { return CostsPercentsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CostsPercentsLookup.EconomicCosts)].Visibility; }
+            set { CostsPercentsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CostsPercentsLookup.EconomicCosts)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility CommercialCostsVisibility
+        {
+            get { return CostsPercentsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CostsPercentsLookup.CommercialCosts)].Visibility; }
+            set { CostsPercentsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CostsPercentsLookup.CommercialCosts)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return CostsPercentsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CostsPercentsLookup.DisplayMember)].Visibility; }
+            set { CostsPercentsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CostsPercentsLookup.DisplayMember)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return CostsPercentsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CostsPercentsLookup.Entity)].Visibility; }
+            set { CostsPercentsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CostsPercentsLookup.Entity)].Visibility = value; }
+        }
+
+
+		#endregion
+    }
+
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Страна")]
 	[DesignationPlural("CountryLookup")]
 	[AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.Admin)]
@@ -2374,6 +2440,114 @@ namespace HVTApp.UI.Views
         {
             get { return IncomingRequestLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.IncomingRequestLookup.Performers)].Visibility; }
             set { IncomingRequestLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.IncomingRequestLookup.Performers)].Visibility = value; }
+        }
+
+
+		#endregion
+    }
+
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
+	[Designation("Нормо-час стоимость")]
+	[DesignationPlural("LaborHourCostLookup")]
+	[AllowEditAttribute(Role.Admin)]
+    public partial class LaborHourCostLookupListView : ViewBase
+    {
+        public LaborHourCostLookupListView()
+        {
+            InitializeComponent();
+        }
+
+        public LaborHourCostLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, LaborHourCostLookupListViewModel LaborHourCostLookupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = LaborHourCostLookupListViewModel;
+			LaborHourCostLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			((LaborHourCostLookupListViewModel)DataContext).Load();
+        }
+
+		#region VisibilityProps
+
+        public System.Windows.Visibility DateVisibility
+        {
+            get { return LaborHourCostLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LaborHourCostLookup.Date)].Visibility; }
+            set { LaborHourCostLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LaborHourCostLookup.Date)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility SumVisibility
+        {
+            get { return LaborHourCostLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LaborHourCostLookup.Sum)].Visibility; }
+            set { LaborHourCostLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LaborHourCostLookup.Sum)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return LaborHourCostLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LaborHourCostLookup.DisplayMember)].Visibility; }
+            set { LaborHourCostLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LaborHourCostLookup.DisplayMember)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return LaborHourCostLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LaborHourCostLookup.Entity)].Visibility; }
+            set { LaborHourCostLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LaborHourCostLookup.Entity)].Visibility = value; }
+        }
+
+
+		#endregion
+    }
+
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
+	[Designation("Нормо-часы")]
+	[DesignationPlural("LaborHoursLookup")]
+	[AllowEditAttribute(Role.Admin)]
+    public partial class LaborHoursLookupListView : ViewBase
+    {
+        public LaborHoursLookupListView()
+        {
+            InitializeComponent();
+        }
+
+        public LaborHoursLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, LaborHoursLookupListViewModel LaborHoursLookupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = LaborHoursLookupListViewModel;
+			LaborHoursLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			((LaborHoursLookupListViewModel)DataContext).Load();
+        }
+
+		#region VisibilityProps
+
+        public System.Windows.Visibility AmountVisibility
+        {
+            get { return LaborHoursLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LaborHoursLookup.Amount)].Visibility; }
+            set { LaborHoursLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LaborHoursLookup.Amount)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return LaborHoursLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LaborHoursLookup.DisplayMember)].Visibility; }
+            set { LaborHoursLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LaborHoursLookup.DisplayMember)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return LaborHoursLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LaborHoursLookup.Entity)].Visibility; }
+            set { LaborHoursLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LaborHoursLookup.Entity)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility ParametersVisibility
+        {
+            get { return LaborHoursLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LaborHoursLookup.Parameters)].Visibility; }
+            set { LaborHoursLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LaborHoursLookup.Parameters)].Visibility = value; }
         }
 
 
@@ -5020,6 +5194,12 @@ namespace HVTApp.UI.Views
         {
             get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.Price)].Visibility; }
             set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.Price)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility LaborHoursVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.LaborHours)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.LaborHours)].Visibility = value; }
         }
 
         public System.Windows.Visibility ProductionTermVisibility

@@ -47,6 +47,7 @@
                         <infg:NumericField Name="Price" Label="Себестоимость" Width="Auto" AllowResize="True" />
                         <infg:NumericField Name="OrderInTakeYear" Label="Год ОИТ" Width="Auto" AllowResize="True" />
                         <infg:NumericField Name="OrderInTakeMonth" Label="Месяц ОИТ" Width="Auto" AllowResize="True" />
+                        <infg:NumericField Name="LaborHours" Label="Нормо-часы" Width="Auto" AllowResize="True" />
                         <infg:NumericField Name="CostDelivery" Label="Стоимость доставки" Width="Auto" AllowResize="True" />
                         <infg:DateTimeField Name="StartProductionConditionsDoneDate" Label="Дата исполнения условий для начала производства" Width="Auto" AllowResize="True" />
                         <infg:DateTimeField Name="ShippingConditionsDoneDate" Label="Дата исполнения условий для отгрузки" Width="Auto" AllowResize="True" />

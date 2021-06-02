@@ -42,6 +42,11 @@ namespace HVTApp.UI.ViewModels
         public ConstructorsParametersLookupListViewModel(IUnityContainer container) : base(container) { }
     }
 
+	public partial class CostsPercentsLookupListViewModel : BaseListViewModel<CostsPercents, CostsPercentsLookup, AfterSaveCostsPercentsEvent, AfterSelectCostsPercentsEvent, AfterRemoveCostsPercentsEvent>
+    {
+        public CostsPercentsLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
 	public partial class CreateNewProductTaskLookupListViewModel : BaseListViewModel<CreateNewProductTask, CreateNewProductTaskLookup, AfterSaveCreateNewProductTaskEvent, AfterSelectCreateNewProductTaskEvent, AfterRemoveCreateNewProductTaskEvent>
     {
         public CreateNewProductTaskLookupListViewModel(IUnityContainer container) : base(container) { }
@@ -75,6 +80,16 @@ namespace HVTApp.UI.ViewModels
 	public partial class IncomingRequestLookupListViewModel : BaseListViewModel<IncomingRequest, IncomingRequestLookup, AfterSaveIncomingRequestEvent, AfterSelectIncomingRequestEvent, AfterRemoveIncomingRequestEvent>
     {
         public IncomingRequestLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+	public partial class LaborHourCostLookupListViewModel : BaseListViewModel<LaborHourCost, LaborHourCostLookup, AfterSaveLaborHourCostEvent, AfterSelectLaborHourCostEvent, AfterRemoveLaborHourCostEvent>
+    {
+        public LaborHourCostLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+	public partial class LaborHoursLookupListViewModel : BaseListViewModel<LaborHours, LaborHoursLookup, AfterSaveLaborHoursEvent, AfterSelectLaborHoursEvent, AfterRemoveLaborHoursEvent>
+    {
+        public LaborHoursLookupListViewModel(IUnityContainer container) : base(container) { }
     }
 
 	public partial class LosingReasonLookupListViewModel : BaseListViewModel<LosingReason, LosingReasonLookup, AfterSaveLosingReasonEvent, AfterSelectLosingReasonEvent, AfterRemoveLosingReasonEvent>

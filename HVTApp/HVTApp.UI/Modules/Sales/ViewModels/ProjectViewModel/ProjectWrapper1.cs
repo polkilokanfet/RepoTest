@@ -13,7 +13,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel
         //Name
         public string Name
         {
-            get => GetValue<string> ();
+            get => GetValue<string>();
             set => SetValue(value);
         }
         public string NameOriginalValue => GetOriginalValue<string>(nameof(Name));

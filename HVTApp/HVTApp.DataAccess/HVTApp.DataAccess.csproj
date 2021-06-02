@@ -100,6 +100,7 @@
     <Compile Include="EntityTypeConfigurations\Custom\FacilityConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\FacilityTypeConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\IncomingRequestConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\LaborHoursConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\NoteConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\OfferUnitConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\PriceCalculationConfiguration.cs" />
@@ -257,6 +258,10 @@
     <Compile Include="Migrations\202105050707502_SpecSignDate.Designer.cs">
       <DependentUpon>202105050707502_SpecSignDate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106020749032_Profitability.cs" />
+    <Compile Include="Migrations\202106020749032_Profitability.Designer.cs">
+      <DependentUpon>202106020749032_Profitability.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -411,6 +416,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105050707502_SpecSignDate.resx">
       <DependentUpon>202105050707502_SpecSignDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106020749032_Profitability.resx">
+      <DependentUpon>202106020749032_Profitability.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

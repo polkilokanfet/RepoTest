@@ -1,0 +1,44 @@
+<inf:ViewBase x:Class="HVTApp.UI.Views.CostsPercentsDetailsView"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			  xmlns:infDP="http://infragistics.com/DataPresenter"
+			  xmlns:infE="http://infragistics.com/Editors"
+			  xmlns:core="clr-namespace:System;assembly=mscorlib"
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+			  x:Name="Root">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" MinWidth="200"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column="0" Grid.Row ="0" Content="Хозяйственные расходы (%)" Visibility="{Binding VisibilityEconomicCostsCostsPercents, ElementName=Root}"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="0" 
+                               Value="{Binding Item.EconomicCosts, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+							   Visibility="{Binding VisibilityEconomicCostsCostsPercents, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="1" Content="Управленческие расходы (%)" Visibility="{Binding VisibilityManagmentCostsCostsPercents, ElementName=Root}"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1" 
+                               Value="{Binding Item.ManagmentCosts, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+							   Visibility="{Binding VisibilityManagmentCostsCostsPercents, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="2" Content="Коммерческие расходы (%)" Visibility="{Binding VisibilityCommercialCostsCostsPercents, ElementName=Root}"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="2" 
+                               Value="{Binding Item.CommercialCosts, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+							   Visibility="{Binding VisibilityCommercialCostsCostsPercents, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="3" Content="Дата" Visibility="{Binding VisibilityDateCostsPercents, ElementName=Root}"/>
+        <DatePicker Grid.Column="1" Grid.Row="3" 
+                    SelectedDate="{Binding Item.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding VisibilityDateCostsPercents, ElementName=Root}"/>
+
+
+    </Grid>
+</inf:ViewBase>

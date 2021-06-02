@@ -10,6 +10,7 @@ namespace HVTApp.DataAccess
     public partial interface IBudgetUnitRepository : IRepository<BudgetUnit> { }
     public partial interface IConstructorParametersListRepository : IRepository<ConstructorParametersList> { }
     public partial interface IConstructorsParametersRepository : IRepository<ConstructorsParameters> { }
+    public partial interface ICostsPercentsRepository : IRepository<CostsPercents> { }
     public partial interface ICreateNewProductTaskRepository : IRepository<CreateNewProductTask> { }
     public partial interface IDirectumTaskRepository : IRepository<DirectumTask> { }
     public partial interface IDirectumTaskGroupRepository : IRepository<DirectumTaskGroup> { }
@@ -17,6 +18,8 @@ namespace HVTApp.DataAccess
     public partial interface IDirectumTaskMessageRepository : IRepository<DirectumTaskMessage> { }
     public partial interface IDocumentNumberRepository : IRepository<DocumentNumber> { }
     public partial interface IIncomingRequestRepository : IRepository<IncomingRequest> { }
+    public partial interface ILaborHourCostRepository : IRepository<LaborHourCost> { }
+    public partial interface ILaborHoursRepository : IRepository<LaborHours> { }
     public partial interface ILosingReasonRepository : IRepository<LosingReason> { }
     public partial interface IMarketFieldRepository : IRepository<MarketField> { }
     public partial interface IPaymentActualRepository : IRepository<PaymentActual> { }

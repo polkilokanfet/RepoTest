@@ -85,6 +85,7 @@
     <Compile Include="POCOs\BudgetUnit.cs" />
     <Compile Include="POCOs\ConstructorParametersList.cs" />
     <Compile Include="POCOs\ConstructorsParameters.cs" />
+    <Compile Include="POCOs\CostsPercents.cs" />
     <Compile Include="POCOs\CreateNewProductTask.cs" />
     <Compile Include="Comparers\ParameterComparer.cs" />
     <Compile Include="POCOs\Directum\DirectumTask.cs" />
@@ -94,6 +95,8 @@
     <Compile Include="POCOs\Directum\DirectumTaskMessage.cs" />
     <Compile Include="POCOs\DocumentNumber.cs" />
     <Compile Include="POCOs\IncomingRequest.cs" />
+    <Compile Include="POCOs\LaborHourCost.cs" />
+    <Compile Include="POCOs\LaborHours.cs" />
     <Compile Include="POCOs\LosingReason.cs" />
     <Compile Include="POCOs\MarketField.cs" />
     <Compile Include="POCOs\PaymentActual.cs" />
@@ -121,7 +124,15 @@
     <Compile Include="POCOs\TCE\TechnicalRequrementsFile.cs" />
     <Compile Include="POCOs\TCE\TechnicalRequrementsTask.cs" />
     <Compile Include="POCOs\UserGroup.cs" />
-    <Compile Include="Price.cs" />
+    <Compile Include="Price\IPrice.cs" />
+    <Compile Include="Price\Price.cs" />
+    <Compile Include="Price\PriceBase.cs" />
+    <Compile Include="Price\PriceGroup.cs" />
+    <Compile Include="Price\PriceOfProduct.cs" />
+    <Compile Include="Price\PriceOfProductBlock.cs" />
+    <Compile Include="Price\PriceOfUnit.cs" />
+    <Compile Include="Price\PriceStub.cs" />
+    <Compile Include="Price\IProfitability.cs" />
     <Compile Include="Services\IGetProductService.cs" />
     <Compile Include="Services\INewProductService.cs" />
     <Compile Include="Services\IPriceService.cs" />

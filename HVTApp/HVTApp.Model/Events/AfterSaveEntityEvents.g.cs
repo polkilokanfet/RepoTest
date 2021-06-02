@@ -1,17 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 using HVTApp.Model.POCOs;
 using Prism.Events;
 
@@ -24,6 +10,7 @@ namespace HVTApp.Model.Events
 	public partial class AfterSaveBudgetUnitEvent : PubSubEvent<BudgetUnit> { }
 	public partial class AfterSaveConstructorParametersListEvent : PubSubEvent<ConstructorParametersList> { }
 	public partial class AfterSaveConstructorsParametersEvent : PubSubEvent<ConstructorsParameters> { }
+	public partial class AfterSaveCostsPercentsEvent : PubSubEvent<CostsPercents> { }
 	public partial class AfterSaveCreateNewProductTaskEvent : PubSubEvent<CreateNewProductTask> { }
 	public partial class AfterSaveDirectumTaskEvent : PubSubEvent<DirectumTask> { }
 	public partial class AfterSaveDirectumTaskGroupEvent : PubSubEvent<DirectumTaskGroup> { }
@@ -31,6 +18,8 @@ namespace HVTApp.Model.Events
 	public partial class AfterSaveDirectumTaskMessageEvent : PubSubEvent<DirectumTaskMessage> { }
 	public partial class AfterSaveDocumentNumberEvent : PubSubEvent<DocumentNumber> { }
 	public partial class AfterSaveIncomingRequestEvent : PubSubEvent<IncomingRequest> { }
+	public partial class AfterSaveLaborHourCostEvent : PubSubEvent<LaborHourCost> { }
+	public partial class AfterSaveLaborHoursEvent : PubSubEvent<LaborHours> { }
 	public partial class AfterSaveLosingReasonEvent : PubSubEvent<LosingReason> { }
 	public partial class AfterSaveMarketFieldEvent : PubSubEvent<MarketField> { }
 	public partial class AfterSavePaymentActualEvent : PubSubEvent<PaymentActual> { }

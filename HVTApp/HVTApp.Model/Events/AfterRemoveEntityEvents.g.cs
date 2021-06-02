@@ -10,6 +10,7 @@ namespace HVTApp.Model.Events
 	public partial class AfterRemoveBudgetUnitEvent : PubSubEvent<BudgetUnit> { }
 	public partial class AfterRemoveConstructorParametersListEvent : PubSubEvent<ConstructorParametersList> { }
 	public partial class AfterRemoveConstructorsParametersEvent : PubSubEvent<ConstructorsParameters> { }
+	public partial class AfterRemoveCostsPercentsEvent : PubSubEvent<CostsPercents> { }
 	public partial class AfterRemoveCreateNewProductTaskEvent : PubSubEvent<CreateNewProductTask> { }
 	public partial class AfterRemoveDirectumTaskEvent : PubSubEvent<DirectumTask> { }
 	public partial class AfterRemoveDirectumTaskGroupEvent : PubSubEvent<DirectumTaskGroup> { }
@@ -17,6 +18,8 @@ namespace HVTApp.Model.Events
 	public partial class AfterRemoveDirectumTaskMessageEvent : PubSubEvent<DirectumTaskMessage> { }
 	public partial class AfterRemoveDocumentNumberEvent : PubSubEvent<DocumentNumber> { }
 	public partial class AfterRemoveIncomingRequestEvent : PubSubEvent<IncomingRequest> { }
+	public partial class AfterRemoveLaborHourCostEvent : PubSubEvent<LaborHourCost> { }
+	public partial class AfterRemoveLaborHoursEvent : PubSubEvent<LaborHours> { }
 	public partial class AfterRemoveLosingReasonEvent : PubSubEvent<LosingReason> { }
 	public partial class AfterRemoveMarketFieldEvent : PubSubEvent<MarketField> { }
 	public partial class AfterRemovePaymentActualEvent : PubSubEvent<PaymentActual> { }

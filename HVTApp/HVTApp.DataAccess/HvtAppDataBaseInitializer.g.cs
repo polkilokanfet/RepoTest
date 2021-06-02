@@ -19,6 +19,7 @@ namespace HVTApp.DataAccess
             context.BudgetUnitDbSet.AddRange(testData.GetAll<BudgetUnit>());
             context.ConstructorParametersListDbSet.AddRange(testData.GetAll<ConstructorParametersList>());
             context.ConstructorsParametersDbSet.AddRange(testData.GetAll<ConstructorsParameters>());
+            context.CostsPercentsDbSet.AddRange(testData.GetAll<CostsPercents>());
             context.CreateNewProductTaskDbSet.AddRange(testData.GetAll<CreateNewProductTask>());
             context.DirectumTaskDbSet.AddRange(testData.GetAll<DirectumTask>());
             context.DirectumTaskGroupDbSet.AddRange(testData.GetAll<DirectumTaskGroup>());
@@ -26,6 +27,8 @@ namespace HVTApp.DataAccess
             context.DirectumTaskMessageDbSet.AddRange(testData.GetAll<DirectumTaskMessage>());
             context.DocumentNumberDbSet.AddRange(testData.GetAll<DocumentNumber>());
             context.IncomingRequestDbSet.AddRange(testData.GetAll<IncomingRequest>());
+            context.LaborHourCostDbSet.AddRange(testData.GetAll<LaborHourCost>());
+            context.LaborHoursDbSet.AddRange(testData.GetAll<LaborHours>());
             context.LosingReasonDbSet.AddRange(testData.GetAll<LosingReason>());
             context.MarketFieldDbSet.AddRange(testData.GetAll<MarketField>());
             context.PaymentActualDbSet.AddRange(testData.GetAll<PaymentActual>());

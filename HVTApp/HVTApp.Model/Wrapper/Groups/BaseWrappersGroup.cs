@@ -140,12 +140,9 @@ namespace HVTApp.Model.Wrapper.Groups
 
         public double? MarginalIncome
         {
-            get
-            {
-                return Cost - CostMin <= 0
-                    ? default(double?)
-                    : (1.0 - Price / (Cost - CostMin)) * 100.0;
-            }
+            get => Cost - CostMin <= 0
+                ? default(double?)
+                : (1.0 - Price / (Cost - CostMin)) * 100.0;
             set
             {
                 if (!value.HasValue || value >= 100) return;
@@ -155,6 +152,8 @@ namespace HVTApp.Model.Wrapper.Groups
                 RaisePropertyChanged();
             }
         }
+
+        public double? Profitability { get; set; }
 
         public int ProductionTerm
         {

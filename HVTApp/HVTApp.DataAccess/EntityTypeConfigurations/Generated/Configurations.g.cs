@@ -10,6 +10,7 @@ namespace HVTApp.DataAccess
     public partial class BudgetUnitConfiguration : EntityTypeConfiguration<BudgetUnit> { }
     public partial class ConstructorParametersListConfiguration : EntityTypeConfiguration<ConstructorParametersList> { }
     public partial class ConstructorsParametersConfiguration : EntityTypeConfiguration<ConstructorsParameters> { }
+    public partial class CostsPercentsConfiguration : EntityTypeConfiguration<CostsPercents> { }
     public partial class CreateNewProductTaskConfiguration : EntityTypeConfiguration<CreateNewProductTask> { }
     public partial class DirectumTaskConfiguration : EntityTypeConfiguration<DirectumTask> { }
     public partial class DirectumTaskGroupConfiguration : EntityTypeConfiguration<DirectumTaskGroup> { }
@@ -17,6 +18,8 @@ namespace HVTApp.DataAccess
     public partial class DirectumTaskMessageConfiguration : EntityTypeConfiguration<DirectumTaskMessage> { }
     public partial class DocumentNumberConfiguration : EntityTypeConfiguration<DocumentNumber> { }
     public partial class IncomingRequestConfiguration : EntityTypeConfiguration<IncomingRequest> { }
+    public partial class LaborHourCostConfiguration : EntityTypeConfiguration<LaborHourCost> { }
+    public partial class LaborHoursConfiguration : EntityTypeConfiguration<LaborHours> { }
     public partial class LosingReasonConfiguration : EntityTypeConfiguration<LosingReason> { }
     public partial class MarketFieldConfiguration : EntityTypeConfiguration<MarketField> { }
     public partial class PaymentActualConfiguration : EntityTypeConfiguration<PaymentActual> { }

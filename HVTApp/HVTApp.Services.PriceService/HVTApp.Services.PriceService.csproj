@@ -50,7 +50,8 @@
   <ItemGroup>
     <Compile Include="PriceItem.cs" />
     <Compile Include="PriceItems.cs" />
-    <Compile Include="PriceService.cs" />
+    <Compile Include="PriceService_Price.cs" />
+    <Compile Include="PriceService_Profitability.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

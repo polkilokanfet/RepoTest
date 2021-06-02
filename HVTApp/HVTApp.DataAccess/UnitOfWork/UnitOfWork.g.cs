@@ -11,6 +11,7 @@ namespace HVTApp.DataAccess
             BudgetUnitRepository = new BudgetUnitRepository(_context);
             ConstructorParametersListRepository = new ConstructorParametersListRepository(_context);
             ConstructorsParametersRepository = new ConstructorsParametersRepository(_context);
+            CostsPercentsRepository = new CostsPercentsRepository(_context);
             CreateNewProductTaskRepository = new CreateNewProductTaskRepository(_context);
             DirectumTaskRepository = new DirectumTaskRepository(_context);
             DirectumTaskGroupRepository = new DirectumTaskGroupRepository(_context);
@@ -18,6 +19,8 @@ namespace HVTApp.DataAccess
             DirectumTaskMessageRepository = new DirectumTaskMessageRepository(_context);
             DocumentNumberRepository = new DocumentNumberRepository(_context);
             IncomingRequestRepository = new IncomingRequestRepository(_context);
+            LaborHourCostRepository = new LaborHourCostRepository(_context);
+            LaborHoursRepository = new LaborHoursRepository(_context);
             LosingReasonRepository = new LosingReasonRepository(_context);
             MarketFieldRepository = new MarketFieldRepository(_context);
             PaymentActualRepository = new PaymentActualRepository(_context);
@@ -98,6 +101,7 @@ namespace HVTApp.DataAccess
         protected IBudgetUnitRepository BudgetUnitRepository;
         protected IConstructorParametersListRepository ConstructorParametersListRepository;
         protected IConstructorsParametersRepository ConstructorsParametersRepository;
+        protected ICostsPercentsRepository CostsPercentsRepository;
         protected ICreateNewProductTaskRepository CreateNewProductTaskRepository;
         protected IDirectumTaskRepository DirectumTaskRepository;
         protected IDirectumTaskGroupRepository DirectumTaskGroupRepository;
@@ -105,6 +109,8 @@ namespace HVTApp.DataAccess
         protected IDirectumTaskMessageRepository DirectumTaskMessageRepository;
         protected IDocumentNumberRepository DocumentNumberRepository;
         protected IIncomingRequestRepository IncomingRequestRepository;
+        protected ILaborHourCostRepository LaborHourCostRepository;
+        protected ILaborHoursRepository LaborHoursRepository;
         protected ILosingReasonRepository LosingReasonRepository;
         protected IMarketFieldRepository MarketFieldRepository;
         protected IPaymentActualRepository PaymentActualRepository;

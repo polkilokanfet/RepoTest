@@ -14,6 +14,7 @@ namespace HVTApp.DataAccess
             BudgetUnitRepository = new BudgetUnitRepositoryTest(testData);
             ConstructorParametersListRepository = new ConstructorParametersListRepositoryTest(testData);
             ConstructorsParametersRepository = new ConstructorsParametersRepositoryTest(testData);
+            CostsPercentsRepository = new CostsPercentsRepositoryTest(testData);
             CreateNewProductTaskRepository = new CreateNewProductTaskRepositoryTest(testData);
             DirectumTaskRepository = new DirectumTaskRepositoryTest(testData);
             DirectumTaskGroupRepository = new DirectumTaskGroupRepositoryTest(testData);
@@ -21,6 +22,8 @@ namespace HVTApp.DataAccess
             DirectumTaskMessageRepository = new DirectumTaskMessageRepositoryTest(testData);
             DocumentNumberRepository = new DocumentNumberRepositoryTest(testData);
             IncomingRequestRepository = new IncomingRequestRepositoryTest(testData);
+            LaborHourCostRepository = new LaborHourCostRepositoryTest(testData);
+            LaborHoursRepository = new LaborHoursRepositoryTest(testData);
             LosingReasonRepository = new LosingReasonRepositoryTest(testData);
             MarketFieldRepository = new MarketFieldRepositoryTest(testData);
             PaymentActualRepository = new PaymentActualRepositoryTest(testData);
@@ -102,6 +105,7 @@ namespace HVTApp.DataAccess
         public IBudgetUnitRepository BudgetUnitRepository { get; }
         public IConstructorParametersListRepository ConstructorParametersListRepository { get; }
         public IConstructorsParametersRepository ConstructorsParametersRepository { get; }
+        public ICostsPercentsRepository CostsPercentsRepository { get; }
         public ICreateNewProductTaskRepository CreateNewProductTaskRepository { get; }
         public IDirectumTaskRepository DirectumTaskRepository { get; }
         public IDirectumTaskGroupRepository DirectumTaskGroupRepository { get; }
@@ -109,6 +113,8 @@ namespace HVTApp.DataAccess
         public IDirectumTaskMessageRepository DirectumTaskMessageRepository { get; }
         public IDocumentNumberRepository DocumentNumberRepository { get; }
         public IIncomingRequestRepository IncomingRequestRepository { get; }
+        public ILaborHourCostRepository LaborHourCostRepository { get; }
+        public ILaborHoursRepository LaborHoursRepository { get; }
         public ILosingReasonRepository LosingReasonRepository { get; }
         public IMarketFieldRepository MarketFieldRepository { get; }
         public IPaymentActualRepository PaymentActualRepository { get; }
