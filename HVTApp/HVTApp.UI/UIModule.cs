@@ -3,6 +3,7 @@ using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Prism;
+using HVTApp.Model.POCOs;
 using HVTApp.UI.Modules.BookRegistration.Views;
 using HVTApp.UI.Modules.Directum;
 using HVTApp.UI.Modules.Directum.ToAccept;
@@ -10,6 +11,7 @@ using HVTApp.UI.Modules.Directum.ToPerform;
 using HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual;
 using HVTApp.UI.Modules.PlanAndEconomy.PaymentsPlan;
 using HVTApp.UI.Modules.PlanAndEconomy.Supervision;
+using HVTApp.UI.Modules.Products.LaborHours;
 using HVTApp.UI.Modules.Products.Views;
 using HVTApp.UI.Modules.Reports.CommonInfo;
 using HVTApp.UI.Modules.Reports.FlatReport;
@@ -84,6 +86,7 @@ namespace HVTApp.UI
             Container.RegisterViewForNavigation<CommonInfoView>();
             Container.RegisterViewForNavigation<TechnicalRequrementsTaskView>();
             Container.RegisterViewForNavigation<TechnicalRequrementsTasksView>();
+            Container.RegisterViewForNavigation<LaborHoursView>();
 
             Container.Resolve<IDialogService>().Register<DirectumTaskRouteViewModel, DirectumTaskRouteWindow>();
 
@@ -93,6 +96,7 @@ namespace HVTApp.UI
             _dialogService.RegisterShow<PaymentsPlanViewModel, PaymentsPlanView>();
 
             RegisterViews();
+            _updateDetailsService.ReRegister<LaborHours, LaborHoursDetailsView2>();
         }
 
         protected override void ResolveOutlookGroup()

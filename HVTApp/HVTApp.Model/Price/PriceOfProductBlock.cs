@@ -27,21 +27,10 @@ namespace HVTApp.Model.Price
         public override double? LaborHours => _priceService.GetLaborHoursAmount(_productBlock);
 
         /// <summary>
-        /// Количество нормо-часов на изготовление всего продукта * количество
-        /// </summary>
-        public override double? LaborHoursOnAmount => LaborHours * Amount;
-
-        /// <summary>
         /// Фонд оплаты труда
         /// </summary>
         public override double? WageFund => _priceService.GetWageFund(_productBlock, _targetDate);
-
-        /// <summary>
-        /// Фонд оплаты труда * количество
-        /// </summary>
-        public override double? WageFundOnAmount => WageFund * Amount;
-
-
+        
         #endregion
 
         public PriceOfProductBlock(ProductBlock productBlock, DateTime targetDate, IPriceService priceService, double amount)
@@ -62,8 +51,6 @@ namespace HVTApp.Model.Price
                 //инициализация по аналогу
                 Init(priceService.GetAnalogWithPrice(productBlock), targetDate, productBlock);
             }
-
-            Name = $"PriceOfProductBlock: {Name}";
         }
 
         private void Init(ProductBlock productBlock, DateTime targetDate, ProductBlock originalBlock)

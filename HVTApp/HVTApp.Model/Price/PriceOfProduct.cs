@@ -64,7 +64,7 @@ namespace HVTApp.Model.Price
 
         public PriceOfProduct(Product product, DateTime targetDate, IPriceService priceService, double amount = 1, double? customFixedPrice = null)
         {
-            Name = $"PriceOfProduct: {product.ToString()}";
+            Name = $"{product.ToString()}";
             Amount = amount;
             PriceMainBlock = new PriceOfProductBlock(product.ProductBlock, targetDate, priceService, amount);
             foreach (var dependentProduct in product.DependentProducts)

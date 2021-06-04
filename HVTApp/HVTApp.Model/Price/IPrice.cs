@@ -26,9 +26,19 @@ namespace HVTApp.Model.Price
         double SumTotal { get; }
 
         /// <summary>
+        /// Себестоимость с учетом коэффициента упаковки / количество
+        /// </summary>
+        double SumPriceOnUnit { get; }
+
+        /// <summary>
         /// Себестоимость с учетом коэффициента упаковки
         /// </summary>
         double SumPriceTotal { get; }
+
+        /// <summary>
+        /// Стоимость блоков с фиксированной ценой / количество
+        /// </summary>
+        double SumFixedOnUnit { get; }
 
         /// <summary>
         /// Стоимость блоков с фиксированной ценой

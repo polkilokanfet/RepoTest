@@ -34,7 +34,7 @@ namespace HVTApp.Model.Price
             get
             {
                 var sumPriceMainBlock = PriceMainBlock?.SumPriceTotal ?? 0;
-                return sumPriceMainBlock 
+                return sumPriceMainBlock
                        //+ PricesOfDependentBlocks.Sum(price => price.SumPriceTotal) 
                        + PricesProductsIncluded.Sum(price => price.SumPriceTotal);
             }

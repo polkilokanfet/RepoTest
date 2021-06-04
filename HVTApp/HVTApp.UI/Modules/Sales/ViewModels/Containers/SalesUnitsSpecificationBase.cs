@@ -14,12 +14,15 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
 
         protected override IEnumerable<SalesUnitLookup> GetActualLookups(Specification specification)
         {
-            return AllLookups.Where(x => x.Specification?.Id == specification.Id);
+            return AllLookups.Where(lookup => lookup.Specification != null && lookup.Specification?.Id == specification.Id);
         }
 
         protected override bool CanBeShown(SalesUnit salesUnit)
         {
-            return Filter != null && Filter.Id == salesUnit.Specification.Id;
+            return 
+                Filter != null && 
+                salesUnit.Specification != null && 
+                Filter.Id == salesUnit.Specification.Id;
         }
     }
 }

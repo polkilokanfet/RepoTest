@@ -26,7 +26,7 @@ namespace HVTApp.Model.Price
 
         public PriceGroup(string name, IEnumerable<IPrice> prices)
         {
-            Name = $"PriceGroup: {name}";
+            Name = name;
             Prices = prices.OrderByDescending(price => price.SumTotal).ToList();
         }
     }

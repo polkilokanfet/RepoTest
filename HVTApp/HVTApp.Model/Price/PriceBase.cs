@@ -21,7 +21,11 @@ namespace HVTApp.Model.Price
         /// ÏÇ + ÔÇ
         /// </summary>
         public double SumTotal => SumPriceTotal + SumFixedTotal;
+
+        public double SumPriceOnUnit => SumPriceTotal / Amount;
+
         public abstract double SumPriceTotal { get; }
+        public double SumFixedOnUnit => SumFixedTotal / Amount;
 
         public double? SumFixed { get; set; }
 
@@ -30,9 +34,9 @@ namespace HVTApp.Model.Price
 
 
         public virtual double? LaborHours { get; }
-        public virtual double? LaborHoursOnAmount { get; }
+        public double? LaborHoursOnAmount => LaborHours * Amount;
         public virtual double? WageFund { get; }
-        public virtual double? WageFundOnAmount { get; }
+        public double? WageFundOnAmount => WageFund * Amount;
 
         public override string ToString()
         {

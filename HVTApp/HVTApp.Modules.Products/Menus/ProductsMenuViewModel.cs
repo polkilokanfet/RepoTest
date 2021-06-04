@@ -1,5 +1,6 @@
 ﻿using HVTApp.Infrastructure;
 using HVTApp.Model;
+using HVTApp.UI.Modules.Products.LaborHours;
 using HVTApp.UI.Modules.Products.Parameters;
 using HVTApp.UI.Modules.Products.Views;
 using HVTApp.UI.Modules.Reports.Reference;
@@ -19,6 +20,7 @@ namespace HVTApp.Modules.Products.Menus
                 Items.Add(new NavigationItem("Связи продуктов", typeof(ProductRelationLookupListView)));
                 Items.Add(new NavigationItem("Задания", typeof(CreateNewProductTasksView)));
                 Items.Add(new NavigationItem("Замена", typeof(ProductReplacementView)));
+                Items.Add(new NavigationItem("Нормо-часы", typeof(LaborHoursView)));
             }
             Items.Add(new NavigationItem("Стракчакосты", typeof(StructureCostsView)));
             Items.Add(new NavigationItem("Референс", typeof(ReferenceView)));

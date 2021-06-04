@@ -12,7 +12,7 @@ namespace HVTApp.Model.POCOs
     public class LaborHours : BaseEntity
     {
         [Designation("Параметры блока"), Required, OrderStatus(8)]
-        public List<Parameter> Parameters { get; set; } = new List<Parameter>();
+        public virtual List<Parameter> Parameters { get; set; } = new List<Parameter>();
 
         [Designation("Количество"), Required, OrderStatus(9)]
         public double Amount { get; set; }

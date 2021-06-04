@@ -108,6 +108,7 @@
     <Compile Include="Lookup\Items\Custom\DirectumTaskLookup.cs" />
     <Compile Include="Lookup\Items\Custom\DocumentLookup.cs" />
     <Compile Include="Lookup\Items\Custom\IncomingRequestLookup.cs" />
+    <Compile Include="Lookup\Items\Custom\LaborHoursLookup.cs" />
     <Compile Include="Lookup\Items\Custom\PaymentConditionSetLookup.cs" />
     <Compile Include="Lookup\Items\Custom\PriceCalculationFileLookup.cs" />
     <Compile Include="Lookup\Items\Custom\PriceCalculationItemLookup.cs" />
@@ -194,6 +195,14 @@
     <Compile Include="Modules\PlanAndEconomy\Supervision\SupervisionWr.cs" />
     <Compile Include="Modules\PlanAndEconomy\Supervision\TabSupervision.xaml.cs">
       <DependentUpon>TabSupervision.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Products\LaborHours\Block.cs" />
+    <Compile Include="Modules\Products\LaborHours\LaborHoursViewModel.cs" />
+    <Compile Include="Modules\Products\LaborHours\LaborHoursView.xaml.cs">
+      <DependentUpon>LaborHoursView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Products\LaborHours\LaborHoursViewTab.xaml.cs">
+      <DependentUpon>LaborHoursViewTab.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Reports\CommonInfo\SalesUnitsCommonInfoComparer.cs" />
     <Compile Include="Modules\Reports\CommonInfo\CommonInfoView.xaml.cs">
@@ -1081,6 +1090,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Modules\Products\LaborHours\LaborHoursViewTab.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Modules\Products\Tabs\TabCreateNewProductTasks.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1110,6 +1123,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\Products\Views\ProductReplacementView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Products\LaborHours\LaborHoursView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -175,7 +175,6 @@ namespace HVTApp.UI.ViewModels
                 Container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().ToString(), e.GetAllExceptions());
             }
 
-
             //запрашиваем закрытие окна
             OnCloseRequested(new DialogRequestCloseEventArgs(true));
         }

@@ -162,10 +162,12 @@
 
                             <dp:TextField AlternateBinding="{Binding Name}" BindingType="UseAlternateBinding" Label="Продукт" Width="Auto" />
                             <dp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" />
-                            <dp:NumericField AlternateBinding="{Binding SumPriceTotal}" BindingType="UseAlternateBinding" Label="ПЗ" Width="Auto" />
-                            <dp:NumericField AlternateBinding="{Binding SumFixedTotal}" BindingType="UseAlternateBinding" Label="ФЗ" Width="Auto" />
-                            <dp:NumericField AlternateBinding="{Binding SumTotal}" BindingType="UseAlternateBinding" Label="ПЗ+ФЗ" Width="Auto" />
-                            <dp:TextField AlternateBinding="{Binding Comment}" BindingType="UseAlternateBinding" Label="Комментарий" Width="Auto" />
+                            <dp:NumericField AlternateBinding="{Binding SumPriceOnUnit}" BindingType="UseAlternateBinding" Label="ПЗ на ед." Width="Auto" />
+                            <dp:NumericField AlternateBinding="{Binding SumPriceTotal}" BindingType="UseAlternateBinding" Label="ПЗ на кол." Width="Auto" />
+                            <dp:NumericField AlternateBinding="{Binding SumFixedOnUnit}" BindingType="UseAlternateBinding" Label="ФЗ на ед." Width="Auto" />
+                            <dp:NumericField AlternateBinding="{Binding SumFixedTotal}" BindingType="UseAlternateBinding" Label="ФЗ на кол." Width="Auto" />
+                            <dp:NumericField AlternateBinding="{Binding SumTotal}" BindingType="UseAlternateBinding" Label="ПЗ+ФЗ на кол." Width="Auto" />
+                            <dp:NumericField AlternateBinding="{Binding LaborHours}" BindingType="UseAlternateBinding" Label="Н/ч на ед." Width="Auto" />
                             <dp:Field Name="Prices" IsExpandable="True"/>
 
                         </dp:FieldLayout.Fields>

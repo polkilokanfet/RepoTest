@@ -76,11 +76,15 @@ namespace HVTApp.Services.PriceService
         /// <returns></returns>
         public double? GetLaborHoursAmount(ProductBlock block)
         {
-            var laborHours = LaborHoursList.Where(hours => hours.Parameters.AllContainsIn(block.Parameters)).ToList();
+            var laborHours = LaborHoursList
+                .Where(hours => hours.Parameters.AllContainsIn(block.Parameters))
+                .ToList();
+
             if (laborHours.Any())
             {
                 return laborHours.OrderBy(hours => hours.Parameters.Count).Last().Amount;
             }
+
             return null;
         }
 

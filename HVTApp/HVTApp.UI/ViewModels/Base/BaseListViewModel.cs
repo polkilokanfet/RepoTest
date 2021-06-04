@@ -168,7 +168,7 @@ namespace HVTApp.UI.ViewModels
             }
         }
 
-        public IEnumerable<TEntity> SelectedItems => _selectedItem == null
+        public IEnumerable<TEntity> SelectedItems => _selectedItem == null || _selectedLookups == null
             ? null
             : _selectedLookups.Cast<TLookup>().Select(lookup => lookup.Entity);
 
