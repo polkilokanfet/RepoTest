@@ -84,7 +84,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="75"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
@@ -129,6 +129,7 @@
                                         </dp:Field.Settings>
                                     </dp:Field>
                                     <dp:NumericField Name="Amount" Label="Кол." Width="Auto" AllowResize="False"/>
+                                    <dp:NumericField Name="Profitability" Label="Р%" Width="50" AllowEdit="True" AllowResize="False"/>
                                     <dp:NumericField Name="MarginalIncome" Label="МД" Width="50" AllowEdit="True" AllowResize="False"/>
                                     <dp:NumericField Name="Cost" Label="Стоимость" Width="Auto" AllowEdit="True" AllowResize="False"/>
                                     <dp:NumericField Name="Total" Label="Сумма" Width="Auto" AllowResize="False"/>
@@ -190,28 +191,29 @@
         <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="3" />
 
         <GroupBox Grid.Row="2" Header="Структура себестоимости (на единицу):">
-            <dp:XamDataGrid DataSource="{Binding Prices}">
-                <dp:XamDataGrid.FieldLayouts>
-                    <dp:FieldLayout>
-                        <dp:FieldLayout.Fields>
-                                
-                            <dp:TextField AlternateBinding="{Binding Name}" BindingType="UseAlternateBinding" Label="Продукт" Width="Auto" />
-                            <dp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" />
-                            <dp:NumericField AlternateBinding="{Binding SumPriceOnUnit}" BindingType="UseAlternateBinding" Label="ПЗ на ед." Width="Auto" />
-                            <dp:NumericField AlternateBinding="{Binding SumPriceTotal}" BindingType="UseAlternateBinding" Label="ПЗ на кол." Width="Auto" />
-                            <dp:NumericField AlternateBinding="{Binding SumFixedOnUnit}" BindingType="UseAlternateBinding" Label="ФЗ на ед." Width="Auto" />
-                            <dp:NumericField AlternateBinding="{Binding SumFixedTotal}" BindingType="UseAlternateBinding" Label="ФЗ на кол." Width="Auto" />
-                            <dp:NumericField AlternateBinding="{Binding SumTotal}" BindingType="UseAlternateBinding" Label="ПЗ+ФЗ на кол." Width="Auto" />
-                            <dp:NumericField AlternateBinding="{Binding LaborHours}" BindingType="UseAlternateBinding" Label="Н/ч на ед." Width="Auto" />
-                            <!--<dp:NumericField AlternateBinding="{Binding SumTotal}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto" />
-                            <dp:NumericField AlternateBinding="{Binding SumTotal}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto" />-->
-                            <dp:TextField AlternateBinding="{Binding Comment}" BindingType="UseAlternateBinding" Label="Комментарий" Width="Auto" />
-                            <dp:Field Name="Prices" IsExpandable="True"/>
-                                
-                        </dp:FieldLayout.Fields>
-                    </dp:FieldLayout>
-                </dp:XamDataGrid.FieldLayouts>
-            </dp:XamDataGrid>
+            <ScrollViewer>
+                <dp:XamDataGrid DataSource="{Binding Prices}">
+                    <dp:XamDataGrid.FieldLayouts>
+                        <dp:FieldLayout>
+                            <dp:FieldLayout.Fields>
+                                    
+                                <dp:TextField AlternateBinding="{Binding Name}" BindingType="UseAlternateBinding" Label="Продукт" Width="300" AllowResize="True"/>
+                                <dp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" AllowResize="False"/>
+                                <dp:NumericField AlternateBinding="{Binding SumPriceOnUnit}" BindingType="UseAlternateBinding" Label="ПЗ на ед." Width="Auto" AllowResize="False" />
+                                <dp:NumericField AlternateBinding="{Binding SumPriceTotal}" BindingType="UseAlternateBinding" Label="ПЗ на кол." Width="Auto" AllowResize="False" />
+                                <dp:NumericField AlternateBinding="{Binding SumFixedOnUnit}" BindingType="UseAlternateBinding" Label="ФЗ на ед." Width="Auto" AllowResize="False" />
+                                <dp:NumericField AlternateBinding="{Binding SumFixedTotal}" BindingType="UseAlternateBinding" Label="ФЗ на кол." Width="Auto" AllowResize="False" />
+                                <dp:NumericField AlternateBinding="{Binding SumTotal}" BindingType="UseAlternateBinding" Label="ПЗ+ФЗ на кол." Width="Auto" AllowResize="False" />
+                                <dp:NumericField AlternateBinding="{Binding LaborHours}" BindingType="UseAlternateBinding" Label="Н/ч на ед." Width="Auto" AllowResize="False" />
+                                <dp:NumericField AlternateBinding="{Binding LaborHoursTotal}" BindingType="UseAlternateBinding" Label="Н/ч на кол." Width="Auto" AllowResize="False" />
+                                <dp:TextField AlternateBinding="{Binding Comment}" BindingType="UseAlternateBinding" Label="Комментарий" Width="200" AllowResize="True" />
+                                <dp:Field Name="Prices" IsExpandable="True"/>
+                                    
+                            </dp:FieldLayout.Fields>
+                        </dp:FieldLayout>
+                    </dp:XamDataGrid.FieldLayouts>
+                </dp:XamDataGrid>
+            </ScrollViewer>
         </GroupBox>
         
 

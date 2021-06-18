@@ -23,6 +23,7 @@ namespace HVTApp.Model.Wrapper.Groups
         private readonly TWrapper _unit;
         private double _price;
         private double _fixedCost = 0;
+        private double? _wageFund;
 
         #endregion
 
@@ -126,6 +127,21 @@ namespace HVTApp.Model.Wrapper.Groups
             ? FixedCost + CostDelivery.Value / Amount
             : FixedCost;
 
+
+
+        /// <summary>
+        /// Фонд оплаты труда
+        /// </summary>
+        public double? WageFund
+        {
+            get => _wageFund;
+            set
+            {
+                _wageFund = value;
+                RaisePropertyChanged(nameof(Profitability));
+            }
+        }
+
         public double Price
         {
             get => _price;
@@ -153,7 +169,52 @@ namespace HVTApp.Model.Wrapper.Groups
             }
         }
 
-        public double? Profitability { get; set; }
+        /// <summary>
+        /// Полная себестоимость
+        /// </summary>
+        private double FullPrice
+        {
+            get
+            {
+                if (WageFund == null)
+                    return 0.0;
+
+                //общецеховые расходы
+                var price1 = 254.71 / 100.0 * WageFund.Value;
+                //производственная себестоимость
+                var productionPrice = Price + WageFund.Value + price1;
+
+                //общехозяйские расходы
+                var price2 = 239.24 / 100.0 * WageFund.Value;
+                //управленческие расходы
+                var price3 = 81.82 / 100 * WageFund.Value;
+                //коммерческие расходы
+                var price4 = 24.23 / 100 * WageFund.Value;
+
+                return productionPrice + price2 + price3 + price4;
+            }
+        }
+
+        public double? Profitability
+        {
+            get
+            {
+                if (WageFund == null)
+                    return null;
+
+                return FullPrice == 0
+                    ? 0
+                    : (Cost - FullPrice) / FullPrice * 100.0;
+            }
+            set
+            {
+                if (value.HasValue)
+                {
+                    Cost = (1 + value.Value / 100.0) * FullPrice;
+                }
+                RaisePropertyChanged();
+            }
+        }
 
         public int ProductionTerm
         {

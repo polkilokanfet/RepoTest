@@ -9,14 +9,31 @@ namespace HVTApp.Model.Price
     public class PriceOfProduct : PriceBase
     {
         public override bool ContainsAnyAnalog => this.PricesOfMainBlockAndDependentBlocks.Any(price => price.ContainsAnyAnalog);
+        public override bool ContainsAnyBlockWithNoLaborHours => this.PricesOfMainBlockAndDependentBlocks.Any(price => price.ContainsAnyBlockWithNoLaborHours);
 
         /// <summary>
         /// По какому аналогу взят прайс
         /// </summary>
-        public override string Comment =>
-            ContainsAnyAnalog
-                ? "Присутствуют аналоги" 
-                : null;
+        public override string Comment
+        {
+            get
+            {
+                string result = string.Empty;
+                if (ContainsAnyBlockWithNoLaborHours)
+                {
+                    result += "Есть блоки без н/ч.";
+                }
+
+                if (ContainsAnyAnalog)
+                {
+                    result += " Есть ПЗ по аналогам";
+                }
+                return result;
+            }
+        }
+
+        public override double? LaborHours => PriceMainBlock.LaborHours 
+                                              + PricesOfDependentBlocks.Sum(price => price.LaborHoursTotal);
 
         /// <summary>
         /// Себестоимость с учетом коэффициента упаковки

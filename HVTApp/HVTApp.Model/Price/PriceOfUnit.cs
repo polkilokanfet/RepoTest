@@ -10,6 +10,6 @@ namespace HVTApp.Model.Price
         public override double SumPriceTotal => KUp * UnitPrice * Amount ?? 0;
 
         public override bool ContainsAnyAnalog { get; } = false;
-
+        public override bool ContainsAnyBlockWithNoLaborHours { get; } = false;
     }
 }

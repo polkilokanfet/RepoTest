@@ -6,14 +6,19 @@ namespace HVTApp.Model.Price
     public interface IPrice : IProfitability
     {
         /// <summary>
+        /// По какому аналогу взят прайс
+        /// </summary>
+        ProductBlock Analog { get; }
+
+        /// <summary>
         /// Где-либо в прайсе есть аналог
         /// </summary>
         bool ContainsAnyAnalog { get; }
 
         /// <summary>
-        /// По какому аналогу взят прайс
+        /// Где-либо в прайсе есть блок без норма-часов
         /// </summary>
-        ProductBlock Analog { get; }
+        bool ContainsAnyBlockWithNoLaborHours { get; }
 
         string Comment { get; }
 

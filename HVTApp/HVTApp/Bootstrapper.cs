@@ -55,6 +55,7 @@ using Prism.Events;
 using Prism.Modularity;
 using Prism.Regions;
 using Prism.Unity;
+using PriceService = HVTApp.Services.PriceService.PriceServ.PriceService;
 
 namespace HVTApp
 {

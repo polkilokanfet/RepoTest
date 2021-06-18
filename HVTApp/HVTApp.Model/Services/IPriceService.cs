@@ -6,7 +6,7 @@ namespace HVTApp.Model.Services
     /// <summary>
     /// Получение прайса.
     /// </summary>
-    public interface IPriceService
+    public interface IPriceService : IProfitabilityService
     {
         /// <summary>
         /// Получить прайс
@@ -31,6 +31,21 @@ namespace HVTApp.Model.Services
         /// <param name="blockTarget">Id целевого блока.</param>
         /// <returns></returns>
         ProductBlock GetAnalogWithPrice(ProductBlock blockTarget);
+
+        void Reload();
+    }
+
+    /// <summary>
+    /// Получение прайса.
+    /// </summary>
+    public interface IProfitabilityService
+    {
+        /// <summary>
+        /// Количество нормо-часов на изготовление всего юнита.
+        /// </summary>
+        /// <param name="unit"></param>
+        /// <returns></returns>
+        double? GetLaborHoursAmount(IUnit unit);
 
         /// <summary>
         /// Количество нормо-часов на изготовление всего продукта.
@@ -62,6 +77,12 @@ namespace HVTApp.Model.Services
         /// <returns></returns>
         double? GetWageFund(ProductBlock productBlock, DateTime targetDate);
 
-        void Reload();
+        /// <summary>
+        /// Стоимость нормо-часа
+        /// </summary>
+        /// <param name="targetDate"></param>
+        /// <returns></returns>
+        double GetLaborHoursCost(DateTime targetDate);
     }
+
 }

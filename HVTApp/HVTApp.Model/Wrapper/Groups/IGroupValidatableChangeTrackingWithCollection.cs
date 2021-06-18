@@ -16,6 +16,7 @@ namespace HVTApp.Model.Wrapper.Groups
         double Total { get; }
         double? CostDelivery { get; set; }
         bool CostDeliveryIncluded { get; set; }
+        double? WageFund { get; set; }
         double Price { get; set; }
         int Amount { get; }
         double FixedCost { get; set; }

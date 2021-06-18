@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Model.POCOs;
 
-namespace HVTApp.Services.PriceService
+namespace HVTApp.Services.PriceService.PriceServ
 {
     internal class PriceItems
     {

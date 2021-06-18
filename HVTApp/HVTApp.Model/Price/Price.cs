@@ -14,15 +14,25 @@ namespace HVTApp.Model.Price
         public bool HasCalculation { get; protected set; } = false;
 
         public override bool ContainsAnyAnalog => Prices.Any(price => price.ContainsAnyAnalog);
+        public override bool ContainsAnyBlockWithNoLaborHours => Prices.Any(price => price.ContainsAnyBlockWithNoLaborHours);
 
         public override string Comment
         {
             get
             {
-                if (HasCalculation) return "По калькуляции";
-                return ContainsAnyAnalog
-                    ? "Присутствуют аналоги" 
-                    : null;
+                string result = string.Empty;
+                if (ContainsAnyBlockWithNoLaborHours)
+                {
+                    result += "Есть блоки без н/ч.";
+                }
+
+                if (HasCalculation) return result + " По калькуляции";
+
+                if (ContainsAnyAnalog)
+                {
+                    result += " Есть ПЗ по аналогам";
+                }
+                return result;
             }
         }
 
@@ -34,8 +44,13 @@ namespace HVTApp.Model.Price
             get
             {
                 var sumPriceMainBlock = PriceMainBlock?.SumPriceTotal ?? 0;
+                if (HasCalculation)
+                {
+                    return sumPriceMainBlock
+                           + PricesOfDependentBlocks.Sum(price => price.SumPriceTotal) //это работает, когда есть калькуляция
+                           + PricesProductsIncluded.Sum(price => price.SumPriceTotal);
+                }
                 return sumPriceMainBlock
-                       //+ PricesOfDependentBlocks.Sum(price => price.SumPriceTotal) 
                        + PricesProductsIncluded.Sum(price => price.SumPriceTotal);
             }
         }
@@ -55,6 +70,22 @@ namespace HVTApp.Model.Price
                 return sumPriceMainBlock 
                     + PricesOfDependentBlocks.Sum(price => price.SumFixedTotal) 
                     + PricesProductsIncluded.Sum(price => price.SumFixedTotal);
+            }
+        }
+
+        public override double? LaborHours
+        {
+            get
+            {
+                if (HasCalculation)
+                {
+                    return PriceMainBlock.LaborHoursTotal
+                           + PricesOfDependentBlocks.Sum(price => price.LaborHoursTotal)
+                           + PricesProductsIncluded.Sum(price => price.LaborHoursTotal);
+                }
+
+                return PriceMainBlock.LaborHoursTotal
+                       + PricesProductsIncluded.Sum(price => price.LaborHoursTotal);
             }
         }
 
@@ -107,7 +138,7 @@ namespace HVTApp.Model.Price
                 HasCalculation = true;
 
                 //заглушка на прайс основного блока
-                PriceMainBlock = new PriceStub(unit.Product.ToString(), 1);
+                PriceMainBlock = new PriceStub(unit.Product.ToString(), 1, laborHours:priceService.GetLaborHoursAmount(unit));
 
                 //заглушки на прайсы зависимых блоков
                 PricesOfDependentBlocks =

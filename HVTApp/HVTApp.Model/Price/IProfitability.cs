@@ -10,7 +10,7 @@ namespace HVTApp.Model.Price
         /// <summary>
         ///  оличество нормо-часов на изготовление всего продукта * количество
         /// </summary>
-        double? LaborHoursOnAmount { get; }
+        double? LaborHoursTotal { get; }
 
         /// <summary>
         /// ‘онд оплаты труда
@@ -20,6 +20,6 @@ namespace HVTApp.Model.Price
         /// <summary>
         /// ‘онд оплаты труда * количество
         /// </summary>
-        double? WageFundOnAmount { get; }
+        double? WageFundTotal { get; }
     }
 }

@@ -11,18 +11,41 @@ namespace HVTApp.Model.Price
         private readonly IPriceService _priceService;
 
         public override bool ContainsAnyAnalog => Analog != null;
+        public override bool ContainsAnyBlockWithNoLaborHours
+        {
+            get
+            {
+                if (_productBlock.HasFixedPrice)
+                    return false;
 
-        public override string Comment => 
-            ContainsAnyAnalog 
-                ? $"аналог: {Analog}" 
-                : null;
+                return LaborHours == null;
+            }
+        }
+
+        public override string Comment
+        {
+            get
+            {
+                string result = string.Empty;
+                if (ContainsAnyBlockWithNoLaborHours)
+                {
+                    result += "Блок без н/ч.";
+                }
+
+                if (ContainsAnyAnalog)
+                {
+                    result += $" ПЗ аналога: {Analog}";
+                }
+                return result;
+            }
+        }
 
         public override double SumFixedTotal => this.SumFixed * Amount ?? 0;
 
         #region Profitability
 
         /// <summary>
-        /// Количество нормо-часов на изготовление всего продукта
+        /// Количество нормо-часов на изготовление всего блока продукта
         /// </summary>
         public override double? LaborHours => _priceService.GetLaborHoursAmount(_productBlock);
 

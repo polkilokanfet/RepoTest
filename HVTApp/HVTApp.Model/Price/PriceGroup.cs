@@ -6,11 +6,25 @@ namespace HVTApp.Model.Price
     public class PriceGroup : PriceBase
     {
         public override bool ContainsAnyAnalog => Prices.Any(price => price.ContainsAnyAnalog);
+        public override bool ContainsAnyBlockWithNoLaborHours => Prices.Any(price => price.ContainsAnyBlockWithNoLaborHours);
 
-        public override string Comment => 
-            ContainsAnyAnalog
-                ? "Присутствуют аналоги"
-                : null;
+        public override string Comment
+        {
+            get
+            {
+                string result = string.Empty;
+                if (ContainsAnyBlockWithNoLaborHours)
+                {
+                    result += "Есть блоки без н/ч.";
+                }
+
+                if (ContainsAnyAnalog)
+                {
+                    result += " Есть ПЗ по аналогам";
+                }
+                return result;
+            }
+        }
 
         /// <summary>
         /// Себестоимость с учетом коэффициента упаковки
@@ -23,6 +37,8 @@ namespace HVTApp.Model.Price
         public override double SumFixedTotal => Prices.Sum(price => price.SumFixedTotal);
 
         public override List<IPrice> Prices { get; protected set; }
+
+        public override double? LaborHours => Prices.Sum(price => price.LaborHoursTotal);
 
         public PriceGroup(string name, IEnumerable<IPrice> prices)
         {

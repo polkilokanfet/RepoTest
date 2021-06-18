@@ -44,7 +44,8 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             var priceTerm = GlobalAppProperties.Actual.ActualPriceTerm;
 
             //если в словаре нет такой группы, добавляем её
-            if (!PriceDictionary.ContainsKey(grp)) PriceDictionary.Add(grp, null);
+            if (!PriceDictionary.ContainsKey(grp))
+                PriceDictionary.Add(grp, null);
 
             //обновляем структуру себестоимости этой группе
             PriceDictionary[grp] = GlobalAppProperties.PriceService.GetPrice(grp.Model, GetPriceDate(grp));
@@ -52,6 +53,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             //обновляем себестоимость группы
             grp.Price = PriceDictionary[grp].SumPriceTotal;
             grp.FixedCost = PriceDictionary[grp].SumFixedTotal;
+            grp.WageFund = PriceDictionary[grp].LaborHoursTotal * GlobalAppProperties.PriceService.GetLaborHoursCost(GetPriceDate(grp));
             RaisePropertyChanged(nameof(Prices));
 
             //если в группе есть зависимые группы - обновить и для них

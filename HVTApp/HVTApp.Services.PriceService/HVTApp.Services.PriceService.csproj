@@ -48,10 +48,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PriceItem.cs" />
-    <Compile Include="PriceItems.cs" />
-    <Compile Include="PriceService_Price.cs" />
-    <Compile Include="PriceService_Profitability.cs" />
+    <Compile Include="PriceServ\PriceItem.cs" />
+    <Compile Include="PriceServ\PriceItems.cs" />
+    <Compile Include="PriceServ\PriceService_Price.cs" />
+    <Compile Include="PriceServ\PriceService_Profitability.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -64,6 +64,7 @@
       <Name>HVTApp.Model</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

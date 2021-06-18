@@ -12,6 +12,7 @@ namespace HVTApp.Model.Price
         protected const double KUp = 1.03;
 
         public abstract bool ContainsAnyAnalog { get; }
+        public abstract bool ContainsAnyBlockWithNoLaborHours { get; }
         public ProductBlock Analog { get; protected set; }
         public virtual string Comment { get; }
         public string Name { get; protected set; }
@@ -34,9 +35,9 @@ namespace HVTApp.Model.Price
 
 
         public virtual double? LaborHours { get; }
-        public double? LaborHoursOnAmount => LaborHours * Amount;
+        public double? LaborHoursTotal => LaborHours * Amount;
         public virtual double? WageFund { get; }
-        public double? WageFundOnAmount => WageFund * Amount;
+        public double? WageFundTotal => WageFund * Amount;
 
         public override string ToString()
         {

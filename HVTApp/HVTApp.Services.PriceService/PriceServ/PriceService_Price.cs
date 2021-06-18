@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
-using HVTApp.Model;
 using HVTApp.Model.Comparers;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
@@ -12,7 +11,7 @@ using HVTApp.Model.Services;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 
-namespace HVTApp.Services.PriceService
+namespace HVTApp.Services.PriceService.PriceServ
 {
     public partial class PriceService : IPriceService
     {

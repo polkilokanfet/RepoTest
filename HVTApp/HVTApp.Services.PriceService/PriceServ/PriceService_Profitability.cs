@@ -6,7 +6,7 @@ using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 
-namespace HVTApp.Services.PriceService
+namespace HVTApp.Services.PriceService.PriceServ
 {
     public partial class PriceService : IPriceService
     {
@@ -64,6 +64,8 @@ namespace HVTApp.Services.PriceService
             return wageFund;
         }
 
+        #region LaborHours
+
         public double GetLaborHoursCost(DateTime targetDate)
         {
             return LaborHourCosts.GetClosedSumOnDate(targetDate).Sum;
@@ -97,13 +99,18 @@ namespace HVTApp.Services.PriceService
         {
             double? result = this.GetLaborHoursAmount(product.ProductBlock);
 
-            if (result == null) return null;
+            //if (result == null) return null;
 
             foreach (var dependentProduct in product.DependentProducts)
             {
-                double? dpLaborHours = this.GetLaborHoursAmount(dependentProduct.Product);
-                if (dpLaborHours == null) return null;
-                result += dpLaborHours * dependentProduct.Amount;
+                double? dpLaborHours = this.GetLaborHoursAmount(dependentProduct.Product) * dependentProduct.Amount;
+
+                if (dpLaborHours != null)
+                {
+                    result = result == null
+                        ? dpLaborHours
+                        : dpLaborHours + result;
+                }
             }
 
             return result;
@@ -114,20 +121,29 @@ namespace HVTApp.Services.PriceService
         /// </summary>
         /// <param name="unit"></param>
         /// <returns></returns>
-        private double? GetLaborHoursAmount(IUnit unit)
+        public double? GetLaborHoursAmount(IUnit unit)
         {
             double? result = this.GetLaborHoursAmount(unit.Product);
 
-            if (result == null) return null;
+            //if (result == null) return null;
 
             foreach (var productIncluded in unit.ProductsIncluded)
             {
-                double? dpLaborHours = this.GetLaborHoursAmount(productIncluded.Product);
-                if (dpLaborHours == null) return null;
-                result += dpLaborHours * productIncluded.Amount;
+                double? dpLaborHours = this.GetLaborHoursAmount(productIncluded.Product) * productIncluded.AmountOnUnit;
+
+                if (dpLaborHours != null)
+                {
+                    result = result == null 
+                        ? dpLaborHours
+                        : dpLaborHours + result;
+                }
             }
 
             return result;
         }
+
+
+        #endregion
+
     }
 }

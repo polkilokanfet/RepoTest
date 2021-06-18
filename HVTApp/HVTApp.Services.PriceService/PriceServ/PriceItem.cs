@@ -1,7 +1,7 @@
 using System;
 using HVTApp.Model.POCOs;
 
-namespace HVTApp.Services.PriceService
+namespace HVTApp.Services.PriceService.PriceServ
 {
     class PriceItem
     {

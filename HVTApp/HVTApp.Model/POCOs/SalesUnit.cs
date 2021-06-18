@@ -173,6 +173,9 @@ namespace HVTApp.Model.POCOs
             }
         }
 
+        [NotMapped, Designation("Id актуального расчета калькул€ции")]
+        public Guid ActualPriceCalculationItemId =>
+            GlobalAppProperties.PriceService?.GetPriceCalculationItem(this)?.Id ?? default;
 
         public override string ToString()
         {

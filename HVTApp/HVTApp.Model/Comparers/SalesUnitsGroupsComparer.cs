@@ -14,6 +14,7 @@ namespace HVTApp.Model.Comparers
             if (!Equals(x.Project.Id, y.Project.Id)) return false;
             if (!Equals(x.DeliveryDateExpected, y.DeliveryDateExpected)) return false;
             if (!Equals(x.OrderInTakeDate, y.OrderInTakeDate)) return false;
+            if (!Equals(x.ActualPriceCalculationItemId, y.ActualPriceCalculationItemId)) return false;
 
             return base.Equals(x, y);
         }
