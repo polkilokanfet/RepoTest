@@ -16,5 +16,9 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Количество"), Required, OrderStatus(9)]
         public double Amount { get; set; }
+
+        [Designation("Комментарий"), MaxLength(200), OrderStatus(20)]
+        public string Comment { get; set; }
+
     }
 }

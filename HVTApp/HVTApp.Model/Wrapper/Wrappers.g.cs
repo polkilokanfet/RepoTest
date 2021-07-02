@@ -819,6 +819,14 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Double AmountOriginalValue => GetOriginalValue<System.Double>(nameof(Amount));
         public bool AmountIsChanged => GetIsChanged(nameof(Amount));
+        //Comment
+        public System.String Comment
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
+        public bool CommentIsChanged => GetIsChanged(nameof(Comment));
         //Id
         public System.Guid Id
         {
@@ -3658,6 +3666,7 @@ namespace HVTApp.Model.Wrapper
         public System.Boolean IsLoosen => GetValue<System.Boolean>(); 
         public System.Boolean IsWon => GetValue<System.Boolean>(); 
         public System.Boolean IsDone => GetValue<System.Boolean>(); 
+        public System.Guid ActualPriceCalculationItemId => GetValue<System.Guid>(); 
         public System.Boolean OrderIsTaken => GetValue<System.Boolean>(); 
         public System.Boolean OrderIsRealized => GetValue<System.Boolean>(); 
         public System.Boolean AllowTotalRemove => GetValue<System.Boolean>(); 

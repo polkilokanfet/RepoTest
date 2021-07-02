@@ -2526,10 +2526,22 @@ namespace HVTApp.UI.Views
 
 		#region VisibilityProps
 
+        public System.Windows.Visibility BlocksStringVisibility
+        {
+            get { return LaborHoursLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LaborHoursLookup.BlocksString)].Visibility; }
+            set { LaborHoursLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LaborHoursLookup.BlocksString)].Visibility = value; }
+        }
+
         public System.Windows.Visibility AmountVisibility
         {
             get { return LaborHoursLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LaborHoursLookup.Amount)].Visibility; }
             set { LaborHoursLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LaborHoursLookup.Amount)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility CommentVisibility
+        {
+            get { return LaborHoursLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LaborHoursLookup.Comment)].Visibility; }
+            set { LaborHoursLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LaborHoursLookup.Comment)].Visibility = value; }
         }
 
         public System.Windows.Visibility DisplayMemberVisibility
@@ -2542,6 +2554,12 @@ namespace HVTApp.UI.Views
         {
             get { return LaborHoursLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LaborHoursLookup.Entity)].Visibility; }
             set { LaborHoursLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LaborHoursLookup.Entity)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility BlocksVisibility
+        {
+            get { return LaborHoursLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LaborHoursLookup.Blocks)].Visibility; }
+            set { LaborHoursLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LaborHoursLookup.Blocks)].Visibility = value; }
         }
 
         public System.Windows.Visibility ParametersVisibility
@@ -5356,6 +5374,12 @@ namespace HVTApp.UI.Views
         {
             get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.IsDone)].Visibility; }
             set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.IsDone)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility ActualPriceCalculationItemIdVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.ActualPriceCalculationItemId)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.ActualPriceCalculationItemId)].Visibility = value; }
         }
 
         public System.Windows.Visibility OrderIsTakenVisibility

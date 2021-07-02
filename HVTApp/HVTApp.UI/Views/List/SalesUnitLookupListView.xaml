@@ -109,6 +109,7 @@
                         <infg:CheckBoxField Name="AllowTotalRemove" Label="Разрешено тотальное удаление" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="AllowEditProduct" Label="Разрешение на редактирование техники" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="AllowEditCost" Label="Разрешение на редактирование стоимости" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="ActualPriceCalculationItemId" Label="Id актуального расчета калькуляции" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

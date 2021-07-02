@@ -159,7 +159,7 @@ namespace HVTApp.Services.PriceService.PriceServ
             if (AnalogsWithPrice.ContainsKey(blockTarget.Id))
                 return AnalogsWithPrice[blockTarget.Id];
 
-            var targetBlock = Blocks.SingleOrDefault(x => x.Id == blockTarget.Id) ?? blockTarget;
+            var targetBlock = Blocks.SingleOrDefault(block => block.Id == blockTarget.Id) ?? blockTarget;
             var blocksWithPrices = Blocks
                 .Where(productBlock => productBlock.Id != targetBlock.Id)
                 .Where(productBlock => productBlock.HasPrice).ToList();

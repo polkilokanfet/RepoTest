@@ -425,6 +425,9 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(9)]
         public System.Double Amount => Entity.Amount;
 
+		[OrderStatus(20)]
+        public System.String Comment => Entity.Comment;
+
         #endregion
 		[OrderStatus(8)]
 	    public List<ParameterLookup> Parameters { get { return GetLookupEnum<ParameterLookup>().ToList(); } }
@@ -1823,6 +1826,9 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
         public System.Boolean IsDone => Entity.IsDone;
+
+		[OrderStatus(1)]
+        public System.Guid ActualPriceCalculationItemId => Entity.ActualPriceCalculationItemId;
 
 		[OrderStatus(1)]
         public System.Boolean OrderIsTaken => Entity.OrderIsTaken;

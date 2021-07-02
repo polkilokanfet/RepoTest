@@ -262,6 +262,14 @@
     <Compile Include="Migrations\202106020749032_Profitability.Designer.cs">
       <DependentUpon>202106020749032_Profitability.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202107020500180_ProfitAbilityComment.cs" />
+    <Compile Include="Migrations\202107020500180_ProfitAbilityComment.Designer.cs">
+      <DependentUpon>202107020500180_ProfitAbilityComment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107020803438_SumOnDateFix.cs" />
+    <Compile Include="Migrations\202107020803438_SumOnDateFix.Designer.cs">
+      <DependentUpon>202107020803438_SumOnDateFix.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -419,6 +427,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106020749032_Profitability.resx">
       <DependentUpon>202106020749032_Profitability.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107020500180_ProfitAbilityComment.resx">
+      <DependentUpon>202107020500180_ProfitAbilityComment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107020803438_SumOnDateFix.resx">
+      <DependentUpon>202107020803438_SumOnDateFix.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

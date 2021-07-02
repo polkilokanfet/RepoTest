@@ -9,7 +9,7 @@ namespace HVTApp.Model.POCOs
     /// Сумма на какую-либо дату
     /// </summary>
     [Designation("Сумма на дату")]
-    public partial class SumOnDate : BaseEntity
+    public partial class SumOnDate : BaseEntity, ISumOnDate
     {
         [Designation("Дата"), Required]
         public DateTime Date { get; set; } = DateTime.Today;

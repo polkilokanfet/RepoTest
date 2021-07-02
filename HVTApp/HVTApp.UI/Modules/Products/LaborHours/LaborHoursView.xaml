@@ -21,6 +21,7 @@
                                 <infg:TextField AlternateBinding="{Binding Parameters}" BindingType="UseAlternateBinding" Label="Параметры" Width="300" Converter="{StaticResource ObjectsToStringConverter}"/>
                                 <infg:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto"/>
                                 <infg:TextField AlternateBinding="{Binding BlocksString}" BindingType="UseAlternateBinding" Label="Блоки" Width="400"/>
+                                <infg:TextField AlternateBinding="{Binding Comment}" BindingType="UseAlternateBinding" Label="Комментарий" Width="400"/>
 					        </infg:FieldLayout.Fields>
 				        </infg:FieldLayout>
 			        </infg:XamDataGrid.FieldLayouts>

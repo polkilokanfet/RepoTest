@@ -15,15 +15,21 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="Количество" Visibility="{Binding VisibilityAmountLaborHours, ElementName=Root}"/>
-		<infE:XamNumericEditor Grid.Column="1" Grid.Row="0" 
+        <Label Grid.Column="0" Grid.Row ="0" Content="Комментарий" Visibility="{Binding VisibilityCommentLaborHours, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
+                 Text="{Binding Item.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding VisibilityCommentLaborHours, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="1" Content="Количество" Visibility="{Binding VisibilityAmountLaborHours, ElementName=Root}"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1" 
                                Value="{Binding Item.Amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding VisibilityAmountLaborHours, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="Параметры блока" Visibility="{Binding VisibilityParametersLaborHours, ElementName=Root}"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="1"
+        <Label Grid.Column="0" Grid.Row ="2" Content="Параметры блока" Visibility="{Binding VisibilityParametersLaborHours, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
 										 Items="{Binding Path=Item.Parameters}"
 										 SelectedItem="{Binding SelectedParametersItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInParametersCommand}"
