@@ -185,11 +185,11 @@ namespace HVTApp.Model.Wrapper.Groups
                 var productionPrice = Price + WageFund.Value + price1;
 
                 //общехоз€йские расходы
-                var price2 = 239.24 / 100.0 * WageFund.Value;
+                var price2 = 289.0 / 100.0 * WageFund.Value;
                 //управленческие расходы
-                var price3 = 81.82 / 100 * WageFund.Value;
+                var price3 = 81.82 / 100.0 * WageFund.Value;
                 //коммерческие расходы
-                var price4 = 24.23 / 100 * WageFund.Value;
+                var price4 = 24.23 / 100.0 * WageFund.Value;
 
                 return productionPrice + price2 + price3 + price4;
             }

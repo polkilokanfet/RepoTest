@@ -53,7 +53,16 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             //обновляем себестоимость группы
             grp.Price = PriceDictionary[grp].SumPriceTotal;
             grp.FixedCost = PriceDictionary[grp].SumFixedTotal;
-            grp.WageFund = PriceDictionary[grp].LaborHoursTotal * GlobalAppProperties.PriceService.GetLaborHoursCost(GetPriceDate(grp));
+
+            //основная з/п
+            var primaryPayment = PriceDictionary[grp].LaborHoursTotal * GlobalAppProperties.PriceService.GetLaborHoursCost(GetPriceDate(grp));
+            //отчисления
+            var dif = primaryPayment * 30.7 / 100.0;
+            //резерв отпусков
+            var vac = (primaryPayment + dif) * 7.7 / 100;
+            //фонд оплаты труда
+            grp.WageFund = primaryPayment + dif + vac;
+
             RaisePropertyChanged(nameof(Prices));
 
             //если в группе есть зависимые группы - обновить и для них
