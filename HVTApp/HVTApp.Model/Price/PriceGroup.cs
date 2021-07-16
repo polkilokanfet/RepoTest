@@ -8,23 +8,16 @@ namespace HVTApp.Model.Price
         public override bool ContainsAnyAnalog => Prices.Any(price => price.ContainsAnyAnalog);
         public override bool ContainsAnyBlockWithNoLaborHours => Prices.Any(price => price.ContainsAnyBlockWithNoLaborHours);
 
-        public override string Comment
-        {
-            get
-            {
-                string result = string.Empty;
-                if (ContainsAnyBlockWithNoLaborHours)
-                {
-                    result += "Есть блоки без н/ч.";
-                }
+        public override string Comment =>
+            ContainsAnyBlockWithNoLaborHours
+                ? "Содержит ПЗ по аналогам"
+                : string.Empty;
 
-                if (ContainsAnyAnalog)
-                {
-                    result += " Есть ПЗ по аналогам";
-                }
-                return result;
-            }
-        }
+        public override string CommentLaborHours =>
+            ContainsAnyBlockWithNoLaborHours
+                ? "Содержит блоки без н/ч."
+                : string.Empty;
+
 
         /// <summary>
         /// Себестоимость с учетом коэффициента упаковки

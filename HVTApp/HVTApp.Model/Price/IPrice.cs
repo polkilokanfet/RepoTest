@@ -21,6 +21,7 @@ namespace HVTApp.Model.Price
         bool ContainsAnyBlockWithNoLaborHours { get; }
 
         string Comment { get; }
+        string CommentLaborHours { get; }
 
         string Name { get; }
         double Amount { get; }

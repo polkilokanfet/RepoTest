@@ -69,6 +69,7 @@ namespace HVTApp.Model.Wrapper.Groups
             {
                 if (value < CostMin) return;
                 SetValue(value);
+                RaisePropertyChanged(nameof(Profitability));
                 RaisePropertyChanged(nameof(MarginalIncome));
                 RaisePropertyChanged(nameof(Total));
             }
@@ -91,6 +92,7 @@ namespace HVTApp.Model.Wrapper.Groups
 
                 SetValue(value / Amount);
                 CheckCost();
+                RaisePropertyChanged(nameof(Profitability));
                 RaisePropertyChanged(nameof(MarginalIncome));
             }
         }
@@ -110,6 +112,7 @@ namespace HVTApp.Model.Wrapper.Groups
                 _fixedCost = value;
                 CheckCost();
                 RaisePropertyChanged();
+                RaisePropertyChanged(nameof(Profitability));
                 RaisePropertyChanged(nameof(MarginalIncome));
             }
         }

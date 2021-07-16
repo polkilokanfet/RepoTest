@@ -63,7 +63,8 @@
                                     VisibilityCostDeliveryIncludedSalesUnit="Collapsed"
                                     VisibilityLosingReasonsSalesUnit="Collapsed"
                                     VisibilityIsRemovedSalesUnit="Collapsed"
-                                    VisibilityStartProductionDateInjectedSalesUnit="Collapsed"/>
+                                    VisibilityStartProductionDateInjectedSalesUnit="Collapsed"
+                                    VisibilityLaborHoursSalesUnit="Collapsed"/>
         
         <Grid>
             <Grid.ColumnDefinitions>

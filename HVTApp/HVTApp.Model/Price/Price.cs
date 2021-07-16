@@ -20,21 +20,16 @@ namespace HVTApp.Model.Price
         {
             get
             {
-                string result = string.Empty;
-                if (ContainsAnyBlockWithNoLaborHours)
-                {
-                    result += "Есть блоки без н/ч.";
-                }
-
-                if (HasCalculation) return result + " По калькуляции";
-
-                if (ContainsAnyAnalog)
-                {
-                    result += " Есть ПЗ по аналогам";
-                }
-                return result;
+                if (HasCalculation) return "По калькуляции";
+                if (ContainsAnyAnalog) return "Содержит ПЗ по аналогам";
+                return string.Empty;
             }
         }
+
+        public override string CommentLaborHours =>
+            ContainsAnyBlockWithNoLaborHours
+                ? "Содержит блоки без н/ч."
+                : string.Empty;
 
         /// <summary>
         /// Себестоимость с учетом коэффициента упаковки

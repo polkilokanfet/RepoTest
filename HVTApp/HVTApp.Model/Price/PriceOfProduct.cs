@@ -14,23 +14,15 @@ namespace HVTApp.Model.Price
         /// <summary>
         /// По какому аналогу взят прайс
         /// </summary>
-        public override string Comment
-        {
-            get
-            {
-                string result = string.Empty;
-                if (ContainsAnyBlockWithNoLaborHours)
-                {
-                    result += "Есть блоки без н/ч.";
-                }
+        public override string Comment =>
+            ContainsAnyBlockWithNoLaborHours
+                ? "Содержит ПЗ по аналогам"
+                : string.Empty;
 
-                if (ContainsAnyAnalog)
-                {
-                    result += " Есть ПЗ по аналогам";
-                }
-                return result;
-            }
-        }
+        public override string CommentLaborHours =>
+            ContainsAnyBlockWithNoLaborHours
+                ? "Содержит блоки без н/ч."
+                : string.Empty;
 
         public override double? LaborHours => PriceMainBlock.LaborHours 
                                               + PricesOfDependentBlocks.Sum(price => price.LaborHoursTotal);

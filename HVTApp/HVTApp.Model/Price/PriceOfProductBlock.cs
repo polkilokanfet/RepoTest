@@ -22,23 +22,15 @@ namespace HVTApp.Model.Price
             }
         }
 
-        public override string Comment
-        {
-            get
-            {
-                string result = string.Empty;
-                if (ContainsAnyBlockWithNoLaborHours)
-                {
-                    result += "Блок без н/ч.";
-                }
+        public override string Comment =>
+            ContainsAnyBlockWithNoLaborHours
+                ? $" ПЗ аналога: {Analog}"
+                : string.Empty;
 
-                if (ContainsAnyAnalog)
-                {
-                    result += $" ПЗ аналога: {Analog}";
-                }
-                return result;
-            }
-        }
+        public override string CommentLaborHours =>
+            ContainsAnyBlockWithNoLaborHours
+                ? "Блок без н/ч."
+                : string.Empty;
 
         public override double SumFixedTotal => this.SumFixed * Amount ?? 0;
 

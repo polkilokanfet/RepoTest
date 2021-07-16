@@ -15,6 +15,7 @@ namespace HVTApp.Model.Price
         public abstract bool ContainsAnyBlockWithNoLaborHours { get; }
         public ProductBlock Analog { get; protected set; }
         public virtual string Comment { get; }
+        public virtual string CommentLaborHours { get; }
         public string Name { get; protected set; }
         public double Amount { get; protected set; } = 1;
 
