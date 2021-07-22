@@ -230,6 +230,7 @@
     <Compile Include="Modules\Sales\Market\Commands\ProjectEditCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\ProjectRemoveCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\SpecificationNewCommand.cs" />
+    <Compile Include="Modules\Sales\Market\Commands\UnionProjectsCommand.cs" />
     <Compile Include="Modules\Sales\Market\Converters\ProductionGroupToColorConverter.cs" />
     <Compile Include="Modules\Sales\Market\Converters\ProjectItemToColorConverter.cs" />
     <Compile Include="Modules\Sales\Market\Commands\ProjectNewCommand.cs" />

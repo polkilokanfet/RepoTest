@@ -10,6 +10,7 @@
         <infRib:ButtonTool Caption="Создать" Command="{Binding NewProjectCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
         <infRib:ButtonTool Caption="Изменить" Command="{Binding EditProjectCommand}" SmallImage="/HVTApp.UI;component/Images/edit.png"/>
         <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveProjectCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>
+        <infRib:ButtonTool Caption="Объединить" Command="{Binding UnionProjectsCommand}"/>
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Конкурс">

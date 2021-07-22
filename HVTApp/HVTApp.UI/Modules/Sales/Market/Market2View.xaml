@@ -52,7 +52,9 @@
                                                  Grid.Column="0">
                 
                     <dp:XamDataGrid DataSource="{Binding ProjectItems}"
-                                    ActiveDataItem="{Binding SelectedItem, Mode=TwoWay}">
+                                    ActiveDataItem="{Binding SelectedItem, Mode=TwoWay}"
+                                    SelectedDataItemsScope="RecordsOrCells"
+                                    SelectedDataItems="{Binding Path=SelectedItems, Mode=TwoWay}">
                     
                         <dp:XamDataGrid.Resources>
                             <Style TargetType="{x:Type dp:DataRecordPresenter}">

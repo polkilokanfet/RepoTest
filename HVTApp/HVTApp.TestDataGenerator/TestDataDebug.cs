@@ -8,6 +8,8 @@ namespace HVTApp.TestDataGenerator
     {
         #if DEBUG
 
+        public LaborHourCost LaborHourCost;
+
         public Facility FacilityStation;
         public Facility FacilitySubstation;
         
@@ -71,12 +73,16 @@ namespace HVTApp.TestDataGenerator
         public Note Note3;
         public Note Note4;
 
+        private void GenerateLaborHourCost()
+        {
+            LaborHourCost.Clone(new LaborHourCost { Date=DateTime.Today, Sum = 220.0 });
+        }
+
         private void GenerateFacilities()
         {
             FacilitySubstation.Clone(new Facility { Name = "Первая", Type = FacilityTypeSubStation, OwnerCompany = CompanyMrsk, Address = AddressSubstation });
             FacilityStation.Clone(new Facility { Name = "Свердловская", Type = FacilityTypeStation, OwnerCompany = CompanyEnel, Address = AddressStation });
         }
-
 
         private void GenerateProjects()
         {

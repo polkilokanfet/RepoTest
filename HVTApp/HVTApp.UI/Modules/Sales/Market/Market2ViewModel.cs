@@ -79,6 +79,40 @@ namespace HVTApp.UI.Modules.Sales.Market
             }
         }
 
+        public object[] SelectedItems
+        {
+            get => _selectedItems;
+            set
+            {
+                _selectedItems = value;
+                this.UnionProjectsCommand.RaiseCanExecuteChanged();
+            }
+        }
+
+        public List<ProjectItem> SelectedProjectItems
+        {
+            get
+            {
+                List<ProjectItem> result = new List<ProjectItem>();
+
+                if (SelectedItems == null) return result;
+
+                foreach (var selectedItem in SelectedItems)
+                {
+                    if (selectedItem is ProjectItem item)
+                    {
+                        result.Add(item);
+                    }
+                    else if (selectedItem is ProjectUnitsGroup grp)
+                    {
+                        result.Add(grp.ProjectItem);
+                    }
+                }
+
+                return result.Distinct().ToList();
+            }
+        }
+
         public ProjectUnitsGroup SelectedProjectUnitsGroup { get; set; }
 
         public event Action<ProjectItem> SelectedProjectItemChanged;
@@ -134,6 +168,7 @@ namespace HVTApp.UI.Modules.Sales.Market
             NewProjectCommand = new ProjectNewCommand(this.RegionManager);
             EditProjectCommand = new ProjectEditCommand(this, this.RegionManager);
             RemoveProjectCommand = new ProjectRemoveCommand(this, this.Container);
+            UnionProjectsCommand = new UnionProjectsCommand(this, this.Container);
 
             NewSpecificationCommand = new SpecificationNewCommand(this, this.Container, this.RegionManager);
 
@@ -234,6 +269,7 @@ namespace HVTApp.UI.Modules.Sales.Market
         private TechnicalRequrementsTasksContainer _technicalRequrementsTasks;
         private PriceCalculationsContainer _priceCalculations;
         private object _selectedItem;
+        private object[] _selectedItems;
 
 
         #region RaiseCanExecuteChanged

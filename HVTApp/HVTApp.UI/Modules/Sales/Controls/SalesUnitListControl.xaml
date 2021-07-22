@@ -192,9 +192,9 @@
 
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="4*"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
 
             <GroupBox Grid.Column="0" Header="Структура себестоимости (на единицу):">
@@ -204,7 +204,7 @@
                             <dp:FieldLayout>
                                 <dp:FieldLayout.Fields>
                                         
-                                    <dp:TextField AlternateBinding="{Binding Name}" BindingType="UseAlternateBinding" Label="Продукт" Width="400" AllowResize="True"/>
+                                    <dp:TextField AlternateBinding="{Binding Name}" BindingType="UseAlternateBinding" Label="Продукт" Width="350" AllowResize="True"/>
                                     <dp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" AllowResize="False"/>
                                     <dp:NumericField AlternateBinding="{Binding SumPriceOnUnit}" BindingType="UseAlternateBinding" Label="ПЗ на ед." Width="Auto" AllowResize="False" />
                                     <dp:NumericField AlternateBinding="{Binding SumPriceTotal}" BindingType="UseAlternateBinding" Label="ПЗ на кол." Width="Auto" AllowResize="False" />
@@ -230,7 +230,7 @@
                             <dp:FieldLayout>
                                 <dp:FieldLayout.Fields>
 
-                                    <dp:TextField AlternateBinding="{Binding Name}" BindingType="UseAlternateBinding" Label="Продукт" Width="400" AllowResize="True"/>
+                                    <dp:TextField AlternateBinding="{Binding Name}" BindingType="UseAlternateBinding" Label="Продукт" Width="350" AllowResize="True"/>
                                     <dp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" AllowResize="False"/>
                                     <dp:NumericField AlternateBinding="{Binding LaborHours}" BindingType="UseAlternateBinding" Label="Н/ч на ед." Width="Auto" AllowResize="False" />
                                     <dp:NumericField AlternateBinding="{Binding LaborHoursTotal}" BindingType="UseAlternateBinding" Label="Н/ч на кол." Width="Auto" AllowResize="False" />

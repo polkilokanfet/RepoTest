@@ -33,6 +33,7 @@ namespace HVTApp.UI.Modules.Sales.Market
         public ProjectNewCommand NewProjectCommand { get; }
         public ProjectEditCommand EditProjectCommand { get; }
         public ProjectRemoveCommand RemoveProjectCommand { get; }
+        public UnionProjectsCommand UnionProjectsCommand { get; }
 
         public SpecificationNewCommand NewSpecificationCommand { get; }
 
