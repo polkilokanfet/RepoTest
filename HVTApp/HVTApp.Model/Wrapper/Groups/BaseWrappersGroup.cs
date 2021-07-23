@@ -301,6 +301,7 @@ namespace HVTApp.Model.Wrapper.Groups
                            .SelectMany(x => x.ProductsIncluded)
                            .Select(x => x.Model)
                            .Distinct()
+                           .OrderBy(x => x.Product.ToString())
                            .Select(productIncluded => new ProductIncludedSimpleWrapper(productIncluded));
             }
         }
