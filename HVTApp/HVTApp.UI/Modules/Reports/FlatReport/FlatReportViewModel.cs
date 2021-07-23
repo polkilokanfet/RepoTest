@@ -591,7 +591,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
             //расстановка цен в нулевых единицах
             items
                 .Where(flatReportItem => Math.Abs(flatReportItem.SalesUnit.Cost) < 0.001)
-                .ForEach(flatReportItem => flatReportItem.EstimatedCost = GlobalAppProperties.PriceService.GetPrice(flatReportItem.SalesUnit, flatReportItem.EstimatedOrderInTakeDate).SumTotal * 1.4);
+                .ForEach(flatReportItem => flatReportItem.EstimatedCost = GlobalAppProperties.PriceService.GetPrice(flatReportItem.SalesUnit, flatReportItem.EstimatedOrderInTakeDate, true).SumTotal * 1.4);
 
             var min = items.Min(flatReportItem => flatReportItem.EstimatedOrderInTakeDate);
             var max = items.Max(flatReportItem => flatReportItem.EstimatedOrderInTakeDate);

@@ -13,8 +13,9 @@ namespace HVTApp.Model.Services
         /// </summary>
         /// <param name="unit"></param>
         /// <param name="targetDate">Целевая дата</param>
+        /// <param name="checkCalculations">Проверять ли калькуляции цен?</param>
         /// <returns></returns>
-        Price.Price GetPrice(IUnit unit, DateTime targetDate);
+        Price.Price GetPrice(IUnit unit, DateTime targetDate, bool checkCalculations);
 
         /// <summary>
         /// Получить прайс по калькуляциям

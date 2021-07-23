@@ -20,10 +20,18 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
         //блоки, необходимые для поиска аналогов
         protected readonly Dictionary<TGroup, Price> PriceDictionary = new Dictionary<TGroup, Price>();
 
+        protected readonly Dictionary<TGroup, Price> PriceDictionaryLaborHours = new Dictionary<TGroup, Price>();
+
         /// <summary>
         /// Структура себестоимости выбранной группы
         /// </summary>
-        public List<Price> Prices => Groups.SelectedGroup == null ? null : new List<Price> { PriceDictionary[Groups.SelectedGroup] };
+        public List<Price> Prices => Groups.SelectedGroup == null 
+            ? null 
+            : new List<Price> { PriceDictionary[Groups.SelectedGroup] };
+
+        public List<Price> PricesLaborHours => Groups.SelectedGroup == null 
+            ? null
+            : new List<Price> { PriceDictionaryLaborHours[Groups.SelectedGroup] };
 
         /// <summary>
         /// Дата для расчета себестоимости.
@@ -40,6 +48,8 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
         {
             if (grp == null) return;
 
+            this.RefreshPriceLaborHours(grp);
+
             //срок актуальности
             var priceTerm = GlobalAppProperties.Actual.ActualPriceTerm;
 
@@ -48,7 +58,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
                 PriceDictionary.Add(grp, null);
 
             //обновляем структуру себестоимости этой группе
-            PriceDictionary[grp] = GlobalAppProperties.PriceService.GetPrice(grp.Model, GetPriceDate(grp));
+            PriceDictionary[grp] = GlobalAppProperties.PriceService.GetPrice(grp.Model, GetPriceDate(grp), true);
 
             //обновляем себестоимость группы
             grp.Price = PriceDictionary[grp].SumPriceTotal;
@@ -69,5 +79,34 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             grp.Groups?.ForEach(x => RefreshPrice(x as TGroup));
         }
 
+        private void RefreshPriceLaborHours(TGroup grp)
+        {
+            if (grp == null) return;
+
+            //если в словаре нет такой группы, добавляем её
+            if (!PriceDictionaryLaborHours.ContainsKey(grp))
+                PriceDictionaryLaborHours.Add(grp, null);
+
+            //обновляем структуру себестоимости этой группе
+            PriceDictionaryLaborHours[grp] = GlobalAppProperties.PriceService.GetPrice(grp.Model, GetPriceDate(grp), false);
+
+            //обновляем себестоимость группы
+            grp.Price = PriceDictionaryLaborHours[grp].SumPriceTotal;
+            grp.FixedCost = PriceDictionaryLaborHours[grp].SumFixedTotal;
+
+            //основная з/п
+            var primaryPayment = PriceDictionaryLaborHours[grp].LaborHoursTotal * GlobalAppProperties.PriceService.GetLaborHoursCost(GetPriceDate(grp));
+            //отчисления
+            var dif = primaryPayment * 30.7 / 100.0;
+            //резерв отпусков
+            var vac = (primaryPayment + dif) * 7.7 / 100;
+            //фонд оплаты труда
+            grp.WageFund = primaryPayment + dif + vac;
+
+            RaisePropertyChanged(nameof(PricesLaborHours));
+
+            //если в группе есть зависимые группы - обновить и для них
+            grp.Groups?.ForEach(x => RefreshPrice(x as TGroup));
+        }
     }
 }

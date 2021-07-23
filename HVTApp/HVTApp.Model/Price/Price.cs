@@ -121,13 +121,15 @@ namespace HVTApp.Model.Price
             }
         }
 
-        public Price(IUnit unit, DateTime targetDate, IPriceService priceService)
+        public Price(IUnit unit, DateTime targetDate, IPriceService priceService, bool checkCalculations)
         {
             Name = unit.Product.ToString();
             IEnumerable<ProductIncluded> productsIncluded = unit.ProductsIncluded;
 
             //если есть калькул€ци€
-            var priceCalculationItem = priceService.GetPriceCalculationItem(unit);
+            var priceCalculationItem = checkCalculations
+                ? priceService.GetPriceCalculationItem(unit)
+                : null;
             if (priceCalculationItem != null)
             {
                 HasCalculation = true;

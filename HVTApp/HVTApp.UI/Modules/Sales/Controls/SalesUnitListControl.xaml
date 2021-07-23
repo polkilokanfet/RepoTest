@@ -225,7 +225,7 @@
 
             <GroupBox Grid.Column="2" Header="Трудозатраты (на единицу):">
                 <ScrollViewer>
-                    <dp:XamDataGrid DataSource="{Binding Prices}">
+                    <dp:XamDataGrid DataSource="{Binding PricesLaborHours}">
                         <dp:XamDataGrid.FieldLayouts>
                             <dp:FieldLayout>
                                 <dp:FieldLayout.Fields>

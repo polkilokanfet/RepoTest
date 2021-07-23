@@ -220,6 +220,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
                 RemoveCommand?.RaiseCanExecuteChanged();
                 AddProductIncludedCommand?.RaiseCanExecuteChanged();
                 RaisePropertyChanged(nameof(Prices));
+                RaisePropertyChanged(nameof(PricesLaborHours));
             };
 
             // реакция на выбор включенного оборудования

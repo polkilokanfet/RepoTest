@@ -144,9 +144,9 @@ namespace HVTApp.Services.PriceService.PriceServ
                 : null;
         }
 
-        public Price GetPrice(IUnit unit, DateTime targetDate)
+        public Price GetPrice(IUnit unit, DateTime targetDate, bool checkCalculations)
         {
-            return new Price(unit, targetDate, this);
+            return new Price(unit, targetDate, this, checkCalculations);
         }
 
         /// <summary>
