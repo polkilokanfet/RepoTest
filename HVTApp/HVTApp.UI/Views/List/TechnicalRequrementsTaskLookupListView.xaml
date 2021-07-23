@@ -40,12 +40,14 @@
 					<infg:FieldLayout.Fields>
 
                         <infg:TextField Name="Requrements" Label="Список требований" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
-                        <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="CommentBackOfficeBoss" Label="Комментарий распределителя" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="Comment" Label="Комментарий front-менеджера" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="TceNumber" Label="Номер в ТСЕ" Width="Auto" AllowResize="True" />
                         <infg:DateTimeField Name="Start" Label="Старт" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="BackManager" Label="Back manager" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:TextField Name="Facilities" Label="Объекты" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:CheckBoxField Name="LogisticsCalculationRequired" Label="Необходимость РТЗ" Width="Auto" AllowResize="True" />
+                        <infg:CheckBoxField Name="ExcelFileIsRequired" Label="Необходимость файла-расчета ПЗ" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="AnswerFiles" Label="Файлы-ответы ОГК" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:TextField Name="Status" Label="Статус" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="PriceCalculations" Label="Расчеты себестоимости" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>

@@ -16,8 +16,11 @@ namespace HVTApp.Model.POCOs
         [Designation("Список требований"), Required, OrderStatus(20)]
         public virtual List<TechnicalRequrements> Requrements { get; set; } = new List<TechnicalRequrements>();
 
-        [Designation("Комментарий"), MaxLength(250), OrderStatus(5)]
+        [Designation("Комментарий front-менеджера"), MaxLength(250), OrderStatus(5)]
         public string Comment { get; set; }
+
+        [Designation("Комментарий распределителя"), MaxLength(250), OrderStatus(5)]
+        public string CommentBackOfficeBoss { get; set; }
 
         [Designation("Номер в ТСЕ"), MaxLength(10), OrderStatus(4)]
         public string TceNumber { get; set; }
@@ -52,7 +55,10 @@ namespace HVTApp.Model.POCOs
         [Designation("Файлы-ответы ОГК"), OrderStatus(-6)]
         public virtual List<AnswerFileTce> AnswerFiles { get; set; } = new List<AnswerFileTce>();
 
-        [Designation("Необходимость РТЗ"), OrderStatus(-4)] 
+        [Designation("Необходимость РТЗ"), OrderStatus(-4)]
         public bool LogisticsCalculationRequired { get; set; } = false;
+
+        [Designation("Необходимость файла-расчета ПЗ"), OrderStatus(-5)]
+        public bool ExcelFileIsRequired { get; set; } = true;
     }
 }

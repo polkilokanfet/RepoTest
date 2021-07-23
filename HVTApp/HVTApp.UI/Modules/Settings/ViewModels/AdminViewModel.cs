@@ -25,19 +25,8 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
                 () =>
                 {
                     var unitOfWork = _container.Resolve<IUnitOfWork>();
-
-                    var blocks = unitOfWork.Repository<ProductBlock>().GetAll();
-                    blocks = blocks.Where(productBlock => productBlock.Parameters.Any(parameter => parameter.ParameterGroup.IsComplectsGroup())).ToList();
-                    foreach (var productBlock in blocks)
-                    {
-                        var complectType = productBlock.Parameters.Single(parameter => parameter.ParameterGroup.IsComplectsGroup()).Value;
-                        var complectDesignation = productBlock.Parameters.Single(parameter => parameter.ParameterGroup.IsComplectDesignationGroup()).Value;
-                        productBlock.DesignationSpecial = $"{complectType} {complectDesignation}";
-                    }
-
-                    var products = unitOfWork.Repository<Product>().Find(product => !string.IsNullOrEmpty(product.ProductBlock.DesignationSpecial));
-                    products.ForEach(product => product.DesignationSpecial = product.ProductBlock.DesignationSpecial);
-
+                    var tasks = unitOfWork.Repository<TechnicalRequrementsTask>().GetAll();
+                    tasks.ForEach(x => x.ExcelFileIsRequired = true);
                     unitOfWork.SaveChanges();
 
                     ////_container.Resolve<IEmailService>().SendMail("kosolapov.ag@gmail.com", "SubjTest", "BodyTest");

@@ -1825,6 +1825,14 @@ namespace HVTApp.Model.Wrapper
         }
         public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
         public bool CommentIsChanged => GetIsChanged(nameof(Comment));
+        //CommentBackOfficeBoss
+        public System.String CommentBackOfficeBoss
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String CommentBackOfficeBossOriginalValue => GetOriginalValue<System.String>(nameof(CommentBackOfficeBoss));
+        public bool CommentBackOfficeBossIsChanged => GetIsChanged(nameof(CommentBackOfficeBoss));
         //TceNumber
         public System.String TceNumber
         {
@@ -1897,6 +1905,14 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Boolean LogisticsCalculationRequiredOriginalValue => GetOriginalValue<System.Boolean>(nameof(LogisticsCalculationRequired));
         public bool LogisticsCalculationRequiredIsChanged => GetIsChanged(nameof(LogisticsCalculationRequired));
+        //ExcelFileIsRequired
+        public System.Boolean ExcelFileIsRequired
+        {
+          get { return GetValue<System.Boolean>(); }
+          set { SetValue(value); }
+        }
+        public System.Boolean ExcelFileIsRequiredOriginalValue => GetOriginalValue<System.Boolean>(nameof(ExcelFileIsRequired));
+        public bool ExcelFileIsRequiredIsChanged => GetIsChanged(nameof(ExcelFileIsRequired));
         //Id
         public System.Guid Id
         {

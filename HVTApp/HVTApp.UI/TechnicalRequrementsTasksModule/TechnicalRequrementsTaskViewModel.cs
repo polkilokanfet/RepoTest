@@ -87,6 +87,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
         public bool IsRejected => TechnicalRequrementsTaskWrapper?.RejectByBackManagerMoment != null;
 
+        public bool AllowInstruct => CurrentUserIsBackManagerBoss && IsStarted && TechnicalRequrementsTaskWrapper.BackManager == null;
+
         public string ValidationResult => TechnicalRequrementsTaskWrapper?.ValidationResult;
 
         #region DelegateLogCommand
@@ -813,6 +815,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                         UnitOfWork.SaveChanges();
                         container.Resolve<IEventAggregator>().GetEvent<AfterSaveTechnicalRequrementsTaskEvent>().Publish(TechnicalRequrementsTaskWrapper.Model);
                         container.Resolve<IEventAggregator>().GetEvent<AfterInstructTechnicalRequrementsTaskEvent>().Publish(TechnicalRequrementsTaskWrapper.Model);
+
+                        RaisePropertyChanged(nameof(AllowInstruct));
                     }
                 },
                 () => CurrentUserIsBackManagerBoss);

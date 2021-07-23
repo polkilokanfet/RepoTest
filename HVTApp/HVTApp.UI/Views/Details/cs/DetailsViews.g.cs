@@ -2806,6 +2806,10 @@ namespace HVTApp.UI.Views
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityCommentTechnicalRequrementsTask = Visibility.Collapsed;
 
+            //attr = typeof(HVTApp.Model.POCOs.TechnicalRequrementsTask).GetProperty(nameof(HVTApp.Model.POCOs.TechnicalRequrementsTask.CommentBackOfficeBoss)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityCommentBackOfficeBossTechnicalRequrementsTask = Visibility.Collapsed;
+
             //attr = typeof(HVTApp.Model.POCOs.TechnicalRequrementsTask).GetProperty(nameof(HVTApp.Model.POCOs.TechnicalRequrementsTask.TceNumber)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityTceNumberTechnicalRequrementsTask = Visibility.Collapsed;
@@ -2854,6 +2858,10 @@ namespace HVTApp.UI.Views
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityLogisticsCalculationRequiredTechnicalRequrementsTask = Visibility.Collapsed;
 
+            //attr = typeof(HVTApp.Model.POCOs.TechnicalRequrementsTask).GetProperty(nameof(HVTApp.Model.POCOs.TechnicalRequrementsTask.ExcelFileIsRequired)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityExcelFileIsRequiredTechnicalRequrementsTask = Visibility.Collapsed;
+
 
         }
 
@@ -2871,6 +2879,14 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityCommentTechnicalRequrementsTaskProperty); }
             set { SetValue(VisibilityCommentTechnicalRequrementsTaskProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityCommentBackOfficeBossTechnicalRequrementsTaskProperty = DependencyProperty.Register("VisibilityCommentBackOfficeBossTechnicalRequrementsTask", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityCommentBackOfficeBossTechnicalRequrementsTask
+        {
+            get { return (Visibility) GetValue(VisibilityCommentBackOfficeBossTechnicalRequrementsTaskProperty); }
+            set { SetValue(VisibilityCommentBackOfficeBossTechnicalRequrementsTaskProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2967,6 +2983,14 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityLogisticsCalculationRequiredTechnicalRequrementsTaskProperty); }
             set { SetValue(VisibilityLogisticsCalculationRequiredTechnicalRequrementsTaskProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityExcelFileIsRequiredTechnicalRequrementsTaskProperty = DependencyProperty.Register("VisibilityExcelFileIsRequiredTechnicalRequrementsTask", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityExcelFileIsRequiredTechnicalRequrementsTask
+        {
+            get { return (Visibility) GetValue(VisibilityExcelFileIsRequiredTechnicalRequrementsTaskProperty); }
+            set { SetValue(VisibilityExcelFileIsRequiredTechnicalRequrementsTaskProperty, value); OnPropertyChanged(); }
         }
 
 	}

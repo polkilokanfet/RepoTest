@@ -37,6 +37,8 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -46,25 +48,36 @@
                 <Label Grid.Row="0" Grid.Column="0" Content="Проект: "/>
                 <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding TechnicalRequrementsTaskWrapper.ProjectName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
 
-                <Label Grid.Row="1" Grid.Column="0" Content="Комментарий: "/>
+                <Label Grid.Row="1" Grid.Column="0" Content="Комментарий front-manager: "/>
                 <TextBox Grid.Row="1" 
                          Grid.Column="1" 
                          Text="{Binding TechnicalRequrementsTaskWrapper.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                          IsReadOnly="{Binding IsStarted, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <CheckBox Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right"
+                <Label Grid.Row="2" Grid.Column="0" Content="Комментарий распределителя: "/>
+                <TextBox Grid.Row="2" 
+                         Grid.Column="1" 
+                         Text="{Binding TechnicalRequrementsTaskWrapper.CommentBackOfficeBoss, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                         IsReadOnly="{Binding AllowInstruct, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ReverseBoolConverter}}"/>
+
+                <CheckBox Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right"
                           IsChecked="{Binding TechnicalRequrementsTaskWrapper.LogisticsCalculationRequired, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                           IsEnabled="{Binding IsStarted, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ReverseBoolConverter}}"/>
-                <Label Grid.Column="1" Grid.Row ="2" Content=" - необходим Расчет Транспортных Затрат" HorizontalAlignment="Left"/>
+                <Label Grid.Column="1" Grid.Row ="3" Content=" - необходим Расчет Транспортных Затрат" HorizontalAlignment="Left"/>
 
-                <Label Grid.Row="3" Grid.Column="0" Content="Старт: "/>
-                <Label Grid.Row="3" Grid.Column="1" Content="{Binding TechnicalRequrementsTaskWrapper.Start, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DateTimeToStringConverter}}" HorizontalAlignment="Left"/>
+                <CheckBox Grid.Column="0" Grid.Row="4" HorizontalAlignment="Right"
+                          IsChecked="{Binding TechnicalRequrementsTaskWrapper.ExcelFileIsRequired, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          IsEnabled="{Binding IsStarted, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ReverseBoolConverter}}"/>
+                <Label Grid.Column="1" Grid.Row ="4" Content=" - необходим файл в расчете Переменных затрат (excel)" HorizontalAlignment="Left"/>
 
-                <Label Grid.Row="4" Grid.Column="0" Content="Back-manager: "/>
-                <Label Grid.Row="4" Grid.Column="1" Content="{Binding TechnicalRequrementsTaskWrapper.BackManager, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ObjectToStringConverter}}" HorizontalAlignment="Left"/>
+                <Label Grid.Row="5" Grid.Column="0" Content="Старт: "/>
+                <Label Grid.Row="5" Grid.Column="1" Content="{Binding TechnicalRequrementsTaskWrapper.Start, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DateTimeToStringConverter}}" HorizontalAlignment="Left"/>
 
-                <Label Grid.Row="5" Grid.Column="0" Content="Причина отклонения: "/>
-                <TextBox Grid.Row="5" Grid.Column="1"
+                <Label Grid.Row="6" Grid.Column="0" Content="Back-manager: "/>
+                <Label Grid.Row="6" Grid.Column="1" Content="{Binding TechnicalRequrementsTaskWrapper.BackManager, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ObjectToStringConverter}}" HorizontalAlignment="Left"/>
+
+                <Label Grid.Row="7" Grid.Column="0" Content="Причина отклонения: "/>
+                <TextBox Grid.Row="7" Grid.Column="1"
                          Text="{Binding TechnicalRequrementsTaskWrapper.RejectComment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                          IsReadOnly="{Binding CurrentUserIsBackManager, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ReverseBoolConverter}}"/>
 

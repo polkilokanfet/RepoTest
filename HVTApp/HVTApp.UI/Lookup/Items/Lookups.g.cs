@@ -936,6 +936,9 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(5)]
         public System.String Comment => Entity.Comment;
 
+		[OrderStatus(5)]
+        public System.String CommentBackOfficeBoss => Entity.CommentBackOfficeBoss;
+
 		[OrderStatus(4)]
         public System.String TceNumber => Entity.TceNumber;
 
@@ -962,6 +965,9 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(-4)]
         public System.Boolean LogisticsCalculationRequired => Entity.LogisticsCalculationRequired;
+
+		[OrderStatus(-5)]
+        public System.Boolean ExcelFileIsRequired => Entity.ExcelFileIsRequired;
 
         #endregion
 

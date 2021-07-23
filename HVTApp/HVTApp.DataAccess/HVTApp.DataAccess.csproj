@@ -270,6 +270,10 @@
     <Compile Include="Migrations\202107020803438_SumOnDateFix.Designer.cs">
       <DependentUpon>202107020803438_SumOnDateFix.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202107231023590_BackOfficeComments.cs" />
+    <Compile Include="Migrations\202107231023590_BackOfficeComments.Designer.cs">
+      <DependentUpon>202107231023590_BackOfficeComments.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -433,6 +437,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202107020803438_SumOnDateFix.resx">
       <DependentUpon>202107020803438_SumOnDateFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107231023590_BackOfficeComments.resx">
+      <DependentUpon>202107231023590_BackOfficeComments.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

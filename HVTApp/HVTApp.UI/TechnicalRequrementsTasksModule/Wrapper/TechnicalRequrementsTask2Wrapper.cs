@@ -34,6 +34,15 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper
         public bool LogisticsCalculationRequiredOriginalValue => GetOriginalValue<bool>(nameof(LogisticsCalculationRequired));
         public bool LogisticsCalculationRequiredIsChanged => GetIsChanged(nameof(LogisticsCalculationRequired));
 
+        public bool ExcelFileIsRequired
+        {
+            get => GetValue<bool>();
+            set => SetValue(value);
+        }
+        public bool ExcelFileIsRequiredOriginalValue => GetOriginalValue<bool>(nameof(ExcelFileIsRequired));
+        public bool ExcelFileIsRequiredIsChanged => GetIsChanged(nameof(ExcelFileIsRequired));
+
+
         public string Comment
         {
             get => GetValue<string>();
@@ -41,6 +50,15 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper
         }
         public string CommentOriginalValue => GetOriginalValue<string>(nameof(Comment));
         public bool CommentIsChanged => GetIsChanged(nameof(Comment));
+
+        public string CommentBackOfficeBoss
+        {
+            get => GetValue<string>();
+            set => SetValue(value);
+        }
+        public string CommentBackOfficeBossOriginalValue => GetOriginalValue<string>(nameof(CommentBackOfficeBoss));
+        public bool CommentBackOfficeBossIsChanged => GetIsChanged(nameof(CommentBackOfficeBoss));
+
 
         public string TceNumber
         {
@@ -73,7 +91,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper
             get => GetValue<System.String>();
             set => SetValue(value);
         }
-        public System.String RejectCommentOriginalValue => GetOriginalValue<System.String>(nameof(RejectComment));
+        public string RejectCommentOriginalValue => GetOriginalValue<string>(nameof(RejectComment));
         public bool RejectCommentIsChanged => GetIsChanged(nameof(RejectComment));
 
         #endregion

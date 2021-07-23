@@ -6276,6 +6276,12 @@ namespace HVTApp.UI.Views
             set { TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.Comment)].Visibility = value; }
         }
 
+        public System.Windows.Visibility CommentBackOfficeBossVisibility
+        {
+            get { return TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.CommentBackOfficeBoss)].Visibility; }
+            set { TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.CommentBackOfficeBoss)].Visibility = value; }
+        }
+
         public System.Windows.Visibility TceNumberVisibility
         {
             get { return TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.TceNumber)].Visibility; }
@@ -6328,6 +6334,12 @@ namespace HVTApp.UI.Views
         {
             get { return TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.LogisticsCalculationRequired)].Visibility; }
             set { TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.LogisticsCalculationRequired)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility ExcelFileIsRequiredVisibility
+        {
+            get { return TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.ExcelFileIsRequired)].Visibility; }
+            set { TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.ExcelFileIsRequired)].Visibility = value; }
         }
 
         public System.Windows.Visibility DisplayMemberVisibility
