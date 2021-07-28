@@ -82,7 +82,7 @@ namespace HVTApp.Services.PrintService
                 }
                 catch (Exception e)
                 {
-                    MessageService.ShowOkMessageDialog("Error", e.GetAllExceptions());
+                    MessageService.ShowOkMessageDialog("Error", e.PrintAllExceptions());
                 }
             }
         }

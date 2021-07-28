@@ -2711,6 +2711,72 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
+	[Designation("Запись лога")]
+	[DesignationPlural("LogUnitLookup")]
+	[AllowEditAttribute(Role.Admin)]
+    public partial class LogUnitLookupListView : ViewBase
+    {
+        public LogUnitLookupListView()
+        {
+            InitializeComponent();
+        }
+
+        public LogUnitLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, LogUnitLookupListViewModel LogUnitLookupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = LogUnitLookupListViewModel;
+			LogUnitLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			((LogUnitLookupListViewModel)DataContext).Load();
+        }
+
+		#region VisibilityProps
+
+        public System.Windows.Visibility MomentVisibility
+        {
+            get { return LogUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LogUnitLookup.Moment)].Visibility; }
+            set { LogUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LogUnitLookup.Moment)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility HeadVisibility
+        {
+            get { return LogUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LogUnitLookup.Head)].Visibility; }
+            set { LogUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LogUnitLookup.Head)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility MessageVisibility
+        {
+            get { return LogUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LogUnitLookup.Message)].Visibility; }
+            set { LogUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LogUnitLookup.Message)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return LogUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LogUnitLookup.DisplayMember)].Visibility; }
+            set { LogUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LogUnitLookup.DisplayMember)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility AuthorVisibility
+        {
+            get { return LogUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LogUnitLookup.Author)].Visibility; }
+            set { LogUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LogUnitLookup.Author)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return LogUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LogUnitLookup.Entity)].Visibility; }
+            set { LogUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LogUnitLookup.Entity)].Visibility = value; }
+        }
+
+
+		#endregion
+    }
+
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Причина проигрыша")]
 	[DesignationPlural("LosingReasonLookup")]
 	[AllowEditAttribute(Role.Admin)]

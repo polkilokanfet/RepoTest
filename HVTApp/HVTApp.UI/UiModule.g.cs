@@ -79,6 +79,10 @@ namespace HVTApp.UI
             //_dialogService.Register<LaborHoursDetailsViewModel, LaborHoursDetailsView>();
 			_selectService.Register<LaborHoursLookupListView, LaborHours>();
             _updateDetailsService.Register<LaborHours, LaborHoursDetailsView>();
+            Container.RegisterViewForNavigation<LogUnitLookupListView>();
+            //_dialogService.Register<LogUnitDetailsViewModel, LogUnitDetailsView>();
+			_selectService.Register<LogUnitLookupListView, LogUnit>();
+            _updateDetailsService.Register<LogUnit, LogUnitDetailsView>();
             Container.RegisterViewForNavigation<LosingReasonLookupListView>();
             //_dialogService.Register<LosingReasonDetailsViewModel, LosingReasonDetailsView>();
 			_selectService.Register<LosingReasonLookupListView, LosingReason>();

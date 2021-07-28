@@ -92,6 +92,11 @@ namespace HVTApp.UI.ViewModels
         public LaborHoursLookupListViewModel(IUnityContainer container) : base(container) { }
     }
 
+	public partial class LogUnitLookupListViewModel : BaseListViewModel<LogUnit, LogUnitLookup, AfterSaveLogUnitEvent, AfterSelectLogUnitEvent, AfterRemoveLogUnitEvent>
+    {
+        public LogUnitLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
 	public partial class LosingReasonLookupListViewModel : BaseListViewModel<LosingReason, LosingReasonLookup, AfterSaveLosingReasonEvent, AfterSelectLosingReasonEvent, AfterRemoveLosingReasonEvent>
     {
         public LosingReasonLookupListViewModel(IUnityContainer container) : base(container) { }

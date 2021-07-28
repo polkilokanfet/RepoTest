@@ -123,6 +123,13 @@ namespace HVTApp.DataAccess
 		}
     }
 
+    public partial class LogUnitRepository : BaseRepository<LogUnit>, ILogUnitRepository
+    {
+		public LogUnitRepository(DbContext context) : base(context) 
+		{
+		}
+    }
+
     public partial class LosingReasonRepository : BaseRepository<LosingReason>, ILosingReasonRepository
     {
 		public LosingReasonRepository(DbContext context) : base(context) 

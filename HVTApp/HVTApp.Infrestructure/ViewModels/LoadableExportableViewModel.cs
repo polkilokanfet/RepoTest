@@ -64,7 +64,7 @@ namespace HVTApp.Infrastructure.ViewModels
 
         protected virtual void ErrorCallback(Exception exception)
         {
-            Container.Resolve<IMessageService>().ShowOkMessageDialog("Exception", exception.GetAllExceptions());
+            Container.Resolve<IMessageService>().ShowOkMessageDialog("Exception", exception.PrintAllExceptions());
         }
 
         /// <summary>

@@ -1315,6 +1315,77 @@ namespace HVTApp.UI.Views
 
 	}
 
+    public partial class LogUnitDetailsView : ViewBase
+    {
+        public LogUnitDetailsView()
+        {
+			InitializeComponent();
+        }
+
+        public LogUnitDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, LogUnitDetailsViewModel LogUnitDetailsViewModel) : base(regionManager, eventAggregator)
+        {
+            SetVisibilityProps();
+			InitializeComponent();
+            DataContext = LogUnitDetailsViewModel;
+        }
+
+        private void SetVisibilityProps()
+        {
+            //NotUpdateAttribute attr;
+
+            //attr = typeof(HVTApp.Model.POCOs.LogUnit).GetProperty(nameof(HVTApp.Model.POCOs.LogUnit.Moment)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityMomentLogUnit = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.LogUnit).GetProperty(nameof(HVTApp.Model.POCOs.LogUnit.Author)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityAuthorLogUnit = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.LogUnit).GetProperty(nameof(HVTApp.Model.POCOs.LogUnit.Head)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityHeadLogUnit = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.LogUnit).GetProperty(nameof(HVTApp.Model.POCOs.LogUnit.Message)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityMessageLogUnit = Visibility.Collapsed;
+
+
+        }
+
+
+        public static readonly DependencyProperty VisibilityMomentLogUnitProperty = DependencyProperty.Register("VisibilityMomentLogUnit", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityMomentLogUnit
+        {
+            get { return (Visibility) GetValue(VisibilityMomentLogUnitProperty); }
+            set { SetValue(VisibilityMomentLogUnitProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityAuthorLogUnitProperty = DependencyProperty.Register("VisibilityAuthorLogUnit", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityAuthorLogUnit
+        {
+            get { return (Visibility) GetValue(VisibilityAuthorLogUnitProperty); }
+            set { SetValue(VisibilityAuthorLogUnitProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityHeadLogUnitProperty = DependencyProperty.Register("VisibilityHeadLogUnit", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityHeadLogUnit
+        {
+            get { return (Visibility) GetValue(VisibilityHeadLogUnitProperty); }
+            set { SetValue(VisibilityHeadLogUnitProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityMessageLogUnitProperty = DependencyProperty.Register("VisibilityMessageLogUnit", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityMessageLogUnit
+        {
+            get { return (Visibility) GetValue(VisibilityMessageLogUnitProperty); }
+            set { SetValue(VisibilityMessageLogUnitProperty, value); OnPropertyChanged(); }
+        }
+
+	}
+
     public partial class LosingReasonDetailsView : ViewBase
     {
         public LosingReasonDetailsView()

@@ -266,7 +266,7 @@ namespace HVTApp.Services.PrintService
                     }
                     catch (Exception e)
                     {
-                        _messageService.ShowOkMessageDialog(e.GetType().ToString(), e.GetAllExceptions());
+                        _messageService.ShowOkMessageDialog(e.GetType().ToString(), e.PrintAllExceptions());
                         docWriter.PrintTableCell(string.Empty);
                     }
                 }

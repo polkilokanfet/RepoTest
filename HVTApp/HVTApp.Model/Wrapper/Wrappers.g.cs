@@ -847,6 +847,56 @@ namespace HVTApp.Model.Wrapper
         }
 	}
 
+		public partial class LogUnitWrapper : WrapperBase<LogUnit>
+	{
+	    public LogUnitWrapper(LogUnit model) : base(model) { }
+        #region SimpleProperties
+        //Moment
+        public System.DateTime Moment
+        {
+          get { return GetValue<System.DateTime>(); }
+          set { SetValue(value); }
+        }
+        public System.DateTime MomentOriginalValue => GetOriginalValue<System.DateTime>(nameof(Moment));
+        public bool MomentIsChanged => GetIsChanged(nameof(Moment));
+        //Head
+        public System.String Head
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String HeadOriginalValue => GetOriginalValue<System.String>(nameof(Head));
+        public bool HeadIsChanged => GetIsChanged(nameof(Head));
+        //Message
+        public System.String Message
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String MessageOriginalValue => GetOriginalValue<System.String>(nameof(Message));
+        public bool MessageIsChanged => GetIsChanged(nameof(Message));
+        //Id
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+        #endregion
+        #region ComplexProperties
+	    public UserWrapper Author 
+        {
+            get { return GetWrapper<UserWrapper>(); }
+            set { SetComplexValue<User, UserWrapper>(Author, value); }
+        }
+        #endregion
+        public override void InitializeComplexProperties()
+        {
+            InitializeComplexProperty<UserWrapper>(nameof(Author), Model.Author == null ? null : new UserWrapper(Model.Author));
+        }
+	}
+
 		public partial class LosingReasonWrapper : WrapperBase<LosingReason>
 	{
 	    public LosingReasonWrapper(LosingReason model) : base(model) { }

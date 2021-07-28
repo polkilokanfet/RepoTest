@@ -41,7 +41,7 @@ namespace HVTApp.UI.Modules.Director.Views
             }
             catch (Exception e)
             {
-                _container.Resolve<IMessageService>().ShowOkMessageDialog("Exception", e.GetAllExceptions());
+                _container.Resolve<IMessageService>().ShowOkMessageDialog("Exception", e.PrintAllExceptions());
             }
             this.Loaded -= OnLoaded;
         }

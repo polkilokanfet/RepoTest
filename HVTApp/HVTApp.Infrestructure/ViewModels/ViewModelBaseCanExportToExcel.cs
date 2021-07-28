@@ -30,7 +30,7 @@ namespace HVTApp.Infrastructure.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    messageService.ShowOkMessageDialog("Ошибка экспорта в файл", ex.GetAllExceptions());
+                    messageService.ShowOkMessageDialog("Ошибка экспорта в файл", ex.PrintAllExceptions());
                     return;
                 }
 
@@ -44,7 +44,7 @@ namespace HVTApp.Infrastructure.ViewModels
                     }
                     catch (Exception ex)
                     {
-                        messageService.ShowOkMessageDialog("Ошибка", ex.GetAllExceptions());
+                        messageService.ShowOkMessageDialog("Ошибка", ex.PrintAllExceptions());
                     }
                 }
             });

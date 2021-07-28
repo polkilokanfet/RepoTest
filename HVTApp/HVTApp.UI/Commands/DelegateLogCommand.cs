@@ -33,7 +33,7 @@ namespace HVTApp.UI.Commands
             catch (Exception e)
             {
                 GlobalAppProperties.HvtAppLogger.LogError(e.GetType().Name, e);
-                GlobalAppProperties.MessageService.ShowOkMessageDialog($"Исключение в DelegateLogCommand: {e.GetType().Name}", e.GetAllExceptions());
+                GlobalAppProperties.MessageService.ShowOkMessageDialog($"Исключение в DelegateLogCommand: {e.GetType().Name}", e.PrintAllExceptions());
                 if (_shutdownAppOnException)
                 {
                     GlobalAppProperties.EventServiceClient.Stop();
@@ -55,7 +55,7 @@ namespace HVTApp.UI.Commands
             catch (Exception e)
             {
                 GlobalAppProperties.HvtAppLogger.LogError(e.GetType().Name, e);
-                GlobalAppProperties.MessageService.ShowOkMessageDialog($"Исключение в DelegateLogCommand: {e.GetType().Name}", e.GetAllExceptions());
+                GlobalAppProperties.MessageService.ShowOkMessageDialog($"Исключение в DelegateLogCommand: {e.GetType().Name}", e.PrintAllExceptions());
                 if (_shutdownAppOnException)
                 {
                     GlobalAppProperties.EventServiceClient.Stop();

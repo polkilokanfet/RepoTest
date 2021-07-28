@@ -75,12 +75,12 @@ namespace HVTApp.Infrastructure
             }
             catch (IOException ioException)
             {
-                messageService.ShowOkMessageDialog(ioException.GetType().ToString(), ioException.GetAllExceptions());
+                messageService.ShowOkMessageDialog(ioException.GetType().ToString(), ioException.PrintAllExceptions());
                 return string.Empty;
             }
             catch (Exception e)
             {
-                messageService.ShowOkMessageDialog(e.GetType().ToString(), e.GetAllExceptions());
+                messageService.ShowOkMessageDialog(e.GetType().ToString(), e.PrintAllExceptions());
                 return string.Empty;
             }
 
@@ -144,7 +144,7 @@ namespace HVTApp.Infrastructure
                 }
                 catch (Exception e)
                 {
-                    messageService.ShowOkMessageDialog(e.GetType().ToString(), e.GetAllExceptions());
+                    messageService.ShowOkMessageDialog(e.GetType().ToString(), e.PrintAllExceptions());
                 }
             }
         }

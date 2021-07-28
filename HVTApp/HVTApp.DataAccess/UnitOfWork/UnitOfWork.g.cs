@@ -21,6 +21,7 @@ namespace HVTApp.DataAccess
             IncomingRequestRepository = new IncomingRequestRepository(_context);
             LaborHourCostRepository = new LaborHourCostRepository(_context);
             LaborHoursRepository = new LaborHoursRepository(_context);
+            LogUnitRepository = new LogUnitRepository(_context);
             LosingReasonRepository = new LosingReasonRepository(_context);
             MarketFieldRepository = new MarketFieldRepository(_context);
             PaymentActualRepository = new PaymentActualRepository(_context);
@@ -111,6 +112,7 @@ namespace HVTApp.DataAccess
         protected IIncomingRequestRepository IncomingRequestRepository;
         protected ILaborHourCostRepository LaborHourCostRepository;
         protected ILaborHoursRepository LaborHoursRepository;
+        protected ILogUnitRepository LogUnitRepository;
         protected ILosingReasonRepository LosingReasonRepository;
         protected IMarketFieldRepository MarketFieldRepository;
         protected IPaymentActualRepository PaymentActualRepository;

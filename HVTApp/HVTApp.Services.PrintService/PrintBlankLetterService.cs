@@ -133,7 +133,7 @@ namespace HVTApp.Services.PrintService
                     }
                     catch (Exception e)
                     {
-                        Container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().ToString(), e.GetAllExceptions());
+                        Container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().ToString(), e.PrintAllExceptions());
                         docWriter.PrintTableCell(string.Empty);
                     }
                 }

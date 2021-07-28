@@ -88,7 +88,7 @@ namespace HVTApp.UI.Modules.Products.ViewModels
                     }
                     catch (Exception e)
                     {
-                        Container.Resolve<IMessageService>().ShowOkMessageDialog("Exception", e.GetAllExceptions());
+                        Container.Resolve<IMessageService>().ShowOkMessageDialog("Exception", e.PrintAllExceptions());
                     }
                 },
                 () => ProductReplaceable != null && ProductTarget != null);

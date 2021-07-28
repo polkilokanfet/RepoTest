@@ -29,6 +29,7 @@ namespace HVTApp.DataAccess
             context.IncomingRequestDbSet.AddRange(testData.GetAll<IncomingRequest>());
             context.LaborHourCostDbSet.AddRange(testData.GetAll<LaborHourCost>());
             context.LaborHoursDbSet.AddRange(testData.GetAll<LaborHours>());
+            context.LogUnitDbSet.AddRange(testData.GetAll<LogUnit>());
             context.LosingReasonDbSet.AddRange(testData.GetAll<LosingReason>());
             context.MarketFieldDbSet.AddRange(testData.GetAll<MarketField>());
             context.PaymentActualDbSet.AddRange(testData.GetAll<PaymentActual>());

@@ -20,6 +20,7 @@ namespace HVTApp.Model.Events
 	public partial class AfterSelectIncomingRequestEvent : PubSubEvent<PubSubEventArgs<IncomingRequest>> { }
 	public partial class AfterSelectLaborHourCostEvent : PubSubEvent<PubSubEventArgs<LaborHourCost>> { }
 	public partial class AfterSelectLaborHoursEvent : PubSubEvent<PubSubEventArgs<LaborHours>> { }
+	public partial class AfterSelectLogUnitEvent : PubSubEvent<PubSubEventArgs<LogUnit>> { }
 	public partial class AfterSelectLosingReasonEvent : PubSubEvent<PubSubEventArgs<LosingReason>> { }
 	public partial class AfterSelectMarketFieldEvent : PubSubEvent<PubSubEventArgs<MarketField>> { }
 	public partial class AfterSelectPaymentActualEvent : PubSubEvent<PubSubEventArgs<PaymentActual>> { }

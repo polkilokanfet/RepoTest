@@ -72,7 +72,7 @@ namespace EventService
                 }
                 catch (Exception e)
                 {
-                    this.PrintMessageEvent?.Invoke(e.GetAllExceptions());
+                    this.PrintMessageEvent?.Invoke(e.PrintAllExceptions());
                 }
             }
 
@@ -216,7 +216,7 @@ namespace EventService
                 }
                 catch (Exception e)
                 {
-                    PrintMessageEvent?.Invoke($"!Exception on Invoke {publishEvent.GetMethodInfo().Name} by appSession {appSessionId}. \n{e.GetType().FullName}\n{e.GetAllExceptions()}");
+                    PrintMessageEvent?.Invoke($"!Exception on Invoke {publishEvent.GetMethodInfo().Name} by appSession {appSessionId}. \n{e.GetType().FullName}\n{e.PrintAllExceptions()}");
                     this.Disconnect(appSession.AppSessionId);
                 }
             }
@@ -240,7 +240,7 @@ namespace EventService
                 }
                 catch (Exception e)
                 {
-                    PrintMessageEvent?.Invoke($"Exception on Close() {appSession}. {e.GetType().FullName} \n {e.GetAllExceptions()}");
+                    PrintMessageEvent?.Invoke($"Exception on Close() {appSession}. {e.GetType().FullName} \n {e.PrintAllExceptions()}");
                 }
             }
         }

@@ -190,11 +190,11 @@ namespace EventServiceClient2
                 }
                 catch (TimeoutException e)
                 {
-                    _container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().Name, e.GetAllExceptions());
+                    _container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().Name, e.PrintAllExceptions());
                 }
                 catch (Exception e)
                 {
-                    _container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().Name, e.GetAllExceptions());
+                    _container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().Name, e.PrintAllExceptions());
                 }
             }
 

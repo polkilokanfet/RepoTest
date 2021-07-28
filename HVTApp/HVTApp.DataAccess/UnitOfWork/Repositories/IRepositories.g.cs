@@ -20,6 +20,7 @@ namespace HVTApp.DataAccess
     public partial interface IIncomingRequestRepository : IRepository<IncomingRequest> { }
     public partial interface ILaborHourCostRepository : IRepository<LaborHourCost> { }
     public partial interface ILaborHoursRepository : IRepository<LaborHours> { }
+    public partial interface ILogUnitRepository : IRepository<LogUnit> { }
     public partial interface ILosingReasonRepository : IRepository<LosingReason> { }
     public partial interface IMarketFieldRepository : IRepository<MarketField> { }
     public partial interface IPaymentActualRepository : IRepository<PaymentActual> { }

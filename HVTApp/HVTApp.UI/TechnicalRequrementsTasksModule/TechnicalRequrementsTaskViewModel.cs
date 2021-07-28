@@ -236,7 +236,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                             }
                             catch (Exception e)
                             {
-                                _messageService.ShowOkMessageDialog("Exception", e.GetAllExceptions());
+                                _messageService.ShowOkMessageDialog("Exception", e.PrintAllExceptions());
                             }
                         }
                     }
@@ -718,7 +718,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                             }
                             catch (Exception e)
                             {
-                                _messageService.ShowOkMessageDialog("Exception", e.GetAllExceptions());
+                                _messageService.ShowOkMessageDialog("Exception", e.PrintAllExceptions());
                             }
                         }
                     }
@@ -747,7 +747,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                     }
                     catch (Exception e)
                     {
-                        _messageService.ShowOkMessageDialog("Exception", e.GetAllExceptions());
+                        _messageService.ShowOkMessageDialog("Exception", e.PrintAllExceptions());
                     }
 
                     SelectedAnswerFile = null;
@@ -767,7 +767,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                     }
                     catch (Exception e)
                     {
-                        _messageService.ShowOkMessageDialog("Exception", e.GetAllExceptions());
+                        _messageService.ShowOkMessageDialog("Exception", e.PrintAllExceptions());
                     }
                 }, 
                 () => SelectedAnswerFile != null);
@@ -786,7 +786,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                         }
                         catch (Exception e)
                         {
-                            _messageService.ShowOkMessageDialog("Exception", e.GetAllExceptions());
+                            _messageService.ShowOkMessageDialog("Exception", e.PrintAllExceptions());
                         }
                     },
                     () => SelectedItem is TechnicalRequrementsFileWrapper);

@@ -24,6 +24,7 @@ namespace HVTApp.DataAccess
             IncomingRequestRepository = new IncomingRequestRepositoryTest(testData);
             LaborHourCostRepository = new LaborHourCostRepositoryTest(testData);
             LaborHoursRepository = new LaborHoursRepositoryTest(testData);
+            LogUnitRepository = new LogUnitRepositoryTest(testData);
             LosingReasonRepository = new LosingReasonRepositoryTest(testData);
             MarketFieldRepository = new MarketFieldRepositoryTest(testData);
             PaymentActualRepository = new PaymentActualRepositoryTest(testData);
@@ -115,6 +116,7 @@ namespace HVTApp.DataAccess
         public IIncomingRequestRepository IncomingRequestRepository { get; }
         public ILaborHourCostRepository LaborHourCostRepository { get; }
         public ILaborHoursRepository LaborHoursRepository { get; }
+        public ILogUnitRepository LogUnitRepository { get; }
         public ILosingReasonRepository LosingReasonRepository { get; }
         public IMarketFieldRepository MarketFieldRepository { get; }
         public IPaymentActualRepository PaymentActualRepository { get; }

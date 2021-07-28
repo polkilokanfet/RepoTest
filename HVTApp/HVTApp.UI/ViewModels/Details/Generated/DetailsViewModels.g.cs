@@ -891,6 +891,35 @@ namespace HVTApp.UI.ViewModels
 
     }
 
+    public partial class LogUnitDetailsViewModel : BaseDetailsViewModel<LogUnitWrapper, LogUnit, AfterSaveLogUnitEvent>
+    {
+		//private Func<Task<List<User>>> _getEntitiesForSelectAuthorCommand;
+		private Func<List<User>> _getEntitiesForSelectAuthorCommand;
+		public DelegateLogCommand SelectAuthorCommand { get; private set; }
+		public DelegateLogCommand ClearAuthorCommand { get; private set; }
+
+        public LogUnitDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+			
+			if (_getEntitiesForSelectAuthorCommand == null) _getEntitiesForSelectAuthorCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };
+			if (SelectAuthorCommand == null) SelectAuthorCommand = new DelegateLogCommand(SelectAuthorCommand_Execute_Default);
+			if (ClearAuthorCommand == null) ClearAuthorCommand = new DelegateLogCommand(ClearAuthorCommand_Execute_Default);
+
+		}
+
+		private void SelectAuthorCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<User, UserWrapper>(_getEntitiesForSelectAuthorCommand(), nameof(Item.Author), Item.Author?.Id);
+		}
+
+		private void ClearAuthorCommand_Execute_Default() 
+		{
+						Item.Author = null;		    
+		}
+
+
+    }
+
     public partial class LosingReasonDetailsViewModel : BaseDetailsViewModel<LosingReasonWrapper, LosingReason, AfterSaveLosingReasonEvent>
     {
         public LosingReasonDetailsViewModel(IUnityContainer container) : base(container) 

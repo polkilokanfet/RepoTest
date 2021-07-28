@@ -101,6 +101,7 @@
     <Compile Include="EntityTypeConfigurations\Custom\FacilityTypeConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\IncomingRequestConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\LaborHoursConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\LogUnitConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\NoteConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\OfferUnitConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\PriceCalculationConfiguration.cs" />
@@ -274,6 +275,10 @@
     <Compile Include="Migrations\202107231023590_BackOfficeComments.Designer.cs">
       <DependentUpon>202107231023590_BackOfficeComments.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202107271241424_AddLogUnit.cs" />
+    <Compile Include="Migrations\202107271241424_AddLogUnit.Designer.cs">
+      <DependentUpon>202107271241424_AddLogUnit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -440,6 +445,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202107231023590_BackOfficeComments.resx">
       <DependentUpon>202107231023590_BackOfficeComments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107271241424_AddLogUnit.resx">
+      <DependentUpon>202107271241424_AddLogUnit.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -74,7 +74,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
                     }
                     catch (DbUpdateConcurrencyException e)
                     {
-                        Container.Resolve<IMessageService>().ShowOkMessageDialog("Ошибка при сохранении", e.GetAllExceptions());
+                        Container.Resolve<IMessageService>().ShowOkMessageDialog("Ошибка при сохранении", e.PrintAllExceptions());
                     }
 
                     //регистрация на события изменения строк с оборудованием

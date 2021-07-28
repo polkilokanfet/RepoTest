@@ -26,6 +26,7 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new IncomingRequestConfiguration());
             modelBuilder.Configurations.Add(new LaborHourCostConfiguration());
             modelBuilder.Configurations.Add(new LaborHoursConfiguration());
+            modelBuilder.Configurations.Add(new LogUnitConfiguration());
             modelBuilder.Configurations.Add(new LosingReasonConfiguration());
             modelBuilder.Configurations.Add(new MarketFieldConfiguration());
             modelBuilder.Configurations.Add(new PaymentActualConfiguration());
@@ -116,6 +117,7 @@ namespace HVTApp.DataAccess
         public virtual DbSet<IncomingRequest> IncomingRequestDbSet { get; set; }
         public virtual DbSet<LaborHourCost> LaborHourCostDbSet { get; set; }
         public virtual DbSet<LaborHours> LaborHoursDbSet { get; set; }
+        public virtual DbSet<LogUnit> LogUnitDbSet { get; set; }
         public virtual DbSet<LosingReason> LosingReasonDbSet { get; set; }
         public virtual DbSet<MarketField> MarketFieldDbSet { get; set; }
         public virtual DbSet<PaymentActual> PaymentActualDbSet { get; set; }

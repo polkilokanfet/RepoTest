@@ -6,7 +6,12 @@ namespace HVTApp.Infrastructure.Extansions
 {
     public static class ExceptionExt
     {
-        public static string GetAllExceptions(this Exception exception)
+        /// <summary>
+        /// Печать ошибки со всеми вложенными ошибками.
+        /// </summary>
+        /// <param name="exception"></param>
+        /// <returns></returns>
+        public static string PrintAllExceptions(this Exception exception)
         {
             var messages = new List<string>();
             var stringBuilder = new StringBuilder();

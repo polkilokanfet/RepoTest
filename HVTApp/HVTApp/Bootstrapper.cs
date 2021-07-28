@@ -99,7 +99,7 @@ namespace HVTApp
         {
             base.ConfigureContainer();
 
-            Container.RegisterType<IHvtAppLogger, HvtAppLogger>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IHvtAppLogger, HvtAppLogger2>(new ContainerControlledLifetimeManager());
             
             Container.RegisterType<IEventAggregator, EventAggregator>(new ContainerControlledLifetimeManager());
             Container.RegisterType<DbContext, HvtAppContext>();

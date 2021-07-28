@@ -64,7 +64,7 @@ namespace EventServiceClient2.SyncEntities
             }
             catch (Exception e)
             {
-                _messageService.ShowOkMessageDialog(e.GetType().FullName, e.GetAllExceptions());
+                _messageService.ShowOkMessageDialog(e.GetType().FullName, e.PrintAllExceptions());
             }
         }
 

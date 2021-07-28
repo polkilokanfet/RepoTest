@@ -88,6 +88,11 @@ namespace HVTApp.DataAccess
         public LaborHoursRepositoryTest(TestData testData) : base(testData) {}
     }
 
+    public partial class LogUnitRepositoryTest : TestBaseRepository<LogUnit>, ILogUnitRepository
+    {
+        public LogUnitRepositoryTest(TestData testData) : base(testData) {}
+    }
+
     public partial class LosingReasonRepositoryTest : TestBaseRepository<LosingReason>, ILosingReasonRepository
     {
         public LosingReasonRepositoryTest(TestData testData) : base(testData) {}

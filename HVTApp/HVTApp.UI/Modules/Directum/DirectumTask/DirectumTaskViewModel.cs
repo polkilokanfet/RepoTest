@@ -596,7 +596,7 @@ namespace HVTApp.UI.Modules.Directum
                 }
                 catch (Exception e)
                 {
-                    _messageService.ShowOkMessageDialog(e.GetType().Name, e.GetAllExceptions());
+                    _messageService.ShowOkMessageDialog(e.GetType().Name, e.PrintAllExceptions());
                 }
             }
 
@@ -618,7 +618,7 @@ namespace HVTApp.UI.Modules.Directum
                 }
                 catch (FileNotFoundException e)
                 {
-                    _messageService.ShowOkMessageDialog(e.GetType().Name, e.GetAllExceptions());
+                    _messageService.ShowOkMessageDialog(e.GetType().Name, e.PrintAllExceptions());
                 }
 
                 UnitOfWork.Repository<DirectumTaskGroupFile>().Delete(file.Model);

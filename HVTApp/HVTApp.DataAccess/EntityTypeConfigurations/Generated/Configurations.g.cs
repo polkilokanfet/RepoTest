@@ -20,6 +20,7 @@ namespace HVTApp.DataAccess
     public partial class IncomingRequestConfiguration : EntityTypeConfiguration<IncomingRequest> { }
     public partial class LaborHourCostConfiguration : EntityTypeConfiguration<LaborHourCost> { }
     public partial class LaborHoursConfiguration : EntityTypeConfiguration<LaborHours> { }
+    public partial class LogUnitConfiguration : EntityTypeConfiguration<LogUnit> { }
     public partial class LosingReasonConfiguration : EntityTypeConfiguration<LosingReason> { }
     public partial class MarketFieldConfiguration : EntityTypeConfiguration<MarketField> { }
     public partial class PaymentActualConfiguration : EntityTypeConfiguration<PaymentActual> { }

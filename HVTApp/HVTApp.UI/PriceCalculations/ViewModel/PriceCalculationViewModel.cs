@@ -441,7 +441,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel
                             }
                             catch (Exception e)
                             {
-                                _messageService.ShowOkMessageDialog("Exception", e.GetAllExceptions());
+                                _messageService.ShowOkMessageDialog("Exception", e.PrintAllExceptions());
                             }
                         }
                         OnPropertyChanged(new PropertyChangedEventArgs(nameof(CalculationHasFile)));

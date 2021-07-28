@@ -68,7 +68,7 @@ namespace HVTApp.DataAccess
             }
             catch (Exception e)
             {
-                _container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().Name, e.GetAllExceptions());
+                _container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().Name, e.PrintAllExceptions());
                 _container.Resolve<IHvtAppLogger>().LogError(e.GetType().Name, e);
                 throw;
             }

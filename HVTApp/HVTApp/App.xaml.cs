@@ -34,10 +34,12 @@ namespace HVTApp
             }
             catch (Exception exception)
             {
-                (new HvtAppLogger()).LogError(exception.GetType().Name, exception);
+                //(new HvtAppLogger()).LogError(exception.GetType().Name, exception);
 
-                MessageBox.Show(exception.GetAllExceptions());
-                Console.WriteLine(exception.GetAllExceptions());
+                MessageBox.Show(exception.PrintAllExceptions());
+                Console.WriteLine(exception.PrintAllExceptions());
+
+                GlobalAppProperties.HvtAppLogger.LogError(exception.GetType().Name, exception);
 
                 Application.Current.Shutdown();
             }

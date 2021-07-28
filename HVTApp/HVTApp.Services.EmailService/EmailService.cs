@@ -45,7 +45,7 @@ namespace HVTApp.Services.EmailService
             }
             catch (Exception e)
             {
-                _container.Resolve<IMessageService>().ShowOkMessageDialog("Error", e.GetAllExceptions());
+                _container.Resolve<IMessageService>().ShowOkMessageDialog("Error", e.PrintAllExceptions());
             }
         }
     }

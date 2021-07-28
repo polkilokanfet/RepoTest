@@ -433,6 +433,32 @@ namespace HVTApp.UI.Lookup
 	    public List<ParameterLookup> Parameters { get { return GetLookupEnum<ParameterLookup>().ToList(); } }
 	}
 	[AllowEditAttribute(Role.Admin)]
+	[Designation("Запись лога")]
+	public partial class LogUnitLookup : LookupItem<LogUnit>
+	{
+		public LogUnitLookup(LogUnit entity) : base(entity) 
+		{
+		}
+		
+        #region SimpleProperties
+		[OrderStatus(50)]
+        public System.DateTime Moment => Entity.Moment;
+
+		[OrderStatus(30)]
+        public System.String Head => Entity.Head;
+
+		[OrderStatus(20)]
+        public System.String Message => Entity.Message;
+
+        #endregion
+
+        #region ComplexProperties
+		[OrderStatus(40)]
+	    public UserLookup Author { get { return GetLookup<UserLookup>(); } }
+
+        #endregion
+	}
+	[AllowEditAttribute(Role.Admin)]
 	[Designation("Причина проигрыша")]
 	public partial class LosingReasonLookup : LookupItem<LosingReason>
 	{

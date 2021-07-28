@@ -171,8 +171,8 @@ namespace HVTApp.UI.ViewModels
             }
             catch (DbUpdateConcurrencyException e)
             {
-                //Container.Resolve<IMessageService>().ShowOkMessageDialog(saveTask.Exception?.GetType().ToString(), saveTask.Exception.GetAllExceptions());
-                Container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().ToString(), e.GetAllExceptions());
+                //Container.Resolve<IMessageService>().ShowOkMessageDialog(saveTask.Exception?.GetType().ToString(), saveTask.Exception.PrintAllExceptions());
+                Container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().ToString(), e.PrintAllExceptions());
             }
 
             //запрашиваем закрытие окна

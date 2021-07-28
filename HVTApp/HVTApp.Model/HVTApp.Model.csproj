@@ -98,6 +98,7 @@
     <Compile Include="POCOs\ISumOnDate.cs" />
     <Compile Include="POCOs\LaborHourCost.cs" />
     <Compile Include="POCOs\LaborHours.cs" />
+    <Compile Include="POCOs\LogUnit.cs" />
     <Compile Include="POCOs\LosingReason.cs" />
     <Compile Include="POCOs\MarketField.cs" />
     <Compile Include="POCOs\PaymentActual.cs" />

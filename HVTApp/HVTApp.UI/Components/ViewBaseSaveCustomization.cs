@@ -118,7 +118,7 @@ namespace HVTApp.UI.Components
                 }
                 catch (XmlException e)
                 {
-                    string message = $"Файл настройки вида {this.GetType().FullName} поврежден. Путь к файлу: {path} \n" + e.GetAllExceptions();
+                    string message = $"Файл настройки вида {this.GetType().FullName} поврежден. Путь к файлу: {path} \n" + e.PrintAllExceptions();
                     _messageService.ShowOkMessageDialog(e.GetType().ToString(), message);
                     return false;
                 }
