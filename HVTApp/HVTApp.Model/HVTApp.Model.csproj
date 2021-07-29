@@ -232,6 +232,7 @@
     <Compile Include="Wrapper\Custom\Validate\ContractWrapper.cs" />
     <Compile Include="Wrapper\Custom\Validate\FacilityWrapper.cs" />
     <Compile Include="Wrapper\Custom\Validate\OfferUnitWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Validate\OrderWrapper.cs" />
     <Compile Include="Wrapper\Custom\Validate\PaymentConditionSetWrapper.cs" />
     <Compile Include="Wrapper\Custom\Validate\SalesUnitWrapper.cs" />
     <Compile Include="Wrapper\Custom\Validate\SpecificationWrapper.cs" />

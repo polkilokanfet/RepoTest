@@ -4,13 +4,13 @@ using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Commands;
 using HVTApp.UI.Modules.Sales.Market.Items;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 
 namespace HVTApp.UI.Modules.Sales.Market.Commands
 {
-    public class UnionProjectsCommand : DelegateCommandBase
+    public class UnionProjectsCommand : DelegateLogCommand
     {
         private readonly Market2ViewModel _viewModel;
         private readonly IUnityContainer _container;
@@ -23,7 +23,7 @@ namespace HVTApp.UI.Modules.Sales.Market.Commands
             _messageService = container.Resolve<IMessageService>();
         }
 
-        protected override void Execute(object parameter)
+        protected override void ExecuteMethod()
         {
             if (_messageService.ShowYesNoMessageDialog("Объединить проекты.", "Вы уверены, что хотите объединить проекты?", defaultNo: true) != MessageDialogResult.Yes)
                 return;
@@ -72,7 +72,7 @@ namespace HVTApp.UI.Modules.Sales.Market.Commands
             _viewModel.ReloadCommand.Execute(null);
         }
 
-        protected override bool CanExecute(object parameter)
+        protected override bool CanExecuteMethod()
         {
             return _viewModel.SelectedProjectItems != null &&
                    _viewModel.SelectedProjectItems.Select(projectItem => projectItem.Project.Id).Distinct().Count() > 1;

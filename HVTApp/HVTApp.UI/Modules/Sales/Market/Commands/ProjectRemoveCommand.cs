@@ -1,14 +1,13 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 
 namespace HVTApp.UI.Modules.Sales.Market.Commands
 {
-    public class ProjectRemoveCommand : DelegateCommandBase
+    public class ProjectRemoveCommand : DelegateLogCommand
     {
         private readonly Market2ViewModel _viewModel;
         private readonly IUnityContainer _container;
@@ -21,7 +20,7 @@ namespace HVTApp.UI.Modules.Sales.Market.Commands
             _messageService = container.Resolve<IMessageService>();
         }
 
-        protected override void Execute(object parameter)
+        protected override void ExecuteMethod()
         {
             if (_messageService.ShowYesNoMessageDialog("Удалить проект.", "Вы уверены, что хотите удалить проект?", defaultNo: true) != MessageDialogResult.Yes)
                 return;
@@ -65,7 +64,7 @@ namespace HVTApp.UI.Modules.Sales.Market.Commands
             remove.ForEach(projectItem => _viewModel.ProjectItems.Remove(projectItem));
         }
 
-        protected override bool CanExecute(object parameter)
+        protected override bool CanExecuteMethod()
         {
             return _viewModel.SelectedProjectItem != null;
         }

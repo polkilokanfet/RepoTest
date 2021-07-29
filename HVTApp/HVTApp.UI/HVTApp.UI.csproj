@@ -225,11 +225,23 @@
     </Compile>
     <Compile Include="Modules\Reports\FlatReport\Reports\SalesReportViewModel.cs" />
     <Compile Include="Modules\Reports\MarketReport\ProducersMarket.cs" />
+    <Compile Include="Modules\Sales\Market\Commands\EditOfferCommand.cs" />
+    <Compile Include="Modules\Sales\Market\Commands\EditPriceCalculationCommand.cs" />
+    <Compile Include="Modules\Sales\Market\Commands\EditTechnicalRequrementsTaskCommand.cs" />
+    <Compile Include="Modules\Sales\Market\Commands\EditTenderCommand.cs" />
+    <Compile Include="Modules\Sales\Market\Commands\MakeTceTaskCommand.cs" />
+    <Compile Include="Modules\Sales\Market\Commands\OfferByOfferCommand.cs" />
+    <Compile Include="Modules\Sales\Market\Commands\OfferByProjectCommand.cs" />
+    <Compile Include="Modules\Sales\Market\Commands\NewTenderCommand.cs" />
+    <Compile Include="Modules\Sales\Market\Commands\OpenFolderCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\OpenTenderLinkCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\PriceCalculationCopyCommand.cs" />
+    <Compile Include="Modules\Sales\Market\Commands\PrintOfferCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\ProjectEditCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\ProjectRemoveCommand.cs" />
+    <Compile Include="Modules\Sales\Market\Commands\SelectProjectsFolderCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\SpecificationNewCommand.cs" />
+    <Compile Include="Modules\Sales\Market\Commands\StructureCostsCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\UnionProjectsCommand.cs" />
     <Compile Include="Modules\Sales\Market\Converters\ProductionGroupToColorConverter.cs" />
     <Compile Include="Modules\Sales\Market\Converters\ProjectItemToColorConverter.cs" />

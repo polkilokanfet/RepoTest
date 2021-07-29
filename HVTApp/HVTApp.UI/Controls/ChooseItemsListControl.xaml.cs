@@ -4,9 +4,6 @@ using System.Windows.Input;
 
 namespace HVTApp.UI.Controls
 {
-    /// <summary>
-    /// Interaction logic for ChooseItemsListControl.xaml
-    /// </summary>
     public partial class ChooseItemsListControl
     {
         public ChooseItemsListControl()
@@ -15,42 +12,46 @@ namespace HVTApp.UI.Controls
         }
 
         public static readonly DependencyProperty ItemsProperty = DependencyProperty.Register(
-            "Items", typeof(IEnumerable), typeof(ChooseItemsListControl), new PropertyMetadata(default(IEnumerable)));
+            nameof(Items), typeof(IEnumerable), typeof(ChooseItemsListControl), new PropertyMetadata(default(IEnumerable)));
 
         public IEnumerable Items
         {
-            get { return (IEnumerable) GetValue(ItemsProperty); }
-            set { SetValue(ItemsProperty, value); }
+            get => (IEnumerable) GetValue(ItemsProperty);
+            set => SetValue(ItemsProperty, value);
         }
 
 
 
 
         public static readonly DependencyProperty SelectedItemProperty = DependencyProperty.Register(
-            "SelectedItem", typeof(object), typeof(ChooseItemsListControl), new PropertyMetadata(default(object)));
+            nameof(SelectedItem), typeof(object), typeof(ChooseItemsListControl), new PropertyMetadata(default(object)));
 
         public object SelectedItem
         {
-            get { return (object) GetValue(SelectedItemProperty); }
-            set { SetValue(SelectedItemProperty, value); }
+            get => (object) GetValue(SelectedItemProperty);
+            set => SetValue(SelectedItemProperty, value);
         }
 
+
+
         public static readonly DependencyProperty AddItemCommandProperty = DependencyProperty.Register(
-            "AddItemCommand", typeof (ICommand), typeof (ChooseItemsListControl), new PropertyMetadata(default(ICommand)));
+            nameof(AddItemCommand), typeof (ICommand), typeof (ChooseItemsListControl), new PropertyMetadata(default(ICommand)));
 
         public ICommand AddItemCommand
         {
-            get { return (ICommand) GetValue(AddItemCommandProperty); }
-            set { SetValue(AddItemCommandProperty, value); }
+            get => (ICommand) GetValue(AddItemCommandProperty);
+            set => SetValue(AddItemCommandProperty, value);
         }
 
+
+
         public static readonly DependencyProperty RemoveItemCommandProperty = DependencyProperty.Register(
-            "RemoveItemCommand", typeof (ICommand), typeof (ChooseItemsListControl), new PropertyMetadata(default(ICommand)));
+            nameof(RemoveItemCommand), typeof (ICommand), typeof (ChooseItemsListControl), new PropertyMetadata(default(ICommand)));
 
         public ICommand RemoveItemCommand
         {
-            get { return (ICommand) GetValue(RemoveItemCommandProperty); }
-            set { SetValue(RemoveItemCommandProperty, value); }
+            get => (ICommand) GetValue(RemoveItemCommandProperty);
+            set => SetValue(RemoveItemCommandProperty, value);
         }
     }
 }

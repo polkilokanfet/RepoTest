@@ -172,28 +172,28 @@ namespace HVTApp.UI.Modules.Sales.Market
 
             NewSpecificationCommand = new SpecificationNewCommand(this, this.Container, this.RegionManager);
 
-            EditOfferCommand = new DelegateLogCommand(EditOfferCommand_Execute, () => Offers?.SelectedItem != null);
+            EditOfferCommand = new EditOfferCommand(this, this.RegionManager);
             RemoveOfferCommand = new DelegateLogCommand(() => Offers.RemoveSelectedItem(), () => Offers?.SelectedItem != null);
-            PrintOfferCommand = new DelegateLogCommand(PrintOfferCommand_Execute, () => Offers?.SelectedItem != null);
-            NewOfferByProjectCommand = new DelegateLogCommand(NewOfferByProjectCommand_Execute, () => SelectedProjectItem != null);
-            NewOfferByOfferCommand = new DelegateLogCommand(NewOfferByOfferCommand_Execute, () => Offers?.SelectedItem != null);
+            PrintOfferCommand = new PrintOfferCommand(this, this.Container);
+            OfferByProjectCommand = new OfferByProjectCommand(this, this.RegionManager);
+            OfferByOfferCommand = new OfferByOfferCommand(this, this.RegionManager);
 
-            NewTenderCommand = new DelegateLogCommand(NewTenderCommand_Execute, () => SelectedProjectItem != null);
-            EditTenderCommand = new DelegateLogCommand(EditTenderCommand_Execute, () => Tenders?.SelectedItem != null);
+            NewTenderCommand = new NewTenderCommand(this, this.Container);
+            EditTenderCommand = new EditTenderCommand(this, this.Container);
             RemoveTenderCommand = new DelegateLogCommand(() => Tenders.RemoveSelectedItem(), () => Tenders?.SelectedItem != null);
 
-            EditTechnicalRequrementsTaskCommand = new DelegateLogCommand(EditTechnicalRequrementsTaskCommand_Execute, () => TechnicalRequrementsTasks?.SelectedItem != null);
+            EditTechnicalRequrementsTaskCommand = new EditTechnicalRequrementsTaskCommand(this, this.RegionManager);
             
-            EditPriceCalculationCommand = new DelegateLogCommand(EditPriceCalculationCommand_Execute);
+            EditPriceCalculationCommand = new EditPriceCalculationCommand(this, this.RegionManager);
             CopyPriceCalculationCommand = new PriceCalculationCopyCommand(this, this.RegionManager);
 
 
-            StructureCostsCommand = new DelegateLogCommand(StructureCostsCommand_Execute, () => SelectedProjectItem != null);
+            StructureCostsCommand = new StructureCostsCommand(this, this.RegionManager, this.UnitOfWork);
 
-            SelectProjectsFolderCommand = new DelegateLogCommand(SelectProjectsFolderCommand_Execute);
-            OpenFolderCommand = new DelegateLogCommand(OpenFolderCommand_Execute, () => SelectedProjectItem != null);
+            SelectProjectsFolderCommand = new SelectProjectsFolderCommand();
+            OpenFolderCommand = new OpenFolderCommand(this);
 
-            MakeTceTaskCommand = new DelegateLogCommand(MakeTceTaskCommand_Execute, () => SelectedProjectItem != null);
+            MakeTceTaskCommand = new MakeTceTaskCommand(this, this.UnitOfWork, this.RegionManager);
 
             OpenTenderLinkCommand = new OpenTenderLinkCommand(this);
 
@@ -205,7 +205,7 @@ namespace HVTApp.UI.Modules.Sales.Market
             //подписка на выбор сущностей
             _eventAggregator.GetEvent<SelectedOfferChangedEvent>().Subscribe(offer => OfferRaiseCanExecuteChanged());
             _eventAggregator.GetEvent<SelectedTenderChangedEvent>().Subscribe(tender => TenderRaiseCanExecuteChanged());
-            _eventAggregator.GetEvent<SelectedPriceCalculationChangedEvent>().Subscribe(calculation => ((DelegateCommandBase)CopyPriceCalculationCommand).RaiseCanExecuteChanged());
+            _eventAggregator.GetEvent<SelectedPriceCalculationChangedEvent>().Subscribe(calculation => CopyPriceCalculationCommand.RaiseCanExecuteChanged());
 
             #endregion
 
@@ -276,12 +276,12 @@ namespace HVTApp.UI.Modules.Sales.Market
 
         private void ProjectRaiseCanExecuteChanged()
         {
-            ((DelegateCommandBase)RemoveProjectCommand).RaiseCanExecuteChanged();
-            ((DelegateCommandBase)EditProjectCommand).RaiseCanExecuteChanged();
-            ((DelegateCommandBase)NewSpecificationCommand).RaiseCanExecuteChanged();
-            (StructureCostsCommand).RaiseCanExecuteChanged();
-            (MakeTceTaskCommand).RaiseCanExecuteChanged();
-            (OpenFolderCommand).RaiseCanExecuteChanged();
+            RemoveProjectCommand.RaiseCanExecuteChanged();
+            EditProjectCommand.RaiseCanExecuteChanged();
+            NewSpecificationCommand.RaiseCanExecuteChanged();
+            StructureCostsCommand.RaiseCanExecuteChanged();
+            MakeTceTaskCommand.RaiseCanExecuteChanged();
+            OpenFolderCommand.RaiseCanExecuteChanged();
             OfferRaiseCanExecuteChanged();
             TenderRaiseCanExecuteChanged();
         }
@@ -291,16 +291,16 @@ namespace HVTApp.UI.Modules.Sales.Market
             (EditOfferCommand).RaiseCanExecuteChanged();
             (RemoveOfferCommand).RaiseCanExecuteChanged();
             (PrintOfferCommand).RaiseCanExecuteChanged();
-            (NewOfferByOfferCommand).RaiseCanExecuteChanged();
-            (NewOfferByProjectCommand).RaiseCanExecuteChanged();
+            (OfferByOfferCommand).RaiseCanExecuteChanged();
+            (OfferByProjectCommand).RaiseCanExecuteChanged();
         }
 
         private void TenderRaiseCanExecuteChanged()
         {
-            (NewTenderCommand).RaiseCanExecuteChanged();
-            (EditTenderCommand).RaiseCanExecuteChanged();
-            (RemoveTenderCommand).RaiseCanExecuteChanged();
-            ((DelegateCommandBase)OpenTenderLinkCommand).RaiseCanExecuteChanged();
+            NewTenderCommand.RaiseCanExecuteChanged();
+            EditTenderCommand.RaiseCanExecuteChanged();
+            RemoveTenderCommand.RaiseCanExecuteChanged();
+            OpenTenderLinkCommand.RaiseCanExecuteChanged();
         }
 
         #endregion

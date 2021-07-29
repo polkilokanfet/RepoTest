@@ -14,12 +14,12 @@ namespace HVTApp.UI.Controls
         #region Item       
 
         public static readonly DependencyProperty ItemProperty = DependencyProperty.Register(
-            "Item", typeof (object), typeof (ChooseItemControl), new PropertyMetadata(default(object)));
+            nameof(Item), typeof (object), typeof (ChooseItemControl), new PropertyMetadata(default(object)));
 
         public object Item
         {
-            get { return (object) GetValue(ItemProperty); }
-            set { SetValue(ItemProperty, value); }
+            get => (object) GetValue(ItemProperty);
+            set => SetValue(ItemProperty, value);
         }
 
         #endregion
@@ -27,12 +27,12 @@ namespace HVTApp.UI.Controls
         #region AddItem       
 
         public static readonly DependencyProperty AddItemCommandProperty = DependencyProperty.Register(
-            "AddItemCommand", typeof (ICommand), typeof (ChooseItemControl), new PropertyMetadata(default(ICommand)));
+            nameof(AddItemCommand), typeof (ICommand), typeof (ChooseItemControl), new PropertyMetadata(default(ICommand)));
 
         public ICommand AddItemCommand
         {
-            get { return (ICommand) GetValue(AddItemCommandProperty); }
-            set { SetValue(AddItemCommandProperty, value); }
+            get => (ICommand) GetValue(AddItemCommandProperty);
+            set => SetValue(AddItemCommandProperty, value);
         }
 
         #endregion
@@ -40,12 +40,12 @@ namespace HVTApp.UI.Controls
         #region RemoveItem       
 
         public static readonly DependencyProperty RemoveItemCommandProperty = DependencyProperty.Register(
-            "RemoveItemCommand", typeof (ICommand), typeof (ChooseItemControl), new PropertyMetadata(default(ICommand)));
+            nameof(RemoveItemCommand), typeof (ICommand), typeof (ChooseItemControl), new PropertyMetadata(default(ICommand)));
 
         public ICommand RemoveItemCommand
         {
-            get { return (ICommand) GetValue(RemoveItemCommandProperty); }
-            set { SetValue(RemoveItemCommandProperty, value); }
+            get => (ICommand) GetValue(RemoveItemCommandProperty);
+            set => SetValue(RemoveItemCommandProperty, value);
         }
 
         #endregion
@@ -53,13 +53,13 @@ namespace HVTApp.UI.Controls
         #region ItemChanged       
 
         public static readonly RoutedEvent ItemChangedEvent = EventManager.RegisterRoutedEvent(
-            "ItemChanged", RoutingStrategy.Bubble, typeof (RoutedPropertyChangedEventHandler<object>),
+            nameof(ItemChanged), RoutingStrategy.Bubble, typeof (RoutedPropertyChangedEventHandler<object>),
             typeof (ChooseItemControl));
 
         public event RoutedPropertyChangedEventHandler<Color> ItemChanged
         {
-            add { AddHandler(ItemChangedEvent, value); }
-            remove { RemoveHandler(ItemChangedEvent, value); }
+            add => AddHandler(ItemChangedEvent, value);
+            remove => RemoveHandler(ItemChangedEvent, value);
         }
 
         #endregion

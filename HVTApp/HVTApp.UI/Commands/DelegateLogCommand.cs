@@ -7,28 +7,45 @@ using Prism.Commands;
 
 namespace HVTApp.UI.Commands
 {
-    public class DelegateLogCommand : DelegateCommand
+    public class DelegateLogCommand : ICommand
     {
-        private readonly bool _shutdownAppOnException;
+        private readonly Action _executeMethod;
+        private readonly Func<bool> _canExecuteMethod;
+        private readonly bool _shutdownAppOnException = true;
 
-        public DelegateLogCommand(Action executeMethod, bool shutdownAppOnException = true) : base(executeMethod)
+        public DelegateLogCommand()
         {
+        }
+
+        public DelegateLogCommand(Action executeMethod, bool shutdownAppOnException = true)
+        {
+            _executeMethod = executeMethod ?? throw new ArgumentNullException(nameof(executeMethod));
             _shutdownAppOnException = shutdownAppOnException;
         }
 
-        public DelegateLogCommand(Action executeMethod, Func<bool> canExecuteMethod, bool shutdownAppOnException = true) : base(executeMethod, canExecuteMethod)
+        public DelegateLogCommand(Action executeMethod, Func<bool> canExecuteMethod, bool shutdownAppOnException = true) : this(executeMethod, shutdownAppOnException)
         {
-            _shutdownAppOnException = shutdownAppOnException;
+            _canExecuteMethod = canExecuteMethod ?? throw new ArgumentNullException(nameof(canExecuteMethod));
         }
 
-        public new void Execute()
+        protected virtual void ExecuteMethod()
+        {
+            _executeMethod?.Invoke();
+        }
+
+        public void Execute()
+        {
+            this.Execute(null);
+        }
+
+        public void Execute(object parameter)
         {
 #if DEBUG
-            base.Execute();
+            ExecuteMethod();
 #else
             try
             {
-                base.Execute();
+                ExecuteMethod();
             }
             catch (Exception e)
             {
@@ -43,26 +60,85 @@ namespace HVTApp.UI.Commands
 #endif
         }
 
-        protected override void Execute(object parameter)
+        public event EventHandler CanExecuteChanged;
+
+        protected virtual bool CanExecuteMethod()
         {
-#if DEBUG
-            base.Execute(parameter);
-#else
-            try
-            {
-                base.Execute(parameter);
-            }
-            catch (Exception e)
-            {
-                GlobalAppProperties.HvtAppLogger.LogError(e.GetType().Name, e);
-                GlobalAppProperties.MessageService.ShowOkMessageDialog($"Исключение в DelegateLogCommand: {e.GetType().Name}", e.PrintAllExceptions());
-                if (_shutdownAppOnException)
-                {
-                    GlobalAppProperties.EventServiceClient.Stop();
-                    Application.Current.Shutdown();
-                }
-            }
-#endif
+            return _canExecuteMethod?.Invoke() ?? true;
+        }
+
+        public bool CanExecute()
+        {
+            return this.CanExecute(null);
+        }
+
+        public bool CanExecute(object parameter)
+        {
+            return CanExecuteMethod();
+        }
+
+        public void RaiseCanExecuteChanged()
+        {
+            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
     }
+
+    //    public class DelegateLogCommand : DelegateCommand
+    //    {
+    //        private readonly bool _shutdownAppOnException;
+
+    //        public DelegateLogCommand(Action executeMethod, bool shutdownAppOnException = true) : base(executeMethod)
+    //        {
+    //            _shutdownAppOnException = shutdownAppOnException;
+    //        }
+
+    //        public DelegateLogCommand(Action executeMethod, Func<bool> canExecuteMethod, bool shutdownAppOnException = true) : base(executeMethod, canExecuteMethod)
+    //        {
+    //            _shutdownAppOnException = shutdownAppOnException;
+    //        }
+
+    //        public new void Execute()
+    //        {
+    //#if DEBUG
+    //            base.Execute();
+    //#else
+    //            try
+    //            {
+    //                base.Execute();
+    //            }
+    //            catch (Exception e)
+    //            {
+    //                GlobalAppProperties.HvtAppLogger.LogError(e.GetType().Name, e);
+    //                GlobalAppProperties.MessageService.ShowOkMessageDialog($"Исключение в DelegateLogCommand: {e.GetType().Name}", e.PrintAllExceptions());
+    //                if (_shutdownAppOnException)
+    //                {
+    //                    GlobalAppProperties.EventServiceClient.Stop();
+    //                    Application.Current.Shutdown();
+    //                }
+    //            }
+    //#endif
+    //        }
+
+    //        protected override void Execute(object parameter)
+    //        {
+    //#if DEBUG
+    //            base.Execute(parameter);
+    //#else
+    //            try
+    //            {
+    //                base.Execute(parameter);
+    //            }
+    //            catch (Exception e)
+    //            {
+    //                GlobalAppProperties.HvtAppLogger.LogError(e.GetType().Name, e);
+    //                GlobalAppProperties.MessageService.ShowOkMessageDialog($"Исключение в DelegateLogCommand: {e.GetType().Name}", e.PrintAllExceptions());
+    //                if (_shutdownAppOnException)
+    //                {
+    //                    GlobalAppProperties.EventServiceClient.Stop();
+    //                    Application.Current.Shutdown();
+    //                }
+    //            }
+    //#endif
+    //        }
+    //    }
 }

@@ -1,18 +1,16 @@
 ﻿using HVTApp.Infrastructure.Extansions;
-using HVTApp.Model.POCOs;
 using HVTApp.UI.Commands;
 using HVTApp.UI.Modules.Sales.Views;
-using Prism.Commands;
 using Prism.Regions;
 
 namespace HVTApp.UI.Modules.Sales.Market.Commands
 {
-    public class ProjectEditCommand : DelegateLogCommand
+    public class EditOfferCommand : DelegateLogCommand
     {
         private readonly Market2ViewModel _viewModel;
         private readonly IRegionManager _regionManager;
 
-        public ProjectEditCommand(Market2ViewModel viewModel, IRegionManager regionManager)
+        public EditOfferCommand(Market2ViewModel viewModel, IRegionManager regionManager)
         {
             _viewModel = viewModel;
             _regionManager = regionManager;
@@ -20,17 +18,13 @@ namespace HVTApp.UI.Modules.Sales.Market.Commands
 
         protected override void ExecuteMethod()
         {
-            _regionManager.RequestNavigateContentRegion<ProjectView>(new NavigationParameters
-            {
-                {
-                    nameof(Project), _viewModel.SelectedProjectItem.Project
-                }
-            });
+            var prms = new NavigationParameters { { "offer", _viewModel.Offers.SelectedItem.Entity }, { "edit", true } };
+            _regionManager.RequestNavigateContentRegion<OfferView>(prms);
         }
-        
+
         protected override bool CanExecuteMethod()
         {
-            return _viewModel.SelectedProjectItem != null;
+            return _viewModel.Offers?.SelectedItem != null;
         }
     }
 }

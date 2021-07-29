@@ -5,6 +5,7 @@ using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Commands;
 using HVTApp.UI.Modules.Sales.Views;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
@@ -12,7 +13,7 @@ using Prism.Regions;
 
 namespace HVTApp.UI.Modules.Sales.Market.Commands
 {
-    public class SpecificationNewCommand : DelegateCommandBase
+    public class SpecificationNewCommand : DelegateLogCommand
     {
         private readonly Market2ViewModel _viewModel;
         private readonly IUnityContainer _container;
@@ -25,7 +26,7 @@ namespace HVTApp.UI.Modules.Sales.Market.Commands
             _regionManager = regionManager;
         }
 
-        protected override void Execute(object parameter)
+        protected override void ExecuteMethod()
         {
             Project project = _viewModel.SelectedProjectItem.Project;
 
@@ -46,7 +47,7 @@ namespace HVTApp.UI.Modules.Sales.Market.Commands
             }
         }
 
-        protected override bool CanExecute(object parameter)
+        protected override bool CanExecuteMethod()
         {
             return _viewModel.SelectedProjectItem != null;
         }

@@ -21,8 +21,8 @@
     </infRib:RibbonGroup>
     
     <infRib:RibbonGroup Caption="Предложение">
-        <infRib:ButtonTool Caption="ТКП по проекту" Command="{Binding NewOfferByProjectCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
-        <infRib:ButtonTool Caption="ТКП по ТКП" Command="{Binding NewOfferByOfferCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
+        <infRib:ButtonTool Caption="ТКП по проекту" Command="{Binding OfferByProjectCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
+        <infRib:ButtonTool Caption="ТКП по ТКП" Command="{Binding OfferByOfferCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
         <infRib:ButtonTool Caption="Изменить" Command="{Binding EditOfferCommand}" SmallImage="/HVTApp.UI;component/Images/edit.png"/>
         <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveOfferCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>
         <infRib:ButtonTool Caption="Печать" Command="{Binding PrintOfferCommand}" SmallImage="/HVTApp.UI;component/Images/print.png"/>

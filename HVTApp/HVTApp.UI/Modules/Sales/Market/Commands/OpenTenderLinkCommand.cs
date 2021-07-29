@@ -1,9 +1,10 @@
 ﻿using System.Diagnostics;
+using HVTApp.UI.Commands;
 using Prism.Commands;
 
 namespace HVTApp.UI.Modules.Sales.Market.Commands
 {
-    public class OpenTenderLinkCommand : DelegateCommandBase
+    public class OpenTenderLinkCommand : DelegateLogCommand
     {
         private readonly Market2ViewModel _viewModel;
 
@@ -12,7 +13,7 @@ namespace HVTApp.UI.Modules.Sales.Market.Commands
             _viewModel = viewModel;
         }
 
-        protected override void Execute(object parameter)
+        protected override void ExecuteMethod()
         {
             if (!string.IsNullOrWhiteSpace(_viewModel.Tenders.SelectedItem?.Link))
             {
@@ -20,7 +21,7 @@ namespace HVTApp.UI.Modules.Sales.Market.Commands
             }
         }
 
-        protected override bool CanExecute(object parameter)
+        protected override bool CanExecuteMethod()
         {
             return !string.IsNullOrWhiteSpace(_viewModel.Tenders?.SelectedItem?.Link);
         }

@@ -49,7 +49,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
                     if(changed.Any())
                         Container.Resolve<IEventAggregator>().GetEvent<AfterSaveOrderItemsEvent>().Publish(changed.Select(salesUnitOrderItem => salesUnitOrderItem.Model));
 
-                    ( SaveOrderCommand).RaiseCanExecuteChanged();
+                    SaveOrderCommand.RaiseCanExecuteChanged();
                 },
                 () =>
                 {
