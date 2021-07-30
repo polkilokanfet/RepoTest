@@ -326,7 +326,13 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             added = added.Concat(Groups.AddedItems).ToList();
 
             //удаляем удаленные
-            var removed = Groups.Except(added).Where(x => x.Groups != null).SelectMany(x => x.Groups.RemovedItems).Cast<TGroup>().ToList();
+            var removed = 
+                Groups
+                    .Except(added)
+                    .Where(x => x.Groups != null)
+                    .SelectMany(x => x.Groups.RemovedItems)
+                    .Cast<TGroup>()
+                    .ToList();
             removed = Groups.RemovedItems.Concat(removed).ToList();
             removed = removed.Concat(Groups.RemovedItems.Where(x => x.Groups != null).SelectMany(x => x.Groups).Cast<TGroup>()).ToList();
             return removed.Select(x => x.Model).Distinct().ToList();

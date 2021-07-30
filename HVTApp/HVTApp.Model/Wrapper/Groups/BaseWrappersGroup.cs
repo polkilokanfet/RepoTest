@@ -411,11 +411,12 @@ namespace HVTApp.Model.Wrapper.Groups
                 _unit?.AcceptChanges();
                 return;
             }
-
+            
             //отписка от событий
             Groups.PropertyChanged -= UnitOnPropertyChanged;
             Groups.CollectionChanged -= GroupsOnCollectionChanged;
 
+            Groups.AcceptChanges();
             Groups?.ForEach(x => x.AcceptChanges());
 
             //подписка на события
