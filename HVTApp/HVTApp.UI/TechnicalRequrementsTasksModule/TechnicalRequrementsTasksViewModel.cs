@@ -194,6 +194,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                     {
                         if (!requrement.SalesUnits.Any())
                         {
+                            task.Requrements.Remove(requrement);
                             UnitOfWork.Repository<TechnicalRequrements>().Delete(requrement);
                         }
                     }
@@ -202,6 +203,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                     {
                         var answerFiles = UnitOfWork.Repository<AnswerFileTce>().Find(x => x.TechnicalRequrementsTaskId == task.Id);
                         answerFiles.ForEach(x => UnitOfWork.Repository<AnswerFileTce>().Delete(x));
+                        task.PriceCalculations.Clear();
                         UnitOfWork.Repository<TechnicalRequrementsTask>().Delete(task);
                     }
                 }

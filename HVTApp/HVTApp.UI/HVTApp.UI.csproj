@@ -340,6 +340,8 @@
     <Compile Include="Modules\Sales\ViewModels\Containers\PriceCalculationsContainer.cs" />
     <Compile Include="Modules\Sales\ViewModels\Containers\TechnicalRequrementsTasksContainer.cs" />
     <Compile Include="Commands\DelegateLogCommand.cs" />
+    <Compile Include="Modules\Sales\ViewModels\ProjectViewModel\MoveToExistsProjectCommand.cs" />
+    <Compile Include="Modules\Sales\ViewModels\ProjectViewModel\MoveToNewProjectCommand.cs" />
     <Compile Include="Modules\Sales\ViewModels\ProjectViewModel\ProjectDetailsViewModel1.cs" />
     <Compile Include="Modules\Sales\ViewModels\ProjectViewModel\ProjectWrapper1.cs" />
     <Compile Include="Modules\Sales\ViewModels\SupervisionPriceViewModel.cs" />

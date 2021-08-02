@@ -4,20 +4,10 @@ using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Modules.Sales.ViewModels.Groups;
-using HVTApp.Model.Wrapper;
 using Microsoft.Practices.Unity;
-using System.Windows.Input;
 using HVTApp.DataAccess;
-using Prism.Commands;
 using Prism.Regions;
-using HVTApp.Infrastructure.Extansions;
-using HVTApp.UI.Modules.Sales.Views;
-using HVTApp.Infrastructure.Interfaces.Services.SelectService;
-using HVTApp.Infrastructure.Services;
-using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Model.Wrapper.Groups.SimpleWrappers;
-using HVTApp.UI.Commands;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel
 {
@@ -28,46 +18,18 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel
         /// <summary>
         /// ѕеренести оборудование в новый проект
         /// </summary>
-        public DelegateLogCommand MoveToNewProjectCommand { get; }
+        public MoveToNewProjectCommand MoveToNewProjectCommand { get; }
 
         /// <summary>
         /// ѕеренести оборудование в существующий проект
         /// </summary>
-        public DelegateLogCommand MoveToExistsProjectCommand { get; }
+        public MoveToExistsProjectCommand MoveToExistsProjectCommand { get; }
 
         public ProjectViewModel(IUnityContainer container) : base(container)
         {
             var regionManager = Container.Resolve<IRegionManager>();
-            MoveToNewProjectCommand = new DelegateLogCommand(
-                () =>
-                {
-                    if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("”даление", "¬ы уверены, что хотите перенести это оборудование в новый проект?", defaultYes: true) != MessageDialogResult.Yes)
-                    {
-                        return;
-                    }
-
-                    regionManager.RequestNavigateContentRegion<ProjectView>(new NavigationParameters
-                    {
-                        { nameof(SalesUnit), this.GroupsViewModel.Groups.SelectedGroup.SalesUnits }
-                    });
-                },
-                () => this.GroupsViewModel.Groups.SelectedGroup != null);
-
-            MoveToExistsProjectCommand = new DelegateLogCommand(
-                () =>
-                {
-                    var projects = UnitOfWork.Repository<Project>().Find(x => x.Manager.Id == GlobalAppProperties.User.Id);
-                    Project project = Container.Resolve<ISelectService>().SelectItem(projects);
-                    if (project != null)
-                    {
-                        regionManager.RequestNavigateContentRegion<ProjectView>(new NavigationParameters
-                        {
-                            { nameof(Project), project },
-                            { nameof(SalesUnit), this.GroupsViewModel.Groups.SelectedGroup.SalesUnits }
-                        });
-                    }
-                },
-                () => this.GroupsViewModel.Groups.SelectedGroup != null);
+            MoveToNewProjectCommand = new MoveToNewProjectCommand(this, Container);
+            MoveToExistsProjectCommand = new MoveToExistsProjectCommand(this, UnitOfWork, Container);
         }
 
         public override void Load(Project project, bool isNew, object parameter = null)
