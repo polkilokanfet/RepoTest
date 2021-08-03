@@ -8,6 +8,7 @@ using Microsoft.Practices.Unity;
 using HVTApp.DataAccess;
 using Prism.Regions;
 using HVTApp.Model.Wrapper.Groups.SimpleWrappers;
+using HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel.Commands;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel
 {

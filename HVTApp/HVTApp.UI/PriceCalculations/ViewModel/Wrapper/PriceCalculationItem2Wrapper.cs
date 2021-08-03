@@ -4,6 +4,7 @@ using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
+using HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1;
 
 namespace HVTApp.UI.PriceCalculations.ViewModel.Wrapper
 {

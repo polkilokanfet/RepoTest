@@ -5,6 +5,7 @@ using System.Windows;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.PriceCalculations.ViewModel;
+using HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1;
 using HVTApp.UI.PriceCalculations.ViewModel.Wrapper;
 using Infragistics.Windows.DataPresenter;
 using Infragistics.Windows.Editors;

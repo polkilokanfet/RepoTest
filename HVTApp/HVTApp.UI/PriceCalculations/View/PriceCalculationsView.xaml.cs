@@ -1,5 +1,6 @@
 ﻿using HVTApp.Infrastructure;
 using HVTApp.UI.PriceCalculations.ViewModel;
+using HVTApp.UI.PriceCalculations.ViewModel.PriceCalculations;
 using Prism.Events;
 using Prism.Regions;
 

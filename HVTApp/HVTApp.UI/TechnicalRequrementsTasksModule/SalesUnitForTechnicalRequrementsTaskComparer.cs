@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure.Comparers;
 using HVTApp.UI.PriceCalculations.ViewModel;
+using HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1;
 
 namespace HVTApp.UI.TechnicalRequrementsTasksModule
 {

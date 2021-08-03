@@ -340,8 +340,8 @@
     <Compile Include="Modules\Sales\ViewModels\Containers\PriceCalculationsContainer.cs" />
     <Compile Include="Modules\Sales\ViewModels\Containers\TechnicalRequrementsTasksContainer.cs" />
     <Compile Include="Commands\DelegateLogCommand.cs" />
-    <Compile Include="Modules\Sales\ViewModels\ProjectViewModel\MoveToExistsProjectCommand.cs" />
-    <Compile Include="Modules\Sales\ViewModels\ProjectViewModel\MoveToNewProjectCommand.cs" />
+    <Compile Include="Modules\Sales\ViewModels\ProjectViewModel\Commands\MoveToExistsProjectCommand.cs" />
+    <Compile Include="Modules\Sales\ViewModels\ProjectViewModel\Commands\MoveToNewProjectCommand.cs" />
     <Compile Include="Modules\Sales\ViewModels\ProjectViewModel\ProjectDetailsViewModel1.cs" />
     <Compile Include="Modules\Sales\ViewModels\ProjectViewModel\ProjectWrapper1.cs" />
     <Compile Include="Modules\Sales\ViewModels\SupervisionPriceViewModel.cs" />
@@ -632,6 +632,23 @@
     <Compile Include="Modules\SupplyModule\Views\PickingDatesView.xaml.cs">
       <DependentUpon>PickingDatesView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\BasePriceCalculationCommand.cs" />
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\CancelCommand.cs" />
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\AddGroupCommand.cs" />
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\AddStructureCostCommand.cs" />
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\SaveCommand.cs" />
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\RemoveStructureCostCommand.cs" />
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\StartCommand.cs" />
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\RemoveGroupCommand.cs" />
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\FinishCommand.cs" />
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\DivideCommand.cs" />
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\MeregeCommand.cs" />
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\LoadFileToDbCommand.cs" />
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\LoadFileFromDbCommand.cs" />
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculations\Commands\NewCalculationCommand.cs" />
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculations\Commands\EditCalculationCommand.cs" />
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculations\Commands\RemoveCalculationCommand.cs" />
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculations\Commands\LoadFileCommand.cs" />
     <Compile Include="PriceCalculations\ViewModel\Wrapper\PriceCalculation2Wrapper.cs" />
     <Compile Include="PriceCalculations\ViewModel\Wrapper\PriceCalculationItem2Wrapper.cs" />
     <Compile Include="PriceCalculations\ViewModel\PriceCalculationItemsViewModel.cs" />
@@ -641,13 +658,13 @@
     <Compile Include="PriceCalculations\View\PriceCalculationsView.xaml.cs">
       <DependentUpon>PriceCalculationsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PriceCalculations\ViewModel\PriceCalculationsViewModel.cs" />
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculations\PriceCalculationsViewModel.cs" />
     <Compile Include="PriceCalculations\View\PriceCalculationView.xaml.cs">
       <DependentUpon>PriceCalculationView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PriceCalculations\ViewModel\PriceCalculationViewModel.cs" />
-    <Compile Include="PriceCalculations\ViewModel\SalesUnit2Comparer.cs" />
-    <Compile Include="PriceCalculations\ViewModel\SalesUnitEmptyWrapper.cs" />
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\PriceCalculationViewModel.cs" />
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\SalesUnit2Comparer.cs" />
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\SalesUnitEmptyWrapper.cs" />
     <Compile Include="PriceCalculations\Tabs\TabPriceCalculation.xaml.cs">
       <DependentUpon>TabPriceCalculation.xaml</DependentUpon>
     </Compile>

@@ -9,6 +9,7 @@ using HVTApp.Model.Wrapper.Base;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using HVTApp.UI.PriceCalculations.ViewModel;
 using HVTApp.Model;
+using HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1;
 
 namespace HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper
 {
