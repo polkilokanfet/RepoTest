@@ -27,6 +27,7 @@ namespace HVTApp
             };
             if (exception != null)
             {
+                logUnit.Head = exception.GetType().Name;
                 logUnit.Message = exception.PrintAllExceptions();
                 while (exception != null)
                 {

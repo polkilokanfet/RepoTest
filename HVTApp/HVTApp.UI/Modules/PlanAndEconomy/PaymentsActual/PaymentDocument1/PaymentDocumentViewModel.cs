@@ -224,7 +224,12 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
             var potentialSalesUnits = SalesUnitWrappers
                 .Where(x => !x.Model.IsPaid && !x.Model.IsLoosen)
                 .Except(Payments.Select(payment => payment.SalesUnit))
-                .OrderBy(x => x.Model.OrderInTakeDate);
+                .OrderBy(x => x.Model.Facility.ToString())
+                .ThenBy(x => x.Model.Project.Name)
+                .ThenBy(x => x.Model.Product.ToString())
+                .ThenBy(x => x.Model.Cost)
+                .ToList();
+                //.OrderBy(x => x.Model.OrderInTakeDate); - возможно без этого будет работать быстрее
             Potential.AddRange(potentialSalesUnits);
 
             _dockDate = Payments.Any() 
