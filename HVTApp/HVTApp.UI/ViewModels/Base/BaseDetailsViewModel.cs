@@ -73,7 +73,6 @@ namespace HVTApp.UI.ViewModels
             AfterLoading();
         }
 
-
         public void Load(TEntity entity)
         {
             IsLoaded = false;

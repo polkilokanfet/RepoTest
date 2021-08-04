@@ -47,6 +47,9 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
 
         public bool CalculationHasFile => PriceCalculationWrapper != null && PriceCalculationWrapper.Files.Any();
 
+        //костыль для команд
+        public IUnitOfWork UnitOfWork1 => this.UnitOfWork;
+
         #region ICommand
 
         public SaveCommand SaveCommand { get; }
@@ -94,13 +97,13 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
         {
             SaveCommand = new SaveCommand(this, this.UnitOfWork, this.Container); //сохранение изменений
             AddStructureCostCommand = new AddStructureCostCommand(this); //добавление стракчакоста
-            RemoveStructureCostCommand = new RemoveStructureCostCommand(this, this.Container, this.UnitOfWork); //удаление стракчакоста
+            RemoveStructureCostCommand = new RemoveStructureCostCommand(this, this.Container); //удаление стракчакоста
             AddGroupCommand = new AddGroupCommand(this, this.Container, this.UnitOfWork); //добавление группы оборудования
-            RemoveGroupCommand = new RemoveGroupCommand(this, this.Container, this.UnitOfWork); //удаление группы
+            RemoveGroupCommand = new RemoveGroupCommand(this, this.Container); //удаление группы
             StartCommand = new StartCommand(this, this.Container);
             FinishCommand = new FinishCommand(this, this.Container);
             CancelCommand = new CancelCommand(this, this.Container);
-            MeregeCommand = new MeregeCommand(this, this.Container, this.UnitOfWork);
+            MeregeCommand = new MeregeCommand(this, this.Container);
             DivideCommand = new DivideCommand(this, this.Container);
             LoadFileToDbCommand = new LoadFileToDbCommand(this, this.Container);
             LoadFileFromDbCommand = new LoadFileFromDbCommand(this, this.Container);

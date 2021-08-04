@@ -14,9 +14,9 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
         public SalesUnitPayment SalesUnitPayment => SalesUnitPayments.First();
 
         public int Amount => _salesUnits.Count;
-        public bool IsPaid => _salesUnits.All(x => x.IsPaid);
+        public bool IsPaid => _salesUnits.All(salesUnit => salesUnit.IsPaid);
 
-        public double SumToPay => _salesUnits.Sum(x => x.Cost);
+        public double SumToPay => _salesUnits.Sum(salesUnit => salesUnit.Cost);
         public double Sum => SalesUnitPayments.Sum(x => x.Payment.Sum);
         public double SumWithVat => SalesUnitPayments.Sum(x => x.SumWithVat);
 

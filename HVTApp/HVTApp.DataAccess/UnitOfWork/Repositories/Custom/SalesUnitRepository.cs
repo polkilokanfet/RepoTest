@@ -169,8 +169,12 @@ namespace HVTApp.DataAccess
         {
             Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
-            return this.GetQuary()
-                //.Include(salesUnit => salesUnit.PaymentsActual)
+            return Context.Set<SalesUnit>().AsQueryable()
+                .Include(salesUnit => salesUnit.Specification)
+                .Include(salesUnit => salesUnit.Facility.Type)
+                .Include(salesUnit => salesUnit.Product.ProductBlock.Parameters)
+                //.Include(salesUnit => salesUnit.PaymentConditionSet.PaymentConditions.Select(paymentCondition => paymentCondition.PaymentConditionPoint))
+                .Include(salesUnit => salesUnit.PaymentsActual)
                 .ToList();
         }
 

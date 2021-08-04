@@ -12,7 +12,8 @@ namespace HVTApp.Infrastructure
 
         protected readonly IUnityContainer Container;
         protected readonly IRegionManager RegionManager;
-        protected IUnitOfWork UnitOfWork;
+
+        protected IUnitOfWork UnitOfWork { get; set; }
 
         #endregion
 

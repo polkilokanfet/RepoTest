@@ -30,7 +30,10 @@ namespace HVTApp.Model.POCOs
 
         public override string ToString()
         {
-            return StructureCosts.OrderByDescending(x => x.UnitPrice).ToStringEnum();
+            return StructureCosts
+                .OrderByDescending(structureCost => structureCost.UnitPrice)
+                .ThenBy(structureCost => structureCost.Number)
+                .ToStringEnum();
         }
     }
 }

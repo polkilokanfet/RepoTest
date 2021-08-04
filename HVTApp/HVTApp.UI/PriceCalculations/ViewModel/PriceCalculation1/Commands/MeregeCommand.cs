@@ -8,12 +8,8 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
 {
     public class MeregeCommand : BasePriceCalculationCommand
     {
-        private readonly IUnitOfWork _unitOfWork;
-
-        public MeregeCommand(PriceCalculationViewModel viewModel, IUnityContainer container, IUnitOfWork unitOfWork) 
-            : base(viewModel, container)
+        public MeregeCommand(PriceCalculationViewModel viewModel, IUnityContainer container) : base(viewModel, container)
         {
-            _unitOfWork = unitOfWork;
         }
 
         protected override void ExecuteMethod()
@@ -43,8 +39,8 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
             {
                 item.SalesUnits.ForEach(x => itemToSave.SalesUnits.Add(x));
                 ViewModel.PriceCalculationWrapper.PriceCalculationItems.Remove(item);
-                if (_unitOfWork.Repository<PriceCalculationItem>().GetById(item.Model.Id) != null)
-                    _unitOfWork.Repository<PriceCalculationItem>().Delete(item.Model);
+                if (ViewModel.UnitOfWork1.Repository<PriceCalculationItem>().GetById(item.Model.Id) != null)
+                    ViewModel.UnitOfWork1.Repository<PriceCalculationItem>().Delete(item.Model);
             }
         }
 

@@ -180,6 +180,11 @@
     <Compile Include="Modules\PlanAndEconomy\Dates\ServiceRealizationDates\TabServiceRealizationDates.xaml.cs">
       <DependentUpon>TabServiceRealizationDates.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentDocument1\Commands\AddPaymentCommand.cs" />
+    <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentDocument1\Commands\BasePaymentDocumentCommand.cs" />
+    <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentDocument1\Commands\RemovePaymentCommand.cs" />
+    <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentDocument1\Commands\RemoveDocumentCommand.cs" />
+    <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentDocument1\Commands\RestPaymentCommand.cs" />
     <Compile Include="Modules\PlanAndEconomy\SpecificationSignDates\SpecificationSignDatesViewModel.cs" />
     <Compile Include="Modules\PlanAndEconomy\SpecificationSignDates\SpecificationSignDatesView.xaml.cs">
       <DependentUpon>SpecificationSignDatesView.xaml</DependentUpon>
@@ -411,7 +416,7 @@
     <Compile Include="Modules\PlanAndEconomy\ViewModels\ProductionPlan\AfterSaveOrderItemsEvent.cs" />
     <Compile Include="Modules\PlanAndEconomy\ViewModels\ProductionPlan\OrderViewModel.cs" />
     <Compile Include="Modules\PlanAndEconomy\PaymentsActual\Payment.cs" />
-    <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentDocumentViewModel.cs" />
+    <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentDocument1\PaymentDocumentViewModel.cs" />
     <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentsActualViewModel.cs" />
     <Compile Include="Modules\PlanAndEconomy\ViewModels\PaymentsViewModel.cs" />
     <Compile Include="Modules\PlanAndEconomy\ViewModels\ProductionPlan\OrderItem.cs" />
@@ -423,7 +428,7 @@
     <Compile Include="Modules\PlanAndEconomy\Views\OrderView.xaml.cs">
       <DependentUpon>OrderView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentDocumentView.xaml.cs">
+    <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentDocument1\PaymentDocumentView.xaml.cs">
       <DependentUpon>PaymentDocumentView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentsActualView.xaml.cs">
@@ -1094,7 +1099,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Modules\PlanAndEconomy\PaymentsActual\PaymentDocumentView.xaml">
+    <Page Include="Modules\PlanAndEconomy\PaymentsActual\PaymentDocument1\PaymentDocumentView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
