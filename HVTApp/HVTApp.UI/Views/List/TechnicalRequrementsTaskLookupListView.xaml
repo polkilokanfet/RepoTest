@@ -46,6 +46,8 @@
                         <infg:DateTimeField Name="Start" Label="Старт" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="BackManager" Label="Back manager" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:TextField Name="Facilities" Label="Объекты" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField Name="ShippingCostFiles" Label="Файлы РТЗ" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                        <infg:TextField Name="HistoryElements" Label="История проработки" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:CheckBoxField Name="LogisticsCalculationRequired" Label="Необходимость РТЗ" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="ExcelFileIsRequired" Label="Необходимость файла-расчета ПЗ" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="AnswerFiles" Label="Файлы-ответы ОГК" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>

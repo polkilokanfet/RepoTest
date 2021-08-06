@@ -31,9 +31,6 @@ namespace HVTApp.Model.POCOs
         [Designation("Старт"), OrderStatus(3)]
         public virtual DateTime? Start { get; set; }
 
-        [Designation("Финиш"), OrderStatus(2), NotForListView]
-        public virtual DateTime? Finish { get; set; }
-
         [Designation("Последний просмотр back-менеджером"), OrderStatus(1), NotForListView]
         public virtual DateTime? LastOpenBackManagerMoment { get; set; }
 
@@ -60,5 +57,11 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Необходимость файла-расчета ПЗ"), OrderStatus(-5)]
         public bool ExcelFileIsRequired { get; set; } = true;
+
+        [Designation("История проработки")]
+        public virtual List<TechnicalRequrementsTaskHistoryElement> HistoryElements { get; set; } = new List<TechnicalRequrementsTaskHistoryElement>();
+
+        [Designation("Файлы РТЗ")]
+        public virtual List<ShippingCostFile> ShippingCostFiles { get; set; } = new List<ShippingCostFile>();
     }
 }

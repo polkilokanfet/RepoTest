@@ -42,9 +42,11 @@ namespace HVTApp.DataAccess
     public partial class StructureCostConfiguration : EntityTypeConfiguration<StructureCost> { }
     public partial class SupervisionConfiguration : EntityTypeConfiguration<Supervision> { }
     public partial class AnswerFileTceConfiguration : EntityTypeConfiguration<AnswerFileTce> { }
+    public partial class ShippingCostFileConfiguration : EntityTypeConfiguration<ShippingCostFile> { }
     public partial class TechnicalRequrementsConfiguration : EntityTypeConfiguration<TechnicalRequrements> { }
     public partial class TechnicalRequrementsFileConfiguration : EntityTypeConfiguration<TechnicalRequrementsFile> { }
     public partial class TechnicalRequrementsTaskConfiguration : EntityTypeConfiguration<TechnicalRequrementsTask> { }
+    public partial class TechnicalRequrementsTaskHistoryElementConfiguration : EntityTypeConfiguration<TechnicalRequrementsTaskHistoryElement> { }
     public partial class UserGroupConfiguration : EntityTypeConfiguration<UserGroup> { }
     public partial class GlobalPropertiesConfiguration : EntityTypeConfiguration<GlobalProperties> { }
     public partial class AddressConfiguration : EntityTypeConfiguration<Address> { }

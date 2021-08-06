@@ -202,6 +202,11 @@ namespace HVTApp.UI.ViewModels
         public AnswerFileTceLookupListViewModel(IUnityContainer container) : base(container) { }
     }
 
+	public partial class ShippingCostFileLookupListViewModel : BaseListViewModel<ShippingCostFile, ShippingCostFileLookup, AfterSaveShippingCostFileEvent, AfterSelectShippingCostFileEvent, AfterRemoveShippingCostFileEvent>
+    {
+        public ShippingCostFileLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
 	public partial class TechnicalRequrementsLookupListViewModel : BaseListViewModel<TechnicalRequrements, TechnicalRequrementsLookup, AfterSaveTechnicalRequrementsEvent, AfterSelectTechnicalRequrementsEvent, AfterRemoveTechnicalRequrementsEvent>
     {
         public TechnicalRequrementsLookupListViewModel(IUnityContainer container) : base(container) { }
@@ -215,6 +220,11 @@ namespace HVTApp.UI.ViewModels
 	public partial class TechnicalRequrementsTaskLookupListViewModel : BaseListViewModel<TechnicalRequrementsTask, TechnicalRequrementsTaskLookup, AfterSaveTechnicalRequrementsTaskEvent, AfterSelectTechnicalRequrementsTaskEvent, AfterRemoveTechnicalRequrementsTaskEvent>
     {
         public TechnicalRequrementsTaskLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+	public partial class TechnicalRequrementsTaskHistoryElementLookupListViewModel : BaseListViewModel<TechnicalRequrementsTaskHistoryElement, TechnicalRequrementsTaskHistoryElementLookup, AfterSaveTechnicalRequrementsTaskHistoryElementEvent, AfterSelectTechnicalRequrementsTaskHistoryElementEvent, AfterRemoveTechnicalRequrementsTaskHistoryElementEvent>
+    {
+        public TechnicalRequrementsTaskHistoryElementLookupListViewModel(IUnityContainer container) : base(container) { }
     }
 
 	public partial class UserGroupLookupListViewModel : BaseListViewModel<UserGroup, UserGroupLookup, AfterSaveUserGroupEvent, AfterSelectUserGroupEvent, AfterRemoveUserGroupEvent>

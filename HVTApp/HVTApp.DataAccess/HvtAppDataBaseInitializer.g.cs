@@ -51,9 +51,11 @@ namespace HVTApp.DataAccess
             context.StructureCostDbSet.AddRange(testData.GetAll<StructureCost>());
             context.SupervisionDbSet.AddRange(testData.GetAll<Supervision>());
             context.AnswerFileTceDbSet.AddRange(testData.GetAll<AnswerFileTce>());
+            context.ShippingCostFileDbSet.AddRange(testData.GetAll<ShippingCostFile>());
             context.TechnicalRequrementsDbSet.AddRange(testData.GetAll<TechnicalRequrements>());
             context.TechnicalRequrementsFileDbSet.AddRange(testData.GetAll<TechnicalRequrementsFile>());
             context.TechnicalRequrementsTaskDbSet.AddRange(testData.GetAll<TechnicalRequrementsTask>());
+            context.TechnicalRequrementsTaskHistoryElementDbSet.AddRange(testData.GetAll<TechnicalRequrementsTaskHistoryElement>());
             context.UserGroupDbSet.AddRange(testData.GetAll<UserGroup>());
             context.GlobalPropertiesDbSet.AddRange(testData.GetAll<GlobalProperties>());
             context.AddressDbSet.AddRange(testData.GetAll<Address>());

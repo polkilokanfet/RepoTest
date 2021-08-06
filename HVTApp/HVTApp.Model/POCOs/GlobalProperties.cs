@@ -93,6 +93,9 @@ namespace HVTApp.Model.POCOs
         [Designation("Путь к папке с файлами ответов из ТСЕ"), Required, OrderStatus(503), MaxLength(500)]
         public string TechnicalRequrementsFilesAnswersPath { get; set; }
 
+        [Designation("Путь к папке с расчетами транспортных затрат"), OrderStatus(503), MaxLength(500)]
+        public string ShippingCostFilesPath { get; set; }
+
         [Designation("Путь к папке с расчетами себестоимости"), Required, OrderStatus(504), MaxLength(500)]
         public string PriceCalculationsFilesPath { get; set; }
 

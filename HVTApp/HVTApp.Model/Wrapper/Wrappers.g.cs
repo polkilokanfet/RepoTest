@@ -1780,6 +1780,37 @@ namespace HVTApp.Model.Wrapper
         #endregion
 	}
 
+		public partial class ShippingCostFileWrapper : WrapperBase<ShippingCostFile>
+	{
+	    public ShippingCostFileWrapper(ShippingCostFile model) : base(model) { }
+        #region SimpleProperties
+        //TechnicalRequrementsTaskId
+        public System.Guid TechnicalRequrementsTaskId
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid TechnicalRequrementsTaskIdOriginalValue => GetOriginalValue<System.Guid>(nameof(TechnicalRequrementsTaskId));
+        public bool TechnicalRequrementsTaskIdIsChanged => GetIsChanged(nameof(TechnicalRequrementsTaskId));
+        //Moment
+        public System.DateTime Moment
+        {
+          get { return GetValue<System.DateTime>(); }
+          set { SetValue(value); }
+        }
+        public System.DateTime MomentOriginalValue => GetOriginalValue<System.DateTime>(nameof(Moment));
+        public bool MomentIsChanged => GetIsChanged(nameof(Moment));
+        //Id
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+        #endregion
+	}
+
 		public partial class TechnicalRequrementsWrapper : WrapperBase<TechnicalRequrements>
 	{
 	    public TechnicalRequrementsWrapper(TechnicalRequrements model) : base(model) { }
@@ -1899,14 +1930,6 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Nullable<System.DateTime> StartOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(Start));
         public bool StartIsChanged => GetIsChanged(nameof(Start));
-        //Finish
-        public System.Nullable<System.DateTime> Finish
-        {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
-          set { SetValue(value); }
-        }
-        public System.Nullable<System.DateTime> FinishOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(Finish));
-        public bool FinishIsChanged => GetIsChanged(nameof(Finish));
         //LastOpenBackManagerMoment
         public System.Nullable<System.DateTime> LastOpenBackManagerMoment
         {
@@ -1983,6 +2006,8 @@ namespace HVTApp.Model.Wrapper
         public IValidatableChangeTrackingCollection<TechnicalRequrementsWrapper> Requrements { get; private set; }
         public IValidatableChangeTrackingCollection<PriceCalculationWrapper> PriceCalculations { get; private set; }
         public IValidatableChangeTrackingCollection<AnswerFileTceWrapper> AnswerFiles { get; private set; }
+        public IValidatableChangeTrackingCollection<TechnicalRequrementsTaskHistoryElementWrapper> HistoryElements { get; private set; }
+        public IValidatableChangeTrackingCollection<ShippingCostFileWrapper> ShippingCostFiles { get; private set; }
         #endregion
         public override void InitializeComplexProperties()
         {
@@ -1999,7 +2024,60 @@ namespace HVTApp.Model.Wrapper
           if (Model.AnswerFiles == null) throw new ArgumentException("AnswerFiles cannot be null");
           AnswerFiles = new ValidatableChangeTrackingCollection<AnswerFileTceWrapper>(Model.AnswerFiles.Select(e => new AnswerFileTceWrapper(e)));
           RegisterCollection(AnswerFiles, Model.AnswerFiles);
+          if (Model.HistoryElements == null) throw new ArgumentException("HistoryElements cannot be null");
+          HistoryElements = new ValidatableChangeTrackingCollection<TechnicalRequrementsTaskHistoryElementWrapper>(Model.HistoryElements.Select(e => new TechnicalRequrementsTaskHistoryElementWrapper(e)));
+          RegisterCollection(HistoryElements, Model.HistoryElements);
+          if (Model.ShippingCostFiles == null) throw new ArgumentException("ShippingCostFiles cannot be null");
+          ShippingCostFiles = new ValidatableChangeTrackingCollection<ShippingCostFileWrapper>(Model.ShippingCostFiles.Select(e => new ShippingCostFileWrapper(e)));
+          RegisterCollection(ShippingCostFiles, Model.ShippingCostFiles);
         }
+	}
+
+		public partial class TechnicalRequrementsTaskHistoryElementWrapper : WrapperBase<TechnicalRequrementsTaskHistoryElement>
+	{
+	    public TechnicalRequrementsTaskHistoryElementWrapper(TechnicalRequrementsTaskHistoryElement model) : base(model) { }
+        #region SimpleProperties
+        //TechnicalRequrementsTaskId
+        public System.Guid TechnicalRequrementsTaskId
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid TechnicalRequrementsTaskIdOriginalValue => GetOriginalValue<System.Guid>(nameof(TechnicalRequrementsTaskId));
+        public bool TechnicalRequrementsTaskIdIsChanged => GetIsChanged(nameof(TechnicalRequrementsTaskId));
+        //Moment
+        public System.DateTime Moment
+        {
+          get { return GetValue<System.DateTime>(); }
+          set { SetValue(value); }
+        }
+        public System.DateTime MomentOriginalValue => GetOriginalValue<System.DateTime>(nameof(Moment));
+        public bool MomentIsChanged => GetIsChanged(nameof(Moment));
+        //Type
+        public HVTApp.Model.POCOs.TechnicalRequrementsTaskHistoryElementType Type
+        {
+          get { return GetValue<HVTApp.Model.POCOs.TechnicalRequrementsTaskHistoryElementType>(); }
+          set { SetValue(value); }
+        }
+        public HVTApp.Model.POCOs.TechnicalRequrementsTaskHistoryElementType TypeOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.TechnicalRequrementsTaskHistoryElementType>(nameof(Type));
+        public bool TypeIsChanged => GetIsChanged(nameof(Type));
+        //Comment
+        public System.String Comment
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
+        public bool CommentIsChanged => GetIsChanged(nameof(Comment));
+        //Id
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+        #endregion
 	}
 
 		public partial class UserGroupWrapper : WrapperBase<UserGroup>
@@ -2110,6 +2188,14 @@ namespace HVTApp.Model.Wrapper
         }
         public System.String TechnicalRequrementsFilesAnswersPathOriginalValue => GetOriginalValue<System.String>(nameof(TechnicalRequrementsFilesAnswersPath));
         public bool TechnicalRequrementsFilesAnswersPathIsChanged => GetIsChanged(nameof(TechnicalRequrementsFilesAnswersPath));
+        //ShippingCostFilesPath
+        public System.String ShippingCostFilesPath
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String ShippingCostFilesPathOriginalValue => GetOriginalValue<System.String>(nameof(ShippingCostFilesPath));
+        public bool ShippingCostFilesPathIsChanged => GetIsChanged(nameof(ShippingCostFilesPath));
         //PriceCalculationsFilesPath
         public System.String PriceCalculationsFilesPath
         {

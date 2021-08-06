@@ -167,6 +167,10 @@ namespace HVTApp.UI
             //_dialogService.Register<AnswerFileTceDetailsViewModel, AnswerFileTceDetailsView>();
 			_selectService.Register<AnswerFileTceLookupListView, AnswerFileTce>();
             _updateDetailsService.Register<AnswerFileTce, AnswerFileTceDetailsView>();
+            Container.RegisterViewForNavigation<ShippingCostFileLookupListView>();
+            //_dialogService.Register<ShippingCostFileDetailsViewModel, ShippingCostFileDetailsView>();
+			_selectService.Register<ShippingCostFileLookupListView, ShippingCostFile>();
+            _updateDetailsService.Register<ShippingCostFile, ShippingCostFileDetailsView>();
             Container.RegisterViewForNavigation<TechnicalRequrementsLookupListView>();
             //_dialogService.Register<TechnicalRequrementsDetailsViewModel, TechnicalRequrementsDetailsView>();
 			_selectService.Register<TechnicalRequrementsLookupListView, TechnicalRequrements>();
@@ -179,6 +183,10 @@ namespace HVTApp.UI
             //_dialogService.Register<TechnicalRequrementsTaskDetailsViewModel, TechnicalRequrementsTaskDetailsView>();
 			_selectService.Register<TechnicalRequrementsTaskLookupListView, TechnicalRequrementsTask>();
             _updateDetailsService.Register<TechnicalRequrementsTask, TechnicalRequrementsTaskDetailsView>();
+            Container.RegisterViewForNavigation<TechnicalRequrementsTaskHistoryElementLookupListView>();
+            //_dialogService.Register<TechnicalRequrementsTaskHistoryElementDetailsViewModel, TechnicalRequrementsTaskHistoryElementDetailsView>();
+			_selectService.Register<TechnicalRequrementsTaskHistoryElementLookupListView, TechnicalRequrementsTaskHistoryElement>();
+            _updateDetailsService.Register<TechnicalRequrementsTaskHistoryElement, TechnicalRequrementsTaskHistoryElementDetailsView>();
             Container.RegisterViewForNavigation<UserGroupLookupListView>();
             //_dialogService.Register<UserGroupDetailsViewModel, UserGroupDetailsView>();
 			_selectService.Register<UserGroupLookupListView, UserGroup>();

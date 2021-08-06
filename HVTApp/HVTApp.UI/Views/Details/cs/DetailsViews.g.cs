@@ -2721,6 +2721,53 @@ namespace HVTApp.UI.Views
 
 	}
 
+    public partial class ShippingCostFileDetailsView : ViewBase
+    {
+        public ShippingCostFileDetailsView()
+        {
+			InitializeComponent();
+        }
+
+        public ShippingCostFileDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ShippingCostFileDetailsViewModel ShippingCostFileDetailsViewModel) : base(regionManager, eventAggregator)
+        {
+            SetVisibilityProps();
+			InitializeComponent();
+            DataContext = ShippingCostFileDetailsViewModel;
+        }
+
+        private void SetVisibilityProps()
+        {
+            //NotUpdateAttribute attr;
+
+            //attr = typeof(HVTApp.Model.POCOs.ShippingCostFile).GetProperty(nameof(HVTApp.Model.POCOs.ShippingCostFile.TechnicalRequrementsTaskId)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityTechnicalRequrementsTaskIdShippingCostFile = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.ShippingCostFile).GetProperty(nameof(HVTApp.Model.POCOs.ShippingCostFile.Moment)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityMomentShippingCostFile = Visibility.Collapsed;
+
+
+        }
+
+
+        public static readonly DependencyProperty VisibilityTechnicalRequrementsTaskIdShippingCostFileProperty = DependencyProperty.Register("VisibilityTechnicalRequrementsTaskIdShippingCostFile", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityTechnicalRequrementsTaskIdShippingCostFile
+        {
+            get { return (Visibility) GetValue(VisibilityTechnicalRequrementsTaskIdShippingCostFileProperty); }
+            set { SetValue(VisibilityTechnicalRequrementsTaskIdShippingCostFileProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityMomentShippingCostFileProperty = DependencyProperty.Register("VisibilityMomentShippingCostFile", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityMomentShippingCostFile
+        {
+            get { return (Visibility) GetValue(VisibilityMomentShippingCostFileProperty); }
+            set { SetValue(VisibilityMomentShippingCostFileProperty, value); OnPropertyChanged(); }
+        }
+
+	}
+
     public partial class TechnicalRequrementsDetailsView : ViewBase
     {
         public TechnicalRequrementsDetailsView()
@@ -2893,10 +2940,6 @@ namespace HVTApp.UI.Views
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityStartTechnicalRequrementsTask = Visibility.Collapsed;
 
-            //attr = typeof(HVTApp.Model.POCOs.TechnicalRequrementsTask).GetProperty(nameof(HVTApp.Model.POCOs.TechnicalRequrementsTask.Finish)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityFinishTechnicalRequrementsTask = Visibility.Collapsed;
-
             //attr = typeof(HVTApp.Model.POCOs.TechnicalRequrementsTask).GetProperty(nameof(HVTApp.Model.POCOs.TechnicalRequrementsTask.LastOpenBackManagerMoment)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityLastOpenBackManagerMomentTechnicalRequrementsTask = Visibility.Collapsed;
@@ -2932,6 +2975,14 @@ namespace HVTApp.UI.Views
             //attr = typeof(HVTApp.Model.POCOs.TechnicalRequrementsTask).GetProperty(nameof(HVTApp.Model.POCOs.TechnicalRequrementsTask.ExcelFileIsRequired)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityExcelFileIsRequiredTechnicalRequrementsTask = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.TechnicalRequrementsTask).GetProperty(nameof(HVTApp.Model.POCOs.TechnicalRequrementsTask.HistoryElements)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityHistoryElementsTechnicalRequrementsTask = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.TechnicalRequrementsTask).GetProperty(nameof(HVTApp.Model.POCOs.TechnicalRequrementsTask.ShippingCostFiles)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityShippingCostFilesTechnicalRequrementsTask = Visibility.Collapsed;
 
 
         }
@@ -2982,14 +3033,6 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityStartTechnicalRequrementsTaskProperty); }
             set { SetValue(VisibilityStartTechnicalRequrementsTaskProperty, value); OnPropertyChanged(); }
-        }
-
-
-        public static readonly DependencyProperty VisibilityFinishTechnicalRequrementsTaskProperty = DependencyProperty.Register("VisibilityFinishTechnicalRequrementsTask", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityFinishTechnicalRequrementsTask
-        {
-            get { return (Visibility) GetValue(VisibilityFinishTechnicalRequrementsTaskProperty); }
-            set { SetValue(VisibilityFinishTechnicalRequrementsTaskProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3062,6 +3105,93 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityExcelFileIsRequiredTechnicalRequrementsTaskProperty); }
             set { SetValue(VisibilityExcelFileIsRequiredTechnicalRequrementsTaskProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityHistoryElementsTechnicalRequrementsTaskProperty = DependencyProperty.Register("VisibilityHistoryElementsTechnicalRequrementsTask", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityHistoryElementsTechnicalRequrementsTask
+        {
+            get { return (Visibility) GetValue(VisibilityHistoryElementsTechnicalRequrementsTaskProperty); }
+            set { SetValue(VisibilityHistoryElementsTechnicalRequrementsTaskProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityShippingCostFilesTechnicalRequrementsTaskProperty = DependencyProperty.Register("VisibilityShippingCostFilesTechnicalRequrementsTask", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityShippingCostFilesTechnicalRequrementsTask
+        {
+            get { return (Visibility) GetValue(VisibilityShippingCostFilesTechnicalRequrementsTaskProperty); }
+            set { SetValue(VisibilityShippingCostFilesTechnicalRequrementsTaskProperty, value); OnPropertyChanged(); }
+        }
+
+	}
+
+    public partial class TechnicalRequrementsTaskHistoryElementDetailsView : ViewBase
+    {
+        public TechnicalRequrementsTaskHistoryElementDetailsView()
+        {
+			InitializeComponent();
+        }
+
+        public TechnicalRequrementsTaskHistoryElementDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, TechnicalRequrementsTaskHistoryElementDetailsViewModel TechnicalRequrementsTaskHistoryElementDetailsViewModel) : base(regionManager, eventAggregator)
+        {
+            SetVisibilityProps();
+			InitializeComponent();
+            DataContext = TechnicalRequrementsTaskHistoryElementDetailsViewModel;
+        }
+
+        private void SetVisibilityProps()
+        {
+            //NotUpdateAttribute attr;
+
+            //attr = typeof(HVTApp.Model.POCOs.TechnicalRequrementsTaskHistoryElement).GetProperty(nameof(HVTApp.Model.POCOs.TechnicalRequrementsTaskHistoryElement.TechnicalRequrementsTaskId)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityTechnicalRequrementsTaskIdTechnicalRequrementsTaskHistoryElement = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.TechnicalRequrementsTaskHistoryElement).GetProperty(nameof(HVTApp.Model.POCOs.TechnicalRequrementsTaskHistoryElement.Moment)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityMomentTechnicalRequrementsTaskHistoryElement = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.TechnicalRequrementsTaskHistoryElement).GetProperty(nameof(HVTApp.Model.POCOs.TechnicalRequrementsTaskHistoryElement.Type)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityTypeTechnicalRequrementsTaskHistoryElement = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.TechnicalRequrementsTaskHistoryElement).GetProperty(nameof(HVTApp.Model.POCOs.TechnicalRequrementsTaskHistoryElement.Comment)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityCommentTechnicalRequrementsTaskHistoryElement = Visibility.Collapsed;
+
+
+        }
+
+
+        public static readonly DependencyProperty VisibilityTechnicalRequrementsTaskIdTechnicalRequrementsTaskHistoryElementProperty = DependencyProperty.Register("VisibilityTechnicalRequrementsTaskIdTechnicalRequrementsTaskHistoryElement", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityTechnicalRequrementsTaskIdTechnicalRequrementsTaskHistoryElement
+        {
+            get { return (Visibility) GetValue(VisibilityTechnicalRequrementsTaskIdTechnicalRequrementsTaskHistoryElementProperty); }
+            set { SetValue(VisibilityTechnicalRequrementsTaskIdTechnicalRequrementsTaskHistoryElementProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityMomentTechnicalRequrementsTaskHistoryElementProperty = DependencyProperty.Register("VisibilityMomentTechnicalRequrementsTaskHistoryElement", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityMomentTechnicalRequrementsTaskHistoryElement
+        {
+            get { return (Visibility) GetValue(VisibilityMomentTechnicalRequrementsTaskHistoryElementProperty); }
+            set { SetValue(VisibilityMomentTechnicalRequrementsTaskHistoryElementProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityTypeTechnicalRequrementsTaskHistoryElementProperty = DependencyProperty.Register("VisibilityTypeTechnicalRequrementsTaskHistoryElement", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityTypeTechnicalRequrementsTaskHistoryElement
+        {
+            get { return (Visibility) GetValue(VisibilityTypeTechnicalRequrementsTaskHistoryElementProperty); }
+            set { SetValue(VisibilityTypeTechnicalRequrementsTaskHistoryElementProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityCommentTechnicalRequrementsTaskHistoryElementProperty = DependencyProperty.Register("VisibilityCommentTechnicalRequrementsTaskHistoryElement", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityCommentTechnicalRequrementsTaskHistoryElement
+        {
+            get { return (Visibility) GetValue(VisibilityCommentTechnicalRequrementsTaskHistoryElementProperty); }
+            set { SetValue(VisibilityCommentTechnicalRequrementsTaskHistoryElementProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -3238,6 +3368,10 @@ namespace HVTApp.UI.Views
             //attr = typeof(HVTApp.Model.POCOs.GlobalProperties).GetProperty(nameof(HVTApp.Model.POCOs.GlobalProperties.TechnicalRequrementsFilesAnswersPath)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityTechnicalRequrementsFilesAnswersPathGlobalProperties = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.GlobalProperties).GetProperty(nameof(HVTApp.Model.POCOs.GlobalProperties.ShippingCostFilesPath)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityShippingCostFilesPathGlobalProperties = Visibility.Collapsed;
 
             //attr = typeof(HVTApp.Model.POCOs.GlobalProperties).GetProperty(nameof(HVTApp.Model.POCOs.GlobalProperties.PriceCalculationsFilesPath)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
@@ -3476,6 +3610,14 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityTechnicalRequrementsFilesAnswersPathGlobalPropertiesProperty); }
             set { SetValue(VisibilityTechnicalRequrementsFilesAnswersPathGlobalPropertiesProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityShippingCostFilesPathGlobalPropertiesProperty = DependencyProperty.Register("VisibilityShippingCostFilesPathGlobalProperties", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityShippingCostFilesPathGlobalProperties
+        {
+            get { return (Visibility) GetValue(VisibilityShippingCostFilesPathGlobalPropertiesProperty); }
+            set { SetValue(VisibilityShippingCostFilesPathGlobalPropertiesProperty, value); OnPropertyChanged(); }
         }
 
 

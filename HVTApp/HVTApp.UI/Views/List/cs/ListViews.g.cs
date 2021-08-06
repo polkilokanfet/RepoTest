@@ -2208,6 +2208,12 @@ namespace HVTApp.UI.Views
             set { GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.TechnicalRequrementsFilesAnswersPath)].Visibility = value; }
         }
 
+        public System.Windows.Visibility ShippingCostFilesPathVisibility
+        {
+            get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.ShippingCostFilesPath)].Visibility; }
+            set { GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.ShippingCostFilesPath)].Visibility = value; }
+        }
+
         public System.Windows.Visibility PriceCalculationsFilesPathVisibility
         {
             get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.PriceCalculationsFilesPath)].Visibility; }
@@ -5711,6 +5717,60 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
+	[Designation("Файл расчета транспортных затрат")]
+	[DesignationPlural("ShippingCostFileLookup")]
+	[AllowEditAttribute(Role.Admin)]
+    public partial class ShippingCostFileLookupListView : ViewBase
+    {
+        public ShippingCostFileLookupListView()
+        {
+            InitializeComponent();
+        }
+
+        public ShippingCostFileLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, ShippingCostFileLookupListViewModel ShippingCostFileLookupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = ShippingCostFileLookupListViewModel;
+			ShippingCostFileLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			((ShippingCostFileLookupListViewModel)DataContext).Load();
+        }
+
+		#region VisibilityProps
+
+        public System.Windows.Visibility TechnicalRequrementsTaskIdVisibility
+        {
+            get { return ShippingCostFileLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ShippingCostFileLookup.TechnicalRequrementsTaskId)].Visibility; }
+            set { ShippingCostFileLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ShippingCostFileLookup.TechnicalRequrementsTaskId)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility MomentVisibility
+        {
+            get { return ShippingCostFileLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ShippingCostFileLookup.Moment)].Visibility; }
+            set { ShippingCostFileLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ShippingCostFileLookup.Moment)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return ShippingCostFileLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ShippingCostFileLookup.DisplayMember)].Visibility; }
+            set { ShippingCostFileLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ShippingCostFileLookup.DisplayMember)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return ShippingCostFileLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ShippingCostFileLookup.Entity)].Visibility; }
+            set { ShippingCostFileLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ShippingCostFileLookup.Entity)].Visibility = value; }
+        }
+
+
+		#endregion
+    }
+
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Спецификация")]
 	[DesignationPlural("SpecificationLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -6299,6 +6359,72 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
+	[Designation("Статус тех.задания (задача)")]
+	[DesignationPlural("TechnicalRequrementsTaskHistoryElementLookup")]
+	[AllowEditAttribute(Role.Admin)]
+    public partial class TechnicalRequrementsTaskHistoryElementLookupListView : ViewBase
+    {
+        public TechnicalRequrementsTaskHistoryElementLookupListView()
+        {
+            InitializeComponent();
+        }
+
+        public TechnicalRequrementsTaskHistoryElementLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, TechnicalRequrementsTaskHistoryElementLookupListViewModel TechnicalRequrementsTaskHistoryElementLookupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = TechnicalRequrementsTaskHistoryElementLookupListViewModel;
+			TechnicalRequrementsTaskHistoryElementLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			((TechnicalRequrementsTaskHistoryElementLookupListViewModel)DataContext).Load();
+        }
+
+		#region VisibilityProps
+
+        public System.Windows.Visibility TechnicalRequrementsTaskIdVisibility
+        {
+            get { return TechnicalRequrementsTaskHistoryElementLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskHistoryElementLookup.TechnicalRequrementsTaskId)].Visibility; }
+            set { TechnicalRequrementsTaskHistoryElementLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskHistoryElementLookup.TechnicalRequrementsTaskId)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility MomentVisibility
+        {
+            get { return TechnicalRequrementsTaskHistoryElementLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskHistoryElementLookup.Moment)].Visibility; }
+            set { TechnicalRequrementsTaskHistoryElementLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskHistoryElementLookup.Moment)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility TypeVisibility
+        {
+            get { return TechnicalRequrementsTaskHistoryElementLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskHistoryElementLookup.Type)].Visibility; }
+            set { TechnicalRequrementsTaskHistoryElementLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskHistoryElementLookup.Type)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility CommentVisibility
+        {
+            get { return TechnicalRequrementsTaskHistoryElementLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskHistoryElementLookup.Comment)].Visibility; }
+            set { TechnicalRequrementsTaskHistoryElementLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskHistoryElementLookup.Comment)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return TechnicalRequrementsTaskHistoryElementLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskHistoryElementLookup.DisplayMember)].Visibility; }
+            set { TechnicalRequrementsTaskHistoryElementLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskHistoryElementLookup.DisplayMember)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return TechnicalRequrementsTaskHistoryElementLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskHistoryElementLookup.Entity)].Visibility; }
+            set { TechnicalRequrementsTaskHistoryElementLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskHistoryElementLookup.Entity)].Visibility = value; }
+        }
+
+
+		#endregion
+    }
+
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Тех.задание (задача)")]
 	[DesignationPlural("TechnicalRequrementsTaskLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -6358,12 +6484,6 @@ namespace HVTApp.UI.Views
         {
             get { return TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.Start)].Visibility; }
             set { TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.Start)].Visibility = value; }
-        }
-
-        public System.Windows.Visibility FinishVisibility
-        {
-            get { return TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.Finish)].Visibility; }
-            set { TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.Finish)].Visibility = value; }
         }
 
         public System.Windows.Visibility LastOpenBackManagerMomentVisibility
@@ -6448,6 +6568,18 @@ namespace HVTApp.UI.Views
         {
             get { return TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.AnswerFiles)].Visibility; }
             set { TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.AnswerFiles)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility HistoryElementsVisibility
+        {
+            get { return TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.HistoryElements)].Visibility; }
+            set { TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.HistoryElements)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility ShippingCostFilesVisibility
+        {
+            get { return TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.ShippingCostFiles)].Visibility; }
+            set { TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.ShippingCostFiles)].Visibility = value; }
         }
 
 

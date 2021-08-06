@@ -42,6 +42,7 @@
                         <infg:TextField Name="LogsPath" Label="Путь к папке с логами" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="PriceCalculationsFilesPath" Label="Путь к папке с расчетами себестоимости" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="TechnicalRequrementsFilesAnswersPath" Label="Путь к папке с файлами ответов из ТСЕ" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="ShippingCostFilesPath" Label="Путь к папке с расчетами транспортных затрат" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="TechnicalRequrementsFilesPath" Label="Путь к папке с файлами ТЗ" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="DirectumAttachmentsPath" Label="Путь к папке с приложениями Directum" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="IncomingRequestsPath" Label="Путь к папке с запросами" Width="Auto" AllowResize="True" />

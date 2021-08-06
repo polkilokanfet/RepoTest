@@ -42,9 +42,11 @@ namespace HVTApp.DataAccess
     public partial interface IStructureCostRepository : IRepository<StructureCost> { }
     public partial interface ISupervisionRepository : IRepository<Supervision> { }
     public partial interface IAnswerFileTceRepository : IRepository<AnswerFileTce> { }
+    public partial interface IShippingCostFileRepository : IRepository<ShippingCostFile> { }
     public partial interface ITechnicalRequrementsRepository : IRepository<TechnicalRequrements> { }
     public partial interface ITechnicalRequrementsFileRepository : IRepository<TechnicalRequrementsFile> { }
     public partial interface ITechnicalRequrementsTaskRepository : IRepository<TechnicalRequrementsTask> { }
+    public partial interface ITechnicalRequrementsTaskHistoryElementRepository : IRepository<TechnicalRequrementsTaskHistoryElement> { }
     public partial interface IUserGroupRepository : IRepository<UserGroup> { }
     public partial interface IGlobalPropertiesRepository : IRepository<GlobalProperties> { }
     public partial interface IAddressRepository : IRepository<Address> { }

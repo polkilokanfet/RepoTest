@@ -1,0 +1,267 @@
+﻿<inf:ViewBase x:Class="HVTApp.UI.TechnicalRequrementsTasksModule.TechnicalRequrementsTaskView"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:infgDp="http://infragistics.com/DataPresenter" 
+              xmlns:igEditors="http://infragistics.com/Editors"
+              x:Name="ViewBase">
+    
+    <inf:ViewBase.Resources>
+        <Style x:Key="BoltFontCellsStyle" TargetType="{x:Type infgDp:CellValuePresenter}">
+            <Setter Property="ForegroundStyle">
+                <Setter.Value>
+                    <Style>
+                        <!--<Setter Property="TextBlock.Background" Value="Aqua" />-->
+                        <Setter Property="TextBlock.FontWeight" Value="Bold" />
+                        <!--<Setter Property="TextBlock.FontStyle" Value="Italic"/>-->
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </inf:ViewBase.Resources>
+
+    <GroupBox Header="Задание на размещение в ТСЕ">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Content="Проект: "/>
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding TechnicalRequrementsTaskWrapper.ProjectName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
+
+                <Label Grid.Row="1" Grid.Column="0" Content="Комментарий front-manager: "/>
+                <TextBox Grid.Row="1" 
+                         Grid.Column="1" 
+                         Text="{Binding TechnicalRequrementsTaskWrapper.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                         IsReadOnly="{Binding IsStarted, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Label Grid.Row="2" Grid.Column="0" Content="Комментарий распределителя: "/>
+                <TextBox Grid.Row="2" 
+                         Grid.Column="1" 
+                         Text="{Binding TechnicalRequrementsTaskWrapper.CommentBackOfficeBoss, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                         IsReadOnly="{Binding AllowInstruct, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ReverseBoolConverter}}"/>
+
+                <CheckBox Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right"
+                          IsChecked="{Binding TechnicalRequrementsTaskWrapper.LogisticsCalculationRequired, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          IsEnabled="{Binding IsStarted, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ReverseBoolConverter}}"/>
+                <Label Grid.Column="1" Grid.Row ="3" Content=" - необходим Расчет Транспортных Затрат" HorizontalAlignment="Left"/>
+
+                <CheckBox Grid.Column="0" Grid.Row="4" HorizontalAlignment="Right"
+                          IsChecked="{Binding TechnicalRequrementsTaskWrapper.ExcelFileIsRequired, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          IsEnabled="{Binding IsStarted, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ReverseBoolConverter}}"/>
+                <Label Grid.Column="1" Grid.Row ="4" Content=" - необходим файл в расчете Переменных затрат (excel)" HorizontalAlignment="Left"/>
+
+                <Label Grid.Row="5" Grid.Column="0" Content="Старт: "/>
+                <Label Grid.Row="5" Grid.Column="1" Content="{Binding TechnicalRequrementsTaskWrapper.Start, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DateTimeToStringConverter}}" HorizontalAlignment="Left"/>
+
+                <Label Grid.Row="6" Grid.Column="0" Content="Back-manager: "/>
+                <Label Grid.Row="6" Grid.Column="1" Content="{Binding TechnicalRequrementsTaskWrapper.BackManager, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ObjectToStringConverter}}" HorizontalAlignment="Left"/>
+
+                <Label Grid.Row="7" Grid.Column="0" Content="Причина отклонения: "/>
+                <TextBox Grid.Row="7" Grid.Column="1"
+                         Text="{Binding TechnicalRequrementsTaskWrapper.RejectComment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         IsReadOnly="{Binding CurrentUserIsBackManager, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ReverseBoolConverter}}"/>
+
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <GroupBox Grid.Column="0" Header="Требования к оборудованию">
+                    <infgDp:XamDataGrid x:Name="Groups"
+                                        DataSource="{Binding TechnicalRequrementsTaskWrapper.Requrements}"
+                                        ActiveDataItem="{Binding SelectedItem, Mode=TwoWay}"
+                                        Style="{StaticResource XamDataGridUpdateOnCellValueChange}">
+
+                        <infgDp:XamDataGrid.InputBindings>
+                            <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=OpenFileCommand, Mode=OneWay}" />
+                        </infgDp:XamDataGrid.InputBindings>
+
+                        <infgDp:XamDataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
+                            </ContextMenu>
+                        </infgDp:XamDataGrid.ContextMenu>
+
+                        <infgDp:XamDataGrid.FieldLayouts>
+
+                            <infgDp:FieldLayout>
+
+                                <infgDp:FieldLayout.FieldSettings>
+                                    <infgDp:FieldSettings CellValuePresenterStyle="{StaticResource BoltFontCellsStyle}"/>
+                                </infgDp:FieldLayout.FieldSettings>
+
+                                <infgDp:FieldLayout.Fields>
+
+                                    <infgDp:CheckBoxField AlternateBinding="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                                          BindingType="UseAlternateBinding" 
+                                                          Label=" " 
+                                                          Width="Auto" 
+                                                          AllowEdit="True"
+                                                          AllowResize="False">
+                                                          <!--Visibility="{Binding ElementName=ViewBase, Path=ViewModel1.CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityConverter}}"-->
+                                        <!--Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type inf:ViewBase}}, Path=ViewModel1.CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityConverter}}"-->
+                                        <infgDp:Field.Settings>
+                                            <infgDp:FieldSettings>
+                                                <infgDp:FieldSettings.EditorStyle>
+                                                    <Style TargetType="{x:Type igEditors:XamCheckEditor}">
+                                                        <EventSetter Event="ValueChanged" 
+                                                                     Handler="IsCheckedValueChanged"/>
+                                                    </Style>
+                                                </infgDp:FieldSettings.EditorStyle>
+                                            </infgDp:FieldSettings>
+                                        </infgDp:Field.Settings>
+                                    </infgDp:CheckBoxField>
+
+                                    <infgDp:CheckBoxField AlternateBinding="{Binding IsActual, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Актуально?" Width="Auto" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}"/>
+                                    <infgDp:TextField AlternateBinding="{Binding SalesUnit.Facility}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
+                                    <infgDp:TextField AlternateBinding="{Binding SalesUnit.Product.ProductType}" BindingType="UseAlternateBinding" Label="Тип оборудования" Width="Auto"/>
+                                    <infgDp:TextField AlternateBinding="{Binding SalesUnit.Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="Auto"/>
+                                    <infgDp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" AllowResize="False"/>
+                                    <infgDp:NumericField AlternateBinding="{Binding SalesUnit.Cost}" BindingType="UseAlternateBinding" Label="Стоимость" Width="Auto" AllowResize="False"/>
+                                    <infgDp:NumericField AlternateBinding="{Binding SalesUnit.CostDelivery}" BindingType="UseAlternateBinding" Label="Доставка" Width="Auto" AllowResize="False"/>
+                                    <infgDp:TextField AlternateBinding="{Binding DeliveryType}" BindingType="UseAlternateBinding" Label="Тип доставки" Width="Auto"/>
+                                    <infgDp:DateTimeField AlternateBinding="{Binding SalesUnit.OrderInTakeDate}" Label="ОИТ" AllowEdit="False" AllowResize="False" Width="Auto"/>
+                                    <infgDp:DateTimeField AlternateBinding="{Binding SalesUnit.RealizationDateCalculated}" Label="Реализация" AllowEdit="False" AllowResize="False" Width="Auto"/>
+                                    <infgDp:TextField AlternateBinding="{Binding SalesUnit.Project.ProjectType}" BindingType="UseAlternateBinding" Label="Тип проекта" Width="Auto"/>
+                                    <infgDp:TextField AlternateBinding="{Binding FacilityOwners}" BindingType="UseAlternateBinding" Label="Владелец объекта" Width="100"/>
+                                    <infgDp:TextField AlternateBinding="{Binding DeliveryAddress}" BindingType="UseAlternateBinding" Label="Адрес объекта" Width="100"/>
+                                    <infgDp:TextField AlternateBinding="{Binding SalesUnit.Producer}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Производитель" Width="Auto"/>
+                                    <infgDp:TextField AlternateBinding="{Binding SalesUnit.Specification.Contract.Number}" BindingType="UseAlternateBinding" Label="Контракт" Width="Auto"/>
+                                    <infgDp:TextField AlternateBinding="{Binding SalesUnit.Specification.Contract.Contragent}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto"/>
+                                    <infgDp:TextField AlternateBinding="{Binding SalesUnit.Specification.Contract.Contragent.Inn}" BindingType="UseAlternateBinding" Label="ИНН" Width="Auto"/>
+                                    <infgDp:TextField AlternateBinding="{Binding SalesUnit.Comment}" BindingType="UseAlternateBinding" Label="Комментарий" Width="200" AllowEdit="False" AllowResize="True"/>
+                                    <infgDp:TextField AlternateBinding="{Binding Model.Id}" BindingType="UseAlternateBinding" Label="Id" Width="Auto"/>
+                                    <infgDp:Field Name="Files" IsExpandable="True"/>
+                                </infgDp:FieldLayout.Fields>
+                            </infgDp:FieldLayout>
+
+                            <infgDp:FieldLayout ParentFieldName="Files">
+                                <infgDp:FieldLayout.Fields>
+                                    <infgDp:CheckBoxField AlternateBinding="{Binding IsActual, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Актуально?" Width="Auto" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}"/>
+                                    <infgDp:TextField AlternateBinding="{Binding Name, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Название" Width="Auto" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}"/>
+                                    <infgDp:TextField AlternateBinding="{Binding Comment, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Комментарий" Width="Auto" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}"/>
+                                </infgDp:FieldLayout.Fields>
+                            </infgDp:FieldLayout>
+
+                        </infgDp:XamDataGrid.FieldLayouts>
+                    </infgDp:XamDataGrid>
+
+                </GroupBox>
+
+                <GridSplitter Grid.Column="1" Width="4" HorizontalAlignment="Stretch"/>
+
+                <GroupBox Grid.Column="2" Header="История проработки">
+                    <infgDp:XamDataGrid DataSource="{Binding TechnicalRequrementsTaskWrapper.HistoryElements}">
+
+                        <infgDp:XamDataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
+                            </ContextMenu>
+                        </infgDp:XamDataGrid.ContextMenu>
+
+                        <infgDp:XamDataGrid.FieldLayouts>
+                            <infgDp:FieldLayout>
+                                <infgDp:FieldLayout.Fields>
+                                    <infgDp:DateTimeField AlternateBinding="{Binding Moment}" BindingType="UseAlternateBinding" Label="Момент" Width="Auto" AllowResize="False" />
+                                    <infgDp:TextField AlternateBinding="{Binding Model.Type}" BindingType="UseAlternateBinding" Label="Действие" Width="Auto" AllowResize="False" />
+                                    <infgDp:TextField AlternateBinding="{Binding Comment}" BindingType="UseAlternateBinding" Label="Комментарий" Width="Auto" AllowResize="True" />
+                                </infgDp:FieldLayout.Fields>
+                            </infgDp:FieldLayout>
+
+                        </infgDp:XamDataGrid.FieldLayouts>
+                    </infgDp:XamDataGrid>
+
+                </GroupBox>
+
+            </Grid>
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <GroupBox Grid.Column="0" Header="Приложения к ответу ОГК" MaxHeight="300">
+                    <infgDp:XamDataGrid DataSource="{Binding TechnicalRequrementsTaskWrapper.AnswerFiles}"
+                                        ActiveDataItem="{Binding SelectedAnswerFile, Mode=TwoWay}">
+
+                        <infgDp:XamDataGrid.InputBindings>
+                            <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=OpenAnswerCommand, Mode=OneWay}" />
+                        </infgDp:XamDataGrid.InputBindings>
+
+                        <infgDp:XamDataGrid.FieldLayouts>
+
+                            <infgDp:FieldLayout>
+                                <infgDp:FieldLayout.Fields>
+                                    <infgDp:TextField AlternateBinding="{Binding Name, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Название" Width="Auto" AllowEdit="False"/>
+                                    <!--<infgDp:TextField AlternateBinding="{Binding Name, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Название" Width="Auto" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.CurrentUserIsBackManager}"/>
+                                    <infgDp:TextField AlternateBinding="{Binding Comment, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Комментарий" Width="Auto" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.CurrentUserIsBackManager}"/>-->
+                                </infgDp:FieldLayout.Fields>
+                            </infgDp:FieldLayout>
+
+                        </infgDp:XamDataGrid.FieldLayouts>
+
+                    </infgDp:XamDataGrid>
+                </GroupBox>
+
+                <GridSplitter Grid.Column="1" Width="4" HorizontalAlignment="Stretch"/>
+
+                <GroupBox Grid.Column="1" Header="Расчеты Переменных Затрат" MaxHeight="300">
+                    <infgDp:XamDataGrid x:Name="PriceCalculationsGrid"
+                                        DataSource="{Binding TechnicalRequrementsTaskWrapper.Model.PriceCalculations}"
+                                        ActiveDataItem="{Binding SelectedCalculation}">
+
+                        <infgDp:XamDataGrid.InputBindings>
+                            <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=OpenPriceCalculationCommand, Mode=OneWay}"/>
+                        </infgDp:XamDataGrid.InputBindings>
+
+                        <infgDp:XamDataGrid.FieldLayouts>
+
+                            <infgDp:FieldLayout Key="Calculation">
+                                <infgDp:FieldLayout.Fields>
+                                    <infgDp:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding TaskOpenMoment}" Label="Старт расчета" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
+                                    <infgDp:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding TaskCloseMoment}" Label="Финиш расчета" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
+                                    <infgDp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Initiator}" Label="Инициатор" Width="150" AllowResize="True" Converter="{StaticResource ObjectToStringConverter}"/>
+                                    <infgDp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Comment}" Label="Комментарий" Width="200" AllowResize="True" />
+                                </infgDp:FieldLayout.Fields>
+                            </infgDp:FieldLayout>
+
+                        </infgDp:XamDataGrid.FieldLayouts>
+                    </infgDp:XamDataGrid>
+                </GroupBox>
+
+            </Grid>
+
+            <GroupBox Grid.Row="3" Header="Ошибки в требованиях" MaxHeight="300">
+                <Label Content="{Binding ValidationResult, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
+            </GroupBox>
+
+        </Grid>
+    </GroupBox>
+
+</inf:ViewBase>

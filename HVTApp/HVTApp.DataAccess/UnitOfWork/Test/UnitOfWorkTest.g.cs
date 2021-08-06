@@ -46,9 +46,11 @@ namespace HVTApp.DataAccess
             StructureCostRepository = new StructureCostRepositoryTest(testData);
             SupervisionRepository = new SupervisionRepositoryTest(testData);
             AnswerFileTceRepository = new AnswerFileTceRepositoryTest(testData);
+            ShippingCostFileRepository = new ShippingCostFileRepositoryTest(testData);
             TechnicalRequrementsRepository = new TechnicalRequrementsRepositoryTest(testData);
             TechnicalRequrementsFileRepository = new TechnicalRequrementsFileRepositoryTest(testData);
             TechnicalRequrementsTaskRepository = new TechnicalRequrementsTaskRepositoryTest(testData);
+            TechnicalRequrementsTaskHistoryElementRepository = new TechnicalRequrementsTaskHistoryElementRepositoryTest(testData);
             UserGroupRepository = new UserGroupRepositoryTest(testData);
             GlobalPropertiesRepository = new GlobalPropertiesRepositoryTest(testData);
             AddressRepository = new AddressRepositoryTest(testData);
@@ -138,9 +140,11 @@ namespace HVTApp.DataAccess
         public IStructureCostRepository StructureCostRepository { get; }
         public ISupervisionRepository SupervisionRepository { get; }
         public IAnswerFileTceRepository AnswerFileTceRepository { get; }
+        public IShippingCostFileRepository ShippingCostFileRepository { get; }
         public ITechnicalRequrementsRepository TechnicalRequrementsRepository { get; }
         public ITechnicalRequrementsFileRepository TechnicalRequrementsFileRepository { get; }
         public ITechnicalRequrementsTaskRepository TechnicalRequrementsTaskRepository { get; }
+        public ITechnicalRequrementsTaskHistoryElementRepository TechnicalRequrementsTaskHistoryElementRepository { get; }
         public IUserGroupRepository UserGroupRepository { get; }
         public IGlobalPropertiesRepository GlobalPropertiesRepository { get; }
         public IAddressRepository AddressRepository { get; }

@@ -29,6 +29,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row ="0" Content="Список требований" Visibility="{Binding VisibilityRequrementsTechnicalRequrementsTask, ElementName=Root}"/>
@@ -59,10 +60,13 @@
                     SelectedDate="{Binding Item.Start, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityStartTechnicalRequrementsTask, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="5" Content="Финиш" Visibility="{Binding VisibilityFinishTechnicalRequrementsTask, ElementName=Root}"/>
-        <DatePicker Grid.Column="1" Grid.Row="5" 
-                    SelectedDate="{Binding Item.Finish, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-					Visibility="{Binding VisibilityFinishTechnicalRequrementsTask, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="5" Content="Файлы РТЗ" Visibility="{Binding VisibilityShippingCostFilesTechnicalRequrementsTask, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="5"
+										 Items="{Binding Path=Item.ShippingCostFiles}"
+										 SelectedItem="{Binding SelectedShippingCostFilesItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInShippingCostFilesCommand}"
+										 RemoveItemCommand="{Binding RemoveFromShippingCostFilesCommand}"
+										 Visibility="{Binding VisibilityShippingCostFilesTechnicalRequrementsTask, ElementName=Root}"/>
 
         <Label Grid.Column="0" Grid.Row ="6" Content="Последний просмотр front-менеджером" Visibility="{Binding VisibilityLastOpenFrontManagerMomentTechnicalRequrementsTask, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="6" 
@@ -79,43 +83,51 @@
                     SelectedDate="{Binding Item.FirstStartMoment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityFirstStartMomentTechnicalRequrementsTask, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="9" Content="Back manager" Visibility="{Binding VisibilityBackManagerTechnicalRequrementsTask, ElementName=Root}"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="9" 
+        <Label Grid.Column="0" Grid.Row ="9" Content="История проработки" Visibility="{Binding VisibilityHistoryElementsTechnicalRequrementsTask, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="9"
+										 Items="{Binding Path=Item.HistoryElements}"
+										 SelectedItem="{Binding SelectedHistoryElementsItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInHistoryElementsCommand}"
+										 RemoveItemCommand="{Binding RemoveFromHistoryElementsCommand}"
+										 Visibility="{Binding VisibilityHistoryElementsTechnicalRequrementsTask, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="10" Content="Back manager" Visibility="{Binding VisibilityBackManagerTechnicalRequrementsTask, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="10" 
                                     Item="{Binding Item.BackManager}" 
                                     AddItemCommand="{Binding SelectBackManagerCommand}" 
                                     RemoveItemCommand="{Binding ClearBackManagerCommand}"
 									Visibility="{Binding VisibilityBackManagerTechnicalRequrementsTask, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="10" Content="Отклонение" Visibility="{Binding VisibilityRejectByBackManagerMomentTechnicalRequrementsTask, ElementName=Root}"/>
-        <DatePicker Grid.Column="1" Grid.Row="10" 
+        <Label Grid.Column="0" Grid.Row ="11" Content="Отклонение" Visibility="{Binding VisibilityRejectByBackManagerMomentTechnicalRequrementsTask, ElementName=Root}"/>
+        <DatePicker Grid.Column="1" Grid.Row="11" 
                     SelectedDate="{Binding Item.RejectByBackManagerMoment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityRejectByBackManagerMomentTechnicalRequrementsTask, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="11" Content="Необходимость РТЗ" Visibility="{Binding VisibilityLogisticsCalculationRequiredTechnicalRequrementsTask, ElementName=Root}"/>
-        <CheckBox Grid.Column="1" Grid.Row="11" MinWidth="200" 
+        <Label Grid.Column="0" Grid.Row ="12" Content="Необходимость РТЗ" Visibility="{Binding VisibilityLogisticsCalculationRequiredTechnicalRequrementsTask, ElementName=Root}"/>
+        <CheckBox Grid.Column="1" Grid.Row="12" MinWidth="200" 
                   IsChecked="{Binding Item.LogisticsCalculationRequired, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				  Visibility="{Binding VisibilityLogisticsCalculationRequiredTechnicalRequrementsTask, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="12" Content="Необходимость файла-расчета ПЗ" Visibility="{Binding VisibilityExcelFileIsRequiredTechnicalRequrementsTask, ElementName=Root}"/>
-        <CheckBox Grid.Column="1" Grid.Row="12" MinWidth="200" 
+        <Label Grid.Column="0" Grid.Row ="13" Content="Необходимость файла-расчета ПЗ" Visibility="{Binding VisibilityExcelFileIsRequiredTechnicalRequrementsTask, ElementName=Root}"/>
+        <CheckBox Grid.Column="1" Grid.Row="13" MinWidth="200" 
                   IsChecked="{Binding Item.ExcelFileIsRequired, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				  Visibility="{Binding VisibilityExcelFileIsRequiredTechnicalRequrementsTask, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="13" Content="Комментарий по отклонению" Visibility="{Binding VisibilityRejectCommentTechnicalRequrementsTask, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="13" MinWidth="200" 
+        <Label Grid.Column="0" Grid.Row ="14" Content="Комментарий по отклонению" Visibility="{Binding VisibilityRejectCommentTechnicalRequrementsTask, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="14" MinWidth="200" 
                  Text="{Binding Item.RejectComment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityRejectCommentTechnicalRequrementsTask, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="14" Content="Файлы-ответы ОГК" Visibility="{Binding VisibilityAnswerFilesTechnicalRequrementsTask, ElementName=Root}"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="14"
+        <Label Grid.Column="0" Grid.Row ="15" Content="Файлы-ответы ОГК" Visibility="{Binding VisibilityAnswerFilesTechnicalRequrementsTask, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="15"
 										 Items="{Binding Path=Item.AnswerFiles}"
 										 SelectedItem="{Binding SelectedAnswerFilesItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInAnswerFilesCommand}"
 										 RemoveItemCommand="{Binding RemoveFromAnswerFilesCommand}"
 										 Visibility="{Binding VisibilityAnswerFilesTechnicalRequrementsTask, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="15" Content="Расчеты себестоимости" Visibility="{Binding VisibilityPriceCalculationsTechnicalRequrementsTask, ElementName=Root}"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="15"
+        <Label Grid.Column="0" Grid.Row ="16" Content="Расчеты себестоимости" Visibility="{Binding VisibilityPriceCalculationsTechnicalRequrementsTask, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="16"
 										 Items="{Binding Path=Item.PriceCalculations}"
 										 SelectedItem="{Binding SelectedPriceCalculationsItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInPriceCalculationsCommand}"

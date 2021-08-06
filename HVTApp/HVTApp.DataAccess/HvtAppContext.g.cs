@@ -48,9 +48,11 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new StructureCostConfiguration());
             modelBuilder.Configurations.Add(new SupervisionConfiguration());
             modelBuilder.Configurations.Add(new AnswerFileTceConfiguration());
+            modelBuilder.Configurations.Add(new ShippingCostFileConfiguration());
             modelBuilder.Configurations.Add(new TechnicalRequrementsConfiguration());
             modelBuilder.Configurations.Add(new TechnicalRequrementsFileConfiguration());
             modelBuilder.Configurations.Add(new TechnicalRequrementsTaskConfiguration());
+            modelBuilder.Configurations.Add(new TechnicalRequrementsTaskHistoryElementConfiguration());
             modelBuilder.Configurations.Add(new UserGroupConfiguration());
             modelBuilder.Configurations.Add(new GlobalPropertiesConfiguration());
             modelBuilder.Configurations.Add(new AddressConfiguration());
@@ -139,9 +141,11 @@ namespace HVTApp.DataAccess
         public virtual DbSet<StructureCost> StructureCostDbSet { get; set; }
         public virtual DbSet<Supervision> SupervisionDbSet { get; set; }
         public virtual DbSet<AnswerFileTce> AnswerFileTceDbSet { get; set; }
+        public virtual DbSet<ShippingCostFile> ShippingCostFileDbSet { get; set; }
         public virtual DbSet<TechnicalRequrements> TechnicalRequrementsDbSet { get; set; }
         public virtual DbSet<TechnicalRequrementsFile> TechnicalRequrementsFileDbSet { get; set; }
         public virtual DbSet<TechnicalRequrementsTask> TechnicalRequrementsTaskDbSet { get; set; }
+        public virtual DbSet<TechnicalRequrementsTaskHistoryElement> TechnicalRequrementsTaskHistoryElementDbSet { get; set; }
         public virtual DbSet<UserGroup> UserGroupDbSet { get; set; }
         public virtual DbSet<GlobalProperties> GlobalPropertiesDbSet { get; set; }
         public virtual DbSet<Address> AddressDbSet { get; set; }

@@ -910,6 +910,23 @@ namespace HVTApp.UI.Lookup
         #endregion
 	}
 	[AllowEditAttribute(Role.Admin)]
+	[Designation("Файл расчета транспортных затрат")]
+	public partial class ShippingCostFileLookup : LookupItem<ShippingCostFile>
+	{
+		public ShippingCostFileLookup(ShippingCostFile entity) : base(entity) 
+		{
+		}
+		
+        #region SimpleProperties
+		[OrderStatus(1)]
+        public System.Guid TechnicalRequrementsTaskId => Entity.TechnicalRequrementsTaskId;
+
+		[OrderStatus(90)]
+        public System.DateTime Moment => Entity.Moment;
+
+        #endregion
+	}
+	[AllowEditAttribute(Role.Admin)]
 	[Designation("Тех.задание")]
 	public partial class TechnicalRequrementsLookup : LookupItem<TechnicalRequrements>
 	{
@@ -971,9 +988,6 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(3)]
         public System.Nullable<System.DateTime> Start => Entity.Start;
 
-		[OrderStatus(2)]
-        public System.Nullable<System.DateTime> Finish => Entity.Finish;
-
 		[OrderStatus(1)]
         public System.Nullable<System.DateTime> LastOpenBackManagerMoment => Entity.LastOpenBackManagerMoment;
 
@@ -1008,6 +1022,33 @@ namespace HVTApp.UI.Lookup
 	    public List<PriceCalculationLookup> PriceCalculations { get { return GetLookupEnum<PriceCalculationLookup>().ToList(); } }
 		[OrderStatus(-6)]
 	    public List<AnswerFileTceLookup> AnswerFiles { get { return GetLookupEnum<AnswerFileTceLookup>().ToList(); } }
+		[OrderStatus(1)]
+	    public List<TechnicalRequrementsTaskHistoryElementLookup> HistoryElements { get { return GetLookupEnum<TechnicalRequrementsTaskHistoryElementLookup>().ToList(); } }
+		[OrderStatus(1)]
+	    public List<ShippingCostFileLookup> ShippingCostFiles { get { return GetLookupEnum<ShippingCostFileLookup>().ToList(); } }
+	}
+	[AllowEditAttribute(Role.Admin)]
+	[Designation("Статус тех.задания (задача)")]
+	public partial class TechnicalRequrementsTaskHistoryElementLookup : LookupItem<TechnicalRequrementsTaskHistoryElement>
+	{
+		public TechnicalRequrementsTaskHistoryElementLookup(TechnicalRequrementsTaskHistoryElement entity) : base(entity) 
+		{
+		}
+		
+        #region SimpleProperties
+		[OrderStatus(1)]
+        public System.Guid TechnicalRequrementsTaskId => Entity.TechnicalRequrementsTaskId;
+
+		[OrderStatus(90)]
+        public System.DateTime Moment => Entity.Moment;
+
+		[OrderStatus(80)]
+        public HVTApp.Model.POCOs.TechnicalRequrementsTaskHistoryElementType Type => Entity.Type;
+
+		[OrderStatus(5)]
+        public System.String Comment => Entity.Comment;
+
+        #endregion
 	}
 	[AllowEditAttribute(Role.Admin)]
 	[Designation("Группа пользователей")]
@@ -1060,6 +1101,9 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(503)]
         public System.String TechnicalRequrementsFilesAnswersPath => Entity.TechnicalRequrementsFilesAnswersPath;
+
+		[OrderStatus(503)]
+        public System.String ShippingCostFilesPath => Entity.ShippingCostFilesPath;
 
 		[OrderStatus(504)]
         public System.String PriceCalculationsFilesPath => Entity.PriceCalculationsFilesPath;

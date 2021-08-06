@@ -122,9 +122,11 @@
     <Compile Include="POCOs\PriceCalculation\StructureCost.cs" />
     <Compile Include="POCOs\Supervision.cs" />
     <Compile Include="POCOs\TCE\AnswerFileTce.cs" />
+    <Compile Include="POCOs\TCE\ShippingCostFile.cs" />
     <Compile Include="POCOs\TCE\TechnicalRequrements.cs" />
     <Compile Include="POCOs\TCE\TechnicalRequrementsFile.cs" />
     <Compile Include="POCOs\TCE\TechnicalRequrementsTask.cs" />
+    <Compile Include="POCOs\TCE\TechnicalRequrementsTaskHistoryElement.cs" />
     <Compile Include="POCOs\UserGroup.cs" />
     <Compile Include="Price\IPrice.cs" />
     <Compile Include="Price\Price.cs" />

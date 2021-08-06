@@ -112,6 +112,10 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper
 
         public IValidatableChangeTrackingCollection<AnswerFileTceWrapper> AnswerFiles { get; private set; }
 
+        public IValidatableChangeTrackingCollection<TechnicalRequrementsTaskHistoryElementWrapper> HistoryElements { get; private set; }
+
+        public IValidatableChangeTrackingCollection<ShippingCostFileWrapper> ShippingCostFiles { get; private set; }
+
         #endregion
 
         public TechnicalRequrementsTask2Wrapper(TechnicalRequrementsTask model) : base(model)
@@ -132,6 +136,14 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper
             if (Model.AnswerFiles == null) throw new ArgumentException("AnswerFiles cannot be null");
             AnswerFiles = new ValidatableChangeTrackingCollection<AnswerFileTceWrapper>(Model.AnswerFiles.Select(e => new AnswerFileTceWrapper(e)));
             RegisterCollection(AnswerFiles, Model.AnswerFiles);
+
+            if (Model.HistoryElements == null) throw new ArgumentException("HistoryElements cannot be null");
+            HistoryElements = new ValidatableChangeTrackingCollection<TechnicalRequrementsTaskHistoryElementWrapper>(Model.HistoryElements.OrderBy(element => element.Moment).Select(element => new TechnicalRequrementsTaskHistoryElementWrapper(element)));
+            RegisterCollection(HistoryElements, Model.HistoryElements);
+
+            if (Model.ShippingCostFiles == null) throw new ArgumentException("ShippingCostFiles cannot be null");
+            ShippingCostFiles = new ValidatableChangeTrackingCollection<ShippingCostFileWrapper>(Model.ShippingCostFiles.Select(e => new ShippingCostFileWrapper(e)));
+            RegisterCollection(ShippingCostFiles, Model.ShippingCostFiles);
         }
 
         public string ValidationResult

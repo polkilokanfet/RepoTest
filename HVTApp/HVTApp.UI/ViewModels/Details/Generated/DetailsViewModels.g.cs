@@ -1665,6 +1665,15 @@ namespace HVTApp.UI.ViewModels
 
     }
 
+    public partial class ShippingCostFileDetailsViewModel : BaseDetailsViewModel<ShippingCostFileWrapper, ShippingCostFile, AfterSaveShippingCostFileEvent>
+    {
+        public ShippingCostFileDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+		}
+
+
+    }
+
     public partial class TechnicalRequrementsDetailsViewModel : BaseDetailsViewModel<TechnicalRequrementsWrapper, TechnicalRequrements, AfterSaveTechnicalRequrementsEvent>
     {
 		private Func<List<SalesUnit>> _getEntitiesForAddInSalesUnitsCommand;
@@ -1810,6 +1819,38 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
+		private Func<List<TechnicalRequrementsTaskHistoryElement>> _getEntitiesForAddInHistoryElementsCommand;
+		public DelegateLogCommand AddInHistoryElementsCommand { get; }
+		public DelegateLogCommand RemoveFromHistoryElementsCommand { get; }
+		private TechnicalRequrementsTaskHistoryElementWrapper _selectedHistoryElementsItem;
+		public TechnicalRequrementsTaskHistoryElementWrapper SelectedHistoryElementsItem 
+		{ 
+			get { return _selectedHistoryElementsItem; }
+			set 
+			{ 
+				if (Equals(_selectedHistoryElementsItem, value)) return;
+				_selectedHistoryElementsItem = value;
+				RaisePropertyChanged();
+				RemoveFromHistoryElementsCommand.RaiseCanExecuteChanged();
+			}
+		}
+
+		private Func<List<ShippingCostFile>> _getEntitiesForAddInShippingCostFilesCommand;
+		public DelegateLogCommand AddInShippingCostFilesCommand { get; }
+		public DelegateLogCommand RemoveFromShippingCostFilesCommand { get; }
+		private ShippingCostFileWrapper _selectedShippingCostFilesItem;
+		public ShippingCostFileWrapper SelectedShippingCostFilesItem 
+		{ 
+			get { return _selectedShippingCostFilesItem; }
+			set 
+			{ 
+				if (Equals(_selectedShippingCostFilesItem, value)) return;
+				_selectedShippingCostFilesItem = value;
+				RaisePropertyChanged();
+				RemoveFromShippingCostFilesCommand.RaiseCanExecuteChanged();
+			}
+		}
+
         public TechnicalRequrementsTaskDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
@@ -1831,6 +1872,16 @@ namespace HVTApp.UI.ViewModels
 			if (_getEntitiesForAddInAnswerFilesCommand == null) _getEntitiesForAddInAnswerFilesCommand = () => { return UnitOfWork.Repository<AnswerFileTce>().GetAll(); };;
 			if (AddInAnswerFilesCommand == null) AddInAnswerFilesCommand = new DelegateLogCommand(AddInAnswerFilesCommand_Execute_Default);
 			if (RemoveFromAnswerFilesCommand == null) RemoveFromAnswerFilesCommand = new DelegateLogCommand(RemoveFromAnswerFilesCommand_Execute_Default, RemoveFromAnswerFilesCommand_CanExecute_Default);
+
+			
+			if (_getEntitiesForAddInHistoryElementsCommand == null) _getEntitiesForAddInHistoryElementsCommand = () => { return UnitOfWork.Repository<TechnicalRequrementsTaskHistoryElement>().GetAll(); };;
+			if (AddInHistoryElementsCommand == null) AddInHistoryElementsCommand = new DelegateLogCommand(AddInHistoryElementsCommand_Execute_Default);
+			if (RemoveFromHistoryElementsCommand == null) RemoveFromHistoryElementsCommand = new DelegateLogCommand(RemoveFromHistoryElementsCommand_Execute_Default, RemoveFromHistoryElementsCommand_CanExecute_Default);
+
+			
+			if (_getEntitiesForAddInShippingCostFilesCommand == null) _getEntitiesForAddInShippingCostFilesCommand = () => { return UnitOfWork.Repository<ShippingCostFile>().GetAll(); };;
+			if (AddInShippingCostFilesCommand == null) AddInShippingCostFilesCommand = new DelegateLogCommand(AddInShippingCostFilesCommand_Execute_Default);
+			if (RemoveFromShippingCostFilesCommand == null) RemoveFromShippingCostFilesCommand = new DelegateLogCommand(RemoveFromShippingCostFilesCommand_Execute_Default, RemoveFromShippingCostFilesCommand_CanExecute_Default);
 
 		}
 
@@ -1888,6 +1939,45 @@ namespace HVTApp.UI.ViewModels
 			{
 				return SelectedAnswerFilesItem != null;
 			}
+
+			private void AddInHistoryElementsCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<TechnicalRequrementsTaskHistoryElement, TechnicalRequrementsTaskHistoryElementWrapper>(_getEntitiesForAddInHistoryElementsCommand(), Item.HistoryElements);
+			}
+
+			private void RemoveFromHistoryElementsCommand_Execute_Default()
+			{
+				Item.HistoryElements.Remove(SelectedHistoryElementsItem);
+			}
+
+			private bool RemoveFromHistoryElementsCommand_CanExecute_Default()
+			{
+				return SelectedHistoryElementsItem != null;
+			}
+
+			private void AddInShippingCostFilesCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<ShippingCostFile, ShippingCostFileWrapper>(_getEntitiesForAddInShippingCostFilesCommand(), Item.ShippingCostFiles);
+			}
+
+			private void RemoveFromShippingCostFilesCommand_Execute_Default()
+			{
+				Item.ShippingCostFiles.Remove(SelectedShippingCostFilesItem);
+			}
+
+			private bool RemoveFromShippingCostFilesCommand_CanExecute_Default()
+			{
+				return SelectedShippingCostFilesItem != null;
+			}
+
+
+    }
+
+    public partial class TechnicalRequrementsTaskHistoryElementDetailsViewModel : BaseDetailsViewModel<TechnicalRequrementsTaskHistoryElementWrapper, TechnicalRequrementsTaskHistoryElement, AfterSaveTechnicalRequrementsTaskHistoryElementEvent>
+    {
+        public TechnicalRequrementsTaskHistoryElementDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+		}
 
 
     }

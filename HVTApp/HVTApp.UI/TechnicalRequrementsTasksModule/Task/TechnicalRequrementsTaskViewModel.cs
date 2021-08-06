@@ -20,6 +20,7 @@ using HVTApp.UI.Commands;
 using HVTApp.UI.PriceCalculations.View;
 using HVTApp.UI.PriceCalculations.ViewModel;
 using HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1;
+using HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands;
 using HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
@@ -29,6 +30,30 @@ using Prism.Regions;
 
 namespace HVTApp.UI.TechnicalRequrementsTasksModule
 {
+    public class SaveCommand : BaseTechnicalRequrementsTaskViewModelCommand
+    {
+        public SaveCommand(TechnicalRequrementsTaskViewModel viewModel, IUnityContainer container) : base(viewModel, container)
+        {
+        }
+
+        protected override void ExecuteMethod()
+        {
+            ViewModel.TechnicalRequrementsTaskWrapper.AcceptChanges();
+
+            var trt = UnitOfWork.Repository<TechnicalRequrementsTask>().GetById(ViewModel.TechnicalRequrementsTaskWrapper.Model.Id);
+            if (trt == null)
+            {
+                UnitOfWork.Repository<TechnicalRequrementsTask>().Add(ViewModel.TechnicalRequrementsTaskWrapper.Model);
+            }
+
+            UnitOfWork.SaveChanges();
+
+            Container.Resolve<IEventAggregator>().GetEvent<AfterSaveTechnicalRequrementsTaskEvent>().Publish(ViewModel.TechnicalRequrementsTaskWrapper.Model);
+
+            this.RaiseCanExecuteChanged();
+        }
+    }
+
     public class TechnicalRequrementsTaskViewModel : ViewModelBaseCanExportToExcel
     {
         private TechnicalRequrementsTask2Wrapper _technicalRequrementsTaskWrapper;
@@ -39,6 +64,9 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         private AnswerFileTceWrapper _selectedAnswerFile;
         private PriceCalculation _selectedCalculation;
 
+        //костыль
+        public IUnitOfWork UnitOfWork1 => this.UnitOfWork;
+
         public object SelectedItem
         {
             get => _selectedItem;
@@ -46,12 +74,12 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             {
                 _selectedItem = value;
 
-                (AddNewFileCommand).RaiseCanExecuteChanged();
-                (AddOldFileCommand).RaiseCanExecuteChanged();
-                (RemoveFileCommand).RaiseCanExecuteChanged();
-                (RemoveGroupCommand).RaiseCanExecuteChanged();
-                (DivideCommand).RaiseCanExecuteChanged();
-                (LoadFileCommand).RaiseCanExecuteChanged();
+                AddNewFileCommand.RaiseCanExecuteChanged();
+                AddOldFileCommand.RaiseCanExecuteChanged();
+                RemoveFileCommand.RaiseCanExecuteChanged();
+                RemoveGroupCommand.RaiseCanExecuteChanged();
+                DivideCommand.RaiseCanExecuteChanged();
+                LoadFileCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -61,8 +89,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             set
             {
                 _selectedAnswerFile = value;
-                (RemoveFileAnswerCommand).RaiseCanExecuteChanged();
-                (LoadFileAnswerCommand).RaiseCanExecuteChanged();
+                RemoveFileAnswerCommand.RaiseCanExecuteChanged();
+                LoadFileAnswerCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -72,8 +100,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             set
             {
                 _selectedCalculation = value;
-                (OpenPriceCalculationCommand).RaiseCanExecuteChanged();
-                (CopyPriceCalculationCommand).RaiseCanExecuteChanged();
+                OpenPriceCalculationCommand.RaiseCanExecuteChanged();
+                CopyPriceCalculationCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -92,7 +120,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
         public string ValidationResult => TechnicalRequrementsTaskWrapper?.ValidationResult;
 
-        #region DelegateLogCommand
+        #region Commands
 
         public DelegateLogCommand SaveCommand { get; }
 
@@ -170,8 +198,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 _technicalRequrementsTaskWrapper.PropertyChanged += (sender, args) =>
                 {
                     SaveCommand.RaiseCanExecuteChanged();
-                    (StartCommand).RaiseCanExecuteChanged();
-                    (RejectCommand).RaiseCanExecuteChanged();
+                    StartCommand.RaiseCanExecuteChanged();
+                    RejectCommand.RaiseCanExecuteChanged();
                     RaisePropertyChanged(nameof(ValidationResult));
                 };
                 RaisePropertyChanged();
@@ -189,6 +217,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             SaveCommand = new DelegateLogCommand(
                 () =>
                 {
+                    TechnicalRequrementsTaskHistoryElement element = new TechnicalRequrementsTaskHistoryElement();
+                    TechnicalRequrementsTaskWrapper.
                     TechnicalRequrementsTaskWrapper.AcceptChanges();
 
                     var trt = UnitOfWork.Repository<TechnicalRequrementsTask>().GetById(TechnicalRequrementsTaskWrapper.Model.Id);

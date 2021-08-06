@@ -277,6 +277,13 @@ namespace HVTApp.DataAccess
 		}
     }
 
+    public partial class ShippingCostFileRepository : BaseRepository<ShippingCostFile>, IShippingCostFileRepository
+    {
+		public ShippingCostFileRepository(DbContext context) : base(context) 
+		{
+		}
+    }
+
     public partial class TechnicalRequrementsRepository : BaseRepository<TechnicalRequrements>, ITechnicalRequrementsRepository
     {
 		public TechnicalRequrementsRepository(DbContext context) : base(context) 
@@ -294,6 +301,13 @@ namespace HVTApp.DataAccess
     public partial class TechnicalRequrementsTaskRepository : BaseRepository<TechnicalRequrementsTask>, ITechnicalRequrementsTaskRepository
     {
 		public TechnicalRequrementsTaskRepository(DbContext context) : base(context) 
+		{
+		}
+    }
+
+    public partial class TechnicalRequrementsTaskHistoryElementRepository : BaseRepository<TechnicalRequrementsTaskHistoryElement>, ITechnicalRequrementsTaskHistoryElementRepository
+    {
+		public TechnicalRequrementsTaskHistoryElementRepository(DbContext context) : base(context) 
 		{
 		}
     }

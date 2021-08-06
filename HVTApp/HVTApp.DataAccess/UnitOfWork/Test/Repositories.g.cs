@@ -198,6 +198,11 @@ namespace HVTApp.DataAccess
         public AnswerFileTceRepositoryTest(TestData testData) : base(testData) {}
     }
 
+    public partial class ShippingCostFileRepositoryTest : TestBaseRepository<ShippingCostFile>, IShippingCostFileRepository
+    {
+        public ShippingCostFileRepositoryTest(TestData testData) : base(testData) {}
+    }
+
     public partial class TechnicalRequrementsRepositoryTest : TestBaseRepository<TechnicalRequrements>, ITechnicalRequrementsRepository
     {
         public TechnicalRequrementsRepositoryTest(TestData testData) : base(testData) {}
@@ -211,6 +216,11 @@ namespace HVTApp.DataAccess
     public partial class TechnicalRequrementsTaskRepositoryTest : TestBaseRepository<TechnicalRequrementsTask>, ITechnicalRequrementsTaskRepository
     {
         public TechnicalRequrementsTaskRepositoryTest(TestData testData) : base(testData) {}
+    }
+
+    public partial class TechnicalRequrementsTaskHistoryElementRepositoryTest : TestBaseRepository<TechnicalRequrementsTaskHistoryElement>, ITechnicalRequrementsTaskHistoryElementRepository
+    {
+        public TechnicalRequrementsTaskHistoryElementRepositoryTest(TestData testData) : base(testData) {}
     }
 
     public partial class UserGroupRepositoryTest : TestBaseRepository<UserGroup>, IUserGroupRepository

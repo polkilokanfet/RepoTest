@@ -43,9 +43,11 @@ namespace HVTApp.DataAccess
             StructureCostRepository = new StructureCostRepository(_context);
             SupervisionRepository = new SupervisionRepository(_context);
             AnswerFileTceRepository = new AnswerFileTceRepository(_context);
+            ShippingCostFileRepository = new ShippingCostFileRepository(_context);
             TechnicalRequrementsRepository = new TechnicalRequrementsRepository(_context);
             TechnicalRequrementsFileRepository = new TechnicalRequrementsFileRepository(_context);
             TechnicalRequrementsTaskRepository = new TechnicalRequrementsTaskRepository(_context);
+            TechnicalRequrementsTaskHistoryElementRepository = new TechnicalRequrementsTaskHistoryElementRepository(_context);
             UserGroupRepository = new UserGroupRepository(_context);
             GlobalPropertiesRepository = new GlobalPropertiesRepository(_context);
             AddressRepository = new AddressRepository(_context);
@@ -134,9 +136,11 @@ namespace HVTApp.DataAccess
         protected IStructureCostRepository StructureCostRepository;
         protected ISupervisionRepository SupervisionRepository;
         protected IAnswerFileTceRepository AnswerFileTceRepository;
+        protected IShippingCostFileRepository ShippingCostFileRepository;
         protected ITechnicalRequrementsRepository TechnicalRequrementsRepository;
         protected ITechnicalRequrementsFileRepository TechnicalRequrementsFileRepository;
         protected ITechnicalRequrementsTaskRepository TechnicalRequrementsTaskRepository;
+        protected ITechnicalRequrementsTaskHistoryElementRepository TechnicalRequrementsTaskHistoryElementRepository;
         protected IUserGroupRepository UserGroupRepository;
         protected IGlobalPropertiesRepository GlobalPropertiesRepository;
         protected IAddressRepository AddressRepository;

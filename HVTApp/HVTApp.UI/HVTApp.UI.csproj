@@ -688,18 +688,19 @@
     <Compile Include="TechnicalRequrementsTasksModule\Tabs\TabTechnicalRequrementsTasksView.xaml.cs">
       <DependentUpon>TabTechnicalRequrementsTasksView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TechnicalRequrementsTasksModule\TechnicalRequrementsTasksView.xaml.cs">
+    <Compile Include="TechnicalRequrementsTasksModule\Tasks\TechnicalRequrementsTasksView.xaml.cs">
       <DependentUpon>TechnicalRequrementsTasksView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TechnicalRequrementsTasksModule\TechnicalRequrementsTasksViewModel.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Tasks\TechnicalRequrementsTasksViewModel.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Tabs\TabTechnicalRequrementsTask.xaml.cs">
       <DependentUpon>TabTechnicalRequrementsTask.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TechnicalRequrementsTasksModule\TechnicalRequrementsTaskView.xaml.cs">
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\BaseTechnicalRequrementsTaskViewModelCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\TechnicalRequrementsTaskView.xaml.cs">
       <DependentUpon>TechnicalRequrementsTaskView.xaml</DependentUpon>
     </Compile>
     <Compile Include="TechnicalRequrementsTasksModule\SalesUnitForTechnicalRequrementsTaskComparer.cs" />
-    <Compile Include="TechnicalRequrementsTasksModule\TechnicalRequrementsTaskViewModel.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\TechnicalRequrementsTaskViewModel.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Wrapper\TechnicalRequrements2Wrapper.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Wrapper\TechnicalRequrementsTask2Wrapper.cs" />
     <Compile Include="ViewModels\Details\EmployeeDetailsViewModel.cs" />
@@ -1455,7 +1456,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="TechnicalRequrementsTasksModule\TechnicalRequrementsTasksView.xaml">
+    <Page Include="TechnicalRequrementsTasksModule\Tasks\TechnicalRequrementsTasksView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1463,7 +1464,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="TechnicalRequrementsTasksModule\TechnicalRequrementsTaskView.xaml">
+    <Page Include="TechnicalRequrementsTasksModule\Task\TechnicalRequrementsTaskView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1767,6 +1768,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\Details\ShippingCostFileDetailsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Details\SpecificationDetailsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1804,6 +1809,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Details\TechnicalRequrementsTaskDetailsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Details\TechnicalRequrementsTaskHistoryElementDetailsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -2119,6 +2128,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\List\ShippingCostFileLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\List\SpecificationLookupListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -2152,6 +2165,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\List\TechnicalRequrementsLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\TechnicalRequrementsTaskHistoryElementLookupListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
