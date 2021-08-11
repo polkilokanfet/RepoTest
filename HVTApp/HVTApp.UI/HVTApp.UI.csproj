@@ -699,7 +699,9 @@
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\AddFileBaseCommand.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\AddOldFileCommand.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\AddNewFileCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\AddShippingCalculationFileCommand.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\BaseTechnicalRequrementsTaskViewModelCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\LoadShippingCalculationFileCommand.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\SaveCommand.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\RemoveGroupCommand.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\MeregeCommand.cs" />
@@ -716,6 +718,9 @@
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\RemoveFileAnswerCommand.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\InstructCommand.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\OpenFileCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\FinishCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\StartCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\StopCommand.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\TechnicalRequrementsTaskView.xaml.cs">
       <DependentUpon>TechnicalRequrementsTaskView.xaml</DependentUpon>
     </Compile>

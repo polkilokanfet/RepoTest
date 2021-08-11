@@ -15,8 +15,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         {
             ViewModel.TechnicalRequrementsTaskWrapper.AcceptChanges();
 
-            var trt = UnitOfWork.Repository<TechnicalRequrementsTask>().GetById(ViewModel.TechnicalRequrementsTaskWrapper.Model.Id);
-            if (trt == null)
+            var technicalRequrementsTask = UnitOfWork.Repository<TechnicalRequrementsTask>().GetById(ViewModel.TechnicalRequrementsTaskWrapper.Model.Id);
+            if (technicalRequrementsTask == null)
             {
                 UnitOfWork.Repository<TechnicalRequrementsTask>().Add(ViewModel.TechnicalRequrementsTaskWrapper.Model);
             }

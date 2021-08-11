@@ -25,7 +25,7 @@ namespace HVTApp.Model.POCOs
         /// <summary>
         /// создано
         /// </summary>
-        Creation,
+        Create,
 
         /// <summary>
         /// стартовано

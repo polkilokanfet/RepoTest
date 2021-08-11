@@ -9,9 +9,9 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.TechnicalRequrementsTasksModule
 {
-    public class AddNewFileAnswersCommand : BaseTechnicalRequrementsTaskViewModelCommand
+    public class AddShippingCalculationFileCommand : BaseTechnicalRequrementsTaskViewModelCommand
     {
-        public AddNewFileAnswersCommand(TechnicalRequrementsTaskViewModel viewModel, IUnityContainer container) : base(viewModel, container)
+        public AddShippingCalculationFileCommand(TechnicalRequrementsTaskViewModel viewModel, IUnityContainer container) : base(viewModel, container)
         {
         }
 
@@ -25,19 +25,19 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                var rootDirectoryPath = GlobalAppProperties.Actual.TechnicalRequrementsFilesAnswersPath;
+                var rootDirectoryPath = GlobalAppProperties.Actual.ShippingCostFilesPath;
 
                 //копируем каждый файл
                 foreach (var fileName in openFileDialog.FileNames)
                 {
                     try
                     {
-                        var fileWrapper = new AnswerFileTceWrapper(new AnswerFileTce())
+                        var fileWrapper = new ShippingCostFileWrapper(new ShippingCostFile())
                         {
-                            Name = Path.GetFileNameWithoutExtension(fileName).LimitLengh(50)
+                            Moment = DateTime.Now
                         };
                         File.Copy(fileName, $"{rootDirectoryPath}\\{fileWrapper.Id}{Path.GetExtension(fileName)}");
-                        ViewModel.TechnicalRequrementsTaskWrapper.AnswerFiles.Add(fileWrapper);
+                        ViewModel.TechnicalRequrementsTaskWrapper.ShippingCostFiles.Add(fileWrapper);
 
                         ViewModel.TechnicalRequrementsTaskWrapper.AcceptChanges();
                         UnitOfWork.SaveChanges();

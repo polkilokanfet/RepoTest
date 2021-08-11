@@ -35,6 +35,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         private AnswerFileTceWrapper _selectedAnswerFile;
         private PriceCalculation _selectedCalculation;
         private TechnicalRequrementsTaskHistoryElementWrapper _historyElementWrapper;
+        private ShippingCostFileWrapper _selectedShippingCalculationFile;
 
         //костыль
         public IUnitOfWork UnitOfWork1 => this.UnitOfWork;
@@ -52,6 +53,16 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 RemoveGroupCommand.RaiseCanExecuteChanged();
                 DivideCommand.RaiseCanExecuteChanged();
                 LoadFileCommand.RaiseCanExecuteChanged();
+            }
+        }
+
+        public ShippingCostFileWrapper SelectedShippingCalculationFile
+        {
+            get => _selectedShippingCalculationFile;
+            set
+            {
+                _selectedShippingCalculationFile = value;
+                LoadShippingCalculationFileCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -84,24 +95,34 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         /// <summary>
         /// Задача запущена ФМ
         /// </summary>
-        public bool IsStarted => TechnicalRequrementsTaskWrapper != null && TechnicalRequrementsTaskWrapper.Model.IsStarted;
-
-        /// <summary>
-        /// Задача проработана БМ
-        /// </summary>
-        public bool IsFinished => TechnicalRequrementsTaskWrapper != null && TechnicalRequrementsTaskWrapper.Model.IsFinished;
-
-        /// <summary>
-        /// Задача принята ФМ у БМ
-        /// </summary>
-        public bool IsAccepted => TechnicalRequrementsTaskWrapper != null && TechnicalRequrementsTaskWrapper.Model.IsAccepted;
-
-        public bool WasStarted => TechnicalRequrementsTaskWrapper?.Model.FirstStartMoment != null;
+        public bool IsStarted => TechnicalRequrementsTaskWrapper != null && 
+                                 TechnicalRequrementsTaskWrapper.Model.IsStarted;
 
         /// <summary>
         /// Задача отклонена БМ
         /// </summary>
-        public bool IsRejected => TechnicalRequrementsTaskWrapper != null && TechnicalRequrementsTaskWrapper.Model.IsRejected;
+        public bool IsRejected => TechnicalRequrementsTaskWrapper != null && 
+                                  TechnicalRequrementsTaskWrapper.Model.IsRejected;
+
+        /// <summary>
+        /// Задача остановлена ФМ
+        /// </summary>
+        public bool IsStopped => TechnicalRequrementsTaskWrapper != null && 
+                                 TechnicalRequrementsTaskWrapper.Model.IsStopped;
+
+        /// <summary>
+        /// Задача проработана БМ
+        /// </summary>
+        public bool IsFinished => TechnicalRequrementsTaskWrapper != null && 
+                                  TechnicalRequrementsTaskWrapper.Model.IsFinished;
+
+        /// <summary>
+        /// Задача принята ФМ у БМ
+        /// </summary>
+        public bool IsAccepted => TechnicalRequrementsTaskWrapper != null && 
+                                  TechnicalRequrementsTaskWrapper.Model.IsAccepted;
+
+        public bool WasStarted => IsStarted || IsRejected || IsStopped || IsFinished || IsAccepted;
 
         #region Allow
         
@@ -160,11 +181,18 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         public DelegateLogCommand AddGroupCommand { get; }
         public RemoveGroupCommand RemoveGroupCommand { get; }
 
-        public DelegateLogCommand StartCommand { get; }
+        public StartCommand StartCommand { get; }
+
+        /// <summary>
+        /// Отклонить задачу
+        /// </summary>
+        public RejectCommand RejectCommand { get; }
 
         public DelegateLogCommand EditCommand { get; }
 
-        public DelegateLogCommand CancelCommand { get; }
+        public StopCommand StopCommand { get; }
+
+        public FinishCommand FinishCommand { get; }
 
         /// <summary>
         /// Разбить строку
@@ -185,11 +213,6 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         public CreatePriceCalculationCommand CreatePriceCalculationCommand { get; }
 
         /// <summary>
-        /// Отклонить задачу
-        /// </summary>
-        public RejectCommand RejectCommand { get; }
-
-        /// <summary>
         /// Создать копию расчета ПЗ
         /// </summary>
         public CopyPriceCalculationCommand CopyPriceCalculationCommand { get; }
@@ -201,6 +224,10 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         public OpenFileCommand OpenFileCommand { get; }
 
         public InstructCommand InstructCommand { get; }
+
+        public AddShippingCalculationFileCommand AddShippingCalculationFileCommand { get; }
+
+        public LoadShippingCalculationFileCommand LoadShippingCalculationFileCommand { get; }
 
         #endregion
 
@@ -316,50 +343,6 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
             #region StartCommand
 
-            StartCommand = new DelegateLogCommand(
-                () =>
-                {
-                    var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Подтверждение", "Вы уверены, что хотите стартовать задачу?", defaultYes:true);
-                    if (dr != MessageDialogResult.Yes) return;
-
-                    TechnicalRequrementsTaskWrapper.Start = DateTime.Now;
-                    if (!TechnicalRequrementsTaskWrapper.Model.FirstStartMoment.HasValue)
-                    {
-                        TechnicalRequrementsTaskWrapper.Model.FirstStartMoment = TechnicalRequrementsTaskWrapper.Start;
-                    }
-
-                    HistoryElementWrapper.Type = TechnicalRequrementsTaskHistoryElementType.Start;
-                    HistoryElementWrapper.Moment = DateTime.Now;
-                    TechnicalRequrementsTaskWrapper.HistoryElements.Add(HistoryElementWrapper);
-
-                    SaveCommand.Execute();
-
-                    //уведомление по почте
-                    //Container.Resolve<IEmailService>().SendMail("kos@uetm.ru", $"{GlobalAppProperties.User.Employee.Person} отправил новое задание на расчет", "test");
-
-                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsStarted)));
-                    RaiseCanExecuteChange();
-
-                    container.Resolve<IEventAggregator>().GetEvent<AfterStartTechnicalRequrementsTaskEvent>().Publish(TechnicalRequrementsTaskWrapper.Model);
-                },
-                () =>
-                {
-                    if (TechnicalRequrementsTaskWrapper != null)
-                    {
-                        //если уже стартовано
-                        if (IsStarted)
-                            return false;
-
-                        //для рестарта
-                        if (TechnicalRequrementsTaskWrapper.Model.FirstStartMoment.HasValue)
-                            return TechnicalRequrementsTaskWrapper.IsValid && TechnicalRequrementsTaskWrapper.IsChanged;
-
-                        //для старта
-                        return TechnicalRequrementsTaskWrapper.IsValid;
-                    }
-                    return false;
-                });
-
             EditCommand = new DelegateLogCommand(
                 () =>
                 {
@@ -372,26 +355,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
             #endregion
 
-            #region CancelCommand
-
-            CancelCommand = new DelegateLogCommand(() =>
-            {
-                var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Подтверждение", "Вы уверены, что хотите остановить задачу?", defaultNo:true);
-                if (dr != MessageDialogResult.Yes) return;
-
-                TechnicalRequrementsTaskWrapper.Start = null;
-                SaveCommand.Execute();
-
-                Container.Resolve<IEventAggregator>().GetEvent<AfterSaveTechnicalRequrementsTaskEvent>().Publish(TechnicalRequrementsTaskWrapper.Model);
-
-                OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsStarted)));
-                RaiseCanExecuteChange();
-
-                container.Resolve<IEventAggregator>().GetEvent<AfterCancelTechnicalRequrementsTaskEvent>().Publish(TechnicalRequrementsTaskWrapper.Model);
-            },
-            () => AllowCancel);
-
-            #endregion
+            StartCommand = new StartCommand(this, this.Container);
+            StopCommand = new StopCommand(this, this.Container);
 
             MeregeCommand = new MeregeCommand(this, this.Container);
             DivideCommand = new DivideCommand(this, this.Container);
@@ -402,6 +367,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             TechnicalRequrementsTaskWrapper = new TechnicalRequrementsTask2Wrapper(new TechnicalRequrementsTask());
 
             RejectCommand = new RejectCommand(this, this.Container);
+            FinishCommand = new FinishCommand(this, this.Container);
             OpenPriceCalculationCommand = new OpenPriceCalculationCommand(this, this.Container);
             CopyPriceCalculationCommand = new CopyPriceCalculationCommand(this, this.Container);
             LoadFileAnswerCommand = new LoadFileAnswerCommand(this, this.Container);
@@ -411,18 +377,22 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             OpenAnswerCommand = new OpenAnswerCommand(this, this.Container);
             OpenFileCommand = new OpenFileCommand(this, this.Container);
             InstructCommand = new InstructCommand(this, this.Container);
+            AddShippingCalculationFileCommand = new AddShippingCalculationFileCommand(this, this.Container);
+            LoadShippingCalculationFileCommand = new LoadShippingCalculationFileCommand(this, this.Container);
         }
 
         private void RaiseCanExecuteChange()
         {
             StartCommand.RaiseCanExecuteChanged();
+            RejectCommand.RaiseCanExecuteChanged();
             EditCommand.RaiseCanExecuteChanged();
-            CancelCommand.RaiseCanExecuteChanged();
+            StopCommand.RaiseCanExecuteChanged();
             AddNewFileCommand.RaiseCanExecuteChanged();
             AddOldFileCommand.RaiseCanExecuteChanged();
             AddGroupCommand.RaiseCanExecuteChanged();
             RemoveFileCommand.RaiseCanExecuteChanged();
             RemoveGroupCommand.RaiseCanExecuteChanged();
+            AddNewFileAnswersCommand.RaiseCanExecuteChanged();
         }
 
         /// <summary>
@@ -478,7 +448,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 new TechnicalRequrementsTaskHistoryElementWrapper(
                     new TechnicalRequrementsTaskHistoryElement
                     {
-                        Type = TechnicalRequrementsTaskHistoryElementType.Creation,
+                        Type = TechnicalRequrementsTaskHistoryElementType.Create,
                         Comment = "Задание создано"
                     });
             TechnicalRequrementsTaskWrapper.HistoryElements.Add(historyElement1);

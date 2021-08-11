@@ -73,54 +73,17 @@ namespace HVTApp.Model.POCOs
         /// <summary>
         /// Задание стартовано
         /// </summary>
-        public bool IsStarted
-        {
-            get
-            {
-                //если истории нет
-                if (!HistoryElements.Any())
-                    return false;
-
-                //если нет ни одной записи о старте задачи
-                if (HistoryElements.All(historyElement => historyElement.Type != TechnicalRequrementsTaskHistoryElementType.Start))
-                    return false;
-
-                //если последняя запись "Остановлено" или "Отклонено"
-                if (LastHistoryElement.Type == TechnicalRequrementsTaskHistoryElementType.Stop ||
-                    LastHistoryElement.Type == TechnicalRequrementsTaskHistoryElementType.Reject)
-                    return false;
-
-                return true;
-            }
-        }
+        public bool IsStarted => LastHistoryElement != null &&
+                                 LastHistoryElement.Type != TechnicalRequrementsTaskHistoryElementType.Create &&
+                                 LastHistoryElement.Type != TechnicalRequrementsTaskHistoryElementType.Reject &&
+                                 LastHistoryElement.Type != TechnicalRequrementsTaskHistoryElementType.Stop;
 
         /// <summary>
         /// Задание проработано БМ
         /// </summary>
-        public bool IsFinished
-        {
-            get
-            {
-                //если истории нет
-                if (!HistoryElements.Any())
-                    return false;
-
-                //если нет ни одной записи о финише задачи
-                if (HistoryElements.All(historyElement => historyElement.Type != TechnicalRequrementsTaskHistoryElementType.Finish))
-                    return false;
-
-                var lastFinishElement = HistoryElements
-                    .Where(element => element.Type == TechnicalRequrementsTaskHistoryElementType.Finish)
-                    .OrderBy(element => element.Moment)
-                    .Last();
-
-                //если стартовано после финиша
-                if (HistoryElements.Any(element => element.Type == TechnicalRequrementsTaskHistoryElementType.Start && element.Moment >= lastFinishElement.Moment))
-                    return false;
-
-                return true;
-            }
-        }
+        public bool IsFinished => LastHistoryElement != null &&
+                                  (LastHistoryElement.Type == TechnicalRequrementsTaskHistoryElementType.Finish ||
+                                   LastHistoryElement.Type == TechnicalRequrementsTaskHistoryElementType.Accept);
 
         /// <summary>
         /// Задание отклонено БМ

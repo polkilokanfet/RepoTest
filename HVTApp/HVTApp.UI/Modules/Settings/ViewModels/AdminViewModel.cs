@@ -30,6 +30,9 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
 
                     var unitOfWork = _container.Resolve<IUnitOfWork>();
 
+                    GlobalProperties properties = unitOfWork.Repository<GlobalProperties>().GetAll().First();
+                    properties.ShippingCostFilesPath = properties.PriceCalculationsFilesPath;
+
                     var filesAnswers = unitOfWork.Repository<AnswerFileTce>().GetAll();
                     filesAnswers.ForEach(file => file.Date = moment);
 
@@ -49,7 +52,7 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
                         var elementCreate = new TechnicalRequrementsTaskHistoryElement
                         {
                             Moment = dateCreate.AddMinutes(-10),
-                            Type = TechnicalRequrementsTaskHistoryElementType.Creation,
+                            Type = TechnicalRequrementsTaskHistoryElementType.Create,
                             Comment = "Восстановленная история"
                         };
                         task.HistoryElements.Add(elementCreate);

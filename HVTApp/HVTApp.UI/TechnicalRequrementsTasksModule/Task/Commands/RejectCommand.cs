@@ -25,16 +25,18 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             ViewModel.HistoryElementWrapper.Moment = DateTime.Now;
             ViewModel.TechnicalRequrementsTaskWrapper.HistoryElements.Add(ViewModel.HistoryElementWrapper);
 
-            ViewModel.TechnicalRequrementsTaskWrapper.AcceptChanges();
+            ViewModel.SaveCommand.Execute();
 
-            UnitOfWork.SaveChanges();
+            this.RaiseCanExecuteChanged();
 
             Container.Resolve<IEventAggregator>().GetEvent<AfterRejectTechnicalRequrementsTaskEvent>().Publish(ViewModel.TechnicalRequrementsTaskWrapper.Model);
         }
 
         protected override bool CanExecuteMethod()
         {
-            return !ViewModel.IsRejected;
+            return ViewModel.IsStarted &&
+                   !ViewModel.IsRejected &&
+                   !ViewModel.IsFinished;
         }
     }
 }

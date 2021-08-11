@@ -34,6 +34,9 @@ namespace HVTApp.Model.Events
     public class AfterStartTechnicalRequrementsTaskEvent : PubSubEvent<TechnicalRequrementsTask> { }
     public class AfterInstructTechnicalRequrementsTaskEvent : PubSubEvent<TechnicalRequrementsTask> { }
     public class AfterRejectTechnicalRequrementsTaskEvent : PubSubEvent<TechnicalRequrementsTask> { }
+    public class AfterStopTechnicalRequrementsTaskEvent : PubSubEvent<TechnicalRequrementsTask> { }
+    public class AfterFinishTechnicalRequrementsTaskEvent : PubSubEvent<TechnicalRequrementsTask> { }
+    public class AfterAcceptTechnicalRequrementsTaskEvent : PubSubEvent<TechnicalRequrementsTask> { }
     public class AfterCancelTechnicalRequrementsTaskEvent : PubSubEvent<TechnicalRequrementsTask> { }
 
     #endregion
