@@ -279,6 +279,10 @@
     <Compile Include="Migrations\202107271241424_AddLogUnit.Designer.cs">
       <DependentUpon>202107271241424_AddLogUnit.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202108101054304_HistoryTCE.cs" />
+    <Compile Include="Migrations\202108101054304_HistoryTCE.Designer.cs">
+      <DependentUpon>202108101054304_HistoryTCE.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -448,6 +452,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202107271241424_AddLogUnit.resx">
       <DependentUpon>202107271241424_AddLogUnit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108101054304_HistoryTCE.resx">
+      <DependentUpon>202108101054304_HistoryTCE.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

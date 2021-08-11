@@ -1771,6 +1771,11 @@ namespace HVTApp.UI.ViewModels
 		public DelegateLogCommand SelectBackManagerCommand { get; private set; }
 		public DelegateLogCommand ClearBackManagerCommand { get; private set; }
 
+		//private Func<Task<List<TechnicalRequrementsTaskHistoryElement>>> _getEntitiesForSelectLastHistoryElementCommand;
+		private Func<List<TechnicalRequrementsTaskHistoryElement>> _getEntitiesForSelectLastHistoryElementCommand;
+		public DelegateLogCommand SelectLastHistoryElementCommand { get; private set; }
+		public DelegateLogCommand ClearLastHistoryElementCommand { get; private set; }
+
 		private Func<List<TechnicalRequrements>> _getEntitiesForAddInRequrementsCommand;
 		public DelegateLogCommand AddInRequrementsCommand { get; }
 		public DelegateLogCommand RemoveFromRequrementsCommand { get; }
@@ -1859,6 +1864,11 @@ namespace HVTApp.UI.ViewModels
 			if (ClearBackManagerCommand == null) ClearBackManagerCommand = new DelegateLogCommand(ClearBackManagerCommand_Execute_Default);
 
 			
+			if (_getEntitiesForSelectLastHistoryElementCommand == null) _getEntitiesForSelectLastHistoryElementCommand = () => { return UnitOfWork.Repository<TechnicalRequrementsTaskHistoryElement>().GetAll(); };
+			if (SelectLastHistoryElementCommand == null) SelectLastHistoryElementCommand = new DelegateLogCommand(SelectLastHistoryElementCommand_Execute_Default);
+			if (ClearLastHistoryElementCommand == null) ClearLastHistoryElementCommand = new DelegateLogCommand(ClearLastHistoryElementCommand_Execute_Default);
+
+			
 			if (_getEntitiesForAddInRequrementsCommand == null) _getEntitiesForAddInRequrementsCommand = () => { return UnitOfWork.Repository<TechnicalRequrements>().GetAll(); };;
 			if (AddInRequrementsCommand == null) AddInRequrementsCommand = new DelegateLogCommand(AddInRequrementsCommand_Execute_Default);
 			if (RemoveFromRequrementsCommand == null) RemoveFromRequrementsCommand = new DelegateLogCommand(RemoveFromRequrementsCommand_Execute_Default, RemoveFromRequrementsCommand_CanExecute_Default);
@@ -1893,6 +1903,16 @@ namespace HVTApp.UI.ViewModels
 		private void ClearBackManagerCommand_Execute_Default() 
 		{
 						Item.BackManager = null;		    
+		}
+
+		private void SelectLastHistoryElementCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<TechnicalRequrementsTaskHistoryElement, TechnicalRequrementsTaskHistoryElementWrapper>(_getEntitiesForSelectLastHistoryElementCommand(), nameof(Item.LastHistoryElement), Item.LastHistoryElement?.Id);
+		}
+
+		private void ClearLastHistoryElementCommand_Execute_Default() 
+		{
+				    
 		}
 
 			private void AddInRequrementsCommand_Execute_Default()

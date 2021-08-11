@@ -44,9 +44,15 @@
                         <infg:TextField Name="Comment" Label="Комментарий front-менеджера" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="TceNumber" Label="Номер в ТСЕ" Width="Auto" AllowResize="True" />
                         <infg:DateTimeField Name="Start" Label="Старт" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="LastHistoryElement" Label="Статус тех.задания (задача)" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:TextField Name="BackManager" Label="Back manager" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:TextField Name="Facilities" Label="Объекты" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:TextField Name="ShippingCostFiles" Label="Файлы РТЗ" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                        <infg:CheckBoxField Name="IsStopped" Label="IsStopped" Width="Auto" AllowResize="True" />
+                        <infg:CheckBoxField Name="IsStarted" Label="IsStarted" Width="Auto" AllowResize="True" />
+                        <infg:CheckBoxField Name="IsRejected" Label="IsRejected" Width="Auto" AllowResize="True" />
+                        <infg:CheckBoxField Name="IsFinished" Label="IsFinished" Width="Auto" AllowResize="True" />
+                        <infg:CheckBoxField Name="IsAccepted" Label="IsAccepted" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="HistoryElements" Label="История проработки" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:CheckBoxField Name="LogisticsCalculationRequired" Label="Необходимость РТЗ" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="ExcelFileIsRequired" Label="Необходимость файла-расчета ПЗ" Width="Auto" AllowResize="True" />

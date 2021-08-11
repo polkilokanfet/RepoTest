@@ -162,6 +162,7 @@
                             <infgDp:FieldLayout ParentFieldName="Files">
                                 <infgDp:FieldLayout.Fields>
                                     <infgDp:CheckBoxField AlternateBinding="{Binding IsActual, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Актуально?" Width="Auto" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}"/>
+                                    <infgDp:DateTimeField AlternateBinding="{Binding Date}" BindingType="UseAlternateBinding" Label="Дата" AllowEdit="False" AllowResize="False" Width="Auto"/>
                                     <infgDp:TextField AlternateBinding="{Binding Name, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Название" Width="Auto" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}"/>
                                     <infgDp:TextField AlternateBinding="{Binding Comment, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Комментарий" Width="Auto" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}"/>
                                 </infgDp:FieldLayout.Fields>
@@ -206,32 +207,7 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <GroupBox Grid.Column="0" Header="Приложения к ответу ОГК" MaxHeight="300">
-                    <infgDp:XamDataGrid DataSource="{Binding TechnicalRequrementsTaskWrapper.AnswerFiles}"
-                                        ActiveDataItem="{Binding SelectedAnswerFile, Mode=TwoWay}">
-
-                        <infgDp:XamDataGrid.InputBindings>
-                            <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=OpenAnswerCommand, Mode=OneWay}" />
-                        </infgDp:XamDataGrid.InputBindings>
-
-                        <infgDp:XamDataGrid.FieldLayouts>
-
-                            <infgDp:FieldLayout>
-                                <infgDp:FieldLayout.Fields>
-                                    <infgDp:TextField AlternateBinding="{Binding Name, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Название" Width="Auto" AllowEdit="False"/>
-                                    <!--<infgDp:TextField AlternateBinding="{Binding Name, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Название" Width="Auto" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.CurrentUserIsBackManager}"/>
-                                    <infgDp:TextField AlternateBinding="{Binding Comment, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Комментарий" Width="Auto" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.CurrentUserIsBackManager}"/>-->
-                                </infgDp:FieldLayout.Fields>
-                            </infgDp:FieldLayout>
-
-                        </infgDp:XamDataGrid.FieldLayouts>
-
-                    </infgDp:XamDataGrid>
-                </GroupBox>
-
-                <GridSplitter Grid.Column="1" Width="4" HorizontalAlignment="Stretch"/>
-
-                <GroupBox Grid.Column="1" Header="Расчеты Переменных Затрат" MaxHeight="300">
+                <GroupBox Grid.Column="0" Header="Расчеты Переменных Затрат" MaxHeight="300">
                     <infgDp:XamDataGrid x:Name="PriceCalculationsGrid"
                                         DataSource="{Binding TechnicalRequrementsTaskWrapper.Model.PriceCalculations}"
                                         ActiveDataItem="{Binding SelectedCalculation}">
@@ -252,6 +228,32 @@
                             </infgDp:FieldLayout>
 
                         </infgDp:XamDataGrid.FieldLayouts>
+                    </infgDp:XamDataGrid>
+                </GroupBox>
+
+                <GridSplitter Grid.Column="1" Width="4" HorizontalAlignment="Stretch"/>
+
+                <GroupBox Grid.Column="2" Header="Приложения к ответу ОГК" MaxHeight="300">
+                    <infgDp:XamDataGrid DataSource="{Binding TechnicalRequrementsTaskWrapper.AnswerFiles}"
+                                        ActiveDataItem="{Binding SelectedAnswerFile, Mode=TwoWay}">
+
+                        <infgDp:XamDataGrid.InputBindings>
+                            <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=OpenAnswerCommand, Mode=OneWay}" />
+                        </infgDp:XamDataGrid.InputBindings>
+
+                        <infgDp:XamDataGrid.FieldLayouts>
+
+                            <infgDp:FieldLayout>
+                                <infgDp:FieldLayout.Fields>
+                                    <infgDp:DateTimeField AlternateBinding="{Binding Date}" BindingType="UseAlternateBinding" Label="Дата" AllowEdit="False" AllowResize="False" Width="Auto"/>
+                                    <infgDp:TextField AlternateBinding="{Binding Name, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Название" Width="Auto" AllowEdit="False"/>
+                                    <!--<infgDp:TextField AlternateBinding="{Binding Name, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Название" Width="Auto" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.CurrentUserIsBackManager}"/>
+                                    <infgDp:TextField AlternateBinding="{Binding Comment, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Комментарий" Width="Auto" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.CurrentUserIsBackManager}"/>-->
+                                </infgDp:FieldLayout.Fields>
+                            </infgDp:FieldLayout>
+
+                        </infgDp:XamDataGrid.FieldLayouts>
+
                     </infgDp:XamDataGrid>
                 </GroupBox>
 

@@ -39,6 +39,7 @@
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
 
+                        <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Name" Label="Имя" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="IsActual" Label="Актуально" Width="Auto" AllowResize="True" />

@@ -1,0 +1,39 @@
+using HVTApp.Model.Events;
+using HVTApp.Model.POCOs;
+using Microsoft.Practices.Unity;
+using Prism.Events;
+
+namespace HVTApp.UI.TechnicalRequrementsTasksModule
+{
+    public class SaveCommand : BaseTechnicalRequrementsTaskViewModelCommand
+    {
+        public SaveCommand(TechnicalRequrementsTaskViewModel viewModel, IUnityContainer container) : base(viewModel, container)
+        {
+        }
+
+        protected override void ExecuteMethod()
+        {
+            ViewModel.TechnicalRequrementsTaskWrapper.AcceptChanges();
+
+            var trt = UnitOfWork.Repository<TechnicalRequrementsTask>().GetById(ViewModel.TechnicalRequrementsTaskWrapper.Model.Id);
+            if (trt == null)
+            {
+                UnitOfWork.Repository<TechnicalRequrementsTask>().Add(ViewModel.TechnicalRequrementsTaskWrapper.Model);
+            }
+
+            UnitOfWork.SaveChanges();
+
+            Container.Resolve<IEventAggregator>().GetEvent<AfterSaveTechnicalRequrementsTaskEvent>().Publish(ViewModel.TechnicalRequrementsTaskWrapper.Model);
+
+            this.RaiseCanExecuteChanged();
+        }
+
+        protected override bool CanExecuteMethod()
+        {
+            return ViewModel.TechnicalRequrementsTaskWrapper != null &&
+                   ViewModel.TechnicalRequrementsTaskWrapper.IsValid &&
+                   ViewModel.TechnicalRequrementsTaskWrapper.IsChanged &&
+                   !ViewModel.WasStarted;
+        }
+    }
+}

@@ -22,11 +22,37 @@ namespace HVTApp.Model.POCOs
 
     public enum TechnicalRequrementsTaskHistoryElementType
     {
+        /// <summary>
+        /// создано
+        /// </summary>
+        Creation,
+
+        /// <summary>
+        /// стартовано
+        /// </summary>
         Start,
+
+        //завершено
         Finish,
+
+        /// <summary>
+        /// Отклонено БМ
+        /// </summary>
         Reject,
-        Cancel,
-        BackManagerChanged,
-        Instruct
+
+        /// <summary>
+        /// Остановлено ФМ
+        /// </summary>
+        Stop,
+
+        /// <summary>
+        /// Поручено
+        /// </summary>
+        Instruct,
+
+        /// <summary>
+        /// Принято
+        /// </summary>
+        Accept
     }
 }

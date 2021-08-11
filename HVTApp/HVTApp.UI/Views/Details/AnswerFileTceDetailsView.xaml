@@ -17,20 +17,26 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="Имя" Visibility="{Binding VisibilityNameAnswerFileTce, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
+        <Label Grid.Column="0" Grid.Row ="0" Content="Дата" Visibility="{Binding VisibilityDateAnswerFileTce, ElementName=Root}"/>
+        <DatePicker Grid.Column="1" Grid.Row="0" 
+                    SelectedDate="{Binding Item.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding VisibilityDateAnswerFileTce, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="1" Content="Имя" Visibility="{Binding VisibilityNameAnswerFileTce, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityNameAnswerFileTce, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="Комментарий" Visibility="{Binding VisibilityCommentAnswerFileTce, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
+        <Label Grid.Column="0" Grid.Row ="2" Content="Комментарий" Visibility="{Binding VisibilityCommentAnswerFileTce, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
                  Text="{Binding Item.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityCommentAnswerFileTce, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="Актуально" Visibility="{Binding VisibilityIsActualAnswerFileTce, ElementName=Root}"/>
-        <CheckBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
+        <Label Grid.Column="0" Grid.Row ="3" Content="Актуально" Visibility="{Binding VisibilityIsActualAnswerFileTce, ElementName=Root}"/>
+        <CheckBox Grid.Column="1" Grid.Row="3" MinWidth="200" 
                   IsChecked="{Binding Item.IsActual, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				  Visibility="{Binding VisibilityIsActualAnswerFileTce, ElementName=Root}"/>
 

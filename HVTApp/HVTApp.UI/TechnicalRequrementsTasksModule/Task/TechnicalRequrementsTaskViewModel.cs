@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Windows.Forms;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
@@ -17,52 +16,25 @@ using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
-using HVTApp.UI.PriceCalculations.View;
 using HVTApp.UI.PriceCalculations.ViewModel;
 using HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1;
 using HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands;
 using HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper;
-using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Events;
-using Prism.Regions;
 
 namespace HVTApp.UI.TechnicalRequrementsTasksModule
 {
-    public class SaveCommand : BaseTechnicalRequrementsTaskViewModelCommand
-    {
-        public SaveCommand(TechnicalRequrementsTaskViewModel viewModel, IUnityContainer container) : base(viewModel, container)
-        {
-        }
-
-        protected override void ExecuteMethod()
-        {
-            ViewModel.TechnicalRequrementsTaskWrapper.AcceptChanges();
-
-            var trt = UnitOfWork.Repository<TechnicalRequrementsTask>().GetById(ViewModel.TechnicalRequrementsTaskWrapper.Model.Id);
-            if (trt == null)
-            {
-                UnitOfWork.Repository<TechnicalRequrementsTask>().Add(ViewModel.TechnicalRequrementsTaskWrapper.Model);
-            }
-
-            UnitOfWork.SaveChanges();
-
-            Container.Resolve<IEventAggregator>().GetEvent<AfterSaveTechnicalRequrementsTaskEvent>().Publish(ViewModel.TechnicalRequrementsTaskWrapper.Model);
-
-            this.RaiseCanExecuteChanged();
-        }
-    }
-
     public class TechnicalRequrementsTaskViewModel : ViewModelBaseCanExportToExcel
     {
         private TechnicalRequrementsTask2Wrapper _technicalRequrementsTaskWrapper;
 
         private object _selectedItem;
-        private readonly IMessageService _messageService;
         private readonly List<TechnicalRequrementsFile> _removedFiles = new List<TechnicalRequrementsFile>();
         private AnswerFileTceWrapper _selectedAnswerFile;
         private PriceCalculation _selectedCalculation;
+        private TechnicalRequrementsTaskHistoryElementWrapper _historyElementWrapper;
 
         //костыль
         public IUnitOfWork UnitOfWork1 => this.UnitOfWork;
@@ -109,40 +81,84 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         public bool CurrentUserIsBackManager => GlobalAppProperties.User.RoleCurrent == Role.BackManager;
         public bool CurrentUserIsBackManagerBoss => GlobalAppProperties.User.RoleCurrent == Role.BackManagerBoss;
 
+        /// <summary>
+        /// Задача запущена ФМ
+        /// </summary>
+        public bool IsStarted => TechnicalRequrementsTaskWrapper != null && TechnicalRequrementsTaskWrapper.Model.IsStarted;
 
-        public bool IsStarted => TechnicalRequrementsTaskWrapper?.Start != null;
+        /// <summary>
+        /// Задача проработана БМ
+        /// </summary>
+        public bool IsFinished => TechnicalRequrementsTaskWrapper != null && TechnicalRequrementsTaskWrapper.Model.IsFinished;
+
+        /// <summary>
+        /// Задача принята ФМ у БМ
+        /// </summary>
+        public bool IsAccepted => TechnicalRequrementsTaskWrapper != null && TechnicalRequrementsTaskWrapper.Model.IsAccepted;
 
         public bool WasStarted => TechnicalRequrementsTaskWrapper?.Model.FirstStartMoment != null;
 
-        public bool IsRejected => TechnicalRequrementsTaskWrapper?.RejectByBackManagerMoment != null;
+        /// <summary>
+        /// Задача отклонена БМ
+        /// </summary>
+        public bool IsRejected => TechnicalRequrementsTaskWrapper != null && TechnicalRequrementsTaskWrapper.Model.IsRejected;
 
-        public bool AllowInstruct => CurrentUserIsBackManagerBoss && IsStarted && TechnicalRequrementsTaskWrapper.BackManager == null;
+        #region Allow
+        
+        /// <summary>
+        /// Можно поручить проработку
+        /// </summary>
+        public bool AllowInstruct => CurrentUserIsBackManagerBoss && IsStarted && !IsFinished;
+
+        /// <summary>
+        /// Можно отклонить проработку
+        /// </summary>
+        public bool AllowReject => CurrentUserIsBackManager && IsStarted && !IsFinished && !IsRejected;
+
+        /// <summary>
+        /// Можно завершить проработку
+        /// </summary>
+        public bool AllowFinish => CurrentUserIsBackManager && IsStarted && !IsFinished && !IsRejected;
+
+        /// <summary>
+        /// Можно принять проработку
+        /// </summary>
+        public bool AllowAccept => IsFinished && !IsAccepted;
+
+        /// <summary>
+        /// Можно остановить проработку
+        /// </summary>
+        public bool AllowCancel => IsStarted || IsRejected;
+
+        #endregion
+
+
 
         public string ValidationResult => TechnicalRequrementsTaskWrapper?.ValidationResult;
 
         #region Commands
 
-        public DelegateLogCommand SaveCommand { get; }
+        public SaveCommand SaveCommand { get; }
 
         /// <summary>
         /// Добавление нового файла
         /// </summary>
-        public DelegateLogCommand AddNewFileCommand { get; }
+        public AddNewFileCommand AddNewFileCommand { get; }
 
         /// <summary>
         /// Добавление нового приложения к ответу ОГК
         /// </summary>
-        public DelegateLogCommand AddNewFileAnswersCommand { get; }
+        public AddNewFileAnswersCommand AddNewFileAnswersCommand { get; }
 
         /// <summary>
         /// Добавление существующего файла
         /// </summary>
-        public DelegateLogCommand AddOldFileCommand { get; }
+        public AddOldFileCommand AddOldFileCommand { get; }
         public DelegateLogCommand RemoveFileCommand { get; }
-        public DelegateLogCommand RemoveFileAnswerCommand { get; }
+        public RemoveFileAnswerCommand RemoveFileAnswerCommand { get; }
 
         public DelegateLogCommand AddGroupCommand { get; }
-        public DelegateLogCommand RemoveGroupCommand { get; }
+        public RemoveGroupCommand RemoveGroupCommand { get; }
 
         public DelegateLogCommand StartCommand { get; }
 
@@ -153,38 +169,38 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         /// <summary>
         /// Разбить строку
         /// </summary>
-        public DelegateLogCommand MeregeCommand { get; }
+        public MeregeCommand MeregeCommand { get; }
 
         /// <summary>
         /// Слить строки
         /// </summary>
-        public DelegateLogCommand DivideCommand { get; }
+        public DivideCommand DivideCommand { get; }
 
-        public DelegateLogCommand LoadFileCommand { get; }
-        public DelegateLogCommand LoadAllFilesCommand { get; }
+        public LoadFileCommand LoadFileCommand { get; }
+        public LoadAllFilesCommand LoadAllFilesCommand { get; }
 
-        public DelegateLogCommand LoadFileAnswerCommand { get; }
-        public DelegateLogCommand LoadAllFileAnswersCommand { get; }
+        public LoadFileAnswerCommand LoadFileAnswerCommand { get; }
+        public LoadAllFileAnswersCommand LoadAllFileAnswersCommand { get; }
 
-        public DelegateLogCommand CreatePriceCalculationCommand { get; }
+        public CreatePriceCalculationCommand CreatePriceCalculationCommand { get; }
 
         /// <summary>
         /// Отклонить задачу
         /// </summary>
-        public DelegateLogCommand RejectCommand { get; }
+        public RejectCommand RejectCommand { get; }
 
         /// <summary>
         /// Создать копию расчета ПЗ
         /// </summary>
-        public DelegateLogCommand CopyPriceCalculationCommand { get; }
+        public CopyPriceCalculationCommand CopyPriceCalculationCommand { get; }
 
-        public DelegateLogCommand OpenPriceCalculationCommand { get; }
+        public OpenPriceCalculationCommand OpenPriceCalculationCommand { get; }
 
-        public DelegateLogCommand OpenAnswerCommand { get; }
+        public OpenAnswerCommand OpenAnswerCommand { get; }
 
-        public DelegateLogCommand OpenFileCommand { get; }
+        public OpenFileCommand OpenFileCommand { get; }
 
-        public DelegateLogCommand InstructCommand { get; }
+        public InstructCommand InstructCommand { get; }
 
         #endregion
 
@@ -194,6 +210,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             private set
             {
                 _technicalRequrementsTaskWrapper = value;
+
                 //реакция на изменения в задаче
                 _technicalRequrementsTaskWrapper.PropertyChanged += (sender, args) =>
                 {
@@ -202,106 +219,37 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                     RejectCommand.RaiseCanExecuteChanged();
                     RaisePropertyChanged(nameof(ValidationResult));
                 };
+
+                //реакция на принятия изменения свойства
+                _technicalRequrementsTaskWrapper.PropertyChangeAccepted += (task, s) =>
+                {
+                    RaisePropertyChanged(nameof(AllowInstruct));
+                };
+
                 RaisePropertyChanged();
                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsStarted)));
             }
         }
 
+        public TechnicalRequrementsTaskHistoryElementWrapper HistoryElementWrapper
+        {
+            get => _historyElementWrapper;
+            set
+            {
+                _historyElementWrapper = value;
+                RaisePropertyChanged();
+            }
+        }
+
         public TechnicalRequrementsTaskViewModel(IUnityContainer container) : base(container)
         {
-            _messageService = container.Resolve<IMessageService>();
+            var messageService = container.Resolve<IMessageService>();
 
-            #region SaveCommand
-          
             //сохранение изменений
-            SaveCommand = new DelegateLogCommand(
-                () =>
-                {
-                    TechnicalRequrementsTaskHistoryElement element = new TechnicalRequrementsTaskHistoryElement();
-                    TechnicalRequrementsTaskWrapper.
-                    TechnicalRequrementsTaskWrapper.AcceptChanges();
+            SaveCommand = new SaveCommand(this, this.Container);
+            AddNewFileCommand = new AddNewFileCommand(this, this.Container);
+            AddOldFileCommand = new AddOldFileCommand(this, this.Container);
 
-                    var trt = UnitOfWork.Repository<TechnicalRequrementsTask>().GetById(TechnicalRequrementsTaskWrapper.Model.Id);
-                    if (trt == null)
-                    {
-                        UnitOfWork.Repository<TechnicalRequrementsTask>().Add(TechnicalRequrementsTaskWrapper.Model);
-                    }
-
-                    UnitOfWork.SaveChanges();
-
-                    Container.Resolve<IEventAggregator>().GetEvent<AfterSaveTechnicalRequrementsTaskEvent>().Publish(TechnicalRequrementsTaskWrapper.Model);
-
-                    SaveCommand.RaiseCanExecuteChanged();
-                },
-                () => TechnicalRequrementsTaskWrapper != null && 
-                      TechnicalRequrementsTaskWrapper.IsValid && 
-                      TechnicalRequrementsTaskWrapper.IsChanged &&
-                      !WasStarted);
-
-            #endregion
-
-            #region AddFileCommand
-
-            AddNewFileCommand = new DelegateLogCommand(
-                () =>
-                {
-                    var openFileDialog = new OpenFileDialog
-                    {
-                        Multiselect = true,
-                        RestoreDirectory = true
-                    };
-
-                    if (openFileDialog.ShowDialog() == DialogResult.OK)
-                    {
-                        var rootDirectoryPath = GlobalAppProperties.Actual.TechnicalRequrementsFilesPath;
-
-                        //копируем каждый файл
-                        foreach (var fileName in openFileDialog.FileNames)
-                        {
-                            var fileWrapper = new TechnicalRequrementsFileWrapper(new TechnicalRequrementsFile());
-                            try
-                            {
-                                File.Copy(fileName, $"{rootDirectoryPath}\\{fileWrapper.Id}{Path.GetExtension(fileName)}");
-                                fileWrapper.Name = Path.GetFileNameWithoutExtension(fileName).LimitLengh(50);
-                                ((TechnicalRequrements2Wrapper)SelectedItem).Files.Add(fileWrapper);
-                            }
-                            catch (Exception e)
-                            {
-                                _messageService.ShowOkMessageDialog("Exception", e.PrintAllExceptions());
-                            }
-                        }
-                    }
-                },
-                () => !IsStarted && SelectedItem is TechnicalRequrements2Wrapper);
-
-            AddOldFileCommand = new DelegateLogCommand(
-                () =>
-                {
-                    var selectedRequirements = (TechnicalRequrements2Wrapper)SelectedItem;
-
-                    var files = TechnicalRequrementsTaskWrapper.Requrements
-                        .Where(x => x.Model.Id != selectedRequirements.Model.Id)
-                        .SelectMany(x => x.Files)
-                        .Select(x => x.Model)
-                        .Distinct();
-
-                    var selectService = Container.Resolve<ISelectService>();
-                    var file = selectService.SelectItem(files);
-
-                    //добавляем файл в выбранные требования
-                    if (file != null)
-                    {
-                        var fileWrapper = TechnicalRequrementsTaskWrapper.Requrements
-                            .SelectMany(x => x.Files)
-                            .Distinct()
-                            .Single(x => x.Id == file.Id);
-
-                        selectedRequirements.Files.Add(fileWrapper);
-                    }
-                },
-                () => !IsStarted && SelectedItem is TechnicalRequrements2Wrapper);
-
-            #endregion
 
             #region RemoveFileCommand
 
@@ -340,7 +288,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             AddGroupCommand = new DelegateLogCommand(
                 () =>
                 {
-                    _messageService.ShowYesNoMessageDialog("Информация", "Пока эта функция не работает. Она реально тут нужна?");
+                    messageService.ShowYesNoMessageDialog("Информация", "Пока эта функция не работает. Она реально тут нужна?");
                     ////потенциальные группы
                     //var items = UnitOfWork.Repository<SalesUnit>()
                     //        .Find(x => x.Project.Manager.IsAppCurrentUser())
@@ -363,42 +311,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
             #endregion
 
-            #region RemoveGroupCommand
-
             //удаление группы
-            RemoveGroupCommand = new DelegateLogCommand(
-                () =>
-                {
-                    var result = _messageService.ShowYesNoMessageDialog("Удаление", "Действительно хотите удалить из задачи это оборудование?", defaultNo: true);
-                    if (result != MessageDialogResult.Yes) return;
-
-                    var selectedGroup = SelectedItem as TechnicalRequrements2Wrapper;
-
-                    var salesUnits = selectedGroup.SalesUnits.ToList();
-
-                    //единицы, которы нельзя удалить из расчета, т.к. они размещены в производстве
-                    var salesUnitsNotForRemove = salesUnits
-                        .Where(x => x.Model.SignalToStartProduction.HasValue)
-                        .Where(x => x.Model.ActualPriceCalculationItem(UnitOfWork)?.Id == selectedGroup.Model.Id)
-                        .ToList();
-
-                    if (salesUnitsNotForRemove.Any())
-                    {
-                        _messageService.ShowOkMessageDialog("Удаление", "Вы не можете удалить некоторые строки, т.к. они размещены в производстве.");
-
-                        var salesUnitsToRemove = salesUnits.Except(salesUnitsNotForRemove).ToList();
-                        salesUnitsToRemove.ForEach(x => selectedGroup.SalesUnits.Remove(x));
-                        if (!selectedGroup.SalesUnits.Any())
-                            TechnicalRequrementsTaskWrapper.Requrements.Remove(selectedGroup);
-                    }
-                    else
-                    {
-                        TechnicalRequrementsTaskWrapper.Requrements.Remove(selectedGroup);
-                    }
-                },
-                () => !WasStarted && !IsStarted && SelectedItem is TechnicalRequrements2Wrapper);
-
-            #endregion
+            RemoveGroupCommand = new RemoveGroupCommand(this, this.Container);
 
             #region StartCommand
 
@@ -413,6 +327,11 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                     {
                         TechnicalRequrementsTaskWrapper.Model.FirstStartMoment = TechnicalRequrementsTaskWrapper.Start;
                     }
+
+                    HistoryElementWrapper.Type = TechnicalRequrementsTaskHistoryElementType.Start;
+                    HistoryElementWrapper.Moment = DateTime.Now;
+                    TechnicalRequrementsTaskWrapper.HistoryElements.Add(HistoryElementWrapper);
+
                     SaveCommand.Execute();
 
                     //уведомление по почте
@@ -470,390 +389,28 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
                 container.Resolve<IEventAggregator>().GetEvent<AfterCancelTechnicalRequrementsTaskEvent>().Publish(TechnicalRequrementsTaskWrapper.Model);
             },
-            () => IsStarted);
+            () => AllowCancel);
 
             #endregion
 
-            #region MergeCommand
-
-            MeregeCommand = new DelegateLogCommand(
-                () =>
-                {
-                    var result = _messageService.ShowYesNoMessageDialog("Слияние", "Действительно хотите слить строки, выделенные галкой?", defaultYes: true);
-                    if (result != MessageDialogResult.Yes) return;
-
-                    //айтемы для слияния
-                    var items = TechnicalRequrementsTaskWrapper.Requrements.Where(x => x.IsChecked).ToList();
-
-                    if (items.Select(x => x.SalesUnit.Facility.Id).Distinct().Count() > 1)
-                    {
-                        _messageService.ShowOkMessageDialog("Слияние", "Вы не можете объединить строки с разными Объектами поставки.");
-                        return;
-                    }
-
-                    if (items.Select(x => x.SalesUnit.Product.Id).Distinct().Count() > 1)
-                    {
-                        _messageService.ShowOkMessageDialog("Слияние", "Вы не можете объединить строки с разными Продуктами поставки.");
-                        return;
-                    }
-
-                    if (items.Select(x => x.SalesUnit.OrderInTakeDate).Distinct().Count() > 1)
-                    {
-                        _messageService.ShowOkMessageDialog("Слияние", "Вы не можете объединить строки с разными датами ОИТ.");
-                        return;
-                    }
-
-                    if (items.Select(x => x.SalesUnit.RealizationDateCalculated).Distinct().Count() > 1)
-                    {
-                        _messageService.ShowOkMessageDialog("Слияние", "Вы не можете объединить строки с разными датами реализации.");
-                        return;
-                    }
-
-                    if (items.Select(x => x.SalesUnit.Producer).Distinct().Count() > 1)
-                    {
-                        _messageService.ShowOkMessageDialog("Слияние", "Вы не можете объединить строки с разными производителями.");
-                        return;
-                    }
-
-                    var itemToSave = items.First();
-                    items.Remove(itemToSave);
-
-                    foreach (var item in items)
-                    {
-                        item.SalesUnits.ForEach(x => itemToSave.SalesUnits.Add(x));
-                        TechnicalRequrementsTaskWrapper.Requrements.Remove(item);
-                        if (UnitOfWork.Repository<TechnicalRequrements>().GetById(item.Model.Id) != null)
-                            UnitOfWork.Repository<TechnicalRequrements>().Delete(item.Model);
-                    }
-                },
-                () =>
-                {
-                    return !IsStarted && TechnicalRequrementsTaskWrapper.Requrements.Count(x => x.IsChecked) > 1;
-                });
-
-            #endregion
-
-            #region DivideCommand
-
-            DivideCommand = new DelegateLogCommand(
-                () =>
-                {
-                    var result = _messageService.ShowYesNoMessageDialog("Разбиение", "Действительно хотите разбить выбранную строку?", defaultNo: true);
-                    if (result != MessageDialogResult.Yes) return;
-
-                    var technicalRequrementsWrapper = (TechnicalRequrements2Wrapper)SelectedItem;
-                    var salesUnit = technicalRequrementsWrapper.SalesUnits.First();
-
-                    var salesUnitsToDivide = technicalRequrementsWrapper.SalesUnits.ToList();
-                    salesUnitsToDivide.Remove(salesUnit);
-
-                    //создаем новые строки
-                    foreach (var unit in salesUnitsToDivide)
-                    {
-                        technicalRequrementsWrapper.SalesUnits.Remove(unit);
-
-                        //создаем новую строку
-                        var newTechnicalRequrements = new TechnicalRequrements
-                        {
-                            SalesUnits = new List<SalesUnit> { unit.Model },
-                            Comment = technicalRequrementsWrapper.Comment
-                        };
-                        var newTechnicalRequrementsWrapper = new TechnicalRequrements2Wrapper(newTechnicalRequrements);
-
-                        //добавляем в новую строку файлы
-                        foreach (var fileWrapper in technicalRequrementsWrapper.Files)
-                        {
-                            newTechnicalRequrementsWrapper.Files.Add(fileWrapper);
-                        }
-
-                        TechnicalRequrementsTaskWrapper.Requrements.Add(newTechnicalRequrementsWrapper);
-                    }
-
-                },
-                () => !IsStarted && SelectedItem is TechnicalRequrements2Wrapper && ((TechnicalRequrements2Wrapper)SelectedItem).Amount > 1);
-
-            #endregion
-
-            #region LoadFileCommand
-
-            LoadFileCommand = new DelegateLogCommand(
-                () =>
-                {
-                    var fileWrapper = (TechnicalRequrementsFileWrapper) SelectedItem;
-                    var storageDirectory = GlobalAppProperties.Actual.TechnicalRequrementsFilesPath;
-                    string addToFileName = $"{fileWrapper.Name.ReplaceUncorrectSimbols().LimitLengh()}";
-                    FilesStorage.CopyFileFromStorage(fileWrapper.Id, _messageService, storageDirectory, addToFileName: addToFileName);
-                },
-                () => SelectedItem is TechnicalRequrementsFileWrapper);
-
-            LoadAllFilesCommand = new DelegateLogCommand(
-                () =>
-                {
-                    using (var fdb = new FolderBrowserDialog())
-                    {
-                        var result = fdb.ShowDialog();
-                        if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fdb.SelectedPath))
-                        {
-                            var taskPath = fdb.SelectedPath;
-                            foreach (var requrement in this.TechnicalRequrementsTaskWrapper.Requrements.Where(x => x.IsActual.HasValue && x.IsActual.Value))
-                            {
-                                var reqDirName = $"{requrement.Model.Id} {requrement.SalesUnit.Product.Designation.ReplaceUncorrectSimbols().LimitLengh()} ({requrement.Amount} шт.)";
-                                var dirPath = Path.Combine(taskPath, reqDirName);
-                                if (!Directory.Exists(dirPath))
-                                {
-                                    Directory.CreateDirectory(dirPath);
-                                }
-
-                                foreach (var file in requrement.Files.Where(technicalRequrementsFileWrapper => technicalRequrementsFileWrapper.IsActual))
-                                {
-                                    var storageDirectory = GlobalAppProperties.Actual.TechnicalRequrementsFilesPath;
-                                    string addToFileName = $"{file.Name.ReplaceUncorrectSimbols().LimitLengh()}";
-                                    FilesStorage.CopyFileFromStorage(file.Id, _messageService, storageDirectory, dirPath, addToFileName, false);
-                                }
-                            }
-
-                            Process.Start("explorer.exe", taskPath);                            
-                        }
-                    }
-                });
-
-            #endregion
-
-            #region CreatePriceCalculationCommand
-
-            CreatePriceCalculationCommand = new DelegateLogCommand(
-                () =>
-                {
-                    RegionManager.RequestNavigateContentRegion<PriceCalculationView>(new NavigationParameters
-                    {
-                        { nameof(TechnicalRequrementsTask), this.TechnicalRequrementsTaskWrapper.Model }
-                    });
-                });
+            MeregeCommand = new MeregeCommand(this, this.Container);
+            DivideCommand = new DivideCommand(this, this.Container);
+            LoadFileCommand = new LoadFileCommand(this, this.Container);
+            LoadAllFilesCommand = new LoadAllFilesCommand(this, this.Container);
+            CreatePriceCalculationCommand = new CreatePriceCalculationCommand(this, this.Container);
 
             TechnicalRequrementsTaskWrapper = new TechnicalRequrementsTask2Wrapper(new TechnicalRequrementsTask());
 
-            #endregion
-
-            #region RejectCommand
-
-            RejectCommand = new DelegateLogCommand(
-                () =>
-                {
-                    if (string.IsNullOrWhiteSpace(TechnicalRequrementsTaskWrapper.RejectComment))
-                    {
-                        _messageService.ShowOkMessageDialog("Информация", "Перед отклонением необходимо заполнить причину отклонения");
-                        return;
-                    }
-
-                    TechnicalRequrementsTaskWrapper.RejectByBackManagerMoment = DateTime.Now;
-                    TechnicalRequrementsTaskWrapper.AcceptChanges();
-                    UnitOfWork.SaveChanges();
-                    container.Resolve<IEventAggregator>().GetEvent<AfterRejectTechnicalRequrementsTaskEvent>().Publish(TechnicalRequrementsTaskWrapper.Model);
-
-                },
-                () => !IsRejected);
-
-            #endregion
-
-            #region OpenPriceCalculationCommand
-
-            OpenPriceCalculationCommand = new DelegateLogCommand(
-                () =>
-                {
-                    RegionManager.RequestNavigateContentRegion<PriceCalculationView>(new NavigationParameters
-                    {
-                        {nameof(PriceCalculation), SelectedCalculation}
-                    });
-                },
-                () => SelectedCalculation != null);
-
-            #endregion
-
-            #region CopyPriceCalculationCommand
-
-            CopyPriceCalculationCommand = new DelegateLogCommand(
-                () =>
-                {
-                    RegionManager.RequestNavigateContentRegion<PriceCalculationView>(new NavigationParameters
-                    {
-                        {nameof(PriceCalculation), SelectedCalculation},
-                        {nameof(TechnicalRequrementsTask), this.TechnicalRequrementsTaskWrapper.Model}
-                    });
-                },
-                () => SelectedCalculation != null);
-
-            #endregion
-
-            #region AnswerCommands
-
-            LoadFileAnswerCommand = new DelegateLogCommand(
-                () =>
-                {
-                    var storageDirectory = GlobalAppProperties.Actual.TechnicalRequrementsFilesAnswersPath;
-                    string addToFileName = $"{SelectedAnswerFile.Name.ReplaceUncorrectSimbols().LimitLengh()}";
-                    FilesStorage.CopyFileFromStorage(SelectedAnswerFile.Id, _messageService, storageDirectory, addToFileName: addToFileName);
-                }, 
-                () => SelectedAnswerFile != null);
-
-            LoadAllFileAnswersCommand = new DelegateLogCommand(
-                () =>
-                {
-                    using (var fdb = new FolderBrowserDialog())
-                    {
-                        var result = fdb.ShowDialog();
-                        if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fdb.SelectedPath))
-                        {
-                            var targetDirectoryPath = fdb.SelectedPath;
-
-                            foreach (var answerFile in this.TechnicalRequrementsTaskWrapper.AnswerFiles)
-                            {
-
-                                var storageDirectory = GlobalAppProperties.Actual.TechnicalRequrementsFilesAnswersPath;
-                                string addToFileName = $"{answerFile.Name.ReplaceUncorrectSimbols().LimitLengh()}";
-                                FilesStorage.CopyFileFromStorage(answerFile.Id, _messageService, storageDirectory, targetDirectoryPath, addToFileName, false);
-                            }
-
-                            Process.Start("explorer.exe", targetDirectoryPath);
-                        }
-                    }
-                }, 
-                () => this.TechnicalRequrementsTaskWrapper.AnswerFiles.Any());
-
-            AddNewFileAnswersCommand = new DelegateLogCommand(
-                () =>
-                {
-                    var openFileDialog = new OpenFileDialog
-                    {
-                        Multiselect = true,
-                        RestoreDirectory = true
-                    };
-
-                    if (openFileDialog.ShowDialog() == DialogResult.OK)
-                    {
-                        var rootDirectoryPath = GlobalAppProperties.Actual.TechnicalRequrementsFilesAnswersPath;
-
-                        //копируем каждый файл
-                        foreach (var fileName in openFileDialog.FileNames)
-                        {
-                            try
-                            {
-                                var fileWrapper = new AnswerFileTceWrapper(new AnswerFileTce())
-                                {
-                                    Name = Path.GetFileNameWithoutExtension(fileName).LimitLengh(50)
-                                };
-                                File.Copy(fileName, $"{rootDirectoryPath}\\{fileWrapper.Id}{Path.GetExtension(fileName)}");
-                                this.TechnicalRequrementsTaskWrapper.AnswerFiles.Add(fileWrapper);
-
-                                this.TechnicalRequrementsTaskWrapper.AcceptChanges();
-                                UnitOfWork.SaveChanges();
-                            }
-                            catch (Exception e)
-                            {
-                                _messageService.ShowOkMessageDialog("Exception", e.PrintAllExceptions());
-                            }
-                        }
-                    }
-
-                    (LoadAllFileAnswersCommand).RaiseCanExecuteChanged();
-                });
-
-            RemoveFileAnswerCommand = new DelegateLogCommand(
-                () =>
-                {
-                    //диалог
-                    var dr = _messageService.ShowYesNoMessageDialog("Подтверждение", "Вы уверены, что хотите удалить выделенное приложение?", defaultYes: true);
-                    if (dr != MessageDialogResult.Yes) return;
-
-                    try
-                    {
-                        //удаление
-                        FileInfo fileInfo = FilesStorage.FindFile(SelectedAnswerFile.Id, GlobalAppProperties.Actual.TechnicalRequrementsFilesAnswersPath);
-                        File.Delete(fileInfo.FullName);
-                        UnitOfWork.Repository<AnswerFileTce>().Delete(SelectedAnswerFile.Model);
-                        this.TechnicalRequrementsTaskWrapper.AnswerFiles.Remove(SelectedAnswerFile);
-
-                        //сохранение
-                        this.TechnicalRequrementsTaskWrapper.AcceptChanges();
-                        UnitOfWork.SaveChanges();
-                    }
-                    catch (Exception e)
-                    {
-                        _messageService.ShowOkMessageDialog("Exception", e.PrintAllExceptions());
-                    }
-
-                    SelectedAnswerFile = null;
-                }, 
-                () => SelectedAnswerFile != null);
-
-            #endregion
-
-            #region OpenAnswerCommand
-
-            OpenAnswerCommand = new DelegateLogCommand(
-                () =>
-                {
-                    try
-                    {
-                        FilesStorage.OpenFileFromStorage(SelectedAnswerFile.Id, _messageService, GlobalAppProperties.Actual.TechnicalRequrementsFilesAnswersPath, SelectedAnswerFile.Name);
-                    }
-                    catch (Exception e)
-                    {
-                        _messageService.ShowOkMessageDialog("Exception", e.PrintAllExceptions());
-                    }
-                }, 
-                () => SelectedAnswerFile != null);
-
-            #endregion
-
-            #region OpenFileCommand
-
-            OpenFileCommand = new DelegateLogCommand(
-                    () =>
-                    {
-                        try
-                        {
-                            TechnicalRequrementsFileWrapper fileWrapper = (TechnicalRequrementsFileWrapper) SelectedItem;
-                            FilesStorage.OpenFileFromStorage(fileWrapper.Id, _messageService, GlobalAppProperties.Actual.TechnicalRequrementsFilesPath, fileWrapper.Name);
-                        }
-                        catch (Exception e)
-                        {
-                            _messageService.ShowOkMessageDialog("Exception", e.PrintAllExceptions());
-                        }
-                    },
-                    () => SelectedItem is TechnicalRequrementsFileWrapper);
-
-            #endregion
-
-            #region InstructCommand
-
-            InstructCommand = new DelegateLogCommand(
-                () =>
-                {
-                    if (TechnicalRequrementsTaskWrapper.Model.BackManager != null)
-                    {
-                        var dr = _messageService.ShowYesNoMessageDialog("Информация", "Back manager уже назначен. Вы хотите его сменить?");
-                        if (dr != MessageDialogResult.Yes) return;
-                    }
-
-                    var backManagers = UnitOfWork.Repository<User>().Find(user => user.Roles.Any(role => role.Role == Role.BackManager));
-                    var selectService = Container.Resolve<ISelectService>();
-                    var backManager = selectService.SelectItem(backManagers, TechnicalRequrementsTaskWrapper.Model.BackManager?.Id);
-
-                    if (backManager != null)
-                    {
-                        TechnicalRequrementsTaskWrapper.BackManager = new UserWrapper(backManager);
-                        TechnicalRequrementsTaskWrapper.AcceptChanges();
-                        UnitOfWork.SaveChanges();
-                        container.Resolve<IEventAggregator>().GetEvent<AfterSaveTechnicalRequrementsTaskEvent>().Publish(TechnicalRequrementsTaskWrapper.Model);
-                        container.Resolve<IEventAggregator>().GetEvent<AfterInstructTechnicalRequrementsTaskEvent>().Publish(TechnicalRequrementsTaskWrapper.Model);
-
-                        RaisePropertyChanged(nameof(AllowInstruct));
-                    }
-                },
-                () => CurrentUserIsBackManagerBoss);
-
-
-            #endregion
+            RejectCommand = new RejectCommand(this, this.Container);
+            OpenPriceCalculationCommand = new OpenPriceCalculationCommand(this, this.Container);
+            CopyPriceCalculationCommand = new CopyPriceCalculationCommand(this, this.Container);
+            LoadFileAnswerCommand = new LoadFileAnswerCommand(this, this.Container);
+            LoadAllFileAnswersCommand = new LoadAllFileAnswersCommand(this, this.Container);
+            AddNewFileAnswersCommand = new AddNewFileAnswersCommand(this, this.Container);
+            RemoveFileAnswerCommand = new RemoveFileAnswerCommand(this, this.Container);
+            OpenAnswerCommand = new OpenAnswerCommand(this, this.Container);
+            OpenFileCommand = new OpenFileCommand(this, this.Container);
+            InstructCommand = new InstructCommand(this, this.Container);
         }
 
         private void RaiseCanExecuteChange()
@@ -880,11 +437,17 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 ? new TechnicalRequrementsTask2Wrapper(technicalRequrementsTaskLoaded) 
                 : new TechnicalRequrementsTask2Wrapper(technicalRequrementsTask);
 
-            //обновление момента просмотра задания бэк-менеджером
-            if (GlobalAppProperties.User.Id == TechnicalRequrementsTaskWrapper.BackManager?.Id)
+            HistoryElementWrapper = new TechnicalRequrementsTaskHistoryElementWrapper(new TechnicalRequrementsTaskHistoryElement());
+
+            //для БМ
+            if (CurrentUserIsBackManager)
             {
-                TechnicalRequrementsTaskWrapper.Model.LastOpenBackManagerMoment = DateTime.Now;
-                UnitOfWork.SaveChanges();
+                //обновление момента просмотра задания бэк-менеджером
+                if (GlobalAppProperties.User.Id == TechnicalRequrementsTaskWrapper.BackManager?.Id)
+                {
+                    TechnicalRequrementsTaskWrapper.Model.LastOpenBackManagerMoment = DateTime.Now;
+                    UnitOfWork.SaveChanges();
+                }
             }
         }
 
@@ -908,6 +471,18 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             {
                 TechnicalRequrementsTaskWrapper.Requrements.Add(requirement);
             }
+
+
+            //добавление записи о создании задачи в историю
+            TechnicalRequrementsTaskHistoryElementWrapper historyElement1 =
+                new TechnicalRequrementsTaskHistoryElementWrapper(
+                    new TechnicalRequrementsTaskHistoryElement
+                    {
+                        Type = TechnicalRequrementsTaskHistoryElementType.Creation,
+                        Comment = "Задание создано"
+                    });
+            TechnicalRequrementsTaskWrapper.HistoryElements.Add(historyElement1);
+
         }
     }
 }

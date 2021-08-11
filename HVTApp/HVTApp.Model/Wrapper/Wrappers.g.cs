@@ -1737,6 +1737,14 @@ namespace HVTApp.Model.Wrapper
 	{
 	    public AnswerFileTceWrapper(AnswerFileTce model) : base(model) { }
         #region SimpleProperties
+        //Date
+        public System.Nullable<System.DateTime> Date
+        {
+          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.DateTime> DateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(Date));
+        public bool DateIsChanged => GetIsChanged(nameof(Date));
         //TechnicalRequrementsTaskId
         public System.Guid TechnicalRequrementsTaskId
         {
@@ -1859,6 +1867,14 @@ namespace HVTApp.Model.Wrapper
 	{
 	    public TechnicalRequrementsFileWrapper(TechnicalRequrementsFile model) : base(model) { }
         #region SimpleProperties
+        //Date
+        public System.Nullable<System.DateTime> Date
+        {
+          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.DateTime> DateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(Date));
+        public bool DateIsChanged => GetIsChanged(nameof(Date));
         //Name
         public System.String Name
         {
@@ -2008,6 +2024,14 @@ namespace HVTApp.Model.Wrapper
         public IValidatableChangeTrackingCollection<AnswerFileTceWrapper> AnswerFiles { get; private set; }
         public IValidatableChangeTrackingCollection<TechnicalRequrementsTaskHistoryElementWrapper> HistoryElements { get; private set; }
         public IValidatableChangeTrackingCollection<ShippingCostFileWrapper> ShippingCostFiles { get; private set; }
+        #endregion
+        #region GetProperties
+        public System.Boolean IsStarted => GetValue<System.Boolean>(); 
+        public System.Boolean IsFinished => GetValue<System.Boolean>(); 
+        public System.Boolean IsRejected => GetValue<System.Boolean>(); 
+        public System.Boolean IsStopped => GetValue<System.Boolean>(); 
+        public System.Boolean IsAccepted => GetValue<System.Boolean>(); 
+        public HVTApp.Model.POCOs.TechnicalRequrementsTaskHistoryElement LastHistoryElement => GetValue<HVTApp.Model.POCOs.TechnicalRequrementsTaskHistoryElement>(); 
         #endregion
         public override void InitializeComplexProperties()
         {

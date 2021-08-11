@@ -895,6 +895,9 @@ namespace HVTApp.UI.Lookup
 		}
 		
         #region SimpleProperties
+		[OrderStatus(300)]
+        public System.Nullable<System.DateTime> Date => Entity.Date;
+
 		[OrderStatus(1)]
         public System.Guid TechnicalRequrementsTaskId => Entity.TechnicalRequrementsTaskId;
 
@@ -956,6 +959,9 @@ namespace HVTApp.UI.Lookup
 		}
 		
         #region SimpleProperties
+		[OrderStatus(300)]
+        public System.Nullable<System.DateTime> Date => Entity.Date;
+
 		[OrderStatus(20)]
         public System.String Name => Entity.Name;
 
@@ -1009,11 +1015,29 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(-5)]
         public System.Boolean ExcelFileIsRequired => Entity.ExcelFileIsRequired;
 
+		[OrderStatus(1)]
+        public System.Boolean IsStarted => Entity.IsStarted;
+
+		[OrderStatus(1)]
+        public System.Boolean IsFinished => Entity.IsFinished;
+
+		[OrderStatus(1)]
+        public System.Boolean IsRejected => Entity.IsRejected;
+
+		[OrderStatus(1)]
+        public System.Boolean IsStopped => Entity.IsStopped;
+
+		[OrderStatus(1)]
+        public System.Boolean IsAccepted => Entity.IsAccepted;
+
         #endregion
 
         #region ComplexProperties
 		[OrderStatus(1)]
 	    public UserLookup BackManager { get { return GetLookup<UserLookup>(); } }
+
+		[OrderStatus(1)]
+	    public TechnicalRequrementsTaskHistoryElementLookup LastHistoryElement { get { return GetLookup<TechnicalRequrementsTaskHistoryElementLookup>(); } }
 
         #endregion
 		[OrderStatus(20)]

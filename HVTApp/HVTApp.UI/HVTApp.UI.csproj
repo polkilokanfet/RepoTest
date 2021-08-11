@@ -695,7 +695,27 @@
     <Compile Include="TechnicalRequrementsTasksModule\Tabs\TabTechnicalRequrementsTask.xaml.cs">
       <DependentUpon>TabTechnicalRequrementsTask.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\AddNewFileAnswersCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\AddFileBaseCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\AddOldFileCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\AddNewFileCommand.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\BaseTechnicalRequrementsTaskViewModelCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\SaveCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\RemoveGroupCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\MeregeCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\DivideCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\LoadFileCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\LoadAllFilesCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\CreatePriceCalculationCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\RejectCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\OpenPriceCalculationCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\CopyPriceCalculationCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\LoadAllFileAnswersCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\LoadFileAnswerCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\OpenAnswerCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\RemoveFileAnswerCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\InstructCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\OpenFileCommand.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\TechnicalRequrementsTaskView.xaml.cs">
       <DependentUpon>TechnicalRequrementsTaskView.xaml</DependentUpon>
     </Compile>

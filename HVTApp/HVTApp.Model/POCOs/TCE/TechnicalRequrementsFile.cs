@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
@@ -8,6 +9,9 @@ namespace HVTApp.Model.POCOs
     [DesignationPlural("Файлы ТЗ")]
     public partial class TechnicalRequrementsFile : BaseEntity
     {
+        [Designation("Дата"), OrderStatus(300)]
+        public virtual DateTime? Date { get; set; } = DateTime.Now;
+
         [Designation("Имя"), Required, MaxLength(50), OrderStatus(20)]
         public string Name { get; set; }
 
