@@ -9,8 +9,8 @@ namespace HVTApp.Model.POCOs
     [DesignationPlural("Файлы-ответы ОГК")]
     public partial class AnswerFileTce : BaseEntity
     {
-        [Designation("Дата"), OrderStatus(300)]
-        public virtual DateTime? Date { get; set; } = DateTime.Now;
+        [Designation("Дата"), Required, OrderStatus(300)]
+        public virtual DateTime Date { get; set; } = DateTime.Now;
 
         public virtual Guid TechnicalRequrementsTaskId { get; set; }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
@@ -30,10 +31,22 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             if (backManager != null)
             {
                 ViewModel.TechnicalRequrementsTaskWrapper.BackManager = new UserWrapper(backManager);
-                ViewModel.TechnicalRequrementsTaskWrapper.AcceptChanges();
-                UnitOfWork.SaveChanges();
+
+                ViewModel.HistoryElementWrapper.Type = TechnicalRequrementsTaskHistoryElementType.Instruct;
+                ViewModel.HistoryElementWrapper.Moment = DateTime.Now;
+                var comment = ViewModel.HistoryElementWrapper.Comment;
+                ViewModel.HistoryElementWrapper.Comment = $"Задача поручена ({backManager.Employee.Person})";
+                if (!string.IsNullOrWhiteSpace(comment))
+                {
+                    ViewModel.HistoryElementWrapper.Comment = $"{ViewModel.HistoryElementWrapper.Comment}. Комментарий: {comment}.";
+                }
+
+                ViewModel.SaveCommand.Execute();
+
                 Container.Resolve<IEventAggregator>().GetEvent<AfterSaveTechnicalRequrementsTaskEvent>().Publish(ViewModel.TechnicalRequrementsTaskWrapper.Model);
                 Container.Resolve<IEventAggregator>().GetEvent<AfterInstructTechnicalRequrementsTaskEvent>().Publish(ViewModel.TechnicalRequrementsTaskWrapper.Model);
+
+                ViewModel.HistoryElementWrapper = new TechnicalRequrementsTaskHistoryElementWrapper(new TechnicalRequrementsTaskHistoryElement());
             }
         }
 

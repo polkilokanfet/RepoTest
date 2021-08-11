@@ -298,7 +298,7 @@
             <!--Комментарий-->
             <GroupBox Grid.Row="3"
                       Header="Комментарий:">
-                <TextBox Text="{Binding TechnicalRequrementsTaskWrapper.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                <TextBox Text="{Binding HistoryElementWrapper.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                          IsReadOnly="{Binding IsStarted, UpdateSourceTrigger=PropertyChanged}"/>
             </GroupBox>
 

@@ -32,10 +32,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 {
                     try
                     {
-                        var fileWrapper = new ShippingCostFileWrapper(new ShippingCostFile())
-                        {
-                            Moment = DateTime.Now
-                        };
+                        var fileWrapper = new ShippingCostFileWrapper(new ShippingCostFile());
                         File.Copy(fileName, $"{rootDirectoryPath}\\{fileWrapper.Id}{Path.GetExtension(fileName)}");
                         ViewModel.TechnicalRequrementsTaskWrapper.ShippingCostFiles.Add(fileWrapper);
 

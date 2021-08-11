@@ -188,8 +188,6 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         /// </summary>
         public RejectCommand RejectCommand { get; }
 
-        public DelegateLogCommand EditCommand { get; }
-
         public StopCommand StopCommand { get; }
 
         public FinishCommand FinishCommand { get; }
@@ -341,20 +339,6 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             //удаление группы
             RemoveGroupCommand = new RemoveGroupCommand(this, this.Container);
 
-            #region StartCommand
-
-            EditCommand = new DelegateLogCommand(
-                () =>
-                {
-                    TechnicalRequrementsTaskWrapper.Model.Start = null;
-                    TechnicalRequrementsTaskWrapper.Model.RejectByBackManagerMoment = null;
-                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsStarted)));
-                    RaiseCanExecuteChange();
-                },
-                () => CurrentUserIsManager && IsStarted);
-
-            #endregion
-
             StartCommand = new StartCommand(this, this.Container);
             StopCommand = new StopCommand(this, this.Container);
 
@@ -385,7 +369,6 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         {
             StartCommand.RaiseCanExecuteChanged();
             RejectCommand.RaiseCanExecuteChanged();
-            EditCommand.RaiseCanExecuteChanged();
             StopCommand.RaiseCanExecuteChanged();
             AddNewFileCommand.RaiseCanExecuteChanged();
             AddOldFileCommand.RaiseCanExecuteChanged();

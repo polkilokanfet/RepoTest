@@ -896,7 +896,7 @@ namespace HVTApp.UI.Lookup
 		
         #region SimpleProperties
 		[OrderStatus(300)]
-        public System.Nullable<System.DateTime> Date => Entity.Date;
+        public System.DateTime Date => Entity.Date;
 
 		[OrderStatus(1)]
         public System.Guid TechnicalRequrementsTaskId => Entity.TechnicalRequrementsTaskId;
@@ -960,7 +960,7 @@ namespace HVTApp.UI.Lookup
 		
         #region SimpleProperties
 		[OrderStatus(300)]
-        public System.Nullable<System.DateTime> Date => Entity.Date;
+        public System.DateTime Date => Entity.Date;
 
 		[OrderStatus(20)]
         public System.String Name => Entity.Name;
@@ -982,17 +982,8 @@ namespace HVTApp.UI.Lookup
 		}
 		
         #region SimpleProperties
-		[OrderStatus(5)]
-        public System.String Comment => Entity.Comment;
-
-		[OrderStatus(5)]
-        public System.String CommentBackOfficeBoss => Entity.CommentBackOfficeBoss;
-
 		[OrderStatus(4)]
         public System.String TceNumber => Entity.TceNumber;
-
-		[OrderStatus(3)]
-        public System.Nullable<System.DateTime> Start => Entity.Start;
 
 		[OrderStatus(1)]
         public System.Nullable<System.DateTime> LastOpenBackManagerMoment => Entity.LastOpenBackManagerMoment;
@@ -1000,20 +991,17 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(1)]
         public System.Nullable<System.DateTime> LastOpenFrontManagerMoment => Entity.LastOpenFrontManagerMoment;
 
-		[OrderStatus(1)]
-        public System.Nullable<System.DateTime> FirstStartMoment => Entity.FirstStartMoment;
-
-		[OrderStatus(-1)]
-        public System.Nullable<System.DateTime> RejectByBackManagerMoment => Entity.RejectByBackManagerMoment;
-
-		[OrderStatus(-5)]
-        public System.String RejectComment => Entity.RejectComment;
-
 		[OrderStatus(-4)]
         public System.Boolean LogisticsCalculationRequired => Entity.LogisticsCalculationRequired;
 
 		[OrderStatus(-5)]
         public System.Boolean ExcelFileIsRequired => Entity.ExcelFileIsRequired;
+
+		[OrderStatus(3)]
+        public System.Nullable<System.DateTime> Start => Entity.Start;
+
+		[OrderStatus(2)]
+        public System.Nullable<System.DateTime> Finish => Entity.Finish;
 
 		[OrderStatus(1)]
         public System.Boolean IsStarted => Entity.IsStarted;

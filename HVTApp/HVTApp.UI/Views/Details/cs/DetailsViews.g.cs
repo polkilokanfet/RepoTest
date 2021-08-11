@@ -2944,14 +2944,6 @@ namespace HVTApp.UI.Views
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityRequrementsTechnicalRequrementsTask = Visibility.Collapsed;
 
-            //attr = typeof(HVTApp.Model.POCOs.TechnicalRequrementsTask).GetProperty(nameof(HVTApp.Model.POCOs.TechnicalRequrementsTask.Comment)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityCommentTechnicalRequrementsTask = Visibility.Collapsed;
-
-            //attr = typeof(HVTApp.Model.POCOs.TechnicalRequrementsTask).GetProperty(nameof(HVTApp.Model.POCOs.TechnicalRequrementsTask.CommentBackOfficeBoss)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityCommentBackOfficeBossTechnicalRequrementsTask = Visibility.Collapsed;
-
             //attr = typeof(HVTApp.Model.POCOs.TechnicalRequrementsTask).GetProperty(nameof(HVTApp.Model.POCOs.TechnicalRequrementsTask.TceNumber)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityTceNumberTechnicalRequrementsTask = Visibility.Collapsed;
@@ -2960,10 +2952,6 @@ namespace HVTApp.UI.Views
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityBackManagerTechnicalRequrementsTask = Visibility.Collapsed;
 
-            //attr = typeof(HVTApp.Model.POCOs.TechnicalRequrementsTask).GetProperty(nameof(HVTApp.Model.POCOs.TechnicalRequrementsTask.Start)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityStartTechnicalRequrementsTask = Visibility.Collapsed;
-
             //attr = typeof(HVTApp.Model.POCOs.TechnicalRequrementsTask).GetProperty(nameof(HVTApp.Model.POCOs.TechnicalRequrementsTask.LastOpenBackManagerMoment)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityLastOpenBackManagerMomentTechnicalRequrementsTask = Visibility.Collapsed;
@@ -2971,18 +2959,6 @@ namespace HVTApp.UI.Views
             //attr = typeof(HVTApp.Model.POCOs.TechnicalRequrementsTask).GetProperty(nameof(HVTApp.Model.POCOs.TechnicalRequrementsTask.LastOpenFrontManagerMoment)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityLastOpenFrontManagerMomentTechnicalRequrementsTask = Visibility.Collapsed;
-
-            //attr = typeof(HVTApp.Model.POCOs.TechnicalRequrementsTask).GetProperty(nameof(HVTApp.Model.POCOs.TechnicalRequrementsTask.FirstStartMoment)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityFirstStartMomentTechnicalRequrementsTask = Visibility.Collapsed;
-
-            //attr = typeof(HVTApp.Model.POCOs.TechnicalRequrementsTask).GetProperty(nameof(HVTApp.Model.POCOs.TechnicalRequrementsTask.RejectByBackManagerMoment)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityRejectByBackManagerMomentTechnicalRequrementsTask = Visibility.Collapsed;
-
-            //attr = typeof(HVTApp.Model.POCOs.TechnicalRequrementsTask).GetProperty(nameof(HVTApp.Model.POCOs.TechnicalRequrementsTask.RejectComment)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityRejectCommentTechnicalRequrementsTask = Visibility.Collapsed;
 
             //attr = typeof(HVTApp.Model.POCOs.TechnicalRequrementsTask).GetProperty(nameof(HVTApp.Model.POCOs.TechnicalRequrementsTask.PriceCalculations)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
@@ -3007,6 +2983,14 @@ namespace HVTApp.UI.Views
             //attr = typeof(HVTApp.Model.POCOs.TechnicalRequrementsTask).GetProperty(nameof(HVTApp.Model.POCOs.TechnicalRequrementsTask.ShippingCostFiles)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityShippingCostFilesTechnicalRequrementsTask = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.TechnicalRequrementsTask).GetProperty(nameof(HVTApp.Model.POCOs.TechnicalRequrementsTask.Start)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityStartTechnicalRequrementsTask = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.TechnicalRequrementsTask).GetProperty(nameof(HVTApp.Model.POCOs.TechnicalRequrementsTask.Finish)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityFinishTechnicalRequrementsTask = Visibility.Collapsed;
 
             //attr = typeof(HVTApp.Model.POCOs.TechnicalRequrementsTask).GetProperty(nameof(HVTApp.Model.POCOs.TechnicalRequrementsTask.LastHistoryElement)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
@@ -3044,22 +3028,6 @@ namespace HVTApp.UI.Views
         }
 
 
-        public static readonly DependencyProperty VisibilityCommentTechnicalRequrementsTaskProperty = DependencyProperty.Register("VisibilityCommentTechnicalRequrementsTask", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityCommentTechnicalRequrementsTask
-        {
-            get { return (Visibility) GetValue(VisibilityCommentTechnicalRequrementsTaskProperty); }
-            set { SetValue(VisibilityCommentTechnicalRequrementsTaskProperty, value); OnPropertyChanged(); }
-        }
-
-
-        public static readonly DependencyProperty VisibilityCommentBackOfficeBossTechnicalRequrementsTaskProperty = DependencyProperty.Register("VisibilityCommentBackOfficeBossTechnicalRequrementsTask", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityCommentBackOfficeBossTechnicalRequrementsTask
-        {
-            get { return (Visibility) GetValue(VisibilityCommentBackOfficeBossTechnicalRequrementsTaskProperty); }
-            set { SetValue(VisibilityCommentBackOfficeBossTechnicalRequrementsTaskProperty, value); OnPropertyChanged(); }
-        }
-
-
         public static readonly DependencyProperty VisibilityTceNumberTechnicalRequrementsTaskProperty = DependencyProperty.Register("VisibilityTceNumberTechnicalRequrementsTask", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
         public Visibility VisibilityTceNumberTechnicalRequrementsTask
         {
@@ -3076,14 +3044,6 @@ namespace HVTApp.UI.Views
         }
 
 
-        public static readonly DependencyProperty VisibilityStartTechnicalRequrementsTaskProperty = DependencyProperty.Register("VisibilityStartTechnicalRequrementsTask", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityStartTechnicalRequrementsTask
-        {
-            get { return (Visibility) GetValue(VisibilityStartTechnicalRequrementsTaskProperty); }
-            set { SetValue(VisibilityStartTechnicalRequrementsTaskProperty, value); OnPropertyChanged(); }
-        }
-
-
         public static readonly DependencyProperty VisibilityLastOpenBackManagerMomentTechnicalRequrementsTaskProperty = DependencyProperty.Register("VisibilityLastOpenBackManagerMomentTechnicalRequrementsTask", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
         public Visibility VisibilityLastOpenBackManagerMomentTechnicalRequrementsTask
         {
@@ -3097,30 +3057,6 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityLastOpenFrontManagerMomentTechnicalRequrementsTaskProperty); }
             set { SetValue(VisibilityLastOpenFrontManagerMomentTechnicalRequrementsTaskProperty, value); OnPropertyChanged(); }
-        }
-
-
-        public static readonly DependencyProperty VisibilityFirstStartMomentTechnicalRequrementsTaskProperty = DependencyProperty.Register("VisibilityFirstStartMomentTechnicalRequrementsTask", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityFirstStartMomentTechnicalRequrementsTask
-        {
-            get { return (Visibility) GetValue(VisibilityFirstStartMomentTechnicalRequrementsTaskProperty); }
-            set { SetValue(VisibilityFirstStartMomentTechnicalRequrementsTaskProperty, value); OnPropertyChanged(); }
-        }
-
-
-        public static readonly DependencyProperty VisibilityRejectByBackManagerMomentTechnicalRequrementsTaskProperty = DependencyProperty.Register("VisibilityRejectByBackManagerMomentTechnicalRequrementsTask", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityRejectByBackManagerMomentTechnicalRequrementsTask
-        {
-            get { return (Visibility) GetValue(VisibilityRejectByBackManagerMomentTechnicalRequrementsTaskProperty); }
-            set { SetValue(VisibilityRejectByBackManagerMomentTechnicalRequrementsTaskProperty, value); OnPropertyChanged(); }
-        }
-
-
-        public static readonly DependencyProperty VisibilityRejectCommentTechnicalRequrementsTaskProperty = DependencyProperty.Register("VisibilityRejectCommentTechnicalRequrementsTask", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityRejectCommentTechnicalRequrementsTask
-        {
-            get { return (Visibility) GetValue(VisibilityRejectCommentTechnicalRequrementsTaskProperty); }
-            set { SetValue(VisibilityRejectCommentTechnicalRequrementsTaskProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3169,6 +3105,22 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityShippingCostFilesTechnicalRequrementsTaskProperty); }
             set { SetValue(VisibilityShippingCostFilesTechnicalRequrementsTaskProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityStartTechnicalRequrementsTaskProperty = DependencyProperty.Register("VisibilityStartTechnicalRequrementsTask", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityStartTechnicalRequrementsTask
+        {
+            get { return (Visibility) GetValue(VisibilityStartTechnicalRequrementsTaskProperty); }
+            set { SetValue(VisibilityStartTechnicalRequrementsTaskProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityFinishTechnicalRequrementsTaskProperty = DependencyProperty.Register("VisibilityFinishTechnicalRequrementsTask", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityFinishTechnicalRequrementsTask
+        {
+            get { return (Visibility) GetValue(VisibilityFinishTechnicalRequrementsTaskProperty); }
+            set { SetValue(VisibilityFinishTechnicalRequrementsTaskProperty, value); OnPropertyChanged(); }
         }
 
 

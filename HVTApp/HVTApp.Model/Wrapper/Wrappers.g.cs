@@ -1738,12 +1738,12 @@ namespace HVTApp.Model.Wrapper
 	    public AnswerFileTceWrapper(AnswerFileTce model) : base(model) { }
         #region SimpleProperties
         //Date
-        public System.Nullable<System.DateTime> Date
+        public System.DateTime Date
         {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          get { return GetValue<System.DateTime>(); }
           set { SetValue(value); }
         }
-        public System.Nullable<System.DateTime> DateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(Date));
+        public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
         public bool DateIsChanged => GetIsChanged(nameof(Date));
         //TechnicalRequrementsTaskId
         public System.Guid TechnicalRequrementsTaskId
@@ -1868,12 +1868,12 @@ namespace HVTApp.Model.Wrapper
 	    public TechnicalRequrementsFileWrapper(TechnicalRequrementsFile model) : base(model) { }
         #region SimpleProperties
         //Date
-        public System.Nullable<System.DateTime> Date
+        public System.DateTime Date
         {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          get { return GetValue<System.DateTime>(); }
           set { SetValue(value); }
         }
-        public System.Nullable<System.DateTime> DateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(Date));
+        public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
         public bool DateIsChanged => GetIsChanged(nameof(Date));
         //Name
         public System.String Name
@@ -1914,22 +1914,6 @@ namespace HVTApp.Model.Wrapper
 	{
 	    public TechnicalRequrementsTaskWrapper(TechnicalRequrementsTask model) : base(model) { }
         #region SimpleProperties
-        //Comment
-        public System.String Comment
-        {
-          get { return GetValue<System.String>(); }
-          set { SetValue(value); }
-        }
-        public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
-        public bool CommentIsChanged => GetIsChanged(nameof(Comment));
-        //CommentBackOfficeBoss
-        public System.String CommentBackOfficeBoss
-        {
-          get { return GetValue<System.String>(); }
-          set { SetValue(value); }
-        }
-        public System.String CommentBackOfficeBossOriginalValue => GetOriginalValue<System.String>(nameof(CommentBackOfficeBoss));
-        public bool CommentBackOfficeBossIsChanged => GetIsChanged(nameof(CommentBackOfficeBoss));
         //TceNumber
         public System.String TceNumber
         {
@@ -1938,14 +1922,6 @@ namespace HVTApp.Model.Wrapper
         }
         public System.String TceNumberOriginalValue => GetOriginalValue<System.String>(nameof(TceNumber));
         public bool TceNumberIsChanged => GetIsChanged(nameof(TceNumber));
-        //Start
-        public System.Nullable<System.DateTime> Start
-        {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
-          set { SetValue(value); }
-        }
-        public System.Nullable<System.DateTime> StartOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(Start));
-        public bool StartIsChanged => GetIsChanged(nameof(Start));
         //LastOpenBackManagerMoment
         public System.Nullable<System.DateTime> LastOpenBackManagerMoment
         {
@@ -1962,30 +1938,6 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Nullable<System.DateTime> LastOpenFrontManagerMomentOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(LastOpenFrontManagerMoment));
         public bool LastOpenFrontManagerMomentIsChanged => GetIsChanged(nameof(LastOpenFrontManagerMoment));
-        //FirstStartMoment
-        public System.Nullable<System.DateTime> FirstStartMoment
-        {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
-          set { SetValue(value); }
-        }
-        public System.Nullable<System.DateTime> FirstStartMomentOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(FirstStartMoment));
-        public bool FirstStartMomentIsChanged => GetIsChanged(nameof(FirstStartMoment));
-        //RejectByBackManagerMoment
-        public System.Nullable<System.DateTime> RejectByBackManagerMoment
-        {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
-          set { SetValue(value); }
-        }
-        public System.Nullable<System.DateTime> RejectByBackManagerMomentOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(RejectByBackManagerMoment));
-        public bool RejectByBackManagerMomentIsChanged => GetIsChanged(nameof(RejectByBackManagerMoment));
-        //RejectComment
-        public System.String RejectComment
-        {
-          get { return GetValue<System.String>(); }
-          set { SetValue(value); }
-        }
-        public System.String RejectCommentOriginalValue => GetOriginalValue<System.String>(nameof(RejectComment));
-        public bool RejectCommentIsChanged => GetIsChanged(nameof(RejectComment));
         //LogisticsCalculationRequired
         public System.Boolean LogisticsCalculationRequired
         {
@@ -2026,6 +1978,8 @@ namespace HVTApp.Model.Wrapper
         public IValidatableChangeTrackingCollection<ShippingCostFileWrapper> ShippingCostFiles { get; private set; }
         #endregion
         #region GetProperties
+        public System.Nullable<System.DateTime> Start => GetValue<System.Nullable<System.DateTime>>(); 
+        public System.Nullable<System.DateTime> Finish => GetValue<System.Nullable<System.DateTime>>(); 
         public System.Boolean IsStarted => GetValue<System.Boolean>(); 
         public System.Boolean IsFinished => GetValue<System.Boolean>(); 
         public System.Boolean IsRejected => GetValue<System.Boolean>(); 

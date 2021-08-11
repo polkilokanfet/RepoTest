@@ -611,7 +611,7 @@ namespace EventServiceClient2
                 });
 
                 this._syncContainer.Publish<TechnicalRequrementsTask, AfterSaveTechnicalRequrementsTaskEvent>(technicalRequrementsTask);
-                Popup.Popup.ShowPopup($"Ваша задача ТСЕ отклонена (back-manager: {technicalRequrementsTask.BackManager})\nПричина отклонения: {technicalRequrementsTask.RejectComment}", $"Задача в TCE с Id {technicalRequrementsTask.Id}", action);
+                Popup.Popup.ShowPopup($"Ваша задача ТСЕ отклонена (back-manager: {technicalRequrementsTask.BackManager})\nПричина отклонения: {technicalRequrementsTask.LastHistoryElement?.Comment}", $"Задача в TCE с Id {technicalRequrementsTask.Id}", action);
             }
         }
 

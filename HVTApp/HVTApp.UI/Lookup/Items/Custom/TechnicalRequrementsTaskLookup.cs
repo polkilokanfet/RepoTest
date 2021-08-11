@@ -20,40 +20,42 @@ namespace HVTApp.UI.Lookup
         {
             get
             {
-                if (Entity.Start == null) return "Инициализация задачи";
+                return "???";
 
-                if (BackManager == null) return "Назначение back-менеджера";
+                //if (Entity.Start == null) return "Инициализация задачи";
 
-                if (Entity.RejectByBackManagerMoment.HasValue) return "Отклонено.";
+                //if (BackManager == null) return "Назначение back-менеджера";
 
-                if (FirstStartMoment.HasValue && Start.HasValue && !Equals(Start, FirstStartMoment))
-                {
-                    if (LastOpenBackManagerMoment.HasValue && (Start > LastOpenBackManagerMoment))
-                    {
-                        return "Проработка back-менеджером (внимание: front-менеджер внес изменения с момента последнего просмотра задания back-менеджером)";
-                    }
+                //if (Entity.RejectByBackManagerMoment.HasValue) return "Отклонено.";
 
-                    //расчеты
-                    if(this.Entity.PriceCalculations.Any(calculation => calculation.TaskCloseMoment.HasValue))
-                    {
-                        var max = this.Entity.PriceCalculations
-                            .Where(calculation => calculation.TaskCloseMoment.HasValue)
-                            .Max(calculation => calculation.TaskCloseMoment.Value);
-                        if (max < Start.Value)
-                        {
-                            return "Проработка back-менеджером (последний расчет ПЗ завершен до изменений).";
-                        }
-                    }
-                }
+                //if (FirstStartMoment.HasValue && Start.HasValue && !Equals(Start, FirstStartMoment))
+                //{
+                //    if (LastOpenBackManagerMoment.HasValue && (Start > LastOpenBackManagerMoment))
+                //    {
+                //        return "Проработка back-менеджером (внимание: front-менеджер внес изменения с момента последнего просмотра задания back-менеджером)";
+                //    }
+
+                //    //расчеты
+                //    if(this.Entity.PriceCalculations.Any(calculation => calculation.TaskCloseMoment.HasValue))
+                //    {
+                //        var max = this.Entity.PriceCalculations
+                //            .Where(calculation => calculation.TaskCloseMoment.HasValue)
+                //            .Max(calculation => calculation.TaskCloseMoment.Value);
+                //        if (max < Start.Value)
+                //        {
+                //            return "Проработка back-менеджером (последний расчет ПЗ завершен до изменений).";
+                //        }
+                //    }
+                //}
                 
-                if (this.Entity.PriceCalculations.Any(calculation => calculation.TaskOpenMoment.HasValue))
-                {
-                    if (this.PriceCalculations.Where(calculationLookup => calculationLookup.TaskOpenMoment.HasValue).All(x => x.TaskCloseMoment.HasValue))
-                        return "Проработано (все расчеты ПЗ завершены)";
-                    return "Расчет ПЗ (запущено на расчет ПЗ)";
-                }
+                //if (this.Entity.PriceCalculations.Any(calculation => calculation.TaskOpenMoment.HasValue))
+                //{
+                //    if (this.PriceCalculations.Where(calculationLookup => calculationLookup.TaskOpenMoment.HasValue).All(x => x.TaskCloseMoment.HasValue))
+                //        return "Проработано (все расчеты ПЗ завершены)";
+                //    return "Расчет ПЗ (запущено на расчет ПЗ)";
+                //}
 
-                return "Проработка back-менеджером";
+                //return "Проработка back-менеджером";
             }
         }
     }

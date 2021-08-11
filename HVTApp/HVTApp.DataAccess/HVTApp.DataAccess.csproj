@@ -283,6 +283,10 @@
     <Compile Include="Migrations\202108101054304_HistoryTCE.Designer.cs">
       <DependentUpon>202108101054304_HistoryTCE.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202108111134398_CleanTechnicalRequrementsTask.cs" />
+    <Compile Include="Migrations\202108111134398_CleanTechnicalRequrementsTask.Designer.cs">
+      <DependentUpon>202108111134398_CleanTechnicalRequrementsTask.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -455,6 +459,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202108101054304_HistoryTCE.resx">
       <DependentUpon>202108101054304_HistoryTCE.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108111134398_CleanTechnicalRequrementsTask.resx">
+      <DependentUpon>202108111134398_CleanTechnicalRequrementsTask.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
