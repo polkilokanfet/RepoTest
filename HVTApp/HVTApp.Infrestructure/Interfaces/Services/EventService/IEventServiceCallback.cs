@@ -88,6 +88,12 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
         [OperationContract(IsOneWay = true)]
         void OnRejectTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId);
         
+        [OperationContract(IsOneWay = true)]
+        void OnFinishTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId);
+
+        [OperationContract(IsOneWay = true)]
+        void OnAcceptTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId);
+
         #endregion
 
         [OperationContract]

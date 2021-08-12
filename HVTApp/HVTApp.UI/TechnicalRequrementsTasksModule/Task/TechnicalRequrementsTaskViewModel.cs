@@ -40,6 +40,10 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         //костыль
         public IUnitOfWork UnitOfWork1 => this.UnitOfWork;
 
+        public string ValidationResult => TechnicalRequrementsTaskWrapper?.ValidationResult;
+
+        #region Selected
+
         public object SelectedItem
         {
             get => _selectedItem;
@@ -63,6 +67,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             {
                 _selectedShippingCalculationFile = value;
                 LoadShippingCalculationFileCommand.RaiseCanExecuteChanged();
+                RemoveShippingCalculationFileCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -87,6 +92,10 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 CopyPriceCalculationCommand.RaiseCanExecuteChanged();
             }
         }
+        
+        #endregion
+
+        #region Is
 
         public bool CurrentUserIsManager => GlobalAppProperties.User.RoleCurrent == Role.SalesManager;
         public bool CurrentUserIsBackManager => GlobalAppProperties.User.RoleCurrent == Role.BackManager;
@@ -95,37 +104,50 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         /// <summary>
         /// Задача запущена ФМ
         /// </summary>
-        public bool IsStarted => TechnicalRequrementsTaskWrapper != null && 
+        public bool IsStarted => TechnicalRequrementsTaskWrapper != null &&
                                  TechnicalRequrementsTaskWrapper.Model.IsStarted;
 
         /// <summary>
         /// Задача отклонена БМ
         /// </summary>
-        public bool IsRejected => TechnicalRequrementsTaskWrapper != null && 
+        public bool IsRejected => TechnicalRequrementsTaskWrapper != null &&
                                   TechnicalRequrementsTaskWrapper.Model.IsRejected;
 
         /// <summary>
         /// Задача остановлена ФМ
         /// </summary>
-        public bool IsStopped => TechnicalRequrementsTaskWrapper != null && 
+        public bool IsStopped => TechnicalRequrementsTaskWrapper != null &&
                                  TechnicalRequrementsTaskWrapper.Model.IsStopped;
 
         /// <summary>
         /// Задача проработана БМ
         /// </summary>
-        public bool IsFinished => TechnicalRequrementsTaskWrapper != null && 
+        public bool IsFinished => TechnicalRequrementsTaskWrapper != null &&
                                   TechnicalRequrementsTaskWrapper.Model.IsFinished;
 
         /// <summary>
         /// Задача принята ФМ у БМ
         /// </summary>
-        public bool IsAccepted => TechnicalRequrementsTaskWrapper != null && 
+        public bool IsAccepted => TechnicalRequrementsTaskWrapper != null &&
                                   TechnicalRequrementsTaskWrapper.Model.IsAccepted;
 
         public bool WasStarted => IsStarted || IsRejected || IsStopped || IsFinished || IsAccepted;
 
+        public bool IsValid => TechnicalRequrementsTaskWrapper != null &&
+                               HistoryElementWrapper != null &&
+
+                               TechnicalRequrementsTaskWrapper.IsValid &&
+                               HistoryElementWrapper.IsValid;
+
+        public bool IsChanged => TechnicalRequrementsTaskWrapper != null &&
+                                 HistoryElementWrapper != null &&
+
+                                 (TechnicalRequrementsTaskWrapper.IsChanged ||
+                                  HistoryElementWrapper.IsChanged);
+        #endregion
+
         #region Allow
-        
+
         /// <summary>
         /// Можно поручить проработку
         /// </summary>
@@ -152,10 +174,6 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         public bool AllowCancel => IsStarted || IsRejected;
 
         #endregion
-
-
-
-        public string ValidationResult => TechnicalRequrementsTaskWrapper?.ValidationResult;
 
         #region Commands
 
@@ -192,6 +210,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
         public FinishCommand FinishCommand { get; }
 
+        public AcceptCommand AcceptCommand { get; }
+
         /// <summary>
         /// Разбить строку
         /// </summary>
@@ -227,6 +247,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
         public LoadShippingCalculationFileCommand LoadShippingCalculationFileCommand { get; }
 
+        public RemoveShippingCalculationFileCommand RemoveShippingCalculationFileCommand { get; }
+
         #endregion
 
         public TechnicalRequrementsTask2Wrapper TechnicalRequrementsTaskWrapper
@@ -239,15 +261,14 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 //реакция на изменения в задаче
                 _technicalRequrementsTaskWrapper.PropertyChanged += (sender, args) =>
                 {
-                    SaveCommand.RaiseCanExecuteChanged();
-                    StartCommand.RaiseCanExecuteChanged();
-                    RejectCommand.RaiseCanExecuteChanged();
+                    this.RaiseCanExecuteChangeInAllCommands();
                     RaisePropertyChanged(nameof(ValidationResult));
                 };
 
                 //реакция на принятия изменения свойства
                 _technicalRequrementsTaskWrapper.PropertyChangeAccepted += (task, s) =>
                 {
+                    this.RaiseCanExecuteChangeInAllCommands();
                     RaisePropertyChanged(nameof(AllowInstruct));
                 };
 
@@ -262,6 +283,17 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             set
             {
                 _historyElementWrapper = value;
+
+                //реакция на изменения
+                if (value != null)
+                {
+                    _historyElementWrapper.PropertyChanged += (sender, args) =>
+                    {
+                        this.RaiseCanExecuteChangeInAllCommands();
+                        RaisePropertyChanged(nameof(ValidationResult));
+                    };
+                }
+
                 RaisePropertyChanged();
             }
         }
@@ -272,9 +304,9 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
             //сохранение изменений
             SaveCommand = new SaveCommand(this, this.Container);
+
             AddNewFileCommand = new AddNewFileCommand(this, this.Container);
             AddOldFileCommand = new AddOldFileCommand(this, this.Container);
-
 
             #region RemoveFileCommand
 
@@ -344,38 +376,68 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
             MeregeCommand = new MeregeCommand(this, this.Container);
             DivideCommand = new DivideCommand(this, this.Container);
+
             LoadFileCommand = new LoadFileCommand(this, this.Container);
             LoadAllFilesCommand = new LoadAllFilesCommand(this, this.Container);
+
             CreatePriceCalculationCommand = new CreatePriceCalculationCommand(this, this.Container);
 
             TechnicalRequrementsTaskWrapper = new TechnicalRequrementsTask2Wrapper(new TechnicalRequrementsTask());
 
             RejectCommand = new RejectCommand(this, this.Container);
             FinishCommand = new FinishCommand(this, this.Container);
+            AcceptCommand = new AcceptCommand(this, this.Container);
+
             OpenPriceCalculationCommand = new OpenPriceCalculationCommand(this, this.Container);
             CopyPriceCalculationCommand = new CopyPriceCalculationCommand(this, this.Container);
+
             LoadFileAnswerCommand = new LoadFileAnswerCommand(this, this.Container);
             LoadAllFileAnswersCommand = new LoadAllFileAnswersCommand(this, this.Container);
+
             AddNewFileAnswersCommand = new AddNewFileAnswersCommand(this, this.Container);
             RemoveFileAnswerCommand = new RemoveFileAnswerCommand(this, this.Container);
             OpenAnswerCommand = new OpenAnswerCommand(this, this.Container);
+
             OpenFileCommand = new OpenFileCommand(this, this.Container);
             InstructCommand = new InstructCommand(this, this.Container);
+
             AddShippingCalculationFileCommand = new AddShippingCalculationFileCommand(this, this.Container);
             LoadShippingCalculationFileCommand = new LoadShippingCalculationFileCommand(this, this.Container);
+            RemoveShippingCalculationFileCommand = new RemoveShippingCalculationFileCommand(this, this.Container);
+
+            HistoryElementWrapper = new TechnicalRequrementsTaskHistoryElementWrapper(new TechnicalRequrementsTaskHistoryElement());
         }
 
-        private void RaiseCanExecuteChange()
+        private void RaiseCanExecuteChangeInAllCommands()
         {
+            SaveCommand.RaiseCanExecuteChanged();
+            AddNewFileCommand.RaiseCanExecuteChanged();
+            AddNewFileAnswersCommand.RaiseCanExecuteChanged();
+            AddOldFileCommand.RaiseCanExecuteChanged();
+            RemoveFileCommand.RaiseCanExecuteChanged();
+            RemoveFileAnswerCommand.RaiseCanExecuteChanged();
+            AddGroupCommand.RaiseCanExecuteChanged();
+            RemoveGroupCommand.RaiseCanExecuteChanged();
             StartCommand.RaiseCanExecuteChanged();
             RejectCommand.RaiseCanExecuteChanged();
             StopCommand.RaiseCanExecuteChanged();
-            AddNewFileCommand.RaiseCanExecuteChanged();
-            AddOldFileCommand.RaiseCanExecuteChanged();
-            AddGroupCommand.RaiseCanExecuteChanged();
-            RemoveFileCommand.RaiseCanExecuteChanged();
-            RemoveGroupCommand.RaiseCanExecuteChanged();
-            AddNewFileAnswersCommand.RaiseCanExecuteChanged();
+            FinishCommand.RaiseCanExecuteChanged();
+            AcceptCommand.RaiseCanExecuteChanged();
+            MeregeCommand.RaiseCanExecuteChanged();
+            DivideCommand.RaiseCanExecuteChanged();
+            LoadFileCommand.RaiseCanExecuteChanged();
+            LoadAllFilesCommand.RaiseCanExecuteChanged();
+            LoadFileAnswerCommand.RaiseCanExecuteChanged();
+            LoadAllFileAnswersCommand.RaiseCanExecuteChanged();
+            CreatePriceCalculationCommand.RaiseCanExecuteChanged();
+            CopyPriceCalculationCommand.RaiseCanExecuteChanged();
+            OpenPriceCalculationCommand.RaiseCanExecuteChanged();
+            OpenAnswerCommand.RaiseCanExecuteChanged();
+            OpenFileCommand.RaiseCanExecuteChanged();
+            InstructCommand.RaiseCanExecuteChanged();
+            AddShippingCalculationFileCommand.RaiseCanExecuteChanged();
+            LoadShippingCalculationFileCommand.RaiseCanExecuteChanged();
+            RemoveShippingCalculationFileCommand.RaiseCanExecuteChanged();
         }
 
         /// <summary>
@@ -389,8 +451,6 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             TechnicalRequrementsTaskWrapper = technicalRequrementsTaskLoaded != null 
                 ? new TechnicalRequrementsTask2Wrapper(technicalRequrementsTaskLoaded) 
                 : new TechnicalRequrementsTask2Wrapper(technicalRequrementsTask);
-
-            HistoryElementWrapper = new TechnicalRequrementsTaskHistoryElementWrapper(new TechnicalRequrementsTaskHistoryElement());
 
             //для БМ
             if (CurrentUserIsBackManager)
@@ -416,26 +476,16 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 .ToList();
             
             var requirements = salesUnitWrappers
-                .GroupBy(x => x, new SalesUnitForTechnicalRequrementsTaskComparer())
+                .GroupBy(salesUnit => salesUnit, new SalesUnitForTechnicalRequrementsTaskComparer())
                 .Select(x => new TechnicalRequrements2Wrapper(new TechnicalRequrements {SalesUnits = x.Select(u => u.Model).ToList()}))
                 .ToList();
-
-            foreach (var requirement in requirements)
-            {
-                TechnicalRequrementsTaskWrapper.Requrements.Add(requirement);
-            }
-
+            TechnicalRequrementsTaskWrapper.Requrements.AddRange(requirements);
 
             //добавление записи о создании задачи в историю
-            TechnicalRequrementsTaskHistoryElementWrapper historyElement1 =
-                new TechnicalRequrementsTaskHistoryElementWrapper(
-                    new TechnicalRequrementsTaskHistoryElement
-                    {
-                        Type = TechnicalRequrementsTaskHistoryElementType.Create,
-                        Comment = "Задание создано"
-                    });
-            TechnicalRequrementsTaskWrapper.HistoryElements.Add(historyElement1);
-
+            TechnicalRequrementsTaskWrapper.HistoryElements.Add(new TechnicalRequrementsTaskHistoryElementWrapper(new TechnicalRequrementsTaskHistoryElement
+            {
+                Type = TechnicalRequrementsTaskHistoryElementType.Create
+            }));
         }
     }
 }

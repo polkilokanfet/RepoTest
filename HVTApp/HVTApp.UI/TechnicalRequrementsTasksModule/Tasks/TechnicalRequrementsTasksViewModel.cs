@@ -21,11 +21,6 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         public DelegateLogCommand EditCommand { get; }
         public DelegateLogCommand RemoveCommand { get; }
 
-        /// <summary>
-        /// Поручить выполнение задачи
-        /// </summary>
-        public DelegateLogCommand InstructCommand { get; set; }
-
         public DelegateLogCommand ReloadCommand { get; }
 
         public bool CurrentUserIsManager => GlobalAppProperties.User.RoleCurrent == Role.SalesManager;
@@ -43,34 +38,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             {
                 EditCommand.RaiseCanExecuteChanged();
                 RemoveCommand.RaiseCanExecuteChanged();
-                InstructCommand.RaiseCanExecuteChanged();
             };
-
-            InstructCommand = new DelegateLogCommand(
-                () =>
-                {
-                    if (SelectedLookup.BackManager != null)
-                    {
-                        var dr = MessageService.ShowYesNoMessageDialog("Информация", "Back manager уже назначен. Вы хотите его сменить?");
-                        if (dr != MessageDialogResult.Yes)
-                            return;
-                    }
-
-                    var unitOfWork = Container.Resolve<IUnitOfWork>();
-                    var backManagers = unitOfWork.Repository<User>().Find(x => x.Roles.Any(role => role.Role == Role.BackManager));
-                    var selectService = Container.Resolve<ISelectService>();
-                    var backManager = selectService.SelectItem(backManagers);
-
-                    if (backManager != null)
-                    {
-                        var task = unitOfWork.Repository<TechnicalRequrementsTask>().GetById(SelectedLookup.Id);
-                        task.BackManager = backManager;
-                        unitOfWork.SaveChanges();
-                        EventAggregator.GetEvent<AfterSaveTechnicalRequrementsTaskEvent>().Publish(task);
-                        EventAggregator.GetEvent<AfterInstructTechnicalRequrementsTaskEvent>().Publish(task);
-                    }
-                },
-                () => CurrentUserIsBackManagerBoss && SelectedLookup != null);
 
             NewCommand = new DelegateLogCommand(
                 () =>
@@ -221,12 +189,12 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             //для бэка
             if (CurrentUserIsBackManager)
             {
-                calculations = UnitOfWork.Repository<TechnicalRequrementsTask>().Find(technicalRequrementsTask => technicalRequrementsTask.Start.HasValue && technicalRequrementsTask.BackManager != null && technicalRequrementsTask.BackManager.IsAppCurrentUser());
+                calculations = UnitOfWork.Repository<TechnicalRequrementsTask>().Find(technicalRequrementsTask => technicalRequrementsTask.BackManager != null && technicalRequrementsTask.BackManager.IsAppCurrentUser());
             }
-            //для боса бэка
+            //для босса бэка
             else if(CurrentUserIsBackManagerBoss)
             {
-                calculations = UnitOfWork.Repository<TechnicalRequrementsTask>().Find(technicalRequrementsTask => technicalRequrementsTask.Start.HasValue);
+                calculations = UnitOfWork.Repository<TechnicalRequrementsTask>().GetAll();
             }
             //для менеджера
             else

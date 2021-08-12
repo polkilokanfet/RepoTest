@@ -20,6 +20,7 @@
             <convertersUi:WrapperToStringConverter x:Key="WrapperToStringConverter"/>
             <convertersUi:WrappersToStringConverter x:Key="WrappersToStringConverter"/>
             <convertersUi:UnitsToGroupsConverter x:Key="ProductUnitsToProductGroupsConverter" />
+            <convertersUi:TaskHistoryElementTypeToStringConverter x:Key="TaskHistoryElementTypeToStringConverter" />
 
             <convertersUi:ProductGroupToProductUnitsConverter x:Key="ProductGroupToProductUnitsConverter" />
             

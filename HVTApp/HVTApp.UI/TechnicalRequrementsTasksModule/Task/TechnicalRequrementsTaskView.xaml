@@ -193,7 +193,7 @@
                             <infgDp:FieldLayout>
                                 <infgDp:FieldLayout.Fields>
                                     <infgDp:DateTimeField AlternateBinding="{Binding Moment}" BindingType="UseAlternateBinding" Label="Момент" Width="Auto" AllowResize="False" />
-                                    <infgDp:TextField AlternateBinding="{Binding Model.Type}" BindingType="UseAlternateBinding" Label="Действие" Width="Auto" AllowResize="False" />
+                                    <infgDp:TextField AlternateBinding="{Binding Model.Type, Converter={StaticResource TaskHistoryElementTypeToStringConverter}}" BindingType="UseAlternateBinding" Label="Действие" Width="Auto" AllowResize="False"/>
                                     <infgDp:TextField AlternateBinding="{Binding Comment}" BindingType="UseAlternateBinding" Label="Комментарий" Width="Auto" AllowResize="True" />
                                 </infgDp:FieldLayout.Fields>
                             </infgDp:FieldLayout>
@@ -269,7 +269,7 @@
                         </infgDp:XamDataGrid>
                     </GroupBox>
 
-                    <GroupBox Grid.Column="1" Header="РТЗ">
+                    <GroupBox Grid.Column="1" Header="РТЗ" Width="150">
                         <infgDp:XamDataGrid DataSource="{Binding TechnicalRequrementsTaskWrapper.ShippingCostFiles}"
                                             ActiveDataItem="{Binding SelectedShippingCalculationFile, Mode=TwoWay}">
 
@@ -281,7 +281,7 @@
 
                                 <infgDp:FieldLayout>
                                     <infgDp:FieldLayout.Fields>
-                                        <infgDp:DateTimeField AlternateBinding="{Binding Moment}" BindingType="UseAlternateBinding" Label="Дата" AllowEdit="False" AllowResize="False" Width="Auto"/>
+                                        <infgDp:DateTimeField AlternateBinding="{Binding Moment}" BindingType="UseAlternateBinding" Label="Дата" AllowEdit="False" AllowResize="False" Width="100"/>
                                     </infgDp:FieldLayout.Fields>
                                 </infgDp:FieldLayout>
 
@@ -299,7 +299,8 @@
             <GroupBox Grid.Row="3"
                       Header="Комментарий:">
                 <TextBox Text="{Binding HistoryElementWrapper.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                         IsReadOnly="{Binding IsStarted, UpdateSourceTrigger=PropertyChanged}"/>
+                            />
+                         <!--IsReadOnly="{Binding IsStarted, UpdateSourceTrigger=PropertyChanged}"/>-->
             </GroupBox>
 
         </Grid>

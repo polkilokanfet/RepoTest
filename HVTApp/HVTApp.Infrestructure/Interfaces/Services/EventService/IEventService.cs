@@ -117,6 +117,12 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
         [OperationContract(IsOneWay = true)]
         void RejectTechnicalRequarementsTaskPublishEvent(Guid appSessionId, Guid technicalRequarementsTaskId);
 
+        [OperationContract(IsOneWay = true)]
+        void FinishTechnicalRequarementsTaskPublishEvent(Guid appSessionId, Guid technicalRequarementsTaskId);
+
+        [OperationContract(IsOneWay = true)]
+        void AcceptTechnicalRequarementsTaskPublishEvent(Guid appSessionId, Guid technicalRequarementsTaskId);
+
         #endregion
     }
 }

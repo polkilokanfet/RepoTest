@@ -18,10 +18,10 @@
                            Command="{Binding RemoveCommand}"
                            Visibility="{Binding CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityConverter}}"
                            SmallImage="/HVTApp.UI;component/Images/remove.png"/>-->
-        <infRib:ButtonTool Caption="Поручить"
+        <!--<infRib:ButtonTool Caption="Поручить"
                            Command="{Binding InstructCommand}"
                            Visibility="{Binding CurrentUserIsBackManagerBoss, Converter={StaticResource BooleanToVisibilityConverter}}"
-                           SmallImage="/HVTApp.UI;component/Images/remove.png"/>
+                           SmallImage="/HVTApp.UI;component/Images/remove.png"/>-->
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Список заданий">

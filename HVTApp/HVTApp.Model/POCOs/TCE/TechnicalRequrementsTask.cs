@@ -58,7 +58,7 @@ namespace HVTApp.Model.POCOs
         {
             get
             {
-                if (this.IsStarted)
+                if (this.IsStarted == false)
                     return null;
 
                 return this.HistoryElements
@@ -72,7 +72,7 @@ namespace HVTApp.Model.POCOs
         {
             get
             {
-                if (this.IsFinished)
+                if (this.IsFinished == false)
                     return null;
 
                 return this.HistoryElements

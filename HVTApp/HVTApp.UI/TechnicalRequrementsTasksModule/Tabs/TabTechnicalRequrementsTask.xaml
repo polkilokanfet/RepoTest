@@ -62,19 +62,6 @@
                            SmallImage="/HVTApp.UI;component/Images/out.png"/>
     </infRib:RibbonGroup>
 
-    <infRib:RibbonGroup Caption="РТЗ">
-
-        <infRib:ButtonTool Caption="Прикрепить" 
-                           Command="{Binding AddShippingCalculationFileCommand}"
-                           Visibility="{Binding CurrentUserIsBackManager, Converter={StaticResource BooleanToVisibilityConverter}}"
-                           SmallImage="/HVTApp.UI;component/Images/add.png"/>
-
-        <infRib:ButtonTool Caption="Скачать" 
-                           Command="{Binding LoadShippingCalculationFileCommand}" 
-                           SmallImage="/HVTApp.UI;component/Images/out.png"/>
-
-    </infRib:RibbonGroup>
-
     <!--Действия ФМ-->
     <infRib:RibbonGroup Caption="Задача"
                         Visibility="{Binding CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -86,8 +73,10 @@
                            SmallImage="/HVTApp.UI;component/Images/edit.png" />-->
         <infRib:ButtonTool Caption="Остановить"
                            Command="{Binding StopCommand}"
-                           Visibility="{Binding CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityConverter}}"
                            SmallImage="/HVTApp.UI;component/Images/stop.png" />
+        <infRib:ButtonTool Caption="Принять"
+                           Command="{Binding AcceptCommand}"
+                           SmallImage="/HVTApp.UI;component/Images/done.png" />
     </infRib:RibbonGroup>
 
     <!--Действия БМ-->
@@ -95,10 +84,18 @@
                         Visibility="{Binding CurrentUserIsBackManager, Converter={StaticResource BooleanToVisibilityConverter}}">
         <infRib:ButtonTool Caption="Отклонить"
                            Command="{Binding RejectCommand}"
-                           SmallImage="/HVTApp.UI;component/Images/stop.png" />
+                           SmallImage="/HVTApp.UI;component/Images/remove.png" />
         <infRib:ButtonTool Caption="Завершить"
                            Command="{Binding FinishCommand}"
-                           SmallImage="/HVTApp.UI;component/Images/edit.png" />
+                           SmallImage="/HVTApp.UI;component/Images/done.png" />
+    </infRib:RibbonGroup>
+
+    <!--Действия БМБ-->
+    <infRib:RibbonGroup Caption="Задача"
+                        Visibility="{Binding CurrentUserIsBackManagerBoss, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <infRib:ButtonTool Caption="Поручить"
+                           Command="{Binding InstructCommand}"
+                           SmallImage="/HVTApp.UI;component/Images/remove.png"/>
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Строки"
@@ -114,31 +111,40 @@
     
     </infRib:RibbonGroup>
 
-    <infRib:RibbonGroup Caption="Действия">
-        
-        <infRib:ButtonTool Caption="Запуск на расчет ПЗ" 
+    <infRib:RibbonGroup Caption="Расчет ПЗ">
+
+        <infRib:ButtonTool Caption="Новый" 
                            Command="{Binding CreatePriceCalculationCommand}" 
                            Visibility="{Binding CurrentUserIsBackManager, Converter={StaticResource BooleanToVisibilityConverter}}"
-                           SmallImage="/HVTApp.UI;component/Images/out.png"/>
+                           SmallImage="/HVTApp.UI;component/Images/add.png"/>
 
-        <infRib:ButtonTool Caption="Открыть расчет ПЗ"
-                           Command="{Binding OpenPriceCalculationCommand}"
-                           SmallImage="/HVTApp.UI;component/Images/out.png" />
-
-        <infRib:ButtonTool Caption="Копировать расчет ПЗ"
+        <infRib:ButtonTool Caption="Копировать"
                            Command="{Binding CopyPriceCalculationCommand}"
-                           SmallImage="/HVTApp.UI;component/Images/out.png" />
+                           SmallImage="/HVTApp.UI;component/Images/arrow_forward.png" />
+
+        <infRib:ButtonTool Caption="Открыть"
+                           Command="{Binding OpenPriceCalculationCommand}"
+                           SmallImage="/HVTApp.UI;component/Images/folder.png" />
 
         <!--<infRib:ButtonTool Caption="Сохранить"
                            Command="{Binding SaveCommand}"
                            Visibility="{Binding CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityConverter}}"
                            SmallImage="/HVTApp.UI;component/Images/save.png" />-->
+    </infRib:RibbonGroup>
 
-        <infRib:ButtonTool Caption="Поручить"
-                           Command="{Binding InstructCommand}"
-                           Visibility="{Binding CurrentUserIsBackManagerBoss, Converter={StaticResource BooleanToVisibilityConverter}}"
+    <infRib:RibbonGroup Caption="Расчет ТЗ">
+        <infRib:ButtonTool Caption="Прикрепить" 
+                           Command="{Binding AddShippingCalculationFileCommand}"
+                           Visibility="{Binding CurrentUserIsBackManager, Converter={StaticResource BooleanToVisibilityConverter}}"
+                           SmallImage="/HVTApp.UI;component/Images/add.png"/>
+        <infRib:ButtonTool Caption="Удалить" 
+                           Command="{Binding RemoveShippingCalculationFileCommand}" 
+                           Visibility="{Binding CurrentUserIsBackManager, Converter={StaticResource BooleanToVisibilityConverter}}"
                            SmallImage="/HVTApp.UI;component/Images/remove.png"/>
 
+        <infRib:ButtonTool Caption="Скачать" 
+                           Command="{Binding LoadShippingCalculationFileCommand}" 
+                           SmallImage="/HVTApp.UI;component/Images/out.png"/>
     </infRib:RibbonGroup>
 
 </inf:RibbonTabItemWithViewModel>

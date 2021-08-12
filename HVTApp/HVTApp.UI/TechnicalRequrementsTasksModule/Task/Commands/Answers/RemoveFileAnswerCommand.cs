@@ -42,7 +42,11 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
         protected override bool CanExecuteMethod()
         {
-            return ViewModel.SelectedAnswerFile != null;
+            return ViewModel.IsStarted &&
+                   !ViewModel.IsFinished &&
+                   !ViewModel.IsRejected &&
+                   !ViewModel.IsAccepted &&
+                   ViewModel.SelectedAnswerFile != null;
         }
     }
 }

@@ -41,6 +41,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             this.RaiseCanExecuteChanged();
 
             Container.Resolve<IEventAggregator>().GetEvent<AfterFinishTechnicalRequrementsTaskEvent>().Publish(ViewModel.TechnicalRequrementsTaskWrapper.Model);
+
+            ViewModel.HistoryElementWrapper = null;
         }
 
         protected override bool CanExecuteMethod()

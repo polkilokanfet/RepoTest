@@ -14,10 +14,10 @@ namespace HVTApp.Model.POCOs
         public DateTime Moment { get; set; } = DateTime.Now;
 
         [Designation("Тип"), Required, OrderStatus(80)]
-        public TechnicalRequrementsTaskHistoryElementType Type { get; set; }
+        public TechnicalRequrementsTaskHistoryElementType Type { get; set; } = TechnicalRequrementsTaskHistoryElementType.Create;
 
         [Designation("Комментарий"), MaxLength(250), OrderStatus(5)]
-        public string Comment { get; set; }
+        public string Comment { get; set; } = string.Empty;
     }
 
     public enum TechnicalRequrementsTaskHistoryElementType

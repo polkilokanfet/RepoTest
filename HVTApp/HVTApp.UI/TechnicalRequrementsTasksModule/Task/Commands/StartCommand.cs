@@ -2,6 +2,7 @@ using System;
 using HVTApp.Infrastructure;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 
@@ -27,11 +28,15 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             this.RaiseCanExecuteChanged();
 
             Container.Resolve<IEventAggregator>().GetEvent<AfterStartTechnicalRequrementsTaskEvent>().Publish(ViewModel.TechnicalRequrementsTaskWrapper.Model);
+
+            ViewModel.HistoryElementWrapper = new TechnicalRequrementsTaskHistoryElementWrapper(new TechnicalRequrementsTaskHistoryElement());
         }
 
         protected override bool CanExecuteMethod()
         {
-            return !ViewModel.IsStarted;
+            return ViewModel.IsStarted == false && 
+                   ViewModel.IsValid && 
+                   ViewModel.IsChanged;
         }
     }
 }

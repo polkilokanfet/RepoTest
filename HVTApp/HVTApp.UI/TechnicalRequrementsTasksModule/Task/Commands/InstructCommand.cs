@@ -35,11 +35,12 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 ViewModel.HistoryElementWrapper.Type = TechnicalRequrementsTaskHistoryElementType.Instruct;
                 ViewModel.HistoryElementWrapper.Moment = DateTime.Now;
                 var comment = ViewModel.HistoryElementWrapper.Comment;
-                ViewModel.HistoryElementWrapper.Comment = $"Задача поручена ({backManager.Employee.Person})";
+                ViewModel.HistoryElementWrapper.Comment = $"Назначен БМ: {backManager.Employee.Person}";
                 if (!string.IsNullOrWhiteSpace(comment))
                 {
                     ViewModel.HistoryElementWrapper.Comment = $"{ViewModel.HistoryElementWrapper.Comment}. Комментарий: {comment}.";
                 }
+                ViewModel.TechnicalRequrementsTaskWrapper.HistoryElements.Add(ViewModel.HistoryElementWrapper);
 
                 ViewModel.SaveCommand.Execute();
 
@@ -52,7 +53,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
         protected override bool CanExecuteMethod()
         {
-            return ViewModel.CurrentUserIsBackManagerBoss;
+            return ViewModel.IsValid && ViewModel.CurrentUserIsBackManagerBoss;
         }
     }
 }

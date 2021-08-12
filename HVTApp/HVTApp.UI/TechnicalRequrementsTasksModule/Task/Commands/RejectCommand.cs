@@ -30,11 +30,14 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             this.RaiseCanExecuteChanged();
 
             Container.Resolve<IEventAggregator>().GetEvent<AfterRejectTechnicalRequrementsTaskEvent>().Publish(ViewModel.TechnicalRequrementsTaskWrapper.Model);
+
+            ViewModel.HistoryElementWrapper = null;
         }
 
         protected override bool CanExecuteMethod()
         {
-            return ViewModel.IsStarted &&
+            return ViewModel.IsValid &&
+                   ViewModel.IsStarted &&
                    !ViewModel.IsRejected &&
                    !ViewModel.IsFinished;
         }

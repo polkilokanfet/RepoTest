@@ -158,6 +158,18 @@ namespace EventServiceClient2.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/RejectTechnicalRequarementsTaskPublishEvent")]
         System.Threading.Tasks.Task RejectTechnicalRequarementsTaskPublishEventAsync(System.Guid appSessionId, System.Guid technicalRequarementsTaskId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/FinishTechnicalRequarementsTaskPublishEvent")]
+        void FinishTechnicalRequarementsTaskPublishEvent(System.Guid appSessionId, System.Guid technicalRequarementsTaskId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/FinishTechnicalRequarementsTaskPublishEvent")]
+        System.Threading.Tasks.Task FinishTechnicalRequarementsTaskPublishEventAsync(System.Guid appSessionId, System.Guid technicalRequarementsTaskId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/AcceptTechnicalRequarementsTaskPublishEvent")]
+        void AcceptTechnicalRequarementsTaskPublishEvent(System.Guid appSessionId, System.Guid technicalRequarementsTaskId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/AcceptTechnicalRequarementsTaskPublishEvent")]
+        System.Threading.Tasks.Task AcceptTechnicalRequarementsTaskPublishEventAsync(System.Guid appSessionId, System.Guid technicalRequarementsTaskId);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -228,6 +240,14 @@ namespace EventServiceClient2.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnRejectTechnicalRequarementsTaskServiceCallback" +
             "")]
         void OnRejectTechnicalRequarementsTaskServiceCallback(System.Guid technicalRequarementsTaskId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnFinishTechnicalRequarementsTaskServiceCallback" +
+            "")]
+        void OnFinishTechnicalRequarementsTaskServiceCallback(System.Guid technicalRequarementsTaskId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnAcceptTechnicalRequarementsTaskServiceCallback" +
+            "")]
+        void OnAcceptTechnicalRequarementsTaskServiceCallback(System.Guid technicalRequarementsTaskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/IsAlive", ReplyAction="http://tempuri.org/IEventService/IsAliveResponse")]
         bool IsAlive();
@@ -451,6 +471,22 @@ namespace EventServiceClient2.ServiceReference1 {
         
         public System.Threading.Tasks.Task RejectTechnicalRequarementsTaskPublishEventAsync(System.Guid appSessionId, System.Guid technicalRequarementsTaskId) {
             return base.Channel.RejectTechnicalRequarementsTaskPublishEventAsync(appSessionId, technicalRequarementsTaskId);
+        }
+        
+        public void FinishTechnicalRequarementsTaskPublishEvent(System.Guid appSessionId, System.Guid technicalRequarementsTaskId) {
+            base.Channel.FinishTechnicalRequarementsTaskPublishEvent(appSessionId, technicalRequarementsTaskId);
+        }
+        
+        public System.Threading.Tasks.Task FinishTechnicalRequarementsTaskPublishEventAsync(System.Guid appSessionId, System.Guid technicalRequarementsTaskId) {
+            return base.Channel.FinishTechnicalRequarementsTaskPublishEventAsync(appSessionId, technicalRequarementsTaskId);
+        }
+        
+        public void AcceptTechnicalRequarementsTaskPublishEvent(System.Guid appSessionId, System.Guid technicalRequarementsTaskId) {
+            base.Channel.AcceptTechnicalRequarementsTaskPublishEvent(appSessionId, technicalRequarementsTaskId);
+        }
+        
+        public System.Threading.Tasks.Task AcceptTechnicalRequarementsTaskPublishEventAsync(System.Guid appSessionId, System.Guid technicalRequarementsTaskId) {
+            return base.Channel.AcceptTechnicalRequarementsTaskPublishEventAsync(appSessionId, technicalRequarementsTaskId);
         }
     }
 }
