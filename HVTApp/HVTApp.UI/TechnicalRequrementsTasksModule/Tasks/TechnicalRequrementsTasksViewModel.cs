@@ -169,9 +169,14 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
                     if (!task.Requrements.Any())
                     {
-                        var answerFiles = UnitOfWork.Repository<AnswerFileTce>().Find(x => x.TechnicalRequrementsTaskId == task.Id);
-                        answerFiles.ForEach(x => UnitOfWork.Repository<AnswerFileTce>().Delete(x));
+                        var answerFiles = UnitOfWork.Repository<AnswerFileTce>().Find(answerFileTce => answerFileTce.TechnicalRequrementsTaskId == task.Id);
+                        answerFiles.ForEach(answerFileTce => UnitOfWork.Repository<AnswerFileTce>().Delete(answerFileTce));
                         task.PriceCalculations.Clear();
+                        foreach (var historyElement in task.HistoryElements.ToList())
+                        {
+                            UnitOfWork.Repository<TechnicalRequrementsTaskHistoryElement>().Delete(historyElement);
+                        }
+                        task.HistoryElements.Clear();
                         UnitOfWork.Repository<TechnicalRequrementsTask>().Delete(task);
                     }
                 }

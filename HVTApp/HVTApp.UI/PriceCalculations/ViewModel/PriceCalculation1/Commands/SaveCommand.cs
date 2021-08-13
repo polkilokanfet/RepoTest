@@ -1,3 +1,4 @@
+using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
@@ -22,13 +23,25 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
 
         protected override void ExecuteMethod()
         {
-            _viewModel.PriceCalculationWrapper.AcceptChanges();
 
             var priceCalculation = _unitOfWork.Repository<PriceCalculation>().GetById(_viewModel.PriceCalculationWrapper.Model.Id);
             if (priceCalculation == null)
             {
                 _unitOfWork.Repository<PriceCalculation>().Add(_viewModel.PriceCalculationWrapper.Model);
             }
+
+            //если есть удаленные группы
+            foreach (var removedItem in _viewModel.PriceCalculationWrapper.PriceCalculationItems.RemovedItems)
+            {
+                foreach (var structureCost in removedItem.Model.StructureCosts.ToList())
+                {
+                    _unitOfWork.Repository<StructureCost>().Delete(structureCost);
+                }
+                removedItem.Model.SalesUnits.Clear();
+                _unitOfWork.Repository<PriceCalculationItem>().Delete(removedItem.Model);
+            }
+
+            _viewModel.PriceCalculationWrapper.AcceptChanges();
 
             _unitOfWork.SaveChanges();
 

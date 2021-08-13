@@ -16,28 +16,31 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
             var result = MessageService.ShowYesNoMessageDialog("Удаление", "Действительно хотите удалить из расчета группу оборудования?", defaultNo: true);
             if (result != MessageDialogResult.Yes) return;
 
-            var selectedGroup = (PriceCalculationItem2Wrapper)ViewModel.SelectedItem;
+            var groupToRemove = (PriceCalculationItem2Wrapper)ViewModel.SelectedItem;
 
-            var salesUnits = selectedGroup.SalesUnits.ToList();
+            var salesUnits = groupToRemove.SalesUnits.ToList();
 
             //единицы, которы нельзя удалить из расчета, т.к. они размещены в производстве
             var salesUnitsNotForRemove = salesUnits
-                .Where(x => x.Model.SignalToStartProduction.HasValue)
-                .Where(x => x.Model.ActualPriceCalculationItem(ViewModel.UnitOfWork1)?.Id == selectedGroup.Model.Id)
+                .Where(salesUnit => salesUnit.Model.SignalToStartProduction.HasValue)
+                .Where(salesUnit => salesUnit.Model.ActualPriceCalculationItem(ViewModel.UnitOfWork1)?.Id == groupToRemove.Model.Id)
                 .ToList();
 
+            //если есть то, что нельзя удалять
             if (salesUnitsNotForRemove.Any())
             {
                 MessageService.ShowOkMessageDialog("Удаление", "Вы не можете удалить некоторые строки, т.к. они размещены в производстве.");
 
                 var salesUnitsToRemove = salesUnits.Except(salesUnitsNotForRemove).ToList();
-                salesUnitsToRemove.ForEach(x => selectedGroup.SalesUnits.Remove(x));
-                if (!selectedGroup.SalesUnits.Any())
-                    ViewModel.PriceCalculationWrapper.PriceCalculationItems.Remove(selectedGroup);
+                salesUnitsToRemove.ForEach(salesUnit => groupToRemove.SalesUnits.Remove(salesUnit));
+                if (groupToRemove.SalesUnits.Any() == false)
+                {
+                    ViewModel.PriceCalculationWrapper.PriceCalculationItems.Remove(groupToRemove);
+                }
             }
             else
             {
-                ViewModel.PriceCalculationWrapper.PriceCalculationItems.Remove(selectedGroup);
+                ViewModel.PriceCalculationWrapper.PriceCalculationItems.Remove(groupToRemove);
             }
         }
 
