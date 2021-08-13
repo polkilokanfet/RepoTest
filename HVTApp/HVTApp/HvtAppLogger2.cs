@@ -31,7 +31,7 @@ namespace HVTApp
                 logUnit.Message = exception.PrintAllExceptions();
                 while (exception != null)
                 {
-                    logUnit.Head = exception.ToString();
+                    logUnit.Head = exception.GetType().ToString();
                     exception = exception.InnerException;
                 }
             }

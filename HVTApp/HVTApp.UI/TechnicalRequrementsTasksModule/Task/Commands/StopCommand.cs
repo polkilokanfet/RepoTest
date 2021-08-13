@@ -36,8 +36,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         {
             return ViewModel.IsValid &&
                    ViewModel.IsStarted && 
-                   !ViewModel.IsStopped && 
-                   !ViewModel.IsAccepted;
+                   !ViewModel.IsStopped;
         }
     }
 }
