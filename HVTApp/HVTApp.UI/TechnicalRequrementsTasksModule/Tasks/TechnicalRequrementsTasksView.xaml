@@ -29,15 +29,9 @@
 
                     <dp:FieldLayout.RecordFilters>
 
-                        <dp:RecordFilter FieldName="IsStarted">
+                        <dp:RecordFilter FieldName="ToShow">
                             <dp:RecordFilter.Conditions>
                                 <controls:ComparisonCondition Operator="Equals" Value="True" />
-                            </dp:RecordFilter.Conditions>
-                        </dp:RecordFilter>
-
-                        <dp:RecordFilter FieldName="IsFinished">
-                            <dp:RecordFilter.Conditions>
-                                <controls:ComparisonCondition Operator="Equals" Value="False" />
                             </dp:RecordFilter.Conditions>
                         </dp:RecordFilter>
 
@@ -54,6 +48,8 @@
                         <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Status}" Label="Этап проработки" Width="300" AllowResize="True" />
                         <dp:CheckBoxField Name="IsStarted" BindingType="UseAlternateBinding" AlternateBinding="{Binding IsStarted}" Label="Запущено" Width="Auto" AllowResize="False" />
                         <dp:CheckBoxField Name="IsFinished" BindingType="UseAlternateBinding" AlternateBinding="{Binding IsFinished}" Label="Завершено" Width="Auto" AllowResize="False" />
+                        <dp:CheckBoxField Name="ToShow" BindingType="UseAlternateBinding" AlternateBinding="{Binding ToShow}" Label="S" Width="Auto" AllowResize="False" />
+
                         <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Id}" Label="Id" Width="Auto" AllowResize="True" />
 					</dp:FieldLayout.Fields>
 				</dp:FieldLayout>

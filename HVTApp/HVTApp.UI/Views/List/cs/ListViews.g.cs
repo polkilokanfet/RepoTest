@@ -6474,6 +6474,12 @@ namespace HVTApp.UI.Views
             set { TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.Status)].Visibility = value; }
         }
 
+        public System.Windows.Visibility ToShowVisibility
+        {
+            get { return TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.ToShow)].Visibility; }
+            set { TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.ToShow)].Visibility = value; }
+        }
+
         public System.Windows.Visibility TceNumberVisibility
         {
             get { return TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.TceNumber)].Visibility; }

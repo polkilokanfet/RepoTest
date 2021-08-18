@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Lookup
@@ -56,6 +58,34 @@ namespace HVTApp.UI.Lookup
                      }
                 }
                 return "Нет записей в истории";
+            }
+        }
+
+
+        [Designation("S"), OrderStatus(-15)]
+        public bool ToShow
+        {
+            get
+            {
+                if (this.Entity == null)
+                    return false;
+
+                if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager)
+                {
+                    return Entity.IsAccepted == false;
+                }
+
+                if (GlobalAppProperties.User.RoleCurrent == Role.BackManagerBoss)
+                {
+                    return Entity.BackManager == null;
+                }
+
+                if (GlobalAppProperties.User.RoleCurrent == Role.BackManager)
+                {
+                    return Entity.IsFinished == false;
+                }
+
+                return false;
             }
         }
     }
