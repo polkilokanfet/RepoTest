@@ -67,6 +67,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             {
                 _selectedShippingCalculationFile = value;
                 LoadShippingCalculationFileCommand.RaiseCanExecuteChanged();
+                OpenShippingCalculationFileCommand.RaiseCanExecuteChanged();
                 RemoveShippingCalculationFileCommand.RaiseCanExecuteChanged();
             }
         }
@@ -247,6 +248,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
         public LoadShippingCalculationFileCommand LoadShippingCalculationFileCommand { get; }
 
+        public OpenShippingCalculationFileCommand OpenShippingCalculationFileCommand { get; }
+
         public RemoveShippingCalculationFileCommand RemoveShippingCalculationFileCommand { get; }
 
         #endregion
@@ -301,6 +304,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         public TechnicalRequrementsTaskViewModel(IUnityContainer container) : base(container)
         {
             var messageService = container.Resolve<IMessageService>();
+            container.Resolve<IEventAggregator>().GetEvent<AfterStartTechnicalRequrementsTaskEvent>().Subscribe(AfterStartStopTask);
+            container.Resolve<IEventAggregator>().GetEvent<AfterStopTechnicalRequrementsTaskEvent>().Subscribe(AfterStartStopTask);
 
             //сохранение изменений
             SaveCommand = new SaveCommand(this, this.Container);
@@ -403,9 +408,19 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
             AddShippingCalculationFileCommand = new AddShippingCalculationFileCommand(this, this.Container);
             LoadShippingCalculationFileCommand = new LoadShippingCalculationFileCommand(this, this.Container);
+            OpenShippingCalculationFileCommand = new OpenShippingCalculationFileCommand(this, this.Container);
             RemoveShippingCalculationFileCommand = new RemoveShippingCalculationFileCommand(this, this.Container);
 
             HistoryElementWrapper = new TechnicalRequrementsTaskHistoryElementWrapper(new TechnicalRequrementsTaskHistoryElement());
+        }
+
+        private void AfterStartStopTask(TechnicalRequrementsTask task)
+        {
+            if (this.TechnicalRequrementsTaskWrapper != null &&
+                this.TechnicalRequrementsTaskWrapper.Model.Id == task.Id)
+            {
+                RaisePropertyChanged(nameof(IsStarted));
+            }
         }
 
         private void RaiseCanExecuteChangeInAllCommands()
@@ -437,6 +452,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             InstructCommand.RaiseCanExecuteChanged();
             AddShippingCalculationFileCommand.RaiseCanExecuteChanged();
             LoadShippingCalculationFileCommand.RaiseCanExecuteChanged();
+            OpenShippingCalculationFileCommand.RaiseCanExecuteChanged();
             RemoveShippingCalculationFileCommand.RaiseCanExecuteChanged();
         }
 

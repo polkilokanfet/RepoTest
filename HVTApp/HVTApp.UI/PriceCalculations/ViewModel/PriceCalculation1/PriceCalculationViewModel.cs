@@ -212,7 +212,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
                 technicalRequrementsTask.PriceCalculations.Add(this.PriceCalculationWrapper.Model);
             }
 
-            foreach (var technicalRequrements in technicalRequrementsTask.Requrements)
+            foreach (var technicalRequrements in technicalRequrementsTask.Requrements.Where(technicalRequrements => technicalRequrements.IsActual))
             {
                 var saleUnits = technicalRequrements.SalesUnits.Select(salesUnit => new SalesUnitEmptyWrapper(salesUnit));
                 PriceCalculationWrapper.PriceCalculationItems.Add(GetPriceCalculationItem2Wrapper(saleUnits));

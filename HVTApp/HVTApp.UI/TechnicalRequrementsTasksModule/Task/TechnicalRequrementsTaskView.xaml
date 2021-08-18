@@ -274,7 +274,7 @@
                                             ActiveDataItem="{Binding SelectedShippingCalculationFile, Mode=TwoWay}">
 
                             <infgDp:XamDataGrid.InputBindings>
-                                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=LoadShippingCalculationFileCommand, Mode=OneWay}" />
+                                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=OpenShippingCalculationFileCommand, Mode=OneWay}" />
                             </infgDp:XamDataGrid.InputBindings>
 
                             <infgDp:XamDataGrid.FieldLayouts>

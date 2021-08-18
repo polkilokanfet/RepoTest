@@ -701,6 +701,7 @@
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\Files\AddFileBaseCommand.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\Files\AddOldFileCommand.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\Files\AddNewFileCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\BaseOpenFileCommand.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\ShippingCalculation\AddShippingCalculationFileCommand.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\BaseTechnicalRequrementsTaskViewModelCommand.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\ShippingCalculation\LoadShippingCalculationFileCommand.cs" />
@@ -721,6 +722,7 @@
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\InstructCommand.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\Files\OpenFileCommand.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\FinishCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\ShippingCalculation\OpenShippingCalculationFileCommand.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\ShippingCalculation\RemoveShippingCalculationFileCommand.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\StartCommand.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\StopCommand.cs" />
