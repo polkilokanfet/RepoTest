@@ -64,8 +64,7 @@ namespace HVTApp.Model.POCOs
 
         public override bool Equals(object obj)
         {
-            var other = obj as PaymentCondition;
-            if (other == null) return false;
+            if (!(obj is PaymentCondition other)) return false;
             if (this.Id == other.Id) return true;
             return Equals(this.PaymentConditionPoint, other.PaymentConditionPoint) &&
                    Equals(this.DaysToPoint, other.DaysToPoint) &&

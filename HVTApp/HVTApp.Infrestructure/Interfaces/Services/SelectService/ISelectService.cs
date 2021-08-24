@@ -8,8 +8,12 @@ namespace HVTApp.Infrastructure.Interfaces.Services.SelectService
 {
     public interface ISelectService
     {
-        void Register<TView, TItem>() 
-            where TView : Control 
+        void Register<TView, TItem>()
+            where TView : Control
+            where TItem : class, IBaseEntity;
+
+        void ReRegister<TView, TItem>()
+            where TView : Control
             where TItem : class, IBaseEntity;
 
         TItem SelectItem<TItem>(IEnumerable<TItem> items, Guid? selectedItemId = null)

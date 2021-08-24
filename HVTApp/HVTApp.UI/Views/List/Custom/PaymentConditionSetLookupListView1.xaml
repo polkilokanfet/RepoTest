@@ -1,0 +1,92 @@
+﻿<inf:ViewBase xmlns:igWPF="http://schemas.infragistics.com/xaml/wpf"  
+              xmlns:core="clr-namespace:System;assembly=mscorlib"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:infg="http://infragistics.com/DataPresenter"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              x:Class="HVTApp.UI.Views.PaymentConditionSetLookupListView1">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <GroupBox Grid.Row="0"
+                  Header="Фильтр">
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <GroupBox Grid.Column="0"
+                          Header="Старт производства">
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Row="0" 
+                               Grid.Column="0" 
+                               Content="Часть, %: "/>
+
+                        <igWPF:XamNumericEditor Grid.Row="0" 
+                                                Grid.Column="1" 
+                                                Value="{Binding PartToStartProduction, UpdateSourceTrigger=PropertyChanged}"/>
+
+
+                        <Label Grid.Row="1" 
+                               Grid.Column="0" 
+                               Content="Дни: "/>
+
+                        <igWPF:XamNumericEditor Grid.Row="1" 
+                                                Grid.Column="1" 
+                                                ValueType="core:Int32"
+                                                Value="{Binding DaysToStartProduction, UpdateSourceTrigger=PropertyChanged}"/>
+                    </Grid>
+
+                </GroupBox>
+
+
+            </Grid>
+
+        </GroupBox>
+
+        <infg:XamDataGrid x:Name="PaymentConditionSetLookupListGrid" 
+                          Grid.Row="1" 
+                          Style="{StaticResource ListViewGrid}">
+
+            <infg:XamDataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
+                </ContextMenu>
+            </infg:XamDataGrid.ContextMenu>
+
+            <infg:XamDataGrid.InputBindings>
+                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=SelectItemCommand, Mode=OneWay}"/>
+            </infg:XamDataGrid.InputBindings>
+
+            <infg:XamDataGrid.FieldLayouts>
+                <infg:FieldLayout>
+                    <infg:FieldLayout.Fields>
+                        <infg:TextField Name="Name" Label="Условия оплаты" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
+                    </infg:FieldLayout.Fields>
+                </infg:FieldLayout>
+
+            </infg:XamDataGrid.FieldLayouts>
+        </infg:XamDataGrid>
+
+    </Grid>
+
+</inf:ViewBase>

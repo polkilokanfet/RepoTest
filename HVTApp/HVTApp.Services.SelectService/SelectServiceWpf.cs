@@ -33,6 +33,16 @@ namespace HVTApp.Services.SelectService
             Mappings.Add(typeof(TItem), typeof(TView));
         }
 
+        public void ReRegister<TView, TItem>() 
+            where TView : Control 
+            where TItem : class, IBaseEntity
+        {
+            if (!Mappings.ContainsKey(typeof(TItem)))
+                throw new ArgumentException($"Тип {typeof(TItem)} ещё не зарегистрирован в словаре.");
+
+            Mappings[typeof(TItem)] = typeof(TView);
+        }
+
         public TItem SelectItem<TItem>(IEnumerable<TItem> items, Guid? selectedItemId = null) 
             where TItem : class, IBaseEntity
         {

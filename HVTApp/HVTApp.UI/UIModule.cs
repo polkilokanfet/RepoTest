@@ -87,6 +87,7 @@ namespace HVTApp.UI
             Container.RegisterViewForNavigation<TechnicalRequrementsTaskView>();
             Container.RegisterViewForNavigation<TechnicalRequrementsTasksView>();
             Container.RegisterViewForNavigation<LaborHoursView>();
+            Container.RegisterViewForNavigation<PaymentConditionSetLookupListView1>();
 
             Container.Resolve<IDialogService>().Register<DirectumTaskRouteViewModel, DirectumTaskRouteWindow>();
 
@@ -97,6 +98,7 @@ namespace HVTApp.UI
 
             RegisterViews();
             _updateDetailsService.ReRegister<LaborHours, LaborHoursDetailsView2>();
+            _selectService.ReRegister<PaymentConditionSetLookupListView1, PaymentConditionSet>();
         }
 
         protected override void ResolveOutlookGroup()

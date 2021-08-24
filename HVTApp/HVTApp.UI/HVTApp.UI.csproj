@@ -740,20 +740,25 @@
     <Compile Include="ViewModels\Details\ProductCategoryPriceAndCostDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\TenderDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\UserDetailsViewModel.cs" />
-    <Compile Include="ViewModels\List\LocalityLookupListViewModel.cs" />
-    <Compile Include="ViewModels\List\ProductTypeDesignationLookupListViewModel.cs" />
-    <Compile Include="ViewModels\List\ProjectLookupListViewModel.cs" />
-    <Compile Include="ViewModels\List\RegionLookupListViewModel.cs" />
-    <Compile Include="ViewModels\List\UserLookupListViewModel.cs" />
+    <Compile Include="ViewModels\List\Custom\LocalityLookupListViewModel.cs" />
+    <Compile Include="ViewModels\List\Custom\PaymentConditionSet\PaymentConditionFilter.cs" />
+    <Compile Include="ViewModels\List\Custom\PaymentConditionSet\PaymentConditionSetLookupListViewModel.cs" />
+    <Compile Include="ViewModels\List\Custom\ProductTypeDesignationLookupListViewModel.cs" />
+    <Compile Include="ViewModels\List\Custom\ProjectLookupListViewModel.cs" />
+    <Compile Include="ViewModels\List\Custom\RegionLookupListViewModel.cs" />
+    <Compile Include="ViewModels\List\Custom\UserLookupListViewModel.cs" />
     <Compile Include="ViewModels\ProductStructureViewModel.cs" />
     <Compile Include="ViewModels\Details\ProductIncludedDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\SalesUnitDetailsViewModel.cs" />
-    <Compile Include="ViewModels\List\CompanyLookupListViewModel.cs" />
+    <Compile Include="ViewModels\List\Custom\CompanyLookupListViewModel.cs" />
     <Compile Include="Views\Details\Custom\OrderView.xaml.cs">
       <DependentUpon>OrderView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\List\cs\ProjectLookupListView.cs" />
     <Compile Include="Views\List\cs\UserLookupListView.cs" />
+    <Compile Include="Views\List\Custom\PaymentConditionSetLookupListView1.xaml.cs">
+      <DependentUpon>PaymentConditionSetLookupListView1.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ProductStructureView.xaml.cs">
       <DependentUpon>ProductStructureView.xaml</DependentUpon>
     </Compile>
@@ -811,8 +816,8 @@
     </Compile>
     <Compile Include="ViewModels\Details\ProjectDetailsViewModel.cs" />
     <Compile Include="ViewModels\List\Generated\ListViewModels.g.cs" />
-    <Compile Include="ViewModels\List\OfferLookupListViewModel.cs" />
-    <Compile Include="ViewModels\List\UnitLookupListViewModel.cs" />
+    <Compile Include="ViewModels\List\Custom\OfferLookupListViewModel.cs" />
+    <Compile Include="ViewModels\List\Custom\UnitLookupListViewModel.cs" />
     <Compile Include="Views\Details\cs\DetailsViews.g.cs" />
     <Compile Include="Views\Details\Custom\ProjectUnitGroupDetailsView.xaml.cs">
       <DependentUpon>ProjectUnitGroupDetailsView.xaml</DependentUpon>
@@ -1935,6 +1940,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\List\CurrencyExchangeRateLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\Custom\PaymentConditionSetLookupListView1.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -98,7 +98,13 @@ namespace HVTApp.UI.ViewModels
 
             InitSpecialCommands();
             SubscribesToEvents();
+            LastActionInCtor();
         }
+
+        /// <summary>
+        /// Последнее действие в конструкторе
+        /// </summary>
+        protected virtual void LastActionInCtor() { }
 
         protected virtual bool UnionItemsAction(IUnitOfWork unitOfWork, TEntity mainItem, List<TEntity> otherItems)
         {
@@ -175,7 +181,7 @@ namespace HVTApp.UI.ViewModels
         public ICommand SelectItemsCommand { get; protected set; }
 
         public IEnumerable<TLookup> Lookups { get; }
-        private ICollection<TLookup> LookupsCollection => (ICollection<TLookup>)Lookups;
+        protected ICollection<TLookup> LookupsCollection => (ICollection<TLookup>)Lookups;
 
         /// <summary>
         /// Загрузка всех Lookup'ов.
