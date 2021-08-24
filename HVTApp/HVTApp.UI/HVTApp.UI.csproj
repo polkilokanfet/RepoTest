@@ -742,6 +742,7 @@
     <Compile Include="ViewModels\Details\UserDetailsViewModel.cs" />
     <Compile Include="ViewModels\List\Custom\LocalityLookupListViewModel.cs" />
     <Compile Include="ViewModels\List\Custom\PaymentConditionSet\PaymentConditionFilter.cs" />
+    <Compile Include="ViewModels\List\Custom\PaymentConditionSet\PaymentConditionFilterViewModel.cs" />
     <Compile Include="ViewModels\List\Custom\PaymentConditionSet\PaymentConditionSetLookupListViewModel.cs" />
     <Compile Include="ViewModels\List\Custom\ProductTypeDesignationLookupListViewModel.cs" />
     <Compile Include="ViewModels\List\Custom\ProjectLookupListViewModel.cs" />
@@ -756,6 +757,9 @@
     </Compile>
     <Compile Include="Views\List\cs\ProjectLookupListView.cs" />
     <Compile Include="Views\List\cs\UserLookupListView.cs" />
+    <Compile Include="Views\List\Custom\PaymentConditionFilterControl.xaml.cs">
+      <DependentUpon>PaymentConditionFilterControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\List\Custom\PaymentConditionSetLookupListView1.xaml.cs">
       <DependentUpon>PaymentConditionSetLookupListView1.xaml</DependentUpon>
     </Compile>
@@ -1942,6 +1946,10 @@
     <Page Include="Views\List\CurrencyExchangeRateLookupListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\Custom\PaymentConditionFilterControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\List\Custom\PaymentConditionSetLookupListView1.xaml">
       <Generator>MSBuild:Compile</Generator>
