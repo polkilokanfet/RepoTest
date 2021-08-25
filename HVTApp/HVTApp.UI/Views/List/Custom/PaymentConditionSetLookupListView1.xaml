@@ -1,6 +1,4 @@
-﻿<inf:ViewBase xmlns:igWPF="http://schemas.infragistics.com/xaml/wpf"  
-              xmlns:core="clr-namespace:System;assembly=mscorlib"
-              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<inf:ViewBase xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
@@ -27,12 +25,26 @@
                 <views:PaymentConditionFilterControl Grid.Column="0"
                                                      Header="Старт производства"
                                                      Part="{Binding PaymentConditionFilterViewModelStartProduction.Part}"
-                                                     DaysTo="{Binding PaymentConditionFilterViewModelStartProduction.DaysTo}"/>
+                                                     DaysTo="{Binding PaymentConditionFilterViewModelStartProduction.DaysTo}"
+                                                     IsBefore="{Binding PaymentConditionFilterViewModelStartProduction.IsBefore}"/>
 
                 <views:PaymentConditionFilterControl Grid.Column="1"
                                                      Header="Окончание производства"
                                                      Part="{Binding PaymentConditionFilterViewModelFinishProduction.Part}"
-                                                     DaysTo="{Binding PaymentConditionFilterViewModelFinishProduction.DaysTo}"/>
+                                                     DaysTo="{Binding PaymentConditionFilterViewModelFinishProduction.DaysTo}"
+                                                     IsBefore="{Binding PaymentConditionFilterViewModelFinishProduction.IsBefore}"/>
+
+                <views:PaymentConditionFilterControl Grid.Column="2"
+                                                     Header="Отгрузка"
+                                                     Part="{Binding PaymentConditionFilterViewModelShipment.Part}"
+                                                     DaysTo="{Binding PaymentConditionFilterViewModelShipment.DaysTo}"
+                                                     IsBefore="{Binding PaymentConditionFilterViewModelShipment.IsBefore}"/>
+
+                <views:PaymentConditionFilterControl Grid.Column="3"
+                                                     Header="Доставка"
+                                                     Part="{Binding PaymentConditionFilterViewModelDelivery.Part}"
+                                                     DaysTo="{Binding PaymentConditionFilterViewModelDelivery.DaysTo}"
+                                                     IsBefore="{Binding PaymentConditionFilterViewModelDelivery.IsBefore}"/>
 
             </Grid>
 

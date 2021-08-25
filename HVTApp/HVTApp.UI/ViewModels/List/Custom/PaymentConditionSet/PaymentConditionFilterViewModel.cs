@@ -6,8 +6,9 @@ namespace HVTApp.UI.ViewModels
     public class PaymentConditionFilterViewModel
     {
         private readonly PaymentConditionPointEnum _point;
-        private double? _part = 50.0;
+        private double? _part;
         private int? _daysTo;
+        private bool _isBefore = true;
 
         public double? Part
         {
@@ -31,18 +32,31 @@ namespace HVTApp.UI.ViewModels
             }
         }
 
+        public bool IsBefore
+        {
+            get => _isBefore;
+            set
+            {
+                if (Equals(_isBefore, value)) return;
+                _isBefore = value;
+                this.IsChanged?.Invoke();
+            }
+        }
+
         public PaymentConditionFilter PaymentConditionFilter
         {
             get
             {
+                var k = IsBefore ? -1 : 1;
+
                 if (Part.HasValue && DaysTo.HasValue)
-                    return new PaymentConditionFilter(_point, Part.Value / 100.0, DaysTo.Value);
+                    return new PaymentConditionFilter(_point, Part.Value / 100.0, k * DaysTo.Value);
 
                 if (Part.HasValue)
                     return new PaymentConditionFilter(_point, Part.Value / 100.0);
 
                 if (DaysTo.HasValue)
-                    return new PaymentConditionFilter(_point, DaysTo.Value);
+                    return new PaymentConditionFilter(_point, k * DaysTo.Value);
 
                 return null;
             }

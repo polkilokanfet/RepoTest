@@ -16,15 +16,30 @@ namespace HVTApp.UI.ViewModels
         public PaymentConditionFilterViewModel PaymentConditionFilterViewModelFinishProduction { get; }
             = new PaymentConditionFilterViewModel(PaymentConditionPointEnum.ProductionEnd);
 
+        public PaymentConditionFilterViewModel PaymentConditionFilterViewModelShipment { get; }
+            = new PaymentConditionFilterViewModel(PaymentConditionPointEnum.Shipment);
+
+        public PaymentConditionFilterViewModel PaymentConditionFilterViewModelDelivery { get; }
+            = new PaymentConditionFilterViewModel(PaymentConditionPointEnum.Delivery);
+
         private List<PaymentConditionFilter> PaymentConditionFilterList
         {
             get
             {
                 List<PaymentConditionFilter> result = new List<PaymentConditionFilter>();
+
                 if (PaymentConditionFilterViewModelStartProduction.PaymentConditionFilter != null)
                     result.Add(PaymentConditionFilterViewModelStartProduction.PaymentConditionFilter);
+
                 if (PaymentConditionFilterViewModelFinishProduction.PaymentConditionFilter != null)
                     result.Add(PaymentConditionFilterViewModelFinishProduction.PaymentConditionFilter);
+
+                if (PaymentConditionFilterViewModelShipment.PaymentConditionFilter != null)
+                    result.Add(PaymentConditionFilterViewModelShipment.PaymentConditionFilter);
+
+                if (PaymentConditionFilterViewModelDelivery.PaymentConditionFilter != null)
+                    result.Add(PaymentConditionFilterViewModelDelivery.PaymentConditionFilter);
+
                 return result;
             }
         }
@@ -38,6 +53,8 @@ namespace HVTApp.UI.ViewModels
 
             this.PaymentConditionFilterViewModelStartProduction.IsChanged += ToFilter;
             this.PaymentConditionFilterViewModelFinishProduction.IsChanged += ToFilter;
+            this.PaymentConditionFilterViewModelShipment.IsChanged += ToFilter;
+            this.PaymentConditionFilterViewModelDelivery.IsChanged += ToFilter;
         }
 
         private void ToFilter()

@@ -29,6 +29,7 @@ namespace HVTApp.UI.Views
             set => SetValue(PartProperty, value);
         }
 
+
         public static readonly DependencyProperty DaysToProperty = DependencyProperty.Register(
             "DaysTo", typeof(int?), typeof(PaymentConditionFilterControl), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
@@ -36,6 +37,16 @@ namespace HVTApp.UI.Views
         {
             get => (int?) GetValue(DaysToProperty);
             set => SetValue(DaysToProperty, value);
+        }
+
+
+        public static readonly DependencyProperty IsBeforeProperty = DependencyProperty.Register(
+            "IsBefore", typeof(bool), typeof(PaymentConditionFilterControl), new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+
+        public bool IsBefore
+        {
+            get => (bool) GetValue(IsBeforeProperty);
+            set => SetValue(IsBeforeProperty, value);
         }
     }
 }

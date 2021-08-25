@@ -11,6 +11,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -20,7 +21,6 @@
             <Label Grid.Row="0" 
                    Grid.Column="0" 
                    Content="Часть, %: "/>
-
             <editors:XamNumericEditor Grid.Row="0" 
                                       Grid.Column="1" 
                                       Value="{Binding Part, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}, UpdateSourceTrigger=PropertyChanged}"/>
@@ -29,11 +29,21 @@
             <Label Grid.Row="1" 
                    Grid.Column="0" 
                    Content="Дни: "/>
+            <StackPanel Grid.Row="1" 
+                        Grid.Column="1"
+                        Orientation="Horizontal">
 
-            <editors:XamNumericEditor Grid.Row="1" 
-                                      Grid.Column="1" 
-                                      ValueType="system:Int32"
-                                      Value="{Binding DaysTo, ElementName=Root, UpdateSourceTrigger=PropertyChanged}"/>
+                <editors:XamNumericEditor ValueType="system:Int32"
+                                          Value="{Binding DaysTo, ElementName=Root, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <StackPanel Orientation="Vertical">
+                    <RadioButton Content="до" IsChecked="{Binding IsBefore, ElementName=Root}"/>
+                    <RadioButton Content="после"/>
+                </StackPanel>
+
+            </StackPanel>
+
+            
         </Grid>
 
     </GroupBox>
