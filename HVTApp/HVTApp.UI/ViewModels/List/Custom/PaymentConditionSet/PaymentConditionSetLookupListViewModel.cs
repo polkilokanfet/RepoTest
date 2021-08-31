@@ -1,8 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Commands;
 using HVTApp.UI.Lookup;
+using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.ViewModels
 {
@@ -42,6 +45,15 @@ namespace HVTApp.UI.ViewModels
 
                 return result;
             }
+        }
+
+        protected override void InitSpecialCommands()
+        {
+            this.NewItemCommand = new DelegateLogCommand(
+                () =>
+                {
+                    Container.Resolve<IUpdateDetailsService>().UpdateDetails(new PaymentConditionSet());
+                });
         }
 
         protected override void SubscribesToEvents()

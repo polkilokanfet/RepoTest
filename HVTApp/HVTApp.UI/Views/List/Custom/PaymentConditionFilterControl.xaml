@@ -23,25 +23,30 @@
                    Content="Часть, %: "/>
             <editors:XamNumericEditor Grid.Row="0" 
                                       Grid.Column="1" 
-                                      Value="{Binding Part, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}, UpdateSourceTrigger=PropertyChanged}"/>
+                                      Value="{Binding Part, Converter={StaticResource PartToPercentConverterNullable}, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}, UpdateSourceTrigger=PropertyChanged}"/>
 
 
             <Label Grid.Row="1" 
                    Grid.Column="0" 
                    Content="Дни: "/>
-            <StackPanel Grid.Row="1" 
-                        Grid.Column="1"
-                        Orientation="Horizontal">
+            <Grid Grid.Row="1" 
+                        Grid.Column="1">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
 
                 <editors:XamNumericEditor ValueType="system:Int32"
                                           Value="{Binding DaysTo, ElementName=Root, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <StackPanel Orientation="Vertical">
+                <StackPanel Grid.Column="1" 
+                            Orientation="Vertical">
                     <RadioButton Content="до" IsChecked="{Binding IsBefore, ElementName=Root}"/>
                     <RadioButton Content="после"/>
                 </StackPanel>
 
-            </StackPanel>
+            </Grid>
 
             
         </Grid>

@@ -103,6 +103,8 @@
     <Compile Include="Converter\LookupsToStringConverter.cs" />
     <Compile Include="Converter\ObjectsToStringConverter.cs" />
     <Compile Include="Converter\ObjectToStringConverter.cs" />
+    <Compile Include="Converter\PartToPercentConverter.cs" />
+    <Compile Include="Converter\PartToPercentConverterNullable.cs" />
     <Compile Include="Converter\TaskHistoryElementTypeToStringConverter.cs" />
     <Compile Include="Extantions\Ext.cs" />
     <Compile Include="Lookup\Items\Custom\DirectumTaskGroupLookup.cs" />
@@ -638,6 +640,11 @@
     <Compile Include="Modules\SupplyModule\Views\PickingDatesView.xaml.cs">
       <DependentUpon>PickingDatesView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PaymentConditionsSet\PaymentConditionsSetViewModel.cs" />
+    <Compile Include="PaymentConditionsSet\PaymentConditionsSetView.xaml.cs">
+      <DependentUpon>PaymentConditionsSetView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PaymentConditionsSet\PaymentConditionWrapper2.cs" />
     <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\BasePriceCalculationCommand.cs" />
     <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\CancelCommand.cs" />
     <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\AddGroupCommand.cs" />
@@ -1444,6 +1451,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\SupplyModule\Views\PickingDatesView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PaymentConditionsSet\PaymentConditionsSetView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

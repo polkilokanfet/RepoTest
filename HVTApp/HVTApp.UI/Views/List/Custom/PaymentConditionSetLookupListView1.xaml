@@ -41,7 +41,7 @@
                                                      IsBefore="{Binding PaymentConditionFilterViewModelShipment.IsBefore}"/>
 
                 <views:PaymentConditionFilterControl Grid.Column="3"
-                                                     Header="Доставка"
+                                                     Header="Поставка"
                                                      Part="{Binding PaymentConditionFilterViewModelDelivery.Part}"
                                                      DaysTo="{Binding PaymentConditionFilterViewModelDelivery.DaysTo}"
                                                      IsBefore="{Binding PaymentConditionFilterViewModelDelivery.IsBefore}"/>

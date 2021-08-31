@@ -50,10 +50,10 @@ namespace HVTApp.UI.ViewModels
                 var k = IsBefore ? -1 : 1;
 
                 if (Part.HasValue && DaysTo.HasValue)
-                    return new PaymentConditionFilter(_point, Part.Value / 100.0, k * DaysTo.Value);
+                    return new PaymentConditionFilter(_point, Part.Value, k * DaysTo.Value);
 
                 if (Part.HasValue)
-                    return new PaymentConditionFilter(_point, Part.Value / 100.0);
+                    return new PaymentConditionFilter(_point, Part.Value);
 
                 if (DaysTo.HasValue)
                     return new PaymentConditionFilter(_point, k * DaysTo.Value);

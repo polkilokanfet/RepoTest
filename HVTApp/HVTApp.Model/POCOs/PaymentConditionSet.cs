@@ -18,5 +18,11 @@ namespace HVTApp.Model.POCOs
             conditions.Sort();
             return conditions.ToStringEnum();
         }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is PaymentConditionSet paymentConditionSet)) return false;
+            return this.PaymentConditions.MembersAreSame(paymentConditionSet.PaymentConditions);
+        }
     }
 }

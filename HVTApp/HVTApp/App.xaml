@@ -21,6 +21,8 @@
             <convertersUi:WrappersToStringConverter x:Key="WrappersToStringConverter"/>
             <convertersUi:UnitsToGroupsConverter x:Key="ProductUnitsToProductGroupsConverter" />
             <convertersUi:TaskHistoryElementTypeToStringConverter x:Key="TaskHistoryElementTypeToStringConverter" />
+            <convertersUi:PartToPercentConverterNullable x:Key="PartToPercentConverterNullable" />
+            <convertersUi:PartToPercentConverter x:Key="PartToPercentConverter" />
 
             <convertersUi:ProductGroupToProductUnitsConverter x:Key="ProductGroupToProductUnitsConverter" />
             

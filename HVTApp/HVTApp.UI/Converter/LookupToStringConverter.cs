@@ -10,9 +10,8 @@ namespace HVTApp.UI.Converter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var lookup = value as ILookupItem;
-            if (lookup == null) return String.Empty;
-            return String.IsNullOrEmpty(lookup.DisplayMember) ? lookup.ToString() : lookup.DisplayMember;
+            if (!(value is ILookupItem lookup)) return string.Empty;
+            return string.IsNullOrEmpty(lookup.DisplayMember) ? lookup.ToString() : lookup.DisplayMember;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

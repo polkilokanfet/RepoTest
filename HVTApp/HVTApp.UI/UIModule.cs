@@ -28,6 +28,7 @@ using HVTApp.UI.Modules.Reports.SalesCharts.ProductTypesSalesChart;
 using HVTApp.UI.Modules.Reports.SalesCharts.RegionsSalesChart;
 using HVTApp.UI.Modules.Reports.Views;
 using HVTApp.UI.Modules.SupplyModule.Views;
+using HVTApp.UI.PaymentConditionsSet;
 using HVTApp.UI.PriceCalculations.View;
 using HVTApp.UI.PriceCalculations.ViewModel;
 using HVTApp.UI.TechnicalRequrementsTasksModule;
@@ -98,6 +99,7 @@ namespace HVTApp.UI
 
             RegisterViews();
             _updateDetailsService.ReRegister<LaborHours, LaborHoursDetailsView2>();
+            _updateDetailsService.ReRegister<PaymentConditionSet, PaymentConditionsSetView>();
             _selectService.ReRegister<PaymentConditionSetLookupListView1, PaymentConditionSet>();
         }
 
