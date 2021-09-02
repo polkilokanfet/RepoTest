@@ -1,76 +1,31 @@
 ﻿<inf:ViewBase xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-              xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-              xmlns:views="clr-namespace:HVTApp.UI.Views"
-              xmlns:editors="http://infragistics.com/Editors"
-              xmlns:system="clr-namespace:System;assembly=mscorlib"
               xmlns:controls="clr-namespace:HVTApp.UI.Controls"
               x:Class="HVTApp.UI.PaymentConditionsSet.PaymentConditionsSetView">
 
     <Grid Margin="5" MinWidth="480">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <GroupBox Header="Условие платежа">
-
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-
-                <Label Grid.Row="0" 
-                       Grid.Column="0" 
-                       Content="Часть, %: "/>
-                <editors:XamNumericEditor Grid.Row="0" 
-                                          Grid.Column="1" 
-                                          Value="{Binding PaymentConditionWrapper.Part, Converter={StaticResource PartToPercentConverter}, UpdateSourceTrigger=PropertyChanged}"/>
-
-                <Label Grid.Row="1" 
-                       Grid.Column="0" 
-                       Content="Дни: "/>
-                <Grid Grid.Row="1" 
-                      Grid.Column="1">
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-
-                    <editors:XamNumericEditor ValueType="system:Int32"
-                                              Value="{Binding PaymentConditionWrapper.DaysTo, UpdateSourceTrigger=PropertyChanged}"/>
-
-                    <StackPanel Grid.Column="1" 
-                                Orientation="Vertical">
-                        <RadioButton Content="до" IsChecked="{Binding PaymentConditionWrapper.IsBefore, UpdateSourceTrigger=PropertyChanged}"/>
-                        <RadioButton Content="после"/>
-                    </StackPanel>
-
-                </Grid>
-
-
-                <Label Grid.Row="2" 
-                       Grid.Column="0"
-                       Content="Этап: "/>
-                <ListBox Grid.Row="2" Grid.Column="1" />
-
-            </Grid>
-
-        </GroupBox>
-
-        <controls:ChooseItemsListControl Grid.Row="1" 
+        <controls:ChooseItemsListControl Grid.Row="0" 
                                          AddItemCommand="{Binding AddConditionCommand}" 
                                          RemoveItemCommand="{Binding RemoveConditionCommand}" 
                                          SelectedItem="{Binding SelectedPaymentConditionWrapper, Mode=TwoWay}"
                                          Items="{Binding PaymentConditionSetWrapper.PaymentConditions}"/>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Content="{Binding SetToString}" HorizontalAlignment="Left"/>
+            <Label Grid.Row="1" Content="{Binding SetValidationErrors}" HorizontalAlignment="Left"/>
+        </Grid>
 
     </Grid>
 

@@ -1,26 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using HVTApp.DataAccess.Annotations;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
+using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
+using Microsoft.Practices.Unity;
+using Prism.Events;
 
 namespace HVTApp.UI.PaymentConditionsSet
 {
-    public class PaymentConditionsSetViewModel : ISavable, IDialogRequestClose, ILoadable<PaymentConditionSet>
+    public class PaymentConditionsSetViewModel : ISavable, IDialogRequestClose, ILoadable<PaymentConditionSet>, INotifyPropertyChanged
     {
         private readonly IUnitOfWork _unitOfWork;
         private List<PaymentCondition> _paymentConditions;
         private List<PaymentConditionSet> _paymentConditionSets;
         private PaymentConditionWrapper _selectedPaymentConditionWrapper;
 
-        public PaymentConditionSetWrapper PaymentConditionSetWrapper { get; } =
-            new PaymentConditionSetWrapper(new PaymentConditionSet());
+        public PaymentConditionSetWrapper PaymentConditionSetWrapper { get; } = new PaymentConditionSetWrapper(new PaymentConditionSet());
 
-        public PaymentConditionWrapper2 PaymentConditionWrapper { get; }
+        public string SetToString => PaymentConditionSetWrapper.Model.ToString();
+        public string SetValidationErrors => PaymentConditionSetWrapper.Validate(new ValidationContext(this)).ToStringEnum();
 
         public PaymentConditionWrapper SelectedPaymentConditionWrapper
         {
@@ -37,38 +46,25 @@ namespace HVTApp.UI.PaymentConditionsSet
         public ICommand SaveCommand { get; }
         public ICommand OkCommand { get; }
 
-        public PaymentConditionsSetViewModel(IUnitOfWork unitOfWork)
+        public PaymentConditionsSetViewModel(IUnitOfWork unitOfWork, IUnityContainer container)
         {
             _unitOfWork = unitOfWork;
             _paymentConditions = unitOfWork.Repository<PaymentCondition>().GetAll();
             _paymentConditionSets = unitOfWork.Repository<PaymentConditionSet>().GetAll();
-
-            PaymentConditionWrapper = new PaymentConditionWrapper2(new PaymentCondition(), PaymentConditionSetWrapper);
+            var dialogService = container.Resolve<IDialogService>();
 
             AddConditionCommand = new DelegateLogCommand(
                 () =>
                 {
-                    PaymentCondition targetPaymentCondition =
-                        _paymentConditions.SingleOrDefault(paymentCondition => paymentCondition.Equals(PaymentConditionWrapper.Model));
+                    PaymentConditionViewModel viewModel = new PaymentConditionViewModel(this.PaymentConditionSetWrapper.Model, container);
+                    dialogService.ShowDialog(viewModel);
+                    if (viewModel.IsOk == false) return;
 
-                    if (targetPaymentCondition == null)
-                    {
-                        targetPaymentCondition = new PaymentCondition
-                        {
-                            PaymentConditionPoint = PaymentConditionWrapper.Model.PaymentConditionPoint,
-                            DaysToPoint = PaymentConditionWrapper.Model.DaysToPoint,
-                            Part = PaymentConditionWrapper.Model.Part
-                        };
-                        _paymentConditions.Add(targetPaymentCondition);
-                    }
-
-                    PaymentConditionSetWrapper.PaymentConditions.Add(new PaymentConditionWrapper(targetPaymentCondition));
-
-                    InitPaymentConditionWrapper();
-
-                    AddConditionCommand.RaiseCanExecuteChanged();
+                    PaymentCondition paymentCondition1 = viewModel.PaymentConditionWrapper.Model;
+                    PaymentCondition paymentCondition = unitOfWork.Repository<PaymentCondition>().Find(condition => Equals(condition, paymentCondition1)).Single();
+                    this.PaymentConditionSetWrapper.PaymentConditions.Add(new PaymentConditionWrapper(paymentCondition));
                 }, 
-                () => PaymentConditionWrapper.IsValid);
+                () => PaymentConditionSetWrapper.IsValid == false);
 
             RemoveConditionCommand = new DelegateLogCommand(
                 () =>
@@ -81,36 +77,30 @@ namespace HVTApp.UI.PaymentConditionsSet
             SaveCommand = new DelegateLogCommand(
                 () =>
                 {
-                    if (_paymentConditionSets.Any(set => set.Equals(PaymentConditionSetWrapper.Model)))
+                    PaymentConditionSet conditionSet = PaymentConditionSetWrapper.Model;
+                    if (_paymentConditionSets.Any(set => set.Equals(conditionSet)) == false)
                     {
-                        return;
+                        unitOfWork.Repository<PaymentConditionSet>().Add(conditionSet);
+                        unitOfWork.SaveChanges();
+                        container.Resolve<IEventAggregator>().GetEvent<AfterSavePaymentConditionSetEvent>().Publish(conditionSet);
                     }
 
-                    unitOfWork.Repository<PaymentConditionSet>().Add(PaymentConditionSetWrapper.Model);
-                    unitOfWork.SaveChanges();
                     CloseRequested?.Invoke(this, new DialogRequestCloseEventArgs(true));
                 }, 
                 () => this.PaymentConditionSetWrapper.IsValid);
 
-            OkCommand = new DelegateLogCommand(
-                () =>
-                {
+            OkCommand = new DelegateLogCommand(() => { });
 
-                });
-
-            PaymentConditionSetWrapper.PropertyChanged += (sender, args) => ((DelegateLogCommand)SaveCommand).RaiseCanExecuteChanged();
-            PaymentConditionWrapper.PropertyChanged += (sender, args) => this.AddConditionCommand.RaiseCanExecuteChanged();
+            PaymentConditionSetWrapper.PropertyChanged += (sender, args) =>
+            {
+                ((DelegateLogCommand)SaveCommand).RaiseCanExecuteChanged();
+                AddConditionCommand.RaiseCanExecuteChanged();
+                OnPropertyChanged(nameof(SetToString));
+                OnPropertyChanged(nameof(SetValidationErrors));
+            };
             
-            InitPaymentConditionWrapper();
         }
 
-        private void InitPaymentConditionWrapper()
-        {
-            PaymentConditionWrapper.Part = 1 - PaymentConditionSetWrapper.PaymentConditions.Sum(x => x.Part);
-            PaymentConditionWrapper.DaysTo = 14;
-            PaymentConditionWrapper.IsBefore = true;
-            PaymentConditionWrapper.PaymentConditionPoint = new PaymentConditionPointWrapper(_unitOfWork.Repository<PaymentConditionPoint>().GetAll().First());
-        }
 
         public void Load(Guid id)
         {
@@ -127,5 +117,12 @@ namespace HVTApp.UI.PaymentConditionsSet
         }
 
         public event EventHandler<DialogRequestCloseEventArgs> CloseRequested;
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

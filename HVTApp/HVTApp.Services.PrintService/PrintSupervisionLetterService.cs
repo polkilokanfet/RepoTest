@@ -94,7 +94,7 @@ namespace HVTApp.Services.PrintService
             //paraFormat1.LeftIndent = 12;
             paraFormat1.Alignment = ParagraphAlignment.Both;
             var specification = supervisions.First().SalesUnit.Specification;
-            docWriter.PrintParagraph($"В соответствии с договором 0401-18-0089 от 26.12.2018 г., прошу Вас организовать выезд специалиста для проведения шеф-монтажных работ (согласно спецификации {specification?.Number} к договору {specification?.Contract.Number} от {specification?.Contract.Date.ToShortDateString()}) на следующем оборудовании:", paraFormat1);
+            docWriter.PrintParagraph($"В соответствии с договором 0401-21-0050 от 01.07.2021 г., прошу Вас организовать выезд специалиста для проведения шеф-монтажных работ (согласно спецификации {specification?.Number} к договору {specification?.Contract.Number} от {specification?.Contract.Date.ToShortDateString()}) на следующем оборудовании:", paraFormat1);
 
             #endregion
 
@@ -168,7 +168,7 @@ namespace HVTApp.Services.PrintService
 
             #region Print Text After Table
 
-            docWriter.PrintParagraph("Оплата стоимости шеф-монтажных работ будет произведена в соответствии с договором 0401-18-0089 от 26.12.18г.", paraFormat1);
+            docWriter.PrintParagraph("Оплата стоимости шеф-монтажных работ будет произведена в соответствии с договором 0401-21-0050 от 01.07.2021 г.", paraFormat1);
             var manager = supervisions.First().SalesUnit.Project.Manager.Employee;
             docWriter.PrintParagraph($"Ответственный менеджер: {manager.Person}, тел.: {manager.PhoneNumber}; e-mail: {manager.Email}", paraFormat1);
             docWriter.PrintParagraph("Приложение: письмо Заказчика.", paraFormat1);

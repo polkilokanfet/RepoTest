@@ -9,9 +9,9 @@ namespace HVTApp.UI.PaymentConditionsSet
 {
     public class PaymentConditionWrapper2 : PaymentConditionWrapper
     {
-        private readonly PaymentConditionSetWrapper _paymentConditionSetWrapper;
+        private readonly PaymentConditionSet _conditionSet;
         private int _daysTo;
-        private bool _isBefore;
+        private bool _isBefore = true;
 
         public int DaysTo
         {
@@ -20,7 +20,7 @@ namespace HVTApp.UI.PaymentConditionsSet
             {
                 if (Equals(_daysTo, value)) return;
                 _daysTo = value;
-                RefreshDaysToPoint();
+                this.DaysToPoint = (IsBefore ? -1 : 1) * DaysTo;
                 OnPropertyChanged();
             }
         }
@@ -32,37 +32,32 @@ namespace HVTApp.UI.PaymentConditionsSet
             {
                 if (Equals(_isBefore, value)) return;
                 _isBefore = value;
-                RefreshDaysToPoint();
+                this.DaysToPoint = (IsBefore ? -1 : 1) * DaysTo;
                 OnPropertyChanged();
             }
         }
 
-        private void RefreshDaysToPoint()
+        public PaymentConditionWrapper2(PaymentConditionSet paymentConditionSet) 
+            : base(new PaymentCondition())
         {
-            var k = IsBefore ? -1 : 1;
-            this.DaysToPoint = k * DaysTo;
-        }
-
-        public PaymentConditionWrapper2(PaymentCondition paymentCondition, PaymentConditionSetWrapper paymentConditionSetWrapper) 
-            : base(paymentCondition)
-        {
-            _paymentConditionSetWrapper = paymentConditionSetWrapper;
+            _conditionSet = paymentConditionSet;
         }
 
         protected override IEnumerable<ValidationResult> ValidateOther()
         {
-            if (Part < 0.0)
-                yield return new ValidationResult("Процент не должен быть меньше 0", new[] { nameof(Part) });
-
-            if (Part > 1.0)
-                yield return new ValidationResult("Процент не должен быть больше 100", new[] { nameof(Part) });
-
-            if (_paymentConditionSetWrapper != null)
+            if (_conditionSet != null)
             {
-                List<PaymentCondition> conditions = _paymentConditionSetWrapper.Model.PaymentConditions.ToList();
+                List<PaymentCondition> conditions = _conditionSet.PaymentConditions.ToList();
                 conditions.Add(this.Model);
-                if (Math.Abs(conditions.Sum(paymentCondition => paymentCondition.Part) - 1) > 0.00001)
-                    yield return new ValidationResult("Сумма всех условий не равна 100%", new[] { nameof(Part) });
+                if (conditions.Sum(condition => condition.Part) > 1)
+                {
+                    yield return new ValidationResult("Сумма всех условий не должна быть больше 100%", new[] { nameof(Part) });
+                }
+            }
+
+            foreach (var validationResult in base.ValidateOther().ToList())
+            {
+                yield return validationResult;
             }
         }
     }

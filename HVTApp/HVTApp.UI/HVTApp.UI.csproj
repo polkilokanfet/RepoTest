@@ -640,10 +640,14 @@
     <Compile Include="Modules\SupplyModule\Views\PickingDatesView.xaml.cs">
       <DependentUpon>PickingDatesView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PaymentConditionsSet\PaymentConditionView.xaml.cs">
+      <DependentUpon>PaymentConditionView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PaymentConditionsSet\PaymentConditionsSetViewModel.cs" />
     <Compile Include="PaymentConditionsSet\PaymentConditionsSetView.xaml.cs">
       <DependentUpon>PaymentConditionsSetView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PaymentConditionsSet\PaymentConditionViewModel.cs" />
     <Compile Include="PaymentConditionsSet\PaymentConditionWrapper2.cs" />
     <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\BasePriceCalculationCommand.cs" />
     <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\CancelCommand.cs" />
@@ -1451,6 +1455,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\SupplyModule\Views\PickingDatesView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PaymentConditionsSet\PaymentConditionView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

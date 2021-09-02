@@ -91,6 +91,7 @@ namespace HVTApp.UI
             Container.RegisterViewForNavigation<PaymentConditionSetLookupListView1>();
 
             Container.Resolve<IDialogService>().Register<DirectumTaskRouteViewModel, DirectumTaskRouteWindow>();
+            Container.Resolve<IDialogService>().Register<PaymentConditionViewModel, PaymentConditionView>();
 
             _dialogService.RegisterShow<ProductStructureViewModel, ProductStructureView>();
             _dialogService.RegisterShow<BudgetComparisionViewModel, BudgetComparisionView>();
@@ -98,8 +99,10 @@ namespace HVTApp.UI
             _dialogService.RegisterShow<PaymentsPlanViewModel, PaymentsPlanView>();
 
             RegisterViews();
+
             _updateDetailsService.ReRegister<LaborHours, LaborHoursDetailsView2>();
             _updateDetailsService.ReRegister<PaymentConditionSet, PaymentConditionsSetView>();
+
             _selectService.ReRegister<PaymentConditionSetLookupListView1, PaymentConditionSet>();
         }
 

@@ -18,7 +18,7 @@ namespace HVTApp.UI.Converter
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (!(value is double d))
-                throw new ArgumentException();
+                return 0.0;
 
             return d / 100.0;
         }
