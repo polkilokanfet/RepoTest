@@ -5,10 +5,10 @@
               xmlns:controls="clr-namespace:HVTApp.UI.Controls"
               x:Class="HVTApp.UI.PaymentConditionsSet.PaymentConditionView"
               Title="Условие платежа"
-              Width="Auto" 
-              Height="Auto">
+              Width="300" 
+              Height="145">
 
-    <Grid Margin="5" MinWidth="200">
+    <Grid Margin="3">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>

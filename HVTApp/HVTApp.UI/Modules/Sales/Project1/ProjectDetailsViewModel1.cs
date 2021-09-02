@@ -3,15 +3,14 @@ using System.Windows.Input;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
-using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Groups.SimpleWrappers;
 using HVTApp.UI.Commands;
 using HVTApp.UI.ViewModels;
 using Microsoft.Practices.Unity;
 
-namespace HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel
+namespace HVTApp.UI.Modules.Sales.Project1
 {
-    public class ProjectDetailsViewModel1 : BaseDetailsViewModel<ProjectWrapper1, Project, AfterSaveProjectEvent>
+    public class ProjectDetailsViewModel1 : BaseDetailsViewModel<ProjectWrapper1, Model.POCOs.Project, AfterSaveProjectEvent>
     {
         public ICommand SelectProjectTypeCommand { get; }
         public ICommand ClearProjectTypeCommand { get; }

@@ -14,6 +14,7 @@ using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Groups;
 using HVTApp.Model.Wrapper.Groups.SimpleWrappers;
 using HVTApp.UI.Commands;
+using HVTApp.UI.Modules.Sales.Project1;
 using HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
@@ -107,12 +108,29 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             ChangeProducerCommand = new DelegateCommand<ProjectUnitsGroup>(
                 projectUnitsGroup =>
                 {
-                    var producers = UnitOfWork.Repository<Company>().Find(x => x.ActivityFilds.Select(af => af.ActivityFieldEnum).Contains(ActivityFieldEnum.ProducerOfHighVoltageEquipment));
+                    var producers = UnitOfWork.Repository<Company>().Find(company => company.ActivityFilds.Select(af => af.ActivityFieldEnum).Contains(ActivityFieldEnum.ProducerOfHighVoltageEquipment));
                     var producer = Container.Resolve<ISelectService>().SelectItem(producers, projectUnitsGroup.Producer?.Model.Id);
                     if (producer == null) return;
                     producer = UnitOfWork.Repository<Company>().GetById(producer.Id);
                     projectUnitsGroup.Producer = new CompanySimpleWrapper(producer);
                     ((DelegateCommand<ProjectUnitsGroup>)RemoveProducerCommand).RaiseCanExecuteChanged();
+
+                    //если групповое действие
+                    if (IsGroupActionMode && this.Groups.SelectedGroups != null && this.Groups.SelectedGroups.Any())
+                    {
+                        foreach (var selectedGroup in Groups.SelectedGroups)
+                        {
+                            if (selectedGroup is ProjectUnitsGroup grp)
+                            {
+                                if (Equals(grp, projectUnitsGroup))
+                                    continue;
+
+                                if (grp.Specification == null)
+                                    grp.Producer = projectUnitsGroup.Producer;
+                            }
+                        }
+                    }
+
                 },
                 projectUnitsGroup => projectUnitsGroup?.Specification == null);
 

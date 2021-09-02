@@ -2,7 +2,7 @@ using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base;
 using HVTApp.Model.Wrapper.Groups.SimpleWrappers;
 
-namespace HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel
+namespace HVTApp.UI.Modules.Sales.Project1
 {
     public class ProjectWrapper1 : WrapperBase<Project>
     {

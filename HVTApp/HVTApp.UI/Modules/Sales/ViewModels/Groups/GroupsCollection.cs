@@ -29,7 +29,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
         /// </summary>
         public TGroup SelectedGroup
         {
-            get { return _selectedGroup; }
+            get => _selectedGroup;
             set
             {
                 if (Equals(_selectedGroup, value)) return;
@@ -39,12 +39,14 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             }
         }
 
+        public object[] SelectedGroups { get; set; }
+
         /// <summary>
         /// Выбранный зависимый продукт.
         /// </summary>
         public ProductIncludedSimpleWrapper SelectedProductIncluded
         {
-            get { return _selectedProductIncluded; }
+            get => _selectedProductIncluded;
             set
             {
                 if (Equals(_selectedProductIncluded?.Model, value?.Model)) return;

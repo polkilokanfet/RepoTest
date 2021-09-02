@@ -1,6 +1,7 @@
 ﻿using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Commands;
+using HVTApp.UI.Modules.Sales.Project1;
 using HVTApp.UI.Modules.Sales.Views;
 using Prism.Commands;
 using Prism.Regions;

@@ -3,6 +3,7 @@ using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Commands;
+using HVTApp.UI.Modules.Sales.Project1;
 using HVTApp.UI.Modules.Sales.Views;
 using Microsoft.Practices.Unity;
 using Prism.Regions;
@@ -11,10 +12,10 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel.Commands
 {
     public class MoveToNewProjectCommand : DelegateLogCommand
     {
-        private readonly ProjectViewModel _viewModel;
+        private readonly Project1.ProjectViewModel _viewModel;
         private readonly IUnityContainer _container;
 
-        public MoveToNewProjectCommand(ProjectViewModel viewModel, IUnityContainer container)
+        public MoveToNewProjectCommand(Project1.ProjectViewModel viewModel, IUnityContainer container)
         {
             _viewModel = viewModel;
             _container = container;

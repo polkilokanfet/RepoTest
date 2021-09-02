@@ -1,16 +1,15 @@
 using System.Collections.Generic;
 using System.Linq;
+using HVTApp.DataAccess;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Modules.Sales.ViewModels.Groups;
-using Microsoft.Practices.Unity;
-using HVTApp.DataAccess;
-using Prism.Regions;
 using HVTApp.Model.Wrapper.Groups.SimpleWrappers;
+using HVTApp.UI.Modules.Sales.ViewModels.Groups;
 using HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel.Commands;
+using Microsoft.Practices.Unity;
 
-namespace HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel
+namespace HVTApp.UI.Modules.Sales.Project1
 {
     public class ProjectViewModel : UnitsContainer<Project, ProjectWrapper1, ProjectDetailsViewModel1, SalesUnitsGroupsViewModel, SalesUnit, AfterSaveProjectEvent>
     {
@@ -28,7 +27,6 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel
 
         public ProjectViewModel(IUnityContainer container) : base(container)
         {
-            var regionManager = Container.Resolve<IRegionManager>();
             MoveToNewProjectCommand = new MoveToNewProjectCommand(this, Container);
             MoveToExistsProjectCommand = new MoveToExistsProjectCommand(this, UnitOfWork, Container);
         }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Modules.Sales.Tabs;
 using HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel;
@@ -10,7 +9,7 @@ using Microsoft.Practices.Unity;
 using Prism.Events;
 using Prism.Regions;
 
-namespace HVTApp.UI.Modules.Sales.Views
+namespace HVTApp.UI.Modules.Sales.Project1
 {
     [RibbonTab(typeof(TabCrudUnitsInProject))]
     public partial class ProjectView : ViewBaseConfirmNavigationRequest
@@ -41,9 +40,9 @@ namespace HVTApp.UI.Modules.Sales.Views
                 if (navigationContext.Parameters.Count() == 1)
                 {
                     //загрузка проекта
-                    if (navigationContext.Parameters.First().Value is Project)
+                    if (navigationContext.Parameters.First().Value is Model.POCOs.Project)
                     {
-                        var project = (Project)navigationContext.Parameters.First().Value;
+                        var project = (Model.POCOs.Project)navigationContext.Parameters.First().Value;
                         _viewModel.Load(project, false);
                     }
 
@@ -57,7 +56,7 @@ namespace HVTApp.UI.Modules.Sales.Views
                 else if (navigationContext.Parameters.Count() == 2)
                 {
                     //перенос оборудования в существующий проект
-                    var project = (Project)navigationContext.Parameters.First().Value;
+                    var project = (Model.POCOs.Project)navigationContext.Parameters.First().Value;
                     var units = (List<SalesUnit>)navigationContext.Parameters.Last().Value;
                     _viewModel.LoadForMove(units, project);
                 }
@@ -65,7 +64,7 @@ namespace HVTApp.UI.Modules.Sales.Views
             //если грузится новый проект
             else
             {
-                _viewModel.Load(new Project(), true);
+                _viewModel.Load(new Model.POCOs.Project(), true);
             }
         }
 

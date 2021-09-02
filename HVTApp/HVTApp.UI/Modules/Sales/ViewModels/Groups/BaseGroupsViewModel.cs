@@ -30,6 +30,11 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
     {
         public GroupsCollection<TModel, TGroup, TMember> Groups { get; protected set; } = new GroupsCollection<TModel, TGroup, TMember>(new List<TGroup>(), false);
 
+        /// <summary>
+        /// Флаг групповых действий над айтемами
+        /// </summary>
+        public bool IsGroupActionMode { get; set; } = true;
+
         public double Sum
         {
             get { return Groups.Sum(x => x.Total); }
@@ -261,15 +266,49 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             product = UnitOfWork.Repository<Product>().GetById(product.Id);
             wrappersGroup.Product = new ProductSimpleWrapper(product);
             RefreshPrice(wrappersGroup);
+
+            //если групповое действие
+            if (IsGroupActionMode && this.Groups.SelectedGroups != null && this.Groups.SelectedGroups.Any())
+            {
+                foreach (var selectedGroup in Groups.SelectedGroups)
+                {
+                    if (selectedGroup is TGroup grp)
+                    {
+                        if(Equals(grp, wrappersGroup))
+                            continue;
+
+                        grp.Product = wrappersGroup.Product;
+                        RefreshPrice(grp);
+                    }
+                }
+            }
+
         }
 
         private void ChangeFacilityCommand_Execute(TGroup wrappersGroup)
         {
             var facilities = UnitOfWork.Repository<Facility>().GetAllAsNoTracking();
             var facility = Container.Resolve<ISelectService>().SelectItem(facilities, wrappersGroup.Facility?.Model.Id);
+
             if (facility == null) return;
+
             facility = UnitOfWork.Repository<Facility>().GetById(facility.Id);
             wrappersGroup.Facility = new FacilitySimpleWrapper(facility);
+
+            //если групповое действие
+            if (IsGroupActionMode && this.Groups.SelectedGroups != null && this.Groups.SelectedGroups.Any())
+            {
+                foreach (var selectedGroup in Groups.SelectedGroups)
+                {
+                    if (selectedGroup is TGroup grp)
+                    {
+                        if (Equals(grp, wrappersGroup))
+                            continue;
+
+                        grp.Facility = wrappersGroup.Facility;
+                    }
+                }
+            }
         }
 
         private void ChangePaymentsCommand_Execute(TGroup wrappersGroup)
@@ -279,6 +318,21 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             if (set == null) return;
             set = UnitOfWork.Repository<PaymentConditionSet>().GetById(set.Id);
             wrappersGroup.PaymentConditionSet = new PaymentConditionSetSimpleWrapper(set);
+
+            //если групповое действие
+            if (IsGroupActionMode && this.Groups.SelectedGroups != null && this.Groups.SelectedGroups.Any())
+            {
+                foreach (var selectedGroup in Groups.SelectedGroups)
+                {
+                    if (selectedGroup is TGroup grp)
+                    {
+                        if (Equals(grp, wrappersGroup))
+                            continue;
+
+                        grp.PaymentConditionSet = wrappersGroup.PaymentConditionSet;
+                    }
+                }
+            }
         }
 
         #endregion
