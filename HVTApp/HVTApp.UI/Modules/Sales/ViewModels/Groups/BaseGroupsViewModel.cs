@@ -268,7 +268,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             RefreshPrice(wrappersGroup);
 
             //если групповое действие
-            if (IsGroupActionMode && this.Groups.SelectedGroups != null && this.Groups.SelectedGroups.Any())
+            if (IsGroupActionMode && this.Groups.SelectedGroups != null && this.Groups.SelectedGroups.Length > 1)
             {
                 foreach (var selectedGroup in Groups.SelectedGroups)
                 {
@@ -296,7 +296,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             wrappersGroup.Facility = new FacilitySimpleWrapper(facility);
 
             //если групповое действие
-            if (IsGroupActionMode && this.Groups.SelectedGroups != null && this.Groups.SelectedGroups.Any())
+            if (IsGroupActionMode && this.Groups.SelectedGroups != null && this.Groups.SelectedGroups.Length > 1)
             {
                 foreach (var selectedGroup in Groups.SelectedGroups)
                 {
@@ -320,7 +320,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             wrappersGroup.PaymentConditionSet = new PaymentConditionSetSimpleWrapper(set);
 
             //если групповое действие
-            if (IsGroupActionMode && this.Groups.SelectedGroups != null && this.Groups.SelectedGroups.Any())
+            if (IsGroupActionMode && this.Groups.SelectedGroups != null && this.Groups.SelectedGroups.Length > 1)
             {
                 foreach (var selectedGroup in Groups.SelectedGroups)
                 {

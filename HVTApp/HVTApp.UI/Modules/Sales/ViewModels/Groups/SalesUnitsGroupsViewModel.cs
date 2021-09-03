@@ -116,7 +116,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
                     ((DelegateCommand<ProjectUnitsGroup>)RemoveProducerCommand).RaiseCanExecuteChanged();
 
                     //если групповое действие
-                    if (IsGroupActionMode && this.Groups.SelectedGroups != null && this.Groups.SelectedGroups.Any())
+                    if (IsGroupActionMode && this.Groups.SelectedGroups != null && this.Groups.SelectedGroups.Length > 1)
                     {
                         foreach (var selectedGroup in Groups.SelectedGroups)
                         {
