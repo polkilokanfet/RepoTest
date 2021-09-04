@@ -2,10 +2,12 @@ using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services;
+using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Commands;
 using HVTApp.UI.Lookup;
 using Microsoft.Practices.Unity;
+using Prism.Events;
 
 namespace HVTApp.UI.ViewModels
 {
@@ -55,7 +57,18 @@ namespace HVTApp.UI.ViewModels
                     Container.Resolve<IUpdateDetailsService>().UpdateDetails(new PaymentConditionSet());
                 });
         }
-
+        protected override void LastActionInCtor()
+        {
+            Container.Resolve<IEventAggregator>().GetEvent<AfterSavePaymentConditionSetEvent>().Subscribe(
+                paymentConditionsSet => 
+                {
+                    if(paymentConditionsSet != null && _allPaymentConditionSets.Any(x => x.Equals(paymentConditionsSet)) == false)
+                    {
+                        var set = this.UnitOfWork.Repository<PaymentConditionSet>().GetById(paymentConditionsSet.Id);
+                        _allPaymentConditionSets.Add(new PaymentConditionSetLookup(set));
+                    }
+                });
+        }
         protected override void SubscribesToEvents()
         {
             this.Loaded += () =>
