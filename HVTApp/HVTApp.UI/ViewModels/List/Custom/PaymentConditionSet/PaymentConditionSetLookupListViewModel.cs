@@ -57,18 +57,7 @@ namespace HVTApp.UI.ViewModels
                     Container.Resolve<IUpdateDetailsService>().UpdateDetails(new PaymentConditionSet());
                 });
         }
-        protected override void LastActionInCtor()
-        {
-            Container.Resolve<IEventAggregator>().GetEvent<AfterSavePaymentConditionSetEvent>().Subscribe(
-                paymentConditionsSet => 
-                {
-                    if(paymentConditionsSet != null && _allPaymentConditionSets.Any(x => x.Equals(paymentConditionsSet)) == false)
-                    {
-                        var set = this.UnitOfWork.Repository<PaymentConditionSet>().GetById(paymentConditionsSet.Id);
-                        _allPaymentConditionSets.Add(new PaymentConditionSetLookup(set));
-                    }
-                });
-        }
+
         protected override void SubscribesToEvents()
         {
             this.Loaded += () =>
@@ -80,6 +69,16 @@ namespace HVTApp.UI.ViewModels
             this.PaymentConditionFilterViewModelFinishProduction.IsChanged += ToFilter;
             this.PaymentConditionFilterViewModelShipment.IsChanged += ToFilter;
             this.PaymentConditionFilterViewModelDelivery.IsChanged += ToFilter;
+
+            Container.Resolve<IEventAggregator>().GetEvent<AfterSavePaymentConditionSetEvent>().Subscribe(
+                paymentConditionsSet =>
+                {
+                    if (paymentConditionsSet != null && _allPaymentConditionSets.Any(x => x.Equals(paymentConditionsSet)) == false)
+                    {
+                        var set = this.UnitOfWork.Repository<PaymentConditionSet>().GetById(paymentConditionsSet.Id);
+                        _allPaymentConditionSets.Add(new PaymentConditionSetLookup(set));
+                    }
+                });
         }
 
         private void ToFilter()
