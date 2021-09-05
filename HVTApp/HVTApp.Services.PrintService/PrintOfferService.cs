@@ -48,10 +48,6 @@ namespace HVTApp.Services.PrintService
             var docWriter = GetWordDocumentWriter(fullPath);
             if (docWriter == null) return;
             docWriter.StartDocument();
-            
-            //var sp = docWriter.CreateSectionProperties();
-            //sp.PageMargins = new Padding(7, 7, 7, 7);
-            //docWriter.DefineSection(sp);
 
             #region Print Header
 
@@ -337,11 +333,6 @@ namespace HVTApp.Services.PrintService
 
             #endregion
 
-            //docWriter.Unit = UnitOfMeasurement.Centimeter;
-            //var sp = docWriter.CreateSectionProperties();
-            ////sp.FooterMargin = 2f;
-            //sp.PageMargins = new Padding(2.5f, 1.5f, 2f, 1.5f);
-
             #region Author Footer
 
             var parts = SectionHeaderFooterParts.FooterAllPages;
@@ -358,8 +349,6 @@ namespace HVTApp.Services.PrintService
             writerSet.FooterWriterAllPages.Close();
 
             #endregion
-
-            //docWriter.DefineSection(sp);
 
             docWriter.EndDocument();
             docWriter.Close();

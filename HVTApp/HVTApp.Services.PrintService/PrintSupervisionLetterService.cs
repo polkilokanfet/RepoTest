@@ -256,8 +256,6 @@ namespace HVTApp.Services.PrintService
 
             #endregion
 
-            //docWriter.DefineSection(sp);
-
             docWriter.EndDocument();
             docWriter.Close();
 

@@ -1,10 +1,12 @@
 using System;
 using System.IO;
+using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
+using HVTApp.Model;
 using Infragistics.Documents.Word;
 using Microsoft.Practices.Unity;
 
@@ -27,14 +29,22 @@ namespace HVTApp.Services.PrintService
             try
             {
                 docWriter = WordDocumentWriter.Create(fullPath);
+
+                docWriter.DefaultParagraphProperties.Alignment = ParagraphAlignment.Left;
+                docWriter.Unit = UnitOfMeasurement.Centimeter;
+
+                docWriter.FinalSectionProperties.PageSize = new Size(21.0, 29.7);
+                docWriter.FinalSectionProperties.PageMargins = new Padding(2.5f, 1.5f, 1.3f, 1.5f);
+                docWriter.FinalSectionProperties.FooterMargin = 0.7f;
+
+                docWriter.DocumentProperties.Author = GlobalAppProperties.User.Employee.Person.ToString();
+                docWriter.DocumentProperties.Company = "”›“Ã";
             }
             catch (IOException e)
             {
                 MessageService.ShowOkMessageDialog(e.GetType().Name, e.Message);
                 return null;
             }
-            docWriter.DefaultParagraphProperties.Alignment = ParagraphAlignment.Left;
-            docWriter.Unit = UnitOfMeasurement.Centimeter;
 
             return docWriter;
         }
