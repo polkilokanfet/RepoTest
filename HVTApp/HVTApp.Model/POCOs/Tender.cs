@@ -35,6 +35,9 @@ namespace HVTApp.Model.POCOs
         [Designation("Победитель"), OrderStatus(5)]
         public virtual Company Winner { get; set; }
 
+        [Designation("Не состоялся"), OrderStatus(2)]
+        public bool DidNotTakePlace { get; set; }
+
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();

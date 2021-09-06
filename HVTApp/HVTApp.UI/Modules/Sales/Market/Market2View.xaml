@@ -234,6 +234,7 @@
                                             <dp:DateTimeField Name="DateOpen" Label="Открытие" Width="Auto" AllowResize="False"/>
                                             <dp:DateTimeField Name="DateClose" Label="Закрытие" Width="Auto" AllowResize="False" />
                                             <dp:DateTimeField Name="DateNotice" Label="Итоги" Width="Auto" AllowResize="False" />
+                                            <dp:CheckBoxField Name="DidNotTakePlace" Label="Не состоялся" Width="Auto" AllowResize="True" />
                                             <dp:TextField Name="Winner" Label="Победитель" Width="100" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                                             <dp:TextField Name="Participants" Label="Участники" Width="150" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                                         </dp:FieldLayout.Fields>

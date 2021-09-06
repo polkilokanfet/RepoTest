@@ -15,7 +15,7 @@ namespace HVTApp.UI.Modules.Sales.Market.Items
         private Project _project;
 
         public static List<Tender> AllTenders { get; } = new List<Tender>();
-        private IEnumerable<Tender> Tenders => AllTenders.Where(tender => tender.Project.Id == Project.Id);
+        private IEnumerable<Tender> Tenders => AllTenders.Where(tender => tender.DidNotTakePlace == false && tender.Project.Id == Project.Id);
 
         public SalesUnitsCollection SalesUnits { get; }
 
@@ -91,8 +91,14 @@ namespace HVTApp.UI.Modules.Sales.Market.Items
         {
             get
             {
-                var supplyTenders = Tenders.Where(x => x.Types.Select(t => t.Type).Contains(TenderTypeEnum.ToSupply)).ToList();
-                return !supplyTenders.Any() ? null : supplyTenders.OrderBy(x => x.DateClose).Last()?.DateClose;
+                var supplyTenders = Tenders
+                    .Where(tender => tender.DidNotTakePlace == false)
+                    .Where(tender => tender.Types.Select(tenderType => tenderType.Type).Contains(TenderTypeEnum.ToSupply))
+                    .ToList();
+
+                return supplyTenders.Any() == false
+                    ? null 
+                    : supplyTenders.OrderBy(tender => tender.DateClose).Last()?.DateClose;
             }
         }
 

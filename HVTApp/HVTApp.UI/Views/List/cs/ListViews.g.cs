@@ -6600,16 +6600,16 @@ namespace HVTApp.UI.Views
             set { TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.AnswerFiles)].Visibility = value; }
         }
 
-        public System.Windows.Visibility HistoryElementsVisibility
-        {
-            get { return TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.HistoryElements)].Visibility; }
-            set { TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.HistoryElements)].Visibility = value; }
-        }
-
         public System.Windows.Visibility ShippingCostFilesVisibility
         {
             get { return TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.ShippingCostFiles)].Visibility; }
             set { TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.ShippingCostFiles)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility HistoryElementsVisibility
+        {
+            get { return TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.HistoryElements)].Visibility; }
+            set { TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.HistoryElements)].Visibility = value; }
         }
 
 
@@ -6664,6 +6664,12 @@ namespace HVTApp.UI.Views
         {
             get { return TenderLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TenderLookup.DateNotice)].Visibility; }
             set { TenderLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TenderLookup.DateNotice)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility DidNotTakePlaceVisibility
+        {
+            get { return TenderLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TenderLookup.DidNotTakePlace)].Visibility; }
+            set { TenderLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TenderLookup.DidNotTakePlace)].Visibility = value; }
         }
 
         public System.Windows.Visibility DisplayMemberVisibility

@@ -21,6 +21,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row ="0" Content="Типы" Visibility="{Binding VisibilityTypesTender, ElementName=Root}"/>
@@ -68,8 +69,13 @@
                                     RemoveItemCommand="{Binding ClearProjectCommand}"
 									Visibility="{Binding VisibilityProjectTender, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="7" Content="Ссылка" Visibility="{Binding VisibilityLinkTender, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="7" MinWidth="200" 
+        <Label Grid.Column="0" Grid.Row ="7" Content="Не состоялся" Visibility="{Binding VisibilityDidNotTakePlaceTender, ElementName=Root}"/>
+        <CheckBox Grid.Column="1" Grid.Row="7" MinWidth="200" 
+                  IsChecked="{Binding Item.DidNotTakePlace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				  Visibility="{Binding VisibilityDidNotTakePlaceTender, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="8" Content="Ссылка" Visibility="{Binding VisibilityLinkTender, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="8" MinWidth="200" 
                  Text="{Binding Item.Link, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityLinkTender, ElementName=Root}"/>
 

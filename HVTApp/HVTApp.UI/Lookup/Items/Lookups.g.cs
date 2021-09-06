@@ -1035,9 +1035,9 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(-6)]
 	    public List<AnswerFileTceLookup> AnswerFiles { get { return GetLookupEnum<AnswerFileTceLookup>().ToList(); } }
 		[OrderStatus(1)]
-	    public List<TechnicalRequrementsTaskHistoryElementLookup> HistoryElements { get { return GetLookupEnum<TechnicalRequrementsTaskHistoryElementLookup>().ToList(); } }
-		[OrderStatus(1)]
 	    public List<ShippingCostFileLookup> ShippingCostFiles { get { return GetLookupEnum<ShippingCostFileLookup>().ToList(); } }
+		[OrderStatus(1)]
+	    public List<TechnicalRequrementsTaskHistoryElementLookup> HistoryElements { get { return GetLookupEnum<TechnicalRequrementsTaskHistoryElementLookup>().ToList(); } }
 	}
 	[AllowEditAttribute(Role.Admin)]
 	[Designation("Статус тех.задания (задача)")]
@@ -2428,6 +2428,9 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(7)]
         public System.Nullable<System.DateTime> DateNotice => Entity.DateNotice;
+
+		[OrderStatus(2)]
+        public System.Boolean DidNotTakePlace => Entity.DidNotTakePlace;
 
         #endregion
 

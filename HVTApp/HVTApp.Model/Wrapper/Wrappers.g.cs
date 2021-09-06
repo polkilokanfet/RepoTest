@@ -1974,8 +1974,8 @@ namespace HVTApp.Model.Wrapper
         public IValidatableChangeTrackingCollection<TechnicalRequrementsWrapper> Requrements { get; private set; }
         public IValidatableChangeTrackingCollection<PriceCalculationWrapper> PriceCalculations { get; private set; }
         public IValidatableChangeTrackingCollection<AnswerFileTceWrapper> AnswerFiles { get; private set; }
-        public IValidatableChangeTrackingCollection<TechnicalRequrementsTaskHistoryElementWrapper> HistoryElements { get; private set; }
         public IValidatableChangeTrackingCollection<ShippingCostFileWrapper> ShippingCostFiles { get; private set; }
+        public IValidatableChangeTrackingCollection<TechnicalRequrementsTaskHistoryElementWrapper> HistoryElements { get; private set; }
         #endregion
         #region GetProperties
         public System.Nullable<System.DateTime> Start => GetValue<System.Nullable<System.DateTime>>(); 
@@ -2002,12 +2002,12 @@ namespace HVTApp.Model.Wrapper
           if (Model.AnswerFiles == null) throw new ArgumentException("AnswerFiles cannot be null");
           AnswerFiles = new ValidatableChangeTrackingCollection<AnswerFileTceWrapper>(Model.AnswerFiles.Select(e => new AnswerFileTceWrapper(e)));
           RegisterCollection(AnswerFiles, Model.AnswerFiles);
-          if (Model.HistoryElements == null) throw new ArgumentException("HistoryElements cannot be null");
-          HistoryElements = new ValidatableChangeTrackingCollection<TechnicalRequrementsTaskHistoryElementWrapper>(Model.HistoryElements.Select(e => new TechnicalRequrementsTaskHistoryElementWrapper(e)));
-          RegisterCollection(HistoryElements, Model.HistoryElements);
           if (Model.ShippingCostFiles == null) throw new ArgumentException("ShippingCostFiles cannot be null");
           ShippingCostFiles = new ValidatableChangeTrackingCollection<ShippingCostFileWrapper>(Model.ShippingCostFiles.Select(e => new ShippingCostFileWrapper(e)));
           RegisterCollection(ShippingCostFiles, Model.ShippingCostFiles);
+          if (Model.HistoryElements == null) throw new ArgumentException("HistoryElements cannot be null");
+          HistoryElements = new ValidatableChangeTrackingCollection<TechnicalRequrementsTaskHistoryElementWrapper>(Model.HistoryElements.Select(e => new TechnicalRequrementsTaskHistoryElementWrapper(e)));
+          RegisterCollection(HistoryElements, Model.HistoryElements);
         }
 	}
 
@@ -4603,6 +4603,14 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Nullable<System.DateTime> DateNoticeOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(DateNotice));
         public bool DateNoticeIsChanged => GetIsChanged(nameof(DateNotice));
+        //DidNotTakePlace
+        public System.Boolean DidNotTakePlace
+        {
+          get { return GetValue<System.Boolean>(); }
+          set { SetValue(value); }
+        }
+        public System.Boolean DidNotTakePlaceOriginalValue => GetOriginalValue<System.Boolean>(nameof(DidNotTakePlace));
+        public bool DidNotTakePlaceIsChanged => GetIsChanged(nameof(DidNotTakePlace));
         //Id
         public System.Guid Id
         {
