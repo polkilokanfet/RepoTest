@@ -5,29 +5,29 @@ using HVTApp.UI.Modules.Sales.Market.Items;
 
 namespace HVTApp.UI.Modules.Sales.Market.Converters
 {
+    [ValueConversion(typeof(ProjectItem), typeof(Color))]
     public class ProjectItemToColorConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            if (value is ProjectItem item)
+            if (value is ProjectItem projectItem)
             {
-                if (item.IsLoosen) return Colors.LightPink;
+                //если оборудование выиграно
+                if (projectItem.IsWon)
+                    return Colors.ForestGreen;
 
-                //если оборудование запущено в производство
-                if (item.DaysToStartProduction.HasValue == false)
+                //если оборудование проиграно
+                if (projectItem.IsLoosen)
+                    return Colors.Gray;
+
+                //по количеству дней до запуска производства
+                if (projectItem.DaysToStartProduction.HasValue)
                 {
-                    if (item.IsDone)
-                    {
-                        return Colors.DarkSeaGreen;
-                    }
-                    return Colors.LightGreen;
+                    if (projectItem.DaysToStartProduction.Value <= 0) return Colors.OrangeRed;
+                    if (projectItem.DaysToStartProduction.Value < 30) return Colors.Orange;
                 }
 
-                if (item.DaysToStartProduction.Value <= 0) return Colors.Orange;
-                if (item.DaysToStartProduction.Value < 30) return Colors.Yellow;
-                if (item.DaysToStartProduction.Value < 60) return Colors.LightYellow;
-
-                return Colors.White;
+                return Colors.Black;
             }
 
             return Binding.DoNothing;

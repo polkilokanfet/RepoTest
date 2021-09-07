@@ -76,6 +76,7 @@ namespace HVTApp.UI.Modules.Sales.Market.Items
         #region CheckRegion
 
         public bool IsDone => SalesUnits.All(salesUnit => salesUnit.IsDone);
+        public bool IsWon => SalesUnits.All(salesUnit => salesUnit.IsWon);
         public bool IsLoosen => SalesUnits.All(salesUnit => salesUnit.IsLoosen);
         public bool ForReport => Project != null && Project.ForReport;
         public bool InWork => Project != null && Project.InWork;

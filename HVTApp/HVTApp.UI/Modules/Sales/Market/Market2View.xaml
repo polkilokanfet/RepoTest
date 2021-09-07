@@ -9,15 +9,16 @@
 
     <components:ViewBaseSaveCustomization.Resources>
         
-        <Style x:Key="BoltFontCellsStyle" TargetType="{x:Type dp:CellValuePresenter}">
+        <Style x:Key="ProductCellsStyle" TargetType="{x:Type dp:CellValuePresenter}">
             <!--<Setter Property="BorderThickness" Value="1"/>
             <Setter Property="BorderBrush" Value="CornflowerBlue"/>-->
             <Setter Property="ForegroundStyle">
                 <Setter.Value>
                     <Style>
                         <!--<Setter Property="TextBlock.Background" Value="Aqua" />-->
-                        <Setter Property="TextBlock.FontWeight" Value="Bold" />
-                        <!--<Setter Property="TextBlock.FontStyle" Value="Italic"/>-->
+                        <Setter Property="TextBlock.FontWeight" Value="ExtraLight" />
+                        <Setter Property="TextBlock.FontStyle" Value="Italic"/>
+                        <!--<Setter Property="TextBlock.FontSize" Value="10"/>-->
                     </Style>
                 </Setter.Value>
             </Setter>
@@ -28,8 +29,9 @@
         <Image x:Key="FolderImage" Height="16" Width="16" Source="/HVTApp.UI;component/Images/folder.png"/>
 
         <localConverters:ProjectItemToColorConverter x:Key="ProjectItemToColorConverter"/>
-        
-    </components:ViewBaseSaveCustomization.Resources>
+        <localConverters:ProjectItemToOpacityConverter x:Key="ProjectItemToOpacityConverter"/>
+
+</components:ViewBaseSaveCustomization.Resources>
     
     <GroupBox Header="Рынок">
         <Grid>
@@ -57,13 +59,19 @@
                                     SelectedDataItems="{Binding Path=SelectedItems, Mode=TwoWay}">
                     
                         <dp:XamDataGrid.Resources>
-                            <Style TargetType="{x:Type dp:DataRecordPresenter}">
-                                <Setter Property="Background">
+                            
+                            <Style TargetType="{x:Type dp:CellValuePresenter}">
+
+                                <Setter Property="Foreground">
                                     <Setter.Value>
-                                        <SolidColorBrush Color="{Binding Path=DataItem, Converter={StaticResource ProjectItemToColorConverter}}" Opacity="0.5" />
+                                        <SolidColorBrush Color="{Binding Path=DataItem, Converter={StaticResource ProjectItemToColorConverter}}"/>
                                     </Setter.Value>
                                 </Setter>
+
+                                <Setter Property="Opacity" Value="{Binding Path=DataItem, Converter={StaticResource ProjectItemToOpacityConverter}}"/>
+
                             </Style>
+
                         </dp:XamDataGrid.Resources>
                 
                         <!--<infgDp:XamDataGrid.FieldLayoutSettings>
@@ -78,13 +86,7 @@
 
                             <dp:FieldLayout>
                                 <dp:FieldLayout.RecordFilters>
-                                
-                                    <!--<infgDp:RecordFilter FieldName="ForReport">
-                                        <infgDp:RecordFilter.Conditions>
-                                            <igW:ComparisonCondition Operator="Equals" Value="True"/>
-                                        </infgDp:RecordFilter.Conditions>
-                                    </infgDp:RecordFilter>-->
-                                
+
                                     <dp:RecordFilter FieldName="IsDone">
                                         <dp:RecordFilter.Conditions>
                                             <igW:ComparisonCondition Operator="Equals" Value="False" />
@@ -104,11 +106,7 @@
                                     </dp:RecordFilter>
 
                                 </dp:FieldLayout.RecordFilters>
-                        
-                                <dp:FieldLayout.FieldSettings>
-                                    <dp:FieldSettings CellValuePresenterStyle="{StaticResource BoltFontCellsStyle}"/>
-                                </dp:FieldLayout.FieldSettings>
-                                                
+
 					            <dp:FieldLayout.Fields>
                                     <dp:TextField AlternateBinding="{Binding Facilities}" BindingType="UseAlternateBinding" Label="Объекты" Width="200" Converter="{StaticResource ObjectsToStringConverter}"/>
                                     <dp:TextField AlternateBinding="{Binding Project.Name}" BindingType="UseAlternateBinding" Label="Название" Width="350"/>
@@ -132,6 +130,25 @@
 				            </dp:FieldLayout>
 
                             <dp:FieldLayout ParentFieldName="ProjectUnitsGroups">
+
+                                <dp:FieldLayout.Settings>
+                                    <dp:FieldLayoutSettings
+                                        AutoGenerateFields="False"
+                                        AllowAddNew="False"
+                                        AllowDelete="False"
+                                        AllowFieldMoving="Yes"
+                                        AllowRecordFixing="No"
+                                        HeaderPrefixAreaDisplayMode="None"
+                                        HeaderPlacement="OnRecordBreak">
+                                    </dp:FieldLayoutSettings>
+                                </dp:FieldLayout.Settings>
+
+                                <dp:FieldLayout.FieldSettings>
+                                    <dp:FieldSettings 
+                                        AllowGroupBy="False"
+                                        AllowRecordFiltering="False" 
+                                        CellValuePresenterStyle="{StaticResource ProductCellsStyle}"/>
+                                </dp:FieldLayout.FieldSettings>
                             
                                 <dp:FieldLayout.Fields>
                                     <dp:TextField AlternateBinding="{Binding Facility}" BindingType="UseAlternateBinding" Converter="{StaticResource ObjectToStringConverter}" Label="Объект" Width="200"/>
