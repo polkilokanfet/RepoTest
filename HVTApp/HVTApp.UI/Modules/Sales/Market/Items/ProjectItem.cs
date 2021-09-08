@@ -169,7 +169,9 @@ namespace HVTApp.UI.Modules.Sales.Market.Items
             eventAggregator.GetEvent<AfterSaveProjectEvent>().Subscribe(project =>
             {
                 if (Project.Id == project.Id)
+                {
                     Project = project;
+                }
             });
 
             //реакция на удаление тендера

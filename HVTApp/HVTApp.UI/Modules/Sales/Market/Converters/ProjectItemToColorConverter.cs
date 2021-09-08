@@ -38,4 +38,5 @@ namespace HVTApp.UI.Modules.Sales.Market.Converters
             throw new NotImplementedException();
         }
     }
+
 }

@@ -35,7 +35,7 @@
                                              AddItemCommand="{Binding DetailsViewModel.SelectProjectTypeCommand}" 
                                              RemoveItemCommand="{Binding DetailsViewModel.ClearProjectTypeCommand}"/>
 
-                <Label Grid.Column="4" Content="  В работе:"/>
+                <Label Grid.Column="4" Content="  Важный:"/>
                 <CheckBox Grid.Column="5" 
                           IsChecked="{Binding DetailsViewModel.Item.InWork, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
