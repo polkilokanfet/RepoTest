@@ -28,6 +28,9 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
                 {
                     var unitOfWork = _container.Resolve<IUnitOfWork>();
 
+                    var projects = unitOfWork.Repository<Project>().Find(project => project.Manager.Id == GlobalAppProperties.User.Id);
+                    projects.ForEach(project => project.InWork = false);
+
                     unitOfWork.SaveChanges();
 
                     _container.Resolve<IMessageService>().ShowOkMessageDialog("fin", "fin");

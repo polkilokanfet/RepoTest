@@ -16,7 +16,7 @@
                 <Setter.Value>
                     <Style>
                         <!--<Setter Property="TextBlock.Background" Value="Aqua" />-->
-                        <Setter Property="TextBlock.FontWeight" Value="Bold" />
+                        <!--<Setter Property="TextBlock.FontWeight" Value="Bold" />-->
                         <Setter Property="TextBlock.FontStyle" Value="Italic"/>
                         <!--<Setter Property="TextBlock.FontSize" Value="10"/>-->
                     </Style>

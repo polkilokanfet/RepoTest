@@ -16,7 +16,7 @@ namespace HVTApp.Model.POCOs
         public virtual ProjectType ProjectType { get; set; }
 
         [Designation("ֲ נאבמעו"), OrderStatus(2), Required]
-        public bool InWork { get; set; } = true;
+        public bool InWork { get; set; } = false;
 
         [Designation("־עקועםûי"), OrderStatus(1)]
         public bool ForReport { get; set; } = true;
