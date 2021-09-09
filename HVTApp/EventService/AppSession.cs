@@ -18,7 +18,7 @@ namespace EventService
 
         public override string ToString()
         {
-            return $"appSessionId: {AppSessionId}";
+            return $"appSessionId: {AppSessionId}, userId: {UserId}";
         }
     }
 }

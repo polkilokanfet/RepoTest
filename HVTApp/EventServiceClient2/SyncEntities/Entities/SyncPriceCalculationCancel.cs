@@ -5,7 +5,7 @@ using Microsoft.Practices.Unity;
 
 namespace EventServiceClient2.SyncEntities
 {
-    public class SyncPriceCalculationCancel : Sync<PriceCalculation, AfterCancelPriceCalculationEvent>
+    public class SyncPriceCalculationCancel : SyncUnit<PriceCalculation, AfterCancelPriceCalculationEvent>
     {
         public SyncPriceCalculationCancel(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId) : base(container, eventServiceHost, appSessionId)
         {

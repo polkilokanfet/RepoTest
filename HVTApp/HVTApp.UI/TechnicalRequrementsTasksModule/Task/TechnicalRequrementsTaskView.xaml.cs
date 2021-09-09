@@ -33,15 +33,13 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         {
             base.OnNavigatedTo(navigationContext);
 
-            if (navigationContext.Parameters.First().Value is TechnicalRequrementsTask)
+            if (navigationContext.Parameters.First().Value is TechnicalRequrementsTask technicalRequrementsTask)
             {
-                var technicalRequrementsTask = navigationContext.Parameters.First().Value as TechnicalRequrementsTask;
                 ViewModel1.Load(technicalRequrementsTask);
             }
 
-            if (navigationContext.Parameters.First().Value is IEnumerable<SalesUnit>)
+            if (navigationContext.Parameters.First().Value is IEnumerable<SalesUnit> salesUnits)
             {
-                var salesUnits = navigationContext.Parameters.First().Value as IEnumerable<SalesUnit>;
                 ViewModel1.Load(salesUnits);
             }
 

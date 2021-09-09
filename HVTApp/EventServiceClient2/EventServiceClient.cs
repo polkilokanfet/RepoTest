@@ -1,24 +1,14 @@
 ﻿using System;
-using System.Linq;
 using System.ServiceModel;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
 using EventServiceClient2.SyncEntities;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.EventService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
-using HVTApp.Model.Events;
-using HVTApp.Model.POCOs;
-using HVTApp.UI;
-using HVTApp.UI.Modules.BookRegistration.Views;
-using HVTApp.UI.Modules.Directum;
-using HVTApp.UI.PriceCalculations.View;
-using HVTApp.UI.TechnicalRequrementsTasksModule;
 using Microsoft.Practices.Unity;
-using Prism.Regions;
 
 namespace EventServiceClient2
 {
@@ -32,7 +22,7 @@ namespace EventServiceClient2
         private readonly NetTcpBinding _netTcpBinding;
 
         /// <summary>
-        /// Хост сервиса работает
+        /// Хост сервиса подключен
         /// </summary>
         private bool HostIsEnabled => EventServiceHost != null && EventServiceHost.State != CommunicationState.Faulted
                                                                && EventServiceHost.State != CommunicationState.Closed;
@@ -85,7 +75,10 @@ namespace EventServiceClient2
                         }
                         else
                         {
-                            throw new Exception("_eventServiceClient.Connect() вернул false");
+                            this._container.Resolve<IHvtAppLogger>().LogError("", new Exception("_eventServiceClient.Connect() вернул false"));
+                            //очистить следы от предыдущего подключения, подождать и рестартануть
+                            this.DisableWaitRestart();
+                            //throw new Exception("_eventServiceClient.Connect() вернул false");
                         }
                     }
                     catch (Exception)
@@ -111,6 +104,7 @@ namespace EventServiceClient2
                 }
                 catch (Exception e)
                 {
+                    _container.Resolve<IHvtAppLogger>().LogError("", e);
                     _container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().Name, e.PrintAllExceptions());
                 }
             }
@@ -150,7 +144,7 @@ namespace EventServiceClient2
             Task.Run(
                 () =>
                 {
-                    Thread.Sleep(new TimeSpan(0,0,5,0));
+                    Thread.Sleep(new TimeSpan(0,0,3,0));
                     this.Start();
                 }).Await();
         }
@@ -158,22 +152,26 @@ namespace EventServiceClient2
         private void ConfigureSyncContainer()
         {
             SyncContainer = new SyncContainer();
+            
+            //Задачи из DirectumLite
+            SyncContainer.Add(new SyncDirectumTask(_container, EventServiceHost, _appSessionId)); 
+            SyncContainer.Add(new SyncDirectumTaskStart(_container, EventServiceHost, _appSessionId));
+            SyncContainer.Add(new SyncDirectumTaskStop(_container, EventServiceHost, _appSessionId)); 
+            SyncContainer.Add(new SyncDirectumTaskPerform(_container, EventServiceHost, _appSessionId));
+            SyncContainer.Add(new SyncDirectumTaskAccept(_container, EventServiceHost, _appSessionId)); 
+            SyncContainer.Add(new SyncDirectumTaskReject(_container, EventServiceHost, _appSessionId));
 
-            SyncContainer.Add(new SyncDirectumTask(_container, EventServiceHost, _appSessionId)); //Задачи из DirectumLite
-            SyncContainer.Add(new SyncDirectumTaskStart(_container, EventServiceHost, _appSessionId)); //Задачи из DirectumLite
-            SyncContainer.Add(new SyncDirectumTaskStop(_container, EventServiceHost, _appSessionId)); //Задачи из DirectumLite
-            SyncContainer.Add(new SyncDirectumTaskPerform(_container, EventServiceHost, _appSessionId)); //Задачи из DirectumLite
-            SyncContainer.Add(new SyncDirectumTaskAccept(_container, EventServiceHost, _appSessionId)); //Задачи из DirectumLite
-            SyncContainer.Add(new SyncDirectumTaskReject(_container, EventServiceHost, _appSessionId)); //Задачи из DirectumLite
+            //Задачи TCE
+            SyncContainer.Add(new SyncTechnicalRequrementsTask(_container, EventServiceHost, _appSessionId));
+            SyncContainer.Add(new SyncTechnicalRequrementsTaskStart(_container, EventServiceHost, _appSessionId));
+            SyncContainer.Add(new SyncTechnicalRequrementsTaskInstruct(_container, EventServiceHost, _appSessionId));
+            SyncContainer.Add(new SyncTechnicalRequrementsTaskCancel(_container, EventServiceHost, _appSessionId));
+            SyncContainer.Add(new SyncTechnicalRequrementsTaskReject(_container, EventServiceHost, _appSessionId));
+            SyncContainer.Add(new SyncTechnicalRequrementsTaskFinish(_container, EventServiceHost, _appSessionId));
+            SyncContainer.Add(new SyncTechnicalRequrementsTaskAccept(_container, EventServiceHost, _appSessionId));
+            SyncContainer.Add(new SyncTechnicalRequrementsTaskStop(_container, EventServiceHost, _appSessionId));
 
-            SyncContainer.Add(new SyncTechnicalRequrementsTask(_container, EventServiceHost, _appSessionId)); //Задачи TCE
-            SyncContainer.Add(new SyncTechnicalRequrementsTaskStart(_container, EventServiceHost, _appSessionId)); //Задачи TCE
-            SyncContainer.Add(new SyncTechnicalRequrementsTaskInstruct(_container, EventServiceHost, _appSessionId)); //Задачи TCE
-            SyncContainer.Add(new SyncTechnicalRequrementsTaskCancel(_container, EventServiceHost, _appSessionId)); //Задачи TCE
-            SyncContainer.Add(new SyncTechnicalRequrementsTaskReject(_container, EventServiceHost, _appSessionId)); //Задачи TCE
-            SyncContainer.Add(new SyncTechnicalRequrementsTaskFinish(_container, EventServiceHost, _appSessionId)); //Задачи TCE
-            SyncContainer.Add(new SyncTechnicalRequrementsTaskAccept(_container, EventServiceHost, _appSessionId)); //Задачи TCE
-
+            //Калькуляции себестоимости
             SyncContainer.Add(new SyncPriceCalculation(_container, EventServiceHost, _appSessionId));       //Калькуляции себестоимости сохранение
             SyncContainer.Add(new SyncPriceCalculationStart(_container, EventServiceHost, _appSessionId));  //Калькуляции себестоимости старт
             SyncContainer.Add(new SyncPriceCalculationFinish(_container, EventServiceHost, _appSessionId)); //Калькуляции себестоимости финиш
@@ -185,6 +183,7 @@ namespace EventServiceClient2
             //_eventAggregator.GetEvent<AfterSaveIncomingDocumentSyncEvent>().Subscribe(document => { SavePublishEvent(
             //    () => _eventServiceClient?.SaveIncomingDocumentPublishEvent(_appSessionId, document.Id)); }, true);
 
+            //подписка на событие того, что хост стал недоступен
             SyncContainer.ServiceHostIsDisabled += DisableWaitRestart;
         }
 
@@ -211,13 +210,12 @@ namespace EventServiceClient2
                             this.DisableWaitRestart();
                         }
                     }
-
                 }).Await();
         }
 
         public void CopyProjectAttachmentsRequest(Guid userId, Guid projectId, string targetDirectory)
         {
-            if (HostIsEnabled || EventServiceHost != null)
+            if (HostIsEnabled)
             {
                 EventServiceHost.CopyProjectAttachments(userId, projectId, targetDirectory);
             }
@@ -225,7 +223,7 @@ namespace EventServiceClient2
 
         public bool UserConnected(Guid userId)
         {
-            if (HostIsEnabled || EventServiceHost != null)
+            if (HostIsEnabled)
             {
                 try
                 {
@@ -233,6 +231,7 @@ namespace EventServiceClient2
                 }
                 catch (CommunicationObjectFaultedException)
                 {
+                    this.DisableWaitRestart();
                     return false;
                 }
             }

@@ -76,7 +76,8 @@
   <ItemGroup>
     <Compile Include="EventServiceClient_Callbacks.cs" />
     <Compile Include="EventServiceClient_Chat.cs" />
-    <Compile Include="SyncEntities\ISync.cs" />
+    <Compile Include="ServiceCallbackBaseTechnicalRequarementsTask.cs" />
+    <Compile Include="SyncEntities\ISyncUnit.cs" />
     <Compile Include="Popup\Popup.cs" />
     <Compile Include="Popup\PopupWindow.xaml.cs">
       <DependentUpon>PopupWindow.xaml</DependentUpon>
@@ -88,15 +89,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="SyncEntities\Sync.cs" />
+    <Compile Include="SyncEntities\SyncUnit.cs" />
     <Compile Include="SyncEntities\SyncContainer.cs" />
-    <Compile Include="SyncEntities\SyncDirectumTask.cs" />
-    <Compile Include="SyncEntities\SyncIncomingRequest.cs" />
-    <Compile Include="SyncEntities\SyncPriceCalculation.cs" />
-    <Compile Include="SyncEntities\SyncPriceCalculationCancel.cs" />
-    <Compile Include="SyncEntities\SyncPriceCalculationFinish.cs" />
-    <Compile Include="SyncEntities\SyncPriceCalculationStart.cs" />
-    <Compile Include="SyncEntities\SyncTechnicalRequrementsTask.cs" />
+    <Compile Include="SyncEntities\Entities\SyncDirectumTask.cs" />
+    <Compile Include="SyncEntities\Entities\SyncIncomingRequest.cs" />
+    <Compile Include="SyncEntities\Entities\SyncPriceCalculation.cs" />
+    <Compile Include="SyncEntities\Entities\SyncPriceCalculationCancel.cs" />
+    <Compile Include="SyncEntities\Entities\SyncPriceCalculationFinish.cs" />
+    <Compile Include="SyncEntities\Entities\SyncPriceCalculationStart.cs" />
+    <Compile Include="SyncEntities\Entities\SyncTechnicalRequrementsTask.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

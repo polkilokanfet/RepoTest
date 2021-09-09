@@ -4,7 +4,6 @@ using System.ServiceModel;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using EventServiceClient2.SyncEntities;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.EventService;
@@ -16,7 +15,6 @@ using HVTApp.UI;
 using HVTApp.UI.Modules.BookRegistration.Views;
 using HVTApp.UI.Modules.Directum;
 using HVTApp.UI.PriceCalculations.View;
-using HVTApp.UI.TechnicalRequrementsTasksModule;
 using Microsoft.Practices.Unity;
 using Prism.Regions;
 
@@ -330,10 +328,6 @@ namespace EventServiceClient2
                 if (frontManager == null) return;
 
                 string message = string.Empty;
-                var action = new Action(() =>
-                {
-                    _container.Resolve<IRegionManager>().RequestNavigateContentRegion<TechnicalRequrementsTaskView>(new NavigationParameters { { "technicalRequrementsTask", technicalRequrementsTask } });
-                });
 
                 //если текущий пользователь BackManagerBoss
                 if (GlobalAppProperties.User.RoleCurrent == Role.BackManagerBoss)
@@ -343,6 +337,7 @@ namespace EventServiceClient2
                         message = $"Поручите кому-нибудь новую задачу ТСЕ (инициатор: {frontManager})";
                     }
                 }
+
                 //если текущий пользователь Back-Менеджер
                 else if (GlobalAppProperties.User.RoleCurrent == Role.BackManager)
                 {
@@ -355,54 +350,68 @@ namespace EventServiceClient2
 
                 if (message != string.Empty)
                 {
-                    this.SyncContainer.Publish<TechnicalRequrementsTask, AfterSaveTechnicalRequrementsTaskEvent>(technicalRequrementsTask);
-                    Popup.Popup.ShowPopup(message, $"Задача в TCE с Id {technicalRequrementsTask.Id}", action);
+                    (new ServiceCallbackBaseTechnicalRequarementsTask<AfterSaveTechnicalRequrementsTaskEvent>(_container, SyncContainer))
+                        .Start(technicalRequrementsTask, message);
                 }
             }
         }
 
         public void OnInstructTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId)
         {
-            if (GlobalAppProperties.User.RoleCurrent == Role.BackManager)
+            if (GlobalAppProperties.User.RoleCurrent == Role.BackManager || GlobalAppProperties.User.RoleCurrent == Role.SalesManager)
             {
                 var technicalRequrementsTask = _container.Resolve<IUnitOfWork>().Repository<TechnicalRequrementsTask>().GetById(technicalRequarementsTaskId);
+
                 var frontManager = technicalRequrementsTask.GetFrontManager();
-
                 if (frontManager == null) return;
-                if (technicalRequrementsTask.BackManager == null) return;
-                if (!technicalRequrementsTask.BackManager.IsAppCurrentUser()) return;
 
-                var action = new Action(() =>
+                var backManager = technicalRequrementsTask.BackManager;
+                if (backManager == null) return;
+
+                string message = null;
+
+                if (GlobalAppProperties.User.RoleCurrent == Role.BackManager && backManager.IsAppCurrentUser())
                 {
-                    _container.Resolve<IRegionManager>().RequestNavigateContentRegion<TechnicalRequrementsTaskView>(new NavigationParameters { { "technicalRequrementsTask", technicalRequrementsTask } });
-                });
+                    message = $"Вам поручена задача ТСЕ (инициатор: {frontManager})";
+                }
 
-                this.SyncContainer.Publish<TechnicalRequrementsTask, AfterSaveTechnicalRequrementsTaskEvent>(technicalRequrementsTask);
-                Popup.Popup.ShowPopup($"Вам поручена задача ТСЕ (инициатор: {frontManager})", $"Задача в TCE с Id {technicalRequrementsTask.Id}", action);
-            }
-
-            else if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager)
-            {
-                var technicalRequrementsTask = _container.Resolve<IUnitOfWork>().Repository<TechnicalRequrementsTask>().GetById(technicalRequarementsTaskId);
-                var frontManager = technicalRequrementsTask.GetFrontManager();
-
-                if (frontManager == null) return;
-                if (!frontManager.IsAppCurrentUser()) return;
-                if (technicalRequrementsTask.BackManager == null) return;
-
-                var action = new Action(() =>
+                else if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager && frontManager.IsAppCurrentUser())
                 {
-                    _container.Resolve<IRegionManager>().RequestNavigateContentRegion<TechnicalRequrementsTaskView>(new NavigationParameters { { "technicalRequrementsTask", technicalRequrementsTask } });
-                });
+                    message = $"Ваша задача ТСЕ поручена (back-manager: {backManager})";
+                }
 
-                this.SyncContainer.Publish<TechnicalRequrementsTask, AfterSaveTechnicalRequrementsTaskEvent>(technicalRequrementsTask);
-                Popup.Popup.ShowPopup($"Ваша задача ТСЕ поручена (back-manager: {technicalRequrementsTask.BackManager})", $"Задача в TCE с Id {technicalRequrementsTask.Id}", action);
+                if (message != null)
+                {
+                    (new ServiceCallbackBaseTechnicalRequarementsTask<AfterSaveTechnicalRequrementsTaskEvent>(_container, SyncContainer))
+                        .Start(technicalRequrementsTask, message);
+                }
             }
         }
 
         public void OnCancelTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId)
         {
         }
+
+        public void OnStopTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId)
+        {
+            if (GlobalAppProperties.User.RoleCurrent == Role.BackManager)
+            {
+                var technicalRequrementsTask = _container.Resolve<IUnitOfWork>().Repository<TechnicalRequrementsTask>().GetById(technicalRequarementsTaskId);
+
+                var frontManager = technicalRequrementsTask.GetFrontManager();
+                if (frontManager == null) return;
+
+                var backManager = technicalRequrementsTask.BackManager;
+                if (backManager == null) return;
+
+                if (backManager.IsAppCurrentUser())
+                {
+                    (new ServiceCallbackBaseTechnicalRequarementsTask<AfterSaveTechnicalRequrementsTaskEvent>(_container, SyncContainer))
+                        .Start(technicalRequrementsTask, $"Задача ТСЕ остановлена (инициатор: {frontManager})");
+                }
+            }
+        }
+
 
         public void OnRejectTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId)
         {
@@ -415,13 +424,8 @@ namespace EventServiceClient2
                 if (!frontManager.IsAppCurrentUser()) return;
                 if (technicalRequrementsTask.BackManager == null) return;
 
-                var action = new Action(() =>
-                {
-                    _container.Resolve<IRegionManager>().RequestNavigateContentRegion<TechnicalRequrementsTaskView>(new NavigationParameters { { "technicalRequrementsTask", technicalRequrementsTask } });
-                });
-
-                this.SyncContainer.Publish<TechnicalRequrementsTask, AfterSaveTechnicalRequrementsTaskEvent>(technicalRequrementsTask);
-                Popup.Popup.ShowPopup($"Ваша задача ТСЕ отклонена (back-manager: {technicalRequrementsTask.BackManager})\nПричина отклонения: {technicalRequrementsTask.LastHistoryElement?.Comment}", $"Задача в TCE с Id {technicalRequrementsTask.Id}", action);
+                (new ServiceCallbackBaseTechnicalRequarementsTask<AfterRejectTechnicalRequrementsTaskEvent>(_container, SyncContainer))
+                    .Start(technicalRequrementsTask, $"Ваша задача ТСЕ отклонена (back-manager: {technicalRequrementsTask.BackManager})\nПричина отклонения: {technicalRequrementsTask.LastHistoryElement?.Comment}");
             }
         }
 
@@ -436,13 +440,8 @@ namespace EventServiceClient2
                 if (frontManager.IsAppCurrentUser() == false) return;
                 if (technicalRequrementsTask.BackManager == null) return;
 
-                var action = new Action(() =>
-                {
-                    _container.Resolve<IRegionManager>().RequestNavigateContentRegion<TechnicalRequrementsTaskView>(new NavigationParameters { { "technicalRequrementsTask", technicalRequrementsTask } });
-                });
-
-                this.SyncContainer.Publish<TechnicalRequrementsTask, AfterFinishTechnicalRequrementsTaskEvent>(technicalRequrementsTask);
-                Popup.Popup.ShowPopup($"Ваша задача ТСЕ завершена (back-manager: {technicalRequrementsTask.BackManager})", $"Задача в TCE с Id {technicalRequrementsTask.Id}", action);
+                (new ServiceCallbackBaseTechnicalRequarementsTask<AfterFinishTechnicalRequrementsTaskEvent>(_container, SyncContainer))
+                    .Start(technicalRequrementsTask, $"Завершена проработка Вашей задачи ТСЕ (back-manager: {technicalRequrementsTask.BackManager})");
             }
         }
 
@@ -457,13 +456,8 @@ namespace EventServiceClient2
                 if (technicalRequrementsTask.BackManager == null) return;
                 if (technicalRequrementsTask.BackManager.IsAppCurrentUser() == false) return;
 
-                var action = new Action(() =>
-                {
-                    _container.Resolve<IRegionManager>().RequestNavigateContentRegion<TechnicalRequrementsTaskView>(new NavigationParameters { { "technicalRequrementsTask", technicalRequrementsTask } });
-                });
-
-                this.SyncContainer.Publish<TechnicalRequrementsTask, AfterAcceptTechnicalRequrementsTaskEvent>(technicalRequrementsTask);
-                Popup.Popup.ShowPopup($"Ваша задача ТСЕ принята (front-manager: {frontManager})", $"Задача в TCE с Id {technicalRequrementsTask.Id}", action);
+                (new ServiceCallbackBaseTechnicalRequarementsTask<AfterAcceptTechnicalRequrementsTaskEvent>(_container, SyncContainer))
+                    .Start(technicalRequrementsTask, $"Задача ТСЕ принята (front-manager: {frontManager})");
             }
         }
 

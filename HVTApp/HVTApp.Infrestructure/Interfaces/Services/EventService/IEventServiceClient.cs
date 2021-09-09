@@ -7,6 +7,8 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
         void Start();
         void Stop();
 
+        bool UserConnected(Guid userId);
+
         /// <summary>
         /// Скопировать приложения к проекту
         /// </summary>
@@ -15,8 +17,6 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
         /// <param name="targetDirectory">Куда копировать</param>
         /// <returns></returns>
         void CopyProjectAttachmentsRequest(Guid userId, Guid projectId, string targetDirectory);
-
-        bool UserConnected(Guid userId);
 
         void SendMessageToChat(string message);
         void SendMessageToUser(Guid recipientId, string message);

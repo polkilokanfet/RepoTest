@@ -8,7 +8,7 @@ using Prism.Events;
 
 namespace EventServiceClient2.SyncEntities
 {
-    public abstract class Sync<TModel, TAfterSaveEvent> : ISync
+    public abstract class SyncUnit<TModel, TAfterSaveEvent> : ISyncUnit
         where TAfterSaveEvent : PubSubEvent<TModel>, new()
         where TModel : BaseEntity
     {
@@ -20,7 +20,7 @@ namespace EventServiceClient2.SyncEntities
         public Type ModelType => typeof(TModel);
         public Type EventType => typeof(TAfterSaveEvent);
 
-        protected Sync(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId)
+        protected SyncUnit(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId)
         {
             _eventAggregator = container.Resolve<IEventAggregator>();
             _messageService = container.Resolve<IMessageService>();
@@ -58,8 +58,10 @@ namespace EventServiceClient2.SyncEntities
                     ServiceHostDisabled?.Invoke();
                 }
             }
+            //хост недоступен
             catch (TimeoutException)
             {
+                //кидаем событие
                 ServiceHostDisabled?.Invoke();
             }
             catch (Exception e)

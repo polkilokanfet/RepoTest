@@ -153,6 +153,12 @@ namespace EventServiceClient2.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/CancelTechnicalRequarementsTaskPublishEvent")]
         System.Threading.Tasks.Task CancelTechnicalRequarementsTaskPublishEventAsync(System.Guid appSessionId, System.Guid technicalRequarementsTaskId);
         
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/StopTechnicalRequarementsTaskPublishEvent")]
+        void StopTechnicalRequarementsTaskPublishEvent(System.Guid appSessionId, System.Guid technicalRequarementsTaskId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/StopTechnicalRequarementsTaskPublishEvent")]
+        System.Threading.Tasks.Task StopTechnicalRequarementsTaskPublishEventAsync(System.Guid appSessionId, System.Guid technicalRequarementsTaskId);
+        
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/RejectTechnicalRequarementsTaskPublishEvent")]
         void RejectTechnicalRequarementsTaskPublishEvent(System.Guid appSessionId, System.Guid technicalRequarementsTaskId);
         
@@ -236,6 +242,9 @@ namespace EventServiceClient2.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnCancelTechnicalRequarementsTaskServiceCallback" +
             "")]
         void OnCancelTechnicalRequarementsTaskServiceCallback(System.Guid technicalRequarementsTaskId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnStopTechnicalRequarementsTaskServiceCallback")]
+        void OnStopTechnicalRequarementsTaskServiceCallback(System.Guid technicalRequarementsTaskId);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnRejectTechnicalRequarementsTaskServiceCallback" +
             "")]
@@ -463,6 +472,14 @@ namespace EventServiceClient2.ServiceReference1 {
         
         public System.Threading.Tasks.Task CancelTechnicalRequarementsTaskPublishEventAsync(System.Guid appSessionId, System.Guid technicalRequarementsTaskId) {
             return base.Channel.CancelTechnicalRequarementsTaskPublishEventAsync(appSessionId, technicalRequarementsTaskId);
+        }
+        
+        public void StopTechnicalRequarementsTaskPublishEvent(System.Guid appSessionId, System.Guid technicalRequarementsTaskId) {
+            base.Channel.StopTechnicalRequarementsTaskPublishEvent(appSessionId, technicalRequarementsTaskId);
+        }
+        
+        public System.Threading.Tasks.Task StopTechnicalRequarementsTaskPublishEventAsync(System.Guid appSessionId, System.Guid technicalRequarementsTaskId) {
+            return base.Channel.StopTechnicalRequarementsTaskPublishEventAsync(appSessionId, technicalRequarementsTaskId);
         }
         
         public void RejectTechnicalRequarementsTaskPublishEvent(System.Guid appSessionId, System.Guid technicalRequarementsTaskId) {

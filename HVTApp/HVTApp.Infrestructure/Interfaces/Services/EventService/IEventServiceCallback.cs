@@ -86,6 +86,9 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
         void OnCancelTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId);
 
         [OperationContract(IsOneWay = true)]
+        void OnStopTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId);
+
+        [OperationContract(IsOneWay = true)]
         void OnRejectTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId);
         
         [OperationContract(IsOneWay = true)]

@@ -12,11 +12,11 @@ namespace EventServiceClient2.SyncEntities
     /// </summary>
     public class SyncContainer : IDisposable
     {
-        readonly List<ISync> _list = new List<ISync>();
+        readonly List<ISyncUnit> _list = new List<ISyncUnit>();
 
-        public void Add(ISync member)
+        public void Add(ISyncUnit member)
         {
-            if (_list.Any(x => x.ModelType == member.ModelType && x.EventType == member.EventType))
+            if (_list.Any(syncUnit => syncUnit.ModelType == member.ModelType && syncUnit.EventType == member.EventType))
             {
                 throw new ArgumentException("Попытка повторной регистрации типа");
             }
@@ -46,7 +46,7 @@ namespace EventServiceClient2.SyncEntities
                 () =>
                 {
                     //публикуем событие
-                    _list.Single(x => x.ModelType == typeof(TModel) && x.EventType == typeof(TEvent)).Publish(model);
+                    _list.Single(syncUnit => syncUnit.ModelType == typeof(TModel) && syncUnit.EventType == typeof(TEvent)).Publish(model);
                 });
         }
 

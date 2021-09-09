@@ -5,7 +5,7 @@ using Microsoft.Practices.Unity;
 
 namespace EventServiceClient2.SyncEntities
 {
-    public class SyncDirectumTask : Sync<DirectumTask, AfterSaveDirectumTaskEvent>
+    public class SyncDirectumTask : SyncUnit<DirectumTask, AfterSaveDirectumTaskEvent>
     {
 
         protected override Action<DirectumTask> PublishEventAction
@@ -17,7 +17,7 @@ namespace EventServiceClient2.SyncEntities
         {
         }
     }
-    public class SyncDirectumTaskStart : Sync<DirectumTask, AfterStartDirectumTaskEvent>
+    public class SyncDirectumTaskStart : SyncUnit<DirectumTask, AfterStartDirectumTaskEvent>
     {
         public SyncDirectumTaskStart(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId) : base(container, eventServiceHost, appSessionId)
         {
@@ -28,7 +28,7 @@ namespace EventServiceClient2.SyncEntities
             get { return directumTask => EventServiceHost.StartDirectumTaskPublishEvent(AppSessionId, directumTask.Id); }
         }
     }
-    public class SyncDirectumTaskStop : Sync<DirectumTask, AfterStopDirectumTaskEvent>
+    public class SyncDirectumTaskStop : SyncUnit<DirectumTask, AfterStopDirectumTaskEvent>
     {
         public SyncDirectumTaskStop(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId) : base(container, eventServiceHost, appSessionId)
         {
@@ -40,7 +40,7 @@ namespace EventServiceClient2.SyncEntities
         }
     }
 
-    public class SyncDirectumTaskPerform : Sync<DirectumTask, AfterPerformDirectumTaskEvent>
+    public class SyncDirectumTaskPerform : SyncUnit<DirectumTask, AfterPerformDirectumTaskEvent>
     {
         public SyncDirectumTaskPerform(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId) : base(container, eventServiceHost, appSessionId)
         {
@@ -52,7 +52,7 @@ namespace EventServiceClient2.SyncEntities
         }
     }
 
-    public class SyncDirectumTaskAccept: Sync<DirectumTask, AfterAcceptDirectumTaskEvent>
+    public class SyncDirectumTaskAccept: SyncUnit<DirectumTask, AfterAcceptDirectumTaskEvent>
     {
         public SyncDirectumTaskAccept(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId) : base(container, eventServiceHost, appSessionId)
         {
@@ -64,7 +64,7 @@ namespace EventServiceClient2.SyncEntities
         }
     }
 
-    public class SyncDirectumTaskReject : Sync<DirectumTask, AfterRejectDirectumTaskEvent>
+    public class SyncDirectumTaskReject : SyncUnit<DirectumTask, AfterRejectDirectumTaskEvent>
     {
         public SyncDirectumTaskReject(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId) : base(container, eventServiceHost, appSessionId)
         {

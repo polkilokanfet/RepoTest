@@ -5,7 +5,7 @@ using Microsoft.Practices.Unity;
 
 namespace EventServiceClient2.SyncEntities
 {
-    public class SyncTechnicalRequrementsTask : Sync<TechnicalRequrementsTask, AfterSaveTechnicalRequrementsTaskEvent>
+    public class SyncTechnicalRequrementsTask : SyncUnit<TechnicalRequrementsTask, AfterSaveTechnicalRequrementsTaskEvent>
     {
         public SyncTechnicalRequrementsTask(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId) : base(container, eventServiceHost, appSessionId)
         {
@@ -17,7 +17,7 @@ namespace EventServiceClient2.SyncEntities
         }
     }
 
-    public class SyncTechnicalRequrementsTaskStart : Sync<TechnicalRequrementsTask, AfterStartTechnicalRequrementsTaskEvent>
+    public class SyncTechnicalRequrementsTaskStart : SyncUnit<TechnicalRequrementsTask, AfterStartTechnicalRequrementsTaskEvent>
     {
         public SyncTechnicalRequrementsTaskStart(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId) : base(container, eventServiceHost, appSessionId)
         {
@@ -29,7 +29,7 @@ namespace EventServiceClient2.SyncEntities
         }
     }
 
-    public class SyncTechnicalRequrementsTaskInstruct : Sync<TechnicalRequrementsTask, AfterInstructTechnicalRequrementsTaskEvent>
+    public class SyncTechnicalRequrementsTaskInstruct : SyncUnit<TechnicalRequrementsTask, AfterInstructTechnicalRequrementsTaskEvent>
     {
         public SyncTechnicalRequrementsTaskInstruct(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId) : base(container, eventServiceHost, appSessionId)
         {
@@ -40,7 +40,8 @@ namespace EventServiceClient2.SyncEntities
             get { return technicalRequrementsTask => this.EventServiceHost.InstructTechnicalRequarementsTaskPublishEvent(AppSessionId, technicalRequrementsTask.Id); }
         }
     }
-    public class SyncTechnicalRequrementsTaskReject : Sync<TechnicalRequrementsTask, AfterRejectTechnicalRequrementsTaskEvent>
+
+    public class SyncTechnicalRequrementsTaskReject : SyncUnit<TechnicalRequrementsTask, AfterRejectTechnicalRequrementsTaskEvent>
     {
         public SyncTechnicalRequrementsTaskReject(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId) : base(container, eventServiceHost, appSessionId)
         {
@@ -51,7 +52,8 @@ namespace EventServiceClient2.SyncEntities
             get { return technicalRequrementsTask => this.EventServiceHost.RejectTechnicalRequarementsTaskPublishEvent(AppSessionId, technicalRequrementsTask.Id); }
         }
     }
-    public class SyncTechnicalRequrementsTaskCancel : Sync<TechnicalRequrementsTask, AfterCancelTechnicalRequrementsTaskEvent>
+
+    public class SyncTechnicalRequrementsTaskCancel : SyncUnit<TechnicalRequrementsTask, AfterCancelTechnicalRequrementsTaskEvent>
     {
         public SyncTechnicalRequrementsTaskCancel(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId) : base(container, eventServiceHost, appSessionId)
         {
@@ -62,7 +64,8 @@ namespace EventServiceClient2.SyncEntities
             get { return technicalRequrementsTask => this.EventServiceHost.CancelTechnicalRequarementsTaskPublishEvent(AppSessionId, technicalRequrementsTask.Id); }
         }
     }
-    public class SyncTechnicalRequrementsTaskFinish : Sync<TechnicalRequrementsTask, AfterFinishTechnicalRequrementsTaskEvent>
+
+    public class SyncTechnicalRequrementsTaskFinish : SyncUnit<TechnicalRequrementsTask, AfterFinishTechnicalRequrementsTaskEvent>
     {
         public SyncTechnicalRequrementsTaskFinish(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId) : base(container, eventServiceHost, appSessionId)
         {
@@ -73,9 +76,22 @@ namespace EventServiceClient2.SyncEntities
             get { return technicalRequrementsTask => this.EventServiceHost.FinishTechnicalRequarementsTaskPublishEvent(AppSessionId, technicalRequrementsTask.Id); }
         }
     }
-    public class SyncTechnicalRequrementsTaskAccept : Sync<TechnicalRequrementsTask, AfterAcceptTechnicalRequrementsTaskEvent>
+
+    public class SyncTechnicalRequrementsTaskAccept : SyncUnit<TechnicalRequrementsTask, AfterAcceptTechnicalRequrementsTaskEvent>
     {
         public SyncTechnicalRequrementsTaskAccept(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId) : base(container, eventServiceHost, appSessionId)
+        {
+        }
+
+        protected override Action<TechnicalRequrementsTask> PublishEventAction
+        {
+            get { return technicalRequrementsTask => this.EventServiceHost.AcceptTechnicalRequarementsTaskPublishEvent(AppSessionId, technicalRequrementsTask.Id); }
+        }
+    }
+
+    public class SyncTechnicalRequrementsTaskStop : SyncUnit<TechnicalRequrementsTask, AfterStopTechnicalRequrementsTaskEvent>
+    {
+        public SyncTechnicalRequrementsTaskStop(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId) : base(container, eventServiceHost, appSessionId)
         {
         }
 
