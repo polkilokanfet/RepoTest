@@ -53,7 +53,8 @@ namespace HVTApp.UI.Commands
                 GlobalAppProperties.MessageService.ShowOkMessageDialog($"Исключение в DelegateLogCommand: {e.GetType().Name}", e.PrintAllExceptions());
                 if (_shutdownAppOnException)
                 {
-                    GlobalAppProperties.EventServiceClient.Stop();
+                    if (GlobalAppProperties.EventServiceClient != null)
+                        GlobalAppProperties.EventServiceClient.Stop();
                     Application.Current.Shutdown();
                 }
             }

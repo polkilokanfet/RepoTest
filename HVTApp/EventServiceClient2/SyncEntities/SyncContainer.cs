@@ -7,6 +7,9 @@ using Prism.Events;
 
 namespace EventServiceClient2.SyncEntities
 {
+    /// <summary>
+    /// Контейнер синхронизации
+    /// </summary>
     public class SyncContainer : IDisposable
     {
         readonly List<ISync> _list = new List<ISync>();
@@ -25,9 +28,15 @@ namespace EventServiceClient2.SyncEntities
 
         private void MemberOnServiceHostDisabled()
         {
-            this.ServiceHostDisabled?.Invoke();
+            this.ServiceHostIsDisabled?.Invoke();
         }
 
+        /// <summary>
+        /// Публикация события синхронизации
+        /// </summary>
+        /// <typeparam name="TModel"></typeparam>
+        /// <typeparam name="TEvent"></typeparam>
+        /// <param name="model"></param>
         public void Publish<TModel, TEvent>(TModel model)
             where TModel : BaseEntity
             where TEvent : PubSubEvent<TModel>
@@ -52,8 +61,8 @@ namespace EventServiceClient2.SyncEntities
         }
 
         /// <summary>
-        /// Хост сервиса недоступен
+        /// Хост сервиса стал недоступен
         /// </summary>
-        public event Action ServiceHostDisabled;
+        public event Action ServiceHostIsDisabled;
     }
 }

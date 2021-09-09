@@ -36,14 +36,25 @@ namespace HVTApp
             {
                 //(new HvtAppLogger()).LogError(exception.GetType().Name, exception);
 
+                if (GlobalAppProperties.HvtAppLogger != null)
+                    GlobalAppProperties.HvtAppLogger.LogError(exception.GetType().Name, exception);
+
                 MessageBox.Show(exception.PrintAllExceptions());
                 Console.WriteLine(exception.PrintAllExceptions());
-
-                GlobalAppProperties.HvtAppLogger.LogError(exception.GetType().Name, exception);
 
                 Application.Current.Shutdown();
             }
 #endif
+        }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            if (GlobalAppProperties.MessageService != null)
+            {
+                GlobalAppProperties.EventServiceClient.Stop();
+            }
+
+            base.OnExit(e);
         }
     }
 }

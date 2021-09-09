@@ -74,6 +74,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EventServiceClient_Callbacks.cs" />
     <Compile Include="EventServiceClient_Chat.cs" />
     <Compile Include="SyncEntities\ISync.cs" />
     <Compile Include="Popup\Popup.cs" />

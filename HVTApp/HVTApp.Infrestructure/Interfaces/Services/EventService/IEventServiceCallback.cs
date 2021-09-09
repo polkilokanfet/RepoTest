@@ -15,7 +15,7 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
         /// <summary>
         /// Скопировать приложения к проекту
         /// </summary>
-        /// <param name="projectId"></param>
+        /// <param name="projectId">Id проекта</param>
         /// <param name="targetDirectory">Куда копировать</param>
         /// <returns></returns>
         [OperationContract(IsOneWay = true)]
@@ -96,6 +96,10 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
 
         #endregion
 
+        /// <summary>
+        /// Проверка: жив ли клиент
+        /// </summary>
+        /// <returns>жив?</returns>
         [OperationContract]
         bool IsAlive();
     }
