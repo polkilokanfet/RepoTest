@@ -16,10 +16,12 @@ namespace HVTApp.UI.Modules.Sales.Market.Converters
                 if (projectItem.InWork)
                     return FontWeights.Bold;
 
-                return Binding.DoNothing;
+                return FontWeights.Normal;
+                //return Binding.DoNothing;
             }
 
-            return Binding.DoNothing;
+            return FontWeights.Normal;
+            //return Binding.DoNothing;
             //throw new ArgumentException($"Передан в конвертер не {typeof(ProjectItem)}");
         }
 

@@ -45,7 +45,7 @@
                                       Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.CurrentUserIsBackManager, Converter={StaticResource BooleanToVisibilityReverseConverter}}"/>
                         <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding FrontManager}" Label="Front manager" Width="Auto" AllowResize="True" Converter="{StaticResource ObjectToStringConverter}" 
                                       Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityReverseConverter}}"/>
-                        <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Status}" Label="Этап проработки" Width="300" AllowResize="True" />
+                        <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Status}" Label="Этап проработки" Width="Auto" AllowResize="True" />
                         <dp:CheckBoxField Name="IsStarted" BindingType="UseAlternateBinding" AlternateBinding="{Binding IsStarted}" Label="Запущено" Width="Auto" AllowResize="False" />
                         <dp:CheckBoxField Name="IsFinished" BindingType="UseAlternateBinding" AlternateBinding="{Binding IsFinished}" Label="Завершено" Width="Auto" AllowResize="False" />
                         <dp:CheckBoxField Name="ToShow" BindingType="UseAlternateBinding" AlternateBinding="{Binding ToShow}" Label="S" Width="Auto" AllowResize="False" />

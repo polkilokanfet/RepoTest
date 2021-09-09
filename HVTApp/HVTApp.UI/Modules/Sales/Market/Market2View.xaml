@@ -86,8 +86,8 @@
                         <dp:XamDataGrid.FieldLayouts>
 
                             <dp:FieldLayout>
-                                <dp:FieldLayout.RecordFilters>
 
+                                <dp:FieldLayout.RecordFilters>
                                     <dp:RecordFilter FieldName="IsDone">
                                         <dp:RecordFilter.Conditions>
                                             <igW:ComparisonCondition Operator="Equals" Value="False" />
@@ -120,12 +120,12 @@
                                     <dp:CheckBoxField Name="IsLoosen" AlternateBinding="{Binding IsLoosen}" BindingType="UseAlternateBinding" Label="Loose" Width="Auto" AllowResize="False"/>
                                     <!--<dp:CheckBoxField Name="InWork" AlternateBinding="{Binding InWork}" BindingType="UseAlternateBinding" Label="Work" Width="Auto" AllowResize="False"/>-->
                                     <dp:CheckBoxField Name="ForReport" AlternateBinding="{Binding ForReport}" BindingType="UseAlternateBinding" Label="Report" Width="Auto" AllowResize="False"/>
+                                    <dp:TextField AlternateBinding="{Binding Project.ProjectType}" BindingType="UseAlternateBinding" Label="Тип проекта" Width="Auto" Converter="{StaticResource ObjectToStringConverter}"/>
+                                    <dp:TextField AlternateBinding="{Binding ProductsInProject}" BindingType="UseAlternateBinding" Label="Номенклатура" Width="150"/>
+                                    <dp:TextField AlternateBinding="{Binding FacilitiesOwners}" BindingType="UseAlternateBinding" Label="Владельцы объектов" Width="150" Converter="{StaticResource ObjectsToStringConverter}"/>
                                     <dp:NumericField Name="OrderInTakeYear" Label="ОИТ (год)" Width="Auto" AllowResize="False"/>
                                     <dp:TextField Name="OrderInTakeMonth" Label="ОИТ (месяц)" Width="Auto" AllowResize="False"/>
                                     <dp:NumericField Name="DaysToStartProduction" Label="DTSP" Width="Auto" AllowResize="False"/>
-                                    <dp:TextField AlternateBinding="{Binding ProductsInProject}" BindingType="UseAlternateBinding" Label="Номенклатура" Width="150"/>
-                                    <dp:TextField AlternateBinding="{Binding FacilitiesOwners}" BindingType="UseAlternateBinding" Label="Владельцы объектов" Width="150" Converter="{StaticResource ObjectsToStringConverter}"/>
-                                    <dp:TextField AlternateBinding="{Binding Project.ProjectType}" BindingType="UseAlternateBinding" Label="Тип проекта" Width="Auto" Converter="{StaticResource ObjectToStringConverter}"/>
                                     <dp:Field Name="ProjectUnitsGroups" IsExpandable="True"/>
 					            </dp:FieldLayout.Fields>
 				            </dp:FieldLayout>
