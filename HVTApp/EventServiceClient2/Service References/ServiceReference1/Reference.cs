@@ -147,12 +147,6 @@ namespace EventServiceClient2.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/InstructTechnicalRequarementsTaskPublishEvent")]
         System.Threading.Tasks.Task InstructTechnicalRequarementsTaskPublishEventAsync(System.Guid appSessionId, System.Guid technicalRequarementsTaskId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/CancelTechnicalRequarementsTaskPublishEvent")]
-        void CancelTechnicalRequarementsTaskPublishEvent(System.Guid appSessionId, System.Guid technicalRequarementsTaskId);
-        
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/CancelTechnicalRequarementsTaskPublishEvent")]
-        System.Threading.Tasks.Task CancelTechnicalRequarementsTaskPublishEventAsync(System.Guid appSessionId, System.Guid technicalRequarementsTaskId);
-        
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/StopTechnicalRequarementsTaskPublishEvent")]
         void StopTechnicalRequarementsTaskPublishEvent(System.Guid appSessionId, System.Guid technicalRequarementsTaskId);
         
@@ -238,10 +232,6 @@ namespace EventServiceClient2.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnInstructTechnicalRequarementsTaskServiceCallba" +
             "ck")]
         void OnInstructTechnicalRequarementsTaskServiceCallback(System.Guid technicalRequarementsTaskId);
-        
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnCancelTechnicalRequarementsTaskServiceCallback" +
-            "")]
-        void OnCancelTechnicalRequarementsTaskServiceCallback(System.Guid technicalRequarementsTaskId);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnStopTechnicalRequarementsTaskServiceCallback")]
         void OnStopTechnicalRequarementsTaskServiceCallback(System.Guid technicalRequarementsTaskId);
@@ -464,14 +454,6 @@ namespace EventServiceClient2.ServiceReference1 {
         
         public System.Threading.Tasks.Task InstructTechnicalRequarementsTaskPublishEventAsync(System.Guid appSessionId, System.Guid technicalRequarementsTaskId) {
             return base.Channel.InstructTechnicalRequarementsTaskPublishEventAsync(appSessionId, technicalRequarementsTaskId);
-        }
-        
-        public void CancelTechnicalRequarementsTaskPublishEvent(System.Guid appSessionId, System.Guid technicalRequarementsTaskId) {
-            base.Channel.CancelTechnicalRequarementsTaskPublishEvent(appSessionId, technicalRequarementsTaskId);
-        }
-        
-        public System.Threading.Tasks.Task CancelTechnicalRequarementsTaskPublishEventAsync(System.Guid appSessionId, System.Guid technicalRequarementsTaskId) {
-            return base.Channel.CancelTechnicalRequarementsTaskPublishEventAsync(appSessionId, technicalRequarementsTaskId);
         }
         
         public void StopTechnicalRequarementsTaskPublishEvent(System.Guid appSessionId, System.Guid technicalRequarementsTaskId) {

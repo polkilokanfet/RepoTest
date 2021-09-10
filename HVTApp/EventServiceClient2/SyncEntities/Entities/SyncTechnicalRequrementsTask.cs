@@ -53,18 +53,6 @@ namespace EventServiceClient2.SyncEntities
         }
     }
 
-    public class SyncTechnicalRequrementsTaskCancel : SyncUnit<TechnicalRequrementsTask, AfterCancelTechnicalRequrementsTaskEvent>
-    {
-        public SyncTechnicalRequrementsTaskCancel(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId) : base(container, eventServiceHost, appSessionId)
-        {
-        }
-
-        protected override Action<TechnicalRequrementsTask> PublishEventAction
-        {
-            get { return technicalRequrementsTask => this.EventServiceHost.CancelTechnicalRequarementsTaskPublishEvent(AppSessionId, technicalRequrementsTask.Id); }
-        }
-    }
-
     public class SyncTechnicalRequrementsTaskFinish : SyncUnit<TechnicalRequrementsTask, AfterFinishTechnicalRequrementsTaskEvent>
     {
         public SyncTechnicalRequrementsTaskFinish(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId) : base(container, eventServiceHost, appSessionId)
@@ -97,7 +85,7 @@ namespace EventServiceClient2.SyncEntities
 
         protected override Action<TechnicalRequrementsTask> PublishEventAction
         {
-            get { return technicalRequrementsTask => this.EventServiceHost.AcceptTechnicalRequarementsTaskPublishEvent(AppSessionId, technicalRequrementsTask.Id); }
+            get { return technicalRequrementsTask => this.EventServiceHost.StopTechnicalRequarementsTaskPublishEvent(AppSessionId, technicalRequrementsTask.Id); }
         }
     }
 

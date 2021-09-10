@@ -76,7 +76,8 @@
   <ItemGroup>
     <Compile Include="EventServiceClient_Callbacks.cs" />
     <Compile Include="EventServiceClient_Chat.cs" />
-    <Compile Include="ServiceCallbackBaseTechnicalRequarementsTask.cs" />
+    <Compile Include="ServiceCallbackBase\ServiceCallbackBasePriceCalculation.cs" />
+    <Compile Include="ServiceCallbackBase\ServiceCallbackBaseTechnicalRequarementsTask.cs" />
     <Compile Include="SyncEntities\ISyncUnit.cs" />
     <Compile Include="Popup\Popup.cs" />
     <Compile Include="Popup\PopupWindow.xaml.cs">

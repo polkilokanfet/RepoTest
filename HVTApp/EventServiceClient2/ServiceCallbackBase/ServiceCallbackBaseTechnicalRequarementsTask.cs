@@ -7,7 +7,7 @@ using Microsoft.Practices.Unity;
 using Prism.Events;
 using Prism.Regions;
 
-namespace EventServiceClient2
+namespace EventServiceClient2.ServiceCallbackBase
 {
     public class ServiceCallbackBaseTechnicalRequarementsTask<TAfterTechnicalRequrementsTaskEvent>
         where TAfterTechnicalRequrementsTaskEvent : PubSubEvent<TechnicalRequrementsTask>
@@ -20,6 +20,7 @@ namespace EventServiceClient2
             _container = container;
             _syncContainer = syncContainer;
         }
+
         public void Start(TechnicalRequrementsTask technicalRequrementsTask, string message)
         {
             var action = new Action(() =>

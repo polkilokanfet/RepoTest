@@ -112,9 +112,6 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
         void InstructTechnicalRequarementsTaskPublishEvent(Guid appSessionId, Guid technicalRequarementsTaskId);
 
         [OperationContract(IsOneWay = true)]
-        void CancelTechnicalRequarementsTaskPublishEvent(Guid appSessionId, Guid technicalRequarementsTaskId);
-
-        [OperationContract(IsOneWay = true)]
         void StopTechnicalRequarementsTaskPublishEvent(Guid appSessionId, Guid technicalRequarementsTaskId);
 
         [OperationContract(IsOneWay = true)]

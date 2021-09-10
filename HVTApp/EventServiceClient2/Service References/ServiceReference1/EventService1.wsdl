@@ -105,9 +105,6 @@
   <wsdl:message name="IEventService_InstructTechnicalRequarementsTaskPublishEvent_InputMessage">
     <wsdl:part name="parameters" element="tns:InstructTechnicalRequarementsTaskPublishEvent" />
   </wsdl:message>
-  <wsdl:message name="IEventService_CancelTechnicalRequarementsTaskPublishEvent_InputMessage">
-    <wsdl:part name="parameters" element="tns:CancelTechnicalRequarementsTaskPublishEvent" />
-  </wsdl:message>
   <wsdl:message name="IEventService_StopTechnicalRequarementsTaskPublishEvent_InputMessage">
     <wsdl:part name="parameters" element="tns:StopTechnicalRequarementsTaskPublishEvent" />
   </wsdl:message>
@@ -176,9 +173,6 @@
   </wsdl:message>
   <wsdl:message name="IEventService_OnInstructTechnicalRequarementsTaskServiceCallback_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnInstructTechnicalRequarementsTaskServiceCallback" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_OnCancelTechnicalRequarementsTaskServiceCallback_OutputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnCancelTechnicalRequarementsTaskServiceCallback" />
   </wsdl:message>
   <wsdl:message name="IEventService_OnStopTechnicalRequarementsTaskServiceCallback_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnStopTechnicalRequarementsTaskServiceCallback" />
@@ -272,9 +266,6 @@
     <wsdl:operation name="InstructTechnicalRequarementsTaskPublishEvent">
       <wsdl:input wsaw:Action="http://tempuri.org/IEventService/InstructTechnicalRequarementsTaskPublishEvent" message="tns:IEventService_InstructTechnicalRequarementsTaskPublishEvent_InputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="CancelTechnicalRequarementsTaskPublishEvent">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/CancelTechnicalRequarementsTaskPublishEvent" message="tns:IEventService_CancelTechnicalRequarementsTaskPublishEvent_InputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="StopTechnicalRequarementsTaskPublishEvent">
       <wsdl:input wsaw:Action="http://tempuri.org/IEventService/StopTechnicalRequarementsTaskPublishEvent" message="tns:IEventService_StopTechnicalRequarementsTaskPublishEvent_InputMessage" />
     </wsdl:operation>
@@ -343,9 +334,6 @@
     </wsdl:operation>
     <wsdl:operation name="OnInstructTechnicalRequarementsTaskServiceCallback">
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnInstructTechnicalRequarementsTaskServiceCallback" message="tns:IEventService_OnInstructTechnicalRequarementsTaskServiceCallback_OutputCallbackMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="OnCancelTechnicalRequarementsTaskServiceCallback">
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnCancelTechnicalRequarementsTaskServiceCallback" message="tns:IEventService_OnCancelTechnicalRequarementsTaskServiceCallback_OutputCallbackMessage" />
     </wsdl:operation>
     <wsdl:operation name="OnStopTechnicalRequarementsTaskServiceCallback">
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnStopTechnicalRequarementsTaskServiceCallback" message="tns:IEventService_OnStopTechnicalRequarementsTaskServiceCallback_OutputCallbackMessage" />
@@ -520,12 +508,6 @@
         <soap12:body use="literal" />
       </wsdl:input>
     </wsdl:operation>
-    <wsdl:operation name="CancelTechnicalRequarementsTaskPublishEvent">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/CancelTechnicalRequarementsTaskPublishEvent" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-    </wsdl:operation>
     <wsdl:operation name="StopTechnicalRequarementsTaskPublishEvent">
       <soap12:operation soapAction="http://tempuri.org/IEventService/StopTechnicalRequarementsTaskPublishEvent" style="document" />
       <wsdl:input>
@@ -660,12 +642,6 @@
     </wsdl:operation>
     <wsdl:operation name="OnInstructTechnicalRequarementsTaskServiceCallback">
       <soap12:operation soapAction="http://tempuri.org/IEventService/OnInstructTechnicalRequarementsTaskServiceCallback" style="document" />
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="OnCancelTechnicalRequarementsTaskServiceCallback">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/OnCancelTechnicalRequarementsTaskServiceCallback" style="document" />
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>

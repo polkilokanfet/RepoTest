@@ -31,10 +31,10 @@ namespace HVTApp.Model.POCOs
         {
             get
             {
-                var facilities = PriceCalculationItems.SelectMany(x => x.SalesUnits).Select(x => x.Facility).Distinct().ToList();
+                var facilities = PriceCalculationItems.SelectMany(priceCalculationItem => priceCalculationItem.SalesUnits).Select(salesUnit => salesUnit.Facility).Distinct().ToList();
                 var sb = new StringBuilder();
                 sb.Append("Расчет стоимости оборудования для ");
-                facilities.ForEach(x => sb.Append(x).Append("; "));
+                facilities.ForEach(facility => sb.Append(facility).Append("; "));
                 return sb.ToString();
             }
         }

@@ -1,29 +1,22 @@
 ﻿using System;
 using System.Linq;
-using System.ServiceModel;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
+using EventServiceClient2.ServiceCallbackBase;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
-using HVTApp.Infrastructure.Interfaces.Services.EventService;
-using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI;
 using HVTApp.UI.Modules.BookRegistration.Views;
 using HVTApp.UI.Modules.Directum;
-using HVTApp.UI.PriceCalculations.View;
 using Microsoft.Practices.Unity;
 using Prism.Regions;
 
 namespace EventServiceClient2
 {
-    public partial class EventServiceClient : IEventServiceClient, EventServiceClient2.ServiceReference1.IEventServiceCallback
+    //действия, когда прилетают события из сервера синхронизации
+    public partial class EventServiceClient
     {
-        //действия, когда прилетают события из сервера синхронизации
-
         /// <summary>
         /// Реакция сервиса-клиента на остановку сервиса-сервера
         /// </summary>
@@ -170,93 +163,6 @@ namespace EventServiceClient2
 
         #endregion
 
-        #region PriceCalculation
-
-        public void OnSavePriceCalculationServiceCallback(Guid calculationId)
-        {
-            var calculation = _container.Resolve<IUnitOfWork>().Repository<PriceCalculation>().GetById(calculationId);
-
-            var frontManager = calculation.GetFrontManager();
-            var isProjectManager = frontManager != null && frontManager.IsAppCurrentUser();
-            var isInitiator = calculation.Initiator != null && calculation.Initiator.IsAppCurrentUser();
-
-            if (isProjectManager || isInitiator || GlobalAppProperties.User.RoleCurrent == Role.Pricer)
-            {
-                this.SyncContainer.Publish<PriceCalculation, AfterSavePriceCalculationEvent>(calculation);
-            }
-        }
-
-        /// <summary>
-        /// Реакция на старт расчета ПЗ
-        /// </summary>
-        /// <param name="calculationId"></param>
-        public void OnStartPriceCalculationServiceCallback(Guid calculationId)
-        {
-            var calculation = _container.Resolve<IUnitOfWork>().Repository<PriceCalculation>().GetById(calculationId);
-
-            if (GlobalAppProperties.User.RoleCurrent == Role.Pricer)
-            {
-                this.SyncContainer.Publish<PriceCalculation, AfterSavePriceCalculationEvent>(calculation);
-
-                string message = $"{calculation.Name}";
-                var action = new Action(() =>
-                {
-                    _container.Resolve<IRegionManager>().RequestNavigateContentRegion<PriceCalculationView>(new NavigationParameters { { nameof(PriceCalculation), calculation } });
-                });
-                Popup.Popup.ShowPopup(message, "Запущен расчет переменных затрат", action);
-            }
-        }
-
-        /// <summary>
-        /// Реакция на завершение расчета ПЗ
-        /// </summary>
-        /// <param name="calculationId"></param>
-        public void OnFinishPriceCalculationServiceCallback(Guid calculationId)
-        {
-            var calculation = _container.Resolve<IUnitOfWork>().Repository<PriceCalculation>().GetById(calculationId);
-
-            var frontManager = calculation.GetFrontManager();
-            var isProjectManager = frontManager != null && frontManager.IsAppCurrentUser();
-            var isInitiator = calculation.Initiator.IsAppCurrentUser();
-
-            if (isProjectManager || isInitiator)
-            {
-                this.SyncContainer.Publish<PriceCalculation, AfterSavePriceCalculationEvent>(calculation);
-                this.SyncContainer.Publish<PriceCalculation, AfterFinishPriceCalculationEvent>(calculation);
-
-                string message = $"{calculation.Name}";
-                var action = new Action(() =>
-                {
-                    _container.Resolve<IRegionManager>().RequestNavigateContentRegion<PriceCalculationView>(new NavigationParameters { { nameof(PriceCalculation), calculation } });
-                });
-                Popup.Popup.ShowPopup(message, "Завершен расчет переменных затрат", action);
-            }
-        }
-
-        /// <summary>
-        /// Реакция на остановку расчета ПЗ
-        /// </summary>
-        /// <param name="calculationId"></param>
-        public void OnCancelPriceCalculationServiceCallback(Guid calculationId)
-        {
-            var calculation = _container.Resolve<IUnitOfWork>().Repository<PriceCalculation>().GetById(calculationId);
-
-            if (GlobalAppProperties.User.RoleCurrent == Role.Pricer)
-            {
-                this.SyncContainer.Publish<PriceCalculation, AfterSavePriceCalculationEvent>(calculation);
-                this.SyncContainer.Publish<PriceCalculation, AfterCancelPriceCalculationEvent>(calculation);
-
-                string message = $"{calculation.Name}";
-                var action = new Action(() =>
-                {
-                    _container.Resolve<IRegionManager>().RequestNavigateContentRegion<PriceCalculationView>(new NavigationParameters { { nameof(PriceCalculation), calculation } });
-                });
-                Popup.Popup.ShowPopup(message, "Остановлен расчет переменных затрат", action);
-            }
-        }
-
-        #endregion
-
         #region IncomingRequest
 
         public void OnSaveIncomingRequestServiceCallback(Guid requestId)
@@ -316,6 +222,10 @@ namespace EventServiceClient2
 
         public void OnSaveTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId)
         {
+            //зацикливается
+            //TechnicalRequrementsTask technicalRequrementsTask = _container.Resolve<IUnitOfWork>().Repository<TechnicalRequrementsTask>().GetById(technicalRequarementsTaskId);
+            //if (technicalRequrementsTask != null)
+            //    _container.Resolve<IEventAggregator>().GetEvent<AfterSaveTechnicalRequrementsTaskEvent>().Publish(technicalRequrementsTask);
         }
 
         public void OnStartTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId)
@@ -388,10 +298,6 @@ namespace EventServiceClient2
             }
         }
 
-        public void OnCancelTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId)
-        {
-        }
-
         public void OnStopTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId)
         {
             if (GlobalAppProperties.User.RoleCurrent == Role.BackManager)
@@ -411,7 +317,6 @@ namespace EventServiceClient2
                 }
             }
         }
-
 
         public void OnRejectTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId)
         {
@@ -463,5 +368,73 @@ namespace EventServiceClient2
 
         #endregion
 
+        #region PriceCalculation
+
+        public void OnSavePriceCalculationServiceCallback(Guid calculationId)
+        {
+            var calculation = _container.Resolve<IUnitOfWork>().Repository<PriceCalculation>().GetById(calculationId);
+
+            var frontManager = calculation.GetFrontManager();
+            var isProjectManager = frontManager != null && frontManager.IsAppCurrentUser();
+            var isInitiator = calculation.Initiator != null && calculation.Initiator.IsAppCurrentUser();
+
+            if (isProjectManager || isInitiator || GlobalAppProperties.User.RoleCurrent == Role.Pricer)
+            {
+                this.SyncContainer.Publish<PriceCalculation, AfterSavePriceCalculationEvent>(calculation);
+            }
+        }
+
+        /// <summary>
+        /// Реакция на старт расчета ПЗ
+        /// </summary>
+        /// <param name="calculationId">Id калькуляции</param>
+        public void OnStartPriceCalculationServiceCallback(Guid calculationId)
+        {
+            var calculation = _container.Resolve<IUnitOfWork>().Repository<PriceCalculation>().GetById(calculationId);
+
+            if (GlobalAppProperties.User.RoleCurrent == Role.Pricer)
+            {
+                (new ServiceCallbackBasePriceCalculation<AfterSavePriceCalculationEvent>(_container, SyncContainer))
+                    .Start(calculation, $"Запущен: {calculation.Name}");
+            }
+        }
+
+        /// <summary>
+        /// Реакция на завершение расчета ПЗ
+        /// </summary>
+        /// <param name="calculationId">Id калькуляции</param>
+        public void OnFinishPriceCalculationServiceCallback(Guid calculationId)
+        {
+            var calculation = _container.Resolve<IUnitOfWork>().Repository<PriceCalculation>().GetById(calculationId);
+
+            var frontManager = calculation.GetFrontManager();
+            var isProjectManager = frontManager != null && frontManager.IsAppCurrentUser();
+            var isInitiator = calculation.Initiator.IsAppCurrentUser();
+
+            if (isProjectManager || isInitiator)
+            {
+                this.SyncContainer.Publish<PriceCalculation, AfterSavePriceCalculationEvent>(calculation);
+                (new ServiceCallbackBasePriceCalculation<AfterFinishPriceCalculationEvent>(_container, SyncContainer))
+                    .Start(calculation, $"Завершен: {calculation.Name}");
+            }
+        }
+
+        /// <summary>
+        /// Реакция на остановку расчета ПЗ
+        /// </summary>
+        /// <param name="calculationId"></param>
+        public void OnCancelPriceCalculationServiceCallback(Guid calculationId)
+        {
+            var calculation = _container.Resolve<IUnitOfWork>().Repository<PriceCalculation>().GetById(calculationId);
+
+            if (GlobalAppProperties.User.RoleCurrent == Role.Pricer)
+            {
+                this.SyncContainer.Publish<PriceCalculation, AfterSavePriceCalculationEvent>(calculation);
+                (new ServiceCallbackBasePriceCalculation<AfterCancelPriceCalculationEvent>(_container, SyncContainer))
+                    .Start(calculation, $"Остановлен: {calculation.Name}");
+            }
+        }
+
+        #endregion
     }
 }

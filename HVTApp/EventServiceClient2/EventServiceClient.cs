@@ -75,9 +75,7 @@ namespace EventServiceClient2
                         }
                         else
                         {
-                            this._container.Resolve<IHvtAppLogger>().LogError("", new Exception("_eventServiceClient.Connect() вернул false"));
-                            //очистить следы от предыдущего подключения, подождать и рестартануть
-                            this.DisableWaitRestart();
+                            this._container.Resolve<IHvtAppLogger>().LogError("", new Exception("_eventServiceClient.Connect() вернул false. Это приложение уже подключено к сервису."));
                             //throw new Exception("_eventServiceClient.Connect() вернул false");
                         }
                     }
@@ -165,7 +163,6 @@ namespace EventServiceClient2
             SyncContainer.Add(new SyncTechnicalRequrementsTask(_container, EventServiceHost, _appSessionId));
             SyncContainer.Add(new SyncTechnicalRequrementsTaskStart(_container, EventServiceHost, _appSessionId));
             SyncContainer.Add(new SyncTechnicalRequrementsTaskInstruct(_container, EventServiceHost, _appSessionId));
-            SyncContainer.Add(new SyncTechnicalRequrementsTaskCancel(_container, EventServiceHost, _appSessionId));
             SyncContainer.Add(new SyncTechnicalRequrementsTaskReject(_container, EventServiceHost, _appSessionId));
             SyncContainer.Add(new SyncTechnicalRequrementsTaskFinish(_container, EventServiceHost, _appSessionId));
             SyncContainer.Add(new SyncTechnicalRequrementsTaskAccept(_container, EventServiceHost, _appSessionId));
@@ -237,6 +234,11 @@ namespace EventServiceClient2
             }
 
             return false;
+        }
+
+        public void OnCancelTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId)
+        {
+            throw new NotImplementedException();
         }
     }
 }
