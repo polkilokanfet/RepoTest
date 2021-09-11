@@ -93,15 +93,15 @@ namespace HVTApp.UI.ViewModels
             AfterLoading();
         }
 
-        protected virtual void AfterLoading()
-        {
-            IsLoaded = true;
-        }
-
         public void Load(TWrapper wrapper, IUnitOfWork unitOfWork)
         {
             UnitOfWork = unitOfWork;
             Item = wrapper;
+            IsLoaded = true;
+        }
+
+        protected virtual void AfterLoading()
+        {
             IsLoaded = true;
         }
 

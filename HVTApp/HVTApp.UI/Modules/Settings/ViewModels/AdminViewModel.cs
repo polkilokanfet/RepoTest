@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Documents;
 using System.Xml.Serialization;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
@@ -28,12 +29,26 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
                 {
                     var unitOfWork = _container.Resolve<IUnitOfWork>();
 
-                    var projects = unitOfWork.Repository<Project>().Find(project => project.Manager.Id == GlobalAppProperties.User.Id);
-                    projects.ForEach(project => project.InWork = false);
+                    List<Facility> facilities = unitOfWork.Repository<Facility>().Find(facility => facility.Address == null);
+                    foreach (var facility in facilities)
+                    {
+                        Address address = facility.OwnerCompany.GetCompanyOrParentAddress();
+                        if (address != null)
+                        {
+                            facility.Address = new Address
+                            {
+                                Description = facility.ToString(), 
+                                Locality = address.Locality
+                            };
+                        }
+                    }
 
                     unitOfWork.SaveChanges();
 
-                    _container.Resolve<IMessageService>().ShowOkMessageDialog("fin", "fin");
+                    facilities = unitOfWork.Repository<Facility>().Find(facility => facility.Address == null);
+
+                    _container.Resolve<IMessageService>().ShowOkMessageDialog("fin",
+                        facilities.Any() ? facilities.ToStringEnum() : "у всех объектов теперь есть адреса");
 
                     ////_container.Resolve<IEmailService>().SendMail("kosolapov.ag@gmail.com", "SubjTest", "BodyTest");
                     ////var unitOfWork = container.Resolve<IUnitOfWork>();

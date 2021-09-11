@@ -104,24 +104,35 @@ namespace HVTApp.Model
             //    return salesUnit.Facility.OwnerCompany.AddressLegal;
 
             //по населенному пункту владельца объекта (или его головных организаций)
-            var company = salesUnit.Facility.OwnerCompany;
-            Locality locality = company.AddressLegal?.Locality;
-            while (company != null && locality == null)
-            {
-                locality = company.AddressLegal?.Locality;
-                company = company.ParentCompany;
-            }
-
-            if (locality != null)
+            var addressOwnerCompany = salesUnit.Facility.OwnerCompany.GetCompanyOrParentAddress();
+            if (addressOwnerCompany != null)
             {
                 return new Address
                 {
-                    Locality = locality,
+                    Locality = addressOwnerCompany.Locality,
                     Description = $"{salesUnit.Facility} (вычислено)"
                 };
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Возвращает адрес компании или адрес родительской компании.
+        /// </summary>
+        /// <param name="company"></param>
+        /// <returns></returns>
+        public static Address GetCompanyOrParentAddress(this Company company)
+        {
+            //по населенному пункту владельца объекта (или его головных организаций)
+            Address result = company.AddressLegal;
+            while (company != null && result == null)
+            {
+                result = company.AddressLegal;
+                company = company.ParentCompany;
+            }
+
+            return result;
         }
 
         public static string GetDeliveryAddressString(this SalesUnit salesUnit)

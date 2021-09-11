@@ -100,6 +100,7 @@ namespace HVTApp.UI
 
             RegisterViews();
 
+            _updateDetailsService.ReRegister<Facility, FacilityView>();
             _updateDetailsService.ReRegister<LaborHours, LaborHoursDetailsView2>();
             _updateDetailsService.ReRegister<PaymentConditionSet, PaymentConditionsSetView>();
 

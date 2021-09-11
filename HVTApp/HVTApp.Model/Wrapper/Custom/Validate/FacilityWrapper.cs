@@ -12,7 +12,7 @@ namespace HVTApp.Model.Wrapper
             {
                 if (OwnerCompany?.AddressLegal == null)
                 {
-                    if (Model.OwnerCompany == null || Model.OwnerCompany.ParentCompanies().All(x => x.AddressLegal == null))
+                    if (Model.OwnerCompany == null || Model.OwnerCompany.ParentCompanies().All(company => company.AddressLegal == null))
                     {
                         yield return new ValidationResult("Не определено местоположение объекта.", new []{nameof(Address)});
                     }

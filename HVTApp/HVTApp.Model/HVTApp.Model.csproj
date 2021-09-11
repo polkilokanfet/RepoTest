@@ -230,6 +230,7 @@
     <Compile Include="Wrapper\Custom\Test\TestFriendAddressWrapper.cs" />
     <Compile Include="Wrapper\Custom\Test\TestFriendEmailWrapper.cs" />
     <Compile Include="Wrapper\Custom\Test\TestFriendWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Validate\AddressWrapper.cs" />
     <Compile Include="Wrapper\Custom\Validate\CompanyFormWrapper.cs" />
     <Compile Include="Wrapper\Custom\Validate\ContractWrapper.cs" />
     <Compile Include="Wrapper\Custom\Validate\FacilityWrapper.cs" />
