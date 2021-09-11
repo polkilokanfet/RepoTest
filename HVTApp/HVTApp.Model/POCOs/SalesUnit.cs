@@ -572,7 +572,7 @@ namespace HVTApp.Model.POCOs
             var paidRest = sum;
 
             //берем все условия и упорядочиваем их
-            var conditions = PaymentConditionSet.PaymentConditions.OrderBy(x => x).ToList();
+            List<PaymentCondition> conditions = PaymentConditionSet.PaymentConditions.OrderBy(paymentCondition => paymentCondition).ToList();
 
             foreach (var condition in conditions)
             {
@@ -605,13 +605,21 @@ namespace HVTApp.Model.POCOs
             {
                 var result = new List<PaymentPlanned>();
 
+                //если проект не отчетный, то и на плановые платежи не нужно обращать внимание
+                if (this.Project.ForReport == false)
+                {
+                    return result;
+                }
+
                 //словарь условий и коэффицента их исполнений
                 var dictionary = PaymentConditionsDictionary;
 
                 foreach (var payment in PaymentsPlanned)
                 {
                     //если связанное условие существует и еще не исполнено
-                    if (dictionary.ContainsKey(payment.Condition) && dictionary[payment.Condition] < 1)
+                    if (payment.Condition != null && 
+                        dictionary.ContainsKey(payment.Condition) && 
+                        dictionary[payment.Condition] < 1)
                     {
                         double part = payment.Part;
                         //если остатка хватает

@@ -4,10 +4,12 @@ using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
+using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
+using Prism.Events;
 
 namespace HVTApp.UI.Modules.Sales.Payments
 {
@@ -38,8 +40,19 @@ namespace HVTApp.UI.Modules.Sales.Payments
             SaveCommand = new DelegateLogCommand(
                 () =>
                 {
+                    List<SalesUnit> changedSalesUnits = _salesUnitWrappers
+                        .Where(salesUnitWrapper1 => salesUnitWrapper1.IsChanged)
+                        .Select(salesUnitWrapper1 => salesUnitWrapper1.Model)
+                        .ToList();
+
                     _salesUnitWrappers.AcceptChanges();
                     UnitOfWork.SaveChanges();
+
+                    var afterSaveSalesUnitEvent = container.Resolve<IEventAggregator>().GetEvent<AfterSaveSalesUnitEvent>();
+                    foreach (var changedSalesUnit in changedSalesUnits)
+                    {
+                        afterSaveSalesUnitEvent.Publish(changedSalesUnit);
+                    }
                 }, 
                 () => _salesUnitWrappers != null && _salesUnitWrappers.IsChanged && _salesUnitWrappers.IsValid);
 
