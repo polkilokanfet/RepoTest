@@ -3502,6 +3502,11 @@ namespace HVTApp.UI.ViewModels
 		public DelegateLogCommand SelectAddressDeliveryCommand { get; private set; }
 		public DelegateLogCommand ClearAddressDeliveryCommand { get; private set; }
 
+		//private Func<Task<List<Address>>> _getEntitiesForSelectAddressDeliveryCalculatedCommand;
+		private Func<List<Address>> _getEntitiesForSelectAddressDeliveryCalculatedCommand;
+		public DelegateLogCommand SelectAddressDeliveryCalculatedCommand { get; private set; }
+		public DelegateLogCommand ClearAddressDeliveryCalculatedCommand { get; private set; }
+
 		private Func<List<ProductIncluded>> _getEntitiesForAddInProductsIncludedCommand;
 		public DelegateLogCommand AddInProductsIncludedCommand { get; }
 		public DelegateLogCommand RemoveFromProductsIncludedCommand { get; }
@@ -3678,6 +3683,11 @@ namespace HVTApp.UI.ViewModels
 			if (ClearAddressDeliveryCommand == null) ClearAddressDeliveryCommand = new DelegateLogCommand(ClearAddressDeliveryCommand_Execute_Default);
 
 			
+			if (_getEntitiesForSelectAddressDeliveryCalculatedCommand == null) _getEntitiesForSelectAddressDeliveryCalculatedCommand = () => { return UnitOfWork.Repository<Address>().GetAll(); };
+			if (SelectAddressDeliveryCalculatedCommand == null) SelectAddressDeliveryCalculatedCommand = new DelegateLogCommand(SelectAddressDeliveryCalculatedCommand_Execute_Default);
+			if (ClearAddressDeliveryCalculatedCommand == null) ClearAddressDeliveryCalculatedCommand = new DelegateLogCommand(ClearAddressDeliveryCalculatedCommand_Execute_Default);
+
+			
 			if (_getEntitiesForAddInProductsIncludedCommand == null) _getEntitiesForAddInProductsIncludedCommand = () => { return UnitOfWork.Repository<ProductIncluded>().GetAll(); };;
 			if (AddInProductsIncludedCommand == null) AddInProductsIncludedCommand = new DelegateLogCommand(AddInProductsIncludedCommand_Execute_Default);
 			if (RemoveFromProductsIncludedCommand == null) RemoveFromProductsIncludedCommand = new DelegateLogCommand(RemoveFromProductsIncludedCommand_Execute_Default, RemoveFromProductsIncludedCommand_CanExecute_Default);
@@ -3807,6 +3817,16 @@ namespace HVTApp.UI.ViewModels
 		private void ClearAddressDeliveryCommand_Execute_Default() 
 		{
 						Item.AddressDelivery = null;		    
+		}
+
+		private void SelectAddressDeliveryCalculatedCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<Address, AddressWrapper>(_getEntitiesForSelectAddressDeliveryCalculatedCommand(), nameof(Item.AddressDeliveryCalculated), Item.AddressDeliveryCalculated?.Id);
+		}
+
+		private void ClearAddressDeliveryCalculatedCommand_Execute_Default() 
+		{
+				    
 		}
 
 			private void AddInProductsIncludedCommand_Execute_Default()

@@ -31,7 +31,7 @@ namespace HVTApp.UI.Modules.Sales.Supervision
                 {
                     //объект
                     var facility = supGroup.Key;
-                    var address = facility.Address?.ToString() ?? facility.GetRegion().ToString();
+                    var address = facility.Address.ToString();
                     sb.AppendLine($"Объект: {facility} (местоположение: {address})");
 
                     //оборудование

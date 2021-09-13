@@ -213,6 +213,9 @@ namespace HVTApp.Model.POCOs
             }
         }
 
+        [Designation("јдрес доставки (расчетный)")]
+        public virtual Address AddressDeliveryCalculated => this.AddressDelivery ?? this.Facility.Address;
+
 
         /// <summary>
         /// ¬се платежи (совершенные + плановые).
@@ -606,7 +609,7 @@ namespace HVTApp.Model.POCOs
                 var result = new List<PaymentPlanned>();
 
                 //если проект не отчетный, то и на плановые платежи не нужно обращать внимание
-                if (this.Project.ForReport == false)
+                if (this.Project != null && this.Project.ForReport == false)
                 {
                     return result;
                 }

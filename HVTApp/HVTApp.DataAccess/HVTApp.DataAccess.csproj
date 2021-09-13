@@ -291,6 +291,10 @@
     <Compile Include="Migrations\202109061046271_TenderDidNotTakePlace.Designer.cs">
       <DependentUpon>202109061046271_TenderDidNotTakePlace.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202109130745247_FacilityAddressIsRequared.cs" />
+    <Compile Include="Migrations\202109130745247_FacilityAddressIsRequared.Designer.cs">
+      <DependentUpon>202109130745247_FacilityAddressIsRequared.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -469,6 +473,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202109061046271_TenderDidNotTakePlace.resx">
       <DependentUpon>202109061046271_TenderDidNotTakePlace.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109130745247_FacilityAddressIsRequared.resx">
+      <DependentUpon>202109130745247_FacilityAddressIsRequared.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -73,7 +73,7 @@ namespace HVTApp.TestDataGenerator
                 {
                     var product = products[random.Next(0, products.Count)];
                     var facilityOwner = facilityOwners[random.Next(0, facilityOwners.Count)];
-                    var facility = new Facility {Name = $"Подстанция №{projectNum}", Type = FacilityTypeSubStation, OwnerCompany = facilityOwner};
+                    var facility = new Facility {Name = $"Подстанция №{projectNum}", Type = FacilityTypeSubStation, OwnerCompany = facilityOwner, Address = new Address {Locality = LocalityMoscow, Description = "123"}};
                     int year = random.Next(DateTime.Today.Year - 1, DateTime.Today.Year + 2);
                     int month = random.Next(1, 13);
                     int day = random.Next(1, DateTime.DaysInMonth(year, month) + 1);

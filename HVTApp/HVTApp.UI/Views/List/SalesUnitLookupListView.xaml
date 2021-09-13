@@ -63,6 +63,7 @@
                         <infg:TextField Name="Producer" Label="Производитель" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:TextField Name="Order" Label="Заказ" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:TextField Name="AddressDelivery" Label="Адрес доставки" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField Name="AddressDeliveryCalculated" Label="Адрес доставки (расчетный)" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:NumericField Name="Vat" Label="НДС" Width="Auto" AllowResize="True" />
                         <infg:NumericField Name="SumToStartProduction" Label="Сумма старта производства" Width="Auto" AllowResize="True" />
                         <infg:NumericField Name="SumToShipping" Label="Сумма отгрузки" Width="Auto" AllowResize="True" />

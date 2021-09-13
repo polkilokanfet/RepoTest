@@ -3819,6 +3819,7 @@ namespace HVTApp.Model.Wrapper
         public System.DateTime ShipmentDateCalculated => GetValue<System.DateTime>(); 
         public System.DateTime DeliveryDateCalculated => GetValue<System.DateTime>(); 
         public System.Double DeliveryPeriodCalculated => GetValue<System.Double>(); 
+        public HVTApp.Model.POCOs.Address AddressDeliveryCalculated => GetValue<HVTApp.Model.POCOs.Address>(); 
         #endregion
         public override void InitializeComplexProperties()
         {

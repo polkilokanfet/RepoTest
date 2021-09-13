@@ -5785,6 +5785,10 @@ namespace HVTApp.UI.Views
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityAllowTotalRemoveSalesUnit = Visibility.Collapsed;
 
+            //attr = typeof(HVTApp.Model.POCOs.SalesUnit).GetProperty(nameof(HVTApp.Model.POCOs.SalesUnit.AddressDeliveryCalculated)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityAddressDeliveryCalculatedSalesUnit = Visibility.Collapsed;
+
             //attr = typeof(HVTApp.Model.POCOs.SalesUnit).GetProperty(nameof(HVTApp.Model.POCOs.SalesUnit.IsPaid)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityIsPaidSalesUnit = Visibility.Collapsed;
@@ -6258,6 +6262,14 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityAllowTotalRemoveSalesUnitProperty); }
             set { SetValue(VisibilityAllowTotalRemoveSalesUnitProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityAddressDeliveryCalculatedSalesUnitProperty = DependencyProperty.Register("VisibilityAddressDeliveryCalculatedSalesUnit", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityAddressDeliveryCalculatedSalesUnit
+        {
+            get { return (Visibility) GetValue(VisibilityAddressDeliveryCalculatedSalesUnitProperty); }
+            set { SetValue(VisibilityAddressDeliveryCalculatedSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 

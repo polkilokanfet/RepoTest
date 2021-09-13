@@ -5664,6 +5664,12 @@ namespace HVTApp.UI.Views
             set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.AddressDelivery)].Visibility = value; }
         }
 
+        public System.Windows.Visibility AddressDeliveryCalculatedVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.AddressDeliveryCalculated)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.AddressDeliveryCalculated)].Visibility = value; }
+        }
+
         public System.Windows.Visibility EntityVisibility
         {
             get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.Entity)].Visibility; }

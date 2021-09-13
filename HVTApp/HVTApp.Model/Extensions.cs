@@ -76,45 +76,7 @@ namespace HVTApp.Model
         public static Region GetRegion(this Facility facility)
         {
             //по адресу объекта
-            var region = facility.Address?.Locality.Region;
-
-            //по владельцу объекта
-            var company = facility.OwnerCompany;
-            while (company != null && region == null)
-            {
-                region = company.AddressLegal?.Locality.Region;
-                company = company.ParentCompany;
-            }
-
-            return region;
-        }
-
-        public static Address GetDeliveryAddress(this SalesUnit salesUnit)
-        {
-            //по адресу доставки
-            if (salesUnit.AddressDelivery != null)
-                return salesUnit.AddressDelivery;
-
-            //по адресу объекта
-            if (salesUnit.Facility.Address != null)
-                return salesUnit.Facility.Address;
-
-            ////по адресу владельца объекта
-            //if (salesUnit.Facility.OwnerCompany.AddressLegal != null)
-            //    return salesUnit.Facility.OwnerCompany.AddressLegal;
-
-            //по населенному пункту владельца объекта (или его головных организаций)
-            var addressOwnerCompany = salesUnit.Facility.OwnerCompany.GetCompanyOrParentAddress();
-            if (addressOwnerCompany != null)
-            {
-                return new Address
-                {
-                    Locality = addressOwnerCompany.Locality,
-                    Description = $"{salesUnit.Facility} (вычислено)"
-                };
-            }
-
-            return null;
+            return facility.Address.Locality.Region;
         }
 
         /// <summary>
@@ -137,7 +99,7 @@ namespace HVTApp.Model
 
         public static string GetDeliveryAddressString(this SalesUnit salesUnit)
         {
-            Address address = salesUnit.GetDeliveryAddress();
+            Address address = salesUnit.AddressDeliveryCalculated;
             return address == null ? "Адрес не определен." : address.ToString();
         }
 

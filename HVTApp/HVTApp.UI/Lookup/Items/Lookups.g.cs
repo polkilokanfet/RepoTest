@@ -2020,6 +2020,9 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(1)]
 	    public AddressLookup AddressDelivery { get { return GetLookup<AddressLookup>(); } }
 
+		[OrderStatus(1)]
+	    public AddressLookup AddressDeliveryCalculated { get { return GetLookup<AddressLookup>(); } }
+
         #endregion
 		[OrderStatus(1)]
 	    public List<ProductIncludedLookup> ProductsIncluded { get { return GetLookupEnum<ProductIncludedLookup>().ToList(); } }
@@ -2326,7 +2329,7 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(16)]
 	    public CompanyLookup OwnerCompany { get { return GetLookup<CompanyLookup>(); } }
 
-		[OrderStatus(1)]
+		[OrderStatus(10)]
 	    public AddressLookup Address { get { return GetLookup<AddressLookup>(); } }
 
         #endregion

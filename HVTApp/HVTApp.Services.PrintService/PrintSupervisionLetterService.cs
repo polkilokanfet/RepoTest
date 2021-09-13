@@ -138,7 +138,7 @@ namespace HVTApp.Services.PrintService
 
                 tableCellProperties.ColumnSpan = 7;
                 var facility = supervisionsGroupsByFacility.Key;
-                var address = facility.Address?.ToString() ?? facility.GetRegion().ToString();
+                var address = facility.Address.ToString();
                 docWriter.PrintTableCell($"{facility} ({address})", tableCellProperties, font: fontBold); //объект
 
                 docWriter.EndTableRow();
