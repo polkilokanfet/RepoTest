@@ -7,13 +7,13 @@ namespace HVTApp.DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class CommentInSalesUnit : IMigrationMetadata
+    public sealed partial class FacilityAddressIsRequared2 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CommentInSalesUnit));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(FacilityAddressIsRequared2));
         
         string IMigrationMetadata.Id
         {
-            get { return "202101131227162_CommentInSalesUnit"; }
+            get { return "202109131120252_FacilityAddressIsRequared2"; }
         }
         
         string IMigrationMetadata.Source
