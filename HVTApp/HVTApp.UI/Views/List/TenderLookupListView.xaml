@@ -49,6 +49,7 @@
                         <infg:CheckBoxField Name="DidNotTakePlace" Label="Не состоялся" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Link" Label="Ссылка" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
+
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>
 

@@ -16,12 +16,13 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
         protected override void ExecuteMethod()
         {
-            if (MessageService.ShowYesNoMessageDialog("", "Вы уверены, что хотите остановить задачу?") != MessageDialogResult.Yes)
+            if (MessageService.ShowYesNoMessageDialog("Остановка задачи", "Вы уверены, что хотите остановить задачу?") != MessageDialogResult.Yes)
                 return;
 
             ViewModel.HistoryElementWrapper.Type = TechnicalRequrementsTaskHistoryElementType.Stop;
             ViewModel.HistoryElementWrapper.Moment = DateTime.Now;
             ViewModel.TechnicalRequrementsTaskWrapper.HistoryElements.Add(ViewModel.HistoryElementWrapper);
+            ViewModel.TechnicalRequrementsTaskWrapper.DesiredFinishDate = null;
 
             ViewModel.SaveCommand.Execute();
 

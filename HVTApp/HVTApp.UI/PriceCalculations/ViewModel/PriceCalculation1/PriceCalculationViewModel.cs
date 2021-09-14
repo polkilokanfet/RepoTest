@@ -196,7 +196,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
                 .Select(salesUnit => new SalesUnitEmptyWrapper(salesUnit))
                 .ToList();
             
-            salesUnitWrappers.GroupBy(x => x, new SalesUnit2Comparer())
+            salesUnitWrappers.GroupBy(salesUnitEmptyWrapper => salesUnitEmptyWrapper, new SalesUnit2Comparer())
                              .ForEach(x => { PriceCalculationWrapper.PriceCalculationItems.Add(GetPriceCalculationItem2Wrapper(x)); });
 
             //инициатор задачи
@@ -221,12 +221,15 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
             //инициатор задачи
             if (this.PriceCalculationWrapper.Initiator == null)
                 this.PriceCalculationWrapper.Initiator = new UserWrapper(UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id));
+
+            //необходимость файла excel
+            this.PriceCalculationWrapper.IsNeedExcelFile = technicalRequrementsTask.ExcelFileIsRequired;
         }
 
         public PriceCalculationItem2Wrapper GetPriceCalculationItem2Wrapper(IEnumerable<SalesUnitEmptyWrapper> salesUnits)
         {
             var priceCalculationItem2Wrapper = new PriceCalculationItem2Wrapper(new PriceCalculationItem());
-            salesUnits.ForEach(x => priceCalculationItem2Wrapper.SalesUnits.Add(x));
+            salesUnits.ForEach(salesUnitEmptyWrapper => priceCalculationItem2Wrapper.SalesUnits.Add(salesUnitEmptyWrapper));
 
             //создание основного стракчакоста
             var structureCost = new StructureCost

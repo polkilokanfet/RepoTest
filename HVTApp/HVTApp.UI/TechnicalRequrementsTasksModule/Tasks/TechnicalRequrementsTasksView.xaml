@@ -3,17 +3,31 @@
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:dp="http://infragistics.com/DataPresenter"
-              xmlns:controls="http://infragistics.com/Windows">
+              xmlns:controls="http://infragistics.com/Windows"
+              xmlns:localConverters="clr-namespace:HVTApp.UI.TechnicalRequrementsTasksModule.Converters">
 
     <inf:ViewBase.Resources>
-
+        <localConverters:TechnicalRequrementsTaskToColorConverter x:Key="TechnicalRequrementsTaskToColorConverter"/>
     </inf:ViewBase.Resources>
 
     <Grid>
         <dp:XamDataGrid x:Name="LookupListGrid" 
                         DataSource="{Binding Lookups}" 
                         ActiveDataItem="{Binding SelectedLookup}">
-        
+
+            <dp:XamDataGrid.Resources>
+
+                <Style TargetType="{x:Type dp:CellValuePresenter}">
+                    <Setter Property="Foreground">
+                        <Setter.Value>
+                            <SolidColorBrush Color="{Binding Path=DataItem, Converter={StaticResource TechnicalRequrementsTaskToColorConverter}}"/>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+
+            </dp:XamDataGrid.Resources>
+
+
             <dp:XamDataGrid.InputBindings>
                 <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=EditCommand, Mode=OneWay}"/>
             </dp:XamDataGrid.InputBindings>
@@ -40,6 +54,7 @@
 
                     <dp:FieldLayout.Fields>
                         <dp:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding Start}" Label="Старт задачи" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
+                        <dp:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding DesiredFinishDate}" Label="Проработать" Width="Auto" AllowResize="False" Format="dd/MM/yy"/>
                         <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Facilities}" Label="Объекты" Width="300" AllowResize="True" Converter="{StaticResource ObjectsToStringConverter}"/>
                         <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding BackManager}" Label="Back manager" Width="Auto" AllowResize="True" Converter="{StaticResource ObjectToStringConverter}" 
                                       Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.CurrentUserIsBackManager, Converter={StaticResource BooleanToVisibilityReverseConverter}}"/>

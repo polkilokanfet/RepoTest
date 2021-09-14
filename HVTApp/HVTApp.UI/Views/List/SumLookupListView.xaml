@@ -40,6 +40,7 @@
 					<infg:FieldLayout.Fields>
 
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
+
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>
 

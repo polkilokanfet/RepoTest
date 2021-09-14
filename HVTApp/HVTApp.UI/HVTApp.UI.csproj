@@ -702,6 +702,7 @@
     <Compile Include="TechnicalRequrementsTasksModule\Tabs\TabTechnicalRequrementsTasksView.xaml.cs">
       <DependentUpon>TabTechnicalRequrementsTasksView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TechnicalRequrementsTasksModule\Tasks\Converters\TechnicalRequrementsTaskToColorConverter.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Tasks\TechnicalRequrementsTasksView.xaml.cs">
       <DependentUpon>TechnicalRequrementsTasksView.xaml</DependentUpon>
     </Compile>

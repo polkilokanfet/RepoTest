@@ -43,6 +43,7 @@
                         <infg:TextField Name="Time" Label="Время" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="CalculationId" Label="CalculationId" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
+
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>
 

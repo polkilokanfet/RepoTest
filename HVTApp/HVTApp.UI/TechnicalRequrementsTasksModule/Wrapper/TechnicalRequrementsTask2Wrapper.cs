@@ -9,7 +9,7 @@ using HVTApp.Model.Wrapper.Base.TrackingCollections;
 
 namespace HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper
 {
-    public partial class TechnicalRequrementsTask2Wrapper : WrapperBase<TechnicalRequrementsTask>
+    public class TechnicalRequrementsTask2Wrapper : WrapperBase<TechnicalRequrementsTask>
     {
         #region SimpleProperties
 
@@ -25,6 +25,27 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper
                 return "no info";
             }
         }
+
+
+        //Требуемая дата проработки
+        public DateTime? DesiredFinishDate
+        {
+            get => GetValue<DateTime?>();
+            set
+            {
+                if (value.HasValue && value.Value < DateTime.Today)
+                {
+                    Model.DesiredFinishDate = DateTime.Today;
+                    OnPropertyChanged();
+                    return;
+                }
+
+                SetValue(value);
+            }
+        }
+        public DateTime? DesiredFinishDateOriginalValue => GetOriginalValue<DateTime?>(nameof(DesiredFinishDate));
+        public bool DesiredFinishDateIsChanged => GetIsChanged(nameof(DesiredFinishDate));
+
 
         public bool LogisticsCalculationRequired
         {

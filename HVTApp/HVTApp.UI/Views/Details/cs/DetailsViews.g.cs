@@ -2984,6 +2984,10 @@ namespace HVTApp.UI.Views
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityHistoryElementsTechnicalRequrementsTask = Visibility.Collapsed;
 
+            //attr = typeof(HVTApp.Model.POCOs.TechnicalRequrementsTask).GetProperty(nameof(HVTApp.Model.POCOs.TechnicalRequrementsTask.DesiredFinishDate)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityDesiredFinishDateTechnicalRequrementsTask = Visibility.Collapsed;
+
             //attr = typeof(HVTApp.Model.POCOs.TechnicalRequrementsTask).GetProperty(nameof(HVTApp.Model.POCOs.TechnicalRequrementsTask.Start)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityStartTechnicalRequrementsTask = Visibility.Collapsed;
@@ -3105,6 +3109,14 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityHistoryElementsTechnicalRequrementsTaskProperty); }
             set { SetValue(VisibilityHistoryElementsTechnicalRequrementsTaskProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityDesiredFinishDateTechnicalRequrementsTaskProperty = DependencyProperty.Register("VisibilityDesiredFinishDateTechnicalRequrementsTask", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityDesiredFinishDateTechnicalRequrementsTask
+        {
+            get { return (Visibility) GetValue(VisibilityDesiredFinishDateTechnicalRequrementsTaskProperty); }
+            set { SetValue(VisibilityDesiredFinishDateTechnicalRequrementsTaskProperty, value); OnPropertyChanged(); }
         }
 
 

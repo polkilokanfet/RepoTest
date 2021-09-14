@@ -47,6 +47,7 @@
                         <infg:DateTimeField Name="SignDate" Label="Дата подписания" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Units" Label="Units" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
+
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>
 

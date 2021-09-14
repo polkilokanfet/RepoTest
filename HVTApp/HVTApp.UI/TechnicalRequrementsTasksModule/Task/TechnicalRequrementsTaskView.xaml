@@ -52,17 +52,26 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-
-                    <CheckBox Grid.Column="0"
-                              IsChecked="{Binding TechnicalRequrementsTaskWrapper.LogisticsCalculationRequired, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                              IsEnabled="{Binding IsStarted, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ReverseBoolConverter}}"/>
-                    <Label Grid.Column="1" Content=" - необходим Расчет Транспортных Затрат" HorizontalAlignment="Left"/>
+                    
+                    <Label Grid.Column="0" Content="Проработать до: "/>
+                    <igEditors:XamDateTimeEditor Grid.Column="1"
+                                                 Width="120"
+                                                 IsEnabled="{Binding IsStarted, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ReverseBoolConverter}}"
+                                                 Value="{Binding TechnicalRequrementsTaskWrapper.DesiredFinishDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                     <CheckBox Grid.Column="3"
+                              IsChecked="{Binding TechnicalRequrementsTaskWrapper.LogisticsCalculationRequired, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              IsEnabled="{Binding IsStarted, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ReverseBoolConverter}}"/>
+                    <Label Grid.Column="4" Content=" - необходим Расчет Транспортных Затрат" HorizontalAlignment="Left"/>
+
+                    <CheckBox Grid.Column="6"
                               IsChecked="{Binding TechnicalRequrementsTaskWrapper.ExcelFileIsRequired, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               IsEnabled="{Binding IsStarted, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ReverseBoolConverter}}"/>
-                    <Label Grid.Column="4" Content=" - необходим файл в расчете Переменных затрат (excel)" HorizontalAlignment="Left"/>
+                    <Label Grid.Column="7" Content=" - необходим файл в расчете Переменных затрат (excel)" HorizontalAlignment="Left"/>
                 </Grid>
 
                 <Label Grid.Row="2" Grid.Column="0" Content="Back-manager: "/>

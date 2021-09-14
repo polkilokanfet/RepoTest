@@ -295,6 +295,10 @@
     <Compile Include="Migrations\202109131120252_FacilityAddressIsRequared2.Designer.cs">
       <DependentUpon>202109131120252_FacilityAddressIsRequared2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202109141615117_TCETaskDesiredFinishDate.cs" />
+    <Compile Include="Migrations\202109141615117_TCETaskDesiredFinishDate.Designer.cs">
+      <DependentUpon>202109141615117_TCETaskDesiredFinishDate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -476,6 +480,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202109131120252_FacilityAddressIsRequared2.resx">
       <DependentUpon>202109131120252_FacilityAddressIsRequared2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109141615117_TCETaskDesiredFinishDate.resx">
+      <DependentUpon>202109141615117_TCETaskDesiredFinishDate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

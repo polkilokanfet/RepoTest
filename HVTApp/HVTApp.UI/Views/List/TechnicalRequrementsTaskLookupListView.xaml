@@ -53,6 +53,7 @@
                         <infg:CheckBoxField Name="IsFinished" Label="Завершено?" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="IsAccepted" Label="Принято?" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="HistoryElements" Label="История проработки" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                        <infg:DateTimeField Name="DesiredFinishDate" Label="Проработать до" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="LogisticsCalculationRequired" Label="Необходимость РТЗ" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="ExcelFileIsRequired" Label="Необходимость файла-расчета ПЗ" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="AnswerFiles" Label="Файлы-ответы ОГК" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
@@ -61,6 +62,7 @@
                         <infg:TextField Name="FrontManager" Label="Front manager" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="ToShow" Label="S" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
+
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>
 

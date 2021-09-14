@@ -51,7 +51,11 @@ namespace HVTApp.Model.POCOs
         [Designation("История проработки")]
         public virtual List<TechnicalRequrementsTaskHistoryElement> HistoryElements { get; set; } = new List<TechnicalRequrementsTaskHistoryElement>();
 
-
+        /// <summary>
+        /// Требуемая дата окончания проработки
+        /// </summary>
+        [Designation("Проработать до"), OrderStatus(1)]
+        public virtual DateTime? DesiredFinishDate { get; set; }
 
         [Designation("Старт"), OrderStatus(3), NotMapped]
         public DateTime? Start
