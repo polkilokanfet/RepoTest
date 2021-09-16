@@ -2,10 +2,10 @@ using System;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
-using Microsoft.Practices.ObjectBuilder2;
 
 namespace HVTApp.Model.Wrapper
 {
@@ -115,12 +115,12 @@ namespace HVTApp.Model.Wrapper
 
         public IValidatableChangeTrackingCollection<ProductDependentWrapper> DependentProducts
         {
-            get { return _dependentProducts; }
+            get => _dependentProducts;
             protected set
             {
                 _dependentProducts = value;
                 value.CollectionChanged += OnDependentProductsCollectionChanged;
-                value.ForEach(x => x.PropertyChanged += OnDependentProductPropertyChanged);
+                value.ForEach(productDependentWrapper => productDependentWrapper.PropertyChanged += OnDependentProductPropertyChanged);
             }
         }
 
@@ -132,8 +132,8 @@ namespace HVTApp.Model.Wrapper
 
         private void OnDependentProductsCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
         {
-            DependentProducts.RemovedItems.ForEach(x => x.PropertyChanged -= OnDependentProductPropertyChanged);
-            DependentProducts.AddedItems.ForEach(x => x.PropertyChanged += OnDependentProductPropertyChanged);
+            DependentProducts.RemovedItems.ForEach(productDependentWrapper => productDependentWrapper.PropertyChanged -= OnDependentProductPropertyChanged);
+            DependentProducts.AddedItems.ForEach(productDependentWrapper => productDependentWrapper.PropertyChanged += OnDependentProductPropertyChanged);
             RisePropertyChangedEvents();
         }
 

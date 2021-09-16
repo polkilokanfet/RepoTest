@@ -5,7 +5,6 @@ using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.Wrapper;
-using Microsoft.Practices.ObjectBuilder2;
 using Prism.Mvvm;
 
 namespace HVTApp.UI.Modules.Sales.Payments

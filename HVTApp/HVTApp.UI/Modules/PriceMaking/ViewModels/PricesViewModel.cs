@@ -13,7 +13,6 @@ using HVTApp.Model.Services;
 using HVTApp.UI.Modules.PlanAndEconomy.ViewModels;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
-using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.Modules.PriceMaking.ViewModels

@@ -157,10 +157,14 @@ namespace HVTApp.UI.Modules.Sales.Market
             }
         }
 
+        public Outlook Outlook { get; }
+
         public Market2ViewModel(IUnityContainer container) : base(container, loadDataInCtor: false)
         {
             _eventAggregator = Container.Resolve<IEventAggregator>();
             ProjectItems = new ProjectItemsCollection(this, _eventAggregator);
+
+            Outlook = new Outlook(this, container);
 
             #region Commands definition
 

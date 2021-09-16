@@ -5,7 +5,6 @@ using System.ComponentModel;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
-using Microsoft.Practices.ObjectBuilder2;
 
 namespace HVTApp.Model.Wrapper.Base.TrackingCollections
 {

@@ -7,7 +7,6 @@ using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.UI.Commands;
 using HVTApp.UI.Lookup;
-using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 using Prism.Regions;

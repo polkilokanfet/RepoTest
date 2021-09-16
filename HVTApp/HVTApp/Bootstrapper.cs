@@ -40,6 +40,7 @@ using HVTApp.Services.WpfAuthenticationService;
 using HVTApp.Services.DialogService;
 using HVTApp.Services.EmailService;
 using HVTApp.Services.MessageService;
+using HVTApp.Services.MessagesOutlookService;
 using HVTApp.Services.NewProductService;
 using HVTApp.Services.PriceService;
 using HVTApp.Services.PrintService;
@@ -109,6 +110,7 @@ namespace HVTApp
             Container.RegisterType<IMessageService, MessageServiceWpf>();
             Container.RegisterType<IEmailService, EmailService>();
             Container.RegisterType<IAllowStartService, AllowStartAppService>();
+            Container.RegisterType<IMessagesOutlookService, MessagesOutlookService1>();
 
             Container.RegisterType<IUpdateDetailsService, UpdateDetailsServiceWpf>(new ContainerControlledLifetimeManager());
 

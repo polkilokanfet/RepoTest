@@ -18,7 +18,6 @@ using HVTApp.UI.Modules.Reports.FlatReport.Comparator;
 using HVTApp.UI.Modules.Reports.FlatReport.Containers;
 using HVTApp.UI.Modules.Reports.FlatReport.Reports;
 using HVTApp.UI.Modules.Reports.ViewModels;
-using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 

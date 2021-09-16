@@ -29,8 +29,8 @@
     <InstallUrl>\\ekb1237\Upload\HVTApp\</InstallUrl>
     <ProductName>HVTApplication</ProductName>
     <PublisherName>Kosolapov</PublisherName>
-    <MinimumRequiredVersion>1.0.0.264</MinimumRequiredVersion>
-    <ApplicationRevision>265</ApplicationRevision>
+    <MinimumRequiredVersion>1.0.0.265</MinimumRequiredVersion>
+    <ApplicationRevision>266</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -343,6 +343,10 @@
     <ProjectReference Include="..\HVTApp.Services.MessageService\HVTApp.Services.MessageService.csproj">
       <Project>{7703a90a-e742-41b1-96cb-cd0f51e3f2b6}</Project>
       <Name>HVTApp.Services.MessageService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HVTApp.Services.MessagesOutlookService\HVTApp.Services.MessagesOutlookService.csproj">
+      <Project>{f446ae6d-9895-489d-9eb3-cadf1cb0c030}</Project>
+      <Name>HVTApp.Services.MessagesOutlookService</Name>
     </ProjectReference>
     <ProjectReference Include="..\HVTApp.Services.NewProductService\HVTApp.Services.NewProductService.csproj">
       <Project>{154B4B6A-BABD-4F65-B351-E7F3808A8B53}</Project>

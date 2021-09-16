@@ -258,6 +258,7 @@
     <Compile Include="Modules\Sales\Market\Converters\ProjectItemToFontWeightConverter.cs" />
     <Compile Include="Modules\Sales\Market\Converters\ProjectItemToOpacityConverter.cs" />
     <Compile Include="Modules\Sales\Market\Items\ProjectItemsCollection.cs" />
+    <Compile Include="Modules\Sales\Market\Outlook\Outlook.cs" />
     <Compile Include="Modules\Sales\Payments\PaymentsGroup.cs" />
     <Compile Include="Modules\Sales\Payments\PaymentWrapper.cs" />
     <Compile Include="Modules\Products\ViewModels\ProductReplacementViewModel.cs" />

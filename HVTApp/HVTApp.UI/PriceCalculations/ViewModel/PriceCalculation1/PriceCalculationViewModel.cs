@@ -10,7 +10,6 @@ using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands;
 using HVTApp.UI.PriceCalculations.ViewModel.Wrapper;
-using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1

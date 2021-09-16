@@ -7,7 +7,6 @@ using System.Runtime.CompilerServices;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
-using Microsoft.Practices.ObjectBuilder2;
 using Prism.Mvvm;
 
 namespace HVTApp.Model.Wrapper

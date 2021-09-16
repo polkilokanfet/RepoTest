@@ -14,7 +14,6 @@ using HVTApp.Infrastructure.Services;
 using HVTApp.Model.Wrapper.Base;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
-using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Events;
