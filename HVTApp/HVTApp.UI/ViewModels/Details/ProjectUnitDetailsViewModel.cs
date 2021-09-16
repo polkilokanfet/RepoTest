@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Windows.Input;
 using HVTApp.Model.POCOs;
-using HVTApp.Services.GetProductService;
+//using HVTApp.Services.GetProductService;
 using HVTApp.UI.Lookup;
 using HVTApp.Model.Wrapper;
 using Microsoft.Practices.Unity;

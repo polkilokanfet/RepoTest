@@ -9,7 +9,6 @@ using HVTApp.Model.Services;
 using HVTApp.Services.PrintService.Extansions;
 using Infragistics.Documents.Word;
 using Microsoft.Practices.Unity;
-using SautinSoft.Document;
 using Padding = Infragistics.Documents.Word.Padding;
 
 namespace HVTApp.Services.PrintService

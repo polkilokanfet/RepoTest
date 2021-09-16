@@ -127,6 +127,8 @@
                         <infg:TextField AlternateBinding="{Binding IsolationColor}" BindingType="UseAlternateBinding" Label="Цвет изолятора" Width="Auto" AllowResize="True" />
                         <infg:TextField AlternateBinding="{Binding TenderStatus}" BindingType="UseAlternateBinding" Label="TenderStatus" Width="Auto" AllowResize="True" />
                         <infg:TextField AlternateBinding="{Binding Producer}" BindingType="UseAlternateBinding" Label="Производитель" Width="Auto" AllowResize="True" />
+                        <infg:NumericField AlternateBinding="{Binding ProductionTerm}" BindingType="UseAlternateBinding" Label="Срок производства" Width="Auto" AllowResize="True" />
+                        <infg:TextField AlternateBinding="{Binding TenderLink}" BindingType="UseAlternateBinding" Label="Ссылка на конкурс" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField AlternateBinding="{Binding RealizationDateIsFake}" BindingType="UseAlternateBinding" Label="RealizationDateIsFake" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField AlternateBinding="{Binding PaymentConditionSetIsFake}" BindingType="UseAlternateBinding" Label="PaymentConditionSetIsFake" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField AlternateBinding="{Binding OrderInTakeDateIsFake}" BindingType="UseAlternateBinding" Label="OrderInTakeDateIsFake" Width="Auto" AllowResize="True" />
