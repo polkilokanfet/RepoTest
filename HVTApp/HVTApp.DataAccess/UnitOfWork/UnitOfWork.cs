@@ -3,11 +3,9 @@ using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
-using HVTApp.Model;
 using Microsoft.Practices.Unity;
 
 
@@ -35,49 +33,89 @@ namespace HVTApp.DataAccess
             return (IRepository<T>) repositoryFieldInfo.GetValue(this);
         }
 
-        //public async Task<int> SaveChangesAsync()
-        //{
-        //    return await _context.SaveChangesAsync();
-        //}
-
-        public void SaveChanges()
+        public UnitOfWorkOperationResult SaveChanges()
         {
-#if DEBUG
-            _context.SaveChanges();
-#else
+            UnitOfWorkOperationResult result;
             try
             {
                 _context.SaveChanges();
-            }
-            catch (DbEntityValidationException e)
-            {
-                string result = string.Empty;
-                foreach (var eve in e.EntityValidationErrors)
-                {
-                    result += $"Entity of type \"{eve.Entry.Entity.GetType().Name}\" in state \"{eve.Entry.State}\" has the following validation errors:";
-                    result += Environment.NewLine;
-
-                    foreach (var ve in eve.ValidationErrors)
-                    {
-                        result += $"- Property: \"{ve.PropertyName}\", Error: \"{ve.ErrorMessage}\"";
-                    }
-                }
-                _container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().Name, result);
-                _container.Resolve<IHvtAppLogger>().LogError(result);
-                throw;
+                result = new UnitOfWorkOperationResult();
             }
             catch (Exception e)
             {
-                _container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().Name, e.PrintAllExceptions());
-                _container.Resolve<IHvtAppLogger>().LogError(e.GetType().Name, e);
+                result = new UnitOfWorkOperationResult(e);
+                this.OnOperationFailedEvent(result);
                 throw;
             }
 
-#endif
+            return result;
+        }
+
+        private void OnOperationFailedEvent(UnitOfWorkOperationResult unitOfWorkOperationResult)
+        {
+            string message = string.Empty;
+            if (unitOfWorkOperationResult.Exception is DbEntityValidationException e)
+            {
+                foreach (var entityValidationResult in e.EntityValidationErrors)
+                {
+                    message += $"Entity of type \"{entityValidationResult.Entry.Entity.GetType().Name}\" in state \"{entityValidationResult.Entry.State}\" has the following validation errors:";
+                    message += Environment.NewLine;
+
+                    foreach (var ve in entityValidationResult.ValidationErrors)
+                    {
+                        message += $"- Property: \"{ve.PropertyName}\", Error: \"{ve.ErrorMessage}\"";
+                    }
+                }
+            }
+            else
+            {
+                message = unitOfWorkOperationResult.Exception.PrintAllExceptions();
+            }
+
+            _container.Resolve<IMessageService>().ShowOkMessageDialog(unitOfWorkOperationResult.Exception.GetType().Name, message);
+            _container.Resolve<IHvtAppLogger>().LogError(unitOfWorkOperationResult.Exception.GetType().Name, unitOfWorkOperationResult.Exception);
+        }
+
+        public UnitOfWorkOperationResult SaveEntity<T>(T entity) where T : class, IBaseEntity
+        {
+            //проверяем, есть ли сущность в контексте
+            if (this.Repository<T>().GetById(entity.Id) == null)
+            {
+                var result = this.Repository<T>().Add(entity);
+                if (result.OperationCompletedSuccessfully == false)
+                {
+                    return result;
+                }
+            }
+
+            //сохранение сущности в контекст
+            return this.SaveChanges();
+        }
+
+        public UnitOfWorkOperationResult RemoveEntity<T>(T entity) where T : class, IBaseEntity
+        {
+            //проверяем, есть ли сущность в контексте
+            var entityToRemove = this.Repository<T>().GetById(entity.Id);
+            
+            //если сущности и не было в контексте
+            if (entityToRemove == null)
+            {
+                return new UnitOfWorkOperationResult();
+            }
+
+            var result = this.Repository<T>().Delete(entityToRemove);
+            if (result.OperationCompletedSuccessfully == false)
+            {
+                return result;
+            }
+
+            //сохранение
+            return this.SaveChanges();
         }
 
         public void Dispose()
         {
+            this.DisposeRepositories();
             _context?.Dispose();
         }
     }

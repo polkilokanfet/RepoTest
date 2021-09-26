@@ -46,8 +46,8 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates.ServiceRealizationDates
             _unitOfWork = Container.Resolve<IUnitOfWork>();
 
             var items = _unitOfWork.Repository<SalesUnit>().GetAll()
-                .Where(x => !x.IsRemoved && !x.IsLoosen && x.Specification != null)
-                .Where(x => x.Product.ProductBlock.IsService)
+                .Where(salesUnit => !salesUnit.IsRemoved && !salesUnit.IsLoosen && salesUnit.Specification != null)
+                .Where(salesUnit => salesUnit.Product.ProductBlock.IsService)
                 .OrderBy(salesUnit => salesUnit.RealizationDateCalculated)
                 .Select(salesUnit => new ServiceRealizationDatesItem(salesUnit))
                 .ToList();

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -136,12 +137,17 @@ namespace HVTApp.Services.GetProductService
             //загрузка актуальных продуктов
             var products = UnitOfWork.Repository<Product>().GetAll();
             //если выбранного продукта нет в базе
-            if (!products.Contains(result))
+            if (products.Contains(result) == false)
             {
                 SubstitutionProducts(result, products);
-                UnitOfWork.Repository<Product>().Add(result);
-                UnitOfWork.SaveChanges();
-                Container.Resolve<IEventAggregator>().GetEvent<AfterSaveProductEvent>().Publish(result);
+                if (UnitOfWork.SaveEntity(result).OperationCompletedSuccessfully)
+                {
+                    Container.Resolve<IEventAggregator>().GetEvent<AfterSaveProductEvent>().Publish(result);
+                }
+                else
+                {
+                    throw new Exception("Ошибка при сохранении нового продукта в базу данных.");
+                }
             }
 
             return result;

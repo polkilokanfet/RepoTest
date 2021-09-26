@@ -73,22 +73,15 @@ namespace HVTApp.UI.Modules.Products.ViewModels
             ReplaceCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => x.Product.Id == ProductReplaceable.Id);
-                    salesUnits.ForEach(x => x.Product = ProductTarget);
+                    var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(salesUnit => salesUnit.Product.Id == ProductReplaceable.Id);
+                    salesUnits.ForEach(salesUnit => salesUnit.Product = ProductTarget);
 
-                    var offerUnits = UnitOfWork.Repository<OfferUnit>().Find(x => x.Product.Id == ProductReplaceable.Id);
-                    offerUnits.ForEach(x => x.Product = ProductTarget);
+                    var offerUnits = UnitOfWork.Repository<OfferUnit>().Find(offerUnit => offerUnit.Product.Id == ProductReplaceable.Id);
+                    offerUnits.ForEach(offerUnit => offerUnit.Product = ProductTarget);
 
-                    try
+                    if (UnitOfWork.RemoveEntity(ProductReplaceable).OperationCompletedSuccessfully)
                     {
-                        UnitOfWork.Repository<Product>().Delete(ProductReplaceable);
-
-                        UnitOfWork.SaveChanges();
                         Container.Resolve<IMessageService>().ShowOkMessageDialog("Заменено", $"SalesUnits: {salesUnits.Count}\nOfferUnits: {offerUnits.Count}\n\nЗамененный продукт удален!");
-                    }
-                    catch (Exception e)
-                    {
-                        Container.Resolve<IMessageService>().ShowOkMessageDialog("Exception", e.PrintAllExceptions());
                     }
                 },
                 () => ProductReplaceable != null && ProductTarget != null);

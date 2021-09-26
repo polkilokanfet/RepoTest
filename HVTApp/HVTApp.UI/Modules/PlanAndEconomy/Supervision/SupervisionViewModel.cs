@@ -48,7 +48,10 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Supervision
 
                         if (supervision == null)
                         {
-                            UnitOfWork.Repository<Model.POCOs.Supervision>().Add(supervisionWr.Model);
+                            if (UnitOfWork.Repository<Model.POCOs.Supervision>().Add(supervisionWr.Model).OperationCompletedSuccessfully == false)
+                            {
+                                return;
+                            }
                             supervisionWr.IsNew = false;
                         }
                         //если кто-то раньше сохранил
@@ -73,9 +76,11 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Supervision
                         }
 
                     }
-                    Units.AcceptChanges();
 
-                    UnitOfWork.SaveChanges();
+                    if (UnitOfWork.SaveChanges().OperationCompletedSuccessfully)
+                    {
+                        Units.AcceptChanges();
+                    }
                 }, 
                 () => Units.IsValid && Units.IsChanged);
 
@@ -99,11 +104,12 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Supervision
                         RecipientEmployee = unitOfWork.Repository<Employee>().GetById(GlobalAppProperties.Actual.RecipientSupervisionLetterEmployee.Id)
                     };
 
-                    unitOfWork.Repository<Document>().Add(letter);
-                    unitOfWork.SaveChanges();
+                    if (unitOfWork.SaveEntity(letter).OperationCompletedSuccessfully)
+                    {
+                        Container.Resolve<IPrintSupervisionLetterService>()
+                            .PrintSupervisionLetter(SelectedUnits.Cast<SupervisionWr>().Select(x => x.Model), letter, PathGetter.GetPath(letter));
+                    }
 
-                    Container.Resolve<IPrintSupervisionLetterService>()
-                        .PrintSupervisionLetter(SelectedUnits.Cast<SupervisionWr>().Select(x => x.Model), letter, PathGetter.GetPath(letter));
                 },
                 () => SelectedUnits != null && SelectedUnits.Any());
 

@@ -1,5 +1,4 @@
 using HVTApp.Model.Events;
-using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 
@@ -13,17 +12,11 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
         protected override void ExecuteMethod()
         {
-            ViewModel.TechnicalRequrementsTaskWrapper.AcceptChanges();
-
-            var technicalRequrementsTask = UnitOfWork.Repository<TechnicalRequrementsTask>().GetById(ViewModel.TechnicalRequrementsTaskWrapper.Model.Id);
-            if (technicalRequrementsTask == null)
+            if (UnitOfWork.SaveEntity(ViewModel.TechnicalRequrementsTaskWrapper.Model).OperationCompletedSuccessfully)
             {
-                UnitOfWork.Repository<TechnicalRequrementsTask>().Add(ViewModel.TechnicalRequrementsTaskWrapper.Model);
+                ViewModel.TechnicalRequrementsTaskWrapper.AcceptChanges();
+                Container.Resolve<IEventAggregator>().GetEvent<AfterSaveTechnicalRequrementsTaskEvent>().Publish(ViewModel.TechnicalRequrementsTaskWrapper.Model);
             }
-
-            UnitOfWork.SaveChanges();
-
-            Container.Resolve<IEventAggregator>().GetEvent<AfterSaveTechnicalRequrementsTaskEvent>().Publish(ViewModel.TechnicalRequrementsTaskWrapper.Model);
 
             this.RaiseCanExecuteChanged();
         }

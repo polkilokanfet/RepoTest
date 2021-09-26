@@ -9,13 +9,13 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
     {
         public string SerialNumber
         {
-            get { return GetValue<string>(); }
-            set { SetValueNew(value); }
+            get => GetValue<string>();
+            set => SetValueNew(value);
         }
 
         public DateTime? PickingDate
         {
-            get { return GetValue<DateTime?>(); }
+            get => GetValue<DateTime?>();
             set
             {
                 var date = EndProductionDate ?? ShipmentDate ?? DeliveryDate ?? RealizationDate;
@@ -27,7 +27,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
 
         public DateTime? EndProductionDate
         {
-            get { return GetValue<DateTime?>(); }
+            get => GetValue<DateTime?>();
             set
             {
                 if (value.HasValue)
@@ -45,7 +45,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
 
         public DateTime? ShipmentDate
         {
-            get { return GetValue<DateTime?>(); }
+            get => GetValue<DateTime?>();
             set
             {
                 if (value.HasValue)
@@ -64,7 +64,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
 
         public DateTime? DeliveryDate
         {
-            get { return GetValue<DateTime?>(); }
+            get => GetValue<DateTime?>();
             set
             {
                 var date = ShipmentDate ?? EndProductionDate ?? PickingDate;
@@ -76,7 +76,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
 
         public DateTime? RealizationDate
         {
-            get { return GetValue<DateTime?>(); }
+            get => GetValue<DateTime?>();
             set
             {
                 if (value.HasValue)

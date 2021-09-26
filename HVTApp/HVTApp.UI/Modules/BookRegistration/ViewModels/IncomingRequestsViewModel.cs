@@ -91,11 +91,14 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
                     var unitOfWork = Container.Resolve<IUnitOfWork>();
                     var request = unitOfWork.Repository<IncomingRequest>().GetById(SelectedIncomingRequest.Id);
                     request.DoneDate = DateTime.Now;
-                    unitOfWork.SaveChanges();
 
-                    SelectedIncomingRequest.Refresh(request);
-                    Container.Resolve<IEventAggregator>().GetEvent<AfterSaveIncomingRequestEvent>().Publish(request);
-                    (RequestIsDoneCommand).RaiseCanExecuteChanged();
+                    if (unitOfWork.SaveChanges().OperationCompletedSuccessfully)
+                    {
+                        SelectedIncomingRequest.Refresh(request);
+                        Container.Resolve<IEventAggregator>().GetEvent<AfterSaveIncomingRequestEvent>().Publish(request);
+                    }
+
+                    RequestIsDoneCommand.RaiseCanExecuteChanged();
                 },
                 () => SelectedIncomingRequest != null && !SelectedIncomingRequest.Entity.IsDone);
 

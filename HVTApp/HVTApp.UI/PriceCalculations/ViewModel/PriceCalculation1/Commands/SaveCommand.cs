@@ -41,11 +41,11 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
                 _unitOfWork.Repository<PriceCalculationItem>().Delete(removedItem.Model);
             }
 
-            _viewModel.PriceCalculationWrapper.AcceptChanges();
-
-            _unitOfWork.SaveChanges();
-
-            _container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceCalculationEvent>().Publish(_viewModel.PriceCalculationWrapper.Model);
+            if (_unitOfWork.SaveChanges().OperationCompletedSuccessfully)
+            {
+                _viewModel.PriceCalculationWrapper.AcceptChanges();
+                _container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceCalculationEvent>().Publish(_viewModel.PriceCalculationWrapper.Model);
+            }
 
             this.RaiseCanExecuteChanged();
         }

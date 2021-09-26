@@ -49,14 +49,12 @@ namespace HVTApp.Services.GetProductService.Complects
                     var designation = $"{ParameterComplectType.Value} {ParameterComplectDesignation.Value}".GetFirstSimbols(255);
 
                     Product.DesignationSpecial = Product.ProductBlock.DesignationSpecial = designation;
-                    Product.AcceptChanges();
-
-                    UnitOfWork.Repository<Product>().Add(Product.Model);
-                    UnitOfWork.SaveChanges();
-
-                    IsSaved = true;
-
-                    SaveEvent?.Invoke();
+                    if (UnitOfWork.SaveEntity(Product.Model).OperationCompletedSuccessfully)
+                    {
+                        Product.AcceptChanges();
+                        IsSaved = true;
+                        SaveEvent?.Invoke();
+                    }
                 }, 
                 () => ParameterComplectType != null && Product != null && Product.IsValid && !string.IsNullOrWhiteSpace(ParameterComplectDesignation.Value));
 

@@ -54,7 +54,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
                     if (specification != null)
                     {
                         var salesUnits = unitOfWork.Repository<SalesUnit>().Find(x => x.Specification?.Id == specification.Id);
-                        salesUnits.ForEach(x => x.Specification = null);
+                        salesUnits.ForEach(salesUnit => salesUnit.Specification = null);
                         try
                         {
                             unitOfWork.Repository<Specification>().Delete(specification);

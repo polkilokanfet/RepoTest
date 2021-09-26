@@ -40,15 +40,18 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
             SaveOrderCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var changed = _unitsWrappers.ModifiedItems.ToList();
-
-                    Item.AcceptChanges();
-                    _unitsWrappers.AcceptChanges();
-                    UnitOfWork.SaveChanges();
-
-                    if(changed.Any())
-                        Container.Resolve<IEventAggregator>().GetEvent<AfterSaveOrderItemsEvent>().Publish(changed.Select(salesUnitOrderItem => salesUnitOrderItem.Model));
-
+                    if (UnitOfWork.SaveChanges().OperationCompletedSuccessfully)
+                    {
+                        Item.AcceptChanges();
+                        _unitsWrappers.AcceptChanges();
+                        
+                        var changed = _unitsWrappers.ModifiedItems.ToList();
+                        if (changed.Any())
+                        {
+                            Container.Resolve<IEventAggregator>().GetEvent<AfterSaveOrderItemsEvent>().Publish(changed.Select(salesUnitOrderItem => salesUnitOrderItem.Model));
+                        }
+                    }
+                    
                     SaveOrderCommand.RaiseCanExecuteChanged();
                 },
                 () =>
@@ -91,14 +94,13 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
                         groupInOrder.Units.ForEach(x => x.OrderPosition = string.Empty);
                     }
 
-                    _unitsWrappers.ForEach(x => x.AcceptChanges());
+                    _unitsWrappers.ForEach(salesUnitOrderItem => salesUnitOrderItem.AcceptChanges());
 
-                    UnitOfWork.Repository<Order>().Delete(order);
-                    UnitOfWork.SaveChanges();
-
-                    Container.Resolve<IEventAggregator>().GetEvent<AfterRemoveOrderEvent>().Publish(order);
-
-                    GoBackCommand.Execute(null);
+                    if (UnitOfWork.RemoveEntity(order).OperationCompletedSuccessfully)
+                    {
+                        Container.Resolve<IEventAggregator>().GetEvent<AfterRemoveOrderEvent>().Publish(order);
+                        GoBackCommand.Execute(null);
+                    }
                 });
 
             AddGroupCommand = new DelegateLogCommand(AddGroupCommand_Execute, () => GroupsPotential.SelectedItem != null);
@@ -204,6 +206,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
             //переносим группу в план производства
             GroupsInOrder.Add(unitsGroup);
             GroupsPotential.Remove(unitsGroup);
+            SaveOrderCommand.RaiseCanExecuteChanged();
         }
 
         private void AddUnit(SalesUnitOrderItem unit)
@@ -258,8 +261,8 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs args)
         {
-            (SaveOrderCommand).RaiseCanExecuteChanged();
-            (AddGroupCommand).RaiseCanExecuteChanged();
+            SaveOrderCommand.RaiseCanExecuteChanged();
+            AddGroupCommand.RaiseCanExecuteChanged();
         }
 
         protected override void GoBackCommand_Execute()
@@ -275,6 +278,5 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
 
             RegionManager.Regions[RegionNames.ContentRegion].NavigationService.Journal.GoBack();
         }
-
     }
 }

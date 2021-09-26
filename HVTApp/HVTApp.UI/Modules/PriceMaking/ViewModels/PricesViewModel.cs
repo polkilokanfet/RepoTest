@@ -31,9 +31,9 @@ namespace HVTApp.UI.Modules.PriceMaking.ViewModels
             set
             {
                 _selectedPriceTask = value;
-                (PrintBlockInContext).RaiseCanExecuteChanged();
-                (AddPriceCommand).RaiseCanExecuteChanged();
-                (RemovePriceCommand).RaiseCanExecuteChanged();
+                PrintBlockInContext.RaiseCanExecuteChanged();
+                AddPriceCommand.RaiseCanExecuteChanged();
+                RemovePriceCommand.RaiseCanExecuteChanged();
                 SelectedSumOnDate = null;
                 RaisePropertyChanged();
             }
@@ -45,7 +45,7 @@ namespace HVTApp.UI.Modules.PriceMaking.ViewModels
             set
             {
                 _selectedSumOnDate = value;
-                (RemovePriceCommand).RaiseCanExecuteChanged();
+                RemovePriceCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -78,9 +78,11 @@ namespace HVTApp.UI.Modules.PriceMaking.ViewModels
                     {
                         var wrapper = new SumOnDateWrapper(_unitOfWork.Repository<SumOnDate>().GetById(price.Id));
                         SelectedPriceTask.Prices.Add(wrapper);
-                        SelectedPriceTask.AcceptChanges();
-                        _unitOfWork.SaveChanges();
-                        SelectedSumOnDate = wrapper;
+                        if (_unitOfWork.SaveChanges().OperationCompletedSuccessfully)
+                        {
+                            SelectedPriceTask.AcceptChanges();
+                            SelectedSumOnDate = wrapper;
+                        }
                     }
                 },
                 () => SelectedPriceTask != null);
@@ -92,9 +94,11 @@ namespace HVTApp.UI.Modules.PriceMaking.ViewModels
                     if (dr != MessageDialogResult.Yes)
                         return;
                     SelectedPriceTask.Prices.Remove(SelectedSumOnDate);
-                    SelectedPriceTask.AcceptChanges();
-                    _unitOfWork.SaveChanges();
-                    SelectedSumOnDate = null;
+                    if (_unitOfWork.SaveChanges().OperationCompletedSuccessfully)
+                    {
+                        SelectedPriceTask.AcceptChanges();
+                        SelectedSumOnDate = null;
+                    }
                 },
                 () => SelectedPriceTask != null && SelectedSumOnDate != null);
 
@@ -147,10 +151,11 @@ namespace HVTApp.UI.Modules.PriceMaking.ViewModels
                         }
                     }
 
-                    PriceTasks.Where(x => x.IsValid && x.IsChanged).ForEach(x => x.AcceptChanges());
-                    _unitOfWork.SaveChanges();
-
-                    Container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", sb.ToString());
+                    if (_unitOfWork.SaveChanges().OperationCompletedSuccessfully)
+                    {
+                        PriceTasks.Where(priceTask => priceTask.IsValid && priceTask.IsChanged).ForEach(priceTask => priceTask.AcceptChanges());
+                        Container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", sb.ToString());
+                    }
                 });
         }
 

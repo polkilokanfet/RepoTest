@@ -3,10 +3,12 @@ using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
+using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
+using Prism.Events;
 
 namespace HVTApp.UI.PaymentConditionsSet
 {
@@ -36,18 +38,26 @@ namespace HVTApp.UI.PaymentConditionsSet
                 () =>
                 {
                     PaymentCondition paymentCondition = this.PaymentConditionWrapper.Model;
+
+                    //если условие новое
                     if (_unitOfWork.Repository<PaymentCondition>()
                         .Find(condition => Equals(condition, paymentCondition))
                         .Any() == false)
                     {
-                        this.PaymentConditionWrapper.AcceptChanges();
-                        _unitOfWork.Repository<PaymentCondition>().Add(paymentCondition);
-                        _unitOfWork.SaveChanges();
+                        if (_unitOfWork.SaveEntity(paymentCondition).OperationCompletedSuccessfully)
+                        {
+                            this.PaymentConditionWrapper.AcceptChanges();
+                            container.Resolve<IEventAggregator>().GetEvent<AfterSavePaymentConditionEvent>().Publish(paymentCondition);
+                        }
+                        else
+                        {
+                            return;
+                        }
                     }
 
                     IsOk = true;
                     CloseRequested?.Invoke(this, new DialogRequestCloseEventArgs(true));
-                }, 
+                },
                 () => PaymentConditionWrapper.IsValid && PaymentConditionWrapper.IsChanged);
 
             PaymentConditionWrapper.PropertyChanged += (sender, args) => OkCommand.RaiseCanExecuteChanged();

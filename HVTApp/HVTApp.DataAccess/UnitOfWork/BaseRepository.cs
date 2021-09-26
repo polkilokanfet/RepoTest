@@ -53,29 +53,49 @@ namespace HVTApp.DataAccess
             return GetQuary().AsNoTracking().AsEnumerable().Where(predicate).ToList();
         }
 
-        public void Add(TEntity entity)
+        private UnitOfWorkOperationResult VoidAction<T>(Action<T> action, T entity)
         {
-            Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
-            Context.Set<TEntity>().Add(entity);
+            UnitOfWorkOperationResult result;
+            try
+            {
+                action.Invoke(entity);
+                result = new UnitOfWorkOperationResult();
+            }
+            catch (Exception e)
+            {
+                result = new UnitOfWorkOperationResult(e);
+                this.OperationFailedEvent?.Invoke(result);
+#if DEBUG
+                //throw;
+#endif
+            }
+
+            return result;
         }
 
-        public void AddRange(IEnumerable<TEntity> entities)
+        public UnitOfWorkOperationResult Add(TEntity entity)
         {
             Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
-            Context.Set<TEntity>().AddRange(entities);
+            return VoidAction(baseEntity => Context.Set<TEntity>().Add(baseEntity), entity);
+        }
+
+        public UnitOfWorkOperationResult AddRange(IEnumerable<TEntity> entities)
+        {
+            Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
+            return VoidAction(ee => Context.Set<TEntity>().AddRange(ee), entities);
         }
 
 
-        public void Delete(TEntity entity)
+        public UnitOfWorkOperationResult Delete(TEntity entity)
         {
             Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
-            Context.Set<TEntity>().Remove(entity);
+            return VoidAction(en => Context.Set<TEntity>().Remove(en), entity);
         }
 
-        public void DeleteRange(IEnumerable<TEntity> entities)
+        public UnitOfWorkOperationResult DeleteRange(IEnumerable<TEntity> entities)
         {
             Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
-            Context.Set<TEntity>().RemoveRange(entities);
+            return VoidAction(ee => Context.Set<TEntity>().RemoveRange(ee), entities);
         }
 
         public TEntity GetById(Guid id)
@@ -104,6 +124,7 @@ namespace HVTApp.DataAccess
             return Context.Set<TEntity>().AsQueryable();
         }
 
+        public event Action<UnitOfWorkOperationResult> OperationFailedEvent; 
 
         protected void Loging(string methodName)
         {

@@ -14,7 +14,7 @@ namespace HVTApp.Model.Tests
             var pi = typeof(Specification).GetProperty(nameof(Specification.Date));
             Assert.AreEqual("Дата", pi.Designation());
             pi = typeof(Specification).GetProperty(nameof(Specification.Contract));
-            Assert.AreEqual("Контракт", pi.Designation());
+            Assert.AreEqual("Договор", pi.Designation());
         }
     }
 }

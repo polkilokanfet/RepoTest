@@ -206,18 +206,31 @@ namespace HVTApp.DataAccess
 {
     public partial class UnitOfWork
     {
-        public void InitializeRepositories()
+        private void InitializeRepositories()
         {
 <#+ 
 	foreach (var modelType in modelTypes)
     {
 #>
             <#=modelType.Name#>Repository = new <#=modelType.Name#>Repository(_context);
+            <#=modelType.Name#>Repository.OperationFailedEvent += OnOperationFailedEvent;
+
 <#+
 	}
 #>
         }
 
+        private void DisposeRepositories()
+        {
+<#+ 
+	foreach (var modelType in modelTypes)
+    {
+#>
+            <#=modelType.Name#>Repository.OperationFailedEvent -= OnOperationFailedEvent;
+<#+
+	}
+#>
+        }
 
         #region Repositories
 <#+ 

@@ -156,25 +156,31 @@ namespace HVTApp.UI.ViewModels
         {
             if (AllowSave() == false) return;
 
-            //добавляем сущность, если ее не существовало
-            if (UnitOfWork.Repository<TEntity>().GetById(Item.Model.Id) == null)
-                UnitOfWork.Repository<TEntity>().Add(Item.Model);
-
-            Item.AcceptChanges();
             //сохраняем
-            try
+            if (UnitOfWork.SaveEntity(Item.Model).OperationCompletedSuccessfully)
             {
-                UnitOfWork.SaveChanges();
-                EventAggregator.GetEvent<TAfterSaveEntityEvent>().Publish(Item.Model);
-            }
-            catch (DbUpdateConcurrencyException e)
-            {
-                //Container.Resolve<IMessageService>().ShowOkMessageDialog(saveTask.Exception?.GetType().ToString(), saveTask.Exception.PrintAllExceptions());
-                Container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().ToString(), e.PrintAllExceptions());
-            }
+                //Принимаем изменения
+                Item.AcceptChanges();
 
-            //запрашиваем закрытие окна
-            OnCloseRequested(new DialogRequestCloseEventArgs(true));
+                //Сигнализируем о сохранении сущности
+                EventAggregator.GetEvent<TAfterSaveEntityEvent>().Publish(Item.Model);
+
+                //запрашиваем закрытие окна
+                OnCloseRequested(new DialogRequestCloseEventArgs(true));
+            }
+            //try
+            //{
+            //    UnitOfWork.SaveChanges();
+            //    EventAggregator.GetEvent<TAfterSaveEntityEvent>().Publish(Item.Model);
+            //}
+            //catch (DbUpdateConcurrencyException e)
+            //{
+            //    //Container.Resolve<IMessageService>().ShowOkMessageDialog(saveTask.Exception?.GetType().ToString(), saveTask.Exception.PrintAllExceptions());
+            //    Container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().ToString(), e.PrintAllExceptions());
+            //}
+
+            ////запрашиваем закрытие окна
+            //OnCloseRequested(new DialogRequestCloseEventArgs(true));
         }
 
         protected virtual bool SaveCommand_CanExecute()

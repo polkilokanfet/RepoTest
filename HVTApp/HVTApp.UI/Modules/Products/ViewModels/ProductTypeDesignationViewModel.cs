@@ -41,10 +41,12 @@ namespace HVTApp.UI.Modules.Products.ViewModels
             SaveCommand = new DelegateLogCommand(
                 () =>
                 {
-                    ProductTypeDesignationWrapper.AcceptChanges();
-                    UnitOfWork.Repository<ProductTypeDesignation>().Add(ProductTypeDesignationWrapper.Model);
-                    UnitOfWork.SaveChanges();
-                    Container.Resolve<IEventAggregator>().GetEvent<AfterSaveProductTypeDesignationEvent>().Publish(ProductTypeDesignationWrapper.Model);
+                    if (UnitOfWork.SaveEntity(ProductTypeDesignationWrapper.Model).OperationCompletedSuccessfully)
+                    {
+                        ProductTypeDesignationWrapper.AcceptChanges();
+                        Container.Resolve<IEventAggregator>().GetEvent<AfterSaveProductTypeDesignationEvent>().Publish(ProductTypeDesignationWrapper.Model);
+                    }
+
                     SaveCommand.RaiseCanExecuteChanged();
                 },
                 () => ProductTypeDesignationWrapper.IsValid && ProductTypeDesignationWrapper.IsChanged);

@@ -38,25 +38,27 @@ namespace HVTApp.DataAccess
             return GetAll().Where(predicate).ToList();
         }
 
-        public void Add(TEntity entity)
+        public UnitOfWorkOperationResult Add(TEntity entity)
         {
             throw new NotImplementedException();
         }
 
-        public void AddRange(IEnumerable<TEntity> entities)
+        public UnitOfWorkOperationResult AddRange(IEnumerable<TEntity> entities)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(TEntity entity)
+        public UnitOfWorkOperationResult Delete(TEntity entity)
         {
             throw new NotImplementedException();
         }
 
-        public void DeleteRange(IEnumerable<TEntity> entities)
+        public UnitOfWorkOperationResult DeleteRange(IEnumerable<TEntity> entities)
         {
             throw new NotImplementedException();
         }
+
+        public event Action<UnitOfWorkOperationResult> OperationFailedEvent;
 
         public TEntity GetById(Guid id)
         {

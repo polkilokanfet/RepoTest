@@ -19,11 +19,16 @@ namespace HVTApp.Infrastructure
         List<TEntity> Find(Func<TEntity, bool> predicate);
         List<TEntity> FindAsNoTracking(Func<TEntity, bool> predicate);
 
-        void Add(TEntity entity);
-        void AddRange(IEnumerable<TEntity> entities);
+        UnitOfWorkOperationResult Add(TEntity entity);
+        UnitOfWorkOperationResult AddRange(IEnumerable<TEntity> entities);
 
-        void Delete(TEntity entity);
-        void DeleteRange(IEnumerable<TEntity> entities);
+        UnitOfWorkOperationResult Delete(TEntity entity);
+        UnitOfWorkOperationResult DeleteRange(IEnumerable<TEntity> entities);
+
+        /// <summary>
+        /// Событие провала операции
+        /// </summary>
+        event Action<UnitOfWorkOperationResult> OperationFailedEvent;
 
         void Reload(TEntity entity);
     }

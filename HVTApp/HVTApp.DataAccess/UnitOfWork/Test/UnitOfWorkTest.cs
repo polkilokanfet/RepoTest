@@ -22,7 +22,17 @@ namespace HVTApp.DataAccess
             throw new NotImplementedException();
         }
 
-        public void SaveChanges()
+        public UnitOfWorkOperationResult SaveChanges()
+        {
+            throw new NotImplementedException();
+        }
+
+        public UnitOfWorkOperationResult SaveEntity<T>(T entity) where T : class, IBaseEntity
+        {
+            throw new NotImplementedException();
+        }
+
+        public UnitOfWorkOperationResult RemoveEntity<T>(T entity) where T : class, IBaseEntity
         {
             throw new NotImplementedException();
         }

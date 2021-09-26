@@ -142,13 +142,12 @@ namespace HVTApp.UI.Modules.Products.Parameters
                         similarParameter.ParameterRelations.Add(similarParameterRelation);
                     }
 
-                    UnitOfWork.Repository<Parameter>().Add(similarParameter);
-                    UnitOfWork.SaveChanges();
-
-                    var lookup = new ParameterLookup(similarParameter);
-                    ParameterLookups.Add(lookup);
-
-                    SelectedParameterLookup = lookup;
+                    if (UnitOfWork.SaveEntity(similarParameter).OperationCompletedSuccessfully)
+                    {
+                        var lookup = new ParameterLookup(similarParameter);
+                        ParameterLookups.Add(lookup);
+                        SelectedParameterLookup = lookup;
+                    }
                 },
                 () => SelectedParameterLookup != null);
 

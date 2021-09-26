@@ -78,11 +78,13 @@ namespace HVTApp.UI.PaymentConditionsSet
                 () =>
                 {
                     PaymentConditionSet conditionSet = PaymentConditionSetWrapper.Model;
+
                     if (_paymentConditionSets.Any(set => set.Equals(conditionSet)) == false)
                     {
-                        unitOfWork.Repository<PaymentConditionSet>().Add(conditionSet);
-                        unitOfWork.SaveChanges();
-                        container.Resolve<IEventAggregator>().GetEvent<AfterSavePaymentConditionSetEvent>().Publish(conditionSet);
+                        if (unitOfWork.SaveEntity(conditionSet).OperationCompletedSuccessfully)
+                        {
+                            container.Resolve<IEventAggregator>().GetEvent<AfterSavePaymentConditionSetEvent>().Publish(conditionSet);
+                        }
                     }
 
                     CloseRequested?.Invoke(this, new DialogRequestCloseEventArgs(true));

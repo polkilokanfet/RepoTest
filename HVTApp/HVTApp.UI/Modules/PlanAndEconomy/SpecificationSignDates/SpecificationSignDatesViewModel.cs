@@ -23,10 +23,13 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.SpecificationSignDates
             SaveCommand = new DelegateLogCommand(
                 () =>
                 {
-                    //принимаем все изменения
-                    _specifications.AcceptChanges();
                     //сохраняем изменения
-                    _unitOfWork.SaveChanges();
+                    if (_unitOfWork.SaveChanges().OperationCompletedSuccessfully)
+                    {
+                        //принимаем все изменения
+                        _specifications.AcceptChanges();
+                    }
+
                     //проверяем актуальность команды
                     SaveCommand.RaiseCanExecuteChanged();
                 },

@@ -59,9 +59,10 @@ namespace HVTApp.UI.Modules.Products.ViewModels
                     //удаление задания
                     unitOfWork.Repository<CreateNewProductTask>().Delete(task);
 
-                    unitOfWork.SaveChanges();
-
-                    Container.Resolve<IEventAggregator>().GetEvent<AfterRemoveCreateNewProductTaskEvent>().Publish(task);
+                    if (unitOfWork.SaveChanges().OperationCompletedSuccessfully)
+                    {
+                        Container.Resolve<IEventAggregator>().GetEvent<AfterRemoveCreateNewProductTaskEvent>().Publish(task);
+                    }
                 },
                 () => SelectedItem != null);
 

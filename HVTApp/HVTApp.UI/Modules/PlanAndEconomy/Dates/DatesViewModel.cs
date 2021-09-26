@@ -32,10 +32,12 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
                 {
                     _salesUnits.PropertyChanged -= SalesUnitsOnPropertyChanged;
 
-                    //принимаем все изменения
-                    _salesUnits.AcceptChanges();
                     //сохраняем изменения
-                    _unitOfWork.SaveChanges();
+                    if (_unitOfWork.SaveChanges().OperationCompletedSuccessfully)
+                    {
+                        //принимаем все изменения
+                        _salesUnits.AcceptChanges();
+                    }
                     //проверяем актуальность команды
                     SaveCommand.RaiseCanExecuteChanged();
 

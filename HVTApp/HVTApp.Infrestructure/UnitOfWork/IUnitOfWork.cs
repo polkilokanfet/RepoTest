@@ -9,7 +9,7 @@ namespace HVTApp.Infrastructure
         /// Вернуть репозиторий
         /// </summary>
         /// <typeparam name="T">Тип сущности из репозитория</typeparam>
-        /// <returns> Репозиторий </returns>
+        /// <returns>Репозиторий сущностей</returns>
         IRepository<T> Repository<T>() where T : class, IBaseEntity;
 
         ///// <summary>
@@ -22,7 +22,24 @@ namespace HVTApp.Infrastructure
         /// Сохранить все изменения
         /// </summary>
         /// <returns></returns>
-        void SaveChanges();
+        UnitOfWorkOperationResult SaveChanges();
+
+        /// <summary>
+        /// Сохранение сущности
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="entity">Сущность</param>
+        /// <returns></returns>
+        UnitOfWorkOperationResult SaveEntity<T>(T entity) where T : class, IBaseEntity;
+
+
+        /// <summary>
+        /// Удаление сущности
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="entity">Сущность</param>
+        /// <returns></returns>
+        UnitOfWorkOperationResult RemoveEntity<T>(T entity) where T : class, IBaseEntity;
     }
 
     ///// <summary>

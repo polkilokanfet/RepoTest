@@ -36,8 +36,7 @@ namespace HVTApp
                 }
             }
 
-            _unitOfWork.Repository<LogUnit>().Add(logUnit);
-            _unitOfWork.SaveChanges();
+            _unitOfWork.SaveEntity(logUnit);
         }
     }
 }
