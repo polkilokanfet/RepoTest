@@ -34,7 +34,7 @@ namespace HVTApp.Services.EmailService
             //клиент
             var smtpClient = new SmtpClient("smtp.gmail.com", 587)
             {
-                Credentials = new NetworkCredential(from, "HVTApp123456"),
+                Credentials = new NetworkCredential(from, "uetm741258963"),
                 EnableSsl = true
             };
 

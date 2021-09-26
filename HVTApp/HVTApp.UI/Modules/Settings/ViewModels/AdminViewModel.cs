@@ -27,30 +27,36 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
             Command = new DelegateLogCommand(
                 () =>
                 {
-                    var unitOfWork = _container.Resolve<IUnitOfWork>();
+                    //_container.Resolve<IEmailService>().SendMail("kosolapov.ag@gmail.com", "SubjTest", "BodyTest");
+                    _container.Resolve<IEmailService>().SendMail("kosolapov.ep@mail.ru", "SubjTest", "BodyTest");
+                    _container.Resolve<IMessageService>().ShowOkMessageDialog("Send letter", "Success!");
 
-                    List<Facility> facilities = unitOfWork.Repository<Facility>().Find(facility => facility.Address == null);
-                    foreach (var facility in facilities)
-                    {
-                        Address address = facility.OwnerCompany.GetCompanyOrParentAddress();
-                        if (address != null)
-                        {
-                            facility.Address = new Address
-                            {
-                                Description = facility.ToString(), 
-                                Locality = address.Locality
-                            };
-                        }
-                    }
 
-                    unitOfWork.SaveChanges();
+                    //var unitOfWork = _container.Resolve<IUnitOfWork>();
 
-                    facilities = unitOfWork.Repository<Facility>().Find(facility => facility.Address == null);
+                    //List<Facility> facilities = unitOfWork.Repository<Facility>().Find(facility => facility.Address == null);
+                    //foreach (var facility in facilities)
+                    //{
+                    //    Address address = facility.OwnerCompany.GetCompanyOrParentAddress();
+                    //    if (address != null)
+                    //    {
+                    //        facility.Address = new Address
+                    //        {
+                    //            Description = facility.ToString(), 
+                    //            Locality = address.Locality
+                    //        };
+                    //    }
+                    //}
 
-                    _container.Resolve<IMessageService>().ShowOkMessageDialog("fin",
-                        facilities.Any() ? facilities.ToStringEnum() : "у всех объектов теперь есть адреса");
+                    //unitOfWork.SaveChanges();
 
-                    ////_container.Resolve<IEmailService>().SendMail("kosolapov.ag@gmail.com", "SubjTest", "BodyTest");
+                    //facilities = unitOfWork.Repository<Facility>().Find(facility => facility.Address == null);
+
+                    //_container.Resolve<IMessageService>().ShowOkMessageDialog("fin",
+                    //    facilities.Any() ? facilities.ToStringEnum() : "у всех объектов теперь есть адреса");
+
+
+
                     ////var unitOfWork = container.Resolve<IUnitOfWork>();
 
                     //var dependent = new Dependent {Name = "dep1"};
