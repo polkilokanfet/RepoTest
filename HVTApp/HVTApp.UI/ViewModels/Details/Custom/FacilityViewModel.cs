@@ -25,7 +25,7 @@ namespace HVTApp.UI.ViewModels
                     Locality locality = Container.Resolve<ISelectService>().SelectItem(localities, Item.Address.Locality?.Model.Id);
                     if (locality != null && locality.Id != Item.Address.Locality?.Model.Id)
                     {
-                        //locality = UnitOfWork.Repository<Locality>().GetById(locality.Id);
+                        locality = UnitOfWork.Repository<Locality>().GetById(locality.Id);
                         Item.Address.Locality = new LocalityWrapper(locality);
                     }
                 });
