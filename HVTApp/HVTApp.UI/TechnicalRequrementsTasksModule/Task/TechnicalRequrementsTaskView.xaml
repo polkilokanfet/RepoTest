@@ -169,6 +169,7 @@
                                         <infgDp:DateTimeField AlternateBinding="{Binding Date}" BindingType="UseAlternateBinding" Label="Дата" AllowEdit="False" AllowResize="False" Width="Auto"/>
                                         <infgDp:TextField AlternateBinding="{Binding Name, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Название" Width="Auto" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}"/>
                                         <infgDp:TextField AlternateBinding="{Binding Comment, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Комментарий" Width="Auto" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}"/>
+                                        <infgDp:TextField AlternateBinding="{Binding Id}" BindingType="UseAlternateBinding" Label="Id" Width="Auto" AllowEdit="False"/>
                                     </infgDp:FieldLayout.Fields>
                                 </infgDp:FieldLayout>
 
