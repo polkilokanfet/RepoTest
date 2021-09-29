@@ -38,6 +38,9 @@ namespace HVTApp.Model.POCOs
         [Designation("Комментарий"), MaxLength(256)]
         public string Comment { get; set; }
 
+        /// <summary>
+        /// В продукте есть блоки с фиксированной ценой
+        /// </summary>
         [Designation("В продукте есть блоки с фиксированной ценой"), NotMapped]
         public bool HasBlockWithFixedCost
         {

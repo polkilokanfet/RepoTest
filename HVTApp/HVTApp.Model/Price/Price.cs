@@ -146,7 +146,7 @@ namespace HVTApp.Model.Price
                         .ToList();
 
                 //оставляем включенное оборудование только с фиксированной ценой (напр. шеф-монтаж)
-                productsIncluded = productsIncluded.Where(productIncluded => productIncluded.Product.HasBlockWithFixedCost);
+                productsIncluded = productsIncluded.Where(productIncluded => productIncluded.CustomFixedPrice.HasValue || productIncluded.Product.HasBlockWithFixedCost);
             }
             //если калькуляции нет, нужно инициировать по продукту
             else
