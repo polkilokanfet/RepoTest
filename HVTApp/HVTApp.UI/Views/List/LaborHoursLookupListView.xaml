@@ -45,7 +45,6 @@
                         <infg:TextField Name="BlocksString" Label="BlocksString" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Blocks" Label="Blocks" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
-
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>
 

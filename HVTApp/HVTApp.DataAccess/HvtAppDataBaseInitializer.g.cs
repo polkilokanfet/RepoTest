@@ -38,6 +38,7 @@ namespace HVTApp.DataAccess
             context.PenaltyDbSet.AddRange(testData.GetAll<Penalty>());
             context.PriceCalculationDbSet.AddRange(testData.GetAll<PriceCalculation>());
             context.PriceCalculationFileDbSet.AddRange(testData.GetAll<PriceCalculationFile>());
+            context.PriceCalculationHistoryItemDbSet.AddRange(testData.GetAll<PriceCalculationHistoryItem>());
             context.PriceCalculationItemDbSet.AddRange(testData.GetAll<PriceCalculationItem>());
             context.ProductCategoryDbSet.AddRange(testData.GetAll<ProductCategory>());
             context.ProductCategoryPriceAndCostDbSet.AddRange(testData.GetAll<ProductCategoryPriceAndCost>());

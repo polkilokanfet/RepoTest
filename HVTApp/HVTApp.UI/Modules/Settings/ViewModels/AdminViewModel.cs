@@ -28,34 +28,39 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
                 () =>
                 {
                     //_container.Resolve<IEmailService>().SendMail("kosolapov.ag@gmail.com", "SubjTest", "BodyTest");
-                    _container.Resolve<IEmailService>().SendMail("kosolapov.ep@mail.ru", "SubjTest", "BodyTest");
-                    _container.Resolve<IMessageService>().ShowOkMessageDialog("Send letter", "Success!");
+                    //_container.Resolve<IEmailService>().SendMail("kosolapov.ep@mail.ru", "SubjTest", "BodyTest");
+                    //_container.Resolve<IMessageService>().ShowOkMessageDialog("Send letter", "Success!");
+                    
+                    var unitOfWork = _container.Resolve<IUnitOfWork>();
 
+                    List<PriceCalculation> priceCalculations = unitOfWork.Repository<PriceCalculation>().GetAll();
+                    foreach (var priceCalculation in priceCalculations)
+                    {
+                        if (priceCalculation.TaskOpenMoment.HasValue)
+                        {
+                            PriceCalculationHistoryItem startItem = new PriceCalculationHistoryItem
+                            {
+                                Type = PriceCalculationHistoryItemType.Start,
+                                Moment = priceCalculation.TaskOpenMoment.Value,
+                                Comment = priceCalculation.Comment
+                            };
+                            priceCalculation.History.Add(startItem);
 
-                    //var unitOfWork = _container.Resolve<IUnitOfWork>();
+                            if (priceCalculation.TaskCloseMoment.HasValue)
+                            {
+                                PriceCalculationHistoryItem finishItem = new PriceCalculationHistoryItem
+                                {
+                                    Type = PriceCalculationHistoryItemType.Start,
+                                    Moment = priceCalculation.TaskCloseMoment.Value
+                                };
+                                priceCalculation.History.Add(finishItem);
+                            }
+                        }
+                    }
 
-                    //List<Facility> facilities = unitOfWork.Repository<Facility>().Find(facility => facility.Address == null);
-                    //foreach (var facility in facilities)
-                    //{
-                    //    Address address = facility.OwnerCompany.GetCompanyOrParentAddress();
-                    //    if (address != null)
-                    //    {
-                    //        facility.Address = new Address
-                    //        {
-                    //            Description = facility.ToString(), 
-                    //            Locality = address.Locality
-                    //        };
-                    //    }
-                    //}
+                    unitOfWork.SaveChanges();
 
-                    //unitOfWork.SaveChanges();
-
-                    //facilities = unitOfWork.Repository<Facility>().Find(facility => facility.Address == null);
-
-                    //_container.Resolve<IMessageService>().ShowOkMessageDialog("fin",
-                    //    facilities.Any() ? facilities.ToStringEnum() : "у всех объектов теперь есть адреса");
-
-
+                    _container.Resolve<IMessageService>().ShowOkMessageDialog("fin", "!!!");
 
                     ////var unitOfWork = container.Resolve<IUnitOfWork>();
 

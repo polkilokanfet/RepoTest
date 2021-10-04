@@ -3,6 +3,7 @@ using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.Events;
+using HVTApp.Model.POCOs;
 using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
 using Prism.Events;
@@ -25,7 +26,11 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
             var dr = _container.Resolve<IMessageService>().ShowYesNoMessageDialog("Подтверждение", "Вы уверены, что хотите завершить задачу?", defaultYes: true);
             if (dr != MessageDialogResult.Yes) return;
 
-            _viewModel.PriceCalculationWrapper.TaskCloseMoment = DateTime.Now;
+            var historyItemWrapper = _viewModel.HistoryItem;
+            historyItemWrapper.Moment = DateTime.Now;
+            historyItemWrapper.Type = PriceCalculationHistoryItemType.Finish;
+            _viewModel.PriceCalculationWrapper.Model.History.Add(historyItemWrapper.Model);
+
             _viewModel.SaveCommand.Execute();
 
             _viewModel.CanChangePriceOnPropertyChanged();
@@ -53,4 +58,51 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
 
         }
     }
+    public class RejectCommand : DelegateLogCommand
+    {
+        private readonly PriceCalculationViewModel _viewModel;
+        private readonly IUnityContainer _container;
+
+        public RejectCommand(PriceCalculationViewModel viewModel, IUnityContainer container)
+        {
+            _viewModel = viewModel;
+            _container = container;
+        }
+
+        protected override void ExecuteMethod()
+        {
+            var dr = _container.Resolve<IMessageService>().ShowYesNoMessageDialog("Подтверждение", "Вы уверены, что хотите завершить задачу?", defaultYes: true);
+            if (dr != MessageDialogResult.Yes) return;
+
+            var historyItemWrapper = _viewModel.HistoryItem;
+            historyItemWrapper.Moment = DateTime.Now;
+            historyItemWrapper.Type = PriceCalculationHistoryItemType.Reject;
+            _viewModel.PriceCalculationWrapper.Model.History.Add(historyItemWrapper.Model);
+
+            _viewModel.SaveCommand.Execute();
+
+            _viewModel.CanChangePriceOnPropertyChanged();
+
+            _viewModel.SaveCommand.RaiseCanExecuteChanged();
+            _container.Resolve<IEventAggregator>().GetEvent<AfterRejectPriceCalculationEvent>().Publish(_viewModel.PriceCalculationWrapper.Model);
+        }
+
+        protected override bool CanExecuteMethod()
+        {
+            if (_viewModel.PriceCalculationWrapper == null)
+            {
+                return false;
+            }
+
+            if (_viewModel.PriceCalculationWrapper.IsNeedExcelFile && !_viewModel.CalculationHasFile)
+            {
+                return false;
+            }
+
+            return _viewModel.IsStarted &&
+                   !_viewModel.IsFinished &&
+                   _viewModel.PriceCalculationWrapper.IsValid;
+        }
+    }
+
 }

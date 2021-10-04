@@ -1032,6 +1032,11 @@ namespace HVTApp.UI.ViewModels
 
     public partial class PriceCalculationDetailsViewModel : BaseDetailsViewModel<PriceCalculationWrapper, PriceCalculation, AfterSavePriceCalculationEvent>
     {
+		//private Func<Task<List<PriceCalculationHistoryItem>>> _getEntitiesForSelectLastHistoryItemCommand;
+		private Func<List<PriceCalculationHistoryItem>> _getEntitiesForSelectLastHistoryItemCommand;
+		public DelegateLogCommand SelectLastHistoryItemCommand { get; private set; }
+		public DelegateLogCommand ClearLastHistoryItemCommand { get; private set; }
+
 		//private Func<Task<List<User>>> _getEntitiesForSelectInitiatorCommand;
 		private Func<List<User>> _getEntitiesForSelectInitiatorCommand;
 		public DelegateLogCommand SelectInitiatorCommand { get; private set; }
@@ -1050,6 +1055,22 @@ namespace HVTApp.UI.ViewModels
 				_selectedPriceCalculationItemsItem = value;
 				RaisePropertyChanged();
 				RemoveFromPriceCalculationItemsCommand.RaiseCanExecuteChanged();
+			}
+		}
+
+		private Func<List<PriceCalculationHistoryItem>> _getEntitiesForAddInHistoryCommand;
+		public DelegateLogCommand AddInHistoryCommand { get; }
+		public DelegateLogCommand RemoveFromHistoryCommand { get; }
+		private PriceCalculationHistoryItemWrapper _selectedHistoryItem;
+		public PriceCalculationHistoryItemWrapper SelectedHistoryItem 
+		{ 
+			get { return _selectedHistoryItem; }
+			set 
+			{ 
+				if (Equals(_selectedHistoryItem, value)) return;
+				_selectedHistoryItem = value;
+				RaisePropertyChanged();
+				RemoveFromHistoryCommand.RaiseCanExecuteChanged();
 			}
 		}
 
@@ -1072,6 +1093,11 @@ namespace HVTApp.UI.ViewModels
         public PriceCalculationDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
+			if (_getEntitiesForSelectLastHistoryItemCommand == null) _getEntitiesForSelectLastHistoryItemCommand = () => { return UnitOfWork.Repository<PriceCalculationHistoryItem>().GetAll(); };
+			if (SelectLastHistoryItemCommand == null) SelectLastHistoryItemCommand = new DelegateLogCommand(SelectLastHistoryItemCommand_Execute_Default);
+			if (ClearLastHistoryItemCommand == null) ClearLastHistoryItemCommand = new DelegateLogCommand(ClearLastHistoryItemCommand_Execute_Default);
+
+			
 			if (_getEntitiesForSelectInitiatorCommand == null) _getEntitiesForSelectInitiatorCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };
 			if (SelectInitiatorCommand == null) SelectInitiatorCommand = new DelegateLogCommand(SelectInitiatorCommand_Execute_Default);
 			if (ClearInitiatorCommand == null) ClearInitiatorCommand = new DelegateLogCommand(ClearInitiatorCommand_Execute_Default);
@@ -1082,10 +1108,25 @@ namespace HVTApp.UI.ViewModels
 			if (RemoveFromPriceCalculationItemsCommand == null) RemoveFromPriceCalculationItemsCommand = new DelegateLogCommand(RemoveFromPriceCalculationItemsCommand_Execute_Default, RemoveFromPriceCalculationItemsCommand_CanExecute_Default);
 
 			
+			if (_getEntitiesForAddInHistoryCommand == null) _getEntitiesForAddInHistoryCommand = () => { return UnitOfWork.Repository<PriceCalculationHistoryItem>().GetAll(); };;
+			if (AddInHistoryCommand == null) AddInHistoryCommand = new DelegateLogCommand(AddInHistoryCommand_Execute_Default);
+			if (RemoveFromHistoryCommand == null) RemoveFromHistoryCommand = new DelegateLogCommand(RemoveFromHistoryCommand_Execute_Default, RemoveFromHistoryCommand_CanExecute_Default);
+
+			
 			if (_getEntitiesForAddInFilesCommand == null) _getEntitiesForAddInFilesCommand = () => { return UnitOfWork.Repository<PriceCalculationFile>().GetAll(); };;
 			if (AddInFilesCommand == null) AddInFilesCommand = new DelegateLogCommand(AddInFilesCommand_Execute_Default);
 			if (RemoveFromFilesCommand == null) RemoveFromFilesCommand = new DelegateLogCommand(RemoveFromFilesCommand_Execute_Default, RemoveFromFilesCommand_CanExecute_Default);
 
+		}
+
+		private void SelectLastHistoryItemCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<PriceCalculationHistoryItem, PriceCalculationHistoryItemWrapper>(_getEntitiesForSelectLastHistoryItemCommand(), nameof(Item.LastHistoryItem), Item.LastHistoryItem?.Id);
+		}
+
+		private void ClearLastHistoryItemCommand_Execute_Default() 
+		{
+				    
 		}
 
 		private void SelectInitiatorCommand_Execute_Default() 
@@ -1113,6 +1154,21 @@ namespace HVTApp.UI.ViewModels
 				return SelectedPriceCalculationItemsItem != null;
 			}
 
+			private void AddInHistoryCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<PriceCalculationHistoryItem, PriceCalculationHistoryItemWrapper>(_getEntitiesForAddInHistoryCommand(), Item.History);
+			}
+
+			private void RemoveFromHistoryCommand_Execute_Default()
+			{
+				Item.History.Remove(SelectedHistoryItem);
+			}
+
+			private bool RemoveFromHistoryCommand_CanExecute_Default()
+			{
+				return SelectedHistoryItem != null;
+			}
+
 			private void AddInFilesCommand_Execute_Default()
 			{
 				SelectAndAddInListWrapper<PriceCalculationFile, PriceCalculationFileWrapper>(_getEntitiesForAddInFilesCommand(), Item.Files);
@@ -1134,6 +1190,15 @@ namespace HVTApp.UI.ViewModels
     public partial class PriceCalculationFileDetailsViewModel : BaseDetailsViewModel<PriceCalculationFileWrapper, PriceCalculationFile, AfterSavePriceCalculationFileEvent>
     {
         public PriceCalculationFileDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+		}
+
+
+    }
+
+    public partial class PriceCalculationHistoryItemDetailsViewModel : BaseDetailsViewModel<PriceCalculationHistoryItemWrapper, PriceCalculationHistoryItem, AfterSavePriceCalculationHistoryItemEvent>
+    {
+        public PriceCalculationHistoryItemDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
 

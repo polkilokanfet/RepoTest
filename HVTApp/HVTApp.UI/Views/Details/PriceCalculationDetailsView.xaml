@@ -21,6 +21,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row ="0" Content="Финиш задачи" Visibility="{Binding VisibilityTaskCloseMomentPriceCalculation, ElementName=Root}"/>
@@ -51,15 +53,23 @@
                  Text="{Binding Item.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityCommentPriceCalculation, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="5" Content="Инициатор" Visibility="{Binding VisibilityInitiatorPriceCalculation, ElementName=Root}"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="5" 
+        <Label Grid.Column="0" Grid.Row ="5" Content="История" Visibility="{Binding VisibilityHistoryPriceCalculation, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="5"
+										 Items="{Binding Path=Item.History}"
+										 SelectedItem="{Binding SelectedHistoryItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInHistoryCommand}"
+										 RemoveItemCommand="{Binding RemoveFromHistoryCommand}"
+										 Visibility="{Binding VisibilityHistoryPriceCalculation, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="6" Content="Инициатор" Visibility="{Binding VisibilityInitiatorPriceCalculation, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="6" 
                                     Item="{Binding Item.Initiator}" 
                                     AddItemCommand="{Binding SelectInitiatorCommand}" 
                                     RemoveItemCommand="{Binding ClearInitiatorCommand}"
 									Visibility="{Binding VisibilityInitiatorPriceCalculation, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="6" Content="Единицы расчета" Visibility="{Binding VisibilityPriceCalculationItemsPriceCalculation, ElementName=Root}"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="6"
+        <Label Grid.Column="0" Grid.Row ="7" Content="Единицы расчета" Visibility="{Binding VisibilityPriceCalculationItemsPriceCalculation, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="7"
 										 Items="{Binding Path=Item.PriceCalculationItems}"
 										 SelectedItem="{Binding SelectedPriceCalculationItemsItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInPriceCalculationItemsCommand}"

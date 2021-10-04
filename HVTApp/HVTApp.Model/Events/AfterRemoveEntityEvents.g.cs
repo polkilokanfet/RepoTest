@@ -29,6 +29,7 @@ namespace HVTApp.Model.Events
 	public partial class AfterRemovePenaltyEvent : PubSubEvent<Penalty> { }
 	public partial class AfterRemovePriceCalculationEvent : PubSubEvent<PriceCalculation> { }
 	public partial class AfterRemovePriceCalculationFileEvent : PubSubEvent<PriceCalculationFile> { }
+	public partial class AfterRemovePriceCalculationHistoryItemEvent : PubSubEvent<PriceCalculationHistoryItem> { }
 	public partial class AfterRemovePriceCalculationItemEvent : PubSubEvent<PriceCalculationItem> { }
 	public partial class AfterRemoveProductCategoryEvent : PubSubEvent<ProductCategory> { }
 	public partial class AfterRemoveProductCategoryPriceAndCostEvent : PubSubEvent<ProductCategoryPriceAndCost> { }

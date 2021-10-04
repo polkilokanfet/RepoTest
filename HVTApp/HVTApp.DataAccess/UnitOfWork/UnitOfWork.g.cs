@@ -82,6 +82,9 @@ namespace HVTApp.DataAccess
             PriceCalculationFileRepository = new PriceCalculationFileRepository(_context);
             PriceCalculationFileRepository.OperationFailedEvent += OnOperationFailedEvent;
 
+            PriceCalculationHistoryItemRepository = new PriceCalculationHistoryItemRepository(_context);
+            PriceCalculationHistoryItemRepository.OperationFailedEvent += OnOperationFailedEvent;
+
             PriceCalculationItemRepository = new PriceCalculationItemRepository(_context);
             PriceCalculationItemRepository.OperationFailedEvent += OnOperationFailedEvent;
 
@@ -301,6 +304,7 @@ namespace HVTApp.DataAccess
             PenaltyRepository.OperationFailedEvent -= OnOperationFailedEvent;
             PriceCalculationRepository.OperationFailedEvent -= OnOperationFailedEvent;
             PriceCalculationFileRepository.OperationFailedEvent -= OnOperationFailedEvent;
+            PriceCalculationHistoryItemRepository.OperationFailedEvent -= OnOperationFailedEvent;
             PriceCalculationItemRepository.OperationFailedEvent -= OnOperationFailedEvent;
             ProductCategoryRepository.OperationFailedEvent -= OnOperationFailedEvent;
             ProductCategoryPriceAndCostRepository.OperationFailedEvent -= OnOperationFailedEvent;
@@ -393,6 +397,7 @@ namespace HVTApp.DataAccess
         protected IPenaltyRepository PenaltyRepository;
         protected IPriceCalculationRepository PriceCalculationRepository;
         protected IPriceCalculationFileRepository PriceCalculationFileRepository;
+        protected IPriceCalculationHistoryItemRepository PriceCalculationHistoryItemRepository;
         protected IPriceCalculationItemRepository PriceCalculationItemRepository;
         protected IProductCategoryRepository ProductCategoryRepository;
         protected IProductCategoryPriceAndCostRepository ProductCategoryPriceAndCostRepository;

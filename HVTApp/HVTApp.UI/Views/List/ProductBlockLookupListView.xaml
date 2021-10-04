@@ -56,7 +56,6 @@
                         <infg:TextField Name="Designation" Label="Обозначение" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Design" Label="Чертеж" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
-
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>
 

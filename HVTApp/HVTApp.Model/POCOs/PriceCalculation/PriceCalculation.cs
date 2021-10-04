@@ -14,6 +14,11 @@ namespace HVTApp.Model.POCOs
         [Designation("Единицы расчета"), Required]
         public virtual List<PriceCalculationItem> PriceCalculationItems { get; set; } = new List<PriceCalculationItem>();
 
+        [Designation("История")]
+        public virtual List<PriceCalculationHistoryItem> History { get; set; } = new List<PriceCalculationHistoryItem>();
+
+        public PriceCalculationHistoryItem LastHistoryItem => History.OrderBy(item => item.Moment).LastOrDefault();
+
         [Designation("Старт задачи")]
         public DateTime? TaskOpenMoment { get; set; }
 

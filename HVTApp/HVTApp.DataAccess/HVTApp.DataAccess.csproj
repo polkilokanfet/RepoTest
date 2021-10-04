@@ -489,7 +489,6 @@
   <ItemGroup>
     <Content Include="Generator.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Generator.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

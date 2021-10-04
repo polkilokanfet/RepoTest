@@ -44,7 +44,6 @@
                         <infg:TextField Name="Author" Label="Автор" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:TextField Name="DirectumTaskGroupId" Label="Ссылка на группу задач" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
-
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>
 

@@ -13,7 +13,12 @@ namespace HVTApp.Model.Events
     /// Событие, поднимаемое после финиша расчета ПЗ
     /// </summary>
     public class AfterFinishPriceCalculationEvent : PubSubEvent<PriceCalculation> { }
-    
+
+    /// <summary>
+    /// Событие, поднимаемое после отклонения расчета ПЗ
+    /// </summary>
+    public class AfterRejectPriceCalculationEvent : PubSubEvent<PriceCalculation> { }
+
     /// <summary>
     /// Событие, поднимаемое после остановки расчета ПЗ
     /// </summary>

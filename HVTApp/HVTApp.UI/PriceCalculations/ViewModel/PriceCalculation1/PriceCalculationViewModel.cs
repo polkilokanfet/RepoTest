@@ -39,12 +39,26 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
 
         public bool StartVisibility => CurrentUserIsManager || CurrentUserIsBackManager;
 
-        public bool IsStarted => PriceCalculationWrapper?.TaskOpenMoment != null;
-        public bool IsFinished => PriceCalculationWrapper?.TaskCloseMoment != null;
+        public bool IsStarted => 
+            PriceCalculationWrapper != null && 
+            PriceCalculationWrapper.Model.History.Any() &&
+            PriceCalculationWrapper.Model.LastHistoryItem.Type != PriceCalculationHistoryItemType.Reject &&
+            PriceCalculationWrapper.Model.LastHistoryItem.Type != PriceCalculationHistoryItemType.Stop;
+
+        public bool IsFinished =>
+            PriceCalculationWrapper != null &&
+            PriceCalculationWrapper.Model.History.Any() &&
+            PriceCalculationWrapper.Model.LastHistoryItem.Type == PriceCalculationHistoryItemType.Finish;
 
         public bool CanChangePrice => CurrentUserIsPricer && !IsFinished;
 
         public bool CalculationHasFile => PriceCalculationWrapper != null && PriceCalculationWrapper.Files.Any();
+
+        /// <summary>
+        /// Элемент истории
+        /// </summary>
+        public PriceCalculationHistoryItemWrapper HistoryItem { get; } =
+            new PriceCalculationHistoryItemWrapper(new PriceCalculationHistoryItem());
 
         //костыль для команд
         public IUnitOfWork UnitOfWork1 => this.UnitOfWork;
@@ -62,6 +76,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
         public FinishCommand FinishCommand { get; }
 
         public CancelCommand CancelCommand { get; }
+        public RejectCommand RejectCommand { get; }
 
 
         public MeregeCommand MeregeCommand { get; }
@@ -102,6 +117,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
             StartCommand = new StartCommand(this, this.Container);
             FinishCommand = new FinishCommand(this, this.Container);
             CancelCommand = new CancelCommand(this, this.Container);
+            RejectCommand = new RejectCommand(this, this.Container);
             MeregeCommand = new MeregeCommand(this, this.Container);
             DivideCommand = new DivideCommand(this, this.Container);
             LoadFileToDbCommand = new LoadFileToDbCommand(this, this.Container);
@@ -257,6 +273,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
             OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsStarted)));
             StartCommand.RaiseCanExecuteChanged();
             CancelCommand.RaiseCanExecuteChanged();
+            RejectCommand.RaiseCanExecuteChanged();
             AddStructureCostCommand.RaiseCanExecuteChanged();
             AddGroupCommand.RaiseCanExecuteChanged();
             RemoveStructureCostCommand.RaiseCanExecuteChanged();

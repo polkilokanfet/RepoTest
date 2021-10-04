@@ -50,7 +50,6 @@
                         <infg:NumericField Name="Cost" Label="Стоимость" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
-
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>
 

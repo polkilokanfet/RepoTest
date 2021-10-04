@@ -110,6 +110,7 @@
     <Compile Include="POCOs\Penalty.cs" />
     <Compile Include="POCOs\PriceCalculation\PriceCalculation.cs" />
     <Compile Include="POCOs\PriceCalculation\PriceCalculationFile.cs" />
+    <Compile Include="POCOs\PriceCalculation\PriceCalculationHistoryItem.cs" />
     <Compile Include="POCOs\PriceCalculation\PriceCalculationItem.cs" />
     <Compile Include="POCOs\ProductCategory.cs" />
     <Compile Include="POCOs\ProductCategoryPriceAndCost.cs" />

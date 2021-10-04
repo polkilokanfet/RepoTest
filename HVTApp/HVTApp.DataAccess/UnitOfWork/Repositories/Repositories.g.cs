@@ -186,6 +186,13 @@ namespace HVTApp.DataAccess
 		}
     }
 
+    public partial class PriceCalculationHistoryItemRepository : BaseRepository<PriceCalculationHistoryItem>, IPriceCalculationHistoryItemRepository
+    {
+		public PriceCalculationHistoryItemRepository(DbContext context) : base(context) 
+		{
+		}
+    }
+
     public partial class PriceCalculationItemRepository : BaseRepository<PriceCalculationItem>, IPriceCalculationItemRepository
     {
 		public PriceCalculationItemRepository(DbContext context) : base(context) 

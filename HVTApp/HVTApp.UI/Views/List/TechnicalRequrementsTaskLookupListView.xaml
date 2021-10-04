@@ -62,7 +62,6 @@
                         <infg:TextField Name="FrontManager" Label="Front manager" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="ToShow" Label="S" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
-
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>
 

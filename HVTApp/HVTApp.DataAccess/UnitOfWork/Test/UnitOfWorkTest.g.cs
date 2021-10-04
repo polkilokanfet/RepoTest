@@ -33,6 +33,7 @@ namespace HVTApp.DataAccess
             PenaltyRepository = new PenaltyRepositoryTest(testData);
             PriceCalculationRepository = new PriceCalculationRepositoryTest(testData);
             PriceCalculationFileRepository = new PriceCalculationFileRepositoryTest(testData);
+            PriceCalculationHistoryItemRepository = new PriceCalculationHistoryItemRepositoryTest(testData);
             PriceCalculationItemRepository = new PriceCalculationItemRepositoryTest(testData);
             ProductCategoryRepository = new ProductCategoryRepositoryTest(testData);
             ProductCategoryPriceAndCostRepository = new ProductCategoryPriceAndCostRepositoryTest(testData);
@@ -127,6 +128,7 @@ namespace HVTApp.DataAccess
         public IPenaltyRepository PenaltyRepository { get; }
         public IPriceCalculationRepository PriceCalculationRepository { get; }
         public IPriceCalculationFileRepository PriceCalculationFileRepository { get; }
+        public IPriceCalculationHistoryItemRepository PriceCalculationHistoryItemRepository { get; }
         public IPriceCalculationItemRepository PriceCalculationItemRepository { get; }
         public IProductCategoryRepository ProductCategoryRepository { get; }
         public IProductCategoryPriceAndCostRepository ProductCategoryPriceAndCostRepository { get; }

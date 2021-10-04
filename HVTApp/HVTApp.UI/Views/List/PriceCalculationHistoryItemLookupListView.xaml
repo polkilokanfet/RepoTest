@@ -2,7 +2,7 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-              x:Class="HVTApp.UI.Views.ParameterGroupLookupListView">
+              x:Class="HVTApp.UI.Views.PriceCalculationHistoryItemLookupListView">
 
     <Grid>
          <Grid.RowDefinitions>
@@ -14,7 +14,7 @@
             <Label.Style>
                 <Style>
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding ElementName=ParameterGroupLookupListGrid, Path=Visibility}" Value="Visible">
+                    <DataTrigger Binding="{Binding ElementName=PriceCalculationHistoryItemLookupListGrid, Path=Visibility}" Value="Visible">
                         <Setter Property="Label.Visibility" Value="Collapsed"/>
                     </DataTrigger>
                 </Style.Triggers>
@@ -23,7 +23,7 @@
         </Label>
        
 
-		<infg:XamDataGrid x:Name="ParameterGroupLookupListGrid" Grid.Row="1" Style="{StaticResource ListViewGrid}" Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+		<infg:XamDataGrid x:Name="PriceCalculationHistoryItemLookupListGrid" Grid.Row="1" Style="{StaticResource ListViewGrid}" Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
         
 			<infg:XamDataGrid.ContextMenu>
 				<ContextMenu>
@@ -39,8 +39,8 @@
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
 
-                        <infg:TextField Name="Name" Label="Название" Width="Auto" AllowResize="True" />
-                        <infg:TextField Name="Measure" Label="Единица измерения" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:DateTimeField Name="Moment" Label="Момент" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="PriceCalculationId" Label="Id расчета ПЗ" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 					</infg:FieldLayout.Fields>

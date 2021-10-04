@@ -43,7 +43,6 @@
                         <infg:NumericField Name="PercentLimit" Label="Ограничение штрафа" Width="Auto" AllowResize="True" />
                         <infg:NumericField Name="PenaltyPaid" Label="Фактически уплаченные штрафы" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
-
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>
 
