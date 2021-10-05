@@ -33,28 +33,21 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
                     
                     var unitOfWork = _container.Resolve<IUnitOfWork>();
 
-                    List<PriceCalculation> priceCalculations = unitOfWork.Repository<PriceCalculation>().GetAll();
-                    foreach (var priceCalculation in priceCalculations)
+                    foreach (var priceCalculation in unitOfWork.Repository<PriceCalculation>().GetAll())
                     {
-                        if (priceCalculation.TaskOpenMoment.HasValue)
+                        if (priceCalculation.History.Count == 2)
                         {
-                            PriceCalculationHistoryItem startItem = new PriceCalculationHistoryItem
-                            {
-                                Type = PriceCalculationHistoryItemType.Start,
-                                Moment = priceCalculation.TaskOpenMoment.Value,
-                                Comment = priceCalculation.Comment
-                            };
-                            priceCalculation.History.Add(startItem);
+                            var start = priceCalculation.History.Single(x => x.Type == PriceCalculationHistoryItemType.Start);
+                            var finish = priceCalculation.History.Single(x => x.Type == PriceCalculationHistoryItemType.Finish);
 
-                            if (priceCalculation.TaskCloseMoment.HasValue)
-                            {
-                                PriceCalculationHistoryItem finishItem = new PriceCalculationHistoryItem
-                                {
-                                    Type = PriceCalculationHistoryItemType.Start,
-                                    Moment = priceCalculation.TaskCloseMoment.Value
-                                };
-                                priceCalculation.History.Add(finishItem);
-                            }
+                            var min = priceCalculation.History.Min(x => x.Moment);
+                            var max = priceCalculation.History.Max(x => x.Moment);
+
+                            if (start.Moment != min)
+                                start.Moment = min;
+
+                            if (finish.Moment != max)
+                                finish.Moment = max;
                         }
                     }
 

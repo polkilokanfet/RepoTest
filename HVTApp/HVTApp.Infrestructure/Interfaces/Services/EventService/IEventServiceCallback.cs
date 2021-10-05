@@ -62,6 +62,9 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
 
         [OperationContract(IsOneWay = true)]
         void OnCancelPriceCalculationServiceCallback(Guid calculationId);
+        
+        [OperationContract(IsOneWay = true)]
+        void OnRejectPriceCalculationServiceCallback(Guid calculationId);
 
         #endregion
 

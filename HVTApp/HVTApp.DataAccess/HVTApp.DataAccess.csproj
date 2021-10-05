@@ -125,6 +125,11 @@
     <Compile Include="EntityTypeConfigurations\Custom\UserGroupConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Generated\Configurations.g.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ParameterRelationConfiguration.cs" />
+    <Compile Include="Generator1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Generator.tt</DependentUpon>
+    </Compile>
     <Compile Include="HvtAppContext.g.cs" />
     <Compile Include="HvtAppDataBaseInitializer.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\SpecificationConfiguration.cs" />
@@ -299,6 +304,14 @@
     <Compile Include="Migrations\202109141615117_TCETaskDesiredFinishDate.cs" />
     <Compile Include="Migrations\202109141615117_TCETaskDesiredFinishDate.Designer.cs">
       <DependentUpon>202109141615117_TCETaskDesiredFinishDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202110050510304_PriceCalculationHistory.cs" />
+    <Compile Include="Migrations\202110050510304_PriceCalculationHistory.Designer.cs">
+      <DependentUpon>202110050510304_PriceCalculationHistory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202110050936312_PriceCalculationHistoryRemoveDates.cs" />
+    <Compile Include="Migrations\202110050936312_PriceCalculationHistoryRemoveDates.Designer.cs">
+      <DependentUpon>202110050936312_PriceCalculationHistoryRemoveDates.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
@@ -485,10 +498,17 @@
     <EmbeddedResource Include="Migrations\202109141615117_TCETaskDesiredFinishDate.resx">
       <DependentUpon>202109141615117_TCETaskDesiredFinishDate.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202110050510304_PriceCalculationHistory.resx">
+      <DependentUpon>202110050510304_PriceCalculationHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202110050936312_PriceCalculationHistoryRemoveDates.resx">
+      <DependentUpon>202110050936312_PriceCalculationHistoryRemoveDates.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Generator.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Generator1.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

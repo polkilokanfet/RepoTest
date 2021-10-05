@@ -117,6 +117,12 @@ namespace EventServiceClient2.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/CancelPriceCalculationPublishEvent")]
         System.Threading.Tasks.Task CancelPriceCalculationPublishEventAsync(System.Guid appSessionId, System.Guid priceCalculationId);
         
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/RejectPriceCalculationPublishEvent")]
+        void RejectPriceCalculationPublishEvent(System.Guid appSessionId, System.Guid priceCalculationId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/RejectPriceCalculationPublishEvent")]
+        System.Threading.Tasks.Task RejectPriceCalculationPublishEventAsync(System.Guid appSessionId, System.Guid priceCalculationId);
+        
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/SaveIncomingRequestPublishEvent")]
         void SaveIncomingRequestPublishEvent(System.Guid appSessionId, System.Guid requestId);
         
@@ -216,6 +222,9 @@ namespace EventServiceClient2.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnCancelPriceCalculationServiceCallback")]
         void OnCancelPriceCalculationServiceCallback(System.Guid calculationId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnRejectPriceCalculationServiceCallback")]
+        void OnRejectPriceCalculationServiceCallback(System.Guid calculationId);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnSaveIncomingRequestServiceCallback")]
         void OnSaveIncomingRequestServiceCallback(System.Guid requestId);
@@ -414,6 +423,14 @@ namespace EventServiceClient2.ServiceReference1 {
         
         public System.Threading.Tasks.Task CancelPriceCalculationPublishEventAsync(System.Guid appSessionId, System.Guid priceCalculationId) {
             return base.Channel.CancelPriceCalculationPublishEventAsync(appSessionId, priceCalculationId);
+        }
+        
+        public void RejectPriceCalculationPublishEvent(System.Guid appSessionId, System.Guid priceCalculationId) {
+            base.Channel.RejectPriceCalculationPublishEvent(appSessionId, priceCalculationId);
+        }
+        
+        public System.Threading.Tasks.Task RejectPriceCalculationPublishEventAsync(System.Guid appSessionId, System.Guid priceCalculationId) {
+            return base.Channel.RejectPriceCalculationPublishEventAsync(appSessionId, priceCalculationId);
         }
         
         public void SaveIncomingRequestPublishEvent(System.Guid appSessionId, System.Guid requestId) {

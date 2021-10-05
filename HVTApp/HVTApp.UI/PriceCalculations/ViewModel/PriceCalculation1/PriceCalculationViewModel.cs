@@ -50,6 +50,11 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
             PriceCalculationWrapper.Model.History.Any() &&
             PriceCalculationWrapper.Model.LastHistoryItem.Type == PriceCalculationHistoryItemType.Finish;
 
+        public bool IsRejected =>
+            PriceCalculationWrapper != null &&
+            PriceCalculationWrapper.Model.History.Any() &&
+            PriceCalculationWrapper.Model.LastHistoryItem.Type == PriceCalculationHistoryItemType.Reject;
+
         public bool CanChangePrice => CurrentUserIsPricer && !IsFinished;
 
         public bool CalculationHasFile => PriceCalculationWrapper != null && PriceCalculationWrapper.Files.Any();
@@ -162,7 +167,6 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
             PriceCalculationWrapper = new PriceCalculation2Wrapper(new PriceCalculation())
             {
                 Initiator = new UserWrapper(UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id)),
-                Comment = priceCalculation.Comment,
                 IsNeedExcelFile = priceCalculation.IsNeedExcelFile
             };
 

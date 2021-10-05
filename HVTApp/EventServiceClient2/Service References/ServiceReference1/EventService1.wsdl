@@ -90,6 +90,9 @@
   <wsdl:message name="IEventService_CancelPriceCalculationPublishEvent_InputMessage">
     <wsdl:part name="parameters" element="tns:CancelPriceCalculationPublishEvent" />
   </wsdl:message>
+  <wsdl:message name="IEventService_RejectPriceCalculationPublishEvent_InputMessage">
+    <wsdl:part name="parameters" element="tns:RejectPriceCalculationPublishEvent" />
+  </wsdl:message>
   <wsdl:message name="IEventService_SaveIncomingRequestPublishEvent_InputMessage">
     <wsdl:part name="parameters" element="tns:SaveIncomingRequestPublishEvent" />
   </wsdl:message>
@@ -158,6 +161,9 @@
   </wsdl:message>
   <wsdl:message name="IEventService_OnCancelPriceCalculationServiceCallback_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnCancelPriceCalculationServiceCallback" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_OnRejectPriceCalculationServiceCallback_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnRejectPriceCalculationServiceCallback" />
   </wsdl:message>
   <wsdl:message name="IEventService_OnSaveIncomingRequestServiceCallback_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnSaveIncomingRequestServiceCallback" />
@@ -251,6 +257,9 @@
     <wsdl:operation name="CancelPriceCalculationPublishEvent">
       <wsdl:input wsaw:Action="http://tempuri.org/IEventService/CancelPriceCalculationPublishEvent" message="tns:IEventService_CancelPriceCalculationPublishEvent_InputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="RejectPriceCalculationPublishEvent">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/RejectPriceCalculationPublishEvent" message="tns:IEventService_RejectPriceCalculationPublishEvent_InputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="SaveIncomingRequestPublishEvent">
       <wsdl:input wsaw:Action="http://tempuri.org/IEventService/SaveIncomingRequestPublishEvent" message="tns:IEventService_SaveIncomingRequestPublishEvent_InputMessage" />
     </wsdl:operation>
@@ -319,6 +328,9 @@
     </wsdl:operation>
     <wsdl:operation name="OnCancelPriceCalculationServiceCallback">
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnCancelPriceCalculationServiceCallback" message="tns:IEventService_OnCancelPriceCalculationServiceCallback_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OnRejectPriceCalculationServiceCallback">
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnRejectPriceCalculationServiceCallback" message="tns:IEventService_OnRejectPriceCalculationServiceCallback_OutputCallbackMessage" />
     </wsdl:operation>
     <wsdl:operation name="OnSaveIncomingRequestServiceCallback">
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnSaveIncomingRequestServiceCallback" message="tns:IEventService_OnSaveIncomingRequestServiceCallback_OutputCallbackMessage" />
@@ -478,6 +490,12 @@
         <soap12:body use="literal" />
       </wsdl:input>
     </wsdl:operation>
+    <wsdl:operation name="RejectPriceCalculationPublishEvent">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/RejectPriceCalculationPublishEvent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
     <wsdl:operation name="SaveIncomingRequestPublishEvent">
       <soap12:operation soapAction="http://tempuri.org/IEventService/SaveIncomingRequestPublishEvent" style="document" />
       <wsdl:input>
@@ -612,6 +630,12 @@
     </wsdl:operation>
     <wsdl:operation name="OnCancelPriceCalculationServiceCallback">
       <soap12:operation soapAction="http://tempuri.org/IEventService/OnCancelPriceCalculationServiceCallback" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnRejectPriceCalculationServiceCallback">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/OnRejectPriceCalculationServiceCallback" style="document" />
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>

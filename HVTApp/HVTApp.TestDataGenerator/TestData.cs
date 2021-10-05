@@ -109,10 +109,20 @@ namespace HVTApp.TestDataGenerator
 
                         priceCalculation = new PriceCalculation
                         {
-                            TaskOpenMoment = deliveryDateExpected.AddDays(-140),
-                            TaskCloseMoment = deliveryDateExpected.AddDays(-130),
                             Initiator = UserKosolapov
                         };
+
+                        priceCalculation.History.Add(new PriceCalculationHistoryItem()
+                        {
+                            Moment = deliveryDateExpected.AddDays(-140),
+                            Type = PriceCalculationHistoryItemType.Start
+                        });
+
+                        priceCalculation.History.Add(new PriceCalculationHistoryItem()
+                        {
+                            Moment = deliveryDateExpected.AddDays(-130),
+                            Type = PriceCalculationHistoryItemType.Finish
+                        });
                     }
 
                     var salesUnits = new List<SalesUnit>();

@@ -19,6 +19,7 @@
 					<dp:FieldLayout.Fields>
                         <dp:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding TaskOpenMoment}" Label="Старт задачи" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
                         <dp:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding TaskCloseMoment}" Label="Финиш задачи" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
+                        <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Status}" Label="Статус" Width="Auto" AllowResize="False" />
                         <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Name}" Label="Название" Width="400" AllowResize="True" />
                         <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Initiator}" Label="Инициатор" Width="150" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Manager}" Label="Менеджер" Width="150" AllowResize="True"

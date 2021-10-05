@@ -4278,10 +4278,28 @@ namespace HVTApp.UI.Views
             set { PriceCalculationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationLookup.Orders)].Visibility = value; }
         }
 
+        public System.Windows.Visibility StatusVisibility
+        {
+            get { return PriceCalculationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationLookup.Status)].Visibility; }
+            set { PriceCalculationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationLookup.Status)].Visibility = value; }
+        }
+
         public System.Windows.Visibility ProductsInCalculationVisibility
         {
             get { return PriceCalculationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationLookup.ProductsInCalculation)].Visibility; }
             set { PriceCalculationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationLookup.ProductsInCalculation)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility IsStartedVisibility
+        {
+            get { return PriceCalculationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationLookup.IsStarted)].Visibility; }
+            set { PriceCalculationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationLookup.IsStarted)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility IsFinishedVisibility
+        {
+            get { return PriceCalculationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationLookup.IsFinished)].Visibility; }
+            set { PriceCalculationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationLookup.IsFinished)].Visibility = value; }
         }
 
         public System.Windows.Visibility TaskOpenMomentVisibility
@@ -4294,12 +4312,6 @@ namespace HVTApp.UI.Views
         {
             get { return PriceCalculationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationLookup.TaskCloseMoment)].Visibility; }
             set { PriceCalculationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationLookup.TaskCloseMoment)].Visibility = value; }
-        }
-
-        public System.Windows.Visibility CommentVisibility
-        {
-            get { return PriceCalculationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationLookup.Comment)].Visibility; }
-            set { PriceCalculationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationLookup.Comment)].Visibility = value; }
         }
 
         public System.Windows.Visibility IsNeedExcelFileVisibility
@@ -4318,6 +4330,12 @@ namespace HVTApp.UI.Views
         {
             get { return PriceCalculationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationLookup.DisplayMember)].Visibility; }
             set { PriceCalculationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationLookup.DisplayMember)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility LastHistoryItemVisibility
+        {
+            get { return PriceCalculationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationLookup.LastHistoryItem)].Visibility; }
+            set { PriceCalculationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationLookup.LastHistoryItem)].Visibility = value; }
         }
 
         public System.Windows.Visibility InitiatorVisibility

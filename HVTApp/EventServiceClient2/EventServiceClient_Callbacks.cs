@@ -435,6 +435,22 @@ namespace EventServiceClient2
             }
         }
 
+        /// <summary>
+        /// Реакция на отклонение расчета ПЗ
+        /// </summary>
+        /// <param name="calculationId"></param>
+        public void OnRejectPriceCalculationServiceCallback(Guid calculationId)
+        {
+            var calculation = _container.Resolve<IUnitOfWork>().Repository<PriceCalculation>().GetById(calculationId);
+
+            if (calculation.Initiator.IsAppCurrentUser())
+            {
+                this.SyncContainer.Publish<PriceCalculation, AfterSavePriceCalculationEvent>(calculation);
+                (new ServiceCallbackBasePriceCalculation<AfterRejectPriceCalculationEvent>(_container, SyncContainer))
+                    .Start(calculation, $"Отклонен: {calculation.Name}\nКомментарий: {calculation.LastHistoryItem.Comment}");
+            }
+        }
+
         #endregion
     }
 }

@@ -1123,30 +1123,6 @@ namespace HVTApp.Model.Wrapper
 	{
 	    public PriceCalculationWrapper(PriceCalculation model) : base(model) { }
         #region SimpleProperties
-        //TaskOpenMoment
-        public System.Nullable<System.DateTime> TaskOpenMoment
-        {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
-          set { SetValue(value); }
-        }
-        public System.Nullable<System.DateTime> TaskOpenMomentOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(TaskOpenMoment));
-        public bool TaskOpenMomentIsChanged => GetIsChanged(nameof(TaskOpenMoment));
-        //TaskCloseMoment
-        public System.Nullable<System.DateTime> TaskCloseMoment
-        {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
-          set { SetValue(value); }
-        }
-        public System.Nullable<System.DateTime> TaskCloseMomentOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(TaskCloseMoment));
-        public bool TaskCloseMomentIsChanged => GetIsChanged(nameof(TaskCloseMoment));
-        //Comment
-        public System.String Comment
-        {
-          get { return GetValue<System.String>(); }
-          set { SetValue(value); }
-        }
-        public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
-        public bool CommentIsChanged => GetIsChanged(nameof(Comment));
         //IsNeedExcelFile
         public System.Boolean IsNeedExcelFile
         {
@@ -1177,6 +1153,10 @@ namespace HVTApp.Model.Wrapper
         public IValidatableChangeTrackingCollection<PriceCalculationFileWrapper> Files { get; private set; }
         #endregion
         #region GetProperties
+        public System.Boolean IsStarted => GetValue<System.Boolean>(); 
+        public System.Boolean IsFinished => GetValue<System.Boolean>(); 
+        public System.Nullable<System.DateTime> TaskOpenMoment => GetValue<System.Nullable<System.DateTime>>(); 
+        public System.Nullable<System.DateTime> TaskCloseMoment => GetValue<System.Nullable<System.DateTime>>(); 
         public System.String Name => GetValue<System.String>(); 
         public HVTApp.Model.POCOs.PriceCalculationHistoryItem LastHistoryItem => GetValue<HVTApp.Model.POCOs.PriceCalculationHistoryItem>(); 
         #endregion

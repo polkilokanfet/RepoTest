@@ -29,7 +29,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
             var historyItemWrapper = _viewModel.HistoryItem;
             historyItemWrapper.Moment = DateTime.Now;
             historyItemWrapper.Type = PriceCalculationHistoryItemType.Stop;
-            _viewModel.PriceCalculationWrapper.Model.History.Add(historyItemWrapper.Model);
+            _viewModel.PriceCalculationWrapper.History.Add(historyItemWrapper);
 
             _viewModel.SaveCommand.Execute();
 

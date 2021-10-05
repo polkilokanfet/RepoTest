@@ -173,6 +173,7 @@ namespace EventServiceClient2
             SyncContainer.Add(new SyncPriceCalculationStart(_container, EventServiceHost, _appSessionId));  //Калькуляции себестоимости старт
             SyncContainer.Add(new SyncPriceCalculationFinish(_container, EventServiceHost, _appSessionId)); //Калькуляции себестоимости финиш
             SyncContainer.Add(new SyncPriceCalculationCancel(_container, EventServiceHost, _appSessionId)); //Калькуляции себестоимости остановка
+            SyncContainer.Add(new SyncPriceCalculationReject(_container, EventServiceHost, _appSessionId)); //Калькуляции себестоимости отклонение
 
             //_syncContainer.Add(new SyncIncomingRequest(_container, _eventServiceClient, _appSessionId));            //Запросы
 

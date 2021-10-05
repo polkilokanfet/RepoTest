@@ -112,6 +112,11 @@ namespace EventService
             PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnCancelPriceCalculationServiceCallback(priceCalculationId));
         }
 
+        public void RejectPriceCalculationPublishEvent(Guid appSessionId, Guid priceCalculationId)
+        {
+            PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnRejectPriceCalculationServiceCallback(priceCalculationId));
+        }
+
         #endregion
 
         #region IncomingDocument

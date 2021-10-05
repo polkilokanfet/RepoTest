@@ -106,6 +106,7 @@
     <Compile Include="Converter\ObjectToStringConverter.cs" />
     <Compile Include="Converter\PartToPercentConverter.cs" />
     <Compile Include="Converter\PartToPercentConverterNullable.cs" />
+    <Compile Include="Converter\PriceCalculationHistoryItemTypeToStringConverter.cs" />
     <Compile Include="Converter\TaskHistoryElementTypeToStringConverter.cs" />
     <Compile Include="Extantions\Ext.cs" />
     <Compile Include="Lookup\Items\Custom\DirectumTaskGroupLookup.cs" />
@@ -657,6 +658,7 @@
     <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\CancelCommand.cs" />
     <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\AddGroupCommand.cs" />
     <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\AddStructureCostCommand.cs" />
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\RejectCommand.cs" />
     <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\SaveCommand.cs" />
     <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\RemoveStructureCostCommand.cs" />
     <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\StartCommand.cs" />

@@ -92,6 +92,9 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
         [OperationContract(IsOneWay = true)]
         void CancelPriceCalculationPublishEvent(Guid appSessionId, Guid priceCalculationId);
 
+        [OperationContract(IsOneWay = true)]
+        void RejectPriceCalculationPublishEvent(Guid appSessionId, Guid priceCalculationId);
+
         #endregion
 
         [OperationContract(IsOneWay = true)]

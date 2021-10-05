@@ -19,14 +19,37 @@ namespace HVTApp.Model.POCOs
 
         public PriceCalculationHistoryItem LastHistoryItem => History.OrderBy(item => item.Moment).LastOrDefault();
 
+        public bool IsStarted =>
+            History.Any() &&
+            LastHistoryItem.Type != PriceCalculationHistoryItemType.Reject &&
+            LastHistoryItem.Type != PriceCalculationHistoryItemType.Stop;
+
+        public bool IsFinished =>
+            LastHistoryItem != null &&
+            LastHistoryItem.Type == PriceCalculationHistoryItemType.Finish;
+
         [Designation("Старт задачи")]
-        public DateTime? TaskOpenMoment { get; set; }
+        public DateTime? TaskOpenMoment
+        {
+            get
+            {
+                if (IsStarted)
+                {
+                    foreach (var item in History.OrderByDescending(historyItem => historyItem.Moment))
+                    {
+                        if (item.Type == PriceCalculationHistoryItemType.Start)
+                        {
+                            return item.Moment;
+                        }
+                    }
+                }
+
+                return null;
+            }
+        }
 
         [Designation("Финиш задачи")]
-        public DateTime? TaskCloseMoment { get; set; }
-
-        [Designation("Комментарий"), MaxLength(200)]
-        public string Comment { get; set; }
+        public DateTime? TaskCloseMoment => IsFinished ? LastHistoryItem.Moment : default(DateTime?);
 
         [Designation("Требуется расчетный файл")]
         public bool IsNeedExcelFile { get; set; } = true;

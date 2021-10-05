@@ -61,6 +61,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.Wrapper
 
         public IValidatableChangeTrackingCollection<PriceCalculationItem2Wrapper> PriceCalculationItems { get; private set; }
         public IValidatableChangeTrackingCollection<PriceCalculationFileWrapper> Files { get; private set; }
+        public IValidatableChangeTrackingCollection<PriceCalculationHistoryItemWrapper> History { get; private set; }
 
         #endregion
 
@@ -84,6 +85,10 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.Wrapper
             if (Model.Files == null) throw new ArgumentException("Files cannot be null");
             Files = new ValidatableChangeTrackingCollection<PriceCalculationFileWrapper>(Model.Files.Select(e => new PriceCalculationFileWrapper(e)));
             RegisterCollection(Files, Model.Files);
+
+            if (Model.History == null) throw new ArgumentException("History cannot be null");
+            History = new ValidatableChangeTrackingCollection<PriceCalculationHistoryItemWrapper>(Model.History.Select(e => new PriceCalculationHistoryItemWrapper(e)));
+            RegisterCollection(History, Model.History);
         }
     }
 }

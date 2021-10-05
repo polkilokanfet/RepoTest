@@ -584,13 +584,16 @@ namespace HVTApp.UI.Lookup
 		
         #region SimpleProperties
 		[OrderStatus(1)]
+        public System.Boolean IsStarted => Entity.IsStarted;
+
+		[OrderStatus(1)]
+        public System.Boolean IsFinished => Entity.IsFinished;
+
+		[OrderStatus(1)]
         public System.Nullable<System.DateTime> TaskOpenMoment => Entity.TaskOpenMoment;
 
 		[OrderStatus(1)]
         public System.Nullable<System.DateTime> TaskCloseMoment => Entity.TaskCloseMoment;
-
-		[OrderStatus(1)]
-        public System.String Comment => Entity.Comment;
 
 		[OrderStatus(1)]
         public System.Boolean IsNeedExcelFile => Entity.IsNeedExcelFile;
