@@ -39,9 +39,8 @@
             
             <Grid Grid.Row="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="6*"/>
-                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*"/>
@@ -171,19 +170,16 @@
                         
                 <GridSplitter Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Width="5" HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
             
-                <Grid Grid.Row="0" Grid.Column="2" Grid.RowSpan="3">
+                <Grid Grid.Row="0" Grid.Column="2" Grid.RowSpan="2">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="3*"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="3*" />
+                        <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="2*" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="3*" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="3*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                 
 
@@ -207,198 +203,208 @@
 
                     <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="3"/>
 
+                    <!--Переписка-->
+                    <GroupBox Header="Переписка" Grid.Row="2">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <dp:XamDataGrid Style="{StaticResource XamDataGridWithoutGroupByArea}"
+                                            DataSource="{Binding Outlook.Messages}"
+                                            ActiveDataItem="{Binding Outlook.SelectedMessage, Mode=TwoWay}">
 
-                    <GroupBox Grid.Row="2" Header="Переписка">
-                        <dp:XamDataGrid Style="{StaticResource XamDataGridWithoutGroupByArea}"
-                                        DataSource="{Binding Outlook.Messages}"
-                                        ActiveDataItem="{Binding Outlook.SelectedMessage, Mode=TwoWay}">
+                                <dp:XamDataGrid.InputBindings>
+                                    <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=Outlook.OpenMessageCommand, Mode=OneWay}" />
+                                </dp:XamDataGrid.InputBindings>
 
-                            <dp:XamDataGrid.InputBindings>
-                                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=Outlook.OpenMessageCommand, Mode=OneWay}" />
-                            </dp:XamDataGrid.InputBindings>
+                                <dp:XamDataGrid.FieldLayouts>
+                                    <dp:FieldLayout>
+                                        <dp:FieldLayout.Fields>
+                                            <dp:TextField Name="Sender" Label="Отправитель" Width="100" Converter="{StaticResource ObjectToStringConverter}" AllowResize="True"/>
+                                            <dp:TextField Name="Recipients" Label="Получатели" Width="100" Converter="{StaticResource ObjectsToStringConverter}" AllowResize="True"/>
+                                            <dp:DateTimeField Name="SentOnDate" Label="Дата" Width="Auto" Format="dd.MM.yy hh:mm"/>
+                                            <dp:TextField Name="Subject" Label="Тема" Width="300" AllowResize="True"/>
+                                        </dp:FieldLayout.Fields>
+                                    </dp:FieldLayout>
 
-                            <dp:XamDataGrid.FieldLayouts>
-                                <dp:FieldLayout>
-                                    <dp:FieldLayout.Fields>
-                                        <dp:TextField Name="Sender" Label="Отправитель" Width="100" Converter="{StaticResource ObjectToStringConverter}" AllowResize="True"/>
-                                        <dp:TextField Name="Recipients" Label="Получатели" Width="100" Converter="{StaticResource ObjectsToStringConverter}" AllowResize="True"/>
-                                        <dp:DateTimeField Name="SentOnDate" Label="Дата" Width="Auto" Format="dd.MM.yy hh:mm"/>
-                                        <dp:TextField Name="Subject" Label="Тема" Width="300" AllowResize="True"/>
-                                    </dp:FieldLayout.Fields>
-                                </dp:FieldLayout>
-
-                            </dp:XamDataGrid.FieldLayouts>
-                        </dp:XamDataGrid>
+                                </dp:XamDataGrid.FieldLayouts>
+                            </dp:XamDataGrid>
+                        </ScrollViewer>
                     </GroupBox>
 
                     <GridSplitter Grid.Row="3" HorizontalAlignment="Stretch" Height="3"/>
 
+                    <!--Предложения-->
+                    <Border Grid.Row="4" BorderBrush="Black" BorderThickness="1" CornerRadius="3" Margin="0 1 0 0">
+                        <Expander Header="Предложения" MaxHeight="300">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <dp:XamDataGrid x:Name="OfferLookupListGrid" 
+                                                Style="{StaticResource XamDataGridWithoutGroupByArea}"
+                                                DataSource="{Binding Offers}"
+                                                ActiveDataItem="{Binding Offers.SelectedItem}">
 
-                    <GroupBox Grid.Row="4" Header="Предложения">
-                        <dp:XamDataGrid x:Name="OfferLookupListGrid" 
-                                        Style="{StaticResource XamDataGridWithoutGroupByArea}"
-                                        DataSource="{Binding Offers}"
-                                        ActiveDataItem="{Binding Offers.SelectedItem}">
+                                    <dp:XamDataGrid.InputBindings>
+                                        <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=EditOfferCommand, Mode=OneWay}" />
+                                    </dp:XamDataGrid.InputBindings>
 
-                            <dp:XamDataGrid.InputBindings>
-                                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=EditOfferCommand, Mode=OneWay}" />
-                            </dp:XamDataGrid.InputBindings>
+                                    <dp:XamDataGrid.FieldLayouts>
+                                        <dp:FieldLayout>
+                                            <dp:FieldLayout.Fields>
+                                                <dp:TextField Name="Company" Label="Компания" Width="100" Converter="{StaticResource LookupToStringConverter}" AllowResize="True"/>
+                                                <dp:NumericField Name="Sum" Label="Сумма" Width="Auto" AllowResize="False"/>
+                                                <dp:DateTimeField Name="Date" Label="Дата" Width="Auto" />
+                                                <dp:DateTimeField Name="ValidityDate" Label="Действует" Width="Auto" />
+                                                <dp:TextField Name="Comment" Label="Комментарий" Width="150" AllowResize="True"/>
+                                            </dp:FieldLayout.Fields>
+                                        </dp:FieldLayout>
 
-                            <dp:XamDataGrid.FieldLayouts>
-                                <dp:FieldLayout>
-                                    <dp:FieldLayout.Fields>
-                                        <dp:TextField Name="Company" Label="Компания" Width="100" Converter="{StaticResource LookupToStringConverter}" AllowResize="True"/>
-                                        <dp:NumericField Name="Sum" Label="Сумма" Width="Auto" AllowResize="False"/>
-                                        <dp:DateTimeField Name="Date" Label="Дата" Width="Auto" />
-                                        <dp:DateTimeField Name="ValidityDate" Label="Действует" Width="Auto" />
-                                        <dp:TextField Name="Comment" Label="Комментарий" Width="150" AllowResize="True"/>
-                                    </dp:FieldLayout.Fields>
-                                </dp:FieldLayout>
+                                    </dp:XamDataGrid.FieldLayouts>
+                                </dp:XamDataGrid>
+                            </ScrollViewer>
+                        </Expander>
+                    </Border>
 
-                            </dp:XamDataGrid.FieldLayouts>
-                        </dp:XamDataGrid>
-                    </GroupBox>
+                    <!--Конкурсы-->
+                    <Border Grid.Row="5" BorderBrush="Black" BorderThickness="1" CornerRadius="3" Margin="0 1 0 0">
+                        <Expander Header="Конкурсы" MaxHeight="300">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <dp:XamDataGrid DataSource="{Binding Tenders}" 
+                                                ActiveDataItem="{Binding Tenders.SelectedItem}"
+                                                Style="{StaticResource XamDataGridWithoutGroupByArea}">
 
-                    <GridSplitter Grid.Row="5" HorizontalAlignment="Stretch" Height="3"/>
+                                    <dp:XamDataGrid.InputBindings>
+                                        <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=EditTenderCommand, Mode=OneWay}" />
+                                    </dp:XamDataGrid.InputBindings>
 
+                                    <dp:XamDataGrid.FieldLayouts>
+                                        <dp:FieldLayout>
+                                            <dp:FieldLayout.Fields>
+                                                <dp:TextField Name="Types" Label="Типы" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
+                                                <dp:DateTimeField Name="DateOpen" Label="Открытие" Width="Auto" AllowResize="False"/>
+                                                <dp:DateTimeField Name="DateClose" Label="Закрытие" Width="Auto" AllowResize="False" />
+                                                <dp:DateTimeField Name="DateNotice" Label="Итоги" Width="Auto" AllowResize="False" />
+                                                <dp:CheckBoxField Name="DidNotTakePlace" Label="Не состоялся" Width="Auto" AllowResize="True" />
+                                                <dp:TextField Name="Winner" Label="Победитель" Width="100" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                                                <dp:TextField Name="Participants" Label="Участники" Width="150" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                                            </dp:FieldLayout.Fields>
+                                        </dp:FieldLayout>
 
-                    <GroupBox Grid.Row="6" Header="Конкурсы">
-                        <dp:XamDataGrid DataSource="{Binding Tenders}" 
-                                        ActiveDataItem="{Binding Tenders.SelectedItem}"
-                                        Style="{StaticResource XamDataGridWithoutGroupByArea}">
+                                    </dp:XamDataGrid.FieldLayouts>
+                                </dp:XamDataGrid>
+                            </ScrollViewer>
+                        </Expander>
+                    </Border>
 
-                            <dp:XamDataGrid.InputBindings>
-                                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=EditTenderCommand, Mode=OneWay}" />
-                            </dp:XamDataGrid.InputBindings>
+                    <!--Задачи в TCE-->
+                    <Border Grid.Row="6" BorderBrush="Black" BorderThickness="1" CornerRadius="3" Margin="0 1 0 0">
+                        <Expander Header="Задачи в TCE" MaxHeight="300">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <dp:XamDataGrid DataSource="{Binding TechnicalRequrementsTasks}"
+                                                ActiveDataItem="{Binding TechnicalRequrementsTasks.SelectedItem}"
+                                                Style="{StaticResource XamDataGridWithoutGroupByArea}">
 
-                            <dp:XamDataGrid.FieldLayouts>
-                                <dp:FieldLayout>
-                                    <dp:FieldLayout.Fields>
-                                        <dp:TextField Name="Types" Label="Типы" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
-                                        <dp:DateTimeField Name="DateOpen" Label="Открытие" Width="Auto" AllowResize="False"/>
-                                        <dp:DateTimeField Name="DateClose" Label="Закрытие" Width="Auto" AllowResize="False" />
-                                        <dp:DateTimeField Name="DateNotice" Label="Итоги" Width="Auto" AllowResize="False" />
-                                        <dp:CheckBoxField Name="DidNotTakePlace" Label="Не состоялся" Width="Auto" AllowResize="True" />
-                                        <dp:TextField Name="Winner" Label="Победитель" Width="100" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                                        <dp:TextField Name="Participants" Label="Участники" Width="150" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
-                                    </dp:FieldLayout.Fields>
-                                </dp:FieldLayout>
+                                    <dp:XamDataGrid.InputBindings>
+                                        <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=EditTechnicalRequrementsTaskCommand, Mode=OneWay}" />
+                                    </dp:XamDataGrid.InputBindings>
 
-                            </dp:XamDataGrid.FieldLayouts>
-                        </dp:XamDataGrid>
-                    </GroupBox>
+                                    <dp:XamDataGrid.FieldLayouts>
+                                        <dp:FieldLayout>
+                                            <dp:FieldLayout.Fields>
+                                                <dp:DateTimeField Name="Start" Label="Старт" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
+                                                <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Status}" Label="Этап" Width="150" AllowResize="True" />
+                                                <dp:TextField AlternateBinding="{Binding BackManager.Employee.Person}" BindingType="UseAlternateBinding" Label="Back manager" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                                            </dp:FieldLayout.Fields>
+                                        </dp:FieldLayout>
 
-                    <GridSplitter Grid.Row="7" HorizontalAlignment="Stretch" Height="3"/>
+                                    </dp:XamDataGrid.FieldLayouts>
+                                </dp:XamDataGrid>
+                            </ScrollViewer>
+                        </Expander>
+                    </Border>
 
+                    <!--Расчеты переменных затрат-->
+                    <Border Grid.Row="7" BorderBrush="Black" BorderThickness="1" CornerRadius="3" Margin="0 1 0 0">
+                        <Expander Header="Расчеты переменных затрат" MaxHeight="300">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <dp:XamDataGrid DataSource="{Binding PriceCalculations}" 
+                                                ActiveDataItem="{Binding PriceCalculations.SelectedItem}"
+                                                Style="{StaticResource XamDataGridWithoutGroupByArea}">
 
-                    <GroupBox Grid.Row="8" Header="Задачи в TCE">
-                        <dp:XamDataGrid DataSource="{Binding TechnicalRequrementsTasks}"
-                                        ActiveDataItem="{Binding TechnicalRequrementsTasks.SelectedItem}"
-                                        Style="{StaticResource XamDataGridWithoutGroupByArea}">
+                                    <dp:XamDataGrid.InputBindings>
+                                        <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=EditPriceCalculationCommand, Mode=OneWay}" />
+                                    </dp:XamDataGrid.InputBindings>
 
-                            <dp:XamDataGrid.InputBindings>
-                                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=EditTechnicalRequrementsTaskCommand, Mode=OneWay}" />
-                            </dp:XamDataGrid.InputBindings>
+                                    <dp:XamDataGrid.FieldLayouts>
 
-                            <dp:XamDataGrid.FieldLayouts>
-                                <dp:FieldLayout>
-                                    <dp:FieldLayout.Fields>
-                                        <dp:DateTimeField Name="Start" Label="Старт" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
-                                        <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Status}" Label="Этап" Width="150" AllowResize="True" />
-                                        <dp:TextField AlternateBinding="{Binding BackManager.Employee.Person}" BindingType="UseAlternateBinding" Label="Back manager" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                                    </dp:FieldLayout.Fields>
-                                </dp:FieldLayout>
+                                        <dp:FieldLayout Key="Calculation">
+                                            <dp:FieldLayout.Fields>
+                                                <dp:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding TaskOpenMoment}" Label="Старт" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
+                                                <dp:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding TaskCloseMoment}" Label="Финиш" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
+                                                <dp:Field Name="PriceCalculationItems" IsExpandable="True"/>
+                                            </dp:FieldLayout.Fields>
+                                        </dp:FieldLayout>
 
-                            </dp:XamDataGrid.FieldLayouts>
-                        </dp:XamDataGrid>
-                    </GroupBox>
+                                        <dp:FieldLayout Key="CalculationItem" ParentFieldLayoutKey="Calculation" ParentFieldName="PriceCalculationItems">
+                                            <dp:FieldLayout.Fields>
+                                                <dp:TextField AlternateBinding="{Binding Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
+                                                <dp:TextField AlternateBinding="{Binding Product}" BindingType="UseAlternateBinding" Label="Оборудование" Width="Auto"/>
+                                                <dp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" AllowResize="False"/>
+                                                <dp:NumericField AlternateBinding="{Binding UnitPrice}" BindingType="UseAlternateBinding" Label="Цена за ед." Width="Auto" AllowResize="False"/>
+                                                <dp:Field Name="StructureCosts" IsExpandable="True"/>
+                                            </dp:FieldLayout.Fields>
+                                        </dp:FieldLayout>
 
-                    <GridSplitter Grid.Row="9" HorizontalAlignment="Stretch" Height="3"/>
-
-
-                    <GroupBox Grid.Row="10" Header="Расчеты переменных затрат">
-                        <dp:XamDataGrid DataSource="{Binding PriceCalculations}" 
-                                        ActiveDataItem="{Binding PriceCalculations.SelectedItem}"
-                                        Style="{StaticResource XamDataGridWithoutGroupByArea}">
-
-                            <dp:XamDataGrid.InputBindings>
-                                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=EditPriceCalculationCommand, Mode=OneWay}" />
-                            </dp:XamDataGrid.InputBindings>
-
-                            <dp:XamDataGrid.FieldLayouts>
-
-                                <dp:FieldLayout Key="Calculation">
-                                    <dp:FieldLayout.Fields>
-                                        <dp:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding TaskOpenMoment}" Label="Старт" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
-                                        <dp:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding TaskCloseMoment}" Label="Финиш" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
-                                        <dp:Field Name="PriceCalculationItems" IsExpandable="True"/>
-                                    </dp:FieldLayout.Fields>
-                                </dp:FieldLayout>
-
-                                <dp:FieldLayout Key="CalculationItem" ParentFieldLayoutKey="Calculation" ParentFieldName="PriceCalculationItems">
-                                    <dp:FieldLayout.Fields>
-                                        <dp:TextField AlternateBinding="{Binding Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
-                                        <dp:TextField AlternateBinding="{Binding Product}" BindingType="UseAlternateBinding" Label="Оборудование" Width="Auto"/>
-                                        <dp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" AllowResize="False"/>
-                                        <dp:NumericField AlternateBinding="{Binding UnitPrice}" BindingType="UseAlternateBinding" Label="Цена за ед." Width="Auto" AllowResize="False"/>
-                                        <dp:Field Name="StructureCosts" IsExpandable="True"/>
-                                    </dp:FieldLayout.Fields>
-                                </dp:FieldLayout>
-
-                                <dp:FieldLayout ParentFieldLayoutKey="CalculationItem" ParentFieldName="StructureCosts">
-                                    <dp:FieldLayout.Fields>
-                                        <dp:TextField AlternateBinding="{Binding Comment}" BindingType="UseAlternateBinding" Label="Название" Width="Auto" />
-                                        <dp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол. на ед." Width="Auto" AllowResize="False" />
-                                        <dp:TextField AlternateBinding="{Binding Number}" BindingType="UseAlternateBinding" Label="Номер" Width="Auto" />
-                                        <dp:NumericField AlternateBinding="{Binding UnitPrice}" BindingType="UseAlternateBinding" Label="Цена за ед." Width="Auto" />
-                                        <dp:NumericField AlternateBinding="{Binding Total}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto" AllowResize="False"/>
-                                    </dp:FieldLayout.Fields>
-                                </dp:FieldLayout>
-                            </dp:XamDataGrid.FieldLayouts>
-                        </dp:XamDataGrid>
-                    </GroupBox>
+                                        <dp:FieldLayout ParentFieldLayoutKey="CalculationItem" ParentFieldName="StructureCosts">
+                                            <dp:FieldLayout.Fields>
+                                                <dp:TextField AlternateBinding="{Binding Comment}" BindingType="UseAlternateBinding" Label="Название" Width="Auto" />
+                                                <dp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол. на ед." Width="Auto" AllowResize="False" />
+                                                <dp:TextField AlternateBinding="{Binding Number}" BindingType="UseAlternateBinding" Label="Номер" Width="Auto" />
+                                                <dp:NumericField AlternateBinding="{Binding UnitPrice}" BindingType="UseAlternateBinding" Label="Цена за ед." Width="Auto" />
+                                                <dp:NumericField AlternateBinding="{Binding Total}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto" AllowResize="False"/>
+                                            </dp:FieldLayout.Fields>
+                                        </dp:FieldLayout>
+                                    </dp:XamDataGrid.FieldLayouts>
+                                </dp:XamDataGrid>
+                            </ScrollViewer>
+                        </Expander>
+                    </Border>
                 
                 </Grid>
 
-                <GridSplitter Grid.Row="1" Grid.Column="0" Height="5" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+                <Border Grid.Row="1" Grid.Column="0" BorderBrush="Black" BorderThickness="1" CornerRadius="3">
+                    <Expander Header="Заметки по проекту" ExpandDirection="Up" MaxHeight="300">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <dp:XamDataGrid DataSource="{Binding Notes}" 
+                                            ActiveDataItem="{Binding SelectedNote, Mode=TwoWay}"
+                                            Style="{StaticResource XamDataGridWithoutGroupByArea}">
 
-                <GroupBox Header="Заметки по проекту"
-                          Grid.Row="2" 
-                          Grid.Column="0">
+                                <dp:XamDataGrid.FieldLayoutSettings>
 
-                    <dp:XamDataGrid DataSource="{Binding Notes}" 
-                                    ActiveDataItem="{Binding SelectedNote, Mode=TwoWay}"
-                                    Style="{StaticResource XamDataGridWithoutGroupByArea}">
+                                    <dp:FieldLayoutSettings AutoGenerateFields="False"
+                                                                AutoFitMode="OnlyWithVisibleStarFields"
+                                                                AllowAddNew="False"
+                                                                AllowDelete="False"
+                                                                FilterUIType="LabelIcons"/>
+                                </dp:XamDataGrid.FieldLayoutSettings>
 
-                        <dp:XamDataGrid.FieldLayoutSettings>
-
-                            <dp:FieldLayoutSettings AutoGenerateFields="False"
-                                                        AutoFitMode="OnlyWithVisibleStarFields"
-                                                        AllowAddNew="False"
-                                                        AllowDelete="False"
-                                                        FilterUIType="LabelIcons"/>
-                        </dp:XamDataGrid.FieldLayoutSettings>
-
-                        <dp:XamDataGrid.FieldLayouts>
-                            <dp:FieldLayout>
-                                <dp:FieldLayout.Fields>
-                                    <dp:DateTimeField AlternateBinding="{Binding Date, Mode=TwoWay}"
-                                                          BindingType="UseAlternateBinding"
-                                                          Label="Дата"
-                                                          Width="Auto"
-                                                          AllowEdit="False"
-                                                          AllowResize="False" />
-                                    <dp:TextField AlternateBinding="{Binding Text, Mode=TwoWay}"
-                                                      BindingType="UseAlternateBinding"
-                                                      Label="Заметка (до 150 символов)"
-                                                      Width="*"
-                                                      AllowEdit="True" />
-                                </dp:FieldLayout.Fields>
-                            </dp:FieldLayout>
-                        </dp:XamDataGrid.FieldLayouts>
-                    </dp:XamDataGrid>
-
-                </GroupBox>
+                                <dp:XamDataGrid.FieldLayouts>
+                                    <dp:FieldLayout>
+                                        <dp:FieldLayout.Fields>
+                                            <dp:DateTimeField AlternateBinding="{Binding Date, Mode=TwoWay}"
+                                                                    BindingType="UseAlternateBinding"
+                                                                    Label="Дата"
+                                                                    Width="Auto"
+                                                                    AllowEdit="False"
+                                                                    AllowResize="False" />
+                                            <dp:TextField AlternateBinding="{Binding Text, Mode=TwoWay}"
+                                                                BindingType="UseAlternateBinding"
+                                                                Label="Заметка (до 150 символов)"
+                                                                Width="*"
+                                                                AllowEdit="True" />
+                                        </dp:FieldLayout.Fields>
+                                    </dp:FieldLayout>
+                                </dp:XamDataGrid.FieldLayouts>
+                            </dp:XamDataGrid>
+                        </ScrollViewer>
+                    </Expander>
+                </Border>
             
             </Grid>
 
