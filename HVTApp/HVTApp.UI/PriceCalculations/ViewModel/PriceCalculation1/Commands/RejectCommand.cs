@@ -51,11 +51,6 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
                 return false;
             }
 
-            if (_viewModel.PriceCalculationWrapper.IsNeedExcelFile && !_viewModel.CalculationHasFile)
-            {
-                return false;
-            }
-
             return _viewModel.IsStarted &&
                    !_viewModel.IsFinished &&
                    !_viewModel.IsRejected &&

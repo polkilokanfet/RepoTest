@@ -331,7 +331,6 @@
                                     <dp:FieldLayout.Fields>
                                         <dp:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding TaskOpenMoment}" Label="Старт" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
                                         <dp:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding TaskCloseMoment}" Label="Финиш" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
-                                        <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Comment}" Label="Комментарий" Width="200" AllowResize="True" />
                                         <dp:Field Name="PriceCalculationItems" IsExpandable="True"/>
                                     </dp:FieldLayout.Fields>
                                 </dp:FieldLayout>
