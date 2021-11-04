@@ -25,17 +25,18 @@ namespace HVTApp.Services.MessagesOutlookService
                         {
                             FilePath = filePath,
                             Subject = msg.Subject,
+                            BodyText = msg.BodyText,
                             SentOnDate = msg.SentOn,
                             Sender = new UserOutlook(msg.Sender.Email, msg.Sender.DisplayName),
-                            Recipients = msg.Recipients.Select(x => new UserOutlook(x.Email, x.DisplayName)).ToList()
+                            Recipients = msg.Recipients.Select(recipient => new UserOutlook(recipient.Email, recipient.DisplayName)).ToList()
                         };
 
                         result.Add(message);
 
-                        var recipientsTo = msg.GetEmailRecipients(MsgReader.Outlook.RecipientType.To, false, false);
-                        var recipientsCc = msg.GetEmailRecipients(MsgReader.Outlook.RecipientType.Cc, false, false);
-                        var subject = msg.Subject;
-                        var htmlBody = msg.BodyHtml;
+                        //var recipientsTo = msg.GetEmailRecipients(MsgReader.Outlook.RecipientType.To, false, false);
+                        //var recipientsCc = msg.GetEmailRecipients(MsgReader.Outlook.RecipientType.Cc, false, false);
+                        //var subject = msg.Subject;
+                        //var htmlBody = msg.BodyHtml;
                         // etc...
                     }
 

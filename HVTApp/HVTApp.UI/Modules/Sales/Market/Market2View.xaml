@@ -174,7 +174,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2*"/>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
@@ -205,7 +205,13 @@
 
                     <!--Переписка-->
                     <GroupBox Header="Переписка" Grid.Row="2">
-                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" MinHeight="100"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*" MinHeight="200"/>
+                            </Grid.RowDefinitions>
+
                             <dp:XamDataGrid Style="{StaticResource XamDataGridWithoutGroupByArea}"
                                             DataSource="{Binding Outlook.Messages}"
                                             ActiveDataItem="{Binding Outlook.SelectedMessage, Mode=TwoWay}">
@@ -226,7 +232,19 @@
 
                                 </dp:XamDataGrid.FieldLayouts>
                             </dp:XamDataGrid>
-                        </ScrollViewer>
+
+                            <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="3"/>
+
+                            <GroupBox Grid.Row="2" Header="Сообщение">
+                                <TextBox Text="{Binding Outlook.SelectedMessage.BodyText}"
+                                            TextWrapping="Wrap"
+                                            BorderThickness="0"
+                                            VerticalScrollBarVisibility="Auto"
+                                            HorizontalScrollBarVisibility="Auto"
+                                            IsReadOnly="True"/>
+                            </GroupBox>
+
+                        </Grid>
                     </GroupBox>
 
                     <GridSplitter Grid.Row="3" HorizontalAlignment="Stretch" Height="3"/>

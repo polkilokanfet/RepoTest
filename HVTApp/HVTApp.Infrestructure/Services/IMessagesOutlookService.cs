@@ -12,6 +12,7 @@ namespace HVTApp.Infrastructure.Services
     {
         public DateTime? SentOnDate { get; set; }
         public string Subject { get; set; }
+        public string BodyText { get; set; }
         public UserOutlook Sender { get; set; }
         public List<UserOutlook> Recipients { get; set; }
         public string FilePath { get; set; }
