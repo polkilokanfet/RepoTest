@@ -231,9 +231,9 @@
 
                     <GridSplitter Grid.Row="3" HorizontalAlignment="Stretch" Height="3"/>
 
-                    <!--Предложения-->
+                    <!--ТКП-->
                     <Border Grid.Row="4" BorderBrush="Black" BorderThickness="1" CornerRadius="3" Margin="0 1 0 0">
-                        <Expander Header="Предложения" MaxHeight="300">
+                        <Expander Header="ТКП" MaxHeight="300">
                             <ScrollViewer VerticalScrollBarVisibility="Auto">
                                 <dp:XamDataGrid x:Name="OfferLookupListGrid" 
                                                 Style="{StaticResource XamDataGridWithoutGroupByArea}"
