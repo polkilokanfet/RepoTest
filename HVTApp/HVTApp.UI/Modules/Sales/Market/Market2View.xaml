@@ -204,10 +204,10 @@
                     <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="3"/>
 
                     <!--Переписка-->
-                    <GroupBox Header="Переписка" Grid.Row="2">
+                    <GroupBox Name="Messages" Header="Переписка" Grid.Row="2" AllowDrop="True" Drop="Messages_OnDrop">
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" MinHeight="100"/>
+                                <RowDefinition Height="*" MinHeight="100"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="*" MinHeight="200"/>
                             </Grid.RowDefinitions>
@@ -243,7 +243,6 @@
                                             HorizontalScrollBarVisibility="Auto"
                                             IsReadOnly="True"/>
                             </GroupBox>
-
                         </Grid>
                     </GroupBox>
 

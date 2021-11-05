@@ -27,10 +27,9 @@ namespace HVTApp.UI.Modules.Sales.Market
                 projectItem =>
                 {
                     Messages.Clear();
+
                     if (projectItem == null)
-                    {
                         return;
-                    }
 
                     List<MessageOutlook> messages = new List<MessageOutlook>();
 
@@ -39,7 +38,7 @@ namespace HVTApp.UI.Modules.Sales.Market
                         {
                             var projectPath = PathGetter.GetPath(projectItem.Project);
                             messages = messagesOutlookService
-                                .GetOutlookMessages(Path.Combine(projectPath, "Переписка"))
+                                .GetOutlookMessages(Path.Combine(projectPath, PathGetter.CorrespondenceFolderName))
                                 .OrderByDescending(messageOutlook => messageOutlook.SentOnDate)
                                 .ToList();
                         }).Await(
