@@ -6,24 +6,38 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Commands;
 using HVTApp.UI.Modules.Sales.Market.Items;
 using Microsoft.Practices.Unity;
+using Prism.Mvvm;
 
 namespace HVTApp.UI.Modules.Sales.Market
 {
-    public class Outlook
+    public class Outlook : BindableBase
     {
         private readonly Market2ViewModel _market2ViewModel;
         private readonly IMessagesOutlookService _messagesOutlookService;
         private readonly IMessageService _messageService;
+        private MessageOutlook _selectedMessage;
 
         public ObservableCollection<MessageOutlook> Messages { get; } = new ObservableCollection<MessageOutlook>();
-        public MessageOutlook SelectedMessage { get; set; }
+
+        public MessageOutlook SelectedMessage
+        {
+            get => _selectedMessage;
+            set
+            {
+                _selectedMessage = value;
+                RaisePropertyChanged();
+            }
+        }
+
         public ICommand OpenMessageCommand { get; }
+        public ICommand DeleteMessageCommand { get; }
 
         public Outlook(Market2ViewModel market2ViewModel, IUnityContainer container)
         {
@@ -49,6 +63,23 @@ namespace HVTApp.UI.Modules.Sales.Market
                     }
 
                 });
+
+            DeleteMessageCommand = new DelegateLogCommand(
+                () =>
+                {
+                    if (SelectedMessage == null)
+                        return;
+
+                    var dr = _messageService.ShowYesNoMessageDialog("Удаление", "Вы хотите удалить выделенное сообщение?", defaultYes:true);
+                    if (dr == MessageDialogResult.Yes)
+                    {
+                        DeleteMessage(SelectedMessage);
+                        Messages.Remove(SelectedMessage);
+                        SelectedMessage = null;
+                    }
+                });
+
+
         }
 
         /// <summary>
@@ -64,14 +95,7 @@ namespace HVTApp.UI.Modules.Sales.Market
                 {
                     //удаляем его
                     originalMessageList.Remove(message);
-                    try
-                    {
-                        File.Delete(message.FilePath);
-                    }
-                    catch (IOException e)
-                    {
-                        _messageService.ShowOkMessageDialog("Exception", e.Message);
-                    }
+                    DeleteMessage(message);
                 }
             }
 
@@ -105,6 +129,18 @@ namespace HVTApp.UI.Modules.Sales.Market
         {
             var path = Path.Combine(PathGetter.GetPath(project), PathGetter.CorrespondenceFolderName);
             return _messagesOutlookService.GetOutlookMessages(path);
+        }
+
+        private void DeleteMessage(MessageOutlook message)
+        {
+            try
+            {
+                File.Delete(message.FilePath);
+            }
+            catch (IOException e)
+            {
+                _messageService.ShowOkMessageDialog("Exception", e.Message);
+            }
         }
     }
 }

@@ -218,6 +218,7 @@
 
                                 <dp:XamDataGrid.InputBindings>
                                     <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=Outlook.OpenMessageCommand, Mode=OneWay}" />
+                                    <KeyBinding Key="Delete" Command="{Binding Path=Outlook.DeleteMessageCommand, Mode=OneWay}"></KeyBinding>
                                 </dp:XamDataGrid.InputBindings>
 
                                 <dp:XamDataGrid.FieldLayouts>
@@ -235,7 +236,7 @@
 
                             <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="3"/>
 
-                            <GroupBox Grid.Row="2" Header="Сообщение">
+                            <GroupBox Grid.Row="2" Header="{Binding Outlook.SelectedMessage, Mode=OneWay}">
                                 <TextBox Text="{Binding Outlook.SelectedMessage.BodyText}"
                                             TextWrapping="Wrap"
                                             BorderThickness="0"

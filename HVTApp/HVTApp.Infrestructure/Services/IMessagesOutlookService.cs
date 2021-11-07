@@ -50,6 +50,11 @@ namespace HVTApp.Infrastructure.Services
                 return hashCode;
             }
         }
+
+        public override string ToString()
+        {
+            return $"{SentOnDate} отправил {Sender}";
+        }
     }
 
     public class UserOutlook
