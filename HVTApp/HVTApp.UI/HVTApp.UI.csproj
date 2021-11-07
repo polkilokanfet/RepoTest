@@ -109,6 +109,7 @@
     <Compile Include="Converter\PriceCalculationHistoryItemTypeToStringConverter.cs" />
     <Compile Include="Converter\TaskHistoryElementTypeToStringConverter.cs" />
     <Compile Include="Extantions\Ext.cs" />
+    <Compile Include="Helpers\OutlookDataObject.cs" />
     <Compile Include="Lookup\Items\Custom\DirectumTaskGroupLookup.cs" />
     <Compile Include="Lookup\Items\Custom\DirectumTaskLookup.cs" />
     <Compile Include="Lookup\Items\Custom\DocumentLookup.cs" />

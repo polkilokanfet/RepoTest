@@ -26,7 +26,6 @@ namespace HVTApp.Infrastructure.Services
                 if (!Equals(this.Subject, other.Subject)) return false;
                 if (!Equals(this.BodyText, other.BodyText)) return false;
                 if (!Equals(this.Sender, other.Sender)) return false;
-                if (!Equals(this.FilePath, other.FilePath)) return false;
 
                 return true;
             }
@@ -48,7 +47,6 @@ namespace HVTApp.Infrastructure.Services
                 hashCode = (hashCode * 397) ^ (BodyText != null ? BodyText.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Sender != null ? Sender.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Recipients != null ? Recipients.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (FilePath != null ? FilePath.GetHashCode() : 0);
                 return hashCode;
             }
         }
