@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows;
+using System.Windows.Controls;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
 using HVTApp.UI.Helpers;
@@ -41,7 +42,33 @@ namespace HVTApp.UI.Modules.Sales.Market
                 }
             };
 
+            viewModel.Outlook.SelectedMessageChanged += msg =>
+            {
+                if (msg != null)
+                {
+                    WebBrowserForMessages.NavigateToString(FixHtml(msg.BodyHtml));
+                }
+                else
+                {
+                    WebBrowserForMessages.Navigate("about:blank");
+                }
+            };
+
             this.Loaded += OnLoaded;
+        }
+
+        private string FixHtml(string html)
+        {
+            StringBuilder sb = new StringBuilder();
+            char[] s = html.ToCharArray();
+            foreach (char c in s)
+            {
+                if (Convert.ToInt32(c) > 127)
+                    sb.Append("&#" + Convert.ToInt32(c) + ";");
+                else
+                    sb.Append(c);
+            }
+            return sb.ToString();
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)

@@ -21,6 +21,7 @@ namespace HVTApp.Services.MessagesOutlookService
                         FilePath = path,
                         Subject = msg.Subject,
                         BodyText = msg.BodyText,
+                        BodyHtml = msg.BodyHtml,
                         SentOnDate = msg.SentOn,
                         Sender = new UserOutlook(msg.Sender.Email, msg.Sender.DisplayName),
                         Recipients = msg.Recipients.Select(recipient => new UserOutlook(recipient.Email, recipient.DisplayName)).ToList()

@@ -237,12 +237,13 @@
                             <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="3"/>
 
                             <GroupBox Grid.Row="2" Header="{Binding Outlook.SelectedMessage, Mode=OneWay}">
-                                <TextBox Text="{Binding Outlook.SelectedMessage.BodyText}"
+                                <!--<TextBox Text="{Binding Outlook.SelectedMessage.BodyText}"
                                             TextWrapping="Wrap"
                                             BorderThickness="0"
                                             VerticalScrollBarVisibility="Auto"
                                             HorizontalScrollBarVisibility="Auto"
-                                            IsReadOnly="True"/>
+                                            IsReadOnly="True"/>-->
+                                <WebBrowser Name="WebBrowserForMessages"/>
                             </GroupBox>
                         </Grid>
                     </GroupBox>

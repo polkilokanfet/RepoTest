@@ -31,13 +31,18 @@ namespace HVTApp.UI.Modules.Sales.Market
             get => _selectedMessage;
             set
             {
+                if (Equals(_selectedMessage, value)) return;
+
                 _selectedMessage = value;
                 RaisePropertyChanged();
+                SelectedMessageChanged?.Invoke(value);
             }
         }
 
         public ICommand OpenMessageCommand { get; }
         public ICommand DeleteMessageCommand { get; }
+
+        public event Action<MessageOutlook> SelectedMessageChanged;
 
         public Outlook(Market2ViewModel market2ViewModel, IUnityContainer container)
         {
