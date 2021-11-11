@@ -34,8 +34,28 @@ namespace EventServiceClient2.Popup
 
         private void OpenButton_OnClick(object sender, RoutedEventArgs e)
         {
+            //закрываем уведомление
             this.Close();
+
+            //запускаем действие
             _action?.Invoke();
+
+            //делаем главное окно активным
+            if (System.Windows.Application.Current.MainWindow != null)
+            { 
+                System.Windows.Application.Current.MainWindow.Dispatcher.Invoke(
+                    () =>
+                    {
+                        var mainWindow = System.Windows.Application.Current.MainWindow;
+                        mainWindow.Activate();
+                        if (mainWindow.WindowState == WindowState.Minimized)
+                        {
+                            mainWindow.WindowState = System.Windows.WindowState.Normal;
+                        }
+                        //win.Topmost = true;
+                        //win.Focus();
+                    });
+            }
         }
     }
 }

@@ -86,6 +86,7 @@ namespace HVTApp.UI.Lookup
                 {
                     if (Entity.IsFinished) return false;
                     if (Entity.IsRejected) return false;
+                    return true;
                 }
 
                 return false;

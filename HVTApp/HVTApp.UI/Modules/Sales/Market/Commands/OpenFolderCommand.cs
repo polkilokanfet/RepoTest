@@ -15,7 +15,7 @@ namespace HVTApp.UI.Modules.Sales.Market.Commands
         protected override void ExecuteMethod()
         {
             var path = PathGetter.GetPath(_viewModel.SelectedProjectItem.Project);
-            Process.Start("explorer", $"\"{path}\"");
+            Process.Start($"\"{path}\"");
         }
 
         protected override bool CanExecuteMethod()

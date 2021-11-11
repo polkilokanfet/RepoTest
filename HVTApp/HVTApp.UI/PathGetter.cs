@@ -124,7 +124,7 @@ namespace HVTApp.UI
             { 
                 addToFolderName = addToFolderName.ReplaceUncorrectSimbols("_"); 
             }
-            var path = Path.Combine(rootDirectory, $"{addToFolderName.GetFirstSimbols(50)} {id}");
+            var path = Path.Combine(rootDirectory, $"{addToFolderName.GetFirstSimbols(30)} {id}");
             
             //создаём, если директории не существует
             return CreateDirectoryPathIfNotExists(path)
