@@ -721,6 +721,7 @@
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\Files\AddOldFileCommand.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\Files\AddNewFileCommand.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\BaseOpenFileCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\RejectCommandByFrontManager.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\ShippingCalculation\AddShippingCalculationFileCommand.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\BaseTechnicalRequrementsTaskViewModelCommand.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\ShippingCalculation\LoadShippingCalculationFileCommand.cs" />
@@ -731,7 +732,7 @@
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\Files\LoadFileCommand.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\Files\LoadAllFilesCommand.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\PriceCalculation\CreatePriceCalculationCommand.cs" />
-    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\RejectCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\RejectCommandByBackManager.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\PriceCalculation\OpenPriceCalculationCommand.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\PriceCalculation\CopyPriceCalculationCommand.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\Answers\LoadAllFileAnswersCommand.cs" />

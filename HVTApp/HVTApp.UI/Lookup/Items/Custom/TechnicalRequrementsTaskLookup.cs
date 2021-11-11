@@ -22,7 +22,7 @@ namespace HVTApp.UI.Lookup
                     .SelectMany(technicalRequrements => technicalRequrements.SalesUnits)
                     .Select(salesUnit => salesUnit.Facility.Entity)
                     .Distinct()
-                    .OrderBy(x => x.Name);
+                    .OrderBy(facility => facility.Name);
             }
         }
 
@@ -46,11 +46,13 @@ namespace HVTApp.UI.Lookup
                         case TechnicalRequrementsTaskHistoryElementType.Finish:
                             return "Завершено";
                         case TechnicalRequrementsTaskHistoryElementType.Reject:
-                            return "Отклонено";
+                            return "Отклонено БМ";
+                        case TechnicalRequrementsTaskHistoryElementType.RejectByFrontManager:
+                            return "Запущено";
                         case TechnicalRequrementsTaskHistoryElementType.Stop:
                             return "Остановлено";
                         case TechnicalRequrementsTaskHistoryElementType.Instruct:
-                            return "Поручено";
+                            return "Запущено";
                         case TechnicalRequrementsTaskHistoryElementType.Accept:
                             return "Принято";
                         default:
@@ -82,7 +84,8 @@ namespace HVTApp.UI.Lookup
 
                 if (GlobalAppProperties.User.RoleCurrent == Role.BackManager)
                 {
-                    return Entity.IsFinished == false;
+                    if (Entity.IsFinished) return false;
+                    if (Entity.IsRejected) return false;
                 }
 
                 return false;

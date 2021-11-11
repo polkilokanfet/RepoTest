@@ -36,9 +36,14 @@ namespace HVTApp.Model.POCOs
         Finish,
 
         /// <summary>
-        /// Отклонено БМ
+        /// Отклонено БэкМенеджером
         /// </summary>
         Reject,
+
+        /// <summary>
+        /// Отклонено ФронтМенеджером
+        /// </summary>
+        RejectByFrontManager,
 
         /// <summary>
         /// Остановлено ФМ

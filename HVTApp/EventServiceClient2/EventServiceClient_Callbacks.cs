@@ -334,6 +334,24 @@ namespace EventServiceClient2
             }
         }
 
+        public void OnRejectByFrontManagerTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId)
+        {
+            if (GlobalAppProperties.User.RoleCurrent == Role.BackManager)
+            {
+                var technicalRequrementsTask = _container.Resolve<IUnitOfWork>().Repository<TechnicalRequrementsTask>().GetById(technicalRequarementsTaskId);
+                var backManager = technicalRequrementsTask.BackManager;
+
+                if (backManager == null) return;
+                if (!backManager.IsAppCurrentUser()) return;
+
+                var frontManager = technicalRequrementsTask.GetFrontManager();
+                if (frontManager == null) return;
+
+                (new ServiceCallbackBaseTechnicalRequarementsTask<AfterRejectByFrontManagerTechnicalRequrementsTaskEvent>(_container, SyncContainer))
+                    .Start(technicalRequrementsTask, $"Проработка Вашей задача ТСЕ отклонена (front-manager: {frontManager})\nПричина отклонения: {technicalRequrementsTask.LastHistoryElement?.Comment}");
+            }
+        }
+
         public void OnFinishTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId)
         {
             if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager)

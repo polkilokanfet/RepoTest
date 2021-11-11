@@ -114,6 +114,9 @@
   <wsdl:message name="IEventService_RejectTechnicalRequarementsTaskPublishEvent_InputMessage">
     <wsdl:part name="parameters" element="tns:RejectTechnicalRequarementsTaskPublishEvent" />
   </wsdl:message>
+  <wsdl:message name="IEventService_RejectByFrontManagerTechnicalRequarementsTaskPublishEvent_InputMessage">
+    <wsdl:part name="parameters" element="tns:RejectByFrontManagerTechnicalRequarementsTaskPublishEvent" />
+  </wsdl:message>
   <wsdl:message name="IEventService_FinishTechnicalRequarementsTaskPublishEvent_InputMessage">
     <wsdl:part name="parameters" element="tns:FinishTechnicalRequarementsTaskPublishEvent" />
   </wsdl:message>
@@ -185,6 +188,9 @@
   </wsdl:message>
   <wsdl:message name="IEventService_OnRejectTechnicalRequarementsTaskServiceCallback_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnRejectTechnicalRequarementsTaskServiceCallback" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_OnRejectByFrontManagerTechnicalRequarementsTaskServiceCallback_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnRejectByFrontManagerTechnicalRequarementsTaskServiceCallback" />
   </wsdl:message>
   <wsdl:message name="IEventService_OnFinishTechnicalRequarementsTaskServiceCallback_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnFinishTechnicalRequarementsTaskServiceCallback" />
@@ -281,6 +287,9 @@
     <wsdl:operation name="RejectTechnicalRequarementsTaskPublishEvent">
       <wsdl:input wsaw:Action="http://tempuri.org/IEventService/RejectTechnicalRequarementsTaskPublishEvent" message="tns:IEventService_RejectTechnicalRequarementsTaskPublishEvent_InputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="RejectByFrontManagerTechnicalRequarementsTaskPublishEvent">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/RejectByFrontManagerTechnicalRequarementsTaskPublishEvent" message="tns:IEventService_RejectByFrontManagerTechnicalRequarementsTaskPublishEvent_InputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="FinishTechnicalRequarementsTaskPublishEvent">
       <wsdl:input wsaw:Action="http://tempuri.org/IEventService/FinishTechnicalRequarementsTaskPublishEvent" message="tns:IEventService_FinishTechnicalRequarementsTaskPublishEvent_InputMessage" />
     </wsdl:operation>
@@ -352,6 +361,9 @@
     </wsdl:operation>
     <wsdl:operation name="OnRejectTechnicalRequarementsTaskServiceCallback">
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnRejectTechnicalRequarementsTaskServiceCallback" message="tns:IEventService_OnRejectTechnicalRequarementsTaskServiceCallback_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OnRejectByFrontManagerTechnicalRequarementsTaskServiceCallback">
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnRejectByFrontManagerTechnicalRequarementsTaskServiceCallback" message="tns:IEventService_OnRejectByFrontManagerTechnicalRequarementsTaskServiceCallback_OutputCallbackMessage" />
     </wsdl:operation>
     <wsdl:operation name="OnFinishTechnicalRequarementsTaskServiceCallback">
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnFinishTechnicalRequarementsTaskServiceCallback" message="tns:IEventService_OnFinishTechnicalRequarementsTaskServiceCallback_OutputCallbackMessage" />
@@ -538,6 +550,12 @@
         <soap12:body use="literal" />
       </wsdl:input>
     </wsdl:operation>
+    <wsdl:operation name="RejectByFrontManagerTechnicalRequarementsTaskPublishEvent">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/RejectByFrontManagerTechnicalRequarementsTaskPublishEvent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
     <wsdl:operation name="FinishTechnicalRequarementsTaskPublishEvent">
       <soap12:operation soapAction="http://tempuri.org/IEventService/FinishTechnicalRequarementsTaskPublishEvent" style="document" />
       <wsdl:input>
@@ -678,6 +696,12 @@
     </wsdl:operation>
     <wsdl:operation name="OnRejectTechnicalRequarementsTaskServiceCallback">
       <soap12:operation soapAction="http://tempuri.org/IEventService/OnRejectTechnicalRequarementsTaskServiceCallback" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnRejectByFrontManagerTechnicalRequarementsTaskServiceCallback">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/OnRejectByFrontManagerTechnicalRequarementsTaskServiceCallback" style="document" />
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>

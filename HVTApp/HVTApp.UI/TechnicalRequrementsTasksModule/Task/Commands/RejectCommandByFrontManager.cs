@@ -1,15 +1,14 @@
 using System;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
-using HVTApp.Model.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 
 namespace HVTApp.UI.TechnicalRequrementsTasksModule
 {
-    public class RejectCommand : BaseTechnicalRequrementsTaskViewModelCommand
+    public class RejectCommandByFrontManager : BaseTechnicalRequrementsTaskViewModelCommand
     {
-        public RejectCommand(TechnicalRequrementsTaskViewModel viewModel, IUnityContainer container) : base(viewModel, container)
+        public RejectCommandByFrontManager(TechnicalRequrementsTaskViewModel viewModel, IUnityContainer container) : base(viewModel, container)
         {
         }
 
@@ -21,7 +20,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 return;
             }
 
-            ViewModel.HistoryElementWrapper.Type = TechnicalRequrementsTaskHistoryElementType.Reject;
+            ViewModel.HistoryElementWrapper.Type = TechnicalRequrementsTaskHistoryElementType.RejectByFrontManager;
             ViewModel.HistoryElementWrapper.Moment = DateTime.Now;
             ViewModel.TechnicalRequrementsTaskWrapper.HistoryElements.Add(ViewModel.HistoryElementWrapper);
 
@@ -29,7 +28,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
             this.RaiseCanExecuteChanged();
 
-            Container.Resolve<IEventAggregator>().GetEvent<AfterRejectTechnicalRequrementsTaskEvent>().Publish(ViewModel.TechnicalRequrementsTaskWrapper.Model);
+            Container.Resolve<IEventAggregator>().GetEvent<AfterRejectByFrontManagerTechnicalRequrementsTaskEvent>().Publish(ViewModel.TechnicalRequrementsTaskWrapper.Model);
 
             ViewModel.HistoryElementWrapper = null;
         }
@@ -37,9 +36,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         protected override bool CanExecuteMethod()
         {
             return ViewModel.IsValid &&
-                   ViewModel.IsStarted &&
-                   !ViewModel.IsRejected &&
-                   !ViewModel.IsFinished;
+                   ViewModel.IsFinished &&
+                   !ViewModel.IsAccepted;
         }
     }
 }

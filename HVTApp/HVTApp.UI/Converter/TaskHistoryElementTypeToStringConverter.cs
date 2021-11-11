@@ -21,11 +21,13 @@ namespace HVTApp.UI.Converter
                     case TechnicalRequrementsTaskHistoryElementType.Finish:
                         return "Завершено";
                     case TechnicalRequrementsTaskHistoryElementType.Reject:
-                        return "Отклонено";
+                        return "Отклонено БМ";
+                    case TechnicalRequrementsTaskHistoryElementType.RejectByFrontManager:
+                        return "Отклонено ФМ";
                     case TechnicalRequrementsTaskHistoryElementType.Stop:
                         return "Остановлено";
                     case TechnicalRequrementsTaskHistoryElementType.Instruct:
-                        return "Поручено";
+                        return "Запущено";
                     case TechnicalRequrementsTaskHistoryElementType.Accept:
                         return "Принято";
                     default:

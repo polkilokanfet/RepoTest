@@ -165,6 +165,14 @@ namespace EventServiceClient2.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/RejectTechnicalRequarementsTaskPublishEvent")]
         System.Threading.Tasks.Task RejectTechnicalRequarementsTaskPublishEventAsync(System.Guid appSessionId, System.Guid technicalRequarementsTaskId);
         
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/RejectByFrontManagerTechnicalRequarementsTaskPub" +
+            "lishEvent")]
+        void RejectByFrontManagerTechnicalRequarementsTaskPublishEvent(System.Guid appSessionId, System.Guid technicalRequarementsTaskId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/RejectByFrontManagerTechnicalRequarementsTaskPub" +
+            "lishEvent")]
+        System.Threading.Tasks.Task RejectByFrontManagerTechnicalRequarementsTaskPublishEventAsync(System.Guid appSessionId, System.Guid technicalRequarementsTaskId);
+        
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/FinishTechnicalRequarementsTaskPublishEvent")]
         void FinishTechnicalRequarementsTaskPublishEvent(System.Guid appSessionId, System.Guid technicalRequarementsTaskId);
         
@@ -248,6 +256,10 @@ namespace EventServiceClient2.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnRejectTechnicalRequarementsTaskServiceCallback" +
             "")]
         void OnRejectTechnicalRequarementsTaskServiceCallback(System.Guid technicalRequarementsTaskId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnRejectByFrontManagerTechnicalRequarementsTaskS" +
+            "erviceCallback")]
+        void OnRejectByFrontManagerTechnicalRequarementsTaskServiceCallback(System.Guid technicalRequarementsTaskId);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnFinishTechnicalRequarementsTaskServiceCallback" +
             "")]
@@ -487,6 +499,14 @@ namespace EventServiceClient2.ServiceReference1 {
         
         public System.Threading.Tasks.Task RejectTechnicalRequarementsTaskPublishEventAsync(System.Guid appSessionId, System.Guid technicalRequarementsTaskId) {
             return base.Channel.RejectTechnicalRequarementsTaskPublishEventAsync(appSessionId, technicalRequarementsTaskId);
+        }
+        
+        public void RejectByFrontManagerTechnicalRequarementsTaskPublishEvent(System.Guid appSessionId, System.Guid technicalRequarementsTaskId) {
+            base.Channel.RejectByFrontManagerTechnicalRequarementsTaskPublishEvent(appSessionId, technicalRequarementsTaskId);
+        }
+        
+        public System.Threading.Tasks.Task RejectByFrontManagerTechnicalRequarementsTaskPublishEventAsync(System.Guid appSessionId, System.Guid technicalRequarementsTaskId) {
+            return base.Channel.RejectByFrontManagerTechnicalRequarementsTaskPublishEventAsync(appSessionId, technicalRequarementsTaskId);
         }
         
         public void FinishTechnicalRequarementsTaskPublishEvent(System.Guid appSessionId, System.Guid technicalRequarementsTaskId) {

@@ -71,6 +71,9 @@
         <!--<infRib:ButtonTool Caption="Изменить"
                            Command="{Binding EditCommand}"
                            SmallImage="/HVTApp.UI;component/Images/edit.png" />-->
+        <infRib:ButtonTool Caption="Отклонить"
+                           Command="{Binding RejectCommandByFrontManager}"
+                           SmallImage="/HVTApp.UI;component/Images/remove.png" />
         <infRib:ButtonTool Caption="Остановить"
                            Command="{Binding StopCommand}"
                            SmallImage="/HVTApp.UI;component/Images/stop.png" />
@@ -83,7 +86,7 @@
     <infRib:RibbonGroup Caption="Задача"
                         Visibility="{Binding CurrentUserIsBackManager, Converter={StaticResource BooleanToVisibilityConverter}}">
         <infRib:ButtonTool Caption="Отклонить"
-                           Command="{Binding RejectCommand}"
+                           Command="{Binding RejectCommandByBackManager}"
                            SmallImage="/HVTApp.UI;component/Images/remove.png" />
         <infRib:ButtonTool Caption="Завершить"
                            Command="{Binding FinishCommand}"

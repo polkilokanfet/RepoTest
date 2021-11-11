@@ -200,12 +200,20 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         public DelegateLogCommand AddGroupCommand { get; }
         public RemoveGroupCommand RemoveGroupCommand { get; }
 
+        /// <summary>
+        /// Стартовать задачу
+        /// </summary>
         public StartCommand StartCommand { get; }
 
         /// <summary>
-        /// Отклонить задачу
+        /// Отклонить задачу (back-manager)
         /// </summary>
-        public RejectCommand RejectCommand { get; }
+        public RejectCommandByBackManager RejectCommandByBackManager { get; }
+
+        /// <summary>
+        /// Отклонить задачу (front-manager)
+        /// </summary>
+        public RejectCommandByFrontManager RejectCommandByFrontManager { get; }
 
         public StopCommand StopCommand { get; }
 
@@ -389,7 +397,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
             TechnicalRequrementsTaskWrapper = new TechnicalRequrementsTask2Wrapper(new TechnicalRequrementsTask());
 
-            RejectCommand = new RejectCommand(this, this.Container);
+            RejectCommandByBackManager = new RejectCommandByBackManager(this, this.Container);
+            RejectCommandByFrontManager = new RejectCommandByFrontManager(this, this.Container);
             FinishCommand = new FinishCommand(this, this.Container);
             AcceptCommand = new AcceptCommand(this, this.Container);
 
@@ -434,7 +443,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             AddGroupCommand.RaiseCanExecuteChanged();
             RemoveGroupCommand.RaiseCanExecuteChanged();
             StartCommand.RaiseCanExecuteChanged();
-            RejectCommand.RaiseCanExecuteChanged();
+            RejectCommandByBackManager.RaiseCanExecuteChanged();
             StopCommand.RaiseCanExecuteChanged();
             FinishCommand.RaiseCanExecuteChanged();
             AcceptCommand.RaiseCanExecuteChanged();

@@ -164,6 +164,7 @@ namespace EventServiceClient2
             SyncContainer.Add(new SyncTechnicalRequrementsTaskStart(_container, EventServiceHost, _appSessionId));
             SyncContainer.Add(new SyncTechnicalRequrementsTaskInstruct(_container, EventServiceHost, _appSessionId));
             SyncContainer.Add(new SyncTechnicalRequrementsTaskReject(_container, EventServiceHost, _appSessionId));
+            SyncContainer.Add(new SyncTechnicalRequrementsTaskRejectByFrontManager(_container, EventServiceHost, _appSessionId));
             SyncContainer.Add(new SyncTechnicalRequrementsTaskFinish(_container, EventServiceHost, _appSessionId));
             SyncContainer.Add(new SyncTechnicalRequrementsTaskAccept(_container, EventServiceHost, _appSessionId));
             SyncContainer.Add(new SyncTechnicalRequrementsTaskStop(_container, EventServiceHost, _appSessionId));

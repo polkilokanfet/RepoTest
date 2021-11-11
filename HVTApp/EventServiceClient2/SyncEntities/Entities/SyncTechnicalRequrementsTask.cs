@@ -53,6 +53,18 @@ namespace EventServiceClient2.SyncEntities
         }
     }
 
+    public class SyncTechnicalRequrementsTaskRejectByFrontManager : SyncUnit<TechnicalRequrementsTask, AfterRejectByFrontManagerTechnicalRequrementsTaskEvent>
+    {
+        public SyncTechnicalRequrementsTaskRejectByFrontManager(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId) : base(container, eventServiceHost, appSessionId)
+        {
+        }
+
+        protected override Action<TechnicalRequrementsTask> PublishEventAction
+        {
+            get { return technicalRequrementsTask => this.EventServiceHost.RejectByFrontManagerTechnicalRequarementsTaskPublishEvent(AppSessionId, technicalRequrementsTask.Id); }
+        }
+    }
+
     public class SyncTechnicalRequrementsTaskFinish : SyncUnit<TechnicalRequrementsTask, AfterFinishTechnicalRequrementsTaskEvent>
     {
         public SyncTechnicalRequrementsTaskFinish(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId) : base(container, eventServiceHost, appSessionId)
