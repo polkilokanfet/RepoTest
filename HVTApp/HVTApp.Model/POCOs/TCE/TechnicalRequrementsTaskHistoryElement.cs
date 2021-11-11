@@ -41,11 +41,6 @@ namespace HVTApp.Model.POCOs
         Reject,
 
         /// <summary>
-        /// Отклонено ФронтМенеджером
-        /// </summary>
-        RejectByFrontManager,
-
-        /// <summary>
         /// Остановлено ФМ
         /// </summary>
         Stop,
@@ -58,6 +53,11 @@ namespace HVTApp.Model.POCOs
         /// <summary>
         /// Принято
         /// </summary>
-        Accept
+        Accept,
+
+        /// <summary>
+        /// Отклонено ФронтМенеджером
+        /// </summary>
+        RejectByFrontManager
     }
 }
