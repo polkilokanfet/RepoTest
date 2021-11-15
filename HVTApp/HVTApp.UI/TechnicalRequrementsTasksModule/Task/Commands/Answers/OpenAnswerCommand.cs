@@ -1,5 +1,4 @@
 using System;
-using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
 using Microsoft.Practices.Unity;
@@ -16,7 +15,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         {
             try
             {
-                FilesStorage.OpenFileFromStorage(ViewModel.SelectedAnswerFile.Id, MessageService, GlobalAppProperties.Actual.TechnicalRequrementsFilesAnswersPath, ViewModel.SelectedAnswerFile.Name);
+                FilesStorageService.OpenFileFromStorage(ViewModel.SelectedAnswerFile.Id, GlobalAppProperties.Actual.TechnicalRequrementsFilesAnswersPath, ViewModel.SelectedAnswerFile.Name);
             }
             catch (Exception e)
             {

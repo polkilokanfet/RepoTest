@@ -14,7 +14,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         protected override void ExecuteMethod()
         {
             var storageDirectory = GlobalAppProperties.Actual.ShippingCostFilesPath;
-            FilesStorage.CopyFileFromStorage(ViewModel.SelectedShippingCalculationFile.Id, MessageService, storageDirectory);
+            FilesStorageService.CopyFileFromStorage(ViewModel.SelectedShippingCalculationFile.Id, storageDirectory);
         }
 
         protected override bool CanExecuteMethod()

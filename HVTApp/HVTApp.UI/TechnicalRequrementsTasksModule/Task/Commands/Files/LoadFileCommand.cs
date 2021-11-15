@@ -17,7 +17,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             var fileWrapper = (TechnicalRequrementsFileWrapper)ViewModel.SelectedItem;
             var storageDirectory = GlobalAppProperties.Actual.TechnicalRequrementsFilesPath;
             string addToFileName = $"{fileWrapper.Name.ReplaceUncorrectSimbols().LimitLengh()}";
-            FilesStorage.CopyFileFromStorage(fileWrapper.Id, MessageService, storageDirectory, addToFileName: addToFileName);
+            FilesStorageService.CopyFileFromStorage(fileWrapper.Id, storageDirectory, addToFileName: addToFileName);
         }
 
         protected override bool CanExecuteMethod()

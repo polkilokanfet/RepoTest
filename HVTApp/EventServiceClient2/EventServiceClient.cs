@@ -18,6 +18,7 @@ namespace EventServiceClient2
         private Guid _appSessionId;
         private readonly IUnityContainer _container;
         private readonly IFileManagerService _fileManagerService;
+        private readonly IFilesStorageService _filesStorageService;
         private readonly Guid _userId = GlobalAppProperties.User.Id;
 
         private readonly EndpointAddress _endpointAddress;
@@ -37,6 +38,7 @@ namespace EventServiceClient2
         {
             _container = container;
             _fileManagerService = container.Resolve<IFileManagerService>();
+            _filesStorageService = container.Resolve<IFilesStorageService>();
 
             //увеличиваем таймаут бездействия
             _netTcpBinding = new NetTcpBinding(SecurityMode.None, true)

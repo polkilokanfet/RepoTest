@@ -23,7 +23,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             try
             {
                 //удаление
-                FileInfo fileInfo = FilesStorage.FindFile(ViewModel.SelectedAnswerFile.Id, GlobalAppProperties.Actual.TechnicalRequrementsFilesAnswersPath);
+                FileInfo fileInfo = FilesStorageService.FindFile(ViewModel.SelectedAnswerFile.Id, GlobalAppProperties.Actual.TechnicalRequrementsFilesAnswersPath);
                 File.Delete(fileInfo.FullName);
                 UnitOfWork.Repository<AnswerFileTce>().Delete(ViewModel.SelectedAnswerFile.Model);
                 ViewModel.TechnicalRequrementsTaskWrapper.AnswerFiles.Remove(ViewModel.SelectedAnswerFile);

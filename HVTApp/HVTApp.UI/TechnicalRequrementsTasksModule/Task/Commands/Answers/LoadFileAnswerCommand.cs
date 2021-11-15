@@ -1,4 +1,3 @@
-using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
 using Microsoft.Practices.Unity;
@@ -15,7 +14,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         {
             var storageDirectory = GlobalAppProperties.Actual.TechnicalRequrementsFilesAnswersPath;
             string addToFileName = $"{ViewModel.SelectedAnswerFile.Name.ReplaceUncorrectSimbols().LimitLengh()}";
-            FilesStorage.CopyFileFromStorage(ViewModel.SelectedAnswerFile.Id, MessageService, storageDirectory, addToFileName: addToFileName);
+            FilesStorageService.CopyFileFromStorage(ViewModel.SelectedAnswerFile.Id, storageDirectory, addToFileName: addToFileName);
         }
 
         protected override bool CanExecuteMethod()

@@ -13,7 +13,7 @@ namespace HVTApp.Model.Services
         bool SaveDefaultProjectsFolderPath(string path);
 
         /// <summary>
-        /// Путь к проекту
+        /// Путь к папке проекта
         /// </summary>
         /// <param name="project">Проект</param>
         /// <returns>Путь к папке проекта</returns>
@@ -35,7 +35,13 @@ namespace HVTApp.Model.Services
         /// <returns></returns>
         string GetPath(Document document);
 
-
+        /// <summary>
+        /// Путь к директории
+        /// </summary>
+        /// <param name="guid">Id директории</param>
+        /// <param name="rootDirectory">корневая папка</param>
+        /// <param name="addToFolderName">добавить к имени директории</param>
+        /// <returns></returns>
         string GetPath(Guid guid, string rootDirectory, string addToFolderName = null);
 
         /// <summary>

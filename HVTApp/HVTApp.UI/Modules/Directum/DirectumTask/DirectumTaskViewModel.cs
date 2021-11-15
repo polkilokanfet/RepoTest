@@ -13,6 +13,7 @@ using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
@@ -25,6 +26,8 @@ namespace HVTApp.UI.Modules.Directum
     public class DirectumTaskViewModel : ViewModelBase, IDisposable
     {
         #region Fields
+
+        private readonly IFilesStorageService _filesStorageService;
 
         private bool _taskIsNew = false;
         private bool _taskIsSubTask = false;
@@ -251,6 +254,7 @@ namespace HVTApp.UI.Modules.Directum
         public DirectumTaskViewModel(IUnityContainer container) : base(container)
         {
             _messageService = container.Resolve<IMessageService>();
+            _filesStorageService = container.Resolve<IFilesStorageService>();
 
             RouteCommand = new DelegateLogCommand(
                 () =>
@@ -572,7 +576,7 @@ namespace HVTApp.UI.Modules.Directum
                     }
                     else
                     {
-                        FilesStorage.OpenFileFromStorage(SelectedFile.Id, _messageService, _rootFilesDirectoryPath);
+                        _filesStorageService.OpenFileFromStorage(SelectedFile.Id, _rootFilesDirectoryPath);
                     }
                 }, 
                 () => SelectedFile != null);
@@ -613,7 +617,7 @@ namespace HVTApp.UI.Modules.Directum
                 try
                 {
                     //удаление
-                    FileInfo fileInfo = FilesStorage.FindFile(file.Id, _rootFilesDirectoryPath);
+                    FileInfo fileInfo = _filesStorageService.FindFile(file.Id, _rootFilesDirectoryPath);
                     File.Delete(fileInfo.FullName);
                 }
                 catch (FileNotFoundException e)

@@ -126,6 +126,7 @@ namespace HVTApp
             Container.RegisterType<IPriceService, PriceService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IShippingService, ShippService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IFileManagerService, FileManagerService1>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IFilesStorageService, FilesStorageService>(new ContainerControlledLifetimeManager());
 
             Container.RegisterType<IEventServiceClient, EventServiceClient>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IMessenger, Messenger>(new ContainerControlledLifetimeManager());

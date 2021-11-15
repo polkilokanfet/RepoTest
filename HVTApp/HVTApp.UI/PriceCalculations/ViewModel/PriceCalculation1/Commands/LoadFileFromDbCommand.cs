@@ -1,16 +1,19 @@
 using System.Linq;
-using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model;
+using HVTApp.Model.Services;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
 {
     public class LoadFileFromDbCommand : BasePriceCalculationCommand
     {
+        private readonly IFilesStorageService _filesStorageService;
+
         public LoadFileFromDbCommand(PriceCalculationViewModel viewModel, IUnityContainer container) : base(viewModel, container)
         {
+            _filesStorageService = container.Resolve<IFilesStorageService>();
         }
 
         protected override void ExecuteMethod()
@@ -26,7 +29,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
 
             var storageDirectory = GlobalAppProperties.Actual.PriceCalculationsFilesPath;
             string addToFileName = $"{file.CreationMoment.ToShortDateString()} {file.CreationMoment.ToShortTimeString()}";
-            FilesStorage.CopyFileFromStorage(file.Id, MessageService, storageDirectory, addToFileName: addToFileName.ReplaceUncorrectSimbols("-"));
+            _filesStorageService.CopyFileFromStorage(file.Id, storageDirectory, addToFileName: addToFileName.ReplaceUncorrectSimbols("-"));
         }
 
         protected override bool CanExecuteMethod()

@@ -10,6 +10,9 @@ namespace HVTApp.Services.FileManagerService
 {
     public class FileManagerService1 : IFileManagerService
     {
+        /// <summary>
+        /// Путь к папке с проектами
+        /// </summary>
         private string _projectsFolderPath;
 
         private string OffersFolderName { get; } = "ТКП";
@@ -29,36 +32,21 @@ namespace HVTApp.Services.FileManagerService
             CreateDirectoryPathIfNotExists(_projectsFolderPath);
         }
 
-        /// <summary>
-        /// Сохранить путь к папке с проектами
-        /// </summary>
-        /// <param name="path">Путь</param>
-        /// <returns></returns>
         public bool SaveDefaultProjectsFolderPath(string path)
         {
-            Properties.Settings.Default.ProjectsFolderPath = path;
             CreateDirectoryPathIfNotExists(path);
+            Properties.Settings.Default.ProjectsFolderPath = path;
             Properties.Settings.Default.Save();
             _projectsFolderPath = path;
             return true;
         }
 
-        /// <summary>
-        /// путь к папке документа
-        /// </summary>
-        /// <param name="document"></param>
-        /// <returns></returns>
         public string GetPath(Document document)
         {
             var rootDirectory = GlobalAppProperties.Actual.IncomingRequestsPath;
             return GetPath(document.Id, rootDirectory, document.RegNumber);
         }
 
-        /// <summary>
-        /// Путь к проекту
-        /// </summary>
-        /// <param name="project">Проект</param>
-        /// <returns>Путь к проекту</returns>
         public string GetPath(Project project)
         {
             return GetPath(project.Id, _projectsFolderPath, project.Name);
@@ -107,10 +95,6 @@ namespace HVTApp.Services.FileManagerService
                 : Environment.SpecialFolder.MyDocuments.ToString();
         }
 
-        /// <summary>
-        /// Создать директорию, если ее не существует.
-        /// </summary>
-        /// <param name="path">Путь к директории</param>
         public bool CreateDirectoryPathIfNotExists(string path)
         {
             try
@@ -127,6 +111,5 @@ namespace HVTApp.Services.FileManagerService
                 return false;
             }
         }
-
     }
 }

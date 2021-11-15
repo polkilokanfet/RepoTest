@@ -23,7 +23,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             try
             {
                 //удаление
-                FileInfo fileInfo = FilesStorage.FindFile(ViewModel.SelectedShippingCalculationFile.Id, GlobalAppProperties.Actual.ShippingCostFilesPath);
+                FileInfo fileInfo = FilesStorageService.FindFile(ViewModel.SelectedShippingCalculationFile.Id, GlobalAppProperties.Actual.ShippingCostFilesPath);
                 File.Delete(fileInfo.FullName);
                 UnitOfWork.Repository<ShippingCostFile>().Delete(ViewModel.SelectedShippingCalculationFile.Model);
                 ViewModel.TechnicalRequrementsTaskWrapper.ShippingCostFiles.Remove(ViewModel.SelectedShippingCalculationFile);

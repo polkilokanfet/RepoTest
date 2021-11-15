@@ -6,7 +6,6 @@ using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
-using HVTApp.UI;
 using HVTApp.UI.Modules.BookRegistration.Views;
 using HVTApp.UI.Modules.Directum;
 using Microsoft.Practices.Unity;
@@ -39,7 +38,7 @@ namespace EventServiceClient2
         public void CopyProjectAttachmentsCallback(Guid projectId, string targetDirectory)
         {
             Project project = _container.Resolve<IUnitOfWork>().Repository<Project>().GetById(projectId);
-            FilesStorage.CopyDirectory(_fileManagerService.GetPath(project), targetDirectory);
+            _filesStorageService.CopyDirectory(_fileManagerService.GetPath(project), targetDirectory);
         }
 
         #region Directum
