@@ -91,6 +91,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.Services.AllowStartS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.Services.MessagesOutlookService", "HVTApp.Services.MessagesOutlookService\HVTApp.Services.MessagesOutlookService.csproj", "{F446AE6D-9895-489D-9EB3-CADF1CB0C030}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.Services.FileManagerService", "HVTApp.Services.FileManagerService\HVTApp.Services.FileManagerService.csproj", "{208FE134-B150-4F95-9E2B-8CC61AE7E501}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -257,6 +259,10 @@ Global
 		{F446AE6D-9895-489D-9EB3-CADF1CB0C030}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F446AE6D-9895-489D-9EB3-CADF1CB0C030}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F446AE6D-9895-489D-9EB3-CADF1CB0C030}.Release|Any CPU.Build.0 = Release|Any CPU
+		{208FE134-B150-4F95-9E2B-8CC61AE7E501}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{208FE134-B150-4F95-9E2B-8CC61AE7E501}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{208FE134-B150-4F95-9E2B-8CC61AE7E501}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{208FE134-B150-4F95-9E2B-8CC61AE7E501}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -297,6 +303,7 @@ Global
 		{FAAF5BF4-4CB5-4F92-A1DB-573C071DBB42} = {D89A3693-4C45-45D7-B52B-B3A58C52B3E2}
 		{BDE8766B-585E-4DD3-BB88-7EDFDE5F61D8} = {E879AEF8-9D7C-4F72-A5D6-9462863ACDF8}
 		{F446AE6D-9895-489D-9EB3-CADF1CB0C030} = {E879AEF8-9D7C-4F72-A5D6-9462863ACDF8}
+		{208FE134-B150-4F95-9E2B-8CC61AE7E501} = {E879AEF8-9D7C-4F72-A5D6-9462863ACDF8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BEAEF50D-E850-44E2-B506-9E4743D3D04B}

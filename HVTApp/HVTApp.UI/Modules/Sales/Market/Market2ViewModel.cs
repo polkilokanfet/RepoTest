@@ -9,6 +9,7 @@ using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Services;
 using HVTApp.UI.Commands;
 using HVTApp.UI.Modules.Sales.Market.Commands;
 using HVTApp.UI.Modules.Sales.Market.Items;
@@ -194,8 +195,8 @@ namespace HVTApp.UI.Modules.Sales.Market
 
             StructureCostsCommand = new StructureCostsCommand(this, this.RegionManager, this.UnitOfWork);
 
-            SelectProjectsFolderCommand = new SelectProjectsFolderCommand();
-            OpenFolderCommand = new OpenFolderCommand(this);
+            SelectProjectsFolderCommand = new SelectProjectsFolderCommand(container.Resolve<IFileManagerService>());
+            OpenFolderCommand = new OpenFolderCommand(this, container.Resolve<IFileManagerService>());
 
             MakeTceTaskCommand = new MakeTceTaskCommand(this, this.UnitOfWork, this.RegionManager);
 

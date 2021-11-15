@@ -39,7 +39,7 @@ namespace EventServiceClient2
         public void CopyProjectAttachmentsCallback(Guid projectId, string targetDirectory)
         {
             Project project = _container.Resolve<IUnitOfWork>().Repository<Project>().GetById(projectId);
-            FilesStorage.CopyDirectory(PathGetter.GetPath(project), targetDirectory);
+            FilesStorage.CopyDirectory(_fileManagerService.GetPath(project), targetDirectory);
         }
 
         #region Directum

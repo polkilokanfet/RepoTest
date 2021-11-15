@@ -141,6 +141,7 @@
     <Compile Include="Price\IProfitability.cs" />
     <Compile Include="Services\IGetProductService.cs" />
     <Compile Include="Services\INewProductService.cs" />
+    <Compile Include="Services\IFileManagerService.cs" />
     <Compile Include="Services\IPriceService.cs" />
     <Compile Include="Services\IPrintBlankLetterService.cs" />
     <Compile Include="Services\IPrintSupervisionLetterService.cs" />

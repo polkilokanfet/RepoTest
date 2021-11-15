@@ -7,6 +7,7 @@ using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.EventService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Services;
 using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
 
@@ -55,7 +56,7 @@ namespace HVTApp.UI.ViewModels
                                         if (!managers.Contains(selectedProject.Manager)) continue;
 
                                         var targetDirectoryPath = Path.Combine(selectedDirectoryPath, selectedProject.Id.ToString().Replace("-", string.Empty));
-                                        PathGetter.CreateDirectoryPathIfNotExists(targetDirectoryPath);
+                                        this.Container.Resolve<IFileManagerService>().CreateDirectoryPathIfNotExists(targetDirectoryPath);
                                         eventServiceClient.CopyProjectAttachmentsRequest(selectedProject.Manager.Id, selectedProject.Id, targetDirectoryPath);
                                     }
 

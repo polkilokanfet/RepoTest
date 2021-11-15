@@ -9,6 +9,7 @@ using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Services;
 using HVTApp.UI.Commands;
 using HVTApp.UI.Lookup;
 using HVTApp.UI.Modules.BookRegistration.Views;
@@ -20,6 +21,7 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
 {
     public class IncomingRequestsViewModel : ViewModelBaseCanExportToExcel
     {
+        private readonly IFileManagerService _fileManagerService;
         private IncomingRequestLookup _selectedIncomingRequest;
 
         public bool IsDirectorView => GlobalAppProperties.User.RoleCurrent == Role.Admin || GlobalAppProperties.User.RoleCurrent == Role.Director;
@@ -57,6 +59,8 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
 
         public IncomingRequestsViewModel(IUnityContainer container) : base(container)
         {
+            _fileManagerService = container.Resolve<IFileManagerService>();
+
             ReloadCommand = new DelegateLogCommand(Load);
 
             InstructRequestCommand = new DelegateLogCommand(
@@ -80,7 +84,7 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
                         return;
                     }
 
-                    var path = PathGetter.GetPath(SelectedIncomingRequest.Entity.Document);
+                    var path = _fileManagerService.GetPath(SelectedIncomingRequest.Entity.Document);
                     Process.Start("explorer", $"\"{path}\"");
                 },
                 () => SelectedIncomingRequest != null);

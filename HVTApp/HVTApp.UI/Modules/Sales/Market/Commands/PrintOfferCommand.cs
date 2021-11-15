@@ -1,4 +1,5 @@
 ﻿using HVTApp.Infrastructure.Services;
+using HVTApp.Model.Services;
 using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
 
@@ -17,7 +18,8 @@ namespace HVTApp.UI.Modules.Sales.Market.Commands
 
         protected override void ExecuteMethod()
         {
-            _container.Resolve<IPrintOfferService>().PrintOffer(_viewModel.Offers.SelectedItem.Id, PathGetter.GetPath(_viewModel.Offers.SelectedItem.Entity));
+            IFileManagerService fileManagerService = _container.Resolve<IFileManagerService>();
+            _container.Resolve<IPrintOfferService>().PrintOffer(_viewModel.Offers.SelectedItem.Id, fileManagerService.GetPath(_viewModel.Offers.SelectedItem.Entity));
         }
 
         protected override bool CanExecuteMethod()

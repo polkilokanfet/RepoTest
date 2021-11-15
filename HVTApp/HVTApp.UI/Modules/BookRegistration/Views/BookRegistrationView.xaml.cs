@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using HVTApp.Infrastructure;
+using HVTApp.Model.Services;
 using HVTApp.UI.Modules.BookRegistration.Tabs;
 using HVTApp.UI.Modules.BookRegistration.ViewModels;
 using Prism.Events;
@@ -11,10 +12,12 @@ namespace HVTApp.UI.Modules.BookRegistration.Views
     [RibbonTab(typeof(TabBookRegistration))]
     public partial class BookRegistrationView
     {
+        private readonly IFileManagerService _fileManagerService;
         private Uri _currentUri;
 
-        public BookRegistrationView(BookRegistrationViewModel viewModel, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
+        public BookRegistrationView(BookRegistrationViewModel viewModel, IFileManagerService fileManagerService, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
         {
+            _fileManagerService = fileManagerService;
             InitializeComponent();
             viewModel.Load2();
             DataContext = viewModel;
@@ -23,7 +26,7 @@ namespace HVTApp.UI.Modules.BookRegistration.Views
             {
                 if (document!= null)
                 {
-                    _currentUri = new Uri(PathGetter.GetPath(document));
+                    _currentUri = new Uri(_fileManagerService.GetPath(document));
                     this.Browser.Source = _currentUri;
                 }
             };

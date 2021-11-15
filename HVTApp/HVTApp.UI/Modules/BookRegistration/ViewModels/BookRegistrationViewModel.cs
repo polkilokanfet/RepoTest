@@ -22,6 +22,7 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
 {
     public class BookRegistrationViewModel : DocumentLookupListViewModel
     {
+        private readonly IFileManagerService _fileManagerService;
         private List<DocumentLookup> _documentLookups;
         private DocumentLookup _selectedDocumentLookup;
         private bool _showIncoming = true;
@@ -69,6 +70,7 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
 
         public BookRegistrationViewModel(IUnityContainer container) : base(container)
         {
+            _fileManagerService = container.Resolve<IFileManagerService>();
             ReloadCommand = new DelegateLogCommand(Load2);
 
             CreateOutgoingDocumentCommand = new DelegateLogCommand(() =>
@@ -113,7 +115,7 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
                         return;
                     }
 
-                    var path = PathGetter.GetPath(SelectedDocumentLookup.Entity);
+                    var path = _fileManagerService.GetPath(SelectedDocumentLookup.Entity);
                     Process.Start("explorer", $"\"{path}\"");
                 },
                 () => SelectedDocumentLookup != null);
@@ -121,7 +123,7 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
             PrintBlankLetterCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var path = PathGetter.GetPath(SelectedDocumentLookup.Entity);
+                    var path = _fileManagerService.GetPath(SelectedDocumentLookup.Entity);
                     Container.Resolve<IPrintBlankLetterService>().PrintBlankLetter(SelectedDocumentLookup.Entity, path);
                 },
                 () => SelectedDocumentLookup != null && SelectedDocumentLookup.Entity.Direction == DocumentDirection.Outgoing);

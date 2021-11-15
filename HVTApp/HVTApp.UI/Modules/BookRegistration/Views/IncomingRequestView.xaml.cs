@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Services;
 using HVTApp.UI.Modules.BookRegistration.Tabs;
 using HVTApp.UI.Modules.BookRegistration.ViewModels;
 using Prism.Events;
@@ -13,11 +14,14 @@ namespace HVTApp.UI.Modules.BookRegistration.Views
     [RibbonTab(typeof(TabIncomingRequest))]
     public partial class IncomingRequestView
     {
+        private readonly IFileManagerService _fileManagerService;
+
         private readonly IncomingRequestViewModel _viewModel;
 
-        public IncomingRequestView(IncomingRequestViewModel viewModel, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
+        public IncomingRequestView(IncomingRequestViewModel viewModel, IRegionManager regionManager, IEventAggregator eventAggregator, IFileManagerService fileManagerService) : base(regionManager, eventAggregator)
         {
             _viewModel = viewModel;
+            _fileManagerService = fileManagerService;
             InitializeComponent();
             DataContext = viewModel;
         }
@@ -34,7 +38,7 @@ namespace HVTApp.UI.Modules.BookRegistration.Views
 
             _viewModel.Load(request, unitOfWork);
 
-            this.Browser.Source = new Uri(PathGetter.GetPath(_viewModel.Item.Model.Document));
+            this.Browser.Source = new Uri(_fileManagerService.GetPath(_viewModel.Item.Model.Document));
 
             base.OnNavigatedTo(navigationContext);
         }

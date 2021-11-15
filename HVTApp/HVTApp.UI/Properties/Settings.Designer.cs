@@ -22,17 +22,5 @@ namespace HVTApp.UI.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string ProjectsFolderPath {
-            get {
-                return ((string)(this["ProjectsFolderPath"]));
-            }
-            set {
-                this["ProjectsFolderPath"] = value;
-            }
-        }
     }
 }

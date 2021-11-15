@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
+using HVTApp.Model.Services;
 using HVTApp.UI.Helpers;
 using HVTApp.UI.Modules.Sales.Market.Tabs;
 using Infragistics.Windows.DataPresenter;
@@ -22,14 +23,18 @@ namespace HVTApp.UI.Modules.Sales.Market
     {
         private readonly Market2ViewModel _viewModel;
         private readonly IMessagesOutlookService _messagesOutlookService;
+        private readonly IFileManagerService _fileManagerService;
         private Uri _currentUri;
 
         protected override XamDataGrid DataGrid => this.ContentControl.Content as XamDataGrid;
 
-        public Market2View(Market2ViewModel viewModel, IRegionManager regionManager, IEventAggregator eventAggregator, IMessageService messageService, IMessagesOutlookService messagesOutlookService) : base(viewModel, regionManager, eventAggregator, messageService)
+        public Market2View(Market2ViewModel viewModel, IRegionManager regionManager, IEventAggregator eventAggregator, 
+            IMessageService messageService, IMessagesOutlookService messagesOutlookService, IFileManagerService fileManagerService) 
+            : base(viewModel, regionManager, eventAggregator, messageService)
         {
             _viewModel = viewModel;
             _messagesOutlookService = messagesOutlookService;
+            _fileManagerService = fileManagerService;
             InitializeComponent();
 
             //приложения проекта
@@ -37,7 +42,7 @@ namespace HVTApp.UI.Modules.Sales.Market
             {
                 if (projectItem != null)
                 {
-                    _currentUri = new Uri(PathGetter.GetPath(projectItem.Project));
+                    _currentUri = new Uri(_fileManagerService.GetPath(projectItem.Project));
                     this.Browser.Source = _currentUri;
                 }
             };
@@ -106,7 +111,7 @@ namespace HVTApp.UI.Modules.Sales.Market
                 return;
 
             //куда будем копировать
-            var correspondencePath = Path.Combine(PathGetter.GetPath(_viewModel.SelectedProjectItem.Project), PathGetter.CorrespondenceFolderName);
+            var correspondencePath = _fileManagerService.GetProjectCorrespondenceFolderName(_viewModel.SelectedProjectItem.Project);
 
             //если то, что перетащили - файлы
             if (e.Data.GetData(DataFormats.FileDrop) is string[] paths)

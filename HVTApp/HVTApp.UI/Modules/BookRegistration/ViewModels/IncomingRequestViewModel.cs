@@ -5,6 +5,7 @@ using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.Events;
+using HVTApp.Model.Services;
 using HVTApp.UI.Commands;
 using HVTApp.UI.ViewModels;
 using Microsoft.Practices.Unity;
@@ -15,6 +16,7 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
     public class IncomingRequestViewModel : IncomingRequestDetailsViewModel
     {
         private readonly IMessageService _messageService;
+        private readonly IFileManagerService _fileManagerService;
 
         //поручить запрос
         public DelegateLogCommand InstructRequestCommand { get; }
@@ -24,6 +26,7 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
         public IncomingRequestViewModel(IUnityContainer container) : base(container)
         {
             _messageService = container.Resolve<IMessageService>();
+            _fileManagerService = container.Resolve<IFileManagerService>();
 
             InstructRequestCommand = new DelegateLogCommand(
                 () =>
@@ -63,8 +66,8 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
                         return;
                     }
 
-                    var path = PathGetter.GetPath(Item.Model.Document);
-                    Process.Start("explorer", $"\"{path}\"");
+                    var path = _fileManagerService.GetPath(Item.Model.Document);
+                    Process.Start($"\"{path}\"");
                 });
         }
         

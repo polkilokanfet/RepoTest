@@ -10,6 +10,7 @@ using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Services;
 using HVTApp.UI.Commands;
 using HVTApp.UI.Modules.Sales.Market.Items;
 using Microsoft.Practices.Unity;
@@ -22,6 +23,7 @@ namespace HVTApp.UI.Modules.Sales.Market
         private readonly Market2ViewModel _market2ViewModel;
         private readonly IMessagesOutlookService _messagesOutlookService;
         private readonly IMessageService _messageService;
+        private readonly IFileManagerService _fileManagerService;
         private MessageOutlook _selectedMessage;
 
         public ObservableCollection<MessageOutlook> Messages { get; } = new ObservableCollection<MessageOutlook>();
@@ -49,6 +51,7 @@ namespace HVTApp.UI.Modules.Sales.Market
             _market2ViewModel = market2ViewModel;
             _messagesOutlookService = container.Resolve<IMessagesOutlookService>();
             _messageService = container.Resolve<IMessageService>();
+            _fileManagerService = container.Resolve<IFileManagerService>();
 
             market2ViewModel.SelectedProjectItemChanged += OnMarket2ViewModelOnSelectedProjectItemChanged;
 
@@ -96,7 +99,7 @@ namespace HVTApp.UI.Modules.Sales.Market
             foreach (var message in originalMessageList.ToList())
             {
                 //если встречается дубликат
-                if (originalMessageList.Where(x => !Equals(x.FilePath, message.FilePath)).Any(x => message.Equals(x)))
+                if (originalMessageList.Where(messageOutlook => !Equals(messageOutlook.FilePath, message.FilePath)).Any(x => message.Equals(x)))
                 {
                     //удаляем его
                     originalMessageList.Remove(message);
@@ -132,7 +135,7 @@ namespace HVTApp.UI.Modules.Sales.Market
 
         private IEnumerable<MessageOutlook> GetMessages(Project project)
         {
-            var path = Path.Combine(PathGetter.GetPath(project), PathGetter.CorrespondenceFolderName);
+            var path = _fileManagerService.GetProjectCorrespondenceFolderName(project);
             return _messagesOutlookService.GetOutlookMessages(path);
         }
 

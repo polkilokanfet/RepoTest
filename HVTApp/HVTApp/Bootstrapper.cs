@@ -39,6 +39,7 @@ using HVTApp.Services.GetProductService;
 using HVTApp.Services.WpfAuthenticationService;
 using HVTApp.Services.DialogService;
 using HVTApp.Services.EmailService;
+using HVTApp.Services.FileManagerService;
 using HVTApp.Services.MessageService;
 using HVTApp.Services.MessagesOutlookService;
 using HVTApp.Services.NewProductService;
@@ -124,6 +125,7 @@ namespace HVTApp
             Container.RegisterType<IProductDesignationService, ProductDesignator>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IPriceService, PriceService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IShippingService, ShippService>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IFileManagerService, FileManagerService1>(new ContainerControlledLifetimeManager());
 
             Container.RegisterType<IEventServiceClient, EventServiceClient>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IMessenger, Messenger>(new ContainerControlledLifetimeManager());

@@ -8,6 +8,7 @@ using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.EventService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
+using HVTApp.Model.Services;
 using Microsoft.Practices.Unity;
 
 namespace EventServiceClient2
@@ -16,6 +17,7 @@ namespace EventServiceClient2
     {
         private Guid _appSessionId;
         private readonly IUnityContainer _container;
+        private readonly IFileManagerService _fileManagerService;
         private readonly Guid _userId = GlobalAppProperties.User.Id;
 
         private readonly EndpointAddress _endpointAddress;
@@ -34,6 +36,7 @@ namespace EventServiceClient2
         public EventServiceClient(IUnityContainer container)
         {
             _container = container;
+            _fileManagerService = container.Resolve<IFileManagerService>();
 
             //увеличиваем таймаут бездействия
             _netTcpBinding = new NetTcpBinding(SecurityMode.None, true)

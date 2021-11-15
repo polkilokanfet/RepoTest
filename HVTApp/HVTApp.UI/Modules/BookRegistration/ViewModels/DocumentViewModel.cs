@@ -5,6 +5,7 @@ using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Services;
 using HVTApp.UI.ViewModels;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
@@ -15,6 +16,8 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
 {
     public class DocumentViewModel : DocumentDetailsViewModel
     {
+        private readonly IFileManagerService _fileManagerService;
+
         public DocumentDirection Direction { get; private set; } = DocumentDirection.Outgoing;
 
         public string DocType => Direction == DocumentDirection.Outgoing
@@ -26,6 +29,8 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
 
         public DocumentViewModel(IUnityContainer container) : base(container)
         {
+            _fileManagerService = container.Resolve<IFileManagerService>();
+
             OpenFolderCommand = new DelegateLogCommand(
                 () =>
                 {
@@ -35,7 +40,7 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
                         return;
                     }
 
-                    var path = PathGetter.GetPath(Item.Model);
+                    var path = _fileManagerService.GetPath(Item.Model);
                     Process.Start("explorer", $"\"{path}\"");
                 });
 
@@ -50,7 +55,7 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
 
                     if (openFileDialog.ShowDialog() == DialogResult.OK)
                     {
-                        var rootDirectoryPath = PathGetter.GetPath(Item.Model);
+                        var rootDirectoryPath = _fileManagerService.GetPath(Item.Model);
                         foreach (var fileName in openFileDialog.FileNames)
                         {
                             File.Copy(fileName, $"{rootDirectoryPath}\\{Path.GetFileName(fileName)}");

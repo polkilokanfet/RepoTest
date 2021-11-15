@@ -370,7 +370,6 @@
     <Compile Include="Modules\Settings\Views\UserSettingsView.xaml.cs">
       <DependentUpon>UserSettingsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PathGetter.cs" />
     <Compile Include="Modules\BookRegistration\Views\IncomingRequestView.xaml.cs">
       <DependentUpon>IncomingRequestView.xaml</DependentUpon>
     </Compile>

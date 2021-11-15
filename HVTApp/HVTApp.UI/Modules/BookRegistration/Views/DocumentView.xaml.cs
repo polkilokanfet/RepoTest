@@ -5,6 +5,7 @@ using System.Windows;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Services;
 using HVTApp.UI.Modules.BookRegistration.Tabs;
 using HVTApp.UI.Modules.BookRegistration.ViewModels;
 using Microsoft.Practices.Unity;
@@ -16,11 +17,13 @@ namespace HVTApp.UI.Modules.BookRegistration.Views
     [RibbonTab(typeof(TabDocument))]
     public partial class DocumentView : ViewBaseConfirmNavigationRequest
     {
+        private readonly IFileManagerService _fileManagerService;
         private readonly DocumentViewModel _viewModel;
 
         public DocumentView(DocumentViewModel viewModel, IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator) : base(container, regionManager, eventAggregator)
         {
             _viewModel = viewModel;
+            _fileManagerService = container.Resolve<IFileManagerService>();
             InitializeComponent();
             this.DataContext = viewModel;
         }
@@ -52,7 +55,7 @@ namespace HVTApp.UI.Modules.BookRegistration.Views
                 _viewModel.LoadEdit(parameter.Value as Document);
             }
 
-            this.Browser.Source = new Uri(PathGetter.GetPath(_viewModel.Item.Model));
+            this.Browser.Source = new Uri(_fileManagerService.GetPath(_viewModel.Item.Model));
 
             base.OnNavigatedTo(navigationContext);
         }
@@ -78,7 +81,7 @@ namespace HVTApp.UI.Modules.BookRegistration.Views
         public override void ConfirmNavigationRequest(NavigationContext navigationContext, Action<bool> continuationCallback)
         {
             //если не добавлено вложений
-            if (!Directory.EnumerateFileSystemEntries(PathGetter.GetPath(_viewModel.Item.Model)).Any())
+            if (!Directory.EnumerateFileSystemEntries(_fileManagerService.GetPath(_viewModel.Item.Model)).Any())
             {
                 var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Внимание!", "Вы не добавили вложения. \nПродолжить не добавляя вложения?", defaultNo: true);
                 if (dr != MessageDialogResult.Yes)

@@ -340,6 +340,10 @@
       <Project>{6c089cfb-65a3-40f8-8a2d-c1e8092d7f46}</Project>
       <Name>HVTApp.Services.EmailService</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HVTApp.Services.FileManagerService\HVTApp.Services.FileManagerService.csproj">
+      <Project>{208fe134-b150-4f95-9e2b-8cc61ae7e501}</Project>
+      <Name>HVTApp.Services.FileManagerService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HVTApp.Services.MessageService\HVTApp.Services.MessageService.csproj">
       <Project>{7703a90a-e742-41b1-96cb-cd0f51e3f2b6}</Project>
       <Name>HVTApp.Services.MessageService</Name>
