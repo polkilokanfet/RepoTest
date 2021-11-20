@@ -27,33 +27,50 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
             Command = new DelegateLogCommand(
                 () =>
                 {
-                    //_container.Resolve<IEmailService>().SendMail("kosolapov.ag@gmail.com", "SubjTest", "BodyTest");
-                    //_container.Resolve<IEmailService>().SendMail("kosolapov.ep@mail.ru", "SubjTest", "BodyTest");
-                    //_container.Resolve<IMessageService>().ShowOkMessageDialog("Send letter", "Success!");
-                    
-                    var unitOfWork = _container.Resolve<IUnitOfWork>();
-
-                    foreach (var priceCalculation in unitOfWork.Repository<PriceCalculation>().GetAll())
+                    try
                     {
-                        if (priceCalculation.History.Count == 2)
-                        {
-                            var start = priceCalculation.History.Single(x => x.Type == PriceCalculationHistoryItemType.Start);
-                            var finish = priceCalculation.History.Single(x => x.Type == PriceCalculationHistoryItemType.Finish);
-
-                            var min = priceCalculation.History.Min(x => x.Moment);
-                            var max = priceCalculation.History.Max(x => x.Moment);
-
-                            if (start.Moment != min)
-                                start.Moment = min;
-
-                            if (finish.Moment != max)
-                                finish.Moment = max;
-                        }
+                        _container.Resolve<IEmailService>().SendMail("kosolapov.ag@gmail.com", "SubjTest", "BodyTest");
+                        _container.Resolve<IEmailService>().SendMail("kosolapov.ep@mail.ru", "SubjTest", "BodyTest");
+                        _container.Resolve<IMessageService>().ShowOkMessageDialog("Send letter", "Success!");
+                    }
+                    catch (Exception e)
+                    {
+                        _container.Resolve<IHvtAppLogger>().LogError(e.PrintAllExceptions(), e);
+                        _container.Resolve<IMessageService>().ShowOkMessageDialog("Error", e.PrintAllExceptions());
                     }
 
-                    unitOfWork.SaveChanges();
 
-                    _container.Resolve<IMessageService>().ShowOkMessageDialog("fin", "!!!");
+
+
+                    //var unitOfWork = _container.Resolve<IUnitOfWork>();
+
+                    //foreach (var priceCalculation in unitOfWork.Repository<PriceCalculation>().GetAll())
+                    //{
+                    //    if (priceCalculation.History.Count == 2)
+                    //    {
+                    //        var start = priceCalculation.History.Single(x => x.Type == PriceCalculationHistoryItemType.Start);
+                    //        var finish = priceCalculation.History.Single(x => x.Type == PriceCalculationHistoryItemType.Finish);
+
+                    //        var min = priceCalculation.History.Min(x => x.Moment);
+                    //        var max = priceCalculation.History.Max(x => x.Moment);
+
+                    //        if (start.Moment != min)
+                    //            start.Moment = min;
+
+                    //        if (finish.Moment != max)
+                    //            finish.Moment = max;
+                    //    }
+                    //}
+
+                    //unitOfWork.SaveChanges();
+
+                    //_container.Resolve<IMessageService>().ShowOkMessageDialog("fin", "!!!");
+
+
+
+
+
+
 
                     ////var unitOfWork = container.Resolve<IUnitOfWork>();
 

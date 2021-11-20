@@ -109,7 +109,7 @@ namespace HVTApp
             Container.RegisterType<IAuthenticationService, AuthenticationService>();
             Container.RegisterType<ISelectService, SelectServiceWpf>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IMessageService, MessageServiceWpf>();
-            Container.RegisterType<IEmailService, EmailService>();
+            Container.RegisterType<IEmailService, MailKitService>();
             Container.RegisterType<IAllowStartService, AllowStartAppService>();
             Container.RegisterType<IMessagesOutlookService, MessagesOutlookService1>();
 
