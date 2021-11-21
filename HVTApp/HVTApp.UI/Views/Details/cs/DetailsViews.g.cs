@@ -2909,6 +2909,14 @@ namespace HVTApp.UI.Views
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilitySalesUnitsTechnicalRequrements = Visibility.Collapsed;
 
+            //attr = typeof(HVTApp.Model.POCOs.TechnicalRequrements).GetProperty(nameof(HVTApp.Model.POCOs.TechnicalRequrements.OrderInTakeDate)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityOrderInTakeDateTechnicalRequrements = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.TechnicalRequrements).GetProperty(nameof(HVTApp.Model.POCOs.TechnicalRequrements.RealizationDate)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityRealizationDateTechnicalRequrements = Visibility.Collapsed;
+
             //attr = typeof(HVTApp.Model.POCOs.TechnicalRequrements).GetProperty(nameof(HVTApp.Model.POCOs.TechnicalRequrements.Files)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityFilesTechnicalRequrements = Visibility.Collapsed;
@@ -2930,6 +2938,22 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilitySalesUnitsTechnicalRequrementsProperty); }
             set { SetValue(VisibilitySalesUnitsTechnicalRequrementsProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityOrderInTakeDateTechnicalRequrementsProperty = DependencyProperty.Register("VisibilityOrderInTakeDateTechnicalRequrements", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityOrderInTakeDateTechnicalRequrements
+        {
+            get { return (Visibility) GetValue(VisibilityOrderInTakeDateTechnicalRequrementsProperty); }
+            set { SetValue(VisibilityOrderInTakeDateTechnicalRequrementsProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityRealizationDateTechnicalRequrementsProperty = DependencyProperty.Register("VisibilityRealizationDateTechnicalRequrements", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityRealizationDateTechnicalRequrements
+        {
+            get { return (Visibility) GetValue(VisibilityRealizationDateTechnicalRequrementsProperty); }
+            set { SetValue(VisibilityRealizationDateTechnicalRequrementsProperty, value); OnPropertyChanged(); }
         }
 
 

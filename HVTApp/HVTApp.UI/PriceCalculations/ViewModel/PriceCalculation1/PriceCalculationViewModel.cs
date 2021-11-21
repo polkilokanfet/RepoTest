@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -225,16 +226,19 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
 
         public void Load(TechnicalRequrementsTask technicalRequrementsTask)
         {
+            //Загружаем задачу ТСЕ
             technicalRequrementsTask = UnitOfWork.Repository<TechnicalRequrementsTask>().GetById(technicalRequrementsTask.Id);
+            //добавляем расчет ПЗ в загруженную задачу, если он еще не добавлен
             if (!technicalRequrementsTask.PriceCalculations.ContainsById(PriceCalculationWrapper.Model))
             {
                 technicalRequrementsTask.PriceCalculations.Add(this.PriceCalculationWrapper.Model);
             }
 
+            //добавляем в расчет ПЗ оборудование
             foreach (var technicalRequrements in technicalRequrementsTask.Requrements.Where(technicalRequrements => technicalRequrements.IsActual))
             {
                 var saleUnits = technicalRequrements.SalesUnits.Select(salesUnit => new SalesUnitEmptyWrapper(salesUnit));
-                PriceCalculationWrapper.PriceCalculationItems.Add(GetPriceCalculationItem2Wrapper(saleUnits));
+                PriceCalculationWrapper.PriceCalculationItems.Add(GetPriceCalculationItem2Wrapper(saleUnits, technicalRequrements.OrderInTakeDate.Value, technicalRequrements.RealizationDate.Value));
             }
 
             //инициатор задачи
@@ -243,6 +247,14 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
 
             //необходимость файла excel
             this.PriceCalculationWrapper.IsNeedExcelFile = technicalRequrementsTask.ExcelFileIsRequired;
+        }
+
+        public PriceCalculationItem2Wrapper GetPriceCalculationItem2Wrapper(IEnumerable<SalesUnitEmptyWrapper> salesUnits, DateTime orderInTakeDate, DateTime realizationDate)
+        {
+            var result = this.GetPriceCalculationItem2Wrapper(salesUnits);
+            result.OrderInTakeDate = orderInTakeDate;
+            result.RealizationDate = realizationDate;
+            return result;
         }
 
         public PriceCalculationItem2Wrapper GetPriceCalculationItem2Wrapper(IEnumerable<SalesUnitEmptyWrapper> salesUnits)

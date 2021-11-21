@@ -46,10 +46,27 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper
         }
 
         #region SimpleProperties
+        public DateTime? OrderInTakeDate
+        {
+            get => GetValue<DateTime?>();
+            set => SetValue(value);
+        }
+        public DateTime? OrderInTakeDateOriginalValue => GetOriginalValue<DateTime?>(nameof(OrderInTakeDate));
+        public bool OrderInTakeDateIsChanged => GetIsChanged(nameof(OrderInTakeDate));
+
+        public DateTime? RealizationDate
+        {
+            get => GetValue<DateTime?>();
+            set => SetValue(value);
+        }
+        public DateTime? RealizationDateOriginalValue => GetOriginalValue<DateTime?>(nameof(RealizationDate));
+        public bool RealizationDateIsChanged => GetIsChanged(nameof(RealizationDate));
+
+
         public bool? IsActual
         {
-            get { return GetValue<bool?>(); }
-            set { SetValue(value); }
+            get => GetValue<bool?>();
+            set => SetValue(value);
         }
         public bool? IsActualOriginalValue => GetOriginalValue<bool?>(nameof(IsActual));
         public bool IsActualIsChanged => GetIsChanged(nameof(IsActual));
@@ -57,8 +74,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper
 
         public string Comment
         {
-            get { return GetValue<string>(); }
-            set { SetValue(value); }
+            get => GetValue<string>();
+            set => SetValue(value);
         }
         public string CommentOriginalValue => GetOriginalValue<string>(nameof(Comment));
         public bool CommentIsChanged => GetIsChanged(nameof(Comment));
@@ -80,6 +97,9 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper
             {
                 OnPropertyChanged(nameof(Amount));
             };
+
+            if (this.OrderInTakeDate == null) this.OrderInTakeDate = SalesUnit.OrderInTakeDate;
+            if (this.RealizationDate == null) this.RealizationDate = SalesUnit.RealizationDateCalculated;
         }
 
         protected override void InitializeCollectionProperties()
@@ -97,11 +117,16 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper
 
         protected override IEnumerable<ValidationResult> ValidateOther()
         {
-            if (IsActual.HasValue && IsActual.Value)
+            if (IsActual.HasValue && IsActual.Value == true)
             {
-                if (!Files.Any(x => x.IsActual))
+                if (!Files.Any(technicalRequrementsFileWrapper => technicalRequrementsFileWrapper.IsActual))
                 {
-                    yield return new ValidationResult("Нет ни одного актуального файла.", new []{nameof(Files)});
+                    yield return new ValidationResult("Нет ни одного актуального файла требований.", new []{nameof(Files)});
+                }
+
+                if (this.OrderInTakeDate.HasValue && this.RealizationDate.HasValue && OrderInTakeDate > RealizationDate)
+                {
+                    yield return new ValidationResult("Дата реализации раньше даты ОИТ.", new[] { nameof(OrderInTakeDate), nameof(RealizationDate) });
                 }
             }
         }

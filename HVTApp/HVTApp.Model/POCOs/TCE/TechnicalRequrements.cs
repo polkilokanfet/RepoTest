@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using HVTApp.Infrastructure;
@@ -14,6 +15,12 @@ namespace HVTApp.Model.POCOs
     {
         [Designation("Юниты"), Required, OrderStatus(20)]
         public virtual List<SalesUnit> SalesUnits { get; set; } = new List<SalesUnit>();
+
+        [Designation("ОИТ"), OrderStatus(16)]
+        public virtual DateTime? OrderInTakeDate { get; set; }
+
+        [Designation("Дата реализации"), OrderStatus(14)]
+        public virtual DateTime? RealizationDate { get; set; }
 
         [Designation("Файлы"), OrderStatus(10)]
         public virtual List<TechnicalRequrementsFile> Files { get; set; } = new List<TechnicalRequrementsFile>();

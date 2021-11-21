@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using HVTApp.Infrastructure.Extansions;
@@ -96,6 +97,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper
         public IValidatableChangeTrackingCollection<ShippingCostFileWrapper> ShippingCostFiles { get; private set; }
 
         #endregion
+
+        public IEnumerable<PriceCalculation> PriceCalculations => this.Model.PriceCalculations.OrderByDescending(x => x.TaskOpenMoment);
 
         public TechnicalRequrementsTask2Wrapper(TechnicalRequrementsTask model) : base(model)
         {

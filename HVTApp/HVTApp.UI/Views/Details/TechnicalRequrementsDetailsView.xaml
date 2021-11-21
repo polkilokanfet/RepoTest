@@ -17,6 +17,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row ="0" Content="Юниты" Visibility="{Binding VisibilitySalesUnitsTechnicalRequrements, ElementName=Root}"/>
@@ -27,21 +29,31 @@
 										 RemoveItemCommand="{Binding RemoveFromSalesUnitsCommand}"
 										 Visibility="{Binding VisibilitySalesUnitsTechnicalRequrements, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="Файлы" Visibility="{Binding VisibilityFilesTechnicalRequrements, ElementName=Root}"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="1"
+        <Label Grid.Column="0" Grid.Row ="1" Content="ОИТ" Visibility="{Binding VisibilityOrderInTakeDateTechnicalRequrements, ElementName=Root}"/>
+        <DatePicker Grid.Column="1" Grid.Row="1" 
+                    SelectedDate="{Binding Item.OrderInTakeDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding VisibilityOrderInTakeDateTechnicalRequrements, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="2" Content="Дата реализации" Visibility="{Binding VisibilityRealizationDateTechnicalRequrements, ElementName=Root}"/>
+        <DatePicker Grid.Column="1" Grid.Row="2" 
+                    SelectedDate="{Binding Item.RealizationDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding VisibilityRealizationDateTechnicalRequrements, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="3" Content="Файлы" Visibility="{Binding VisibilityFilesTechnicalRequrements, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="3"
 										 Items="{Binding Path=Item.Files}"
 										 SelectedItem="{Binding SelectedFilesItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInFilesCommand}"
 										 RemoveItemCommand="{Binding RemoveFromFilesCommand}"
 										 Visibility="{Binding VisibilityFilesTechnicalRequrements, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="Комментарий" Visibility="{Binding VisibilityCommentTechnicalRequrements, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
+        <Label Grid.Column="0" Grid.Row ="4" Content="Комментарий" Visibility="{Binding VisibilityCommentTechnicalRequrements, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="4" MinWidth="200" 
                  Text="{Binding Item.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityCommentTechnicalRequrements, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="3" Content="Актуально" Visibility="{Binding VisibilityIsActualTechnicalRequrements, ElementName=Root}"/>
-        <CheckBox Grid.Column="1" Grid.Row="3" MinWidth="200" 
+        <Label Grid.Column="0" Grid.Row ="5" Content="Актуально" Visibility="{Binding VisibilityIsActualTechnicalRequrements, ElementName=Root}"/>
+        <CheckBox Grid.Column="1" Grid.Row="5" MinWidth="200" 
                   IsChecked="{Binding Item.IsActual, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				  Visibility="{Binding VisibilityIsActualTechnicalRequrements, ElementName=Root}"/>
 

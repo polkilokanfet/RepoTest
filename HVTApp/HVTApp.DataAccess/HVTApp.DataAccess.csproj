@@ -313,6 +313,10 @@
     <Compile Include="Migrations\202110050936312_PriceCalculationHistoryRemoveDates.Designer.cs">
       <DependentUpon>202110050936312_PriceCalculationHistoryRemoveDates.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202111211544186_TCEOrderInTakeDate.cs" />
+    <Compile Include="Migrations\202111211544186_TCEOrderInTakeDate.Designer.cs">
+      <DependentUpon>202111211544186_TCEOrderInTakeDate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -503,6 +507,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202110050936312_PriceCalculationHistoryRemoveDates.resx">
       <DependentUpon>202110050936312_PriceCalculationHistoryRemoveDates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111211544186_TCEOrderInTakeDate.resx">
+      <DependentUpon>202111211544186_TCEOrderInTakeDate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

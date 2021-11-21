@@ -16,7 +16,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.Wrapper
         public Facility Facility => Model.SalesUnits.FirstOrDefault()?.Facility;
         public Product Product => Model.SalesUnits.FirstOrDefault()?.Product;
         public int Amount => Model.SalesUnits.Count;
-        public double? UnitPrice => StructureCosts.Sum(x => x.Total);
+        public double? UnitPrice => StructureCosts.Sum(structureCostWrapper => structureCostWrapper.Total);
 
         public PriceCalculationItem2Wrapper(PriceCalculationItem model) : base(model)
         {
@@ -50,8 +50,8 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.Wrapper
 
         public Guid PriceCalculationId
         {
-            get { return GetValue<Guid>(); }
-            set { SetValue(value); }
+            get => GetValue<Guid>();
+            set => SetValue(value);
         }
         public Guid PriceCalculationIdOriginalValue => GetOriginalValue<Guid>(nameof(PriceCalculationId));
         public bool PriceCalculationIdIsChanged => GetIsChanged(nameof(PriceCalculationId));
@@ -62,20 +62,20 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.Wrapper
 
         public DateTime? OrderInTakeDate
         {
-            get { return GetValue<DateTime?>(); }
-            set { SetValue(value); }
+            get => GetValue<DateTime?>();
+            set => SetValue(value);
         }
 
         public DateTime? RealizationDate
         {
-            get { return GetValue<DateTime?>(); }
-            set { SetValue(value); }
+            get => GetValue<DateTime?>();
+            set => SetValue(value);
         }
 
         public PaymentConditionSet PaymentConditionSet
         {
-            get { return GetValue<PaymentConditionSet>(); }
-            set { SetValue(value); }
+            get => GetValue<PaymentConditionSet>();
+            set => SetValue(value);
         }
 
         #endregion
