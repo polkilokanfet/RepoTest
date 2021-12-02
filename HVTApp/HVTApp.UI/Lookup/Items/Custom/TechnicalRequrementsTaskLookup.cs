@@ -74,7 +74,15 @@ namespace HVTApp.UI.Lookup
 
                 if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager)
                 {
-                    return Entity.IsAccepted == false;
+                    if (Entity.IsStopped)
+                    {
+                        return false;
+                    }
+
+                    if (Entity.IsAccepted)
+                    {
+                        return false;
+                    }
                 }
 
                 if (GlobalAppProperties.User.RoleCurrent == Role.BackManagerBoss)

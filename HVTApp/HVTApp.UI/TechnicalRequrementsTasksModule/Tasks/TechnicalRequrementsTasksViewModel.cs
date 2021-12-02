@@ -169,14 +169,21 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
                     if (!task.Requrements.Any())
                     {
+                        //удаление файлов РТЗ
+                        var shippingCostFiles = UnitOfWork.Repository<ShippingCostFile>().Find(shippingCostFile => task.Id == shippingCostFile.TechnicalRequrementsTaskId);
+                        shippingCostFiles.ForEach(shippingCostFile => UnitOfWork.Repository<ShippingCostFile>().Delete(shippingCostFile));
+                        
+                        //удаление ответов ОГК
                         var answerFiles = UnitOfWork.Repository<AnswerFileTce>().Find(answerFileTce => answerFileTce.TechnicalRequrementsTaskId == task.Id);
                         answerFiles.ForEach(answerFileTce => UnitOfWork.Repository<AnswerFileTce>().Delete(answerFileTce));
+
                         task.PriceCalculations.Clear();
                         foreach (var historyElement in task.HistoryElements.ToList())
                         {
                             UnitOfWork.Repository<TechnicalRequrementsTaskHistoryElement>().Delete(historyElement);
                         }
                         task.HistoryElements.Clear();
+
                         UnitOfWork.Repository<TechnicalRequrementsTask>().Delete(task);
                     }
                 }
