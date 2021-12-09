@@ -18,6 +18,7 @@ namespace HVTApp.Infrastructure.Services
         public UserOutlook Sender { get; set; }
         public List<UserOutlook> Recipients { get; set; }
         public string FilePath { get; set; }
+        public bool HasAttachments { get; set; }
 
         public override bool Equals(object obj)
         {

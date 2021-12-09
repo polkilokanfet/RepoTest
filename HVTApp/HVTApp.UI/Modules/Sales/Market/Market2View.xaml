@@ -227,6 +227,7 @@
                                             <dp:TextField Name="Sender" Label="Отправитель" Width="100" Converter="{StaticResource ObjectToStringConverter}" AllowResize="True"/>
                                             <dp:TextField Name="Recipients" Label="Получатели" Width="100" Converter="{StaticResource ObjectsToStringConverter}" AllowResize="True"/>
                                             <dp:DateTimeField Name="SentOnDate" Label="Дата" Width="Auto" Format="dd.MM.yy hh:mm"/>
+                                            <dp:CheckBoxField Name="HasAttachments" Label="В" Width="Auto"/>
                                             <dp:TextField Name="Subject" Label="Тема" Width="300" AllowResize="True"/>
                                         </dp:FieldLayout.Fields>
                                     </dp:FieldLayout>

@@ -24,7 +24,8 @@ namespace HVTApp.Services.MessagesOutlookService
                         BodyHtml = msg.BodyHtml,
                         SentOnDate = msg.SentOn,
                         Sender = new UserOutlook(msg.Sender.Email, msg.Sender.DisplayName),
-                        Recipients = msg.Recipients.Select(recipient => new UserOutlook(recipient.Email, recipient.DisplayName)).ToList()
+                        Recipients = msg.Recipients.Select(recipient => new UserOutlook(recipient.Email, recipient.DisplayName)).ToList(),
+                        HasAttachments = msg.Attachments.Any()
                     };
 
                     //var recipientsTo = msg.GetEmailRecipients(MsgReader.Outlook.RecipientType.To, false, false);
