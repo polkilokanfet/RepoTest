@@ -15,7 +15,7 @@ namespace HVTApp.Model.Price
         /// По какому аналогу взят прайс
         /// </summary>
         public override string Comment =>
-            ContainsAnyBlockWithNoLaborHours
+            ContainsAnyAnalog
                 ? "Содержит ПЗ по аналогам"
                 : string.Empty;
 

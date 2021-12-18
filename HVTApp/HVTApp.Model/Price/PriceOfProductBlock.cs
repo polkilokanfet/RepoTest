@@ -23,9 +23,9 @@ namespace HVTApp.Model.Price
         }
 
         public override string Comment =>
-            ContainsAnyBlockWithNoLaborHours
-                ? $" ПЗ аналога: {Analog}"
-                : string.Empty;
+            ContainsAnyAnalog
+                ? $" ПЗ от {Analog?.LastPriceDate?.ToShortDateString()} блока-аналога: {Analog}"
+                : $" ПЗ от {_productBlock.LastPriceDate?.ToShortDateString()} оригинального блока";
 
         public override string CommentLaborHours =>
             ContainsAnyBlockWithNoLaborHours
@@ -68,6 +68,12 @@ namespace HVTApp.Model.Price
             }
         }
 
+        /// <summary>
+        /// инициализация по аналогу
+        /// </summary>
+        /// <param name="productBlock"></param>
+        /// <param name="targetDate"></param>
+        /// <param name="originalBlock"></param>
         private void Init(ProductBlock productBlock, DateTime targetDate, ProductBlock originalBlock)
         {
             Init(productBlock, targetDate);
@@ -75,6 +81,11 @@ namespace HVTApp.Model.Price
             Analog = productBlock;
         }
 
+        /// <summary>
+        /// инициализация по прайсу/фиксированной цене
+        /// </summary>
+        /// <param name="productBlock"></param>
+        /// <param name="targetDate"></param>
         private void Init(ProductBlock productBlock, DateTime targetDate)
         {
             Name = productBlock.ToString();

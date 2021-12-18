@@ -90,7 +90,7 @@ namespace HVTApp.Model.POCOs
         /// <returns></returns>
         public IEnumerable<Parameter> GetOrderedParameters()
         {
-            return Parameters.OrderByDescending(x => x.GetWeight(this));
+            return Parameters.OrderByDescending(parameter => parameter.GetWeight(this));
         }
 
         public string ParametersToString()

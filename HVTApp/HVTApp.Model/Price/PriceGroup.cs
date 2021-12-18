@@ -9,7 +9,7 @@ namespace HVTApp.Model.Price
         public override bool ContainsAnyBlockWithNoLaborHours => Prices.Any(price => price.ContainsAnyBlockWithNoLaborHours);
 
         public override string Comment =>
-            ContainsAnyBlockWithNoLaborHours
+            ContainsAnyAnalog
                 ? "Содержит ПЗ по аналогам"
                 : string.Empty;
 
