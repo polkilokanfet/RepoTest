@@ -41,8 +41,19 @@ namespace HVTApp.Model.POCOs
         [Designation("Чертеж"), MaxLength(25)]
         public string Design { get; set; }
 
+        [Designation("Вес")]
+        public double Weight { get; set; }
+
+
+        #region NotMapped
+
         [Designation("Есть прайс"), NotMapped]
         public bool HasPrice => Prices.Any();
+
+        [Designation("Дата последнего прайса"), NotMapped]
+        public DateTime? LastPriceDate => Prices.Any() 
+            ? Prices.Max(sumOnDate => sumOnDate.Date) 
+            : default(DateTime?);
 
         [Designation("Есть фиксированный прайс"), NotMapped]
         public bool HasFixedPrice => FixedCosts.Any();
@@ -59,11 +70,9 @@ namespace HVTApp.Model.POCOs
         [Designation("Доставка"), NotMapped]
         public bool IsDelivery { get; set; } = false;
 
-        [Designation("Вес")]
-        public double Weight { get; set; }
+        #endregion
 
-        [Designation("Дата последнего прайса"), NotMapped]
-        public DateTime? LastPriceDate => Prices.Any() ? Prices.Max(x => x.Date) : default(DateTime?);
+
 
         public override bool Equals(object other)
         {
@@ -92,8 +101,7 @@ namespace HVTApp.Model.POCOs
 
             return stringBuilder.ToString();
         }
-
-
+        
         public override string ToString()
         {
             if (DesignationSpecial != null) return DesignationSpecial;

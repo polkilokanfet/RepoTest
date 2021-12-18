@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
@@ -27,6 +28,20 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Условия оплаты")]
         public virtual PaymentConditionSet PaymentConditionSet { get; set; }
+
+        /// <summary>
+        /// Есть ли прайс?
+        /// </summary>
+        [NotMapped]
+        public bool HasPrice => StructureCosts.Any() && StructureCosts.All(structureCost => structureCost.UnitPrice.HasValue);
+
+        /// <summary>
+        /// ПЗ на единицу расчета (сумма ПЗ всех стракчакостов, если все стракчакосты имеют ПЗ)
+        /// </summary>
+        [NotMapped]
+        public double? Price => HasPrice
+            ? StructureCosts.Sum(structureCost => structureCost.Total)
+            : null;
 
         public override string ToString()
         {

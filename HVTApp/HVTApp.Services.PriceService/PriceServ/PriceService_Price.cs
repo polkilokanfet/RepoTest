@@ -23,7 +23,7 @@ namespace HVTApp.Services.PriceService.PriceServ
         private List<ProductBlock> Blocks { get; set; } = new List<ProductBlock>();
 
         /// <summary>
-        /// Словарь по калькуляций
+        /// Словарь калькуляций ПЗ
         /// </summary>
         private Dictionary<Guid, PriceItems> SalesUnitsCalculationsDictionary { get; } = new Dictionary<Guid, PriceItems>();
 
@@ -94,7 +94,6 @@ namespace HVTApp.Services.PriceService.PriceServ
             var unitOfWork = _container.Resolve<IModelsStore>().UnitOfWork;
             Blocks = unitOfWork.Repository<ProductBlock>().GetAll();
 
-            //PriceCalculationItemsFinished.Clear();
             SalesUnitsCalculationsDictionary.Clear();
 
             //завершенные расчеты ПЗ, упорядоченные по дате завершения
@@ -133,7 +132,7 @@ namespace HVTApp.Services.PriceService.PriceServ
                 throw new ArgumentNullException(nameof(unit));
 
             return this.SalesUnitsCalculationsDictionary.ContainsKey(unit.Id)
-                ? SalesUnitsCalculationsDictionary[unit.Id].PriceCalculationItem
+                ? SalesUnitsCalculationsDictionary[unit.Id].ActualPriceCalculationItem
                 : null;
         }
 
