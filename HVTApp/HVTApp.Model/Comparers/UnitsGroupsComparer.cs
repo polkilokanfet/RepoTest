@@ -35,6 +35,5 @@ namespace HVTApp.Model.Comparers
         {
             return 0;
         }
-
     }
 }

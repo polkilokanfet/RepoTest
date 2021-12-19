@@ -32,7 +32,7 @@ namespace HVTApp.UI.Modules.Reports.Reference
             FacilityOwner = owners.ToStringEnum();
             ProductType = salesUnit.Product.ProductType.ToString();
             Product = salesUnit.Product.Designation;
-            Voltage = salesUnit.Product.Voltage();
+            Voltage = salesUnit.Product.GetVoltageParameter()?.Value;
             Amount = salesUnits.Count();
             ShipmentDate = salesUnit.ShipmentDateCalculated;
             Order = salesUnit.Order?.ToString();

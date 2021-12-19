@@ -24,8 +24,8 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
 
         protected override List<OfferUnitsGroup> GetGroups(IEnumerable<OfferUnit> units)
         {
-            return units.GroupBy(x => x, new OfferUnitsGroupsComparer())
-                        .OrderByDescending(x => x.Key.Cost)
+            return units.GroupBy(offerUnit => offerUnit, new OfferUnitsGroupsComparer())
+                        .OrderBy(x => x.Key, new ProductCostComparer())
                         .Select(x => new OfferUnitsGroup(x)).ToList();
         }
 

@@ -141,5 +141,15 @@ namespace HVTApp.Model
             if (!priceCalculation.PriceCalculationItems.SelectMany(priceCalculationItem => priceCalculationItem.SalesUnits).Any()) return null;
             return priceCalculation.PriceCalculationItems.SelectMany(priceCalculationItem => priceCalculationItem.SalesUnits).First().Project.Manager;
         }
+
+        /// <summary>
+        /// Вернуть параметр номинального напряжения продукта (если его нет - null)
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns></returns>
+        public static Parameter GetVoltageParameter(this Product product)
+        {
+            return product.ProductBlock.Parameters.FirstOrDefault(parameter => parameter.ParameterGroup.Id == GlobalAppProperties.Actual.VoltageGroup.Id);
+        }
     }
 }

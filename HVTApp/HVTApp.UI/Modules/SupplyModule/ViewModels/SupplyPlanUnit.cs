@@ -25,7 +25,7 @@ namespace HVTApp.UI.Modules.SupplyModule.ViewModels
 
             var salesUnit = _salesUnits.First();
             Product = salesUnit.Product;
-            Voltage = Product.Voltage();
+            Voltage = Product.GetVoltageParameter()?.Value;
             var assembleTerm = salesUnit.AssembleTerm ?? GlobalAppProperties.Actual.StandartTermFromPickToEndProduction;
             SupplyDate = salesUnit.EndProductionDateCalculated.AddDays(-1.0 * assembleTerm);
         }

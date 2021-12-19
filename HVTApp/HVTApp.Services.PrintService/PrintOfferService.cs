@@ -32,7 +32,7 @@ namespace HVTApp.Services.PrintService
         public void PrintOffer(Guid offerId, string path = "")
         {
             var offerUnitsGroups = GetOfferUnitsGroups(offerId);
-            var offerUnitsGroupsByFacilities = offerUnitsGroups.GroupBy(x => x.Model.Facility).ToList();
+            var offerUnitsGroupsByFacilities = offerUnitsGroups.GroupBy(offerUnitsGroup => offerUnitsGroup.Model.Facility).ToList();
             var offer = offerUnitsGroups.First().Offer.Model;
             
             //полный путь к файлу (с именем файла)
@@ -377,21 +377,21 @@ namespace HVTApp.Services.PrintService
         private List<OfferUnitsGroup> GetOfferUnitsGroups(Guid offerId)
         {
             var unitOfWork = Container.Resolve<IUnitOfWork>();
-            var offerUnits = unitOfWork.Repository<OfferUnit>().Find(x => x.Offer.Id == offerId).ToList();
+            var offerUnits = unitOfWork.Repository<OfferUnit>().Find(offerUnit => offerUnit.Offer.Id == offerId).ToList();
 
             //разбиваем на группы, а их делим по объектам
             var offerUnitsGroupsByFacilities = offerUnits
-                .GroupBy(x => x, new OfferUnitsGroupsComparer())
+                .GroupBy(offerUnit => offerUnit, new OfferUnitsGroupsComparer())
                 .Select(x => new OfferUnitsGroup(x))
-                .OrderByDescending(x => x.Cost)
-                .GroupBy(x => x.Facility.Model)
+                .OrderBy(offerUnitsGroup => offerUnitsGroup.Model, new ProductCostComparer())
+                .GroupBy(offerUnitsGroup => offerUnitsGroup.Facility.Model)
                 .ToList();
 
             var offerUnitsGroups = offerUnitsGroupsByFacilities.SelectMany(x => x.ToList()).ToList();
 
             //назначаем позиции ТКП
             var i = 1;
-            offerUnitsGroups.ForEach(x => x.Position = i++);
+            offerUnitsGroups.ForEach(offerUnitsGroup => offerUnitsGroup.Position = i++);
 
             return offerUnitsGroups;
         }

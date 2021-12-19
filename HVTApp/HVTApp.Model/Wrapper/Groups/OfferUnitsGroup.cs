@@ -18,8 +18,8 @@ namespace HVTApp.Model.Wrapper.Groups
         /// </summary>
         public OfferWrapper Offer
         {
-            get { return GetValue<OfferWrapper>(); }
-            set { SetValue(value); }
+            get => GetValue<OfferWrapper>();
+            set => SetValue(value);
         }
 
         public OfferUnitsGroup(IEnumerable<OfferUnit> units) : base(units.ToList())

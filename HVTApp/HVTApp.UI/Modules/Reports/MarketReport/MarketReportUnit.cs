@@ -110,7 +110,7 @@ namespace HVTApp.UI.Modules.Reports.MarketReport
 
             Producer = salesUnit.Producer?.ToString();
 
-            Voltage = salesUnit.Product.Voltage();
+            Voltage = salesUnit.Product.GetVoltageParameter()?.Value;
 
             Builder = tenders1.GetWinner(TenderTypeEnum.ToWork)?.ToString();
             ProjectMaker = tenders1.GetWinner(TenderTypeEnum.ToProject)?.ToString();

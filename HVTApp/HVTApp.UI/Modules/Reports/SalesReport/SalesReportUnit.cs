@@ -422,18 +422,11 @@ namespace HVTApp.UI.Modules.Reports.SalesReport
             Status = GetStatus();
             Vat = salesUnit.Vat / 100.0 + 1.0;
             Cost = salesUnit.Cost;
-            var costDelivery = SalesUnits.Select(x => x.CostDelivery).Where(x => x.HasValue).Sum(x => x.Value);
+            var costDelivery = SalesUnits.Select(unit => unit.CostDelivery).Where(x => x.HasValue).Sum(x => x.Value);
             CostDelivery = -1.0 * costDelivery;
 
             var price = GlobalAppProperties.PriceService.GetPrice(salesUnit, salesUnit.OrderInTakeDate, true);
-            if (salesUnit.Price.HasValue)
-            {
-                Price = salesUnit.Price.Value;
-            }
-            else
-            {
-                Price = price.SumPriceTotal;
-            }
+            Price = salesUnit.Price ?? price.SumPriceTotal;
 
             FixedCost = -1.0 * price.SumFixedTotal * Amount;
             //FixedCostAndDelivery = CostDelivery.HasValue ? CostDelivery.Value + FixedCost : FixedCost;

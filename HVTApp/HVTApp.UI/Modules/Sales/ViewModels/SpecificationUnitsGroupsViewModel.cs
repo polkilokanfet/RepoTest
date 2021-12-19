@@ -65,7 +65,11 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
         protected override List<ProjectUnitsGroup> GetGroups(IEnumerable<SalesUnit> units)
         {
-            return units.GroupBy(x => x, new SalesUnitsGroupsComparer()).OrderByDescending(x => x.Key.Cost).Select(x => new ProjectUnitsGroup(x.ToList())).ToList();
+            return units
+                .GroupBy(salesUnit => salesUnit, new SalesUnitsGroupsComparer())
+                .OrderBy(x => x.Key, new ProductCostComparer())
+                .Select(x => new ProjectUnitsGroup(x.ToList()))
+                .ToList();
         }
 
         public void Load(IEnumerable<SalesUnit> units, SpecificationWrapper specificationWrapper, IUnitOfWork unitOfWork, bool isNew)

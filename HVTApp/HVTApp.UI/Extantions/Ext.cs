@@ -58,11 +58,6 @@ namespace HVTApp.UI
             return items.SelectMany(priceCalculationItem => priceCalculationItem.SalesUnits).ContainsById(salesUnit);
         }
 
-        public static string Voltage(this Product product)
-        {
-            return product.ProductBlock.Parameters.FirstOrDefault(parameter => Equals(parameter.ParameterGroup, GlobalAppProperties.Actual.VoltageGroup))?.Value;
-        }
-
         public static Company GetWinner(this IEnumerable<Tender> tenders, TenderTypeEnum tenderType)
         {
             if (tenders == null || !tenders.Any())

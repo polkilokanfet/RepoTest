@@ -17,7 +17,6 @@ namespace HVTApp.UI.Modules.Sales.Project1
 
         public ProjectDetailsViewModel1(IUnityContainer container) : base(container)
         {
-
             SelectProjectTypeCommand = new DelegateLogCommand(
                 () =>
                 {

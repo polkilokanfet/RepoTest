@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Model.Comparers;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using HVTApp.Model.Wrapper.Groups.SimpleWrappers;
@@ -250,8 +251,9 @@ namespace HVTApp.Model.Wrapper.Groups
 
             //если прилетело более одного юнита
             //создаем подгруппы
-            var groups = units.Select(x => (TMember)Activator.CreateInstance(typeof(TMember), new List<TModel> {x}))
-                              .OrderBy(x => x.Cost);
+            var groups = units
+                .Select(x => (TMember) Activator.CreateInstance(typeof(TMember), new List<TModel> {x}))
+                .OrderBy(x => x.Model, new ProductCostComparer());
             Groups = new ValidatableChangeTrackingCollection<TMember>(groups);
 
             //подписываемся на события на события
