@@ -236,6 +236,9 @@
     </Compile>
     <Compile Include="Modules\Reports\FlatReport\Reports\SalesReportViewModel.cs" />
     <Compile Include="Modules\Reports\MarketReport\ProducersMarket.cs" />
+    <Compile Include="Modules\Reports\MarketReport\TabMarketReportView.xaml.cs">
+      <DependentUpon>TabMarketReportView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Sales\Market\Commands\EditOfferCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\EditPriceCalculationCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\EditTechnicalRequrementsTaskCommand.cs" />
@@ -1255,6 +1258,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\Reports\MarketReport\MarketReportView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Reports\MarketReport\TabMarketReportView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

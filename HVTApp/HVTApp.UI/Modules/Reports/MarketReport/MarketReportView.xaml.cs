@@ -8,7 +8,7 @@ using Prism.Regions;
 
 namespace HVTApp.UI.Modules.Reports.MarketReport
 {
-    [RibbonTab(typeof(TabReload))]
+    [RibbonTab(typeof(TabMarketReportView))]
     public partial class MarketReportView
     {
         public MarketReportView(MarketReportViewModel viewModel, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)

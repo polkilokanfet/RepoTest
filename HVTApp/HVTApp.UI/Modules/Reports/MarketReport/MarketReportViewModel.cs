@@ -20,10 +20,15 @@ namespace HVTApp.UI.Modules.Reports.MarketReport
 
         public ObservableCollection<MarketReportUnit> Units { get; } = new ObservableCollection<MarketReportUnit>();
 
+        /// <summary>
+        /// Только отчетное оборудование
+        /// </summary>
+        public bool IsReportUnitsOnly { get; set; } = true;
+
         public IEnumerable<MarketReportUnit> FilteredUnits
         {
-            get { return _filteredUnits; }
-            set { _filteredUnits = value; }
+            get => _filteredUnits;
+            set => _filteredUnits = value;
         }
 
         public DateTime StartDate
@@ -55,29 +60,47 @@ namespace HVTApp.UI.Modules.Reports.MarketReport
         protected override void GetData()
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
-            var salesUnits = GlobalAppProperties.User.RoleCurrent == Role.SalesManager 
-                ? UnitOfWork.Repository<SalesUnit>().Find(x => !x.IsRemoved && x.Project.ForReport && x.Project.Manager.IsAppCurrentUser()) 
-                : UnitOfWork.Repository<SalesUnit>().Find(x => !x.IsRemoved && x.Project.ForReport);
+            var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(Fit);
 
             //проставляем количество родительских юнитов включенного оборудования
-            var productsIncluded = salesUnits.SelectMany(x => x.ProductsIncluded).ToList();
+            var productsIncluded = salesUnits.SelectMany(salesUnit => salesUnit.ProductsIncluded).ToList();
             foreach (var productIncluded in productsIncluded)
             {
-                productIncluded.ParentsCount = salesUnits.Count(x => x.ProductsIncluded.Contains(productIncluded));
+                productIncluded.ParentsCount = salesUnits.Count(salesUnit => salesUnit.ProductsIncluded.Contains(productIncluded));
             }
 
 
-            var groups = salesUnits.OrderBy(x => x.OrderInTakeDate).GroupBy(x => x, new SalesUnitsReportComparer());
+            var groups = salesUnits.OrderBy(salesUnit => salesUnit.OrderInTakeDate).GroupBy(x => x, new SalesUnitsReportComparer());
 
-            var tenders = UnitOfWork.Repository<Tender>().Find(x => true);
+            var tenders = UnitOfWork.Repository<Tender>().GetAll();
 
-            _marketReportUnits = groups.Select(x => new MarketReportUnit(x, tenders.Where(t => Equals(x.Key.Project, t.Project)))).ToList();
+            _marketReportUnits = groups.Select(x => new MarketReportUnit(x, tenders.Where(tender => Equals(x.Key.Project, tender.Project)))).ToList();
+        }
+
+        /// <summary>
+        /// Подходит ли юнит?
+        /// </summary>
+        /// <param name="salesUnit"></param>
+        /// <returns></returns>
+        private bool Fit(SalesUnit salesUnit)
+        {
+            if (salesUnit.IsRemoved)
+                return false;
+
+            if (IsReportUnitsOnly)
+                if (salesUnit.Project.ForReport == false)
+                    return false;
+
+            if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager)
+                return salesUnit.Project.Manager.IsAppCurrentUser();
+
+            return true;
         }
 
         protected override void AfterGetData()
         {
-            _startDate = _marketReportUnits.Min(x => x.OrderInTakeDate);
-            _finishDate = _marketReportUnits.Max(x => x.OrderInTakeDate);
+            _startDate = _marketReportUnits.Min(marketReportUnit => marketReportUnit.OrderInTakeDate);
+            _finishDate = _marketReportUnits.Max(marketReportUnit => marketReportUnit.OrderInTakeDate);
 
             RefreshUnits();
         }
@@ -85,7 +108,7 @@ namespace HVTApp.UI.Modules.Reports.MarketReport
         private void RefreshUnits()
         {
             Units.Clear();
-            Units.AddRange(_marketReportUnits.Where(x => x.OrderInTakeDate >= StartDate && x.OrderInTakeDate <= FinishDate));
+            Units.AddRange(_marketReportUnits.Where(marketReportUnit => marketReportUnit.OrderInTakeDate >= StartDate && marketReportUnit.OrderInTakeDate <= FinishDate));
         }
     }
 }
