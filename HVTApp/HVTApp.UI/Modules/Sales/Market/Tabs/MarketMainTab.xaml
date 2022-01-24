@@ -13,6 +13,12 @@
         <infRib:ButtonTool Caption="Объединить" Command="{Binding UnionProjectsCommand}"/>
     </infRib:RibbonGroup>
 
+    <infRib:RibbonGroup Caption="Фильтр">
+        <infRib:CheckBoxTool Caption="Реализовано" IsChecked="{Binding IsShownDoneItems}"/>
+        <infRib:CheckBoxTool Caption="Проиграно" IsChecked="{Binding IsShownLoosenItems}"/>
+        <infRib:CheckBoxTool Caption="Только отчет" IsChecked="{Binding IsShownOnlyReportsItems}"/>
+    </infRib:RibbonGroup>
+
     <infRib:RibbonGroup Caption="Конкурс">
         <infRib:ButtonTool Caption="Создать" Command="{Binding NewTenderCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
         <infRib:ButtonTool Caption="Изменить" Command="{Binding EditTenderCommand}" SmallImage="/HVTApp.UI;component/Images/edit.png"/>

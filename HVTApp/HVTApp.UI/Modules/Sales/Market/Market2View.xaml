@@ -86,7 +86,7 @@
 
                             <dp:FieldLayout>
 
-                                <dp:FieldLayout.RecordFilters>
+                                <!--<dp:FieldLayout.RecordFilters>
                                     <dp:RecordFilter FieldName="IsDone">
                                         <dp:RecordFilter.Conditions>
                                             <igW:ComparisonCondition Operator="Equals" Value="False" />
@@ -99,13 +99,7 @@
                                         </dp:RecordFilter.Conditions>
                                     </dp:RecordFilter>
 
-                                    <!--<dp:RecordFilter FieldName="InWork">
-                                        <dp:RecordFilter.Conditions>
-                                            <igW:ComparisonCondition Operator="Equals" Value="True" />
-                                        </dp:RecordFilter.Conditions>
-                                    </dp:RecordFilter>-->
-
-                                </dp:FieldLayout.RecordFilters>
+                                </dp:FieldLayout.RecordFilters>-->
 
 					            <dp:FieldLayout.Fields>
                                     <dp:TextField AlternateBinding="{Binding Facilities}" BindingType="UseAlternateBinding" Label="Объекты" Width="200" Converter="{StaticResource ObjectsToStringConverter}"/>
@@ -115,16 +109,15 @@
                                     <dp:TextField AlternateBinding="{Binding Builder}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Подрядчик" Width="150"/>
                                     <dp:TextField AlternateBinding="{Binding ProjectMaker}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Проектировщик" Width="150"/>
                                     <dp:TextField AlternateBinding="{Binding Supplier}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Поставщик" Width="150"/>
-                                    <dp:CheckBoxField Name="IsDone" AlternateBinding="{Binding IsDone}" BindingType="UseAlternateBinding" Label="Done" Width="Auto" AllowResize="False"/>
-                                    <dp:CheckBoxField Name="IsLoosen" AlternateBinding="{Binding IsLoosen}" BindingType="UseAlternateBinding" Label="Loose" Width="Auto" AllowResize="False"/>
-                                    <!--<dp:CheckBoxField Name="InWork" AlternateBinding="{Binding InWork}" BindingType="UseAlternateBinding" Label="Work" Width="Auto" AllowResize="False"/>-->
-                                    <dp:CheckBoxField Name="ForReport" AlternateBinding="{Binding ForReport}" BindingType="UseAlternateBinding" Label="Report" Width="Auto" AllowResize="False"/>
                                     <dp:TextField AlternateBinding="{Binding Project.ProjectType}" BindingType="UseAlternateBinding" Label="Тип проекта" Width="Auto" Converter="{StaticResource ObjectToStringConverter}"/>
                                     <dp:TextField AlternateBinding="{Binding ProductsInProject}" BindingType="UseAlternateBinding" Label="Номенклатура" Width="150"/>
                                     <dp:TextField AlternateBinding="{Binding FacilitiesOwners}" BindingType="UseAlternateBinding" Label="Владельцы объектов" Width="150" Converter="{StaticResource ObjectsToStringConverter}"/>
                                     <dp:NumericField Name="OrderInTakeYear" Label="ОИТ (год)" Width="Auto" AllowResize="False"/>
                                     <dp:TextField Name="OrderInTakeMonth" Label="ОИТ (месяц)" Width="Auto" AllowResize="False"/>
                                     <dp:NumericField Name="DaysToStartProduction" Label="DTSP" Width="Auto" AllowResize="False"/>
+                                    <dp:CheckBoxField Name="IsDone" AlternateBinding="{Binding IsDone}" BindingType="UseAlternateBinding" Label="Done" Width="Auto" AllowResize="False" Visibility="Hidden"/>
+                                    <dp:CheckBoxField Name="IsLoosen" AlternateBinding="{Binding IsLoosen}" BindingType="UseAlternateBinding" Label="Loose" Width="Auto" AllowResize="False" Visibility="Hidden"/>
+                                    <dp:CheckBoxField Name="ForReport" AlternateBinding="{Binding ForReport}" BindingType="UseAlternateBinding" Label="Report" Width="Auto" AllowResize="False" Visibility="Hidden"/>
                                     <dp:Field Name="ProjectUnitsGroups" IsExpandable="True"/>
 					            </dp:FieldLayout.Fields>
 				            </dp:FieldLayout>

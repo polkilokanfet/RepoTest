@@ -10,6 +10,7 @@ using HVTApp.Infrastructure.Services;
 using HVTApp.Model.Services;
 using HVTApp.UI.Helpers;
 using HVTApp.UI.Modules.Sales.Market.Tabs;
+using Infragistics.Windows.Controls;
 using Infragistics.Windows.DataPresenter;
 using Prism.Events;
 using Prism.Regions;
@@ -33,9 +34,58 @@ namespace HVTApp.UI.Modules.Sales.Market
             : base(viewModel, regionManager, eventAggregator, messageService)
         {
             _viewModel = viewModel;
+
             _messagesOutlookService = messagesOutlookService;
             _fileManagerService = fileManagerService;
             InitializeComponent();
+
+            _viewModel.IsShownDoneItemsChanged += () =>
+            {
+                var recordFilter = ((XamDataGrid)ContentControl.Content).FieldLayouts[0].RecordFilters
+                    .Where(filter => filter.FieldName == "IsDone")
+                    .OrderBy(filter => filter.Version)
+                    .Last();
+                recordFilter.Conditions.Clear();
+
+                //если нужно скрыть реализованные строки
+                if (_viewModel.IsShownDoneItems == false)
+                {
+                    ComparisonCondition condition = new ComparisonCondition(ComparisonOperator.Equals, false);
+                    recordFilter.Conditions.Add(condition);
+                }
+            };
+
+            _viewModel.IsShownLoosenItemsChanged += () =>
+            {
+                var recordFilter = ((XamDataGrid)ContentControl.Content).FieldLayouts[0].RecordFilters
+                    .Where(rf => rf.FieldName == "IsLoosen")
+                    .OrderBy(filter => filter.Version)
+                    .Last();
+                recordFilter.Conditions.Clear();
+
+                //если нужно скрыть проигранные строки
+                if (_viewModel.IsShownLoosenItems == false)
+                {
+                    ComparisonCondition condition = new ComparisonCondition(ComparisonOperator.Equals, false);
+                    recordFilter.Conditions.Add(condition);
+                }
+            };
+
+            _viewModel.IsShownOnlyReportsItemsChanged += () =>
+            {
+                var recordFilter = ((XamDataGrid)ContentControl.Content).FieldLayouts[0].RecordFilters
+                    .Where(rf => rf.FieldName == "ForReport")
+                    .OrderBy(filter => filter.Version)
+                    .Last();
+                recordFilter.Conditions.Clear();
+
+                //если нужно показать только строки для отчета
+                if (_viewModel.IsShownOnlyReportsItems)
+                {
+                    ComparisonCondition condition = new ComparisonCondition(ComparisonOperator.Equals, true);
+                    recordFilter.Conditions.Add(condition);
+                }
+            };
 
             //приложения проекта
             viewModel.SelectedProjectItemChanged += projectItem =>
@@ -58,7 +108,6 @@ namespace HVTApp.UI.Modules.Sales.Market
                     WebBrowserForMessages.Navigate("about:blank");
                 }
             };
-
             this.Loaded += OnLoaded;
         }
 
@@ -83,6 +132,10 @@ namespace HVTApp.UI.Modules.Sales.Market
                 ExpandCollapseMethod(true);
                 ExpandCollapseMethod(false);
             }
+
+            _viewModel.IsShownDoneItems = false;
+            _viewModel.IsShownLoosenItems = false;
+            _viewModel.IsShownOnlyReportsItems = false;
 
             this.Loaded -= OnLoaded;
         }

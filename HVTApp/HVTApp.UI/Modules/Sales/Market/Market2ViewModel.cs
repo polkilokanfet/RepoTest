@@ -26,6 +26,54 @@ namespace HVTApp.UI.Modules.Sales.Market
         private readonly IEventAggregator _eventAggregator;
         private IModelsStore ModelsStore => Container.Resolve<IModelsStore>();
 
+        private IEnumerable<Tender> _tenders;
+        private IEnumerable<ProjectItem> _projectItems;
+        private OffersContainer _offers;
+        private TendersContainer _tenders1;
+        private TechnicalRequrementsTasksContainer _technicalRequrementsTasks;
+        private PriceCalculationsContainer _priceCalculations;
+        private object _selectedItem;
+        private object[] _selectedItems;
+        private bool _isShownDoneItems;
+        private bool _isShownLoosenItems;
+        private bool _isShownOnlyReportsItems;
+
+        public bool IsShownDoneItems
+        {
+            get => _isShownDoneItems;
+            set
+            {
+                _isShownDoneItems = value;
+                IsShownDoneItemsChanged?.Invoke();
+                RaisePropertyChanged();
+            }
+        }
+        public event Action IsShownDoneItemsChanged;
+
+        public bool IsShownLoosenItems
+        {
+            get => _isShownLoosenItems;
+            set
+            {
+                _isShownLoosenItems = value;
+                IsShownLoosenItemsChanged?.Invoke();
+                RaisePropertyChanged();
+            }
+        }
+        public event Action IsShownLoosenItemsChanged;
+
+        public bool IsShownOnlyReportsItems
+        {
+            get => _isShownOnlyReportsItems;
+            set
+            {
+                _isShownOnlyReportsItems = value;
+                IsShownOnlyReportsItemsChanged?.Invoke();
+                RaisePropertyChanged();
+            }
+        }
+        public event Action IsShownOnlyReportsItemsChanged;
+
         public ProjectItemsCollection ProjectItems { get; } 
 
         public object SelectedItem
@@ -266,16 +314,6 @@ namespace HVTApp.UI.Modules.Sales.Market
             ProjectItem.AllTenders.AddRange(_tenders);
             ProjectItems.AddRange(_projectItems);
         }
-
-        private IEnumerable<Tender> _tenders;
-        private IEnumerable<ProjectItem> _projectItems;
-        private OffersContainer _offers;
-        private TendersContainer _tenders1;
-        private TechnicalRequrementsTasksContainer _technicalRequrementsTasks;
-        private PriceCalculationsContainer _priceCalculations;
-        private object _selectedItem;
-        private object[] _selectedItems;
-
 
         #region RaiseCanExecuteChanged
 
