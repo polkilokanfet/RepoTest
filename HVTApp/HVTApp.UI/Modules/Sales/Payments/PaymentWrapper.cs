@@ -18,6 +18,7 @@ namespace HVTApp.UI.Modules.Sales.Payments
             get => PaymentPlanned.Date;
             set
             {
+                if (value > DateTime.Today.AddYears(50)) return;
                 PaymentPlanned.Date = value;
                 RaisePropertyChanged(nameof(IsInPlanPayments));
                 RaisePropertyChanged();

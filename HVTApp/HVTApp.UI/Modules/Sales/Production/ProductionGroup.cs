@@ -72,7 +72,5 @@ namespace HVTApp.UI.Modules.Sales.Production
         {
             this.ProductionItems.ForEach(productionItem => productionItem.CleanDatesOnRemoveFromProduction());
         }
-
-
     }
 }

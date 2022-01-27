@@ -60,6 +60,7 @@ namespace HVTApp.Model.Wrapper.Groups
             set
             {
                 //if(value < DateTime.Today) return;
+                if (value > DateTime.Today.AddYears(50)) return;
                 SetValue(value);
             }
         }

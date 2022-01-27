@@ -21,7 +21,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
                 var date = EndProductionDate ?? ShipmentDate ?? DeliveryDate ?? RealizationDate;
                 if (date.HasValue && value.HasValue && date < value)
                     return;
-                SetValueNew(value);
+                SetDate(value);
             }
         }
 
@@ -39,7 +39,8 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
                     if (date.HasValue && date < value)
                         return;
                 }
-                SetValueNew(value);
+
+                SetDate(value);
             }
         }
 
@@ -58,7 +59,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
                         return;
                 }
 
-                SetValueNew(value);
+                SetDate(value);
             }
         }
 
@@ -70,7 +71,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
                 var date = ShipmentDate ?? EndProductionDate ?? PickingDate;
                 if (date.HasValue && value.HasValue && date > value)
                     return;
-                SetValueNew(value);
+                SetDate(value);
             }
         }
 
@@ -85,7 +86,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
                     if(date.HasValue && date > value)
                         return;
                 }
-                SetValueNew(value);
+                SetDate(value);
             }
         }
 
@@ -135,6 +136,18 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
             OnPropertyChanged(nameof(HasFullInformation));
             OnPropertyChanged(nameof(IsCompleted));
             SettedValueToProperty?.Invoke();
+        }
+
+        /// <summary>
+        /// Установка новых дат
+        /// </summary>
+        /// <param name="newDate"></param>
+        /// <param name="propertyName"></param>
+        private void SetDate(DateTime? newDate, [CallerMemberName] string propertyName = null)
+        {
+            //если ушло за 50 лет - это враньё
+            if (newDate.HasValue && newDate > DateTime.Today.AddYears(50)) return;
+            SetValueNew(newDate, propertyName);
         }
     }
 }

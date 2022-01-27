@@ -15,7 +15,7 @@ namespace HVTApp.UI.Modules.Sales.Payments
 
         public int Amount => Payments.Count;
 
-        public double Sum => Payments.Sum(x => x.Sum);
+        public double Sum => Payments.Sum(paymentWrapper => paymentWrapper.Sum);
 
         public SalesUnitWrapper1 SalesUnit => Payments.First().SalesUnit;
 
@@ -25,8 +25,8 @@ namespace HVTApp.UI.Modules.Sales.Payments
         {
             get
             {
-                if (Payments.All(x => x.IsInPlanPayments)) return true;
-                if (Payments.All(x => !x.IsInPlanPayments)) return false;
+                if (Payments.All(paymentWrapper => paymentWrapper.IsInPlanPayments)) return true;
+                if (Payments.All(paymentWrapper => !paymentWrapper.IsInPlanPayments)) return false;
                 return null;
             }
         }
@@ -37,10 +37,11 @@ namespace HVTApp.UI.Modules.Sales.Payments
 
         public DateTime Date
         {
-            get { return Payments.Min(x => x.PaymentPlanned.Date); }
+            get { return Payments.Min(paymentWrapper => paymentWrapper.PaymentPlanned.Date); }
             set
             {
                 if (value < DateTime.Today) return;
+                if (value > DateTime.Today.AddYears(50)) return;
                 Payments.ForEach(paymentWrapper => paymentWrapper.Date = value);
                 RaisePropertyChanged(nameof(IsCustom));
             }

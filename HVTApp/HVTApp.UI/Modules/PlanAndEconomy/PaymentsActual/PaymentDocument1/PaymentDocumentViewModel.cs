@@ -6,6 +6,7 @@ using System.Linq;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
+using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
@@ -16,7 +17,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
 {
-    public class PaymentDocumentViewModel : PaymentDocumentDetailsViewModel
+    public class PaymentDocumentViewModel : BaseDetailsViewModel<PaymentDocumentWrapper1, PaymentDocument, AfterSavePaymentDocumentEvent>
     {
         #region Fields
 
@@ -32,7 +33,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
         //коллекция для отслеживания элементов
         public IValidatableChangeTrackingCollection<SalesUnitPaymentWrapper> SalesUnitWrappers { get; private set; }
 
-        public PaymentDocumentWrapper PaymentDocument => this.Item;
+        public PaymentDocumentWrapper1 PaymentDocument => this.Item;
 
         /// <summary>
         /// Платежи в этой платежке
@@ -80,6 +81,11 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
             get => _dockDate;
             set
             {
+                if (value > DateTime.Today.AddYears(50))
+                {
+                    _messageService.ShowOkMessageDialog("Предупреждение", "Даты позже 50 лет с сегодня недопустимы!");
+                    return;
+                }
                 Payments.ForEach(payment => payment.PaymentActual.Date = value);
                 _dockDate = value;
                 RaisePropertyChanged();
@@ -153,13 +159,28 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
 
         #region ICommand
 
+        /// <summary>
+        /// Команда добавления платежа
+        /// </summary>
         public AddPaymentCommand AddPaymentCommand { get; }
+
+        /// <summary>
+        /// Команда удаления платежа
+        /// </summary>
         public RemovePaymentCommand RemovePaymentCommand { get; }
+
+        /// <summary>
+        /// Команда сохранения платежки
+        /// </summary>
         public DelegateLogCommand SaveDocumentCommand { get; }
+
+        /// <summary>
+        /// Команда удаления платежки
+        /// </summary>
         public RemoveDocumentCommand RemoveDocumentCommand { get; }
 
         /// <summary>
-        /// Оплата остатка
+        /// Команда оплаты остатка
         /// </summary>
         public RestPaymentCommand RestPaymentCommand { get; }
         
@@ -272,7 +293,6 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
 
             RegionManager.Regions[RegionNames.ContentRegion].NavigationService.Journal.GoBack();
         }
-
     }
 
 }

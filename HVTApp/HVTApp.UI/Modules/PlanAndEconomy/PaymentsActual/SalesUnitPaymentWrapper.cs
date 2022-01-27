@@ -11,12 +11,12 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
     {
         public SalesUnitPaymentWrapper(SalesUnit model) : base(model) { }
 
-        public IValidatableChangeTrackingCollection<PaymentActualWrapper> PaymentsActual { get; private set; }
+        public IValidatableChangeTrackingCollection<PaymentActualWrapper1> PaymentsActual { get; private set; }
 
         protected override void InitializeCollectionProperties()
         {
             if (Model.PaymentsActual == null) throw new ArgumentException("PaymentsActual cannot be null");
-            PaymentsActual = new ValidatableChangeTrackingCollection<PaymentActualWrapper>(Model.PaymentsActual.Select(e => new PaymentActualWrapper(e)));
+            PaymentsActual = new ValidatableChangeTrackingCollection<PaymentActualWrapper1>(Model.PaymentsActual.Select(paymentActual => new PaymentActualWrapper1(paymentActual)));
             RegisterCollection(PaymentsActual, Model.PaymentsActual);
         }
     }

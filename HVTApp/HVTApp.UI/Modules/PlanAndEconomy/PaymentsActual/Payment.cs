@@ -7,7 +7,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
 {
     public class Payment : BindableBase
     {
-        public PaymentActualWrapper PaymentActual { get; }
+        public PaymentActualWrapper1 PaymentActual { get; }
         public SalesUnitPaymentWrapper SalesUnit { get; }
         
         public double SumNotPaid => SalesUnit.Model.SumNotPaid;
@@ -43,14 +43,14 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
 
         public Payment(SalesUnitPaymentWrapper salesUnit)
         {
-            var paymentActual = new PaymentActualWrapper(new PaymentActual());
+            var paymentActual = new PaymentActualWrapper1(new PaymentActual());
             salesUnit.PaymentsActual.Add(paymentActual);
             SalesUnit = salesUnit;
             PaymentActual = paymentActual;
             PaymentActual.PropertyChanged += PaymentActualOnPropertyChanged;
         }
 
-        public Payment(SalesUnitPaymentWrapper salesUnit, PaymentActualWrapper paymentActual)
+        public Payment(SalesUnitPaymentWrapper salesUnit, PaymentActualWrapper1 paymentActual)
         {
             SalesUnit = salesUnit;
             PaymentActual = paymentActual;
