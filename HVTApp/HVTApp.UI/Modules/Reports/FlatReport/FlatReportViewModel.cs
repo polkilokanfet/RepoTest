@@ -42,6 +42,11 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
 
         #region Props
 
+        /// <summary>
+        /// Только отчетное оборудование
+        /// </summary>
+        public bool IsReportUnitsOnly { get; set; } = true;
+
         public DateTime StartDate
         {
             get => _startDate;
@@ -78,8 +83,8 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
             var startOit = new DateTime(StartDate.Year, StartDate.Month, 1);
             var finishOit = new DateTime(FinishDate.Year, FinishDate.Month, DateTime.DaysInMonth(FinishDate.Year, FinishDate.Month));
             var monthContainersOit = YearContainersOit.SelectMany(containerYear => containerYear.MonthContainers).ToList();
-            monthContainersOit.Where(containerMonth => !containerMonth.Date.BetweenDates(startOit, finishOit)).ForEach(x => x.InReport = false);
-            monthContainersOit.Where(containerMonth => containerMonth.Date.BetweenDates(startOit, finishOit)).ForEach(x => x.InReport = true);
+            monthContainersOit.Where(containerMonth => !containerMonth.Date.BetweenDates(startOit, finishOit)).ForEach(containerMonth => containerMonth.InReport = false);
+            monthContainersOit.Where(containerMonth => containerMonth.Date.BetweenDates(startOit, finishOit)).ForEach(containerMonth => containerMonth.InReport = true);
 
             Items.Where(flatReportItem => !flatReportItem.EstimatedOrderInTakeDate.BetweenDates(StartDate, FinishDate)).ForEach(flatReportItem => flatReportItem.InReport = false);
 
@@ -577,8 +582,8 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
 
             //загрузка продажных единиц
             _salesUnits = GlobalAppProperties.User.RoleCurrent == Role.SalesManager
-                ? ((ISalesUnitRepository)UnitOfWork.Repository<SalesUnit>()).GetForFlatReportView().Where(salesUnit => salesUnit.Project.Manager.IsAppCurrentUser()).ToList()
-                : ((ISalesUnitRepository)UnitOfWork.Repository<SalesUnit>()).GetForFlatReportView().ToList();
+                ? ((ISalesUnitRepository)UnitOfWork.Repository<SalesUnit>()).GetForFlatReportView(IsReportUnitsOnly).Where(salesUnit => salesUnit.Project.Manager.IsAppCurrentUser()).ToList()
+                : ((ISalesUnitRepository)UnitOfWork.Repository<SalesUnit>()).GetForFlatReportView(IsReportUnitsOnly).ToList();
 
             var items = _salesUnits
                 .GroupBy(salesUnit => salesUnit, new SalesUnitsReportComparer())

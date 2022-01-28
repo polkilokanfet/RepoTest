@@ -90,7 +90,7 @@ namespace HVTApp.DataAccess
         /// Получить все юниты для FlatReportView
         /// </summary>
         /// <returns></returns>
-        IEnumerable<SalesUnit> GetForFlatReportView();
+        IEnumerable<SalesUnit> GetForFlatReportView(bool onlyReportUnits);
 
         /// <summary>
         /// Получить все юниты для FlatReportView

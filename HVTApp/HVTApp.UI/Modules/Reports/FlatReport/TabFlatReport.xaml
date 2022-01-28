@@ -7,6 +7,7 @@
 
     <infRib:RibbonGroup Caption="Данные">
         <infRib:ButtonTool Caption="Перезагрузить" Command="{Binding ReloadCommand}" SmallImage="/HVTApp.UI;component/Images/refresh.png"/>
+        <infRib:CheckBoxTool Caption="только отчетные" IsChecked="{Binding IsReportUnitsOnly}"/>
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Даты">

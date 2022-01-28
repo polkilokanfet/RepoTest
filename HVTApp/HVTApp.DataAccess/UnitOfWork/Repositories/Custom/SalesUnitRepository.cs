@@ -200,19 +200,35 @@ namespace HVTApp.DataAccess
                 .ToList();
         }
 
-        public IEnumerable<SalesUnit> GetForFlatReportView()
+        public IEnumerable<SalesUnit> GetForFlatReportView(bool onlyReportUnits)
         {
             Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
-            return this.GetQuary()
-                .Include(salesUnit => salesUnit.Project.Manager.Employee.Person)
-                .Include(salesUnit => salesUnit.Facility.Address.Locality)
-                .Include(salesUnit => salesUnit.Facility.OwnerCompany.AddressLegal.Locality)
-                .Include(salesUnit => salesUnit.Order)
-                .Include(salesUnit => salesUnit.Specification.Contract.Contragent.Form)
-                .Include(salesUnit => salesUnit.Producer)
-                .Where(salesUnit => !salesUnit.IsRemoved && salesUnit.Project.ForReport)
-                .ToList();
+            if (onlyReportUnits)
+            {
+                return this.GetQuary()
+                    .Include(salesUnit => salesUnit.Project.Manager.Employee.Person)
+                    .Include(salesUnit => salesUnit.Facility.Address.Locality)
+                    .Include(salesUnit => salesUnit.Facility.OwnerCompany.AddressLegal.Locality)
+                    .Include(salesUnit => salesUnit.Order)
+                    .Include(salesUnit => salesUnit.Specification.Contract.Contragent.Form)
+                    .Include(salesUnit => salesUnit.Producer)
+                    .Where(salesUnit => !salesUnit.IsRemoved && salesUnit.Project.ForReport)
+                    .ToList();
+            }
+            else
+            {
+                return this.GetQuary()
+                    .Include(salesUnit => salesUnit.Project.Manager.Employee.Person)
+                    .Include(salesUnit => salesUnit.Facility.Address.Locality)
+                    .Include(salesUnit => salesUnit.Facility.OwnerCompany.AddressLegal.Locality)
+                    .Include(salesUnit => salesUnit.Order)
+                    .Include(salesUnit => salesUnit.Specification.Contract.Contragent.Form)
+                    .Include(salesUnit => salesUnit.Producer)
+                    .Where(salesUnit => !salesUnit.IsRemoved)
+                    .ToList();
+            }
+
         }
 
         public IEnumerable<SalesUnit> GetForFlatReportView(IEnumerable<Guid> salesUnitsIds)
