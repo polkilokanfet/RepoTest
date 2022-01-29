@@ -151,6 +151,8 @@
     <Compile Include="Services\IPrintSupervisionLetterService.cs" />
     <Compile Include="Services\PriceErrors.cs" />
     <Compile Include="Services\PriceErrorType.cs" />
+    <Compile Include="Services\SalesUnitService\DictionarySpecial.cs" />
+    <Compile Include="Services\SalesUnitService\SalesUnitService.cs" />
     <Compile Include="Structures\ProductStructure.cs" />
     <Compile Include="Attributes\RoleAccessAttribute.cs" />
     <Compile Include="POCOs\GlobalProperties.cs" />
