@@ -295,34 +295,7 @@ namespace HVTApp.Model.POCOs
         /// Дата ОИТ
         /// </summary>
         [Designation("ОИТ"), OrderStatus(990), NotMapped]
-        public DateTime OrderInTakeDate
-        {
-            get
-            {
-                if (OrderInTakeDateInjected.HasValue)
-                    return OrderInTakeDateInjected.Value;
-
-                //по подписанной спецификации
-                if (Specification?.SignDate != null)
-                {
-                    return Specification.SignDate.Value;
-                }
-
-                //если для старта производства не требуется денег
-                if (Cost > 0 && Math.Abs(SumToStartProduction) < 0.001)
-                {
-                    if (Specification != null)
-                    {
-                        return Specification.Date;
-                    }
-                }
-
-                //первый платеж по заказу
-                return PaymentsActual.Any(paymentActual => paymentActual.Sum > 0) 
-                    ? PaymentsActual.Where(paymentActual => paymentActual.Sum > 0).Select(paymentActual => paymentActual.Date).Min() 
-                    : StartProductionDateCalculated;
-            }
-        }
+        public DateTime OrderInTakeDate => OrderInTakeDateInjected ?? GlobalAppProperties.SalesUnitService.GetOrderInTakeDate(Id);
 
         [Designation("Год ОИТ"), OrderStatus(985), NotMapped]
         public int OrderInTakeYear => OrderInTakeDate.Year;
@@ -398,37 +371,7 @@ namespace HVTApp.Model.POCOs
         /// Расчетная дата начала производства.
         /// </summary>
         [Designation("Начало производства (расч.)"), OrderStatus(860), NotMapped]
-        public DateTime StartProductionDateCalculated
-        {
-            get
-            {
-                if (StartProductionDateInjected.HasValue) return StartProductionDateInjected.Value;
-
-                if (StartProductionDate.HasValue) return StartProductionDate.Value;
-
-                //по исполнению условий, необходимых для запуска производства
-                var startProductionConditionsDoneDate = StartProductionConditionsDoneDate;
-                if (startProductionConditionsDoneDate.HasValue) return startProductionConditionsDoneDate.Value;
-
-                //по сигналу менеджера
-                if (SignalToStartProduction.HasValue) return SignalToStartProduction.Value;
-
-                //по дате первого платежа
-                if (PaymentsActual.Any()) return PaymentsActual.Select(paymentActual => paymentActual.Date).Min();
-
-                //по дате доставки оборудования на объект
-                if (DeliveryDate.HasValue) return DeliveryDate.Value.AddDays(-ProductionTerm).AddDays(-DeliveryPeriodCalculated).SkipPastAndWeekend();
-
-                //по дате реализации
-                if (RealizationDate.HasValue) return RealizationDate.Value.AddDays(-ProductionTerm).SkipPastAndWeekend();
-
-                //если проиграно
-                if (IsLoosen) return DeliveryDateExpected.AddDays(-ProductionTerm);
-
-                //по необходимой дате поставки на объект
-                return DeliveryDateExpected.AddDays(-ProductionTerm).AddDays(-DeliveryPeriodCalculated).SkipPastAndWeekend();
-            }
-        }
+        public DateTime StartProductionDateCalculated => StartProductionDateInjected ?? GlobalAppProperties.SalesUnitService.GetStartProductionDate(Id);
 
         /// <summary>
         /// Расчетная дата окончания производства.

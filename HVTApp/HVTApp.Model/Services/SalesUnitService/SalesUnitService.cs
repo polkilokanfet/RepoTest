@@ -4,11 +4,10 @@ using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
-using Microsoft.Practices.ObjectBuilder2;
 
 namespace HVTApp.Model.Services
 {
-    public class SalesUnitService
+    public class SalesUnitService : ISalesUnitService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IShippingService _shippingService;
@@ -113,7 +112,7 @@ namespace HVTApp.Model.Services
         /// </summary>
         /// <param name="salesUnitId">Id юнита</param>
         /// <returns></returns>
-        public DateTime CalculateStartProductionDate(Guid salesUnitId)
+        public DateTime GetStartProductionDate(Guid salesUnitId)
         {
             if (_startProductionDateCalculatedDictionary.ContainsKey(salesUnitId))
                 return _startProductionDateCalculatedDictionary[salesUnitId];
@@ -124,7 +123,7 @@ namespace HVTApp.Model.Services
                 return _startProductionDateCalculatedDictionary.RefreshAndReturnValue(salesUnitId, salesUnit.StartProductionDate.Value);
 
             //по исполнению условий, необходимых для запуска производства
-            var startProductionConditionsDoneDate = StartProductionConditionsDoneDate(salesUnitId);
+            var startProductionConditionsDoneDate = GetStartProductionConditionsDoneDate(salesUnitId);
             if (startProductionConditionsDoneDate.HasValue) 
                 return _startProductionDateCalculatedDictionary.RefreshAndReturnValue(salesUnitId, startProductionConditionsDoneDate.Value);
 
@@ -201,7 +200,7 @@ namespace HVTApp.Model.Services
         /// <summary>
         /// Дата исполнения условий для запуска производства
         /// </summary>
-        public DateTime? StartProductionConditionsDoneDate(Guid salesUnitId)
+        public DateTime? GetStartProductionConditionsDoneDate(Guid salesUnitId)
         {
             if (_startProductionConditionsDoneDateCalculatedDictionary.ContainsKey(salesUnitId))
                 return _startProductionConditionsDoneDateCalculatedDictionary[salesUnitId];
