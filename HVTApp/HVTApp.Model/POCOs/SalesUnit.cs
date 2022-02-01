@@ -47,7 +47,8 @@ namespace HVTApp.Model.POCOs
         public virtual Project Project { get; set; }
 
         [Designation("Требуемая дата поставки"), Required]
-        public virtual DateTime DeliveryDateExpected { get; set; } = DateTime.Today.AddDays(GlobalAppProperties.Actual.StandartTermFromStartToEndProduction + 120).SkipWeekend();
+        public virtual DateTime DeliveryDateExpected { get; set; } = 
+            DateTime.Today.AddDays(GlobalAppProperties.Actual.StandartTermFromStartToEndProduction + 120).SkipWeekend();
 
         [Designation("Производитель")]
         public virtual Company Producer { get; set; }
@@ -229,7 +230,7 @@ namespace HVTApp.Model.POCOs
         /// Оплаченная сумма
         /// </summary>
         [Designation("Оплачено"), NotMapped]
-        public double SumPaid => PaymentsActual.Sum(paymentActual => paymentActual.Sum);
+        public double SumPaid => PaymentsActual.Sum(x => x.Sum);
 
         /// <summary>
         /// Неоплаченная сумма без НДС
@@ -254,21 +255,9 @@ namespace HVTApp.Model.POCOs
         /// Сумама, необходимая для начала производства
         /// </summary>
         [Designation("Сумма старта производства"), NotMapped]
-        public double SumToStartProduction
-        {
-            get
-            {
-                if (Cost == 0)
-                {
-                    return 0;
-                }
-
-                return PaymentConditionSet.PaymentConditions
-                    .Where(paymentCondition => paymentCondition.PaymentConditionPoint.PaymentConditionPointEnum == PaymentConditionPointEnum.ProductionStart &&
-                                               paymentCondition.DaysToPoint <= 0)
-                    .Sum(condition => Cost * condition.Part);
-            }
-        }
+        public double SumToStartProduction => PaymentConditionSet.PaymentConditions.Where(x =>
+                                              x.PaymentConditionPoint.PaymentConditionPointEnum == PaymentConditionPointEnum.ProductionStart &&
+                                              x.DaysToPoint <= 0).Sum(condition => Cost * condition.Part);
 
         /// <summary>
         /// Сумма, необходимая для отгрузки
@@ -291,9 +280,6 @@ namespace HVTApp.Model.POCOs
         [NotMapped]
         public DateTime? OrderInTakeDateInjected { get; set; }
 
-        /// <summary>
-        /// Дата ОИТ
-        /// </summary>
         [Designation("ОИТ"), OrderStatus(990), NotMapped]
         public DateTime OrderInTakeDate => OrderInTakeDateInjected ?? GlobalAppProperties.SalesUnitService.GetOrderInTakeDate(Id);
 
