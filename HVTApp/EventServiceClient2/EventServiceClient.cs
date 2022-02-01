@@ -242,10 +242,5 @@ namespace EventServiceClient2
 
             return false;
         }
-
-        public void OnCancelTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

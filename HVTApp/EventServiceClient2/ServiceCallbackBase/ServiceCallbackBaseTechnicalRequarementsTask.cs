@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using EventServiceClient2.SyncEntities;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
@@ -28,8 +29,10 @@ namespace EventServiceClient2.ServiceCallbackBase
                 _container.Resolve<IRegionManager>().RequestNavigateContentRegion<TechnicalRequrementsTaskView>(new NavigationParameters { { nameof(TechnicalRequrementsTask), technicalRequrementsTask } });
             });
 
+            var projectName = technicalRequrementsTask.Requrements.SelectMany(technicalRequrements => technicalRequrements.SalesUnits).First().Project.Name;
+
             _syncContainer.Publish<TechnicalRequrementsTask, TAfterTechnicalRequrementsTaskEvent>(technicalRequrementsTask);
-            Popup.Popup.ShowPopup(message, $"Задача в TCE с Id {technicalRequrementsTask.Id}", action);
+            Popup.Popup.ShowPopup(message, $"Задача TCE: {projectName} (Id: {technicalRequrementsTask.Id}).", action);
         }
     }
 }

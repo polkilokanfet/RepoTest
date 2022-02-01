@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using EventServiceClient2.SyncEntities;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
@@ -28,8 +29,13 @@ namespace EventServiceClient2.ServiceCallbackBase
                 _container.Resolve<IRegionManager>().RequestNavigateContentRegion<PriceCalculationView>(new NavigationParameters { { nameof(PriceCalculation), priceCalculation } });
             });
 
+            var facilities = priceCalculation.PriceCalculationItems
+                .SelectMany(priceCalculationItem => priceCalculationItem.SalesUnits)
+                .Select(salesUnit => salesUnit.Facility.ToString())
+                .Distinct().ToStringEnum(",");
+
             _syncContainer.Publish<PriceCalculation, TAfterPriceCalculationEvent>(priceCalculation);
-            Popup.Popup.ShowPopup(message, $"Расчет ПЗ с Id {priceCalculation.Id}", action);
+            Popup.Popup.ShowPopup(message, $"Расчет ПЗ для {facilities} с Id {priceCalculation.Id}", action);
         }
     }
 }

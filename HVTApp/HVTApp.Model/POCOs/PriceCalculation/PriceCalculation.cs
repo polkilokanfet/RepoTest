@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
+using HVTApp.Infrastructure.Extansions;
 
 namespace HVTApp.Model.POCOs
 {
@@ -59,11 +60,15 @@ namespace HVTApp.Model.POCOs
         {
             get
             {
-                var facilities = PriceCalculationItems.SelectMany(priceCalculationItem => priceCalculationItem.SalesUnits).Select(salesUnit => salesUnit.Facility).Distinct().ToList();
-                var sb = new StringBuilder();
-                sb.Append("Расчет стоимости оборудования для ");
-                facilities.ForEach(facility => sb.Append(facility).Append("; "));
-                return sb.ToString();
+                if (PriceCalculationItems.Any() == false)
+                    return "В расчете отсутствуют айтемы";
+
+                var facilities = PriceCalculationItems
+                    .SelectMany(priceCalculationItem => priceCalculationItem.SalesUnits)
+                    .Select(salesUnit => salesUnit.Facility)
+                    .Distinct()
+                    .ToStringEnum(",");
+                return $"Расчет стоимости оборудования для {facilities}";
             }
         }
 
