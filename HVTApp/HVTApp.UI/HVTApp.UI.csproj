@@ -241,6 +241,11 @@
     <Compile Include="Modules\Reports\MarketReport\TabMarketReportView.xaml.cs">
       <DependentUpon>TabMarketReportView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Reports\TceReport\TceReportView.xaml.cs">
+      <DependentUpon>TceReportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\TceReport\TceReportViewModel.cs" />
+    <Compile Include="Modules\Reports\TceReport\TceReportUnit.cs" />
     <Compile Include="Modules\Sales\Market\Commands\EditOfferCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\EditPriceCalculationCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\EditTechnicalRequrementsTaskCommand.cs" />
@@ -940,6 +945,15 @@
     <Resource Include="Images\folder.png" />
     <Resource Include="Images\ar_back.png" />
     <Resource Include="Images\ar_forward.png" />
+    <Content Include="TceReportViewGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>TceReportViewGenerator.txt</LastGenOutput>
+    </Content>
+    <Resource Include="TceReportViewGenerator.txt">
+      <DependentUpon>TceReportViewGenerator.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Resource>
     <Content Include="SalesReportViewGenerator.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>SalesReportViewGenerator.txt</LastGenOutput>
@@ -1316,6 +1330,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\Reports\Tabs\TabReload.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Reports\TceReport\TceReportView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

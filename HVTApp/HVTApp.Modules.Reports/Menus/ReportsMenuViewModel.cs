@@ -12,6 +12,7 @@ using HVTApp.UI.Modules.Reports.SalesCharts.MarketCapacityChart;
 using HVTApp.UI.Modules.Reports.SalesCharts.ProducersSalesChart;
 using HVTApp.UI.Modules.Reports.SalesCharts.ProductTypesSalesChart;
 using HVTApp.UI.Modules.Reports.SalesCharts.RegionsSalesChart;
+using HVTApp.UI.Modules.Reports.TceReport;
 using HVTApp.UI.Modules.Reports.Views;
 
 namespace HVTApp.Modules.Reports.Menus
@@ -36,7 +37,10 @@ namespace HVTApp.Modules.Reports.Menus
                 GlobalAppProperties.User.RoleCurrent == Role.ReportMaker ||
                 GlobalAppProperties.User.RoleCurrent == Role.Economist ||
                 GlobalAppProperties.User.RoleCurrent == Role.Director)
+            {
                 Items.Add(new NavigationItem("Очередность", typeof(PriorityReportView)));
+                Items.Add(new NavigationItem("Заявки ТСЕ", typeof(TceReportView)));
+            }
 
             Items.Add(new NavigationItem("График продаж", typeof(SalesChartView)));
 

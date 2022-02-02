@@ -1,16 +1,4 @@
-﻿
-
-
-
-
-
-
-
-
-
-
-
-<inf:ViewBase xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<inf:ViewBase xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
@@ -134,7 +122,6 @@
                         <infg:CheckBoxField AlternateBinding="{Binding OrderInTakeDateIsFake}" BindingType="UseAlternateBinding" Label="OrderInTakeDateIsFake" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField AlternateBinding="{Binding CostIsFake}" BindingType="UseAlternateBinding" Label="CostIsFake" Width="Auto" AllowResize="True" />
                         <infg:TextField AlternateBinding="{Binding Country}" BindingType="UseAlternateBinding" Label="Страна поставки" Width="Auto" AllowResize="True" />
-
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>
 

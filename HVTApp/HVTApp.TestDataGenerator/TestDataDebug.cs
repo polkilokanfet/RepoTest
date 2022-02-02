@@ -73,6 +73,14 @@ namespace HVTApp.TestDataGenerator
         public Note Note3;
         public Note Note4;
 
+        //public TechnicalRequrementsTask TechnicalRequrementsTask1;
+        //public TechnicalRequrementsTask TechnicalRequrementsTask2;
+
+        //private void GenerateTechnicalRequrementsTask()
+        //{
+        //    TechnicalRequrementsTask1.Clone(new TechnicalRequrementsTask {} );
+        //}
+
         private void GenerateLaborHourCost()
         {
             LaborHourCost.Clone(new LaborHourCost { Date=DateTime.Today, Sum = 220.0 });

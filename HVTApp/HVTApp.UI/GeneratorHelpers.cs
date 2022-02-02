@@ -100,14 +100,14 @@ namespace HVTApp.UI
         public static IEnumerable<PropertyInfo> GetPropertiesForSalesUnitReport(this Type type)
         {
             return type.GetProperties()
-                .Where(x => x.Name != nameof(ILookupItemNavigation<IBaseEntity>.Id))
-                .OrderByDescending(x => x, new PropOrderComparer());
+                .Where(propertyInfo => propertyInfo.Name != nameof(ILookupItemNavigation<IBaseEntity>.Id))
+                .OrderByDescending(propertyInfo => propertyInfo, new PropOrderComparer());
         }
 
 
         public static IEnumerable<PropertyInfo> GetPropertiesForDetailView(this Type type)
         {
-            return type.GetProperties().Where(x => x.CanWrite).OrderByDescending(x => x, new PropOrderComparer());
+            return type.GetProperties().Where(propertyInfo => propertyInfo.CanWrite).OrderByDescending(x => x, new PropOrderComparer());
         }
 
         /// <summary>

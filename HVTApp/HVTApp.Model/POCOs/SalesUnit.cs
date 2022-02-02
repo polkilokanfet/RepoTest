@@ -47,7 +47,7 @@ namespace HVTApp.Model.POCOs
         public virtual Project Project { get; set; }
 
         [Designation("Требуемая дата поставки"), Required]
-        public virtual DateTime DeliveryDateExpected { get; set; } = 
+        public virtual DateTime DeliveryDateExpected { get; set; } =
             DateTime.Today.AddDays(GlobalAppProperties.Actual.StandartTermFromStartToEndProduction + 120).SkipWeekend();
 
         [Designation("Производитель")]
@@ -281,7 +281,34 @@ namespace HVTApp.Model.POCOs
         public DateTime? OrderInTakeDateInjected { get; set; }
 
         [Designation("ОИТ"), OrderStatus(990), NotMapped]
-        public DateTime OrderInTakeDate => OrderInTakeDateInjected ?? GlobalAppProperties.SalesUnitService.GetOrderInTakeDate(Id);
+        public DateTime OrderInTakeDate
+        {
+            get
+            {
+                if (OrderInTakeDateInjected.HasValue)
+                    return OrderInTakeDateInjected.Value;
+
+                //по подписанной спецификации
+                if (Specification?.SignDate != null)
+                {
+                    return Specification.SignDate.Value;
+                }
+
+                //если для старта производства не требуется денег
+                if (Cost > 0 && Math.Abs(SumToStartProduction) < 0.001)
+                {
+                    if (Specification != null)
+                    {
+                        return Specification.Date;
+                    }
+                }
+
+                //первый платеж по заказу
+                return PaymentsActual.Any(paymentActual => paymentActual.Sum > 0)
+                    ? PaymentsActual.Where(paymentActual => paymentActual.Sum > 0).Select(paymentActual => paymentActual.Date).Min()
+                    : StartProductionDateCalculated;
+            }
+        }
 
         [Designation("Год ОИТ"), OrderStatus(985), NotMapped]
         public int OrderInTakeYear => OrderInTakeDate.Year;
@@ -357,7 +384,37 @@ namespace HVTApp.Model.POCOs
         /// Расчетная дата начала производства.
         /// </summary>
         [Designation("Начало производства (расч.)"), OrderStatus(860), NotMapped]
-        public DateTime StartProductionDateCalculated => StartProductionDateInjected ?? GlobalAppProperties.SalesUnitService.GetStartProductionDate(Id);
+        public DateTime StartProductionDateCalculated
+        {
+            get
+            {
+                if (StartProductionDateInjected.HasValue) return StartProductionDateInjected.Value;
+
+                if (StartProductionDate.HasValue) return StartProductionDate.Value;
+
+                //по исполнению условий, необходимых для запуска производства
+                var startProductionConditionsDoneDate = StartProductionConditionsDoneDate;
+                if (startProductionConditionsDoneDate.HasValue) return startProductionConditionsDoneDate.Value;
+
+                //по сигналу менеджера
+                if (SignalToStartProduction.HasValue) return SignalToStartProduction.Value;
+
+                //по дате первого платежа
+                if (PaymentsActual.Any()) return PaymentsActual.Select(paymentActual => paymentActual.Date).Min();
+
+                //по дате доставки оборудования на объект
+                if (DeliveryDate.HasValue) return DeliveryDate.Value.AddDays(-ProductionTerm).AddDays(-DeliveryPeriodCalculated).SkipPastAndWeekend();
+
+                //по дате реализации
+                if (RealizationDate.HasValue) return RealizationDate.Value.AddDays(-ProductionTerm).SkipPastAndWeekend();
+
+                //если проиграно
+                if (IsLoosen) return DeliveryDateExpected.AddDays(-ProductionTerm);
+
+                //по необходимой дате поставки на объект
+                return DeliveryDateExpected.AddDays(-ProductionTerm).AddDays(-DeliveryPeriodCalculated).SkipPastAndWeekend();
+            }
+        }
 
         /// <summary>
         /// Расчетная дата окончания производства.
@@ -369,7 +426,7 @@ namespace HVTApp.Model.POCOs
             {
                 //по дате производства
                 if (EndProductionDate.HasValue) return EndProductionDate.Value;
-                
+
                 //если проиграно
                 if (IsLoosen)
                     return DeliveryDateExpected.AddDays(-DeliveryPeriodCalculated);
@@ -400,7 +457,7 @@ namespace HVTApp.Model.POCOs
         /// </summary>
         [Designation("Расчетная дата реализации"), OrderStatus(850), NotMapped]
         public DateTime RealizationDateCalculated => RealizationDate ?? DeliveryDateCalculated;
-        
+
         /// <summary>
         /// Расчетная дата отгрузки.
         /// </summary>
@@ -563,8 +620,8 @@ namespace HVTApp.Model.POCOs
                 foreach (var payment in PaymentsPlanned)
                 {
                     //если связанное условие существует и еще не исполнено
-                    if (payment.Condition != null && 
-                        dictionary.ContainsKey(payment.Condition) && 
+                    if (payment.Condition != null &&
+                        dictionary.ContainsKey(payment.Condition) &&
                         dictionary[payment.Condition] < 1)
                     {
                         double part = payment.Part;
@@ -609,7 +666,7 @@ namespace HVTApp.Model.POCOs
                 {
                     dictionary[paymentPlanned.Condition] += paymentPlanned.Part;
                 }
-                
+
                 var result = new List<PaymentPlanned>();
                 foreach (var conditions in dictionary)
                 {

@@ -4,6 +4,7 @@ using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Prism;
 using HVTApp.Modules.Reports.Menus;
 using HVTApp.UI.Modules.Reports.PriorityReport;
+using HVTApp.UI.Modules.Reports.TceReport;
 using HVTApp.UI.Modules.Reports.Views;
 using Microsoft.Practices.Unity;
 using SalesReportView = HVTApp.UI.Modules.Reports.SalesReport.SalesReportView;
@@ -20,6 +21,7 @@ namespace HVTApp.Modules.Reports
         protected override void RegisterTypes()
         {
             Container.RegisterViewForNavigation<SalesReportView>();
+            Container.RegisterViewForNavigation<TceReportView>();
             Container.RegisterViewForNavigation<PriorityReportView>();
         }
 

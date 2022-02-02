@@ -247,6 +247,7 @@
     <Compile Include="Wrapper\Custom\Validate\PaymentConditionWrapper.cs" />
     <Compile Include="Wrapper\Custom\Validate\SalesUnitWrapper.cs" />
     <Compile Include="Wrapper\Custom\Validate\SpecificationWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Validate\StructureCostWrapper.cs" />
     <Compile Include="Wrapper\Groups\BaseWrappersGroup.cs" />
     <Compile Include="Wrapper\Groups\OfferUnit2Wrapper.cs" />
     <Compile Include="Wrapper\Groups\SimpleWrappers\CompanySimpleWrapper.cs" />
