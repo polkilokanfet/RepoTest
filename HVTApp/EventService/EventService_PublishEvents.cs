@@ -53,14 +53,15 @@ namespace EventService
         /// Публикация события через сервис синхронизации для целевых
         /// </summary>
         /// <param name="targetUserId">Id целевого пользователя</param>
-        /// <param name="appSessionId">Id приложения инициировшего событие</param>
+        /// <param name="sourceEventAppSessionId">Id приложения инициировшего событие</param>
         /// <param name="publishEvent"></param>
-        private bool PublishEventByServiceForUser(Guid targetUserId, Guid appSessionId, Action<AppSession> publishEvent)
+        /// <returns>Доставлено ли уведомление целевому пользователю</returns>
+        private bool PublishEventByServiceForUser(Guid targetUserId, Guid sourceEventAppSessionId, Action<AppSession> publishEvent)
         {
             //целевые приложения (без того, которое и послало событие).
             var targetAppSessions = _appSessions
                 .Where(appSession => appSession.UserId == targetUserId)
-                .Where(appSession => appSession.AppSessionId != appSessionId)
+                .Where(appSession => appSession.AppSessionId != sourceEventAppSessionId)
                 .ToList();
 
             if (targetAppSessions.Any() == false)
@@ -87,13 +88,13 @@ namespace EventService
                 }
                 catch (Exception e)
                 {
-                    PrintMessageEvent?.Invoke($"!Exception on Invoke {publishEvent.GetMethodInfo().Name} ({this.GetType().FullName}) by appSession {appSessionId}. \n{e.GetType().FullName}\n{e.PrintAllExceptions()}");
+                    PrintMessageEvent?.Invoke($"!Exception on Invoke {publishEvent.GetMethodInfo().Name} ({this.GetType().FullName}) by appSession {sourceEventAppSessionId}. \n{e.GetType().FullName}\n{e.PrintAllExceptions()}");
                     this.Disconnect(appSession.AppSessionId);
                     return false;
                 }
             }
 
-            PrintMessageEvent?.Invoke($"Invoke {publishEvent.GetMethodInfo().Name} by appSession {appSessionId}");
+            PrintMessageEvent?.Invoke($"Invoke {publishEvent.GetMethodInfo().Name} by appSession {sourceEventAppSessionId}");
             return true;
         }
 
@@ -160,6 +161,13 @@ namespace EventService
 
             return result;
         }
+
+        public bool StartPriceCalculationPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid priceCalculationId)
+        {
+            return PublishEventByServiceForUser(targetUserId, eventSourceAppSessionId, 
+                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnStartPriceCalculationServiceCallback(priceCalculationId));
+        }
+
 
         public void FinishPriceCalculationPublishEvent(Guid appSessionId, Guid priceCalculationId)
         {

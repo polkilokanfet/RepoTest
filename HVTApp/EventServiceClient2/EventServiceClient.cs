@@ -9,11 +9,9 @@ using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.EventService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
-using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using Microsoft.Practices.Unity;
-using IEventServiceCallback = EventServiceClient2.ServiceReference1.IEventServiceCallback;
 
 namespace EventServiceClient2
 {

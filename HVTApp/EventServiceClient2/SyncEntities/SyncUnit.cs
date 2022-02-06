@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.ServiceModel;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
+using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 
@@ -30,24 +32,71 @@ namespace EventServiceClient2.SyncEntities
 
         private void Subscribe()
         {
-            _eventAggregator.GetEvent<TAfterSaveEvent>().Subscribe(PublishThroughEventServiceClient, true);
+            _eventAggregator.GetEvent<TAfterSaveEvent>().Subscribe(PublishThroughEventService, true);
         }
 
         private void Unsubscribe()
         {
-            _eventAggregator.GetEvent<TAfterSaveEvent>().Unsubscribe(PublishThroughEventServiceClient);
+            _eventAggregator.GetEvent<TAfterSaveEvent>().Unsubscribe(PublishThroughEventService);
         }
 
         protected abstract void DoPublishAction(TModel model);
 
         /// <summary>
+        /// Вычисление пользователей-адресатов этого уведомления
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        protected abstract IEnumerable<Guid> GetTargetUsersIds(TModel model);
+
+        protected abstract Func<TModel, bool> ActionPublishThroughEventService { get; }
+
+        protected abstract EventServiceActionType EventServiceActionType { get; }
+
+        /// <summary>
         /// Публикация события через сервис синхронизации
         /// </summary>
         /// <param name="model"></param>
-        private void PublishThroughEventServiceClient(TModel model)
+        private void PublishThroughEventService(TModel model)
+        {
+            //список Id пользователей, которым адресовано уведомление
+            var targetUsersIds = GetTargetUsersIds(model).Distinct().ToList();
+
+            //список Id пользователей, которым не доставлено уведомление
+            var usersIdsWhoDidNotReciveNotification = targetUsersIds.ToList();
+
+            //рассылка уведомлений
+            foreach (var targetUsersId in targetUsersIds)
+            {
+                //пользователь получил уведомление?
+                if (PublishNotification(model))
+                {
+                    usersIdsWhoDidNotReciveNotification.Remove(targetUsersId);
+                }
+            }
+
+            //сохранение в базу данных уведомлений, которые не были доставлены адресатам
+            if (usersIdsWhoDidNotReciveNotification.Any())
+            {
+                foreach (var userId in usersIdsWhoDidNotReciveNotification)
+                {
+                    EventServiceUnit unit = new EventServiceUnit
+                    {
+                        User = UnitOfWork.Repository<User>().GetById(userId),
+                        TargetEntityId = model.Id,
+                        EventServiceActionType = this.EventServiceActionType
+                    };
+                    UnitOfWork.Repository<EventServiceUnit>().Add(unit);
+                }
+
+                UnitOfWork.SaveChanges();
+            }
+        }
+
+        private bool PublishNotification(TModel model)
         {
             if (EventServiceHost == null)
-                return;
+                return false;
 
             try
             {
@@ -56,12 +105,15 @@ namespace EventServiceClient2.SyncEntities
                     EventServiceHost.State != CommunicationState.Closed)
                 {
                     //публикуем действие
-                    DoPublishAction(model);
+                    return ActionPublishThroughEventService.Invoke(model);
+                    DoPublishAction(model);asd
+                    return true;
                 }
                 else
                 {
                     //кидаем событие
                     ServiceHostDisabled?.Invoke();
+                    return false;
                 }
             }
             //хост недоступен
@@ -69,12 +121,14 @@ namespace EventServiceClient2.SyncEntities
             {
                 //кидаем событие
                 ServiceHostDisabled?.Invoke();
+                return false;
             }
 #if DEBUG
 #else
             catch (Exception e)
             {
                 _messageService.ShowOkMessageDialog(e.GetType().FullName, e.PrintAllExceptions());
+                return false;
             }
 #endif
         }

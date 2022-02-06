@@ -94,6 +94,16 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
         [OperationContract]
         IEnumerable<Guid> StartPriceCalculationPublishEvent(Guid appSessionId, Guid priceCalculationId, IEnumerable<Guid> targetUsersIds);
 
+        /// <summary>
+        /// Публикация события старта расчета ПЗ
+        /// </summary>
+        /// <param name="eventSourceAppSessionId">Id приложения, которое инициировало событие</param>
+        /// <param name="targetUserId">Id пользователя, которому необходимо доставить уведомление</param>
+        /// <param name="priceCalculationId">Id расчета ПЗ</param>
+        /// <returns>Доставлено ли уведомление целевому пользователю</returns>
+        [OperationContract]
+        bool StartPriceCalculationPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid priceCalculationId);
+
         [OperationContract(IsOneWay = true)]
         void FinishPriceCalculationPublishEvent(Guid appSessionId, Guid priceCalculationId);
 

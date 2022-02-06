@@ -14,13 +14,11 @@ namespace EventServiceClient2.ServiceCallbackBase
     {
         private readonly IUnityContainer _container;
         private readonly SyncContainer _syncContainer;
-        private readonly IEventAggregator _eventAggregator;
 
         public ServiceCallbackBasePriceCalculation(IUnityContainer container, SyncContainer syncContainer)
         {
             _container = container;
             _syncContainer = syncContainer;
-            _eventAggregator = _container.Resolve<IEventAggregator>();
         }
 
         public void Start(PriceCalculation priceCalculation, string message)

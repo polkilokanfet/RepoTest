@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.Events;
@@ -39,5 +40,19 @@ namespace EventServiceClient2.SyncEntities
                 UnitOfWork.SaveChanges();
             }
         }
+
+        protected override IEnumerable<Guid> GetTargetUsersIds(PriceCalculation model)
+        {
+            return UnitOfWork.Repository<User>()
+                .Find(user => user.Roles.Any(role => role.Role == Role.Pricer))
+                .Select(user => user.Id);
+        }
+
+        protected override Func<PriceCalculation, bool> ActionPublishThroughEventService
+        {
+            get { return p => EventServiceHost.StartPriceCalculationPublishEvent(); }
+        }
+
+        protected override EventServiceActionType EventServiceActionType => EventServiceActionType.StartPriceCalculation;
     }
 }
