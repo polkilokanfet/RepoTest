@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.Events;
@@ -14,19 +13,6 @@ namespace EventServiceClient2.SyncEntities
         {
         }
 
-        protected override Action<PriceCalculation> PublishEventAction
-        {
-            get
-            {
-                //старт расчета ПЗ интересен только юзеру-расчетчику
-                var targetUsersIds =  UnitOfWork.Repository<User>()
-                    .Find(user => user.Roles.Any(role => role.Role == Role.Pricer))
-                    .Select(user => user.Id);
-
-                return priceCalculation => EventServiceHost.StartPriceCalculationPublishEvent(AppSessionId, priceCalculation.Id, targetUsersIds.ToArray());
-            }
-        }
-
         protected override void DoPublishAction(PriceCalculation priceCalculation)
         {
             //старт расчета ПЗ интересен только юзеру-расчетчику
@@ -37,19 +23,21 @@ namespace EventServiceClient2.SyncEntities
             //Запускаем событие на хост
             //Пользователи, которые не получили сообщение
             var usersWhoDontResiveAction = EventServiceHost.StartPriceCalculationPublishEvent(AppSessionId, priceCalculation.Id, targetUsersIds.ToArray());
-            foreach (var userId in usersWhoDontResiveAction)
+            if (usersWhoDontResiveAction.Any())
             {
-                User user = UnitOfWork.Repository<User>().GetById(userId);
-                EventServiceUnit unit = new EventServiceUnit
+                foreach (var userId in usersWhoDontResiveAction)
                 {
-                    User = user,
-                    TargetEntityId = priceCalculation.Id,
-                    EventServiceActionType = EventServiceActionType.StartPriceCalculation
-                };
-                UnitOfWork.Repository<EventServiceUnit>().Add(unit);
-            }
+                    EventServiceUnit unit = new EventServiceUnit
+                    {
+                        User = UnitOfWork.Repository<User>().GetById(userId),
+                        TargetEntityId = priceCalculation.Id,
+                        EventServiceActionType = EventServiceActionType.StartPriceCalculation
+                    };
+                    UnitOfWork.Repository<EventServiceUnit>().Add(unit);
+                }
 
-            UnitOfWork.SaveChanges();
+                UnitOfWork.SaveChanges();
+            }
         }
     }
 }

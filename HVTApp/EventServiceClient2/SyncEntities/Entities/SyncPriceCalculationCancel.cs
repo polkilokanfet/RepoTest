@@ -11,9 +11,9 @@ namespace EventServiceClient2.SyncEntities
         {
         }
 
-        protected override Action<PriceCalculation> PublishEventAction
+        protected override void DoPublishAction(PriceCalculation priceCalculation)
         {
-            get { return priceCalculation => EventServiceHost.CancelPriceCalculationPublishEvent(AppSessionId, priceCalculation.Id); }
+            EventServiceHost.CancelPriceCalculationPublishEvent(AppSessionId, priceCalculation.Id);
         }
     }
 
@@ -23,9 +23,9 @@ namespace EventServiceClient2.SyncEntities
         {
         }
 
-        protected override Action<PriceCalculation> PublishEventAction
+        protected override void DoPublishAction(PriceCalculation priceCalculation)
         {
-            get { return priceCalculation => EventServiceHost.RejectPriceCalculationPublishEvent(AppSessionId, priceCalculation.Id); }
+            EventServiceHost.RejectPriceCalculationPublishEvent(AppSessionId, priceCalculation.Id);
         }
     }
 

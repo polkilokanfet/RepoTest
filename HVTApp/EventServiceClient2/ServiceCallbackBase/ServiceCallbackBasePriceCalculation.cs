@@ -1,4 +1,5 @@
 ﻿using System;
+using EventServiceClient2.SyncEntities;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.PriceCalculations.View;
@@ -12,11 +13,13 @@ namespace EventServiceClient2.ServiceCallbackBase
         where TAfterPriceCalculationEvent : PubSubEvent<PriceCalculation>, new()
     {
         private readonly IUnityContainer _container;
+        private readonly SyncContainer _syncContainer;
         private readonly IEventAggregator _eventAggregator;
 
-        public ServiceCallbackBasePriceCalculation(IUnityContainer container)
+        public ServiceCallbackBasePriceCalculation(IUnityContainer container, SyncContainer syncContainer)
         {
             _container = container;
+            _syncContainer = syncContainer;
             _eventAggregator = _container.Resolve<IEventAggregator>();
         }
 
@@ -27,7 +30,7 @@ namespace EventServiceClient2.ServiceCallbackBase
                 _container.Resolve<IRegionManager>().RequestNavigateContentRegion<PriceCalculationView>(new NavigationParameters { { nameof(PriceCalculation), priceCalculation } });
             });
 
-            _eventAggregator.GetEvent<TAfterPriceCalculationEvent>().Publish(priceCalculation);
+            _syncContainer.PublishWithinApp<PriceCalculation, TAfterPriceCalculationEvent>(priceCalculation);
             Popup.Popup.ShowPopup(message, $"{priceCalculation.Name} с Id {priceCalculation.Id}", action);
         }
     }

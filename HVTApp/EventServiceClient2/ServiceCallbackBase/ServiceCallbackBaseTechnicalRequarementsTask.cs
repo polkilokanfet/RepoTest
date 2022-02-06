@@ -31,7 +31,7 @@ namespace EventServiceClient2.ServiceCallbackBase
 
             var projectName = technicalRequrementsTask.Requrements.SelectMany(technicalRequrements => technicalRequrements.SalesUnits).First().Project.Name;
 
-            _syncContainer.Publish<TechnicalRequrementsTask, TAfterTechnicalRequrementsTaskEvent>(technicalRequrementsTask);
+            _syncContainer.PublishWithinApp<TechnicalRequrementsTask, TAfterTechnicalRequrementsTaskEvent>(technicalRequrementsTask);
             Popup.Popup.ShowPopup(message, $"Задача TCE: {projectName} (Id: {technicalRequrementsTask.Id}).", action);
         }
     }

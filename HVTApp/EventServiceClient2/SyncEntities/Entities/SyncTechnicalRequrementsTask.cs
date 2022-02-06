@@ -11,9 +11,9 @@ namespace EventServiceClient2.SyncEntities
         {
         }
 
-        protected override Action<TechnicalRequrementsTask> PublishEventAction
+        protected override void DoPublishAction(TechnicalRequrementsTask technicalRequrementsTask)
         {
-            get { return technicalRequrementsTask => this.EventServiceHost.SaveTechnicalRequarementsTaskPublishEvent(AppSessionId, technicalRequrementsTask.Id); }
+            this.EventServiceHost.SaveTechnicalRequarementsTaskPublishEvent(AppSessionId, technicalRequrementsTask.Id);
         }
     }
 
@@ -23,9 +23,9 @@ namespace EventServiceClient2.SyncEntities
         {
         }
 
-        protected override Action<TechnicalRequrementsTask> PublishEventAction
+        protected override void DoPublishAction(TechnicalRequrementsTask technicalRequrementsTask)
         {
-            get { return technicalRequrementsTask => this.EventServiceHost.StartTechnicalRequarementsTaskPublishEvent(AppSessionId, technicalRequrementsTask.Id); }
+            this.EventServiceHost.StartTechnicalRequarementsTaskPublishEvent(AppSessionId, technicalRequrementsTask.Id);
         }
     }
 
@@ -35,9 +35,9 @@ namespace EventServiceClient2.SyncEntities
         {
         }
 
-        protected override Action<TechnicalRequrementsTask> PublishEventAction
+        protected override void DoPublishAction(TechnicalRequrementsTask technicalRequrementsTask)
         {
-            get { return technicalRequrementsTask => this.EventServiceHost.InstructTechnicalRequarementsTaskPublishEvent(AppSessionId, technicalRequrementsTask.Id); }
+            this.EventServiceHost.InstructTechnicalRequarementsTaskPublishEvent(AppSessionId, technicalRequrementsTask.Id);
         }
     }
 
@@ -47,9 +47,9 @@ namespace EventServiceClient2.SyncEntities
         {
         }
 
-        protected override Action<TechnicalRequrementsTask> PublishEventAction
+        protected override void DoPublishAction(TechnicalRequrementsTask technicalRequrementsTask)
         {
-            get { return technicalRequrementsTask => this.EventServiceHost.RejectTechnicalRequarementsTaskPublishEvent(AppSessionId, technicalRequrementsTask.Id); }
+            this.EventServiceHost.RejectTechnicalRequarementsTaskPublishEvent(AppSessionId, technicalRequrementsTask.Id);
         }
     }
 
@@ -59,9 +59,9 @@ namespace EventServiceClient2.SyncEntities
         {
         }
 
-        protected override Action<TechnicalRequrementsTask> PublishEventAction
+        protected override void DoPublishAction(TechnicalRequrementsTask technicalRequrementsTask)
         {
-            get { return technicalRequrementsTask => this.EventServiceHost.RejectByFrontManagerTechnicalRequarementsTaskPublishEvent(AppSessionId, technicalRequrementsTask.Id); }
+            this.EventServiceHost.RejectByFrontManagerTechnicalRequarementsTaskPublishEvent(AppSessionId, technicalRequrementsTask.Id);
         }
     }
 
@@ -71,9 +71,9 @@ namespace EventServiceClient2.SyncEntities
         {
         }
 
-        protected override Action<TechnicalRequrementsTask> PublishEventAction
+        protected override void DoPublishAction(TechnicalRequrementsTask technicalRequrementsTask)
         {
-            get { return technicalRequrementsTask => this.EventServiceHost.FinishTechnicalRequarementsTaskPublishEvent(AppSessionId, technicalRequrementsTask.Id); }
+            this.EventServiceHost.FinishTechnicalRequarementsTaskPublishEvent(AppSessionId, technicalRequrementsTask.Id);
         }
     }
 
@@ -83,9 +83,9 @@ namespace EventServiceClient2.SyncEntities
         {
         }
 
-        protected override Action<TechnicalRequrementsTask> PublishEventAction
+        protected override void DoPublishAction(TechnicalRequrementsTask technicalRequrementsTask)
         {
-            get { return technicalRequrementsTask => this.EventServiceHost.AcceptTechnicalRequarementsTaskPublishEvent(AppSessionId, technicalRequrementsTask.Id); }
+            this.EventServiceHost.AcceptTechnicalRequarementsTaskPublishEvent(AppSessionId, technicalRequrementsTask.Id);
         }
     }
 
@@ -95,10 +95,9 @@ namespace EventServiceClient2.SyncEntities
         {
         }
 
-        protected override Action<TechnicalRequrementsTask> PublishEventAction
+        protected override void DoPublishAction(TechnicalRequrementsTask technicalRequrementsTask)
         {
-            get { return technicalRequrementsTask => this.EventServiceHost.StopTechnicalRequarementsTaskPublishEvent(AppSessionId, technicalRequrementsTask.Id); }
+            this.EventServiceHost.StopTechnicalRequarementsTaskPublishEvent(AppSessionId, technicalRequrementsTask.Id);
         }
     }
-
 }

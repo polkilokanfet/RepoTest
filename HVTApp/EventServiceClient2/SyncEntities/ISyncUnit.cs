@@ -15,10 +15,10 @@ namespace EventServiceClient2.SyncEntities
         Type EventType { get; }
 
         /// <summary>
-        /// Публикация события по модели
+        /// Публикация события только внутри текущего приложения
         /// </summary>
         /// <param name="model"></param>
-        void Publish(object model);
+        void PublishWithinApp(object model);
 
         /// <summary>
         /// Хост сервиса теперь недоступен

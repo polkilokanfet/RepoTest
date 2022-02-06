@@ -32,24 +32,21 @@ namespace EventServiceClient2.SyncEntities
 
         private void Subscribe()
         {
-            _eventAggregator.GetEvent<TAfterSaveEvent>().Subscribe(PublishByEventServiceClient, true);
+            _eventAggregator.GetEvent<TAfterSaveEvent>().Subscribe(PublishThroughEventServiceClient, true);
         }
 
         private void Unsubscribe()
         {
-            _eventAggregator.GetEvent<TAfterSaveEvent>().Unsubscribe(PublishByEventServiceClient);
+            _eventAggregator.GetEvent<TAfterSaveEvent>().Unsubscribe(PublishThroughEventServiceClient);
         }
 
-        protected virtual void DoPublishAction(TModel model)
-        {
-
-        }
+        protected abstract void DoPublishAction(TModel model);
 
         /// <summary>
         /// Публикация события через сервис синхронизации
         /// </summary>
         /// <param name="model"></param>
-        private void PublishByEventServiceClient(TModel model)
+        private void PublishThroughEventServiceClient(TModel model)
         {
             try
             {
@@ -58,8 +55,7 @@ namespace EventServiceClient2.SyncEntities
                     EventServiceHost.State != CommunicationState.Faulted &&
                     EventServiceHost.State != CommunicationState.Closed)
                 {
-                    ////публикуем действие
-                    //PublishEventAction.Invoke(model);
+                    //публикуем действие
                     DoPublishAction(model);
                 }
                 else
@@ -83,9 +79,11 @@ namespace EventServiceClient2.SyncEntities
 #endif
         }
 
-        protected abstract Action<TModel> PublishEventAction { get; }
-
-        public void Publish(object model)
+        /// <summary>
+        /// Публикация события только внутри текущего приложения
+        /// </summary>
+        /// <param name="model"></param>
+        public void PublishWithinApp(object model)
         {
             Unsubscribe();
             _eventAggregator.GetEvent<TAfterSaveEvent>().Publish((TModel)model);

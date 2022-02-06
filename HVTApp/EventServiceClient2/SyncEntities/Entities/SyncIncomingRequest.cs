@@ -11,9 +11,9 @@ namespace EventServiceClient2.SyncEntities
         {
         }
 
-        protected override Action<IncomingRequest> PublishEventAction
+        protected override void DoPublishAction(IncomingRequest incomingRequest)
         {
-            get { return incomingRequest => this.EventServiceHost.SaveIncomingRequestPublishEvent(AppSessionId, incomingRequest.Id); }
+            this.EventServiceHost.SaveIncomingRequestPublishEvent(AppSessionId, incomingRequest.Id);
         }
     }
 }

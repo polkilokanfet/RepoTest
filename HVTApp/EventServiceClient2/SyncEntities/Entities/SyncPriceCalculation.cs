@@ -11,9 +11,9 @@ namespace EventServiceClient2.SyncEntities
         {
         }
 
-        protected override Action<PriceCalculation> PublishEventAction
+        protected override void DoPublishAction(PriceCalculation priceCalculation)
         {
-            get { return priceCalculation => this.EventServiceHost.SavePriceCalculationPublishEvent(AppSessionId, priceCalculation.Id); }
+            this.EventServiceHost.SavePriceCalculationPublishEvent(AppSessionId, priceCalculation.Id);
         }
     }
 }

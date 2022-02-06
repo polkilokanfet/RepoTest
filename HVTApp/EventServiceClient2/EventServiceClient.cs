@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.ServiceModel;
 using System.Threading;
 using System.Threading.Tasks;
@@ -26,16 +27,36 @@ namespace EventServiceClient2
 
         private readonly EndpointAddress _endpointAddress;
         private readonly NetTcpBinding _netTcpBinding;
+        private SyncContainer _syncContainer;
 
         /// <summary>
         /// Хост сервиса подключен
         /// </summary>
-        private bool HostIsEnabled => EventServiceHost != null && EventServiceHost.State != CommunicationState.Faulted
-                                                               && EventServiceHost.State != CommunicationState.Closed;
+        private bool HostIsEnabled => EventServiceHost != null && 
+                                      EventServiceHost.State != CommunicationState.Faulted && 
+                                      EventServiceHost.State != CommunicationState.Closed;
 
         private ServiceReference1.EventServiceClient EventServiceHost { get; set; }
 
-        private SyncContainer SyncContainer { get; set; }
+        private SyncContainer SyncContainer
+        {
+            get => _syncContainer;
+            set
+            {
+                if (_syncContainer != null)
+                {
+                    _syncContainer.ServiceHostIsDisabled -= DisableWaitRestart;
+                    _syncContainer.Dispose();
+                }
+
+                _syncContainer = value;
+                //подписка на событие того, что хост стал недоступен
+                if (_syncContainer != null)
+                {
+                    _syncContainer.ServiceHostIsDisabled += DisableWaitRestart;
+                }
+            }
+        }
 
         public EventServiceClient(IUnityContainer container)
         {
@@ -53,6 +74,9 @@ namespace EventServiceClient2
             };
 
             _endpointAddress = new EndpointAddress(EventServiceAddresses.TcpBaseAddress);
+
+            //костыль
+            SyncContainer = new SyncContainer(_container, EventServiceHost, _appSessionId);
 
             CheckMessagesInDb();
         }
@@ -78,7 +102,7 @@ namespace EventServiceClient2
                         if (EventServiceHost.Connect(_appSessionId, _userId))
                         {
                             //конфигурация контейнера синхронизации
-                            ConfigureSyncContainer();
+                            SyncContainer = new SyncContainer(_container, EventServiceHost, _appSessionId);
 
                             //циклический пинг хоста
                             PingHost();
@@ -125,20 +149,15 @@ namespace EventServiceClient2
         /// </summary>
         private void Disable()
         {
-            //сносим старый хост
+            //сносим хост
             if (EventServiceHost != null)
             {
                 EventServiceHost.Abort();
                 EventServiceHost = null;
             }
 
-            //освобождаем старый контейнер синхронизации
-            if (SyncContainer != null)
-            {
-                SyncContainer.ServiceHostIsDisabled -= DisableWaitRestart;
-                SyncContainer.Dispose();
-                SyncContainer = null;
-            }
+            //освобождаем контейнер синхронизации
+            SyncContainer = null;
         }
 
         /// <summary>
@@ -155,45 +174,6 @@ namespace EventServiceClient2
                     Thread.Sleep(new TimeSpan(0,0,3,0));
                     this.Start();
                 }).Await();
-        }
-
-        private void ConfigureSyncContainer()
-        {
-            SyncContainer = new SyncContainer();
-            
-            //Задачи из DirectumLite
-            SyncContainer.Add(new SyncDirectumTask(_container, EventServiceHost, _appSessionId)); 
-            SyncContainer.Add(new SyncDirectumTaskStart(_container, EventServiceHost, _appSessionId));
-            SyncContainer.Add(new SyncDirectumTaskStop(_container, EventServiceHost, _appSessionId)); 
-            SyncContainer.Add(new SyncDirectumTaskPerform(_container, EventServiceHost, _appSessionId));
-            SyncContainer.Add(new SyncDirectumTaskAccept(_container, EventServiceHost, _appSessionId)); 
-            SyncContainer.Add(new SyncDirectumTaskReject(_container, EventServiceHost, _appSessionId));
-
-            //Задачи TCE
-            SyncContainer.Add(new SyncTechnicalRequrementsTask(_container, EventServiceHost, _appSessionId));
-            SyncContainer.Add(new SyncTechnicalRequrementsTaskStart(_container, EventServiceHost, _appSessionId));
-            SyncContainer.Add(new SyncTechnicalRequrementsTaskInstruct(_container, EventServiceHost, _appSessionId));
-            SyncContainer.Add(new SyncTechnicalRequrementsTaskReject(_container, EventServiceHost, _appSessionId));
-            SyncContainer.Add(new SyncTechnicalRequrementsTaskRejectByFrontManager(_container, EventServiceHost, _appSessionId));
-            SyncContainer.Add(new SyncTechnicalRequrementsTaskFinish(_container, EventServiceHost, _appSessionId));
-            SyncContainer.Add(new SyncTechnicalRequrementsTaskAccept(_container, EventServiceHost, _appSessionId));
-            SyncContainer.Add(new SyncTechnicalRequrementsTaskStop(_container, EventServiceHost, _appSessionId));
-
-            //Калькуляции себестоимости
-            SyncContainer.Add(new SyncPriceCalculation(_container, EventServiceHost, _appSessionId));       //Калькуляции себестоимости сохранение
-            SyncContainer.Add(new SyncPriceCalculationStart(_container, EventServiceHost, _appSessionId));  //Калькуляции себестоимости старт
-            SyncContainer.Add(new SyncPriceCalculationFinish(_container, EventServiceHost, _appSessionId)); //Калькуляции себестоимости финиш
-            SyncContainer.Add(new SyncPriceCalculationCancel(_container, EventServiceHost, _appSessionId)); //Калькуляции себестоимости остановка
-            SyncContainer.Add(new SyncPriceCalculationReject(_container, EventServiceHost, _appSessionId)); //Калькуляции себестоимости отклонение
-
-            //_syncContainer.Add(new SyncIncomingRequest(_container, _eventServiceClient, _appSessionId));            //Запросы
-
-            ////Входящие документы
-            //_eventAggregator.GetEvent<AfterSaveIncomingDocumentSyncEvent>().Subscribe(document => { SavePublishEvent(
-            //    () => _eventServiceClient?.SaveIncomingDocumentPublishEvent(_appSessionId, document.Id)); }, true);
-
-            //подписка на событие того, что хост стал недоступен
-            SyncContainer.ServiceHostIsDisabled += DisableWaitRestart;
         }
 
         /// <summary>
@@ -251,18 +231,29 @@ namespace EventServiceClient2
         public void CheckMessagesInDb()
         {
             IUnitOfWork unitOfWork = this._container.Resolve<IUnitOfWork>();
+            
+            //Есть ли в базе данных сообщения для текущего пользователя?
             var units = unitOfWork.Repository<EventServiceUnit>().Find(unit => unit.User.Id == GlobalAppProperties.User.Id);
 
-            foreach (var unit in units)
+            if (units.Any())
             {
-                if (unit.EventServiceActionType == EventServiceActionType.StartPriceCalculation)
+                foreach (var unit in units)
                 {
-                    if (GlobalAppProperties.User.RoleCurrent == Role.Pricer)
+                    if (unit.EventServiceActionType == EventServiceActionType.StartPriceCalculation)
                     {
-                        OnStartPriceCalculationServiceCallback(unit.TargetEntityId);
+                        if (GlobalAppProperties.User.RoleCurrent == Role.Pricer)
+                        {
+                            if (OnStartPriceCalculationServiceCallback(unit.TargetEntityId))
+                            {
+                                unitOfWork.Repository<EventServiceUnit>().Delete(unit);
+                            }
+                        }
                     }
                 }
+                
+                unitOfWork.SaveChanges();
             }
+
         }
     }
 }

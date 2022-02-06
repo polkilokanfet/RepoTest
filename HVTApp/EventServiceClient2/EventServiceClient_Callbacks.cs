@@ -55,7 +55,7 @@ namespace EventServiceClient2
             var allowPerform = directumTask.StartResult.HasValue && directumTask.Performer != null && directumTask.Performer.IsAppCurrentUser();
             if (allowPerform)
             {
-                this.SyncContainer.Publish<DirectumTask, AfterSaveDirectumTaskEvent>(directumTask);
+                this.SyncContainer.PublishWithinApp<DirectumTask, AfterSaveDirectumTaskEvent>(directumTask);
 
                 string title = "Вам поручена задача в DirectumLite";
                 string message = $"Инициатор: {directumTask.Group.Author}\nТема: \"{directumTask.Group.Title}\"";
@@ -77,7 +77,7 @@ namespace EventServiceClient2
             var isPerformer = directumTask.Performer != null && directumTask.Performer.IsAppCurrentUser();
             if (isPerformer)
             {
-                this.SyncContainer.Publish<DirectumTask, AfterSaveDirectumTaskEvent>(directumTask);
+                this.SyncContainer.PublishWithinApp<DirectumTask, AfterSaveDirectumTaskEvent>(directumTask);
 
                 string title = "Остановлена задача в DirectumLite";
                 string message = $"Инициатор: {directumTask.Group.Author}\nТема: \"{directumTask.Group.Title}\"";
@@ -101,7 +101,7 @@ namespace EventServiceClient2
 
             if (isAuthor)
             {
-                this.SyncContainer.Publish<DirectumTask, AfterSaveDirectumTaskEvent>(directumTask);
+                this.SyncContainer.PublishWithinApp<DirectumTask, AfterSaveDirectumTaskEvent>(directumTask);
 
                 string title = "Выполнена задача в DirectumLite";
                 string message = $"Исполнитель: {directumTask.Performer}\nТема: \"{directumTask.Group.Title}\"";
@@ -123,7 +123,7 @@ namespace EventServiceClient2
             var allowPerform = directumTask.StartResult.HasValue && directumTask.Performer != null && directumTask.Performer.IsAppCurrentUser();
             if (allowPerform)
             {
-                this.SyncContainer.Publish<DirectumTask, AfterSaveDirectumTaskEvent>(directumTask);
+                this.SyncContainer.PublishWithinApp<DirectumTask, AfterSaveDirectumTaskEvent>(directumTask);
 
                 string title = "Принята задача в DirectumLite";
                 string message = $"Инициатор: {directumTask.Group.Author}\nТема: \"{directumTask.Group.Title}\"";
@@ -146,7 +146,7 @@ namespace EventServiceClient2
             var allowPerform = directumTask.StartResult.HasValue && directumTask.Performer != null && directumTask.Performer.IsAppCurrentUser();
             if (allowPerform)
             {
-                this.SyncContainer.Publish<DirectumTask, AfterSaveDirectumTaskEvent>(directumTask);
+                this.SyncContainer.PublishWithinApp<DirectumTask, AfterSaveDirectumTaskEvent>(directumTask);
 
                 string title = "Не принята задача в DirectumLite";
                 string message = $"Инициатор: {directumTask.Group.Author}\nТема: \"{directumTask.Group.Title}\"";
@@ -175,7 +175,7 @@ namespace EventServiceClient2
 
             if (canInstruct || canPerform)
             {
-                this.SyncContainer.Publish<IncomingRequest, AfterSaveIncomingRequestEvent>(request);
+                this.SyncContainer.PublishWithinApp<IncomingRequest, AfterSaveIncomingRequestEvent>(request);
 
                 string message = $"{request.Document.Comment}";
                 var action = new Action(() =>
@@ -198,7 +198,7 @@ namespace EventServiceClient2
             if (canInstruct)
             {
                 var request = new IncomingRequest { Document = document };
-                this.SyncContainer.Publish<IncomingRequest, AfterSaveIncomingRequestEvent>(request);
+                this.SyncContainer.PublishWithinApp<IncomingRequest, AfterSaveIncomingRequestEvent>(request);
 
                 string message = $"{document.Comment}";
                 var action = new Action(() =>
@@ -397,7 +397,7 @@ namespace EventServiceClient2
 
             if (isProjectManager || isInitiator || GlobalAppProperties.User.RoleCurrent == Role.Pricer)
             {
-                this.SyncContainer.Publish<PriceCalculation, AfterSavePriceCalculationEvent>(calculation);
+                this.SyncContainer.PublishWithinApp<PriceCalculation, AfterSavePriceCalculationEvent>(calculation);
             }
         }
 
@@ -411,7 +411,7 @@ namespace EventServiceClient2
 
             if (GlobalAppProperties.User.RoleCurrent == Role.Pricer)
             {
-                (new ServiceCallbackBasePriceCalculation<AfterSavePriceCalculationEvent>(_container)).Start(calculation, $"Запущен: {calculation.Name}");
+                (new ServiceCallbackBasePriceCalculation<AfterSavePriceCalculationEvent>(_container, _syncContainer)).Start(calculation, $"Запущен: {calculation.Name}");
                 return true;
             }
 
@@ -432,8 +432,8 @@ namespace EventServiceClient2
 
             if (isProjectManager || isInitiator)
             {
-                this.SyncContainer.Publish<PriceCalculation, AfterSavePriceCalculationEvent>(calculation);
-                (new ServiceCallbackBasePriceCalculation<AfterFinishPriceCalculationEvent>(_container)).Start(calculation, $"Завершен: {calculation.Name}");
+                this.SyncContainer.PublishWithinApp<PriceCalculation, AfterSavePriceCalculationEvent>(calculation);
+                (new ServiceCallbackBasePriceCalculation<AfterFinishPriceCalculationEvent>(_container, _syncContainer)).Start(calculation, $"Завершен: {calculation.Name}");
             }
         }
 
@@ -447,8 +447,8 @@ namespace EventServiceClient2
 
             if (GlobalAppProperties.User.RoleCurrent == Role.Pricer)
             {
-                this.SyncContainer.Publish<PriceCalculation, AfterSavePriceCalculationEvent>(calculation);
-                (new ServiceCallbackBasePriceCalculation<AfterCancelPriceCalculationEvent>(_container)).Start(calculation, $"Остановлен: {calculation.Name}");
+                this.SyncContainer.PublishWithinApp<PriceCalculation, AfterSavePriceCalculationEvent>(calculation);
+                (new ServiceCallbackBasePriceCalculation<AfterCancelPriceCalculationEvent>(_container, _syncContainer)).Start(calculation, $"Остановлен: {calculation.Name}");
             }
         }
 
@@ -462,8 +462,8 @@ namespace EventServiceClient2
 
             if (calculation.Initiator.IsAppCurrentUser())
             {
-                this.SyncContainer.Publish<PriceCalculation, AfterSavePriceCalculationEvent>(calculation);
-                (new ServiceCallbackBasePriceCalculation<AfterRejectPriceCalculationEvent>(_container)).Start(calculation, $"Отклонен: {calculation.Name}\nКомментарий: {calculation.LastHistoryItem.Comment}");
+                this.SyncContainer.PublishWithinApp<PriceCalculation, AfterSavePriceCalculationEvent>(calculation);
+                (new ServiceCallbackBasePriceCalculation<AfterRejectPriceCalculationEvent>(_container, _syncContainer)).Start(calculation, $"Отклонен: {calculation.Name}\nКомментарий: {calculation.LastHistoryItem.Comment}");
             }
         }
 
