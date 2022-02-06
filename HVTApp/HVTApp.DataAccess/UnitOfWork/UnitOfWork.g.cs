@@ -46,6 +46,9 @@ namespace HVTApp.DataAccess
             DocumentNumberRepository = new DocumentNumberRepository(_context);
             DocumentNumberRepository.OperationFailedEvent += OnOperationFailedEvent;
 
+            EventServiceUnitRepository = new EventServiceUnitRepository(_context);
+            EventServiceUnitRepository.OperationFailedEvent += OnOperationFailedEvent;
+
             IncomingRequestRepository = new IncomingRequestRepository(_context);
             IncomingRequestRepository.OperationFailedEvent += OnOperationFailedEvent;
 
@@ -292,6 +295,7 @@ namespace HVTApp.DataAccess
             DirectumTaskGroupFileRepository.OperationFailedEvent -= OnOperationFailedEvent;
             DirectumTaskMessageRepository.OperationFailedEvent -= OnOperationFailedEvent;
             DocumentNumberRepository.OperationFailedEvent -= OnOperationFailedEvent;
+            EventServiceUnitRepository.OperationFailedEvent -= OnOperationFailedEvent;
             IncomingRequestRepository.OperationFailedEvent -= OnOperationFailedEvent;
             LaborHourCostRepository.OperationFailedEvent -= OnOperationFailedEvent;
             LaborHoursRepository.OperationFailedEvent -= OnOperationFailedEvent;
@@ -385,6 +389,7 @@ namespace HVTApp.DataAccess
         protected IDirectumTaskGroupFileRepository DirectumTaskGroupFileRepository;
         protected IDirectumTaskMessageRepository DirectumTaskMessageRepository;
         protected IDocumentNumberRepository DocumentNumberRepository;
+        protected IEventServiceUnitRepository EventServiceUnitRepository;
         protected IIncomingRequestRepository IncomingRequestRepository;
         protected ILaborHourCostRepository LaborHourCostRepository;
         protected ILaborHoursRepository LaborHoursRepository;

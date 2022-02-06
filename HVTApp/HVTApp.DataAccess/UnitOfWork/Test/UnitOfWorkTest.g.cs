@@ -21,6 +21,7 @@ namespace HVTApp.DataAccess
             DirectumTaskGroupFileRepository = new DirectumTaskGroupFileRepositoryTest(testData);
             DirectumTaskMessageRepository = new DirectumTaskMessageRepositoryTest(testData);
             DocumentNumberRepository = new DocumentNumberRepositoryTest(testData);
+            EventServiceUnitRepository = new EventServiceUnitRepositoryTest(testData);
             IncomingRequestRepository = new IncomingRequestRepositoryTest(testData);
             LaborHourCostRepository = new LaborHourCostRepositoryTest(testData);
             LaborHoursRepository = new LaborHoursRepositoryTest(testData);
@@ -116,6 +117,7 @@ namespace HVTApp.DataAccess
         public IDirectumTaskGroupFileRepository DirectumTaskGroupFileRepository { get; }
         public IDirectumTaskMessageRepository DirectumTaskMessageRepository { get; }
         public IDocumentNumberRepository DocumentNumberRepository { get; }
+        public IEventServiceUnitRepository EventServiceUnitRepository { get; }
         public IIncomingRequestRepository IncomingRequestRepository { get; }
         public ILaborHourCostRepository LaborHourCostRepository { get; }
         public ILaborHoursRepository LaborHoursRepository { get; }

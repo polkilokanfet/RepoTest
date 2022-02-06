@@ -99,11 +99,11 @@ namespace EventServiceClient2.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/SavePriceCalculationPublishEvent")]
         System.Threading.Tasks.Task SavePriceCalculationPublishEventAsync(System.Guid appSessionId, System.Guid priceCalculationId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/StartPriceCalculationPublishEvent")]
-        void StartPriceCalculationPublishEvent(System.Guid appSessionId, System.Guid priceCalculationId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/StartPriceCalculationPublishEvent", ReplyAction="http://tempuri.org/IEventService/StartPriceCalculationPublishEventResponse")]
+        System.Guid[] StartPriceCalculationPublishEvent(System.Guid appSessionId, System.Guid priceCalculationId, System.Guid[] targetUsersIds);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/StartPriceCalculationPublishEvent")]
-        System.Threading.Tasks.Task StartPriceCalculationPublishEventAsync(System.Guid appSessionId, System.Guid priceCalculationId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/StartPriceCalculationPublishEvent", ReplyAction="http://tempuri.org/IEventService/StartPriceCalculationPublishEventResponse")]
+        System.Threading.Tasks.Task<System.Guid[]> StartPriceCalculationPublishEventAsync(System.Guid appSessionId, System.Guid priceCalculationId, System.Guid[] targetUsersIds);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/FinishPriceCalculationPublishEvent")]
         void FinishPriceCalculationPublishEvent(System.Guid appSessionId, System.Guid priceCalculationId);
@@ -222,8 +222,8 @@ namespace EventServiceClient2.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnSavePriceCalculationServiceCallback")]
         void OnSavePriceCalculationServiceCallback(System.Guid calculationId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnStartPriceCalculationServiceCallback")]
-        void OnStartPriceCalculationServiceCallback(System.Guid calculationId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/OnStartPriceCalculationServiceCallback", ReplyAction="http://tempuri.org/IEventService/OnStartPriceCalculationServiceCallbackResponse")]
+        bool OnStartPriceCalculationServiceCallback(System.Guid calculationId);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnFinishPriceCalculationServiceCallback")]
         void OnFinishPriceCalculationServiceCallback(System.Guid calculationId);
@@ -413,12 +413,12 @@ namespace EventServiceClient2.ServiceReference1 {
             return base.Channel.SavePriceCalculationPublishEventAsync(appSessionId, priceCalculationId);
         }
         
-        public void StartPriceCalculationPublishEvent(System.Guid appSessionId, System.Guid priceCalculationId) {
-            base.Channel.StartPriceCalculationPublishEvent(appSessionId, priceCalculationId);
+        public System.Guid[] StartPriceCalculationPublishEvent(System.Guid appSessionId, System.Guid priceCalculationId, System.Guid[] targetUsersIds) {
+            return base.Channel.StartPriceCalculationPublishEvent(appSessionId, priceCalculationId, targetUsersIds);
         }
         
-        public System.Threading.Tasks.Task StartPriceCalculationPublishEventAsync(System.Guid appSessionId, System.Guid priceCalculationId) {
-            return base.Channel.StartPriceCalculationPublishEventAsync(appSessionId, priceCalculationId);
+        public System.Threading.Tasks.Task<System.Guid[]> StartPriceCalculationPublishEventAsync(System.Guid appSessionId, System.Guid priceCalculationId, System.Guid[] targetUsersIds) {
+            return base.Channel.StartPriceCalculationPublishEventAsync(appSessionId, priceCalculationId, targetUsersIds);
         }
         
         public void FinishPriceCalculationPublishEvent(System.Guid appSessionId, System.Guid priceCalculationId) {

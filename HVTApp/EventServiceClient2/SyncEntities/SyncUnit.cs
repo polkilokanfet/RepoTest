@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ServiceModel;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
@@ -13,7 +14,7 @@ namespace EventServiceClient2.SyncEntities
         where TModel : BaseEntity
     {
         private readonly IEventAggregator _eventAggregator;
-        private readonly IMessageService _messageService;
+        protected readonly IUnitOfWork UnitOfWork;
         protected readonly ServiceReference1.EventServiceClient EventServiceHost;
         protected readonly Guid AppSessionId;
 
@@ -23,7 +24,7 @@ namespace EventServiceClient2.SyncEntities
         protected SyncUnit(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId)
         {
             _eventAggregator = container.Resolve<IEventAggregator>();
-            _messageService = container.Resolve<IMessageService>();
+            UnitOfWork = container.Resolve<IUnitOfWork>();
             EventServiceHost = eventServiceHost;
             AppSessionId = appSessionId;
             Subscribe();
@@ -39,6 +40,11 @@ namespace EventServiceClient2.SyncEntities
             _eventAggregator.GetEvent<TAfterSaveEvent>().Unsubscribe(PublishByEventServiceClient);
         }
 
+        protected virtual void DoPublishAction(TModel model)
+        {
+
+        }
+
         /// <summary>
         /// Публикация события через сервис синхронизации
         /// </summary>
@@ -47,14 +53,18 @@ namespace EventServiceClient2.SyncEntities
         {
             try
             {
+                //если хост есть и он в рабочем состоянии
                 if (EventServiceHost != null && 
                     EventServiceHost.State != CommunicationState.Faulted &&
                     EventServiceHost.State != CommunicationState.Closed)
                 {
-                    PublishEventAction.Invoke(model);
+                    ////публикуем действие
+                    //PublishEventAction.Invoke(model);
+                    DoPublishAction(model);
                 }
                 else
                 {
+                    //кидаем событие
                     ServiceHostDisabled?.Invoke();
                 }
             }
@@ -64,10 +74,13 @@ namespace EventServiceClient2.SyncEntities
                 //кидаем событие
                 ServiceHostDisabled?.Invoke();
             }
+#if DEBUG
+#else
             catch (Exception e)
             {
                 _messageService.ShowOkMessageDialog(e.GetType().FullName, e.PrintAllExceptions());
             }
+#endif
         }
 
         protected abstract Action<TModel> PublishEventAction { get; }

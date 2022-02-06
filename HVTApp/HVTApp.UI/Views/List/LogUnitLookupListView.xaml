@@ -44,6 +44,7 @@
                         <infg:TextField Name="Head" Label="Заголовок" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Message" Label="Сообщение" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
+
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>
 

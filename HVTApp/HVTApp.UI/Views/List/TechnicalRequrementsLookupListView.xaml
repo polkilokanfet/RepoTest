@@ -40,10 +40,13 @@
 					<infg:FieldLayout.Fields>
 
                         <infg:TextField Name="SalesUnits" Label="Юниты" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                        <infg:DateTimeField Name="OrderInTakeDate" Label="ОИТ" Width="Auto" AllowResize="True" />
+                        <infg:DateTimeField Name="RealizationDate" Label="Дата реализации" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Files" Label="Файлы" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="IsActual" Label="Актуально" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
+
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>
 

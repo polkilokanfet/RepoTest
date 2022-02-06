@@ -906,6 +906,58 @@ namespace HVTApp.Model.Wrapper
 
 	}
 
+		public partial class EventServiceUnitWrapper : WrapperBase<EventServiceUnit>
+	{
+	    public EventServiceUnitWrapper(EventServiceUnit model) : base(model) { }
+
+        #region SimpleProperties
+
+        //TargetEntityId
+        public System.Guid TargetEntityId
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid TargetEntityIdOriginalValue => GetOriginalValue<System.Guid>(nameof(TargetEntityId));
+        public bool TargetEntityIdIsChanged => GetIsChanged(nameof(TargetEntityId));
+
+        //EventServiceActionType
+        public HVTApp.Model.POCOs.EventServiceActionType EventServiceActionType
+        {
+          get { return GetValue<HVTApp.Model.POCOs.EventServiceActionType>(); }
+          set { SetValue(value); }
+        }
+        public HVTApp.Model.POCOs.EventServiceActionType EventServiceActionTypeOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.EventServiceActionType>(nameof(EventServiceActionType));
+        public bool EventServiceActionTypeIsChanged => GetIsChanged(nameof(EventServiceActionType));
+
+        //Id
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+        #endregion
+
+        #region ComplexProperties
+
+	    public UserWrapper User 
+        {
+            get { return GetWrapper<UserWrapper>(); }
+            set { SetComplexValue<User, UserWrapper>(User, value); }
+        }
+
+        #endregion
+
+        public override void InitializeComplexProperties()
+        {
+            InitializeComplexProperty<UserWrapper>(nameof(User), Model.User == null ? null : new UserWrapper(Model.User));
+        }
+
+	}
+
 		public partial class IncomingRequestWrapper : WrapperBase<IncomingRequest>
 	{
 	    public IncomingRequestWrapper(IncomingRequest model) : base(model) { }
@@ -1645,6 +1697,14 @@ namespace HVTApp.Model.Wrapper
         public IValidatableChangeTrackingCollection<SalesUnitWrapper> SalesUnits { get; private set; }
 
         public IValidatableChangeTrackingCollection<StructureCostWrapper> StructureCosts { get; private set; }
+
+        #endregion
+
+        #region GetProperties
+
+        public System.Boolean HasPrice => GetValue<System.Boolean>(); 
+
+        public System.Nullable<System.Double> Price => GetValue<System.Nullable<System.Double>>(); 
 
         #endregion
 
@@ -3605,15 +3665,6 @@ namespace HVTApp.Model.Wrapper
         public System.String DesignOriginalValue => GetOriginalValue<System.String>(nameof(Design));
         public bool DesignIsChanged => GetIsChanged(nameof(Design));
 
-        //IsDelivery
-        public System.Boolean IsDelivery
-        {
-          get { return GetValue<System.Boolean>(); }
-          set { SetValue(value); }
-        }
-        public System.Boolean IsDeliveryOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsDelivery));
-        public bool IsDeliveryIsChanged => GetIsChanged(nameof(IsDelivery));
-
         //Weight
         public System.Double Weight
         {
@@ -3622,6 +3673,15 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Double WeightOriginalValue => GetOriginalValue<System.Double>(nameof(Weight));
         public bool WeightIsChanged => GetIsChanged(nameof(Weight));
+
+        //IsDelivery
+        public System.Boolean IsDelivery
+        {
+          get { return GetValue<System.Boolean>(); }
+          set { SetValue(value); }
+        }
+        public System.Boolean IsDeliveryOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsDelivery));
+        public bool IsDeliveryIsChanged => GetIsChanged(nameof(IsDelivery));
 
         //Id
         public System.Guid Id
@@ -3650,6 +3710,8 @@ namespace HVTApp.Model.Wrapper
 
         public System.Boolean HasPrice => GetValue<System.Boolean>(); 
 
+        public System.Nullable<System.DateTime> LastPriceDate => GetValue<System.Nullable<System.DateTime>>(); 
+
         public System.Boolean HasFixedPrice => GetValue<System.Boolean>(); 
 
         public System.Boolean IsNew => GetValue<System.Boolean>(); 
@@ -3657,8 +3719,6 @@ namespace HVTApp.Model.Wrapper
         public System.Boolean IsService => GetValue<System.Boolean>(); 
 
         public System.Boolean IsSupervision => GetValue<System.Boolean>(); 
-
-        public System.Nullable<System.DateTime> LastPriceDate => GetValue<System.Nullable<System.DateTime>>(); 
 
         public HVTApp.Model.POCOs.ProductType ProductType => GetValue<HVTApp.Model.POCOs.ProductType>(); 
 

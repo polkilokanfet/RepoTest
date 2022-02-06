@@ -17,6 +17,7 @@ namespace HVTApp.DataAccess
     public partial interface IDirectumTaskGroupFileRepository : IRepository<DirectumTaskGroupFile> { }
     public partial interface IDirectumTaskMessageRepository : IRepository<DirectumTaskMessage> { }
     public partial interface IDocumentNumberRepository : IRepository<DocumentNumber> { }
+    public partial interface IEventServiceUnitRepository : IRepository<EventServiceUnit> { }
     public partial interface IIncomingRequestRepository : IRepository<IncomingRequest> { }
     public partial interface ILaborHourCostRepository : IRepository<LaborHourCost> { }
     public partial interface ILaborHoursRepository : IRepository<LaborHours> { }

@@ -518,6 +518,38 @@ namespace HVTApp.UI.Lookup
 	}
 
 	[AllowEditAttribute(Role.Admin)]
+	[Designation("EventServiceUnit")]
+	public partial class EventServiceUnitLookup : LookupItem<EventServiceUnit>
+	{
+		public EventServiceUnitLookup(EventServiceUnit entity) : base(entity) 
+		{
+		}
+		
+
+        #region SimpleProperties
+
+		[OrderStatus(5)]
+        public System.Guid TargetEntityId => Entity.TargetEntityId;
+
+
+		[OrderStatus(7)]
+        public HVTApp.Model.POCOs.EventServiceActionType EventServiceActionType => Entity.EventServiceActionType;
+
+
+        #endregion
+
+
+        #region ComplexProperties
+
+		[OrderStatus(10)]
+	    public UserLookup User { get { return GetLookup<UserLookup>(); } }
+
+
+        #endregion
+
+	}
+
+	[AllowEditAttribute(Role.Admin)]
 	[Designation("Входящий запрос")]
 	public partial class IncomingRequestLookup : LookupItem<IncomingRequest>
 	{
@@ -939,6 +971,14 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
         public System.Nullable<System.DateTime> RealizationDate => Entity.RealizationDate;
+
+
+		[OrderStatus(1)]
+        public System.Boolean HasPrice => Entity.HasPrice;
+
+
+		[OrderStatus(1)]
+        public System.Nullable<System.Double> Price => Entity.Price;
 
 
         #endregion
@@ -2059,7 +2099,15 @@ namespace HVTApp.UI.Lookup
 
 
 		[OrderStatus(1)]
+        public System.Double Weight => Entity.Weight;
+
+
+		[OrderStatus(1)]
         public System.Boolean HasPrice => Entity.HasPrice;
+
+
+		[OrderStatus(1)]
+        public System.Nullable<System.DateTime> LastPriceDate => Entity.LastPriceDate;
 
 
 		[OrderStatus(1)]
@@ -2080,14 +2128,6 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
         public System.Boolean IsDelivery => Entity.IsDelivery;
-
-
-		[OrderStatus(1)]
-        public System.Double Weight => Entity.Weight;
-
-
-		[OrderStatus(1)]
-        public System.Nullable<System.DateTime> LastPriceDate => Entity.LastPriceDate;
 
 
         #endregion

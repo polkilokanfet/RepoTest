@@ -97,6 +97,7 @@
     <Compile Include="POCOs\Directum\DirectumTaskPriority.cs" />
     <Compile Include="POCOs\Directum\DirectumTaskMessage.cs" />
     <Compile Include="POCOs\DocumentNumber.cs" />
+    <Compile Include="POCOs\EventServiceUnit.cs" />
     <Compile Include="POCOs\IncomingRequest.cs" />
     <Compile Include="POCOs\ISumOnDate.cs" />
     <Compile Include="POCOs\LaborHourCost.cs" />

@@ -42,6 +42,7 @@
                         <infg:DateTimeField Name="Moment" Label="Момент" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="TechnicalRequrementsTaskId" Label="TechnicalRequrementsTaskId" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
+
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>
 

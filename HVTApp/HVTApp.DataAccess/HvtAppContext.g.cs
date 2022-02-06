@@ -23,6 +23,7 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new DirectumTaskGroupFileConfiguration());
             modelBuilder.Configurations.Add(new DirectumTaskMessageConfiguration());
             modelBuilder.Configurations.Add(new DocumentNumberConfiguration());
+            modelBuilder.Configurations.Add(new EventServiceUnitConfiguration());
             modelBuilder.Configurations.Add(new IncomingRequestConfiguration());
             modelBuilder.Configurations.Add(new LaborHourCostConfiguration());
             modelBuilder.Configurations.Add(new LaborHoursConfiguration());
@@ -117,6 +118,7 @@ namespace HVTApp.DataAccess
         public virtual DbSet<DirectumTaskGroupFile> DirectumTaskGroupFileDbSet { get; set; }
         public virtual DbSet<DirectumTaskMessage> DirectumTaskMessageDbSet { get; set; }
         public virtual DbSet<DocumentNumber> DocumentNumberDbSet { get; set; }
+        public virtual DbSet<EventServiceUnit> EventServiceUnitDbSet { get; set; }
         public virtual DbSet<IncomingRequest> IncomingRequestDbSet { get; set; }
         public virtual DbSet<LaborHourCost> LaborHourCostDbSet { get; set; }
         public virtual DbSet<LaborHours> LaborHoursDbSet { get; set; }

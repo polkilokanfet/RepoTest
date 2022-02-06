@@ -44,6 +44,7 @@
                         <infg:TextField Name="StructureCost" Label="StructureCost" Width="Auto" AllowResize="True" />
                         <infg:NumericField Name="Price" Label="Себестоимость" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
+
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>
 

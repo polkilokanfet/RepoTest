@@ -17,6 +17,7 @@ namespace HVTApp.Model.Events
 	public partial class AfterRemoveDirectumTaskGroupFileEvent : PubSubEvent<DirectumTaskGroupFile> { }
 	public partial class AfterRemoveDirectumTaskMessageEvent : PubSubEvent<DirectumTaskMessage> { }
 	public partial class AfterRemoveDocumentNumberEvent : PubSubEvent<DocumentNumber> { }
+	public partial class AfterRemoveEventServiceUnitEvent : PubSubEvent<EventServiceUnit> { }
 	public partial class AfterRemoveIncomingRequestEvent : PubSubEvent<IncomingRequest> { }
 	public partial class AfterRemoveLaborHourCostEvent : PubSubEvent<LaborHourCost> { }
 	public partial class AfterRemoveLaborHoursEvent : PubSubEvent<LaborHours> { }

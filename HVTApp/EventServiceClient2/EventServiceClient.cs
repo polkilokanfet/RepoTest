@@ -8,8 +8,11 @@ using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.EventService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
+using HVTApp.Model.Events;
+using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using Microsoft.Practices.Unity;
+using IEventServiceCallback = EventServiceClient2.ServiceReference1.IEventServiceCallback;
 
 namespace EventServiceClient2
 {
@@ -50,6 +53,8 @@ namespace EventServiceClient2
             };
 
             _endpointAddress = new EndpointAddress(EventServiceAddresses.TcpBaseAddress);
+
+            CheckMessagesInDb();
         }
 
         public void Start()
@@ -241,6 +246,23 @@ namespace EventServiceClient2
             }
 
             return false;
+        }
+
+        public void CheckMessagesInDb()
+        {
+            IUnitOfWork unitOfWork = this._container.Resolve<IUnitOfWork>();
+            var units = unitOfWork.Repository<EventServiceUnit>().Find(unit => unit.User.Id == GlobalAppProperties.User.Id);
+
+            foreach (var unit in units)
+            {
+                if (unit.EventServiceActionType == EventServiceActionType.StartPriceCalculation)
+                {
+                    if (GlobalAppProperties.User.RoleCurrent == Role.Pricer)
+                    {
+                        OnStartPriceCalculationServiceCallback(unit.TargetEntityId);
+                    }
+                }
+            }
         }
     }
 }

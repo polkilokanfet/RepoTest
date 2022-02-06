@@ -17,6 +17,7 @@ namespace HVTApp.DataAccess
     public partial class DirectumTaskGroupFileConfiguration : EntityTypeConfiguration<DirectumTaskGroupFile> { }
     public partial class DirectumTaskMessageConfiguration : EntityTypeConfiguration<DirectumTaskMessage> { }
     public partial class DocumentNumberConfiguration : EntityTypeConfiguration<DocumentNumber> { }
+    public partial class EventServiceUnitConfiguration : EntityTypeConfiguration<EventServiceUnit> { }
     public partial class IncomingRequestConfiguration : EntityTypeConfiguration<IncomingRequest> { }
     public partial class LaborHourCostConfiguration : EntityTypeConfiguration<LaborHourCost> { }
     public partial class LaborHoursConfiguration : EntityTypeConfiguration<LaborHours> { }

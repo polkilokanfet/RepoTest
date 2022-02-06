@@ -65,10 +65,10 @@ namespace HVTApp.Model.POCOs
 
                 var facilities = PriceCalculationItems
                     .SelectMany(priceCalculationItem => priceCalculationItem.SalesUnits)
-                    .Select(salesUnit => salesUnit.Facility)
+                    .Select(salesUnit => salesUnit.Facility?.ToString())
                     .Distinct()
                     .ToStringEnum(",");
-                return $"Расчет стоимости оборудования для {facilities}";
+                return $"Расчет ПЗ для: {facilities}";
             }
         }
 

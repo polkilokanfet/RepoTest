@@ -42,6 +42,7 @@
                         <infg:NumericField Name="ProductionTerm" Label="Срок производства" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Parameters" Label="Параметры оборудования" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
+
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>
 

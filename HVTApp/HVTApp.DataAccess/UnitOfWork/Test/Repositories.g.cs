@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using HVTApp.TestDataGenerator;
 using HVTApp.Model.POCOs;
 
@@ -72,6 +71,11 @@ namespace HVTApp.DataAccess
     public partial class DocumentNumberRepositoryTest : TestBaseRepository<DocumentNumber>, IDocumentNumberRepository
     {
         public DocumentNumberRepositoryTest(TestData testData) : base(testData) {}
+    }
+
+    public partial class EventServiceUnitRepositoryTest : TestBaseRepository<EventServiceUnit>, IEventServiceUnitRepository
+    {
+        public EventServiceUnitRepositoryTest(TestData testData) : base(testData) {}
     }
 
     public partial class IncomingRequestRepositoryTest : TestBaseRepository<IncomingRequest>, IIncomingRequestRepository

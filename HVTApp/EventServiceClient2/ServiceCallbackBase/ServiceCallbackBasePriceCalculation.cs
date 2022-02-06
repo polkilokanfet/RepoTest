@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Linq;
-using EventServiceClient2.SyncEntities;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.PriceCalculations.View;
@@ -11,15 +9,15 @@ using Prism.Regions;
 namespace EventServiceClient2.ServiceCallbackBase
 {
     public class ServiceCallbackBasePriceCalculation<TAfterPriceCalculationEvent>
-        where TAfterPriceCalculationEvent : PubSubEvent<PriceCalculation>
+        where TAfterPriceCalculationEvent : PubSubEvent<PriceCalculation>, new()
     {
         private readonly IUnityContainer _container;
-        private readonly SyncContainer _syncContainer;
+        private readonly IEventAggregator _eventAggregator;
 
-        public ServiceCallbackBasePriceCalculation(IUnityContainer container, SyncContainer syncContainer)
+        public ServiceCallbackBasePriceCalculation(IUnityContainer container)
         {
             _container = container;
-            _syncContainer = syncContainer;
+            _eventAggregator = _container.Resolve<IEventAggregator>();
         }
 
         public void Start(PriceCalculation priceCalculation, string message)
@@ -29,13 +27,8 @@ namespace EventServiceClient2.ServiceCallbackBase
                 _container.Resolve<IRegionManager>().RequestNavigateContentRegion<PriceCalculationView>(new NavigationParameters { { nameof(PriceCalculation), priceCalculation } });
             });
 
-            var facilities = priceCalculation.PriceCalculationItems
-                .SelectMany(priceCalculationItem => priceCalculationItem.SalesUnits)
-                .Select(salesUnit => salesUnit.Facility.ToString())
-                .Distinct().ToStringEnum(",");
-
-            _syncContainer.Publish<PriceCalculation, TAfterPriceCalculationEvent>(priceCalculation);
-            Popup.Popup.ShowPopup(message, $"Расчет ПЗ для {facilities} с Id {priceCalculation.Id}", action);
+            _eventAggregator.GetEvent<TAfterPriceCalculationEvent>().Publish(priceCalculation);
+            Popup.Popup.ShowPopup(message, $"{priceCalculation.Name} с Id {priceCalculation.Id}", action);
         }
     }
 }

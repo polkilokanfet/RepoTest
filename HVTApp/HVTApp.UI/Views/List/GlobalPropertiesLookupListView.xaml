@@ -73,6 +73,7 @@
                         <infg:TextField Name="ComplectDesignationGroup" Label="Группа параметров обозначения комплекта или детали" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:TextField Name="ComplectsGroup" Label="Группа типа комплекта или детали" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
+
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>
 

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ServiceModel;
 
 namespace HVTApp.Infrastructure.Interfaces.Services.EventService
@@ -83,8 +84,15 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
         [OperationContract(IsOneWay = true)]
         void SavePriceCalculationPublishEvent(Guid appSessionId, Guid priceCalculationId);
 
-        [OperationContract(IsOneWay = true)]
-        void StartPriceCalculationPublishEvent(Guid appSessionId, Guid priceCalculationId);
+        /// <summary>
+        /// Публикация события старта расчета ПЗ
+        /// </summary>
+        /// <param name="appSessionId"></param>
+        /// <param name="priceCalculationId"></param>
+        /// <param name="targetUsersIds">Пользователи, которые должны были получить сообщение, но не получили его.</param>
+        /// <returns></returns>
+        [OperationContract]
+        IEnumerable<Guid> StartPriceCalculationPublishEvent(Guid appSessionId, Guid priceCalculationId, IEnumerable<Guid> targetUsersIds);
 
         [OperationContract(IsOneWay = true)]
         void FinishPriceCalculationPublishEvent(Guid appSessionId, Guid priceCalculationId);

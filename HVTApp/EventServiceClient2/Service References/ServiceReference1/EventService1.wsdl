@@ -16,6 +16,7 @@
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:8301/EventService.EventService?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:8301/EventService.EventService?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:8301/EventService.EventService?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IEventService_Connect_InputMessage">
@@ -83,6 +84,9 @@
   </wsdl:message>
   <wsdl:message name="IEventService_StartPriceCalculationPublishEvent_InputMessage">
     <wsdl:part name="parameters" element="tns:StartPriceCalculationPublishEvent" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_StartPriceCalculationPublishEvent_OutputMessage">
+    <wsdl:part name="parameters" element="tns:StartPriceCalculationPublishEventResponse" />
   </wsdl:message>
   <wsdl:message name="IEventService_FinishPriceCalculationPublishEvent_InputMessage">
     <wsdl:part name="parameters" element="tns:FinishPriceCalculationPublishEvent" />
@@ -158,6 +162,9 @@
   </wsdl:message>
   <wsdl:message name="IEventService_OnStartPriceCalculationServiceCallback_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnStartPriceCalculationServiceCallback" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_OnStartPriceCalculationServiceCallback_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnStartPriceCalculationServiceCallbackResponse" />
   </wsdl:message>
   <wsdl:message name="IEventService_OnFinishPriceCalculationServiceCallback_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnFinishPriceCalculationServiceCallback" />
@@ -256,6 +263,7 @@
     </wsdl:operation>
     <wsdl:operation name="StartPriceCalculationPublishEvent">
       <wsdl:input wsaw:Action="http://tempuri.org/IEventService/StartPriceCalculationPublishEvent" message="tns:IEventService_StartPriceCalculationPublishEvent_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/StartPriceCalculationPublishEventResponse" message="tns:IEventService_StartPriceCalculationPublishEvent_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="FinishPriceCalculationPublishEvent">
       <wsdl:input wsaw:Action="http://tempuri.org/IEventService/FinishPriceCalculationPublishEvent" message="tns:IEventService_FinishPriceCalculationPublishEvent_InputMessage" />
@@ -331,6 +339,7 @@
     </wsdl:operation>
     <wsdl:operation name="OnStartPriceCalculationServiceCallback">
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnStartPriceCalculationServiceCallback" message="tns:IEventService_OnStartPriceCalculationServiceCallback_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/OnStartPriceCalculationServiceCallbackResponse" message="tns:IEventService_OnStartPriceCalculationServiceCallback_InputCallbackMessage" />
     </wsdl:operation>
     <wsdl:operation name="OnFinishPriceCalculationServiceCallback">
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnFinishPriceCalculationServiceCallback" message="tns:IEventService_OnFinishPriceCalculationServiceCallback_OutputCallbackMessage" />
@@ -489,6 +498,9 @@
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FinishPriceCalculationPublishEvent">
       <soap12:operation soapAction="http://tempuri.org/IEventService/FinishPriceCalculationPublishEvent" style="document" />
@@ -636,6 +648,9 @@
     </wsdl:operation>
     <wsdl:operation name="OnStartPriceCalculationServiceCallback">
       <soap12:operation soapAction="http://tempuri.org/IEventService/OnStartPriceCalculationServiceCallback" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>

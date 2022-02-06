@@ -46,6 +46,7 @@
                         <infg:TextField Name="ClientOrderNumber" Label="Заказ клиента" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="ServiceOrderNumber" Label="Сервисный заказ" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
+
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>
 

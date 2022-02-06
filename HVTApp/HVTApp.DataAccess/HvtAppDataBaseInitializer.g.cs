@@ -26,6 +26,7 @@ namespace HVTApp.DataAccess
             context.DirectumTaskGroupFileDbSet.AddRange(testData.GetAll<DirectumTaskGroupFile>());
             context.DirectumTaskMessageDbSet.AddRange(testData.GetAll<DirectumTaskMessage>());
             context.DocumentNumberDbSet.AddRange(testData.GetAll<DocumentNumber>());
+            context.EventServiceUnitDbSet.AddRange(testData.GetAll<EventServiceUnit>());
             context.IncomingRequestDbSet.AddRange(testData.GetAll<IncomingRequest>());
             context.LaborHourCostDbSet.AddRange(testData.GetAll<LaborHourCost>());
             context.LaborHoursDbSet.AddRange(testData.GetAll<LaborHours>());

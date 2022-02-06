@@ -49,8 +49,11 @@
                         <infg:TextField Name="SalesUnits" Label="Единицы продаж" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:DateTimeField Name="RealizationDate" Label="Дата реализации" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="PriceCalculationId" Label="PriceCalculationId" Width="Auto" AllowResize="True" />
+                        <infg:NumericField Name="Price" Label="Price" Width="Auto" AllowResize="True" />
                         <infg:DateTimeField Name="OrderInTakeDate" Label="Дата ОИТ" Width="Auto" AllowResize="True" />
+                        <infg:CheckBoxField Name="HasPrice" Label="HasPrice" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
+
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>
 
