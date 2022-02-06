@@ -7,7 +7,7 @@ namespace EventServiceClient2.SyncEntities
 {
     public class SyncPriceCalculationCancel : SyncUnit<PriceCalculation, AfterCancelPriceCalculationEvent>
     {
-        public SyncPriceCalculationCancel(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId) : base(container, eventServiceHost, appSessionId)
+        public SyncPriceCalculationCancel(IUnityContainer container) : base(container)
         {
         }
 
@@ -19,7 +19,7 @@ namespace EventServiceClient2.SyncEntities
 
     public class SyncPriceCalculationReject : SyncUnit<PriceCalculation, AfterRejectPriceCalculationEvent>
     {
-        public SyncPriceCalculationReject(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId) : base(container, eventServiceHost, appSessionId)
+        public SyncPriceCalculationReject(IUnityContainer container) : base(container)
         {
         }
 

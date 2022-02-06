@@ -7,7 +7,7 @@ namespace EventServiceClient2.SyncEntities
 {
     public class SyncIncomingRequest : SyncUnit<IncomingRequest, AfterSaveIncomingRequestEvent>
     {
-        public SyncIncomingRequest(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId) : base(container, eventServiceHost, appSessionId)
+        public SyncIncomingRequest(IUnityContainer container) : base(container)
         {
         }
 

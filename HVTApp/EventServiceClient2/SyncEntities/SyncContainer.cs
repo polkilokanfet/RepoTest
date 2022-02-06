@@ -15,32 +15,32 @@ namespace EventServiceClient2.SyncEntities
     {
         readonly List<ISyncUnit> _list = new List<ISyncUnit>();
 
-        public SyncContainer(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId)
+        public SyncContainer(IUnityContainer container)
         {
             //Задачи из DirectumLite
-            this.Add(new SyncDirectumTask(container, eventServiceHost, appSessionId));
-            this.Add(new SyncDirectumTaskStart(container, eventServiceHost, appSessionId));
-            this.Add(new SyncDirectumTaskStop(container, eventServiceHost, appSessionId));
-            this.Add(new SyncDirectumTaskPerform(container, eventServiceHost, appSessionId));
-            this.Add(new SyncDirectumTaskAccept(container, eventServiceHost, appSessionId));
-            this.Add(new SyncDirectumTaskReject(container, eventServiceHost, appSessionId));
+            this.Add(new SyncDirectumTask(container));
+            this.Add(new SyncDirectumTaskStart(container));
+            this.Add(new SyncDirectumTaskStop(container));
+            this.Add(new SyncDirectumTaskPerform(container));
+            this.Add(new SyncDirectumTaskAccept(container));
+            this.Add(new SyncDirectumTaskReject(container));
 
             //Задачи TCE
-            this.Add(new SyncTechnicalRequrementsTask(container, eventServiceHost, appSessionId));
-            this.Add(new SyncTechnicalRequrementsTaskStart(container, eventServiceHost, appSessionId));
-            this.Add(new SyncTechnicalRequrementsTaskInstruct(container, eventServiceHost, appSessionId));
-            this.Add(new SyncTechnicalRequrementsTaskReject(container, eventServiceHost, appSessionId));
-            this.Add(new SyncTechnicalRequrementsTaskRejectByFrontManager(container, eventServiceHost, appSessionId));
-            this.Add(new SyncTechnicalRequrementsTaskFinish(container, eventServiceHost, appSessionId));
-            this.Add(new SyncTechnicalRequrementsTaskAccept(container, eventServiceHost, appSessionId));
-            this.Add(new SyncTechnicalRequrementsTaskStop(container, eventServiceHost, appSessionId));
+            this.Add(new SyncTechnicalRequrementsTask(container));
+            this.Add(new SyncTechnicalRequrementsTaskStart(container));
+            this.Add(new SyncTechnicalRequrementsTaskInstruct(container));
+            this.Add(new SyncTechnicalRequrementsTaskReject(container));
+            this.Add(new SyncTechnicalRequrementsTaskRejectByFrontManager(container));
+            this.Add(new SyncTechnicalRequrementsTaskFinish(container));
+            this.Add(new SyncTechnicalRequrementsTaskAccept(container));
+            this.Add(new SyncTechnicalRequrementsTaskStop(container));
 
             //Калькуляции себестоимости
-            this.Add(new SyncPriceCalculation(container, eventServiceHost, appSessionId));       //Калькуляции себестоимости сохранение
-            this.Add(new SyncPriceCalculationStart(container, eventServiceHost, appSessionId));  //Калькуляции себестоимости старт
-            this.Add(new SyncPriceCalculationFinish(container, eventServiceHost, appSessionId)); //Калькуляции себестоимости финиш
-            this.Add(new SyncPriceCalculationCancel(container, eventServiceHost, appSessionId)); //Калькуляции себестоимости остановка
-            this.Add(new SyncPriceCalculationReject(container, eventServiceHost, appSessionId)); //Калькуляции себестоимости отклонение
+            this.Add(new SyncPriceCalculation(container));       //Калькуляции себестоимости сохранение
+            this.Add(new SyncPriceCalculationStart(container));  //Калькуляции себестоимости старт
+            this.Add(new SyncPriceCalculationFinish(container)); //Калькуляции себестоимости финиш
+            this.Add(new SyncPriceCalculationCancel(container)); //Калькуляции себестоимости остановка
+            this.Add(new SyncPriceCalculationReject(container)); //Калькуляции себестоимости отклонение
         }
 
         private void Add(ISyncUnit member)
@@ -58,6 +58,22 @@ namespace EventServiceClient2.SyncEntities
         private void MemberOnServiceHostDisabled()
         {
             this.ServiceHostIsDisabled?.Invoke();
+        }
+
+        public void Connect(ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId)
+        {
+            foreach (var syncUnit in _list)
+            {
+                syncUnit.Connect(eventServiceHost, appSessionId);
+            }
+        }
+
+        public void Disconnect()
+        {
+            foreach (var syncUnit in _list)
+            {
+                syncUnit.Disconnect();
+            }
         }
 
         /// <summary>

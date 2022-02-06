@@ -411,7 +411,7 @@ namespace EventServiceClient2
 
             if (GlobalAppProperties.User.RoleCurrent == Role.Pricer)
             {
-                (new ServiceCallbackBasePriceCalculation<AfterSavePriceCalculationEvent>(_container, _syncContainer)).Start(calculation, $"Запущен: {calculation.Name}");
+                (new ServiceCallbackBasePriceCalculation<AfterSavePriceCalculationEvent>(_container, SyncContainer)).Start(calculation, $"Запущен: {calculation.Name}");
                 return true;
             }
 
@@ -433,7 +433,7 @@ namespace EventServiceClient2
             if (isProjectManager || isInitiator)
             {
                 this.SyncContainer.PublishWithinApp<PriceCalculation, AfterSavePriceCalculationEvent>(calculation);
-                (new ServiceCallbackBasePriceCalculation<AfterFinishPriceCalculationEvent>(_container, _syncContainer)).Start(calculation, $"Завершен: {calculation.Name}");
+                (new ServiceCallbackBasePriceCalculation<AfterFinishPriceCalculationEvent>(_container, SyncContainer)).Start(calculation, $"Завершен: {calculation.Name}");
             }
         }
 
@@ -448,7 +448,7 @@ namespace EventServiceClient2
             if (GlobalAppProperties.User.RoleCurrent == Role.Pricer)
             {
                 this.SyncContainer.PublishWithinApp<PriceCalculation, AfterSavePriceCalculationEvent>(calculation);
-                (new ServiceCallbackBasePriceCalculation<AfterCancelPriceCalculationEvent>(_container, _syncContainer)).Start(calculation, $"Остановлен: {calculation.Name}");
+                (new ServiceCallbackBasePriceCalculation<AfterCancelPriceCalculationEvent>(_container, SyncContainer)).Start(calculation, $"Остановлен: {calculation.Name}");
             }
         }
 
@@ -463,7 +463,7 @@ namespace EventServiceClient2
             if (calculation.Initiator.IsAppCurrentUser())
             {
                 this.SyncContainer.PublishWithinApp<PriceCalculation, AfterSavePriceCalculationEvent>(calculation);
-                (new ServiceCallbackBasePriceCalculation<AfterRejectPriceCalculationEvent>(_container, _syncContainer)).Start(calculation, $"Отклонен: {calculation.Name}\nКомментарий: {calculation.LastHistoryItem.Comment}");
+                (new ServiceCallbackBasePriceCalculation<AfterRejectPriceCalculationEvent>(_container, SyncContainer)).Start(calculation, $"Отклонен: {calculation.Name}\nКомментарий: {calculation.LastHistoryItem.Comment}");
             }
         }
 

@@ -20,6 +20,9 @@ namespace EventServiceClient2.SyncEntities
         /// <param name="model"></param>
         void PublishWithinApp(object model);
 
+        void Connect(ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId);
+        void Disconnect();
+
         /// <summary>
         /// Хост сервиса теперь недоступен
         /// </summary>

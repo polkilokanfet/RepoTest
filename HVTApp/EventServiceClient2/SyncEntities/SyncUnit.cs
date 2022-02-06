@@ -15,18 +15,16 @@ namespace EventServiceClient2.SyncEntities
     {
         private readonly IEventAggregator _eventAggregator;
         protected readonly IUnitOfWork UnitOfWork;
-        protected readonly ServiceReference1.EventServiceClient EventServiceHost;
-        protected readonly Guid AppSessionId;
+        protected Guid AppSessionId { get; private set; }
 
+        protected ServiceReference1.EventServiceClient EventServiceHost { get; private set; }
         public Type ModelType => typeof(TModel);
         public Type EventType => typeof(TAfterSaveEvent);
 
-        protected SyncUnit(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId)
+        protected SyncUnit(IUnityContainer container)
         {
             _eventAggregator = container.Resolve<IEventAggregator>();
             UnitOfWork = container.Resolve<IUnitOfWork>();
-            EventServiceHost = eventServiceHost;
-            AppSessionId = appSessionId;
             Subscribe();
         }
 
@@ -48,11 +46,13 @@ namespace EventServiceClient2.SyncEntities
         /// <param name="model"></param>
         private void PublishThroughEventServiceClient(TModel model)
         {
+            if (EventServiceHost == null)
+                return;
+
             try
             {
                 //если хост есть и он в рабочем состоянии
-                if (EventServiceHost != null && 
-                    EventServiceHost.State != CommunicationState.Faulted &&
+                if (EventServiceHost.State != CommunicationState.Faulted &&
                     EventServiceHost.State != CommunicationState.Closed)
                 {
                     //публикуем действие
@@ -88,6 +88,17 @@ namespace EventServiceClient2.SyncEntities
             Unsubscribe();
             _eventAggregator.GetEvent<TAfterSaveEvent>().Publish((TModel)model);
             Subscribe();
+        }
+
+        public void Connect(ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId)
+        {
+            this.EventServiceHost = eventServiceHost;
+            this.AppSessionId = appSessionId;
+        }
+
+        public void Disconnect()
+        {
+            this.EventServiceHost = null;
         }
 
         /// <summary>

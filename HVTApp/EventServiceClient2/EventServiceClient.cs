@@ -27,7 +27,6 @@ namespace EventServiceClient2
 
         private readonly EndpointAddress _endpointAddress;
         private readonly NetTcpBinding _netTcpBinding;
-        private SyncContainer _syncContainer;
 
         /// <summary>
         /// Хост сервиса подключен
@@ -38,25 +37,7 @@ namespace EventServiceClient2
 
         private ServiceReference1.EventServiceClient EventServiceHost { get; set; }
 
-        private SyncContainer SyncContainer
-        {
-            get => _syncContainer;
-            set
-            {
-                if (_syncContainer != null)
-                {
-                    _syncContainer.ServiceHostIsDisabled -= DisableWaitRestart;
-                    _syncContainer.Dispose();
-                }
-
-                _syncContainer = value;
-                //подписка на событие того, что хост стал недоступен
-                if (_syncContainer != null)
-                {
-                    _syncContainer.ServiceHostIsDisabled += DisableWaitRestart;
-                }
-            }
-        }
+        private SyncContainer SyncContainer { get; }
 
         public EventServiceClient(IUnityContainer container)
         {
@@ -75,8 +56,8 @@ namespace EventServiceClient2
 
             _endpointAddress = new EndpointAddress(EventServiceAddresses.TcpBaseAddress);
 
-            //костыль
-            SyncContainer = new SyncContainer(_container, EventServiceHost, _appSessionId);
+            SyncContainer = new SyncContainer(_container);
+            SyncContainer.ServiceHostIsDisabled += DisableWaitRestart;
 
             CheckMessagesInDb();
         }
@@ -101,8 +82,8 @@ namespace EventServiceClient2
                         //коннектимся к сервису
                         if (EventServiceHost.Connect(_appSessionId, _userId))
                         {
-                            //конфигурация контейнера синхронизации
-                            SyncContainer = new SyncContainer(_container, EventServiceHost, _appSessionId);
+                            //Подключение контейнера синхронизации
+                            SyncContainer.Connect(EventServiceHost, _appSessionId);
 
                             //циклический пинг хоста
                             PingHost();
@@ -157,7 +138,7 @@ namespace EventServiceClient2
             }
 
             //освобождаем контейнер синхронизации
-            SyncContainer = null;
+            SyncContainer.Disconnect();
         }
 
         /// <summary>
@@ -253,7 +234,6 @@ namespace EventServiceClient2
                 
                 unitOfWork.SaveChanges();
             }
-
         }
     }
 }

@@ -7,7 +7,7 @@ namespace EventServiceClient2.SyncEntities
 {
     public class SyncTechnicalRequrementsTask : SyncUnit<TechnicalRequrementsTask, AfterSaveTechnicalRequrementsTaskEvent>
     {
-        public SyncTechnicalRequrementsTask(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId) : base(container, eventServiceHost, appSessionId)
+        public SyncTechnicalRequrementsTask(IUnityContainer container) : base(container)
         {
         }
 
@@ -19,7 +19,7 @@ namespace EventServiceClient2.SyncEntities
 
     public class SyncTechnicalRequrementsTaskStart : SyncUnit<TechnicalRequrementsTask, AfterStartTechnicalRequrementsTaskEvent>
     {
-        public SyncTechnicalRequrementsTaskStart(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId) : base(container, eventServiceHost, appSessionId)
+        public SyncTechnicalRequrementsTaskStart(IUnityContainer container) : base(container)
         {
         }
 
@@ -31,7 +31,7 @@ namespace EventServiceClient2.SyncEntities
 
     public class SyncTechnicalRequrementsTaskInstruct : SyncUnit<TechnicalRequrementsTask, AfterInstructTechnicalRequrementsTaskEvent>
     {
-        public SyncTechnicalRequrementsTaskInstruct(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId) : base(container, eventServiceHost, appSessionId)
+        public SyncTechnicalRequrementsTaskInstruct(IUnityContainer container) : base(container)
         {
         }
 
@@ -43,7 +43,7 @@ namespace EventServiceClient2.SyncEntities
 
     public class SyncTechnicalRequrementsTaskReject : SyncUnit<TechnicalRequrementsTask, AfterRejectTechnicalRequrementsTaskEvent>
     {
-        public SyncTechnicalRequrementsTaskReject(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId) : base(container, eventServiceHost, appSessionId)
+        public SyncTechnicalRequrementsTaskReject(IUnityContainer container) : base(container)
         {
         }
 
@@ -55,7 +55,7 @@ namespace EventServiceClient2.SyncEntities
 
     public class SyncTechnicalRequrementsTaskRejectByFrontManager : SyncUnit<TechnicalRequrementsTask, AfterRejectByFrontManagerTechnicalRequrementsTaskEvent>
     {
-        public SyncTechnicalRequrementsTaskRejectByFrontManager(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId) : base(container, eventServiceHost, appSessionId)
+        public SyncTechnicalRequrementsTaskRejectByFrontManager(IUnityContainer container) : base(container)
         {
         }
 
@@ -67,7 +67,7 @@ namespace EventServiceClient2.SyncEntities
 
     public class SyncTechnicalRequrementsTaskFinish : SyncUnit<TechnicalRequrementsTask, AfterFinishTechnicalRequrementsTaskEvent>
     {
-        public SyncTechnicalRequrementsTaskFinish(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId) : base(container, eventServiceHost, appSessionId)
+        public SyncTechnicalRequrementsTaskFinish(IUnityContainer container) : base(container)
         {
         }
 
@@ -79,7 +79,7 @@ namespace EventServiceClient2.SyncEntities
 
     public class SyncTechnicalRequrementsTaskAccept : SyncUnit<TechnicalRequrementsTask, AfterAcceptTechnicalRequrementsTaskEvent>
     {
-        public SyncTechnicalRequrementsTaskAccept(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId) : base(container, eventServiceHost, appSessionId)
+        public SyncTechnicalRequrementsTaskAccept(IUnityContainer container) : base(container)
         {
         }
 
@@ -91,7 +91,7 @@ namespace EventServiceClient2.SyncEntities
 
     public class SyncTechnicalRequrementsTaskStop : SyncUnit<TechnicalRequrementsTask, AfterStopTechnicalRequrementsTaskEvent>
     {
-        public SyncTechnicalRequrementsTaskStop(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId) : base(container, eventServiceHost, appSessionId)
+        public SyncTechnicalRequrementsTaskStop(IUnityContainer container) : base(container)
         {
         }
 

@@ -7,7 +7,7 @@ namespace EventServiceClient2.SyncEntities
 {
     public class SyncPriceCalculationFinish : SyncUnit<PriceCalculation, AfterFinishPriceCalculationEvent>
     {
-        public SyncPriceCalculationFinish(IUnityContainer container, ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId) : base(container, eventServiceHost, appSessionId)
+        public SyncPriceCalculationFinish(IUnityContainer container) : base(container)
         {
         }
 
