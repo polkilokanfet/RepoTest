@@ -1,0 +1,33 @@
+﻿using System.Linq;
+using HVTApp.Infrastructure;
+using HVTApp.Model.Events;
+using HVTApp.Model.POCOs;
+using Microsoft.Practices.Unity;
+
+namespace EventServiceClient2.SyncEntities
+{
+    public class SyncPriceCalculationStart : SyncUnit<PriceCalculation, AfterStartPriceCalculationEvent>
+    {
+        public SyncPriceCalculationStart(IUnityContainer container) : base(container)
+        {
+        }
+
+        public override bool IsTargetUser(User user, PriceCalculation priceCalculation)
+        {
+            if (user.Roles.Any(userRole => userRole.Role == Role.Pricer)) return true;
+            if (priceCalculation.Initiator.Id == user.Id) return false;
+            if (priceCalculation.FrontManager?.Id == user.Id) return true;
+            return false;
+        }
+
+        protected override ActionPublishThroughEventServiceForUserDelegate ActionPublishThroughEventServiceForUser
+        {
+            get
+            {
+                return (eventSourceAppSessionId, targetUserId, priceCalculationId) => EventServiceHost.StartPriceCalculationPublishEvent(eventSourceAppSessionId, targetUserId, priceCalculationId);
+            }
+        }
+
+        protected override EventServiceActionType EventServiceActionType => EventServiceActionType.StartPriceCalculation;
+    }
+}

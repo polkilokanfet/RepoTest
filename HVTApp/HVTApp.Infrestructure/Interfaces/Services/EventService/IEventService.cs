@@ -59,40 +59,30 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
 
         #region Directum
 
-        [OperationContract(IsOneWay = true)]
-        void SaveDirectumTaskPublishEvent(Guid appSessionId, Guid taskId);
+        [OperationContract]
+        bool SaveDirectumTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid taskId);
 
-        [OperationContract(IsOneWay = true)]
-        void StartDirectumTaskPublishEvent(Guid appSessionId, Guid taskId);
+        [OperationContract]
+        bool StartDirectumTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid taskId);
 
-        [OperationContract(IsOneWay = true)]
-        void StopDirectumTaskPublishEvent(Guid appSessionId, Guid taskId);
+        [OperationContract]
+        bool StopDirectumTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid taskId);
 
-        [OperationContract(IsOneWay = true)]
-        void PerformDirectumTaskPublishEvent(Guid appSessionId, Guid taskId);
+        [OperationContract]
+        bool PerformDirectumTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid taskId);
 
-        [OperationContract(IsOneWay = true)]
-        void AcceptDirectumTaskPublishEvent(Guid appSessionId, Guid taskId);
+        [OperationContract]
+        bool AcceptDirectumTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid taskId);
 
-        [OperationContract(IsOneWay = true)]
-        void RejectDirectumTaskPublishEvent(Guid appSessionId, Guid taskId);
+        [OperationContract]
+        bool RejectDirectumTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid taskId);
 
         #endregion
 
         #region PriceCalculation
 
-        [OperationContract(IsOneWay = true)]
-        void SavePriceCalculationPublishEvent(Guid appSessionId, Guid priceCalculationId);
-
-        /// <summary>
-        /// Публикация события старта расчета ПЗ
-        /// </summary>
-        /// <param name="appSessionId"></param>
-        /// <param name="priceCalculationId"></param>
-        /// <param name="targetUsersIds">Пользователи, которые должны были получить сообщение, но не получили его.</param>
-        /// <returns></returns>
         [OperationContract]
-        IEnumerable<Guid> StartPriceCalculationPublishEvent(Guid appSessionId, Guid priceCalculationId, IEnumerable<Guid> targetUsersIds);
+        bool SavePriceCalculationPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid priceCalculationId);
 
         /// <summary>
         /// Публикация события старта расчета ПЗ
@@ -104,48 +94,52 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
         [OperationContract]
         bool StartPriceCalculationPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid priceCalculationId);
 
-        [OperationContract(IsOneWay = true)]
-        void FinishPriceCalculationPublishEvent(Guid appSessionId, Guid priceCalculationId);
+        [OperationContract]
+        bool FinishPriceCalculationPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid priceCalculationId);
 
-        [OperationContract(IsOneWay = true)]
-        void CancelPriceCalculationPublishEvent(Guid appSessionId, Guid priceCalculationId);
+        [OperationContract]
+        bool CancelPriceCalculationPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid priceCalculationId);
 
-        [OperationContract(IsOneWay = true)]
-        void RejectPriceCalculationPublishEvent(Guid appSessionId, Guid priceCalculationId);
+        [OperationContract]
+        bool RejectPriceCalculationPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid priceCalculationId);
 
         #endregion
 
-        [OperationContract(IsOneWay = true)]
-        void SaveIncomingRequestPublishEvent(Guid appSessionId, Guid requestId);
+        #region Incoming
 
-        [OperationContract(IsOneWay = true)]
-        void SaveIncomingDocumentPublishEvent(Guid appSessionId, Guid documentId);
+        [OperationContract]
+        bool SaveIncomingRequestPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid requestId);
+
+        [OperationContract]
+        bool SaveIncomingDocumentPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid requestId);
+
+        #endregion
 
         #region TechnicalRequarementsTask
 
-        [OperationContract(IsOneWay = true)]
-        void SaveTechnicalRequarementsTaskPublishEvent(Guid appSessionId, Guid technicalRequarementsTaskId);
+        [OperationContract]
+        bool SaveTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid technicalRequarementsTaskId);
 
-        [OperationContract(IsOneWay = true)]
-        void StartTechnicalRequarementsTaskPublishEvent(Guid appSessionId, Guid technicalRequarementsTaskId);
+        [OperationContract]
+        bool StartTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid technicalRequarementsTaskId);
 
-        [OperationContract(IsOneWay = true)]
-        void InstructTechnicalRequarementsTaskPublishEvent(Guid appSessionId, Guid technicalRequarementsTaskId);
+        [OperationContract]
+        bool InstructTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid technicalRequarementsTaskId);
 
-        [OperationContract(IsOneWay = true)]
-        void StopTechnicalRequarementsTaskPublishEvent(Guid appSessionId, Guid technicalRequarementsTaskId);
+        [OperationContract]
+        bool StopTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid technicalRequarementsTaskId);
 
-        [OperationContract(IsOneWay = true)]
-        void RejectTechnicalRequarementsTaskPublishEvent(Guid appSessionId, Guid technicalRequarementsTaskId);
+        [OperationContract]
+        bool RejectTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid technicalRequarementsTaskId);
 
-        [OperationContract(IsOneWay = true)]
-        void RejectByFrontManagerTechnicalRequarementsTaskPublishEvent(Guid appSessionId, Guid technicalRequarementsTaskId);
+        [OperationContract]
+        bool RejectByFrontManagerTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid technicalRequarementsTaskId);
 
-        [OperationContract(IsOneWay = true)]
-        void FinishTechnicalRequarementsTaskPublishEvent(Guid appSessionId, Guid technicalRequarementsTaskId);
+        [OperationContract]
+        bool FinishTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid technicalRequarementsTaskId);
 
-        [OperationContract(IsOneWay = true)]
-        void AcceptTechnicalRequarementsTaskPublishEvent(Guid appSessionId, Guid technicalRequarementsTaskId);
+        [OperationContract]
+        bool AcceptTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid technicalRequarementsTaskId);
 
         #endregion
     }

@@ -356,6 +356,10 @@
       <Project>{154B4B6A-BABD-4F65-B351-E7F3808A8B53}</Project>
       <Name>HVTApp.Services.NewProductService</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HVTApp.Services.PopupNotificationsService1\HVTApp.Services.PopupNotificationsService1.csproj">
+      <Project>{f3a0769e-9606-4ca7-9f26-c1c4bb0865f7}</Project>
+      <Name>HVTApp.Services.PopupNotificationsService1</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HVTApp.Services.PriceService\HVTApp.Services.PriceService.csproj">
       <Project>{A241858E-B7B3-42A1-A04F-FE39E55145E6}</Project>
       <Name>HVTApp.Services.PriceService</Name>

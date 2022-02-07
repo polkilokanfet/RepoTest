@@ -33,7 +33,8 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
 
             _viewModel.SaveCommand.Execute();
 
-            _container.Resolve<IEventAggregator>().GetEvent<AfterCancelPriceCalculationEvent>().Publish(_viewModel.PriceCalculationWrapper.Model);
+            _container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceCalculationEvent>().Publish(_viewModel.PriceCalculationWrapper.Model);
+            _container.Resolve<IEventAggregator>().GetEvent<AfterStopPriceCalculationEvent>().Publish(_viewModel.PriceCalculationWrapper.Model);
 
             _viewModel.RefreshCommands();
         }

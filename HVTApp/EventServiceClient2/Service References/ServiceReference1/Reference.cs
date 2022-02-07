@@ -57,133 +57,149 @@ namespace EventServiceClient2.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/SendMessageToUser", ReplyAction="http://tempuri.org/IEventService/SendMessageToUserResponse")]
         System.Threading.Tasks.Task SendMessageToUserAsync(System.Guid authorId, System.Guid recipientId, string message);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/SaveDirectumTaskPublishEvent")]
-        void SaveDirectumTaskPublishEvent(System.Guid appSessionId, System.Guid taskId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/SaveDirectumTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/SaveDirectumTaskPublishEventResponse")]
+        bool SaveDirectumTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/SaveDirectumTaskPublishEvent")]
-        System.Threading.Tasks.Task SaveDirectumTaskPublishEventAsync(System.Guid appSessionId, System.Guid taskId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/SaveDirectumTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/SaveDirectumTaskPublishEventResponse")]
+        System.Threading.Tasks.Task<bool> SaveDirectumTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/StartDirectumTaskPublishEvent")]
-        void StartDirectumTaskPublishEvent(System.Guid appSessionId, System.Guid taskId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/StartDirectumTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/StartDirectumTaskPublishEventResponse")]
+        bool StartDirectumTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/StartDirectumTaskPublishEvent")]
-        System.Threading.Tasks.Task StartDirectumTaskPublishEventAsync(System.Guid appSessionId, System.Guid taskId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/StartDirectumTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/StartDirectumTaskPublishEventResponse")]
+        System.Threading.Tasks.Task<bool> StartDirectumTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/StopDirectumTaskPublishEvent")]
-        void StopDirectumTaskPublishEvent(System.Guid appSessionId, System.Guid taskId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/StopDirectumTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/StopDirectumTaskPublishEventResponse")]
+        bool StopDirectumTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/StopDirectumTaskPublishEvent")]
-        System.Threading.Tasks.Task StopDirectumTaskPublishEventAsync(System.Guid appSessionId, System.Guid taskId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/StopDirectumTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/StopDirectumTaskPublishEventResponse")]
+        System.Threading.Tasks.Task<bool> StopDirectumTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/PerformDirectumTaskPublishEvent")]
-        void PerformDirectumTaskPublishEvent(System.Guid appSessionId, System.Guid taskId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PerformDirectumTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/PerformDirectumTaskPublishEventResponse")]
+        bool PerformDirectumTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/PerformDirectumTaskPublishEvent")]
-        System.Threading.Tasks.Task PerformDirectumTaskPublishEventAsync(System.Guid appSessionId, System.Guid taskId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PerformDirectumTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/PerformDirectumTaskPublishEventResponse")]
+        System.Threading.Tasks.Task<bool> PerformDirectumTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/AcceptDirectumTaskPublishEvent")]
-        void AcceptDirectumTaskPublishEvent(System.Guid appSessionId, System.Guid taskId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/AcceptDirectumTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/AcceptDirectumTaskPublishEventResponse")]
+        bool AcceptDirectumTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/AcceptDirectumTaskPublishEvent")]
-        System.Threading.Tasks.Task AcceptDirectumTaskPublishEventAsync(System.Guid appSessionId, System.Guid taskId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/AcceptDirectumTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/AcceptDirectumTaskPublishEventResponse")]
+        System.Threading.Tasks.Task<bool> AcceptDirectumTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/RejectDirectumTaskPublishEvent")]
-        void RejectDirectumTaskPublishEvent(System.Guid appSessionId, System.Guid taskId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/RejectDirectumTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/RejectDirectumTaskPublishEventResponse")]
+        bool RejectDirectumTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/RejectDirectumTaskPublishEvent")]
-        System.Threading.Tasks.Task RejectDirectumTaskPublishEventAsync(System.Guid appSessionId, System.Guid taskId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/RejectDirectumTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/RejectDirectumTaskPublishEventResponse")]
+        System.Threading.Tasks.Task<bool> RejectDirectumTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/SavePriceCalculationPublishEvent")]
-        void SavePriceCalculationPublishEvent(System.Guid appSessionId, System.Guid priceCalculationId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/SavePriceCalculationPublishEvent", ReplyAction="http://tempuri.org/IEventService/SavePriceCalculationPublishEventResponse")]
+        bool SavePriceCalculationPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceCalculationId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/SavePriceCalculationPublishEvent")]
-        System.Threading.Tasks.Task SavePriceCalculationPublishEventAsync(System.Guid appSessionId, System.Guid priceCalculationId);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/StartPriceCalculationPublishEvent", ReplyAction="http://tempuri.org/IEventService/StartPriceCalculationPublishEventResponse")]
-        System.Guid[] StartPriceCalculationPublishEvent(System.Guid appSessionId, System.Guid priceCalculationId, System.Guid[] targetUsersIds);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/SavePriceCalculationPublishEvent", ReplyAction="http://tempuri.org/IEventService/SavePriceCalculationPublishEventResponse")]
+        System.Threading.Tasks.Task<bool> SavePriceCalculationPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceCalculationId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/StartPriceCalculationPublishEvent", ReplyAction="http://tempuri.org/IEventService/StartPriceCalculationPublishEventResponse")]
-        System.Threading.Tasks.Task<System.Guid[]> StartPriceCalculationPublishEventAsync(System.Guid appSessionId, System.Guid priceCalculationId, System.Guid[] targetUsersIds);
+        bool StartPriceCalculationPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceCalculationId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/FinishPriceCalculationPublishEvent")]
-        void FinishPriceCalculationPublishEvent(System.Guid appSessionId, System.Guid priceCalculationId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/StartPriceCalculationPublishEvent", ReplyAction="http://tempuri.org/IEventService/StartPriceCalculationPublishEventResponse")]
+        System.Threading.Tasks.Task<bool> StartPriceCalculationPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceCalculationId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/FinishPriceCalculationPublishEvent")]
-        System.Threading.Tasks.Task FinishPriceCalculationPublishEventAsync(System.Guid appSessionId, System.Guid priceCalculationId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/FinishPriceCalculationPublishEvent", ReplyAction="http://tempuri.org/IEventService/FinishPriceCalculationPublishEventResponse")]
+        bool FinishPriceCalculationPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceCalculationId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/CancelPriceCalculationPublishEvent")]
-        void CancelPriceCalculationPublishEvent(System.Guid appSessionId, System.Guid priceCalculationId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/FinishPriceCalculationPublishEvent", ReplyAction="http://tempuri.org/IEventService/FinishPriceCalculationPublishEventResponse")]
+        System.Threading.Tasks.Task<bool> FinishPriceCalculationPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceCalculationId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/CancelPriceCalculationPublishEvent")]
-        System.Threading.Tasks.Task CancelPriceCalculationPublishEventAsync(System.Guid appSessionId, System.Guid priceCalculationId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/CancelPriceCalculationPublishEvent", ReplyAction="http://tempuri.org/IEventService/CancelPriceCalculationPublishEventResponse")]
+        bool CancelPriceCalculationPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceCalculationId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/RejectPriceCalculationPublishEvent")]
-        void RejectPriceCalculationPublishEvent(System.Guid appSessionId, System.Guid priceCalculationId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/CancelPriceCalculationPublishEvent", ReplyAction="http://tempuri.org/IEventService/CancelPriceCalculationPublishEventResponse")]
+        System.Threading.Tasks.Task<bool> CancelPriceCalculationPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceCalculationId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/RejectPriceCalculationPublishEvent")]
-        System.Threading.Tasks.Task RejectPriceCalculationPublishEventAsync(System.Guid appSessionId, System.Guid priceCalculationId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/RejectPriceCalculationPublishEvent", ReplyAction="http://tempuri.org/IEventService/RejectPriceCalculationPublishEventResponse")]
+        bool RejectPriceCalculationPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceCalculationId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/SaveIncomingRequestPublishEvent")]
-        void SaveIncomingRequestPublishEvent(System.Guid appSessionId, System.Guid requestId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/RejectPriceCalculationPublishEvent", ReplyAction="http://tempuri.org/IEventService/RejectPriceCalculationPublishEventResponse")]
+        System.Threading.Tasks.Task<bool> RejectPriceCalculationPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceCalculationId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/SaveIncomingRequestPublishEvent")]
-        System.Threading.Tasks.Task SaveIncomingRequestPublishEventAsync(System.Guid appSessionId, System.Guid requestId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/SaveIncomingRequestPublishEvent", ReplyAction="http://tempuri.org/IEventService/SaveIncomingRequestPublishEventResponse")]
+        bool SaveIncomingRequestPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid requestId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/SaveIncomingDocumentPublishEvent")]
-        void SaveIncomingDocumentPublishEvent(System.Guid appSessionId, System.Guid documentId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/SaveIncomingRequestPublishEvent", ReplyAction="http://tempuri.org/IEventService/SaveIncomingRequestPublishEventResponse")]
+        System.Threading.Tasks.Task<bool> SaveIncomingRequestPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid requestId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/SaveIncomingDocumentPublishEvent")]
-        System.Threading.Tasks.Task SaveIncomingDocumentPublishEventAsync(System.Guid appSessionId, System.Guid documentId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/SaveIncomingDocumentPublishEvent", ReplyAction="http://tempuri.org/IEventService/SaveIncomingDocumentPublishEventResponse")]
+        bool SaveIncomingDocumentPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid requestId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/SaveTechnicalRequarementsTaskPublishEvent")]
-        void SaveTechnicalRequarementsTaskPublishEvent(System.Guid appSessionId, System.Guid technicalRequarementsTaskId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/SaveIncomingDocumentPublishEvent", ReplyAction="http://tempuri.org/IEventService/SaveIncomingDocumentPublishEventResponse")]
+        System.Threading.Tasks.Task<bool> SaveIncomingDocumentPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid requestId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/SaveTechnicalRequarementsTaskPublishEvent")]
-        System.Threading.Tasks.Task SaveTechnicalRequarementsTaskPublishEventAsync(System.Guid appSessionId, System.Guid technicalRequarementsTaskId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/SaveTechnicalRequarementsTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/SaveTechnicalRequarementsTaskPublishEventRespons" +
+            "e")]
+        bool SaveTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/StartTechnicalRequarementsTaskPublishEvent")]
-        void StartTechnicalRequarementsTaskPublishEvent(System.Guid appSessionId, System.Guid technicalRequarementsTaskId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/SaveTechnicalRequarementsTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/SaveTechnicalRequarementsTaskPublishEventRespons" +
+            "e")]
+        System.Threading.Tasks.Task<bool> SaveTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/StartTechnicalRequarementsTaskPublishEvent")]
-        System.Threading.Tasks.Task StartTechnicalRequarementsTaskPublishEventAsync(System.Guid appSessionId, System.Guid technicalRequarementsTaskId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/StartTechnicalRequarementsTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/StartTechnicalRequarementsTaskPublishEventRespon" +
+            "se")]
+        bool StartTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/InstructTechnicalRequarementsTaskPublishEvent")]
-        void InstructTechnicalRequarementsTaskPublishEvent(System.Guid appSessionId, System.Guid technicalRequarementsTaskId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/StartTechnicalRequarementsTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/StartTechnicalRequarementsTaskPublishEventRespon" +
+            "se")]
+        System.Threading.Tasks.Task<bool> StartTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/InstructTechnicalRequarementsTaskPublishEvent")]
-        System.Threading.Tasks.Task InstructTechnicalRequarementsTaskPublishEventAsync(System.Guid appSessionId, System.Guid technicalRequarementsTaskId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/InstructTechnicalRequarementsTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/InstructTechnicalRequarementsTaskPublishEventRes" +
+            "ponse")]
+        bool InstructTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/StopTechnicalRequarementsTaskPublishEvent")]
-        void StopTechnicalRequarementsTaskPublishEvent(System.Guid appSessionId, System.Guid technicalRequarementsTaskId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/InstructTechnicalRequarementsTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/InstructTechnicalRequarementsTaskPublishEventRes" +
+            "ponse")]
+        System.Threading.Tasks.Task<bool> InstructTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/StopTechnicalRequarementsTaskPublishEvent")]
-        System.Threading.Tasks.Task StopTechnicalRequarementsTaskPublishEventAsync(System.Guid appSessionId, System.Guid technicalRequarementsTaskId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/StopTechnicalRequarementsTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/StopTechnicalRequarementsTaskPublishEventRespons" +
+            "e")]
+        bool StopTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/RejectTechnicalRequarementsTaskPublishEvent")]
-        void RejectTechnicalRequarementsTaskPublishEvent(System.Guid appSessionId, System.Guid technicalRequarementsTaskId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/StopTechnicalRequarementsTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/StopTechnicalRequarementsTaskPublishEventRespons" +
+            "e")]
+        System.Threading.Tasks.Task<bool> StopTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/RejectTechnicalRequarementsTaskPublishEvent")]
-        System.Threading.Tasks.Task RejectTechnicalRequarementsTaskPublishEventAsync(System.Guid appSessionId, System.Guid technicalRequarementsTaskId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/RejectTechnicalRequarementsTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/RejectTechnicalRequarementsTaskPublishEventRespo" +
+            "nse")]
+        bool RejectTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/RejectByFrontManagerTechnicalRequarementsTaskPub" +
-            "lishEvent")]
-        void RejectByFrontManagerTechnicalRequarementsTaskPublishEvent(System.Guid appSessionId, System.Guid technicalRequarementsTaskId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/RejectTechnicalRequarementsTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/RejectTechnicalRequarementsTaskPublishEventRespo" +
+            "nse")]
+        System.Threading.Tasks.Task<bool> RejectTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/RejectByFrontManagerTechnicalRequarementsTaskPub" +
-            "lishEvent")]
-        System.Threading.Tasks.Task RejectByFrontManagerTechnicalRequarementsTaskPublishEventAsync(System.Guid appSessionId, System.Guid technicalRequarementsTaskId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/RejectByFrontManagerTechnicalRequarementsTaskPub" +
+            "lishEvent", ReplyAction="http://tempuri.org/IEventService/RejectByFrontManagerTechnicalRequarementsTaskPub" +
+            "lishEventResponse")]
+        bool RejectByFrontManagerTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/FinishTechnicalRequarementsTaskPublishEvent")]
-        void FinishTechnicalRequarementsTaskPublishEvent(System.Guid appSessionId, System.Guid technicalRequarementsTaskId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/RejectByFrontManagerTechnicalRequarementsTaskPub" +
+            "lishEvent", ReplyAction="http://tempuri.org/IEventService/RejectByFrontManagerTechnicalRequarementsTaskPub" +
+            "lishEventResponse")]
+        System.Threading.Tasks.Task<bool> RejectByFrontManagerTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/FinishTechnicalRequarementsTaskPublishEvent")]
-        System.Threading.Tasks.Task FinishTechnicalRequarementsTaskPublishEventAsync(System.Guid appSessionId, System.Guid technicalRequarementsTaskId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/FinishTechnicalRequarementsTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/FinishTechnicalRequarementsTaskPublishEventRespo" +
+            "nse")]
+        bool FinishTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/AcceptTechnicalRequarementsTaskPublishEvent")]
-        void AcceptTechnicalRequarementsTaskPublishEvent(System.Guid appSessionId, System.Guid technicalRequarementsTaskId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/FinishTechnicalRequarementsTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/FinishTechnicalRequarementsTaskPublishEventRespo" +
+            "nse")]
+        System.Threading.Tasks.Task<bool> FinishTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/AcceptTechnicalRequarementsTaskPublishEvent")]
-        System.Threading.Tasks.Task AcceptTechnicalRequarementsTaskPublishEventAsync(System.Guid appSessionId, System.Guid technicalRequarementsTaskId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/AcceptTechnicalRequarementsTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/AcceptTechnicalRequarementsTaskPublishEventRespo" +
+            "nse")]
+        bool AcceptTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/AcceptTechnicalRequarementsTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/AcceptTechnicalRequarementsTaskPublishEventRespo" +
+            "nse")]
+        System.Threading.Tasks.Task<bool> AcceptTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -201,38 +217,38 @@ namespace EventServiceClient2.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnSendMessageToUser")]
         void OnSendMessageToUser(System.Guid authorId, string message);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnSaveDirectumTaskServiceCallback")]
-        void OnSaveDirectumTaskServiceCallback(System.Guid taskId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/OnSaveDirectumTaskServiceCallback", ReplyAction="http://tempuri.org/IEventService/OnSaveDirectumTaskServiceCallbackResponse")]
+        bool OnSaveDirectumTaskServiceCallback(System.Guid taskId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnStartDirectumTaskServiceCallback")]
-        void OnStartDirectumTaskServiceCallback(System.Guid taskId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/OnStartDirectumTaskServiceCallback", ReplyAction="http://tempuri.org/IEventService/OnStartDirectumTaskServiceCallbackResponse")]
+        bool OnStartDirectumTaskServiceCallback(System.Guid taskId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnStopDirectumTaskServiceCallback")]
-        void OnStopDirectumTaskServiceCallback(System.Guid taskId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/OnStopDirectumTaskServiceCallback", ReplyAction="http://tempuri.org/IEventService/OnStopDirectumTaskServiceCallbackResponse")]
+        bool OnStopDirectumTaskServiceCallback(System.Guid taskId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnPerformDirectumTaskServiceCallback")]
-        void OnPerformDirectumTaskServiceCallback(System.Guid taskId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/OnPerformDirectumTaskServiceCallback", ReplyAction="http://tempuri.org/IEventService/OnPerformDirectumTaskServiceCallbackResponse")]
+        bool OnPerformDirectumTaskServiceCallback(System.Guid taskId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnAcceptDirectumTaskServiceCallback")]
-        void OnAcceptDirectumTaskServiceCallback(System.Guid taskId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/OnAcceptDirectumTaskServiceCallback", ReplyAction="http://tempuri.org/IEventService/OnAcceptDirectumTaskServiceCallbackResponse")]
+        bool OnAcceptDirectumTaskServiceCallback(System.Guid taskId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnRejectDirectumTaskServiceCallback")]
-        void OnRejectDirectumTaskServiceCallback(System.Guid taskId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/OnRejectDirectumTaskServiceCallback", ReplyAction="http://tempuri.org/IEventService/OnRejectDirectumTaskServiceCallbackResponse")]
+        bool OnRejectDirectumTaskServiceCallback(System.Guid taskId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnSavePriceCalculationServiceCallback")]
-        void OnSavePriceCalculationServiceCallback(System.Guid calculationId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/OnSavePriceCalculationServiceCallback", ReplyAction="http://tempuri.org/IEventService/OnSavePriceCalculationServiceCallbackResponse")]
+        bool OnSavePriceCalculationServiceCallback(System.Guid calculationId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/OnStartPriceCalculationServiceCallback", ReplyAction="http://tempuri.org/IEventService/OnStartPriceCalculationServiceCallbackResponse")]
         bool OnStartPriceCalculationServiceCallback(System.Guid calculationId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnFinishPriceCalculationServiceCallback")]
-        void OnFinishPriceCalculationServiceCallback(System.Guid calculationId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/OnFinishPriceCalculationServiceCallback", ReplyAction="http://tempuri.org/IEventService/OnFinishPriceCalculationServiceCallbackResponse")]
+        bool OnFinishPriceCalculationServiceCallback(System.Guid calculationId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnCancelPriceCalculationServiceCallback")]
-        void OnCancelPriceCalculationServiceCallback(System.Guid calculationId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/OnCancelPriceCalculationServiceCallback", ReplyAction="http://tempuri.org/IEventService/OnCancelPriceCalculationServiceCallbackResponse")]
+        bool OnCancelPriceCalculationServiceCallback(System.Guid calculationId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnRejectPriceCalculationServiceCallback")]
-        void OnRejectPriceCalculationServiceCallback(System.Guid calculationId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/OnRejectPriceCalculationServiceCallback", ReplyAction="http://tempuri.org/IEventService/OnRejectPriceCalculationServiceCallbackResponse")]
+        bool OnRejectPriceCalculationServiceCallback(System.Guid calculationId);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnSaveIncomingRequestServiceCallback")]
         void OnSaveIncomingRequestServiceCallback(System.Guid requestId);
@@ -240,37 +256,48 @@ namespace EventServiceClient2.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnSaveIncomingDocumentServiceCallback")]
         void OnSaveIncomingDocumentServiceCallback(System.Guid documentId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnSaveTechnicalRequarementsTaskServiceCallback")]
-        void OnSaveTechnicalRequarementsTaskServiceCallback(System.Guid technicalRequarementsTaskId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/OnSaveTechnicalRequarementsTaskServiceCallback", ReplyAction="http://tempuri.org/IEventService/OnSaveTechnicalRequarementsTaskServiceCallbackRe" +
+            "sponse")]
+        bool OnSaveTechnicalRequarementsTaskServiceCallback(System.Guid technicalRequarementsTaskId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnStartTechnicalRequarementsTaskServiceCallback")]
-        void OnStartTechnicalRequarementsTaskServiceCallback(System.Guid technicalRequarementsTaskId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/OnStartTechnicalRequarementsTaskServiceCallback", ReplyAction="http://tempuri.org/IEventService/OnStartTechnicalRequarementsTaskServiceCallbackR" +
+            "esponse")]
+        bool OnStartTechnicalRequarementsTaskServiceCallback(System.Guid technicalRequarementsTaskId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnInstructTechnicalRequarementsTaskServiceCallba" +
-            "ck")]
-        void OnInstructTechnicalRequarementsTaskServiceCallback(System.Guid technicalRequarementsTaskId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/OnInstructTechnicalRequarementsTaskServiceCallba" +
+            "ck", ReplyAction="http://tempuri.org/IEventService/OnInstructTechnicalRequarementsTaskServiceCallba" +
+            "ckResponse")]
+        bool OnInstructTechnicalRequarementsTaskServiceCallback(System.Guid technicalRequarementsTaskId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnStopTechnicalRequarementsTaskServiceCallback")]
-        void OnStopTechnicalRequarementsTaskServiceCallback(System.Guid technicalRequarementsTaskId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/OnStopTechnicalRequarementsTaskServiceCallback", ReplyAction="http://tempuri.org/IEventService/OnStopTechnicalRequarementsTaskServiceCallbackRe" +
+            "sponse")]
+        bool OnStopTechnicalRequarementsTaskServiceCallback(System.Guid technicalRequarementsTaskId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnRejectTechnicalRequarementsTaskServiceCallback" +
-            "")]
-        void OnRejectTechnicalRequarementsTaskServiceCallback(System.Guid technicalRequarementsTaskId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/OnRejectTechnicalRequarementsTaskServiceCallback" +
+            "", ReplyAction="http://tempuri.org/IEventService/OnRejectTechnicalRequarementsTaskServiceCallback" +
+            "Response")]
+        bool OnRejectTechnicalRequarementsTaskServiceCallback(System.Guid technicalRequarementsTaskId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnRejectByFrontManagerTechnicalRequarementsTaskS" +
-            "erviceCallback")]
-        void OnRejectByFrontManagerTechnicalRequarementsTaskServiceCallback(System.Guid technicalRequarementsTaskId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/OnRejectByFrontManagerTechnicalRequarementsTaskS" +
+            "erviceCallback", ReplyAction="http://tempuri.org/IEventService/OnRejectByFrontManagerTechnicalRequarementsTaskS" +
+            "erviceCallbackResponse")]
+        bool OnRejectByFrontManagerTechnicalRequarementsTaskServiceCallback(System.Guid technicalRequarementsTaskId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnFinishTechnicalRequarementsTaskServiceCallback" +
-            "")]
-        void OnFinishTechnicalRequarementsTaskServiceCallback(System.Guid technicalRequarementsTaskId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/OnFinishTechnicalRequarementsTaskServiceCallback" +
+            "", ReplyAction="http://tempuri.org/IEventService/OnFinishTechnicalRequarementsTaskServiceCallback" +
+            "Response")]
+        bool OnFinishTechnicalRequarementsTaskServiceCallback(System.Guid technicalRequarementsTaskId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnAcceptTechnicalRequarementsTaskServiceCallback" +
-            "")]
-        void OnAcceptTechnicalRequarementsTaskServiceCallback(System.Guid technicalRequarementsTaskId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/OnAcceptTechnicalRequarementsTaskServiceCallback" +
+            "", ReplyAction="http://tempuri.org/IEventService/OnAcceptTechnicalRequarementsTaskServiceCallback" +
+            "Response")]
+        bool OnAcceptTechnicalRequarementsTaskServiceCallback(System.Guid technicalRequarementsTaskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/IsAlive", ReplyAction="http://tempuri.org/IEventService/IsAliveResponse")]
         bool IsAlive();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/CheckMessagesInDb")]
+        void CheckMessagesInDb();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -357,172 +384,172 @@ namespace EventServiceClient2.ServiceReference1 {
             return base.Channel.SendMessageToUserAsync(authorId, recipientId, message);
         }
         
-        public void SaveDirectumTaskPublishEvent(System.Guid appSessionId, System.Guid taskId) {
-            base.Channel.SaveDirectumTaskPublishEvent(appSessionId, taskId);
+        public bool SaveDirectumTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId) {
+            return base.Channel.SaveDirectumTaskPublishEvent(eventSourceAppSessionId, targetUserId, taskId);
         }
         
-        public System.Threading.Tasks.Task SaveDirectumTaskPublishEventAsync(System.Guid appSessionId, System.Guid taskId) {
-            return base.Channel.SaveDirectumTaskPublishEventAsync(appSessionId, taskId);
+        public System.Threading.Tasks.Task<bool> SaveDirectumTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId) {
+            return base.Channel.SaveDirectumTaskPublishEventAsync(eventSourceAppSessionId, targetUserId, taskId);
         }
         
-        public void StartDirectumTaskPublishEvent(System.Guid appSessionId, System.Guid taskId) {
-            base.Channel.StartDirectumTaskPublishEvent(appSessionId, taskId);
+        public bool StartDirectumTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId) {
+            return base.Channel.StartDirectumTaskPublishEvent(eventSourceAppSessionId, targetUserId, taskId);
         }
         
-        public System.Threading.Tasks.Task StartDirectumTaskPublishEventAsync(System.Guid appSessionId, System.Guid taskId) {
-            return base.Channel.StartDirectumTaskPublishEventAsync(appSessionId, taskId);
+        public System.Threading.Tasks.Task<bool> StartDirectumTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId) {
+            return base.Channel.StartDirectumTaskPublishEventAsync(eventSourceAppSessionId, targetUserId, taskId);
         }
         
-        public void StopDirectumTaskPublishEvent(System.Guid appSessionId, System.Guid taskId) {
-            base.Channel.StopDirectumTaskPublishEvent(appSessionId, taskId);
+        public bool StopDirectumTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId) {
+            return base.Channel.StopDirectumTaskPublishEvent(eventSourceAppSessionId, targetUserId, taskId);
         }
         
-        public System.Threading.Tasks.Task StopDirectumTaskPublishEventAsync(System.Guid appSessionId, System.Guid taskId) {
-            return base.Channel.StopDirectumTaskPublishEventAsync(appSessionId, taskId);
+        public System.Threading.Tasks.Task<bool> StopDirectumTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId) {
+            return base.Channel.StopDirectumTaskPublishEventAsync(eventSourceAppSessionId, targetUserId, taskId);
         }
         
-        public void PerformDirectumTaskPublishEvent(System.Guid appSessionId, System.Guid taskId) {
-            base.Channel.PerformDirectumTaskPublishEvent(appSessionId, taskId);
+        public bool PerformDirectumTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId) {
+            return base.Channel.PerformDirectumTaskPublishEvent(eventSourceAppSessionId, targetUserId, taskId);
         }
         
-        public System.Threading.Tasks.Task PerformDirectumTaskPublishEventAsync(System.Guid appSessionId, System.Guid taskId) {
-            return base.Channel.PerformDirectumTaskPublishEventAsync(appSessionId, taskId);
+        public System.Threading.Tasks.Task<bool> PerformDirectumTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId) {
+            return base.Channel.PerformDirectumTaskPublishEventAsync(eventSourceAppSessionId, targetUserId, taskId);
         }
         
-        public void AcceptDirectumTaskPublishEvent(System.Guid appSessionId, System.Guid taskId) {
-            base.Channel.AcceptDirectumTaskPublishEvent(appSessionId, taskId);
+        public bool AcceptDirectumTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId) {
+            return base.Channel.AcceptDirectumTaskPublishEvent(eventSourceAppSessionId, targetUserId, taskId);
         }
         
-        public System.Threading.Tasks.Task AcceptDirectumTaskPublishEventAsync(System.Guid appSessionId, System.Guid taskId) {
-            return base.Channel.AcceptDirectumTaskPublishEventAsync(appSessionId, taskId);
+        public System.Threading.Tasks.Task<bool> AcceptDirectumTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId) {
+            return base.Channel.AcceptDirectumTaskPublishEventAsync(eventSourceAppSessionId, targetUserId, taskId);
         }
         
-        public void RejectDirectumTaskPublishEvent(System.Guid appSessionId, System.Guid taskId) {
-            base.Channel.RejectDirectumTaskPublishEvent(appSessionId, taskId);
+        public bool RejectDirectumTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId) {
+            return base.Channel.RejectDirectumTaskPublishEvent(eventSourceAppSessionId, targetUserId, taskId);
         }
         
-        public System.Threading.Tasks.Task RejectDirectumTaskPublishEventAsync(System.Guid appSessionId, System.Guid taskId) {
-            return base.Channel.RejectDirectumTaskPublishEventAsync(appSessionId, taskId);
+        public System.Threading.Tasks.Task<bool> RejectDirectumTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId) {
+            return base.Channel.RejectDirectumTaskPublishEventAsync(eventSourceAppSessionId, targetUserId, taskId);
         }
         
-        public void SavePriceCalculationPublishEvent(System.Guid appSessionId, System.Guid priceCalculationId) {
-            base.Channel.SavePriceCalculationPublishEvent(appSessionId, priceCalculationId);
+        public bool SavePriceCalculationPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceCalculationId) {
+            return base.Channel.SavePriceCalculationPublishEvent(eventSourceAppSessionId, targetUserId, priceCalculationId);
         }
         
-        public System.Threading.Tasks.Task SavePriceCalculationPublishEventAsync(System.Guid appSessionId, System.Guid priceCalculationId) {
-            return base.Channel.SavePriceCalculationPublishEventAsync(appSessionId, priceCalculationId);
+        public System.Threading.Tasks.Task<bool> SavePriceCalculationPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceCalculationId) {
+            return base.Channel.SavePriceCalculationPublishEventAsync(eventSourceAppSessionId, targetUserId, priceCalculationId);
         }
         
-        public System.Guid[] StartPriceCalculationPublishEvent(System.Guid appSessionId, System.Guid priceCalculationId, System.Guid[] targetUsersIds) {
-            return base.Channel.StartPriceCalculationPublishEvent(appSessionId, priceCalculationId, targetUsersIds);
+        public bool StartPriceCalculationPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceCalculationId) {
+            return base.Channel.StartPriceCalculationPublishEvent(eventSourceAppSessionId, targetUserId, priceCalculationId);
         }
         
-        public System.Threading.Tasks.Task<System.Guid[]> StartPriceCalculationPublishEventAsync(System.Guid appSessionId, System.Guid priceCalculationId, System.Guid[] targetUsersIds) {
-            return base.Channel.StartPriceCalculationPublishEventAsync(appSessionId, priceCalculationId, targetUsersIds);
+        public System.Threading.Tasks.Task<bool> StartPriceCalculationPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceCalculationId) {
+            return base.Channel.StartPriceCalculationPublishEventAsync(eventSourceAppSessionId, targetUserId, priceCalculationId);
         }
         
-        public void FinishPriceCalculationPublishEvent(System.Guid appSessionId, System.Guid priceCalculationId) {
-            base.Channel.FinishPriceCalculationPublishEvent(appSessionId, priceCalculationId);
+        public bool FinishPriceCalculationPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceCalculationId) {
+            return base.Channel.FinishPriceCalculationPublishEvent(eventSourceAppSessionId, targetUserId, priceCalculationId);
         }
         
-        public System.Threading.Tasks.Task FinishPriceCalculationPublishEventAsync(System.Guid appSessionId, System.Guid priceCalculationId) {
-            return base.Channel.FinishPriceCalculationPublishEventAsync(appSessionId, priceCalculationId);
+        public System.Threading.Tasks.Task<bool> FinishPriceCalculationPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceCalculationId) {
+            return base.Channel.FinishPriceCalculationPublishEventAsync(eventSourceAppSessionId, targetUserId, priceCalculationId);
         }
         
-        public void CancelPriceCalculationPublishEvent(System.Guid appSessionId, System.Guid priceCalculationId) {
-            base.Channel.CancelPriceCalculationPublishEvent(appSessionId, priceCalculationId);
+        public bool CancelPriceCalculationPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceCalculationId) {
+            return base.Channel.CancelPriceCalculationPublishEvent(eventSourceAppSessionId, targetUserId, priceCalculationId);
         }
         
-        public System.Threading.Tasks.Task CancelPriceCalculationPublishEventAsync(System.Guid appSessionId, System.Guid priceCalculationId) {
-            return base.Channel.CancelPriceCalculationPublishEventAsync(appSessionId, priceCalculationId);
+        public System.Threading.Tasks.Task<bool> CancelPriceCalculationPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceCalculationId) {
+            return base.Channel.CancelPriceCalculationPublishEventAsync(eventSourceAppSessionId, targetUserId, priceCalculationId);
         }
         
-        public void RejectPriceCalculationPublishEvent(System.Guid appSessionId, System.Guid priceCalculationId) {
-            base.Channel.RejectPriceCalculationPublishEvent(appSessionId, priceCalculationId);
+        public bool RejectPriceCalculationPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceCalculationId) {
+            return base.Channel.RejectPriceCalculationPublishEvent(eventSourceAppSessionId, targetUserId, priceCalculationId);
         }
         
-        public System.Threading.Tasks.Task RejectPriceCalculationPublishEventAsync(System.Guid appSessionId, System.Guid priceCalculationId) {
-            return base.Channel.RejectPriceCalculationPublishEventAsync(appSessionId, priceCalculationId);
+        public System.Threading.Tasks.Task<bool> RejectPriceCalculationPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceCalculationId) {
+            return base.Channel.RejectPriceCalculationPublishEventAsync(eventSourceAppSessionId, targetUserId, priceCalculationId);
         }
         
-        public void SaveIncomingRequestPublishEvent(System.Guid appSessionId, System.Guid requestId) {
-            base.Channel.SaveIncomingRequestPublishEvent(appSessionId, requestId);
+        public bool SaveIncomingRequestPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid requestId) {
+            return base.Channel.SaveIncomingRequestPublishEvent(eventSourceAppSessionId, targetUserId, requestId);
         }
         
-        public System.Threading.Tasks.Task SaveIncomingRequestPublishEventAsync(System.Guid appSessionId, System.Guid requestId) {
-            return base.Channel.SaveIncomingRequestPublishEventAsync(appSessionId, requestId);
+        public System.Threading.Tasks.Task<bool> SaveIncomingRequestPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid requestId) {
+            return base.Channel.SaveIncomingRequestPublishEventAsync(eventSourceAppSessionId, targetUserId, requestId);
         }
         
-        public void SaveIncomingDocumentPublishEvent(System.Guid appSessionId, System.Guid documentId) {
-            base.Channel.SaveIncomingDocumentPublishEvent(appSessionId, documentId);
+        public bool SaveIncomingDocumentPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid requestId) {
+            return base.Channel.SaveIncomingDocumentPublishEvent(eventSourceAppSessionId, targetUserId, requestId);
         }
         
-        public System.Threading.Tasks.Task SaveIncomingDocumentPublishEventAsync(System.Guid appSessionId, System.Guid documentId) {
-            return base.Channel.SaveIncomingDocumentPublishEventAsync(appSessionId, documentId);
+        public System.Threading.Tasks.Task<bool> SaveIncomingDocumentPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid requestId) {
+            return base.Channel.SaveIncomingDocumentPublishEventAsync(eventSourceAppSessionId, targetUserId, requestId);
         }
         
-        public void SaveTechnicalRequarementsTaskPublishEvent(System.Guid appSessionId, System.Guid technicalRequarementsTaskId) {
-            base.Channel.SaveTechnicalRequarementsTaskPublishEvent(appSessionId, technicalRequarementsTaskId);
+        public bool SaveTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId) {
+            return base.Channel.SaveTechnicalRequarementsTaskPublishEvent(eventSourceAppSessionId, targetUserId, technicalRequarementsTaskId);
         }
         
-        public System.Threading.Tasks.Task SaveTechnicalRequarementsTaskPublishEventAsync(System.Guid appSessionId, System.Guid technicalRequarementsTaskId) {
-            return base.Channel.SaveTechnicalRequarementsTaskPublishEventAsync(appSessionId, technicalRequarementsTaskId);
+        public System.Threading.Tasks.Task<bool> SaveTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId) {
+            return base.Channel.SaveTechnicalRequarementsTaskPublishEventAsync(eventSourceAppSessionId, targetUserId, technicalRequarementsTaskId);
         }
         
-        public void StartTechnicalRequarementsTaskPublishEvent(System.Guid appSessionId, System.Guid technicalRequarementsTaskId) {
-            base.Channel.StartTechnicalRequarementsTaskPublishEvent(appSessionId, technicalRequarementsTaskId);
+        public bool StartTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId) {
+            return base.Channel.StartTechnicalRequarementsTaskPublishEvent(eventSourceAppSessionId, targetUserId, technicalRequarementsTaskId);
         }
         
-        public System.Threading.Tasks.Task StartTechnicalRequarementsTaskPublishEventAsync(System.Guid appSessionId, System.Guid technicalRequarementsTaskId) {
-            return base.Channel.StartTechnicalRequarementsTaskPublishEventAsync(appSessionId, technicalRequarementsTaskId);
+        public System.Threading.Tasks.Task<bool> StartTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId) {
+            return base.Channel.StartTechnicalRequarementsTaskPublishEventAsync(eventSourceAppSessionId, targetUserId, technicalRequarementsTaskId);
         }
         
-        public void InstructTechnicalRequarementsTaskPublishEvent(System.Guid appSessionId, System.Guid technicalRequarementsTaskId) {
-            base.Channel.InstructTechnicalRequarementsTaskPublishEvent(appSessionId, technicalRequarementsTaskId);
+        public bool InstructTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId) {
+            return base.Channel.InstructTechnicalRequarementsTaskPublishEvent(eventSourceAppSessionId, targetUserId, technicalRequarementsTaskId);
         }
         
-        public System.Threading.Tasks.Task InstructTechnicalRequarementsTaskPublishEventAsync(System.Guid appSessionId, System.Guid technicalRequarementsTaskId) {
-            return base.Channel.InstructTechnicalRequarementsTaskPublishEventAsync(appSessionId, technicalRequarementsTaskId);
+        public System.Threading.Tasks.Task<bool> InstructTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId) {
+            return base.Channel.InstructTechnicalRequarementsTaskPublishEventAsync(eventSourceAppSessionId, targetUserId, technicalRequarementsTaskId);
         }
         
-        public void StopTechnicalRequarementsTaskPublishEvent(System.Guid appSessionId, System.Guid technicalRequarementsTaskId) {
-            base.Channel.StopTechnicalRequarementsTaskPublishEvent(appSessionId, technicalRequarementsTaskId);
+        public bool StopTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId) {
+            return base.Channel.StopTechnicalRequarementsTaskPublishEvent(eventSourceAppSessionId, targetUserId, technicalRequarementsTaskId);
         }
         
-        public System.Threading.Tasks.Task StopTechnicalRequarementsTaskPublishEventAsync(System.Guid appSessionId, System.Guid technicalRequarementsTaskId) {
-            return base.Channel.StopTechnicalRequarementsTaskPublishEventAsync(appSessionId, technicalRequarementsTaskId);
+        public System.Threading.Tasks.Task<bool> StopTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId) {
+            return base.Channel.StopTechnicalRequarementsTaskPublishEventAsync(eventSourceAppSessionId, targetUserId, technicalRequarementsTaskId);
         }
         
-        public void RejectTechnicalRequarementsTaskPublishEvent(System.Guid appSessionId, System.Guid technicalRequarementsTaskId) {
-            base.Channel.RejectTechnicalRequarementsTaskPublishEvent(appSessionId, technicalRequarementsTaskId);
+        public bool RejectTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId) {
+            return base.Channel.RejectTechnicalRequarementsTaskPublishEvent(eventSourceAppSessionId, targetUserId, technicalRequarementsTaskId);
         }
         
-        public System.Threading.Tasks.Task RejectTechnicalRequarementsTaskPublishEventAsync(System.Guid appSessionId, System.Guid technicalRequarementsTaskId) {
-            return base.Channel.RejectTechnicalRequarementsTaskPublishEventAsync(appSessionId, technicalRequarementsTaskId);
+        public System.Threading.Tasks.Task<bool> RejectTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId) {
+            return base.Channel.RejectTechnicalRequarementsTaskPublishEventAsync(eventSourceAppSessionId, targetUserId, technicalRequarementsTaskId);
         }
         
-        public void RejectByFrontManagerTechnicalRequarementsTaskPublishEvent(System.Guid appSessionId, System.Guid technicalRequarementsTaskId) {
-            base.Channel.RejectByFrontManagerTechnicalRequarementsTaskPublishEvent(appSessionId, technicalRequarementsTaskId);
+        public bool RejectByFrontManagerTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId) {
+            return base.Channel.RejectByFrontManagerTechnicalRequarementsTaskPublishEvent(eventSourceAppSessionId, targetUserId, technicalRequarementsTaskId);
         }
         
-        public System.Threading.Tasks.Task RejectByFrontManagerTechnicalRequarementsTaskPublishEventAsync(System.Guid appSessionId, System.Guid technicalRequarementsTaskId) {
-            return base.Channel.RejectByFrontManagerTechnicalRequarementsTaskPublishEventAsync(appSessionId, technicalRequarementsTaskId);
+        public System.Threading.Tasks.Task<bool> RejectByFrontManagerTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId) {
+            return base.Channel.RejectByFrontManagerTechnicalRequarementsTaskPublishEventAsync(eventSourceAppSessionId, targetUserId, technicalRequarementsTaskId);
         }
         
-        public void FinishTechnicalRequarementsTaskPublishEvent(System.Guid appSessionId, System.Guid technicalRequarementsTaskId) {
-            base.Channel.FinishTechnicalRequarementsTaskPublishEvent(appSessionId, technicalRequarementsTaskId);
+        public bool FinishTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId) {
+            return base.Channel.FinishTechnicalRequarementsTaskPublishEvent(eventSourceAppSessionId, targetUserId, technicalRequarementsTaskId);
         }
         
-        public System.Threading.Tasks.Task FinishTechnicalRequarementsTaskPublishEventAsync(System.Guid appSessionId, System.Guid technicalRequarementsTaskId) {
-            return base.Channel.FinishTechnicalRequarementsTaskPublishEventAsync(appSessionId, technicalRequarementsTaskId);
+        public System.Threading.Tasks.Task<bool> FinishTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId) {
+            return base.Channel.FinishTechnicalRequarementsTaskPublishEventAsync(eventSourceAppSessionId, targetUserId, technicalRequarementsTaskId);
         }
         
-        public void AcceptTechnicalRequarementsTaskPublishEvent(System.Guid appSessionId, System.Guid technicalRequarementsTaskId) {
-            base.Channel.AcceptTechnicalRequarementsTaskPublishEvent(appSessionId, technicalRequarementsTaskId);
+        public bool AcceptTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId) {
+            return base.Channel.AcceptTechnicalRequarementsTaskPublishEvent(eventSourceAppSessionId, targetUserId, technicalRequarementsTaskId);
         }
         
-        public System.Threading.Tasks.Task AcceptTechnicalRequarementsTaskPublishEventAsync(System.Guid appSessionId, System.Guid technicalRequarementsTaskId) {
-            return base.Channel.AcceptTechnicalRequarementsTaskPublishEventAsync(appSessionId, technicalRequarementsTaskId);
+        public System.Threading.Tasks.Task<bool> AcceptTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId) {
+            return base.Channel.AcceptTechnicalRequarementsTaskPublishEventAsync(eventSourceAppSessionId, targetUserId, technicalRequarementsTaskId);
         }
     }
 }

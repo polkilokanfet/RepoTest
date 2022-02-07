@@ -11,11 +11,25 @@ using Prism.Events;
 
 namespace EventServiceClient2.SyncEntities
 {
-    public abstract class SyncUnit<TModel, TAfterSaveEvent> : ISyncUnit
+    public interface ITargetUser<TModel>
+        where TModel : BaseEntity
+    {
+
+        /// <summary>
+        /// Является ли предложенный пользователь адресатом уведомлений этого контейнера и этой сущности
+        /// </summary>
+        /// <param name="user">Предложенный пользователь</param>
+        /// <param name="model">Сущность</param>
+        /// <returns></returns>
+        bool IsTargetUser(User user, TModel model);
+    }
+
+    public abstract class SyncUnit<TModel, TAfterSaveEvent> : ISyncUnit, ITargetUser<TModel>
         where TAfterSaveEvent : PubSubEvent<TModel>, new()
         where TModel : BaseEntity
     {
         private readonly IEventAggregator _eventAggregator;
+        private readonly IMessageService _messageService;
         protected readonly IUnitOfWork UnitOfWork;
         protected Guid AppSessionId { get; private set; }
 
@@ -26,6 +40,7 @@ namespace EventServiceClient2.SyncEntities
         protected SyncUnit(IUnityContainer container)
         {
             _eventAggregator = container.Resolve<IEventAggregator>();
+            _messageService = container.Resolve<IMessageService>();
             UnitOfWork = container.Resolve<IUnitOfWork>();
             Subscribe();
         }
@@ -40,16 +55,22 @@ namespace EventServiceClient2.SyncEntities
             _eventAggregator.GetEvent<TAfterSaveEvent>().Unsubscribe(PublishThroughEventService);
         }
 
-        protected abstract void DoPublishAction(TModel model);
+        public abstract bool IsTargetUser(User user, TModel model);
 
         /// <summary>
         /// Вычисление пользователей-адресатов этого уведомления
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        protected abstract IEnumerable<Guid> GetTargetUsersIds(TModel model);
+        protected virtual IEnumerable<Guid> GetTargetUsersIds(TModel model)
+        {
+            return UnitOfWork.Repository<User>()
+                .Find(user => this.IsTargetUser(user, model))
+                .Select(user => user.Id)
+                .Distinct();
+        }
 
-        protected abstract Func<TModel, bool> ActionPublishThroughEventService { get; }
+        protected abstract ActionPublishThroughEventServiceForUserDelegate ActionPublishThroughEventServiceForUser { get; }
 
         protected abstract EventServiceActionType EventServiceActionType { get; }
 
@@ -69,7 +90,7 @@ namespace EventServiceClient2.SyncEntities
             foreach (var targetUsersId in targetUsersIds)
             {
                 //пользователь получил уведомление?
-                if (PublishNotification(model))
+                if (PublishNotificationForUser(targetUsersId, model))
                 {
                     usersIdsWhoDidNotReciveNotification.Remove(targetUsersId);
                 }
@@ -93,7 +114,7 @@ namespace EventServiceClient2.SyncEntities
             }
         }
 
-        private bool PublishNotification(TModel model)
+        private bool PublishNotificationForUser(Guid targetUserId, TModel model)
         {
             if (EventServiceHost == null)
                 return false;
@@ -105,15 +126,12 @@ namespace EventServiceClient2.SyncEntities
                     EventServiceHost.State != CommunicationState.Closed)
                 {
                     //публикуем действие
-                    return ActionPublishThroughEventService.Invoke(model);
-                    DoPublishAction(model);asd
-                    return true;
+                    return ActionPublishThroughEventServiceForUser.Invoke(this.AppSessionId, targetUserId, model.Id);
                 }
                 else
                 {
                     //кидаем событие
                     ServiceHostDisabled?.Invoke();
-                    return false;
                 }
             }
             //хост недоступен
@@ -121,16 +139,15 @@ namespace EventServiceClient2.SyncEntities
             {
                 //кидаем событие
                 ServiceHostDisabled?.Invoke();
-                return false;
             }
 #if DEBUG
 #else
             catch (Exception e)
             {
                 _messageService.ShowOkMessageDialog(e.GetType().FullName, e.PrintAllExceptions());
-                return false;
             }
 #endif
+            return false;
         }
 
         /// <summary>
@@ -165,4 +182,6 @@ namespace EventServiceClient2.SyncEntities
             Unsubscribe();
         }
     }
+
+    public delegate bool ActionPublishThroughEventServiceForUserDelegate(Guid appId, Guid targetUserId, Guid modelId);
 }

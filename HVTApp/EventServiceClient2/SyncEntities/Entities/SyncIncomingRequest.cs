@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
@@ -11,9 +12,19 @@ namespace EventServiceClient2.SyncEntities
         {
         }
 
-        protected override void DoPublishAction(IncomingRequest incomingRequest)
+        public override bool IsTargetUser(User user, IncomingRequest model)
         {
-            this.EventServiceHost.SaveIncomingRequestPublishEvent(AppSessionId, incomingRequest.Id);
+            throw new NotImplementedException();
         }
+
+        protected override ActionPublishThroughEventServiceForUserDelegate ActionPublishThroughEventServiceForUser
+        {
+            get
+            {
+                return (eventSourceAppSessionId, targetUserId, requestId) => EventServiceHost.SaveIncomingRequestPublishEvent(eventSourceAppSessionId, targetUserId, requestId);
+            }
+        }
+
+        protected override EventServiceActionType EventServiceActionType => EventServiceActionType.SaveIncomingRequest;
     }
 }

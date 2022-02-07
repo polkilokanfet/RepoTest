@@ -22,7 +22,7 @@ namespace HVTApp.Model.Events
     /// <summary>
     /// Событие, поднимаемое после остановки расчета ПЗ
     /// </summary>
-    public class AfterCancelPriceCalculationEvent : PubSubEvent<PriceCalculation> { }
+    public class AfterStopPriceCalculationEvent : PubSubEvent<PriceCalculation> { }
 
     #region Directum
 

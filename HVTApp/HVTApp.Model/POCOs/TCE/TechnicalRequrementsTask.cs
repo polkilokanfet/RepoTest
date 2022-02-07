@@ -57,6 +57,14 @@ namespace HVTApp.Model.POCOs
         [Designation("Проработать до"), OrderStatus(1)]
         public virtual DateTime? DesiredFinishDate { get; set; }
 
+        public User FrontManager
+        {
+            get
+            {
+                return Requrements.SelectMany(technicalRequrements => technicalRequrements.SalesUnits).FirstOrDefault()?.Project.Manager;
+            }
+        }
+
         [Designation("Старт"), OrderStatus(3), NotMapped]
         public DateTime? Start
         {
@@ -128,5 +136,11 @@ namespace HVTApp.Model.POCOs
         [Designation("Принято?")]
         public bool IsAccepted=> LastHistoryElement != null &&
                                  LastHistoryElement.Type == TechnicalRequrementsTaskHistoryElementType.Accept;
+
+        public override string ToString()
+        {
+            var projectName = Requrements.SelectMany(technicalRequrements => technicalRequrements.SalesUnits).FirstOrDefault()?.Project.Name;
+            return $"Задача TCE: {projectName} (Id: {Id}).";
+        }
     }
 }

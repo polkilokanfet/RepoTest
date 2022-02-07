@@ -62,7 +62,7 @@ namespace HVTApp.Services.PriceService.PriceServ
                 });
 
             //синхронизация остановки расчетов
-            container.Resolve<IEventAggregator>().GetEvent<AfterCancelPriceCalculationEvent>().Subscribe(
+            container.Resolve<IEventAggregator>().GetEvent<AfterStopPriceCalculationEvent>().Subscribe(
                 calculation =>
                 {
                     if (calculation.TaskCloseMoment.HasValue) return;

@@ -20,6 +20,25 @@ namespace HVTApp.Model.POCOs
 
     public enum EventServiceActionType
     {
-        StartPriceCalculation
+        StartPriceCalculation,
+        SaveDirectumTask,
+        StartDirectumTask,
+        StopDirectumTask,
+        PerformDirectumTask,
+        AcceptDirectumTask,
+        RejectDirectumTask,
+        SaveIncomingRequest,
+        SavePriceCalculation,
+        CancelPriceCalculation,
+        RejectPriceCalculation,
+        FinishPriceCalculation,
+        SaveTechnicalRequrementsTask,
+        StartTechnicalRequrementsTask,
+        InstructTechnicalRequrementsTask,
+        RejectTechnicalRequrementsTask,
+        RejectByFrontManagerTechnicalRequrementsTask,
+        FinishTechnicalRequrementsTask,
+        AcceptTechnicalRequrementsTask,
+        StopTechnicalRequrementsTask
     }
 }

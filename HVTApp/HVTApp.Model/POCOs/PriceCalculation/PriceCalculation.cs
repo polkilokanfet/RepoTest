@@ -77,5 +77,13 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Инициатор"), Required]
         public virtual User Initiator { get; set; }
+
+        public User FrontManager
+        {
+            get
+            {
+                return PriceCalculationItems.SelectMany(priceCalculationItem => priceCalculationItem.SalesUnits).FirstOrDefault()?.Project.Manager;
+            }
+        }
     }
 }

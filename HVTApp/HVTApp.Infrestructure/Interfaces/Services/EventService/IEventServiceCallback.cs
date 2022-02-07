@@ -30,42 +30,42 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
 
         #region Directum
 
-        [OperationContract(IsOneWay = true)]
-        void OnSaveDirectumTaskServiceCallback(Guid taskId);
+        [OperationContract]
+        bool OnSaveDirectumTaskServiceCallback(Guid taskId);
 
-        [OperationContract(IsOneWay = true)]
-        void OnStartDirectumTaskServiceCallback(Guid taskId);
+        [OperationContract]
+        bool OnStartDirectumTaskServiceCallback(Guid taskId);
 
-        [OperationContract(IsOneWay = true)]
-        void OnStopDirectumTaskServiceCallback(Guid taskId);
+        [OperationContract]
+        bool OnStopDirectumTaskServiceCallback(Guid taskId);
 
-        [OperationContract(IsOneWay = true)]
-        void OnPerformDirectumTaskServiceCallback(Guid taskId);
+        [OperationContract]
+        bool OnPerformDirectumTaskServiceCallback(Guid taskId);
 
-        [OperationContract(IsOneWay = true)]
-        void OnAcceptDirectumTaskServiceCallback(Guid taskId);
+        [OperationContract]
+        bool OnAcceptDirectumTaskServiceCallback(Guid taskId);
 
-        [OperationContract(IsOneWay = true)]
-        void OnRejectDirectumTaskServiceCallback(Guid taskId);
+        [OperationContract]
+        bool OnRejectDirectumTaskServiceCallback(Guid taskId);
 
         #endregion
 
         #region PriceCalculation
 
-        [OperationContract(IsOneWay = true)]
-        void OnSavePriceCalculationServiceCallback(Guid calculationId);
+        [OperationContract]
+        bool OnSavePriceCalculationServiceCallback(Guid calculationId);
 
-        [OperationContract()]
+        [OperationContract]
         bool OnStartPriceCalculationServiceCallback(Guid calculationId);
 
-        [OperationContract(IsOneWay = true)]
-        void OnFinishPriceCalculationServiceCallback(Guid calculationId);
+        [OperationContract]
+        bool OnFinishPriceCalculationServiceCallback(Guid calculationId);
 
-        [OperationContract(IsOneWay = true)]
-        void OnCancelPriceCalculationServiceCallback(Guid calculationId);
+        [OperationContract]
+        bool OnCancelPriceCalculationServiceCallback(Guid calculationId);
         
-        [OperationContract(IsOneWay = true)]
-        void OnRejectPriceCalculationServiceCallback(Guid calculationId);
+        [OperationContract]
+        bool OnRejectPriceCalculationServiceCallback(Guid calculationId);
 
         #endregion
 
@@ -77,29 +77,29 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
 
         #region TechnicalRequarementsTask
 
-        [OperationContract(IsOneWay = true)]
-        void OnSaveTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId);
+        [OperationContract]
+        bool OnSaveTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId);
 
-        [OperationContract(IsOneWay = true)]
-        void OnStartTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId);
+        [OperationContract]
+        bool OnStartTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId);
 
-        [OperationContract(IsOneWay = true)]
-        void OnInstructTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId);
+        [OperationContract]
+        bool OnInstructTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId);
 
-        [OperationContract(IsOneWay = true)]
-        void OnStopTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId);
+        [OperationContract]
+        bool OnStopTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId);
 
-        [OperationContract(IsOneWay = true)]
-        void OnRejectTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId);
+        [OperationContract]
+        bool OnRejectTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId);
 
-        [OperationContract(IsOneWay = true)]
-        void OnRejectByFrontManagerTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId);
+        [OperationContract]
+        bool OnRejectByFrontManagerTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId);
 
-        [OperationContract(IsOneWay = true)]
-        void OnFinishTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId);
+        [OperationContract]
+        bool OnFinishTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId);
 
-        [OperationContract(IsOneWay = true)]
-        void OnAcceptTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId);
+        [OperationContract]
+        bool OnAcceptTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId);
 
         #endregion
 
@@ -115,6 +115,5 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
         /// </summary>
         [OperationContract(IsOneWay = true)]
         void CheckMessagesInDb();
-
     }
 }

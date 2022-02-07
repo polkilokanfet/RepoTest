@@ -15,7 +15,7 @@ namespace EventService
         /// </summary>
         /// <param name="appSessionId">Id приложения инициировшего событие</param>
         /// <param name="publishEvent"></param>
-        private void PublishEventByService(Guid appSessionId, Action<AppSession> publishEvent)
+        private void PublishEventThroughService(Guid appSessionId, Action<AppSession> publishEvent)
         {
             //целевые приложения (приложения без того, которое и послало событие).
             var targetAppSessions = _appSessions
@@ -56,8 +56,10 @@ namespace EventService
         /// <param name="sourceEventAppSessionId">Id приложения инициировшего событие</param>
         /// <param name="publishEvent"></param>
         /// <returns>Доставлено ли уведомление целевому пользователю</returns>
-        private bool PublishEventByServiceForUser(Guid targetUserId, Guid sourceEventAppSessionId, Action<AppSession> publishEvent)
+        private bool PublishEventByServiceForUser(Guid targetUserId, Guid sourceEventAppSessionId, Func<AppSession, bool> publishEvent)
         {
+            bool result = false;
+
             //целевые приложения (без того, которое и послало событие).
             var targetAppSessions = _appSessions
                 .Where(appSession => appSession.UserId == targetUserId)
@@ -71,31 +73,29 @@ namespace EventService
             {
                 try
                 {
-                    publishEvent.Invoke(appSession);
+                    if (publishEvent.Invoke(appSession))
+                        result = true;
                 }
                 //отключаем приложение от сервиса
                 catch (CommunicationObjectAbortedException e)
                 {
                     PrintMessageEvent?.Invoke($"{this.GetType().FullName}. {e.GetType().FullName}.");
                     this.Disconnect(appSession.AppSessionId);
-                    return false;
                 }
                 catch (TimeoutException e)
                 {
                     PrintMessageEvent?.Invoke($"{this.GetType().FullName}. {e.GetType().FullName}.");
                     this.Disconnect(appSession.AppSessionId);
-                    return false;
                 }
                 catch (Exception e)
                 {
                     PrintMessageEvent?.Invoke($"!Exception on Invoke {publishEvent.GetMethodInfo().Name} ({this.GetType().FullName}) by appSession {sourceEventAppSessionId}. \n{e.GetType().FullName}\n{e.PrintAllExceptions()}");
                     this.Disconnect(appSession.AppSessionId);
-                    return false;
                 }
             }
 
             PrintMessageEvent?.Invoke($"Invoke {publishEvent.GetMethodInfo().Name} by appSession {sourceEventAppSessionId}");
-            return true;
+            return result;
         }
 
 
@@ -103,63 +103,56 @@ namespace EventService
 
         public void SaveIncomingRequestPublishEvent(Guid appSessionId, Guid requestId)
         {
-            PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveIncomingRequestServiceCallback(requestId));
+            PublishEventThroughService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveIncomingRequestServiceCallback(requestId));
         }
 
         #endregion
 
         #region Directum
 
-        public void SaveDirectumTaskPublishEvent(Guid appSessionId, Guid taskId)
+        public bool SaveDirectumTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid taskId)
         {
-            PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveDirectumTaskServiceCallback(taskId));
+            return PublishEventByServiceForUser(targetUserId, eventSourceAppSessionId, 
+                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveDirectumTaskServiceCallback(taskId));
         }
 
-        public void StartDirectumTaskPublishEvent(Guid appSessionId, Guid taskId)
+        public bool StartDirectumTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid taskId)
         {
-            PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnStartDirectumTaskServiceCallback(taskId));
+            return PublishEventByServiceForUser(targetUserId, eventSourceAppSessionId,
+                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnStartDirectumTaskServiceCallback(taskId));
         }
 
-        public void StopDirectumTaskPublishEvent(Guid appSessionId, Guid taskId)
+        public bool StopDirectumTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid taskId)
         {
-            PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnStopDirectumTaskServiceCallback(taskId));
+            return PublishEventByServiceForUser(targetUserId, eventSourceAppSessionId,
+                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnStopDirectumTaskServiceCallback(taskId));
         }
 
-        public void PerformDirectumTaskPublishEvent(Guid appSessionId, Guid taskId)
+        public bool PerformDirectumTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid taskId)
         {
-            PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnPerformDirectumTaskServiceCallback(taskId));
+            return PublishEventByServiceForUser(targetUserId, eventSourceAppSessionId,
+                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnPerformDirectumTaskServiceCallback(taskId));
         }
 
-        public void AcceptDirectumTaskPublishEvent(Guid appSessionId, Guid taskId)
+        public bool AcceptDirectumTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid taskId)
         {
-            PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnAcceptDirectumTaskServiceCallback(taskId));
+            return PublishEventByServiceForUser(targetUserId, eventSourceAppSessionId,
+                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnAcceptDirectumTaskServiceCallback(taskId));
         }
 
-        public void RejectDirectumTaskPublishEvent(Guid appSessionId, Guid taskId)
+        public bool RejectDirectumTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid taskId)
         {
-            PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnRejectDirectumTaskServiceCallback(taskId));
+            return PublishEventByServiceForUser(targetUserId, eventSourceAppSessionId,
+                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnRejectDirectumTaskServiceCallback(taskId));
         }
-
         #endregion
 
         #region PriceCalculation
-
-        public void SavePriceCalculationPublishEvent(Guid appSessionId, Guid priceCalculationId)
+        
+        public bool SavePriceCalculationPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid priceCalculationId)
         {
-            PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSavePriceCalculationServiceCallback(priceCalculationId));
-        }
-
-        public IEnumerable<Guid> StartPriceCalculationPublishEvent(Guid appSessionId, Guid priceCalculationId, IEnumerable<Guid> targetUsersIds)
-        {
-            List<Guid> result = targetUsersIds.ToList();
-            
-            foreach (var targetUserId in targetUsersIds)
-            {
-                if (PublishEventByServiceForUser(targetUserId, appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnStartPriceCalculationServiceCallback(priceCalculationId)))
-                    result.Remove(targetUserId);
-            }
-
-            return result;
+            return PublishEventByServiceForUser(targetUserId, eventSourceAppSessionId, 
+                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSavePriceCalculationServiceCallback(priceCalculationId));
         }
 
         public bool StartPriceCalculationPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid priceCalculationId)
@@ -168,72 +161,94 @@ namespace EventService
                 appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnStartPriceCalculationServiceCallback(priceCalculationId));
         }
 
-
-        public void FinishPriceCalculationPublishEvent(Guid appSessionId, Guid priceCalculationId)
+        public bool FinishPriceCalculationPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid priceCalculationId)
         {
-            PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnFinishPriceCalculationServiceCallback(priceCalculationId));
-        }
-        public void CancelPriceCalculationPublishEvent(Guid appSessionId, Guid priceCalculationId)
-        {
-            PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnCancelPriceCalculationServiceCallback(priceCalculationId));
+            return PublishEventByServiceForUser(targetUserId, eventSourceAppSessionId,
+                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnFinishPriceCalculationServiceCallback(priceCalculationId));
         }
 
-        public void RejectPriceCalculationPublishEvent(Guid appSessionId, Guid priceCalculationId)
+        public bool CancelPriceCalculationPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid priceCalculationId)
         {
-            PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnRejectPriceCalculationServiceCallback(priceCalculationId));
+            return PublishEventByServiceForUser(targetUserId, eventSourceAppSessionId,
+                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnCancelPriceCalculationServiceCallback(priceCalculationId));
+        }
+
+        public bool RejectPriceCalculationPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid priceCalculationId)
+        {
+            return PublishEventByServiceForUser(targetUserId, eventSourceAppSessionId,
+                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnRejectPriceCalculationServiceCallback(priceCalculationId));
         }
 
         #endregion
+
+        public bool SaveIncomingRequestPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid requestId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool SaveIncomingDocumentPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid requestId)
+        {
+            throw new NotImplementedException();
+        }
+
 
         #region IncomingDocument
 
         public void SaveIncomingDocumentPublishEvent(Guid appSessionId, Guid documentId)
         {
-            PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveIncomingDocumentServiceCallback(documentId));
+            PublishEventThroughService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveIncomingDocumentServiceCallback(documentId));
         }
 
         #endregion
 
         #region TechnicalRequarementsTask
 
-        public void SaveTechnicalRequarementsTaskPublishEvent(Guid appSessionId, Guid technicalRequarementsTaskId)
+        public bool SaveTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid technicalRequarementsTaskId)
         {
-            PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveTechnicalRequarementsTaskServiceCallback(technicalRequarementsTaskId));
+            return PublishEventByServiceForUser(targetUserId, eventSourceAppSessionId,
+                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveTechnicalRequarementsTaskServiceCallback(technicalRequarementsTaskId));
         }
 
-        public void StartTechnicalRequarementsTaskPublishEvent(Guid appSessionId, Guid technicalRequarementsTaskId)
+        public bool StartTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid technicalRequarementsTaskId)
         {
-            PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnStartTechnicalRequarementsTaskServiceCallback(technicalRequarementsTaskId));
+            return PublishEventByServiceForUser(targetUserId, eventSourceAppSessionId,
+                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnStartTechnicalRequarementsTaskServiceCallback(technicalRequarementsTaskId));
         }
 
-        public void InstructTechnicalRequarementsTaskPublishEvent(Guid appSessionId, Guid technicalRequarementsTaskId)
+        public bool InstructTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid technicalRequarementsTaskId)
         {
-            PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnInstructTechnicalRequarementsTaskServiceCallback(technicalRequarementsTaskId));
+            return PublishEventByServiceForUser(targetUserId, eventSourceAppSessionId,
+                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnInstructTechnicalRequarementsTaskServiceCallback(technicalRequarementsTaskId));
         }
 
-        public void RejectTechnicalRequarementsTaskPublishEvent(Guid appSessionId, Guid technicalRequarementsTaskId)
+        public bool StopTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid technicalRequarementsTaskId)
         {
-            PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnRejectTechnicalRequarementsTaskServiceCallback(technicalRequarementsTaskId));
+            return PublishEventByServiceForUser(targetUserId, eventSourceAppSessionId,
+                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnStopTechnicalRequarementsTaskServiceCallback(technicalRequarementsTaskId));
         }
 
-        public void RejectByFrontManagerTechnicalRequarementsTaskPublishEvent(Guid appSessionId, Guid technicalRequarementsTaskId)
+        public bool RejectTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid technicalRequarementsTaskId)
         {
-            PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnRejectByFrontManagerTechnicalRequarementsTaskServiceCallback(technicalRequarementsTaskId));
+            return PublishEventByServiceForUser(targetUserId, eventSourceAppSessionId,
+                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnRejectTechnicalRequarementsTaskServiceCallback(technicalRequarementsTaskId));
         }
 
-        public void FinishTechnicalRequarementsTaskPublishEvent(Guid appSessionId, Guid technicalRequarementsTaskId)
+        public bool RejectByFrontManagerTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid technicalRequarementsTaskId)
         {
-            PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnFinishTechnicalRequarementsTaskServiceCallback(technicalRequarementsTaskId));
+            return PublishEventByServiceForUser(targetUserId, eventSourceAppSessionId,
+                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnRejectByFrontManagerTechnicalRequarementsTaskServiceCallback(technicalRequarementsTaskId));
         }
 
-        public void AcceptTechnicalRequarementsTaskPublishEvent(Guid appSessionId, Guid technicalRequarementsTaskId)
+        public bool FinishTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid technicalRequarementsTaskId)
         {
-            PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnAcceptTechnicalRequarementsTaskServiceCallback(technicalRequarementsTaskId));
+            return PublishEventByServiceForUser(targetUserId, eventSourceAppSessionId,
+                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnFinishTechnicalRequarementsTaskServiceCallback(technicalRequarementsTaskId));
         }
 
-        public void StopTechnicalRequarementsTaskPublishEvent(Guid appSessionId, Guid technicalRequarementsTaskId)
+        public bool AcceptTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid technicalRequarementsTaskId)
         {
-            PublishEventByService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnStopTechnicalRequarementsTaskServiceCallback(technicalRequarementsTaskId));
+            return PublishEventByServiceForUser(targetUserId, eventSourceAppSessionId,
+                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnAcceptTechnicalRequarementsTaskServiceCallback(technicalRequarementsTaskId));
         }
 
         #endregion

@@ -19,6 +19,7 @@ namespace EventServiceClient2
     {
         private Guid _appSessionId;
         private readonly IUnityContainer _container;
+        private readonly IPopupNotificationsService _popupNotificationsService;
         private readonly IFileManagerService _fileManagerService;
         private readonly IFilesStorageService _filesStorageService;
         private readonly Guid _userId = GlobalAppProperties.User.Id;
@@ -40,6 +41,7 @@ namespace EventServiceClient2
         public EventServiceClient(IUnityContainer container)
         {
             _container = container;
+            _popupNotificationsService = container.Resolve<IPopupNotificationsService>();
             _fileManagerService = container.Resolve<IFileManagerService>();
             _filesStorageService = container.Resolve<IFilesStorageService>();
 
@@ -56,8 +58,6 @@ namespace EventServiceClient2
 
             SyncContainer = new SyncContainer(_container);
             SyncContainer.ServiceHostIsDisabled += DisableWaitRestart;
-
-            CheckMessagesInDb();
         }
 
         public void Start()
@@ -67,6 +67,8 @@ namespace EventServiceClient2
                 {
                     try
                     {
+                        CheckMessagesInDb();
+
                         //проверка на то стартован ли уже сервис
                         if (HostIsEnabled)
                             return;
@@ -113,11 +115,18 @@ namespace EventServiceClient2
                 {
                     _container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().Name, e.PrintAllExceptions());
                 }
+                catch (CommunicationObjectFaultedException e)
+                {
+                    _container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().Name, e.PrintAllExceptions());
+                }
+#if DEBUG
+#else
                 catch (Exception e)
                 {
                     _container.Resolve<IHvtAppLogger>().LogError("", e);
                     _container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().Name, e.PrintAllExceptions());
                 }
+#endif
             }
 
             this.Disable();
@@ -218,6 +227,7 @@ namespace EventServiceClient2
             {
                 foreach (var unit in units)
                 {
+                    //старт расчета ПЗ
                     if (unit.EventServiceActionType == EventServiceActionType.StartPriceCalculation)
                     {
                         if (GlobalAppProperties.User.RoleCurrent == Role.Pricer)
@@ -228,8 +238,33 @@ namespace EventServiceClient2
                             }
                         }
                     }
+
+                    //старт расчета ПЗ
+                    if (unit.EventServiceActionType == EventServiceActionType.StartTechnicalRequrementsTask)
+                    {
+                        if (GlobalAppProperties.User.RoleCurrent == Role.BackManagerBoss)
+                        {
+                            if (OnStartTechnicalRequarementsTaskServiceCallback(unit.TargetEntityId))
+                            {
+                                unitOfWork.Repository<EventServiceUnit>().Delete(unit);
+                            }
+                        }
+                    }
+
+                    //поручение расчета ПЗ
+                    if (unit.EventServiceActionType == EventServiceActionType.InstructTechnicalRequrementsTask)
+                    {
+                        if (GlobalAppProperties.User.RoleCurrent == Role.BackManager)
+                        {
+                            if (OnInstructTechnicalRequarementsTaskServiceCallback(unit.TargetEntityId))
+                            {
+                                unitOfWork.Repository<EventServiceUnit>().Delete(unit);
+                            }
+                        }
+                    }
+
                 }
-                
+
                 unitOfWork.SaveChanges();
             }
         }

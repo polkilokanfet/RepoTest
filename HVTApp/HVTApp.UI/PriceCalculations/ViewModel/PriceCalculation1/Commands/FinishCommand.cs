@@ -36,6 +36,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
             _viewModel.CanChangePriceOnPropertyChanged();
 
             _viewModel.SaveCommand.RaiseCanExecuteChanged();
+            _container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceCalculationEvent>().Publish(_viewModel.PriceCalculationWrapper.Model);
             _container.Resolve<IEventAggregator>().GetEvent<AfterFinishPriceCalculationEvent>().Publish(_viewModel.PriceCalculationWrapper.Model);
             _viewModel.RefreshCommands();
         }

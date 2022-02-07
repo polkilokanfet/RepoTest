@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Linq;
-using EventServiceClient2.ServiceCallbackBase;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Modules.BookRegistration.Views;
-using HVTApp.UI.Modules.Directum;
 using Microsoft.Practices.Unity;
 using Prism.Regions;
 
@@ -43,121 +41,96 @@ namespace EventServiceClient2
 
         #region Directum
 
-        public void OnSaveDirectumTaskServiceCallback(Guid taskId)
-        {
-        }
-
-        public void OnStartDirectumTaskServiceCallback(Guid taskId)
+        public bool OnSaveDirectumTaskServiceCallback(Guid taskId)
         {
             var directumTask = _container.Resolve<IUnitOfWork>().Repository<DirectumTask>().GetById(taskId);
 
-            //можно ли исполнять
-            var allowPerform = directumTask.StartResult.HasValue && directumTask.Performer != null && directumTask.Performer.IsAppCurrentUser();
-            if (allowPerform)
+            if (this.SyncContainer.PublishWithinAppForCurrentUser<DirectumTask, AfterSaveDirectumTaskEvent>(directumTask))
             {
-                this.SyncContainer.PublishWithinApp<DirectumTask, AfterSaveDirectumTaskEvent>(directumTask);
+                return true;
+            }
 
+            return false;
+        }
+
+        public bool OnStartDirectumTaskServiceCallback(Guid taskId)
+        {
+            var directumTask = _container.Resolve<IUnitOfWork>().Repository<DirectumTask>().GetById(taskId);
+
+            if (this.SyncContainer.PublishWithinAppForCurrentUser<DirectumTask, AfterStartDirectumTaskEvent>(directumTask))
+            {
                 string title = "Вам поручена задача в DirectumLite";
                 string message = $"Инициатор: {directumTask.Group.Author}\nТема: \"{directumTask.Group.Title}\"";
+                _popupNotificationsService.ShowPopupNotification(directumTask, message, title);
 
-                var action = new Action(() =>
-                {
-                    _container.Resolve<IRegionManager>().RequestNavigateContentRegion<DirectumTaskView>(new NavigationParameters { { "task", directumTask } });
-                });
-
-                Popup.Popup.ShowPopup(message, title, action);
+                return true;
             }
+
+            return false;
         }
 
-        public void OnStopDirectumTaskServiceCallback(Guid taskId)
+        public bool OnStopDirectumTaskServiceCallback(Guid taskId)
         {
             var directumTask = _container.Resolve<IUnitOfWork>().Repository<DirectumTask>().GetById(taskId);
 
-            //можно ли исполнять
-            var isPerformer = directumTask.Performer != null && directumTask.Performer.IsAppCurrentUser();
-            if (isPerformer)
+            if (this.SyncContainer.PublishWithinAppForCurrentUser<DirectumTask, AfterStopDirectumTaskEvent>(directumTask))
             {
-                this.SyncContainer.PublishWithinApp<DirectumTask, AfterSaveDirectumTaskEvent>(directumTask);
-
                 string title = "Остановлена задача в DirectumLite";
                 string message = $"Инициатор: {directumTask.Group.Author}\nТема: \"{directumTask.Group.Title}\"";
-
-                var action = new Action(() =>
-                {
-                    _container.Resolve<IRegionManager>().RequestNavigateContentRegion<DirectumTaskView>(new NavigationParameters { { "task", directumTask } });
-                });
-
-                Popup.Popup.ShowPopup(message, title, action);
+                _popupNotificationsService.ShowPopupNotification(directumTask, message, title);
+                
+                return true;
             }
 
+            return false;
         }
 
-        public void OnPerformDirectumTaskServiceCallback(Guid taskId)
+        public bool OnPerformDirectumTaskServiceCallback(Guid taskId)
         {
             var directumTask = _container.Resolve<IUnitOfWork>().Repository<DirectumTask>().GetById(taskId);
 
-            //можно ли принимать
-            var isAuthor = directumTask.Group.Author.IsAppCurrentUser();
-
-            if (isAuthor)
+            if (this.SyncContainer.PublishWithinAppForCurrentUser<DirectumTask, AfterPerformDirectumTaskEvent>(directumTask))
             {
-                this.SyncContainer.PublishWithinApp<DirectumTask, AfterSaveDirectumTaskEvent>(directumTask);
-
                 string title = "Выполнена задача в DirectumLite";
                 string message = $"Исполнитель: {directumTask.Performer}\nТема: \"{directumTask.Group.Title}\"";
+                _popupNotificationsService.ShowPopupNotification(directumTask, message, title);
 
-                var action = new Action(() =>
-                {
-                    _container.Resolve<IRegionManager>().RequestNavigateContentRegion<DirectumTaskView>(new NavigationParameters { { "task", directumTask } });
-                });
-
-                Popup.Popup.ShowPopup(message, title, action);
+                return true;
             }
+
+            return false;
         }
 
-        public void OnAcceptDirectumTaskServiceCallback(Guid taskId)
+        public bool OnAcceptDirectumTaskServiceCallback(Guid taskId)
         {
             var directumTask = _container.Resolve<IUnitOfWork>().Repository<DirectumTask>().GetById(taskId);
 
-            //можно ли исполнять
-            var allowPerform = directumTask.StartResult.HasValue && directumTask.Performer != null && directumTask.Performer.IsAppCurrentUser();
-            if (allowPerform)
+            if (this.SyncContainer.PublishWithinAppForCurrentUser<DirectumTask, AfterAcceptDirectumTaskEvent>(directumTask))
             {
-                this.SyncContainer.PublishWithinApp<DirectumTask, AfterSaveDirectumTaskEvent>(directumTask);
-
                 string title = "Принята задача в DirectumLite";
                 string message = $"Инициатор: {directumTask.Group.Author}\nТема: \"{directumTask.Group.Title}\"";
+                _popupNotificationsService.ShowPopupNotification(directumTask, message, title);
 
-                var action = new Action(() =>
-                {
-                    _container.Resolve<IRegionManager>().RequestNavigateContentRegion<DirectumTaskView>(new NavigationParameters { { "task", directumTask } });
-                });
-
-                Popup.Popup.ShowPopup(message, title, action);
+                return true;
             }
+
+            return false;
         }
 
-        public void OnRejectDirectumTaskServiceCallback(Guid taskId)
+        public bool OnRejectDirectumTaskServiceCallback(Guid taskId)
         {
-
             var directumTask = _container.Resolve<IUnitOfWork>().Repository<DirectumTask>().GetById(taskId);
 
-            //можно ли исполнять
-            var allowPerform = directumTask.StartResult.HasValue && directumTask.Performer != null && directumTask.Performer.IsAppCurrentUser();
-            if (allowPerform)
+            if (this.SyncContainer.PublishWithinAppForCurrentUser<DirectumTask, AfterRejectDirectumTaskEvent>(directumTask))
             {
-                this.SyncContainer.PublishWithinApp<DirectumTask, AfterSaveDirectumTaskEvent>(directumTask);
-
                 string title = "Не принята задача в DirectumLite";
                 string message = $"Инициатор: {directumTask.Group.Author}\nТема: \"{directumTask.Group.Title}\"";
+                _popupNotificationsService.ShowPopupNotification(directumTask, message, title);
 
-                var action = new Action(() =>
-                {
-                    _container.Resolve<IRegionManager>().RequestNavigateContentRegion<DirectumTaskView>(new NavigationParameters { { "task", directumTask } });
-                });
-
-                Popup.Popup.ShowPopup(message, title, action);
+                return true;
             }
+
+            return false;
         }
 
         #endregion
@@ -175,14 +148,14 @@ namespace EventServiceClient2
 
             if (canInstruct || canPerform)
             {
-                this.SyncContainer.PublishWithinApp<IncomingRequest, AfterSaveIncomingRequestEvent>(request);
+                this.SyncContainer.PublishWithinAppForCurrentUser<IncomingRequest, AfterSaveIncomingRequestEvent>(request);
 
                 string message = $"{request.Document.Comment}";
                 var action = new Action(() =>
                 {
                     _container.Resolve<IRegionManager>().RequestNavigateContentRegion<IncomingRequestsView>(new NavigationParameters());
                 });
-                Popup.Popup.ShowPopup(message, "Запрос", action);
+                _popupNotificationsService.ShowPopupNotification(request, message, "Запрос");
             }
         }
 
@@ -198,7 +171,7 @@ namespace EventServiceClient2
             if (canInstruct)
             {
                 var request = new IncomingRequest { Document = document };
-                this.SyncContainer.PublishWithinApp<IncomingRequest, AfterSaveIncomingRequestEvent>(request);
+                this.SyncContainer.PublishWithinAppForCurrentUser<IncomingRequest, AfterSaveIncomingRequestEvent>(request);
 
                 string message = $"{document.Comment}";
                 var action = new Action(() =>
@@ -211,7 +184,7 @@ namespace EventServiceClient2
                         });
 
                 });
-                Popup.Popup.ShowPopup(message, "Запрос", action);
+                //Popup.Popup.ShowPopup(message, "Запрос", action);
             }
         }
 
@@ -219,186 +192,193 @@ namespace EventServiceClient2
 
         #region TechnicalRequarementsTask
 
-        public void OnSaveTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId)
+        public bool OnSaveTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId)
         {
-            //зацикливается
-            //TechnicalRequrementsTask technicalRequrementsTask = _container.Resolve<IUnitOfWork>().Repository<TechnicalRequrementsTask>().GetById(technicalRequarementsTaskId);
-            //if (technicalRequrementsTask != null)
-            //    _container.Resolve<IEventAggregator>().GetEvent<AfterSaveTechnicalRequrementsTaskEvent>().Publish(technicalRequrementsTask);
+            TechnicalRequrementsTask technicalRequrementsTask = _container.Resolve<IUnitOfWork>().Repository<TechnicalRequrementsTask>().GetById(technicalRequarementsTaskId);
+
+            if (this.SyncContainer.PublishWithinAppForCurrentUser<TechnicalRequrementsTask, AfterSaveTechnicalRequrementsTaskEvent>(technicalRequrementsTask))
+            {
+                return true;
+            }
+
+            return false;
         }
 
-        public void OnStartTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId)
+        public bool OnStartTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId)
         {
-            if (GlobalAppProperties.User.RoleCurrent == Role.BackManagerBoss ||
-                GlobalAppProperties.User.RoleCurrent == Role.BackManager)
-            {
-                var technicalRequrementsTask = _container.Resolve<IUnitOfWork>().Repository<TechnicalRequrementsTask>().GetById(technicalRequarementsTaskId);
-                var frontManager = technicalRequrementsTask.GetFrontManager();
-                if (frontManager == null) return;
+            var technicalRequrementsTask = _container.Resolve<IUnitOfWork>().Repository<TechnicalRequrementsTask>().GetById(technicalRequarementsTaskId);
 
-                string message = string.Empty;
+            if (this.SyncContainer.PublishWithinAppForCurrentUser<TechnicalRequrementsTask, AfterStartTechnicalRequrementsTaskEvent>(technicalRequrementsTask))
+            {
+                string message = null;
 
                 //если текущий пользователь BackManagerBoss
-                if (GlobalAppProperties.User.RoleCurrent == Role.BackManagerBoss)
+                if (GlobalAppProperties.User.RoleCurrent == Role.BackManagerBoss && technicalRequrementsTask.BackManager == null)
                 {
-                    if (technicalRequrementsTask.Start.HasValue && technicalRequrementsTask.BackManager == null)
+                    if (technicalRequrementsTask.Start.HasValue)
                     {
-                        message = $"Поручите кому-нибудь новую задачу ТСЕ (инициатор: {frontManager})";
+                        message = $"Необходимо поручить задачу ТСЕ (инициатор: {technicalRequrementsTask.FrontManager})";
                     }
                 }
 
                 //если текущий пользователь Back-Менеджер
-                else if (GlobalAppProperties.User.RoleCurrent == Role.BackManager)
+                else if (GlobalAppProperties.User.RoleCurrent == Role.BackManager && technicalRequrementsTask.BackManager != null)
                 {
-                    if (technicalRequrementsTask.BackManager == null) return;
                     if (technicalRequrementsTask.BackManager.IsAppCurrentUser())
                     {
-                        message = $"Рестартована задача (инициатор: {frontManager})";
+                        message = $"Рестартована задача (инициатор: {technicalRequrementsTask.FrontManager})";
                     }
-                }
-
-                if (message != string.Empty)
-                {
-                    (new ServiceCallbackBaseTechnicalRequarementsTask<AfterSaveTechnicalRequrementsTaskEvent>(_container, SyncContainer))
-                        .Start(technicalRequrementsTask, message);
-                }
-            }
-        }
-
-        public void OnInstructTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId)
-        {
-            if (GlobalAppProperties.User.RoleCurrent == Role.BackManager || GlobalAppProperties.User.RoleCurrent == Role.SalesManager)
-            {
-                var technicalRequrementsTask = _container.Resolve<IUnitOfWork>().Repository<TechnicalRequrementsTask>().GetById(technicalRequarementsTaskId);
-
-                var frontManager = technicalRequrementsTask.GetFrontManager();
-                if (frontManager == null) return;
-
-                var backManager = technicalRequrementsTask.BackManager;
-                if (backManager == null) return;
-
-                string message = null;
-
-                if (GlobalAppProperties.User.RoleCurrent == Role.BackManager && backManager.IsAppCurrentUser())
-                {
-                    message = $"Вам поручена задача ТСЕ (инициатор: {frontManager})";
-                }
-
-                else if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager && frontManager.IsAppCurrentUser())
-                {
-                    message = $"Ваша задача ТСЕ поручена (back-manager: {backManager})";
                 }
 
                 if (message != null)
                 {
-                    (new ServiceCallbackBaseTechnicalRequarementsTask<AfterSaveTechnicalRequrementsTaskEvent>(_container, SyncContainer))
-                        .Start(technicalRequrementsTask, message);
+                    _popupNotificationsService.ShowPopupNotification(technicalRequrementsTask, message, technicalRequrementsTask.ToString());
+
+                    return true;
                 }
             }
+
+            return false;
         }
 
-        public void OnStopTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId)
+        public bool OnInstructTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId)
         {
-            if (GlobalAppProperties.User.RoleCurrent == Role.BackManager)
+            var technicalRequrementsTask = _container.Resolve<IUnitOfWork>().Repository<TechnicalRequrementsTask>().GetById(technicalRequarementsTaskId);
+
+            if (this.SyncContainer.PublishWithinAppForCurrentUser<TechnicalRequrementsTask, AfterInstructTechnicalRequrementsTaskEvent>(technicalRequrementsTask))
             {
-                var technicalRequrementsTask = _container.Resolve<IUnitOfWork>().Repository<TechnicalRequrementsTask>().GetById(technicalRequarementsTaskId);
+                string message = null;
 
-                var frontManager = technicalRequrementsTask.GetFrontManager();
-                if (frontManager == null) return;
-
-                var backManager = technicalRequrementsTask.BackManager;
-                if (backManager == null) return;
-
-                if (backManager.IsAppCurrentUser())
+                if (GlobalAppProperties.User.RoleCurrent == Role.BackManager)
                 {
-                    (new ServiceCallbackBaseTechnicalRequarementsTask<AfterSaveTechnicalRequrementsTaskEvent>(_container, SyncContainer))
-                        .Start(technicalRequrementsTask, $"Задача ТСЕ остановлена (инициатор: {frontManager})");
+                    message = $"Вам поручена задача ТСЕ (инициатор: {technicalRequrementsTask.FrontManager})";
+                }
+
+                else if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager)
+                {
+                    message = $"Задача ТСЕ поручена (back-manager: {technicalRequrementsTask.BackManager})";
+                }
+
+
+                if (message != null)
+                {
+                    _popupNotificationsService.ShowPopupNotification(technicalRequrementsTask, message, technicalRequrementsTask.ToString());
+
+                    return true;
+                }
+
+            }
+
+            return false;
+        }
+
+        public bool OnStopTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId)
+        {
+            var technicalRequrementsTask = _container.Resolve<IUnitOfWork>().Repository<TechnicalRequrementsTask>().GetById(technicalRequarementsTaskId);
+            if (this.SyncContainer.PublishWithinAppForCurrentUser<TechnicalRequrementsTask, AfterStopTechnicalRequrementsTaskEvent>(technicalRequrementsTask))
+            {
+                if (GlobalAppProperties.User.RoleCurrent == Role.BackManager)
+                {
+                    string message = $"Задача ТСЕ остановлена (инициатор: {technicalRequrementsTask.FrontManager})";
+                    _popupNotificationsService.ShowPopupNotification(technicalRequrementsTask, message, technicalRequrementsTask.ToString());
+
+                    return true;
                 }
             }
+
+            return false;
         }
 
-        public void OnRejectTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId)
+        public bool OnRejectTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId)
         {
-            if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager)
-            {
-                var technicalRequrementsTask = _container.Resolve<IUnitOfWork>().Repository<TechnicalRequrementsTask>().GetById(technicalRequarementsTaskId);
-                var frontManager = technicalRequrementsTask.GetFrontManager();
+            var technicalRequrementsTask = _container.Resolve<IUnitOfWork>().Repository<TechnicalRequrementsTask>().GetById(technicalRequarementsTaskId);
+            if (this.SyncContainer.PublishWithinAppForCurrentUser<TechnicalRequrementsTask, AfterRejectTechnicalRequrementsTaskEvent>(technicalRequrementsTask))
+            { 
+                if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager)
+                {
+                    string message = $"Задача ТСЕ отклонена (back-manager: {technicalRequrementsTask.BackManager})\nПричина отклонения: {technicalRequrementsTask.LastHistoryElement?.Comment}";
+                    _popupNotificationsService.ShowPopupNotification(technicalRequrementsTask, message, technicalRequrementsTask.ToString());
 
-                if (frontManager == null) return;
-                if (!frontManager.IsAppCurrentUser()) return;
-                if (technicalRequrementsTask.BackManager == null) return;
-
-                (new ServiceCallbackBaseTechnicalRequarementsTask<AfterRejectTechnicalRequrementsTaskEvent>(_container, SyncContainer))
-                    .Start(technicalRequrementsTask, $"Ваша задача ТСЕ отклонена (back-manager: {technicalRequrementsTask.BackManager})\nПричина отклонения: {technicalRequrementsTask.LastHistoryElement?.Comment}");
+                    return true;
+                }
             }
+
+            return false;
         }
 
-        public void OnRejectByFrontManagerTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId)
+        public bool OnRejectByFrontManagerTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId)
         {
-            if (GlobalAppProperties.User.RoleCurrent == Role.BackManager)
+            var technicalRequrementsTask = _container.Resolve<IUnitOfWork>().Repository<TechnicalRequrementsTask>().GetById(technicalRequarementsTaskId);
+
+            if (this.SyncContainer.PublishWithinAppForCurrentUser<TechnicalRequrementsTask, AfterRejectByFrontManagerTechnicalRequrementsTaskEvent>(technicalRequrementsTask))
             {
-                var technicalRequrementsTask = _container.Resolve<IUnitOfWork>().Repository<TechnicalRequrementsTask>().GetById(technicalRequarementsTaskId);
-                var backManager = technicalRequrementsTask.BackManager;
+                if (GlobalAppProperties.User.RoleCurrent == Role.BackManager)
+                {
+                    string message = $"Проработка задачи ТСЕ отклонена (front-manager: {technicalRequrementsTask.FrontManager})\nПричина отклонения: {technicalRequrementsTask.LastHistoryElement?.Comment}";
+                    _popupNotificationsService.ShowPopupNotification(technicalRequrementsTask, message, technicalRequrementsTask.ToString());
 
-                if (backManager == null) return;
-                if (!backManager.IsAppCurrentUser()) return;
-
-                var frontManager = technicalRequrementsTask.GetFrontManager();
-                if (frontManager == null) return;
-
-                (new ServiceCallbackBaseTechnicalRequarementsTask<AfterRejectByFrontManagerTechnicalRequrementsTaskEvent>(_container, SyncContainer))
-                    .Start(technicalRequrementsTask, $"Проработка Вашей задача ТСЕ отклонена (front-manager: {frontManager})\nПричина отклонения: {technicalRequrementsTask.LastHistoryElement?.Comment}");
+                    return true;
+                }
             }
+
+            return false;
         }
 
-        public void OnFinishTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId)
+        public bool OnFinishTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId)
         {
-            if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager)
+            var technicalRequrementsTask = _container.Resolve<IUnitOfWork>().Repository<TechnicalRequrementsTask>().GetById(technicalRequarementsTaskId);
+
+            if (this.SyncContainer.PublishWithinAppForCurrentUser<TechnicalRequrementsTask, AfterFinishTechnicalRequrementsTaskEvent>(technicalRequrementsTask))
             {
-                var technicalRequrementsTask = _container.Resolve<IUnitOfWork>().Repository<TechnicalRequrementsTask>().GetById(technicalRequarementsTaskId);
-                var frontManager = technicalRequrementsTask.GetFrontManager();
+                if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager)
+                {
+                    string message = $"Завершена проработка задачи ТСЕ (back-manager: {technicalRequrementsTask.BackManager})";
+                    _popupNotificationsService.ShowPopupNotification(technicalRequrementsTask, message, technicalRequrementsTask.ToString());
 
-                if (frontManager == null) return;
-                if (frontManager.IsAppCurrentUser() == false) return;
-                if (technicalRequrementsTask.BackManager == null) return;
-
-                (new ServiceCallbackBaseTechnicalRequarementsTask<AfterFinishTechnicalRequrementsTaskEvent>(_container, SyncContainer))
-                    .Start(technicalRequrementsTask, $"Завершена проработка Вашей задачи ТСЕ (back-manager: {technicalRequrementsTask.BackManager})");
+                    return true;
+                }
             }
+
+            return false;
         }
 
-        public void OnAcceptTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId)
+        public bool OnAcceptTechnicalRequarementsTaskServiceCallback(Guid technicalRequarementsTaskId)
         {
-            if (GlobalAppProperties.User.RoleCurrent == Role.BackManager)
+            var technicalRequrementsTask = _container.Resolve<IUnitOfWork>().Repository<TechnicalRequrementsTask>().GetById(technicalRequarementsTaskId);
+
+            if (this.SyncContainer.PublishWithinAppForCurrentUser<TechnicalRequrementsTask, AfterAcceptTechnicalRequrementsTaskEvent>(technicalRequrementsTask))
             {
-                var technicalRequrementsTask = _container.Resolve<IUnitOfWork>().Repository<TechnicalRequrementsTask>().GetById(technicalRequarementsTaskId);
-                var frontManager = technicalRequrementsTask.GetFrontManager();
+                if (GlobalAppProperties.User.RoleCurrent == Role.BackManager)
+                {
+                    string message = $"Задача ТСЕ принята (front-manager: {technicalRequrementsTask.FrontManager})";
+                    _popupNotificationsService.ShowPopupNotification(technicalRequrementsTask, message, technicalRequrementsTask.ToString());
 
-                if (frontManager == null) return;
-                if (technicalRequrementsTask.BackManager == null) return;
-                if (technicalRequrementsTask.BackManager.IsAppCurrentUser() == false) return;
-
-                (new ServiceCallbackBaseTechnicalRequarementsTask<AfterAcceptTechnicalRequrementsTaskEvent>(_container, SyncContainer))
-                    .Start(technicalRequrementsTask, $"Задача ТСЕ принята (front-manager: {frontManager})");
+                    return true;
+                }
             }
+
+            return false;
         }
 
         #endregion
 
         #region PriceCalculation
 
-        public void OnSavePriceCalculationServiceCallback(Guid calculationId)
+        public bool OnSavePriceCalculationServiceCallback(Guid calculationId)
         {
             var calculation = _container.Resolve<IUnitOfWork>().Repository<PriceCalculation>().GetById(calculationId);
 
-            var frontManager = calculation.GetFrontManager();
+            var frontManager = calculation.FrontManager;
             var isProjectManager = frontManager != null && frontManager.IsAppCurrentUser();
-            var isInitiator = calculation.Initiator != null && calculation.Initiator.IsAppCurrentUser();
+            var isInitiator = calculation.Initiator.IsAppCurrentUser();
 
             if (isProjectManager || isInitiator || GlobalAppProperties.User.RoleCurrent == Role.Pricer)
             {
-                this.SyncContainer.PublishWithinApp<PriceCalculation, AfterSavePriceCalculationEvent>(calculation);
+                this.SyncContainer.PublishWithinAppForCurrentUser<PriceCalculation, AfterSavePriceCalculationEvent>(calculation);
+                return true;
             }
+
+            return false;
         }
 
         /// <summary>
@@ -409,9 +389,11 @@ namespace EventServiceClient2
         {
             var calculation = _container.Resolve<IUnitOfWork>().Repository<PriceCalculation>().GetById(calculationId);
 
-            if (GlobalAppProperties.User.RoleCurrent == Role.Pricer)
+            if (SyncContainer.PublishWithinAppForCurrentUser<PriceCalculation, AfterStartPriceCalculationEvent>(calculation))
             {
-                (new ServiceCallbackBasePriceCalculation<AfterSavePriceCalculationEvent>(_container, SyncContainer)).Start(calculation, $"Запущен: {calculation.Name}");
+                var message = $"Запущен: {calculation.Name}";
+                var title = $"{calculation.Name} с Id {calculation.Id}";
+                _popupNotificationsService.ShowPopupNotification(calculation, message, title);
                 return true;
             }
 
@@ -422,49 +404,57 @@ namespace EventServiceClient2
         /// Реакция на завершение расчета ПЗ
         /// </summary>
         /// <param name="calculationId">Id калькуляции</param>
-        public void OnFinishPriceCalculationServiceCallback(Guid calculationId)
+        public bool OnFinishPriceCalculationServiceCallback(Guid calculationId)
         {
             var calculation = _container.Resolve<IUnitOfWork>().Repository<PriceCalculation>().GetById(calculationId);
 
-            var frontManager = calculation.GetFrontManager();
-            var isProjectManager = frontManager != null && frontManager.IsAppCurrentUser();
-            var isInitiator = calculation.Initiator.IsAppCurrentUser();
-
-            if (isProjectManager || isInitiator)
+            if (SyncContainer.PublishWithinAppForCurrentUser<PriceCalculation, AfterFinishPriceCalculationEvent>(calculation))
             {
-                this.SyncContainer.PublishWithinApp<PriceCalculation, AfterSavePriceCalculationEvent>(calculation);
-                (new ServiceCallbackBasePriceCalculation<AfterFinishPriceCalculationEvent>(_container, SyncContainer)).Start(calculation, $"Завершен: {calculation.Name}");
+                var message = $"Завершён: {calculation.Name}";
+                var title = $"{calculation.Name} с Id {calculation.Id}";
+                _popupNotificationsService.ShowPopupNotification(calculation, message, title);
+                return true;
             }
+
+            return false;
         }
 
         /// <summary>
         /// Реакция на остановку расчета ПЗ
         /// </summary>
         /// <param name="calculationId"></param>
-        public void OnCancelPriceCalculationServiceCallback(Guid calculationId)
+        public bool OnCancelPriceCalculationServiceCallback(Guid calculationId)
         {
             var calculation = _container.Resolve<IUnitOfWork>().Repository<PriceCalculation>().GetById(calculationId);
 
-            if (GlobalAppProperties.User.RoleCurrent == Role.Pricer)
+            if (SyncContainer.PublishWithinAppForCurrentUser<PriceCalculation, AfterStopPriceCalculationEvent>(calculation))
             {
-                this.SyncContainer.PublishWithinApp<PriceCalculation, AfterSavePriceCalculationEvent>(calculation);
-                (new ServiceCallbackBasePriceCalculation<AfterCancelPriceCalculationEvent>(_container, SyncContainer)).Start(calculation, $"Остановлен: {calculation.Name}");
+                var message = $"Остановлен: {calculation.Name}";
+                var title = $"{calculation.Name} с Id {calculation.Id}";
+                _popupNotificationsService.ShowPopupNotification(calculation, message, title);
+                return true;
             }
+
+            return false;
         }
 
         /// <summary>
         /// Реакция на отклонение расчета ПЗ
         /// </summary>
         /// <param name="calculationId"></param>
-        public void OnRejectPriceCalculationServiceCallback(Guid calculationId)
+        public bool OnRejectPriceCalculationServiceCallback(Guid calculationId)
         {
             var calculation = _container.Resolve<IUnitOfWork>().Repository<PriceCalculation>().GetById(calculationId);
 
-            if (calculation.Initiator.IsAppCurrentUser())
+            if (SyncContainer.PublishWithinAppForCurrentUser<PriceCalculation, AfterRejectPriceCalculationEvent>(calculation))
             {
-                this.SyncContainer.PublishWithinApp<PriceCalculation, AfterSavePriceCalculationEvent>(calculation);
-                (new ServiceCallbackBasePriceCalculation<AfterRejectPriceCalculationEvent>(_container, SyncContainer)).Start(calculation, $"Отклонен: {calculation.Name}\nКомментарий: {calculation.LastHistoryItem.Comment}");
+                var message = $"Отклонен: {calculation.Name}\nКомментарий: {calculation.LastHistoryItem.Comment}";
+                var title = $"{calculation.Name} с Id {calculation.Id}";
+                _popupNotificationsService.ShowPopupNotification(calculation, message, title);
+                return true;
             }
+
+            return false;
         }
 
         #endregion

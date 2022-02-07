@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 
-namespace EventServiceClient2.Popup
+namespace HVTApp.Services.PopupNotificationsService1
 {
     public partial class PopupWindow
     {

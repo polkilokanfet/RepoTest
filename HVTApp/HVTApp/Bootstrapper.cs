@@ -112,6 +112,7 @@ namespace HVTApp
             Container.RegisterType<IEmailService, OutlookService>();
             Container.RegisterType<IAllowStartService, AllowStartAppService>();
             Container.RegisterType<IMessagesOutlookService, MessagesOutlookService1>();
+            Container.RegisterType<IPopupNotificationsService, HVTApp.Services.PopupNotificationsService1.PopupNotificationsService>();
 
             Container.RegisterType<IUpdateDetailsService, UpdateDetailsServiceWpf>(new ContainerControlledLifetimeManager());
 

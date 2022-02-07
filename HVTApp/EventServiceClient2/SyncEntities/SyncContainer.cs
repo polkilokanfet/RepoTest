@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using HVTApp.Infrastructure;
+using HVTApp.Model;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 
@@ -18,7 +19,7 @@ namespace EventServiceClient2.SyncEntities
         public SyncContainer(IUnityContainer container)
         {
             //Задачи из DirectumLite
-            this.Add(new SyncDirectumTask(container));
+            this.Add(new SyncDirectumTaskSave(container));
             this.Add(new SyncDirectumTaskStart(container));
             this.Add(new SyncDirectumTaskStop(container));
             this.Add(new SyncDirectumTaskPerform(container));
@@ -26,7 +27,7 @@ namespace EventServiceClient2.SyncEntities
             this.Add(new SyncDirectumTaskReject(container));
 
             //Задачи TCE
-            this.Add(new SyncTechnicalRequrementsTask(container));
+            this.Add(new SyncTechnicalRequrementsTaskSave(container));
             this.Add(new SyncTechnicalRequrementsTaskStart(container));
             this.Add(new SyncTechnicalRequrementsTaskInstruct(container));
             this.Add(new SyncTechnicalRequrementsTaskReject(container));
@@ -36,11 +37,11 @@ namespace EventServiceClient2.SyncEntities
             this.Add(new SyncTechnicalRequrementsTaskStop(container));
 
             //Калькуляции себестоимости
-            this.Add(new SyncPriceCalculation(container));       //Калькуляции себестоимости сохранение
-            this.Add(new SyncPriceCalculationStart(container));  //Калькуляции себестоимости старт
-            this.Add(new SyncPriceCalculationFinish(container)); //Калькуляции себестоимости финиш
-            this.Add(new SyncPriceCalculationCancel(container)); //Калькуляции себестоимости остановка
-            this.Add(new SyncPriceCalculationReject(container)); //Калькуляции себестоимости отклонение
+            this.Add(new SyncPriceCalculationSave(container));  
+            this.Add(new SyncPriceCalculationStart(container)); 
+            this.Add(new SyncPriceCalculationFinish(container));
+            this.Add(new SyncPriceCalculationCancel(container));
+            this.Add(new SyncPriceCalculationReject(container));
         }
 
         private void Add(ISyncUnit member)
@@ -77,22 +78,33 @@ namespace EventServiceClient2.SyncEntities
         }
 
         /// <summary>
-        /// Публикация события синхронизации только внутри текущего приложения
+        /// Публикация события синхронизации только внутри текущего приложения (для текущего пользователя приложения)
         /// </summary>
         /// <typeparam name="TModel"></typeparam>
         /// <typeparam name="TEvent"></typeparam>
         /// <param name="model"></param>
-        public void PublishWithinApp<TModel, TEvent>(TModel model)
+        public bool PublishWithinAppForCurrentUser<TModel, TEvent>(TModel model)
             where TModel : BaseEntity
             where TEvent : PubSubEvent<TModel>
         {
-            //переводим в основной поток
-            Application.Current.Dispatcher.Invoke(
-                () =>
-                {
-                    //публикуем событие
-                    _list.Single(syncUnit => syncUnit.ModelType == typeof(TModel) && syncUnit.EventType == typeof(TEvent)).PublishWithinApp(model);
-                });
+            //поиск целевого контейнера
+            var targetSyncUnit = _list.Single(syncUnit => syncUnit.ModelType == typeof(TModel) && syncUnit.EventType == typeof(TEvent));
+
+            //если пользователь текущего приложения является целевым для этого события
+            if (((ITargetUser<TModel>)targetSyncUnit).IsTargetUser(GlobalAppProperties.User, model))
+            {
+                //переводим в основной поток
+                Application.Current.Dispatcher.Invoke(
+                    () =>
+                    {
+                        //публикуем событие
+                        targetSyncUnit.PublishWithinApp(model);
+                    });
+
+                return true;
+            }
+
+            return false;
         }
 
         public void Dispose()
