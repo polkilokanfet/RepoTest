@@ -130,10 +130,10 @@ namespace EventServiceClient2.ServiceReference1 {
         System.Threading.Tasks.Task<bool> SaveIncomingRequestPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid requestId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/SaveIncomingDocumentPublishEvent", ReplyAction="http://tempuri.org/IEventService/SaveIncomingDocumentPublishEventResponse")]
-        bool SaveIncomingDocumentPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid requestId);
+        bool SaveIncomingDocumentPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid documentId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/SaveIncomingDocumentPublishEvent", ReplyAction="http://tempuri.org/IEventService/SaveIncomingDocumentPublishEventResponse")]
-        System.Threading.Tasks.Task<bool> SaveIncomingDocumentPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid requestId);
+        System.Threading.Tasks.Task<bool> SaveIncomingDocumentPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid documentId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/SaveTechnicalRequarementsTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/SaveTechnicalRequarementsTaskPublishEventRespons" +
             "e")]
@@ -250,11 +250,11 @@ namespace EventServiceClient2.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/OnRejectPriceCalculationServiceCallback", ReplyAction="http://tempuri.org/IEventService/OnRejectPriceCalculationServiceCallbackResponse")]
         bool OnRejectPriceCalculationServiceCallback(System.Guid calculationId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnSaveIncomingRequestServiceCallback")]
-        void OnSaveIncomingRequestServiceCallback(System.Guid requestId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/OnSaveIncomingRequestServiceCallback", ReplyAction="http://tempuri.org/IEventService/OnSaveIncomingRequestServiceCallbackResponse")]
+        bool OnSaveIncomingRequestServiceCallback(System.Guid requestId);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnSaveIncomingDocumentServiceCallback")]
-        void OnSaveIncomingDocumentServiceCallback(System.Guid documentId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/OnSaveIncomingDocumentServiceCallback", ReplyAction="http://tempuri.org/IEventService/OnSaveIncomingDocumentServiceCallbackResponse")]
+        bool OnSaveIncomingDocumentServiceCallback(System.Guid documentId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/OnSaveTechnicalRequarementsTaskServiceCallback", ReplyAction="http://tempuri.org/IEventService/OnSaveTechnicalRequarementsTaskServiceCallbackRe" +
             "sponse")]
@@ -480,12 +480,12 @@ namespace EventServiceClient2.ServiceReference1 {
             return base.Channel.SaveIncomingRequestPublishEventAsync(eventSourceAppSessionId, targetUserId, requestId);
         }
         
-        public bool SaveIncomingDocumentPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid requestId) {
-            return base.Channel.SaveIncomingDocumentPublishEvent(eventSourceAppSessionId, targetUserId, requestId);
+        public bool SaveIncomingDocumentPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid documentId) {
+            return base.Channel.SaveIncomingDocumentPublishEvent(eventSourceAppSessionId, targetUserId, documentId);
         }
         
-        public System.Threading.Tasks.Task<bool> SaveIncomingDocumentPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid requestId) {
-            return base.Channel.SaveIncomingDocumentPublishEventAsync(eventSourceAppSessionId, targetUserId, requestId);
+        public System.Threading.Tasks.Task<bool> SaveIncomingDocumentPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid documentId) {
+            return base.Channel.SaveIncomingDocumentPublishEventAsync(eventSourceAppSessionId, targetUserId, documentId);
         }
         
         public bool SaveTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId) {

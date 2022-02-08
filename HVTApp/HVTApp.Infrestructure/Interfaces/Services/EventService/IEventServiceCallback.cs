@@ -69,11 +69,11 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
 
         #endregion
 
-        [OperationContract(IsOneWay = true)]
-        void OnSaveIncomingRequestServiceCallback(Guid requestId);
+        [OperationContract]
+        bool OnSaveIncomingRequestServiceCallback(Guid requestId);
 
-        [OperationContract(IsOneWay = true)]
-        void OnSaveIncomingDocumentServiceCallback(Guid documentId);
+        [OperationContract]
+        bool OnSaveIncomingDocumentServiceCallback(Guid documentId);
 
         #region TechnicalRequarementsTask
 

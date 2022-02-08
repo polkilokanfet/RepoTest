@@ -111,7 +111,7 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
         bool SaveIncomingRequestPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid requestId);
 
         [OperationContract]
-        bool SaveIncomingDocumentPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid requestId);
+        bool SaveIncomingDocumentPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid documentId);
 
         #endregion
 

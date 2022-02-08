@@ -267,8 +267,14 @@
   <wsdl:message name="IEventService_OnSaveIncomingRequestServiceCallback_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnSaveIncomingRequestServiceCallback" />
   </wsdl:message>
+  <wsdl:message name="IEventService_OnSaveIncomingRequestServiceCallback_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnSaveIncomingRequestServiceCallbackResponse" />
+  </wsdl:message>
   <wsdl:message name="IEventService_OnSaveIncomingDocumentServiceCallback_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnSaveIncomingDocumentServiceCallback" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_OnSaveIncomingDocumentServiceCallback_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnSaveIncomingDocumentServiceCallbackResponse" />
   </wsdl:message>
   <wsdl:message name="IEventService_OnSaveTechnicalRequarementsTaskServiceCallback_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnSaveTechnicalRequarementsTaskServiceCallback" />
@@ -498,9 +504,11 @@
     </wsdl:operation>
     <wsdl:operation name="OnSaveIncomingRequestServiceCallback">
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnSaveIncomingRequestServiceCallback" message="tns:IEventService_OnSaveIncomingRequestServiceCallback_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/OnSaveIncomingRequestServiceCallbackResponse" message="tns:IEventService_OnSaveIncomingRequestServiceCallback_InputCallbackMessage" />
     </wsdl:operation>
     <wsdl:operation name="OnSaveIncomingDocumentServiceCallback">
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnSaveIncomingDocumentServiceCallback" message="tns:IEventService_OnSaveIncomingDocumentServiceCallback_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/OnSaveIncomingDocumentServiceCallbackResponse" message="tns:IEventService_OnSaveIncomingDocumentServiceCallback_InputCallbackMessage" />
     </wsdl:operation>
     <wsdl:operation name="OnSaveTechnicalRequarementsTaskServiceCallback">
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnSaveTechnicalRequarementsTaskServiceCallback" message="tns:IEventService_OnSaveTechnicalRequarementsTaskServiceCallback_OutputCallbackMessage" />
@@ -922,12 +930,18 @@
     </wsdl:operation>
     <wsdl:operation name="OnSaveIncomingRequestServiceCallback">
       <soap12:operation soapAction="http://tempuri.org/IEventService/OnSaveIncomingRequestServiceCallback" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="OnSaveIncomingDocumentServiceCallback">
       <soap12:operation soapAction="http://tempuri.org/IEventService/OnSaveIncomingDocumentServiceCallback" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>

@@ -69,44 +69,45 @@ namespace EventService
             if (targetAppSessions.Any() == false)
                 return false;
 
+            PrintMessageEvent?.Invoke("-------------------");
+            PrintMessageEvent?.Invoke($"Invoke {publishEvent.GetMethodInfo().Name} (sourceEventAppSessionId: {sourceEventAppSessionId} targetUserId: {targetUserId}");
+
             foreach (var appSession in targetAppSessions)
             {
                 try
                 {
                     if (publishEvent.Invoke(appSession))
+                    {
                         result = true;
+                        PrintMessageEvent?.Invoke($" - Success (appId: {appSession.AppSessionId})");
+                    }
                 }
                 //отключаем приложение от сервиса
                 catch (CommunicationObjectAbortedException e)
                 {
+                    PrintMessageEvent?.Invoke($" - {e.GetType().FullName} (appId: {appSession.AppSessionId})");
                     PrintMessageEvent?.Invoke($"{this.GetType().FullName}. {e.GetType().FullName}.");
                     this.Disconnect(appSession.AppSessionId);
                 }
                 catch (TimeoutException e)
                 {
+                    PrintMessageEvent?.Invoke($" - {e.GetType().FullName} (appId: {appSession.AppSessionId})");
                     PrintMessageEvent?.Invoke($"{this.GetType().FullName}. {e.GetType().FullName}.");
                     this.Disconnect(appSession.AppSessionId);
                 }
                 catch (Exception e)
                 {
+                    PrintMessageEvent?.Invoke($" - {e.GetType().FullName} (appId: {appSession.AppSessionId})");
                     PrintMessageEvent?.Invoke($"!Exception on Invoke {publishEvent.GetMethodInfo().Name} ({this.GetType().FullName}) by appSession {sourceEventAppSessionId}. \n{e.GetType().FullName}\n{e.PrintAllExceptions()}");
                     this.Disconnect(appSession.AppSessionId);
                 }
             }
 
-            PrintMessageEvent?.Invoke($"Invoke {publishEvent.GetMethodInfo().Name} by appSession {sourceEventAppSessionId}");
+            PrintMessageEvent?.Invoke("-------------------");
+
             return result;
         }
 
-
-        #region IncomingRequest
-
-        public void SaveIncomingRequestPublishEvent(Guid appSessionId, Guid requestId)
-        {
-            PublishEventThroughService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveIncomingRequestServiceCallback(requestId));
-        }
-
-        #endregion
 
         #region Directum
 
@@ -181,22 +182,22 @@ namespace EventService
 
         #endregion
 
+        #region IncomingRequest
+
         public bool SaveIncomingRequestPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid requestId)
         {
-            throw new NotImplementedException();
+            return PublishEventByServiceForUser(targetUserId, eventSourceAppSessionId,
+                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveIncomingRequestServiceCallback(requestId));
         }
 
-        public bool SaveIncomingDocumentPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid requestId)
-        {
-            throw new NotImplementedException();
-        }
-
+        #endregion
 
         #region IncomingDocument
 
-        public void SaveIncomingDocumentPublishEvent(Guid appSessionId, Guid documentId)
+        public bool SaveIncomingDocumentPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid documentId)
         {
-            PublishEventThroughService(appSessionId, appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveIncomingDocumentServiceCallback(documentId));
+            return PublishEventByServiceForUser(targetUserId, eventSourceAppSessionId,
+                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveIncomingDocumentServiceCallback(documentId));
         }
 
         #endregion

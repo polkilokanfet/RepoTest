@@ -294,7 +294,7 @@
       <xs:sequence>
         <xs:element xmlns:q46="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q46:guid" />
         <xs:element xmlns:q47="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q47:guid" />
-        <xs:element xmlns:q48="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="requestId" type="q48:guid" />
+        <xs:element xmlns:q48="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="documentId" type="q48:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -623,10 +623,24 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="OnSaveIncomingRequestServiceCallbackResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="OnSaveIncomingRequestServiceCallbackResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="OnSaveIncomingDocumentServiceCallback">
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q88="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="documentId" type="q88:guid" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OnSaveIncomingDocumentServiceCallbackResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="OnSaveIncomingDocumentServiceCallbackResult" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

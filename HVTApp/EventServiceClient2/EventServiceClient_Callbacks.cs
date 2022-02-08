@@ -137,55 +137,59 @@ namespace EventServiceClient2
 
         #region IncomingRequest
 
-        public void OnSaveIncomingRequestServiceCallback(Guid requestId)
+        public bool OnSaveIncomingRequestServiceCallback(Guid requestId)
         {
-            var request = _container.Resolve<IUnitOfWork>().Repository<IncomingRequest>().GetById(requestId);
+            //TODO: implement
+            return false;
 
-            var canInstruct = GlobalAppProperties.User.RoleCurrent == Role.Admin || GlobalAppProperties.User.RoleCurrent == Role.Director;
+            //var request = _container.Resolve<IUnitOfWork>().Repository<IncomingRequest>().GetById(requestId);
 
-            var canPerform = GlobalAppProperties.User.RoleCurrent == Role.SalesManager &&
-                             request.Performers.Any(employee => employee.Id == GlobalAppProperties.User.Employee.Id);
+            //var canInstruct = GlobalAppProperties.User.RoleCurrent == Role.Admin || GlobalAppProperties.User.RoleCurrent == Role.Director;
 
-            if (canInstruct || canPerform)
-            {
-                this.SyncContainer.PublishWithinAppForCurrentUser<IncomingRequest, AfterSaveIncomingRequestEvent>(request);
+            //var canPerform = GlobalAppProperties.User.RoleCurrent == Role.SalesManager &&
+            //                 request.Performers.Any(employee => employee.Id == GlobalAppProperties.User.Employee.Id);
 
-                string message = $"{request.Document.Comment}";
-                var action = new Action(() =>
-                {
-                    _container.Resolve<IRegionManager>().RequestNavigateContentRegion<IncomingRequestsView>(new NavigationParameters());
-                });
-                _popupNotificationsService.ShowPopupNotification(request, message, "Запрос");
-            }
+            //if (canInstruct || canPerform)
+            //{
+            //    this.SyncContainer.PublishWithinAppForCurrentUser<IncomingRequest, AfterSaveIncomingRequestEvent>(request);
+
+            //    string message = $"{request.Document.Comment}";
+            //    var action = new Action(() =>
+            //    {
+            //        _container.Resolve<IRegionManager>().RequestNavigateContentRegion<IncomingRequestsView>(new NavigationParameters());
+            //    });
+            //    _popupNotificationsService.ShowPopupNotification(request, message, "Запрос");
         }
-
-        public void OnSaveIncomingDocumentServiceCallback(Guid documentId)
+    
+        public bool OnSaveIncomingDocumentServiceCallback(Guid documentId)
         {
-            var unitOfWork = _container.Resolve<IUnitOfWork>();
-            var document = unitOfWork.Repository<Document>().GetById(documentId);
+            //TODO: implement
+            return false;
 
-            var canInstruct = (GlobalAppProperties.User.RoleCurrent == Role.Admin ||
-                              GlobalAppProperties.User.RoleCurrent == Role.Director) &&
-                              document.RecipientEmployee.Company.Id == GlobalAppProperties.Actual.OurCompany?.Id;
+            //var unitOfWork = _container.Resolve<IUnitOfWork>();
+            //var document = unitOfWork.Repository<Document>().GetById(documentId);
 
-            if (canInstruct)
-            {
-                var request = new IncomingRequest { Document = document };
-                this.SyncContainer.PublishWithinAppForCurrentUser<IncomingRequest, AfterSaveIncomingRequestEvent>(request);
+            //var canInstruct = (GlobalAppProperties.User.RoleCurrent == Role.Admin ||
+            //                  GlobalAppProperties.User.RoleCurrent == Role.Director) &&
+            //                  document.RecipientEmployee.Company.Id == GlobalAppProperties.Actual.OurCompany?.Id;
 
-                string message = $"{document.Comment}";
-                var action = new Action(() =>
-                {
-                    _container.Resolve<IRegionManager>().RequestNavigateContentRegion<IncomingRequestView>(
-                        new NavigationParameters
-                        {
-                            {"Model", request},
-                            {"UnitOfWork", unitOfWork}
-                        });
+            //if (canInstruct)
+            //{
+            //    var request = new IncomingRequest { Document = document };
+            //    this.SyncContainer.PublishWithinAppForCurrentUser<IncomingRequest, AfterSaveIncomingRequestEvent>(request);
 
-                });
-                //Popup.Popup.ShowPopup(message, "Запрос", action);
-            }
+            //    string message = $"{document.Comment}";
+            //    var action = new Action(() =>
+            //    {
+            //        _container.Resolve<IRegionManager>().RequestNavigateContentRegion<IncomingRequestView>(
+            //            new NavigationParameters
+            //            {
+            //                {"Model", request},
+            //                {"UnitOfWork", unitOfWork}
+            //            });
+
+            //    });
+            //    //Popup.Popup.ShowPopup(message, "Запрос", action);
         }
 
         #endregion
@@ -368,13 +372,8 @@ namespace EventServiceClient2
         {
             var calculation = _container.Resolve<IUnitOfWork>().Repository<PriceCalculation>().GetById(calculationId);
 
-            var frontManager = calculation.FrontManager;
-            var isProjectManager = frontManager != null && frontManager.IsAppCurrentUser();
-            var isInitiator = calculation.Initiator.IsAppCurrentUser();
-
-            if (isProjectManager || isInitiator || GlobalAppProperties.User.RoleCurrent == Role.Pricer)
+            if (this.SyncContainer.PublishWithinAppForCurrentUser<PriceCalculation, AfterSavePriceCalculationEvent>(calculation))
             {
-                this.SyncContainer.PublishWithinAppForCurrentUser<PriceCalculation, AfterSavePriceCalculationEvent>(calculation);
                 return true;
             }
 

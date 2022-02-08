@@ -87,7 +87,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.Wrapper
             RegisterCollection(Files, Model.Files);
 
             if (Model.History == null) throw new ArgumentException("History cannot be null");
-            History = new ValidatableChangeTrackingCollection<PriceCalculationHistoryItemWrapper>(Model.History.Select(e => new PriceCalculationHistoryItemWrapper(e)));
+            History = new ValidatableChangeTrackingCollection<PriceCalculationHistoryItemWrapper>(Model.History.OrderBy(item => item.Moment).Select(e => new PriceCalculationHistoryItemWrapper(e)));
             RegisterCollection(History, Model.History);
         }
     }

@@ -14,7 +14,8 @@ namespace EventServiceClient2.SyncEntities
 
         public override bool IsTargetUser(User user, IncomingRequest model)
         {
-            throw new NotImplementedException();
+            //TODO: implement
+            return false;
         }
 
         protected override ActionPublishThroughEventServiceForUserDelegate ActionPublishThroughEventServiceForUser
