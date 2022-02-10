@@ -130,6 +130,7 @@ namespace HVTApp
             Container.RegisterType<IFilesStorageService, FilesStorageService>(new ContainerControlledLifetimeManager());
 
             Container.RegisterType<IEventServiceClient, EventServiceClient>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<EventServiceUnitWatcher>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IMessenger, Messenger>(new ContainerControlledLifetimeManager());
 
             Container.RegisterType<IModelsStore, ModelsStore>(new ContainerControlledLifetimeManager());
@@ -181,7 +182,7 @@ namespace HVTApp
             if(true)
             #endif
                 Container.Resolve<IEventServiceClient>().Start();
-
+            Container.Resolve<EventServiceUnitWatcher>().Start();
             #endregion
 
             Container.Resolve<IEventAggregator>().GetEvent<ModuleIsInitializedEvent>().Subscribe(moduleType =>

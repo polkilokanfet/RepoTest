@@ -68,6 +68,13 @@ namespace EventServiceClient2
                     try
                     {
                         CheckMessagesInDb();
+                    }
+                    catch
+                    {
+                    }
+
+                    try
+                    {
 
                         //проверка на то стартован ли уже сервис
                         if (HostIsEnabled)

@@ -4,8 +4,8 @@ namespace HVTApp.DataAccess
     {
         public LocalityConfiguration()
         {
-            HasRequired(x => x.LocalityType).WithMany().WillCascadeOnDelete(false);
-            HasRequired(x => x.Region).WithMany().WillCascadeOnDelete(false);
+            HasRequired(locality => locality.LocalityType).WithMany().WillCascadeOnDelete(false);
+            HasRequired(locality => locality.Region).WithMany().WillCascadeOnDelete(false);
         }
     }
 }

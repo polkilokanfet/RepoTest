@@ -77,6 +77,7 @@
   <ItemGroup>
     <Compile Include="EventServiceClient_Callbacks.cs" />
     <Compile Include="EventServiceClient_Chat.cs" />
+    <Compile Include="EventServiceUnitWatcher.cs" />
     <Compile Include="SyncEntities\Entities\DirectumTask\SyncDirectumTaskAccept.cs" />
     <Compile Include="SyncEntities\Entities\DirectumTask\SyncDirectumTaskPerform.cs" />
     <Compile Include="SyncEntities\Entities\DirectumTask\SyncDirectumTaskReject.cs" />

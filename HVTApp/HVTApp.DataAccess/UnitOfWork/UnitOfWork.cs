@@ -36,10 +36,15 @@ namespace HVTApp.DataAccess
         public UnitOfWorkOperationResult SaveChanges()
         {
             UnitOfWorkOperationResult result;
+#if DEBUG
+#else
             try
             {
+#endif
                 _context.SaveChanges();
                 result = new UnitOfWorkOperationResult();
+#if DEBUG
+#else
             }
             catch (Exception e)
             {
@@ -47,6 +52,7 @@ namespace HVTApp.DataAccess
                 this.OnOperationFailedEvent(result);
                 throw;
             }
+#endif
 
             return result;
         }

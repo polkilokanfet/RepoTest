@@ -83,6 +83,7 @@
     <Compile Include="EntityTypeConfigurations\Custom\DirectumTaskGroupConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\DirectumTaskGroupFileConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\DirectumTaskMessageConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\EventServiceUnitConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\GlobalPropertiesConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\CostOnDateConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\CreateNewProductTaskConfiguration.cs" />
