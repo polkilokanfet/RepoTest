@@ -98,6 +98,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="SyncEntities\ITargetUser.cs" />
     <Compile Include="SyncEntities\SyncUnit.cs" />
     <Compile Include="SyncEntities\SyncContainer.cs" />
     <Compile Include="SyncEntities\Entities\DirectumTask\SyncDirectumTaskSave.cs" />

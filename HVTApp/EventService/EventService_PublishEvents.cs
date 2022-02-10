@@ -66,40 +66,44 @@ namespace EventService
                 .Where(appSession => appSession.AppSessionId != sourceEventAppSessionId)
                 .ToList();
 
-            if (targetAppSessions.Any() == false)
-                return false;
-
             PrintMessageEvent?.Invoke("-------------------");
             PrintMessageEvent?.Invoke($"Invoke {publishEvent.GetMethodInfo().Name} (sourceEventAppSessionId: {sourceEventAppSessionId} targetUserId: {targetUserId}");
 
-            foreach (var appSession in targetAppSessions)
+            if (targetAppSessions.Any() == false)
             {
-                try
+                PrintMessageEvent?.Invoke(" - Service have no target connected user");
+            }
+            else
+            {
+                foreach (var appSession in targetAppSessions)
                 {
-                    if (publishEvent.Invoke(appSession))
+                    try
                     {
-                        result = true;
-                        PrintMessageEvent?.Invoke($" - Success (appId: {appSession.AppSessionId})");
+                        if (publishEvent.Invoke(appSession))
+                        {
+                            result = true;
+                            PrintMessageEvent?.Invoke($" + Success (appId: {appSession.AppSessionId})");
+                        }
                     }
-                }
-                //отключаем приложение от сервиса
-                catch (CommunicationObjectAbortedException e)
-                {
-                    PrintMessageEvent?.Invoke($" - {e.GetType().FullName} (appId: {appSession.AppSessionId})");
-                    PrintMessageEvent?.Invoke($"{this.GetType().FullName}. {e.GetType().FullName}.");
-                    this.Disconnect(appSession.AppSessionId);
-                }
-                catch (TimeoutException e)
-                {
-                    PrintMessageEvent?.Invoke($" - {e.GetType().FullName} (appId: {appSession.AppSessionId})");
-                    PrintMessageEvent?.Invoke($"{this.GetType().FullName}. {e.GetType().FullName}.");
-                    this.Disconnect(appSession.AppSessionId);
-                }
-                catch (Exception e)
-                {
-                    PrintMessageEvent?.Invoke($" - {e.GetType().FullName} (appId: {appSession.AppSessionId})");
-                    PrintMessageEvent?.Invoke($"!Exception on Invoke {publishEvent.GetMethodInfo().Name} ({this.GetType().FullName}) by appSession {sourceEventAppSessionId}. \n{e.GetType().FullName}\n{e.PrintAllExceptions()}");
-                    this.Disconnect(appSession.AppSessionId);
+                    //отключаем приложение от сервиса
+                    catch (CommunicationObjectAbortedException e)
+                    {
+                        PrintMessageEvent?.Invoke($" - Faulted {e.GetType().FullName} (appId: {appSession.AppSessionId})");
+                        PrintMessageEvent?.Invoke($"{this.GetType().FullName}. {e.GetType().FullName}.");
+                        this.Disconnect(appSession.AppSessionId);
+                    }
+                    catch (TimeoutException e)
+                    {
+                        PrintMessageEvent?.Invoke($" - Faulted {e.GetType().FullName} (appId: {appSession.AppSessionId})");
+                        PrintMessageEvent?.Invoke($"{this.GetType().FullName}. {e.GetType().FullName}.");
+                        this.Disconnect(appSession.AppSessionId);
+                    }
+                    catch (Exception e)
+                    {
+                        PrintMessageEvent?.Invoke($" - Faulted {e.GetType().FullName} (appId: {appSession.AppSessionId})");
+                        PrintMessageEvent?.Invoke($"!Exception on Invoke {publishEvent.GetMethodInfo().Name} ({this.GetType().FullName}) by appSession {sourceEventAppSessionId}. \n{e.GetType().FullName}\n{e.PrintAllExceptions()}");
+                        this.Disconnect(appSession.AppSessionId);
+                    }
                 }
             }
 

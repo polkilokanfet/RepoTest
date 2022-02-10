@@ -91,7 +91,7 @@ namespace EventServiceClient2.SyncEntities
             var targetSyncUnit = _list.Single(syncUnit => syncUnit.ModelType == typeof(TModel) && syncUnit.EventType == typeof(TEvent));
 
             //если пользователь текущего приложения является целевым для этого события
-            if (((ITargetUser<TModel>)targetSyncUnit).IsTargetUser(GlobalAppProperties.User, model))
+            if (((ITargetUser<TModel>)targetSyncUnit).CurrentUserIsTargetForNotification(model))
             {
                 //переводим в основной поток
                 Application.Current.Dispatcher.Invoke(

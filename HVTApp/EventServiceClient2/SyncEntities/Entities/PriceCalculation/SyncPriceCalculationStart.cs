@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using HVTApp.Infrastructure;
+using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
@@ -18,6 +20,12 @@ namespace EventServiceClient2.SyncEntities
             if (priceCalculation.Initiator.Id == user.Id) return false;
             if (priceCalculation.FrontManager?.Id == user.Id) return true;
             return false;
+        }
+
+        protected override IEnumerable<Role> GetRolesForNotification()
+        {
+            yield return Role.Pricer;
+            yield return Role.SalesManager;
         }
 
         protected override ActionPublishThroughEventServiceForUserDelegate ActionPublishThroughEventServiceForUser

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
@@ -17,6 +18,12 @@ namespace EventServiceClient2.SyncEntities
             if (user.Roles.Any(userRole => userRole.Role == Role.BackManagerBoss)) return true;
             if (technicalRequrementsTask.BackManager?.Id == user.Id) return true;
             return false;
+        }
+
+        protected override IEnumerable<Role> GetRolesForNotification()
+        {
+            yield return Role.BackManager;
+            yield return Role.BackManagerBoss;
         }
 
         protected override ActionPublishThroughEventServiceForUserDelegate ActionPublishThroughEventServiceForUser

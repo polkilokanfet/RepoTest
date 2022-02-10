@@ -5,25 +5,13 @@ using System.ServiceModel;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 
 namespace EventServiceClient2.SyncEntities
 {
-    public interface ITargetUser<TModel>
-        where TModel : BaseEntity
-    {
-
-        /// <summary>
-        /// Является ли предложенный пользователь адресатом уведомлений этого контейнера и этой сущности
-        /// </summary>
-        /// <param name="user">Предложенный пользователь</param>
-        /// <param name="model">Сущность</param>
-        /// <returns></returns>
-        bool IsTargetUser(User user, TModel model);
-    }
-
     public abstract class SyncUnit<TModel, TAfterSaveEvent> : ISyncUnit, ITargetUser<TModel>
         where TAfterSaveEvent : PubSubEvent<TModel>, new()
         where TModel : BaseEntity
@@ -56,6 +44,17 @@ namespace EventServiceClient2.SyncEntities
         }
 
         public abstract bool IsTargetUser(User user, TModel model);
+
+        public bool CurrentUserIsTargetForNotification(TModel model)
+        {
+            var b = IsTargetUser(GlobalAppProperties.User, model);
+            return b && GetRolesForNotification().Contains(GlobalAppProperties.User.RoleCurrent);
+        }
+
+        protected virtual IEnumerable<Role> GetRolesForNotification()
+        {
+            return (Role[]) Enum.GetValues(typeof(Role));
+        }
 
         /// <summary>
         /// Вычисление пользователей-адресатов этого уведомления

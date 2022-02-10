@@ -31,7 +31,7 @@ namespace EventService
 
             //подключаем новое приложение к сервису
             _appSessions.Add(new AppSession(appSessionId, userId, OperationContext.Current));
-            PrintMessageEvent?.Invoke($"Connected appSession {appSessionId}.");
+            PrintMessageEvent?.Invoke($"Connected (appSessionId: {appSessionId} userId: {userId}).");
             return true;
         }
 
@@ -45,7 +45,7 @@ namespace EventService
             if (appSession != null)
             {
                 _appSessions.Remove(appSession);
-                PrintMessageEvent?.Invoke($"Disconnected appSession {appSessionId}.");
+                PrintMessageEvent?.Invoke($"Disconnected (appSessionId: {appSessionId} userId: {appSession.UserId})");
             }
         }
 
