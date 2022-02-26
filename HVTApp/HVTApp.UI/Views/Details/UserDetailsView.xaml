@@ -18,6 +18,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row ="0" Content="Сотрудник" Visibility="{Binding VisibilityEmployeeUser, ElementName=Root}"/>
@@ -32,8 +33,13 @@
                  Text="{Binding Item.Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityLoginUser, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="Роли" Visibility="{Binding VisibilityRolesUser, ElementName=Root}"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
+        <Label Grid.Column="0" Grid.Row ="2" Content="Актуален" Visibility="{Binding VisibilityIsActualUser, ElementName=Root}"/>
+        <CheckBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
+                  IsChecked="{Binding Item.IsActual, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				  Visibility="{Binding VisibilityIsActualUser, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="3" Content="Роли" Visibility="{Binding VisibilityRolesUser, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="3"
 										 Items="{Binding Path=Item.Roles}"
 										 SelectedItem="{Binding SelectedRolesItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInRolesCommand}"

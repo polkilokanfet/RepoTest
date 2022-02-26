@@ -45,6 +45,7 @@
                         <infg:DateTimeField Name="Finish" Label="Финиш" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="LastHistoryElement" Label="Статус тех.задания (задача)" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:TextField Name="BackManager" Label="Back manager" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField Name="FrontManager" Label="Front manager" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:TextField Name="Facilities" Label="Объекты" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:TextField Name="ShippingCostFiles" Label="Файлы РТЗ" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:CheckBoxField Name="IsStopped" Label="Остановлено?" Width="Auto" AllowResize="True" />
@@ -59,7 +60,6 @@
                         <infg:TextField Name="AnswerFiles" Label="Файлы-ответы ОГК" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:TextField Name="Status" Label="Статус" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="PriceCalculations" Label="Расчеты себестоимости" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
-                        <infg:TextField Name="FrontManager" Label="Front manager" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="ToShow" Label="S" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 

@@ -71,6 +71,11 @@ namespace HVTApp.Model.POCOs
 	{
 	}
 
+	public partial class EventServiceUnit
+	{
+		public virtual Guid? UserId { get; set; }
+	}
+
 	public partial class IncomingRequest
 	{
 		public virtual Guid? DocumentId { get; set; }
@@ -116,10 +121,16 @@ namespace HVTApp.Model.POCOs
 
 	public partial class PriceCalculation
 	{
+		public virtual Guid? LastHistoryItemId { get; set; }
 		public virtual Guid? InitiatorId { get; set; }
+		public virtual Guid? FrontManagerId { get; set; }
 	}
 
 	public partial class PriceCalculationFile
+	{
+	}
+
+	public partial class PriceCalculationHistoryItem
 	{
 	}
 
@@ -196,6 +207,7 @@ namespace HVTApp.Model.POCOs
 	public partial class TechnicalRequrementsTask
 	{
 		public virtual Guid? BackManagerId { get; set; }
+		public virtual Guid? FrontManagerId { get; set; }
 		public virtual Guid? LastHistoryElementId { get; set; }
 	}
 

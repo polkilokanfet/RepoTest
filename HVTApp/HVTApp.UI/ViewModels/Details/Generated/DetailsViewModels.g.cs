@@ -1071,6 +1071,11 @@ namespace HVTApp.UI.ViewModels
 		public DelegateLogCommand SelectInitiatorCommand { get; private set; }
 		public DelegateLogCommand ClearInitiatorCommand { get; private set; }
 
+		//private Func<Task<List<User>>> _getEntitiesForSelectFrontManagerCommand;
+		private Func<List<User>> _getEntitiesForSelectFrontManagerCommand;
+		public DelegateLogCommand SelectFrontManagerCommand { get; private set; }
+		public DelegateLogCommand ClearFrontManagerCommand { get; private set; }
+
 		private Func<List<PriceCalculationItem>> _getEntitiesForAddInPriceCalculationItemsCommand;
 		public DelegateLogCommand AddInPriceCalculationItemsCommand { get; }
 		public DelegateLogCommand RemoveFromPriceCalculationItemsCommand { get; }
@@ -1132,6 +1137,11 @@ namespace HVTApp.UI.ViewModels
 			if (ClearInitiatorCommand == null) ClearInitiatorCommand = new DelegateLogCommand(ClearInitiatorCommand_Execute_Default);
 
 			
+			if (_getEntitiesForSelectFrontManagerCommand == null) _getEntitiesForSelectFrontManagerCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };
+			if (SelectFrontManagerCommand == null) SelectFrontManagerCommand = new DelegateLogCommand(SelectFrontManagerCommand_Execute_Default);
+			if (ClearFrontManagerCommand == null) ClearFrontManagerCommand = new DelegateLogCommand(ClearFrontManagerCommand_Execute_Default);
+
+			
 			if (_getEntitiesForAddInPriceCalculationItemsCommand == null) _getEntitiesForAddInPriceCalculationItemsCommand = () => { return UnitOfWork.Repository<PriceCalculationItem>().GetAll(); };;
 			if (AddInPriceCalculationItemsCommand == null) AddInPriceCalculationItemsCommand = new DelegateLogCommand(AddInPriceCalculationItemsCommand_Execute_Default);
 			if (RemoveFromPriceCalculationItemsCommand == null) RemoveFromPriceCalculationItemsCommand = new DelegateLogCommand(RemoveFromPriceCalculationItemsCommand_Execute_Default, RemoveFromPriceCalculationItemsCommand_CanExecute_Default);
@@ -1166,6 +1176,16 @@ namespace HVTApp.UI.ViewModels
 		private void ClearInitiatorCommand_Execute_Default() 
 		{
 						Item.Initiator = null;		    
+		}
+
+		private void SelectFrontManagerCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<User, UserWrapper>(_getEntitiesForSelectFrontManagerCommand(), nameof(Item.FrontManager), Item.FrontManager?.Id);
+		}
+
+		private void ClearFrontManagerCommand_Execute_Default() 
+		{
+				    
 		}
 
 			private void AddInPriceCalculationItemsCommand_Execute_Default()
@@ -1865,6 +1885,11 @@ namespace HVTApp.UI.ViewModels
 		public DelegateLogCommand SelectBackManagerCommand { get; private set; }
 		public DelegateLogCommand ClearBackManagerCommand { get; private set; }
 
+		//private Func<Task<List<User>>> _getEntitiesForSelectFrontManagerCommand;
+		private Func<List<User>> _getEntitiesForSelectFrontManagerCommand;
+		public DelegateLogCommand SelectFrontManagerCommand { get; private set; }
+		public DelegateLogCommand ClearFrontManagerCommand { get; private set; }
+
 		//private Func<Task<List<TechnicalRequrementsTaskHistoryElement>>> _getEntitiesForSelectLastHistoryElementCommand;
 		private Func<List<TechnicalRequrementsTaskHistoryElement>> _getEntitiesForSelectLastHistoryElementCommand;
 		public DelegateLogCommand SelectLastHistoryElementCommand { get; private set; }
@@ -1958,6 +1983,11 @@ namespace HVTApp.UI.ViewModels
 			if (ClearBackManagerCommand == null) ClearBackManagerCommand = new DelegateLogCommand(ClearBackManagerCommand_Execute_Default);
 
 			
+			if (_getEntitiesForSelectFrontManagerCommand == null) _getEntitiesForSelectFrontManagerCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };
+			if (SelectFrontManagerCommand == null) SelectFrontManagerCommand = new DelegateLogCommand(SelectFrontManagerCommand_Execute_Default);
+			if (ClearFrontManagerCommand == null) ClearFrontManagerCommand = new DelegateLogCommand(ClearFrontManagerCommand_Execute_Default);
+
+			
 			if (_getEntitiesForSelectLastHistoryElementCommand == null) _getEntitiesForSelectLastHistoryElementCommand = () => { return UnitOfWork.Repository<TechnicalRequrementsTaskHistoryElement>().GetAll(); };
 			if (SelectLastHistoryElementCommand == null) SelectLastHistoryElementCommand = new DelegateLogCommand(SelectLastHistoryElementCommand_Execute_Default);
 			if (ClearLastHistoryElementCommand == null) ClearLastHistoryElementCommand = new DelegateLogCommand(ClearLastHistoryElementCommand_Execute_Default);
@@ -1997,6 +2027,16 @@ namespace HVTApp.UI.ViewModels
 		private void ClearBackManagerCommand_Execute_Default() 
 		{
 						Item.BackManager = null;		    
+		}
+
+		private void SelectFrontManagerCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<User, UserWrapper>(_getEntitiesForSelectFrontManagerCommand(), nameof(Item.FrontManager), Item.FrontManager?.Id);
+		}
+
+		private void ClearFrontManagerCommand_Execute_Default() 
+		{
+				    
 		}
 
 		private void SelectLastHistoryElementCommand_Execute_Default() 

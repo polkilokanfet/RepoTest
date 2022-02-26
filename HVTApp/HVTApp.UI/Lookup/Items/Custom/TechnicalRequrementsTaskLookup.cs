@@ -26,10 +26,6 @@ namespace HVTApp.UI.Lookup
             }
         }
 
-        [Designation("Front manager"), OrderStatus(-10)]
-        public string FrontManager => 
-            Entity.Requrements.FirstOrDefault()?.SalesUnits.FirstOrDefault()?.Project.Manager.ToString();
-
         [Designation("Статус"), OrderStatus(-10)]
         public string Status
         {

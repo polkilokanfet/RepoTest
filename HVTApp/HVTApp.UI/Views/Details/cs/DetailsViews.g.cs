@@ -1837,6 +1837,10 @@ namespace HVTApp.UI.Views
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityInitiatorPriceCalculation = Visibility.Collapsed;
 
+            //attr = typeof(HVTApp.Model.POCOs.PriceCalculation).GetProperty(nameof(HVTApp.Model.POCOs.PriceCalculation.FrontManager)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityFrontManagerPriceCalculation = Visibility.Collapsed;
+
 
         }
 
@@ -1926,6 +1930,14 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityInitiatorPriceCalculationProperty); }
             set { SetValue(VisibilityInitiatorPriceCalculationProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityFrontManagerPriceCalculationProperty = DependencyProperty.Register("VisibilityFrontManagerPriceCalculation", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityFrontManagerPriceCalculation
+        {
+            get { return (Visibility) GetValue(VisibilityFrontManagerPriceCalculationProperty); }
+            set { SetValue(VisibilityFrontManagerPriceCalculationProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -3202,6 +3214,10 @@ namespace HVTApp.UI.Views
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityDesiredFinishDateTechnicalRequrementsTask = Visibility.Collapsed;
 
+            //attr = typeof(HVTApp.Model.POCOs.TechnicalRequrementsTask).GetProperty(nameof(HVTApp.Model.POCOs.TechnicalRequrementsTask.FrontManager)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityFrontManagerTechnicalRequrementsTask = Visibility.Collapsed;
+
             //attr = typeof(HVTApp.Model.POCOs.TechnicalRequrementsTask).GetProperty(nameof(HVTApp.Model.POCOs.TechnicalRequrementsTask.Start)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityStartTechnicalRequrementsTask = Visibility.Collapsed;
@@ -3331,6 +3347,14 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityDesiredFinishDateTechnicalRequrementsTaskProperty); }
             set { SetValue(VisibilityDesiredFinishDateTechnicalRequrementsTaskProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityFrontManagerTechnicalRequrementsTaskProperty = DependencyProperty.Register("VisibilityFrontManagerTechnicalRequrementsTask", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityFrontManagerTechnicalRequrementsTask
+        {
+            get { return (Visibility) GetValue(VisibilityFrontManagerTechnicalRequrementsTaskProperty); }
+            set { SetValue(VisibilityFrontManagerTechnicalRequrementsTaskProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -8060,6 +8084,10 @@ namespace HVTApp.UI.Views
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityEmployeeUser = Visibility.Collapsed;
 
+            //attr = typeof(HVTApp.Model.POCOs.User).GetProperty(nameof(HVTApp.Model.POCOs.User.IsActual)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityIsActualUser = Visibility.Collapsed;
+
 
         }
 
@@ -8101,6 +8129,14 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityEmployeeUserProperty); }
             set { SetValue(VisibilityEmployeeUserProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityIsActualUserProperty = DependencyProperty.Register("VisibilityIsActualUser", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityIsActualUser
+        {
+            get { return (Visibility) GetValue(VisibilityIsActualUserProperty); }
+            set { SetValue(VisibilityIsActualUserProperty, value); OnPropertyChanged(); }
         }
 
 	}

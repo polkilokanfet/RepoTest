@@ -4971,6 +4971,13 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility FrontManagerVisibility
+        {
+            get { return PriceCalculationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationLookup.FrontManager)].Visibility; }
+            set { PriceCalculationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationLookup.FrontManager)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility EntityVisibility
         {
             get { return PriceCalculationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationLookup.Entity)].Visibility; }
@@ -7490,13 +7497,6 @@ namespace HVTApp.UI.Views
 		#region VisibilityProps
 
 
-        public System.Windows.Visibility FrontManagerVisibility
-        {
-            get { return TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.FrontManager)].Visibility; }
-            set { TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.FrontManager)].Visibility = value; }
-        }
-
-
         public System.Windows.Visibility StatusVisibility
         {
             get { return TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.Status)].Visibility; }
@@ -7620,6 +7620,13 @@ namespace HVTApp.UI.Views
         {
             get { return TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.BackManager)].Visibility; }
             set { TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.BackManager)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility FrontManagerVisibility
+        {
+            get { return TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.FrontManager)].Visibility; }
+            set { TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.FrontManager)].Visibility = value; }
         }
 
 
@@ -7951,6 +7958,13 @@ namespace HVTApp.UI.Views
         {
             get { return UserLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.UserLookup.RoleCurrent)].Visibility; }
             set { UserLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.UserLookup.RoleCurrent)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility IsActualVisibility
+        {
+            get { return UserLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.UserLookup.IsActual)].Visibility; }
+            set { UserLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.UserLookup.IsActual)].Visibility = value; }
         }
 
 

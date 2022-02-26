@@ -24,7 +24,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 if (dr != MessageDialogResult.Yes) return;
             }
 
-            var backManagers = UnitOfWork.Repository<User>().Find(user => user.Roles.Any(role => role.Role == Role.BackManager));
+            var backManagers = UnitOfWork.Repository<User>().Find(user => user.IsActual && user.Roles.Any(role => role.Role == Role.BackManager));
             var selectService = Container.Resolve<ISelectService>();
             var backManager = selectService.SelectItem(backManagers, ViewModel.TechnicalRequrementsTaskWrapper.Model.BackManager?.Id);
 

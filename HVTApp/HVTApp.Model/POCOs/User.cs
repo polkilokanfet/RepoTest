@@ -26,6 +26,9 @@ namespace HVTApp.Model.POCOs
         [Designation("Сотрудник"), Required, OrderStatus(25)]
         public virtual Employee Employee { get; set; }
 
+        [Designation("Актуален"), Required, OrderStatus(5)]
+        public bool IsActual { get; set; } = true;
+
         public override string ToString()
         {
             return $"{Employee.Person} ({Employee.Position})";

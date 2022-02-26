@@ -41,25 +41,15 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
                     //}
 
 
-
-
                     var unitOfWork = _container.Resolve<IUnitOfWork>();
 
-                    var technicalRequrements2Wrappers = unitOfWork.Repository<TechnicalRequrements>()
-                        .GetAll()
-                        .Select(technicalRequrements => new TechnicalRequrements2Wrapper(technicalRequrements))
-                        .ToList();
-
-                    foreach (var technicalRequrements2Wrapper in technicalRequrements2Wrappers)
-                    {
-                        technicalRequrements2Wrapper.AcceptChanges();
-                    }
+                    List<User> users = unitOfWork.Repository<User>().GetAll();
+                    users.ForEach(user => user.IsActual = true);
 
                     unitOfWork.SaveChanges();
+                    unitOfWork.Dispose();
 
                     _container.Resolve<IMessageService>().ShowOkMessageDialog("fin", "!!!");
-
-
 
 
 

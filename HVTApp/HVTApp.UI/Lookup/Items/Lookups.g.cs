@@ -883,6 +883,10 @@ namespace HVTApp.UI.Lookup
 	    public UserLookup Initiator { get { return GetLookup<UserLookup>(); } }
 
 
+		[OrderStatus(1)]
+	    public UserLookup FrontManager { get { return GetLookup<UserLookup>(); } }
+
+
         #endregion
 
 		[OrderStatus(1)]
@@ -1510,6 +1514,10 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
 	    public UserLookup BackManager { get { return GetLookup<UserLookup>(); } }
+
+
+		[OrderStatus(1)]
+	    public UserLookup FrontManager { get { return GetLookup<UserLookup>(); } }
 
 
 		[OrderStatus(1)]
@@ -3505,6 +3513,10 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
         public HVTApp.Infrastructure.Role RoleCurrent => Entity.RoleCurrent;
+
+
+		[OrderStatus(5)]
+        public System.Boolean IsActual => Entity.IsActual;
 
 
         #endregion

@@ -57,6 +57,7 @@ namespace HVTApp.Model.POCOs
         [Designation("Проработать до"), OrderStatus(1)]
         public virtual DateTime? DesiredFinishDate { get; set; }
 
+        [Designation("Front manager"), OrderStatus(-10), NotMapped]
         public User FrontManager
         {
             get

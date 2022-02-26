@@ -41,6 +41,7 @@
 
                         <infg:TextField Name="LastHistoryItem" Label="Элемент истории расчета ПЗ" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:TextField Name="Initiator" Label="Инициатор" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField Name="FrontManager" Label="Пользователь" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:DateTimeField Name="TaskOpenMoment" Label="Старт задачи" Width="Auto" AllowResize="True" />
                         <infg:DateTimeField Name="TaskCloseMoment" Label="Финиш задачи" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Status" Label="Status" Width="Auto" AllowResize="True" />

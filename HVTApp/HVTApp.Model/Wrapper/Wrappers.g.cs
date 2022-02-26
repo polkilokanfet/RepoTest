@@ -1520,6 +1520,8 @@ namespace HVTApp.Model.Wrapper
 
         public HVTApp.Model.POCOs.PriceCalculationHistoryItem LastHistoryItem => GetValue<HVTApp.Model.POCOs.PriceCalculationHistoryItem>(); 
 
+        public HVTApp.Model.POCOs.User FrontManager => GetValue<HVTApp.Model.POCOs.User>(); 
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -2637,6 +2639,8 @@ namespace HVTApp.Model.Wrapper
         public System.Boolean IsStopped => GetValue<System.Boolean>(); 
 
         public System.Boolean IsAccepted => GetValue<System.Boolean>(); 
+
+        public HVTApp.Model.POCOs.User FrontManager => GetValue<HVTApp.Model.POCOs.User>(); 
 
         public HVTApp.Model.POCOs.TechnicalRequrementsTaskHistoryElement LastHistoryElement => GetValue<HVTApp.Model.POCOs.TechnicalRequrementsTaskHistoryElement>(); 
 
@@ -6022,6 +6026,15 @@ namespace HVTApp.Model.Wrapper
         }
         public HVTApp.Infrastructure.Role RoleCurrentOriginalValue => GetOriginalValue<HVTApp.Infrastructure.Role>(nameof(RoleCurrent));
         public bool RoleCurrentIsChanged => GetIsChanged(nameof(RoleCurrent));
+
+        //IsActual
+        public System.Boolean IsActual
+        {
+          get { return GetValue<System.Boolean>(); }
+          set { SetValue(value); }
+        }
+        public System.Boolean IsActualOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsActual));
+        public bool IsActualIsChanged => GetIsChanged(nameof(IsActual));
 
         //Id
         public System.Guid Id
