@@ -84,6 +84,7 @@ namespace HVTApp.UI.Lookup
 
                 if (GlobalAppProperties.User.RoleCurrent == Role.BackManagerBoss)
                 {
+                    if (Entity.IsStopped) return false;
                     return Entity.BackManager == null;
                 }
 
@@ -91,6 +92,7 @@ namespace HVTApp.UI.Lookup
                 {
                     if (Entity.IsFinished) return false;
                     if (Entity.IsRejected) return false;
+                    if (Entity.IsStopped) return false;
                     return true;
                 }
 

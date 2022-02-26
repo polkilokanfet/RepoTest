@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
+using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
@@ -26,6 +27,15 @@ namespace EventServiceClient2.SyncEntities
         {
             yield return Role.Pricer;
             yield return Role.SalesManager;
+        }
+
+        public override bool CurrentUserIsTargetForNotification(PriceCalculation priceCalculation)
+        {
+            if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager &&
+                GlobalAppProperties.User.Id != priceCalculation.FrontManager?.Id)
+                return false;
+
+            return base.CurrentUserIsTargetForNotification(priceCalculation);
         }
 
         protected override ActionPublishThroughEventServiceForUserDelegate ActionPublishThroughEventServiceForUser

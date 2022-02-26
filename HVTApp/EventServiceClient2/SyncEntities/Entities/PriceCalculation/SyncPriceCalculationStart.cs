@@ -17,8 +17,12 @@ namespace EventServiceClient2.SyncEntities
         public override bool IsTargetUser(User user, PriceCalculation priceCalculation)
         {
             if (user.Roles.Any(userRole => userRole.Role == Role.Pricer)) return true;
+
+            //не нужно показывать уведомление пользователю, который и инициировал этот старт
             if (priceCalculation.Initiator.Id == user.Id) return false;
+
             if (priceCalculation.FrontManager?.Id == user.Id) return true;
+
             return false;
         }
 
@@ -26,6 +30,15 @@ namespace EventServiceClient2.SyncEntities
         {
             yield return Role.Pricer;
             yield return Role.SalesManager;
+        }
+
+        public override bool CurrentUserIsTargetForNotification(PriceCalculation priceCalculation)
+        {
+            if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager &&
+                GlobalAppProperties.User.Id != priceCalculation.FrontManager?.Id) 
+                return false;
+
+            return base.CurrentUserIsTargetForNotification(priceCalculation);
         }
 
         protected override ActionPublishThroughEventServiceForUserDelegate ActionPublishThroughEventServiceForUser

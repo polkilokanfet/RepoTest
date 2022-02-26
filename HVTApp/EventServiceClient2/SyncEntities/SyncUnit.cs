@@ -45,10 +45,10 @@ namespace EventServiceClient2.SyncEntities
 
         public abstract bool IsTargetUser(User user, TModel model);
 
-        public bool CurrentUserIsTargetForNotification(TModel model)
+        public virtual bool CurrentUserIsTargetForNotification(TModel model)
         {
-            var b = IsTargetUser(GlobalAppProperties.User, model);
-            return b && GetRolesForNotification().Contains(GlobalAppProperties.User.RoleCurrent);
+            return IsTargetUser(GlobalAppProperties.User, model) && 
+                   GetRolesForNotification().Contains(GlobalAppProperties.User.RoleCurrent);
         }
 
         protected virtual IEnumerable<Role> GetRolesForNotification()

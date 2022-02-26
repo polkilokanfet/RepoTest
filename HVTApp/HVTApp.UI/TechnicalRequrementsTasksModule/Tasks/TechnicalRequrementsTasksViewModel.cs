@@ -133,12 +133,10 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 }
             }
 
-
             if (CurrentUserIsBackManagerBoss)
             {
                 InsertTask(task);
             }
-
         }
 
         private void InsertTask(TechnicalRequrementsTask task)

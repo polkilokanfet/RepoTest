@@ -103,7 +103,7 @@
     <Compile Include="SyncEntities\SyncUnit.cs" />
     <Compile Include="SyncEntities\SyncContainer.cs" />
     <Compile Include="SyncEntities\Entities\DirectumTask\SyncDirectumTaskSave.cs" />
-    <Compile Include="SyncEntities\Entities\SyncIncomingRequest.cs" />
+    <Compile Include="SyncEntities\Entities\IncomingRequest\SyncIncomingRequest.cs" />
     <Compile Include="SyncEntities\Entities\PriceCalculation\SyncPriceCalculationSave.cs" />
     <Compile Include="SyncEntities\Entities\PriceCalculation\SyncPriceCalculationCancel.cs" />
     <Compile Include="SyncEntities\Entities\PriceCalculation\SyncPriceCalculationFinish.cs" />
