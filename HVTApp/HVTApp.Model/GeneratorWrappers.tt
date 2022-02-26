@@ -8,6 +8,7 @@
 <#@ import namespace="System.Reflection" #>
 <#@ import namespace="System.Collections" #>
 <#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="HVTApp.Model" #>
 <#@ import namespace="HVTApp.Model.POCOs" #>
 <#@ output extension=".cs" #>
 <#	var modelTypes = GeneratorHelpers.GetModelTypesPocos();
@@ -102,7 +103,9 @@ namespace HVTApp.Model.Wrapper
       var propertyType = property.PropertyType.GetTypeName();
       var propertyName = property.Name;
 #>
-        //<#=propertyName#>
+        /// <summary>
+        /// <#=property.Designation()#>
+        /// </summary>
         public <#=propertyType#> <#=propertyName#>
         {
           get { return GetValue<<#=propertyType#>>(); }
@@ -130,6 +133,9 @@ namespace HVTApp.Model.Wrapper
       var propertyType = property.PropertyType.GetTypeName();
       var propertyName = property.Name;
 #>
+        /// <summary>
+        /// <#=property.Designation()#>
+        /// </summary>
         public <#=propertyType#> <#=propertyName#> => GetValue<<#=propertyType#>>(); 
 <#+
     }
@@ -152,6 +158,9 @@ namespace HVTApp.Model.Wrapper
       var propertyType = property.PropertyType.Name;
       var propertyName = property.Name;
 #>
+        /// <summary>
+        /// <#=property.Designation()#>
+        /// </summary>
 	    public <#= propertyType #>Wrapper <#= propertyName #> 
         {
             get { return GetWrapper<<#= propertyType #>Wrapper>(); }
@@ -178,6 +187,9 @@ namespace HVTApp.Model.Wrapper
       var itemType = property.PropertyType.GetInterfaces().First(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICollection<>)).GenericTypeArguments[0].Name;
       var propertyName = property.Name;
 #>
+        /// <summary>
+        /// <#=property.Designation()#>
+        /// </summary>
         public IValidatableChangeTrackingCollection<<#= itemType #>Wrapper> <#= propertyName #> { get; private set; }
 <#+  
     }

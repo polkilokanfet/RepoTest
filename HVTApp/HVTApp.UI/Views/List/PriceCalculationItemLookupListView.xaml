@@ -53,7 +53,6 @@
                         <infg:DateTimeField Name="OrderInTakeDate" Label="Дата ОИТ" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="HasPrice" Label="HasPrice" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
-
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>
 

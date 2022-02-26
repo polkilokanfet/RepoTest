@@ -46,7 +46,6 @@
                         <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="IsActual" Label="Актуально" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
-
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>
 

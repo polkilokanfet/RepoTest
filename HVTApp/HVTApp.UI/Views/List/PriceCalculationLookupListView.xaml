@@ -56,7 +56,6 @@
                         <infg:TextField Name="Orders" Label="З/з" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="ProductsInCalculation" Label="Номенклатура" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
-
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>
 

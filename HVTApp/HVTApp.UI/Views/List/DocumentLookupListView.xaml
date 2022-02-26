@@ -56,7 +56,6 @@
                         <infg:TextField Name="CopyToRecipients" Label="Копия" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:TextField Name="TceNumber" Label="Номер в ТСЕ" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
-
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>
 
