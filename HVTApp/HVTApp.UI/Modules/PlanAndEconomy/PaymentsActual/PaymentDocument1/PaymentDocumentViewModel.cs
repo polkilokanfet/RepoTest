@@ -196,9 +196,18 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
                     PaymentDocument.PropertyChanged -= PaymentDocumentOnPropertyChanged;
                     SalesUnitWrappers.PropertyChanged -= SalesUnitWrappersOnPropertyChanged;
 
+                    //var units = SalesUnitWrappers.Where(wrapper => wrapper.IsChanged).Select(wrapper => wrapper.Model).ToList();
+                    //ActualPaymentEventEntity entity = new ActualPaymentEventEntity(this.Entity, units);
+
                     SalesUnitWrappers.AcceptChanges();
                     SaveItem();
                     SaveDocumentCommand.RaiseCanExecuteChanged();
+
+                    //EventAggregator.GetEvent<AfterSaveActualPaymentDocumentEvent>().Publish(entity);
+                    //foreach (var salesUnit in units)
+                    //{
+                    //    EventAggregator.GetEvent<AfterSaveActualPaymentEvent>().Publish(salesUnit);
+                    //}
 
                     PaymentDocument.PropertyChanged += PaymentDocumentOnPropertyChanged;
                     SalesUnitWrappers.PropertyChanged += SalesUnitWrappersOnPropertyChanged;

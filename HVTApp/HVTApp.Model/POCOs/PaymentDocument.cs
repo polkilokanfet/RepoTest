@@ -27,7 +27,7 @@ namespace HVTApp.Model.POCOs
 
         public override string ToString()
         {
-            return $"Платежный документ: {Number}";
+            return $"Платеж №{Number} от {Date.ToShortDateString()} г.";
         }
     }
 }

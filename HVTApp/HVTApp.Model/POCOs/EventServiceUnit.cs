@@ -42,6 +42,8 @@ namespace HVTApp.Model.POCOs
         AcceptDirectumTask,
         RejectDirectumTask,
 
-        SaveIncomingRequest
+        SaveIncomingRequest,
+
+        SaveActualPayment
     }
 }

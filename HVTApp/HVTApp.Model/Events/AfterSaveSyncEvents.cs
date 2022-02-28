@@ -1,4 +1,8 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
 using Prism.Events;
 
@@ -45,4 +49,42 @@ namespace HVTApp.Model.Events
     public class AfterAcceptTechnicalRequrementsTaskEvent : PubSubEvent<TechnicalRequrementsTask> { }
 
     #endregion
+
+    #region ActualPayment
+
+    public class AfterSaveActualPaymentDocumentEvent : PubSubEvent<ActualPaymentEventEntity> { }
+    public class AfterSaveActualPaymentEvent : PubSubEvent<SalesUnit> { }
+
+    #endregion
+
+    /// <summary>
+    /// Контейнер для передачи информации при синхронизации поступивших платежей.
+    /// </summary>
+    public class ActualPaymentEventEntity
+    {
+        public PaymentDocument PaymentDocument { get; }
+        public IEnumerable<SalesUnit> SalesUnits { get; }
+
+        public ActualPaymentEventEntity(PaymentDocument paymentDocument, IEnumerable<SalesUnit> salesUnits)
+        {
+            PaymentDocument = paymentDocument;
+            SalesUnits = salesUnits;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(PaymentDocument);
+            foreach (var salesUnit in SalesUnits)
+            {
+                sb.AppendLine($"за {salesUnit}");
+                foreach (var payment in PaymentDocument.Payments.Where(paymentActual => salesUnit.PaymentsActual.ContainsById(paymentActual)))
+                {
+                    sb.AppendLine($" - {payment}");
+                }
+            }
+
+            return sb.ToString();
+        }
+    }
 }

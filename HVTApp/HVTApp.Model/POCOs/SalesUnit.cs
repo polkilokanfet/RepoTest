@@ -179,6 +179,9 @@ namespace HVTApp.Model.POCOs
 
         public override string ToString()
         {
+            if (Order != null)
+                return $"{Product} для {Facility} (з/з {Order.Number}, поз.{OrderPosition})";
+
             return $"{Product} для {Facility}";
         }
 
