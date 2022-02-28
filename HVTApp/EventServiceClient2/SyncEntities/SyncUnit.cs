@@ -64,7 +64,7 @@ namespace EventServiceClient2.SyncEntities
         protected virtual IEnumerable<Guid> GetTargetUsersIds(TModel model)
         {
             return UnitOfWork.Repository<User>()
-                .Find(user => this.IsTargetUser(user, model))
+                .Find(user => user.IsActual && this.IsTargetUser(user, model))
                 .Select(user => user.Id)
                 .Distinct();
         }
