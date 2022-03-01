@@ -717,10 +717,13 @@
       <DependentUpon>TabTechnicalRequrementsTasksView.xaml</DependentUpon>
     </Compile>
     <Compile Include="TechnicalRequrementsTasksModule\Tasks\Converters\TechnicalRequrementsTaskToColorConverter.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Tasks\TechnicalRequrementsTasksForBackManagerBossViewModel.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Tasks\TechnicalRequrementsTasksForBackManagerViewModel.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Tasks\TechnicalRequrementsTasksForFrontManagerViewModel.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Tasks\TechnicalRequrementsTasksView.xaml.cs">
       <DependentUpon>TechnicalRequrementsTasksView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TechnicalRequrementsTasksModule\Tasks\TechnicalRequrementsTasksViewModel.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Tasks\TechnicalRequrementsTasksBaseViewModel.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Tabs\TabTechnicalRequrementsTask.xaml.cs">
       <DependentUpon>TabTechnicalRequrementsTask.xaml</DependentUpon>
     </Compile>

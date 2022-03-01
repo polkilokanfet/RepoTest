@@ -55,7 +55,8 @@
                     <dp:FieldLayout.Fields>
                         <dp:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding Start}" Label="Старт задачи" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
                         <dp:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding DesiredFinishDate}" Label="Проработать" Width="Auto" AllowResize="False" Format="dd/MM/yy"/>
-                        <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Facilities}" Label="Объекты" Width="300" AllowResize="True" Converter="{StaticResource ObjectsToStringConverter}"/>
+                        <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Facilities}" Label="Объекты" Width="250" AllowResize="True" Converter="{StaticResource ObjectsToStringConverter}"/>
+                        <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding ProjectName}" Label="Проект" Width="250" AllowResize="True" />
                         <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding BackManager}" Label="Back manager" Width="Auto" AllowResize="True" Converter="{StaticResource ObjectToStringConverter}" 
                                       Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.CurrentUserIsBackManager, Converter={StaticResource BooleanToVisibilityReverseConverter}}"/>
                         <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding FrontManager}" Label="Front manager" Width="Auto" AllowResize="True" Converter="{StaticResource ObjectToStringConverter}" 

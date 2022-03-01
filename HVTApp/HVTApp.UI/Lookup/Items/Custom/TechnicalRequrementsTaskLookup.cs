@@ -26,6 +26,21 @@ namespace HVTApp.UI.Lookup
             }
         }
 
+        [Designation("Проект"), OrderStatus(-5)]
+        public string ProjectName
+        {
+            get
+            {
+                if (Requrements.Any() == false)
+                    return null;
+
+                return Requrements
+                    .SelectMany(technicalRequrements => technicalRequrements.SalesUnits)
+                    .FirstOrDefault()?.Entity.Project.Name;
+            }
+        }
+
+
         [Designation("Статус"), OrderStatus(-10)]
         public string Status
         {

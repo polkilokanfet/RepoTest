@@ -1,19 +1,17 @@
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Commands;
-using HVTApp.UI.Lookup;
 using HVTApp.UI.ViewModels;
 using Microsoft.Practices.Unity;
 using Prism.Regions;
 
 namespace HVTApp.UI.TechnicalRequrementsTasksModule
 {
-    public class TechnicalRequrementsTasksViewModel : TechnicalRequrementsTaskLookupListViewModel
+    public abstract class TechnicalRequrementsTasksBaseViewModel : TechnicalRequrementsTaskLookupListViewModel
     {
         public DelegateLogCommand NewCommand { get; }
         public DelegateLogCommand EditCommand { get; }
@@ -25,7 +23,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         public bool CurrentUserIsBackManager => GlobalAppProperties.User.RoleCurrent == Role.BackManager;
         public bool CurrentUserIsBackManagerBoss => GlobalAppProperties.User.RoleCurrent == Role.BackManagerBoss;
 
-        public TechnicalRequrementsTasksViewModel(IUnityContainer container) : base(container)
+        protected TechnicalRequrementsTasksBaseViewModel(IUnityContainer container) : base(container)
         {
             //костыль - удаление пустых задач
             RemoveFailTasks();
@@ -37,6 +35,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 EditCommand.RaiseCanExecuteChanged();
                 RemoveCommand.RaiseCanExecuteChanged();
             };
+
+            #region Commands
 
             NewCommand = new DelegateLogCommand(
                 () =>
@@ -104,45 +104,31 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 () => SelectedItem != null);
 
             ReloadCommand = new DelegateLogCommand(Load);
+
+            #endregion
+        }
+
+        /// <summary>
+        /// Подходит ли задача конкретно этой VM
+        /// </summary>
+        /// <param name="technicalRequrementsTask">Задача ТСЕ</param>
+        /// <returns></returns>
+        protected abstract bool TaskIsActual(TechnicalRequrementsTask technicalRequrementsTask);
+
+        public override void Load()
+        {
+            UnitOfWork = Container.Resolve<IUnitOfWork>();
+            IEnumerable<TechnicalRequrementsTask> calculations = UnitOfWork.Repository<TechnicalRequrementsTask>().Find(TaskIsActual);
+            this.Load(calculations.OrderByDescending(technicalRequrementsTask => technicalRequrementsTask.Start));
         }
 
         protected override void OnAfterSaveEntity(TechnicalRequrementsTask task)
         {
-            var targetCalculationLookup = Lookups.SingleOrDefault(technicalRequrementsTaskLookup => technicalRequrementsTaskLookup.Id == task.Id);
-            if (targetCalculationLookup != null)
+            if (TaskIsActual(task))
             {
-                targetCalculationLookup.Refresh(task);
-                return;
-            }
-
-            if (CurrentUserIsManager)
-            {
-                if (task.FrontManager?.IsAppCurrentUser() != null)
-                {
-                    InsertTask(task);
-                }
-            }
-
-            if (CurrentUserIsBackManager)
-            {
-                if (task.BackManager?.IsAppCurrentUser() != null)
-                {
-                    InsertTask(task);
-                }
-            }
-
-            if (CurrentUserIsBackManagerBoss)
-            {
-                InsertTask(task);
-            }
-        }
-
-        private void InsertTask(TechnicalRequrementsTask task)
-        {
-            if (Lookups is ObservableCollection<TechnicalRequrementsTaskLookup> collection)
-            {
-                if (!Lookups.Select(lookup => lookup.Entity).ContainsById(task))
-                    collection.Insert(0, new TechnicalRequrementsTaskLookup(task));
+                var selectedLookup = this.SelectedLookup;
+                base.OnAfterSaveEntity(task);
+                this.SelectedLookup = selectedLookup;
             }
         }
 
@@ -188,40 +174,5 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             }
         }
 
-        public override void Load()
-        {
-            UnitOfWork = Container.Resolve<IUnitOfWork>();
-
-            IEnumerable<TechnicalRequrementsTask> calculations;
-
-            //для бэка
-            if (CurrentUserIsBackManager)
-            {
-                calculations = UnitOfWork.Repository<TechnicalRequrementsTask>().Find(technicalRequrementsTask => technicalRequrementsTask.BackManager != null && technicalRequrementsTask.BackManager.IsAppCurrentUser());
-            }
-            //для босса бэка
-            else if(CurrentUserIsBackManagerBoss)
-            {
-                calculations = UnitOfWork.Repository<TechnicalRequrementsTask>().GetAll();
-            }
-            //для менеджера
-            else
-            {
-                calculations = UnitOfWork.Repository<TechnicalRequrementsTask>().Find(IsTaskOfManager);
-            }
-
-            this.Load(calculations.OrderByDescending(technicalRequrementsTask => technicalRequrementsTask.Start));
-        }
-
-        private bool IsTaskOfManager(TechnicalRequrementsTask task)
-        {
-            if (!task.Requrements.Any())
-                return false;
-
-            if (!task.Requrements.First().SalesUnits.Any())
-                return false;
-
-            return task.Requrements.First().SalesUnits.First().Project.Manager.IsAppCurrentUser();
-        }
     }
 }
