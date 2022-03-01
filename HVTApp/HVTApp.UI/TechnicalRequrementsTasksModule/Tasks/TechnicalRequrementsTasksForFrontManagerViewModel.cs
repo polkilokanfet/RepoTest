@@ -12,7 +12,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
         protected override bool TaskIsActual(TechnicalRequrementsTask technicalRequrementsTask)
         {
-            return technicalRequrementsTask.FrontManager?.IsAppCurrentUser() != null;
+            User manager = technicalRequrementsTask.FrontManager;
+            return manager != null && manager.IsAppCurrentUser();
         }
     }
 }
