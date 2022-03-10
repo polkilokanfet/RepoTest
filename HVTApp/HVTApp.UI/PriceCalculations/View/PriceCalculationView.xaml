@@ -91,9 +91,12 @@
                                 <infgDp:TextField AlternateBinding="{Binding Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
                                 <infgDp:TextField AlternateBinding="{Binding Product}" BindingType="UseAlternateBinding" Label="Оборудование" Width="Auto"/>
                                 <infgDp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" AllowResize="False"/>
-                                <infgDp:NumericField AlternateBinding="{Binding UnitPrice, UpdateSourceTrigger=PropertyChanged}" BindingType="UseAlternateBinding" Label="Цена за ед." Width="Auto" AllowResize="False"/>
-                                <infgDp:DateTimeField Name="OrderInTakeDate" Label="ОИТ" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}" Width="Auto" AllowResize="False" />
-                                <infgDp:DateTimeField Name="RealizationDate" Label="Реализация" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}" Width="Auto" AllowResize="False" />
+                                <infgDp:NumericField AlternateBinding="{Binding UnitPrice, UpdateSourceTrigger=PropertyChanged}" BindingType="UseAlternateBinding" Label="Цена за ед." Width="Auto" AllowResize="False"
+                                                     Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.CurrentUserIsBackManager, Converter={StaticResource BooleanToVisibilityReverseConverter}}"/>
+                                <infgDp:DateTimeField Name="OrderInTakeDate" Label="ОИТ" 
+                                                      AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}" Width="Auto" AllowResize="False" />
+                                <infgDp:DateTimeField Name="RealizationDate" Label="Реализация" 
+                                                      AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}" Width="Auto" AllowResize="False" />
                                 <infgDp:TextField AlternateBinding="{Binding PaymentConditionSet}" BindingType="UseAlternateBinding" Label="Условия оплаты" Width="Auto" />
                                 <infgDp:Field Name="StructureCosts" IsExpandable="True"/>
 					        </infgDp:FieldLayout.Fields>
@@ -102,17 +105,22 @@
                         <infgDp:FieldLayout ParentFieldName="StructureCosts"
                                             x:Name="LayoutStructureCosts">
                             <infgDp:FieldLayout.Fields>
-                                <infgDp:TextField AlternateBinding="{Binding Comment, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Название" Width="Auto" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}"/>
-                                <infgDp:NumericField AlternateBinding="{Binding AmountUp, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" AllowResize="False" 
+                                <infgDp:TextField AlternateBinding="{Binding Comment, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Название" Width="250" 
+                                                  AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}"/>
+                                <infgDp:NumericField AlternateBinding="{Binding AmountNumerator, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Кол." Width="86" AllowResize="True" 
                                                      AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}"
                                                      Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.CurrentUserIsPricer, Converter={StaticResource BooleanToVisibilityReverseConverter}}"/>
-                                <infgDp:NumericField AlternateBinding="{Binding AmountDown, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="на" Width="Auto" AllowResize="False" 
+                                <infgDp:NumericField AlternateBinding="{Binding AmountDenomerator, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="на" Width="86" AllowResize="True" 
                                                      AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}"
                                                      Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.CurrentUserIsPricer, Converter={StaticResource BooleanToVisibilityReverseConverter}}"/>
-                                <infgDp:NumericField AlternateBinding="{Binding Amount, Mode=OneWay}" BindingType="UseAlternateBinding" Label="Кол. на ед." Width="Auto" AllowResize="False" AllowEdit="False"/>
-                                <infgDp:TextField AlternateBinding="{Binding Number, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Номер" Width="Auto" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}"/>
-                                <infgDp:NumericField AlternateBinding="{Binding UnitPrice, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Цена за ед." Width="Auto" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.CanChangePrice}"/>
-                                <infgDp:NumericField AlternateBinding="{Binding Total}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto" AllowResize="False"/>
+                                <infgDp:NumericField AlternateBinding="{Binding Amount, Mode=OneWay}" BindingType="UseAlternateBinding" Label="Кол. на ед." Width="86" AllowResize="True" AllowEdit="False"/>
+                                <infgDp:TextField AlternateBinding="{Binding Number, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Номер" Width="Auto" 
+                                                  AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}"/>
+                                <infgDp:NumericField AlternateBinding="{Binding UnitPrice, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Цена за ед." Width="Auto" 
+                                                     AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.CanChangePrice}"
+                                                     Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.CurrentUserIsBackManager, Converter={StaticResource BooleanToVisibilityReverseConverter}}"/>
+                                <infgDp:NumericField AlternateBinding="{Binding Total}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto" AllowResize="False"
+                                                     Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.CurrentUserIsBackManager, Converter={StaticResource BooleanToVisibilityReverseConverter}}"/>
                             </infgDp:FieldLayout.Fields>
                         </infgDp:FieldLayout>
                             

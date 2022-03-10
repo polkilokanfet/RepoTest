@@ -41,10 +41,11 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
                     //}
 
 
+
                     var unitOfWork = _container.Resolve<IUnitOfWork>();
 
-                    List<User> users = unitOfWork.Repository<User>().GetAll();
-                    users.ForEach(user => user.IsActual = true);
+                    var eventServiceUnits = unitOfWork.Repository<EventServiceUnit>().Find(eventServiceUnit => eventServiceUnit.User.IsActual == false);
+                    unitOfWork.Repository<EventServiceUnit>().DeleteRange(eventServiceUnits);
 
                     unitOfWork.SaveChanges();
                     unitOfWork.Dispose();
