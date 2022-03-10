@@ -6180,6 +6180,18 @@ namespace HVTApp.UI.Views
             set { StructureCostLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.StructureCostLookup.Number)].Visibility = value; }
         }
 
+        public System.Windows.Visibility AmountNumeratorVisibility
+        {
+            get { return StructureCostLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.StructureCostLookup.AmountNumerator)].Visibility; }
+            set { StructureCostLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.StructureCostLookup.AmountNumerator)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility AmountDenomeratorVisibility
+        {
+            get { return StructureCostLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.StructureCostLookup.AmountDenomerator)].Visibility; }
+            set { StructureCostLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.StructureCostLookup.AmountDenomerator)].Visibility = value; }
+        }
+
         public System.Windows.Visibility AmountVisibility
         {
             get { return StructureCostLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.StructureCostLookup.Amount)].Visibility; }
@@ -6647,6 +6659,12 @@ namespace HVTApp.UI.Views
         }
 
 		#region VisibilityProps
+
+        public System.Windows.Visibility ProjectNameVisibility
+        {
+            get { return TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.ProjectName)].Visibility; }
+            set { TechnicalRequrementsTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskLookup.ProjectName)].Visibility = value; }
+        }
 
         public System.Windows.Visibility StatusVisibility
         {

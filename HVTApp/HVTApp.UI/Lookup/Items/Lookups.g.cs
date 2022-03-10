@@ -1255,6 +1255,14 @@ namespace HVTApp.UI.Lookup
 
 
 		[OrderStatus(1)]
+        public System.Double AmountNumerator => Entity.AmountNumerator;
+
+
+		[OrderStatus(1)]
+        public System.Double AmountDenomerator => Entity.AmountDenomerator;
+
+
+		[OrderStatus(1)]
         public System.Double Amount => Entity.Amount;
 
 
@@ -1516,7 +1524,7 @@ namespace HVTApp.UI.Lookup
 	    public UserLookup BackManager { get { return GetLookup<UserLookup>(); } }
 
 
-		[OrderStatus(1)]
+		[OrderStatus(-10)]
 	    public UserLookup FrontManager { get { return GetLookup<UserLookup>(); } }
 
 

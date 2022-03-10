@@ -190,7 +190,8 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
                 {
                     var structureCostWrapper = new StructureCostWrapper(new StructureCost())
                     {
-                        Amount = structureCost.Amount,
+                        AmountNumerator = structureCost.AmountNumerator,
+                        AmountDenomerator = structureCost.AmountDenomerator,
                         Number = structureCost.Number,
                         Comment = structureCost.Comment,
                         PriceCalculationItemId = priceCalculationItem2Wrapper.Model.Id,
@@ -266,7 +267,8 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
             var structureCost = new StructureCost
             {
                 Comment = $"{priceCalculationItem2Wrapper.Product}",
-                Amount = 1
+                AmountNumerator = 1,
+                AmountDenomerator = 1
             };
             priceCalculationItem2Wrapper.StructureCosts.Add(new StructureCostWrapper(structureCost));
 
@@ -276,7 +278,8 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
                 var structureCostPrIncl = new StructureCost
                 {
                     Comment = $"{productIncluded.Product}",
-                    Amount = (double)productIncluded.Amount / priceCalculationItem2Wrapper.SalesUnits.Count
+                    AmountNumerator = (double)productIncluded.Amount / priceCalculationItem2Wrapper.SalesUnits.Count,
+                    AmountDenomerator = 1
                 };
                 priceCalculationItem2Wrapper.StructureCosts.Add(new StructureCostWrapper(structureCostPrIncl));
             }

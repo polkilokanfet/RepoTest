@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
 
@@ -13,8 +14,22 @@ namespace HVTApp.Model.POCOs
         [Designation("Номер"), Required, MaxLength(50)]
         public string Number { get; set; }
 
-        [Designation("Количество"), Required]
-        public double Amount { get; set; } = 1;
+        /// <summary>
+        /// Количество (числитель)
+        /// </summary>
+        [Designation("Количество (числитель)"), Required]
+        public double AmountNumerator { get; set; } = 1;
+
+        /// <summary>
+        /// Количество (знаменатель)
+        /// </summary>
+        [Designation("Количество (знаменатель)"), Required]
+        public double AmountDenomerator { get; set; } = 1;
+
+        [Designation("Количество на единицу"), NotMapped]
+        public double Amount => AmountDenomerator > 0
+            ? AmountNumerator / AmountDenomerator
+            : 1;
 
         [Designation("Себестоимость единицы")]
         public double? UnitPrice { get; set; }

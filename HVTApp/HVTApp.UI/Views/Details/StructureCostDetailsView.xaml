@@ -19,6 +19,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row ="0" Content="Себестоимость единицы" Visibility="{Binding VisibilityUnitPriceStructureCost, ElementName=Root}"/>
@@ -36,10 +38,15 @@
                  Text="{Binding Item.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityCommentStructureCost, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="3" Content="Количество" Visibility="{Binding VisibilityAmountStructureCost, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="3" Content="Количество (числитель)" Visibility="{Binding VisibilityAmountNumeratorStructureCost, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="3" 
-                               Value="{Binding Item.Amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-							   Visibility="{Binding VisibilityAmountStructureCost, ElementName=Root}"/>
+                               Value="{Binding Item.AmountNumerator, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+							   Visibility="{Binding VisibilityAmountNumeratorStructureCost, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="4" Content="Количество (знаменатель)" Visibility="{Binding VisibilityAmountDenomeratorStructureCost, ElementName=Root}"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="4" 
+                               Value="{Binding Item.AmountDenomerator, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+							   Visibility="{Binding VisibilityAmountDenomeratorStructureCost, ElementName=Root}"/>
 
 
     </Grid>

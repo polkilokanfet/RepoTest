@@ -326,6 +326,14 @@
     <Compile Include="Migrations\202202261251445_UserIsActualStatus.Designer.cs">
       <DependentUpon>202202261251445_UserIsActualStatus.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202203102033045_StructureCostAmountAdd.cs" />
+    <Compile Include="Migrations\202203102033045_StructureCostAmountAdd.Designer.cs">
+      <DependentUpon>202203102033045_StructureCostAmountAdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202203102116188_StructureCostAmountRemove.cs" />
+    <Compile Include="Migrations\202203102116188_StructureCostAmountRemove.Designer.cs">
+      <DependentUpon>202203102116188_StructureCostAmountRemove.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -525,6 +533,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202202261251445_UserIsActualStatus.resx">
       <DependentUpon>202202261251445_UserIsActualStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203102033045_StructureCostAmountAdd.resx">
+      <DependentUpon>202203102033045_StructureCostAmountAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203102116188_StructureCostAmountRemove.resx">
+      <DependentUpon>202203102116188_StructureCostAmountRemove.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

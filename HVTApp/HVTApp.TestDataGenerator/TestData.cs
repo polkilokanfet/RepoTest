@@ -180,7 +180,7 @@ namespace HVTApp.TestDataGenerator
                         priceCalculationItem.SalesUnits.AddRange(salesUnits);
                         priceCalculationItem.StructureCosts.Add(new StructureCost
                         {
-                            Amount = 1,
+                            AmountNumerator = 1,
                             Comment = $"structureCostName-{projectNum}",
                             Number = $"structureCostNumber-{projectNum}",
                             UnitPrice = salesUnit.Cost * random.Next(4, 7) / 10

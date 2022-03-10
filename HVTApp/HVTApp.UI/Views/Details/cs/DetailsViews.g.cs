@@ -2688,6 +2688,14 @@ namespace HVTApp.UI.Views
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityNumberStructureCost = Visibility.Collapsed;
 
+            //attr = typeof(HVTApp.Model.POCOs.StructureCost).GetProperty(nameof(HVTApp.Model.POCOs.StructureCost.AmountNumerator)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityAmountNumeratorStructureCost = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.StructureCost).GetProperty(nameof(HVTApp.Model.POCOs.StructureCost.AmountDenomerator)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityAmountDenomeratorStructureCost = Visibility.Collapsed;
+
             //attr = typeof(HVTApp.Model.POCOs.StructureCost).GetProperty(nameof(HVTApp.Model.POCOs.StructureCost.Amount)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityAmountStructureCost = Visibility.Collapsed;
@@ -2721,6 +2729,22 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityNumberStructureCostProperty); }
             set { SetValue(VisibilityNumberStructureCostProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityAmountNumeratorStructureCostProperty = DependencyProperty.Register("VisibilityAmountNumeratorStructureCost", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityAmountNumeratorStructureCost
+        {
+            get { return (Visibility) GetValue(VisibilityAmountNumeratorStructureCostProperty); }
+            set { SetValue(VisibilityAmountNumeratorStructureCostProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityAmountDenomeratorStructureCostProperty = DependencyProperty.Register("VisibilityAmountDenomeratorStructureCost", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityAmountDenomeratorStructureCost
+        {
+            get { return (Visibility) GetValue(VisibilityAmountDenomeratorStructureCostProperty); }
+            set { SetValue(VisibilityAmountDenomeratorStructureCostProperty, value); OnPropertyChanged(); }
         }
 
 

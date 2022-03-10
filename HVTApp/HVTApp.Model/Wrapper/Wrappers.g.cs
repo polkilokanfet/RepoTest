@@ -2612,15 +2612,26 @@ namespace HVTApp.Model.Wrapper
         public bool NumberIsChanged => GetIsChanged(nameof(Number));
 
         /// <summary>
-        /// Количество
+        /// Количество (числитель)
         /// </summary>
-        public System.Double Amount
+        public System.Double AmountNumerator
         {
           get { return GetValue<System.Double>(); }
           set { SetValue(value); }
         }
-        public System.Double AmountOriginalValue => GetOriginalValue<System.Double>(nameof(Amount));
-        public bool AmountIsChanged => GetIsChanged(nameof(Amount));
+        public System.Double AmountNumeratorOriginalValue => GetOriginalValue<System.Double>(nameof(AmountNumerator));
+        public bool AmountNumeratorIsChanged => GetIsChanged(nameof(AmountNumerator));
+
+        /// <summary>
+        /// Количество (знаменатель)
+        /// </summary>
+        public System.Double AmountDenomerator
+        {
+          get { return GetValue<System.Double>(); }
+          set { SetValue(value); }
+        }
+        public System.Double AmountDenomeratorOriginalValue => GetOriginalValue<System.Double>(nameof(AmountDenomerator));
+        public bool AmountDenomeratorIsChanged => GetIsChanged(nameof(AmountDenomerator));
 
         /// <summary>
         /// Себестоимость единицы
@@ -2658,6 +2669,11 @@ namespace HVTApp.Model.Wrapper
         #endregion
 
         #region GetProperties
+
+        /// <summary>
+        /// Количество на единицу
+        /// </summary>
+        public System.Double Amount => GetValue<System.Double>(); 
 
         /// <summary>
         /// Total

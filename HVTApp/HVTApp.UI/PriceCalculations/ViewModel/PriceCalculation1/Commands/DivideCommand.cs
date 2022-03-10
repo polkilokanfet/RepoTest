@@ -41,7 +41,8 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
                     var sc = new StructureCost
                     {
                         Comment = structureCost.Comment,
-                        Amount = structureCost.Amount,
+                        AmountNumerator = structureCost.AmountNumerator,
+                        AmountDenomerator = structureCost.AmountDenomerator,
                         Number = structureCost.Number,
                         UnitPrice = structureCost.UnitPrice
                     };
