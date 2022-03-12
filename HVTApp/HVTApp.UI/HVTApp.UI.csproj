@@ -758,6 +758,12 @@
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\ShippingCalculation\RemoveShippingCalculationFileCommand.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\StartCommand.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\StopCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\History\HistoryItemControl.xaml.cs">
+      <DependentUpon>HistoryItemControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TechnicalRequrementsTasksModule\Task\History\HistoryItemListControl.xaml.cs">
+      <DependentUpon>HistoryItemListControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TechnicalRequrementsTasksModule\Task\TechnicalRequrementsTaskView.xaml.cs">
       <DependentUpon>TechnicalRequrementsTaskView.xaml</DependentUpon>
     </Compile>
@@ -1563,6 +1569,14 @@
     <Page Include="TechnicalRequrementsTasksModule\Tabs\TabTechnicalRequrementsTask.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TechnicalRequrementsTasksModule\Task\History\HistoryItemControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TechnicalRequrementsTasksModule\Task\History\HistoryItemListControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="TechnicalRequrementsTasksModule\Task\TechnicalRequrementsTaskView.xaml">
       <Generator>MSBuild:Compile</Generator>

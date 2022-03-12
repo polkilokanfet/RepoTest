@@ -4,6 +4,7 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:infgDp="http://infragistics.com/DataPresenter" 
               xmlns:igEditors="http://infragistics.com/Editors"
+              xmlns:history="clr-namespace:HVTApp.UI.TechnicalRequrementsTasksModule.Task.History"
               x:Name="ViewBase">
     
     <inf:ViewBase.Resources>
@@ -191,7 +192,8 @@
                 <GridSplitter Grid.Column="1" Width="4" HorizontalAlignment="Stretch"/>
 
                 <GroupBox Grid.Column="2" Header="История проработки">
-                    <infgDp:XamDataGrid DataSource="{Binding TechnicalRequrementsTaskWrapper.HistoryElements}">
+                    <history:HistoryItemListControl DataContext="{Binding}"/>
+                    <!--<infgDp:XamDataGrid DataSource="{Binding TechnicalRequrementsTaskWrapper.HistoryElements}">
 
                         <infgDp:XamDataGrid.ContextMenu>
                             <ContextMenu>
@@ -209,7 +211,7 @@
                             </infgDp:FieldLayout>
 
                         </infgDp:XamDataGrid.FieldLayouts>
-                    </infgDp:XamDataGrid>
+                    </infgDp:XamDataGrid>-->
 
                 </GroupBox>
 
