@@ -5,10 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HVTApp.UI.TechnicalRequrementsTasksModule.Task.History"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             x:Name="Root">
     <Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <ItemsControl ItemsSource="{Binding TechnicalRequrementsTaskWrapper.HistoryElements}">
+            <ItemsControl ItemsSource="{Binding Items, ElementName=Root, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <local:HistoryItemControl/>

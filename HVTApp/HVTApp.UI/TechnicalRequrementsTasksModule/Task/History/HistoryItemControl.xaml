@@ -39,7 +39,8 @@
             <Border Grid.Row="1" 
                     Background="White"  
                     Padding="5"
-                    CornerRadius="0 0 10 10">
+                    CornerRadius="0 0 10 10"
+                    Visibility="{Binding Comment, Converter={StaticResource TextToVisibilityConverter}}">
                 <TextBox Text="{Binding Comment, Mode=OneWay}"
                          TextWrapping="Wrap"
                          IsReadOnly="True"

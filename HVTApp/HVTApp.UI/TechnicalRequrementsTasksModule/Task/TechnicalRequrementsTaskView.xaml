@@ -192,7 +192,7 @@
                 <GridSplitter Grid.Column="1" Width="4" HorizontalAlignment="Stretch"/>
 
                 <GroupBox Grid.Column="2" Header="История проработки">
-                    <history:HistoryItemListControl DataContext="{Binding}"/>
+                    <history:HistoryItemListControl Items="{Binding TechnicalRequrementsTaskWrapper.HistoryElements}"/>
                     <!--<infgDp:XamDataGrid DataSource="{Binding TechnicalRequrementsTaskWrapper.HistoryElements}">
 
                         <infgDp:XamDataGrid.ContextMenu>

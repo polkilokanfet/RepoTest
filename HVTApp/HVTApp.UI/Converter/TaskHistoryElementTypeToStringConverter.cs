@@ -27,7 +27,7 @@ namespace HVTApp.UI.Converter
                     case TechnicalRequrementsTaskHistoryElementType.Stop:
                         return "Остановлено";
                     case TechnicalRequrementsTaskHistoryElementType.Instruct:
-                        return "Запущено";
+                        return "Поручено";
                     case TechnicalRequrementsTaskHistoryElementType.Accept:
                         return "Принято";
                     default:

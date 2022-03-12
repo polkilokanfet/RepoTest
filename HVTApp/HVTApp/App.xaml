@@ -10,6 +10,7 @@
             <converters:ReverseBoolConverter x:Key="ReverseBoolConverter"/>
             <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
             <converters:BooleanToVisibilityReverseConverter x:Key="BooleanToVisibilityReverseConverter"/>
+            <converters:TextToVisibilityConverter x:Key="TextToVisibilityConverter"/>
             <converters:DatePickerOriginalValueConverter x:Key="DatePickerOriginalValueConverter"/>
             <converters:DateTimeToStringConverter x:Key="DateTimeToStringConverter"/>
             <converters:ListToStringConverter x:Key="ListToStringConverter"/>
