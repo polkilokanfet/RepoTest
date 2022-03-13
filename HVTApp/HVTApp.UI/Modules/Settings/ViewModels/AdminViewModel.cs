@@ -44,8 +44,59 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
 
                     var unitOfWork = _container.Resolve<IUnitOfWork>();
 
-                    var eventServiceUnits = unitOfWork.Repository<EventServiceUnit>().Find(eventServiceUnit => eventServiceUnit.User.IsActual == false);
-                    unitOfWork.Repository<EventServiceUnit>().DeleteRange(eventServiceUnits);
+                    var requrementsTasks = unitOfWork.Repository<TechnicalRequrementsTask>().GetAll();
+                    var bmb = unitOfWork.Repository<User>().Find(x => x.Employee.Person.Surname == "Игнатенко").FirstOrDefault();
+                    foreach (var requrementsTask in requrementsTasks)
+                    {
+                        foreach (var historyElement in requrementsTask.HistoryElements)
+                        {
+                            switch (historyElement.Type)
+                            {
+                                case TechnicalRequrementsTaskHistoryElementType.Create:
+                                { 
+                                    historyElement.User = requrementsTask.FrontManager;
+                                    break;
+                                }
+                                case TechnicalRequrementsTaskHistoryElementType.Start:
+                                {
+                                    historyElement.User = requrementsTask.FrontManager;
+                                    break;
+                                }
+                                case TechnicalRequrementsTaskHistoryElementType.Finish:
+                                {
+                                    historyElement.User = requrementsTask.BackManager;
+                                    break;
+                                }
+                                case TechnicalRequrementsTaskHistoryElementType.Reject:
+                                {
+                                    historyElement.User = requrementsTask.BackManager;
+                                    break;
+                                }
+                                case TechnicalRequrementsTaskHistoryElementType.Stop:
+                                {
+                                    historyElement.User = requrementsTask.FrontManager;
+                                    break;
+                                }
+                                case TechnicalRequrementsTaskHistoryElementType.Instruct:
+                                {
+                                    historyElement.User = bmb;
+                                    break;
+                                }
+                                case TechnicalRequrementsTaskHistoryElementType.Accept:
+                                {
+                                    historyElement.User = requrementsTask.FrontManager;
+                                    break;
+                                }
+                                case TechnicalRequrementsTaskHistoryElementType.RejectByFrontManager:
+                                {
+                                    historyElement.User = requrementsTask.FrontManager;
+                                    break;
+                                }
+                                default:
+                                    throw new ArgumentOutOfRangeException();
+                            }
+                        }
+                    }
 
                     unitOfWork.SaveChanges();
                     unitOfWork.Dispose();

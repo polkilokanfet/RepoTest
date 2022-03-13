@@ -30,7 +30,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
             Container.Resolve<IEventAggregator>().GetEvent<AfterAcceptTechnicalRequrementsTaskEvent>().Publish(ViewModel.TechnicalRequrementsTaskWrapper.Model);
 
-            ViewModel.HistoryElementWrapper = new TechnicalRequrementsTaskHistoryElementWrapper(new TechnicalRequrementsTaskHistoryElement());
+            ViewModel.SetNewHistoryElement();
         }
 
         protected override bool CanExecuteMethod()

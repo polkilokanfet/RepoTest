@@ -17,6 +17,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row ="0" Content="Момент" Visibility="{Binding VisibilityMomentTechnicalRequrementsTaskHistoryElement, ElementName=Root}"/>
@@ -24,8 +25,15 @@
                     SelectedDate="{Binding Item.Moment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityMomentTechnicalRequrementsTaskHistoryElement, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="Комментарий" Visibility="{Binding VisibilityCommentTechnicalRequrementsTaskHistoryElement, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
+        <Label Grid.Column="0" Grid.Row ="1" Content="Автор" Visibility="{Binding VisibilityUserTechnicalRequrementsTaskHistoryElement, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
+                                    Item="{Binding Item.User}" 
+                                    AddItemCommand="{Binding SelectUserCommand}" 
+                                    RemoveItemCommand="{Binding ClearUserCommand}"
+									Visibility="{Binding VisibilityUserTechnicalRequrementsTaskHistoryElement, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="2" Content="Комментарий" Visibility="{Binding VisibilityCommentTechnicalRequrementsTaskHistoryElement, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
                  Text="{Binding Item.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityCommentTechnicalRequrementsTaskHistoryElement, ElementName=Root}"/>
 

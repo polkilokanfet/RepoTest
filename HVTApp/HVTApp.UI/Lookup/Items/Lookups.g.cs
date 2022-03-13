@@ -1580,6 +1580,15 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 
+
+        #region ComplexProperties
+
+		[OrderStatus(70)]
+	    public UserLookup User { get { return GetLookup<UserLookup>(); } }
+
+
+        #endregion
+
 	}
 
 	[AllowEditAttribute(Role.Admin)]

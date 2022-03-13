@@ -121,6 +121,7 @@
     <Compile Include="EntityTypeConfigurations\Custom\SupervisionConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\TechnicalRequrementsConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\TechnicalRequrementsTaskConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\TechnicalRequrementsTaskHistoryElementConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\TenderTypeConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\TestHusbandConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\UserGroupConfiguration.cs" />
@@ -334,6 +335,10 @@
     <Compile Include="Migrations\202203102116188_StructureCostAmountRemove.Designer.cs">
       <DependentUpon>202203102116188_StructureCostAmountRemove.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202203121007028_HistoryElementUser.cs" />
+    <Compile Include="Migrations\202203121007028_HistoryElementUser.Designer.cs">
+      <DependentUpon>202203121007028_HistoryElementUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -539,6 +544,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202203102116188_StructureCostAmountRemove.resx">
       <DependentUpon>202203102116188_StructureCostAmountRemove.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203121007028_HistoryElementUser.resx">
+      <DependentUpon>202203121007028_HistoryElementUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

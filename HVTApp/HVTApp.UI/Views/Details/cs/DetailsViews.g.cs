@@ -3481,6 +3481,10 @@ namespace HVTApp.UI.Views
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityCommentTechnicalRequrementsTaskHistoryElement = Visibility.Collapsed;
 
+            //attr = typeof(HVTApp.Model.POCOs.TechnicalRequrementsTaskHistoryElement).GetProperty(nameof(HVTApp.Model.POCOs.TechnicalRequrementsTaskHistoryElement.User)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityUserTechnicalRequrementsTaskHistoryElement = Visibility.Collapsed;
+
 
         }
 
@@ -3514,6 +3518,14 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityCommentTechnicalRequrementsTaskHistoryElementProperty); }
             set { SetValue(VisibilityCommentTechnicalRequrementsTaskHistoryElementProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityUserTechnicalRequrementsTaskHistoryElementProperty = DependencyProperty.Register("VisibilityUserTechnicalRequrementsTaskHistoryElement", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityUserTechnicalRequrementsTaskHistoryElement
+        {
+            get { return (Visibility) GetValue(VisibilityUserTechnicalRequrementsTaskHistoryElementProperty); }
+            set { SetValue(VisibilityUserTechnicalRequrementsTaskHistoryElementProperty, value); OnPropertyChanged(); }
         }
 
 	}

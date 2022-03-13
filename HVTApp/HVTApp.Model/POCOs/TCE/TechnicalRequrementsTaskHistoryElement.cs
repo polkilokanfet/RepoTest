@@ -18,6 +18,9 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Комментарий"), MaxLength(250), OrderStatus(5)]
         public string Comment { get; set; } = string.Empty;
+
+        [Designation("Автор"), OrderStatus(70)]
+        public virtual User User { get; set; }
     }
 
     public enum TechnicalRequrementsTaskHistoryElementType

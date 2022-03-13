@@ -3324,6 +3324,24 @@ namespace HVTApp.Model.Wrapper
 
         #endregion
 
+        #region ComplexProperties
+
+        /// <summary>
+        /// Автор
+        /// </summary>
+	    public UserWrapper User 
+        {
+            get { return GetWrapper<UserWrapper>(); }
+            set { SetComplexValue<User, UserWrapper>(User, value); }
+        }
+
+        #endregion
+
+        public override void InitializeComplexProperties()
+        {
+            InitializeComplexProperty<UserWrapper>(nameof(User), Model.User == null ? null : new UserWrapper(Model.User));
+        }
+
 	}
 
 		public partial class UserGroupWrapper : WrapperBase<UserGroup>

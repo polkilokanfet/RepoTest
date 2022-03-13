@@ -309,6 +309,15 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             }
         }
 
+        public void SetNewHistoryElement()
+        {
+            HistoryElementWrapper = new TechnicalRequrementsTaskHistoryElementWrapper(
+                new TechnicalRequrementsTaskHistoryElement
+                {
+                    User = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id)
+                });
+        }
+
         public TechnicalRequrementsTaskViewModel(IUnityContainer container) : base(container)
         {
             var messageService = container.Resolve<IMessageService>();
@@ -420,7 +429,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             OpenShippingCalculationFileCommand = new OpenShippingCalculationFileCommand(this, this.Container);
             RemoveShippingCalculationFileCommand = new RemoveShippingCalculationFileCommand(this, this.Container);
 
-            HistoryElementWrapper = new TechnicalRequrementsTaskHistoryElementWrapper(new TechnicalRequrementsTaskHistoryElement());
+            SetNewHistoryElement();
         }
 
         private void AfterStartStopTask(TechnicalRequrementsTask task)
@@ -509,7 +518,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             //добавление записи о создании задачи в историю
             TechnicalRequrementsTaskWrapper.HistoryElements.Add(new TechnicalRequrementsTaskHistoryElementWrapper(new TechnicalRequrementsTaskHistoryElement
             {
-                Type = TechnicalRequrementsTaskHistoryElementType.Create
+                Type = TechnicalRequrementsTaskHistoryElementType.Create,
+                User = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id)
             }));
         }
     }

@@ -26,11 +26,16 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Column="0" Text="{Binding Model.Type, Mode=OneWay, Converter={StaticResource TaskHistoryElementTypeToStringConverter}}"/>
-                    <TextBlock Grid.Column="1" Text="{Binding Moment, Mode=OneWay, Converter={StaticResource DateTimeToStringConverter}}" HorizontalAlignment="Right"/>
+                    <!--Момент действия-->
+                    <TextBlock Grid.Column="0" Text="{Binding Moment, Mode=OneWay, Converter={StaticResource DateTimeToStringConverter}}"/>
+                    <!--Действие-->
+                    <TextBlock Grid.Column="1" Text="{Binding Model.Type, Mode=OneWay, Converter={StaticResource TaskHistoryElementTypeToStringConverter}}" HorizontalAlignment="Center" Margin="10 0"/>
+                    <!--Автор действия-->
+                    <TextBlock Grid.Column="2" Text="{Binding User, Mode=OneWay, Converter={StaticResource ObjectToStringConverter}}"/>
 
                 </Grid>
             </Border>

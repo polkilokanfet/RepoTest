@@ -6624,6 +6624,12 @@ namespace HVTApp.UI.Views
             set { TechnicalRequrementsTaskHistoryElementLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskHistoryElementLookup.DisplayMember)].Visibility = value; }
         }
 
+        public System.Windows.Visibility UserVisibility
+        {
+            get { return TechnicalRequrementsTaskHistoryElementLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskHistoryElementLookup.User)].Visibility; }
+            set { TechnicalRequrementsTaskHistoryElementLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskHistoryElementLookup.User)].Visibility = value; }
+        }
+
         public System.Windows.Visibility EntityVisibility
         {
             get { return TechnicalRequrementsTaskHistoryElementLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsTaskHistoryElementLookup.Entity)].Visibility; }
