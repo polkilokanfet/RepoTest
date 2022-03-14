@@ -8,10 +8,12 @@
              Height="Auto"
              Width="Auto">
 
-    <Border Background="LightBlue" 
-            CornerRadius="10" 
+    <Border CornerRadius="10" 
             Padding="5"
             Margin="5 0 5 5">
+        <Border.Background>
+            <SolidColorBrush Color="{Binding Model, Converter={StaticResource HistoryElementToColorConverter}}"/>
+        </Border.Background>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -22,7 +24,7 @@
             <Border 
                 Background="AliceBlue" 
                 Padding="5" 
-                CornerRadius="10 10 0 0">
+                CornerRadius="8 8 0 0">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -44,7 +46,7 @@
             <Border Grid.Row="1" 
                     Background="White"  
                     Padding="5"
-                    CornerRadius="0 0 10 10"
+                    CornerRadius="0 0 8 8"
                     Visibility="{Binding Comment, Converter={StaticResource TextToVisibilityConverter}}">
                 <TextBox Text="{Binding Comment, Mode=OneWay}"
                          TextWrapping="Wrap"

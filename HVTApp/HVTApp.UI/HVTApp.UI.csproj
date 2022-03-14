@@ -264,6 +264,7 @@
     <Compile Include="Modules\Sales\Market\Commands\SpecificationNewCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\StructureCostsCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\UnionProjectsCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Converters\HistoryElementToColorConverter.cs" />
     <Compile Include="Modules\Sales\Market\Converters\ProductionGroupToColorConverter.cs" />
     <Compile Include="Modules\Sales\Market\Converters\ProjectItemToColorConverter.cs" />
     <Compile Include="Modules\Sales\Market\Commands\ProjectNewCommand.cs" />

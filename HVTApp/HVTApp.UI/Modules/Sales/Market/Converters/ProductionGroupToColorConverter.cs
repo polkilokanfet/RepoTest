@@ -10,8 +10,7 @@ namespace HVTApp.UI.Modules.Sales.Market.Converters
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            var productionGroup = value as ProductionGroup;
-            if (productionGroup != null)
+            if (value is ProductionGroup productionGroup)
             {
                 if (productionGroup.DifContract > 0 && productionGroup.DifExpected > 0)
                     return Colors.HotPink;
