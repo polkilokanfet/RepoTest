@@ -16,6 +16,7 @@ namespace HVTApp.Infrastructure
         ReportMaker,
         Supplier,
         BackManager,
-        BackManagerBoss
+        BackManagerBoss,
+        DesignDepartmentHead
     }
 }

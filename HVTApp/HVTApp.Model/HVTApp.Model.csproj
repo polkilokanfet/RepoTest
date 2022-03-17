@@ -92,6 +92,7 @@
     <Compile Include="POCOs\CostsPercents.cs" />
     <Compile Include="POCOs\CreateNewProductTask.cs" />
     <Compile Include="Comparers\ParameterComparer.cs" />
+    <Compile Include="POCOs\PriceEngineering\DesignDepartment.cs" />
     <Compile Include="POCOs\Directum\DirectumTask.cs" />
     <Compile Include="POCOs\Directum\DirectumTaskGroup.cs" />
     <Compile Include="POCOs\Directum\DirectumTaskGroupFile.cs" />
@@ -116,6 +117,7 @@
     <Compile Include="POCOs\PriceCalculation\PriceCalculationFile.cs" />
     <Compile Include="POCOs\PriceCalculation\PriceCalculationHistoryItem.cs" />
     <Compile Include="POCOs\PriceCalculation\PriceCalculationItem.cs" />
+    <Compile Include="POCOs\PriceEngineering\DesignDepartmentParameters.cs" />
     <Compile Include="POCOs\ProductCategory.cs" />
     <Compile Include="POCOs\ProductCategoryPriceAndCost.cs" />
     <Compile Include="POCOs\ProductIncluded.cs" />

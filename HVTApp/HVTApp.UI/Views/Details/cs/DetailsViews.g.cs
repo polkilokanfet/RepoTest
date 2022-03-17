@@ -627,6 +627,77 @@ namespace HVTApp.UI.Views
 
 	}
 
+    public partial class DesignDepartmentDetailsView : ViewBase
+    {
+        public DesignDepartmentDetailsView()
+        {
+			InitializeComponent();
+        }
+
+        public DesignDepartmentDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, DesignDepartmentDetailsViewModel DesignDepartmentDetailsViewModel) : base(regionManager, eventAggregator)
+        {
+            SetVisibilityProps();
+			InitializeComponent();
+            DataContext = DesignDepartmentDetailsViewModel;
+        }
+
+        private void SetVisibilityProps()
+        {
+            //NotUpdateAttribute attr;
+
+            //attr = typeof(HVTApp.Model.POCOs.DesignDepartment).GetProperty(nameof(HVTApp.Model.POCOs.DesignDepartment.Name)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityNameDesignDepartment = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.DesignDepartment).GetProperty(nameof(HVTApp.Model.POCOs.DesignDepartment.Head)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityHeadDesignDepartment = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.DesignDepartment).GetProperty(nameof(HVTApp.Model.POCOs.DesignDepartment.Staff)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityStaffDesignDepartment = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.DesignDepartment).GetProperty(nameof(HVTApp.Model.POCOs.DesignDepartment.ParameterSets)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityParameterSetsDesignDepartment = Visibility.Collapsed;
+
+
+        }
+
+
+        public static readonly DependencyProperty VisibilityNameDesignDepartmentProperty = DependencyProperty.Register("VisibilityNameDesignDepartment", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityNameDesignDepartment
+        {
+            get { return (Visibility) GetValue(VisibilityNameDesignDepartmentProperty); }
+            set { SetValue(VisibilityNameDesignDepartmentProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityHeadDesignDepartmentProperty = DependencyProperty.Register("VisibilityHeadDesignDepartment", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityHeadDesignDepartment
+        {
+            get { return (Visibility) GetValue(VisibilityHeadDesignDepartmentProperty); }
+            set { SetValue(VisibilityHeadDesignDepartmentProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityStaffDesignDepartmentProperty = DependencyProperty.Register("VisibilityStaffDesignDepartment", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityStaffDesignDepartment
+        {
+            get { return (Visibility) GetValue(VisibilityStaffDesignDepartmentProperty); }
+            set { SetValue(VisibilityStaffDesignDepartmentProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityParameterSetsDesignDepartmentProperty = DependencyProperty.Register("VisibilityParameterSetsDesignDepartment", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityParameterSetsDesignDepartment
+        {
+            get { return (Visibility) GetValue(VisibilityParameterSetsDesignDepartmentProperty); }
+            set { SetValue(VisibilityParameterSetsDesignDepartmentProperty, value); OnPropertyChanged(); }
+        }
+
+	}
+
     public partial class DirectumTaskDetailsView : ViewBase
     {
         public DirectumTaskDetailsView()
@@ -2187,6 +2258,65 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityPricePriceCalculationItemProperty); }
             set { SetValue(VisibilityPricePriceCalculationItemProperty, value); OnPropertyChanged(); }
+        }
+
+	}
+
+    public partial class DesignDepartmentParametersDetailsView : ViewBase
+    {
+        public DesignDepartmentParametersDetailsView()
+        {
+			InitializeComponent();
+        }
+
+        public DesignDepartmentParametersDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, DesignDepartmentParametersDetailsViewModel DesignDepartmentParametersDetailsViewModel) : base(regionManager, eventAggregator)
+        {
+            SetVisibilityProps();
+			InitializeComponent();
+            DataContext = DesignDepartmentParametersDetailsViewModel;
+        }
+
+        private void SetVisibilityProps()
+        {
+            //NotUpdateAttribute attr;
+
+            //attr = typeof(HVTApp.Model.POCOs.DesignDepartmentParameters).GetProperty(nameof(HVTApp.Model.POCOs.DesignDepartmentParameters.DesignDepartmentId)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityDesignDepartmentIdDesignDepartmentParameters = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.DesignDepartmentParameters).GetProperty(nameof(HVTApp.Model.POCOs.DesignDepartmentParameters.Name)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityNameDesignDepartmentParameters = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.DesignDepartmentParameters).GetProperty(nameof(HVTApp.Model.POCOs.DesignDepartmentParameters.Parameters)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityParametersDesignDepartmentParameters = Visibility.Collapsed;
+
+
+        }
+
+
+        public static readonly DependencyProperty VisibilityDesignDepartmentIdDesignDepartmentParametersProperty = DependencyProperty.Register("VisibilityDesignDepartmentIdDesignDepartmentParameters", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityDesignDepartmentIdDesignDepartmentParameters
+        {
+            get { return (Visibility) GetValue(VisibilityDesignDepartmentIdDesignDepartmentParametersProperty); }
+            set { SetValue(VisibilityDesignDepartmentIdDesignDepartmentParametersProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityNameDesignDepartmentParametersProperty = DependencyProperty.Register("VisibilityNameDesignDepartmentParameters", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityNameDesignDepartmentParameters
+        {
+            get { return (Visibility) GetValue(VisibilityNameDesignDepartmentParametersProperty); }
+            set { SetValue(VisibilityNameDesignDepartmentParametersProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityParametersDesignDepartmentParametersProperty = DependencyProperty.Register("VisibilityParametersDesignDepartmentParameters", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityParametersDesignDepartmentParameters
+        {
+            get { return (Visibility) GetValue(VisibilityParametersDesignDepartmentParametersProperty); }
+            set { SetValue(VisibilityParametersDesignDepartmentParametersProperty, value); OnPropertyChanged(); }
         }
 
 	}

@@ -21,6 +21,7 @@ namespace HVTApp.DataAccess
             context.ConstructorsParametersDbSet.AddRange(testData.GetAll<ConstructorsParameters>());
             context.CostsPercentsDbSet.AddRange(testData.GetAll<CostsPercents>());
             context.CreateNewProductTaskDbSet.AddRange(testData.GetAll<CreateNewProductTask>());
+            context.DesignDepartmentDbSet.AddRange(testData.GetAll<DesignDepartment>());
             context.DirectumTaskDbSet.AddRange(testData.GetAll<DirectumTask>());
             context.DirectumTaskGroupDbSet.AddRange(testData.GetAll<DirectumTaskGroup>());
             context.DirectumTaskGroupFileDbSet.AddRange(testData.GetAll<DirectumTaskGroupFile>());
@@ -41,6 +42,7 @@ namespace HVTApp.DataAccess
             context.PriceCalculationFileDbSet.AddRange(testData.GetAll<PriceCalculationFile>());
             context.PriceCalculationHistoryItemDbSet.AddRange(testData.GetAll<PriceCalculationHistoryItem>());
             context.PriceCalculationItemDbSet.AddRange(testData.GetAll<PriceCalculationItem>());
+            context.DesignDepartmentParametersDbSet.AddRange(testData.GetAll<DesignDepartmentParameters>());
             context.ProductCategoryDbSet.AddRange(testData.GetAll<ProductCategory>());
             context.ProductCategoryPriceAndCostDbSet.AddRange(testData.GetAll<ProductCategoryPriceAndCost>());
             context.ProductIncludedDbSet.AddRange(testData.GetAll<ProductIncluded>());

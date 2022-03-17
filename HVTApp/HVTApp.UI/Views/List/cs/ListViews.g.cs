@@ -1187,6 +1187,132 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
+	[Designation("Департамент ОГК")]
+	[DesignationPlural("DesignDepartmentLookup")]
+	[AllowEditAttribute(Role.Admin)]
+    public partial class DesignDepartmentLookupListView : ViewBase
+    {
+        public DesignDepartmentLookupListView()
+        {
+            InitializeComponent();
+        }
+
+        public DesignDepartmentLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, DesignDepartmentLookupListViewModel DesignDepartmentLookupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = DesignDepartmentLookupListViewModel;
+			DesignDepartmentLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			((DesignDepartmentLookupListViewModel)DataContext).Load();
+        }
+
+		#region VisibilityProps
+
+        public System.Windows.Visibility NameVisibility
+        {
+            get { return DesignDepartmentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DesignDepartmentLookup.Name)].Visibility; }
+            set { DesignDepartmentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DesignDepartmentLookup.Name)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return DesignDepartmentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DesignDepartmentLookup.DisplayMember)].Visibility; }
+            set { DesignDepartmentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DesignDepartmentLookup.DisplayMember)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility HeadVisibility
+        {
+            get { return DesignDepartmentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DesignDepartmentLookup.Head)].Visibility; }
+            set { DesignDepartmentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DesignDepartmentLookup.Head)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return DesignDepartmentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DesignDepartmentLookup.Entity)].Visibility; }
+            set { DesignDepartmentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DesignDepartmentLookup.Entity)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility StaffVisibility
+        {
+            get { return DesignDepartmentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DesignDepartmentLookup.Staff)].Visibility; }
+            set { DesignDepartmentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DesignDepartmentLookup.Staff)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility ParameterSetsVisibility
+        {
+            get { return DesignDepartmentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DesignDepartmentLookup.ParameterSets)].Visibility; }
+            set { DesignDepartmentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DesignDepartmentLookup.ParameterSets)].Visibility = value; }
+        }
+
+
+		#endregion
+    }
+
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
+	[Designation("Параметры департамента ОГК")]
+	[DesignationPlural("DesignDepartmentParametersLookup")]
+	[AllowEditAttribute(Role.Admin)]
+    public partial class DesignDepartmentParametersLookupListView : ViewBase
+    {
+        public DesignDepartmentParametersLookupListView()
+        {
+            InitializeComponent();
+        }
+
+        public DesignDepartmentParametersLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, DesignDepartmentParametersLookupListViewModel DesignDepartmentParametersLookupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = DesignDepartmentParametersLookupListViewModel;
+			DesignDepartmentParametersLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			((DesignDepartmentParametersLookupListViewModel)DataContext).Load();
+        }
+
+		#region VisibilityProps
+
+        public System.Windows.Visibility DesignDepartmentIdVisibility
+        {
+            get { return DesignDepartmentParametersLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DesignDepartmentParametersLookup.DesignDepartmentId)].Visibility; }
+            set { DesignDepartmentParametersLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DesignDepartmentParametersLookup.DesignDepartmentId)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility NameVisibility
+        {
+            get { return DesignDepartmentParametersLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DesignDepartmentParametersLookup.Name)].Visibility; }
+            set { DesignDepartmentParametersLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DesignDepartmentParametersLookup.Name)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return DesignDepartmentParametersLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DesignDepartmentParametersLookup.DisplayMember)].Visibility; }
+            set { DesignDepartmentParametersLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DesignDepartmentParametersLookup.DisplayMember)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return DesignDepartmentParametersLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DesignDepartmentParametersLookup.Entity)].Visibility; }
+            set { DesignDepartmentParametersLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DesignDepartmentParametersLookup.Entity)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility ParametersVisibility
+        {
+            get { return DesignDepartmentParametersLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DesignDepartmentParametersLookup.Parameters)].Visibility; }
+            set { DesignDepartmentParametersLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DesignDepartmentParametersLookup.Parameters)].Visibility = value; }
+        }
+
+
+		#endregion
+    }
+
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Файл (DirectumLite)")]
 	[DesignationPlural("DirectumTaskGroupFileLookup")]
 	[AllowEditAttribute(Role.Admin)]

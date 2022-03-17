@@ -67,6 +67,13 @@ namespace HVTApp.DataAccess
 		}
     }
 
+    public partial class DesignDepartmentRepository : BaseRepository<DesignDepartment>, IDesignDepartmentRepository
+    {
+		public DesignDepartmentRepository(DbContext context) : base(context) 
+		{
+		}
+    }
+
     public partial class DirectumTaskRepository : BaseRepository<DirectumTask>, IDirectumTaskRepository
     {
 		public DirectumTaskRepository(DbContext context) : base(context) 
@@ -203,6 +210,13 @@ namespace HVTApp.DataAccess
     public partial class PriceCalculationItemRepository : BaseRepository<PriceCalculationItem>, IPriceCalculationItemRepository
     {
 		public PriceCalculationItemRepository(DbContext context) : base(context) 
+		{
+		}
+    }
+
+    public partial class DesignDepartmentParametersRepository : BaseRepository<DesignDepartmentParameters>, IDesignDepartmentParametersRepository
+    {
+		public DesignDepartmentParametersRepository(DbContext context) : base(context) 
 		{
 		}
     }

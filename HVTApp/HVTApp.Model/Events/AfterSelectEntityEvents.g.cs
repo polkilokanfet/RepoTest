@@ -12,6 +12,7 @@ namespace HVTApp.Model.Events
 	public partial class AfterSelectConstructorsParametersEvent : PubSubEvent<PubSubEventArgs<ConstructorsParameters>> { }
 	public partial class AfterSelectCostsPercentsEvent : PubSubEvent<PubSubEventArgs<CostsPercents>> { }
 	public partial class AfterSelectCreateNewProductTaskEvent : PubSubEvent<PubSubEventArgs<CreateNewProductTask>> { }
+	public partial class AfterSelectDesignDepartmentEvent : PubSubEvent<PubSubEventArgs<DesignDepartment>> { }
 	public partial class AfterSelectDirectumTaskEvent : PubSubEvent<PubSubEventArgs<DirectumTask>> { }
 	public partial class AfterSelectDirectumTaskGroupEvent : PubSubEvent<PubSubEventArgs<DirectumTaskGroup>> { }
 	public partial class AfterSelectDirectumTaskGroupFileEvent : PubSubEvent<PubSubEventArgs<DirectumTaskGroupFile>> { }
@@ -32,6 +33,7 @@ namespace HVTApp.Model.Events
 	public partial class AfterSelectPriceCalculationFileEvent : PubSubEvent<PubSubEventArgs<PriceCalculationFile>> { }
 	public partial class AfterSelectPriceCalculationHistoryItemEvent : PubSubEvent<PubSubEventArgs<PriceCalculationHistoryItem>> { }
 	public partial class AfterSelectPriceCalculationItemEvent : PubSubEvent<PubSubEventArgs<PriceCalculationItem>> { }
+	public partial class AfterSelectDesignDepartmentParametersEvent : PubSubEvent<PubSubEventArgs<DesignDepartmentParameters>> { }
 	public partial class AfterSelectProductCategoryEvent : PubSubEvent<PubSubEventArgs<ProductCategory>> { }
 	public partial class AfterSelectProductCategoryPriceAndCostEvent : PubSubEvent<PubSubEventArgs<ProductCategoryPriceAndCost>> { }
 	public partial class AfterSelectProductIncludedEvent : PubSubEvent<PubSubEventArgs<ProductIncluded>> { }

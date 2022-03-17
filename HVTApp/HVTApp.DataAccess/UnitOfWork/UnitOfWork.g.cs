@@ -31,6 +31,9 @@ namespace HVTApp.DataAccess
             CreateNewProductTaskRepository = new CreateNewProductTaskRepository(_context);
             CreateNewProductTaskRepository.OperationFailedEvent += OnOperationFailedEvent;
 
+            DesignDepartmentRepository = new DesignDepartmentRepository(_context);
+            DesignDepartmentRepository.OperationFailedEvent += OnOperationFailedEvent;
+
             DirectumTaskRepository = new DirectumTaskRepository(_context);
             DirectumTaskRepository.OperationFailedEvent += OnOperationFailedEvent;
 
@@ -90,6 +93,9 @@ namespace HVTApp.DataAccess
 
             PriceCalculationItemRepository = new PriceCalculationItemRepository(_context);
             PriceCalculationItemRepository.OperationFailedEvent += OnOperationFailedEvent;
+
+            DesignDepartmentParametersRepository = new DesignDepartmentParametersRepository(_context);
+            DesignDepartmentParametersRepository.OperationFailedEvent += OnOperationFailedEvent;
 
             ProductCategoryRepository = new ProductCategoryRepository(_context);
             ProductCategoryRepository.OperationFailedEvent += OnOperationFailedEvent;
@@ -290,6 +296,7 @@ namespace HVTApp.DataAccess
             ConstructorsParametersRepository.OperationFailedEvent -= OnOperationFailedEvent;
             CostsPercentsRepository.OperationFailedEvent -= OnOperationFailedEvent;
             CreateNewProductTaskRepository.OperationFailedEvent -= OnOperationFailedEvent;
+            DesignDepartmentRepository.OperationFailedEvent -= OnOperationFailedEvent;
             DirectumTaskRepository.OperationFailedEvent -= OnOperationFailedEvent;
             DirectumTaskGroupRepository.OperationFailedEvent -= OnOperationFailedEvent;
             DirectumTaskGroupFileRepository.OperationFailedEvent -= OnOperationFailedEvent;
@@ -310,6 +317,7 @@ namespace HVTApp.DataAccess
             PriceCalculationFileRepository.OperationFailedEvent -= OnOperationFailedEvent;
             PriceCalculationHistoryItemRepository.OperationFailedEvent -= OnOperationFailedEvent;
             PriceCalculationItemRepository.OperationFailedEvent -= OnOperationFailedEvent;
+            DesignDepartmentParametersRepository.OperationFailedEvent -= OnOperationFailedEvent;
             ProductCategoryRepository.OperationFailedEvent -= OnOperationFailedEvent;
             ProductCategoryPriceAndCostRepository.OperationFailedEvent -= OnOperationFailedEvent;
             ProductIncludedRepository.OperationFailedEvent -= OnOperationFailedEvent;
@@ -384,6 +392,7 @@ namespace HVTApp.DataAccess
         protected IConstructorsParametersRepository ConstructorsParametersRepository;
         protected ICostsPercentsRepository CostsPercentsRepository;
         protected ICreateNewProductTaskRepository CreateNewProductTaskRepository;
+        protected IDesignDepartmentRepository DesignDepartmentRepository;
         protected IDirectumTaskRepository DirectumTaskRepository;
         protected IDirectumTaskGroupRepository DirectumTaskGroupRepository;
         protected IDirectumTaskGroupFileRepository DirectumTaskGroupFileRepository;
@@ -404,6 +413,7 @@ namespace HVTApp.DataAccess
         protected IPriceCalculationFileRepository PriceCalculationFileRepository;
         protected IPriceCalculationHistoryItemRepository PriceCalculationHistoryItemRepository;
         protected IPriceCalculationItemRepository PriceCalculationItemRepository;
+        protected IDesignDepartmentParametersRepository DesignDepartmentParametersRepository;
         protected IProductCategoryRepository ProductCategoryRepository;
         protected IProductCategoryPriceAndCostRepository ProductCategoryPriceAndCostRepository;
         protected IProductIncludedRepository ProductIncludedRepository;

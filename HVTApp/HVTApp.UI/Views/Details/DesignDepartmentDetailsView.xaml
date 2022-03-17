@@ -1,0 +1,52 @@
+<inf:ViewBase x:Class="HVTApp.UI.Views.DesignDepartmentDetailsView"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			  xmlns:infDP="http://infragistics.com/DataPresenter"
+			  xmlns:infE="http://infragistics.com/Editors"
+			  xmlns:core="clr-namespace:System;assembly=mscorlib"
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+			  x:Name="Root">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" MinWidth="200"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column="0" Grid.Row ="0" Content="Название" Visibility="{Binding VisibilityNameDesignDepartment, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
+                 Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding VisibilityNameDesignDepartment, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="1" Content="Руководитель" Visibility="{Binding VisibilityHeadDesignDepartment, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
+                                    Item="{Binding Item.Head}" 
+                                    AddItemCommand="{Binding SelectHeadCommand}" 
+                                    RemoveItemCommand="{Binding ClearHeadCommand}"
+									Visibility="{Binding VisibilityHeadDesignDepartment, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="2" Content="Сотрудники" Visibility="{Binding VisibilityStaffDesignDepartment, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
+										 Items="{Binding Path=Item.Staff}"
+										 SelectedItem="{Binding SelectedStaffItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInStaffCommand}"
+										 RemoveItemCommand="{Binding RemoveFromStaffCommand}"
+										 Visibility="{Binding VisibilityStaffDesignDepartment, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="3" Content="Наборы параметров" Visibility="{Binding VisibilityParameterSetsDesignDepartment, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="3"
+										 Items="{Binding Path=Item.ParameterSets}"
+										 SelectedItem="{Binding SelectedParameterSetsItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInParameterSetsCommand}"
+										 RemoveItemCommand="{Binding RemoveFromParameterSetsCommand}"
+										 Visibility="{Binding VisibilityParameterSetsDesignDepartment, ElementName=Root}"/>
+
+
+    </Grid>
+</inf:ViewBase>

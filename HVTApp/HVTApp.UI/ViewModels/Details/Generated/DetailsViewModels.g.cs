@@ -371,6 +371,107 @@ namespace HVTApp.UI.ViewModels
 
     }
 
+    public partial class DesignDepartmentDetailsViewModel : BaseDetailsViewModel<DesignDepartmentWrapper, DesignDepartment, AfterSaveDesignDepartmentEvent>
+    {
+		//private Func<Task<List<User>>> _getEntitiesForSelectHeadCommand;
+		private Func<List<User>> _getEntitiesForSelectHeadCommand;
+		public DelegateLogCommand SelectHeadCommand { get; private set; }
+		public DelegateLogCommand ClearHeadCommand { get; private set; }
+
+		private Func<List<User>> _getEntitiesForAddInStaffCommand;
+		public DelegateLogCommand AddInStaffCommand { get; }
+		public DelegateLogCommand RemoveFromStaffCommand { get; }
+		private UserWrapper _selectedStaffItem;
+		public UserWrapper SelectedStaffItem 
+		{ 
+			get { return _selectedStaffItem; }
+			set 
+			{ 
+				if (Equals(_selectedStaffItem, value)) return;
+				_selectedStaffItem = value;
+				RaisePropertyChanged();
+				RemoveFromStaffCommand.RaiseCanExecuteChanged();
+			}
+		}
+
+		private Func<List<DesignDepartmentParameters>> _getEntitiesForAddInParameterSetsCommand;
+		public DelegateLogCommand AddInParameterSetsCommand { get; }
+		public DelegateLogCommand RemoveFromParameterSetsCommand { get; }
+		private DesignDepartmentParametersWrapper _selectedParameterSetsItem;
+		public DesignDepartmentParametersWrapper SelectedParameterSetsItem 
+		{ 
+			get { return _selectedParameterSetsItem; }
+			set 
+			{ 
+				if (Equals(_selectedParameterSetsItem, value)) return;
+				_selectedParameterSetsItem = value;
+				RaisePropertyChanged();
+				RemoveFromParameterSetsCommand.RaiseCanExecuteChanged();
+			}
+		}
+
+        public DesignDepartmentDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+			
+			if (_getEntitiesForSelectHeadCommand == null) _getEntitiesForSelectHeadCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };
+			if (SelectHeadCommand == null) SelectHeadCommand = new DelegateLogCommand(SelectHeadCommand_Execute_Default);
+			if (ClearHeadCommand == null) ClearHeadCommand = new DelegateLogCommand(ClearHeadCommand_Execute_Default);
+
+			
+			if (_getEntitiesForAddInStaffCommand == null) _getEntitiesForAddInStaffCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };;
+			if (AddInStaffCommand == null) AddInStaffCommand = new DelegateLogCommand(AddInStaffCommand_Execute_Default);
+			if (RemoveFromStaffCommand == null) RemoveFromStaffCommand = new DelegateLogCommand(RemoveFromStaffCommand_Execute_Default, RemoveFromStaffCommand_CanExecute_Default);
+
+			
+			if (_getEntitiesForAddInParameterSetsCommand == null) _getEntitiesForAddInParameterSetsCommand = () => { return UnitOfWork.Repository<DesignDepartmentParameters>().GetAll(); };;
+			if (AddInParameterSetsCommand == null) AddInParameterSetsCommand = new DelegateLogCommand(AddInParameterSetsCommand_Execute_Default);
+			if (RemoveFromParameterSetsCommand == null) RemoveFromParameterSetsCommand = new DelegateLogCommand(RemoveFromParameterSetsCommand_Execute_Default, RemoveFromParameterSetsCommand_CanExecute_Default);
+
+		}
+
+		private void SelectHeadCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<User, UserWrapper>(_getEntitiesForSelectHeadCommand(), nameof(Item.Head), Item.Head?.Id);
+		}
+
+		private void ClearHeadCommand_Execute_Default() 
+		{
+						Item.Head = null;		    
+		}
+
+			private void AddInStaffCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<User, UserWrapper>(_getEntitiesForAddInStaffCommand(), Item.Staff);
+			}
+
+			private void RemoveFromStaffCommand_Execute_Default()
+			{
+				Item.Staff.Remove(SelectedStaffItem);
+			}
+
+			private bool RemoveFromStaffCommand_CanExecute_Default()
+			{
+				return SelectedStaffItem != null;
+			}
+
+			private void AddInParameterSetsCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<DesignDepartmentParameters, DesignDepartmentParametersWrapper>(_getEntitiesForAddInParameterSetsCommand(), Item.ParameterSets);
+			}
+
+			private void RemoveFromParameterSetsCommand_Execute_Default()
+			{
+				Item.ParameterSets.Remove(SelectedParameterSetsItem);
+			}
+
+			private bool RemoveFromParameterSetsCommand_CanExecute_Default()
+			{
+				return SelectedParameterSetsItem != null;
+			}
+
+
+    }
+
     public partial class DirectumTaskDetailsViewModel : BaseDetailsViewModel<DirectumTaskWrapper, DirectumTask, AfterSaveDirectumTaskEvent>
     {
 		//private Func<Task<List<DirectumTaskGroup>>> _getEntitiesForSelectGroupCommand;
@@ -1370,6 +1471,51 @@ namespace HVTApp.UI.ViewModels
 			private bool RemoveFromStructureCostsCommand_CanExecute_Default()
 			{
 				return SelectedStructureCostsItem != null;
+			}
+
+
+    }
+
+    public partial class DesignDepartmentParametersDetailsViewModel : BaseDetailsViewModel<DesignDepartmentParametersWrapper, DesignDepartmentParameters, AfterSaveDesignDepartmentParametersEvent>
+    {
+		private Func<List<Parameter>> _getEntitiesForAddInParametersCommand;
+		public DelegateLogCommand AddInParametersCommand { get; }
+		public DelegateLogCommand RemoveFromParametersCommand { get; }
+		private ParameterWrapper _selectedParametersItem;
+		public ParameterWrapper SelectedParametersItem 
+		{ 
+			get { return _selectedParametersItem; }
+			set 
+			{ 
+				if (Equals(_selectedParametersItem, value)) return;
+				_selectedParametersItem = value;
+				RaisePropertyChanged();
+				RemoveFromParametersCommand.RaiseCanExecuteChanged();
+			}
+		}
+
+        public DesignDepartmentParametersDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+			
+			if (_getEntitiesForAddInParametersCommand == null) _getEntitiesForAddInParametersCommand = () => { return UnitOfWork.Repository<Parameter>().GetAll(); };;
+			if (AddInParametersCommand == null) AddInParametersCommand = new DelegateLogCommand(AddInParametersCommand_Execute_Default);
+			if (RemoveFromParametersCommand == null) RemoveFromParametersCommand = new DelegateLogCommand(RemoveFromParametersCommand_Execute_Default, RemoveFromParametersCommand_CanExecute_Default);
+
+		}
+
+			private void AddInParametersCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<Parameter, ParameterWrapper>(_getEntitiesForAddInParametersCommand(), Item.Parameters);
+			}
+
+			private void RemoveFromParametersCommand_Execute_Default()
+			{
+				Item.Parameters.Remove(SelectedParametersItem);
+			}
+
+			private bool RemoveFromParametersCommand_CanExecute_Default()
+			{
+				return SelectedParametersItem != null;
 			}
 
 

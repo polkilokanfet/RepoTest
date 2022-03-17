@@ -79,6 +79,8 @@
     <Compile Include="EntityTypeConfigurations\Custom\ConstructorParametersListConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ConstructorsParametersConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\CountryUnionConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\DesignDepartmentConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\DesignDepartmentParametersConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\DirectumTaskConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\DirectumTaskGroupConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\DirectumTaskGroupFileConfiguration.cs" />
@@ -344,6 +346,10 @@
     <Compile Include="Migrations\202203170748309_PriceCalculationHistoryItem.Designer.cs">
       <DependentUpon>202203170748309_PriceCalculationHistoryItem.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202203171823181_DesignDepartment.cs" />
+    <Compile Include="Migrations\202203171823181_DesignDepartment.Designer.cs">
+      <DependentUpon>202203171823181_DesignDepartment.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -555,6 +561,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202203170748309_PriceCalculationHistoryItem.resx">
       <DependentUpon>202203170748309_PriceCalculationHistoryItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203171823181_DesignDepartment.resx">
+      <DependentUpon>202203171823181_DesignDepartment.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

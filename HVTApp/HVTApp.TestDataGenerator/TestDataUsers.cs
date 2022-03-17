@@ -34,8 +34,11 @@ namespace HVTApp.TestDataGenerator
         public Person PersonNikiforova;
         public Person PersonRozhkova;
 
+        public Person PersonDavidov;
         public Person PersonBaranova;
 
+        public Person PersonPalferov;
+        public Person PersonBukrin;
 
         public Employee EmployeeBrehov;
         public Employee EmployeeBuzikin;
@@ -59,7 +62,11 @@ namespace HVTApp.TestDataGenerator
         public Employee EmployeeNikiforova;
         public Employee EmployeeRozhkova;
 
+        public Employee EmployeeDavidov;
         public Employee EmployeeBaranova;
+
+        public Employee EmployeePalferov;
+        public Employee EmployeeBukrin;
 
         public User UserBrehov;
         public User UserBuzikin;
@@ -82,7 +89,10 @@ namespace HVTApp.TestDataGenerator
         public User UserNikiforova;
         public User UserRozhkova;
 
+        public User UserDavidov;
         public User UserBaranova;
+        public User UserPalferov;
+        public User UserBukrin;
 
         public UserRole UserRoleDataBaseFiller;
         public UserRole UserRoleAdmin;
@@ -96,6 +106,7 @@ namespace HVTApp.TestDataGenerator
         public UserRole UserRoleSupplier;
         public UserRole UserRoleBackManager;
         public UserRole UserRoleBackManagerBoss;
+        public UserRole UserRoleDesignDepartmentHead;
 
         #if DEBUG
 
@@ -126,6 +137,7 @@ namespace HVTApp.TestDataGenerator
             UserRoleSupplier.Clone(new UserRole { Role = Role.Supplier, Name = "Снабженец" });
             UserRoleBackManager.Clone(new UserRole { Role = Role.BackManager, Name = "BackManager" });
             UserRoleBackManagerBoss.Clone(new UserRole { Role = Role.BackManagerBoss, Name = "BackManagerBoss" });
+            UserRoleDesignDepartmentHead.Clone(new UserRole { Role = Role.DesignDepartmentHead, Name = "DepartmentHead" });
         }
 
         private void GenerateEmployeesPositions()
@@ -168,7 +180,11 @@ namespace HVTApp.TestDataGenerator
             PersonNikiforova.Clone(new Person { Surname = "Никифорова", Name = "Ольга", Patronymic = "Викторовна", IsMan = false });
             PersonRozhkova.Clone(new Person { Surname = "Рожкова", Name = "Елена", Patronymic = "Николаевна", IsMan = false });
 
+            PersonDavidov.Clone(new Person { Surname = "Давыдов", Name = "Николай", Patronymic = "Владимирович", IsMan = true });
             PersonBaranova.Clone(new Person { Surname = "Баранова", Name = "Татьяна", Patronymic = "Юрьевна", IsMan = false });
+
+            PersonPalferov.Clone(new Person { Surname = "Палферов", Name = "Дмитрий", Patronymic = "Александрович", IsMan = true });
+            PersonBukrin.Clone(new Person { Surname = "Букрин", Name = "Олег", Patronymic = "Олегович", IsMan = true });
         }
 
         private void GenerateEmployees()
@@ -204,6 +220,9 @@ namespace HVTApp.TestDataGenerator
             EmployeeRozhkova.Clone(new Employee { Person = PersonRozhkova, Position = EmployeesPositionEconomist, Company = CompanyUetm, PersonalNumber = "74??", Email = "hz@uetm.ru", PhoneNumber = "326-36-36" });
 
             EmployeeBaranova.Clone(new Employee { Person = PersonBaranova, Position = EmployeesPositionConstructor, Company = CompanyUetm, PersonalNumber = "74??", Email = "hz@uetm.ru", PhoneNumber = "326-36-36" });
+            EmployeeDavidov.Clone(new Employee { Person = PersonDavidov, Position = EmployeesPositionConstructor, Company = CompanyUetm, PersonalNumber = "74??", Email = "hz@uetm.ru", PhoneNumber = "326-36-36" });
+            EmployeePalferov.Clone(new Employee { Person = PersonPalferov, Position = EmployeesPositionConstructor, Company = CompanyUetm, PersonalNumber = "74??", Email = "hz@uetm.ru", PhoneNumber = "326-36-36" });
+            EmployeeBukrin.Clone(new Employee { Person = PersonBukrin, Position = EmployeesPositionConstructor, Company = CompanyUetm, PersonalNumber = "74??", Email = "hz@uetm.ru", PhoneNumber = "326-36-36" });
         }
 
         private void GenerateUsers()
@@ -254,7 +273,65 @@ namespace HVTApp.TestDataGenerator
             UserNikiforova.Clone(new User { Login = "nikiforova", Password = pas1, Employee = EmployeeNikiforova, Roles = new List<UserRole> { UserRoleEconomist, UserRolePlanMaker } });
             UserRozhkova.Clone(new User { Login = "rozhkova", Password = pas1, Employee = EmployeeRozhkova, Roles = new List<UserRole> { UserRoleEconomist, UserRolePlanMaker } });
 
+            UserDavidov.Clone(new User { Login = "davidov", Password = pas1, Employee = EmployeeDavidov, Roles = new List<UserRole> { UserRoleDesignDepartmentHead} });
             UserBaranova.Clone(new User { Login = "baranova", Password = pas1, Employee = EmployeeBaranova, Roles = new List<UserRole> { UserRoleConstructor } });
+            UserPalferov.Clone(new User { Login = "palferov", Password = pas1, Employee = EmployeePalferov, Roles = new List<UserRole> { UserRoleDesignDepartmentHead } });
+            UserBukrin.Clone(new User { Login = "bukrin", Password = pas1, Employee = EmployeeBukrin, Roles = new List<UserRole> { UserRoleConstructor } });
         }
+
+        #region DesignDepartment
+
+        public DesignDepartment DesignDepartmentDeadTanks;
+        public DesignDepartment DesignDepartmentDrives;
+
+        private void GenerateDesignDepartments()
+        {
+            DesignDepartmentDeadTanks.Clone(new DesignDepartment
+            {
+                Name = "Выключатели баковые",
+                Head = UserDavidov,
+                Staff = new List<User> { UserDavidov, UserBaranova },
+                ParameterSets = new List<DesignDepartmentParameters>()
+                {
+                    new DesignDepartmentParameters
+                    {
+                        Name = "ВЭБ-110",
+                        Parameters = new List<Parameter>
+                        {
+                            ParameterBreaker, ParameterBreakerDeadTank, ParameterVoltage110kV
+                        }
+                    }
+                }
+            });
+
+            DesignDepartmentDrives.Clone(new DesignDepartment
+            {
+                Name = "Привода",
+                Head = UserPalferov,
+                Staff = new List<User> { UserPalferov, UserBukrin },
+                ParameterSets = new List<DesignDepartmentParameters>()
+                {
+                    new DesignDepartmentParameters
+                    {
+                        Name = "Привод ППрК",
+                        Parameters = new List<Parameter>
+                        {
+                            ParameterDrivePPrK
+                        }
+                    },
+                    new DesignDepartmentParameters
+                    {
+                        Name = "Привод ППВ",
+                        Parameters = new List<Parameter>
+                        {
+                            ParameterDrivePPV
+                        }
+                    }
+                }
+            });
+
+        }
+
+        #endregion
     }
 }

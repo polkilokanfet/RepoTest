@@ -52,6 +52,11 @@ namespace HVTApp.UI.ViewModels
         public CreateNewProductTaskLookupListViewModel(IUnityContainer container) : base(container) { }
     }
 
+	public partial class DesignDepartmentLookupListViewModel : BaseListViewModel<DesignDepartment, DesignDepartmentLookup, AfterSaveDesignDepartmentEvent, AfterSelectDesignDepartmentEvent, AfterRemoveDesignDepartmentEvent>
+    {
+        public DesignDepartmentLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
 	public partial class DirectumTaskLookupListViewModel : BaseListViewModel<DirectumTask, DirectumTaskLookup, AfterSaveDirectumTaskEvent, AfterSelectDirectumTaskEvent, AfterRemoveDirectumTaskEvent>
     {
         public DirectumTaskLookupListViewModel(IUnityContainer container) : base(container) { }
@@ -150,6 +155,11 @@ namespace HVTApp.UI.ViewModels
 	public partial class PriceCalculationItemLookupListViewModel : BaseListViewModel<PriceCalculationItem, PriceCalculationItemLookup, AfterSavePriceCalculationItemEvent, AfterSelectPriceCalculationItemEvent, AfterRemovePriceCalculationItemEvent>
     {
         public PriceCalculationItemLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+	public partial class DesignDepartmentParametersLookupListViewModel : BaseListViewModel<DesignDepartmentParameters, DesignDepartmentParametersLookup, AfterSaveDesignDepartmentParametersEvent, AfterSelectDesignDepartmentParametersEvent, AfterRemoveDesignDepartmentParametersEvent>
+    {
+        public DesignDepartmentParametersLookupListViewModel(IUnityContainer container) : base(container) { }
     }
 
 	public partial class ProductCategoryLookupListViewModel : BaseListViewModel<ProductCategory, ProductCategoryLookup, AfterSaveProductCategoryEvent, AfterSelectProductCategoryEvent, AfterRemoveProductCategoryEvent>

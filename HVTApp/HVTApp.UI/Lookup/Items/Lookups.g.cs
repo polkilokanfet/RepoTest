@@ -212,6 +212,30 @@ namespace HVTApp.UI.Lookup
         #endregion
 	}
 	[AllowEditAttribute(Role.Admin)]
+	[Designation("Департамент ОГК")]
+	public partial class DesignDepartmentLookup : LookupItem<DesignDepartment>
+	{
+		public DesignDepartmentLookup(DesignDepartment entity) : base(entity) 
+		{
+		}
+		
+        #region SimpleProperties
+		[OrderStatus(110)]
+        public System.String Name => Entity.Name;
+
+        #endregion
+
+        #region ComplexProperties
+		[OrderStatus(100)]
+	    public UserLookup Head { get { return GetLookup<UserLookup>(); } }
+
+        #endregion
+		[OrderStatus(90)]
+	    public List<UserLookup> Staff { get { return GetLookupEnum<UserLookup>().ToList(); } }
+		[OrderStatus(50)]
+	    public List<DesignDepartmentParametersLookup> ParameterSets { get { return GetLookupEnum<DesignDepartmentParametersLookup>().ToList(); } }
+	}
+	[AllowEditAttribute(Role.Admin)]
 	[Designation("Задача")]
 	public partial class DirectumTaskLookup : LookupItem<DirectumTask>
 	{
@@ -725,6 +749,25 @@ namespace HVTApp.UI.Lookup
 	    public List<SalesUnitLookup> SalesUnits { get { return GetLookupEnum<SalesUnitLookup>().ToList(); } }
 		[OrderStatus(1)]
 	    public List<StructureCostLookup> StructureCosts { get { return GetLookupEnum<StructureCostLookup>().ToList(); } }
+	}
+	[AllowEditAttribute(Role.Admin)]
+	[Designation("Параметры департамента ОГК")]
+	public partial class DesignDepartmentParametersLookup : LookupItem<DesignDepartmentParameters>
+	{
+		public DesignDepartmentParametersLookup(DesignDepartmentParameters entity) : base(entity) 
+		{
+		}
+		
+        #region SimpleProperties
+		[OrderStatus(-10)]
+        public System.Guid DesignDepartmentId => Entity.DesignDepartmentId;
+
+		[OrderStatus(10)]
+        public System.String Name => Entity.Name;
+
+        #endregion
+		[OrderStatus(1)]
+	    public List<ParameterLookup> Parameters { get { return GetLookupEnum<ParameterLookup>().ToList(); } }
 	}
 	[AllowEditAttribute(Role.Admin)]
 	[Designation("Категория продукта")]

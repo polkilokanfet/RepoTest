@@ -16,6 +16,7 @@ namespace HVTApp.DataAccess
             ConstructorsParametersRepository = new ConstructorsParametersRepositoryTest(testData);
             CostsPercentsRepository = new CostsPercentsRepositoryTest(testData);
             CreateNewProductTaskRepository = new CreateNewProductTaskRepositoryTest(testData);
+            DesignDepartmentRepository = new DesignDepartmentRepositoryTest(testData);
             DirectumTaskRepository = new DirectumTaskRepositoryTest(testData);
             DirectumTaskGroupRepository = new DirectumTaskGroupRepositoryTest(testData);
             DirectumTaskGroupFileRepository = new DirectumTaskGroupFileRepositoryTest(testData);
@@ -36,6 +37,7 @@ namespace HVTApp.DataAccess
             PriceCalculationFileRepository = new PriceCalculationFileRepositoryTest(testData);
             PriceCalculationHistoryItemRepository = new PriceCalculationHistoryItemRepositoryTest(testData);
             PriceCalculationItemRepository = new PriceCalculationItemRepositoryTest(testData);
+            DesignDepartmentParametersRepository = new DesignDepartmentParametersRepositoryTest(testData);
             ProductCategoryRepository = new ProductCategoryRepositoryTest(testData);
             ProductCategoryPriceAndCostRepository = new ProductCategoryPriceAndCostRepositoryTest(testData);
             ProductIncludedRepository = new ProductIncludedRepositoryTest(testData);
@@ -112,6 +114,7 @@ namespace HVTApp.DataAccess
         public IConstructorsParametersRepository ConstructorsParametersRepository { get; }
         public ICostsPercentsRepository CostsPercentsRepository { get; }
         public ICreateNewProductTaskRepository CreateNewProductTaskRepository { get; }
+        public IDesignDepartmentRepository DesignDepartmentRepository { get; }
         public IDirectumTaskRepository DirectumTaskRepository { get; }
         public IDirectumTaskGroupRepository DirectumTaskGroupRepository { get; }
         public IDirectumTaskGroupFileRepository DirectumTaskGroupFileRepository { get; }
@@ -132,6 +135,7 @@ namespace HVTApp.DataAccess
         public IPriceCalculationFileRepository PriceCalculationFileRepository { get; }
         public IPriceCalculationHistoryItemRepository PriceCalculationHistoryItemRepository { get; }
         public IPriceCalculationItemRepository PriceCalculationItemRepository { get; }
+        public IDesignDepartmentParametersRepository DesignDepartmentParametersRepository { get; }
         public IProductCategoryRepository ProductCategoryRepository { get; }
         public IProductCategoryPriceAndCostRepository ProductCategoryPriceAndCostRepository { get; }
         public IProductIncludedRepository ProductIncludedRepository { get; }

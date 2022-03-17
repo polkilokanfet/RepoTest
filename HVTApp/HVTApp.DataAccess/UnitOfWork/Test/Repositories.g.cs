@@ -48,6 +48,11 @@ namespace HVTApp.DataAccess
         public CreateNewProductTaskRepositoryTest(TestData testData) : base(testData) {}
     }
 
+    public partial class DesignDepartmentRepositoryTest : TestBaseRepository<DesignDepartment>, IDesignDepartmentRepository
+    {
+        public DesignDepartmentRepositoryTest(TestData testData) : base(testData) {}
+    }
+
     public partial class DirectumTaskRepositoryTest : TestBaseRepository<DirectumTask>, IDirectumTaskRepository
     {
         public DirectumTaskRepositoryTest(TestData testData) : base(testData) {}
@@ -146,6 +151,11 @@ namespace HVTApp.DataAccess
     public partial class PriceCalculationItemRepositoryTest : TestBaseRepository<PriceCalculationItem>, IPriceCalculationItemRepository
     {
         public PriceCalculationItemRepositoryTest(TestData testData) : base(testData) {}
+    }
+
+    public partial class DesignDepartmentParametersRepositoryTest : TestBaseRepository<DesignDepartmentParameters>, IDesignDepartmentParametersRepository
+    {
+        public DesignDepartmentParametersRepositoryTest(TestData testData) : base(testData) {}
     }
 
     public partial class ProductCategoryRepositoryTest : TestBaseRepository<ProductCategory>, IProductCategoryRepository

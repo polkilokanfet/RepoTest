@@ -12,6 +12,7 @@ namespace HVTApp.DataAccess
     public partial interface IConstructorsParametersRepository : IRepository<ConstructorsParameters> { }
     public partial interface ICostsPercentsRepository : IRepository<CostsPercents> { }
     public partial interface ICreateNewProductTaskRepository : IRepository<CreateNewProductTask> { }
+    public partial interface IDesignDepartmentRepository : IRepository<DesignDepartment> { }
     public partial interface IDirectumTaskRepository : IRepository<DirectumTask> { }
     public partial interface IDirectumTaskGroupRepository : IRepository<DirectumTaskGroup> { }
     public partial interface IDirectumTaskGroupFileRepository : IRepository<DirectumTaskGroupFile> { }
@@ -32,6 +33,7 @@ namespace HVTApp.DataAccess
     public partial interface IPriceCalculationFileRepository : IRepository<PriceCalculationFile> { }
     public partial interface IPriceCalculationHistoryItemRepository : IRepository<PriceCalculationHistoryItem> { }
     public partial interface IPriceCalculationItemRepository : IRepository<PriceCalculationItem> { }
+    public partial interface IDesignDepartmentParametersRepository : IRepository<DesignDepartmentParameters> { }
     public partial interface IProductCategoryRepository : IRepository<ProductCategory> { }
     public partial interface IProductCategoryPriceAndCostRepository : IRepository<ProductCategoryPriceAndCost> { }
     public partial interface IProductIncludedRepository : IRepository<ProductIncluded> { }

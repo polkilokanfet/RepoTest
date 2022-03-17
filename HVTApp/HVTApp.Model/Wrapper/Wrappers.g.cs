@@ -514,6 +514,66 @@ namespace HVTApp.Model.Wrapper
         }
 	}
 
+		public partial class DesignDepartmentWrapper : WrapperBase<DesignDepartment>
+	{
+	    public DesignDepartmentWrapper(DesignDepartment model) : base(model) { }
+        #region SimpleProperties
+        /// <summary>
+        /// Название
+        /// </summary>
+        public System.String Name
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
+        public bool NameIsChanged => GetIsChanged(nameof(Name));
+        /// <summary>
+        /// Id
+        /// </summary>
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+        #endregion
+        #region ComplexProperties
+        /// <summary>
+        /// Руководитель
+        /// </summary>
+	    public UserWrapper Head 
+        {
+            get { return GetWrapper<UserWrapper>(); }
+            set { SetComplexValue<User, UserWrapper>(Head, value); }
+        }
+        #endregion
+        #region CollectionProperties
+        /// <summary>
+        /// Сотрудники
+        /// </summary>
+        public IValidatableChangeTrackingCollection<UserWrapper> Staff { get; private set; }
+        /// <summary>
+        /// Наборы параметров
+        /// </summary>
+        public IValidatableChangeTrackingCollection<DesignDepartmentParametersWrapper> ParameterSets { get; private set; }
+        #endregion
+        public override void InitializeComplexProperties()
+        {
+            InitializeComplexProperty<UserWrapper>(nameof(Head), Model.Head == null ? null : new UserWrapper(Model.Head));
+        }
+        protected override void InitializeCollectionProperties()
+        {
+          if (Model.Staff == null) throw new ArgumentException("Staff cannot be null");
+          Staff = new ValidatableChangeTrackingCollection<UserWrapper>(Model.Staff.Select(e => new UserWrapper(e)));
+          RegisterCollection(Staff, Model.Staff);
+          if (Model.ParameterSets == null) throw new ArgumentException("ParameterSets cannot be null");
+          ParameterSets = new ValidatableChangeTrackingCollection<DesignDepartmentParametersWrapper>(Model.ParameterSets.Select(e => new DesignDepartmentParametersWrapper(e)));
+          RegisterCollection(ParameterSets, Model.ParameterSets);
+        }
+	}
+
 		public partial class DirectumTaskWrapper : WrapperBase<DirectumTask>
 	{
 	    public DirectumTaskWrapper(DirectumTask model) : base(model) { }
@@ -1735,6 +1795,55 @@ namespace HVTApp.Model.Wrapper
           if (Model.StructureCosts == null) throw new ArgumentException("StructureCosts cannot be null");
           StructureCosts = new ValidatableChangeTrackingCollection<StructureCostWrapper>(Model.StructureCosts.Select(e => new StructureCostWrapper(e)));
           RegisterCollection(StructureCosts, Model.StructureCosts);
+        }
+	}
+
+		public partial class DesignDepartmentParametersWrapper : WrapperBase<DesignDepartmentParameters>
+	{
+	    public DesignDepartmentParametersWrapper(DesignDepartmentParameters model) : base(model) { }
+        #region SimpleProperties
+        /// <summary>
+        /// Id департамента
+        /// </summary>
+        public System.Guid DesignDepartmentId
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid DesignDepartmentIdOriginalValue => GetOriginalValue<System.Guid>(nameof(DesignDepartmentId));
+        public bool DesignDepartmentIdIsChanged => GetIsChanged(nameof(DesignDepartmentId));
+        /// <summary>
+        /// Название набора параметров
+        /// </summary>
+        public System.String Name
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
+        public bool NameIsChanged => GetIsChanged(nameof(Name));
+        /// <summary>
+        /// Id
+        /// </summary>
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+        #endregion
+        #region CollectionProperties
+        /// <summary>
+        /// Параметры
+        /// </summary>
+        public IValidatableChangeTrackingCollection<ParameterWrapper> Parameters { get; private set; }
+        #endregion
+        protected override void InitializeCollectionProperties()
+        {
+          if (Model.Parameters == null) throw new ArgumentException("Parameters cannot be null");
+          Parameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.Parameters.Select(e => new ParameterWrapper(e)));
+          RegisterCollection(Parameters, Model.Parameters);
         }
 	}
 

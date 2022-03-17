@@ -12,6 +12,7 @@ namespace HVTApp.DataAccess
     public partial class ConstructorsParametersConfiguration : EntityTypeConfiguration<ConstructorsParameters> { }
     public partial class CostsPercentsConfiguration : EntityTypeConfiguration<CostsPercents> { }
     public partial class CreateNewProductTaskConfiguration : EntityTypeConfiguration<CreateNewProductTask> { }
+    public partial class DesignDepartmentConfiguration : EntityTypeConfiguration<DesignDepartment> { }
     public partial class DirectumTaskConfiguration : EntityTypeConfiguration<DirectumTask> { }
     public partial class DirectumTaskGroupConfiguration : EntityTypeConfiguration<DirectumTaskGroup> { }
     public partial class DirectumTaskGroupFileConfiguration : EntityTypeConfiguration<DirectumTaskGroupFile> { }
@@ -32,6 +33,7 @@ namespace HVTApp.DataAccess
     public partial class PriceCalculationFileConfiguration : EntityTypeConfiguration<PriceCalculationFile> { }
     public partial class PriceCalculationHistoryItemConfiguration : EntityTypeConfiguration<PriceCalculationHistoryItem> { }
     public partial class PriceCalculationItemConfiguration : EntityTypeConfiguration<PriceCalculationItem> { }
+    public partial class DesignDepartmentParametersConfiguration : EntityTypeConfiguration<DesignDepartmentParameters> { }
     public partial class ProductCategoryConfiguration : EntityTypeConfiguration<ProductCategory> { }
     public partial class ProductCategoryPriceAndCostConfiguration : EntityTypeConfiguration<ProductCategoryPriceAndCost> { }
     public partial class ProductIncludedConfiguration : EntityTypeConfiguration<ProductIncluded> { }

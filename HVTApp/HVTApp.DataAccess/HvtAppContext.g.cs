@@ -18,6 +18,7 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new ConstructorsParametersConfiguration());
             modelBuilder.Configurations.Add(new CostsPercentsConfiguration());
             modelBuilder.Configurations.Add(new CreateNewProductTaskConfiguration());
+            modelBuilder.Configurations.Add(new DesignDepartmentConfiguration());
             modelBuilder.Configurations.Add(new DirectumTaskConfiguration());
             modelBuilder.Configurations.Add(new DirectumTaskGroupConfiguration());
             modelBuilder.Configurations.Add(new DirectumTaskGroupFileConfiguration());
@@ -38,6 +39,7 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new PriceCalculationFileConfiguration());
             modelBuilder.Configurations.Add(new PriceCalculationHistoryItemConfiguration());
             modelBuilder.Configurations.Add(new PriceCalculationItemConfiguration());
+            modelBuilder.Configurations.Add(new DesignDepartmentParametersConfiguration());
             modelBuilder.Configurations.Add(new ProductCategoryConfiguration());
             modelBuilder.Configurations.Add(new ProductCategoryPriceAndCostConfiguration());
             modelBuilder.Configurations.Add(new ProductIncludedConfiguration());
@@ -113,6 +115,7 @@ namespace HVTApp.DataAccess
         public virtual DbSet<ConstructorsParameters> ConstructorsParametersDbSet { get; set; }
         public virtual DbSet<CostsPercents> CostsPercentsDbSet { get; set; }
         public virtual DbSet<CreateNewProductTask> CreateNewProductTaskDbSet { get; set; }
+        public virtual DbSet<DesignDepartment> DesignDepartmentDbSet { get; set; }
         public virtual DbSet<DirectumTask> DirectumTaskDbSet { get; set; }
         public virtual DbSet<DirectumTaskGroup> DirectumTaskGroupDbSet { get; set; }
         public virtual DbSet<DirectumTaskGroupFile> DirectumTaskGroupFileDbSet { get; set; }
@@ -133,6 +136,7 @@ namespace HVTApp.DataAccess
         public virtual DbSet<PriceCalculationFile> PriceCalculationFileDbSet { get; set; }
         public virtual DbSet<PriceCalculationHistoryItem> PriceCalculationHistoryItemDbSet { get; set; }
         public virtual DbSet<PriceCalculationItem> PriceCalculationItemDbSet { get; set; }
+        public virtual DbSet<DesignDepartmentParameters> DesignDepartmentParametersDbSet { get; set; }
         public virtual DbSet<ProductCategory> ProductCategoryDbSet { get; set; }
         public virtual DbSet<ProductCategoryPriceAndCost> ProductCategoryPriceAndCostDbSet { get; set; }
         public virtual DbSet<ProductIncluded> ProductIncludedDbSet { get; set; }
