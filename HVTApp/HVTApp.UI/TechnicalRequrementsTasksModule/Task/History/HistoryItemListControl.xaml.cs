@@ -1,6 +1,8 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using HVTApp.Model.Wrapper;
 
 namespace HVTApp.UI.TechnicalRequrementsTasksModule.Task.History
 {
@@ -15,11 +17,11 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule.Task.History
         }
 
         public static readonly DependencyProperty ItemsProperty = DependencyProperty.Register(
-            nameof(Items), typeof(IEnumerable), typeof(HistoryItemListControl), new PropertyMetadata(default(IEnumerable)));
+            nameof(Items), typeof(IEnumerable<IHistoryElementWrapper>), typeof(HistoryItemListControl), new PropertyMetadata(default(IEnumerable<IHistoryElementWrapper>)));
 
-        public IEnumerable Items
+        public IEnumerable<IHistoryElementWrapper> Items
         {
-            get => (IEnumerable)GetValue(ItemsProperty);
+            get => (IEnumerable<IHistoryElementWrapper>)GetValue(ItemsProperty);
             set => SetValue(ItemsProperty, value);
         }
 
