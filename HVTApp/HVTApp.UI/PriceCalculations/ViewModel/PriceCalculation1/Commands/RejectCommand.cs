@@ -43,6 +43,8 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
             _container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceCalculationEvent>().Publish(_viewModel.PriceCalculationWrapper.Model);
             _container.Resolve<IEventAggregator>().GetEvent<AfterRejectPriceCalculationEvent>().Publish(_viewModel.PriceCalculationWrapper.Model);
             _viewModel.RefreshCommands();
+
+            _viewModel.GenerateNewHistoryItem();
         }
 
         protected override bool CanExecuteMethod()

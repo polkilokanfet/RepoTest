@@ -1247,8 +1247,28 @@ namespace HVTApp.UI.ViewModels
 
     public partial class PriceCalculationHistoryItemDetailsViewModel : BaseDetailsViewModel<PriceCalculationHistoryItemWrapper, PriceCalculationHistoryItem, AfterSavePriceCalculationHistoryItemEvent>
     {
+		//private Func<Task<List<User>>> _getEntitiesForSelectUserCommand;
+		private Func<List<User>> _getEntitiesForSelectUserCommand;
+		public DelegateLogCommand SelectUserCommand { get; private set; }
+		public DelegateLogCommand ClearUserCommand { get; private set; }
+
         public PriceCalculationHistoryItemDetailsViewModel(IUnityContainer container) : base(container) 
 		{
+			
+			if (_getEntitiesForSelectUserCommand == null) _getEntitiesForSelectUserCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };
+			if (SelectUserCommand == null) SelectUserCommand = new DelegateLogCommand(SelectUserCommand_Execute_Default);
+			if (ClearUserCommand == null) ClearUserCommand = new DelegateLogCommand(ClearUserCommand_Execute_Default);
+
+		}
+
+		private void SelectUserCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<User, UserWrapper>(_getEntitiesForSelectUserCommand(), nameof(Item.User), Item.User?.Id);
+		}
+
+		private void ClearUserCommand_Execute_Default() 
+		{
+						Item.User = null;		    
 		}
 
 

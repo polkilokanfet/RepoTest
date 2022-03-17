@@ -5,7 +5,7 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.TechnicalRequrementsTasksModule.Converters
 {
-    [ValueConversion(typeof(TechnicalRequrementsTaskHistoryElement), typeof(Color))]
+    //[ValueConversion(typeof(TechnicalRequrementsTaskHistoryElement), typeof(Color))]
     public class HistoryElementToColorConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
@@ -50,6 +50,23 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule.Converters
                         throw new ArgumentOutOfRangeException();
                 }
 
+            }
+
+            if (value is PriceCalculationHistoryItem historyItem)
+            {
+                switch (historyItem.Type)
+                {
+                    case PriceCalculationHistoryItemType.Start:
+                        return Colors.LightSkyBlue;
+                    case PriceCalculationHistoryItemType.Stop:
+                        return Colors.Gray;
+                    case PriceCalculationHistoryItemType.Reject:
+                        return Colors.LightPink;
+                    case PriceCalculationHistoryItemType.Finish:
+                        return Colors.LightGreen;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
             }
 
             return Binding.DoNothing;

@@ -29,11 +29,13 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
             var historyItemWrapper = _viewModel.HistoryItem;
             historyItemWrapper.Moment = DateTime.Now;
             historyItemWrapper.Type = PriceCalculationHistoryItemType.Start;
-            _viewModel.PriceCalculationWrapper.Model.History.Add(historyItemWrapper.Model);
+            _viewModel.PriceCalculationWrapper.History.Add(historyItemWrapper);
 
             _viewModel.SaveCommand.Execute();
             _container.Resolve<IEventAggregator>().GetEvent<AfterStartPriceCalculationEvent>().Publish(_viewModel.PriceCalculationWrapper.Model);
             _viewModel.RefreshCommands();
+
+            _viewModel.GenerateNewHistoryItem();
         }
 
         protected override bool CanExecuteMethod()

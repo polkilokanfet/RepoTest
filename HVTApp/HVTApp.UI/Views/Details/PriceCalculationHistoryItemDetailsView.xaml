@@ -17,6 +17,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row ="0" Content="Момент" Visibility="{Binding VisibilityMomentPriceCalculationHistoryItem, ElementName=Root}"/>
@@ -28,6 +29,13 @@
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityCommentPriceCalculationHistoryItem, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="2" Content="Автор" Visibility="{Binding VisibilityUserPriceCalculationHistoryItem, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
+                                    Item="{Binding Item.User}" 
+                                    AddItemCommand="{Binding SelectUserCommand}" 
+                                    RemoveItemCommand="{Binding ClearUserCommand}"
+									Visibility="{Binding VisibilityUserPriceCalculationHistoryItem, ElementName=Root}"/>
 
 
     </Grid>

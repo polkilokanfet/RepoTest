@@ -22,8 +22,7 @@
             <convertersUi:WrapperToStringConverter x:Key="WrapperToStringConverter"/>
             <convertersUi:WrappersToStringConverter x:Key="WrappersToStringConverter"/>
             <convertersUi:UnitsToGroupsConverter x:Key="ProductUnitsToProductGroupsConverter" />
-            <convertersUi:TaskHistoryElementTypeToStringConverter x:Key="TaskHistoryElementTypeToStringConverter" />
-            <convertersUi:PriceCalculationHistoryItemTypeToStringConverter x:Key="PriceCalculationHistoryItemTypeToStringConverter" />
+            <convertersUi:HistoryElementTypeToStringConverter x:Key="HistoryElementTypeToStringConverter" />
             <convertersUi:PartToPercentConverterNullable x:Key="PartToPercentConverterNullable" />
             <convertersUi:PartToPercentConverter x:Key="PartToPercentConverter" />
             <converters1:HistoryElementToColorConverter x:Key="HistoryElementToColorConverter" />

@@ -22,7 +22,7 @@ namespace HVTApp.UI.Lookup
                     return "Инициализация";
                 }
 
-                return (string)(new PriceCalculationHistoryItemTypeToStringConverter().Convert(this.Entity.LastHistoryItem.Type, null, null, null));
+                return (string)(new HistoryElementTypeToStringConverter().Convert(this.Entity.LastHistoryItem.Type, null, null, null));
             }
         }
 

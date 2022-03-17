@@ -5,8 +5,8 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Converter
 {
-    [ValueConversion(typeof(TechnicalRequrementsTaskHistoryElementType), typeof(string))]
-    public class TaskHistoryElementTypeToStringConverter : IValueConverter
+    //[ValueConversion(typeof(TechnicalRequrementsTaskHistoryElementType), typeof(string))]
+    public class HistoryElementTypeToStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -30,6 +30,23 @@ namespace HVTApp.UI.Converter
                         return "Поручено";
                     case TechnicalRequrementsTaskHistoryElementType.Accept:
                         return "Принято";
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+
+            if (value is PriceCalculationHistoryItemType historyItemType)
+            {
+                switch (historyItemType)
+                {
+                    case PriceCalculationHistoryItemType.Stop:
+                        return "Остановлено";
+                    case PriceCalculationHistoryItemType.Start:
+                        return "Запущено";
+                    case PriceCalculationHistoryItemType.Finish:
+                        return "Завершено";
+                    case PriceCalculationHistoryItemType.Reject:
+                        return "Отклонено";
                     default:
                         throw new ArgumentOutOfRangeException();
                 }

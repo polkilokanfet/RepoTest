@@ -42,6 +42,7 @@
                         <infg:DateTimeField Name="Moment" Label="Момент" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="PriceCalculationId" Label="Id расчета ПЗ" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="User" Label="Автор" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

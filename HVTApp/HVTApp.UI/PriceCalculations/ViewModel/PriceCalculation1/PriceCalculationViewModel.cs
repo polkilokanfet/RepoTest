@@ -63,8 +63,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
         /// <summary>
         /// Ёлемент истории
         /// </summary>
-        public PriceCalculationHistoryItemWrapper HistoryItem { get; } =
-            new PriceCalculationHistoryItemWrapper(new PriceCalculationHistoryItem());
+        public PriceCalculationHistoryItemWrapper HistoryItem { get; private set; }
 
         //костыль дл€ команд
         public IUnitOfWork UnitOfWork1 => this.UnitOfWork;
@@ -120,16 +119,30 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
             RemoveStructureCostCommand = new RemoveStructureCostCommand(this, this.Container); //удаление стракчакоста
             AddGroupCommand = new AddGroupCommand(this, this.Container, this.UnitOfWork); //добавление группы оборудовани€
             RemoveGroupCommand = new RemoveGroupCommand(this, this.Container); //удаление группы
+
             StartCommand = new StartCommand(this, this.Container);
             FinishCommand = new FinishCommand(this, this.Container);
             CancelCommand = new CancelCommand(this, this.Container);
             RejectCommand = new RejectCommand(this, this.Container);
+
             MeregeCommand = new MeregeCommand(this, this.Container);
             DivideCommand = new DivideCommand(this, this.Container);
             LoadFileToDbCommand = new LoadFileToDbCommand(this, this.Container);
             LoadFileFromDbCommand = new LoadFileFromDbCommand(this, this.Container);
 
             PriceCalculationWrapper = new PriceCalculation2Wrapper(new PriceCalculation());
+            GenerateNewHistoryItem();
+        }
+
+        public void GenerateNewHistoryItem()
+        {
+            HistoryItem = new PriceCalculationHistoryItemWrapper(
+                new PriceCalculationHistoryItem()
+                {
+                    User = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id)
+                });
+            
+            RaisePropertyChanged(nameof(HistoryItem));
         }
 
         /// <summary>

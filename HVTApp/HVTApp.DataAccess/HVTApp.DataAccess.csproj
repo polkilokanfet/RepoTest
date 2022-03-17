@@ -107,6 +107,7 @@
     <Compile Include="EntityTypeConfigurations\Custom\NoteConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\OfferUnitConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\PriceCalculationConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\PriceCalculationHistoryItemConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\PriceCalculationItemConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ProductBlockConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ProductCategoryConfiguration.cs" />
@@ -339,6 +340,10 @@
     <Compile Include="Migrations\202203121007028_HistoryElementUser.Designer.cs">
       <DependentUpon>202203121007028_HistoryElementUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202203170748309_PriceCalculationHistoryItem.cs" />
+    <Compile Include="Migrations\202203170748309_PriceCalculationHistoryItem.Designer.cs">
+      <DependentUpon>202203170748309_PriceCalculationHistoryItem.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -547,6 +552,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202203121007028_HistoryElementUser.resx">
       <DependentUpon>202203121007028_HistoryElementUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203170748309_PriceCalculationHistoryItem.resx">
+      <DependentUpon>202203170748309_PriceCalculationHistoryItem.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

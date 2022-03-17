@@ -2023,6 +2023,10 @@ namespace HVTApp.UI.Views
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityCommentPriceCalculationHistoryItem = Visibility.Collapsed;
 
+            //attr = typeof(HVTApp.Model.POCOs.PriceCalculationHistoryItem).GetProperty(nameof(HVTApp.Model.POCOs.PriceCalculationHistoryItem.User)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityUserPriceCalculationHistoryItem = Visibility.Collapsed;
+
 
         }
 
@@ -2056,6 +2060,14 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityCommentPriceCalculationHistoryItemProperty); }
             set { SetValue(VisibilityCommentPriceCalculationHistoryItemProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityUserPriceCalculationHistoryItemProperty = DependencyProperty.Register("VisibilityUserPriceCalculationHistoryItem", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityUserPriceCalculationHistoryItem
+        {
+            get { return (Visibility) GetValue(VisibilityUserPriceCalculationHistoryItemProperty); }
+            set { SetValue(VisibilityUserPriceCalculationHistoryItemProperty, value); OnPropertyChanged(); }
         }
 
 	}

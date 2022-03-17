@@ -19,6 +19,9 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Комментарий"), OrderStatus(-10), MaxLength(500)]
         public string Comment { get; set; }
+
+        [Designation("Автор"), OrderStatus(-15)]
+        public virtual User User { get; set; }
     }
 
     public enum PriceCalculationHistoryItemType

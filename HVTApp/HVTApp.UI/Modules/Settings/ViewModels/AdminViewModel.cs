@@ -50,6 +50,11 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
                     {
                         foreach (var historyElement in requrementsTask.HistoryElements)
                         {
+                            if (historyElement.User != null)
+                            {
+                                continue;
+                            }
+
                             switch (historyElement.Type)
                             {
                                 case TechnicalRequrementsTaskHistoryElementType.Create:
@@ -90,6 +95,46 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
                                 case TechnicalRequrementsTaskHistoryElementType.RejectByFrontManager:
                                 {
                                     historyElement.User = requrementsTask.FrontManager;
+                                    break;
+                                }
+                                default:
+                                    throw new ArgumentOutOfRangeException();
+                            }
+                        }
+                    }
+
+                    var priceCalculations = unitOfWork.Repository<PriceCalculation>().GetAll();
+                    var pricer = unitOfWork.Repository<User>().Find(x => x.Employee.Person.Surname == "Шарапова").FirstOrDefault();
+
+                    foreach (var priceCalculation in priceCalculations)
+                    {
+                        foreach (var historyItem in priceCalculation.History)
+                        {
+                            if (historyItem.User != null)
+                            {
+                                continue;
+                            }
+
+                            switch (historyItem.Type)
+                            {
+                                case PriceCalculationHistoryItemType.Start:
+                                {
+                                    historyItem.User = priceCalculation.Initiator;
+                                    break;
+                                }
+                                case PriceCalculationHistoryItemType.Stop:
+                                {
+                                    historyItem.User = priceCalculation.Initiator;
+                                    break;
+                                }
+                                case PriceCalculationHistoryItemType.Reject:
+                                {
+                                    historyItem.User = pricer;
+                                    break;
+                                }
+                                case PriceCalculationHistoryItemType.Finish:
+                                {
+                                    historyItem.User = pricer;
                                     break;
                                 }
                                 default:

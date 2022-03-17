@@ -205,7 +205,7 @@
                             <infgDp:FieldLayout>
                                 <infgDp:FieldLayout.Fields>
                                     <infgDp:DateTimeField AlternateBinding="{Binding Moment}" BindingType="UseAlternateBinding" Label="Момент" Width="Auto" AllowResize="False" />
-                                    <infgDp:TextField AlternateBinding="{Binding Model.Type, Converter={StaticResource TaskHistoryElementTypeToStringConverter}}" BindingType="UseAlternateBinding" Label="Действие" Width="Auto" AllowResize="False"/>
+                                    <infgDp:TextField AlternateBinding="{Binding Model.Type, Converter={StaticResource HistoryElementTypeToStringConverter}}" BindingType="UseAlternateBinding" Label="Действие" Width="Auto" AllowResize="False"/>
                                     <infgDp:TextField AlternateBinding="{Binding Comment}" BindingType="UseAlternateBinding" Label="Комментарий" Width="Auto" AllowResize="True" />
                                 </infgDp:FieldLayout.Fields>
                             </infgDp:FieldLayout>

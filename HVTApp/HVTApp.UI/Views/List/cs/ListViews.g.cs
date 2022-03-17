@@ -4182,6 +4182,12 @@ namespace HVTApp.UI.Views
             set { PriceCalculationHistoryItemLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationHistoryItemLookup.DisplayMember)].Visibility = value; }
         }
 
+        public System.Windows.Visibility UserVisibility
+        {
+            get { return PriceCalculationHistoryItemLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationHistoryItemLookup.User)].Visibility; }
+            set { PriceCalculationHistoryItemLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationHistoryItemLookup.User)].Visibility = value; }
+        }
+
         public System.Windows.Visibility EntityVisibility
         {
             get { return PriceCalculationHistoryItemLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceCalculationHistoryItemLookup.Entity)].Visibility; }
