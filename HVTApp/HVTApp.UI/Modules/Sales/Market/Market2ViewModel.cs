@@ -248,6 +248,8 @@ namespace HVTApp.UI.Modules.Sales.Market
 
             MakeTceTaskCommand = new MakeTceTaskCommand(this, this.UnitOfWork, this.RegionManager);
 
+            MakePriceEngineeringTaskCommand = new MakePriceEngineeringTaskCommand(this, this.UnitOfWork, this.RegionManager);
+
             OpenTenderLinkCommand = new OpenTenderLinkCommand(this);
 
             #endregion
@@ -324,6 +326,7 @@ namespace HVTApp.UI.Modules.Sales.Market
             NewSpecificationCommand.RaiseCanExecuteChanged();
             StructureCostsCommand.RaiseCanExecuteChanged();
             MakeTceTaskCommand.RaiseCanExecuteChanged();
+            MakePriceEngineeringTaskCommand.RaiseCanExecuteChanged();
             OpenFolderCommand.RaiseCanExecuteChanged();
             OfferRaiseCanExecuteChanged();
             TenderRaiseCanExecuteChanged();

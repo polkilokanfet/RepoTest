@@ -31,6 +31,7 @@ using HVTApp.UI.Modules.SupplyModule.Views;
 using HVTApp.UI.PaymentConditionsSet;
 using HVTApp.UI.PriceCalculations.View;
 using HVTApp.UI.PriceCalculations.ViewModel;
+using HVTApp.UI.PriceEngineering;
 using HVTApp.UI.TechnicalRequrementsTasksModule;
 using HVTApp.UI.ViewModels;
 using HVTApp.UI.Views;
@@ -89,6 +90,7 @@ namespace HVTApp.UI
             Container.RegisterViewForNavigation<TechnicalRequrementsTasksView>();
             Container.RegisterViewForNavigation<LaborHoursView>();
             Container.RegisterViewForNavigation<PaymentConditionSetLookupListView1>();
+            Container.RegisterViewForNavigation<PriceEngineeringTasksView>();
 
             Container.Resolve<IDialogService>().Register<DirectumTaskRouteViewModel, DirectumTaskRouteWindow>();
             Container.Resolve<IDialogService>().Register<PaymentConditionViewModel, PaymentConditionView>();

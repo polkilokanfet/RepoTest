@@ -27,7 +27,7 @@ namespace HVTApp.Model.POCOs
         public virtual ProductBlock ProductBlockEngineer { get; set; }
 
         [Designation("Добавленные блоки продукта от инженера-конструктора"), OrderStatus(800)]
-        public virtual List<PriceEngineeringTaskProductBlockAdded> ProductBlocksAdded { get; set; }
+        public virtual List<PriceEngineeringTaskProductBlockAdded> ProductBlocksAdded { get; set; } = new List<PriceEngineeringTaskProductBlockAdded>();
 
 
         [Designation("Файлы технических требований"), OrderStatus(610)]

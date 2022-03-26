@@ -44,6 +44,10 @@
         <infRib:ButtonTool Caption="Передать в ТСЕ" Command="{Binding MakeTceTaskCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
     </infRib:RibbonGroup>
 
+    <infRib:RibbonGroup Caption="ТСП">
+        <infRib:ButtonTool Caption="Создать" Command="{Binding MakePriceEngineeringTaskCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
+    </infRib:RibbonGroup>
+
     <infRib:RibbonGroup Caption="Расчет ПЗ">
         <infRib:ButtonTool Caption="Создать" Command="{Binding StructureCostsCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
         <infRib:ButtonTool Caption="Копировать" Command="{Binding CopyPriceCalculationCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>

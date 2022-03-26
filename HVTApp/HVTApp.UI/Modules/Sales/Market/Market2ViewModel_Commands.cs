@@ -57,6 +57,7 @@ namespace HVTApp.UI.Modules.Sales.Market
 
         public MakeTceTaskCommand MakeTceTaskCommand { get; }
 
+        public MakePriceEngineeringTaskCommand MakePriceEngineeringTaskCommand { get; }
 
         public OpenTenderLinkCommand OpenTenderLinkCommand { get; }
 

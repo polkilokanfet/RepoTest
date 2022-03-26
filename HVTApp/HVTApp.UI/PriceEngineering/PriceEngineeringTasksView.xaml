@@ -1,0 +1,26 @@
+﻿<inf:ViewBaseConfirmNavigationRequest 
+    x:Class="HVTApp.UI.PriceEngineering.PriceEngineeringTasksView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+    xmlns:priceEngineering="clr-namespace:HVTApp.UI.PriceEngineering">
+
+    <Border Background="White" Padding="5">
+        <GroupBox Header="Технико-ценовая проработка">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ListBox ItemsSource="{Binding PriceEngineeringTaskViewModels}" 
+                         SelectedItem="{Binding SelectedPriceEngineeringTaskViewModel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                         BorderThickness="0">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <priceEngineering:PriceEngineeringTaskControl DataContext="{Binding PriceEngineeringTaskWrapper}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </ScrollViewer>
+        </GroupBox>
+    </Border>
+
+</inf:ViewBaseConfirmNavigationRequest>
