@@ -1,0 +1,41 @@
+<inf:ViewBase x:Class="HVTApp.UI.Views.PriceEngineeringTaskMessageDetailsView"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			  xmlns:infDP="http://infragistics.com/DataPresenter"
+			  xmlns:infE="http://infragistics.com/Editors"
+			  xmlns:core="clr-namespace:System;assembly=mscorlib"
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+			  x:Name="Root">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" MinWidth="200"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column="0" Grid.Row ="0" Content="Автор" Visibility="{Binding VisibilityAuthorPriceEngineeringTaskMessage, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="0" 
+                                    Item="{Binding Item.Author}" 
+                                    AddItemCommand="{Binding SelectAuthorCommand}" 
+                                    RemoveItemCommand="{Binding ClearAuthorCommand}"
+									Visibility="{Binding VisibilityAuthorPriceEngineeringTaskMessage, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="1" Content="Момент" Visibility="{Binding VisibilityMomentPriceEngineeringTaskMessage, ElementName=Root}"/>
+        <DatePicker Grid.Column="1" Grid.Row="1" 
+                    SelectedDate="{Binding Item.Moment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding VisibilityMomentPriceEngineeringTaskMessage, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="2" Content="Сообщение" Visibility="{Binding VisibilityMessagePriceEngineeringTaskMessage, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
+                 Text="{Binding Item.Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding VisibilityMessagePriceEngineeringTaskMessage, ElementName=Root}"/>
+
+
+    </Grid>
+</inf:ViewBase>

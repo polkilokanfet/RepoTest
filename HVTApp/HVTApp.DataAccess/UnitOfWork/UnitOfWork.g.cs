@@ -97,6 +97,24 @@ namespace HVTApp.DataAccess
             DesignDepartmentParametersRepository = new DesignDepartmentParametersRepository(_context);
             DesignDepartmentParametersRepository.OperationFailedEvent += OnOperationFailedEvent;
 
+            PriceEngineeringTaskRepository = new PriceEngineeringTaskRepository(_context);
+            PriceEngineeringTaskRepository.OperationFailedEvent += OnOperationFailedEvent;
+
+            PriceEngineeringTaskFileAnswerRepository = new PriceEngineeringTaskFileAnswerRepository(_context);
+            PriceEngineeringTaskFileAnswerRepository.OperationFailedEvent += OnOperationFailedEvent;
+
+            PriceEngineeringTaskFileTechnicalRequirementsRepository = new PriceEngineeringTaskFileTechnicalRequirementsRepository(_context);
+            PriceEngineeringTaskFileTechnicalRequirementsRepository.OperationFailedEvent += OnOperationFailedEvent;
+
+            PriceEngineeringTaskMessageRepository = new PriceEngineeringTaskMessageRepository(_context);
+            PriceEngineeringTaskMessageRepository.OperationFailedEvent += OnOperationFailedEvent;
+
+            PriceEngineeringTaskProductBlockAddedRepository = new PriceEngineeringTaskProductBlockAddedRepository(_context);
+            PriceEngineeringTaskProductBlockAddedRepository.OperationFailedEvent += OnOperationFailedEvent;
+
+            PriceEngineeringTaskStatusRepository = new PriceEngineeringTaskStatusRepository(_context);
+            PriceEngineeringTaskStatusRepository.OperationFailedEvent += OnOperationFailedEvent;
+
             ProductCategoryRepository = new ProductCategoryRepository(_context);
             ProductCategoryRepository.OperationFailedEvent += OnOperationFailedEvent;
 
@@ -318,6 +336,12 @@ namespace HVTApp.DataAccess
             PriceCalculationHistoryItemRepository.OperationFailedEvent -= OnOperationFailedEvent;
             PriceCalculationItemRepository.OperationFailedEvent -= OnOperationFailedEvent;
             DesignDepartmentParametersRepository.OperationFailedEvent -= OnOperationFailedEvent;
+            PriceEngineeringTaskRepository.OperationFailedEvent -= OnOperationFailedEvent;
+            PriceEngineeringTaskFileAnswerRepository.OperationFailedEvent -= OnOperationFailedEvent;
+            PriceEngineeringTaskFileTechnicalRequirementsRepository.OperationFailedEvent -= OnOperationFailedEvent;
+            PriceEngineeringTaskMessageRepository.OperationFailedEvent -= OnOperationFailedEvent;
+            PriceEngineeringTaskProductBlockAddedRepository.OperationFailedEvent -= OnOperationFailedEvent;
+            PriceEngineeringTaskStatusRepository.OperationFailedEvent -= OnOperationFailedEvent;
             ProductCategoryRepository.OperationFailedEvent -= OnOperationFailedEvent;
             ProductCategoryPriceAndCostRepository.OperationFailedEvent -= OnOperationFailedEvent;
             ProductIncludedRepository.OperationFailedEvent -= OnOperationFailedEvent;
@@ -414,6 +438,12 @@ namespace HVTApp.DataAccess
         protected IPriceCalculationHistoryItemRepository PriceCalculationHistoryItemRepository;
         protected IPriceCalculationItemRepository PriceCalculationItemRepository;
         protected IDesignDepartmentParametersRepository DesignDepartmentParametersRepository;
+        protected IPriceEngineeringTaskRepository PriceEngineeringTaskRepository;
+        protected IPriceEngineeringTaskFileAnswerRepository PriceEngineeringTaskFileAnswerRepository;
+        protected IPriceEngineeringTaskFileTechnicalRequirementsRepository PriceEngineeringTaskFileTechnicalRequirementsRepository;
+        protected IPriceEngineeringTaskMessageRepository PriceEngineeringTaskMessageRepository;
+        protected IPriceEngineeringTaskProductBlockAddedRepository PriceEngineeringTaskProductBlockAddedRepository;
+        protected IPriceEngineeringTaskStatusRepository PriceEngineeringTaskStatusRepository;
         protected IProductCategoryRepository ProductCategoryRepository;
         protected IProductCategoryPriceAndCostRepository ProductCategoryPriceAndCostRepository;
         protected IProductIncludedRepository ProductIncludedRepository;

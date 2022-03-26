@@ -162,6 +162,36 @@ namespace HVTApp.UI.ViewModels
         public DesignDepartmentParametersLookupListViewModel(IUnityContainer container) : base(container) { }
     }
 
+	public partial class PriceEngineeringTaskLookupListViewModel : BaseListViewModel<PriceEngineeringTask, PriceEngineeringTaskLookup, AfterSavePriceEngineeringTaskEvent, AfterSelectPriceEngineeringTaskEvent, AfterRemovePriceEngineeringTaskEvent>
+    {
+        public PriceEngineeringTaskLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+	public partial class PriceEngineeringTaskFileAnswerLookupListViewModel : BaseListViewModel<PriceEngineeringTaskFileAnswer, PriceEngineeringTaskFileAnswerLookup, AfterSavePriceEngineeringTaskFileAnswerEvent, AfterSelectPriceEngineeringTaskFileAnswerEvent, AfterRemovePriceEngineeringTaskFileAnswerEvent>
+    {
+        public PriceEngineeringTaskFileAnswerLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+	public partial class PriceEngineeringTaskFileTechnicalRequirementsLookupListViewModel : BaseListViewModel<PriceEngineeringTaskFileTechnicalRequirements, PriceEngineeringTaskFileTechnicalRequirementsLookup, AfterSavePriceEngineeringTaskFileTechnicalRequirementsEvent, AfterSelectPriceEngineeringTaskFileTechnicalRequirementsEvent, AfterRemovePriceEngineeringTaskFileTechnicalRequirementsEvent>
+    {
+        public PriceEngineeringTaskFileTechnicalRequirementsLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+	public partial class PriceEngineeringTaskMessageLookupListViewModel : BaseListViewModel<PriceEngineeringTaskMessage, PriceEngineeringTaskMessageLookup, AfterSavePriceEngineeringTaskMessageEvent, AfterSelectPriceEngineeringTaskMessageEvent, AfterRemovePriceEngineeringTaskMessageEvent>
+    {
+        public PriceEngineeringTaskMessageLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+	public partial class PriceEngineeringTaskProductBlockAddedLookupListViewModel : BaseListViewModel<PriceEngineeringTaskProductBlockAdded, PriceEngineeringTaskProductBlockAddedLookup, AfterSavePriceEngineeringTaskProductBlockAddedEvent, AfterSelectPriceEngineeringTaskProductBlockAddedEvent, AfterRemovePriceEngineeringTaskProductBlockAddedEvent>
+    {
+        public PriceEngineeringTaskProductBlockAddedLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+	public partial class PriceEngineeringTaskStatusLookupListViewModel : BaseListViewModel<PriceEngineeringTaskStatus, PriceEngineeringTaskStatusLookup, AfterSavePriceEngineeringTaskStatusEvent, AfterSelectPriceEngineeringTaskStatusEvent, AfterRemovePriceEngineeringTaskStatusEvent>
+    {
+        public PriceEngineeringTaskStatusLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
 	public partial class ProductCategoryLookupListViewModel : BaseListViewModel<ProductCategory, ProductCategoryLookup, AfterSaveProductCategoryEvent, AfterSelectProductCategoryEvent, AfterRemoveProductCategoryEvent>
     {
         public ProductCategoryLookupListViewModel(IUnityContainer container) : base(container) { }

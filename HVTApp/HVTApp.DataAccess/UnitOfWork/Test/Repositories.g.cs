@@ -158,6 +158,36 @@ namespace HVTApp.DataAccess
         public DesignDepartmentParametersRepositoryTest(TestData testData) : base(testData) {}
     }
 
+    public partial class PriceEngineeringTaskRepositoryTest : TestBaseRepository<PriceEngineeringTask>, IPriceEngineeringTaskRepository
+    {
+        public PriceEngineeringTaskRepositoryTest(TestData testData) : base(testData) {}
+    }
+
+    public partial class PriceEngineeringTaskFileAnswerRepositoryTest : TestBaseRepository<PriceEngineeringTaskFileAnswer>, IPriceEngineeringTaskFileAnswerRepository
+    {
+        public PriceEngineeringTaskFileAnswerRepositoryTest(TestData testData) : base(testData) {}
+    }
+
+    public partial class PriceEngineeringTaskFileTechnicalRequirementsRepositoryTest : TestBaseRepository<PriceEngineeringTaskFileTechnicalRequirements>, IPriceEngineeringTaskFileTechnicalRequirementsRepository
+    {
+        public PriceEngineeringTaskFileTechnicalRequirementsRepositoryTest(TestData testData) : base(testData) {}
+    }
+
+    public partial class PriceEngineeringTaskMessageRepositoryTest : TestBaseRepository<PriceEngineeringTaskMessage>, IPriceEngineeringTaskMessageRepository
+    {
+        public PriceEngineeringTaskMessageRepositoryTest(TestData testData) : base(testData) {}
+    }
+
+    public partial class PriceEngineeringTaskProductBlockAddedRepositoryTest : TestBaseRepository<PriceEngineeringTaskProductBlockAdded>, IPriceEngineeringTaskProductBlockAddedRepository
+    {
+        public PriceEngineeringTaskProductBlockAddedRepositoryTest(TestData testData) : base(testData) {}
+    }
+
+    public partial class PriceEngineeringTaskStatusRepositoryTest : TestBaseRepository<PriceEngineeringTaskStatus>, IPriceEngineeringTaskStatusRepository
+    {
+        public PriceEngineeringTaskStatusRepositoryTest(TestData testData) : base(testData) {}
+    }
+
     public partial class ProductCategoryRepositoryTest : TestBaseRepository<ProductCategory>, IProductCategoryRepository
     {
         public ProductCategoryRepositoryTest(TestData testData) : base(testData) {}

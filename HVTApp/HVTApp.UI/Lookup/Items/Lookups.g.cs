@@ -770,6 +770,179 @@ namespace HVTApp.UI.Lookup
 	    public List<ParameterLookup> Parameters { get { return GetLookupEnum<ParameterLookup>().ToList(); } }
 	}
 	[AllowEditAttribute(Role.Admin)]
+	[Designation("Технико-стоимостная проработка")]
+	public partial class PriceEngineeringTaskLookup : LookupItem<PriceEngineeringTask>
+	{
+		public PriceEngineeringTaskLookup(PriceEngineeringTask entity) : base(entity) 
+		{
+		}
+		
+        #region SimpleProperties
+		[OrderStatus(950)]
+        public System.Int32 Amount => Entity.Amount;
+
+		[OrderStatus(100)]
+        public System.Guid ParentPriceEngineeringTaskId => Entity.ParentPriceEngineeringTaskId;
+
+        #endregion
+
+        #region ComplexProperties
+		[OrderStatus(1900)]
+	    public UserLookup UserManager { get { return GetLookup<UserLookup>(); } }
+
+		[OrderStatus(1800)]
+	    public UserLookup UserConstructor { get { return GetLookup<UserLookup>(); } }
+
+		[OrderStatus(900)]
+	    public ProductBlockLookup ProductBlockManager { get { return GetLookup<ProductBlockLookup>(); } }
+
+		[OrderStatus(850)]
+	    public ProductBlockLookup ProductBlockEngineer { get { return GetLookup<ProductBlockLookup>(); } }
+
+        #endregion
+		[OrderStatus(800)]
+	    public List<PriceEngineeringTaskProductBlockAddedLookup> ProductBlocksAdded { get { return GetLookupEnum<PriceEngineeringTaskProductBlockAddedLookup>().ToList(); } }
+		[OrderStatus(610)]
+	    public List<PriceEngineeringTaskFileTechnicalRequirementsLookup> FilesTechnicalRequirements { get { return GetLookupEnum<PriceEngineeringTaskFileTechnicalRequirementsLookup>().ToList(); } }
+		[OrderStatus(600)]
+	    public List<PriceEngineeringTaskFileAnswerLookup> FilesAnswers { get { return GetLookupEnum<PriceEngineeringTaskFileAnswerLookup>().ToList(); } }
+		[OrderStatus(500)]
+	    public List<PriceEngineeringTaskMessageLookup> Messages { get { return GetLookupEnum<PriceEngineeringTaskMessageLookup>().ToList(); } }
+		[OrderStatus(90)]
+	    public List<PriceEngineeringTaskLookup> ChildPriceEngineeringTasks { get { return GetLookupEnum<PriceEngineeringTaskLookup>().ToList(); } }
+		[OrderStatus(50)]
+	    public List<PriceEngineeringTaskStatusLookup> Statuses { get { return GetLookupEnum<PriceEngineeringTaskStatusLookup>().ToList(); } }
+		[OrderStatus(10)]
+	    public List<SalesUnitLookup> SalesUnits { get { return GetLookupEnum<SalesUnitLookup>().ToList(); } }
+	}
+	[AllowEditAttribute(Role.Admin)]
+	[Designation("Технико-стоимостная проработка (файл ответа ОГК)")]
+	public partial class PriceEngineeringTaskFileAnswerLookup : LookupItem<PriceEngineeringTaskFileAnswer>
+	{
+		public PriceEngineeringTaskFileAnswerLookup(PriceEngineeringTaskFileAnswer entity) : base(entity) 
+		{
+		}
+		
+        #region SimpleProperties
+		[OrderStatus(900)]
+        public System.Guid PriceEngineeringTaskId => Entity.PriceEngineeringTaskId;
+
+		[OrderStatus(850)]
+        public System.Boolean IsActual => Entity.IsActual;
+
+		[OrderStatus(800)]
+        public System.DateTime CreationMoment => Entity.CreationMoment;
+
+		[OrderStatus(700)]
+        public System.String Name => Entity.Name;
+
+		[OrderStatus(700)]
+        public System.String Comment => Entity.Comment;
+
+        #endregion
+	}
+	[AllowEditAttribute(Role.Admin)]
+	[Designation("Технико-стоимостная проработка (файл технического задания)")]
+	public partial class PriceEngineeringTaskFileTechnicalRequirementsLookup : LookupItem<PriceEngineeringTaskFileTechnicalRequirements>
+	{
+		public PriceEngineeringTaskFileTechnicalRequirementsLookup(PriceEngineeringTaskFileTechnicalRequirements entity) : base(entity) 
+		{
+		}
+		
+        #region SimpleProperties
+		[OrderStatus(900)]
+        public System.Guid PriceEngineeringTaskId => Entity.PriceEngineeringTaskId;
+
+		[OrderStatus(850)]
+        public System.Boolean IsActual => Entity.IsActual;
+
+		[OrderStatus(830)]
+        public System.Boolean CoversChildTasks => Entity.CoversChildTasks;
+
+		[OrderStatus(800)]
+        public System.DateTime CreationMoment => Entity.CreationMoment;
+
+		[OrderStatus(700)]
+        public System.String Name => Entity.Name;
+
+		[OrderStatus(700)]
+        public System.String Comment => Entity.Comment;
+
+        #endregion
+	}
+	[AllowEditAttribute(Role.Admin)]
+	[Designation("Технико-стоимостная проработка (сообщение)")]
+	public partial class PriceEngineeringTaskMessageLookup : LookupItem<PriceEngineeringTaskMessage>
+	{
+		public PriceEngineeringTaskMessageLookup(PriceEngineeringTaskMessage entity) : base(entity) 
+		{
+		}
+		
+        #region SimpleProperties
+		[OrderStatus(900)]
+        public System.Guid PriceEngineeringTaskId => Entity.PriceEngineeringTaskId;
+
+		[OrderStatus(700)]
+        public System.DateTime Moment => Entity.Moment;
+
+		[OrderStatus(100)]
+        public System.String Message => Entity.Message;
+
+        #endregion
+
+        #region ComplexProperties
+		[OrderStatus(800)]
+	    public UserLookup Author { get { return GetLookup<UserLookup>(); } }
+
+        #endregion
+	}
+	[AllowEditAttribute(Role.Admin)]
+	[Designation("Технико-стоимостная проработка (добавленный блок)")]
+	public partial class PriceEngineeringTaskProductBlockAddedLookup : LookupItem<PriceEngineeringTaskProductBlockAdded>
+	{
+		public PriceEngineeringTaskProductBlockAddedLookup(PriceEngineeringTaskProductBlockAdded entity) : base(entity) 
+		{
+		}
+		
+        #region SimpleProperties
+		[OrderStatus(500)]
+        public System.Guid PriceEngineeringTaskId => Entity.PriceEngineeringTaskId;
+
+		[OrderStatus(950)]
+        public System.Int32 Amount => Entity.Amount;
+
+        #endregion
+
+        #region ComplexProperties
+		[OrderStatus(900)]
+	    public ProductBlockLookup ProductBlock { get { return GetLookup<ProductBlockLookup>(); } }
+
+        #endregion
+	}
+	[AllowEditAttribute(Role.Admin)]
+	[Designation("PriceEngineeringTaskStatus")]
+	public partial class PriceEngineeringTaskStatusLookup : LookupItem<PriceEngineeringTaskStatus>
+	{
+		public PriceEngineeringTaskStatusLookup(PriceEngineeringTaskStatus entity) : base(entity) 
+		{
+		}
+		
+        #region SimpleProperties
+		[OrderStatus(900)]
+        public System.Guid PriceEngineeringTaskId => Entity.PriceEngineeringTaskId;
+
+		[OrderStatus(1)]
+        public System.DateTime Moment => Entity.Moment;
+
+		[OrderStatus(1)]
+        public System.String Comment => Entity.Comment;
+
+		[OrderStatus(1)]
+        public HVTApp.Model.POCOs.PriceEngineeringTaskStatusEnum StatusEnum => Entity.StatusEnum;
+
+        #endregion
+	}
+	[AllowEditAttribute(Role.Admin)]
 	[Designation("Категория продукта")]
 	public partial class ProductCategoryLookup : LookupItem<ProductCategory>
 	{

@@ -2321,6 +2321,564 @@ namespace HVTApp.UI.Views
 
 	}
 
+    public partial class PriceEngineeringTaskDetailsView : ViewBase
+    {
+        public PriceEngineeringTaskDetailsView()
+        {
+			InitializeComponent();
+        }
+
+        public PriceEngineeringTaskDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, PriceEngineeringTaskDetailsViewModel PriceEngineeringTaskDetailsViewModel) : base(regionManager, eventAggregator)
+        {
+            SetVisibilityProps();
+			InitializeComponent();
+            DataContext = PriceEngineeringTaskDetailsViewModel;
+        }
+
+        private void SetVisibilityProps()
+        {
+            //NotUpdateAttribute attr;
+
+            //attr = typeof(HVTApp.Model.POCOs.PriceEngineeringTask).GetProperty(nameof(HVTApp.Model.POCOs.PriceEngineeringTask.UserManager)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityUserManagerPriceEngineeringTask = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.PriceEngineeringTask).GetProperty(nameof(HVTApp.Model.POCOs.PriceEngineeringTask.UserConstructor)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityUserConstructorPriceEngineeringTask = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.PriceEngineeringTask).GetProperty(nameof(HVTApp.Model.POCOs.PriceEngineeringTask.Amount)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityAmountPriceEngineeringTask = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.PriceEngineeringTask).GetProperty(nameof(HVTApp.Model.POCOs.PriceEngineeringTask.ProductBlockManager)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityProductBlockManagerPriceEngineeringTask = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.PriceEngineeringTask).GetProperty(nameof(HVTApp.Model.POCOs.PriceEngineeringTask.ProductBlockEngineer)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityProductBlockEngineerPriceEngineeringTask = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.PriceEngineeringTask).GetProperty(nameof(HVTApp.Model.POCOs.PriceEngineeringTask.ProductBlocksAdded)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityProductBlocksAddedPriceEngineeringTask = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.PriceEngineeringTask).GetProperty(nameof(HVTApp.Model.POCOs.PriceEngineeringTask.FilesTechnicalRequirements)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityFilesTechnicalRequirementsPriceEngineeringTask = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.PriceEngineeringTask).GetProperty(nameof(HVTApp.Model.POCOs.PriceEngineeringTask.FilesAnswers)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityFilesAnswersPriceEngineeringTask = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.PriceEngineeringTask).GetProperty(nameof(HVTApp.Model.POCOs.PriceEngineeringTask.Messages)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityMessagesPriceEngineeringTask = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.PriceEngineeringTask).GetProperty(nameof(HVTApp.Model.POCOs.PriceEngineeringTask.ParentPriceEngineeringTaskId)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityParentPriceEngineeringTaskIdPriceEngineeringTask = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.PriceEngineeringTask).GetProperty(nameof(HVTApp.Model.POCOs.PriceEngineeringTask.ChildPriceEngineeringTasks)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityChildPriceEngineeringTasksPriceEngineeringTask = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.PriceEngineeringTask).GetProperty(nameof(HVTApp.Model.POCOs.PriceEngineeringTask.Statuses)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityStatusesPriceEngineeringTask = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.PriceEngineeringTask).GetProperty(nameof(HVTApp.Model.POCOs.PriceEngineeringTask.SalesUnits)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilitySalesUnitsPriceEngineeringTask = Visibility.Collapsed;
+
+
+        }
+
+
+        public static readonly DependencyProperty VisibilityUserManagerPriceEngineeringTaskProperty = DependencyProperty.Register("VisibilityUserManagerPriceEngineeringTask", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityUserManagerPriceEngineeringTask
+        {
+            get { return (Visibility) GetValue(VisibilityUserManagerPriceEngineeringTaskProperty); }
+            set { SetValue(VisibilityUserManagerPriceEngineeringTaskProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityUserConstructorPriceEngineeringTaskProperty = DependencyProperty.Register("VisibilityUserConstructorPriceEngineeringTask", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityUserConstructorPriceEngineeringTask
+        {
+            get { return (Visibility) GetValue(VisibilityUserConstructorPriceEngineeringTaskProperty); }
+            set { SetValue(VisibilityUserConstructorPriceEngineeringTaskProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityAmountPriceEngineeringTaskProperty = DependencyProperty.Register("VisibilityAmountPriceEngineeringTask", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityAmountPriceEngineeringTask
+        {
+            get { return (Visibility) GetValue(VisibilityAmountPriceEngineeringTaskProperty); }
+            set { SetValue(VisibilityAmountPriceEngineeringTaskProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityProductBlockManagerPriceEngineeringTaskProperty = DependencyProperty.Register("VisibilityProductBlockManagerPriceEngineeringTask", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityProductBlockManagerPriceEngineeringTask
+        {
+            get { return (Visibility) GetValue(VisibilityProductBlockManagerPriceEngineeringTaskProperty); }
+            set { SetValue(VisibilityProductBlockManagerPriceEngineeringTaskProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityProductBlockEngineerPriceEngineeringTaskProperty = DependencyProperty.Register("VisibilityProductBlockEngineerPriceEngineeringTask", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityProductBlockEngineerPriceEngineeringTask
+        {
+            get { return (Visibility) GetValue(VisibilityProductBlockEngineerPriceEngineeringTaskProperty); }
+            set { SetValue(VisibilityProductBlockEngineerPriceEngineeringTaskProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityProductBlocksAddedPriceEngineeringTaskProperty = DependencyProperty.Register("VisibilityProductBlocksAddedPriceEngineeringTask", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityProductBlocksAddedPriceEngineeringTask
+        {
+            get { return (Visibility) GetValue(VisibilityProductBlocksAddedPriceEngineeringTaskProperty); }
+            set { SetValue(VisibilityProductBlocksAddedPriceEngineeringTaskProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityFilesTechnicalRequirementsPriceEngineeringTaskProperty = DependencyProperty.Register("VisibilityFilesTechnicalRequirementsPriceEngineeringTask", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityFilesTechnicalRequirementsPriceEngineeringTask
+        {
+            get { return (Visibility) GetValue(VisibilityFilesTechnicalRequirementsPriceEngineeringTaskProperty); }
+            set { SetValue(VisibilityFilesTechnicalRequirementsPriceEngineeringTaskProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityFilesAnswersPriceEngineeringTaskProperty = DependencyProperty.Register("VisibilityFilesAnswersPriceEngineeringTask", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityFilesAnswersPriceEngineeringTask
+        {
+            get { return (Visibility) GetValue(VisibilityFilesAnswersPriceEngineeringTaskProperty); }
+            set { SetValue(VisibilityFilesAnswersPriceEngineeringTaskProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityMessagesPriceEngineeringTaskProperty = DependencyProperty.Register("VisibilityMessagesPriceEngineeringTask", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityMessagesPriceEngineeringTask
+        {
+            get { return (Visibility) GetValue(VisibilityMessagesPriceEngineeringTaskProperty); }
+            set { SetValue(VisibilityMessagesPriceEngineeringTaskProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityParentPriceEngineeringTaskIdPriceEngineeringTaskProperty = DependencyProperty.Register("VisibilityParentPriceEngineeringTaskIdPriceEngineeringTask", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityParentPriceEngineeringTaskIdPriceEngineeringTask
+        {
+            get { return (Visibility) GetValue(VisibilityParentPriceEngineeringTaskIdPriceEngineeringTaskProperty); }
+            set { SetValue(VisibilityParentPriceEngineeringTaskIdPriceEngineeringTaskProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityChildPriceEngineeringTasksPriceEngineeringTaskProperty = DependencyProperty.Register("VisibilityChildPriceEngineeringTasksPriceEngineeringTask", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityChildPriceEngineeringTasksPriceEngineeringTask
+        {
+            get { return (Visibility) GetValue(VisibilityChildPriceEngineeringTasksPriceEngineeringTaskProperty); }
+            set { SetValue(VisibilityChildPriceEngineeringTasksPriceEngineeringTaskProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityStatusesPriceEngineeringTaskProperty = DependencyProperty.Register("VisibilityStatusesPriceEngineeringTask", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityStatusesPriceEngineeringTask
+        {
+            get { return (Visibility) GetValue(VisibilityStatusesPriceEngineeringTaskProperty); }
+            set { SetValue(VisibilityStatusesPriceEngineeringTaskProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilitySalesUnitsPriceEngineeringTaskProperty = DependencyProperty.Register("VisibilitySalesUnitsPriceEngineeringTask", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilitySalesUnitsPriceEngineeringTask
+        {
+            get { return (Visibility) GetValue(VisibilitySalesUnitsPriceEngineeringTaskProperty); }
+            set { SetValue(VisibilitySalesUnitsPriceEngineeringTaskProperty, value); OnPropertyChanged(); }
+        }
+
+	}
+
+    public partial class PriceEngineeringTaskFileAnswerDetailsView : ViewBase
+    {
+        public PriceEngineeringTaskFileAnswerDetailsView()
+        {
+			InitializeComponent();
+        }
+
+        public PriceEngineeringTaskFileAnswerDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, PriceEngineeringTaskFileAnswerDetailsViewModel PriceEngineeringTaskFileAnswerDetailsViewModel) : base(regionManager, eventAggregator)
+        {
+            SetVisibilityProps();
+			InitializeComponent();
+            DataContext = PriceEngineeringTaskFileAnswerDetailsViewModel;
+        }
+
+        private void SetVisibilityProps()
+        {
+            //NotUpdateAttribute attr;
+
+            //attr = typeof(HVTApp.Model.POCOs.PriceEngineeringTaskFileAnswer).GetProperty(nameof(HVTApp.Model.POCOs.PriceEngineeringTaskFileAnswer.PriceEngineeringTaskId)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityPriceEngineeringTaskIdPriceEngineeringTaskFileAnswer = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.PriceEngineeringTaskFileAnswer).GetProperty(nameof(HVTApp.Model.POCOs.PriceEngineeringTaskFileAnswer.IsActual)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityIsActualPriceEngineeringTaskFileAnswer = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.PriceEngineeringTaskFileAnswer).GetProperty(nameof(HVTApp.Model.POCOs.PriceEngineeringTaskFileAnswer.CreationMoment)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityCreationMomentPriceEngineeringTaskFileAnswer = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.PriceEngineeringTaskFileAnswer).GetProperty(nameof(HVTApp.Model.POCOs.PriceEngineeringTaskFileAnswer.Name)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityNamePriceEngineeringTaskFileAnswer = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.PriceEngineeringTaskFileAnswer).GetProperty(nameof(HVTApp.Model.POCOs.PriceEngineeringTaskFileAnswer.Comment)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityCommentPriceEngineeringTaskFileAnswer = Visibility.Collapsed;
+
+
+        }
+
+
+        public static readonly DependencyProperty VisibilityPriceEngineeringTaskIdPriceEngineeringTaskFileAnswerProperty = DependencyProperty.Register("VisibilityPriceEngineeringTaskIdPriceEngineeringTaskFileAnswer", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityPriceEngineeringTaskIdPriceEngineeringTaskFileAnswer
+        {
+            get { return (Visibility) GetValue(VisibilityPriceEngineeringTaskIdPriceEngineeringTaskFileAnswerProperty); }
+            set { SetValue(VisibilityPriceEngineeringTaskIdPriceEngineeringTaskFileAnswerProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityIsActualPriceEngineeringTaskFileAnswerProperty = DependencyProperty.Register("VisibilityIsActualPriceEngineeringTaskFileAnswer", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityIsActualPriceEngineeringTaskFileAnswer
+        {
+            get { return (Visibility) GetValue(VisibilityIsActualPriceEngineeringTaskFileAnswerProperty); }
+            set { SetValue(VisibilityIsActualPriceEngineeringTaskFileAnswerProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityCreationMomentPriceEngineeringTaskFileAnswerProperty = DependencyProperty.Register("VisibilityCreationMomentPriceEngineeringTaskFileAnswer", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityCreationMomentPriceEngineeringTaskFileAnswer
+        {
+            get { return (Visibility) GetValue(VisibilityCreationMomentPriceEngineeringTaskFileAnswerProperty); }
+            set { SetValue(VisibilityCreationMomentPriceEngineeringTaskFileAnswerProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityNamePriceEngineeringTaskFileAnswerProperty = DependencyProperty.Register("VisibilityNamePriceEngineeringTaskFileAnswer", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityNamePriceEngineeringTaskFileAnswer
+        {
+            get { return (Visibility) GetValue(VisibilityNamePriceEngineeringTaskFileAnswerProperty); }
+            set { SetValue(VisibilityNamePriceEngineeringTaskFileAnswerProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityCommentPriceEngineeringTaskFileAnswerProperty = DependencyProperty.Register("VisibilityCommentPriceEngineeringTaskFileAnswer", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityCommentPriceEngineeringTaskFileAnswer
+        {
+            get { return (Visibility) GetValue(VisibilityCommentPriceEngineeringTaskFileAnswerProperty); }
+            set { SetValue(VisibilityCommentPriceEngineeringTaskFileAnswerProperty, value); OnPropertyChanged(); }
+        }
+
+	}
+
+    public partial class PriceEngineeringTaskFileTechnicalRequirementsDetailsView : ViewBase
+    {
+        public PriceEngineeringTaskFileTechnicalRequirementsDetailsView()
+        {
+			InitializeComponent();
+        }
+
+        public PriceEngineeringTaskFileTechnicalRequirementsDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, PriceEngineeringTaskFileTechnicalRequirementsDetailsViewModel PriceEngineeringTaskFileTechnicalRequirementsDetailsViewModel) : base(regionManager, eventAggregator)
+        {
+            SetVisibilityProps();
+			InitializeComponent();
+            DataContext = PriceEngineeringTaskFileTechnicalRequirementsDetailsViewModel;
+        }
+
+        private void SetVisibilityProps()
+        {
+            //NotUpdateAttribute attr;
+
+            //attr = typeof(HVTApp.Model.POCOs.PriceEngineeringTaskFileTechnicalRequirements).GetProperty(nameof(HVTApp.Model.POCOs.PriceEngineeringTaskFileTechnicalRequirements.PriceEngineeringTaskId)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityPriceEngineeringTaskIdPriceEngineeringTaskFileTechnicalRequirements = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.PriceEngineeringTaskFileTechnicalRequirements).GetProperty(nameof(HVTApp.Model.POCOs.PriceEngineeringTaskFileTechnicalRequirements.IsActual)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityIsActualPriceEngineeringTaskFileTechnicalRequirements = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.PriceEngineeringTaskFileTechnicalRequirements).GetProperty(nameof(HVTApp.Model.POCOs.PriceEngineeringTaskFileTechnicalRequirements.CoversChildTasks)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityCoversChildTasksPriceEngineeringTaskFileTechnicalRequirements = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.PriceEngineeringTaskFileTechnicalRequirements).GetProperty(nameof(HVTApp.Model.POCOs.PriceEngineeringTaskFileTechnicalRequirements.CreationMoment)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityCreationMomentPriceEngineeringTaskFileTechnicalRequirements = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.PriceEngineeringTaskFileTechnicalRequirements).GetProperty(nameof(HVTApp.Model.POCOs.PriceEngineeringTaskFileTechnicalRequirements.Name)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityNamePriceEngineeringTaskFileTechnicalRequirements = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.PriceEngineeringTaskFileTechnicalRequirements).GetProperty(nameof(HVTApp.Model.POCOs.PriceEngineeringTaskFileTechnicalRequirements.Comment)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityCommentPriceEngineeringTaskFileTechnicalRequirements = Visibility.Collapsed;
+
+
+        }
+
+
+        public static readonly DependencyProperty VisibilityPriceEngineeringTaskIdPriceEngineeringTaskFileTechnicalRequirementsProperty = DependencyProperty.Register("VisibilityPriceEngineeringTaskIdPriceEngineeringTaskFileTechnicalRequirements", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityPriceEngineeringTaskIdPriceEngineeringTaskFileTechnicalRequirements
+        {
+            get { return (Visibility) GetValue(VisibilityPriceEngineeringTaskIdPriceEngineeringTaskFileTechnicalRequirementsProperty); }
+            set { SetValue(VisibilityPriceEngineeringTaskIdPriceEngineeringTaskFileTechnicalRequirementsProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityIsActualPriceEngineeringTaskFileTechnicalRequirementsProperty = DependencyProperty.Register("VisibilityIsActualPriceEngineeringTaskFileTechnicalRequirements", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityIsActualPriceEngineeringTaskFileTechnicalRequirements
+        {
+            get { return (Visibility) GetValue(VisibilityIsActualPriceEngineeringTaskFileTechnicalRequirementsProperty); }
+            set { SetValue(VisibilityIsActualPriceEngineeringTaskFileTechnicalRequirementsProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityCoversChildTasksPriceEngineeringTaskFileTechnicalRequirementsProperty = DependencyProperty.Register("VisibilityCoversChildTasksPriceEngineeringTaskFileTechnicalRequirements", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityCoversChildTasksPriceEngineeringTaskFileTechnicalRequirements
+        {
+            get { return (Visibility) GetValue(VisibilityCoversChildTasksPriceEngineeringTaskFileTechnicalRequirementsProperty); }
+            set { SetValue(VisibilityCoversChildTasksPriceEngineeringTaskFileTechnicalRequirementsProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityCreationMomentPriceEngineeringTaskFileTechnicalRequirementsProperty = DependencyProperty.Register("VisibilityCreationMomentPriceEngineeringTaskFileTechnicalRequirements", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityCreationMomentPriceEngineeringTaskFileTechnicalRequirements
+        {
+            get { return (Visibility) GetValue(VisibilityCreationMomentPriceEngineeringTaskFileTechnicalRequirementsProperty); }
+            set { SetValue(VisibilityCreationMomentPriceEngineeringTaskFileTechnicalRequirementsProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityNamePriceEngineeringTaskFileTechnicalRequirementsProperty = DependencyProperty.Register("VisibilityNamePriceEngineeringTaskFileTechnicalRequirements", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityNamePriceEngineeringTaskFileTechnicalRequirements
+        {
+            get { return (Visibility) GetValue(VisibilityNamePriceEngineeringTaskFileTechnicalRequirementsProperty); }
+            set { SetValue(VisibilityNamePriceEngineeringTaskFileTechnicalRequirementsProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityCommentPriceEngineeringTaskFileTechnicalRequirementsProperty = DependencyProperty.Register("VisibilityCommentPriceEngineeringTaskFileTechnicalRequirements", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityCommentPriceEngineeringTaskFileTechnicalRequirements
+        {
+            get { return (Visibility) GetValue(VisibilityCommentPriceEngineeringTaskFileTechnicalRequirementsProperty); }
+            set { SetValue(VisibilityCommentPriceEngineeringTaskFileTechnicalRequirementsProperty, value); OnPropertyChanged(); }
+        }
+
+	}
+
+    public partial class PriceEngineeringTaskMessageDetailsView : ViewBase
+    {
+        public PriceEngineeringTaskMessageDetailsView()
+        {
+			InitializeComponent();
+        }
+
+        public PriceEngineeringTaskMessageDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, PriceEngineeringTaskMessageDetailsViewModel PriceEngineeringTaskMessageDetailsViewModel) : base(regionManager, eventAggregator)
+        {
+            SetVisibilityProps();
+			InitializeComponent();
+            DataContext = PriceEngineeringTaskMessageDetailsViewModel;
+        }
+
+        private void SetVisibilityProps()
+        {
+            //NotUpdateAttribute attr;
+
+            //attr = typeof(HVTApp.Model.POCOs.PriceEngineeringTaskMessage).GetProperty(nameof(HVTApp.Model.POCOs.PriceEngineeringTaskMessage.PriceEngineeringTaskId)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityPriceEngineeringTaskIdPriceEngineeringTaskMessage = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.PriceEngineeringTaskMessage).GetProperty(nameof(HVTApp.Model.POCOs.PriceEngineeringTaskMessage.Author)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityAuthorPriceEngineeringTaskMessage = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.PriceEngineeringTaskMessage).GetProperty(nameof(HVTApp.Model.POCOs.PriceEngineeringTaskMessage.Moment)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityMomentPriceEngineeringTaskMessage = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.PriceEngineeringTaskMessage).GetProperty(nameof(HVTApp.Model.POCOs.PriceEngineeringTaskMessage.Message)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityMessagePriceEngineeringTaskMessage = Visibility.Collapsed;
+
+
+        }
+
+
+        public static readonly DependencyProperty VisibilityPriceEngineeringTaskIdPriceEngineeringTaskMessageProperty = DependencyProperty.Register("VisibilityPriceEngineeringTaskIdPriceEngineeringTaskMessage", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityPriceEngineeringTaskIdPriceEngineeringTaskMessage
+        {
+            get { return (Visibility) GetValue(VisibilityPriceEngineeringTaskIdPriceEngineeringTaskMessageProperty); }
+            set { SetValue(VisibilityPriceEngineeringTaskIdPriceEngineeringTaskMessageProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityAuthorPriceEngineeringTaskMessageProperty = DependencyProperty.Register("VisibilityAuthorPriceEngineeringTaskMessage", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityAuthorPriceEngineeringTaskMessage
+        {
+            get { return (Visibility) GetValue(VisibilityAuthorPriceEngineeringTaskMessageProperty); }
+            set { SetValue(VisibilityAuthorPriceEngineeringTaskMessageProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityMomentPriceEngineeringTaskMessageProperty = DependencyProperty.Register("VisibilityMomentPriceEngineeringTaskMessage", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityMomentPriceEngineeringTaskMessage
+        {
+            get { return (Visibility) GetValue(VisibilityMomentPriceEngineeringTaskMessageProperty); }
+            set { SetValue(VisibilityMomentPriceEngineeringTaskMessageProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityMessagePriceEngineeringTaskMessageProperty = DependencyProperty.Register("VisibilityMessagePriceEngineeringTaskMessage", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityMessagePriceEngineeringTaskMessage
+        {
+            get { return (Visibility) GetValue(VisibilityMessagePriceEngineeringTaskMessageProperty); }
+            set { SetValue(VisibilityMessagePriceEngineeringTaskMessageProperty, value); OnPropertyChanged(); }
+        }
+
+	}
+
+    public partial class PriceEngineeringTaskProductBlockAddedDetailsView : ViewBase
+    {
+        public PriceEngineeringTaskProductBlockAddedDetailsView()
+        {
+			InitializeComponent();
+        }
+
+        public PriceEngineeringTaskProductBlockAddedDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, PriceEngineeringTaskProductBlockAddedDetailsViewModel PriceEngineeringTaskProductBlockAddedDetailsViewModel) : base(regionManager, eventAggregator)
+        {
+            SetVisibilityProps();
+			InitializeComponent();
+            DataContext = PriceEngineeringTaskProductBlockAddedDetailsViewModel;
+        }
+
+        private void SetVisibilityProps()
+        {
+            //NotUpdateAttribute attr;
+
+            //attr = typeof(HVTApp.Model.POCOs.PriceEngineeringTaskProductBlockAdded).GetProperty(nameof(HVTApp.Model.POCOs.PriceEngineeringTaskProductBlockAdded.PriceEngineeringTaskId)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityPriceEngineeringTaskIdPriceEngineeringTaskProductBlockAdded = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.PriceEngineeringTaskProductBlockAdded).GetProperty(nameof(HVTApp.Model.POCOs.PriceEngineeringTaskProductBlockAdded.Amount)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityAmountPriceEngineeringTaskProductBlockAdded = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.PriceEngineeringTaskProductBlockAdded).GetProperty(nameof(HVTApp.Model.POCOs.PriceEngineeringTaskProductBlockAdded.ProductBlock)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityProductBlockPriceEngineeringTaskProductBlockAdded = Visibility.Collapsed;
+
+
+        }
+
+
+        public static readonly DependencyProperty VisibilityPriceEngineeringTaskIdPriceEngineeringTaskProductBlockAddedProperty = DependencyProperty.Register("VisibilityPriceEngineeringTaskIdPriceEngineeringTaskProductBlockAdded", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityPriceEngineeringTaskIdPriceEngineeringTaskProductBlockAdded
+        {
+            get { return (Visibility) GetValue(VisibilityPriceEngineeringTaskIdPriceEngineeringTaskProductBlockAddedProperty); }
+            set { SetValue(VisibilityPriceEngineeringTaskIdPriceEngineeringTaskProductBlockAddedProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityAmountPriceEngineeringTaskProductBlockAddedProperty = DependencyProperty.Register("VisibilityAmountPriceEngineeringTaskProductBlockAdded", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityAmountPriceEngineeringTaskProductBlockAdded
+        {
+            get { return (Visibility) GetValue(VisibilityAmountPriceEngineeringTaskProductBlockAddedProperty); }
+            set { SetValue(VisibilityAmountPriceEngineeringTaskProductBlockAddedProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityProductBlockPriceEngineeringTaskProductBlockAddedProperty = DependencyProperty.Register("VisibilityProductBlockPriceEngineeringTaskProductBlockAdded", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityProductBlockPriceEngineeringTaskProductBlockAdded
+        {
+            get { return (Visibility) GetValue(VisibilityProductBlockPriceEngineeringTaskProductBlockAddedProperty); }
+            set { SetValue(VisibilityProductBlockPriceEngineeringTaskProductBlockAddedProperty, value); OnPropertyChanged(); }
+        }
+
+	}
+
+    public partial class PriceEngineeringTaskStatusDetailsView : ViewBase
+    {
+        public PriceEngineeringTaskStatusDetailsView()
+        {
+			InitializeComponent();
+        }
+
+        public PriceEngineeringTaskStatusDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, PriceEngineeringTaskStatusDetailsViewModel PriceEngineeringTaskStatusDetailsViewModel) : base(regionManager, eventAggregator)
+        {
+            SetVisibilityProps();
+			InitializeComponent();
+            DataContext = PriceEngineeringTaskStatusDetailsViewModel;
+        }
+
+        private void SetVisibilityProps()
+        {
+            //NotUpdateAttribute attr;
+
+            //attr = typeof(HVTApp.Model.POCOs.PriceEngineeringTaskStatus).GetProperty(nameof(HVTApp.Model.POCOs.PriceEngineeringTaskStatus.PriceEngineeringTaskId)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityPriceEngineeringTaskIdPriceEngineeringTaskStatus = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.PriceEngineeringTaskStatus).GetProperty(nameof(HVTApp.Model.POCOs.PriceEngineeringTaskStatus.Moment)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityMomentPriceEngineeringTaskStatus = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.PriceEngineeringTaskStatus).GetProperty(nameof(HVTApp.Model.POCOs.PriceEngineeringTaskStatus.Comment)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityCommentPriceEngineeringTaskStatus = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.PriceEngineeringTaskStatus).GetProperty(nameof(HVTApp.Model.POCOs.PriceEngineeringTaskStatus.StatusEnum)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityStatusEnumPriceEngineeringTaskStatus = Visibility.Collapsed;
+
+
+        }
+
+
+        public static readonly DependencyProperty VisibilityPriceEngineeringTaskIdPriceEngineeringTaskStatusProperty = DependencyProperty.Register("VisibilityPriceEngineeringTaskIdPriceEngineeringTaskStatus", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityPriceEngineeringTaskIdPriceEngineeringTaskStatus
+        {
+            get { return (Visibility) GetValue(VisibilityPriceEngineeringTaskIdPriceEngineeringTaskStatusProperty); }
+            set { SetValue(VisibilityPriceEngineeringTaskIdPriceEngineeringTaskStatusProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityMomentPriceEngineeringTaskStatusProperty = DependencyProperty.Register("VisibilityMomentPriceEngineeringTaskStatus", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityMomentPriceEngineeringTaskStatus
+        {
+            get { return (Visibility) GetValue(VisibilityMomentPriceEngineeringTaskStatusProperty); }
+            set { SetValue(VisibilityMomentPriceEngineeringTaskStatusProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityCommentPriceEngineeringTaskStatusProperty = DependencyProperty.Register("VisibilityCommentPriceEngineeringTaskStatus", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityCommentPriceEngineeringTaskStatus
+        {
+            get { return (Visibility) GetValue(VisibilityCommentPriceEngineeringTaskStatusProperty); }
+            set { SetValue(VisibilityCommentPriceEngineeringTaskStatusProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityStatusEnumPriceEngineeringTaskStatusProperty = DependencyProperty.Register("VisibilityStatusEnumPriceEngineeringTaskStatus", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityStatusEnumPriceEngineeringTaskStatus
+        {
+            get { return (Visibility) GetValue(VisibilityStatusEnumPriceEngineeringTaskStatusProperty); }
+            set { SetValue(VisibilityStatusEnumPriceEngineeringTaskStatusProperty, value); OnPropertyChanged(); }
+        }
+
+	}
+
     public partial class ProductCategoryDetailsView : ViewBase
     {
         public ProductCategoryDetailsView()

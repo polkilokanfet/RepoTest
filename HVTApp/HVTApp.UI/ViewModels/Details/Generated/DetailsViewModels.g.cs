@@ -1521,6 +1521,432 @@ namespace HVTApp.UI.ViewModels
 
     }
 
+    public partial class PriceEngineeringTaskDetailsViewModel : BaseDetailsViewModel<PriceEngineeringTaskWrapper, PriceEngineeringTask, AfterSavePriceEngineeringTaskEvent>
+    {
+		//private Func<Task<List<User>>> _getEntitiesForSelectUserManagerCommand;
+		private Func<List<User>> _getEntitiesForSelectUserManagerCommand;
+		public DelegateLogCommand SelectUserManagerCommand { get; private set; }
+		public DelegateLogCommand ClearUserManagerCommand { get; private set; }
+
+		//private Func<Task<List<User>>> _getEntitiesForSelectUserConstructorCommand;
+		private Func<List<User>> _getEntitiesForSelectUserConstructorCommand;
+		public DelegateLogCommand SelectUserConstructorCommand { get; private set; }
+		public DelegateLogCommand ClearUserConstructorCommand { get; private set; }
+
+		//private Func<Task<List<ProductBlock>>> _getEntitiesForSelectProductBlockManagerCommand;
+		private Func<List<ProductBlock>> _getEntitiesForSelectProductBlockManagerCommand;
+		public DelegateLogCommand SelectProductBlockManagerCommand { get; private set; }
+		public DelegateLogCommand ClearProductBlockManagerCommand { get; private set; }
+
+		//private Func<Task<List<ProductBlock>>> _getEntitiesForSelectProductBlockEngineerCommand;
+		private Func<List<ProductBlock>> _getEntitiesForSelectProductBlockEngineerCommand;
+		public DelegateLogCommand SelectProductBlockEngineerCommand { get; private set; }
+		public DelegateLogCommand ClearProductBlockEngineerCommand { get; private set; }
+
+		private Func<List<PriceEngineeringTaskProductBlockAdded>> _getEntitiesForAddInProductBlocksAddedCommand;
+		public DelegateLogCommand AddInProductBlocksAddedCommand { get; }
+		public DelegateLogCommand RemoveFromProductBlocksAddedCommand { get; }
+		private PriceEngineeringTaskProductBlockAddedWrapper _selectedProductBlocksAddedItem;
+		public PriceEngineeringTaskProductBlockAddedWrapper SelectedProductBlocksAddedItem 
+		{ 
+			get { return _selectedProductBlocksAddedItem; }
+			set 
+			{ 
+				if (Equals(_selectedProductBlocksAddedItem, value)) return;
+				_selectedProductBlocksAddedItem = value;
+				RaisePropertyChanged();
+				RemoveFromProductBlocksAddedCommand.RaiseCanExecuteChanged();
+			}
+		}
+
+		private Func<List<PriceEngineeringTaskFileTechnicalRequirements>> _getEntitiesForAddInFilesTechnicalRequirementsCommand;
+		public DelegateLogCommand AddInFilesTechnicalRequirementsCommand { get; }
+		public DelegateLogCommand RemoveFromFilesTechnicalRequirementsCommand { get; }
+		private PriceEngineeringTaskFileTechnicalRequirementsWrapper _selectedFilesTechnicalRequirementsItem;
+		public PriceEngineeringTaskFileTechnicalRequirementsWrapper SelectedFilesTechnicalRequirementsItem 
+		{ 
+			get { return _selectedFilesTechnicalRequirementsItem; }
+			set 
+			{ 
+				if (Equals(_selectedFilesTechnicalRequirementsItem, value)) return;
+				_selectedFilesTechnicalRequirementsItem = value;
+				RaisePropertyChanged();
+				RemoveFromFilesTechnicalRequirementsCommand.RaiseCanExecuteChanged();
+			}
+		}
+
+		private Func<List<PriceEngineeringTaskFileAnswer>> _getEntitiesForAddInFilesAnswersCommand;
+		public DelegateLogCommand AddInFilesAnswersCommand { get; }
+		public DelegateLogCommand RemoveFromFilesAnswersCommand { get; }
+		private PriceEngineeringTaskFileAnswerWrapper _selectedFilesAnswersItem;
+		public PriceEngineeringTaskFileAnswerWrapper SelectedFilesAnswersItem 
+		{ 
+			get { return _selectedFilesAnswersItem; }
+			set 
+			{ 
+				if (Equals(_selectedFilesAnswersItem, value)) return;
+				_selectedFilesAnswersItem = value;
+				RaisePropertyChanged();
+				RemoveFromFilesAnswersCommand.RaiseCanExecuteChanged();
+			}
+		}
+
+		private Func<List<PriceEngineeringTaskMessage>> _getEntitiesForAddInMessagesCommand;
+		public DelegateLogCommand AddInMessagesCommand { get; }
+		public DelegateLogCommand RemoveFromMessagesCommand { get; }
+		private PriceEngineeringTaskMessageWrapper _selectedMessagesItem;
+		public PriceEngineeringTaskMessageWrapper SelectedMessagesItem 
+		{ 
+			get { return _selectedMessagesItem; }
+			set 
+			{ 
+				if (Equals(_selectedMessagesItem, value)) return;
+				_selectedMessagesItem = value;
+				RaisePropertyChanged();
+				RemoveFromMessagesCommand.RaiseCanExecuteChanged();
+			}
+		}
+
+		private Func<List<PriceEngineeringTask>> _getEntitiesForAddInChildPriceEngineeringTasksCommand;
+		public DelegateLogCommand AddInChildPriceEngineeringTasksCommand { get; }
+		public DelegateLogCommand RemoveFromChildPriceEngineeringTasksCommand { get; }
+		private PriceEngineeringTaskWrapper _selectedChildPriceEngineeringTasksItem;
+		public PriceEngineeringTaskWrapper SelectedChildPriceEngineeringTasksItem 
+		{ 
+			get { return _selectedChildPriceEngineeringTasksItem; }
+			set 
+			{ 
+				if (Equals(_selectedChildPriceEngineeringTasksItem, value)) return;
+				_selectedChildPriceEngineeringTasksItem = value;
+				RaisePropertyChanged();
+				RemoveFromChildPriceEngineeringTasksCommand.RaiseCanExecuteChanged();
+			}
+		}
+
+		private Func<List<PriceEngineeringTaskStatus>> _getEntitiesForAddInStatusesCommand;
+		public DelegateLogCommand AddInStatusesCommand { get; }
+		public DelegateLogCommand RemoveFromStatusesCommand { get; }
+		private PriceEngineeringTaskStatusWrapper _selectedStatusesItem;
+		public PriceEngineeringTaskStatusWrapper SelectedStatusesItem 
+		{ 
+			get { return _selectedStatusesItem; }
+			set 
+			{ 
+				if (Equals(_selectedStatusesItem, value)) return;
+				_selectedStatusesItem = value;
+				RaisePropertyChanged();
+				RemoveFromStatusesCommand.RaiseCanExecuteChanged();
+			}
+		}
+
+		private Func<List<SalesUnit>> _getEntitiesForAddInSalesUnitsCommand;
+		public DelegateLogCommand AddInSalesUnitsCommand { get; }
+		public DelegateLogCommand RemoveFromSalesUnitsCommand { get; }
+		private SalesUnitWrapper _selectedSalesUnitsItem;
+		public SalesUnitWrapper SelectedSalesUnitsItem 
+		{ 
+			get { return _selectedSalesUnitsItem; }
+			set 
+			{ 
+				if (Equals(_selectedSalesUnitsItem, value)) return;
+				_selectedSalesUnitsItem = value;
+				RaisePropertyChanged();
+				RemoveFromSalesUnitsCommand.RaiseCanExecuteChanged();
+			}
+		}
+
+        public PriceEngineeringTaskDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+			
+			if (_getEntitiesForSelectUserManagerCommand == null) _getEntitiesForSelectUserManagerCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };
+			if (SelectUserManagerCommand == null) SelectUserManagerCommand = new DelegateLogCommand(SelectUserManagerCommand_Execute_Default);
+			if (ClearUserManagerCommand == null) ClearUserManagerCommand = new DelegateLogCommand(ClearUserManagerCommand_Execute_Default);
+
+			
+			if (_getEntitiesForSelectUserConstructorCommand == null) _getEntitiesForSelectUserConstructorCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };
+			if (SelectUserConstructorCommand == null) SelectUserConstructorCommand = new DelegateLogCommand(SelectUserConstructorCommand_Execute_Default);
+			if (ClearUserConstructorCommand == null) ClearUserConstructorCommand = new DelegateLogCommand(ClearUserConstructorCommand_Execute_Default);
+
+			
+			if (_getEntitiesForSelectProductBlockManagerCommand == null) _getEntitiesForSelectProductBlockManagerCommand = () => { return UnitOfWork.Repository<ProductBlock>().GetAll(); };
+			if (SelectProductBlockManagerCommand == null) SelectProductBlockManagerCommand = new DelegateLogCommand(SelectProductBlockManagerCommand_Execute_Default);
+			if (ClearProductBlockManagerCommand == null) ClearProductBlockManagerCommand = new DelegateLogCommand(ClearProductBlockManagerCommand_Execute_Default);
+
+			
+			if (_getEntitiesForSelectProductBlockEngineerCommand == null) _getEntitiesForSelectProductBlockEngineerCommand = () => { return UnitOfWork.Repository<ProductBlock>().GetAll(); };
+			if (SelectProductBlockEngineerCommand == null) SelectProductBlockEngineerCommand = new DelegateLogCommand(SelectProductBlockEngineerCommand_Execute_Default);
+			if (ClearProductBlockEngineerCommand == null) ClearProductBlockEngineerCommand = new DelegateLogCommand(ClearProductBlockEngineerCommand_Execute_Default);
+
+			
+			if (_getEntitiesForAddInProductBlocksAddedCommand == null) _getEntitiesForAddInProductBlocksAddedCommand = () => { return UnitOfWork.Repository<PriceEngineeringTaskProductBlockAdded>().GetAll(); };;
+			if (AddInProductBlocksAddedCommand == null) AddInProductBlocksAddedCommand = new DelegateLogCommand(AddInProductBlocksAddedCommand_Execute_Default);
+			if (RemoveFromProductBlocksAddedCommand == null) RemoveFromProductBlocksAddedCommand = new DelegateLogCommand(RemoveFromProductBlocksAddedCommand_Execute_Default, RemoveFromProductBlocksAddedCommand_CanExecute_Default);
+
+			
+			if (_getEntitiesForAddInFilesTechnicalRequirementsCommand == null) _getEntitiesForAddInFilesTechnicalRequirementsCommand = () => { return UnitOfWork.Repository<PriceEngineeringTaskFileTechnicalRequirements>().GetAll(); };;
+			if (AddInFilesTechnicalRequirementsCommand == null) AddInFilesTechnicalRequirementsCommand = new DelegateLogCommand(AddInFilesTechnicalRequirementsCommand_Execute_Default);
+			if (RemoveFromFilesTechnicalRequirementsCommand == null) RemoveFromFilesTechnicalRequirementsCommand = new DelegateLogCommand(RemoveFromFilesTechnicalRequirementsCommand_Execute_Default, RemoveFromFilesTechnicalRequirementsCommand_CanExecute_Default);
+
+			
+			if (_getEntitiesForAddInFilesAnswersCommand == null) _getEntitiesForAddInFilesAnswersCommand = () => { return UnitOfWork.Repository<PriceEngineeringTaskFileAnswer>().GetAll(); };;
+			if (AddInFilesAnswersCommand == null) AddInFilesAnswersCommand = new DelegateLogCommand(AddInFilesAnswersCommand_Execute_Default);
+			if (RemoveFromFilesAnswersCommand == null) RemoveFromFilesAnswersCommand = new DelegateLogCommand(RemoveFromFilesAnswersCommand_Execute_Default, RemoveFromFilesAnswersCommand_CanExecute_Default);
+
+			
+			if (_getEntitiesForAddInMessagesCommand == null) _getEntitiesForAddInMessagesCommand = () => { return UnitOfWork.Repository<PriceEngineeringTaskMessage>().GetAll(); };;
+			if (AddInMessagesCommand == null) AddInMessagesCommand = new DelegateLogCommand(AddInMessagesCommand_Execute_Default);
+			if (RemoveFromMessagesCommand == null) RemoveFromMessagesCommand = new DelegateLogCommand(RemoveFromMessagesCommand_Execute_Default, RemoveFromMessagesCommand_CanExecute_Default);
+
+			
+			if (_getEntitiesForAddInChildPriceEngineeringTasksCommand == null) _getEntitiesForAddInChildPriceEngineeringTasksCommand = () => { return UnitOfWork.Repository<PriceEngineeringTask>().GetAll(); };;
+			if (AddInChildPriceEngineeringTasksCommand == null) AddInChildPriceEngineeringTasksCommand = new DelegateLogCommand(AddInChildPriceEngineeringTasksCommand_Execute_Default);
+			if (RemoveFromChildPriceEngineeringTasksCommand == null) RemoveFromChildPriceEngineeringTasksCommand = new DelegateLogCommand(RemoveFromChildPriceEngineeringTasksCommand_Execute_Default, RemoveFromChildPriceEngineeringTasksCommand_CanExecute_Default);
+
+			
+			if (_getEntitiesForAddInStatusesCommand == null) _getEntitiesForAddInStatusesCommand = () => { return UnitOfWork.Repository<PriceEngineeringTaskStatus>().GetAll(); };;
+			if (AddInStatusesCommand == null) AddInStatusesCommand = new DelegateLogCommand(AddInStatusesCommand_Execute_Default);
+			if (RemoveFromStatusesCommand == null) RemoveFromStatusesCommand = new DelegateLogCommand(RemoveFromStatusesCommand_Execute_Default, RemoveFromStatusesCommand_CanExecute_Default);
+
+			
+			if (_getEntitiesForAddInSalesUnitsCommand == null) _getEntitiesForAddInSalesUnitsCommand = () => { return UnitOfWork.Repository<SalesUnit>().GetAll(); };;
+			if (AddInSalesUnitsCommand == null) AddInSalesUnitsCommand = new DelegateLogCommand(AddInSalesUnitsCommand_Execute_Default);
+			if (RemoveFromSalesUnitsCommand == null) RemoveFromSalesUnitsCommand = new DelegateLogCommand(RemoveFromSalesUnitsCommand_Execute_Default, RemoveFromSalesUnitsCommand_CanExecute_Default);
+
+		}
+
+		private void SelectUserManagerCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<User, UserWrapper>(_getEntitiesForSelectUserManagerCommand(), nameof(Item.UserManager), Item.UserManager?.Id);
+		}
+
+		private void ClearUserManagerCommand_Execute_Default() 
+		{
+						Item.UserManager = null;		    
+		}
+
+		private void SelectUserConstructorCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<User, UserWrapper>(_getEntitiesForSelectUserConstructorCommand(), nameof(Item.UserConstructor), Item.UserConstructor?.Id);
+		}
+
+		private void ClearUserConstructorCommand_Execute_Default() 
+		{
+						Item.UserConstructor = null;		    
+		}
+
+		private void SelectProductBlockManagerCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<ProductBlock, ProductBlockWrapper>(_getEntitiesForSelectProductBlockManagerCommand(), nameof(Item.ProductBlockManager), Item.ProductBlockManager?.Id);
+		}
+
+		private void ClearProductBlockManagerCommand_Execute_Default() 
+		{
+						Item.ProductBlockManager = null;		    
+		}
+
+		private void SelectProductBlockEngineerCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<ProductBlock, ProductBlockWrapper>(_getEntitiesForSelectProductBlockEngineerCommand(), nameof(Item.ProductBlockEngineer), Item.ProductBlockEngineer?.Id);
+		}
+
+		private void ClearProductBlockEngineerCommand_Execute_Default() 
+		{
+						Item.ProductBlockEngineer = null;		    
+		}
+
+			private void AddInProductBlocksAddedCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<PriceEngineeringTaskProductBlockAdded, PriceEngineeringTaskProductBlockAddedWrapper>(_getEntitiesForAddInProductBlocksAddedCommand(), Item.ProductBlocksAdded);
+			}
+
+			private void RemoveFromProductBlocksAddedCommand_Execute_Default()
+			{
+				Item.ProductBlocksAdded.Remove(SelectedProductBlocksAddedItem);
+			}
+
+			private bool RemoveFromProductBlocksAddedCommand_CanExecute_Default()
+			{
+				return SelectedProductBlocksAddedItem != null;
+			}
+
+			private void AddInFilesTechnicalRequirementsCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<PriceEngineeringTaskFileTechnicalRequirements, PriceEngineeringTaskFileTechnicalRequirementsWrapper>(_getEntitiesForAddInFilesTechnicalRequirementsCommand(), Item.FilesTechnicalRequirements);
+			}
+
+			private void RemoveFromFilesTechnicalRequirementsCommand_Execute_Default()
+			{
+				Item.FilesTechnicalRequirements.Remove(SelectedFilesTechnicalRequirementsItem);
+			}
+
+			private bool RemoveFromFilesTechnicalRequirementsCommand_CanExecute_Default()
+			{
+				return SelectedFilesTechnicalRequirementsItem != null;
+			}
+
+			private void AddInFilesAnswersCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<PriceEngineeringTaskFileAnswer, PriceEngineeringTaskFileAnswerWrapper>(_getEntitiesForAddInFilesAnswersCommand(), Item.FilesAnswers);
+			}
+
+			private void RemoveFromFilesAnswersCommand_Execute_Default()
+			{
+				Item.FilesAnswers.Remove(SelectedFilesAnswersItem);
+			}
+
+			private bool RemoveFromFilesAnswersCommand_CanExecute_Default()
+			{
+				return SelectedFilesAnswersItem != null;
+			}
+
+			private void AddInMessagesCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<PriceEngineeringTaskMessage, PriceEngineeringTaskMessageWrapper>(_getEntitiesForAddInMessagesCommand(), Item.Messages);
+			}
+
+			private void RemoveFromMessagesCommand_Execute_Default()
+			{
+				Item.Messages.Remove(SelectedMessagesItem);
+			}
+
+			private bool RemoveFromMessagesCommand_CanExecute_Default()
+			{
+				return SelectedMessagesItem != null;
+			}
+
+			private void AddInChildPriceEngineeringTasksCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<PriceEngineeringTask, PriceEngineeringTaskWrapper>(_getEntitiesForAddInChildPriceEngineeringTasksCommand(), Item.ChildPriceEngineeringTasks);
+			}
+
+			private void RemoveFromChildPriceEngineeringTasksCommand_Execute_Default()
+			{
+				Item.ChildPriceEngineeringTasks.Remove(SelectedChildPriceEngineeringTasksItem);
+			}
+
+			private bool RemoveFromChildPriceEngineeringTasksCommand_CanExecute_Default()
+			{
+				return SelectedChildPriceEngineeringTasksItem != null;
+			}
+
+			private void AddInStatusesCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<PriceEngineeringTaskStatus, PriceEngineeringTaskStatusWrapper>(_getEntitiesForAddInStatusesCommand(), Item.Statuses);
+			}
+
+			private void RemoveFromStatusesCommand_Execute_Default()
+			{
+				Item.Statuses.Remove(SelectedStatusesItem);
+			}
+
+			private bool RemoveFromStatusesCommand_CanExecute_Default()
+			{
+				return SelectedStatusesItem != null;
+			}
+
+			private void AddInSalesUnitsCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<SalesUnit, SalesUnitWrapper>(_getEntitiesForAddInSalesUnitsCommand(), Item.SalesUnits);
+			}
+
+			private void RemoveFromSalesUnitsCommand_Execute_Default()
+			{
+				Item.SalesUnits.Remove(SelectedSalesUnitsItem);
+			}
+
+			private bool RemoveFromSalesUnitsCommand_CanExecute_Default()
+			{
+				return SelectedSalesUnitsItem != null;
+			}
+
+
+    }
+
+    public partial class PriceEngineeringTaskFileAnswerDetailsViewModel : BaseDetailsViewModel<PriceEngineeringTaskFileAnswerWrapper, PriceEngineeringTaskFileAnswer, AfterSavePriceEngineeringTaskFileAnswerEvent>
+    {
+        public PriceEngineeringTaskFileAnswerDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+		}
+
+
+    }
+
+    public partial class PriceEngineeringTaskFileTechnicalRequirementsDetailsViewModel : BaseDetailsViewModel<PriceEngineeringTaskFileTechnicalRequirementsWrapper, PriceEngineeringTaskFileTechnicalRequirements, AfterSavePriceEngineeringTaskFileTechnicalRequirementsEvent>
+    {
+        public PriceEngineeringTaskFileTechnicalRequirementsDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+		}
+
+
+    }
+
+    public partial class PriceEngineeringTaskMessageDetailsViewModel : BaseDetailsViewModel<PriceEngineeringTaskMessageWrapper, PriceEngineeringTaskMessage, AfterSavePriceEngineeringTaskMessageEvent>
+    {
+		//private Func<Task<List<User>>> _getEntitiesForSelectAuthorCommand;
+		private Func<List<User>> _getEntitiesForSelectAuthorCommand;
+		public DelegateLogCommand SelectAuthorCommand { get; private set; }
+		public DelegateLogCommand ClearAuthorCommand { get; private set; }
+
+        public PriceEngineeringTaskMessageDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+			
+			if (_getEntitiesForSelectAuthorCommand == null) _getEntitiesForSelectAuthorCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };
+			if (SelectAuthorCommand == null) SelectAuthorCommand = new DelegateLogCommand(SelectAuthorCommand_Execute_Default);
+			if (ClearAuthorCommand == null) ClearAuthorCommand = new DelegateLogCommand(ClearAuthorCommand_Execute_Default);
+
+		}
+
+		private void SelectAuthorCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<User, UserWrapper>(_getEntitiesForSelectAuthorCommand(), nameof(Item.Author), Item.Author?.Id);
+		}
+
+		private void ClearAuthorCommand_Execute_Default() 
+		{
+						Item.Author = null;		    
+		}
+
+
+    }
+
+    public partial class PriceEngineeringTaskProductBlockAddedDetailsViewModel : BaseDetailsViewModel<PriceEngineeringTaskProductBlockAddedWrapper, PriceEngineeringTaskProductBlockAdded, AfterSavePriceEngineeringTaskProductBlockAddedEvent>
+    {
+		//private Func<Task<List<ProductBlock>>> _getEntitiesForSelectProductBlockCommand;
+		private Func<List<ProductBlock>> _getEntitiesForSelectProductBlockCommand;
+		public DelegateLogCommand SelectProductBlockCommand { get; private set; }
+		public DelegateLogCommand ClearProductBlockCommand { get; private set; }
+
+        public PriceEngineeringTaskProductBlockAddedDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+			
+			if (_getEntitiesForSelectProductBlockCommand == null) _getEntitiesForSelectProductBlockCommand = () => { return UnitOfWork.Repository<ProductBlock>().GetAll(); };
+			if (SelectProductBlockCommand == null) SelectProductBlockCommand = new DelegateLogCommand(SelectProductBlockCommand_Execute_Default);
+			if (ClearProductBlockCommand == null) ClearProductBlockCommand = new DelegateLogCommand(ClearProductBlockCommand_Execute_Default);
+
+		}
+
+		private void SelectProductBlockCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<ProductBlock, ProductBlockWrapper>(_getEntitiesForSelectProductBlockCommand(), nameof(Item.ProductBlock), Item.ProductBlock?.Id);
+		}
+
+		private void ClearProductBlockCommand_Execute_Default() 
+		{
+						Item.ProductBlock = null;		    
+		}
+
+
+    }
+
+    public partial class PriceEngineeringTaskStatusDetailsViewModel : BaseDetailsViewModel<PriceEngineeringTaskStatusWrapper, PriceEngineeringTaskStatus, AfterSavePriceEngineeringTaskStatusEvent>
+    {
+        public PriceEngineeringTaskStatusDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+		}
+
+
+    }
+
     public partial class ProductCategoryDetailsViewModel : BaseDetailsViewModel<ProductCategoryWrapper, ProductCategory, AfterSaveProductCategoryEvent>
     {
 		private Func<List<Parameter>> _getEntitiesForAddInParametersCommand;

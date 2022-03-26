@@ -221,6 +221,48 @@ namespace HVTApp.DataAccess
 		}
     }
 
+    public partial class PriceEngineeringTaskRepository : BaseRepository<PriceEngineeringTask>, IPriceEngineeringTaskRepository
+    {
+		public PriceEngineeringTaskRepository(DbContext context) : base(context) 
+		{
+		}
+    }
+
+    public partial class PriceEngineeringTaskFileAnswerRepository : BaseRepository<PriceEngineeringTaskFileAnswer>, IPriceEngineeringTaskFileAnswerRepository
+    {
+		public PriceEngineeringTaskFileAnswerRepository(DbContext context) : base(context) 
+		{
+		}
+    }
+
+    public partial class PriceEngineeringTaskFileTechnicalRequirementsRepository : BaseRepository<PriceEngineeringTaskFileTechnicalRequirements>, IPriceEngineeringTaskFileTechnicalRequirementsRepository
+    {
+		public PriceEngineeringTaskFileTechnicalRequirementsRepository(DbContext context) : base(context) 
+		{
+		}
+    }
+
+    public partial class PriceEngineeringTaskMessageRepository : BaseRepository<PriceEngineeringTaskMessage>, IPriceEngineeringTaskMessageRepository
+    {
+		public PriceEngineeringTaskMessageRepository(DbContext context) : base(context) 
+		{
+		}
+    }
+
+    public partial class PriceEngineeringTaskProductBlockAddedRepository : BaseRepository<PriceEngineeringTaskProductBlockAdded>, IPriceEngineeringTaskProductBlockAddedRepository
+    {
+		public PriceEngineeringTaskProductBlockAddedRepository(DbContext context) : base(context) 
+		{
+		}
+    }
+
+    public partial class PriceEngineeringTaskStatusRepository : BaseRepository<PriceEngineeringTaskStatus>, IPriceEngineeringTaskStatusRepository
+    {
+		public PriceEngineeringTaskStatusRepository(DbContext context) : base(context) 
+		{
+		}
+    }
+
     public partial class ProductCategoryRepository : BaseRepository<ProductCategory>, IProductCategoryRepository
     {
 		public ProductCategoryRepository(DbContext context) : base(context) 

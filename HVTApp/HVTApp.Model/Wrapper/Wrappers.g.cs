@@ -1847,6 +1847,451 @@ namespace HVTApp.Model.Wrapper
         }
 	}
 
+		public partial class PriceEngineeringTaskWrapper : WrapperBase<PriceEngineeringTask>
+	{
+	    public PriceEngineeringTaskWrapper(PriceEngineeringTask model) : base(model) { }
+        #region SimpleProperties
+        /// <summary>
+        /// Количество блоков продукта
+        /// </summary>
+        public System.Int32 Amount
+        {
+          get { return GetValue<System.Int32>(); }
+          set { SetValue(value); }
+        }
+        public System.Int32 AmountOriginalValue => GetOriginalValue<System.Int32>(nameof(Amount));
+        public bool AmountIsChanged => GetIsChanged(nameof(Amount));
+        /// <summary>
+        /// Id материнской задачи
+        /// </summary>
+        public System.Guid ParentPriceEngineeringTaskId
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid ParentPriceEngineeringTaskIdOriginalValue => GetOriginalValue<System.Guid>(nameof(ParentPriceEngineeringTaskId));
+        public bool ParentPriceEngineeringTaskIdIsChanged => GetIsChanged(nameof(ParentPriceEngineeringTaskId));
+        /// <summary>
+        /// Id
+        /// </summary>
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+        #endregion
+        #region ComplexProperties
+        /// <summary>
+        /// Менеджер
+        /// </summary>
+	    public UserWrapper UserManager 
+        {
+            get { return GetWrapper<UserWrapper>(); }
+            set { SetComplexValue<User, UserWrapper>(UserManager, value); }
+        }
+        /// <summary>
+        /// Конструктор
+        /// </summary>
+	    public UserWrapper UserConstructor 
+        {
+            get { return GetWrapper<UserWrapper>(); }
+            set { SetComplexValue<User, UserWrapper>(UserConstructor, value); }
+        }
+        /// <summary>
+        /// Блок продукта от менеджера
+        /// </summary>
+	    public ProductBlockWrapper ProductBlockManager 
+        {
+            get { return GetWrapper<ProductBlockWrapper>(); }
+            set { SetComplexValue<ProductBlock, ProductBlockWrapper>(ProductBlockManager, value); }
+        }
+        /// <summary>
+        /// Блок продукта от инженера-конструктора
+        /// </summary>
+	    public ProductBlockWrapper ProductBlockEngineer 
+        {
+            get { return GetWrapper<ProductBlockWrapper>(); }
+            set { SetComplexValue<ProductBlock, ProductBlockWrapper>(ProductBlockEngineer, value); }
+        }
+        #endregion
+        #region CollectionProperties
+        /// <summary>
+        /// Добавленные блоки продукта от инженера-конструктора
+        /// </summary>
+        public IValidatableChangeTrackingCollection<PriceEngineeringTaskProductBlockAddedWrapper> ProductBlocksAdded { get; private set; }
+        /// <summary>
+        /// Файлы технических требований
+        /// </summary>
+        public IValidatableChangeTrackingCollection<PriceEngineeringTaskFileTechnicalRequirementsWrapper> FilesTechnicalRequirements { get; private set; }
+        /// <summary>
+        /// Файлы ответов ОГК
+        /// </summary>
+        public IValidatableChangeTrackingCollection<PriceEngineeringTaskFileAnswerWrapper> FilesAnswers { get; private set; }
+        /// <summary>
+        /// Переписка
+        /// </summary>
+        public IValidatableChangeTrackingCollection<PriceEngineeringTaskMessageWrapper> Messages { get; private set; }
+        /// <summary>
+        /// Дочерние задачи
+        /// </summary>
+        public IValidatableChangeTrackingCollection<PriceEngineeringTaskWrapper> ChildPriceEngineeringTasks { get; private set; }
+        /// <summary>
+        /// Статусы проработки
+        /// </summary>
+        public IValidatableChangeTrackingCollection<PriceEngineeringTaskStatusWrapper> Statuses { get; private set; }
+        /// <summary>
+        /// SalesUnits
+        /// </summary>
+        public IValidatableChangeTrackingCollection<SalesUnitWrapper> SalesUnits { get; private set; }
+        #endregion
+        public override void InitializeComplexProperties()
+        {
+            InitializeComplexProperty<UserWrapper>(nameof(UserManager), Model.UserManager == null ? null : new UserWrapper(Model.UserManager));
+            InitializeComplexProperty<UserWrapper>(nameof(UserConstructor), Model.UserConstructor == null ? null : new UserWrapper(Model.UserConstructor));
+            InitializeComplexProperty<ProductBlockWrapper>(nameof(ProductBlockManager), Model.ProductBlockManager == null ? null : new ProductBlockWrapper(Model.ProductBlockManager));
+            InitializeComplexProperty<ProductBlockWrapper>(nameof(ProductBlockEngineer), Model.ProductBlockEngineer == null ? null : new ProductBlockWrapper(Model.ProductBlockEngineer));
+        }
+        protected override void InitializeCollectionProperties()
+        {
+          if (Model.ProductBlocksAdded == null) throw new ArgumentException("ProductBlocksAdded cannot be null");
+          ProductBlocksAdded = new ValidatableChangeTrackingCollection<PriceEngineeringTaskProductBlockAddedWrapper>(Model.ProductBlocksAdded.Select(e => new PriceEngineeringTaskProductBlockAddedWrapper(e)));
+          RegisterCollection(ProductBlocksAdded, Model.ProductBlocksAdded);
+          if (Model.FilesTechnicalRequirements == null) throw new ArgumentException("FilesTechnicalRequirements cannot be null");
+          FilesTechnicalRequirements = new ValidatableChangeTrackingCollection<PriceEngineeringTaskFileTechnicalRequirementsWrapper>(Model.FilesTechnicalRequirements.Select(e => new PriceEngineeringTaskFileTechnicalRequirementsWrapper(e)));
+          RegisterCollection(FilesTechnicalRequirements, Model.FilesTechnicalRequirements);
+          if (Model.FilesAnswers == null) throw new ArgumentException("FilesAnswers cannot be null");
+          FilesAnswers = new ValidatableChangeTrackingCollection<PriceEngineeringTaskFileAnswerWrapper>(Model.FilesAnswers.Select(e => new PriceEngineeringTaskFileAnswerWrapper(e)));
+          RegisterCollection(FilesAnswers, Model.FilesAnswers);
+          if (Model.Messages == null) throw new ArgumentException("Messages cannot be null");
+          Messages = new ValidatableChangeTrackingCollection<PriceEngineeringTaskMessageWrapper>(Model.Messages.Select(e => new PriceEngineeringTaskMessageWrapper(e)));
+          RegisterCollection(Messages, Model.Messages);
+          if (Model.ChildPriceEngineeringTasks == null) throw new ArgumentException("ChildPriceEngineeringTasks cannot be null");
+          ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<PriceEngineeringTaskWrapper>(Model.ChildPriceEngineeringTasks.Select(e => new PriceEngineeringTaskWrapper(e)));
+          RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
+          if (Model.Statuses == null) throw new ArgumentException("Statuses cannot be null");
+          Statuses = new ValidatableChangeTrackingCollection<PriceEngineeringTaskStatusWrapper>(Model.Statuses.Select(e => new PriceEngineeringTaskStatusWrapper(e)));
+          RegisterCollection(Statuses, Model.Statuses);
+          if (Model.SalesUnits == null) throw new ArgumentException("SalesUnits cannot be null");
+          SalesUnits = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(Model.SalesUnits.Select(e => new SalesUnitWrapper(e)));
+          RegisterCollection(SalesUnits, Model.SalesUnits);
+        }
+	}
+
+		public partial class PriceEngineeringTaskFileAnswerWrapper : WrapperBase<PriceEngineeringTaskFileAnswer>
+	{
+	    public PriceEngineeringTaskFileAnswerWrapper(PriceEngineeringTaskFileAnswer model) : base(model) { }
+        #region SimpleProperties
+        /// <summary>
+        /// Id технико-стоимостной проработки
+        /// </summary>
+        public System.Guid PriceEngineeringTaskId
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid PriceEngineeringTaskIdOriginalValue => GetOriginalValue<System.Guid>(nameof(PriceEngineeringTaskId));
+        public bool PriceEngineeringTaskIdIsChanged => GetIsChanged(nameof(PriceEngineeringTaskId));
+        /// <summary>
+        /// Актуален
+        /// </summary>
+        public System.Boolean IsActual
+        {
+          get { return GetValue<System.Boolean>(); }
+          set { SetValue(value); }
+        }
+        public System.Boolean IsActualOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsActual));
+        public bool IsActualIsChanged => GetIsChanged(nameof(IsActual));
+        /// <summary>
+        /// Момент создания
+        /// </summary>
+        public System.DateTime CreationMoment
+        {
+          get { return GetValue<System.DateTime>(); }
+          set { SetValue(value); }
+        }
+        public System.DateTime CreationMomentOriginalValue => GetOriginalValue<System.DateTime>(nameof(CreationMoment));
+        public bool CreationMomentIsChanged => GetIsChanged(nameof(CreationMoment));
+        /// <summary>
+        /// Имя файла
+        /// </summary>
+        public System.String Name
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
+        public bool NameIsChanged => GetIsChanged(nameof(Name));
+        /// <summary>
+        /// Комментарий
+        /// </summary>
+        public System.String Comment
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
+        public bool CommentIsChanged => GetIsChanged(nameof(Comment));
+        /// <summary>
+        /// Id
+        /// </summary>
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+        #endregion
+	}
+
+		public partial class PriceEngineeringTaskFileTechnicalRequirementsWrapper : WrapperBase<PriceEngineeringTaskFileTechnicalRequirements>
+	{
+	    public PriceEngineeringTaskFileTechnicalRequirementsWrapper(PriceEngineeringTaskFileTechnicalRequirements model) : base(model) { }
+        #region SimpleProperties
+        /// <summary>
+        /// Id технико-стоимостной проработки
+        /// </summary>
+        public System.Guid PriceEngineeringTaskId
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid PriceEngineeringTaskIdOriginalValue => GetOriginalValue<System.Guid>(nameof(PriceEngineeringTaskId));
+        public bool PriceEngineeringTaskIdIsChanged => GetIsChanged(nameof(PriceEngineeringTaskId));
+        /// <summary>
+        /// Актуален
+        /// </summary>
+        public System.Boolean IsActual
+        {
+          get { return GetValue<System.Boolean>(); }
+          set { SetValue(value); }
+        }
+        public System.Boolean IsActualOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsActual));
+        public bool IsActualIsChanged => GetIsChanged(nameof(IsActual));
+        /// <summary>
+        /// Распространяется на дочерние задачи
+        /// </summary>
+        public System.Boolean CoversChildTasks
+        {
+          get { return GetValue<System.Boolean>(); }
+          set { SetValue(value); }
+        }
+        public System.Boolean CoversChildTasksOriginalValue => GetOriginalValue<System.Boolean>(nameof(CoversChildTasks));
+        public bool CoversChildTasksIsChanged => GetIsChanged(nameof(CoversChildTasks));
+        /// <summary>
+        /// Момент создания
+        /// </summary>
+        public System.DateTime CreationMoment
+        {
+          get { return GetValue<System.DateTime>(); }
+          set { SetValue(value); }
+        }
+        public System.DateTime CreationMomentOriginalValue => GetOriginalValue<System.DateTime>(nameof(CreationMoment));
+        public bool CreationMomentIsChanged => GetIsChanged(nameof(CreationMoment));
+        /// <summary>
+        /// Имя файла
+        /// </summary>
+        public System.String Name
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
+        public bool NameIsChanged => GetIsChanged(nameof(Name));
+        /// <summary>
+        /// Комментарий
+        /// </summary>
+        public System.String Comment
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
+        public bool CommentIsChanged => GetIsChanged(nameof(Comment));
+        /// <summary>
+        /// Id
+        /// </summary>
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+        #endregion
+	}
+
+		public partial class PriceEngineeringTaskMessageWrapper : WrapperBase<PriceEngineeringTaskMessage>
+	{
+	    public PriceEngineeringTaskMessageWrapper(PriceEngineeringTaskMessage model) : base(model) { }
+        #region SimpleProperties
+        /// <summary>
+        /// Id технико-стоимостной проработки
+        /// </summary>
+        public System.Guid PriceEngineeringTaskId
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid PriceEngineeringTaskIdOriginalValue => GetOriginalValue<System.Guid>(nameof(PriceEngineeringTaskId));
+        public bool PriceEngineeringTaskIdIsChanged => GetIsChanged(nameof(PriceEngineeringTaskId));
+        /// <summary>
+        /// Момент
+        /// </summary>
+        public System.DateTime Moment
+        {
+          get { return GetValue<System.DateTime>(); }
+          set { SetValue(value); }
+        }
+        public System.DateTime MomentOriginalValue => GetOriginalValue<System.DateTime>(nameof(Moment));
+        public bool MomentIsChanged => GetIsChanged(nameof(Moment));
+        /// <summary>
+        /// Сообщение
+        /// </summary>
+        public System.String Message
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String MessageOriginalValue => GetOriginalValue<System.String>(nameof(Message));
+        public bool MessageIsChanged => GetIsChanged(nameof(Message));
+        /// <summary>
+        /// Id
+        /// </summary>
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+        #endregion
+        #region ComplexProperties
+        /// <summary>
+        /// Автор
+        /// </summary>
+	    public UserWrapper Author 
+        {
+            get { return GetWrapper<UserWrapper>(); }
+            set { SetComplexValue<User, UserWrapper>(Author, value); }
+        }
+        #endregion
+        public override void InitializeComplexProperties()
+        {
+            InitializeComplexProperty<UserWrapper>(nameof(Author), Model.Author == null ? null : new UserWrapper(Model.Author));
+        }
+	}
+
+		public partial class PriceEngineeringTaskProductBlockAddedWrapper : WrapperBase<PriceEngineeringTaskProductBlockAdded>
+	{
+	    public PriceEngineeringTaskProductBlockAddedWrapper(PriceEngineeringTaskProductBlockAdded model) : base(model) { }
+        #region SimpleProperties
+        /// <summary>
+        /// Id технико-стоимостной проработки
+        /// </summary>
+        public System.Guid PriceEngineeringTaskId
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid PriceEngineeringTaskIdOriginalValue => GetOriginalValue<System.Guid>(nameof(PriceEngineeringTaskId));
+        public bool PriceEngineeringTaskIdIsChanged => GetIsChanged(nameof(PriceEngineeringTaskId));
+        /// <summary>
+        /// Количество
+        /// </summary>
+        public System.Int32 Amount
+        {
+          get { return GetValue<System.Int32>(); }
+          set { SetValue(value); }
+        }
+        public System.Int32 AmountOriginalValue => GetOriginalValue<System.Int32>(nameof(Amount));
+        public bool AmountIsChanged => GetIsChanged(nameof(Amount));
+        /// <summary>
+        /// Id
+        /// </summary>
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+        #endregion
+        #region ComplexProperties
+        /// <summary>
+        /// Блок продукта от менеджера
+        /// </summary>
+	    public ProductBlockWrapper ProductBlock 
+        {
+            get { return GetWrapper<ProductBlockWrapper>(); }
+            set { SetComplexValue<ProductBlock, ProductBlockWrapper>(ProductBlock, value); }
+        }
+        #endregion
+        public override void InitializeComplexProperties()
+        {
+            InitializeComplexProperty<ProductBlockWrapper>(nameof(ProductBlock), Model.ProductBlock == null ? null : new ProductBlockWrapper(Model.ProductBlock));
+        }
+	}
+
+		public partial class PriceEngineeringTaskStatusWrapper : WrapperBase<PriceEngineeringTaskStatus>
+	{
+	    public PriceEngineeringTaskStatusWrapper(PriceEngineeringTaskStatus model) : base(model) { }
+        #region SimpleProperties
+        /// <summary>
+        /// Id технико-стоимостной проработки
+        /// </summary>
+        public System.Guid PriceEngineeringTaskId
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid PriceEngineeringTaskIdOriginalValue => GetOriginalValue<System.Guid>(nameof(PriceEngineeringTaskId));
+        public bool PriceEngineeringTaskIdIsChanged => GetIsChanged(nameof(PriceEngineeringTaskId));
+        /// <summary>
+        /// Момент
+        /// </summary>
+        public System.DateTime Moment
+        {
+          get { return GetValue<System.DateTime>(); }
+          set { SetValue(value); }
+        }
+        public System.DateTime MomentOriginalValue => GetOriginalValue<System.DateTime>(nameof(Moment));
+        public bool MomentIsChanged => GetIsChanged(nameof(Moment));
+        /// <summary>
+        /// Комментарий
+        /// </summary>
+        public System.String Comment
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
+        public bool CommentIsChanged => GetIsChanged(nameof(Comment));
+        /// <summary>
+        /// StatusEnum
+        /// </summary>
+        public HVTApp.Model.POCOs.PriceEngineeringTaskStatusEnum StatusEnum
+        {
+          get { return GetValue<HVTApp.Model.POCOs.PriceEngineeringTaskStatusEnum>(); }
+          set { SetValue(value); }
+        }
+        public HVTApp.Model.POCOs.PriceEngineeringTaskStatusEnum StatusEnumOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.PriceEngineeringTaskStatusEnum>(nameof(StatusEnum));
+        public bool StatusEnumIsChanged => GetIsChanged(nameof(StatusEnum));
+        /// <summary>
+        /// Id
+        /// </summary>
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+        #endregion
+	}
+
 		public partial class ProductCategoryWrapper : WrapperBase<ProductCategory>
 	{
 	    public ProductCategoryWrapper(ProductCategory model) : base(model) { }

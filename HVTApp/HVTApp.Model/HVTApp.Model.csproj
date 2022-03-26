@@ -118,6 +118,12 @@
     <Compile Include="POCOs\PriceCalculation\PriceCalculationHistoryItem.cs" />
     <Compile Include="POCOs\PriceCalculation\PriceCalculationItem.cs" />
     <Compile Include="POCOs\PriceEngineering\DesignDepartmentParameters.cs" />
+    <Compile Include="POCOs\PriceEngineering\PriceEngineeringTask.cs" />
+    <Compile Include="POCOs\PriceEngineering\PriceEngineeringTaskFileAnswer.cs" />
+    <Compile Include="POCOs\PriceEngineering\PriceEngineeringTaskFileTechnicalRequirements.cs" />
+    <Compile Include="POCOs\PriceEngineering\PriceEngineeringTaskMessage.cs" />
+    <Compile Include="POCOs\PriceEngineering\PriceEngineeringTaskProductBlockAdded.cs" />
+    <Compile Include="POCOs\PriceEngineering\PriceEngineeringTaskStatus.cs" />
     <Compile Include="POCOs\ProductCategory.cs" />
     <Compile Include="POCOs\ProductCategoryPriceAndCost.cs" />
     <Compile Include="POCOs\ProductIncluded.cs" />
