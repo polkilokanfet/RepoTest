@@ -264,17 +264,22 @@
     <Compile Include="Modules\Sales\Market\Commands\SpecificationNewCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\StructureCostsCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\UnionProjectsCommand.cs" />
-    <Compile Include="PriceEngineering\PriceEngineeringTaskView.xaml.cs">
+    <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskWrapperToChildTasksVisibilityConverter.cs" />
+    <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskWrapperToProductDesignationConverter.cs" />
+    <Compile Include="PriceEngineering\View\PriceEngineeringProductTaskControl.xaml.cs">
+      <DependentUpon>PriceEngineeringProductTaskControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\PriceEngineeringTaskView.xaml.cs">
       <DependentUpon>PriceEngineeringTaskView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PriceEngineering\PriceEngineeringTasksView.xaml.cs">
+    <Compile Include="PriceEngineering\View\PriceEngineeringTasksView.xaml.cs">
       <DependentUpon>PriceEngineeringTasksView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PriceEngineering\PriceEngineeringTaskControl.xaml.cs">
+    <Compile Include="PriceEngineering\View\PriceEngineeringTaskControl.xaml.cs">
       <DependentUpon>PriceEngineeringTaskControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="PriceEngineering\PriceEngineeringTaskViewModel.cs" />
-    <Compile Include="PriceEngineering\SalesUnitForPriceEngineeringTaskComparer.cs" />
+    <Compile Include="PriceEngineering\Comparers\SalesUnitForPriceEngineeringTaskComparer.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\Converters\HistoryElementToColorConverter.cs" />
     <Compile Include="Modules\Sales\Market\Converters\ProductionGroupToColorConverter.cs" />
     <Compile Include="Modules\Sales\Market\Converters\ProjectItemToColorConverter.cs" />
@@ -1547,15 +1552,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="PriceEngineering\PriceEngineeringTaskView.xaml">
+    <Page Include="PriceEngineering\View\PriceEngineeringProductTaskControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="PriceEngineering\PriceEngineeringTasksView.xaml">
+    <Page Include="PriceEngineering\View\PriceEngineeringTaskView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="PriceEngineering\PriceEngineeringTaskControl.xaml">
+    <Page Include="PriceEngineering\View\PriceEngineeringTasksView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceEngineering\View\PriceEngineeringTaskControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

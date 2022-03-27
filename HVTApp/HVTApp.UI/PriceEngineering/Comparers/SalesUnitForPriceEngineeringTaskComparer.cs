@@ -4,7 +4,7 @@ using System.Linq;
 using HVTApp.Infrastructure.Comparers;
 using HVTApp.Model.POCOs;
 
-namespace HVTApp.UI.PriceEngineering
+namespace HVTApp.UI.PriceEngineering.Comparers
 {
     public class SalesUnitForPriceEngineeringTaskComparer : IEqualityComparer<SalesUnit>
     {

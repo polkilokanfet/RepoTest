@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.PriceEngineering.Comparers;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 

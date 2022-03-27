@@ -32,6 +32,7 @@ using HVTApp.UI.PaymentConditionsSet;
 using HVTApp.UI.PriceCalculations.View;
 using HVTApp.UI.PriceCalculations.ViewModel;
 using HVTApp.UI.PriceEngineering;
+using HVTApp.UI.PriceEngineering.View;
 using HVTApp.UI.TechnicalRequrementsTasksModule;
 using HVTApp.UI.ViewModels;
 using HVTApp.UI.Views;

@@ -7,6 +7,7 @@ using HVTApp.Model.POCOs;
 using HVTApp.UI.Commands;
 using HVTApp.UI.Modules.Sales.Market.Items;
 using HVTApp.UI.PriceEngineering;
+using HVTApp.UI.PriceEngineering.View;
 using Prism.Regions;
 
 namespace HVTApp.UI.Modules.Sales.Market.Commands

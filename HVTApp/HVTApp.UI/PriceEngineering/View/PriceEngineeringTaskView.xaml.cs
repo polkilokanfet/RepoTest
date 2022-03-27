@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Linq;
 using HVTApp.Infrastructure;
-using HVTApp.Model.POCOs;
-using HVTApp.UI.Modules.Directum;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 using Prism.Regions;
 
-namespace HVTApp.UI.PriceEngineering
+namespace HVTApp.UI.PriceEngineering.View
 {
     //[RibbonTab(typeof(TabDirectumTask))]
     public partial class PriceEngineeringTaskView : ViewBaseConfirmNavigationRequest, IDisposable

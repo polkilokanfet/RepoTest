@@ -1,0 +1,87 @@
+﻿<UserControl x:Class="HVTApp.UI.PriceEngineering.View.PriceEngineeringTaskControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View">
+    
+    <!--Задача-->
+    <Expander Header="{Binding}" IsExpanded="True" Margin="5" BorderBrush="Black">
+        <Expander.HeaderTemplate>
+            <DataTemplate>
+                <Border Background="AliceBlue" BorderThickness="1" BorderBrush="Black" CornerRadius="5"
+                        HorizontalAlignment="{Binding Path=HorizontalAlignment, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentPresenter}}, Mode=OneWayToSource}">
+                    <Grid Margin="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Row="0" Grid.Column="0" Content="Блок: "/>
+                        <Grid Grid.Row="0" Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Button Grid.Column="0" Content="..." Padding="5 0"></Button>
+
+                            <TextBox Grid.Column="1" FontWeight="DemiBold" Text="{Binding PriceEngineeringTaskWrapper.ProductBlockManager, Mode=OneWay}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0"/>
+                            <TextBox Grid.Column="1" FontWeight="DemiBold" Text="{Binding PriceEngineeringTaskWrapper.ProductBlockEngineer, Mode=OneWay}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0"/>
+                        </Grid>
+
+                        <Label Grid.Row="1" Grid.Column="0" Content="Исполнитель: "/>
+                        <TextBox Grid.Row="1" Grid.Column="1" FontWeight="DemiBold" Text="{Binding PriceEngineeringTaskWrapper.UserConstructor, Mode=OneWay}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0"/>
+
+                    </Grid>
+                </Border>
+            </DataTemplate>
+        </Expander.HeaderTemplate>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!--Вложенные блоки-->
+            <Expander Grid.Row="2"
+                        IsExpanded="True"
+                        Header="Вложенные блоки"
+                        Margin="5"
+                        BorderBrush="Black"
+                        Visibility="{Binding PriceEngineeringTaskWrapper, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource PriceEngineeringTaskWrapperToChildTasksVisibilityConverter}}">
+
+                <ListBox ItemsSource="{Binding ChildPriceEngineeringTaskViewModels}">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="White" Margin="20 0 10 0" Padding="5 2">
+                                <StackPanel>
+                                    <view:PriceEngineeringTaskControl DataContext="{Binding}" />
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+            </Expander>
+
+        </Grid>
+
+    </Expander>
+
+</UserControl>

@@ -4,7 +4,8 @@
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:converters="clr-namespace:HVTApp.Infrastructure.Converters;assembly=HVTApp.Infrastructure"
              xmlns:convertersUi="clr-namespace:HVTApp.UI.Converter;assembly=HVTApp.UI"
-             xmlns:converters1="clr-namespace:HVTApp.UI.TechnicalRequrementsTasksModule.Converters;assembly=HVTApp.UI">
+             xmlns:converters1="clr-namespace:HVTApp.UI.TechnicalRequrementsTasksModule.Converters;assembly=HVTApp.UI"
+             xmlns:converters2="clr-namespace:HVTApp.UI.PriceEngineering.Converters;assembly=HVTApp.UI">
     <Application.Resources>
         <ResourceDictionary>
             <system:Double x:Key="DefaultFontSize">18</system:Double>
@@ -26,6 +27,8 @@
             <convertersUi:PartToPercentConverterNullable x:Key="PartToPercentConverterNullable" />
             <convertersUi:PartToPercentConverter x:Key="PartToPercentConverter" />
             <converters1:HistoryElementToColorConverter x:Key="HistoryElementToColorConverter" />
+            <converters2:PriceEngineeringTaskWrapperToProductDesignationConverter x:Key="PriceEngineeringTaskWrapperToProductDesignationConverter"/>
+            <converters2:PriceEngineeringTaskWrapperToChildTasksVisibilityConverter x:Key="PriceEngineeringTaskWrapperToChildTasksVisibilityConverter"/>
 
             <convertersUi:ProductGroupToProductUnitsConverter x:Key="ProductGroupToProductUnitsConverter" />
             

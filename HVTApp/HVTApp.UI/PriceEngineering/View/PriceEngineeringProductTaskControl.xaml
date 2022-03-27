@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="HVTApp.UI.PriceEngineering.View.PriceEngineeringProductTaskControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View">
+
+    <Expander IsExpanded="True" BorderBrush="Black">
+
+        <Expander.HeaderTemplate>
+            <DataTemplate>
+                <Border Background="LightSkyBlue" BorderThickness="1" BorderBrush="Black" CornerRadius="5"
+                        HorizontalAlignment="{Binding Path=HorizontalAlignment, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentPresenter}}, Mode=OneWayToSource}">
+                    <Grid Margin="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Row="0" Grid.Column="0" Content="Объект: "/>
+                        <!--<TextBlock Grid.Row="0" Grid.Column="1" FontWeight="DemiBold" Text="{Binding  Mode=OneWay}"/>-->
+
+                        <Label Grid.Row="1" Grid.Column="0" Content="Продукт: "/>
+                        <TextBox Grid.Row="1" Grid.Column="1" FontWeight="DemiBold" Text="{Binding PriceEngineeringTaskWrapper, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource PriceEngineeringTaskWrapperToProductDesignationConverter}}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0"/>
+                        <!--<TextBox Grid.Row="1" Grid.Column="1" FontWeight="DemiBold" Text="{Binding PriceEngineeringTaskWrapper.ProductBlockEngineer}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0"/>-->
+
+
+                        <Label Grid.Row="2" Grid.Column="0" Content="Количество: "/>
+                        <!--<TextBlock Grid.Row="2" Grid.Column="1" FontWeight="DemiBold" Text="{Binding  Mode=OneWay}"/>-->
+
+                    </Grid>
+                </Border>
+            </DataTemplate>
+        </Expander.HeaderTemplate>
+
+        <view:PriceEngineeringTaskControl DataContext="{Binding}"/>
+    </Expander>
+
+</UserControl>
