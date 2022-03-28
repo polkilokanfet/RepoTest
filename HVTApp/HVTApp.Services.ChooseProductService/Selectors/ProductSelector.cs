@@ -139,7 +139,9 @@ namespace HVTApp.Services.GetProductService
             OnPropertyChanged(nameof(HasDependentProducts));
         }
 
-        //реакция на изменение дочернего продукта
+        /// <summary>
+        /// Реакция на изменение дочернего продукта
+        /// </summary>
         private void OnChildProductChanged()
         {
             OnPropertyChanged(nameof(SelectedProduct));

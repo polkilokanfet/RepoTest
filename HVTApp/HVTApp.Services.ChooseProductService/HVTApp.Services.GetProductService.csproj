@@ -105,7 +105,16 @@
     <Compile Include="Selectors\ProductComparer.cs" />
     <Compile Include="Selectors\ProductSelector.cs" />
     <Compile Include="Comparers\ParametersEnumerableComparer.cs" />
-    <Compile Include="Views\SelectProductWindow.xaml.cs">
+    <Compile Include="Views\SelectParameterControl.xaml.cs">
+      <DependentUpon>SelectParameterControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SelectProductBlockControl.xaml.cs">
+      <DependentUpon>SelectProductBlockControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\SelectProductBlockWindow.xaml.cs">
+      <DependentUpon>SelectProductBlockWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\SelectProductWindow.xaml.cs">
       <DependentUpon>SelectProductWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -121,8 +130,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Views\SelectProductView.xaml.cs">
-      <DependentUpon>SelectProductView.xaml</DependentUpon>
+    <Compile Include="Views\SelectProductControl.xaml.cs">
+      <DependentUpon>SelectProductControl.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -171,11 +180,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\SelectProductView.xaml">
+    <Page Include="Views\SelectParameterControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SelectProductBlockControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SelectProductControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SelectProductWindow.xaml">
+    <Page Include="Views\Windows\SelectProductBlockWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Windows\SelectProductWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

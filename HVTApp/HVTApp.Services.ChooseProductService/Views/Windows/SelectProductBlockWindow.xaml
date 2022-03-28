@@ -1,0 +1,22 @@
+﻿<Window x:Class="HVTApp.Services.GetProductService.SelectProductBlockWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:HVTApp.Services.GetProductService"
+        Title="Параметры оборудования" 
+        WindowState="Maximized"
+        WindowStartupLocation="CenterOwner">
+
+    <DockPanel LastChildFill="True">
+        
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="Новое" Click="ButtonNew_OnClick" Margin="5,10" Padding="5" Visibility="Collapsed"/>
+            <Button Content="Комплекты и детали" Click="ButtonComplects_OnClick"  Margin="5,10" Padding="5"/>
+            <Button Content="Ok" Click="ButtonOk_OnClick" Margin="5,10" Padding="5"/>
+        </StackPanel>
+        
+    <ScrollViewer>
+            <local:SelectProductBlockControl DataContext="{Binding}"/>
+    </ScrollViewer>
+        
+    </DockPanel>
+</Window>

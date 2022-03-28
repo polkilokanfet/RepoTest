@@ -5,7 +5,9 @@ using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper;
+using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
 using Prism.Mvvm;
 
@@ -20,10 +22,26 @@ namespace HVTApp.UI.PriceEngineering
 
         public ObservableCollection<PriceEngineeringTaskViewModel> ChildPriceEngineeringTaskViewModels { get; } = new ObservableCollection<PriceEngineeringTaskViewModel>();
 
+        public DelegateLogCommand SelectProductBlockCommand { get; }
+
         public PriceEngineeringTaskViewModel(IUnityContainer container, IUnitOfWork unitOfWork)
         {
             _container = container;
             _unitOfWork = unitOfWork;
+
+            SelectProductBlockCommand = new DelegateLogCommand(
+                () =>
+                {
+                    var rr = unitOfWork.Repository<DesignDepartmentParameters>().GetAll().First();
+
+                    var getProductService = container.Resolve<IGetProductService>();
+                    var originProductBlock = this.PriceEngineeringTaskWrapper.ProductBlockEngineer.Model;
+                    var selectedProductBlock = getProductService.GetProductBlock(originProductBlock, rr.Parameters);
+                    if (originProductBlock.Id != selectedProductBlock.Id)
+                    {
+                        this.PriceEngineeringTaskWrapper.ProductBlockEngineer = new ProductBlockWrapper(selectedProductBlock);
+                    }
+                });
         }
 
         /// <summary>

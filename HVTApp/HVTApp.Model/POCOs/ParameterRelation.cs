@@ -21,7 +21,7 @@ namespace HVTApp.Model.POCOs
         {
             var sb = new StringBuilder();
             sb.Append("Обязятельные параметры: ");
-            RequiredParameters.ForEach(x => sb.Append($"{x.ToString().ToLower()}; "));
+            RequiredParameters.ForEach(parameter => sb.Append($"{parameter.ToString().ToLower()}; "));
             return sb.ToString();
         }
     }

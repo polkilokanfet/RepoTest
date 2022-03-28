@@ -2,9 +2,9 @@
 
 namespace HVTApp.Services.GetProductService
 {
-    public partial class SelectProductView : UserControl
+    public partial class SelectParameterControl : UserControl
     {
-        public SelectProductView()
+        public SelectParameterControl()
         {
             InitializeComponent();
         }

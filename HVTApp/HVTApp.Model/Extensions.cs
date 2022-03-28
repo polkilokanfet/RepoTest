@@ -137,5 +137,26 @@ namespace HVTApp.Model
         {
             return product.ProductBlock.Parameters.FirstOrDefault(parameter => parameter.ParameterGroup.Id == GlobalAppProperties.Actual.VoltageGroup.Id);
         }
+
+        /// <summary>
+        /// Оставить параметр единственным в группе
+        /// </summary>
+        /// <returns></returns>
+        public static IEnumerable<Parameter> LeaveParameterAsTheOnlyOneInTheGroup(this IEnumerable<Parameter> parameters, Parameter parameter)
+        {
+            var result = parameters.ToList();
+
+            List<Parameter> parametersToRemove = new List<Parameter>();
+            foreach (var parameter1 in result)
+            {
+                if (parameter1.Id == parameter.Id)
+                    continue;
+
+                if (parameter1.ParameterGroup.Id == parameter.ParameterGroup.Id)
+                    parametersToRemove.Add(parameter1);
+            }
+
+            return result.Except(parametersToRemove);
+        }
     }
 }
