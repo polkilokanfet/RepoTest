@@ -44,10 +44,12 @@ namespace HVTApp.DataAccess
             context.PriceCalculationItemDbSet.AddRange(testData.GetAll<PriceCalculationItem>());
             context.DesignDepartmentParametersDbSet.AddRange(testData.GetAll<DesignDepartmentParameters>());
             context.PriceEngineeringTaskDbSet.AddRange(testData.GetAll<PriceEngineeringTask>());
+            context.PriceEngineeringTasksDbSet.AddRange(testData.GetAll<PriceEngineeringTasks>());
             context.PriceEngineeringTaskFileAnswerDbSet.AddRange(testData.GetAll<PriceEngineeringTaskFileAnswer>());
             context.PriceEngineeringTaskFileTechnicalRequirementsDbSet.AddRange(testData.GetAll<PriceEngineeringTaskFileTechnicalRequirements>());
             context.PriceEngineeringTaskMessageDbSet.AddRange(testData.GetAll<PriceEngineeringTaskMessage>());
             context.PriceEngineeringTaskProductBlockAddedDbSet.AddRange(testData.GetAll<PriceEngineeringTaskProductBlockAdded>());
+            context.PriceEngineeringTasksFileTechnicalRequirementsDbSet.AddRange(testData.GetAll<PriceEngineeringTasksFileTechnicalRequirements>());
             context.PriceEngineeringTaskStatusDbSet.AddRange(testData.GetAll<PriceEngineeringTaskStatus>());
             context.ProductCategoryDbSet.AddRange(testData.GetAll<ProductCategory>());
             context.ProductCategoryPriceAndCostDbSet.AddRange(testData.GetAll<ProductCategoryPriceAndCost>());

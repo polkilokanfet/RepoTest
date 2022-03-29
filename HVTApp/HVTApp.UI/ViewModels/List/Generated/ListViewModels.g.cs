@@ -187,6 +187,16 @@ namespace HVTApp.UI.ViewModels
         public PriceEngineeringTaskProductBlockAddedLookupListViewModel(IUnityContainer container) : base(container) { }
     }
 
+	public partial class PriceEngineeringTasksLookupListViewModel : BaseListViewModel<PriceEngineeringTasks, PriceEngineeringTasksLookup, AfterSavePriceEngineeringTasksEvent, AfterSelectPriceEngineeringTasksEvent, AfterRemovePriceEngineeringTasksEvent>
+    {
+        public PriceEngineeringTasksLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+	public partial class PriceEngineeringTasksFileTechnicalRequirementsLookupListViewModel : BaseListViewModel<PriceEngineeringTasksFileTechnicalRequirements, PriceEngineeringTasksFileTechnicalRequirementsLookup, AfterSavePriceEngineeringTasksFileTechnicalRequirementsEvent, AfterSelectPriceEngineeringTasksFileTechnicalRequirementsEvent, AfterRemovePriceEngineeringTasksFileTechnicalRequirementsEvent>
+    {
+        public PriceEngineeringTasksFileTechnicalRequirementsLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
 	public partial class PriceEngineeringTaskStatusLookupListViewModel : BaseListViewModel<PriceEngineeringTaskStatus, PriceEngineeringTaskStatusLookup, AfterSavePriceEngineeringTaskStatusEvent, AfterSelectPriceEngineeringTaskStatusEvent, AfterRemovePriceEngineeringTaskStatusEvent>
     {
         public PriceEngineeringTaskStatusLookupListViewModel(IUnityContainer container) : base(container) { }

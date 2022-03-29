@@ -58,31 +58,26 @@ namespace HVTApp.Services.GetProductService
             //parameters = ParametersWithoutComplectsParameters(parameters, originProduct);
             //parameters = ParametersWithoutNewParameters(parameters, originProduct);
 
-            //оставляем обязательные параметры "одинокими"
             if (requiredParameters != null)
             {
+                //находим максимальное количество пересечений путей параметров
+                List<Parameter> requiredPathParameters = null;
                 foreach (var requiredParameter in requiredParameters)
                 {
-                    bool getOut = false;
+                    var pathsParameters = requiredParameter.Paths()
+                        .SelectMany(path => path.Parameters)
+                        .Distinct()
+                        .ToList();
 
-                    //пути к началу обязательных параметров
-                    var paths = requiredParameter.Paths().ToList();
-                    foreach (var pathToOrigin in paths)
-                    {
-                        if (requiredParameters.AllContainsIn(pathToOrigin.Parameters))
-                        {
-                            foreach (var pathParameter in pathToOrigin.Parameters)
-                            {
-                                parameters = parameters.LeaveParameterAsTheOnlyOneInTheGroup(pathParameter).ToList();
-                            }
+                    requiredPathParameters = requiredPathParameters == null 
+                        ? pathsParameters 
+                        : pathsParameters.Intersect(requiredPathParameters).ToList();
+                }
 
-                            getOut = true;
-                            break;
-                        }
-                    }
-
-                    if (getOut)
-                        break;
+                //оставляем обязательные параметры "одинокими"
+                foreach (var parameter in requiredPathParameters.Union(requiredParameters).Distinct())
+                {
+                    parameters = parameters.LeaveParameterAsTheOnlyOneInTheGroup(parameter).ToList();
                 }
             }
 

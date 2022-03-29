@@ -264,8 +264,14 @@
     <Compile Include="Modules\Sales\Market\Commands\SpecificationNewCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\StructureCostsCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\UnionProjectsCommand.cs" />
+    <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelConstructorVisibilityConverter.cs" />
+    <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelDesignDepartmentHeadVisibilityConverter.cs" />
+    <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelManagerVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskWrapperToChildTasksVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskWrapperToProductDesignationConverter.cs" />
+    <Compile Include="PriceEngineering\PriceEngineeringTaskViewModelConstructor.cs" />
+    <Compile Include="PriceEngineering\PriceEngineeringTaskViewModelDesignDepartmentHead.cs" />
+    <Compile Include="PriceEngineering\PriceEngineeringTaskViewModelManager.cs" />
     <Compile Include="PriceEngineering\View\PriceEngineeringProductTaskControl.xaml.cs">
       <DependentUpon>PriceEngineeringProductTaskControl.xaml</DependentUpon>
     </Compile>
@@ -1892,6 +1898,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\Details\PriceEngineeringTasksDetailsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Details\PriceEngineeringTasksFileTechnicalRequirementsDetailsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Details\PriceEngineeringTaskStatusDetailsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -2305,6 +2319,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\List\PriceEngineeringTaskProductBlockAddedLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\PriceEngineeringTasksFileTechnicalRequirementsLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\PriceEngineeringTasksLookupListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

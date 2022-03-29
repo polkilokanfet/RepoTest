@@ -10,8 +10,9 @@ namespace HVTApp.Model.POCOs
     [DesignationPlural("Технико-стоимостные проработки")]
     public class PriceEngineeringTask : BaseEntity
     {
-        [Designation("Менеджер"), Required, OrderStatus(1900)]
-        public virtual User UserManager { get; set; }
+        [Designation("Id группы"), OrderStatus(2000)]
+        public virtual Guid ParentPriceEngineeringTasksId { get; set; }
+
 
         [Designation("Конструктор"), OrderStatus(1800)]
         public virtual User UserConstructor { get; set; }

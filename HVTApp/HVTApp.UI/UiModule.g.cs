@@ -155,6 +155,14 @@ namespace HVTApp.UI
             //_dialogService.Register<PriceEngineeringTaskProductBlockAddedDetailsViewModel, PriceEngineeringTaskProductBlockAddedDetailsView>();
 			_selectService.Register<PriceEngineeringTaskProductBlockAddedLookupListView, PriceEngineeringTaskProductBlockAdded>();
             _updateDetailsService.Register<PriceEngineeringTaskProductBlockAdded, PriceEngineeringTaskProductBlockAddedDetailsView>();
+            Container.RegisterViewForNavigation<PriceEngineeringTasksLookupListView>();
+            //_dialogService.Register<PriceEngineeringTasksDetailsViewModel, PriceEngineeringTasksDetailsView>();
+			_selectService.Register<PriceEngineeringTasksLookupListView, PriceEngineeringTasks>();
+            _updateDetailsService.Register<PriceEngineeringTasks, PriceEngineeringTasksDetailsView>();
+            Container.RegisterViewForNavigation<PriceEngineeringTasksFileTechnicalRequirementsLookupListView>();
+            //_dialogService.Register<PriceEngineeringTasksFileTechnicalRequirementsDetailsViewModel, PriceEngineeringTasksFileTechnicalRequirementsDetailsView>();
+			_selectService.Register<PriceEngineeringTasksFileTechnicalRequirementsLookupListView, PriceEngineeringTasksFileTechnicalRequirements>();
+            _updateDetailsService.Register<PriceEngineeringTasksFileTechnicalRequirements, PriceEngineeringTasksFileTechnicalRequirementsDetailsView>();
             Container.RegisterViewForNavigation<PriceEngineeringTaskStatusLookupListView>();
             //_dialogService.Register<PriceEngineeringTaskStatusDetailsViewModel, PriceEngineeringTaskStatusDetailsView>();
 			_selectService.Register<PriceEngineeringTaskStatusLookupListView, PriceEngineeringTaskStatus>();

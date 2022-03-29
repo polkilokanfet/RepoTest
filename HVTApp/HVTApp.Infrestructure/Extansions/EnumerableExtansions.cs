@@ -67,6 +67,28 @@ namespace HVTApp.Infrastructure.Extansions
                 : firstArray.All(x => secondArray.Contains(x, comparer));
         }
 
+        /// <summary>
+        /// Последовательность полностью содержит другую последовательность (по Id).
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="first"> Последовательновсть, которая содержится в другой </param>
+        /// <param name="second"> Последовательность в которой содержится другая </param>
+        /// <returns></returns>
+        public static bool AllContainsInById<T>(this IEnumerable<T> first, IEnumerable<T> second)
+            where T : IId
+        {
+            if (second == null) throw new ArgumentNullException(nameof(second));
+
+            var firstList = first.Select(x => x.Id).ToList();
+            var secondList = second.Select(x => x.Id).ToList();
+
+            if (!secondList.Any()) throw new ArgumentException("Передано перечисление не содержащее членов.", nameof(second));
+            if (!firstList.Any()) throw new ArgumentException("Передано перечисление не содержащее членов.", nameof(first));
+
+            return firstList.All(x => secondList.Contains(x));
+        }
+
+
         public static bool ContainsById<T>(this IEnumerable<T> enumerable, IId objId)
             where T : IId
         {

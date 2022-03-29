@@ -778,6 +778,9 @@ namespace HVTApp.UI.Lookup
 		}
 		
         #region SimpleProperties
+		[OrderStatus(2000)]
+        public System.Guid ParentPriceEngineeringTasksId => Entity.ParentPriceEngineeringTasksId;
+
 		[OrderStatus(950)]
         public System.Int32 Amount => Entity.Amount;
 
@@ -787,9 +790,6 @@ namespace HVTApp.UI.Lookup
         #endregion
 
         #region ComplexProperties
-		[OrderStatus(1900)]
-	    public UserLookup UserManager { get { return GetLookup<UserLookup>(); } }
-
 		[OrderStatus(1800)]
 	    public UserLookup UserConstructor { get { return GetLookup<UserLookup>(); } }
 
@@ -916,6 +916,50 @@ namespace HVTApp.UI.Lookup
         #region ComplexProperties
 		[OrderStatus(900)]
 	    public ProductBlockLookup ProductBlock { get { return GetLookup<ProductBlockLookup>(); } }
+
+        #endregion
+	}
+	[AllowEditAttribute(Role.Admin)]
+	[Designation("Технико-стоимостная проработка (группа)")]
+	public partial class PriceEngineeringTasksLookup : LookupItem<PriceEngineeringTasks>
+	{
+		public PriceEngineeringTasksLookup(PriceEngineeringTasks entity) : base(entity) 
+		{
+		}
+		
+        #region ComplexProperties
+		[OrderStatus(1900)]
+	    public UserLookup UserManager { get { return GetLookup<UserLookup>(); } }
+
+        #endregion
+		[OrderStatus(610)]
+	    public List<PriceEngineeringTasksFileTechnicalRequirementsLookup> FilesTechnicalRequirements { get { return GetLookupEnum<PriceEngineeringTasksFileTechnicalRequirementsLookup>().ToList(); } }
+		[OrderStatus(90)]
+	    public List<PriceEngineeringTaskLookup> ChildPriceEngineeringTasks { get { return GetLookupEnum<PriceEngineeringTaskLookup>().ToList(); } }
+	}
+	[AllowEditAttribute(Role.Admin)]
+	[Designation("Технико-стоимостная проработка (файл группы технических заданий)")]
+	public partial class PriceEngineeringTasksFileTechnicalRequirementsLookup : LookupItem<PriceEngineeringTasksFileTechnicalRequirements>
+	{
+		public PriceEngineeringTasksFileTechnicalRequirementsLookup(PriceEngineeringTasksFileTechnicalRequirements entity) : base(entity) 
+		{
+		}
+		
+        #region SimpleProperties
+		[OrderStatus(900)]
+        public System.Guid PriceEngineeringTasksId => Entity.PriceEngineeringTasksId;
+
+		[OrderStatus(850)]
+        public System.Boolean IsActual => Entity.IsActual;
+
+		[OrderStatus(800)]
+        public System.DateTime CreationMoment => Entity.CreationMoment;
+
+		[OrderStatus(700)]
+        public System.String Name => Entity.Name;
+
+		[OrderStatus(700)]
+        public System.String Comment => Entity.Comment;
 
         #endregion
 	}

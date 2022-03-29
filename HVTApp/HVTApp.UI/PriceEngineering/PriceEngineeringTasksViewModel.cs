@@ -42,7 +42,7 @@ namespace HVTApp.UI.PriceEngineering
 
             foreach (var salesUnitsGroup in salesUnitsGrouped)
             {
-                var priceEngineeringTaskViewModel = new PriceEngineeringTaskViewModel(_container, _unitOfWork);
+                var priceEngineeringTaskViewModel = PriceEngineeringTaskViewModel.GetInstance(_container, _unitOfWork);
                 priceEngineeringTaskViewModel.Load(salesUnitsGroup);
                 PriceEngineeringTaskViewModels.Add(priceEngineeringTaskViewModel);
             }

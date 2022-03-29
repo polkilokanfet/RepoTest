@@ -4,16 +4,15 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
-using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper;
-using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
 using Prism.Mvvm;
 
 namespace HVTApp.UI.PriceEngineering
 {
-    public class PriceEngineeringTaskViewModel : BindableBase, IDisposable
+    public abstract class PriceEngineeringTaskViewModel : BindableBase, IDisposable
     {
         private readonly IUnityContainer _container;
         private readonly IUnitOfWork _unitOfWork;
@@ -22,26 +21,37 @@ namespace HVTApp.UI.PriceEngineering
 
         public ObservableCollection<PriceEngineeringTaskViewModel> ChildPriceEngineeringTaskViewModels { get; } = new ObservableCollection<PriceEngineeringTaskViewModel>();
 
-        public DelegateLogCommand SelectProductBlockCommand { get; }
-
-        public PriceEngineeringTaskViewModel(IUnityContainer container, IUnitOfWork unitOfWork)
+        protected PriceEngineeringTaskViewModel(IUnityContainer container, IUnitOfWork unitOfWork)
         {
             _container = container;
             _unitOfWork = unitOfWork;
+        }
 
-            SelectProductBlockCommand = new DelegateLogCommand(
-                () =>
+        /// <summary>
+        /// Создание ViewModel в соответствии с текущей ролью пользователя
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="unitOfWork"></param>
+        /// <returns></returns>
+        public static PriceEngineeringTaskViewModel GetInstance(IUnityContainer container, IUnitOfWork unitOfWork)
+        {
+            switch (GlobalAppProperties.User.RoleCurrent)
+            {
+                case Role.SalesManager:
                 {
-                    var rr = unitOfWork.Repository<DesignDepartmentParameters>().GetAll().First();
-
-                    var getProductService = container.Resolve<IGetProductService>();
-                    var originProductBlock = this.PriceEngineeringTaskWrapper.ProductBlockEngineer.Model;
-                    var selectedProductBlock = getProductService.GetProductBlock(originProductBlock, rr.Parameters);
-                    if (originProductBlock.Id != selectedProductBlock.Id)
-                    {
-                        this.PriceEngineeringTaskWrapper.ProductBlockEngineer = new ProductBlockWrapper(selectedProductBlock);
-                    }
-                });
+                    return new PriceEngineeringTaskViewModelManager(container, unitOfWork);
+                }
+                case Role.Constructor:
+                {
+                    return new PriceEngineeringTaskViewModelConstructor(container, unitOfWork);
+                }
+                case Role.DesignDepartmentHead:
+                {
+                    return new PriceEngineeringTaskViewModelDesignDepartmentHead(container, unitOfWork);
+                }
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         /// <summary>
@@ -66,7 +76,7 @@ namespace HVTApp.UI.PriceEngineering
 
             foreach (var dependentProduct in product.DependentProducts)
             {
-                var childEngineeringTaskViewModel = new PriceEngineeringTaskViewModel(_container, _unitOfWork);
+                PriceEngineeringTaskViewModel childEngineeringTaskViewModel = PriceEngineeringTaskViewModel.GetInstance(_container, _unitOfWork);
                 childEngineeringTaskViewModel.Load(salesUnits, dependentProduct.Product);
                 this.ChildPriceEngineeringTaskViewModels.Add(childEngineeringTaskViewModel);
                 this.PriceEngineeringTaskWrapper.ChildPriceEngineeringTasks.Add(childEngineeringTaskViewModel.PriceEngineeringTaskWrapper);

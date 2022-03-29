@@ -4,7 +4,6 @@ namespace HVTApp.DataAccess
     {
         public PriceEngineeringTaskConfiguration()
         {
-            HasRequired(x => x.UserManager).WithMany().WillCascadeOnDelete(false);
             HasOptional(x => x.UserConstructor).WithMany().WillCascadeOnDelete(false);
 
             HasRequired(x => x.ProductBlockManager).WithMany().WillCascadeOnDelete(false);
