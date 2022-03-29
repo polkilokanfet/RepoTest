@@ -362,6 +362,9 @@ namespace HVTApp.UI.Modules.Reports.SalesReport
         #endregion
 
 
+        [Designation("Комментарий менеджера"), OrderStatus(-255)]
+        public string Comment { get; }
+
         [Designation("Ссылка на конкурс"), OrderStatus(-250)]
         public string TenderLink { get; }
 
@@ -491,6 +494,8 @@ namespace HVTApp.UI.Modules.Reports.SalesReport
             else if (OrderInTakeDate.Year > DateTime.Today.Year) TenderStatus = $"Закупка или тендер перенесены на {OrderInTakeDate.Year} год";
 
             Producer = salesUnit.Producer?.ToString() ?? string.Empty;
+
+            Comment = salesUnit.Comment;
 
             TenderLink = _tenders.Where(x => !string.IsNullOrEmpty(x.Link)).OrderBy(x => x.DateClose).LastOrDefault()?.Link;
         }
