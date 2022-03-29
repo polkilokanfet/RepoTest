@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
@@ -45,10 +46,9 @@ namespace HVTApp.Services.GetProductService
         /// <summary>
         /// Формирование банка для выбора блока продукта.
         /// </summary>
-        /// <param name="originProductBlock"></param>
         /// <param name="requiredParameters">Обязательные параметры в селекторе</param>
         /// <returns></returns>
-        public Bank GetBank(ProductBlock originProductBlock, IEnumerable<Parameter> requiredParameters)
+        public Bank GetBank(IEnumerable<Parameter> requiredParameters)
         {
             var parameters = UnitOfWork.Repository<Parameter>().GetAll();
             var products = UnitOfWork.Repository<Product>().GetAll();
@@ -58,21 +58,31 @@ namespace HVTApp.Services.GetProductService
             //parameters = ParametersWithoutComplectsParameters(parameters, originProduct);
             //parameters = ParametersWithoutNewParameters(parameters, originProduct);
 
+            //оставляем обязательные параметры "одинокими"
             if (requiredParameters != null)
             {
-                //исключаем одногрупников обязательных параметров
                 foreach (var requiredParameter in requiredParameters)
                 {
-                    parameters = parameters.LeaveParameterAsTheOnlyOneInTheGroup(requiredParameter).ToList();
+                    bool getOut = false;
 
-                    //исключаем одногрупников родителей обязательных параметров
-                    foreach (var parameterRelation in requiredParameter.ParameterRelations)
+                    //пути к началу обязательных параметров
+                    var paths = requiredParameter.Paths().ToList();
+                    foreach (var pathToOrigin in paths)
                     {
-                        foreach (var parentParameter in parameterRelation.RequiredParameters)
+                        if (requiredParameters.AllContainsIn(pathToOrigin.Parameters))
                         {
-                            parameters = parameters.LeaveParameterAsTheOnlyOneInTheGroup(parentParameter).ToList();
+                            foreach (var pathParameter in pathToOrigin.Parameters)
+                            {
+                                parameters = parameters.LeaveParameterAsTheOnlyOneInTheGroup(pathParameter).ToList();
+                            }
+
+                            getOut = true;
+                            break;
                         }
                     }
+
+                    if (getOut)
+                        break;
                 }
             }
 
@@ -229,7 +239,7 @@ namespace HVTApp.Services.GetProductService
 
         public ProductBlock GetProductBlock(ProductBlock originProductBlock = null, IEnumerable<Parameter> requiredParameters = null)
         {
-            var bank = GetBank(originProductBlock, requiredParameters);
+            var bank = GetBank(requiredParameters);
 
             //предварительно выбранный блок продукта
             var selectedProductBlock = originProductBlock == null
