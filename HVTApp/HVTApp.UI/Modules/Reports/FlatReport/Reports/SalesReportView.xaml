@@ -427,6 +427,11 @@
                                     Label="Ссылка на конкурс"
                                     Width="200"
                                     AllowResize="True" />
+                    <infg:TextField AlternateBinding="{Binding Comment}"
+                                    BindingType="UseAlternateBinding"
+                                    Label="Комментарий менеджера"
+                                    Width="200"
+                                    AllowResize="True" />
 
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
