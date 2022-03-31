@@ -45,7 +45,7 @@
                                     Content="..." 
                                     Command="{Binding SelectProductBlockCommand}" 
                                     Padding="5 0"/>
-                            <TextBox Grid.Column="1" FontWeight="DemiBold" Text="{Binding PriceEngineeringTaskWrapper.ProductBlockEngineer, Mode=OneWay}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0"/>
+                            <TextBox Grid.Column="1" FontWeight="DemiBold" Text="{Binding ProductBlockEngineer, Mode=OneWay}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0"/>
                         </Grid>
 
                         <!--Исполнитель-->
@@ -61,7 +61,7 @@
                                     Content="..." 
                                     Command="{Binding InstructPriceEngineeringTaskCommand}" 
                                     Padding="5 0"/>
-                            <TextBox Grid.Column="1" FontWeight="DemiBold" Text="{Binding PriceEngineeringTaskWrapper.UserConstructor, Mode=OneWay}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0"/>
+                            <TextBox Grid.Column="1" FontWeight="DemiBold" Text="{Binding UserConstructor, Mode=OneWay}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0"/>
                         </Grid>
 
                     </Grid>
@@ -82,9 +82,9 @@
                         Header="Вложенные блоки"
                         Margin="5"
                         BorderBrush="Black"
-                        Visibility="{Binding PriceEngineeringTaskWrapper, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource PriceEngineeringTaskWrapperToChildTasksVisibilityConverter}}">
+                        Visibility="{Binding UpdateSourceTrigger=PropertyChanged, Converter={StaticResource PriceEngineeringTaskWrapperToChildTasksVisibilityConverter}}">
 
-                <ListBox ItemsSource="{Binding ChildPriceEngineeringTaskViewModels}">
+                <ListBox ItemsSource="{Binding ChildPriceEngineeringTasks}">
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>

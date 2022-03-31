@@ -15,7 +15,7 @@ namespace HVTApp.UI.PriceEngineering
         private readonly IUnityContainer _container;
         private readonly IUnitOfWork _unitOfWork;
         private PriceEngineeringTaskViewModel _selectedPriceEngineeringTaskViewModel;
-
+        
         public ObservableCollection<PriceEngineeringTaskViewModel> PriceEngineeringTaskViewModels { get; } = new ObservableCollection<PriceEngineeringTaskViewModel>();
 
         public PriceEngineeringTaskViewModel SelectedPriceEngineeringTaskViewModel
@@ -42,9 +42,7 @@ namespace HVTApp.UI.PriceEngineering
 
             foreach (var salesUnitsGroup in salesUnitsGrouped)
             {
-                var priceEngineeringTaskViewModel = PriceEngineeringTaskViewModel.GetInstance(_container, _unitOfWork);
-                priceEngineeringTaskViewModel.Load(salesUnitsGroup);
-                PriceEngineeringTaskViewModels.Add(priceEngineeringTaskViewModel);
+                PriceEngineeringTaskViewModels.Add(PriceEngineeringTaskViewModelFactory.GetInstance(_container, _unitOfWork, salesUnitsGroup));
             }
         }
 

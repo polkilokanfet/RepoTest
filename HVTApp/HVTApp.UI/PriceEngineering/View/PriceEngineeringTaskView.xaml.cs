@@ -59,7 +59,7 @@ namespace HVTApp.UI.PriceEngineering.View
 
         protected override bool IsSomethingChanged()
         {
-            return _viewModel?.PriceEngineeringTaskWrapper?.IsChanged ?? false;
+            return _viewModel?.IsChanged ?? false;
         }
 
         public void Dispose()

@@ -231,6 +231,8 @@
     <Compile Include="Wrapper\Base\TrackingCollections\IValidatableChangeTrackingCollection.cs" />
     <Compile Include="Wrapper\Base\TrackingCollections\ValidatableChangeTrackingCollection.cs" />
     <Compile Include="Wrapper\Base\WrapperBase.cs" />
+    <Compile Include="Wrapper\Custom\Empty\ProductBlockEmptyWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Empty\UserEmptyWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\DirectumTaskGroupFileWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\DirectumTaskWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\DocumentWrapper.cs" />
@@ -248,6 +250,7 @@
     <Compile Include="Wrapper\Custom\Functionality\StructureCostWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\TechnicalRequrementsTaskHistoryElementWrapper.cs" />
     <Compile Include="Wrapper\Custom\IProductWithCost.cs" />
+    <Compile Include="Wrapper\Custom\Empty\SalesUnitEmptyWrapper.cs" />
     <Compile Include="Wrapper\Custom\Test\TestFriendAddressWrapper.cs" />
     <Compile Include="Wrapper\Custom\Test\TestFriendEmailWrapper.cs" />
     <Compile Include="Wrapper\Custom\Test\TestFriendWrapper.cs" />

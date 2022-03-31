@@ -1,7 +1,7 @@
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base;
 
-namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
+namespace HVTApp.Model.Wrapper
 {
     public class SalesUnitEmptyWrapper : WrapperBase<SalesUnit>
     {

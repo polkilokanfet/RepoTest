@@ -1,24 +1,19 @@
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
-using Microsoft.Practices.Unity;
-using Prism.Mvvm;
+using HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1;
 
 namespace HVTApp.UI.PriceEngineering
 {
-    public abstract partial class PriceEngineeringTaskViewModel : WrapperBase<PriceEngineeringTask>
+    public partial class PriceEngineeringTaskWrapper1 : WrapperBase<PriceEngineeringTask>
     {
-        protected readonly IUnityContainer Container;
-        protected readonly IUnitOfWork UnitOfWork;
+        public PriceEngineeringTaskWrapper1(PriceEngineeringTask model) : base(model) { }
 
         #region SimpleProperties
+
         /// <summary>
         /// Id группы
         /// </summary>
@@ -60,36 +55,31 @@ namespace HVTApp.UI.PriceEngineering
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
         #endregion
-
         #region ComplexProperties
-
         /// <summary>
         /// Конструктор
         /// </summary>
-	    public UserEmptyWrapper UserConstructor
+        public UserWrapper UserConstructor
         {
-            get => GetWrapper<UserEmptyWrapper>();
-            set => SetComplexValue<User, UserEmptyWrapper>(UserConstructor, value);
+            get { return GetWrapper<UserWrapper>(); }
+            set { SetComplexValue<User, UserWrapper>(UserConstructor, value); }
         }
-
         /// <summary>
         /// Блок продукта от менеджера
         /// </summary>
-	    public ProductBlockEmptyWrapper ProductBlockManager
+        public ProductBlockWrapper ProductBlockManager
         {
-            get => GetWrapper<ProductBlockEmptyWrapper>();
-            set => SetComplexValue<ProductBlock, ProductBlockEmptyWrapper>(ProductBlockManager, value);
+            get { return GetWrapper<ProductBlockWrapper>(); }
+            set { SetComplexValue<ProductBlock, ProductBlockWrapper>(ProductBlockManager, value); }
         }
-
         /// <summary>
         /// Блок продукта от инженера-конструктора
         /// </summary>
-	    public ProductBlockEmptyWrapper ProductBlockEngineer
+        public ProductBlockWrapper ProductBlockEngineer
         {
-            get => GetWrapper<ProductBlockEmptyWrapper>();
-            set => SetComplexValue<ProductBlock, ProductBlockEmptyWrapper>(ProductBlockEngineer, value);
+            get { return GetWrapper<ProductBlockWrapper>(); }
+            set { SetComplexValue<ProductBlock, ProductBlockWrapper>(ProductBlockEngineer, value); }
         }
-
         #endregion
 
         #region CollectionProperties
@@ -117,7 +107,7 @@ namespace HVTApp.UI.PriceEngineering
         /// <summary>
         /// Дочерние задачи
         /// </summary>
-        public IValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel> ChildPriceEngineeringTasks { get; private set; }
+        public IValidatableChangeTrackingCollection<Model.Wrapper.PriceEngineeringTaskWrapper> ChildPriceEngineeringTasks { get; private set; }
         
         /// <summary>
         /// Статусы проработки
@@ -128,55 +118,14 @@ namespace HVTApp.UI.PriceEngineering
         /// SalesUnits
         /// </summary>
         public IValidatableChangeTrackingCollection<SalesUnitEmptyWrapper> SalesUnits { get; private set; }
-        
+
         #endregion
-
-        protected PriceEngineeringTaskViewModel(IUnityContainer container, IUnitOfWork unitOfWork, PriceEngineeringTask priceEngineeringTask)
-            : base(priceEngineeringTask)
-        {
-            Container = container;
-            UnitOfWork = unitOfWork;
-
-            if (Model.ChildPriceEngineeringTasks == null) throw new ArgumentException("ChildPriceEngineeringTasks cannot be null");
-            ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel>(Model.ChildPriceEngineeringTasks.Select(e => PriceEngineeringTaskViewModelFactory.GetInstance(container, unitOfWork, e)));
-            RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
-        }
-
-        protected PriceEngineeringTaskViewModel(IUnityContainer container, IUnitOfWork unitOfWork, IEnumerable<SalesUnit> salesUnits) 
-            : this(container, unitOfWork, salesUnits.First().Product)
-        {
-            this.SalesUnits.AddRange(salesUnits.Select(salesUnit => new SalesUnitEmptyWrapper(salesUnit)));
-        }
-
-        protected PriceEngineeringTaskViewModel(IUnityContainer container, IUnitOfWork unitOfWork, Product product) 
-            : this(container, unitOfWork)
-        {
-            ProductBlockEngineer = ProductBlockManager = new ProductBlockEmptyWrapper(product.ProductBlock);
-
-            foreach (var dependentProduct in product.DependentProducts)
-            {
-                this.ChildPriceEngineeringTasks.Add(PriceEngineeringTaskViewModelFactory.GetInstance(Container, UnitOfWork, dependentProduct.Product));
-            }
-
-        }
-
-        private PriceEngineeringTaskViewModel(IUnityContainer container, IUnitOfWork unitOfWork) : base(new PriceEngineeringTask())
-        {
-            Container = container;
-            UnitOfWork = unitOfWork;
-            
-            if (Model.ChildPriceEngineeringTasks == null) throw new ArgumentException("ChildPriceEngineeringTasks cannot be null");
-            ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel>(new List<PriceEngineeringTaskViewModel>());
-            RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
-        }
-
         public override void InitializeComplexProperties()
         {
-            InitializeComplexProperty(nameof(UserConstructor), Model.UserConstructor == null ? null : new UserEmptyWrapper(Model.UserConstructor));
-            InitializeComplexProperty(nameof(ProductBlockManager), Model.ProductBlockManager == null ? null : new ProductBlockEmptyWrapper(Model.ProductBlockManager));
-            InitializeComplexProperty(nameof(ProductBlockEngineer), Model.ProductBlockEngineer == null ? null : new ProductBlockEmptyWrapper(Model.ProductBlockEngineer));
+            InitializeComplexProperty<UserWrapper>(nameof(UserConstructor), Model.UserConstructor == null ? null : new UserWrapper(Model.UserConstructor));
+            InitializeComplexProperty<ProductBlockWrapper>(nameof(ProductBlockManager), Model.ProductBlockManager == null ? null : new ProductBlockWrapper(Model.ProductBlockManager));
+            InitializeComplexProperty<ProductBlockWrapper>(nameof(ProductBlockEngineer), Model.ProductBlockEngineer == null ? null : new ProductBlockWrapper(Model.ProductBlockEngineer));
         }
-
         protected override void InitializeCollectionProperties()
         {
             if (Model.ProductBlocksAdded == null) throw new ArgumentException("ProductBlocksAdded cannot be null");
@@ -195,6 +144,10 @@ namespace HVTApp.UI.PriceEngineering
             Messages = new ValidatableChangeTrackingCollection<PriceEngineeringTaskMessageWrapper>(Model.Messages.Select(e => new PriceEngineeringTaskMessageWrapper(e)));
             RegisterCollection(Messages, Model.Messages);
             
+            if (Model.ChildPriceEngineeringTasks == null) throw new ArgumentException("ChildPriceEngineeringTasks cannot be null");
+            ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<Model.Wrapper.PriceEngineeringTaskWrapper>(Model.ChildPriceEngineeringTasks.Select(e => new Model.Wrapper.PriceEngineeringTaskWrapper(e)));
+            RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
+            
             if (Model.Statuses == null) throw new ArgumentException("Statuses cannot be null");
             Statuses = new ValidatableChangeTrackingCollection<PriceEngineeringTaskStatusWrapper>(Model.Statuses.Select(e => new PriceEngineeringTaskStatusWrapper(e)));
             RegisterCollection(Statuses, Model.Statuses);
@@ -202,11 +155,6 @@ namespace HVTApp.UI.PriceEngineering
             if (Model.SalesUnits == null) throw new ArgumentException("SalesUnits cannot be null");
             SalesUnits = new ValidatableChangeTrackingCollection<SalesUnitEmptyWrapper>(Model.SalesUnits.Select(e => new SalesUnitEmptyWrapper(e)));
             RegisterCollection(SalesUnits, Model.SalesUnits);
-        }
-
-        public void Dispose()
-        {
-            UnitOfWork?.Dispose();
         }
     }
 }

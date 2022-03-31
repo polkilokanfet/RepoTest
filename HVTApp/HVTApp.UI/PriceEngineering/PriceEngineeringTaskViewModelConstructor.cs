@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
@@ -16,33 +17,44 @@ namespace HVTApp.UI.PriceEngineering
         /// </summary>
         public DelegateLogCommand SelectProductBlockCommand { get; }
 
-        public PriceEngineeringTaskViewModelConstructor(IUnityContainer container, IUnitOfWork unitOfWork) : base(container, unitOfWork)
+        public PriceEngineeringTaskViewModelConstructor(IUnityContainer container, IUnitOfWork unitOfWork, PriceEngineeringTask priceEngineeringTask) 
+            : base(container, unitOfWork, priceEngineeringTask)
         {
             SelectProductBlockCommand = new DelegateLogCommand(
                 () =>
                 {
                     var department = unitOfWork.Repository<DesignDepartment>()
-                        .Find(designDepartment => designDepartment.ProductBlockIsSuitable(PriceEngineeringTaskWrapper.ProductBlockManager.Model))
+                        .Find(designDepartment => designDepartment.ProductBlockIsSuitable(ProductBlockManager.Model))
                         .FirstOrDefault();
 
                     if (department == null)
                         return;
 
                     var requiredParameters = department.ParameterSets
-                        .FirstOrDefault(x => x.Parameters.AllContainsInById(PriceEngineeringTaskWrapper.ProductBlockManager.Model.Parameters));
+                        .FirstOrDefault(x => x.Parameters.AllContainsInById(ProductBlockManager.Model.Parameters));
 
                     var getProductService = container.Resolve<IGetProductService>();
-                    var originProductBlock = this.PriceEngineeringTaskWrapper.ProductBlockEngineer.Model;
+                    var originProductBlock = this.ProductBlockEngineer.Model;
                     var selectedProductBlock = getProductService.GetProductBlock(originProductBlock, requiredParameters.Parameters);
                     if (originProductBlock.Id != selectedProductBlock.Id)
                     {
-                        this.PriceEngineeringTaskWrapper.ProductBlockEngineer = new ProductBlockWrapper(selectedProductBlock);
+                        this.ProductBlockEngineer = new ProductBlockEmptyWrapper(selectedProductBlock);
                     }
                 },
                 () =>
                 {
                     return true;
                 });
+        }
+
+        public PriceEngineeringTaskViewModelConstructor(IUnityContainer container, IUnitOfWork unitOfWork, IEnumerable<SalesUnit> salesUnits) : base(container, unitOfWork, salesUnits)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public PriceEngineeringTaskViewModelConstructor(IUnityContainer container, IUnitOfWork unitOfWork, Product product) : base(container, unitOfWork, product)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

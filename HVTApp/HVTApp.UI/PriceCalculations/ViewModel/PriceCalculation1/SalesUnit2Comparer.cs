@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure.Comparers;
+using HVTApp.Model.Wrapper;
 
 namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
 {

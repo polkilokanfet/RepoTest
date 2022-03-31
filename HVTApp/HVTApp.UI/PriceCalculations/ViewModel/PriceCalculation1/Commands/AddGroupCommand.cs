@@ -3,6 +3,7 @@ using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Wrapper;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands

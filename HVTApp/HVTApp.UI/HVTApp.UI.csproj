@@ -269,9 +269,12 @@
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelManagerVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskWrapperToChildTasksVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskWrapperToProductDesignationConverter.cs" />
+    <Compile Include="PriceEngineering\PriceEngineeringTasksWrapper1.cs" />
     <Compile Include="PriceEngineering\PriceEngineeringTaskViewModelConstructor.cs" />
     <Compile Include="PriceEngineering\PriceEngineeringTaskViewModelDesignDepartmentHead.cs" />
+    <Compile Include="PriceEngineering\PriceEngineeringTaskViewModelFactory.cs" />
     <Compile Include="PriceEngineering\PriceEngineeringTaskViewModelManager.cs" />
+    <Compile Include="PriceEngineering\PriceEngineeringTaskWrapper1.cs" />
     <Compile Include="PriceEngineering\View\PriceEngineeringProductTaskControl.xaml.cs">
       <DependentUpon>PriceEngineeringProductTaskControl.xaml</DependentUpon>
     </Compile>
@@ -720,7 +723,6 @@
     </Compile>
     <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\PriceCalculationViewModel.cs" />
     <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\SalesUnit2Comparer.cs" />
-    <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\SalesUnitEmptyWrapper.cs" />
     <Compile Include="PriceCalculations\Tabs\TabPriceCalculation.xaml.cs">
       <DependentUpon>TabPriceCalculation.xaml</DependentUpon>
     </Compile>
