@@ -16,7 +16,7 @@ namespace HVTApp.UI.PriceEngineering
         private readonly IUnitOfWork _unitOfWork;
         private PriceEngineeringTaskViewModel _selectedPriceEngineeringTaskViewModel;
         
-        public ObservableCollection<PriceEngineeringTaskViewModel> PriceEngineeringTaskViewModels { get; } = new ObservableCollection<PriceEngineeringTaskViewModel>();
+        public PriceEngineeringTasksWrapper1 PriceEngineeringTasksWrapper { get; private set; }
 
         public PriceEngineeringTaskViewModel SelectedPriceEngineeringTaskViewModel
         {
@@ -28,6 +28,8 @@ namespace HVTApp.UI.PriceEngineering
         {
             _container = container;
             _unitOfWork = unitOfWork;
+
+            PriceEngineeringTasksWrapper = new PriceEngineeringTasksWrapper1(new PriceEngineeringTasks(), container, unitOfWork);
         }
 
         /// <summary>
@@ -42,7 +44,7 @@ namespace HVTApp.UI.PriceEngineering
 
             foreach (var salesUnitsGroup in salesUnitsGrouped)
             {
-                PriceEngineeringTaskViewModels.Add(PriceEngineeringTaskViewModelFactory.GetInstance(_container, _unitOfWork, salesUnitsGroup));
+                PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.Add(PriceEngineeringTaskViewModelFactory.GetInstance(_container, _unitOfWork, salesUnitsGroup));
             }
         }
 
@@ -54,8 +56,7 @@ namespace HVTApp.UI.PriceEngineering
         public void Dispose()
         {
             _unitOfWork?.Dispose();
-            this.PriceEngineeringTaskViewModels.ForEach(x => x.Dispose());
-            this.PriceEngineeringTaskViewModels.Clear();
+            this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.ForEach(x => x.Dispose());
         }
     }
 }

@@ -13,7 +13,7 @@ using Prism.Mvvm;
 
 namespace HVTApp.UI.PriceEngineering
 {
-    public abstract partial class PriceEngineeringTaskViewModel : WrapperBase<PriceEngineeringTask>
+    public abstract class PriceEngineeringTaskViewModel : WrapperBase<PriceEngineeringTask>, IDisposable
     {
         protected readonly IUnityContainer Container;
         protected readonly IUnitOfWork UnitOfWork;
@@ -157,7 +157,6 @@ namespace HVTApp.UI.PriceEngineering
             {
                 this.ChildPriceEngineeringTasks.Add(PriceEngineeringTaskViewModelFactory.GetInstance(Container, UnitOfWork, dependentProduct.Product));
             }
-
         }
 
         private PriceEngineeringTaskViewModel(IUnityContainer container, IUnitOfWork unitOfWork) : base(new PriceEngineeringTask())

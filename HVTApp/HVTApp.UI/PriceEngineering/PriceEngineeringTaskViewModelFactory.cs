@@ -65,7 +65,6 @@ namespace HVTApp.UI.PriceEngineering
             }
         }
 
-
         /// <summary>
         /// Создание ViewModel в соответствии с текущей ролью пользователя
         /// </summary>
@@ -93,6 +92,5 @@ namespace HVTApp.UI.PriceEngineering
                     throw new ArgumentOutOfRangeException();
             }
         }
-
     }
 }

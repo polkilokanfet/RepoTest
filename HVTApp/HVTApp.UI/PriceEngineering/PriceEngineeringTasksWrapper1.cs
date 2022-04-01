@@ -1,15 +1,22 @@
 using System;
 using System.Linq;
+using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
+using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering
 {
     public class PriceEngineeringTasksWrapper1 : WrapperBase<PriceEngineeringTasks>
     {
-        public PriceEngineeringTasksWrapper1(PriceEngineeringTasks model) : base(model) { }
+        public PriceEngineeringTasksWrapper1(PriceEngineeringTasks model, IUnityContainer container, IUnitOfWork unitOfWork) : base(model)
+        {
+            if (Model.ChildPriceEngineeringTasks == null) throw new ArgumentException("ChildPriceEngineeringTasks cannot be null");
+            ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel>(Model.ChildPriceEngineeringTasks.Select(e => PriceEngineeringTaskViewModelFactory.GetInstance(container, unitOfWork, e)));
+            RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
+        }
 
         #region SimpleProperties
 
@@ -25,10 +32,10 @@ namespace HVTApp.UI.PriceEngineering
         /// <summary>
         /// Менеджер
         /// </summary>
-        public UserWrapper UserManager
+        public UserEmptyWrapper UserManager
         {
-            get => GetWrapper<UserWrapper>();
-            set => SetComplexValue<User, UserWrapper>(UserManager, value);
+            get => GetWrapper<UserEmptyWrapper>();
+            set => SetComplexValue<User, UserEmptyWrapper>(UserManager, value);
         }
 
         #endregion
@@ -43,13 +50,13 @@ namespace HVTApp.UI.PriceEngineering
         /// <summary>
         /// Задачи
         /// </summary>
-        public IValidatableChangeTrackingCollection<PriceEngineeringTaskWrapper> ChildPriceEngineeringTasks { get; private set; }
+        public IValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel> ChildPriceEngineeringTasks { get; private set; }
         
         #endregion
 
         public override void InitializeComplexProperties()
         {
-            InitializeComplexProperty(nameof(UserManager), Model.UserManager == null ? null : new UserWrapper(Model.UserManager));
+            InitializeComplexProperty(nameof(UserManager), Model.UserManager == null ? null : new UserEmptyWrapper(Model.UserManager));
         }
 
         protected override void InitializeCollectionProperties()
@@ -57,10 +64,6 @@ namespace HVTApp.UI.PriceEngineering
             if (Model.FilesTechnicalRequirements == null) throw new ArgumentException("FilesTechnicalRequirements cannot be null");
             FilesTechnicalRequirements = new ValidatableChangeTrackingCollection<PriceEngineeringTasksFileTechnicalRequirementsWrapper>(Model.FilesTechnicalRequirements.Select(e => new PriceEngineeringTasksFileTechnicalRequirementsWrapper(e)));
             RegisterCollection(FilesTechnicalRequirements, Model.FilesTechnicalRequirements);
-            
-            if (Model.ChildPriceEngineeringTasks == null) throw new ArgumentException("ChildPriceEngineeringTasks cannot be null");
-            ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<PriceEngineeringTaskWrapper>(Model.ChildPriceEngineeringTasks.Select(e => new PriceEngineeringTaskWrapper(e)));
-            RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
         }
     }
 }
