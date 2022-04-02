@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="HVTApp.UI.PriceEngineering.Messages.MessageControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HVTApp.UI.TechnicalRequrementsTasksModule.Task.History"
+             mc:Ignorable="d" 
+             Height="Auto"
+             Width="Auto">
+
+    <Border CornerRadius="10" 
+            Padding="5"
+            Margin="5 0 5 5"
+            BorderBrush="Black"
+            BorderThickness="1">
+        <!--<Border.Background>
+            <SolidColorBrush Color="{Binding Model, Converter={StaticResource HistoryElementToColorConverter}}"/>
+        </Border.Background>-->
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!--Шапка-->
+            <Border 
+                Background="AliceBlue" 
+                Padding="5" 
+                CornerRadius="8 8 0 0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!--Момент действия-->
+                    <TextBlock Grid.Column="2" Text="{Binding Moment, Mode=OneWay, Converter={StaticResource DateTimeToStringConverter}}" HorizontalAlignment="Right"/>
+                    <!--Действие-->
+                    <!--<TextBlock Grid.Column="1" Text="{Binding Model.Type, Mode=OneWay, Converter={StaticResource HistoryElementTypeToStringConverter}}" HorizontalAlignment="Center" Margin="10 0"/>-->
+                    <!--Автор действия-->
+                    <TextBlock Grid.Column="1" Text="{Binding Author, Mode=OneWay, Converter={StaticResource ObjectToStringConverter}}"/>
+
+                </Grid>
+            </Border>
+
+            <!--Сообщение-->
+            <Border Grid.Row="1" 
+                    Background="White"  
+                    Padding="5"
+                    CornerRadius="0 0 8 8"
+                    Visibility="{Binding Message, Converter={StaticResource TextToVisibilityConverter}}">
+                <TextBox Text="{Binding Message, Mode=OneWay}"
+                         TextWrapping="Wrap"
+                         IsReadOnly="True"
+                         BorderThickness="0"/>
+            </Border>
+
+        </Grid>
+    </Border>
+
+</UserControl>

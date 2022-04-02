@@ -2,7 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View"
-             xmlns:converters="clr-namespace:HVTApp.UI.PriceEngineering.Converters">
+             xmlns:converters="clr-namespace:HVTApp.UI.PriceEngineering.Converters"
+             xmlns:messages="clr-namespace:HVTApp.UI.PriceEngineering.Messages">
 
     <UserControl.Resources>
         <converters:PriceEngineeringTaskWrapperToChildTasksVisibilityConverter x:Key="ToChildTasksVisibilityConverter" />
@@ -12,70 +13,115 @@
     </UserControl.Resources>
     
     <!--Задача на блок продукта-->
-    <Border Margin="2" BorderThickness="1" BorderBrush="Red">
+    <Border Margin="2" BorderThickness="1" BorderBrush="Black">
+
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" Margin="2">
+            <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="400"/>
                 </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
 
-                <!--Блок продукта-->
-                <Label Grid.Row="0" Grid.Column="0" Content="Блок: "/>
-                <Grid Grid.Row="0" Grid.Column="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
 
-                    <Button Grid.Column="0" 
-                            Visibility="{Binding Converter={StaticResource ManagerVisibilityConverter}}"
-                            Content="..." 
-                            Command="{Binding SelectProductBlockCommand}" 
-                            Padding="5 0"/>
-                    <TextBox Grid.Column="1" FontWeight="DemiBold" Text="{Binding ProductBlockEngineer, Mode=OneWay}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0"/>
+                    <Grid Grid.Row="0" Margin="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <!--Блок продукта-->
+                        <Label Grid.Row="0" Grid.Column="0" Content="Блок: "/>
+                        <Grid Grid.Row="0" Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Button Grid.Column="0" 
+                                    Visibility="{Binding Converter={StaticResource ManagerVisibilityConverter}}"
+                                    Content="..." 
+                                    Command="{Binding SelectProductBlockCommand}" 
+                                    Padding="5 0"/>
+                            <TextBox Grid.Column="1" FontWeight="DemiBold" Text="{Binding ProductBlockEngineer, Mode=OneWay}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0"/>
+                        </Grid>
+
+                        <!--Исполнитель-->
+                        <Label Grid.Row="1" Grid.Column="0" Content="Исполнитель: "/>
+                        <Grid Grid.Row="1" Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Button Grid.Column="0" 
+                                    Visibility="{Binding Converter={StaticResource DesignDepartmentHeadVisibilityConverter}}"
+                                    Content="..." 
+                                    Command="{Binding InstructPriceEngineeringTaskCommand}" 
+                                    Padding="5 0"/>
+                            <TextBox Grid.Column="1" FontWeight="DemiBold" Text="{Binding UserConstructor, Mode=OneWay}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0"/>
+                        </Grid>
+
+                    </Grid>
                 </Grid>
 
-                <!--Исполнитель-->
-                <Label Grid.Row="1" Grid.Column="0" Content="Исполнитель: "/>
-                <Grid Grid.Row="1" Grid.Column="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
+                <GridSplitter Grid.Column="1" Width="2" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
 
-                    <Button Grid.Column="0" 
-                            Visibility="{Binding Converter={StaticResource DesignDepartmentHeadVisibilityConverter}}"
-                            Content="..." 
-                            Command="{Binding InstructPriceEngineeringTaskCommand}" 
-                            Padding="5 0"/>
-                    <TextBox Grid.Column="1" FontWeight="DemiBold" Text="{Binding UserConstructor, Mode=OneWay}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0"/>
-                </Grid>
+                <!--Переписка-->
+                <StackPanel Grid.Column="2" Orientation="Vertical">
+                    <GroupBox Header="Переписка">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <ItemsControl ItemsSource="{Binding MessagesAll, Mode=OneWay}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <messages:MessageControl/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </GroupBox>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox Grid.Column="0" Text="{Binding Message.Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Button Grid.Column="1" Content="Отправить" Command="{Binding SendMessageCommand}"/>
+                    </Grid>
+
+                </StackPanel>
 
             </Grid>
 
             <!--Вложенные блоки-->
             <Expander Grid.Row="1"
-                        IsExpanded="True"
-                        Header="Вложенные блоки"
-                        Margin="5"
-                        BorderBrush="Black"
-                        Visibility="{Binding UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToChildTasksVisibilityConverter}}">
+                      IsExpanded="True"
+                      Header="Вложенные блоки"
+                      Margin="5"
+                      BorderBrush="Black"
+                      Visibility="{Binding UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToChildTasksVisibilityConverter}}">
 
                 <ListBox ItemsSource="{Binding ChildPriceEngineeringTasks}">
                     <ListBox.ItemContainerStyle>
@@ -95,6 +141,7 @@
                 </ListBox>
 
             </Expander>
+
         </Grid>
 
     </Border>

@@ -4,10 +4,13 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
+using HVTApp.UI.Commands;
+using HVTApp.UI.PriceEngineering.Messages;
 using Microsoft.Practices.Unity;
 using Prism.Mvvm;
 
@@ -128,28 +131,34 @@ namespace HVTApp.UI.PriceEngineering
         /// SalesUnits
         /// </summary>
         public IValidatableChangeTrackingCollection<SalesUnitEmptyWrapper> SalesUnits { get; private set; }
-        
+
         #endregion
 
-        protected PriceEngineeringTaskViewModel(IUnityContainer container, IUnitOfWork unitOfWork, PriceEngineeringTask priceEngineeringTask)
-            : base(priceEngineeringTask)
+        #region Commands
+
+        public DelegateLogCommand SendMessageCommand { get; private set; }
+
+        #endregion
+
+        public PriceEngineeringTaskMessageWrapper Message { get; private set; }
+
+        public ObservableCollection<MessageViewModel> MessagesAll { get; } = new ObservableCollection<MessageViewModel>();
+
+        protected PriceEngineeringTaskViewModel(IUnityContainer container, IUnitOfWork unitOfWork, PriceEngineeringTask priceEngineeringTask) : base(priceEngineeringTask)
         {
             Container = container;
             UnitOfWork = unitOfWork;
 
-            if (Model.ChildPriceEngineeringTasks == null) throw new ArgumentException("ChildPriceEngineeringTasks cannot be null");
-            ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel>(Model.ChildPriceEngineeringTasks.Select(e => PriceEngineeringTaskViewModelFactory.GetInstance(container, unitOfWork, e)));
-            RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
+            InitializeChildPriceEngineeringTasks(Model.ChildPriceEngineeringTasks);
+            InitializeCommands();
         }
 
-        protected PriceEngineeringTaskViewModel(IUnityContainer container, IUnitOfWork unitOfWork, IEnumerable<SalesUnit> salesUnits) 
-            : this(container, unitOfWork, salesUnits.First().Product)
+        protected PriceEngineeringTaskViewModel(IUnityContainer container, IUnitOfWork unitOfWork, IEnumerable<SalesUnit> salesUnits) : this(container, unitOfWork, salesUnits.First().Product)
         {
             this.SalesUnits.AddRange(salesUnits.Select(salesUnit => new SalesUnitEmptyWrapper(salesUnit)));
         }
 
-        protected PriceEngineeringTaskViewModel(IUnityContainer container, IUnitOfWork unitOfWork, Product product) 
-            : this(container, unitOfWork)
+        protected PriceEngineeringTaskViewModel(IUnityContainer container, IUnitOfWork unitOfWork, Product product) : this(container, unitOfWork)
         {
             ProductBlockEngineer = ProductBlockManager = new ProductBlockEmptyWrapper(product.ProductBlock);
 
@@ -163,9 +172,65 @@ namespace HVTApp.UI.PriceEngineering
         {
             Container = container;
             UnitOfWork = unitOfWork;
-            
+
+            InitializeChildPriceEngineeringTasks(new List<PriceEngineeringTask>());
+            InitializeCommands();
+        }
+
+        private void InitializeCommands()
+        {
+            SendMessageCommand = new DelegateLogCommand(
+                () =>
+                {
+                    var priceEngineeringTask = UnitOfWork.Repository<PriceEngineeringTask>().GetById(this.Model.Id);
+                    if (priceEngineeringTask != null)
+                    {
+                        IUnitOfWork unitOfWork = Container.Resolve<IUnitOfWork>();
+                        var message = new PriceEngineeringTaskMessage
+                        {
+                            Author = unitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
+                            Message = this.Message.Message
+                        };
+                        unitOfWork.Repository<PriceEngineeringTask>().GetById(this.Model.Id).Messages.Add(message);
+                        unitOfWork.SaveChanges();
+                    }
+                    else
+                    {
+                        Message.Moment = DateTime.Now;
+                        this.Messages.Add(new PriceEngineeringTaskMessageWrapper(new PriceEngineeringTaskMessage
+                        {
+                            Author = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
+                            Message = this.Message.Message
+                        }));
+                    }
+
+                    this.Message.Message = string.Empty;
+                    ReloadMessagesAll();
+                },
+                () => Message != null && Message.IsValid && Message.IsChanged);
+
+            Message = new PriceEngineeringTaskMessageWrapper(new PriceEngineeringTaskMessage()
+            {
+                Author = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
+                Message = String.Empty
+            });
+
+            Message.PropertyChanged += (sender, args) => this.SendMessageCommand.RaiseCanExecuteChanged();
+
+            ReloadMessagesAll();
+        }
+
+        private void ReloadMessagesAll()
+        {
+            MessagesAll.Clear();
+            MessagesAll.AddRange(this.Model.Messages.Select(x => new MessageViewModel(x.Message, x.Author, x.Moment)).OrderBy(x => x.Moment));
+        }
+
+        private void InitializeChildPriceEngineeringTasks(IEnumerable<PriceEngineeringTask> priceEngineeringTasks)
+        {
             if (Model.ChildPriceEngineeringTasks == null) throw new ArgumentException("ChildPriceEngineeringTasks cannot be null");
-            ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel>(new List<PriceEngineeringTaskViewModel>());
+            var engineeringTaskViewModels = priceEngineeringTasks.Select(priceEngineeringTask => PriceEngineeringTaskViewModelFactory.GetInstance(Container, UnitOfWork, priceEngineeringTask));
+            ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel>(engineeringTaskViewModels);
             RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
         }
 

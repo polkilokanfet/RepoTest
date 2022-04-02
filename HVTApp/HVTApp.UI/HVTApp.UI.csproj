@@ -272,6 +272,10 @@
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelToProductDesignationConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskWrapperToChildTasksVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Converters\ProductBlockToDesignationConverter.cs" />
+    <Compile Include="PriceEngineering\Messages\MessageControl.xaml.cs">
+      <DependentUpon>MessageControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\Messages\MessageViewModel.cs" />
     <Compile Include="PriceEngineering\PriceEngineeringTasksWrapper1.cs" />
     <Compile Include="PriceEngineering\PriceEngineeringTaskViewModelConstructor.cs" />
     <Compile Include="PriceEngineering\PriceEngineeringTaskViewModelDesignDepartmentHead.cs" />
@@ -1560,6 +1564,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="PriceCalculations\Tabs\TabPriceCalculations.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceEngineering\Messages\MessageControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
