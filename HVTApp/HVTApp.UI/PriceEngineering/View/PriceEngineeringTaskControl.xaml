@@ -13,7 +13,7 @@
     </UserControl.Resources>
     
     <!--Задача на блок продукта-->
-    <Border Margin="2" BorderThickness="1" BorderBrush="Black">
+    <Border Margin="2" BorderThickness="1" BorderBrush="Black" CornerRadius="5">
 
         <Grid>
             <Grid.RowDefinitions>
@@ -21,16 +21,25 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0">
+            <Grid Grid.Row="0" MinHeight="300" MaxHeight="480">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="400"/>
                 </Grid.ColumnDefinitions>
 
-                <StackPanel Grid.Column="0" Orientation="Vertical">
+                <Grid Grid.Column="0">
 
-                    <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
@@ -87,7 +96,7 @@
                         </Grid>
                     </Grid>
 
-                    <GroupBox Header="Файлы">
+                    <GroupBox Grid.Row="1" Header="Файлы">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -95,14 +104,58 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <GroupBox Grid.Column="0" Header="Техническое задание"></GroupBox>
+                            <!--Техническое задание-->
+                            <Grid Grid.Column="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <GroupBox Grid.Row="0" Header="Техническое задание"></GroupBox>
+
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Button Grid.Column="0" Content="Добавить"/>
+                                    <Button Grid.Column="1" Content="Загрузить всё"/>
+
+                                </Grid>
+
+                            </Grid>
+
                             <GridSplitter Grid.Column="1" Width="2" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
-                            <GroupBox Grid.Column="2" Header="Проработка ОГК"></GroupBox>
+                            
+                            <!--Проработка ОГК-->
+                            <Grid Grid.Column="2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <GroupBox Grid.Row="0" Header="Проработка ОГК"></GroupBox>
+
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Button Grid.Column="0" Content="Добавить"/>
+                                    <Button Grid.Column="1" Content="Загрузить всё"/>
+
+                                </Grid>
+
+                            </Grid>
 
                         </Grid>
                     </GroupBox>
 
-                    <GroupBox Header="Дополнительно">
+                    <GridSplitter Grid.Row="2" Height="2" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+
+                    <GroupBox Grid.Row="3" Header="Дополнительно">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -110,16 +163,43 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <GroupBox Grid.Column="0" Header="Дополнительные блоки"></GroupBox>
+                            <!--Дополнительные блоки-->
+                            <Grid Grid.Column="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <GroupBox Grid.Row="0" Header="Дополнительные блоки"></GroupBox>
+
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Button Grid.Column="0" Content="Добавить"/>
+                                    <Button Grid.Column="1" Content="Удалить"/>
+
+                                </Grid>
+
+                            </Grid>
+
                             <GridSplitter Grid.Column="1" Width="2" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+
                             <GroupBox Grid.Column="2" Header="Стракчакосты"></GroupBox>
 
                         </Grid>
                     </GroupBox>
 
-                    <GroupBox Header="Действия"></GroupBox>
+                    <GroupBox Grid.Row="4" Header="Действия">
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="Принять"/>
+                            <Button Content="Отклонить"/>
+                        </StackPanel>
+                    </GroupBox>
 
-                </StackPanel>
+                </Grid>
 
                 <GridSplitter Grid.Column="1" Width="2" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
 
@@ -164,22 +244,22 @@
                       BorderBrush="Black"
                       Visibility="{Binding UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToChildTasksVisibilityConverter}}">
 
-                <ListBox ItemsSource="{Binding ChildPriceEngineeringTasks}">
-                    <ListBox.ItemContainerStyle>
+                <ItemsControl ItemsSource="{Binding ChildPriceEngineeringTasks}">
+                    <!--<ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
                         </Style>
-                    </ListBox.ItemContainerStyle>
-                    <ListBox.ItemTemplate>
+                    </ListBox.ItemContainerStyle>-->
+                    <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border Background="White" Margin="20 0 10 0" Padding="5 2">
+                            <Border Background="White" Margin="10 0 0 0" Padding="5 2">
                                 <StackPanel>
                                     <view:PriceEngineeringTaskControl DataContext="{Binding}" />
                                 </StackPanel>
                             </Border>
                         </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
 
             </Expander>
 

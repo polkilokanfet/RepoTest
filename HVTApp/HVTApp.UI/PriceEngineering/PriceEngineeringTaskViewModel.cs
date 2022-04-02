@@ -207,7 +207,7 @@ namespace HVTApp.UI.PriceEngineering
                     this.Message.Message = string.Empty;
                     ReloadMessagesAll();
                 },
-                () => Message != null && Message.IsValid && Message.IsChanged);
+                () => Message != null && Message.IsValid && Message.IsChanged && string.IsNullOrEmpty(Message.Message) == false);
 
             Message = new PriceEngineeringTaskMessageWrapper(new PriceEngineeringTaskMessage()
             {
@@ -223,7 +223,7 @@ namespace HVTApp.UI.PriceEngineering
         private void ReloadMessagesAll()
         {
             MessagesAll.Clear();
-            MessagesAll.AddRange(this.Model.Messages.Select(x => new MessageViewModel(x.Message, x.Author, x.Moment)).OrderBy(x => x.Moment));
+            MessagesAll.AddRange(this.Model.Messages.Select(x => new MessageViewModel(x.Message, x.Author, x.Moment)).OrderByDescending(x => x.Moment));
         }
 
         private void InitializeChildPriceEngineeringTasks(IEnumerable<PriceEngineeringTask> priceEngineeringTasks)
