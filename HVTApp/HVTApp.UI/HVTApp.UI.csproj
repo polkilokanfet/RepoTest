@@ -267,8 +267,11 @@
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelConstructorVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelDesignDepartmentHeadVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelManagerVisibilityConverter.cs" />
+    <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelToFacilityConverter.cs" />
+    <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelToProductAmountConverter.cs" />
+    <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelToProductDesignationConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskWrapperToChildTasksVisibilityConverter.cs" />
-    <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskWrapperToProductDesignationConverter.cs" />
+    <Compile Include="PriceEngineering\Converters\ProductBlockToDesignationConverter.cs" />
     <Compile Include="PriceEngineering\PriceEngineeringTasksWrapper1.cs" />
     <Compile Include="PriceEngineering\PriceEngineeringTaskViewModelConstructor.cs" />
     <Compile Include="PriceEngineering\PriceEngineeringTaskViewModelDesignDepartmentHead.cs" />

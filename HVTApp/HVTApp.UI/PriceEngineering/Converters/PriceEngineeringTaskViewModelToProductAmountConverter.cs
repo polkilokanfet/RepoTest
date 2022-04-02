@@ -1,18 +1,20 @@
 using System;
 using System.Globalization;
+using System.Linq;
 using System.Windows.Data;
-using HVTApp.Model.Wrapper;
 
 namespace HVTApp.UI.PriceEngineering.Converters
 {
-    [ValueConversion(typeof(PriceEngineeringTaskWrapper), typeof(string))]
-    public class PriceEngineeringTaskWrapperToProductDesignationConverter : IValueConverter
+    [ValueConversion(typeof(PriceEngineeringTaskViewModel), typeof(int))]
+    public class PriceEngineeringTaskViewModelToProductAmountConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is PriceEngineeringTaskWrapper priceEngineeringTaskWrapper)
+            if (value is PriceEngineeringTaskViewModel priceEngineeringTaskViewModel)
             {
-                return priceEngineeringTaskWrapper.Model.ProductBlockEngineer?.Designation;
+                return priceEngineeringTaskViewModel.SalesUnits.Any()
+                    ? priceEngineeringTaskViewModel.SalesUnits.Count
+                    : 0;
             }
 
             throw new ArgumentException();
