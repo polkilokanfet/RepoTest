@@ -39,9 +39,7 @@
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
 
-                        <infg:TextField Name="PriceEngineeringTaskId" Label="Id технико-стоимостной проработки" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="IsActual" Label="Актуален" Width="Auto" AllowResize="True" />
-                        <infg:CheckBoxField Name="CoversChildTasks" Label="Распространяется на дочерние задачи" Width="Auto" AllowResize="True" />
                         <infg:DateTimeField Name="CreationMoment" Label="Момент создания" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Name" Label="Имя файла" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" AllowResize="True" />

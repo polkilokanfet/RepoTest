@@ -35,11 +35,11 @@ namespace HVTApp.DataAccess
     public partial interface IPriceCalculationItemRepository : IRepository<PriceCalculationItem> { }
     public partial interface IDesignDepartmentParametersRepository : IRepository<DesignDepartmentParameters> { }
     public partial interface IPriceEngineeringTaskRepository : IRepository<PriceEngineeringTask> { }
-    public partial interface IPriceEngineeringTasksRepository : IRepository<PriceEngineeringTasks> { }
     public partial interface IPriceEngineeringTaskFileAnswerRepository : IRepository<PriceEngineeringTaskFileAnswer> { }
     public partial interface IPriceEngineeringTaskFileTechnicalRequirementsRepository : IRepository<PriceEngineeringTaskFileTechnicalRequirements> { }
     public partial interface IPriceEngineeringTaskMessageRepository : IRepository<PriceEngineeringTaskMessage> { }
     public partial interface IPriceEngineeringTaskProductBlockAddedRepository : IRepository<PriceEngineeringTaskProductBlockAdded> { }
+    public partial interface IPriceEngineeringTasksRepository : IRepository<PriceEngineeringTasks> { }
     public partial interface IPriceEngineeringTasksFileTechnicalRequirementsRepository : IRepository<PriceEngineeringTasksFileTechnicalRequirements> { }
     public partial interface IPriceEngineeringTaskStatusRepository : IRepository<PriceEngineeringTaskStatus> { }
     public partial interface IProductCategoryRepository : IRepository<ProductCategory> { }

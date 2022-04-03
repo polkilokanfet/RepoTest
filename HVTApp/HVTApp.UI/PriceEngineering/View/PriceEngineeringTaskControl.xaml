@@ -3,13 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View"
              xmlns:converters="clr-namespace:HVTApp.UI.PriceEngineering.Converters"
-             xmlns:messages="clr-namespace:HVTApp.UI.PriceEngineering.Messages">
+             xmlns:messages="clr-namespace:HVTApp.UI.PriceEngineering.Messages"
+             xmlns:dataPresenter="http://infragistics.com/DataPresenter">
 
     <UserControl.Resources>
         <converters:PriceEngineeringTaskWrapperToChildTasksVisibilityConverter x:Key="ToChildTasksVisibilityConverter" />
         <converters:PriceEngineeringTaskViewModelDesignDepartmentHeadVisibilityConverter x:Key="DesignDepartmentHeadVisibilityConverter" />
         <converters:PriceEngineeringTaskViewModelConstructorVisibilityConverter x:Key="ConstructorVisibilityConverter" />
         <converters:PriceEngineeringTaskViewModelManagerVisibilityConverter x:Key="ManagerVisibilityConverter" />
+        <converters:FilesToBoarderTricknessConverter x:Key="FilesToBoarderTricknessConverter" />
     </UserControl.Resources>
     
     <!--Задача на блок продукта-->
@@ -21,7 +23,7 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" MinHeight="300" MaxHeight="480">
+            <Grid Grid.Row="0" MinHeight="480" MaxHeight="768">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
@@ -105,26 +107,54 @@
                             </Grid.ColumnDefinitions>
 
                             <!--Техническое задание-->
-                            <Grid Grid.Column="0">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
+                            <Border Grid.Column="0" BorderBrush="Red" BorderThickness="{Binding FilesTechnicalRequirements, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource FilesToBoarderTricknessConverter}}">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
 
-                                <GroupBox Grid.Row="0" Header="Техническое задание"></GroupBox>
+                                    <GroupBox Grid.Row="0" Header="Техническое задание">
 
-                                <Grid Grid.Row="1">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
+                                        <dataPresenter:XamDataGrid
+                                            DataSource="{Binding FilesTechnicalRequirements}"
+                                            ActiveDataItem="{Binding SelectedTechnicalRequrementsFile, Mode=TwoWay}"
+                                            Style="{StaticResource XamDataGridUpdateOnCellValueChange}">
 
-                                    <Button Grid.Column="0" Content="Добавить"/>
-                                    <Button Grid.Column="1" Content="Загрузить всё"/>
+                                            <dataPresenter:XamDataGrid.InputBindings>
+                                                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=OpenTechnicalRequrementsFileCommand, Mode=OneWay}" />
+                                            </dataPresenter:XamDataGrid.InputBindings>
+
+                                            <dataPresenter:XamDataGrid.FieldLayouts>
+                                                <dataPresenter:FieldLayout>
+                                                    <dataPresenter:FieldLayout.Fields>
+                                                        <dataPresenter:CheckBoxField AlternateBinding="{Binding IsActual, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Актуально?" AllowEdit="False" Width="Auto"/>
+                                                        <dataPresenter:DateTimeField AlternateBinding="{Binding CreationMoment}" BindingType="UseAlternateBinding" Label="Дата" AllowEdit="False" AllowResize="False" Width="Auto"/>
+                                                        <dataPresenter:TextField AlternateBinding="{Binding Name}" BindingType="UseAlternateBinding" Label="Название" Width="*" AllowEdit="False"/>
+                                                        <!--<dataPresenter:TextField AlternateBinding="{Binding Comment, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Комментарий" Width="100" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}"/>-->
+                                                        <!--<dataPresenter:TextField AlternateBinding="{Binding Id}" BindingType="UseAlternateBinding" Label="Id" Width="Auto" AllowEdit="False"/>-->
+                                                    </dataPresenter:FieldLayout.Fields>
+                                                </dataPresenter:FieldLayout>
+                                            </dataPresenter:XamDataGrid.FieldLayouts>
+
+                                        </dataPresenter:XamDataGrid>
+                                    </GroupBox>
+
+                                    <Grid Grid.Row="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Button Grid.Column="0" Content="Добавить" Command="{Binding AddTechnicalRequrementsFilesCommand}"/>
+                                        <Button Grid.Column="1" Content="Удалить" Command="{Binding RemoveTechnicalRequrementsFilesCommand}"/>
+                                        <Button Grid.Column="2" Content="Загрузить всё"/>
+
+                                    </Grid>
 
                                 </Grid>
-
-                            </Grid>
+                            </Border>
 
                             <GridSplitter Grid.Column="1" Width="2" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
                             
@@ -143,7 +173,7 @@
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <Button Grid.Column="0" Content="Добавить"/>
+                                    <Button Grid.Column="0" Content="Добавить" Command="{Binding AddAnswerFilesCommand}"/>
                                     <Button Grid.Column="1" Content="Загрузить всё"/>
 
                                 </Grid>
@@ -194,6 +224,7 @@
 
                     <GroupBox Grid.Row="4" Header="Действия">
                         <StackPanel Orientation="Horizontal">
+                            <Button Content="Стартовать" Command="{Binding StartCommand}"/>
                             <Button Content="Принять"/>
                             <Button Content="Отклонить"/>
                         </StackPanel>

@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
@@ -15,15 +17,37 @@ namespace HVTApp.UI.PriceEngineering
         /// <summary>
         /// Выбрать блок продукта
         /// </summary>
-        public DelegateLogCommand SelectProductBlockCommand { get; }
+        public DelegateLogCommand SelectProductBlockCommand { get; private set; }
 
-        public PriceEngineeringTaskViewModelConstructor(IUnityContainer container, IUnitOfWork unitOfWork, PriceEngineeringTask priceEngineeringTask) 
-            : base(container, unitOfWork, priceEngineeringTask)
+        public DelegateLogCommand AddAnswerFilesCommand { get; private set; }
+
+        #region ctors
+
+        public PriceEngineeringTaskViewModelConstructor(IUnityContainer container, IUnitOfWork unitOfWork, PriceEngineeringTask priceEngineeringTask) : base(container, unitOfWork, priceEngineeringTask)
         {
+        }
+
+        public PriceEngineeringTaskViewModelConstructor(IUnityContainer container, IUnitOfWork unitOfWork, IEnumerable<SalesUnit> salesUnits) : base(container, unitOfWork, salesUnits)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public PriceEngineeringTaskViewModelConstructor(IUnityContainer container, IUnitOfWork unitOfWork, Product product) : base(container, unitOfWork, product)
+        {
+            throw new System.NotImplementedException();
+        }
+        
+
+        #endregion
+
+        protected override void InCtor()
+        {
+            base.InCtor();
+
             SelectProductBlockCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var department = unitOfWork.Repository<DesignDepartment>()
+                    var department = UnitOfWork.Repository<DesignDepartment>()
                         .Find(designDepartment => designDepartment.ProductBlockIsSuitable(ProductBlockManager.Model))
                         .FirstOrDefault();
 
@@ -33,7 +57,7 @@ namespace HVTApp.UI.PriceEngineering
                     var requiredParameters = department.ParameterSets
                         .FirstOrDefault(x => x.Parameters.AllContainsInById(ProductBlockManager.Model.Parameters));
 
-                    var getProductService = container.Resolve<IGetProductService>();
+                    var getProductService = Container.Resolve<IGetProductService>();
                     var originProductBlock = this.ProductBlockEngineer.Model;
                     var selectedProductBlock = getProductService.GetProductBlock(originProductBlock, requiredParameters.Parameters);
                     if (originProductBlock.Id != selectedProductBlock.Id)
@@ -45,16 +69,30 @@ namespace HVTApp.UI.PriceEngineering
                 {
                     return true;
                 });
-        }
 
-        public PriceEngineeringTaskViewModelConstructor(IUnityContainer container, IUnitOfWork unitOfWork, IEnumerable<SalesUnit> salesUnits) : base(container, unitOfWork, salesUnits)
-        {
-            throw new System.NotImplementedException();
-        }
+            AddAnswerFilesCommand = new DelegateLogCommand(
+                () =>
+                {
+                    var openFileDialog = new OpenFileDialog
+                    {
+                        Multiselect = true,
+                        RestoreDirectory = true
+                    };
 
-        public PriceEngineeringTaskViewModelConstructor(IUnityContainer container, IUnitOfWork unitOfWork, Product product) : base(container, unitOfWork, product)
-        {
-            throw new System.NotImplementedException();
+                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        //копируем каждый файл
+                        foreach (var fileName in openFileDialog.FileNames)
+                        {
+                            var fileWrapper = new PriceEngineeringTaskFileAnswerWrapper(new PriceEngineeringTaskFileAnswer())
+                            {
+                                Name = Path.GetFileNameWithoutExtension(fileName).LimitLengh(50),
+                                Path = fileName
+                            };
+                            this.FilesAnswers.Add(fileWrapper);
+                        }
+                    }
+                });
         }
     }
 }

@@ -163,11 +163,6 @@ namespace HVTApp.DataAccess
         public PriceEngineeringTaskRepositoryTest(TestData testData) : base(testData) {}
     }
 
-    public partial class PriceEngineeringTasksRepositoryTest : TestBaseRepository<PriceEngineeringTasks>, IPriceEngineeringTasksRepository
-    {
-        public PriceEngineeringTasksRepositoryTest(TestData testData) : base(testData) {}
-    }
-
     public partial class PriceEngineeringTaskFileAnswerRepositoryTest : TestBaseRepository<PriceEngineeringTaskFileAnswer>, IPriceEngineeringTaskFileAnswerRepository
     {
         public PriceEngineeringTaskFileAnswerRepositoryTest(TestData testData) : base(testData) {}
@@ -186,6 +181,11 @@ namespace HVTApp.DataAccess
     public partial class PriceEngineeringTaskProductBlockAddedRepositoryTest : TestBaseRepository<PriceEngineeringTaskProductBlockAdded>, IPriceEngineeringTaskProductBlockAddedRepository
     {
         public PriceEngineeringTaskProductBlockAddedRepositoryTest(TestData testData) : base(testData) {}
+    }
+
+    public partial class PriceEngineeringTasksRepositoryTest : TestBaseRepository<PriceEngineeringTasks>, IPriceEngineeringTasksRepository
+    {
+        public PriceEngineeringTasksRepositoryTest(TestData testData) : base(testData) {}
     }
 
     public partial class PriceEngineeringTasksFileTechnicalRequirementsRepositoryTest : TestBaseRepository<PriceEngineeringTasksFileTechnicalRequirements>, IPriceEngineeringTasksFileTechnicalRequirementsRepository

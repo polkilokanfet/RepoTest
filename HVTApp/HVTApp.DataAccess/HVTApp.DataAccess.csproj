@@ -362,6 +362,10 @@
     <Compile Include="Migrations\202203292002298_PriceEngineeringTasks.Designer.cs">
       <DependentUpon>202203292002298_PriceEngineeringTasks.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202204031806139_FileTechnicalRequirementsEdit.cs" />
+    <Compile Include="Migrations\202204031806139_FileTechnicalRequirementsEdit.Designer.cs">
+      <DependentUpon>202204031806139_FileTechnicalRequirementsEdit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -582,6 +586,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202203292002298_PriceEngineeringTasks.resx">
       <DependentUpon>202203292002298_PriceEngineeringTasks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204031806139_FileTechnicalRequirementsEdit.resx">
+      <DependentUpon>202204031806139_FileTechnicalRequirementsEdit.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

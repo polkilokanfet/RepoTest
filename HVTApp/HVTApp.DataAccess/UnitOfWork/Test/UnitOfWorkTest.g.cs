@@ -39,11 +39,11 @@ namespace HVTApp.DataAccess
             PriceCalculationItemRepository = new PriceCalculationItemRepositoryTest(testData);
             DesignDepartmentParametersRepository = new DesignDepartmentParametersRepositoryTest(testData);
             PriceEngineeringTaskRepository = new PriceEngineeringTaskRepositoryTest(testData);
-            PriceEngineeringTasksRepository = new PriceEngineeringTasksRepositoryTest(testData);
             PriceEngineeringTaskFileAnswerRepository = new PriceEngineeringTaskFileAnswerRepositoryTest(testData);
             PriceEngineeringTaskFileTechnicalRequirementsRepository = new PriceEngineeringTaskFileTechnicalRequirementsRepositoryTest(testData);
             PriceEngineeringTaskMessageRepository = new PriceEngineeringTaskMessageRepositoryTest(testData);
             PriceEngineeringTaskProductBlockAddedRepository = new PriceEngineeringTaskProductBlockAddedRepositoryTest(testData);
+            PriceEngineeringTasksRepository = new PriceEngineeringTasksRepositoryTest(testData);
             PriceEngineeringTasksFileTechnicalRequirementsRepository = new PriceEngineeringTasksFileTechnicalRequirementsRepositoryTest(testData);
             PriceEngineeringTaskStatusRepository = new PriceEngineeringTaskStatusRepositoryTest(testData);
             ProductCategoryRepository = new ProductCategoryRepositoryTest(testData);
@@ -145,11 +145,11 @@ namespace HVTApp.DataAccess
         public IPriceCalculationItemRepository PriceCalculationItemRepository { get; }
         public IDesignDepartmentParametersRepository DesignDepartmentParametersRepository { get; }
         public IPriceEngineeringTaskRepository PriceEngineeringTaskRepository { get; }
-        public IPriceEngineeringTasksRepository PriceEngineeringTasksRepository { get; }
         public IPriceEngineeringTaskFileAnswerRepository PriceEngineeringTaskFileAnswerRepository { get; }
         public IPriceEngineeringTaskFileTechnicalRequirementsRepository PriceEngineeringTaskFileTechnicalRequirementsRepository { get; }
         public IPriceEngineeringTaskMessageRepository PriceEngineeringTaskMessageRepository { get; }
         public IPriceEngineeringTaskProductBlockAddedRepository PriceEngineeringTaskProductBlockAddedRepository { get; }
+        public IPriceEngineeringTasksRepository PriceEngineeringTasksRepository { get; }
         public IPriceEngineeringTasksFileTechnicalRequirementsRepository PriceEngineeringTasksFileTechnicalRequirementsRepository { get; }
         public IPriceEngineeringTaskStatusRepository PriceEngineeringTaskStatusRepository { get; }
         public IProductCategoryRepository ProductCategoryRepository { get; }

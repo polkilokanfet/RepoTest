@@ -2601,17 +2601,9 @@ namespace HVTApp.UI.Views
         {
             //NotUpdateAttribute attr;
 
-            //attr = typeof(HVTApp.Model.POCOs.PriceEngineeringTaskFileTechnicalRequirements).GetProperty(nameof(HVTApp.Model.POCOs.PriceEngineeringTaskFileTechnicalRequirements.PriceEngineeringTaskId)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityPriceEngineeringTaskIdPriceEngineeringTaskFileTechnicalRequirements = Visibility.Collapsed;
-
             //attr = typeof(HVTApp.Model.POCOs.PriceEngineeringTaskFileTechnicalRequirements).GetProperty(nameof(HVTApp.Model.POCOs.PriceEngineeringTaskFileTechnicalRequirements.IsActual)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityIsActualPriceEngineeringTaskFileTechnicalRequirements = Visibility.Collapsed;
-
-            //attr = typeof(HVTApp.Model.POCOs.PriceEngineeringTaskFileTechnicalRequirements).GetProperty(nameof(HVTApp.Model.POCOs.PriceEngineeringTaskFileTechnicalRequirements.CoversChildTasks)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityCoversChildTasksPriceEngineeringTaskFileTechnicalRequirements = Visibility.Collapsed;
 
             //attr = typeof(HVTApp.Model.POCOs.PriceEngineeringTaskFileTechnicalRequirements).GetProperty(nameof(HVTApp.Model.POCOs.PriceEngineeringTaskFileTechnicalRequirements.CreationMoment)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
@@ -2629,27 +2621,11 @@ namespace HVTApp.UI.Views
         }
 
 
-        public static readonly DependencyProperty VisibilityPriceEngineeringTaskIdPriceEngineeringTaskFileTechnicalRequirementsProperty = DependencyProperty.Register("VisibilityPriceEngineeringTaskIdPriceEngineeringTaskFileTechnicalRequirements", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityPriceEngineeringTaskIdPriceEngineeringTaskFileTechnicalRequirements
-        {
-            get { return (Visibility) GetValue(VisibilityPriceEngineeringTaskIdPriceEngineeringTaskFileTechnicalRequirementsProperty); }
-            set { SetValue(VisibilityPriceEngineeringTaskIdPriceEngineeringTaskFileTechnicalRequirementsProperty, value); OnPropertyChanged(); }
-        }
-
-
         public static readonly DependencyProperty VisibilityIsActualPriceEngineeringTaskFileTechnicalRequirementsProperty = DependencyProperty.Register("VisibilityIsActualPriceEngineeringTaskFileTechnicalRequirements", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
         public Visibility VisibilityIsActualPriceEngineeringTaskFileTechnicalRequirements
         {
             get { return (Visibility) GetValue(VisibilityIsActualPriceEngineeringTaskFileTechnicalRequirementsProperty); }
             set { SetValue(VisibilityIsActualPriceEngineeringTaskFileTechnicalRequirementsProperty, value); OnPropertyChanged(); }
-        }
-
-
-        public static readonly DependencyProperty VisibilityCoversChildTasksPriceEngineeringTaskFileTechnicalRequirementsProperty = DependencyProperty.Register("VisibilityCoversChildTasksPriceEngineeringTaskFileTechnicalRequirements", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityCoversChildTasksPriceEngineeringTaskFileTechnicalRequirements
-        {
-            get { return (Visibility) GetValue(VisibilityCoversChildTasksPriceEngineeringTaskFileTechnicalRequirementsProperty); }
-            set { SetValue(VisibilityCoversChildTasksPriceEngineeringTaskFileTechnicalRequirementsProperty, value); OnPropertyChanged(); }
         }
 
 

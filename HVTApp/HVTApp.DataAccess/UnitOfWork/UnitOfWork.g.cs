@@ -100,9 +100,6 @@ namespace HVTApp.DataAccess
             PriceEngineeringTaskRepository = new PriceEngineeringTaskRepository(_context);
             PriceEngineeringTaskRepository.OperationFailedEvent += OnOperationFailedEvent;
 
-            PriceEngineeringTasksRepository = new PriceEngineeringTasksRepository(_context);
-            PriceEngineeringTasksRepository.OperationFailedEvent += OnOperationFailedEvent;
-
             PriceEngineeringTaskFileAnswerRepository = new PriceEngineeringTaskFileAnswerRepository(_context);
             PriceEngineeringTaskFileAnswerRepository.OperationFailedEvent += OnOperationFailedEvent;
 
@@ -114,6 +111,9 @@ namespace HVTApp.DataAccess
 
             PriceEngineeringTaskProductBlockAddedRepository = new PriceEngineeringTaskProductBlockAddedRepository(_context);
             PriceEngineeringTaskProductBlockAddedRepository.OperationFailedEvent += OnOperationFailedEvent;
+
+            PriceEngineeringTasksRepository = new PriceEngineeringTasksRepository(_context);
+            PriceEngineeringTasksRepository.OperationFailedEvent += OnOperationFailedEvent;
 
             PriceEngineeringTasksFileTechnicalRequirementsRepository = new PriceEngineeringTasksFileTechnicalRequirementsRepository(_context);
             PriceEngineeringTasksFileTechnicalRequirementsRepository.OperationFailedEvent += OnOperationFailedEvent;
@@ -343,11 +343,11 @@ namespace HVTApp.DataAccess
             PriceCalculationItemRepository.OperationFailedEvent -= OnOperationFailedEvent;
             DesignDepartmentParametersRepository.OperationFailedEvent -= OnOperationFailedEvent;
             PriceEngineeringTaskRepository.OperationFailedEvent -= OnOperationFailedEvent;
-            PriceEngineeringTasksRepository.OperationFailedEvent -= OnOperationFailedEvent;
             PriceEngineeringTaskFileAnswerRepository.OperationFailedEvent -= OnOperationFailedEvent;
             PriceEngineeringTaskFileTechnicalRequirementsRepository.OperationFailedEvent -= OnOperationFailedEvent;
             PriceEngineeringTaskMessageRepository.OperationFailedEvent -= OnOperationFailedEvent;
             PriceEngineeringTaskProductBlockAddedRepository.OperationFailedEvent -= OnOperationFailedEvent;
+            PriceEngineeringTasksRepository.OperationFailedEvent -= OnOperationFailedEvent;
             PriceEngineeringTasksFileTechnicalRequirementsRepository.OperationFailedEvent -= OnOperationFailedEvent;
             PriceEngineeringTaskStatusRepository.OperationFailedEvent -= OnOperationFailedEvent;
             ProductCategoryRepository.OperationFailedEvent -= OnOperationFailedEvent;
@@ -447,11 +447,11 @@ namespace HVTApp.DataAccess
         protected IPriceCalculationItemRepository PriceCalculationItemRepository;
         protected IDesignDepartmentParametersRepository DesignDepartmentParametersRepository;
         protected IPriceEngineeringTaskRepository PriceEngineeringTaskRepository;
-        protected IPriceEngineeringTasksRepository PriceEngineeringTasksRepository;
         protected IPriceEngineeringTaskFileAnswerRepository PriceEngineeringTaskFileAnswerRepository;
         protected IPriceEngineeringTaskFileTechnicalRequirementsRepository PriceEngineeringTaskFileTechnicalRequirementsRepository;
         protected IPriceEngineeringTaskMessageRepository PriceEngineeringTaskMessageRepository;
         protected IPriceEngineeringTaskProductBlockAddedRepository PriceEngineeringTaskProductBlockAddedRepository;
+        protected IPriceEngineeringTasksRepository PriceEngineeringTasksRepository;
         protected IPriceEngineeringTasksFileTechnicalRequirementsRepository PriceEngineeringTasksFileTechnicalRequirementsRepository;
         protected IPriceEngineeringTaskStatusRepository PriceEngineeringTaskStatusRepository;
         protected IProductCategoryRepository ProductCategoryRepository;

@@ -1,23 +1,25 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Data;
+using HVTApp.Model.Wrapper;
 
 namespace HVTApp.UI.PriceEngineering.Converters
 {
-    [ValueConversion(typeof(PriceEngineeringTaskViewModel), typeof(Visibility))]
-    public class PriceEngineeringTaskWrapperToChildTasksVisibilityConverter : IValueConverter
+    [ValueConversion(typeof(IEnumerable<PriceEngineeringTaskFileTechnicalRequirementsWrapper>), typeof(Thickness))]
+    public class FilesToBoarderTricknessConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is PriceEngineeringTaskViewModel priceEngineeringTaskWrapper)
+            if (value is IEnumerable<PriceEngineeringTaskFileTechnicalRequirementsWrapper> enumerable)
             {
-                return priceEngineeringTaskWrapper.Model.ChildPriceEngineeringTasks.Any() 
-                    ? Visibility.Visible 
-                    : Visibility.Collapsed;
+                return enumerable.Any()
+                    ? new Thickness(0)
+                    : new Thickness(1);
             }
-
+            
             throw new ArgumentException();
         }
 

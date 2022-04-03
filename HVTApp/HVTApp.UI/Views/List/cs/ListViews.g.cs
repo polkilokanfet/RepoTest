@@ -4680,22 +4680,10 @@ namespace HVTApp.UI.Views
 
 		#region VisibilityProps
 
-        public System.Windows.Visibility PriceEngineeringTaskIdVisibility
-        {
-            get { return PriceEngineeringTaskFileTechnicalRequirementsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskFileTechnicalRequirementsLookup.PriceEngineeringTaskId)].Visibility; }
-            set { PriceEngineeringTaskFileTechnicalRequirementsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskFileTechnicalRequirementsLookup.PriceEngineeringTaskId)].Visibility = value; }
-        }
-
         public System.Windows.Visibility IsActualVisibility
         {
             get { return PriceEngineeringTaskFileTechnicalRequirementsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskFileTechnicalRequirementsLookup.IsActual)].Visibility; }
             set { PriceEngineeringTaskFileTechnicalRequirementsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskFileTechnicalRequirementsLookup.IsActual)].Visibility = value; }
-        }
-
-        public System.Windows.Visibility CoversChildTasksVisibility
-        {
-            get { return PriceEngineeringTaskFileTechnicalRequirementsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskFileTechnicalRequirementsLookup.CoversChildTasks)].Visibility; }
-            set { PriceEngineeringTaskFileTechnicalRequirementsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskFileTechnicalRequirementsLookup.CoversChildTasks)].Visibility = value; }
         }
 
         public System.Windows.Visibility CreationMomentVisibility

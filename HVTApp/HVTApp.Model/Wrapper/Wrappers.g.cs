@@ -1980,56 +1980,6 @@ namespace HVTApp.Model.Wrapper
         }
 	}
 
-		public partial class PriceEngineeringTasksWrapper : WrapperBase<PriceEngineeringTasks>
-	{
-	    public PriceEngineeringTasksWrapper(PriceEngineeringTasks model) : base(model) { }
-        #region SimpleProperties
-        /// <summary>
-        /// Id
-        /// </summary>
-        public System.Guid Id
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
-        public bool IdIsChanged => GetIsChanged(nameof(Id));
-        #endregion
-        #region ComplexProperties
-        /// <summary>
-        /// Менеджер
-        /// </summary>
-	    public UserWrapper UserManager 
-        {
-            get { return GetWrapper<UserWrapper>(); }
-            set { SetComplexValue<User, UserWrapper>(UserManager, value); }
-        }
-        #endregion
-        #region CollectionProperties
-        /// <summary>
-        /// Файлы технических требований (общие)
-        /// </summary>
-        public IValidatableChangeTrackingCollection<PriceEngineeringTasksFileTechnicalRequirementsWrapper> FilesTechnicalRequirements { get; private set; }
-        /// <summary>
-        /// Задачи
-        /// </summary>
-        public IValidatableChangeTrackingCollection<PriceEngineeringTaskWrapper> ChildPriceEngineeringTasks { get; private set; }
-        #endregion
-        public override void InitializeComplexProperties()
-        {
-            InitializeComplexProperty<UserWrapper>(nameof(UserManager), Model.UserManager == null ? null : new UserWrapper(Model.UserManager));
-        }
-        protected override void InitializeCollectionProperties()
-        {
-          if (Model.FilesTechnicalRequirements == null) throw new ArgumentException("FilesTechnicalRequirements cannot be null");
-          FilesTechnicalRequirements = new ValidatableChangeTrackingCollection<PriceEngineeringTasksFileTechnicalRequirementsWrapper>(Model.FilesTechnicalRequirements.Select(e => new PriceEngineeringTasksFileTechnicalRequirementsWrapper(e)));
-          RegisterCollection(FilesTechnicalRequirements, Model.FilesTechnicalRequirements);
-          if (Model.ChildPriceEngineeringTasks == null) throw new ArgumentException("ChildPriceEngineeringTasks cannot be null");
-          ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<PriceEngineeringTaskWrapper>(Model.ChildPriceEngineeringTasks.Select(e => new PriceEngineeringTaskWrapper(e)));
-          RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
-        }
-	}
-
 		public partial class PriceEngineeringTaskFileAnswerWrapper : WrapperBase<PriceEngineeringTaskFileAnswer>
 	{
 	    public PriceEngineeringTaskFileAnswerWrapper(PriceEngineeringTaskFileAnswer model) : base(model) { }
@@ -2102,16 +2052,6 @@ namespace HVTApp.Model.Wrapper
 	    public PriceEngineeringTaskFileTechnicalRequirementsWrapper(PriceEngineeringTaskFileTechnicalRequirements model) : base(model) { }
         #region SimpleProperties
         /// <summary>
-        /// Id технико-стоимостной проработки
-        /// </summary>
-        public System.Guid PriceEngineeringTaskId
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid PriceEngineeringTaskIdOriginalValue => GetOriginalValue<System.Guid>(nameof(PriceEngineeringTaskId));
-        public bool PriceEngineeringTaskIdIsChanged => GetIsChanged(nameof(PriceEngineeringTaskId));
-        /// <summary>
         /// Актуален
         /// </summary>
         public System.Boolean IsActual
@@ -2121,16 +2061,6 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Boolean IsActualOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsActual));
         public bool IsActualIsChanged => GetIsChanged(nameof(IsActual));
-        /// <summary>
-        /// Распространяется на дочерние задачи
-        /// </summary>
-        public System.Boolean CoversChildTasks
-        {
-          get { return GetValue<System.Boolean>(); }
-          set { SetValue(value); }
-        }
-        public System.Boolean CoversChildTasksOriginalValue => GetOriginalValue<System.Boolean>(nameof(CoversChildTasks));
-        public bool CoversChildTasksIsChanged => GetIsChanged(nameof(CoversChildTasks));
         /// <summary>
         /// Момент создания
         /// </summary>
@@ -2283,6 +2213,56 @@ namespace HVTApp.Model.Wrapper
         public override void InitializeComplexProperties()
         {
             InitializeComplexProperty<ProductBlockWrapper>(nameof(ProductBlock), Model.ProductBlock == null ? null : new ProductBlockWrapper(Model.ProductBlock));
+        }
+	}
+
+		public partial class PriceEngineeringTasksWrapper : WrapperBase<PriceEngineeringTasks>
+	{
+	    public PriceEngineeringTasksWrapper(PriceEngineeringTasks model) : base(model) { }
+        #region SimpleProperties
+        /// <summary>
+        /// Id
+        /// </summary>
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+        #endregion
+        #region ComplexProperties
+        /// <summary>
+        /// Менеджер
+        /// </summary>
+	    public UserWrapper UserManager 
+        {
+            get { return GetWrapper<UserWrapper>(); }
+            set { SetComplexValue<User, UserWrapper>(UserManager, value); }
+        }
+        #endregion
+        #region CollectionProperties
+        /// <summary>
+        /// Файлы технических требований (общие)
+        /// </summary>
+        public IValidatableChangeTrackingCollection<PriceEngineeringTasksFileTechnicalRequirementsWrapper> FilesTechnicalRequirements { get; private set; }
+        /// <summary>
+        /// Задачи
+        /// </summary>
+        public IValidatableChangeTrackingCollection<PriceEngineeringTaskWrapper> ChildPriceEngineeringTasks { get; private set; }
+        #endregion
+        public override void InitializeComplexProperties()
+        {
+            InitializeComplexProperty<UserWrapper>(nameof(UserManager), Model.UserManager == null ? null : new UserWrapper(Model.UserManager));
+        }
+        protected override void InitializeCollectionProperties()
+        {
+          if (Model.FilesTechnicalRequirements == null) throw new ArgumentException("FilesTechnicalRequirements cannot be null");
+          FilesTechnicalRequirements = new ValidatableChangeTrackingCollection<PriceEngineeringTasksFileTechnicalRequirementsWrapper>(Model.FilesTechnicalRequirements.Select(e => new PriceEngineeringTasksFileTechnicalRequirementsWrapper(e)));
+          RegisterCollection(FilesTechnicalRequirements, Model.FilesTechnicalRequirements);
+          if (Model.ChildPriceEngineeringTasks == null) throw new ArgumentException("ChildPriceEngineeringTasks cannot be null");
+          ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<PriceEngineeringTaskWrapper>(Model.ChildPriceEngineeringTasks.Select(e => new PriceEngineeringTaskWrapper(e)));
+          RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
         }
 	}
 

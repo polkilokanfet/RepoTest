@@ -228,13 +228,6 @@ namespace HVTApp.DataAccess
 		}
     }
 
-    public partial class PriceEngineeringTasksRepository : BaseRepository<PriceEngineeringTasks>, IPriceEngineeringTasksRepository
-    {
-		public PriceEngineeringTasksRepository(DbContext context) : base(context) 
-		{
-		}
-    }
-
     public partial class PriceEngineeringTaskFileAnswerRepository : BaseRepository<PriceEngineeringTaskFileAnswer>, IPriceEngineeringTaskFileAnswerRepository
     {
 		public PriceEngineeringTaskFileAnswerRepository(DbContext context) : base(context) 
@@ -259,6 +252,13 @@ namespace HVTApp.DataAccess
     public partial class PriceEngineeringTaskProductBlockAddedRepository : BaseRepository<PriceEngineeringTaskProductBlockAdded>, IPriceEngineeringTaskProductBlockAddedRepository
     {
 		public PriceEngineeringTaskProductBlockAddedRepository(DbContext context) : base(context) 
+		{
+		}
+    }
+
+    public partial class PriceEngineeringTasksRepository : BaseRepository<PriceEngineeringTasks>, IPriceEngineeringTasksRepository
+    {
+		public PriceEngineeringTasksRepository(DbContext context) : base(context) 
 		{
 		}
     }

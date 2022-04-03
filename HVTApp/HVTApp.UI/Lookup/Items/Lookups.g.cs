@@ -850,14 +850,8 @@ namespace HVTApp.UI.Lookup
 		}
 		
         #region SimpleProperties
-		[OrderStatus(900)]
-        public System.Guid PriceEngineeringTaskId => Entity.PriceEngineeringTaskId;
-
 		[OrderStatus(850)]
         public System.Boolean IsActual => Entity.IsActual;
-
-		[OrderStatus(830)]
-        public System.Boolean CoversChildTasks => Entity.CoversChildTasks;
 
 		[OrderStatus(800)]
         public System.DateTime CreationMoment => Entity.CreationMoment;

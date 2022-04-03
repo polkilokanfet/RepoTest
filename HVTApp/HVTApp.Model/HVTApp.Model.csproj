@@ -240,6 +240,8 @@
     <Compile Include="Wrapper\Custom\Functionality\OfferWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\OrderWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\ParameterWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Functionality\PriceEngineeringTaskFileAnswerWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Functionality\PriceEngineeringTaskFileTechnicalRequirementsWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\ProductBlockWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\ProductCostDependentProductsWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\ProductIncludedWrapper.cs" />
