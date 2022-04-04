@@ -1,31 +1,50 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
+using System.ComponentModel;
 using System.Linq;
-using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
-using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
-using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
 using HVTApp.UI.PriceEngineering.Comparers;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Events;
+using Prism.Mvvm;
 
 namespace HVTApp.UI.PriceEngineering
 {
-    public class PriceEngineeringTasksViewModel : IDisposable
+    public class PriceEngineeringTasksViewModel : BindableBase, IDisposable
     {
         private readonly IUnityContainer _container;
         private readonly IUnitOfWork _unitOfWork;
         private PriceEngineeringTaskViewModel _selectedPriceEngineeringTaskViewModel;
-        
-        public PriceEngineeringTasksWrapper1 PriceEngineeringTasksWrapper { get; private set; }
+        private PriceEngineeringTasksWrapper1 _priceEngineeringTasksWrapper;
+
+        public PriceEngineeringTasksWrapper1 PriceEngineeringTasksWrapper
+        {
+            get => _priceEngineeringTasksWrapper;
+            private set
+            {
+                if (Equals(_priceEngineeringTasksWrapper, value)) return;
+
+                if (_priceEngineeringTasksWrapper != null)
+                    _priceEngineeringTasksWrapper.PropertyChanged -= PriceEngineeringTasksWrapperOnPropertyChanged;
+
+                _priceEngineeringTasksWrapper = value;
+
+                if (_priceEngineeringTasksWrapper != null)
+                    _priceEngineeringTasksWrapper.PropertyChanged += PriceEngineeringTasksWrapperOnPropertyChanged;
+            }
+        }
+
+        private void PriceEngineeringTasksWrapperOnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            SaveCommand.RaiseCanExecuteChanged();
+            StartCommand.RaiseCanExecuteChanged();
+        }
 
         public PriceEngineeringTaskViewModel SelectedPriceEngineeringTaskViewModel
         {
@@ -36,23 +55,9 @@ namespace HVTApp.UI.PriceEngineering
         #region Commands
 
         public DelegateLogCommand SaveCommand { get; }
+        public DelegateLogCommand StartCommand { get; }
 
         #endregion
-
-        /// <summary>
-        /// Вернуть все добавленные файлы ТЗ
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerable<PriceEngineeringTaskFileTechnicalRequirementsWrapper> GetAllNewFilesTechnicalRequirements()
-        {
-            foreach (var childPriceEngineeringTask in PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks)
-            {
-                foreach (var fileWrapper in childPriceEngineeringTask.GetAllNewFilesTechnicalRequirements())
-                {
-                    yield return fileWrapper;
-                }
-            }
-        }
 
         public PriceEngineeringTasksViewModel(IUnityContainer container, IUnitOfWork unitOfWork)
         {
@@ -73,24 +78,11 @@ namespace HVTApp.UI.PriceEngineering
                         }
 
                         //загрузка файлов в хранилище
-                        foreach (var fileWrapper in GetAllNewFilesTechnicalRequirements().Distinct())
+                        foreach (var priceEngineeringTaskViewModel in this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks)
                         {
-                            File.Copy(fileWrapper.Path, $"{GlobalAppProperties.Actual.TechnicalRequrementsFilesPath}\\{fileWrapper.Id}{Path.GetExtension(fileWrapper.Path)}");
+                            priceEngineeringTaskViewModel.LoadNewTechnicalRequirementFilesInStorage();
                         }
-                        //foreach (var priceEngineeringTask in PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks)
-                        //{
-                        //    //файлы ТЗ
-                        //    foreach (var fileWrapper in priceEngineeringTask.FilesTechnicalRequirements.AddedItems)
-                        //    {
-                        //    }
-
-                        //    //файлы ответы ОГК
-                        //    foreach (var fileWrapper in priceEngineeringTask.FilesAnswers.AddedItems)
-                        //    {
-                        //        File.Copy(fileWrapper.Path, $"{GlobalAppProperties.Actual.TechnicalRequrementsFilesAnswersPath}\\{fileWrapper.Id}{Path.GetExtension(fileWrapper.Path)}");
-                        //    }
-                        //}
-
+                        
                         this.PriceEngineeringTasksWrapper.AcceptChanges();
                         _unitOfWork.SaveChanges();
                         _container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceEngineeringTasksEvent>().Publish(this.PriceEngineeringTasksWrapper.Model);
@@ -99,7 +91,20 @@ namespace HVTApp.UI.PriceEngineering
                     {
                         _container.Resolve<IMessageService>().ShowOkMessageDialog("Ошибка при сохранении", e.PrintAllExceptions());
                     }
-                });
+                },
+                () => this.PriceEngineeringTasksWrapper != null && this.PriceEngineeringTasksWrapper.IsValid && this.PriceEngineeringTasksWrapper.IsChanged);
+
+            StartCommand = new DelegateLogCommand(
+                () =>
+                {
+                    foreach (var priceEngineeringTaskViewModel in PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks)
+                    {
+                        priceEngineeringTaskViewModel.StartCommandExecute(false);
+                    }
+                    SaveCommand.Execute();
+                },
+                () => this.PriceEngineeringTasksWrapper != null && this.PriceEngineeringTasksWrapper.IsValid && this.PriceEngineeringTasksWrapper.IsChanged);
+
         }
 
         /// <summary>
@@ -116,6 +121,11 @@ namespace HVTApp.UI.PriceEngineering
             {
                 PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.Add(PriceEngineeringTaskViewModelFactory.GetInstance(_container, _unitOfWork, salesUnitsGroup));
             }
+        }
+
+        public void Load(PriceEngineeringTasks priceEngineeringTasks)
+        {
+            this.PriceEngineeringTasksWrapper = new PriceEngineeringTasksWrapper1(priceEngineeringTasks, _container, _unitOfWork);
         }
 
         public void Load(PriceEngineeringTask priceEngineeringTask)

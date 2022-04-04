@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.PriceEngineering.Tabs;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 using Prism.Regions;
 
 namespace HVTApp.UI.PriceEngineering.View
 {
-    //[RibbonTab(typeof(TabDirectumTask))]
+    [RibbonTab(typeof(TabPriceEngineeringTasks))]
     public partial class PriceEngineeringTasksView : ViewBaseConfirmNavigationRequest, IDisposable
     {
         private PriceEngineeringTasksViewModel _viewModel;

@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
+using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper;
@@ -16,6 +18,7 @@ using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using HVTApp.UI.Commands;
 using HVTApp.UI.PriceEngineering.Messages;
 using Microsoft.Practices.Unity;
+using Prism.Events;
 
 namespace HVTApp.UI.PriceEngineering
 {
@@ -191,6 +194,8 @@ namespace HVTApp.UI.PriceEngineering
 
         public DelegateLogCommand OpenTechnicalRequrementsFileCommand { get; private set; }
 
+        public DelegateLogCommand SaveCommand { get; private set; }
+
         public DelegateLogCommand StartCommand { get; private set; }
 
         #endregion
@@ -362,30 +367,49 @@ namespace HVTApp.UI.PriceEngineering
                 },
                 () => SelectedTechnicalRequrementsFile != null);
 
-            StartCommand = new DelegateLogCommand(
+            SaveCommand = new DelegateLogCommand(
                 () =>
                 {
-                    this.Statuses.Add(new PriceEngineeringTaskStatusWrapper(new PriceEngineeringTaskStatus()
-                    {
-                        StatusEnum = PriceEngineeringTaskStatusEnum.Started
-                    }));
-
-                    this.Messages.Add(new PriceEngineeringTaskMessageWrapper(new PriceEngineeringTaskMessage()
-                    {
-                        Author = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id), 
-                        Message = "Стартована задача."
-                    }));
-
+                    this.LoadNewTechnicalRequirementFilesInStorage();
                     this.AcceptChanges();
                     UnitOfWork.SaveChanges();
-                },
-                () => this.IsValid && this.IsChanged);
+                    Container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceEngineeringTaskEvent>().Publish(this.Model);
+                });
+
+            StartCommand = new DelegateLogCommand(() => { StartCommandExecute(true); },
+                                                () => this.IsValid && this.IsChanged);
 
             this.PropertyChanged += (sender, args) => StartCommand.RaiseCanExecuteChanged();
+        }
 
-            //костыль для красной рамки при пустом списке файлов ТЗ
-            this.FilesTechnicalRequirements.CollectionChanged +=
-                (sender, args) => OnPropertyChanged(nameof(FilesTechnicalRequirements));
+        /// <summary>
+        /// Старт задачи
+        /// </summary>
+        /// <param name="saveChanges">Сохранить в конце и принять изменения?</param>
+        public void StartCommandExecute(bool saveChanges)
+        {
+            this.Statuses.Add(new PriceEngineeringTaskStatusWrapper(new PriceEngineeringTaskStatus
+            {
+                StatusEnum = PriceEngineeringTaskStatusEnum.Started
+            }));
+
+            this.Messages.Add(new PriceEngineeringTaskMessageWrapper(new PriceEngineeringTaskMessage
+            {
+                Author = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
+                Message = "Стартована задача."
+            }));
+
+
+            //если запускается только конкретная задача
+            if (saveChanges)
+            {
+                this.SaveCommand.Execute();
+            }
+            //если запускаются все задачи в задании
+            else
+            {
+                this.ChildPriceEngineeringTasks.ForEach(x => x.StartCommandExecute(false));
+            }
         }
 
         private void ReloadMessagesAll()
@@ -395,25 +419,24 @@ namespace HVTApp.UI.PriceEngineering
         }
 
         /// <summary>
-        /// Вернуть все добавленные файлы ТЗ
+        /// Загрузить все добавленные файлы ТЗ в хранилище
         /// </summary>
-        /// <returns></returns>
-        public IEnumerable<PriceEngineeringTaskFileTechnicalRequirementsWrapper> GetAllNewFilesTechnicalRequirements()
+        public void LoadNewTechnicalRequirementFilesInStorage()
         {
             foreach (var fileWrapper in this.FilesTechnicalRequirements.AddedItems)
             {
-                yield return fileWrapper;
+                var destFileName = $"{GlobalAppProperties.Actual.TechnicalRequrementsFilesPath}\\{fileWrapper.Id}{Path.GetExtension(fileWrapper.Path)}";
+                if (File.Exists(destFileName) == false && string.IsNullOrEmpty(fileWrapper.Path) == false)
+                {
+                    File.Copy(fileWrapper.Path, destFileName);
+                }
             }
 
             foreach (var childPriceEngineeringTask in this.ChildPriceEngineeringTasks)
             {
-                foreach (var fileWrapper in childPriceEngineeringTask.GetAllNewFilesTechnicalRequirements())
-                {
-                    yield return fileWrapper;
-                }
+                childPriceEngineeringTask.LoadNewTechnicalRequirementFilesInStorage();
             }
         }
-
 
         public void Dispose()
         {

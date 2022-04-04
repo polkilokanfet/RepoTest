@@ -31,7 +31,7 @@ namespace HVTApp.Model.POCOs
         public virtual List<PriceEngineeringTaskProductBlockAdded> ProductBlocksAdded { get; set; } = new List<PriceEngineeringTaskProductBlockAdded>();
 
 
-        [Designation("Файлы технических требований"), OrderStatus(610)]
+        [Designation("Файлы технических требований"), Required, OrderStatus(610)]
         public virtual List<PriceEngineeringTaskFileTechnicalRequirements> FilesTechnicalRequirements { get; set; } = new List<PriceEngineeringTaskFileTechnicalRequirements>();
 
         [Designation("Файлы ответов ОГК"), OrderStatus(600)]
@@ -50,7 +50,13 @@ namespace HVTApp.Model.POCOs
 
 
         [Designation("Статусы проработки"), Required, OrderStatus(50)]
-        public virtual List<PriceEngineeringTaskStatus> Statuses { get; set; } = new List<PriceEngineeringTaskStatus>();
+        public virtual List<PriceEngineeringTaskStatus> Statuses { get; set; } = new List<PriceEngineeringTaskStatus>
+        {
+            new PriceEngineeringTaskStatus
+            {
+                StatusEnum = PriceEngineeringTaskStatusEnum.Created
+            }
+        };
 
 
         [Designation("SalesUnits"), OrderStatus(10)]

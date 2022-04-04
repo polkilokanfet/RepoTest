@@ -1,0 +1,33 @@
+﻿<inf:RibbonTabItemWithViewModel
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:infRib="http://infragistics.com/Ribbon" 
+             xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+             x:Class="HVTApp.UI.PriceEngineering.Tabs.TabPriceEngineeringTasks"
+             Header="Задание на расчет себестоимости">
+
+    <infRib:RibbonGroup Caption="Задача">
+        
+        <infRib:ButtonTool Caption="Стартовать"
+                           Command="{Binding StartCommand}"
+                           Visibility="{Binding StartVisibility, Converter={StaticResource BooleanToVisibilityConverter}}"
+                           SmallImage="/HVTApp.UI;component/Images/start.png" />
+        
+        <!--<infRib:ButtonTool Caption="Остановить"
+                           Command="{Binding CancelCommand}"
+                           Visibility="{Binding StartVisibility, Converter={StaticResource BooleanToVisibilityConverter}}"
+                           SmallImage="/HVTApp.UI;component/Images/stop.png" />
+
+        <infRib:ButtonTool Caption="Отклонить"
+                           Command="{Binding RejectCommand}"
+                           Visibility="{Binding CurrentUserIsPricer, Converter={StaticResource BooleanToVisibilityConverter}}"
+                           SmallImage="/HVTApp.UI;component/Images/remove.png" />
+
+        <infRib:ButtonTool Caption="Завершить"
+                           Command="{Binding FinishCommand}"
+                           Visibility="{Binding CurrentUserIsPricer, Converter={StaticResource BooleanToVisibilityConverter}}"
+                           SmallImage="/HVTApp.UI;component/Images/done.png" />-->
+    </infRib:RibbonGroup>
+
+
+</inf:RibbonTabItemWithViewModel>
