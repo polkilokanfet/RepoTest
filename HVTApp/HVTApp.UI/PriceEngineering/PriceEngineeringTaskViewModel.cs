@@ -206,6 +206,11 @@ namespace HVTApp.UI.PriceEngineering
         public bool IsEditMode { get; } = true;
 
         /// <summary>
+        /// Статус
+        /// </summary>
+        public PriceEngineeringTaskStatusEnum Status => this.Statuses.OrderBy(x => x.Moment).Last().StatusEnum;
+
+        /// <summary>
         /// Родительское задание
         /// </summary>
         public PriceEngineeringTaskViewModel Parent
@@ -299,13 +304,14 @@ namespace HVTApp.UI.PriceEngineering
         /// </summary>
         protected virtual void InCtor()
         {
+            this.Statuses.CollectionChanged += (sender, args) => OnPropertyChanged(nameof(Status));
+
             #region Message
 
             SendMessageCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var priceEngineeringTask = UnitOfWork.Repository<PriceEngineeringTask>().GetById(this.Model.Id);
-                    if (priceEngineeringTask != null)
+                    if (UnitOfWork.Repository<PriceEngineeringTask>().GetById(this.Model.Id) != null)
                     {
                         IUnitOfWork unitOfWork = Container.Resolve<IUnitOfWork>();
                         var message = new PriceEngineeringTaskMessage
@@ -318,7 +324,6 @@ namespace HVTApp.UI.PriceEngineering
                     }
                     else
                     {
-                        Message.Moment = DateTime.Now;
                         this.Messages.Add(new PriceEngineeringTaskMessageWrapper(new PriceEngineeringTaskMessage
                         {
                             Author = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),

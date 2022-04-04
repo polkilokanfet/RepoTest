@@ -35,6 +35,7 @@ namespace HVTApp.UI.PriceEngineering
                     {
                         this.UserConstructor = new UserEmptyWrapper(user);
                     }
+
                 });
         }
 

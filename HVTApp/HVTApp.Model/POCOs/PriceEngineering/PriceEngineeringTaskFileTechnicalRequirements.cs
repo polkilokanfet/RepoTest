@@ -18,7 +18,7 @@ namespace HVTApp.Model.POCOs
         [Designation("Имя файла"), MaxLength(256), Required, OrderStatus(700)]
         public string Name { get; set; } = "Новый файл технических требований";
 
-        [Designation("Комментарий"), MaxLength(1024), Required, OrderStatus(700)]
+        [Designation("Комментарий"), MaxLength(1024), OrderStatus(600)]
         public string Comment { get; set; }
     }
 }

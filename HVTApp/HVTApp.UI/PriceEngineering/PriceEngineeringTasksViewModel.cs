@@ -5,8 +5,10 @@ using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
+using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
 using HVTApp.UI.PriceEngineering.Comparers;
 using Microsoft.Practices.ObjectBuilder2;
@@ -64,7 +66,10 @@ namespace HVTApp.UI.PriceEngineering
             _container = container;
             _unitOfWork = unitOfWork;
 
-            PriceEngineeringTasksWrapper = new PriceEngineeringTasksWrapper1(new PriceEngineeringTasks(), container, unitOfWork);
+            PriceEngineeringTasksWrapper = new PriceEngineeringTasksWrapper1(new PriceEngineeringTasks(), container, unitOfWork)
+            {
+                UserManager = new UserEmptyWrapper(_unitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id))
+            };
 
             SaveCommand = new DelegateLogCommand(
                 () =>
@@ -103,7 +108,12 @@ namespace HVTApp.UI.PriceEngineering
                     }
                     SaveCommand.Execute();
                 },
-                () => this.PriceEngineeringTasksWrapper != null && this.PriceEngineeringTasksWrapper.IsValid && this.PriceEngineeringTasksWrapper.IsChanged);
+                () =>
+                {
+                    return this.PriceEngineeringTasksWrapper != null && 
+                           this.PriceEngineeringTasksWrapper.IsValid &&
+                           this.PriceEngineeringTasksWrapper.IsChanged;
+                });
 
         }
 

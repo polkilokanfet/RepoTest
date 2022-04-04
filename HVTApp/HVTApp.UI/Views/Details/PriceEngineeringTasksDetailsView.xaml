@@ -16,6 +16,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row ="0" Content="Менеджер" Visibility="{Binding VisibilityUserManagerPriceEngineeringTasks, ElementName=Root}"/>
@@ -25,16 +26,21 @@
                                     RemoveItemCommand="{Binding ClearUserManagerCommand}"
 									Visibility="{Binding VisibilityUserManagerPriceEngineeringTasks, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="Файлы технических требований (общие)" Visibility="{Binding VisibilityFilesTechnicalRequirementsPriceEngineeringTasks, ElementName=Root}"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="1"
+        <Label Grid.Column="0" Grid.Row ="1" Content="Проработать до" Visibility="{Binding VisibilityWorkUpToPriceEngineeringTasks, ElementName=Root}"/>
+        <DatePicker Grid.Column="1" Grid.Row="1" 
+                    SelectedDate="{Binding Item.WorkUpTo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding VisibilityWorkUpToPriceEngineeringTasks, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="2" Content="Файлы технических требований (общие)" Visibility="{Binding VisibilityFilesTechnicalRequirementsPriceEngineeringTasks, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
 										 Items="{Binding Path=Item.FilesTechnicalRequirements}"
 										 SelectedItem="{Binding SelectedFilesTechnicalRequirementsItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInFilesTechnicalRequirementsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromFilesTechnicalRequirementsCommand}"
 										 Visibility="{Binding VisibilityFilesTechnicalRequirementsPriceEngineeringTasks, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="Задачи" Visibility="{Binding VisibilityChildPriceEngineeringTasksPriceEngineeringTasks, ElementName=Root}"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
+        <Label Grid.Column="0" Grid.Row ="3" Content="Задачи" Visibility="{Binding VisibilityChildPriceEngineeringTasksPriceEngineeringTasks, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="3"
 										 Items="{Binding Path=Item.ChildPriceEngineeringTasks}"
 										 SelectedItem="{Binding SelectedChildPriceEngineeringTasksItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInChildPriceEngineeringTasksCommand}"

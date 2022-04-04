@@ -11,6 +11,7 @@
         <converters:PriceEngineeringTaskViewModelDesignDepartmentHeadVisibilityConverter x:Key="DesignDepartmentHeadVisibilityConverter" />
         <converters:PriceEngineeringTaskViewModelConstructorVisibilityConverter x:Key="ConstructorVisibilityConverter" />
         <converters:PriceEngineeringTaskViewModelManagerVisibilityConverter x:Key="ManagerVisibilityConverter" />
+        <converters:PriceEngineeringTaskStatusEnumToStringConverter x:Key="StatusToStringConverter" />
     </UserControl.Resources>
     
     <!--Задача на блок продукта-->
@@ -26,7 +27,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="4*"/>
                     <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*" MinWidth="150"/>
                 </Grid.ColumnDefinitions>
 
                 <Grid Grid.Column="0">
@@ -51,13 +52,9 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
@@ -93,6 +90,10 @@
                                         Padding="5 0"/>
                                 <TextBox Grid.Column="1" FontWeight="DemiBold" Text="{Binding UserConstructor, Mode=OneWay}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0"/>
                             </Grid>
+
+                            <!--Статус задачи-->
+                            <Label Grid.Row="2" Grid.Column="0" Content="Статус: "/>
+                            <TextBlock Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Text="{Binding Status, Converter={StaticResource StatusToStringConverter}}"/>
 
                         </Grid>
                     </Grid>

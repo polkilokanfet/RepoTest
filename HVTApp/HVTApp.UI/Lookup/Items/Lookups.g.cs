@@ -836,7 +836,7 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(700)]
         public System.String Name => Entity.Name;
 
-		[OrderStatus(700)]
+		[OrderStatus(600)]
         public System.String Comment => Entity.Comment;
 
         #endregion
@@ -859,7 +859,7 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(700)]
         public System.String Name => Entity.Name;
 
-		[OrderStatus(700)]
+		[OrderStatus(600)]
         public System.String Comment => Entity.Comment;
 
         #endregion
@@ -921,6 +921,12 @@ namespace HVTApp.UI.Lookup
 		{
 		}
 		
+        #region SimpleProperties
+		[OrderStatus(1500)]
+        public System.DateTime WorkUpTo => Entity.WorkUpTo;
+
+        #endregion
+
         #region ComplexProperties
 		[OrderStatus(1900)]
 	    public UserLookup UserManager { get { return GetLookup<UserLookup>(); } }
@@ -952,7 +958,7 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(700)]
         public System.String Name => Entity.Name;
 
-		[OrderStatus(700)]
+		[OrderStatus(600)]
         public System.String Comment => Entity.Comment;
 
         #endregion

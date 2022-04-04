@@ -40,6 +40,7 @@
 					<infg:FieldLayout.Fields>
 
                         <infg:TextField Name="UserManager" Label="Менеджер" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:DateTimeField Name="WorkUpTo" Label="Проработать до" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="FilesTechnicalRequirements" Label="Файлы технических требований (общие)" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:TextField Name="ChildPriceEngineeringTasks" Label="Задачи" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />

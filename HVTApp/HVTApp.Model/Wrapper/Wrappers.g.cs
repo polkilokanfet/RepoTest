@@ -2221,6 +2221,16 @@ namespace HVTApp.Model.Wrapper
 	    public PriceEngineeringTasksWrapper(PriceEngineeringTasks model) : base(model) { }
         #region SimpleProperties
         /// <summary>
+        /// Проработать до
+        /// </summary>
+        public System.DateTime WorkUpTo
+        {
+          get { return GetValue<System.DateTime>(); }
+          set { SetValue(value); }
+        }
+        public System.DateTime WorkUpToOriginalValue => GetOriginalValue<System.DateTime>(nameof(WorkUpTo));
+        public bool WorkUpToIsChanged => GetIsChanged(nameof(WorkUpTo));
+        /// <summary>
         /// Id
         /// </summary>
         public System.Guid Id
