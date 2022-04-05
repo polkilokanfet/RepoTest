@@ -201,14 +201,19 @@ namespace HVTApp.UI.PriceEngineering
         #endregion
 
         /// <summary>
+        /// Эта задача подходит текущему пользователю
+        /// </summary>
+        public abstract bool IsTarget { get; }
+
+        /// <summary>
         /// Задача в режиме редактирования
         /// </summary>
-        public bool IsEditMode { get; } = true;
+        public abstract bool IsEditMode { get; }
 
         /// <summary>
         /// Статус
         /// </summary>
-        public PriceEngineeringTaskStatusEnum Status => this.Statuses.OrderBy(x => x.Moment).Last().StatusEnum;
+        public PriceEngineeringTaskStatusEnum Status => this.Model.Status;
 
         /// <summary>
         /// Родительское задание

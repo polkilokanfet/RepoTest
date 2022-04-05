@@ -265,11 +265,16 @@
     <Compile Include="Modules\Sales\Market\Commands\SpecificationNewCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\StructureCostsCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\UnionProjectsCommand.cs" />
-    <Compile Include="PriceEngineering\Converters\FilesToBoarderTricknessConverter.cs" />
+    <Compile Include="PriceEngineering\BlockChooser\ProductBlockStructureCostViewModel.cs" />
+    <Compile Include="PriceEngineering\BlockChooser\ProductBlockStructureCostWindow.xaml.cs">
+      <DependentUpon>ProductBlockStructureCostWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\BlockChooser\ProductBlockWrapper1.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskStatusEnumToStringConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelConstructorVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelDesignDepartmentHeadVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelManagerVisibilityConverter.cs" />
+    <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelToBoarderTricknessConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelToFacilityConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelToProductAmountConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelToProductDesignationConverter.cs" />
@@ -1574,6 +1579,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="PriceCalculations\Tabs\TabPriceCalculations.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceEngineering\BlockChooser\ProductBlockStructureCostWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

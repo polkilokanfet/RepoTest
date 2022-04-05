@@ -59,7 +59,7 @@ namespace HVTApp.UI.PriceEngineering
             }
 
             //для конструктора
-            if (UserIsDesignDepartmentHead)
+            if (UserIsConstructor)
             {
                 priceEngineeringTasks = UnitOfWork.Repository<PriceEngineeringTasks>().Find(x => x.GetSuitableTasksForWork(GlobalAppProperties.User).Any());
             }

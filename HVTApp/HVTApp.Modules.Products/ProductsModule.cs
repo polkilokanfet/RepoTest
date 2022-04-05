@@ -9,7 +9,7 @@ using Prism.Regions;
 
 namespace HVTApp.Modules.Products
 {
-    [ModuleAccess(Role.Admin, Role.Constructor)]
+    [ModuleAccess(Role.Admin, Role.Constructor, Role.DesignDepartmentHead)]
     public class ProductsModule : ModuleBase
     {
         public ProductsModule(IUnityContainer container, IRegionManager regionManager) : base(container, regionManager)

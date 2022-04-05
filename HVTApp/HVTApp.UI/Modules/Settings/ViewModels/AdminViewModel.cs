@@ -44,104 +44,13 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
 
                     var unitOfWork = _container.Resolve<IUnitOfWork>();
 
-                    var requrementsTasks = unitOfWork.Repository<TechnicalRequrementsTask>().GetAll();
-                    var bmb = unitOfWork.Repository<User>().Find(x => x.Employee.Person.Surname == "Игнатенко").FirstOrDefault();
-                    foreach (var requrementsTask in requrementsTasks)
+                    var role = new UserRole
                     {
-                        foreach (var historyElement in requrementsTask.HistoryElements)
-                        {
-                            if (historyElement.User != null)
-                            {
-                                continue;
-                            }
+                        Name = "DesignDepHead", 
+                        Role = Role.DesignDepartmentHead
+                    };
 
-                            switch (historyElement.Type)
-                            {
-                                case TechnicalRequrementsTaskHistoryElementType.Create:
-                                { 
-                                    historyElement.User = requrementsTask.FrontManager;
-                                    break;
-                                }
-                                case TechnicalRequrementsTaskHistoryElementType.Start:
-                                {
-                                    historyElement.User = requrementsTask.FrontManager;
-                                    break;
-                                }
-                                case TechnicalRequrementsTaskHistoryElementType.Finish:
-                                {
-                                    historyElement.User = requrementsTask.BackManager;
-                                    break;
-                                }
-                                case TechnicalRequrementsTaskHistoryElementType.Reject:
-                                {
-                                    historyElement.User = requrementsTask.BackManager;
-                                    break;
-                                }
-                                case TechnicalRequrementsTaskHistoryElementType.Stop:
-                                {
-                                    historyElement.User = requrementsTask.FrontManager;
-                                    break;
-                                }
-                                case TechnicalRequrementsTaskHistoryElementType.Instruct:
-                                {
-                                    historyElement.User = bmb;
-                                    break;
-                                }
-                                case TechnicalRequrementsTaskHistoryElementType.Accept:
-                                {
-                                    historyElement.User = requrementsTask.FrontManager;
-                                    break;
-                                }
-                                case TechnicalRequrementsTaskHistoryElementType.RejectByFrontManager:
-                                {
-                                    historyElement.User = requrementsTask.FrontManager;
-                                    break;
-                                }
-                                default:
-                                    throw new ArgumentOutOfRangeException();
-                            }
-                        }
-                    }
-
-                    var priceCalculations = unitOfWork.Repository<PriceCalculation>().GetAll();
-                    var pricer = unitOfWork.Repository<User>().Find(x => x.Employee.Person.Surname == "Шарапова").FirstOrDefault();
-
-                    foreach (var priceCalculation in priceCalculations)
-                    {
-                        foreach (var historyItem in priceCalculation.History)
-                        {
-                            if (historyItem.User != null)
-                            {
-                                continue;
-                            }
-
-                            switch (historyItem.Type)
-                            {
-                                case PriceCalculationHistoryItemType.Start:
-                                {
-                                    historyItem.User = priceCalculation.Initiator;
-                                    break;
-                                }
-                                case PriceCalculationHistoryItemType.Stop:
-                                {
-                                    historyItem.User = priceCalculation.Initiator;
-                                    break;
-                                }
-                                case PriceCalculationHistoryItemType.Reject:
-                                {
-                                    historyItem.User = pricer;
-                                    break;
-                                }
-                                case PriceCalculationHistoryItemType.Finish:
-                                {
-                                    historyItem.User = pricer;
-                                    break;
-                                }
-                                default:
-                                    throw new ArgumentOutOfRangeException();
-                            }
-                        }
-                    }
+                    unitOfWork.Repository<UserRole>().Add(role);
 
                     unitOfWork.SaveChanges();
                     unitOfWork.Dispose();

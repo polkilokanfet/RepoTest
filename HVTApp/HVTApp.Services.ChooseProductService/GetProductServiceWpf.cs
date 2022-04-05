@@ -234,8 +234,8 @@ namespace HVTApp.Services.GetProductService
 
         public ProductBlock GetProductBlock(ProductBlock originProductBlock = null, IEnumerable<Parameter> requiredParameters = null)
         {
-            var bank = GetBank(requiredParameters);
-
+            var bank = GetBank(requiredParameters?.Select(parameter => UnitOfWork.Repository<Parameter>().GetById(parameter.Id)));
+            
             //предварительно выбранный блок продукта
             var selectedProductBlock = originProductBlock == null
                 ? null

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
 
@@ -48,6 +50,19 @@ namespace HVTApp.Model.POCOs
         [Designation("Дочерние задачи"), OrderStatus(90)]
         public virtual List<PriceEngineeringTask> ChildPriceEngineeringTasks { get; set; } = new List<PriceEngineeringTask>();
 
+        [Designation("Статус"), NotMapped]
+        public PriceEngineeringTaskStatusEnum Status
+        {
+            get
+            {
+                if (Statuses.Any())
+                {
+                    return Statuses.OrderBy(x => x.Moment).Last().StatusEnum;
+                }
+
+                return PriceEngineeringTaskStatusEnum.Created;
+            }
+        }
 
         [Designation("Статусы проработки"), Required, OrderStatus(50)]
         public virtual List<PriceEngineeringTaskStatus> Statuses { get; set; } = new List<PriceEngineeringTaskStatus>();

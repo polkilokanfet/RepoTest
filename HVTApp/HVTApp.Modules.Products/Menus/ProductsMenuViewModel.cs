@@ -24,8 +24,12 @@ namespace HVTApp.Modules.Products.Menus
                 Items.Add(new NavigationItem("Нормо-часы", typeof(LaborHoursView)));
             }
 
+
             Items.Add(new NavigationItem("Технико-стоимостные проработки", typeof(PriceEngineeringTasksListView)));
-            Items.Add(new NavigationItem("Стракчакосты", typeof(StructureCostsView)));
+
+            if (GlobalAppProperties.User.RoleCurrent == Role.Constructor)
+                Items.Add(new NavigationItem("Стракчакосты", typeof(StructureCostsView)));
+
             Items.Add(new NavigationItem("Референс", typeof(ReferenceView)));
         }
     }

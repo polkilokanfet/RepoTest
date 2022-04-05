@@ -242,7 +242,8 @@ namespace HVTApp.TestDataGenerator
                 UserRoleConstructor,
                 UserRoleSupplier,
                 UserRoleBackManager,
-                UserRoleBackManagerBoss
+                UserRoleBackManagerBoss,
+                UserRoleDesignDepartmentHead
             };
 
             #if DEBUG
@@ -307,8 +308,8 @@ namespace HVTApp.TestDataGenerator
             DesignDepartmentDrives.Clone(new DesignDepartment
             {
                 Name = "Привода",
-                Head = UserPalferov,
-                Staff = new List<User> { UserPalferov, UserBukrin },
+                Head = UserIvanov,
+                Staff = new List<User> { UserPalferov, UserBukrin, UserIvanov },
                 ParameterSets = new List<DesignDepartmentParameters>()
                 {
                     new DesignDepartmentParameters

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,6 +14,31 @@ namespace HVTApp.UI.PriceEngineering
 {
     public class PriceEngineeringTaskViewModelManager : PriceEngineeringTaskViewModel
     {
+        public override bool IsTarget => true;
+
+        public override bool IsEditMode
+        {
+            get
+            {
+                switch (Status)
+                {
+                    case PriceEngineeringTaskStatusEnum.Created:
+                    case PriceEngineeringTaskStatusEnum.Stopped:
+                    case PriceEngineeringTaskStatusEnum.RejectedByConstructor:
+                        return true;
+
+                    case PriceEngineeringTaskStatusEnum.Started:
+                    case PriceEngineeringTaskStatusEnum.RejectedByManager:
+                    case PriceEngineeringTaskStatusEnum.FinishedByConstructor:
+                    case PriceEngineeringTaskStatusEnum.Accepted:
+                        return false;
+
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+        }
+
         public DelegateLogCommand AddTechnicalRequrementsFilesCommand { get; private set; }
         public DelegateLogCommand RemoveTechnicalRequrementsFilesCommand { get; private set; }
 
@@ -58,7 +84,8 @@ namespace HVTApp.UI.PriceEngineering
                             this.FilesTechnicalRequirements.Add(fileWrapper);
                         }
                     }
-                });
+                }, 
+                () => IsEditMode);
 
             RemoveTechnicalRequrementsFilesCommand = new DelegateLogCommand(
                 () =>
@@ -68,10 +95,16 @@ namespace HVTApp.UI.PriceEngineering
                         this.FilesTechnicalRequirements.Remove(SelectedTechnicalRequrementsFile);
                     }
                 },
-                () => this.SelectedTechnicalRequrementsFile != null);
+                () => IsEditMode && this.SelectedTechnicalRequrementsFile != null);
 
             this.SelectedTechnicalRequrementsFileIsChanged += () =>
             {
+                RemoveTechnicalRequrementsFilesCommand.RaiseCanExecuteChanged();
+            };
+
+            this.Statuses.CollectionChanged += (sender, args) =>
+            {
+                AddTechnicalRequrementsFilesCommand.RaiseCanExecuteChanged();
                 RemoveTechnicalRequrementsFilesCommand.RaiseCanExecuteChanged();
             };
         }

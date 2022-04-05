@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using HVTApp.Model.Wrapper;
@@ -9,17 +8,17 @@ using HVTApp.Model.Wrapper;
 namespace HVTApp.UI.PriceEngineering.Converters
 {
     [ValueConversion(typeof(IEnumerable<PriceEngineeringTaskFileTechnicalRequirementsWrapper>), typeof(Thickness))]
-    public class FilesToBoarderTricknessConverter : IValueConverter
+    public class PriceEngineeringTaskViewModelToBoarderTricknessConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is IEnumerable<PriceEngineeringTaskFileTechnicalRequirementsWrapper> enumerable)
+            if (value is PriceEngineeringTaskViewModel priceEngineeringTaskViewModel)
             {
-                return enumerable.Any()
-                    ? new Thickness(0)
-                    : new Thickness(1);
+                return priceEngineeringTaskViewModel.IsTarget
+                    ? new Thickness(3)
+                    : new Thickness(0);
             }
-            
+
             throw new ArgumentException();
         }
 

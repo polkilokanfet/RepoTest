@@ -1,0 +1,47 @@
+﻿<Window xmlns:igWPF="http://schemas.infragistics.com/xaml/wpf"  
+        x:Class="HVTApp.UI.PriceEngineering.BlockChooser.ProductBlockStructureCostWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Блок продукта + стракчакост" 
+        Height="Auto"
+        Width="Auto"
+        MinWidth="400"
+        MaxWidth="768"
+        WindowState="Minimized"
+        WindowStartupLocation="CenterOwner">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Button Grid.Row="0" Grid.Column="0" Content="Блок" Command="{Binding SelectBlockCommand}"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding ProductBlockWrapper, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource WrapperToStringConverter}}"/>
+
+            <Label Grid.Row="1" Grid.Column="0" Content="Стракчакост"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ProductBlockWrapper.StructureCostNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <Label Grid.Row="2" Grid.Column="0" Content="Количество"/>
+            <igWPF:XamNumericEditor Grid.Row="2" Grid.Column="1" Value="{Binding Amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <igWPF:XamNumericEditor.ValueConstraint>
+                    <igWPF:ValueConstraint ValidateAsType="Integer32" MaxLength="4"/>
+                </igWPF:XamNumericEditor.ValueConstraint>
+            </igWPF:XamNumericEditor>
+
+        </Grid>
+        <Button Grid.Row="1" Content="Ok" Command="{Binding OkCommand}"/>
+        
+    </Grid>
+</Window>

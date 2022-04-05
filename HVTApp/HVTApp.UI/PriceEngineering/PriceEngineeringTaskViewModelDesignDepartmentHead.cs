@@ -2,85 +2,73 @@ using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
+using HVTApp.Model;
+using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
+using Prism.Events;
 
 namespace HVTApp.UI.PriceEngineering
 {
     public class PriceEngineeringTaskViewModelDesignDepartmentHead : PriceEngineeringTaskViewModel
     {
+        public DesignDepartment Department { get; private set; }
+
         /// <summary>
         /// Поручить проработку задачи
         /// </summary>
-        public DelegateLogCommand InstructPriceEngineeringTaskCommand { get; }
+        public DelegateLogCommand InstructPriceEngineeringTaskCommand { get; private set; }
 
-        public PriceEngineeringTaskViewModelDesignDepartmentHead(IUnityContainer container, IUnitOfWork unitOfWork, PriceEngineeringTask priceEngineeringTask)
-            : base(container, unitOfWork, priceEngineeringTask)
+        #region ctors
+
+        public PriceEngineeringTaskViewModelDesignDepartmentHead(IUnityContainer container, IUnitOfWork unitOfWork, PriceEngineeringTask priceEngineeringTask) : base(container, unitOfWork, priceEngineeringTask)
         {
-            InstructPriceEngineeringTaskCommand = new DelegateLogCommand(
-                () =>
-                {
-                    var department = UnitOfWork.Repository<DesignDepartment>()
-                        .Find(designDepartment => designDepartment.ProductBlockIsSuitable(ProductBlockManager.Model))
-                        .FirstOrDefault();
-
-                    if (department == null)
-                        return;
-
-                    var user = container.Resolve<ISelectService>().SelectItem(department.Staff);
-
-                    if (user != null)
-                    {
-                        this.UserConstructor = new UserEmptyWrapper(user);
-                    }
-
-                });
         }
 
-        public PriceEngineeringTaskViewModelDesignDepartmentHead(IUnityContainer container, IUnitOfWork unitOfWork, IEnumerable<SalesUnit> salesUnits)
-            : base(container, unitOfWork, salesUnits)
+        public PriceEngineeringTaskViewModelDesignDepartmentHead(IUnityContainer container, IUnitOfWork unitOfWork, IEnumerable<SalesUnit> salesUnits) : base(container, unitOfWork, salesUnits)
         {
-            InstructPriceEngineeringTaskCommand = new DelegateLogCommand(
-                () =>
-                {
-                    var department = UnitOfWork.Repository<DesignDepartment>()
-                        .Find(designDepartment => designDepartment.ProductBlockIsSuitable(ProductBlockManager.Model))
-                        .FirstOrDefault();
-
-                    if (department == null)
-                        return;
-
-                    var user = container.Resolve<ISelectService>().SelectItem(department.Staff);
-
-                    if (user != null)
-                    {
-                        this.UserConstructor = new UserEmptyWrapper(user);
-                    }
-                });
         }
 
-        public PriceEngineeringTaskViewModelDesignDepartmentHead(IUnityContainer container, IUnitOfWork unitOfWork, Product product)
-            : base(container, unitOfWork, product)
+        public PriceEngineeringTaskViewModelDesignDepartmentHead(IUnityContainer container, IUnitOfWork unitOfWork, Product product) : base(container, unitOfWork, product)
         {
+        }
+        
+        #endregion
+
+        public override bool IsTarget => Department != null && Department.ProductBlockIsSuitable(Model.ProductBlockEngineer);
+
+        public override bool IsEditMode => IsTarget;
+
+        protected override void InCtor()
+        {
+            base.InCtor();
+
+            //устанавливаем бюро ОГК
+            Department = UnitOfWork.Repository<DesignDepartment>().Find(department => department.Head.Id == GlobalAppProperties.User.Id).Single();
+
             InstructPriceEngineeringTaskCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var department = UnitOfWork.Repository<DesignDepartment>()
-                        .Find(designDepartment => designDepartment.ProductBlockIsSuitable(ProductBlockManager.Model))
-                        .FirstOrDefault();
+                    if (Department == null) return;
 
-                    if (department == null)
-                        return;
+                    var user = Container.Resolve<ISelectService>().SelectItem(Department.Staff);
 
-                    var user = container.Resolve<ISelectService>().SelectItem(department.Staff);
-
-                    if (user != null)
+                    if (user == null) return;
+                        
+                    this.UserConstructor = new UserEmptyWrapper(user);
+                    Messages.Add(new PriceEngineeringTaskMessageWrapper(new PriceEngineeringTaskMessage()
                     {
-                        this.UserConstructor = new UserEmptyWrapper(user);
-                    }
-                });
+                        Author = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id), 
+                        Message = $"Назначен исполнитель: {user}"
+                    }));
+
+                    this.AcceptChanges();
+                    UnitOfWork.SaveChanges();
+                    Container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceEngineeringTaskEvent>().Publish(this.Model);
+                }, 
+                () => IsTarget);
         }
     }
 }
