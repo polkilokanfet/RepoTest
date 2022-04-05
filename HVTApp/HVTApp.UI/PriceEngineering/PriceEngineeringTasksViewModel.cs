@@ -51,11 +51,16 @@ namespace HVTApp.UI.PriceEngineering
         public PriceEngineeringTaskViewModel SelectedPriceEngineeringTaskViewModel
         {
             get => _selectedPriceEngineeringTaskViewModel;
-            set => _selectedPriceEngineeringTaskViewModel = value;
+            set
+            {
+                _selectedPriceEngineeringTaskViewModel = value;
+                RemoveTaskCommand.RaiseCanExecuteChanged();
+            }
         }
 
         #region Commands
 
+        public DelegateLogCommand RemoveTaskCommand { get; }
         public DelegateLogCommand SaveCommand { get; }
         public DelegateLogCommand StartCommand { get; }
 
@@ -70,6 +75,14 @@ namespace HVTApp.UI.PriceEngineering
             {
                 UserManager = new UserEmptyWrapper(_unitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id))
             };
+
+
+            RemoveTaskCommand = new DelegateLogCommand(
+                () =>
+                {
+                    this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.Remove(SelectedPriceEngineeringTaskViewModel);
+                },
+                () => SelectedPriceEngineeringTaskViewModel != null);
 
             SaveCommand = new DelegateLogCommand(
                 () =>
@@ -108,12 +121,9 @@ namespace HVTApp.UI.PriceEngineering
                     }
                     SaveCommand.Execute();
                 },
-                () =>
-                {
-                    return this.PriceEngineeringTasksWrapper != null && 
-                           this.PriceEngineeringTasksWrapper.IsValid &&
-                           this.PriceEngineeringTasksWrapper.IsChanged;
-                });
+                () => this.PriceEngineeringTasksWrapper != null && 
+                                  this.PriceEngineeringTasksWrapper.IsValid &&
+                                  this.PriceEngineeringTasksWrapper.IsChanged);
 
         }
 
@@ -135,7 +145,8 @@ namespace HVTApp.UI.PriceEngineering
 
         public void Load(PriceEngineeringTasks priceEngineeringTasks)
         {
-            this.PriceEngineeringTasksWrapper = new PriceEngineeringTasksWrapper1(priceEngineeringTasks, _container, _unitOfWork);
+            var tasks = _unitOfWork.Repository<PriceEngineeringTasks>().GetById(priceEngineeringTasks.Id);
+            this.PriceEngineeringTasksWrapper = new PriceEngineeringTasksWrapper1(tasks, _container, _unitOfWork);
         }
 
         public void Load(PriceEngineeringTask priceEngineeringTask)

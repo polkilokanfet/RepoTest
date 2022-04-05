@@ -11,7 +11,7 @@ namespace HVTApp.Model.POCOs
     public class PriceEngineeringTask : BaseEntity
     {
         [Designation("Id группы"), OrderStatus(2000)]
-        public virtual Guid ParentPriceEngineeringTasksId { get; set; }
+        public virtual Guid? ParentPriceEngineeringTasksId { get; set; }
 
 
         [Designation("Конструктор"), OrderStatus(1800)]
@@ -43,24 +43,62 @@ namespace HVTApp.Model.POCOs
 
 
         [Designation("Id материнской задачи"), OrderStatus(100)]
-        public virtual Guid ParentPriceEngineeringTaskId { get; set; }
+        public virtual Guid? ParentPriceEngineeringTaskId { get; set; }
 
         [Designation("Дочерние задачи"), OrderStatus(90)]
-        public List<PriceEngineeringTask> ChildPriceEngineeringTasks { get; set; } = new List<PriceEngineeringTask>();
+        public virtual List<PriceEngineeringTask> ChildPriceEngineeringTasks { get; set; } = new List<PriceEngineeringTask>();
 
 
         [Designation("Статусы проработки"), Required, OrderStatus(50)]
-        public virtual List<PriceEngineeringTaskStatus> Statuses { get; set; } = new List<PriceEngineeringTaskStatus>
-        {
-            new PriceEngineeringTaskStatus
-            {
-                StatusEnum = PriceEngineeringTaskStatusEnum.Created
-            }
-        };
+        public virtual List<PriceEngineeringTaskStatus> Statuses { get; set; } = new List<PriceEngineeringTaskStatus>();
 
 
         [Designation("SalesUnits"), OrderStatus(10)]
-        public List<SalesUnit> SalesUnits { get; set; } = new List<SalesUnit>();
+        public virtual List<SalesUnit> SalesUnits { get; set; } = new List<SalesUnit>();
+
+
+        /// <summary>
+        /// Вернуть все задачи, которые прорабатывает данный User
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public IEnumerable<PriceEngineeringTask> GetSuitableTasksForWork(User user)
+        {
+            if (Equals(user.Id, this.UserConstructor?.Id))
+            {
+                yield return this;
+            }
+
+            foreach (var childPriceEngineeringTask in ChildPriceEngineeringTasks)
+            {
+                foreach (var priceEngineeringTask in childPriceEngineeringTask.GetSuitableTasksForWork(user))
+                {
+                    yield return priceEngineeringTask;
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// Вернуть все задачи, которые прорабатывает данное бюро
+        /// </summary>
+        /// <param name="department"></param>
+        /// <returns></returns>
+        public IEnumerable<PriceEngineeringTask> GetSuitableTasksForInstruct(DesignDepartment department)
+        {
+            if (department.ProductBlockIsSuitable(this.ProductBlockEngineer))
+            {
+                yield return this;
+            }
+
+            foreach (var childPriceEngineeringTask in ChildPriceEngineeringTasks)
+            {
+                foreach (var priceEngineeringTask in childPriceEngineeringTask.GetSuitableTasksForInstruct(department))
+                {
+                    yield return priceEngineeringTask;
+                }
+            }
+        }
 
     }
 }

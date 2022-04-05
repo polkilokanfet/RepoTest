@@ -118,6 +118,7 @@
     <Compile Include="Lookup\Items\Custom\PriceCalculationFileLookup.cs" />
     <Compile Include="Lookup\Items\Custom\PriceCalculationItemLookup.cs" />
     <Compile Include="Lookup\Items\Custom\PriceCalculationLookup.cs" />
+    <Compile Include="Lookup\Items\Custom\PriceEngineeringTasksLookup.cs" />
     <Compile Include="Lookup\Items\Custom\SalesUnitLookup.cs" />
     <Compile Include="Lookup\Items\Custom\TechnicalRequrementsLookup.cs" />
     <Compile Include="Lookup\Items\Custom\TechnicalRequrementsTaskLookup.cs" />
@@ -278,6 +279,10 @@
       <DependentUpon>MessageControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="PriceEngineering\Messages\MessageViewModel.cs" />
+    <Compile Include="PriceEngineering\TasksList\PriceEngineeringTasksListView.xaml.cs">
+      <DependentUpon>PriceEngineeringTasksListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\TasksList\PriceEngineeringTasksListViewModel.cs" />
     <Compile Include="PriceEngineering\PriceEngineeringTasksWrapper1.cs" />
     <Compile Include="PriceEngineering\PriceEngineeringTaskViewModelConstructor.cs" />
     <Compile Include="PriceEngineering\PriceEngineeringTaskViewModelDesignDepartmentHead.cs" />
@@ -1580,6 +1585,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="PriceEngineering\TasksList\PriceEngineeringTasksListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="PriceEngineering\View\PriceEngineeringProductTaskControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -2491,6 +2500,7 @@
   <ItemGroup>
     <Folder Include="Lookup\Service\Custom\" />
     <Folder Include="Modules\Products\ProductRelations\" />
+    <Folder Include="PriceEngineering\Tasks\" />
     <Folder Include="Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

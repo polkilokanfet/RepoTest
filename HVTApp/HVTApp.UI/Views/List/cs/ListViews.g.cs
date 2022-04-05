@@ -5076,6 +5076,12 @@ namespace HVTApp.UI.Views
             set { PriceEngineeringTasksLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksLookup.DisplayMember)].Visibility = value; }
         }
 
+        public System.Windows.Visibility FacilitiesVisibility
+        {
+            get { return PriceEngineeringTasksLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksLookup.Facilities)].Visibility; }
+            set { PriceEngineeringTasksLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksLookup.Facilities)].Visibility = value; }
+        }
+
         public System.Windows.Visibility UserManagerVisibility
         {
             get { return PriceEngineeringTasksLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksLookup.UserManager)].Visibility; }

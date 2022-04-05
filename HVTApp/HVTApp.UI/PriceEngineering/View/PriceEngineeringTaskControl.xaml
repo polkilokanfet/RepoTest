@@ -68,7 +68,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Button Grid.Column="0" 
-                                        Visibility="{Binding Converter={StaticResource ManagerVisibilityConverter}}"
+                                        Visibility="{Binding Converter={StaticResource ConstructorVisibilityConverter}}"
                                         Content="..." 
                                         Command="{Binding SelectProductBlockCommand}" 
                                         Padding="5 0"/>
@@ -146,8 +146,8 @@
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <Button Grid.Column="0" Content="Добавить" Command="{Binding AddTechnicalRequrementsFilesCommand}"/>
-                                    <Button Grid.Column="1" Content="Удалить" Command="{Binding RemoveTechnicalRequrementsFilesCommand}"/>
+                                    <Button Grid.Column="0" Content="Добавить" Command="{Binding AddTechnicalRequrementsFilesCommand}" Visibility="{Binding Converter={StaticResource ManagerVisibilityConverter}}"/>
+                                    <Button Grid.Column="1" Content="Удалить" Command="{Binding RemoveTechnicalRequrementsFilesCommand}" Visibility="{Binding Converter={StaticResource ManagerVisibilityConverter}}"/>
                                     <Button Grid.Column="2" Content="Загрузить всё"/>
 
                                 </Grid>

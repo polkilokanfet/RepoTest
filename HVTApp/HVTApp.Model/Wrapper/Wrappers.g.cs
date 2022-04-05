@@ -1854,12 +1854,12 @@ namespace HVTApp.Model.Wrapper
         /// <summary>
         /// Id группы
         /// </summary>
-        public System.Guid ParentPriceEngineeringTasksId
+        public System.Nullable<System.Guid> ParentPriceEngineeringTasksId
         {
-          get { return GetValue<System.Guid>(); }
+          get { return GetValue<System.Nullable<System.Guid>>(); }
           set { SetValue(value); }
         }
-        public System.Guid ParentPriceEngineeringTasksIdOriginalValue => GetOriginalValue<System.Guid>(nameof(ParentPriceEngineeringTasksId));
+        public System.Nullable<System.Guid> ParentPriceEngineeringTasksIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ParentPriceEngineeringTasksId));
         public bool ParentPriceEngineeringTasksIdIsChanged => GetIsChanged(nameof(ParentPriceEngineeringTasksId));
         /// <summary>
         /// Количество блоков продукта
@@ -1874,12 +1874,12 @@ namespace HVTApp.Model.Wrapper
         /// <summary>
         /// Id материнской задачи
         /// </summary>
-        public System.Guid ParentPriceEngineeringTaskId
+        public System.Nullable<System.Guid> ParentPriceEngineeringTaskId
         {
-          get { return GetValue<System.Guid>(); }
+          get { return GetValue<System.Nullable<System.Guid>>(); }
           set { SetValue(value); }
         }
-        public System.Guid ParentPriceEngineeringTaskIdOriginalValue => GetOriginalValue<System.Guid>(nameof(ParentPriceEngineeringTaskId));
+        public System.Nullable<System.Guid> ParentPriceEngineeringTaskIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ParentPriceEngineeringTaskId));
         public bool ParentPriceEngineeringTaskIdIsChanged => GetIsChanged(nameof(ParentPriceEngineeringTaskId));
         /// <summary>
         /// Id

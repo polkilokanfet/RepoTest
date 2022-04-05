@@ -4,9 +4,13 @@
              xmlns:infRib="http://infragistics.com/Ribbon" 
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
              x:Class="HVTApp.UI.PriceEngineering.Tabs.TabPriceEngineeringTasks"
-             Header="Задание на расчет себестоимости">
+             Header="Калькуляция себестоимости">
 
     <infRib:RibbonGroup Caption="Задача">
+
+        <infRib:ButtonTool Caption="Удалить"
+                           Command="{Binding RemoveTaskCommand}"
+                           SmallImage="/HVTApp.UI;component/Images/remove.png" />
         
         <infRib:ButtonTool Caption="Стартовать"
                            Command="{Binding StartCommand}"

@@ -33,6 +33,9 @@ namespace HVTApp.UI.PriceEngineering.View
             {
                 if (navigationContext.Parameters.Count() == 1)
                 {
+                    if (navigationContext.Parameters.First().Value is PriceEngineeringTasks priceEngineeringTasks)
+                        _viewModel.Load(priceEngineeringTasks);
+
                     if (navigationContext.Parameters.First().Value is PriceEngineeringTask priceEngineeringTask)
                         _viewModel.Load(priceEngineeringTask);
 

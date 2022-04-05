@@ -779,13 +779,13 @@ namespace HVTApp.UI.Lookup
 		
         #region SimpleProperties
 		[OrderStatus(2000)]
-        public System.Guid ParentPriceEngineeringTasksId => Entity.ParentPriceEngineeringTasksId;
+        public System.Nullable<System.Guid> ParentPriceEngineeringTasksId => Entity.ParentPriceEngineeringTasksId;
 
 		[OrderStatus(950)]
         public System.Int32 Amount => Entity.Amount;
 
 		[OrderStatus(100)]
-        public System.Guid ParentPriceEngineeringTaskId => Entity.ParentPriceEngineeringTaskId;
+        public System.Nullable<System.Guid> ParentPriceEngineeringTaskId => Entity.ParentPriceEngineeringTaskId;
 
         #endregion
 

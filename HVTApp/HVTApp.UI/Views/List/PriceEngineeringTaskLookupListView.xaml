@@ -39,7 +39,6 @@
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
 
-                        <infg:TextField Name="ParentPriceEngineeringTasksId" Label="Id группы" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="UserConstructor" Label="Конструктор" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:NumericField Name="Amount" Label="Количество блоков продукта" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="ProductBlockManager" Label="Блок продукта от менеджера" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
@@ -48,7 +47,6 @@
                         <infg:TextField Name="FilesTechnicalRequirements" Label="Файлы технических требований" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:TextField Name="FilesAnswers" Label="Файлы ответов ОГК" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:TextField Name="Messages" Label="Переписка" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
-                        <infg:TextField Name="ParentPriceEngineeringTaskId" Label="Id материнской задачи" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="ChildPriceEngineeringTasks" Label="Дочерние задачи" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:TextField Name="Statuses" Label="Статусы проработки" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:TextField Name="SalesUnits" Label="SalesUnits" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>

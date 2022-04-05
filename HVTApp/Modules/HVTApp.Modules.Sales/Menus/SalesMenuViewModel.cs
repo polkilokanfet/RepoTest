@@ -6,6 +6,7 @@ using HVTApp.UI.Modules.Sales.Shippings;
 using HVTApp.UI.Modules.Sales.Supervision;
 using HVTApp.UI.Modules.Sales.Views;
 using HVTApp.UI.PriceCalculations.View;
+using HVTApp.UI.PriceEngineering;
 using HVTApp.UI.TechnicalRequrementsTasksModule;
 
 namespace HVTApp.Modules.Sales.Menus
@@ -15,6 +16,7 @@ namespace HVTApp.Modules.Sales.Menus
         protected override void GenerateMenu()
         {
             var market = new NavigationItem("Рынок", typeof(Market2View));
+            market.Items.Add(new NavigationItem("Технико-стоимостные проработки", typeof(PriceEngineeringTasksListView)));
             market.Items.Add(new NavigationItem("Задачи в ТСЕ", typeof(TechnicalRequrementsTasksView)));
             market.Items.Add(new NavigationItem("Расчеты переменных затрат", typeof(PriceCalculationsView)));
             market.Items.Add(new NavigationItem("Предложения", typeof(OffersView)));

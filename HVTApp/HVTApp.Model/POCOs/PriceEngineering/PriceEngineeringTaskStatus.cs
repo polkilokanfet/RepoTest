@@ -18,6 +18,11 @@ namespace HVTApp.Model.POCOs
 
         [Required]
         public PriceEngineeringTaskStatusEnum StatusEnum { get; set; }
+
+        public override string ToString()
+        {
+            return $"{StatusEnum} {Moment}";
+        }
     }
 
     public enum PriceEngineeringTaskStatusEnum

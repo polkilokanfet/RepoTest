@@ -306,6 +306,12 @@ namespace HVTApp.UI.PriceEngineering
         {
             this.Statuses.CollectionChanged += (sender, args) => OnPropertyChanged(nameof(Status));
 
+            //если задача в процессе создания, нужно добавить соответствующий статус
+            if (UnitOfWork.Repository<PriceEngineeringTask>().GetById(this.Id) == null)
+            {
+                this.Statuses.Add(new PriceEngineeringTaskStatusWrapper(new PriceEngineeringTaskStatus {StatusEnum = PriceEngineeringTaskStatusEnum.Created}));
+            }
+
             #region Message
 
             SendMessageCommand = new DelegateLogCommand(
