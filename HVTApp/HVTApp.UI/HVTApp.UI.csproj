@@ -289,11 +289,11 @@
     </Compile>
     <Compile Include="PriceEngineering\TasksList\PriceEngineeringTasksListViewModel.cs" />
     <Compile Include="PriceEngineering\PriceEngineeringTasksWrapper1.cs" />
-    <Compile Include="PriceEngineering\PriceEngineeringTaskViewModelConstructor.cs" />
-    <Compile Include="PriceEngineering\PriceEngineeringTaskViewModelDesignDepartmentHead.cs" />
-    <Compile Include="PriceEngineering\PriceEngineeringTaskViewModelFactory.cs" />
-    <Compile Include="PriceEngineering\PriceEngineeringTaskViewModelManager.cs" />
-    <Compile Include="PriceEngineering\PriceEngineeringTaskWrapper1.cs" />
+    <Compile Include="PriceEngineering\Task\ViewModel\PriceEngineeringTaskViewModelConstructor.cs" />
+    <Compile Include="PriceEngineering\Task\ViewModel\PriceEngineeringTaskViewModelDesignDepartmentHead.cs" />
+    <Compile Include="PriceEngineering\Task\PriceEngineeringTaskViewModelFactory.cs" />
+    <Compile Include="PriceEngineering\Task\ViewModel\PriceEngineeringTaskViewModelManager.cs" />
+    <Compile Include="PriceEngineering\Task\PriceEngineeringTaskWrapper1.cs" />
     <Compile Include="PriceEngineering\Tabs\TabPriceEngineeringTasks.xaml.cs">
       <DependentUpon>TabPriceEngineeringTasks.xaml</DependentUpon>
     </Compile>
@@ -309,7 +309,7 @@
     <Compile Include="PriceEngineering\View\PriceEngineeringTaskControl.xaml.cs">
       <DependentUpon>PriceEngineeringTaskControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PriceEngineering\PriceEngineeringTaskViewModel.cs" />
+    <Compile Include="PriceEngineering\Task\ViewModel\PriceEngineeringTaskViewModel.cs" />
     <Compile Include="PriceEngineering\Comparers\SalesUnitForPriceEngineeringTaskComparer.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\Converters\HistoryElementToColorConverter.cs" />
     <Compile Include="Modules\Sales\Market\Converters\ProductionGroupToColorConverter.cs" />
