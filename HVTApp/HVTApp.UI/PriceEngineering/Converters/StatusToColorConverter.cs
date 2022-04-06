@@ -17,17 +17,17 @@ namespace HVTApp.UI.PriceEngineering.Converters
                     case PriceEngineeringTaskStatusEnum.Created:
                         return Colors.White;
                     case PriceEngineeringTaskStatusEnum.Started:
-                        return Colors.LightGoldenrodYellow;
+                        return Colors.LightSkyBlue;
                     case PriceEngineeringTaskStatusEnum.Stopped:
                         return Colors.LightGray;
                     case PriceEngineeringTaskStatusEnum.RejectedByManager:
-                        return Colors.LightPink;
+                        return Colors.DeepPink;
                     case PriceEngineeringTaskStatusEnum.RejectedByConstructor:
-                        return Colors.Coral;
+                        return Colors.Orange;
                     case PriceEngineeringTaskStatusEnum.FinishedByConstructor:
-                        return Colors.DarkSeaGreen;
-                    case PriceEngineeringTaskStatusEnum.Accepted:
                         return Colors.LightGreen;
+                    case PriceEngineeringTaskStatusEnum.Accepted:
+                        return Colors.Green;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }

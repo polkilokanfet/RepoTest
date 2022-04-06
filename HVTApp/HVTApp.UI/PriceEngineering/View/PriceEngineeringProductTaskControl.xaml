@@ -10,7 +10,7 @@
         <converters:PriceEngineeringTaskViewModelToProductAmountConverter x:Key="ToProductAmountConverter" />
     </UserControl.Resources>
 
-    <Border Margin="2" Padding="5" BorderBrush="Black" BorderThickness="1" CornerRadius="7">
+    <Border Margin="2" Padding="5" Background="LightGray"  BorderBrush="Black" BorderThickness="1" CornerRadius="7">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -18,7 +18,7 @@
             </Grid.RowDefinitions>
 
             <!--Шапка-->
-            <Border Grid.Row="0" Background="LightGray" BorderBrush="Black" BorderThickness="1" CornerRadius="5 5 0 0">
+            <Border Grid.Row="0" Background="AliceBlue"  BorderBrush="Black" BorderThickness="1" CornerRadius="5 5 0 0">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -44,7 +44,7 @@
 
             <!--Проработка блоков-->
             <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1 0 1 1" CornerRadius="0 0 5 5">
-                <GroupBox Header="Продукт">
+                <GroupBox Header="Продукт" Margin="3">
                     <view:PriceEngineeringTaskControl DataContext="{Binding}"/>
                 </GroupBox>
             </Border>

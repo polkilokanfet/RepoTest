@@ -272,9 +272,12 @@ namespace HVTApp.UI.PriceEngineering
                 });
 
             StartCommand = new DelegateLogCommand(() => { StartCommandExecute(true); },
-                                                () => this.IsValid && this.IsChanged);
+                                                () => this.IsValid && this.IsChanged && (Status == PriceEngineeringTaskStatusEnum.Created || Status == PriceEngineeringTaskStatusEnum.Stopped));
 
             this.PropertyChanged += (sender, args) => StartCommand.RaiseCanExecuteChanged();
+
+            //синхронизация сообщений
+            this.Messages.CollectionChanged += (sender, args) => ReloadMessagesAll();
         }
 
         /// <summary>
@@ -291,7 +294,7 @@ namespace HVTApp.UI.PriceEngineering
             this.Messages.Add(new PriceEngineeringTaskMessageWrapper(new PriceEngineeringTaskMessage
             {
                 Author = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
-                Message = "Стартована задача."
+                Message = "Задача запущена на проработку."
             }));
 
 

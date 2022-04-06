@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
@@ -41,6 +42,10 @@ namespace HVTApp.UI.PriceEngineering
 
         public DelegateLogCommand AddTechnicalRequrementsFilesCommand { get; private set; }
         public DelegateLogCommand RemoveTechnicalRequrementsFilesCommand { get; private set; }
+
+        public DelegateLogCommand AcceptCommand { get; private set; }
+        public DelegateLogCommand RejectCommand { get; private set; }
+        public DelegateLogCommand StopCommand { get; private set; }
 
         #region ctors
 
@@ -101,6 +106,45 @@ namespace HVTApp.UI.PriceEngineering
                 },
                 () => IsEditMode && this.SelectedTechnicalRequrementsFile != null);
 
+            AcceptCommand = new DelegateLogCommand(
+                () =>
+                {
+                    this.Statuses.Add(new PriceEngineeringTaskStatusWrapper(new PriceEngineeringTaskStatus() { StatusEnum = PriceEngineeringTaskStatusEnum.Accepted }));
+                    this.Messages.Add(new PriceEngineeringTaskMessageWrapper(new PriceEngineeringTaskMessage()
+                    {
+                        Author = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
+                        Message = "Проработка принята!"
+                    }));
+                    SaveCommand.Execute();
+                },
+                () => this.Status == PriceEngineeringTaskStatusEnum.FinishedByConstructor && this.IsValid);
+
+            RejectCommand = new DelegateLogCommand(
+                () =>
+                {
+                    this.Statuses.Add(new PriceEngineeringTaskStatusWrapper(new PriceEngineeringTaskStatus() { StatusEnum = PriceEngineeringTaskStatusEnum.RejectedByManager }));
+                    this.Messages.Add(new PriceEngineeringTaskMessageWrapper(new PriceEngineeringTaskMessage()
+                    {
+                        Author = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
+                        Message = "Проработка отклонена."
+                    }));
+                    SaveCommand.Execute();
+                },
+                () => this.Status == PriceEngineeringTaskStatusEnum.FinishedByConstructor && this.IsValid);
+
+            StopCommand = new DelegateLogCommand(
+                () =>
+                {
+                    this.Statuses.Add(new PriceEngineeringTaskStatusWrapper(new PriceEngineeringTaskStatus() { StatusEnum = PriceEngineeringTaskStatusEnum.Stopped }));
+                    this.Messages.Add(new PriceEngineeringTaskMessageWrapper(new PriceEngineeringTaskMessage()
+                    {
+                        Author = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
+                        Message = "Задача остановлена."
+                    }));
+                    SaveCommand.Execute();
+                },
+                () => this.Status != PriceEngineeringTaskStatusEnum.Created && this.Status != PriceEngineeringTaskStatusEnum.Stopped && this.IsValid);
+
             this.SelectedTechnicalRequrementsFileIsChanged += () =>
             {
                 RemoveTechnicalRequrementsFilesCommand.RaiseCanExecuteChanged();
@@ -108,8 +152,12 @@ namespace HVTApp.UI.PriceEngineering
 
             this.Statuses.CollectionChanged += (sender, args) =>
             {
+                StartCommand.RaiseCanExecuteChanged();
+                StopCommand.RaiseCanExecuteChanged();
                 AddTechnicalRequrementsFilesCommand.RaiseCanExecuteChanged();
                 RemoveTechnicalRequrementsFilesCommand.RaiseCanExecuteChanged();
+                AcceptCommand.RaiseCanExecuteChanged();
+                RejectCommand.RaiseCanExecuteChanged();
             };
         }
     }

@@ -7,9 +7,11 @@
              xmlns:dataPresenter="http://infragistics.com/DataPresenter">
 
     <UserControl.Resources>
+        <converters:PriceEngineeringTaskViewModelIsTargetTaskVisibilityConverter x:Key="IsTargetTaskVisibilityConverter" />
         <converters:PriceEngineeringTaskWrapperToChildTasksVisibilityConverter x:Key="ToChildTasksVisibilityConverter" />
         <converters:PriceEngineeringTaskViewModelDesignDepartmentHeadVisibilityConverter x:Key="DesignDepartmentHeadVisibilityConverter" />
         <converters:PriceEngineeringTaskViewModelConstructorVisibilityConverter x:Key="ConstructorVisibilityConverter" />
+        <converters:PriceEngineeringTaskViewModelConstructorIsTargetTaskVisibilityConverter x:Key="ConstructorIsTargetTaskVisibilityConverter" />
         <converters:PriceEngineeringTaskViewModelManagerVisibilityConverter x:Key="ManagerVisibilityConverter" />
         <converters:PriceEngineeringTaskStatusEnumToStringConverter x:Key="StatusToStringConverter" />
         <converters:PriceEngineeringTaskViewModelToBoarderTricknessConverter x:Key="PriceEngineeringTaskViewModelToBoarderTricknessConverter" />
@@ -18,20 +20,20 @@
     </UserControl.Resources>
     
     <!--Задача на блок продукта-->
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="10"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+    <Border BorderBrush="Red"  BorderThickness="{Binding Converter={StaticResource PriceEngineeringTaskViewModelToBoarderTricknessConverter}}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-        <Border Grid.Column="0" BorderBrush="Black" BorderThickness="2">
-            <Border.Background>
-                <SolidColorBrush Color="{Binding Converter={StaticResource StatusToColorConverter}}"/>
-            </Border.Background>
-        </Border>
+            <Border Grid.Column="0" BorderBrush="Black" BorderThickness="1" CornerRadius="5 0 0 5">
+                <Border.Background>
+                    <SolidColorBrush Color="{Binding Converter={StaticResource StatusToColorConverter}}"/>
+                </Border.Background>
+            </Border>
 
-        <Border Grid.Column="1" BorderBrush="Red"  BorderThickness="{Binding Converter={StaticResource PriceEngineeringTaskViewModelToBoarderTricknessConverter}}">
-            <Border Margin="2" BorderThickness="1" BorderBrush="Black" CornerRadius="5">
+            <Border Grid.Column="1" Margin="2" BorderThickness="1" BorderBrush="Black" CornerRadius="5">
 
                 <Grid>
                     <Grid.RowDefinitions>
@@ -39,7 +41,7 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <Grid Grid.Row="0" MinHeight="400" MaxHeight="768">
+                    <Grid Grid.Row="0" MinHeight="350" MaxHeight="768">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="4*"/>
                             <ColumnDefinition Width="Auto"/>
@@ -86,7 +88,7 @@
                                         </Grid.ColumnDefinitions>
 
                                         <Button Grid.Column="0" 
-                                                Visibility="{Binding Converter={StaticResource ConstructorVisibilityConverter}}"
+                                                Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}"
                                                 Content="..." 
                                                 Command="{Binding SelectProductBlockCommand}" 
                                                 Padding="5 0"/>
@@ -212,8 +214,8 @@
                                                 <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
 
-                                            <Button Grid.Column="0" Content="Добавить" Command="{Binding AddAnswerFilesCommand}" Visibility="{Binding Converter={StaticResource ConstructorVisibilityConverter}}"/>
-                                            <Button Grid.Column="1" Content="Удалить" Command="{Binding RemoveAnswerFileCommand}" Visibility="{Binding Converter={StaticResource ConstructorVisibilityConverter}}"/>
+                                            <Button Grid.Column="0" Content="Добавить" Command="{Binding AddAnswerFilesCommand}" Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}"/>
+                                            <Button Grid.Column="1" Content="Удалить" Command="{Binding RemoveAnswerFileCommand}" Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}"/>
                                             <Button Grid.Column="2" Content="Загрузить всё"/>
 
                                         </Grid>
@@ -236,14 +238,14 @@
 
                                 </GroupBox>
 
-                                <Grid Grid.Row="1">
+                                <Grid Grid.Row="1" Visibility="{Binding IsTarget, Converter={StaticResource BooleanToVisibilityConverter}}">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <Button Grid.Column="0" Content="Добавить"/>
-                                    <Button Grid.Column="1" Content="Удалить"/>
+                                    <Button Grid.Column="0" Content="Добавить" Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}"/>
+                                    <Button Grid.Column="1" Content="Удалить" Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}"/>
 
                                 </Grid>
 
@@ -255,20 +257,22 @@
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
                                     <Button Grid.Column="0" Content="Стартовать" Command="{Binding StartCommand}"/>
-                                    <Button Grid.Column="1" Content="Принять"/>
-                                    <Button Grid.Column="2" Content="Отклонить"/>
+                                    <Button Grid.Column="1" Content="Принять" Command="{Binding AcceptCommand}"/>
+                                    <Button Grid.Column="2" Content="Отклонить" Command="{Binding RejectCommand}"/>
+                                    <Button Grid.Column="3" Content="Остановить" Command="{Binding StopCommand}"/>
                                 </Grid>
                             </GroupBox>
 
-                            <GroupBox Grid.Row="4" Header="Действия" Visibility="{Binding Converter={StaticResource ConstructorVisibilityConverter}}">
+                            <GroupBox Grid.Row="4" Header="Действия" Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <Button Grid.Column="0" Content="Отклонить"/>
+                                    <Button Grid.Column="0" Content="Отклонить" Command="{Binding RejectCommand}"/>
                                     <Button Grid.Column="1" Content="Завершить" Command="{Binding FinishCommand}"/>
                                 </Grid>
                             </GroupBox>
@@ -296,7 +300,7 @@
                                 </ScrollViewer>
                             </GroupBox>
 
-                            <Grid Grid.Row="1">
+                            <Grid Grid.Row="1" Visibility="{Binding Converter={StaticResource IsTargetTaskVisibilityConverter}}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="Auto"/>
@@ -312,11 +316,11 @@
 
                     <!--Вложенные блоки-->
                     <Expander Grid.Row="1"
-                              IsExpanded="True"
-                              Header="Вложенные блоки"
-                              Margin="5"
-                              BorderBrush="Black"
-                              Visibility="{Binding UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToChildTasksVisibilityConverter}}">
+                                IsExpanded="True"
+                                Header="Вложенные блоки"
+                                Margin="5"
+                                BorderBrush="Black"
+                                Visibility="{Binding UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToChildTasksVisibilityConverter}}">
 
                         <ItemsControl ItemsSource="{Binding ChildPriceEngineeringTasks}">
                             <!--<ListBox.ItemContainerStyle>
@@ -340,8 +344,8 @@
                 </Grid>
 
             </Border>
-        </Border>
 
-    </Grid>
+        </Grid>
+    </Border>
 
 </UserControl>

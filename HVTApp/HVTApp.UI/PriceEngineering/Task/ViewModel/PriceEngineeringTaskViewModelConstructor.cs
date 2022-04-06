@@ -47,12 +47,11 @@ namespace HVTApp.UI.PriceEngineering
         /// Выбрать блок продукта
         /// </summary>
         public DelegateLogCommand SelectProductBlockCommand { get; private set; }
-
         public DelegateLogCommand AddAnswerFilesCommand { get; private set; }
-
         public DelegateLogCommand RemoveAnswerFileCommand { get; private set; }
-
         public DelegateLogCommand FinishCommand { get; private set; }
+        public DelegateLogCommand RejectCommand { get; private set; }
+
 
         #region ctors
 
@@ -172,10 +171,29 @@ namespace HVTApp.UI.PriceEngineering
                 },
                 () => IsTarget && IsEditMode && this.IsValid);
 
+
+            RejectCommand = new DelegateLogCommand(
+                () =>
+                {
+                    this.Statuses.Add(new PriceEngineeringTaskStatusWrapper(new PriceEngineeringTaskStatus { StatusEnum = PriceEngineeringTaskStatusEnum.RejectedByConstructor }));
+                    this.Messages.Add(new PriceEngineeringTaskMessageWrapper(new PriceEngineeringTaskMessage
+                    {
+                        Author = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
+                        Message = "Задача отклонена ОГК."
+                    }));
+                    SaveCommand.Execute();
+                },
+                () => IsEditMode && this.IsValid);
+
+
             this.PropertyChanged += (sender, args) =>
             {
                 SaveCommand.RaiseCanExecuteChanged();
                 FinishCommand.RaiseCanExecuteChanged();
+                RejectCommand.RaiseCanExecuteChanged();
+                SelectProductBlockCommand.RaiseCanExecuteChanged();
+                AddAnswerFilesCommand.RaiseCanExecuteChanged();
+                RemoveAnswerFileCommand.RaiseCanExecuteChanged();
             };
 
             this.SelectedAnswerFileIsChanged += () => RemoveAnswerFileCommand.RaiseCanExecuteChanged();

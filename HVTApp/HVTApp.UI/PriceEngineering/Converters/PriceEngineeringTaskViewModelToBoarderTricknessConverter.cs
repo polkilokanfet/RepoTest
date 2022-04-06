@@ -14,6 +14,9 @@ namespace HVTApp.UI.PriceEngineering.Converters
         {
             if (value is PriceEngineeringTaskViewModel priceEngineeringTaskViewModel)
             {
+                if (value is PriceEngineeringTaskViewModelManager)
+                    return new Thickness(0);
+
                 return priceEngineeringTaskViewModel.IsTarget
                     ? new Thickness(3)
                     : new Thickness(0);
