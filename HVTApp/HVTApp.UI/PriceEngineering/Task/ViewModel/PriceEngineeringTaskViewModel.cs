@@ -26,6 +26,7 @@ namespace HVTApp.UI.PriceEngineering
         protected readonly IUnitOfWork UnitOfWork;
         private PriceEngineeringTaskViewModel _parent;
         private PriceEngineeringTaskFileTechnicalRequirementsWrapper _selectedTechnicalRequrementsFile;
+        private PriceEngineeringTaskFileAnswerWrapper _selectedFileAnswer;
 
         #region Commands
 
@@ -33,7 +34,9 @@ namespace HVTApp.UI.PriceEngineering
 
         public DelegateLogCommand OpenTechnicalRequrementsFileCommand { get; private set; }
 
-        public DelegateLogCommand SaveCommand { get; private set; }
+        public DelegateLogCommand OpenAnswerFileCommand { get; private set; }
+
+        public DelegateLogCommand SaveCommand { get; protected set; }
 
         public DelegateLogCommand StartCommand { get; private set; }
 
@@ -95,10 +98,27 @@ namespace HVTApp.UI.PriceEngineering
             }
         }
 
+        public PriceEngineeringTaskFileAnswerWrapper SelectedFileAnswer
+        {
+            get => _selectedFileAnswer;
+            set
+            {
+                if (Equals(value, _selectedFileAnswer)) return;
+                _selectedFileAnswer = value;
+                SelectedAnswerFileIsChanged?.Invoke();
+            }
+        }
+
+
         /// <summary>
         /// Событие изменения выбранного файла ТЗ
         /// </summary>
         protected event Action SelectedTechnicalRequrementsFileIsChanged;
+
+        /// <summary>
+        /// Событие изменения выбранного файла ответа ОГК
+        /// </summary>
+        protected event Action SelectedAnswerFileIsChanged;
 
         public PriceEngineeringTaskMessageWrapper Message { get; private set; }
 
@@ -120,7 +140,8 @@ namespace HVTApp.UI.PriceEngineering
 
         protected PriceEngineeringTaskViewModel(IUnityContainer container, IUnitOfWork unitOfWork, Product product) : this(container, unitOfWork)
         {
-            ProductBlockEngineer = ProductBlockManager = new ProductBlockEmptyWrapper(product.ProductBlock);
+            ProductBlockEngineer = new ProductBlockStructureCostWrapper(product.ProductBlock);
+            ProductBlockManager = new ProductBlockEmptyWrapper(product.ProductBlock);
 
             foreach (var dependentProduct in product.DependentProducts)
             {
@@ -218,6 +239,29 @@ namespace HVTApp.UI.PriceEngineering
                 },
                 () => SelectedTechnicalRequrementsFile != null);
 
+            OpenAnswerFileCommand = new DelegateLogCommand(
+                () =>
+                {
+                    try
+                    {
+                        //если файл уже в хранилище
+                        if (string.IsNullOrEmpty(SelectedFileAnswer.Path))
+                        {
+                            Container.Resolve<IFilesStorageService>().OpenFileFromStorage(SelectedFileAnswer.Id, GlobalAppProperties.Actual.TechnicalRequrementsFilesAnswersPath, SelectedFileAnswer.Name);
+                        }
+                        //если файл еще не загружен в хранилище
+                        else
+                        {
+                            Process.Start(SelectedFileAnswer.Path);
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Container.Resolve<IMessageService>().ShowOkMessageDialog("Ошибка при открытии файла", e.PrintAllExceptions());
+                    }
+                },
+                () => SelectedFileAnswer != null);
+
             SaveCommand = new DelegateLogCommand(
                 () =>
                 {
@@ -280,6 +324,7 @@ namespace HVTApp.UI.PriceEngineering
                 if (File.Exists(destFileName) == false && string.IsNullOrEmpty(fileWrapper.Path) == false)
                 {
                     File.Copy(fileWrapper.Path, destFileName);
+                    fileWrapper.Path = null;
                 }
             }
 

@@ -90,9 +90,13 @@ namespace HVTApp.UI.PriceEngineering
             RemoveTechnicalRequrementsFilesCommand = new DelegateLogCommand(
                 () =>
                 {
-                    if (UnitOfWork.Repository<PriceEngineeringTask>().GetById(Id) == null)
+                    if (string.IsNullOrEmpty(SelectedTechnicalRequrementsFile.Path))
                     {
                         this.FilesTechnicalRequirements.Remove(SelectedTechnicalRequrementsFile);
+                    }
+                    else
+                    {
+                        SelectedTechnicalRequrementsFile.IsActual = false;
                     }
                 },
                 () => IsEditMode && this.SelectedTechnicalRequrementsFile != null);
@@ -108,7 +112,5 @@ namespace HVTApp.UI.PriceEngineering
                 RemoveTechnicalRequrementsFilesCommand.RaiseCanExecuteChanged();
             };
         }
-
-
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using HVTApp.Infrastructure;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base;
@@ -78,10 +79,10 @@ namespace HVTApp.UI.PriceEngineering
         /// <summary>
         /// Блок продукта от инженера-конструктора
         /// </summary>
-	    public ProductBlockEmptyWrapper ProductBlockEngineer
+	    public ProductBlockStructureCostWrapper ProductBlockEngineer
         {
-            get => GetWrapper<ProductBlockEmptyWrapper>();
-            set => SetComplexValue<ProductBlock, ProductBlockEmptyWrapper>(ProductBlockEngineer, value);
+            get => GetWrapper<ProductBlockStructureCostWrapper>();
+            set => SetComplexValue<ProductBlock, ProductBlockStructureCostWrapper>(ProductBlockEngineer, value);
         }
 
         #endregion
@@ -131,7 +132,7 @@ namespace HVTApp.UI.PriceEngineering
 
             InitializeComplexProperty(nameof(UserConstructor), Model.UserConstructor == null ? null : new UserEmptyWrapper(Model.UserConstructor));
             InitializeComplexProperty(nameof(ProductBlockManager), Model.ProductBlockManager == null ? null : new ProductBlockEmptyWrapper(Model.ProductBlockManager));
-            InitializeComplexProperty(nameof(ProductBlockEngineer), Model.ProductBlockEngineer == null ? null : new ProductBlockEmptyWrapper(Model.ProductBlockEngineer));
+            InitializeComplexProperty(nameof(ProductBlockEngineer), Model.ProductBlockEngineer == null ? null : new ProductBlockStructureCostWrapper(Model.ProductBlockEngineer));
 
             #endregion
 
