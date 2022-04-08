@@ -13,9 +13,12 @@ namespace HVTApp.Model.POCOs
         public virtual Guid PriceEngineeringTaskId { get; set; }
 
         [Designation("Количество"), Required, OrderStatus(950)]
-        public int Amount { get; set; }
+        public int Amount { get; set; } = 1;
 
-        [Designation("Блок продукта от менеджера"), Required, OrderStatus(900)]
+        [Designation("На каждый блок"), OrderStatus(800)]
+        public bool IsOnBlock { get; set; } = true;
+
+        [Designation("Блок продукта"), Required, OrderStatus(900)]
         public virtual ProductBlock ProductBlock { get; set; }
     }
 }

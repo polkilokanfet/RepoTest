@@ -46,7 +46,7 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
 
                     var role = new UserRole
                     {
-                        Name = "DesignDepHead", 
+                        Name = "Руководитель КБ ОГК", 
                         Role = Role.DesignDepartmentHead
                     };
 

@@ -92,7 +92,7 @@ namespace HVTApp.UI.PriceEngineering
         /// <summary>
         /// Добавленные блоки продукта от инженера-конструктора
         /// </summary>
-        public IValidatableChangeTrackingCollection<PriceEngineeringTaskProductBlockAddedWrapper> ProductBlocksAdded { get; private set; }
+        public IValidatableChangeTrackingCollection<PriceEngineeringTaskProductBlockAddedWrapper1> ProductBlocksAdded { get; private set; }
 
         /// <summary>
         /// Файлы технических требований
@@ -139,7 +139,7 @@ namespace HVTApp.UI.PriceEngineering
             #region InitializeCollectionProperties
 
             if (Model.ProductBlocksAdded == null) throw new ArgumentException("ProductBlocksAdded cannot be null");
-            ProductBlocksAdded = new ValidatableChangeTrackingCollection<PriceEngineeringTaskProductBlockAddedWrapper>(Model.ProductBlocksAdded.Select(e => new PriceEngineeringTaskProductBlockAddedWrapper(e)));
+            ProductBlocksAdded = new ValidatableChangeTrackingCollection<PriceEngineeringTaskProductBlockAddedWrapper1>(Model.ProductBlocksAdded.Select(e => new PriceEngineeringTaskProductBlockAddedWrapper1(e)));
             RegisterCollection(ProductBlocksAdded, Model.ProductBlocksAdded);
 
             if (Model.FilesTechnicalRequirements == null) throw new ArgumentException("FilesTechnicalRequirements cannot be null");

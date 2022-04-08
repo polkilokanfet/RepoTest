@@ -787,6 +787,9 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(100)]
         public System.Nullable<System.Guid> ParentPriceEngineeringTaskId => Entity.ParentPriceEngineeringTaskId;
 
+		[OrderStatus(1)]
+        public HVTApp.Model.POCOs.PriceEngineeringTaskStatusEnum Status => Entity.Status;
+
         #endregion
 
         #region ComplexProperties
@@ -904,6 +907,9 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(950)]
         public System.Int32 Amount => Entity.Amount;
+
+		[OrderStatus(800)]
+        public System.Boolean IsOnBlock => Entity.IsOnBlock;
 
         #endregion
 

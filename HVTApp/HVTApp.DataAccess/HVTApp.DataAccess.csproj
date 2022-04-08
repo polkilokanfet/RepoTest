@@ -374,6 +374,10 @@
     <Compile Include="Migrations\202204050451138_GuidNull.Designer.cs">
       <DependentUpon>202204050451138_GuidNull.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202204080716220_BlockAdded.cs" />
+    <Compile Include="Migrations\202204080716220_BlockAdded.Designer.cs">
+      <DependentUpon>202204080716220_BlockAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -603,6 +607,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202204050451138_GuidNull.resx">
       <DependentUpon>202204050451138_GuidNull.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204080716220_BlockAdded.resx">
+      <DependentUpon>202204080716220_BlockAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

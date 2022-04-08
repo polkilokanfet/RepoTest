@@ -47,6 +47,8 @@ namespace HVTApp.UI.PriceEngineering
         /// Выбрать блок продукта
         /// </summary>
         public DelegateLogCommand SelectProductBlockCommand { get; private set; }
+        public DelegateLogCommand AddBlockAddedCommand { get; private set; }
+        public DelegateLogCommand RemoveBlockAddedCommand { get; private set; }
         public DelegateLogCommand AddAnswerFilesCommand { get; private set; }
         public DelegateLogCommand RemoveAnswerFileCommand { get; private set; }
         public DelegateLogCommand FinishCommand { get; private set; }
@@ -105,6 +107,27 @@ namespace HVTApp.UI.PriceEngineering
                     }
                 },
                 () => IsTarget && IsEditMode);
+
+            AddBlockAddedCommand = new DelegateLogCommand(
+                () =>
+                {
+                    var block = Container.Resolve<IGetProductService>().GetProductBlock();
+                    if (block == null) return;
+                    block = UnitOfWork.Repository<ProductBlock>().GetById(block.Id);
+                    var wrapper = new PriceEngineeringTaskProductBlockAddedWrapper1(new PriceEngineeringTaskProductBlockAdded())
+                        {
+                            ProductBlock = new ProductBlockStructureCostWrapper(block, true)
+                        };
+                    this.ProductBlocksAdded.Add(wrapper);
+                },
+                () => IsTarget && IsEditMode);
+
+            RemoveBlockAddedCommand = new DelegateLogCommand(
+                () =>
+                {
+                    this.ProductBlocksAdded.Remove(SelectedBlockAdded);
+                },
+                () => IsTarget && IsEditMode && SelectedBlockAdded != null);
 
             AddAnswerFilesCommand = new DelegateLogCommand(
                 () =>
@@ -194,9 +217,11 @@ namespace HVTApp.UI.PriceEngineering
                 SelectProductBlockCommand.RaiseCanExecuteChanged();
                 AddAnswerFilesCommand.RaiseCanExecuteChanged();
                 RemoveAnswerFileCommand.RaiseCanExecuteChanged();
+                this.Validate(null);
             };
 
             this.SelectedAnswerFileIsChanged += () => RemoveAnswerFileCommand.RaiseCanExecuteChanged();
+            this.SelectedBlockAddedIsChanged += () => RemoveBlockAddedCommand.RaiseCanExecuteChanged();
         }
 
 

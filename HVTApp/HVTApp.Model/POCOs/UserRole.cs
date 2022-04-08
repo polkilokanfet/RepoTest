@@ -7,7 +7,7 @@ namespace HVTApp.Model.POCOs
     [Designation("Роль пользователя")]
     public partial class UserRole : BaseEntity
     {
-        [Designation("Название"), Required, MaxLength(15)]
+        [Designation("Название"), Required, MaxLength(64)]
         public string Name { get; set; }
         public Role Role { get; set; }
 

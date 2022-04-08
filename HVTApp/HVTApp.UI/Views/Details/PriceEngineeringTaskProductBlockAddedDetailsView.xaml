@@ -16,6 +16,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row ="0" Content="Количество" Visibility="{Binding VisibilityAmountPriceEngineeringTaskProductBlockAdded, ElementName=Root}"/>
@@ -24,12 +25,17 @@
                                Value="{Binding Item.Amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding VisibilityAmountPriceEngineeringTaskProductBlockAdded, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="Блок продукта от менеджера" Visibility="{Binding VisibilityProductBlockPriceEngineeringTaskProductBlockAdded, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Блок продукта" Visibility="{Binding VisibilityProductBlockPriceEngineeringTaskProductBlockAdded, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
                                     Item="{Binding Item.ProductBlock}" 
                                     AddItemCommand="{Binding SelectProductBlockCommand}" 
                                     RemoveItemCommand="{Binding ClearProductBlockCommand}"
 									Visibility="{Binding VisibilityProductBlockPriceEngineeringTaskProductBlockAdded, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="2" Content="На каждый блок" Visibility="{Binding VisibilityIsOnBlockPriceEngineeringTaskProductBlockAdded, ElementName=Root}"/>
+        <CheckBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
+                  IsChecked="{Binding Item.IsOnBlock, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				  Visibility="{Binding VisibilityIsOnBlockPriceEngineeringTaskProductBlockAdded, ElementName=Root}"/>
 
 
     </Grid>

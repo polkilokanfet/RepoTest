@@ -1948,6 +1948,12 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public IValidatableChangeTrackingCollection<SalesUnitWrapper> SalesUnits { get; private set; }
         #endregion
+        #region GetProperties
+        /// <summary>
+        /// Статус
+        /// </summary>
+        public HVTApp.Model.POCOs.PriceEngineeringTaskStatusEnum Status => GetValue<HVTApp.Model.POCOs.PriceEngineeringTaskStatusEnum>(); 
+        #endregion
         public override void InitializeComplexProperties()
         {
             InitializeComplexProperty<UserWrapper>(nameof(UserConstructor), Model.UserConstructor == null ? null : new UserWrapper(Model.UserConstructor));
@@ -2190,6 +2196,16 @@ namespace HVTApp.Model.Wrapper
         public System.Int32 AmountOriginalValue => GetOriginalValue<System.Int32>(nameof(Amount));
         public bool AmountIsChanged => GetIsChanged(nameof(Amount));
         /// <summary>
+        /// На каждый блок
+        /// </summary>
+        public System.Boolean IsOnBlock
+        {
+          get { return GetValue<System.Boolean>(); }
+          set { SetValue(value); }
+        }
+        public System.Boolean IsOnBlockOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsOnBlock));
+        public bool IsOnBlockIsChanged => GetIsChanged(nameof(IsOnBlock));
+        /// <summary>
         /// Id
         /// </summary>
         public System.Guid Id
@@ -2202,7 +2218,7 @@ namespace HVTApp.Model.Wrapper
         #endregion
         #region ComplexProperties
         /// <summary>
-        /// Блок продукта от менеджера
+        /// Блок продукта
         /// </summary>
 	    public ProductBlockWrapper ProductBlock 
         {

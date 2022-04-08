@@ -23,6 +23,7 @@ namespace HVTApp.UI.PriceEngineering
         public ProductBlockStructureCostWrapper(ProductBlock model, bool validateStructureCostNumber = false) : base(model)
         {
             ValidateStructureCostNumber = validateStructureCostNumber;
+            this.Validate(new ValidationContext(this));
         }
 
         protected override IEnumerable<ValidationResult> ValidateOther()

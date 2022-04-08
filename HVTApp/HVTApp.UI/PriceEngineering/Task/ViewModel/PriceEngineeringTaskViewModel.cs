@@ -27,6 +27,7 @@ namespace HVTApp.UI.PriceEngineering
         private PriceEngineeringTaskViewModel _parent;
         private PriceEngineeringTaskFileTechnicalRequirementsWrapper _selectedTechnicalRequrementsFile;
         private PriceEngineeringTaskFileAnswerWrapper _selectedFileAnswer;
+        private PriceEngineeringTaskProductBlockAddedWrapper1 _selectedBlockAdded;
 
         #region Commands
 
@@ -84,6 +85,17 @@ namespace HVTApp.UI.PriceEngineering
             }
         }
 
+        public PriceEngineeringTaskProductBlockAddedWrapper1 SelectedBlockAdded
+        {
+            get => _selectedBlockAdded;
+            set
+            {
+                if (Equals(_selectedBlockAdded, value)) return;
+                _selectedBlockAdded = value;
+                SelectedBlockAddedIsChanged?.Invoke();
+            }
+        }
+
         /// <summary>
         /// Выбранный файл ТЗ
         /// </summary>
@@ -109,6 +121,11 @@ namespace HVTApp.UI.PriceEngineering
             }
         }
 
+
+        /// <summary>
+        /// Событие изменения выбранного добавленного блока
+        /// </summary>
+        protected event Action SelectedBlockAddedIsChanged;
 
         /// <summary>
         /// Событие изменения выбранного файла ТЗ

@@ -288,6 +288,7 @@
     </Compile>
     <Compile Include="PriceEngineering\TasksList\PriceEngineeringTasksListViewModel.cs" />
     <Compile Include="PriceEngineering\PriceEngineeringTasksWrapper1.cs" />
+    <Compile Include="PriceEngineering\Task\PriceEngineeringTaskProductBlockAddedWrapper1.cs" />
     <Compile Include="PriceEngineering\Task\ProductBlockStructureCostWrapper.cs" />
     <Compile Include="PriceEngineering\Task\ViewModel\PriceEngineeringTaskViewModelConstructor.cs" />
     <Compile Include="PriceEngineering\Task\ViewModel\PriceEngineeringTaskViewModelDesignDepartmentHead.cs" />
@@ -296,6 +297,9 @@
     <Compile Include="PriceEngineering\Task\PriceEngineeringTaskWrapper1.cs" />
     <Compile Include="PriceEngineering\Tabs\TabPriceEngineeringTasks.xaml.cs">
       <DependentUpon>TabPriceEngineeringTasks.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\BlockAddedControl.xaml.cs">
+      <DependentUpon>BlockAddedControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="PriceEngineering\View\PriceEngineeringProductTaskControl.xaml.cs">
       <DependentUpon>PriceEngineeringProductTaskControl.xaml</DependentUpon>
@@ -1594,6 +1598,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="PriceEngineering\View\BlockAddedControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="PriceEngineering\View\PriceEngineeringProductTaskControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -2505,7 +2513,6 @@
   <ItemGroup>
     <Folder Include="Lookup\Service\Custom\" />
     <Folder Include="Modules\Products\ProductRelations\" />
-    <Folder Include="PriceEngineering\Tasks\" />
     <Folder Include="Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

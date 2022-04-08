@@ -7,9 +7,10 @@
 
     <Border Background="White" Padding="5">
         <GroupBox Header="Технико-ценовая проработка">
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalAlignment="Stretch">
                 <ListBox ItemsSource="{Binding PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks}" 
                          SelectedItem="{Binding SelectedPriceEngineeringTaskViewModel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                         HorizontalAlignment="Stretch"
                          BorderThickness="0">
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">

@@ -4764,6 +4764,12 @@ namespace HVTApp.UI.Views
             set { PriceEngineeringTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskLookup.ParentPriceEngineeringTaskId)].Visibility = value; }
         }
 
+        public System.Windows.Visibility StatusVisibility
+        {
+            get { return PriceEngineeringTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskLookup.Status)].Visibility; }
+            set { PriceEngineeringTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskLookup.Status)].Visibility = value; }
+        }
+
         public System.Windows.Visibility DisplayMemberVisibility
         {
             get { return PriceEngineeringTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskLookup.DisplayMember)].Visibility; }
@@ -4942,6 +4948,12 @@ namespace HVTApp.UI.Views
         {
             get { return PriceEngineeringTaskProductBlockAddedLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskProductBlockAddedLookup.Amount)].Visibility; }
             set { PriceEngineeringTaskProductBlockAddedLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskProductBlockAddedLookup.Amount)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility IsOnBlockVisibility
+        {
+            get { return PriceEngineeringTaskProductBlockAddedLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskProductBlockAddedLookup.IsOnBlock)].Visibility; }
+            set { PriceEngineeringTaskProductBlockAddedLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskProductBlockAddedLookup.IsOnBlock)].Visibility = value; }
         }
 
         public System.Windows.Visibility DisplayMemberVisibility
