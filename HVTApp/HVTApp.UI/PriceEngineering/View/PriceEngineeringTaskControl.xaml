@@ -20,7 +20,7 @@
     </UserControl.Resources>
     
     <!--Задача на блок продукта-->
-    <Border BorderBrush="Red"  BorderThickness="{Binding Converter={StaticResource PriceEngineeringTaskViewModelToBoarderTricknessConverter}}">
+    <Border BorderBrush="Black"  BorderThickness="{Binding Converter={StaticResource PriceEngineeringTaskViewModelToBoarderTricknessConverter}}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10"/>
@@ -45,7 +45,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="4*"/>
                             <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*" MinWidth="150"/>
+                            <ColumnDefinition Width="400" MinWidth="150"/>
                         </Grid.ColumnDefinitions>
 
                         <Grid Grid.Column="0">
@@ -269,10 +269,12 @@
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
 
                                     <Button Grid.Column="0" Content="Добавить" Command="{Binding AddBlockAddedCommand}" Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}"/>
                                     <Button Grid.Column="1" Content="Удалить" Command="{Binding RemoveBlockAddedCommand}" Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}"/>
+                                    <Button Grid.Column="2" Content="Новый параметр" Command="{Binding BlockAddedNewParameterCommand}" Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}"/>
                                 </Grid>
 
                             </Grid>
@@ -315,7 +317,7 @@
                             </Grid.RowDefinitions>
 
                             <GroupBox Grid.Row="0" Header="Переписка">
-                                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                                <ScrollViewer VerticalScrollBarVisibility="Auto">
                                     <ItemsControl ItemsSource="{Binding Messenger.MessagesToShow, Mode=OneWay}">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
@@ -350,10 +352,15 @@
                               BorderBrush="Black"
                               Visibility="{Binding UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToChildTasksVisibilityConverter}}">
 
-                        <ItemsControl ItemsSource="{Binding ChildPriceEngineeringTasks}">
+                        <ItemsControl HorizontalAlignment="Stretch" ItemsSource="{Binding ChildPriceEngineeringTasks}">
+                            <!--<ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid Rows="1"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>-->
                             <!--<ListBox.ItemContainerStyle>
                                 <Style TargetType="ListBoxItem">
-                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                                 </Style>
                             </ListBox.ItemContainerStyle>-->
                             <ItemsControl.ItemTemplate>

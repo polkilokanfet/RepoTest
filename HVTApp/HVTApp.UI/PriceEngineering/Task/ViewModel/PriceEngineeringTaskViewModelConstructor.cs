@@ -5,12 +5,14 @@ using System.Linq;
 using System.Windows.Forms;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
+using HVTApp.UI.PriceEngineering.ParametersService1;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 
@@ -53,6 +55,7 @@ namespace HVTApp.UI.PriceEngineering
         public DelegateLogCommand RemoveAnswerFileCommand { get; private set; }
         public DelegateLogCommand FinishCommand { get; private set; }
         public DelegateLogCommand RejectCommand { get; private set; }
+        public DelegateLogCommand BlockAddedNewParameterCommand { get; private set; }
 
 
         #region ctors
@@ -194,6 +197,13 @@ namespace HVTApp.UI.PriceEngineering
                 },
                 () => IsEditMode && this.IsValid);
 
+            BlockAddedNewParameterCommand = new DelegateLogCommand(
+                () =>
+                {
+                    Container.Resolve<IDialogService>().ShowDialog(new ParametersServiceViewModel(Container, this.DesignDepartment.Model));
+                },
+                () => IsEditMode);
+
 
             this.PropertyChanged += (sender, args) =>
             {
@@ -203,7 +213,7 @@ namespace HVTApp.UI.PriceEngineering
                 SelectProductBlockCommand.RaiseCanExecuteChanged();
                 AddAnswerFilesCommand.RaiseCanExecuteChanged();
                 RemoveAnswerFileCommand.RaiseCanExecuteChanged();
-                this.Validate(null);
+                BlockAddedNewParameterCommand.RaiseCanExecuteChanged();
             };
 
             this.SelectedAnswerFileIsChanged += () => RemoveAnswerFileCommand.RaiseCanExecuteChanged();

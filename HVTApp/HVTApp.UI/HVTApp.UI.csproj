@@ -286,6 +286,9 @@
     <Compile Include="PriceEngineering\Messages\MessageViewModel.cs" />
     <Compile Include="PriceEngineering\Messages\PriceEngineeringTaskMessagesWrapper.cs" />
     <Compile Include="PriceEngineering\Messages\PriceEngineeringTaskMessenger.cs" />
+    <Compile Include="PriceEngineering\ParametersService1\ParametersServiceView.xaml.cs">
+      <DependentUpon>ParametersServiceView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PriceEngineering\TasksList\PriceEngineeringTasksListView.xaml.cs">
       <DependentUpon>PriceEngineeringTasksListView.xaml</DependentUpon>
     </Compile>
@@ -293,6 +296,7 @@
     <Compile Include="PriceEngineering\PriceEngineeringTasksWrapper1.cs" />
     <Compile Include="PriceEngineering\Task\PriceEngineeringTaskProductBlockAddedWrapper1.cs" />
     <Compile Include="PriceEngineering\Task\ProductBlockStructureCostWrapper.cs" />
+    <Compile Include="PriceEngineering\ParametersService1\ParametersServiceViewModel.cs" />
     <Compile Include="PriceEngineering\Task\ViewModel\PriceEngineeringTaskViewModelConstructor.cs" />
     <Compile Include="PriceEngineering\Task\ViewModel\PriceEngineeringTaskViewModelDesignDepartmentHead.cs" />
     <Compile Include="PriceEngineering\Task\PriceEngineeringTaskViewModelFactory.cs" />
@@ -1590,6 +1594,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="PriceEngineering\Messages\MessageControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceEngineering\ParametersService1\ParametersServiceView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

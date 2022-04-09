@@ -1,0 +1,38 @@
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+              x:Class="HVTApp.UI.PriceEngineering.ParametersService1.ParametersServiceView"
+              Title="Создание параметра"
+              SizeToContent="WidthAndHeight">
+
+    <Grid Width="500">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Content="Базовый блок: "/>
+            <controls:ChooseItemControl Grid.Row="0" Grid.Column="1" AddItemCommand="{Binding SelectBaseProductBlockCommand}" Item="{Binding BaseProductBlock}"/>
+
+            <Label Grid.Row="1" Grid.Column="0" Content="Базовый параметр: "/>
+            <controls:ChooseItemControl Grid.Row="1" Grid.Column="1" AddItemCommand="{Binding SelectBaseParameterCommand}" Item="{Binding BaseParameter}"/>
+
+            <Label Grid.Row="2" Grid.Column="0" Content="Значение нового параметра: "/>
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding ParameterWrapper.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        </Grid>
+
+        <Button Grid.Row="1" Content="Сохранить" Command="{Binding SaveCommand}"/>
+    </Grid>
+
+</Window>

@@ -32,6 +32,7 @@ using HVTApp.UI.PaymentConditionsSet;
 using HVTApp.UI.PriceCalculations.View;
 using HVTApp.UI.PriceCalculations.ViewModel;
 using HVTApp.UI.PriceEngineering;
+using HVTApp.UI.PriceEngineering.ParametersService1;
 using HVTApp.UI.PriceEngineering.View;
 using HVTApp.UI.TechnicalRequrementsTasksModule;
 using HVTApp.UI.ViewModels;
@@ -96,6 +97,7 @@ namespace HVTApp.UI
 
             Container.Resolve<IDialogService>().Register<DirectumTaskRouteViewModel, DirectumTaskRouteWindow>();
             Container.Resolve<IDialogService>().Register<PaymentConditionViewModel, PaymentConditionView>();
+            Container.Resolve<IDialogService>().Register<ParametersServiceViewModel, ParametersServiceView>();
 
             _dialogService.RegisterShow<ProductStructureViewModel, ProductStructureView>();
             _dialogService.RegisterShow<BudgetComparisionViewModel, BudgetComparisionView>();

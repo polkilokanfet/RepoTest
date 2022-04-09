@@ -124,23 +124,7 @@ namespace HVTApp.UI.Modules.Products.Parameters
                 () =>
                 {
                     //создаем подобный парметр
-                    var similarParameter = new Parameter
-                    {
-                        Value = $"{SelectedParameterLookup.Entity.Value} - подобный параметр",
-                        ParameterGroup = SelectedParameterLookup.Entity.ParameterGroup,
-                        Rang = SelectedParameterLookup.Entity.Rang,
-                        Comment = SelectedParameterLookup.Entity.Comment
-                    };
-
-                    foreach (var parameterRelation in SelectedParameterLookup.Entity.ParameterRelations)
-                    {
-                        var similarParameterRelation = new ParameterRelation
-                        {
-                            ParameterId = similarParameter.Id,
-                            RequiredParameters = parameterRelation.RequiredParameters.ToList()
-                        };
-                        similarParameter.ParameterRelations.Add(similarParameterRelation);
-                    }
+                    var similarParameter = SelectedParameterLookup.Entity.GetSimilarParameter();
 
                     if (UnitOfWork.SaveEntity(similarParameter).OperationCompletedSuccessfully)
                     {

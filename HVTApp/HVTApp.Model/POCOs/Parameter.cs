@@ -150,6 +150,34 @@ namespace HVTApp.Model.POCOs
                 }
             }
         }
+
+        /// <summary>
+        /// Получить подобный параметр (со связями)
+        /// </summary>
+        /// <returns></returns>
+        public Parameter GetSimilarParameter()
+        {
+            //создаем подобный парметр
+            var result = new Parameter
+            {
+                Value = $"{this.Value} - подобный параметр",
+                ParameterGroup = this.ParameterGroup,
+                Rang = this.Rang,
+                Comment = this.Comment
+            };
+
+            foreach (var parameterRelation in this.ParameterRelations)
+            {
+                var similarParameterRelation = new ParameterRelation
+                {
+                    ParameterId = result.Id,
+                    RequiredParameters = parameterRelation.RequiredParameters.ToList()
+                };
+                result.ParameterRelations.Add(similarParameterRelation);
+            }
+
+            return result;
+        }
     }
 
     public class PathComparer : IEqualityComparer<PathToOrigin>
