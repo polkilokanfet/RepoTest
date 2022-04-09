@@ -11,7 +11,6 @@
     </UserControl.Resources>
 
     <Border Background="AliceBlue"  BorderBrush="Black" BorderThickness="1" CornerRadius="5">
-        <!--<Grid IsEnabled="{Binding Converter={StaticResource BlockAddedIsEnabledConverter}}">-->
         <Grid IsEnabled="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type view:PriceEngineeringTaskControl}}, Path=DataContext, Converter={StaticResource BlockAddedIsEnabledConverter}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -33,7 +32,6 @@
 
             <CheckBox Grid.Column="5" IsChecked="{Binding IsOnBlock, Mode=TwoWay}" Margin="5 0 0 0"/>
             <Label Grid.Column="6" Content=" - на блок"/>
-
         </Grid>
     </Border>
 

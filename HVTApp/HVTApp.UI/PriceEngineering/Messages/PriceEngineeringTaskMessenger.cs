@@ -67,7 +67,7 @@ namespace HVTApp.UI.PriceEngineering.Messages
             var unitOfWork = container.Resolve<IUnitOfWork>();
 
             var priceEngineeringTask = unitOfWork.Repository<PriceEngineeringTask>().GetById(viewModel.Model.Id) ?? viewModel.Model;
-            _taskMessagesWrapper = new PriceEngineeringTaskMessagesWrapper(priceEngineeringTask);
+            TaskMessagesWrapper = new PriceEngineeringTaskMessagesWrapper(priceEngineeringTask);
 
             MessagesToShow = new ObservableCollection<PriceEngineeringTaskMessageWrapper>(TaskMessagesWrapper.Messages.OrderByDescending(x => x.Moment));
 
