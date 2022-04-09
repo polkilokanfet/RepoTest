@@ -31,8 +31,6 @@ namespace HVTApp.UI.PriceEngineering
 
         #region Commands
 
-        public DelegateLogCommand SendMessageCommand { get; private set; }
-
         public DelegateLogCommand OpenTechnicalRequrementsFileCommand { get; private set; }
 
         public DelegateLogCommand OpenAnswerFileCommand { get; private set; }
@@ -137,9 +135,7 @@ namespace HVTApp.UI.PriceEngineering
         /// </summary>
         protected event Action SelectedAnswerFileIsChanged;
 
-        public PriceEngineeringTaskMessageWrapper Message { get; private set; }
-
-        public ObservableCollection<MessageViewModel> MessagesAll { get; } = new ObservableCollection<MessageViewModel>();
+        public PriceEngineeringTaskMessenger Messenger { get; private set; }
 
         #region ctors
 
@@ -189,48 +185,6 @@ namespace HVTApp.UI.PriceEngineering
             {
                 this.Statuses.Add(new PriceEngineeringTaskStatusWrapper(new PriceEngineeringTaskStatus {StatusEnum = PriceEngineeringTaskStatusEnum.Created}));
             }
-
-            #region Message
-
-            SendMessageCommand = new DelegateLogCommand(
-                () =>
-                {
-                    if (UnitOfWork.Repository<PriceEngineeringTask>().GetById(this.Model.Id) != null)
-                    {
-                        IUnitOfWork unitOfWork = Container.Resolve<IUnitOfWork>();
-                        var message = new PriceEngineeringTaskMessage
-                        {
-                            Author = unitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
-                            Message = this.Message.Message
-                        };
-                        unitOfWork.Repository<PriceEngineeringTask>().GetById(this.Model.Id).Messages.Add(message);
-                        unitOfWork.SaveChanges();
-                    }
-                    else
-                    {
-                        this.Messages.Add(new PriceEngineeringTaskMessageWrapper(new PriceEngineeringTaskMessage
-                        {
-                            Author = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
-                            Message = this.Message.Message
-                        }));
-                    }
-
-                    this.Message.Message = string.Empty;
-                    ReloadMessagesAll();
-                },
-                () => Message != null && Message.IsValid && Message.IsChanged && string.IsNullOrEmpty(Message.Message) == false);
-
-            Message = new PriceEngineeringTaskMessageWrapper(new PriceEngineeringTaskMessage()
-            {
-                Author = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
-                Message = String.Empty
-            });
-
-            Message.PropertyChanged += (sender, args) => this.SendMessageCommand.RaiseCanExecuteChanged();
-
-            ReloadMessagesAll();
-            
-            #endregion
 
             OpenTechnicalRequrementsFileCommand = new DelegateLogCommand(
                 () =>
@@ -293,8 +247,20 @@ namespace HVTApp.UI.PriceEngineering
 
             this.PropertyChanged += (sender, args) => StartCommand.RaiseCanExecuteChanged();
 
+
             //синхронизация сообщений
-            this.Messages.CollectionChanged += (sender, args) => ReloadMessagesAll();
+            Messenger = new PriceEngineeringTaskMessenger(Container, this);
+            Messenger.SendedMessageInNewTask += (authorId, moment, message1) =>
+            {
+                var message = new PriceEngineeringTaskMessage
+                {
+                    Author = UnitOfWork.Repository<User>().GetById(authorId),
+                    Moment = moment,
+                    Message = message1
+                };
+                var messageWrapper = new PriceEngineeringTaskMessageWrapper(message);
+                this.Messages.Add(messageWrapper);
+            };
         }
 
         /// <summary>
@@ -325,12 +291,6 @@ namespace HVTApp.UI.PriceEngineering
             {
                 this.ChildPriceEngineeringTasks.ForEach(x => x.StartCommandExecute(false));
             }
-        }
-
-        private void ReloadMessagesAll()
-        {
-            MessagesAll.Clear();
-            MessagesAll.AddRange(this.Model.Messages.Select(x => new MessageViewModel(x.Message, x.Author, x.Moment)).OrderByDescending(x => x.Moment));
         }
 
         /// <summary>

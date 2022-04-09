@@ -284,6 +284,8 @@
       <DependentUpon>MessageControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="PriceEngineering\Messages\MessageViewModel.cs" />
+    <Compile Include="PriceEngineering\Messages\PriceEngineeringTaskMessagesWrapper.cs" />
+    <Compile Include="PriceEngineering\Messages\PriceEngineeringTaskMessenger.cs" />
     <Compile Include="PriceEngineering\TasksList\PriceEngineeringTasksListView.xaml.cs">
       <DependentUpon>PriceEngineeringTasksListView.xaml</DependentUpon>
     </Compile>

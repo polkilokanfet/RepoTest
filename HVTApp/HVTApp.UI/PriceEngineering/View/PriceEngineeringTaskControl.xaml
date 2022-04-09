@@ -303,8 +303,8 @@
                             </Grid.RowDefinitions>
 
                             <GroupBox Grid.Row="0" Header="Переписка">
-                                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                    <ItemsControl ItemsSource="{Binding MessagesAll, Mode=OneWay}">
+                                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                                    <ItemsControl ItemsSource="{Binding Messenger.TaskMessagesWrapper.Messages, Mode=OneWay}">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
                                                 <messages:MessageControl/>
@@ -320,8 +320,10 @@
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
 
-                                <TextBox Grid.Column="0" Text="{Binding Message.Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                <Button Grid.Column="1" Content="Отправить" Command="{Binding SendMessageCommand}"/>
+                                <TextBox Grid.Column="0" 
+                                         IsEnabled="{Binding Messenger.AllowTexting, UpdateSourceTrigger=PropertyChanged}" 
+                                         Text="{Binding Messenger.Message.Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                <Button Grid.Column="1" Content="Отправить" Command="{Binding Messenger.SendMessageCommand}"/>
                             </Grid>
 
                         </Grid>
