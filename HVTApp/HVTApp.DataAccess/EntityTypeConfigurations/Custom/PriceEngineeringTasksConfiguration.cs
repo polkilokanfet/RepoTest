@@ -4,9 +4,10 @@ namespace HVTApp.DataAccess
     {
         public PriceEngineeringTasksConfiguration()
         {
-            HasRequired(x => x.UserManager).WithMany().WillCascadeOnDelete(false);
-            HasMany(x => x.ChildPriceEngineeringTasks).WithOptional().HasForeignKey(x => x.ParentPriceEngineeringTasksId).WillCascadeOnDelete(false);
-            HasMany(x => x.FilesTechnicalRequirements).WithRequired().HasForeignKey(x => x.PriceEngineeringTasksId).WillCascadeOnDelete(false);
+            HasRequired(priceEngineeringTasks => priceEngineeringTasks.UserManager).WithMany().WillCascadeOnDelete(false);
+            HasMany(priceEngineeringTasks => priceEngineeringTasks.ChildPriceEngineeringTasks).WithOptional().HasForeignKey(x => x.ParentPriceEngineeringTasksId).WillCascadeOnDelete(false);
+            HasMany(priceEngineeringTasks => priceEngineeringTasks.FilesTechnicalRequirements).WithRequired().HasForeignKey(x => x.PrEngTasksId).WillCascadeOnDelete(false);
+            HasMany(priceEngineeringTasks => priceEngineeringTasks.PriceCalculations).WithOptional().HasForeignKey(priceCalculation => priceCalculation.PriceEngineeringTasksId).WillCascadeOnDelete(false);
         }
     }
 }

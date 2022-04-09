@@ -10,7 +10,7 @@ namespace HVTApp.Model.POCOs
     public class PriceEngineeringTasksFileTechnicalRequirements : BaseEntity
     {
         [Designation("Id технико-стоимостной проработки"), Required, OrderStatus(900)]
-        public virtual Guid PriceEngineeringTasksId { get; set; }
+        public virtual Guid PrEngTasksId { get; set; }
 
         [Designation("Актуален"), Required, OrderStatus(850)]
         public bool IsActual { get; set; } = true;

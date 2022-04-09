@@ -378,6 +378,10 @@
     <Compile Include="Migrations\202204080716220_BlockAdded.Designer.cs">
       <DependentUpon>202204080716220_BlockAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202204091007154_DepartmentInTask.cs" />
+    <Compile Include="Migrations\202204091007154_DepartmentInTask.Designer.cs">
+      <DependentUpon>202204091007154_DepartmentInTask.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -610,6 +614,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202204080716220_BlockAdded.resx">
       <DependentUpon>202204080716220_BlockAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204091007154_DepartmentInTask.resx">
+      <DependentUpon>202204091007154_DepartmentInTask.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

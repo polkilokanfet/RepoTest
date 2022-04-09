@@ -23,7 +23,7 @@ namespace HVTApp.UI.PriceEngineering.Messages
 
         private PriceEngineeringTaskMessagesWrapper TaskMessagesWrapper
         {
-            get { return _taskMessagesWrapper; }
+            get => _taskMessagesWrapper;
             set
             {
                 if (_taskMessagesWrapper != null)

@@ -78,6 +78,9 @@ namespace HVTApp.Model.POCOs
         [Designation("Инициатор"), Required]
         public virtual User Initiator { get; set; }
 
+        [Designation("Id технико-стоимостных проработок (группы)")]
+        public Guid? PriceEngineeringTasksId { get; set; }
+
         public User FrontManager
         {
             get

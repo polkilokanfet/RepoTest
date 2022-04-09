@@ -39,6 +39,7 @@
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
 
+                        <infg:TextField Name="DesignDepartment" Label="Бюро конструкторов" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:TextField Name="UserConstructor" Label="Конструктор" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:NumericField Name="Amount" Label="Количество блоков продукта" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="ProductBlockManager" Label="Блок продукта от менеджера" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>

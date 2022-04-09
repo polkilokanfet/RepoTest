@@ -8,6 +8,7 @@ namespace HVTApp.DataAccess
 
             HasRequired(x => x.ProductBlockManager).WithMany().WillCascadeOnDelete(false);
             HasRequired(x => x.ProductBlockEngineer).WithMany().WillCascadeOnDelete(false);
+            HasRequired(x => x.DesignDepartment).WithMany().WillCascadeOnDelete();
             HasMany(x => x.ProductBlocksAdded).WithRequired().HasForeignKey(x => x.PriceEngineeringTaskId).WillCascadeOnDelete(false);
 
             HasMany(x => x.FilesTechnicalRequirements).WithMany();

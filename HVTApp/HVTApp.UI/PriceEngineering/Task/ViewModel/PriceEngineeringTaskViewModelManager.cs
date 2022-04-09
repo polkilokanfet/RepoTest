@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
@@ -15,6 +16,9 @@ namespace HVTApp.UI.PriceEngineering
 {
     public class PriceEngineeringTaskViewModelManager : PriceEngineeringTaskViewModel
     {
+        //КБ, которые подходят этому заданию
+        private List<DesignDepartment> _designDepartments;
+
         public override bool IsTarget => true;
 
         public override bool IsEditMode
@@ -40,6 +44,8 @@ namespace HVTApp.UI.PriceEngineering
             }
         }
 
+        public DelegateLogCommand SelectDesignDepartmentCommand { get; private set; }
+        
         public DelegateLogCommand AddTechnicalRequrementsFilesCommand { get; private set; }
         public DelegateLogCommand RemoveTechnicalRequrementsFilesCommand { get; private set; }
 
@@ -66,6 +72,23 @@ namespace HVTApp.UI.PriceEngineering
         protected override void InCtor()
         {
             base.InCtor();
+
+            _designDepartments = UnitOfWork.Repository<DesignDepartment>().Find(department => department.ProductBlockIsSuitable(this.ProductBlockEngineer.Model));
+            if (this.DesignDepartment == null && _designDepartments.Any())
+            {
+                this.DesignDepartment = new DesignDepartmentWrapper(_designDepartments.First());
+            }
+
+            SelectDesignDepartmentCommand = new DelegateLogCommand(
+                () =>
+                {
+                    var department = Container.Resolve<ISelectService>().SelectItem(_designDepartments);
+                    if (department != null)
+                    {
+                        this.DesignDepartment = new DesignDepartmentWrapper(UnitOfWork.Repository<DesignDepartment>().GetById(department.Id));
+                    }
+                },
+                () => IsEditMode);
 
             AddTechnicalRequrementsFilesCommand = new DelegateLogCommand(
                 () =>
@@ -152,6 +175,7 @@ namespace HVTApp.UI.PriceEngineering
 
             this.Statuses.CollectionChanged += (sender, args) =>
             {
+                SelectDesignDepartmentCommand.RaiseCanExecuteChanged();
                 StartCommand.RaiseCanExecuteChanged();
                 StopCommand.RaiseCanExecuteChanged();
                 AddTechnicalRequrementsFilesCommand.RaiseCanExecuteChanged();

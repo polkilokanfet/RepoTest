@@ -1518,6 +1518,16 @@ namespace HVTApp.Model.Wrapper
         public System.Boolean IsNeedExcelFileOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsNeedExcelFile));
         public bool IsNeedExcelFileIsChanged => GetIsChanged(nameof(IsNeedExcelFile));
         /// <summary>
+        /// Id технико-стоимостных проработок (группы)
+        /// </summary>
+        public System.Nullable<System.Guid> PriceEngineeringTasksId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> PriceEngineeringTasksIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(PriceEngineeringTasksId));
+        public bool PriceEngineeringTasksIdIsChanged => GetIsChanged(nameof(PriceEngineeringTasksId));
+        /// <summary>
         /// Id
         /// </summary>
         public System.Guid Id
@@ -1894,6 +1904,14 @@ namespace HVTApp.Model.Wrapper
         #endregion
         #region ComplexProperties
         /// <summary>
+        /// Бюро конструкторов
+        /// </summary>
+	    public DesignDepartmentWrapper DesignDepartment 
+        {
+            get { return GetWrapper<DesignDepartmentWrapper>(); }
+            set { SetComplexValue<DesignDepartment, DesignDepartmentWrapper>(DesignDepartment, value); }
+        }
+        /// <summary>
         /// Конструктор
         /// </summary>
 	    public UserWrapper UserConstructor 
@@ -1956,6 +1974,7 @@ namespace HVTApp.Model.Wrapper
         #endregion
         public override void InitializeComplexProperties()
         {
+            InitializeComplexProperty<DesignDepartmentWrapper>(nameof(DesignDepartment), Model.DesignDepartment == null ? null : new DesignDepartmentWrapper(Model.DesignDepartment));
             InitializeComplexProperty<UserWrapper>(nameof(UserConstructor), Model.UserConstructor == null ? null : new UserWrapper(Model.UserConstructor));
             InitializeComplexProperty<ProductBlockWrapper>(nameof(ProductBlockManager), Model.ProductBlockManager == null ? null : new ProductBlockWrapper(Model.ProductBlockManager));
             InitializeComplexProperty<ProductBlockWrapper>(nameof(ProductBlockEngineer), Model.ProductBlockEngineer == null ? null : new ProductBlockWrapper(Model.ProductBlockEngineer));
@@ -2247,6 +2266,16 @@ namespace HVTApp.Model.Wrapper
         public System.DateTime WorkUpToOriginalValue => GetOriginalValue<System.DateTime>(nameof(WorkUpTo));
         public bool WorkUpToIsChanged => GetIsChanged(nameof(WorkUpTo));
         /// <summary>
+        /// Комментарий
+        /// </summary>
+        public System.String Comment
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
+        public bool CommentIsChanged => GetIsChanged(nameof(Comment));
+        /// <summary>
         /// Id
         /// </summary>
         public System.Guid Id
@@ -2276,6 +2305,10 @@ namespace HVTApp.Model.Wrapper
         /// Задачи
         /// </summary>
         public IValidatableChangeTrackingCollection<PriceEngineeringTaskWrapper> ChildPriceEngineeringTasks { get; private set; }
+        /// <summary>
+        /// Расчеты переменных затрат
+        /// </summary>
+        public IValidatableChangeTrackingCollection<PriceCalculationWrapper> PriceCalculations { get; private set; }
         #endregion
         public override void InitializeComplexProperties()
         {
@@ -2289,6 +2322,9 @@ namespace HVTApp.Model.Wrapper
           if (Model.ChildPriceEngineeringTasks == null) throw new ArgumentException("ChildPriceEngineeringTasks cannot be null");
           ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<PriceEngineeringTaskWrapper>(Model.ChildPriceEngineeringTasks.Select(e => new PriceEngineeringTaskWrapper(e)));
           RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
+          if (Model.PriceCalculations == null) throw new ArgumentException("PriceCalculations cannot be null");
+          PriceCalculations = new ValidatableChangeTrackingCollection<PriceCalculationWrapper>(Model.PriceCalculations.Select(e => new PriceCalculationWrapper(e)));
+          RegisterCollection(PriceCalculations, Model.PriceCalculations);
         }
 	}
 

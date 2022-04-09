@@ -648,6 +648,9 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(1)]
         public System.String Name => Entity.Name;
 
+		[OrderStatus(1)]
+        public System.Nullable<System.Guid> PriceEngineeringTasksId => Entity.PriceEngineeringTasksId;
+
         #endregion
 
         #region ComplexProperties
@@ -793,6 +796,9 @@ namespace HVTApp.UI.Lookup
         #endregion
 
         #region ComplexProperties
+		[OrderStatus(1900)]
+	    public DesignDepartmentLookup DesignDepartment { get { return GetLookup<DesignDepartmentLookup>(); } }
+
 		[OrderStatus(1800)]
 	    public UserLookup UserConstructor { get { return GetLookup<UserLookup>(); } }
 
@@ -931,6 +937,9 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(1500)]
         public System.DateTime WorkUpTo => Entity.WorkUpTo;
 
+		[OrderStatus(1400)]
+        public System.String Comment => Entity.Comment;
+
         #endregion
 
         #region ComplexProperties
@@ -942,6 +951,8 @@ namespace HVTApp.UI.Lookup
 	    public List<PriceEngineeringTasksFileTechnicalRequirementsLookup> FilesTechnicalRequirements { get { return GetLookupEnum<PriceEngineeringTasksFileTechnicalRequirementsLookup>().ToList(); } }
 		[OrderStatus(90)]
 	    public List<PriceEngineeringTaskLookup> ChildPriceEngineeringTasks { get { return GetLookupEnum<PriceEngineeringTaskLookup>().ToList(); } }
+		[OrderStatus(50)]
+	    public List<PriceCalculationLookup> PriceCalculations { get { return GetLookupEnum<PriceCalculationLookup>().ToList(); } }
 	}
 	[AllowEditAttribute(Role.Admin)]
 	[Designation("Технико-стоимостная проработка (файл группы технических заданий)")]
@@ -953,7 +964,7 @@ namespace HVTApp.UI.Lookup
 		
         #region SimpleProperties
 		[OrderStatus(900)]
-        public System.Guid PriceEngineeringTasksId => Entity.PriceEngineeringTasksId;
+        public System.Guid PriceEngineeringTasksId => Entity.PrEngTasksId;
 
 		[OrderStatus(850)]
         public System.Boolean IsActual => Entity.IsActual;

@@ -58,6 +58,15 @@ namespace HVTApp.UI.PriceEngineering
         #region ComplexProperties
 
         /// <summary>
+        /// Бюро конструкторов
+        /// </summary>
+        public DesignDepartmentWrapper DesignDepartment
+        {
+            get => GetWrapper<DesignDepartmentWrapper>();
+            set => SetComplexValue<DesignDepartment, DesignDepartmentWrapper>(DesignDepartment, value);
+        }
+
+        /// <summary>
         /// Конструктор
         /// </summary>
 	    public UserEmptyWrapper UserConstructor
@@ -129,6 +138,7 @@ namespace HVTApp.UI.PriceEngineering
         {
             #region InitializeComplexProperties
 
+            InitializeComplexProperty(nameof(DesignDepartment), Model.DesignDepartment == null ? null : new DesignDepartmentWrapper(Model.DesignDepartment));
             InitializeComplexProperty(nameof(UserConstructor), Model.UserConstructor == null ? null : new UserEmptyWrapper(Model.UserConstructor));
             InitializeComplexProperty(nameof(ProductBlockManager), Model.ProductBlockManager == null ? null : new ProductBlockEmptyWrapper(Model.ProductBlockManager));
 

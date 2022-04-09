@@ -1523,6 +1523,11 @@ namespace HVTApp.UI.ViewModels
 
     public partial class PriceEngineeringTaskDetailsViewModel : BaseDetailsViewModel<PriceEngineeringTaskWrapper, PriceEngineeringTask, AfterSavePriceEngineeringTaskEvent>
     {
+		//private Func<Task<List<DesignDepartment>>> _getEntitiesForSelectDesignDepartmentCommand;
+		private Func<List<DesignDepartment>> _getEntitiesForSelectDesignDepartmentCommand;
+		public DelegateLogCommand SelectDesignDepartmentCommand { get; private set; }
+		public DelegateLogCommand ClearDesignDepartmentCommand { get; private set; }
+
 		//private Func<Task<List<User>>> _getEntitiesForSelectUserConstructorCommand;
 		private Func<List<User>> _getEntitiesForSelectUserConstructorCommand;
 		public DelegateLogCommand SelectUserConstructorCommand { get; private set; }
@@ -1653,6 +1658,11 @@ namespace HVTApp.UI.ViewModels
         public PriceEngineeringTaskDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
+			if (_getEntitiesForSelectDesignDepartmentCommand == null) _getEntitiesForSelectDesignDepartmentCommand = () => { return UnitOfWork.Repository<DesignDepartment>().GetAll(); };
+			if (SelectDesignDepartmentCommand == null) SelectDesignDepartmentCommand = new DelegateLogCommand(SelectDesignDepartmentCommand_Execute_Default);
+			if (ClearDesignDepartmentCommand == null) ClearDesignDepartmentCommand = new DelegateLogCommand(ClearDesignDepartmentCommand_Execute_Default);
+
+			
 			if (_getEntitiesForSelectUserConstructorCommand == null) _getEntitiesForSelectUserConstructorCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };
 			if (SelectUserConstructorCommand == null) SelectUserConstructorCommand = new DelegateLogCommand(SelectUserConstructorCommand_Execute_Default);
 			if (ClearUserConstructorCommand == null) ClearUserConstructorCommand = new DelegateLogCommand(ClearUserConstructorCommand_Execute_Default);
@@ -1702,6 +1712,16 @@ namespace HVTApp.UI.ViewModels
 			if (AddInSalesUnitsCommand == null) AddInSalesUnitsCommand = new DelegateLogCommand(AddInSalesUnitsCommand_Execute_Default);
 			if (RemoveFromSalesUnitsCommand == null) RemoveFromSalesUnitsCommand = new DelegateLogCommand(RemoveFromSalesUnitsCommand_Execute_Default, RemoveFromSalesUnitsCommand_CanExecute_Default);
 
+		}
+
+		private void SelectDesignDepartmentCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<DesignDepartment, DesignDepartmentWrapper>(_getEntitiesForSelectDesignDepartmentCommand(), nameof(Item.DesignDepartment), Item.DesignDepartment?.Id);
+		}
+
+		private void ClearDesignDepartmentCommand_Execute_Default() 
+		{
+						Item.DesignDepartment = null;		    
 		}
 
 		private void SelectUserConstructorCommand_Execute_Default() 
@@ -1957,6 +1977,22 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
+		private Func<List<PriceCalculation>> _getEntitiesForAddInPriceCalculationsCommand;
+		public DelegateLogCommand AddInPriceCalculationsCommand { get; }
+		public DelegateLogCommand RemoveFromPriceCalculationsCommand { get; }
+		private PriceCalculationWrapper _selectedPriceCalculationsItem;
+		public PriceCalculationWrapper SelectedPriceCalculationsItem 
+		{ 
+			get { return _selectedPriceCalculationsItem; }
+			set 
+			{ 
+				if (Equals(_selectedPriceCalculationsItem, value)) return;
+				_selectedPriceCalculationsItem = value;
+				RaisePropertyChanged();
+				RemoveFromPriceCalculationsCommand.RaiseCanExecuteChanged();
+			}
+		}
+
         public PriceEngineeringTasksDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
@@ -1973,6 +2009,11 @@ namespace HVTApp.UI.ViewModels
 			if (_getEntitiesForAddInChildPriceEngineeringTasksCommand == null) _getEntitiesForAddInChildPriceEngineeringTasksCommand = () => { return UnitOfWork.Repository<PriceEngineeringTask>().GetAll(); };;
 			if (AddInChildPriceEngineeringTasksCommand == null) AddInChildPriceEngineeringTasksCommand = new DelegateLogCommand(AddInChildPriceEngineeringTasksCommand_Execute_Default);
 			if (RemoveFromChildPriceEngineeringTasksCommand == null) RemoveFromChildPriceEngineeringTasksCommand = new DelegateLogCommand(RemoveFromChildPriceEngineeringTasksCommand_Execute_Default, RemoveFromChildPriceEngineeringTasksCommand_CanExecute_Default);
+
+			
+			if (_getEntitiesForAddInPriceCalculationsCommand == null) _getEntitiesForAddInPriceCalculationsCommand = () => { return UnitOfWork.Repository<PriceCalculation>().GetAll(); };;
+			if (AddInPriceCalculationsCommand == null) AddInPriceCalculationsCommand = new DelegateLogCommand(AddInPriceCalculationsCommand_Execute_Default);
+			if (RemoveFromPriceCalculationsCommand == null) RemoveFromPriceCalculationsCommand = new DelegateLogCommand(RemoveFromPriceCalculationsCommand_Execute_Default, RemoveFromPriceCalculationsCommand_CanExecute_Default);
 
 		}
 
@@ -2014,6 +2055,21 @@ namespace HVTApp.UI.ViewModels
 			private bool RemoveFromChildPriceEngineeringTasksCommand_CanExecute_Default()
 			{
 				return SelectedChildPriceEngineeringTasksItem != null;
+			}
+
+			private void AddInPriceCalculationsCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<PriceCalculation, PriceCalculationWrapper>(_getEntitiesForAddInPriceCalculationsCommand(), Item.PriceCalculations);
+			}
+
+			private void RemoveFromPriceCalculationsCommand_Execute_Default()
+			{
+				Item.PriceCalculations.Remove(SelectedPriceCalculationsItem);
+			}
+
+			private bool RemoveFromPriceCalculationsCommand_CanExecute_Default()
+			{
+				return SelectedPriceCalculationsItem != null;
 			}
 
 
