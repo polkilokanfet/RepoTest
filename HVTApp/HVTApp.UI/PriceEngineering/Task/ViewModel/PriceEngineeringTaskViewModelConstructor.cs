@@ -78,12 +78,6 @@ namespace HVTApp.UI.PriceEngineering
         {
             base.InCtor();
 
-            //если задача целевая нужно проверять на то, чтобы в блоке был стракчакост
-            if (IsTarget)
-            {
-                ProductBlockEngineer.ValidateStructureCostNumber = true;
-            }
-
             SelectProductBlockCommand = new DelegateLogCommand(
                 () =>
                 {
@@ -157,13 +151,13 @@ namespace HVTApp.UI.PriceEngineering
             RemoveAnswerFileCommand = new DelegateLogCommand(
                 () =>
                 {
-                    if (string.IsNullOrEmpty(SelectedFileAnswer.Path) == false)
+                    if (string.IsNullOrEmpty(SelectedFileAnswer.Path))
                     {
-                        this.FilesAnswers.Remove(SelectedFileAnswer);
+                        SelectedFileAnswer.IsActual = false;
                     }
                     else
                     {
-                        SelectedFileAnswer.IsActual = false;
+                        this.FilesAnswers.Remove(SelectedFileAnswer);
                     }
                 }, 
                 () => IsTarget && IsEditMode && SelectedFileAnswer != null);
@@ -193,7 +187,6 @@ namespace HVTApp.UI.PriceEngineering
                     RemoveAnswerFileCommand.RaiseCanExecuteChanged();
                 },
                 () => IsTarget && IsEditMode && this.IsValid);
-
 
             RejectCommand = new DelegateLogCommand(
                 () =>

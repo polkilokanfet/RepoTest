@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using HVTApp.Infrastructure;
-using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base;
@@ -132,7 +131,17 @@ namespace HVTApp.UI.PriceEngineering
 
             InitializeComplexProperty(nameof(UserConstructor), Model.UserConstructor == null ? null : new UserEmptyWrapper(Model.UserConstructor));
             InitializeComplexProperty(nameof(ProductBlockManager), Model.ProductBlockManager == null ? null : new ProductBlockEmptyWrapper(Model.ProductBlockManager));
-            InitializeComplexProperty(nameof(ProductBlockEngineer), Model.ProductBlockEngineer == null ? null : new ProductBlockStructureCostWrapper(Model.ProductBlockEngineer));
+
+            bool validateStructureCostNumber = false;
+            if (this is PriceEngineeringTaskViewModelConstructor vm)
+            {
+                //если задача целевая и редактируемая нужно проверять на то, чтобы в блоке был стракчакост
+                if (vm.IsTarget && vm.IsEditMode)
+                {
+                    validateStructureCostNumber = true;
+                }
+            }
+            InitializeComplexProperty(nameof(ProductBlockEngineer), Model.ProductBlockEngineer == null ? null : new ProductBlockStructureCostWrapper(Model.ProductBlockEngineer, validateStructureCostNumber));
 
             #endregion
 

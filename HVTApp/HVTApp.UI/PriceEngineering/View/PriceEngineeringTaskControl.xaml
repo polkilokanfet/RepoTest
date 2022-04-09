@@ -330,11 +330,11 @@
 
                     <!--Вложенные блоки-->
                     <Expander Grid.Row="1"
-                                IsExpanded="True"
-                                Header="Вложенные блоки"
-                                Margin="5"
-                                BorderBrush="Black"
-                                Visibility="{Binding UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToChildTasksVisibilityConverter}}">
+                              IsExpanded="True"
+                              Header="Вложенные блоки"
+                              Margin="5"
+                              BorderBrush="Black"
+                              Visibility="{Binding UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToChildTasksVisibilityConverter}}">
 
                         <ItemsControl ItemsSource="{Binding ChildPriceEngineeringTasks}">
                             <!--<ListBox.ItemContainerStyle>

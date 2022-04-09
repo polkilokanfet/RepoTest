@@ -265,6 +265,7 @@
     <Compile Include="Modules\Sales\Market\Commands\SpecificationNewCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\StructureCostsCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\UnionProjectsCommand.cs" />
+    <Compile Include="PriceEngineering\Converters\BlockAddedIsEnabledConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskStatusEnumToStringConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelConstructorIsTargetTaskVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelConstructorVisibilityConverter.cs" />

@@ -7,7 +7,23 @@ namespace HVTApp.UI.PriceEngineering
 {
     public class ProductBlockStructureCostWrapper : WrapperBase<ProductBlock>
     {
-        public bool ValidateStructureCostNumber { get; set; }
+        private bool _validateStructureCostNumber;
+
+        private bool ValidateStructureCostNumber
+        {
+            get => _validateStructureCostNumber;
+            set
+            {
+                _validateStructureCostNumber = value;
+                //костыль дл€ возбуждени€ валидации
+                if (value)
+                {
+                    var original = StructureCostNumber;
+                    StructureCostNumber = "1";
+                    StructureCostNumber = original;
+                }
+            }
+        }
 
         /// <summary>
         /// —ралчахвост
@@ -23,7 +39,6 @@ namespace HVTApp.UI.PriceEngineering
         public ProductBlockStructureCostWrapper(ProductBlock model, bool validateStructureCostNumber = false) : base(model)
         {
             ValidateStructureCostNumber = validateStructureCostNumber;
-            this.Validate(new ValidationContext(this));
         }
 
         protected override IEnumerable<ValidationResult> ValidateOther()
