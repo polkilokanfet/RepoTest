@@ -39,5 +39,10 @@ namespace HVTApp.Model.POCOs
 
             return false;
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

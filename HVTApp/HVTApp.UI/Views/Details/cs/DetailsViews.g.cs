@@ -2945,9 +2945,9 @@ namespace HVTApp.UI.Views
         {
             //NotUpdateAttribute attr;
 
-            //attr = typeof(HVTApp.Model.POCOs.PriceEngineeringTasksFileTechnicalRequirements).GetProperty(nameof(HVTApp.Model.POCOs.PriceEngineeringTasksFileTechnicalRequirements.PriceEngineeringTasksId)).GetCustomAttribute<NotUpdateAttribute>();
+            //attr = typeof(HVTApp.Model.POCOs.PriceEngineeringTasksFileTechnicalRequirements).GetProperty(nameof(HVTApp.Model.POCOs.PriceEngineeringTasksFileTechnicalRequirements.PrEngTasksId)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityPriceEngineeringTasksIdPriceEngineeringTasksFileTechnicalRequirements = Visibility.Collapsed;
+            //    VisibilityPrEngTasksIdPriceEngineeringTasksFileTechnicalRequirements = Visibility.Collapsed;
 
             //attr = typeof(HVTApp.Model.POCOs.PriceEngineeringTasksFileTechnicalRequirements).GetProperty(nameof(HVTApp.Model.POCOs.PriceEngineeringTasksFileTechnicalRequirements.IsActual)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
@@ -2969,11 +2969,11 @@ namespace HVTApp.UI.Views
         }
 
 
-        public static readonly DependencyProperty VisibilityPriceEngineeringTasksIdPriceEngineeringTasksFileTechnicalRequirementsProperty = DependencyProperty.Register("VisibilityPriceEngineeringTasksIdPriceEngineeringTasksFileTechnicalRequirements", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityPriceEngineeringTasksIdPriceEngineeringTasksFileTechnicalRequirements
+        public static readonly DependencyProperty VisibilityPrEngTasksIdPriceEngineeringTasksFileTechnicalRequirementsProperty = DependencyProperty.Register("VisibilityPrEngTasksIdPriceEngineeringTasksFileTechnicalRequirements", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityPrEngTasksIdPriceEngineeringTasksFileTechnicalRequirements
         {
-            get { return (Visibility) GetValue(VisibilityPriceEngineeringTasksIdPriceEngineeringTasksFileTechnicalRequirementsProperty); }
-            set { SetValue(VisibilityPriceEngineeringTasksIdPriceEngineeringTasksFileTechnicalRequirementsProperty, value); OnPropertyChanged(); }
+            get { return (Visibility) GetValue(VisibilityPrEngTasksIdPriceEngineeringTasksFileTechnicalRequirementsProperty); }
+            set { SetValue(VisibilityPrEngTasksIdPriceEngineeringTasksFileTechnicalRequirementsProperty, value); OnPropertyChanged(); }
         }
 
 

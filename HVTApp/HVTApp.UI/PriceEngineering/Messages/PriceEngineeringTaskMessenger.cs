@@ -116,7 +116,7 @@ namespace HVTApp.UI.PriceEngineering.Messages
                 RaisePropertyChanged(nameof(AllowTexting));
             };
 
-            viewModel.TaskIsStarted += () => this.TaskMessagesWrapper = new PriceEngineeringTaskMessagesWrapper(unitOfWork.Repository<PriceEngineeringTask>().GetById(viewModel.Id));
+            //viewModel.TaskIsStarted += () => this.TaskMessagesWrapper = new PriceEngineeringTaskMessagesWrapper(unitOfWork.Repository<PriceEngineeringTask>().GetById(viewModel.Id));
 
             //синхронизация показа сообщений
             viewModel.Messages.CollectionChanged += MessagesOnCollectionChanged;

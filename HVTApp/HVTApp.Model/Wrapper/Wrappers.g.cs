@@ -2335,13 +2335,13 @@ namespace HVTApp.Model.Wrapper
         /// <summary>
         /// Id технико-стоимостной проработки
         /// </summary>
-        public System.Guid PriceEngineeringTasksId
+        public System.Guid PrEngTasksId
         {
           get { return GetValue<System.Guid>(); }
           set { SetValue(value); }
         }
-        public System.Guid PriceEngineeringTasksIdOriginalValue => GetOriginalValue<System.Guid>(nameof(PriceEngineeringTasksId));
-        public bool PriceEngineeringTasksIdIsChanged => GetIsChanged(nameof(PriceEngineeringTasksId));
+        public System.Guid PrEngTasksIdOriginalValue => GetOriginalValue<System.Guid>(nameof(PrEngTasksId));
+        public bool PrEngTasksIdIsChanged => GetIsChanged(nameof(PrEngTasksId));
         /// <summary>
         /// Актуален
         /// </summary>

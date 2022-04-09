@@ -16,9 +16,6 @@ namespace HVTApp.UI.PriceEngineering
 {
     public class PriceEngineeringTaskViewModelManager : PriceEngineeringTaskViewModel
     {
-        //КБ, которые подходят этому заданию
-        private List<DesignDepartment> _designDepartments;
-
         public override bool IsTarget => true;
 
         public override bool IsEditMode
@@ -73,16 +70,11 @@ namespace HVTApp.UI.PriceEngineering
         {
             base.InCtor();
 
-            _designDepartments = UnitOfWork.Repository<DesignDepartment>().Find(department => department.ProductBlockIsSuitable(this.ProductBlockEngineer.Model));
-            if (this.DesignDepartment == null && _designDepartments.Any())
-            {
-                this.DesignDepartment = new DesignDepartmentWrapper(_designDepartments.First());
-            }
-
             SelectDesignDepartmentCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var department = Container.Resolve<ISelectService>().SelectItem(_designDepartments);
+                    var departments = UnitOfWork.Repository<DesignDepartment>().Find(x => x.ProductBlockIsSuitable(this.Model.ProductBlockEngineer));
+                    var department = Container.Resolve<ISelectService>().SelectItem(departments);
                     if (department != null)
                     {
                         this.DesignDepartment = new DesignDepartmentWrapper(UnitOfWork.Repository<DesignDepartment>().GetById(department.Id));

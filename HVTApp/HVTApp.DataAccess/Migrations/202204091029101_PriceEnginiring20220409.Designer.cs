@@ -7,13 +7,13 @@ namespace HVTApp.DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class FileTechnicalRequirementsEdit : IMigrationMetadata
+    public sealed partial class PriceEnginiring20220409 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(FileTechnicalRequirementsEdit));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(PriceEnginiring20220409));
         
         string IMigrationMetadata.Id
         {
-            get { return "202204031806139_FileTechnicalRequirementsEdit"; }
+            get { return "202204091029101_PriceEnginiring20220409"; }
         }
         
         string IMigrationMetadata.Source

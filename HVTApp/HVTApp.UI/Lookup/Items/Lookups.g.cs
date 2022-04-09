@@ -964,7 +964,7 @@ namespace HVTApp.UI.Lookup
 		
         #region SimpleProperties
 		[OrderStatus(900)]
-        public System.Guid PriceEngineeringTasksId => Entity.PrEngTasksId;
+        public System.Guid PrEngTasksId => Entity.PrEngTasksId;
 
 		[OrderStatus(850)]
         public System.Boolean IsActual => Entity.IsActual;

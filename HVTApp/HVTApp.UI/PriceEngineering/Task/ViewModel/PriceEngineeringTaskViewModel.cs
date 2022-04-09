@@ -165,6 +165,11 @@ namespace HVTApp.UI.PriceEngineering
                 this.ChildPriceEngineeringTasks.Add(priceEngineeringTaskViewModel);
                 priceEngineeringTaskViewModel.Parent = this;
             }
+
+            //ב‏נמ
+            var department = UnitOfWork.Repository<DesignDepartment>().Find(x => x.ProductBlockIsSuitable(this.ProductBlockEngineer.Model)).FirstOrDefault();
+            if (department != null)
+                this.DesignDepartment = new DesignDepartmentWrapper(department);
         }
 
         private PriceEngineeringTaskViewModel(IUnityContainer container, IUnitOfWork unitOfWork) : base(new PriceEngineeringTask(), container, unitOfWork)

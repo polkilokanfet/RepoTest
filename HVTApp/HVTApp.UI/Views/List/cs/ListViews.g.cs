@@ -5016,10 +5016,10 @@ namespace HVTApp.UI.Views
 
 		#region VisibilityProps
 
-        public System.Windows.Visibility PriceEngineeringTasksIdVisibility
+        public System.Windows.Visibility PrEngTasksIdVisibility
         {
-            get { return PriceEngineeringTasksFileTechnicalRequirementsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksFileTechnicalRequirementsLookup.PriceEngineeringTasksId)].Visibility; }
-            set { PriceEngineeringTasksFileTechnicalRequirementsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksFileTechnicalRequirementsLookup.PriceEngineeringTasksId)].Visibility = value; }
+            get { return PriceEngineeringTasksFileTechnicalRequirementsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksFileTechnicalRequirementsLookup.PrEngTasksId)].Visibility; }
+            set { PriceEngineeringTasksFileTechnicalRequirementsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksFileTechnicalRequirementsLookup.PrEngTasksId)].Visibility = value; }
         }
 
         public System.Windows.Visibility IsActualVisibility
