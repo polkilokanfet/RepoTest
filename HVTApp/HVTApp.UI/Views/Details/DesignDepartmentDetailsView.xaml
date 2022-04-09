@@ -17,6 +17,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row ="0" Content="Название" Visibility="{Binding VisibilityNameDesignDepartment, ElementName=Root}"/>
@@ -39,13 +40,21 @@
 										 RemoveItemCommand="{Binding RemoveFromStaffCommand}"
 										 Visibility="{Binding VisibilityStaffDesignDepartment, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="3" Content="Наборы параметров" Visibility="{Binding VisibilityParameterSetsDesignDepartment, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="3" Content="Наборы параметров основного оборудования" Visibility="{Binding VisibilityParameterSetsDesignDepartment, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="3"
 										 Items="{Binding Path=Item.ParameterSets}"
 										 SelectedItem="{Binding SelectedParameterSetsItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInParameterSetsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromParameterSetsCommand}"
 										 Visibility="{Binding VisibilityParameterSetsDesignDepartment, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="4" Content="Наборы параметров дополнительного оборудования" Visibility="{Binding VisibilityParameterSetsAddedBlocksDesignDepartment, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="4"
+										 Items="{Binding Path=Item.ParameterSetsAddedBlocks}"
+										 SelectedItem="{Binding SelectedParameterSetsAddedBlocksItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInParameterSetsAddedBlocksCommand}"
+										 RemoveItemCommand="{Binding RemoveFromParameterSetsAddedBlocksCommand}"
+										 Visibility="{Binding VisibilityParameterSetsAddedBlocksDesignDepartment, ElementName=Root}"/>
 
 
     </Grid>

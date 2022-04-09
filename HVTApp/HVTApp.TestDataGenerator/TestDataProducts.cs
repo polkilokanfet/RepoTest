@@ -12,6 +12,7 @@ namespace HVTApp.TestDataGenerator
 
         public ParameterGroup ParameterGroupProductType;
         public ParameterGroup ParameterGroupZip;
+        public ParameterGroup ParameterGroupOpornMetHigh;
         public ParameterGroup ParameterGroupEqType;
         public ParameterGroup ParameterGroupBreakerType;
         public ParameterGroup ParameterGroupTransformatorType;
@@ -82,6 +83,7 @@ namespace HVTApp.TestDataGenerator
             ParameterGroupProductType.Clone(new ParameterGroup { Name = "Тип продукта" });
             ParameterGroupEqType.Clone(new ParameterGroup { Name = "Тип оборудования" });
             ParameterGroupZip.Clone(new ParameterGroup { Name = "Тип ЗИП" });
+            ParameterGroupOpornMetHigh.Clone(new ParameterGroup { Name = "Высота металлоконструкции" });
             ParameterGroupBreakerType.Clone(new ParameterGroup { Name = "Тип выключателя" });
             ParameterGroupTransformatorType.Clone(new ParameterGroup { Name = "Тип трансформатора" });
             ParameterGroupTransformatorCurrentType.Clone(new ParameterGroup { Name = "Установка ТТ" });
@@ -191,6 +193,7 @@ namespace HVTApp.TestDataGenerator
 
         public Parameter ParameterDependentEquipmentTypeZip;
         public Parameter ParameterDependentEquipmentTypeOpornMet;
+        public Parameter ParameterDependentEquipmentTypeShkaf;
 
         #endregion
 
@@ -198,6 +201,13 @@ namespace HVTApp.TestDataGenerator
 
         public Parameter ParameterZip1;
         public Parameter ParameterZip2;
+
+        #endregion
+
+        #region Металлоконструкции
+
+        public Parameter ParameterOpornMet1000;
+        public Parameter ParameterOpornMet2000;
 
         #endregion
 
@@ -752,9 +762,11 @@ namespace HVTApp.TestDataGenerator
 
             ParameterDependentEquipmentTypeZip.Clone(new Parameter { ParameterGroup = ParameterGroupDependentEquipmentType, Value = "Групповой комплект ЗИП", Rang = 50 });
             ParameterDependentEquipmentTypeOpornMet.Clone(new Parameter { ParameterGroup = ParameterGroupDependentEquipmentType, Value = "Опорные металлоконструкции", Rang = 40 });
+            ParameterDependentEquipmentTypeShkaf.Clone(new Parameter { ParameterGroup = ParameterGroupDependentEquipmentType, Value = "Шкафы", Rang = 30 });
 
             ParameterDependentEquipmentTypeZip.AddRequiredPreviousParameters(ParameterDependentEquipment);
             ParameterDependentEquipmentTypeOpornMet.AddRequiredPreviousParameters(ParameterDependentEquipment);
+            ParameterDependentEquipmentTypeShkaf.AddRequiredPreviousParameters(ParameterDependentEquipment);
 
             #endregion
 
@@ -767,6 +779,17 @@ namespace HVTApp.TestDataGenerator
             ParameterZip2.AddRequiredPreviousParameters(ParameterDependentEquipmentTypeZip);
 
             #endregion
+
+            #region Высота МК
+
+            ParameterOpornMet1000.Clone(new Parameter { ParameterGroup = ParameterGroupOpornMetHigh, Value = "1000 мм" });
+            ParameterOpornMet2000.Clone(new Parameter { ParameterGroup = ParameterGroupOpornMetHigh, Value = "2000 мм" });
+
+            ParameterOpornMet1000.AddRequiredPreviousParameters(ParameterDependentEquipmentTypeOpornMet);
+            ParameterOpornMet2000.AddRequiredPreviousParameters(ParameterDependentEquipmentTypeOpornMet);
+
+            #endregion
+
 
             #region Тип основного оборудования
 

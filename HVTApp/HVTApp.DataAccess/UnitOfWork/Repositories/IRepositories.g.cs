@@ -34,6 +34,7 @@ namespace HVTApp.DataAccess
     public partial interface IPriceCalculationHistoryItemRepository : IRepository<PriceCalculationHistoryItem> { }
     public partial interface IPriceCalculationItemRepository : IRepository<PriceCalculationItem> { }
     public partial interface IDesignDepartmentParametersRepository : IRepository<DesignDepartmentParameters> { }
+    public partial interface IDesignDepartmentParametersAddedBlocksRepository : IRepository<DesignDepartmentParametersAddedBlocks> { }
     public partial interface IPriceEngineeringTaskRepository : IRepository<PriceEngineeringTask> { }
     public partial interface IPriceEngineeringTaskFileAnswerRepository : IRepository<PriceEngineeringTaskFileAnswer> { }
     public partial interface IPriceEngineeringTaskFileTechnicalRequirementsRepository : IRepository<PriceEngineeringTaskFileTechnicalRequirements> { }

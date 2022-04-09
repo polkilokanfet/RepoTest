@@ -661,6 +661,10 @@ namespace HVTApp.UI.Views
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityParameterSetsDesignDepartment = Visibility.Collapsed;
 
+            //attr = typeof(HVTApp.Model.POCOs.DesignDepartment).GetProperty(nameof(HVTApp.Model.POCOs.DesignDepartment.ParameterSetsAddedBlocks)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityParameterSetsAddedBlocksDesignDepartment = Visibility.Collapsed;
+
 
         }
 
@@ -694,6 +698,14 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityParameterSetsDesignDepartmentProperty); }
             set { SetValue(VisibilityParameterSetsDesignDepartmentProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityParameterSetsAddedBlocksDesignDepartmentProperty = DependencyProperty.Register("VisibilityParameterSetsAddedBlocksDesignDepartment", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityParameterSetsAddedBlocksDesignDepartment
+        {
+            get { return (Visibility) GetValue(VisibilityParameterSetsAddedBlocksDesignDepartmentProperty); }
+            set { SetValue(VisibilityParameterSetsAddedBlocksDesignDepartmentProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -2329,6 +2341,65 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityParametersDesignDepartmentParametersProperty); }
             set { SetValue(VisibilityParametersDesignDepartmentParametersProperty, value); OnPropertyChanged(); }
+        }
+
+	}
+
+    public partial class DesignDepartmentParametersAddedBlocksDetailsView : ViewBase
+    {
+        public DesignDepartmentParametersAddedBlocksDetailsView()
+        {
+			InitializeComponent();
+        }
+
+        public DesignDepartmentParametersAddedBlocksDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, DesignDepartmentParametersAddedBlocksDetailsViewModel DesignDepartmentParametersAddedBlocksDetailsViewModel) : base(regionManager, eventAggregator)
+        {
+            SetVisibilityProps();
+			InitializeComponent();
+            DataContext = DesignDepartmentParametersAddedBlocksDetailsViewModel;
+        }
+
+        private void SetVisibilityProps()
+        {
+            //NotUpdateAttribute attr;
+
+            //attr = typeof(HVTApp.Model.POCOs.DesignDepartmentParametersAddedBlocks).GetProperty(nameof(HVTApp.Model.POCOs.DesignDepartmentParametersAddedBlocks.DesignDepartmentId)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityDesignDepartmentIdDesignDepartmentParametersAddedBlocks = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.DesignDepartmentParametersAddedBlocks).GetProperty(nameof(HVTApp.Model.POCOs.DesignDepartmentParametersAddedBlocks.Name)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityNameDesignDepartmentParametersAddedBlocks = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.DesignDepartmentParametersAddedBlocks).GetProperty(nameof(HVTApp.Model.POCOs.DesignDepartmentParametersAddedBlocks.Parameters)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityParametersDesignDepartmentParametersAddedBlocks = Visibility.Collapsed;
+
+
+        }
+
+
+        public static readonly DependencyProperty VisibilityDesignDepartmentIdDesignDepartmentParametersAddedBlocksProperty = DependencyProperty.Register("VisibilityDesignDepartmentIdDesignDepartmentParametersAddedBlocks", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityDesignDepartmentIdDesignDepartmentParametersAddedBlocks
+        {
+            get { return (Visibility) GetValue(VisibilityDesignDepartmentIdDesignDepartmentParametersAddedBlocksProperty); }
+            set { SetValue(VisibilityDesignDepartmentIdDesignDepartmentParametersAddedBlocksProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityNameDesignDepartmentParametersAddedBlocksProperty = DependencyProperty.Register("VisibilityNameDesignDepartmentParametersAddedBlocks", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityNameDesignDepartmentParametersAddedBlocks
+        {
+            get { return (Visibility) GetValue(VisibilityNameDesignDepartmentParametersAddedBlocksProperty); }
+            set { SetValue(VisibilityNameDesignDepartmentParametersAddedBlocksProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityParametersDesignDepartmentParametersAddedBlocksProperty = DependencyProperty.Register("VisibilityParametersDesignDepartmentParametersAddedBlocks", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityParametersDesignDepartmentParametersAddedBlocks
+        {
+            get { return (Visibility) GetValue(VisibilityParametersDesignDepartmentParametersAddedBlocksProperty); }
+            set { SetValue(VisibilityParametersDesignDepartmentParametersAddedBlocksProperty, value); OnPropertyChanged(); }
         }
 
 	}

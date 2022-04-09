@@ -7,9 +7,9 @@ using HVTApp.Infrastructure.Extansions;
 
 namespace HVTApp.Model.POCOs
 {
-    [Designation("Параметры департамента ОГК")]
-    [DesignationPlural("Параметры департамента ОГК")]
-    public class DesignDepartmentParameters : BaseEntity
+    [Designation("Параметры департамента ОГК (добавленное оборудование)")]
+    [DesignationPlural("Параметры департамента ОГК (добавленное оборудование)")]
+    public class DesignDepartmentParametersAddedBlocks : BaseEntity
     {
         [Designation("Id департамента"), Required, OrderStatus(-10)]
         public Guid DesignDepartmentId { get; set; }

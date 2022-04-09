@@ -162,6 +162,11 @@ namespace HVTApp.UI.ViewModels
         public DesignDepartmentParametersLookupListViewModel(IUnityContainer container) : base(container) { }
     }
 
+	public partial class DesignDepartmentParametersAddedBlocksLookupListViewModel : BaseListViewModel<DesignDepartmentParametersAddedBlocks, DesignDepartmentParametersAddedBlocksLookup, AfterSaveDesignDepartmentParametersAddedBlocksEvent, AfterSelectDesignDepartmentParametersAddedBlocksEvent, AfterRemoveDesignDepartmentParametersAddedBlocksEvent>
+    {
+        public DesignDepartmentParametersAddedBlocksLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
 	public partial class PriceEngineeringTaskLookupListViewModel : BaseListViewModel<PriceEngineeringTask, PriceEngineeringTaskLookup, AfterSavePriceEngineeringTaskEvent, AfterSelectPriceEngineeringTaskEvent, AfterRemovePriceEngineeringTaskEvent>
     {
         public PriceEngineeringTaskLookupListViewModel(IUnityContainer container) : base(container) { }

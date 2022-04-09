@@ -302,12 +302,23 @@ namespace HVTApp.TestDataGenerator
                             ParameterBreaker, ParameterBreakerDeadTank, ParameterVoltage110kV
                         }
                     }
+                },
+                ParameterSetsAddedBlocks = new List<DesignDepartmentParametersAddedBlocks>()
+                {
+                    new DesignDepartmentParametersAddedBlocks()
+                    {
+                        Name = "ЗИП",
+                        Parameters = new List<Parameter>
+                        {
+                            ParameterDependentEquipmentTypeZip
+                        }
+                    }
                 }
             });
 
             DesignDepartmentDrives.Clone(new DesignDepartment
             {
-                Name = "Привода",
+                Name = "Приводы",
                 Head = UserIvanov,
                 Staff = new List<User> { UserPalferov, UserBukrin, UserIvanov },
                 ParameterSets = new List<DesignDepartmentParameters>()
@@ -328,9 +339,27 @@ namespace HVTApp.TestDataGenerator
                             ParameterDrivePPV
                         }
                     }
+                },
+                ParameterSetsAddedBlocks = new List<DesignDepartmentParametersAddedBlocks>()
+                {
+                    new DesignDepartmentParametersAddedBlocks()
+                    {
+                        Name = "ЗИП",
+                        Parameters = new List<Parameter>
+                        {
+                            ParameterDependentEquipmentTypeZip
+                        }
+                    },
+                    new DesignDepartmentParametersAddedBlocks()
+                    {
+                        Name = "МК",
+                        Parameters = new List<Parameter>
+                        {
+                            ParameterDependentEquipmentTypeOpornMet
+                        }
+                    }
                 }
             });
-
         }
 
         #endregion

@@ -555,9 +555,13 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public IValidatableChangeTrackingCollection<UserWrapper> Staff { get; private set; }
         /// <summary>
-        /// Наборы параметров
+        /// Наборы параметров основного оборудования
         /// </summary>
         public IValidatableChangeTrackingCollection<DesignDepartmentParametersWrapper> ParameterSets { get; private set; }
+        /// <summary>
+        /// Наборы параметров дополнительного оборудования
+        /// </summary>
+        public IValidatableChangeTrackingCollection<DesignDepartmentParametersAddedBlocksWrapper> ParameterSetsAddedBlocks { get; private set; }
         #endregion
         public override void InitializeComplexProperties()
         {
@@ -571,6 +575,9 @@ namespace HVTApp.Model.Wrapper
           if (Model.ParameterSets == null) throw new ArgumentException("ParameterSets cannot be null");
           ParameterSets = new ValidatableChangeTrackingCollection<DesignDepartmentParametersWrapper>(Model.ParameterSets.Select(e => new DesignDepartmentParametersWrapper(e)));
           RegisterCollection(ParameterSets, Model.ParameterSets);
+          if (Model.ParameterSetsAddedBlocks == null) throw new ArgumentException("ParameterSetsAddedBlocks cannot be null");
+          ParameterSetsAddedBlocks = new ValidatableChangeTrackingCollection<DesignDepartmentParametersAddedBlocksWrapper>(Model.ParameterSetsAddedBlocks.Select(e => new DesignDepartmentParametersAddedBlocksWrapper(e)));
+          RegisterCollection(ParameterSetsAddedBlocks, Model.ParameterSetsAddedBlocks);
         }
 	}
 
@@ -1811,6 +1818,55 @@ namespace HVTApp.Model.Wrapper
 		public partial class DesignDepartmentParametersWrapper : WrapperBase<DesignDepartmentParameters>
 	{
 	    public DesignDepartmentParametersWrapper(DesignDepartmentParameters model) : base(model) { }
+        #region SimpleProperties
+        /// <summary>
+        /// Id департамента
+        /// </summary>
+        public System.Guid DesignDepartmentId
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid DesignDepartmentIdOriginalValue => GetOriginalValue<System.Guid>(nameof(DesignDepartmentId));
+        public bool DesignDepartmentIdIsChanged => GetIsChanged(nameof(DesignDepartmentId));
+        /// <summary>
+        /// Название набора параметров
+        /// </summary>
+        public System.String Name
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
+        public bool NameIsChanged => GetIsChanged(nameof(Name));
+        /// <summary>
+        /// Id
+        /// </summary>
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+        #endregion
+        #region CollectionProperties
+        /// <summary>
+        /// Параметры
+        /// </summary>
+        public IValidatableChangeTrackingCollection<ParameterWrapper> Parameters { get; private set; }
+        #endregion
+        protected override void InitializeCollectionProperties()
+        {
+          if (Model.Parameters == null) throw new ArgumentException("Parameters cannot be null");
+          Parameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.Parameters.Select(e => new ParameterWrapper(e)));
+          RegisterCollection(Parameters, Model.Parameters);
+        }
+	}
+
+		public partial class DesignDepartmentParametersAddedBlocksWrapper : WrapperBase<DesignDepartmentParametersAddedBlocks>
+	{
+	    public DesignDepartmentParametersAddedBlocksWrapper(DesignDepartmentParametersAddedBlocks model) : base(model) { }
         #region SimpleProperties
         /// <summary>
         /// Id департамента

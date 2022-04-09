@@ -7,7 +7,26 @@ namespace HVTApp.Model.Services
     public interface IGetProductService
     {
         //Task<Product> GetProductAsync(Product originProduct = null);
+
+        /// <summary>
+        /// Выбор продукта
+        /// </summary>
+        /// <param name="originProduct"></param>
+        /// <returns></returns>
         Product GetProduct(Product originProduct = null);
+
+        /// <summary>
+        /// Выбор блока продукта
+        /// </summary>
+        /// <param name="originProductBlock">Предварительно выбранный блок продукта</param>
+        /// <param name="requiredParameters">Обязательные параметры выбираемого блока продукта</param>
+        /// <returns></returns>
         ProductBlock GetProductBlock(ProductBlock originProductBlock = null, IEnumerable<Parameter> requiredParameters = null);
+
+        /// <summary>
+        /// Выбор блока продукта
+        /// </summary>
+        /// <returns></returns>
+        ProductBlock GetProductBlock(IEnumerable<DesignDepartmentParametersAddedBlocks> addedBlocksParameters, ProductBlock originProductBlock = null);
     }
 }

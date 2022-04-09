@@ -410,6 +410,22 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
+		private Func<List<DesignDepartmentParametersAddedBlocks>> _getEntitiesForAddInParameterSetsAddedBlocksCommand;
+		public DelegateLogCommand AddInParameterSetsAddedBlocksCommand { get; }
+		public DelegateLogCommand RemoveFromParameterSetsAddedBlocksCommand { get; }
+		private DesignDepartmentParametersAddedBlocksWrapper _selectedParameterSetsAddedBlocksItem;
+		public DesignDepartmentParametersAddedBlocksWrapper SelectedParameterSetsAddedBlocksItem 
+		{ 
+			get { return _selectedParameterSetsAddedBlocksItem; }
+			set 
+			{ 
+				if (Equals(_selectedParameterSetsAddedBlocksItem, value)) return;
+				_selectedParameterSetsAddedBlocksItem = value;
+				RaisePropertyChanged();
+				RemoveFromParameterSetsAddedBlocksCommand.RaiseCanExecuteChanged();
+			}
+		}
+
         public DesignDepartmentDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
@@ -426,6 +442,11 @@ namespace HVTApp.UI.ViewModels
 			if (_getEntitiesForAddInParameterSetsCommand == null) _getEntitiesForAddInParameterSetsCommand = () => { return UnitOfWork.Repository<DesignDepartmentParameters>().GetAll(); };;
 			if (AddInParameterSetsCommand == null) AddInParameterSetsCommand = new DelegateLogCommand(AddInParameterSetsCommand_Execute_Default);
 			if (RemoveFromParameterSetsCommand == null) RemoveFromParameterSetsCommand = new DelegateLogCommand(RemoveFromParameterSetsCommand_Execute_Default, RemoveFromParameterSetsCommand_CanExecute_Default);
+
+			
+			if (_getEntitiesForAddInParameterSetsAddedBlocksCommand == null) _getEntitiesForAddInParameterSetsAddedBlocksCommand = () => { return UnitOfWork.Repository<DesignDepartmentParametersAddedBlocks>().GetAll(); };;
+			if (AddInParameterSetsAddedBlocksCommand == null) AddInParameterSetsAddedBlocksCommand = new DelegateLogCommand(AddInParameterSetsAddedBlocksCommand_Execute_Default);
+			if (RemoveFromParameterSetsAddedBlocksCommand == null) RemoveFromParameterSetsAddedBlocksCommand = new DelegateLogCommand(RemoveFromParameterSetsAddedBlocksCommand_Execute_Default, RemoveFromParameterSetsAddedBlocksCommand_CanExecute_Default);
 
 		}
 
@@ -467,6 +488,21 @@ namespace HVTApp.UI.ViewModels
 			private bool RemoveFromParameterSetsCommand_CanExecute_Default()
 			{
 				return SelectedParameterSetsItem != null;
+			}
+
+			private void AddInParameterSetsAddedBlocksCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<DesignDepartmentParametersAddedBlocks, DesignDepartmentParametersAddedBlocksWrapper>(_getEntitiesForAddInParameterSetsAddedBlocksCommand(), Item.ParameterSetsAddedBlocks);
+			}
+
+			private void RemoveFromParameterSetsAddedBlocksCommand_Execute_Default()
+			{
+				Item.ParameterSetsAddedBlocks.Remove(SelectedParameterSetsAddedBlocksItem);
+			}
+
+			private bool RemoveFromParameterSetsAddedBlocksCommand_CanExecute_Default()
+			{
+				return SelectedParameterSetsAddedBlocksItem != null;
 			}
 
 
@@ -1495,6 +1531,51 @@ namespace HVTApp.UI.ViewModels
 		}
 
         public DesignDepartmentParametersDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+			
+			if (_getEntitiesForAddInParametersCommand == null) _getEntitiesForAddInParametersCommand = () => { return UnitOfWork.Repository<Parameter>().GetAll(); };;
+			if (AddInParametersCommand == null) AddInParametersCommand = new DelegateLogCommand(AddInParametersCommand_Execute_Default);
+			if (RemoveFromParametersCommand == null) RemoveFromParametersCommand = new DelegateLogCommand(RemoveFromParametersCommand_Execute_Default, RemoveFromParametersCommand_CanExecute_Default);
+
+		}
+
+			private void AddInParametersCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<Parameter, ParameterWrapper>(_getEntitiesForAddInParametersCommand(), Item.Parameters);
+			}
+
+			private void RemoveFromParametersCommand_Execute_Default()
+			{
+				Item.Parameters.Remove(SelectedParametersItem);
+			}
+
+			private bool RemoveFromParametersCommand_CanExecute_Default()
+			{
+				return SelectedParametersItem != null;
+			}
+
+
+    }
+
+    public partial class DesignDepartmentParametersAddedBlocksDetailsViewModel : BaseDetailsViewModel<DesignDepartmentParametersAddedBlocksWrapper, DesignDepartmentParametersAddedBlocks, AfterSaveDesignDepartmentParametersAddedBlocksEvent>
+    {
+		private Func<List<Parameter>> _getEntitiesForAddInParametersCommand;
+		public DelegateLogCommand AddInParametersCommand { get; }
+		public DelegateLogCommand RemoveFromParametersCommand { get; }
+		private ParameterWrapper _selectedParametersItem;
+		public ParameterWrapper SelectedParametersItem 
+		{ 
+			get { return _selectedParametersItem; }
+			set 
+			{ 
+				if (Equals(_selectedParametersItem, value)) return;
+				_selectedParametersItem = value;
+				RaisePropertyChanged();
+				RemoveFromParametersCommand.RaiseCanExecuteChanged();
+			}
+		}
+
+        public DesignDepartmentParametersAddedBlocksDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
 			if (_getEntitiesForAddInParametersCommand == null) _getEntitiesForAddInParametersCommand = () => { return UnitOfWork.Repository<Parameter>().GetAll(); };;

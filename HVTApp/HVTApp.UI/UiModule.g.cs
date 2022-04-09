@@ -135,6 +135,10 @@ namespace HVTApp.UI
             //_dialogService.Register<DesignDepartmentParametersDetailsViewModel, DesignDepartmentParametersDetailsView>();
 			_selectService.Register<DesignDepartmentParametersLookupListView, DesignDepartmentParameters>();
             _updateDetailsService.Register<DesignDepartmentParameters, DesignDepartmentParametersDetailsView>();
+            Container.RegisterViewForNavigation<DesignDepartmentParametersAddedBlocksLookupListView>();
+            //_dialogService.Register<DesignDepartmentParametersAddedBlocksDetailsViewModel, DesignDepartmentParametersAddedBlocksDetailsView>();
+			_selectService.Register<DesignDepartmentParametersAddedBlocksLookupListView, DesignDepartmentParametersAddedBlocks>();
+            _updateDetailsService.Register<DesignDepartmentParametersAddedBlocks, DesignDepartmentParametersAddedBlocksDetailsView>();
             Container.RegisterViewForNavigation<PriceEngineeringTaskLookupListView>();
             //_dialogService.Register<PriceEngineeringTaskDetailsViewModel, PriceEngineeringTaskDetailsView>();
 			_selectService.Register<PriceEngineeringTaskLookupListView, PriceEngineeringTask>();

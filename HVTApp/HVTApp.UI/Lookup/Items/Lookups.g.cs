@@ -234,6 +234,8 @@ namespace HVTApp.UI.Lookup
 	    public List<UserLookup> Staff { get { return GetLookupEnum<UserLookup>().ToList(); } }
 		[OrderStatus(50)]
 	    public List<DesignDepartmentParametersLookup> ParameterSets { get { return GetLookupEnum<DesignDepartmentParametersLookup>().ToList(); } }
+		[OrderStatus(40)]
+	    public List<DesignDepartmentParametersAddedBlocksLookup> ParameterSetsAddedBlocks { get { return GetLookupEnum<DesignDepartmentParametersAddedBlocksLookup>().ToList(); } }
 	}
 	[AllowEditAttribute(Role.Admin)]
 	[Designation("Задача")]
@@ -758,6 +760,25 @@ namespace HVTApp.UI.Lookup
 	public partial class DesignDepartmentParametersLookup : LookupItem<DesignDepartmentParameters>
 	{
 		public DesignDepartmentParametersLookup(DesignDepartmentParameters entity) : base(entity) 
+		{
+		}
+		
+        #region SimpleProperties
+		[OrderStatus(-10)]
+        public System.Guid DesignDepartmentId => Entity.DesignDepartmentId;
+
+		[OrderStatus(10)]
+        public System.String Name => Entity.Name;
+
+        #endregion
+		[OrderStatus(1)]
+	    public List<ParameterLookup> Parameters { get { return GetLookupEnum<ParameterLookup>().ToList(); } }
+	}
+	[AllowEditAttribute(Role.Admin)]
+	[Designation("Параметры департамента ОГК (добавленное оборудование)")]
+	public partial class DesignDepartmentParametersAddedBlocksLookup : LookupItem<DesignDepartmentParametersAddedBlocks>
+	{
+		public DesignDepartmentParametersAddedBlocksLookup(DesignDepartmentParametersAddedBlocks entity) : base(entity) 
 		{
 		}
 		

@@ -34,6 +34,7 @@ namespace HVTApp.Model.Events
 	public partial class AfterSavePriceCalculationHistoryItemEvent : PubSubEvent<PriceCalculationHistoryItem> { }
 	public partial class AfterSavePriceCalculationItemEvent : PubSubEvent<PriceCalculationItem> { }
 	public partial class AfterSaveDesignDepartmentParametersEvent : PubSubEvent<DesignDepartmentParameters> { }
+	public partial class AfterSaveDesignDepartmentParametersAddedBlocksEvent : PubSubEvent<DesignDepartmentParametersAddedBlocks> { }
 	public partial class AfterSavePriceEngineeringTaskEvent : PubSubEvent<PriceEngineeringTask> { }
 	public partial class AfterSavePriceEngineeringTaskFileAnswerEvent : PubSubEvent<PriceEngineeringTaskFileAnswer> { }
 	public partial class AfterSavePriceEngineeringTaskFileTechnicalRequirementsEvent : PubSubEvent<PriceEngineeringTaskFileTechnicalRequirements> { }

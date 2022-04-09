@@ -55,8 +55,8 @@ namespace HVTApp.Services.GetProductService
             var productRelations = UnitOfWork.Repository<ProductRelation>().GetAll();
             var productBlocks = UnitOfWork.Repository<ProductBlock>().GetAll();
 
-            //parameters = ParametersWithoutComplectsParameters(parameters, originProduct);
-            //parameters = ParametersWithoutNewParameters(parameters, originProduct);
+            parameters = ParametersWithoutComplectsParameters(parameters);
+            parameters = ParametersWithoutNewParameters(parameters);
 
             if (requiredParameters != null)
             {
@@ -88,6 +88,32 @@ namespace HVTApp.Services.GetProductService
         /// Параметры без параметров "Деталей и Комплектов"
         /// </summary>
         /// <param name="parameters1"></param>
+        private List<Parameter> ParametersWithoutComplectsParameters(IEnumerable<Parameter> parameters1)
+        {
+            var parameters = parameters1.ToList();
+
+            //парметры "обозначение комплекта"
+            var complectDesignationParameters = parameters.Where(parameter => parameter.ParameterGroup.Id == GlobalAppProperties.Actual.ComplectDesignationGroup.Id).ToList();
+
+            //параметры "тип комплекта"
+            var complectTypeParameters = parameters.Where(parameter => parameter.ParameterGroup.Id == GlobalAppProperties.Actual.ComplectsGroup.Id).ToList();
+
+            var parametersToExclude = complectTypeParameters.Union(complectDesignationParameters).ToList();
+
+            //параметр "Комплекты и детали"
+            var complectsParameter = parameters.SingleOrDefault(parameter => parameter.Id == GlobalAppProperties.Actual.ComplectsParameter.Id);
+            if (complectsParameter != null)
+            {
+                parametersToExclude.Add(complectsParameter);
+            }
+
+            return parameters.Except(parametersToExclude).ToList();
+        }
+
+        /// <summary>
+        /// Параметры без параметров "Деталей и Комплектов"
+        /// </summary>
+        /// <param name="parameters1"></param>
         /// <param name="selectedProduct"></param>
         private List<Parameter> ParametersWithoutComplectsParameters(IEnumerable<Parameter> parameters1, Product selectedProduct)
         {
@@ -110,6 +136,27 @@ namespace HVTApp.Services.GetProductService
             {
                 var ids = selectedProduct.ProductBlock.Parameters.Select(parameter => parameter.Id).ToList();
                 parametersToExclude = parametersToExclude.Where(parameter => !ids.Contains(parameter.Id)).ToList();
+            }
+
+            return parameters.Except(parametersToExclude).ToList();
+        }
+
+        /// <summary>
+        /// Параметры без параметров "Новое оборудование"
+        /// </summary>
+        /// <param name="parameters1"></param>
+        private List<Parameter> ParametersWithoutNewParameters(IEnumerable<Parameter> parameters1)
+        {
+            var parameters = parameters1.ToList();
+
+            //парметры "обозначение"
+            var parametersToExclude = parameters.Where(parameter => parameter.ParameterGroup.Id == GlobalAppProperties.Actual.NewProductParameterGroup.Id).ToList();
+
+            //параметр "Комплекты и детали"
+            var newProductParameter = parameters.SingleOrDefault(parameter => parameter.Id == GlobalAppProperties.Actual.NewProductParameter.Id);
+            if (newProductParameter != null)
+            {
+                parametersToExclude.Add(newProductParameter);
             }
 
             return parameters.Except(parametersToExclude).ToList();
@@ -239,9 +286,57 @@ namespace HVTApp.Services.GetProductService
             //предварительно выбранный блок продукта
             var selectedProductBlock = originProductBlock == null
                 ? null
-                : bank.Blocks.Single(product => product.Id == originProductBlock.Id);
+                : bank.Blocks.Single(block => block.Id == originProductBlock.Id);
 
             var productBlockSelector = new ProductBlockSelector(bank.Parameters, bank, selectedProductBlock);
+            var owner = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
+            var window = new SelectProductBlockWindow() { DataContext = productBlockSelector, Owner = owner };
+            window.ShowDialog();
+
+            //выходим, если пользователь отменил выбор блока продукта.
+            if (window.DialogResult.HasValue == false || window.DialogResult.Value == false) return originProductBlock;
+
+            var result = productBlockSelector.SelectedBlock;
+
+            //загрузка актуальных блоков продуктов
+            var productBlocks = UnitOfWork.Repository<ProductBlock>().GetAll();
+            //если выбранного блока продукта нет в базе
+            if (productBlocks.Contains(result) == false)
+            {
+                if (UnitOfWork.SaveEntity(result).OperationCompletedSuccessfully)
+                {
+                    Container.Resolve<IEventAggregator>().GetEvent<AfterSaveProductBlockEvent>().Publish(result);
+                }
+                else
+                {
+                    throw new Exception("Ошибка при сохранении нового блока продукта в базу данных.");
+                }
+            }
+
+            return result;
+        }
+
+        public ProductBlock GetProductBlock(IEnumerable<DesignDepartmentParametersAddedBlocks> addedBlocksParameters, ProductBlock originProductBlock = null)
+        {
+            var banks = addedBlocksParameters
+                .Select(x => GetBank(x.Parameters.Select(p => UnitOfWork.Repository<Parameter>().GetById(p.Id))))
+                .ToList();
+            var bankParameters = banks.SelectMany(x => x.Parameters).Distinct().ToList();
+            var firstBank = banks.First();
+            var bank = new Bank(firstBank.Products, firstBank.Blocks, bankParameters, firstBank.Relations);
+
+            //предварительно выбранный блок продукта
+            ProductBlock selectedProductBlock = originProductBlock == null
+                ? null
+                : bank.Blocks.Single(block => block.Id == originProductBlock.Id);
+
+            var productBlockSelector = new ProductBlockSelector(bank.Parameters, bank, selectedProductBlock);
+            var originParameterSelector = productBlockSelector.ParameterSelectors.FirstOrDefault(x => x.ParametersFlaged.Any(p => p.Parameter.IsOrigin));
+            if (originParameterSelector != null)
+            {
+                originParameterSelector.SelectedParameterFlaged = originParameterSelector.ParametersFlaged.First();
+            }
+
             var owner = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
             var window = new SelectProductBlockWindow() { DataContext = productBlockSelector, Owner = owner };
             window.ShowDialog();

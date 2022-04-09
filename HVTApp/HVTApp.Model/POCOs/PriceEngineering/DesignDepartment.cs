@@ -19,8 +19,11 @@ namespace HVTApp.Model.POCOs
         [Designation("Сотрудники"), Required, OrderStatus(90)]
         public virtual List<User> Staff { get; set; } = new List<User>();
 
-        [Designation("Наборы параметров"), OrderStatus(50)]
+        [Designation("Наборы параметров основного оборудования"), OrderStatus(50)]
         public virtual List<DesignDepartmentParameters> ParameterSets { get; set; } = new List<DesignDepartmentParameters>();
+
+        [Designation("Наборы параметров дополнительного оборудования"), OrderStatus(40)]
+        public virtual List<DesignDepartmentParametersAddedBlocks> ParameterSetsAddedBlocks { get; set; } = new List<DesignDepartmentParametersAddedBlocks>();
 
         /// <summary>
         /// Блок продукта подходит этому департаменту

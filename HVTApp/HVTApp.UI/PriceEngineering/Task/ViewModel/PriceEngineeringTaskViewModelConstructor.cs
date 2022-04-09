@@ -81,14 +81,7 @@ namespace HVTApp.UI.PriceEngineering
             SelectProductBlockCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var department = UnitOfWork.Repository<DesignDepartment>()
-                        .Find(designDepartment => designDepartment.ProductBlockIsSuitable(ProductBlockManager.Model))
-                        .FirstOrDefault();
-
-                    if (department == null)
-                        return;
-
-                    var requiredParameters = department
+                    var requiredParameters = DesignDepartment.Model
                         .ParameterSets
                         .FirstOrDefault(x => x.Parameters.AllContainsInById(ProductBlockManager.Model.Parameters));
 
@@ -105,7 +98,7 @@ namespace HVTApp.UI.PriceEngineering
             AddBlockAddedCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var block = Container.Resolve<IGetProductService>().GetProductBlock();
+                    var block = Container.Resolve<IGetProductService>().GetProductBlock(DesignDepartment.Model.ParameterSetsAddedBlocks);
                     if (block == null) return;
                     block = UnitOfWork.Repository<ProductBlock>().GetById(block.Id);
                     var wrapper = new PriceEngineeringTaskProductBlockAddedWrapper1(new PriceEngineeringTaskProductBlockAdded())

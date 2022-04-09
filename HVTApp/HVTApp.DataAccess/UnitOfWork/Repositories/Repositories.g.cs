@@ -221,6 +221,13 @@ namespace HVTApp.DataAccess
 		}
     }
 
+    public partial class DesignDepartmentParametersAddedBlocksRepository : BaseRepository<DesignDepartmentParametersAddedBlocks>, IDesignDepartmentParametersAddedBlocksRepository
+    {
+		public DesignDepartmentParametersAddedBlocksRepository(DbContext context) : base(context) 
+		{
+		}
+    }
+
     public partial class PriceEngineeringTaskRepository : BaseRepository<PriceEngineeringTask>, IPriceEngineeringTaskRepository
     {
 		public PriceEngineeringTaskRepository(DbContext context) : base(context) 

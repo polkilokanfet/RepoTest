@@ -1248,6 +1248,72 @@ namespace HVTApp.UI.Views
             set { DesignDepartmentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DesignDepartmentLookup.ParameterSets)].Visibility = value; }
         }
 
+        public System.Windows.Visibility ParameterSetsAddedBlocksVisibility
+        {
+            get { return DesignDepartmentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DesignDepartmentLookup.ParameterSetsAddedBlocks)].Visibility; }
+            set { DesignDepartmentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DesignDepartmentLookup.ParameterSetsAddedBlocks)].Visibility = value; }
+        }
+
+
+		#endregion
+    }
+
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
+	[Designation("Параметры департамента ОГК (добавленное оборудование)")]
+	[DesignationPlural("DesignDepartmentParametersAddedBlocksLookup")]
+	[AllowEditAttribute(Role.Admin)]
+    public partial class DesignDepartmentParametersAddedBlocksLookupListView : ViewBase
+    {
+        public DesignDepartmentParametersAddedBlocksLookupListView()
+        {
+            InitializeComponent();
+        }
+
+        public DesignDepartmentParametersAddedBlocksLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, DesignDepartmentParametersAddedBlocksLookupListViewModel DesignDepartmentParametersAddedBlocksLookupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = DesignDepartmentParametersAddedBlocksLookupListViewModel;
+			DesignDepartmentParametersAddedBlocksLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			((DesignDepartmentParametersAddedBlocksLookupListViewModel)DataContext).Load();
+        }
+
+		#region VisibilityProps
+
+        public System.Windows.Visibility DesignDepartmentIdVisibility
+        {
+            get { return DesignDepartmentParametersAddedBlocksLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DesignDepartmentParametersAddedBlocksLookup.DesignDepartmentId)].Visibility; }
+            set { DesignDepartmentParametersAddedBlocksLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DesignDepartmentParametersAddedBlocksLookup.DesignDepartmentId)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility NameVisibility
+        {
+            get { return DesignDepartmentParametersAddedBlocksLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DesignDepartmentParametersAddedBlocksLookup.Name)].Visibility; }
+            set { DesignDepartmentParametersAddedBlocksLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DesignDepartmentParametersAddedBlocksLookup.Name)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return DesignDepartmentParametersAddedBlocksLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DesignDepartmentParametersAddedBlocksLookup.DisplayMember)].Visibility; }
+            set { DesignDepartmentParametersAddedBlocksLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DesignDepartmentParametersAddedBlocksLookup.DisplayMember)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return DesignDepartmentParametersAddedBlocksLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DesignDepartmentParametersAddedBlocksLookup.Entity)].Visibility; }
+            set { DesignDepartmentParametersAddedBlocksLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DesignDepartmentParametersAddedBlocksLookup.Entity)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility ParametersVisibility
+        {
+            get { return DesignDepartmentParametersAddedBlocksLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DesignDepartmentParametersAddedBlocksLookup.Parameters)].Visibility; }
+            set { DesignDepartmentParametersAddedBlocksLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DesignDepartmentParametersAddedBlocksLookup.Parameters)].Visibility = value; }
+        }
+
 
 		#endregion
     }
