@@ -54,5 +54,14 @@ namespace HVTApp.Model.POCOs
             return ChildPriceEngineeringTasks.SelectMany(priceEngineeringTask => priceEngineeringTask.GetSuitableTasksForInstruct(department));
         }
 
+        /// <summary>
+        /// Вернуть все КБ, которые прорабатывают эти задачи
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<DesignDepartment> GetDepartments()
+        {
+            return ChildPriceEngineeringTasks.SelectMany(priceEngineeringTask => priceEngineeringTask.GetDepartments());
+        }
+
     }
 }

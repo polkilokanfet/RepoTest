@@ -118,5 +118,16 @@ namespace HVTApp.Model.POCOs
             }
         }
 
+        public IEnumerable<DesignDepartment> GetDepartments()
+        {
+            yield return this.DesignDepartment;
+            foreach (var childPriceEngineeringTask in ChildPriceEngineeringTasks)
+            {
+                foreach (var department in childPriceEngineeringTask.GetDepartments())
+                {
+                    yield return department;
+                }
+            }
+        }
     }
 }

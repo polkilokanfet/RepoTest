@@ -18,7 +18,10 @@ namespace HVTApp.UI.PriceEngineering
         public bool UserIsDesignDepartmentHead => GlobalAppProperties.User.RoleCurrent == Role.DesignDepartmentHead;
         public bool UserIsConstructor => GlobalAppProperties.User.RoleCurrent == Role.Constructor;
 
-        public DesignDepartment Department { get; private set; }
+        /// <summary>
+        /// КБ, где текущий пользователь является руководителем
+        /// </summary>
+        public List<DesignDepartment> Departments { get; }
 
         public DelegateLogCommand OpenTaskCommand { get; }
 
@@ -35,6 +38,8 @@ namespace HVTApp.UI.PriceEngineering
                 () => SelectedLookup != null);
             this.SelectedLookupChanged += lookup => OpenTaskCommand.RaiseCanExecuteChanged();
 
+            Departments = UnitOfWork.Repository<DesignDepartment>().Find(x => x.Head.Id == GlobalAppProperties.User.Id);
+
             Load();
         }
 
@@ -45,25 +50,23 @@ namespace HVTApp.UI.PriceEngineering
             //для менеджера
             if (UserIsManager)
             {
-                priceEngineeringTasks = UnitOfWork.Repository<PriceEngineeringTasks>().Find(x => x.UserManager.Id == GlobalAppProperties.User.Id);
+                priceEngineeringTasks = UnitOfWork.Repository<PriceEngineeringTasks>().Find(engineeringTasks => engineeringTasks.UserManager.Id == GlobalAppProperties.User.Id);
             }
 
             //для руководителя бюро ОГК
             if (UserIsDesignDepartmentHead)
             {
-                Department = UnitOfWork.Repository<DesignDepartment>().Find(department => Equals(department.Head.Id, GlobalAppProperties.User.Id)).FirstOrDefault();
-                if (Department != null)
+                if (Departments.Any())
                 {
-                    priceEngineeringTasks = UnitOfWork.Repository<PriceEngineeringTasks>().Find(x => x.GetSuitableTasksForInstruct(Department).Any());
+                    priceEngineeringTasks = UnitOfWork.Repository<PriceEngineeringTasks>().Find(engineeringTasks => engineeringTasks.GetDepartments().Intersect(Departments).Any());
                 }
             }
 
             //для конструктора
             if (UserIsConstructor)
             {
-                priceEngineeringTasks = UnitOfWork.Repository<PriceEngineeringTasks>().Find(x => x.GetSuitableTasksForWork(GlobalAppProperties.User).Any());
+                priceEngineeringTasks = UnitOfWork.Repository<PriceEngineeringTasks>().Find(engineeringTasks => engineeringTasks.GetSuitableTasksForWork(GlobalAppProperties.User).Any());
             }
-
 
             this.Load(priceEngineeringTasks);
         }
