@@ -97,11 +97,11 @@ namespace HVTApp.UI.PriceEngineering
                 {
                     if (string.IsNullOrEmpty(SelectedTechnicalRequrementsFile.Path))
                     {
-                        this.FilesTechnicalRequirements.Remove(SelectedTechnicalRequrementsFile);
+                        SelectedTechnicalRequrementsFile.IsActual = false;
                     }
                     else
                     {
-                        SelectedTechnicalRequrementsFile.IsActual = false;
+                        this.FilesTechnicalRequirements.Remove(SelectedTechnicalRequrementsFile);
                     }
                 },
                 () => IsEditMode && this.SelectedTechnicalRequrementsFile != null);

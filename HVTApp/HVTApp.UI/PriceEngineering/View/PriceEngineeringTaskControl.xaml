@@ -304,7 +304,7 @@
 
                             <GroupBox Grid.Row="0" Header="Переписка">
                                 <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                                    <ItemsControl ItemsSource="{Binding Messenger.TaskMessagesWrapper.Messages, Mode=OneWay}">
+                                    <ItemsControl ItemsSource="{Binding Messenger.MessagesToShow, Mode=OneWay}">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
                                                 <messages:MessageControl/>

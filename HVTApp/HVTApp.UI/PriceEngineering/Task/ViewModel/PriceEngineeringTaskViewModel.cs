@@ -5,6 +5,7 @@ using System.Collections.Specialized;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
@@ -38,6 +39,8 @@ namespace HVTApp.UI.PriceEngineering
         public DelegateLogCommand SaveCommand { get; protected set; }
 
         public DelegateLogCommand StartCommand { get; private set; }
+
+        public event Action TaskIsStarted;
 
         #endregion
 
@@ -274,10 +277,41 @@ namespace HVTApp.UI.PriceEngineering
                 StatusEnum = PriceEngineeringTaskStatusEnum.Started
             }));
 
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("Задача запущена на проработку.");
+            if (UnitOfWork.Repository<PriceEngineeringTask>().GetById(this.Id) != null)
+            {
+                if (this.FilesTechnicalRequirements.IsChanged)
+                {
+                    sb.AppendLine("Внесены изменения в ТЗ.");
+                }
+
+                var actualFiles = FilesTechnicalRequirements.Where(x => x.IsActual).OrderBy(x => x.CreationMoment).ToList();
+                if (actualFiles.Any())
+                {
+                    sb.AppendLine("Актуальные файлы:");
+                    foreach (var file in actualFiles)
+                    {
+                        sb.AppendLine($" + {file.CreationMoment} {file.Name}");
+                    }
+                }
+
+                var notActualFiles = FilesTechnicalRequirements.Where(x => x.IsActual == false).OrderBy(x => x.CreationMoment).ToList();
+                if (notActualFiles.Any())
+                {
+                    sb.AppendLine("Не актуальные файлы:");
+                    foreach (var file in notActualFiles)
+                    {
+                        sb.AppendLine($" - {file.CreationMoment} {file.Name}");
+                    }
+                }
+
+            }
+
             this.Messages.Add(new PriceEngineeringTaskMessageWrapper(new PriceEngineeringTaskMessage
             {
                 Author = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
-                Message = "Задача запущена на проработку."
+                Message = sb.ToString()
             }));
 
 
@@ -291,6 +325,8 @@ namespace HVTApp.UI.PriceEngineering
             {
                 this.ChildPriceEngineeringTasks.ForEach(x => x.StartCommandExecute(false));
             }
+
+            TaskIsStarted?.Invoke();
         }
 
         /// <summary>
