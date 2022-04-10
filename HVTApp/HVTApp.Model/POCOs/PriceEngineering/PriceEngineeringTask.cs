@@ -135,18 +135,18 @@ namespace HVTApp.Model.POCOs
         /// <summary>
         /// Вернуть все задачи, которые прорабатывает данное бюро
         /// </summary>
-        /// <param name="department"></param>
+        /// <param name="user"></param>
         /// <returns></returns>
-        public IEnumerable<PriceEngineeringTask> GetSuitableTasksForInstruct(DesignDepartment department)
+        public IEnumerable<PriceEngineeringTask> GetSuitableTasksForInstruct(User user)
         {
-            if (department.ProductBlockIsSuitable(this.ProductBlockEngineer))
+            if (this.DesignDepartment?.Head.Id == user.Id)
             {
                 yield return this;
             }
 
             foreach (var childPriceEngineeringTask in ChildPriceEngineeringTasks)
             {
-                foreach (var priceEngineeringTask in childPriceEngineeringTask.GetSuitableTasksForInstruct(department))
+                foreach (var priceEngineeringTask in childPriceEngineeringTask.GetSuitableTasksForInstruct(user))
                 {
                     yield return priceEngineeringTask;
                 }

@@ -14,8 +14,6 @@ namespace HVTApp.UI.PriceEngineering
 {
     public class PriceEngineeringTaskViewModelDesignDepartmentHead : PriceEngineeringTaskViewModel
     {
-        public DesignDepartment Department { get; private set; }
-
         /// <summary>
         /// Поручить проработку задачи
         /// </summary>
@@ -37,7 +35,7 @@ namespace HVTApp.UI.PriceEngineering
         
         #endregion
 
-        public override bool IsTarget => Department != null && Department.ProductBlockIsSuitable(Model.ProductBlockEngineer);
+        public override bool IsTarget => DesignDepartment != null && DesignDepartment.Model.Head.Id == GlobalAppProperties.User.Id;
 
         public override bool IsEditMode => IsTarget;
 
@@ -45,15 +43,10 @@ namespace HVTApp.UI.PriceEngineering
         {
             base.InCtor();
 
-            //устанавливаем бюро ОГК
-            Department = UnitOfWork.Repository<DesignDepartment>().Find(department => department.Head.Id == GlobalAppProperties.User.Id).Single();
-
             InstructPriceEngineeringTaskCommand = new DelegateLogCommand(
                 () =>
                 {
-                    if (Department == null) return;
-
-                    var user = Container.Resolve<ISelectService>().SelectItem(Department.Staff);
+                    var user = Container.Resolve<ISelectService>().SelectItem(DesignDepartment.Model.Staff);
 
                     if (user == null) return;
                         
@@ -63,12 +56,16 @@ namespace HVTApp.UI.PriceEngineering
                         Author = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id), 
                         Message = $"Назначен исполнитель: {user}"
                     }));
-
+                    
                     this.AcceptChanges();
                     UnitOfWork.SaveChanges();
                     Container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceEngineeringTaskEvent>().Publish(this.Model);
                 }, 
-                () => IsTarget);
+                () => 
+                    IsTarget &&
+                    Status != PriceEngineeringTaskStatusEnum.Created && 
+                    Status != PriceEngineeringTaskStatusEnum.Stopped &&
+                    Status != PriceEngineeringTaskStatusEnum.Accepted);
         }
     }
 }

@@ -290,6 +290,9 @@
     <Compile Include="PriceEngineering\ParametersService1\ParametersServiceView.xaml.cs">
       <DependentUpon>ParametersServiceView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PriceEngineering\Tabs\TabPriceEngineeringTasks.xaml.cs">
+      <DependentUpon>TabPriceEngineeringTasks.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PriceEngineering\TasksList\PriceEngineeringTasksListView.xaml.cs">
       <DependentUpon>PriceEngineeringTasksListView.xaml</DependentUpon>
     </Compile>
@@ -303,8 +306,8 @@
     <Compile Include="PriceEngineering\Task\PriceEngineeringTaskViewModelFactory.cs" />
     <Compile Include="PriceEngineering\Task\ViewModel\PriceEngineeringTaskViewModelManager.cs" />
     <Compile Include="PriceEngineering\Task\PriceEngineeringTaskWrapper1.cs" />
-    <Compile Include="PriceEngineering\Tabs\TabPriceEngineeringTasks.xaml.cs">
-      <DependentUpon>TabPriceEngineeringTasks.xaml</DependentUpon>
+    <Compile Include="PriceEngineering\Tabs\TabPriceEngineeringTask.xaml.cs">
+      <DependentUpon>TabPriceEngineeringTask.xaml</DependentUpon>
     </Compile>
     <Compile Include="PriceEngineering\View\BlockAddedControl.xaml.cs">
       <DependentUpon>BlockAddedControl.xaml</DependentUpon>
@@ -1603,6 +1606,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="PriceEngineering\Tabs\TabPriceEngineeringTasks.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceEngineering\Tabs\TabPriceEngineeringTask.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

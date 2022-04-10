@@ -18,15 +18,14 @@ namespace HVTApp.UI.PriceEngineering
         public bool UserIsDesignDepartmentHead => GlobalAppProperties.User.RoleCurrent == Role.DesignDepartmentHead;
         public bool UserIsConstructor => GlobalAppProperties.User.RoleCurrent == Role.Constructor;
 
-        /// <summary>
-        /// КБ, где текущий пользователь является руководителем
-        /// </summary>
-        public List<DesignDepartment> Departments { get; }
+        public DelegateLogCommand LoadCommand { get; }
 
         public DelegateLogCommand OpenTaskCommand { get; }
 
         public PriceEngineeringTasksListViewModel(IUnityContainer container) : base(container)
         {
+            LoadCommand = new DelegateLogCommand(Load);
+
             OpenTaskCommand = new DelegateLogCommand(
                 () =>
                 {
@@ -38,13 +37,13 @@ namespace HVTApp.UI.PriceEngineering
                 () => SelectedLookup != null);
             this.SelectedLookupChanged += lookup => OpenTaskCommand.RaiseCanExecuteChanged();
 
-            Departments = UnitOfWork.Repository<DesignDepartment>().Find(x => x.Head.Id == GlobalAppProperties.User.Id);
-
             Load();
         }
 
         public override void Load()
         {
+            UnitOfWork = Container.Resolve<IUnitOfWork>();
+
             var priceEngineeringTasks = new List<PriceEngineeringTasks>();
 
             //для менеджера
@@ -56,10 +55,7 @@ namespace HVTApp.UI.PriceEngineering
             //для руководителя бюро ОГК
             if (UserIsDesignDepartmentHead)
             {
-                if (Departments.Any())
-                {
-                    priceEngineeringTasks = UnitOfWork.Repository<PriceEngineeringTasks>().Find(engineeringTasks => engineeringTasks.GetDepartments().Intersect(Departments).Any());
-                }
+                priceEngineeringTasks = UnitOfWork.Repository<PriceEngineeringTasks>().Find(engineeringTasks => engineeringTasks.GetSuitableTasksForInstruct(GlobalAppProperties.User).Any());
             }
 
             //для конструктора
@@ -68,7 +64,7 @@ namespace HVTApp.UI.PriceEngineering
                 priceEngineeringTasks = UnitOfWork.Repository<PriceEngineeringTasks>().Find(engineeringTasks => engineeringTasks.GetSuitableTasksForWork(GlobalAppProperties.User).Any());
             }
 
-            this.Load(priceEngineeringTasks);
+            this.Load(priceEngineeringTasks.OrderByDescending(x => x.WorkUpTo));
         }
     }
 }

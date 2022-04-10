@@ -78,9 +78,9 @@ namespace HVTApp.Model.POCOs
         /// </summary>
         /// <param name="department"></param>
         /// <returns></returns>
-        public IEnumerable<PriceEngineeringTask> GetSuitableTasksForInstruct(DesignDepartment department)
+        public IEnumerable<PriceEngineeringTask> GetSuitableTasksForInstruct(User user)
         {
-            return ChildPriceEngineeringTasks.SelectMany(priceEngineeringTask => priceEngineeringTask.GetSuitableTasksForInstruct(department));
+            return ChildPriceEngineeringTasks.SelectMany(priceEngineeringTask => priceEngineeringTask.GetSuitableTasksForInstruct(user));
         }
 
         /// <summary>

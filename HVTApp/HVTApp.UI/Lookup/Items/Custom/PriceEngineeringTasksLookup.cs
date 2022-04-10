@@ -40,7 +40,9 @@ namespace HVTApp.UI.Lookup
                         return Entity.GetSuitableTasksForWork(GlobalAppProperties.User).Select(x => x.Status).All(x => statuses.Contains(x));
                     }
                     case Role.DesignDepartmentHead:
-                        break;
+                    {
+                        return Entity.GetSuitableTasksForInstruct(GlobalAppProperties.User).Any(x => x.UserConstructor == null);
+                    }
                 }
 
                 return true;
