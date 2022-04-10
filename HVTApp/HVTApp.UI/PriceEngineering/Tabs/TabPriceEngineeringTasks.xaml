@@ -38,10 +38,20 @@
                            SmallImage="/HVTApp.UI;component/Images/done.png" />-->
     </infRib:RibbonGroup>
 
+    <infRib:RibbonGroup Caption="Общее ТЗ" Visibility="{Binding Converter={StaticResource ManagerVisibilityConverter}}">
+        <infRib:ButtonTool Caption="Добавить"
+                           Command="{Binding AddFileTechnicalRequirementsCommand}"
+                           SmallImage="/HVTApp.UI;component/Images/add.png" />
+        <infRib:ButtonTool Caption="Удалить"
+                           Command="{Binding RemoveFileTechnicalRequirementsCommand}"
+                           SmallImage="/HVTApp.UI;component/Images/remove.png" />
+    </infRib:RibbonGroup>
+
     <infRib:RibbonGroup Caption="Расчет ПЗ" Visibility="{Binding Converter={StaticResource ManagerVisibilityConverter}}">
         <infRib:ButtonTool Caption="Создать"
                            Command="{Binding CreatePriceCalculationCommand}"
                            SmallImage="/HVTApp.UI;component/Images/add.png" />
     </infRib:RibbonGroup>
+
 
 </inf:RibbonTabItemWithViewModel>

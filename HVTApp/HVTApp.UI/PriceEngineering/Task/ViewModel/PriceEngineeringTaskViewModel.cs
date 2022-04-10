@@ -214,7 +214,6 @@ namespace HVTApp.UI.PriceEngineering
                     {
                         Container.Resolve<IMessageService>().ShowOkMessageDialog("Ошибка при открытии файла ТЗ", e.PrintAllExceptions());
                     }
-
                 },
                 () => SelectedTechnicalRequrementsFile != null);
 

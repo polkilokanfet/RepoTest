@@ -24,23 +24,54 @@
 
                 <GroupBox Grid.Row="0" Header="Общая информация">
                     <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto" MaxHeight="250"/>
+                        </Grid.RowDefinitions>
 
-                        <Label Grid.Column="0" Content="Проработать до:"/>
-                        <editors:XamDateTimeEditor Grid.Column="1"
-                                                     Width="120"
-                                                     IsEnabled="{Binding AllowEditProps, UpdateSourceTrigger=PropertyChanged}"
-                                                     Value="{Binding PriceEngineeringTasksWrapper.WorkUpTo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
 
-                        <Label Grid.Column="2" Content=" Комментарий:"/>
-                        <TextBox Grid.Column="3" 
-                                 Text="{Binding PriceEngineeringTasksWrapper.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                 IsReadOnly="{Binding AllowEditProps, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ReverseBoolConverter}}"/>
+                            <Label Grid.Column="0" Content="Проработать до:"/>
+                            <editors:XamDateTimeEditor Grid.Column="1"
+                                                         Width="120"
+                                                         IsEnabled="{Binding AllowEditProps, UpdateSourceTrigger=PropertyChanged}"
+                                                         Value="{Binding PriceEngineeringTasksWrapper.WorkUpTo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                            <Label Grid.Column="2" Content=" Комментарий:"/>
+                            <TextBox Grid.Column="3" 
+                                     Text="{Binding PriceEngineeringTasksWrapper.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     IsReadOnly="{Binding AllowEditProps, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ReverseBoolConverter}}"/>
+
+                        </Grid>
+
+                        <GroupBox Grid.Row="1" Header="Общие файлы технического задания">
+                            <dataPresenter:XamDataGrid
+                                                DataSource="{Binding PriceEngineeringTasksWrapper.FilesTechnicalRequirements}"
+                                                ActiveDataItem="{Binding SelectedFileTechnicalRequirements, Mode=TwoWay}"
+                                                Style="{StaticResource XamDataGridUpdateOnCellValueChange}">
+
+                                <dataPresenter:XamDataGrid.InputBindings>
+                                    <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=OpenFileTechnicalRequirementsCommand, Mode=OneWay}" />
+                                </dataPresenter:XamDataGrid.InputBindings>
+
+                                <dataPresenter:XamDataGrid.FieldLayouts>
+                                    <dataPresenter:FieldLayout>
+                                        <dataPresenter:FieldLayout.Fields>
+                                            <dataPresenter:CheckBoxField AlternateBinding="{Binding IsActual, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Актуально?" AllowEdit="False" Width="Auto"/>
+                                            <dataPresenter:DateTimeField AlternateBinding="{Binding CreationMoment}" BindingType="UseAlternateBinding" Label="Дата" AllowEdit="False" AllowResize="False" Width="Auto"/>
+                                            <dataPresenter:TextField AlternateBinding="{Binding Name}" BindingType="UseAlternateBinding" Label="Название" Width="*" AllowEdit="False"/>
+                                        </dataPresenter:FieldLayout.Fields>
+                                    </dataPresenter:FieldLayout>
+                                </dataPresenter:XamDataGrid.FieldLayouts>
+                            </dataPresenter:XamDataGrid>
+
+                        </GroupBox>
 
                     </Grid>
                 </GroupBox>

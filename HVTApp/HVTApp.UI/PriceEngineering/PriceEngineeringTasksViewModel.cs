@@ -1,13 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
 using HVTApp.UI.PriceCalculations.View;
@@ -26,6 +30,7 @@ namespace HVTApp.UI.PriceEngineering
         private readonly IUnitOfWork _unitOfWork;
         private PriceEngineeringTaskViewModel _selectedPriceEngineeringTaskViewModel;
         private PriceEngineeringTasksWrapper1 _priceEngineeringTasksWrapper;
+        private PriceEngineeringTasksFileTechnicalRequirementsWrapper _selectedFileTechnicalRequirements;
 
         public PriceEngineeringTasksWrapper1 PriceEngineeringTasksWrapper
         {
@@ -62,10 +67,23 @@ namespace HVTApp.UI.PriceEngineering
             }
         }
 
+        public PriceEngineeringTasksFileTechnicalRequirementsWrapper SelectedFileTechnicalRequirements
+        {
+            get => _selectedFileTechnicalRequirements;
+            set
+            {
+                _selectedFileTechnicalRequirements = value;
+                RemoveFileTechnicalRequirementsCommand.RaiseCanExecuteChanged();
+            }
+        }
+
         public PriceCalculationWrapper SelectedCalculation { get; set; }
 
         #region Commands
 
+        public DelegateLogCommand AddFileTechnicalRequirementsCommand { get; }
+        public DelegateLogCommand RemoveFileTechnicalRequirementsCommand { get; }
+        public DelegateLogCommand OpenFileTechnicalRequirementsCommand { get; }
         public DelegateLogCommand RemoveTaskCommand { get; }
         public DelegateLogCommand SaveCommand { get; }
         public DelegateLogCommand StartCommand { get; }
@@ -100,6 +118,67 @@ namespace HVTApp.UI.PriceEngineering
                 UserManager = new UserEmptyWrapper(_unitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id))
             };
 
+
+            AddFileTechnicalRequirementsCommand = new DelegateLogCommand(
+                () =>
+                {
+                    var openFileDialog = new OpenFileDialog
+                    {
+                        Multiselect = true,
+                        RestoreDirectory = true
+                    };
+
+                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        //копируем каждый файл
+                        foreach (var fileName in openFileDialog.FileNames)
+                        {
+                            var fileWrapper = new PriceEngineeringTasksFileTechnicalRequirementsWrapper(new PriceEngineeringTasksFileTechnicalRequirements())
+                            {
+                                Name = Path.GetFileNameWithoutExtension(fileName).LimitLengh(50),
+                                Path = fileName
+                            };
+                            this.PriceEngineeringTasksWrapper.FilesTechnicalRequirements.Add(fileWrapper);
+                        }
+                    }
+                },
+                () => AllowEditProps);
+
+            RemoveFileTechnicalRequirementsCommand = new DelegateLogCommand(
+                () =>
+                {
+                    if (string.IsNullOrEmpty(SelectedFileTechnicalRequirements.Path))
+                    {
+                        SelectedFileTechnicalRequirements.IsActual = false;
+                    }
+                    else
+                    {
+                        this.PriceEngineeringTasksWrapper.FilesTechnicalRequirements.Remove(SelectedFileTechnicalRequirements);
+                    }
+                },
+                () => AllowEditProps);
+
+            OpenFileTechnicalRequirementsCommand = new DelegateLogCommand(
+                () =>
+                {
+                    try
+                    {
+                        //если файл уже в хранилище
+                        if (string.IsNullOrEmpty(SelectedFileTechnicalRequirements.Path))
+                        {
+                            container.Resolve<IFilesStorageService>().OpenFileFromStorage(SelectedFileTechnicalRequirements.Id, GlobalAppProperties.Actual.TechnicalRequrementsFilesPath, SelectedFileTechnicalRequirements.Name);
+                        }
+                        //если файл еще не загружен в хранилище
+                        else
+                        {
+                            Process.Start(SelectedFileTechnicalRequirements.Path);
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        container.Resolve<IMessageService>().ShowOkMessageDialog("Ошибка при открытии файла ТЗ", e.PrintAllExceptions());
+                    }
+                });
 
             RemoveTaskCommand = new DelegateLogCommand(
                 () =>
@@ -142,6 +221,7 @@ namespace HVTApp.UI.PriceEngineering
             StartCommand = new DelegateLogCommand(
                 () =>
                 {
+                    LoadNewTechnicalRequirementFilesInStorage();
                     foreach (var priceEngineeringTaskViewModel in PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks)
                     {
                         priceEngineeringTaskViewModel.StartCommandExecute(false);
@@ -149,6 +229,8 @@ namespace HVTApp.UI.PriceEngineering
                     SaveCommand.Execute();
                     StartCommand.RaiseCanExecuteChanged();
                     RemoveTaskCommand.RaiseCanExecuteChanged();
+                    AddFileTechnicalRequirementsCommand.RaiseCanExecuteChanged();
+                    RemoveFileTechnicalRequirementsCommand.RaiseCanExecuteChanged();
                     RaisePropertyChanged(nameof(AllowEditProps));
                 },
                 () => this.PriceEngineeringTasksWrapper != null && 
@@ -203,6 +285,23 @@ namespace HVTApp.UI.PriceEngineering
         {
             throw new System.NotImplementedException();
         }
+
+        /// <summary>
+        /// Загрузить все добавленные файлы ТЗ в хранилище
+        /// </summary>
+        private void LoadNewTechnicalRequirementFilesInStorage()
+        {
+            foreach (var fileWrapper in this.PriceEngineeringTasksWrapper.FilesTechnicalRequirements.AddedItems)
+            {
+                var destFileName = $"{GlobalAppProperties.Actual.TechnicalRequrementsFilesPath}\\{fileWrapper.Id}{Path.GetExtension(fileWrapper.Path)}";
+                if (File.Exists(destFileName) == false && string.IsNullOrEmpty(fileWrapper.Path) == false)
+                {
+                    File.Copy(fileWrapper.Path, destFileName);
+                    fileWrapper.Path = null;
+                }
+            }
+        }
+
 
         public void Dispose()
         {
