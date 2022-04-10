@@ -77,7 +77,7 @@ namespace HVTApp.UI.PriceEngineering
                     var department = Container.Resolve<ISelectService>().SelectItem(departments);
                     if (department != null)
                     {
-                        this.DesignDepartment = new DesignDepartmentWrapper(UnitOfWork.Repository<DesignDepartment>().GetById(department.Id));
+                        this.DesignDepartment = new DesignDepartmentEmptyWrapper(UnitOfWork.Repository<DesignDepartment>().GetById(department.Id));
                     }
                 },
                 () => IsEditMode);

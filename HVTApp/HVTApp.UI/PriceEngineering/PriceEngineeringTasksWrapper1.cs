@@ -25,6 +25,28 @@ namespace HVTApp.UI.PriceEngineering
         /// </summary>
         public System.Guid Id => Model.Id;
 
+        /// <summary>
+        /// Проработать до
+        /// </summary>
+        public DateTime WorkUpTo
+        {
+            get => GetValue<DateTime>();
+            set => SetValue(value);
+        }
+        public DateTime WorkUpToOriginalValue => GetOriginalValue<DateTime>(nameof(WorkUpTo));
+        public bool WorkUpToIsChanged => GetIsChanged(nameof(WorkUpTo));
+
+        /// <summary>
+        /// Комментарий
+        /// </summary>
+        public System.String Comment
+        {
+            get { return GetValue<System.String>(); }
+            set { SetValue(value); }
+        }
+        public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
+        public bool CommentIsChanged => GetIsChanged(nameof(Comment));
+
         #endregion
 
         #region ComplexProperties
@@ -51,9 +73,14 @@ namespace HVTApp.UI.PriceEngineering
         /// Задачи
         /// </summary>
         public IValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel> ChildPriceEngineeringTasks { get; private set; }
-        
-        #endregion
 
+        /// <summary>
+        /// Расчеты переменных затрат
+        /// </summary>
+        public IValidatableChangeTrackingCollection<PriceCalculationWrapper> PriceCalculations { get; private set; }
+
+        #endregion
+        
         public override void InitializeComplexProperties()
         {
             InitializeComplexProperty(nameof(UserManager), Model.UserManager == null ? null : new UserEmptyWrapper(Model.UserManager));
@@ -64,6 +91,10 @@ namespace HVTApp.UI.PriceEngineering
             if (Model.FilesTechnicalRequirements == null) throw new ArgumentException("FilesTechnicalRequirements cannot be null");
             FilesTechnicalRequirements = new ValidatableChangeTrackingCollection<PriceEngineeringTasksFileTechnicalRequirementsWrapper>(Model.FilesTechnicalRequirements.Select(e => new PriceEngineeringTasksFileTechnicalRequirementsWrapper(e)));
             RegisterCollection(FilesTechnicalRequirements, Model.FilesTechnicalRequirements);
+
+            if (Model.PriceCalculations == null) throw new ArgumentException("PriceCalculations cannot be null");
+            PriceCalculations = new ValidatableChangeTrackingCollection<PriceCalculationWrapper>(Model.PriceCalculations.Select(e => new PriceCalculationWrapper(e)));
+            RegisterCollection(PriceCalculations, Model.PriceCalculations);
         }
     }
 }

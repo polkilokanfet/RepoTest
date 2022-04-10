@@ -169,7 +169,7 @@ namespace HVTApp.UI.PriceEngineering
             //ב‏נמ
             var department = UnitOfWork.Repository<DesignDepartment>().Find(x => x.ProductBlockIsSuitable(this.ProductBlockEngineer.Model)).FirstOrDefault();
             if (department != null)
-                this.DesignDepartment = new DesignDepartmentWrapper(department);
+                this.DesignDepartment = new DesignDepartmentEmptyWrapper(department);
         }
 
         private PriceEngineeringTaskViewModel(IUnityContainer container, IUnitOfWork unitOfWork) : base(new PriceEngineeringTask(), container, unitOfWork)
@@ -251,7 +251,11 @@ namespace HVTApp.UI.PriceEngineering
                 });
 
             StartCommand = new DelegateLogCommand(() => { StartCommandExecute(true); },
-                                                () => this.IsValid && this.IsChanged && (Status == PriceEngineeringTaskStatusEnum.Created || Status == PriceEngineeringTaskStatusEnum.Stopped));
+                                                () => 
+                                                    this.IsValid && 
+                                                    this.IsChanged && 
+                                                    (Status == PriceEngineeringTaskStatusEnum.Created || Status == PriceEngineeringTaskStatusEnum.Stopped) &&
+                                                    UnitOfWork.Repository<PriceEngineeringTask>().GetById(this.Id) != null);
 
             this.PropertyChanged += (sender, args) => StartCommand.RaiseCanExecuteChanged();
 
@@ -331,6 +335,7 @@ namespace HVTApp.UI.PriceEngineering
                 this.ChildPriceEngineeringTasks.ForEach(x => x.StartCommandExecute(false));
             }
 
+            StartCommand.RaiseCanExecuteChanged();
             TaskIsStarted?.Invoke();
         }
 

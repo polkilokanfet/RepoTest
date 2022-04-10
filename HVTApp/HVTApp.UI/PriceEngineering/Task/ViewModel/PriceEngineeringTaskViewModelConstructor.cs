@@ -115,6 +115,9 @@ namespace HVTApp.UI.PriceEngineering
             RemoveBlockAddedCommand = new DelegateLogCommand(
                 () =>
                 {
+                    if(UnitOfWork.Repository<PriceEngineeringTaskProductBlockAdded>().GetById(SelectedBlockAdded.Model.Id) != null)
+                        UnitOfWork.Repository<PriceEngineeringTaskProductBlockAdded>().Delete(SelectedBlockAdded.Model);
+
                     this.ProductBlocksAdded.Remove(SelectedBlockAdded);
                 },
                 () => IsTarget && IsEditMode && SelectedBlockAdded != null);

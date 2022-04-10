@@ -3,18 +3,27 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:infRib="http://infragistics.com/Ribbon" 
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+             xmlns:converters="clr-namespace:HVTApp.UI.PriceEngineering.Converters"
              x:Class="HVTApp.UI.PriceEngineering.Tabs.TabPriceEngineeringTasks"
              Header="Калькуляция себестоимости">
 
-    <infRib:RibbonGroup Caption="Задача">
+    <inf:RibbonTabItemWithViewModel.Resources>
+        <!--<converters:PriceEngineeringTaskViewModelIsTargetTaskVisibilityConverter x:Key="IsTargetTaskVisibilityConverter" />
+        <converters:PriceEngineeringTaskViewModelDesignDepartmentHeadVisibilityConverter x:Key="DesignDepartmentHeadVisibilityConverter" />
+        <converters:PriceEngineeringTaskViewModelConstructorVisibilityConverter x:Key="ConstructorVisibilityConverter" />
+        <converters:PriceEngineeringTaskViewModelConstructorIsTargetTaskVisibilityConverter x:Key="ConstructorIsTargetTaskVisibilityConverter" />-->
+        <converters:PriceEngineeringTasksViewModelManagerVisibilityConverter x:Key="ManagerVisibilityConverter" />
+    </inf:RibbonTabItemWithViewModel.Resources>
+
+
+    <infRib:RibbonGroup Caption="Задача" Visibility="{Binding Converter={StaticResource ManagerVisibilityConverter}}">
 
         <infRib:ButtonTool Caption="Удалить"
                            Command="{Binding RemoveTaskCommand}"
                            SmallImage="/HVTApp.UI;component/Images/remove.png" />
         
-        <infRib:ButtonTool Caption="Стартовать"
+        <infRib:ButtonTool Caption="Стартовать всё"
                            Command="{Binding StartCommand}"
-                           Visibility="{Binding StartVisibility, Converter={StaticResource BooleanToVisibilityConverter}}"
                            SmallImage="/HVTApp.UI;component/Images/start.png" />
         
         <!--<infRib:ButtonTool Caption="Остановить"

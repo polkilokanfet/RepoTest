@@ -58,12 +58,28 @@ namespace HVTApp.Model.POCOs
         {
             get
             {
-                if (Statuses.Any())
-                {
-                    return Statuses.OrderBy(x => x.Moment).Last().StatusEnum;
-                }
+                return Statuses.Any() 
+                    ? Statuses.OrderBy(status => status.Moment).Last().StatusEnum 
+                    : PriceEngineeringTaskStatusEnum.Created;
+            }
+        }
 
-                return PriceEngineeringTaskStatusEnum.Created;
+        /// <summary>
+        /// Статусы этой задачи и всех вложенных
+        /// </summary>
+        [Designation("Статусы этой задачи и всех вложенных"), NotMapped]
+        public IEnumerable<PriceEngineeringTaskStatusEnum> StatusesAll
+        {
+            get
+            {
+                yield return this.Status;
+                foreach (var childPriceEngineeringTask in this.ChildPriceEngineeringTasks)
+                {
+                    foreach (var taskStatus in childPriceEngineeringTask.StatusesAll)
+                    {
+                        yield return taskStatus;
+                    }
+                }
             }
         }
 

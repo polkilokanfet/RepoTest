@@ -39,6 +39,8 @@ namespace HVTApp.UI.PriceEngineering
 
                 if (_priceEngineeringTasksWrapper != null)
                     _priceEngineeringTasksWrapper.PropertyChanged += PriceEngineeringTasksWrapperOnPropertyChanged;
+
+                RaisePropertyChanged(nameof(AllowEditProps));
             }
         }
 
@@ -66,6 +68,22 @@ namespace HVTApp.UI.PriceEngineering
 
         #endregion
 
+        /// <summary>
+        /// Можно ли корректировать свойства (дату проработки, комментарий и т.д.)
+        /// </summary>
+        public bool AllowEditProps
+        {
+            get
+            {
+                if (GlobalAppProperties.User.RoleCurrent != Role.SalesManager) return false;
+
+                if (this.PriceEngineeringTasksWrapper == null) return false;
+
+                return PriceEngineeringTasksWrapper.Model.StatusesAll.All(x => x == PriceEngineeringTaskStatusEnum.Created) || 
+                       PriceEngineeringTasksWrapper.Model.StatusesAll.All(x => x == PriceEngineeringTaskStatusEnum.Stopped);
+            }
+        }
+
         public PriceEngineeringTasksViewModel(IUnityContainer container, IUnitOfWork unitOfWork)
         {
             _container = container;
@@ -82,7 +100,10 @@ namespace HVTApp.UI.PriceEngineering
                 {
                     this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.Remove(SelectedPriceEngineeringTaskViewModel);
                 },
-                () => SelectedPriceEngineeringTaskViewModel != null);
+                () => 
+                    SelectedPriceEngineeringTaskViewModel != null && 
+                    AllowEditProps &&
+                    unitOfWork.Repository<PriceEngineeringTask>().GetById(SelectedPriceEngineeringTaskViewModel.Id) == null);
 
             SaveCommand = new DelegateLogCommand(
                 () =>
@@ -120,10 +141,14 @@ namespace HVTApp.UI.PriceEngineering
                         priceEngineeringTaskViewModel.StartCommandExecute(false);
                     }
                     SaveCommand.Execute();
+                    StartCommand.RaiseCanExecuteChanged();
+                    RemoveTaskCommand.RaiseCanExecuteChanged();
+                    RaisePropertyChanged(nameof(AllowEditProps));
                 },
                 () => this.PriceEngineeringTasksWrapper != null && 
                                   this.PriceEngineeringTasksWrapper.IsValid &&
-                                  this.PriceEngineeringTasksWrapper.IsChanged);
+                                  this.PriceEngineeringTasksWrapper.IsChanged &&
+                                  AllowEditProps);
 
         }
 

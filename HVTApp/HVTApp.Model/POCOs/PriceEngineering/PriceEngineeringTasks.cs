@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
@@ -33,7 +34,21 @@ namespace HVTApp.Model.POCOs
         [Designation("Расчеты переменных затрат"), OrderStatus(50)]
         public virtual List<PriceCalculation> PriceCalculations { get; set; } = new List<PriceCalculation>();
 
-
+        [Designation("Статусы задач"), NotMapped]
+        public IEnumerable<PriceEngineeringTaskStatusEnum> StatusesAll
+        {
+            get
+            {
+                foreach (var childPriceEngineeringTask in this.ChildPriceEngineeringTasks)
+                {
+                    foreach (var taskStatus in childPriceEngineeringTask.StatusesAll)
+                    {
+                        yield return taskStatus;
+                    }
+                }
+            }
+        }
+        
         /// <summary>
         /// Вернуть все задачи, которые прорабатывает данный User
         /// </summary>

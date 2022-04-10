@@ -5,14 +5,14 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.PriceEngineering.Converters
 {
-    [ValueConversion(typeof(PriceEngineeringTaskViewModel), typeof(Color))]
+    [ValueConversion(typeof(PriceEngineeringTaskStatusEnum), typeof(Color))]
     public class StatusToColorConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            if (value is PriceEngineeringTaskViewModel priceEngineeringTask)
+            if (value is PriceEngineeringTaskStatusEnum statusEnum)
             {
-                switch (priceEngineeringTask.Status)
+                switch (statusEnum)
                 {
                     case PriceEngineeringTaskStatusEnum.Created:
                         return Colors.White;
@@ -21,13 +21,13 @@ namespace HVTApp.UI.PriceEngineering.Converters
                     case PriceEngineeringTaskStatusEnum.Stopped:
                         return Colors.LightGray;
                     case PriceEngineeringTaskStatusEnum.RejectedByManager:
-                        return Colors.DeepPink;
+                        return Colors.Red;
                     case PriceEngineeringTaskStatusEnum.RejectedByConstructor:
-                        return Colors.Orange;
+                        return Colors.Yellow;
                     case PriceEngineeringTaskStatusEnum.FinishedByConstructor:
-                        return Colors.LightGreen;
+                        return Colors.GreenYellow;
                     case PriceEngineeringTaskStatusEnum.Accepted:
-                        return Colors.Green;
+                        return Colors.LightGreen;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
