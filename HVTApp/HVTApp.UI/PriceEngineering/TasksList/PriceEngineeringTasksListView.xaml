@@ -2,7 +2,8 @@
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-              xmlns:dp="http://infragistics.com/DataPresenter">
+              xmlns:dp="http://infragistics.com/DataPresenter"
+              xmlns:controls="http://infragistics.com/Windows">
 
     <Grid>
 
@@ -17,12 +18,25 @@
                 <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=OpenTaskCommand, Mode=OneWay}"/>
             </dp:XamDataGrid.InputBindings>
 
+
+
             <dp:XamDataGrid.FieldLayouts>
                 <dp:FieldLayout>
+                    <dp:FieldLayout.RecordFilters>
+                        <dp:RecordFilter FieldName="ToShow">
+                            <dp:RecordFilter.Conditions>
+                                <controls:ComparisonCondition Operator="Equals" Value="True" />
+                            </dp:RecordFilter.Conditions>
+                        </dp:RecordFilter>
+                    </dp:FieldLayout.RecordFilters>
+
                     <dp:FieldLayout.Fields>
-                        <dp:TextField Name="Facilities" Label="Объекты" Width="250" AllowResize="True" Converter="{StaticResource ListToStringConverter}"/>
-                        <dp:TextField Name="UserManager" Label="Менеджер" Width="150" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <dp:DateTimeField Name="StartMoment" Label="Старт" Width="Auto" AllowResize="False" />
                         <dp:DateTimeField Name="WorkUpTo" Label="Срок" Width="Auto" AllowResize="False" />
+                        <dp:TextField Name="Facilities" Label="Объекты" Width="250" AllowResize="True" Converter="{StaticResource ListToStringConverter}"/>
+                        <dp:TextField Name="Comment" Label="Комментарий" Width="300" AllowResize="True" />
+                        <dp:TextField Name="UserManager" Label="Менеджер" Width="200" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <dp:CheckBoxField Name="ToShow" BindingType="UseAlternateBinding" AlternateBinding="{Binding ToShow}" Label="S" Width="Auto" AllowResize="False" />
                         <dp:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
                     </dp:FieldLayout.Fields>
                 </dp:FieldLayout>

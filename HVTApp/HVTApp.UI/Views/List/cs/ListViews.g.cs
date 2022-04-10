@@ -4842,6 +4842,12 @@ namespace HVTApp.UI.Views
             set { PriceEngineeringTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskLookup.Status)].Visibility = value; }
         }
 
+        public System.Windows.Visibility StartMomentVisibility
+        {
+            get { return PriceEngineeringTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskLookup.StartMoment)].Visibility; }
+            set { PriceEngineeringTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskLookup.StartMoment)].Visibility = value; }
+        }
+
         public System.Windows.Visibility DisplayMemberVisibility
         {
             get { return PriceEngineeringTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskLookup.DisplayMember)].Visibility; }
@@ -5154,6 +5160,12 @@ namespace HVTApp.UI.Views
 
 		#region VisibilityProps
 
+        public System.Windows.Visibility ToShowVisibility
+        {
+            get { return PriceEngineeringTasksLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksLookup.ToShow)].Visibility; }
+            set { PriceEngineeringTasksLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksLookup.ToShow)].Visibility = value; }
+        }
+
         public System.Windows.Visibility WorkUpToVisibility
         {
             get { return PriceEngineeringTasksLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksLookup.WorkUpTo)].Visibility; }
@@ -5164,6 +5176,12 @@ namespace HVTApp.UI.Views
         {
             get { return PriceEngineeringTasksLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksLookup.Comment)].Visibility; }
             set { PriceEngineeringTasksLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksLookup.Comment)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility StartMomentVisibility
+        {
+            get { return PriceEngineeringTasksLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksLookup.StartMoment)].Visibility; }
+            set { PriceEngineeringTasksLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksLookup.StartMoment)].Visibility = value; }
         }
 
         public System.Windows.Visibility DisplayMemberVisibility

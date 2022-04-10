@@ -19,12 +19,11 @@ using HVTApp.UI.PriceEngineering.Comparers;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Events;
-using Prism.Mvvm;
 using Prism.Regions;
 
 namespace HVTApp.UI.PriceEngineering
 {
-    public class PriceEngineeringTasksViewModel : BindableBase, IDisposable
+    public class PriceEngineeringTasksViewModel : ViewModelBase, IDisposable
     {
         private readonly IUnityContainer _container;
         private readonly IUnitOfWork _unitOfWork;
@@ -108,7 +107,7 @@ namespace HVTApp.UI.PriceEngineering
             }
         }
 
-        public PriceEngineeringTasksViewModel(IUnityContainer container, IUnitOfWork unitOfWork)
+        public PriceEngineeringTasksViewModel(IUnityContainer container, IUnitOfWork unitOfWork) : base(container)
         {
             _container = container;
             _unitOfWork = unitOfWork;

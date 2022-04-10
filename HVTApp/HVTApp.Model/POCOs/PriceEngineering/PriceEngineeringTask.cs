@@ -68,7 +68,7 @@ namespace HVTApp.Model.POCOs
         /// <summary>
         /// Статусы этой задачи и всех вложенных
         /// </summary>
-        [Designation("Статусы этой задачи и всех вложенных"), NotMapped]
+        [Designation("Статусы этой задачи и всех вложенных"), NotMapped, NotForListView]
         public IEnumerable<PriceEngineeringTaskStatusEnum> StatusesAll
         {
             get
@@ -90,6 +90,24 @@ namespace HVTApp.Model.POCOs
 
         [Designation("SalesUnits"), OrderStatus(10)]
         public virtual List<SalesUnit> SalesUnits { get; set; } = new List<SalesUnit>();
+
+
+        [Designation("Старт"), NotMapped]
+        public DateTime? StartMoment
+        {
+            get
+            {
+                if (Statuses.Any() == false) return default;
+                if (Status == PriceEngineeringTaskStatusEnum.Stopped || Status == PriceEngineeringTaskStatusEnum.Created) return default;
+
+                return this.Statuses
+                    .Where(x => x.StatusEnum == PriceEngineeringTaskStatusEnum.Started)
+                    .OrderBy(x => x.Moment)
+                    .Last()
+                    .Moment;
+            }
+        }
+
 
 
         /// <summary>

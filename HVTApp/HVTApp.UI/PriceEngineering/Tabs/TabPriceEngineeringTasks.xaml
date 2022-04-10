@@ -11,6 +11,11 @@
         <converters:PriceEngineeringTasksViewModelManagerVisibilityConverter x:Key="ManagerVisibilityConverter" />
     </inf:RibbonTabItemWithViewModel.Resources>
 
+    <infRib:RibbonGroup Caption="Навигация">
+        <infRib:ButtonTool Caption="Назад" 
+                           Command="{Binding GoBackCommand}" 
+                           SmallImage="/HVTApp.UI;component/Images/ar_back.png"/>
+    </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Задача" Visibility="{Binding Converter={StaticResource ManagerVisibilityConverter}}">
 

@@ -814,6 +814,9 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(1)]
         public HVTApp.Model.POCOs.PriceEngineeringTaskStatusEnum Status => Entity.Status;
 
+		[OrderStatus(1)]
+        public System.Nullable<System.DateTime> StartMoment => Entity.StartMoment;
+
         #endregion
 
         #region ComplexProperties
@@ -960,6 +963,9 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1400)]
         public System.String Comment => Entity.Comment;
+
+		[OrderStatus(2000)]
+        public System.Nullable<System.DateTime> StartMoment => Entity.StartMoment;
 
         #endregion
 

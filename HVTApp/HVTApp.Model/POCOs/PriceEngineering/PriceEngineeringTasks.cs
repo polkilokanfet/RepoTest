@@ -34,7 +34,7 @@ namespace HVTApp.Model.POCOs
         [Designation("Расчеты переменных затрат"), OrderStatus(50)]
         public virtual List<PriceCalculation> PriceCalculations { get; set; } = new List<PriceCalculation>();
 
-        [Designation("Статусы задач"), NotMapped]
+        [Designation("Статусы задач"), NotMapped, NotForListView]
         public IEnumerable<PriceEngineeringTaskStatusEnum> StatusesAll
         {
             get
@@ -47,6 +47,20 @@ namespace HVTApp.Model.POCOs
                     }
                 }
             }
+        }
+
+        [Designation("Старт"), NotMapped, OrderStatus(2000)]
+        public DateTime? StartMoment 
+        {
+            get
+            {
+                return this.ChildPriceEngineeringTasks
+                    .Select(x => x.StartMoment)
+                    .Where(x => x != null)
+                    .OrderBy(x => x.Value)
+                    .LastOrDefault();
+            }
+
         }
         
         /// <summary>
