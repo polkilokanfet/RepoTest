@@ -1,0 +1,154 @@
+﻿<inf:ViewBase x:Class="HVTApp.UI.Views.DesignDepartmentView"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:infDp="http://infragistics.com/DataPresenter"
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+              x:Name="Root">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*" MinWidth="200"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Column="0" Grid.Row ="0" Content="Название"/>
+            <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
+                     Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <Label Grid.Column="0" Grid.Row ="1" Content="Руководитель"/>
+            <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
+                                        Item="{Binding Item.Head}" 
+                                        AddItemCommand="{Binding SelectHeadCommand}" 
+                                        RemoveItemCommand="{Binding ClearHeadCommand}"/>
+
+            <Label Grid.Column="0" Grid.Row ="2" Content="Сотрудники"/>
+            <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
+										     Items="{Binding Path=Item.Staff}"
+										     SelectedItem="{Binding SelectedStaffItem, Mode=TwoWay}"
+										     AddItemCommand="{Binding AddInStaffCommand}"
+										     RemoveItemCommand="{Binding RemoveFromStaffCommand}"/>
+
+            <Label Grid.Column="0" Grid.Row ="3" Content="Наборы параметров основного оборудования"/>
+            <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="3"
+										     Items="{Binding Path=Item.ParameterSets}"
+										     SelectedItem="{Binding SelectedDesignDepartmentParameters, Mode=TwoWay}"
+										     AddItemCommand="{Binding CreateParameterSetCommand}"
+										     RemoveItemCommand="{Binding RemoveFromParameterSetsCommand}"/>
+
+            <Label Grid.Column="0" Grid.Row ="4" Content="Наборы параметров дополнительного оборудования"/>
+            <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="4"
+										     Items="{Binding Path=Item.ParameterSetsAddedBlocks}"
+										     SelectedItem="{Binding SelectedDesignDepartmentParametersAdded, Mode=TwoWay}"
+										     AddItemCommand="{Binding CreateParameterSetAddedCommand}"
+										     RemoveItemCommand="{Binding RemoveFromParameterSetsAddedBlocksCommand}"/>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <GroupBox Grid.Column="0" Header="Основное">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBox Grid.Row="0" Text="{Binding SelectedDesignDepartmentParameters.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <Button Grid.Row="1" Content="Удалить параметр" Command="{Binding RemoveParameterCommand}"/>
+
+                    <infDp:XamDataGrid Grid.Row="2"
+                                       DataSource="{Binding SelectedDesignDepartmentParameters.Parameters}"
+                                       ActiveDataItem="{Binding SelectedParameter}"
+                                       Style="{StaticResource ListViewGrid}">
+
+                        <infDp:XamDataGrid.FieldLayouts>
+                            <infDp:FieldLayout>
+                                <infDp:FieldLayout.Fields>
+                                    <infDp:TextField Name="ParameterGroup" Label="Группа" Width="Auto" AllowResize="True"/>
+                                    <infDp:TextField Name="Value" Label="Значение" Width="Auto" AllowResize="True" />
+                                    <infDp:NumericField Name="Rang" Label="Ранг" Width="Auto" AllowResize="True" />
+                                    <infDp:TextField Name="ParameterRelations" Label="Ограничения" Width="Auto" AllowResize="True"/>
+                                    <infDp:CheckBoxField Name="IsOrigin" Label="Начало?" Width="Auto" AllowResize="True" />
+                                    <infDp:TextField Name="Comment" Label="Комментарий" Width="Auto" AllowResize="True" />
+                                    <infDp:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
+                                </infDp:FieldLayout.Fields>
+                            </infDp:FieldLayout>
+                        </infDp:XamDataGrid.FieldLayouts>
+                    </infDp:XamDataGrid>
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Grid.Column="1" Header="Дополнительное">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBox Grid.Row="0" Text="{Binding SelectedDesignDepartmentParametersAdded.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <Button Grid.Row="1" Content="Удалить параметр" Command="{Binding RemoveParameterAddedCommand}"/>
+
+                    <infDp:XamDataGrid Grid.Row="2"
+                                       DataSource="{Binding SelectedDesignDepartmentParametersAdded.Parameters}"
+                                       ActiveDataItem="{Binding SelectedParameterAdded}"
+                                       Style="{StaticResource ListViewGrid}">
+
+                        <infDp:XamDataGrid.FieldLayouts>
+                            <infDp:FieldLayout>
+                                <infDp:FieldLayout.Fields>
+                                    <infDp:TextField Name="ParameterGroup" Label="Группа" Width="Auto" AllowResize="True"/>
+                                    <infDp:TextField Name="Value" Label="Значение" Width="Auto" AllowResize="True" />
+                                    <infDp:NumericField Name="Rang" Label="Ранг" Width="Auto" AllowResize="True" />
+                                    <infDp:TextField Name="ParameterRelations" Label="Ограничения" Width="Auto" AllowResize="True"/>
+                                    <infDp:CheckBoxField Name="IsOrigin" Label="Начало?" Width="Auto" AllowResize="True" />
+                                    <infDp:TextField Name="Comment" Label="Комментарий" Width="Auto" AllowResize="True" />
+                                    <infDp:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
+                                </infDp:FieldLayout.Fields>
+                            </infDp:FieldLayout>
+                        </infDp:XamDataGrid.FieldLayouts>
+                    </infDp:XamDataGrid>
+                </Grid>
+            </GroupBox>
+        </Grid>
+
+        <Button Grid.Row="2" Content="Сохранить" Command="{Binding SaveCommand}"></Button>
+    </Grid>
+
+</inf:ViewBase>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

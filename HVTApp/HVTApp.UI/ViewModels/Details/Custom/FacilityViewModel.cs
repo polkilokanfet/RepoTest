@@ -11,7 +11,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.ViewModels
 {
-	public class FacilityViewModel : FacilityDetailsViewModel
+    public class FacilityViewModel : FacilityDetailsViewModel
 	{
         public ICommand SelectAddressLocalityCommand { get; }
         public ICommand ClearAddressLocalityCommand { get; }

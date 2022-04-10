@@ -834,6 +834,7 @@
     <Compile Include="TechnicalRequrementsTasksModule\Task\TechnicalRequrementsTaskViewModel.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Wrapper\TechnicalRequrements2Wrapper.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Wrapper\TechnicalRequrementsTask2Wrapper.cs" />
+    <Compile Include="ViewModels\Details\Custom\DesignDepartmentViewModel.cs" />
     <Compile Include="ViewModels\Details\Custom\FacilityViewModel.cs" />
     <Compile Include="ViewModels\Details\EmployeeDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\FacilityDetailsViewModel.cs" />
@@ -842,6 +843,7 @@
     <Compile Include="ViewModels\Details\ProductCategoryPriceAndCostDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\TenderDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\UserDetailsViewModel.cs" />
+    <Compile Include="ViewModels\List\Custom\DesignDepartmentLookupListViewModel.cs" />
     <Compile Include="ViewModels\List\Custom\LocalityLookupListViewModel.cs" />
     <Compile Include="ViewModels\List\Custom\PaymentConditionSet\PaymentConditionFilter.cs" />
     <Compile Include="ViewModels\List\Custom\PaymentConditionSet\PaymentConditionFilterViewModel.cs" />
@@ -856,6 +858,9 @@
     <Compile Include="ViewModels\List\Custom\CompanyLookupListViewModel.cs" />
     <Compile Include="Views\Details\Custom\FacilityView.xaml.cs">
       <DependentUpon>FacilityView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Details\Custom\DesignDepartmentView.xaml.cs">
+      <DependentUpon>DesignDepartmentView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Details\Custom\OrderView.xaml.cs">
       <DependentUpon>OrderView.xaml</DependentUpon>
@@ -1758,6 +1763,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Details\Custom\FacilityView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Details\Custom\DesignDepartmentView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
