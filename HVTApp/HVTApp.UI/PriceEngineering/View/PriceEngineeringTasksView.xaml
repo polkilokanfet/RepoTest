@@ -4,7 +4,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
     xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View"
-    xmlns:editors="http://infragistics.com/Editors">
+    xmlns:editors="http://infragistics.com/Editors"
+    xmlns:converters="clr-namespace:HVTApp.UI.PriceEngineering.Converters"
+    xmlns:dataPresenter="http://infragistics.com/DataPresenter">
+
+    <inf:ViewBaseConfirmNavigationRequest.Resources>
+        <converters:PriceEngineeringTasksViewModelManagerVisibilityConverter x:Key="ManagerVisibilityConverter" />
+    </inf:ViewBaseConfirmNavigationRequest.Resources>
+
 
     <Border Background="White" Padding="5">
         <GroupBox Header="Технико-ценовая проработка">
@@ -12,6 +19,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto" MaxHeight="250"/>
                 </Grid.RowDefinitions>
 
                 <GroupBox Grid.Row="0" Header="Общая информация">
@@ -55,6 +63,30 @@
                             </ListBox.ItemTemplate>
                         </ListBox>
                     </ScrollViewer>
+                </GroupBox>
+
+                <GroupBox Grid.Row="2" Header="Расчеты переменных затрат" Visibility="{Binding Converter={StaticResource ManagerVisibilityConverter}}">
+                    <dataPresenter:XamDataGrid x:Name="PriceCalculationsGrid"
+                                        DataSource="{Binding PriceEngineeringTasksWrapper.PriceCalculations}"
+                                        ActiveDataItem="{Binding SelectedCalculation}">
+
+                        <dataPresenter:XamDataGrid.InputBindings>
+                            <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=OpenPriceCalculationCommand, Mode=OneWay}"/>
+                        </dataPresenter:XamDataGrid.InputBindings>
+
+                        <dataPresenter:XamDataGrid.FieldLayouts>
+
+                            <dataPresenter:FieldLayout Key="Calculation">
+                                <dataPresenter:FieldLayout.Fields>
+                                    <dataPresenter:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding TaskOpenMoment}" Label="Старт расчета" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
+                                    <dataPresenter:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding TaskCloseMoment}" Label="Финиш расчета" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
+                                    <dataPresenter:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Initiator}" Label="Инициатор" Width="Auto" AllowResize="True" Converter="{StaticResource ObjectToStringConverter}"/>
+                                </dataPresenter:FieldLayout.Fields>
+                            </dataPresenter:FieldLayout>
+
+                        </dataPresenter:XamDataGrid.FieldLayouts>
+                    </dataPresenter:XamDataGrid>
+
                 </GroupBox>
             </Grid>
         </GroupBox>

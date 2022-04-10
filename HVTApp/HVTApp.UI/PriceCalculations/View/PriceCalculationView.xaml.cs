@@ -47,16 +47,25 @@ namespace HVTApp.UI.PriceCalculations.View
                     {
                         _viewModel.Load(priceCalculation);
                     }
+
                     //загрузка калькуляции по задаче из ТСЕ
                     else if (navigationContext.Parameters.First().Value is TechnicalRequrementsTask technicalRequrementsTask)
                     {
                         _viewModel.Load(technicalRequrementsTask);
                     }
+
                     //загрузка калькуляции по юнитам
                     else if (navigationContext.Parameters.First().Value is IEnumerable<SalesUnit> salesUnits)
                     {
                         _viewModel.Load(salesUnits);
                     }
+
+                    //загрузка калькуляции по юнитам
+                    else if (navigationContext.Parameters.First().Value is PriceEngineeringTasks priceEngineeringTasks)
+                    {
+                        _viewModel.Load(priceEngineeringTasks);
+                    }
+
                 }
                 else if (navigationContext.Parameters.Count() == 2)
                 {

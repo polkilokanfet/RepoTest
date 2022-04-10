@@ -8,10 +8,6 @@
              Header="Калькуляция себестоимости">
 
     <inf:RibbonTabItemWithViewModel.Resources>
-        <!--<converters:PriceEngineeringTaskViewModelIsTargetTaskVisibilityConverter x:Key="IsTargetTaskVisibilityConverter" />
-        <converters:PriceEngineeringTaskViewModelDesignDepartmentHeadVisibilityConverter x:Key="DesignDepartmentHeadVisibilityConverter" />
-        <converters:PriceEngineeringTaskViewModelConstructorVisibilityConverter x:Key="ConstructorVisibilityConverter" />
-        <converters:PriceEngineeringTaskViewModelConstructorIsTargetTaskVisibilityConverter x:Key="ConstructorIsTargetTaskVisibilityConverter" />-->
         <converters:PriceEngineeringTasksViewModelManagerVisibilityConverter x:Key="ManagerVisibilityConverter" />
     </inf:RibbonTabItemWithViewModel.Resources>
 
@@ -42,5 +38,10 @@
                            SmallImage="/HVTApp.UI;component/Images/done.png" />-->
     </infRib:RibbonGroup>
 
+    <infRib:RibbonGroup Caption="Расчет ПЗ" Visibility="{Binding Converter={StaticResource ManagerVisibilityConverter}}">
+        <infRib:ButtonTool Caption="Создать"
+                           Command="{Binding CreatePriceCalculationCommand}"
+                           SmallImage="/HVTApp.UI;component/Images/add.png" />
+    </infRib:RibbonGroup>
 
 </inf:RibbonTabItemWithViewModel>

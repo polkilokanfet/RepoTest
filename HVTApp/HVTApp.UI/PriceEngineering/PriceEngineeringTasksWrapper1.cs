@@ -39,12 +39,12 @@ namespace HVTApp.UI.PriceEngineering
         /// <summary>
         /// Комментарий
         /// </summary>
-        public System.String Comment
+        public string Comment
         {
-            get { return GetValue<System.String>(); }
-            set { SetValue(value); }
+            get => GetValue<string>();
+            set => SetValue(value);
         }
-        public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
+        public string CommentOriginalValue => GetOriginalValue<string>(nameof(Comment));
         public bool CommentIsChanged => GetIsChanged(nameof(Comment));
 
         #endregion

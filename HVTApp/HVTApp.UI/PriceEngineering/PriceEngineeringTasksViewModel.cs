@@ -10,11 +10,13 @@ using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
+using HVTApp.UI.PriceCalculations.View;
 using HVTApp.UI.PriceEngineering.Comparers;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 using Prism.Mvvm;
+using Prism.Regions;
 
 namespace HVTApp.UI.PriceEngineering
 {
@@ -60,11 +62,15 @@ namespace HVTApp.UI.PriceEngineering
             }
         }
 
+        public PriceCalculationWrapper SelectedCalculation { get; set; }
+
         #region Commands
 
         public DelegateLogCommand RemoveTaskCommand { get; }
         public DelegateLogCommand SaveCommand { get; }
         public DelegateLogCommand StartCommand { get; }
+        public DelegateLogCommand OpenPriceCalculationCommand { get; }
+        public DelegateLogCommand CreatePriceCalculationCommand { get; }
 
         #endregion
 
@@ -150,6 +156,25 @@ namespace HVTApp.UI.PriceEngineering
                                   this.PriceEngineeringTasksWrapper.IsChanged &&
                                   AllowEditProps);
 
+            OpenPriceCalculationCommand = new DelegateLogCommand(
+                () =>
+                {
+                    container.Resolve<IRegionManager>().RequestNavigateContentRegion<PriceCalculationView>(new NavigationParameters
+                    {
+                        {nameof(PriceCalculation), SelectedCalculation.Model}
+                    });
+                });
+
+            CreatePriceCalculationCommand = new DelegateLogCommand(
+                () =>
+                {
+                    container.Resolve<IRegionManager>().RequestNavigateContentRegion<PriceCalculationView>(
+                        new NavigationParameters
+                        {
+                            {nameof(PriceEngineeringTasks), this.PriceEngineeringTasksWrapper.Model}
+                        });
+
+                });
         }
 
         /// <summary>

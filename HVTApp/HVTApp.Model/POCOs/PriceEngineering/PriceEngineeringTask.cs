@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
+using HVTApp.Infrastructure.Extansions;
 
 namespace HVTApp.Model.POCOs
 {
@@ -142,6 +143,41 @@ namespace HVTApp.Model.POCOs
                 foreach (var department in childPriceEngineeringTask.GetDepartments())
                 {
                     yield return department;
+                }
+            }
+        }
+
+        public IEnumerable<StructureCost> GetStructureCosts(int? salesUnitsAmount = null)
+        {
+            salesUnitsAmount = salesUnitsAmount ?? SalesUnits.Count;
+
+            //стракчакост основного блока
+            yield return new StructureCost
+            {
+                Comment = ProductBlockEngineer.ToString().LimitLengh(200),
+                Number = ProductBlockEngineer.StructureCostNumber, 
+                AmountNumerator = 1,
+                AmountDenomerator = 1
+            };
+
+            //стракчакосты добавленных блоков
+            foreach (var blockAdded in ProductBlocksAdded)
+            {
+                yield return new StructureCost
+                {
+                    Comment = blockAdded.ProductBlock.ToString().LimitLengh(200),
+                    Number = blockAdded.ProductBlock.StructureCostNumber,
+                    AmountNumerator = blockAdded.Amount,
+                    AmountDenomerator = blockAdded.IsOnBlock ? 1 : salesUnitsAmount.Value
+                };
+            }
+
+            //стракчакосты вложенных задач
+            foreach (var childPriceEngineeringTask in ChildPriceEngineeringTasks)
+            {
+                foreach (var structureCost in childPriceEngineeringTask.GetStructureCosts(salesUnitsAmount))
+                {
+                    yield return structureCost;
                 }
             }
         }
