@@ -5,19 +5,13 @@ using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
+using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering
 {
     public class PriceEngineeringTasksWrapper1 : WrapperBase<PriceEngineeringTasks>
     {
-        public PriceEngineeringTasksWrapper1(PriceEngineeringTasks model, IUnityContainer container, IUnitOfWork unitOfWork) : base(model)
-        {
-            if (Model.ChildPriceEngineeringTasks == null) throw new ArgumentException("ChildPriceEngineeringTasks cannot be null");
-            ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel>(Model.ChildPriceEngineeringTasks.Select(e => PriceEngineeringTaskViewModelFactory.GetInstance(container, unitOfWork, e)));
-            RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
-        }
-
         #region SimpleProperties
 
         /// <summary>
@@ -80,7 +74,25 @@ namespace HVTApp.UI.PriceEngineering
         public IValidatableChangeTrackingCollection<PriceCalculationWrapper> PriceCalculations { get; private set; }
 
         #endregion
-        
+
+
+        /// <summary>
+        /// Событие сохранение любой из входящих в сборник задач
+        /// </summary>
+        public event Action<PriceEngineeringTask> PriceEngineeringTaskSaved;
+
+
+        public PriceEngineeringTasksWrapper1(PriceEngineeringTasks model, IUnityContainer container, IUnitOfWork unitOfWork) : base(model)
+        {
+            if (Model.ChildPriceEngineeringTasks == null) throw new ArgumentException("ChildPriceEngineeringTasks cannot be null");
+            ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel>(Model.ChildPriceEngineeringTasks.Select(e => PriceEngineeringTaskViewModelFactory.GetInstance(container, unitOfWork, e)));
+            RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
+
+            ChildPriceEngineeringTasks
+                .SelectMany(x => x.GetAllPriceEngineeringTaskViewModels())
+                .ForEach(x => x.PriceEngineeringTaskSaved += task => this.PriceEngineeringTaskSaved?.Invoke(task));
+        }
+
         public override void InitializeComplexProperties()
         {
             InitializeComplexProperty(nameof(UserManager), Model.UserManager == null ? null : new UserEmptyWrapper(Model.UserManager));

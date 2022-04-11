@@ -39,15 +39,26 @@ namespace HVTApp.UI.PriceEngineering
                 if (Equals(_priceEngineeringTasksWrapper, value)) return;
 
                 if (_priceEngineeringTasksWrapper != null)
+                {
                     _priceEngineeringTasksWrapper.PropertyChanged -= PriceEngineeringTasksWrapperOnPropertyChanged;
+                    PriceEngineeringTasksWrapper.PriceEngineeringTaskSaved -= PriceEngineeringTasksWrapperOnPriceEngineeringTaskSaved;
+                }
 
                 _priceEngineeringTasksWrapper = value;
 
                 if (_priceEngineeringTasksWrapper != null)
+                {
                     _priceEngineeringTasksWrapper.PropertyChanged += PriceEngineeringTasksWrapperOnPropertyChanged;
+                    PriceEngineeringTasksWrapper.PriceEngineeringTaskSaved += PriceEngineeringTasksWrapperOnPriceEngineeringTaskSaved;
+                }
 
                 RaisePropertyChanged(nameof(AllowEditProps));
             }
+        }
+
+        private void PriceEngineeringTasksWrapperOnPriceEngineeringTaskSaved(PriceEngineeringTask priceEngineeringTask)
+        {
+            _container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceEngineeringTasksEvent>().Publish(PriceEngineeringTasksWrapper.Model);
         }
 
         private void PriceEngineeringTasksWrapperOnPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -278,11 +289,6 @@ namespace HVTApp.UI.PriceEngineering
         {
             var tasks = _unitOfWork.Repository<PriceEngineeringTasks>().GetById(priceEngineeringTasks.Id);
             this.PriceEngineeringTasksWrapper = new PriceEngineeringTasksWrapper1(tasks, _container, _unitOfWork);
-        }
-
-        public void Load(PriceEngineeringTask priceEngineeringTask)
-        {
-            throw new System.NotImplementedException();
         }
 
         /// <summary>

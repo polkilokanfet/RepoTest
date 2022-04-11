@@ -138,6 +138,8 @@ namespace HVTApp.UI.PriceEngineering
         /// </summary>
         protected event Action SelectedAnswerFileIsChanged;
 
+        public event Action<PriceEngineeringTask> PriceEngineeringTaskSaved;
+
         public PriceEngineeringTaskMessenger Messenger { get; private set; }
 
         #region ctors
@@ -247,6 +249,7 @@ namespace HVTApp.UI.PriceEngineering
                     this.AcceptChanges();
                     UnitOfWork.SaveChanges();
                     Container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceEngineeringTaskEvent>().Publish(this.Model);
+                    this.PriceEngineeringTaskSaved?.Invoke(this.Model);
                 });
 
             StartCommand = new DelegateLogCommand(() => { StartCommandExecute(true); },
@@ -257,7 +260,7 @@ namespace HVTApp.UI.PriceEngineering
                                                     UnitOfWork.Repository<PriceEngineeringTask>().GetById(this.Id) != null);
 
             this.PropertyChanged += (sender, args) => StartCommand.RaiseCanExecuteChanged();
-
+            this.Statuses.CollectionChanged += (sender, args) => OnPropertyChanged(nameof(IsEditMode));
 
             //синхронизация сообщений
             Messenger = new PriceEngineeringTaskMessenger(Container, this);
@@ -356,6 +359,19 @@ namespace HVTApp.UI.PriceEngineering
             foreach (var childPriceEngineeringTask in this.ChildPriceEngineeringTasks)
             {
                 childPriceEngineeringTask.LoadNewTechnicalRequirementFilesInStorage();
+            }
+        }
+
+        public IEnumerable<PriceEngineeringTaskViewModel> GetAllPriceEngineeringTaskViewModels()
+        {
+            yield return this;
+
+            foreach (var childPriceEngineeringTask in ChildPriceEngineeringTasks)
+            {
+                foreach (var engineeringTaskViewModel in childPriceEngineeringTask.GetAllPriceEngineeringTaskViewModels())
+                {
+                    yield return engineeringTaskViewModel;
+                }
             }
         }
 

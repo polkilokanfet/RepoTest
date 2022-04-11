@@ -11,7 +11,7 @@
     </UserControl.Resources>
 
     <Border Background="AliceBlue"  BorderBrush="Black" BorderThickness="1" CornerRadius="5">
-        <Grid IsEnabled="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type view:PriceEngineeringTaskControl}}, Path=DataContext, Converter={StaticResource BlockAddedIsEnabledConverter}}">
+        <Grid IsEnabled="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type view:PriceEngineeringTaskControl}}, Path=DataContext.IsEditMode, UpdateSourceTrigger=PropertyChanged}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
