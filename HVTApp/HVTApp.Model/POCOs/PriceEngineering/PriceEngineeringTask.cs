@@ -133,7 +133,7 @@ namespace HVTApp.Model.POCOs
 
 
         /// <summary>
-        /// Вернуть все задачи, которые прорабатывает данное бюро
+        /// Вернуть все задачи, которые прорабатывает бюро пользователя
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
@@ -198,6 +198,24 @@ namespace HVTApp.Model.POCOs
                     yield return structureCost;
                 }
             }
+        }
+
+        public IEnumerable<PriceEngineeringTask> GetAllPriceEngineeringTasks()
+        {
+            yield return this;
+
+            foreach (var childPriceEngineeringTask in ChildPriceEngineeringTasks)
+            {
+                foreach (var priceEngineeringTask in childPriceEngineeringTask.GetAllPriceEngineeringTasks())
+                {
+                    yield return priceEngineeringTask;
+                }
+            }
+        }
+
+        public override string ToString()
+        {
+            return $"Технико-стоимостная проработка объектов: {SalesUnits.Select(x => x.Facility).Distinct().OrderBy(x => x.Name).ToStringEnum(", ")}";
         }
     }
 }

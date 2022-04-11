@@ -200,6 +200,62 @@ namespace EventServiceClient2.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/AcceptTechnicalRequarementsTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/AcceptTechnicalRequarementsTaskPublishEventRespo" +
             "nse")]
         System.Threading.Tasks.Task<bool> AcceptTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTasksStartPublishEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTasksStartPublishEventResponse")]
+        bool PriceEngineeringTasksStartPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTasksId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTasksStartPublishEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTasksStartPublishEventResponse")]
+        System.Threading.Tasks.Task<bool> PriceEngineeringTasksStartPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTasksId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskStartPublishEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskStartPublishEventResponse")]
+        bool PriceEngineeringTaskStartPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskStartPublishEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskStartPublishEventResponse")]
+        System.Threading.Tasks.Task<bool> PriceEngineeringTaskStartPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskInstructPublishEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskInstructPublishEventResponse" +
+            "")]
+        bool PriceEngineeringTaskInstructPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskInstructPublishEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskInstructPublishEventResponse" +
+            "")]
+        System.Threading.Tasks.Task<bool> PriceEngineeringTaskInstructPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskFinishPublishEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskFinishPublishEventResponse")]
+        bool PriceEngineeringTaskFinishPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskFinishPublishEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskFinishPublishEventResponse")]
+        System.Threading.Tasks.Task<bool> PriceEngineeringTaskFinishPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskAcceptPublishEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskAcceptPublishEventResponse")]
+        bool PriceEngineeringTaskAcceptPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskAcceptPublishEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskAcceptPublishEventResponse")]
+        System.Threading.Tasks.Task<bool> PriceEngineeringTaskAcceptPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskRejectByManagerPublishEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskRejectByManagerPublishEventR" +
+            "esponse")]
+        bool PriceEngineeringTaskRejectByManagerPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskRejectByManagerPublishEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskRejectByManagerPublishEventR" +
+            "esponse")]
+        System.Threading.Tasks.Task<bool> PriceEngineeringTaskRejectByManagerPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskRejectByConstructorPublishEv" +
+            "ent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskRejectByConstructorPublishEv" +
+            "entResponse")]
+        bool PriceEngineeringTaskRejectByConstructorPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskRejectByConstructorPublishEv" +
+            "ent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskRejectByConstructorPublishEv" +
+            "entResponse")]
+        System.Threading.Tasks.Task<bool> PriceEngineeringTaskRejectByConstructorPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskStopPublishEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskStopPublishEventResponse")]
+        bool PriceEngineeringTaskStopPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskStopPublishEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskStopPublishEventResponse")]
+        System.Threading.Tasks.Task<bool> PriceEngineeringTaskStopPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -234,6 +290,40 @@ namespace EventServiceClient2.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/OnRejectDirectumTaskServiceCallback", ReplyAction="http://tempuri.org/IEventService/OnRejectDirectumTaskServiceCallbackResponse")]
         bool OnRejectDirectumTaskServiceCallback(System.Guid taskId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/OnPriceEngineeringTasksStartServiceCallback", ReplyAction="http://tempuri.org/IEventService/OnPriceEngineeringTasksStartServiceCallbackRespo" +
+            "nse")]
+        bool OnPriceEngineeringTasksStartServiceCallback(System.Guid priceEngineeringTasksId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/OnPriceEngineeringTaskStartServiceCallback", ReplyAction="http://tempuri.org/IEventService/OnPriceEngineeringTaskStartServiceCallbackRespon" +
+            "se")]
+        bool OnPriceEngineeringTaskStartServiceCallback(System.Guid priceEngineeringTaskId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/OnPriceEngineeringTaskStopServiceCallback", ReplyAction="http://tempuri.org/IEventService/OnPriceEngineeringTaskStopServiceCallbackRespons" +
+            "e")]
+        bool OnPriceEngineeringTaskStopServiceCallback(System.Guid priceEngineeringTaskId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/OnPriceEngineeringTaskInstructServiceCallback", ReplyAction="http://tempuri.org/IEventService/OnPriceEngineeringTaskInstructServiceCallbackRes" +
+            "ponse")]
+        bool OnPriceEngineeringTaskInstructServiceCallback(System.Guid priceEngineeringTaskId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/OnPriceEngineeringTaskFinishServiceCallback", ReplyAction="http://tempuri.org/IEventService/OnPriceEngineeringTaskFinishServiceCallbackRespo" +
+            "nse")]
+        bool OnPriceEngineeringTaskFinishServiceCallback(System.Guid priceEngineeringTaskId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/OnPriceEngineeringTaskRejectByManagerServiceCall" +
+            "back", ReplyAction="http://tempuri.org/IEventService/OnPriceEngineeringTaskRejectByManagerServiceCall" +
+            "backResponse")]
+        bool OnPriceEngineeringTaskRejectByManagerServiceCallback(System.Guid priceEngineeringTaskId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/OnPriceEngineeringTaskRejectByConstructorService" +
+            "Callback", ReplyAction="http://tempuri.org/IEventService/OnPriceEngineeringTaskRejectByConstructorService" +
+            "CallbackResponse")]
+        bool OnPriceEngineeringTaskRejectByConstructorServiceCallback(System.Guid priceEngineeringTaskId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/OnPriceEngineeringTaskAcceptServiceCallback", ReplyAction="http://tempuri.org/IEventService/OnPriceEngineeringTaskAcceptServiceCallbackRespo" +
+            "nse")]
+        bool OnPriceEngineeringTaskAcceptServiceCallback(System.Guid priceEngineeringTaskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/OnSavePriceCalculationServiceCallback", ReplyAction="http://tempuri.org/IEventService/OnSavePriceCalculationServiceCallbackResponse")]
         bool OnSavePriceCalculationServiceCallback(System.Guid calculationId);
@@ -550,6 +640,70 @@ namespace EventServiceClient2.ServiceReference1 {
         
         public System.Threading.Tasks.Task<bool> AcceptTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId) {
             return base.Channel.AcceptTechnicalRequarementsTaskPublishEventAsync(eventSourceAppSessionId, targetUserId, technicalRequarementsTaskId);
+        }
+        
+        public bool PriceEngineeringTasksStartPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTasksId) {
+            return base.Channel.PriceEngineeringTasksStartPublishEvent(eventSourceAppSessionId, targetUserId, priceEngineeringTasksId);
+        }
+        
+        public System.Threading.Tasks.Task<bool> PriceEngineeringTasksStartPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTasksId) {
+            return base.Channel.PriceEngineeringTasksStartPublishEventAsync(eventSourceAppSessionId, targetUserId, priceEngineeringTasksId);
+        }
+        
+        public bool PriceEngineeringTaskStartPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId) {
+            return base.Channel.PriceEngineeringTaskStartPublishEvent(eventSourceAppSessionId, targetUserId, priceEngineeringTaskId);
+        }
+        
+        public System.Threading.Tasks.Task<bool> PriceEngineeringTaskStartPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId) {
+            return base.Channel.PriceEngineeringTaskStartPublishEventAsync(eventSourceAppSessionId, targetUserId, priceEngineeringTaskId);
+        }
+        
+        public bool PriceEngineeringTaskInstructPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId) {
+            return base.Channel.PriceEngineeringTaskInstructPublishEvent(eventSourceAppSessionId, targetUserId, priceEngineeringTaskId);
+        }
+        
+        public System.Threading.Tasks.Task<bool> PriceEngineeringTaskInstructPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId) {
+            return base.Channel.PriceEngineeringTaskInstructPublishEventAsync(eventSourceAppSessionId, targetUserId, priceEngineeringTaskId);
+        }
+        
+        public bool PriceEngineeringTaskFinishPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId) {
+            return base.Channel.PriceEngineeringTaskFinishPublishEvent(eventSourceAppSessionId, targetUserId, priceEngineeringTaskId);
+        }
+        
+        public System.Threading.Tasks.Task<bool> PriceEngineeringTaskFinishPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId) {
+            return base.Channel.PriceEngineeringTaskFinishPublishEventAsync(eventSourceAppSessionId, targetUserId, priceEngineeringTaskId);
+        }
+        
+        public bool PriceEngineeringTaskAcceptPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId) {
+            return base.Channel.PriceEngineeringTaskAcceptPublishEvent(eventSourceAppSessionId, targetUserId, priceEngineeringTaskId);
+        }
+        
+        public System.Threading.Tasks.Task<bool> PriceEngineeringTaskAcceptPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId) {
+            return base.Channel.PriceEngineeringTaskAcceptPublishEventAsync(eventSourceAppSessionId, targetUserId, priceEngineeringTaskId);
+        }
+        
+        public bool PriceEngineeringTaskRejectByManagerPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId) {
+            return base.Channel.PriceEngineeringTaskRejectByManagerPublishEvent(eventSourceAppSessionId, targetUserId, priceEngineeringTaskId);
+        }
+        
+        public System.Threading.Tasks.Task<bool> PriceEngineeringTaskRejectByManagerPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId) {
+            return base.Channel.PriceEngineeringTaskRejectByManagerPublishEventAsync(eventSourceAppSessionId, targetUserId, priceEngineeringTaskId);
+        }
+        
+        public bool PriceEngineeringTaskRejectByConstructorPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId) {
+            return base.Channel.PriceEngineeringTaskRejectByConstructorPublishEvent(eventSourceAppSessionId, targetUserId, priceEngineeringTaskId);
+        }
+        
+        public System.Threading.Tasks.Task<bool> PriceEngineeringTaskRejectByConstructorPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId) {
+            return base.Channel.PriceEngineeringTaskRejectByConstructorPublishEventAsync(eventSourceAppSessionId, targetUserId, priceEngineeringTaskId);
+        }
+        
+        public bool PriceEngineeringTaskStopPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId) {
+            return base.Channel.PriceEngineeringTaskStopPublishEvent(eventSourceAppSessionId, targetUserId, priceEngineeringTaskId);
+        }
+        
+        public System.Threading.Tasks.Task<bool> PriceEngineeringTaskStopPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId) {
+            return base.Channel.PriceEngineeringTaskStopPublishEventAsync(eventSourceAppSessionId, targetUserId, priceEngineeringTaskId);
         }
     }
 }

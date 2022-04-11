@@ -42,6 +42,16 @@ namespace EventServiceClient2.SyncEntities
             this.Add(new SyncPriceCalculationFinish(container));
             this.Add(new SyncPriceCalculationCancel(container));
             this.Add(new SyncPriceCalculationReject(container));
+
+            //Технико-стоимостные проработки
+            this.Add(new SyncPriceEngineeringTasksStart(container));
+            this.Add(new SyncPriceEngineeringTaskStart(container));
+            this.Add(new SyncPriceEngineeringTaskStop(container));
+            this.Add(new SyncPriceEngineeringTaskInstruct(container));
+            this.Add(new SyncPriceEngineeringTaskFinish(container));
+            this.Add(new SyncPriceEngineeringTaskAccept(container));
+            this.Add(new SyncPriceEngineeringTaskRejectByManager(container));
+            this.Add(new SyncPriceEngineeringTaskRejectByConstructor(container));
         }
 
         private void Add(ISyncUnit member)

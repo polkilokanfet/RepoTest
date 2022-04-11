@@ -7,6 +7,7 @@ using HVTApp.Model.Services;
 using HVTApp.UI.Modules.BookRegistration.Views;
 using HVTApp.UI.Modules.Directum;
 using HVTApp.UI.PriceCalculations.View;
+using HVTApp.UI.PriceEngineering.View;
 using HVTApp.UI.TechnicalRequrementsTasksModule;
 using Prism.Regions;
 
@@ -44,6 +45,12 @@ namespace HVTApp.Services.PopupNotificationsService1
 
             if (typeof(TModel) == typeof(IncomingRequest))
                 return () => _regionManager.RequestNavigateContentRegion<IncomingRequestsView>(new NavigationParameters());
+
+            if (typeof(TModel) == typeof(PriceEngineeringTasks))
+                return () => _regionManager.RequestNavigateContentRegion<PriceEngineeringTasksView>(new NavigationParameters { { nameof(PriceEngineeringTasks), model } });
+
+            if (typeof(TModel) == typeof(PriceEngineeringTask))
+                return () => _regionManager.RequestNavigateContentRegion<PriceEngineeringTasksView>(new NavigationParameters { { nameof(PriceEngineeringTask), model } });
 
             return () => { };
         }

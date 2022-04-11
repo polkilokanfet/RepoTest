@@ -50,6 +50,20 @@ namespace HVTApp.Model.Events
 
     #endregion
 
+    #region PriceEngineeringTasks
+
+    public class PriceEngineeringTasksStartedEvent : PubSubEvent<PriceEngineeringTasks> { }
+
+    public class PriceEngineeringTaskStartedEvent : PubSubEvent<PriceEngineeringTask> { }
+    public class PriceEngineeringTaskStoppedEvent : PubSubEvent<PriceEngineeringTask> { }
+    public class PriceEngineeringTaskInstructedEvent : PubSubEvent<PriceEngineeringTask> { }
+    public class PriceEngineeringTaskFinishedEvent : PubSubEvent<PriceEngineeringTask> { }
+    public class PriceEngineeringTaskAcceptedEvent : PubSubEvent<PriceEngineeringTask> { }
+    public class PriceEngineeringTaskRejectedByManagerEvent : PubSubEvent<PriceEngineeringTask> { }
+    public class PriceEngineeringTaskRejectedByConstructorEvent : PubSubEvent<PriceEngineeringTask> { }
+
+    #endregion
+
     #region ActualPayment
 
     public class AfterSaveActualPaymentDocumentEvent : PubSubEvent<ActualPaymentEventEntity> { }

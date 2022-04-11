@@ -50,6 +50,35 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
 
         #endregion
 
+        #region PriceEngineeringTask
+
+        [OperationContract]
+        bool OnPriceEngineeringTasksStartServiceCallback(Guid priceEngineeringTasksId);
+
+
+        [OperationContract]
+        bool OnPriceEngineeringTaskStartServiceCallback(Guid priceEngineeringTaskId);
+
+        [OperationContract]
+        bool OnPriceEngineeringTaskStopServiceCallback(Guid priceEngineeringTaskId);
+
+        [OperationContract]
+        bool OnPriceEngineeringTaskInstructServiceCallback(Guid priceEngineeringTaskId);
+
+        [OperationContract]
+        bool OnPriceEngineeringTaskFinishServiceCallback(Guid priceEngineeringTaskId);
+
+        [OperationContract]
+        bool OnPriceEngineeringTaskRejectByManagerServiceCallback(Guid priceEngineeringTaskId);
+
+        [OperationContract]
+        bool OnPriceEngineeringTaskRejectByConstructorServiceCallback(Guid priceEngineeringTaskId);
+
+        [OperationContract]
+        bool OnPriceEngineeringTaskAcceptServiceCallback(Guid priceEngineeringTaskId);
+
+        #endregion
+
         #region PriceCalculation
 
         [OperationContract]

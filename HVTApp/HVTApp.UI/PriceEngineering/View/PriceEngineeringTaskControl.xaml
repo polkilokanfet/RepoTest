@@ -93,11 +93,11 @@
                                                 Command="{Binding SelectProductBlockCommand}" 
                                                 Padding="5 0"/>
 
-                                        <TextBox Grid.Column="2" FontWeight="DemiBold" Text="{Binding ProductBlockEngineer, Mode=OneWay}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0"/>
+                                        <TextBox Grid.Column="1" FontWeight="DemiBold" Text="{Binding ProductBlockEngineer, Mode=OneWay}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0"/>
                                         
-                                        <Label Grid.Column="3" Content="SCC:" Padding="2 0 0 0"/>
+                                        <Label Grid.Column="2" Content="SCC:" Padding="2 0 0 0"/>
                                         
-                                        <TextBox Grid.Column="4" Width="150" IsReadOnly="{Binding Converter={StaticResource StructureCostIsReadOnlyConverter}}" Text="{Binding ProductBlockEngineer.StructureCostNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <TextBox Grid.Column="3" Width="150" IsReadOnly="{Binding Converter={StaticResource StructureCostIsReadOnlyConverter}}" Text="{Binding ProductBlockEngineer.StructureCostNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                     </Grid>
 
                                     <!--Исполнитель-->

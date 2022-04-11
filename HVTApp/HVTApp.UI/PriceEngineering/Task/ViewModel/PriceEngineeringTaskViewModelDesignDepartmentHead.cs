@@ -60,6 +60,7 @@ namespace HVTApp.UI.PriceEngineering
                     this.AcceptChanges();
                     UnitOfWork.SaveChanges();
                     Container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceEngineeringTaskEvent>().Publish(this.Model);
+                    Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskInstructedEvent>().Publish(this.Model);
                 }, 
                 () => 
                     IsTarget &&

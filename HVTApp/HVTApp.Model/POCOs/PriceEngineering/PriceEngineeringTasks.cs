@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
+using HVTApp.Infrastructure.Extansions;
 
 namespace HVTApp.Model.POCOs
 {
@@ -74,9 +75,8 @@ namespace HVTApp.Model.POCOs
         }
 
         /// <summary>
-        /// Вернуть все задачи, которые прорабатывает данное бюро
+        /// Вернуть все задачи, которые прорабатывает бюро пользователя
         /// </summary>
-        /// <param name="department"></param>
         /// <returns></returns>
         public IEnumerable<PriceEngineeringTask> GetSuitableTasksForInstruct(User user)
         {
@@ -92,5 +92,15 @@ namespace HVTApp.Model.POCOs
             return ChildPriceEngineeringTasks.SelectMany(priceEngineeringTask => priceEngineeringTask.GetDepartments());
         }
 
+        public override string ToString()
+        {
+            var facilities = this.ChildPriceEngineeringTasks
+                .SelectMany(x => x.SalesUnits)
+                .Select(x => x.Facility)
+                .Distinct()
+                .OrderBy(x => x.Name);
+
+            return $"Технико-стоимостная проработка для объектов: {facilities.ToStringEnum(",")}";
+        }
     }
 }

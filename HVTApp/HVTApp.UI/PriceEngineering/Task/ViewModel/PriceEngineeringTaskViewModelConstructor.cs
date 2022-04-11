@@ -188,6 +188,7 @@ namespace HVTApp.UI.PriceEngineering
 
                     AddAnswerFilesCommand.RaiseCanExecuteChanged();
                     RemoveAnswerFileCommand.RaiseCanExecuteChanged();
+                    Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskFinishedEvent>().Publish(this.Model);
                 },
                 () => IsTarget && IsEditMode && this.IsValid);
 
@@ -201,6 +202,7 @@ namespace HVTApp.UI.PriceEngineering
                         Message = "Задача отклонена ОГК."
                     }));
                     SaveCommand.Execute();
+                    Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskRejectedByConstructorEvent>().Publish(this.Model);
                 },
                 () => IsEditMode && this.IsValid);
 

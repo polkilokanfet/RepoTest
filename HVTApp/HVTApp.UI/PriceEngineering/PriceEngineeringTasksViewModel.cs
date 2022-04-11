@@ -220,6 +220,7 @@ namespace HVTApp.UI.PriceEngineering
                         this.PriceEngineeringTasksWrapper.AcceptChanges();
                         _unitOfWork.SaveChanges();
                         _container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceEngineeringTasksEvent>().Publish(this.PriceEngineeringTasksWrapper.Model);
+                        _container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTasksStartedEvent>().Publish(this.PriceEngineeringTasksWrapper.Model);
                     }
                     catch (Exception e)
                     {
@@ -289,6 +290,25 @@ namespace HVTApp.UI.PriceEngineering
         {
             var tasks = _unitOfWork.Repository<PriceEngineeringTasks>().GetById(priceEngineeringTasks.Id);
             this.PriceEngineeringTasksWrapper = new PriceEngineeringTasksWrapper1(tasks, _container, _unitOfWork);
+        }
+
+        public void Load(PriceEngineeringTask priceEngineeringTask)
+        {
+            PriceEngineeringTask task = priceEngineeringTask;
+            while (task.ParentPriceEngineeringTasksId.HasValue == false)
+            {
+                if (task.ParentPriceEngineeringTaskId.HasValue)
+                {
+                    task = UnitOfWork.Repository<PriceEngineeringTask>().GetById(task.ParentPriceEngineeringTaskId.Value);
+                }
+                else
+                {
+                    return;
+                }
+            }
+
+            PriceEngineeringTasks priceEngineeringTasks = UnitOfWork.Repository<PriceEngineeringTasks>().GetById(task.ParentPriceEngineeringTasksId.Value);
+            this.Load(priceEngineeringTasks);
         }
 
         /// <summary>

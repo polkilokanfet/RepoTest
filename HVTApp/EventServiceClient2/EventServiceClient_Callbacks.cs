@@ -457,5 +457,130 @@ namespace EventServiceClient2
         }
 
         #endregion
+
+        #region PriceEngineeringTasks
+
+        public bool OnPriceEngineeringTasksStartServiceCallback(Guid priceEngineeringTasksId)
+        {
+            var priceEngineeringTasks = _container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTasks>().GetById(priceEngineeringTasksId);
+
+            if (SyncContainer.PublishWithinAppForCurrentUser<PriceEngineeringTasks, PriceEngineeringTasksStartedEvent>(priceEngineeringTasks))
+            {
+                var message = $"{priceEngineeringTasks.UserManager} запустил: {priceEngineeringTasks}";
+                var title = $"{priceEngineeringTasks} с Id {priceEngineeringTasks.Id}";
+                _popupNotificationsService.ShowPopupNotification(priceEngineeringTasks, message, title);
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool OnPriceEngineeringTaskStartServiceCallback(Guid priceEngineeringTaskId)
+        {
+            var priceEngineeringTask = _container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(priceEngineeringTaskId);
+
+            if (SyncContainer.PublishWithinAppForCurrentUser<PriceEngineeringTask, PriceEngineeringTaskStartedEvent>(priceEngineeringTask))
+            {
+                var message = $"Перезапущено: {priceEngineeringTask}";
+                var title = $"{priceEngineeringTask} с Id {priceEngineeringTask.Id}";
+                _popupNotificationsService.ShowPopupNotification(priceEngineeringTask, message, title);
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool OnPriceEngineeringTaskStopServiceCallback(Guid priceEngineeringTaskId)
+        {
+            var priceEngineeringTask = _container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(priceEngineeringTaskId);
+
+            if (SyncContainer.PublishWithinAppForCurrentUser<PriceEngineeringTask, PriceEngineeringTaskStoppedEvent>(priceEngineeringTask))
+            {
+                var message = $"Остановлено: {priceEngineeringTask}";
+                var title = $"{priceEngineeringTask} с Id {priceEngineeringTask.Id}";
+                _popupNotificationsService.ShowPopupNotification(priceEngineeringTask, message, title);
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool OnPriceEngineeringTaskInstructServiceCallback(Guid priceEngineeringTaskId)
+        {
+            var priceEngineeringTask = _container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(priceEngineeringTaskId);
+
+            if (SyncContainer.PublishWithinAppForCurrentUser<PriceEngineeringTask, PriceEngineeringTaskInstructedEvent>(priceEngineeringTask))
+            {
+                var message = $"Поручено: {priceEngineeringTask}";
+                var title = $"{priceEngineeringTask} с Id {priceEngineeringTask.Id}";
+                _popupNotificationsService.ShowPopupNotification(priceEngineeringTask, message, title);
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool OnPriceEngineeringTaskFinishServiceCallback(Guid priceEngineeringTaskId)
+        {
+            var priceEngineeringTask = _container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(priceEngineeringTaskId);
+
+            if (SyncContainer.PublishWithinAppForCurrentUser<PriceEngineeringTask, PriceEngineeringTaskFinishedEvent>(priceEngineeringTask))
+            {
+                var message = $"Проработано: {priceEngineeringTask}";
+                var title = $"{priceEngineeringTask} с Id {priceEngineeringTask.Id}";
+                _popupNotificationsService.ShowPopupNotification(priceEngineeringTask, message, title);
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool OnPriceEngineeringTaskRejectByManagerServiceCallback(Guid priceEngineeringTaskId)
+        {
+            var priceEngineeringTask = _container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(priceEngineeringTaskId);
+
+            if (SyncContainer.PublishWithinAppForCurrentUser<PriceEngineeringTask, PriceEngineeringTaskRejectedByManagerEvent>(priceEngineeringTask))
+            {
+                var message = $"Отклонено: {priceEngineeringTask}";
+                var title = $"{priceEngineeringTask} с Id {priceEngineeringTask.Id}";
+                _popupNotificationsService.ShowPopupNotification(priceEngineeringTask, message, title);
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool OnPriceEngineeringTaskRejectByConstructorServiceCallback(Guid priceEngineeringTaskId)
+        {
+            var priceEngineeringTask = _container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(priceEngineeringTaskId);
+
+            if (SyncContainer.PublishWithinAppForCurrentUser<PriceEngineeringTask, PriceEngineeringTaskRejectedByConstructorEvent>(priceEngineeringTask))
+            {
+                var message = $"Отклонено: {priceEngineeringTask}";
+                var title = $"{priceEngineeringTask} с Id {priceEngineeringTask.Id}";
+                _popupNotificationsService.ShowPopupNotification(priceEngineeringTask, message, title);
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool OnPriceEngineeringTaskAcceptServiceCallback(Guid priceEngineeringTaskId)
+        {
+            var priceEngineeringTask = _container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(priceEngineeringTaskId);
+
+            if (SyncContainer.PublishWithinAppForCurrentUser<PriceEngineeringTask, PriceEngineeringTaskAcceptedEvent>(priceEngineeringTask))
+            {
+                var message = $"Принято: {priceEngineeringTask}";
+                var title = $"{priceEngineeringTask} с Id {priceEngineeringTask.Id}";
+                _popupNotificationsService.ShowPopupNotification(priceEngineeringTask, message, title);
+                return true;
+            }
+
+            return false;
+        }
+
+
+        #endregion
     }
 }

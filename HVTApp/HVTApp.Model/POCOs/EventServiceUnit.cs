@@ -44,6 +44,16 @@ namespace HVTApp.Model.POCOs
 
         SaveIncomingRequest,
 
-        SaveActualPayment
+        SaveActualPayment,
+
+        PriceEngineeringTasksStart,
+
+        PriceEngineeringTaskStart,
+        PriceEngineeringTaskStop,
+        PriceEngineeringTaskInstruct,
+        PriceEngineeringTaskFinish,
+        PriceEngineeringTaskAccept,
+        PriceEngineeringTaskRejectByManager,
+        PriceEngineeringTaskRejectByConstructor
     }
 }

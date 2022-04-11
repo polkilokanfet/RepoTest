@@ -330,6 +330,7 @@ namespace HVTApp.UI.PriceEngineering
             if (saveChanges)
             {
                 this.SaveCommand.Execute();
+                Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskStartedEvent>().Publish(this.Model);
             }
             //если запускаются все задачи в задании
             else

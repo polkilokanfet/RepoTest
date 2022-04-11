@@ -7,10 +7,12 @@ using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model;
+using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
+using Prism.Events;
 
 namespace HVTApp.UI.PriceEngineering
 {
@@ -131,6 +133,7 @@ namespace HVTApp.UI.PriceEngineering
                         Message = "Проработка принята!"
                     }));
                     SaveCommand.Execute();
+                    Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskAcceptedEvent>().Publish(this.Model);
                 },
                 () => this.Status == PriceEngineeringTaskStatusEnum.FinishedByConstructor && this.IsValid);
 
@@ -144,6 +147,7 @@ namespace HVTApp.UI.PriceEngineering
                         Message = "Проработка отклонена."
                     }));
                     SaveCommand.Execute();
+                    Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskRejectedByManagerEvent>().Publish(this.Model);
                 },
                 () => this.Status == PriceEngineeringTaskStatusEnum.FinishedByConstructor && this.IsValid);
 
@@ -157,6 +161,7 @@ namespace HVTApp.UI.PriceEngineering
                         Message = "Задача остановлена."
                     }));
                     SaveCommand.Execute();
+                    Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskStoppedEvent>().Publish(this.Model);
                 },
                 () => this.Status != PriceEngineeringTaskStatusEnum.Created && this.Status != PriceEngineeringTaskStatusEnum.Stopped && this.IsValid);
 

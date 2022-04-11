@@ -186,6 +186,54 @@
   <wsdl:message name="IEventService_AcceptTechnicalRequarementsTaskPublishEvent_OutputMessage">
     <wsdl:part name="parameters" element="tns:AcceptTechnicalRequarementsTaskPublishEventResponse" />
   </wsdl:message>
+  <wsdl:message name="IEventService_PriceEngineeringTasksStartPublishEvent_InputMessage">
+    <wsdl:part name="parameters" element="tns:PriceEngineeringTasksStartPublishEvent" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_PriceEngineeringTasksStartPublishEvent_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PriceEngineeringTasksStartPublishEventResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_PriceEngineeringTaskStartPublishEvent_InputMessage">
+    <wsdl:part name="parameters" element="tns:PriceEngineeringTaskStartPublishEvent" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_PriceEngineeringTaskStartPublishEvent_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PriceEngineeringTaskStartPublishEventResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_PriceEngineeringTaskInstructPublishEvent_InputMessage">
+    <wsdl:part name="parameters" element="tns:PriceEngineeringTaskInstructPublishEvent" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_PriceEngineeringTaskInstructPublishEvent_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PriceEngineeringTaskInstructPublishEventResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_PriceEngineeringTaskFinishPublishEvent_InputMessage">
+    <wsdl:part name="parameters" element="tns:PriceEngineeringTaskFinishPublishEvent" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_PriceEngineeringTaskFinishPublishEvent_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PriceEngineeringTaskFinishPublishEventResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_PriceEngineeringTaskAcceptPublishEvent_InputMessage">
+    <wsdl:part name="parameters" element="tns:PriceEngineeringTaskAcceptPublishEvent" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_PriceEngineeringTaskAcceptPublishEvent_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PriceEngineeringTaskAcceptPublishEventResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_PriceEngineeringTaskRejectByManagerPublishEvent_InputMessage">
+    <wsdl:part name="parameters" element="tns:PriceEngineeringTaskRejectByManagerPublishEvent" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_PriceEngineeringTaskRejectByManagerPublishEvent_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PriceEngineeringTaskRejectByManagerPublishEventResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_PriceEngineeringTaskRejectByConstructorPublishEvent_InputMessage">
+    <wsdl:part name="parameters" element="tns:PriceEngineeringTaskRejectByConstructorPublishEvent" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_PriceEngineeringTaskRejectByConstructorPublishEvent_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PriceEngineeringTaskRejectByConstructorPublishEventResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_PriceEngineeringTaskStopPublishEvent_InputMessage">
+    <wsdl:part name="parameters" element="tns:PriceEngineeringTaskStopPublishEvent" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_PriceEngineeringTaskStopPublishEvent_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PriceEngineeringTaskStopPublishEventResponse" />
+  </wsdl:message>
   <wsdl:message name="IEventService_OnServiceDisposeEvent_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnServiceDisposeEvent" />
   </wsdl:message>
@@ -233,6 +281,54 @@
   </wsdl:message>
   <wsdl:message name="IEventService_OnRejectDirectumTaskServiceCallback_InputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnRejectDirectumTaskServiceCallbackResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_OnPriceEngineeringTasksStartServiceCallback_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnPriceEngineeringTasksStartServiceCallback" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_OnPriceEngineeringTasksStartServiceCallback_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnPriceEngineeringTasksStartServiceCallbackResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_OnPriceEngineeringTaskStartServiceCallback_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnPriceEngineeringTaskStartServiceCallback" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_OnPriceEngineeringTaskStartServiceCallback_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnPriceEngineeringTaskStartServiceCallbackResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_OnPriceEngineeringTaskStopServiceCallback_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnPriceEngineeringTaskStopServiceCallback" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_OnPriceEngineeringTaskStopServiceCallback_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnPriceEngineeringTaskStopServiceCallbackResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_OnPriceEngineeringTaskInstructServiceCallback_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnPriceEngineeringTaskInstructServiceCallback" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_OnPriceEngineeringTaskInstructServiceCallback_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnPriceEngineeringTaskInstructServiceCallbackResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_OnPriceEngineeringTaskFinishServiceCallback_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnPriceEngineeringTaskFinishServiceCallback" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_OnPriceEngineeringTaskFinishServiceCallback_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnPriceEngineeringTaskFinishServiceCallbackResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_OnPriceEngineeringTaskRejectByManagerServiceCallback_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnPriceEngineeringTaskRejectByManagerServiceCallback" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_OnPriceEngineeringTaskRejectByManagerServiceCallback_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnPriceEngineeringTaskRejectByManagerServiceCallbackResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_OnPriceEngineeringTaskRejectByConstructorServiceCallback_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnPriceEngineeringTaskRejectByConstructorServiceCallback" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_OnPriceEngineeringTaskRejectByConstructorServiceCallback_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnPriceEngineeringTaskRejectByConstructorServiceCallbackResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_OnPriceEngineeringTaskAcceptServiceCallback_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnPriceEngineeringTaskAcceptServiceCallback" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_OnPriceEngineeringTaskAcceptServiceCallback_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnPriceEngineeringTaskAcceptServiceCallbackResponse" />
   </wsdl:message>
   <wsdl:message name="IEventService_OnSavePriceCalculationServiceCallback_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnSavePriceCalculationServiceCallback" />
@@ -446,6 +542,38 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IEventService/AcceptTechnicalRequarementsTaskPublishEvent" message="tns:IEventService_AcceptTechnicalRequarementsTaskPublishEvent_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/AcceptTechnicalRequarementsTaskPublishEventResponse" message="tns:IEventService_AcceptTechnicalRequarementsTaskPublishEvent_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="PriceEngineeringTasksStartPublishEvent">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/PriceEngineeringTasksStartPublishEvent" message="tns:IEventService_PriceEngineeringTasksStartPublishEvent_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/PriceEngineeringTasksStartPublishEventResponse" message="tns:IEventService_PriceEngineeringTasksStartPublishEvent_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PriceEngineeringTaskStartPublishEvent">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/PriceEngineeringTaskStartPublishEvent" message="tns:IEventService_PriceEngineeringTaskStartPublishEvent_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/PriceEngineeringTaskStartPublishEventResponse" message="tns:IEventService_PriceEngineeringTaskStartPublishEvent_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PriceEngineeringTaskInstructPublishEvent">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/PriceEngineeringTaskInstructPublishEvent" message="tns:IEventService_PriceEngineeringTaskInstructPublishEvent_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/PriceEngineeringTaskInstructPublishEventResponse" message="tns:IEventService_PriceEngineeringTaskInstructPublishEvent_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PriceEngineeringTaskFinishPublishEvent">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/PriceEngineeringTaskFinishPublishEvent" message="tns:IEventService_PriceEngineeringTaskFinishPublishEvent_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/PriceEngineeringTaskFinishPublishEventResponse" message="tns:IEventService_PriceEngineeringTaskFinishPublishEvent_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PriceEngineeringTaskAcceptPublishEvent">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/PriceEngineeringTaskAcceptPublishEvent" message="tns:IEventService_PriceEngineeringTaskAcceptPublishEvent_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/PriceEngineeringTaskAcceptPublishEventResponse" message="tns:IEventService_PriceEngineeringTaskAcceptPublishEvent_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PriceEngineeringTaskRejectByManagerPublishEvent">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/PriceEngineeringTaskRejectByManagerPublishEvent" message="tns:IEventService_PriceEngineeringTaskRejectByManagerPublishEvent_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/PriceEngineeringTaskRejectByManagerPublishEventResponse" message="tns:IEventService_PriceEngineeringTaskRejectByManagerPublishEvent_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PriceEngineeringTaskRejectByConstructorPublishEvent">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/PriceEngineeringTaskRejectByConstructorPublishEvent" message="tns:IEventService_PriceEngineeringTaskRejectByConstructorPublishEvent_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/PriceEngineeringTaskRejectByConstructorPublishEventResponse" message="tns:IEventService_PriceEngineeringTaskRejectByConstructorPublishEvent_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PriceEngineeringTaskStopPublishEvent">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/PriceEngineeringTaskStopPublishEvent" message="tns:IEventService_PriceEngineeringTaskStopPublishEvent_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/PriceEngineeringTaskStopPublishEventResponse" message="tns:IEventService_PriceEngineeringTaskStopPublishEvent_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="OnServiceDisposeEvent">
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnServiceDisposeEvent" message="tns:IEventService_OnServiceDisposeEvent_OutputCallbackMessage" />
     </wsdl:operation>
@@ -481,6 +609,38 @@
     <wsdl:operation name="OnRejectDirectumTaskServiceCallback">
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnRejectDirectumTaskServiceCallback" message="tns:IEventService_OnRejectDirectumTaskServiceCallback_OutputCallbackMessage" />
       <wsdl:input wsaw:Action="http://tempuri.org/IEventService/OnRejectDirectumTaskServiceCallbackResponse" message="tns:IEventService_OnRejectDirectumTaskServiceCallback_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OnPriceEngineeringTasksStartServiceCallback">
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnPriceEngineeringTasksStartServiceCallback" message="tns:IEventService_OnPriceEngineeringTasksStartServiceCallback_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/OnPriceEngineeringTasksStartServiceCallbackResponse" message="tns:IEventService_OnPriceEngineeringTasksStartServiceCallback_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OnPriceEngineeringTaskStartServiceCallback">
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnPriceEngineeringTaskStartServiceCallback" message="tns:IEventService_OnPriceEngineeringTaskStartServiceCallback_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/OnPriceEngineeringTaskStartServiceCallbackResponse" message="tns:IEventService_OnPriceEngineeringTaskStartServiceCallback_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OnPriceEngineeringTaskStopServiceCallback">
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnPriceEngineeringTaskStopServiceCallback" message="tns:IEventService_OnPriceEngineeringTaskStopServiceCallback_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/OnPriceEngineeringTaskStopServiceCallbackResponse" message="tns:IEventService_OnPriceEngineeringTaskStopServiceCallback_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OnPriceEngineeringTaskInstructServiceCallback">
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnPriceEngineeringTaskInstructServiceCallback" message="tns:IEventService_OnPriceEngineeringTaskInstructServiceCallback_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/OnPriceEngineeringTaskInstructServiceCallbackResponse" message="tns:IEventService_OnPriceEngineeringTaskInstructServiceCallback_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OnPriceEngineeringTaskFinishServiceCallback">
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnPriceEngineeringTaskFinishServiceCallback" message="tns:IEventService_OnPriceEngineeringTaskFinishServiceCallback_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/OnPriceEngineeringTaskFinishServiceCallbackResponse" message="tns:IEventService_OnPriceEngineeringTaskFinishServiceCallback_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OnPriceEngineeringTaskRejectByManagerServiceCallback">
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnPriceEngineeringTaskRejectByManagerServiceCallback" message="tns:IEventService_OnPriceEngineeringTaskRejectByManagerServiceCallback_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/OnPriceEngineeringTaskRejectByManagerServiceCallbackResponse" message="tns:IEventService_OnPriceEngineeringTaskRejectByManagerServiceCallback_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OnPriceEngineeringTaskRejectByConstructorServiceCallback">
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnPriceEngineeringTaskRejectByConstructorServiceCallback" message="tns:IEventService_OnPriceEngineeringTaskRejectByConstructorServiceCallback_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/OnPriceEngineeringTaskRejectByConstructorServiceCallbackResponse" message="tns:IEventService_OnPriceEngineeringTaskRejectByConstructorServiceCallback_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OnPriceEngineeringTaskAcceptServiceCallback">
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnPriceEngineeringTaskAcceptServiceCallback" message="tns:IEventService_OnPriceEngineeringTaskAcceptServiceCallback_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/OnPriceEngineeringTaskAcceptServiceCallbackResponse" message="tns:IEventService_OnPriceEngineeringTaskAcceptServiceCallback_InputCallbackMessage" />
     </wsdl:operation>
     <wsdl:operation name="OnSavePriceCalculationServiceCallback">
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnSavePriceCalculationServiceCallback" message="tns:IEventService_OnSavePriceCalculationServiceCallback_OutputCallbackMessage" />
@@ -805,6 +965,78 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="PriceEngineeringTasksStartPublishEvent">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/PriceEngineeringTasksStartPublishEvent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PriceEngineeringTaskStartPublishEvent">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/PriceEngineeringTaskStartPublishEvent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PriceEngineeringTaskInstructPublishEvent">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/PriceEngineeringTaskInstructPublishEvent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PriceEngineeringTaskFinishPublishEvent">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/PriceEngineeringTaskFinishPublishEvent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PriceEngineeringTaskAcceptPublishEvent">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/PriceEngineeringTaskAcceptPublishEvent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PriceEngineeringTaskRejectByManagerPublishEvent">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/PriceEngineeringTaskRejectByManagerPublishEvent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PriceEngineeringTaskRejectByConstructorPublishEvent">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/PriceEngineeringTaskRejectByConstructorPublishEvent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PriceEngineeringTaskStopPublishEvent">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/PriceEngineeringTaskStopPublishEvent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="OnServiceDisposeEvent">
       <soap12:operation soapAction="http://tempuri.org/IEventService/OnServiceDisposeEvent" style="document" />
       <wsdl:output>
@@ -876,6 +1108,78 @@
     </wsdl:operation>
     <wsdl:operation name="OnRejectDirectumTaskServiceCallback">
       <soap12:operation soapAction="http://tempuri.org/IEventService/OnRejectDirectumTaskServiceCallback" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnPriceEngineeringTasksStartServiceCallback">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/OnPriceEngineeringTasksStartServiceCallback" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnPriceEngineeringTaskStartServiceCallback">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/OnPriceEngineeringTaskStartServiceCallback" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnPriceEngineeringTaskStopServiceCallback">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/OnPriceEngineeringTaskStopServiceCallback" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnPriceEngineeringTaskInstructServiceCallback">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/OnPriceEngineeringTaskInstructServiceCallback" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnPriceEngineeringTaskFinishServiceCallback">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/OnPriceEngineeringTaskFinishServiceCallback" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnPriceEngineeringTaskRejectByManagerServiceCallback">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/OnPriceEngineeringTaskRejectByManagerServiceCallback" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnPriceEngineeringTaskRejectByConstructorServiceCallback">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/OnPriceEngineeringTaskRejectByConstructorServiceCallback" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnPriceEngineeringTaskAcceptServiceCallback">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/OnPriceEngineeringTaskAcceptServiceCallback" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
