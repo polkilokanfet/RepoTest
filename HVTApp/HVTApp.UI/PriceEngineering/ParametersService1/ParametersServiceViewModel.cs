@@ -19,6 +19,7 @@ namespace HVTApp.UI.PriceEngineering.ParametersService1
 {
     public class ParametersServiceViewModel : BindableBase, IDialogRequestClose
     {
+        private IUnitOfWork _unitOfWork;
         private ParameterWrapper _parameterWrapper;
         private ProductBlock _baseProductBlock;
         private Parameter _baseParameter;
@@ -71,20 +72,9 @@ namespace HVTApp.UI.PriceEngineering.ParametersService1
         public DelegateLogCommand SelectBaseParameterCommand { get; }
         public DelegateLogCommand SaveCommand { get; }
 
-        public ParametersServiceViewModel(IUnityContainer container, DesignDepartment designDepartment)
+        private ParametersServiceViewModel(IUnityContainer container)
         {
-            var unitOfWork = container.Resolve<IUnitOfWork>();
-            var designDepartment1 = unitOfWork.Repository<DesignDepartment>().GetById(designDepartment.Id);
-
-            SelectBaseProductBlockCommand = new DelegateLogCommand(
-                () =>
-                {
-                    var block = container.Resolve<IGetProductService>().GetProductBlock(designDepartment1.ParameterSetsAddedBlocks);
-                    if (block != null && block.Id != BaseProductBlock?.Id)
-                    {
-                        BaseProductBlock = unitOfWork.Repository<ProductBlock>().GetById(block.Id);
-                    }
-                });
+            _unitOfWork = container.Resolve<IUnitOfWork>();
 
             SelectBaseParameterCommand = new DelegateLogCommand(
                 () =>
@@ -105,7 +95,7 @@ namespace HVTApp.UI.PriceEngineering.ParametersService1
                     var result = container.Resolve<ISelectService>().SelectItem(parameters);
                     if (result != null && result.Id != this.ParameterWrapper?.Id)
                     {
-                        this.BaseParameter = unitOfWork.Repository<Parameter>().GetById(result.Id);
+                        this.BaseParameter = _unitOfWork.Repository<Parameter>().GetById(result.Id);
                         ParameterWrapper = new ParameterWrapper(this.BaseParameter.GetSimilarParameter());
                     }
                 },
@@ -115,7 +105,7 @@ namespace HVTApp.UI.PriceEngineering.ParametersService1
                 () =>
                 {
                     ParameterWrapper.AcceptChanges();
-                    unitOfWork.SaveEntity(ParameterWrapper.Model);
+                    _unitOfWork.SaveEntity(ParameterWrapper.Model);
                     container.Resolve<IEventAggregator>().GetEvent<AfterSaveParameterEvent>().Publish(ParameterWrapper.Model);
                     CloseRequested?.Invoke(this, new DialogRequestCloseEventArgs(true));
                 },
@@ -126,6 +116,34 @@ namespace HVTApp.UI.PriceEngineering.ParametersService1
                     BaseParameter != null);
 
             ParameterWrapper = new ParameterWrapper(new Parameter());
+        }
+
+        public ParametersServiceViewModel(IUnityContainer container, DesignDepartment designDepartment) : this(container)
+        {
+            var designDepartment1 = _unitOfWork.Repository<DesignDepartment>().GetById(designDepartment.Id);
+
+            SelectBaseProductBlockCommand = new DelegateLogCommand(
+                () =>
+                {
+                    var block = container.Resolve<IGetProductService>().GetProductBlock(designDepartment1.ParameterSetsAddedBlocks);
+                    if (block != null && block.Id != BaseProductBlock?.Id)
+                    {
+                        BaseProductBlock = _unitOfWork.Repository<ProductBlock>().GetById(block.Id);
+                    }
+                });
+        }
+
+        public ParametersServiceViewModel(IUnityContainer container, ProductBlock productBlock, IEnumerable<Parameter> requiredParameters) : this(container)
+        {
+            SelectBaseProductBlockCommand = new DelegateLogCommand(
+                () =>
+                {
+                    var block = container.Resolve<IGetProductService>().GetProductBlock(productBlock, requiredParameters);
+                    if (block != null && block.Id != BaseProductBlock?.Id)
+                    {
+                        BaseProductBlock = _unitOfWork.Repository<ProductBlock>().GetById(block.Id);
+                    }
+                });
         }
 
         public event EventHandler<DialogRequestCloseEventArgs> CloseRequested;

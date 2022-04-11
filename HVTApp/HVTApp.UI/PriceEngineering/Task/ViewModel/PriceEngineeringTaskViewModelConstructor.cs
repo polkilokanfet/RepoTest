@@ -45,6 +45,8 @@ namespace HVTApp.UI.PriceEngineering
             }
         }
 
+        private List<Parameter> ProductBlockRequiredParameters { get; set; }
+
         /// <summary>
         /// Выбрать блок продукта
         /// </summary>
@@ -56,7 +58,7 @@ namespace HVTApp.UI.PriceEngineering
         public DelegateLogCommand FinishCommand { get; private set; }
         public DelegateLogCommand RejectCommand { get; private set; }
         public DelegateLogCommand BlockAddedNewParameterCommand { get; private set; }
-
+        public DelegateLogCommand BlockNewParameterCommand { get; private set; }
 
         #region ctors
 
@@ -81,15 +83,17 @@ namespace HVTApp.UI.PriceEngineering
         {
             base.InCtor();
 
+            ProductBlockRequiredParameters = DesignDepartment
+                .Model
+                .ParameterSets
+                .FirstOrDefault(x => x.Parameters.AllContainsInById(ProductBlockManager.Model.Parameters))?
+                .Parameters.ToList();
+
             SelectProductBlockCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var requiredParameters = DesignDepartment.Model
-                        .ParameterSets
-                        .FirstOrDefault(x => x.Parameters.AllContainsInById(ProductBlockManager.Model.Parameters));
-
                     var originProductBlock = this.ProductBlockEngineer.Model;
-                    var selectedProductBlock = Container.Resolve<IGetProductService>().GetProductBlock(originProductBlock, requiredParameters?.Parameters);
+                    var selectedProductBlock = Container.Resolve<IGetProductService>().GetProductBlock(originProductBlock, ProductBlockRequiredParameters);
                     if (originProductBlock.Id != selectedProductBlock.Id)
                     {
                         this.ProductBlockEngineer.RejectChanges();
@@ -204,6 +208,13 @@ namespace HVTApp.UI.PriceEngineering
                 () =>
                 {
                     Container.Resolve<IDialogService>().ShowDialog(new ParametersServiceViewModel(Container, this.DesignDepartment.Model));
+                },
+                () => IsEditMode);
+
+            BlockNewParameterCommand = new DelegateLogCommand(
+                () =>
+                {
+                    Container.Resolve<IDialogService>().ShowDialog(new ParametersServiceViewModel(Container, this.Model.ProductBlockEngineer, ProductBlockRequiredParameters));
                 },
                 () => IsEditMode);
 

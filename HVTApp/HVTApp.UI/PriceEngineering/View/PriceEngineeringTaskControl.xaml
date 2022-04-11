@@ -92,9 +92,12 @@
                                                 Content="..." 
                                                 Command="{Binding SelectProductBlockCommand}" 
                                                 Padding="5 0"/>
-                                        <TextBox Grid.Column="1" FontWeight="DemiBold" Text="{Binding ProductBlockEngineer, Mode=OneWay}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0"/>
-                                        <Label Grid.Column="2" Content="SCC:" Padding="2 0 0 0"/>
-                                        <TextBox Grid.Column="3" Width="150" IsReadOnly="{Binding Converter={StaticResource StructureCostIsReadOnlyConverter}}" Text="{Binding ProductBlockEngineer.StructureCostNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                                        <TextBox Grid.Column="2" FontWeight="DemiBold" Text="{Binding ProductBlockEngineer, Mode=OneWay}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0"/>
+                                        
+                                        <Label Grid.Column="3" Content="SCC:" Padding="2 0 0 0"/>
+                                        
+                                        <TextBox Grid.Column="4" Width="150" IsReadOnly="{Binding Converter={StaticResource StructureCostIsReadOnlyConverter}}" Text="{Binding ProductBlockEngineer.StructureCostNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                     </Grid>
 
                                     <!--Исполнитель-->
@@ -269,12 +272,10 @@
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
 
                                     <Button Grid.Column="0" Content="Добавить" Command="{Binding AddBlockAddedCommand}" Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}"/>
                                     <Button Grid.Column="1" Content="Удалить" Command="{Binding RemoveBlockAddedCommand}" Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}"/>
-                                    <Button Grid.Column="2" Content="Новый параметр" Command="{Binding BlockAddedNewParameterCommand}" Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}"/>
                                 </Grid>
 
                             </Grid>
@@ -294,16 +295,34 @@
                                 </Grid>
                             </GroupBox>
 
-                            <GroupBox Grid.Row="4" Header="Действия" Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Button Grid.Column="0" Content="Отклонить" Command="{Binding RejectCommand}"/>
-                                    <Button Grid.Column="1" Content="Завершить" Command="{Binding FinishCommand}"/>
-                                </Grid>
-                            </GroupBox>
+                            <Grid Grid.Row="4" Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <GroupBox Grid.Column="0" Header="Новый параметр">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Button Grid.Column="0" Content="Основное" Command="{Binding BlockNewParameterCommand}"/>
+                                        <Button Grid.Column="1" Content="Добавленное" Command="{Binding BlockAddedNewParameterCommand}"/>
+                                    </Grid>
+                                </GroupBox>
+
+                                <GroupBox Grid.Column="1" Header="Действия в задаче">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Button Grid.Column="0" Content="Отклонить" Command="{Binding RejectCommand}"/>
+                                        <Button Grid.Column="1" Content="Завершить" Command="{Binding FinishCommand}"/>
+                                    </Grid>
+                                </GroupBox>
+                            </Grid>
 
                         </Grid>
 
