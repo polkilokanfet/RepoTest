@@ -35,6 +35,7 @@
                         <dp:DateTimeField Name="WorkUpTo" Label="Срок" Width="Auto" AllowResize="False" />
                         <dp:TextField Name="Facilities" Label="Объекты" Width="250" AllowResize="True" Converter="{StaticResource ListToStringConverter}"/>
                         <dp:TextField Name="Comment" Label="Комментарий" Width="300" AllowResize="True" />
+                        <dp:TextField Name="StatusString" Label="Статус" Width="Auto" AllowResize="True" />
                         <dp:TextField Name="UserManager" Label="Менеджер" Width="200" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <dp:CheckBoxField Name="ToShow" BindingType="UseAlternateBinding" AlternateBinding="{Binding ToShow}" Label="S" Width="Auto" AllowResize="False" />
                         <dp:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />

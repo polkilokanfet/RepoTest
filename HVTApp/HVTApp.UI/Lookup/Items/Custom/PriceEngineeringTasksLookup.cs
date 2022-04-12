@@ -17,6 +17,44 @@ namespace HVTApp.UI.Lookup
                 .Select(x => x.Facility)
                 .Distinct();
 
+        public string StatusString
+        {
+            get
+            {
+                switch (GlobalAppProperties.User.RoleCurrent)
+                {
+                    case Role.SalesManager:
+                    {
+                        var statusEnums = Entity.StatusesAll.ToList();
+                        if (statusEnums.All(status => status == PriceEngineeringTaskStatusEnum.Created)) return "Создано";
+                        if (statusEnums.All(status => status == PriceEngineeringTaskStatusEnum.Accepted)) return "Принято";
+                        if (statusEnums.All(status => status == PriceEngineeringTaskStatusEnum.Stopped)) return "Остановлено";
+
+                        return "В работе";
+                    }
+                    case Role.Constructor:
+                    {
+                        var statusEnums = Entity.GetSuitableTasksForWork(GlobalAppProperties.User).SelectMany(x => x.StatusesAll).ToList();
+                        if (statusEnums.All(status => status == PriceEngineeringTaskStatusEnum.Created)) return "Создано";
+                        if (statusEnums.All(status => status == PriceEngineeringTaskStatusEnum.Accepted)) return "Принято";
+                        if (statusEnums.All(status => status == PriceEngineeringTaskStatusEnum.Stopped)) return "Остановлено";
+
+                        return "В работе";
+                    }
+                    case Role.DesignDepartmentHead:
+                    {
+                        var tasks = Entity.GetSuitableTasksForInstruct(GlobalAppProperties.User).ToList();
+                        if (tasks.All(status => status.UserConstructor != null)) return "Поручено";
+
+                        return "Требует поручения";
+
+                    }
+                }
+
+                return string.Empty;
+            }
+        }
+
         public bool ToShow
         {
             get
