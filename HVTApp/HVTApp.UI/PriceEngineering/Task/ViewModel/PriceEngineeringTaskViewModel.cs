@@ -33,8 +33,10 @@ namespace HVTApp.UI.PriceEngineering
         #region Commands
 
         public DelegateLogCommand OpenTechnicalRequrementsFileCommand { get; private set; }
+        public DelegateLogCommand LoadTechnicalRequrementsFilesCommand { get; private set; }
 
         public DelegateLogCommand OpenAnswerFileCommand { get; private set; }
+        public DelegateLogCommand LoadAnswerFilesCommand { get; private set; }
 
         public DelegateLogCommand SaveCommand { get; protected set; }
 
@@ -219,6 +221,15 @@ namespace HVTApp.UI.PriceEngineering
                 },
                 () => SelectedTechnicalRequrementsFile != null);
 
+            LoadTechnicalRequrementsFilesCommand = new DelegateLogCommand(
+                () =>
+                {
+                    var files = this.Model.FilesTechnicalRequirements
+                        .Where(x => x.IsActual).ToList();
+                    if (files.Any())
+                        Container.Resolve<IFilesStorageService>().CopyFilesFromStorage(files, GlobalAppProperties.Actual.TechnicalRequrementsFilesPath);
+                });
+
             OpenAnswerFileCommand = new DelegateLogCommand(
                 () =>
                 {
@@ -241,6 +252,16 @@ namespace HVTApp.UI.PriceEngineering
                     }
                 },
                 () => SelectedFileAnswer != null);
+
+
+            LoadAnswerFilesCommand = new DelegateLogCommand(
+                () =>
+                {
+                    var files = this.Model.FilesAnswers
+                        .Where(x => x.IsActual).ToList();
+                    if (files.Any())
+                        Container.Resolve<IFilesStorageService>().CopyFilesFromStorage(files, GlobalAppProperties.Actual.TechnicalRequrementsFilesAnswersPath);
+                });
 
             SaveCommand = new DelegateLogCommand(
                 () =>

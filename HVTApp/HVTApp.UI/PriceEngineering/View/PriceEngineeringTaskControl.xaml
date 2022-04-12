@@ -183,7 +183,7 @@
 
                                             <Button Grid.Column="0" Content="Добавить" Command="{Binding AddTechnicalRequrementsFilesCommand}" Visibility="{Binding Converter={StaticResource ManagerVisibilityConverter}}"/>
                                             <Button Grid.Column="1" Content="Удалить" Command="{Binding RemoveTechnicalRequrementsFilesCommand}" Visibility="{Binding Converter={StaticResource ManagerVisibilityConverter}}"/>
-                                            <Button Grid.Column="2" Content="Загрузить всё"/>
+                                            <Button Grid.Column="2" Content="Загрузить всё" Command="{Binding LoadTechnicalRequrementsFilesCommand}"/>
 
                                         </Grid>
 
@@ -231,7 +231,7 @@
 
                                             <Button Grid.Column="0" Content="Добавить" Command="{Binding AddAnswerFilesCommand}" Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}"/>
                                             <Button Grid.Column="1" Content="Удалить" Command="{Binding RemoveAnswerFileCommand}" Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}"/>
-                                            <Button Grid.Column="2" Content="Загрузить всё"/>
+                                            <Button Grid.Column="2" Content="Загрузить всё" Command="{Binding LoadAnswerFilesCommand}"/>
 
                                         </Grid>
 

@@ -2,12 +2,13 @@
 using System.ComponentModel.DataAnnotations;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
+using HVTApp.Model.Services;
 
 namespace HVTApp.Model.POCOs
 {
     [Designation("Технико-стоимостная проработка (файл технического задания)")]
     [DesignationPlural("Технико-стоимостная проработка (файлы технического задания)")]
-    public class PriceEngineeringTaskFileTechnicalRequirements : BaseEntity
+    public class PriceEngineeringTaskFileTechnicalRequirements : BaseEntity, IFileStorage
     {
         [Designation("Актуален"), Required, OrderStatus(850)]
         public bool IsActual { get; set; } = true;

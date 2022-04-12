@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace HVTApp.Model.Services
@@ -35,6 +36,16 @@ namespace HVTApp.Model.Services
         string CopyFileFromStorage(Guid fileId, string storageDirectoryPath, string targetDirectoryPath, string addToFileName = null, bool showTargetDirectory = true);
 
         /// <summary>
+        /// Копирование файлов из хранилища в целевую папку.
+        /// </summary>
+        /// <param name="files"></param>
+        /// <param name="storageDirectoryPath">Путь к файловому хранилищу</param>
+        /// <param name="addName">Что добавить к имени файла</param>
+        /// <param name="showTargetDirectory">Открыть после копирования целевую папку?</param>
+        /// <returns>Путь к скопированному файлу</returns>
+        void CopyFilesFromStorage(IEnumerable<IFileStorage> files, string storageDirectoryPath, bool addName = true, bool showTargetDirectory = true);
+
+        /// <summary>
         /// Открыть файл из хранилища.
         /// </summary>
         /// <param name="fileId">Id файла</param>
@@ -49,5 +60,11 @@ namespace HVTApp.Model.Services
         /// <param name="destinationPath">Путь к директории, куда нужно скопировать</param>
         /// <returns>Успешно ли прошло копирование</returns>
         bool CopyDirectory(string sourcePath, string destinationPath);
+    }
+
+    public interface IFileStorage
+    {
+        Guid Id { get; }
+        string Name { get; }
     }
 }

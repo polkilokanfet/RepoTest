@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
+using HVTApp.Model;
 using HVTApp.Model.Services;
 
 namespace HVTApp.Services.FileManagerService
@@ -107,6 +109,31 @@ namespace HVTApp.Services.FileManagerService
             }
 
             return destFilePath;
+        }
+
+        public void CopyFilesFromStorage(IEnumerable<IFileStorage> files, string storageDirectoryPath, bool addName = true, bool showTargetDirectory = true)
+        {
+            using (var fdb = new FolderBrowserDialog())
+            {
+                var result = fdb.ShowDialog();
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fdb.SelectedPath))
+                {
+                    var selectedPath = fdb.SelectedPath;
+                    foreach (var file in files)
+                    {
+                        string addToFileName = addName 
+                            ? $"{file.Name.ReplaceUncorrectSimbols().LimitLengh()}"
+                            : string.Empty;
+
+                        CopyFileFromStorage(file.Id, storageDirectoryPath, selectedPath, addToFileName, false);
+                    }
+
+                    if (showTargetDirectory)
+                    {
+                        Process.Start(selectedPath);
+                    }
+                }
+            }
         }
 
         public void OpenFileFromStorage(Guid fileId, string storageDirectoryPath, string addToFileName = null)

@@ -2,12 +2,13 @@
 using System.ComponentModel.DataAnnotations;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
+using HVTApp.Model.Services;
 
 namespace HVTApp.Model.POCOs
 {
     [Designation("Технико-стоимостная проработка (файл ответа ОГК)")]
     [DesignationPlural("Технико-стоимостная проработка (файлы ответа ОГК)")]
-    public class PriceEngineeringTaskFileAnswer : BaseEntity
+    public class PriceEngineeringTaskFileAnswer : BaseEntity, IFileStorage
     {
         [Designation("Id технико-стоимостной проработки"), Required, OrderStatus(900)]
         public virtual Guid PriceEngineeringTaskId { get; set; }
