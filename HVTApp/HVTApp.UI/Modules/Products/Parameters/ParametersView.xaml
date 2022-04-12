@@ -16,7 +16,7 @@
 
         <GroupBox Header="Параметры" Grid.Column="0">
             <infg:XamDataGrid DataSource="{Binding ParameterLookups}"
-                              SelectedDataItem="{Binding SelectedParameterLookup, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                              ActiveDataItem="{Binding SelectedParameterLookup, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
                 <infg:XamDataGrid.FieldLayouts>
                     <infg:FieldLayout>
@@ -56,7 +56,7 @@
 
                         <GroupBox Header="Ограничения" Grid.Column="0">
                             <infg:XamDataGrid DataSource="{Binding Item.ParameterRelations}" 
-                                              SelectedDataItem="{Binding SelectedRelation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                              ActiveDataItem="{Binding SelectedRelation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                               Style="{StaticResource ListViewGrid}" >
                                 <infg:XamDataGrid.FieldLayouts>
                                     <infg:FieldLayout>
@@ -72,6 +72,7 @@
 
                         <GroupBox Header="Параметры ограничения" Grid.Column="2">
                             <infg:XamDataGrid DataSource="{Binding SelectedRelation.RequiredParameters, UpdateSourceTrigger=PropertyChanged}" 
+                                              ActiveDataItem="{Binding SelectedParameterInRelation}"
                                               Style="{StaticResource ListViewGrid}" >
                                 <infg:XamDataGrid.FieldLayouts>
                                     <infg:FieldLayout>

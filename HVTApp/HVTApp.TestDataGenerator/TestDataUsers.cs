@@ -319,8 +319,8 @@ namespace HVTApp.TestDataGenerator
             DesignDepartmentDrives.Clone(new DesignDepartment
             {
                 Name = "Приводы",
-                Head = UserIvanov,
-                Staff = new List<User> { UserPalferov, UserBukrin, UserIvanov },
+                Head = UserPalferov,
+                Staff = new List<User> { UserPalferov, UserBukrin },
                 ParameterSets = new List<DesignDepartmentParameters>()
                 {
                     new DesignDepartmentParameters

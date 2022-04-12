@@ -16,6 +16,7 @@ namespace HVTApp.UI.Modules.Products.Parameters
         private ParameterLookup _selectedParameterLookup;
         private ParameterRelationWrapper _selectedRelation;
         private ParameterWrapper _selectedPotentialParameter;
+        private ParameterWrapper _selectedParameterInRelation;
 
         /// <summary>
         /// Список всех параметров
@@ -27,7 +28,7 @@ namespace HVTApp.UI.Modules.Products.Parameters
         /// </summary>
         public ParameterLookup SelectedParameterLookup
         {
-            get { return _selectedParameterLookup; }
+            get => _selectedParameterLookup;
             set
             {
                 if (Equals(_selectedParameterLookup, value)) return;
@@ -46,8 +47,8 @@ namespace HVTApp.UI.Modules.Products.Parameters
                 Paths.Clear();
                 Paths.AddRange(Item.Model.Paths());
 
-                (AddSimilarParameterCommand).RaiseCanExecuteChanged();
-                (AddRelationCommand).RaiseCanExecuteChanged();
+                AddSimilarParameterCommand.RaiseCanExecuteChanged();
+                AddRelationCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -56,7 +57,7 @@ namespace HVTApp.UI.Modules.Products.Parameters
         /// </summary>
         public ParameterRelationWrapper SelectedRelation
         {
-            get { return _selectedRelation; }
+            get => _selectedRelation;
             set
             {
                 if (Equals(_selectedRelation, value)) return;
@@ -64,8 +65,9 @@ namespace HVTApp.UI.Modules.Products.Parameters
                 SelectedPotentialParameter = null;
                 RaisePropertyChanged();
                 RaisePropertyChanged(nameof(PotentialRelationParameters));
-                (RemoveRelationCommand).RaiseCanExecuteChanged();
-                (AddParameterToRelationCommand).RaiseCanExecuteChanged();
+                RemoveRelationCommand.RaiseCanExecuteChanged();
+                AddParameterToRelationCommand.RaiseCanExecuteChanged();
+                RemoveParameterFromRelationCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -94,6 +96,17 @@ namespace HVTApp.UI.Modules.Products.Parameters
             {
                 _selectedPotentialParameter = value;
                 AddParameterToRelationCommand.RaiseCanExecuteChanged();
+                RemoveParameterFromRelationCommand.RaiseCanExecuteChanged();
+            }
+        }
+
+        public ParameterWrapper SelectedParameterInRelation
+        {
+            get => _selectedParameterInRelation;
+            set
+            {
+                _selectedParameterInRelation = value;
+                RemoveParameterFromRelationCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -106,6 +119,7 @@ namespace HVTApp.UI.Modules.Products.Parameters
         public DelegateLogCommand RemoveRelationCommand { get; }
 
         public DelegateLogCommand AddParameterToRelationCommand { get; }
+        public DelegateLogCommand RemoveParameterFromRelationCommand { get; }
 
         public ParametersViewModel(IUnityContainer container) : base(container)
         {
@@ -148,12 +162,23 @@ namespace HVTApp.UI.Modules.Products.Parameters
                 () => Item != null);
 
             RemoveRelationCommand = new DelegateLogCommand(
-                () => { Item.ParameterRelations.Remove(SelectedRelation); },
+                () =>
+                {
+                    this.UnitOfWork.Repository<ParameterRelation>().Delete(SelectedRelation.Model);
+                    Item.ParameterRelations.Remove(SelectedRelation);
+                },
                 () => SelectedRelation != null);
 
             AddParameterToRelationCommand = new DelegateLogCommand(
                 () => { SelectedRelation.RequiredParameters.Add(SelectedPotentialParameter); },
                 () => SelectedRelation != null && SelectedPotentialParameter != null);
+
+            RemoveParameterFromRelationCommand = new DelegateLogCommand(
+                () =>
+                {
+                    this.SelectedRelation.RequiredParameters.Remove(SelectedParameterInRelation);
+                },
+                () => this.SelectedRelation != null && this.SelectedParameterInRelation != null);
         }
 
         protected override void SaveItem()

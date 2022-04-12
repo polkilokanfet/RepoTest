@@ -351,13 +351,9 @@
     <Compile Include="Migrations\202203170748309_PriceCalculationHistoryItem.Designer.cs">
       <DependentUpon>202203170748309_PriceCalculationHistoryItem.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202204091029101_PriceEnginiring20220409.cs" />
-    <Compile Include="Migrations\202204091029101_PriceEnginiring20220409.Designer.cs">
-      <DependentUpon>202204091029101_PriceEnginiring20220409.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202204091657223_DesignDepartmentParametersAddedBlocks.cs" />
-    <Compile Include="Migrations\202204091657223_DesignDepartmentParametersAddedBlocks.Designer.cs">
-      <DependentUpon>202204091657223_DesignDepartmentParametersAddedBlocks.cs</DependentUpon>
+    <Compile Include="Migrations\202204120625075_PriceEngineering.cs" />
+    <Compile Include="Migrations\202204120625075_PriceEngineering.Designer.cs">
+      <DependentUpon>202204120625075_PriceEngineering.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
@@ -571,11 +567,8 @@
     <EmbeddedResource Include="Migrations\202203170748309_PriceCalculationHistoryItem.resx">
       <DependentUpon>202203170748309_PriceCalculationHistoryItem.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202204091029101_PriceEnginiring20220409.resx">
-      <DependentUpon>202204091029101_PriceEnginiring20220409.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202204091657223_DesignDepartmentParametersAddedBlocks.resx">
-      <DependentUpon>202204091657223_DesignDepartmentParametersAddedBlocks.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202204120625075_PriceEngineering.resx">
+      <DependentUpon>202204120625075_PriceEngineering.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
