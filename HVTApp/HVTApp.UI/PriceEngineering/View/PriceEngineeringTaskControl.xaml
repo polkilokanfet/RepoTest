@@ -20,7 +20,7 @@
     </UserControl.Resources>
     
     <!--Задача на блок продукта-->
-    <Border BorderBrush="Black"  BorderThickness="{Binding Converter={StaticResource PriceEngineeringTaskViewModelToBoarderTricknessConverter}}">
+    <Border BorderBrush="DarkBlue"  BorderThickness="{Binding Converter={StaticResource PriceEngineeringTaskViewModelToBoarderTricknessConverter}}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10"/>
@@ -95,9 +95,12 @@
 
                                         <TextBox Grid.Column="1" FontWeight="DemiBold" Text="{Binding ProductBlockEngineer, Mode=OneWay}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0"/>
                                         
-                                        <Label Grid.Column="2" Content="SCC:" Padding="2 0 0 0"/>
-                                        
-                                        <TextBox Grid.Column="3" Width="150" IsReadOnly="{Binding Converter={StaticResource StructureCostIsReadOnlyConverter}}" Text="{Binding ProductBlockEngineer.StructureCostNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <Label Grid.Column="2" Content="SCC:" Padding="2 0 0 0" Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}"/>
+
+                                        <TextBox Grid.Column="3" Width="150" 
+                                                 IsEnabled="{Binding IsEditMode, UpdateSourceTrigger=PropertyChanged}" 
+                                                 Text="{Binding ProductBlockEngineer.StructureCostNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                                 Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}"/>
                                     </Grid>
 
                                     <!--Исполнитель-->

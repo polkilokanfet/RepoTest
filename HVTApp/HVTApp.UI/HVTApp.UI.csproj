@@ -285,6 +285,7 @@
       <DependentUpon>MessageControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="PriceEngineering\Messages\MessageViewModel.cs" />
+    <Compile Include="PriceEngineering\Messages\PriceEngineeringTaskMessageWrapperToColorConverter.cs" />
     <Compile Include="PriceEngineering\Messages\PriceEngineeringTaskMessagesWrapper.cs" />
     <Compile Include="PriceEngineering\Messages\PriceEngineeringTaskMessenger.cs" />
     <Compile Include="PriceEngineering\ParametersService1\ParametersServiceView.xaml.cs">

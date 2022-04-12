@@ -1,4 +1,6 @@
 using System;
+using System.Windows;
+using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.PriceEngineering.Messages
