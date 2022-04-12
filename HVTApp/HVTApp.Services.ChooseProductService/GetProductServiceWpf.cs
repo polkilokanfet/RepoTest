@@ -212,11 +212,7 @@ namespace HVTApp.Services.GetProductService
             //если необходимо выбрать комплект
             if (window.ShoodSelectComplect)
             {
-                var complectViewModel = Container.Resolve<ComplectsViewModel>();
-                complectViewModel.ShowDialog();
-                return complectViewModel.IsSelected 
-                    ? complectViewModel.SelectedItem.Product 
-                    : originProduct;
+                return Container.Resolve<IGetProductService>().GetComplect(originProduct);
             }
 
             //выходим, если пользователь отменил выбор продукта.
@@ -245,6 +241,16 @@ namespace HVTApp.Services.GetProductService
             }
 
             return result;
+        }
+
+        public Product GetComplect(Product originProduct = null)
+        {
+            var complectViewModel = Container.Resolve<ComplectsViewModel>();
+            complectViewModel.ShowDialog();
+
+            return complectViewModel.IsSelected
+                ? complectViewModel.SelectedItem.Product
+                : originProduct;
         }
 
 

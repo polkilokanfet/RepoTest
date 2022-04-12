@@ -16,6 +16,13 @@ namespace HVTApp.Model.Services
         Product GetProduct(Product originProduct = null);
 
         /// <summary>
+        /// Выбор ремонтного комплекта
+        /// </summary>
+        /// <param name="originProduct"></param>
+        /// <returns></returns>
+        Product GetComplect(Product originProduct = null);
+
+        /// <summary>
         /// Выбор блока продукта
         /// </summary>
         /// <param name="originProductBlock">Предварительно выбранный блок продукта</param>

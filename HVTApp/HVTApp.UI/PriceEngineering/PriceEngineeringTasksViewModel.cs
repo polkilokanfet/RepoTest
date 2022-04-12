@@ -157,6 +157,9 @@ namespace HVTApp.UI.PriceEngineering
             RemoveFileTechnicalRequirementsCommand = new DelegateLogCommand(
                 () =>
                 {
+                    if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Вы уверены?", defaultNo: true) != MessageDialogResult.Yes)
+                        return;
+
                     if (string.IsNullOrEmpty(SelectedFileTechnicalRequirements.Path))
                     {
                         SelectedFileTechnicalRequirements.IsActual = false;
@@ -193,6 +196,9 @@ namespace HVTApp.UI.PriceEngineering
             RemoveTaskCommand = new DelegateLogCommand(
                 () =>
                 {
+                    if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Вы уверены?", defaultNo: true) != MessageDialogResult.Yes)
+                        return;
+
                     this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.Remove(SelectedPriceEngineeringTaskViewModel);
                 },
                 () => 
@@ -232,6 +238,9 @@ namespace HVTApp.UI.PriceEngineering
             StartCommand = new DelegateLogCommand(
                 () =>
                 {
+                    if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Старт всех заданий", "Вы уверены?", defaultNo: true) != MessageDialogResult.Yes)
+                        return;
+
                     LoadNewTechnicalRequirementFilesInStorage();
                     foreach (var priceEngineeringTaskViewModel in PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks)
                     {
@@ -266,7 +275,6 @@ namespace HVTApp.UI.PriceEngineering
                         {
                             {nameof(PriceEngineeringTasks), this.PriceEngineeringTasksWrapper.Model}
                         });
-
                 });
         }
 

@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
+using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
@@ -112,6 +113,9 @@ namespace HVTApp.UI.PriceEngineering
             RemoveTechnicalRequrementsFilesCommand = new DelegateLogCommand(
                 () =>
                 {
+                    if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Вы уверены?", defaultNo: true) != MessageDialogResult.Yes)
+                        return;
+
                     if (string.IsNullOrEmpty(SelectedTechnicalRequrementsFile.Path))
                     {
                         SelectedTechnicalRequrementsFile.IsActual = false;
@@ -126,6 +130,9 @@ namespace HVTApp.UI.PriceEngineering
             AcceptCommand = new DelegateLogCommand(
                 () =>
                 {
+                    if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Принять проработку", "Вы уверены?", defaultNo: true) != MessageDialogResult.Yes)
+                        return;
+
                     this.Statuses.Add(new PriceEngineeringTaskStatusWrapper(new PriceEngineeringTaskStatus() { StatusEnum = PriceEngineeringTaskStatusEnum.Accepted }));
                     this.Messages.Add(new PriceEngineeringTaskMessageWrapper(new PriceEngineeringTaskMessage()
                     {
@@ -140,6 +147,9 @@ namespace HVTApp.UI.PriceEngineering
             RejectCommand = new DelegateLogCommand(
                 () =>
                 {
+                    if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Отклонить проработку", "Вы уверены?", defaultNo: true) != MessageDialogResult.Yes)
+                        return;
+
                     this.Statuses.Add(new PriceEngineeringTaskStatusWrapper(new PriceEngineeringTaskStatus() { StatusEnum = PriceEngineeringTaskStatusEnum.RejectedByManager }));
                     this.Messages.Add(new PriceEngineeringTaskMessageWrapper(new PriceEngineeringTaskMessage()
                     {
@@ -154,6 +164,9 @@ namespace HVTApp.UI.PriceEngineering
             StopCommand = new DelegateLogCommand(
                 () =>
                 {
+                    if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Остановить проработку", "Вы уверены?", defaultNo: true) != MessageDialogResult.Yes)
+                        return;
+
                     this.Statuses.Add(new PriceEngineeringTaskStatusWrapper(new PriceEngineeringTaskStatus() { StatusEnum = PriceEngineeringTaskStatusEnum.Stopped }));
                     this.Messages.Add(new PriceEngineeringTaskMessageWrapper(new PriceEngineeringTaskMessage()
                     {

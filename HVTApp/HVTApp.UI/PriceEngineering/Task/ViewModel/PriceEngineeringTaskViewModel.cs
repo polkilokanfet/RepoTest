@@ -304,6 +304,12 @@ namespace HVTApp.UI.PriceEngineering
         /// <param name="saveChanges">Сохранить в конце и принять изменения?</param>
         public void StartCommandExecute(bool saveChanges)
         {
+            if (saveChanges)
+            {
+                if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Стартовать задачу", "Вы уверены?", defaultNo: true) != MessageDialogResult.Yes)
+                    return;
+            }
+
             this.Statuses.Add(new PriceEngineeringTaskStatusWrapper(new PriceEngineeringTaskStatus
             {
                 StatusEnum = PriceEngineeringTaskStatusEnum.Started

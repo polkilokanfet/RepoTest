@@ -232,7 +232,6 @@
                                             <Button Grid.Column="0" Content="Добавить" Command="{Binding AddAnswerFilesCommand}" Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}"/>
                                             <Button Grid.Column="1" Content="Удалить" Command="{Binding RemoveAnswerFileCommand}" Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}"/>
                                             <Button Grid.Column="2" Content="Загрузить всё" Command="{Binding LoadAnswerFilesCommand}"/>
-
                                         </Grid>
 
                                     </Grid>
@@ -243,42 +242,44 @@
                             <GridSplitter Grid.Row="2" Height="2" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
 
                             <!--Дополнительные блоки-->
-                            <Grid Grid.Row="3">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
+                            <GroupBox Grid.Row="3" Header="Дополнительные блоки">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
 
-                                <GroupBox Grid.Row="0" Header="Дополнительные блоки">
-                                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                                        <ListBox ItemsSource="{Binding ProductBlocksAdded}" 
-                                                 SelectedItem="{Binding SelectedBlockAdded, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                                 BorderThickness="0">
-                                            <ListBox.ItemContainerStyle>
-                                                <Style TargetType="ListBoxItem">
-                                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                                </Style>
-                                            </ListBox.ItemContainerStyle>
-                                            <ListBox.ItemTemplate>
-                                                <DataTemplate>
-                                                    <view:BlockAddedControl DataContext="{Binding}" Margin="5"/>
-                                                </DataTemplate>
-                                            </ListBox.ItemTemplate>
-                                        </ListBox>
-                                    </ScrollViewer>
-                                </GroupBox>
+                                        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                                            <ListBox ItemsSource="{Binding ProductBlocksAdded}" 
+                                                     SelectedItem="{Binding SelectedBlockAdded, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                                     BorderThickness="0">
+                                                <ListBox.ItemContainerStyle>
+                                                    <Style TargetType="ListBoxItem">
+                                                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                                    </Style>
+                                                </ListBox.ItemContainerStyle>
+                                                <ListBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <view:BlockAddedControl DataContext="{Binding}" Margin="5"/>
+                                                    </DataTemplate>
+                                                </ListBox.ItemTemplate>
+                                            </ListBox>
+                                        </ScrollViewer>
 
-                                <Grid Grid.Row="1" Visibility="{Binding IsTarget, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Row="1" Visibility="{Binding IsTarget, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
 
-                                    <Button Grid.Column="0" Content="Добавить" Command="{Binding AddBlockAddedCommand}" Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}"/>
-                                    <Button Grid.Column="1" Content="Удалить" Command="{Binding RemoveBlockAddedCommand}" Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}"/>
+                                        <Button Grid.Column="0" Content="Добавить" Command="{Binding AddBlockAddedCommand}" Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}"/>
+                                        <Button Grid.Column="1" Content="Комплект" Command="{Binding AddBlockAddedComplectCommand}" Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}"/>
+                                        <Button Grid.Column="2" Content="Удалить" Command="{Binding RemoveBlockAddedCommand}" Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}"/>
+                                    </Grid>
+
                                 </Grid>
-
-                            </Grid>
+                            </GroupBox>
 
                             <GroupBox Grid.Row="4" Header="Действия" Visibility="{Binding Converter={StaticResource ManagerVisibilityConverter}}">
                                 <Grid>
