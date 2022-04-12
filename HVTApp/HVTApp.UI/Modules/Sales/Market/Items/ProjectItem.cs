@@ -30,7 +30,8 @@ namespace HVTApp.UI.Modules.Sales.Market.Items
                         Cost = salesUnit.Cost,
                         FacilityId = salesUnit.Facility.Id,
                         OrderInTakeDate = salesUnit.OrderInTakeDate,
-                        RealizationDateCalculated = salesUnit.RealizationDateCalculated
+                        RealizationDateCalculated = salesUnit.RealizationDateCalculated,
+                        Comment = salesUnit.Comment
                     })
                     .OrderByDescending(x => x.Key.Cost)
                     .Select(x => new ProjectUnitsGroup(x, this));

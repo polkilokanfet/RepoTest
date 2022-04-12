@@ -17,6 +17,7 @@ namespace HVTApp.UI.Modules.Sales.Market.Items
         public double Total { get; }
         public DateTime OrderInTakeDate { get; }
         public DateTime ShipmentDate { get; }
+        public string Comment { get; }
 
         public ProjectUnitsGroup(IEnumerable<SalesUnit> salesUnits, ProjectItem projectItem)
         {
@@ -35,6 +36,7 @@ namespace HVTApp.UI.Modules.Sales.Market.Items
             Total = Amount * Cost;
             OrderInTakeDate = salesUnit.OrderInTakeDate;
             ShipmentDate = salesUnit.ShipmentDateCalculated;
+            Comment = salesUnit.Comment;
         }
     }
 }
