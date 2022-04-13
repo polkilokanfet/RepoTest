@@ -46,6 +46,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row ="0" Content="Путь к папке с логами" Visibility="{Binding VisibilityLogsPathGlobalProperties, ElementName=Root}"/>
@@ -255,6 +257,20 @@
                                     AddItemCommand="{Binding SelectComplectDesignationGroupCommand}" 
                                     RemoveItemCommand="{Binding ClearComplectDesignationGroupCommand}"
 									Visibility="{Binding VisibilityComplectDesignationGroupGlobalProperties, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="33" Content="Параметр пустого блока ТТ" Visibility="{Binding VisibilityEmptyParameterCurrentTransformersSetGlobalProperties, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="33" 
+                                    Item="{Binding Item.EmptyParameterCurrentTransformersSet}" 
+                                    AddItemCommand="{Binding SelectEmptyParameterCurrentTransformersSetCommand}" 
+                                    RemoveItemCommand="{Binding ClearEmptyParameterCurrentTransformersSetCommand}"
+									Visibility="{Binding VisibilityEmptyParameterCurrentTransformersSetGlobalProperties, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="34" Content="Параметр блока ТТ по заказу" Visibility="{Binding VisibilityParameterCurrentTransformersSetCustomGlobalProperties, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="34" 
+                                    Item="{Binding Item.ParameterCurrentTransformersSetCustom}" 
+                                    AddItemCommand="{Binding SelectParameterCurrentTransformersSetCustomCommand}" 
+                                    RemoveItemCommand="{Binding ClearParameterCurrentTransformersSetCustomCommand}"
+									Visibility="{Binding VisibilityParameterCurrentTransformersSetCustomGlobalProperties, ElementName=Root}"/>
 
 
     </Grid>

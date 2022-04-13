@@ -2616,6 +2616,18 @@ namespace HVTApp.UI.Views
             set { GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.ProductIncludedDefault)].Visibility = value; }
         }
 
+        public System.Windows.Visibility EmptyParameterCurrentTransformersSetVisibility
+        {
+            get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.EmptyParameterCurrentTransformersSet)].Visibility; }
+            set { GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.EmptyParameterCurrentTransformersSet)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility ParameterCurrentTransformersSetCustomVisibility
+        {
+            get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.ParameterCurrentTransformersSetCustom)].Visibility; }
+            set { GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.ParameterCurrentTransformersSetCustom)].Visibility = value; }
+        }
+
         public System.Windows.Visibility EntityVisibility
         {
             get { return GlobalPropertiesLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.GlobalPropertiesLookup.Entity)].Visibility; }
@@ -5159,6 +5171,12 @@ namespace HVTApp.UI.Views
         }
 
 		#region VisibilityProps
+
+        public System.Windows.Visibility StatusStringVisibility
+        {
+            get { return PriceEngineeringTasksLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksLookup.StatusString)].Visibility; }
+            set { PriceEngineeringTasksLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksLookup.StatusString)].Visibility = value; }
+        }
 
         public System.Windows.Visibility ToShowVisibility
         {

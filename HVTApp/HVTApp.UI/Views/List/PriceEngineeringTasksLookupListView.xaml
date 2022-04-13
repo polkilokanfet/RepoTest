@@ -48,6 +48,7 @@
                         <infg:TextField Name="ChildPriceEngineeringTasks" Label="Задачи" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:TextField Name="PriceCalculations" Label="Расчеты переменных затрат" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:CheckBoxField Name="ToShow" Label="ToShow" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="StatusString" Label="StatusString" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

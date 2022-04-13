@@ -832,6 +832,9 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(850)]
 	    public ProductBlockLookup ProductBlockEngineer { get { return GetLookup<ProductBlockLookup>(); } }
 
+		//[OrderStatus(1)]
+	 //   public IEnumerable`1Lookup StatusesAll { get { return GetLookup<IEnumerable`1Lookup>(); } }
+
         #endregion
 		[OrderStatus(800)]
 	    public List<PriceEngineeringTaskProductBlockAddedLookup> ProductBlocksAdded { get { return GetLookupEnum<PriceEngineeringTaskProductBlockAddedLookup>().ToList(); } }
@@ -972,6 +975,9 @@ namespace HVTApp.UI.Lookup
         #region ComplexProperties
 		[OrderStatus(1900)]
 	    public UserLookup UserManager { get { return GetLookup<UserLookup>(); } }
+
+		//[OrderStatus(1)]
+	 //   public IEnumerable`1Lookup StatusesAll { get { return GetLookup<IEnumerable`1Lookup>(); } }
 
         #endregion
 		[OrderStatus(610)]
@@ -1585,6 +1591,12 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
 	    public ProductLookup ProductIncludedDefault { get { return GetLookup<ProductLookup>(); } }
+
+		[OrderStatus(-100)]
+	    public ParameterLookup EmptyParameterCurrentTransformersSet { get { return GetLookup<ParameterLookup>(); } }
+
+		[OrderStatus(-200)]
+	    public ParameterLookup ParameterCurrentTransformersSetCustom { get { return GetLookup<ParameterLookup>(); } }
 
         #endregion
 	}

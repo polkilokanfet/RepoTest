@@ -40,6 +40,9 @@ namespace HVTApp.TestDataGenerator
         public Person PersonPalferov;
         public Person PersonBukrin;
 
+        public Person PersonVedernikov;
+        public Person PersonSivkov;
+
         public Employee EmployeeBrehov;
         public Employee EmployeeBuzikin;
         public Employee EmployeeVinogradova;
@@ -68,6 +71,9 @@ namespace HVTApp.TestDataGenerator
         public Employee EmployeePalferov;
         public Employee EmployeeBukrin;
 
+        public Employee EmployeeVedernikov;
+        public Employee EmployeeSivkov;
+
         public User UserBrehov;
         public User UserBuzikin;
         public User UserVinogradova;
@@ -93,6 +99,9 @@ namespace HVTApp.TestDataGenerator
         public User UserBaranova;
         public User UserPalferov;
         public User UserBukrin;
+
+        public User UserVedernikov;
+        public User UserSivkov;
 
         public UserRole UserRoleDataBaseFiller;
         public UserRole UserRoleAdmin;
@@ -185,6 +194,10 @@ namespace HVTApp.TestDataGenerator
 
             PersonPalferov.Clone(new Person { Surname = "Палферов", Name = "Дмитрий", Patronymic = "Александрович", IsMan = true });
             PersonBukrin.Clone(new Person { Surname = "Букрин", Name = "Олег", Patronymic = "Олегович", IsMan = true });
+
+            PersonVedernikov.Clone(new Person { Surname = "Ведерников", Name = "Олег", Patronymic = "Олегович", IsMan = true });
+            PersonSivkov.Clone(new Person { Surname = "Сивков", Name = "Олег", Patronymic = "Олегович", IsMan = true });
+
         }
 
         private void GenerateEmployees()
@@ -223,6 +236,10 @@ namespace HVTApp.TestDataGenerator
             EmployeeDavidov.Clone(new Employee { Person = PersonDavidov, Position = EmployeesPositionConstructor, Company = CompanyUetm, PersonalNumber = "74??", Email = "hz@uetm.ru", PhoneNumber = "326-36-36" });
             EmployeePalferov.Clone(new Employee { Person = PersonPalferov, Position = EmployeesPositionConstructor, Company = CompanyUetm, PersonalNumber = "74??", Email = "hz@uetm.ru", PhoneNumber = "326-36-36" });
             EmployeeBukrin.Clone(new Employee { Person = PersonBukrin, Position = EmployeesPositionConstructor, Company = CompanyUetm, PersonalNumber = "74??", Email = "hz@uetm.ru", PhoneNumber = "326-36-36" });
+
+            EmployeeVedernikov.Clone(new Employee { Person = PersonVedernikov, Position = EmployeesPositionConstructor, Company = CompanyUetm, PersonalNumber = "74??", Email = "hz@uetm.ru", PhoneNumber = "326-36-36" });
+            EmployeeSivkov.Clone(new Employee { Person = PersonSivkov, Position = EmployeesPositionConstructor, Company = CompanyUetm, PersonalNumber = "74??", Email = "hz@uetm.ru", PhoneNumber = "326-36-36" });
+
         }
 
         private void GenerateUsers()
@@ -278,12 +295,16 @@ namespace HVTApp.TestDataGenerator
             UserBaranova.Clone(new User { Login = "baranova", Password = pas1, Employee = EmployeeBaranova, Roles = new List<UserRole> { UserRoleConstructor } });
             UserPalferov.Clone(new User { Login = "palferov", Password = pas1, Employee = EmployeePalferov, Roles = new List<UserRole> { UserRoleDesignDepartmentHead } });
             UserBukrin.Clone(new User { Login = "bukrin", Password = pas1, Employee = EmployeeBukrin, Roles = new List<UserRole> { UserRoleConstructor } });
+
+            UserVedernikov.Clone(new User { Login = "vedernikov", Password = pas1, Employee = EmployeeVedernikov, Roles = new List<UserRole> { UserRoleDesignDepartmentHead } });
+            UserSivkov.Clone(new User { Login = "sivkov", Password = pas1, Employee = EmployeeSivkov, Roles = new List<UserRole> { UserRoleConstructor } });
         }
 
         #region DesignDepartment
 
         public DesignDepartment DesignDepartmentDeadTanks;
         public DesignDepartment DesignDepartmentDrives;
+        public DesignDepartment DesignDepartmentCurrentTransformers;
 
         private void GenerateDesignDepartments()
         {
@@ -360,6 +381,36 @@ namespace HVTApp.TestDataGenerator
                     }
                 }
             });
+
+            DesignDepartmentCurrentTransformers.Clone(new DesignDepartment
+            {
+                Name = "КТТ",
+                Head = UserVedernikov,
+                Staff = new List<User> { UserSivkov, UserBaranova },
+                ParameterSets = new List<DesignDepartmentParameters>()
+                {
+                    new DesignDepartmentParameters
+                    {
+                        Name = "КТТ ВЭБ-110",
+                        Parameters = new List<Parameter>
+                        {
+                            ParameterTransformersBlockTargetVeb110, ParameterPartTransformersCurrentBlock, ParameterProductParts
+                        }
+                    }
+                },
+                ParameterSetsAddedBlocks = new List<DesignDepartmentParametersAddedBlocks>()
+                {
+                    new DesignDepartmentParametersAddedBlocks()
+                    {
+                        Name = "ЗИП",
+                        Parameters = new List<Parameter>
+                        {
+                            ParameterDependentEquipmentTypeZip
+                        }
+                    }
+                }
+            });
+
         }
 
         #endregion

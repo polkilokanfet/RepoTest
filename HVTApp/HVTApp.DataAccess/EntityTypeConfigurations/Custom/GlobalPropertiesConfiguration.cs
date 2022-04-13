@@ -24,6 +24,9 @@ namespace HVTApp.DataAccess
             HasRequired(globalProperties => globalProperties.ComplectsGroup).WithMany().WillCascadeOnDelete(false);
             HasRequired(globalProperties => globalProperties.ComplectDesignationGroup).WithMany().WillCascadeOnDelete(false);
             HasRequired(globalProperties => globalProperties.DefaultProjectType).WithMany().WillCascadeOnDelete(false);
+
+            HasOptional(globalProperties => globalProperties.EmptyParameterCurrentTransformersSet).WithMany().WillCascadeOnDelete(false);
+            HasOptional(globalProperties => globalProperties.ParameterCurrentTransformersSetCustom).WithMany().WillCascadeOnDelete(false);
         }
     }
 }

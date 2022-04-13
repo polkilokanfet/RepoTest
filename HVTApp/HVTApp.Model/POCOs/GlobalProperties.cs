@@ -112,5 +112,15 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Дополнительное оборудование")]
         public virtual Product ProductIncludedDefault { get; set; }
+
+        /// <summary>
+        /// Параметр пустого блока ТТ
+        /// Используется для технико-стоимостной проработки
+        /// </summary>
+        [Designation("Параметр пустого блока ТТ"), OrderStatus(-100)]
+        public virtual Parameter EmptyParameterCurrentTransformersSet { get; set; }
+
+        [Designation("Параметр блока ТТ по заказу"), OrderStatus(-200)]
+        public virtual Parameter ParameterCurrentTransformersSetCustom { get; set; }
     }
 }

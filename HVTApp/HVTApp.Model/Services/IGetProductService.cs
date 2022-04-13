@@ -15,6 +15,8 @@ namespace HVTApp.Model.Services
         /// <returns></returns>
         Product GetProduct(Product originProduct = null);
 
+        Product GetProduct(IEnumerable<Parameter> requiredParameters);
+
         /// <summary>
         /// Выбор ремонтного комплекта
         /// </summary>

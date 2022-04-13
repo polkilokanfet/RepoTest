@@ -484,6 +484,8 @@ namespace HVTApp.TestDataGenerator
         public Parameter ParameterTransformersBlockStandartVeb220Num1;
         public Parameter ParameterTransformersBlockStandartVeb220Num2;
 
+        public Parameter ParameterTransformersBlockStandartEmpty;
+
         #endregion
 
         #region Назначение ТТ
@@ -1393,6 +1395,7 @@ namespace HVTApp.TestDataGenerator
             ParameterTransformersBlockStandartVeb110Num2.Clone(new Parameter { ParameterGroup = ParameterGroupTransformersBlockStandartNumber, Value = "602-112 (600-400-300-200/5)" });
             ParameterTransformersBlockStandartVeb220Num1.Clone(new Parameter { ParameterGroup = ParameterGroupTransformersBlockStandartNumber, Value = "623-192 (2000-1500-1000-500/5)" });
             ParameterTransformersBlockStandartVeb220Num2.Clone(new Parameter { ParameterGroup = ParameterGroupTransformersBlockStandartNumber, Value = "623-194 (2000-1500-1000-500/1)" });
+            ParameterTransformersBlockStandartEmpty.Clone(new Parameter { ParameterGroup = ParameterGroupTransformersBlockStandartNumber, Value = "пустой" });
 
             ParameterTransformersBlockStandartVgb035Num1
                 .AddRequiredPreviousParameters(ParameterTransformersBlockTargetVgb35, ParameterTransformersCurrentBlockTypeStandart);
@@ -1408,6 +1411,9 @@ namespace HVTApp.TestDataGenerator
                 .AddRequiredPreviousParameters(ParameterTransformersBlockTargetVeb220, ParameterTransformersCurrentBlockTypeStandart);
             ParameterTransformersBlockStandartVeb220Num2
                 .AddRequiredPreviousParameters(ParameterTransformersBlockTargetVeb220, ParameterTransformersCurrentBlockTypeStandart);
+
+            ParameterTransformersBlockStandartEmpty
+                .AddRequiredPreviousParameters(ParameterTransformersBlockTargetVeb110, ParameterTransformersCurrentBlockTypeStandart);
 
             #endregion
 

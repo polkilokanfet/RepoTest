@@ -103,6 +103,32 @@ namespace HVTApp.UI.PriceEngineering
                     if (originProductBlock.Id != selectedProductBlock.Id)
                     {
                         this.ProductBlockEngineer.RejectChanges();
+
+                        //если выбрали пустой КТТ
+                        var emptyParameter = GlobalAppProperties.Actual.EmptyParameterCurrentTransformersSet;
+                        if (emptyParameter != null && selectedProductBlock.Parameters.ContainsById(emptyParameter))
+                        {
+                            var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Пустой КТТ", "Вы выбрали КТТ без ТТ. Хотите ли Вы запустить подбор ТТ?", defaultYes:true);
+                            if (dr == MessageDialogResult.Yes)
+                            {
+                                var rp = ProductBlockRequiredParameters.ToList();
+                                rp.Add(GlobalAppProperties.Actual.ParameterCurrentTransformersSetCustom);
+                                var product = Container.Resolve<IGetProductService>().GetProduct(rp);
+                                if (product != null)
+                                {
+                                    foreach (var block in product.GetBlocks())
+                                    {
+                                        if (ProductBlockRequiredParameters.AllContainsInById(block.Parameters))
+                                        {
+                                            continue;
+                                        }
+                                        AddAddedBlock(block);
+                                    }
+                                }
+                                return;
+                            }
+                        }
+
                         this.ProductBlockEngineer = new ProductBlockStructureCostWrapper(UnitOfWork.Repository<ProductBlock>().GetById(selectedProductBlock.Id), true);
                     }
                 },
@@ -113,12 +139,7 @@ namespace HVTApp.UI.PriceEngineering
                 {
                     var block = Container.Resolve<IGetProductService>().GetProductBlock(DesignDepartment.Model.ParameterSetsAddedBlocks);
                     if (block == null) return;
-                    block = UnitOfWork.Repository<ProductBlock>().GetById(block.Id);
-                    var wrapper = new PriceEngineeringTaskProductBlockAddedWrapper1(new PriceEngineeringTaskProductBlockAdded())
-                    {
-                        ProductBlock = new ProductBlockStructureCostWrapper(block, true)
-                    };
-                    this.ProductBlocksAdded.Add(wrapper);
+                    AddAddedBlock(block);
                 },
                 () => IsTarget && IsEditMode);
 
@@ -266,6 +287,16 @@ namespace HVTApp.UI.PriceEngineering
 
             this.SelectedAnswerFileIsChanged += () => RemoveAnswerFileCommand.RaiseCanExecuteChanged();
             this.SelectedBlockAddedIsChanged += () => RemoveBlockAddedCommand.RaiseCanExecuteChanged();
+        }
+
+        private void AddAddedBlock(ProductBlock block)
+        {
+            block = UnitOfWork.Repository<ProductBlock>().GetById(block.Id);
+            var wrapper = new PriceEngineeringTaskProductBlockAddedWrapper1(new PriceEngineeringTaskProductBlockAdded())
+            {
+                ProductBlock = new ProductBlockStructureCostWrapper(block, true)
+            };
+            this.ProductBlocksAdded.Add(wrapper);
         }
 
 

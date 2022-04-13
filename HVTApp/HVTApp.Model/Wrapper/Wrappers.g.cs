@@ -2027,6 +2027,14 @@ namespace HVTApp.Model.Wrapper
         /// Статус
         /// </summary>
         public HVTApp.Model.POCOs.PriceEngineeringTaskStatusEnum Status => GetValue<HVTApp.Model.POCOs.PriceEngineeringTaskStatusEnum>(); 
+        /// <summary>
+        /// Старт
+        /// </summary>
+        public System.Nullable<System.DateTime> StartMoment => GetValue<System.Nullable<System.DateTime>>(); 
+        /// <summary>
+        /// Статусы этой задачи и всех вложенных
+        /// </summary>
+        public System.Collections.Generic.IEnumerable<HVTApp.Model.POCOs.PriceEngineeringTaskStatusEnum> StatusesAll => GetValue<System.Collections.Generic.IEnumerable<HVTApp.Model.POCOs.PriceEngineeringTaskStatusEnum>>(); 
         #endregion
         public override void InitializeComplexProperties()
         {
@@ -2365,6 +2373,16 @@ namespace HVTApp.Model.Wrapper
         /// Расчеты переменных затрат
         /// </summary>
         public IValidatableChangeTrackingCollection<PriceCalculationWrapper> PriceCalculations { get; private set; }
+        #endregion
+        #region GetProperties
+        /// <summary>
+        /// Старт
+        /// </summary>
+        public System.Nullable<System.DateTime> StartMoment => GetValue<System.Nullable<System.DateTime>>(); 
+        /// <summary>
+        /// Статусы задач
+        /// </summary>
+        public System.Collections.Generic.IEnumerable<HVTApp.Model.POCOs.PriceEngineeringTaskStatusEnum> StatusesAll => GetValue<System.Collections.Generic.IEnumerable<HVTApp.Model.POCOs.PriceEngineeringTaskStatusEnum>>(); 
         #endregion
         public override void InitializeComplexProperties()
         {
@@ -3895,6 +3913,22 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<ProductWrapper>(); }
             set { SetComplexValue<Product, ProductWrapper>(ProductIncludedDefault, value); }
         }
+        /// <summary>
+        /// Параметр пустого блока ТТ
+        /// </summary>
+	    public ParameterWrapper EmptyParameterCurrentTransformersSet 
+        {
+            get { return GetWrapper<ParameterWrapper>(); }
+            set { SetComplexValue<Parameter, ParameterWrapper>(EmptyParameterCurrentTransformersSet, value); }
+        }
+        /// <summary>
+        /// Параметр блока ТТ по заказу
+        /// </summary>
+	    public ParameterWrapper ParameterCurrentTransformersSetCustom 
+        {
+            get { return GetWrapper<ParameterWrapper>(); }
+            set { SetComplexValue<Parameter, ParameterWrapper>(ParameterCurrentTransformersSetCustom, value); }
+        }
         #endregion
         public override void InitializeComplexProperties()
         {
@@ -3918,6 +3952,8 @@ namespace HVTApp.Model.Wrapper
             InitializeComplexProperty<PaymentConditionSetWrapper>(nameof(PaymentConditionSet), Model.PaymentConditionSet == null ? null : new PaymentConditionSetWrapper(Model.PaymentConditionSet));
             InitializeComplexProperty<UserWrapper>(nameof(Developer), Model.Developer == null ? null : new UserWrapper(Model.Developer));
             InitializeComplexProperty<ProductWrapper>(nameof(ProductIncludedDefault), Model.ProductIncludedDefault == null ? null : new ProductWrapper(Model.ProductIncludedDefault));
+            InitializeComplexProperty<ParameterWrapper>(nameof(EmptyParameterCurrentTransformersSet), Model.EmptyParameterCurrentTransformersSet == null ? null : new ParameterWrapper(Model.EmptyParameterCurrentTransformersSet));
+            InitializeComplexProperty<ParameterWrapper>(nameof(ParameterCurrentTransformersSetCustom), Model.ParameterCurrentTransformersSetCustom == null ? null : new ParameterWrapper(Model.ParameterCurrentTransformersSetCustom));
         }
 	}
 

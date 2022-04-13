@@ -355,6 +355,10 @@
     <Compile Include="Migrations\202204120625075_PriceEngineering.Designer.cs">
       <DependentUpon>202204120625075_PriceEngineering.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202204131751205_EmptyParameter.cs" />
+    <Compile Include="Migrations\202204131751205_EmptyParameter.Designer.cs">
+      <DependentUpon>202204131751205_EmptyParameter.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -569,6 +573,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202204120625075_PriceEngineering.resx">
       <DependentUpon>202204120625075_PriceEngineering.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204131751205_EmptyParameter.resx">
+      <DependentUpon>202204131751205_EmptyParameter.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

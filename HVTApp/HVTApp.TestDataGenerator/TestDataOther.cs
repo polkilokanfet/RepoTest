@@ -257,7 +257,9 @@ namespace HVTApp.TestDataGenerator
                 StandartTermFromPickToEndProduction = 7,
                 StandartTermFromStartToEndProduction = 120,
                 ActualPriceTerm = 90,
-                Date = DateTime.Today
+                Date = DateTime.Today,
+                ParameterCurrentTransformersSetCustom = ParameterTransformersCurrentBlockTypeCustom,
+                EmptyParameterCurrentTransformersSet = ParameterTransformersBlockStandartEmpty 
             });
 
             #if DEBUG

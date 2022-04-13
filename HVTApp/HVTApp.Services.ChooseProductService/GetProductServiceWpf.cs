@@ -243,6 +243,43 @@ namespace HVTApp.Services.GetProductService
             return result;
         }
 
+        public Product GetProduct(IEnumerable<Parameter> requiredParameters)
+        {
+            var bank = GetBank(requiredParameters.Select(x => UnitOfWork.Repository<Parameter>().GetById(x.Id)));
+
+            //предварительно выбранный продукт
+            Product selectedProduct = null;
+
+            var productSelector = new ProductSelector(bank, bank.Parameters);
+            var owner = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
+            var window = new SelectProductWindow { DataContext = productSelector, Owner = owner };
+            window.ShowDialog();
+
+
+            //выходим, если пользователь отменил выбор продукта.
+            if (window.DialogResult.HasValue == false || window.DialogResult.Value == false) return null;
+
+            var result = productSelector.SelectedProduct;
+
+            //загрузка актуальных продуктов
+            var products = UnitOfWork.Repository<Product>().GetAll();
+            //если выбранного продукта нет в базе
+            if (products.Contains(result) == false)
+            {
+                SubstitutionProducts(result, products);
+                if (UnitOfWork.SaveEntity(result).OperationCompletedSuccessfully)
+                {
+                    Container.Resolve<IEventAggregator>().GetEvent<AfterSaveProductEvent>().Publish(result);
+                }
+                else
+                {
+                    throw new Exception("Ошибка при сохранении нового продукта в базу данных.");
+                }
+            }
+
+            return result;
+        }
+
         public Product GetComplect(Product originProduct = null)
         {
             var complectViewModel = Container.Resolve<ComplectsViewModel>();

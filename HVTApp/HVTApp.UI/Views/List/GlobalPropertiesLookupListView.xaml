@@ -72,6 +72,8 @@
                         <infg:TextField Name="ComplectsParameter" Label="Параметр комплекты и детали" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:TextField Name="ComplectDesignationGroup" Label="Группа параметров обозначения комплекта или детали" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:TextField Name="ComplectsGroup" Label="Группа типа комплекта или детали" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField Name="EmptyParameterCurrentTransformersSet" Label="Параметр пустого блока ТТ" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField Name="ParameterCurrentTransformersSetCustom" Label="Параметр блока ТТ по заказу" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>
