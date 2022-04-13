@@ -125,7 +125,6 @@ namespace HVTApp.UI.PriceEngineering
                                         AddAddedBlock(block);
                                     }
                                 }
-                                return;
                             }
                         }
 
