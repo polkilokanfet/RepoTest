@@ -328,6 +328,9 @@
     </Compile>
     <Compile Include="PriceEngineering\Task\ViewModel\PriceEngineeringTaskViewModel.cs" />
     <Compile Include="PriceEngineering\Comparers\SalesUnitForPriceEngineeringTaskComparer.cs" />
+    <Compile Include="Tabs\TabProductBlocks.xaml.cs">
+      <DependentUpon>TabProductBlocks.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TechnicalRequrementsTasksModule\Task\Converters\HistoryElementToColorConverter.cs" />
     <Compile Include="Modules\Sales\Market\Converters\ProductionGroupToColorConverter.cs" />
     <Compile Include="Modules\Sales\Market\Converters\ProjectItemToColorConverter.cs" />
@@ -850,6 +853,7 @@
     <Compile Include="ViewModels\List\Custom\PaymentConditionSet\PaymentConditionFilter.cs" />
     <Compile Include="ViewModels\List\Custom\PaymentConditionSet\PaymentConditionFilterViewModel.cs" />
     <Compile Include="ViewModels\List\Custom\PaymentConditionSet\PaymentConditionSetLookupListViewModel.cs" />
+    <Compile Include="ViewModels\List\Custom\ProductBlockLookupListViewModel.cs" />
     <Compile Include="ViewModels\List\Custom\ProductTypeDesignationLookupListViewModel.cs" />
     <Compile Include="ViewModels\List\Custom\ProjectLookupListViewModel.cs" />
     <Compile Include="ViewModels\List\Custom\RegionLookupListViewModel.cs" />
@@ -867,6 +871,7 @@
     <Compile Include="Views\Details\Custom\OrderView.xaml.cs">
       <DependentUpon>OrderView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\List\cs\ProductBlockLookupListViewModel.cs" />
     <Compile Include="Views\List\cs\ProjectLookupListView.cs" />
     <Compile Include="Views\List\cs\UserLookupListView.cs" />
     <Compile Include="Views\List\Custom\PaymentConditionFilterControl.xaml.cs">
@@ -1645,6 +1650,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Tabs\TabProjects.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Tabs\TabProductBlocks.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
