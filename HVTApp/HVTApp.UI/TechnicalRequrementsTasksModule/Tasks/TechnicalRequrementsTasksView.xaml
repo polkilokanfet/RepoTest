@@ -55,6 +55,7 @@
                     <dp:FieldLayout.Fields>
                         <dp:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding Start}" Label="Старт задачи" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
                         <dp:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding DesiredFinishDate}" Label="Проработать" Width="Auto" AllowResize="False" Format="dd/MM/yy"/>
+                        <dp:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding Finish}" Label="Финиш" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
                         <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Facilities}" Label="Объекты" Width="250" AllowResize="True" Converter="{StaticResource ObjectsToStringConverter}"/>
                         <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding ProjectName}" Label="Проект" Width="250" AllowResize="True" />
                         <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding BackManager}" Label="Back manager" Width="Auto" AllowResize="True" Converter="{StaticResource ObjectToStringConverter}" 
@@ -64,6 +65,7 @@
                         <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Status}" Label="Этап проработки" Width="Auto" AllowResize="True" />
                         <dp:CheckBoxField Name="IsStarted" BindingType="UseAlternateBinding" AlternateBinding="{Binding IsStarted}" Label="Запущено" Width="Auto" AllowResize="False" />
                         <dp:CheckBoxField Name="IsFinished" BindingType="UseAlternateBinding" AlternateBinding="{Binding IsFinished}" Label="Завершено" Width="Auto" AllowResize="False" />
+                        <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Entity.Products}" Label="Продукты" Width="250" AllowResize="True" />
                         <dp:CheckBoxField Name="ToShow" BindingType="UseAlternateBinding" AlternateBinding="{Binding ToShow}" Label="S" Width="Auto" AllowResize="False" />
 
                         <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Id}" Label="Id" Width="Auto" AllowResize="True" />

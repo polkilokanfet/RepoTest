@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
+using HVTApp.Infrastructure.Extansions;
 
 namespace HVTApp.Model.POCOs
 {
@@ -137,6 +138,19 @@ namespace HVTApp.Model.POCOs
         [Designation("Принято?")]
         public bool IsAccepted=> LastHistoryElement != null &&
                                  LastHistoryElement.Type == TechnicalRequrementsTaskHistoryElementType.Accept;
+
+        public string Products
+        {
+            get
+            {
+                return Requrements
+                    .SelectMany(x => x.SalesUnits)
+                    .Select(x => x.Product.Designation)
+                    .Distinct()
+                    .OrderBy(x => x)
+                    .ToStringEnum();
+            }
+        }
 
         public override string ToString()
         {
