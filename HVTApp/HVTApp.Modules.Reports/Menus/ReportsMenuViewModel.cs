@@ -26,11 +26,11 @@ namespace HVTApp.Modules.Reports.Menus
                 GlobalAppProperties.User.RoleCurrent == Role.Director)
             {
                 Items.Add(new NavigationItem("Рынок", typeof(MarketReportView)));
+                Items.Add(new NavigationItem("Фабрика бюджетов", typeof(FlatReportView)));
             }
 
             Items.Add(new NavigationItem("Референс", typeof(ReferenceView)));
             Items.Add(new NavigationItem("Сводная информация (для счета)", typeof(CommonInfoView)));
-            Items.Add(new NavigationItem("Фабрика бюджетов", typeof(FlatReportView)));
             //Items.Add(new NavigationItem("Продажи", typeof(SalesReportView)));
 
             if (GlobalAppProperties.User.RoleCurrent == Role.Admin ||

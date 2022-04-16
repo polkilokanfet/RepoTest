@@ -10,15 +10,34 @@ namespace HVTApp.Services.PriceService.PriceServ
 {
     public partial class PriceService : IPriceService
     {
+        private List<LaborHours> _laborHoursList = null;
+        private List<LaborHourCost> _laborHourCosts = null;
+
         /// <summary>
         /// Список всех известных нормо-часов на производство блоков оборудования
         /// </summary>
-        private List<LaborHours> LaborHoursList { get; set; } = new List<LaborHours>();
+        private List<LaborHours> LaborHoursList
+        {
+            get
+            {
+                if (_laborHoursList == null) Reload();
+                return _laborHoursList;
+            }
+            set => _laborHoursList = value;
+        }
 
         /// <summary>
         /// Список стоимостей нормо-часов на дату
         /// </summary>
-        private List<LaborHourCost> LaborHourCosts { get; set; } = new List<LaborHourCost>();
+        private List<LaborHourCost> LaborHourCosts
+        {
+            get
+            {
+                if (_laborHourCosts == null) Reload();
+                return _laborHourCosts;
+            }
+            set => _laborHourCosts = value;
+        }
 
         public double? GetWageFund(Product product, DateTime targetDate)
         {

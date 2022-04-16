@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Model;
 using HVTApp.Model.Comparers;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
@@ -16,16 +17,34 @@ namespace HVTApp.Services.PriceService.PriceServ
     public partial class PriceService : IPriceService
     {
         private readonly IUnityContainer _container;
+        private List<ProductBlock> _blocks = null;
+        private Dictionary<Guid, PriceItems> _salesUnitsCalculationsDictionary = null;
 
         /// <summary>
         /// Все блоки
         /// </summary>
-        private List<ProductBlock> Blocks { get; set; } = new List<ProductBlock>();
+        private List<ProductBlock> Blocks
+        {
+            get
+            {
+                if (_blocks == null) Reload();
+                return _blocks;
+            }
+            set => _blocks = value;
+        }
 
         /// <summary>
         /// Словарь калькуляций ПЗ
         /// </summary>
-        private Dictionary<Guid, PriceItems> SalesUnitsCalculationsDictionary { get; } = new Dictionary<Guid, PriceItems>();
+        private Dictionary<Guid, PriceItems> SalesUnitsCalculationsDictionary
+        {
+            get
+            {
+                if (_salesUnitsCalculationsDictionary == null) Reload();
+                return _salesUnitsCalculationsDictionary;
+            }
+            set => _salesUnitsCalculationsDictionary = value;
+        }
 
         /// <summary>
         /// Словарь блоков с прайсами
@@ -86,15 +105,19 @@ namespace HVTApp.Services.PriceService.PriceServ
 
             _container.Resolve<IModelsStore>().IsRefreshed += Reload;
 
-            Reload();
+            //если пользователь - менеджер, грузим сервис сразу
+            if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager)
+                Reload();
         }
 
         public void Reload()
         {
             var unitOfWork = _container.Resolve<IModelsStore>().UnitOfWork;
+            LaborHoursList = unitOfWork.Repository<LaborHours>().GetAll();
+            LaborHourCosts = unitOfWork.Repository<LaborHourCost>().GetAll();
             Blocks = unitOfWork.Repository<ProductBlock>().GetAll();
 
-            SalesUnitsCalculationsDictionary.Clear();
+            SalesUnitsCalculationsDictionary = new Dictionary<Guid, PriceItems>();
 
             //завершенные расчеты ПЗ, упорядоченные по дате завершения
             var priceCalculationsFinished = unitOfWork.Repository<PriceCalculation>()
@@ -121,9 +144,6 @@ namespace HVTApp.Services.PriceService.PriceServ
                     .Select(item => new PriceItem(priceCalculationsFinished.Single(calculation => calculation.PriceCalculationItems.Contains(item)), item));
                 SalesUnitsCalculationsDictionary.Add(salesUnit.Id, new PriceItems(priceItems));
             }
-
-            LaborHoursList = unitOfWork.Repository<LaborHours>().GetAll();
-            LaborHourCosts = unitOfWork.Repository<LaborHourCost>().GetAll();
         }
 
         public PriceCalculationItem GetPriceCalculationItem(IUnit unit)
