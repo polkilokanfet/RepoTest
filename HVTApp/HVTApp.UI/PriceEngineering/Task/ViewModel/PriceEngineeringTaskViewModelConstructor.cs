@@ -128,6 +128,7 @@ namespace HVTApp.UI.PriceEngineering
                             }
                         }
 
+                        this.ProductBlockEngineer.RejectChanges();
                         this.ProductBlockEngineer = new ProductBlockStructureCostWrapper(UnitOfWork.Repository<ProductBlock>().GetById(selectedProductBlock.Id), true);
                     }
                 },
@@ -161,6 +162,8 @@ namespace HVTApp.UI.PriceEngineering
                 {
                     if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Вы уверены?", defaultNo: true) != MessageDialogResult.Yes)
                         return;
+
+                    SelectedBlockAdded.RejectChanges();
 
                     if(UnitOfWork.Repository<PriceEngineeringTaskProductBlockAdded>().GetById(SelectedBlockAdded.Model.Id) != null)
                         UnitOfWork.Repository<PriceEngineeringTaskProductBlockAdded>().Delete(SelectedBlockAdded.Model);

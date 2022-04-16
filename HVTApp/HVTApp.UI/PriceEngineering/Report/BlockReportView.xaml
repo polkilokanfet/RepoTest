@@ -1,0 +1,11 @@
+﻿<UserControl 
+    x:Class="HVTApp.UI.PriceEngineering.Report.BlockReportView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:report="clr-namespace:HVTApp.UI.PriceEngineering.Report">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <report:BlockReportControl DataContext="{Binding}"/>
+    </ScrollViewer>
+
+</UserControl>

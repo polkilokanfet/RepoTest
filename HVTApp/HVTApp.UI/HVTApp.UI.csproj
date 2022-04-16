@@ -265,6 +265,7 @@
     <Compile Include="Modules\Sales\Market\Commands\SpecificationNewCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\StructureCostsCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\UnionProjectsCommand.cs" />
+    <Compile Include="PriceEngineering\Converters\AddedBlockAmountToStringConverter.cs" />
     <Compile Include="PriceEngineering\Converters\BlockAddedIsEnabledConverter.cs" />
     <Compile Include="PriceEngineering\Converters\BlockAddedWidthConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskStatusEnumToStringConverter.cs" />
@@ -291,6 +292,12 @@
     <Compile Include="PriceEngineering\Messages\PriceEngineeringTaskMessenger.cs" />
     <Compile Include="PriceEngineering\ParametersService1\ParametersServiceView.xaml.cs">
       <DependentUpon>ParametersServiceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\Report\BlockReportControl.xaml.cs">
+      <DependentUpon>BlockReportControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\Report\BlockReportView.xaml.cs">
+      <DependentUpon>BlockReportView.xaml</DependentUpon>
     </Compile>
     <Compile Include="PriceEngineering\Tabs\TabPriceEngineeringTasks.xaml.cs">
       <DependentUpon>TabPriceEngineeringTasks.xaml</DependentUpon>
@@ -1614,6 +1621,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="PriceEngineering\ParametersService1\ParametersServiceView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceEngineering\Report\BlockReportControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceEngineering\Report\BlockReportView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -33,6 +33,7 @@ using HVTApp.UI.PriceCalculations.View;
 using HVTApp.UI.PriceCalculations.ViewModel;
 using HVTApp.UI.PriceEngineering;
 using HVTApp.UI.PriceEngineering.ParametersService1;
+using HVTApp.UI.PriceEngineering.Report;
 using HVTApp.UI.PriceEngineering.View;
 using HVTApp.UI.TechnicalRequrementsTasksModule;
 using HVTApp.UI.ViewModels;
@@ -104,6 +105,7 @@ namespace HVTApp.UI
             _dialogService.RegisterShow<BudgetComparisionViewModel, BudgetComparisionView>();
             _dialogService.RegisterShow<SalesReportViewModel, SalesReportView>();
             _dialogService.RegisterShow<PaymentsPlanViewModel, PaymentsPlanView>();
+            _dialogService.RegisterShow<PriceEngineeringTask, BlockReportView>();
 
             RegisterViews();
 

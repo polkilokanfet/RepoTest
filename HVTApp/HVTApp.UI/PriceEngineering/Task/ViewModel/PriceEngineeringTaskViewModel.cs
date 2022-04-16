@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.Events;
@@ -43,6 +44,8 @@ namespace HVTApp.UI.PriceEngineering
         public DelegateLogCommand StartCommand { get; private set; }
 
         public event Action TaskIsStarted;
+
+        public DelegateLogCommand ShowReportCommand { get; private set; }
 
         #endregion
 
@@ -282,6 +285,12 @@ namespace HVTApp.UI.PriceEngineering
 
             this.PropertyChanged += (sender, args) => StartCommand.RaiseCanExecuteChanged();
             this.Statuses.CollectionChanged += (sender, args) => OnPropertyChanged(nameof(IsEditMode));
+
+            ShowReportCommand = new DelegateLogCommand(
+                () =>
+                {
+                    Container.Resolve<IDialogService>().Show(this.Model, $"Отчет по проработке блока {this.Model.ProductBlockEngineer.Designation}");
+                });
 
             //синхронизация сообщений
             Messenger = new PriceEngineeringTaskMessenger(Container, this);
