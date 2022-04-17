@@ -53,5 +53,17 @@ namespace HVTApp.UI.PriceEngineering
         {
             InitializeComplexProperty(nameof(ProductBlock), Model.ProductBlock == null ? null : new ProductBlockStructureCostWrapper(Model.ProductBlock, true));
         }
+
+        public override string ToString()
+        {
+            if (ProductBlock.StructureCostNumberIsChanged == false) 
+                return Model.ToString();
+
+            string s = string.IsNullOrWhiteSpace(ProductBlock.StructureCostNumberOriginalValue) 
+                ? "добавлен" 
+                : $"изменен с {ProductBlock.StructureCostNumberOriginalValue}";
+                
+            return $"{Model} ({s})";
+        }
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
@@ -227,14 +228,25 @@ namespace HVTApp.UI.PriceEngineering
             FinishCommand = new DelegateLogCommand(
                 () =>
                 {
-                    if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Завершение проработки", "Вы уверены?", defaultNo: true) != MessageDialogResult.Yes)
+                    if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Завершение проработки", "Вы уверены, что хотите завершить проработку?", defaultNo: true) != MessageDialogResult.Yes)
                         return;
 
+                    var sb = new StringBuilder()
+                        .Append("Проработка завершена.")
+                        .AppendLine("Основной блок:")
+                        .AppendLine(this.ProductBlockEngineer.ToString());
+
+                    if (this.ProductBlocksAdded.Any())
+                    {
+                        sb.AppendLine("Добавленные блоки:");
+                        ProductBlocksAdded.ForEach(x => sb.AppendLine(x.ToString()));
+                    }
+
                     Statuses.Add(new PriceEngineeringTaskStatusWrapper(new PriceEngineeringTaskStatus {StatusEnum = PriceEngineeringTaskStatusEnum.FinishedByConstructor}));
-                    Messages.Add(new PriceEngineeringTaskMessageWrapper(new PriceEngineeringTaskMessage()
+                    Messages.Add(new PriceEngineeringTaskMessageWrapper(new PriceEngineeringTaskMessage
                     {
                         Author = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
-                        Message = "Проработка завершена"
+                        Message = sb.ToString()
                     }));
                     SaveCommand.Execute();
 

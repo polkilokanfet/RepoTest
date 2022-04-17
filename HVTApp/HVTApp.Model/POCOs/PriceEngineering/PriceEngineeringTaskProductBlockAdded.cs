@@ -20,5 +20,11 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Блок продукта"), Required, OrderStatus(900)]
         public virtual ProductBlock ProductBlock { get; set; }
+
+        public override string ToString()
+        {
+            string s = IsOnBlock ? "на кажлый блок" : "на весь заказ";
+            return $"{ProductBlock} = {Amount} шт. {s}, SCC: {ProductBlock.StructureCostNumber}";
+        }
     }
 }

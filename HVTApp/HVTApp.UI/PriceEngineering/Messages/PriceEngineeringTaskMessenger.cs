@@ -5,10 +5,12 @@ using System.Collections.Specialized;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model;
+using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
+using Prism.Events;
 using Prism.Mvvm;
 
 namespace HVTApp.UI.PriceEngineering.Messages
@@ -93,6 +95,8 @@ namespace HVTApp.UI.PriceEngineering.Messages
                         TaskMessagesWrapper.Messages.Add(messageWrapper);
                         TaskMessagesWrapper.AcceptChanges();
                         unitOfWork.SaveChanges();
+
+                        container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskSendMessageEvent>().Publish(messageWrapper.Model);
                     }
                     //если задача не сохранена
                     else
