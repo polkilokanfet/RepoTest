@@ -361,10 +361,32 @@ namespace HVTApp.Services.GetProductService
 
         public ProductBlock GetProductBlock(IEnumerable<DesignDepartmentParametersAddedBlocks> addedBlocksParameters, ProductBlock originProductBlock = null)
         {
-            var banks = addedBlocksParameters
+            var designDepartmentParametersAddedBlocksEnumerable = addedBlocksParameters.ToList();
+            var banks = designDepartmentParametersAddedBlocksEnumerable
                 .Select(x => GetBank(x.Parameters.Select(p => UnitOfWork.Repository<Parameter>().GetById(p.Id))))
                 .ToList();
             var bankParameters = banks.SelectMany(x => x.Parameters).Distinct().ToList();
+
+            ////удаляем из групп обязательных параметров всё, кроме обязательных параметров
+            //var reqParIds = designDepartmentParametersAddedBlocksEnumerable
+            //    .SelectMany(x => x.Parameters)
+            //    .Select(x => x.Id).Distinct().ToList();
+            //var reqGrpIds = designDepartmentParametersAddedBlocksEnumerable
+            //    .SelectMany(x => x.Parameters)
+            //    .Select(x => x.ParameterGroup.Id).Distinct().ToList();
+            //foreach (var parameter in bankParameters.ToList())
+            //{
+            //    if (reqParIds.Contains(parameter.Id))
+            //    {
+            //        continue;
+            //    }
+
+            //    if (reqGrpIds.Contains(parameter.ParameterGroup.Id))
+            //    {
+            //        bankParameters.Remove(parameter);
+            //    }
+            //}
+
             var firstBank = banks.First();
             var bank = new Bank(firstBank.Products, firstBank.Blocks, bankParameters, firstBank.Relations);
 

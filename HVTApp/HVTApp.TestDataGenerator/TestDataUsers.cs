@@ -333,7 +333,16 @@ namespace HVTApp.TestDataGenerator
                         {
                             ParameterDependentEquipmentTypeZip
                         }
+                    },
+                    new DesignDepartmentParametersAddedBlocks()
+                    {
+                        Name = "МК",
+                        Parameters = new List<Parameter>
+                        {
+                            ParameterDependentEquipmentTypeOpornMetVeb110
+                        }
                     }
+
                 }
             });
 

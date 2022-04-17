@@ -77,6 +77,7 @@ namespace HVTApp.TestDataGenerator
         public ParameterGroup ParameterGroupSupervisionTarget;
         public ParameterGroup ParameterGroupSupervisionZone;
         public ParameterGroup ParameterGroupDependentEquipmentType;
+        public ParameterGroup ParameterGroupDependentEquipmentTypeMkType;
 
         private void GenerateParameterGroups()
         {
@@ -147,6 +148,7 @@ namespace HVTApp.TestDataGenerator
             ParameterGroupSupervisionTarget.Clone(new ParameterGroup { Name = "Монтируемое изделие" });
             ParameterGroupSupervisionZone.Clone(new ParameterGroup { Name = "Зона проведения монтажа" });
             ParameterGroupDependentEquipmentType.Clone(new ParameterGroup { Name = "Тип дополнительного оборудования" });
+            ParameterGroupDependentEquipmentTypeMkType.Clone(new ParameterGroup { Name = "МК к оборудованию" });
         }
 
         #endregion
@@ -192,8 +194,10 @@ namespace HVTApp.TestDataGenerator
         #region Тип дополнительного оборудования
 
         public Parameter ParameterDependentEquipmentTypeZip;
-        public Parameter ParameterDependentEquipmentTypeOpornMet;
         public Parameter ParameterDependentEquipmentTypeShkaf;
+        public Parameter ParameterDependentEquipmentTypeOpornMet;
+        public Parameter ParameterDependentEquipmentTypeOpornMetVeb110;
+        public Parameter ParameterDependentEquipmentTypeOpornMetTrg110;
 
         #endregion
 
@@ -764,10 +768,14 @@ namespace HVTApp.TestDataGenerator
 
             ParameterDependentEquipmentTypeZip.Clone(new Parameter { ParameterGroup = ParameterGroupDependentEquipmentType, Value = "Групповой комплект ЗИП", Rang = 50 });
             ParameterDependentEquipmentTypeOpornMet.Clone(new Parameter { ParameterGroup = ParameterGroupDependentEquipmentType, Value = "Опорные металлоконструкции", Rang = 40 });
+            ParameterDependentEquipmentTypeOpornMetVeb110.Clone(new Parameter { ParameterGroup = ParameterGroupDependentEquipmentTypeMkType, Value = "Опорные металлоконструкции к ВЭБ-110", Rang = 40 });
+            ParameterDependentEquipmentTypeOpornMetTrg110.Clone(new Parameter { ParameterGroup = ParameterGroupDependentEquipmentTypeMkType, Value = "Опорные металлоконструкции к ТРГ-110", Rang = 40 });
             ParameterDependentEquipmentTypeShkaf.Clone(new Parameter { ParameterGroup = ParameterGroupDependentEquipmentType, Value = "Шкафы", Rang = 30 });
 
             ParameterDependentEquipmentTypeZip.AddRequiredPreviousParameters(ParameterDependentEquipment);
             ParameterDependentEquipmentTypeOpornMet.AddRequiredPreviousParameters(ParameterDependentEquipment);
+            ParameterDependentEquipmentTypeOpornMetVeb110.AddRequiredPreviousParameters(ParameterDependentEquipmentTypeOpornMet);
+            ParameterDependentEquipmentTypeOpornMetTrg110.AddRequiredPreviousParameters(ParameterDependentEquipmentTypeOpornMet);
             ParameterDependentEquipmentTypeShkaf.AddRequiredPreviousParameters(ParameterDependentEquipment);
 
             #endregion
