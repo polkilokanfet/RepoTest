@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Windows;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
@@ -7,6 +8,7 @@ using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Modules.BookRegistration.Views;
 using Microsoft.Practices.Unity;
+using Prism.Events;
 using Prism.Regions;
 
 namespace EventServiceClient2
@@ -574,6 +576,31 @@ namespace EventServiceClient2
                 var message = $"Принято: {priceEngineeringTask}";
                 var title = $"{priceEngineeringTask} с Id {priceEngineeringTask.Id}";
                 _popupNotificationsService.ShowPopupNotification(priceEngineeringTask, message, title);
+                return true;
+            }
+
+            return false;
+        }
+
+
+        public bool OnPriceEngineeringTaskSendMessageServiceCallback(Guid messageId)
+        {
+            var unitOfWork = _container.Resolve<IUnitOfWork>();
+            var taskMessage = unitOfWork.Repository<PriceEngineeringTaskMessage>().GetById(messageId);
+
+            if (SyncContainer.PublishWithinAppForCurrentUser<PriceEngineeringTaskMessage, PriceEngineeringTaskSendMessageEvent>(taskMessage))
+            {
+                var message = $"{taskMessage.Message}";
+                var title = $"Сообщение от {taskMessage.Author}";
+                var priceEngineeringTask = unitOfWork.Repository<PriceEngineeringTask>().GetById(taskMessage.PriceEngineeringTaskId);
+                _popupNotificationsService.ShowPopupNotification(priceEngineeringTask, message, title);
+                //переводим в основной поток
+                Application.Current.Dispatcher.Invoke(
+                    () =>
+                    {
+                        _container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskReciveMessageEvent>().Publish(taskMessage);
+                    });
+
                 return true;
             }
 

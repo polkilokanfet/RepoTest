@@ -232,7 +232,7 @@ namespace HVTApp.UI.PriceEngineering
                         return;
 
                     var sb = new StringBuilder()
-                        .Append("Проработка завершена.")
+                        .AppendLine("Проработка завершена.")
                         .AppendLine("Основной блок:")
                         .AppendLine(this.ProductBlockEngineer.ToString());
 
@@ -295,10 +295,22 @@ namespace HVTApp.UI.PriceEngineering
                 SaveCommand.RaiseCanExecuteChanged();
                 FinishCommand.RaiseCanExecuteChanged();
                 RejectCommand.RaiseCanExecuteChanged();
+                //BlockAddedNewParameterCommand.RaiseCanExecuteChanged();
+            };
+
+            this.Statuses.CollectionChanged += (sender, args) =>
+            {
                 SelectProductBlockCommand.RaiseCanExecuteChanged();
+
                 AddAnswerFilesCommand.RaiseCanExecuteChanged();
                 RemoveAnswerFileCommand.RaiseCanExecuteChanged();
+
+                AddBlockAddedCommand.RaiseCanExecuteChanged();
+                RemoveBlockAddedCommand.RaiseCanExecuteChanged();
+                AddBlockAddedComplectCommand.RaiseCanExecuteChanged();
+
                 BlockAddedNewParameterCommand.RaiseCanExecuteChanged();
+                BlockNewParameterCommand.RaiseCanExecuteChanged();
             };
 
             this.SelectedAnswerFileIsChanged += () => RemoveAnswerFileCommand.RaiseCanExecuteChanged();

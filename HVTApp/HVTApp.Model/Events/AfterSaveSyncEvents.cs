@@ -63,6 +63,7 @@ namespace HVTApp.Model.Events
     public class PriceEngineeringTaskRejectedByConstructorEvent : PubSubEvent<PriceEngineeringTask> { }
 
     public class PriceEngineeringTaskSendMessageEvent : PubSubEvent<PriceEngineeringTaskMessage> { }
+    public class PriceEngineeringTaskReciveMessageEvent : PubSubEvent<PriceEngineeringTaskMessage> { }
 
     #endregion
 

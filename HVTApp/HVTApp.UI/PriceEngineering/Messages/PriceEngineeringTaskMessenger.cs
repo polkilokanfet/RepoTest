@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
@@ -124,6 +125,18 @@ namespace HVTApp.UI.PriceEngineering.Messages
 
             //синхронизация показа сообщений
             viewModel.Messages.CollectionChanged += MessagesOnCollectionChanged;
+
+            container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskReciveMessageEvent>().Subscribe(
+                message =>
+                {
+                    if (message.PriceEngineeringTaskId == this._viewModel.Model.Id)
+                    {
+                        if (MessagesToShow.Select(x => x.Model).ContainsById(message) == false)
+                        {
+                            MessagesToShow.Insert(0, new PriceEngineeringTaskMessageWrapper(message));
+                        }
+                    }
+                });
         }
 
         private void MessagesOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)

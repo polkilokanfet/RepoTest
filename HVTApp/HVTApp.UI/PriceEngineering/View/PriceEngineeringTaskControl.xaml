@@ -20,7 +20,7 @@
     </UserControl.Resources>
     
     <!--Задача на блок продукта-->
-    <Border BorderBrush="DarkBlue"  BorderThickness="{Binding Converter={StaticResource PriceEngineeringTaskViewModelToBoarderTricknessConverter}}">
+    <Border>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10"/>
@@ -41,332 +41,340 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <Grid Grid.Row="0" MinHeight="350" MaxHeight="768">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="4*"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="400" MinWidth="150"/>
-                        </Grid.ColumnDefinitions>
 
-                        <Grid Grid.Column="0">
+                    <Border Grid.Row="0" 
+                            MinHeight="250" 
+                            MaxHeight="500"
+                            BorderBrush="Blue"  
+                            BorderThickness="{Binding Converter={StaticResource PriceEngineeringTaskViewModelToBoarderTricknessConverter}}">
 
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="400" MinWidth="150"/>
+                            </Grid.ColumnDefinitions>
 
-                            <Grid Grid.Row="0">
+                            <Grid Grid.Column="0">
+
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*" MinHeight="70"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
 
-                                <Grid Grid.Row="0" Margin="2">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
+                                <Grid Grid.Row="0">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
 
-                                    <!--Блок продукта-->
-                                    <Label Grid.Row="0" Grid.Column="0" Content="Блок: "/>
-                                    <Grid Grid.Row="0" Grid.Column="1">
+                                    <Grid Grid.Row="0" Margin="2">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
 
-                                        <Button Grid.Column="0" 
-                                                Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}"
-                                                Content="..." 
-                                                Command="{Binding SelectProductBlockCommand}" 
-                                                Padding="5 0"/>
+                                        <!--Блок продукта-->
+                                        <Label Grid.Row="0" Grid.Column="0" Content="Блок: "/>
+                                        <Grid Grid.Row="0" Grid.Column="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
 
-                                        <TextBox Grid.Column="1" FontWeight="DemiBold" Text="{Binding ProductBlockEngineer, Mode=OneWay}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0"/>
+                                            <Button Grid.Column="0" 
+                                                    Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}"
+                                                    Content="..." 
+                                                    Command="{Binding SelectProductBlockCommand}" 
+                                                    Padding="5 0"/>
+
+                                            <TextBox Grid.Column="1" FontWeight="DemiBold" Text="{Binding ProductBlockEngineer, Mode=OneWay}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0"/>
                                         
-                                        <Label Grid.Column="2" Content="SCC:" Padding="2 0 0 0" Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}"/>
+                                            <Label Grid.Column="2" Content="SCC:" Padding="2 0 0 0" Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}"/>
 
-                                        <TextBox Grid.Column="3" Width="150" 
-                                                 IsEnabled="{Binding IsEditMode, UpdateSourceTrigger=PropertyChanged}" 
-                                                 Text="{Binding ProductBlockEngineer.StructureCostNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                                 Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}"/>
+                                            <TextBox Grid.Column="3" Width="150" 
+                                                     IsEnabled="{Binding IsEditMode, UpdateSourceTrigger=PropertyChanged}" 
+                                                     Text="{Binding ProductBlockEngineer.StructureCostNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                                     Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}"/>
+                                        </Grid>
+
+                                        <!--Исполнитель-->
+                                        <Label Grid.Row="1" Grid.Column="0" Content="Исполнитель: "/>
+                                        <Grid Grid.Row="1" Grid.Column="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Button Grid.Column="0" 
+                                                    Visibility="{Binding Converter={StaticResource DesignDepartmentHeadVisibilityConverter}}"
+                                                    Content="..." 
+                                                    Command="{Binding InstructPriceEngineeringTaskCommand}" 
+                                                    Padding="5 0"/>
+                                            <TextBox Grid.Column="1" FontWeight="DemiBold" Text="{Binding UserConstructor, Mode=OneWay}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0"/>
+
+                                            <Label Grid.Column="2" Content=" Бюро:"></Label>
+                                            <Button Grid.Column="3" 
+                                                    Visibility="{Binding Converter={StaticResource ManagerVisibilityConverter}}"
+                                                    Content="..." 
+                                                    Command="{Binding SelectDesignDepartmentCommand}" 
+                                                    Padding="5 0"/>
+                                            <TextBox Grid.Column="4" FontWeight="DemiBold" Text="{Binding DesignDepartment, Mode=OneWay}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0"/>
+
+                                        </Grid>
+
+                                        <!--Статус задачи-->
+                                        <Label Grid.Row="2" Grid.Column="0" Content="Статус: "/>
+                                        <TextBlock Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Text="{Binding Status, Converter={StaticResource StatusToStringConverter}}"/>
+
                                     </Grid>
+                                </Grid>
 
-                                    <!--Исполнитель-->
-                                    <Label Grid.Row="1" Grid.Column="0" Content="Исполнитель: "/>
-                                    <Grid Grid.Row="1" Grid.Column="1">
+                                <GroupBox Grid.Row="1" Header="Файлы">
+                                    <Grid>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"/>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
 
-                                        <Button Grid.Column="0" 
-                                                Visibility="{Binding Converter={StaticResource DesignDepartmentHeadVisibilityConverter}}"
-                                                Content="..." 
-                                                Command="{Binding InstructPriceEngineeringTaskCommand}" 
-                                                Padding="5 0"/>
-                                        <TextBox Grid.Column="1" FontWeight="DemiBold" Text="{Binding UserConstructor, Mode=OneWay}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0"/>
+                                        <!--Техническое задание-->
+                                        <Grid Grid.Column="0" >
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
 
-                                        <Label Grid.Column="2" Content=" Бюро:"></Label>
-                                        <Button Grid.Column="3" 
-                                                Visibility="{Binding Converter={StaticResource ManagerVisibilityConverter}}"
-                                                Content="..." 
-                                                Command="{Binding SelectDesignDepartmentCommand}" 
-                                                Padding="5 0"/>
-                                        <TextBox Grid.Column="4" FontWeight="DemiBold" Text="{Binding DesignDepartment, Mode=OneWay}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0"/>
+                                            <GroupBox Grid.Row="0" Header="Техническое задание">
+                                                <dataPresenter:XamDataGrid
+                                                    DataSource="{Binding FilesTechnicalRequirements}"
+                                                    ActiveDataItem="{Binding SelectedTechnicalRequrementsFile, Mode=TwoWay}"
+                                                    Style="{StaticResource XamDataGridUpdateOnCellValueChange}">
+
+                                                    <dataPresenter:XamDataGrid.InputBindings>
+                                                        <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=OpenTechnicalRequrementsFileCommand, Mode=OneWay}" />
+                                                    </dataPresenter:XamDataGrid.InputBindings>
+
+                                                    <dataPresenter:XamDataGrid.FieldLayouts>
+                                                        <dataPresenter:FieldLayout>
+                                                            <dataPresenter:FieldLayout.Fields>
+                                                                <dataPresenter:CheckBoxField AlternateBinding="{Binding IsActual, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Актуально?" AllowEdit="False" Width="Auto"/>
+                                                                <dataPresenter:DateTimeField AlternateBinding="{Binding CreationMoment}" BindingType="UseAlternateBinding" Label="Дата" AllowEdit="False" AllowResize="False" Width="Auto"/>
+                                                                <dataPresenter:TextField AlternateBinding="{Binding Name}" BindingType="UseAlternateBinding" Label="Название" Width="*" AllowEdit="False"/>
+                                                                <!--<dataPresenter:TextField AlternateBinding="{Binding Comment, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Комментарий" Width="100" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}"/>-->
+                                                                <!--<dataPresenter:TextField AlternateBinding="{Binding Id}" BindingType="UseAlternateBinding" Label="Id" Width="Auto" AllowEdit="False"/>-->
+                                                            </dataPresenter:FieldLayout.Fields>
+                                                        </dataPresenter:FieldLayout>
+                                                    </dataPresenter:XamDataGrid.FieldLayouts>
+                                                </dataPresenter:XamDataGrid>
+                                            </GroupBox>
+
+                                            <Grid Grid.Row="1">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <Button Grid.Column="0" Content="Добавить" Command="{Binding AddTechnicalRequrementsFilesCommand}" Visibility="{Binding Converter={StaticResource ManagerVisibilityConverter}}"/>
+                                                <Button Grid.Column="1" Content="Удалить" Command="{Binding RemoveTechnicalRequrementsFilesCommand}" Visibility="{Binding Converter={StaticResource ManagerVisibilityConverter}}"/>
+                                                <Button Grid.Column="2" Content="Загрузить всё" Command="{Binding LoadTechnicalRequrementsFilesCommand}"/>
+
+                                            </Grid>
+
+                                        </Grid>
+
+                                        <GridSplitter Grid.Column="1" Width="2" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+                            
+                                        <!--Проработка ОГК-->
+                                        <Grid Grid.Column="2">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+
+                                            <GroupBox Grid.Row="0" Header="Проработка ОГК">
+                                                <dataPresenter:XamDataGrid
+                                                    DataSource="{Binding FilesAnswers}"
+                                                    ActiveDataItem="{Binding SelectedFileAnswer, Mode=TwoWay}"
+                                                    Style="{StaticResource XamDataGridUpdateOnCellValueChange}">
+
+                                                    <dataPresenter:XamDataGrid.InputBindings>
+                                                        <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=OpenAnswerFileCommand, Mode=OneWay}" />
+                                                    </dataPresenter:XamDataGrid.InputBindings>
+
+                                                    <dataPresenter:XamDataGrid.FieldLayouts>
+                                                        <dataPresenter:FieldLayout>
+                                                            <dataPresenter:FieldLayout.Fields>
+                                                                <dataPresenter:CheckBoxField AlternateBinding="{Binding IsActual, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Актуально?" AllowEdit="False" Width="Auto"/>
+                                                                <dataPresenter:DateTimeField AlternateBinding="{Binding CreationMoment}" BindingType="UseAlternateBinding" Label="Дата" AllowEdit="False" AllowResize="False" Width="Auto"/>
+                                                                <dataPresenter:TextField AlternateBinding="{Binding Name}" BindingType="UseAlternateBinding" Label="Название" Width="*" AllowEdit="False"/>
+                                                                <!--<dataPresenter:TextField AlternateBinding="{Binding Comment, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Комментарий" Width="100" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}"/>-->
+                                                                <!--<dataPresenter:TextField AlternateBinding="{Binding Id}" BindingType="UseAlternateBinding" Label="Id" Width="Auto" AllowEdit="False"/>-->
+                                                            </dataPresenter:FieldLayout.Fields>
+                                                        </dataPresenter:FieldLayout>
+                                                    </dataPresenter:XamDataGrid.FieldLayouts>
+                                                </dataPresenter:XamDataGrid>
+                                            </GroupBox>
+
+                                            <Grid Grid.Row="1">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <Button Grid.Column="0" Content="Добавить" Command="{Binding AddAnswerFilesCommand}" Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}"/>
+                                                <Button Grid.Column="1" Content="Удалить" Command="{Binding RemoveAnswerFileCommand}" Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}"/>
+                                                <Button Grid.Column="2" Content="Загрузить всё" Command="{Binding LoadAnswerFilesCommand}"/>
+                                            </Grid>
+
+                                        </Grid>
 
                                     </Grid>
+                                </GroupBox>
 
-                                    <!--Статус задачи-->
-                                    <Label Grid.Row="2" Grid.Column="0" Content="Статус: "/>
-                                    <TextBlock Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Text="{Binding Status, Converter={StaticResource StatusToStringConverter}}"/>
+                                <GridSplitter Grid.Row="2" Height="2" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
 
-                                </Grid>
-                            </Grid>
+                                <!--Дополнительные блоки-->
+                                <GroupBox Grid.Row="3" Header="Дополнительные блоки">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
 
-                            <GroupBox Grid.Row="1" Header="Файлы">
-                                <Grid>
+                                            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                                                <ListBox ItemsSource="{Binding ProductBlocksAdded}" 
+                                                         SelectedItem="{Binding SelectedBlockAdded, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                                         BorderThickness="0">
+                                                    <ListBox.ItemContainerStyle>
+                                                        <Style TargetType="ListBoxItem">
+                                                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                                        </Style>
+                                                    </ListBox.ItemContainerStyle>
+                                                    <ListBox.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <view:BlockAddedControl DataContext="{Binding}" Margin="5"/>
+                                                        </DataTemplate>
+                                                    </ListBox.ItemTemplate>
+                                                </ListBox>
+                                            </ScrollViewer>
+
+                                        <Grid Grid.Row="1" Visibility="{Binding IsTarget, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Button Grid.Column="0" Content="Добавить" Command="{Binding AddBlockAddedCommand}" Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}"/>
+                                            <Button Grid.Column="1" Content="Комплект" Command="{Binding AddBlockAddedComplectCommand}" Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}"/>
+                                            <Button Grid.Column="2" Content="Удалить" Command="{Binding RemoveBlockAddedCommand}" Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}"/>
+                                        </Grid>
+
+                                    </Grid>
+                                </GroupBox>
+
+                                <GroupBox Grid.Row="4" Header="Действия" Visibility="{Binding Converter={StaticResource ManagerVisibilityConverter}}">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Button Grid.Column="0" Content="Стартовать" Command="{Binding StartCommand}"/>
+                                        <Button Grid.Column="1" Content="Принять" Command="{Binding AcceptCommand}"/>
+                                        <Button Grid.Column="2" Content="Отклонить" Command="{Binding RejectCommand}"/>
+                                        <Button Grid.Column="3" Content="Остановить" Command="{Binding StopCommand}"/>
+                                    </Grid>
+                                </GroupBox>
+
+                                <Grid Grid.Row="4" Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <!--Техническое задание-->
-                                    <Grid Grid.Column="0" >
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="*"/>
-                                            <RowDefinition Height="Auto"/>
-                                        </Grid.RowDefinitions>
-
-                                        <GroupBox Grid.Row="0" Header="Техническое задание">
-                                            <dataPresenter:XamDataGrid
-                                                DataSource="{Binding FilesTechnicalRequirements}"
-                                                ActiveDataItem="{Binding SelectedTechnicalRequrementsFile, Mode=TwoWay}"
-                                                Style="{StaticResource XamDataGridUpdateOnCellValueChange}">
-
-                                                <dataPresenter:XamDataGrid.InputBindings>
-                                                    <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=OpenTechnicalRequrementsFileCommand, Mode=OneWay}" />
-                                                </dataPresenter:XamDataGrid.InputBindings>
-
-                                                <dataPresenter:XamDataGrid.FieldLayouts>
-                                                    <dataPresenter:FieldLayout>
-                                                        <dataPresenter:FieldLayout.Fields>
-                                                            <dataPresenter:CheckBoxField AlternateBinding="{Binding IsActual, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Актуально?" AllowEdit="False" Width="Auto"/>
-                                                            <dataPresenter:DateTimeField AlternateBinding="{Binding CreationMoment}" BindingType="UseAlternateBinding" Label="Дата" AllowEdit="False" AllowResize="False" Width="Auto"/>
-                                                            <dataPresenter:TextField AlternateBinding="{Binding Name}" BindingType="UseAlternateBinding" Label="Название" Width="*" AllowEdit="False"/>
-                                                            <!--<dataPresenter:TextField AlternateBinding="{Binding Comment, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Комментарий" Width="100" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}"/>-->
-                                                            <!--<dataPresenter:TextField AlternateBinding="{Binding Id}" BindingType="UseAlternateBinding" Label="Id" Width="Auto" AllowEdit="False"/>-->
-                                                        </dataPresenter:FieldLayout.Fields>
-                                                    </dataPresenter:FieldLayout>
-                                                </dataPresenter:XamDataGrid.FieldLayouts>
-                                            </dataPresenter:XamDataGrid>
-                                        </GroupBox>
-
-                                        <Grid Grid.Row="1">
+                                    <GroupBox Grid.Column="0" Header="Новый параметр">
+                                        <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*"/>
                                                 <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
-
-                                            <Button Grid.Column="0" Content="Добавить" Command="{Binding AddTechnicalRequrementsFilesCommand}" Visibility="{Binding Converter={StaticResource ManagerVisibilityConverter}}"/>
-                                            <Button Grid.Column="1" Content="Удалить" Command="{Binding RemoveTechnicalRequrementsFilesCommand}" Visibility="{Binding Converter={StaticResource ManagerVisibilityConverter}}"/>
-                                            <Button Grid.Column="2" Content="Загрузить всё" Command="{Binding LoadTechnicalRequrementsFilesCommand}"/>
-
+                                            <Button Grid.Column="0" Content="Основное" Command="{Binding BlockNewParameterCommand}"/>
+                                            <Button Grid.Column="1" Content="Добавленное" Command="{Binding BlockAddedNewParameterCommand}"/>
                                         </Grid>
+                                    </GroupBox>
 
-                                    </Grid>
-
-                                    <GridSplitter Grid.Column="1" Width="2" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
-                            
-                                    <!--Проработка ОГК-->
-                                    <Grid Grid.Column="2">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="*"/>
-                                            <RowDefinition Height="Auto"/>
-                                        </Grid.RowDefinitions>
-
-                                        <GroupBox Grid.Row="0" Header="Проработка ОГК">
-                                            <dataPresenter:XamDataGrid
-                                                DataSource="{Binding FilesAnswers}"
-                                                ActiveDataItem="{Binding SelectedFileAnswer, Mode=TwoWay}"
-                                                Style="{StaticResource XamDataGridUpdateOnCellValueChange}">
-
-                                                <dataPresenter:XamDataGrid.InputBindings>
-                                                    <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=OpenAnswerFileCommand, Mode=OneWay}" />
-                                                </dataPresenter:XamDataGrid.InputBindings>
-
-                                                <dataPresenter:XamDataGrid.FieldLayouts>
-                                                    <dataPresenter:FieldLayout>
-                                                        <dataPresenter:FieldLayout.Fields>
-                                                            <dataPresenter:CheckBoxField AlternateBinding="{Binding IsActual, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Актуально?" AllowEdit="False" Width="Auto"/>
-                                                            <dataPresenter:DateTimeField AlternateBinding="{Binding CreationMoment}" BindingType="UseAlternateBinding" Label="Дата" AllowEdit="False" AllowResize="False" Width="Auto"/>
-                                                            <dataPresenter:TextField AlternateBinding="{Binding Name}" BindingType="UseAlternateBinding" Label="Название" Width="*" AllowEdit="False"/>
-                                                            <!--<dataPresenter:TextField AlternateBinding="{Binding Comment, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Комментарий" Width="100" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}"/>-->
-                                                            <!--<dataPresenter:TextField AlternateBinding="{Binding Id}" BindingType="UseAlternateBinding" Label="Id" Width="Auto" AllowEdit="False"/>-->
-                                                        </dataPresenter:FieldLayout.Fields>
-                                                    </dataPresenter:FieldLayout>
-                                                </dataPresenter:XamDataGrid.FieldLayouts>
-                                            </dataPresenter:XamDataGrid>
-                                        </GroupBox>
-
-                                        <Grid Grid.Row="1">
+                                    <GroupBox Grid.Column="1" Header="Действия в задаче">
+                                        <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*"/>
                                                 <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
-
-                                            <Button Grid.Column="0" Content="Добавить" Command="{Binding AddAnswerFilesCommand}" Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}"/>
-                                            <Button Grid.Column="1" Content="Удалить" Command="{Binding RemoveAnswerFileCommand}" Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}"/>
-                                            <Button Grid.Column="2" Content="Загрузить всё" Command="{Binding LoadAnswerFilesCommand}"/>
+                                            <Button Grid.Column="0" Content="Отклонить" Command="{Binding RejectCommand}"/>
+                                            <Button Grid.Column="1" Content="Завершить" Command="{Binding FinishCommand}"/>
                                         </Grid>
-
-                                    </Grid>
-
+                                    </GroupBox>
                                 </Grid>
-                            </GroupBox>
 
-                            <GridSplitter Grid.Row="2" Height="2" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+                                <Button Grid.Row="5" Content="Отчёт" Command="{Binding ShowReportCommand}"/>
+                            </Grid>
 
-                            <!--Дополнительные блоки-->
-                            <GroupBox Grid.Row="3" Header="Дополнительные блоки">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"/>
-                                        <RowDefinition Height="Auto"/>
-                                    </Grid.RowDefinitions>
+                            <GridSplitter Grid.Column="1" Width="2" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
 
-                                        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                                            <ListBox ItemsSource="{Binding ProductBlocksAdded}" 
-                                                     SelectedItem="{Binding SelectedBlockAdded, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                                     BorderThickness="0">
-                                                <ListBox.ItemContainerStyle>
-                                                    <Style TargetType="ListBoxItem">
-                                                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                                    </Style>
-                                                </ListBox.ItemContainerStyle>
-                                                <ListBox.ItemTemplate>
-                                                    <DataTemplate>
-                                                        <view:BlockAddedControl DataContext="{Binding}" Margin="5"/>
-                                                    </DataTemplate>
-                                                </ListBox.ItemTemplate>
-                                            </ListBox>
-                                        </ScrollViewer>
+                            <!--Переписка-->
+                            <Grid Grid.Column="2" >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
 
-                                    <Grid Grid.Row="1" Visibility="{Binding IsTarget, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
+                                <GroupBox Grid.Row="0" Header="Переписка">
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                        <ItemsControl ItemsSource="{Binding Messenger.MessagesToShow, Mode=OneWay}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <messages:MessageControl/>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </ScrollViewer>
+                                </GroupBox>
 
-                                        <Button Grid.Column="0" Content="Добавить" Command="{Binding AddBlockAddedCommand}" Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}"/>
-                                        <Button Grid.Column="1" Content="Комплект" Command="{Binding AddBlockAddedComplectCommand}" Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}"/>
-                                        <Button Grid.Column="2" Content="Удалить" Command="{Binding RemoveBlockAddedCommand}" Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}"/>
-                                    </Grid>
-
-                                </Grid>
-                            </GroupBox>
-
-                            <GroupBox Grid.Row="4" Header="Действия" Visibility="{Binding Converter={StaticResource ManagerVisibilityConverter}}">
-                                <Grid>
+                                <Grid Grid.Row="1" Visibility="{Binding Converter={StaticResource IsTargetTaskVisibilityConverter}}">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
-                                    <Button Grid.Column="0" Content="Стартовать" Command="{Binding StartCommand}"/>
-                                    <Button Grid.Column="1" Content="Принять" Command="{Binding AcceptCommand}"/>
-                                    <Button Grid.Column="2" Content="Отклонить" Command="{Binding RejectCommand}"/>
-                                    <Button Grid.Column="3" Content="Остановить" Command="{Binding StopCommand}"/>
+
+                                    <TextBox Grid.Column="0" 
+                                             IsEnabled="{Binding Messenger.AllowTexting, UpdateSourceTrigger=PropertyChanged}" 
+                                             Text="{Binding Messenger.Message.Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <Button Grid.Column="1" Content="Отправить" Command="{Binding Messenger.SendMessageCommand}"/>
                                 </Grid>
-                            </GroupBox>
 
-                            <Grid Grid.Row="4" Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-
-                                <GroupBox Grid.Column="0" Header="Новый параметр">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Button Grid.Column="0" Content="Основное" Command="{Binding BlockNewParameterCommand}"/>
-                                        <Button Grid.Column="1" Content="Добавленное" Command="{Binding BlockAddedNewParameterCommand}"/>
-                                    </Grid>
-                                </GroupBox>
-
-                                <GroupBox Grid.Column="1" Header="Действия в задаче">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Button Grid.Column="0" Content="Отклонить" Command="{Binding RejectCommand}"/>
-                                        <Button Grid.Column="1" Content="Завершить" Command="{Binding FinishCommand}"/>
-                                    </Grid>
-                                </GroupBox>
-                            </Grid>
-
-                            <Button Grid.Row="5" Content="Отчёт" Command="{Binding ShowReportCommand}"/>
-                        </Grid>
-
-                        <GridSplitter Grid.Column="1" Width="2" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
-
-                        <!--Переписка-->
-                        <Grid Grid.Column="2" >
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-
-                            <GroupBox Grid.Row="0" Header="Переписка">
-                                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                    <ItemsControl ItemsSource="{Binding Messenger.MessagesToShow, Mode=OneWay}">
-                                        <ItemsControl.ItemTemplate>
-                                            <DataTemplate>
-                                                <messages:MessageControl/>
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>
-                                    </ItemsControl>
-                                </ScrollViewer>
-                            </GroupBox>
-
-                            <Grid Grid.Row="1" Visibility="{Binding Converter={StaticResource IsTargetTaskVisibilityConverter}}">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-
-                                <TextBox Grid.Column="0" 
-                                         IsEnabled="{Binding Messenger.AllowTexting, UpdateSourceTrigger=PropertyChanged}" 
-                                         Text="{Binding Messenger.Message.Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                <Button Grid.Column="1" Content="Отправить" Command="{Binding Messenger.SendMessageCommand}"/>
                             </Grid>
 
                         </Grid>
-
-                    </Grid>
+                    </Border>
 
                     <!--Вложенные блоки-->
                     <Expander Grid.Row="1"

@@ -48,7 +48,7 @@
                 <ItemsControl HorizontalAlignment="Stretch" ItemsSource="{Binding ProductBlocksAdded}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border Margin="2" Padding="2" BorderThickness="1" BorderBrush="Black">
+                            <Border Margin="2" Padding="2" BorderThickness="1" BorderBrush="Black" CornerRadius="5">
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto"/>

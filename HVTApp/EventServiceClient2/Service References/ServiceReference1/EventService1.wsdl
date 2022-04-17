@@ -234,6 +234,12 @@
   <wsdl:message name="IEventService_PriceEngineeringTaskStopPublishEvent_OutputMessage">
     <wsdl:part name="parameters" element="tns:PriceEngineeringTaskStopPublishEventResponse" />
   </wsdl:message>
+  <wsdl:message name="IEventService_PriceEngineeringTaskSendMessagePublishEvent_InputMessage">
+    <wsdl:part name="parameters" element="tns:PriceEngineeringTaskSendMessagePublishEvent" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_PriceEngineeringTaskSendMessagePublishEvent_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PriceEngineeringTaskSendMessagePublishEventResponse" />
+  </wsdl:message>
   <wsdl:message name="IEventService_OnServiceDisposeEvent_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnServiceDisposeEvent" />
   </wsdl:message>
@@ -329,6 +335,12 @@
   </wsdl:message>
   <wsdl:message name="IEventService_OnPriceEngineeringTaskAcceptServiceCallback_InputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnPriceEngineeringTaskAcceptServiceCallbackResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_OnPriceEngineeringTaskSendMessageServiceCallback_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnPriceEngineeringTaskSendMessageServiceCallback" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_OnPriceEngineeringTaskSendMessageServiceCallback_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnPriceEngineeringTaskSendMessageServiceCallbackResponse" />
   </wsdl:message>
   <wsdl:message name="IEventService_OnSavePriceCalculationServiceCallback_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnSavePriceCalculationServiceCallback" />
@@ -574,6 +586,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IEventService/PriceEngineeringTaskStopPublishEvent" message="tns:IEventService_PriceEngineeringTaskStopPublishEvent_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/PriceEngineeringTaskStopPublishEventResponse" message="tns:IEventService_PriceEngineeringTaskStopPublishEvent_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="PriceEngineeringTaskSendMessagePublishEvent">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/PriceEngineeringTaskSendMessagePublishEvent" message="tns:IEventService_PriceEngineeringTaskSendMessagePublishEvent_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/PriceEngineeringTaskSendMessagePublishEventResponse" message="tns:IEventService_PriceEngineeringTaskSendMessagePublishEvent_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="OnServiceDisposeEvent">
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnServiceDisposeEvent" message="tns:IEventService_OnServiceDisposeEvent_OutputCallbackMessage" />
     </wsdl:operation>
@@ -641,6 +657,10 @@
     <wsdl:operation name="OnPriceEngineeringTaskAcceptServiceCallback">
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnPriceEngineeringTaskAcceptServiceCallback" message="tns:IEventService_OnPriceEngineeringTaskAcceptServiceCallback_OutputCallbackMessage" />
       <wsdl:input wsaw:Action="http://tempuri.org/IEventService/OnPriceEngineeringTaskAcceptServiceCallbackResponse" message="tns:IEventService_OnPriceEngineeringTaskAcceptServiceCallback_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OnPriceEngineeringTaskSendMessageServiceCallback">
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnPriceEngineeringTaskSendMessageServiceCallback" message="tns:IEventService_OnPriceEngineeringTaskSendMessageServiceCallback_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/OnPriceEngineeringTaskSendMessageServiceCallbackResponse" message="tns:IEventService_OnPriceEngineeringTaskSendMessageServiceCallback_InputCallbackMessage" />
     </wsdl:operation>
     <wsdl:operation name="OnSavePriceCalculationServiceCallback">
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnSavePriceCalculationServiceCallback" message="tns:IEventService_OnSavePriceCalculationServiceCallback_OutputCallbackMessage" />
@@ -1037,6 +1057,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="PriceEngineeringTaskSendMessagePublishEvent">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/PriceEngineeringTaskSendMessagePublishEvent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="OnServiceDisposeEvent">
       <soap12:operation soapAction="http://tempuri.org/IEventService/OnServiceDisposeEvent" style="document" />
       <wsdl:output>
@@ -1180,6 +1209,15 @@
     </wsdl:operation>
     <wsdl:operation name="OnPriceEngineeringTaskAcceptServiceCallback">
       <soap12:operation soapAction="http://tempuri.org/IEventService/OnPriceEngineeringTaskAcceptServiceCallback" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnPriceEngineeringTaskSendMessageServiceCallback">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/OnPriceEngineeringTaskSendMessageServiceCallback" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

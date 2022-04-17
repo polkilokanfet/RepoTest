@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
@@ -157,6 +158,19 @@ namespace HVTApp.Model
             }
 
             return result.Except(parametersToRemove);
+        }
+
+        public static PriceEngineeringTasks GetPriceEngineeringTasks(this PriceEngineeringTask task, IUnitOfWork unitOfWork)
+        {
+            while (task.ParentPriceEngineeringTasksId.HasValue == false)
+            {
+                if (task.ParentPriceEngineeringTaskId.HasValue)
+                {
+                    task = unitOfWork.Repository<PriceEngineeringTask>().GetById(task.ParentPriceEngineeringTaskId.Value);
+                }
+            }
+
+            return unitOfWork.Repository<PriceEngineeringTasks>().GetById(task.ParentPriceEngineeringTasksId.Value);
         }
     }
 }

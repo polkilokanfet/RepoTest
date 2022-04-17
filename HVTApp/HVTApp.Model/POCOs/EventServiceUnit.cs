@@ -54,6 +54,7 @@ namespace HVTApp.Model.POCOs
         PriceEngineeringTaskFinish,
         PriceEngineeringTaskAccept,
         PriceEngineeringTaskRejectByManager,
-        PriceEngineeringTaskRejectByConstructor
+        PriceEngineeringTaskRejectByConstructor,
+        PriceEngineeringTaskSendMessage
     }
 }

@@ -302,21 +302,7 @@ namespace HVTApp.UI.PriceEngineering
 
         public void Load(PriceEngineeringTask priceEngineeringTask)
         {
-            PriceEngineeringTask task = priceEngineeringTask;
-            while (task.ParentPriceEngineeringTasksId.HasValue == false)
-            {
-                if (task.ParentPriceEngineeringTaskId.HasValue)
-                {
-                    task = UnitOfWork.Repository<PriceEngineeringTask>().GetById(task.ParentPriceEngineeringTaskId.Value);
-                }
-                else
-                {
-                    return;
-                }
-            }
-
-            PriceEngineeringTasks priceEngineeringTasks = UnitOfWork.Repository<PriceEngineeringTasks>().GetById(task.ParentPriceEngineeringTasksId.Value);
-            this.Load(priceEngineeringTasks);
+            this.Load(priceEngineeringTask.GetPriceEngineeringTasks(UnitOfWork));
         }
 
         /// <summary>

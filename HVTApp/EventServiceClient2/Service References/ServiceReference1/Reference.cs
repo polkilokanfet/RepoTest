@@ -256,6 +256,14 @@ namespace EventServiceClient2.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskStopPublishEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskStopPublishEventResponse")]
         System.Threading.Tasks.Task<bool> PriceEngineeringTaskStopPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskSendMessagePublishEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskSendMessagePublishEventRespo" +
+            "nse")]
+        bool PriceEngineeringTaskSendMessagePublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid messageId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskSendMessagePublishEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskSendMessagePublishEventRespo" +
+            "nse")]
+        System.Threading.Tasks.Task<bool> PriceEngineeringTaskSendMessagePublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid messageId);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -324,6 +332,11 @@ namespace EventServiceClient2.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/OnPriceEngineeringTaskAcceptServiceCallback", ReplyAction="http://tempuri.org/IEventService/OnPriceEngineeringTaskAcceptServiceCallbackRespo" +
             "nse")]
         bool OnPriceEngineeringTaskAcceptServiceCallback(System.Guid priceEngineeringTaskId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/OnPriceEngineeringTaskSendMessageServiceCallback" +
+            "", ReplyAction="http://tempuri.org/IEventService/OnPriceEngineeringTaskSendMessageServiceCallback" +
+            "Response")]
+        bool OnPriceEngineeringTaskSendMessageServiceCallback(System.Guid messageId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/OnSavePriceCalculationServiceCallback", ReplyAction="http://tempuri.org/IEventService/OnSavePriceCalculationServiceCallbackResponse")]
         bool OnSavePriceCalculationServiceCallback(System.Guid calculationId);
@@ -704,6 +717,14 @@ namespace EventServiceClient2.ServiceReference1 {
         
         public System.Threading.Tasks.Task<bool> PriceEngineeringTaskStopPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId) {
             return base.Channel.PriceEngineeringTaskStopPublishEventAsync(eventSourceAppSessionId, targetUserId, priceEngineeringTaskId);
+        }
+        
+        public bool PriceEngineeringTaskSendMessagePublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid messageId) {
+            return base.Channel.PriceEngineeringTaskSendMessagePublishEvent(eventSourceAppSessionId, targetUserId, messageId);
+        }
+        
+        public System.Threading.Tasks.Task<bool> PriceEngineeringTaskSendMessagePublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid messageId) {
+            return base.Channel.PriceEngineeringTaskSendMessagePublishEventAsync(eventSourceAppSessionId, targetUserId, messageId);
         }
     }
 }

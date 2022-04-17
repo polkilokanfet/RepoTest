@@ -77,6 +77,11 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
         [OperationContract]
         bool OnPriceEngineeringTaskAcceptServiceCallback(Guid priceEngineeringTaskId);
 
+
+
+        [OperationContract]
+        bool OnPriceEngineeringTaskSendMessageServiceCallback(Guid messageId);
+
         #endregion
 
         #region PriceCalculation

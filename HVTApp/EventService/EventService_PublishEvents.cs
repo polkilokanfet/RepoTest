@@ -309,6 +309,13 @@ namespace EventService
                 appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnPriceEngineeringTaskRejectByConstructorServiceCallback(priceEngineeringTaskId));
         }
 
+
+        public bool PriceEngineeringTaskSendMessagePublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid messageId)
+        {
+            return PublishEventByServiceForUser(targetUserId, eventSourceAppSessionId,
+                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnPriceEngineeringTaskSendMessageServiceCallback(messageId));
+        }
+
         #endregion
     }
 }

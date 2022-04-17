@@ -170,6 +170,10 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
         [OperationContract]
         bool PriceEngineeringTaskStopPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid priceEngineeringTaskId);
 
+
+        [OperationContract]
+        bool PriceEngineeringTaskSendMessagePublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid messageId);
+
         #endregion
     }
 }
