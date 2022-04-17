@@ -259,8 +259,10 @@ namespace HVTApp.UI.PriceEngineering
             RejectCommand = new DelegateLogCommand(
                 () =>
                 {
-                    if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Отклонить", "Вы уверены?", defaultNo: true) != MessageDialogResult.Yes)
+                    if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Отклонить", "Вы уверены, что хотите отклонить проработку задачи?", defaultNo: true) != MessageDialogResult.Yes)
                         return;
+
+                    this.RejectChanges();
 
                     this.Statuses.Add(new PriceEngineeringTaskStatusWrapper(new PriceEngineeringTaskStatus { StatusEnum = PriceEngineeringTaskStatusEnum.RejectedByConstructor }));
                     this.Messages.Add(new PriceEngineeringTaskMessageWrapper(new PriceEngineeringTaskMessage
@@ -271,7 +273,7 @@ namespace HVTApp.UI.PriceEngineering
                     SaveCommand.Execute();
                     Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskRejectedByConstructorEvent>().Publish(this.Model);
                 },
-                () => IsEditMode && this.IsValid);
+                () => IsEditMode);
 
             BlockAddedNewParameterCommand = new DelegateLogCommand(
                 () =>
