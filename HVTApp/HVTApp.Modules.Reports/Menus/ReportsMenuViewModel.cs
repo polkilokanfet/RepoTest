@@ -42,6 +42,11 @@ namespace HVTApp.Modules.Reports.Menus
                 Items.Add(new NavigationItem("Заявки ТСЕ", typeof(TceReportView)));
             }
 
+            if (GlobalAppProperties.User.RoleCurrent == Role.ReportMaker)
+            {
+                Items.Add(new NavigationItem("Фабрика бюджетов", typeof(FlatReportView)));
+            }
+
             Items.Add(new NavigationItem("График продаж", typeof(SalesChartView)));
 
             if (GlobalAppProperties.User.RoleCurrent == Role.Admin ||
