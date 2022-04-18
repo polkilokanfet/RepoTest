@@ -60,6 +60,11 @@ namespace HVTApp.UI.PriceEngineering
         public abstract bool IsEditMode { get; }
 
         /// <summary>
+        /// Можно ли редактировать добавленные блоки
+        /// </summary>
+        public virtual bool AllowEditAddedBlocks => false;
+
+        /// <summary>
         /// Статус
         /// </summary>
         public PriceEngineeringTaskStatusEnum Status => this.Model.Status;
@@ -305,6 +310,8 @@ namespace HVTApp.UI.PriceEngineering
                 var messageWrapper = new PriceEngineeringTaskMessageWrapper(message);
                 this.Messages.Add(messageWrapper);
             };
+
+            this.Statuses.CollectionChanged += (sender, args) => OnPropertyChanged(nameof(AllowEditAddedBlocks));
         }
 
         /// <summary>

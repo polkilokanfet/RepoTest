@@ -169,7 +169,7 @@ namespace HVTApp.UI.PriceEngineering
                         this.PriceEngineeringTasksWrapper.FilesTechnicalRequirements.Remove(SelectedFileTechnicalRequirements);
                     }
                 },
-                () => AllowEditProps);
+                () => AllowEditProps && SelectedFileTechnicalRequirements != null);
 
             OpenFileTechnicalRequirementsCommand = new DelegateLogCommand(
                 () =>

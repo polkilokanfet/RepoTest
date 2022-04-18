@@ -306,6 +306,17 @@
                                     </Grid>
                                 </GroupBox>
 
+                                <GroupBox Grid.Row="4" Header="Действия" Visibility="{Binding Converter={StaticResource DesignDepartmentHeadVisibilityConverter}}">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Button Grid.Column="0" Content="Принять проработку" Command="{Binding AcceptPriceEngineeringTaskCommand}"/>
+                                        <Button Grid.Column="1" Content="Отправить на доработку" Command="{Binding RejectPriceEngineeringTaskCommand}"/>
+                                    </Grid>
+                                </GroupBox>
+
                                 <Grid Grid.Row="4" Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>

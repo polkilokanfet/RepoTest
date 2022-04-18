@@ -28,24 +28,20 @@ namespace HVTApp.UI.PriceEngineering
         {
             get
             {
+                if (IsTarget == false) return false;
+
                 switch (Status)
                 {
                     case PriceEngineeringTaskStatusEnum.Started:
                     case PriceEngineeringTaskStatusEnum.RejectedByManager:
+                    case PriceEngineeringTaskStatusEnum.VerificationRejectededByHead:
                         return true;
-
-                    case PriceEngineeringTaskStatusEnum.Created:
-                    case PriceEngineeringTaskStatusEnum.Stopped:
-                    case PriceEngineeringTaskStatusEnum.RejectedByConstructor:
-                    case PriceEngineeringTaskStatusEnum.FinishedByConstructor:
-                    case PriceEngineeringTaskStatusEnum.Accepted:
-                        return false;
-
-                    default:
-                        throw new ArgumentOutOfRangeException();
                 }
+                return false;
             }
         }
+
+        public override bool AllowEditAddedBlocks => IsEditMode;
 
         private List<Parameter> ProductBlockRequiredParameters { get; set; }
 
@@ -231,8 +227,16 @@ namespace HVTApp.UI.PriceEngineering
                     if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Завершение проработки", "Вы уверены, что хотите завершить проработку?", defaultNo: true) != MessageDialogResult.Yes)
                         return;
 
+                    if (this.RequestForVerificationFromHead == false)
+                    {
+                        var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Проверка", "Хотите проверить результаты проработки?", defaultNo: true);
+                        this.RequestForVerificationFromConstructor = dr == MessageDialogResult.Yes;
+                    }
+
+                    bool needVerification = this.RequestForVerificationFromHead || this.RequestForVerificationFromConstructor;
+
                     var sb = new StringBuilder()
-                        .AppendLine("Проработка завершена.")
+                        .AppendLine(needVerification ? "Проработка направлена на проверку руководителю." : "Проработка завершена.")
                         .AppendLine("Основной блок:")
                         .AppendLine(this.ProductBlockEngineer.ToString());
 
@@ -242,7 +246,10 @@ namespace HVTApp.UI.PriceEngineering
                         ProductBlocksAdded.ForEach(x => sb.AppendLine(x.ToString()));
                     }
 
-                    Statuses.Add(new PriceEngineeringTaskStatusWrapper(new PriceEngineeringTaskStatus {StatusEnum = PriceEngineeringTaskStatusEnum.FinishedByConstructor}));
+                    Statuses.Add(new PriceEngineeringTaskStatusWrapper(new PriceEngineeringTaskStatus
+                    {
+                        StatusEnum = needVerification ? PriceEngineeringTaskStatusEnum.FinishedByConstructorGoToVerification : PriceEngineeringTaskStatusEnum.FinishedByConstructor
+                    }));
                     Messages.Add(new PriceEngineeringTaskMessageWrapper(new PriceEngineeringTaskMessage
                     {
                         Author = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
@@ -252,7 +259,15 @@ namespace HVTApp.UI.PriceEngineering
 
                     AddAnswerFilesCommand.RaiseCanExecuteChanged();
                     RemoveAnswerFileCommand.RaiseCanExecuteChanged();
-                    Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskFinishedEvent>().Publish(this.Model);
+
+                    if (needVerification)
+                    {
+                        Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskFinishedGoToVerificationEvent>().Publish(this.Model);
+                    }
+                    else
+                    {
+                        Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskFinishedEvent>().Publish(this.Model);
+                    }
                 },
                 () => IsTarget && IsEditMode && this.IsValid);
 

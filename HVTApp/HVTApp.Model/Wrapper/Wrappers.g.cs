@@ -1948,6 +1948,26 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.Guid> ParentPriceEngineeringTaskIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ParentPriceEngineeringTaskId));
         public bool ParentPriceEngineeringTaskIdIsChanged => GetIsChanged(nameof(ParentPriceEngineeringTaskId));
         /// <summary>
+        /// Запрос на проверку от руководителя
+        /// </summary>
+        public System.Boolean RequestForVerificationFromHead
+        {
+          get { return GetValue<System.Boolean>(); }
+          set { SetValue(value); }
+        }
+        public System.Boolean RequestForVerificationFromHeadOriginalValue => GetOriginalValue<System.Boolean>(nameof(RequestForVerificationFromHead));
+        public bool RequestForVerificationFromHeadIsChanged => GetIsChanged(nameof(RequestForVerificationFromHead));
+        /// <summary>
+        /// Запрос на проверку от исполнителя
+        /// </summary>
+        public System.Boolean RequestForVerificationFromConstructor
+        {
+          get { return GetValue<System.Boolean>(); }
+          set { SetValue(value); }
+        }
+        public System.Boolean RequestForVerificationFromConstructorOriginalValue => GetOriginalValue<System.Boolean>(nameof(RequestForVerificationFromConstructor));
+        public bool RequestForVerificationFromConstructorIsChanged => GetIsChanged(nameof(RequestForVerificationFromConstructor));
+        /// <summary>
         /// Id
         /// </summary>
         public System.Guid Id
@@ -3464,6 +3484,10 @@ namespace HVTApp.Model.Wrapper
         /// Принято?
         /// </summary>
         public System.Boolean IsAccepted => GetValue<System.Boolean>(); 
+        /// <summary>
+        /// Products
+        /// </summary>
+        public System.String Products => GetValue<System.String>(); 
         /// <summary>
         /// Front manager
         /// </summary>

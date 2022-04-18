@@ -91,6 +91,11 @@ namespace HVTApp.Model.POCOs
         [Designation("SalesUnits"), OrderStatus(10)]
         public virtual List<SalesUnit> SalesUnits { get; set; } = new List<SalesUnit>();
 
+        [Designation("Запрос на проверку от руководителя"), OrderStatus(40)]
+        public bool RequestForVerificationFromHead { get; set; } = false;
+
+        [Designation("Запрос на проверку от исполнителя"), OrderStatus(35)]
+        public bool RequestForVerificationFromConstructor { get; set; } = false;
 
         [Designation("Старт"), NotMapped]
         public DateTime? StartMoment
@@ -107,7 +112,6 @@ namespace HVTApp.Model.POCOs
                     .Moment;
             }
         }
-
 
 
         /// <summary>

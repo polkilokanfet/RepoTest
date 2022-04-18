@@ -537,6 +537,51 @@ namespace EventServiceClient2
             return false;
         }
 
+        public bool OnPriceEngineeringTaskFinishGoToVerificationServiceCallback(Guid priceEngineeringTaskId)
+        {
+            var priceEngineeringTask = _container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(priceEngineeringTaskId);
+
+            if (SyncContainer.PublishWithinAppForCurrentUser<PriceEngineeringTask, PriceEngineeringTaskFinishedGoToVerificationEvent>(priceEngineeringTask))
+            {
+                var message = $"Проработано: {priceEngineeringTask}";
+                var title = $"{priceEngineeringTask} с Id {priceEngineeringTask.Id}";
+                _popupNotificationsService.ShowPopupNotification(priceEngineeringTask, message, title);
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool OnPriceEngineeringTaskVerificationRejectedByHeadServiceCallback(Guid priceEngineeringTaskId)
+        {
+            var priceEngineeringTask = _container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(priceEngineeringTaskId);
+
+            if (SyncContainer.PublishWithinAppForCurrentUser<PriceEngineeringTask, PriceEngineeringTaskVerificationRejectedByHeadEvent>(priceEngineeringTask))
+            {
+                var message = $"Возвращено на дороботку начальником отдела: {priceEngineeringTask}";
+                var title = $"{priceEngineeringTask} с Id {priceEngineeringTask.Id}";
+                _popupNotificationsService.ShowPopupNotification(priceEngineeringTask, message, title);
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool OnPriceEngineeringTaskVerificationAcceptedByHeadServiceCallback(Guid priceEngineeringTaskId)
+        {
+            var priceEngineeringTask = _container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(priceEngineeringTaskId);
+
+            if (SyncContainer.PublishWithinAppForCurrentUser<PriceEngineeringTask, PriceEngineeringTaskVerificationAcceptedByHeadEvent>(priceEngineeringTask))
+            {
+                var message = $"Принято начальником отдела: {priceEngineeringTask}";
+                var title = $"{priceEngineeringTask} с Id {priceEngineeringTask.Id}";
+                _popupNotificationsService.ShowPopupNotification(priceEngineeringTask, message, title);
+                return true;
+            }
+
+            return false;
+        }
+
         public bool OnPriceEngineeringTaskRejectByManagerServiceCallback(Guid priceEngineeringTaskId)
         {
             var priceEngineeringTask = _container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(priceEngineeringTaskId);

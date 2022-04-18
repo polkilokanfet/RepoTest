@@ -51,6 +51,7 @@ namespace HVTApp.UI.PriceEngineering
             container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskRejectedByManagerEvent>().Subscribe(OnPriceEngineeringTask);
             container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskRejectedByConstructorEvent>().Subscribe(OnPriceEngineeringTask);
             container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskStoppedEvent>().Subscribe(OnPriceEngineeringTask);
+            container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskFinishedGoToVerificationEvent>().Subscribe(OnPriceEngineeringTask);
 
             Load();
         }

@@ -210,6 +210,24 @@
   <wsdl:message name="IEventService_PriceEngineeringTaskFinishPublishEvent_OutputMessage">
     <wsdl:part name="parameters" element="tns:PriceEngineeringTaskFinishPublishEventResponse" />
   </wsdl:message>
+  <wsdl:message name="IEventService_PriceEngineeringTaskFinishGoToVerificationPublishEvent_InputMessage">
+    <wsdl:part name="parameters" element="tns:PriceEngineeringTaskFinishGoToVerificationPublishEvent" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_PriceEngineeringTaskFinishGoToVerificationPublishEvent_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PriceEngineeringTaskFinishGoToVerificationPublishEventResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_PriceEngineeringTaskVerificationRejectedByHeadPublishEvent_InputMessage">
+    <wsdl:part name="parameters" element="tns:PriceEngineeringTaskVerificationRejectedByHeadPublishEvent" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_PriceEngineeringTaskVerificationRejectedByHeadPublishEvent_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PriceEngineeringTaskVerificationRejectedByHeadPublishEventResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_PriceEngineeringTaskVerificationAcceptedByHeadPublishEvent_InputMessage">
+    <wsdl:part name="parameters" element="tns:PriceEngineeringTaskVerificationAcceptedByHeadPublishEvent" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_PriceEngineeringTaskVerificationAcceptedByHeadPublishEvent_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PriceEngineeringTaskVerificationAcceptedByHeadPublishEventResponse" />
+  </wsdl:message>
   <wsdl:message name="IEventService_PriceEngineeringTaskAcceptPublishEvent_InputMessage">
     <wsdl:part name="parameters" element="tns:PriceEngineeringTaskAcceptPublishEvent" />
   </wsdl:message>
@@ -317,6 +335,24 @@
   </wsdl:message>
   <wsdl:message name="IEventService_OnPriceEngineeringTaskFinishServiceCallback_InputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnPriceEngineeringTaskFinishServiceCallbackResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_OnPriceEngineeringTaskFinishGoToVerificationServiceCallback_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnPriceEngineeringTaskFinishGoToVerificationServiceCallback" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_OnPriceEngineeringTaskFinishGoToVerificationServiceCallback_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnPriceEngineeringTaskFinishGoToVerificationServiceCallbackResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_OnPriceEngineeringTaskVerificationRejectedByHeadServiceCallback_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnPriceEngineeringTaskVerificationRejectedByHeadServiceCallback" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_OnPriceEngineeringTaskVerificationRejectedByHeadServiceCallback_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnPriceEngineeringTaskVerificationRejectedByHeadServiceCallbackResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_OnPriceEngineeringTaskVerificationAcceptedByHeadServiceCallback_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnPriceEngineeringTaskVerificationAcceptedByHeadServiceCallback" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_OnPriceEngineeringTaskVerificationAcceptedByHeadServiceCallback_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnPriceEngineeringTaskVerificationAcceptedByHeadServiceCallbackResponse" />
   </wsdl:message>
   <wsdl:message name="IEventService_OnPriceEngineeringTaskRejectByManagerServiceCallback_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnPriceEngineeringTaskRejectByManagerServiceCallback" />
@@ -570,6 +606,18 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IEventService/PriceEngineeringTaskFinishPublishEvent" message="tns:IEventService_PriceEngineeringTaskFinishPublishEvent_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/PriceEngineeringTaskFinishPublishEventResponse" message="tns:IEventService_PriceEngineeringTaskFinishPublishEvent_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="PriceEngineeringTaskFinishGoToVerificationPublishEvent">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/PriceEngineeringTaskFinishGoToVerificationPublishEvent" message="tns:IEventService_PriceEngineeringTaskFinishGoToVerificationPublishEvent_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/PriceEngineeringTaskFinishGoToVerificationPublishEventResponse" message="tns:IEventService_PriceEngineeringTaskFinishGoToVerificationPublishEvent_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PriceEngineeringTaskVerificationRejectedByHeadPublishEvent">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/PriceEngineeringTaskVerificationRejectedByHeadPublishEvent" message="tns:IEventService_PriceEngineeringTaskVerificationRejectedByHeadPublishEvent_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/PriceEngineeringTaskVerificationRejectedByHeadPublishEventResponse" message="tns:IEventService_PriceEngineeringTaskVerificationRejectedByHeadPublishEvent_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PriceEngineeringTaskVerificationAcceptedByHeadPublishEvent">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/PriceEngineeringTaskVerificationAcceptedByHeadPublishEvent" message="tns:IEventService_PriceEngineeringTaskVerificationAcceptedByHeadPublishEvent_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/PriceEngineeringTaskVerificationAcceptedByHeadPublishEventResponse" message="tns:IEventService_PriceEngineeringTaskVerificationAcceptedByHeadPublishEvent_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="PriceEngineeringTaskAcceptPublishEvent">
       <wsdl:input wsaw:Action="http://tempuri.org/IEventService/PriceEngineeringTaskAcceptPublishEvent" message="tns:IEventService_PriceEngineeringTaskAcceptPublishEvent_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/PriceEngineeringTaskAcceptPublishEventResponse" message="tns:IEventService_PriceEngineeringTaskAcceptPublishEvent_OutputMessage" />
@@ -645,6 +693,18 @@
     <wsdl:operation name="OnPriceEngineeringTaskFinishServiceCallback">
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnPriceEngineeringTaskFinishServiceCallback" message="tns:IEventService_OnPriceEngineeringTaskFinishServiceCallback_OutputCallbackMessage" />
       <wsdl:input wsaw:Action="http://tempuri.org/IEventService/OnPriceEngineeringTaskFinishServiceCallbackResponse" message="tns:IEventService_OnPriceEngineeringTaskFinishServiceCallback_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OnPriceEngineeringTaskFinishGoToVerificationServiceCallback">
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnPriceEngineeringTaskFinishGoToVerificationServiceCallback" message="tns:IEventService_OnPriceEngineeringTaskFinishGoToVerificationServiceCallback_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/OnPriceEngineeringTaskFinishGoToVerificationServiceCallbackResponse" message="tns:IEventService_OnPriceEngineeringTaskFinishGoToVerificationServiceCallback_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OnPriceEngineeringTaskVerificationRejectedByHeadServiceCallback">
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnPriceEngineeringTaskVerificationRejectedByHeadServiceCallback" message="tns:IEventService_OnPriceEngineeringTaskVerificationRejectedByHeadServiceCallback_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/OnPriceEngineeringTaskVerificationRejectedByHeadServiceCallbackResponse" message="tns:IEventService_OnPriceEngineeringTaskVerificationRejectedByHeadServiceCallback_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OnPriceEngineeringTaskVerificationAcceptedByHeadServiceCallback">
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnPriceEngineeringTaskVerificationAcceptedByHeadServiceCallback" message="tns:IEventService_OnPriceEngineeringTaskVerificationAcceptedByHeadServiceCallback_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/OnPriceEngineeringTaskVerificationAcceptedByHeadServiceCallbackResponse" message="tns:IEventService_OnPriceEngineeringTaskVerificationAcceptedByHeadServiceCallback_InputCallbackMessage" />
     </wsdl:operation>
     <wsdl:operation name="OnPriceEngineeringTaskRejectByManagerServiceCallback">
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnPriceEngineeringTaskRejectByManagerServiceCallback" message="tns:IEventService_OnPriceEngineeringTaskRejectByManagerServiceCallback_OutputCallbackMessage" />
@@ -1021,6 +1081,33 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="PriceEngineeringTaskFinishGoToVerificationPublishEvent">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/PriceEngineeringTaskFinishGoToVerificationPublishEvent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PriceEngineeringTaskVerificationRejectedByHeadPublishEvent">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/PriceEngineeringTaskVerificationRejectedByHeadPublishEvent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PriceEngineeringTaskVerificationAcceptedByHeadPublishEvent">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/PriceEngineeringTaskVerificationAcceptedByHeadPublishEvent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="PriceEngineeringTaskAcceptPublishEvent">
       <soap12:operation soapAction="http://tempuri.org/IEventService/PriceEngineeringTaskAcceptPublishEvent" style="document" />
       <wsdl:input>
@@ -1182,6 +1269,33 @@
     </wsdl:operation>
     <wsdl:operation name="OnPriceEngineeringTaskFinishServiceCallback">
       <soap12:operation soapAction="http://tempuri.org/IEventService/OnPriceEngineeringTaskFinishServiceCallback" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnPriceEngineeringTaskFinishGoToVerificationServiceCallback">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/OnPriceEngineeringTaskFinishGoToVerificationServiceCallback" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnPriceEngineeringTaskVerificationRejectedByHeadServiceCallback">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/OnPriceEngineeringTaskVerificationRejectedByHeadServiceCallback" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnPriceEngineeringTaskVerificationAcceptedByHeadServiceCallback">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/OnPriceEngineeringTaskVerificationAcceptedByHeadServiceCallback" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

@@ -44,10 +44,9 @@ namespace HVTApp.UI.Lookup
                     case Role.DesignDepartmentHead:
                     {
                         var tasks = Entity.GetSuitableTasksForInstruct(GlobalAppProperties.User).ToList();
+                        if (tasks.Any(x => x.Status == PriceEngineeringTaskStatusEnum.FinishedByConstructorGoToVerification)) return "Требует проверки";
                         if (tasks.All(status => status.UserConstructor != null)) return "Поручено";
-
                         return "Требует поручения";
-
                     }
                 }
 
@@ -61,25 +60,25 @@ namespace HVTApp.UI.Lookup
             {
                 var statuses = new List<PriceEngineeringTaskStatusEnum>
                 {
-                    PriceEngineeringTaskStatusEnum.Started,
-                    PriceEngineeringTaskStatusEnum.FinishedByConstructor,
-                    PriceEngineeringTaskStatusEnum.RejectedByConstructor,
-                    PriceEngineeringTaskStatusEnum.RejectedByManager
+                    PriceEngineeringTaskStatusEnum.Stopped,
+                    PriceEngineeringTaskStatusEnum.Accepted
                 };
 
                 switch (GlobalAppProperties.User.RoleCurrent)
                 {
                     case Role.SalesManager:
                     {
-                        return Entity.StatusesAll.All(x => statuses.Contains(x));
+                        return Entity.StatusesAll.Any(x => statuses.Contains(x) == false);
                     }
                     case Role.Constructor:
                     {
-                        return Entity.GetSuitableTasksForWork(GlobalAppProperties.User).Select(x => x.Status).All(x => statuses.Contains(x));
+                        return Entity.GetSuitableTasksForWork(GlobalAppProperties.User).Select(x => x.Status).Any(x => statuses.Contains(x) == false);
                     }
                     case Role.DesignDepartmentHead:
                     {
-                        return Entity.GetSuitableTasksForInstruct(GlobalAppProperties.User).Any(x => x.UserConstructor == null);
+                        var tasks = Entity.GetSuitableTasksForInstruct(GlobalAppProperties.User).ToList();
+                        return tasks.Any(x => x.UserConstructor == null) || 
+                               tasks.Any(x => x.Status == PriceEngineeringTaskStatusEnum.FinishedByConstructorGoToVerification);
                     }
                 }
 

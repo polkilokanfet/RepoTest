@@ -28,8 +28,12 @@ namespace HVTApp.UI.PriceEngineering.Converters
                         return Colors.GreenYellow;
                     case PriceEngineeringTaskStatusEnum.Accepted:
                         return Colors.LightGreen;
-                    default:
-                        throw new ArgumentOutOfRangeException();
+                    case PriceEngineeringTaskStatusEnum.FinishedByConstructorGoToVerification:
+                        return Colors.DarkSeaGreen;
+                    case PriceEngineeringTaskStatusEnum.VerificationAcceptedByHead:
+                        return Colors.GreenYellow;
+                    case PriceEngineeringTaskStatusEnum.VerificationRejectededByHead:
+                        return Colors.OrangeRed;
                 }
             }
 

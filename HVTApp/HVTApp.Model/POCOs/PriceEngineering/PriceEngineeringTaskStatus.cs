@@ -33,6 +33,9 @@ namespace HVTApp.Model.POCOs
         RejectedByManager,
         RejectedByConstructor,
         FinishedByConstructor,
-        Accepted
+        Accepted,
+        FinishedByConstructorGoToVerification,
+        VerificationAcceptedByHead,
+        VerificationRejectededByHead
     }
 }

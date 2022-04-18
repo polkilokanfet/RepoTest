@@ -53,6 +53,9 @@ namespace EventServiceClient2.SyncEntities
             this.Add(new SyncPriceEngineeringTaskRejectByManager(container));
             this.Add(new SyncPriceEngineeringTaskRejectByConstructor(container));
             this.Add(new SyncPriceEngineeringTaskSendMessage(container));
+            this.Add(new SyncPriceEngineeringTaskFinishedGoToVerification(container));
+            this.Add(new SyncPriceEngineeringTaskVerificationAcceptedByHead(container));
+            this.Add(new SyncPriceEngineeringTaskVerificationRejectedByHead(container));
         }
 
         private void Add(ISyncUnit member)

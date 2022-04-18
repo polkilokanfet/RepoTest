@@ -23,6 +23,7 @@ namespace HVTApp.UI.PriceEngineering
         }
         public System.Guid ParentPriceEngineeringTasksIdOriginalValue => GetOriginalValue<System.Guid>(nameof(ParentPriceEngineeringTasksId));
         public bool ParentPriceEngineeringTasksIdIsChanged => GetIsChanged(nameof(ParentPriceEngineeringTasksId));
+
         /// <summary>
         ///  оличество блоков продукта
         /// </summary>
@@ -33,6 +34,7 @@ namespace HVTApp.UI.PriceEngineering
         }
         public System.Int32 AmountOriginalValue => GetOriginalValue<System.Int32>(nameof(Amount));
         public bool AmountIsChanged => GetIsChanged(nameof(Amount));
+
         /// <summary>
         /// Id материнской задачи
         /// </summary>
@@ -43,6 +45,7 @@ namespace HVTApp.UI.PriceEngineering
         }
         public System.Guid ParentPriceEngineeringTaskIdOriginalValue => GetOriginalValue<System.Guid>(nameof(ParentPriceEngineeringTaskId));
         public bool ParentPriceEngineeringTaskIdIsChanged => GetIsChanged(nameof(ParentPriceEngineeringTaskId));
+
         /// <summary>
         /// Id
         /// </summary>
@@ -53,6 +56,28 @@ namespace HVTApp.UI.PriceEngineering
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+        /// <summary>
+        /// «апрос на проверку от руководител€
+        /// </summary>
+        public System.Boolean RequestForVerificationFromHead
+        {
+            get { return GetValue<System.Boolean>(); }
+            set { SetValue(value); }
+        }
+        public System.Boolean RequestForVerificationFromHeadOriginalValue => GetOriginalValue<System.Boolean>(nameof(RequestForVerificationFromHead));
+        public bool RequestForVerificationFromHeadIsChanged => GetIsChanged(nameof(RequestForVerificationFromHead));
+        /// <summary>
+        /// «апрос на проверку от исполнител€
+        /// </summary>
+        public System.Boolean RequestForVerificationFromConstructor
+        {
+            get { return GetValue<System.Boolean>(); }
+            set { SetValue(value); }
+        }
+        public System.Boolean RequestForVerificationFromConstructorOriginalValue => GetOriginalValue<System.Boolean>(nameof(RequestForVerificationFromConstructor));
+        public bool RequestForVerificationFromConstructorIsChanged => GetIsChanged(nameof(RequestForVerificationFromConstructor));
+
         #endregion
 
         #region ComplexProperties

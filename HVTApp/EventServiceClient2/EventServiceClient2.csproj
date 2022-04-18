@@ -86,6 +86,7 @@
     <Compile Include="SyncEntities\Entities\PriceCalculation\SyncPriceCalculationReject.cs" />
     <Compile Include="SyncEntities\Entities\PriceEngineeringTask\SyncPriceEngineeringTaskAccept.cs" />
     <Compile Include="SyncEntities\Entities\PriceEngineeringTask\SyncPriceEngineeringTaskFinish.cs" />
+    <Compile Include="SyncEntities\Entities\PriceEngineeringTask\SyncPriceEngineeringTaskFinishedGoToVerification.cs" />
     <Compile Include="SyncEntities\Entities\PriceEngineeringTask\SyncPriceEngineeringTaskInstruct.cs" />
     <Compile Include="SyncEntities\Entities\PriceEngineeringTask\SyncPriceEngineeringTaskRejectByConstructor.cs" />
     <Compile Include="SyncEntities\Entities\PriceEngineeringTask\SyncPriceEngineeringTaskRejectByManager.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="SyncEntities\Entities\PriceEngineeringTask\SyncPriceEngineeringTasksStart.cs" />
     <Compile Include="SyncEntities\Entities\PriceEngineeringTask\SyncPriceEngineeringTaskStart.cs" />
     <Compile Include="SyncEntities\Entities\PriceEngineeringTask\SyncPriceEngineeringTaskStop.cs" />
+    <Compile Include="SyncEntities\Entities\PriceEngineeringTask\SyncPriceEngineeringTaskVerificationAcceptedByHead.cs" />
     <Compile Include="SyncEntities\Entities\TechnicalRequrementsTask\SyncTechnicalRequrementsTaskAccept.cs" />
     <Compile Include="SyncEntities\Entities\TechnicalRequrementsTask\SyncTechnicalRequrementsTaskFinish.cs" />
     <Compile Include="SyncEntities\Entities\TechnicalRequrementsTask\SyncTechnicalRequrementsTaskInstruct.cs" />

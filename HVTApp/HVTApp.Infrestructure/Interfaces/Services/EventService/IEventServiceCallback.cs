@@ -68,6 +68,19 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
         [OperationContract]
         bool OnPriceEngineeringTaskFinishServiceCallback(Guid priceEngineeringTaskId);
 
+
+
+        [OperationContract]
+        bool OnPriceEngineeringTaskFinishGoToVerificationServiceCallback(Guid priceEngineeringTaskId);
+
+        [OperationContract]
+        bool OnPriceEngineeringTaskVerificationRejectedByHeadServiceCallback(Guid priceEngineeringTaskId);
+
+        [OperationContract]
+        bool OnPriceEngineeringTaskVerificationAcceptedByHeadServiceCallback(Guid priceEngineeringTaskId);
+
+
+
         [OperationContract]
         bool OnPriceEngineeringTaskRejectByManagerServiceCallback(Guid priceEngineeringTaskId);
 

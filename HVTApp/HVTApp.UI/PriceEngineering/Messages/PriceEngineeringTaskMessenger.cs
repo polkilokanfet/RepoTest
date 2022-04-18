@@ -46,17 +46,14 @@ namespace HVTApp.UI.PriceEngineering.Messages
         {
             get
             {
-                //статусы при которых разрешена отправка сообщений
-                var statuses = new List<PriceEngineeringTaskStatusEnum>
+                switch (_viewModel.Status)
                 {
-                    PriceEngineeringTaskStatusEnum.Created,
-                    PriceEngineeringTaskStatusEnum.Started,
-                    PriceEngineeringTaskStatusEnum.FinishedByConstructor,
-                    PriceEngineeringTaskStatusEnum.RejectedByConstructor,
-                    PriceEngineeringTaskStatusEnum.RejectedByManager
-                };
+                    case PriceEngineeringTaskStatusEnum.Stopped:
+                    case PriceEngineeringTaskStatusEnum.Accepted:
+                        return false;
+                }
 
-                return statuses.Contains(_viewModel.Status);
+                return true;
             }
         }
 

@@ -291,6 +291,24 @@ namespace EventService
                 appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnPriceEngineeringTaskFinishServiceCallback(priceEngineeringTaskId));
         }
 
+        public bool PriceEngineeringTaskFinishGoToVerificationPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid priceEngineeringTaskId)
+        {
+            return PublishEventByServiceForUser(targetUserId, eventSourceAppSessionId,
+                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnPriceEngineeringTaskFinishGoToVerificationServiceCallback(priceEngineeringTaskId));
+        }
+
+        public bool PriceEngineeringTaskVerificationRejectedByHeadPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid priceEngineeringTaskId)
+        {
+            return PublishEventByServiceForUser(targetUserId, eventSourceAppSessionId,
+                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnPriceEngineeringTaskVerificationRejectedByHeadServiceCallback(priceEngineeringTaskId));
+        }
+
+        public bool PriceEngineeringTaskVerificationAcceptedByHeadPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid priceEngineeringTaskId)
+        {
+            return PublishEventByServiceForUser(targetUserId, eventSourceAppSessionId,
+                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnPriceEngineeringTaskVerificationAcceptedByHeadServiceCallback(priceEngineeringTaskId));
+        }
+
         public bool PriceEngineeringTaskAcceptPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid priceEngineeringTaskId)
         {
             return PublishEventByServiceForUser(targetUserId, eventSourceAppSessionId,

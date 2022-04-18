@@ -8,12 +8,12 @@
              xmlns:ribbon="http://schemas.infragistics.com/xaml/wpf"
              MaxWidth="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ribbon:RibbonWindowContentHost}}, Path=ActualWidth, Converter={StaticResource BlockAddedWidthConverter}}">
 
-    <!--<UserControl.Resources>
-        <converters:BlockAddedWidthConverter x:Key="BlockAddedWidthConverter" />
-    </UserControl.Resources>-->
+    <UserControl.Resources>
+        <converters:BlockAddedIsEnabledConverter x:Key="BlockAddedIsEnabledConverter" />
+    </UserControl.Resources>
 
     <Border Background="AliceBlue"  BorderBrush="Black" BorderThickness="1" CornerRadius="5">
-        <Grid IsEnabled="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type view:PriceEngineeringTaskControl}}, Path=DataContext.IsEditMode, UpdateSourceTrigger=PropertyChanged}">
+        <Grid IsEnabled="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type view:PriceEngineeringTaskControl}}, Path=DataContext.AllowEditAddedBlocks, UpdateSourceTrigger=PropertyChanged}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />

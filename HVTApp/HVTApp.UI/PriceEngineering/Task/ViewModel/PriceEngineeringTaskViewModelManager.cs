@@ -31,16 +31,9 @@ namespace HVTApp.UI.PriceEngineering
                     case PriceEngineeringTaskStatusEnum.Stopped:
                     case PriceEngineeringTaskStatusEnum.RejectedByConstructor:
                         return true;
-
-                    case PriceEngineeringTaskStatusEnum.Started:
-                    case PriceEngineeringTaskStatusEnum.RejectedByManager:
-                    case PriceEngineeringTaskStatusEnum.FinishedByConstructor:
-                    case PriceEngineeringTaskStatusEnum.Accepted:
-                        return false;
-
-                    default:
-                        throw new ArgumentOutOfRangeException();
                 }
+
+                return false;
             }
         }
 

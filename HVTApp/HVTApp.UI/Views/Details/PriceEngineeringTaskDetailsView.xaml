@@ -30,6 +30,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row ="0" Content="Бюро конструкторов" Visibility="{Binding VisibilityDesignDepartmentPriceEngineeringTask, ElementName=Root}"/>
@@ -114,8 +116,18 @@
 										 RemoveItemCommand="{Binding RemoveFromStatusesCommand}"
 										 Visibility="{Binding VisibilityStatusesPriceEngineeringTask, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="11" Content="SalesUnits" Visibility="{Binding VisibilitySalesUnitsPriceEngineeringTask, ElementName=Root}"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="11"
+        <Label Grid.Column="0" Grid.Row ="11" Content="Запрос на проверку от руководителя" Visibility="{Binding VisibilityRequestForVerificationFromHeadPriceEngineeringTask, ElementName=Root}"/>
+        <CheckBox Grid.Column="1" Grid.Row="11" MinWidth="200" 
+                  IsChecked="{Binding Item.RequestForVerificationFromHead, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				  Visibility="{Binding VisibilityRequestForVerificationFromHeadPriceEngineeringTask, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="12" Content="Запрос на проверку от исполнителя" Visibility="{Binding VisibilityRequestForVerificationFromConstructorPriceEngineeringTask, ElementName=Root}"/>
+        <CheckBox Grid.Column="1" Grid.Row="12" MinWidth="200" 
+                  IsChecked="{Binding Item.RequestForVerificationFromConstructor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				  Visibility="{Binding VisibilityRequestForVerificationFromConstructorPriceEngineeringTask, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="13" Content="SalesUnits" Visibility="{Binding VisibilitySalesUnitsPriceEngineeringTask, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="13"
 										 Items="{Binding Path=Item.SalesUnits}"
 										 SelectedItem="{Binding SelectedSalesUnitsItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInSalesUnitsCommand}"
