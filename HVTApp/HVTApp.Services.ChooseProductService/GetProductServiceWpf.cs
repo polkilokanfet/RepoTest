@@ -367,25 +367,25 @@ namespace HVTApp.Services.GetProductService
                 .ToList();
             var bankParameters = banks.SelectMany(x => x.Parameters).Distinct().ToList();
 
-            ////удаляем из групп обязательных параметров всё, кроме обязательных параметров
-            //var reqParIds = designDepartmentParametersAddedBlocksEnumerable
-            //    .SelectMany(x => x.Parameters)
-            //    .Select(x => x.Id).Distinct().ToList();
-            //var reqGrpIds = designDepartmentParametersAddedBlocksEnumerable
-            //    .SelectMany(x => x.Parameters)
-            //    .Select(x => x.ParameterGroup.Id).Distinct().ToList();
-            //foreach (var parameter in bankParameters.ToList())
-            //{
-            //    if (reqParIds.Contains(parameter.Id))
-            //    {
-            //        continue;
-            //    }
+            //удаляем из групп обязательных параметров всё, кроме обязательных параметров
+            var reqParIds = designDepartmentParametersAddedBlocksEnumerable
+                .SelectMany(x => x.Parameters)
+                .Select(x => x.Id).Distinct().ToList();
+            var reqGrpIds = designDepartmentParametersAddedBlocksEnumerable
+                .SelectMany(x => x.Parameters)
+                .Select(x => x.ParameterGroup.Id).Distinct().ToList();
+            foreach (var parameter in bankParameters.ToList())
+            {
+                if (reqParIds.Contains(parameter.Id))
+                {
+                    continue;
+                }
 
-            //    if (reqGrpIds.Contains(parameter.ParameterGroup.Id))
-            //    {
-            //        bankParameters.Remove(parameter);
-            //    }
-            //}
+                if (reqGrpIds.Contains(parameter.ParameterGroup.Id))
+                {
+                    bankParameters.Remove(parameter);
+                }
+            }
 
             var firstBank = banks.First();
             var bank = new Bank(firstBank.Products, firstBank.Blocks, bankParameters, firstBank.Relations);

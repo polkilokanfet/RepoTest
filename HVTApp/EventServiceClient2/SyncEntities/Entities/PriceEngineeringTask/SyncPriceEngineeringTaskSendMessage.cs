@@ -18,7 +18,7 @@ namespace EventServiceClient2.SyncEntities
             if (message.Author?.Id == user.Id) return false;
 
             var priceEngineeringTask = UnitOfWork.Repository<PriceEngineeringTask>().GetById(message.PriceEngineeringTaskId);
-            if (user.Id == priceEngineeringTask.UserConstructor.Id) return true;
+            if (user.Id == priceEngineeringTask.UserConstructor?.Id) return true;
 
             if (priceEngineeringTask.GetPriceEngineeringTasks(UnitOfWork)?.UserManager?.Id == user.Id) return true;
 

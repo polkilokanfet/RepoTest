@@ -44,7 +44,7 @@
                 </dataPresenter:XamDataGrid.FieldLayouts>
             </dataPresenter:XamDataGrid>
 
-            <GroupBox Grid.Row="2" Header="Добавленные блоки:">
+            <GroupBox Grid.Row="2" Header="Добавленные блоки:" Margin="5 0">
                 <ItemsControl HorizontalAlignment="Stretch" ItemsSource="{Binding ProductBlocksAdded}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
