@@ -5340,6 +5340,12 @@ namespace HVTApp.UI.Views
 
 		#region VisibilityProps
 
+        public System.Windows.Visibility DesignDepartmentsVisibility
+        {
+            get { return ProductBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockLookup.DesignDepartments)].Visibility; }
+            set { ProductBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockLookup.DesignDepartments)].Visibility = value; }
+        }
+
         public System.Windows.Visibility DesignationVisibility
         {
             get { return ProductBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockLookup.Designation)].Visibility; }

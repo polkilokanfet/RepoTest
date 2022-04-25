@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Commands;
@@ -34,6 +36,24 @@ namespace HVTApp.UI.ViewModels
                 () => SelectedItems != null && SelectedItems.Any());
 
             this.SelectedLookupChanged += lookup => AddParameterCommand.RaiseCanExecuteChanged();
+        }
+
+        public override void Load()
+        {
+            base.Load();
+
+            var designDepartments = UnitOfWork.Repository<DesignDepartment>().GetAll();
+
+            foreach (var productBlockLookup in this.Lookups)
+            {
+                var dd = designDepartments
+                    .Where(x => x.ParameterSets.Any(p => p.Parameters.AllContainsInById(productBlockLookup.Entity.Parameters)))
+                    .ToList();
+                if (dd.Any())
+                {
+                    productBlockLookup.DesignDepartments = dd.ToStringEnum();
+                }
+            }
         }
     }
 }
