@@ -23,10 +23,24 @@ namespace HVTApp.UI.Views
 
             if (navigationContext.Parameters.Any())
             {
-                if (navigationContext.Parameters.First().Value is DesignDepartment designDepartment)
+                //редактирование существующиго отдела
+                if (navigationContext.Parameters.Count() == 1)
                 {
-                    _viewModel.Load(designDepartment.Id);
+                    if (navigationContext.Parameters.First().Value is DesignDepartment designDepartment)
+                    {
+                        _viewModel.Load(designDepartment.Id);
+                    }
                 }
+
+                //копирование существующего отдела
+                if (navigationContext.Parameters.Count() == 2)
+                {
+                    if (navigationContext.Parameters.First().Value is DesignDepartment designDepartment)
+                    {
+                        _viewModel.LoadCopy(designDepartment);
+                    }
+                }
+
             }
             else
             {

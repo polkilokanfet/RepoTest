@@ -1,3 +1,4 @@
+using System;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Commands;
@@ -10,6 +11,8 @@ namespace HVTApp.UI.ViewModels
 {
     public partial class DesignDepartmentLookupListViewModel
     {
+        public DelegateLogCommand CopyDesignDepartmentCommand { get; private set; }
+
         protected override void InitSpecialCommands()
         {
             base.InitSpecialCommands();
@@ -23,9 +26,26 @@ namespace HVTApp.UI.ViewModels
             this.EditItemCommand = new DelegateLogCommand(
                 () =>
                 {
-                    Container.Resolve<IRegionManager>().RequestNavigateContentRegion<DesignDepartmentView>(new NavigationParameters(){{nameof(DesignDepartment), SelectedLookup.Entity}});
+                    Container.Resolve<IRegionManager>().RequestNavigateContentRegion<DesignDepartmentView>(new NavigationParameters()
+                    {
+                        {nameof(DesignDepartment), SelectedLookup.Entity}
+                    });
                 },
                 () => this.SelectedLookup != null);
+
+
+            CopyDesignDepartmentCommand = new DelegateLogCommand(
+                () =>
+                {
+                    Container.Resolve<IRegionManager>().RequestNavigateContentRegion<DesignDepartmentView>(new NavigationParameters()
+                    {
+                        { nameof(DesignDepartment), SelectedLookup.Entity },
+                        { string.Empty, SelectedLookup.Entity }
+                    });
+                },
+                () => this.SelectedLookup != null);
+
+            this.SelectedLookupChanged += lookup => CopyDesignDepartmentCommand.RaiseCanExecuteChanged();
         }
     }
 }

@@ -335,6 +335,9 @@
     </Compile>
     <Compile Include="PriceEngineering\Task\ViewModel\PriceEngineeringTaskViewModel.cs" />
     <Compile Include="PriceEngineering\Comparers\SalesUnitForPriceEngineeringTaskComparer.cs" />
+    <Compile Include="Tabs\TabDesignDepartments.xaml.cs">
+      <DependentUpon>TabDesignDepartments.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Tabs\TabProductBlocks.xaml.cs">
       <DependentUpon>TabProductBlocks.xaml</DependentUpon>
     </Compile>
@@ -878,6 +881,7 @@
     <Compile Include="Views\Details\Custom\OrderView.xaml.cs">
       <DependentUpon>OrderView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\List\cs\DesignDepartmentLookupListView.cs" />
     <Compile Include="Views\List\cs\ProductBlockLookupListViewModel.cs" />
     <Compile Include="Views\List\cs\ProjectLookupListView.cs" />
     <Compile Include="Views\List\cs\UserLookupListView.cs" />
@@ -1661,6 +1665,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="PriceEngineering\View\PriceEngineeringTaskControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Tabs\TabDesignDepartments.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections.Specialized;
+using System.Linq;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper;
@@ -113,7 +115,74 @@ namespace HVTApp.UI.ViewModels
                     SelectedDesignDepartmentParametersAdded.Parameters.Remove(SelectedParameterAdded);
                 },
                 () => SelectedDesignDepartmentParametersAdded != null && SelectedParameterAdded != null);
+        }
 
+        protected override void AfterLoading()
+        {
+            this.Item.ParameterSets.CollectionChanged += (sender, args) =>
+            {
+                if (args.Action == NotifyCollectionChangedAction.Remove)
+                {
+                    foreach (var designDepartmentParametersWrapper in args.OldItems.Cast<DesignDepartmentParametersWrapper>())
+                    {
+                        var designDepartmentParameters = UnitOfWork.Repository<DesignDepartmentParameters>().GetById(designDepartmentParametersWrapper.Id);
+                        if (designDepartmentParameters != null)
+                        {
+                            UnitOfWork.Repository<DesignDepartmentParameters>().Delete(designDepartmentParameters);
+                        }
+                    }
+                }
+            };
+
+            this.Item.ParameterSetsAddedBlocks.CollectionChanged += (sender, args) =>
+            {
+                if (args.Action == NotifyCollectionChangedAction.Remove)
+                {
+                    foreach (var designDepartmentParametersAddedBlocksWrapper in args.OldItems.Cast<DesignDepartmentParametersAddedBlocksWrapper>())
+                    {
+                        var departmentParametersAddedBlocks = UnitOfWork.Repository<DesignDepartmentParametersAddedBlocks>().GetById(designDepartmentParametersAddedBlocksWrapper.Id);
+                        if (departmentParametersAddedBlocks != null)
+                        {
+                            UnitOfWork.Repository<DesignDepartmentParametersAddedBlocks>().Delete(departmentParametersAddedBlocks);
+                        }
+                    }
+                }
+            };
+
+            base.AfterLoading();
+        }
+
+        //загрузка при копировании департамента
+        public void LoadCopy(DesignDepartment designDepartment)
+        {
+            this.Load(new DesignDepartment());
+
+            designDepartment = UnitOfWork.Repository<DesignDepartment>().GetById(designDepartment.Id);
+            this.Item.Name = $"Copy {designDepartment.Name}";
+            this.Item.Head = new UserWrapper(designDepartment.Head);
+            this.Item.Staff.AddRange(designDepartment.Staff.Select(x => new UserWrapper(x)));
+
+            foreach (var parameterSet in designDepartment.ParameterSets)
+            {
+                var departmentParameters = new DesignDepartmentParameters()
+                {
+                    Name = parameterSet.Name,
+                    Parameters = parameterSet.Parameters.ToList()
+                };
+
+                this.Item.ParameterSets.Add(new DesignDepartmentParametersWrapper(departmentParameters));
+            }
+
+            foreach (var parametersAddedBlocks in designDepartment.ParameterSetsAddedBlocks)
+            {
+                var departmentParametersAddedBlocks = new DesignDepartmentParametersAddedBlocks()
+                {
+                    Name = parametersAddedBlocks.Name,
+                    Parameters = parametersAddedBlocks.Parameters.ToList()
+                };
+
+                this.Item.ParameterSetsAddedBlocks.Add(new DesignDepartmentParametersAddedBlocksWrapper(departmentParametersAddedBlocks));
+            }
         }
     }
 }
