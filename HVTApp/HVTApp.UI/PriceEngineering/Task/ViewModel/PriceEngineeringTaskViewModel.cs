@@ -49,6 +49,8 @@ namespace HVTApp.UI.PriceEngineering
 
         #endregion
 
+        public abstract bool IsExpanded { get; }
+
         /// <summary>
         /// Эта задача подходит текущему пользователю
         /// </summary>

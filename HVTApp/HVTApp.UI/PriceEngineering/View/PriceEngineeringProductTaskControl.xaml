@@ -44,9 +44,9 @@
 
             <!--Проработка блоков-->
             <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1 0 1 1" CornerRadius="0 0 5 5">
-                <GroupBox Header="Продукт" Margin="3">
+                <Expander Header="Продукт" Margin="3" IsExpanded="{Binding IsExpanded, Mode=OneWay}">
                     <view:PriceEngineeringTaskControl DataContext="{Binding}"/>
-                </GroupBox>
+                </Expander>
             </Border>
         </Grid>
     </Border>
