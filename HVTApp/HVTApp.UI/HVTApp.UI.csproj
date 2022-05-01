@@ -266,6 +266,7 @@
     <Compile Include="Modules\Sales\Market\Commands\SpecificationNewCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\StructureCostsCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\UnionProjectsCommand.cs" />
+    <Compile Include="Modules\Sales\Project1\Converters\ProjectTypeConverter.cs" />
     <Compile Include="PriceEngineering\Converters\AddedBlockAmountToStringConverter.cs" />
     <Compile Include="PriceEngineering\Converters\BlockAddedIsEnabledConverter.cs" />
     <Compile Include="PriceEngineering\Converters\BlockAddedWidthConverter.cs" />

@@ -15,6 +15,8 @@ namespace HVTApp.UI.Modules.Sales.Project1
     {
         private bool _isNew;
 
+        public IEnumerable<ProjectType> ProjectTypes { get; private set; }
+
         /// <summary>
         /// Перенести оборудование в новый проект
         /// </summary>
@@ -60,6 +62,8 @@ namespace HVTApp.UI.Modules.Sales.Project1
                     MoveToNewProjectCommand.RaiseCanExecuteChanged();
                     MoveToExistsProjectCommand.RaiseCanExecuteChanged();
                 };
+
+            ProjectTypes = UnitOfWork.Repository<ProjectType>().GetAll();
         }
 
         //переносимые юниты

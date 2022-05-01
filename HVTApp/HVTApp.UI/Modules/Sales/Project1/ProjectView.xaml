@@ -3,7 +3,12 @@
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:controls="clr-namespace:HVTApp.UI.Modules.Sales.Controls"
-              xmlns:controls1="clr-namespace:HVTApp.UI.Controls">
+              xmlns:controls1="clr-namespace:HVTApp.UI.Controls"
+              xmlns:converters="clr-namespace:HVTApp.UI.Modules.Sales.Project1.Converters">
+
+    <inf:ViewBaseConfirmNavigationRequest.Resources>
+        <converters:ProjectTypeConverter x:Key="ProjectTypeConverter"/>
+    </inf:ViewBaseConfirmNavigationRequest.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -18,7 +23,7 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="2*" MinWidth="200"/>
                     <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*" MinWidth="150"/>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
@@ -30,10 +35,17 @@
                          Text="{Binding DetailsViewModel.Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <Label Grid.Column="2" Content="  Тип проекта:"/>
-                <controls1:ChooseItemControl Grid.Column="3"
+                <ComboBox Grid.Column="3" ItemsSource="{Binding Path=ProjectTypes}" SelectedItem="{Binding Path=DetailsViewModel.Item.ProjectType, Converter={StaticResource ProjectTypeConverter}}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Path=Name}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <!--<controls1:ChooseItemControl Grid.Column="3"
                                              Item="{Binding DetailsViewModel.Item.ProjectType}" 
                                              AddItemCommand="{Binding DetailsViewModel.SelectProjectTypeCommand}" 
-                                             RemoveItemCommand="{Binding DetailsViewModel.ClearProjectTypeCommand}"/>
+                                             RemoveItemCommand="{Binding DetailsViewModel.ClearProjectTypeCommand}"/>-->
 
                 <Label Grid.Column="4" Content="  Важный:"/>
                 <CheckBox Grid.Column="5" 
