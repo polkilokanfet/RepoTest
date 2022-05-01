@@ -91,7 +91,6 @@
                                                 <ColumnDefinition Width="Auto"/>
                                                 <ColumnDefinition Width="*"/>
                                                 <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="Auto"/>
                                             </Grid.ColumnDefinitions>
 
                                             <Button Grid.Column="0" 
@@ -101,13 +100,27 @@
                                                     Padding="5 0"/>
 
                                             <TextBox Grid.Column="1" FontWeight="DemiBold" Text="{Binding ProductBlockEngineer, Mode=OneWay}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0"/>
-                                        
-                                            <Label Grid.Column="2" Content="SCC:" Padding="2 0 0 0" Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}"/>
 
-                                            <TextBox Grid.Column="3" Width="150" 
-                                                     IsEnabled="{Binding IsEditMode, UpdateSourceTrigger=PropertyChanged}" 
-                                                     Text="{Binding ProductBlockEngineer.StructureCostNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                                     Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}"/>
+                                            <Grid Grid.Column="2" 
+                                                  Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <Label Grid.Column="0" Content="SCC:" Padding="2 0 0 0"/>
+                                                <TextBox Grid.Column="1" Width="150" 
+                                                         IsEnabled="{Binding IsEditMode, UpdateSourceTrigger=PropertyChanged}" 
+                                                         Text="{Binding ProductBlockEngineer.StructureCostNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                                                <Label Grid.Column="2" Content=" Чертеж:" Padding="2 0 0 0"/>
+                                                <TextBox Grid.Column="3" Width="150" 
+                                                         IsEnabled="{Binding IsEditMode, UpdateSourceTrigger=PropertyChanged}" 
+                                                         Text="{Binding ProductBlockEngineer.Design, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                            </Grid>
+
                                         </Grid>
 
                                         <!--Исполнитель-->

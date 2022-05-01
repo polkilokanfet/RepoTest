@@ -36,6 +36,18 @@ namespace HVTApp.UI.PriceEngineering
         public string StructureCostNumberOriginalValue => GetOriginalValue<string>(nameof(StructureCostNumber));
         public bool StructureCostNumberIsChanged => GetIsChanged(nameof(StructureCostNumber));
 
+        /// <summary>
+        /// Чертеж
+        /// </summary>
+        public string Design
+        {
+            get => GetValue<string>();
+            set => SetValue(value);
+        }
+        public string DesignOriginalValue => GetOriginalValue<string>(nameof(Design));
+        public bool DesignIsChanged => GetIsChanged(nameof(Design));
+
+
         public ProductBlockStructureCostWrapper(ProductBlock model, bool validateStructureCostNumber = false) : base(model)
         {
             ValidateStructureCostNumber = validateStructureCostNumber;

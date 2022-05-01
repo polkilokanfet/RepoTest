@@ -67,6 +67,7 @@ namespace HVTApp.UI.PriceEngineering
         }
         public System.Boolean RequestForVerificationFromHeadOriginalValue => GetOriginalValue<System.Boolean>(nameof(RequestForVerificationFromHead));
         public bool RequestForVerificationFromHeadIsChanged => GetIsChanged(nameof(RequestForVerificationFromHead));
+
         /// <summary>
         /// Запрос на проверку от исполнителя
         /// </summary>
