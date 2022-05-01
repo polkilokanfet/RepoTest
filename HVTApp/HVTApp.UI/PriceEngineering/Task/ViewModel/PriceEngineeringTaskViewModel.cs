@@ -367,7 +367,7 @@ namespace HVTApp.UI.PriceEngineering
             this.Messages.Add(new PriceEngineeringTaskMessageWrapper(new PriceEngineeringTaskMessage
             {
                 Author = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
-                Message = sb.ToString()
+                Message = sb.ToString().TrimEnd('\n', '\r')
             }));
 
 

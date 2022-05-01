@@ -64,18 +64,13 @@ namespace HVTApp.UI.PriceEngineering
             }
         }
 
-        public override string ToString()
+        public string PrintToMessage()
         {
-            string result = $"{Model} SCC: {StructureCostNumber}";
-
-            if (StructureCostNumberIsChanged)
-            {
-                result += string.IsNullOrWhiteSpace(StructureCostNumberOriginalValue)
+            var info = string.IsNullOrWhiteSpace(StructureCostNumberOriginalValue)
                     ? " (добавлен)"
                     : $" (изменен с {StructureCostNumberOriginalValue})";
-            }
 
-            return result;
+            return $"{Model} (SCC: {StructureCostNumber}{info})";
         }
     }
 }

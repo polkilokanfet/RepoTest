@@ -22,18 +22,23 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="0" Text="{Binding ProductBlock, Mode=OneWay, Converter={StaticResource WrapperToStringConverter}}" VerticalAlignment="Center" Margin="5 0 0 0" FontWeight="DemiBold"/>
-            
-            <Label Grid.Column="1" Content="SCC: " Margin="10 0 0 0"/>
-            <TextBox Grid.Column="2" Width="150" Text="{Binding ProductBlock.StructureCostNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-            <editors:XamNumericEditor Grid.Column="3" Width="37" Margin="10 0 0 0" Value="{Binding Amount}" ValueType="system:Int32"/>
-            <Label Grid.Column="4" Content=" шт.: "/>
+            <Label Grid.Column="1" Content="Чертеж: " Margin="5 0 0 0"/>
+            <TextBox Grid.Column="2" Width="120" Text="{Binding ProductBlock.Design, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-            <CheckBox Grid.Column="5" IsChecked="{Binding IsOnBlock, Mode=TwoWay}" Margin="5 0 0 0"/>
-            <Label Grid.Column="6" Content=" - на блок"/>
+            <Label Grid.Column="3" Content="SCC: " Margin="5 0 0 0"/>
+            <TextBox Grid.Column="4" Width="120" Text="{Binding ProductBlock.StructureCostNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <editors:XamNumericEditor Grid.Column="5" Width="37" Margin="10 0 0 0" Value="{Binding Amount}" ValueType="system:Int32"/>
+            <Label Grid.Column="6" Content=" шт.: "/>
+
+            <CheckBox Grid.Column="7" IsChecked="{Binding IsOnBlock, Mode=TwoWay}" Margin="5 0 0 0"/>
+            <Label Grid.Column="8" Content=" - на блок"/>
         </Grid>
     </Border>
 

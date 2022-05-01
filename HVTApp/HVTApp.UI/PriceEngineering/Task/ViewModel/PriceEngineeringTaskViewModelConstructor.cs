@@ -240,7 +240,7 @@ namespace HVTApp.UI.PriceEngineering
                     var sb = new StringBuilder()
                         .AppendLine(needVerification ? "Проработка направлена на проверку руководителю." : "Проработка завершена.")
                         .AppendLine("Основной блок:")
-                        .AppendLine(this.ProductBlockEngineer.ToString());
+                        .AppendLine(this.ProductBlockEngineer.PrintToMessage());
 
                     if (this.ProductBlocksAdded.Any())
                     {
@@ -255,7 +255,7 @@ namespace HVTApp.UI.PriceEngineering
                     Messages.Add(new PriceEngineeringTaskMessageWrapper(new PriceEngineeringTaskMessage
                     {
                         Author = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
-                        Message = sb.ToString()
+                        Message = sb.ToString().TrimEnd('\n', '\r')
                     }));
                     SaveCommand.Execute();
 

@@ -20,6 +20,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -31,6 +32,9 @@
 
                 <Label Grid.Row="1" Grid.Column="0" Content="SCC:"/>
                 <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ProductBlockEngineer.StructureCostNumber, Mode=OneTime}" IsReadOnly="True" BorderThickness="0"/>
+
+                <Label Grid.Row="2" Grid.Column="0" Content="Чертеж:"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding ProductBlockEngineer.Design, Mode=OneTime}" IsReadOnly="True" BorderThickness="0"/>
             </Grid>
 
             <dataPresenter:XamDataGrid Grid.Row="1" DataSource="{Binding ProductBlockEngineer.Parameters}" Style="{StaticResource XamDataGridUpdateOnCellValueChange}">
@@ -62,6 +66,7 @@
                                             <RowDefinition Height="Auto"/>
                                             <RowDefinition Height="Auto"/>
                                             <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
                                         </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto"/>
@@ -74,8 +79,11 @@
                                         <Label Grid.Row="1" Grid.Column="0" Content="SCC:"/>
                                         <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ProductBlock.StructureCostNumber, Mode=OneTime}" IsReadOnly="True" BorderThickness="0"/>
 
-                                        <Label Grid.Row="2" Grid.Column="0" Content="Кол.:"/>
-                                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Converter={StaticResource AmountToStringConverter}, Mode=OneTime}" IsReadOnly="True" BorderThickness="0"/>
+                                        <Label Grid.Row="2" Grid.Column="0" Content="Чертеж:"/>
+                                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding ProductBlock.Design, Mode=OneTime}" IsReadOnly="True" BorderThickness="0"/>
+
+                                        <Label Grid.Row="3" Grid.Column="0" Content="Кол.:"/>
+                                        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Converter={StaticResource AmountToStringConverter}, Mode=OneTime}" IsReadOnly="True" BorderThickness="0"/>
                                     </Grid>
 
                                     <dataPresenter:XamDataGrid Grid.Row="1" DataSource="{Binding ProductBlock.Parameters}" Style="{StaticResource XamDataGridUpdateOnCellValueChange}">
