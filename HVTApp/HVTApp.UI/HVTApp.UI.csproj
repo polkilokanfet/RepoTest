@@ -270,6 +270,7 @@
     <Compile Include="PriceEngineering\Converters\AddedBlockAmountToStringConverter.cs" />
     <Compile Include="PriceEngineering\Converters\BlockAddedIsEnabledConverter.cs" />
     <Compile Include="PriceEngineering\Converters\BlockAddedWidthConverter.cs" />
+    <Compile Include="PriceEngineering\Converters\FilesTechnicalRequirementsToVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskStatusEnumToStringConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTasksViewModelManagerVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelConstructorIsTargetTaskVisibilityConverter.cs" />

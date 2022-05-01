@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
@@ -49,6 +50,17 @@ namespace HVTApp.UI.PriceEngineering
         #endregion
 
         public override bool IsExpanded => this.Model.GetSuitableTasksForInstruct(GlobalAppProperties.User).Any();
+
+        public override bool IsExpendedChildPriceEngineeringTasks
+        {
+            get
+            {
+                var priceEngineeringTasks = this.Model.GetSuitableTasksForInstruct(GlobalAppProperties.User).ToList();
+                priceEngineeringTasks.RemoveIfContainsById(this.Model);
+                return priceEngineeringTasks.Any();
+            }
+        }
+
 
         public override bool IsTarget => DesignDepartment != null && DesignDepartment.Model.Head.Id == GlobalAppProperties.User.Id;
 

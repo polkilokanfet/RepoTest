@@ -177,7 +177,7 @@
                                                 <dataPresenter:XamDataGrid
                                                     DataSource="{Binding FilesTechnicalRequirements}"
                                                     ActiveDataItem="{Binding SelectedTechnicalRequrementsFile, Mode=TwoWay}"
-                                                    Style="{StaticResource XamDataGridUpdateOnCellValueChange}">
+                                                    Style="{StaticResource XamDataGridWithoutGroupByArea}">
 
                                                     <dataPresenter:XamDataGrid.InputBindings>
                                                         <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=OpenTechnicalRequrementsFileCommand, Mode=OneWay}" />
@@ -225,7 +225,7 @@
                                                 <dataPresenter:XamDataGrid
                                                     DataSource="{Binding FilesAnswers}"
                                                     ActiveDataItem="{Binding SelectedFileAnswer, Mode=TwoWay}"
-                                                    Style="{StaticResource XamDataGridUpdateOnCellValueChange}">
+                                                    Style="{StaticResource XamDataGridWithoutGroupByArea}">
 
                                                     <dataPresenter:XamDataGrid.InputBindings>
                                                         <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=OpenAnswerFileCommand, Mode=OneWay}" />
@@ -402,7 +402,7 @@
 
                     <!--Вложенные блоки-->
                     <Expander Grid.Row="1"
-                              IsExpanded="True"
+                              IsExpanded="{Binding IsExpendedChildPriceEngineeringTasks, Mode=OneTime}"
                               Header="Вложенные блоки"
                               Margin="5"
                               BorderBrush="Black"

@@ -24,6 +24,16 @@ namespace HVTApp.UI.PriceEngineering
     {
         public override bool IsExpanded => UserConstructor != null && this.Model.GetSuitableTasksForWork(GlobalAppProperties.User).Any();
 
+        public override bool IsExpendedChildPriceEngineeringTasks
+        {
+            get
+            {
+                var priceEngineeringTasks = this.Model.GetSuitableTasksForWork(GlobalAppProperties.User).ToList();
+                priceEngineeringTasks.RemoveIfContainsById(this.Model);
+                return priceEngineeringTasks.Any();
+            }
+        }
+
         public override bool IsTarget => UserConstructor != null && Equals(Model.UserConstructor.Id, GlobalAppProperties.User.Id);
 
         public override bool IsEditMode

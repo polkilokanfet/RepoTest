@@ -30,6 +30,17 @@ namespace HVTApp.UI.PriceEngineering
         private PriceEngineeringTaskViewModel _selectedPriceEngineeringTaskViewModel;
         private PriceEngineeringTasksWrapper1 _priceEngineeringTasksWrapper;
         private PriceEngineeringTasksFileTechnicalRequirementsWrapper _selectedFileTechnicalRequirements;
+        private bool _isNew = false;
+
+        public bool IsNew
+        {
+            get => _isNew;
+            private set
+            {
+                _isNew = value;
+                RaisePropertyChanged();
+            }
+        }
 
         public PriceEngineeringTasksWrapper1 PriceEngineeringTasksWrapper
         {
@@ -128,6 +139,7 @@ namespace HVTApp.UI.PriceEngineering
                 UserManager = new UserEmptyWrapper(_unitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id))
             };
 
+            #region Commands
 
             AddFileTechnicalRequirementsCommand = new DelegateLogCommand(
                 () =>
@@ -150,6 +162,8 @@ namespace HVTApp.UI.PriceEngineering
                             };
                             this.PriceEngineeringTasksWrapper.FilesTechnicalRequirements.Add(fileWrapper);
                         }
+
+                        //RaisePropertyChanged(nameof(this.PriceEngineeringTasksWrapper.FilesTechnicalRequirements));
                     }
                 },
                 () => AllowEditProps);
@@ -225,6 +239,7 @@ namespace HVTApp.UI.PriceEngineering
                         
                         this.PriceEngineeringTasksWrapper.AcceptChanges();
                         _unitOfWork.SaveChanges();
+                        IsNew = false;
                         _container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceEngineeringTasksEvent>().Publish(this.PriceEngineeringTasksWrapper.Model);
                         _container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTasksStartedEvent>().Publish(this.PriceEngineeringTasksWrapper.Model);
                     }
@@ -276,6 +291,8 @@ namespace HVTApp.UI.PriceEngineering
                             {nameof(PriceEngineeringTasks), this.PriceEngineeringTasksWrapper.Model}
                         });
                 });
+            
+            #endregion
         }
 
         /// <summary>
@@ -292,6 +309,8 @@ namespace HVTApp.UI.PriceEngineering
             {
                 PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.Add(PriceEngineeringTaskViewModelFactory.GetInstance(_container, _unitOfWork, salesUnitsGroup));
             }
+
+            IsNew = true;
         }
 
         public void Load(PriceEngineeringTasks priceEngineeringTasks)

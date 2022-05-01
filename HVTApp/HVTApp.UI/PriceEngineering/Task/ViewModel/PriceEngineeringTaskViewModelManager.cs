@@ -21,6 +21,8 @@ namespace HVTApp.UI.PriceEngineering
     {
         public override bool IsExpanded => true;
 
+        public override bool IsExpendedChildPriceEngineeringTasks => true;
+
         public override bool IsTarget => true;
 
         public override bool IsEditMode

@@ -49,7 +49,15 @@ namespace HVTApp.UI.PriceEngineering
 
         #endregion
 
+        /// <summary>
+        /// –азвернуть задачу при открытии?
+        /// </summary>
         public abstract bool IsExpanded { get; }
+
+        /// <summary>
+        /// –азвернуть дочерние задачи при открытии?
+        /// </summary>
+        public abstract bool IsExpendedChildPriceEngineeringTasks { get; }
 
         /// <summary>
         /// Ёта задача подходит текущему пользователю

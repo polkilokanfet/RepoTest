@@ -44,7 +44,7 @@
 
             <!--Проработка блоков-->
             <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1 0 1 1" CornerRadius="0 0 5 5">
-                <Expander Header="Продукт" Margin="3" IsExpanded="{Binding IsExpanded, Mode=OneWay}">
+                <Expander Header="Продукт" Margin="3" IsExpanded="{Binding IsExpanded, Mode=OneTime}">
                     <view:PriceEngineeringTaskControl DataContext="{Binding}"/>
                 </Expander>
             </Border>
