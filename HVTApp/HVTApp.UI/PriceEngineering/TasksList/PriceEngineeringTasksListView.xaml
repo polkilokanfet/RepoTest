@@ -38,7 +38,8 @@
                         <dp:TextField Name="StatusString" Label="Статус" Width="Auto" AllowResize="True" />
                         <dp:TextField Name="UserManager" Label="Менеджер" Width="200" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <dp:CheckBoxField Name="ToShow" BindingType="UseAlternateBinding" AlternateBinding="{Binding ToShow}" Label="S" Width="Auto" AllowResize="False" />
-                        <dp:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
+                        <dp:TextField Name="Number" BindingType="UseAlternateBinding" AlternateBinding="{Binding Entity.Number}" Label="№" Width="Auto" AllowResize="True" />
+                        <!--<dp:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />-->
                     </dp:FieldLayout.Fields>
                 </dp:FieldLayout>
 

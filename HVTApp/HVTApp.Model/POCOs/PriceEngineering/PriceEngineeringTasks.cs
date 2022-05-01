@@ -13,6 +13,21 @@ namespace HVTApp.Model.POCOs
     [DesignationPlural("Технико-стоимостная проработка (группы)")]
     public class PriceEngineeringTasks : BaseEntity
     {
+        [Designation("Номер"), NotMapped]
+        public string Number 
+        {
+            get
+            {
+                var statuses = this.ChildPriceEngineeringTasks.SelectMany(x => x.Statuses).ToList();
+                if (statuses.Any())
+                {
+                    var dt = statuses.Min(x => x.Moment);
+                    return $"{UserManager?.Employee.PersonalNumber}-{dt.Year.ToString().Remove(0, 2)}-{dt.Month:D2}-{dt.Day:D2}-{dt.Hour:D2}{dt.Minute:D2}{dt.Second:D2}";
+                }
+                return null;
+            }
+        }
+
         [Designation("Менеджер"), Required, OrderStatus(1900)]
         public virtual User UserManager { get; set; }
 
@@ -61,7 +76,6 @@ namespace HVTApp.Model.POCOs
                     .OrderBy(x => x.Value)
                     .LastOrDefault();
             }
-
         }
         
         /// <summary>
@@ -95,12 +109,12 @@ namespace HVTApp.Model.POCOs
         public override string ToString()
         {
             var facilities = this.ChildPriceEngineeringTasks
-                .SelectMany(x => x.SalesUnits)
-                .Select(x => x.Facility)
+                .SelectMany(priceEngineeringTask => priceEngineeringTask.SalesUnits)
+                .Select(salesUnit => salesUnit.Facility)
                 .Distinct()
-                .OrderBy(x => x.Name);
+                .OrderBy(facility => facility.Name);
 
-            return $"Технико-стоимостная проработка для объектов: {facilities.ToStringEnum(",")}";
+            return $"Технико-стоимостная проработка для объектов: {facilities.ToStringEnum(", ")}";
         }
     }
 }
