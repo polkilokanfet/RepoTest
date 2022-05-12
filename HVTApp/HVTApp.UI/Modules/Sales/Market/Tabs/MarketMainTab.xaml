@@ -40,9 +40,9 @@
         <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveNotesCommand}" SmallImage="/HVTApp.UI;component/Images/save.png"/>
     </infRib:RibbonGroup>
 
-    <infRib:RibbonGroup Caption="ТСЕ">
+    <!--<infRib:RibbonGroup Caption="ТСЕ">
         <infRib:ButtonTool Caption="Передать в ТСЕ" Command="{Binding MakeTceTaskCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
-    </infRib:RibbonGroup>
+    </infRib:RibbonGroup>-->
 
     <infRib:RibbonGroup Caption="ТСП">
         <infRib:ButtonTool Caption="Создать" Command="{Binding MakePriceEngineeringTaskCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>

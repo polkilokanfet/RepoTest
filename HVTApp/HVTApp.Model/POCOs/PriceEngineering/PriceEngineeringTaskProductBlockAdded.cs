@@ -23,7 +23,7 @@ namespace HVTApp.Model.POCOs
 
         public override string ToString()
         {
-            string s = IsOnBlock ? "на кажлый блок" : "на весь заказ";
+            string s = IsOnBlock ? "на каждый блок" : "на весь заказ";
             return $"{ProductBlock} = {Amount} шт. {s}, SCC: {ProductBlock.StructureCostNumber}";
         }
     }

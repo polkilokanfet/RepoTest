@@ -5,7 +5,12 @@
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
              xmlns:editors="http://infragistics.com/Editors"
              x:Class="HVTApp.UI.Modules.Sales.Tabs.TabCrudUnitsInProject"
-             Header="Редактирование оборудования">
+             Header="Редактирование оборудования"
+             xmlns:converters="clr-namespace:HVTApp.UI.Modules.Sales.Project1.Converters">
+
+    <inf:RibbonTabItemWithViewModel.Resources>
+        <converters:ProjectTypeConverter x:Key="ProjectTypeConverter"/>
+    </inf:RibbonTabItemWithViewModel.Resources>
 
     <infRib:RibbonGroup Caption="Навигация">
         <infRib:ButtonTool Caption="Назад" 
@@ -39,9 +44,37 @@
         <infRib:ButtonTool Caption="В существующий проект" Command="{Binding MoveToExistsProjectCommand}" SmallImage="/HVTApp.UI;component/Images/arrow_forward.png"/>
     </infRib:RibbonGroup>
 
+    <infRib:RibbonGroup Caption="Детали проекта">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*" MinWidth="140"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Content="Тип:"/>
+            <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Path=ProjectTypes}" SelectedItem="{Binding Path=DetailsViewModel.Item.ProjectType, Converter={StaticResource ProjectTypeConverter}}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Path=Name}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <CheckBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" IsChecked="{Binding DetailsViewModel.Item.InWork, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Grid.Row="1" Grid.Column="1" Content="важный" HorizontalAlignment="Left"/>
+
+            <CheckBox Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" IsChecked="{Binding DetailsViewModel.Item.ForReport, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Grid.Row="2" Grid.Column="1" Content="отчетный" HorizontalAlignment="Left"/>
+        </Grid>
+    </infRib:RibbonGroup>
+
     <infRib:RibbonGroup Caption="Действия">
         <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveCommand}" SmallImage="/HVTApp.UI;component/Images/save.png"/>
     </infRib:RibbonGroup>
-
 
 </inf:RibbonTabItemWithViewModel>

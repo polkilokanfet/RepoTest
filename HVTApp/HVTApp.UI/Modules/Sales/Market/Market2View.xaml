@@ -309,27 +309,30 @@
                     <!--Задачи в TCE-->
                     <Border Grid.Row="6" BorderBrush="Black" BorderThickness="1" CornerRadius="3" Margin="0 1 0 0">
                         <Expander Header="Задачи в TCE" MaxHeight="300">
-                            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                <dp:XamDataGrid DataSource="{Binding TechnicalRequrementsTasks}"
-                                                ActiveDataItem="{Binding TechnicalRequrementsTasks.SelectedItem}"
-                                                Style="{StaticResource XamDataGridWithoutGroupByArea}">
+                            <StackPanel Orientation="Vertical">
+                                <Button Content="Передать в ТСЕ" Command="{Binding MakeTceTaskCommand}"/>
+                                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                    <dp:XamDataGrid DataSource="{Binding TechnicalRequrementsTasks}"
+                                                    ActiveDataItem="{Binding TechnicalRequrementsTasks.SelectedItem}"
+                                                    Style="{StaticResource XamDataGridWithoutGroupByArea}">
 
-                                    <dp:XamDataGrid.InputBindings>
-                                        <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=EditTechnicalRequrementsTaskCommand, Mode=OneWay}" />
-                                    </dp:XamDataGrid.InputBindings>
+                                        <dp:XamDataGrid.InputBindings>
+                                            <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=EditTechnicalRequrementsTaskCommand, Mode=OneWay}" />
+                                        </dp:XamDataGrid.InputBindings>
 
-                                    <dp:XamDataGrid.FieldLayouts>
-                                        <dp:FieldLayout>
-                                            <dp:FieldLayout.Fields>
-                                                <dp:DateTimeField Name="Start" Label="Старт" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
-                                                <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Status}" Label="Этап" Width="150" AllowResize="True" />
-                                                <dp:TextField AlternateBinding="{Binding BackManager.Employee.Person}" BindingType="UseAlternateBinding" Label="Back manager" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                                            </dp:FieldLayout.Fields>
-                                        </dp:FieldLayout>
+                                        <dp:XamDataGrid.FieldLayouts>
+                                            <dp:FieldLayout>
+                                                <dp:FieldLayout.Fields>
+                                                    <dp:DateTimeField Name="Start" Label="Старт" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
+                                                    <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Status}" Label="Этап" Width="150" AllowResize="True" />
+                                                    <dp:TextField AlternateBinding="{Binding BackManager.Employee.Person}" BindingType="UseAlternateBinding" Label="Back manager" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                                                </dp:FieldLayout.Fields>
+                                            </dp:FieldLayout>
 
-                                    </dp:XamDataGrid.FieldLayouts>
-                                </dp:XamDataGrid>
-                            </ScrollViewer>
+                                        </dp:XamDataGrid.FieldLayouts>
+                                    </dp:XamDataGrid>
+                                </ScrollViewer>
+                            </StackPanel>
                         </Expander>
                     </Border>
 
