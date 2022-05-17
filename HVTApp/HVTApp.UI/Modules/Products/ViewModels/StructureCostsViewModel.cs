@@ -82,8 +82,8 @@ namespace HVTApp.UI.Modules.Products.ViewModels
             //подписка на изменение параметров
             ProductBlocks.PropertyChanged += (sender, args) =>
             {
-                ( SaveCommand).RaiseCanExecuteChanged();
-                ( CancelCommand).RaiseCanExecuteChanged();
+                SaveCommand.RaiseCanExecuteChanged();
+                CancelCommand.RaiseCanExecuteChanged();
             };
 
 

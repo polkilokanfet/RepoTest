@@ -120,6 +120,7 @@
     <Compile Include="Lookup\Items\Custom\PriceCalculationLookup.cs" />
     <Compile Include="Lookup\Items\Custom\PriceEngineeringTasksLookup.cs" />
     <Compile Include="Lookup\Items\Custom\ProductBlockLookup.cs" />
+    <Compile Include="Lookup\Items\Custom\ProductRelationLookup.cs" />
     <Compile Include="Lookup\Items\Custom\SalesUnitLookup.cs" />
     <Compile Include="Lookup\Items\Custom\TechnicalRequrementsLookup.cs" />
     <Compile Include="Lookup\Items\Custom\TechnicalRequrementsTaskLookup.cs" />
@@ -217,6 +218,13 @@
     </Compile>
     <Compile Include="Modules\Products\LaborHours\LaborHoursViewTab.xaml.cs">
       <DependentUpon>LaborHoursViewTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Products\Tabs\TabProductRelations.xaml.cs">
+      <DependentUpon>TabProductRelations.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Products\ViewModels\ProductRelationsViewModel.cs" />
+    <Compile Include="Modules\Products\Views\ProductRelationsView.xaml.cs">
+      <DependentUpon>ProductRelationsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Reports\CommonInfo\SalesUnitsCommonInfoComparer.cs" />
     <Compile Include="Modules\Reports\CommonInfo\CommonInfoView.xaml.cs">
@@ -1323,6 +1331,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Modules\Products\Tabs\TabProductRelations.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Modules\Products\Tabs\TabStructureCosts.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1344,6 +1356,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\Products\LaborHours\LaborHoursView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Products\Views\ProductRelationsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -18,7 +18,7 @@ namespace HVTApp.Modules.Products.Menus
                 Items.Add(new NavigationItem("Параметры", typeof(ParametersView)));
                 Items.Add(new NavigationItem("Обозначение продукта", typeof(ProductDesignationLookupListView)));
                 Items.Add(new NavigationItem("Обозначение типа продукта", typeof(ProductTypeDesignationLookupListView)));
-                Items.Add(new NavigationItem("Связи продуктов", typeof(ProductRelationLookupListView)));
+                Items.Add(new NavigationItem("Связи продуктов", typeof(ProductRelationsView)));
                 Items.Add(new NavigationItem("Задания", typeof(CreateNewProductTasksView)));
                 Items.Add(new NavigationItem("Замена", typeof(ProductReplacementView)));
                 Items.Add(new NavigationItem("Нормо-часы", typeof(LaborHoursView)));
