@@ -50,6 +50,8 @@
                         <infg:TextField Name="Messages" Label="Переписка" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:TextField Name="ChildPriceEngineeringTasks" Label="Дочерние задачи" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:TextField Name="Statuses" Label="Статусы проработки" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                        <infg:CheckBoxField Name="RequestForVerificationFromHead" Label="Запрос на проверку от руководителя" Width="Auto" AllowResize="True" />
+                        <infg:CheckBoxField Name="RequestForVerificationFromConstructor" Label="Запрос на проверку от исполнителя" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="SalesUnits" Label="SalesUnits" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:DateTimeField Name="StartMoment" Label="Старт" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />

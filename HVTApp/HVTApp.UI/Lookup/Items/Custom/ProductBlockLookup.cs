@@ -1,4 +1,6 @@
+using System.Linq;
 using HVTApp.Infrastructure.Attributes;
+using HVTApp.Infrastructure.Extansions;
 
 namespace HVTApp.UI.Lookup
 {
@@ -16,5 +18,12 @@ namespace HVTApp.UI.Lookup
                 RaisePropertyChanged();
             }
         }
+
+        [Designation("Параметры")]
+        public string ParametersString =>
+            this.Entity.Parameters
+                .Select(x => $"[({x.ParameterGroup}) : ({x.Value})]")
+                .OrderBy(x => x)
+                .ToStringEnum();
     }
 }

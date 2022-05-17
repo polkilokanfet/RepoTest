@@ -814,6 +814,12 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(1)]
         public HVTApp.Model.POCOs.PriceEngineeringTaskStatusEnum Status => Entity.Status;
 
+		[OrderStatus(40)]
+        public System.Boolean RequestForVerificationFromHead => Entity.RequestForVerificationFromHead;
+
+		[OrderStatus(35)]
+        public System.Boolean RequestForVerificationFromConstructor => Entity.RequestForVerificationFromConstructor;
+
 		[OrderStatus(1)]
         public System.Nullable<System.DateTime> StartMoment => Entity.StartMoment;
 
@@ -961,6 +967,9 @@ namespace HVTApp.UI.Lookup
 		}
 		
         #region SimpleProperties
+		[OrderStatus(1)]
+        public System.String Number => Entity.Number;
+
 		[OrderStatus(1500)]
         public System.DateTime WorkUpTo => Entity.WorkUpTo;
 
@@ -1411,6 +1420,9 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
         public System.Boolean IsAccepted => Entity.IsAccepted;
+
+		[OrderStatus(1)]
+        public System.String Products => Entity.Products;
 
         #endregion
 

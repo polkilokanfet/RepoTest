@@ -26,7 +26,7 @@ namespace HVTApp.Model.POCOs
         public ProductType ProductType => GlobalAppProperties.ProductDesignationService.GetProductType(this);
 
 
-        [Designation("Параметры")]
+        [Designation("Параметры"), NotForListView]
         public virtual List<Parameter> Parameters { get; set; } = new List<Parameter>();
 
         [Designation("Себестоимости")]
