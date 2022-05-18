@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
@@ -49,6 +51,7 @@ namespace HVTApp.UI.Modules.Products.Parameters
 
                 AddSimilarParameterCommand.RaiseCanExecuteChanged();
                 AddRelationCommand.RaiseCanExecuteChanged();
+                RemoveParameterCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -115,6 +118,8 @@ namespace HVTApp.UI.Modules.Products.Parameters
         public DelegateLogCommand AddParameterCommand { get; }
         public DelegateLogCommand AddSimilarParameterCommand { get; }
 
+        public DelegateLogCommand RemoveParameterCommand { get; }
+
         public DelegateLogCommand AddRelationCommand { get; }
         public DelegateLogCommand RemoveRelationCommand { get; }
 
@@ -130,7 +135,7 @@ namespace HVTApp.UI.Modules.Products.Parameters
                 () =>
                 {
                     this.Item = new ParameterWrapper(new Parameter());
-                    (AddRelationCommand).RaiseCanExecuteChanged();
+                    AddRelationCommand.RaiseCanExecuteChanged();
                 }
             );
 
@@ -146,6 +151,44 @@ namespace HVTApp.UI.Modules.Products.Parameters
                         ParameterLookups.Add(lookup);
                         SelectedParameterLookup = lookup;
                     }
+                },
+                () => SelectedParameterLookup != null);
+
+            RemoveParameterCommand = new DelegateLogCommand(
+                () =>
+                {
+                    if (container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Удалить?") != MessageDialogResult.Yes)
+                    {
+                        return;
+                    }
+
+                    var unitOfWork = container.Resolve<IUnitOfWork>();
+                    Parameter parameter = unitOfWork.Repository<Parameter>().GetById(SelectedParameterLookup.Entity.Id);
+
+                    var productRelations = unitOfWork.Repository<ProductRelation>().Find(x => x.ParentProductParameters.Contains(parameter) || x.ChildProductParameters.Contains(parameter));
+                    if (productRelations.Any())
+                    {
+                        container.Resolve<IMessageService>().ShowOkMessageDialog("Info", $"Удалите сначала связи между блоками: {productRelations.ToStringEnum()}");
+                        return;
+                    }
+
+
+                    var blocks = unitOfWork.Repository<ProductBlock>().Find(x => x.Parameters.Contains(parameter));
+                    foreach (var block in blocks)
+                    {
+                        block.Parameters.Remove(parameter);
+                    }
+
+                    //var relations = unitOfWork.Repository<ParameterRelation>().Find(x => x.RequiredParameters.Contains(parameter));
+                    //foreach (var relation in relations)
+                    //{
+                    //    relation.RequiredParameters.Remove(parameter);
+                    //}
+
+                    unitOfWork.SaveChanges();
+
+                    this.ParameterLookups.Remove(SelectedParameterLookup);
+                    SelectedParameterLookup = null;
                 },
                 () => SelectedParameterLookup != null);
 

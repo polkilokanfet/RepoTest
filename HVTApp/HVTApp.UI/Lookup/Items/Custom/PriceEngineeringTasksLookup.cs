@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 
@@ -26,20 +27,24 @@ namespace HVTApp.UI.Lookup
                     case Role.SalesManager:
                     {
                         var statusEnums = Entity.StatusesAll.ToList();
-                        if (statusEnums.All(status => status == PriceEngineeringTaskStatusEnum.Created)) return "Создано";
-                        if (statusEnums.All(status => status == PriceEngineeringTaskStatusEnum.Accepted)) return "Принято";
-                        if (statusEnums.All(status => status == PriceEngineeringTaskStatusEnum.Stopped)) return "Остановлено";
+                        return statusEnums.Select(x => x.StatusToString()).Distinct().OrderBy(x => x).ToStringEnum();
 
-                        return "В работе";
+                        //if (statusEnums.All(status => status == PriceEngineeringTaskStatusEnum.Created)) return "Создано";
+                        //if (statusEnums.All(status => status == PriceEngineeringTaskStatusEnum.Accepted)) return "Принято";
+                        //if (statusEnums.All(status => status == PriceEngineeringTaskStatusEnum.Stopped)) return "Остановлено";
+
+                        //return "В работе";
                     }
                     case Role.Constructor:
                     {
                         var statusEnums = Entity.GetSuitableTasksForWork(GlobalAppProperties.User).SelectMany(x => x.StatusesAll).ToList();
-                        if (statusEnums.All(status => status == PriceEngineeringTaskStatusEnum.Created)) return "Создано";
-                        if (statusEnums.All(status => status == PriceEngineeringTaskStatusEnum.Accepted)) return "Принято";
-                        if (statusEnums.All(status => status == PriceEngineeringTaskStatusEnum.Stopped)) return "Остановлено";
+                        return statusEnums.Select(x => x.StatusToString()).Distinct().OrderBy(x => x).ToStringEnum();
 
-                        return "В работе";
+                        //if (statusEnums.All(status => status == PriceEngineeringTaskStatusEnum.Created)) return "Создано";
+                        //if (statusEnums.All(status => status == PriceEngineeringTaskStatusEnum.Accepted)) return "Принято";
+                        //if (statusEnums.All(status => status == PriceEngineeringTaskStatusEnum.Stopped)) return "Остановлено";
+
+                        //return "В работе";
                     }
                     case Role.DesignDepartmentHead:
                     {
