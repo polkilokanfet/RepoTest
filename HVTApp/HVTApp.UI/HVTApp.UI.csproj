@@ -349,6 +349,9 @@
     <Compile Include="Tabs\TabDesignDepartments.xaml.cs">
       <DependentUpon>TabDesignDepartments.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Tabs\TabProduct.xaml.cs">
+      <DependentUpon>TabProduct.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Tabs\TabProductBlocks.xaml.cs">
       <DependentUpon>TabProductBlocks.xaml</DependentUpon>
     </Compile>
@@ -875,6 +878,7 @@
     <Compile Include="ViewModels\List\Custom\PaymentConditionSet\PaymentConditionFilterViewModel.cs" />
     <Compile Include="ViewModels\List\Custom\PaymentConditionSet\PaymentConditionSetLookupListViewModel.cs" />
     <Compile Include="ViewModels\List\Custom\ProductBlockLookupListViewModel.cs" />
+    <Compile Include="ViewModels\List\Custom\ProductLookupListViewModel.cs" />
     <Compile Include="ViewModels\List\Custom\ProductTypeDesignationLookupListViewModel.cs" />
     <Compile Include="ViewModels\List\Custom\ProjectLookupListViewModel.cs" />
     <Compile Include="ViewModels\List\Custom\RegionLookupListViewModel.cs" />
@@ -892,10 +896,11 @@
     <Compile Include="Views\Details\Custom\OrderView.xaml.cs">
       <DependentUpon>OrderView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\List\cs\DesignDepartmentLookupListView.cs" />
-    <Compile Include="Views\List\cs\ProductBlockLookupListViewModel.cs" />
-    <Compile Include="Views\List\cs\ProjectLookupListView.cs" />
-    <Compile Include="Views\List\cs\UserLookupListView.cs" />
+    <Compile Include="Views\List\cs\Custom\DesignDepartmentLookupListView.cs" />
+    <Compile Include="Views\List\cs\Custom\ProductBlockLookupListView.cs" />
+    <Compile Include="Views\List\cs\Custom\ProductLookupListView.cs" />
+    <Compile Include="Views\List\cs\Custom\ProjectLookupListView.cs" />
+    <Compile Include="Views\List\cs\Custom\UserLookupListView.cs" />
     <Compile Include="Views\List\Custom\PaymentConditionFilterControl.xaml.cs">
       <DependentUpon>PaymentConditionFilterControl.xaml</DependentUpon>
     </Compile>
@@ -1688,6 +1693,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Tabs\TabDesignDepartments.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Tabs\TabProduct.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -225,7 +225,7 @@ namespace EventServiceClient2
 
         public void CheckMessagesInDb()
         {
-            IUnitOfWork unitOfWork = this._container.Resolve<IUnitOfWork>();
+            var unitOfWork = _container.Resolve<IUnitOfWork>();
             
             //Есть ли в базе данных сообщения для текущего пользователя?
             var units = unitOfWork.Repository<EventServiceUnit>().Find(unit => unit.User.Id == GlobalAppProperties.User.Id);
@@ -341,9 +341,70 @@ namespace EventServiceClient2
                             this.CheckMessageInDbAction(unit, unitOfWork, OnSaveIncomingRequestServiceCallback);
                             break;
                         }
-
-                        default:
-                            throw new ArgumentOutOfRangeException();
+                        case EventServiceActionType.SaveActualPayment:
+                        {
+                            break;
+                        }
+                        case EventServiceActionType.PriceEngineeringTasksStart:
+                        {
+                            this.CheckMessageInDbAction(unit, unitOfWork, OnPriceEngineeringTasksStartServiceCallback);
+                            break;
+                        }
+                        case EventServiceActionType.PriceEngineeringTaskStart:
+                        {
+                            this.CheckMessageInDbAction(unit, unitOfWork, OnPriceEngineeringTaskStartServiceCallback);
+                            break;
+                        }
+                        case EventServiceActionType.PriceEngineeringTaskStop:
+                        {
+                            this.CheckMessageInDbAction(unit, unitOfWork, OnPriceEngineeringTaskStopServiceCallback);
+                            break;
+                        }
+                        case EventServiceActionType.PriceEngineeringTaskInstruct:
+                        {
+                            this.CheckMessageInDbAction(unit, unitOfWork, OnPriceEngineeringTaskInstructServiceCallback);
+                            break;
+                        }
+                        case EventServiceActionType.PriceEngineeringTaskFinish:
+                        {
+                            this.CheckMessageInDbAction(unit, unitOfWork, OnPriceEngineeringTaskFinishServiceCallback);
+                            break;
+                        }
+                        case EventServiceActionType.PriceEngineeringTaskAccept:
+                        {
+                            this.CheckMessageInDbAction(unit, unitOfWork, OnPriceEngineeringTaskAcceptServiceCallback);
+                            break;
+                        }
+                        case EventServiceActionType.PriceEngineeringTaskRejectByManager:
+                        {
+                            this.CheckMessageInDbAction(unit, unitOfWork, OnPriceEngineeringTaskRejectByManagerServiceCallback);
+                            break;
+                        }
+                        case EventServiceActionType.PriceEngineeringTaskRejectByConstructor:
+                        {
+                            this.CheckMessageInDbAction(unit, unitOfWork, OnPriceEngineeringTaskRejectByConstructorServiceCallback);
+                            break;
+                        }
+                        case EventServiceActionType.PriceEngineeringTaskSendMessage:
+                        {
+                            this.CheckMessageInDbAction(unit, unitOfWork, OnPriceEngineeringTaskSendMessageServiceCallback);
+                            break;
+                        }
+                        case EventServiceActionType.PriceEngineeringTaskFinishGoToVerification:
+                        {
+                            this.CheckMessageInDbAction(unit, unitOfWork, OnPriceEngineeringTaskFinishGoToVerificationServiceCallback);
+                            break;
+                        }
+                        case EventServiceActionType.PriceEngineeringTaskVerificationRejectedByHead:
+                        {
+                            this.CheckMessageInDbAction(unit, unitOfWork, OnPriceEngineeringTaskVerificationRejectedByHeadServiceCallback);
+                            break;
+                        }
+                        case EventServiceActionType.PriceEngineeringTaskVerificationAcceptedByHead:
+                        {
+                            this.CheckMessageInDbAction(unit, unitOfWork, OnPriceEngineeringTaskVerificationAcceptedByHeadServiceCallback);
+                            break;
+                        }
                     }
                 }
 

@@ -179,11 +179,18 @@ namespace HVTApp.UI.Modules.Products.Parameters
                         block.Parameters.Remove(parameter);
                     }
 
+                    foreach (var relation in parameter.ParameterRelations.ToList())
+                    {
+                        unitOfWork.Repository<ParameterRelation>().Delete(relation);
+                    }
+
                     //var relations = unitOfWork.Repository<ParameterRelation>().Find(x => x.RequiredParameters.Contains(parameter));
                     //foreach (var relation in relations)
                     //{
                     //    relation.RequiredParameters.Remove(parameter);
                     //}
+
+                    unitOfWork.Repository<Parameter>().Delete(parameter);
 
                     unitOfWork.SaveChanges();
 
