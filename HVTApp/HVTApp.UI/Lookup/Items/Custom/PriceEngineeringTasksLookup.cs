@@ -37,14 +37,12 @@ namespace HVTApp.UI.Lookup
                     }
                     case Role.Constructor:
                     {
-                        var statusEnums = Entity.GetSuitableTasksForWork(GlobalAppProperties.User).SelectMany(x => x.StatusesAll).ToList();
-                        return statusEnums.Select(x => x.StatusToString()).Distinct().OrderBy(x => x).ToStringEnum();
-
-                        //if (statusEnums.All(status => status == PriceEngineeringTaskStatusEnum.Created)) return "Создано";
-                        //if (statusEnums.All(status => status == PriceEngineeringTaskStatusEnum.Accepted)) return "Принято";
-                        //if (statusEnums.All(status => status == PriceEngineeringTaskStatusEnum.Stopped)) return "Остановлено";
-
-                        //return "В работе";
+                        return Entity
+                            .GetSuitableTasksForWork(GlobalAppProperties.User)
+                            .Select(x => x.Status.StatusToString())
+                            .Distinct()
+                            .OrderBy(x => x)
+                            .ToStringEnum();
                     }
                     case Role.DesignDepartmentHead:
                     {

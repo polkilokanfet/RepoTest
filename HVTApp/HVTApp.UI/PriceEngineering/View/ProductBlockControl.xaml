@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="HVTApp.UI.PriceEngineering.View.ProductBlockControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Name="Root">
+
+    <!--Блок продукта с показом параметров-->
+    <TextBox Text="{Binding ElementName=Root, Path=ProductBlock, Mode=OneWay,  UpdateSourceTrigger=PropertyChanged}" 
+             FontWeight="DemiBold"
+             IsReadOnly="True" 
+             Background="AliceBlue" 
+             BorderThickness="0"
+             ToolTipService.ShowDuration="120000">
+
+        <TextBox.Resources>
+            <DataGrid ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=ProductBlock.Parameters}"
+                      AutoGenerateColumns="False"
+                      x:Key="Dg1">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Группа" Binding="{Binding Path=ParameterGroup}" Width="Auto"/>
+                    <DataGridTextColumn Header="Значение" Binding="{Binding Path=Value}" Width="Auto"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </TextBox.Resources>
+
+        <TextBox.ToolTip>
+            <ToolTip>
+                <ContentPresenter Content="{DynamicResource Dg1}"/>
+            </ToolTip>
+        </TextBox.ToolTip>
+
+    </TextBox>
+
+
+</UserControl>

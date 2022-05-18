@@ -99,7 +99,8 @@
                                                     Command="{Binding SelectProductBlockCommand}" 
                                                     Padding="5 0"/>
 
-                                            <TextBox ToolTipService.ShowDuration="120000" Grid.Column="1" FontWeight="DemiBold" Text="{Binding ProductBlockEngineer, Mode=OneWay}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0">
+                                            <view:ProductBlockControl Grid.Column="1" ProductBlock="{Binding ProductBlockEngineer.Model, Mode=OneWay}"/>
+                                            <!--<TextBox ToolTipService.ShowDuration="120000" Grid.Column="1" FontWeight="DemiBold" Text="{Binding ProductBlockEngineer, Mode=OneWay}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0">
                                                 <TextBox.ToolTip>
                                                     <DataGrid ItemsSource="{Binding ProductBlockEngineer.Model.Parameters, Mode=OneWay}" AutoGenerateColumns="False">
                                                         <DataGrid.Columns>
@@ -108,7 +109,7 @@
                                                         </DataGrid.Columns>
                                                     </DataGrid>
                                                 </TextBox.ToolTip>
-                                            </TextBox>
+                                            </TextBox>-->
 
                                             <Grid Grid.Column="2" 
                                                   Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}">
