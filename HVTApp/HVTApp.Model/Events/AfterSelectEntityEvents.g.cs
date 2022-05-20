@@ -43,6 +43,9 @@ namespace HVTApp.Model.Events
 	public partial class AfterSelectPriceEngineeringTasksEvent : PubSubEvent<PubSubEventArgs<PriceEngineeringTasks>> { }
 	public partial class AfterSelectPriceEngineeringTasksFileTechnicalRequirementsEvent : PubSubEvent<PubSubEventArgs<PriceEngineeringTasksFileTechnicalRequirements>> { }
 	public partial class AfterSelectPriceEngineeringTaskStatusEvent : PubSubEvent<PubSubEventArgs<PriceEngineeringTaskStatus>> { }
+	public partial class AfterSelectPriceEngineeringTaskTceEvent : PubSubEvent<PubSubEventArgs<PriceEngineeringTaskTce>> { }
+	public partial class AfterSelectPriceEngineeringTaskTceStoryItemEvent : PubSubEvent<PubSubEventArgs<PriceEngineeringTaskTceStoryItem>> { }
+	public partial class AfterSelectPriceEngineeringTaskTceStructureCostVersionEvent : PubSubEvent<PubSubEventArgs<PriceEngineeringTaskTceStructureCostVersion>> { }
 	public partial class AfterSelectProductCategoryEvent : PubSubEvent<PubSubEventArgs<ProductCategory>> { }
 	public partial class AfterSelectProductCategoryPriceAndCostEvent : PubSubEvent<PubSubEventArgs<ProductCategoryPriceAndCost>> { }
 	public partial class AfterSelectProductIncludedEvent : PubSubEvent<PubSubEventArgs<ProductIncluded>> { }

@@ -2396,6 +2396,10 @@ namespace HVTApp.Model.Wrapper
         #endregion
         #region GetProperties
         /// <summary>
+        /// Номер
+        /// </summary>
+        public System.String Number => GetValue<System.String>(); 
+        /// <summary>
         /// Старт
         /// </summary>
         public System.Nullable<System.DateTime> StartMoment => GetValue<System.Nullable<System.DateTime>>(); 
@@ -2533,6 +2537,167 @@ namespace HVTApp.Model.Wrapper
         }
         public HVTApp.Model.POCOs.PriceEngineeringTaskStatusEnum StatusEnumOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.PriceEngineeringTaskStatusEnum>(nameof(StatusEnum));
         public bool StatusEnumIsChanged => GetIsChanged(nameof(StatusEnum));
+        /// <summary>
+        /// Id
+        /// </summary>
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+        #endregion
+	}
+
+		public partial class PriceEngineeringTaskTceWrapper : WrapperBase<PriceEngineeringTaskTce>
+	{
+	    public PriceEngineeringTaskTceWrapper(PriceEngineeringTaskTce model) : base(model) { }
+        #region SimpleProperties
+        /// <summary>
+        /// Номер ТСЕ
+        /// </summary>
+        public System.String TceNumber
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String TceNumberOriginalValue => GetOriginalValue<System.String>(nameof(TceNumber));
+        public bool TceNumberIsChanged => GetIsChanged(nameof(TceNumber));
+        /// <summary>
+        /// Id
+        /// </summary>
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+        #endregion
+        #region ComplexProperties
+        /// <summary>
+        /// Исполнитель
+        /// </summary>
+	    public UserWrapper BackManager 
+        {
+            get { return GetWrapper<UserWrapper>(); }
+            set { SetComplexValue<User, UserWrapper>(BackManager, value); }
+        }
+        #endregion
+        #region CollectionProperties
+        /// <summary>
+        /// Связанные задачи верхнего уровня
+        /// </summary>
+        public IValidatableChangeTrackingCollection<PriceEngineeringTaskWrapper> PriceEngineeringTaskList { get; private set; }
+        /// <summary>
+        /// Версии стракчакостов
+        /// </summary>
+        public IValidatableChangeTrackingCollection<PriceEngineeringTaskTceStructureCostVersionWrapper> SccVersions { get; private set; }
+        /// <summary>
+        /// История проработки
+        /// </summary>
+        public IValidatableChangeTrackingCollection<PriceEngineeringTaskTceStoryItemWrapper> Story { get; private set; }
+        #endregion
+        public override void InitializeComplexProperties()
+        {
+            InitializeComplexProperty<UserWrapper>(nameof(BackManager), Model.BackManager == null ? null : new UserWrapper(Model.BackManager));
+        }
+        protected override void InitializeCollectionProperties()
+        {
+          if (Model.PriceEngineeringTaskList == null) throw new ArgumentException("PriceEngineeringTaskList cannot be null");
+          PriceEngineeringTaskList = new ValidatableChangeTrackingCollection<PriceEngineeringTaskWrapper>(Model.PriceEngineeringTaskList.Select(e => new PriceEngineeringTaskWrapper(e)));
+          RegisterCollection(PriceEngineeringTaskList, Model.PriceEngineeringTaskList);
+          if (Model.SccVersions == null) throw new ArgumentException("SccVersions cannot be null");
+          SccVersions = new ValidatableChangeTrackingCollection<PriceEngineeringTaskTceStructureCostVersionWrapper>(Model.SccVersions.Select(e => new PriceEngineeringTaskTceStructureCostVersionWrapper(e)));
+          RegisterCollection(SccVersions, Model.SccVersions);
+          if (Model.StoryItems == null) throw new ArgumentException("Story cannot be null");
+          Story = new ValidatableChangeTrackingCollection<PriceEngineeringTaskTceStoryItemWrapper>(Model.StoryItems.Select(e => new PriceEngineeringTaskTceStoryItemWrapper(e)));
+          RegisterCollection(Story, Model.StoryItems);
+        }
+	}
+
+		public partial class PriceEngineeringTaskTceStoryItemWrapper : WrapperBase<PriceEngineeringTaskTceStoryItem>
+	{
+	    public PriceEngineeringTaskTceStoryItemWrapper(PriceEngineeringTaskTceStoryItem model) : base(model) { }
+        #region SimpleProperties
+        /// <summary>
+        /// Id задачи
+        /// </summary>
+        public System.Guid PriceEngineeringTaskTceId
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid PriceEngineeringTaskTceIdOriginalValue => GetOriginalValue<System.Guid>(nameof(PriceEngineeringTaskTceId));
+        public bool PriceEngineeringTaskTceIdIsChanged => GetIsChanged(nameof(PriceEngineeringTaskTceId));
+        /// <summary>
+        /// Момент
+        /// </summary>
+        public System.DateTime Moment
+        {
+          get { return GetValue<System.DateTime>(); }
+          set { SetValue(value); }
+        }
+        public System.DateTime MomentOriginalValue => GetOriginalValue<System.DateTime>(nameof(Moment));
+        public bool MomentIsChanged => GetIsChanged(nameof(Moment));
+        /// <summary>
+        /// Действие
+        /// </summary>
+        public HVTApp.Model.POCOs.PriceEngineeringTaskTceStoryItemStoryAction StoryAction
+        {
+          get { return GetValue<HVTApp.Model.POCOs.PriceEngineeringTaskTceStoryItemStoryAction>(); }
+          set { SetValue(value); }
+        }
+        public HVTApp.Model.POCOs.PriceEngineeringTaskTceStoryItemStoryAction StoryActionOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.PriceEngineeringTaskTceStoryItemStoryAction>(nameof(StoryAction));
+        public bool StoryActionIsChanged => GetIsChanged(nameof(StoryAction));
+        /// <summary>
+        /// Id
+        /// </summary>
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+        #endregion
+	}
+
+		public partial class PriceEngineeringTaskTceStructureCostVersionWrapper : WrapperBase<PriceEngineeringTaskTceStructureCostVersion>
+	{
+	    public PriceEngineeringTaskTceStructureCostVersionWrapper(PriceEngineeringTaskTceStructureCostVersion model) : base(model) { }
+        #region SimpleProperties
+        /// <summary>
+        /// Id задачи
+        /// </summary>
+        public System.Guid PriceEngineeringTaskTceId
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid PriceEngineeringTaskTceIdOriginalValue => GetOriginalValue<System.Guid>(nameof(PriceEngineeringTaskTceId));
+        public bool PriceEngineeringTaskTceIdIsChanged => GetIsChanged(nameof(PriceEngineeringTaskTceId));
+        /// <summary>
+        /// Id родительской сущности
+        /// </summary>
+        public System.Guid ParentUnitId
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid ParentUnitIdOriginalValue => GetOriginalValue<System.Guid>(nameof(ParentUnitId));
+        public bool ParentUnitIdIsChanged => GetIsChanged(nameof(ParentUnitId));
+        /// <summary>
+        /// Версия стракчакоста
+        /// </summary>
+        public System.Nullable<System.Int32> StructureCostVersion
+        {
+          get { return GetValue<System.Nullable<System.Int32>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Int32> StructureCostVersionOriginalValue => GetOriginalValue<System.Nullable<System.Int32>>(nameof(StructureCostVersion));
+        public bool StructureCostVersionIsChanged => GetIsChanged(nameof(StructureCostVersion));
         /// <summary>
         /// Id
         /// </summary>

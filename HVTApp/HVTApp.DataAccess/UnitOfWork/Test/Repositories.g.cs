@@ -203,6 +203,21 @@ namespace HVTApp.DataAccess
         public PriceEngineeringTaskStatusRepositoryTest(TestData testData) : base(testData) {}
     }
 
+    public partial class PriceEngineeringTaskTceRepositoryTest : TestBaseRepository<PriceEngineeringTaskTce>, IPriceEngineeringTaskTceRepository
+    {
+        public PriceEngineeringTaskTceRepositoryTest(TestData testData) : base(testData) {}
+    }
+
+    public partial class PriceEngineeringTaskTceStoryItemRepositoryTest : TestBaseRepository<PriceEngineeringTaskTceStoryItem>, IPriceEngineeringTaskTceStoryItemRepository
+    {
+        public PriceEngineeringTaskTceStoryItemRepositoryTest(TestData testData) : base(testData) {}
+    }
+
+    public partial class PriceEngineeringTaskTceStructureCostVersionRepositoryTest : TestBaseRepository<PriceEngineeringTaskTceStructureCostVersion>, IPriceEngineeringTaskTceStructureCostVersionRepository
+    {
+        public PriceEngineeringTaskTceStructureCostVersionRepositoryTest(TestData testData) : base(testData) {}
+    }
+
     public partial class ProductCategoryRepositoryTest : TestBaseRepository<ProductCategory>, IProductCategoryRepository
     {
         public ProductCategoryRepositoryTest(TestData testData) : base(testData) {}

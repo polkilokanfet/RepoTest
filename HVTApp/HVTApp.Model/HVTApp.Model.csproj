@@ -127,6 +127,9 @@
     <Compile Include="POCOs\PriceEngineering\PriceEngineeringTasks.cs" />
     <Compile Include="POCOs\PriceEngineering\PriceEngineeringTasksFileTechnicalRequirements.cs" />
     <Compile Include="POCOs\PriceEngineering\PriceEngineeringTaskStatus.cs" />
+    <Compile Include="POCOs\PriceEngineering\PriceEngineeringTaskTce.cs" />
+    <Compile Include="POCOs\PriceEngineering\PriceEngineeringTaskTceStoryItem.cs" />
+    <Compile Include="POCOs\PriceEngineering\PriceEngineeringTaskTceStructureCostVersion.cs" />
     <Compile Include="POCOs\ProductCategory.cs" />
     <Compile Include="POCOs\ProductCategoryPriceAndCost.cs" />
     <Compile Include="POCOs\ProductIncluded.cs" />

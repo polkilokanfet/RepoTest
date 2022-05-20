@@ -52,6 +52,9 @@ namespace HVTApp.DataAccess
             context.PriceEngineeringTasksDbSet.AddRange(testData.GetAll<PriceEngineeringTasks>());
             context.PriceEngineeringTasksFileTechnicalRequirementsDbSet.AddRange(testData.GetAll<PriceEngineeringTasksFileTechnicalRequirements>());
             context.PriceEngineeringTaskStatusDbSet.AddRange(testData.GetAll<PriceEngineeringTaskStatus>());
+            context.PriceEngineeringTaskTceDbSet.AddRange(testData.GetAll<PriceEngineeringTaskTce>());
+            context.PriceEngineeringTaskTceStoryItemDbSet.AddRange(testData.GetAll<PriceEngineeringTaskTceStoryItem>());
+            context.PriceEngineeringTaskTceStructureCostVersionDbSet.AddRange(testData.GetAll<PriceEngineeringTaskTceStructureCostVersion>());
             context.ProductCategoryDbSet.AddRange(testData.GetAll<ProductCategory>());
             context.ProductCategoryPriceAndCostDbSet.AddRange(testData.GetAll<ProductCategoryPriceAndCost>());
             context.ProductIncludedDbSet.AddRange(testData.GetAll<ProductIncluded>());

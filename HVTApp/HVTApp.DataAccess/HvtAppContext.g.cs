@@ -49,6 +49,9 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new PriceEngineeringTasksConfiguration());
             modelBuilder.Configurations.Add(new PriceEngineeringTasksFileTechnicalRequirementsConfiguration());
             modelBuilder.Configurations.Add(new PriceEngineeringTaskStatusConfiguration());
+            modelBuilder.Configurations.Add(new PriceEngineeringTaskTceConfiguration());
+            modelBuilder.Configurations.Add(new PriceEngineeringTaskTceStoryItemConfiguration());
+            modelBuilder.Configurations.Add(new PriceEngineeringTaskTceStructureCostVersionConfiguration());
             modelBuilder.Configurations.Add(new ProductCategoryConfiguration());
             modelBuilder.Configurations.Add(new ProductCategoryPriceAndCostConfiguration());
             modelBuilder.Configurations.Add(new ProductIncludedConfiguration());
@@ -155,6 +158,9 @@ namespace HVTApp.DataAccess
         public virtual DbSet<PriceEngineeringTasks> PriceEngineeringTasksDbSet { get; set; }
         public virtual DbSet<PriceEngineeringTasksFileTechnicalRequirements> PriceEngineeringTasksFileTechnicalRequirementsDbSet { get; set; }
         public virtual DbSet<PriceEngineeringTaskStatus> PriceEngineeringTaskStatusDbSet { get; set; }
+        public virtual DbSet<PriceEngineeringTaskTce> PriceEngineeringTaskTceDbSet { get; set; }
+        public virtual DbSet<PriceEngineeringTaskTceStoryItem> PriceEngineeringTaskTceStoryItemDbSet { get; set; }
+        public virtual DbSet<PriceEngineeringTaskTceStructureCostVersion> PriceEngineeringTaskTceStructureCostVersionDbSet { get; set; }
         public virtual DbSet<ProductCategory> ProductCategoryDbSet { get; set; }
         public virtual DbSet<ProductCategoryPriceAndCost> ProductCategoryPriceAndCostDbSet { get; set; }
         public virtual DbSet<ProductIncluded> ProductIncludedDbSet { get; set; }

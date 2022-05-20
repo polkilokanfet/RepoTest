@@ -116,6 +116,7 @@
     <Compile Include="EntityTypeConfigurations\Custom\PriceEngineeringTaskMessageConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\PriceEngineeringTaskProductBlockAddedConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\PriceEngineeringTasksConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\PriceEngineeringTaskTceConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ProductBlockConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ProductCategoryConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ProductCategoryPriceAndCostConfiguration.cs" />
