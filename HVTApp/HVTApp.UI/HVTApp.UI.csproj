@@ -329,6 +329,10 @@
     <Compile Include="PriceEngineering\Tabs\TabPriceEngineeringTask.xaml.cs">
       <DependentUpon>TabPriceEngineeringTask.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PriceEngineering\Tce\Unit\PriceEngineeringTaskTceViewModel.cs" />
+    <Compile Include="PriceEngineering\Tce\Unit\PriceEngineeringTaskTceWrapper1.cs" />
+    <Compile Include="PriceEngineering\Tce\Unit\TceStructureCostVersion.cs" />
+    <Compile Include="PriceEngineering\Tce\Unit\TceStructureCostVersionWrapper.cs" />
     <Compile Include="PriceEngineering\View\BlockAddedControl.xaml.cs">
       <DependentUpon>BlockAddedControl.xaml</DependentUpon>
     </Compile>
@@ -2618,6 +2622,7 @@
   <ItemGroup>
     <Folder Include="Lookup\Service\Custom\" />
     <Folder Include="Modules\Products\ProductRelations\" />
+    <Folder Include="PriceEngineering\Tce\List\" />
     <Folder Include="Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

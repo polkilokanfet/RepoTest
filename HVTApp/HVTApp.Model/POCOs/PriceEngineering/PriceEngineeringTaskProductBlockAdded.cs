@@ -7,7 +7,7 @@ namespace HVTApp.Model.POCOs
 {
     [Designation("Технико-стоимостная проработка (добавленный блок)")]
     [DesignationPlural("Технико-стоимостная проработка (добавленные блоки)")]
-    public class PriceEngineeringTaskProductBlockAdded : BaseEntity
+    public class PriceEngineeringTaskProductBlockAdded : BaseEntity, IProductBlockContainer
     {
         [Designation("Id технико-стоимостной проработки"), Required, OrderStatus(500)]
         public virtual Guid PriceEngineeringTaskId { get; set; }

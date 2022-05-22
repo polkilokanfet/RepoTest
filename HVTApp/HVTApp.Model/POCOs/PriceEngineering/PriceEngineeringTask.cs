@@ -11,7 +11,7 @@ namespace HVTApp.Model.POCOs
 {
     [Designation("Технико-стоимостная проработка")]
     [DesignationPlural("Технико-стоимостные проработки")]
-    public class PriceEngineeringTask : BaseEntity
+    public class PriceEngineeringTask : BaseEntity, IProductBlockContainer
     {
         [Designation("Id группы"), OrderStatus(2000)]
         public virtual Guid? ParentPriceEngineeringTasksId { get; set; }
@@ -221,5 +221,8 @@ namespace HVTApp.Model.POCOs
         {
             return $"Технико-стоимостная проработка объектов: {SalesUnits.Select(x => x.Facility).Distinct().OrderBy(x => x.Name).ToStringEnum(", ")}";
         }
+
+        [NotMapped, NotForListView, NotForDetailsView]
+        public ProductBlock ProductBlock => this.ProductBlockEngineer;
     }
 }

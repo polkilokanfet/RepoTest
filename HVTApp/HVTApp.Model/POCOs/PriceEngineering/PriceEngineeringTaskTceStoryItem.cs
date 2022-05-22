@@ -21,7 +21,8 @@ namespace HVTApp.Model.POCOs
 
     public enum PriceEngineeringTaskTceStoryItemStoryAction
     {
-        Start,
+        Start, 
+        Instruct,
         Finish
     }
 }
