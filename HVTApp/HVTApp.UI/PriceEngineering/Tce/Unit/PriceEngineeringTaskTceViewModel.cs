@@ -12,6 +12,7 @@ namespace HVTApp.UI.PriceEngineering.Tce.Unit
     {
         public PriceEngineeringTaskTceViewModel(IUnityContainer container) : base(container)
         {
+            
         }
 
         public void Create(IEnumerable<PriceEngineeringTask> tasks)

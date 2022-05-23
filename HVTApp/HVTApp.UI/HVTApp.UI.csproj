@@ -329,10 +329,21 @@
     <Compile Include="PriceEngineering\Tabs\TabPriceEngineeringTask.xaml.cs">
       <DependentUpon>TabPriceEngineeringTask.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PriceEngineering\Tce\Converters\ToPriceEngineeringTaskTceItemConverter.cs" />
+    <Compile Include="PriceEngineering\Tce\Unit\PriceEngineeringTaskTceItem.cs" />
     <Compile Include="PriceEngineering\Tce\Unit\PriceEngineeringTaskTceViewModel.cs" />
     <Compile Include="PriceEngineering\Tce\Unit\PriceEngineeringTaskTceWrapper1.cs" />
+    <Compile Include="PriceEngineering\Tce\Unit\View\TceStructureCostVersionControl.xaml.cs">
+      <DependentUpon>TceStructureCostVersionControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\Tce\Unit\View\PriceEngineeringTaskTceView.xaml.cs">
+      <DependentUpon>PriceEngineeringTaskTceView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PriceEngineering\Tce\Unit\TceStructureCostVersion.cs" />
     <Compile Include="PriceEngineering\Tce\Unit\TceStructureCostVersionWrapper.cs" />
+    <Compile Include="PriceEngineering\Tce\Unit\View\PriceEngineeringTaskTceItemControl.xaml.cs">
+      <DependentUpon>PriceEngineeringTaskTceItemControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PriceEngineering\View\BlockAddedControl.xaml.cs">
       <DependentUpon>BlockAddedControl.xaml</DependentUpon>
     </Compile>
@@ -1676,6 +1687,18 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="PriceEngineering\TasksList\PriceEngineeringTasksListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceEngineering\Tce\Unit\View\TceStructureCostVersionControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceEngineering\Tce\Unit\View\PriceEngineeringTaskTceView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceEngineering\Tce\Unit\View\PriceEngineeringTaskTceItemControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

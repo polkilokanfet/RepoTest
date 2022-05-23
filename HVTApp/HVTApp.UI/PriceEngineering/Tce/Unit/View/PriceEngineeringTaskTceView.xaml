@@ -1,0 +1,32 @@
+﻿<inf:ViewBaseConfirmNavigationRequest 
+    x:Class="HVTApp.UI.PriceEngineering.Tce.Unit.PriceEngineeringTaskTceView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+    xmlns:unit="clr-namespace:HVTApp.UI.PriceEngineering.Tce.Unit"
+    xmlns:converters="clr-namespace:HVTApp.UI.PriceEngineering.Tce.Converters">
+
+    <inf:ViewBaseConfirmNavigationRequest.Resources>
+        <converters:ToPriceEngineeringTaskTceItemConverter x:Key="ToPriceEngineeringTaskTceItemConverter" />
+    </inf:ViewBaseConfirmNavigationRequest.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <ItemsControl Grid.Row="0" ItemsSource="{Binding Item.SccVersions, Converter={StaticResource ToPriceEngineeringTaskTceItemConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <unit:PriceEngineeringTaskTceItemControl PriceEngineeringTaskTceItem="{Binding }"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+    </Grid>
+
+</inf:ViewBaseConfirmNavigationRequest>

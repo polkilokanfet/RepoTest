@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
@@ -73,7 +71,7 @@ namespace HVTApp.UI.PriceEngineering
             SelectDesignDepartmentCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var departments = UnitOfWork.Repository<DesignDepartment>().Find(x => x.ProductBlockIsSuitable(this.Model.ProductBlockEngineer));
+                    var departments = UnitOfWork.Repository<DesignDepartment>().Find(designDepartment => designDepartment.ProductBlockIsSuitable(this.Model.ProductBlockEngineer));
                     var department = Container.Resolve<ISelectService>().SelectItem(departments);
                     if (department != null)
                     {

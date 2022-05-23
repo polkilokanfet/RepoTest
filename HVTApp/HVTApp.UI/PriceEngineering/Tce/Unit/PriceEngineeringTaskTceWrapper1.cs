@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
@@ -56,7 +57,9 @@ namespace HVTApp.UI.PriceEngineering.Tce.Unit
 
         #endregion
 
-        public PriceEngineeringTaskTceWrapper1(PriceEngineeringTaskTce model) : base(model) { }
+        public PriceEngineeringTaskTceWrapper1(PriceEngineeringTaskTce model) : base(model)
+        {
+        }
 
         public override void InitializeComplexProperties()
         {

@@ -16,6 +16,7 @@ using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
 using HVTApp.UI.PriceCalculations.View;
 using HVTApp.UI.PriceEngineering.Comparers;
+using HVTApp.UI.PriceEngineering.Tce.Unit;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Events;
@@ -110,6 +111,7 @@ namespace HVTApp.UI.PriceEngineering
         public DelegateLogCommand StartCommand { get; }
         public DelegateLogCommand OpenPriceCalculationCommand { get; }
         public DelegateLogCommand CreatePriceCalculationCommand { get; }
+        public DelegateLogCommand TransferToTceCommand { get; }
 
         #endregion
 
@@ -291,15 +293,26 @@ namespace HVTApp.UI.PriceEngineering
                             {nameof(PriceEngineeringTasks), this.PriceEngineeringTasksWrapper.Model}
                         });
                 });
+
+
+            TransferToTceCommand = new DelegateLogCommand(
+                () =>
+                {
+                    this.Container.Resolve<IRegionManager>().RequestNavigateContentRegion<PriceEngineeringTaskTceView>(new NavigationParameters
+                    {
+                        {string.Empty, this.PriceEngineeringTasksWrapper.Model.ChildPriceEngineeringTasks}
+                    });
+                });
+
             
             #endregion
         }
 
-        /// <summary>
-        /// Загрузка при создании новой технико-стоимостной проработки по единицам продаж
-        /// </summary>
-        /// <param name="salesUnits"></param>
-        public void Load(IEnumerable<SalesUnit> salesUnits)
+    /// <summary>
+    /// Загрузка при создании новой технико-стоимостной проработки по единицам продаж
+    /// </summary>
+    /// <param name="salesUnits"></param>
+    public void Load(IEnumerable<SalesUnit> salesUnits)
         {
             var salesUnitsGrouped = salesUnits
                 .Select(salesUnit => _unitOfWork.Repository<SalesUnit>().GetById(salesUnit.Id))
