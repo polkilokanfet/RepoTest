@@ -36,9 +36,18 @@ namespace HVTApp.UI.ViewModels
             set
             {
                 _isLoaded = value;
+                if (_isLoaded)
+                {
+                    ViewModelIsLoaded?.Invoke();
+                }
                 RaisePropertyChanged();
             }
         }
+
+        /// <summary>
+        /// Событие завершения загрузки
+        /// </summary>
+        public event Action ViewModelIsLoaded;
 
         protected BaseDetailsViewModel(IUnityContainer container) : base(container)
         {

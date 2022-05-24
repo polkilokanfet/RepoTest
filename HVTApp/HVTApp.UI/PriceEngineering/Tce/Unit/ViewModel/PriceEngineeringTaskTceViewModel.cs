@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using HVTApp.Infrastructure;
+using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
@@ -10,8 +12,20 @@ namespace HVTApp.UI.PriceEngineering.Tce.Unit.ViewModel
 {
     public abstract class PriceEngineeringTaskTceViewModel : BaseDetailsViewModel<PriceEngineeringTaskTceWrapper1, PriceEngineeringTaskTce, AfterSavePriceEngineeringTaskTceEvent>
     {
+        /// <summary>
+        /// Может ли бэк-менеджер редактировать заявку
+        /// </summary>
+        public bool AllowEdit => GlobalAppProperties.User.RoleCurrent == Role.BackManager &&
+                                 Item != null &&
+                                 Item.Model.LastAction != PriceEngineeringTaskTceStoryItemStoryAction.Finish;
+
         protected PriceEngineeringTaskTceViewModel(IUnityContainer container) : base(container)
         {
+            this.ViewModelIsLoaded += () =>
+            {
+                RaisePropertyChanged(nameof(AllowEdit));
+                this.Item.PropertyChanged += (sender, args) => RaisePropertyChanged(nameof(AllowEdit));
+            };
         }
 
         public void Create(IEnumerable<PriceEngineeringTask> tasks)

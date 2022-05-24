@@ -43,6 +43,10 @@
 
     </infRib:RibbonGroup>
 
+    <infRib:RibbonGroup Caption="Номер заявки в ТСЕ">
+        <TextBox Text="{Binding Item.TceNumber}" IsReadOnly="{Binding AllowEdit, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityReverseConverter}}"/>
+    </infRib:RibbonGroup>
+
     <infRib:RibbonGroup Caption="Расчет ПЗ" Visibility="{Binding Converter={StaticResource FrontManagerVisibilityConverter}}">
         <infRib:ButtonTool Caption="Создать"
                            Command="{Binding CreatePriceCalculationCommand}"
