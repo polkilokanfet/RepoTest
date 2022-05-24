@@ -6,20 +6,23 @@ using HVTApp.Model.Wrapper;
 using HVTApp.UI.ViewModels;
 using Microsoft.Practices.Unity;
 
-namespace HVTApp.UI.PriceEngineering.Tce.Unit
+namespace HVTApp.UI.PriceEngineering.Tce.Unit.ViewModel
 {
-    public class PriceEngineeringTaskTceViewModel : BaseDetailsViewModel<PriceEngineeringTaskTceWrapper1, PriceEngineeringTaskTce, AfterSavePriceEngineeringTaskTceEvent>
+    public abstract class PriceEngineeringTaskTceViewModel : BaseDetailsViewModel<PriceEngineeringTaskTceWrapper1, PriceEngineeringTaskTce, AfterSavePriceEngineeringTaskTceEvent>
     {
-        public PriceEngineeringTaskTceViewModel(IUnityContainer container) : base(container)
+        protected PriceEngineeringTaskTceViewModel(IUnityContainer container) : base(container)
         {
-            
         }
 
         public void Create(IEnumerable<PriceEngineeringTask> tasks)
         {
             var priceEngineeringTasks = tasks.Select(x => this.UnitOfWork.Repository<PriceEngineeringTask>().GetById(x.Id)).ToList();
             var wrapper = new PriceEngineeringTaskTceWrapper1(new PriceEngineeringTaskTce());
-            wrapper.Story.Add(new PriceEngineeringTaskTceStoryItemWrapper(new PriceEngineeringTaskTceStoryItem {StoryAction = PriceEngineeringTaskTceStoryItemStoryAction.Start, PriceEngineeringTaskTceId = wrapper.Model.Id}));
+            wrapper.Story.Add(new PriceEngineeringTaskTceStoryItemWrapper(new PriceEngineeringTaskTceStoryItem
+            {
+                StoryAction = PriceEngineeringTaskTceStoryItemStoryAction.Start,
+                PriceEngineeringTaskTceId = wrapper.Model.Id
+            }));
 
             foreach (var priceEngineeringTask in priceEngineeringTasks)
             {
@@ -28,7 +31,7 @@ namespace HVTApp.UI.PriceEngineering.Tce.Unit
                 {
                     var structureCostVersion = new PriceEngineeringTaskTceStructureCostVersion
                     {
-                        ParentUnitId = task.Id, 
+                        ParentUnitId = task.Id,
                         PriceEngineeringTaskTceId = wrapper.Model.Id
                     };
                     wrapper.SccVersions.Add(new TceStructureCostVersion(structureCostVersion, priceEngineeringTasks));
@@ -47,5 +50,6 @@ namespace HVTApp.UI.PriceEngineering.Tce.Unit
 
             this.Load(wrapper, this.UnitOfWork);
         }
+
     }
 }

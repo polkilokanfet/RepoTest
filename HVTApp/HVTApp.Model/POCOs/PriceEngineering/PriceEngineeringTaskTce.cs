@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
 
@@ -23,5 +25,8 @@ namespace HVTApp.Model.POCOs
 
         [Designation("История проработки"), OrderStatus(700), Required]
         public virtual List<PriceEngineeringTaskTceStoryItem> StoryItems { get; set; } = new List<PriceEngineeringTaskTceStoryItem>();
+
+        [NotMapped]
+        public PriceEngineeringTaskTceStoryItemStoryAction LastAction => StoryItems.OrderBy(x => x.Moment).Last().StoryAction;
     }
 }

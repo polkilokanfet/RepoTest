@@ -281,6 +281,9 @@
     <Compile Include="PriceEngineering\Converters\FilesTechnicalRequirementsToVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskStatusEnumToStringConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTasksViewModelManagerVisibilityConverter.cs" />
+    <Compile Include="PriceEngineering\Tce\Converters\Visibility\PriceEngineeringTaskTceViewModelBackManagerBossVisibilityConverter.cs" />
+    <Compile Include="PriceEngineering\Tce\Converters\Visibility\PriceEngineeringTaskTceViewModelBackManagerVisibilityConverter.cs" />
+    <Compile Include="PriceEngineering\Tce\Converters\Visibility\PriceEngineeringTaskTceViewModelFrontManagerVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelConstructorIsTargetTaskVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelConstructorVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelDesignDepartmentHeadVisibilityConverter.cs" />
@@ -329,10 +332,19 @@
     <Compile Include="PriceEngineering\Tabs\TabPriceEngineeringTask.xaml.cs">
       <DependentUpon>TabPriceEngineeringTask.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PriceEngineering\Tce\Converters\PriceEngineeringTaskTceItemToAmountConverter.cs" />
+    <Compile Include="PriceEngineering\Tce\Converters\PriceEngineeringTaskTceItemToFacilityConverter.cs" />
+    <Compile Include="PriceEngineering\Tce\Converters\PriceEngineeringTaskTceItemToProductConverter.cs" />
     <Compile Include="PriceEngineering\Tce\Converters\ToPriceEngineeringTaskTceItemConverter.cs" />
+    <Compile Include="PriceEngineering\Tce\Tabs\TabPriceEngineeringTaskTce.xaml.cs">
+      <DependentUpon>TabPriceEngineeringTaskTce.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PriceEngineering\Tce\Unit\PriceEngineeringTaskTceItem.cs" />
-    <Compile Include="PriceEngineering\Tce\Unit\PriceEngineeringTaskTceViewModel.cs" />
+    <Compile Include="PriceEngineering\Tce\Unit\ViewModel\PriceEngineeringTaskTceViewModel.cs" />
     <Compile Include="PriceEngineering\Tce\Unit\PriceEngineeringTaskTceWrapper1.cs" />
+    <Compile Include="PriceEngineering\Tce\Unit\ViewModel\PriceEngineeringTaskTceViewModelBackManager.cs" />
+    <Compile Include="PriceEngineering\Tce\Unit\ViewModel\PriceEngineeringTaskTceViewModelBackManagerBoss.cs" />
+    <Compile Include="PriceEngineering\Tce\Unit\ViewModel\PriceEngineeringTaskTceViewModelFrontManager.cs" />
     <Compile Include="PriceEngineering\Tce\Unit\View\TceStructureCostVersionControl.xaml.cs">
       <DependentUpon>TceStructureCostVersionControl.xaml</DependentUpon>
     </Compile>
@@ -1687,6 +1699,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="PriceEngineering\TasksList\PriceEngineeringTasksListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceEngineering\Tce\Tabs\TabPriceEngineeringTaskTce.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

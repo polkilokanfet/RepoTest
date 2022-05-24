@@ -2,22 +2,46 @@
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.PriceEngineering.Tce.Tabs;
+using HVTApp.UI.PriceEngineering.Tce.Unit.ViewModel;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 using Prism.Regions;
 
 namespace HVTApp.UI.PriceEngineering.Tce.Unit
 {
-    //[RibbonTab(typeof(TabDirectumTask))]
+    [RibbonTab(typeof(TabPriceEngineeringTaskTce))]
     public partial class PriceEngineeringTaskTceView : ViewBaseConfirmNavigationRequest, IDisposable
     {
         private readonly PriceEngineeringTaskTceViewModel _viewModel;
 
-        public PriceEngineeringTaskTceView(PriceEngineeringTaskTceViewModel viewModel, IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator) : base(container, regionManager, eventAggregator)
+        public PriceEngineeringTaskTceView(IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator) : base(container, regionManager, eventAggregator)
         {
-            _viewModel = viewModel;
             InitializeComponent();
+
+            switch (GlobalAppProperties.User.RoleCurrent)
+            {
+                case Role.SalesManager:
+                {
+                    _viewModel = container.Resolve<PriceEngineeringTaskTceViewModelFrontManager>();
+                    break;
+                }
+                case Role.BackManager:
+                {
+                    _viewModel = container.Resolve<PriceEngineeringTaskTceViewModelBackManager>();
+                    break;
+                }
+                case Role.BackManagerBoss:
+                {
+                    _viewModel = container.Resolve<PriceEngineeringTaskTceViewModelBackManagerBoss>();
+                    break;
+                }
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
             this.DataContext = _viewModel;
         }
 

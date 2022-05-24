@@ -2,7 +2,14 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:unit="clr-namespace:HVTApp.UI.PriceEngineering.Tce.Unit"
+             xmlns:converters="clr-namespace:HVTApp.UI.PriceEngineering.Tce.Converters"
              x:Name="Root">
+
+    <UserControl.Resources>
+        <converters:PriceEngineeringTaskTceItemToFacilityConverter x:Key="ToFacilityConverter" />
+        <converters:PriceEngineeringTaskTceItemToProductConverter x:Key="ToProductConverter" />
+        <converters:PriceEngineeringTaskTceItemToAmountConverter x:Key="ToAmountConverter" />
+    </UserControl.Resources>
 
     <!--Единица задачи ТСЕ-->
     <Border BorderBrush="Black" BorderThickness="1" Padding="3">
@@ -13,34 +20,46 @@
             </Grid.RowDefinitions>
 
             <!--Шапка-->
-            <Border Grid.Row="0" BorderBrush="Black" BorderThickness="1">
+            <Border Grid.Row="0" BorderBrush="Black" BorderThickness="1" Background="AliceBlue" CornerRadius="3">
                 <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
-                    <Label Grid.Column="0" Grid.Row="0" Content="Объект:"/>
-                    <Label Grid.Column="0" Grid.Row="1" Content="Продукт:"/>
-                    <Label Grid.Column="0" Grid.Row="2" Content="Кол-во:"/>
+                    <Label Grid.Row="0" Grid.Column="0" Content="Объект:"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" 
+                             IsReadOnly="True"
+                             Text="{Binding ElementName=Root, Path=PriceEngineeringTaskTceItem, Converter={StaticResource ToFacilityConverter}}"/>
 
+                    <Label Grid.Row="1" Grid.Column="0" Content="Продукт:"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" 
+                             IsReadOnly="True"
+                             Text="{Binding ElementName=Root, Path=PriceEngineeringTaskTceItem, Converter={StaticResource ToProductConverter}}"/>
+
+                    <Label Grid.Row="2" Grid.Column="0" Content="Кол-во:"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" 
+                             IsReadOnly="True"
+                             Text="{Binding ElementName=Root, Path=PriceEngineeringTaskTceItem, Converter={StaticResource ToAmountConverter}}"/>
                 </Grid>
             </Border>
 
             <!--SCC-->
-            <ItemsControl Grid.Row="1" 
-                          ItemsSource="{Binding ElementName=Root, Path=PriceEngineeringTaskTceItem.TceStructureCostVersions, Mode=OneTime}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <unit:TceStructureCostVersionControl TceStructureCostVersion="{Binding }"/>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+            <GroupBox Grid.Row="1" Header="SCC">
+                <ItemsControl ItemsSource="{Binding ElementName=Root, Path=PriceEngineeringTaskTceItem.TceStructureCostVersions, UpdateSourceTrigger=PropertyChanged}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <unit:TceStructureCostVersionControl TceStructureCostVersion="{Binding UpdateSourceTrigger=PropertyChanged}"
+                                                                 Margin="0 1"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </GroupBox>
 
         </Grid>
     </Border>

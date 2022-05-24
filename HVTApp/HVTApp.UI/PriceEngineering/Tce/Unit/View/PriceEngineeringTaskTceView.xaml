@@ -10,23 +10,25 @@
         <converters:ToPriceEngineeringTaskTceItemConverter x:Key="ToPriceEngineeringTaskTceItemConverter" />
     </inf:ViewBaseConfirmNavigationRequest.Resources>
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+    <GroupBox Header="Заявка в ТСЕ">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-        <ItemsControl Grid.Row="0" ItemsSource="{Binding Item.SccVersions, Converter={StaticResource ToPriceEngineeringTaskTceItemConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <unit:PriceEngineeringTaskTceItemControl PriceEngineeringTaskTceItem="{Binding }"/>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+            <ItemsControl Grid.Row="0" ItemsSource="{Binding Item.SccVersions, Converter={StaticResource ToPriceEngineeringTaskTceItemConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <unit:PriceEngineeringTaskTceItemControl PriceEngineeringTaskTceItem="{Binding }"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
 
-    </Grid>
+        </Grid>
+    </GroupBox>
 
 </inf:ViewBaseConfirmNavigationRequest>
