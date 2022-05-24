@@ -20,13 +20,15 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <ItemsControl Grid.Row="0" ItemsSource="{Binding Item.SccVersions, Converter={StaticResource ToPriceEngineeringTaskTceItemConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
-                <ItemsControl.ItemTemplate>
+            <ListView Grid.Row="0" 
+                      SelectedItem="{Binding SelectedPriceEngineeringTaskTceItem}"
+                      ItemsSource="{Binding Item.SccVersions, Converter={StaticResource ToPriceEngineeringTaskTceItemConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                <ListView.ItemTemplate>
                     <DataTemplate>
                         <unit:PriceEngineeringTaskTceItemControl PriceEngineeringTaskTceItem="{Binding }"/>
                     </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+                </ListView.ItemTemplate>
+            </ListView>
 
         </Grid>
     </GroupBox>

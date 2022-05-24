@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -28,5 +29,23 @@ namespace HVTApp.Model.POCOs
 
         [NotMapped]
         public PriceEngineeringTaskTceStoryItemStoryAction LastAction => StoryItems.OrderBy(x => x.Moment).Last().StoryAction;
+
+        [Designation("Менеджер"), NotMapped]
+        public User FrontManager =>
+            this.PriceEngineeringTaskList.FirstOrDefault()?.SalesUnits.FirstOrDefault()?.Project.Manager;
+
+        [Designation("Старт"), NotMapped]
+        public DateTime? StartMoment =>
+            this.StoryItems
+                .Where(x => x.StoryAction == PriceEngineeringTaskTceStoryItemStoryAction.Start)
+                .OrderBy(x => x.Moment)
+                .LastOrDefault()?.Moment;
+
+        [Designation("Финиш"), NotMapped]
+        public DateTime? FinishMoment =>
+            this.StoryItems
+                .Where(x => x.StoryAction == PriceEngineeringTaskTceStoryItemStoryAction.Finish)
+                .OrderBy(x => x.Moment)
+                .LastOrDefault()?.Moment;
     }
 }

@@ -4,7 +4,9 @@ using HVTApp.Infrastructure;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper;
+using HVTApp.UI.Commands;
 using HVTApp.UI.ViewModels;
 using Microsoft.Practices.Unity;
 
@@ -12,6 +14,8 @@ namespace HVTApp.UI.PriceEngineering.Tce.Unit.ViewModel
 {
     public abstract class PriceEngineeringTaskTceViewModel : BaseDetailsViewModel<PriceEngineeringTaskTceWrapper1, PriceEngineeringTaskTce, AfterSavePriceEngineeringTaskTceEvent>
     {
+        private PriceEngineeringTaskTceItem _selectedPriceEngineeringTaskTceItem;
+
         /// <summary>
         /// Может ли бэк-менеджер редактировать заявку
         /// </summary>
@@ -19,8 +23,28 @@ namespace HVTApp.UI.PriceEngineering.Tce.Unit.ViewModel
                                  Item != null &&
                                  Item.Model.LastAction != PriceEngineeringTaskTceStoryItemStoryAction.Finish;
 
+        public PriceEngineeringTaskTceItem SelectedPriceEngineeringTaskTceItem
+        {
+            get => _selectedPriceEngineeringTaskTceItem;
+            set
+            {
+                _selectedPriceEngineeringTaskTceItem = value;
+                LoadFilesCommand.RaiseCanExecuteChanged();
+            }
+        }
+
+        public DelegateLogCommand LoadFilesCommand { get; }
+
         protected PriceEngineeringTaskTceViewModel(IUnityContainer container) : base(container)
         {
+            LoadFilesCommand = new DelegateLogCommand(
+                () =>
+                {
+                    var files = SelectedPriceEngineeringTaskTceItem.TceStructureCostVersions.First().ParentPriceEngineeringTask.FilesTechnicalRequirements;
+                    if (files.Any())
+                        Container.Resolve<IFilesStorageService>().CopyFilesFromStorage(files, GlobalAppProperties.Actual.TechnicalRequrementsFilesPath);
+                },
+                () => SelectedPriceEngineeringTaskTceItem != null);
             this.ViewModelIsLoaded += () =>
             {
                 RaisePropertyChanged(nameof(AllowEdit));

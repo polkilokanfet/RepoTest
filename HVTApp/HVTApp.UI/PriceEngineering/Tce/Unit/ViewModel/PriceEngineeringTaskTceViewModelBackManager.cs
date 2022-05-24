@@ -27,6 +27,16 @@ namespace HVTApp.UI.PriceEngineering.Tce.Unit.ViewModel
                     this.Item != null &&
                     Item.IsValid &&
                     Item.Model.LastAction == PriceEngineeringTaskTceStoryItemStoryAction.Instruct);
+
+            this.ViewModelIsLoaded += () =>
+            {
+                this.Item.PropertyChanged += (sender, args) => FinishCommand.RaiseCanExecuteChanged();
+            };
+        }
+
+        protected override bool SaveCommand_CanExecute()
+        {
+            return Item != null && Item.IsChanged;
         }
     }
 }

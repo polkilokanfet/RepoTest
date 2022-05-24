@@ -8,6 +8,7 @@ using HVTApp.UI.Modules.PlanAndEconomy.SpecificationSignDates;
 using HVTApp.UI.Modules.PlanAndEconomy.Supervision;
 using HVTApp.UI.Modules.PlanAndEconomy.Views;
 using HVTApp.UI.PriceCalculations.View;
+using HVTApp.UI.PriceEngineering.Tce.List.View;
 using HVTApp.UI.TechnicalRequrementsTasksModule;
 
 namespace HVTApp.Modules.PlanAndEconomy.Menus
@@ -37,7 +38,8 @@ namespace HVTApp.Modules.PlanAndEconomy.Menus
                 || GlobalAppProperties.User.RoleCurrent == Role.BackManagerBoss 
                 || GlobalAppProperties.User.RoleCurrent == Role.Admin)
             {
-                Items.Add(new NavigationItem("Задачи в ТСЕ", typeof(TechnicalRequrementsTasksView)));
+                Items.Add(new NavigationItem("Задачи в ТСЕ1", typeof(TechnicalRequrementsTasksView)));
+                Items.Add(new NavigationItem("Задачи в ТСЕ2", typeof(PriceEngineeringTasksTceView)));
                 Items.Add(new NavigationItem("Расчеты ПЗ", typeof(PriceCalculationsView)));
             }
 

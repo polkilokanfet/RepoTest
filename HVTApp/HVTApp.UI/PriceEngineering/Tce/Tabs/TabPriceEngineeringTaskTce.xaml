@@ -19,6 +19,15 @@
                            SmallImage="/HVTApp.UI;component/Images/ar_back.png"/>
     </infRib:RibbonGroup>
 
+    <infRib:RibbonGroup Caption="Файлы ТЗ">
+
+        <infRib:ButtonTool Caption="Загрузить"
+                           Command="{Binding LoadFilesCommand}"
+                           SmallImage="/HVTApp.UI;component/Images/out.png" />
+
+    </infRib:RibbonGroup>
+
+
     <infRib:RibbonGroup Caption="Действия">
 
         <infRib:ButtonTool Caption="Стартовать"
@@ -44,7 +53,9 @@
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Номер заявки в ТСЕ">
-        <TextBox Text="{Binding Item.TceNumber}" IsReadOnly="{Binding AllowEdit, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityReverseConverter}}"/>
+        <TextBox Text="{Binding Item.TceNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                 Width="100"
+                 IsReadOnly="{Binding AllowEdit, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ReverseBoolConverter}}"/>
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Расчет ПЗ" Visibility="{Binding Converter={StaticResource FrontManagerVisibilityConverter}}">

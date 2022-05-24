@@ -119,6 +119,7 @@
     <Compile Include="Lookup\Items\Custom\PriceCalculationItemLookup.cs" />
     <Compile Include="Lookup\Items\Custom\PriceCalculationLookup.cs" />
     <Compile Include="Lookup\Items\Custom\PriceEngineeringTasksLookup.cs" />
+    <Compile Include="Lookup\Items\Custom\PriceEngineeringTaskTceLookup.cs" />
     <Compile Include="Lookup\Items\Custom\ProductBlockLookup.cs" />
     <Compile Include="Lookup\Items\Custom\ProductRelationLookup.cs" />
     <Compile Include="Lookup\Items\Custom\SalesUnitLookup.cs" />
@@ -336,6 +337,13 @@
     <Compile Include="PriceEngineering\Tce\Converters\PriceEngineeringTaskTceItemToFacilityConverter.cs" />
     <Compile Include="PriceEngineering\Tce\Converters\PriceEngineeringTaskTceItemToProductConverter.cs" />
     <Compile Include="PriceEngineering\Tce\Converters\ToPriceEngineeringTaskTceItemConverter.cs" />
+    <Compile Include="PriceEngineering\Tce\List\ViewModel\PriceEngineeringTasksTceViewModel.cs" />
+    <Compile Include="PriceEngineering\Tce\List\ViewModel\PriceEngineeringTasksTceViewModelBackManager.cs" />
+    <Compile Include="PriceEngineering\Tce\List\ViewModel\PriceEngineeringTasksTceViewModelBackManagerBoss.cs" />
+    <Compile Include="PriceEngineering\Tce\List\ViewModel\PriceEngineeringTasksTceViewModelFrontManager.cs" />
+    <Compile Include="PriceEngineering\Tce\List\View\PriceEngineeringTasksTceView.xaml.cs">
+      <DependentUpon>PriceEngineeringTasksTceView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PriceEngineering\Tce\Tabs\TabPriceEngineeringTaskTce.xaml.cs">
       <DependentUpon>TabPriceEngineeringTaskTce.xaml</DependentUpon>
     </Compile>
@@ -1702,6 +1710,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="PriceEngineering\Tce\List\View\PriceEngineeringTasksTceView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="PriceEngineering\Tce\Tabs\TabPriceEngineeringTaskTce.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -2095,6 +2107,18 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Details\PriceEngineeringTaskStatusDetailsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Details\PriceEngineeringTaskTceDetailsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Details\PriceEngineeringTaskTceStoryItemDetailsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Details\PriceEngineeringTaskTceStructureCostVersionDetailsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -2526,6 +2550,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\List\PriceEngineeringTaskTceLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\PriceEngineeringTaskTceStoryItemLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\PriceEngineeringTaskTceStructureCostVersionLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\List\ProductBlockLookupListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -2661,7 +2697,6 @@
   <ItemGroup>
     <Folder Include="Lookup\Service\Custom\" />
     <Folder Include="Modules\Products\ProductRelations\" />
-    <Folder Include="PriceEngineering\Tce\List\" />
     <Folder Include="Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

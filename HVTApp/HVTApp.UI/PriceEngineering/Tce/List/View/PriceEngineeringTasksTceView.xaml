@@ -1,0 +1,60 @@
+﻿<inf:ViewBase x:Class="HVTApp.UI.PriceEngineering.Tce.List.View.PriceEngineeringTasksTceView"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:dp="http://infragistics.com/DataPresenter"
+              xmlns:controls="http://infragistics.com/Windows"
+              xmlns:localConverters="clr-namespace:HVTApp.UI.TechnicalRequrementsTasksModule.Converters">
+
+    <Grid>
+        <dp:XamDataGrid x:Name="LookupListGrid" 
+                        DataSource="{Binding Lookups}" 
+                        ActiveDataItem="{Binding SelectedLookup}">
+
+            <dp:XamDataGrid.InputBindings>
+                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=EditCommand, Mode=OneWay}"/>
+            </dp:XamDataGrid.InputBindings>
+
+            <dp:XamDataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
+                </ContextMenu>
+            </dp:XamDataGrid.ContextMenu>
+
+            <dp:XamDataGrid.FieldLayouts>
+				<dp:FieldLayout x:Name="FieldLayout1">
+
+                    <dp:FieldLayout.RecordFilters>
+
+                        <dp:RecordFilter FieldName="ToShow">
+                            <dp:RecordFilter.Conditions>
+                                <controls:ComparisonCondition Operator="Equals" Value="True" />
+                            </dp:RecordFilter.Conditions>
+                        </dp:RecordFilter>
+
+                    </dp:FieldLayout.RecordFilters>
+
+
+                    <dp:FieldLayout.Fields>
+                        <dp:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding StartMoment}" Label="Старт" Width="90" AllowResize="False" Format="dd/MM/yy HH:mm"/>
+                        <dp:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding FinishMoment}" Label="Финиш" Width="90" AllowResize="False" Format="dd/MM/yy HH:mm"/>
+                        <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Facilities}" Label="Объекты" Width="250" AllowResize="True" Converter="{StaticResource ObjectsToStringConverter}"/>
+                        <!--<dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding ProjectName}" Label="Проект" Width="250" AllowResize="True" />-->
+                        <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding BackManager}" Label="Back manager" Width="Auto" AllowResize="True" Converter="{StaticResource ObjectToStringConverter}" 
+                                      Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.CurrentUserIsBackManager, Converter={StaticResource BooleanToVisibilityReverseConverter}}"/>
+                        <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding FrontManager}" Label="Front manager" Width="Auto" AllowResize="True" Converter="{StaticResource ObjectToStringConverter}" 
+                                      Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityReverseConverter}}"/>
+                        <!--<dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Status}" Label="Этап проработки" Width="Auto" AllowResize="True" />-->
+                        <!--<dp:CheckBoxField Name="IsStarted" BindingType="UseAlternateBinding" AlternateBinding="{Binding IsStarted}" Label="Запущено" Width="Auto" AllowResize="False" />-->
+                        <!--<dp:CheckBoxField Name="IsFinished" BindingType="UseAlternateBinding" AlternateBinding="{Binding IsFinished}" Label="Завершено" Width="Auto" AllowResize="False" />-->
+                        <!--<dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Entity.Products}" Label="Продукты" Width="250" AllowResize="True" />-->
+                        <dp:CheckBoxField Name="ToShow" BindingType="UseAlternateBinding" AlternateBinding="{Binding ToShow}" Label="S" Width="Auto" AllowResize="False" />
+
+                        <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Id}" Label="Id" Width="Auto" AllowResize="True" />
+					</dp:FieldLayout.Fields>
+				</dp:FieldLayout>
+			</dp:XamDataGrid.FieldLayouts>
+		</dp:XamDataGrid>
+    </Grid>
+
+</inf:ViewBase>

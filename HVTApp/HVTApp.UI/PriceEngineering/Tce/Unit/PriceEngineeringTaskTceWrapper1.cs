@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using HVTApp.Infrastructure;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base;
@@ -80,5 +83,18 @@ namespace HVTApp.UI.PriceEngineering.Tce.Unit
             Story = new ValidatableChangeTrackingCollection<PriceEngineeringTaskTceStoryItemWrapper>(Model.StoryItems.Select(e => new PriceEngineeringTaskTceStoryItemWrapper(e)));
             RegisterCollection(Story, Model.StoryItems);
         }
+
+
+        protected override IEnumerable<ValidationResult> ValidateOther()
+        {
+            if (GlobalAppProperties.User.RoleCurrent == Role.BackManager)
+            {
+                if (string.IsNullOrWhiteSpace(TceNumber))
+                {
+                    yield return new ValidationResult("TceNumber is required", new[] { nameof(TceNumber) });
+                }
+            }
+        }
+
     }
 }

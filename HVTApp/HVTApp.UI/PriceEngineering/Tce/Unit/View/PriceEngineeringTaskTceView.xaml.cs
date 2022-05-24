@@ -66,8 +66,8 @@ namespace HVTApp.UI.PriceEngineering.Tce.Unit
 
         public override void OnNavigatedFrom(NavigationContext navigationContext)
         {
-            //base.OnNavigatedFrom(navigationContext);
-            //this.Dispose();
+            base.OnNavigatedFrom(navigationContext);
+            this.Dispose();
         }
 
         protected override bool IsSomethingChanged()
@@ -77,9 +77,9 @@ namespace HVTApp.UI.PriceEngineering.Tce.Unit
 
         public void Dispose()
         {
-            //_viewModel.Dispose();
+            _viewModel.Dispose();
             //_viewModel = null;
-            //this.DataContext = null;
+            this.DataContext = null;
 
             //GC.SuppressFinalize(this);
         }
