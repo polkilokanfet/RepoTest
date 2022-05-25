@@ -81,6 +81,11 @@ namespace HVTApp.Model.POCOs
         [Designation("Id технико-стоимостных проработок (группы)")]
         public Guid? PriceEngineeringTasksId { get; set; }
 
+        [Designation("Id задачи ТСЕ")]
+        public Guid? PriceEngineeringTaskTceId { get; set; }
+
+        
+
         public User FrontManager
         {
             get

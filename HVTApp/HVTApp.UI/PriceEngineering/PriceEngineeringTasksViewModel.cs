@@ -53,7 +53,8 @@ namespace HVTApp.UI.PriceEngineering
                 if (_priceEngineeringTasksWrapper != null)
                 {
                     _priceEngineeringTasksWrapper.PropertyChanged -= PriceEngineeringTasksWrapperOnPropertyChanged;
-                    PriceEngineeringTasksWrapper.PriceEngineeringTaskSaved -= PriceEngineeringTasksWrapperOnPriceEngineeringTaskSaved;
+                    _priceEngineeringTasksWrapper.PriceEngineeringTaskSaved -= PriceEngineeringTasksWrapperOnPriceEngineeringTaskSaved;
+                    _priceEngineeringTasksWrapper.PriceEngineeringTaskAccepted -= PriceEngineeringTasksWrapperOnPriceEngineeringTaskAccepted;
                 }
 
                 _priceEngineeringTasksWrapper = value;
@@ -61,10 +62,23 @@ namespace HVTApp.UI.PriceEngineering
                 if (_priceEngineeringTasksWrapper != null)
                 {
                     _priceEngineeringTasksWrapper.PropertyChanged += PriceEngineeringTasksWrapperOnPropertyChanged;
-                    PriceEngineeringTasksWrapper.PriceEngineeringTaskSaved += PriceEngineeringTasksWrapperOnPriceEngineeringTaskSaved;
+                    _priceEngineeringTasksWrapper.PriceEngineeringTaskSaved += PriceEngineeringTasksWrapperOnPriceEngineeringTaskSaved;
+                    _priceEngineeringTasksWrapper.PriceEngineeringTaskAccepted += PriceEngineeringTasksWrapperOnPriceEngineeringTaskAccepted;
                 }
 
                 RaisePropertyChanged(nameof(AllowEditProps));
+            }
+        }
+
+        private void PriceEngineeringTasksWrapperOnPriceEngineeringTaskAccepted(PriceEngineeringTask obj)
+        {
+            if (CreatePriceCalculationCommand.CanExecute())
+            {
+                var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Уведомление", "Вы приняли все задания. Хотите ли Вы загрузить результаты в ТСЕ и создать расчёт ПЗ?");
+                if (dr == MessageDialogResult.Yes)
+                {
+                    CreatePriceCalculationCommand.Execute();
+                }
             }
         }
 
@@ -414,6 +428,7 @@ namespace HVTApp.UI.PriceEngineering
         {
             _unitOfWork?.Dispose();
             EnumerableExtensions.ForEach(this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks, x => x.Dispose());
+            this.PriceEngineeringTasksWrapper = null;
         }
     }
 }

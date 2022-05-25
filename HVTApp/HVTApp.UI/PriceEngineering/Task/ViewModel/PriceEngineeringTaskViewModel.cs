@@ -160,6 +160,13 @@ namespace HVTApp.UI.PriceEngineering
 
         public event Action<PriceEngineeringTask> PriceEngineeringTaskSaved;
 
+        public event Action<PriceEngineeringTask> PriceEngineeringTaskAccepted;
+
+        protected void InvokePriceEngineeringTaskAccepted()
+        {
+            this.PriceEngineeringTaskAccepted?.Invoke(this.Model);
+        }
+
         public PriceEngineeringTaskMessenger Messenger { get; private set; }
 
         #region ctors

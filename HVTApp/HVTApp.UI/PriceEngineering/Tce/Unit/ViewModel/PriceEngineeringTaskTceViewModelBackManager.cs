@@ -1,6 +1,7 @@
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
+using HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering.Tce.Unit.ViewModel
@@ -22,6 +23,11 @@ namespace HVTApp.UI.PriceEngineering.Tce.Unit.ViewModel
 
                     SaveCommand.Execute(null);
                     FinishCommand.RaiseCanExecuteChanged();
+
+                    //נאסק¸ע ַֿ
+                    var priceCalculationViewModel = container.Resolve<PriceCalculationViewModel>();
+                    priceCalculationViewModel.Load(this.Item.Model);
+                    priceCalculationViewModel.StartCommand.Execute();
                 },
                 () =>
                     this.Item != null &&

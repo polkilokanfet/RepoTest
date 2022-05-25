@@ -8,6 +8,7 @@ namespace HVTApp.DataAccess
             HasMany(x => x.PriceEngineeringTaskList).WithMany();
             HasMany(x => x.SccVersions).WithRequired().HasForeignKey(x => x.PriceEngineeringTaskTceId).WillCascadeOnDelete(false);
             HasMany(x => x.StoryItems).WithRequired().HasForeignKey(x => x.PriceEngineeringTaskTceId).WillCascadeOnDelete(true);
+            HasMany(x => x.PriceCalculations).WithOptional().HasForeignKey(x => x.PriceEngineeringTaskTceId).WillCascadeOnDelete(false);
         }
     }
 }

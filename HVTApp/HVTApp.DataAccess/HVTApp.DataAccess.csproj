@@ -373,6 +373,10 @@
     <Compile Include="Migrations\202205250419308_PriceCalculationSettings.Designer.cs">
       <DependentUpon>202205250419308_PriceCalculationSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202205251802438_PriceCalculationInTce.cs" />
+    <Compile Include="Migrations\202205251802438_PriceCalculationInTce.Designer.cs">
+      <DependentUpon>202205251802438_PriceCalculationInTce.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -599,6 +603,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202205250419308_PriceCalculationSettings.resx">
       <DependentUpon>202205250419308_PriceCalculationSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205251802438_PriceCalculationInTce.resx">
+      <DependentUpon>202205251802438_PriceCalculationInTce.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

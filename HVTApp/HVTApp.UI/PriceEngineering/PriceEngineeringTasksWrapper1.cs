@@ -77,9 +77,14 @@ namespace HVTApp.UI.PriceEngineering
 
 
         /// <summary>
-        /// Событие сохранение любой из входящих в сборник задач
+        /// Событие сохранения любой из входящих в сборник задач
         /// </summary>
         public event Action<PriceEngineeringTask> PriceEngineeringTaskSaved;
+
+        /// <summary>
+        /// Событие принятия любой из входящих в сборник задач
+        /// </summary>
+        public event Action<PriceEngineeringTask> PriceEngineeringTaskAccepted;
 
 
         public PriceEngineeringTasksWrapper1(PriceEngineeringTasks model, IUnityContainer container, IUnitOfWork unitOfWork) : base(model)
@@ -90,7 +95,11 @@ namespace HVTApp.UI.PriceEngineering
 
             ChildPriceEngineeringTasks
                 .SelectMany(x => x.GetAllPriceEngineeringTaskViewModels())
-                .ForEach(x => x.PriceEngineeringTaskSaved += task => this.PriceEngineeringTaskSaved?.Invoke(task));
+                .ForEach(x =>
+                {
+                    x.PriceEngineeringTaskSaved += task => this.PriceEngineeringTaskSaved?.Invoke(task);
+                    x.PriceEngineeringTaskAccepted += task => this.PriceEngineeringTaskAccepted?.Invoke(task);
+                });
         }
 
         public override void InitializeComplexProperties()

@@ -265,27 +265,50 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
 
         public void Load(PriceEngineeringTasks priceEngineeringTasks)
         {
-            //Загружаем задачу ТСЕ
+            //Загружаем задачу
             priceEngineeringTasks = UnitOfWork.Repository<PriceEngineeringTasks>().GetById(priceEngineeringTasks.Id);
-            //добавляем расчет ПЗ в загруженную задачу, если он еще не добавлен
-            if (!priceEngineeringTasks.PriceCalculations.ContainsById(PriceCalculationWrapper.Model))
-            {
-                priceEngineeringTasks.PriceCalculations.Add(this.PriceCalculationWrapper.Model);
-            }
 
+            //добавляем расчет ПЗ в загруженную задачу
+            priceEngineeringTasks.PriceCalculations.Add(this.PriceCalculationWrapper.Model);
+
+            //наполняем расчёт ПЗ
+            Load(priceEngineeringTasks.ChildPriceEngineeringTasks, null);
+
+            //необходимость файла excel
+            this.PriceCalculationWrapper.IsNeedExcelFile = false;
+        }
+        
+        public void Load(PriceEngineeringTaskTce taskTce)
+        {
+            //Загружаем задачу
+            var priceEngineeringTaskTce = UnitOfWork.Repository<PriceEngineeringTaskTce>().GetById(taskTce.Id);
+
+            //добавляем созданный расчёт в задачу ТСЕ
+            priceEngineeringTaskTce.PriceCalculations.Add(this.PriceCalculationWrapper.Model);
+
+            //наполняем расчёт ПЗ
+            Load(priceEngineeringTaskTce.PriceEngineeringTaskList, priceEngineeringTaskTce);
+
+            //необходимость файла excel
+            this.PriceCalculationWrapper.IsNeedExcelFile = true;
+        }
+
+        private void Load(IEnumerable<PriceEngineeringTask> priceEngineeringTasks, PriceEngineeringTaskTce taskTce)
+        {
             //добавляем в расчет ПЗ оборудование
-            foreach (var priceEngineeringTask in priceEngineeringTasks.ChildPriceEngineeringTasks)
+            foreach (var priceEngineeringTask in priceEngineeringTasks)
             {
-                PriceCalculationWrapper.PriceCalculationItems.Add(GetPriceCalculationItem2Wrapper(priceEngineeringTask));
+                var priceCalculationSettings = taskTce?.StartMoment != null
+                    ? priceEngineeringTask.PriceCalculationSettingsList.FirstOrDefault(x => x.StartMoment == taskTce.StartMoment.Value)
+                    : null;
+                PriceCalculationWrapper.PriceCalculationItems.Add(GetPriceCalculationItem2Wrapper(priceEngineeringTask, priceCalculationSettings));
             }
 
             //инициатор задачи
             if (this.PriceCalculationWrapper.Initiator == null)
                 this.PriceCalculationWrapper.Initiator = new UserWrapper(UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id));
-
-            //необходимость файла excel
-            this.PriceCalculationWrapper.IsNeedExcelFile = false;
         }
+
 
         public PriceCalculationItem2Wrapper GetPriceCalculationItem2Wrapper(IEnumerable<SalesUnitEmptyWrapper> salesUnits, DateTime orderInTakeDate, DateTime realizationDate)
         {
@@ -324,14 +347,23 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
             return priceCalculationItem2Wrapper;
         }
 
-        private PriceCalculationItem2Wrapper GetPriceCalculationItem2Wrapper(PriceEngineeringTask priceEngineeringTask)
+        private PriceCalculationItem2Wrapper GetPriceCalculationItem2Wrapper(PriceEngineeringTask priceEngineeringTask, PriceCalculationSettings priceCalculationSettings)
         {
-            var result = new PriceCalculationItem2Wrapper(new PriceCalculationItem())
+            var result = new PriceCalculationItem2Wrapper(new PriceCalculationItem());
+
+            if (priceCalculationSettings == null)
             {
-                OrderInTakeDate = priceEngineeringTask.SalesUnits.First().OrderInTakeDate,
-                RealizationDate = priceEngineeringTask.SalesUnits.First().RealizationDateCalculated, 
-                PaymentConditionSet = priceEngineeringTask.SalesUnits.First().PaymentConditionSet
-            };
+                result.OrderInTakeDate = priceEngineeringTask.SalesUnits.First().OrderInTakeDate;
+                result.RealizationDate = priceEngineeringTask.SalesUnits.First().RealizationDateCalculated;
+                result.PaymentConditionSet = priceEngineeringTask.SalesUnits.First().PaymentConditionSet;
+            }
+            else
+            {
+                result.OrderInTakeDate = priceCalculationSettings.DateOrderInTake;
+                result.RealizationDate = priceCalculationSettings.DateRealization;
+                result.PaymentConditionSet = priceCalculationSettings.PaymentConditionSet;
+            }
+
             result.SalesUnits.AddRange(priceEngineeringTask.SalesUnits.Select(x => new SalesUnitEmptyWrapper(x)));
 
             foreach (var structureCost in priceEngineeringTask.GetStructureCosts())

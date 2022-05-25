@@ -27,6 +27,9 @@ namespace HVTApp.Model.POCOs
         [Designation("История проработки"), OrderStatus(700), Required]
         public virtual List<PriceEngineeringTaskTceStoryItem> StoryItems { get; set; } = new List<PriceEngineeringTaskTceStoryItem>();
 
+        [Designation("Расчеты ПЗ"), OrderStatus(600)]
+        public virtual List<PriceCalculation> PriceCalculations { get; set; } = new List<PriceCalculation>();
+
         [NotMapped]
         public PriceEngineeringTaskTceStoryItemStoryAction LastAction => StoryItems.OrderBy(x => x.Moment).Last().StoryAction;
 
