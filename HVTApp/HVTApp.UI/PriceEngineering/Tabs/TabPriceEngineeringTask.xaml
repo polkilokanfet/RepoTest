@@ -52,11 +52,11 @@
                            SmallImage="/HVTApp.UI;component/Images/remove.png" />
     </infRib:RibbonGroup>
 
-    <infRib:RibbonGroup Caption="ТСЕ" Visibility="{Binding Converter={StaticResource ManagerVisibilityConverter}}">
+    <!--<infRib:RibbonGroup Caption="ТСЕ" Visibility="{Binding Converter={StaticResource ManagerVisibilityConverter}}">
         <infRib:ButtonTool Caption="Передать в ТСЕ"
                            Command="{Binding TransferToTceCommand}"
                            SmallImage="/HVTApp.UI;component/Images/add.png" />
-    </infRib:RibbonGroup>
+    </infRib:RibbonGroup>-->
 
     <infRib:RibbonGroup Caption="Расчет ПЗ" Visibility="{Binding Converter={StaticResource ManagerVisibilityConverter}}">
         <infRib:ButtonTool Caption="Создать"

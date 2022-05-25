@@ -100,6 +100,9 @@ namespace HVTApp.DataAccess
             DesignDepartmentParametersAddedBlocksRepository = new DesignDepartmentParametersAddedBlocksRepository(_context);
             DesignDepartmentParametersAddedBlocksRepository.OperationFailedEvent += OnOperationFailedEvent;
 
+            PriceCalculationSettingsRepository = new PriceCalculationSettingsRepository(_context);
+            PriceCalculationSettingsRepository.OperationFailedEvent += OnOperationFailedEvent;
+
             PriceEngineeringTaskRepository = new PriceEngineeringTaskRepository(_context);
             PriceEngineeringTaskRepository.OperationFailedEvent += OnOperationFailedEvent;
 
@@ -355,6 +358,7 @@ namespace HVTApp.DataAccess
             PriceCalculationItemRepository.OperationFailedEvent -= OnOperationFailedEvent;
             DesignDepartmentParametersRepository.OperationFailedEvent -= OnOperationFailedEvent;
             DesignDepartmentParametersAddedBlocksRepository.OperationFailedEvent -= OnOperationFailedEvent;
+            PriceCalculationSettingsRepository.OperationFailedEvent -= OnOperationFailedEvent;
             PriceEngineeringTaskRepository.OperationFailedEvent -= OnOperationFailedEvent;
             PriceEngineeringTaskFileAnswerRepository.OperationFailedEvent -= OnOperationFailedEvent;
             PriceEngineeringTaskFileTechnicalRequirementsRepository.OperationFailedEvent -= OnOperationFailedEvent;
@@ -463,6 +467,7 @@ namespace HVTApp.DataAccess
         protected IPriceCalculationItemRepository PriceCalculationItemRepository;
         protected IDesignDepartmentParametersRepository DesignDepartmentParametersRepository;
         protected IDesignDepartmentParametersAddedBlocksRepository DesignDepartmentParametersAddedBlocksRepository;
+        protected IPriceCalculationSettingsRepository PriceCalculationSettingsRepository;
         protected IPriceEngineeringTaskRepository PriceEngineeringTaskRepository;
         protected IPriceEngineeringTaskFileAnswerRepository PriceEngineeringTaskFileAnswerRepository;
         protected IPriceEngineeringTaskFileTechnicalRequirementsRepository PriceEngineeringTaskFileTechnicalRequirementsRepository;

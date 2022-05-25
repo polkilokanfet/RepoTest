@@ -97,6 +97,9 @@ namespace HVTApp.Model.POCOs
         [Designation("Запрос на проверку от исполнителя"), OrderStatus(35)]
         public bool RequestForVerificationFromConstructor { get; set; } = false;
 
+        [Designation("Настройки расчета ПЗ"), OrderStatus(10)]
+        public virtual List<PriceCalculationSettings> PriceCalculationSettingsList { get; set; } = new List<PriceCalculationSettings>();
+
         [Designation("Старт"), NotMapped]
         public DateTime? StartMoment
         {

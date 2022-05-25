@@ -77,6 +77,7 @@ namespace HVTApp.UI.PriceEngineering
         {
             SaveCommand.RaiseCanExecuteChanged();
             StartCommand.RaiseCanExecuteChanged();
+            CreatePriceCalculationCommand.RaiseCanExecuteChanged();
         }
 
         public PriceEngineeringTaskViewModel SelectedPriceEngineeringTaskViewModel
@@ -287,12 +288,67 @@ namespace HVTApp.UI.PriceEngineering
             CreatePriceCalculationCommand = new DelegateLogCommand(
                 () =>
                 {
-                    container.Resolve<IRegionManager>().RequestNavigateContentRegion<PriceCalculationView>(
-                        new NavigationParameters
+                    var startMoment = DateTime.Now;
+
+                    var unitOfWork1 = container.Resolve<IUnitOfWork>();
+
+                    var priceEngineeringTasks = this.PriceEngineeringTasksWrapper.Model.ChildPriceEngineeringTasks
+                        .Select(x => unitOfWork1.Repository<PriceEngineeringTask>().GetById(x.Id)).ToList();
+                    var taskTce = new PriceEngineeringTaskTce();
+                    taskTce.StoryItems.Add(new PriceEngineeringTaskTceStoryItem
+                    {
+                        StoryAction = PriceEngineeringTaskTceStoryItemStoryAction.Start,
+                        Moment = startMoment,
+                        PriceEngineeringTaskTceId = taskTce.Id
+                    });
+
+                    foreach (var priceEngineeringTask in priceEngineeringTasks)
+                    {
+                        taskTce.PriceEngineeringTaskList.Add(priceEngineeringTask);
+                        foreach (var task in priceEngineeringTask.GetAllPriceEngineeringTasks())
                         {
-                            {nameof(PriceEngineeringTasks), this.PriceEngineeringTasksWrapper.Model}
-                        });
-                });
+                            var structureCostVersion = new PriceEngineeringTaskTceStructureCostVersion
+                            {
+                                ParentUnitId = task.Id,
+                                PriceEngineeringTaskTceId = taskTce.Id
+                            };
+                            taskTce.SccVersions.Add(structureCostVersion);
+
+                            foreach (var blockAdded in task.ProductBlocksAdded)
+                            {
+                                var structureCostVersion1 = new PriceEngineeringTaskTceStructureCostVersion
+                                {
+                                    ParentUnitId = blockAdded.Id,
+                                    PriceEngineeringTaskTceId = taskTce.Id
+                                };
+                                taskTce.SccVersions.Add(structureCostVersion1);
+                            }
+                        }
+
+                        //настройки расчета ПЗ
+                        SalesUnit salesUnit = priceEngineeringTask.SalesUnits.First();
+                        var settings = new PriceCalculationSettings
+                        {
+                            StartMoment = startMoment,
+                            DateOrderInTake = salesUnit.OrderInTakeDate,
+                            DateRealization = salesUnit.RealizationDateCalculated,
+                            PaymentConditionSet = salesUnit.PaymentConditionSet
+                        };
+                        priceEngineeringTask.PriceCalculationSettingsList.Add(settings);
+                    }
+
+                    unitOfWork1.Repository<PriceEngineeringTaskTce>().Add(taskTce);
+                    unitOfWork1.SaveChanges();
+
+                    container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", "Задание на расчет ПЗ и заявка в ТСЕ успешно созданы.");
+
+                    //container.Resolve<IRegionManager>().RequestNavigateContentRegion<PriceCalculationView>(
+                    //    new NavigationParameters
+                    //    {
+                    //        {nameof(PriceEngineeringTasks), this.PriceEngineeringTasksWrapper.Model}
+                    //    });
+                },
+                () => this.PriceEngineeringTasksWrapper != null && this.PriceEngineeringTasksWrapper.Model.StatusesAll.All(x => x == PriceEngineeringTaskStatusEnum.Accepted));
 
 
             TransferToTceCommand = new DelegateLogCommand(
