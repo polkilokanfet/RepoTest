@@ -16,7 +16,7 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkProfile />
-    <PublishUrl>C:\app\</PublishUrl>
+    <PublishUrl>D:\app\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -29,8 +29,8 @@
     <InstallUrl>\\uetm\data\ОП ВВА\BaseVVA\Storage\App\</InstallUrl>
     <ProductName>HVTApplication</ProductName>
     <PublisherName>Kosolapov</PublisherName>
-    <MinimumRequiredVersion>1.0.0.322</MinimumRequiredVersion>
-    <ApplicationRevision>323</ApplicationRevision>
+    <MinimumRequiredVersion>1.0.0.323</MinimumRequiredVersion>
+    <ApplicationRevision>324</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>

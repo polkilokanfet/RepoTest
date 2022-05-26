@@ -17,6 +17,7 @@ using HVTApp.UI.Commands;
 using HVTApp.UI.PriceCalculations.View;
 using HVTApp.UI.PriceEngineering.Comparers;
 using HVTApp.UI.PriceEngineering.Tce.Unit;
+using HVTApp.UI.PriceEngineering.Tce.Unit.ViewModel;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Events;
@@ -72,7 +73,8 @@ namespace HVTApp.UI.PriceEngineering
 
         private void PriceEngineeringTasksWrapperOnPriceEngineeringTaskAccepted(PriceEngineeringTask obj)
         {
-            if (CreatePriceCalculationCommand.CanExecute())
+            if (this.PriceEngineeringTasksWrapper != null && 
+                this.PriceEngineeringTasksWrapper.Model.StatusesAll.All(x => x == PriceEngineeringTaskStatusEnum.Accepted))
             {
                 var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Уведомление", "Вы приняли все задания. Хотите ли Вы загрузить результаты в ТСЕ и создать расчёт ПЗ?");
                 if (dr == MessageDialogResult.Yes)
@@ -302,67 +304,104 @@ namespace HVTApp.UI.PriceEngineering
             CreatePriceCalculationCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var startMoment = DateTime.Now;
-
-                    var unitOfWork1 = container.Resolve<IUnitOfWork>();
-
-                    var priceEngineeringTasks = this.PriceEngineeringTasksWrapper.Model.ChildPriceEngineeringTasks
-                        .Select(x => unitOfWork1.Repository<PriceEngineeringTask>().GetById(x.Id)).ToList();
-                    var taskTce = new PriceEngineeringTaskTce();
-                    taskTce.StoryItems.Add(new PriceEngineeringTaskTceStoryItem
+                    if (this.PriceEngineeringTasksWrapper.Model.StatusesAll.All(x =>
+                        x == PriceEngineeringTaskStatusEnum.Accepted) == false)
                     {
-                        StoryAction = PriceEngineeringTaskTceStoryItemStoryAction.Start,
-                        Moment = startMoment,
-                        PriceEngineeringTaskTceId = taskTce.Id
-                    });
-
-                    foreach (var priceEngineeringTask in priceEngineeringTasks)
-                    {
-                        taskTce.PriceEngineeringTaskList.Add(priceEngineeringTask);
-                        foreach (var task in priceEngineeringTask.GetAllPriceEngineeringTasks())
+                        var dr = container.Resolve<IMessageService>().ShowYesNoMessageDialog("Уведомление",
+                            "Не все задачи приняты. Хотите ли Вы создать расчёт ПЗ по аналогам?");
+                        if (dr == MessageDialogResult.Yes)
                         {
-                            var structureCostVersion = new PriceEngineeringTaskTceStructureCostVersion
-                            {
-                                ParentUnitId = task.Id,
-                                PriceEngineeringTaskTceId = taskTce.Id
-                            };
-                            taskTce.SccVersions.Add(structureCostVersion);
-
-                            foreach (var blockAdded in task.ProductBlocksAdded)
-                            {
-                                var structureCostVersion1 = new PriceEngineeringTaskTceStructureCostVersion
+                            container.Resolve<IRegionManager>().RequestNavigateContentRegion<PriceCalculationView>(
+                                new NavigationParameters
                                 {
-                                    ParentUnitId = blockAdded.Id,
-                                    PriceEngineeringTaskTceId = taskTce.Id
-                                };
-                                taskTce.SccVersions.Add(structureCostVersion1);
-                            }
+                                    {nameof(PriceEngineeringTasks), this.PriceEngineeringTasksWrapper.Model}
+                                });
                         }
 
-                        //настройки расчета ПЗ
-                        SalesUnit salesUnit = priceEngineeringTask.SalesUnits.First();
-                        var settings = new PriceCalculationSettings
+                        return;
+                    }
+                    else
+                    {
+                        var viewModel = container.Resolve<PriceEngineeringTaskTceViewModelFrontManager>();
+                        viewModel.Create(this.PriceEngineeringTasksWrapper.Model.ChildPriceEngineeringTasks);
+                        viewModel.StartCommand.Execute();
+
+                        var unitOfWork2 = container.Resolve<IUnitOfWork>();
+                        var engineeringTaskTce = unitOfWork2.Repository<PriceEngineeringTaskTce>()
+                            .GetById(viewModel.Item.Model.Id);
+
+                        foreach (var priceEngineeringTask in engineeringTaskTce.PriceEngineeringTaskList)
                         {
-                            StartMoment = startMoment,
-                            DateOrderInTake = salesUnit.OrderInTakeDate,
-                            DateRealization = salesUnit.RealizationDateCalculated,
-                            PaymentConditionSet = salesUnit.PaymentConditionSet
-                        };
-                        priceEngineeringTask.PriceCalculationSettingsList.Add(settings);
+                            //настройки расчета ПЗ
+                            var salesUnit = priceEngineeringTask.SalesUnits.First();
+                            var settings = new PriceCalculationSettings
+                            {
+                                StartMoment = engineeringTaskTce.StartMoment.Value,
+                                DateOrderInTake = salesUnit.OrderInTakeDate,
+                                DateRealization = salesUnit.RealizationDateCalculated,
+                                PaymentConditionSet = salesUnit.PaymentConditionSet
+                            };
+                            priceEngineeringTask.PriceCalculationSettingsList.Add(settings);
+                        }
+
+                        unitOfWork2.SaveChanges();
                     }
 
-                    unitOfWork1.Repository<PriceEngineeringTaskTce>().Add(taskTce);
-                    unitOfWork1.SaveChanges();
+                    //var startMoment = DateTime.Now;
+
+                    //var unitOfWork1 = container.Resolve<IUnitOfWork>();
+
+                    //var priceEngineeringTasks = this.PriceEngineeringTasksWrapper.Model.ChildPriceEngineeringTasks
+                    //    .Select(x => unitOfWork1.Repository<PriceEngineeringTask>().GetById(x.Id)).ToList();
+                    //var taskTce = new PriceEngineeringTaskTce();
+                    //taskTce.StoryItems.Add(new PriceEngineeringTaskTceStoryItem
+                    //{
+                    //    StoryAction = PriceEngineeringTaskTceStoryItemStoryAction.Start,
+                    //    Moment = startMoment,
+                    //    PriceEngineeringTaskTceId = taskTce.Id
+                    //});
+
+                    //foreach (var priceEngineeringTask in priceEngineeringTasks)
+                    //{
+                    //    taskTce.PriceEngineeringTaskList.Add(priceEngineeringTask);
+                    //    foreach (var task in priceEngineeringTask.GetAllPriceEngineeringTasks())
+                    //    {
+                    //        var structureCostVersion = new PriceEngineeringTaskTceStructureCostVersion
+                    //        {
+                    //            ParentUnitId = task.Id,
+                    //            PriceEngineeringTaskTceId = taskTce.Id
+                    //        };
+                    //        taskTce.SccVersions.Add(structureCostVersion);
+
+                    //        foreach (var blockAdded in task.ProductBlocksAdded)
+                    //        {
+                    //            var structureCostVersion1 = new PriceEngineeringTaskTceStructureCostVersion
+                    //            {
+                    //                ParentUnitId = blockAdded.Id,
+                    //                PriceEngineeringTaskTceId = taskTce.Id
+                    //            };
+                    //            taskTce.SccVersions.Add(structureCostVersion1);
+                    //        }
+                    //    }
+
+                    //    //настройки расчета ПЗ
+                    //    var salesUnit = priceEngineeringTask.SalesUnits.First();
+                    //    var settings = new PriceCalculationSettings
+                    //    {
+                    //        StartMoment = startMoment,
+                    //        DateOrderInTake = salesUnit.OrderInTakeDate,
+                    //        DateRealization = salesUnit.RealizationDateCalculated,
+                    //        PaymentConditionSet = salesUnit.PaymentConditionSet
+                    //    };
+                    //    priceEngineeringTask.PriceCalculationSettingsList.Add(settings);
+                    //}
+
+                    //unitOfWork1.Repository<PriceEngineeringTaskTce>().Add(taskTce);
+                    //unitOfWork1.SaveChanges();
 
                     container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", "Задание на расчет ПЗ и заявка в ТСЕ успешно созданы.");
-
-                    //container.Resolve<IRegionManager>().RequestNavigateContentRegion<PriceCalculationView>(
-                    //    new NavigationParameters
-                    //    {
-                    //        {nameof(PriceEngineeringTasks), this.PriceEngineeringTasksWrapper.Model}
-                    //    });
                 },
-                () => this.PriceEngineeringTasksWrapper != null && this.PriceEngineeringTasksWrapper.Model.StatusesAll.All(x => x == PriceEngineeringTaskStatusEnum.Accepted));
+                () => this.PriceEngineeringTasksWrapper != null && this.IsNew == false);
 
 
             TransferToTceCommand = new DelegateLogCommand(
@@ -378,23 +417,23 @@ namespace HVTApp.UI.PriceEngineering
             #endregion
         }
 
-    /// <summary>
-    /// Загрузка при создании новой технико-стоимостной проработки по единицам продаж
-    /// </summary>
-    /// <param name="salesUnits"></param>
-    public void Load(IEnumerable<SalesUnit> salesUnits)
-        {
-            var salesUnitsGrouped = salesUnits
-                .Select(salesUnit => _unitOfWork.Repository<SalesUnit>().GetById(salesUnit.Id))
-                .GroupBy(salesUnit => salesUnit, new SalesUnitForPriceEngineeringTaskComparer());
-
-            foreach (var salesUnitsGroup in salesUnitsGrouped)
+        /// <summary>
+        /// Загрузка при создании новой технико-стоимостной проработки по единицам продаж
+        /// </summary>
+        /// <param name="salesUnits"></param>
+        public void Load(IEnumerable<SalesUnit> salesUnits)
             {
-                PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.Add(PriceEngineeringTaskViewModelFactory.GetInstance(_container, _unitOfWork, salesUnitsGroup));
-            }
+                var salesUnitsGrouped = salesUnits
+                    .Select(salesUnit => _unitOfWork.Repository<SalesUnit>().GetById(salesUnit.Id))
+                    .GroupBy(salesUnit => salesUnit, new SalesUnitForPriceEngineeringTaskComparer());
 
-            IsNew = true;
-        }
+                foreach (var salesUnitsGroup in salesUnitsGrouped)
+                {
+                    PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.Add(PriceEngineeringTaskViewModelFactory.GetInstance(_container, _unitOfWork, salesUnitsGroup));
+                }
+
+                IsNew = true;
+            }
 
         public void Load(PriceEngineeringTasks priceEngineeringTasks)
         {
