@@ -1,3 +1,4 @@
+using System.Linq;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
@@ -14,6 +15,21 @@ namespace HVTApp.UI.PriceEngineering.Tce.Unit.ViewModel
             StartCommand = new DelegateLogCommand(
                 () =>
                 {
+                    foreach (var priceEngineeringTask in this.Item.Model.PriceEngineeringTaskList)
+                    {
+                        //настройки расчета ПЗ
+                        var salesUnit = priceEngineeringTask.SalesUnits.First();
+                        var settings = new PriceCalculationSettings
+                        {
+                            StartMoment = this.Item.Model.StartMoment.Value,
+                            DateOrderInTake = salesUnit.OrderInTakeDate,
+                            DateRealization = salesUnit.RealizationDateCalculated,
+                            PaymentConditionSet = salesUnit.PaymentConditionSet,
+                            PriceEngineeringTaskId = priceEngineeringTask.Id
+                        };
+                        priceEngineeringTask.PriceCalculationSettingsList.Add(settings);
+                    }
+
                     SaveCommand.Execute(null);
                     StartCommand.RaiseCanExecuteChanged();
                 },

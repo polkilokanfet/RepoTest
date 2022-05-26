@@ -282,6 +282,9 @@
     <Compile Include="PriceEngineering\Converters\FilesTechnicalRequirementsToVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskStatusEnumToStringConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTasksViewModelManagerVisibilityConverter.cs" />
+    <Compile Include="PriceEngineering\Tasks\PriceCalculationSettingsView.xaml.cs">
+      <DependentUpon>PriceCalculationSettingsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PriceEngineering\Tce\Converters\Visibility\PriceEngineeringTaskTceViewModelBackManagerBossVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Tce\Converters\Visibility\PriceEngineeringTaskTceViewModelBackManagerVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Tce\Converters\Visibility\PriceEngineeringTaskTceViewModelFrontManagerVisibilityConverter.cs" />
@@ -1707,6 +1710,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="PriceEngineering\TasksList\PriceEngineeringTasksListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceEngineering\Tasks\PriceCalculationSettingsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

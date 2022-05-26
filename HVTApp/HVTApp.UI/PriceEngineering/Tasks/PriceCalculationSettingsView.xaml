@@ -1,0 +1,147 @@
+﻿<inf:ViewBase x:Class="HVTApp.UI.PriceEngineering.PriceCalculationSettingsView"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:infgDp="http://infragistics.com/DataPresenter" 
+              xmlns:igEditors="http://infragistics.com/Editors"
+              xmlns:history="clr-namespace:HVTApp.UI.TechnicalRequrementsTasksModule.Task.History">
+
+    <GroupBox Header="Параметры расчёта ПЗ">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" Content="Требуется файл: "/>
+                <CheckBox Grid.Column="1" IsChecked="{Binding PriceCalculationWrapper.IsNeedExcelFile, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" IsEnabled="{Binding IsStarted, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ReverseBoolConverter}}"/>
+
+                <Label Grid.Column="2" Content="Файл загружен: "/>
+                <CheckBox Grid.Column="3" IsChecked="{Binding CalculationHasFile, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" IsEnabled="False"/>
+
+                <Label Grid.Column="4" Content="Инициатор: "/>
+                <Label Grid.Column="5" Content="{Binding PriceCalculationWrapper.Initiator, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ObjectToStringConverter}}" HorizontalAlignment="Left"/>
+
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <infgDp:XamDataGrid x:Name="Groups"
+                                    Grid.Column="0"
+                                    DataSource="{Binding PriceCalculationWrapper.PriceCalculationItems}"
+                                    ActiveDataItem="{Binding SelectedItem, Mode=TwoWay}">
+
+                    <infgDp:XamDataGrid.FieldLayouts>
+
+                        <infgDp:FieldLayout>
+                            
+                            <infgDp:FieldLayout.FieldSettings>
+                                <infgDp:FieldSettings CellValuePresenterStyle="{StaticResource BoltFontCellsStyle}"/>
+                            </infgDp:FieldLayout.FieldSettings>
+
+                            <infgDp:FieldLayout.Fields>
+                                
+                                <infgDp:CheckBoxField AlternateBinding="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" BindingType="UseAlternateBinding" Label=" " Width="Auto" AllowEdit="True" AllowResize="False">
+                                    <infgDp:Field.Settings>
+                                        <infgDp:FieldSettings>
+                                            <infgDp:FieldSettings.EditorStyle>
+                                                <Style TargetType="{x:Type igEditors:XamCheckEditor}">
+                                                    <EventSetter Event="ValueChanged" Handler="IsCheckedValueChanged"/>
+                                                </Style>
+                                            </infgDp:FieldSettings.EditorStyle>
+                                        </infgDp:FieldSettings>
+                                    </infgDp:Field.Settings>
+                                </infgDp:CheckBoxField>
+                                <infgDp:TextField AlternateBinding="{Binding Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
+                                <infgDp:TextField AlternateBinding="{Binding Product}" BindingType="UseAlternateBinding" Label="Оборудование" Width="Auto"/>
+                                <infgDp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" AllowResize="False"/>
+                                <infgDp:NumericField AlternateBinding="{Binding UnitPrice, UpdateSourceTrigger=PropertyChanged}" BindingType="UseAlternateBinding" Label="Цена за ед." Width="Auto" AllowResize="False"
+                                                     Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.CurrentUserIsBackManager, Converter={StaticResource BooleanToVisibilityReverseConverter}}"/>
+                                <infgDp:DateTimeField Name="OrderInTakeDate" Label="ОИТ" 
+                                                      AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}" Width="Auto" AllowResize="False" />
+                                <infgDp:DateTimeField Name="RealizationDate" Label="Реализация" 
+                                                      AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}" Width="Auto" AllowResize="False" />
+                                <infgDp:TextField AlternateBinding="{Binding PaymentConditionSet}" BindingType="UseAlternateBinding" Label="Условия оплаты" Width="Auto" />
+                                <infgDp:Field Name="StructureCosts" IsExpandable="True"/>
+					        </infgDp:FieldLayout.Fields>
+				        </infgDp:FieldLayout>
+
+                        <infgDp:FieldLayout ParentFieldName="StructureCosts"
+                                            x:Name="LayoutStructureCosts">
+                            <infgDp:FieldLayout.Fields>
+                                <infgDp:TextField AlternateBinding="{Binding Comment, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Название" Width="250" 
+                                                  AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}"/>
+                                <infgDp:NumericField AlternateBinding="{Binding AmountNumerator, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Кол." Width="86" AllowResize="True" 
+                                                     AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}"
+                                                     Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.CurrentUserIsPricer, Converter={StaticResource BooleanToVisibilityReverseConverter}}"/>
+                                <infgDp:NumericField AlternateBinding="{Binding AmountDenomerator, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="на" Width="86" AllowResize="True" 
+                                                     AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}"
+                                                     Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.CurrentUserIsPricer, Converter={StaticResource BooleanToVisibilityReverseConverter}}"/>
+                                <infgDp:NumericField AlternateBinding="{Binding Amount, Mode=OneWay}" BindingType="UseAlternateBinding" Label="Кол. на ед." Width="86" AllowResize="True" AllowEdit="False"/>
+                                <infgDp:TextField AlternateBinding="{Binding Number, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Номер" Width="Auto" 
+                                                  AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}"/>
+                                <infgDp:NumericField AlternateBinding="{Binding UnitPrice, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Цена за ед." Width="Auto" 
+                                                     AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.CanChangePrice}"
+                                                     Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.CurrentUserIsBackManager, Converter={StaticResource BooleanToVisibilityReverseConverter}}"/>
+                                <infgDp:NumericField AlternateBinding="{Binding Total}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto" AllowResize="False"
+                                                     Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.CurrentUserIsBackManager, Converter={StaticResource BooleanToVisibilityReverseConverter}}"/>
+                            </infgDp:FieldLayout.Fields>
+                        </infgDp:FieldLayout>
+                            
+			        </infgDp:XamDataGrid.FieldLayouts>
+		        </infgDp:XamDataGrid>
+
+                <GridSplitter Grid.Column="1" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+
+                <GroupBox Grid.Column="2" Header="История проработки">
+
+                    <history:HistoryItemListControl Items="{Binding PriceCalculationWrapper.History}"/>
+
+                    <!--<infgDp:XamDataGrid DataSource="{Binding PriceCalculationWrapper.History}">
+
+                        <infgDp:XamDataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
+                            </ContextMenu>
+                        </infgDp:XamDataGrid.ContextMenu>
+
+                        <infgDp:XamDataGrid.FieldLayouts>
+                            <infgDp:FieldLayout>
+                                <infgDp:FieldLayout.Fields>
+                                    <infgDp:DateTimeField AlternateBinding="{Binding Moment}" BindingType="UseAlternateBinding" Label="Момент" Width="Auto" AllowResize="False" />
+                                    <infgDp:TextField AlternateBinding="{Binding Model.Type, Converter={StaticResource PriceCalculationHistoryItemTypeToStringConverter}}" BindingType="UseAlternateBinding" Label="Действие" Width="Auto" AllowResize="False"/>
+                                    <infgDp:TextField AlternateBinding="{Binding Comment}" BindingType="UseAlternateBinding" Label="Комментарий" Width="Auto" AllowResize="True" />
+                                </infgDp:FieldLayout.Fields>
+                            </infgDp:FieldLayout>
+
+                        </infgDp:XamDataGrid.FieldLayouts>
+                    </infgDp:XamDataGrid>-->
+
+                </GroupBox>
+
+            </Grid>
+
+            <GroupBox Grid.Row="2" Header="Комментарий">
+                <TextBox Text="{Binding HistoryItem.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </GroupBox>
+
+        </Grid>
+    </GroupBox>
+                       
+</inf:ViewBase>

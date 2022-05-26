@@ -326,25 +326,25 @@ namespace HVTApp.UI.PriceEngineering
                         viewModel.Create(this.PriceEngineeringTasksWrapper.Model.ChildPriceEngineeringTasks);
                         viewModel.StartCommand.Execute();
 
-                        var unitOfWork2 = container.Resolve<IUnitOfWork>();
-                        var engineeringTaskTce = unitOfWork2.Repository<PriceEngineeringTaskTce>()
-                            .GetById(viewModel.Item.Model.Id);
+                        //var unitOfWork2 = container.Resolve<IUnitOfWork>();
+                        //var engineeringTaskTce = unitOfWork2.Repository<PriceEngineeringTaskTce>().GetById(viewModel.Item.Model.Id);
 
-                        foreach (var priceEngineeringTask in engineeringTaskTce.PriceEngineeringTaskList)
-                        {
-                            //настройки расчета ПЗ
-                            var salesUnit = priceEngineeringTask.SalesUnits.First();
-                            var settings = new PriceCalculationSettings
-                            {
-                                StartMoment = engineeringTaskTce.StartMoment.Value,
-                                DateOrderInTake = salesUnit.OrderInTakeDate,
-                                DateRealization = salesUnit.RealizationDateCalculated,
-                                PaymentConditionSet = salesUnit.PaymentConditionSet
-                            };
-                            priceEngineeringTask.PriceCalculationSettingsList.Add(settings);
-                        }
+                        //foreach (var priceEngineeringTask in engineeringTaskTce.PriceEngineeringTaskList)
+                        //{
+                        //    //настройки расчета ПЗ
+                        //    var salesUnit = priceEngineeringTask.SalesUnits.First();
+                        //    var settings = new PriceCalculationSettings
+                        //    {
+                        //        StartMoment = engineeringTaskTce.StartMoment.Value,
+                        //        DateOrderInTake = salesUnit.OrderInTakeDate,
+                        //        DateRealization = salesUnit.RealizationDateCalculated,
+                        //        PaymentConditionSet = salesUnit.PaymentConditionSet,
+                        //        PriceEngineeringTaskId = priceEngineeringTask.Id
+                        //    };
+                        //    priceEngineeringTask.PriceCalculationSettingsList.Add(settings);
+                        //}
 
-                        unitOfWork2.SaveChanges();
+                        //unitOfWork2.SaveChanges();
                     }
 
                     //var startMoment = DateTime.Now;

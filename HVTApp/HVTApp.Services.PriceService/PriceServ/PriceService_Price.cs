@@ -105,9 +105,12 @@ namespace HVTApp.Services.PriceService.PriceServ
 
             _container.Resolve<IModelsStore>().IsRefreshed += Reload;
 
+#if DEBUG
+#else
             //если пользователь - менеджер, грузим сервис сразу
             if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager)
                 Reload();
+#endif
         }
 
         public void Reload()
