@@ -190,9 +190,12 @@ namespace HVTApp.UI.PriceEngineering
 
             foreach (var dependentProduct in product.DependentProducts)
             {
-                var priceEngineeringTaskViewModel = PriceEngineeringTaskViewModelFactory.GetInstance(Container, UnitOfWork, dependentProduct.Product);
-                this.ChildPriceEngineeringTasks.Add(priceEngineeringTaskViewModel);
-                priceEngineeringTaskViewModel.Parent = this;
+                for (int i = 0; i < dependentProduct.Amount; i++)
+                {
+                    var priceEngineeringTaskViewModel = PriceEngineeringTaskViewModelFactory.GetInstance(Container, UnitOfWork, dependentProduct.Product);
+                    this.ChildPriceEngineeringTasks.Add(priceEngineeringTaskViewModel);
+                    priceEngineeringTaskViewModel.Parent = this;
+                }
             }
 
             //ב‏נמ
