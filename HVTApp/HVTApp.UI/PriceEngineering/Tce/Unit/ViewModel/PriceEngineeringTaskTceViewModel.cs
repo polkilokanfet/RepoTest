@@ -64,7 +64,7 @@ namespace HVTApp.UI.PriceEngineering.Tce.Unit.ViewModel
 
             foreach (var priceEngineeringTask in priceEngineeringTasks)
             {
-                wrapper.PriceEngineeringTaskList.Add(new PriceEngineeringTaskEmptyWrapper(priceEngineeringTask));
+                wrapper.PriceEngineeringTaskList.Add(new PriceEngineeringTaskWrapper1(priceEngineeringTask));
                 foreach (var task in priceEngineeringTask.GetAllPriceEngineeringTasks())
                 {
                     var structureCostVersion = new PriceEngineeringTaskTceStructureCostVersion

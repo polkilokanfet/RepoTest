@@ -51,10 +51,6 @@
 
                         <infgDp:FieldLayout>
                             
-                            <infgDp:FieldLayout.FieldSettings>
-                                <infgDp:FieldSettings CellValuePresenterStyle="{StaticResource BoltFontCellsStyle}"/>
-                            </infgDp:FieldLayout.FieldSettings>
-
                             <infgDp:FieldLayout.Fields>
                                 
                                 <infgDp:CheckBoxField AlternateBinding="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" BindingType="UseAlternateBinding" Label=" " Width="Auto" AllowEdit="True" AllowResize="False">

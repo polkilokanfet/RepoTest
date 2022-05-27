@@ -44,13 +44,11 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
 
                     var unitOfWork = _container.Resolve<IUnitOfWork>();
 
-                    var role = new UserRole
+                    var settingsList = unitOfWork.Repository<PriceCalculationSettings>().GetAll();
+                    foreach (var item in settingsList)
                     {
-                        Name = "Руководитель КБ ОГК", 
-                        Role = Role.DesignDepartmentHead
-                    };
-
-                    unitOfWork.Repository<UserRole>().Add(role);
+                        unitOfWork.Repository<PriceCalculationSettings>().Delete(item);
+                    }
 
                     unitOfWork.SaveChanges();
                     unitOfWork.Dispose();

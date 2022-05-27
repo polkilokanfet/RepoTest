@@ -351,6 +351,7 @@
       <DependentUpon>TabPriceEngineeringTaskTce.xaml</DependentUpon>
     </Compile>
     <Compile Include="PriceEngineering\Tce\Unit\PriceEngineeringTaskTceItem.cs" />
+    <Compile Include="PriceEngineering\Tce\Unit\PriceEngineeringTaskWrapper1.cs" />
     <Compile Include="PriceEngineering\Tce\Unit\ViewModel\PriceEngineeringTaskTceViewModel.cs" />
     <Compile Include="PriceEngineering\Tce\Unit\PriceEngineeringTaskTceWrapper1.cs" />
     <Compile Include="PriceEngineering\Tce\Unit\ViewModel\PriceEngineeringTaskTceViewModelBackManager.cs" />

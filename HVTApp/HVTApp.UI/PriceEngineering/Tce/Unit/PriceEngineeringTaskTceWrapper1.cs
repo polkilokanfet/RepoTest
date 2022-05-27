@@ -46,7 +46,7 @@ namespace HVTApp.UI.PriceEngineering.Tce.Unit
         /// <summary>
         /// Связанные задачи верхнего уровня
         /// </summary>
-        public IValidatableChangeTrackingCollection<PriceEngineeringTaskEmptyWrapper> PriceEngineeringTaskList { get; private set; }
+        public IValidatableChangeTrackingCollection<PriceEngineeringTaskWrapper1> PriceEngineeringTaskList { get; private set; }
 
         /// <summary>
         /// Версии стракчакостов
@@ -57,6 +57,8 @@ namespace HVTApp.UI.PriceEngineering.Tce.Unit
         /// История проработки
         /// </summary>
         public IValidatableChangeTrackingCollection<PriceEngineeringTaskTceStoryItemWrapper> Story { get; private set; }
+
+
 
         #endregion
 
@@ -72,7 +74,7 @@ namespace HVTApp.UI.PriceEngineering.Tce.Unit
         protected override void InitializeCollectionProperties()
         {
             if (Model.PriceEngineeringTaskList == null) throw new ArgumentException("PriceEngineeringTaskList cannot be null");
-            PriceEngineeringTaskList = new ValidatableChangeTrackingCollection<PriceEngineeringTaskEmptyWrapper>(Model.PriceEngineeringTaskList.Select(e => new PriceEngineeringTaskEmptyWrapper(e)));
+            PriceEngineeringTaskList = new ValidatableChangeTrackingCollection<PriceEngineeringTaskWrapper1>(Model.PriceEngineeringTaskList.Select(e => new PriceEngineeringTaskWrapper1(e)));
             RegisterCollection(PriceEngineeringTaskList, Model.PriceEngineeringTaskList);
 
             if (Model.SccVersions == null) throw new ArgumentException("SccVersions cannot be null");

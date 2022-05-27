@@ -30,7 +30,7 @@
     <ProductName>HVTApplication</ProductName>
     <PublisherName>Kosolapov</PublisherName>
     <MinimumRequiredVersion>1.0.0.323</MinimumRequiredVersion>
-    <ApplicationRevision>324</ApplicationRevision>
+    <ApplicationRevision>325</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>

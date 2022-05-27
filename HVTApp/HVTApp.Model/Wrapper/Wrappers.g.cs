@@ -1535,6 +1535,16 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.Guid> PriceEngineeringTasksIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(PriceEngineeringTasksId));
         public bool PriceEngineeringTasksIdIsChanged => GetIsChanged(nameof(PriceEngineeringTasksId));
         /// <summary>
+        /// Id задачи ТСЕ
+        /// </summary>
+        public System.Nullable<System.Guid> PriceEngineeringTaskTceId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> PriceEngineeringTaskTceIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(PriceEngineeringTaskTceId));
+        public bool PriceEngineeringTaskTceIdIsChanged => GetIsChanged(nameof(PriceEngineeringTaskTceId));
+        /// <summary>
         /// Id
         /// </summary>
         public System.Guid Id
@@ -2680,6 +2690,10 @@ namespace HVTApp.Model.Wrapper
         /// История проработки
         /// </summary>
         public IValidatableChangeTrackingCollection<PriceEngineeringTaskTceStoryItemWrapper> StoryItems { get; private set; }
+        /// <summary>
+        /// Расчеты ПЗ
+        /// </summary>
+        public IValidatableChangeTrackingCollection<PriceCalculationWrapper> PriceCalculations { get; private set; }
         #endregion
         #region GetProperties
         /// <summary>
@@ -2714,6 +2728,9 @@ namespace HVTApp.Model.Wrapper
           if (Model.StoryItems == null) throw new ArgumentException("StoryItems cannot be null");
           StoryItems = new ValidatableChangeTrackingCollection<PriceEngineeringTaskTceStoryItemWrapper>(Model.StoryItems.Select(e => new PriceEngineeringTaskTceStoryItemWrapper(e)));
           RegisterCollection(StoryItems, Model.StoryItems);
+          if (Model.PriceCalculations == null) throw new ArgumentException("PriceCalculations cannot be null");
+          PriceCalculations = new ValidatableChangeTrackingCollection<PriceCalculationWrapper>(Model.PriceCalculations.Select(e => new PriceCalculationWrapper(e)));
+          RegisterCollection(PriceCalculations, Model.PriceCalculations);
         }
 	}
 
