@@ -44,7 +44,8 @@ namespace HVTApp.DataAccess
             context.PriceCalculationItemDbSet.AddRange(testData.GetAll<PriceCalculationItem>());
             context.DesignDepartmentParametersDbSet.AddRange(testData.GetAll<DesignDepartmentParameters>());
             context.DesignDepartmentParametersAddedBlocksDbSet.AddRange(testData.GetAll<DesignDepartmentParametersAddedBlocks>());
-            context.PriceCalculationSettingsDbSet.AddRange(testData.GetAll<PriceCalculationSettings>());
+            context.PriceCalculationTaskDbSet.AddRange(testData.GetAll<PriceCalculationTask>());
+            context.PriceCalculationTaskSettingDbSet.AddRange(testData.GetAll<PriceCalculationTaskSetting>());
             context.PriceEngineeringTaskDbSet.AddRange(testData.GetAll<PriceEngineeringTask>());
             context.PriceEngineeringTaskFileAnswerDbSet.AddRange(testData.GetAll<PriceEngineeringTaskFileAnswer>());
             context.PriceEngineeringTaskFileTechnicalRequirementsDbSet.AddRange(testData.GetAll<PriceEngineeringTaskFileTechnicalRequirements>());
@@ -56,6 +57,7 @@ namespace HVTApp.DataAccess
             context.PriceEngineeringTaskTceDbSet.AddRange(testData.GetAll<PriceEngineeringTaskTce>());
             context.PriceEngineeringTaskTceStoryItemDbSet.AddRange(testData.GetAll<PriceEngineeringTaskTceStoryItem>());
             context.PriceEngineeringTaskTceStructureCostVersionDbSet.AddRange(testData.GetAll<PriceEngineeringTaskTceStructureCostVersion>());
+            context.StructureCostVersionDbSet.AddRange(testData.GetAll<StructureCostVersion>());
             context.ProductCategoryDbSet.AddRange(testData.GetAll<ProductCategory>());
             context.ProductCategoryPriceAndCostDbSet.AddRange(testData.GetAll<ProductCategoryPriceAndCost>());
             context.ProductIncludedDbSet.AddRange(testData.GetAll<ProductIncluded>());

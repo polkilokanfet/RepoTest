@@ -163,9 +163,14 @@ namespace HVTApp.DataAccess
         public DesignDepartmentParametersAddedBlocksRepositoryTest(TestData testData) : base(testData) {}
     }
 
-    public partial class PriceCalculationSettingsRepositoryTest : TestBaseRepository<PriceCalculationSettings>, IPriceCalculationSettingsRepository
+    public partial class PriceCalculationTaskRepositoryTest : TestBaseRepository<PriceCalculationTask>, IPriceCalculationTaskRepository
     {
-        public PriceCalculationSettingsRepositoryTest(TestData testData) : base(testData) {}
+        public PriceCalculationTaskRepositoryTest(TestData testData) : base(testData) {}
+    }
+
+    public partial class PriceCalculationTaskSettingRepositoryTest : TestBaseRepository<PriceCalculationTaskSetting>, IPriceCalculationTaskSettingRepository
+    {
+        public PriceCalculationTaskSettingRepositoryTest(TestData testData) : base(testData) {}
     }
 
     public partial class PriceEngineeringTaskRepositoryTest : TestBaseRepository<PriceEngineeringTask>, IPriceEngineeringTaskRepository
@@ -221,6 +226,11 @@ namespace HVTApp.DataAccess
     public partial class PriceEngineeringTaskTceStructureCostVersionRepositoryTest : TestBaseRepository<PriceEngineeringTaskTceStructureCostVersion>, IPriceEngineeringTaskTceStructureCostVersionRepository
     {
         public PriceEngineeringTaskTceStructureCostVersionRepositoryTest(TestData testData) : base(testData) {}
+    }
+
+    public partial class StructureCostVersionRepositoryTest : TestBaseRepository<StructureCostVersion>, IStructureCostVersionRepository
+    {
+        public StructureCostVersionRepositoryTest(TestData testData) : base(testData) {}
     }
 
     public partial class ProductCategoryRepositoryTest : TestBaseRepository<ProductCategory>, IProductCategoryRepository

@@ -41,7 +41,8 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new PriceCalculationItemConfiguration());
             modelBuilder.Configurations.Add(new DesignDepartmentParametersConfiguration());
             modelBuilder.Configurations.Add(new DesignDepartmentParametersAddedBlocksConfiguration());
-            modelBuilder.Configurations.Add(new PriceCalculationSettingsConfiguration());
+            modelBuilder.Configurations.Add(new PriceCalculationTaskConfiguration());
+            modelBuilder.Configurations.Add(new PriceCalculationTaskSettingConfiguration());
             modelBuilder.Configurations.Add(new PriceEngineeringTaskConfiguration());
             modelBuilder.Configurations.Add(new PriceEngineeringTaskFileAnswerConfiguration());
             modelBuilder.Configurations.Add(new PriceEngineeringTaskFileTechnicalRequirementsConfiguration());
@@ -53,6 +54,7 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new PriceEngineeringTaskTceConfiguration());
             modelBuilder.Configurations.Add(new PriceEngineeringTaskTceStoryItemConfiguration());
             modelBuilder.Configurations.Add(new PriceEngineeringTaskTceStructureCostVersionConfiguration());
+            modelBuilder.Configurations.Add(new StructureCostVersionConfiguration());
             modelBuilder.Configurations.Add(new ProductCategoryConfiguration());
             modelBuilder.Configurations.Add(new ProductCategoryPriceAndCostConfiguration());
             modelBuilder.Configurations.Add(new ProductIncludedConfiguration());
@@ -151,7 +153,8 @@ namespace HVTApp.DataAccess
         public virtual DbSet<PriceCalculationItem> PriceCalculationItemDbSet { get; set; }
         public virtual DbSet<DesignDepartmentParameters> DesignDepartmentParametersDbSet { get; set; }
         public virtual DbSet<DesignDepartmentParametersAddedBlocks> DesignDepartmentParametersAddedBlocksDbSet { get; set; }
-        public virtual DbSet<PriceCalculationSettings> PriceCalculationSettingsDbSet { get; set; }
+        public virtual DbSet<PriceCalculationTask> PriceCalculationTaskDbSet { get; set; }
+        public virtual DbSet<PriceCalculationTaskSetting> PriceCalculationTaskSettingDbSet { get; set; }
         public virtual DbSet<PriceEngineeringTask> PriceEngineeringTaskDbSet { get; set; }
         public virtual DbSet<PriceEngineeringTaskFileAnswer> PriceEngineeringTaskFileAnswerDbSet { get; set; }
         public virtual DbSet<PriceEngineeringTaskFileTechnicalRequirements> PriceEngineeringTaskFileTechnicalRequirementsDbSet { get; set; }
@@ -163,6 +166,7 @@ namespace HVTApp.DataAccess
         public virtual DbSet<PriceEngineeringTaskTce> PriceEngineeringTaskTceDbSet { get; set; }
         public virtual DbSet<PriceEngineeringTaskTceStoryItem> PriceEngineeringTaskTceStoryItemDbSet { get; set; }
         public virtual DbSet<PriceEngineeringTaskTceStructureCostVersion> PriceEngineeringTaskTceStructureCostVersionDbSet { get; set; }
+        public virtual DbSet<StructureCostVersion> StructureCostVersionDbSet { get; set; }
         public virtual DbSet<ProductCategory> ProductCategoryDbSet { get; set; }
         public virtual DbSet<ProductCategoryPriceAndCost> ProductCategoryPriceAndCostDbSet { get; set; }
         public virtual DbSet<ProductIncluded> ProductIncludedDbSet { get; set; }

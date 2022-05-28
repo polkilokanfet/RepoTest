@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
@@ -20,6 +21,12 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Блок продукта"), Required, OrderStatus(900)]
         public virtual ProductBlock ProductBlock { get; set; }
+
+        [Designation("Удалено"), Required, OrderStatus(950)]
+        public bool IsRemoved { get; set; } = false;
+        
+        [Designation("Версии SCC"), OrderStatus(80)]
+        public virtual List<StructureCostVersion> StructureCostVersions { get; set; } = new List<StructureCostVersion>();
 
         public override string ToString()
         {

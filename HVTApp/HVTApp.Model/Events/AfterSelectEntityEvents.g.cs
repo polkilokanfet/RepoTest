@@ -35,7 +35,8 @@ namespace HVTApp.Model.Events
 	public partial class AfterSelectPriceCalculationItemEvent : PubSubEvent<PubSubEventArgs<PriceCalculationItem>> { }
 	public partial class AfterSelectDesignDepartmentParametersEvent : PubSubEvent<PubSubEventArgs<DesignDepartmentParameters>> { }
 	public partial class AfterSelectDesignDepartmentParametersAddedBlocksEvent : PubSubEvent<PubSubEventArgs<DesignDepartmentParametersAddedBlocks>> { }
-	public partial class AfterSelectPriceCalculationSettingsEvent : PubSubEvent<PubSubEventArgs<PriceCalculationSettings>> { }
+	public partial class AfterSelectPriceCalculationTaskEvent : PubSubEvent<PubSubEventArgs<PriceCalculationTask>> { }
+	public partial class AfterSelectPriceCalculationTaskSettingEvent : PubSubEvent<PubSubEventArgs<PriceCalculationTaskSetting>> { }
 	public partial class AfterSelectPriceEngineeringTaskEvent : PubSubEvent<PubSubEventArgs<PriceEngineeringTask>> { }
 	public partial class AfterSelectPriceEngineeringTaskFileAnswerEvent : PubSubEvent<PubSubEventArgs<PriceEngineeringTaskFileAnswer>> { }
 	public partial class AfterSelectPriceEngineeringTaskFileTechnicalRequirementsEvent : PubSubEvent<PubSubEventArgs<PriceEngineeringTaskFileTechnicalRequirements>> { }
@@ -47,6 +48,7 @@ namespace HVTApp.Model.Events
 	public partial class AfterSelectPriceEngineeringTaskTceEvent : PubSubEvent<PubSubEventArgs<PriceEngineeringTaskTce>> { }
 	public partial class AfterSelectPriceEngineeringTaskTceStoryItemEvent : PubSubEvent<PubSubEventArgs<PriceEngineeringTaskTceStoryItem>> { }
 	public partial class AfterSelectPriceEngineeringTaskTceStructureCostVersionEvent : PubSubEvent<PubSubEventArgs<PriceEngineeringTaskTceStructureCostVersion>> { }
+	public partial class AfterSelectStructureCostVersionEvent : PubSubEvent<PubSubEventArgs<StructureCostVersion>> { }
 	public partial class AfterSelectProductCategoryEvent : PubSubEvent<PubSubEventArgs<ProductCategory>> { }
 	public partial class AfterSelectProductCategoryPriceAndCostEvent : PubSubEvent<PubSubEventArgs<ProductCategoryPriceAndCost>> { }
 	public partial class AfterSelectProductIncludedEvent : PubSubEvent<PubSubEventArgs<ProductIncluded>> { }

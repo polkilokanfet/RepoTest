@@ -28,8 +28,17 @@ namespace HVTApp.Model.POCOs
             }
         }
 
+        [Designation("Номер ТСЕ"), OrderStatus(2000), MaxLength(12)]
+        public string TceNumber { get; set; }
+
+
         [Designation("Менеджер"), Required, OrderStatus(1900)]
         public virtual User UserManager { get; set; }
+
+
+        [Designation("BackManager"), OrderStatus(1800)]
+        public virtual User BackManager { get; set; }
+
 
         /// <summary>
         /// Проработать до

@@ -272,7 +272,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
             priceEngineeringTasks.PriceCalculations.Add(this.PriceCalculationWrapper.Model);
 
             //наполняем расчёт ПЗ
-            Load(priceEngineeringTasks.ChildPriceEngineeringTasks, null);
+            Load(priceEngineeringTasks.ChildPriceEngineeringTasks);
 
             //необходимость файла excel
             this.PriceCalculationWrapper.IsNeedExcelFile = false;
@@ -287,26 +287,24 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
             priceEngineeringTaskTce.PriceCalculations.Add(this.PriceCalculationWrapper.Model);
 
             //наполняем расчёт ПЗ
-            Load(priceEngineeringTaskTce.PriceEngineeringTaskList, priceEngineeringTaskTce);
+            Load(priceEngineeringTaskTce.PriceEngineeringTaskList);
 
             //необходимость файла excel
             this.PriceCalculationWrapper.IsNeedExcelFile = true;
         }
 
-        private void Load(IEnumerable<PriceEngineeringTask> priceEngineeringTasks, PriceEngineeringTaskTce taskTce)
+        private void Load(IEnumerable<PriceEngineeringTask> priceEngineeringTasks)
         {
-            //добавляем в расчет ПЗ оборудование
-            foreach (var priceEngineeringTask in priceEngineeringTasks)
-            {
-                var priceCalculationSettings = taskTce?.StartMoment != null
-                    ? priceEngineeringTask.PriceCalculationSettingsList.FirstOrDefault(x => x.StartMoment == taskTce.StartMoment.Value)
-                    : null;
-                PriceCalculationWrapper.PriceCalculationItems.Add(GetPriceCalculationItem2Wrapper(priceEngineeringTask, priceCalculationSettings));
-            }
+            throw new NotImplementedException();
+            ////добавляем в расчет ПЗ оборудование
+            //foreach (var priceEngineeringTask in priceEngineeringTasks)
+            //{
+            //    PriceCalculationWrapper.PriceCalculationItems.Add(GetPriceCalculationItem2Wrapper(priceEngineeringTask));
+            //}
 
-            //инициатор задачи
-            if (this.PriceCalculationWrapper.Initiator == null)
-                this.PriceCalculationWrapper.Initiator = new UserWrapper(UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id));
+            ////инициатор задачи
+            //if (this.PriceCalculationWrapper.Initiator == null)
+            //    this.PriceCalculationWrapper.Initiator = new UserWrapper(UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id));
         }
 
 
@@ -347,31 +345,40 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
             return priceCalculationItem2Wrapper;
         }
 
-        private PriceCalculationItem2Wrapper GetPriceCalculationItem2Wrapper(PriceEngineeringTask priceEngineeringTask, PriceCalculationSettings priceCalculationSettings)
+        private PriceCalculationItem2Wrapper GetPriceCalculationItem2Wrapper(PriceEngineeringTask priceEngineeringTask, PriceEngineeringTaskTce taskTce)
         {
-            var result = new PriceCalculationItem2Wrapper(new PriceCalculationItem());
+            throw new NotImplementedException();
+            //var result = new PriceCalculationItem2Wrapper(new PriceCalculationItem());
+            //result.SalesUnits.AddRange(priceEngineeringTask.SalesUnits.Select(x => new SalesUnitEmptyWrapper(x)));
 
-            if (priceCalculationSettings == null)
-            {
-                result.OrderInTakeDate = priceEngineeringTask.SalesUnits.First().OrderInTakeDate;
-                result.RealizationDate = priceEngineeringTask.SalesUnits.First().RealizationDateCalculated;
-                result.PaymentConditionSet = priceEngineeringTask.SalesUnits.First().PaymentConditionSet;
-            }
-            else
-            {
-                result.OrderInTakeDate = priceCalculationSettings.DateOrderInTake;
-                result.RealizationDate = priceCalculationSettings.DateRealization;
-                result.PaymentConditionSet = priceCalculationSettings.PaymentConditionSet;
-            }
+            //if (priceEngineeringTask.PriceCalculationSettings == null)
+            //{
+            //    var salesUnit = priceEngineeringTask.SalesUnits.First();
 
-            result.SalesUnits.AddRange(priceEngineeringTask.SalesUnits.Select(x => new SalesUnitEmptyWrapper(x)));
+            //    result.OrderInTakeDate = salesUnit.OrderInTakeDate;
+            //    result.RealizationDate = salesUnit.RealizationDateCalculated;
+            //    result.PaymentConditionSet = salesUnit.PaymentConditionSet;
+            //}
+            //else
+            //{
+            //    result.OrderInTakeDate = priceEngineeringTask.PriceCalculationSettings.DateOrderInTake;
+            //    result.RealizationDate = priceEngineeringTask.PriceCalculationSettings.DateRealization;
+            //    result.PaymentConditionSet = priceEngineeringTask.PriceCalculationSettings.PaymentConditionSet;
+            //}
 
-            foreach (var structureCost in priceEngineeringTask.GetStructureCosts())
-            {
-                result.StructureCosts.Add(new StructureCostWrapper(structureCost));
-            }
+            //if (taskTce == null)
+            //{
+            //    foreach (var structureCost in priceEngineeringTask.GetStructureCosts())
+            //    {
+            //        result.StructureCosts.Add(new StructureCostWrapper(structureCost));
+            //    }
+            //}
+            //else
+            //{
 
-            return result;
+            //}
+
+            //return result;
         }
 
 

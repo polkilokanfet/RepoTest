@@ -35,7 +35,8 @@ namespace HVTApp.Model.Events
 	public partial class AfterRemovePriceCalculationItemEvent : PubSubEvent<PriceCalculationItem> { }
 	public partial class AfterRemoveDesignDepartmentParametersEvent : PubSubEvent<DesignDepartmentParameters> { }
 	public partial class AfterRemoveDesignDepartmentParametersAddedBlocksEvent : PubSubEvent<DesignDepartmentParametersAddedBlocks> { }
-	public partial class AfterRemovePriceCalculationSettingsEvent : PubSubEvent<PriceCalculationSettings> { }
+	public partial class AfterRemovePriceCalculationTaskEvent : PubSubEvent<PriceCalculationTask> { }
+	public partial class AfterRemovePriceCalculationTaskSettingEvent : PubSubEvent<PriceCalculationTaskSetting> { }
 	public partial class AfterRemovePriceEngineeringTaskEvent : PubSubEvent<PriceEngineeringTask> { }
 	public partial class AfterRemovePriceEngineeringTaskFileAnswerEvent : PubSubEvent<PriceEngineeringTaskFileAnswer> { }
 	public partial class AfterRemovePriceEngineeringTaskFileTechnicalRequirementsEvent : PubSubEvent<PriceEngineeringTaskFileTechnicalRequirements> { }
@@ -47,6 +48,7 @@ namespace HVTApp.Model.Events
 	public partial class AfterRemovePriceEngineeringTaskTceEvent : PubSubEvent<PriceEngineeringTaskTce> { }
 	public partial class AfterRemovePriceEngineeringTaskTceStoryItemEvent : PubSubEvent<PriceEngineeringTaskTceStoryItem> { }
 	public partial class AfterRemovePriceEngineeringTaskTceStructureCostVersionEvent : PubSubEvent<PriceEngineeringTaskTceStructureCostVersion> { }
+	public partial class AfterRemoveStructureCostVersionEvent : PubSubEvent<StructureCostVersion> { }
 	public partial class AfterRemoveProductCategoryEvent : PubSubEvent<ProductCategory> { }
 	public partial class AfterRemoveProductCategoryPriceAndCostEvent : PubSubEvent<ProductCategoryPriceAndCost> { }
 	public partial class AfterRemoveProductIncludedEvent : PubSubEvent<ProductIncluded> { }

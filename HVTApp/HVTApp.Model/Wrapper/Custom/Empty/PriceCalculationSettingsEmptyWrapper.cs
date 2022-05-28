@@ -3,9 +3,9 @@ using HVTApp.Model.Wrapper.Base;
 
 namespace HVTApp.Model.Wrapper
 {
-    public class PriceCalculationSettingsEmptyWrapper : WrapperBase<PriceCalculationSettings>
+    public class PriceCalculationSettingsEmptyWrapper : WrapperBase<PriceCalculationTaskSetting>
     {
-        public PriceCalculationSettingsEmptyWrapper(PriceCalculationSettings model) : base(model)
+        public PriceCalculationSettingsEmptyWrapper(PriceCalculationTaskSetting model) : base(model)
         {
         }
     }

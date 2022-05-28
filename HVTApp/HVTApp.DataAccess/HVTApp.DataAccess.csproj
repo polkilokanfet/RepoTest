@@ -112,7 +112,8 @@
     <Compile Include="EntityTypeConfigurations\Custom\PriceCalculationConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\PriceCalculationHistoryItemConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\PriceCalculationItemConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\Custom\PriceCalculationSettingsConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\PriceCalculationTaskSettingConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\PriceCalculationTaskConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\PriceEngineeringTaskConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\PriceEngineeringTaskMessageConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\PriceEngineeringTaskProductBlockAddedConfiguration.cs" />
@@ -377,6 +378,14 @@
     <Compile Include="Migrations\202205251802438_PriceCalculationInTce.Designer.cs">
       <DependentUpon>202205251802438_PriceCalculationInTce.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202205271701075_RemovePriceCalculationSettings.cs" />
+    <Compile Include="Migrations\202205271701075_RemovePriceCalculationSettings.Designer.cs">
+      <DependentUpon>202205271701075_RemovePriceCalculationSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202205272017548_PriceCalculationTaskSetting.cs" />
+    <Compile Include="Migrations\202205272017548_PriceCalculationTaskSetting.Designer.cs">
+      <DependentUpon>202205272017548_PriceCalculationTaskSetting.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -606,6 +615,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202205251802438_PriceCalculationInTce.resx">
       <DependentUpon>202205251802438_PriceCalculationInTce.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205271701075_RemovePriceCalculationSettings.resx">
+      <DependentUpon>202205271701075_RemovePriceCalculationSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205272017548_PriceCalculationTaskSetting.resx">
+      <DependentUpon>202205272017548_PriceCalculationTaskSetting.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -54,6 +54,9 @@ namespace HVTApp.Model.POCOs
         [Designation("Дочерние задачи"), OrderStatus(90)]
         public virtual List<PriceEngineeringTask> ChildPriceEngineeringTasks { get; set; } = new List<PriceEngineeringTask>();
 
+        [Designation("Версии SCC"), OrderStatus(80)]
+        public virtual List<StructureCostVersion> StructureCostVersions { get; set; } = new List<StructureCostVersion>();
+
         [Designation("Статус"), NotMapped]
         public PriceEngineeringTaskStatusEnum Status
         {
@@ -98,7 +101,7 @@ namespace HVTApp.Model.POCOs
         public bool RequestForVerificationFromConstructor { get; set; } = false;
 
         [Designation("Настройки расчета ПЗ"), OrderStatus(10)]
-        public virtual List<PriceCalculationSettings> PriceCalculationSettingsList { get; set; } = new List<PriceCalculationSettings>();
+        public virtual List<PriceCalculationTaskSetting> PriceCalculationTaskSettings { get; set; } = new List<PriceCalculationTaskSetting>();
 
         [Designation("Старт"), NotMapped]
         public DateTime? StartMoment
@@ -172,39 +175,41 @@ namespace HVTApp.Model.POCOs
             }
         }
 
-        public IEnumerable<StructureCost> GetStructureCosts(int? salesUnitsAmount = null)
+        public IEnumerable<StructureCostWithParentUnitId> GetStructureCosts(int? salesUnitsAmount = null)
         {
-            salesUnitsAmount = salesUnitsAmount ?? SalesUnits.Count;
+            throw new NotImplementedException();
+            //salesUnitsAmount = salesUnitsAmount ?? SalesUnits.Count;
 
-            //стракчакост основного блока
-            yield return new StructureCost
-            {
-                Comment = ProductBlockEngineer.ToString().LimitLengh(200),
-                Number = ProductBlockEngineer.StructureCostNumber, 
-                AmountNumerator = 1,
-                AmountDenomerator = 1
-            };
+            ////стракчакост основного блока
+            //var scc = new StructureCost
+            //{
+            //    Comment = ProductBlockEngineer.ToString().LimitLengh(200),
+            //    Number = ProductBlockEngineer.StructureCostNumber, 
+            //    AmountNumerator = 1,
+            //    AmountDenomerator = 1
+            //};
+            //yield return new StructureCostWithParentUnitId(this.Id, scc);
 
-            //стракчакосты добавленных блоков
-            foreach (var blockAdded in ProductBlocksAdded)
-            {
-                yield return new StructureCost
-                {
-                    Comment = blockAdded.ProductBlock.ToString().LimitLengh(200),
-                    Number = blockAdded.ProductBlock.StructureCostNumber,
-                    AmountNumerator = blockAdded.Amount,
-                    AmountDenomerator = blockAdded.IsOnBlock ? 1 : salesUnitsAmount.Value
-                };
-            }
+            ////стракчакосты добавленных блоков
+            //foreach (var blockAdded in ProductBlocksAdded)
+            //{
+            //    yield return new StructureCost
+            //    {
+            //        Comment = blockAdded.ProductBlock.ToString().LimitLengh(200),
+            //        Number = blockAdded.ProductBlock.StructureCostNumber,
+            //        AmountNumerator = blockAdded.Amount,
+            //        AmountDenomerator = blockAdded.IsOnBlock ? salesUnitsAmount.Value : 1
+            //    };
+            //}
 
-            //стракчакосты вложенных задач
-            foreach (var childPriceEngineeringTask in ChildPriceEngineeringTasks)
-            {
-                foreach (var structureCost in childPriceEngineeringTask.GetStructureCosts(salesUnitsAmount))
-                {
-                    yield return structureCost;
-                }
-            }
+            ////стракчакосты вложенных задач
+            //foreach (var childPriceEngineeringTask in ChildPriceEngineeringTasks)
+            //{
+            //    foreach (var structureCost in childPriceEngineeringTask.GetStructureCosts(salesUnitsAmount))
+            //    {
+            //        yield return structureCost;
+            //    }
+            //}
         }
 
         public IEnumerable<PriceEngineeringTask> GetAllPriceEngineeringTasks()
@@ -227,5 +232,17 @@ namespace HVTApp.Model.POCOs
 
         [NotMapped, NotForListView, NotForDetailsView]
         public ProductBlock ProductBlock => this.ProductBlockEngineer;
+    }
+
+    public class StructureCostWithParentUnitId
+    {
+        public Guid OwnerId { get; }
+        public StructureCost StructureCost { get; }
+
+        public StructureCostWithParentUnitId(Guid ownerId, StructureCost structureCost)
+        {
+            OwnerId = ownerId;
+            StructureCost = structureCost;
+        }
     }
 }

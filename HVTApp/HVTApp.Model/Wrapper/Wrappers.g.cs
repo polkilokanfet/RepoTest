@@ -1923,12 +1923,51 @@ namespace HVTApp.Model.Wrapper
         }
 	}
 
-		public partial class PriceCalculationSettingsWrapper : WrapperBase<PriceCalculationSettings>
+		public partial class PriceCalculationTaskWrapper : WrapperBase<PriceCalculationTask>
 	{
-	    public PriceCalculationSettingsWrapper(PriceCalculationSettings model) : base(model) { }
+	    public PriceCalculationTaskWrapper(PriceCalculationTask model) : base(model) { }
         #region SimpleProperties
         /// <summary>
-        /// Id ТСП
+        /// Id
+        /// </summary>
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+        #endregion
+        #region CollectionProperties
+        /// <summary>
+        /// Настройки
+        /// </summary>
+        public IValidatableChangeTrackingCollection<PriceCalculationTaskSettingWrapper> Settings { get; private set; }
+        #endregion
+        protected override void InitializeCollectionProperties()
+        {
+          if (Model.Settings == null) throw new ArgumentException("Settings cannot be null");
+          Settings = new ValidatableChangeTrackingCollection<PriceCalculationTaskSettingWrapper>(Model.Settings.Select(e => new PriceCalculationTaskSettingWrapper(e)));
+          RegisterCollection(Settings, Model.Settings);
+        }
+	}
+
+		public partial class PriceCalculationTaskSettingWrapper : WrapperBase<PriceCalculationTaskSetting>
+	{
+	    public PriceCalculationTaskSettingWrapper(PriceCalculationTaskSetting model) : base(model) { }
+        #region SimpleProperties
+        /// <summary>
+        /// PriceCalculationTaskId
+        /// </summary>
+        public System.Guid PriceCalculationTaskId
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid PriceCalculationTaskIdOriginalValue => GetOriginalValue<System.Guid>(nameof(PriceCalculationTaskId));
+        public bool PriceCalculationTaskIdIsChanged => GetIsChanged(nameof(PriceCalculationTaskId));
+        /// <summary>
+        /// PriceEngineeringTaskId
         /// </summary>
         public System.Guid PriceEngineeringTaskId
         {
@@ -1937,16 +1976,6 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid PriceEngineeringTaskIdOriginalValue => GetOriginalValue<System.Guid>(nameof(PriceEngineeringTaskId));
         public bool PriceEngineeringTaskIdIsChanged => GetIsChanged(nameof(PriceEngineeringTaskId));
-        /// <summary>
-        /// Момент старта задачи ТСЕ
-        /// </summary>
-        public System.DateTime StartMoment
-        {
-          get { return GetValue<System.DateTime>(); }
-          set { SetValue(value); }
-        }
-        public System.DateTime StartMomentOriginalValue => GetOriginalValue<System.DateTime>(nameof(StartMoment));
-        public bool StartMomentIsChanged => GetIsChanged(nameof(StartMoment));
         /// <summary>
         /// Дата ОИТ
         /// </summary>
@@ -2115,6 +2144,10 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public IValidatableChangeTrackingCollection<PriceEngineeringTaskWrapper> ChildPriceEngineeringTasks { get; private set; }
         /// <summary>
+        /// Версии SCC
+        /// </summary>
+        public IValidatableChangeTrackingCollection<StructureCostVersionWrapper> StructureCostVersions { get; private set; }
+        /// <summary>
         /// Статусы проработки
         /// </summary>
         public IValidatableChangeTrackingCollection<PriceEngineeringTaskStatusWrapper> Statuses { get; private set; }
@@ -2125,7 +2158,7 @@ namespace HVTApp.Model.Wrapper
         /// <summary>
         /// Настройки расчета ПЗ
         /// </summary>
-        public IValidatableChangeTrackingCollection<PriceCalculationSettingsWrapper> PriceCalculationSettingsList { get; private set; }
+        public IValidatableChangeTrackingCollection<PriceCalculationTaskSettingWrapper> PriceCalculationTaskSettings { get; private set; }
         #endregion
         #region GetProperties
         /// <summary>
@@ -2169,15 +2202,18 @@ namespace HVTApp.Model.Wrapper
           if (Model.ChildPriceEngineeringTasks == null) throw new ArgumentException("ChildPriceEngineeringTasks cannot be null");
           ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<PriceEngineeringTaskWrapper>(Model.ChildPriceEngineeringTasks.Select(e => new PriceEngineeringTaskWrapper(e)));
           RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
+          if (Model.StructureCostVersions == null) throw new ArgumentException("StructureCostVersions cannot be null");
+          StructureCostVersions = new ValidatableChangeTrackingCollection<StructureCostVersionWrapper>(Model.StructureCostVersions.Select(e => new StructureCostVersionWrapper(e)));
+          RegisterCollection(StructureCostVersions, Model.StructureCostVersions);
           if (Model.Statuses == null) throw new ArgumentException("Statuses cannot be null");
           Statuses = new ValidatableChangeTrackingCollection<PriceEngineeringTaskStatusWrapper>(Model.Statuses.Select(e => new PriceEngineeringTaskStatusWrapper(e)));
           RegisterCollection(Statuses, Model.Statuses);
           if (Model.SalesUnits == null) throw new ArgumentException("SalesUnits cannot be null");
           SalesUnits = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(Model.SalesUnits.Select(e => new SalesUnitWrapper(e)));
           RegisterCollection(SalesUnits, Model.SalesUnits);
-          if (Model.PriceCalculationSettingsList == null) throw new ArgumentException("PriceCalculationSettingsList cannot be null");
-          PriceCalculationSettingsList = new ValidatableChangeTrackingCollection<PriceCalculationSettingsWrapper>(Model.PriceCalculationSettingsList.Select(e => new PriceCalculationSettingsWrapper(e)));
-          RegisterCollection(PriceCalculationSettingsList, Model.PriceCalculationSettingsList);
+          if (Model.PriceCalculationTaskSettings == null) throw new ArgumentException("PriceCalculationTaskSettings cannot be null");
+          PriceCalculationTaskSettings = new ValidatableChangeTrackingCollection<PriceCalculationTaskSettingWrapper>(Model.PriceCalculationTaskSettings.Select(e => new PriceCalculationTaskSettingWrapper(e)));
+          RegisterCollection(PriceCalculationTaskSettings, Model.PriceCalculationTaskSettings);
         }
 	}
 
@@ -2401,6 +2437,16 @@ namespace HVTApp.Model.Wrapper
         public System.Boolean IsOnBlockOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsOnBlock));
         public bool IsOnBlockIsChanged => GetIsChanged(nameof(IsOnBlock));
         /// <summary>
+        /// Количество
+        /// </summary>
+        public System.Boolean IsRemoved
+        {
+          get { return GetValue<System.Boolean>(); }
+          set { SetValue(value); }
+        }
+        public System.Boolean IsRemovedOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsRemoved));
+        public bool IsRemovedIsChanged => GetIsChanged(nameof(IsRemoved));
+        /// <summary>
         /// Id
         /// </summary>
         public System.Guid Id
@@ -2421,9 +2467,21 @@ namespace HVTApp.Model.Wrapper
             set { SetComplexValue<ProductBlock, ProductBlockWrapper>(ProductBlock, value); }
         }
         #endregion
+        #region CollectionProperties
+        /// <summary>
+        /// Версии SCC
+        /// </summary>
+        public IValidatableChangeTrackingCollection<StructureCostVersionWrapper> StructureCostVersions { get; private set; }
+        #endregion
         public override void InitializeComplexProperties()
         {
             InitializeComplexProperty<ProductBlockWrapper>(nameof(ProductBlock), Model.ProductBlock == null ? null : new ProductBlockWrapper(Model.ProductBlock));
+        }
+        protected override void InitializeCollectionProperties()
+        {
+          if (Model.StructureCostVersions == null) throw new ArgumentException("StructureCostVersions cannot be null");
+          StructureCostVersions = new ValidatableChangeTrackingCollection<StructureCostVersionWrapper>(Model.StructureCostVersions.Select(e => new StructureCostVersionWrapper(e)));
+          RegisterCollection(StructureCostVersions, Model.StructureCostVersions);
         }
 	}
 
@@ -2431,6 +2489,16 @@ namespace HVTApp.Model.Wrapper
 	{
 	    public PriceEngineeringTasksWrapper(PriceEngineeringTasks model) : base(model) { }
         #region SimpleProperties
+        /// <summary>
+        /// Номер ТСЕ
+        /// </summary>
+        public System.String TceNumber
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String TceNumberOriginalValue => GetOriginalValue<System.String>(nameof(TceNumber));
+        public bool TceNumberIsChanged => GetIsChanged(nameof(TceNumber));
         /// <summary>
         /// Проработать до
         /// </summary>
@@ -2471,6 +2539,14 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<UserWrapper>(); }
             set { SetComplexValue<User, UserWrapper>(UserManager, value); }
         }
+        /// <summary>
+        /// BackManager
+        /// </summary>
+	    public UserWrapper BackManager 
+        {
+            get { return GetWrapper<UserWrapper>(); }
+            set { SetComplexValue<User, UserWrapper>(BackManager, value); }
+        }
         #endregion
         #region CollectionProperties
         /// <summary>
@@ -2503,6 +2579,7 @@ namespace HVTApp.Model.Wrapper
         public override void InitializeComplexProperties()
         {
             InitializeComplexProperty<UserWrapper>(nameof(UserManager), Model.UserManager == null ? null : new UserWrapper(Model.UserManager));
+            InitializeComplexProperty<UserWrapper>(nameof(BackManager), Model.BackManager == null ? null : new UserWrapper(Model.BackManager));
         }
         protected override void InitializeCollectionProperties()
         {
@@ -2815,6 +2892,43 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Nullable<System.Int32> StructureCostVersionOriginalValue => GetOriginalValue<System.Nullable<System.Int32>>(nameof(StructureCostVersion));
         public bool StructureCostVersionIsChanged => GetIsChanged(nameof(StructureCostVersion));
+        /// <summary>
+        /// Id
+        /// </summary>
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+        #endregion
+	}
+
+		public partial class StructureCostVersionWrapper : WrapperBase<StructureCostVersion>
+	{
+	    public StructureCostVersionWrapper(StructureCostVersion model) : base(model) { }
+        #region SimpleProperties
+        /// <summary>
+        /// Номер оригинального SCC
+        /// </summary>
+        public System.String OriginalStructureCostNumber
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String OriginalStructureCostNumberOriginalValue => GetOriginalValue<System.String>(nameof(OriginalStructureCostNumber));
+        public bool OriginalStructureCostNumberIsChanged => GetIsChanged(nameof(OriginalStructureCostNumber));
+        /// <summary>
+        /// Версия стракчакоста
+        /// </summary>
+        public System.Nullable<System.Int32> Version
+        {
+          get { return GetValue<System.Nullable<System.Int32>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Int32> VersionOriginalValue => GetOriginalValue<System.Nullable<System.Int32>>(nameof(Version));
+        public bool VersionIsChanged => GetIsChanged(nameof(Version));
         /// <summary>
         /// Id
         /// </summary>

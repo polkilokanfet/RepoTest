@@ -7,16 +7,13 @@ namespace HVTApp.Model.POCOs
 {
     [Designation("Технико-стоимостная проработка (настройки калькуляции)")]
     [DesignationPlural("Технико-стоимостная проработка (настройки калькуляции)")]
-    public class PriceCalculationSettings : BaseEntity
+    public class PriceCalculationTaskSetting : BaseEntity
     {
-        [Designation("Id ТСП"), Required]
-        public virtual Guid PriceEngineeringTaskId { get; set; }
+        [Required]
+        public Guid PriceCalculationTaskId { get; set; }
 
-        /// <summary>
-        /// Момент старта задачи ТСЕ
-        /// </summary>
-        [Designation("Момент старта задачи ТСЕ"), Required]
-        public DateTime StartMoment { get; set; }
+        [Required]
+        public Guid PriceEngineeringTaskId { get; set; }
 
         [Designation("Дата ОИТ"), Required]
         public DateTime DateOrderInTake { get; set; }

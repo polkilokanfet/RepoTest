@@ -35,7 +35,8 @@ namespace HVTApp.DataAccess
     public partial class PriceCalculationItemConfiguration : EntityTypeConfiguration<PriceCalculationItem> { }
     public partial class DesignDepartmentParametersConfiguration : EntityTypeConfiguration<DesignDepartmentParameters> { }
     public partial class DesignDepartmentParametersAddedBlocksConfiguration : EntityTypeConfiguration<DesignDepartmentParametersAddedBlocks> { }
-    public partial class PriceCalculationSettingsConfiguration : EntityTypeConfiguration<PriceCalculationSettings> { }
+    public partial class PriceCalculationTaskConfiguration : EntityTypeConfiguration<PriceCalculationTask> { }
+    public partial class PriceCalculationTaskSettingConfiguration : EntityTypeConfiguration<PriceCalculationTaskSetting> { }
     public partial class PriceEngineeringTaskConfiguration : EntityTypeConfiguration<PriceEngineeringTask> { }
     public partial class PriceEngineeringTaskFileAnswerConfiguration : EntityTypeConfiguration<PriceEngineeringTaskFileAnswer> { }
     public partial class PriceEngineeringTaskFileTechnicalRequirementsConfiguration : EntityTypeConfiguration<PriceEngineeringTaskFileTechnicalRequirements> { }
@@ -47,6 +48,7 @@ namespace HVTApp.DataAccess
     public partial class PriceEngineeringTaskTceConfiguration : EntityTypeConfiguration<PriceEngineeringTaskTce> { }
     public partial class PriceEngineeringTaskTceStoryItemConfiguration : EntityTypeConfiguration<PriceEngineeringTaskTceStoryItem> { }
     public partial class PriceEngineeringTaskTceStructureCostVersionConfiguration : EntityTypeConfiguration<PriceEngineeringTaskTceStructureCostVersion> { }
+    public partial class StructureCostVersionConfiguration : EntityTypeConfiguration<StructureCostVersion> { }
     public partial class ProductCategoryConfiguration : EntityTypeConfiguration<ProductCategory> { }
     public partial class ProductCategoryPriceAndCostConfiguration : EntityTypeConfiguration<ProductCategoryPriceAndCost> { }
     public partial class ProductIncludedConfiguration : EntityTypeConfiguration<ProductIncluded> { }

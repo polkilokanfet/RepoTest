@@ -39,7 +39,8 @@ namespace HVTApp.DataAccess
             PriceCalculationItemRepository = new PriceCalculationItemRepositoryTest(testData);
             DesignDepartmentParametersRepository = new DesignDepartmentParametersRepositoryTest(testData);
             DesignDepartmentParametersAddedBlocksRepository = new DesignDepartmentParametersAddedBlocksRepositoryTest(testData);
-            PriceCalculationSettingsRepository = new PriceCalculationSettingsRepositoryTest(testData);
+            PriceCalculationTaskRepository = new PriceCalculationTaskRepositoryTest(testData);
+            PriceCalculationTaskSettingRepository = new PriceCalculationTaskSettingRepositoryTest(testData);
             PriceEngineeringTaskRepository = new PriceEngineeringTaskRepositoryTest(testData);
             PriceEngineeringTaskFileAnswerRepository = new PriceEngineeringTaskFileAnswerRepositoryTest(testData);
             PriceEngineeringTaskFileTechnicalRequirementsRepository = new PriceEngineeringTaskFileTechnicalRequirementsRepositoryTest(testData);
@@ -51,6 +52,7 @@ namespace HVTApp.DataAccess
             PriceEngineeringTaskTceRepository = new PriceEngineeringTaskTceRepositoryTest(testData);
             PriceEngineeringTaskTceStoryItemRepository = new PriceEngineeringTaskTceStoryItemRepositoryTest(testData);
             PriceEngineeringTaskTceStructureCostVersionRepository = new PriceEngineeringTaskTceStructureCostVersionRepositoryTest(testData);
+            StructureCostVersionRepository = new StructureCostVersionRepositoryTest(testData);
             ProductCategoryRepository = new ProductCategoryRepositoryTest(testData);
             ProductCategoryPriceAndCostRepository = new ProductCategoryPriceAndCostRepositoryTest(testData);
             ProductIncludedRepository = new ProductIncludedRepositoryTest(testData);
@@ -150,7 +152,8 @@ namespace HVTApp.DataAccess
         public IPriceCalculationItemRepository PriceCalculationItemRepository { get; }
         public IDesignDepartmentParametersRepository DesignDepartmentParametersRepository { get; }
         public IDesignDepartmentParametersAddedBlocksRepository DesignDepartmentParametersAddedBlocksRepository { get; }
-        public IPriceCalculationSettingsRepository PriceCalculationSettingsRepository { get; }
+        public IPriceCalculationTaskRepository PriceCalculationTaskRepository { get; }
+        public IPriceCalculationTaskSettingRepository PriceCalculationTaskSettingRepository { get; }
         public IPriceEngineeringTaskRepository PriceEngineeringTaskRepository { get; }
         public IPriceEngineeringTaskFileAnswerRepository PriceEngineeringTaskFileAnswerRepository { get; }
         public IPriceEngineeringTaskFileTechnicalRequirementsRepository PriceEngineeringTaskFileTechnicalRequirementsRepository { get; }
@@ -162,6 +165,7 @@ namespace HVTApp.DataAccess
         public IPriceEngineeringTaskTceRepository PriceEngineeringTaskTceRepository { get; }
         public IPriceEngineeringTaskTceStoryItemRepository PriceEngineeringTaskTceStoryItemRepository { get; }
         public IPriceEngineeringTaskTceStructureCostVersionRepository PriceEngineeringTaskTceStructureCostVersionRepository { get; }
+        public IStructureCostVersionRepository StructureCostVersionRepository { get; }
         public IProductCategoryRepository ProductCategoryRepository { get; }
         public IProductCategoryPriceAndCostRepository ProductCategoryPriceAndCostRepository { get; }
         public IProductIncludedRepository ProductIncludedRepository { get; }

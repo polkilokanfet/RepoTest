@@ -35,7 +35,8 @@ namespace HVTApp.DataAccess
     public partial interface IPriceCalculationItemRepository : IRepository<PriceCalculationItem> { }
     public partial interface IDesignDepartmentParametersRepository : IRepository<DesignDepartmentParameters> { }
     public partial interface IDesignDepartmentParametersAddedBlocksRepository : IRepository<DesignDepartmentParametersAddedBlocks> { }
-    public partial interface IPriceCalculationSettingsRepository : IRepository<PriceCalculationSettings> { }
+    public partial interface IPriceCalculationTaskRepository : IRepository<PriceCalculationTask> { }
+    public partial interface IPriceCalculationTaskSettingRepository : IRepository<PriceCalculationTaskSetting> { }
     public partial interface IPriceEngineeringTaskRepository : IRepository<PriceEngineeringTask> { }
     public partial interface IPriceEngineeringTaskFileAnswerRepository : IRepository<PriceEngineeringTaskFileAnswer> { }
     public partial interface IPriceEngineeringTaskFileTechnicalRequirementsRepository : IRepository<PriceEngineeringTaskFileTechnicalRequirements> { }
@@ -47,6 +48,7 @@ namespace HVTApp.DataAccess
     public partial interface IPriceEngineeringTaskTceRepository : IRepository<PriceEngineeringTaskTce> { }
     public partial interface IPriceEngineeringTaskTceStoryItemRepository : IRepository<PriceEngineeringTaskTceStoryItem> { }
     public partial interface IPriceEngineeringTaskTceStructureCostVersionRepository : IRepository<PriceEngineeringTaskTceStructureCostVersion> { }
+    public partial interface IStructureCostVersionRepository : IRepository<StructureCostVersion> { }
     public partial interface IProductCategoryRepository : IRepository<ProductCategory> { }
     public partial interface IProductCategoryPriceAndCostRepository : IRepository<ProductCategoryPriceAndCost> { }
     public partial interface IProductIncludedRepository : IRepository<ProductIncluded> { }

@@ -44,11 +44,11 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
 
                     var unitOfWork = _container.Resolve<IUnitOfWork>();
 
-                    var settingsList = unitOfWork.Repository<PriceCalculationSettings>().GetAll();
-                    foreach (var item in settingsList)
-                    {
-                        unitOfWork.Repository<PriceCalculationSettings>().Delete(item);
-                    }
+                    //var settingsList = unitOfWork.Repository<PriceCalculationSettings>().GetAll();
+                    //foreach (var item in settingsList)
+                    //{
+                    //    unitOfWork.Repository<PriceCalculationSettings>().Delete(item);
+                    //}
 
                     unitOfWork.SaveChanges();
                     unitOfWork.Dispose();

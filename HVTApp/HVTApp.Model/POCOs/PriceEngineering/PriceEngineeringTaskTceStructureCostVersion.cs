@@ -21,4 +21,21 @@ namespace HVTApp.Model.POCOs
         [Designation("Версия стракчакоста")]
         public int? StructureCostVersion { get; set; } = null;
     }
+
+    [Designation("Технико-стоимостная проработка - версия стракчакоста")]
+    [DesignationPlural("Технико-стоимостная проработка - версии стракчакоста")]
+    public class StructureCostVersion : BaseEntity
+    {
+        public Guid? PriceEngineeringTaskId { get; set; }
+        public Guid? PriceEngineeringTaskProductBlockAddedId { get; set; }
+        
+        /// <summary>
+        /// Номер оригинального SCC (от ОГК)
+        /// </summary>
+        [Designation("Номер оригинального SCC"), MaxLength(50)]
+        public string OriginalStructureCostNumber { get; set; }
+
+        [Designation("Версия стракчакоста")]
+        public int? Version { get; set; } = null;
+    }
 }
