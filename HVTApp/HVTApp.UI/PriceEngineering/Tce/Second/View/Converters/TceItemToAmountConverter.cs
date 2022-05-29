@@ -11,7 +11,7 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second.View.Converters
         {
             if (value is TasksTceItem tasksTceItem)
             {
-                return tasksTceItem.PriceEngineeringTask.SalesUnits.Count;
+                return tasksTceItem.Model.SalesUnits.Count;
             }
 
             return default(int);

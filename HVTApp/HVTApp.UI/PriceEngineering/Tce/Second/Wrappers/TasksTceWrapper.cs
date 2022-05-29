@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using HVTApp.Infrastructure;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base;
@@ -47,7 +50,7 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
 
         #endregion
 
-        public IEnumerable<TasksTceItem> Items { get; }
+        public IValidatableChangeTrackingCollection<TasksTceItem> Items { get; }
 
         public TasksTceWrapper(PriceEngineeringTasks model) : base(model)
         {
@@ -55,25 +58,32 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
             InitializeComplexProperty(nameof(BackManager), Model.BackManager == null ? null : new UserEmptyWrapper(Model.BackManager));
 
             if (Model.PriceCalculations == null) throw new ArgumentException("PriceCalculations cannot be null");
-            PriceCalculations = new ValidatableChangeTrackingCollection<PriceCalculationWrapper>(Model.PriceCalculations.Select(e => new PriceCalculationWrapper(e)));
+            PriceCalculations = new ValidatableChangeTrackingCollection<PriceCalculationWrapper>(Model.PriceCalculations.Select(x => new PriceCalculationWrapper(x)));
             RegisterCollection(PriceCalculations, Model.PriceCalculations);
 
-            Items = model.ChildPriceEngineeringTasks.Select(x => new TasksTceItem(x));
+            Items = new ValidatableChangeTrackingCollection<TasksTceItem>(model.ChildPriceEngineeringTasks.Select(x => new TasksTceItem(x)));
+            RegisterCollection(Items, Model.ChildPriceEngineeringTasks);
+        }
+
+        protected override IEnumerable<ValidationResult> ValidateOther()
+        {
+            if (GlobalAppProperties.User.RoleCurrent == Role.BackManager)
+            {
+                if (TceNumber == null)
+                    yield return new ValidationResult("TceNumber is required", new[] { nameof(TceNumber) });
+            }
         }
     }
 
-    public class TasksTceItem
+    public class TasksTceItem : WrapperBase<PriceEngineeringTask>
     {
-        public PriceEngineeringTask PriceEngineeringTask { get; }
         public List<ISccContainer> SccVersions { get; } = new List<ISccContainer>();
 
-        public TasksTceItem(PriceEngineeringTask priceEngineeringTask)
+        public TasksTceItem(PriceEngineeringTask priceEngineeringTask) : base(priceEngineeringTask)
         {
-            PriceEngineeringTask = priceEngineeringTask;
-
             foreach (var task in priceEngineeringTask.GetAllPriceEngineeringTasks())
             {
-                SccVersions.Add(new SccVersionWrapperPriceEngineering(task));
+                SccVersions.Add(new SccVersionWrapperTask(task));
                 foreach (var blockAdded in task.ProductBlocksAdded)
                 {
                     SccVersions.Add(new SccVersionWrapperBlockAdded(blockAdded));
@@ -88,7 +98,7 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
         SccVersionWrapper TargetSccVersion { get; }
     }
 
-    public class SccVersionWrapperPriceEngineering : WrapperBase<PriceEngineeringTask>, ISccContainer
+    public class SccVersionWrapperTask : WrapperBase<PriceEngineeringTask>, ISccContainer
     {
         /// <summary>
         /// Версии SCC
@@ -97,7 +107,7 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
 
         public SccVersionWrapper TargetSccVersion { get; }
 
-        public SccVersionWrapperPriceEngineering(PriceEngineeringTask model) : base(model)
+        public SccVersionWrapperTask(PriceEngineeringTask model) : base(model)
         {
             if (Model.StructureCostVersions == null) throw new ArgumentException("StructureCostVersions cannot be null");
             StructureCostVersions = new ValidatableChangeTrackingCollection<SccVersionWrapper>(Model.StructureCostVersions.Select(x => new SccVersionWrapper(x, model.ProductBlockEngineer.ToString())));
@@ -145,20 +155,9 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
             {
                 TargetSccVersion = new SccVersionWrapper(new StructureCostVersion
                 {
-                    OriginalStructureCostNumber = originalStructureCostNumber
-                }, Model.ProductBlock.ToString());
+                    OriginalStructureCostNumber = originalStructureCostNumber}, Model.ProductBlock.ToString());
                 this.StructureCostVersions.Add(TargetSccVersion);
             }
-        }
-    }
-
-    public class SccVersionWrapper : StructureCostVersionWrapper
-    {
-        public string Name { get; }
-
-        public SccVersionWrapper(StructureCostVersion model, string name) : base(model)
-        {
-            Name = name;
         }
     }
 }

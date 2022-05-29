@@ -11,7 +11,7 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second.View.Converters
         {
             if (value is TasksTceItem taskTceItem)
             {
-                return taskTceItem.PriceEngineeringTask.ProductBlockEngineer.ToString();
+                return taskTceItem.Model.ProductBlockEngineer.ToString();
             }
 
             return default(string);

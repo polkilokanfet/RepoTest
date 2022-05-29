@@ -12,7 +12,7 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second.View.Converters
         {
             if (value is TasksTceItem taskTceItem)
             {
-                var facility = taskTceItem.PriceEngineeringTask.SalesUnits.First().Facility;
+                var facility = taskTceItem.Model.SalesUnits.First().Facility;
 
                 return $"{facility} (владелец: {facility.OwnerCompany}; адрес: {facility.Address};)";
             }

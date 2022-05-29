@@ -347,7 +347,8 @@
     <Compile Include="PriceEngineering\Tce\List\View\PriceEngineeringTasksTceView.xaml.cs">
       <DependentUpon>PriceEngineeringTasksTceView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PriceEngineering\Tce\Second\TasksTceWrapper.cs" />
+    <Compile Include="PriceEngineering\Tce\Second\Wrappers\SccVersionWrapper.cs" />
+    <Compile Include="PriceEngineering\Tce\Second\Wrappers\TasksTceWrapper.cs" />
     <Compile Include="PriceEngineering\Tce\Second\View\Converters\TceItemToAmountConverter.cs" />
     <Compile Include="PriceEngineering\Tce\Second\View\Converters\TceItemToFacilityConverter.cs" />
     <Compile Include="PriceEngineering\Tce\Second\View\Converters\TceItemToProductConverter.cs" />
