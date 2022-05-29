@@ -347,6 +347,22 @@
     <Compile Include="PriceEngineering\Tce\List\View\PriceEngineeringTasksTceView.xaml.cs">
       <DependentUpon>PriceEngineeringTasksTceView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PriceEngineering\Tce\Second\TasksTceWrapper.cs" />
+    <Compile Include="PriceEngineering\Tce\Second\View\Converters\TceItemToAmountConverter.cs" />
+    <Compile Include="PriceEngineering\Tce\Second\View\Converters\TceItemToFacilityConverter.cs" />
+    <Compile Include="PriceEngineering\Tce\Second\View\Converters\TceItemToProductConverter.cs" />
+    <Compile Include="PriceEngineering\Tce\Second\View\TabTaskTceView.xaml.cs">
+      <DependentUpon>TabTaskTceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\Tce\Second\View\TasksTceView.xaml.cs">
+      <DependentUpon>TasksTceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\Tce\Second\View\TasksTceItemControl.xaml.cs">
+      <DependentUpon>TasksTceItemControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\Tce\Second\View\SccVersionControl.xaml.cs">
+      <DependentUpon>SccVersionControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PriceEngineering\Tce\Tabs\TabPriceEngineeringTaskTce.xaml.cs">
       <DependentUpon>TabPriceEngineeringTaskTce.xaml</DependentUpon>
     </Compile>
@@ -357,6 +373,7 @@
     <Compile Include="PriceEngineering\Tce\Unit\ViewModel\PriceEngineeringTaskTceViewModelBackManager.cs" />
     <Compile Include="PriceEngineering\Tce\Unit\ViewModel\PriceEngineeringTaskTceViewModelBackManagerBoss.cs" />
     <Compile Include="PriceEngineering\Tce\Unit\ViewModel\PriceEngineeringTaskTceViewModelFrontManager.cs" />
+    <Compile Include="PriceEngineering\Tce\Second\TasksTceViewModel.cs" />
     <Compile Include="PriceEngineering\Tce\Unit\View\TceStructureCostVersionControl.xaml.cs">
       <DependentUpon>TceStructureCostVersionControl.xaml</DependentUpon>
     </Compile>
@@ -1719,6 +1736,22 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="PriceEngineering\Tce\List\View\PriceEngineeringTasksTceView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceEngineering\Tce\Second\View\TabTaskTceView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceEngineering\Tce\Second\View\TasksTceView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceEngineering\Tce\Second\View\TasksTceItemControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceEngineering\Tce\Second\View\SccVersionControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

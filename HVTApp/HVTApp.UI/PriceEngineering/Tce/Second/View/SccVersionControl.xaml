@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="HVTApp.UI.PriceEngineering.Tce.Second.View.SccVersionControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:editors="http://infragistics.com/Editors"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.Tce.Second.View"
+             x:Name="Root">
+
+    <!--Версия SCC-->
+    <Border BorderBrush="Black" BorderThickness="1" Padding="3" Background="Gainsboro" CornerRadius="5">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="30"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox Grid.Column="0" 
+                     Text="{Binding ElementName=Root, Path=SccVersion.Name, Mode=OneWay}" 
+                     BorderThickness="0"
+                     IsReadOnly="True"/>
+
+            <Label Grid.Column="1" Content=" SCC от ОГК:"/>
+
+            <TextBox Grid.Column="2" 
+                     Text="{Binding ElementName=Root, Path=SccVersion.OriginalStructureCostNumber, Mode=OneWay}" 
+                     BorderThickness="0"
+                     IsReadOnly="True"/>
+
+            <Label Grid.Column="3" Content=" V:"/>
+
+            <editors:XamNumericEditor Grid.Column="4"
+                                      Value="{Binding ElementName=Root, Path=SccVersion.Version, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ValueType="system:Int32"
+                                      IsEnabled="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type view:TasksTceView}}, Path=DataContext.AllowEdit, UpdateSourceTrigger=PropertyChanged}"/>
+        </Grid>
+    </Border>
+
+</UserControl>

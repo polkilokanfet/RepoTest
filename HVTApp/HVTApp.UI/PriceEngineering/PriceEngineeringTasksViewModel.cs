@@ -16,6 +16,7 @@ using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
 using HVTApp.UI.PriceCalculations.View;
 using HVTApp.UI.PriceEngineering.Comparers;
+using HVTApp.UI.PriceEngineering.Tce.Second.View;
 using HVTApp.UI.PriceEngineering.Tce.Unit;
 using HVTApp.UI.PriceEngineering.Tce.Unit.ViewModel;
 using Microsoft.Practices.ObjectBuilder2;
@@ -128,7 +129,7 @@ namespace HVTApp.UI.PriceEngineering
         public DelegateLogCommand StartCommand { get; }
         public DelegateLogCommand OpenPriceCalculationCommand { get; }
         public DelegateLogCommand CreatePriceCalculationCommand { get; }
-        public DelegateLogCommand TransferToTceCommand { get; }
+        public DelegateLogCommand OpenTceCommand { get; }
 
         #endregion
 
@@ -404,12 +405,12 @@ namespace HVTApp.UI.PriceEngineering
                 () => this.PriceEngineeringTasksWrapper != null && this.IsNew == false);
 
 
-            TransferToTceCommand = new DelegateLogCommand(
+            OpenTceCommand = new DelegateLogCommand(
                 () =>
                 {
-                    this.Container.Resolve<IRegionManager>().RequestNavigateContentRegion<PriceEngineeringTaskTceView>(new NavigationParameters
+                    this.Container.Resolve<IRegionManager>().RequestNavigateContentRegion<TasksTceView>(new NavigationParameters
                     {
-                        {string.Empty, this.PriceEngineeringTasksWrapper.Model.ChildPriceEngineeringTasks}
+                        {nameof(PriceEngineeringTasks), this.PriceEngineeringTasksWrapper.Model}
                     });
                 });
 
