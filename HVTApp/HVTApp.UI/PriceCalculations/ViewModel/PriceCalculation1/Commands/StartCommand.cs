@@ -40,7 +40,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
 
         protected override bool CanExecuteMethod()
         {
-            return !_viewModel.IsStarted && 
+            return _viewModel.IsStarted == false && 
                    _viewModel.PriceCalculationWrapper.IsValid && 
                    GlobalAppProperties.User.Id == _viewModel.PriceCalculationWrapper.Initiator?.Id;
         }

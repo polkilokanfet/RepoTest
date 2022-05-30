@@ -49,12 +49,12 @@
         
         <infRib:ButtonTool Caption="Стартовать"
                            Command="{Binding StartCommand}"
-                           Visibility="{Binding StartVisibility, Converter={StaticResource BooleanToVisibilityConverter}}"
+                           Visibility="{Binding StartVisibility, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}"
                            SmallImage="/HVTApp.UI;component/Images/start.png" />
         
         <infRib:ButtonTool Caption="Остановить"
                            Command="{Binding CancelCommand}"
-                           Visibility="{Binding StartVisibility, Converter={StaticResource BooleanToVisibilityConverter}}"
+                           Visibility="{Binding StartVisibility, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}"
                            SmallImage="/HVTApp.UI;component/Images/stop.png" />
 
         <infRib:ButtonTool Caption="Отклонить"

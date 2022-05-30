@@ -4,16 +4,31 @@ using System.ComponentModel;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
+using HVTApp.UI.Commands;
 using HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands;
 using HVTApp.UI.PriceCalculations.ViewModel.Wrapper;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
 {
+    public class PriceCalculationViewModelBackManager : PriceCalculationViewModel
+    {
+        public PriceCalculationViewModelBackManager(IUnityContainer container) : base(container)
+        {
+        }
+    }
+
+    public class PriceCalculationViewModelFrontManager : PriceCalculationViewModel
+    {
+        public PriceCalculationViewModelFrontManager(IUnityContainer container) : base(container)
+        {
+        }
+    }
     public class PriceCalculationViewModel : ViewModelBaseCanExportToExcel
     {
         private object _selectedItem;
@@ -31,13 +46,36 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
                 RemoveGroupCommand.RaiseCanExecuteChanged();
                 FinishCommand.RaiseCanExecuteChanged();
                 DivideCommand.RaiseCanExecuteChanged();
+                ChangePaymentsCommand.RaiseCanExecuteChanged();
             }
         }
         public bool CurrentUserIsManager => GlobalAppProperties.User.RoleCurrent == Role.SalesManager;
         public bool CurrentUserIsBackManager => GlobalAppProperties.User.RoleCurrent == Role.BackManager;
         public bool CurrentUserIsPricer => GlobalAppProperties.User.RoleCurrent == Role.Pricer;
 
-        public bool StartVisibility => CurrentUserIsManager || CurrentUserIsBackManager;
+        public bool StartVisibility
+        {
+            get
+            {
+                if (CurrentUserIsManager == false && CurrentUserIsBackManager == false) return false;
+                return SccIsExpandable;
+            }
+        }
+
+        public bool SccIsExpandable
+        {
+            get
+            {
+                if (this.PriceCalculationWrapper == null)
+                    return false;
+
+                if (this.PriceCalculationWrapper.Model.IsTceConnected
+                    && this.PriceCalculationWrapper.Model.LastHistoryItem?.Type == PriceCalculationHistoryItemType.Create)
+                    return false;
+
+                return true;
+            }
+        }
 
         public bool IsStarted => 
             PriceCalculationWrapper != null && 
@@ -90,6 +128,8 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
         public LoadFileToDbCommand LoadFileToDbCommand { get; }
         public LoadFileFromDbCommand LoadFileFromDbCommand { get; }
 
+        public DelegateLogCommand ChangePaymentsCommand { get; }
+
         #endregion
 
         public PriceCalculation2Wrapper PriceCalculationWrapper
@@ -105,6 +145,11 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
                     StartCommand.RaiseCanExecuteChanged();
                     FinishCommand.RaiseCanExecuteChanged();
                     LoadFileFromDbCommand.RaiseCanExecuteChanged();
+                };
+                PriceCalculationWrapper.History.CollectionChanged += (sender, args) =>
+                {
+                    RaisePropertyChanged(nameof(StartVisibility));
+                    RaisePropertyChanged(nameof(SccIsExpandable));
                 };
                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsStarted)));
                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(CanChangePrice)));
@@ -129,6 +174,16 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
             DivideCommand = new DivideCommand(this, this.Container);
             LoadFileToDbCommand = new LoadFileToDbCommand(this, this.Container);
             LoadFileFromDbCommand = new LoadFileFromDbCommand(this, this.Container);
+
+            ChangePaymentsCommand = new DelegateLogCommand(
+                () =>
+                {
+                    var paymentConditionSets = UnitOfWork.Repository<PaymentConditionSet>().GetAll();
+                    var paymentConditionSet = container.Resolve<ISelectService>().SelectItem(paymentConditionSets);
+                    if (paymentConditionSet != null)
+                        ((PriceCalculationItem2Wrapper) SelectedItem).PaymentConditionSet = paymentConditionSet;
+                },
+                () => SelectedItem is PriceCalculationItem2Wrapper);
 
             PriceCalculationWrapper = new PriceCalculation2Wrapper(new PriceCalculation());
             GenerateNewHistoryItem();
@@ -287,7 +342,6 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
             this.PriceCalculationWrapper.Model.IsTceConnected = isTceConnected;
 
             //добавдение статуса "Создано"
-            GenerateNewHistoryItem();
             HistoryItem.Type = PriceCalculationHistoryItemType.Create;
             PriceCalculationWrapper.History.Add(HistoryItem);
         }

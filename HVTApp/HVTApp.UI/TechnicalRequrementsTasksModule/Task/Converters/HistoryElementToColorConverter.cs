@@ -64,6 +64,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule.Converters
                         return Colors.LightPink;
                     case PriceCalculationHistoryItemType.Finish:
                         return Colors.LightGreen;
+                    case PriceCalculationHistoryItemType.Create:
+                        return Colors.LightGray;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
