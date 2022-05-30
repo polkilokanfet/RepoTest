@@ -47,6 +47,8 @@ namespace HVTApp.UI.Converter
                         return "Завершено";
                     case PriceCalculationHistoryItemType.Reject:
                         return "Отклонено";
+                    case PriceCalculationHistoryItemType.Create:
+                        return "Создано";
                     default:
                         throw new ArgumentOutOfRangeException();
                 }

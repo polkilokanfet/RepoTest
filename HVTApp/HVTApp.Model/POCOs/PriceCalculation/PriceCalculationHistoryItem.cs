@@ -29,6 +29,7 @@ namespace HVTApp.Model.POCOs
         Start,
         Stop,
         Reject,
-        Finish
+        Finish,
+        Create
     }
 }

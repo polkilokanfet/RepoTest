@@ -24,10 +24,10 @@ namespace HVTApp.UI.PriceEngineering.Tce.Unit.ViewModel
                     SaveCommand.Execute(null);
                     FinishCommand.RaiseCanExecuteChanged();
 
-                    //נאסק¸ע ַֿ
-                    var priceCalculationViewModel = container.Resolve<PriceCalculationViewModel>();
-                    priceCalculationViewModel.Load(this.Item.Model);
-                    priceCalculationViewModel.StartCommand.Execute();
+                    ////נאסק¸ע ַֿ
+                    //var priceCalculationViewModel = container.Resolve<PriceCalculationViewModel>();
+                    //priceCalculationViewModel.Load(this.Item.Model);
+                    //priceCalculationViewModel.StartCommand.Execute();
                 },
                 () =>
                     this.Item != null &&

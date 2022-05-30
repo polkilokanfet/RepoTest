@@ -21,9 +21,9 @@ namespace HVTApp.DataAccess
 
             HasMany(x => x.SalesUnits).WithMany();
 
-            HasMany(x => x.PriceCalculationTaskSettings).WithRequired().HasForeignKey(x => x.PriceEngineeringTaskId).WillCascadeOnDelete(false);
-
             HasMany(x => x.StructureCostVersions).WithOptional().HasForeignKey(x => x.PriceEngineeringTaskId).WillCascadeOnDelete(false);
+
+            HasMany(x => x.PriceCalculationItems).WithOptional().HasForeignKey(x => x.PriceEngineeringTaskId).WillCascadeOnDelete(false);
         }
     }
 }

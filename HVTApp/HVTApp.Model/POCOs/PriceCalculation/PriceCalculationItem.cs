@@ -14,6 +14,10 @@ namespace HVTApp.Model.POCOs
     {
         public Guid PriceCalculationId { get; set; }
 
+
+        public Guid? PriceEngineeringTaskId { get; set; }
+
+
         [Designation("Единицы продаж"), Required]
         public virtual List<SalesUnit> SalesUnits { get; set; } = new List<SalesUnit>();
 

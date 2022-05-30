@@ -120,8 +120,6 @@
     <Compile Include="POCOs\PriceEngineering\DesignDepartmentParameters.cs" />
     <Compile Include="POCOs\PriceEngineering\DesignDepartmentParametersAddedBlocks.cs" />
     <Compile Include="POCOs\PriceEngineering\IProductBlockContainer.cs" />
-    <Compile Include="POCOs\PriceEngineering\PriceCalculationTask.cs" />
-    <Compile Include="POCOs\PriceEngineering\PriceCalculationTaskSetting.cs" />
     <Compile Include="POCOs\PriceEngineering\PriceEngineeringTask.cs" />
     <Compile Include="POCOs\PriceEngineering\PriceEngineeringTaskFileAnswer.cs" />
     <Compile Include="POCOs\PriceEngineering\PriceEngineeringTaskFileTechnicalRequirements.cs" />
@@ -239,7 +237,6 @@
     <Compile Include="Wrapper\Base\TrackingCollections\ValidatableChangeTrackingCollection.cs" />
     <Compile Include="Wrapper\Base\WrapperBase.cs" />
     <Compile Include="Wrapper\Custom\Empty\DesignDepartmentEmptyWrapper.cs" />
-    <Compile Include="Wrapper\Custom\Empty\PriceCalculationSettingsEmptyWrapper.cs" />
     <Compile Include="Wrapper\Custom\Empty\PriceEngineeringTaskEmptyWrapper.cs" />
     <Compile Include="Wrapper\Custom\Empty\ProductBlockEmptyWrapper.cs" />
     <Compile Include="Wrapper\Custom\Empty\UserEmptyWrapper.cs" />

@@ -163,16 +163,6 @@ namespace HVTApp.DataAccess
         public DesignDepartmentParametersAddedBlocksRepositoryTest(TestData testData) : base(testData) {}
     }
 
-    public partial class PriceCalculationTaskRepositoryTest : TestBaseRepository<PriceCalculationTask>, IPriceCalculationTaskRepository
-    {
-        public PriceCalculationTaskRepositoryTest(TestData testData) : base(testData) {}
-    }
-
-    public partial class PriceCalculationTaskSettingRepositoryTest : TestBaseRepository<PriceCalculationTaskSetting>, IPriceCalculationTaskSettingRepository
-    {
-        public PriceCalculationTaskSettingRepositoryTest(TestData testData) : base(testData) {}
-    }
-
     public partial class PriceEngineeringTaskRepositoryTest : TestBaseRepository<PriceEngineeringTask>, IPriceEngineeringTaskRepository
     {
         public PriceEngineeringTaskRepositoryTest(TestData testData) : base(testData) {}

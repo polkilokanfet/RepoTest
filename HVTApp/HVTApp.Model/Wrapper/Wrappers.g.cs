@@ -1545,6 +1545,16 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.Guid> PriceEngineeringTaskTceIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(PriceEngineeringTaskTceId));
         public bool PriceEngineeringTaskTceIdIsChanged => GetIsChanged(nameof(PriceEngineeringTaskTceId));
         /// <summary>
+        /// Связано с ТСЕ
+        /// </summary>
+        public System.Boolean IsTceConnected
+        {
+          get { return GetValue<System.Boolean>(); }
+          set { SetValue(value); }
+        }
+        public System.Boolean IsTceConnectedOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsTceConnected));
+        public bool IsTceConnectedIsChanged => GetIsChanged(nameof(IsTceConnected));
+        /// <summary>
         /// Id
         /// </summary>
         public System.Guid Id
@@ -1750,6 +1760,16 @@ namespace HVTApp.Model.Wrapper
         public System.Guid PriceCalculationIdOriginalValue => GetOriginalValue<System.Guid>(nameof(PriceCalculationId));
         public bool PriceCalculationIdIsChanged => GetIsChanged(nameof(PriceCalculationId));
         /// <summary>
+        /// PriceEngineeringTaskId
+        /// </summary>
+        public System.Nullable<System.Guid> PriceEngineeringTaskId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> PriceEngineeringTaskIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(PriceEngineeringTaskId));
+        public bool PriceEngineeringTaskIdIsChanged => GetIsChanged(nameof(PriceEngineeringTaskId));
+        /// <summary>
         /// Дата ОИТ
         /// </summary>
         public System.Nullable<System.DateTime> OrderInTakeDate
@@ -1923,106 +1943,6 @@ namespace HVTApp.Model.Wrapper
         }
 	}
 
-		public partial class PriceCalculationTaskWrapper : WrapperBase<PriceCalculationTask>
-	{
-	    public PriceCalculationTaskWrapper(PriceCalculationTask model) : base(model) { }
-        #region SimpleProperties
-        /// <summary>
-        /// Id
-        /// </summary>
-        public System.Guid Id
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
-        public bool IdIsChanged => GetIsChanged(nameof(Id));
-        #endregion
-        #region CollectionProperties
-        /// <summary>
-        /// Настройки
-        /// </summary>
-        public IValidatableChangeTrackingCollection<PriceCalculationTaskSettingWrapper> Settings { get; private set; }
-        #endregion
-        protected override void InitializeCollectionProperties()
-        {
-          if (Model.Settings == null) throw new ArgumentException("Settings cannot be null");
-          Settings = new ValidatableChangeTrackingCollection<PriceCalculationTaskSettingWrapper>(Model.Settings.Select(e => new PriceCalculationTaskSettingWrapper(e)));
-          RegisterCollection(Settings, Model.Settings);
-        }
-	}
-
-		public partial class PriceCalculationTaskSettingWrapper : WrapperBase<PriceCalculationTaskSetting>
-	{
-	    public PriceCalculationTaskSettingWrapper(PriceCalculationTaskSetting model) : base(model) { }
-        #region SimpleProperties
-        /// <summary>
-        /// PriceCalculationTaskId
-        /// </summary>
-        public System.Guid PriceCalculationTaskId
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid PriceCalculationTaskIdOriginalValue => GetOriginalValue<System.Guid>(nameof(PriceCalculationTaskId));
-        public bool PriceCalculationTaskIdIsChanged => GetIsChanged(nameof(PriceCalculationTaskId));
-        /// <summary>
-        /// PriceEngineeringTaskId
-        /// </summary>
-        public System.Guid PriceEngineeringTaskId
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid PriceEngineeringTaskIdOriginalValue => GetOriginalValue<System.Guid>(nameof(PriceEngineeringTaskId));
-        public bool PriceEngineeringTaskIdIsChanged => GetIsChanged(nameof(PriceEngineeringTaskId));
-        /// <summary>
-        /// Дата ОИТ
-        /// </summary>
-        public System.DateTime DateOrderInTake
-        {
-          get { return GetValue<System.DateTime>(); }
-          set { SetValue(value); }
-        }
-        public System.DateTime DateOrderInTakeOriginalValue => GetOriginalValue<System.DateTime>(nameof(DateOrderInTake));
-        public bool DateOrderInTakeIsChanged => GetIsChanged(nameof(DateOrderInTake));
-        /// <summary>
-        /// Дата реализации
-        /// </summary>
-        public System.DateTime DateRealization
-        {
-          get { return GetValue<System.DateTime>(); }
-          set { SetValue(value); }
-        }
-        public System.DateTime DateRealizationOriginalValue => GetOriginalValue<System.DateTime>(nameof(DateRealization));
-        public bool DateRealizationIsChanged => GetIsChanged(nameof(DateRealization));
-        /// <summary>
-        /// Id
-        /// </summary>
-        public System.Guid Id
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
-        public bool IdIsChanged => GetIsChanged(nameof(Id));
-        #endregion
-        #region ComplexProperties
-        /// <summary>
-        /// Условия оплаты
-        /// </summary>
-	    public PaymentConditionSetWrapper PaymentConditionSet 
-        {
-            get { return GetWrapper<PaymentConditionSetWrapper>(); }
-            set { SetComplexValue<PaymentConditionSet, PaymentConditionSetWrapper>(PaymentConditionSet, value); }
-        }
-        #endregion
-        public override void InitializeComplexProperties()
-        {
-            InitializeComplexProperty<PaymentConditionSetWrapper>(nameof(PaymentConditionSet), Model.PaymentConditionSet == null ? null : new PaymentConditionSetWrapper(Model.PaymentConditionSet));
-        }
-	}
-
 		public partial class PriceEngineeringTaskWrapper : WrapperBase<PriceEngineeringTask>
 	{
 	    public PriceEngineeringTaskWrapper(PriceEngineeringTask model) : base(model) { }
@@ -2148,6 +2068,10 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public IValidatableChangeTrackingCollection<StructureCostVersionWrapper> StructureCostVersions { get; private set; }
         /// <summary>
+        /// Строки расчётов ПЗ
+        /// </summary>
+        public IValidatableChangeTrackingCollection<PriceCalculationItemWrapper> PriceCalculationItems { get; private set; }
+        /// <summary>
         /// Статусы проработки
         /// </summary>
         public IValidatableChangeTrackingCollection<PriceEngineeringTaskStatusWrapper> Statuses { get; private set; }
@@ -2155,10 +2079,6 @@ namespace HVTApp.Model.Wrapper
         /// SalesUnits
         /// </summary>
         public IValidatableChangeTrackingCollection<SalesUnitWrapper> SalesUnits { get; private set; }
-        /// <summary>
-        /// Настройки расчета ПЗ
-        /// </summary>
-        public IValidatableChangeTrackingCollection<PriceCalculationTaskSettingWrapper> PriceCalculationTaskSettings { get; private set; }
         #endregion
         #region GetProperties
         /// <summary>
@@ -2205,15 +2125,15 @@ namespace HVTApp.Model.Wrapper
           if (Model.StructureCostVersions == null) throw new ArgumentException("StructureCostVersions cannot be null");
           StructureCostVersions = new ValidatableChangeTrackingCollection<StructureCostVersionWrapper>(Model.StructureCostVersions.Select(e => new StructureCostVersionWrapper(e)));
           RegisterCollection(StructureCostVersions, Model.StructureCostVersions);
+          if (Model.PriceCalculationItems == null) throw new ArgumentException("PriceCalculationItems cannot be null");
+          PriceCalculationItems = new ValidatableChangeTrackingCollection<PriceCalculationItemWrapper>(Model.PriceCalculationItems.Select(e => new PriceCalculationItemWrapper(e)));
+          RegisterCollection(PriceCalculationItems, Model.PriceCalculationItems);
           if (Model.Statuses == null) throw new ArgumentException("Statuses cannot be null");
           Statuses = new ValidatableChangeTrackingCollection<PriceEngineeringTaskStatusWrapper>(Model.Statuses.Select(e => new PriceEngineeringTaskStatusWrapper(e)));
           RegisterCollection(Statuses, Model.Statuses);
           if (Model.SalesUnits == null) throw new ArgumentException("SalesUnits cannot be null");
           SalesUnits = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(Model.SalesUnits.Select(e => new SalesUnitWrapper(e)));
           RegisterCollection(SalesUnits, Model.SalesUnits);
-          if (Model.PriceCalculationTaskSettings == null) throw new ArgumentException("PriceCalculationTaskSettings cannot be null");
-          PriceCalculationTaskSettings = new ValidatableChangeTrackingCollection<PriceCalculationTaskSettingWrapper>(Model.PriceCalculationTaskSettings.Select(e => new PriceCalculationTaskSettingWrapper(e)));
-          RegisterCollection(PriceCalculationTaskSettings, Model.PriceCalculationTaskSettings);
         }
 	}
 
@@ -2437,7 +2357,7 @@ namespace HVTApp.Model.Wrapper
         public System.Boolean IsOnBlockOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsOnBlock));
         public bool IsOnBlockIsChanged => GetIsChanged(nameof(IsOnBlock));
         /// <summary>
-        /// Количество
+        /// Удалено
         /// </summary>
         public System.Boolean IsRemoved
         {
@@ -2909,6 +2829,26 @@ namespace HVTApp.Model.Wrapper
 	{
 	    public StructureCostVersionWrapper(StructureCostVersion model) : base(model) { }
         #region SimpleProperties
+        /// <summary>
+        /// PriceEngineeringTaskId
+        /// </summary>
+        public System.Nullable<System.Guid> PriceEngineeringTaskId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> PriceEngineeringTaskIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(PriceEngineeringTaskId));
+        public bool PriceEngineeringTaskIdIsChanged => GetIsChanged(nameof(PriceEngineeringTaskId));
+        /// <summary>
+        /// PriceEngineeringTaskProductBlockAddedId
+        /// </summary>
+        public System.Nullable<System.Guid> PriceEngineeringTaskProductBlockAddedId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> PriceEngineeringTaskProductBlockAddedIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(PriceEngineeringTaskProductBlockAddedId));
+        public bool PriceEngineeringTaskProductBlockAddedIdIsChanged => GetIsChanged(nameof(PriceEngineeringTaskProductBlockAddedId));
         /// <summary>
         /// Номер оригинального SCC
         /// </summary>

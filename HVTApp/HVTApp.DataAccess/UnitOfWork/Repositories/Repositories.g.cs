@@ -228,20 +228,6 @@ namespace HVTApp.DataAccess
 		}
     }
 
-    public partial class PriceCalculationTaskRepository : BaseRepository<PriceCalculationTask>, IPriceCalculationTaskRepository
-    {
-		public PriceCalculationTaskRepository(DbContext context) : base(context) 
-		{
-		}
-    }
-
-    public partial class PriceCalculationTaskSettingRepository : BaseRepository<PriceCalculationTaskSetting>, IPriceCalculationTaskSettingRepository
-    {
-		public PriceCalculationTaskSettingRepository(DbContext context) : base(context) 
-		{
-		}
-    }
-
     public partial class PriceEngineeringTaskRepository : BaseRepository<PriceEngineeringTask>, IPriceEngineeringTaskRepository
     {
 		public PriceEngineeringTaskRepository(DbContext context) : base(context) 

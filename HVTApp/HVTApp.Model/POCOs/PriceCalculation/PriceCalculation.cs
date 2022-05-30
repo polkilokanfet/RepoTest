@@ -84,7 +84,8 @@ namespace HVTApp.Model.POCOs
         [Designation("Id задачи ТСЕ")]
         public Guid? PriceEngineeringTaskTceId { get; set; }
 
-        
+        [Designation("Связано с ТСЕ")]
+        public bool IsTceConnected { get; set; } = false;
 
         public User FrontManager
         {

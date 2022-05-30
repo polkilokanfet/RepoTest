@@ -18,6 +18,13 @@ namespace HVTApp.UI.Lookup
                 .Select(x => x.Facility)
                 .Distinct();
 
+        [Designation("Блоки"), OrderStatus(4000)]
+        public IEnumerable<ProductBlock> ProductBlocks =>
+            Entity.ChildPriceEngineeringTasks
+                .Select(x => x.ProductBlockEngineer)
+                .Distinct()
+                .OrderBy(x => x.Designation);
+
         public string StatusString
         {
             get
@@ -80,8 +87,32 @@ namespace HVTApp.UI.Lookup
                     case Role.DesignDepartmentHead:
                     {
                         var tasks = Entity.GetSuitableTasksForInstruct(GlobalAppProperties.User).ToList();
-                        return tasks.Any(x => x.UserConstructor == null) || 
+                        return tasks.Any(x => x.UserConstructor == null) ||
                                tasks.Any(x => x.Status == PriceEngineeringTaskStatusEnum.FinishedByConstructorGoToVerification);
+                    }
+                }
+
+                return true;
+            }
+        }
+
+        public bool ToShowTce
+        {
+            get
+            {
+                switch (GlobalAppProperties.User.RoleCurrent)
+                {
+                    case Role.SalesManager:
+                    {
+                        return true;
+                    }
+                    case Role.BackManager:
+                    {
+                        return true;
+                    }
+                    case Role.BackManagerBoss:
+                    {
+                        return Entity.BackManager == null;
                     }
                 }
 

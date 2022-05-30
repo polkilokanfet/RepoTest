@@ -10,9 +10,9 @@ namespace HVTApp.UI.PriceEngineering.Tce.List.ViewModel
         {
         }
 
-        protected override bool TaskIsActual(PriceEngineeringTaskTce task)
+        protected override bool TaskIsActual(PriceEngineeringTasks tasks)
         {
-            return task.FrontManager?.Id == GlobalAppProperties.User.Id;
+            return tasks.UserManager?.Id == GlobalAppProperties.User.Id;
         }
     }
 }

@@ -39,7 +39,7 @@ namespace HVTApp.Modules.PlanAndEconomy.Menus
                 || GlobalAppProperties.User.RoleCurrent == Role.Admin)
             {
                 Items.Add(new NavigationItem("Задачи в ТСЕ1", typeof(TechnicalRequrementsTasksView)));
-                Items.Add(new NavigationItem("Задачи в ТСЕ2", typeof(PriceEngineeringTasksTceView)));
+                Items.Add(new NavigationItem("Задачи в ТСЕ2", typeof(PriceEngineeringTasksTceView2)));
                 Items.Add(new NavigationItem("Расчеты ПЗ", typeof(PriceCalculationsView)));
             }
 

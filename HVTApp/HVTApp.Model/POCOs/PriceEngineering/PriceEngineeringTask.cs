@@ -57,6 +57,10 @@ namespace HVTApp.Model.POCOs
         [Designation("Версии SCC"), OrderStatus(80)]
         public virtual List<StructureCostVersion> StructureCostVersions { get; set; } = new List<StructureCostVersion>();
 
+
+        [Designation("Строки расчётов ПЗ"), OrderStatus(80)]
+        public virtual List<PriceCalculationItem> PriceCalculationItems { get; set; } = new List<PriceCalculationItem>();
+
         [Designation("Статус"), NotMapped]
         public PriceEngineeringTaskStatusEnum Status
         {
@@ -99,9 +103,6 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Запрос на проверку от исполнителя"), OrderStatus(35)]
         public bool RequestForVerificationFromConstructor { get; set; } = false;
-
-        [Designation("Настройки расчета ПЗ"), OrderStatus(10)]
-        public virtual List<PriceCalculationTaskSetting> PriceCalculationTaskSettings { get; set; } = new List<PriceCalculationTaskSetting>();
 
         [Designation("Старт"), NotMapped]
         public DateTime? StartMoment
@@ -175,41 +176,50 @@ namespace HVTApp.Model.POCOs
             }
         }
 
-        public IEnumerable<StructureCostWithParentUnitId> GetStructureCosts(int? salesUnitsAmount = null)
+        public IEnumerable<StructureCost> GetStructureCosts(string tceNumber = null, int? salesUnitsAmount = null)
         {
-            throw new NotImplementedException();
-            //salesUnitsAmount = salesUnitsAmount ?? SalesUnits.Count;
+            salesUnitsAmount = salesUnitsAmount ?? SalesUnits.Count;
 
-            ////стракчакост основного блока
-            //var scc = new StructureCost
-            //{
-            //    Comment = ProductBlockEngineer.ToString().LimitLengh(200),
-            //    Number = ProductBlockEngineer.StructureCostNumber, 
-            //    AmountNumerator = 1,
-            //    AmountDenomerator = 1
-            //};
-            //yield return new StructureCostWithParentUnitId(this.Id, scc);
+            var structureCostVersion = this.StructureCostVersions.FirstOrDefault(x => x.OriginalStructureCostNumber == ProductBlockEngineer.StructureCostNumber);
+            var structureCostNumber = structureCostVersion == null
+                ? ProductBlockEngineer.StructureCostNumber
+                : $"{tceNumber} V{structureCostVersion.Version}";
 
-            ////стракчакосты добавленных блоков
-            //foreach (var blockAdded in ProductBlocksAdded)
-            //{
-            //    yield return new StructureCost
-            //    {
-            //        Comment = blockAdded.ProductBlock.ToString().LimitLengh(200),
-            //        Number = blockAdded.ProductBlock.StructureCostNumber,
-            //        AmountNumerator = blockAdded.Amount,
-            //        AmountDenomerator = blockAdded.IsOnBlock ? salesUnitsAmount.Value : 1
-            //    };
-            //}
+            //стракчакост основного блока
+            yield return new StructureCost
+            {
+                Comment = ProductBlockEngineer.ToString().LimitLengh(200),
+                Number = structureCostNumber,
+                AmountNumerator = 1,
+                AmountDenomerator = 1
+            };
 
-            ////стракчакосты вложенных задач
-            //foreach (var childPriceEngineeringTask in ChildPriceEngineeringTasks)
-            //{
-            //    foreach (var structureCost in childPriceEngineeringTask.GetStructureCosts(salesUnitsAmount))
-            //    {
-            //        yield return structureCost;
-            //    }
-            //}
+            //стракчакосты добавленных блоков
+            foreach (var blockAdded in ProductBlocksAdded)
+            {
+
+                var structureCostVersion1 = blockAdded.StructureCostVersions.FirstOrDefault(x => x.OriginalStructureCostNumber == ProductBlockEngineer.StructureCostNumber);
+                var structureCostNumber1 = structureCostVersion1 == null
+                    ? blockAdded.ProductBlock.StructureCostNumber
+                    : $"{tceNumber} V{structureCostVersion1.Version}";
+
+                yield return new StructureCost
+                {
+                    Comment = blockAdded.ProductBlock.ToString().LimitLengh(200),
+                    Number = structureCostNumber1,
+                    AmountNumerator = blockAdded.Amount,
+                    AmountDenomerator = blockAdded.IsOnBlock ? salesUnitsAmount.Value : 1
+                };
+            }
+
+            //стракчакосты вложенных задач
+            foreach (var childPriceEngineeringTask in ChildPriceEngineeringTasks)
+            {
+                foreach (var structureCost in childPriceEngineeringTask.GetStructureCosts(tceNumber, salesUnitsAmount))
+                {
+                    yield return structureCost;
+                }
+            }
         }
 
         public IEnumerable<PriceEngineeringTask> GetAllPriceEngineeringTasks()
@@ -232,17 +242,5 @@ namespace HVTApp.Model.POCOs
 
         [NotMapped, NotForListView, NotForDetailsView]
         public ProductBlock ProductBlock => this.ProductBlockEngineer;
-    }
-
-    public class StructureCostWithParentUnitId
-    {
-        public Guid OwnerId { get; }
-        public StructureCost StructureCost { get; }
-
-        public StructureCostWithParentUnitId(Guid ownerId, StructureCost structureCost)
-        {
-            OwnerId = ownerId;
-            StructureCost = structureCost;
-        }
     }
 }

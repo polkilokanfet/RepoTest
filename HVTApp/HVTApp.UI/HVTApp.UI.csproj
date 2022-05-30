@@ -282,9 +282,6 @@
     <Compile Include="PriceEngineering\Converters\FilesTechnicalRequirementsToVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskStatusEnumToStringConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTasksViewModelManagerVisibilityConverter.cs" />
-    <Compile Include="PriceEngineering\Tasks\PriceCalculationSettingsView.xaml.cs">
-      <DependentUpon>PriceCalculationSettingsView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="PriceEngineering\Tce\Converters\Visibility\PriceEngineeringTaskTceViewModelBackManagerBossVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Tce\Converters\Visibility\PriceEngineeringTaskTceViewModelBackManagerVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Tce\Converters\Visibility\PriceEngineeringTaskTceViewModelFrontManagerVisibilityConverter.cs" />
@@ -344,8 +341,8 @@
     <Compile Include="PriceEngineering\Tce\List\ViewModel\PriceEngineeringTasksTceViewModelBackManager.cs" />
     <Compile Include="PriceEngineering\Tce\List\ViewModel\PriceEngineeringTasksTceViewModelBackManagerBoss.cs" />
     <Compile Include="PriceEngineering\Tce\List\ViewModel\PriceEngineeringTasksTceViewModelFrontManager.cs" />
-    <Compile Include="PriceEngineering\Tce\List\View\PriceEngineeringTasksTceView.xaml.cs">
-      <DependentUpon>PriceEngineeringTasksTceView.xaml</DependentUpon>
+    <Compile Include="PriceEngineering\Tce\List\View\PriceEngineeringTasksTceView2.xaml.cs">
+      <DependentUpon>PriceEngineeringTasksTceView2.xaml</DependentUpon>
     </Compile>
     <Compile Include="PriceEngineering\Tce\Second\Wrappers\SccVersionWrapper.cs" />
     <Compile Include="PriceEngineering\Tce\Second\Wrappers\TasksTceWrapper.cs" />
@@ -1732,11 +1729,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="PriceEngineering\Tasks\PriceCalculationSettingsView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="PriceEngineering\Tce\List\View\PriceEngineeringTasksTceView.xaml">
+    <Page Include="PriceEngineering\Tce\List\View\PriceEngineeringTasksTceView2.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -2739,6 +2732,7 @@
   <ItemGroup>
     <Folder Include="Lookup\Service\Custom\" />
     <Folder Include="Modules\Products\ProductRelations\" />
+    <Folder Include="PriceEngineering\Tasks\" />
     <Folder Include="Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

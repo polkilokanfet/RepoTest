@@ -4,14 +4,14 @@ using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Commands;
-using HVTApp.UI.PriceEngineering.Tce.Unit;
+using HVTApp.UI.PriceEngineering.Tce.Second.View;
 using HVTApp.UI.ViewModels;
 using Microsoft.Practices.Unity;
 using Prism.Regions;
 
 namespace HVTApp.UI.PriceEngineering.Tce.List.ViewModel
 {
-    public abstract class PriceEngineeringTasksTceViewModel : PriceEngineeringTaskTceLookupListViewModel
+    public abstract class PriceEngineeringTasksTceViewModel : PriceEngineeringTasksLookupListViewModel
     {
         public DelegateLogCommand EditCommand { get; }
 
@@ -35,7 +35,7 @@ namespace HVTApp.UI.PriceEngineering.Tce.List.ViewModel
             EditCommand = new DelegateLogCommand(
                 () =>
                 {
-                    RegionManager.RequestNavigateContentRegion<PriceEngineeringTaskTceView>(new NavigationParameters { { nameof(PriceEngineeringTaskTce), SelectedItem } });
+                    RegionManager.RequestNavigateContentRegion<TasksTceView>(new NavigationParameters { { nameof(PriceEngineeringTasks), SelectedItem } });
                 },
                 () => SelectedItem != null);
 
@@ -47,23 +47,23 @@ namespace HVTApp.UI.PriceEngineering.Tce.List.ViewModel
         /// <summary>
         /// Подходит ли задача конкретно этой VM
         /// </summary>
-        /// <param name="task">Задача ТСЕ</param>
+        /// <param name="tasks"></param>
         /// <returns></returns>
-        protected abstract bool TaskIsActual(PriceEngineeringTaskTce task);
+        protected abstract bool TaskIsActual(PriceEngineeringTasks tasks);
 
         public override void Load()
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
-            var tasks = UnitOfWork.Repository<PriceEngineeringTaskTce>().Find(TaskIsActual);
+            var tasks = UnitOfWork.Repository<PriceEngineeringTasks>().Find(TaskIsActual);
             this.Load(tasks.OrderByDescending(x => x.StartMoment));
         }
 
-        protected override void OnAfterSaveEntity(PriceEngineeringTaskTce task)
+        protected override void OnAfterSaveEntity(PriceEngineeringTasks tasks)
         {
-            if (TaskIsActual(task))
+            if (TaskIsActual(tasks))
             {
                 var selectedLookup = this.SelectedLookup;
-                base.OnAfterSaveEntity(task);
+                base.OnAfterSaveEntity(tasks);
                 this.SelectedLookup = selectedLookup;
             }
         }

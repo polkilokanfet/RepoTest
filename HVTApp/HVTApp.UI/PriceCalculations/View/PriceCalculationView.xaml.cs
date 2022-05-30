@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
@@ -60,12 +61,6 @@ namespace HVTApp.UI.PriceCalculations.View
                         _viewModel.Load(salesUnits);
                     }
 
-                    //загрузка калькуляции по юнитам
-                    else if (navigationContext.Parameters.First().Value is PriceEngineeringTasks priceEngineeringTasks)
-                    {
-                        _viewModel.Load(priceEngineeringTasks);
-                    }
-
                 }
                 else if (navigationContext.Parameters.Count() == 2)
                 {
@@ -75,12 +70,18 @@ namespace HVTApp.UI.PriceCalculations.View
                         if (navigationContext.Parameters.Last().Value == null)
                         {
                             _viewModel.CreateCopy(priceCalculation);
-
                         }
                         else if (navigationContext.Parameters.Last().Value is TechnicalRequrementsTask technicalRequrementsTask)
                         {
                             _viewModel.CreateCopy(priceCalculation, technicalRequrementsTask);
                         }
+                    }
+
+                    //созлание расчёта ПЗ по PriceEngineeringTasks
+                    else if (navigationContext.Parameters.First().Value is PriceEngineeringTasks priceEngineeringTasks)
+                    {
+                        if (navigationContext.Parameters.Last().Value is bool isTceConnected)
+                            _viewModel.Load(priceEngineeringTasks, isTceConnected);
                     }
                 }
             }
