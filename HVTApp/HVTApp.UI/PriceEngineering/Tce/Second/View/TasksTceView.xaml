@@ -16,7 +16,7 @@
             </Grid.RowDefinitions>
 
             <ListView Grid.Row="0" 
-                      SelectedItem="{Binding SelectedPriceEngineeringTaskTceItem}"
+                      SelectedItem="{Binding SelectedItem}"
                       ItemsSource="{Binding Item.Items, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                 <ListView.ItemTemplate>
                     <DataTemplate>

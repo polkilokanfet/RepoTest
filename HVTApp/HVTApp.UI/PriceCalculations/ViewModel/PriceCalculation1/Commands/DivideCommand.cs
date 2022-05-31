@@ -46,7 +46,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
                         Number = structureCost.Number,
                         UnitPrice = structureCost.UnitPrice
                     };
-                    priceCalculationItemWrapper.StructureCosts.Add(new StructureCostWrapper(sc));
+                    priceCalculationItemWrapper.StructureCosts.Add(new StructureCost2Wrapper(sc));
                 }
 
                 ViewModel.PriceCalculationWrapper.PriceCalculationItems.Add(priceCalculationItemWrapper);

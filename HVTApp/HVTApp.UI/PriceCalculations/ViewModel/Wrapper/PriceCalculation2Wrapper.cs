@@ -9,8 +9,6 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.Wrapper
 {
     public class PriceCalculation2Wrapper : WrapperBase<PriceCalculation>
     {
-        public PriceCalculation2Wrapper(PriceCalculation model) : base(model) { }
-
         #region SimpleProperties
 
         public DateTime? TaskOpenMoment
@@ -49,19 +47,19 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.Wrapper
 
         #region ComplexProperties
 
-        public UserWrapper Initiator
+        public UserEmptyWrapper Initiator
         {
-            get => GetWrapper<UserWrapper>();
-            set => SetComplexValue<User, UserWrapper>(Initiator, value);
+            get => GetWrapper<UserEmptyWrapper>();
+            set => SetComplexValue<User, UserEmptyWrapper>(Initiator, value);
         }
 
         #endregion
 
         #region CollectionProperties
 
-        public IValidatableChangeTrackingCollection<PriceCalculationItem2Wrapper> PriceCalculationItems { get; private set; }
-        public IValidatableChangeTrackingCollection<PriceCalculationFileWrapper> Files { get; private set; }
-        public IValidatableChangeTrackingCollection<PriceCalculationHistoryItemWrapper> History { get; private set; }
+        public IValidatableChangeTrackingCollection<PriceCalculationItem2Wrapper> PriceCalculationItems { get; }
+        public IValidatableChangeTrackingCollection<PriceCalculationFileWrapper> Files { get; }
+        public IValidatableChangeTrackingCollection<PriceCalculationHistoryItemWrapper> History { get; }
 
         #endregion
 
@@ -71,13 +69,16 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.Wrapper
 
         #endregion
 
-        public override void InitializeComplexProperties()
+        public PriceCalculation2Wrapper(PriceCalculation model) : base(model)
         {
-            InitializeComplexProperty<UserWrapper>(nameof(Initiator), Model.Initiator == null ? null : new UserWrapper(Model.Initiator));
-        }
+            #region InitializeComplexProperties
 
-        protected override void InitializeCollectionProperties()
-        {
+            InitializeComplexProperty<UserEmptyWrapper>(nameof(Initiator), Model.Initiator == null ? null : new UserEmptyWrapper(Model.Initiator));
+
+            #endregion
+
+            #region InitializeCollectionProperties
+
             if (Model.PriceCalculationItems == null) throw new ArgumentException("PriceCalculationItems cannot be null");
             PriceCalculationItems = new ValidatableChangeTrackingCollection<PriceCalculationItem2Wrapper>(Model.PriceCalculationItems.Select(e => new PriceCalculationItem2Wrapper(e)));
             RegisterCollection(PriceCalculationItems, Model.PriceCalculationItems);
@@ -89,6 +90,9 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.Wrapper
             if (Model.History == null) throw new ArgumentException("History cannot be null");
             History = new ValidatableChangeTrackingCollection<PriceCalculationHistoryItemWrapper>(Model.History.OrderBy(item => item.Moment).Select(e => new PriceCalculationHistoryItemWrapper(e)));
             RegisterCollection(History, Model.History);
+
+            #endregion
         }
+
     }
 }

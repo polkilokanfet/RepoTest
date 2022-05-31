@@ -56,9 +56,9 @@
         <infRib:ButtonTool Caption="Создать"
                            Command="{Binding CreatePriceCalculationCommand}"
                            SmallImage="/HVTApp.UI;component/Images/add.png" />
-        <infRib:ButtonTool Caption="Открыть задачу ТСЕ"
+        <!--<infRib:ButtonTool Caption="Открыть задачу ТСЕ"
                            Command="{Binding OpenTceCommand}"
-                           SmallImage="/HVTApp.UI;component/Images/add.png" />
+                           SmallImage="/HVTApp.UI;component/Images/add.png" />-->
 
     </infRib:RibbonGroup>
 

@@ -17,18 +17,6 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.Wrapper
         public int Amount => Model.SalesUnits.Count;
         public double? UnitPrice => StructureCosts.Sum(structureCostWrapper => structureCostWrapper.Total);
 
-        #region SimpleProperties
-
-        public Guid PriceCalculationId
-        {
-            get => GetValue<Guid>();
-            set => SetValue(value);
-        }
-        public Guid PriceCalculationIdOriginalValue => GetOriginalValue<Guid>(nameof(PriceCalculationId));
-        public bool PriceCalculationIdIsChanged => GetIsChanged(nameof(PriceCalculationId));
-
-        #endregion
-
         #region ComplexProperties
 
         public DateTime? OrderInTakeDate
@@ -56,14 +44,16 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.Wrapper
 
         #region CollectionProperties
 
-        public IValidatableChangeTrackingCollection<SalesUnitEmptyWrapper> SalesUnits { get; private set; }
+        public IValidatableChangeTrackingCollection<SalesUnitEmptyWrapper> SalesUnits { get; }
 
-        public IValidatableChangeTrackingCollection<StructureCostWrapper> StructureCosts { get; private set; }
+        public IValidatableChangeTrackingCollection<StructureCost2Wrapper> StructureCosts { get; }
 
         #endregion
 
         public PriceCalculationItem2Wrapper(PriceCalculationItem model) : base(model)
         {
+            #region Initialize
+
             InitializeComplexProperty(nameof(PaymentConditionSet), Model.PaymentConditionSet == null ? null : new PaymentConditionSetEmptyWrapper(Model.PaymentConditionSet));
 
             if (Model.SalesUnits == null) throw new ArgumentException("SalesUnits cannot be null");
@@ -71,18 +61,20 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.Wrapper
             RegisterCollection(SalesUnits, Model.SalesUnits);
 
             if (Model.StructureCosts == null) throw new ArgumentException("StructureCosts cannot be null");
-            StructureCosts = new ValidatableChangeTrackingCollection<StructureCostWrapper>(Model.StructureCosts.Select(e => new StructureCostWrapper(e)));
+            StructureCosts = new ValidatableChangeTrackingCollection<StructureCost2Wrapper>(Model.StructureCosts.Select(e => new StructureCost2Wrapper(e)));
             RegisterCollection(StructureCosts, Model.StructureCosts);
+
+            #endregion
 
             this.SalesUnits.CollectionChanged += (sender, args) =>
             {
-                if (!Model.OrderInTakeDate.HasValue)
+                if (OrderInTakeDate.HasValue == false)
                     OrderInTakeDate = Model.SalesUnits.FirstOrDefault()?.OrderInTakeDate;
 
-                if (!Model.RealizationDate.HasValue)
+                if (RealizationDate.HasValue == false)
                     RealizationDate = Model.SalesUnits.FirstOrDefault()?.RealizationDateCalculated;
 
-                if (Model.PaymentConditionSet == null)
+                if (PaymentConditionSet == null)
                     PaymentConditionSet = new PaymentConditionSetEmptyWrapper(Model.SalesUnits.FirstOrDefault()?.PaymentConditionSet);
 
                 OnPropertyChanged(string.Empty);

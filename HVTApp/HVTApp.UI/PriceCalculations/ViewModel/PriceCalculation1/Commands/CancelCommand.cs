@@ -44,7 +44,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
         protected override bool CanExecuteMethod()
         {
             return _viewModel.IsStarted &&
-                   GlobalAppProperties.User.Id == _viewModel.PriceCalculationWrapper.Initiator?.Id;
+                   GlobalAppProperties.User.Id == _viewModel.PriceCalculationWrapper.Initiator?.Model.Id;
         }
     }
 }

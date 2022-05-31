@@ -207,6 +207,7 @@ namespace HVTApp.Model.POCOs
             {
                 Comment = ProductBlockEngineer.ToString().LimitLengh(200),
                 Number = structureCostNumber,
+                OriginalStructureCostProductBlock = ProductBlockEngineer,
                 OriginalStructureCostNumber = ProductBlockEngineer.StructureCostNumber,
                 AmountNumerator = 1,
                 AmountDenomerator = 1
@@ -225,7 +226,8 @@ namespace HVTApp.Model.POCOs
                 {
                     Comment = blockAdded.ProductBlock.ToString().LimitLengh(200),
                     Number = structureCostNumber1,
-                    OriginalStructureCostNumber = blockAdded.ProductBlock.StructureCostNumber,
+                    OriginalStructureCostProductBlock = blockAdded.ProductBlock,
+                    OriginalStructureCostNumber = structureCostNumber1,
                     AmountNumerator = blockAdded.Amount,
                     AmountDenomerator = blockAdded.IsOnBlock ? salesUnitsAmount.Value : 1
                 };

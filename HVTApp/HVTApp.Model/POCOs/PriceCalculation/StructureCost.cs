@@ -14,8 +14,11 @@ namespace HVTApp.Model.POCOs
         [Designation("Номер"), Required, MaxLength(50)]
         public string Number { get; set; }
 
-        [Designation("Номер Scc оригинального блока"), MaxLength(50)]
+        [Designation("Номер scc оригинального блока"), MaxLength(50)]
         public string OriginalStructureCostNumber { get; set; }
+
+        [Designation("Оригинальный блок scc")]
+        public ProductBlock OriginalStructureCostProductBlock { get; set; }
 
         /// <summary>
         /// Количество (числитель)

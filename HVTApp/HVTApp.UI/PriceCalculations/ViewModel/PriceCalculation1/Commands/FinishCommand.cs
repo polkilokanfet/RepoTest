@@ -41,6 +41,38 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
             _viewModel.RefreshCommands();
 
             _viewModel.GenerateNewHistoryItem();
+
+
+            //добавление новых ПЗ в блоки
+            var structureCosts = _viewModel.PriceCalculationWrapper.Model.PriceCalculationItems
+                .SelectMany(x => x.StructureCosts)
+                .Where(x => x.OriginalStructureCostNumber != null && x.OriginalStructureCostProductBlock != null)
+                .ToList();
+
+            if (structureCosts.Any())
+            {
+                var unitOfWork = _container.Resolve<IUnitOfWork>();
+                var messageService = _container.Resolve<IMessageService>();
+                foreach (var structureCost in structureCosts)
+                {
+                    if (structureCost.OriginalStructureCostProductBlock.StructureCostNumber == structureCost.OriginalStructureCostNumber)
+                    {
+                        var dr1 = messageService.ShowYesNoMessageDialog("Уведомление", $"Вы хотите добавить в блок {structureCost.OriginalStructureCostProductBlock} новые ПЗ {structureCost.UnitPrice.Value:C}?");
+                        if (dr1 == MessageDialogResult.Yes)
+                        {
+                            var productBlock = unitOfWork.Repository<ProductBlock>().GetById(structureCost.OriginalStructureCostProductBlock.Id);
+                            var calculationItem = unitOfWork.Repository<PriceCalculationItem>().GetById(structureCost.PriceCalculationItemId);
+                            productBlock.Prices.Add(new SumOnDate
+                            {
+                                Sum = structureCost.UnitPrice.Value,
+                                Date = calculationItem.OrderInTakeDate.Value
+                            });
+                            unitOfWork.SaveChanges();
+                        }
+                    }
+                }
+                unitOfWork.Dispose();
+            }
         }
 
         protected override bool CanExecuteMethod()

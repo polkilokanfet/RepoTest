@@ -38,8 +38,8 @@ namespace HVTApp.Modules.PlanAndEconomy.Menus
                 || GlobalAppProperties.User.RoleCurrent == Role.BackManagerBoss 
                 || GlobalAppProperties.User.RoleCurrent == Role.Admin)
             {
-                Items.Add(new NavigationItem("Задачи в ТСЕ1", typeof(TechnicalRequrementsTasksView)));
-                Items.Add(new NavigationItem("Задачи в ТСЕ2", typeof(PriceEngineeringTasksTceView2)));
+                Items.Add(new NavigationItem("Задачи в ТСЕ (новое)", typeof(PriceEngineeringTasksTceView2)));
+                Items.Add(new NavigationItem("Задачи в ТСЕ (старое)", typeof(TechnicalRequrementsTasksView)));
                 Items.Add(new NavigationItem("Расчеты ПЗ", typeof(PriceCalculationsView)));
             }
 

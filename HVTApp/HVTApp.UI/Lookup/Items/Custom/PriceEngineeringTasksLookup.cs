@@ -80,10 +80,12 @@ namespace HVTApp.UI.Lookup
                     {
                         return Entity.StatusesAll.Any(x => statuses.Contains(x) == false);
                     }
+
                     case Role.Constructor:
                     {
                         return Entity.GetSuitableTasksForWork(GlobalAppProperties.User).Select(x => x.Status).Any(x => statuses.Contains(x) == false);
                     }
+
                     case Role.DesignDepartmentHead:
                     {
                         var tasks = Entity.GetSuitableTasksForInstruct(GlobalAppProperties.User).ToList();
@@ -108,7 +110,7 @@ namespace HVTApp.UI.Lookup
                     }
                     case Role.BackManager:
                     {
-                        return true;
+                        return Entity.PriceCalculations.Any(x => x.IsTceConnected && x.LastHistoryItem.Type == PriceCalculationHistoryItemType.Create);
                     }
                     case Role.BackManagerBoss:
                     {

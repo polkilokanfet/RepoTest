@@ -141,6 +141,8 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
                 RaisePropertyChanged(nameof(IsStarted));
                 RaisePropertyChanged(nameof(CanChangePrice));
                 RaisePropertyChanged(nameof(CalculationHasFile));
+                RaisePropertyChanged(nameof(StartVisibility));
+                RaisePropertyChanged(nameof(SccIsExpandable));
                 this.ChangePaymentsCommand.RaiseCanExecuteChanged();
             }
         }
@@ -229,7 +231,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
 
             PriceCalculationWrapper = new PriceCalculation2Wrapper(new PriceCalculation())
             {
-                Initiator = new UserWrapper(UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id)),
+                Initiator = new UserEmptyWrapper(UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id)),
                 IsNeedExcelFile = priceCalculation.IsNeedExcelFile
             };
 
@@ -237,7 +239,6 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
             {
                 var priceCalculationItem2Wrapper = new PriceCalculationItem2Wrapper(new PriceCalculationItem())
                 {
-                    PriceCalculationId = PriceCalculationWrapper.Model.Id,
                     OrderInTakeDate = calculationItem.OrderInTakeDate,
                     RealizationDate = calculationItem.RealizationDate,
                     PaymentConditionSet = new PaymentConditionSetEmptyWrapper(calculationItem.PaymentConditionSet)
@@ -250,13 +251,12 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
 
                 foreach (var structureCost in calculationItem.StructureCosts)
                 {
-                    var structureCostWrapper = new StructureCostWrapper(new StructureCost())
+                    var structureCostWrapper = new StructureCost2Wrapper(new StructureCost())
                     {
                         AmountNumerator = structureCost.AmountNumerator,
                         AmountDenomerator = structureCost.AmountDenomerator,
                         Number = structureCost.Number,
                         Comment = structureCost.Comment,
-                        PriceCalculationItemId = priceCalculationItem2Wrapper.Model.Id,
                         UnitPrice = structureCost.UnitPrice
                     };
 
@@ -284,7 +284,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
 
             //инициатор задачи
             if(this.PriceCalculationWrapper.Initiator == null)
-                this.PriceCalculationWrapper.Initiator = new UserWrapper(UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id));
+                this.PriceCalculationWrapper.Initiator = new UserEmptyWrapper(UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id));
         }
 
         public void Load(TechnicalRequrementsTask technicalRequrementsTask)
@@ -306,7 +306,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
 
             //инициатор задачи
             if (this.PriceCalculationWrapper.Initiator == null)
-                this.PriceCalculationWrapper.Initiator = new UserWrapper(UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id));
+                this.PriceCalculationWrapper.Initiator = new UserEmptyWrapper(UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id));
 
             //необходимость файла excel
             this.PriceCalculationWrapper.IsNeedExcelFile = technicalRequrementsTask.ExcelFileIsRequired;
@@ -327,7 +327,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
             priceEngineeringTasks.PriceCalculations.Add(this.PriceCalculationWrapper.Model);
             
             //инициатор задачи
-            PriceCalculationWrapper.Initiator = new UserWrapper(UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id));
+            PriceCalculationWrapper.Initiator = new UserEmptyWrapper(UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id));
             
             //необходимость файла excel
             this.PriceCalculationWrapper.IsNeedExcelFile = isTceConnected;
@@ -360,7 +360,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
                 //генерируем новые стракчакосты
                 var priceEngineeringTask = UnitOfWork.Repository<PriceEngineeringTask>().GetById(priceCalculationItem.Model.PriceEngineeringTaskId.Value);
                 var sccList = priceEngineeringTask.GetStructureCosts(priceEngineeringTasks.TceNumber);
-                priceCalculationItem.StructureCosts.AddRange(sccList.Select(x => new StructureCostWrapper(x)));
+                priceCalculationItem.StructureCosts.AddRange(sccList.Select(x => new StructureCost2Wrapper(x)));
             }
         }
 
@@ -385,7 +385,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
                 AmountNumerator = 1,
                 AmountDenomerator = 1
             };
-            priceCalculationItem2Wrapper.StructureCosts.Add(new StructureCostWrapper(structureCost));
+            priceCalculationItem2Wrapper.StructureCosts.Add(new StructureCost2Wrapper(structureCost));
 
             //создание стракчакостов доп.оборудования
             foreach (var productIncluded in priceCalculationItem2Wrapper.SalesUnits.First().Model.ProductsIncluded.Where(x => !x.Product.ProductBlock.IsService))
@@ -396,7 +396,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
                     AmountNumerator = (double)productIncluded.Amount / priceCalculationItem2Wrapper.SalesUnits.Count,
                     AmountDenomerator = 1
                 };
-                priceCalculationItem2Wrapper.StructureCosts.Add(new StructureCostWrapper(structureCostPrIncl));
+                priceCalculationItem2Wrapper.StructureCosts.Add(new StructureCost2Wrapper(structureCostPrIncl));
             }
 
             return priceCalculationItem2Wrapper;
@@ -413,7 +413,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
 
             foreach (var structureCost in priceEngineeringTask.GetStructureCosts(priceEngineeringTasks.TceNumber))
             {
-                item.StructureCosts.Add(new StructureCostWrapper(structureCost));
+                item.StructureCosts.Add(new StructureCost2Wrapper(structureCost));
             }
 
             return item;

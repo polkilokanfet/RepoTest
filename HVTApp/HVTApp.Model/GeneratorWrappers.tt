@@ -60,7 +60,8 @@ namespace HVTApp.Model.Wrapper
 		var complexSetProperties = allComplexProperties.Where(p => p.CanWrite).ToList();
 		var complexGetProperties = allComplexProperties.Where(p => !p.CanWrite).ToList();
 
-#>	public partial class <#=modelType.Name#>Wrapper : WrapperBase<<#=modelType.Name#>>
+#>	
+    public partial class <#=modelType.Name#>Wrapper : WrapperBase<<#=modelType.Name#>>
 	{
 	    public <#=modelType.Name#>Wrapper(<#=modelType.Name#> model) : base(model) { }
 <#+
@@ -74,6 +75,11 @@ namespace HVTApp.Model.Wrapper
 		GenerateInitializeCollectionComplexProperties(modelType.Name, collectionComplexProperties);
 	#>
 	}
+
+    public class <#=modelType.Name#>EmptyWrapper : WrapperBase<<#=modelType.Name#>>
+	{
+	    public <#=modelType.Name#>EmptyWrapper(<#=modelType.Name#> model) : base(model) { }
+    }
 
 	<#+
 	}
@@ -96,6 +102,7 @@ namespace HVTApp.Model.Wrapper
   	if (!properties.Any())
 		return;
 #>
+
         #region SimpleProperties
 <#+ 
     foreach (var property in properties)
@@ -103,6 +110,7 @@ namespace HVTApp.Model.Wrapper
       var propertyType = property.PropertyType.GetTypeName();
       var propertyName = property.Name;
 #>
+
         /// <summary>
         /// <#=property.Designation()#>
         /// </summary>
@@ -126,6 +134,7 @@ namespace HVTApp.Model.Wrapper
   	if (!properties.Any())
 		return;
 #>
+
         #region GetProperties
 <#+ 
     foreach (var property in properties)
@@ -133,6 +142,7 @@ namespace HVTApp.Model.Wrapper
       var propertyType = property.PropertyType.GetTypeName();
       var propertyName = property.Name;
 #>
+
         /// <summary>
         /// <#=property.Designation()#>
         /// </summary>
@@ -150,6 +160,7 @@ namespace HVTApp.Model.Wrapper
   	if (!properties.Any())
 		return;
 #>
+
         #region ComplexProperties
 <#+ 
 
@@ -158,6 +169,7 @@ namespace HVTApp.Model.Wrapper
       var propertyType = property.PropertyType.Name;
       var propertyName = property.Name;
 #>
+
         /// <summary>
         /// <#=property.Designation()#>
         /// </summary>
@@ -179,6 +191,7 @@ namespace HVTApp.Model.Wrapper
   	if (!properties.Any())
 		return;
 #>
+
         #region CollectionProperties
 <#+ 
 
@@ -187,6 +200,7 @@ namespace HVTApp.Model.Wrapper
       var itemType = property.PropertyType.GetInterfaces().First(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICollection<>)).GenericTypeArguments[0].Name;
       var propertyName = property.Name;
 #>
+
         /// <summary>
         /// <#=property.Designation()#>
         /// </summary>
@@ -204,6 +218,7 @@ namespace HVTApp.Model.Wrapper
     if(properties.Any())
     {
 #>
+
         public override void InitializeComplexProperties()
         {
 <#+
@@ -225,6 +240,7 @@ namespace HVTApp.Model.Wrapper
     if(properties.Any())
     {
 #>
+
         protected override void InitializeCollectionProperties()
         {
 <#+

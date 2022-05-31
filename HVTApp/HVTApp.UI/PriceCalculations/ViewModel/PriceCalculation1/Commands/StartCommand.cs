@@ -46,7 +46,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
         {
             return _viewModel.IsStarted == false && 
                    _viewModel.PriceCalculationWrapper.IsValid && 
-                   GlobalAppProperties.User.Id == _viewModel.PriceCalculationWrapper.Initiator?.Id;
+                   GlobalAppProperties.User.Id == _viewModel.PriceCalculationWrapper.Initiator?.Model.Id;
         }
     }
 }

@@ -7,13 +7,13 @@ namespace HVTApp.DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class TCE3 : IMigrationMetadata
+    public sealed partial class TCE6 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(TCE3));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(TCE6));
         
         string IMigrationMetadata.Id
         {
-            get { return "202205300915350_TCE3"; }
+            get { return "202205311848427_TCE6"; }
         }
         
         string IMigrationMetadata.Source
