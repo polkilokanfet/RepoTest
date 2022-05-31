@@ -21,10 +21,14 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
             _container = container;
         }
         
-        protected override void ExecuteMethod()
+        protected override void ExecuteMethod(object parameter)
         {
-            var dr = _container.Resolve<IMessageService>().ShowYesNoMessageDialog("Уведомление", "Вы уверены, что хотите стартовать задачу?", defaultYes: true);
-            if (dr != MessageDialogResult.Yes) return;
+            bool showMessage = parameter is bool b && b;
+            if (showMessage == true)
+            {
+                var dr = _container.Resolve<IMessageService>().ShowYesNoMessageDialog("Уведомление", "Вы уверены, что хотите стартовать задачу?", defaultYes: true);
+                if (dr != MessageDialogResult.Yes) return;
+            }
 
             var historyItemWrapper = _viewModel.HistoryItem;
             historyItemWrapper.Moment = DateTime.Now;

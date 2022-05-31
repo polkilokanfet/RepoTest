@@ -31,7 +31,7 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
                 {
                     var priceCalculationViewModel = this.Container.Resolve<PriceCalculationViewModel>();
                     priceCalculationViewModel.RegenerateScc(priceCalculation.Model);
-                    priceCalculationViewModel.StartCommand.Execute();
+                    priceCalculationViewModel.StartCommand.Execute(false);
                 }
             }
             else

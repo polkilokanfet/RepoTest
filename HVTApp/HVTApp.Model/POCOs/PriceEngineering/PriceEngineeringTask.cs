@@ -120,6 +120,23 @@ namespace HVTApp.Model.POCOs
             }
         }
 
+        [NotMapped]
+        public bool HasSccInTce
+        {
+            get
+            {
+                if (this.StructureCostVersions.Any(x => x.Version.HasValue && x.OriginalStructureCostNumber == this.ProductBlock.StructureCostNumber) == false)
+                    return false;
+
+                if (this.ProductBlocksAdded.Where(x => x.IsRemoved == false).Any(x => x.HasSccInTce == false))
+                    return false;
+
+                if (this.ChildPriceEngineeringTasks.Any(x => x.HasSccInTce == false))
+                    return false;
+
+                return true;
+            }
+        }
 
         /// <summary>
         /// Вернуть все задачи, которые прорабатывает данный User
@@ -183,7 +200,7 @@ namespace HVTApp.Model.POCOs
             var structureCostVersion = this.StructureCostVersions.FirstOrDefault(x => x.OriginalStructureCostNumber == ProductBlockEngineer.StructureCostNumber);
             var structureCostNumber = structureCostVersion == null
                 ? ProductBlockEngineer.StructureCostNumber
-                : $"{tceNumber} V{structureCostVersion.Version}";
+                : $"{tceNumber} V{structureCostVersion.Version:D2}";
 
             //стракчакост основного блока
             yield return new StructureCost
@@ -202,7 +219,7 @@ namespace HVTApp.Model.POCOs
                 var structureCostVersion1 = blockAdded.StructureCostVersions.FirstOrDefault(x => x.OriginalStructureCostNumber == ProductBlockEngineer.StructureCostNumber);
                 var structureCostNumber1 = structureCostVersion1 == null
                     ? blockAdded.ProductBlock.StructureCostNumber
-                    : $"{tceNumber} V{structureCostVersion1.Version:00}";
+                    : $"{tceNumber} V{structureCostVersion1.Version:D2}";
 
                 yield return new StructureCost
                 {

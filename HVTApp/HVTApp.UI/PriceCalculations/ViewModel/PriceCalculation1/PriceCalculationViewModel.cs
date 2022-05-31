@@ -16,19 +16,6 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
 {
-    public class PriceCalculationViewModelBackManager : PriceCalculationViewModel
-    {
-        public PriceCalculationViewModelBackManager(IUnityContainer container) : base(container)
-        {
-        }
-    }
-
-    public class PriceCalculationViewModelFrontManager : PriceCalculationViewModel
-    {
-        public PriceCalculationViewModelFrontManager(IUnityContainer container) : base(container)
-        {
-        }
-    }
     public class PriceCalculationViewModel : ViewModelBaseCanExportToExcel
     {
         private object _selectedItem;
@@ -68,8 +55,8 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
                 if (this.PriceCalculationWrapper == null)
                     return false;
 
-                if (this.PriceCalculationWrapper.Model.IsTceConnected
-                    && this.PriceCalculationWrapper.Model.LastHistoryItem?.Type == PriceCalculationHistoryItemType.Create)
+                if (this.PriceCalculationWrapper.Model.IsTceConnected && 
+                    this.PriceCalculationWrapper.Model.LastHistoryItem?.Type == PriceCalculationHistoryItemType.Create)
                     return false;
 
                 return true;
@@ -330,15 +317,15 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
             //Загружаем задачу
             priceEngineeringTasks = UnitOfWork.Repository<PriceEngineeringTasks>().GetById(priceEngineeringTasks.Id);
 
-            //добавляем расчет ПЗ в загруженную задачу
-            priceEngineeringTasks.PriceCalculations.Add(this.PriceCalculationWrapper.Model);
-
             //добавляем в расчет ПЗ оборудование
             foreach (var priceEngineeringTask in priceEngineeringTasks.ChildPriceEngineeringTasks)
             {
                 PriceCalculationWrapper.PriceCalculationItems.Add(GetPriceCalculationItem2Wrapper(priceEngineeringTasks, priceEngineeringTask));
             }
 
+            //добавляем расчет ПЗ в загруженную задачу
+            priceEngineeringTasks.PriceCalculations.Add(this.PriceCalculationWrapper.Model);
+            
             //инициатор задачи
             PriceCalculationWrapper.Initiator = new UserWrapper(UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id));
             
@@ -348,9 +335,13 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
             //связь расчёта с ТСЕ
             this.PriceCalculationWrapper.Model.IsTceConnected = isTceConnected;
 
-            //добавдение статуса "Создано"
-            HistoryItem.Type = PriceCalculationHistoryItemType.Create;
-            PriceCalculationWrapper.History.Add(HistoryItem);
+            if (priceEngineeringTasks.IsAccepted == false || 
+                priceEngineeringTasks.ChildPriceEngineeringTasks.Any(x => x.HasSccInTce == false))
+            {
+                //добавдение статуса "Создано"
+                HistoryItem.Type = PriceCalculationHistoryItemType.Create;
+                PriceCalculationWrapper.History.Add(HistoryItem);
+            }
         }
 
 

@@ -77,7 +77,7 @@ namespace HVTApp.UI.PriceCalculations.View
                         }
                     }
 
-                    //созлание расчёта ПЗ по PriceEngineeringTasks
+                    //создание расчёта ПЗ по PriceEngineeringTasks
                     else if (navigationContext.Parameters.First().Value is PriceEngineeringTasks priceEngineeringTasks)
                     {
                         if (navigationContext.Parameters.Last().Value is bool isTceConnected)

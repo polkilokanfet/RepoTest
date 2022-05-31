@@ -28,10 +28,18 @@ namespace HVTApp.UI.Commands
             _canExecuteMethod = canExecuteMethod ?? throw new ArgumentNullException(nameof(canExecuteMethod));
         }
 
+
         protected virtual void ExecuteMethod()
         {
             _executeMethod?.Invoke();
         }
+
+
+        protected virtual void ExecuteMethod(object parameter)
+        {
+            this.ExecuteMethod();
+        }
+
 
         public void Execute()
         {
@@ -41,11 +49,11 @@ namespace HVTApp.UI.Commands
         public void Execute(object parameter)
         {
 #if DEBUG
-            ExecuteMethod();
+            ExecuteMethod(parameter);
 #else
             try
             {
-                ExecuteMethod();
+                ExecuteMethod(parameter);
             }
             catch (Exception e)
             {

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
 
@@ -27,6 +29,11 @@ namespace HVTApp.Model.POCOs
         
         [Designation("Версии SCC"), OrderStatus(80)]
         public virtual List<StructureCostVersion> StructureCostVersions { get; set; } = new List<StructureCostVersion>();
+
+
+        [NotMapped]
+        public bool HasSccInTce => this.StructureCostVersions.Any(x => x.Version.HasValue && x.OriginalStructureCostNumber == this.ProductBlock.StructureCostNumber);
+
 
         public override string ToString()
         {
