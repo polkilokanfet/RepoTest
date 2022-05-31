@@ -32,7 +32,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
                 {
                     OrderInTakeDate = selectedItem.OrderInTakeDate,
                     RealizationDate = selectedItem.RealizationDate,
-                    PaymentConditionSet = selectedItem.PaymentConditionSet
+                    PaymentConditionSet = selectedItem.PaymentConditionSet.Model
                 };
                 var priceCalculationItemWrapper = new PriceCalculationItem2Wrapper(priceCalculationItem);
                 priceCalculationItemWrapper.SalesUnits.Add(unit);

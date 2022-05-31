@@ -8,9 +8,9 @@
              Header="Задача в ТСЕ">
 
     <inf:RibbonTabItemWithViewModel.Resources>
-        <visibility:PriceEngineeringTaskTceViewModelFrontManagerVisibilityConverter x:Key="FrontManagerVisibilityConverter" />
-        <visibility:PriceEngineeringTaskTceViewModelBackManagerVisibilityConverter x:Key="BackManagerVisibilityConverter" />
-        <visibility:PriceEngineeringTaskTceViewModelBackManagerBossVisibilityConverter x:Key="BackManagerBossVisibilityConverter" />
+        <visibility:TasksTceViewModelFrontManagerVisibilityConverter x:Key="FrontManagerVisibilityConverter" />
+        <visibility:TasksTceViewModelBackManagerVisibilityConverter x:Key="BackManagerVisibilityConverter" />
+        <visibility:TasksTceViewModelBackManagerBossVisibilityConverter x:Key="BackManagerBossVisibilityConverter" />
     </inf:RibbonTabItemWithViewModel.Resources>
 
     <infRib:RibbonGroup Caption="Навигация">
@@ -45,10 +45,10 @@
                            Command="{Binding SaveCommand}"
                            SmallImage="/HVTApp.UI;component/Images/save.png" />
 
-        <infRib:ButtonTool Caption="Завершить"
+        <!--<infRib:ButtonTool Caption="Завершить"
                            Visibility="{Binding Converter={StaticResource BackManagerVisibilityConverter}}"
                            Command="{Binding FinishCommand}"
-                           SmallImage="/HVTApp.UI;component/Images/done.png" />
+                           SmallImage="/HVTApp.UI;component/Images/done.png" />-->
 
     </infRib:RibbonGroup>
 

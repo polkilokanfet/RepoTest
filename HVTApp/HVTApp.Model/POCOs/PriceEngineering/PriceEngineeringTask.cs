@@ -190,6 +190,7 @@ namespace HVTApp.Model.POCOs
             {
                 Comment = ProductBlockEngineer.ToString().LimitLengh(200),
                 Number = structureCostNumber,
+                OriginalStructureCostNumber = ProductBlockEngineer.StructureCostNumber,
                 AmountNumerator = 1,
                 AmountDenomerator = 1
             };
@@ -201,12 +202,13 @@ namespace HVTApp.Model.POCOs
                 var structureCostVersion1 = blockAdded.StructureCostVersions.FirstOrDefault(x => x.OriginalStructureCostNumber == ProductBlockEngineer.StructureCostNumber);
                 var structureCostNumber1 = structureCostVersion1 == null
                     ? blockAdded.ProductBlock.StructureCostNumber
-                    : $"{tceNumber} V{structureCostVersion1.Version}";
+                    : $"{tceNumber} V{structureCostVersion1.Version:00}";
 
                 yield return new StructureCost
                 {
                     Comment = blockAdded.ProductBlock.ToString().LimitLengh(200),
                     Number = structureCostNumber1,
+                    OriginalStructureCostNumber = blockAdded.ProductBlock.StructureCostNumber,
                     AmountNumerator = blockAdded.Amount,
                     AmountDenomerator = blockAdded.IsOnBlock ? salesUnitsAmount.Value : 1
                 };

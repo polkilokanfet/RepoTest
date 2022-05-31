@@ -15,7 +15,7 @@
             </dp:XamDataGrid.ContextMenu>
 
             <dp:XamDataGrid.InputBindings>
-                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=OpenTaskCommand, Mode=OneWay}"/>
+                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=EditCommand, Mode=OneWay}"/>
             </dp:XamDataGrid.InputBindings>
 
 

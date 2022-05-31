@@ -125,7 +125,7 @@ namespace HVTApp.UI.PriceEngineering
             AcceptCommand = new DelegateLogCommand(
                 () =>
                 {
-                    if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Принять проработку", "Вы уверены?", defaultNo: true) != MessageDialogResult.Yes)
+                    if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Принять проработку", "Вы уверены, что хотите принять проработку?", defaultNo: true) != MessageDialogResult.Yes)
                         return;
 
                     this.Statuses.Add(new PriceEngineeringTaskStatusWrapper(new PriceEngineeringTaskStatus() { StatusEnum = PriceEngineeringTaskStatusEnum.Accepted }));

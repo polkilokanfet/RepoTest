@@ -4,7 +4,6 @@ using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
-using HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1;
 
 namespace HVTApp.UI.PriceCalculations.ViewModel.Wrapper
 {
@@ -17,34 +16,6 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.Wrapper
         public Product Product => Model.SalesUnits.FirstOrDefault()?.Product;
         public int Amount => Model.SalesUnits.Count;
         public double? UnitPrice => StructureCosts.Sum(structureCostWrapper => structureCostWrapper.Total);
-
-        public PriceCalculationItem2Wrapper(PriceCalculationItem model) : base(model)
-        {
-
-            this.SalesUnits.CollectionChanged += (sender, args) =>
-            {
-                if (!Model.OrderInTakeDate.HasValue)
-                    OrderInTakeDate = Model.SalesUnits.FirstOrDefault()?.OrderInTakeDate;
-
-                if (!Model.RealizationDate.HasValue)
-                    RealizationDate = Model.SalesUnits.FirstOrDefault()?.RealizationDateCalculated;
-
-                if (Model.PaymentConditionSet == null)
-                    PaymentConditionSet = Model.SalesUnits.FirstOrDefault()?.PaymentConditionSet;
-
-                OnPropertyChanged(string.Empty);
-            };
-
-            this.StructureCosts.PropertyChanged += (sender, args) =>
-            {
-                this.OnPropertyChanged(nameof(UnitPrice));
-            };
-
-            this.StructureCosts.CollectionChanged += (sender, args) =>
-            {
-                this.OnPropertyChanged(nameof(UnitPrice));
-            };
-        }
 
         #region SimpleProperties
 
@@ -72,10 +43,13 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.Wrapper
             set => SetValue(value);
         }
 
-        public PaymentConditionSet PaymentConditionSet
+        /// <summary>
+        /// Условия оплаты
+        /// </summary>
+        public PaymentConditionSetEmptyWrapper PaymentConditionSet
         {
-            get => GetValue<PaymentConditionSet>();
-            set => SetValue(value);
+            get => GetWrapper<PaymentConditionSetEmptyWrapper>();
+            set => SetComplexValue<PaymentConditionSet, PaymentConditionSetEmptyWrapper>(PaymentConditionSet, value);
         }
 
         #endregion
@@ -88,8 +62,10 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.Wrapper
 
         #endregion
 
-        protected override void InitializeCollectionProperties()
+        public PriceCalculationItem2Wrapper(PriceCalculationItem model) : base(model)
         {
+            InitializeComplexProperty(nameof(PaymentConditionSet), Model.PaymentConditionSet == null ? null : new PaymentConditionSetEmptyWrapper(Model.PaymentConditionSet));
+
             if (Model.SalesUnits == null) throw new ArgumentException("SalesUnits cannot be null");
             SalesUnits = new ValidatableChangeTrackingCollection<SalesUnitEmptyWrapper>(Model.SalesUnits.Select(e => new SalesUnitEmptyWrapper(e)));
             RegisterCollection(SalesUnits, Model.SalesUnits);
@@ -97,7 +73,30 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.Wrapper
             if (Model.StructureCosts == null) throw new ArgumentException("StructureCosts cannot be null");
             StructureCosts = new ValidatableChangeTrackingCollection<StructureCostWrapper>(Model.StructureCosts.Select(e => new StructureCostWrapper(e)));
             RegisterCollection(StructureCosts, Model.StructureCosts);
-        }
 
+            this.SalesUnits.CollectionChanged += (sender, args) =>
+            {
+                if (!Model.OrderInTakeDate.HasValue)
+                    OrderInTakeDate = Model.SalesUnits.FirstOrDefault()?.OrderInTakeDate;
+
+                if (!Model.RealizationDate.HasValue)
+                    RealizationDate = Model.SalesUnits.FirstOrDefault()?.RealizationDateCalculated;
+
+                if (Model.PaymentConditionSet == null)
+                    PaymentConditionSet = new PaymentConditionSetEmptyWrapper(Model.SalesUnits.FirstOrDefault()?.PaymentConditionSet);
+
+                OnPropertyChanged(string.Empty);
+            };
+
+            this.StructureCosts.PropertyChanged += (sender, args) =>
+            {
+                this.OnPropertyChanged(nameof(UnitPrice));
+            };
+
+            this.StructureCosts.CollectionChanged += (sender, args) =>
+            {
+                this.OnPropertyChanged(nameof(UnitPrice));
+            };
+        }
     }
 }

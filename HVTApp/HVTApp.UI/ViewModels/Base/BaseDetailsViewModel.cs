@@ -161,6 +161,9 @@ namespace HVTApp.UI.ViewModels
             return true;
         }
 
+        /// <summary>
+        /// Сохранение (используется в команде "Сохранить")
+        /// </summary>
         protected virtual void SaveItem()
         {
             if (AllowSave() == false) return;

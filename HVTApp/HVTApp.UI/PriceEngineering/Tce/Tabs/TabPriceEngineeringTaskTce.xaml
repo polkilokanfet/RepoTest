@@ -8,9 +8,9 @@
              Header="Задача в ТСЕ">
 
     <inf:RibbonTabItemWithViewModel.Resources>
-        <visibility:PriceEngineeringTaskTceViewModelFrontManagerVisibilityConverter x:Key="FrontManagerVisibilityConverter" />
-        <visibility:PriceEngineeringTaskTceViewModelBackManagerVisibilityConverter x:Key="BackManagerVisibilityConverter" />
-        <visibility:PriceEngineeringTaskTceViewModelBackManagerBossVisibilityConverter x:Key="BackManagerBossVisibilityConverter" />
+        <visibility:TasksTceViewModelFrontManagerVisibilityConverter x:Key="FrontManagerVisibilityConverter" />
+        <visibility:TasksTceViewModelBackManagerVisibilityConverter x:Key="BackManagerVisibilityConverter" />
+        <visibility:TasksTceViewModelBackManagerBossVisibilityConverter x:Key="BackManagerBossVisibilityConverter" />
     </inf:RibbonTabItemWithViewModel.Resources>
 
     <infRib:RibbonGroup Caption="Навигация">

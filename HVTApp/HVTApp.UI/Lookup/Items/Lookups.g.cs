@@ -653,6 +653,12 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(1)]
         public System.Nullable<System.Guid> PriceEngineeringTasksId => Entity.PriceEngineeringTasksId;
 
+		[OrderStatus(1)]
+        public System.Nullable<System.Guid> PriceEngineeringTaskTceId => Entity.PriceEngineeringTaskTceId;
+
+		[OrderStatus(1)]
+        public System.Boolean IsTceConnected => Entity.IsTceConnected;
+
         #endregion
 
         #region ComplexProperties
@@ -730,6 +736,9 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 		[OrderStatus(1)]
         public System.Guid PriceCalculationId => Entity.PriceCalculationId;
+
+		[OrderStatus(1)]
+        public System.Nullable<System.Guid> PriceEngineeringTaskId => Entity.PriceEngineeringTaskId;
 
 		[OrderStatus(1)]
         public System.Nullable<System.DateTime> OrderInTakeDate => Entity.OrderInTakeDate;
@@ -855,6 +864,10 @@ namespace HVTApp.UI.Lookup
 	    public List<PriceEngineeringTaskMessageLookup> Messages { get { return GetLookupEnum<PriceEngineeringTaskMessageLookup>().ToList(); } }
 		[OrderStatus(90)]
 	    public List<PriceEngineeringTaskLookup> ChildPriceEngineeringTasks { get { return GetLookupEnum<PriceEngineeringTaskLookup>().ToList(); } }
+		[OrderStatus(80)]
+	    public List<StructureCostVersionLookup> StructureCostVersions { get { return GetLookupEnum<StructureCostVersionLookup>().ToList(); } }
+		[OrderStatus(80)]
+	    public List<PriceCalculationItemLookup> PriceCalculationItems { get { return GetLookupEnum<PriceCalculationItemLookup>().ToList(); } }
 		[OrderStatus(50)]
 	    public List<PriceEngineeringTaskStatusLookup> Statuses { get { return GetLookupEnum<PriceEngineeringTaskStatusLookup>().ToList(); } }
 		[OrderStatus(10)]
@@ -953,6 +966,9 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(800)]
         public System.Boolean IsOnBlock => Entity.IsOnBlock;
 
+		[OrderStatus(950)]
+        public System.Boolean IsRemoved => Entity.IsRemoved;
+
         #endregion
 
         #region ComplexProperties
@@ -960,6 +976,8 @@ namespace HVTApp.UI.Lookup
 	    public ProductBlockLookup ProductBlock { get { return GetLookup<ProductBlockLookup>(); } }
 
         #endregion
+		[OrderStatus(80)]
+	    public List<StructureCostVersionLookup> StructureCostVersions { get { return GetLookupEnum<StructureCostVersionLookup>().ToList(); } }
 	}
 	[AllowEditAttribute(Role.Admin)]
 	[Designation("Технико-стоимостная проработка (группа)")]
@@ -972,6 +990,9 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 		[OrderStatus(1)]
         public System.String Number => Entity.Number;
+
+		[OrderStatus(2000)]
+        public System.String TceNumber => Entity.TceNumber;
 
 		[OrderStatus(1500)]
         public System.DateTime WorkUpTo => Entity.WorkUpTo;
@@ -987,6 +1008,9 @@ namespace HVTApp.UI.Lookup
         #region ComplexProperties
 		[OrderStatus(1900)]
 	    public UserLookup UserManager { get { return GetLookup<UserLookup>(); } }
+
+		[OrderStatus(1800)]
+	    public UserLookup BackManager { get { return GetLookup<UserLookup>(); } }
 
 		//[OrderStatus(1)]
 	 //   public IEnumerable`1Lookup StatusesAll { get { return GetLookup<IEnumerable`1Lookup>(); } }
@@ -1085,6 +1109,8 @@ namespace HVTApp.UI.Lookup
 	    public List<PriceEngineeringTaskTceStructureCostVersionLookup> SccVersions { get { return GetLookupEnum<PriceEngineeringTaskTceStructureCostVersionLookup>().ToList(); } }
 		[OrderStatus(700)]
 	    public List<PriceEngineeringTaskTceStoryItemLookup> StoryItems { get { return GetLookupEnum<PriceEngineeringTaskTceStoryItemLookup>().ToList(); } }
+		[OrderStatus(600)]
+	    public List<PriceCalculationLookup> PriceCalculations { get { return GetLookupEnum<PriceCalculationLookup>().ToList(); } }
 	}
 	[AllowEditAttribute(Role.Admin)]
 	[Designation("Технико-стоимостная проработка (TCE) - единица истории")]
@@ -1123,6 +1149,29 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
         public System.Nullable<System.Int32> StructureCostVersion => Entity.StructureCostVersion;
+
+        #endregion
+	}
+	[AllowEditAttribute(Role.Admin)]
+	[Designation("Технико-стоимостная проработка - версия стракчакоста")]
+	public partial class StructureCostVersionLookup : LookupItem<StructureCostVersion>
+	{
+		public StructureCostVersionLookup(StructureCostVersion entity) : base(entity) 
+		{
+		}
+		
+        #region SimpleProperties
+		[OrderStatus(1)]
+        public System.Nullable<System.Guid> PriceEngineeringTaskId => Entity.PriceEngineeringTaskId;
+
+		[OrderStatus(1)]
+        public System.Nullable<System.Guid> PriceEngineeringTaskProductBlockAddedId => Entity.PriceEngineeringTaskProductBlockAddedId;
+
+		[OrderStatus(1)]
+        public System.String OriginalStructureCostNumber => Entity.OriginalStructureCostNumber;
+
+		[OrderStatus(1)]
+        public System.Nullable<System.Int32> Version => Entity.Version;
 
         #endregion
 	}

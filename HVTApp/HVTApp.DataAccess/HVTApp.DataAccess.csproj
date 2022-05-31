@@ -376,9 +376,9 @@
     <Compile Include="Migrations\202205251802438_PriceCalculationInTce.Designer.cs">
       <DependentUpon>202205251802438_PriceCalculationInTce.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202205300915350_TCE3.cs" />
-    <Compile Include="Migrations\202205300915350_TCE3.Designer.cs">
-      <DependentUpon>202205300915350_TCE3.cs</DependentUpon>
+    <Compile Include="Migrations\202205311102437_TCE4.cs" />
+    <Compile Include="Migrations\202205311102437_TCE4.Designer.cs">
+      <DependentUpon>202205311102437_TCE4.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
@@ -610,8 +610,8 @@
     <EmbeddedResource Include="Migrations\202205251802438_PriceCalculationInTce.resx">
       <DependentUpon>202205251802438_PriceCalculationInTce.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202205300915350_TCE3.resx">
-      <DependentUpon>202205300915350_TCE3.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202205311102437_TCE4.resx">
+      <DependentUpon>202205311102437_TCE4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

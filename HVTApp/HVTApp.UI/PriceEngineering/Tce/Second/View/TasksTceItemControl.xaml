@@ -54,7 +54,7 @@
                 <ItemsControl ItemsSource="{Binding ElementName=Root, Path=TasksTceItem.SccVersions, UpdateSourceTrigger=PropertyChanged}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <view:SccVersionControl SccVersion="{Binding TargetSccVersion, UpdateSourceTrigger=PropertyChanged}" Margin="0 1"/>
+                            <view:SccVersionControl SccVersion="{Binding  UpdateSourceTrigger=PropertyChanged}" Margin="0 1"/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>

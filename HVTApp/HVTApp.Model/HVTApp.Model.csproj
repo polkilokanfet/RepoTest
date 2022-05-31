@@ -237,6 +237,8 @@
     <Compile Include="Wrapper\Base\TrackingCollections\ValidatableChangeTrackingCollection.cs" />
     <Compile Include="Wrapper\Base\WrapperBase.cs" />
     <Compile Include="Wrapper\Custom\Empty\DesignDepartmentEmptyWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Empty\PaymentConditionSetEmptyWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Empty\PriceCalculationEmptyWrapper.cs" />
     <Compile Include="Wrapper\Custom\Empty\PriceEngineeringTaskEmptyWrapper.cs" />
     <Compile Include="Wrapper\Custom\Empty\ProductBlockEmptyWrapper.cs" />
     <Compile Include="Wrapper\Custom\Empty\UserEmptyWrapper.cs" />

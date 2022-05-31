@@ -24,6 +24,8 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
                     yield return new ValidationResult("Version is required", new[] { nameof(Version) });
                 else if (Version.Value < 1)
                     yield return new ValidationResult("Version should be greater then 0", new[] { nameof(Version) });
+                else if (Version.Value > 99)
+                    yield return new ValidationResult("Version should be less then 99", new[] { nameof(Version) });
             }
         }
     }

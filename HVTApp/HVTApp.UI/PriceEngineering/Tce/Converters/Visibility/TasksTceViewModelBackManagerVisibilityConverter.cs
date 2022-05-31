@@ -3,16 +3,16 @@ using System.Globalization;
 using System.Windows.Data;
 using HVTApp.Infrastructure;
 using HVTApp.Model;
-using HVTApp.UI.PriceEngineering.Tce.Unit.ViewModel;
+using HVTApp.UI.PriceEngineering.Tce.Second;
 
 namespace HVTApp.UI.PriceEngineering.Tce.Converters.Visibility
 {
-    [ValueConversion(typeof(PriceEngineeringTaskTceViewModel), typeof(System.Windows.Visibility))]
-    public class PriceEngineeringTaskTceViewModelBackManagerVisibilityConverter : IValueConverter
+    [ValueConversion(typeof(TasksTceViewModelBackManager), typeof(System.Windows.Visibility))]
+    public class TasksTceViewModelBackManagerVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value is PriceEngineeringTaskTceViewModelBackManager && GlobalAppProperties.User.RoleCurrent == Role.BackManager
+            return value is TasksTceViewModelBackManager && GlobalAppProperties.User.RoleCurrent == Role.BackManager
                 ? System.Windows.Visibility.Visible
                 : System.Windows.Visibility.Collapsed;
         }

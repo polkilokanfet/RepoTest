@@ -46,7 +46,6 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
                 RemoveGroupCommand.RaiseCanExecuteChanged();
                 FinishCommand.RaiseCanExecuteChanged();
                 DivideCommand.RaiseCanExecuteChanged();
-                ChangePaymentsCommand.RaiseCanExecuteChanged();
             }
         }
         public bool CurrentUserIsManager => GlobalAppProperties.User.RoleCurrent == Role.SalesManager;
@@ -150,10 +149,12 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
                 {
                     RaisePropertyChanged(nameof(StartVisibility));
                     RaisePropertyChanged(nameof(SccIsExpandable));
+                    this.ChangePaymentsCommand.RaiseCanExecuteChanged();
                 };
-                OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsStarted)));
-                OnPropertyChanged(new PropertyChangedEventArgs(nameof(CanChangePrice)));
-                OnPropertyChanged(new PropertyChangedEventArgs(nameof(CalculationHasFile)));
+                RaisePropertyChanged(nameof(IsStarted));
+                RaisePropertyChanged(nameof(CanChangePrice));
+                RaisePropertyChanged(nameof(CalculationHasFile));
+                this.ChangePaymentsCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -178,12 +179,18 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
             ChangePaymentsCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var paymentConditionSets = UnitOfWork.Repository<PaymentConditionSet>().GetAll();
-                    var paymentConditionSet = container.Resolve<ISelectService>().SelectItem(paymentConditionSets);
-                    if (paymentConditionSet != null)
-                        ((PriceCalculationItem2Wrapper) SelectedItem).PaymentConditionSet = paymentConditionSet;
+                    if (SelectedItem is PriceCalculationItem2Wrapper priceCalculationItem)
+                    {
+                        var paymentConditionSets = UnitOfWork.Repository<PaymentConditionSet>().GetAll();
+                        var paymentConditionSet = container.Resolve<ISelectService>().SelectItem(paymentConditionSets);
+                        if (paymentConditionSet != null && paymentConditionSet.Id !=
+                            priceCalculationItem.PaymentConditionSet?.Model.Id)
+                        {
+                            priceCalculationItem.PaymentConditionSet = new PaymentConditionSetEmptyWrapper(paymentConditionSet);
+                        }
+                    }
                 },
-                () => SelectedItem is PriceCalculationItem2Wrapper);
+                () => IsStarted == false && IsFinished == false);
 
             PriceCalculationWrapper = new PriceCalculation2Wrapper(new PriceCalculation());
             GenerateNewHistoryItem();
@@ -246,7 +253,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
                     PriceCalculationId = PriceCalculationWrapper.Model.Id,
                     OrderInTakeDate = calculationItem.OrderInTakeDate,
                     RealizationDate = calculationItem.RealizationDate,
-                    PaymentConditionSet = calculationItem.PaymentConditionSet
+                    PaymentConditionSet = new PaymentConditionSetEmptyWrapper(calculationItem.PaymentConditionSet)
                 };
 
                 foreach (var salesUnit in calculationItem.SalesUnits)
@@ -346,6 +353,27 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
             PriceCalculationWrapper.History.Add(HistoryItem);
         }
 
+
+        public void RegenerateScc(PriceCalculation calculation)
+        {
+            this.Load(calculation);
+
+            var priceEngineeringTasks = UnitOfWork.Repository<PriceEngineeringTasks>().GetById(calculation.PriceEngineeringTasksId.Value);
+
+            foreach (var priceCalculationItem in PriceCalculationWrapper.PriceCalculationItems)
+            {
+                //удаляем старые стракчакосты
+                priceCalculationItem.StructureCosts.ForEach(x => UnitOfWork.Repository<StructureCost>().Delete(x.Model));
+                priceCalculationItem.StructureCosts.Clear();
+
+                //генерируем новые стракчакосты
+                var priceEngineeringTask = UnitOfWork.Repository<PriceEngineeringTask>().GetById(priceCalculationItem.Model.PriceEngineeringTaskId.Value);
+                var sccList = priceEngineeringTask.GetStructureCosts(priceEngineeringTasks.TceNumber);
+                priceCalculationItem.StructureCosts.AddRange(sccList.Select(x => new StructureCostWrapper(x)));
+            }
+        }
+
+
         public PriceCalculationItem2Wrapper GetPriceCalculationItem2Wrapper(IEnumerable<SalesUnitEmptyWrapper> salesUnits, DateTime orderInTakeDate, DateTime realizationDate)
         {
             var result = this.GetPriceCalculationItem2Wrapper(salesUnits);
@@ -389,7 +417,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
             item.SalesUnits.AddRange(priceEngineeringTask.SalesUnits.Select(x => new SalesUnitEmptyWrapper(x)));
             item.OrderInTakeDate = priceEngineeringTask.SalesUnits.First().OrderInTakeDate;
             item.RealizationDate = priceEngineeringTask.SalesUnits.First().RealizationDateCalculated;
-            item.PaymentConditionSet = priceEngineeringTask.SalesUnits.First().PaymentConditionSet;
+            item.PaymentConditionSet = new PaymentConditionSetEmptyWrapper(priceEngineeringTask.SalesUnits.First().PaymentConditionSet);
             item.Model.PriceEngineeringTaskId = priceEngineeringTask.Id;
 
             foreach (var structureCost in priceEngineeringTask.GetStructureCosts(priceEngineeringTasks.TceNumber))
