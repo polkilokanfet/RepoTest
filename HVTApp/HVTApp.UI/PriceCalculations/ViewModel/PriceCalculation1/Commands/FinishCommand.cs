@@ -57,17 +57,22 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
                 {
                     if (structureCost.OriginalStructureCostProductBlock.StructureCostNumber == structureCost.OriginalStructureCostNumber)
                     {
-                        var dr1 = messageService.ShowYesNoMessageDialog("Уведомление", $"Вы хотите добавить в блок {structureCost.OriginalStructureCostProductBlock} новые ПЗ {structureCost.UnitPrice.Value:C}?");
-                        if (dr1 == MessageDialogResult.Yes)
+                        var productBlock = unitOfWork.Repository<ProductBlock>().GetById(structureCost.OriginalStructureCostProductBlock.Id);
+                        var calculationItem = unitOfWork.Repository<PriceCalculationItem>().GetById(structureCost.PriceCalculationItemId);
+                        var sumOnDate = new SumOnDate
                         {
-                            var productBlock = unitOfWork.Repository<ProductBlock>().GetById(structureCost.OriginalStructureCostProductBlock.Id);
-                            var calculationItem = unitOfWork.Repository<PriceCalculationItem>().GetById(structureCost.PriceCalculationItemId);
-                            productBlock.Prices.Add(new SumOnDate
+                            Sum = structureCost.UnitPrice.Value,
+                            Date = calculationItem.OrderInTakeDate.Value
+                        };
+
+                        if (productBlock.Prices.Any(x => Math.Abs(x.Sum - sumOnDate.Sum) < 0.0001 && x.Date == sumOnDate.Date) == false)
+                        {
+                            var dr1 = messageService.ShowYesNoMessageDialog("Уведомление", $"Вы хотите добавить в блок {structureCost.OriginalStructureCostProductBlock} новые ПЗ {structureCost.UnitPrice.Value:C}?");
+                            if (dr1 == MessageDialogResult.Yes)
                             {
-                                Sum = structureCost.UnitPrice.Value,
-                                Date = calculationItem.OrderInTakeDate.Value
-                            });
-                            unitOfWork.SaveChanges();
+                                productBlock.Prices.Add(sumOnDate);
+                                unitOfWork.SaveChanges();
+                            }
                         }
                     }
                 }

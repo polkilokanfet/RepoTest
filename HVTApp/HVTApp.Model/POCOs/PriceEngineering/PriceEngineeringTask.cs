@@ -217,7 +217,7 @@ namespace HVTApp.Model.POCOs
             foreach (var blockAdded in ProductBlocksAdded)
             {
 
-                var structureCostVersion1 = blockAdded.StructureCostVersions.FirstOrDefault(x => x.OriginalStructureCostNumber == ProductBlockEngineer.StructureCostNumber);
+                var structureCostVersion1 = blockAdded.StructureCostVersions.FirstOrDefault(x => x.OriginalStructureCostNumber == blockAdded.ProductBlock.StructureCostNumber);
                 var structureCostNumber1 = structureCostVersion1 == null
                     ? blockAdded.ProductBlock.StructureCostNumber
                     : $"{tceNumber} V{structureCostVersion1.Version:D2}";
@@ -227,9 +227,9 @@ namespace HVTApp.Model.POCOs
                     Comment = blockAdded.ProductBlock.ToString().LimitLengh(200),
                     Number = structureCostNumber1,
                     OriginalStructureCostProductBlock = blockAdded.ProductBlock,
-                    OriginalStructureCostNumber = structureCostNumber1,
+                    OriginalStructureCostNumber = blockAdded.ProductBlock.StructureCostNumber,
                     AmountNumerator = blockAdded.Amount,
-                    AmountDenomerator = blockAdded.IsOnBlock ? salesUnitsAmount.Value : 1
+                    AmountDenomerator = blockAdded.IsOnBlock ? 1 : salesUnitsAmount.Value
                 };
             }
 

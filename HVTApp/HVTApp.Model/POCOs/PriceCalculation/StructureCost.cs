@@ -18,7 +18,7 @@ namespace HVTApp.Model.POCOs
         public string OriginalStructureCostNumber { get; set; }
 
         [Designation("Оригинальный блок scc")]
-        public ProductBlock OriginalStructureCostProductBlock { get; set; }
+        public virtual ProductBlock OriginalStructureCostProductBlock { get; set; }
 
         /// <summary>
         /// Количество (числитель)
