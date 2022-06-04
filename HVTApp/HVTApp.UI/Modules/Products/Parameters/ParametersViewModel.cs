@@ -50,6 +50,7 @@ namespace HVTApp.UI.Modules.Products.Parameters
                 Paths.AddRange(Item.Model.Paths());
 
                 AddSimilarParameterCommand.RaiseCanExecuteChanged();
+                AddSimilarParametersCommand.RaiseCanExecuteChanged();
                 AddRelationCommand.RaiseCanExecuteChanged();
                 RemoveParameterCommand.RaiseCanExecuteChanged();
             }
@@ -126,6 +127,16 @@ namespace HVTApp.UI.Modules.Products.Parameters
         public DelegateLogCommand AddParameterToRelationCommand { get; }
         public DelegateLogCommand RemoveParameterFromRelationCommand { get; }
 
+        #region AddSimilarParameters
+
+        public int ParameterValueStart { get; set; } = 5;
+        public int ParameterValueEnd { get; set; } = 100;
+        public int ParameterValueStep{ get; set; } = 5;
+
+        public DelegateLogCommand AddSimilarParametersCommand { get; }
+        
+        #endregion
+
         public ParametersViewModel(IUnityContainer container) : base(container)
         {
             var parameters = UnitOfWork.Repository<Parameter>().Find(x => true);
@@ -150,6 +161,34 @@ namespace HVTApp.UI.Modules.Products.Parameters
                         var lookup = new ParameterLookup(similarParameter);
                         ParameterLookups.Add(lookup);
                         SelectedParameterLookup = lookup;
+                    }
+                },
+                () => SelectedParameterLookup != null);
+
+            AddSimilarParametersCommand = new DelegateLogCommand(
+                () =>
+                {
+                    var parameterGroup = SelectedParameterLookup.ParameterGroup.Entity;
+                    int value = this.ParameterValueStart;
+                    while (value <= this.ParameterValueEnd)
+                    {
+                        var parameterLookup = this.ParameterLookups
+                            .SingleOrDefault(x => x.ParameterGroup.Id == parameterGroup.Id && value == int.Parse(x.Value));
+
+                        if (parameterLookup == null)
+                        {
+                            this.AddSimilarParameterCommand.Execute();
+                            SelectedParameterLookup.Entity.Value = value.ToString();
+                        }
+                        else
+                        {
+                            SelectedParameterLookup = parameterLookup;
+                        }
+
+                        SelectedParameterLookup.Entity.Rang = value * (-1);
+                        this.SaveItem();
+
+                        value += this.ParameterValueStep;
                     }
                 },
                 () => SelectedParameterLookup != null);
