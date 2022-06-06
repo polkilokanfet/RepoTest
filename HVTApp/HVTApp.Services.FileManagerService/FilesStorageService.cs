@@ -136,6 +136,20 @@ namespace HVTApp.Services.FileManagerService
             }
         }
 
+        public string GetFolderPath()
+        {
+            using (var fdb = new FolderBrowserDialog())
+            {
+                var result = fdb.ShowDialog();
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fdb.SelectedPath))
+                {
+                    return fdb.SelectedPath;
+                }
+
+                return string.Empty;
+            }
+        }
+
         public void OpenFileFromStorage(Guid fileId, string storageDirectoryPath, string addToFileName = null)
         {
             var filePath = CopyFileFromStorage(fileId, storageDirectoryPath, Path.GetTempPath(), addToFileName, showTargetDirectory: false);

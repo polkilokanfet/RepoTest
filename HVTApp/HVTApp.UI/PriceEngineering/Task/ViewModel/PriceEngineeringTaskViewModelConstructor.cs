@@ -6,6 +6,7 @@ using System.Text;
 using System.Windows.Forms;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
@@ -72,6 +73,8 @@ namespace HVTApp.UI.PriceEngineering
         public DelegateLogCommand RejectCommand { get; private set; }
         public DelegateLogCommand BlockAddedNewParameterCommand { get; private set; }
         public DelegateLogCommand BlockNewParameterCommand { get; private set; }
+
+        public DelegateLogCommand LoadJsonFileCommand { get; private set; }
 
         #endregion
 
@@ -315,6 +318,14 @@ namespace HVTApp.UI.PriceEngineering
                     Container.Resolve<IDialogService>().ShowDialog(new ParametersServiceViewModel(Container, this.Model.ProductBlockEngineer, ProductBlockRequiredParameters));
                 },
                 () => IsEditMode);
+
+            LoadJsonFileCommand = new DelegateLogCommand(
+                () =>
+                {
+                    var fPath = Container.Resolve<IFilesStorageService>().GetFolderPath();
+                    var blocks = Container.Resolve<IJsonService>().ReadJsonFile<List<PriceEngineeringTaskProductBlockAdded>>($"{fPath}\\test.json");
+                    this.ProductBlocksAdded.AddRange(blocks.Select(x => new PriceEngineeringTaskProductBlockAddedWrapper1(x)));
+                });
 
 
             this.PropertyChanged += (sender, args) =>

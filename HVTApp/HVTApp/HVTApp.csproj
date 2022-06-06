@@ -29,8 +29,8 @@
     <InstallUrl>\\uetm\data\ОП ВВА\BaseVVA\Storage\App\</InstallUrl>
     <ProductName>HVTApplication</ProductName>
     <PublisherName>Kosolapov</PublisherName>
-    <MinimumRequiredVersion>1.0.0.326</MinimumRequiredVersion>
-    <ApplicationRevision>327</ApplicationRevision>
+    <MinimumRequiredVersion>1.0.0.327</MinimumRequiredVersion>
+    <ApplicationRevision>328</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -343,6 +343,10 @@
     <ProjectReference Include="..\HVTApp.Services.FileManagerService\HVTApp.Services.FileManagerService.csproj">
       <Project>{208fe134-b150-4f95-9e2b-8cc61ae7e501}</Project>
       <Name>HVTApp.Services.FileManagerService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HVTApp.Services.JsonService\HVTApp.Services.JsonService.csproj">
+      <Project>{5F4D479A-70DD-4D9A-9812-9544D741FBA9}</Project>
+      <Name>HVTApp.Services.JsonService</Name>
     </ProjectReference>
     <ProjectReference Include="..\HVTApp.Services.MessageService\HVTApp.Services.MessageService.csproj">
       <Project>{7703a90a-e742-41b1-96cb-cd0f51e3f2b6}</Project>

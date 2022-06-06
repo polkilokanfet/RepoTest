@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
@@ -315,6 +316,11 @@ namespace HVTApp.UI.PriceEngineering
                 () =>
                 {
                     Container.Resolve<IDialogService>().Show(this.Model, $"Отчет по проработке блока {this.Model.ProductBlockEngineer.Designation}");
+                    if (GlobalAppProperties.User.Login == "sivkov")
+                    {
+                        var blocks = this.ProductBlocksAdded.Select(x => x.Model).ToList();
+                        Container.Resolve<IJsonService>().WriteJsonFile(blocks, Path.Combine(@"D:\test.json"));
+                    }
                 });
 
             //синхронизация сообщений

@@ -45,6 +45,8 @@ namespace HVTApp.Model.Services
         /// <returns>Путь к скопированному файлу</returns>
         void CopyFilesFromStorage(IEnumerable<IFileStorage> files, string storageDirectoryPath, bool addName = true, bool showTargetDirectory = true);
 
+        string GetFolderPath();
+
         /// <summary>
         /// Открыть файл из хранилища.
         /// </summary>
