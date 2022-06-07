@@ -89,6 +89,10 @@ namespace HVTApp.UI.Lookup
                     case Role.DesignDepartmentHead:
                     {
                         var tasks = Entity.GetSuitableTasksForInstruct(GlobalAppProperties.User).ToList();
+
+                        if (tasks.SelectMany(x => x.StatusesAll).All(x => x == PriceEngineeringTaskStatusEnum.Stopped))
+                            return false;
+
                         return tasks.Any(x => x.UserConstructor == null) ||
                                tasks.Any(x => x.Status == PriceEngineeringTaskStatusEnum.FinishedByConstructorGoToVerification);
                     }

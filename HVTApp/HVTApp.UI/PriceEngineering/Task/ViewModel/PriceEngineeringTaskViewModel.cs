@@ -316,11 +316,11 @@ namespace HVTApp.UI.PriceEngineering
                 () =>
                 {
                     Container.Resolve<IDialogService>().Show(this.Model, $"Отчет по проработке блока {this.Model.ProductBlockEngineer.Designation}");
-                    if (GlobalAppProperties.User.Login == "sivkov")
-                    {
-                        var blocks = this.ProductBlocksAdded.Select(x => x.Model).ToList();
-                        Container.Resolve<IJsonService>().WriteJsonFile(blocks, Path.Combine(@"D:\test.json"));
-                    }
+                    //if (GlobalAppProperties.User.Login == "sivkov")
+                    //{
+                    //    var blocks = this.ProductBlocksAdded.Select(x => x.Model).ToList();
+                    //    Container.Resolve<IJsonService>().WriteJsonFile(blocks, Path.Combine(@"D:\test.json"));
+                    //}
                 });
 
             //синхронизация сообщений
