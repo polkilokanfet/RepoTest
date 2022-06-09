@@ -9,6 +9,7 @@ using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
+using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
 using Prism.Events;
@@ -35,18 +36,12 @@ namespace HVTApp.UI.PriceEngineering
 
         #region ctors
 
-        public PriceEngineeringTaskViewModelDesignDepartmentHead(IUnityContainer container, IUnitOfWork unitOfWork, PriceEngineeringTask priceEngineeringTask) : base(container, unitOfWork, priceEngineeringTask)
+        public PriceEngineeringTaskViewModelDesignDepartmentHead(IUnityContainer container, PriceEngineeringTask priceEngineeringTask) : base(container, priceEngineeringTask)
         {
+            var vms = Model.ChildPriceEngineeringTasks.Select(x => new PriceEngineeringTaskViewModelDesignDepartmentHead(container, x));
+            ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel>(vms);
         }
 
-        public PriceEngineeringTaskViewModelDesignDepartmentHead(IUnityContainer container, IUnitOfWork unitOfWork, IEnumerable<SalesUnit> salesUnits) : base(container, unitOfWork, salesUnits)
-        {
-        }
-
-        public PriceEngineeringTaskViewModelDesignDepartmentHead(IUnityContainer container, IUnitOfWork unitOfWork, Product product) : base(container, unitOfWork, product)
-        {
-        }
-        
         #endregion
 
         public override bool IsExpanded => this.Model.GetSuitableTasksForInstruct(GlobalAppProperties.User).Any();

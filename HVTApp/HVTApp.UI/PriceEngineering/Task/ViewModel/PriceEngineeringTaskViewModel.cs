@@ -172,40 +172,20 @@ namespace HVTApp.UI.PriceEngineering
 
         #region ctors
 
-        protected PriceEngineeringTaskViewModel(IUnityContainer container, IUnitOfWork unitOfWork, PriceEngineeringTask priceEngineeringTask) : base(priceEngineeringTask, container, unitOfWork)
+        //protected PriceEngineeringTaskViewModel(IUnityContainer container, IUnitOfWork unitOfWork, PriceEngineeringTask priceEngineeringTask) : base(priceEngineeringTask)
+        //{
+        //    Container = container;
+        //    UnitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
+        //    InCtor();
+        //}
+
+        protected PriceEngineeringTaskViewModel(IUnityContainer container, PriceEngineeringTask priceEngineeringTask) : base(priceEngineeringTask)
         {
             Container = container;
-            UnitOfWork = unitOfWork;
             InCtor();
         }
 
-        protected PriceEngineeringTaskViewModel(IUnityContainer container, IUnitOfWork unitOfWork, IEnumerable<SalesUnit> salesUnits) : this(container, unitOfWork, salesUnits.First().Product)
-        {
-            this.SalesUnits.AddRange(salesUnits.Select(salesUnit => new SalesUnitEmptyWrapper(salesUnit)));
-        }
-
-        protected PriceEngineeringTaskViewModel(IUnityContainer container, IUnitOfWork unitOfWork, Product product) : this(container, unitOfWork)
-        {
-            ProductBlockEngineer = new ProductBlockStructureCostWrapper(product.ProductBlock);
-            ProductBlockManager = new ProductBlockEmptyWrapper(product.ProductBlock);
-
-            foreach (var dependentProduct in product.DependentProducts)
-            {
-                for (int i = 0; i < dependentProduct.Amount; i++)
-                {
-                    var priceEngineeringTaskViewModel = PriceEngineeringTaskViewModelFactory.GetInstance(Container, UnitOfWork, dependentProduct.Product);
-                    this.ChildPriceEngineeringTasks.Add(priceEngineeringTaskViewModel);
-                    priceEngineeringTaskViewModel.Parent = this;
-                }
-            }
-
-            //бюро
-            var department = UnitOfWork.Repository<DesignDepartment>().Find(x => x.ProductBlockIsSuitable(this.ProductBlockEngineer.Model)).FirstOrDefault();
-            if (department != null)
-                this.DesignDepartment = new DesignDepartmentEmptyWrapper(department);
-        }
-
-        private PriceEngineeringTaskViewModel(IUnityContainer container, IUnitOfWork unitOfWork) : base(new PriceEngineeringTask(), container, unitOfWork)
+        protected PriceEngineeringTaskViewModel(IUnityContainer container, IUnitOfWork unitOfWork) : base(new PriceEngineeringTask())
         {
             Container = container;
             UnitOfWork = unitOfWork;
@@ -217,7 +197,7 @@ namespace HVTApp.UI.PriceEngineering
         /// <summary>
         /// Метод запускается в конце каждого конструктора
         /// </summary>
-        protected virtual void InCtor()
+        protected virtual void  InCtor()
         {
             this.Statuses.CollectionChanged += (sender, args) => OnPropertyChanged(nameof(Status));
 

@@ -5,8 +5,6 @@ namespace HVTApp.UI.PriceEngineering
 {
     public class PriceEngineeringTaskProductBlockAddedWrapper1 : WrapperBase<PriceEngineeringTaskProductBlockAdded>
     {
-        public PriceEngineeringTaskProductBlockAddedWrapper1(PriceEngineeringTaskProductBlockAdded model) : base(model) { }
-
         #region SimpleProperties
 
         /// <summary>
@@ -34,6 +32,7 @@ namespace HVTApp.UI.PriceEngineering
         }
         public bool IsOnBlockOriginalValue => GetOriginalValue<bool>(nameof(IsOnBlock));
         public bool IsOnBlockIsChanged => GetIsChanged(nameof(IsOnBlock));
+
         #endregion
 
         #region ComplexProperties
@@ -49,7 +48,7 @@ namespace HVTApp.UI.PriceEngineering
 
         #endregion
 
-        public override void InitializeComplexProperties()
+        public PriceEngineeringTaskProductBlockAddedWrapper1(PriceEngineeringTaskProductBlockAdded model) : base(model)
         {
             InitializeComplexProperty(nameof(ProductBlock), Model.ProductBlock == null ? null : new ProductBlockStructureCostWrapper(Model.ProductBlock, true));
         }

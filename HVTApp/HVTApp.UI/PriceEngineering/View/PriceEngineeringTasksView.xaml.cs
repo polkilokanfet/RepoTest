@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.PriceEngineering.Tabs;
 using Microsoft.Practices.Unity;
@@ -15,9 +16,18 @@ namespace HVTApp.UI.PriceEngineering.View
     {
         private PriceEngineeringTasksViewModel _viewModel;
 
-        public PriceEngineeringTasksView(PriceEngineeringTasksViewModel viewModel, IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator) : base(container, regionManager, eventAggregator)
+        public PriceEngineeringTasksView(IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator) : base(container, regionManager, eventAggregator)
         {
-            _viewModel = viewModel;
+            if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager)
+            {
+                _viewModel = container.Resolve<PriceEngineeringTasksViewModelManager>();
+            }
+            else if (GlobalAppProperties.User.RoleCurrent == Role.DesignDepartmentHead ||
+                     GlobalAppProperties.User.RoleCurrent == Role.Constructor)
+            {
+                _viewModel = container.Resolve<PriceEngineeringTasksViewModel>();
+            }
+
             InitializeComponent();
             this.DataContext = _viewModel;
         }
@@ -40,7 +50,8 @@ namespace HVTApp.UI.PriceEngineering.View
                         _viewModel.Load(priceEngineeringTask);
 
                     if (navigationContext.Parameters.First().Value is IEnumerable<SalesUnit> salesUnits)
-                        _viewModel.Load(salesUnits);
+                        if (_viewModel is PriceEngineeringTasksViewModelManager viewModel)
+                            viewModel.Load(salesUnits);
                 }
             }
 

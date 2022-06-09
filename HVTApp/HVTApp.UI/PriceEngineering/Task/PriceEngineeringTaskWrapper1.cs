@@ -1,11 +1,9 @@
 using System;
 using System.Linq;
-using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
-using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering
 {
@@ -136,31 +134,32 @@ namespace HVTApp.UI.PriceEngineering
         /// <summary>
         /// Файлы ответов ОГК
         /// </summary>
-        public IValidatableChangeTrackingCollection<PriceEngineeringTaskFileAnswerWrapper> FilesAnswers { get; private set; }
+        public IValidatableChangeTrackingCollection<PriceEngineeringTaskFileAnswerWrapper> FilesAnswers { get; }
 
         /// <summary>
         /// Переписка
         /// </summary>
-        public IValidatableChangeTrackingCollection<PriceEngineeringTaskMessageWrapper> Messages { get; private set; }
-
-        /// <summary>
-        /// Дочерние задачи
-        /// </summary>
-        public IValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel> ChildPriceEngineeringTasks { get; private set; }
+        public IValidatableChangeTrackingCollection<PriceEngineeringTaskMessageWrapper> Messages { get; }
 
         /// <summary>
         /// Статусы проработки
         /// </summary>
-        public IValidatableChangeTrackingCollection<PriceEngineeringTaskStatusWrapper> Statuses { get; private set; }
+        public IValidatableChangeTrackingCollection<PriceEngineeringTaskStatusWrapper> Statuses { get; }
 
         /// <summary>
         /// SalesUnits
         /// </summary>
-        public IValidatableChangeTrackingCollection<SalesUnitEmptyWrapper> SalesUnits { get; private set; }
+        public IValidatableChangeTrackingCollection<SalesUnitEmptyWrapper> SalesUnits { get; }
 
         #endregion
 
-        protected PriceEngineeringTaskWrapper1(PriceEngineeringTask model, IUnityContainer container, IUnitOfWork unitOfWork) : base(model)
+        /// <summary>
+        /// Дочерние задачи
+        /// ChildPriceEngineeringTasks инициализируются в дочерних классах
+        /// </summary>
+        public IValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel> ChildPriceEngineeringTasks { get; protected set; }
+
+        protected PriceEngineeringTaskWrapper1(PriceEngineeringTask model) : base(model)
         {
             #region InitializeComplexProperties
 
@@ -206,11 +205,6 @@ namespace HVTApp.UI.PriceEngineering
             if (Model.SalesUnits == null) throw new ArgumentException("SalesUnits cannot be null");
             SalesUnits = new ValidatableChangeTrackingCollection<SalesUnitEmptyWrapper>(Model.SalesUnits.Select(e => new SalesUnitEmptyWrapper(e)));
             RegisterCollection(SalesUnits, Model.SalesUnits);
-
-            if (Model.ChildPriceEngineeringTasks == null) throw new ArgumentException("ChildPriceEngineeringTasks cannot be null");
-            var engineeringTaskViewModels = Model.ChildPriceEngineeringTasks.Select(priceEngineeringTask => PriceEngineeringTaskViewModelFactory.GetInstance(container, unitOfWork, priceEngineeringTask));
-            ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel>(engineeringTaskViewModels);
-            RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
 
             #endregion
         }

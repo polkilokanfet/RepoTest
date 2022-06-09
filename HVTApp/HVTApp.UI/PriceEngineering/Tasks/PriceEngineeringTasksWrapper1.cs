@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base;
@@ -61,20 +63,22 @@ namespace HVTApp.UI.PriceEngineering
         /// <summary>
         /// Файлы технических требований (общие)
         /// </summary>
-        public IValidatableChangeTrackingCollection<PriceEngineeringTasksFileTechnicalRequirementsWrapper> FilesTechnicalRequirements { get; private set; }
-        
-        /// <summary>
-        /// Задачи
-        /// </summary>
-        public IValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel> ChildPriceEngineeringTasks { get; private set; }
+        public IValidatableChangeTrackingCollection<PriceEngineeringTasksFileTechnicalRequirementsWrapper> FilesTechnicalRequirements { get; }
 
         /// <summary>
         /// Расчеты переменных затрат
         /// </summary>
-        public IValidatableChangeTrackingCollection<PriceCalculationWrapper> PriceCalculations { get; private set; }
+        public IValidatableChangeTrackingCollection<PriceCalculationWrapper> PriceCalculations { get; }
 
         #endregion
 
+        /// <summary>
+        /// Задачи
+        /// </summary>
+        public IValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel> ChildPriceEngineeringTasks { get; }
+
+
+        #region Events
 
         /// <summary>
         /// Событие сохранения любой из входящих в сборник задач
@@ -86,29 +90,18 @@ namespace HVTApp.UI.PriceEngineering
         /// </summary>
         public event Action<PriceEngineeringTask> PriceEngineeringTaskAccepted;
 
+        #endregion
 
-        public PriceEngineeringTasksWrapper1(PriceEngineeringTasks model, IUnityContainer container, IUnitOfWork unitOfWork) : base(model)
+        private PriceEngineeringTasksWrapper1(PriceEngineeringTasks model) : base(model)
         {
-            if (Model.ChildPriceEngineeringTasks == null) throw new ArgumentException("ChildPriceEngineeringTasks cannot be null");
-            ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel>(Model.ChildPriceEngineeringTasks.Select(e => PriceEngineeringTaskViewModelFactory.GetInstance(container, unitOfWork, e)));
-            RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
+            #region InitializeComplexProperties
 
-            ChildPriceEngineeringTasks
-                .SelectMany(x => x.GetAllPriceEngineeringTaskViewModels())
-                .ForEach(x =>
-                {
-                    x.PriceEngineeringTaskSaved += task => this.PriceEngineeringTaskSaved?.Invoke(task);
-                    x.PriceEngineeringTaskAccepted += task => this.PriceEngineeringTaskAccepted?.Invoke(task);
-                });
-        }
-
-        public override void InitializeComplexProperties()
-        {
             InitializeComplexProperty(nameof(UserManager), Model.UserManager == null ? null : new UserEmptyWrapper(Model.UserManager));
-        }
 
-        protected override void InitializeCollectionProperties()
-        {
+            #endregion
+
+            #region InitializeCollectionProperties
+
             if (Model.FilesTechnicalRequirements == null) throw new ArgumentException("FilesTechnicalRequirements cannot be null");
             FilesTechnicalRequirements = new ValidatableChangeTrackingCollection<PriceEngineeringTasksFileTechnicalRequirementsWrapper>(Model.FilesTechnicalRequirements.Select(e => new PriceEngineeringTasksFileTechnicalRequirementsWrapper(e)));
             RegisterCollection(FilesTechnicalRequirements, Model.FilesTechnicalRequirements);
@@ -116,6 +109,35 @@ namespace HVTApp.UI.PriceEngineering
             if (Model.PriceCalculations == null) throw new ArgumentException("PriceCalculations cannot be null");
             PriceCalculations = new ValidatableChangeTrackingCollection<PriceCalculationWrapper>(Model.PriceCalculations.Select(e => new PriceCalculationWrapper(e)));
             RegisterCollection(PriceCalculations, Model.PriceCalculations);
+
+            #endregion
+        }
+
+        public PriceEngineeringTasksWrapper1(PriceEngineeringTasks model, IUnityContainer container) : this(model)
+        {
+            if (Model.ChildPriceEngineeringTasks == null) throw new ArgumentException("ChildPriceEngineeringTasks cannot be null");
+            ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel>(Model.ChildPriceEngineeringTasks.Select(e => PriceEngineeringTaskViewModelFactory.GetInstance(container, e)));
+            RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
+
+            EnumerableExtensions.ForEach(ChildPriceEngineeringTasks
+                    .SelectMany(x => x.GetAllPriceEngineeringTaskViewModels()), x =>
+                {
+                    x.PriceEngineeringTaskSaved += task => this.PriceEngineeringTaskSaved?.Invoke(task);
+                    x.PriceEngineeringTaskAccepted += task => this.PriceEngineeringTaskAccepted?.Invoke(task);
+                });
+        }
+
+        public PriceEngineeringTasksWrapper1(IEnumerable<PriceEngineeringTaskViewModelManager> taskList) : this(new PriceEngineeringTasks())
+        {
+            ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel>(new List<PriceEngineeringTaskViewModelManager>());
+            RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
+            ChildPriceEngineeringTasks.AddRange(taskList);
+
+            foreach (var vm in ChildPriceEngineeringTasks.SelectMany(x => x.GetAllPriceEngineeringTaskViewModels().ToList()))
+            {
+                vm.PriceEngineeringTaskSaved += task => this.PriceEngineeringTaskSaved?.Invoke(task);
+                vm.PriceEngineeringTaskAccepted += task => this.PriceEngineeringTaskAccepted?.Invoke(task);
+            }
         }
     }
 }
