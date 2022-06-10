@@ -33,6 +33,17 @@ namespace HVTApp.UI.PriceEngineering
         public bool IsOnBlockOriginalValue => GetOriginalValue<bool>(nameof(IsOnBlock));
         public bool IsOnBlockIsChanged => GetIsChanged(nameof(IsOnBlock));
 
+        /// <summary>
+        /// Удалено
+        /// </summary>
+        public bool IsRemoved
+        {
+            get => GetValue<bool>();
+            set => SetValue(value);
+        }
+        public bool IsRemovedOriginalValue => GetOriginalValue<bool>(nameof(IsRemoved));
+        public bool IsRemovedIsChanged => GetIsChanged(nameof(IsRemoved));
+
         #endregion
 
         #region ComplexProperties

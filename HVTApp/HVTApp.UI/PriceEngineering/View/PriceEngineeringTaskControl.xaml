@@ -293,7 +293,7 @@
                                                     </ListBox.ItemContainerStyle>
                                                     <ListBox.ItemTemplate>
                                                         <DataTemplate>
-                                                            <view:BlockAddedControl DataContext="{Binding}" Margin="5"/>
+                                                            <view:BlockAddedControl DataContext="{Binding}" Margin="5" Visibility="{Binding IsRemoved, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityReverseConverter}}"/>
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>
                                                 </ListBox>
@@ -364,9 +364,11 @@
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*"/>
                                                 <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
                                             <Button Grid.Column="0" Content="Отклонить" Command="{Binding RejectCommand}"/>
                                             <Button Grid.Column="1" Content="Завершить" Command="{Binding FinishCommand}"/>
+                                            <Button Grid.Column="2" Content="Сохранить" Command="{Binding SaveCommand}"/>
                                         </Grid>
                                     </GroupBox>
                                 </Grid>

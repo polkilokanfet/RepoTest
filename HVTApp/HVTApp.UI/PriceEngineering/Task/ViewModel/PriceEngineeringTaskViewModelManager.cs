@@ -64,6 +64,10 @@ namespace HVTApp.UI.PriceEngineering
             ProductBlockEngineer = new ProductBlockStructureCostWrapper(product.ProductBlock);
             ProductBlockManager = new ProductBlockEmptyWrapper(product.ProductBlock);
 
+            var vms = Model.ChildPriceEngineeringTasks.Select(x => new PriceEngineeringTaskViewModelManager(container, x));
+            ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel>(vms);
+            RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
+            
             foreach (var dependentProduct in product.DependentProducts)
             {
                 for (int i = 0; i < dependentProduct.Amount; i++)

@@ -38,6 +38,7 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
                         Container.Resolve<IFilesStorageService>().CopyFilesFromStorage(files, GlobalAppProperties.Actual.TechnicalRequrementsFilesPath);
                 },
                 () => SelectedItem != null);
+
             this.ViewModelIsLoaded += () =>
             {
                 RaisePropertyChanged(nameof(AllowEdit));

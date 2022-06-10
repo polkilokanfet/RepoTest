@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base;
@@ -9,6 +10,8 @@ namespace HVTApp.UI.PriceEngineering
 {
     public abstract class PriceEngineeringTaskWrapper1 : WrapperBase<PriceEngineeringTask>
     {
+        protected readonly IUnitOfWork UnitOfWork;
+
         #region SimpleProperties
 
         /// <summary>
@@ -159,7 +162,7 @@ namespace HVTApp.UI.PriceEngineering
         /// </summary>
         public IValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel> ChildPriceEngineeringTasks { get; protected set; }
 
-        protected PriceEngineeringTaskWrapper1(PriceEngineeringTask model) : base(model)
+        private PriceEngineeringTaskWrapper1(PriceEngineeringTask model) : base(model)
         {
             #region InitializeComplexProperties
 
@@ -207,6 +210,18 @@ namespace HVTApp.UI.PriceEngineering
             RegisterCollection(SalesUnits, Model.SalesUnits);
 
             #endregion
+        }
+
+        protected PriceEngineeringTaskWrapper1(PriceEngineeringTask model, IUnitOfWork unitOfWork)
+            : this(unitOfWork.Repository<PriceEngineeringTask>().GetById(model.Id))
+        {
+            UnitOfWork = unitOfWork;
+        }
+
+        protected PriceEngineeringTaskWrapper1(IUnitOfWork unitOfWork)
+            : this(new PriceEngineeringTask())
+        {
+            UnitOfWork = unitOfWork;
         }
     }
 }

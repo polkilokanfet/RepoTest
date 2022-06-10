@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
-using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering
@@ -63,12 +63,12 @@ namespace HVTApp.UI.PriceEngineering
         /// <summary>
         /// Файлы технических требований (общие)
         /// </summary>
-        public IValidatableChangeTrackingCollection<PriceEngineeringTasksFileTechnicalRequirementsWrapper> FilesTechnicalRequirements { get; }
+        public IValidatableChangeTrackingCollection<PriceEngineeringTasksFileTechnicalRequirementsWrapper> FilesTechnicalRequirements { get; private set; }
 
         /// <summary>
         /// Расчеты переменных затрат
         /// </summary>
-        public IValidatableChangeTrackingCollection<PriceCalculationWrapper> PriceCalculations { get; }
+        public IValidatableChangeTrackingCollection<PriceCalculationWrapper> PriceCalculations { get; private set; }
 
         #endregion
 
@@ -76,8 +76,7 @@ namespace HVTApp.UI.PriceEngineering
         /// Задачи
         /// </summary>
         public IValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel> ChildPriceEngineeringTasks { get; }
-
-
+        
         #region Events
 
         /// <summary>
@@ -115,16 +114,31 @@ namespace HVTApp.UI.PriceEngineering
 
         public PriceEngineeringTasksWrapper1(PriceEngineeringTasks model, IUnityContainer container) : this(model)
         {
-            if (Model.ChildPriceEngineeringTasks == null) throw new ArgumentException("ChildPriceEngineeringTasks cannot be null");
-            ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel>(Model.ChildPriceEngineeringTasks.Select(e => PriceEngineeringTaskViewModelFactory.GetInstance(container, e)));
-            RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
-
-            EnumerableExtensions.ForEach(ChildPriceEngineeringTasks
-                    .SelectMany(x => x.GetAllPriceEngineeringTaskViewModels()), x =>
+            IEnumerable<PriceEngineeringTaskViewModel> taskList = null;
+            switch (GlobalAppProperties.User.RoleCurrent)
+            {
+                case Role.SalesManager:
                 {
-                    x.PriceEngineeringTaskSaved += task => this.PriceEngineeringTaskSaved?.Invoke(task);
-                    x.PriceEngineeringTaskAccepted += task => this.PriceEngineeringTaskAccepted?.Invoke(task);
-                });
+                    taskList = Model.ChildPriceEngineeringTasks.Select(x => new PriceEngineeringTaskViewModelManager(container, x));
+                    break;
+                }
+                case Role.Constructor:
+                {
+                    taskList = Model.ChildPriceEngineeringTasks.Select(x => new PriceEngineeringTaskViewModelConstructor(container, x));
+                    break;
+                }
+                case Role.DesignDepartmentHead:
+                {
+                    taskList = Model.ChildPriceEngineeringTasks.Select(x => new PriceEngineeringTaskViewModelDesignDepartmentHead(container, x));
+                    break;
+                }
+            }
+
+            if (taskList == null) throw new ArgumentException("ChildPriceEngineeringTasks cannot be null");
+            ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel>(taskList);
+            //RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
+
+            InitializeEvents();
         }
 
         public PriceEngineeringTasksWrapper1(IEnumerable<PriceEngineeringTaskViewModelManager> taskList) : this(new PriceEngineeringTasks())
@@ -133,6 +147,11 @@ namespace HVTApp.UI.PriceEngineering
             RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
             ChildPriceEngineeringTasks.AddRange(taskList);
 
+            InitializeEvents();
+        }
+
+        private void InitializeEvents()
+        {
             foreach (var vm in ChildPriceEngineeringTasks.SelectMany(x => x.GetAllPriceEngineeringTaskViewModels().ToList()))
             {
                 vm.PriceEngineeringTaskSaved += task => this.PriceEngineeringTaskSaved?.Invoke(task);

@@ -25,6 +25,43 @@ namespace HVTApp.UI.Lookup
                 .Distinct()
                 .OrderBy(x => x.Designation);
 
+        [Designation("Исполнители"), OrderStatus(3000)]
+        public IEnumerable<User> Users
+        {
+            get
+            {
+                switch (GlobalAppProperties.User.RoleCurrent)
+                {
+                    case Role.SalesManager:
+                    {
+                        return Entity.ChildPriceEngineeringTasks
+                            .SelectMany(x => x.GetAllPriceEngineeringTasks())
+                            .Select(x => x.UserConstructor)
+                            .Where(x => x != null)
+                            .Distinct();
+                    }
+                    case Role.Constructor:
+                    {
+                        return Entity
+                            .GetSuitableTasksForWork(GlobalAppProperties.User)
+                            .Select(x => x.UserConstructor)
+                            .Where(x => x != null)
+                            .Distinct();
+                    }
+                    case Role.DesignDepartmentHead:
+                    {
+                        return Entity
+                            .GetSuitableTasksForInstruct(GlobalAppProperties.User)
+                            .Select(x => x.UserConstructor)
+                            .Where(x => x != null)
+                            .Distinct();
+                    }
+                }
+
+                return new List<User>();
+            }
+        }
+
         public string StatusString
         {
             get

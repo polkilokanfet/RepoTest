@@ -26,7 +26,6 @@ namespace HVTApp.UI.PriceEngineering
     public abstract class PriceEngineeringTaskViewModel : PriceEngineeringTaskWrapper1, IDisposable
     {
         protected readonly IUnityContainer Container;
-        protected readonly IUnitOfWork UnitOfWork;
         private PriceEngineeringTaskViewModel _parent;
         private PriceEngineeringTaskFileTechnicalRequirementsWrapper _selectedTechnicalRequrementsFile;
         private PriceEngineeringTaskFileAnswerWrapper _selectedFileAnswer;
@@ -172,23 +171,17 @@ namespace HVTApp.UI.PriceEngineering
 
         #region ctors
 
-        //protected PriceEngineeringTaskViewModel(IUnityContainer container, IUnitOfWork unitOfWork, PriceEngineeringTask priceEngineeringTask) : base(priceEngineeringTask)
-        //{
-        //    Container = container;
-        //    UnitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
-        //    InCtor();
-        //}
-
-        protected PriceEngineeringTaskViewModel(IUnityContainer container, PriceEngineeringTask priceEngineeringTask) : base(priceEngineeringTask)
+        protected PriceEngineeringTaskViewModel(IUnityContainer container, PriceEngineeringTask priceEngineeringTask) 
+            : base(priceEngineeringTask, container.Resolve<IUnitOfWork>())
         {
             Container = container;
             InCtor();
         }
 
-        protected PriceEngineeringTaskViewModel(IUnityContainer container, IUnitOfWork unitOfWork) : base(new PriceEngineeringTask())
+        protected PriceEngineeringTaskViewModel(IUnityContainer container, IUnitOfWork unitOfWork) 
+            : base(unitOfWork)
         {
             Container = container;
-            UnitOfWork = unitOfWork;
             InCtor();
         }
 

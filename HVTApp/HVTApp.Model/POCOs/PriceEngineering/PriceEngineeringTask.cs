@@ -214,7 +214,7 @@ namespace HVTApp.Model.POCOs
             };
 
             //стракчакосты добавленных блоков
-            foreach (var blockAdded in ProductBlocksAdded)
+            foreach (var blockAdded in ProductBlocksAdded.Where(x => x.IsRemoved == false))
             {
 
                 var structureCostVersion1 = blockAdded.StructureCostVersions.FirstOrDefault(x => x.OriginalStructureCostNumber == blockAdded.ProductBlock.StructureCostNumber);

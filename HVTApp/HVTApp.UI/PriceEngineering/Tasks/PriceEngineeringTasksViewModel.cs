@@ -1,10 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Windows.Forms;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
@@ -14,15 +9,8 @@ using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
-using HVTApp.UI.PriceCalculations.View;
-using HVTApp.UI.PriceEngineering.Comparers;
-using HVTApp.UI.PriceEngineering.Tce.Second.View;
-using HVTApp.UI.PriceEngineering.Tce.Unit;
-using HVTApp.UI.PriceEngineering.Tce.Unit.ViewModel;
-using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Events;
-using Prism.Regions;
 
 namespace HVTApp.UI.PriceEngineering
 {
@@ -149,7 +137,7 @@ namespace HVTApp.UI.PriceEngineering
         public void Dispose()
         {
             UnitOfWork?.Dispose();
-            EnumerableExtensions.ForEach(this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks, x => x.Dispose());
+            this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.ForEach(viewModel => viewModel.Dispose());
             this.PriceEngineeringTasksWrapper = null;
         }
     }

@@ -75,6 +75,7 @@ namespace HVTApp.UI.PriceEngineering
         public DelegateLogCommand BlockAddedNewParameterCommand { get; private set; }
         public DelegateLogCommand BlockNewParameterCommand { get; private set; }
 
+
         public DelegateLogCommand LoadJsonFileCommand { get; private set; }
 
         #endregion
@@ -170,10 +171,20 @@ namespace HVTApp.UI.PriceEngineering
 
                     SelectedBlockAdded.RejectChanges();
 
-                    if(UnitOfWork.Repository<PriceEngineeringTaskProductBlockAdded>().GetById(SelectedBlockAdded.Model.Id) != null)
-                        UnitOfWork.Repository<PriceEngineeringTaskProductBlockAdded>().Delete(SelectedBlockAdded.Model);
+                    if (SelectedBlockAdded.Model.StructureCostVersions.Any())
+                    {
+                        SelectedBlockAdded.IsRemoved = true;
+                    }
+                    else
+                    {
+                        if (UnitOfWork.Repository<PriceEngineeringTaskProductBlockAdded>().GetById(SelectedBlockAdded.Model.Id) != null)
+                        {
+                            UnitOfWork.Repository<PriceEngineeringTaskProductBlockAdded>().Delete(SelectedBlockAdded.Model);
+                        }
 
-                    this.ProductBlocksAdded.Remove(SelectedBlockAdded);
+                        this.ProductBlocksAdded.Remove(SelectedBlockAdded);
+                    }
+                    SelectedBlockAdded = null;
                 },
                 () => IsTarget && IsEditMode && SelectedBlockAdded != null);
 
@@ -248,10 +259,11 @@ namespace HVTApp.UI.PriceEngineering
                         .AppendLine("Основной блок:")
                         .AppendLine(this.ProductBlockEngineer.PrintToMessage());
 
-                    if (this.ProductBlocksAdded.Any())
+                    var pba = this.ProductBlocksAdded.Where(x => x.IsRemoved == false).ToList();
+                    if (pba.Any())
                     {
                         sb.AppendLine("Добавленные блоки:");
-                        ProductBlocksAdded.ForEach(x => sb.AppendLine(x.ToString()));
+                        pba.ForEach(x => sb.AppendLine(x.ToString()));
                     }
 
                     Statuses.Add(new PriceEngineeringTaskStatusWrapper(new PriceEngineeringTaskStatus
