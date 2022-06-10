@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
 using System.Windows.Data;
-using Microsoft.Practices.ObjectBuilder2;
+using HVTApp.Infrastructure.Extansions;
 
 namespace HVTApp.Infrastructure.Converters
 {
@@ -12,13 +11,12 @@ namespace HVTApp.Infrastructure.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var objects = value as IEnumerable<object>;
-            if (objects == null) return string.Empty;
-            var builder = new StringBuilder();
-            objects.ForEach(x => builder.Append("; ").Append($"{x.ToString()}"));
-            return builder.Length < 2
-                ? string.Empty
-                : builder.Remove(0, 2).ToString();
+            if (value is IEnumerable<object> objects)
+            {
+                return objects.ToStringEnum();
+            }
+
+            return string.Empty;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

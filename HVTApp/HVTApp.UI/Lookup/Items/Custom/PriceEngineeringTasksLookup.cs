@@ -12,21 +12,23 @@ namespace HVTApp.UI.Lookup
     public partial class PriceEngineeringTasksLookup
     {
         [Designation("Объекты"), OrderStatus(5000)]
-        public IEnumerable<Facility> Facilities =>
+        public string Facilities =>
             Entity.ChildPriceEngineeringTasks
                 .SelectMany(x => x.SalesUnits)
                 .Select(x => x.Facility)
-                .Distinct();
+                .Distinct()
+                .ToStringEnum();
 
         [Designation("Блоки"), OrderStatus(4000)]
-        public IEnumerable<ProductBlock> ProductBlocks =>
+        public string ProductBlocks =>
             Entity.ChildPriceEngineeringTasks
                 .Select(x => x.ProductBlockEngineer)
                 .Distinct()
-                .OrderBy(x => x.Designation);
+                .OrderBy(x => x.Designation)
+                .ToStringEnum();
 
         [Designation("Исполнители"), OrderStatus(3000)]
-        public IEnumerable<User> Users
+        public string Users
         {
             get
             {
@@ -38,7 +40,8 @@ namespace HVTApp.UI.Lookup
                             .SelectMany(x => x.GetAllPriceEngineeringTasks())
                             .Select(x => x.UserConstructor)
                             .Where(x => x != null)
-                            .Distinct();
+                            .Distinct()
+                            .ToStringEnum();
                     }
                     case Role.Constructor:
                     {
@@ -46,7 +49,8 @@ namespace HVTApp.UI.Lookup
                             .GetSuitableTasksForWork(GlobalAppProperties.User)
                             .Select(x => x.UserConstructor)
                             .Where(x => x != null)
-                            .Distinct();
+                            .Distinct()
+                            .ToStringEnum();
                     }
                     case Role.DesignDepartmentHead:
                     {
@@ -54,11 +58,12 @@ namespace HVTApp.UI.Lookup
                             .GetSuitableTasksForInstruct(GlobalAppProperties.User)
                             .Select(x => x.UserConstructor)
                             .Where(x => x != null)
-                            .Distinct();
+                            .Distinct()
+                            .ToStringEnum();
                     }
                 }
 
-                return new List<User>();
+                return string.Empty;
             }
         }
 
