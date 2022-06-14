@@ -13,6 +13,8 @@ namespace HVTApp.Model.POCOs
     [DesignationPlural("Технико-стоимостные проработки")]
     public class PriceEngineeringTask : BaseEntity, IProductBlockContainer
     {
+        #region DB
+
         [Designation("Id группы"), OrderStatus(2000)]
         public virtual Guid? ParentPriceEngineeringTasksId { get; set; }
 
@@ -61,6 +63,9 @@ namespace HVTApp.Model.POCOs
         [Designation("Строки расчётов ПЗ"), OrderStatus(80)]
         public virtual List<PriceCalculationItem> PriceCalculationItems { get; set; } = new List<PriceCalculationItem>();
 
+        #endregion
+
+
         [Designation("Статус"), NotMapped]
         public PriceEngineeringTaskStatusEnum Status
         {
@@ -69,6 +74,45 @@ namespace HVTApp.Model.POCOs
                 return Statuses.Any() 
                     ? Statuses.OrderBy(status => status.Moment).Last().StatusEnum 
                     : PriceEngineeringTaskStatusEnum.Created;
+            }
+        }
+
+        public string GetStatusForDesignDepartmentHead()
+        {
+            if (this.UserConstructor == null)
+            {
+                return this.StartMoment.HasValue
+                    ? "Требует поручения"
+                    : "Задача остановлена";
+            }
+
+            if (StartMoment.HasValue)
+            {
+                if (Status == PriceEngineeringTaskStatusEnum.FinishedByConstructorGoToVerification)
+                    return "Требует проверки";
+
+                return IsFinishedByConstructor
+                    ? "Поручено (проработано исполнителем)"
+                    : "Поручено (не проработано исполнителем)";
+            }
+
+            return "Поручено (задача остановлена)";
+        }
+
+        public bool IsFinishedByConstructor
+        {
+            get
+            {
+                switch (Status)
+                {
+                    case PriceEngineeringTaskStatusEnum.FinishedByConstructor:
+                    case PriceEngineeringTaskStatusEnum.FinishedByConstructorGoToVerification:
+                    case PriceEngineeringTaskStatusEnum.VerificationAcceptedByHead:
+                    case PriceEngineeringTaskStatusEnum.Accepted:
+                        return true;
+                    default:
+                        return false;
+                }
             }
         }
 
