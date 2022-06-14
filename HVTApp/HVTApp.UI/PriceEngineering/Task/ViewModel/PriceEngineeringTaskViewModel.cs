@@ -160,11 +160,21 @@ namespace HVTApp.UI.PriceEngineering
 
         public event Action<PriceEngineeringTask> PriceEngineeringTaskSaved;
 
-        public event Action<PriceEngineeringTask> PriceEngineeringTaskAccepted;
+        /// <summary>
+        /// Событие принятия проработки задачи
+        /// </summary>
+        public event Action PriceEngineeringTaskAccepted;
+
+
+        /// <summary>
+        /// Событие принятия проработки подзадачи
+        /// </summary>
+        public event Action<PriceEngineeringTask> PriceEngineeringSubTaskAccepted;
+
 
         protected void InvokePriceEngineeringTaskAccepted()
         {
-            this.PriceEngineeringTaskAccepted?.Invoke(this.Model);
+            this.PriceEngineeringTaskAccepted?.Invoke();
         }
 
         public PriceEngineeringTaskMessenger Messenger { get; private set; }
@@ -295,6 +305,12 @@ namespace HVTApp.UI.PriceEngineering
                     //    Container.Resolve<IJsonService>().WriteJsonFile(blocks, Path.Combine(@"D:\test.json"));
                     //}
                 });
+
+            foreach (var priceEngineeringTaskViewModel in this.ChildPriceEngineeringTasks)
+            {
+                priceEngineeringTaskViewModel.PriceEngineeringTaskAccepted += () => this.PriceEngineeringSubTaskAccepted?.Invoke(priceEngineeringTaskViewModel.Model);
+                priceEngineeringTaskViewModel.PriceEngineeringSubTaskAccepted += (subTask) => this.PriceEngineeringSubTaskAccepted?.Invoke(subTask);
+            }
 
             //синхронизация сообщений
             Messenger = new PriceEngineeringTaskMessenger(Container, this);
