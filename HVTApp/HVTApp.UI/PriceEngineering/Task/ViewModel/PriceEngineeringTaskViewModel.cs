@@ -133,16 +133,20 @@ namespace HVTApp.UI.PriceEngineering
         public DelegateLogCommand LoadAnswerFilesCommand { get; private set; }
 
         public DelegateLogCommand SaveCommand { get; protected set; }
-
         public DelegateLogCommand StartCommand { get; private set; }
 
-        public event Action TaskIsStarted;
-
         public DelegateLogCommand ShowReportCommand { get; private set; }
+
+        /// <summary>
+        /// Замена продукта в SalesUnit на продукты из задачи
+        /// </summary>
+        public DelegateLogCommand FixProductCommand { get; private set; }
 
         #endregion
 
         #region Events
+
+        public event Action TaskIsStarted;
 
         /// <summary>
         /// Событие изменения выбранного добавленного блока
@@ -163,15 +167,15 @@ namespace HVTApp.UI.PriceEngineering
         /// <summary>
         /// Событие полного принятия проработки задачи
         /// </summary>
-        public event Action TotalAcceptedEvent;
+        public event Action<PriceEngineeringTaskViewModel> TotalAcceptedEvent;
 
         #endregion
 
-        protected void InvokePriceEngineeringTaskAccepted()
+        protected void InvokePriceEngineeringTaskAccepted(PriceEngineeringTaskViewModel priceEngineeringTaskViewModel)
         {
             if (this.Model.IsTotalAccepted)
             {
-                this.TotalAcceptedEvent?.Invoke();
+                this.TotalAcceptedEvent?.Invoke(this);
             }
         }
 
@@ -302,6 +306,64 @@ namespace HVTApp.UI.PriceEngineering
                     //}
                 });
 
+            FixProductCommand = new DelegateLogCommand(
+                () =>
+                {
+                    if (this.Model.SalesUnits.Any())
+                    {
+                        var getProductService = Container.Resolve<IGetProductService>();
+                        var unitOfWork = Container.Resolve<IUnitOfWork>();
+
+                        var priceEngineeringTask = unitOfWork.Repository<PriceEngineeringTask>().GetById(this.Model.Id);
+
+                        var product = getProductService.SaveProduct(unitOfWork, priceEngineeringTask.GetProduct());
+
+                        //Включённое оборудование на всё количество
+                        var productsIncludedOnAmount = priceEngineeringTask
+                            .GetAllPriceEngineeringTasks()
+                            .SelectMany(x => x.ProductBlocksAdded)
+                            .Where(x => x.IsOnBlock == false)
+                            .Select(x => new ProductIncluded
+                            {
+                                Product = getProductService.SaveProduct(unitOfWork, x.GetProduct()),
+                                Amount = x.Amount
+                            })
+                            .ToList();
+
+
+                        foreach (var salesUnit in Model.SalesUnits)
+                        {
+                            //заменяем продукт
+                            salesUnit.Product = product;
+
+                            //заменяем включёное оборудование
+                            foreach (var productIncluded in salesUnit.ProductsIncluded.Where(x => x.Product.ProductBlock.IsSupervision == false))
+                            {
+                                salesUnit.ProductsIncluded.Remove(productIncluded);
+                                unitOfWork.Repository<ProductIncluded>().Delete(productIncluded);
+                            }
+
+                            //Включённое оборудование на каждый блок
+                            var productsIncludedOnBlock = priceEngineeringTask
+                                .GetAllPriceEngineeringTasks()
+                                .SelectMany(x => x.ProductBlocksAdded)
+                                .Where(x => x.IsOnBlock)
+                                .Select(x => new ProductIncluded
+                                {
+                                    Product = getProductService.SaveProduct(this.UnitOfWork, x.GetProduct()),
+                                    Amount = x.Amount
+                                })
+                                .ToList();
+
+                            salesUnit.ProductsIncluded.AddRange(productsIncludedOnBlock);
+                            salesUnit.ProductsIncluded.AddRange(productsIncludedOnAmount);
+                        }
+
+                        unitOfWork.SaveChanges();
+                    
+                    }
+                });
+
             #endregion
 
             this.PropertyChanged += (sender, args) => StartCommand.RaiseCanExecuteChanged();
@@ -322,7 +384,12 @@ namespace HVTApp.UI.PriceEngineering
             };
 
             this.Statuses.CollectionChanged += (sender, args) => OnPropertyChanged(nameof(AllowEditAddedBlocks));
+
+            //реакция на полное принятие задачи менеджером
+            this.TotalAcceptedEvent += viewModel => FixProductCommand.Execute();
         }
+
+
 
         /// <summary>
         /// Старт задачи

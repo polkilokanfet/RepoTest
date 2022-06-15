@@ -243,6 +243,33 @@ namespace HVTApp.Services.GetProductService
             return result;
         }
 
+        public Product SaveProduct(IUnitOfWork unitOfWork, Product product)
+        {
+            IUnitOfWork unitOfWork1 = this.Container.Resolve<IUnitOfWork>();
+
+            //загрузка актуальных продуктов
+            var products = unitOfWork.Repository<Product>().GetAll();
+
+            var result = products.SingleOrDefault(x => x.Equals(product));
+
+            //если выбранного продукта нет в базе
+            if (result == null)
+            {
+                result = product;
+                SubstitutionProducts(result, products);
+                if (unitOfWork.SaveEntity(result).OperationCompletedSuccessfully)
+                {
+                    Container.Resolve<IEventAggregator>().GetEvent<AfterSaveProductEvent>().Publish(result);
+                }
+                else
+                {
+                    throw new Exception("Ошибка при сохранении нового продукта в базу данных.");
+                }
+            }
+
+            return result;
+        }
+
         public Product GetProduct(IEnumerable<Parameter> requiredParameters)
         {
             var bank = GetBank(requiredParameters.Select(x => UnitOfWork.Repository<Parameter>().GetById(x.Id)));

@@ -317,5 +317,23 @@ namespace HVTApp.Model.POCOs
         /// Проработка задачи остановлена менеджером (со всеми вложенными задачами).
         /// </summary>
         public bool IsTotalStopped => this.StatusesAll.All(x => x == PriceEngineeringTaskStatusEnum.Stopped);
+
+        /// <summary>
+        /// Формирует продукт из проработанных блоков
+        /// </summary>
+        /// <returns></returns>
+        public Product GetProduct()
+        {
+            return new Product
+            {
+                ProductBlock = this.ProductBlockEngineer,
+                DependentProducts = this.ChildPriceEngineeringTasks.Select(x =>
+                    new ProductDependent
+                    {
+                        Product = x.GetProduct(),
+                        Amount = 1
+                    }).ToList()
+            };
+        }
     }
 }

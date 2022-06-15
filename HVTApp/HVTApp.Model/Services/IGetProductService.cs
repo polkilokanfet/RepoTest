@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.Model.Services
@@ -16,6 +17,8 @@ namespace HVTApp.Model.Services
         Product GetProduct(Product originProduct = null);
 
         Product GetProduct(IEnumerable<Parameter> requiredParameters);
+
+        Product SaveProduct(IUnitOfWork unitOfWork, Product product);
 
         /// <summary>
         /// Выбор ремонтного комплекта

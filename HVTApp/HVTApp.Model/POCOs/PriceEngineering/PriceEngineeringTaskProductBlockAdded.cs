@@ -34,6 +34,17 @@ namespace HVTApp.Model.POCOs
         [NotMapped]
         public bool HasSccInTce => this.StructureCostVersions.Any(x => x.Version.HasValue && x.OriginalStructureCostNumber == this.ProductBlock.StructureCostNumber);
 
+        /// <summary>
+        /// Формирует продукт из проработанных блоков
+        /// </summary>
+        /// <returns></returns>
+        public Product GetProduct()
+        {
+            return new Product
+            {
+                ProductBlock = this.ProductBlock
+            };
+        }
 
         public override string ToString()
         {

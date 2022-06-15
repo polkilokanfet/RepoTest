@@ -73,26 +73,26 @@ namespace HVTApp.DataAccess
             return result;
         }
 
-        public UnitOfWorkOperationResult Add(TEntity entity)
+        public virtual UnitOfWorkOperationResult Add(TEntity entity)
         {
             Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
             return VoidAction(baseEntity => Context.Set<TEntity>().Add(baseEntity), entity);
         }
 
-        public UnitOfWorkOperationResult AddRange(IEnumerable<TEntity> entities)
+        public virtual UnitOfWorkOperationResult AddRange(IEnumerable<TEntity> entities)
         {
             Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
             return VoidAction(ee => Context.Set<TEntity>().AddRange(ee), entities);
         }
 
 
-        public UnitOfWorkOperationResult Delete(TEntity entity)
+        public virtual UnitOfWorkOperationResult Delete(TEntity entity)
         {
             Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
             return VoidAction(en => Context.Set<TEntity>().Remove(en), entity);
         }
 
-        public UnitOfWorkOperationResult DeleteRange(IEnumerable<TEntity> entities)
+        public virtual UnitOfWorkOperationResult DeleteRange(IEnumerable<TEntity> entities)
         {
             Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
             return VoidAction(ee => Context.Set<TEntity>().RemoveRange(ee), entities);

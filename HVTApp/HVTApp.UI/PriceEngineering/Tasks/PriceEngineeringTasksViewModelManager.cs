@@ -256,7 +256,7 @@ namespace HVTApp.UI.PriceEngineering
                     valueOld.PropertyChanged -= PriceEngineeringTasksWrapperOnPropertyChanged;
                     foreach (var ct in valueOld.ChildPriceEngineeringTasks)
                     {
-                        ct.TotalAcceptedEvent -= PriceEngineeringTasksWrapperOnPriceEngineeringTaskAccepted;
+                        ct.TotalAcceptedEvent -= OnPriceEngineeringTaskAccepted;
                     }
                 }
 
@@ -265,7 +265,7 @@ namespace HVTApp.UI.PriceEngineering
                     valueNew.PropertyChanged += PriceEngineeringTasksWrapperOnPropertyChanged;
                     foreach (var ct in valueNew.ChildPriceEngineeringTasks)
                     {
-                        ct.TotalAcceptedEvent += PriceEngineeringTasksWrapperOnPriceEngineeringTaskAccepted;
+                        ct.TotalAcceptedEvent += OnPriceEngineeringTaskAccepted;
                     }
                 }
 
@@ -320,10 +320,12 @@ namespace HVTApp.UI.PriceEngineering
 
         #region PriceEngineeringTasksWrapperOn
 
-        private void PriceEngineeringTasksWrapperOnPriceEngineeringTaskAccepted()
+        private void OnPriceEngineeringTaskAccepted(PriceEngineeringTaskViewModel priceEngineeringTaskViewModel)
         {
-            if (this.PriceEngineeringTasksWrapper != null &&
-                this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks
+            if (this.PriceEngineeringTasksWrapper == null) return;
+
+            //если приняты все задачи
+            if (this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks
                     .Any(x => x.Model.IsTotalAccepted) &&
                 this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks
                     .All(x => x.Model.IsTotalAccepted || x.Model.IsTotalStopped))

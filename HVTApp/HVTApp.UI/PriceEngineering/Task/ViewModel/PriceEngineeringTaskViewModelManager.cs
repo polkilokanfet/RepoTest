@@ -179,7 +179,7 @@ namespace HVTApp.UI.PriceEngineering
                         Message = "Проработка принята!"
                     }));
                     SaveCommand.Execute();
-                    InvokePriceEngineeringTaskAccepted();
+                    InvokePriceEngineeringTaskAccepted(this);
                     Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskAcceptedEvent>().Publish(this.Model);
                 },
                 () => this.Status == PriceEngineeringTaskStatusEnum.FinishedByConstructor && this.IsValid);
