@@ -320,6 +320,9 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
             //добавляем в расчет ПЗ оборудование
             foreach (var priceEngineeringTask in priceEngineeringTasks.ChildPriceEngineeringTasks)
             {
+                if (isTceConnected && priceEngineeringTask.IsTotalAccepted == false)
+                    continue;
+
                 PriceCalculationWrapper.PriceCalculationItems.Add(GetPriceCalculationItem2Wrapper(priceEngineeringTasks, priceEngineeringTask));
             }
 

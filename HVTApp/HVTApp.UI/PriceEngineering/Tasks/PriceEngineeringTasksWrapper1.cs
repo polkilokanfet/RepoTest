@@ -77,20 +77,6 @@ namespace HVTApp.UI.PriceEngineering
         /// </summary>
         public IValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel> ChildPriceEngineeringTasks { get; }
         
-        #region Events
-
-        /// <summary>
-        /// Событие сохранения любой из входящих в сборник задач
-        /// </summary>
-        public event Action<PriceEngineeringTask> PriceEngineeringTaskSaved;
-
-        /// <summary>
-        /// Событие принятия любой из входящих в сборник задач
-        /// </summary>
-        public event Action<PriceEngineeringTask> PriceEngineeringTaskAccepted;
-
-        #endregion
-
         private PriceEngineeringTasksWrapper1(PriceEngineeringTasks model) : base(model)
         {
             #region InitializeComplexProperties
@@ -137,8 +123,6 @@ namespace HVTApp.UI.PriceEngineering
             if (taskList == null) throw new ArgumentException("ChildPriceEngineeringTasks cannot be null");
             ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel>(taskList);
             //RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
-
-            InitializeEvents();
         }
 
         public PriceEngineeringTasksWrapper1(IEnumerable<PriceEngineeringTaskViewModelManager> taskList) : this(new PriceEngineeringTasks())
@@ -146,17 +130,7 @@ namespace HVTApp.UI.PriceEngineering
             ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel>(new List<PriceEngineeringTaskViewModelManager>());
             RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
             ChildPriceEngineeringTasks.AddRange(taskList);
-
-            InitializeEvents();
         }
 
-        private void InitializeEvents()
-        {
-            foreach (var vm in ChildPriceEngineeringTasks.SelectMany(x => x.GetAllPriceEngineeringTaskViewModels().ToList()))
-            {
-                vm.PriceEngineeringTaskSaved += task => this.PriceEngineeringTaskSaved?.Invoke(task);
-                vm.PriceEngineeringTaskAccepted += task => this.PriceEngineeringTaskAccepted?.Invoke(task);
-            }
-        }
     }
 }

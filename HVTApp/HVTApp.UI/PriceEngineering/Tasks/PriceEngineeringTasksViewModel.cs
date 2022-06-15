@@ -4,13 +4,11 @@ using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
-using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
-using Prism.Events;
 
 namespace HVTApp.UI.PriceEngineering
 {
@@ -33,17 +31,7 @@ namespace HVTApp.UI.PriceEngineering
                 var originValue = _priceEngineeringTasksWrapper;
                 if (Equals(_priceEngineeringTasksWrapper, value)) return;
 
-                if (_priceEngineeringTasksWrapper != null)
-                {
-                    _priceEngineeringTasksWrapper.PriceEngineeringTaskSaved -= PriceEngineeringTasksWrapperOnPriceEngineeringTaskSaved;
-                }
-
                 _priceEngineeringTasksWrapper = value;
-
-                if (_priceEngineeringTasksWrapper != null)
-                {
-                    _priceEngineeringTasksWrapper.PriceEngineeringTaskSaved += PriceEngineeringTasksWrapperOnPriceEngineeringTaskSaved;
-                }
 
                 RaisePropertyChanged(nameof(AllowEditProps));
                 this.PriceEngineeringTasksWrapperChanged?.Invoke(originValue, value);
@@ -127,12 +115,6 @@ namespace HVTApp.UI.PriceEngineering
         {
             this.Load(priceEngineeringTask.GetPriceEngineeringTasks(UnitOfWork));
         }
-
-        private void PriceEngineeringTasksWrapperOnPriceEngineeringTaskSaved(PriceEngineeringTask priceEngineeringTask)
-        {
-            Container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceEngineeringTasksEvent>().Publish(PriceEngineeringTasksWrapper.Model);
-        }
-
 
         public void Dispose()
         {

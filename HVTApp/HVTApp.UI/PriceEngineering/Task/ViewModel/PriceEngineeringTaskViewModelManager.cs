@@ -41,6 +41,8 @@ namespace HVTApp.UI.PriceEngineering
             }
         }
 
+        #region Commands
+
         public DelegateLogCommand SelectDesignDepartmentCommand { get; private set; }
         
         public DelegateLogCommand AddTechnicalRequrementsFilesCommand { get; private set; }
@@ -49,6 +51,8 @@ namespace HVTApp.UI.PriceEngineering
         public DelegateLogCommand AcceptCommand { get; private set; }
         public DelegateLogCommand RejectCommand { get; private set; }
         public DelegateLogCommand StopCommand { get; private set; }
+
+        #endregion
 
         #region ctors
 
@@ -64,6 +68,13 @@ namespace HVTApp.UI.PriceEngineering
             ProductBlockEngineer = new ProductBlockStructureCostWrapper(product.ProductBlock);
             ProductBlockManager = new ProductBlockEmptyWrapper(product.ProductBlock);
 
+            //бюро
+            var department = UnitOfWork.Repository<DesignDepartment>().Find(x => x.ProductBlockIsSuitable(this.ProductBlockEngineer.Model)).FirstOrDefault();
+            if (department != null)
+            {
+                this.DesignDepartment = new DesignDepartmentEmptyWrapper(department);
+            }
+
             var vms = Model.ChildPriceEngineeringTasks.Select(x => new PriceEngineeringTaskViewModelManager(container, x));
             ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel>(vms);
             RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
@@ -78,12 +89,8 @@ namespace HVTApp.UI.PriceEngineering
                 }
             }
 
-            //бюро
-            var department = UnitOfWork.Repository<DesignDepartment>().Find(x => x.ProductBlockIsSuitable(this.ProductBlockEngineer.Model)).FirstOrDefault();
-            if (department != null)
-            {
-                this.DesignDepartment = new DesignDepartmentEmptyWrapper(department);
-            }
+            //если принята вложенная задача (не стала ли задача полностью принятой)
+            this.ChildPriceEngineeringTasks.ForEach(x => x.TotalAcceptedEvent += this.InvokePriceEngineeringTaskAccepted);
         }
 
         public PriceEngineeringTaskViewModelManager(IUnityContainer container, PriceEngineeringTask priceEngineeringTask) 
@@ -92,13 +99,18 @@ namespace HVTApp.UI.PriceEngineering
             var vms = Model.ChildPriceEngineeringTasks.Select(x => new PriceEngineeringTaskViewModelManager(Container, x));
             ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel>(vms);
             //RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
+
+            //если принята вложенная задача (не стала ли задача полностью принятой)
+            this.ChildPriceEngineeringTasks.ForEach(x => x.TotalAcceptedEvent += this.InvokePriceEngineeringTaskAccepted);
         }
-        
+
         #endregion
 
         protected override void InCtor()
         {
             base.InCtor();
+
+            #region Commands
 
             SelectDesignDepartmentCommand = new DelegateLogCommand(
                 () =>
@@ -205,6 +217,9 @@ namespace HVTApp.UI.PriceEngineering
                     Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskStoppedEvent>().Publish(this.Model);
                 },
                 () => this.Status != PriceEngineeringTaskStatusEnum.Created && this.Status != PriceEngineeringTaskStatusEnum.Stopped && this.IsValid);
+            
+
+            #endregion
 
             this.SelectedTechnicalRequrementsFileIsChanged += () =>
             {

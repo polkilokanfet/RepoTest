@@ -31,24 +31,6 @@ namespace HVTApp.UI.PriceEngineering
         private PriceEngineeringTaskFileAnswerWrapper _selectedFileAnswer;
         private PriceEngineeringTaskProductBlockAddedWrapper1 _selectedBlockAdded;
 
-        #region Commands
-
-        public DelegateLogCommand OpenTechnicalRequrementsFileCommand { get; private set; }
-        public DelegateLogCommand LoadTechnicalRequrementsFilesCommand { get; private set; }
-
-        public DelegateLogCommand OpenAnswerFileCommand { get; private set; }
-        public DelegateLogCommand LoadAnswerFilesCommand { get; private set; }
-
-        public DelegateLogCommand SaveCommand { get; protected set; }
-
-        public DelegateLogCommand StartCommand { get; private set; }
-
-        public event Action TaskIsStarted;
-
-        public DelegateLogCommand ShowReportCommand { get; private set; }
-
-        #endregion
-
         /// <summary>
         /// Развернуть задачу при открытии?
         /// </summary>
@@ -142,6 +124,25 @@ namespace HVTApp.UI.PriceEngineering
             }
         }
 
+        #region Commands
+
+        public DelegateLogCommand OpenTechnicalRequrementsFileCommand { get; private set; }
+        public DelegateLogCommand LoadTechnicalRequrementsFilesCommand { get; private set; }
+
+        public DelegateLogCommand OpenAnswerFileCommand { get; private set; }
+        public DelegateLogCommand LoadAnswerFilesCommand { get; private set; }
+
+        public DelegateLogCommand SaveCommand { get; protected set; }
+
+        public DelegateLogCommand StartCommand { get; private set; }
+
+        public event Action TaskIsStarted;
+
+        public DelegateLogCommand ShowReportCommand { get; private set; }
+
+        #endregion
+
+        #region Events
 
         /// <summary>
         /// Событие изменения выбранного добавленного блока
@@ -158,23 +159,20 @@ namespace HVTApp.UI.PriceEngineering
         /// </summary>
         protected event Action SelectedAnswerFileIsChanged;
 
-        public event Action<PriceEngineeringTask> PriceEngineeringTaskSaved;
 
         /// <summary>
-        /// Событие принятия проработки задачи
+        /// Событие полного принятия проработки задачи
         /// </summary>
-        public event Action PriceEngineeringTaskAccepted;
+        public event Action TotalAcceptedEvent;
 
-
-        /// <summary>
-        /// Событие принятия проработки подзадачи
-        /// </summary>
-        public event Action<PriceEngineeringTask> PriceEngineeringSubTaskAccepted;
-
+        #endregion
 
         protected void InvokePriceEngineeringTaskAccepted()
         {
-            this.PriceEngineeringTaskAccepted?.Invoke();
+            if (this.Model.IsTotalAccepted)
+            {
+                this.TotalAcceptedEvent?.Invoke();
+            }
         }
 
         public PriceEngineeringTaskMessenger Messenger { get; private set; }
@@ -209,6 +207,8 @@ namespace HVTApp.UI.PriceEngineering
             {
                 this.Statuses.Add(new PriceEngineeringTaskStatusWrapper(new PriceEngineeringTaskStatus {StatusEnum = PriceEngineeringTaskStatusEnum.Created}));
             }
+
+            #region Commands
 
             OpenTechnicalRequrementsFileCommand = new DelegateLogCommand(
                 () =>
@@ -282,7 +282,6 @@ namespace HVTApp.UI.PriceEngineering
                     this.AcceptChanges();
                     UnitOfWork.SaveChanges();
                     Container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceEngineeringTaskEvent>().Publish(this.Model);
-                    this.PriceEngineeringTaskSaved?.Invoke(this.Model);
                 });
 
             StartCommand = new DelegateLogCommand(() => { StartCommandExecute(true); },
@@ -291,9 +290,6 @@ namespace HVTApp.UI.PriceEngineering
                                                     this.IsChanged && 
                                                     (Status == PriceEngineeringTaskStatusEnum.Created || Status == PriceEngineeringTaskStatusEnum.Stopped) &&
                                                     UnitOfWork.Repository<PriceEngineeringTask>().GetById(this.Id) != null);
-
-            this.PropertyChanged += (sender, args) => StartCommand.RaiseCanExecuteChanged();
-            this.Statuses.CollectionChanged += (sender, args) => OnPropertyChanged(nameof(IsEditMode));
 
             ShowReportCommand = new DelegateLogCommand(
                 () =>
@@ -306,11 +302,10 @@ namespace HVTApp.UI.PriceEngineering
                     //}
                 });
 
-            foreach (var priceEngineeringTaskViewModel in this.ChildPriceEngineeringTasks)
-            {
-                priceEngineeringTaskViewModel.PriceEngineeringTaskAccepted += () => this.PriceEngineeringSubTaskAccepted?.Invoke(priceEngineeringTaskViewModel.Model);
-                priceEngineeringTaskViewModel.PriceEngineeringSubTaskAccepted += (subTask) => this.PriceEngineeringSubTaskAccepted?.Invoke(subTask);
-            }
+            #endregion
+
+            this.PropertyChanged += (sender, args) => StartCommand.RaiseCanExecuteChanged();
+            this.Statuses.CollectionChanged += (sender, args) => OnPropertyChanged(nameof(IsEditMode));
 
             //синхронизация сообщений
             Messenger = new PriceEngineeringTaskMessenger(Container, this);

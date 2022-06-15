@@ -307,5 +307,15 @@ namespace HVTApp.Model.POCOs
 
         [NotMapped, NotForListView, NotForDetailsView]
         public ProductBlock ProductBlock => this.ProductBlockEngineer;
+
+        /// <summary>
+        /// Проработка задачи принята менеджером (со всеми вложенными задачами).
+        /// </summary>
+        public bool IsTotalAccepted => this.StatusesAll.All(x => x == PriceEngineeringTaskStatusEnum.Accepted);
+
+        /// <summary>
+        /// Проработка задачи остановлена менеджером (со всеми вложенными задачами).
+        /// </summary>
+        public bool IsTotalStopped => this.StatusesAll.All(x => x == PriceEngineeringTaskStatusEnum.Stopped);
     }
 }

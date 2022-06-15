@@ -217,14 +217,14 @@ namespace HVTApp.UI.PriceEngineering
             CreatePriceCalculationCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var isTceConnected = true;
-                    if (this.PriceEngineeringTasksWrapper.Model.StatusesAll.All(x => x == PriceEngineeringTaskStatusEnum.Accepted) == false)
+                    var isTceConnected = this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks
+                                             .Any(x => x.Model.IsTotalAccepted) &&
+                                         this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks
+                                             .All(x => x.Model.IsTotalAccepted || x.Model.IsTotalStopped);
+                    if (isTceConnected == false)
                     {
-                        var dr = container.Resolve<IMessageService>().ShowYesNoMessageDialog("Уведомление",
-                            "Не все задачи приняты. Хотите ли Вы создать расчёт ПЗ по аналогам?");
-                        if (dr != MessageDialogResult.Yes)
-                            return;
-                        isTceConnected = false;
+                        var dr = container.Resolve<IMessageService>().ShowYesNoMessageDialog("Уведомление", "Не все задачи приняты (из неостановленных).\nХотите ли Вы создать расчёт ПЗ по аналогам?");
+                        if (dr != MessageDialogResult.Yes) return;
                     }
 
                     container.Resolve<IRegionManager>().RequestNavigateContentRegion<PriceCalculationView>(
@@ -254,15 +254,19 @@ namespace HVTApp.UI.PriceEngineering
                 if (valueOld != null)
                 {
                     valueOld.PropertyChanged -= PriceEngineeringTasksWrapperOnPropertyChanged;
-                    valueOld.PriceEngineeringTaskSaved -= PriceEngineeringTasksWrapperOnPriceEngineeringTaskSaved;
-                    valueOld.PriceEngineeringTaskAccepted -= PriceEngineeringTasksWrapperOnPriceEngineeringTaskAccepted;
+                    foreach (var ct in valueOld.ChildPriceEngineeringTasks)
+                    {
+                        ct.TotalAcceptedEvent -= PriceEngineeringTasksWrapperOnPriceEngineeringTaskAccepted;
+                    }
                 }
 
                 if (valueNew != null)
                 {
                     valueNew.PropertyChanged += PriceEngineeringTasksWrapperOnPropertyChanged;
-                    valueNew.PriceEngineeringTaskSaved += PriceEngineeringTasksWrapperOnPriceEngineeringTaskSaved;
-                    valueNew.PriceEngineeringTaskAccepted += PriceEngineeringTasksWrapperOnPriceEngineeringTaskAccepted;
+                    foreach (var ct in valueNew.ChildPriceEngineeringTasks)
+                    {
+                        ct.TotalAcceptedEvent += PriceEngineeringTasksWrapperOnPriceEngineeringTaskAccepted;
+                    }
                 }
 
                 RaisePropertyChanged(nameof(AllowEditProps));
@@ -316,10 +320,13 @@ namespace HVTApp.UI.PriceEngineering
 
         #region PriceEngineeringTasksWrapperOn
 
-        private void PriceEngineeringTasksWrapperOnPriceEngineeringTaskAccepted(PriceEngineeringTask obj)
+        private void PriceEngineeringTasksWrapperOnPriceEngineeringTaskAccepted()
         {
             if (this.PriceEngineeringTasksWrapper != null &&
-                this.PriceEngineeringTasksWrapper.Model.StatusesAll.All(x => x == PriceEngineeringTaskStatusEnum.Accepted))
+                this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks
+                    .Any(x => x.Model.IsTotalAccepted) &&
+                this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks
+                    .All(x => x.Model.IsTotalAccepted || x.Model.IsTotalStopped))
             {
                 var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Уведомление", "Вы приняли все задания. Хотите ли Вы загрузить результаты в ТСЕ и создать расчёт ПЗ?");
                 if (dr == MessageDialogResult.Yes)
@@ -329,18 +336,12 @@ namespace HVTApp.UI.PriceEngineering
             }
         }
 
-        private void PriceEngineeringTasksWrapperOnPriceEngineeringTaskSaved(PriceEngineeringTask priceEngineeringTask)
-        {
-            Container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceEngineeringTasksEvent>().Publish(PriceEngineeringTasksWrapper.Model);
-        }
-
         private void PriceEngineeringTasksWrapperOnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             SaveCommand.RaiseCanExecuteChanged();
             StartCommand.RaiseCanExecuteChanged();
             CreatePriceCalculationCommand.RaiseCanExecuteChanged();
         }
-
 
         #endregion
     }
