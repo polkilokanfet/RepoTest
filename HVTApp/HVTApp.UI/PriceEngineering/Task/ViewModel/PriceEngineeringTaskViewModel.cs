@@ -140,7 +140,7 @@ namespace HVTApp.UI.PriceEngineering
         /// <summary>
         /// Замена продукта в SalesUnit на продукты из задачи
         /// </summary>
-        public DelegateLogCommand FixProductCommand { get; private set; }
+        public DelegateLogCommand ReplaceProductCommand { get; private set; }
 
         #endregion
 
@@ -306,7 +306,7 @@ namespace HVTApp.UI.PriceEngineering
                     //}
                 });
 
-            FixProductCommand = new DelegateLogCommand(
+            ReplaceProductCommand = new DelegateLogCommand(
                 () =>
                 {
                     if (this.Model.SalesUnits.Any())
@@ -386,7 +386,7 @@ namespace HVTApp.UI.PriceEngineering
             this.Statuses.CollectionChanged += (sender, args) => OnPropertyChanged(nameof(AllowEditAddedBlocks));
 
             //реакция на полное принятие задачи менеджером
-            this.TotalAcceptedEvent += viewModel => FixProductCommand.Execute();
+            this.TotalAcceptedEvent += viewModel => ReplaceProductCommand.Execute();
         }
 
 

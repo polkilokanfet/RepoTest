@@ -12,19 +12,16 @@ namespace HVTApp.DataAccess
         protected override IQueryable<Product> GetQuary()
         {
             return Context.Set<Product>().AsQueryable()
-                .Include(x => x.ProductBlock)
-                .Include(x => x.DependentProducts);
+                .Include(product => product.ProductBlock)
+                .Include(product => product.DependentProducts);
         }
 
         public override UnitOfWorkOperationResult Add(Product product)
         {
-            var checkResult = Check(product);
-            if (checkResult.OperationCompletedSuccessfully == false)
-            {
-                return checkResult;
-            }
-
-            return base.Add(product);
+            var contains = Contains(product);
+            return contains.OperationCompletedSuccessfully == false 
+                ? contains 
+                : base.Add(product);
         }
 
         public override UnitOfWorkOperationResult AddRange(IEnumerable<Product> products)
@@ -43,7 +40,7 @@ namespace HVTApp.DataAccess
             return new UnitOfWorkOperationResult(new Exception("Не все продукты удалось добавить в репозиторий"));
         }
 
-        private UnitOfWorkOperationResult Check(Product product)
+        public UnitOfWorkOperationResult Contains(Product product)
         {
             if (this.GetById(product.Id) != null)
             {
@@ -57,5 +54,19 @@ namespace HVTApp.DataAccess
 
             return new UnitOfWorkOperationResult();
         }
+
+        private void SubstitutionProducts(Product product, ICollection<Product> uniqProducts)
+        {
+            foreach (var dependentProduct in product.DependentProducts)
+            {
+                if (uniqProducts.Contains(dependentProduct.Product))
+                {
+                    dependentProduct.Product = uniqProducts.Single(product1 => product1.Equals(dependentProduct.Product));
+                }
+
+                SubstitutionProducts(dependentProduct.Product, uniqProducts);
+            }
+        }
+
     }
 }

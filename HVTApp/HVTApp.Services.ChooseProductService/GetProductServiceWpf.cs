@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
@@ -225,10 +226,10 @@ namespace HVTApp.Services.GetProductService
             //SubstitutionBlocks(result, blocks);
 
             //загрузка актуальных продуктов
-            var products = UnitOfWork.Repository<Product>().GetAll();
             //если выбранного продукта нет в базе
-            if (products.Contains(result) == false)
+            if (((IProductRepository)UnitOfWork.Repository<Product>()).Contains(result).OperationCompletedSuccessfully == false)
             {
+                var products = UnitOfWork.Repository<Product>().GetAll();
                 SubstitutionProducts(result, products);
                 if (UnitOfWork.SaveEntity(result).OperationCompletedSuccessfully)
                 {
@@ -245,7 +246,7 @@ namespace HVTApp.Services.GetProductService
 
         public Product SaveProduct(IUnitOfWork unitOfWork, Product product)
         {
-            IUnitOfWork unitOfWork1 = this.Container.Resolve<IUnitOfWork>();
+            var unitOfWork1 = this.Container.Resolve<IUnitOfWork>();
 
             //загрузка актуальных продуктов
             var products = unitOfWork.Repository<Product>().GetAll();

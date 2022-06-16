@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using HVTApp.Infrastructure;
@@ -18,6 +19,34 @@ namespace HVTApp.DataAccess
 
         public override UnitOfWorkOperationResult Add(ProductBlock productBlock)
         {
+            var checkResult = Check(productBlock);
+            if (checkResult.OperationCompletedSuccessfully == false)
+            {
+                return checkResult;
+            }
+
+            return base.Add(productBlock);
+        }
+
+        public override UnitOfWorkOperationResult AddRange(IEnumerable<ProductBlock> blocks)
+        {
+            var results = new List<UnitOfWorkOperationResult>();
+            foreach (var block in blocks)
+            {
+                results.Add(this.Add(block));
+            }
+
+            if (results.All(x => x.OperationCompletedSuccessfully))
+            {
+                return new UnitOfWorkOperationResult();
+            }
+
+            return new UnitOfWorkOperationResult(new Exception("Не все продукты удалось добавить в репозиторий"));
+        }
+
+
+        private UnitOfWorkOperationResult Check(ProductBlock productBlock)
+        {
             if (this.GetById(productBlock.Id) != null)
             {
                 return new UnitOfWorkOperationResult(new Exception("ProductBlock с таким Id уже присутствует в репозитории"));
@@ -28,7 +57,7 @@ namespace HVTApp.DataAccess
                 return new UnitOfWorkOperationResult(new Exception("ProductBlock с таким набором параметров уже присутствует в репозитории"));
             }
 
-            return base.Add(productBlock);
+            return new UnitOfWorkOperationResult();
         }
 
     }

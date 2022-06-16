@@ -1,3 +1,4 @@
+using HVTApp.Infrastructure;
 using HVTApp.TestDataGenerator;
 using HVTApp.Model.POCOs;
 
@@ -471,6 +472,10 @@ namespace HVTApp.DataAccess
     public partial class ProductRepositoryTest : TestBaseRepository<Product>, IProductRepository
     {
         public ProductRepositoryTest(TestData testData) : base(testData) {}
+        public UnitOfWorkOperationResult Contains(Product product)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 
     public partial class OfferRepositoryTest : TestBaseRepository<Offer>, IOfferRepository
