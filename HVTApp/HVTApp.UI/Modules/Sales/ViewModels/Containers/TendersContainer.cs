@@ -18,7 +18,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
         protected override IEnumerable<TenderLookup> GetLookups(IUnitOfWork unitOfWork)
         {
             return GlobalAppProperties.User.RoleCurrent == Role.Admin
-                ? unitOfWork.Repository<Tender>() .GetAll().Select(tender => new TenderLookup(tender))
+                ? unitOfWork.Repository<Tender>().GetAll().Select(tender => new TenderLookup(tender))
                 : unitOfWork.Repository<Tender>().Find(tender => tender.Project.Manager.IsAppCurrentUser()).Select(tender => new TenderLookup(tender));
         }
 

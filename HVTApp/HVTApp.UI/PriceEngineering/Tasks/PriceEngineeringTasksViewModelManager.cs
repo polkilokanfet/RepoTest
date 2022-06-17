@@ -223,8 +223,19 @@ namespace HVTApp.UI.PriceEngineering
                                              .All(x => x.Model.IsTotalAccepted || x.Model.IsTotalStopped);
                     if (isTceConnected == false)
                     {
-                        var dr = container.Resolve<IMessageService>().ShowYesNoMessageDialog("Уведомление", "Не все задачи приняты (из неостановленных).\nХотите ли Вы создать расчёт ПЗ по аналогам?");
-                        if (dr != MessageDialogResult.Yes) return;
+                        var dr = container.Resolve<IMessageService>().ShowYesNoMessageDialog("Не все задачи приняты (из неостановленных).\nХотите ли Вы создать расчёт ПЗ по аналогам?");
+                        if (dr == MessageDialogResult.Yes)
+                        {
+                            isTceConnected = false;
+                        }
+                        else if (dr == MessageDialogResult.No && this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.Any(x => x.Model.IsTotalAccepted))
+                        {
+                            isTceConnected = true;
+                        }
+                        else
+                        {
+                            return;
+                        }
                     }
 
                     container.Resolve<IRegionManager>().RequestNavigateContentRegion<PriceCalculationView>(
@@ -339,7 +350,7 @@ namespace HVTApp.UI.PriceEngineering
                 this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks
                     .All(x => x.Model.IsTotalAccepted || x.Model.IsTotalStopped))
             {
-                var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Уведомление", "Вы приняли все задания. Хотите ли Вы загрузить результаты в ТСЕ и создать расчёт ПЗ?");
+                var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Вы приняли все задания. Хотите ли Вы загрузить результаты в ТСЕ и создать расчёт ПЗ?");
                 if (dr == MessageDialogResult.Yes)
                 {
                     CreatePriceCalculationCommand.Execute();

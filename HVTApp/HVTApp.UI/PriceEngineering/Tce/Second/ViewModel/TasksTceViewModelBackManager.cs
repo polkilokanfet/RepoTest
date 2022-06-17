@@ -21,7 +21,7 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
 
             if (priceCalculations.Any())
             {
-                var dr = this.Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Уведомление", "Сохраненные сейчас данные будут использованы для формирования расчёта ПЗ. Вы хотите продолжить сохранение?");
+                var dr = this.Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Сохраненные сейчас данные будут использованы для формирования расчёта ПЗ.\nВы хотите продолжить сохранение?");
                 if (dr != MessageDialogResult.Yes)
                     return;
 

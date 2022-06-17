@@ -276,6 +276,7 @@
     <Compile Include="Modules\Sales\Market\Commands\StructureCostsCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\UnionProjectsCommand.cs" />
     <Compile Include="Modules\Sales\Project1\Converters\ProjectTypeConverter.cs" />
+    <Compile Include="Modules\Sales\ViewModels\Containers\PriceEngineeringTasksContainer.cs" />
     <Compile Include="PriceCalculations\ViewModel\Wrapper\StructureCost2Wrapper.cs" />
     <Compile Include="PriceEngineering\Converters\AddedBlockAmountToStringConverter.cs" />
     <Compile Include="PriceEngineering\Converters\BlockAddedIsEnabledConverter.cs" />

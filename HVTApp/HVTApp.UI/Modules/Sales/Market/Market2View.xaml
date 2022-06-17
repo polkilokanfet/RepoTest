@@ -174,6 +174,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                 
 
@@ -195,7 +196,7 @@
                         </Grid>
                     </GroupBox>
 
-                    <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="3"/>
+                    <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="2"/>
 
                     <!--Переписка-->
                     <GroupBox Name="Messages" Header="Переписка" Grid.Row="2" AllowDrop="True" Drop="Messages_OnDrop">
@@ -243,7 +244,7 @@
                         </Grid>
                     </GroupBox>
 
-                    <GridSplitter Grid.Row="3" HorizontalAlignment="Stretch" Height="3"/>
+                    <GridSplitter Grid.Row="3" HorizontalAlignment="Stretch" Height="2"/>
 
                     <!--ТКП-->
                     <Border Grid.Row="4" BorderBrush="Black" BorderThickness="1" CornerRadius="3" Margin="0 1 0 0">
@@ -306,11 +307,40 @@
                         </Expander>
                     </Border>
 
-                    <!--Задачи в TCE-->
+                    <!--Технико-стоимостные проработки-->
                     <Border Grid.Row="6" BorderBrush="Black" BorderThickness="1" CornerRadius="3" Margin="0 1 0 0">
+                        <Expander Header="Технико-стоимостные проработки" MaxHeight="300">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <dp:XamDataGrid DataSource="{Binding PriceEngineeringTasks}"
+                                                ActiveDataItem="{Binding PriceEngineeringTasks.SelectedItem}"
+                                                Style="{StaticResource XamDataGridWithoutGroupByArea}">
+
+                                    <dp:XamDataGrid.InputBindings>
+                                        <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=EditPriceEngineeringTasksCommand, Mode=OneWay}" />
+                                    </dp:XamDataGrid.InputBindings>
+
+                                    <dp:XamDataGrid.FieldLayouts>
+                                        <dp:FieldLayout>
+                                            <dp:FieldLayout.Fields>
+                                                <dp:DateTimeField Name="StartMoment" Label="Старт" Width="Auto" AllowResize="False" />
+                                                <dp:TextField Name="StatusString" Label="Статус" Width="300" AllowResize="True" />
+                                                <dp:TextField Name="ProductBlocks" Label="Блоки" Width="250" AllowResize="True" />
+                                                <dp:TextField Name="Users" Label="Исполнители" Width="200" AllowResize="True" />
+                                                <dp:TextField Name="Number" BindingType="UseAlternateBinding" AlternateBinding="{Binding Entity.Number}" Label="№" Width="Auto" AllowResize="True" />
+                                                <dp:TextField Name="TceNumber" BindingType="UseAlternateBinding" AlternateBinding="{Binding Entity.TceNumber}" Label="№ в ТСЕ" Width="Auto" AllowResize="True" />
+                                            </dp:FieldLayout.Fields>
+                                        </dp:FieldLayout>
+                                    </dp:XamDataGrid.FieldLayouts>
+                                </dp:XamDataGrid>
+                            </ScrollViewer>
+                        </Expander>
+                    </Border>
+
+                    <!--Задачи в TCE-->
+                    <Border Grid.Row="7" BorderBrush="Black" BorderThickness="1" CornerRadius="3" Margin="0 1 0 0">
                         <Expander Header="Задачи в TCE" MaxHeight="300">
                             <StackPanel Orientation="Vertical">
-                                <Button Content="Передать в ТСЕ" Command="{Binding MakeTceTaskCommand}"/>
+                                <Button Content="Передать в ТСЕ (устарело)" Command="{Binding MakeTceTaskCommand}"/>
                                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                                     <dp:XamDataGrid DataSource="{Binding TechnicalRequrementsTasks}"
                                                     ActiveDataItem="{Binding TechnicalRequrementsTasks.SelectedItem}"
@@ -337,7 +367,7 @@
                     </Border>
 
                     <!--Расчеты переменных затрат-->
-                    <Border Grid.Row="7" BorderBrush="Black" BorderThickness="1" CornerRadius="3" Margin="0 1 0 0">
+                    <Border Grid.Row="8" BorderBrush="Black" BorderThickness="1" CornerRadius="3" Margin="0 1 0 0">
                         <Expander Header="Расчеты переменных затрат" MaxHeight="300">
                             <ScrollViewer VerticalScrollBarVisibility="Auto">
                                 <dp:XamDataGrid DataSource="{Binding PriceCalculations}" 

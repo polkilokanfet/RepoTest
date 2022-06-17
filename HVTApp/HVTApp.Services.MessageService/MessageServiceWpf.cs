@@ -21,6 +21,11 @@ namespace HVTApp.Services.MessageService
             return MessageDialogResult.No;
         }
 
+        public MessageDialogResult ShowYesNoMessageDialog(string message, bool defaultYes = false, bool defaultNo = false)
+        {
+            return this.ShowYesNoMessageDialog("Уведомление", message, defaultYes, defaultNo);
+        }
+
         public void ShowOkMessageDialog(string title, string message)
         {
             var owner = Application.Current.Windows.OfType<Window>().SingleOrDefault(window => window.IsActive);

@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
@@ -14,9 +15,12 @@ using HVTApp.UI.Commands;
 using HVTApp.UI.Modules.Sales.Market.Commands;
 using HVTApp.UI.Modules.Sales.Market.Items;
 using HVTApp.UI.Modules.Sales.ViewModels.Containers;
+using HVTApp.UI.Modules.Sales.Views;
+using HVTApp.UI.PriceEngineering.View;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Events;
+using Prism.Regions;
 
 namespace HVTApp.UI.Modules.Sales.Market
 {
@@ -30,6 +34,7 @@ namespace HVTApp.UI.Modules.Sales.Market
         private IEnumerable<ProjectItem> _projectItems;
         private OffersContainer _offers;
         private TendersContainer _tenders1;
+        private PriceEngineeringTasksContainer _priceEngineeringTasks;
         private TechnicalRequrementsTasksContainer _technicalRequrementsTasks;
         private PriceCalculationsContainer _priceCalculations;
         private object _selectedItem;
@@ -121,6 +126,7 @@ namespace HVTApp.UI.Modules.Sales.Market
 
                 Offers.SelectedItem = null;
                 Tenders.SelectedItem = null;
+                PriceEngineeringTasks.SelectedItem = null;
                 TechnicalRequrementsTasks.SelectedItem = null;
                 PriceCalculations.SelectedItem = null;
 
@@ -186,6 +192,16 @@ namespace HVTApp.UI.Modules.Sales.Market
             }
         }
 
+        public PriceEngineeringTasksContainer PriceEngineeringTasks
+        {
+            get => _priceEngineeringTasks;
+            private set
+            {
+                _priceEngineeringTasks = value;
+                RaisePropertyChanged();
+            }
+        }
+
         public TechnicalRequrementsTasksContainer TechnicalRequrementsTasks
         {
             get => _technicalRequrementsTasks;
@@ -234,6 +250,13 @@ namespace HVTApp.UI.Modules.Sales.Market
             NewTenderCommand = new NewTenderCommand(this, this.Container);
             EditTenderCommand = new EditTenderCommand(this, this.Container);
             RemoveTenderCommand = new DelegateLogCommand(() => Tenders.RemoveSelectedItem(), () => Tenders?.SelectedItem != null);
+
+            EditPriceEngineeringTasksCommand = new DelegateLogCommand(
+                () =>
+                {
+                    var prms = new NavigationParameters { { nameof(Model.POCOs.PriceEngineeringTasks), PriceEngineeringTasks.SelectedItem.Entity } };
+                    RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksView>(prms);
+                });
 
             EditTechnicalRequrementsTaskCommand = new EditTechnicalRequrementsTaskCommand(this, this.RegionManager);
             
@@ -301,6 +324,7 @@ namespace HVTApp.UI.Modules.Sales.Market
 
             Offers = Container.Resolve<OffersContainer>();
             Tenders = Container.Resolve<TendersContainer>();
+            PriceEngineeringTasks = Container.Resolve<PriceEngineeringTasksContainer>();
             TechnicalRequrementsTasks = Container.Resolve<TechnicalRequrementsTasksContainer>();
             PriceCalculations = Container.Resolve<PriceCalculationsContainer>();
         }

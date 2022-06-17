@@ -67,7 +67,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
 
                         if (productBlock.Prices.Any(x => Math.Abs(x.Sum - sumOnDate.Sum) < 0.0001 && x.Date == sumOnDate.Date) == false)
                         {
-                            var dr1 = messageService.ShowYesNoMessageDialog("Уведомление", $"Вы хотите добавить в блок {structureCost.OriginalStructureCostProductBlock} новые ПЗ {structureCost.UnitPrice.Value:C}?");
+                            var dr1 = messageService.ShowYesNoMessageDialog($"Вы хотите добавить в блок {structureCost.OriginalStructureCostProductBlock} новые ПЗ {structureCost.UnitPrice.Value:C}?");
                             if (dr1 == MessageDialogResult.Yes)
                             {
                                 productBlock.Prices.Add(sumOnDate);

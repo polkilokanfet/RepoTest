@@ -10,4 +10,5 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
     public class SelectedPriceCalculationChangedEvent : PubSubEvent<PriceCalculation> { }
     public class SelectedSalesUnitChangedEvent : PubSubEvent<SalesUnit> { }
     public class SelectedSpecificationChangedEvent : PubSubEvent<Specification> { }
+    public class SelectedPriceEngineeringTasksChangedEvent : PubSubEvent<PriceEngineeringTasks> { }
 }
