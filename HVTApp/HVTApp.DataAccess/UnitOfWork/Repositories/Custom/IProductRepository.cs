@@ -5,6 +5,6 @@ namespace HVTApp.DataAccess
 {
     public partial interface IProductRepository
     {
-        UnitOfWorkOperationResult Contains(Product product);
+        UnitOfWorkOperationResult CanAdd(Product product);
     }
 }

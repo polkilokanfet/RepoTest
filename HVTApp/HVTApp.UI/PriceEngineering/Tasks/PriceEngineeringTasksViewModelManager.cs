@@ -43,13 +43,13 @@ namespace HVTApp.UI.PriceEngineering
 
         public DelegateLogCommand AddFileTechnicalRequirementsCommand { get; }
         public DelegateLogCommand RemoveFileTechnicalRequirementsCommand { get; }
-        public DelegateLogCommand OpenFileTechnicalRequirementsCommand { get; }
         public DelegateLogCommand RemoveTaskCommand { get; }
         public DelegateLogCommand SaveCommand { get; }
         public DelegateLogCommand StartCommand { get; }
         public DelegateLogCommand OpenPriceCalculationCommand { get; }
         public DelegateLogCommand CreatePriceCalculationCommand { get; }
         public DelegateLogCommand OpenTceCommand { get; }
+        public DelegateLogCommand ReplaceProductsCommand { get; }
 
         #endregion
 
@@ -246,6 +246,15 @@ namespace HVTApp.UI.PriceEngineering
                     });
                 });
 
+            ReplaceProductsCommand = new DelegateLogCommand(
+                () =>
+                {
+                    foreach (var priceEngineeringTaskViewModel in this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.Where(x => x.Model.IsTotalAccepted))
+                    {
+                        priceEngineeringTaskViewModel.ReplaceProductCommand.Execute();
+                    }
+                },
+                () => this.PriceEngineeringTasksWrapper != null);
 
             #endregion
 
@@ -342,6 +351,7 @@ namespace HVTApp.UI.PriceEngineering
         {
             SaveCommand.RaiseCanExecuteChanged();
             StartCommand.RaiseCanExecuteChanged();
+            ReplaceProductsCommand.RaiseCanExecuteChanged();
             CreatePriceCalculationCommand.RaiseCanExecuteChanged();
         }
 

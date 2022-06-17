@@ -227,7 +227,7 @@ namespace HVTApp.Services.GetProductService
 
             //загрузка актуальных продуктов
             //если выбранного продукта нет в базе
-            if (((IProductRepository)UnitOfWork.Repository<Product>()).Contains(result).OperationCompletedSuccessfully == false)
+            if (((IProductRepository)UnitOfWork.Repository<Product>()).CanAdd(result).OperationCompletedSuccessfully)
             {
                 var products = UnitOfWork.Repository<Product>().GetAll();
                 SubstitutionProducts(result, products);
@@ -244,28 +244,25 @@ namespace HVTApp.Services.GetProductService
             return result;
         }
 
-        public Product SaveProduct(IUnitOfWork unitOfWork, Product product)
+        public Product GetProduct(IUnitOfWork unitOfWork, Product product)
         {
-            var unitOfWork1 = this.Container.Resolve<IUnitOfWork>();
-
             //загрузка актуальных продуктов
             var products = unitOfWork.Repository<Product>().GetAll();
 
             var result = products.SingleOrDefault(x => x.Equals(product));
+            if (result != null) return result;
 
             //если выбранного продукта нет в базе
-            if (result == null)
+            result = product;
+            SubstitutionProducts(result, products);
+            //SubstitutionBlocks(result, unitOfWork.Repository<ProductBlock>().GetAll());
+            if (unitOfWork.SaveEntity(result).OperationCompletedSuccessfully)
             {
-                result = product;
-                SubstitutionProducts(result, products);
-                if (unitOfWork.SaveEntity(result).OperationCompletedSuccessfully)
-                {
-                    Container.Resolve<IEventAggregator>().GetEvent<AfterSaveProductEvent>().Publish(result);
-                }
-                else
-                {
-                    throw new Exception("Ошибка при сохранении нового продукта в базу данных.");
-                }
+                Container.Resolve<IEventAggregator>().GetEvent<AfterSaveProductEvent>().Publish(result);
+            }
+            else
+            {
+                throw new Exception("Ошибка при сохранении нового продукта в базу данных.");
             }
 
             return result;
@@ -337,6 +334,11 @@ namespace HVTApp.Services.GetProductService
             }
         }
 
+        /// <summary>
+        /// Замена новых продуктов на сохранённые продукты
+        /// </summary>
+        /// <param name="product"></param>
+        /// <param name="uniqProducts"></param>
         private void SubstitutionProducts(Product product, ICollection<Product> uniqProducts)
         {
             foreach (var dependentProduct in product.DependentProducts)

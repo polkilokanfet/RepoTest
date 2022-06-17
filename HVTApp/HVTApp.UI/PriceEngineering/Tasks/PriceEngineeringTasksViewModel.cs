@@ -63,7 +63,7 @@ namespace HVTApp.UI.PriceEngineering
         
         #region Commands
 
-        public DelegateLogCommand OpenFileTechnicalRequirementsCommand { get; }
+        public DelegateLogCommand OpenFileTechnicalRequirementsCommand { get; protected set; }
 
         #endregion
 

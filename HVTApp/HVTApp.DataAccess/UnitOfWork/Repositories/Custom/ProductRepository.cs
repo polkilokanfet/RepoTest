@@ -18,7 +18,7 @@ namespace HVTApp.DataAccess
 
         public override UnitOfWorkOperationResult Add(Product product)
         {
-            var contains = Contains(product);
+            var contains = CanAdd(product);
             return contains.OperationCompletedSuccessfully == false 
                 ? contains 
                 : base.Add(product);
@@ -40,7 +40,7 @@ namespace HVTApp.DataAccess
             return new UnitOfWorkOperationResult(new Exception("Не все продукты удалось добавить в репозиторий"));
         }
 
-        public UnitOfWorkOperationResult Contains(Product product)
+        public UnitOfWorkOperationResult CanAdd(Product product)
         {
             if (this.GetById(product.Id) != null)
             {

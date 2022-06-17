@@ -15,11 +15,10 @@ namespace HVTApp.Model.POCOs
     {
         private string _designation = null;
 
+        #region NotMapped
+
         [Designation("Обозначение"), NotMapped, OrderStatus(8)]
         public string Designation => _designation ?? (_designation = DesignationSpecial ?? GlobalAppProperties.ProductDesignationService.GetDesignation(this));
-
-        [Designation("Специальное обозначение"), MaxLength(256), OrderStatus(6)]
-        public string DesignationSpecial { get; set; }
 
         private ProductType _type;
         [Designation("Тип"), NotMapped, OrderStatus(10)]
@@ -28,15 +27,6 @@ namespace HVTApp.Model.POCOs
         private ProductCategory _category;
         [Designation("Категория"), NotMapped, OrderStatus(9)]
         public ProductCategory Category => _category ?? (_category = GlobalAppProperties.ProductDesignationService.GetProductCategory(this));
-
-        [Designation("Блок"), Required, OrderStatus(5)]
-        public virtual ProductBlock ProductBlock { get; set; }
-
-        [Designation("Продукты в составе")]
-        public virtual List<ProductDependent> DependentProducts { get; set; } = new List<ProductDependent>();
-
-        [Designation("Комментарий"), MaxLength(256)]
-        public string Comment { get; set; }
 
         /// <summary>
         /// В продукте есть блоки с фиксированной ценой
@@ -52,6 +42,19 @@ namespace HVTApp.Model.POCOs
             }
         }
 
+        #endregion
+
+        [Designation("Специальное обозначение"), MaxLength(256), OrderStatus(6)]
+        public string DesignationSpecial { get; set; }
+
+        [Designation("Блок"), Required, OrderStatus(5)]
+        public virtual ProductBlock ProductBlock { get; set; }
+
+        [Designation("Продукты в составе")]
+        public virtual List<ProductDependent> DependentProducts { get; set; } = new List<ProductDependent>();
+
+        [Designation("Комментарий"), MaxLength(256)]
+        public string Comment { get; set; }
 
 
         public override bool Equals(object obj)

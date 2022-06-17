@@ -18,7 +18,7 @@ namespace HVTApp.Model.Services
 
         Product GetProduct(IEnumerable<Parameter> requiredParameters);
 
-        Product SaveProduct(IUnitOfWork unitOfWork, Product product);
+        Product GetProduct(IUnitOfWork unitOfWork, Product product);
 
         /// <summary>
         /// Выбор ремонтного комплекта

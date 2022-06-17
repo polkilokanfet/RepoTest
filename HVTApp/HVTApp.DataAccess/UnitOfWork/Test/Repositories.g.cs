@@ -472,7 +472,7 @@ namespace HVTApp.DataAccess
     public partial class ProductRepositoryTest : TestBaseRepository<Product>, IProductRepository
     {
         public ProductRepositoryTest(TestData testData) : base(testData) {}
-        public UnitOfWorkOperationResult Contains(Product product)
+        public UnitOfWorkOperationResult CanAdd(Product product)
         {
             throw new System.NotImplementedException();
         }

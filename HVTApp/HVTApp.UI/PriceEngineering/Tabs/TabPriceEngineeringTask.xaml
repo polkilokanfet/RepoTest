@@ -22,11 +22,14 @@
         <infRib:ButtonTool Caption="Удалить"
                            Command="{Binding RemoveTaskCommand}"
                            SmallImage="/HVTApp.UI;component/Images/remove.png" />
-        
+
         <infRib:ButtonTool Caption="Стартовать всё"
                            Command="{Binding StartCommand}"
                            SmallImage="/HVTApp.UI;component/Images/start.png" />
-        
+
+        <infRib:ButtonTool Caption="Заменить продукты"
+                           Command="{Binding ReplaceProductsCommand}"
+                           SmallImage="/HVTApp.UI;component/Images/refresh.png" />
         <!--<infRib:ButtonTool Caption="Остановить"
                            Command="{Binding CancelCommand}"
                            Visibility="{Binding StartVisibility, Converter={StaticResource BooleanToVisibilityConverter}}"
