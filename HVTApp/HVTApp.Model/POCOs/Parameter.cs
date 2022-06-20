@@ -10,7 +10,7 @@ using HVTApp.Infrastructure.Extansions;
 namespace HVTApp.Model.POCOs
 {
     [Designation("Параметр")]
-    public partial class Parameter : BaseEntity, IComparable
+    public partial class Parameter : BaseEntity
     {
         [Designation("Группа"), Required, OrderStatus(5)]
         public virtual ParameterGroup ParameterGroup { get; set; }
@@ -35,25 +35,31 @@ namespace HVTApp.Model.POCOs
             return Value;
         }
 
-        public int CompareTo(object obj)
+        public override int CompareTo(object obj)
         {
             var first = this;
-            var second = obj as Parameter;
-
-            if (!first.ParameterRelations.Any() && !second.ParameterRelations.Any())
-                return 0;
-
-            if (!first.ParameterRelations.Any())
-                return -1;
-
-            if (!second.ParameterRelations.Any())
+            if (!(obj is Parameter second))
+                throw new ArgumentException();
+            
+            if (first.ContainsParameterInPath(second))
                 return 1;
 
-            if (first.ParameterRelations.Any(x => x.RequiredParameters.Select(rp => rp.Id).Contains(second.Id)))
+            if (second.ContainsParameterInPath(first))
                 return -1;
-            if (second.ParameterRelations.Any(x => x.RequiredParameters.Select(rp => rp.Id).Contains(first.Id)))
-                return 1;
-            return 0;
+
+            return first.ParameterGroup.Id == second.ParameterGroup.Id 
+                ? string.Compare(first.Value, second.Value, StringComparison.Ordinal) 
+                : first.ParameterGroup.CompareTo(second.ParameterGroup);
+        }
+
+        /// <summary>
+        /// В каком-либо из путей к началу есть этот параметр
+        /// </summary>
+        /// <param name="parameter"></param>
+        /// <returns></returns>
+        public bool ContainsParameterInPath(Parameter parameter)
+        {
+            return this.Paths().Any(x => x.Parameters.ContainsById(parameter));
         }
 
         /// <summary>

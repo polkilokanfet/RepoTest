@@ -89,6 +89,13 @@ namespace HVTApp.Infrastructure.Extansions
         }
 
 
+        /// <summary>
+        /// Последовательность содержит элемент с таким Id
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="enumerable"></param>
+        /// <param name="objId"></param>
+        /// <returns></returns>
         public static bool ContainsById<T>(this IEnumerable<T> enumerable, IId objId)
             where T : IId
         {

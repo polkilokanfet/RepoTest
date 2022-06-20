@@ -380,6 +380,10 @@
     <Compile Include="Migrations\202205311848427_TCE6.Designer.cs">
       <DependentUpon>202205311848427_TCE6.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202206201059347_ParameterGroupPowerful.cs" />
+    <Compile Include="Migrations\202206201059347_ParameterGroupPowerful.Designer.cs">
+      <DependentUpon>202206201059347_ParameterGroupPowerful.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -613,6 +617,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202205311848427_TCE6.resx">
       <DependentUpon>202205311848427_TCE6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206201059347_ParameterGroupPowerful.resx">
+      <DependentUpon>202206201059347_ParameterGroupPowerful.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
