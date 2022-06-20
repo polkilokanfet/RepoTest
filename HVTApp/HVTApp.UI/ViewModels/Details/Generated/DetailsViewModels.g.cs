@@ -1714,6 +1714,38 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
+		private Func<List<StructureCostVersion>> _getEntitiesForAddInStructureCostVersionsCommand;
+		public DelegateLogCommand AddInStructureCostVersionsCommand { get; }
+		public DelegateLogCommand RemoveFromStructureCostVersionsCommand { get; }
+		private StructureCostVersionWrapper _selectedStructureCostVersionsItem;
+		public StructureCostVersionWrapper SelectedStructureCostVersionsItem 
+		{ 
+			get { return _selectedStructureCostVersionsItem; }
+			set 
+			{ 
+				if (Equals(_selectedStructureCostVersionsItem, value)) return;
+				_selectedStructureCostVersionsItem = value;
+				RaisePropertyChanged();
+				RemoveFromStructureCostVersionsCommand.RaiseCanExecuteChanged();
+			}
+		}
+
+		private Func<List<PriceCalculationItem>> _getEntitiesForAddInPriceCalculationItemsCommand;
+		public DelegateLogCommand AddInPriceCalculationItemsCommand { get; }
+		public DelegateLogCommand RemoveFromPriceCalculationItemsCommand { get; }
+		private PriceCalculationItemWrapper _selectedPriceCalculationItemsItem;
+		public PriceCalculationItemWrapper SelectedPriceCalculationItemsItem 
+		{ 
+			get { return _selectedPriceCalculationItemsItem; }
+			set 
+			{ 
+				if (Equals(_selectedPriceCalculationItemsItem, value)) return;
+				_selectedPriceCalculationItemsItem = value;
+				RaisePropertyChanged();
+				RemoveFromPriceCalculationItemsCommand.RaiseCanExecuteChanged();
+			}
+		}
+
 		private Func<List<PriceEngineeringTaskStatus>> _getEntitiesForAddInStatusesCommand;
 		public DelegateLogCommand AddInStatusesCommand { get; }
 		public DelegateLogCommand RemoveFromStatusesCommand { get; }
@@ -1770,7 +1802,7 @@ namespace HVTApp.UI.ViewModels
 
 			
 			//if (_getEntitiesForSelectStatusesAllCommand == null) _getEntitiesForSelectStatusesAllCommand = () => { return UnitOfWork.Repository<IEnumerable`1>().GetAll(); };
-			if (SelectStatusesAllCommand == null) SelectStatusesAllCommand = new DelegateLogCommand(SelectStatusesAllCommand_Execute_Default);
+			//if (SelectStatusesAllCommand == null) SelectStatusesAllCommand = new DelegateLogCommand(SelectStatusesAllCommand_Execute_Default);
 			if (ClearStatusesAllCommand == null) ClearStatusesAllCommand = new DelegateLogCommand(ClearStatusesAllCommand_Execute_Default);
 
 			
@@ -1802,6 +1834,16 @@ namespace HVTApp.UI.ViewModels
 			if (_getEntitiesForAddInChildPriceEngineeringTasksCommand == null) _getEntitiesForAddInChildPriceEngineeringTasksCommand = () => { return UnitOfWork.Repository<PriceEngineeringTask>().GetAll(); };;
 			if (AddInChildPriceEngineeringTasksCommand == null) AddInChildPriceEngineeringTasksCommand = new DelegateLogCommand(AddInChildPriceEngineeringTasksCommand_Execute_Default);
 			if (RemoveFromChildPriceEngineeringTasksCommand == null) RemoveFromChildPriceEngineeringTasksCommand = new DelegateLogCommand(RemoveFromChildPriceEngineeringTasksCommand_Execute_Default, RemoveFromChildPriceEngineeringTasksCommand_CanExecute_Default);
+
+			
+			if (_getEntitiesForAddInStructureCostVersionsCommand == null) _getEntitiesForAddInStructureCostVersionsCommand = () => { return UnitOfWork.Repository<StructureCostVersion>().GetAll(); };;
+			if (AddInStructureCostVersionsCommand == null) AddInStructureCostVersionsCommand = new DelegateLogCommand(AddInStructureCostVersionsCommand_Execute_Default);
+			if (RemoveFromStructureCostVersionsCommand == null) RemoveFromStructureCostVersionsCommand = new DelegateLogCommand(RemoveFromStructureCostVersionsCommand_Execute_Default, RemoveFromStructureCostVersionsCommand_CanExecute_Default);
+
+			
+			if (_getEntitiesForAddInPriceCalculationItemsCommand == null) _getEntitiesForAddInPriceCalculationItemsCommand = () => { return UnitOfWork.Repository<PriceCalculationItem>().GetAll(); };;
+			if (AddInPriceCalculationItemsCommand == null) AddInPriceCalculationItemsCommand = new DelegateLogCommand(AddInPriceCalculationItemsCommand_Execute_Default);
+			if (RemoveFromPriceCalculationItemsCommand == null) RemoveFromPriceCalculationItemsCommand = new DelegateLogCommand(RemoveFromPriceCalculationItemsCommand_Execute_Default, RemoveFromPriceCalculationItemsCommand_CanExecute_Default);
 
 			
 			if (_getEntitiesForAddInStatusesCommand == null) _getEntitiesForAddInStatusesCommand = () => { return UnitOfWork.Repository<PriceEngineeringTaskStatus>().GetAll(); };;
@@ -1855,10 +1897,10 @@ namespace HVTApp.UI.ViewModels
 						Item.ProductBlockEngineer = null;		    
 		}
 
-		private void SelectStatusesAllCommand_Execute_Default() 
-		{
-            //SelectAndSetWrapper<IEnumerable`1, IEnumerable`1Wrapper>(_getEntitiesForSelectStatusesAllCommand(), nameof(Item.StatusesAll), Item.StatusesAll?.Id);
-		}
+		//private void SelectStatusesAllCommand_Execute_Default() 
+		//{
+  //          SelectAndSetWrapper<IEnumerable`1, IEnumerable`1Wrapper>(_getEntitiesForSelectStatusesAllCommand(), nameof(Item.StatusesAll), Item.StatusesAll?.Id);
+		//}
 
 		private void ClearStatusesAllCommand_Execute_Default() 
 		{
@@ -1867,7 +1909,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void SelectProductBlockCommand_Execute_Default() 
 		{
-            //SelectAndSetWrapper<ProductBlock, ProductBlockWrapper>(_getEntitiesForSelectProductBlockCommand(), nameof(Item.ProductBlock), Item.ProductBlock?.Id);
+            SelectAndSetWrapper<ProductBlock, ProductBlockWrapper>(_getEntitiesForSelectProductBlockCommand(), nameof(Item.ProductBlock), Item.ProductBlock?.Id);
 		}
 
 		private void ClearProductBlockCommand_Execute_Default() 
@@ -1948,6 +1990,36 @@ namespace HVTApp.UI.ViewModels
 			private bool RemoveFromChildPriceEngineeringTasksCommand_CanExecute_Default()
 			{
 				return SelectedChildPriceEngineeringTasksItem != null;
+			}
+
+			private void AddInStructureCostVersionsCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<StructureCostVersion, StructureCostVersionWrapper>(_getEntitiesForAddInStructureCostVersionsCommand(), Item.StructureCostVersions);
+			}
+
+			private void RemoveFromStructureCostVersionsCommand_Execute_Default()
+			{
+				Item.StructureCostVersions.Remove(SelectedStructureCostVersionsItem);
+			}
+
+			private bool RemoveFromStructureCostVersionsCommand_CanExecute_Default()
+			{
+				return SelectedStructureCostVersionsItem != null;
+			}
+
+			private void AddInPriceCalculationItemsCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<PriceCalculationItem, PriceCalculationItemWrapper>(_getEntitiesForAddInPriceCalculationItemsCommand(), Item.PriceCalculationItems);
+			}
+
+			private void RemoveFromPriceCalculationItemsCommand_Execute_Default()
+			{
+				Item.PriceCalculationItems.Remove(SelectedPriceCalculationItemsItem);
+			}
+
+			private bool RemoveFromPriceCalculationItemsCommand_CanExecute_Default()
+			{
+				return SelectedPriceCalculationItemsItem != null;
 			}
 
 			private void AddInStatusesCommand_Execute_Default()
@@ -2037,12 +2109,33 @@ namespace HVTApp.UI.ViewModels
 		public DelegateLogCommand SelectProductBlockCommand { get; private set; }
 		public DelegateLogCommand ClearProductBlockCommand { get; private set; }
 
+		private Func<List<StructureCostVersion>> _getEntitiesForAddInStructureCostVersionsCommand;
+		public DelegateLogCommand AddInStructureCostVersionsCommand { get; }
+		public DelegateLogCommand RemoveFromStructureCostVersionsCommand { get; }
+		private StructureCostVersionWrapper _selectedStructureCostVersionsItem;
+		public StructureCostVersionWrapper SelectedStructureCostVersionsItem 
+		{ 
+			get { return _selectedStructureCostVersionsItem; }
+			set 
+			{ 
+				if (Equals(_selectedStructureCostVersionsItem, value)) return;
+				_selectedStructureCostVersionsItem = value;
+				RaisePropertyChanged();
+				RemoveFromStructureCostVersionsCommand.RaiseCanExecuteChanged();
+			}
+		}
+
         public PriceEngineeringTaskProductBlockAddedDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
 			if (_getEntitiesForSelectProductBlockCommand == null) _getEntitiesForSelectProductBlockCommand = () => { return UnitOfWork.Repository<ProductBlock>().GetAll(); };
 			if (SelectProductBlockCommand == null) SelectProductBlockCommand = new DelegateLogCommand(SelectProductBlockCommand_Execute_Default);
 			if (ClearProductBlockCommand == null) ClearProductBlockCommand = new DelegateLogCommand(ClearProductBlockCommand_Execute_Default);
+
+			
+			if (_getEntitiesForAddInStructureCostVersionsCommand == null) _getEntitiesForAddInStructureCostVersionsCommand = () => { return UnitOfWork.Repository<StructureCostVersion>().GetAll(); };;
+			if (AddInStructureCostVersionsCommand == null) AddInStructureCostVersionsCommand = new DelegateLogCommand(AddInStructureCostVersionsCommand_Execute_Default);
+			if (RemoveFromStructureCostVersionsCommand == null) RemoveFromStructureCostVersionsCommand = new DelegateLogCommand(RemoveFromStructureCostVersionsCommand_Execute_Default, RemoveFromStructureCostVersionsCommand_CanExecute_Default);
 
 		}
 
@@ -2056,6 +2149,21 @@ namespace HVTApp.UI.ViewModels
 						Item.ProductBlock = null;		    
 		}
 
+			private void AddInStructureCostVersionsCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<StructureCostVersion, StructureCostVersionWrapper>(_getEntitiesForAddInStructureCostVersionsCommand(), Item.StructureCostVersions);
+			}
+
+			private void RemoveFromStructureCostVersionsCommand_Execute_Default()
+			{
+				Item.StructureCostVersions.Remove(SelectedStructureCostVersionsItem);
+			}
+
+			private bool RemoveFromStructureCostVersionsCommand_CanExecute_Default()
+			{
+				return SelectedStructureCostVersionsItem != null;
+			}
+
 
     }
 
@@ -2065,6 +2173,11 @@ namespace HVTApp.UI.ViewModels
 		private Func<List<User>> _getEntitiesForSelectUserManagerCommand;
 		public DelegateLogCommand SelectUserManagerCommand { get; private set; }
 		public DelegateLogCommand ClearUserManagerCommand { get; private set; }
+
+		//private Func<Task<List<User>>> _getEntitiesForSelectBackManagerCommand;
+		private Func<List<User>> _getEntitiesForSelectBackManagerCommand;
+		public DelegateLogCommand SelectBackManagerCommand { get; private set; }
+		public DelegateLogCommand ClearBackManagerCommand { get; private set; }
 
 		//private Func<Task<List<IEnumerable`1>>> _getEntitiesForSelectStatusesAllCommand;
 		//private Func<List<IEnumerable`1>> _getEntitiesForSelectStatusesAllCommand;
@@ -2127,8 +2240,13 @@ namespace HVTApp.UI.ViewModels
 			if (ClearUserManagerCommand == null) ClearUserManagerCommand = new DelegateLogCommand(ClearUserManagerCommand_Execute_Default);
 
 			
+			if (_getEntitiesForSelectBackManagerCommand == null) _getEntitiesForSelectBackManagerCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };
+			if (SelectBackManagerCommand == null) SelectBackManagerCommand = new DelegateLogCommand(SelectBackManagerCommand_Execute_Default);
+			if (ClearBackManagerCommand == null) ClearBackManagerCommand = new DelegateLogCommand(ClearBackManagerCommand_Execute_Default);
+
+			
 			//if (_getEntitiesForSelectStatusesAllCommand == null) _getEntitiesForSelectStatusesAllCommand = () => { return UnitOfWork.Repository<IEnumerable`1>().GetAll(); };
-			if (SelectStatusesAllCommand == null) SelectStatusesAllCommand = new DelegateLogCommand(SelectStatusesAllCommand_Execute_Default);
+			//if (SelectStatusesAllCommand == null) SelectStatusesAllCommand = new DelegateLogCommand(SelectStatusesAllCommand_Execute_Default);
 			if (ClearStatusesAllCommand == null) ClearStatusesAllCommand = new DelegateLogCommand(ClearStatusesAllCommand_Execute_Default);
 
 			
@@ -2158,10 +2276,20 @@ namespace HVTApp.UI.ViewModels
 						Item.UserManager = null;		    
 		}
 
-		private void SelectStatusesAllCommand_Execute_Default() 
+		private void SelectBackManagerCommand_Execute_Default() 
 		{
-            //SelectAndSetWrapper<IEnumerable`1, IEnumerable`1Wrapper>(_getEntitiesForSelectStatusesAllCommand(), nameof(Item.StatusesAll), Item.StatusesAll?.Id);
+            SelectAndSetWrapper<User, UserWrapper>(_getEntitiesForSelectBackManagerCommand(), nameof(Item.BackManager), Item.BackManager?.Id);
 		}
+
+		private void ClearBackManagerCommand_Execute_Default() 
+		{
+						Item.BackManager = null;		    
+		}
+
+		//private void SelectStatusesAllCommand_Execute_Default() 
+		//{
+  //          SelectAndSetWrapper<IEnumerable`1, IEnumerable`1Wrapper>(_getEntitiesForSelectStatusesAllCommand(), nameof(Item.StatusesAll), Item.StatusesAll?.Id);
+		//}
 
 		private void ClearStatusesAllCommand_Execute_Default() 
 		{
@@ -2241,6 +2369,11 @@ namespace HVTApp.UI.ViewModels
 		public DelegateLogCommand SelectBackManagerCommand { get; private set; }
 		public DelegateLogCommand ClearBackManagerCommand { get; private set; }
 
+		//private Func<Task<List<User>>> _getEntitiesForSelectFrontManagerCommand;
+		private Func<List<User>> _getEntitiesForSelectFrontManagerCommand;
+		public DelegateLogCommand SelectFrontManagerCommand { get; private set; }
+		public DelegateLogCommand ClearFrontManagerCommand { get; private set; }
+
 		private Func<List<PriceEngineeringTask>> _getEntitiesForAddInPriceEngineeringTaskListCommand;
 		public DelegateLogCommand AddInPriceEngineeringTaskListCommand { get; }
 		public DelegateLogCommand RemoveFromPriceEngineeringTaskListCommand { get; }
@@ -2289,12 +2422,33 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
+		private Func<List<PriceCalculation>> _getEntitiesForAddInPriceCalculationsCommand;
+		public DelegateLogCommand AddInPriceCalculationsCommand { get; }
+		public DelegateLogCommand RemoveFromPriceCalculationsCommand { get; }
+		private PriceCalculationWrapper _selectedPriceCalculationsItem;
+		public PriceCalculationWrapper SelectedPriceCalculationsItem 
+		{ 
+			get { return _selectedPriceCalculationsItem; }
+			set 
+			{ 
+				if (Equals(_selectedPriceCalculationsItem, value)) return;
+				_selectedPriceCalculationsItem = value;
+				RaisePropertyChanged();
+				RemoveFromPriceCalculationsCommand.RaiseCanExecuteChanged();
+			}
+		}
+
         public PriceEngineeringTaskTceDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
 			if (_getEntitiesForSelectBackManagerCommand == null) _getEntitiesForSelectBackManagerCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };
 			if (SelectBackManagerCommand == null) SelectBackManagerCommand = new DelegateLogCommand(SelectBackManagerCommand_Execute_Default);
 			if (ClearBackManagerCommand == null) ClearBackManagerCommand = new DelegateLogCommand(ClearBackManagerCommand_Execute_Default);
+
+			
+			if (_getEntitiesForSelectFrontManagerCommand == null) _getEntitiesForSelectFrontManagerCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };
+			if (SelectFrontManagerCommand == null) SelectFrontManagerCommand = new DelegateLogCommand(SelectFrontManagerCommand_Execute_Default);
+			if (ClearFrontManagerCommand == null) ClearFrontManagerCommand = new DelegateLogCommand(ClearFrontManagerCommand_Execute_Default);
 
 			
 			if (_getEntitiesForAddInPriceEngineeringTaskListCommand == null) _getEntitiesForAddInPriceEngineeringTaskListCommand = () => { return UnitOfWork.Repository<PriceEngineeringTask>().GetAll(); };;
@@ -2311,6 +2465,11 @@ namespace HVTApp.UI.ViewModels
 			if (AddInStoryItemsCommand == null) AddInStoryItemsCommand = new DelegateLogCommand(AddInStoryItemsCommand_Execute_Default);
 			if (RemoveFromStoryItemsCommand == null) RemoveFromStoryItemsCommand = new DelegateLogCommand(RemoveFromStoryItemsCommand_Execute_Default, RemoveFromStoryItemsCommand_CanExecute_Default);
 
+			
+			if (_getEntitiesForAddInPriceCalculationsCommand == null) _getEntitiesForAddInPriceCalculationsCommand = () => { return UnitOfWork.Repository<PriceCalculation>().GetAll(); };;
+			if (AddInPriceCalculationsCommand == null) AddInPriceCalculationsCommand = new DelegateLogCommand(AddInPriceCalculationsCommand_Execute_Default);
+			if (RemoveFromPriceCalculationsCommand == null) RemoveFromPriceCalculationsCommand = new DelegateLogCommand(RemoveFromPriceCalculationsCommand_Execute_Default, RemoveFromPriceCalculationsCommand_CanExecute_Default);
+
 		}
 
 		private void SelectBackManagerCommand_Execute_Default() 
@@ -2321,6 +2480,16 @@ namespace HVTApp.UI.ViewModels
 		private void ClearBackManagerCommand_Execute_Default() 
 		{
 						Item.BackManager = null;		    
+		}
+
+		private void SelectFrontManagerCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<User, UserWrapper>(_getEntitiesForSelectFrontManagerCommand(), nameof(Item.FrontManager), Item.FrontManager?.Id);
+		}
+
+		private void ClearFrontManagerCommand_Execute_Default() 
+		{
+				    
 		}
 
 			private void AddInPriceEngineeringTaskListCommand_Execute_Default()
@@ -2355,17 +2524,32 @@ namespace HVTApp.UI.ViewModels
 
 			private void AddInStoryItemsCommand_Execute_Default()
 			{
-				//SelectAndAddInListWrapper<PriceEngineeringTaskTceStoryItem, PriceEngineeringTaskTceStoryItemWrapper>(_getEntitiesForAddInStoryItemsCommand(), Item.StoryItems);
+				SelectAndAddInListWrapper<PriceEngineeringTaskTceStoryItem, PriceEngineeringTaskTceStoryItemWrapper>(_getEntitiesForAddInStoryItemsCommand(), Item.StoryItems);
 			}
 
 			private void RemoveFromStoryItemsCommand_Execute_Default()
 			{
-				//Item.StoryItems.Remove(SelectedStoryItemsItem);
+				Item.StoryItems.Remove(SelectedStoryItemsItem);
 			}
 
 			private bool RemoveFromStoryItemsCommand_CanExecute_Default()
 			{
 				return SelectedStoryItemsItem != null;
+			}
+
+			private void AddInPriceCalculationsCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<PriceCalculation, PriceCalculationWrapper>(_getEntitiesForAddInPriceCalculationsCommand(), Item.PriceCalculations);
+			}
+
+			private void RemoveFromPriceCalculationsCommand_Execute_Default()
+			{
+				Item.PriceCalculations.Remove(SelectedPriceCalculationsItem);
+			}
+
+			private bool RemoveFromPriceCalculationsCommand_CanExecute_Default()
+			{
+				return SelectedPriceCalculationsItem != null;
 			}
 
 
@@ -2383,6 +2567,15 @@ namespace HVTApp.UI.ViewModels
     public partial class PriceEngineeringTaskTceStructureCostVersionDetailsViewModel : BaseDetailsViewModel<PriceEngineeringTaskTceStructureCostVersionWrapper, PriceEngineeringTaskTceStructureCostVersion, AfterSavePriceEngineeringTaskTceStructureCostVersionEvent>
     {
         public PriceEngineeringTaskTceStructureCostVersionDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+		}
+
+
+    }
+
+    public partial class StructureCostVersionDetailsViewModel : BaseDetailsViewModel<StructureCostVersionWrapper, StructureCostVersion, AfterSaveStructureCostVersionEvent>
+    {
+        public StructureCostVersionDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
 
@@ -2748,8 +2941,28 @@ namespace HVTApp.UI.ViewModels
 
     public partial class StructureCostDetailsViewModel : BaseDetailsViewModel<StructureCostWrapper, StructureCost, AfterSaveStructureCostEvent>
     {
+		//private Func<Task<List<ProductBlock>>> _getEntitiesForSelectOriginalStructureCostProductBlockCommand;
+		private Func<List<ProductBlock>> _getEntitiesForSelectOriginalStructureCostProductBlockCommand;
+		public DelegateLogCommand SelectOriginalStructureCostProductBlockCommand { get; private set; }
+		public DelegateLogCommand ClearOriginalStructureCostProductBlockCommand { get; private set; }
+
         public StructureCostDetailsViewModel(IUnityContainer container) : base(container) 
 		{
+			
+			if (_getEntitiesForSelectOriginalStructureCostProductBlockCommand == null) _getEntitiesForSelectOriginalStructureCostProductBlockCommand = () => { return UnitOfWork.Repository<ProductBlock>().GetAll(); };
+			if (SelectOriginalStructureCostProductBlockCommand == null) SelectOriginalStructureCostProductBlockCommand = new DelegateLogCommand(SelectOriginalStructureCostProductBlockCommand_Execute_Default);
+			if (ClearOriginalStructureCostProductBlockCommand == null) ClearOriginalStructureCostProductBlockCommand = new DelegateLogCommand(ClearOriginalStructureCostProductBlockCommand_Execute_Default);
+
+		}
+
+		private void SelectOriginalStructureCostProductBlockCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<ProductBlock, ProductBlockWrapper>(_getEntitiesForSelectOriginalStructureCostProductBlockCommand(), nameof(Item.OriginalStructureCostProductBlock), Item.OriginalStructureCostProductBlock?.Id);
+		}
+
+		private void ClearOriginalStructureCostProductBlockCommand_Execute_Default() 
+		{
+						Item.OriginalStructureCostProductBlock = null;		    
 		}
 
 

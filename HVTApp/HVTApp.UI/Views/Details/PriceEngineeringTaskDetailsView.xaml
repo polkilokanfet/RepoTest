@@ -33,6 +33,12 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row ="0" Content="Бюро конструкторов" Visibility="{Binding VisibilityDesignDepartmentPriceEngineeringTask, ElementName=Root}"/>
@@ -109,26 +115,42 @@
 										 RemoveItemCommand="{Binding RemoveFromChildPriceEngineeringTasksCommand}"
 										 Visibility="{Binding VisibilityChildPriceEngineeringTasksPriceEngineeringTask, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="10" Content="Статусы проработки" Visibility="{Binding VisibilityStatusesPriceEngineeringTask, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="10" Content="Строки расчётов ПЗ" Visibility="{Binding VisibilityPriceCalculationItemsPriceEngineeringTask, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="10"
+										 Items="{Binding Path=Item.PriceCalculationItems}"
+										 SelectedItem="{Binding SelectedPriceCalculationItemsItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInPriceCalculationItemsCommand}"
+										 RemoveItemCommand="{Binding RemoveFromPriceCalculationItemsCommand}"
+										 Visibility="{Binding VisibilityPriceCalculationItemsPriceEngineeringTask, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="11" Content="Версии SCC" Visibility="{Binding VisibilityStructureCostVersionsPriceEngineeringTask, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="11"
+										 Items="{Binding Path=Item.StructureCostVersions}"
+										 SelectedItem="{Binding SelectedStructureCostVersionsItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInStructureCostVersionsCommand}"
+										 RemoveItemCommand="{Binding RemoveFromStructureCostVersionsCommand}"
+										 Visibility="{Binding VisibilityStructureCostVersionsPriceEngineeringTask, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="12" Content="Статусы проработки" Visibility="{Binding VisibilityStatusesPriceEngineeringTask, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="12"
 										 Items="{Binding Path=Item.Statuses}"
 										 SelectedItem="{Binding SelectedStatusesItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInStatusesCommand}"
 										 RemoveItemCommand="{Binding RemoveFromStatusesCommand}"
 										 Visibility="{Binding VisibilityStatusesPriceEngineeringTask, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="11" Content="Запрос на проверку от руководителя" Visibility="{Binding VisibilityRequestForVerificationFromHeadPriceEngineeringTask, ElementName=Root}"/>
-        <CheckBox Grid.Column="1" Grid.Row="11" MinWidth="200" 
+        <Label Grid.Column="0" Grid.Row ="13" Content="Запрос на проверку от руководителя" Visibility="{Binding VisibilityRequestForVerificationFromHeadPriceEngineeringTask, ElementName=Root}"/>
+        <CheckBox Grid.Column="1" Grid.Row="13" MinWidth="200" 
                   IsChecked="{Binding Item.RequestForVerificationFromHead, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				  Visibility="{Binding VisibilityRequestForVerificationFromHeadPriceEngineeringTask, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="12" Content="Запрос на проверку от исполнителя" Visibility="{Binding VisibilityRequestForVerificationFromConstructorPriceEngineeringTask, ElementName=Root}"/>
-        <CheckBox Grid.Column="1" Grid.Row="12" MinWidth="200" 
+        <Label Grid.Column="0" Grid.Row ="14" Content="Запрос на проверку от исполнителя" Visibility="{Binding VisibilityRequestForVerificationFromConstructorPriceEngineeringTask, ElementName=Root}"/>
+        <CheckBox Grid.Column="1" Grid.Row="14" MinWidth="200" 
                   IsChecked="{Binding Item.RequestForVerificationFromConstructor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				  Visibility="{Binding VisibilityRequestForVerificationFromConstructorPriceEngineeringTask, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="13" Content="SalesUnits" Visibility="{Binding VisibilitySalesUnitsPriceEngineeringTask, ElementName=Root}"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="13"
+        <Label Grid.Column="0" Grid.Row ="15" Content="SalesUnits" Visibility="{Binding VisibilitySalesUnitsPriceEngineeringTask, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="15"
 										 Items="{Binding Path=Item.SalesUnits}"
 										 SelectedItem="{Binding SelectedSalesUnitsItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInSalesUnitsCommand}"

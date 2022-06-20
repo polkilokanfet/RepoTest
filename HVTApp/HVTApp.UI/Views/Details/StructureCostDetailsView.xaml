@@ -21,6 +21,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row ="0" Content="Себестоимость единицы" Visibility="{Binding VisibilityUnitPriceStructureCost, ElementName=Root}"/>
@@ -28,23 +30,35 @@
                                Value="{Binding Item.UnitPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding VisibilityUnitPriceStructureCost, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="Номер" Visibility="{Binding VisibilityNumberStructureCost, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
+        <Label Grid.Column="0" Grid.Row ="1" Content="Оригинальный блок scc" Visibility="{Binding VisibilityOriginalStructureCostProductBlockStructureCost, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
+                                    Item="{Binding Item.OriginalStructureCostProductBlock}" 
+                                    AddItemCommand="{Binding SelectOriginalStructureCostProductBlockCommand}" 
+                                    RemoveItemCommand="{Binding ClearOriginalStructureCostProductBlockCommand}"
+									Visibility="{Binding VisibilityOriginalStructureCostProductBlockStructureCost, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="2" Content="Номер scc оригинального блока" Visibility="{Binding VisibilityOriginalStructureCostNumberStructureCost, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
+                 Text="{Binding Item.OriginalStructureCostNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding VisibilityOriginalStructureCostNumberStructureCost, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="3" Content="Номер" Visibility="{Binding VisibilityNumberStructureCost, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="3" MinWidth="200" 
                  Text="{Binding Item.Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityNumberStructureCost, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="Комментарий" Visibility="{Binding VisibilityCommentStructureCost, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
+        <Label Grid.Column="0" Grid.Row ="4" Content="Комментарий" Visibility="{Binding VisibilityCommentStructureCost, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="4" MinWidth="200" 
                  Text="{Binding Item.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityCommentStructureCost, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="3" Content="Количество (числитель)" Visibility="{Binding VisibilityAmountNumeratorStructureCost, ElementName=Root}"/>
-		<infE:XamNumericEditor Grid.Column="1" Grid.Row="3" 
+        <Label Grid.Column="0" Grid.Row ="5" Content="Количество (числитель)" Visibility="{Binding VisibilityAmountNumeratorStructureCost, ElementName=Root}"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="5" 
                                Value="{Binding Item.AmountNumerator, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding VisibilityAmountNumeratorStructureCost, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="4" Content="Количество (знаменатель)" Visibility="{Binding VisibilityAmountDenomeratorStructureCost, ElementName=Root}"/>
-		<infE:XamNumericEditor Grid.Column="1" Grid.Row="4" 
+        <Label Grid.Column="0" Grid.Row ="6" Content="Количество (знаменатель)" Visibility="{Binding VisibilityAmountDenomeratorStructureCost, ElementName=Root}"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="6" 
                                Value="{Binding Item.AmountDenomerator, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding VisibilityAmountDenomeratorStructureCost, ElementName=Root}"/>
 

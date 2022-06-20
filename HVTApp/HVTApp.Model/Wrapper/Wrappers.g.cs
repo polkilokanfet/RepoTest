@@ -2571,6 +2571,11 @@ namespace HVTApp.Model.Wrapper
         public HVTApp.Model.POCOs.PriceEngineeringTaskStatusEnum Status => GetValue<HVTApp.Model.POCOs.PriceEngineeringTaskStatusEnum>(); 
 
         /// <summary>
+        /// IsFinishedByConstructor
+        /// </summary>
+        public System.Boolean IsFinishedByConstructor => GetValue<System.Boolean>(); 
+
+        /// <summary>
         /// Старт
         /// </summary>
         public System.Nullable<System.DateTime> StartMoment => GetValue<System.Nullable<System.DateTime>>(); 
@@ -2579,6 +2584,16 @@ namespace HVTApp.Model.Wrapper
         /// HasSccInTce
         /// </summary>
         public System.Boolean HasSccInTce => GetValue<System.Boolean>(); 
+
+        /// <summary>
+        /// IsTotalAccepted
+        /// </summary>
+        public System.Boolean IsTotalAccepted => GetValue<System.Boolean>(); 
+
+        /// <summary>
+        /// IsTotalStopped
+        /// </summary>
+        public System.Boolean IsTotalStopped => GetValue<System.Boolean>(); 
 
         /// <summary>
         /// Статусы этой задачи и всех вложенных
@@ -6926,6 +6941,17 @@ namespace HVTApp.Model.Wrapper
         }
         public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
         public bool CommentIsChanged => GetIsChanged(nameof(Comment));
+
+        /// <summary>
+        /// Сила
+        /// </summary>
+        public System.Int32 Powerful
+        {
+          get { return GetValue<System.Int32>(); }
+          set { SetValue(value); }
+        }
+        public System.Int32 PowerfulOriginalValue => GetOriginalValue<System.Int32>(nameof(Powerful));
+        public bool PowerfulIsChanged => GetIsChanged(nameof(Powerful));
 
         /// <summary>
         /// Id

@@ -26,6 +26,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row ="0" Content="Файлы расчета" Visibility="{Binding VisibilityFilesPriceCalculation, ElementName=Root}"/>
@@ -41,23 +43,28 @@
                   IsChecked="{Binding Item.IsNeedExcelFile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				  Visibility="{Binding VisibilityIsNeedExcelFilePriceCalculation, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="История" Visibility="{Binding VisibilityHistoryPriceCalculation, ElementName=Root}"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
+        <Label Grid.Column="0" Grid.Row ="2" Content="Связано с ТСЕ" Visibility="{Binding VisibilityIsTceConnectedPriceCalculation, ElementName=Root}"/>
+        <CheckBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
+                  IsChecked="{Binding Item.IsTceConnected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				  Visibility="{Binding VisibilityIsTceConnectedPriceCalculation, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="3" Content="История" Visibility="{Binding VisibilityHistoryPriceCalculation, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="3"
 										 Items="{Binding Path=Item.History}"
 										 SelectedItem="{Binding SelectedHistoryItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInHistoryCommand}"
 										 RemoveItemCommand="{Binding RemoveFromHistoryCommand}"
 										 Visibility="{Binding VisibilityHistoryPriceCalculation, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="3" Content="Инициатор" Visibility="{Binding VisibilityInitiatorPriceCalculation, ElementName=Root}"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="3" 
+        <Label Grid.Column="0" Grid.Row ="4" Content="Инициатор" Visibility="{Binding VisibilityInitiatorPriceCalculation, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 
                                     Item="{Binding Item.Initiator}" 
                                     AddItemCommand="{Binding SelectInitiatorCommand}" 
                                     RemoveItemCommand="{Binding ClearInitiatorCommand}"
 									Visibility="{Binding VisibilityInitiatorPriceCalculation, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="4" Content="Единицы расчета" Visibility="{Binding VisibilityPriceCalculationItemsPriceCalculation, ElementName=Root}"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="4"
+        <Label Grid.Column="0" Grid.Row ="5" Content="Единицы расчета" Visibility="{Binding VisibilityPriceCalculationItemsPriceCalculation, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="5"
 										 Items="{Binding Path=Item.PriceCalculationItems}"
 										 SelectedItem="{Binding SelectedPriceCalculationItemsItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInPriceCalculationItemsCommand}"

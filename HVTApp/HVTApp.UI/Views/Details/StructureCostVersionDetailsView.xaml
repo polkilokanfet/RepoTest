@@ -1,0 +1,35 @@
+<inf:ViewBase x:Class="HVTApp.UI.Views.StructureCostVersionDetailsView"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			  xmlns:infDP="http://infragistics.com/DataPresenter"
+			  xmlns:infE="http://infragistics.com/Editors"
+			  xmlns:core="clr-namespace:System;assembly=mscorlib"
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+			  x:Name="Root">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" MinWidth="200"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column="0" Grid.Row ="0" Content="Номер оригинального SCC" Visibility="{Binding VisibilityOriginalStructureCostNumberStructureCostVersion, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
+                 Text="{Binding Item.OriginalStructureCostNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding VisibilityOriginalStructureCostNumberStructureCostVersion, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="1" Content="Версия стракчакоста" Visibility="{Binding VisibilityVersionStructureCostVersion, ElementName=Root}"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1"
+							   ValueType="core:Int32"
+                               Value="{Binding Item.Version, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+							   Visibility="{Binding VisibilityVersionStructureCostVersion, ElementName=Root}"/>
+
+
+    </Grid>
+</inf:ViewBase>

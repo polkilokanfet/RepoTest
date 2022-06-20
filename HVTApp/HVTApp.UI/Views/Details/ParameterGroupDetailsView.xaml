@@ -16,6 +16,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row ="0" Content="Название" Visibility="{Binding VisibilityNameParameterGroup, ElementName=Root}"/>
@@ -23,13 +24,19 @@
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityNameParameterGroup, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="Комментарий" Visibility="{Binding VisibilityCommentParameterGroup, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
+        <Label Grid.Column="0" Grid.Row ="1" Content="Сила" Visibility="{Binding VisibilityPowerfulParameterGroup, ElementName=Root}"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1"
+							   ValueType="core:Int32"
+                               Value="{Binding Item.Powerful, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+							   Visibility="{Binding VisibilityPowerfulParameterGroup, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="2" Content="Комментарий" Visibility="{Binding VisibilityCommentParameterGroup, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
                  Text="{Binding Item.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityCommentParameterGroup, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="Единица измерения" Visibility="{Binding VisibilityMeasureParameterGroup, ElementName=Root}"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
+        <Label Grid.Column="0" Grid.Row ="3" Content="Единица измерения" Visibility="{Binding VisibilityMeasureParameterGroup, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="3" 
                                     Item="{Binding Item.Measure}" 
                                     AddItemCommand="{Binding SelectMeasureCommand}" 
                                     RemoveItemCommand="{Binding ClearMeasureCommand}"

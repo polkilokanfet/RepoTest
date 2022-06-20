@@ -22,43 +22,58 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="Менеджер" Visibility="{Binding VisibilityUserManagerPriceEngineeringTasks, ElementName=Root}"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="0" 
+        <Label Grid.Column="0" Grid.Row ="0" Content="Номер ТСЕ" Visibility="{Binding VisibilityTceNumberPriceEngineeringTasks, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
+                 Text="{Binding Item.TceNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding VisibilityTceNumberPriceEngineeringTasks, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="1" Content="Менеджер" Visibility="{Binding VisibilityUserManagerPriceEngineeringTasks, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
                                     Item="{Binding Item.UserManager}" 
                                     AddItemCommand="{Binding SelectUserManagerCommand}" 
                                     RemoveItemCommand="{Binding ClearUserManagerCommand}"
 									Visibility="{Binding VisibilityUserManagerPriceEngineeringTasks, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="Проработать до" Visibility="{Binding VisibilityWorkUpToPriceEngineeringTasks, ElementName=Root}"/>
-        <DatePicker Grid.Column="1" Grid.Row="1" 
+        <Label Grid.Column="0" Grid.Row ="2" Content="BackManager" Visibility="{Binding VisibilityBackManagerPriceEngineeringTasks, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
+                                    Item="{Binding Item.BackManager}" 
+                                    AddItemCommand="{Binding SelectBackManagerCommand}" 
+                                    RemoveItemCommand="{Binding ClearBackManagerCommand}"
+									Visibility="{Binding VisibilityBackManagerPriceEngineeringTasks, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="3" Content="Проработать до" Visibility="{Binding VisibilityWorkUpToPriceEngineeringTasks, ElementName=Root}"/>
+        <DatePicker Grid.Column="1" Grid.Row="3" 
                     SelectedDate="{Binding Item.WorkUpTo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityWorkUpToPriceEngineeringTasks, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="Комментарий" Visibility="{Binding VisibilityCommentPriceEngineeringTasks, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
+        <Label Grid.Column="0" Grid.Row ="4" Content="Комментарий" Visibility="{Binding VisibilityCommentPriceEngineeringTasks, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="4" MinWidth="200" 
                  Text="{Binding Item.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityCommentPriceEngineeringTasks, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="3" Content="Файлы технических требований (общие)" Visibility="{Binding VisibilityFilesTechnicalRequirementsPriceEngineeringTasks, ElementName=Root}"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="3"
+        <Label Grid.Column="0" Grid.Row ="5" Content="Файлы технических требований (общие)" Visibility="{Binding VisibilityFilesTechnicalRequirementsPriceEngineeringTasks, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="5"
 										 Items="{Binding Path=Item.FilesTechnicalRequirements}"
 										 SelectedItem="{Binding SelectedFilesTechnicalRequirementsItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInFilesTechnicalRequirementsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromFilesTechnicalRequirementsCommand}"
 										 Visibility="{Binding VisibilityFilesTechnicalRequirementsPriceEngineeringTasks, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="4" Content="Задачи" Visibility="{Binding VisibilityChildPriceEngineeringTasksPriceEngineeringTasks, ElementName=Root}"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="4"
+        <Label Grid.Column="0" Grid.Row ="6" Content="Задачи" Visibility="{Binding VisibilityChildPriceEngineeringTasksPriceEngineeringTasks, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="6"
 										 Items="{Binding Path=Item.ChildPriceEngineeringTasks}"
 										 SelectedItem="{Binding SelectedChildPriceEngineeringTasksItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInChildPriceEngineeringTasksCommand}"
 										 RemoveItemCommand="{Binding RemoveFromChildPriceEngineeringTasksCommand}"
 										 Visibility="{Binding VisibilityChildPriceEngineeringTasksPriceEngineeringTasks, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="5" Content="Расчеты переменных затрат" Visibility="{Binding VisibilityPriceCalculationsPriceEngineeringTasks, ElementName=Root}"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="5"
+        <Label Grid.Column="0" Grid.Row ="7" Content="Расчеты переменных затрат" Visibility="{Binding VisibilityPriceCalculationsPriceEngineeringTasks, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="7"
 										 Items="{Binding Path=Item.PriceCalculations}"
 										 SelectedItem="{Binding SelectedPriceCalculationsItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInPriceCalculationsCommand}"

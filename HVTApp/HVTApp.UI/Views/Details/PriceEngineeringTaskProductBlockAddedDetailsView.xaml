@@ -17,25 +17,41 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="Количество" Visibility="{Binding VisibilityAmountPriceEngineeringTaskProductBlockAdded, ElementName=Root}"/>
-		<infE:XamNumericEditor Grid.Column="1" Grid.Row="0"
+        <Label Grid.Column="0" Grid.Row ="0" Content="Удалено" Visibility="{Binding VisibilityIsRemovedPriceEngineeringTaskProductBlockAdded, ElementName=Root}"/>
+        <CheckBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
+                  IsChecked="{Binding Item.IsRemoved, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				  Visibility="{Binding VisibilityIsRemovedPriceEngineeringTaskProductBlockAdded, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="1" Content="Количество" Visibility="{Binding VisibilityAmountPriceEngineeringTaskProductBlockAdded, ElementName=Root}"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1"
 							   ValueType="core:Int32"
                                Value="{Binding Item.Amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding VisibilityAmountPriceEngineeringTaskProductBlockAdded, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="Блок продукта" Visibility="{Binding VisibilityProductBlockPriceEngineeringTaskProductBlockAdded, ElementName=Root}"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
+        <Label Grid.Column="0" Grid.Row ="2" Content="Блок продукта" Visibility="{Binding VisibilityProductBlockPriceEngineeringTaskProductBlockAdded, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
                                     Item="{Binding Item.ProductBlock}" 
                                     AddItemCommand="{Binding SelectProductBlockCommand}" 
                                     RemoveItemCommand="{Binding ClearProductBlockCommand}"
 									Visibility="{Binding VisibilityProductBlockPriceEngineeringTaskProductBlockAdded, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="На каждый блок" Visibility="{Binding VisibilityIsOnBlockPriceEngineeringTaskProductBlockAdded, ElementName=Root}"/>
-        <CheckBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
+        <Label Grid.Column="0" Grid.Row ="3" Content="На каждый блок" Visibility="{Binding VisibilityIsOnBlockPriceEngineeringTaskProductBlockAdded, ElementName=Root}"/>
+        <CheckBox Grid.Column="1" Grid.Row="3" MinWidth="200" 
                   IsChecked="{Binding Item.IsOnBlock, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				  Visibility="{Binding VisibilityIsOnBlockPriceEngineeringTaskProductBlockAdded, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="4" Content="Версии SCC" Visibility="{Binding VisibilityStructureCostVersionsPriceEngineeringTaskProductBlockAdded, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="4"
+										 Items="{Binding Path=Item.StructureCostVersions}"
+										 SelectedItem="{Binding SelectedStructureCostVersionsItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInStructureCostVersionsCommand}"
+										 RemoveItemCommand="{Binding RemoveFromStructureCostVersionsCommand}"
+										 Visibility="{Binding VisibilityStructureCostVersionsPriceEngineeringTaskProductBlockAdded, ElementName=Root}"/>
 
 
     </Grid>

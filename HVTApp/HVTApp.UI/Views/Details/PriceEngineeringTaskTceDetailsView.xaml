@@ -19,6 +19,10 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row ="0" Content="Номер ТСЕ" Visibility="{Binding VisibilityTceNumberPriceEngineeringTaskTce, ElementName=Root}"/>
@@ -56,6 +60,14 @@
 										 AddItemCommand="{Binding AddInStoryItemsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromStoryItemsCommand}"
 										 Visibility="{Binding VisibilityStoryItemsPriceEngineeringTaskTce, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="5" Content="Расчеты ПЗ" Visibility="{Binding VisibilityPriceCalculationsPriceEngineeringTaskTce, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="5"
+										 Items="{Binding Path=Item.PriceCalculations}"
+										 SelectedItem="{Binding SelectedPriceCalculationsItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInPriceCalculationsCommand}"
+										 RemoveItemCommand="{Binding RemoveFromPriceCalculationsCommand}"
+										 Visibility="{Binding VisibilityPriceCalculationsPriceEngineeringTaskTce, ElementName=Root}"/>
 
 
     </Grid>
