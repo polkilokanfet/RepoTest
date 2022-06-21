@@ -26,7 +26,7 @@ namespace HVTApp.DataAccess
         public virtual List<TEntity> GetAll()
         {
             Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
-            return GetQuary().ToList();
+            return GetQuery().ToList();
         }
 
         //public virtual async Task<List<TEntity>> GetAllAsNoTracking()
@@ -38,19 +38,19 @@ namespace HVTApp.DataAccess
         public virtual List<TEntity> GetAllAsNoTracking()
         {
             Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
-            return GetQuary().AsNoTracking().ToList();
+            return GetQuery().AsNoTracking().ToList();
         }
 
         public virtual List<TEntity> Find(Func<TEntity, bool> predicate)
         {
             Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
-            return GetQuary().AsEnumerable().Where(predicate).ToList();
+            return GetQuery().AsEnumerable().Where(predicate).ToList();
         }
 
         public List<TEntity> FindAsNoTracking(Func<TEntity, bool> predicate)
         {
             Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
-            return GetQuary().AsNoTracking().AsEnumerable().Where(predicate).ToList();
+            return GetQuery().AsNoTracking().AsEnumerable().Where(predicate).ToList();
         }
 
         private UnitOfWorkOperationResult VoidAction<T>(Action<T> action, T entity)
@@ -101,7 +101,7 @@ namespace HVTApp.DataAccess
         public TEntity GetById(Guid id)
         {
             Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
-            return GetQuary().SingleOrDefault(entity => entity.Id == id);
+            return GetQuery().SingleOrDefault(entity => entity.Id == id);
         }
 
         //public virtual async Task<TEntity> GetByIdAsync(Guid id)
@@ -119,7 +119,7 @@ namespace HVTApp.DataAccess
             //entry.Reload();
         }
 
-        protected virtual IQueryable<TEntity> GetQuary()
+        protected virtual IQueryable<TEntity> GetQuery()
         {
             return Context.Set<TEntity>().AsQueryable();
         }

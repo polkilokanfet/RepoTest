@@ -44,10 +44,12 @@
                         <infg:TextField Name="PriceEngineeringTaskList" Label="Связанные задачи верхнего уровня" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:TextField Name="SccVersions" Label="Версии стракчакостов" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:TextField Name="StoryItems" Label="История проработки" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
-                        <infg:DateTimeField Name="FinishMoment" Label="Финиш" Width="Auto" AllowResize="True" />
-                        <infg:DateTimeField Name="StartMoment" Label="Старт" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="PriceCalculations" Label="Расчеты ПЗ" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:TextField Name="FrontManager" Label="Менеджер" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                        <infg:CheckBoxField Name="S" Label="S" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="Facilities" Label="Объекты" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:CheckBoxField Name="ToShow" Label="ToShow" Width="Auto" AllowResize="True" />
+                        <infg:DateTimeField Name="StartMoment" Label="Старт" Width="Auto" AllowResize="True" />
+                        <infg:DateTimeField Name="FinishMoment" Label="Финиш" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

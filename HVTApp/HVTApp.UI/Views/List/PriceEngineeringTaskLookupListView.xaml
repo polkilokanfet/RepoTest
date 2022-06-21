@@ -49,11 +49,17 @@
                         <infg:TextField Name="FilesAnswers" Label="Файлы ответов ОГК" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:TextField Name="Messages" Label="Переписка" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:TextField Name="ChildPriceEngineeringTasks" Label="Дочерние задачи" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                        <infg:TextField Name="StructureCostVersions" Label="Версии SCC" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                        <infg:TextField Name="PriceCalculationItems" Label="Строки расчётов ПЗ" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:TextField Name="Statuses" Label="Статусы проработки" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:CheckBoxField Name="RequestForVerificationFromHead" Label="Запрос на проверку от руководителя" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="RequestForVerificationFromConstructor" Label="Запрос на проверку от исполнителя" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="SalesUnits" Label="SalesUnits" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:DateTimeField Name="StartMoment" Label="Старт" Width="Auto" AllowResize="True" />
+                        <infg:CheckBoxField Name="IsTotalStopped" Label="IsTotalStopped" Width="Auto" AllowResize="True" />
+                        <infg:CheckBoxField Name="IsTotalAccepted" Label="IsTotalAccepted" Width="Auto" AllowResize="True" />
+                        <infg:CheckBoxField Name="IsFinishedByConstructor" Label="IsFinishedByConstructor" Width="Auto" AllowResize="True" />
+                        <infg:CheckBoxField Name="HasSccInTce" Label="HasSccInTce" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

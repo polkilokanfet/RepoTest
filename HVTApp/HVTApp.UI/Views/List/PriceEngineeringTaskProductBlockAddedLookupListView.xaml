@@ -39,10 +39,13 @@
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
 
+                        <infg:CheckBoxField Name="IsRemoved" Label="Удалено" Width="Auto" AllowResize="True" />
                         <infg:NumericField Name="Amount" Label="Количество" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="ProductBlock" Label="Блок продукта" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:CheckBoxField Name="IsOnBlock" Label="На каждый блок" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="PriceEngineeringTaskId" Label="Id технико-стоимостной проработки" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="StructureCostVersions" Label="Версии SCC" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                        <infg:CheckBoxField Name="HasSccInTce" Label="HasSccInTce" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

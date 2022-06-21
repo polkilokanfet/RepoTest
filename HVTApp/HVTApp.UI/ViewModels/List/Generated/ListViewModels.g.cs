@@ -222,6 +222,11 @@ namespace HVTApp.UI.ViewModels
         public PriceEngineeringTaskTceStructureCostVersionLookupListViewModel(IUnityContainer container) : base(container) { }
     }
 
+	public partial class StructureCostVersionLookupListViewModel : BaseListViewModel<StructureCostVersion, StructureCostVersionLookup, AfterSaveStructureCostVersionEvent, AfterSelectStructureCostVersionEvent, AfterRemoveStructureCostVersionEvent>
+    {
+        public StructureCostVersionLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
 	public partial class ProductCategoryLookupListViewModel : BaseListViewModel<ProductCategory, ProductCategoryLookup, AfterSaveProductCategoryEvent, AfterSelectProductCategoryEvent, AfterRemoveProductCategoryEvent>
     {
         public ProductCategoryLookupListViewModel(IUnityContainer container) : base(container) { }

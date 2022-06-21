@@ -6,7 +6,7 @@ namespace HVTApp.DataAccess
 {
     public partial class ProductRelationRepository
     {
-        protected override IQueryable<ProductRelation> GetQuary()
+        protected override IQueryable<ProductRelation> GetQuery()
         {
             return Context.Set<ProductRelation>().AsQueryable()
                 .Include(x => x.ParentProductParameters)

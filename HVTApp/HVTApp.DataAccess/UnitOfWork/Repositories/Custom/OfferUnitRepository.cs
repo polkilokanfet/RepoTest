@@ -8,7 +8,7 @@ namespace HVTApp.DataAccess
 {
     public partial class OfferUnitRepository
     {
-        protected override IQueryable<OfferUnit> GetQuary()
+        protected override IQueryable<OfferUnit> GetQuery()
         {
             return Context.Set<OfferUnit>().AsQueryable()
                 .Include(offerUnit => offerUnit.Facility)
@@ -19,14 +19,14 @@ namespace HVTApp.DataAccess
 
         public IEnumerable<OfferUnit> GetAllOfCurrentUser()
         {
-            return this.GetQuary()
+            return this.GetQuery()
                 .Where(offerUnit => offerUnit.Offer.Project.Manager.Id == GlobalAppProperties.User.Id)
                 .ToList();
         }
 
         public IEnumerable<OfferUnit> GetByOffer(Offer offer)
         {
-            return this.GetQuary()
+            return this.GetQuery()
                 .Include(offerUnit => offerUnit.PaymentConditionSet)
                 .Include(offerUnit => offerUnit.ProductsIncluded.Select(productIncluded => productIncluded.Product))
                 .Where(offerUnit => offerUnit.Offer.Id == offer.Id)

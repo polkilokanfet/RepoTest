@@ -6,7 +6,7 @@ namespace HVTApp.DataAccess
 {
     public partial class ParameterRepository
     {
-        protected override IQueryable<Parameter> GetQuary()
+        protected override IQueryable<Parameter> GetQuery()
         {
             return Context.Set<Parameter>().AsQueryable()
                 .Include(parameter => parameter.ParameterGroup)

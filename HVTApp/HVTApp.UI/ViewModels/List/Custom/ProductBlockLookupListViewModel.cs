@@ -5,6 +5,7 @@ using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Commands;
+using HVTApp.UI.Lookup;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.ViewModels
@@ -54,6 +55,17 @@ namespace HVTApp.UI.ViewModels
                     productBlockLookup.DesignDepartments = dd.ToStringEnum();
                 }
             }
+        }
+    }
+
+    public partial class ParameterGroupLookupListViewModel
+    {
+        public override IEnumerable<ParameterGroupLookup> GetAllLookups()
+        {
+            return UnitOfWork.Repository<ParameterGroup>()
+                .GetAllAsNoTracking()
+                .OrderBy(x => x)
+                .Select(x => new ParameterGroupLookup(x));
         }
     }
 }

@@ -47,6 +47,7 @@
                         <infg:TextField Name="Status" Label="Status" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="PriceCalculationItems" Label="Единицы расчета" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:TextField Name="Name" Label="Название" Width="Auto" AllowResize="True" />
+                        <infg:CheckBoxField Name="IsTceConnected" Label="Связано с ТСЕ" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="IsStarted" Label="IsStarted" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="IsNeedExcelFile" Label="Требуется расчетный файл" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="IsFinished" Label="IsFinished" Width="Auto" AllowResize="True" />

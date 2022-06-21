@@ -6,7 +6,7 @@ namespace HVTApp.DataAccess
 {
     public partial class PriceCalculationItemRepository
     {
-        protected override IQueryable<PriceCalculationItem> GetQuary()
+        protected override IQueryable<PriceCalculationItem> GetQuery()
         {
             return Context.Set<PriceCalculationItem>().AsQueryable()
                 .Include(x => x.StructureCosts);

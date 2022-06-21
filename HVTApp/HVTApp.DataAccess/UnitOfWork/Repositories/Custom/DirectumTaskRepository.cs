@@ -9,7 +9,7 @@ namespace HVTApp.DataAccess
 {
     public partial class DirectumTaskRepository
     {
-        protected override IQueryable<DirectumTask> GetQuary()
+        protected override IQueryable<DirectumTask> GetQuery()
         {
             return Context.Set<DirectumTask>().AsQueryable()
                 .Include(directumTask => directumTask.Group.Author)
@@ -20,7 +20,7 @@ namespace HVTApp.DataAccess
         {
             Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
-            return this.GetQuary()
+            return this.GetQuery()
                 .Where(directumTask => directumTask.Group.Author.Id == GlobalAppProperties.User.Id)
                 .ToList();
         }
@@ -29,7 +29,7 @@ namespace HVTApp.DataAccess
         {
             Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
-            return this.GetQuary()
+            return this.GetQuery()
                 .Where(directumTask => directumTask.Group.Id == groupId)
                 .ToList();
         }
@@ -74,7 +74,7 @@ namespace HVTApp.DataAccess
         {
             Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
-            return this.GetQuary()
+            return this.GetQuery()
                 .Include(directumTask => directumTask.PreviousTask)
                 .Where(directumTask => directumTask.PreviousTask != null)
                 .Where(directumTask => directumTask.PreviousTask.Id == taskId)
@@ -85,7 +85,7 @@ namespace HVTApp.DataAccess
         {
             Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
-            var tasks = this.GetQuary()
+            var tasks = this.GetQuery()
                 .Include(directumTask => directumTask.PreviousTask)
                 .Include(directumTask => directumTask.ParentTask)
                 .Where(directumTask => directumTask.ParentTask != null)

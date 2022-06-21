@@ -8,7 +8,7 @@ namespace HVTApp.DataAccess
 {
     public partial class OfferRepository
     {
-        protected override IQueryable<Offer> GetQuary()
+        protected override IQueryable<Offer> GetQuery()
         {
             return Context.Set<Offer>().AsQueryable()
                 .Include(offer => offer.Project.Manager)
@@ -20,7 +20,7 @@ namespace HVTApp.DataAccess
         {
             Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
-            return this.GetQuary()
+            return this.GetQuery()
                 .Where(offer => offer.Project.Manager.Id == GlobalAppProperties.User.Id)
                 .ToList();
         }

@@ -93,7 +93,7 @@ namespace HVTApp.Services.PrintService
             docWriter.EndTableRow();
 
             //строки параметров
-            foreach (var parameter in product.ProductBlock.GetOrderedParameters())
+            foreach (var parameter in product.ProductBlock.ParametersOrdered)
             {
                 docWriter.StartTableRow();
                 docWriter.PrintTableCell($"{parameter.ParameterGroup}");

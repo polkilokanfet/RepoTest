@@ -182,6 +182,11 @@ namespace HVTApp.UI.ViewModels
         public IEnumerable<TLookup> Lookups { get; }
         protected ICollection<TLookup> LookupsCollection => (ICollection<TLookup>)Lookups;
 
+        public virtual IEnumerable<TLookup> GetAllLookups()
+        {
+            return null;
+        }
+
         /// <summary>
         /// Загрузка всех Lookup'ов.
         /// </summary>
@@ -191,9 +196,13 @@ namespace HVTApp.UI.ViewModels
             LoadBegin?.Invoke();
             LookupsCollection.Clear();
             SelectedLookup = null;
-            var entities = UnitOfWork.Repository<TEntity>().GetAllAsNoTracking();
-            var lookups =  entities.Select(x => (TLookup)Activator.CreateInstance(typeof(TLookup), x));
-            lookups.ForEach(LookupsCollection.Add);
+
+            var lookups = GetAllLookups() ?? UnitOfWork.Repository<TEntity>()
+                .GetAllAsNoTracking()
+                .Select(x => (TLookup)Activator.CreateInstance(typeof(TLookup), x));
+
+            LookupsCollection.AddRange(lookups);
+
             Loaded?.Invoke();
         }
 

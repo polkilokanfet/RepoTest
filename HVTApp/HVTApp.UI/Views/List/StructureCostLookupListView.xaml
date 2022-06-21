@@ -39,9 +39,11 @@
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
 
+                        <infg:TextField Name="OriginalStructureCostProductBlock" Label="Оригинальный блок scc" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:NumericField Name="UnitPrice" Label="Себестоимость единицы" Width="Auto" AllowResize="True" />
                         <infg:NumericField Name="Total" Label="Total" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="PriceCalculationItemId" Label="PriceCalculationItemId" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="OriginalStructureCostNumber" Label="Номер scc оригинального блока" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Number" Label="Номер" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" AllowResize="True" />
                         <infg:NumericField Name="AmountNumerator" Label="Количество (числитель)" Width="Auto" AllowResize="True" />

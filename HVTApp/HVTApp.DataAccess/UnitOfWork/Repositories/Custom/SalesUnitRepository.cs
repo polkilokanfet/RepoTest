@@ -10,7 +10,7 @@ namespace HVTApp.DataAccess
 {
     public partial class SalesUnitRepository : ISalesUnitRepository
     {
-        protected override IQueryable<SalesUnit> GetQuary()
+        protected override IQueryable<SalesUnit> GetQuery()
         {
             return Context.Set<SalesUnit>().AsQueryable()
                 .Include(salesUnit => salesUnit.Specification)
@@ -49,13 +49,13 @@ namespace HVTApp.DataAccess
         public IEnumerable<SalesUnit> GetAllOfCurrentUser()
         {
             Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
-            return this.GetQuary().Where(salesUnit => salesUnit.Project.Manager.Id == GlobalAppProperties.User.Id).ToList();
+            return this.GetQuery().Where(salesUnit => salesUnit.Project.Manager.Id == GlobalAppProperties.User.Id).ToList();
         }
 
         public IEnumerable<SalesUnit> GetAllOfCurrentUserForMarketView()
         {
             Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
-            return this.GetQuary()
+            return this.GetQuery()
                 .Include(salesUnit => salesUnit.Specification)
                 .Include(salesUnit => salesUnit.Project.Manager)
                 .Include(salesUnit => salesUnit.Facility.OwnerCompany)
@@ -144,7 +144,7 @@ namespace HVTApp.DataAccess
         {
             Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
-            return this.GetQuary()
+            return this.GetQuery()
                 //.Include(salesUnit => salesUnit.PaymentsActual)
                 .Include(salesUnit => salesUnit.Order)
                 .Where(salesUnit => salesUnit.PaymentsActual.Any())
@@ -155,7 +155,7 @@ namespace HVTApp.DataAccess
         {
             Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
-            return this.GetQuary()
+            return this.GetQuery()
                 //.Include(salesUnit => salesUnit.PaymentsActual)
                 .Include(salesUnit => salesUnit.Specification)
                 .Include(salesUnit => salesUnit.Order)
@@ -182,7 +182,7 @@ namespace HVTApp.DataAccess
         {
             Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
-            return this.GetQuary()
+            return this.GetQuery()
                 .Include(salesUnit => salesUnit.Producer)
                 .Where(salesUnit => !salesUnit.IsRemoved && (salesUnit.Producer == null || salesUnit.Producer.Id == GlobalAppProperties.Actual.OurCompany.Id))
                 .ToList();
@@ -192,7 +192,7 @@ namespace HVTApp.DataAccess
         {
             Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
-            return this.GetQuary()
+            return this.GetQuery()
                 .Include(salesUnit => salesUnit.Order)
                 .Include(salesUnit => salesUnit.Specification.Contract.Contragent.Form)
                 .Include(salesUnit => salesUnit.Producer)
@@ -206,7 +206,7 @@ namespace HVTApp.DataAccess
 
             if (onlyReportUnits)
             {
-                return this.GetQuary()
+                return this.GetQuery()
                     .Include(salesUnit => salesUnit.Project.Manager.Employee.Person)
                     .Include(salesUnit => salesUnit.Facility.Address.Locality)
                     .Include(salesUnit => salesUnit.Facility.OwnerCompany.AddressLegal.Locality)
@@ -218,7 +218,7 @@ namespace HVTApp.DataAccess
             }
             else
             {
-                return this.GetQuary()
+                return this.GetQuery()
                     .Include(salesUnit => salesUnit.Project.Manager.Employee.Person)
                     .Include(salesUnit => salesUnit.Facility.Address.Locality)
                     .Include(salesUnit => salesUnit.Facility.OwnerCompany.AddressLegal.Locality)

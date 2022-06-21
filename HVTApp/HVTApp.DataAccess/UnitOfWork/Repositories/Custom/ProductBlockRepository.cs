@@ -9,7 +9,7 @@ namespace HVTApp.DataAccess
 {
     public partial class ProductBlockRepository
     {
-        protected override IQueryable<ProductBlock> GetQuary()
+        protected override IQueryable<ProductBlock> GetQuery()
         {
             return Context.Set<ProductBlock>().AsQueryable()
                 .Include(block => block.Prices)

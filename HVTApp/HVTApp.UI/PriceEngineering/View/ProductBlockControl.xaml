@@ -12,7 +12,7 @@
              ToolTipService.ShowDuration="120000">
 
         <TextBox.Resources>
-            <DataGrid ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=ProductBlock.Parameters}"
+            <DataGrid ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=ProductBlock.ParametersOrdered}"
                       AutoGenerateColumns="False"
                       x:Key="Dg1">
                 <DataGrid.Columns>

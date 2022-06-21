@@ -39,14 +39,19 @@
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
 
-                        <infg:TextField Name="Facilities" Label="Объекты" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField Name="Facilities" Label="Объекты" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="ProductBlocks" Label="Блоки" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="Users" Label="Исполнители" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="TceNumber" Label="Номер ТСЕ" Width="Auto" AllowResize="True" />
                         <infg:DateTimeField Name="StartMoment" Label="Старт" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="UserManager" Label="Менеджер" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField Name="BackManager" Label="BackManager" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:DateTimeField Name="WorkUpTo" Label="Проработать до" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="FilesTechnicalRequirements" Label="Файлы технических требований (общие)" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:TextField Name="ChildPriceEngineeringTasks" Label="Задачи" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:TextField Name="PriceCalculations" Label="Расчеты переменных затрат" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                        <infg:CheckBoxField Name="ToShowTce" Label="ToShowTce" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="ToShow" Label="ToShow" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="StatusString" Label="StatusString" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Number" Label="Номер" Width="Auto" AllowResize="True" />

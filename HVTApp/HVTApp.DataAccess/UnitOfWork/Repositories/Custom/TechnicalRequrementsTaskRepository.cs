@@ -6,7 +6,7 @@ namespace HVTApp.DataAccess
 {
     public partial class TechnicalRequrementsTaskRepository
     {
-        protected override IQueryable<TechnicalRequrementsTask> GetQuary()
+        protected override IQueryable<TechnicalRequrementsTask> GetQuery()
         {
             return Context.Set<TechnicalRequrementsTask>().AsQueryable()
                 .Include(x => x.Requrements);

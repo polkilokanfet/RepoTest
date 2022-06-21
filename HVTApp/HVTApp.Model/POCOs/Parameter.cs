@@ -40,6 +40,11 @@ namespace HVTApp.Model.POCOs
             var first = this;
             if (!(obj is Parameter second))
                 throw new ArgumentException();
+
+            if (first.ParameterGroup.Id == second.ParameterGroup.Id)
+            {
+                return string.Compare(first.Value, second.Value, StringComparison.Ordinal);
+            }
             
             if (first.ContainsParameterInPath(second))
                 return 1;
@@ -47,9 +52,7 @@ namespace HVTApp.Model.POCOs
             if (second.ContainsParameterInPath(first))
                 return -1;
 
-            return first.ParameterGroup.Id == second.ParameterGroup.Id 
-                ? string.Compare(first.Value, second.Value, StringComparison.Ordinal) 
-                : first.ParameterGroup.CompareTo(second.ParameterGroup);
+            return first.ParameterGroup.CompareTo(second.ParameterGroup);
         }
 
         /// <summary>

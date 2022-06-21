@@ -14,17 +14,8 @@ namespace HVTApp.Model.POCOs
     [Designation("Блок")]
     public partial class ProductBlock : BaseEntity
     {
-        [Designation("Обозначение"), NotMapped]
-        public string Designation => GlobalAppProperties.ProductDesignationService.GetDesignation(this);
-
-
         [Designation("Специальное обозначение"), MaxLength(256)]
         public string DesignationSpecial { get; set; }
-
-
-        [Designation("Тип"), NotMapped, OrderStatus(10)]
-        public ProductType ProductType => GlobalAppProperties.ProductDesignationService.GetProductType(this);
-
 
         [Designation("Параметры"), NotForListView]
         public virtual List<Parameter> Parameters { get; set; } = new List<Parameter>();
@@ -46,6 +37,18 @@ namespace HVTApp.Model.POCOs
 
 
         #region NotMapped
+
+        /// <summary>
+        /// Параметры (упорядоченные)
+        /// </summary>
+        [Designation("Параметры (упорядоченные)"), NotMapped]
+        public List<Parameter> ParametersOrdered => Parameters.OrderBy(parameter => parameter).ToList();
+
+        [Designation("Обозначение"), NotMapped]
+        public string Designation => GlobalAppProperties.ProductDesignationService.GetDesignation(this);
+
+        [Designation("Тип"), NotMapped, OrderStatus(10)]
+        public ProductType ProductType => GlobalAppProperties.ProductDesignationService.GetProductType(this);
 
         [Designation("Есть прайс"), NotMapped]
         public bool HasPrice => Prices.Any();
@@ -84,14 +87,15 @@ namespace HVTApp.Model.POCOs
             return other != null && this.Parameters.MembersAreSame(other.Parameters, new ParameterComparer());
         }
 
-        /// <summary>
-        /// Вернуть упорядоченные параметры блока.
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<Parameter> GetOrderedParameters()
-        {
-            return Parameters.OrderByDescending(parameter => parameter.GetWeight(this));
-        }
+        ///// <summary>
+        ///// Вернуть упорядоченные параметры блока.
+        ///// </summary>
+        ///// <returns></returns>
+        //public IEnumerable<Parameter> GetOrderedParameters()
+        //{
+        //    return Parameters.OrderBy(x => x);
+        //    //return Parameters.OrderByDescending(parameter => parameter.GetWeight(this));
+        //}
 
         public string ParametersToString()
         {

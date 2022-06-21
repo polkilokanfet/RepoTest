@@ -183,6 +183,10 @@ namespace HVTApp.UI
             //_dialogService.Register<PriceEngineeringTaskTceStructureCostVersionDetailsViewModel, PriceEngineeringTaskTceStructureCostVersionDetailsView>();
 			_selectService.Register<PriceEngineeringTaskTceStructureCostVersionLookupListView, PriceEngineeringTaskTceStructureCostVersion>();
             _updateDetailsService.Register<PriceEngineeringTaskTceStructureCostVersion, PriceEngineeringTaskTceStructureCostVersionDetailsView>();
+            Container.RegisterViewForNavigation<StructureCostVersionLookupListView>();
+            //_dialogService.Register<StructureCostVersionDetailsViewModel, StructureCostVersionDetailsView>();
+			_selectService.Register<StructureCostVersionLookupListView, StructureCostVersion>();
+            _updateDetailsService.Register<StructureCostVersion, StructureCostVersionDetailsView>();
             Container.RegisterViewForNavigation<ProductCategoryLookupListView>();
             //_dialogService.Register<ProductCategoryDetailsViewModel, ProductCategoryDetailsView>();
 			_selectService.Register<ProductCategoryLookupListView, ProductCategory>();

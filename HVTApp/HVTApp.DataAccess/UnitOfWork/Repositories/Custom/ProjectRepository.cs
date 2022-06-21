@@ -7,7 +7,7 @@ namespace HVTApp.DataAccess
 {
     public partial class ProjectRepository
     {
-        protected override IQueryable<Project> GetQuary()
+        protected override IQueryable<Project> GetQuery()
         {
             return Context.Set<Project>().AsQueryable()
                 .Include(project => project.ProjectType)
@@ -17,7 +17,7 @@ namespace HVTApp.DataAccess
         public IEnumerable<Project> GetAllWithNotes()
         {
             Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
-            return this.GetQuary().Include(x => x.Notes).ToList();
+            return this.GetQuery().Include(x => x.Notes).ToList();
         }
     }
 

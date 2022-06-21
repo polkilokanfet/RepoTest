@@ -823,6 +823,9 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(1)]
         public HVTApp.Model.POCOs.PriceEngineeringTaskStatusEnum Status => Entity.Status;
 
+		[OrderStatus(1)]
+        public System.Boolean IsFinishedByConstructor => Entity.IsFinishedByConstructor;
+
 		[OrderStatus(40)]
         public System.Boolean RequestForVerificationFromHead => Entity.RequestForVerificationFromHead;
 
@@ -831,6 +834,15 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
         public System.Nullable<System.DateTime> StartMoment => Entity.StartMoment;
+
+		[OrderStatus(1)]
+        public System.Boolean HasSccInTce => Entity.HasSccInTce;
+
+		[OrderStatus(1)]
+        public System.Boolean IsTotalAccepted => Entity.IsTotalAccepted;
+
+		[OrderStatus(1)]
+        public System.Boolean IsTotalStopped => Entity.IsTotalStopped;
 
         #endregion
 
@@ -969,6 +981,9 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(950)]
         public System.Boolean IsRemoved => Entity.IsRemoved;
 
+		[OrderStatus(1)]
+        public System.Boolean HasSccInTce => Entity.HasSccInTce;
+
         #endregion
 
         #region ComplexProperties
@@ -999,6 +1014,9 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1400)]
         public System.String Comment => Entity.Comment;
+
+		[OrderStatus(1)]
+        public System.Boolean IsAccepted => Entity.IsAccepted;
 
 		[OrderStatus(2000)]
         public System.Nullable<System.DateTime> StartMoment => Entity.StartMoment;
@@ -1359,6 +1377,9 @@ namespace HVTApp.UI.Lookup
         public System.String Number => Entity.Number;
 
 		[OrderStatus(1)]
+        public System.String OriginalStructureCostNumber => Entity.OriginalStructureCostNumber;
+
+		[OrderStatus(1)]
         public System.Double AmountNumerator => Entity.AmountNumerator;
 
 		[OrderStatus(1)]
@@ -1375,6 +1396,12 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
         public System.String Comment => Entity.Comment;
+
+        #endregion
+
+        #region ComplexProperties
+		[OrderStatus(1)]
+	    public ProductBlockLookup OriginalStructureCostProductBlock { get { return GetLookup<ProductBlockLookup>(); } }
 
         #endregion
 	}
@@ -2299,6 +2326,9 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(1)]
         public System.String Comment => Entity.Comment;
 
+		[OrderStatus(1)]
+        public System.Int32 Powerful => Entity.Powerful;
+
         #endregion
 
         #region ComplexProperties
@@ -2676,14 +2706,14 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(8)]
         public System.String Designation => Entity.Designation;
 
+		[OrderStatus(1)]
+        public System.Boolean HasBlockWithFixedCost => Entity.HasBlockWithFixedCost;
+
 		[OrderStatus(6)]
         public System.String DesignationSpecial => Entity.DesignationSpecial;
 
 		[OrderStatus(1)]
         public System.String Comment => Entity.Comment;
-
-		[OrderStatus(1)]
-        public System.Boolean HasBlockWithFixedCost => Entity.HasBlockWithFixedCost;
 
         #endregion
 

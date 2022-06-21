@@ -6,7 +6,7 @@ namespace HVTApp.DataAccess
 {
     public partial class ProductTypeDesignationRepository
     {
-        protected override IQueryable<ProductTypeDesignation> GetQuary()
+        protected override IQueryable<ProductTypeDesignation> GetQuery()
         {
             return Context.Set<ProductTypeDesignation>().AsQueryable()
                 .Include(x => x.Parameters)

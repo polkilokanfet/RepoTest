@@ -6,7 +6,7 @@ namespace HVTApp.DataAccess
 {
     public partial class PaymentDocumentRepository
     {
-        protected override IQueryable<PaymentDocument> GetQuary()
+        protected override IQueryable<PaymentDocument> GetQuery()
         {
             return Context.Set<PaymentDocument>().AsQueryable()
                 .Include(paymentDocument => paymentDocument.Payments);
