@@ -236,6 +236,8 @@ namespace HVTApp.UI.Lookup
 	    public List<DesignDepartmentParametersLookup> ParameterSets { get { return GetLookupEnum<DesignDepartmentParametersLookup>().ToList(); } }
 		[OrderStatus(40)]
 	    public List<DesignDepartmentParametersAddedBlocksLookup> ParameterSetsAddedBlocks { get { return GetLookupEnum<DesignDepartmentParametersAddedBlocksLookup>().ToList(); } }
+		[OrderStatus(30)]
+	    public List<DesignDepartmentParametersSubTaskLookup> ParameterSetsSubTask { get { return GetLookupEnum<DesignDepartmentParametersSubTaskLookup>().ToList(); } }
 	}
 	[AllowEditAttribute(Role.Admin)]
 	[Designation("Задача")]
@@ -803,6 +805,25 @@ namespace HVTApp.UI.Lookup
 	    public List<ParameterLookup> Parameters { get { return GetLookupEnum<ParameterLookup>().ToList(); } }
 	}
 	[AllowEditAttribute(Role.Admin)]
+	[Designation("Параметры департамента ОГК (для подзадач)")]
+	public partial class DesignDepartmentParametersSubTaskLookup : LookupItem<DesignDepartmentParametersSubTask>
+	{
+		public DesignDepartmentParametersSubTaskLookup(DesignDepartmentParametersSubTask entity) : base(entity) 
+		{
+		}
+		
+        #region SimpleProperties
+		[OrderStatus(-10)]
+        public System.Guid DesignDepartmentId => Entity.DesignDepartmentId;
+
+		[OrderStatus(10)]
+        public System.String Name => Entity.Name;
+
+        #endregion
+		[OrderStatus(1)]
+	    public List<ParameterLookup> Parameters { get { return GetLookupEnum<ParameterLookup>().ToList(); } }
+	}
+	[AllowEditAttribute(Role.Admin)]
 	[Designation("Технико-стоимостная проработка")]
 	public partial class PriceEngineeringTaskLookup : LookupItem<PriceEngineeringTask>
 	{
@@ -852,6 +873,9 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1800)]
 	    public UserLookup UserConstructor { get { return GetLookup<UserLookup>(); } }
+
+		[OrderStatus(1)]
+	    public UserLookup UserConstructorInitiator { get { return GetLookup<UserLookup>(); } }
 
 		[OrderStatus(900)]
 	    public ProductBlockLookup ProductBlockManager { get { return GetLookup<ProductBlockLookup>(); } }
@@ -2021,9 +2045,6 @@ namespace HVTApp.UI.Lookup
 		
         #region SimpleProperties
 		[OrderStatus(1)]
-        public System.String Designation => Entity.Designation;
-
-		[OrderStatus(1)]
         public System.String DesignationSpecial => Entity.DesignationSpecial;
 
 		[OrderStatus(1)]
@@ -2034,6 +2055,9 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
         public System.Double Weight => Entity.Weight;
+
+		[OrderStatus(1)]
+        public System.String Designation => Entity.Designation;
 
 		[OrderStatus(1)]
         public System.Boolean HasPrice => Entity.HasPrice;
@@ -2069,6 +2093,8 @@ namespace HVTApp.UI.Lookup
 	    public List<SumOnDateLookup> Prices { get { return GetLookupEnum<SumOnDateLookup>().ToList(); } }
 		[OrderStatus(1)]
 	    public List<SumOnDateLookup> FixedCosts { get { return GetLookupEnum<SumOnDateLookup>().ToList(); } }
+		[OrderStatus(1)]
+	    public List<ParameterLookup> ParametersOrdered { get { return GetLookupEnum<ParameterLookup>().ToList(); } }
 	}
 	[AllowEditAttribute(Role.Admin)]
 	[Designation("Зависимое оборудование")]

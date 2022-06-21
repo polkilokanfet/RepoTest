@@ -15,6 +15,8 @@ namespace HVTApp.UI.ViewModels
         private ParameterWrapper _selectedParameter;
         private DesignDepartmentParametersAddedBlocksWrapper _selectedDesignDepartmentParametersAdded;
         private ParameterWrapper _selectedParameterAdded;
+        private DesignDepartmentParametersSubTaskWrapper _selectedDesignDepartmentParametersSubTasks;
+        private ParameterWrapper _selectedParameterSubTask;
 
         public DesignDepartmentParametersWrapper SelectedDesignDepartmentParameters
         {
@@ -68,6 +70,32 @@ namespace HVTApp.UI.ViewModels
         public DelegateLogCommand RemoveParameterAddedCommand { get; }
 
 
+        public DesignDepartmentParametersSubTaskWrapper SelectedDesignDepartmentParametersSubTasks
+        {
+            get => _selectedDesignDepartmentParametersSubTasks;
+            set
+            {
+                _selectedDesignDepartmentParametersSubTasks = value;
+                RaisePropertyChanged();
+                RemoveParameterSubTaskCommand.RaiseCanExecuteChanged();
+                SelectedParameterSetsSubTaskItem = value;
+            }
+        }
+
+        public ParameterWrapper SelectedParameterSubTask
+        {
+            get => _selectedParameterSubTask;
+            set
+            {
+                _selectedParameterSubTask = value;
+                RemoveParameterSubTaskCommand.RaiseCanExecuteChanged();
+            }
+        }
+
+        public DelegateLogCommand CreateParameterSetSubTaskCommand { get; }
+        public DelegateLogCommand RemoveParameterSubTaskCommand { get; }
+
+
         public DesignDepartmentViewModel(IUnityContainer container) : base(container)
         {
             CreateParameterSetCommand = new DelegateLogCommand(
@@ -93,6 +121,7 @@ namespace HVTApp.UI.ViewModels
                 },
                 () => SelectedDesignDepartmentParameters != null && SelectedParameter != null);
 
+
             CreateParameterSetAddedCommand = new DelegateLogCommand(
                 () =>
                 {
@@ -115,6 +144,30 @@ namespace HVTApp.UI.ViewModels
                     SelectedDesignDepartmentParametersAdded.Parameters.Remove(SelectedParameterAdded);
                 },
                 () => SelectedDesignDepartmentParametersAdded != null && SelectedParameterAdded != null);
+
+
+            CreateParameterSetSubTaskCommand = new DelegateLogCommand(
+                () =>
+                {
+                    var block = container.Resolve<IGetProductService>().GetProductBlock();
+                    if (block != null)
+                    {
+                        var wrapper = new DesignDepartmentParametersSubTaskWrapper(
+                            new DesignDepartmentParametersSubTask()
+                            {
+                                Name = block.ToString(),
+                                Parameters = block.Parameters.Select(x => UnitOfWork.Repository<Parameter>().GetById(x.Id)).ToList()
+                            });
+                        this.Item.ParameterSetsSubTask.Add(wrapper);
+                    }
+                });
+
+            RemoveParameterSubTaskCommand = new DelegateLogCommand(
+                () =>
+                {
+                    SelectedDesignDepartmentParametersSubTasks.Parameters.Remove(SelectedParameterSubTask);
+                },
+                () => SelectedDesignDepartmentParametersSubTasks != null && SelectedParameterSubTask != null);
         }
 
         protected override void AfterLoading()
@@ -123,12 +176,12 @@ namespace HVTApp.UI.ViewModels
             {
                 if (args.Action == NotifyCollectionChangedAction.Remove)
                 {
-                    foreach (var designDepartmentParametersWrapper in args.OldItems.Cast<DesignDepartmentParametersWrapper>())
+                    foreach (var wrapper in args.OldItems.Cast<DesignDepartmentParametersWrapper>())
                     {
-                        var designDepartmentParameters = UnitOfWork.Repository<DesignDepartmentParameters>().GetById(designDepartmentParametersWrapper.Id);
-                        if (designDepartmentParameters != null)
+                        var parametersSets = UnitOfWork.Repository<DesignDepartmentParameters>().GetById(wrapper.Id);
+                        if (parametersSets != null)
                         {
-                            UnitOfWork.Repository<DesignDepartmentParameters>().Delete(designDepartmentParameters);
+                            UnitOfWork.Repository<DesignDepartmentParameters>().Delete(parametersSets);
                         }
                     }
                 }
@@ -138,12 +191,27 @@ namespace HVTApp.UI.ViewModels
             {
                 if (args.Action == NotifyCollectionChangedAction.Remove)
                 {
-                    foreach (var designDepartmentParametersAddedBlocksWrapper in args.OldItems.Cast<DesignDepartmentParametersAddedBlocksWrapper>())
+                    foreach (var wrapper in args.OldItems.Cast<DesignDepartmentParametersAddedBlocksWrapper>())
                     {
-                        var departmentParametersAddedBlocks = UnitOfWork.Repository<DesignDepartmentParametersAddedBlocks>().GetById(designDepartmentParametersAddedBlocksWrapper.Id);
-                        if (departmentParametersAddedBlocks != null)
+                        var parametersSets = UnitOfWork.Repository<DesignDepartmentParametersAddedBlocks>().GetById(wrapper.Id);
+                        if (parametersSets != null)
                         {
-                            UnitOfWork.Repository<DesignDepartmentParametersAddedBlocks>().Delete(departmentParametersAddedBlocks);
+                            UnitOfWork.Repository<DesignDepartmentParametersAddedBlocks>().Delete(parametersSets);
+                        }
+                    }
+                }
+            };
+
+            this.Item.ParameterSetsSubTask.CollectionChanged += (sender, args) =>
+            {
+                if (args.Action == NotifyCollectionChangedAction.Remove)
+                {
+                    foreach (var wrapper in args.OldItems.Cast<DesignDepartmentParametersSubTaskWrapper>())
+                    {
+                        var parametersSets = UnitOfWork.Repository<DesignDepartmentParametersSubTask>().GetById(wrapper.Id);
+                        if (parametersSets != null)
+                        {
+                            UnitOfWork.Repository<DesignDepartmentParametersSubTask>().Delete(parametersSets);
                         }
                     }
                 }

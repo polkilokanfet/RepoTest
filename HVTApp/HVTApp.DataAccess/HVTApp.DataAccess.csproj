@@ -82,6 +82,7 @@
     <Compile Include="EntityTypeConfigurations\Custom\DesignDepartmentConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\DesignDepartmentParametersAddedBlocksConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\DesignDepartmentParametersConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\DesignDepartmentParametersSubTaskConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\DirectumTaskConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\DirectumTaskGroupConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\DirectumTaskGroupFileConfiguration.cs" />
@@ -384,6 +385,10 @@
     <Compile Include="Migrations\202206201059347_ParameterGroupPowerful.Designer.cs">
       <DependentUpon>202206201059347_ParameterGroupPowerful.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202206211046534_DesignDepartmentParametersSubTask.cs" />
+    <Compile Include="Migrations\202206211046534_DesignDepartmentParametersSubTask.Designer.cs">
+      <DependentUpon>202206211046534_DesignDepartmentParametersSubTask.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -418,6 +423,7 @@
     <Compile Include="UnitOfWork\Test\DirectumTaskRepositoryTest.cs" />
     <Compile Include="UnitOfWork\Test\OfferRepositoryTest.cs" />
     <Compile Include="UnitOfWork\Test\OfferUnitRepositoryTest.cs" />
+    <Compile Include="UnitOfWork\Test\ProductRepositoryTest.cs" />
     <Compile Include="UnitOfWork\Test\ProjectRepositoryTest.cs" />
     <Compile Include="UnitOfWork\Test\Repositories.g.cs" />
     <Compile Include="UnitOfWork\Test\SalesUnitRepositoryTest.cs" />
@@ -620,6 +626,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202206201059347_ParameterGroupPowerful.resx">
       <DependentUpon>202206201059347_ParameterGroupPowerful.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206211046534_DesignDepartmentParametersSubTask.resx">
+      <DependentUpon>202206211046534_DesignDepartmentParametersSubTask.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

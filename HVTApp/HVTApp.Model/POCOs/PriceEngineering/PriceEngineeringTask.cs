@@ -25,6 +25,9 @@ namespace HVTApp.Model.POCOs
         [Designation("Конструктор"), OrderStatus(1800)]
         public virtual User UserConstructor { get; set; }
 
+        [Designation("Инициатор подзадачи")]
+        public virtual User UserConstructorInitiator { get; set; }
+
 
         [Designation("Количество блоков продукта"), Required, OrderStatus(950)]
         public int Amount { get; set; }

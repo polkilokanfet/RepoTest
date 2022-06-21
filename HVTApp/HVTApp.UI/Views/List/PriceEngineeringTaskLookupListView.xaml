@@ -55,6 +55,7 @@
                         <infg:CheckBoxField Name="RequestForVerificationFromHead" Label="Запрос на проверку от руководителя" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="RequestForVerificationFromConstructor" Label="Запрос на проверку от исполнителя" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="SalesUnits" Label="SalesUnits" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                        <infg:TextField Name="UserConstructorInitiator" Label="Инициатор подзадачи" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:DateTimeField Name="StartMoment" Label="Старт" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="IsTotalStopped" Label="IsTotalStopped" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="IsTotalAccepted" Label="IsTotalAccepted" Width="Auto" AllowResize="True" />

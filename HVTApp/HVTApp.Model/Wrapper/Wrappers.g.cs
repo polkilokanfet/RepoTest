@@ -692,6 +692,11 @@ namespace HVTApp.Model.Wrapper
         /// Наборы параметров дополнительного оборудования
         /// </summary>
         public IValidatableChangeTrackingCollection<DesignDepartmentParametersAddedBlocksWrapper> ParameterSetsAddedBlocks { get; private set; }
+
+        /// <summary>
+        /// Наборы параметров оборудования для подзадач
+        /// </summary>
+        public IValidatableChangeTrackingCollection<DesignDepartmentParametersSubTaskWrapper> ParameterSetsSubTask { get; private set; }
         #endregion
 
         public override void InitializeComplexProperties()
@@ -710,6 +715,9 @@ namespace HVTApp.Model.Wrapper
           if (Model.ParameterSetsAddedBlocks == null) throw new ArgumentException("ParameterSetsAddedBlocks cannot be null");
           ParameterSetsAddedBlocks = new ValidatableChangeTrackingCollection<DesignDepartmentParametersAddedBlocksWrapper>(Model.ParameterSetsAddedBlocks.Select(e => new DesignDepartmentParametersAddedBlocksWrapper(e)));
           RegisterCollection(ParameterSetsAddedBlocks, Model.ParameterSetsAddedBlocks);
+          if (Model.ParameterSetsSubTask == null) throw new ArgumentException("ParameterSetsSubTask cannot be null");
+          ParameterSetsSubTask = new ValidatableChangeTrackingCollection<DesignDepartmentParametersSubTaskWrapper>(Model.ParameterSetsSubTask.Select(e => new DesignDepartmentParametersSubTaskWrapper(e)));
+          RegisterCollection(ParameterSetsSubTask, Model.ParameterSetsSubTask);
         }
 	}
 
@@ -2403,6 +2411,68 @@ namespace HVTApp.Model.Wrapper
     }
 
 		
+    public partial class DesignDepartmentParametersSubTaskWrapper : WrapperBase<DesignDepartmentParametersSubTask>
+	{
+	    public DesignDepartmentParametersSubTaskWrapper(DesignDepartmentParametersSubTask model) : base(model) { }
+
+        #region SimpleProperties
+
+        /// <summary>
+        /// Id департамента
+        /// </summary>
+        public System.Guid DesignDepartmentId
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid DesignDepartmentIdOriginalValue => GetOriginalValue<System.Guid>(nameof(DesignDepartmentId));
+        public bool DesignDepartmentIdIsChanged => GetIsChanged(nameof(DesignDepartmentId));
+
+        /// <summary>
+        /// Название набора параметров
+        /// </summary>
+        public System.String Name
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
+        public bool NameIsChanged => GetIsChanged(nameof(Name));
+
+        /// <summary>
+        /// Id
+        /// </summary>
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+        #endregion
+
+        #region CollectionProperties
+
+        /// <summary>
+        /// Параметры
+        /// </summary>
+        public IValidatableChangeTrackingCollection<ParameterWrapper> Parameters { get; private set; }
+        #endregion
+
+        protected override void InitializeCollectionProperties()
+        {
+          if (Model.Parameters == null) throw new ArgumentException("Parameters cannot be null");
+          Parameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.Parameters.Select(e => new ParameterWrapper(e)));
+          RegisterCollection(Parameters, Model.Parameters);
+        }
+	}
+
+    public class DesignDepartmentParametersSubTaskEmptyWrapper : WrapperBase<DesignDepartmentParametersSubTask>
+	{
+	    public DesignDepartmentParametersSubTaskEmptyWrapper(DesignDepartmentParametersSubTask model) : base(model) { }
+    }
+
+		
     public partial class PriceEngineeringTaskWrapper : WrapperBase<PriceEngineeringTask>
 	{
 	    public PriceEngineeringTaskWrapper(PriceEngineeringTask model) : base(model) { }
@@ -2494,6 +2564,15 @@ namespace HVTApp.Model.Wrapper
         {
             get { return GetWrapper<UserWrapper>(); }
             set { SetComplexValue<User, UserWrapper>(UserConstructor, value); }
+        }
+
+        /// <summary>
+        /// Инициатор подзадачи
+        /// </summary>
+	    public UserWrapper UserConstructorInitiator 
+        {
+            get { return GetWrapper<UserWrapper>(); }
+            set { SetComplexValue<User, UserWrapper>(UserConstructorInitiator, value); }
         }
 
         /// <summary>
@@ -2610,6 +2689,7 @@ namespace HVTApp.Model.Wrapper
         {
             InitializeComplexProperty<DesignDepartmentWrapper>(nameof(DesignDepartment), Model.DesignDepartment == null ? null : new DesignDepartmentWrapper(Model.DesignDepartment));
             InitializeComplexProperty<UserWrapper>(nameof(UserConstructor), Model.UserConstructor == null ? null : new UserWrapper(Model.UserConstructor));
+            InitializeComplexProperty<UserWrapper>(nameof(UserConstructorInitiator), Model.UserConstructorInitiator == null ? null : new UserWrapper(Model.UserConstructorInitiator));
             InitializeComplexProperty<ProductBlockWrapper>(nameof(ProductBlockManager), Model.ProductBlockManager == null ? null : new ProductBlockWrapper(Model.ProductBlockManager));
             InitializeComplexProperty<ProductBlockWrapper>(nameof(ProductBlockEngineer), Model.ProductBlockEngineer == null ? null : new ProductBlockWrapper(Model.ProductBlockEngineer));
         }
@@ -6144,6 +6224,11 @@ namespace HVTApp.Model.Wrapper
         /// Фиксированные цены
         /// </summary>
         public IValidatableChangeTrackingCollection<SumOnDateWrapper> FixedCosts { get; private set; }
+
+        /// <summary>
+        /// Параметры (упорядоченные)
+        /// </summary>
+        public IValidatableChangeTrackingCollection<ParameterWrapper> ParametersOrdered { get; private set; }
         #endregion
 
         #region GetProperties
@@ -6200,6 +6285,9 @@ namespace HVTApp.Model.Wrapper
           if (Model.FixedCosts == null) throw new ArgumentException("FixedCosts cannot be null");
           FixedCosts = new ValidatableChangeTrackingCollection<SumOnDateWrapper>(Model.FixedCosts.Select(e => new SumOnDateWrapper(e)));
           RegisterCollection(FixedCosts, Model.FixedCosts);
+          if (Model.ParametersOrdered == null) throw new ArgumentException("ParametersOrdered cannot be null");
+          ParametersOrdered = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.ParametersOrdered.Select(e => new ParameterWrapper(e)));
+          RegisterCollection(ParametersOrdered, Model.ParametersOrdered);
         }
 	}
 

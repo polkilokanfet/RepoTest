@@ -1,4 +1,3 @@
-using HVTApp.Infrastructure;
 using HVTApp.TestDataGenerator;
 using HVTApp.Model.POCOs;
 
@@ -162,6 +161,11 @@ namespace HVTApp.DataAccess
     public partial class DesignDepartmentParametersAddedBlocksRepositoryTest : TestBaseRepository<DesignDepartmentParametersAddedBlocks>, IDesignDepartmentParametersAddedBlocksRepository
     {
         public DesignDepartmentParametersAddedBlocksRepositoryTest(TestData testData) : base(testData) {}
+    }
+
+    public partial class DesignDepartmentParametersSubTaskRepositoryTest : TestBaseRepository<DesignDepartmentParametersSubTask>, IDesignDepartmentParametersSubTaskRepository
+    {
+        public DesignDepartmentParametersSubTaskRepositoryTest(TestData testData) : base(testData) {}
     }
 
     public partial class PriceEngineeringTaskRepositoryTest : TestBaseRepository<PriceEngineeringTask>, IPriceEngineeringTaskRepository
@@ -472,10 +476,6 @@ namespace HVTApp.DataAccess
     public partial class ProductRepositoryTest : TestBaseRepository<Product>, IProductRepository
     {
         public ProductRepositoryTest(TestData testData) : base(testData) {}
-        public UnitOfWorkOperationResult CanAdd(Product product)
-        {
-            throw new System.NotImplementedException();
-        }
     }
 
     public partial class OfferRepositoryTest : TestBaseRepository<Offer>, IOfferRepository

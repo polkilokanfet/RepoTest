@@ -75,6 +75,10 @@ namespace HVTApp.UI.PriceEngineering
         public DelegateLogCommand BlockAddedNewParameterCommand { get; private set; }
         public DelegateLogCommand BlockNewParameterCommand { get; private set; }
 
+        /// <summary>
+        ///  оманда создани€ подзадачи (например, добавление площадки обслуживани€).
+        /// </summary>
+        public DelegateLogCommand CreateSubTaskCommand { get; private set; }
 
         public DelegateLogCommand LoadJsonFileCommand { get; private set; }
 
@@ -324,6 +328,35 @@ namespace HVTApp.UI.PriceEngineering
                 },
                 () => IsEditMode);
 
+            CreateSubTaskCommand = new DelegateLogCommand(
+                () =>
+                {
+                    var block = Container.Resolve<IGetProductService>().GetProductBlock(DesignDepartment.Model.ParameterSetsSubTask);
+                    if (block == null) return;
+
+                    var unitOfWork = this.Container.Resolve<IUnitOfWork>();
+                    block = unitOfWork.Repository<ProductBlock>().GetById(block.Id);
+                    var priceEngineeringTask = new PriceEngineeringTask
+                    {
+                        ParentPriceEngineeringTaskId = this.Id,
+                        ProductBlockEngineer = block,
+                        ProductBlockManager = block,
+                        Amount = 1,
+                        UserConstructorInitiator = unitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
+                        DesignDepartment = unitOfWork.Repository<DesignDepartment>().Find(x => x.ProductBlockIsSuitable(this.ProductBlockEngineer.Model)).First(), 
+                        FilesTechnicalRequirements = unitOfWork.Repository<PriceEngineeringTask>().GetById(this.Id).FilesTechnicalRequirements.Where(x => x.IsActual).ToList()
+                    };
+
+                    if (unitOfWork.SaveEntity(priceEngineeringTask).OperationCompletedSuccessfully)
+                    {
+                        var priceEngineeringTaskViewModelManager = new PriceEngineeringTaskViewModelManager(this.Container, priceEngineeringTask);
+                        priceEngineeringTaskViewModelManager.StartCommand.Execute();
+                        this.ChildPriceEngineeringTasks.Add(new PriceEngineeringTaskViewModelConstructor(this.Container, priceEngineeringTask));
+                    }
+                },
+                () => IsTarget && IsEditMode && this.Model.DesignDepartment.ParameterSetsSubTask.Any());
+
+
             LoadJsonFileCommand = new DelegateLogCommand(
                 () =>
                 {
@@ -338,6 +371,7 @@ namespace HVTApp.UI.PriceEngineering
                 SaveCommand.RaiseCanExecuteChanged();
                 FinishCommand.RaiseCanExecuteChanged();
                 RejectCommand.RaiseCanExecuteChanged();
+                CreateSubTaskCommand.RaiseCanExecuteChanged();
                 //BlockAddedNewParameterCommand.RaiseCanExecuteChanged();
             };
 

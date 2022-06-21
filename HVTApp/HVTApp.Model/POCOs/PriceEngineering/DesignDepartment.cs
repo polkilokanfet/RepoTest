@@ -25,6 +25,9 @@ namespace HVTApp.Model.POCOs
         [Designation("Наборы параметров дополнительного оборудования"), OrderStatus(40)]
         public virtual List<DesignDepartmentParametersAddedBlocks> ParameterSetsAddedBlocks { get; set; } = new List<DesignDepartmentParametersAddedBlocks>();
 
+        [Designation("Наборы параметров оборудования для подзадач"), OrderStatus(30)]
+        public virtual List<DesignDepartmentParametersSubTask> ParameterSetsSubTask { get; set; } = new List<DesignDepartmentParametersSubTask>();
+
         /// <summary>
         /// Блок продукта подходит этому департаменту
         /// </summary>

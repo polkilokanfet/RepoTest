@@ -8,6 +8,7 @@ namespace HVTApp.DataAccess
             HasMany(department => department.Staff).WithMany();
             HasMany(department => department.ParameterSets).WithRequired().HasForeignKey(x => x.DesignDepartmentId).WillCascadeOnDelete(false);
             HasMany(department => department.ParameterSetsAddedBlocks).WithRequired().HasForeignKey(x => x.DesignDepartmentId).WillCascadeOnDelete(false);
+            HasMany(department => department.ParameterSetsSubTask).WithRequired().HasForeignKey(x => x.DesignDepartmentId).WillCascadeOnDelete(false);
         }
     }
 }

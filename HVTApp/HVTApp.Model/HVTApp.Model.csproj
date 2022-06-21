@@ -119,6 +119,8 @@
     <Compile Include="POCOs\PriceCalculation\PriceCalculationItem.cs" />
     <Compile Include="POCOs\PriceEngineering\DesignDepartmentParameters.cs" />
     <Compile Include="POCOs\PriceEngineering\DesignDepartmentParametersAddedBlocks.cs" />
+    <Compile Include="POCOs\PriceEngineering\DesignDepartmentParametersSubTask.cs" />
+    <Compile Include="POCOs\PriceEngineering\IParametersContainer.cs" />
     <Compile Include="POCOs\PriceEngineering\IProductBlockContainer.cs" />
     <Compile Include="POCOs\PriceEngineering\PriceEngineeringTask.cs" />
     <Compile Include="POCOs\PriceEngineering\PriceEngineeringTaskFileAnswer.cs" />

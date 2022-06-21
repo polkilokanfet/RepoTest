@@ -365,10 +365,12 @@
                                                 <ColumnDefinition Width="*"/>
                                                 <ColumnDefinition Width="*"/>
                                                 <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
                                             <Button Grid.Column="0" Content="Отклонить" Command="{Binding RejectCommand}"/>
                                             <Button Grid.Column="1" Content="Завершить" Command="{Binding FinishCommand}"/>
                                             <Button Grid.Column="2" Content="Сохранить" Command="{Binding SaveCommand}"/>
+                                            <Button Grid.Column="3" Content="Подзадача" Command="{Binding CreateSubTaskCommand}"/>
                                         </Grid>
                                     </GroupBox>
                                 </Grid>

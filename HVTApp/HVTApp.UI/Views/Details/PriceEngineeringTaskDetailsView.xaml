@@ -39,6 +39,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row ="0" Content="Бюро конструкторов" Visibility="{Binding VisibilityDesignDepartmentPriceEngineeringTask, ElementName=Root}"/>
@@ -156,6 +157,13 @@
 										 AddItemCommand="{Binding AddInSalesUnitsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromSalesUnitsCommand}"
 										 Visibility="{Binding VisibilitySalesUnitsPriceEngineeringTask, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="16" Content="Инициатор подзадачи" Visibility="{Binding VisibilityUserConstructorInitiatorPriceEngineeringTask, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="16" 
+                                    Item="{Binding Item.UserConstructorInitiator}" 
+                                    AddItemCommand="{Binding SelectUserConstructorInitiatorCommand}" 
+                                    RemoveItemCommand="{Binding ClearUserConstructorInitiatorCommand}"
+									Visibility="{Binding VisibilityUserConstructorInitiatorPriceEngineeringTask, ElementName=Root}"/>
 
 
     </Grid>

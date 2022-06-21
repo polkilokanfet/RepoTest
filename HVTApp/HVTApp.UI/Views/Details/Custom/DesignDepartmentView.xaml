@@ -24,6 +24,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <Label Grid.Column="0" Grid.Row ="0" Content="Название"/>
@@ -56,10 +57,19 @@
 										     SelectedItem="{Binding SelectedDesignDepartmentParametersAdded, Mode=TwoWay}"
 										     AddItemCommand="{Binding CreateParameterSetAddedCommand}"
 										     RemoveItemCommand="{Binding RemoveFromParameterSetsAddedBlocksCommand}"/>
+
+            <Label Grid.Column="0" Grid.Row ="5" Content="Наборы параметров оборудования для подзадач"/>
+            <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="5"
+                                             Items="{Binding Path=Item.ParameterSetsSubTask}"
+                                             SelectedItem="{Binding SelectedDesignDepartmentParametersSubTasks, Mode=TwoWay}"
+                                             AddItemCommand="{Binding CreateParameterSetSubTaskCommand}"
+                                             RemoveItemCommand="{Binding RemoveFromParameterSetsSubTaskCommand}"/>
+
         </Grid>
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
@@ -113,6 +123,40 @@
                     <infDp:XamDataGrid Grid.Row="2"
                                        DataSource="{Binding SelectedDesignDepartmentParametersAdded.Parameters}"
                                        ActiveDataItem="{Binding SelectedParameterAdded}"
+                                       Style="{StaticResource ListViewGrid}">
+
+                        <infDp:XamDataGrid.FieldLayouts>
+                            <infDp:FieldLayout>
+                                <infDp:FieldLayout.Fields>
+                                    <infDp:TextField Name="ParameterGroup" Label="Группа" Width="Auto" AllowResize="True"/>
+                                    <infDp:TextField Name="Value" Label="Значение" Width="Auto" AllowResize="True" />
+                                    <infDp:NumericField Name="Rang" Label="Ранг" Width="Auto" AllowResize="True" />
+                                    <infDp:TextField Name="ParameterRelations" Label="Ограничения" Width="Auto" AllowResize="True"/>
+                                    <infDp:CheckBoxField Name="IsOrigin" Label="Начало?" Width="Auto" AllowResize="True" />
+                                    <infDp:TextField Name="Comment" Label="Комментарий" Width="Auto" AllowResize="True" />
+                                    <infDp:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
+                                </infDp:FieldLayout.Fields>
+                            </infDp:FieldLayout>
+                        </infDp:XamDataGrid.FieldLayouts>
+                    </infDp:XamDataGrid>
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Grid.Column="2" Header="Подзадачи">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBox Grid.Row="0" Text="{Binding SelectedDesignDepartmentParametersSubTasks.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <Button Grid.Row="1" Content="Удалить параметр" Command="{Binding RemoveParameterSubTaskCommand}"/>
+
+                    <infDp:XamDataGrid Grid.Row="2"
+                                       DataSource="{Binding SelectedDesignDepartmentParametersSubTasks.Parameters}"
+                                       ActiveDataItem="{Binding SelectedParameterSubTask}"
                                        Style="{StaticResource ListViewGrid}">
 
                         <infDp:XamDataGrid.FieldLayouts>

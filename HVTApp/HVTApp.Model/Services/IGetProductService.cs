@@ -39,6 +39,6 @@ namespace HVTApp.Model.Services
         /// Выбор блока продукта
         /// </summary>
         /// <returns></returns>
-        ProductBlock GetProductBlock(IEnumerable<DesignDepartmentParametersAddedBlocks> addedBlocksParameters, ProductBlock originProductBlock = null);
+        ProductBlock GetProductBlock(IEnumerable<IParametersContainer> parametersContainers, ProductBlock originProductBlock = null);
     }
 }

@@ -389,9 +389,9 @@ namespace HVTApp.Services.GetProductService
             return result;
         }
 
-        public ProductBlock GetProductBlock(IEnumerable<DesignDepartmentParametersAddedBlocks> addedBlocksParameters, ProductBlock originProductBlock = null)
+        public ProductBlock GetProductBlock(IEnumerable<IParametersContainer> parametersContainers, ProductBlock originProductBlock = null)
         {
-            var designDepartmentParametersAddedBlocksEnumerable = addedBlocksParameters.ToList();
+            var designDepartmentParametersAddedBlocksEnumerable = parametersContainers.ToList();
             var banks = designDepartmentParametersAddedBlocksEnumerable
                 .Select(x => GetBank(x.Parameters.Select(p => UnitOfWork.Repository<Parameter>().GetById(p.Id))))
                 .ToList();

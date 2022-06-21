@@ -9,7 +9,7 @@ namespace HVTApp.Model.POCOs
 {
     [Designation("Параметры департамента ОГК")]
     [DesignationPlural("Параметры департамента ОГК")]
-    public class DesignDepartmentParameters : BaseEntity
+    public class DesignDepartmentParameters : BaseEntity, IParametersContainer
     {
         [Designation("Id департамента"), Required, OrderStatus(-10)]
         public Guid DesignDepartmentId { get; set; }
