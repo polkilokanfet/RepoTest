@@ -405,20 +405,27 @@ namespace HVTApp.UI.PriceEngineering
         /// Старт задачи
         /// </summary>
         /// <param name="saveChanges">Сохранить в конце и принять изменения?</param>
-        public void StartCommandExecute(bool saveChanges)
+        public bool StartCommandExecute(bool saveChanges)
         {
+            var messageService = Container.Resolve<IMessageService>();
             if (saveChanges)
             {
-                if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Стартовать задачу", "Вы уверены?", defaultNo: true) != MessageDialogResult.Yes)
-                    return;
+                if (messageService.ShowYesNoMessageDialog($"Вы уверены, что хотите cтартовать задачу?\n{this}", defaultNo: true) != MessageDialogResult.Yes)
+                    return false;
+
+                if (UnitOfWork.Repository<PriceEngineeringTask>().GetById(this.Model.Id) == null)
+                {
+                    UnitOfWork.Repository<PriceEngineeringTask>().Add(this.Model);
+                }
             }
+
 
             this.Statuses.Add(new PriceEngineeringTaskStatusWrapper(new PriceEngineeringTaskStatus
             {
                 StatusEnum = PriceEngineeringTaskStatusEnum.Started
             }));
 
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             sb.AppendLine("Задача запущена на проработку.");
             if (UnitOfWork.Repository<PriceEngineeringTask>().GetById(this.Id) != null)
             {
@@ -470,6 +477,13 @@ namespace HVTApp.UI.PriceEngineering
 
             StartCommand.RaiseCanExecuteChanged();
             TaskIsStarted?.Invoke();
+
+            if (saveChanges)
+            {
+                messageService.ShowOkMessageDialog("Уведомление",$"Задача успешно стартована!\n{this}");
+            }
+
+            return true;
         }
 
         /// <summary>

@@ -25,6 +25,9 @@ namespace HVTApp.Model.POCOs
         [Designation("Конструктор"), OrderStatus(1800)]
         public virtual User UserConstructor { get; set; }
 
+        /// <summary>
+        /// Если задача инициирована конструктором (например, для добавления площадки обслуживания выключателя)
+        /// </summary>
         [Designation("Инициатор подзадачи")]
         public virtual User UserConstructorInitiator { get; set; }
 
@@ -305,7 +308,9 @@ namespace HVTApp.Model.POCOs
 
         public override string ToString()
         {
-            return $"Технико-стоимостная проработка объектов: {SalesUnits.Select(x => x.Facility).Distinct().OrderBy(x => x.Name).ToStringEnum(", ")}";
+            return SalesUnits.Any() 
+                ? $"Технико-стоимостная проработка объектов: {SalesUnits.Select(x => x.Facility).Distinct().OrderBy(x => x.Name).ToStringEnum(", ")}" 
+                : $"Технико-стоимостная проработка блока: {this.ProductBlock}";
         }
 
         [NotMapped, NotForListView, NotForDetailsView]
@@ -330,7 +335,9 @@ namespace HVTApp.Model.POCOs
             return new Product
             {
                 ProductBlock = this.ProductBlockEngineer,
-                DependentProducts = this.ChildPriceEngineeringTasks.Select(x =>
+                DependentProducts = this.ChildPriceEngineeringTasks
+                    .Where(x => x.UserConstructorInitiator == null)
+                    .Select(x =>
                     new ProductDependent
                     {
                         Product = x.GetProduct(),

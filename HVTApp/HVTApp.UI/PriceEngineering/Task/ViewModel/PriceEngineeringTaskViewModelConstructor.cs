@@ -331,27 +331,26 @@ namespace HVTApp.UI.PriceEngineering
             CreateSubTaskCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var block = Container.Resolve<IGetProductService>().GetProductBlock(DesignDepartment.Model.ParameterSetsSubTask);
+                    var getProductService = Container.Resolve<IGetProductService>();
+
+                    var block = getProductService.GetProductBlock(DesignDepartment.Model.ParameterSetsSubTask);
                     if (block == null) return;
 
                     var unitOfWork = this.Container.Resolve<IUnitOfWork>();
                     block = unitOfWork.Repository<ProductBlock>().GetById(block.Id);
-                    var priceEngineeringTask = new PriceEngineeringTask
+                    var product = getProductService.GetProduct(unitOfWork, new Product { ProductBlock = block });
+
+                    var taskViewModel = new PriceEngineeringTaskViewModelManager(Container, unitOfWork, product)
                     {
                         ParentPriceEngineeringTaskId = this.Id,
-                        ProductBlockEngineer = block,
-                        ProductBlockManager = block,
-                        Amount = 1,
-                        UserConstructorInitiator = unitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
-                        DesignDepartment = unitOfWork.Repository<DesignDepartment>().Find(x => x.ProductBlockIsSuitable(this.ProductBlockEngineer.Model)).First(), 
-                        FilesTechnicalRequirements = unitOfWork.Repository<PriceEngineeringTask>().GetById(this.Id).FilesTechnicalRequirements.Where(x => x.IsActual).ToList()
+                        Amount = 1
                     };
+                    taskViewModel.Model.UserConstructorInitiator = unitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id);
+                    taskViewModel.FilesTechnicalRequirements.AddRange(this.FilesTechnicalRequirements.Where(x => x.IsActual).Select(x => new PriceEngineeringTaskFileTechnicalRequirementsWrapper(unitOfWork.Repository<PriceEngineeringTaskFileTechnicalRequirements>().GetById(x.Id))));
 
-                    if (unitOfWork.SaveEntity(priceEngineeringTask).OperationCompletedSuccessfully)
+                    if (taskViewModel.StartCommandExecute(true))
                     {
-                        var priceEngineeringTaskViewModelManager = new PriceEngineeringTaskViewModelManager(this.Container, priceEngineeringTask);
-                        priceEngineeringTaskViewModelManager.StartCommand.Execute();
-                        this.ChildPriceEngineeringTasks.Add(new PriceEngineeringTaskViewModelConstructor(this.Container, priceEngineeringTask));
+                        this.ChildPriceEngineeringTasks.Add(new PriceEngineeringTaskViewModelConstructor(this.Container, taskViewModel.Model));
                     }
                 },
                 () => IsTarget && IsEditMode && this.Model.DesignDepartment.ParameterSetsSubTask.Any());
