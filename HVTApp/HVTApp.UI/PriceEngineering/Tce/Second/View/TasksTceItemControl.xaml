@@ -9,10 +9,12 @@
         <converters:TceItemToFacilityConverter x:Key="ToFacilityConverter" />
         <converters:TceItemToProductConverter x:Key="ToProductConverter" />
         <converters:TceItemToAmountConverter x:Key="ToAmountConverter" />
+        <converters:TceItemToRealizationDateConverter x:Key="ToRealizationDateConverter" />
+        <converters:TceItemToDeliveryTypeConverter x:Key="ToDeliveryTypeConverter" />
     </UserControl.Resources>
 
     <!--Единица задачи ТСЕ-->
-    <Border BorderBrush="Black" BorderThickness="1" Padding="3">
+    <Border BorderBrush="Black" BorderThickness="1" Padding="5" Margin="5">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -23,6 +25,8 @@
             <Border Grid.Row="0" BorderBrush="Black" BorderThickness="1" Background="AliceBlue" CornerRadius="3">
                 <Grid>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -46,6 +50,16 @@
                     <TextBox Grid.Row="2" Grid.Column="1" 
                              IsReadOnly="True"
                              Text="{Binding ElementName=Root, Path=TasksTceItem, Converter={StaticResource ToAmountConverter}}"/>
+
+                    <Label Grid.Row="3" Grid.Column="0" Content="Дата реализации:"/>
+                    <TextBox Grid.Row="3" Grid.Column="1" 
+                             IsReadOnly="True"
+                             Text="{Binding ElementName=Root, Path=TasksTceItem, Converter={StaticResource ToRealizationDateConverter}}"/>
+
+                    <Label Grid.Row="4" Grid.Column="0" Content="Тип доставки:"/>
+                    <TextBox Grid.Row="4" Grid.Column="1" 
+                             IsReadOnly="True"
+                             Text="{Binding ElementName=Root, Path=TasksTceItem, Converter={StaticResource ToDeliveryTypeConverter}}"/>
                 </Grid>
             </Border>
 
