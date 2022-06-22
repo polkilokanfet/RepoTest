@@ -356,7 +356,9 @@
     <Compile Include="PriceEngineering\Tce\Second\ViewModel\Wrappers\TasksTceWrapper.cs" />
     <Compile Include="PriceEngineering\Tce\Second\View\Converters\TceItemToAmountConverter.cs" />
     <Compile Include="PriceEngineering\Tce\Second\View\Converters\TceItemToDeliveryTypeConverter.cs" />
+    <Compile Include="PriceEngineering\Tce\Second\View\Converters\TceItemToFacilityAddressConverter.cs" />
     <Compile Include="PriceEngineering\Tce\Second\View\Converters\TceItemToFacilityConverter.cs" />
+    <Compile Include="PriceEngineering\Tce\Second\View\Converters\TceItemToFacilityOwnerConverter.cs" />
     <Compile Include="PriceEngineering\Tce\Second\View\Converters\TceItemToProductConverter.cs" />
     <Compile Include="PriceEngineering\Tce\Second\View\Converters\TceItemToRealizationDateConverter.cs" />
     <Compile Include="PriceEngineering\Tce\Second\View\TabTaskTceView.xaml.cs">
