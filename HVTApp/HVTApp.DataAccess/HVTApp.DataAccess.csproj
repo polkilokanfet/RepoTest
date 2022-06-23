@@ -117,7 +117,6 @@
     <Compile Include="EntityTypeConfigurations\Custom\PriceEngineeringTaskMessageConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\PriceEngineeringTaskProductBlockAddedConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\PriceEngineeringTasksConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\Custom\PriceEngineeringTaskTceConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ProductBlockConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ProductCategoryConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ProductCategoryPriceAndCostConfiguration.cs" />
@@ -389,6 +388,10 @@
     <Compile Include="Migrations\202206211046534_DesignDepartmentParametersSubTask.Designer.cs">
       <DependentUpon>202206211046534_DesignDepartmentParametersSubTask.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202206231001521_RemoveTceTask.cs" />
+    <Compile Include="Migrations\202206231001521_RemoveTceTask.Designer.cs">
+      <DependentUpon>202206231001521_RemoveTceTask.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -629,6 +632,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202206211046534_DesignDepartmentParametersSubTask.resx">
       <DependentUpon>202206211046534_DesignDepartmentParametersSubTask.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206231001521_RemoveTceTask.resx">
+      <DependentUpon>202206231001521_RemoveTceTask.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

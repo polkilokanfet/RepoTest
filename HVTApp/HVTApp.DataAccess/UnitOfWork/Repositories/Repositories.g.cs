@@ -291,27 +291,6 @@ namespace HVTApp.DataAccess
 		}
     }
 
-    public partial class PriceEngineeringTaskTceRepository : BaseRepository<PriceEngineeringTaskTce>, IPriceEngineeringTaskTceRepository
-    {
-		public PriceEngineeringTaskTceRepository(DbContext context) : base(context) 
-		{
-		}
-    }
-
-    public partial class PriceEngineeringTaskTceStoryItemRepository : BaseRepository<PriceEngineeringTaskTceStoryItem>, IPriceEngineeringTaskTceStoryItemRepository
-    {
-		public PriceEngineeringTaskTceStoryItemRepository(DbContext context) : base(context) 
-		{
-		}
-    }
-
-    public partial class PriceEngineeringTaskTceStructureCostVersionRepository : BaseRepository<PriceEngineeringTaskTceStructureCostVersion>, IPriceEngineeringTaskTceStructureCostVersionRepository
-    {
-		public PriceEngineeringTaskTceStructureCostVersionRepository(DbContext context) : base(context) 
-		{
-		}
-    }
-
     public partial class StructureCostVersionRepository : BaseRepository<StructureCostVersion>, IStructureCostVersionRepository
     {
 		public StructureCostVersionRepository(DbContext context) : base(context) 

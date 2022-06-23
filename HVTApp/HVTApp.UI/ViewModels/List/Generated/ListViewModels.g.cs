@@ -212,21 +212,6 @@ namespace HVTApp.UI.ViewModels
         public PriceEngineeringTaskStatusLookupListViewModel(IUnityContainer container) : base(container) { }
     }
 
-	public partial class PriceEngineeringTaskTceLookupListViewModel : BaseListViewModel<PriceEngineeringTaskTce, PriceEngineeringTaskTceLookup, AfterSavePriceEngineeringTaskTceEvent, AfterSelectPriceEngineeringTaskTceEvent, AfterRemovePriceEngineeringTaskTceEvent>
-    {
-        public PriceEngineeringTaskTceLookupListViewModel(IUnityContainer container) : base(container) { }
-    }
-
-	public partial class PriceEngineeringTaskTceStoryItemLookupListViewModel : BaseListViewModel<PriceEngineeringTaskTceStoryItem, PriceEngineeringTaskTceStoryItemLookup, AfterSavePriceEngineeringTaskTceStoryItemEvent, AfterSelectPriceEngineeringTaskTceStoryItemEvent, AfterRemovePriceEngineeringTaskTceStoryItemEvent>
-    {
-        public PriceEngineeringTaskTceStoryItemLookupListViewModel(IUnityContainer container) : base(container) { }
-    }
-
-	public partial class PriceEngineeringTaskTceStructureCostVersionLookupListViewModel : BaseListViewModel<PriceEngineeringTaskTceStructureCostVersion, PriceEngineeringTaskTceStructureCostVersionLookup, AfterSavePriceEngineeringTaskTceStructureCostVersionEvent, AfterSelectPriceEngineeringTaskTceStructureCostVersionEvent, AfterRemovePriceEngineeringTaskTceStructureCostVersionEvent>
-    {
-        public PriceEngineeringTaskTceStructureCostVersionLookupListViewModel(IUnityContainer container) : base(container) { }
-    }
-
 	public partial class StructureCostVersionLookupListViewModel : BaseListViewModel<StructureCostVersion, StructureCostVersionLookup, AfterSaveStructureCostVersionEvent, AfterSelectStructureCostVersionEvent, AfterRemoveStructureCostVersionEvent>
     {
         public StructureCostVersionLookupListViewModel(IUnityContainer container) : base(container) { }

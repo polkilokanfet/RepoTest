@@ -44,9 +44,6 @@ namespace HVTApp.DataAccess
     public partial class PriceEngineeringTasksConfiguration : EntityTypeConfiguration<PriceEngineeringTasks> { }
     public partial class PriceEngineeringTasksFileTechnicalRequirementsConfiguration : EntityTypeConfiguration<PriceEngineeringTasksFileTechnicalRequirements> { }
     public partial class PriceEngineeringTaskStatusConfiguration : EntityTypeConfiguration<PriceEngineeringTaskStatus> { }
-    public partial class PriceEngineeringTaskTceConfiguration : EntityTypeConfiguration<PriceEngineeringTaskTce> { }
-    public partial class PriceEngineeringTaskTceStoryItemConfiguration : EntityTypeConfiguration<PriceEngineeringTaskTceStoryItem> { }
-    public partial class PriceEngineeringTaskTceStructureCostVersionConfiguration : EntityTypeConfiguration<PriceEngineeringTaskTceStructureCostVersion> { }
     public partial class StructureCostVersionConfiguration : EntityTypeConfiguration<StructureCostVersion> { }
     public partial class ProductCategoryConfiguration : EntityTypeConfiguration<ProductCategory> { }
     public partial class ProductCategoryPriceAndCostConfiguration : EntityTypeConfiguration<ProductCategoryPriceAndCost> { }

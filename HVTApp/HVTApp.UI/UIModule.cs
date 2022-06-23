@@ -100,7 +100,6 @@ namespace HVTApp.UI
             Container.RegisterViewForNavigation<PriceEngineeringTasksListView>();
             Container.RegisterViewForNavigation<DesignDepartmentView>();
             Container.RegisterViewForNavigation<ProductRelationsView>();
-            Container.RegisterViewForNavigation<PriceEngineeringTaskTceView>();
             Container.RegisterViewForNavigation<PriceEngineeringTasksTceView2>();
             Container.RegisterViewForNavigation<TasksTceView>();
 

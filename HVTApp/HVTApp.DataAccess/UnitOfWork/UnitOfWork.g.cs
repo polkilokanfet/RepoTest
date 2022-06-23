@@ -127,15 +127,6 @@ namespace HVTApp.DataAccess
             PriceEngineeringTaskStatusRepository = new PriceEngineeringTaskStatusRepository(_context);
             PriceEngineeringTaskStatusRepository.OperationFailedEvent += OnOperationFailedEvent;
 
-            PriceEngineeringTaskTceRepository = new PriceEngineeringTaskTceRepository(_context);
-            PriceEngineeringTaskTceRepository.OperationFailedEvent += OnOperationFailedEvent;
-
-            PriceEngineeringTaskTceStoryItemRepository = new PriceEngineeringTaskTceStoryItemRepository(_context);
-            PriceEngineeringTaskTceStoryItemRepository.OperationFailedEvent += OnOperationFailedEvent;
-
-            PriceEngineeringTaskTceStructureCostVersionRepository = new PriceEngineeringTaskTceStructureCostVersionRepository(_context);
-            PriceEngineeringTaskTceStructureCostVersionRepository.OperationFailedEvent += OnOperationFailedEvent;
-
             StructureCostVersionRepository = new StructureCostVersionRepository(_context);
             StructureCostVersionRepository.OperationFailedEvent += OnOperationFailedEvent;
 
@@ -370,9 +361,6 @@ namespace HVTApp.DataAccess
             PriceEngineeringTasksRepository.OperationFailedEvent -= OnOperationFailedEvent;
             PriceEngineeringTasksFileTechnicalRequirementsRepository.OperationFailedEvent -= OnOperationFailedEvent;
             PriceEngineeringTaskStatusRepository.OperationFailedEvent -= OnOperationFailedEvent;
-            PriceEngineeringTaskTceRepository.OperationFailedEvent -= OnOperationFailedEvent;
-            PriceEngineeringTaskTceStoryItemRepository.OperationFailedEvent -= OnOperationFailedEvent;
-            PriceEngineeringTaskTceStructureCostVersionRepository.OperationFailedEvent -= OnOperationFailedEvent;
             StructureCostVersionRepository.OperationFailedEvent -= OnOperationFailedEvent;
             ProductCategoryRepository.OperationFailedEvent -= OnOperationFailedEvent;
             ProductCategoryPriceAndCostRepository.OperationFailedEvent -= OnOperationFailedEvent;
@@ -480,9 +468,6 @@ namespace HVTApp.DataAccess
         protected IPriceEngineeringTasksRepository PriceEngineeringTasksRepository;
         protected IPriceEngineeringTasksFileTechnicalRequirementsRepository PriceEngineeringTasksFileTechnicalRequirementsRepository;
         protected IPriceEngineeringTaskStatusRepository PriceEngineeringTaskStatusRepository;
-        protected IPriceEngineeringTaskTceRepository PriceEngineeringTaskTceRepository;
-        protected IPriceEngineeringTaskTceStoryItemRepository PriceEngineeringTaskTceStoryItemRepository;
-        protected IPriceEngineeringTaskTceStructureCostVersionRepository PriceEngineeringTaskTceStructureCostVersionRepository;
         protected IStructureCostVersionRepository StructureCostVersionRepository;
         protected IProductCategoryRepository ProductCategoryRepository;
         protected IProductCategoryPriceAndCostRepository ProductCategoryPriceAndCostRepository;

@@ -48,9 +48,6 @@ namespace HVTApp.DataAccess
             PriceEngineeringTasksRepository = new PriceEngineeringTasksRepositoryTest(testData);
             PriceEngineeringTasksFileTechnicalRequirementsRepository = new PriceEngineeringTasksFileTechnicalRequirementsRepositoryTest(testData);
             PriceEngineeringTaskStatusRepository = new PriceEngineeringTaskStatusRepositoryTest(testData);
-            PriceEngineeringTaskTceRepository = new PriceEngineeringTaskTceRepositoryTest(testData);
-            PriceEngineeringTaskTceStoryItemRepository = new PriceEngineeringTaskTceStoryItemRepositoryTest(testData);
-            PriceEngineeringTaskTceStructureCostVersionRepository = new PriceEngineeringTaskTceStructureCostVersionRepositoryTest(testData);
             StructureCostVersionRepository = new StructureCostVersionRepositoryTest(testData);
             ProductCategoryRepository = new ProductCategoryRepositoryTest(testData);
             ProductCategoryPriceAndCostRepository = new ProductCategoryPriceAndCostRepositoryTest(testData);
@@ -160,9 +157,6 @@ namespace HVTApp.DataAccess
         public IPriceEngineeringTasksRepository PriceEngineeringTasksRepository { get; }
         public IPriceEngineeringTasksFileTechnicalRequirementsRepository PriceEngineeringTasksFileTechnicalRequirementsRepository { get; }
         public IPriceEngineeringTaskStatusRepository PriceEngineeringTaskStatusRepository { get; }
-        public IPriceEngineeringTaskTceRepository PriceEngineeringTaskTceRepository { get; }
-        public IPriceEngineeringTaskTceStoryItemRepository PriceEngineeringTaskTceStoryItemRepository { get; }
-        public IPriceEngineeringTaskTceStructureCostVersionRepository PriceEngineeringTaskTceStructureCostVersionRepository { get; }
         public IStructureCostVersionRepository StructureCostVersionRepository { get; }
         public IProductCategoryRepository ProductCategoryRepository { get; }
         public IProductCategoryPriceAndCostRepository ProductCategoryPriceAndCostRepository { get; }

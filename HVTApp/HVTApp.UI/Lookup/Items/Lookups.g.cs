@@ -655,8 +655,8 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(1)]
         public System.Nullable<System.Guid> PriceEngineeringTasksId => Entity.PriceEngineeringTasksId;
 
-		[OrderStatus(1)]
-        public System.Nullable<System.Guid> PriceEngineeringTaskTceId => Entity.PriceEngineeringTaskTceId;
+		//[OrderStatus(1)]
+  //      public System.Nullable<System.Guid> PriceEngineeringTaskTceId => Entity.PriceEngineeringTaskTceId;
 
 		[OrderStatus(1)]
         public System.Boolean IsTceConnected => Entity.IsTceConnected;
@@ -883,9 +883,6 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(850)]
 	    public ProductBlockLookup ProductBlockEngineer { get { return GetLookup<ProductBlockLookup>(); } }
 
-		//[OrderStatus(1)]
-	 //   public IEnumerable`1Lookup StatusesAll { get { return GetLookup<IEnumerable`1Lookup>(); } }
-
 		[OrderStatus(1)]
 	    public ProductBlockLookup ProductBlock { get { return GetLookup<ProductBlockLookup>(); } }
 
@@ -1054,9 +1051,6 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(1800)]
 	    public UserLookup BackManager { get { return GetLookup<UserLookup>(); } }
 
-		//[OrderStatus(1)]
-	 //   public IEnumerable`1Lookup StatusesAll { get { return GetLookup<IEnumerable`1Lookup>(); } }
-
         #endregion
 		[OrderStatus(610)]
 	    public List<PriceEngineeringTasksFileTechnicalRequirementsLookup> FilesTechnicalRequirements { get { return GetLookupEnum<PriceEngineeringTasksFileTechnicalRequirementsLookup>().ToList(); } }
@@ -1111,86 +1105,6 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
         public HVTApp.Model.POCOs.PriceEngineeringTaskStatusEnum StatusEnum => Entity.StatusEnum;
-
-        #endregion
-	}
-	[AllowEditAttribute(Role.Admin)]
-	[Designation("Технико-стоимостная проработка (TCE)")]
-	public partial class PriceEngineeringTaskTceLookup : LookupItem<PriceEngineeringTaskTce>
-	{
-		public PriceEngineeringTaskTceLookup(PriceEngineeringTaskTce entity) : base(entity) 
-		{
-		}
-		
-        #region SimpleProperties
-		[OrderStatus(2000)]
-        public System.String TceNumber => Entity.TceNumber;
-
-		[OrderStatus(1)]
-        public HVTApp.Model.POCOs.PriceEngineeringTaskTceStoryItemStoryAction LastAction => Entity.LastAction;
-
-		[OrderStatus(1)]
-        public System.Nullable<System.DateTime> StartMoment => Entity.StartMoment;
-
-		[OrderStatus(1)]
-        public System.Nullable<System.DateTime> FinishMoment => Entity.FinishMoment;
-
-        #endregion
-
-        #region ComplexProperties
-		[OrderStatus(1800)]
-	    public UserLookup BackManager { get { return GetLookup<UserLookup>(); } }
-
-		[OrderStatus(1)]
-	    public UserLookup FrontManager { get { return GetLookup<UserLookup>(); } }
-
-        #endregion
-		[OrderStatus(900)]
-	    public List<PriceEngineeringTaskLookup> PriceEngineeringTaskList { get { return GetLookupEnum<PriceEngineeringTaskLookup>().ToList(); } }
-		[OrderStatus(800)]
-	    public List<PriceEngineeringTaskTceStructureCostVersionLookup> SccVersions { get { return GetLookupEnum<PriceEngineeringTaskTceStructureCostVersionLookup>().ToList(); } }
-		[OrderStatus(700)]
-	    public List<PriceEngineeringTaskTceStoryItemLookup> StoryItems { get { return GetLookupEnum<PriceEngineeringTaskTceStoryItemLookup>().ToList(); } }
-		[OrderStatus(600)]
-	    public List<PriceCalculationLookup> PriceCalculations { get { return GetLookupEnum<PriceCalculationLookup>().ToList(); } }
-	}
-	[AllowEditAttribute(Role.Admin)]
-	[Designation("Технико-стоимостная проработка (TCE) - единица истории")]
-	public partial class PriceEngineeringTaskTceStoryItemLookup : LookupItem<PriceEngineeringTaskTceStoryItem>
-	{
-		public PriceEngineeringTaskTceStoryItemLookup(PriceEngineeringTaskTceStoryItem entity) : base(entity) 
-		{
-		}
-		
-        #region SimpleProperties
-		[OrderStatus(1)]
-        public System.Guid PriceEngineeringTaskTceId => Entity.PriceEngineeringTaskTceId;
-
-		[OrderStatus(1)]
-        public System.DateTime Moment => Entity.Moment;
-
-		[OrderStatus(1)]
-        public HVTApp.Model.POCOs.PriceEngineeringTaskTceStoryItemStoryAction StoryAction => Entity.StoryAction;
-
-        #endregion
-	}
-	[AllowEditAttribute(Role.Admin)]
-	[Designation("Технико-стоимостная проработка (TCE) - версия стракчакоста")]
-	public partial class PriceEngineeringTaskTceStructureCostVersionLookup : LookupItem<PriceEngineeringTaskTceStructureCostVersion>
-	{
-		public PriceEngineeringTaskTceStructureCostVersionLookup(PriceEngineeringTaskTceStructureCostVersion entity) : base(entity) 
-		{
-		}
-		
-        #region SimpleProperties
-		[OrderStatus(1)]
-        public System.Guid PriceEngineeringTaskTceId => Entity.PriceEngineeringTaskTceId;
-
-		[OrderStatus(1)]
-        public System.Guid ParentUnitId => Entity.ParentUnitId;
-
-		[OrderStatus(1)]
-        public System.Nullable<System.Int32> StructureCostVersion => Entity.StructureCostVersion;
 
         #endregion
 	}

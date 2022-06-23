@@ -175,18 +175,6 @@ namespace HVTApp.UI
             //_dialogService.Register<PriceEngineeringTaskStatusDetailsViewModel, PriceEngineeringTaskStatusDetailsView>();
 			_selectService.Register<PriceEngineeringTaskStatusLookupListView, PriceEngineeringTaskStatus>();
             _updateDetailsService.Register<PriceEngineeringTaskStatus, PriceEngineeringTaskStatusDetailsView>();
-            Container.RegisterViewForNavigation<PriceEngineeringTaskTceLookupListView>();
-            //_dialogService.Register<PriceEngineeringTaskTceDetailsViewModel, PriceEngineeringTaskTceDetailsView>();
-			_selectService.Register<PriceEngineeringTaskTceLookupListView, PriceEngineeringTaskTce>();
-            _updateDetailsService.Register<PriceEngineeringTaskTce, PriceEngineeringTaskTceDetailsView>();
-            Container.RegisterViewForNavigation<PriceEngineeringTaskTceStoryItemLookupListView>();
-            //_dialogService.Register<PriceEngineeringTaskTceStoryItemDetailsViewModel, PriceEngineeringTaskTceStoryItemDetailsView>();
-			_selectService.Register<PriceEngineeringTaskTceStoryItemLookupListView, PriceEngineeringTaskTceStoryItem>();
-            _updateDetailsService.Register<PriceEngineeringTaskTceStoryItem, PriceEngineeringTaskTceStoryItemDetailsView>();
-            Container.RegisterViewForNavigation<PriceEngineeringTaskTceStructureCostVersionLookupListView>();
-            //_dialogService.Register<PriceEngineeringTaskTceStructureCostVersionDetailsViewModel, PriceEngineeringTaskTceStructureCostVersionDetailsView>();
-			_selectService.Register<PriceEngineeringTaskTceStructureCostVersionLookupListView, PriceEngineeringTaskTceStructureCostVersion>();
-            _updateDetailsService.Register<PriceEngineeringTaskTceStructureCostVersion, PriceEngineeringTaskTceStructureCostVersionDetailsView>();
             Container.RegisterViewForNavigation<StructureCostVersionLookupListView>();
             //_dialogService.Register<StructureCostVersionDetailsViewModel, StructureCostVersionDetailsView>();
 			_selectService.Register<StructureCostVersionLookupListView, StructureCostVersion>();
