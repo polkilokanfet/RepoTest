@@ -101,6 +101,11 @@ namespace EventServiceClient2.SyncEntities
             where TModel : BaseEntity
             where TEvent : PubSubEvent<TModel>
         {
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
             //поиск целевого контейнера
             var targetSyncUnit = _list.Single(syncUnit => syncUnit.ModelType == typeof(TModel) && syncUnit.EventType == typeof(TEvent));
 

@@ -62,6 +62,7 @@ namespace EventServiceClient2
 
         public void Start()
         {
+            CheckMessagesInDb();
             Task.Run(
                 () =>
                 {
@@ -69,7 +70,7 @@ namespace EventServiceClient2
                     {
                         CheckMessagesInDb();
                     }
-                    catch
+                    catch (Exception ex)
                     {
                     }
 
@@ -232,7 +233,7 @@ namespace EventServiceClient2
 
             if (units.Any())
             {
-                foreach (var unit in units)
+                foreach (var unit in units.ToList())
                 {
                     switch (unit.EventServiceActionType)
                     {
@@ -414,9 +415,20 @@ namespace EventServiceClient2
 
         private void CheckMessageInDbAction(EventServiceUnit unit, IUnitOfWork unitOfWork, Func<Guid, bool> callback)
         {
-            if (callback(unit.TargetEntityId))
+            try
+            {
+                var result = callback(unit.TargetEntityId);
+                if (result == true)
+                {
+                    unitOfWork.Repository<EventServiceUnit>().Delete(unit);
+                }
+            }
+            catch (ArgumentNullException e)
             {
                 unitOfWork.Repository<EventServiceUnit>().Delete(unit);
+            }
+            catch
+            {
             }
         }
     }
