@@ -44,11 +44,29 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
 
                     var unitOfWork = _container.Resolve<IUnitOfWork>();
 
-                    //var settingsList = unitOfWork.Repository<PriceCalculationSettings>().GetAll();
-                    //foreach (var item in settingsList)
-                    //{
-                    //    unitOfWork.Repository<PriceCalculationSettings>().Delete(item);
-                    //}
+                    var rr = unitOfWork.Repository<PriceEngineeringTaskTce>().GetAll();
+                    foreach (var priceEngineeringTaskTce in rr)
+                    {
+                        foreach (var sccVersion in priceEngineeringTaskTce.SccVersions.ToList())
+                        {
+                            priceEngineeringTaskTce.SccVersions.Remove(sccVersion);
+                            unitOfWork.Repository<PriceEngineeringTaskTceStructureCostVersion>().Delete(sccVersion);
+                        }
+
+                        foreach (var storyItem in priceEngineeringTaskTce.StoryItems.ToList())
+                        {
+                            priceEngineeringTaskTce.StoryItems.Remove(storyItem);
+                            unitOfWork.Repository<PriceEngineeringTaskTceStoryItem>().Delete(storyItem);
+                        }
+
+                        foreach (var priceCalculation in priceEngineeringTaskTce.PriceCalculations.ToList())
+                        {
+                            priceEngineeringTaskTce.PriceCalculations.Remove(priceCalculation);
+                            priceCalculation.PriceEngineeringTaskTceId = null;
+                        }
+
+                        unitOfWork.Repository<PriceEngineeringTaskTce>().Delete(priceEngineeringTaskTce);
+                    }
 
                     unitOfWork.SaveChanges();
                     unitOfWork.Dispose();
