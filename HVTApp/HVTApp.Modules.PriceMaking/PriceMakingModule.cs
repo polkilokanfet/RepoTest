@@ -2,6 +2,7 @@
 using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Prism;
 using HVTApp.Modules.PriceMaking.Menus;
+using HVTApp.UI.Modules.PriceMaking.LaborCosts;
 using HVTApp.UI.Modules.PriceMaking.Views;
 using Microsoft.Practices.Unity;
 using Prism.Regions;
@@ -18,6 +19,7 @@ namespace HVTApp.Modules.PriceMaking
         protected override void RegisterTypes()
         {
             Container.RegisterViewForNavigation<PricesView>();
+            Container.RegisterViewForNavigation<LaborCostsView>();
         }
 
         protected override void ResolveOutlookGroup()

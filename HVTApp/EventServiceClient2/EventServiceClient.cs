@@ -62,7 +62,6 @@ namespace EventServiceClient2
 
         public void Start()
         {
-            CheckMessagesInDb();
             Task.Run(
                 () =>
                 {

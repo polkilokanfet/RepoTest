@@ -211,6 +211,14 @@
     <Compile Include="Modules\PlanAndEconomy\Supervision\TabSupervision.xaml.cs">
       <DependentUpon>TabSupervision.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modules\PriceMaking\LaborCosts\LaborCostsViewModel.cs" />
+    <Compile Include="Modules\PriceMaking\LaborCosts\LaborCostsWrapper.cs" />
+    <Compile Include="Modules\PriceMaking\LaborCosts\LaborCostsView.xaml.cs">
+      <DependentUpon>LaborCostsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PriceMaking\LaborCosts\LaborCostsViewTab.xaml.cs">
+      <DependentUpon>LaborCostsViewTab.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Products\LaborHours\Block.cs" />
     <Compile Include="Modules\Products\LaborHours\LaborHoursViewModel.cs" />
     <Compile Include="Modules\Products\LaborHours\LaborHoursView.xaml.cs">
@@ -1356,6 +1364,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\PlanAndEconomy\Views\ProductionPlanView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\PriceMaking\LaborCosts\LaborCostsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\PriceMaking\LaborCosts\LaborCostsViewTab.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -392,6 +392,10 @@
     <Compile Include="Migrations\202206231001521_RemoveTceTask.Designer.cs">
       <DependentUpon>202206231001521_RemoveTceTask.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202206240431456_LaborCosts.cs" />
+    <Compile Include="Migrations\202206240431456_LaborCosts.Designer.cs">
+      <DependentUpon>202206240431456_LaborCosts.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -635,6 +639,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202206231001521_RemoveTceTask.resx">
       <DependentUpon>202206231001521_RemoveTceTask.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206240431456_LaborCosts.resx">
+      <DependentUpon>202206240431456_LaborCosts.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

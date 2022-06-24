@@ -35,6 +35,9 @@ namespace HVTApp.Model.POCOs
         [Designation("Вес")]
         public double Weight { get; set; }
 
+        [Designation("Трудозатраты (н/ч на ед.)")]
+        public virtual double? LaborCosts { get; set; }
+
 
         #region NotMapped
 

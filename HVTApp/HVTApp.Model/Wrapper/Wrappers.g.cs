@@ -5944,6 +5944,17 @@ namespace HVTApp.Model.Wrapper
         public bool WeightIsChanged => GetIsChanged(nameof(Weight));
 
         /// <summary>
+        /// Трудозатраты (н/ч на ед.)
+        /// </summary>
+        public System.Nullable<System.Double> LaborCosts
+        {
+          get { return GetValue<System.Nullable<System.Double>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Double> LaborCostsOriginalValue => GetOriginalValue<System.Nullable<System.Double>>(nameof(LaborCosts));
+        public bool LaborCostsIsChanged => GetIsChanged(nameof(LaborCosts));
+
+        /// <summary>
         /// Доставка
         /// </summary>
         public System.Boolean IsDelivery
