@@ -19,7 +19,7 @@ namespace HVTApp.UI.PriceEngineering.Converters
                     case PriceEngineeringTaskStatusEnum.Started:
                         return "Задача запущена на проработку";
                     case PriceEngineeringTaskStatusEnum.Stopped:
-                        return "Выполнение задачи остановлено менеджером";
+                        return "Задача остановлена менеджером";
                     case PriceEngineeringTaskStatusEnum.RejectedByManager:
                         return "Проработка не принята менеджером (дорабатывается исполнителем)";
                     case PriceEngineeringTaskStatusEnum.RejectedByConstructor:

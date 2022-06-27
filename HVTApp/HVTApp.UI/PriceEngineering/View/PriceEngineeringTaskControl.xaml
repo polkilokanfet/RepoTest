@@ -172,6 +172,7 @@
                                     </Grid>
                                 </Grid>
 
+                                <!--Файлы-->
                                 <GroupBox Grid.Row="1" Header="Файлы">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
