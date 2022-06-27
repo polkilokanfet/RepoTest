@@ -44,19 +44,6 @@ namespace HVTApp.UI.PriceEngineering
 
         #endregion
 
-        public override bool IsExpanded => this.Model.GetSuitableTasksForInstruct(GlobalAppProperties.User).Any();
-
-        public override bool IsExpendedChildPriceEngineeringTasks
-        {
-            get
-            {
-                var priceEngineeringTasks = this.Model.GetSuitableTasksForInstruct(GlobalAppProperties.User).ToList();
-                priceEngineeringTasks.RemoveIfContainsById(this.Model);
-                return priceEngineeringTasks.Any();
-            }
-        }
-
-
         public override bool IsTarget => DesignDepartment != null && DesignDepartment.Model.Head.Id == GlobalAppProperties.User.Id;
 
         public override bool IsEditMode

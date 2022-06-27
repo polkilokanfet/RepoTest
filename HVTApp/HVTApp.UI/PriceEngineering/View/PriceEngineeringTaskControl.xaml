@@ -12,6 +12,7 @@
         <converters:PriceEngineeringTaskViewModelDesignDepartmentHeadVisibilityConverter x:Key="DesignDepartmentHeadVisibilityConverter" />
         <converters:PriceEngineeringTaskViewModelConstructorVisibilityConverter x:Key="ConstructorVisibilityConverter" />
         <converters:PriceEngineeringTaskViewModelConstructorIsTargetTaskVisibilityConverter x:Key="ConstructorIsTargetTaskVisibilityConverter" />
+        <converters:PriceEngineeringTaskViewModelIsExpendedChildTasksConverter x:Key="IsExpendedChildTasksConverter" />
         <converters:PriceEngineeringTaskViewModelManagerVisibilityConverter x:Key="ManagerVisibilityConverter" />
         <converters:PriceEngineeringTaskStatusEnumToStringConverter x:Key="StatusToStringConverter" />
         <converters:PriceEngineeringTaskViewModelToBoarderTricknessConverter x:Key="PriceEngineeringTaskViewModelToBoarderTricknessConverter" />
@@ -418,7 +419,7 @@
 
                     <!--Вложенные блоки-->
                     <Expander Grid.Row="1"
-                              IsExpanded="{Binding IsExpendedChildPriceEngineeringTasks, Mode=OneTime}"
+                              IsExpanded="{Binding Mode=OneTime, Converter={StaticResource IsExpendedChildTasksConverter}}"
                               Header="Вложенные блоки"
                               Margin="5"
                               BorderBrush="Black"

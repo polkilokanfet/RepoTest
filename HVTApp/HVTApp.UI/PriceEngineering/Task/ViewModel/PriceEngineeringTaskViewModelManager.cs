@@ -19,10 +19,6 @@ namespace HVTApp.UI.PriceEngineering
 {
     public class PriceEngineeringTaskViewModelManager : PriceEngineeringTaskViewModel
     {
-        public override bool IsExpanded => true;
-
-        public override bool IsExpendedChildPriceEngineeringTasks => true;
-
         public override bool IsTarget => true;
 
         public override bool IsEditMode

@@ -8,6 +8,7 @@
         <converters:PriceEngineeringTaskViewModelToProductDesignationConverter x:Key="ToProductDesignationConverter" />
         <converters:PriceEngineeringTaskViewModelToFacilityConverter x:Key="ToFacilityConverter" />
         <converters:PriceEngineeringTaskViewModelToProductAmountConverter x:Key="ToProductAmountConverter" />
+        <converters:PriceEngineeringTaskViewModelIsExpendedConverter x:Key="IsExpendedConverter" />
     </UserControl.Resources>
 
     <Border Margin="2" Padding="5" Background="LightGray"  BorderBrush="Black" BorderThickness="1" CornerRadius="7">
@@ -44,13 +45,11 @@
 
             <!--Проработка блоков-->
             <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1 0 1 1" CornerRadius="0 0 5 5">
-                <Expander Header="Продукт" Margin="3" IsExpanded="{Binding IsExpanded, Mode=OneTime}">
+                <Expander Header="Продукт" Margin="3" IsExpanded="{Binding Mode=OneTime, Converter={StaticResource IsExpendedConverter}}">
                     <view:PriceEngineeringTaskControl DataContext="{Binding}"/>
                 </Expander>
             </Border>
         </Grid>
     </Border>
-
-    <!--<TextBlock Text="{Binding ProductBlockEngineer.Model, Mode=OneWay, Converter={StaticResource ProductBlockToDesignationConverter}}"/>-->
 
 </UserControl>

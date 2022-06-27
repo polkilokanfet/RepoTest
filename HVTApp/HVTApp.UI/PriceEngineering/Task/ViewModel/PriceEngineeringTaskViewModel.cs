@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.IO;
@@ -8,7 +7,6 @@ using System.Linq;
 using System.Text;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
-using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
@@ -30,16 +28,6 @@ namespace HVTApp.UI.PriceEngineering
         private PriceEngineeringTaskFileTechnicalRequirementsWrapper _selectedTechnicalRequrementsFile;
         private PriceEngineeringTaskFileAnswerWrapper _selectedFileAnswer;
         private PriceEngineeringTaskProductBlockAddedWrapper1 _selectedBlockAdded;
-
-        /// <summary>
-        /// –азвернуть задачу при открытии?
-        /// </summary>
-        public abstract bool IsExpanded { get; }
-
-        /// <summary>
-        /// –азвернуть дочерние задачи при открытии?
-        /// </summary>
-        public abstract bool IsExpendedChildPriceEngineeringTasks { get; }
 
         /// <summary>
         /// Ёта задача подходит текущему пользователю
